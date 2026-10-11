@@ -22,9 +22,13 @@ def event_multiset(events):
 
 def transaction_multiset(transactions):
     """Compare economic transfers, independent of generated IDs and insertion order."""
-    return Counter((str(t.year), t.source_account, t.destination_account,
-                    str(t.amount), t.purpose.value, t.supplier_location, t.asset_location)
-                   for t in transactions)
+    def fields(t):
+        if isinstance(t, dict):
+            return (str(t['year']), t['source'], t['destination'], str(t['amount']),
+                    t['purpose'], t['supplier_location'], t['asset_location'])
+        return (str(t.year), t.source_account, t.destination_account, str(t.amount),
+                t.purpose.value, t.supplier_location, t.asset_location)
+    return Counter(fields(t) for t in transactions)
 
 
 def differences(actual, expected, actual_transactions=None, expected_transactions=None):
@@ -57,6 +61,13 @@ class YearlyMatchRuleTests(unittest.TestCase):
                 actual = json.loads(capture(scenario))
                 self.assertEqual(differences(actual, baseline), {})
                 self.assertEqual(actual[2]['fingerprint'], baseline[2]['fingerprint'])
+                from .screened_delivery import run_screened
+                opts = {'screen_default': {}, 'screen_sub': {'subcontract': True, 'capacity_slots': 1},
+                        'screen_sub_failure': {'subcontract': True, 'capacity_slots': 1,
+                                               'sub_failure': True, 'resource_on_failure': True}}[scenario]
+                transactions = run_screened(**opts)[2].state.transactions
+                frozen = json.loads((BASELINES / (scenario + '_transactions.json')).read_text())
+                self.assertEqual(transaction_multiset(transactions), transaction_multiset(frozen))
 
     def test_transaction_multiset_is_order_and_id_independent(self):
         from .screened_delivery import run_screened

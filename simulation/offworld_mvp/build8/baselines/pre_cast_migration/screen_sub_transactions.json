@@ -1,0 +1,268 @@
+[
+  {
+    "amount": "4.958025335469291",
+    "asset_location": null,
+    "destination": "b8_funds:USA",
+    "id": "tx-000001",
+    "parent_ids": [
+      "BUILD7_PROSPECTING_ECONOMICS_V1"
+    ],
+    "purpose": "OTHER_INVESTMENT",
+    "source": "b8_source:USA",
+    "supplier_location": null,
+    "year": 1
+  },
+  {
+    "amount": "2.00",
+    "asset_location": null,
+    "destination": "screen:fund",
+    "id": "tx-000003",
+    "parent_ids": [
+      "tx-000001"
+    ],
+    "purpose": "OTHER_INVESTMENT",
+    "source": "b8_funds:USA",
+    "supplier_location": null,
+    "year": 1
+  },
+  {
+    "amount": "0",
+    "asset_location": null,
+    "destination": "earth_supplier",
+    "id": "tx-000004",
+    "parent_ids": [
+      "MOON",
+      "BODY_MATERIAL_CHARACTERIZATION"
+    ],
+    "purpose": "EXPLORATION",
+    "source": "public_funds",
+    "supplier_location": "EARTH:USA",
+    "year": 1
+  },
+  {
+    "amount": "0",
+    "asset_location": null,
+    "destination": "earth_supplier",
+    "id": "tx-000036",
+    "parent_ids": [
+      "MOON",
+      "WATER_BEARING_MATERIAL_PRESENT"
+    ],
+    "purpose": "EXPLORATION",
+    "source": "screen:sponsor:Axiom",
+    "supplier_location": "EARTH:USA",
+    "year": 2
+  },
+  {
+    "amount": "1.525000",
+    "asset_location": null,
+    "destination": "screen:sponsor:Interlune",
+    "id": "tx-000042",
+    "parent_ids": [
+      "DEC-ccc23d7df6887ebc91aa"
+    ],
+    "purpose": "OTHER_INVESTMENT",
+    "source": "screen:fund",
+    "supplier_location": null,
+    "year": 1
+  },
+  {
+    "amount": "1.525000",
+    "asset_location": null,
+    "destination": "screen:cash:Interlune",
+    "id": "tx-000043",
+    "parent_ids": [
+      "screen:commit:Interlune"
+    ],
+    "purpose": "DISBURSE",
+    "source": "screen:sponsor:Interlune",
+    "supplier_location": null,
+    "year": 1
+  },
+  {
+    "amount": "5.062143867514146",
+    "asset_location": null,
+    "destination": "b8_funds:USA",
+    "id": "tx-000045",
+    "parent_ids": [
+      "BUILD7_PROSPECTING_ECONOMICS_V1"
+    ],
+    "purpose": "OTHER_INVESTMENT",
+    "source": "b8_source:USA",
+    "supplier_location": null,
+    "year": 2
+  },
+  {
+    "amount": "1.525000",
+    "asset_location": null,
+    "destination": "screen:fund",
+    "id": "tx-000047",
+    "parent_ids": [
+      "tx-000045"
+    ],
+    "purpose": "OTHER_INVESTMENT",
+    "source": "b8_funds:USA",
+    "supplier_location": null,
+    "year": 2
+  },
+  {
+    "amount": "1.525000",
+    "asset_location": null,
+    "destination": "screen:sponsor:Axiom",
+    "id": "tx-000049",
+    "parent_ids": [
+      "DEC-a8ae4fd125759609427e"
+    ],
+    "purpose": "OTHER_INVESTMENT",
+    "source": "screen:fund",
+    "supplier_location": null,
+    "year": 2
+  },
+  {
+    "amount": "1.525000",
+    "asset_location": null,
+    "destination": "screen:cash:Axiom",
+    "id": "tx-000050",
+    "parent_ids": [
+      "screen:commit:Axiom"
+    ],
+    "purpose": "DISBURSE",
+    "source": "screen:sponsor:Axiom",
+    "supplier_location": null,
+    "year": 2
+  },
+  {
+    "amount": "0.625000",
+    "asset_location": null,
+    "destination": "screen:revenue:BUILD",
+    "id": "tx-000052",
+    "parent_ids": [
+      "DEC-ccc23d7df6887ebc91aa",
+      "COMMISSION:Interlune"
+    ],
+    "purpose": "CAPEX",
+    "source": "screen:cash:Interlune",
+    "supplier_location": null,
+    "year": 3
+  },
+  {
+    "amount": "0.200000",
+    "asset_location": null,
+    "destination": "screen:revenue:LAND",
+    "id": "tx-000053",
+    "parent_ids": [
+      "tx-000052"
+    ],
+    "purpose": "OTHER_INVESTMENT",
+    "source": "screen:revenue:BUILD",
+    "supplier_location": null,
+    "year": 3
+  },
+  {
+    "amount": "0.300000",
+    "asset_location": null,
+    "destination": "screen:expense:BUILD",
+    "id": "tx-000054",
+    "parent_ids": [
+      "tx-000052"
+    ],
+    "purpose": "OTHER_INVESTMENT",
+    "source": "screen:revenue:BUILD",
+    "supplier_location": null,
+    "year": 3
+  },
+  {
+    "amount": "0.625000",
+    "asset_location": null,
+    "destination": "screen:revenue:BUILD",
+    "id": "tx-000055",
+    "parent_ids": [
+      "DEC-a8ae4fd125759609427e",
+      "COMMISSION:Axiom"
+    ],
+    "purpose": "CAPEX",
+    "source": "screen:cash:Axiom",
+    "supplier_location": null,
+    "year": 5
+  },
+  {
+    "amount": "0.200000",
+    "asset_location": null,
+    "destination": "screen:revenue:LAND",
+    "id": "tx-000056",
+    "parent_ids": [
+      "tx-000055"
+    ],
+    "purpose": "OTHER_INVESTMENT",
+    "source": "screen:revenue:BUILD",
+    "supplier_location": null,
+    "year": 5
+  },
+  {
+    "amount": "0.300000",
+    "asset_location": null,
+    "destination": "screen:expense:BUILD",
+    "id": "tx-000057",
+    "parent_ids": [
+      "tx-000055"
+    ],
+    "purpose": "OTHER_INVESTMENT",
+    "source": "screen:revenue:BUILD",
+    "supplier_location": null,
+    "year": 5
+  },
+  {
+    "amount": "0.900000",
+    "asset_location": null,
+    "destination": "screen:revenue:LAND",
+    "id": "tx-000058",
+    "parent_ids": [
+      "DEC-ccc23d7df6887ebc91aa",
+      "BUILT:Interlune"
+    ],
+    "purpose": "CAPEX",
+    "source": "screen:cash:Interlune",
+    "supplier_location": null,
+    "year": 6
+  },
+  {
+    "amount": "0.7500",
+    "asset_location": null,
+    "destination": "screen:expense:LAND",
+    "id": "tx-000059",
+    "parent_ids": [
+      "tx-000058"
+    ],
+    "purpose": "OTHER_INVESTMENT",
+    "source": "screen:revenue:LAND",
+    "supplier_location": null,
+    "year": 6
+  },
+  {
+    "amount": "0.900000",
+    "asset_location": null,
+    "destination": "screen:revenue:LAND",
+    "id": "tx-000060",
+    "parent_ids": [
+      "DEC-a8ae4fd125759609427e",
+      "BUILT:Axiom"
+    ],
+    "purpose": "CAPEX",
+    "source": "screen:cash:Axiom",
+    "supplier_location": null,
+    "year": 8
+  },
+  {
+    "amount": "0.7500",
+    "asset_location": null,
+    "destination": "screen:expense:LAND",
+    "id": "tx-000061",
+    "parent_ids": [
+      "tx-000060"
+    ],
+    "purpose": "OTHER_INVESTMENT",
+    "source": "screen:revenue:LAND",
+    "supplier_location": null,
+    "year": 8
+  }
+]
