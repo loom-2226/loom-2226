@@ -17,8 +17,9 @@ from .opening import build_country_opening, EARTH_V4_ROOT
 from .deliverable_chain import OPERATORS
 from .competitive_delivery import SCALE, Work
 from .trial_knowledge import record, terms, outcome as record_outcome
+from .master_cast import name as cast_name, actor as cast_actor
 
-SPONSORS = ('Interlune', 'Axiom')
+SPONSORS = (cast_name('Interlune', 'private_sponsor'), cast_name('Axiom', 'private_sponsor'))
 # Differing authored information value expresses distinct investment motives.
 MOTIVES = {'Interlune': ('RESOURCE_RETURN', D('2.00')),
            'Axiom': ('LUNAR_INFRASTRUCTURE', D('2.20'))}
@@ -180,7 +181,7 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
                     amount=amount,economic_score=screenings[name][1],
                     pressure=screenings[name][2],pressure_contribution=D(0))
     for category in ('BUILD','LAND'):
-        operator=OPERATORS[category][0]
+        operator=cast_name(OPERATORS[category][0], 'executor', category)
         k.add_account('screen:revenue:'+category,operator,'EARTH:USA',AccountKind.SUPPLIER)
         k.add_account('screen:expense:'+category,operator+' COST','EARTH:USA',AccountKind.SUPPLIER)
     # Deterministic earliest-ready scheduler, with policy ranking on contention.
@@ -197,6 +198,7 @@ def run_screened(order=SPONSORS, root=EARTH_V4_ROOT, failure=None,
             stages[name]=2
             continue
         _,base,markup,duration,slots=OPERATORS[category]
+        cast_actor(OPERATORS[category][0], 'executor', category)
         start=ready[name]
         while any(occupied.get((category,y),0)>=capacity_slots for y in range(start,start+duration)):
             start+=1
