@@ -76,3 +76,20 @@ ceilings are authored. Capacity index remains null/unscored.
 
 **Stop:** No broadening to multiple capital sources, new policy, bidding,
 capacity scores, cast-wide race or governance machinery in this PR.
+
+## Internal delivery audit marker (follow-up)
+
+The Japan selection has one same-owner sponsor/executor payment: **ispace**
+LAND, 2030, `tx-000056`, **0.450000 authored model units** from
+`screen:cash:ispace` to `screen:revenue:LAND`. Both accounts are owned by
+ispace. The yearly path now adds a `BUILD8_INTERNAL_DELIVERY` audit event
+with the project, category, sponsor, executor, year, transaction ID and amount.
+It is an observation of existing account ownership, **not** a new payment,
+policy decision, deduction, or contract term. The existing 0.3750 modeled
+expense and 0.075 margin on this stage remain unchanged. No frozen legacy
+scenario contains a same-owner sponsor/executor transfer, so none emits this
+audit marker; their event multisets remain unchanged.
+
+**Consolidated accounting for vertically integrated firms is a future step,
+not implemented here.** The current accounts and economics remain separate,
+even when owned by the same legal actor.

@@ -229,6 +229,13 @@ def run_yearly(order=None, root=EARTH_V4_ROOT, failure=None,
             paid=price if stage_outcome=='DELIVERED' or contract=='FULL_ON_FAILURE' else price*D('.90')
             tx=k.transfer(year-2025,'screen:cash:'+name,'screen:revenue:'+category,
                           paid,TxPurpose.CAPEX,parent_ids=(screenings[name][0].id,consumed))
+            # Audit only genuine same-owner sponsor-to-executor delivery.
+            # No transaction/account mutation; legacy scenarios emit no extra events.
+            if (k.state.accounts['screen:cash:'+name].owner_id ==
+                    k.state.accounts['screen:revenue:'+category].owner_id):
+                k.audit('BUILD8_INTERNAL_DELIVERY',year,project=name,category=category,
+                        sponsor=name,executor=selected[category][0],
+                        transaction_id=tx.id,amount=paid)
             if paid<cost: raise ValueError('contract requires executor working capital')
             if job['sub'] is not None:
                 prime,supplier,sub_start,sub_finish=job['sub']

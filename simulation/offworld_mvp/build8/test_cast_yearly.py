@@ -30,6 +30,24 @@ class CastYearlyTests(unittest.TestCase):
         self.assertEqual(kernel.fingerprint(), run_yearly(selection='japan_lunar')[2].fingerprint())
         kernel.assert_invariants()
 
+    def test_internal_delivery_is_only_flagged_for_japan_self_delivery(self):
+        from .test_yearly_acceptance import OPTIONS
+        _, _, japan, _ = run_yearly(selection='japan_lunar')
+        flags = [event for event in japan.event_log
+                 if event['kind'] == 'BUILD8_INTERNAL_DELIVERY']
+        self.assertEqual(len(flags), 1)
+        self.assertEqual({key: flags[0][key] for key in
+                          ('year','project','category','sponsor','executor',
+                           'transaction_id','amount')},
+                         {'year':2030,'project':'ispace','category':'LAND',
+                          'sponsor':'ispace','executor':'ispace',
+                          'transaction_id':'tx-000056','amount':'0.450000'})
+        for scenario, options in OPTIONS.items():
+            with self.subTest(scenario=scenario):
+                _, _, kernel, _ = run_yearly(**options)
+                self.assertFalse([event for event in kernel.event_log
+                                  if event['kind'] == 'BUILD8_INTERNAL_DELIVERY'])
+
     def test_invalid_cast_role_is_rejected(self):
         from .yearly_selections import SELECTIONS
         original = SELECTIONS['japan_lunar']
