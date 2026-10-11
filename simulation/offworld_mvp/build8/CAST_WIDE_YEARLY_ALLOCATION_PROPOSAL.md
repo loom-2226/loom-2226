@@ -34,3 +34,37 @@ No universal 91-agent policy population; no invented participation for unused ca
 ## Stop / go decision
 
 Before implementation, resolve the *one concrete missing interface*: how the network trial's authored project cost/category maps to a comparable yearly executor quote and physical deliverable. If this cannot be specified narrowly for BUILD/LAND, stop and report the blocker rather than construct a general procurement framework. The first executable stopping condition is a repeatable single-world yearly run with at least two competing eligible BUILD/LAND executors, a recorded winner/loser, an explicit idle-actor inventory, and frozen legacy replays unchanged. Expand the population only after this produces a meaningful difference.
+
+## Narrow mapping review (proposal only; no runtime admission)
+
+The network trial's 20 projects split into **7 BUILD, 4 LAND, 6 LAUNCH, 3 RUN**. The latter **9 LAUNCH/station-operation projects are out of this slice**. Therefore a proposed Baseline 0 limited to BUILD/LAND covers **11 of 20 sponsors**, not the whole cast or the whole network. This is project *coverage*, not 11 successful awards.
+
+The following costs are **sponsor-side authored network project costs**, not executor quotes. Proposed comparable request means *one category-specific trial service unit* for each project. That unit's technical specification, physical quantity and pricing conversion are **not established**; do not treat these 0.015–0.090 costs as a purchase of a 1.70 BUILD or 3.00 LAND deliverable.
+
+| Sponsor | Category | Network cost (model units) | Proposed request | Capability-eligible executor count | Existing preferred executor |
+|---|---|---:|---|---:|---|
+| NASA | LAND | 0.045 | 1 LAND trial service unit | 4 | Astrobotic |
+| CNSA | LAND | 0.045 | 1 LAND trial service unit | 4 | CASC |
+| ISRO | BUILD | 0.015 | 1 BUILD trial service unit | 14 | HAL / L&T |
+| JAXA | LAND | 0.030 | 1 LAND trial service unit | 4 | Mitsubishi Heavy Industries (not LAND eligible) |
+| ESA | BUILD | 0.030 | 1 BUILD trial service unit | 14 | Thales Alenia Space |
+| CNES | BUILD | 0.015 | 1 BUILD trial service unit | 14 | Airbus Defence and Space |
+| DLR | BUILD | 0.015 | 1 BUILD trial service unit | 14 | OHB |
+| Australian Space Agency | BUILD | 0.015 | 1 BUILD trial service unit | 14 | Toyota |
+| UAE Space Agency | BUILD | 0.045 | 1 BUILD trial service unit | 14 | Thales Alenia Space |
+| ispace | LAND | 0.045 | 1 LAND trial service unit | 4 | ispace (same-owner delivery candidate) |
+| Interlune | BUILD | 0.090 | 1 BUILD trial service unit | 14 | Northrop Grumman |
+
+The 14 BUILD candidates are Astrobotic, CASC, RKK Energia, HAL / L&T, Mitsubishi Heavy Industries, Thales Alenia Space, Airbus Defence and Space, OHB, MDA Space, Hanwha Aerospace, Toyota, SpaceX, Blue Origin, and Northrop Grumman. The four LAND candidates are Astrobotic, CASC, Blue Origin, and ispace. These are capability eligibility counts, **not** counts of comparable offers or free capacity. Existing network-trial preference for JAXA falls back to alphabetically first eligible LAND actor (Astrobotic); this is not a researched procurement preference.
+
+### Specific candidate award and loser
+
+**ESA BUILD** is the narrow proposed head-to-head: Thales Alenia Space (existing authored preference) versus Airbus Defence and Space (eligible alternative). If both submit comparable offers for the *same specified BUILD unit*, both have an available slot, and ESA has enough committed funds, one must win and the other lose that award. Under the proposed lowest-comparable-price rule, the cheaper offer wins; at equal price, Thales wins on the existing authored preference. **No winner or loser can presently be predicted from the supplied numbers**, because neither company has a comparable ESA-specific quote. This is a proposed competition case, not an observed award. It must not be counted as awarded until the missing quote/unit mapping is resolved.
+
+### Seeded observable change (proposed, not measured)
+
+A single keyed readiness draw `(seed, project_id, year)` after financing/eligibility, with an explicitly authored probability, would make an otherwise authorized project **READY** or **NOT_READY**. NOT_READY records a **one-year deferral**, retains unspent committed funds and releases no delivery revenue; the next year receives its own logged draw. Seed does **not** change project category, quoted price, actor identity, national envelope, tier, or hidden physical truth. Five seeds could produce different award/delivery years and occupancy contention. There is **no existing calibrated readiness probability**, so neither frequency nor numerical seed effect can be claimed now. Avoid calling this a random failure of a real company.
+
+### Mapping decision / stop condition
+
+**BLOCKED for executable price competition:** no defensible common BUILD/LAND deliverable specification and no conversion from sponsor-side project cost to comparable executor bid exist in these artifacts. A category label plus `quantity=1` is not enough to equate network budgets and PI01/yearly supplier quotes. The 11 rows above are an exact inventory and *candidate mapping*, not priced procurements. Do **not** manufacture per-executor offers, scale the network budgets to fit the default prices, select a winner, or run Baseline 0 on this basis. First resolve one narrow ESA BUILD service specification and two comparable authored bids, with funding consistent with the network capital boundary; if that cannot be justified, stop there. Frozen baselines remain untouched.
