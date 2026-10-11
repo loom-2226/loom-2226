@@ -1,0 +1,531 @@
+{
+  "status": "RESEARCH_NONCANON_DESCRIPTIVE",
+  "source": "User-supplied capacity_tiers_proposal.json; tiers inferred even where supporting facts measured",
+  "capabilities": [
+    {
+      "actor_id": "airbus_defence_and_space",
+      "category": "BUILD",
+      "tier": 4,
+      "basis": "ESTIMATED",
+      "note": "Europe's largest space integrator"
+    },
+    {
+      "actor_id": "airbus_defence_and_space",
+      "category": "RUN",
+      "tier": 1,
+      "basis": "AUTHORED_DEFAULT",
+      "note": "Build 8 trial authored capability; no outside evidence"
+    },
+    {
+      "actor_id": "arianespace",
+      "category": "LAUNCH",
+      "tier": 2,
+      "basis": "MEASURED",
+      "note": "7 launches in 2025 (4 Ariane 6, 3 Vega)"
+    },
+    {
+      "actor_id": "astrobotic",
+      "category": "LAND",
+      "tier": 1,
+      "basis": "MEASURED",
+      "note": "Peregrine failed; Griffin pending"
+    },
+    {
+      "actor_id": "astrobotic",
+      "category": "BUILD",
+      "tier": 1,
+      "basis": "AUTHORED_DEFAULT",
+      "note": "Build 8 trial authored capability; no outside evidence"
+    },
+    {
+      "actor_id": "astroscale",
+      "category": "TRANSPORT",
+      "tier": 1,
+      "basis": "ESTIMATED",
+      "note": "servicing demonstrations"
+    },
+    {
+      "actor_id": "axiom",
+      "category": "RUN",
+      "tier": 2,
+      "basis": "ESTIMATED",
+      "note": "private astronaut missions about one a year; station not yet built"
+    },
+    {
+      "actor_id": "bhp",
+      "category": "EXTRACT",
+      "tier": 1,
+      "basis": "ANALOGUE",
+      "note": "Earth mining analogue; no space operations. Set to 0 to exclude"
+    },
+    {
+      "actor_id": "blue_origin",
+      "category": "LAND",
+      "tier": 1,
+      "basis": "ESTIMATED",
+      "note": "Blue Moon Mark 1 developmental"
+    },
+    {
+      "actor_id": "blue_origin",
+      "category": "BUILD",
+      "tier": 1,
+      "basis": "AUTHORED_DEFAULT",
+      "note": "Build 8 trial authored capability; no outside evidence"
+    },
+    {
+      "actor_id": "blue_origin",
+      "category": "LAUNCH",
+      "tier": 1,
+      "basis": "MEASURED",
+      "note": "2 New Glenn launches in 2025"
+    },
+    {
+      "actor_id": "boeing_defense_space_security",
+      "category": "BUILD",
+      "tier": 3,
+      "basis": "ESTIMATED",
+      "note": "WGS, X-37B, Starliner; smaller footprint than peers"
+    },
+    {
+      "actor_id": "cas_space",
+      "category": "LAUNCH",
+      "tier": 2,
+      "basis": "ESTIMATED",
+      "note": "Kinetica-1 flies a few times a year; count not verified"
+    },
+    {
+      "actor_id": "casc",
+      "category": "LAUNCH",
+      "tier": 4,
+      "basis": "MEASURED",
+      "note": "68 launches in 2025"
+    },
+    {
+      "actor_id": "casc",
+      "category": "BUILD",
+      "tier": 1,
+      "basis": "AUTHORED_DEFAULT",
+      "note": "Build 8 trial authored capability; no outside evidence"
+    },
+    {
+      "actor_id": "casc",
+      "category": "LAND",
+      "tier": 2,
+      "basis": "ESTIMATED",
+      "note": "China has landed four times (Chang'e 3,4,5,6); recorded under CASC as an authored entry - cast should hold this properly"
+    },
+    {
+      "actor_id": "cast_china_academy_of_space_technology",
+      "category": "BUILD",
+      "tier": 4,
+      "basis": "ESTIMATED",
+      "note": "China's main spacecraft builder; volume not verified"
+    },
+    {
+      "actor_id": "caterpillar",
+      "category": "EXTRACT",
+      "tier": 1,
+      "basis": "ANALOGUE",
+      "note": "Earth mining analogue; no space operations. Set to 0 to exclude"
+    },
+    {
+      "actor_id": "china_manned_space_agency",
+      "category": "RUN",
+      "tier": 3,
+      "basis": "ESTIMATED",
+      "note": "Tiangong operating with regular crew and cargo flights"
+    },
+    {
+      "actor_id": "d_orbit",
+      "category": "TRANSPORT",
+      "tier": 2,
+      "basis": "ESTIMATED",
+      "note": "ION carrier flies several times a year"
+    },
+    {
+      "actor_id": "dhruva_space",
+      "category": "BUILD",
+      "tier": 1,
+      "basis": "ESTIMATED",
+      "note": "emerging small-bus builder"
+    },
+    {
+      "actor_id": "epiroc",
+      "category": "EXTRACT",
+      "tier": 1,
+      "basis": "ANALOGUE",
+      "note": "Earth mining analogue; no space operations. Set to 0 to exclude"
+    },
+    {
+      "actor_id": "exotrail",
+      "category": "TRANSPORT",
+      "tier": 1,
+      "basis": "ESTIMATED",
+      "note": "Spacevan early flights"
+    },
+    {
+      "actor_id": "firefly_aerospace",
+      "category": "LAUNCH",
+      "tier": 1,
+      "basis": "MEASURED",
+      "note": "1 Alpha launch in 2025"
+    },
+    {
+      "actor_id": "firefly_aerospace",
+      "category": "LAND",
+      "tier": 2,
+      "basis": "MEASURED",
+      "note": "Blue Ghost M1 landed; three more CLPS orders"
+    },
+    {
+      "actor_id": "galactic_energy",
+      "category": "LAUNCH",
+      "tier": 2,
+      "basis": "ESTIMATED",
+      "note": "Ceres-1 flies several times a year; count not verified"
+    },
+    {
+      "actor_id": "gilmour_space_technologies",
+      "category": "LAUNCH",
+      "tier": 1,
+      "basis": "ESTIMATED",
+      "note": "Eris first flight 2025"
+    },
+    {
+      "actor_id": "hal_l_t",
+      "category": "BUILD",
+      "tier": 1,
+      "basis": "AUTHORED_DEFAULT",
+      "note": "Build 8 trial authored capability; no outside evidence"
+    },
+    {
+      "actor_id": "hal_l_t",
+      "category": "LAUNCH",
+      "tier": 1,
+      "basis": "AUTHORED_DEFAULT",
+      "note": "Build 8 trial authored capability; no outside evidence"
+    },
+    {
+      "actor_id": "hanwha_aerospace",
+      "category": "BUILD",
+      "tier": 2,
+      "basis": "ESTIMATED",
+      "note": "Korean builder; volume not verified"
+    },
+    {
+      "actor_id": "hanwha_aerospace",
+      "category": "LAUNCH",
+      "tier": 1,
+      "basis": "AUTHORED_DEFAULT",
+      "note": "Build 8 trial authored capability; no outside evidence"
+    },
+    {
+      "actor_id": "honeybee_robotics",
+      "category": "EXTRACT",
+      "tier": 1,
+      "basis": "ESTIMATED",
+      "note": "flown drills and samplers"
+    },
+    {
+      "actor_id": "impulse_space",
+      "category": "TRANSPORT",
+      "tier": 1,
+      "basis": "ESTIMATED",
+      "note": "Mira flown, Helios developmental"
+    },
+    {
+      "actor_id": "interlune",
+      "category": "EXTRACT",
+      "tier": 1,
+      "basis": "ESTIMATED",
+      "note": "plans only"
+    },
+    {
+      "actor_id": "intuitive_machines",
+      "category": "LAND",
+      "tier": 2,
+      "basis": "MEASURED",
+      "note": "two touchdowns (imperfect); three CLPS orders"
+    },
+    {
+      "actor_id": "intuitive_machines",
+      "category": "RUN",
+      "tier": 1,
+      "basis": "ESTIMATED",
+      "note": "Moon RACER rover in development"
+    },
+    {
+      "actor_id": "isar_aerospace",
+      "category": "LAUNCH",
+      "tier": 1,
+      "basis": "MEASURED",
+      "note": "1 Spectrum attempt in 2025"
+    },
+    {
+      "actor_id": "ispace",
+      "category": "LAND",
+      "tier": 1,
+      "basis": "ESTIMATED",
+      "note": "two attempts, neither landed"
+    },
+    {
+      "actor_id": "ispace",
+      "category": "RUN",
+      "tier": 1,
+      "basis": "AUTHORED_DEFAULT",
+      "note": "Build 8 trial authored capability; no outside evidence"
+    },
+    {
+      "actor_id": "israel_aerospace_industries",
+      "category": "LAUNCH",
+      "tier": 1,
+      "basis": "ESTIMATED",
+      "note": "Shavit flies about once every year or two"
+    },
+    {
+      "actor_id": "isro",
+      "category": "BUILD",
+      "tier": 3,
+      "basis": "ESTIMATED",
+      "note": "agency builds its own spacecraft at steady volume"
+    },
+    {
+      "actor_id": "isro",
+      "category": "LAUNCH",
+      "tier": 2,
+      "basis": "ESTIMATED",
+      "note": "a handful of launches a year; count not verified"
+    },
+    {
+      "actor_id": "isro",
+      "category": "LAND",
+      "tier": 1,
+      "basis": "ESTIMATED",
+      "note": "Chandrayaan-3 landed once"
+    },
+    {
+      "actor_id": "komatsu",
+      "category": "EXTRACT",
+      "tier": 1,
+      "basis": "ANALOGUE",
+      "note": "Earth mining analogue; no space operations. Set to 0 to exclude"
+    },
+    {
+      "actor_id": "landspace",
+      "category": "LAUNCH",
+      "tier": 2,
+      "basis": "ESTIMATED",
+      "note": "Zhuque-2 flies a few times a year; count not verified"
+    },
+    {
+      "actor_id": "lockheed_martin_space",
+      "category": "BUILD",
+      "tier": 4,
+      "basis": "MEASURED",
+      "note": "over $12B space revenue; largest integrator"
+    },
+    {
+      "actor_id": "lunar_outpost",
+      "category": "RUN",
+      "tier": 1,
+      "basis": "ESTIMATED",
+      "note": "rover in development"
+    },
+    {
+      "actor_id": "mda_space",
+      "category": "BUILD",
+      "tier": 2,
+      "basis": "ESTIMATED",
+      "note": "robotics and SAR specialist"
+    },
+    {
+      "actor_id": "mda_space",
+      "category": "RUN",
+      "tier": 1,
+      "basis": "AUTHORED_DEFAULT",
+      "note": "Build 8 trial authored capability; no outside evidence"
+    },
+    {
+      "actor_id": "mitsubishi_electric",
+      "category": "BUILD",
+      "tier": 2,
+      "basis": "ESTIMATED",
+      "note": "Japanese satellite builder"
+    },
+    {
+      "actor_id": "mitsubishi_heavy_industries",
+      "category": "LAUNCH",
+      "tier": 2,
+      "basis": "ESTIMATED",
+      "note": "H3 flies a few times a year; count not verified"
+    },
+    {
+      "actor_id": "mitsubishi_heavy_industries",
+      "category": "BUILD",
+      "tier": 1,
+      "basis": "AUTHORED_DEFAULT",
+      "note": "Build 8 trial authored capability; no outside evidence"
+    },
+    {
+      "actor_id": "northrop_grumman",
+      "category": "BUILD",
+      "tier": 4,
+      "basis": "ESTIMATED",
+      "note": "defense prime; JWST, Cygnus, national security"
+    },
+    {
+      "actor_id": "northrop_grumman",
+      "category": "TRANSPORT",
+      "tier": 2,
+      "basis": "ESTIMATED",
+      "note": "Cygnus resupply, one to two flights a year"
+    },
+    {
+      "actor_id": "northrop_grumman",
+      "category": "RUN",
+      "tier": 1,
+      "basis": "AUTHORED_DEFAULT",
+      "note": "Build 8 trial authored capability; no outside evidence"
+    },
+    {
+      "actor_id": "ohb",
+      "category": "BUILD",
+      "tier": 2,
+      "basis": "ESTIMATED",
+      "note": "mid-size European builder"
+    },
+    {
+      "actor_id": "rio_tinto",
+      "category": "EXTRACT",
+      "tier": 1,
+      "basis": "ANALOGUE",
+      "note": "Earth mining analogue; no space operations. Set to 0 to exclude"
+    },
+    {
+      "actor_id": "rkk_energia",
+      "category": "BUILD",
+      "tier": 1,
+      "basis": "AUTHORED_DEFAULT",
+      "note": "Build 8 trial authored capability; no outside evidence"
+    },
+    {
+      "actor_id": "rkk_energia",
+      "category": "LAUNCH",
+      "tier": 1,
+      "basis": "AUTHORED_DEFAULT",
+      "note": "Build 8 trial authored capability; no outside evidence"
+    },
+    {
+      "actor_id": "rocket_lab",
+      "category": "LAUNCH",
+      "tier": 3,
+      "basis": "MEASURED",
+      "note": "18 orbital launches in 2025"
+    },
+    {
+      "actor_id": "roscosmos",
+      "category": "LAUNCH",
+      "tier": 3,
+      "basis": "MEASURED",
+      "note": "17 launches in 2025"
+    },
+    {
+      "actor_id": "roscosmos",
+      "category": "LAND",
+      "tier": 1,
+      "basis": "ESTIMATED",
+      "note": "Luna-25 failed"
+    },
+    {
+      "actor_id": "skyroot_aerospace",
+      "category": "LAUNCH",
+      "tier": 1,
+      "basis": "ESTIMATED",
+      "note": "Vikram-1 developmental"
+    },
+    {
+      "actor_id": "spacex",
+      "category": "LAUNCH",
+      "tier": 4,
+      "basis": "MEASURED",
+      "note": "165 Falcon 9 + 5 Starship in 2025"
+    },
+    {
+      "actor_id": "spacex",
+      "category": "LAND",
+      "tier": 1,
+      "basis": "ESTIMATED",
+      "note": "Starship HLS developmental"
+    },
+    {
+      "actor_id": "spacex",
+      "category": "BUILD",
+      "tier": 4,
+      "basis": "ESTIMATED",
+      "note": "Starlink production; entry is authored but evidence is clear"
+    },
+    {
+      "actor_id": "spacex",
+      "category": "RUN",
+      "tier": 1,
+      "basis": "AUTHORED_DEFAULT",
+      "note": "Build 8 trial authored capability; no outside evidence"
+    },
+    {
+      "actor_id": "starlab",
+      "category": "RUN",
+      "tier": 1,
+      "basis": "ESTIMATED",
+      "note": "station planned"
+    },
+    {
+      "actor_id": "thales_alenia_space",
+      "category": "BUILD",
+      "tier": 3,
+      "basis": "ESTIMATED",
+      "note": "European JV; Spacebus, Gateway modules"
+    },
+    {
+      "actor_id": "thales_alenia_space",
+      "category": "RUN",
+      "tier": 1,
+      "basis": "AUTHORED_DEFAULT",
+      "note": "Build 8 trial authored capability; no outside evidence"
+    },
+    {
+      "actor_id": "toyota",
+      "category": "RUN",
+      "tier": 1,
+      "basis": "ESTIMATED",
+      "note": "Lunar Cruiser in development"
+    },
+    {
+      "actor_id": "toyota",
+      "category": "BUILD",
+      "tier": 1,
+      "basis": "AUTHORED_DEFAULT",
+      "note": "Build 8 trial authored capability; no outside evidence"
+    },
+    {
+      "actor_id": "united_launch_alliance",
+      "category": "LAUNCH",
+      "tier": 2,
+      "basis": "MEASURED",
+      "note": "6 launches in 2025 (5 Atlas V, 1 Vulcan)"
+    },
+    {
+      "actor_id": "vast",
+      "category": "RUN",
+      "tier": 1,
+      "basis": "ESTIMATED",
+      "note": "Haven-1 planned"
+    },
+    {
+      "actor_id": "venturi_astrolab",
+      "category": "EXTRACT",
+      "tier": 1,
+      "basis": "ESTIMATED",
+      "note": "rover hardware in development"
+    }
+  ]
+}
