@@ -15,6 +15,7 @@ from .competitive_delivery import SCALE, Work
 from .trial_knowledge import record, terms, outcome as record_outcome
 from .master_cast import name as cast_name, actor as cast_actor
 from .yearly_selections import select as cast_selection
+from .capacity_options import descriptive_tier, authored_fallbacks
 
 # Explicitly different, observable project underwriting, not sponsor-name belief.
 CONTRACTS = ('FULL_ON_FAILURE', 'ACCEPTANCE_HOLDBACK')
@@ -41,7 +42,8 @@ def run_yearly(order=None, root=EARTH_V4_ROOT, failure=None,
                  contract='FULL_ON_FAILURE', capacity_slots=2,
                  private_signal='NEGATIVE', share_private=False, immediate_funding=False,
                  subcontract=False, sub_failure=False, resource_on_failure=False,
-                 operator_selection=None, selection='legacy_usa'):
+                 operator_selection=None, selection='legacy_usa',
+                 tiers=False, slots=False, prices=False):
     chosen = cast_selection(selection)
     sponsors = tuple(chosen['sponsors'])
     country = chosen['country']
@@ -59,6 +61,16 @@ def run_yearly(order=None, root=EARTH_V4_ROOT, failure=None,
             if category not in ('BUILD', 'LAND'):
                 raise ValueError('screened delivery only supports BUILD/LAND overrides')
             selected[category] = (cast_name(operator, 'executor', category), *selected[category][1:])
+    # Explicit scenario quotes and capacities win. Optional defaults cannot
+    # silently reprice the frozen BUILD/LAND scenario.
+    tier_descriptions = {}
+    for category in ('BUILD', 'LAND'):
+        operator, cost, markup, duration, authored_slots = selected[category]
+        tier_descriptions[category] = descriptive_tier(operator, category, tiers=tiers)
+        cost, available = authored_fallbacks(operator, category,
+            authored_quote=cost, authored_slots=authored_slots,
+            slots=slots, prices=prices)
+        selected[category] = (operator, cost, markup, duration, available)
     if (sub_failure or resource_on_failure) and not subcontract:
         raise ValueError('subcontract failure/re-source requires subcontract')
     if contract not in CONTRACTS or capacity_slots not in (1,2):
@@ -68,6 +80,11 @@ def run_yearly(order=None, root=EARTH_V4_ROOT, failure=None,
     if set(order) != set(sponsors) or len(order) != len(sponsors):
         raise ValueError('order must contain each selected sponsor once')
     k,h,capacities,_ = build_country_opening(root)
+    if tiers:
+        for category in ('BUILD', 'LAND'):
+            if tier_descriptions[category] is not None:
+                k.audit('BUILD8_DESCRIPTIVE_TIER',2026,category=category,
+                        executor=selected[category][0],**tier_descriptions[category])
     mobilization=k.mobilize_country_capital(1,country,capacities[country,2026],D(1),
         h['prospecting_scenario'],'b8_source:'+country,'b8_funds:'+country)
     amount=sum((SCALE*selected[c][1]*(1+selected[c][2]) for c in ('BUILD','LAND')),D(0))
