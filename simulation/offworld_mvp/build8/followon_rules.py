@@ -9,12 +9,12 @@ ASSIGNMENTS={
     'CNSA':('BENNU','BENNU-A1-RESOURCE','BENNU-A2-CONCEPT',D('.400')),
 }
 
-def trial_rules(order=FIXED_CLAIM_ORDER,assignments=None):
+def trial_rules(order=FIXED_CLAIM_ORDER,assignments=None,portfolio=None):
     assignments=ASSIGNMENTS if assignments is None else assignments
     order=tuple(order)
     if set(order)!=set(assignments) or len(set(order))!=len(order):
         raise ValueError('recorded claim order must contain each sponsor exactly once')
-    scenario=load_build6c_scenario()
+    scenario=load_build6c_scenario() if portfolio is None else portfolio
     rules={}
     for sponsor,(body,a1,a2,lifetime) in assignments.items():
         first,second=scenario.activity(a1),scenario.activity(a2)
@@ -29,3 +29,40 @@ def trial_rules(order=FIXED_CLAIM_ORDER,assignments=None):
     return {'rules':rules,'order':order,'evidence':{},
             'classification':'AUTHORED TEST_ONLY NON-CANON',
             'currency':'AUTHORED 100 native 6C units per 1 Route 1 MODEL_CURRENCY'}
+
+# PR 2: authored eight-sponsor / four-body scenario, without modifying 6C.
+FOUR_BODY_ORDER=('NASA','CNSA','ESA','ISRO','JAXA','CNES','DLR','ispace')
+FOUR_BODY_ASSIGNMENTS={
+    **ASSIGNMENTS,
+    'ESA':('CERES','CERES-A1-SURFACE','CERES-A2-ASSESS',D('.950')),
+    'ISRO':('MARS','MARS-A1-REMOTE','MARS-A2-SURFACE',D('.200')),
+    'JAXA':('BENNU','BENNU-A1-RESOURCE','BENNU-A2-CONCEPT',D('.180')),
+    'CNES':('CERES','CERES-A1-SURFACE','CERES-A2-ASSESS',D('.100')),
+    'DLR':('MOON','MOON-A1-SURFACE','MOON-A2-ASSESS',D('.100')),
+    'ispace':('MARS','MARS-A1-REMOTE','MARS-A2-SURFACE',D('.100')),
+}
+# Only test-only overrides: these are NOT new Gate 1 canonical ceilings.
+TRIAL_CEILING_OVERRIDES={'ESA':'0.700','ISRO':'0.200'}
+
+def four_body_rules(order=FOUR_BODY_ORDER,overrides=True,assignments=None,
+                    portfolio=None,participants=None):
+    trial=trial_rules(order,FOUR_BODY_ASSIGNMENTS if assignments is None else assignments,
+                      portfolio=portfolio)
+    trial['expanded']=True
+    # Every participating sponsor has an explicit row-level ceiling. The
+    # ordinary route-one roster remains authoritative for unassigned sponsors.
+    from .route1_gate1 import CEILINGS
+    extras={} if participants is None else participants
+    trial['participants']=dict(extras)
+    trial['ceilings']={s:(extras[s]['ceiling'] if s in extras else
+                          TRIAL_CEILING_OVERRIDES.get(s,CEILINGS[s]) if overrides
+                          else CEILINGS[s]) for s in trial['rules']}
+    trial['overrides_enabled']=bool(overrides)
+    scenario=load_build6c_scenario() if portfolio is None else portfolio
+    for r in trial['rules'].values():
+        for stage in ('a1','a2'):
+            spec=scenario.activity(r[stage])
+            r[stage+'_earliest']=str(spec.earliest_start)
+            r[stage+'_window_open']=str(spec.window_open) if spec.window_open is not None else None
+            r[stage+'_window_close']=str(spec.window_close) if spec.window_close is not None else None
+    return trial

@@ -13,11 +13,12 @@ from offworld_kernel.project_study import ProjectStudyPlan, ProjectStudyState
 from offworld_kernel.named_portfolio import load_build6c_scenario
 from tests.test_build6b_staged_prospecting import Build6BStagedProspectingTests
 
-def execute_stage(sponsor,activity_id,disbursement,amount,funding_year,prior=None):
+def execute_stage(sponsor,activity_id,disbursement,amount,funding_year,prior=None,
+                  portfolio=None):
     """Execute an authored activity only after a real opt-in Route 1 disbursement."""
     if not disbursement:
         raise ValueError('unfunded execution prohibited')
-    scenario=load_build6c_scenario()
+    scenario=load_build6c_scenario() if portfolio is None else portfolio
     spec=scenario.activity(activity_id)
     binding=scenario.binding_for_body(spec.body_id)
     amount=D(amount)
@@ -87,6 +88,7 @@ def execute_stage(sponsor,activity_id,disbursement,amount,funding_year,prior=Non
         'study_supplier',f'{spec.activity_type}_RESULT'))
     k.audit('RECONSTRUCTION, NOT CONTINUATION',int(D(funding_year)),
         experiment='AUTHORED TEST_ONLY NON-CANON',
+        injected_test_portfolio=portfolio is not None,
         sponsor=sponsor,body=spec.body_id,activity=activity_id,
         funding_transaction=disbursement,opening_native_units=native,
         prior_result_ref=prior['result'].result_ref if prior else None,
@@ -121,3 +123,16 @@ def admitted_evidence(stage):
             'review_at':str(stage['review'].effective_time),
             'review_outcome':stage['review'].outcome.value,
             'source_fingerprint':stage['kernel'].fingerprint()}
+
+
+def route1_funding_handoff(row,sponsor,activity_id,prior=None,portfolio=None):
+    # Sole Route 1 -> 6C execution handoff: assert a real matching transfer
+    # before representing its disbursement as 6C opening funds. Never add
+    # the second ledger's native units back into Route 1.
+    if row.get('sponsor')!=sponsor or not row.get('disbursement'):
+        raise ValueError('funded Route 1 sponsor/transaction mismatch')
+    if 'year' not in row:
+        raise ValueError('funding year is required for chronological handoff')
+    return execute_stage(sponsor,activity_id,row['disbursement'],
+                         row['authored_price'],row['year'],prior=prior,
+                         portfolio=portfolio)

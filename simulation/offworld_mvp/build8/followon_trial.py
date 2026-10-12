@@ -7,7 +7,7 @@ from decimal import Decimal as D
 from .route1_gate1 import run_gate1, CEILINGS
 from .route1_gate2 import run_gate2
 from .followon_rules import trial_rules, FIXED_CLAIM_ORDER
-from .followon_execution import execute_stage, admitted_evidence
+from .followon_execution import route1_funding_handoff, admitted_evidence
 
 def _classify(row):
     status=row['status']
@@ -36,8 +36,7 @@ def run_trial(order=FIXED_CLAIM_ORDER,share=D('.25'),carry_cap=2):
         if not opening['disbursement']:
             # Later-year A1 starts are part of PR 2; fail honestly, never forge a result.
             raise RuntimeError('PR1_REQUIRES_FUNDED_2026_A1:'+sponsor)
-        a1[sponsor]=execute_stage(sponsor,rule['a1'],opening['disbursement'],
-            opening['authored_price'],2026)
+        a1[sponsor]=route1_funding_handoff({**opening,'year':2026},sponsor,rule['a1'])
     trial['evidence']={s:admitted_evidence(st) for s,st in a1.items()}
     ledger,earth=run_gate2(D(share),carry_cap=carry_cap,end_year=2035,
                             followon_trial=trial)
@@ -53,8 +52,7 @@ def run_trial(order=FIXED_CLAIM_ORDER,share=D('.25'),carry_cap=2):
             r=funded[0]
             if r['year']>2035:
                 raise AssertionError('financing after cutoff')
-            a2[sponsor]=execute_stage(sponsor,rule['a2'],r['disbursement'],
-                r['authored_price'],r['year'],prior=a1[sponsor])
+            a2[sponsor]=route1_funding_handoff(r,sponsor,rule['a2'],prior=a1[sponsor])
     report=[]
     stops={}
     for sponsor,rule in trial['rules'].items():

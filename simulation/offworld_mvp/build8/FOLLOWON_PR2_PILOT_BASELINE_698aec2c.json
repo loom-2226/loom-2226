@@ -1,0 +1,51 @@
+{
+  "a1_fingerprints": {
+    "CNSA": "d358d83495cf6c914c905000c13e6d80479e818f87c5f575346ae98d271acff9",
+    "NASA": "af940c2efce3d0412ab7d4a7ab25f7fc36aee2a5e6427700012350c61b0da8a5"
+  },
+  "a2_fingerprints": {
+    "CNSA": "b7c35d8b05a4d0bebfa07a152b90d4cf87875fd9977844b7f93566b340f0afe5",
+    "NASA": "389ed83951c457422f981823eb89fe35667a9901dfcfb66b7052b00a000d7b3c"
+  },
+  "base_main_sha": "698aec2c16d90faeb8bf574797cc85e13f3619fc",
+  "claim_order": [
+    "NASA",
+    "CNSA"
+  ],
+  "earth_fingerprint": "397b3ca7b9bb4d024eb0f891125d501700e26bbf20f7beb8c1f4e77cab2e01e9",
+  "funding": [
+    [
+      "NASA",
+      2026,
+      "MOON-A1-SURFACE",
+      "0.35",
+      "tx-000043"
+    ],
+    [
+      "CNSA",
+      2026,
+      "BENNU-A1-RESOURCE",
+      "0.15",
+      "tx-000045"
+    ],
+    [
+      "CNSA",
+      2027,
+      "BENNU-A2-CONCEPT",
+      "0.25",
+      "tx-000102"
+    ],
+    [
+      "NASA",
+      2029,
+      "MOON-A2-ASSESS",
+      "0.3",
+      "tx-000212"
+    ]
+  ],
+  "stops": {
+    "CNSA": "RESULT_INSUFFICIENT",
+    "NASA": "RESULT_INSUFFICIENT"
+  },
+  "yearly_sha256": "8bc24c7b46979f13ed0c3ec16634325311c80accd0780e27e075af9e402badee"
+}
