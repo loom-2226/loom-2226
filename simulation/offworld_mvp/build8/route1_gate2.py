@@ -11,14 +11,16 @@ from offworld_kernel.policy_runner import run_financier_policy
 from offworld_kernel.financing_protocol import build_financing_request
 from offworld_kernel.policies.manifest import test_only_manifest
 
-def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029):
+def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
+              nasa_a2_evidence=None):
     """Returns rows for 2026-2029, including original Gate 1 2026 B results."""
     share=D(share)
     if not isinstance(end_year,int) or not 2029 <= end_year <= 2035:
         raise ValueError('end_year must be 2029..2035, bounded by Earth investment data')
     if carry_cap not in (None,0,1,2):
         raise ValueError('carry cap must be unlimited, 0, 1, or 2')
-    rows,k=run_gate1(share,root=root,scenario='B')
+    rows,k=run_gate1(share,root=root,scenario='B',
+        project_price_override={'NASA':D('.350')} if nasa_a2_evidence else None)
     for row in rows:
         row['year']=2026
     sink='route1:earth:carry_lapse'
@@ -90,12 +92,25 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029):
             price=DEFAULT_PRICE[category]
             ceiling=D(CEILINGS[sponsor])
             commitment=disbursement=None
-            if sponsor in purchased:
+            # Off by default. Evaluate the admitted A1 result after the 2029
+            # country allocation, before this year's carry-cap lapse.
+            followon=(sponsor=='NASA' and year==2029 and nasa_a2_evidence is not None)
+            if sponsor in purchased and not followon:
                 decision='NOT_EVALUATED'
                 reason='ALREADY_PURCHASED'
                 status='COMPLETE'
             else:
                 oid='route1:authored:observation:'+sponsor
+                if followon:
+                    oid='route1:6c:a1:admitted:NASA'
+                    if nasa_a2_evidence['standing']!='SUPPORTS_ADVANCE' or not nasa_a2_evidence['reviewed']:
+                        raise ValueError('A1 result/review not eligible for A2')
+                    from offworld_kernel.mvp_state import Observation
+                    k.observations[oid]=Observation(oid,2029,sponsor,
+                        'MOON-A1-SURFACE',nasa_a2_evidence['result_ref'],
+                        'SUPPORTS_ADVANCE',False)
+                    k.agents[sponsor].information.add(oid)
+                    price=D('.300')
                 request=build_financing_request(
                     f'route1:request:{sponsor}:{year}',year-2025,sponsor,
                     'route1:project:'+sponsor,price,'DEVELOPMENT',
@@ -119,7 +134,9 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029):
                 k.audit('ROUTE1_AUTHORED_EVIDENCE',year,sponsor=sponsor,
                         scenario='B',label=EVIDENCE_TAG,inputs=EVIDENCE,
                         belief=D('.5'),prior=D('.5'),manifest='TEST_ONLY',
-                        observation=oid,classification='AUTHORED TEST_ONLY NON-CANON')
+                        observation=oid,classification='AUTHORED TEST_ONLY NON-CANON',
+                        a1_provenance=nasa_a2_evidence if followon else None,
+                        experiment='result-triggered, not result-priced' if followon else None)
                 k.audit('ROUTE1_FINANCIER_DECISION',year,sponsor=sponsor,
                         scenario='B',decision=decision_obj.id,
                         outcome=decision,reason=reason,requested=price,
