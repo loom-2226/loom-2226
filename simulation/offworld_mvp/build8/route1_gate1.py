@@ -77,7 +77,7 @@ def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A', project_price_ov
     ordering={s:i for i,s in enumerate(trial_order)}
     for sponsor in sorted(CEILINGS,key=lambda s:(ordering.get(s,len(ordering)),s)):
         _,category,_=PROJECTS[sponsor]
-        ceiling=D(CEILINGS[sponsor])
+        ceiling=D(followon_trial.get('ceilings',{}).get(sponsor,CEILINGS[sponsor])) if followon_trial else D(CEILINGS[sponsor])
         price=(D(trial_rules[sponsor]['a1_price']) if sponsor in trial_rules else
                D(project_price_override[sponsor]) if project_price_override and sponsor in project_price_override
                else DEFAULT_PRICE[category])

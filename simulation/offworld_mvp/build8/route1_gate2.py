@@ -12,9 +12,11 @@ from offworld_kernel.financing_protocol import build_financing_request
 from offworld_kernel.policies.manifest import test_only_manifest
 
 def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
-              nasa_a2_evidence=None,followon_trial=None):
+              nasa_a2_evidence=None,followon_trial=None,scenario='B'):
     """Returns rows for 2026-2029, including original Gate 1 2026 B results."""
     share=D(share)
+    if scenario not in ('A','B') or (scenario!='B' and followon_trial is None):
+        raise ValueError('Scenario A requires the opt-in trial')
     if nasa_a2_evidence is not None and followon_trial is not None:
         raise ValueError('legacy NASA A2 and general follow-ons cannot be combined')
     trial_rules={} if followon_trial is None else followon_trial['rules']
@@ -22,11 +24,12 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
     if len(set(trial_order))!=len(trial_order) or set(trial_order)!=set(trial_rules):
         raise ValueError('trial order must list each assigned sponsor once')
     ordering={s:i for i,s in enumerate(trial_order)}
+    expanded=bool(followon_trial and followon_trial.get('expanded'))
     if not isinstance(end_year,int) or not 2029 <= end_year <= 2035:
         raise ValueError('end_year must be 2029..2035, bounded by Earth investment data')
     if carry_cap not in (None,0,1,2):
         raise ValueError('carry cap must be unlimited, 0, 1, or 2')
-    rows,k=run_gate1(share,root=root,scenario='B',
+    rows,k=run_gate1(share,root=root,scenario=scenario,
         project_price_override={'NASA':D('.350')} if nasa_a2_evidence else None,
         followon_trial=followon_trial)
     for row in rows:
@@ -64,6 +67,8 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
             if r['disbursement'] and r['sponsor'] in trial_rules}
     spent={s:sum((D(r['authored_price']) for r in rows
                   if r['sponsor']==s and r['disbursement']),D(0)) for s in trial_rules}
+    if expanded and followon_trial.get('on_year'):
+        followon_trial['on_year'](2026,tuple(rows),k)
     lapse(2026,rows)
     capacities,_=load_investment_capacity(root)
     all_sponsors={**PUBLIC,**PRIVATE}
@@ -116,7 +121,7 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
                 and evidence.get('result_ref')
                 and D(evidence.get('admitted_at','9999'))<D(evidence.get('review_at','0'))
                 and D(evidence.get('review_at','9999'))<D(year+1)) if rule else False
-            ceiling=D(CEILINGS[sponsor])
+            ceiling=D(followon_trial.get('ceilings',{}).get(sponsor,CEILINGS[sponsor])) if followon_trial else D(CEILINGS[sponsor])
             commitment=disbursement=None
             # Off by default. Evaluate the admitted A1 result after the 2029
             # country allocation, before this year's carry-cap lapse.
@@ -124,7 +129,22 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
             if rule and sponsor in purchased and sponsor not in followon_funded and evidence_ready:
                 followon=True
                 price=D(rule['a2_price'])
-            if sponsor in purchased and not followon:
+            # Expanded trial terminal gates prevent pointless repeat financing requests.
+            stage='a2' if sponsor in purchased else 'a1'
+            expired=(expanded and rule and sponsor not in followon_funded
+                     and (sponsor not in purchased or followon)
+                     and rule[stage+'_window_close'] is not None
+                     and D(year)>D(rule[stage+'_window_close']))
+            rival=(expanded and rule and rule['body'] in claims
+                   and claims[rule['body']]!=sponsor)
+            exhausted=(expanded and rule and sponsor in purchased and evidence
+                       and evidence['standing']!='SUPPORTS_ADVANCE')
+            if rival or expired or exhausted:
+                decision='NOT_EVALUATED'
+                reason=('CLAIMED_BY_OTHER' if rival else
+                        'WINDOW_EXPIRED' if expired else 'RESULT_INSUFFICIENT')
+                status='WAIT_'+reason
+            elif sponsor in purchased and not followon:
                 decision='NOT_EVALUATED'
                 reason=('WAIT_RESULT' if rule and sponsor not in followon_funded else 'ALREADY_PURCHASED')
                 status='COMPLETE' if reason=='ALREADY_PURCHASED' else 'WAIT_RESULT'
@@ -148,10 +168,11 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
                             'SUPPORTS_ADVANCE',False)
                         k.agents[sponsor].information.add(oid)
                         price=D('.300')
+                disclosed=(oid,) if oid in k.agents[sponsor].information else ()
                 request=build_financing_request(
                     f'route1:request:{sponsor}:{year}',year-2025,sponsor,
                     'route1:project:'+sponsor,price,'DEVELOPMENT',
-                    disclosed_observation_ids=(oid,))
+                    disclosed_observation_ids=disclosed)
                 k.submit_financing_request(request)
                 facts=tuple(SnapshotFact(key,FactState.KNOWN,value,EVIDENCE_TAG)
                             for key,value in EVIDENCE)
@@ -159,7 +180,7 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
                     'ROUTE1_FINANCIER','PRIVATE_FINANCIER',
                     'EARTH:'+all_sponsors[sponsor][0],
                     f'route1:financier:snapshot:{sponsor}:{year}',str(year-2025),
-                    available,('FINANCE',),('RETURN',),(oid,),
+                    available,('FINANCE',),('RETURN',),disclosed,
                     (('resource_exists',D('.5')),),(('resource_exists',D('.5')),),
                     (),(),(),facts)
                 decision_obj=run_financier_policy(
@@ -169,7 +190,7 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
                 decision=decision_obj.outcome.value
                 reason=decision_obj.reason_code.value
                 k.audit('ROUTE1_AUTHORED_EVIDENCE',year,sponsor=sponsor,
-                        scenario='B',label=EVIDENCE_TAG,inputs=EVIDENCE,
+                        scenario=scenario,label=EVIDENCE_TAG,inputs=EVIDENCE,
                         belief=D('.5'),prior=D('.5'),manifest='TEST_ONLY',
                         observation=oid,classification='AUTHORED TEST_ONLY NON-CANON',
                         a1_provenance=(evidence if rule and followon else
@@ -209,7 +230,7 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
             expected=opening+allocated[sponsor]-(price if disbursement else D(0))
             if abs(closing-expected)>D('1e-24'):
                 raise AssertionError(f'sponsor cash not conserved: {sponsor} {year}')
-            rows.append(dict(year=year,sponsor=sponsor,scenario='B',
+            rows.append(dict(year=year,sponsor=sponsor,scenario=scenario,
                 category=category,authored_ceiling=str(ceiling),
                 authored_price=str(price),opening=str(opening),
                 allocated=str(allocated[sponsor]),available=str(available),
@@ -224,6 +245,9 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
                 concentration_rejections=sum(r['year']==year and r['reason']=='CONCENTRATION' for r in rows),
                 commitments=sum(r['year']==year and bool(r['commitment']) for r in rows),
                 disbursements=sum(r['year']==year and bool(r['disbursement']) for r in rows))
-        lapse(year,[r for r in rows if r['year']==year])
+        current=tuple(r for r in rows if r['year']==year)
+        if expanded and followon_trial.get('on_year'):
+            followon_trial['on_year'](year,current,k)
+        lapse(year,current)
         k.assert_invariants()
     return rows,k
