@@ -27,13 +27,14 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
         raise ValueError('trial order must list each assigned sponsor once')
     ordering={s:i for i,s in enumerate(trial_order)}
     expanded=bool(followon_trial and followon_trial.get('expanded'))
-    if not isinstance(end_year,int) or not 2029 <= end_year <= 2035:
-        raise ValueError('end_year must be 2029..2035, bounded by Earth investment data')
+    if type(end_year) is not int or not 2029 <= end_year <= (2226 if cast_trial else 2035):
+        raise ValueError('end_year must be 2029..2035 (opt-in cast trial: ..2226)')
     if carry_cap not in (None,0,1,2):
         raise ValueError('carry cap must be unlimited, 0, 1, or 2')
     rows,k=run_gate1(share,root=root,scenario=scenario,
         project_price_override={'NASA':D('.350')} if nasa_a2_evidence else None,
-        followon_trial=followon_trial,cast_trial=cast_trial)
+        followon_trial=followon_trial,cast_trial=cast_trial,
+        earth_end_year=end_year if end_year > 2035 else 2035)
     for row in rows:
         row['year']=2026
     extras={} if followon_trial is None else followon_trial.get('participants',{})
@@ -75,7 +76,7 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
     if expanded and followon_trial.get('on_year'):
         followon_trial['on_year'](2026,tuple(rows),k)
     lapse(2026,rows)
-    capacities,_=load_investment_capacity(root)
+    capacities,_=load_investment_capacity(root,end_year=end_year if end_year>2035 else 2035)
     all_sponsors={**PUBLIC,**PRIVATE,
                   **{s:(row['country'],) for s,row in extras.items()}}
     trial_ceilings={} if followon_trial is None else followon_trial.get('ceilings',{})

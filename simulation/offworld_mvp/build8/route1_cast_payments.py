@@ -155,7 +155,7 @@ class CastPaymentTrial:
 
 def run_cast_payments(share=D('.25'), scenario='B', end_year=2035,
                       root=None, bids_by_sponsor=None, failures=()):
-    """Experimental 2026-2035 Route 1 path, never the 201-year expansion."""
+    """Experimental Route 1: default decade or opt-in 2026-2226 horizon."""
     from .route1_gate2 import run_gate2
     from .opening import EARTH_V4_ROOT
     trial = CastPaymentTrial(bids_by_sponsor=bids_by_sponsor, failures=failures)
@@ -169,7 +169,20 @@ def run_cast_payments(share=D('.25'), scenario='B', end_year=2035,
         *(set(e for e, _ in quotes) for quotes in trial.quotes_by_category.values()))
     paid_executors = {receipt['executor'] for receipt in trial.deliveries.values()}
     kernel.assert_invariants()
-    return {'rows': rows, 'kernel': kernel, 'deliveries': tuple(
+    result = {'rows': rows, 'kernel': kernel, 'deliveries': tuple(
         trial.deliveries[key] for key in sorted(trial.deliveries)),
             'deciders': distinct_deciders, 'eligible_executors': eligible_executors,
             'paid_executors': paid_executors, 'trial': trial}
+    if end_year > 2035:
+        # Keep all 16 eligible executors visible annually without inventing
+        # new commissions after the one currently authored 2026 work package.
+        paid_by_year = {(r['year'], r['executor']): r['outcome']
+                        for r in trial.deliveries.values()}
+        result['executor_yearly'] = tuple({
+            'year': year, 'executor': executor, 'eligible_services': EXECUTORS[executor][1],
+            'status': ('PAID_' + paid_by_year[year, executor]
+                       if (year, executor) in paid_by_year
+                       else 'ELIGIBLE_NO_NEW_COMMISSION')}
+            for year in range(2026, end_year + 1)
+            for executor in sorted(EXECUTORS))
+    return result

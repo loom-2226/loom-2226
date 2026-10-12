@@ -31,7 +31,7 @@ PREFERRED = {'NASA':'Astrobotic','CNSA':'CASC','ISRO':'HAL / L&T',
              'ispace':'ispace','Interlune':'Northrop Grumman'}
 
 def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A', project_price_override=None,
-              followon_trial=None,cast_trial=None):
+              followon_trial=None,cast_trial=None,earth_end_year=2035):
     share=D(share)
     if cast_trial is not None and (followon_trial is not None or project_price_override is not None):
         raise ValueError('cast payments are a separate opt-in Route 1 experiment')
@@ -40,7 +40,7 @@ def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A', project_price_ov
     if share not in (D('.10'),D('.25')):
         raise ValueError('only AUTHORED 10% and 25% shares are admitted')
     validate_authored_network_names()
-    k,_,capacities,_=build_country_opening(root,world_seed='BUILD8_ROUTE1_GATE1')
+    k,_,capacities,_=build_country_opening(root,world_seed='BUILD8_ROUTE1_GATE1',end_year=earth_end_year)
     extras={} if followon_trial is None else followon_trial.get('participants',{})
     if set(extras)&(set(PUBLIC)|set(PRIVATE)) or any(
             s not in followon_trial['rules'] for s in extras):
