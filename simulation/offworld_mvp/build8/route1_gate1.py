@@ -31,8 +31,10 @@ PREFERRED = {'NASA':'Astrobotic','CNSA':'CASC','ISRO':'HAL / L&T',
              'ispace':'ispace','Interlune':'Northrop Grumman'}
 
 def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A', project_price_override=None,
-              followon_trial=None):
+              followon_trial=None,cast_trial=None):
     share=D(share)
+    if cast_trial is not None and (followon_trial is not None or project_price_override is not None):
+        raise ValueError('cast payments are a separate opt-in Route 1 experiment')
     if scenario not in ('A','B'):
         raise ValueError('Scenario A or B only')
     if share not in (D('.10'),D('.25')):
@@ -46,7 +48,7 @@ def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A', project_price_ov
     all_sponsors={**PUBLIC,**PRIVATE,
                   **{s:(row['country'],) for s,row in extras.items()}}
     trial_ceilings={} if followon_trial is None else followon_trial.get('ceilings',{})
-    financed_sponsors={**CEILINGS,**trial_ceilings}
+    financed_sponsors={**CEILINGS,**trial_ceilings,**(cast_trial.ceilings if cast_trial else {})}
     by_country={}
     for sponsor,countries in all_sponsors.items():
         for country in countries:
@@ -86,12 +88,15 @@ def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A', project_price_ov
         category=(extras[sponsor]['category'] if sponsor in extras
                   else PROJECTS[sponsor][1])
         ceiling=D(financed_sponsors[sponsor])
-        price=(D(trial_rules[sponsor]['a1_price']) if sponsor in trial_rules else
+        quote=(cast_trial.choose_quote(sponsor,category) if cast_trial else None)
+        price=(quote['price'] if quote is not None else
+               D(trial_rules[sponsor]['a1_price']) if sponsor in trial_rules else
                D(project_price_override[sponsor]) if project_price_override and sponsor in project_price_override
                else DEFAULT_PRICE[category])
         budget=budgets[sponsor]
         available=k.state.accounts[budget].balance
-        executor=extras[sponsor]['executor'] if sponsor in extras else PREFERRED[sponsor]
+        executor=(quote['executor'] if quote is not None else
+                  extras[sponsor]['executor'] if sponsor in extras else PREFERRED[sponsor])
         if category not in EXECUTORS[executor][1]:
             executor=sorted(e for e,(_,caps) in EXECUTORS.items() if category in caps)[0]
         node='OFF:ROUTE1:'+sponsor
@@ -114,6 +119,8 @@ def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A', project_price_ov
             disclosed=(oid,)
             k.audit('ROUTE1_DISCLOSED_OBSERVATION',2026,sponsor=sponsor,
                 observation=oid,signal='NEUTRAL',classification='AUTHORED TEST_ONLY NON-CANON')
+        if cast_trial:
+            cast_trial.audit_quote(k,2026,sponsor,category,quote)
         request=build_financing_request('route1:request:'+sponsor,1,sponsor,
                                          project,price,'DEVELOPMENT',
                                          disclosed_observation_ids=disclosed)
@@ -161,13 +168,16 @@ def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A', project_price_ov
             k.audit('ROUTE1_DISBURSEMENT',2026,sponsor=sponsor,
                     commitment=commitment,transaction=tx.id,amount=price)
             status='FUNDED_PENDING_EXECUTOR'
+            if cast_trial:
+                status=cast_trial.settle(k,2026,sponsor,category,quote,disbursement)
         results.append(dict(sponsor=sponsor,category=category,executor=executor,
             scenario=scenario,reason=decision.reason_code.value,
             authored_ceiling=str(ceiling),authored_price=str(price),
             opening=str(available),closing=str(k.state.accounts[budget].balance),
             policy=decision.outcome.value,
             decision=decision.id,status=status,commitment=commitment,
-            disbursement=disbursement))
+            disbursement=disbursement,
+            **({'delivery':cast_trial.delivery_for(sponsor,2026)} if cast_trial else {})))
     k.audit('ROUTE1_GATE1_SETTLEMENT',2026,share=share,scenario=scenario,
         evidence=EVIDENCE_TAG,decisions=len(results),
         commitments=sum(bool(r['commitment']) for r in results),
