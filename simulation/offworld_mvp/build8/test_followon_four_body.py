@@ -135,6 +135,85 @@ class FourBodyFollowonTests(unittest.TestCase):
                   (four_body_rules()['rules'][sponsor]['a1'],
                    four_body_rules()['rules'][sponsor]['a2']))
 
+    def test_ninth_sponsor_fifth_body_from_synthetic_rows_only(self):
+        # These appended entries are THE ONLY synthetic scenario definitions.
+        # Nothing is added to the canonical 6C fixture or the Route 1 roster.
+        from dataclasses import replace
+        from hashlib import sha256
+        from offworld_kernel.named_portfolio import (
+            load_build6c_scenario, BodyPortfolioBinding,
+            NamedBodyEvidenceRecord, Build6CActivitySpec)
+        from offworld_kernel.project_study import (
+            ProjectStudyMaturity as M, ProjectStudyResultStanding as S)
+        from .followon_rules import FOUR_BODY_ASSIGNMENTS
+
+        body='TEST_ONLY_FIFTH_BODY'
+        project='PROJ:TEST_ONLY:FIFTH_BODY'
+        evidence='EVIDENCE:TEST_ONLY:FIFTH_BODY'
+        a1='TEST_ONLY_FIFTH_A1'
+        a2='TEST_ONLY_FIFTH_A2'
+        synthetic_body=BodyPortfolioBinding(
+            body,'SOL:TEST_ONLY_FIFTH_BODY',project,'TEST_ONLY_SYNTHETIC',
+            M.SCREENED,(evidence,))
+        synthetic_evidence=NamedBodyEvidenceRecord(
+            evidence,body,project,'TEST_ONLY_NON_CANON_NO_EXTERNAL_SOURCE',
+            'SYNTHETIC','TEST_ONLY','NO_ABUNDANCE',
+            'IN_MEMORY_TEST_ONLY','No physical claim: synthetic scaling fixture.',
+            sha256(evidence.encode()).hexdigest()[:40])
+        synthetic_activities=(
+            Build6CActivitySpec(a1,body,project,M.SCREENED,
+                M.REMOTE_CHARACTERIZED,'REMOTE',1,D('2'),
+                D('2026.25'),D('.5'),S.SUPPORTS_ADVANCE,
+                'TEST_ONLY NON-CANON A1 result'),
+            Build6CActivitySpec(a2,body,project,M.REMOTE_CHARACTERIZED,
+                M.SURFACE_OR_SAMPLE_CHARACTERIZED,'SURFACE',2,D('2'),
+                D('2027.10'),D('.5'),S.INSUFFICIENT,
+                'TEST_ONLY NON-CANON A2 terminal result'))
+        canonical=load_build6c_scenario()
+        synthetic=replace(canonical,
+            standing='TEST_ONLY_NON_CANON_IN_MEMORY_NOT_6C_AUTHORITY',
+            body_bindings=canonical.body_bindings+(synthetic_body,),
+            evidence_records=canonical.evidence_records+(synthetic_evidence,),
+            activity_specs=canonical.activity_specs+synthetic_activities,
+            scenario_sha256=sha256((canonical.scenario_sha256+
+                body+project+a1+a2).encode()).hexdigest())
+        nine_sponsors={**FOUR_BODY_ASSIGNMENTS,
+            'TEST_ONLY_SYNTHETIC_SPONSOR':(body,a1,a2,D('.040'))}
+        nine_order=FOUR_BODY_ORDER+('TEST_ONLY_SYNTHETIC_SPONSOR',)
+        synthetic_participants={'TEST_ONLY_SYNTHETIC_SPONSOR':{
+            'country':'AUS','category':'BUILD','executor':'Toyota',
+            'ceiling':'.050','classification':'TEST_ONLY NON-CANON'}}
+        # The unchanged runner sees nothing but these extra data rows.
+        run=run_four_body('B',D('.25'),True,nine_order,
+                          assignments=nine_sponsors,portfolio=synthetic,
+                          participants=synthetic_participants)
+        self.assertEqual(len(run['annual']),90)
+        self.assertEqual(set(run['bodies']),
+            {'MOON','MARS','CERES','BENNU',body})
+        fifth=run['bodies'][body]
+        self.assertEqual(fifth['claimant'],'TEST_ONLY_SYNTHETIC_SPONSOR')
+        self.assertEqual(fifth['a1']['funded_year'],2026)
+        self.assertEqual(fifth['a1']['result'],'SUPPORTS_ADVANCE')
+        self.assertEqual(fifth['a2']['funded_year'],2027)
+        self.assertEqual(fifth['a2']['result'],'INSUFFICIENT')
+        self.assertEqual(fifth['stop'],'RESULT_INSUFFICIENT')
+        fifth_rows=[r for r in run['annual']
+                    if r['sponsor']=='TEST_ONLY_SYNTHETIC_SPONSOR']
+        self.assertEqual(len(fifth_rows),10)
+        self.assertEqual([(r['year'],r['stage']) for r in fifth_rows
+                         if r['disbursement']],[(2026,'A1'),(2027,'A2')])
+        self.assertTrue(all(r['claim_order']==nine_order for r in fifth_rows))
+        self.assertGreater(sum(body==e['body'] for e in run['timeline']),0)
+        self.assertTrue(any(e['event']=='A1_REVIEW_ADVANCE'
+                            and e['body']==body for e in run['timeline']))
+        self.assertTrue(any(e['event']=='FUNDED_A2'
+                            and e['body']==body for e in run['timeline']))
+        self.assertLessEqual(sum(D(r['requested']) for r in fifth_rows
+                          if r['disbursement']),D('.040'))
+        self.assertTrue(all(stage['kernel'].run_identity.input_snapshot_id
+                            ==synthetic.scenario_sha256
+                            for stage in run['stages']['TEST_ONLY_SYNTHETIC_SPONSOR'].values()))
+
     def test_reversal_reports_any_changed_outcomes_and_collision(self):
         normal=self.worlds['B25']
         reverse=run_four_body('B',D('.25'),True,tuple(reversed(FOUR_BODY_ORDER)))

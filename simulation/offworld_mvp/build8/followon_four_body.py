@@ -6,16 +6,17 @@ No live cash duplication and no financing after 2035.
 """
 from decimal import Decimal as D
 from .followon_rules import FOUR_BODY_ORDER, four_body_rules
-from .followon_execution import execute_stage, admitted_evidence
+from .followon_execution import route1_funding_handoff, admitted_evidence
 from .followon_trial import _classify
-from .route1_gate1 import CEILINGS
 from .route1_gate2 import run_gate2
 
-def run_four_body(scenario='B',share=D('.25'),overrides=True,order=FOUR_BODY_ORDER):
+def run_four_body(scenario='B',share=D('.25'),overrides=True,order=FOUR_BODY_ORDER,
+                  assignments=None,portfolio=None,participants=None):
     """Run ONE independent counterfactual, returning actual funding and study events."""
     if scenario not in ('A','B') or D(share) not in (D('.10'),D('.25')):
         raise ValueError('Scenario A/B and shares 10%/25% only')
-    trial=four_body_rules(order,overrides)
+    trial=four_body_rules(order,overrides,assignments=assignments,
+                          portfolio=portfolio,participants=participants)
     stages={}
     events=[]
     def on_year(year,year_rows,earth):
@@ -28,8 +29,8 @@ def run_four_body(scenario='B',share=D('.25'),overrides=True,order=FOUR_BODY_ORD
             which='A2' if previous is not None else 'A1'
             if which=='A2' and 'A2' in stages[sponsor]:
                 raise AssertionError('duplicate funded follow-on')
-            stage=execute_stage(sponsor,rule[which.lower()],row['disbursement'],
-                row['authored_price'],year,prior=previous)
+            stage=route1_funding_handoff(row,sponsor,rule[which.lower()],
+                prior=previous,portfolio=portfolio)
             stages.setdefault(sponsor,{})[which]=stage
             if which=='A1':
                 trial['evidence'][sponsor]=admitted_evidence(stage)
@@ -64,7 +65,7 @@ def run_four_body(scenario='B',share=D('.25'),overrides=True,order=FOUR_BODY_ORD
         stage='A2' if any(r['sponsor']==sponsor and r['year']<row['year']
                             and r['disbursement'] for r in ledger) else 'A1'
         failure_class,failure_reason=_classify(row)
-        trial_ceiling=D(trial['ceilings'].get(sponsor,CEILINGS[sponsor]))
+        trial_ceiling=D(trial['ceilings'][sponsor])
         # The impossible authored assignment is BUILT_IN even if its window
         # subsequently closes or somebody else claims the opportunity.
         if D(rule[stage.lower()+'_price'])>trial_ceiling:
@@ -81,14 +82,14 @@ def run_four_body(scenario='B',share=D('.25'),overrides=True,order=FOUR_BODY_ORD
             'activity':rule[stage.lower()],'event':'REQUEST' if request else 'NO_REQUEST',
             'requested':row['authored_price'] if request else None,
             'available':row.get('available',row['opening']),
-            'ceiling':str(D(trial['ceilings'].get(sponsor,CEILINGS[sponsor]))),
+            'ceiling':str(D(trial['ceilings'][sponsor])),
             'lifetime_limit':rule['lifetime_limit'],
             'decision':row['policy'],'financier_reason':row['reason'],
             'status':row['status'],'failure_class':failure_class,
             'failure_reason':failure_reason,'disbursement':row['disbursement'],
             'closing':row['closing'],'lapsed':row.get('lapsed_amount','0')})
     by_body={}
-    for body in ('MOON','MARS','CERES','BENNU'):
+    for body in dict.fromkeys(rule['body'] for rule in rules.values()):
         funded=[s for s,rule in rules.items()
                 if rule['body']==body and 'A1' in stages.get(s,{})]
         if len(funded)>1:
@@ -102,7 +103,7 @@ def run_four_body(scenario='B',share=D('.25'),overrides=True,order=FOUR_BODY_ORD
             stop=('RESULT_'+standing if standing!='SUPPORTS_ADVANCE'
                   else 'NO_NEXT_AUTHORED_ACTIVITY')
         elif a1:
-            if D(rules[claimant]['a2_price'])>D(trial['ceilings'].get(claimant,CEILINGS[claimant])):
+            if D(rules[claimant]['a2_price'])>D(trial['ceilings'][claimant]):
                 stop='FOLLOWON_BUILT_IN_CEILING'
             elif any(r['status']=='WAIT_WINDOW_EXPIRED' for r in sponsor_rows):
                 stop='WINDOW_EXPIRED'
@@ -111,7 +112,7 @@ def run_four_body(scenario='B',share=D('.25'),overrides=True,order=FOUR_BODY_ORD
         else:
             stopped=[r for r in yearly if r['body']==body]
             if stopped and all(D(rules[r['sponsor']]['a1_price'])>
-                              D(trial['ceilings'].get(r['sponsor'],CEILINGS[r['sponsor']]))
+                              D(trial['ceilings'][r['sponsor']])
                               for r in stopped):
                 stop='BUILT_IN_CEILING'
             elif any(r['status']=='WAIT_WINDOW_EXPIRED' for r in stopped):

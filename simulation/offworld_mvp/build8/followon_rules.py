@@ -9,12 +9,12 @@ ASSIGNMENTS={
     'CNSA':('BENNU','BENNU-A1-RESOURCE','BENNU-A2-CONCEPT',D('.400')),
 }
 
-def trial_rules(order=FIXED_CLAIM_ORDER,assignments=None):
+def trial_rules(order=FIXED_CLAIM_ORDER,assignments=None,portfolio=None):
     assignments=ASSIGNMENTS if assignments is None else assignments
     order=tuple(order)
     if set(order)!=set(assignments) or len(set(order))!=len(order):
         raise ValueError('recorded claim order must contain each sponsor exactly once')
-    scenario=load_build6c_scenario()
+    scenario=load_build6c_scenario() if portfolio is None else portfolio
     rules={}
     for sponsor,(body,a1,a2,lifetime) in assignments.items():
         first,second=scenario.activity(a1),scenario.activity(a2)
@@ -44,12 +44,21 @@ FOUR_BODY_ASSIGNMENTS={
 # Only test-only overrides: these are NOT new Gate 1 canonical ceilings.
 TRIAL_CEILING_OVERRIDES={'ESA':'0.700','ISRO':'0.200'}
 
-def four_body_rules(order=FOUR_BODY_ORDER,overrides=True):
-    trial=trial_rules(order,FOUR_BODY_ASSIGNMENTS)
+def four_body_rules(order=FOUR_BODY_ORDER,overrides=True,assignments=None,
+                    portfolio=None,participants=None):
+    trial=trial_rules(order,FOUR_BODY_ASSIGNMENTS if assignments is None else assignments,
+                      portfolio=portfolio)
     trial['expanded']=True
-    trial['ceilings']=dict(TRIAL_CEILING_OVERRIDES) if overrides else {}
+    # Every participating sponsor has an explicit row-level ceiling. The
+    # ordinary route-one roster remains authoritative for unassigned sponsors.
+    from .route1_gate1 import CEILINGS
+    extras={} if participants is None else participants
+    trial['participants']=dict(extras)
+    trial['ceilings']={s:(extras[s]['ceiling'] if s in extras else
+                          TRIAL_CEILING_OVERRIDES.get(s,CEILINGS[s]) if overrides
+                          else CEILINGS[s]) for s in trial['rules']}
     trial['overrides_enabled']=bool(overrides)
-    scenario=load_build6c_scenario()
+    scenario=load_build6c_scenario() if portfolio is None else portfolio
     for r in trial['rules'].values():
         for stage in ('a1','a2'):
             spec=scenario.activity(r[stage])

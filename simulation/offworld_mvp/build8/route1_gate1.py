@@ -39,7 +39,14 @@ def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A', project_price_ov
         raise ValueError('only AUTHORED 10% and 25% shares are admitted')
     validate_authored_network_names()
     k,_,capacities,_=build_country_opening(root,world_seed='BUILD8_ROUTE1_GATE1')
-    all_sponsors={**PUBLIC,**PRIVATE}
+    extras={} if followon_trial is None else followon_trial.get('participants',{})
+    if set(extras)&(set(PUBLIC)|set(PRIVATE)) or any(
+            s not in followon_trial['rules'] for s in extras):
+        raise ValueError('synthetic trial sponsor must be new and assigned')
+    all_sponsors={**PUBLIC,**PRIVATE,
+                  **{s:(row['country'],) for s,row in extras.items()}}
+    trial_ceilings={} if followon_trial is None else followon_trial.get('ceilings',{})
+    financed_sponsors={**CEILINGS,**trial_ceilings}
     by_country={}
     for sponsor,countries in all_sponsors.items():
         for country in countries:
@@ -75,15 +82,16 @@ def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A', project_price_ov
         raise ValueError('trial order must list every assigned sponsor once')
     claims={}
     ordering={s:i for i,s in enumerate(trial_order)}
-    for sponsor in sorted(CEILINGS,key=lambda s:(ordering.get(s,len(ordering)),s)):
-        _,category,_=PROJECTS[sponsor]
-        ceiling=D(followon_trial.get('ceilings',{}).get(sponsor,CEILINGS[sponsor])) if followon_trial else D(CEILINGS[sponsor])
+    for sponsor in sorted(financed_sponsors,key=lambda s:(ordering.get(s,len(ordering)),s)):
+        category=(extras[sponsor]['category'] if sponsor in extras
+                  else PROJECTS[sponsor][1])
+        ceiling=D(financed_sponsors[sponsor])
         price=(D(trial_rules[sponsor]['a1_price']) if sponsor in trial_rules else
                D(project_price_override[sponsor]) if project_price_override and sponsor in project_price_override
                else DEFAULT_PRICE[category])
         budget=budgets[sponsor]
         available=k.state.accounts[budget].balance
-        executor=PREFERRED[sponsor]
+        executor=extras[sponsor]['executor'] if sponsor in extras else PREFERRED[sponsor]
         if category not in EXECUTORS[executor][1]:
             executor=sorted(e for e,(_,caps) in EXECUTORS.items() if category in caps)[0]
         node='OFF:ROUTE1:'+sponsor
@@ -172,7 +180,7 @@ def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A', project_price_ov
             raise AssertionError('country origin allocation not conserved')
     for sponsor in all_sponsors:
         initial=sum((D(r['opening']) for r in results if r['sponsor']==sponsor),D(0))
-        if sponsor in CEILINGS:
+        if sponsor in financed_sponsors:
             spent=sum((D(r['authored_price']) for r in results
                        if r['sponsor']==sponsor and r['disbursement']),D(0))
             if k.state.accounts[budgets[sponsor]].balance+spent!=initial:

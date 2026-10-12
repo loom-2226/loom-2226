@@ -34,6 +34,7 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
         followon_trial=followon_trial)
     for row in rows:
         row['year']=2026
+    extras={} if followon_trial is None else followon_trial.get('participants',{})
     sink='route1:earth:carry_lapse'
     if carry_cap is not None:
         k.add_account(sink,'ROUTE1_EARTH_LAPSE','EARTH:USA',
@@ -45,7 +46,8 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
             sponsor=row['sponsor']
             account='route1:budget:'+sponsor
             balance=k.state.accounts[account].balance
-            price=DEFAULT_PRICE[PROJECTS[sponsor][1]]
+            price=DEFAULT_PRICE[(extras[sponsor]['category'] if sponsor in extras
+                                 else PROJECTS[sponsor][1])]
             if sponsor in trial_rules and sponsor not in followon_funded:
                 next_stage='a2' if sponsor in purchased else 'a1'
                 price=D(trial_rules[sponsor][next_stage+'_price'])
@@ -71,7 +73,10 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
         followon_trial['on_year'](2026,tuple(rows),k)
     lapse(2026,rows)
     capacities,_=load_investment_capacity(root)
-    all_sponsors={**PUBLIC,**PRIVATE}
+    all_sponsors={**PUBLIC,**PRIVATE,
+                  **{s:(row['country'],) for s,row in extras.items()}}
+    trial_ceilings={} if followon_trial is None else followon_trial.get('ceilings',{})
+    financed_sponsors={**CEILINGS,**trial_ceilings}
     countries={}
     for sponsor,participation in all_sponsors.items():
         for country in participation:
@@ -105,11 +110,12 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
                 allocated[sponsor]+=allocation
             if k.state.accounts[origin].balance!=0:
                 raise AssertionError(f'country allocation not conserved: {country} {year}')
-        for sponsor in sorted(CEILINGS,key=lambda s:(ordering.get(s,len(ordering)),s)):
+        for sponsor in sorted(financed_sponsors,key=lambda s:(ordering.get(s,len(ordering)),s)):
             budget='route1:budget:'+sponsor
             opening=before[sponsor]
             available=k.state.accounts[budget].balance
-            category=PROJECTS[sponsor][1]
+            category=(extras[sponsor]['category'] if sponsor in extras
+                      else PROJECTS[sponsor][1])
             price=DEFAULT_PRICE[category]
             rule=trial_rules.get(sponsor)
             if rule and sponsor not in purchased:
@@ -121,7 +127,7 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
                 and evidence.get('result_ref')
                 and D(evidence.get('admitted_at','9999'))<D(evidence.get('review_at','0'))
                 and D(evidence.get('review_at','9999'))<D(year+1)) if rule else False
-            ceiling=D(followon_trial.get('ceilings',{}).get(sponsor,CEILINGS[sponsor])) if followon_trial else D(CEILINGS[sponsor])
+            ceiling=D(financed_sponsors[sponsor])
             commitment=disbursement=None
             # Off by default. Evaluate the admitted A1 result after the 2029
             # country allocation, before this year's carry-cap lapse.
@@ -237,7 +243,7 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
                 closing=str(closing),policy=decision,reason=reason,
                 status=status,commitment=commitment,disbursement=disbursement))
         for sponsor in all_sponsors:
-            if sponsor not in CEILINGS:
+            if sponsor not in financed_sponsors:
                 if abs(k.state.accounts['route1:budget:'+sponsor].balance-before[sponsor]-allocated[sponsor])>D('1e-24'):
                     raise AssertionError(f'other sponsor cash not conserved: {sponsor} {year}: {k.state.accounts["route1:budget:"+sponsor].balance} vs {before[sponsor]+allocated[sponsor]}')
         k.audit('ROUTE1_YEAR_SETTLEMENT',year,share=share,
