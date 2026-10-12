@@ -30,7 +30,8 @@ PREFERRED = {'NASA':'Astrobotic','CNSA':'CASC','ISRO':'HAL / L&T',
              'Australian Space Agency':'Toyota','UAE Space Agency':'Thales Alenia Space',
              'ispace':'ispace','Interlune':'Northrop Grumman'}
 
-def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A', project_price_override=None):
+def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A', project_price_override=None,
+              followon_trial=None):
     share=D(share)
     if scenario not in ('A','B'):
         raise ValueError('Scenario A or B only')
@@ -68,10 +69,18 @@ def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A', project_price_ov
                        TxPurpose.OTHER_INVESTMENT)
     manifest=test_only_manifest()
     results=[]
-    for sponsor in sorted(CEILINGS):
+    trial_rules={} if followon_trial is None else followon_trial['rules']
+    trial_order=() if followon_trial is None else tuple(followon_trial['order'])
+    if len(set(trial_order))!=len(trial_order) or set(trial_order)!=set(trial_rules):
+        raise ValueError('trial order must list every assigned sponsor once')
+    claims={}
+    ordering={s:i for i,s in enumerate(trial_order)}
+    for sponsor in sorted(CEILINGS,key=lambda s:(ordering.get(s,len(ordering)),s)):
         _,category,_=PROJECTS[sponsor]
         ceiling=D(CEILINGS[sponsor])
-        price=(D(project_price_override[sponsor]) if project_price_override and sponsor in project_price_override else DEFAULT_PRICE[category])
+        price=(D(trial_rules[sponsor]['a1_price']) if sponsor in trial_rules else
+               D(project_price_override[sponsor]) if project_price_override and sponsor in project_price_override
+               else DEFAULT_PRICE[category])
         budget=budgets[sponsor]
         available=k.state.accounts[budget].balance
         executor=PREFERRED[sponsor]
@@ -126,9 +135,15 @@ def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A', project_price_ov
             status='WAIT_CEILING_BELOW_PRICE'
         elif available<price:
             status='WAIT_CASH_BELOW_PRICE'
+        elif sponsor in trial_rules and price>D(trial_rules[sponsor]['lifetime_limit']):
+            status='WAIT_CUMULATIVE_LIMIT'
         elif decision.outcome.value!='APPROVE':
             status='WAIT_POLICY'
+        elif sponsor in trial_rules and trial_rules[sponsor]['body'] in claims:
+            status='WAIT_CLAIMED_BY_OTHER'
         else:
+            if sponsor in trial_rules:
+                claims[trial_rules[sponsor]['body']]=sponsor
             commitment='route1:commit:'+sponsor
             k.add_commitment(commitment,'ROUTE1_FINANCIER',project,price)
             k.audit('ROUTE1_COMMITMENT',2026,sponsor=sponsor,

@@ -1,0 +1,83 @@
+{
+  "base_main_sha": "0ae8dfd17cc6986347c98f8ed1a7c74bd2c52dc8",
+  "records": {
+    "gate1:A:0.10": {
+      "fingerprint": "69ac20bac74b3233c102bdd61c1bef3a66383c14ddcb8ad052a3599ddb8e5872",
+      "rows_sha256": "edf7f8894abd7b38f1adc37826797ff9c6f58e56254bddc874506d0e3f04b6fb"
+    },
+    "gate1:A:0.25": {
+      "fingerprint": "0f9c40a9560d6a9886fbc7a460c4092a48785819c35dd03b586501874b583715",
+      "rows_sha256": "2967bbd557de84d0b53d010c24baf55d645a41749e27834e8e8105a99ea2483c"
+    },
+    "gate1:B:0.10": {
+      "fingerprint": "e6996e9e6dc9222e8651b49819ec06c0038cdb843b1341208736c09b52ea950c",
+      "rows_sha256": "037510c5b81fd70b2a23d72f38d7b4a9fa38b17f60d4de091dacf4f70345fd77"
+    },
+    "gate1:B:0.25": {
+      "fingerprint": "b36c7ec4ec7936baad37cfd87d303923b15fba31df4b93bcb18774fe373c0248",
+      "rows_sha256": "66f9bfd9057be382384e94f447d7c2658fe267e4785a005ebfe428804bfc0e9a"
+    },
+    "gate2:0.10:cap=0": {
+      "fingerprint": "8956239aba0d6421d577f394d1baf8af30e37aaf94087f24dc39ae561ca72fcd",
+      "rows_sha256": "0d2cf9e323643053f67bc03d62b1c62979ab085a7efcc5dc2bf612d8ce572634"
+    },
+    "gate2:0.10:cap=1": {
+      "fingerprint": "4778bb229cc5fe5f13aaa8521aa2b9927d9d283e06f473622dd01b2106f96056",
+      "rows_sha256": "e55aad40c5875b40b656edfc64f6ff63835e5a74f0e0f13b829e4391ee4d867b"
+    },
+    "gate2:0.10:cap=1:2035": {
+      "fingerprint": "98ed98fcf146e8c286b363956dbed5b576b586cdf250485b756365711f607b04",
+      "rows_sha256": "46f7945eb86aa6f03870e85175167262622decdfc5dc14dda2ea01de06af56f9"
+    },
+    "gate2:0.10:cap=2": {
+      "fingerprint": "69e3c6e50bc6968d9956b4a3e24676a9d4ddfbc60e8a336c2992359a5010c4b3",
+      "rows_sha256": "8e4b11a750b39fe3f25e5de1ee320c37a2435abddad981371b8ad52bc86fa736"
+    },
+    "gate2:0.10:cap=None": {
+      "fingerprint": "2825c4e28ebc791ec511ac1a1d2f3c4610594ad66bb5178f52a9f922edcaf0b1",
+      "rows_sha256": "e0c6c7e0f1622eafb97d439b5d94dcbed7c5817e3d1d77490f94b4a801969e4e"
+    },
+    "gate2:0.25:cap=0": {
+      "fingerprint": "00c5b84d2c7abfc64784618779de3ca6cf772b98376d570682142f5984578fe3",
+      "rows_sha256": "83edccac2a0d903ceccca09574fb6d7bf74ee8b50006e20eff281411413503a9"
+    },
+    "gate2:0.25:cap=1": {
+      "fingerprint": "e7368d75407fe72ba448ff74daac77ca6e8dc47c148e21bd945cf211be1e2ec0",
+      "rows_sha256": "66b1a09ec25a6942ff6ea46e65f4c517f4753779155b6a3bfc55608e97af71eb"
+    },
+    "gate2:0.25:cap=1:2035": {
+      "fingerprint": "aea4e9489b1da0835534190192d2e1593fa8db72277ce56f008b7b2b1929a947",
+      "rows_sha256": "f481e225fb87cd2c03ae6b0268a673a789520e4030584de40a8e164f78552e35"
+    },
+    "gate2:0.25:cap=2": {
+      "fingerprint": "3ec17dcddf7fa384dd45ccbef9ac498a15560b0539870f8e2132750350dc01da",
+      "rows_sha256": "cdbb3fefa7e7d7dd93d7b58425bfd4a9ad71756c1ced8103bf22f8cf9e382d57"
+    },
+    "gate2:0.25:cap=None": {
+      "fingerprint": "f22064bc39295762cf2371b0027fd48114df4dfa517709c8bcc2378f9f423b5a",
+      "rows_sha256": "63a4b1a7231f7b61244eaf7c2c9908f83bab1ae1d4f2758e418e06d150a5e317"
+    },
+    "nasa:a1": {
+      "earth_fingerprint": "6428abbad6d9d9ec3d062d516d6f35c30e0ced9aea5e0f3bddfcb11b4d75c8e5",
+      "moon_fingerprint": "5f3b2cc017b3679e609e9323b5754ebe3d30e67b6ed38a1e98efc77675c0869a",
+      "result_sha256": "e707ef7ebcc9710ac6daacf611380335e248ab9cfd78129a8b44d21076036e53",
+      "rows_sha256": "373f89292e32dc63a6f6e07688da892d963674a68710a6d6a22e6f0c98a52d8a"
+    },
+    "nasa:a2:1": {
+      "a1_fingerprint": "5f3b2cc017b3679e609e9323b5754ebe3d30e67b6ed38a1e98efc77675c0869a",
+      "a2_fingerprint": "548d959d40408e1caa5cc80d8b021cd21170ef41a764dfbfab4554812322651d",
+      "decision_sha256": "6c51aaf90723da3d85dd6a761c7cd4aea1cd7a070fc1cf0314a8659a76ce5ddf",
+      "earth_fingerprint": "09cbc1c12da0de79ca1b153c6ceeaa9cc991df5f20ea4690b77b473e902dc562",
+      "evidence_sha256": "6cdc0e857eb319201624796785d4bf76b0b59b844efd4a0fc1952d0ff613f8cb",
+      "rows_sha256": "8ac9c76d5cb4ba8f4a0cf71048a0b18eecae736a44bc94aab06126c4fb07693b"
+    },
+    "nasa:a2:None": {
+      "a1_fingerprint": "5f3b2cc017b3679e609e9323b5754ebe3d30e67b6ed38a1e98efc77675c0869a",
+      "a2_fingerprint": "548d959d40408e1caa5cc80d8b021cd21170ef41a764dfbfab4554812322651d",
+      "decision_sha256": "7f20ba982397aa923ec936aac0ae62782eacc2b425ce8f06fc32365dee582e67",
+      "earth_fingerprint": "008c738f1f7f08098c02f55cefefaefc0ae0b89599494e8a57722c5cf94947a1",
+      "evidence_sha256": "6cdc0e857eb319201624796785d4bf76b0b59b844efd4a0fc1952d0ff613f8cb",
+      "rows_sha256": "6f00f7adfa41149cae8e80cb7d3eda8d8a9789e5ad5e9258888fbbc2c6bd54da"
+    }
+  }
+}
