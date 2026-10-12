@@ -12,15 +12,23 @@ from offworld_kernel.financing_protocol import build_financing_request
 from offworld_kernel.policies.manifest import test_only_manifest
 
 def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
-              nasa_a2_evidence=None):
+              nasa_a2_evidence=None,followon_trial=None):
     """Returns rows for 2026-2029, including original Gate 1 2026 B results."""
     share=D(share)
+    if nasa_a2_evidence is not None and followon_trial is not None:
+        raise ValueError('legacy NASA A2 and general follow-ons cannot be combined')
+    trial_rules={} if followon_trial is None else followon_trial['rules']
+    trial_order=() if followon_trial is None else tuple(followon_trial['order'])
+    if len(set(trial_order))!=len(trial_order) or set(trial_order)!=set(trial_rules):
+        raise ValueError('trial order must list each assigned sponsor once')
+    ordering={s:i for i,s in enumerate(trial_order)}
     if not isinstance(end_year,int) or not 2029 <= end_year <= 2035:
         raise ValueError('end_year must be 2029..2035, bounded by Earth investment data')
     if carry_cap not in (None,0,1,2):
         raise ValueError('carry cap must be unlimited, 0, 1, or 2')
     rows,k=run_gate1(share,root=root,scenario='B',
-        project_price_override={'NASA':D('.350')} if nasa_a2_evidence else None)
+        project_price_override={'NASA':D('.350')} if nasa_a2_evidence else None,
+        followon_trial=followon_trial)
     for row in rows:
         row['year']=2026
     sink='route1:earth:carry_lapse'
@@ -35,6 +43,9 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
             account='route1:budget:'+sponsor
             balance=k.state.accounts[account].balance
             price=DEFAULT_PRICE[PROJECTS[sponsor][1]]
+            if sponsor in trial_rules and sponsor not in followon_funded:
+                next_stage='a2' if sponsor in purchased else 'a1'
+                price=D(trial_rules[sponsor][next_stage+'_price'])
             amount=max(D(0),balance-D(carry_cap)*price)
             if amount:
                 tx=k.transfer(year,account,sink,amount,TxPurpose.OTHER_INVESTMENT)
@@ -47,6 +58,12 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
             if abs(k.state.accounts[account].balance+amount-balance)>D('1e-24'):
                 raise AssertionError('lapse cash not conserved: '+sponsor)
         k.assert_invariants()
+    purchased={r['sponsor'] for r in rows if r['disbursement']}
+    followon_funded=set()
+    claims={trial_rules[r['sponsor']]['body']:r['sponsor'] for r in rows
+            if r['disbursement'] and r['sponsor'] in trial_rules}
+    spent={s:sum((D(r['authored_price']) for r in rows
+                  if r['sponsor']==s and r['disbursement']),D(0)) for s in trial_rules}
     lapse(2026,rows)
     capacities,_=load_investment_capacity(root)
     all_sponsors={**PUBLIC,**PRIVATE}
@@ -58,7 +75,6 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
                     (sponsor,D(PREFERENCES.get(country,{}).get(sponsor,1))))
     prospecting=load_prospecting_scenario()
     manifest=test_only_manifest()
-    purchased={r['sponsor'] for r in rows if r['disbursement']}
     required={country for country,entries in countries.items() if entries}
     for country in required:
         for year in range(2026,end_year+1):
@@ -84,33 +100,54 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
                 allocated[sponsor]+=allocation
             if k.state.accounts[origin].balance!=0:
                 raise AssertionError(f'country allocation not conserved: {country} {year}')
-        for sponsor in sorted(CEILINGS):
+        for sponsor in sorted(CEILINGS,key=lambda s:(ordering.get(s,len(ordering)),s)):
             budget='route1:budget:'+sponsor
             opening=before[sponsor]
             available=k.state.accounts[budget].balance
             category=PROJECTS[sponsor][1]
             price=DEFAULT_PRICE[category]
+            rule=trial_rules.get(sponsor)
+            if rule and sponsor not in purchased:
+                price=D(rule['a1_price'])
+            evidence=(followon_trial.get('evidence',{}).get(sponsor) if rule else None)
+            evidence_ready=(bool(evidence) and evidence.get('activity_id')==rule['a1']
+                and evidence.get('standing')=='SUPPORTS_ADVANCE'
+                and evidence.get('review_outcome')=='ADVANCE'
+                and evidence.get('result_ref')
+                and D(evidence.get('admitted_at','9999'))<D(evidence.get('review_at','0'))
+                and D(evidence.get('review_at','9999'))<D(year+1)) if rule else False
             ceiling=D(CEILINGS[sponsor])
             commitment=disbursement=None
             # Off by default. Evaluate the admitted A1 result after the 2029
             # country allocation, before this year's carry-cap lapse.
             followon=(sponsor=='NASA' and year==2029 and nasa_a2_evidence is not None)
+            if rule and sponsor in purchased and sponsor not in followon_funded and evidence_ready:
+                followon=True
+                price=D(rule['a2_price'])
             if sponsor in purchased and not followon:
                 decision='NOT_EVALUATED'
-                reason='ALREADY_PURCHASED'
-                status='COMPLETE'
+                reason=('WAIT_RESULT' if rule and sponsor not in followon_funded else 'ALREADY_PURCHASED')
+                status='COMPLETE' if reason=='ALREADY_PURCHASED' else 'WAIT_RESULT'
             else:
                 oid='route1:authored:observation:'+sponsor
                 if followon:
-                    oid='route1:6c:a1:admitted:NASA'
-                    if nasa_a2_evidence['standing']!='SUPPORTS_ADVANCE' or not nasa_a2_evidence['reviewed']:
-                        raise ValueError('A1 result/review not eligible for A2')
-                    from offworld_kernel.mvp_state import Observation
-                    k.observations[oid]=Observation(oid,2029,sponsor,
-                        'MOON-A1-SURFACE',nasa_a2_evidence['result_ref'],
-                        'SUPPORTS_ADVANCE',False)
-                    k.agents[sponsor].information.add(oid)
-                    price=D('.300')
+                    if rule:
+                        oid=f'route1:6c:{rule["a1"]}:admitted:{sponsor}:{year}'
+                        from offworld_kernel.mvp_state import Observation
+                        k.observations[oid]=Observation(oid,int(D(evidence['admitted_at'])),
+                            sponsor,rule['a1'],evidence['result_ref'],
+                            'SUPPORTS_ADVANCE',False)
+                        k.agents[sponsor].information.add(oid)
+                    else:
+                        oid='route1:6c:a1:admitted:NASA'
+                        if nasa_a2_evidence['standing']!='SUPPORTS_ADVANCE' or not nasa_a2_evidence['reviewed']:
+                            raise ValueError('A1 result/review not eligible for A2')
+                        from offworld_kernel.mvp_state import Observation
+                        k.observations[oid]=Observation(oid,2029,sponsor,
+                            'MOON-A1-SURFACE',nasa_a2_evidence['result_ref'],
+                            'SUPPORTS_ADVANCE',False)
+                        k.agents[sponsor].information.add(oid)
+                        price=D('.300')
                 request=build_financing_request(
                     f'route1:request:{sponsor}:{year}',year-2025,sponsor,
                     'route1:project:'+sponsor,price,'DEVELOPMENT',
@@ -135,7 +172,8 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
                         scenario='B',label=EVIDENCE_TAG,inputs=EVIDENCE,
                         belief=D('.5'),prior=D('.5'),manifest='TEST_ONLY',
                         observation=oid,classification='AUTHORED TEST_ONLY NON-CANON',
-                        a1_provenance=nasa_a2_evidence if followon else None,
+                        a1_provenance=(evidence if rule and followon else
+                                       nasa_a2_evidence if followon else None),
                         experiment='result-triggered, not result-priced' if followon else None)
                 k.audit('ROUTE1_FINANCIER_DECISION',year,sponsor=sponsor,
                         scenario='B',decision=decision_obj.id,
@@ -145,9 +183,18 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
                     status='WAIT_CEILING_BELOW_PRICE'
                 elif available<price:
                     status='WAIT_CASH_BELOW_PRICE'
+                elif rule and spent[sponsor]+price>D(rule['lifetime_limit']):
+                    status='WAIT_CUMULATIVE_LIMIT'
                 elif decision!='APPROVE':
                     status='WAIT_POLICY'
+                elif rule and rule['body'] in claims and claims[rule['body']]!=sponsor:
+                    status='WAIT_CLAIMED_BY_OTHER'
                 else:
+                    if rule:
+                        claims[rule['body']]=sponsor
+                        spent[sponsor]+=price
+                        if followon:
+                            followon_funded.add(sponsor)
                     commitment=f'route1:commit:{sponsor}:{year}'
                     k.add_commitment(commitment,'ROUTE1_FINANCIER',
                                      'route1:project:'+sponsor,price)
