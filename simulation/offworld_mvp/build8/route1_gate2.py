@@ -12,7 +12,8 @@ from offworld_kernel.financing_protocol import build_financing_request
 from offworld_kernel.policies.manifest import test_only_manifest
 
 def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
-              nasa_a2_evidence=None,followon_trial=None,scenario='B',cast_trial=None):
+              nasa_a2_evidence=None,followon_trial=None,scenario='B',cast_trial=None,
+              campaign_trial=None):
     """Returns rows for 2026-2029, including original Gate 1 2026 B results."""
     share=D(share)
     if cast_trial is not None and (followon_trial is not None or nasa_a2_evidence is not None):
@@ -29,6 +30,9 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
     expanded=bool(followon_trial and followon_trial.get('expanded'))
     if type(end_year) is not int or not 2029 <= end_year <= (2226 if cast_trial else 2035):
         raise ValueError('end_year must be 2029..2035 (opt-in cast trial: ..2226)')
+    if campaign_trial is not None and (cast_trial is None or end_year != 2226
+                                       or carry_cap is not None):
+        raise ValueError('body campaign requires opt-in full 2226 cast, with no carry cap')
     if carry_cap not in (None,0,1,2):
         raise ValueError('carry cap must be unlimited, 0, 1, or 2')
     rows,k=run_gate1(share,root=root,scenario=scenario,
@@ -265,6 +269,8 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
         current=tuple(r for r in rows if r['year']==year)
         if expanded and followon_trial.get('on_year'):
             followon_trial['on_year'](year,current,k)
+        if campaign_trial is not None:
+            campaign_trial.on_year(year,k,current)
         lapse(year,current)
         k.assert_invariants()
     return rows,k
