@@ -13,25 +13,34 @@ from .two_country_trial import WORLD
 EARTH_V4_ROOT = Path(os.environ.get('LOOM_EARTH_V4_ROOT', '/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24'))
 
 
-def build_country_opening(root: Path, *, world=None, world_seed='BUILD8-80-COUNTRY-10-YEAR'):
+def build_country_opening(root: Path, *, world=None, world_seed='BUILD8-80-COUNTRY-10-YEAR', end_year=2035):
     if not Path(root).is_dir():
         raise FileNotFoundError(f'Earth v4 baseline not found at {root}. Set LOOM_EARTH_V4_ROOT to the Earth v4 baseline directory.')
-    capacities, provenance = load_investment_capacity(root)
+    capacities, provenance = load_investment_capacity(root, end_year=end_year)
     kernel, history = _build_kernel(None, load_config(), world_seed=world_seed, world=WORLD if world is None else world)
     template = next(a for a in kernel.boundary_manifest.assertions
                     if a.subject_id == 'USA' and a.concept == 'investment' and a.valid_from == '2026')
     countries = tuple(sorted({c for c, _ in capacities}))
+    def source_binding(country, year):
+        if end_year == 2035:
+            # Preserve the exact original two-source opening by default.
+            return ((provenance['designation'], f'{country}:{year}'),
+                    tuple(s['sha256'] for s in provenance['sources']))
+        index = 0 if year <= 2031 else 1 if year <= 2060 else 2
+        source = provenance['sources'][index]
+        return ((f"{provenance['designation']}:{country}:{year}:{source['path']}",),
+                (source['sha256'],))
     originals = tuple(a for a in kernel.boundary_manifest.assertions
                       if not (a.concept == 'investment' and a.world_context == 'REAL'
-                              and a.subject_id in countries and 2026 <= int(a.valid_from) <= 2035))
+                              and a.subject_id in countries and 2026 <= int(a.valid_from) <= end_year))
     assertions = tuple(replace(template, assertion_id=f'B8:{country}:{year}:investment',
                                subject_id=country, scope=f'COUNTRY:{country}',
                                value=str(capacities[country,year]), valid_from=str(year), valid_to=str(year),
-                               source_refs=(provenance['designation'],f'{country}:{year}'),
-                               source_hashes=tuple(s['sha256'] for s in provenance['sources']),
+                               source_refs=source_binding(country,year)[0],
+                               source_hashes=source_binding(country,year)[1],
                                authorization_ref='BUILD8_EXPERIMENT_A_OPENING_TRIAL',
                                warrant_refs=('BUILD8_EXPERIMENT_A_LOCAL_PROJECTION',))
-                       for country in countries for year in range(2026,2036))
+                       for country in countries for year in range(2026,end_year+1))
     scenario_template = next(a for a in kernel.boundary_manifest.assertions
                              if a.subject_id == 'USA' and a.concept == 'investment'
                              and a.world_context == 'SCENARIO' and a.valid_from == '1')
@@ -40,8 +49,8 @@ def build_country_opening(root: Path, *, world=None, world_seed='BUILD8-80-COUNT
         subject_id=country,scope=f'COUNTRY:{country}',value=str(capacities[country,year]),
         valid_from=str(year-2025),valid_to=str(year-2025),
         available_from=str(year-2025),source_time=str(year-2025),
-        source_refs=(provenance['designation'],f'{country}:{year}'),
-        source_hashes=tuple(s['sha256'] for s in provenance['sources']))
+        source_refs=source_binding(country,year)[0],
+        source_hashes=source_binding(country,year)[1])
         for country in countries if country != 'USA' for year in (2026,))
     usa_contract = next(c for c in kernel.boundary_manifest.allowed_use_contracts
                         if c[0] == 'SYS:mobilize_country_capital' and c[2] == 'investment'
