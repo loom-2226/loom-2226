@@ -11,12 +11,41 @@ from offworld_kernel.policy_runner import run_financier_policy
 from offworld_kernel.financing_protocol import build_financing_request
 from offworld_kernel.policies.manifest import test_only_manifest
 
-def run_gate2(share=D('.10'),root=EARTH_V4_ROOT):
+def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029):
     """Returns rows for 2026-2029, including original Gate 1 2026 B results."""
     share=D(share)
+    if not isinstance(end_year,int) or not 2029 <= end_year <= 2035:
+        raise ValueError('end_year must be 2029..2035, bounded by Earth investment data')
+    if carry_cap not in (None,0,1,2):
+        raise ValueError('carry cap must be unlimited, 0, 1, or 2')
     rows,k=run_gate1(share,root=root,scenario='B')
     for row in rows:
         row['year']=2026
+    sink='route1:earth:carry_lapse'
+    if carry_cap is not None:
+        k.add_account(sink,'ROUTE1_EARTH_LAPSE','EARTH:USA',
+                      AccountKind.EARTH_BOUNDARY)
+    def lapse(year,annual_rows):
+        if carry_cap is None:
+            return
+        for row in annual_rows:
+            sponsor=row['sponsor']
+            account='route1:budget:'+sponsor
+            balance=k.state.accounts[account].balance
+            price=DEFAULT_PRICE[PROJECTS[sponsor][1]]
+            amount=max(D(0),balance-D(carry_cap)*price)
+            if amount:
+                tx=k.transfer(year,account,sink,amount,TxPurpose.OTHER_INVESTMENT)
+                k.audit('ROUTE1_CARRY_CAP_LAPSE',year,sponsor=sponsor,
+                        amount=amount,cap=carry_cap,price=price,
+                        destination=sink,transaction=tx.id)
+            row['cash_before_lapse']=str(balance)
+            row['lapsed_amount']=str(amount)
+            row['cash_after_lapse']=str(k.state.accounts[account].balance)
+            if abs(k.state.accounts[account].balance+amount-balance)>D('1e-24'):
+                raise AssertionError('lapse cash not conserved: '+sponsor)
+        k.assert_invariants()
+    lapse(2026,rows)
     capacities,_=load_investment_capacity(root)
     all_sponsors={**PUBLIC,**PRIVATE}
     countries={}
@@ -28,7 +57,12 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT):
     prospecting=load_prospecting_scenario()
     manifest=test_only_manifest()
     purchased={r['sponsor'] for r in rows if r['disbursement']}
-    for year in (2027,2028,2029):
+    required={country for country,entries in countries.items() if entries}
+    for country in required:
+        for year in range(2026,end_year+1):
+            if (country,year) not in capacities:
+                raise ValueError(f'missing Earth investment: {country} {year}')
+    for year in range(2027,end_year+1):
         before={s:k.state.accounts['route1:budget:'+s].balance for s in all_sponsors}
         allocated={s:D(0) for s in all_sponsors}
         for country,entries in sorted(countries.items()):
@@ -126,5 +160,6 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT):
                 concentration_rejections=sum(r['year']==year and r['reason']=='CONCENTRATION' for r in rows),
                 commitments=sum(r['year']==year and bool(r['commitment']) for r in rows),
                 disbursements=sum(r['year']==year and bool(r['disbursement']) for r in rows))
+        lapse(year,[r for r in rows if r['year']==year])
         k.assert_invariants()
     return rows,k
