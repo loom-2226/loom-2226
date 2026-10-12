@@ -12,9 +12,11 @@ from offworld_kernel.financing_protocol import build_financing_request
 from offworld_kernel.policies.manifest import test_only_manifest
 
 def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
-              nasa_a2_evidence=None,followon_trial=None,scenario='B'):
+              nasa_a2_evidence=None,followon_trial=None,scenario='B',cast_trial=None):
     """Returns rows for 2026-2029, including original Gate 1 2026 B results."""
     share=D(share)
+    if cast_trial is not None and (followon_trial is not None or nasa_a2_evidence is not None):
+        raise ValueError('cast payments cannot be mixed with follow-on financing')
     if scenario not in ('A','B') or (scenario!='B' and followon_trial is None):
         raise ValueError('Scenario A requires the opt-in trial')
     if nasa_a2_evidence is not None and followon_trial is not None:
@@ -31,7 +33,7 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
         raise ValueError('carry cap must be unlimited, 0, 1, or 2')
     rows,k=run_gate1(share,root=root,scenario=scenario,
         project_price_override={'NASA':D('.350')} if nasa_a2_evidence else None,
-        followon_trial=followon_trial)
+        followon_trial=followon_trial,cast_trial=cast_trial)
     for row in rows:
         row['year']=2026
     extras={} if followon_trial is None else followon_trial.get('participants',{})
@@ -46,8 +48,9 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
             sponsor=row['sponsor']
             account='route1:budget:'+sponsor
             balance=k.state.accounts[account].balance
-            price=DEFAULT_PRICE[(extras[sponsor]['category'] if sponsor in extras
-                                 else PROJECTS[sponsor][1])]
+            category=(extras[sponsor]['category'] if sponsor in extras else PROJECTS[sponsor][1])
+            price=(cast_trial.choose_quote(sponsor,category)['price'] if cast_trial
+                   else DEFAULT_PRICE[category])
             if sponsor in trial_rules and sponsor not in followon_funded:
                 next_stage='a2' if sponsor in purchased else 'a1'
                 price=D(trial_rules[sponsor][next_stage+'_price'])
@@ -76,7 +79,7 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
     all_sponsors={**PUBLIC,**PRIVATE,
                   **{s:(row['country'],) for s,row in extras.items()}}
     trial_ceilings={} if followon_trial is None else followon_trial.get('ceilings',{})
-    financed_sponsors={**CEILINGS,**trial_ceilings}
+    financed_sponsors={**CEILINGS,**trial_ceilings,**(cast_trial.ceilings if cast_trial else {})}
     countries={}
     for sponsor,participation in all_sponsors.items():
         for country in participation:
@@ -116,7 +119,8 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
             available=k.state.accounts[budget].balance
             category=(extras[sponsor]['category'] if sponsor in extras
                       else PROJECTS[sponsor][1])
-            price=DEFAULT_PRICE[category]
+            quote=cast_trial.choose_quote(sponsor,category) if cast_trial else None
+            price=quote['price'] if quote is not None else DEFAULT_PRICE[category]
             rule=trial_rules.get(sponsor)
             if rule and sponsor not in purchased:
                 price=D(rule['a1_price'])
@@ -155,6 +159,8 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
                 reason=('WAIT_RESULT' if rule and sponsor not in followon_funded else 'ALREADY_PURCHASED')
                 status='COMPLETE' if reason=='ALREADY_PURCHASED' else 'WAIT_RESULT'
             else:
+                if cast_trial:
+                    cast_trial.audit_quote(k,year,sponsor,category,quote)
                 oid='route1:authored:observation:'+sponsor
                 if followon:
                     if rule:
@@ -232,6 +238,8 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
                             commitment=commitment,transaction=disbursement,amount=price)
                     purchased.add(sponsor)
                     status='FUNDED_PENDING_EXECUTOR'
+                    if cast_trial:
+                        status=cast_trial.settle(k,year,sponsor,category,quote,disbursement)
             closing=k.state.accounts[budget].balance
             expected=opening+allocated[sponsor]-(price if disbursement else D(0))
             if abs(closing-expected)>D('1e-24'):
@@ -241,7 +249,9 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
                 authored_price=str(price),opening=str(opening),
                 allocated=str(allocated[sponsor]),available=str(available),
                 closing=str(closing),policy=decision,reason=reason,
-                status=status,commitment=commitment,disbursement=disbursement))
+                status=status,commitment=commitment,disbursement=disbursement,
+                **({'executor':quote['executor'],
+                    'delivery':cast_trial.delivery_for(sponsor,year)} if cast_trial else {})))
         for sponsor in all_sponsors:
             if sponsor not in financed_sponsors:
                 if abs(k.state.accounts['route1:budget:'+sponsor].balance-before[sponsor]-allocated[sponsor])>D('1e-24'):
