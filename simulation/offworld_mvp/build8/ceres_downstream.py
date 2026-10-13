@@ -22,6 +22,9 @@ from offworld_kernel.market_protocol import build_sale_decision_request
 from offworld_kernel.distribution_protocol import build_surplus_distribution_request
 from .route1_all_body_campaign_pr3b import AllBodyCampaign
 from .sponsor_executor_network_trial import EXECUTORS
+from .country_capital_input import load_investment_capacity
+from .opening import EARTH_V4_ROOT
+from simulation.offworld_mvp.build7.generated_campaign import load_prospecting_scenario
 
 # SINGLE AUTHORING TABLE. All monetary values are MODEL_CURRENCY, quantities
 # MODEL_RESOURCE_UNIT_BY_FAMILY; dates are calendar years. Every assumption is
@@ -39,6 +42,7 @@ TEST_ONLY_TABLE = (
     ('construction_year_2',    '2040',     'second test year to prove staged construction'),
     ('operation_year_1',       '2041',     'test year after asset commissioning'),
     ('operation_year_2',       '2042',     'test year to spend actual reinvestment'),
+    ('operation_year_3',       '2043',     'scripted TEST_ONLY test of returned ISRO cash paying Ceres OPEX'),
     ('buyer_endowment',        '100',      'existing Earth-market B=100 from Build 7 opening'),
     ('a2_paid_study',          '0.015',    'observed prior A2 analytical BUILD receipt; no new debit'),
     ('physical_construction_cost','0.060','synthetic separate physical asset; not A2 study'),
@@ -58,6 +62,8 @@ TEST_ONLY_TABLE = (
     ('owner_return_share',     '0.20',     'synthetic owner distribution share of first proceeds'),
     ('reserve_share',          '0.20',     'synthetic project cash retained from first proceeds'),
     ('earth_supply_fraction',  '1',        'test resource-constraint fraction; stage/OPEX amounts define envelope'),
+    ('return_revenue_source',   'resource_export_to_earth_buyer',
+                                'one existing paid Ceres export sale source; TEST_ONLY policy key'),
 )
 A = dict((key, value) for key, value, _ in TEST_ONLY_TABLE)
 T = lambda key: D(A[key])
@@ -78,6 +84,26 @@ CLAIM = 'ceres:physical:return_claim'
 SUPPLIER = 'route1:executor:' + EXECUTOR
 BUDGET = 'route1:budget:' + SPONSOR
 POLICY = 'BUILD8_CERES_TEST_ONLY_AUTHORED_DECISION'
+RETURNED = 'route1:returned_cash:ISRO'
+LABEL = 'fixed Earth, no feedback to Earth'
+
+# TEST_ONLY RETURN ROUTING, NOT A MODEL RULE. Exactly one source/owner row;
+# later independent revenue sources add rows here, not new accounting code.
+# Percentages and their bases live ONLY in TEST_ONLY_TABLE above.
+RETURN_POLICY = {
+    (A['return_revenue_source'], SPONSOR): {
+        'owner_budget': BUDGET,
+        'financier_intermediary': FIN_CASH,
+        'returned_cash_test_instrument': RETURNED,
+        'local_reinvestment': REINVEST,
+        'reserve_account': CASH,
+        'financier_share_key': 'financier_return_share',
+        'owner_share_key': 'owner_return_share',
+        'local_share_key': 'local_reinvest_share',
+        'reserve_share_key': 'reserve_share',
+        'exhausted_financier_claim': 'RESIDUAL_TO_OWNER_NOT_NEW_FINANCIER_CLAIM',
+    },
+}
 
 
 def _total_money(k):
@@ -92,6 +118,9 @@ class CeresDownstream(AllBodyCampaign):
         self.physical = []
         self.buyer_checks = []
         self.study_observation = None
+        self.return_receipts = []
+        self.return_spends = []
+        self.sales = {}
 
     def _positive_a2(self, k):
         receipt = next(r for r in self.receipts
@@ -122,6 +151,9 @@ class CeresDownstream(AllBodyCampaign):
         k.add_project(PROJECT, NODE, CASH, {SPONSOR:D(1)})
         k.add_resource(ScenarioResource(RESOURCE, NODE, 'VOLATILES', T('in_situ'), None, None, None))
         k.add_account(REINVEST, SPONSOR, NODE, AccountKind.FUNDS)
+        # TEST INSTRUMENT ONLY. Segregates repatriated cash to prove actual
+        # later spending. NOT a structural bank/accounting/model requirement.
+        k.add_account(RETURNED, SPONSOR, 'EARTH:IND', AccountKind.FUNDS)
         k.add_account(FIN_CASH, FINANCIER, 'EARTH:IND', AccountKind.FUNDS)
         k.add_agent(AgentState(FINANCIER, AgentKind.PRIVATE_FINANCIER,
                                'EARTH:IND', FIN_CASH, {'FINANCE'}, ('RETURN',)))
@@ -180,6 +212,25 @@ class CeresDownstream(AllBodyCampaign):
                             TxPurpose.LOCAL_REINVESTMENT, parent_ids=(CLAIM,))
             self.physical.append(dict(year=year, stage='REINVESTED_INTO_OPERATIONS',
                 amount=str(amount), transaction=tx.id))
+        elif year == int(A['operation_year_3']):
+            # Use a specific 2041 financier return, swept through ISRO, to
+            # fund the next real Ceres OPEX. Cash is segregated for TEST proof.
+            amount = T('quantity_per_operation') * T('unit_opex')
+            lot = next(r for r in self.return_receipts
+                       if r['year'] == int(A['operation_year_1'])
+                       and r['kind'] == 'financier')
+            assert D(lot['amount']) >= amount
+            assert k.state.accounts[RETURNED].balance >= amount
+            tx = k.transfer(year, RETURNED, CASH, amount,
+                            TxPurpose.OTHER_INVESTMENT,
+                            parent_ids=(lot['sweep_tx'], lot['sale_tx']))
+            self.return_spends.append(dict(
+                year=year, source_sale_tx=lot['sale_tx'],
+                source_return_tx=lot['return_tx'], source_sweep_tx=lot['sweep_tx'],
+                funding_tx=tx.id, amount=str(amount)))
+            self.physical.append(dict(year=year, stage='RETURNED_CASH_FUNDED_OPERATIONS',
+                amount=str(amount), transaction=tx.id,
+                return_source_tx=lot['sweep_tx']))
         k.set_resource_constraint('EARTH:IND', year,
                                   T('quantity_per_operation') * T('unit_opex'),
                                   T('earth_supply_fraction'))
@@ -200,6 +251,19 @@ class CeresDownstream(AllBodyCampaign):
             opex=str(cost.total_opex), opex_tx=cost.transaction_id,
             actual=str(extracted.actual_extracted), remaining=str(extracted.resource_after),
             inventory=str(extracted.inventory_after), event=extracted.extraction_event_id))
+        if year == int(A['operation_year_3']):
+            funding = self.return_spends[-1]
+            assert D(funding['amount']) == D(cost.total_opex)
+            assert k.state.accounts[CASH].balance >= 0
+            funding['expense_tx'] = cost.transaction_id
+            k.audit('BUILD8_TEST_ONLY_RETURN_ACTUALLY_SPENT', year,
+                    sale_tx=funding['source_sale_tx'],
+                    return_tx=funding['source_return_tx'],
+                    swept_tx=funding['source_sweep_tx'],
+                    funding_tx=funding['funding_tx'],
+                    expense_tx=cost.transaction_id,
+                    amount=funding['amount'],
+                    classification='TEST_ONLY_MECHANICAL_NOT_DECISION')
         return extracted
 
     def _sell(self, k, year):
@@ -234,27 +298,72 @@ class CeresDownstream(AllBodyCampaign):
             quantity=str(record.cleared_quantity), revenue=str(record.transaction_value),
             tx=record.transaction_id, buyer_after=str(buyer.balance),
             project_cash=str(k.state.accounts[CASH].balance)))
+        self.sales[year] = record
         return record
 
     def _distribute(self, k, year):
+        sale = self.sales[year]
+        policy = RETURN_POLICY[(A['return_revenue_source'], SPONSOR)]
+        paid = D(sale.transaction_value)
         opening = k.state.accounts[CASH].balance
-        pieces = {key: opening*T(key) for key in (
-            'financier_return_share','local_reinvest_share','owner_return_share','reserve_share')}
-        assert sum(pieces.values(), D(0)) == opening
+        claim_remaining = k.financing_return_remaining(CLAIM)
+        financier_target = paid * T(policy['financier_share_key'])
+        financier_paid = min(financier_target, claim_remaining)
+        # TEST_ONLY RULE CHOICE: an exhausted financier claim cannot be
+        # expanded; its unpaid 20% share goes to the 100% owner ISRO.
+        owner_paid = (paid * T(policy['owner_share_key'])
+                      + financier_target - financier_paid)
+        local_paid = paid * T(policy['local_share_key'])
+        reserve = opening - financier_paid - owner_paid - local_paid
+        prior_reserve = opening - paid
+        assert reserve == prior_reserve + paid * T(policy['reserve_share_key'])
+        assert min(financier_paid, owner_paid, local_paid, reserve) >= 0
         request = build_surplus_distribution_request(
             'ceres:distribution:'+str(year), year, PROJECT, CLAIM)
         decision = SurplusDistributionDecision(
             'ceres:distribution:decision:'+str(year), request.id, SPONSOR,
             SurplusDistributionDecisionOutcome.DISTRIBUTE,
-            pieces['reserve_share'], pieces['financier_return_share'],
-            pieces['local_reinvest_share'], pieces['owner_return_share'],
-            'TEST_ONLY paid cash decomposition',
+            reserve, financier_paid, local_paid, owner_paid,
+            'TEST_ONLY paid cash decomposition; exhausted claim residual to ISRO',
             SurplusDistributionReasonCode.DISTRIBUTION_AUTHORIZED, (),
             'TEST_ONLY:ceres:distribution:'+str(year), POLICY).validate_protocol(request)
-        record = k.execute_surplus_distribution(year, SPONSOR, request, decision, REINVEST)
-        assert k.state.accounts[FIN_CASH].balance == record.financier_return
+        record = k.execute_surplus_distribution(
+            year, SPONSOR, request, decision, policy['local_reinvestment'])
+        assert k.state.accounts[CASH].balance == record.reserve
+        txmap = {t.id:t for t in k.state.transactions}
+        k.audit('BUILD8_TEST_ONLY_SALE_RETURN_LINK', year, sale_tx=sale.transaction_id,
+                distribution_txs=record.transaction_ids,
+                financier_return=str(financier_paid), owner_return=str(owner_paid),
+                local_reinvest=str(local_paid), reserve=str(reserve),
+                classification='TEST_ONLY_MECHANICAL_NOT_DECISION')
+        # The frozen method must pay the financier account belonging to the
+        # real, disbursed financing claim. Repatriate the cash afterward.
+        for txid in record.transaction_ids:
+            origin = txmap[txid]
+            if origin.purpose not in (TxPurpose.FINANCIER_RETURN, TxPurpose.OWNER_DISTRIBUTION):
+                continue
+            if origin.purpose == TxPurpose.FINANCIER_RETURN:
+                assert origin.destination_account == FIN_CASH
+                repatriation = k.transfer(
+                    year, FIN_CASH, policy['owner_budget'], origin.amount,
+                    TxPurpose.RETURN_TO_EARTH,
+                    parent_ids=(origin.id, sale.transaction_id))
+                origin_for_sweep = repatriation.id
+                kind = 'financier'
+            else:
+                assert origin.destination_account == policy['owner_budget']
+                origin_for_sweep = origin.id
+                kind = 'owner'
+            sweep = k.transfer(
+                year, policy['owner_budget'], policy['returned_cash_test_instrument'],
+                origin.amount, TxPurpose.RETURN_TO_EARTH,
+                parent_ids=(origin_for_sweep, sale.transaction_id))
+            self.return_receipts.append(dict(
+                year=year, kind=kind, source=A['return_revenue_source'],
+                owner=SPONSOR, sale_tx=sale.transaction_id,
+                return_tx=origin.id, sweep_tx=sweep.id, amount=str(origin.amount)))
         self.physical.append(dict(year=year, stage='DISTRIBUTED',
-            financier_return=str(record.financier_return),
+            sale_tx=sale.transaction_id, financier_return=str(record.financier_return),
             reinvestment=str(record.local_reinvestment),
             owner_return=str(record.owner_distribution),
             project_reserve=str(record.reserve),
@@ -263,7 +372,8 @@ class CeresDownstream(AllBodyCampaign):
     def on_year(self, year, k, rows):
         super().on_year(year, k, rows)
         if year not in {int(A[key]) for key in ('construction_year_1','construction_year_2',
-                                                'operation_year_1','operation_year_2')}:
+                                                'operation_year_1','operation_year_2',
+                                                'operation_year_3')}:
             return
         total_before = _total_money(k)
         balance_before = k.state.accounts[BUDGET].balance
@@ -274,8 +384,8 @@ class CeresDownstream(AllBodyCampaign):
             self._construction(k, year)
         else:
             self._operate(k, year)
-            self._sell(k, year)
-            if year == int(A['operation_year_1']):
+            if year in (int(A['operation_year_1']), int(A['operation_year_2'])):
+                self._sell(k, year)
                 self._distribute(k, year)
         assert _total_money(k) == total_before, 'downstream cash creation/destruction'
         assert k.state.accounts['earth_market'].balance >= 0, 'unfunded market buyer'
@@ -302,7 +412,68 @@ class CeresDownstream(AllBodyCampaign):
         report['physical'] = tuple(self.physical)
         report['buyer_checks'] = tuple(self.buyer_checks)
         report['classification'] = 'TEST_ONLY_NON_CANON_NO_TRANSPORT_OR_DISTANCE'
+        report['label'] = LABEL
+        report['closure'] = 'MECHANICAL_SCRIPTED_2043_NOT_DECISION'
+        report['returned_cash_account'] = RETURNED
+        report['returned_cash_instrument_not_model_rule'] = True
+        report['return_policy'] = tuple(dict(revenue_source=source, owner=owner,
+                                             **policy)
+                                        for (source, owner), policy in RETURN_POLICY.items())
+        report['return_receipts'] = tuple(self.return_receipts)
+        report['return_spends'] = tuple(self.return_spends)
         return report
+
+def _earth_gauge(k, root):
+    # Reporting only; no change to the exogenous Earth v4 projection.
+    # Draw is exactly the kernel's Earth-to-offworld capital shadow ledger.
+    # Earth supplier study/CAPEX/OPEX payments are NOT another capital draw.
+    # Sale REVENUE is an Earth purchase, NOT capital draw or capital return.
+    capacities, provenance = load_investment_capacity(root, end_year=int(A['end_year']))
+    units = load_prospecting_scenario().investment_proxy_units_per_model_currency
+    impact = k.state.earth_impact
+    # Reporting-only split of the EXISTING shadow draw. The returned-cash
+    # account is a TEST instrument, not a general model capital classification.
+    recycled_by_country_year = {}
+    for tx in k.state.transactions:
+        if (tx.source_account == RETURNED
+                and k.state.nodes[tx.source_location].kind == NodeKind.EARTH
+                and k.state.nodes[tx.destination_location].kind == NodeKind.OFFWORLD
+                and tx.purpose in (TxPurpose.DISBURSE, TxPurpose.PUBLIC_SUBSIDY,
+                                   TxPurpose.OTHER_INVESTMENT)):
+            key = (tx.source_location, tx.year)
+            recycled_by_country_year[key] = (
+                recycled_by_country_year.get(key, D(0)) + tx.amount)
+    output = []
+    for (country, year), investment in sorted(capacities.items(), key=lambda x:(x[0][1],x[0][0])):
+        capacity = investment / units
+        node = 'EARTH:' + country
+        draw = D(impact.capital_diverted_to_offworld.get((node,year),D(0)))
+        recycled = recycled_by_country_year.get((node,year),D(0))
+        new_capital = draw - recycled
+        assert new_capital >= 0 and new_capital + recycled == draw, (
+            'Ceres TEST_ONLY Earth shadow draw split does not reconcile', country, year)
+        returned = D(impact.capital_returned_to_earth.get((node,year),D(0)))
+        pct = lambda amount: (None if not capacity else
+                              '0' if not amount else str(amount / capacity * D(100)))
+        output.append(dict(
+            year=year, country=country, capacity=str(capacity),
+            new_capital_draw=str(new_capital),
+            recycled_returned_cash_spent=str(recycled),
+            offworld_draw=str(draw), returns_received=str(returned),
+            new_capital_draw_pct_of_capacity=pct(new_capital),
+            recycled_returned_cash_spent_pct_of_capacity=pct(recycled),
+            draw_pct_of_capacity=pct(draw),
+            returns_pct_of_capacity=pct(returned),
+            label=LABEL))
+    return tuple(output), dict(
+        label=LABEL, source=provenance['designation'],
+        draw_definition='offworld_draw is the UNCHANGED kernel earth_impact.capital_diverted_to_offworld Earth-to-offworld DISBURSE/PUBLIC_SUBSIDY/OTHER_INVESTMENT total; new_capital_draw = total minus qualifying RETURNED test-account crossings; recycled_returned_cash_spent = qualifying transfers sourced from the RETURNED test account',
+        return_definition='kernel earth_impact.capital_returned_to_earth offworld-to-Earth RETURN_TO_EARTH/FINANCIER_RETURN/OWNER_DISTRIBUTION crossings',
+        counted='new_capital_draw: non-recycled Earth-to-offworld qualifying capital crossings, including funded analytical studies; recycled_returned_cash_spent: qualifying Earth-to-offworld crossings sourced from the TEST_ONLY returned-cash instrument, not new Earth capital; offworld_draw: sum of both, preserving the kernel shadow total; genuine capital returns received tracked separately',
+        not_counted='Earth supplier study/CAPEX/OPEX payments as another draw; Earth buyer payments for exports as returns or capital draws; internal Earth-to-Earth sweeps; offworld-to-offworld reinvestment',
+        denominator='Earth v4 annual country investment proxy / Build7 units_per_model_currency; reporting only, no feedback',
+        zero_capacity='Undefined percentage (null), zero value amounts still 0',
+        closure='mechanical scripted 2043 operation, not a decision')
 
 
 def run_ceres_downstream(*, root=None):
@@ -315,4 +486,7 @@ def run_ceres_downstream(*, root=None):
         run_setting={'name':'ceres_downstream','campaign':campaign})
     result['campaign'] = campaign.report()
     result['authored'] = TEST_ONLY_TABLE
+    result['label'] = LABEL
+    result['earth_gauge'], result['earth_gauge_definition'] = _earth_gauge(
+        result['kernel'], EARTH_V4_ROOT if root is None else root)
     return result

@@ -4,7 +4,7 @@ from decimal import Decimal as D
 
 from .ceres_downstream import (
     A, TEST_ONLY_TABLE, BODY, SPONSOR, EXECUTOR, NODE, PROJECT, ASSET,
-    CASH, FIN_CASH, REINVEST, RESOURCE, BUDGET, SUPPLIER, CeresDownstream,
+    CASH, FIN_CASH, REINVEST, RETURNED, LABEL, RETURN_POLICY, RESOURCE, BUDGET, SUPPLIER, CeresDownstream,
     run_ceres_downstream,
 )
 from .route1_all_body_campaign_pr3b import run_all_body_campaign
@@ -64,7 +64,8 @@ class CeresDownstreamTests(unittest.TestCase):
             ('FINANCE',2039),('CONSTRUCTION',2039),('CONSTRUCTION',2040),
             ('COMMISSIONED',2040),('EXTRACTED',2041),('SOLD',2041),
             ('DISTRIBUTED',2041),('REINVESTED_INTO_OPERATIONS',2042),
-            ('EXTRACTED',2042),('SOLD',2042),
+            ('EXTRACTED',2042),('SOLD',2042),('DISTRIBUTED',2042),
+            ('RETURNED_CASH_FUNDED_OPERATIONS',2043),('EXTRACTED',2043),
         }.issubset(stages))
         self.assertEqual(k.state.projects[PROJECT].node_id,NODE)
         self.assertEqual(k.state.projects[PROJECT].status,'OPERATING')
@@ -81,22 +82,23 @@ class CeresDownstreamTests(unittest.TestCase):
         self.assertEqual((disburse.source_account,disburse.destination_account),(FIN_CASH,CASH))
         self.assertEqual(invest.amount,disburse.amount)
         self.assertEqual((invest.amount,invest.purpose.value),(D('0.080'),'OTHER_INVESTMENT'))
-        self.assertEqual(k.state.accounts[FIN_CASH].balance,D('0.020'))
+        self.assertEqual(k.state.accounts[FIN_CASH].balance,D('0'))
+        self.assertEqual(k.state.accounts[RETURNED].balance,D('.060'))
 
     def test_physical_stock_buyer_cash_and_market_quantities(self):
         k = self.first['kernel']
         self.assertEqual(k.resources[RESOURCE].in_situ,D(A['in_situ']))
         self.assertEqual(k.resources[RESOURCE].accessible,D(A['accessible']))
         self.assertEqual(k.resources[RESOURCE].recoverable,D(A['recoverable']))
-        self.assertEqual(k.resources[RESOURCE].remaining,D('4'))
+        self.assertEqual(k.resources[RESOURCE].remaining,D('2'))
         records = [r for r in k.extraction_resolution_records if r.project_id == PROJECT]
         sales = [r for r in k.market_clearing_records if r.project_id == PROJECT]
-        self.assertEqual(len(records),2)
+        self.assertEqual(len(records),3)
         self.assertEqual(len(sales),2)
-        self.assertEqual(sum((r.actual_extracted for r in records),D(0)),D('4'))
+        self.assertEqual(sum((r.actual_extracted for r in records),D(0)),D('6'))
         self.assertEqual(sum((r.cleared_quantity for r in sales),D(0)),D('4'))
         self.assertEqual(sum((r.transaction_value for r in sales),D(0)),D('.200'))
-        self.assertEqual(k.colonies[NODE].resource_inventory,D(0))
+        self.assertEqual(k.colonies[NODE].resource_inventory,D(2))
         self.assertEqual(k.market_resource_inventory[('EARTH:USA',RESOURCE)],D('4'))
         buyer = k.state.accounts['earth_market']
         self.assertEqual(buyer.balance,D(A['buyer_endowment'])-D('.200'))
@@ -119,12 +121,144 @@ class CeresDownstreamTests(unittest.TestCase):
         self.assertEqual(transfer.purpose.value,'LOCAL_REINVESTMENT')
         self.assertEqual(expense.purpose.value,'OPEX')
         self.assertEqual(D(distribution['reinvestment']),D('.04'))
-        self.assertEqual(k.state.accounts[REINVEST].balance,D('.02'))
+        self.assertEqual(k.state.accounts[REINVEST].balance,D('.06'))
         self.assertEqual(D(distribution['financier_return']),D('.02'))
         self.assertEqual(D(distribution['owner_return']),D('.02'))
-        self.assertEqual(k.state.accounts[CASH].balance,D('.12'))
+        self.assertEqual(k.state.accounts[CASH].balance,D('.04'))
         self.assertTrue(any(r.source_commitment_ids==('ceres:physical:commitment',)
                             for r in k.financing_return_claims.values()))
+
+    def test_second_sale_full_cash_distribution_exhausted_claim_to_owner(self):
+        k = self.first['kernel']
+        physical = self.first['campaign']['physical']
+        allocations = [p for p in physical if p['stage']=='DISTRIBUTED']
+        self.assertEqual(len(allocations),2)
+        first,second=allocations
+        self.assertEqual((first['year'],D(first['financier_return']),
+            D(first['owner_return']),D(first['reinvestment']),D(first['project_reserve'])),
+            (2041,D('.02'),D('.02'),D('.04'),D('.02')))
+        self.assertEqual((second['year'],D(second['financier_return']),
+            D(second['owner_return']),D(second['reinvestment']),D(second['project_reserve'])),
+            (2042,D(0),D('.04'),D('.04'),D('.04')))
+        records = [x for x in k.surplus_distribution_records if x.project_id==PROJECT]
+        self.assertEqual(len(records),2)
+        self.assertEqual(records[1].opening_project_cash,D('.12'))
+        self.assertEqual(records[1].financier_return,D(0))
+        self.assertEqual(records[1].owner_allocations[0].destination_account_id,BUDGET)
+        self.assertEqual(k.financing_return_remaining('ceres:physical:return_claim'),D(0))
+        self.assertEqual(sum((x['amount'] and D(x['amount']) for x in
+                              self.first['campaign']['return_receipts']),D(0)),D('.08'))
+        # All distribution receipts are supported by actual cleared sales.
+        sales={x.transaction_id: x for x in k.market_clearing_records if x.project_id==PROJECT}
+        for record in records:
+            sale=next(x for x in physical if x['stage']=='DISTRIBUTED'
+                      and x['year']==record.year)
+            self.assertIn(sale['sale_tx'],sales)
+            self.assertLessEqual(record.financier_return+record.local_reinvestment+
+                record.owner_distribution, record.opening_project_cash)
+
+    def test_return_account_is_only_test_instrument_and_funds_real_expense(self):
+        r=self.first
+        self.assertEqual(r['label'],LABEL)
+        self.assertEqual(r['campaign']['label'],LABEL)
+        self.assertEqual(r['campaign']['closure'],'MECHANICAL_SCRIPTED_2043_NOT_DECISION')
+        self.assertTrue(r['campaign']['returned_cash_instrument_not_model_rule'])
+        self.assertEqual(len(RETURN_POLICY),1)
+        self.assertEqual({(x['revenue_source'],x['owner']) for x in
+                          r['campaign']['return_policy']},
+                         {(A['return_revenue_source'],SPONSOR)})
+        k=r['kernel']
+        txs={x.id:x for x in k.state.transactions}
+        receipts=r['campaign']['return_receipts']
+        self.assertEqual([(x['year'],x['kind'],D(x['amount'])) for x in receipts],
+            [(2041,'financier',D('.02')),(2041,'owner',D('.02')),(2042,'owner',D('.04'))])
+        self.assertEqual(k.state.accounts[RETURNED].owner_id,SPONSOR)
+        for x in receipts:
+            sale=txs[x['sale_tx']]
+            original=txs[x['return_tx']]
+            sweep=txs[x['sweep_tx']]
+            self.assertEqual(sale.purpose.value,'REVENUE')
+            self.assertLessEqual(sale.year,original.year)
+            self.assertEqual(sweep.source_account,BUDGET)
+            self.assertEqual(sweep.destination_account,RETURNED)
+            self.assertEqual(original.amount,sweep.amount)
+            self.assertIn(sale.id,sweep.parent_ids)
+        funding=r['campaign']['return_spends']
+        self.assertEqual(len(funding),1)
+        lot=funding[0]
+        self.assertEqual((lot['year'],D(lot['amount'])),(2043,D('.02')))
+        moved=txs[lot['funding_tx']]
+        opex=txs[lot['expense_tx']]
+        self.assertEqual((moved.source_account,moved.destination_account),(RETURNED,CASH))
+        self.assertEqual((opex.source_account,opex.destination_account),(CASH,SUPPLIER))
+        self.assertEqual(moved.amount,opex.amount)
+        self.assertIn(lot['source_sweep_tx'],moved.parent_ids)
+        self.assertIn(lot['source_sale_tx'],moved.parent_ids)
+        self.assertEqual(opex.purpose.value,'OPEX')
+        self.assertEqual(k.state.accounts[RETURNED].balance,D('.06'))
+        self.assertEqual(sum((D(x['amount']) for x in receipts),D(0))-
+            sum((D(x['amount']) for x in funding),D(0)),D('.06'))
+
+    def test_country_year_shadow_gauge_is_reporting_only(self):
+        r=self.first
+        gauge=r['earth_gauge']
+        self.assertEqual(len(gauge),80*201)
+        self.assertEqual(r['earth_gauge_definition']['label'],LABEL)
+        self.assertIn('kernel earth_impact.capital_diverted_to_offworld',
+                      r['earth_gauge_definition']['draw_definition'])
+        self.assertIn('study/CAPEX/OPEX payments',r['earth_gauge_definition']['not_counted'])
+        self.assertIn('mechanical scripted',r['earth_gauge_definition']['closure'])
+        self.assertTrue(all(x['label']==LABEL for x in gauge))
+        self.assertEqual(len({(x['country'],x['year']) for x in gauge}),len(gauge))
+        definition=r['earth_gauge_definition']
+        self.assertIn('new_capital_draw',definition['draw_definition'])
+        self.assertIn('recycled_returned_cash_spent',definition['draw_definition'])
+        self.assertIn('not new Earth capital',definition['counted'])
+        india={x['year']:x for x in gauge if x['country']=='IND'}
+        # Existing full kernel draw column is pinned, including India 2039.
+        expected={2038:('.030','0','0'),2039:('.095','0','0'),
+                  2040:('.015','0','0'),2041:('0','0','.040'),
+                  2042:('0','0','.040'),2043:('0','.020','0')}
+        for year,(new,recycled,returned) in expected.items():
+            row=india[year]
+            self.assertEqual(D(row['new_capital_draw']),D(new))
+            self.assertEqual(D(row['recycled_returned_cash_spent']),D(recycled))
+            self.assertEqual(D(row['offworld_draw']),D(new)+D(recycled))
+            self.assertEqual(D(row['returns_received']),D(returned))
+            cap=D(row['capacity'])
+            self.assertEqual(D(row['new_capital_draw_pct_of_capacity']),
+                             D(new)/cap*D(100))
+            self.assertEqual(D(row['recycled_returned_cash_spent_pct_of_capacity']),
+                             D(recycled)/cap*D(100))
+            self.assertEqual(D(row['draw_pct_of_capacity']),
+                             (D(new)+D(recycled))/cap*D(100))
+            self.assertEqual(D(row['returns_pct_of_capacity']),
+                             D(returned)/cap*D(100))
+        # Match every historical kernel shadow entry, not merely India.
+        shadow=self.first['kernel'].state.earth_impact.capital_diverted_to_offworld
+        for row in gauge:
+            node='EARTH:'+row['country']
+            year=row['year']
+            new=D(row['new_capital_draw'])
+            recycled=D(row['recycled_returned_cash_spent'])
+            total=D(row['offworld_draw'])
+            self.assertEqual(new+recycled,total)
+            self.assertEqual(total,D(shadow.get((node,year),D(0))))
+            self.assertEqual(
+                D(row['draw_pct_of_capacity']),
+                D(row['new_capital_draw_pct_of_capacity'])+
+                D(row['recycled_returned_cash_spent_pct_of_capacity']))
+            if (row['country'],year)!=('IND',2043):
+                self.assertEqual(recycled,D(0))
+                self.assertEqual(new,total)
+        # India 2043 0.020 is recycled cash, not fresh capital.
+        self.assertEqual(india[2043]['new_capital_draw'],'0.000')
+        self.assertEqual(india[2043]['offworld_draw'],'0.020')
+        zeros=[x for x in gauge if x['offworld_draw']=='0' and
+               x['returns_received']=='0' and D(x['capacity'])>0]
+        self.assertTrue(zeros)
+        self.assertTrue(all(x['draw_pct_of_capacity']=='0' and
+                            x['returns_pct_of_capacity']=='0' for x in zeros))
 
     def test_underfunded_buyer_rejected_without_any_partial_sale(self):
         k=self.first['kernel']
@@ -152,7 +286,10 @@ class CeresDownstreamTests(unittest.TestCase):
         self.assertEqual(self.first['kernel'].fingerprint(),self.replay['kernel'].fingerprint())
         self.assertEqual(self.first['campaign']['physical'],self.replay['campaign']['physical'])
         self.assertEqual(self.first['campaign']['buyer_checks'],self.replay['campaign']['buyer_checks'])
-        self.assertEqual(len(self.first['kernel'].state.transactions),8791)
+        self.assertEqual(self.first['campaign']['return_receipts'],self.replay['campaign']['return_receipts'])
+        self.assertEqual(self.first['campaign']['return_spends'],self.replay['campaign']['return_spends'])
+        self.assertEqual(self.first['earth_gauge'],self.replay['earth_gauge'])
+        self.assertEqual(len(self.first['kernel'].state.transactions),8799)
         self.assertEqual(len(self.first['campaign']['receipts']),249)
         self.assertEqual(
             sum(x['outcome']=='BLOCKED' for x in self.first['campaign']['attempts']),0)
