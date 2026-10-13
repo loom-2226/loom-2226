@@ -1,7 +1,7 @@
 """Route 1 Gate 2: 2027-2029 Scenario B continuation on one conserved ledger."""
 from decimal import Decimal as D
 from time import perf_counter
-from .route1_gate1 import (run_gate1, CEILINGS, DEFAULT_PRICE, EVIDENCE,
+from .route1_gate1 import (run_gate1, _resolve_run_setting, CEILINGS, DEFAULT_PRICE, EVIDENCE,
     EVIDENCE_TAG, PUBLIC, PRIVATE, PREFERENCES, PROJECTS, EARTH_V4_ROOT)
 from .country_capital_input import load_investment_capacity
 from simulation.offworld_mvp.build7.generated_campaign import load_prospecting_scenario
@@ -13,16 +13,17 @@ from offworld_kernel.financing_protocol import build_financing_request
 from offworld_kernel.policies.manifest import test_only_manifest
 
 def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
-              nasa_a2_evidence=None,followon_trial=None,scenario='B',cast_trial=None,
-              campaign_trial=None):
+              scenario='B',run_setting='pilot'):
     """Returns rows for 2026-2029, including original Gate 1 2026 B results."""
     share=D(share)
-    if cast_trial is not None and (followon_trial is not None or nasa_a2_evidence is not None):
-        raise ValueError('cast payments cannot be mixed with follow-on financing')
-    if scenario not in ('A','B') or (scenario!='B' and followon_trial is None):
+    run_name, options = _resolve_run_setting(run_setting)
+    followon_trial = options.get('payload') if run_name == 'follow_on' else None
+    cast_trial = (options.get('payments') if run_name in ('two_body_campaign', 'all_body_campaign')
+                  else options.get('payload') if run_name == 'cast_payments' else None)
+    campaign_trial = options.get('campaign')
+    nasa_a2_evidence = options.get('payload') if run_name == 'nasa_a2' else None
+    if scenario not in ('A','B') or (scenario!='B' and run_name != 'follow_on'):
         raise ValueError('Scenario A requires the opt-in trial')
-    if nasa_a2_evidence is not None and followon_trial is not None:
-        raise ValueError('legacy NASA A2 and general follow-ons cannot be combined')
     trial_rules={} if followon_trial is None else followon_trial['rules']
     trial_order=() if followon_trial is None else tuple(followon_trial['order'])
     if len(set(trial_order))!=len(trial_order) or set(trial_order)!=set(trial_rules):
@@ -31,16 +32,14 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
     expanded=bool(followon_trial and followon_trial.get('expanded'))
     if type(end_year) is not int or not 2029 <= end_year <= (2226 if cast_trial else 2035):
         raise ValueError('end_year must be 2029..2035 (opt-in cast trial: ..2226)')
-    if campaign_trial is not None and (cast_trial is None or end_year != 2226
-                                       or carry_cap is not None):
+    if campaign_trial is not None and (end_year != 2226 or carry_cap is not None):
         raise ValueError('body campaign requires opt-in full 2226 cast, with no carry cap')
     if carry_cap not in (None,0,1,2):
         raise ValueError('carry cap must be unlimited, 0, 1, or 2')
     if campaign_trial is not None and hasattr(campaign_trial, 'timing_begin'):
         campaign_trial.timing_begin(2026)
     rows,k=run_gate1(share,root=root,scenario=scenario,
-        project_price_override={'NASA':D('.350')} if nasa_a2_evidence else None,
-        followon_trial=followon_trial,cast_trial=cast_trial,
+        run_setting=run_setting,
         earth_end_year=end_year if end_year > 2035 else 2035)
     for row in rows:
         row['year']=2026

@@ -144,9 +144,11 @@ class Route1CastPaymentsTests(unittest.TestCase):
         self.assertTrue(all(x['year']<=2035 for x in self.standard['rows']))
         self.assertFalse(any(x.get('body') for x in self.standard['rows']))
         with self.assertRaisesRegex(ValueError,'separate opt-in'):
-            run_gate1(cast_trial=CastPaymentTrial(),followon_trial={'rules':{}})
+            run_gate1(run_setting={'name':'cast_payments','payload':CastPaymentTrial(),
+                                   'follow_on':{'rules':{}}})
         with self.assertRaisesRegex(ValueError,'cannot be mixed'):
-            run_gate2(cast_trial=CastPaymentTrial(),followon_trial={'rules':{}})
+            run_gate2(run_setting={'name':'cast_payments','payload':CastPaymentTrial(),
+                                   'follow_on':{'rules':{}}})
 
 
 if __name__ == '__main__':

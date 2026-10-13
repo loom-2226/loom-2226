@@ -74,7 +74,7 @@ class FollowonTrialTests(unittest.TestCase):
         winners=[]
         for order in (('NASA','CNSA'),('CNSA','NASA')):
             cfg['order']=order
-            rows,_=run_gate1(D('.25'),scenario='B',followon_trial=cfg)
+            rows,_=run_gate1(D('.25'),scenario='B',run_setting={'name':'follow_on','payload':cfg})
             pair={r['sponsor']:r for r in rows if r['sponsor'] in cfg['rules']}
             funded=[s for s in order if pair[s]['disbursement']]
             self.assertEqual(funded,[order[0]])
@@ -94,21 +94,21 @@ class FollowonTrialTests(unittest.TestCase):
             ('EMERGENT','WAIT_CUMULATIVE_LIMIT'))
         cfg=trial_rules()
         cfg['rules']['CNSA']['a1_price']='0.70'
-        rows,_=run_gate1(D('.25'),scenario='B',followon_trial=cfg)
+        rows,_=run_gate1(D('.25'),scenario='B',run_setting={'name':'follow_on','payload':cfg})
         c=next(x for x in rows if x['sponsor']=='CNSA')
         self.assertFalse(c['disbursement'])
         self.assertEqual(c['status'],'WAIT_CEILING_BELOW_PRICE')
 
     def test_no_result_means_no_followon_even_with_cash(self):
         cfg=trial_rules()
-        rows,_=run_gate1(D('.25'),scenario='B',followon_trial=cfg)
+        rows,_=run_gate1(D('.25'),scenario='B',run_setting={'name':'follow_on','payload':cfg})
         self.assertEqual(sum(r['sponsor'] in cfg['rules'] and bool(r['disbursement'])
                              for r in rows),2)
         # The externally supplied result is not a priced authorization.
         # Until admitted evidence exists the sponsor cannot buy its A2.
         from .route1_gate2 import run_gate2
         ledger,_=run_gate2(D('.25'),carry_cap=2,end_year=2035,
-                            followon_trial=cfg)
+                            run_setting={'name':'follow_on','payload':cfg})
         for sponsor in cfg['rules']:
             self.assertEqual(len([x for x in ledger if x['sponsor']==sponsor
                                   and x['disbursement']]),1)

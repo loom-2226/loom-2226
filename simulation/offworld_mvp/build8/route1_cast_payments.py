@@ -154,14 +154,21 @@ class CastPaymentTrial:
 
 
 def run_cast_payments(share=D('.25'), scenario='B', end_year=2035,
-                      root=None, bids_by_sponsor=None, failures=(),campaign_trial=None):
+                      root=None, bids_by_sponsor=None, failures=(),run_setting='cast_payments'):
     """Experimental Route 1: default decade or opt-in 2026-2226 horizon."""
     from .route1_gate2 import run_gate2
     from .opening import EARTH_V4_ROOT
     trial = CastPaymentTrial(bids_by_sponsor=bids_by_sponsor, failures=failures)
+    if run_setting == 'cast_payments':
+        selected = {'name': 'cast_payments', 'payload': trial}
+    elif (isinstance(run_setting, dict) and set(run_setting) == {'name', 'campaign'}
+          and run_setting['name'] in ('two_body_campaign', 'all_body_campaign')):
+        selected = {**run_setting, 'payments': trial}
+    else:
+        raise ValueError('cast payment runner requires a named payment or campaign run')
     rows, kernel = run_gate2(share=share, scenario=scenario, end_year=end_year,
                              root=EARTH_V4_ROOT if root is None else root,
-                             cast_trial=trial,campaign_trial=campaign_trial)
+                             run_setting=selected)
     opening = [row for row in rows if row['year'] == 2026]
     distinct_deciders = {row['sponsor'] for row in opening if row['policy'] in
                          ('APPROVE', 'REJECT', 'DEFER')}
