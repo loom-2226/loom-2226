@@ -1,0 +1,54 @@
+name: LOOM Build 8 Fast Tests
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/loom-build8-fast-tests.yml'
+      - 'simulation/offworld_mvp/build8/**'
+      - 'simulation/offworld_mvp/phase3b/kernel/**'
+
+permissions:
+  contents: read
+
+jobs:
+  build8-fast:
+    name: Build 8 independent tests (10)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONPATH: .:src:simulation/offworld_mvp/phase3b/kernel
+      LOOM_EARTH_V4_ROOT: /__loom_earth_v4_must_not_exist__
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Execute exactly ten tests without Earth v4
+        run: |
+          python - <<'PY'
+          import os
+          import sys
+          import time
+          import unittest
+          from pathlib import Path
+
+          assert not Path(os.environ['LOOM_EARTH_V4_ROOT']).exists(), 'Earth v4 sentinel path unexpectedly exists'
+          names = (
+              'tests.test_build6c_four_body_portfolio',
+              'simulation.offworld_mvp.build8.test_capacity_options.CapacityOptionsTests',
+          )
+          loader = unittest.TestLoader()
+          suites = [loader.loadTestsFromName(name) for name in names]
+          discovered = tuple(suite.countTestCases() for suite in suites)
+          if discovered != (8, 2) or loader.errors:
+              sys.exit(f'FAIL: expected 8 + 2 tests, discovered {discovered}; load errors: {loader.errors}')
+          start = time.monotonic()
+          result = unittest.TextTestRunner(verbosity=2).run(unittest.TestSuite(suites))
+          elapsed = time.monotonic() - start
+          print(f'Build 8 fast: executed={result.testsRun}/10, skipped={len(result.skipped)}, '
+                f'failures={len(result.failures)}, errors={len(result.errors)}, seconds={elapsed:.2f}', flush=True)
+          if result.testsRun != 10 or result.skipped or result.expectedFailures or not result.wasSuccessful():
+              sys.exit('FAIL: all 10 tests must execute and pass; no skips or expected failures')
+          print('PASS: 10/10 executed, 0 skipped', flush=True)
+          PY
