@@ -222,7 +222,7 @@ class BodyCampaign:
         ceiling=D(CEILING[sponsor])
         quote=self.quote(sponsor,category)
         blocker=policy_reason=None
-        if used>=self.max_stages:
+        if self.max_stages is not None and used>=self.max_stages:
             blocker='MAX_NEW_STAGES_PER_SPONSOR_YEAR'
         elif stage=='A1' and body in self.claims:
             blocker='MAX_CLAIMANTS_PER_BODY_CAMPAIGN'
