@@ -2915,7 +2915,11 @@ class MethodologyHardenedBuild4Kernel(Build4Kernel):
         record=next((r for r in self.extraction_resolution_records if r.extraction_event_id==extraction_event_id),None)
         if record is None or actor_id not in self.agents:raise InvariantError('BLOCKED_LINEAGE: realized output absent')
         actor=self.agents[actor_id]
-        if record.actor_id!=actor_id or actor_id not in self.state.projects[record.project_id].owners or extraction_event_id not in actor.history:
+        project=self.state.projects[record.project_id]
+        operator_grant='OPERATE_PROJECT:'+record.project_id in actor.capabilities
+        if (record.actor_id!=actor_id or
+                (actor_id not in project.owners and not operator_grant) or
+                extraction_event_id not in actor.history):
             raise InvariantError('BLOCKED_POSSESSION: output is not actor-owned')
         if int(year)!=year or int(year)<record.year:raise InvariantError('BLOCKED_TIME: output admission precedes source')
         if extraction_event_id in actor.information:raise InvariantError('BLOCKED_LINEAGE: output already admitted')

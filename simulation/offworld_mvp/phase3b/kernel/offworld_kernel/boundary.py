@@ -436,11 +436,15 @@ def _resolve_live(k,r):
         if value is None:return _outcome(k,r,FactState.UNKNOWN,'CAPABILITY_OR_PROCESS_NOT_EVALUATED')
         return _value(k,r,str(value),kind='PHYSICAL_STATE',mode='SIMULATION_RESULT',source=f'resource:{res.id}:{r.concept}')
     # Fixed field adapters. Binding strings are never eval/getattr traversal paths.
+    def project_access(project):
+        return (r.consumer_id in project.owners or
+                (r.consumer_id in k.agents and
+                 'OPERATE_PROJECT:'+project.id in k.agents[r.consumer_id].capabilities))
     parts=selector.split(':');tag=parts[0]
     if tag=='PROJECT' and len(parts)==3:
         p=k.state.projects.get(parts[1])
         if p is None or r.subject_id!=p.id:return _outcome(k,r,FactState.BLOCKED,'BLOCKED_SCOPE')
-        if r.perspective=='AGENT' and r.consumer_id not in p.owners:return _outcome(k,r,FactState.BLOCKED,'BLOCKED_POSSESSION')
+        if r.perspective=='AGENT' and not project_access(p):return _outcome(k,r,FactState.BLOCKED,'BLOCKED_POSSESSION')
         if parts[2]=='STATUS':value=p.status
         elif parts[2]=='CASH':value=str(k.state.accounts[p.cash_account_id].balance)
         else:return _outcome(k,r,FactState.BLOCKED,'BLOCKED_SOURCE_BINDING')
@@ -448,7 +452,7 @@ def _resolve_live(k,r):
     if tag=='ASSET' and len(parts)==3 and parts[2]=='CAPACITY':
         a=k.state.assets.get(parts[1])
         if a is None:return _outcome(k,r,FactState.UNKNOWN,'MISSING_ASSET')
-        if r.subject_id!=a.project_id or (r.perspective=='AGENT' and r.consumer_id not in k.state.projects[a.project_id].owners):return _outcome(k,r,FactState.BLOCKED,'BLOCKED_POSSESSION')
+        if r.subject_id!=a.project_id or (r.perspective=='AGENT' and not project_access(k.state.projects[a.project_id])):return _outcome(k,r,FactState.BLOCKED,'BLOCKED_POSSESSION')
         return _value(k,r,str(a.capacity),kind='PHYSICAL_STATE',mode='SIMULATION_RESULT',source=selector)
     if tag=='COLONY' and len(parts)==2:
         colony=k.colonies.get(r.subject_id)
@@ -470,7 +474,7 @@ def _resolve_live(k,r):
         rec=next((x for x in k.extraction_resolution_records if x.extraction_event_id==r.subject_id),None)
         if rec is None:return _outcome(k,r,FactState.UNKNOWN,'MISSING_REALIZED_EVENT')
         if D(rec.year)>D(r.knowledge_cutoff):return _outcome(k,r,FactState.BLOCKED,'BLOCKED_TIME')
-        if r.perspective=='AGENT' and (r.consumer_id not in k.state.projects[rec.project_id].owners or rec.extraction_event_id not in k.agents[r.consumer_id].information):return _outcome(k,r,FactState.BLOCKED,'BLOCKED_POSSESSION')
+        if r.perspective=='AGENT' and (not project_access(k.state.projects[rec.project_id]) or rec.extraction_event_id not in k.agents[r.consumer_id].information):return _outcome(k,r,FactState.BLOCKED,'BLOCKED_POSSESSION')
         value=rec.planned_quantity if selector=='EXTRACTION_PLANNED' else rec.actual_extracted
         report=_value(k,r,str(value),kind='OBSERVATION',mode='REALIZED_OUTPUT_OBSERVATION',source='actor-output-report:'+rec.extraction_event_id,available=str(rec.year),source_time=str(rec.year),dependencies=(rec.extraction_event_id,))
         return replace(report,transformation_ref='OWN_REALIZED_OUTPUT_REPORT_V1',transformation_version='V1',warrant_refs=('OWN_EXECUTED_OUTPUT_WITH_EXPLICIT_SCHEDULED_ADMISSION',))
