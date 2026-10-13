@@ -210,19 +210,49 @@ class CeresDownstreamTests(unittest.TestCase):
         self.assertIn('mechanical scripted',r['earth_gauge_definition']['closure'])
         self.assertTrue(all(x['label']==LABEL for x in gauge))
         self.assertEqual(len({(x['country'],x['year']) for x in gauge}),len(gauge))
+        definition=r['earth_gauge_definition']
+        self.assertIn('new_capital_draw',definition['draw_definition'])
+        self.assertIn('recycled_returned_cash_spent',definition['draw_definition'])
+        self.assertIn('not new Earth capital',definition['counted'])
         india={x['year']:x for x in gauge if x['country']=='IND'}
-        expected={2038:('.030','0'),2039:('.095','0'),2040:('.015','0'),
-                  2041:('0','.040'),2042:('0','.040'),2043:('.020','0')}
-        for year,(draw,returned) in expected.items():
-            self.assertEqual(D(india[year]['offworld_draw']),D(draw))
-            self.assertEqual(D(india[year]['returns_received']),D(returned))
-            cap=D(india[year]['capacity'])
-            self.assertEqual(D(india[year]['draw_pct_of_capacity']),
-                             D(draw)/cap*D(100))
-            self.assertEqual(D(india[year]['returns_pct_of_capacity']),
+        # Existing full kernel draw column is pinned, including India 2039.
+        expected={2038:('.030','0','0'),2039:('.095','0','0'),
+                  2040:('.015','0','0'),2041:('0','0','.040'),
+                  2042:('0','0','.040'),2043:('0','.020','0')}
+        for year,(new,recycled,returned) in expected.items():
+            row=india[year]
+            self.assertEqual(D(row['new_capital_draw']),D(new))
+            self.assertEqual(D(row['recycled_returned_cash_spent']),D(recycled))
+            self.assertEqual(D(row['offworld_draw']),D(new)+D(recycled))
+            self.assertEqual(D(row['returns_received']),D(returned))
+            cap=D(row['capacity'])
+            self.assertEqual(D(row['new_capital_draw_pct_of_capacity']),
+                             D(new)/cap*D(100))
+            self.assertEqual(D(row['recycled_returned_cash_spent_pct_of_capacity']),
+                             D(recycled)/cap*D(100))
+            self.assertEqual(D(row['draw_pct_of_capacity']),
+                             (D(new)+D(recycled))/cap*D(100))
+            self.assertEqual(D(row['returns_pct_of_capacity']),
                              D(returned)/cap*D(100))
-        # The country 2043 "draw" is recycled project return, not new
-        # Earth v4 investment capacity or a newly minted endowment.
+        # Match every historical kernel shadow entry, not merely India.
+        shadow=self.first['kernel'].state.earth_impact.capital_diverted_to_offworld
+        for row in gauge:
+            node='EARTH:'+row['country']
+            year=row['year']
+            new=D(row['new_capital_draw'])
+            recycled=D(row['recycled_returned_cash_spent'])
+            total=D(row['offworld_draw'])
+            self.assertEqual(new+recycled,total)
+            self.assertEqual(total,D(shadow.get((node,year),D(0))))
+            self.assertEqual(
+                D(row['draw_pct_of_capacity']),
+                D(row['new_capital_draw_pct_of_capacity'])+
+                D(row['recycled_returned_cash_spent_pct_of_capacity']))
+            if (row['country'],year)!=('IND',2043):
+                self.assertEqual(recycled,D(0))
+                self.assertEqual(new,total)
+        # India 2043 0.020 is recycled cash, not fresh capital.
+        self.assertEqual(india[2043]['new_capital_draw'],'0.000')
         self.assertEqual(india[2043]['offworld_draw'],'0.020')
         zeros=[x for x in gauge if x['offworld_draw']=='0' and
                x['returns_received']=='0' and D(x['capacity'])>0]

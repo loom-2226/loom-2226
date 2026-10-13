@@ -431,23 +431,45 @@ def _earth_gauge(k, root):
     capacities, provenance = load_investment_capacity(root, end_year=int(A['end_year']))
     units = load_prospecting_scenario().investment_proxy_units_per_model_currency
     impact = k.state.earth_impact
+    # Reporting-only split of the EXISTING shadow draw. The returned-cash
+    # account is a TEST instrument, not a general model capital classification.
+    recycled_by_country_year = {}
+    for tx in k.state.transactions:
+        if (tx.source_account == RETURNED
+                and k.state.nodes[tx.source_location].kind == NodeKind.EARTH
+                and k.state.nodes[tx.destination_location].kind == NodeKind.OFFWORLD
+                and tx.purpose in (TxPurpose.DISBURSE, TxPurpose.PUBLIC_SUBSIDY,
+                                   TxPurpose.OTHER_INVESTMENT)):
+            key = (tx.source_location, tx.year)
+            recycled_by_country_year[key] = (
+                recycled_by_country_year.get(key, D(0)) + tx.amount)
     output = []
     for (country, year), investment in sorted(capacities.items(), key=lambda x:(x[0][1],x[0][0])):
         capacity = investment / units
         node = 'EARTH:' + country
         draw = D(impact.capital_diverted_to_offworld.get((node,year),D(0)))
+        recycled = recycled_by_country_year.get((node,year),D(0))
+        new_capital = draw - recycled
+        assert new_capital >= 0 and new_capital + recycled == draw, (
+            'Ceres TEST_ONLY Earth shadow draw split does not reconcile', country, year)
         returned = D(impact.capital_returned_to_earth.get((node,year),D(0)))
+        pct = lambda amount: (None if not capacity else
+                              '0' if not amount else str(amount / capacity * D(100)))
         output.append(dict(
             year=year, country=country, capacity=str(capacity),
+            new_capital_draw=str(new_capital),
+            recycled_returned_cash_spent=str(recycled),
             offworld_draw=str(draw), returns_received=str(returned),
-            draw_pct_of_capacity=(('0' if not draw else str(draw / capacity * D(100))) if capacity else None),
-            returns_pct_of_capacity=(('0' if not returned else str(returned / capacity * D(100))) if capacity else None),
+            new_capital_draw_pct_of_capacity=pct(new_capital),
+            recycled_returned_cash_spent_pct_of_capacity=pct(recycled),
+            draw_pct_of_capacity=pct(draw),
+            returns_pct_of_capacity=pct(returned),
             label=LABEL))
     return tuple(output), dict(
         label=LABEL, source=provenance['designation'],
-        draw_definition='kernel earth_impact.capital_diverted_to_offworld Earth-to-offworld DISBURSE/PUBLIC_SUBSIDY/OTHER_INVESTMENT crossings',
+        draw_definition='offworld_draw is the UNCHANGED kernel earth_impact.capital_diverted_to_offworld Earth-to-offworld DISBURSE/PUBLIC_SUBSIDY/OTHER_INVESTMENT total; new_capital_draw = total minus qualifying RETURNED test-account crossings; recycled_returned_cash_spent = qualifying transfers sourced from the RETURNED test account',
         return_definition='kernel earth_impact.capital_returned_to_earth offworld-to-Earth RETURN_TO_EARTH/FINANCIER_RETURN/OWNER_DISTRIBUTION crossings',
-        counted='Earth-to-offworld project financing including funded analytic studies and recycled sponsor funding; genuine capital returns',
+        counted='new_capital_draw: non-recycled Earth-to-offworld qualifying capital crossings, including funded analytical studies; recycled_returned_cash_spent: qualifying Earth-to-offworld crossings sourced from the TEST_ONLY returned-cash instrument, not new Earth capital; offworld_draw: sum of both, preserving the kernel shadow total; genuine capital returns received tracked separately',
         not_counted='Earth supplier study/CAPEX/OPEX payments as another draw; Earth buyer payments for exports as returns or capital draws; internal Earth-to-Earth sweeps; offworld-to-offworld reinvestment',
         denominator='Earth v4 annual country investment proxy / Build7 units_per_model_currency; reporting only, no feedback',
         zero_capacity='Undefined percentage (null), zero value amounts still 0',
