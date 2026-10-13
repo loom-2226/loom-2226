@@ -1,5 +1,6 @@
 """Route 1 Gate 2: 2027-2029 Scenario B continuation on one conserved ledger."""
 from decimal import Decimal as D
+from time import perf_counter
 from .route1_gate1 import (run_gate1, CEILINGS, DEFAULT_PRICE, EVIDENCE,
     EVIDENCE_TAG, PUBLIC, PRIVATE, PREFERENCES, PROJECTS, EARTH_V4_ROOT)
 from .country_capital_input import load_investment_capacity
@@ -35,6 +36,8 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
         raise ValueError('body campaign requires opt-in full 2226 cast, with no carry cap')
     if carry_cap not in (None,0,1,2):
         raise ValueError('carry cap must be unlimited, 0, 1, or 2')
+    if campaign_trial is not None and hasattr(campaign_trial, 'timing_begin'):
+        campaign_trial.timing_begin(2026)
     rows,k=run_gate1(share,root=root,scenario=scenario,
         project_price_override={'NASA':D('.350')} if nasa_a2_evidence else None,
         followon_trial=followon_trial,cast_trial=cast_trial,
@@ -80,6 +83,8 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
     if expanded and followon_trial.get('on_year'):
         followon_trial['on_year'](2026,tuple(rows),k)
     lapse(2026,rows)
+    if campaign_trial is not None and hasattr(campaign_trial, 'timing_end'):
+        campaign_trial.timing_end(2026)
     capacities,_=load_investment_capacity(root,end_year=end_year if end_year>2035 else 2035)
     all_sponsors={**PUBLIC,**PRIVATE,
                   **{s:(row['country'],) for s,row in extras.items()}}
@@ -99,6 +104,8 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
             if (country,year) not in capacities:
                 raise ValueError(f'missing Earth investment: {country} {year}')
     for year in range(2027,end_year+1):
+        if campaign_trial is not None and hasattr(campaign_trial, 'timing_begin'):
+            campaign_trial.timing_begin(year)
         before={s:k.state.accounts['route1:budget:'+s].balance for s in all_sponsors}
         allocated={s:D(0) for s in all_sponsors}
         for country,entries in sorted(countries.items()):
@@ -273,4 +280,6 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
             campaign_trial.on_year(year,k,current)
         lapse(year,current)
         k.assert_invariants()
+        if campaign_trial is not None and hasattr(campaign_trial, 'timing_end'):
+            campaign_trial.timing_end(year)
     return rows,k
