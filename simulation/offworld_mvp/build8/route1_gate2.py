@@ -18,7 +18,7 @@ def run_gate2(share=D('.10'),root=EARTH_V4_ROOT,carry_cap=None,end_year=2029,
     share=D(share)
     run_name, options = _resolve_run_setting(run_setting)
     followon_trial = options.get('payload') if run_name == 'follow_on' else None
-    cast_trial = (options.get('payments') if run_name in ('two_body_campaign', 'all_body_campaign')
+    cast_trial = (options.get('payments') if run_name in ('two_body_campaign', 'all_body_campaign', 'ceres_downstream')
                   else options.get('payload') if run_name == 'cast_payments' else None)
     campaign_trial = options.get('campaign')
     nasa_a2_evidence = options.get('payload') if run_name == 'nasa_a2' else None

@@ -38,6 +38,7 @@ _RUN_PAYLOADS = {
     'cast_payments': frozenset(('payload',)),
     'two_body_campaign': frozenset(('payments', 'campaign')),
     'all_body_campaign': frozenset(('payments', 'campaign')),
+    'ceres_downstream': frozenset(('payments', 'campaign')),
 }
 
 
@@ -51,7 +52,7 @@ def _resolve_run_setting(run_setting):
         raise ValueError('unknown Route 1 run_setting')
     extras = set(run_setting) - {'name'}
     if extras - _RUN_PAYLOADS[name]:
-        if name in ('cast_payments', 'two_body_campaign', 'all_body_campaign'):
+        if name in ('cast_payments', 'two_body_campaign', 'all_body_campaign', 'ceres_downstream'):
             raise ValueError('cast payments are a separate opt-in Route 1 experiment; cannot be mixed with follow-on financing')
         raise ValueError('incompatible Route 1 run options')
     required = set() if name == 'pilot' else _RUN_PAYLOADS[name]
@@ -65,7 +66,7 @@ def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A',
     share=D(share)
     run_name, options = _resolve_run_setting(run_setting)
     followon_trial = options.get('payload') if run_name == 'follow_on' else None
-    cast_trial = (options.get('payments') if run_name in ('two_body_campaign', 'all_body_campaign')
+    cast_trial = (options.get('payments') if run_name in ('two_body_campaign', 'all_body_campaign', 'ceres_downstream')
                   else options.get('payload') if run_name == 'cast_payments' else None)
     project_price_override = (options.get('price_override') if run_name == 'pilot'
                               else {'NASA': D('.350')} if run_name == 'nasa_a2'
