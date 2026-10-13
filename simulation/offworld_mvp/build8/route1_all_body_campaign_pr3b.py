@@ -320,7 +320,8 @@ def run_all_body_campaign(*, body_count=90, ceilings_enabled=True,
                                failures=failures)
     campaign.record_states(2026)
     start = perf_counter()
-    result = run_cast_payments(end_year=2226, root=root, campaign_trial=campaign)
+    result = run_cast_payments(end_year=2226, root=root,
+                               run_setting={'name':'all_body_campaign','campaign':campaign})
     duration = perf_counter() - start
     study_paid = {(r['year'], r['executor']) for r in campaign.receipts}
     result['executor_yearly'] = tuple(

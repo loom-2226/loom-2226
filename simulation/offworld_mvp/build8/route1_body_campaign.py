@@ -362,6 +362,7 @@ def run_body_campaign(*, ceilings_enabled=True, participating_sponsors=None,
     campaign=BodyCampaign(ceilings_enabled=ceilings_enabled,
                           participating_sponsors=participating_sponsors,
                           max_stages_per_year=max_stages_per_year,failures=failures)
-    result=run_cast_payments(end_year=2226,root=root,campaign_trial=campaign)
+    result=run_cast_payments(end_year=2226,root=root,
+                             run_setting={'name':'two_body_campaign','campaign':campaign})
     result['campaign']=campaign.report()
     return result

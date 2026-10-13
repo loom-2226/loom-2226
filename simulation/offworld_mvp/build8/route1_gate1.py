@@ -30,11 +30,46 @@ PREFERRED = {'NASA':'Astrobotic','CNSA':'CASC','ISRO':'HAL / L&T',
              'Australian Space Agency':'Toyota','UAE Space Agency':'Thales Alenia Space',
              'ispace':'ispace','Interlune':'Northrop Grumman'}
 
-def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A', project_price_override=None,
-              followon_trial=None,cast_trial=None,earth_end_year=2035):
+# Route 1 run selection; trial objects stay owned by their existing callers.
+_RUN_PAYLOADS = {
+    'pilot': frozenset(('price_override',)),
+    'nasa_a2': frozenset(('payload',)),
+    'follow_on': frozenset(('payload',)),
+    'cast_payments': frozenset(('payload',)),
+    'two_body_campaign': frozenset(('payments', 'campaign')),
+    'all_body_campaign': frozenset(('payments', 'campaign')),
+}
+
+
+def _resolve_run_setting(run_setting):
+    if isinstance(run_setting, str):
+        run_setting = {'name': run_setting}
+    if not isinstance(run_setting, dict):
+        raise ValueError('run_setting must name a Route 1 run')
+    name = run_setting.get('name')
+    if name not in _RUN_PAYLOADS:
+        raise ValueError('unknown Route 1 run_setting')
+    extras = set(run_setting) - {'name'}
+    if extras - _RUN_PAYLOADS[name]:
+        if name in ('cast_payments', 'two_body_campaign', 'all_body_campaign'):
+            raise ValueError('cast payments are a separate opt-in Route 1 experiment; cannot be mixed with follow-on financing')
+        raise ValueError('incompatible Route 1 run options')
+    required = set() if name == 'pilot' else _RUN_PAYLOADS[name]
+    if any(run_setting.get(key) is None for key in required):
+        raise ValueError('Route 1 run is missing its required payload')
+    return name, run_setting
+
+
+def run_gate1(share=D('.10'), root=EARTH_V4_ROOT, scenario='A',
+              run_setting='pilot', earth_end_year=2035):
     share=D(share)
-    if cast_trial is not None and (followon_trial is not None or project_price_override is not None):
-        raise ValueError('cast payments are a separate opt-in Route 1 experiment')
+    run_name, options = _resolve_run_setting(run_setting)
+    followon_trial = options.get('payload') if run_name == 'follow_on' else None
+    cast_trial = (options.get('payments') if run_name in ('two_body_campaign', 'all_body_campaign')
+                  else options.get('payload') if run_name == 'cast_payments' else None)
+    project_price_override = (options.get('price_override') if run_name == 'pilot'
+                              else {'NASA': D('.350')} if run_name == 'nasa_a2'
+                              else None)
     if scenario not in ('A','B'):
         raise ValueError('Scenario A or B only')
     if share not in (D('.10'),D('.25')):

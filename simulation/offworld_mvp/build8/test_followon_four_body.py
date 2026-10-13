@@ -243,7 +243,7 @@ class FourBodyFollowonTests(unittest.TestCase):
         winners=[]
         for order in (FOUR_BODY_ORDER,tuple(reversed(FOUR_BODY_ORDER))):
             cfg['order']=order
-            rows,_=run_gate1(D('.25'),scenario='B',followon_trial=cfg)
+            rows,_=run_gate1(D('.25'),scenario='B',run_setting={'name':'follow_on','payload':cfg})
             winners.append([r['sponsor'] for r in rows
                             if r['sponsor'] in ('NASA','CNSA') and r['disbursement']])
         self.assertEqual(winners,[['NASA'],['CNSA']])

@@ -28,7 +28,7 @@ def run(carry_cap=None):
     # Gate 2 credits the 2029 Earth allocation BEFORE evaluating the sole A2
     # exception at ALREADY_PURCHASED, and lapses excess cash AFTER the decision.
     rows,earth=run_gate2(D('.25'),carry_cap=carry_cap,end_year=2030,
-                          nasa_a2_evidence=evidence)
+                          run_setting={'name':'nasa_a2','payload':evidence})
     follow=[r for r in rows if r['sponsor']=='NASA' and r['year']==2029]
     if len(follow)!=1: raise AssertionError('not exactly one A2 request')
     decision=follow[0]

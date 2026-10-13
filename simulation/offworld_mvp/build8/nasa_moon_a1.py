@@ -15,7 +15,8 @@ from tests.test_build6b_staged_prospecting import Build6BStagedProspectingTests
 LABEL='AUTHORED_6C_CURRENCY_INTERPRETATION_10M_USD_PER_UNIT'
 
 def run():
-    rows,earth=run_gate1(D('.25'),scenario='B',project_price_override={'NASA':D('.350')})
+    rows,earth=run_gate1(D('.25'),scenario='B',
+                         run_setting={'name':'pilot','price_override':{'NASA':D('.350')}})
     nasa=next(r for r in rows if r['sponsor']=='NASA')
     if nasa['policy']!='APPROVE':
         raise RuntimeError('FINANCIER_REJECTED:'+nasa['reason'])

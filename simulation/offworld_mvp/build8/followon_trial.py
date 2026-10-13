@@ -29,7 +29,7 @@ def run_trial(order=FIXED_CLAIM_ORDER,share=D('.25'),carry_cap=2):
     if D(share)!=D('.25') or carry_cap!=2:
         raise ValueError('PR 1 qualifies only Scenario B / 25% / 2x trial carry')
     trial=trial_rules(order)
-    initial,_=run_gate1(D(share),scenario='B',followon_trial=trial)
+    initial,_=run_gate1(D(share),scenario='B',run_setting={'name':'follow_on','payload':trial})
     a1={}
     for sponsor,rule in trial['rules'].items():
         opening=next(r for r in initial if r['sponsor']==sponsor)
@@ -39,7 +39,7 @@ def run_trial(order=FIXED_CLAIM_ORDER,share=D('.25'),carry_cap=2):
         a1[sponsor]=route1_funding_handoff({**opening,'year':2026},sponsor,rule['a1'])
     trial['evidence']={s:admitted_evidence(st) for s,st in a1.items()}
     ledger,earth=run_gate2(D(share),carry_cap=carry_cap,end_year=2035,
-                            followon_trial=trial)
+                            run_setting={'name':'follow_on','payload':trial})
     a2={}
     for sponsor,rule in trial['rules'].items():
         opening=next(r for r in ledger if r['sponsor']==sponsor and r['year']==2026)

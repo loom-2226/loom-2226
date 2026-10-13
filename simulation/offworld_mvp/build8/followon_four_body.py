@@ -54,7 +54,7 @@ def run_four_body(scenario='B',share=D('.25'),overrides=True,order=FOUR_BODY_ORD
             ))
     trial['on_year']=on_year
     ledger,earth=run_gate2(D(share),carry_cap=2,end_year=2035,
-                            followon_trial=trial,scenario=scenario)
+                            run_setting={'name':'follow_on','payload':trial},scenario=scenario)
     rules=trial['rules']
     yearly=[]
     for row in ledger:
