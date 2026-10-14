@@ -79,3 +79,55 @@ additional empty-Ceres-treasury case block, with no shipment or benefit.
 The revised opt-in scenario fingerprint is
 `46e390772ed0ef4cca3d07e79e39a4dfa1a26db5c774162a77dff7887b0b0563`.
 The completed scenario JSON and geometry cache remain outside Git.
+
+## Earth-side freight spending line (Build 8 PR 3, read-only projection)
+
+The opt-in dated transport-to-money consumer can now return its **unchanged
+canonical result** together with an enriched annual gauge using
+`settle_money_chain(row, ready, quote, report_freight_gauge=True)`.
+The extra visible annual line is
+`earth_side_transport_spending_for_offworld_projects`. Without the
+report flag, the existing result structure, bytes, and fingerprints
+remain exactly as before. With the flag, the first returned result is
+still byte-identical; only the separately returned display rows gain
+this line. This avoids moving any pinned state identity.
+
+**Definition:** sum the amount of each actual `TRANSPORT_PAYMENT` ledger
+transaction once in its payment year when its source and destination
+accounts are on Earth **and** its parent IDs explicitly identify an
+existing Offworld project/transport order. Do not count the earlier
+treasury appropriation, a quote, a cargo movement, an unlinked payment,
+or a payment involving an Offworld endpoint. Zero years are explicitly
+`"0"`, never absent/null. This does not change the source, vehicle,
+pricing, wait, departure, payment, or delivery rules.
+
+| Year | Ceres Earth-side freight | Ceres Offworld draw | Ceres new draw | Ceres recycled |
+|---|---:|---:|---:|---:|
+| 2038 | 0 | 0.080 | 0.080 | 0 |
+| 2039 | **2.660653** | **0** | **0** | **0** |
+| 2040 | 0 | 0 | 0 | 0 |
+
+Ceres's unique 2039 actual `TRANSPORT_PAYMENT` from Earth sponsor
+budget to Earth shipper is linked to the Offworld seed-factory order,
+and counts **exactly once**. The treasury-to-budget `PUBLIC_SUBSIDY`
+does not count a second time. Its funded source is India's treasury
+`treasury:IND`. The illustrative Mars row, the Ceres empty-treasury
+negative control, and no-departure cases show **zero**.
+
+The existing identity remains unchanged in every annual row:
+`new_capital_draw + recycled_returned_cash_spent = offworld_draw`.
+The 2039 freight payment is an Earth-to-Earth supplier transfer, not
+an Earth-to-Offworld capital transfer. The transport line sits alongside,
+not inside, that identity.
+
+**Before/after byte audit, 201 annual rows per project:** full canonical
+Ceres result SHA-256 remains
+`8c7006395bb840bc66a6b40c69e0e604fd1183205d4e372720c22983f5d5fb01`;
+Mars remains
+`bdee7b0bff0d2f965c28b123f549f1a2f8774e261fae666063bd05db109fb625`.
+The complete opt-in scenario fingerprint remains
+`46e390772ed0ef4cca3d07e79e39a4dfa1a26db5c774162a77dff7887b0b0563`.
+Deleting the *one* new field from the display projection reproduces
+all 201 pre-change annual rows exactly. No pinned figure requires
+modification. Before/after JSON snapshots and derived gauge rows are
+stored under `/tmp/build8-pr3-*` outside Git.
