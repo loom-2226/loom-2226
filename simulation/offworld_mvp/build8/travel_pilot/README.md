@@ -131,3 +131,41 @@ Solar manifests and the previously promoted DE440 coverage rows. The
 existing pilot source authority, flight search, vehicle/price/wait/payment
 choices and recorded results are unchanged. Eight original geometry
 records replay byte-for-byte against the pre-change main branch.
+
+## Opt-in scaled flight-time search (Build 8 PR 2, not runtime)
+
+The historical daily and distance_research geometry sampling strategies
+remain unchanged. The additional lookup-only strategy
+scaled_flight_time requires **explicit, caller-authored**
+flight_range_days=(start,end) and max_flight_time_days=horizon. No
+vehicle class, price, sponsor wait value, payment or delivery term changes.
+
+Starting constants are MIN_USEFUL_FLIGHT_TIME_FRACTION=0.005 (kT-approved
+for research, not final) and MIN_USEFUL_FLIGHT_TIME_FLOOR_DAYS=1.0.
+Flight samples advance by max(1 day, 0.005 x current flight duration).
+The grid, both constants, exact start/end, solver, qualified source
+IDs/hashes, deterministic extension history and searched transfer family
+are included in the summary identity and fingerprint.
+
+The search **continues to the explicit horizon**, even if an intermediate
+feasible edge closes, since that does not rule out a disconnected later
+island. An unresolved feasible upper boundary returns
+FLIGHT_RANGE_OPEN_EDGE. A missing or propagated source seam returns
+UNKNOWN_FLIGHT_RANGE. A bounded status is scoped ONLY to the evaluated
+flight-time horizon and the modeled transfer family, not a proof of
+physical impossibility. No complete cheapest claim is made for an open
+range. Scaled searches retain only a small per-departure summary of
+qualified sources, grid, detected windows, best sampled candidates and
+status. No persistent far-route trajectory cache is written.
+
+The searched transfer family is the Izzo 2015 M=0, prograde, low-path,
+impulsive heliocentric Lambert formulation.
+No multi-revolution, gravity assists, continuous low-thrust, torch,
+metric or local moon legs.
+
+Measured evidence for six departure dates across years, six outer
+pairs and eight legacy inner routes, window-by-window price drift,
+actual edge statuses and storage is in
+[SCALED_FLIGHT_RESEARCH_RESULTS.md](SCALED_FLIGHT_RESEARCH_RESULTS.md).
+The three linked CSVs contain small research tables, not geometry
+warehouse files.
