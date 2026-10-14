@@ -223,11 +223,29 @@ class OnDemandTravel(BatchTravelPilot):
 
     def lookup(self, origin, destination, ready_date, *, wait_limit_days,
                departure_limit, arrival_limit, strategy="daily",
-               flight_range_days=None):
-        """Every calendar departure inside [ready, ready+wait), plus research subdays."""
+               flight_range_days=None, max_flight_time_days=None):
+        """Existing strategies unchanged; new one is opt-in, horizon explicit."""
         if not isinstance(wait_limit_days, int) or wait_limit_days < 1:
             raise ValueError("INVALID_WAIT_LIMIT_DAYS")
         start = _day(ready_date)
+        if strategy == "scaled_flight_time":
+            from .scaled_flight import search_scaled_flight
+            summaries = []
+            for i in range(wait_limit_days):
+                departure = start + timedelta(days=i)
+                summaries.append(search_scaled_flight(
+                    self, origin, destination, departure,
+                    flight_range_days=flight_range_days,
+                    max_flight_time_days=max_flight_time_days,
+                    departure_limit=departure_limit,
+                    arrival_limit=arrival_limit))
+            return {"origin": origin, "destination": destination,
+                    "ready_date": _iso(start),
+                    "wait_limit_days": wait_limit_days,
+                    "sampling_strategy": strategy,
+                    "max_flight_time_days": max_flight_time_days,
+                    "summaries": summaries,
+                    "note": "SAMPLED_RANGE_ONLY; open edge is never a completed optimum"}
         found = []
         for i in range(wait_limit_days):
             day = start + timedelta(days=i)
