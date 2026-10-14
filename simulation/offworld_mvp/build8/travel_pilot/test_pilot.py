@@ -58,19 +58,19 @@ class TravelPilotTests(unittest.TestCase):
                  arrival_vinf_km_s=56.091356,
                  status='HISTORICAL_PRICE_ANCHOR_LIMITS_NO_LONGER_IN_EFFECT'))
 
-    def test_all_eight_known_mercury_weeks_are_now_recovered(self):
+    def test_all_eight_known_mercury_weekly_sample_dates_are_recovered(self):
         known=('2026-04-23','2026-04-30','2026-05-07','2027-04-15',
                '2027-04-22','2031-05-15','2031-05-22','2031-05-29')
         self.assertEqual(tuple(self.data['known_mercury_weekly_witnesses']),known)
         for date in known:
             with self.subTest(departure=date):
                 candidates=self.pilot.candidates('EARTH','MERCURY',date)
-                self.assertTrue(candidates, 'known feasible Mercury week lost: '+date)
+                self.assertTrue(candidates, 'known feasible Mercury weekly sample date lost: '+date)
                 self.assertTrue(all(0<=r['departure_vinf_km_s']<=10 and
                                     0<=r['arrival_vinf_km_s']<=10 for r in candidates))
 
-    def test_every_week_labelled_closed_is_still_closed_at_quarter_day(self):
-        """Re-run ALL closed weeks; stored labels alone cannot prove closure."""
+    def test_every_closed_weekly_sample_date_is_still_closed_at_quarter_day(self):
+        """Re-run every closed weekly sample date; not full calendar weeks."""
         from .batch import BatchTravelPilot
         from .pilot import CLOSED_AUDIT_SCAN_DAYS
         checker=BatchTravelPilot()
@@ -79,7 +79,7 @@ class TravelPilotTests(unittest.TestCase):
         self.assertTrue(self.data['exhaustive_closed_week_check'])
         for r in self.data['route_summaries']:
             route=(r['origin'],r['destination'])
-            weekly={(_day('2026-01-01')+timedelta(days=7*i)).date().isoformat()
+            weekly_sample_dates={(_day('2026-01-01')+timedelta(days=7*i)).date().isoformat()
                     for i in range(313)}
             fine_closed=r['fine_confirmed_closed_week_dates']
             coarse_closed=r['fine_checked_coarse_closed_week_dates']
@@ -90,7 +90,7 @@ class TravelPilotTests(unittest.TestCase):
             self.assertEqual(len(coarse_closed),len(set(coarse_closed)))
             self.assertEqual(set(coarse_closed),set(fine_closed)|set(reopened))
             self.assertFalse(set(fine_closed)&set(reopened))
-            self.assertTrue(set(coarse_closed)<=weekly)
+            self.assertTrue(set(coarse_closed)<=weekly_sample_dates)
             self.assertEqual(r['fine_scan_duration_samples'],len(coarse_closed)*5423)
             self.assertEqual(r['closed_week_check_scan_days'],CLOSED_AUDIT_SCAN_DAYS)
             self.assertEqual(r['coarse_feasible_weekly_departures'],old['->'.join(route)])
@@ -98,7 +98,7 @@ class TravelPilotTests(unittest.TestCase):
                 check=checker.audit_closed_week(*route,date)
                 self.assertEqual(check['checked'],5423)
                 self.assertEqual(check['feasible_samples'],0,
-                                 f"FALSE CLOSURE {route} {date} at 0.25-day TOF")
+                                 f"FALSE CLOSURE at weekly sample date {route} {date}, 0.25-day TOF")
 
     def test_two_fixed_mercury_fine_witnesses_and_exact_batch_replay(self):
         from .batch import BatchTravelPilot
@@ -165,7 +165,7 @@ class TravelPilotTests(unittest.TestCase):
             for r in rows:
                 self.assertLessEqual(r['departure_vinf_km_s'],10)
                 self.assertLessEqual(r['arrival_vinf_km_s'],10)
-    def test_actual_2026_to_2031_weekly_grid_plus_one_day_minimum_refinement(self):
+    def test_actual_2026_to_2031_weekly_sample_date_grid_and_daily_refinement(self):
         for summary in self.data['route_summaries']:
             self.assertIn((summary['origin'],summary['destination']),PILOT_PAIRS)
             self.assertGreaterEqual(summary['weekly_departures'],312)
@@ -207,7 +207,7 @@ class TravelPilotTests(unittest.TestCase):
             for sample in (lo,hi):
                 self.assertEqual(
                     (_day(sample['departure'])-first).days % 7,0)
-            # Tight Mercury feasibility produces narrow low-cost clusters;
+            # Sampled Mercury feasibility produces narrow low-cost clusters;
             # cost spread alone is not the launch-window proof.
             self.assertGreater(hi['cost_usd_millions'],
                                lo['cost_usd_millions'])
