@@ -114,3 +114,20 @@ is reported externally because elapsed CPU time is nondeterministic.
 
 **Neither an admitted Lambert trajectory nor a date with no sampled
 trajectory is a qualified mission design or certified flight capability.**
+
+## Catalog-wide endpoint eligibility (Build 8, non-runtime)
+
+The on-demand endpoint resolver now accepts every one of the 110 governed
+Solar catalog identities at any UTC date in 2026–2226. It reports direct
+qualified source coverage, propagated/missing source unknowns, unsupported
+Sun, and a separate unknown local leg for natural satellites whose state
+is otherwise direct. Spacecraft remain non-navigation-grade. It never
+substitutes a system barycenter for its physical planet, and performs
+**zero Lambert solves** when answering endpoint eligibility.
+
+The complete [110-identity / five-date matrix and 16 source boundary
+transitions](CATALOG_ELIGIBILITY_110.md) are checked against the qualified
+Solar manifests and the previously promoted DE440 coverage rows. The
+existing pilot source authority, flight search, vehicle/price/wait/payment
+choices and recorded results are unchanged. Eight original geometry
+records replay byte-for-byte against the pre-change main branch.
