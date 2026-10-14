@@ -1841,5 +1841,6 @@
       "standing": "TEST_ONLY_PROVISIONAL_AUTHORED_2026_VEHICLE_CLASS_NOT_CANON",
       "to_year": 2226
     }
-  ]
+ ],
+  "weekly_sample_date_interpretation": "Open/closed counts refer to 313 weekly sample dates (one departure every 7 days), not full calendar weeks. A window narrower than the 7-day departure sampling step may be missed, especially for Mercury. On-demand lookup should scan daily departure dates inside the requested wait limit."
 }
