@@ -1,13 +1,17 @@
-"""TEST_ONLY: one-body physical project atop Route 1, with no frozen edits."""
+"""Ceres TEST_ONLY treasury returns, authorized operator, and replayed funding."""
 import unittest
 from decimal import Decimal as D
 
+from offworld_kernel.model import AccountKind, TxPurpose
 from .ceres_downstream import (
-    A, TEST_ONLY_TABLE, BODY, SPONSOR, EXECUTOR, NODE, PROJECT, ASSET,
-    CASH, FIN_CASH, REINVEST, RETURNED, LABEL, RETURN_POLICY, RESOURCE, BUDGET, SUPPLIER, CeresDownstream,
-    run_ceres_downstream,
-)
+    A, TEST_ONLY_TABLE, BODY, SPONSOR, EXECUTOR, PROJECT, ASSET,
+    CASH, FIN_CASH, REINVEST, RESOURCE, BUDGET, SUPPLIER, CeresDownstream,
+    AGENCY_OWNER_TYPES, OPERATOR_GRANTS, APPROPRIATIONS, run_ceres_downstream)
+from .return_routing import (
+    DESTINATIONS, SOURCE, agency_owner_type, apply_operator_grants, resolve_destination)
 from .route1_all_body_campaign_pr3b import run_all_body_campaign
+from .route1_gate1 import run_gate1
+
 
 class CeresDownstreamTests(unittest.TestCase):
     @classmethod
@@ -16,283 +20,243 @@ class CeresDownstreamTests(unittest.TestCase):
         cls.first = run_ceres_downstream()
         cls.replay = run_ceres_downstream()
 
-    def test_existing_full_campaign_not_changed(self):
+    def test_legacy_mode_has_zero_grants_and_pinned_90_body_baseline(self):
         base = self.base
-        funded = [r for r in base['campaign']['receipts']]
-        blocked = [r for r in base['campaign']['attempts'] if r['outcome']=='BLOCKED']
-        self.assertEqual((len(funded), len(base['kernel'].state.transactions),
-                          len(blocked)), (249, 8779, 0))
-        self.assertNotIn('P',base['kernel'].state.projects)
-        self.assertNotIn('MINE-P',base['kernel'].state.assets)
-        self.assertEqual(base['kernel'].state.accounts['earth_market'].balance,D('100'))
+        self.assertEqual((len(base['campaign']['receipts']),
+                          len(base['kernel'].state.transactions),
+                          sum(r['outcome'] == 'BLOCKED' for r in base['campaign']['attempts'])),
+                         (249, 8779, 0))
+        self.assertFalse(any(cap.startswith('OPERATE_PROJECT:')
+                             for agent in base['kernel'].agents.values()
+                             for cap in agent.capabilities))
+        self.assertNotIn(PROJECT, base['kernel'].state.projects)
+        # Standalone Gate 1 remains empty too, not just the 90-body subclass.
+        _, pilot = run_gate1()
+        self.assertFalse(any(cap.startswith('OPERATE_PROJECT:')
+                             for agent in pilot.agents.values()
+                             for cap in agent.capabilities))
 
-    def test_authored_values_are_single_labeled_table(self):
-        self.assertEqual(len({key for key, _, _ in TEST_ONLY_TABLE}),len(TEST_ONLY_TABLE))
-        self.assertTrue(all(key and value and basis for key,value,basis in TEST_ONLY_TABLE))
-        self.assertEqual(A['body'],BODY)
-        self.assertEqual(A['sponsor'],SPONSOR)
-        self.assertEqual(A['executor'],EXECUTOR)
-        self.assertEqual(
-            sum((D(A[k]) for k in ('financier_return_share', 'local_reinvest_share',
-                    'owner_return_share', 'reserve_share')), D(0)),D(1))
-        self.assertEqual(D(A['physical_construction_cost']),
-            D(A['construction_stage_1'])+D(A['construction_stage_2']))
-        self.assertEqual(D(A['physical_construction_cost'])+D(A['operating_float']),
-            D('0.080'))
+    def test_authored_source_rows_and_missing_owner_type_fail_closed(self):
+        self.assertEqual(len({key for key,_,_ in TEST_ONLY_TABLE}), len(TEST_ONLY_TABLE))
+        self.assertTrue(all(k and v and reason for k,v,reason in TEST_ONLY_TABLE))
         self.assertEqual(self.first['authored'], TEST_ONLY_TABLE)
+        self.assertEqual(agency_owner_type('ISRO', AGENCY_OWNER_TYPES), 'public_agency')
+        with self.assertRaisesRegex(ValueError, 'missing'):
+            agency_owner_type('ISRO', ())
+        with self.assertRaisesRegex(ValueError, 'ambiguous'):
+            agency_owner_type('ISRO', AGENCY_OWNER_TYPES + AGENCY_OWNER_TYPES)
+        self.assertEqual(len(OPERATOR_GRANTS), 1)
+        self.assertEqual(len(APPROPRIATIONS), 2)
 
-    def test_studies_are_paid_once_before_distinct_construction(self):
-        c = self.first['campaign']
-        receipts = [r for r in c['receipts'] if r['body']==BODY]
-        self.assertEqual([(r['stage'],r['year'],r['sponsor'],r['executor']) for r in receipts],
-                         [('A1',2036,SPONSOR,'Airbus Defence and Space'),
-                          ('A2',2037,SPONSOR,EXECUTOR)])
-        reviews = [r for r in c['studies'] if r['body']==BODY]
-        self.assertEqual([(r['stage'],r['year'],r['result']) for r in reviews],
-                         [('A1',2037,'SUPPORTS_ADVANCE'),
-                          ('A2',2038,'SUPPORTS_ADVANCE')])
-        self.assertEqual({r['stage'] for r in receipts},{'A1','A2'})
-        fin = next(r for r in c['physical'] if r['stage']=='FINANCE')
-        self.assertEqual(fin['study_receipt'], receipts[1]['disbursement_id'])
-        self.assertNotEqual(fin['disbursement_tx'],receipts[1]['disbursement_id'])
-        self.assertEqual(self.first['kernel'].state.accounts['route1:campaign:cash:CERES:'+SPONSOR].balance,D(0))
-
-    def test_five_stages_on_one_actual_route1_ledger(self):
+    def test_operator_grants_are_authored_and_validate_existing_project(self):
         k = self.first['kernel']
-        stages = {(r['stage'],r['year']) for r in self.first['campaign']['physical']}
-        self.assertTrue({
-            ('FINANCE',2039),('CONSTRUCTION',2039),('CONSTRUCTION',2040),
-            ('COMMISSIONED',2040),('EXTRACTED',2041),('SOLD',2041),
-            ('DISTRIBUTED',2041),('REINVESTED_INTO_OPERATIONS',2042),
-            ('EXTRACTED',2042),('SOLD',2042),('DISTRIBUTED',2042),
-            ('RETURNED_CASH_FUNDED_OPERATIONS',2043),('EXTRACTED',2043),
-        }.issubset(stages))
-        self.assertEqual(k.state.projects[PROJECT].node_id,NODE)
-        self.assertEqual(k.state.projects[PROJECT].status,'OPERATING')
-        self.assertEqual(k.state.assets[ASSET].kind.value,'PRODUCTIVE')
-        self.assertEqual(k.state.assets[ASSET].capacity,D(A['productive_capacity']))
-        txid = {t.id:t for t in k.state.transactions}
-        for row in self.first['campaign']['physical']:
-            if row['stage'] in ('CONSTRUCTION','SOLD','EXTRACTED'):
-                key = 'opex_tx' if row['stage']=='EXTRACTED' else 'tx'
-                self.assertIn(row[key],txid)
-        fin = next(r for r in self.first['campaign']['physical'] if r['stage']=='FINANCE')
-        invest, disburse = txid[fin['investment_tx']],txid[fin['disbursement_tx']]
-        self.assertEqual((invest.source_account,invest.destination_account),(BUDGET,FIN_CASH))
-        self.assertEqual((disburse.source_account,disburse.destination_account),(FIN_CASH,CASH))
-        self.assertEqual(invest.amount,disburse.amount)
-        self.assertEqual((invest.amount,invest.purpose.value),(D('0.080'),'OTHER_INVESTMENT'))
-        self.assertEqual(k.state.accounts[FIN_CASH].balance,D('0'))
-        self.assertEqual(k.state.accounts[RETURNED].balance,D('.060'))
+        reported = self.first['campaign']['operator_grants']
+        self.assertEqual(len(reported), len(OPERATOR_GRANTS))
+        self.assertEqual({(r['agency'], r['project'], r['owner'], r['reason'])
+                          for r in reported}, set(OPERATOR_GRANTS))
+        self.assertEqual(k.state.projects[PROJECT].owners, {'STATE:IND': D(1)})
+        for r in reported:
+            self.assertIn(r['project'], k.state.projects)
+            self.assertIn(r['agency'], k.agents)
+            self.assertIn(r['owner'], k.state.projects[r['project']].owners)
+            self.assertIn(r['capability'], k.agents[r['agency']].capabilities)
+        self.assertNotIn(SPONSOR, k.state.projects[PROJECT].owners)
+        self.assertEqual({(a,cap) for a,agent in k.agents.items()
+                          for cap in agent.capabilities if cap.startswith('OPERATE_PROJECT:')},
+                         {(SPONSOR, 'OPERATE_PROJECT:'+PROJECT)})
+        with self.assertRaisesRegex(ValueError,'invalid authored'):
+            apply_operator_grants(k, ((SPONSOR,'MISSING','STATE:IND','invalid'),))
+        with self.assertRaisesRegex(ValueError,'duplicate'):
+            apply_operator_grants(k, OPERATOR_GRANTS + OPERATOR_GRANTS)
 
-    def test_physical_stock_buyer_cash_and_market_quantities(self):
+    def test_destination_table_resolution_general_without_other_physical_runs(self):
         k = self.first['kernel']
-        self.assertEqual(k.resources[RESOURCE].in_situ,D(A['in_situ']))
-        self.assertEqual(k.resources[RESOURCE].accessible,D(A['accessible']))
-        self.assertEqual(k.resources[RESOURCE].recoverable,D(A['recoverable']))
-        self.assertEqual(k.resources[RESOURCE].remaining,D('2'))
-        records = [r for r in k.extraction_resolution_records if r.project_id == PROJECT]
-        sales = [r for r in k.market_clearing_records if r.project_id == PROJECT]
-        self.assertEqual(len(records),3)
-        self.assertEqual(len(sales),2)
-        self.assertEqual(sum((r.actual_extracted for r in records),D(0)),D('6'))
-        self.assertEqual(sum((r.cleared_quantity for r in sales),D(0)),D('4'))
-        self.assertEqual(sum((r.transaction_value for r in sales),D(0)),D('.200'))
-        self.assertEqual(k.colonies[NODE].resource_inventory,D(2))
-        self.assertEqual(k.market_resource_inventory[('EARTH:USA',RESOURCE)],D('4'))
-        buyer = k.state.accounts['earth_market']
-        self.assertEqual(buyer.balance,D(A['buyer_endowment'])-D('.200'))
-        self.assertTrue(all(D(x['before'])>=D(x['paid']) and D(x['after'])>=0
-                            for x in self.first['campaign']['buyer_checks']))
-        self.assertEqual([x['year'] for x in self.first['campaign']['buyer_checks']], [2041,2042])
+        self.assertEqual(set(DESTINATIONS), {(SOURCE,t) for t in
+                                             ('public_agency','private_company','financier')})
+        self.assertEqual(resolve_destination(k,SOURCE,'public_agency','STATE:IND',SPONSOR)['account'],
+                         'treasury:IND')
+        self.assertEqual(resolve_destination(k,SOURCE,'private_company',SPONSOR,SPONSOR)['account'],
+                         BUDGET)
+        self.assertEqual(resolve_destination(k,SOURCE,'private_company',SPONSOR,SPONSOR,
+                             overrides=((SOURCE,'private_company',SPONSOR,
+                                         'company_funds',0),))['account'], BUDGET)
+        claim=k.financing_return_claims['ceres:physical:return_claim']
+        self.assertEqual(resolve_destination(k,SOURCE,'financier',claim.financier_id,SPONSOR,
+                                             financing_claim=claim)['account'], FIN_CASH)
+        with self.assertRaisesRegex(ValueError,'missing return destination'):
+            resolve_destination(k,'UNKNOWN','public_agency','STATE:IND',SPONSOR)
+        with self.assertRaisesRegex(ValueError,'matching validated claim'):
+            resolve_destination(k,SOURCE,'financier',claim.financier_id,SPONSOR)
+        with self.assertRaisesRegex(ValueError,'mismatch'):
+            resolve_destination(k,SOURCE,'public_agency','STATE:USA',SPONSOR)
 
-    def test_return_and_reinvestment_fund_real_next_year_expense(self):
-        k = self.first['kernel']
-        physical = self.first['campaign']['physical']
-        distribution=next(x for x in physical if x['stage']=='DISTRIBUTED')
-        reinvest=next(x for x in physical if x['stage']=='REINVESTED_INTO_OPERATIONS')
-        opex=next(x for x in physical if x['stage']=='EXTRACTED' and x['year']==2042)
-        txid={t.id:t for t in k.state.transactions}
-        transfer = txid[reinvest['transaction']]
-        expense = txid[opex['opex_tx']]
-        self.assertEqual((transfer.source_account,transfer.destination_account),(REINVEST,CASH))
-        self.assertEqual((expense.source_account,expense.destination_account),(CASH,SUPPLIER))
-        self.assertEqual(transfer.amount,expense.amount)
-        self.assertEqual(transfer.purpose.value,'LOCAL_REINVESTMENT')
-        self.assertEqual(expense.purpose.value,'OPEX')
-        self.assertEqual(D(distribution['reinvestment']),D('.04'))
-        self.assertEqual(k.state.accounts[REINVEST].balance,D('.06'))
-        self.assertEqual(D(distribution['financier_return']),D('.02'))
-        self.assertEqual(D(distribution['owner_return']),D('.02'))
-        self.assertEqual(k.state.accounts[CASH].balance,D('.04'))
-        self.assertTrue(any(r.source_commitment_ids==('ceres:physical:commitment',)
-                            for r in k.financing_return_claims.values()))
-
-    def test_second_sale_full_cash_distribution_exhausted_claim_to_owner(self):
-        k = self.first['kernel']
-        physical = self.first['campaign']['physical']
-        allocations = [p for p in physical if p['stage']=='DISTRIBUTED']
-        self.assertEqual(len(allocations),2)
-        first,second=allocations
-        self.assertEqual((first['year'],D(first['financier_return']),
-            D(first['owner_return']),D(first['reinvestment']),D(first['project_reserve'])),
-            (2041,D('.02'),D('.02'),D('.04'),D('.02')))
-        self.assertEqual((second['year'],D(second['financier_return']),
-            D(second['owner_return']),D(second['reinvestment']),D(second['project_reserve'])),
-            (2042,D(0),D('.04'),D('.04'),D('.04')))
-        records = [x for x in k.surplus_distribution_records if x.project_id==PROJECT]
-        self.assertEqual(len(records),2)
-        self.assertEqual(records[1].opening_project_cash,D('.12'))
-        self.assertEqual(records[1].financier_return,D(0))
-        self.assertEqual(records[1].owner_allocations[0].destination_account_id,BUDGET)
+    def test_owner_treasury_account_unique_nonagent_and_direct_returns(self):
+        k=self.first['kernel']; treasury=k.state.accounts['treasury:IND']
+        self.assertNotIn('STATE:IND',k.agents)
+        self.assertEqual((treasury.owner_id,treasury.kind,treasury.node_id),
+                         ('STATE:IND',AccountKind.FUNDS,'EARTH:IND'))
+        self.assertEqual(len([a for a in k.state.accounts.values()
+                              if a.owner_id=='STATE:IND' and a.kind==AccountKind.FUNDS]),1)
+        rows=k.surplus_distribution_records
+        self.assertEqual([(r.year,r.owner_distribution,r.financier_return,
+                           r.local_reinvestment,r.reserve) for r in rows],
+                         [(2041,D('.020'),D('.020'),D('.040'),D('.020')),
+                          (2042,D('.040'),D(0),D('.040'),D('.040'))])
+        self.assertEqual([(r.owner_allocations[0].destination_account_id,
+                           r.owner_allocations[0].amount) for r in rows],
+                         [('treasury:IND',D('.020')),('treasury:IND',D('.040'))])
+        for r in rows:
+            for owner in r.owner_allocations:
+                tx=next(t for t in k.state.transactions if t.id==owner.transaction_id)
+                self.assertEqual((tx.destination_account,tx.purpose),
+                                 ('treasury:IND',TxPurpose.OWNER_DISTRIBUTION))
         self.assertEqual(k.financing_return_remaining('ceres:physical:return_claim'),D(0))
-        self.assertEqual(sum((x['amount'] and D(x['amount']) for x in
-                              self.first['campaign']['return_receipts']),D(0)),D('.08'))
-        # All distribution receipts are supported by actual cleared sales.
-        sales={x.transaction_id: x for x in k.market_clearing_records if x.project_id==PROJECT}
-        for record in records:
-            sale=next(x for x in physical if x['stage']=='DISTRIBUTED'
-                      and x['year']==record.year)
-            self.assertIn(sale['sale_tx'],sales)
-            self.assertLessEqual(record.financier_return+record.local_reinvestment+
-                record.owner_distribution, record.opening_project_cash)
+        self.assertEqual(k.state.accounts[FIN_CASH].balance,D('.020'))
 
-    def test_return_account_is_only_test_instrument_and_funds_real_expense(self):
-        r=self.first
-        self.assertEqual(r['label'],LABEL)
-        self.assertEqual(r['campaign']['label'],LABEL)
-        self.assertEqual(r['campaign']['closure'],'MECHANICAL_SCRIPTED_2043_NOT_DECISION')
-        self.assertTrue(r['campaign']['returned_cash_instrument_not_model_rule'])
-        self.assertEqual(len(RETURN_POLICY),1)
-        self.assertEqual({(x['revenue_source'],x['owner']) for x in
-                          r['campaign']['return_policy']},
-                         {(A['return_revenue_source'],SPONSOR)})
-        k=r['kernel']
-        txs={x.id:x for x in k.state.transactions}
-        receipts=r['campaign']['return_receipts']
-        self.assertEqual([(x['year'],x['kind'],D(x['amount'])) for x in receipts],
-            [(2041,'financier',D('.02')),(2041,'owner',D('.02')),(2042,'owner',D('.04'))])
-        self.assertEqual(k.state.accounts[RETURNED].owner_id,SPONSOR)
-        for x in receipts:
-            sale=txs[x['sale_tx']]
-            original=txs[x['return_tx']]
-            sweep=txs[x['sweep_tx']]
-            self.assertEqual(sale.purpose.value,'REVENUE')
-            self.assertLessEqual(sale.year,original.year)
-            self.assertEqual(sweep.source_account,BUDGET)
-            self.assertEqual(sweep.destination_account,RETURNED)
-            self.assertEqual(original.amount,sweep.amount)
-            self.assertIn(sale.id,sweep.parent_ids)
-        funding=r['campaign']['return_spends']
-        self.assertEqual(len(funding),1)
-        lot=funding[0]
-        self.assertEqual((lot['year'],D(lot['amount'])),(2043,D('.02')))
-        moved=txs[lot['funding_tx']]
-        opex=txs[lot['expense_tx']]
-        self.assertEqual((moved.source_account,moved.destination_account),(RETURNED,CASH))
-        self.assertEqual((opex.source_account,opex.destination_account),(CASH,SUPPLIER))
-        self.assertEqual(moved.amount,opex.amount)
-        self.assertIn(lot['source_sweep_tx'],moved.parent_ids)
-        self.assertIn(lot['source_sale_tx'],moved.parent_ids)
-        self.assertEqual(opex.purpose.value,'OPEX')
-        self.assertEqual(k.state.accounts[RETURNED].balance,D('.06'))
-        self.assertEqual(sum((D(x['amount']) for x in receipts),D(0))-
-            sum((D(x['amount']) for x in funding),D(0)),D('.06'))
+    def test_original_study_and_construction_are_separate(self):
+        c=self.first['campaign']
+        receipts=[r for r in c['receipts'] if r['body']==BODY]
+        self.assertEqual([(r['stage'],r['year'],r['sponsor']) for r in receipts],
+                         [('A1',2036,SPONSOR),('A2',2037,SPONSOR)])
+        self.assertEqual([r['year'] for r in c['studies'] if r['body']==BODY and r['stage']=='A2'],
+                         [2038])
+        stages=[r for r in c['physical'] if r['stage']=='CONSTRUCTION']
+        self.assertEqual([(r['year'],D(r['amount'])) for r in stages],
+                         [(2039,D('.030')),(2040,D('.030'))])
 
-    def test_country_year_shadow_gauge_is_reporting_only(self):
-        r=self.first
-        gauge=r['earth_gauge']
+    def test_four_operations_sale_stock_and_buyer_conservation(self):
+        k=self.first['kernel']
+        extraction=[r for r in k.extraction_resolution_records if r.project_id==PROJECT]
+        sales=[r for r in k.market_clearing_records if r.project_id==PROJECT]
+        self.assertEqual([(r.year,r.actual_extracted) for r in extraction],
+                         [(2041,D(2)),(2042,D(2)),(2043,D(2)),(2044,D(2))])
+        self.assertEqual((k.resources[RESOURCE].in_situ,k.resources[RESOURCE].accessible,
+                          k.resources[RESOURCE].recoverable,k.resources[RESOURCE].remaining),
+                         (D(20),D(10),D(8),D(0)))
+        self.assertEqual([(r.year,r.transaction_value) for r in sales],
+                         [(2041,D('.100')),(2042,D('.100'))])
+        self.assertEqual(k.state.accounts['earth_market'].balance,D('99.800'))
+        self.assertEqual(k.state.accounts[CASH].balance,D('.020'))
+        self.assertEqual(k.colonies['OFF:ROUTE1:CERES'].resource_inventory,D(4))
+        self.assertEqual(k.market_resource_inventory[('EARTH:USA',RESOURCE)],D(4))
+
+    def test_2043_reserve_no_hidden_fallback_and_2044_scripted_cost(self):
+        k=self.first['kernel']; c=self.first['campaign']; tx={t.id:t for t in k.state.transactions}
+        self.assertEqual([(r['year'],r['stage']) for r in c['physical']
+                          if r['stage'] in ('PROJECT_RESERVE_FUNDED_OPERATIONS',
+                          'APPROPRIATION_FUNDED_OPERATIONS_SCRIPTED')],
+                         [(2043,'PROJECT_RESERVE_FUNDED_OPERATIONS'),
+                          (2044,'APPROPRIATION_FUNDED_OPERATIONS_SCRIPTED')])
+        expense_2043=next(r for r in c['physical'] if
+                          r['stage']=='EXTRACTED' and r['year']==2043)
+        self.assertEqual((tx[expense_2043['opex_tx']].source_account,
+                          tx[expense_2043['opex_tx']].amount),
+                         (CASH,D('.020')))
+        self.assertFalse(any(t.year==2043 and t.source_location.startswith('EARTH:')
+                             and t.destination_location.startswith('OFF:') and
+                             t.purpose in (TxPurpose.OTHER_INVESTMENT,TxPurpose.DISBURSE,
+                                           TxPurpose.PUBLIC_SUBSIDY)
+                             for t in k.state.transactions))
+        spent=c['return_spends']
+        self.assertEqual(len(spent),1)
+        flow=spent[0]
+        self.assertEqual((flow['year'],D(flow['amount']),flow['classification']),
+                         (2044,D('.020'),'SCRIPTED_NOT_A_DECISION'))
+        appropriation=tx[flow['source_appropriation_tx']]
+        owner_return=tx[flow['source_return_tx']]
+        sale=tx[flow['source_sale_tx']]
+        capital=tx[flow['funding_tx']]
+        expense=tx[flow['expense_tx']]
+        self.assertEqual((sale.year,owner_return.year,appropriation.year,
+                          capital.year,expense.year),(2041,2041,2044,2044,2044))
+        self.assertEqual((sale.purpose,owner_return.purpose,appropriation.purpose,
+                          capital.purpose,expense.purpose),
+                         (TxPurpose.REVENUE,TxPurpose.OWNER_DISTRIBUTION,
+                          TxPurpose.PUBLIC_SUBSIDY,TxPurpose.OTHER_INVESTMENT,TxPurpose.OPEX))
+        self.assertEqual((appropriation.source_account,appropriation.destination_account),
+                         ('treasury:IND',BUDGET))
+        self.assertEqual((capital.source_account,capital.destination_account),(BUDGET,CASH))
+        self.assertEqual((expense.source_account,expense.destination_account),(CASH,SUPPLIER))
+        self.assertTrue({sale.id,owner_return.id}<=set(appropriation.parent_ids))
+        self.assertTrue({sale.id,owner_return.id,appropriation.id}<=set(capital.parent_ids))
+        self.assertEqual((capital.amount,expense.amount),(D('.020'),D('.020')))
+
+    def test_delayed_2044_2045_appropriations_2045_unspent(self):
+        k=self.first['kernel']; c=self.first['campaign']; tx={t.id:t for t in k.state.transactions}
+        rows=c['appropriations']
+        self.assertEqual([(r['receipt_year'],r['eligible_year'],r['paid_year'],
+                           D(r['amount']),D(r['spent_on_ceres']),D(r['unspent_amount']))
+                          for r in rows],
+                         [(2041,2044,2044,D('.020'),D('.020'),D(0)),
+                          (2042,2045,2045,D('.040'),D(0),D('.040'))])
+        for r in rows:
+            self.assertTrue(r['scripted'])
+            self.assertGreaterEqual(r['paid_year'],r['eligible_year'])
+            self.assertEqual(D(r['amount']),D(r['spent_on_ceres'])+D(r['unspent_amount']))
+            t=tx[r['tx']]
+            self.assertEqual((t.year,t.source_account,t.destination_account),
+                             (r['paid_year'],'treasury:IND',BUDGET))
+            self.assertIn(r['source_return_tx'],t.parent_ids)
+        self.assertFalse(any(r['paid_year']==2043 for r in rows))
+        self.assertEqual(k.state.accounts['treasury:IND'].balance,D(0))
+        self.assertTrue(any(r['year']==2045 and r['stage']=='TREASURY_APPROPRIATION'
+                            and D(r['unspent_amount'])==D('.040') for r in c['physical']))
+        self.assertGreaterEqual(k.state.accounts[BUDGET].balance,D('.040'))
+
+    def test_gauge_provenance_account_free_and_full_reconciliation(self):
+        r=self.first; gauge=r['earth_gauge']
         self.assertEqual(len(gauge),80*201)
-        self.assertEqual(r['earth_gauge_definition']['label'],LABEL)
-        self.assertIn('kernel earth_impact.capital_diverted_to_offworld',
-                      r['earth_gauge_definition']['draw_definition'])
-        self.assertIn('study/CAPEX/OPEX payments',r['earth_gauge_definition']['not_counted'])
-        self.assertIn('mechanical scripted',r['earth_gauge_definition']['closure'])
-        self.assertTrue(all(x['label']==LABEL for x in gauge))
-        self.assertEqual(len({(x['country'],x['year']) for x in gauge}),len(gauge))
-        definition=r['earth_gauge_definition']
-        self.assertIn('new_capital_draw',definition['draw_definition'])
-        self.assertIn('recycled_returned_cash_spent',definition['draw_definition'])
-        self.assertIn('not new Earth capital',definition['counted'])
         india={x['year']:x for x in gauge if x['country']=='IND'}
-        # Existing full kernel draw column is pinned, including India 2039.
         expected={2038:('.030','0','0'),2039:('.095','0','0'),
                   2040:('.015','0','0'),2041:('0','0','.040'),
-                  2042:('0','0','.040'),2043:('0','.020','0')}
+                  2042:('0','0','.040'),2043:('0','0','0'),
+                  2044:('0','.020','0'),2045:('0','0','0')}
         for year,(new,recycled,returned) in expected.items():
             row=india[year]
-            self.assertEqual(D(row['new_capital_draw']),D(new))
-            self.assertEqual(D(row['recycled_returned_cash_spent']),D(recycled))
-            self.assertEqual(D(row['offworld_draw']),D(new)+D(recycled))
-            self.assertEqual(D(row['returns_received']),D(returned))
-            cap=D(row['capacity'])
-            self.assertEqual(D(row['new_capital_draw_pct_of_capacity']),
-                             D(new)/cap*D(100))
-            self.assertEqual(D(row['recycled_returned_cash_spent_pct_of_capacity']),
-                             D(recycled)/cap*D(100))
-            self.assertEqual(D(row['draw_pct_of_capacity']),
-                             (D(new)+D(recycled))/cap*D(100))
-            self.assertEqual(D(row['returns_pct_of_capacity']),
-                             D(returned)/cap*D(100))
-        # Match every historical kernel shadow entry, not merely India.
-        shadow=self.first['kernel'].state.earth_impact.capital_diverted_to_offworld
+            self.assertEqual((D(row['new_capital_draw']),
+                              D(row['recycled_returned_cash_spent']),
+                              D(row['returns_received'])),
+                             (D(new),D(recycled),D(returned)))
+        shadow=r['kernel'].state.earth_impact.capital_diverted_to_offworld
         for row in gauge:
-            node='EARTH:'+row['country']
-            year=row['year']
-            new=D(row['new_capital_draw'])
-            recycled=D(row['recycled_returned_cash_spent'])
-            total=D(row['offworld_draw'])
-            self.assertEqual(new+recycled,total)
-            self.assertEqual(total,D(shadow.get((node,year),D(0))))
-            self.assertEqual(
-                D(row['draw_pct_of_capacity']),
-                D(row['new_capital_draw_pct_of_capacity'])+
-                D(row['recycled_returned_cash_spent_pct_of_capacity']))
-            if (row['country'],year)!=('IND',2043):
-                self.assertEqual(recycled,D(0))
-                self.assertEqual(new,total)
-        # India 2043 0.020 is recycled cash, not fresh capital.
-        self.assertEqual(india[2043]['new_capital_draw'],'0.000')
-        self.assertEqual(india[2043]['offworld_draw'],'0.020')
-        zeros=[x for x in gauge if x['offworld_draw']=='0' and
-               x['returns_received']=='0' and D(x['capacity'])>0]
-        self.assertTrue(zeros)
-        self.assertTrue(all(x['draw_pct_of_capacity']=='0' and
-                            x['returns_pct_of_capacity']=='0' for x in zeros))
+            n,re,draw=(D(row[k]) for k in
+                       ('new_capital_draw','recycled_returned_cash_spent','offworld_draw'))
+            self.assertEqual(n+re,draw)
+            self.assertEqual(draw,D(shadow.get(('EARTH:'+row['country'],row['year']),D(0))))
+        definition=r['earth_gauge_definition']
+        self.assertIn('not account names',definition['draw_definition'])
+        self.assertIn('UNCHANGED kernel',definition['draw_definition'])
+        self.assertTrue(all(D(x['recycled_returned_cash_spent'])==0
+                            for x in gauge if (x['country'],x['year'])!=('IND',2044)))
 
-    def test_underfunded_buyer_rejected_without_any_partial_sale(self):
-        k=self.first['kernel']
-        buyer=k.state.accounts['earth_market']
-        colony=k.colonies[NODE]
-        previous_cash, previous_inventory=buyer.balance,colony.resource_inventory
-        before=(len(k.state.transactions),len(k.market_clearing_records),
-                len(k.market_envelopes),len(self.first['campaign']['physical']))
+    def test_replay_and_actual_transaction_count(self):
+        first, replay = self.first, self.replay
+        self.assertEqual(first['kernel'].fingerprint(),replay['kernel'].fingerprint())
+        for key in ('physical','return_receipts','return_spends',
+                    'operator_grants','agency_owner_types','appropriations','return_policy'):
+            self.assertEqual(first['campaign'][key],replay['campaign'][key])
+        self.assertEqual(first['earth_gauge'],replay['earth_gauge'])
+        self.assertEqual(len(first['kernel'].state.transactions),8798)
+        self.assertEqual(len(first['campaign']['receipts']),249)
+        self.assertEqual(sum(r['outcome']=='BLOCKED' for r in
+                             first['campaign']['attempts']),0)
+
+    def test_underfunded_buyer_rejected_without_partial_sale(self):
+        k=self.first['kernel']; buyer=k.state.accounts['earth_market']
+        inventory=k.colonies['OFF:ROUTE1:CERES']
+        old_cash,old_inventory=buyer.balance,inventory.resource_inventory
+        initial=(len(k.state.transactions),len(k.market_clearing_records),
+                 len(k.market_envelopes))
         try:
             buyer.balance=D(0)
-            colony.resource_inventory=D(A['demand_per_year'])
+            inventory.resource_inventory=D(A['demand_per_year'])
             with self.assertRaisesRegex(ValueError,'BLOCKED_AFFORDABILITY'):
-                # Fresh calendar year, but guard MUST run before market registration.
-                trial=CeresDownstream()
-                trial._sell(k,2043)
-            after=(len(k.state.transactions),len(k.market_clearing_records),
-                   len(k.market_envelopes),len(self.first['campaign']['physical']))
-            self.assertEqual(before,after)
-            self.assertEqual(colony.resource_inventory,D(A['demand_per_year']))
+                CeresDownstream()._sell(k,2045)
+            self.assertEqual((len(k.state.transactions),len(k.market_clearing_records),
+                              len(k.market_envelopes)),initial)
         finally:
-            buyer.balance=previous_cash
-            colony.resource_inventory=previous_inventory
+            buyer.balance,inventory.resource_inventory=old_cash,old_inventory
 
-    def test_replay_exact_no_new_modes_or_rewrite(self):
-        self.assertEqual(self.first['kernel'].fingerprint(),self.replay['kernel'].fingerprint())
-        self.assertEqual(self.first['campaign']['physical'],self.replay['campaign']['physical'])
-        self.assertEqual(self.first['campaign']['buyer_checks'],self.replay['campaign']['buyer_checks'])
-        self.assertEqual(self.first['campaign']['return_receipts'],self.replay['campaign']['return_receipts'])
-        self.assertEqual(self.first['campaign']['return_spends'],self.replay['campaign']['return_spends'])
-        self.assertEqual(self.first['earth_gauge'],self.replay['earth_gauge'])
-        self.assertEqual(len(self.first['kernel'].state.transactions),8799)
-        self.assertEqual(len(self.first['campaign']['receipts']),249)
-        self.assertEqual(
-            sum(x['outcome']=='BLOCKED' for x in self.first['campaign']['attempts']),0)
 
-if __name__=='__main__':
+if __name__ == '__main__':
     unittest.main()
