@@ -39,31 +39,82 @@ class TravelPilotTests(unittest.TestCase):
         self.assertEqual(self.data['pricing_2036_2226'],
                          'HELD_AT_2026_LEVEL_BY_ASSUMPTION_NOT_EMPIRICAL')
 
-    def test_derived_velocity_envelope_matches_every_2026_priced_anchor(self):
-        import csv
-        from .pilot import TECHNOLOGY_TABLE
-        with ANCHORS.open(newline='') as stream:
-            rows = [r for r in csv.DictReader(stream)
-                    if r['year'] == '2026' and r['body_id'] != 'MOON'
-                    and r['one_way_cost_usd_millions']
-                    and r['method'] in ('REFINED_GROUPED_LAMBERT_GRID',
-                                       'EXISTING_SCREEN_SINGLE_CANDIDATE')
-                    and float(r['departure_vinf_km_s']) +
-                        float(r['arrival_vinf_km_s']) > 0]
-        self.assertEqual(len(rows),522)
+    def test_authored_vehicle_10_10_km_s_not_price_calibration_or_canon(self):
+        from .pilot import TECHNOLOGY_TABLE, TOF_SCAN_DAYS, CLOSED_AUDIT_SCAN_DAYS
         t=TECHNOLOGY_TABLE[0]
-        expected_depart=max(float(r['departure_vinf_km_s']) for r in rows)
-        expected_arrive=max(float(r['arrival_vinf_km_s']) for r in rows)
         self.assertEqual((t['max_departure_vinf_km_s'],
-                          t['max_arrival_vinf_km_s']),
-                         (expected_depart,expected_arrive))
-        self.assertEqual((expected_depart,expected_arrive),(73.430819,56.091356))
-        self.assertGreater(expected_depart,40)
-        self.assertGreater(expected_arrive,40)
-        self.assertEqual(t['anchor_rows_2026'],522)
-        self.assertIn('TEST_ONLY_PROVISIONAL',t['standing'])
+                          t['max_arrival_vinf_km_s']), (10.0,10.0))
+        self.assertEqual(t['payload_tonnes'],2)
+        self.assertEqual(t['from_year'],2026)
+        self.assertIn('AUTHORED',t['standing'])
+        self.assertIn('NOT_CANON',t['standing'])
+        self.assertIn('heavier ships',t['reason'])
         self.assertEqual(self.data['technology_table'][0],t)
+        self.assertEqual(TOF_SCAN_DAYS,2.0)
+        self.assertEqual(CLOSED_AUDIT_SCAN_DAYS,.25)
+        self.assertEqual(
+            self.data['previous_price_anchor_maxima_historical_only'],
+            dict(departure_vinf_km_s=73.430819,
+                 arrival_vinf_km_s=56.091356,
+                 status='HISTORICAL_PRICE_ANCHOR_LIMITS_NO_LONGER_IN_EFFECT'))
 
+    def test_all_eight_known_mercury_weeks_are_now_recovered(self):
+        known=('2026-04-23','2026-04-30','2026-05-07','2027-04-15',
+               '2027-04-22','2031-05-15','2031-05-22','2031-05-29')
+        self.assertEqual(tuple(self.data['known_mercury_weekly_witnesses']),known)
+        for date in known:
+            with self.subTest(departure=date):
+                candidates=self.pilot.candidates('EARTH','MERCURY',date)
+                self.assertTrue(candidates, 'known feasible Mercury week lost: '+date)
+                self.assertTrue(all(0<=r['departure_vinf_km_s']<=10 and
+                                    0<=r['arrival_vinf_km_s']<=10 for r in candidates))
+
+    def test_independent_dense_closure_audits(self):
+        from .pilot import CLOSED_AUDIT_SCAN_DAYS
+        audited=self.data['dense_closure_audits']
+        self.assertEqual(len(audited),9)
+        self.assertEqual({(x['origin'],x['destination']) for x in audited},
+                         set(PILOT_PAIRS))
+        for row in audited:
+            self.assertEqual(row['dense_step_days'],.25)
+            self.assertGreater(row['checked_flight_durations'],5000)
+            self.assertEqual(row['feasible_samples'],0)
+            self.assertIn('NOT_CONTINUOUS_PROOF',row['conclusion'])
+        # Independent actual flight-scan verification of one selected
+        # 0.25-day sample per route. Result generation checks the other six.
+        for origin,destination in PILOT_PAIRS:
+            row=next(x for x in audited if (x['origin'],x['destination']) ==
+                     (origin,destination))
+            with self.subTest(route=(origin,destination),date=row['departure']):
+                x=self.pilot.audit_closed_week(origin,destination,row['departure'])
+                self.assertEqual(x['scan_step_days'],CLOSED_AUDIT_SCAN_DAYS)
+                self.assertEqual(x['feasible_samples'],0)
+                self.assertEqual(x['checked'],row['checked_flight_durations'])
+
+    def test_no_returned_trajectory_violates_both_vehicle_limits(self):
+        from .pilot import TECHNOLOGY_TABLE
+        tech=TECHNOLOGY_TABLE[0]
+        for route in self.data['route_summaries']:
+            for label in ('cheapest_sample','costliest_sample',
+                          'weekly_cheapest_sample','weekly_costliest_sample',
+                          'first_sample','last_sample'):
+                if label not in route:
+                    continue
+                candidate=route[label]
+                self.assertLessEqual(candidate['departure_vinf_km_s'],
+                                     tech['max_departure_vinf_km_s'])
+                self.assertLessEqual(candidate['arrival_vinf_km_s'],
+                                     tech['max_arrival_vinf_km_s'])
+        for origin,destination in PILOT_PAIRS:
+            # Test a separate live computation, not only saved samples.
+            example=next(x['cheapest_sample']['departure'] for x in
+                         self.data['route_summaries'] if
+                         (x['origin'],x['destination'])==(origin,destination))
+            rows=self.pilot.candidates(origin,destination,example)
+            self.assertTrue(rows)
+            for r in rows:
+                self.assertLessEqual(r['departure_vinf_km_s'],10)
+                self.assertLessEqual(r['arrival_vinf_km_s'],10)
     def test_actual_2026_to_2031_weekly_grid_plus_one_day_minimum_refinement(self):
         for summary in self.data['route_summaries']:
             self.assertIn((summary['origin'],summary['destination']),PILOT_PAIRS)
@@ -71,18 +122,22 @@ class TravelPilotTests(unittest.TestCase):
             self.assertEqual(summary['feasible_weekly_departures'] +
                              summary['unavailable_weekly_departures'],
                              summary['weekly_departures'])
-            self.assertEqual(summary['feasible_weekly_departures'],313)
-            self.assertEqual(summary['unavailable_weekly_departures'],0)
+            self.assertGreater(summary['feasible_weekly_departures'],0)
+            self.assertGreater(summary['unavailable_weekly_departures'],0)
+            self.assertEqual(summary['flight_time_scan_days'],2.0)
             self.assertGreater(summary['refined_unique_departures'],0)
             self.assertGreater(summary['local_minima'],0)
-            self.assertGreater(summary['candidate_count'],summary['weekly_departures'])
-            for name in ('cheapest_sample','first_sample','last_sample'):
+            self.assertGreaterEqual(summary['candidate_count'],
+                                    summary['feasible_weekly_departures'])
+            for name in ('cheapest_sample','costliest_sample',
+                         'weekly_cheapest_sample','weekly_costliest_sample',
+                         'first_sample','last_sample'):
                 r=summary[name]
                 self.assertGreater(r['c3_km2_s2'],0)
                 self.assertGreater(r['transfer_burden_km_s'],0)
                 self.assertGreater(r['cost_usd_millions'],0)
                 self.assertGreater(r['flight_days'],0)
-                self.assertNotIn(r['flight_days'],(30,180,365,730,1460,2920))
+                self.assertTrue(45 <= r['flight_days'] <= 1400)
                 self.assertEqual(r['state_class_origin'],'DIRECT')
                 self.assertEqual(r['state_class_destination'],'DIRECT')
                 self.assertEqual(r['cost_standing'],
@@ -91,18 +146,28 @@ class TravelPilotTests(unittest.TestCase):
                     round((_day(r['arrival'])-_day(r['departure'])).total_seconds()/86400,5),
                     r['flight_days'])
 
-    def test_mercury_and_mars_phase_dependence_from_live_geometry(self):
-        for dest in ('MERCURY','MARS'):
-            costs=[]
-            for dep in ('2026-01-15','2026-04-15','2026-07-15','2026-10-15'):
-                rows=self.pilot.candidates('EARTH',dest,dep)
-                if rows:
-                    costs.append(min(r['cost_usd_millions'] for r in rows))
-            self.assertGreaterEqual(len(costs),3)
-            self.assertGreater(max(costs),1.1*min(costs),(dest,costs))
+    def test_mercury_and_mars_windows_remain_visible(self):
+        for destination in ('MERCURY','MARS'):
+            row=next(x for x in self.data['route_summaries']
+                     if x['origin']=='EARTH' and x['destination']==destination)
+            self.assertGreater(row['unavailable_weekly_departures'],0)
+            lo=row['weekly_cheapest_sample']
+            hi=row['weekly_costliest_sample']
+            first=_day('2026-01-01')
+            for sample in (lo,hi):
+                self.assertEqual(
+                    (_day(sample['departure'])-first).days % 7,0)
+            # Tight Mercury feasibility produces narrow low-cost clusters;
+            # cost spread alone is not the launch-window proof.
+            self.assertGreater(hi['cost_usd_millions'],
+                               lo['cost_usd_millions'])
+            # Recheck the witnessed minima directly from qualified states.
+            candidates=self.pilot.candidates('EARTH',destination,lo['departure'])
+            self.assertTrue(candidates)
+            self.assertTrue(all(self.pilot._admitted(r) for r in candidates))
 
     def test_any_moving_origin_and_arrival_position_truly_at_arrival(self):
-        r=self.pilot.candidates('MARS','CERES','2026-05-15')[0]
+        r=self.pilot.candidates('MARS','CERES','2029-06-28')[0]
         self.assertEqual((r['source_origin'],r['source_destination']),
                          ('JPL_MAR099','CERES_SPK_PHASE4B_2251'))
         self.assertNotEqual(r['departure'],r['arrival'])
@@ -110,19 +175,19 @@ class TravelPilotTests(unittest.TestCase):
         self.assertGreater(r['arrival_vinf_km_s'],0)
 
     def test_crossing_a_year_boundary(self):
-        r=self.pilot.candidates('EARTH','MARS','2026-12-15')[0]
+        r=self.pilot.candidates('EARTH','MARS','2026-10-29')[0]
         self.assertTrue(r['departure'].startswith('2026-'))
         self.assertGreater(int(r['arrival'][:4]),2026)
 
     def test_pareto_frontier_cost_time_and_continuous_flight(self):
-        results=self.pilot.candidates('EARTH','MARS','2026-05-15')
-        self.assertGreaterEqual(len(results),2)
+        results=self.pilot.candidates('EARTH','MARS','2026-10-29')
+        self.assertGreaterEqual(len(results),1)
         self.assertLessEqual(len(results),4)
         self.assertEqual(results,sorted(results,key=lambda x:x['flight_days']))
         self.assertTrue(all(results[i]['cost_usd_millions']>results[i+1]['cost_usd_millions']
                             for i in range(len(results)-1)))
-        self.assertTrue(any(abs(r['flight_days']-round(r['flight_days']))>.0001
-                            for r in results))
+        self.assertTrue(all(0<r['flight_days']<1401 for r in results))
+        self.assertTrue(all(self.pilot._admitted(r) for r in results))
 
     def test_unsupported_missing_and_bennu_2140_switch_default_off(self):
         self.assertEqual(self.pilot.state_class('DACTYL','2140-01-01'),'MISSING')
@@ -191,8 +256,9 @@ class TravelPilotTests(unittest.TestCase):
         self.assertEqual(moon['state_class_destination'],'DIRECT')
 
     def test_deterministic_replay_of_real_lambert_solution(self):
-        reference=self.pilot.candidates('EARTH','MARS','2026-07-15')
-        replay=TravelPilot().candidates('EARTH','MARS','2026-07-15')
+        reference=self.pilot.candidates('EARTH','MARS','2026-10-29')
+        replay=TravelPilot().candidates('EARTH','MARS','2026-10-29')
+        self.assertTrue(reference)
         self.assertEqual(reference,replay)
         self.assertTrue(self.data['no_simulation_consumers'])
 

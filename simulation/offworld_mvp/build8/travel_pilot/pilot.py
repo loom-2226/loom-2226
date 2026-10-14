@@ -28,40 +28,23 @@ PILOT_PAIRS = (('EARTH', 'MERCURY'), ('EARTH', 'MARS'), ('MARS', 'CERES'))
 SERVICE = 'ORBITAL_RECON'
 TECHNOLOGY = 'IMPULSIVE_ORBITAL_RECON_2T_PROVISIONAL'
 WAIT_DEFAULT_MONTHS = 12
-def _anchor_velocity_limits():
-    # Use exactly the Build 7 priced 2026 non-lunar, numerically screened
-    # rows admitted by price_table(), across its six service classes.
-    with ANCHORS.open(newline='') as stream:
-        rows = [r for r in csv.DictReader(stream)
-                if r['year'] == '2026' and r['body_id'] != 'MOON'
-                and r['one_way_cost_usd_millions']
-                and r['method'] in ('REFINED_GROUPED_LAMBERT_GRID',
-                                    'EXISTING_SCREEN_SINGLE_CANDIDATE')
-                and float(r['departure_vinf_km_s']) +
-                    float(r['arrival_vinf_km_s']) > 0]
-    if len(rows) != 522:
-        raise ValueError('2026 priced Build 7 anchor cohort changed')
-    return {
-        'max_departure_vinf_km_s': max(float(r['departure_vinf_km_s']) for r in rows),
-        'max_arrival_vinf_km_s': max(float(r['arrival_vinf_km_s']) for r in rows),
-        'anchor_rows_2026': len(rows),
-        'derivation': 'maximum respective v_inf among all 2026 non-lunar Build 7 priced rows admitted by the price-rate anchor filter',
-        'source_sha256': sha256(ANCHORS.read_bytes()).hexdigest(),
-        'standing': 'TEST_ONLY_PROVISIONAL_DERIVED_PRICE_ANCHOR_ENVELOPE_NOT_VEHICLE_CAPABILITY',
-    }
-
-
-# Derived price-calibration domain, not a real rocket's velocity capability.
-# Because the cohort includes outer-system bodies such as Eris, its maximum
-# values exceed the former 40 km/s caps and do NOT create launch exclusions.
+# Vehicle-class capability is authored, not inferred from prices or from
+# the technology timeline. Heavier payloads/ships need separately authored rows.
 TECHNOLOGY_TABLE = (
     dict(id=TECHNOLOGY, from_year=2026, to_year=2226,
          service_type=SERVICE, payload_tonnes=2,
-         **_anchor_velocity_limits(),
-         source='BUILD7_2026_PRICED_ANCHOR_MAXIMA_NOT_PHYSICAL_TECHNOLOGY_QUALIFICATION'),
+         max_departure_vinf_km_s=10.0, max_arrival_vinf_km_s=10.0,
+         standing='TEST_ONLY_PROVISIONAL_AUTHORED_2026_VEHICLE_CLASS_NOT_CANON',
+         reason='kT-selected candidate B: hypothetical 2-tonne orbital recon reference ship; '
+                'both endpoint hyperbolic excess speeds must satisfy 10.0 km/s on one transfer; '
+                'not a physical vehicle qualification; heavier ships require their own row',
+         source='AUTHORED_KT_CANDIDATE_B_NOT_DERIVED_FROM_BUILD7_PRICES'),
 )
 # Numeric optimization intervals are brackets, NOT discrete TOF candidates.
-# 45 days minimum; 1400 days maximum, independent continuous minimizations.
+# 45 days minimum; 1400 days maximum; dense flight-time scan and
+# local continuous refinement only INSIDE discovered feasible intervals.
+TOF_SCAN_DAYS = 2.0
+CLOSED_AUDIT_SCAN_DAYS = 0.25
 TOF_BRACKETS = ((45.0, 180.0), (180.0, 520.0), (520.0, 1400.0))
 DEPARTURE_STEP_DAYS = 7
 REFINE_NEAR_MINIMUM_DAYS = 14
@@ -240,52 +223,116 @@ class TravelPilot:
                               if 'PROPAGATED' in (q1,q2) else
                               'DIRECT_PRELIMINARY_LAMBERT_NOT_MISSION_DESIGN'))
 
-    def candidates(self, origin, destination, departure, *, technology=TECHNOLOGY):
-        if technology != TECHNOLOGY:
-            raise ValueError('UNKNOWN_TECHNOLOGY')
-        dep = _day(departure)
-        if not (2026 <= dep.year <= 2226):
-            raise ValueError('YEAR_OUTSIDE_PRICE_TABLE')
+    @staticmethod
+    def _admitted(result, tech=TECHNOLOGY_TABLE[0]):
+        # Both physical endpoints on the SAME candidate; no price penalties.
+        return (result['departure_vinf_km_s'] <= tech['max_departure_vinf_km_s']
+                and result['arrival_vinf_km_s'] <= tech['max_arrival_vinf_km_s'])
+
+    def _scan(self, origin, destination, departure, *, step_days, keep_samples):
+        """Enumerate all brackets without artificial cost penalties.
+
+        Explicit NO_TRAJECTORY only means none observed at the stated TOF
+        resolution. No finite discrete scan proves absence between samples.
+        """
         from scipy.optimize import minimize_scalar
-        candidates = []
-        for a,b in TOF_BRACKETS:
-            def objective(days):
+        departure = _day(departure)
+        rate = self.price_by_year[(departure.year, SERVICE)]
+        feasible = []
+        attempted = 0
+        for a, b in TOF_BRACKETS:
+            n = math.ceil((b-a)/step_days)
+            times = [a + i*step_days for i in range(n)] + [b]
+            times = sorted(set(min(float(b),t) for t in times))
+            points = []
+            for tof in times:
                 try:
-                    r = self._solve(origin,destination,dep,days)
-                    if r['departure_vinf_km_s'] > TECHNOLOGY_TABLE[0]['max_departure_vinf_km_s'] or r['arrival_vinf_km_s'] > TECHNOLOGY_TABLE[0]['max_arrival_vinf_km_s']:
-                        return 1e8
+                    row = self._solve(origin, destination, departure, tof)
+                    valid = self._admitted(row)
+                except (ValueError, RuntimeError):
+                    row, valid = None, False
+                attempted += 1
+                points.append((tof,row,valid))
+                if valid:
+                    feasible.append(row)
+            if not keep_samples:
+                continue
+            # Refine the minima of contiguous sampled admissible segments.
+            # Cost is optimized ONLY inside found feasible regions. Boundary
+            # outcomes are checked, not assigned huge synthetic cost values.
+            groups=[]
+            running=[]
+            for point in points:
+                if point[2]:
+                    running.append(point)
+                elif running:
+                    groups.append(running)
+                    running=[]
+            if running:
+                groups.append(running)
+            for group in groups:
+                if len(group)<2:
+                    continue
+                low, high = group[0][0], group[-1][0]
+                if high-low <= 0.1:
+                    continue
+                def burden(tof):
+                    r=self._solve(origin,destination,departure,tof)
+                    if not self._admitted(r):
+                        raise ValueError('continuous minimum outside sampled feasible interval')
                     return r['transfer_burden_km_s']
-                except (ValueError,RuntimeError):
-                    return 1e8
-            minim = minimize_scalar(objective,method='bounded',bounds=(a,b),
-                                    options={'xatol':.05,'maxiter':70})
-            for days in (float(minim.x),a,b):
-                if objective(days) >= 1e8:
-                    continue
-                result = self._solve(origin,destination,dep,days)
-                if (result['departure_vinf_km_s'] > TECHNOLOGY_TABLE[0]['max_departure_vinf_km_s']
-                        or result['arrival_vinf_km_s'] > TECHNOLOGY_TABLE[0]['max_arrival_vinf_km_s']):
-                    continue
-                price=self.price_by_year[(dep.year,SERVICE)]
-                result.update(
-                    service_type=SERVICE, technology=technology,
-                    cost_usd_millions=round(price['usd_millions_per_km_s_burden'] * result['transfer_burden_km_s'],6),
-                    cost_standing=price['standing'],
-                    price_anchor_sha256=price['source_sha256'])
-                candidates.append(result)
-        # Pareto across both flight time and monetary cost for a fixed departure.
-        candidates.sort(key=lambda r:(r['flight_days'],r['cost_usd_millions']))
+                # minimize_scalar bounded requires valid sample bracket; explicit
+                # feasibility verified on every sampled and returned trajectory.
+                try:
+                    m=minimize_scalar(burden,method='bounded',
+                                      bounds=(low, high),options={'xatol':.05,'maxiter':55})
+                    r=self._solve(origin,destination,departure,float(m.x))
+                    if self._admitted(r):
+                        feasible.append(r)
+                except (ValueError, RuntimeError):
+                    # Retain feasible scan points even if local interval is
+                    # non-convex or an intermediate continuous trial is invalid.
+                    pass
+        if not keep_samples:
+            return dict(checked=attempted, feasible_samples=len(feasible),
+                        first_feasible=(feasible[0] if feasible else None),
+                        scan_step_days=step_days)
+        for result in feasible:
+            result.update(service_type=SERVICE,technology=TECHNOLOGY,
+                          cost_usd_millions=round(
+                              rate['usd_millions_per_km_s_burden'] *
+                              result['transfer_burden_km_s'],6),
+                          cost_standing=rate['standing'],
+                          price_anchor_sha256=rate['source_sha256'])
+        feasible.sort(key=lambda r:(r['flight_days'],r['cost_usd_millions']))
         frontier=[]
         best_price=float('inf')
-        for r in candidates:
-            if r['cost_usd_millions'] < best_price - 1e-6:
-                frontier.append(r)
-                best_price=r['cost_usd_millions']
+        for result in feasible:
+            if result['cost_usd_millions'] < best_price-1e-6:
+                frontier.append(result)
+                best_price=result['cost_usd_millions']
         if len(frontier)>4:
             indices={0,len(frontier)-1}
             indices.update(round(i*(len(frontier)-1)/3) for i in range(1,3))
             frontier=[frontier[i] for i in sorted(indices)]
         return frontier
+
+    def candidates(self, origin, destination, departure, *, technology=TECHNOLOGY):
+        if technology != TECHNOLOGY:
+            raise ValueError('UNKNOWN_TECHNOLOGY')
+        dep=_day(departure)
+        if not (2026 <= dep.year <= 2226):
+            raise ValueError('YEAR_OUTSIDE_PRICE_TABLE')
+        return self._scan(origin,destination,dep,
+                          step_days=TOF_SCAN_DAYS,keep_samples=True)
+
+    def audit_closed_week(self, origin, destination, departure):
+        """Independent 8x-denser all-brackets audit: 0.25d vs regular 2d.
+
+        Gives sample-bound closure evidence, not a mathematical certificate.
+        """
+        return self._scan(origin,destination,departure,
+                          step_days=CLOSED_AUDIT_SCAN_DAYS,keep_samples=False)
 
     def generate_route(self, origin, destination, first='2026-01-01', last='2031-12-31'):
         start=_day(first)
@@ -298,14 +345,23 @@ class TravelPilot:
         outputs={}
         for day in grid:
             outputs[day.date().isoformat()] = self.candidates(origin,destination,day)
-        feasible_weekly=sum(bool(outputs[day.date().isoformat()]) for day in grid)
+        weekly_options=[(day, min(outputs[day.date().isoformat()],
+                                  key=lambda x:x['cost_usd_millions']))
+                        for day in grid if outputs[day.date().isoformat()]]
+        feasible_weekly=len(weekly_options)
+        weekly_cheapest=(min(weekly_options,key=lambda x:x[1]['cost_usd_millions'])[1]
+                         if weekly_options else None)
+        weekly_costliest=(max(weekly_options,key=lambda x:x[1]['cost_usd_millions'])[1]
+                          if weekly_options else None)
         # Re-evaluate up to 14 days on either side of a local weekly cost
         # minimum, but do not interpolate fictitious opportunity prices.
         def best(d):
             rows=outputs.get(d.date().isoformat(),())
             return min((x['cost_usd_millions'] for x in rows),default=float('inf'))
-        lows=[day for i,day in enumerate(grid) if 0<i<len(grid)-1 and
-              best(day) <= best(grid[i-1]) and best(day) <= best(grid[i+1])]
+        lows=[day for i,day in enumerate(grid) if 0<i<len(grid)-1
+              and math.isfinite(best(day))
+              and best(day) <= best(grid[i-1])
+              and best(day) <= best(grid[i+1])]
         refinements=set()
         for center in lows:
             for offset in range(-REFINE_NEAR_MINIMUM_DAYS,REFINE_NEAR_MINIMUM_DAYS+1):
@@ -320,11 +376,14 @@ class TravelPilot:
             r for day in sorted(outputs) for r in outputs[day])
         return dict(origin=origin,destination=destination,
                     weekly_departures=len(grid),
+                    flight_time_scan_days=TOF_SCAN_DAYS,
                     feasible_weekly_departures=feasible_weekly,
                     unavailable_weekly_departures=len(grid)-feasible_weekly,
                     refined_unique_departures=len(outputs)-len(grid),
                     candidate_count=len(self.options[(origin,destination)]),
                     local_minima=len(lows),
+                    weekly_cheapest_sample=weekly_cheapest,
+                    weekly_costliest_sample=weekly_costliest,
                     options=tuple(self.options[(origin,destination)]))
 
     def travel_option(self, origin, destination, ready_date, technology=TECHNOLOGY,
@@ -380,8 +439,14 @@ def write_summary(pilot, path):
         result=pilot.generate_route(o,d)
         # Keep compact reproducible *pilot result*, not all sampled options.
         options=result.pop('options')
+        if not options:
+            routes.append({**result,'status':'NO_FEASIBLE_WINDOW_AT_SCAN_RESOLUTION'})
+            continue
         price_min=min(options,key=lambda r:r['cost_usd_millions'])
-        routes.append({**result,'cheapest_sample':price_min,
+        price_max=max(options,key=lambda r:r['cost_usd_millions'])
+        routes.append({**result,'status':'FEASIBLE_WINDOWS_AT_SCAN_RESOLUTION',
+                       'cheapest_sample':price_min,
+                       'costliest_sample':price_max,
                        'first_sample':options[0],
                        'last_sample':options[-1]})
     earth_mars=pilot.travel_option('EARTH','MARS','2027-01-15',wait_limit_months=12)
@@ -389,8 +454,49 @@ def write_summary(pilot, path):
     moon_mars=pilot.travel_option('MOON','MARS','2027-01-15',wait_limit_months=30)
     rates={name:pilot.price_by_year[(2026,name)] for name in sorted(
         {r['service_type'] for r in pilot.price_by_year.values()})}
+    # 8 known Mercury weekly witnesses from the pre-change 10/10 audit.
+    witnesses=('2026-04-23','2026-04-30','2026-05-07','2027-04-15',
+               '2027-04-22','2031-05-15','2031-05-22','2031-05-29')
+    mercury=pilot.options[('EARTH','MERCURY')]
+    missing=[day for day in witnesses if not any(r['departure'].startswith(day)
+                                                 for r in mercury)]
+    if missing:
+        raise ValueError('known Mercury windows not rediscovered: '+repr(missing))
+    # Sample disjoint visibly closed weeks; these are a stricter independent
+    # check at 0.25-day TOF spacing. Any recovered witness aborts generation.
+    audit_dates={
+        ('EARTH','MERCURY'):('2026-01-01','2028-01-06','2030-08-01'),
+        ('EARTH','MARS'):('2026-01-01','2029-12-13','2030-01-10'),
+        ('MARS','CERES'):('2028-03-09','2031-08-07','2031-12-11'),
+    }
+    weekly_closed={}
+    for row in routes:
+        pair=(row['origin'],row['destination'])
+        weekly_closed[pair]=row['unavailable_weekly_departures']
+        if weekly_closed[pair]==0:
+            raise ValueError('no dates excluded by vehicle envelope: '+str(pair))
+    closure=[]
+    for (origin,destination), dates in audit_dates.items():
+        for date in dates:
+            if any(r['departure'].startswith(date) for r in pilot.options[(origin,destination)]):
+                raise ValueError('closure audit date actually feasible: '+date)
+            check=pilot.audit_closed_week(origin,destination,date)
+            if check['feasible_samples']>0:
+                raise ValueError('denser scan reopened supposedly closed date: '+date)
+            closure.append(dict(origin=origin,destination=destination,
+                                departure=date,checked_flight_durations=check['checked'],
+                                dense_step_days=check['scan_step_days'],
+                                feasible_samples=check['feasible_samples'],
+                                conclusion='NO_FEASIBLE_SAMPLED_TRANSFER_NOT_CONTINUOUS_PROOF'))
     result=dict(schema='LOOM_TRAVEL_PILOT_RESULT_V1',standing='ENGINEERING_PROVISIONAL_NOT_RUNTIME',
                 route_summaries=routes,ready_date_examples=[earth_mars,earth_mars_30,moon_mars],
+                known_mercury_weekly_witnesses=witnesses,
+                dense_closure_audits=closure,
+                flight_time_scan_days=TOF_SCAN_DAYS,
+                dense_closure_scan_days=CLOSED_AUDIT_SCAN_DAYS,
+                previous_price_anchor_maxima_historical_only=dict(
+                    departure_vinf_km_s=73.430819,arrival_vinf_km_s=56.091356,
+                    status='HISTORICAL_PRICE_ANCHOR_LIMITS_NO_LONGER_IN_EFFECT'),
                 rate_2026_by_service=rates,pricing_2036_2226='HELD_AT_2026_LEVEL_BY_ASSUMPTION_NOT_EMPIRICAL',
                 lunar_provisional=pilot.lunar,
                 technology_table=TECHNOLOGY_TABLE,
