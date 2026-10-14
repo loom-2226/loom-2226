@@ -39,10 +39,40 @@ class TravelPilotTests(unittest.TestCase):
         self.assertEqual(self.data['pricing_2036_2226'],
                          'HELD_AT_2026_LEVEL_BY_ASSUMPTION_NOT_EMPIRICAL')
 
+    def test_derived_velocity_envelope_matches_every_2026_priced_anchor(self):
+        import csv
+        from .pilot import TECHNOLOGY_TABLE
+        with ANCHORS.open(newline='') as stream:
+            rows = [r for r in csv.DictReader(stream)
+                    if r['year'] == '2026' and r['body_id'] != 'MOON'
+                    and r['one_way_cost_usd_millions']
+                    and r['method'] in ('REFINED_GROUPED_LAMBERT_GRID',
+                                       'EXISTING_SCREEN_SINGLE_CANDIDATE')
+                    and float(r['departure_vinf_km_s']) +
+                        float(r['arrival_vinf_km_s']) > 0]
+        self.assertEqual(len(rows),522)
+        t=TECHNOLOGY_TABLE[0]
+        expected_depart=max(float(r['departure_vinf_km_s']) for r in rows)
+        expected_arrive=max(float(r['arrival_vinf_km_s']) for r in rows)
+        self.assertEqual((t['max_departure_vinf_km_s'],
+                          t['max_arrival_vinf_km_s']),
+                         (expected_depart,expected_arrive))
+        self.assertEqual((expected_depart,expected_arrive),(73.430819,56.091356))
+        self.assertGreater(expected_depart,40)
+        self.assertGreater(expected_arrive,40)
+        self.assertEqual(t['anchor_rows_2026'],522)
+        self.assertIn('TEST_ONLY_PROVISIONAL',t['standing'])
+        self.assertEqual(self.data['technology_table'][0],t)
+
     def test_actual_2026_to_2031_weekly_grid_plus_one_day_minimum_refinement(self):
         for summary in self.data['route_summaries']:
             self.assertIn((summary['origin'],summary['destination']),PILOT_PAIRS)
             self.assertGreaterEqual(summary['weekly_departures'],312)
+            self.assertEqual(summary['feasible_weekly_departures'] +
+                             summary['unavailable_weekly_departures'],
+                             summary['weekly_departures'])
+            self.assertEqual(summary['feasible_weekly_departures'],313)
+            self.assertEqual(summary['unavailable_weekly_departures'],0)
             self.assertGreater(summary['refined_unique_departures'],0)
             self.assertGreater(summary['local_minima'],0)
             self.assertGreater(summary['candidate_count'],summary['weekly_departures'])

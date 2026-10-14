@@ -28,13 +28,37 @@ PILOT_PAIRS = (('EARTH', 'MERCURY'), ('EARTH', 'MARS'), ('MARS', 'CERES'))
 SERVICE = 'ORBITAL_RECON'
 TECHNOLOGY = 'IMPULSIVE_ORBITAL_RECON_2T_PROVISIONAL'
 WAIT_DEFAULT_MONTHS = 12
-# Authored service profile. This is a declared feasibility screening envelope,
-# not a calibrated 2026 rocket's launch/capture, propellant or fleet capacity.
+def _anchor_velocity_limits():
+    # Use exactly the Build 7 priced 2026 non-lunar, numerically screened
+    # rows admitted by price_table(), across its six service classes.
+    with ANCHORS.open(newline='') as stream:
+        rows = [r for r in csv.DictReader(stream)
+                if r['year'] == '2026' and r['body_id'] != 'MOON'
+                and r['one_way_cost_usd_millions']
+                and r['method'] in ('REFINED_GROUPED_LAMBERT_GRID',
+                                    'EXISTING_SCREEN_SINGLE_CANDIDATE')
+                and float(r['departure_vinf_km_s']) +
+                    float(r['arrival_vinf_km_s']) > 0]
+    if len(rows) != 522:
+        raise ValueError('2026 priced Build 7 anchor cohort changed')
+    return {
+        'max_departure_vinf_km_s': max(float(r['departure_vinf_km_s']) for r in rows),
+        'max_arrival_vinf_km_s': max(float(r['arrival_vinf_km_s']) for r in rows),
+        'anchor_rows_2026': len(rows),
+        'derivation': 'maximum respective v_inf among all 2026 non-lunar Build 7 priced rows admitted by the price-rate anchor filter',
+        'source_sha256': sha256(ANCHORS.read_bytes()).hexdigest(),
+        'standing': 'TEST_ONLY_PROVISIONAL_DERIVED_PRICE_ANCHOR_ENVELOPE_NOT_VEHICLE_CAPABILITY',
+    }
+
+
+# Derived price-calibration domain, not a real rocket's velocity capability.
+# Because the cohort includes outer-system bodies such as Eris, its maximum
+# values exceed the former 40 km/s caps and do NOT create launch exclusions.
 TECHNOLOGY_TABLE = (
     dict(id=TECHNOLOGY, from_year=2026, to_year=2226,
          service_type=SERVICE, payload_tonnes=2,
-         max_departure_vinf_km_s=40.0, max_arrival_vinf_km_s=40.0,
-         source='TEST_ONLY_SYNTHETIC_IMPULSIVE_FEASIBILITY_SCREEN'),
+         **_anchor_velocity_limits(),
+         source='BUILD7_2026_PRICED_ANCHOR_MAXIMA_NOT_PHYSICAL_TECHNOLOGY_QUALIFICATION'),
 )
 # Numeric optimization intervals are brackets, NOT discrete TOF candidates.
 # 45 days minimum; 1400 days maximum, independent continuous minimizations.
@@ -239,7 +263,8 @@ class TravelPilot:
                 if objective(days) >= 1e8:
                     continue
                 result = self._solve(origin,destination,dep,days)
-                if result['departure_vinf_km_s'] > 40 or result['arrival_vinf_km_s'] > 40:
+                if (result['departure_vinf_km_s'] > TECHNOLOGY_TABLE[0]['max_departure_vinf_km_s']
+                        or result['arrival_vinf_km_s'] > TECHNOLOGY_TABLE[0]['max_arrival_vinf_km_s']):
                     continue
                 price=self.price_by_year[(dep.year,SERVICE)]
                 result.update(
@@ -273,6 +298,7 @@ class TravelPilot:
         outputs={}
         for day in grid:
             outputs[day.date().isoformat()] = self.candidates(origin,destination,day)
+        feasible_weekly=sum(bool(outputs[day.date().isoformat()]) for day in grid)
         # Re-evaluate up to 14 days on either side of a local weekly cost
         # minimum, but do not interpolate fictitious opportunity prices.
         def best(d):
@@ -294,6 +320,8 @@ class TravelPilot:
             r for day in sorted(outputs) for r in outputs[day])
         return dict(origin=origin,destination=destination,
                     weekly_departures=len(grid),
+                    feasible_weekly_departures=feasible_weekly,
+                    unavailable_weekly_departures=len(grid)-feasible_weekly,
                     refined_unique_departures=len(outputs)-len(grid),
                     candidate_count=len(self.options[(origin,destination)]),
                     local_minima=len(lows),
