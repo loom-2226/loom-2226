@@ -27,35 +27,37 @@ is not an empirical vehicle fare.
 
 ## Search and interpretation
 
-For every departure on the **313-week grid** of each route (2026–2031),
-scan all three flight-time brackets (45–180, 180–520, 520–1400 days)
-at **2-day** spacing. **Every week labelled closed by that coarse scan
-must be checked again at 0.25-day spacing** before declaring it closed.
+For each of **313 weekly sample dates** per route (2026–2031), one
+departure date every 7 calendar days, scan all three flight-time brackets
+(45–180, 180–520, 520–1400 days) at **2-day** spacing.
+**Every coarse-closed weekly sample date** must be checked again
+at **0.25-day flight-time** spacing before calling that sampled date closed.
 If the fine scan finds a feasible trajectory, retain its actual
-cost/time-Pareto candidates and mark the week open. Both authored
+cost/time-Pareto candidates and mark that sampled date open. Both authored
 10.0 km/s excess-speed limits must hold on the **same** trajectory.
 No infeasibility cost penalties.
 
-This replaces the previous **nine-week sample audit**, which missed
-two valid Mercury departure weeks. Prior **coarse-only** weekly counts
+This replaces the previous **nine-date sample audit**, which missed
+two valid Mercury weekly sample dates. Prior **coarse-only** counts
 **8 / 212 / 192 open** (Earth→Mercury / Earth→Mars / Mars→Ceres)
-are **superseded**. The corrected count is **10 / 212 / 192 open**, leaving **303 / 101 /
-121 closed**, respectively, out of 313 weekly dates per route.
-Across all three routes, **527 coarse-closed weeks** receive a 0.25-day
-scan and **525 remain closed**. The week-specific evidence and corrected
-weekly cheapest/costliest prices appear in the result JSON.
+are **superseded**. The corrected counts are **10 / 212 / 192 open** and
+**303 / 101 / 121 closed** weekly sample dates, respectively, out of 313
+weekly sample dates per route. Across all three routes, **527 coarse-closed
+weekly sample dates** receive a 0.25-day flight-time scan and **525 sampled
+dates remain closed**. The date-specific evidence and weekly-sample
+cheapest/costliest prices appear in the result JSON.
 
-| Route | Cheapest feasible weekly departure (USD millions) | Costliest feasible weekly departure (USD millions) |
+| Route | Cheapest feasible weekly sample date (USD millions) | Costliest feasible weekly sample date (USD millions) |
 |---|---|---|
 | Earth→Mercury | 2026-05-07: 1294.231012 | 2027-04-15: 1399.340140 |
 | Earth→Mars | 2026-10-29: 406.425505 | 2027-11-18: 1222.971297 |
 | Mars→Ceres | 2029-06-28: 519.578851 | 2027-09-23: 1334.848459 |
 
 The fixed Mercury witness dates newly recovered are **2026-05-14** and
-**2031-05-08**; the eight previously known Mercury weeks also remain
-required. Store the complete fine-checked and confirmed-closed weekly
-date lists for independent re-verification. The test suite actually
-reruns **every closed week** at 0.25-day resolution, not just sample dates.
+**2031-05-08**; the eight previously known Mercury weekly sample dates
+also remain required. Store the complete fine-checked and confirmed-closed
+weekly sample date lists for independent re-verification. The test suite
+reruns **every closed weekly sample date** at 0.25-day flight-time resolution.
 
 The 2-day screen, 0.25-day closure check and cost refinement retain
 the existing ±14 **calendar-day** daily departure refinement around
@@ -65,9 +67,15 @@ is used for speed; it was validated against scalar Izzo and the
 authoritative per-epoch SPICE adapter, including both rescued dates.
 It does **not** introduce a new physical model or new source authority.
 
-**A week called closed is closed at 0.25-day flight-time sample
-resolution, not mathematically proven impossible at every continuous
-flight duration or alternate transfer family.**
+**A closed weekly sample date means no admissible transfer was found
+at that departure date with 0.25-day flight-time sampling. It does not
+establish closure of the intervening calendar days or prove continuous
+infeasibility or exclusion of alternate transfer families.**
+
+A departure window narrower than the **7-day departure sampling step**
+may be missed, especially for Mercury. An **on-demand lookup should scan
+daily departure dates inside the requested wait limit**; this pilot's
+current scripted lookup only selects from stored sampled options.
 
 ## Phone-readable replay summary
 
@@ -80,13 +88,13 @@ python -m simulation.offworld_mvp.build8.travel_pilot.pilot --print-summary
 Expected concise output:
 
 ~~~text
-EARTH->MERCURY: 10 open / 303 closed (313 weeks)
-EARTH->MARS: 212 open / 101 closed (313 weeks)
-MARS->CERES: 192 open / 121 closed (313 weeks)
-sha256: 8413959b40737c5855060375d466159efa938bdb2dee1ba7e3dcbdd0076bbbc0
+EARTH->MERCURY: 10 open / 303 closed (313 weekly sample dates)
+EARTH->MARS: 212 open / 101 closed (313 weekly sample dates)
+MARS->CERES: 192 open / 121 closed (313 weekly sample dates)
+sha256: 68cebe037945c081843b497b4b085ae38de37af31c09bf6f9fc1f0c57facd574
 ~~~
 
-This command prints only each route's open/closed weekly counts and
+This command prints only each route's open/closed weekly sample date counts and
 SHA-256 of the committed result JSON. It **reads** that artifact;
 it does **not** spend time recomputing 201 years of trajectories.
 To regenerate the artifact, use the separate `--output` generation mode.
@@ -97,9 +105,10 @@ not automatically permitted. All previous epistemic fail-closed rules
 for Bennu and missing coverage remain unchanged.
 
 The small deterministic `pilot_result.json` contains a derived table
-of **feasible and closed weekly departures**, cheapest/costliest
+of **feasible and closed weekly sample dates**, cheapest/costliest
 opportunities, ten Mercury witnesses, every fine-checked coarse-closed
-weekly date, rescued dates, the prior nine historical audit samples,
+weekly sample date, rescued dates, the prior nine historical audit samples,
+and an explicit weekly-sampling interpretation note,
 and the recorded technology/cost provenance. Runtime timing
 is reported externally because elapsed CPU time is nondeterministic.
 
