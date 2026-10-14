@@ -126,41 +126,9 @@ def price_table():
 
 
 def state_registry(asset_root=ASSET_ROOT):
-    """Merge selected existing governed sources; no new celestial-state authority."""
-    sources, _ = legacy._source_index(asset_root)
-    ref = json.loads(legacy.INPUT.read_text())
-    bodies = {}; identifiers = {}; by_source = {}; coverage = {}
-    for body in ('EARTH', 'MERCURY', 'MARS', 'CERES'):
-        record = next((r for r in ref['records'] if r['body_id'] == body), None)
-        if record is None:  # Earth is not necessarily a destination reference row
-            record = {'body_id':'EARTH','canonical_name':'Earth','body_class':'PLANET',
-                      'active_naif_ids':['399'],'ephemeris_sources':['DE440']}
-        reg = legacy._registry_for(record, sources)
-        bodies.update(reg.bodies)
-        for r in reg.identifiers:
-            identifiers[(r.body_id, r.identifier_value)] = r
-        for sid, r in reg.sources.items():
-            old = by_source.get(sid)
-            if old and old.sha256 != r.sha256:
-                raise ValueError('conflicting qualified Solar asset ' + sid)
-            by_source[sid] = r
-        for r in reg.coverage:
-            coverage[(r.ephemeris_source_id, r.body_id, r.valid_from, r.valid_until)] = r
-    # Bennu's 2140 seam must come from current Phase 4D authority, not the
-    # older Build 7 2026 direct-only reference.
-    breg = registry_from_manifest(
-        ROOT/'manifests/solar/SOLAR_PHASE4D_STRATEGIC_BODIES_V1.json', asset_root)
-    bodies['BENNU'] = breg.bodies['BENNU']
-    for r in breg.identifiers:
-        if r.body_id == 'BENNU':
-            identifiers[(r.body_id,r.identifier_value)] = r
-    for r in breg.coverage:
-        if r.body_id == 'BENNU':
-            source = breg.sources[r.ephemeris_source_id]
-            by_source[r.ephemeris_source_id] = source
-            coverage[(r.ephemeris_source_id,r.body_id,r.valid_from,r.valid_until)] = r
-    return SolarEphemerisRegistry(
-        bodies.values(), identifiers.values(), by_source.values(), coverage.values())
+    """All 110 governed catalog identities; qualified state authority by date."""
+    from .eligibility import catalog_registry
+    return catalog_registry(asset_root)
 
 
 class TravelPilot:

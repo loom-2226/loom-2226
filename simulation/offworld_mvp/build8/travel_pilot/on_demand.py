@@ -19,6 +19,7 @@ from .pilot import (
     ASSET_ROOT, TOF_BRACKETS, _day, _iso, state_registry, legacy,
 )
 from .batch import BatchTravelPilot, batched_izzo
+from .eligibility import catalog_rows, resolve_endpoint
 
 # Authored resolution policy. One day is the minimum useful launch window.
 MIN_USEFUL_LAUNCH_WINDOW_DAYS = 1.0
@@ -29,11 +30,6 @@ MERCURY_REFERENCE_AU_2026_01_01 = 0.46254878387561266
 EARTH_REFERENCE_AU_2026_01_01 = 0.9833266687787967
 AU_KM = 149597870.7
 TRANSFER_FAMILY = "IZZO2015_M0_PROGRADE_LOW_PATH_HELIOCENTRIC"
-ROUTES = {
-    ("EARTH", "MERCURY"), ("EARTH", "MARS"), ("MARS", "CERES"),
-    ("MERCURY", "EARTH"), ("MARS", "EARTH"), ("CERES", "MARS"),
-    ("EARTH", "CERES"), ("CERES", "EARTH"),
-}
 
 
 def pareto_geometry(rows):
@@ -76,6 +72,7 @@ class OnDemandTravel(BatchTravelPilot):
     def __init__(self, *, asset_root=ASSET_ROOT, cache_dir=None):
         # Geometry has no dependence on Build 7 price tables or vehicle rows.
         self.adapter = SpiceEphemerisAdapter(state_registry(asset_root))
+        self.catalog = catalog_rows()
         self.allow_approximation = False
         self._state_cache = {}
         self._geometry = {}
@@ -86,6 +83,11 @@ class OnDemandTravel(BatchTravelPilot):
         self.state_bulk_seconds = 0.0
         self.state_bulk_calls = 0
         self.bulk_calls = 0
+
+    def endpoint(self, body_id, epoch_utc):
+        """Catalog-wide date-qualified state/endpoint eligibility; no route scan."""
+        return resolve_endpoint(body_id, epoch_utc, registry=self.adapter.registry,
+                                catalog=self.catalog)
 
     @staticmethod
     def _times(step, flight_range_days=None):
@@ -154,8 +156,10 @@ class OnDemandTravel(BatchTravelPilot):
 
     def geometry(self, origin, destination, departure, *, strategy="daily",
                  flight_range_days=None):
-        if (origin, destination) not in ROUTES:
-            raise ValueError("ROUTE_NOT_IN_NARROW_PILOT")
+        for body in (origin, destination):
+            result = self.endpoint(body, departure)
+            if result["status"] != "DIRECT":
+                raise ValueError(result["status"] + ":" + body)
         if strategy not in ("daily", "distance_research"):
             raise ValueError("UNKNOWN_SAMPLING_STRATEGY")
         epoch = _day(departure)

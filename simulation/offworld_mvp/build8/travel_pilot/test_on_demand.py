@@ -137,10 +137,12 @@ class GeometryTests(TestCase):
                          DENSE_FLIGHT_STEP_DAYS)
         self.assertEqual(a["sampled_solutions"], a["key"]["flight_sample_count"])
 
-    def test_invalid_route_fails_closed_and_no_runtime_integration(self):
+    def test_unsupported_endpoint_fails_closed_and_no_runtime_integration(self):
         pilot = OnDemandTravel()
-        with self.assertRaisesRegex(ValueError, "ROUTE_NOT_IN_NARROW_PILOT"):
-            pilot.geometry("EARTH", "JUPITER", "2026-01-01")
+        with self.assertRaisesRegex(ValueError, "UNSUPPORTED_SUN_ENDPOINT"):
+            pilot.geometry("EARTH", "SUN", "2026-01-01")
+        with self.assertRaisesRegex(ValueError, "UNKNOWN_CATALOG_ENTITY"):
+            pilot.geometry("EARTH", "NOT_IN_CATALOG", "2026-01-01")
         with self.assertRaisesRegex(ValueError, "INVALID_WAIT_LIMIT"):
             pilot.lookup("EARTH", "MARS", "2026-10-29",
                          wait_limit_days=0, departure_limit=10,
