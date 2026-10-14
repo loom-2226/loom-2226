@@ -327,9 +327,10 @@ class TravelPilot:
                           step_days=TOF_SCAN_DAYS,keep_samples=True)
 
     def audit_closed_week(self, origin, destination, departure):
-        """Independent 8x-denser all-brackets audit: 0.25d vs regular 2d.
+        """Independent 8x-denser audit at one weekly sample departure date.
 
-        Gives sample-bound closure evidence, not a mathematical certificate.
+        Gives flight-duration sample-bound evidence at that departure date,
+        not closure of a full calendar week or a mathematical certificate.
         """
         return self._scan(origin,destination,departure,
                           step_days=CLOSED_AUDIT_SCAN_DAYS,keep_samples=False)
@@ -346,8 +347,8 @@ class TravelPilot:
         for day in grid:
             outputs[day.date().isoformat()] = self.candidates(origin,destination,day)
 
-        # Exhaustively challenge every coarse-closed WEEK with the 0.25-day
-        # flight-time grid. A rescued week receives actual feasible candidates,
+        # Challenge every coarse-closed weekly sample date with the 0.25-day
+        # flight-time grid. A rescued date receives actual feasible candidates,
         # not just a changed availability flag. This precedes weekly minima
         # and the existing ±14 calendar-day refinement.
         coarse_closed=[day for day in grid if not outputs[day.date().isoformat()]]
@@ -417,7 +418,11 @@ class TravelPilot:
 
     def travel_option(self, origin, destination, ready_date, technology=TECHNOLOGY,
                       wait_limit_months=WAIT_DEFAULT_MONTHS):
-        """Cheapest after ready date (strict) through inclusive authored deadline."""
+        """Cheapest among stored pilot options inside the authored wait limit.
+
+        This is not an on-demand daily departure scan. A future on-demand
+        lookup should scan daily dates inside the requested wait limit.
+        """
         ready=_day(ready_date)
         if not isinstance(wait_limit_months,int) or not 0<wait_limit_months<=60:
             raise ValueError('INVALID_WAIT_LIMIT_MONTHS')
@@ -483,7 +488,7 @@ def write_summary(pilot, path):
     moon_mars=pilot.travel_option('MOON','MARS','2027-01-15',wait_limit_months=30)
     rates={name:pilot.price_by_year[(2026,name)] for name in sorted(
         {r['service_type'] for r in pilot.price_by_year.values()})}
-    # Eight coarse weekly Mercury witnesses plus two rescued fine weeks.
+    # Eight coarse Mercury weekly-sample witnesses plus two rescued dates.
     witnesses=('2026-04-23','2026-04-30','2026-05-07','2027-04-15',
                '2027-04-22','2031-05-15','2031-05-22','2031-05-29')
     mercury=pilot.options[('EARTH','MERCURY')]
@@ -535,7 +540,13 @@ def write_summary(pilot, path):
                 solver='lamberthub.izzo2015 zero revolution, prograde, Sun-centered',
                 dependencies={x:metadata.version(x) for x in
                               ('lamberthub','spiceypy','numpy','scipy')},
-                no_simulation_consumers=True)
+                no_simulation_consumers=True,
+                weekly_sample_date_interpretation=(
+                    'Open/closed counts refer to 313 weekly sample dates '
+                    '(one departure every 7 days), not full calendar weeks. '
+                    'A window narrower than the 7-day departure sampling step '
+                    'may be missed, especially for Mercury. On-demand lookup '
+                    'should scan daily departure dates inside the requested wait limit.'))
     path.write_text(json.dumps(result,indent=2,sort_keys=True)+'\n')
     return result
 
@@ -556,7 +567,7 @@ if __name__=='__main__':
             print(f"{row['origin']}->{row['destination']}: "
                   f"{row['feasible_weekly_departures']} open / "
                   f"{row['unavailable_weekly_departures']} closed "
-                  f"({row['weekly_departures']} weeks)")
+                  f"({row['weekly_departures']} weekly sample dates)")
         print('sha256:',sha256(raw).hexdigest())
         raise SystemExit(0)
     from .batch import BatchTravelPilot
