@@ -69,6 +69,56 @@ class TravelPilotTests(unittest.TestCase):
                 self.assertTrue(all(0<=r['departure_vinf_km_s']<=10 and
                                     0<=r['arrival_vinf_km_s']<=10 for r in candidates))
 
+    def test_every_week_labelled_closed_is_still_closed_at_quarter_day(self):
+        """Re-run ALL closed weeks; stored labels alone cannot prove closure."""
+        from .batch import BatchTravelPilot
+        from .pilot import CLOSED_AUDIT_SCAN_DAYS
+        checker=BatchTravelPilot()
+        old={'EARTH->MERCURY':8,'EARTH->MARS':212,'MARS->CERES':192}
+        self.assertEqual(self.data['superseded_coarse_weekly_feasible_counts'],old)
+        self.assertTrue(self.data['exhaustive_closed_week_check'])
+        for r in self.data['route_summaries']:
+            route=(r['origin'],r['destination'])
+            weekly={(_day('2026-01-01')+timedelta(days=7*i)).date().isoformat()
+                    for i in range(313)}
+            fine_closed=r['fine_confirmed_closed_week_dates']
+            coarse_closed=r['fine_checked_coarse_closed_week_dates']
+            reopened=r['fine_reopened_week_dates']
+            self.assertEqual(len(coarse_closed),r['coarse_closed_weekly_departures'])
+            self.assertEqual(len(fine_closed),r['unavailable_weekly_departures'])
+            self.assertEqual(len(reopened),len(coarse_closed)-len(fine_closed))
+            self.assertEqual(len(coarse_closed),len(set(coarse_closed)))
+            self.assertEqual(set(coarse_closed),set(fine_closed)|set(reopened))
+            self.assertFalse(set(fine_closed)&set(reopened))
+            self.assertTrue(set(coarse_closed)<=weekly)
+            self.assertEqual(r['fine_scan_duration_samples'],len(coarse_closed)*5423)
+            self.assertEqual(r['closed_week_check_scan_days'],CLOSED_AUDIT_SCAN_DAYS)
+            self.assertEqual(r['coarse_feasible_weekly_departures'],old['->'.join(route)])
+            for date in fine_closed:
+                check=checker.audit_closed_week(*route,date)
+                self.assertEqual(check['checked'],5423)
+                self.assertEqual(check['feasible_samples'],0,
+                                 f"FALSE CLOSURE {route} {date} at 0.25-day TOF")
+
+    def test_two_fixed_mercury_fine_witnesses_and_exact_batch_replay(self):
+        from .batch import BatchTravelPilot
+        self.assertEqual(self.data['known_rescued_mercury_weekly_witnesses'],
+                         ['2026-05-14','2031-05-08'])
+        self.assertEqual(next(r for r in self.data['route_summaries']
+                              if r['destination']=='MERCURY')['fine_reopened_week_dates'],
+                         ['2026-05-14','2031-05-08'])
+        checker=BatchTravelPilot()
+        for date in ('2026-05-14','2031-05-08'):
+            with self.subTest(date=date):
+                self.assertEqual(self.pilot.candidates('EARTH','MERCURY',date),[])
+                scalar=self.pilot._scan('EARTH','MERCURY',date,
+                                        step_days=.25,keep_samples=True)
+                batched=checker._scan('EARTH','MERCURY',date,
+                                      step_days=.25,keep_samples=True)
+                self.assertTrue(scalar)
+                self.assertEqual(scalar,batched)
+                self.assertTrue(all(checker._admitted(r) for r in batched))
+
     def test_independent_dense_closure_audits(self):
         from .pilot import CLOSED_AUDIT_SCAN_DAYS
         audited=self.data['dense_closure_audits']

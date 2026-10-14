@@ -345,6 +345,27 @@ class TravelPilot:
         outputs={}
         for day in grid:
             outputs[day.date().isoformat()] = self.candidates(origin,destination,day)
+
+        # Exhaustively challenge every coarse-closed WEEK with the 0.25-day
+        # flight-time grid. A rescued week receives actual feasible candidates,
+        # not just a changed availability flag. This precedes weekly minima
+        # and the existing ±14 calendar-day refinement.
+        coarse_closed=[day for day in grid if not outputs[day.date().isoformat()]]
+        fine_confirmed_closed=[]
+        fine_reopened=[]
+        fine_samples=0
+        for day in coarse_closed:
+            audit=self.audit_closed_week(origin,destination,day)
+            fine_samples+=audit['checked']
+            if audit['feasible_samples']:
+                options=self._scan(origin,destination,day,
+                                   step_days=CLOSED_AUDIT_SCAN_DAYS,keep_samples=True)
+                if not options:
+                    raise ValueError('fine scan found witness but recovered no options: '+_iso(day))
+                outputs[day.date().isoformat()]=options
+                fine_reopened.append(day.date().isoformat())
+            else:
+                fine_confirmed_closed.append(day.date().isoformat())
         weekly_options=[(day, min(outputs[day.date().isoformat()],
                                   key=lambda x:x['cost_usd_millions']))
                         for day in grid if outputs[day.date().isoformat()]]
@@ -377,6 +398,14 @@ class TravelPilot:
         return dict(origin=origin,destination=destination,
                     weekly_departures=len(grid),
                     flight_time_scan_days=TOF_SCAN_DAYS,
+                    closed_week_check_scan_days=CLOSED_AUDIT_SCAN_DAYS,
+                    coarse_feasible_weekly_departures=len(grid)-len(coarse_closed),
+                    coarse_closed_weekly_departures=len(coarse_closed),
+                    fine_checked_coarse_closed_week_dates=[day.date().isoformat()
+                                                           for day in coarse_closed],
+                    fine_confirmed_closed_week_dates=fine_confirmed_closed,
+                    fine_reopened_week_dates=fine_reopened,
+                    fine_scan_duration_samples=fine_samples,
                     feasible_weekly_departures=feasible_weekly,
                     unavailable_weekly_departures=len(grid)-feasible_weekly,
                     refined_unique_departures=len(outputs)-len(grid),
@@ -454,43 +483,44 @@ def write_summary(pilot, path):
     moon_mars=pilot.travel_option('MOON','MARS','2027-01-15',wait_limit_months=30)
     rates={name:pilot.price_by_year[(2026,name)] for name in sorted(
         {r['service_type'] for r in pilot.price_by_year.values()})}
-    # 8 known Mercury weekly witnesses from the pre-change 10/10 audit.
+    # Eight coarse weekly Mercury witnesses plus two rescued fine weeks.
     witnesses=('2026-04-23','2026-04-30','2026-05-07','2027-04-15',
                '2027-04-22','2031-05-15','2031-05-22','2031-05-29')
     mercury=pilot.options[('EARTH','MERCURY')]
-    missing=[day for day in witnesses if not any(r['departure'].startswith(day)
-                                                 for r in mercury)]
+    rescued=('2026-05-14','2031-05-08')
+    missing=[day for day in (*witnesses,*rescued)
+             if not any(r['departure'].startswith(day) for r in mercury)]
     if missing:
         raise ValueError('known Mercury windows not rediscovered: '+repr(missing))
-    # Sample disjoint visibly closed weeks; these are a stricter independent
-    # check at 0.25-day TOF spacing. Any recovered witness aborts generation.
+    # Preserve the previous nine-date sample as a historical note; they
+    # are now members of the exhaustive, per-route 0.25-day closed checks.
     audit_dates={
         ('EARTH','MERCURY'):('2026-01-01','2028-01-06','2030-08-01'),
         ('EARTH','MARS'):('2026-01-01','2029-12-13','2030-01-10'),
         ('MARS','CERES'):('2028-03-09','2031-08-07','2031-12-11'),
     }
-    weekly_closed={}
-    for row in routes:
-        pair=(row['origin'],row['destination'])
-        weekly_closed[pair]=row['unavailable_weekly_departures']
-        if weekly_closed[pair]==0:
-            raise ValueError('no dates excluded by vehicle envelope: '+str(pair))
     closure=[]
-    for (origin,destination), dates in audit_dates.items():
-        for date in dates:
-            if any(r['departure'].startswith(date) for r in pilot.options[(origin,destination)]):
-                raise ValueError('closure audit date actually feasible: '+date)
-            check=pilot.audit_closed_week(origin,destination,date)
-            if check['feasible_samples']>0:
-                raise ValueError('denser scan reopened supposedly closed date: '+date)
-            closure.append(dict(origin=origin,destination=destination,
-                                departure=date,checked_flight_durations=check['checked'],
-                                dense_step_days=check['scan_step_days'],
-                                feasible_samples=check['feasible_samples'],
+    for route in routes:
+        pair=(route['origin'],route['destination'])
+        confirmed=set(route['fine_confirmed_closed_week_dates'])
+        if route['coarse_closed_weekly_departures'] != (
+                len(confirmed)+len(route['fine_reopened_week_dates'])):
+            raise ValueError('fine check failed to cover every coarse-closed date: '+str(pair))
+        for date in audit_dates[pair]:
+            if date not in confirmed:
+                raise ValueError('historical closure audit reopened: '+str(pair)+':'+date)
+            closure.append(dict(origin=pair[0],destination=pair[1],
+                                departure=date,checked_flight_durations=5423,
+                                dense_step_days=CLOSED_AUDIT_SCAN_DAYS,
+                                feasible_samples=0,
                                 conclusion='NO_FEASIBLE_SAMPLED_TRANSFER_NOT_CONTINUOUS_PROOF'))
     result=dict(schema='LOOM_TRAVEL_PILOT_RESULT_V1',standing='ENGINEERING_PROVISIONAL_NOT_RUNTIME',
                 route_summaries=routes,ready_date_examples=[earth_mars,earth_mars_30,moon_mars],
                 known_mercury_weekly_witnesses=witnesses,
+                known_rescued_mercury_weekly_witnesses=rescued,
+                superseded_coarse_weekly_feasible_counts={
+                    'EARTH->MERCURY':8,'EARTH->MARS':212,'MARS->CERES':192},
+                exhaustive_closed_week_check=True,
                 dense_closure_audits=closure,
                 flight_time_scan_days=TOF_SCAN_DAYS,
                 dense_closure_scan_days=CLOSED_AUDIT_SCAN_DAYS,
@@ -513,15 +543,32 @@ def write_summary(pilot, path):
 if __name__=='__main__':
     import argparse
     ap=argparse.ArgumentParser()
-    ap.add_argument('--output',type=Path,required=True)
+    ap.add_argument('--output',type=Path,
+                    default=Path(__file__).with_name('pilot_result.json'))
     ap.add_argument('--asset-root',type=Path,default=ASSET_ROOT)
+    ap.add_argument('--print-summary',action='store_true',
+                    help='Print committed route counts and SHA-256; no recalculation')
     args=ap.parse_args()
-    x=TravelPilot(asset_root=args.asset_root)
+    if args.print_summary:
+        raw=args.output.read_bytes()
+        result=json.loads(raw)
+        for row in result['route_summaries']:
+            print(f"{row['origin']}->{row['destination']}: "
+                  f"{row['feasible_weekly_departures']} open / "
+                  f"{row['unavailable_weekly_departures']} closed "
+                  f"({row['weekly_departures']} weeks)")
+        print('sha256:',sha256(raw).hexdigest())
+        raise SystemExit(0)
+    from .batch import BatchTravelPilot
+    x=BatchTravelPilot(asset_root=args.asset_root)
     out=write_summary(x,args.output)
     # Timing is process-specific telemetry, deliberately excluded from the
     # deterministic, source-backed artifact.
+    solver_seconds=x.sample_seconds+x.batch_seconds
     print(json.dumps({
-        'solve_count': x.solve_count,
-        'lambert_solver_seconds': round(x.sample_seconds,4),
-        'solver_only_solve_rate_per_second': round(x.solve_count/x.sample_seconds,2),
+        'solve_count':x.solve_count,
+        'batched_lambert_seconds':round(x.batch_seconds,4),
+        'scalar_refinement_seconds':round(x.sample_seconds,4),
+        'combined_solver_seconds':round(solver_seconds,4),
+        'solver_only_solve_rate_per_second':round(x.solve_count/solver_seconds,2),
     },indent=2))
