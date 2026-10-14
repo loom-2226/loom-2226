@@ -1,158 +1,147 @@
-# Generic dated transport to money: Build 8 opt-in trial
+# Build 8 generic dated transport-to-money consumer
 
-**TEST_ONLY · NON-CANON · NON-RUNTIME · NOT merged on authoring.**
+**TEST_ONLY · NON-CANON · NON-RUNTIME · PR #410 (review only, do not merge)**
 
-This is a small **generic** Build 8 consumer of merged `OnDemandTravel`,
-not a Ceres-only travel subsystem. The authoring table in
-`transport_money_rows.py` lists Ceres first and an illustrative Mars
-project second. All project, sponsor, origin, destination, review trigger,
-vehicle, source, wait, flight-range and funding choices live **only in
-the rows**. The logic in `transport_to_money.py` contains no sponsor/body
-special cases. The legacy Ceres money chain and all Build 7/frozen paths
-are untouched.
+The existing legacy Ceres money chain, Build 7 inputs, frozen kernel and
+original travel pilot remain unchanged. The generic code handles requirements
+authored in `transport_money_rows.py` without sponsor/body special cases.
+The first row is Ceres seed equipment (Earth→Ceres, funded). The second is an
+illustrative Mars project (Earth→Mars, treasury-unfunded). Both rows use an
+observed Route 1 review as their readiness trigger, dated at the **end of its
+review year** by an explicit TEST_ONLY annual-settlement convention.
 
-## Source and assumptions
+## Authored transport assumptions
 
-Both requirements use:
-- A real observed Route 1 campaign review from the unchanged 90-body
-  Ceres downstream run. The annually dated review's **year-end UTC**
-  is a visible *settlement convention*, not a historical observation
-  that the review occurred at 23:59:59 that day.
-- Every calendar departure for **730 days**, with no weekly sampling.
-- The same merged zero-rev prograde Lambert/direct SPICE path, default
-  0.25-day flight durations, and a row-authorised **45–3000 day**
-  flight bracket. Changing that bracket changes the geometry key.
-- An explicitly TEST_ONLY 20-tonne-spacecraft `CARGO_DELIVERY`
-  service with **10/10 km/s** endpoint caps. This is NOT qualified
-  vehicle physics and 20 tonnes is not certified cargo capacity.
-- A real Build 7 `CARGO_DELIVERY` 2026 median proportional-burden
-  price anchor, held flat by provisional assumption. It is applied
-  AFTER geometric lookup and vehicle filtering, not inside the cache.
-  One-way quote in model currency:
-  `Decimal(2026 service rate) * (departure_vinf + arrival_vinf) / 1000`,
-  rounded once to six decimal places; selection uses minimum quoted
-  price with deterministic tie breaks (departure/time/speeds).
-- Commitment at the accepted order, **pay at departure**, and
-  **TEST_ONLY scripted delivery at the modelled orbital arrival**.
-  Orbital arrival is not qualified surface unloading.
+- `CARGO_DELIVERY` at the Build 7 2026-held *provisional* rate, not a certified
+  freight market price or service.
+- TEST_ONLY 10/10 km/s departure/arrival v-infinity caps, **not** qualified
+  vehicle physics. The Build 7 20-tonne spacecraft assumption is NOT proof
+  of 20 tonnes of usable cargo capacity.
+- An authored 730-day departure wait limit, daily sampled departures and
+  45–3000-day transfer-duration grid at 0.25-day flight-time spacing.
+  The duration bracket is in the geometry cache key; vehicle limits and
+  prices are not.
+- `CHEAPEST_WITHIN_WAIT_LIMIT_SCRIPTED`: select cheapest eligible trajectory,
+  deterministic tie-breaking, commit on readiness, pay on actual departure.
+- TEST_ONLY delivery on the modeled orbital arrival date; **not** a qualified
+  descent, cargo unloading, or real-world surface delivery capability.
 
-The daily search scans the entire wait limit. An empty admissible set
-reports `NO_FEASIBLE_DEPARTURE`, followed by
-`WAIT_LIMIT_EXHAUSTED` at its deadline. A nonempty but unaffordable
-quote reports `BLOCKED_UNAFFORDABLE` and has no order, payment,
-departure, delivery, or productive capacity.
+## Treasury correction: no prefilled seed-funding account
 
-## Financial mechanics
+There is NO `TEST_ONLY_EARTH_FUNDING` opening account and no corresponding
+prepaid seed balance. Both treasuries begin with **zero**. Each requirement
+names the actual payer treasury account, its owner and its country:
+`treasury:IND` (Ceres row) or `treasury:TEST` (illustrative Mars row).
+The generic consumer checks the existing `return_routing.DESTINATIONS`
+public-agency → `country_treasury` rule and the treasury account's country,
+owner and account kind, analogous to `resolve_destination`.
 
-Each new standalone seed-factory project uses actual **frozen Kernel**
-account transfers. Original project capital is an authored, explicitly
-labelled project input. The opt-in FUNDED row receives **one additional
-TEST_ONLY opening source** equal to its selected transport quote:
+The original downstream returned-proceeds appropriation policy has a
+**three-year delay** for Ceres owner-return receipts from export sales. The
+2039 seed shipment **cannot** be financed from those returns, which do not
+exist yet. This experiment uses an explicitly authorised and labelled
+**TEST_ONLY national fiscal allocation**, *not* fabricated Ceres returns.
+It is bounded by India's modeled national mobilisation that is NOT already
+used by Route 1's existing 25% allocation. These source budget caps are
+visible in the Ceres data row, derived from the unchanged Earth country
+capital inputs and existing `derive_mobilization` law:
 
-    original_project_funds = 0.080 MODEL_CURRENCY
-    seed_shipment_test_funding = selected_cargo_quote
-    total_opt_in_source_funds = 0.080 + selected_cargo_quote
+| Fiscal year | National mobilisation | Already allocated Route 1 (25%) | Remaining 75% test-only ceiling |
+|---|---:|---:|---:|
+| 2038 | 2.3877642952672773 | 0.596941073816819325 | 1.790823221450457975 |
+| 2039 | 2.5160735260347217 | 0.629018381508680425 | 1.887055144526041275 |
 
-This is a transparent **scenario endowment**, not an internal minting
-transaction. After setup, the sum across accounts is conserved exactly.
-Capital is disbursed Earth→Offworld for the seed factory, and the
-shipment's separate Earth→Earth transport payment is recorded with
-`TRANSPORT_PAYMENT` only on actual departure. The equipment creates
-productive capital only after scripted delivery through the kernel's
-existing `spend_capex` and `capitalize` calls. The other row
-retains only its authored base funds and demonstrates blocking.
+All amounts are MODEL_CURRENCY. These remaining-capacity ceilings are
+**not themselves a fiscal commitment**, and no general budget or government
+behavior is being added. In this single opt-in demo, the authored fiscal
+source releases only the quote amount through year-specific
+`EARTH_BOUNDARY` country-origin accounts and *actual frozen-kernel
+`transfer` transactions* crediting `treasury:IND`. Each country origin
+ends at zero. Thus the treasury's money is received through dated
+ledger transactions; **its opening balance is zero**. The external fiscal
+envelopes and credited inflows are disclosed, not hidden "free money".
+This is the same annual-source accounting idiom used by Route 1, not a
+claim that a new source is already canonically appropriated.
 
-The existing Earth-impact capital equation is preserved, not redefined:
+The next transfer follows the existing Ceres appropriation pattern:
+`treasury:IND → sponsor_budget` with `TxPurpose.PUBLIC_SUBSIDY`, linked
+to the treasury's fiscal-credit transaction IDs. Then
+`sponsor_budget → Earth-side shipper` with `TRANSPORT_PAYMENT`, linked
+to the appropriation transaction. **Both are Earth-to-Earth transfers**;
+neither adds to `offworld_draw`. The only Earth-to-Offworld capital draw
+is the original `0.080` project disbursement. The separate gauges for
+committed, in transit and delivered do not double-count that draw.
 
-    offworld_draw == new_capital_draw + recycled_returned_cash_spent
+### Completed real-trajectory quote and treasury arithmetic
 
-The dated gauge ALSO exposes **committed_unpaid**, **in_transit** and
-**delivered_cumulative**. These are separate exposure/physical measures,
-not additional capital draw. Dates belong to the Build 8 event manifest;
-the kernel's year-only financial entries settle in the corresponding
-calendar year. No income, capacity, or capitalisation precedes arrival.
+The previously completed full 730-daily-departure, 45–3000-day Lambert
+search (11,821 flight-duration samples per day, 8,629,330 solves per
+route) selected the following Ceres option:
 
-## Determinism and scope
+- Ready: **2038-12-31 23:59:59 UTC** (observed positive 2038 A2 review,
+  explicit synthetic annual-close dating).
+- Cheapest admissible trajectory in the searched window: departs
+  **2039-07-01 23:59:59 UTC**, waits **182 days**, flies **380 days**,
+  arrives **2040-07-15 23:59:59 UTC**.
+- Endpoint speeds: **6.5147334** and **7.244754** km/s.
+- Held-2026 cargo rate: **193.368615750 USD million/(km/s)**.
+- Quote (rounded to 6 decimals): **2.660653 MODEL_CURRENCY**.
 
-The scenario result includes a SHA-256 over complete stable-ordered
-JSON state, including actual yearly ledger fingerprint and exact date
-events. Wall-clock timing is excluded. The geometry key excludes
-vehicle and price and includes source hashes, solver version, transfer
-family and the *new* flight-duration grid identity. No geometry cache
-file is saved into Git; opt-in caches belong outside the repository.
-No fabricated freight physics, outer routes, sponsor agents, production
-model, kernel modification, or historical Ceres retrospective mutation.
+The treasury's actual TEST_ONLY ledger trace is:
 
-The first review builds the seed factory as a **separate opt-in financial
-project** using the same frozen accounting engine; it does **not**
-retcon the 2039–2045 original Ceres storyline. That original storyline's
-8,798 transactions, 249 receipts and pinned returns/gauge stay intact.
+| Event | Treasury before | Change | Treasury after | Transaction |
+|---|---:|---:|---:|---|
+| Opening | 0 | 0 | 0 | None |
+| 2038 fiscal receipt | 0 | +1.790823221450457975 | 1.790823221450457975 | tx-000002 |
+| 2039 fiscal receipt | 1.790823221450457975 | +0.869829778549542025 | 2.660653 | tx-000003 |
+| 2039 appropriation | 2.660653 | −2.660653 | **0** | tx-000004 |
 
-The tests cover both rows using identical generic logic, 31 December
-carryover, block/no feasible/exhaustion statuses, zero early capacity,
-exact funding and cash conservation, byte-identical replay, and the
-3,000-day cache signature. Real 730-day scans and the generated results
-are inspected separately on quantifactus.
+The appropriation amount is derived exactly from the selected freight quote:
+`2.660653 = 1.790823221450457975 + 0.869829778549542025`.
+The sponsor then pays the Earth shipper at departure, from those
+appropriated funds. The original project funds remain **0.080** and
+pay the original capital disbursement and subsequent **0.060** CAPEX.
 
-## Completed full-search observations (quantifactus)
+**Money reconciliation** (not a claim that the Earth fiscal envelope was
+pre-existing spendable treasury cash):
 
-These are results of the full **730 daily departures per row** using
-0.25-day flight-duration resolution from 45 through 3000 days.
-Every departure used 11,821 flight-duration samples, totaling
-**8,629,330 Lambert solves per row**, **17,258,660 overall**.
-Elapsed trajectory+scenario times were 420.634 s for the funded Ceres
-row and 539.030 s for the blocked Mars row (978.74 s including legacy
-source loading and overhead). Execution times are VM observations, not
-requirements. No geometry or scenario JSON was committed: the complete
-replayable report was retained outside Git at
-`/tmp/loom-transport-money-20261014-result-canonical.json`.
+`opening modeled accounts 0.080 + separately modelled fiscal ingress 2.660653
+ = ending modeled account balances 2.740653`.
 
-| Result | Ceres seed factory | Illustrative Mars factory |
-|---|---|---|
-| Actual Route 1 prerequisite | A2 review ADVANCE (2038) | A1 review ADVANCE (2037); A2 does not approve |
-| Ready at annual close | 2038-12-31 23:59:59 UTC | 2037-12-31 23:59:59 UTC |
-| Lookup status | AVAILABLE | AVAILABLE, unaffordable |
-| Cheapest quote | **2.660653** | **1.164017** MODEL_CURRENCY |
-| Actual departure | 2039-07-01 23:59:59 UTC | null |
-| Actual arrival | 2040-07-15 23:59:59 UTC | null |
-| Actual wait | 182 days | null |
-| Flight | 380 days | null |
-| Selected-but-unbooked quote departure | same as actual | 2039-09-19 23:59:59 UTC |
-| Selected-but-unbooked quote wait | same as actual | 627 days |
-| Selected-but-unbooked quote flight | same as actual | 341.25 days |
-| Seed endowment | **2.660653** | **0** |
-| Original funds | 0.080 | 0.080 |
-| Total initial model funds | **2.740653** | **0.080** |
-| Final payment/delivery | PAID_AT_DEPARTURE / DELIVERED_SCRIPTED | NOT_PAID / NOT_DELIVERED |
-| Factory capacity | 5 **only after arrival** | 0 |
+The treasury itself opens **0** and closes **0**, and every fiscal receipt,
+appropriation and payment has actual frozen-ledger transaction lineage.
 
-For Ceres the selected 2026-held cargo quote is
-`(6.5147334 + 7.244754) km/s * 193.368615750 USD million/(km/s)
- / 1000 = 2.660653 MODEL_CURRENCY` after six-place rounding.
+### Annual consequence and negative controls
 
-The authored opt-in source funding is therefore
-**0.080 original + 2.660653 seed = 2.740653 MODEL_CURRENCY**.
-This is the project's complete initial account endowment, not
-a hidden ledger credit during transport.
+| Year close | Unpaid commitment | In transit | Delivered | Factory capacity |
+|---|---:|---:|---:|---:|
+| 2038 | 2.660653 | 0 | 0 | 0 |
+| 2039 | 0 | 2.660653 | 0 | **0** |
+| 2040 | 0 | 0 | 2.660653 | **5** |
 
-**Ceres annual gauge:** at 2038 close, committed unpaid 2.660653,
-in transit zero, delivered zero, Earth-to-offworld new-capital draw 0.080,
-recycled zero. At 2039 close, committed unpaid zero, in transit
-2.660653, delivered zero, factory capacity **zero**. At 2040 close,
-in transit zero, delivered 2.660653, factory capacity **5**.
-Every year preserves `new_capital + recycled = offworld_draw`.
-Money conservation is exact: 2.740653 before and after all Ceres
-transactions. All four real kernel transactions are year-attributed.
+The actual **Mars** row (ready at 2037 A1 review year end) discovers a
+cheapest eligible quote **1.164017 MODEL_CURRENCY** with candidate
+departure 2039-09-19, but has `treasury:TEST` opening/closing **0**,
+no authored fiscal receipt and no appropriation. Therefore it is
+`BLOCKED_TREASURY_UNFUNDED`: real departure/arrival dates **null**,
+no payment, no delivery and zero capacity. The separate Ceres
+empty-treasury test overrides the fiscal receipt schedule to empty,
+and also blocks without cash mutation or factory capacity.
 
-**Mars blocked:** 0.080 initial and final cash; 1.164017 external
-cargo quote is not paid, and there is no order, departure, delivery or
-build. The optional quote's candidate dates are reported separately
-while the actual shipment's dates are **null**.
-`NO_FEASIBLE_DEPARTURE` and `WAIT_LIMIT_EXHAUSTED` are also separately
-exercised by a mocked-empty search, not falsely attributed to Mars.
+`NO_FEASIBLE_DEPARTURE` and `WAIT_LIMIT_EXHAUSTED` remain distinct,
+focused-tested no-geometry conditions, not invented descriptions of the
+affordable or unaffordable cases.
 
-The full stable-result SHA-256 is
-`95d314312940fd98733b9322a18c21d2580fcc1a0140f097930a98ff08f86829`.
-Exact quote-to-ledger replay reproduced each row's JSON byte-for-byte
-and its kernel fingerprint. The existing 8,798-transaction /
-249-receipt legacy run and pinned gauge remain unchanged.
+The local finance-only re-settlement reuses the **completed full-search
+geometry choices unchanged** and replays both rows twice, producing
+byte-identical JSON and the corrected completed-scenario fingerprint:
+
+`46e390772ed0ef4cca3d07e79e39a4dfa1a26db5c774162a77dff7887b0b0563`
+
+The complete generated record is outside Git:
+`/tmp/loom-transport-money-20261015-treasury-correction.json`.
+The old scenario fingerprint is superseded, not a claim of the same
+state. Legacy Ceres stays pinned at **8,798 transactions**, **249**
+campaign receipts; the existing Build 7 tests remain untouched.
+
+**No merge without kT approval.**

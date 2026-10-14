@@ -124,8 +124,56 @@ def quote_and_choose(row, ready_date, *, geometry=None, rates=None):
                 if hasattr(engine, "solve_count") else None))
 
 
+def _treasury_route(row, kernel):
+    """Use the existing public-agency return-routing treasury identity contract.
+
+    Its three-year rule is for *recycled Ceres sale returns*. The funds used
+    here are separately authored, dated TEST_ONLY national fiscal allocation
+    receipts, not future Ceres returns. No fictional return receipt is created.
+    """
+    from .return_routing import DESTINATIONS, SOURCE
+    route = DESTINATIONS.get((SOURCE, row["treasury_owner_type"]))
+    if route is None or route[0] != "country_treasury":
+        raise ValueError("PAYER_NOT_TREASURY_ROUTE")
+    payer = row["payer_account"]
+    country = row["financing_node"].removeprefix("EARTH:")
+    if (row["financing_node"] != "EARTH:" + country or
+            payer != "treasury:" + country or
+            row["treasury_owner_id"] != "STATE:" + country):
+        raise ValueError("TREASURY_OWNER_OR_COUNTRY_MISMATCH")
+    account = kernel.state.accounts[payer]
+    if (account.owner_id != row["treasury_owner_id"] or
+            account.kind != AccountKind.FUNDS or
+            account.node_id != row["financing_node"]):
+        raise ValueError("TREASURY_ACCOUNT_INVARIANT")
+    return payer
+
+
+def _fiscal_allocation_plan(row, quote, departure):
+    """Bound a TEST_ONLY fiscal allocation by actual authored country capacity.
+
+    The capacities are derived from Earth long-run mobilisation, specifically
+    its 75% *not* already assigned to the 25% Route 1 test. This does not
+    represent prior Ceres returns and does not modify their routing policy.
+    """
+    if row["funding_mode"] != "TEST_ONLY_TREASURY_FISCAL_APPROPRIATION":
+        return (), D(0)
+    if not row["fiscal_source"].startswith("UNALLOCATED_75_PERCENT_OF_ROUTE1_"):
+        raise ValueError("UNQUALIFIED_FISCAL_SOURCE")
+    funding = []
+    outstanding = quote
+    for year, cap in sorted(row["fiscal_available_by_year"]):
+        amount = min(outstanding, D(cap)) if year <= departure.year else D(0)
+        if amount > 0:
+            funding.append((int(year), amount))
+            outstanding -= amount
+        if outstanding <= 0:
+            break
+    return tuple(funding), outstanding
+
+
 def settle_money_chain(row, ready_date, search, *, year_start=2026, year_end=2226):
-    """One generic project, using real frozen-kernel transfers and assets."""
+    """Generic quote -> treasury appropriation -> Earth shipper -> delivery."""
     _row_is_valid(row)
     ready = _day(ready_date)
     if search["ready_date"] != _iso(ready):
@@ -137,152 +185,208 @@ def settle_money_chain(row, ready_date, search, *, year_start=2026, year_end=222
     earth = row["financing_node"]
     off = "OFF:" + row["destination"]
     for node, kind in [(earth, NodeKind.EARTH), (off, NodeKind.OFFWORLD)]:
-        k.add_node(node,kind)
-    cash = project+":cash"
-    budget = project+":sponsor_budget"
-    seed = project+":test_only_seed_funding"
-    carrier = project+":carrier_cash"
-    supplier = project+":supplier_cash"
+        k.add_node(node, kind)
+    cash = project + ":cash"
+    budget = project + ":sponsor_budget"
+    carrier = project + ":shipper_cash"
+    supplier = project + ":supplier_cash"
+    payer = row["payer_account"]
     base = D(row["original_project_funds"])
-    quote = D(search["chosen"]["cost_model_currency"]) if search["chosen"] else D(0)
-    fund_seed = row["funding_mode"] == "TEST_ONLY_FUNDED_FROM_SELECTED_QUOTE"
-    seeded = quote if fund_seed else D(0)
-    k.add_account(cash,project,off,AccountKind.PROJECT_CASH)
-    k.add_account(budget,row["sponsor"],earth,AccountKind.FUNDS,base)
-    k.add_account(seed,"TEST_ONLY_EARTH_FUNDING",earth,AccountKind.EARTH_BOUNDARY,seeded)
-    k.add_account(carrier,project+":carrier",earth,AccountKind.SUPPLIER)
-    k.add_account(supplier,project+":factory_supplier",earth,AccountKind.SUPPLIER)
-    k.add_project(project,off,cash)
-    total_initial = sum((a.balance for a in k.state.accounts.values()),D(0))
+    offer = search["chosen"]
+    quote = D(offer["cost_model_currency"]) if offer else D(0)
+    k.add_account(cash, project, off, AccountKind.PROJECT_CASH)
+    k.add_account(budget, row["sponsor"], earth, AccountKind.FUNDS, base)
+    # The treasury ALWAYS starts empty. It must receive real ledger
+    # transactions from explicitly sourced annual fiscal capacity.
+    k.add_account(payer, row["treasury_owner_id"], earth, AccountKind.FUNDS)
+    k.add_account(carrier, project + ":shipper", earth, AccountKind.SUPPLIER)
+    k.add_account(supplier, project + ":factory_supplier",
+                  earth, AccountKind.SUPPLIER)
+    k.add_project(project, off, cash)
+    _treasury_route(row, k)
+    opening_money = sum((a.balance for a in k.state.accounts.values()), D(0))
+    assert k.state.accounts[payer].balance == 0
+
+    fiscal_plan, unfunded = (
+        _fiscal_allocation_plan(row, quote, _day(offer["departure"]))
+        if offer else ((), D(0)))
+    funded = (search["status"] == "AVAILABLE" and quote > 0
+              and unfunded == 0 and sum((x for _, x in fiscal_plan), D(0)) == quote)
     events = []
+    treasury_ledger = []
     shipment = dict(
-        requirement_id=row["requirement_id"],project=project,sponsor=row["sponsor"],
-        origin=row["origin"],destination=row["destination"],
-        ready_date=_iso(ready),wait_limit_days=row["wait_limit_days"],
-        vehicle=row["vehicle"],price_rule=row["price_rule"],
-        payment_rule=row["payment_rule"],delivery_rule=row["delivery_rule"],
+        requirement_id=row["requirement_id"], project=project,
+        sponsor=row["sponsor"], origin=row["origin"],
+        destination=row["destination"], payer_account=payer,
+        ready_date=_iso(ready), wait_limit_days=row["wait_limit_days"],
+        vehicle=row["vehicle"], price_rule=row["price_rule"],
+        payment_rule=row["payment_rule"], delivery_rule=row["delivery_rule"],
         flight_range_days=list(row["flight_range_days"]),
-        departure=None,wait_days=None,arrival=None,flight_days=None,
-        cost_model_currency=str(quote) if search["chosen"] else None,
-        payment_status="NOT_ORDERED",delivery_status="NOT_DELIVERED",
-        status="READY",search_status=search["status"],policy=search["policy"],
-        seed_funding=str(seeded),original_project_funds=str(base),
-        total_initial_funding=str(total_initial),
-        transport_payment_tx=None,construction_tx=None)
-    offer=search["chosen"]
-    if offer and fund_seed:
-        shipment.update(
-            departure=offer["departure"],wait_days=offer["wait_days"],
-            arrival=offer["arrival"],flight_days=offer["flight_days"],
-            offer=offer)
-    # Even a blocked project retains its historically authored baseline funds.
-    # The ONLY additional money in this opt-in simulation is the explicit
-    # TEST_ONLY seeded source, equal to the selected transportation quote.
-    event_queue=[(ready,0,"READY")]
-    if search["status"]=="AVAILABLE" and quote>0 and base+seeded>=base+quote:
-        event_queue.extend([(ready,1,"ORDER"),
-            (_day(offer["departure"]),2,"PAY_AND_DEPART"),
-            (_day(offer["arrival"]),3,"ARRIVE_AND_DELIVER")])
-    elif search["status"]=="AVAILABLE":
-        shipment["status"]="BLOCKED_UNAFFORDABLE"
-        shipment["payment_status"]="NOT_PAID"
-        shipment["delivery_status"]="NOT_DELIVERED"
-        shipment["blocked_quote"]=offer
+        departure=None, wait_days=None, arrival=None, flight_days=None,
+        cost_model_currency=str(quote) if offer else None,
+        payment_status="NOT_ORDERED", delivery_status="NOT_DELIVERED",
+        status="READY", search_status=search["status"], policy=search["policy"],
+        original_project_funds=str(base), treasury_opening="0",
+        transport_payment_tx=None, appropriation_tx=None, construction_tx=None)
+    if funded:
+        shipment.update(departure=offer["departure"], wait_days=offer["wait_days"],
+                        arrival=offer["arrival"], flight_days=offer["flight_days"],
+                        offer=offer)
+    event_queue = [(ready, 0, "READY", None)]
+    if funded:
+        for year, amount in fiscal_plan:
+            moment = (ready if year == ready.year else
+                      datetime(year, 1, 1, tzinfo=timezone.utc))
+            event_queue.append((moment, 1, "FISCAL_RECEIPT", amount))
+        event_queue.extend([
+            (ready, 2, "ORDER", None),
+            (_day(offer["departure"]), 3, "APPROPRIATE_PAY_DEPART", None),
+            (_day(offer["arrival"]), 4, "ARRIVE_AND_DELIVER", None)])
+    elif search["status"] == "AVAILABLE":
+        shipment["status"] = "BLOCKED_TREASURY_UNFUNDED"
+        shipment["payment_status"] = "NOT_PAID"
+        shipment["blocked_quote"] = offer
     else:
-        event_queue.append((ready+timedelta(days=row["wait_limit_days"]),
-                            4,"WAIT_LIMIT_EXHAUSTED"))
-    event_queue.sort(key=lambda x:(x[0],x[1]))
-    yearly=[]
-    i=0
-    total_payment=D(0)
-    for year in range(year_start,year_end+1):
-        while i<len(event_queue) and event_queue[i][0].year==year:
-            when,_,action=event_queue[i];i+=1
-            if action=="READY":
-                k.add_commitment(project+":development_finance",row["sponsor"],project,base)
-                k.disburse(year,project+":development_finance",budget,base)
-                # The seed is test-only exogenous INITIAL money, not a minted
-                # transaction. This is just an Earth-to-Earth funding sweep.
-                if seeded:
-                    k.transfer(year,seed,budget,seeded,TxPurpose.OTHER_INVESTMENT)
-                events.append(dict(date=_iso(when),type="READY",
-                                   status="FUNDED_BASE_PROJECT",project=project))
-            elif action=="ORDER":
-                shipment["status"]="COMMITTED"
-                shipment["payment_status"]="COMMITTED_UNPAID"
-                events.append(dict(date=_iso(when),type="ORDER_COMMITMENT",
-                                   amount=str(quote),project=project))
-            elif action=="PAY_AND_DEPART":
-                tx=k.transfer(year,budget,carrier,quote,TxPurpose.TRANSPORT_PAYMENT,
-                              parent_ids=(project+":transport_order",))
-                total_payment+=quote
-                shipment["transport_payment_tx"]=tx.id
-                shipment["payment_status"]="PAID_AT_DEPARTURE"
-                shipment["delivery_status"]="IN_TRANSIT"
-                shipment["status"]="IN_TRANSIT"
+        event_queue.append((ready + timedelta(days=row["wait_limit_days"]),
+                            5, "WAIT_LIMIT_EXHAUSTED", None))
+    event_queue.sort(key=lambda x: (x[0], x[1]))
+    fiscal_inflow = D(0)
+    fiscal_receipt_txs = []
+    yearly = []
+    i = 0
+    for year in range(year_start, year_end + 1):
+        while i < len(event_queue) and event_queue[i][0].year == year:
+            when, _, action, payload = event_queue[i]
+            i += 1
+            if action == "READY":
+                k.add_commitment(project + ":development_finance",
+                                 row["sponsor"], project, base)
+                k.disburse(year, project + ":development_finance", budget, base)
+                events.append(dict(date=_iso(when), type="READY",
+                                   project=project, status="FUNDED_BASE_PROJECT"))
+            elif action == "FISCAL_RECEIPT":
+                # Existing Route1 country-capital pattern: a YEAR-specific
+                # external Earth mobilisation source, not an opening
+                # TEST_ONLY_EARTH_FUNDING balance. The spend is bounded by
+                # the unused national-fiscal capacity declared in the row.
+                source = project + ":national_fiscal_origin:" + str(year)
+                k.add_account(source, "COUNTRY:" + earth.removeprefix("EARTH:"),
+                              earth, AccountKind.EARTH_BOUNDARY, payload)
+                before = k.state.accounts[payer].balance
+                tx = k.transfer(year, source, payer, payload,
+                                TxPurpose.OTHER_INVESTMENT)
+                fiscal_inflow += payload
+                fiscal_receipt_txs.append(tx.id)
+                assert k.state.accounts[source].balance == 0
+                treasury_ledger.append(dict(year=year, action="FISCAL_RECEIPT",
+                    source_account=source, treasury_before=str(before),
+                    amount=str(payload), treasury_after=str(k.state.accounts[payer].balance),
+                    tx=tx.id, test_only=True))
+                events.append(dict(date=_iso(when), type="TEST_ONLY_FISCAL_RECEIPT",
+                                   amount=str(payload), tx=tx.id))
+            elif action == "ORDER":
+                shipment["status"] = "COMMITTED"
+                shipment["payment_status"] = "COMMITTED_UNPAID"
+                events.append(dict(date=_iso(when), type="ORDER_COMMITMENT",
+                                   amount=str(quote), project=project))
+            elif action == "APPROPRIATE_PAY_DEPART":
+                before = k.state.accounts[payer].balance
+                if before < quote:
+                    raise AssertionError("TREASURY_FUNDS_MISSING_AT_DEPARTURE")
+                # Same PUBLIC_SUBSIDY appropriation path as return_routing's
+                # Ceres downstream spending. Here the authority is a
+                # separately authored, contemporary fiscal allocation.
+                ap = k.transfer(year, payer, budget, quote,
+                    TxPurpose.PUBLIC_SUBSIDY, parent_ids=tuple(fiscal_receipt_txs))
+                shipment["appropriation_tx"] = ap.id
+                treasury_ledger.append(dict(year=year, action="APPROPRIATION",
+                    source_account=payer, destination_account=budget,
+                    treasury_before=str(before), amount=str(quote),
+                    treasury_after=str(k.state.accounts[payer].balance),
+                    tx=ap.id, receipt_txs=list(fiscal_receipt_txs),
+                    test_only=True))
+                events.append(dict(date=_iso(when), type="TREASURY_APPROPRIATION",
+                                   amount=str(quote), tx=ap.id,
+                                   payer_account=payer))
+                tx = k.transfer(year, budget, carrier, quote,
+                                TxPurpose.TRANSPORT_PAYMENT,
+                                parent_ids=(ap.id, project + ":transport_order"))
+                shipment["transport_payment_tx"] = tx.id
+                shipment["payment_status"] = "PAID_AT_DEPARTURE"
+                shipment["delivery_status"] = "IN_TRANSIT"
+                shipment["status"] = "IN_TRANSIT"
                 events.extend([
-                    dict(date=_iso(when),type="PAYMENT",amount=str(quote),tx=tx.id),
-                    dict(date=_iso(when),type="DEPARTURE",status="IN_TRANSIT")])
-            elif action=="ARRIVE_AND_DELIVER":
-                if shipment["payment_status"]!="PAID_AT_DEPARTURE":
+                    dict(date=_iso(when), type="PAYMENT", amount=str(quote),
+                         tx=tx.id, source_account=budget,
+                         destination_account=carrier),
+                    dict(date=_iso(when), type="DEPARTURE", status="IN_TRANSIT")])
+            elif action == "ARRIVE_AND_DELIVER":
+                if shipment["payment_status"] != "PAID_AT_DEPARTURE":
                     raise AssertionError("SHIPMENT_NOT_PAID")
                 events.extend([
-                    dict(date=_iso(when),type="ARRIVAL"),
-                    dict(date=_iso(when),type="DELIVERY",
+                    dict(date=_iso(when), type="ARRIVAL"),
+                    dict(date=_iso(when), type="DELIVERY",
                          standing="TEST_ONLY_SCRIPTED_ON_ORBITAL_ARRIVAL")])
-                shipment["delivery_status"]="DELIVERED_SCRIPTED"
-                tx=k.spend_capex(year,project,supplier,D(row["construction_cost"]),
-                                 project+":factory_asset",off)
-                k.capitalize(project+":factory_asset",D(row["productive_capacity"]))
-                shipment["construction_tx"]=tx.id
-                shipment["status"]="BUILT_AFTER_DELIVERY"
-                events.append(dict(date=_iso(when),type="BUILD",
-                                   tx=tx.id,capacity=row["productive_capacity"]))
-            elif action=="WAIT_LIMIT_EXHAUSTED":
-                shipment["status"]="WAIT_LIMIT_EXHAUSTED"
-                events.append(dict(date=_iso(when),type="WAIT_LIMIT_EXHAUSTED",
+                shipment["delivery_status"] = "DELIVERED_SCRIPTED"
+                tx = k.spend_capex(year, project, supplier,
+                    D(row["construction_cost"]), project + ":factory_asset", off)
+                k.capitalize(project + ":factory_asset",
+                             D(row["productive_capacity"]))
+                shipment["construction_tx"] = tx.id
+                shipment["status"] = "BUILT_AFTER_DELIVERY"
+                events.append(dict(date=_iso(when), type="BUILD",
+                                   tx=tx.id, capacity=row["productive_capacity"]))
+            elif action == "WAIT_LIMIT_EXHAUSTED":
+                shipment["status"] = "WAIT_LIMIT_EXHAUSTED"
+                events.append(dict(date=_iso(when), type="WAIT_LIMIT_EXHAUSTED",
                                    predecessor="NO_FEASIBLE_DEPARTURE"))
-        assert sum((a.balance for a in k.state.accounts.values()),D(0))==total_initial, (
-            "CASH_CONSERVATION_FAILURE",year)
+        total_money = sum((a.balance for a in k.state.accounts.values()), D(0))
+        assert total_money == opening_money + fiscal_inflow, (
+            "CASH_CONSERVATION_FAILURE", year)
         k.assert_invariants()
-        year_close=datetime(year,12,31,23,59,59,tzinfo=timezone.utc)
-        committed = quote if (shipment["departure"] and ready<=year_close<
-                              _day(shipment["departure"])) else D(0)
-        in_transit = quote if (shipment["departure"] and
-                      _day(shipment["departure"])<=year_close<
-                      _day(shipment["arrival"])) else D(0)
-        delivered = quote if (shipment["departure"] and
-                     _day(shipment["arrival"])<=year_close and
-                     shipment["delivery_status"]=="DELIVERED_SCRIPTED") else D(0)
-        impact=k.state.earth_impact.capital_diverted_to_offworld
-        draw=impact.get((earth,year),D(0))
-        recycled=D(0)
+        close = datetime(year, 12, 31, 23, 59, 59, tzinfo=timezone.utc)
+        committed = (quote if shipment["departure"] and
+                     ready <= close < _day(shipment["departure"]) else D(0))
+        transit = (quote if shipment["departure"] and
+                   _day(shipment["departure"]) <= close <
+                   _day(shipment["arrival"]) else D(0))
+        delivered = (quote if shipment["departure"] and
+                     _day(shipment["arrival"]) <= close and
+                     shipment["delivery_status"] == "DELIVERED_SCRIPTED"
+                     else D(0))
+        draw = k.state.earth_impact.capital_diverted_to_offworld.get(
+            (earth, year), D(0))
+        recycled = D(0)
         yearly.append(dict(year=year,
-           committed_unpaid=str(committed),in_transit=str(in_transit),
-           delivered_cumulative=str(delivered),
-           new_capital_draw=str(draw-recycled),
-           recycled_returned_cash_spent=str(recycled),
-           offworld_draw=str(draw),
-           capacity=str(k.state.assets[project+":factory_asset"].capacity)
-                if project+":factory_asset" in k.state.assets else "0"))
-        assert draw==(draw-recycled)+recycled
-    shipment["funding_calculation"]={
-        "original_funds":str(base),"shipment_quote":str(quote),
-        "additional_TEST_ONLY_seed":str(seeded),
-        "total_available":str(base+seeded),
-        "required_original_plus_quote":str(base+quote),
-        "construction_reserved_from_original":row["construction_cost"]}
-    if search["status"]=="NO_FEASIBLE_DEPARTURE":
-        shipment["payment_status"]="NO_PAYMENT"
-        shipment["delivery_status"]="NOT_DELIVERED"
-    result=dict(classification="BUILD8_TEST_ONLY_NON_CANON_NON_RUNTIME",
-       project=project,shipment=shipment,events=events,annual=yearly,
-       kernel_fingerprint=k.fingerprint(),
-       transaction_count=len(k.state.transactions),
-       money_initial=str(total_initial),
-       money_final=str(sum((a.balance for a in k.state.accounts.values()),D(0))),
-       productive_capacity=str(
-            k.state.assets[project+":factory_asset"].capacity
-            if project+":factory_asset" in k.state.assets else D(0)))
-    result["fingerprint"]=sha256(stable_bytes(result)).hexdigest()
+            treasury_balance=str(k.state.accounts[payer].balance),
+            committed_unpaid=str(committed), in_transit=str(transit),
+            delivered_cumulative=str(delivered),
+            new_capital_draw=str(draw - recycled),
+            recycled_returned_cash_spent=str(recycled),
+            offworld_draw=str(draw),
+            capacity=(str(k.state.assets[project + ":factory_asset"].capacity)
+                      if project + ":factory_asset" in k.state.assets else "0")))
+        assert draw == (draw - recycled) + recycled
+    shipment["funding_calculation"] = dict(
+        original_funds=str(base), shipment_quote=str(quote),
+        treasury_opening="0",
+        TEST_ONLY_fiscal_allocation=sum((a for _, a in fiscal_plan), D(0)).__str__()
+            if funded else "0",
+        treasury_appropriation=str(quote) if funded else "0",
+        treasury_after=str(k.state.accounts[payer].balance),
+        original_plus_external_fiscal=str(opening_money + fiscal_inflow),
+        construction_reserved_from_original=row["construction_cost"])
+    if search["status"] == "NO_FEASIBLE_DEPARTURE":
+        shipment["payment_status"] = "NO_PAYMENT"
+    result = dict(classification="BUILD8_TEST_ONLY_NON_CANON_NON_RUNTIME",
+        project=project, shipment=shipment, events=events, annual=yearly,
+        treasury_ledger=treasury_ledger,
+        kernel_fingerprint=k.fingerprint(),
+        transaction_count=len(k.state.transactions),
+        money_initial=str(opening_money),
+        money_external_fiscal=str(fiscal_inflow),
+        money_final=str(sum((a.balance for a in k.state.accounts.values()), D(0))),
+        productive_capacity=(str(k.state.assets[project + ":factory_asset"].capacity)
+                             if project + ":factory_asset" in k.state.assets else "0"))
+    result["fingerprint"] = sha256(stable_bytes(result)).hexdigest()
     return result

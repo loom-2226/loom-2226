@@ -66,7 +66,9 @@ class GenericDatedMoneyTests(TestCase):
             self.assertTrue(all(x[3]==(45.,3000.) and x[4]==10 and x[5]==10
                                 for x in fake.seen))
             result=settle_money_chain(row,ready,search)
-            self.assertEqual(result["money_initial"],result["money_final"])
+            self.assertEqual(D(result["money_initial"]) +
+                             D(result["money_external_fiscal"]),
+                             D(result["money_final"]))
             self.assertTrue(all(D(y["new_capital_draw"]) +
                                 D(y["recycled_returned_cash_spent"]) ==
                                 D(y["offworld_draw"]) for y in result["annual"]))
@@ -76,14 +78,26 @@ class GenericDatedMoneyTests(TestCase):
         self.assertEqual(ship["status"],"BUILT_AFTER_DELIVERY")
         self.assertEqual(ship["payment_status"],"PAID_AT_DEPARTURE")
         self.assertEqual(ship["delivery_status"],"DELIVERED_SCRIPTED")
-        self.assertEqual(D(ship["seed_funding"]),
+        self.assertEqual(ship["payer_account"], "treasury:IND")
+        self.assertEqual(ship["treasury_opening"], "0")
+        self.assertEqual(D(funded["money_external_fiscal"]),
                          D(ship["cost_model_currency"]))
-        self.assertEqual(D(ship["total_initial_funding"]),
-                         D(ship["original_project_funds"])+
-                         D(ship["cost_model_currency"]))
-        self.assertEqual([e["type"] for e in funded["events"]],
-                         ["READY","ORDER_COMMITMENT","PAYMENT","DEPARTURE",
+        self.assertEqual(D(funded["money_initial"]), D("0.080"))
+        self.assertEqual(D(funded["money_final"]),
+                         D("0.080") + D(ship["cost_model_currency"]))
+        self.assertEqual(D(ship["funding_calculation"]["treasury_after"]), D(0))
+        observed_events=[e["type"] for e in funded["events"]]
+        self.assertEqual(observed_events[0:3],
+                         ["READY","TEST_ONLY_FISCAL_RECEIPT","ORDER_COMMITMENT"])
+        self.assertEqual(observed_events[-6:],
+                         ["TREASURY_APPROPRIATION","PAYMENT","DEPARTURE",
                           "ARRIVAL","DELIVERY","BUILD"])
+        self.assertGreaterEqual(len(funded["treasury_ledger"]),2)
+        self.assertEqual(funded["treasury_ledger"][-1]["source_account"],
+                         "treasury:IND")
+        self.assertEqual(D(funded["treasury_ledger"][-1]["amount"]),
+                         D(ship["cost_model_currency"]))
+        self.assertEqual(D(funded["treasury_ledger"][-1]["treasury_after"]),D(0))
         departure=_day(ship["departure"]);arrival=_day(ship["arrival"])
         self.assertLess(departure.year,arrival.year)
         self.assertGreater(arrival,_day(ship["ready_date"]))
@@ -91,7 +105,10 @@ class GenericDatedMoneyTests(TestCase):
             self.assertEqual(y["capacity"],"0" if y["year"]<arrival.year else "5")
         self.assertTrue(any(D(y["in_transit"])>0 for y in funded["annual"]))
         self.assertTrue(any(D(y["committed_unpaid"])>0 for y in funded["annual"]))
-        self.assertEqual(blocked["shipment"]["status"],"BLOCKED_UNAFFORDABLE")
+        self.assertEqual(blocked["shipment"]["status"],"BLOCKED_TREASURY_UNFUNDED")
+        self.assertEqual(blocked["shipment"]["payer_account"],"treasury:TEST")
+        self.assertEqual(blocked["treasury_ledger"],[])
+        self.assertEqual(blocked["money_external_fiscal"],"0")
         self.assertEqual(blocked["shipment"]["departure"],None)
         self.assertEqual(blocked["shipment"]["arrival"],None)
         self.assertEqual(blocked["shipment"]["delivery_status"],"NOT_DELIVERED")
@@ -115,6 +132,51 @@ class GenericDatedMoneyTests(TestCase):
         self.assertEqual(trial["shipment"]["transport_payment_tx"],None)
         self.assertEqual(trial["productive_capacity"],"0")
         self.assertEqual(trial["money_initial"],trial["money_final"])
+        self.assertEqual(trial["money_external_fiscal"],"0")
+        self.assertEqual(trial["treasury_ledger"],[])
+
+    def test_ceres_empty_treasury_blocks_without_creating_cash(self):
+        row=copy.deepcopy(AUTHORED_TRANSPORT_ROWS[0])
+        row["fiscal_available_by_year"]=()
+        ready=ready_from_review(row,STUDIES)
+        search=quote_and_choose(row,ready,geometry=FakeDailyGeometry(ready=ready))
+        self.assertEqual(search["status"],"AVAILABLE")
+        blocked=settle_money_chain(row,ready,search)
+        ship=blocked["shipment"]
+        self.assertEqual(ship["status"],"BLOCKED_TREASURY_UNFUNDED")
+        self.assertIsNone(ship["departure"])
+        self.assertIsNone(ship["arrival"])
+        self.assertIsNone(ship["transport_payment_tx"])
+        self.assertIsNone(ship["appropriation_tx"])
+        self.assertEqual(blocked["money_initial"],blocked["money_final"])
+        self.assertEqual(blocked["money_external_fiscal"],"0")
+        self.assertEqual(blocked["productive_capacity"],"0")
+        self.assertFalse(blocked["treasury_ledger"])
+        self.assertTrue(all(y["treasury_balance"]=="0" for y in blocked["annual"]))
+
+    def test_treasury_only_source_and_earth_shipper_gauge(self):
+        row=AUTHORED_TRANSPORT_ROWS[0]
+        ready=ready_from_review(row,STUDIES)
+        search=quote_and_choose(row,ready,geometry=FakeDailyGeometry(ready=ready))
+        r=settle_money_chain(row,ready,search)
+        ledger=r["treasury_ledger"]
+        self.assertTrue(all(x["action"]=="FISCAL_RECEIPT"
+                            for x in ledger[:-1]))
+        self.assertEqual(ledger[-1]["action"],"APPROPRIATION")
+        self.assertEqual(ledger[-1]["source_account"],row["payer_account"])
+        self.assertEqual(ledger[-1]["destination_account"],
+                         row["project_id"]+":sponsor_budget")
+        self.assertEqual(ledger[-1]["receipt_txs"],
+                         [x["tx"] for x in ledger[:-1]])
+        payment=next(x for x in r["events"] if x["type"]=="PAYMENT")
+        self.assertEqual(payment["destination_account"],
+                         row["project_id"]+":shipper_cash")
+        self.assertEqual(payment["source_account"],
+                         row["project_id"]+":sponsor_budget")
+        self.assertEqual(D(next(y for y in r["annual"] if
+                         y["year"]==ready.year)["offworld_draw"]),D("0.080"))
+        self.assertEqual(D(next(y for y in r["annual"] if
+                         y["year"]==ready.year+1)["offworld_draw"]),D(0))
 
     def test_complete_replay_byte_identity(self):
         maker=lambda:run_transport_money_trial(

@@ -23,7 +23,18 @@ AUTHORED_TRANSPORT_ROWS = (
         price_rule="BUILD7_2026_HELD_CARGO_DELIVERY_RATE",
         payment_rule="PAY_AT_DEPARTURE",
         delivery_rule="SCRIPTED_ON_ORBITAL_ARRIVAL",
-        funding_mode="TEST_ONLY_FUNDED_FROM_SELECTED_QUOTE",
+        funding_mode="TEST_ONLY_TREASURY_FISCAL_APPROPRIATION",
+        payer_account="treasury:IND",
+        treasury_owner_type="public_agency",
+        treasury_owner_id="STATE:IND",
+        # Explicit TEST_ONLY unused 75% of IND mobilization after Route1's
+        # 25% commitment. Derived from existing Earth inputs (not new money
+        # assigned as an opening balance); values are upper bounds in MC.
+        fiscal_source="UNALLOCATED_75_PERCENT_OF_ROUTE1_IND_MOBILIZATION_TEST_ONLY",
+        fiscal_available_by_year=(
+            (2038, "1.790823221450457975"),
+            (2039, "1.887055144526041275"),
+        ),
         original_project_funds="0.080",
         construction_cost="0.060", productive_capacity="5",
         financing_node="EARTH:IND",
@@ -44,7 +55,12 @@ AUTHORED_TRANSPORT_ROWS = (
         price_rule="BUILD7_2026_HELD_CARGO_DELIVERY_RATE",
         payment_rule="PAY_AT_DEPARTURE",
         delivery_rule="SCRIPTED_ON_ORBITAL_ARRIVAL",
-        funding_mode="TEST_ONLY_BLOCKED_ORIGINAL_FUNDS_ONLY",
+        funding_mode="TEST_ONLY_NO_TREASURY_FISCAL_ALLOCATION",
+        payer_account="treasury:TEST",
+        treasury_owner_type="public_agency",
+        treasury_owner_id="STATE:TEST",
+        fiscal_source="NONE",
+        fiscal_available_by_year=(),
         original_project_funds="0.080",
         construction_cost="0.060", productive_capacity="5",
         financing_node="EARTH:TEST",
