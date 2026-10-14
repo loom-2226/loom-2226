@@ -234,8 +234,10 @@ class OnDemandTravel(BatchTravelPilot):
                                   for k in range(1, math.ceil(1 / step))
                                   if k * step < 1)
             for epoch in departures:
+                geometry_kw = ({"flight_range_days": flight_range_days}
+                               if flight_range_days is not None else {})
                 geometry = self.geometry(origin, destination, epoch, strategy=strategy,
-                                         flight_range_days=flight_range_days)
+                                         **geometry_kw)
                 options = self.admissible(geometry, departure_limit=departure_limit,
                                           arrival_limit=arrival_limit)
                 if options:
