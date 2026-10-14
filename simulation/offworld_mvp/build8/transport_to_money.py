@@ -172,8 +172,13 @@ def _fiscal_allocation_plan(row, quote, departure):
     return tuple(funding), outstanding
 
 
-def settle_money_chain(row, ready_date, search, *, year_start=2026, year_end=2226):
-    """Generic quote -> treasury appropriation -> Earth shipper -> delivery."""
+def settle_money_chain(row, ready_date, search, *, year_start=2026, year_end=2226,
+                       report_freight_gauge=False):
+    """Generic quote -> treasury appropriation -> Earth shipper -> delivery.
+
+    Optional display projection returns (canonical_result, enriched_annual).
+    The existing result, its bytes and its fingerprint are never modified.
+    """
     _row_is_valid(row)
     ready = _day(ready_date)
     if search["ready_date"] != _iso(ready):
@@ -389,4 +394,7 @@ def settle_money_chain(row, ready_date, search, *, year_start=2026, year_end=222
         productive_capacity=(str(k.state.assets[project + ":factory_asset"].capacity)
                              if project + ":factory_asset" in k.state.assets else "0"))
     result["fingerprint"] = sha256(stable_bytes(result)).hexdigest()
+    if report_freight_gauge:
+        from .freight_gauge import with_earth_side_freight_line
+        return result, with_earth_side_freight_line(k.state, yearly)
     return result
