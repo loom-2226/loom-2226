@@ -21,7 +21,7 @@ from simulation.offworld_mvp.build7 import compile_solar_accessibility as legacy
 from src.loom_spice_ephemeris_adapter import (
     SolarEphemerisRegistry, SpiceEphemerisAdapter, registry_from_manifest)
 
-ROOT = Path(__file__).resolve().parents[3]
+ROOT = Path(__file__).resolve().parents[4]
 ANCHORS = ROOT / 'simulation/offworld_mvp/build7/inputs/BUILD7_MISSION_COSTS_2026_2035_PROVISIONAL_V1.csv'
 ASSET_ROOT = Path('/home/ubuntu/loom_solar_assets')
 PILOT_PAIRS = (('EARTH', 'MERCURY'), ('EARTH', 'MARS'), ('MARS', 'CERES'))
