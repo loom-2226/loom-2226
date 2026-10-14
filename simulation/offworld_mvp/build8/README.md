@@ -63,3 +63,19 @@ Executed against the isolated World Authority PostgreSQL runtime using the pinne
 ## Eighth increment: finite prospecting capital changes decisions
 
 `finite_capital_trial.py` exercises **two competing prospecting project proposals by the existing SPN Agent** in one disposable Build 8 kernel, using the actual Build 7 sponsor policy and prospecting creation/commitment/disbursement methods. With 2026 USA mobilization of `4.958025335469291` model-currency units and two sequential requests of `3` units each, the first decision is `INITIATE_PROJECT` and spends `3`; the second decision is `WAIT` with `1.958025335469291` remaining. The ledger and capital coupling reconcile, and the result reproduces deterministically. This is **not two independent Sponsors** and is **not yet a persisted prospecting-project trial**. No new financing system, government Agents, or strategic pressure was added.
+
+## Generic dated transport-to-money, treasury-corrected TEST_ONLY trial (PR #410)
+
+See [GENERIC_DATED_TRANSPORT_MONEY.md](GENERIC_DATED_TRANSPORT_MONEY.md).
+Two authored rows share generic Earth→Ceres / Earth→Mars freight economics.
+The selected Ceres 2.660653 MODEL_CURRENCY quote is appropriated from
+`treasury:IND` through frozen-ledger `PUBLIC_SUBSIDY` and paid to an
+Earth-side shipper at departure, not prefilled into a seed account.
+The treasury starts at zero and receives separate, explicitly TEST_ONLY
+annual country mobilisation transfers bounded by unallocated Earth
+mobilisation; these are **not** future Ceres export receipts and do not
+affect legacy Earth/Offworld capital pins. The Mars treasury and an
+additional empty-Ceres-treasury case block, with no shipment or benefit.
+The revised opt-in scenario fingerprint is
+`46e390772ed0ef4cca3d07e79e39a4dfa1a26db5c774162a77dff7887b0b0563`.
+The completed scenario JSON and geometry cache remain outside Git.

@@ -88,11 +88,18 @@ class OnDemandTravel(BatchTravelPilot):
         self.bulk_calls = 0
 
     @staticmethod
-    def _times(step):
-        if not 0 < step <= 1400:
+    def _times(step, flight_range_days=None):
+        if not 0 < step <= 5000:
             raise ValueError("INVALID_FLIGHT_STEP")
+        if flight_range_days is not None:
+            if (len(flight_range_days) != 2 or not
+                    0 < float(flight_range_days[0]) < float(flight_range_days[1]) <= 5000):
+                raise ValueError("INVALID_FLIGHT_RANGE")
+            brackets = (tuple(map(float, flight_range_days)),)
+        else:
+            brackets = TOF_BRACKETS
         times = set()
-        for lo, hi in TOF_BRACKETS:
+        for lo, hi in brackets:
             n = math.ceil((hi - lo) / step)
             times.update(round(min(hi, lo + i * step), 8) for i in range(n))
             times.add(hi)
@@ -118,7 +125,7 @@ class OnDemandTravel(BatchTravelPilot):
                 "flight_step_days": round(flight_step, 8),
                 "inner_au": round(inner, 9), "outer_au": round(outer, 9)}
 
-    def _key(self, origin, destination, departure, times, step):
+    def _key(self, origin, destination, departure, times, step, flight_range_days=None):
         first = _iso(departure + timedelta(days=times[0]))
         last = _iso(departure + timedelta(days=times[-1]))
         src_o, _ = self.adapter.registry.source_for(origin, _iso(departure))
@@ -133,7 +140,8 @@ class OnDemandTravel(BatchTravelPilot):
             "departure_epoch": _iso(departure),
             "flight_time_grid_sha256": sha256(json.dumps(times, separators=(",", ":")).encode()).hexdigest(),
             "flight_time_step_days": round(step, 8),
-            "flight_duration_brackets_days": [list(b) for b in TOF_BRACKETS],
+            "flight_duration_brackets_days": ([list(map(float,flight_range_days))]
+                 if flight_range_days is not None else [list(b) for b in TOF_BRACKETS]),
             "flight_sample_count": len(times),
             "transfer_family": TRANSFER_FAMILY,
             "source_origin_sha256": src_o.sha256,
@@ -144,7 +152,8 @@ class OnDemandTravel(BatchTravelPilot):
             "solver_version": version("lamberthub"),
         }
 
-    def geometry(self, origin, destination, departure, *, strategy="daily"):
+    def geometry(self, origin, destination, departure, *, strategy="daily",
+                 flight_range_days=None):
         if (origin, destination) not in ROUTES:
             raise ValueError("ROUTE_NOT_IN_NARROW_PILOT")
         if strategy not in ("daily", "distance_research"):
@@ -152,8 +161,8 @@ class OnDemandTravel(BatchTravelPilot):
         epoch = _day(departure)
         step = (DENSE_FLIGHT_STEP_DAYS if strategy == "daily"
                 else self.steps_at(origin, destination, epoch)["flight_step_days"])
-        times = self._times(step)
-        key = self._key(origin, destination, epoch, times, step)
+        times = self._times(step, flight_range_days)
+        key = self._key(origin, destination, epoch, times, step, flight_range_days)
         raw_key = json.dumps(key, sort_keys=True, separators=(",", ":")).encode()
         fingerprint = sha256(raw_key).hexdigest()
         if fingerprint in self._geometry:
@@ -209,7 +218,8 @@ class OnDemandTravel(BatchTravelPilot):
                 and r["arrival_vinf_km_s"] <= arrival_limit]
 
     def lookup(self, origin, destination, ready_date, *, wait_limit_days,
-               departure_limit, arrival_limit, strategy="daily"):
+               departure_limit, arrival_limit, strategy="daily",
+               flight_range_days=None):
         """Every calendar departure inside [ready, ready+wait), plus research subdays."""
         if not isinstance(wait_limit_days, int) or wait_limit_days < 1:
             raise ValueError("INVALID_WAIT_LIMIT_DAYS")
@@ -224,7 +234,10 @@ class OnDemandTravel(BatchTravelPilot):
                                   for k in range(1, math.ceil(1 / step))
                                   if k * step < 1)
             for epoch in departures:
-                geometry = self.geometry(origin, destination, epoch, strategy=strategy)
+                geometry_kw = ({"flight_range_days": flight_range_days}
+                               if flight_range_days is not None else {})
+                geometry = self.geometry(origin, destination, epoch, strategy=strategy,
+                                         **geometry_kw)
                 options = self.admissible(geometry, departure_limit=departure_limit,
                                           arrival_limit=arrival_limit)
                 if options:
