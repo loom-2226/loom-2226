@@ -1,0 +1,74 @@
+[
+  {
+    "bypassrls": false,
+    "login": false,
+    "name": "wa_admission_writer",
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "login": false,
+    "name": "wa_agent_reader",
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "login": false,
+    "name": "wa_agent_view_owner",
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "login": false,
+    "name": "wa_auditor",
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "login": true,
+    "name": "wa_etl_login",
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "login": false,
+    "name": "wa_owner",
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "login": true,
+    "name": "wa_q_reference",
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "login": false,
+    "name": "wa_reference_reader",
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "login": false,
+    "name": "wa_runtime_writer",
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "login": false,
+    "name": "wa_science_governor",
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "login": false,
+    "name": "wa_science_writer",
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "login": false,
+    "name": "wa_world_writer",
+    "superuser": false
+  }
+]

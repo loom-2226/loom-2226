@@ -1,0 +1,12 @@
+{
+  "caution": "Historical Earth contract mentions loom_civ, but current loom_dev catalog does not contain it.",
+  "database": "loom_dev",
+  "matching_schema_names": [
+    "civstate"
+  ],
+  "present": false,
+  "requested_schema": "loom_civ",
+  "snapshot_ids": [],
+  "status": "LIVE_SCHEMA_ABSENT",
+  "table_count": 0
+}

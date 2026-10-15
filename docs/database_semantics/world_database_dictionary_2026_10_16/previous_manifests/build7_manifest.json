@@ -1,0 +1,38 @@
+{
+  "build7_status": "LIVE_PG16_FROM_PRIOR_EXPORT",
+  "classification": "STRUCTURE_COUNTS_FINGERPRINTS_ONLY",
+  "created_utc": "2026-10-15T15:52:43.494909+00:00",
+  "database_changes": false,
+  "file_sha256": {
+    "README_FOR_CLAUDE.md": "edf1ab4bdb9197fb4f5f9a068008b5c57016732fe83b6a9df37db8ff3cbe3721",
+    "build7/full_catalog.json": "45d8cab6348725b8c5e797a561947a6cc0dc9c3603f8760258a2bf09a5b7a6e6",
+    "build7/installed_migration_fingerprints.json": "395cc897eabc4aab8aeb50e55140b9cd48e7ea17c25fd04719c0c28ca8f2fdce",
+    "build7/live_full_schema.sql": "22c096b168a205fdfe898ba5e2a24bc6fd10a6c87b3c2758b1191364fa807d3f",
+    "build7/migration_002_REFERENCE_ONLY.sql": "55df40bdf4c9b927bfe4f0e580c16d43b61cc5fade4c702961c532a6cea3943b",
+    "build7/roles_grants_rls.json": "ec94f392f18a7ce9bcfeec5d337ca172f4e69a550cb512f87159341c33dd9ed0",
+    "build7/server_and_extensions.json": "f447775148684b187881daeef3b68c4e6f5a0ff50b7e241de542a11bbda9f694",
+    "build7/table_row_counts.json": "e191aa2e08903b448a61fc1a58b1869f2818fc8c232b6682fb4ed06fae4522e6",
+    "world_authority_qualified_20261006/grants.json": "28c61fbfd872b6d279109fc923805fd5dba18e22bdc52746346d4a5f1d8bdc83",
+    "world_authority_qualified_20261006/migration_fingerprints.json": "ab97ff9f0c9028ed1882076969118a8ade24b8c0d1c4575a72efab4e2bbea167",
+    "world_authority_qualified_20261006/qualifying_clusters.json": "776a783a9396d823e21e0811a36542c046ce5b62844dd01d043e0feead4671c8",
+    "world_authority_qualified_20261006/rls_policy_declarations.json": "2b348b571d6d022f344287e751faef8593ef0f3da2461567823c5dbd87029919",
+    "world_authority_qualified_20261006/roles.json": "731a4219f250b31acb2cdc5ec16b74841438161eb3099386eb3c77424de40385",
+    "world_authority_qualified_20261006/table_counts_and_rls.json": "3639f6c365ceefb8eac961a7a1d0571cf329b0ff8e859392846df7a9313dddff",
+    "world_authority_reference/SEMANTIC_CONTRACT.md": "6012e68c4b0387f520b65058b331352f2b2df0c7e98fb8dfd218dc61b0cfd7aa",
+    "world_authority_reference/STORE_INTERFACE.md": "b8888219d29151fff5ef67d5b62ac242c4342920de872cf5521fa771b07e2d14",
+    "world_authority_reference/domain_manifest.json": "5c58f338c0790be0591b6d40b85bebcf59d850b66fc69f9ba6dc098c1bf9a063",
+    "world_authority_reference/migration_001_DO_NOT_EXECUTE.sql": "3791cf91332f5c7d979dc2a8a590be4bacf3ba8ec932493f07edf510fb9cffe1"
+  },
+  "live_world_authority_connection": "UNREADABLE_AUTHENTICATION_NOT_CONFIGURED",
+  "qualified_reference_ddl_sha256": "3791cf91332f5c7d979dc2a8a590be4bacf3ba8ec932493f07edf510fb9cffe1",
+  "source_export_data_rows_included": 0,
+  "world_authority_core_inventories_match": true,
+  "world_authority_qual_source_export_table_counts": 20,
+  "world_authority_qualification_role_discrepancy": [
+    "wa_q_reference"
+  ],
+  "world_authority_status": "PG18_6_QUALIFIED_2026_10_06_NOT_CURRENT_LIVE",
+  "world_authority_table_count": 77,
+  "world_authority_total_grant_rows": 1007,
+  "world_authority_total_role_rows": 12
+}

@@ -1,0 +1,219 @@
+[
+  {
+    "allow_connections": true,
+    "database": "loom_b7_final_gaps_20261009",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 68770839
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_b7_i6_fresh_regressions_20261009",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 38984727
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_b7_i6_postproject_probe_20261009",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 394746903
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_b7_i6_priority2_20261009",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 86342679
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_b7_i6_recurring_20261009",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 404233239
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_b7_i6_recurring_cli_20261009",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 410983447
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_b7_i6_recurring_regressions_20261009",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 13450263
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_b7_i6_recurring_v2_20261009",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 404593687
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_b7_i6_recurring_v3_20261009",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 405322775
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_b7_i6_recurring_v4_20261009",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 420543511
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_b7_i6_spatial_experiment_20261009",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 394681367
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_b7_i6_spatial_regression_20261009",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 386989079
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_b7_i6_spatial_repair_20261009",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 394746903
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_b7_i6_spatial_repair_v2_20261009",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 418782231
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_b7_inc3",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 358464535
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_b7_interactive_smoke_20261008",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 396622871
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_b7_limited_freeze_20261009",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 193420311
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_dev",
+    "encoding": "UTF8",
+    "owner": "loom_dev",
+    "size_bytes": 934370327
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_offworld_runtime",
+    "encoding": "UTF8",
+    "owner": "wa_owner",
+    "size_bytes": 678149143
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_solar_et_qual_299",
+    "encoding": "UTF8",
+    "owner": "ubuntu",
+    "size_bytes": 8338455
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_solar_et_restore_check_20260927",
+    "encoding": "UTF8",
+    "owner": "ubuntu",
+    "size_bytes": 8313879
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_solar_et_tx_verify_299",
+    "encoding": "UTF8",
+    "owner": "ubuntu",
+    "size_bytes": 934231063
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_solar_inspector_test_20260926",
+    "encoding": "UTF8",
+    "owner": "ubuntu",
+    "size_bytes": 8461335
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_solar_official_centers_20260925",
+    "encoding": "UTF8",
+    "owner": "ubuntu",
+    "size_bytes": 8264727
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_solar_phase4b_qualification",
+    "encoding": "UTF8",
+    "owner": "ubuntu",
+    "size_bytes": 7945239
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_solar_phase4c_qualification",
+    "encoding": "UTF8",
+    "owner": "ubuntu",
+    "size_bytes": 8059927
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_solar_phase4d_qualification",
+    "encoding": "UTF8",
+    "owner": "ubuntu",
+    "size_bytes": 7879703
+  },
+  {
+    "allow_connections": true,
+    "database": "loom_solar_qualification",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 10042391
+  },
+  {
+    "allow_connections": true,
+    "database": "postgres",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 7691287
+  },
+  {
+    "allow_connections": false,
+    "database": "template0",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 7520783
+  },
+  {
+    "allow_connections": true,
+    "database": "template1",
+    "encoding": "UTF8",
+    "owner": "postgres",
+    "size_bytes": 7748631
+  }
+]

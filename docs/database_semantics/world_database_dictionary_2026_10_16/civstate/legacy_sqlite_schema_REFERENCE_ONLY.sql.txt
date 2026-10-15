@@ -1,0 +1,809 @@
+CREATE INDEX idx_country_evolution_years ON civ_country_evolution_phase(start_year,end_year);
+
+CREATE INDEX idx_country_lens_lens ON civ_country_narrative_lens(lens_id);
+
+CREATE INDEX idx_nav_graph_display_degree_from ON nav_graph_display_edges_cache(display_degree,from_node_key);
+
+CREATE INDEX idx_nav_graph_display_to ON nav_graph_display_edges_cache(to_node_key);
+
+CREATE INDEX idx_nav_graph_edge_context ON nav_graph_edges_cache(context_entity_id);
+
+CREATE INDEX idx_nav_graph_edge_from ON nav_graph_edges_cache(from_node_key);
+
+CREATE INDEX idx_nav_graph_edge_to ON nav_graph_edges_cache(to_node_key);
+
+CREATE INDEX ix_civ_subject_entity ON civ_subject(navigator_entity_id);
+
+CREATE INDEX ix_civ_subject_iso3 ON civ_subject(iso3);
+
+CREATE INDEX ix_civ_subject_node ON civ_subject(navigator_node_id);
+
+CREATE INDEX ix_civ_subject_noun ON civ_subject(navigator_noun_id);
+
+CREATE TABLE civ_actor_economic_state (
+    actor_subject_id TEXT NOT NULL,
+    year INTEGER NOT NULL,
+    employees_biological REAL,
+    employees_synthetic REAL,
+    annual_revenue REAL,
+    annual_value_added REAL,
+    productive_assets REAL,
+    infrastructure_assets REAL,
+    capital_expenditure REAL,
+    market_value_proxy REAL,
+    economic_share_global REAL,
+    derivation_id TEXT NOT NULL,
+    PRIMARY KEY(actor_subject_id, year),
+    FOREIGN KEY(actor_subject_id) REFERENCES civ_subject(subject_id),
+    FOREIGN KEY(derivation_id) REFERENCES civ_derivation(derivation_id)
+);
+
+CREATE TABLE civ_actor_exposure (
+    actor_subject_id TEXT NOT NULL,
+    geography_subject_id TEXT NOT NULL,
+    sector_id TEXT NOT NULL,
+    year INTEGER NOT NULL,
+    employment_share REAL,
+    asset_share REAL,
+    revenue_share REAL,
+    control_weight REAL,
+    service_dependency_weight REAL,
+    derivation_id TEXT NOT NULL,
+    PRIMARY KEY(actor_subject_id, geography_subject_id, sector_id, year),
+    FOREIGN KEY(actor_subject_id) REFERENCES civ_subject(subject_id),
+    FOREIGN KEY(geography_subject_id) REFERENCES civ_subject(subject_id),
+    FOREIGN KEY(sector_id) REFERENCES civ_sector(sector_id),
+    FOREIGN KEY(derivation_id) REFERENCES civ_derivation(derivation_id)
+);
+
+CREATE TABLE civ_actor_lineage (
+    actor_subject_id TEXT NOT NULL,
+    predecessor_subject_id TEXT NOT NULL,
+    relationship_type TEXT NOT NULL,
+    start_year INTEGER,
+    end_year INTEGER,
+    continuity_weight REAL CHECK(continuity_weight IS NULL OR (continuity_weight >= 0 AND continuity_weight <= 1)),
+    confidence REAL CHECK(confidence IS NULL OR (confidence >= 0 AND confidence <= 1)),
+    notes TEXT,
+    derivation_id TEXT NOT NULL,
+    PRIMARY KEY(actor_subject_id, predecessor_subject_id, relationship_type, start_year),
+    FOREIGN KEY(actor_subject_id) REFERENCES civ_subject(subject_id),
+    FOREIGN KEY(predecessor_subject_id) REFERENCES civ_subject(subject_id),
+    FOREIGN KEY(derivation_id) REFERENCES civ_derivation(derivation_id)
+);
+
+CREATE TABLE civ_alpha_inv_distribution_audit(
+           iso3 text not null,
+           year integer not null,
+           corrected_value_added real not null,
+           corrected_capital real not null,
+           corrected_investment real not null,
+           sensitivity_va_share_80 real not null,
+           sensitivity_capital_share_80 real not null,
+           sensitivity_investment_share_80 real not null,
+           method text not null,
+           primary key(iso3,year)
+        );
+
+CREATE TABLE civ_asset_class (
+    asset_class TEXT PRIMARY KEY,
+    display_name TEXT NOT NULL,
+    sort_order INTEGER NOT NULL
+);
+
+CREATE TABLE civ_asset_state (
+    subject_id TEXT NOT NULL,
+    year INTEGER NOT NULL,
+    sector_id TEXT NOT NULL,
+    asset_class TEXT NOT NULL,
+    capital_stock REAL,
+    investment REAL,
+    depreciation REAL,
+    utilization REAL,
+    derivation_id TEXT NOT NULL,
+    PRIMARY KEY(subject_id, year, sector_id, asset_class),
+    FOREIGN KEY(subject_id) REFERENCES civ_subject(subject_id),
+    FOREIGN KEY(sector_id) REFERENCES civ_sector(sector_id),
+    FOREIGN KEY(asset_class) REFERENCES civ_asset_class(asset_class),
+    FOREIGN KEY(derivation_id) REFERENCES civ_derivation(derivation_id)
+);
+
+CREATE TABLE civ_assumption (
+ assumption_id TEXT PRIMARY KEY, domain TEXT NOT NULL, statement TEXT NOT NULL, rationale TEXT NOT NULL,
+ model_basis TEXT, canon_basis TEXT, sensitivity TEXT, status TEXT NOT NULL, downstream_effects TEXT);
+
+CREATE TABLE civ_assumption_dependency (
+ derivation_id TEXT NOT NULL, assumption_id TEXT NOT NULL, PRIMARY KEY(derivation_id,assumption_id),
+ FOREIGN KEY(derivation_id) REFERENCES civ_derivation(derivation_id), FOREIGN KEY(assumption_id) REFERENCES civ_assumption(assumption_id));
+
+CREATE TABLE civ_census_node_relation(
+      node_subject_id TEXT NOT NULL,
+      zone_subject_id TEXT NOT NULL,
+      year INTEGER NOT NULL,
+      relationship_type TEXT NOT NULL,
+      primary_relation INTEGER NOT NULL CHECK(primary_relation IN (0,1)),
+      confidence REAL NOT NULL CHECK(confidence>=0 AND confidence<=1),
+      basis_code TEXT NOT NULL,
+      basis_text TEXT NOT NULL,
+      derivation_id TEXT NOT NULL,
+      PRIMARY KEY(node_subject_id,zone_subject_id,year,relationship_type),
+      FOREIGN KEY(node_subject_id) REFERENCES civ_subject(subject_id),
+      FOREIGN KEY(zone_subject_id) REFERENCES civ_subject(subject_id),
+      FOREIGN KEY(derivation_id) REFERENCES civ_derivation(derivation_id)
+    );
+
+CREATE TABLE civ_country_continuity(
+      country_subject_id TEXT PRIMARY KEY REFERENCES civ_subject(subject_id),
+      year INTEGER NOT NULL, baseline_status TEXT NOT NULL, continuity_status TEXT NOT NULL,
+      sovereignty_status TEXT NOT NULL, materialization_tier TEXT NOT NULL,
+      identity_continuity REAL, legal_continuity REAL, border_continuity REAL,
+      notes TEXT);
+
+CREATE TABLE civ_country_demographic_v2_1_audit(
+      iso3 TEXT NOT NULL, year INTEGER NOT NULL, population_2026 REAL NOT NULL,
+      gdp_pc_2026 REAL NOT NULL, gdp_pc_target_prior REAL NOT NULL,
+      effective_development_gdp_pc REAL NOT NULL, development_damping_weight REAL NOT NULL,
+      prior_population REAL NOT NULL, final_population REAL NOT NULL,
+      prior_employment REAL NOT NULL, final_employment REAL NOT NULL,
+      method TEXT NOT NULL, PRIMARY KEY(iso3,year));
+
+CREATE TABLE civ_country_evolution_phase (
+      country_subject_id TEXT NOT NULL,
+      phase_order INTEGER NOT NULL,
+      start_year INTEGER NOT NULL,
+      end_year INTEGER NOT NULL,
+      phase_label TEXT NOT NULL,
+      forcing_function TEXT NOT NULL,
+      political_effect TEXT NOT NULL,
+      derivation_id TEXT NOT NULL,
+      PRIMARY KEY(country_subject_id,phase_order),
+      FOREIGN KEY(country_subject_id) REFERENCES civ_subject(subject_id),
+      FOREIGN KEY(derivation_id) REFERENCES civ_derivation(derivation_id)
+    );
+
+CREATE TABLE civ_country_institution_membership(
+      country_subject_id TEXT NOT NULL REFERENCES civ_subject(subject_id),
+      institution_subject_id TEXT NOT NULL REFERENCES civ_subject(subject_id),
+      membership_class TEXT NOT NULL, civil_integration REAL, security_integration REAL,
+      economic_integration REAL, autonomy_retention REAL, confidence REAL, notes TEXT,
+      PRIMARY KEY(country_subject_id,institution_subject_id));
+
+CREATE TABLE civ_country_narrative_lens (
+      country_subject_id TEXT NOT NULL,
+      year INTEGER NOT NULL,
+      lens_id TEXT NOT NULL,
+      lens_score REAL NOT NULL CHECK(lens_score BETWEEN 0 AND 1),
+      sensory_manifestation TEXT NOT NULL,
+      authority_manifestation TEXT NOT NULL,
+      conflict_vector TEXT NOT NULL,
+      narrative_use TEXT NOT NULL,
+      sample_beat TEXT NOT NULL,
+      derivation_id TEXT NOT NULL,
+      PRIMARY KEY(country_subject_id,year,lens_id),
+      FOREIGN KEY(country_subject_id) REFERENCES civ_subject(subject_id),
+      FOREIGN KEY(derivation_id) REFERENCES civ_derivation(derivation_id)
+    );
+
+CREATE TABLE civ_country_numeric_state(
+      subject_id TEXT NOT NULL REFERENCES civ_subject(subject_id), iso3 TEXT NOT NULL,
+      year INTEGER NOT NULL, scenario_id TEXT NOT NULL, population REAL, employment REAL,
+      value_added REAL, capital REAL, investment REAL, epistemic_role TEXT, source_scope TEXT,
+      PRIMARY KEY(subject_id,year,scenario_id));
+
+CREATE TABLE civ_country_operating_profile(
+      country_subject_id TEXT PRIMARY KEY REFERENCES civ_subject(subject_id), year INTEGER NOT NULL,
+      constitutional_form TEXT, political_identity TEXT, central_tension TEXT, gameplay_prompt TEXT,
+      constitutional_continuity REAL,federal_coherence REAL,subnational_autonomy REAL,
+      regional_authority_delegation REAL,alliance_security_integration REAL,space_interoperability REAL,
+      corporate_state_entanglement REAL,administrative_legibility REAL,institutional_trust REAL,
+      migration_openness REAL,synthetic_personhood_inclusion REAL,coercive_reach REAL,economic_capacity REAL,
+      internal_contestation REAL,external_strategic_burden REAL,confidence REAL,source_phase TEXT);
+
+CREATE TABLE civ_country_sector_asset_numeric_state(
+      subject_id TEXT NOT NULL REFERENCES civ_subject(subject_id), iso3 TEXT NOT NULL,
+      sector TEXT NOT NULL,asset_class TEXT NOT NULL,year INTEGER NOT NULL,scenario_id TEXT NOT NULL,
+      capital REAL,investment REAL,asset_depreciation_rate REAL,epistemic_role TEXT,
+      PRIMARY KEY(subject_id,sector,asset_class,year,scenario_id));
+
+CREATE TABLE civ_country_sector_numeric_state(
+      subject_id TEXT NOT NULL REFERENCES civ_subject(subject_id), iso3 TEXT NOT NULL,
+      sector TEXT NOT NULL, year INTEGER NOT NULL, scenario_id TEXT NOT NULL,
+      employment REAL,value_added REAL,gross_output REAL,capital REAL,investment REAL,
+      epistemic_role TEXT, PRIMARY KEY(subject_id,sector,year,scenario_id));
+
+CREATE TABLE civ_declared_model_constant(
+      constant_id TEXT PRIMARY KEY,model_id TEXT NOT NULL,value REAL NOT NULL,unit TEXT NOT NULL,
+      classification TEXT NOT NULL,derivation_status TEXT NOT NULL,
+      fitted_to_country_targets INTEGER NOT NULL CHECK(fitted_to_country_targets IN (0,1)),
+      sensitivity_role TEXT NOT NULL,notes TEXT NOT NULL);
+
+CREATE TABLE civ_demographic_model_freeze(
+      freeze_id TEXT PRIMARY KEY,model_id TEXT NOT NULL,version TEXT NOT NULL,status TEXT NOT NULL,
+      frozen_earth_parent_2190 REAL NOT NULL,frozen_earth_parent_2226 REAL NOT NULL,
+      country_rows_per_year INTEGER NOT NULL,audit_rows INTEGER NOT NULL,
+      source_production_sha256 TEXT NOT NULL,candidate_sha256 TEXT NOT NULL,navigator_sha256 TEXT NOT NULL,
+      limitations TEXT NOT NULL,decision_basis TEXT NOT NULL);
+
+CREATE TABLE civ_demographic_state (
+    subject_id TEXT NOT NULL,
+    year INTEGER NOT NULL,
+    biological_population REAL,
+    synthetic_population REAL,
+    transient_population REAL,
+    working_age_population REAL,
+    age_0_14 REAL,
+    age_15_64 REAL,
+    age_65_plus REAL,
+    age_80_plus REAL,
+    median_age REAL,
+    households REAL,
+    derivation_id TEXT NOT NULL,
+    PRIMARY KEY(subject_id, year),
+    FOREIGN KEY(subject_id) REFERENCES civ_subject(subject_id),
+    FOREIGN KEY(derivation_id) REFERENCES civ_derivation(derivation_id)
+);
+
+CREATE TABLE civ_derivation (
+    derivation_id TEXT PRIMARY KEY,
+    epistemic_class TEXT NOT NULL CHECK(epistemic_class IN (
+        'CANON_FIXED','SIMULATION_DIRECT','SIMULATION_EXTRAPOLATED',
+        'MODEL_DERIVED','MODEL_DOWNSCALED','ROLE_ALLOCATED','GAMEPLAY_ESTIMATE'
+    )),
+    run_id TEXT,
+    method TEXT NOT NULL,
+    source_detail TEXT,
+    confidence REAL CHECK(confidence IS NULL OR (confidence >= 0 AND confidence <= 1)),
+    uncertainty_low REAL,
+    uncertainty_high REAL,
+    notes TEXT,
+    FOREIGN KEY(run_id) REFERENCES civ_model_run(run_id)
+);
+
+CREATE TABLE civ_economic_state (
+    subject_id TEXT NOT NULL,
+    year INTEGER NOT NULL,
+    value_added REAL,
+    gross_output REAL,
+    consumption REAL,
+    investment REAL,
+    productive_capital REAL,
+    infrastructure_capital REAL,
+    residential_capital REAL,
+    capital_output_ratio REAL,
+    investment_output_ratio REAL,
+    productivity_index REAL,
+    income_per_capita REAL,
+    consumption_per_capita REAL,
+    price_level_index REAL,
+    economic_complexity_index REAL,
+    derivation_id TEXT NOT NULL,
+    PRIMARY KEY(subject_id, year),
+    FOREIGN KEY(subject_id) REFERENCES civ_subject(subject_id),
+    FOREIGN KEY(derivation_id) REFERENCES civ_derivation(derivation_id)
+);
+
+CREATE TABLE civ_field_derivation_binding(
+      table_name TEXT NOT NULL,
+      column_name TEXT NOT NULL,
+      scope TEXT NOT NULL,
+      derivation_id TEXT NOT NULL,
+      notes TEXT NOT NULL,
+      PRIMARY KEY(table_name,column_name,scope),
+      FOREIGN KEY(derivation_id) REFERENCES civ_derivation(derivation_id)
+    );
+
+CREATE TABLE civ_governance_profile (
+ subject_id TEXT NOT NULL, year INTEGER NOT NULL, ultimate_sovereign TEXT, local_civil_authority TEXT,
+ administrative_authority TEXT, security_provider TEXT, primary_owner_operator TEXT, primary_financier TEXT,
+ primary_certifier TEXT, state_control REAL, local_autonomy REAL, corporate_proxy_governance REAL,
+ corporate_state_alignment REAL, institutional_fragmentation REAL, enforcement_capacity REAL, data_sharing_level REAL,
+ torch_corporate_legacy REAL, metric_reassertion REAL, loom_frontier_disruption REAL, derivation_id TEXT NOT NULL,
+ PRIMARY KEY(subject_id,year), FOREIGN KEY(subject_id) REFERENCES civ_subject(subject_id),
+ FOREIGN KEY(derivation_id) REFERENCES civ_derivation(derivation_id));
+
+CREATE TABLE civ_influence_edge (
+    subject_id TEXT NOT NULL,
+    actor_subject_id TEXT NOT NULL,
+    year INTEGER NOT NULL,
+    influence_domain TEXT NOT NULL,
+    influence_weight REAL NOT NULL CHECK(influence_weight >= 0 AND influence_weight <= 1),
+    control_class TEXT,
+    basis TEXT,
+    derivation_id TEXT NOT NULL,
+    PRIMARY KEY(subject_id, actor_subject_id, year, influence_domain),
+    FOREIGN KEY(subject_id) REFERENCES civ_subject(subject_id),
+    FOREIGN KEY(actor_subject_id) REFERENCES civ_subject(subject_id),
+    FOREIGN KEY(derivation_id) REFERENCES civ_derivation(derivation_id)
+);
+
+CREATE TABLE civ_infrastructure_state (
+    node_subject_id TEXT NOT NULL,
+    year INTEGER NOT NULL,
+    resident_population REAL,
+    transient_daily_population REAL,
+    workforce REAL,
+    capital_stock REAL,
+    replacement_value REAL,
+    annual_value_added REAL,
+    annual_operating_cost REAL,
+    power_average_mw REAL,
+    power_peak_mw REAL,
+    habitable_capacity REAL,
+    industrial_capacity_index REAL,
+    cargo_throughput_tonnes_year REAL,
+    passenger_movements_year REAL,
+    ship_calls_year REAL,
+    berths_equivalent REAL,
+    utilization REAL,
+    strategic_importance REAL,
+    economic_centrality REAL,
+    transport_centrality REAL,
+    derivation_id TEXT NOT NULL,
+    PRIMARY KEY(node_subject_id, year),
+    FOREIGN KEY(node_subject_id) REFERENCES civ_subject(subject_id),
+    FOREIGN KEY(derivation_id) REFERENCES civ_derivation(derivation_id)
+);
+
+CREATE TABLE civ_institution_morphology(
+      institution_subject_id TEXT PRIMARY KEY REFERENCES civ_subject(subject_id),
+      year INTEGER NOT NULL, institution_type TEXT NOT NULL, constitutional_form TEXT NOT NULL,
+      notes TEXT);
+
+CREATE TABLE civ_jurisdiction_recognition (
+ recognizing_subject_id TEXT NOT NULL, issuing_actor_subject_id TEXT NOT NULL, enforcement_class TEXT NOT NULL,
+ recognition_weight REAL NOT NULL, notes TEXT, derivation_id TEXT NOT NULL,
+ PRIMARY KEY(recognizing_subject_id,issuing_actor_subject_id,enforcement_class));
+
+CREATE TABLE civ_meta (
+    key TEXT PRIMARY KEY,
+    value TEXT NOT NULL
+);
+
+CREATE TABLE civ_methodology_note(
+      method_id TEXT PRIMARY KEY,
+      domain TEXT NOT NULL,
+      status TEXT NOT NULL,
+      authority_level TEXT NOT NULL,
+      source_tables TEXT NOT NULL,
+      equations_text TEXT,
+      assumptions_text TEXT NOT NULL,
+      workarounds_text TEXT,
+      invariants_text TEXT NOT NULL,
+      recalculation_steps_text TEXT NOT NULL,
+      limitations_text TEXT NOT NULL
+    );
+
+CREATE TABLE civ_model_run (
+    run_id TEXT PRIMARY KEY,
+    model_name TEXT NOT NULL,
+    version TEXT NOT NULL,
+    status TEXT NOT NULL,
+    boundary_year INTEGER,
+    source_detail TEXT,
+    assumptions_json TEXT NOT NULL DEFAULT '{}',
+    created_at TEXT NOT NULL
+);
+
+CREATE TABLE civ_node_texture_overlay(
+  node_subject_id TEXT NOT NULL,
+  year INTEGER NOT NULL,
+  mobility_intensity REAL NOT NULL,
+  logistics_intensity REAL NOT NULL,
+  strategic_intensity REAL NOT NULL,
+  activity_pressure REAL NOT NULL,
+  actor_fragmentation REAL NOT NULL,
+  authority_complexity REAL NOT NULL,
+  control_concentration REAL NOT NULL,
+  gateway_character REAL NOT NULL,
+  frontier_operational_pressure REAL NOT NULL,
+  transient_resident_ratio REAL,
+  workforce_resident_ratio REAL,
+  cargo_per_resident REAL,
+  passengers_per_resident REAL,
+  shipcalls_per_million_residents REAL,
+  dominant_texture TEXT NOT NULL,
+  derivation_basis TEXT NOT NULL,
+  PRIMARY KEY(node_subject_id,year),
+  FOREIGN KEY(node_subject_id) REFERENCES civ_subject(subject_id)
+);
+
+CREATE TABLE civ_numeric_reconciliation(
+      metric TEXT NOT NULL,year INTEGER NOT NULL,scenario_id TEXT NOT NULL,
+      parent_total REAL NOT NULL,allocated_total REAL NOT NULL,residual REAL NOT NULL,
+      PRIMARY KEY(metric,year,scenario_id));
+
+CREATE TABLE civ_place_dna (
+ subject_id TEXT NOT NULL, year INTEGER NOT NULL, governance_style TEXT, security_posture REAL,
+ commercial_openness REAL, corporate_proxy_level REAL, local_autonomy REAL, institutional_trust REAL,
+ synthetic_acceptance REAL, migration_openness REAL, frontier_mentality REAL, wealth_level REAL,
+ scarcity_pressure REAL, social_tension REAL, law_enforcement_reach REAL, data_sharing_level REAL,
+ outsider_attitude REAL, concise_behavioral_prompt TEXT, derivation_id TEXT NOT NULL,
+ PRIMARY KEY(subject_id,year));
+
+CREATE TABLE civ_readiness_audit(
+      audit_key TEXT PRIMARY KEY,
+      domain TEXT NOT NULL,
+      severity TEXT NOT NULL,
+      status TEXT NOT NULL,
+      measured_value TEXT,
+      finding TEXT NOT NULL,
+      recommended_action TEXT NOT NULL
+    );
+
+CREATE TABLE civ_recalculation_contract(
+      contract_id TEXT PRIMARY KEY,
+      domain TEXT NOT NULL,
+      trigger_condition TEXT NOT NULL,
+      frozen_inputs TEXT NOT NULL,
+      mutable_outputs TEXT NOT NULL,
+      prohibited_actions TEXT NOT NULL,
+      required_checks TEXT NOT NULL,
+      procedure TEXT NOT NULL
+    );
+
+CREATE TABLE civ_runtime_gate(
+      gate_id TEXT PRIMARY KEY,status TEXT NOT NULL,detail TEXT);
+
+CREATE TABLE civ_runtime_source(
+      source_id TEXT PRIMARY KEY, role TEXT NOT NULL, sha256 TEXT, notes TEXT);
+
+CREATE TABLE civ_sector (
+    sector_id TEXT PRIMARY KEY,
+    display_name TEXT NOT NULL,
+    sort_order INTEGER NOT NULL
+);
+
+CREATE TABLE civ_sector_state (
+    subject_id TEXT NOT NULL,
+    year INTEGER NOT NULL,
+    sector_id TEXT NOT NULL,
+    value_added REAL,
+    gross_output REAL,
+    employment REAL,
+    capital_stock REAL,
+    investment REAL,
+    energy_use REAL,
+    labor_share REAL,
+    capital_share REAL,
+    productivity_index REAL,
+    automation_share REAL,
+    export_share REAL,
+    import_dependency REAL,
+    derivation_id TEXT NOT NULL,
+    PRIMARY KEY(subject_id, year, sector_id),
+    FOREIGN KEY(subject_id) REFERENCES civ_subject(subject_id),
+    FOREIGN KEY(sector_id) REFERENCES civ_sector(sector_id),
+    FOREIGN KEY(derivation_id) REFERENCES civ_derivation(derivation_id)
+);
+
+CREATE TABLE civ_social_pressure (
+ subject_id TEXT NOT NULL, year INTEGER NOT NULL, pressure_type TEXT NOT NULL, intensity REAL NOT NULL,
+ direction TEXT, affected_groups TEXT, trigger_basis TEXT, derivation_id TEXT NOT NULL,
+ PRIMARY KEY(subject_id,year,pressure_type));
+
+CREATE TABLE civ_social_state (
+ subject_id TEXT NOT NULL, year INTEGER NOT NULL, biological_age_pressure REAL, synthetic_presence REAL,
+ automation_exposure REAL, family_viability REAL, migration_dependence REAL, capital_concentration REAL,
+ access_scarcity REAL, external_dependence REAL, strategic_leverage REAL, political_autonomy REAL,
+ cultural_distance REAL, institutional_trust REAL, cognitive_sovereignty_pressure REAL, local_born_share REAL,
+ derivation_id TEXT NOT NULL, PRIMARY KEY(subject_id,year));
+
+CREATE TABLE civ_subject (
+    subject_id TEXT PRIMARY KEY,
+    subject_class TEXT NOT NULL,
+    display_name TEXT NOT NULL,
+    navigator_entity_id TEXT,
+    navigator_node_id TEXT,
+    navigator_noun_id TEXT,
+    iso3 TEXT,
+    parent_subject_id TEXT,
+    spatial_subject_id TEXT,
+    aggregation_class TEXT,
+    active_2226 INTEGER NOT NULL DEFAULT 1 CHECK(active_2226 IN (0,1)),
+    FOREIGN KEY(parent_subject_id) REFERENCES civ_subject(subject_id),
+    FOREIGN KEY(spatial_subject_id) REFERENCES civ_subject(subject_id)
+);
+
+CREATE TABLE civ_synthetic_demographic_profile(
+      subject_id TEXT NOT NULL,
+      year INTEGER NOT NULL,
+      synthetic_population REAL NOT NULL,
+      biological_population REAL NOT NULL,
+      synthetic_share_recognized REAL NOT NULL,
+      synthetic_workers REAL NOT NULL,
+      biological_workers REAL NOT NULL,
+      synthetic_worker_participation_proxy REAL,
+      synthetic_share_of_workers REAL NOT NULL,
+      machine_task_equivalent REAL NOT NULL,
+      machine_tasks_per_synthetic_person REAL,
+      machine_tasks_per_synthetic_worker REAL,
+      synthetic_persons_per_machine_task REAL,
+      coexistence_regime TEXT NOT NULL,
+      labor_role TEXT NOT NULL,
+      activation_median_year INTEGER,
+      continuity_age_median_years REAL,
+      substrate_mix_json TEXT,
+      household_integration_index REAL,
+      legal_status_mix_json TEXT,
+      mobility_index REAL,
+      local_activation_share REAL,
+      fork_merge_rate REAL,
+      unsupported_fields_status TEXT NOT NULL,
+      derivation_id TEXT NOT NULL,
+      PRIMARY KEY(subject_id,year),
+      FOREIGN KEY(subject_id) REFERENCES civ_subject(subject_id),
+      FOREIGN KEY(derivation_id) REFERENCES civ_derivation(derivation_id)
+    );
+
+CREATE TABLE civ_transport_flow (
+    origin_subject_id TEXT NOT NULL,
+    destination_subject_id TEXT NOT NULL,
+    year INTEGER NOT NULL,
+    mode TEXT NOT NULL,
+    passengers_year REAL,
+    freight_tonnes_year REAL,
+    freight_value REAL,
+    ship_movements REAL,
+    median_transit_hours REAL,
+    accessibility_index REAL,
+    route_importance REAL,
+    derivation_id TEXT NOT NULL,
+    PRIMARY KEY(origin_subject_id, destination_subject_id, year, mode),
+    FOREIGN KEY(origin_subject_id) REFERENCES civ_subject(subject_id),
+    FOREIGN KEY(destination_subject_id) REFERENCES civ_subject(subject_id),
+    FOREIGN KEY(derivation_id) REFERENCES civ_derivation(derivation_id)
+);
+
+CREATE TABLE civ_variable_semantics(
+      variable_key TEXT PRIMARY KEY,
+      table_name TEXT NOT NULL,
+      column_name TEXT NOT NULL,
+      scope TEXT NOT NULL,
+      semantic_role TEXT NOT NULL,
+      unit TEXT,
+      epistemic_status TEXT NOT NULL,
+      interpretation TEXT NOT NULL,
+      misuse_warning TEXT,
+      future_upgrade TEXT
+    );
+
+CREATE TABLE civ_workforce_state (
+    subject_id TEXT NOT NULL,
+    year INTEGER NOT NULL,
+    sector_id TEXT NOT NULL DEFAULT 'ALL',
+    biological_workers REAL,
+    synthetic_workers REAL,
+    remote_workers REAL,
+    transient_workers REAL,
+    machine_task_equivalent REAL,
+    total_fte_equivalent REAL,
+    mean_paid_hours_week REAL,
+    automation_task_share REAL,
+    participation_rate REAL,
+    employment_rate REAL,
+    skill_index REAL,
+    labor_productivity_index REAL,
+    derivation_id TEXT NOT NULL,
+    PRIMARY KEY(subject_id, year, sector_id),
+    FOREIGN KEY(subject_id) REFERENCES civ_subject(subject_id),
+    FOREIGN KEY(sector_id) REFERENCES civ_sector(sector_id),
+    FOREIGN KEY(derivation_id) REFERENCES civ_derivation(derivation_id)
+);
+
+CREATE TABLE graph_link_enrichment (
+    link_key TEXT PRIMARY KEY,
+    display_label_override TEXT,
+    summary_override TEXT,
+    confidence_override REAL CHECK(confidence_override IS NULL OR confidence_override BETWEEN 0.0 AND 1.0),
+    salience REAL CHECK(salience IS NULL OR salience BETWEEN 0.0 AND 1.0),
+    metadata_json TEXT,
+    updated_at TEXT,
+    provenance TEXT
+);
+
+CREATE TABLE nav_graph_display_edges_cache (
+    display_degree INTEGER NOT NULL,
+    link_key TEXT PRIMARY KEY,
+    from_node_key TEXT NOT NULL,
+    to_node_key TEXT NOT NULL,
+    relationship_type TEXT NOT NULL,
+    relationship_domain TEXT,
+    is_derived INTEGER NOT NULL DEFAULT 0,
+    context_entity_id TEXT,
+    support_count INTEGER NOT NULL DEFAULT 1,
+    from_domain TEXT,
+    to_domain TEXT
+);
+
+CREATE TABLE nav_graph_edges_cache (
+    link_key TEXT PRIMARY KEY,
+    from_node_key TEXT NOT NULL,
+    to_node_key TEXT NOT NULL,
+    relationship_type TEXT NOT NULL,
+    relationship_domain TEXT,
+    directionality TEXT,
+    is_derived INTEGER NOT NULL DEFAULT 0,
+    context_entity_id TEXT,
+    source_record_type TEXT,
+    source_record_id TEXT,
+    provenance TEXT,
+    derivation_basis TEXT,
+    support_count INTEGER NOT NULL DEFAULT 1
+);
+
+CREATE TABLE nav_graph_nodes_cache (
+    node_key TEXT PRIMARY KEY,
+    node_domain TEXT NOT NULL,
+    ontology_class TEXT,
+    source_id TEXT,
+    canonical_name TEXT NOT NULL,
+    brief_description TEXT,
+    spatial_parent_entity_id TEXT,
+    institution_noun_id TEXT,
+    spatial_entity_id TEXT,
+    source_table TEXT
+);
+
+CREATE TABLE nav_graph_refresh_meta (
+    singleton INTEGER PRIMARY KEY CHECK(singleton=1),
+    refreshed_at TEXT NOT NULL,
+    utility_version TEXT NOT NULL,
+    source_core_path TEXT NOT NULL,
+    source_core_sha256 TEXT NOT NULL,
+    node_count INTEGER NOT NULL,
+    edge_count INTEGER NOT NULL,
+    display_edge_count INTEGER NOT NULL
+);
+
+CREATE VIEW civ_runtime_country_context AS
+      SELECT s.subject_id,s.display_name,s.iso3,p.*,n.population,n.employment,n.value_added,n.capital,n.investment
+      FROM civ_subject s
+      LEFT JOIN civ_country_operating_profile p ON p.country_subject_id=s.subject_id
+      LEFT JOIN civ_country_numeric_state n ON n.subject_id=s.subject_id AND n.year=2226 AND n.scenario_id='BLIND_MODEL_CONTINUATION'
+      WHERE s.subject_class IN ('COUNTRY_LINEAGE','DISPUTED_POLITY_LINEAGE');
+
+CREATE VIEW civ_runtime_country_evolution AS
+      SELECT e.*, p.political_identity
+      FROM civ_country_evolution_phase e
+      LEFT JOIN civ_country_operating_profile p
+        ON p.country_subject_id=e.country_subject_id AND p.year=2226;
+
+CREATE VIEW civ_runtime_country_narrative AS
+      SELECT p.country_subject_id,p.year,p.constitutional_form,p.political_identity,p.central_tension,p.gameplay_prompt,
+             l.lens_id,l.lens_score,l.sensory_manifestation,l.authority_manifestation,l.conflict_vector,l.narrative_use,l.sample_beat
+      FROM civ_country_operating_profile p JOIN civ_country_narrative_lens l
+        ON l.country_subject_id=p.country_subject_id AND l.year=p.year;
+
+CREATE VIEW civ_runtime_place_context AS
+      SELECT s.subject_id,s.display_name,s.navigator_entity_id,s.navigator_node_id,
+             p.governance_style,p.security_posture,p.commercial_openness,p.corporate_proxy_level,
+             p.local_autonomy,p.institutional_trust,p.synthetic_acceptance,p.migration_openness,
+             p.frontier_mentality,p.scarcity_pressure,p.social_tension,p.law_enforcement_reach,
+             p.data_sharing_level,p.outsider_attitude,p.concise_behavioral_prompt,
+             g.ultimate_sovereign,g.local_civil_authority,g.administrative_authority,g.security_provider,
+             g.primary_owner_operator,g.primary_financier,g.primary_certifier,
+             g.torch_corporate_legacy,g.metric_reassertion,g.loom_frontier_disruption,
+             i.resident_population,i.transient_daily_population,i.workforce,i.annual_value_added,
+             i.power_average_mw,i.cargo_throughput_tonnes_year,i.strategic_importance,
+             i.economic_centrality,i.transport_centrality
+      FROM civ_subject s
+      JOIN civ_place_dna p ON p.subject_id=s.subject_id AND p.year=2226
+      LEFT JOIN civ_governance_profile g ON g.subject_id=s.subject_id AND g.year=2226
+      LEFT JOIN civ_infrastructure_state i ON i.node_subject_id=s.subject_id AND i.year=2226;
+
+CREATE VIEW v_graph_civstate_actor_exposure AS
+SELECT
+    e.actor_subject_id,
+    a.display_name AS actor_name,
+    CASE
+      WHEN a.navigator_entity_id IS NOT NULL THEN 'ENTITY:' || a.navigator_entity_id
+      WHEN a.navigator_noun_id IS NOT NULL THEN 'NOUN:' || a.navigator_noun_id
+      ELSE NULL
+    END AS actor_node_key,
+    e.geography_subject_id,
+    g.display_name AS geography_name,
+    CASE
+      WHEN g.navigator_entity_id IS NOT NULL THEN 'ENTITY:' || g.navigator_entity_id
+      WHEN g.navigator_noun_id IS NOT NULL THEN 'NOUN:' || g.navigator_noun_id
+      ELSE NULL
+    END AS geography_node_key,
+    e.sector_id,
+    e.year,
+    e.employment_share,
+    e.asset_share,
+    e.revenue_share,
+    e.control_weight,
+    e.service_dependency_weight,
+    e.derivation_id
+FROM civ_actor_exposure e
+JOIN civ_subject a ON a.subject_id=e.actor_subject_id
+JOIN civ_subject g ON g.subject_id=e.geography_subject_id;
+
+CREATE VIEW v_graph_civstate_influence_edges AS
+SELECT
+    i.subject_id,
+    s.display_name AS subject_name,
+    CASE
+      WHEN s.navigator_entity_id IS NOT NULL THEN 'ENTITY:' || s.navigator_entity_id
+      WHEN s.navigator_noun_id IS NOT NULL THEN 'NOUN:' || s.navigator_noun_id
+      ELSE NULL
+    END AS subject_node_key,
+    i.actor_subject_id,
+    a.display_name AS actor_name,
+    CASE
+      WHEN a.navigator_entity_id IS NOT NULL THEN 'ENTITY:' || a.navigator_entity_id
+      WHEN a.navigator_noun_id IS NOT NULL THEN 'NOUN:' || a.navigator_noun_id
+      ELSE NULL
+    END AS actor_node_key,
+    i.year,
+    i.influence_domain,
+    i.influence_weight,
+    i.control_class,
+    i.basis,
+    i.derivation_id
+FROM civ_influence_edge i
+JOIN civ_subject s ON s.subject_id=i.subject_id
+JOIN civ_subject a ON a.subject_id=i.actor_subject_id;
+
+CREATE VIEW v_graph_display_edges AS
+SELECT * FROM nav_graph_display_edges_cache;
+
+CREATE VIEW v_graph_edges AS
+SELECT * FROM nav_graph_edges_cache;
+
+CREATE VIEW v_graph_link_catalog AS
+SELECT
+    e.link_key,
+    e.from_node_key,
+    fn.canonical_name AS from_name,
+    fn.node_domain AS from_domain,
+    e.to_node_key,
+    tn.canonical_name AS to_name,
+    tn.node_domain AS to_domain,
+    e.relationship_type,
+    e.relationship_domain,
+    e.directionality,
+    e.is_derived,
+    e.context_entity_id,
+    e.support_count,
+    e.source_record_type,
+    e.source_record_id,
+    e.provenance,
+    e.derivation_basis,
+    x.display_label_override,
+    x.summary_override,
+    x.confidence_override,
+    x.salience,
+    x.metadata_json
+FROM nav_graph_edges_cache e
+JOIN nav_graph_nodes_cache fn ON fn.node_key=e.from_node_key
+JOIN nav_graph_nodes_cache tn ON tn.node_key=e.to_node_key
+LEFT JOIN graph_link_enrichment x ON x.link_key=e.link_key;
+
+CREATE VIEW v_graph_nodes AS
+SELECT * FROM nav_graph_nodes_cache;
+
+CREATE VIEW v_graph_traversal AS
+SELECT
+    link_key,
+    from_node_key,
+    to_node_key,
+    relationship_type,
+    relationship_domain,
+    is_derived,
+    context_entity_id,
+    support_count,
+    0 AS reversed
+FROM nav_graph_edges_cache
+UNION ALL
+SELECT
+    link_key || ':REV',
+    to_node_key,
+    from_node_key,
+    relationship_type,
+    relationship_domain,
+    is_derived,
+    context_entity_id,
+    support_count,
+    1
+FROM nav_graph_edges_cache;

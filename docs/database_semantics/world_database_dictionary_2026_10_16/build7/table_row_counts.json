@@ -1,0 +1,695 @@
+[
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_geo",
+    "table": "body",
+    "visible_row_count": 96
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_geo",
+    "table": "body_identifier",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_geo",
+    "table": "body_system",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_geo",
+    "table": "frame",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_geo",
+    "table": "geometry",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_geo",
+    "table": "location",
+    "visible_row_count": 1080
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_geo",
+    "table": "location_relation",
+    "visible_row_count": 90
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_geo",
+    "table": "system_member",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_geo",
+    "table": "time_support",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_geo",
+    "table": "vertical_support",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "action_authorization",
+    "visible_row_count": 1465
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "agent_fact",
+    "visible_row_count": 1422
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "agent_snapshot",
+    "visible_row_count": 1588
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "belief",
+    "visible_row_count": 2312
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "consumption_request",
+    "visible_row_count": 14484
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "context_value",
+    "visible_row_count": 11673
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "decision",
+    "visible_row_count": 1588
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "epistemic_loop",
+    "visible_row_count": 1244
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "information_artifact",
+    "visible_row_count": 2312
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "possession",
+    "visible_row_count": 3380
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "principal_binding",
+    "visible_row_count": 2
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "receipt",
+    "visible_row_count": 15272
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_meta",
+    "table": "design_version",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_meta",
+    "table": "legacy_row",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_meta",
+    "table": "source_snapshot",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_meta",
+    "table": "unit",
+    "visible_row_count": 10
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_nav",
+    "table": "coverage",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_nav",
+    "table": "product",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "accessibility_assessment",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "actor_reference",
+    "visible_row_count": 945
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "artifact",
+    "visible_row_count": 46932
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "asset",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "asset_location",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "causal_envelope",
+    "visible_row_count": 8551
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "execution",
+    "visible_row_count": 45
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "mission",
+    "visible_row_count": 313
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "observation",
+    "visible_row_count": 1244
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "organization_reference",
+    "visible_row_count": 315
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "population_origin",
+    "visible_row_count": 45
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "population_state",
+    "visible_row_count": 45
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "project",
+    "visible_row_count": 71
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "project_location",
+    "visible_row_count": 71
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "project_party",
+    "visible_row_count": 71
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "recoverability_assessment",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "reserve_interpretation",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "settlement",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "settlement_asset",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "settlement_location",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "settlement_state",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "stock_state",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "trace_artifact_edge",
+    "visible_row_count": 17192
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "trace_parent",
+    "visible_row_count": 8506
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "world_binding",
+    "visible_row_count": 267
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "admission",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "assertion",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "assertion_input",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "coverage",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "extrapolation",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "knowledge_event",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "material_evidence",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "observation",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "reconciliation",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "sample",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "source",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "source_artifact",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "spatial_product",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "supersession",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "support",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_world",
+    "table": "constraint_binding",
+    "visible_row_count": 0
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_world",
+    "table": "deposit",
+    "visible_row_count": 3780
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_world",
+    "table": "generation_model",
+    "visible_row_count": 1
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_world",
+    "table": "generation_policy",
+    "visible_row_count": 90
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_world",
+    "table": "hidden_state",
+    "visible_row_count": 245700
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_world",
+    "table": "physical_property",
+    "visible_row_count": 29
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_world",
+    "table": "realization",
+    "visible_row_count": 3780
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_world",
+    "table": "scenario",
+    "visible_row_count": 42
+  },
+  {
+    "count_status": "VISIBLE_COUNT_UNDER_CONNECTION_RLS",
+    "owner": "wa_owner",
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_world",
+    "table": "site",
+    "visible_row_count": 3780
+  }
+]

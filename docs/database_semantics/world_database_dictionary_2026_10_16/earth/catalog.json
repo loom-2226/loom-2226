@@ -1,0 +1,4239 @@
+{
+  "schemas": [
+    "loom_earth",
+    "loom_control",
+    "loom_narrator",
+    "loom_timeline"
+  ],
+  "objects": [
+    {
+      "schema_name": "loom_control",
+      "object_name": "field_semantics",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_database",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_table",
+          "position": 3,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_column",
+          "position": 4,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "semantic_status",
+          "position": 5,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "presentation_label",
+          "position": 6,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "definition",
+          "position": 7,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "unit",
+          "position": 8,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "grain",
+          "position": 9,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "epoch_basis",
+          "position": 10,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "accounting_population_basis",
+          "position": 11,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "evidence_reference",
+          "position": 12,
+          "type": "jsonb",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "missing_evidence",
+          "position": 13,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "embedded_claim_status",
+          "position": 14,
+          "type": "text",
+          "nullable": false,
+          "default": "'NOT_APPLICABLE'::text",
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "admission_scope",
+          "position": 15,
+          "type": "text",
+          "nullable": false,
+          "default": "'NONE'::text",
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "qualified_row_filter",
+          "position": 16,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": "Evidence-bound row scope from the pinned Gate-A matrix; prose is not an executable SQL predicate."
+        }
+      ],
+      "constraints": [
+        {
+          "name": "field_semantics_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id, source_database, source_table, source_column)"
+        },
+        {
+          "name": "field_semantics_semantic_status_check",
+          "type": "c",
+          "definition": "CHECK ((semantic_status = ANY (ARRAY['STRUCTURAL'::text, 'QUALIFIED'::text, 'UNRESOLVED'::text, 'NOT_ASSESSED'::text, 'NOT_APPLICABLE'::text])))"
+        },
+        {
+          "name": "field_semantics_snapshot_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "field_semantics_pkey",
+          "definition": "CREATE UNIQUE INDEX field_semantics_pkey ON loom_control.field_semantics USING btree (snapshot_id, source_database, source_table, source_column)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_control",
+      "object_name": "import_batch",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "batch_id",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "fact_family",
+          "position": 3,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_artifact_sha256",
+          "position": 4,
+          "type": "character(64)",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_model",
+          "position": 5,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "derivation_id",
+          "position": 6,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "record_count",
+          "position": 7,
+          "type": "bigint",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "valid_from_year",
+          "position": 8,
+          "type": "integer",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "valid_to_year",
+          "position": 9,
+          "type": "integer",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_key_rule",
+          "position": 10,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "imported_at",
+          "position": 11,
+          "type": "timestamp with time zone",
+          "nullable": false,
+          "default": "now()",
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "import_batch_check",
+          "type": "c",
+          "definition": "CHECK ((valid_from_year <= valid_to_year))"
+        },
+        {
+          "name": "import_batch_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id, batch_id)"
+        },
+        {
+          "name": "import_batch_record_count_check",
+          "type": "c",
+          "definition": "CHECK ((record_count >= 0))"
+        },
+        {
+          "name": "import_batch_snapshot_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)"
+        },
+        {
+          "name": "import_batch_source_artifact_sha256_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (source_artifact_sha256) REFERENCES loom_control.source_artifact(artifact_sha256)"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "import_batch_pkey",
+          "definition": "CREATE UNIQUE INDEX import_batch_pkey ON loom_control.import_batch USING btree (snapshot_id, batch_id)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_control",
+      "object_name": "model_context_record",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "context_key",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "context_value",
+          "position": 3,
+          "type": "jsonb",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "description",
+          "position": 4,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "model_context_record_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id, context_key)"
+        },
+        {
+          "name": "model_context_record_snapshot_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "model_context_record_pkey",
+          "definition": "CREATE UNIQUE INDEX model_context_record_pkey ON loom_control.model_context_record USING btree (snapshot_id, context_key)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_control",
+      "object_name": "row_lineage",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": "Exact source PK components for typed imported rows; no unresolved descriptive values.",
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "target_schema",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "target_table",
+          "position": 3,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_database",
+          "position": 4,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_table",
+          "position": 5,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_artifact_sha256",
+          "position": 6,
+          "type": "character(64)",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_key",
+          "position": 7,
+          "type": "jsonb",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "row_lineage_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id, target_schema, target_table, source_key)"
+        },
+        {
+          "name": "row_lineage_snapshot_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)"
+        },
+        {
+          "name": "row_lineage_source_artifact_sha256_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (source_artifact_sha256) REFERENCES loom_control.source_artifact(artifact_sha256)"
+        },
+        {
+          "name": "row_lineage_source_key_check",
+          "type": "c",
+          "definition": "CHECK ((jsonb_typeof(source_key) = 'object'::text))"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "row_lineage_pkey",
+          "definition": "CREATE UNIQUE INDEX row_lineage_pkey ON loom_control.row_lineage USING btree (snapshot_id, target_schema, target_table, source_key)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_control",
+      "object_name": "schema_migration",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "revision",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "script_sha256",
+          "position": 2,
+          "type": "character(64)",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "applied_at",
+          "position": 3,
+          "type": "timestamp with time zone",
+          "nullable": false,
+          "default": "now()",
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "schema_migration_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (revision)"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "schema_migration_pkey",
+          "definition": "CREATE UNIQUE INDEX schema_migration_pkey ON loom_control.schema_migration USING btree (revision)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_control",
+      "object_name": "semantic_version",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "semantic_sha256",
+          "position": 1,
+          "type": "character(64)",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_path",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_git_commit",
+          "position": 3,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "recorded_at",
+          "position": 4,
+          "type": "timestamp with time zone",
+          "nullable": false,
+          "default": "now()",
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "semantic_version_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (semantic_sha256)"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "semantic_version_pkey",
+          "definition": "CREATE UNIQUE INDEX semantic_version_pkey ON loom_control.semantic_version USING btree (semantic_sha256)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_control",
+      "object_name": "snapshot",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "consumer_git_commit",
+          "position": 2,
+          "type": "character(40)",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "consumer_query_sha256",
+          "position": 3,
+          "type": "character(64)",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "contract_sha256",
+          "position": 4,
+          "type": "character(64)",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "semantic_sha256",
+          "position": 5,
+          "type": "character(64)",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "state",
+          "position": 6,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "created_at",
+          "position": 7,
+          "type": "timestamp with time zone",
+          "nullable": false,
+          "default": "now()",
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "snapshot_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id)"
+        },
+        {
+          "name": "snapshot_semantic_sha256_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (semantic_sha256) REFERENCES loom_control.semantic_version(semantic_sha256)"
+        },
+        {
+          "name": "snapshot_state_check",
+          "type": "c",
+          "definition": "CHECK ((state = ANY (ARRAY['CANDIDATE'::text, 'VALIDATED'::text, 'RETIRED'::text])))"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "snapshot_pkey",
+          "definition": "CREATE UNIQUE INDEX snapshot_pkey ON loom_control.snapshot USING btree (snapshot_id)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_control",
+      "object_name": "snapshot_source",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "artifact_sha256",
+          "position": 2,
+          "type": "character(64)",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_role",
+          "position": 3,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "snapshot_source_artifact_sha256_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (artifact_sha256) REFERENCES loom_control.source_artifact(artifact_sha256)"
+        },
+        {
+          "name": "snapshot_source_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id, artifact_sha256, source_role)"
+        },
+        {
+          "name": "snapshot_source_snapshot_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "snapshot_source_pkey",
+          "definition": "CREATE UNIQUE INDEX snapshot_source_pkey ON loom_control.snapshot_source USING btree (snapshot_id, artifact_sha256, source_role)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_control",
+      "object_name": "source_artifact",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "artifact_sha256",
+          "position": 1,
+          "type": "character(64)",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_role",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_path",
+          "position": 3,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "byte_count",
+          "position": 4,
+          "type": "bigint",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_git_commit",
+          "position": 5,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "retained_location",
+          "position": 6,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "source_artifact_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (artifact_sha256)"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "source_artifact_pkey",
+          "definition": "CREATE UNIQUE INDEX source_artifact_pkey ON loom_control.source_artifact USING btree (artifact_sha256)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_control",
+      "object_name": "temporal_coverage",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "fact_family",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "variable_key",
+          "position": 3,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "coverage_scope",
+          "position": 4,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "valid_from_year",
+          "position": 5,
+          "type": "integer",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "valid_to_year",
+          "position": 6,
+          "type": "integer",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "temporal_grain",
+          "position": 7,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "geographic_coverage",
+          "position": 8,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_model",
+          "position": 9,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "epistemic_status",
+          "position": 10,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "handoff_predecessor",
+          "position": 11,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "unavailable_intervals",
+          "position": 12,
+          "type": "jsonb",
+          "nullable": false,
+          "default": "'[]'::jsonb",
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "temporal_coverage_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id, fact_family, coverage_scope, valid_from_year)"
+        },
+        {
+          "name": "temporal_coverage_snapshot_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "temporal_coverage_pkey",
+          "definition": "CREATE UNIQUE INDEX temporal_coverage_pkey ON loom_control.temporal_coverage USING btree (snapshot_id, fact_family, coverage_scope, valid_from_year)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_control",
+      "object_name": "variable_semantics",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "variable_key",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "human_label",
+          "position": 3,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "definition",
+          "position": 4,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "unit",
+          "position": 5,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "grain",
+          "position": 6,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "population_accounting_basis",
+          "position": 7,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "epistemic_status",
+          "position": 8,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "interpretation",
+          "position": 9,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "misuse_warning",
+          "position": 10,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "valid_from_year",
+          "position": 11,
+          "type": "integer",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "valid_to_year",
+          "position": 12,
+          "type": "integer",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "temporal_grain",
+          "position": 13,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "coverage_scope",
+          "position": 14,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_model_identity",
+          "position": 15,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "selected_scenario",
+          "position": 16,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "derivation_method",
+          "position": 17,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_artifact_hashes",
+          "position": 18,
+          "type": "jsonb",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "predecessor",
+          "position": 19,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "future_limitation",
+          "position": 20,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "variable_semantics_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id, variable_key)"
+        },
+        {
+          "name": "variable_semantics_snapshot_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "variable_semantics_pkey",
+          "definition": "CREATE UNIQUE INDEX variable_semantics_pkey ON loom_control.variable_semantics USING btree (snapshot_id, variable_key)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_earth",
+      "object_name": "earth_area",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "iso3",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "display_name",
+          "position": 3,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "wpp_location_id",
+          "position": 4,
+          "type": "integer",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "wpp_location_type",
+          "position": 5,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "economic_qualified",
+          "position": 6,
+          "type": "boolean",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "earth_area_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id, iso3)"
+        },
+        {
+          "name": "earth_area_snapshot_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "earth_area_pkey",
+          "definition": "CREATE UNIQUE INDEX earth_area_pkey ON loom_earth.earth_area USING btree (snapshot_id, iso3)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_earth",
+      "object_name": "earth_biological_cohort_year",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "iso3",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "year",
+          "position": 3,
+          "type": "integer",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "sex",
+          "position": 4,
+          "type": "character(1)",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_start",
+          "position": 5,
+          "type": "integer",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_span",
+          "position": 6,
+          "type": "integer",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "persons",
+          "position": 7,
+          "type": "double precision",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "open_ended",
+          "position": 8,
+          "type": "boolean",
+          "nullable": false,
+          "default": "false",
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "derivation_id",
+          "position": 9,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "earth_biological_cohort_year_age_start_check",
+          "type": "c",
+          "definition": "CHECK ((age_start >= 0))"
+        },
+        {
+          "name": "earth_biological_cohort_year_persons_check",
+          "type": "c",
+          "definition": "CHECK ((persons >= (0)::double precision))"
+        },
+        {
+          "name": "earth_biological_cohort_year_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id, iso3, year, sex, age_start)"
+        },
+        {
+          "name": "earth_biological_cohort_year_sex_check",
+          "type": "c",
+          "definition": "CHECK ((sex = ANY (ARRAY['F'::bpchar, 'M'::bpchar])))"
+        },
+        {
+          "name": "earth_biological_cohort_year_snapshot_id_derivation_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id)"
+        },
+        {
+          "name": "earth_biological_cohort_year_snapshot_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)"
+        },
+        {
+          "name": "earth_biological_cohort_year_snapshot_id_iso3_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3)"
+        },
+        {
+          "name": "earth_biological_cohort_year_year_check",
+          "type": "c",
+          "definition": "CHECK (((year >= 2026) AND (year <= 2226)))"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "earth_biological_cohort_year_pkey",
+          "definition": "CREATE UNIQUE INDEX earth_biological_cohort_year_pkey ON loom_earth.earth_biological_cohort_year USING btree (snapshot_id, iso3, year, sex, age_start)"
+        },
+        {
+          "name": "earth_cohort_year_idx",
+          "definition": "CREATE INDEX earth_cohort_year_idx ON loom_earth.earth_biological_cohort_year USING btree (snapshot_id, year)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_earth",
+      "object_name": "earth_demographic_year",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "iso3",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "year",
+          "position": 3,
+          "type": "integer",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "biological_population",
+          "position": 4,
+          "type": "double precision",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "births",
+          "position": 5,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "deaths",
+          "position": 6,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "median_age",
+          "position": 7,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_under_20",
+          "position": 8,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_20_64",
+          "position": 9,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_65_plus",
+          "position": 10,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_80_plus",
+          "position": 11,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_100_plus",
+          "position": 12,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_120_plus",
+          "position": 13,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_150_plus",
+          "position": 14,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "derivation_id",
+          "position": 15,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "earth_demographic_year_biological_population_check",
+          "type": "c",
+          "definition": "CHECK ((biological_population >= (0)::double precision))"
+        },
+        {
+          "name": "earth_demographic_year_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id, iso3, year)"
+        },
+        {
+          "name": "earth_demographic_year_snapshot_id_derivation_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id)"
+        },
+        {
+          "name": "earth_demographic_year_snapshot_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)"
+        },
+        {
+          "name": "earth_demographic_year_snapshot_id_iso3_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3)"
+        },
+        {
+          "name": "earth_demographic_year_year_check",
+          "type": "c",
+          "definition": "CHECK (((year >= 2026) AND (year <= 2226)))"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "earth_demographic_year_pkey",
+          "definition": "CREATE UNIQUE INDEX earth_demographic_year_pkey ON loom_earth.earth_demographic_year USING btree (snapshot_id, iso3, year)"
+        },
+        {
+          "name": "earth_demographic_year_year_idx",
+          "definition": "CREATE INDEX earth_demographic_year_year_idx ON loom_earth.earth_demographic_year USING btree (snapshot_id, year)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_earth",
+      "object_name": "earth_derivation",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "derivation_id",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_model",
+          "position": 3,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "method",
+          "position": 4,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "epistemic_status",
+          "position": 5,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "selected_scenario",
+          "position": 6,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_artifact_sha256",
+          "position": 7,
+          "type": "character(64)",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "notes",
+          "position": 8,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "earth_derivation_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id, derivation_id)"
+        },
+        {
+          "name": "earth_derivation_snapshot_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)"
+        },
+        {
+          "name": "earth_derivation_source_artifact_sha256_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (source_artifact_sha256) REFERENCES loom_control.source_artifact(artifact_sha256)"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "earth_derivation_pkey",
+          "definition": "CREATE UNIQUE INDEX earth_derivation_pkey ON loom_earth.earth_derivation USING btree (snapshot_id, derivation_id)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_earth",
+      "object_name": "earth_economic_year",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "iso3",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "year",
+          "position": 3,
+          "type": "integer",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "value_added",
+          "position": 4,
+          "type": "double precision",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "gross_output",
+          "position": 5,
+          "type": "double precision",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "investment",
+          "position": 6,
+          "type": "double precision",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "capital",
+          "position": 7,
+          "type": "double precision",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "population",
+          "position": 8,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "derivation_id",
+          "position": 9,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "earth_economic_year_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id, iso3, year)"
+        },
+        {
+          "name": "earth_economic_year_snapshot_id_derivation_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id)"
+        },
+        {
+          "name": "earth_economic_year_snapshot_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)"
+        },
+        {
+          "name": "earth_economic_year_snapshot_id_iso3_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3)"
+        },
+        {
+          "name": "earth_economic_year_year_check",
+          "type": "c",
+          "definition": "CHECK (((year >= 2026) AND (year <= 2226)))"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "earth_economic_year_pkey",
+          "definition": "CREATE UNIQUE INDEX earth_economic_year_pkey ON loom_earth.earth_economic_year USING btree (snapshot_id, iso3, year)"
+        },
+        {
+          "name": "earth_economic_year_year_idx",
+          "definition": "CREATE INDEX earth_economic_year_year_idx ON loom_earth.earth_economic_year USING btree (snapshot_id, year)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_earth",
+      "object_name": "earth_labor_composition_year",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": "Post-2100 selected biological, synthetic-person, and non-person machine labor categories.",
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "iso3",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "year",
+          "position": 3,
+          "type": "integer",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "biological_population",
+          "position": 4,
+          "type": "double precision",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "labor_capable_biological_population",
+          "position": 5,
+          "type": "double precision",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "biological_effective_labor",
+          "position": 6,
+          "type": "double precision",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "synthetic_population",
+          "position": 7,
+          "type": "double precision",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "synthetic_effective_labor",
+          "position": 8,
+          "type": "double precision",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "machine_task_capacity",
+          "position": 9,
+          "type": "double precision",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "total_effective_labor",
+          "position": 10,
+          "type": "double precision",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "recognized_person_population",
+          "position": 11,
+          "type": "double precision",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "derivation_id",
+          "position": 12,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "earth_labor_composition_year_check",
+          "type": "c",
+          "definition": "CHECK ((biological_effective_labor <= (labor_capable_biological_population + (0.000001)::double precision)))"
+        },
+        {
+          "name": "earth_labor_composition_year_check1",
+          "type": "c",
+          "definition": "CHECK ((labor_capable_biological_population <= (biological_population + (0.000001)::double precision)))"
+        },
+        {
+          "name": "earth_labor_composition_year_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id, iso3, year)"
+        },
+        {
+          "name": "earth_labor_composition_year_snapshot_id_derivation_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id)"
+        },
+        {
+          "name": "earth_labor_composition_year_snapshot_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)"
+        },
+        {
+          "name": "earth_labor_composition_year_snapshot_id_iso3_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3)"
+        },
+        {
+          "name": "earth_labor_composition_year_year_check",
+          "type": "c",
+          "definition": "CHECK (((year >= 2100) AND (year <= 2226)))"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "earth_labor_composition_year_pkey",
+          "definition": "CREATE UNIQUE INDEX earth_labor_composition_year_pkey ON loom_earth.earth_labor_composition_year USING btree (snapshot_id, iso3, year)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_earth",
+      "object_name": "earth_legacy_labor_year",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": "Historical employment under v4 semantics; not biological effective labor.",
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "iso3",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "year",
+          "position": 3,
+          "type": "integer",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "legacy_employment",
+          "position": 4,
+          "type": "double precision",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "legacy_labor_force",
+          "position": 5,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "labor_market_working_age_population",
+          "position": 6,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "derivation_id",
+          "position": 7,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "earth_legacy_labor_year_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id, iso3, year)"
+        },
+        {
+          "name": "earth_legacy_labor_year_snapshot_id_derivation_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id)"
+        },
+        {
+          "name": "earth_legacy_labor_year_snapshot_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)"
+        },
+        {
+          "name": "earth_legacy_labor_year_snapshot_id_iso3_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3)"
+        },
+        {
+          "name": "earth_legacy_labor_year_year_check",
+          "type": "c",
+          "definition": "CHECK (((year >= 2026) AND (year <= 2100)))"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "earth_legacy_labor_year_pkey",
+          "definition": "CREATE UNIQUE INDEX earth_legacy_labor_year_pkey ON loom_earth.earth_legacy_labor_year USING btree (snapshot_id, iso3, year)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_earth",
+      "object_name": "earth_sector_asset_year",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "iso3",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "sector",
+          "position": 3,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "asset_class",
+          "position": 4,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "year",
+          "position": 5,
+          "type": "integer",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "capital",
+          "position": 6,
+          "type": "double precision",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "investment",
+          "position": 7,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "depreciation_rate",
+          "position": 8,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "replacement_need",
+          "position": 9,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "replacement_funded",
+          "position": 10,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "expansion_investment",
+          "position": 11,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "derivation_id",
+          "position": 12,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "earth_sector_asset_year_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id, iso3, sector, asset_class, year)"
+        },
+        {
+          "name": "earth_sector_asset_year_snapshot_id_derivation_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id)"
+        },
+        {
+          "name": "earth_sector_asset_year_snapshot_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)"
+        },
+        {
+          "name": "earth_sector_asset_year_snapshot_id_iso3_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3)"
+        },
+        {
+          "name": "earth_sector_asset_year_year_check",
+          "type": "c",
+          "definition": "CHECK (((year >= 2026) AND (year <= 2226)))"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "earth_asset_year_year_idx",
+          "definition": "CREATE INDEX earth_asset_year_year_idx ON loom_earth.earth_sector_asset_year USING btree (snapshot_id, year)"
+        },
+        {
+          "name": "earth_sector_asset_year_pkey",
+          "definition": "CREATE UNIQUE INDEX earth_sector_asset_year_pkey ON loom_earth.earth_sector_asset_year USING btree (snapshot_id, iso3, sector, asset_class, year)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_earth",
+      "object_name": "earth_sector_year",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "iso3",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "sector",
+          "position": 3,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "year",
+          "position": 4,
+          "type": "integer",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "value_added",
+          "position": 5,
+          "type": "double precision",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "gross_output",
+          "position": 6,
+          "type": "double precision",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "investment",
+          "position": 7,
+          "type": "double precision",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "capital",
+          "position": 8,
+          "type": "double precision",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "employment",
+          "position": 9,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "effective_labor",
+          "position": 10,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "derivation_id",
+          "position": 11,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "earth_sector_year_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id, iso3, sector, year)"
+        },
+        {
+          "name": "earth_sector_year_snapshot_id_derivation_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id)"
+        },
+        {
+          "name": "earth_sector_year_snapshot_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)"
+        },
+        {
+          "name": "earth_sector_year_snapshot_id_iso3_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3)"
+        },
+        {
+          "name": "earth_sector_year_year_check",
+          "type": "c",
+          "definition": "CHECK (((year >= 2026) AND (year <= 2226)))"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "earth_sector_year_pkey",
+          "definition": "CREATE UNIQUE INDEX earth_sector_year_pkey ON loom_earth.earth_sector_year USING btree (snapshot_id, iso3, sector, year)"
+        },
+        {
+          "name": "earth_sector_year_year_idx",
+          "definition": "CREATE INDEX earth_sector_year_year_idx ON loom_earth.earth_sector_year USING btree (snapshot_id, year)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_narrator",
+      "object_name": "current_country_fact",
+      "object_kind": "v",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "subject_id",
+          "position": 2,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "year",
+          "position": 3,
+          "type": "integer",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "variable_key",
+          "position": 4,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "numeric_value",
+          "position": 5,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "unit",
+          "position": 6,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "definition",
+          "position": 7,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "epistemic_status",
+          "position": 8,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "derivation_id",
+          "position": 9,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_artifact",
+          "position": 10,
+          "type": "jsonb",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "misuse_warning",
+          "position": 11,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [],
+      "indexes": []
+    },
+    {
+      "schema_name": "loom_narrator",
+      "object_name": "current_country_year",
+      "object_kind": "v",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "iso3",
+          "position": 2,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "display_name",
+          "position": 3,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "year",
+          "position": 4,
+          "type": "integer",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "biological_population",
+          "position": 5,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "births",
+          "position": 6,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "deaths",
+          "position": 7,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "median_age",
+          "position": 8,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_under_20",
+          "position": 9,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_20_64",
+          "position": 10,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_65_plus",
+          "position": 11,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_80_plus",
+          "position": 12,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_100_plus",
+          "position": 13,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_120_plus",
+          "position": 14,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_150_plus",
+          "position": 15,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "value_added",
+          "position": 16,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "gross_output",
+          "position": 17,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "investment",
+          "position": 18,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "capital",
+          "position": 19,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "legacy_employment",
+          "position": 20,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "legacy_labor_force",
+          "position": 21,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "labor_capable_biological_population",
+          "position": 22,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "biological_effective_labor",
+          "position": 23,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "synthetic_population",
+          "position": 24,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "synthetic_effective_labor",
+          "position": 25,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "machine_task_capacity",
+          "position": 26,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "total_effective_labor",
+          "position": 27,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "recognized_person_population",
+          "position": 28,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "economic_qualified",
+          "position": 29,
+          "type": "boolean",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "economic_coverage",
+          "position": 30,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "biosynthetic_labor_coverage",
+          "position": 31,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [],
+      "indexes": []
+    },
+    {
+      "schema_name": "loom_narrator",
+      "object_name": "current_earth_fact",
+      "object_kind": "v",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "subject_id",
+          "position": 2,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "year",
+          "position": 3,
+          "type": "integer",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "variable_key",
+          "position": 4,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "numeric_value",
+          "position": 5,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "unit",
+          "position": 6,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "definition",
+          "position": 7,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "epistemic_status",
+          "position": 8,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "derivation_id",
+          "position": 9,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_artifact",
+          "position": 10,
+          "type": "jsonb",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "misuse_warning",
+          "position": 11,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [],
+      "indexes": []
+    },
+    {
+      "schema_name": "loom_narrator",
+      "object_name": "current_earth_snapshot",
+      "object_kind": "v",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [],
+      "indexes": []
+    },
+    {
+      "schema_name": "loom_narrator",
+      "object_name": "current_earth_year",
+      "object_kind": "v",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "year",
+          "position": 2,
+          "type": "integer",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "biological_population",
+          "position": 3,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "synthetic_population",
+          "position": 4,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "recognized_person_population",
+          "position": 5,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_under_20",
+          "position": 6,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_20_64",
+          "position": 7,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_65_plus",
+          "position": 8,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_80_plus",
+          "position": 9,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_100_plus",
+          "position": 10,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_120_plus",
+          "position": 11,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "age_150_plus",
+          "position": 12,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "biological_effective_labor",
+          "position": 13,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "synthetic_effective_labor",
+          "position": 14,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "machine_task_capacity",
+          "position": 15,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "total_effective_labor",
+          "position": 16,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "value_added",
+          "position": 17,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "gross_output",
+          "position": 18,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "investment",
+          "position": 19,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "capital",
+          "position": 20,
+          "type": "double precision",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "demographic_status",
+          "position": 21,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "economic_status",
+          "position": 22,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [],
+      "indexes": []
+    },
+    {
+      "schema_name": "loom_narrator",
+      "object_name": "fact_semantics",
+      "object_kind": "v",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "variable_key",
+          "position": 2,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "human_label",
+          "position": 3,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "definition",
+          "position": 4,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "unit",
+          "position": 5,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "grain",
+          "position": 6,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "population_accounting_basis",
+          "position": 7,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "epistemic_status",
+          "position": 8,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "interpretation",
+          "position": 9,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "misuse_warning",
+          "position": 10,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "valid_from_year",
+          "position": 11,
+          "type": "integer",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "valid_to_year",
+          "position": 12,
+          "type": "integer",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "temporal_grain",
+          "position": 13,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "coverage_scope",
+          "position": 14,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_model_identity",
+          "position": 15,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "selected_scenario",
+          "position": 16,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "derivation_method",
+          "position": 17,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_artifact_hashes",
+          "position": 18,
+          "type": "jsonb",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "predecessor",
+          "position": 19,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "future_limitation",
+          "position": 20,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [],
+      "indexes": []
+    },
+    {
+      "schema_name": "loom_narrator",
+      "object_name": "model_context",
+      "object_kind": "v",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "context_key",
+          "position": 2,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "context_value",
+          "position": 3,
+          "type": "jsonb",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "description",
+          "position": 4,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [],
+      "indexes": []
+    },
+    {
+      "schema_name": "loom_narrator",
+      "object_name": "temporal_coverage",
+      "object_kind": "v",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "fact_family",
+          "position": 2,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "variable_key",
+          "position": 3,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "coverage_scope",
+          "position": 4,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "valid_from_year",
+          "position": 5,
+          "type": "integer",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "valid_to_year",
+          "position": 6,
+          "type": "integer",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "temporal_grain",
+          "position": 7,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "geographic_coverage",
+          "position": 8,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_model",
+          "position": 9,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "epistemic_status",
+          "position": 10,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "handoff_predecessor",
+          "position": 11,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "unavailable_intervals",
+          "position": 12,
+          "type": "jsonb",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [],
+      "indexes": []
+    },
+    {
+      "schema_name": "loom_timeline",
+      "object_name": "interpretation_rule",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": "Source-backed rules constraining timeline interpretation by executable consumers such as future CIVPROP.",
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "rule_key",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "rule_text_md",
+          "position": 3,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_artifact_sha256",
+          "position": 4,
+          "type": "character(64)",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_section",
+          "position": 5,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "interpretation_rule_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id, rule_key)"
+        },
+        {
+          "name": "interpretation_rule_snapshot_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)"
+        },
+        {
+          "name": "interpretation_rule_source_artifact_sha256_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (source_artifact_sha256) REFERENCES loom_control.source_artifact(artifact_sha256)"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "interpretation_rule_pkey",
+          "definition": "CREATE UNIQUE INDEX interpretation_rule_pkey ON loom_timeline.interpretation_rule USING btree (snapshot_id, rule_key)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_timeline",
+      "object_name": "milestone",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": "Timeline milestones with explicit authority and epistemic class. Persistence never upgrades provisional scenario material to canon.",
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "milestone_id",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "id_origin",
+          "position": 3,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "family",
+          "position": 4,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "timeline_kind",
+          "position": 5,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "authority_class",
+          "position": 6,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "epistemic_status",
+          "position": 7,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "reference_period",
+          "position": 8,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "start_year",
+          "position": 9,
+          "type": "integer",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "end_year",
+          "position": 10,
+          "type": "integer",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "temporal_precision",
+          "position": 11,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "capability_change_md",
+          "position": 12,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "threshold_gate_md",
+          "position": 13,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "basis_uncertainty_md",
+          "position": 14,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_section",
+          "position": 15,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "sort_order",
+          "position": 16,
+          "type": "integer",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "notes_md",
+          "position": 17,
+          "type": "text",
+          "nullable": true,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "milestone_authority_class_check",
+          "type": "c",
+          "definition": "CHECK ((authority_class = ANY (ARRAY['GOVERNING_CANON'::text, 'PROVISIONAL_SIMULATION_SCAFFOLD'::text])))"
+        },
+        {
+          "name": "milestone_check",
+          "type": "c",
+          "definition": "CHECK (((start_year IS NULL) OR (end_year IS NULL) OR (start_year <= end_year)))"
+        },
+        {
+          "name": "milestone_end_year_check",
+          "type": "c",
+          "definition": "CHECK (((end_year IS NULL) OR ((end_year >= 1900) AND (end_year <= 3000))))"
+        },
+        {
+          "name": "milestone_id_origin_check",
+          "type": "c",
+          "definition": "CHECK ((id_origin = ANY (ARRAY['SOURCE'::text, 'PROJECTION_GENERATED'::text])))"
+        },
+        {
+          "name": "milestone_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id, milestone_id)"
+        },
+        {
+          "name": "milestone_snapshot_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id)"
+        },
+        {
+          "name": "milestone_sort_order_check",
+          "type": "c",
+          "definition": "CHECK ((sort_order > 0))"
+        },
+        {
+          "name": "milestone_start_year_check",
+          "type": "c",
+          "definition": "CHECK (((start_year IS NULL) OR ((start_year >= 1900) AND (start_year <= 3000))))"
+        },
+        {
+          "name": "milestone_timeline_kind_check",
+          "type": "c",
+          "definition": "CHECK ((timeline_kind = ANY (ARRAY['CANON_HISTORY'::text, 'MODERATE_SCENARIO_ANCHOR'::text, 'FICTIONAL_PHYSICS_SCENARIO_ANCHOR'::text, 'SOCIAL_SCENARIO_ANCHOR'::text])))"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "milestone_pkey",
+          "definition": "CREATE UNIQUE INDEX milestone_pkey ON loom_timeline.milestone USING btree (snapshot_id, milestone_id)"
+        },
+        {
+          "name": "timeline_milestone_kind_idx",
+          "definition": "CREATE INDEX timeline_milestone_kind_idx ON loom_timeline.milestone USING btree (snapshot_id, timeline_kind, authority_class)"
+        },
+        {
+          "name": "timeline_milestone_year_idx",
+          "definition": "CREATE INDEX timeline_milestone_year_idx ON loom_timeline.milestone USING btree (snapshot_id, start_year, end_year)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_timeline",
+      "object_name": "milestone_alias",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "milestone_id",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "alias_id",
+          "position": 3,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "milestone_alias_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id, alias_id)"
+        },
+        {
+          "name": "milestone_alias_snapshot_id_milestone_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id, milestone_id) REFERENCES loom_timeline.milestone(snapshot_id, milestone_id)"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "milestone_alias_pkey",
+          "definition": "CREATE UNIQUE INDEX milestone_alias_pkey ON loom_timeline.milestone_alias USING btree (snapshot_id, alias_id)"
+        }
+      ]
+    },
+    {
+      "schema_name": "loom_timeline",
+      "object_name": "milestone_source",
+      "object_kind": "r",
+      "owner": "ubuntu",
+      "description": null,
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "position": 1,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "milestone_id",
+          "position": 2,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_artifact_sha256",
+          "position": 3,
+          "type": "character(64)",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_role",
+          "position": 4,
+          "type": "text",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        },
+        {
+          "name": "source_git_commit",
+          "position": 5,
+          "type": "character(40)",
+          "nullable": false,
+          "default": null,
+          "identity": "",
+          "generated": "",
+          "comment": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "milestone_source_pkey",
+          "type": "p",
+          "definition": "PRIMARY KEY (snapshot_id, milestone_id, source_artifact_sha256, source_role)"
+        },
+        {
+          "name": "milestone_source_snapshot_id_milestone_id_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (snapshot_id, milestone_id) REFERENCES loom_timeline.milestone(snapshot_id, milestone_id)"
+        },
+        {
+          "name": "milestone_source_source_artifact_sha256_fkey",
+          "type": "f",
+          "definition": "FOREIGN KEY (source_artifact_sha256) REFERENCES loom_control.source_artifact(artifact_sha256)"
+        },
+        {
+          "name": "milestone_source_source_role_check",
+          "type": "c",
+          "definition": "CHECK ((source_role = ANY (ARRAY['GOVERNING_CONTENT'::text, 'STABLE_ID_MAPPING'::text, 'SCENARIO_DEFINITION'::text])))"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "milestone_source_pkey",
+          "definition": "CREATE UNIQUE INDEX milestone_source_pkey ON loom_timeline.milestone_source USING btree (snapshot_id, milestone_id, source_artifact_sha256, source_role)"
+        }
+      ]
+    }
+  ],
+  "database_metadata": {
+    "database": "loom_dev",
+    "server_version": "16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)",
+    "extensions": [
+      {
+        "name": "plpgsql",
+        "version": "1.0"
+      }
+    ]
+  }
+}

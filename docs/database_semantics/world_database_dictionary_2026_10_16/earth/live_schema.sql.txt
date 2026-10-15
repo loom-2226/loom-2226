@@ -1,0 +1,1403 @@
+--
+-- PostgreSQL database dump
+--
+
+\restrict pSvs0aevMllCLqXAKiOCUaWT7LslOb9f4Suco71gsHghjI3QderqZFUgdrfSk7G
+
+-- Dumped from database version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
+-- Dumped by pg_dump version 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: loom_control; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA loom_control;
+
+
+--
+-- Name: loom_earth; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA loom_earth;
+
+
+--
+-- Name: loom_narrator; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA loom_narrator;
+
+
+--
+-- Name: SCHEMA loom_narrator; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON SCHEMA loom_narrator IS 'Read-only semantic retrieval surface over validated snapshot projections.';
+
+
+--
+-- Name: loom_timeline; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA loom_timeline;
+
+
+--
+-- Name: SCHEMA loom_timeline; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON SCHEMA loom_timeline IS 'Typed operational projection of governing LOOM history and provisional simulation timeline scaffolds; authority remains source-derived.';
+
+
+SET default_table_access_method = heap;
+
+--
+-- Name: field_semantics; Type: TABLE; Schema: loom_control; Owner: -
+--
+
+CREATE TABLE loom_control.field_semantics (
+    snapshot_id text NOT NULL,
+    source_database text NOT NULL,
+    source_table text NOT NULL,
+    source_column text NOT NULL,
+    semantic_status text NOT NULL,
+    presentation_label text NOT NULL,
+    definition text NOT NULL,
+    unit text NOT NULL,
+    grain text NOT NULL,
+    epoch_basis text NOT NULL,
+    accounting_population_basis text NOT NULL,
+    evidence_reference jsonb NOT NULL,
+    missing_evidence text,
+    embedded_claim_status text DEFAULT 'NOT_APPLICABLE'::text NOT NULL,
+    admission_scope text DEFAULT 'NONE'::text NOT NULL,
+    qualified_row_filter text,
+    CONSTRAINT field_semantics_semantic_status_check CHECK ((semantic_status = ANY (ARRAY['STRUCTURAL'::text, 'QUALIFIED'::text, 'UNRESOLVED'::text, 'NOT_ASSESSED'::text, 'NOT_APPLICABLE'::text])))
+);
+
+
+--
+-- Name: COLUMN field_semantics.qualified_row_filter; Type: COMMENT; Schema: loom_control; Owner: -
+--
+
+COMMENT ON COLUMN loom_control.field_semantics.qualified_row_filter IS 'Evidence-bound row scope from the pinned Gate-A matrix; prose is not an executable SQL predicate.';
+
+
+--
+-- Name: import_batch; Type: TABLE; Schema: loom_control; Owner: -
+--
+
+CREATE TABLE loom_control.import_batch (
+    snapshot_id text NOT NULL,
+    batch_id text NOT NULL,
+    fact_family text NOT NULL,
+    source_artifact_sha256 character(64) NOT NULL,
+    source_model text NOT NULL,
+    derivation_id text NOT NULL,
+    record_count bigint NOT NULL,
+    valid_from_year integer NOT NULL,
+    valid_to_year integer NOT NULL,
+    source_key_rule text NOT NULL,
+    imported_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT import_batch_check CHECK ((valid_from_year <= valid_to_year)),
+    CONSTRAINT import_batch_record_count_check CHECK ((record_count >= 0))
+);
+
+
+--
+-- Name: model_context_record; Type: TABLE; Schema: loom_control; Owner: -
+--
+
+CREATE TABLE loom_control.model_context_record (
+    snapshot_id text NOT NULL,
+    context_key text NOT NULL,
+    context_value jsonb NOT NULL,
+    description text NOT NULL
+);
+
+
+--
+-- Name: row_lineage; Type: TABLE; Schema: loom_control; Owner: -
+--
+
+CREATE TABLE loom_control.row_lineage (
+    snapshot_id text NOT NULL,
+    target_schema text NOT NULL,
+    target_table text NOT NULL,
+    source_database text NOT NULL,
+    source_table text NOT NULL,
+    source_artifact_sha256 character(64) NOT NULL,
+    source_key jsonb NOT NULL,
+    CONSTRAINT row_lineage_source_key_check CHECK ((jsonb_typeof(source_key) = 'object'::text))
+);
+
+
+--
+-- Name: TABLE row_lineage; Type: COMMENT; Schema: loom_control; Owner: -
+--
+
+COMMENT ON TABLE loom_control.row_lineage IS 'Exact source PK components for typed imported rows; no unresolved descriptive values.';
+
+
+--
+-- Name: schema_migration; Type: TABLE; Schema: loom_control; Owner: -
+--
+
+CREATE TABLE loom_control.schema_migration (
+    revision text NOT NULL,
+    script_sha256 character(64) NOT NULL,
+    applied_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: semantic_version; Type: TABLE; Schema: loom_control; Owner: -
+--
+
+CREATE TABLE loom_control.semantic_version (
+    semantic_sha256 character(64) NOT NULL,
+    source_path text NOT NULL,
+    source_git_commit text,
+    recorded_at timestamp with time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: snapshot; Type: TABLE; Schema: loom_control; Owner: -
+--
+
+CREATE TABLE loom_control.snapshot (
+    snapshot_id text NOT NULL,
+    consumer_git_commit character(40) NOT NULL,
+    consumer_query_sha256 character(64) NOT NULL,
+    contract_sha256 character(64) NOT NULL,
+    semantic_sha256 character(64) NOT NULL,
+    state text NOT NULL,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT snapshot_state_check CHECK ((state = ANY (ARRAY['CANDIDATE'::text, 'VALIDATED'::text, 'RETIRED'::text])))
+);
+
+
+--
+-- Name: snapshot_source; Type: TABLE; Schema: loom_control; Owner: -
+--
+
+CREATE TABLE loom_control.snapshot_source (
+    snapshot_id text NOT NULL,
+    artifact_sha256 character(64) NOT NULL,
+    source_role text NOT NULL
+);
+
+
+--
+-- Name: source_artifact; Type: TABLE; Schema: loom_control; Owner: -
+--
+
+CREATE TABLE loom_control.source_artifact (
+    artifact_sha256 character(64) NOT NULL,
+    source_role text NOT NULL,
+    source_path text NOT NULL,
+    byte_count bigint NOT NULL,
+    source_git_commit text,
+    retained_location text NOT NULL
+);
+
+
+--
+-- Name: temporal_coverage; Type: TABLE; Schema: loom_control; Owner: -
+--
+
+CREATE TABLE loom_control.temporal_coverage (
+    snapshot_id text NOT NULL,
+    fact_family text NOT NULL,
+    variable_key text,
+    coverage_scope text NOT NULL,
+    valid_from_year integer NOT NULL,
+    valid_to_year integer NOT NULL,
+    temporal_grain text NOT NULL,
+    geographic_coverage text NOT NULL,
+    source_model text NOT NULL,
+    epistemic_status text NOT NULL,
+    handoff_predecessor text,
+    unavailable_intervals jsonb DEFAULT '[]'::jsonb NOT NULL
+);
+
+
+--
+-- Name: variable_semantics; Type: TABLE; Schema: loom_control; Owner: -
+--
+
+CREATE TABLE loom_control.variable_semantics (
+    snapshot_id text NOT NULL,
+    variable_key text NOT NULL,
+    human_label text NOT NULL,
+    definition text NOT NULL,
+    unit text NOT NULL,
+    grain text NOT NULL,
+    population_accounting_basis text NOT NULL,
+    epistemic_status text NOT NULL,
+    interpretation text NOT NULL,
+    misuse_warning text NOT NULL,
+    valid_from_year integer NOT NULL,
+    valid_to_year integer NOT NULL,
+    temporal_grain text NOT NULL,
+    coverage_scope text NOT NULL,
+    source_model_identity text NOT NULL,
+    selected_scenario text,
+    derivation_method text NOT NULL,
+    source_artifact_hashes jsonb NOT NULL,
+    predecessor text,
+    future_limitation text
+);
+
+
+--
+-- Name: earth_area; Type: TABLE; Schema: loom_earth; Owner: -
+--
+
+CREATE TABLE loom_earth.earth_area (
+    snapshot_id text NOT NULL,
+    iso3 text NOT NULL,
+    display_name text NOT NULL,
+    wpp_location_id integer,
+    wpp_location_type text NOT NULL,
+    economic_qualified boolean NOT NULL
+);
+
+
+--
+-- Name: earth_biological_cohort_year; Type: TABLE; Schema: loom_earth; Owner: -
+--
+
+CREATE TABLE loom_earth.earth_biological_cohort_year (
+    snapshot_id text NOT NULL,
+    iso3 text NOT NULL,
+    year integer NOT NULL,
+    sex character(1) NOT NULL,
+    age_start integer NOT NULL,
+    age_span integer,
+    persons double precision NOT NULL,
+    open_ended boolean DEFAULT false NOT NULL,
+    derivation_id text NOT NULL,
+    CONSTRAINT earth_biological_cohort_year_age_start_check CHECK ((age_start >= 0)),
+    CONSTRAINT earth_biological_cohort_year_persons_check CHECK ((persons >= (0)::double precision)),
+    CONSTRAINT earth_biological_cohort_year_sex_check CHECK ((sex = ANY (ARRAY['F'::bpchar, 'M'::bpchar]))),
+    CONSTRAINT earth_biological_cohort_year_year_check CHECK (((year >= 2026) AND (year <= 2226)))
+);
+
+
+--
+-- Name: earth_demographic_year; Type: TABLE; Schema: loom_earth; Owner: -
+--
+
+CREATE TABLE loom_earth.earth_demographic_year (
+    snapshot_id text NOT NULL,
+    iso3 text NOT NULL,
+    year integer NOT NULL,
+    biological_population double precision NOT NULL,
+    births double precision,
+    deaths double precision,
+    median_age double precision,
+    age_under_20 double precision,
+    age_20_64 double precision,
+    age_65_plus double precision,
+    age_80_plus double precision,
+    age_100_plus double precision,
+    age_120_plus double precision,
+    age_150_plus double precision,
+    derivation_id text NOT NULL,
+    CONSTRAINT earth_demographic_year_biological_population_check CHECK ((biological_population >= (0)::double precision)),
+    CONSTRAINT earth_demographic_year_year_check CHECK (((year >= 2026) AND (year <= 2226)))
+);
+
+
+--
+-- Name: earth_derivation; Type: TABLE; Schema: loom_earth; Owner: -
+--
+
+CREATE TABLE loom_earth.earth_derivation (
+    snapshot_id text NOT NULL,
+    derivation_id text NOT NULL,
+    source_model text NOT NULL,
+    method text NOT NULL,
+    epistemic_status text NOT NULL,
+    selected_scenario text,
+    source_artifact_sha256 character(64) NOT NULL,
+    notes text NOT NULL
+);
+
+
+--
+-- Name: earth_economic_year; Type: TABLE; Schema: loom_earth; Owner: -
+--
+
+CREATE TABLE loom_earth.earth_economic_year (
+    snapshot_id text NOT NULL,
+    iso3 text NOT NULL,
+    year integer NOT NULL,
+    value_added double precision NOT NULL,
+    gross_output double precision NOT NULL,
+    investment double precision NOT NULL,
+    capital double precision NOT NULL,
+    population double precision,
+    derivation_id text NOT NULL,
+    CONSTRAINT earth_economic_year_year_check CHECK (((year >= 2026) AND (year <= 2226)))
+);
+
+
+--
+-- Name: earth_labor_composition_year; Type: TABLE; Schema: loom_earth; Owner: -
+--
+
+CREATE TABLE loom_earth.earth_labor_composition_year (
+    snapshot_id text NOT NULL,
+    iso3 text NOT NULL,
+    year integer NOT NULL,
+    biological_population double precision NOT NULL,
+    labor_capable_biological_population double precision NOT NULL,
+    biological_effective_labor double precision NOT NULL,
+    synthetic_population double precision NOT NULL,
+    synthetic_effective_labor double precision NOT NULL,
+    machine_task_capacity double precision NOT NULL,
+    total_effective_labor double precision NOT NULL,
+    recognized_person_population double precision NOT NULL,
+    derivation_id text NOT NULL,
+    CONSTRAINT earth_labor_composition_year_check CHECK ((biological_effective_labor <= (labor_capable_biological_population + (0.000001)::double precision))),
+    CONSTRAINT earth_labor_composition_year_check1 CHECK ((labor_capable_biological_population <= (biological_population + (0.000001)::double precision))),
+    CONSTRAINT earth_labor_composition_year_year_check CHECK (((year >= 2100) AND (year <= 2226)))
+);
+
+
+--
+-- Name: TABLE earth_labor_composition_year; Type: COMMENT; Schema: loom_earth; Owner: -
+--
+
+COMMENT ON TABLE loom_earth.earth_labor_composition_year IS 'Post-2100 selected biological, synthetic-person, and non-person machine labor categories.';
+
+
+--
+-- Name: earth_legacy_labor_year; Type: TABLE; Schema: loom_earth; Owner: -
+--
+
+CREATE TABLE loom_earth.earth_legacy_labor_year (
+    snapshot_id text NOT NULL,
+    iso3 text NOT NULL,
+    year integer NOT NULL,
+    legacy_employment double precision NOT NULL,
+    legacy_labor_force double precision,
+    labor_market_working_age_population double precision,
+    derivation_id text NOT NULL,
+    CONSTRAINT earth_legacy_labor_year_year_check CHECK (((year >= 2026) AND (year <= 2100)))
+);
+
+
+--
+-- Name: TABLE earth_legacy_labor_year; Type: COMMENT; Schema: loom_earth; Owner: -
+--
+
+COMMENT ON TABLE loom_earth.earth_legacy_labor_year IS 'Historical employment under v4 semantics; not biological effective labor.';
+
+
+--
+-- Name: earth_sector_asset_year; Type: TABLE; Schema: loom_earth; Owner: -
+--
+
+CREATE TABLE loom_earth.earth_sector_asset_year (
+    snapshot_id text NOT NULL,
+    iso3 text NOT NULL,
+    sector text NOT NULL,
+    asset_class text NOT NULL,
+    year integer NOT NULL,
+    capital double precision NOT NULL,
+    investment double precision,
+    depreciation_rate double precision,
+    replacement_need double precision,
+    replacement_funded double precision,
+    expansion_investment double precision,
+    derivation_id text NOT NULL,
+    CONSTRAINT earth_sector_asset_year_year_check CHECK (((year >= 2026) AND (year <= 2226)))
+);
+
+
+--
+-- Name: earth_sector_year; Type: TABLE; Schema: loom_earth; Owner: -
+--
+
+CREATE TABLE loom_earth.earth_sector_year (
+    snapshot_id text NOT NULL,
+    iso3 text NOT NULL,
+    sector text NOT NULL,
+    year integer NOT NULL,
+    value_added double precision NOT NULL,
+    gross_output double precision NOT NULL,
+    investment double precision NOT NULL,
+    capital double precision NOT NULL,
+    employment double precision,
+    effective_labor double precision,
+    derivation_id text NOT NULL,
+    CONSTRAINT earth_sector_year_year_check CHECK (((year >= 2026) AND (year <= 2226)))
+);
+
+
+--
+-- Name: current_earth_snapshot; Type: VIEW; Schema: loom_narrator; Owner: -
+--
+
+CREATE VIEW loom_narrator.current_earth_snapshot AS
+ SELECT s.snapshot_id
+   FROM (loom_control.snapshot s
+     JOIN loom_control.model_context_record m ON (((m.snapshot_id = s.snapshot_id) AND (m.context_key = 'model_designation'::text))))
+  WHERE ((s.state = 'VALIDATED'::text) AND ((m.context_value #>> '{}'::text[]) = 'EARTH_LEAN_BIOSYNTHETIC_COUPLED_SUCCESSOR_v0_1_2026_09_24'::text))
+  ORDER BY s.created_at DESC
+ LIMIT 1;
+
+
+--
+-- Name: current_country_year; Type: VIEW; Schema: loom_narrator; Owner: -
+--
+
+CREATE VIEW loom_narrator.current_country_year AS
+ WITH sid AS (
+         SELECT current_earth_snapshot.snapshot_id
+           FROM loom_narrator.current_earth_snapshot
+        )
+ SELECT a.snapshot_id,
+    a.iso3,
+    a.display_name,
+    d.year,
+    d.biological_population,
+    d.births,
+    d.deaths,
+    d.median_age,
+    d.age_under_20,
+    d.age_20_64,
+    d.age_65_plus,
+    d.age_80_plus,
+    d.age_100_plus,
+    d.age_120_plus,
+    d.age_150_plus,
+    e.value_added,
+    e.gross_output,
+    e.investment,
+    e.capital,
+    ll.legacy_employment,
+    ll.legacy_labor_force,
+    l.labor_capable_biological_population,
+    l.biological_effective_labor,
+    l.synthetic_population,
+    l.synthetic_effective_labor,
+    l.machine_task_capacity,
+    l.total_effective_labor,
+    l.recognized_person_population,
+    a.economic_qualified,
+        CASE
+            WHEN (e.iso3 IS NULL) THEN 'DEMOGRAPHY_ONLY'::text
+            ELSE 'ECONOMICALLY_QUALIFIED'::text
+        END AS economic_coverage,
+        CASE
+            WHEN (l.iso3 IS NULL) THEN 'NOT_MODELED_BY_THIS_AUTHORITY'::text
+            ELSE 'MODELED'::text
+        END AS biosynthetic_labor_coverage
+   FROM (((((sid
+     JOIN loom_earth.earth_area a USING (snapshot_id))
+     JOIN loom_earth.earth_demographic_year d USING (snapshot_id, iso3))
+     LEFT JOIN loom_earth.earth_economic_year e USING (snapshot_id, iso3, year))
+     LEFT JOIN loom_earth.earth_legacy_labor_year ll USING (snapshot_id, iso3, year))
+     LEFT JOIN loom_earth.earth_labor_composition_year l USING (snapshot_id, iso3, year));
+
+
+--
+-- Name: fact_semantics; Type: VIEW; Schema: loom_narrator; Owner: -
+--
+
+CREATE VIEW loom_narrator.fact_semantics AS
+ SELECT v.snapshot_id,
+    v.variable_key,
+    v.human_label,
+    v.definition,
+    v.unit,
+    v.grain,
+    v.population_accounting_basis,
+    v.epistemic_status,
+    v.interpretation,
+    v.misuse_warning,
+    v.valid_from_year,
+    v.valid_to_year,
+    v.temporal_grain,
+    v.coverage_scope,
+    v.source_model_identity,
+    v.selected_scenario,
+    v.derivation_method,
+    v.source_artifact_hashes,
+    v.predecessor,
+    v.future_limitation
+   FROM (loom_control.variable_semantics v
+     JOIN loom_narrator.current_earth_snapshot s USING (snapshot_id));
+
+
+--
+-- Name: current_country_fact; Type: VIEW; Schema: loom_narrator; Owner: -
+--
+
+CREATE VIEW loom_narrator.current_country_fact AS
+ SELECT c.snapshot_id,
+    c.iso3 AS subject_id,
+    c.year,
+    v.variable_key,
+        CASE v.variable_key
+            WHEN 'DEM.BIO_POP'::text THEN c.biological_population
+            WHEN 'DEM.SYNTH_POP'::text THEN c.synthetic_population
+            WHEN 'DEM.RECOGNIZED_POP'::text THEN c.recognized_person_population
+            WHEN 'DEM.MEDIAN_AGE'::text THEN c.median_age
+            WHEN 'DEM.AGE_UNDER_20'::text THEN c.age_under_20
+            WHEN 'DEM.AGE_20_64'::text THEN c.age_20_64
+            WHEN 'DEM.AGE_65_PLUS'::text THEN c.age_65_plus
+            WHEN 'DEM.AGE_80_PLUS'::text THEN c.age_80_plus
+            WHEN 'DEM.AGE_100_PLUS'::text THEN c.age_100_plus
+            WHEN 'DEM.AGE_120_PLUS'::text THEN c.age_120_plus
+            WHEN 'DEM.AGE_150_PLUS'::text THEN c.age_150_plus
+            WHEN 'WORK.LEGACY_EMPLOYMENT'::text THEN c.legacy_employment
+            WHEN 'WORK.LABOR_CAPABLE_BIO'::text THEN c.labor_capable_biological_population
+            WHEN 'WORK.BIO_EFFECTIVE_LABOR'::text THEN c.biological_effective_labor
+            WHEN 'WORK.SYNTH_EFFECTIVE_LABOR'::text THEN c.synthetic_effective_labor
+            WHEN 'WORK.MACHINE_TASK_CAPACITY'::text THEN c.machine_task_capacity
+            WHEN 'WORK.TOTAL_EFFECTIVE_LABOR'::text THEN c.total_effective_labor
+            WHEN 'ECON.VALUE_ADDED'::text THEN c.value_added
+            WHEN 'ECON.GROSS_OUTPUT'::text THEN c.gross_output
+            WHEN 'ECON.CAPITAL'::text THEN c.capital
+            WHEN 'ECON.INVESTMENT'::text THEN c.investment
+            ELSE NULL::double precision
+        END AS numeric_value,
+    v.unit,
+    v.definition,
+    v.epistemic_status,
+    v.derivation_method AS derivation_id,
+    v.source_artifact_hashes AS source_artifact,
+    v.misuse_warning
+   FROM (loom_narrator.current_country_year c
+     JOIN loom_narrator.fact_semantics v ON (true))
+  WHERE (
+        CASE v.variable_key
+            WHEN 'DEM.BIO_POP'::text THEN c.biological_population
+            WHEN 'DEM.SYNTH_POP'::text THEN c.synthetic_population
+            WHEN 'DEM.RECOGNIZED_POP'::text THEN c.recognized_person_population
+            WHEN 'DEM.MEDIAN_AGE'::text THEN c.median_age
+            WHEN 'DEM.AGE_UNDER_20'::text THEN c.age_under_20
+            WHEN 'DEM.AGE_20_64'::text THEN c.age_20_64
+            WHEN 'DEM.AGE_65_PLUS'::text THEN c.age_65_plus
+            WHEN 'DEM.AGE_80_PLUS'::text THEN c.age_80_plus
+            WHEN 'DEM.AGE_100_PLUS'::text THEN c.age_100_plus
+            WHEN 'DEM.AGE_120_PLUS'::text THEN c.age_120_plus
+            WHEN 'DEM.AGE_150_PLUS'::text THEN c.age_150_plus
+            WHEN 'WORK.LEGACY_EMPLOYMENT'::text THEN c.legacy_employment
+            WHEN 'WORK.LABOR_CAPABLE_BIO'::text THEN c.labor_capable_biological_population
+            WHEN 'WORK.BIO_EFFECTIVE_LABOR'::text THEN c.biological_effective_labor
+            WHEN 'WORK.SYNTH_EFFECTIVE_LABOR'::text THEN c.synthetic_effective_labor
+            WHEN 'WORK.MACHINE_TASK_CAPACITY'::text THEN c.machine_task_capacity
+            WHEN 'WORK.TOTAL_EFFECTIVE_LABOR'::text THEN c.total_effective_labor
+            WHEN 'ECON.VALUE_ADDED'::text THEN c.value_added
+            WHEN 'ECON.GROSS_OUTPUT'::text THEN c.gross_output
+            WHEN 'ECON.CAPITAL'::text THEN c.capital
+            WHEN 'ECON.INVESTMENT'::text THEN c.investment
+            ELSE NULL::double precision
+        END IS NOT NULL);
+
+
+--
+-- Name: current_earth_fact; Type: VIEW; Schema: loom_narrator; Owner: -
+--
+
+CREATE VIEW loom_narrator.current_earth_fact AS
+ SELECT snapshot_id,
+    subject_id,
+    year,
+    variable_key,
+    numeric_value,
+    unit,
+    definition,
+    epistemic_status,
+    derivation_id,
+    source_artifact,
+    misuse_warning
+   FROM loom_narrator.current_country_fact;
+
+
+--
+-- Name: current_earth_year; Type: VIEW; Schema: loom_narrator; Owner: -
+--
+
+CREATE VIEW loom_narrator.current_earth_year AS
+ WITH sid AS (
+         SELECT current_earth_snapshot.snapshot_id
+           FROM loom_narrator.current_earth_snapshot
+        ), d AS (
+         SELECT earth_demographic_year.year,
+            sum(earth_demographic_year.biological_population) AS biological_population,
+            sum(earth_demographic_year.age_under_20) AS age_under_20,
+            sum(earth_demographic_year.age_20_64) AS age_20_64,
+            sum(earth_demographic_year.age_65_plus) AS age_65_plus,
+            sum(earth_demographic_year.age_80_plus) AS age_80_plus,
+            sum(earth_demographic_year.age_100_plus) AS age_100_plus,
+            sum(earth_demographic_year.age_120_plus) AS age_120_plus,
+            sum(earth_demographic_year.age_150_plus) AS age_150_plus
+           FROM (loom_earth.earth_demographic_year
+             JOIN sid sid_1 USING (snapshot_id))
+          GROUP BY earth_demographic_year.year
+        ), e AS (
+         SELECT earth_economic_year.year,
+            sum(earth_economic_year.value_added) AS value_added,
+            sum(earth_economic_year.gross_output) AS gross_output,
+            sum(earth_economic_year.investment) AS investment,
+            sum(earth_economic_year.capital) AS capital
+           FROM (loom_earth.earth_economic_year
+             JOIN sid sid_1 USING (snapshot_id))
+          GROUP BY earth_economic_year.year
+        ), l AS (
+         SELECT earth_labor_composition_year.year,
+            sum(earth_labor_composition_year.synthetic_population) AS synthetic_population,
+            sum(earth_labor_composition_year.synthetic_effective_labor) AS synthetic_effective_labor,
+            sum(earth_labor_composition_year.biological_effective_labor) AS biological_effective_labor,
+            sum(earth_labor_composition_year.machine_task_capacity) AS machine_task_capacity,
+            sum(earth_labor_composition_year.total_effective_labor) AS total_effective_labor
+           FROM (loom_earth.earth_labor_composition_year
+             JOIN sid sid_1 USING (snapshot_id))
+          GROUP BY earth_labor_composition_year.year
+        )
+ SELECT sid.snapshot_id,
+    d.year,
+    d.biological_population,
+    l.synthetic_population,
+    (d.biological_population + l.synthetic_population) AS recognized_person_population,
+    d.age_under_20,
+    d.age_20_64,
+    d.age_65_plus,
+    d.age_80_plus,
+    d.age_100_plus,
+    d.age_120_plus,
+    d.age_150_plus,
+    l.biological_effective_labor,
+    l.synthetic_effective_labor,
+    l.machine_task_capacity,
+    l.total_effective_labor,
+    e.value_added,
+    e.gross_output,
+    e.investment,
+    e.capital,
+        CASE
+            WHEN (d.year <= 2100) THEN 'WPP_2024_MEDIUM'::text
+            ELSE 'MED_CENTRAL'::text
+        END AS demographic_status,
+        CASE
+            WHEN (d.year <= 2100) THEN 'V4_PREDECESSOR'::text
+            ELSE 'MED_CENTRAL__SYNTH_CENTRAL'::text
+        END AS economic_status
+   FROM (((sid
+     CROSS JOIN d)
+     LEFT JOIN e USING (year))
+     LEFT JOIN l USING (year));
+
+
+--
+-- Name: model_context; Type: VIEW; Schema: loom_narrator; Owner: -
+--
+
+CREATE VIEW loom_narrator.model_context AS
+ SELECT m.snapshot_id,
+    m.context_key,
+    m.context_value,
+    m.description
+   FROM (loom_control.model_context_record m
+     JOIN loom_narrator.current_earth_snapshot s USING (snapshot_id));
+
+
+--
+-- Name: temporal_coverage; Type: VIEW; Schema: loom_narrator; Owner: -
+--
+
+CREATE VIEW loom_narrator.temporal_coverage AS
+ SELECT c.snapshot_id,
+    c.fact_family,
+    c.variable_key,
+    c.coverage_scope,
+    c.valid_from_year,
+    c.valid_to_year,
+    c.temporal_grain,
+    c.geographic_coverage,
+    c.source_model,
+    c.epistemic_status,
+    c.handoff_predecessor,
+    c.unavailable_intervals
+   FROM (loom_control.temporal_coverage c
+     JOIN loom_narrator.current_earth_snapshot s USING (snapshot_id));
+
+
+--
+-- Name: interpretation_rule; Type: TABLE; Schema: loom_timeline; Owner: -
+--
+
+CREATE TABLE loom_timeline.interpretation_rule (
+    snapshot_id text NOT NULL,
+    rule_key text NOT NULL,
+    rule_text_md text NOT NULL,
+    source_artifact_sha256 character(64) NOT NULL,
+    source_section text NOT NULL
+);
+
+
+--
+-- Name: TABLE interpretation_rule; Type: COMMENT; Schema: loom_timeline; Owner: -
+--
+
+COMMENT ON TABLE loom_timeline.interpretation_rule IS 'Source-backed rules constraining timeline interpretation by executable consumers such as future CIVPROP.';
+
+
+--
+-- Name: milestone; Type: TABLE; Schema: loom_timeline; Owner: -
+--
+
+CREATE TABLE loom_timeline.milestone (
+    snapshot_id text NOT NULL,
+    milestone_id text NOT NULL,
+    id_origin text NOT NULL,
+    family text,
+    timeline_kind text NOT NULL,
+    authority_class text NOT NULL,
+    epistemic_status text NOT NULL,
+    reference_period text NOT NULL,
+    start_year integer,
+    end_year integer,
+    temporal_precision text NOT NULL,
+    capability_change_md text NOT NULL,
+    threshold_gate_md text,
+    basis_uncertainty_md text,
+    source_section text NOT NULL,
+    sort_order integer NOT NULL,
+    notes_md text,
+    CONSTRAINT milestone_authority_class_check CHECK ((authority_class = ANY (ARRAY['GOVERNING_CANON'::text, 'PROVISIONAL_SIMULATION_SCAFFOLD'::text]))),
+    CONSTRAINT milestone_check CHECK (((start_year IS NULL) OR (end_year IS NULL) OR (start_year <= end_year))),
+    CONSTRAINT milestone_end_year_check CHECK (((end_year IS NULL) OR ((end_year >= 1900) AND (end_year <= 3000)))),
+    CONSTRAINT milestone_id_origin_check CHECK ((id_origin = ANY (ARRAY['SOURCE'::text, 'PROJECTION_GENERATED'::text]))),
+    CONSTRAINT milestone_sort_order_check CHECK ((sort_order > 0)),
+    CONSTRAINT milestone_start_year_check CHECK (((start_year IS NULL) OR ((start_year >= 1900) AND (start_year <= 3000)))),
+    CONSTRAINT milestone_timeline_kind_check CHECK ((timeline_kind = ANY (ARRAY['CANON_HISTORY'::text, 'MODERATE_SCENARIO_ANCHOR'::text, 'FICTIONAL_PHYSICS_SCENARIO_ANCHOR'::text, 'SOCIAL_SCENARIO_ANCHOR'::text])))
+);
+
+
+--
+-- Name: TABLE milestone; Type: COMMENT; Schema: loom_timeline; Owner: -
+--
+
+COMMENT ON TABLE loom_timeline.milestone IS 'Timeline milestones with explicit authority and epistemic class. Persistence never upgrades provisional scenario material to canon.';
+
+
+--
+-- Name: milestone_alias; Type: TABLE; Schema: loom_timeline; Owner: -
+--
+
+CREATE TABLE loom_timeline.milestone_alias (
+    snapshot_id text NOT NULL,
+    milestone_id text NOT NULL,
+    alias_id text NOT NULL
+);
+
+
+--
+-- Name: milestone_source; Type: TABLE; Schema: loom_timeline; Owner: -
+--
+
+CREATE TABLE loom_timeline.milestone_source (
+    snapshot_id text NOT NULL,
+    milestone_id text NOT NULL,
+    source_artifact_sha256 character(64) NOT NULL,
+    source_role text NOT NULL,
+    source_git_commit character(40) NOT NULL,
+    CONSTRAINT milestone_source_source_role_check CHECK ((source_role = ANY (ARRAY['GOVERNING_CONTENT'::text, 'STABLE_ID_MAPPING'::text, 'SCENARIO_DEFINITION'::text])))
+);
+
+
+--
+-- Name: field_semantics field_semantics_pkey; Type: CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.field_semantics
+    ADD CONSTRAINT field_semantics_pkey PRIMARY KEY (snapshot_id, source_database, source_table, source_column);
+
+
+--
+-- Name: import_batch import_batch_pkey; Type: CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.import_batch
+    ADD CONSTRAINT import_batch_pkey PRIMARY KEY (snapshot_id, batch_id);
+
+
+--
+-- Name: model_context_record model_context_record_pkey; Type: CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.model_context_record
+    ADD CONSTRAINT model_context_record_pkey PRIMARY KEY (snapshot_id, context_key);
+
+
+--
+-- Name: row_lineage row_lineage_pkey; Type: CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.row_lineage
+    ADD CONSTRAINT row_lineage_pkey PRIMARY KEY (snapshot_id, target_schema, target_table, source_key);
+
+
+--
+-- Name: schema_migration schema_migration_pkey; Type: CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.schema_migration
+    ADD CONSTRAINT schema_migration_pkey PRIMARY KEY (revision);
+
+
+--
+-- Name: semantic_version semantic_version_pkey; Type: CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.semantic_version
+    ADD CONSTRAINT semantic_version_pkey PRIMARY KEY (semantic_sha256);
+
+
+--
+-- Name: snapshot snapshot_pkey; Type: CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.snapshot
+    ADD CONSTRAINT snapshot_pkey PRIMARY KEY (snapshot_id);
+
+
+--
+-- Name: snapshot_source snapshot_source_pkey; Type: CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.snapshot_source
+    ADD CONSTRAINT snapshot_source_pkey PRIMARY KEY (snapshot_id, artifact_sha256, source_role);
+
+
+--
+-- Name: source_artifact source_artifact_pkey; Type: CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.source_artifact
+    ADD CONSTRAINT source_artifact_pkey PRIMARY KEY (artifact_sha256);
+
+
+--
+-- Name: temporal_coverage temporal_coverage_pkey; Type: CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.temporal_coverage
+    ADD CONSTRAINT temporal_coverage_pkey PRIMARY KEY (snapshot_id, fact_family, coverage_scope, valid_from_year);
+
+
+--
+-- Name: variable_semantics variable_semantics_pkey; Type: CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.variable_semantics
+    ADD CONSTRAINT variable_semantics_pkey PRIMARY KEY (snapshot_id, variable_key);
+
+
+--
+-- Name: earth_area earth_area_pkey; Type: CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_area
+    ADD CONSTRAINT earth_area_pkey PRIMARY KEY (snapshot_id, iso3);
+
+
+--
+-- Name: earth_biological_cohort_year earth_biological_cohort_year_pkey; Type: CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_biological_cohort_year
+    ADD CONSTRAINT earth_biological_cohort_year_pkey PRIMARY KEY (snapshot_id, iso3, year, sex, age_start);
+
+
+--
+-- Name: earth_demographic_year earth_demographic_year_pkey; Type: CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_demographic_year
+    ADD CONSTRAINT earth_demographic_year_pkey PRIMARY KEY (snapshot_id, iso3, year);
+
+
+--
+-- Name: earth_derivation earth_derivation_pkey; Type: CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_derivation
+    ADD CONSTRAINT earth_derivation_pkey PRIMARY KEY (snapshot_id, derivation_id);
+
+
+--
+-- Name: earth_economic_year earth_economic_year_pkey; Type: CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_economic_year
+    ADD CONSTRAINT earth_economic_year_pkey PRIMARY KEY (snapshot_id, iso3, year);
+
+
+--
+-- Name: earth_labor_composition_year earth_labor_composition_year_pkey; Type: CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_labor_composition_year
+    ADD CONSTRAINT earth_labor_composition_year_pkey PRIMARY KEY (snapshot_id, iso3, year);
+
+
+--
+-- Name: earth_legacy_labor_year earth_legacy_labor_year_pkey; Type: CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_legacy_labor_year
+    ADD CONSTRAINT earth_legacy_labor_year_pkey PRIMARY KEY (snapshot_id, iso3, year);
+
+
+--
+-- Name: earth_sector_asset_year earth_sector_asset_year_pkey; Type: CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_sector_asset_year
+    ADD CONSTRAINT earth_sector_asset_year_pkey PRIMARY KEY (snapshot_id, iso3, sector, asset_class, year);
+
+
+--
+-- Name: earth_sector_year earth_sector_year_pkey; Type: CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_sector_year
+    ADD CONSTRAINT earth_sector_year_pkey PRIMARY KEY (snapshot_id, iso3, sector, year);
+
+
+--
+-- Name: interpretation_rule interpretation_rule_pkey; Type: CONSTRAINT; Schema: loom_timeline; Owner: -
+--
+
+ALTER TABLE ONLY loom_timeline.interpretation_rule
+    ADD CONSTRAINT interpretation_rule_pkey PRIMARY KEY (snapshot_id, rule_key);
+
+
+--
+-- Name: milestone_alias milestone_alias_pkey; Type: CONSTRAINT; Schema: loom_timeline; Owner: -
+--
+
+ALTER TABLE ONLY loom_timeline.milestone_alias
+    ADD CONSTRAINT milestone_alias_pkey PRIMARY KEY (snapshot_id, alias_id);
+
+
+--
+-- Name: milestone milestone_pkey; Type: CONSTRAINT; Schema: loom_timeline; Owner: -
+--
+
+ALTER TABLE ONLY loom_timeline.milestone
+    ADD CONSTRAINT milestone_pkey PRIMARY KEY (snapshot_id, milestone_id);
+
+
+--
+-- Name: milestone_source milestone_source_pkey; Type: CONSTRAINT; Schema: loom_timeline; Owner: -
+--
+
+ALTER TABLE ONLY loom_timeline.milestone_source
+    ADD CONSTRAINT milestone_source_pkey PRIMARY KEY (snapshot_id, milestone_id, source_artifact_sha256, source_role);
+
+
+--
+-- Name: earth_asset_year_year_idx; Type: INDEX; Schema: loom_earth; Owner: -
+--
+
+CREATE INDEX earth_asset_year_year_idx ON loom_earth.earth_sector_asset_year USING btree (snapshot_id, year);
+
+
+--
+-- Name: earth_cohort_year_idx; Type: INDEX; Schema: loom_earth; Owner: -
+--
+
+CREATE INDEX earth_cohort_year_idx ON loom_earth.earth_biological_cohort_year USING btree (snapshot_id, year);
+
+
+--
+-- Name: earth_demographic_year_year_idx; Type: INDEX; Schema: loom_earth; Owner: -
+--
+
+CREATE INDEX earth_demographic_year_year_idx ON loom_earth.earth_demographic_year USING btree (snapshot_id, year);
+
+
+--
+-- Name: earth_economic_year_year_idx; Type: INDEX; Schema: loom_earth; Owner: -
+--
+
+CREATE INDEX earth_economic_year_year_idx ON loom_earth.earth_economic_year USING btree (snapshot_id, year);
+
+
+--
+-- Name: earth_sector_year_year_idx; Type: INDEX; Schema: loom_earth; Owner: -
+--
+
+CREATE INDEX earth_sector_year_year_idx ON loom_earth.earth_sector_year USING btree (snapshot_id, year);
+
+
+--
+-- Name: timeline_milestone_kind_idx; Type: INDEX; Schema: loom_timeline; Owner: -
+--
+
+CREATE INDEX timeline_milestone_kind_idx ON loom_timeline.milestone USING btree (snapshot_id, timeline_kind, authority_class);
+
+
+--
+-- Name: timeline_milestone_year_idx; Type: INDEX; Schema: loom_timeline; Owner: -
+--
+
+CREATE INDEX timeline_milestone_year_idx ON loom_timeline.milestone USING btree (snapshot_id, start_year, end_year);
+
+
+--
+-- Name: field_semantics field_semantics_snapshot_id_fkey; Type: FK CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.field_semantics
+    ADD CONSTRAINT field_semantics_snapshot_id_fkey FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id);
+
+
+--
+-- Name: import_batch import_batch_snapshot_id_fkey; Type: FK CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.import_batch
+    ADD CONSTRAINT import_batch_snapshot_id_fkey FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id);
+
+
+--
+-- Name: import_batch import_batch_source_artifact_sha256_fkey; Type: FK CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.import_batch
+    ADD CONSTRAINT import_batch_source_artifact_sha256_fkey FOREIGN KEY (source_artifact_sha256) REFERENCES loom_control.source_artifact(artifact_sha256);
+
+
+--
+-- Name: model_context_record model_context_record_snapshot_id_fkey; Type: FK CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.model_context_record
+    ADD CONSTRAINT model_context_record_snapshot_id_fkey FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id);
+
+
+--
+-- Name: row_lineage row_lineage_snapshot_id_fkey; Type: FK CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.row_lineage
+    ADD CONSTRAINT row_lineage_snapshot_id_fkey FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id);
+
+
+--
+-- Name: row_lineage row_lineage_source_artifact_sha256_fkey; Type: FK CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.row_lineage
+    ADD CONSTRAINT row_lineage_source_artifact_sha256_fkey FOREIGN KEY (source_artifact_sha256) REFERENCES loom_control.source_artifact(artifact_sha256);
+
+
+--
+-- Name: snapshot snapshot_semantic_sha256_fkey; Type: FK CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.snapshot
+    ADD CONSTRAINT snapshot_semantic_sha256_fkey FOREIGN KEY (semantic_sha256) REFERENCES loom_control.semantic_version(semantic_sha256);
+
+
+--
+-- Name: snapshot_source snapshot_source_artifact_sha256_fkey; Type: FK CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.snapshot_source
+    ADD CONSTRAINT snapshot_source_artifact_sha256_fkey FOREIGN KEY (artifact_sha256) REFERENCES loom_control.source_artifact(artifact_sha256);
+
+
+--
+-- Name: snapshot_source snapshot_source_snapshot_id_fkey; Type: FK CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.snapshot_source
+    ADD CONSTRAINT snapshot_source_snapshot_id_fkey FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id);
+
+
+--
+-- Name: temporal_coverage temporal_coverage_snapshot_id_fkey; Type: FK CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.temporal_coverage
+    ADD CONSTRAINT temporal_coverage_snapshot_id_fkey FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id);
+
+
+--
+-- Name: variable_semantics variable_semantics_snapshot_id_fkey; Type: FK CONSTRAINT; Schema: loom_control; Owner: -
+--
+
+ALTER TABLE ONLY loom_control.variable_semantics
+    ADD CONSTRAINT variable_semantics_snapshot_id_fkey FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id);
+
+
+--
+-- Name: earth_area earth_area_snapshot_id_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_area
+    ADD CONSTRAINT earth_area_snapshot_id_fkey FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id);
+
+
+--
+-- Name: earth_biological_cohort_year earth_biological_cohort_year_snapshot_id_derivation_id_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_biological_cohort_year
+    ADD CONSTRAINT earth_biological_cohort_year_snapshot_id_derivation_id_fkey FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id);
+
+
+--
+-- Name: earth_biological_cohort_year earth_biological_cohort_year_snapshot_id_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_biological_cohort_year
+    ADD CONSTRAINT earth_biological_cohort_year_snapshot_id_fkey FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id);
+
+
+--
+-- Name: earth_biological_cohort_year earth_biological_cohort_year_snapshot_id_iso3_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_biological_cohort_year
+    ADD CONSTRAINT earth_biological_cohort_year_snapshot_id_iso3_fkey FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3);
+
+
+--
+-- Name: earth_demographic_year earth_demographic_year_snapshot_id_derivation_id_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_demographic_year
+    ADD CONSTRAINT earth_demographic_year_snapshot_id_derivation_id_fkey FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id);
+
+
+--
+-- Name: earth_demographic_year earth_demographic_year_snapshot_id_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_demographic_year
+    ADD CONSTRAINT earth_demographic_year_snapshot_id_fkey FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id);
+
+
+--
+-- Name: earth_demographic_year earth_demographic_year_snapshot_id_iso3_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_demographic_year
+    ADD CONSTRAINT earth_demographic_year_snapshot_id_iso3_fkey FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3);
+
+
+--
+-- Name: earth_derivation earth_derivation_snapshot_id_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_derivation
+    ADD CONSTRAINT earth_derivation_snapshot_id_fkey FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id);
+
+
+--
+-- Name: earth_derivation earth_derivation_source_artifact_sha256_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_derivation
+    ADD CONSTRAINT earth_derivation_source_artifact_sha256_fkey FOREIGN KEY (source_artifact_sha256) REFERENCES loom_control.source_artifact(artifact_sha256);
+
+
+--
+-- Name: earth_economic_year earth_economic_year_snapshot_id_derivation_id_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_economic_year
+    ADD CONSTRAINT earth_economic_year_snapshot_id_derivation_id_fkey FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id);
+
+
+--
+-- Name: earth_economic_year earth_economic_year_snapshot_id_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_economic_year
+    ADD CONSTRAINT earth_economic_year_snapshot_id_fkey FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id);
+
+
+--
+-- Name: earth_economic_year earth_economic_year_snapshot_id_iso3_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_economic_year
+    ADD CONSTRAINT earth_economic_year_snapshot_id_iso3_fkey FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3);
+
+
+--
+-- Name: earth_labor_composition_year earth_labor_composition_year_snapshot_id_derivation_id_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_labor_composition_year
+    ADD CONSTRAINT earth_labor_composition_year_snapshot_id_derivation_id_fkey FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id);
+
+
+--
+-- Name: earth_labor_composition_year earth_labor_composition_year_snapshot_id_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_labor_composition_year
+    ADD CONSTRAINT earth_labor_composition_year_snapshot_id_fkey FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id);
+
+
+--
+-- Name: earth_labor_composition_year earth_labor_composition_year_snapshot_id_iso3_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_labor_composition_year
+    ADD CONSTRAINT earth_labor_composition_year_snapshot_id_iso3_fkey FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3);
+
+
+--
+-- Name: earth_legacy_labor_year earth_legacy_labor_year_snapshot_id_derivation_id_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_legacy_labor_year
+    ADD CONSTRAINT earth_legacy_labor_year_snapshot_id_derivation_id_fkey FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id);
+
+
+--
+-- Name: earth_legacy_labor_year earth_legacy_labor_year_snapshot_id_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_legacy_labor_year
+    ADD CONSTRAINT earth_legacy_labor_year_snapshot_id_fkey FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id);
+
+
+--
+-- Name: earth_legacy_labor_year earth_legacy_labor_year_snapshot_id_iso3_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_legacy_labor_year
+    ADD CONSTRAINT earth_legacy_labor_year_snapshot_id_iso3_fkey FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3);
+
+
+--
+-- Name: earth_sector_asset_year earth_sector_asset_year_snapshot_id_derivation_id_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_sector_asset_year
+    ADD CONSTRAINT earth_sector_asset_year_snapshot_id_derivation_id_fkey FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id);
+
+
+--
+-- Name: earth_sector_asset_year earth_sector_asset_year_snapshot_id_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_sector_asset_year
+    ADD CONSTRAINT earth_sector_asset_year_snapshot_id_fkey FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id);
+
+
+--
+-- Name: earth_sector_asset_year earth_sector_asset_year_snapshot_id_iso3_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_sector_asset_year
+    ADD CONSTRAINT earth_sector_asset_year_snapshot_id_iso3_fkey FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3);
+
+
+--
+-- Name: earth_sector_year earth_sector_year_snapshot_id_derivation_id_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_sector_year
+    ADD CONSTRAINT earth_sector_year_snapshot_id_derivation_id_fkey FOREIGN KEY (snapshot_id, derivation_id) REFERENCES loom_earth.earth_derivation(snapshot_id, derivation_id);
+
+
+--
+-- Name: earth_sector_year earth_sector_year_snapshot_id_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_sector_year
+    ADD CONSTRAINT earth_sector_year_snapshot_id_fkey FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id);
+
+
+--
+-- Name: earth_sector_year earth_sector_year_snapshot_id_iso3_fkey; Type: FK CONSTRAINT; Schema: loom_earth; Owner: -
+--
+
+ALTER TABLE ONLY loom_earth.earth_sector_year
+    ADD CONSTRAINT earth_sector_year_snapshot_id_iso3_fkey FOREIGN KEY (snapshot_id, iso3) REFERENCES loom_earth.earth_area(snapshot_id, iso3);
+
+
+--
+-- Name: interpretation_rule interpretation_rule_snapshot_id_fkey; Type: FK CONSTRAINT; Schema: loom_timeline; Owner: -
+--
+
+ALTER TABLE ONLY loom_timeline.interpretation_rule
+    ADD CONSTRAINT interpretation_rule_snapshot_id_fkey FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id);
+
+
+--
+-- Name: interpretation_rule interpretation_rule_source_artifact_sha256_fkey; Type: FK CONSTRAINT; Schema: loom_timeline; Owner: -
+--
+
+ALTER TABLE ONLY loom_timeline.interpretation_rule
+    ADD CONSTRAINT interpretation_rule_source_artifact_sha256_fkey FOREIGN KEY (source_artifact_sha256) REFERENCES loom_control.source_artifact(artifact_sha256);
+
+
+--
+-- Name: milestone_alias milestone_alias_snapshot_id_milestone_id_fkey; Type: FK CONSTRAINT; Schema: loom_timeline; Owner: -
+--
+
+ALTER TABLE ONLY loom_timeline.milestone_alias
+    ADD CONSTRAINT milestone_alias_snapshot_id_milestone_id_fkey FOREIGN KEY (snapshot_id, milestone_id) REFERENCES loom_timeline.milestone(snapshot_id, milestone_id);
+
+
+--
+-- Name: milestone milestone_snapshot_id_fkey; Type: FK CONSTRAINT; Schema: loom_timeline; Owner: -
+--
+
+ALTER TABLE ONLY loom_timeline.milestone
+    ADD CONSTRAINT milestone_snapshot_id_fkey FOREIGN KEY (snapshot_id) REFERENCES loom_control.snapshot(snapshot_id);
+
+
+--
+-- Name: milestone_source milestone_source_snapshot_id_milestone_id_fkey; Type: FK CONSTRAINT; Schema: loom_timeline; Owner: -
+--
+
+ALTER TABLE ONLY loom_timeline.milestone_source
+    ADD CONSTRAINT milestone_source_snapshot_id_milestone_id_fkey FOREIGN KEY (snapshot_id, milestone_id) REFERENCES loom_timeline.milestone(snapshot_id, milestone_id);
+
+
+--
+-- Name: milestone_source milestone_source_source_artifact_sha256_fkey; Type: FK CONSTRAINT; Schema: loom_timeline; Owner: -
+--
+
+ALTER TABLE ONLY loom_timeline.milestone_source
+    ADD CONSTRAINT milestone_source_source_artifact_sha256_fkey FOREIGN KEY (source_artifact_sha256) REFERENCES loom_control.source_artifact(artifact_sha256);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict pSvs0aevMllCLqXAKiOCUaWT7LslOb9f4Suco71gsHghjI3QderqZFUgdrfSk7G
+

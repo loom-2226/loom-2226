@@ -1,0 +1,122 @@
+[
+  {
+    "count_status": "READ_ONLY_COUNT",
+    "row_count": 0,
+    "schema": "loom_control",
+    "table": "field_semantics"
+  },
+  {
+    "count_status": "READ_ONLY_COUNT",
+    "row_count": 8,
+    "schema": "loom_control",
+    "table": "import_batch"
+  },
+  {
+    "count_status": "READ_ONLY_COUNT",
+    "row_count": 15,
+    "schema": "loom_control",
+    "table": "model_context_record"
+  },
+  {
+    "count_status": "READ_ONLY_COUNT",
+    "row_count": 0,
+    "schema": "loom_control",
+    "table": "row_lineage"
+  },
+  {
+    "count_status": "READ_ONLY_COUNT",
+    "row_count": 12,
+    "schema": "loom_control",
+    "table": "schema_migration"
+  },
+  {
+    "count_status": "READ_ONLY_COUNT",
+    "row_count": 3,
+    "schema": "loom_control",
+    "table": "semantic_version"
+  },
+  {
+    "count_status": "READ_ONLY_COUNT",
+    "row_count": 2,
+    "schema": "loom_control",
+    "table": "snapshot"
+  },
+  {
+    "count_status": "READ_ONLY_COUNT",
+    "row_count": 18,
+    "schema": "loom_control",
+    "table": "snapshot_source"
+  },
+  {
+    "count_status": "READ_ONLY_COUNT",
+    "row_count": 18,
+    "schema": "loom_control",
+    "table": "source_artifact"
+  },
+  {
+    "count_status": "READ_ONLY_COUNT",
+    "row_count": 6,
+    "schema": "loom_control",
+    "table": "temporal_coverage"
+  },
+  {
+    "count_status": "READ_ONLY_COUNT",
+    "row_count": 21,
+    "schema": "loom_control",
+    "table": "variable_semantics"
+  },
+  {
+    "count_status": "READ_ONLY_COUNT",
+    "row_count": 237,
+    "schema": "loom_earth",
+    "table": "earth_area"
+  },
+  {
+    "count_status": "READ_ONLY_COUNT",
+    "row_count": 2657718,
+    "schema": "loom_earth",
+    "table": "earth_biological_cohort_year"
+  },
+  {
+    "count_status": "READ_ONLY_COUNT",
+    "row_count": 47637,
+    "schema": "loom_earth",
+    "table": "earth_demographic_year"
+  },
+  {
+    "count_status": "READ_ONLY_COUNT",
+    "row_count": 7,
+    "schema": "loom_earth",
+    "table": "earth_derivation"
+  },
+  {
+    "count_status": "READ_ONLY_COUNT",
+    "row_count": 16080,
+    "schema": "loom_earth",
+    "table": "earth_economic_year"
+  },
+  {
+    "count_status": "READ_ONLY_COUNT",
+    "row_count": 10160,
+    "schema": "loom_earth",
+    "table": "earth_labor_composition_year"
+  },
+  {
+    "count_status": "READ_ONLY_COUNT",
+    "row_count": 6000,
+    "schema": "loom_earth",
+    "table": "earth_legacy_labor_year"
+  },
+  {
+    "count_status": "READ_ONLY_COUNT",
+    "row_count": 643200,
+    "schema": "loom_earth",
+    "table": "earth_sector_asset_year"
+  },
+  {
+    "count_status": "READ_ONLY_COUNT",
+    "row_count": 160800,
+    "schema": "loom_earth",
+    "table": "earth_sector_year"
+  }
+]

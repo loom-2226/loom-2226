@@ -1,0 +1,219 @@
+{
+  "file_sha256": "9ef530bdc1b8d867fe217a8c6d3a05e3926b0b09b0d66a91ce090b3e52fae560",
+  "source_file": "LOOM_2226_CIVSTATE.sqlite3",
+  "status": "SEPARATE_LEGACY_SQLITE_SNAPSHOT_NOT_LIVE_POSTGRESQL",
+  "tables": [
+    {
+      "row_count": 13,
+      "table": "civ_actor_economic_state"
+    },
+    {
+      "row_count": 257,
+      "table": "civ_actor_exposure"
+    },
+    {
+      "row_count": 37,
+      "table": "civ_actor_lineage"
+    },
+    {
+      "row_count": 160,
+      "table": "civ_alpha_inv_distribution_audit"
+    },
+    {
+      "row_count": 4,
+      "table": "civ_asset_class"
+    },
+    {
+      "row_count": 6480,
+      "table": "civ_asset_state"
+    },
+    {
+      "row_count": 20,
+      "table": "civ_assumption"
+    },
+    {
+      "row_count": 40,
+      "table": "civ_assumption_dependency"
+    },
+    {
+      "row_count": 200,
+      "table": "civ_census_node_relation"
+    },
+    {
+      "row_count": 198,
+      "table": "civ_country_continuity"
+    },
+    {
+      "row_count": 162,
+      "table": "civ_country_demographic_v2_1_audit"
+    },
+    {
+      "row_count": 405,
+      "table": "civ_country_evolution_phase"
+    },
+    {
+      "row_count": 473,
+      "table": "civ_country_institution_membership"
+    },
+    {
+      "row_count": 486,
+      "table": "civ_country_narrative_lens"
+    },
+    {
+      "row_count": 162,
+      "table": "civ_country_numeric_state"
+    },
+    {
+      "row_count": 81,
+      "table": "civ_country_operating_profile"
+    },
+    {
+      "row_count": 6480,
+      "table": "civ_country_sector_asset_numeric_state"
+    },
+    {
+      "row_count": 1620,
+      "table": "civ_country_sector_numeric_state"
+    },
+    {
+      "row_count": 4,
+      "table": "civ_declared_model_constant"
+    },
+    {
+      "row_count": 1,
+      "table": "civ_demographic_model_freeze"
+    },
+    {
+      "row_count": 142,
+      "table": "civ_demographic_state"
+    },
+    {
+      "row_count": 23,
+      "table": "civ_derivation"
+    },
+    {
+      "row_count": 142,
+      "table": "civ_economic_state"
+    },
+    {
+      "row_count": 3,
+      "table": "civ_field_derivation_binding"
+    },
+    {
+      "row_count": 146,
+      "table": "civ_governance_profile"
+    },
+    {
+      "row_count": 1237,
+      "table": "civ_influence_edge"
+    },
+    {
+      "row_count": 127,
+      "table": "civ_infrastructure_state"
+    },
+    {
+      "row_count": 13,
+      "table": "civ_institution_morphology"
+    },
+    {
+      "row_count": 635,
+      "table": "civ_jurisdiction_recognition"
+    },
+    {
+      "row_count": 5,
+      "table": "civ_meta"
+    },
+    {
+      "row_count": 9,
+      "table": "civ_methodology_note"
+    },
+    {
+      "row_count": 13,
+      "table": "civ_model_run"
+    },
+    {
+      "row_count": 127,
+      "table": "civ_node_texture_overlay"
+    },
+    {
+      "row_count": 10,
+      "table": "civ_numeric_reconciliation"
+    },
+    {
+      "row_count": 127,
+      "table": "civ_place_dna"
+    },
+    {
+      "row_count": 19,
+      "table": "civ_readiness_audit"
+    },
+    {
+      "row_count": 7,
+      "table": "civ_recalculation_contract"
+    },
+    {
+      "row_count": 16,
+      "table": "civ_runtime_gate"
+    },
+    {
+      "row_count": 5,
+      "table": "civ_runtime_source"
+    },
+    {
+      "row_count": 11,
+      "table": "civ_sector"
+    },
+    {
+      "row_count": 1620,
+      "table": "civ_sector_state"
+    },
+    {
+      "row_count": 1016,
+      "table": "civ_social_pressure"
+    },
+    {
+      "row_count": 127,
+      "table": "civ_social_state"
+    },
+    {
+      "row_count": 993,
+      "table": "civ_subject"
+    },
+    {
+      "row_count": 84,
+      "table": "civ_synthetic_demographic_profile"
+    },
+    {
+      "row_count": 5150,
+      "table": "civ_transport_flow"
+    },
+    {
+      "row_count": 19,
+      "table": "civ_variable_semantics"
+    },
+    {
+      "row_count": 141,
+      "table": "civ_workforce_state"
+    },
+    {
+      "row_count": 0,
+      "table": "graph_link_enrichment"
+    },
+    {
+      "row_count": 1243,
+      "table": "nav_graph_display_edges_cache"
+    },
+    {
+      "row_count": 1587,
+      "table": "nav_graph_edges_cache"
+    },
+    {
+      "row_count": 330,
+      "table": "nav_graph_nodes_cache"
+    },
+    {
+      "row_count": 1,
+      "table": "nav_graph_refresh_meta"
+    }
+  ]
+}

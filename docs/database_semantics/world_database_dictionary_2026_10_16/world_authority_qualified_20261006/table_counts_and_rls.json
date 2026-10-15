@@ -1,0 +1,772 @@
+[
+  {
+    "count_source": "QUALIFIED_EXPORT_MANIFEST",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": 47,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_geo",
+    "table": "body"
+  },
+  {
+    "count_source": "QUALIFIED_EXPORT_MANIFEST",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": 47,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_geo",
+    "table": "body_identifier"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_geo",
+    "table": "body_system"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_geo",
+    "table": "frame"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_geo",
+    "table": "geometry"
+  },
+  {
+    "count_source": "QUALIFIED_EXPORT_MANIFEST",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": 101,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_geo",
+    "table": "location"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_geo",
+    "table": "location_relation"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_geo",
+    "table": "system_member"
+  },
+  {
+    "count_source": "QUALIFIED_EXPORT_MANIFEST",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": 639,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_geo",
+    "table": "time_support"
+  },
+  {
+    "count_source": "QUALIFIED_EXPORT_MANIFEST",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": 17,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_geo",
+    "table": "vertical_support"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "action_authorization"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "agent_fact"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "agent_snapshot"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "belief"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "consumption_request"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "context_value"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "decision"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "epistemic_loop"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "information_artifact"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "possession"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "principal_binding"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_info",
+    "table": "receipt"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_meta",
+    "table": "design_version"
+  },
+  {
+    "count_source": "QUALIFIED_EXPORT_MANIFEST",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": 2726,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_meta",
+    "table": "legacy_row"
+  },
+  {
+    "count_source": "QUALIFIED_EXPORT_MANIFEST",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": 1,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_meta",
+    "table": "source_snapshot"
+  },
+  {
+    "count_source": "QUALIFIED_EXPORT_MANIFEST",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": 25,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_meta",
+    "table": "unit"
+  },
+  {
+    "count_source": "QUALIFIED_EXPORT_MANIFEST",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": 30,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_nav",
+    "table": "coverage"
+  },
+  {
+    "count_source": "QUALIFIED_EXPORT_MANIFEST",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": 30,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_nav",
+    "table": "product"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "accessibility_assessment"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "actor_reference"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "artifact"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "asset"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "asset_location"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "causal_envelope"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "execution"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "mission"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "observation"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "organization_reference"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "population_origin"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "population_state"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "project"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "project_location"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "project_party"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "recoverability_assessment"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "reserve_interpretation"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "settlement"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "settlement_asset"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "settlement_location"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "settlement_state"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "stock_state"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "trace_artifact_edge"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "trace_parent"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_run",
+    "table": "world_binding"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "admission"
+  },
+  {
+    "count_source": "QUALIFIED_EXPORT_MANIFEST",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": 880,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "assertion"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "assertion_input"
+  },
+  {
+    "count_source": "QUALIFIED_EXPORT_MANIFEST",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": 1052,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "coverage"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "extrapolation"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "knowledge_event"
+  },
+  {
+    "count_source": "QUALIFIED_EXPORT_MANIFEST",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": 35,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "material_evidence"
+  },
+  {
+    "count_source": "QUALIFIED_EXPORT_MANIFEST",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": 28,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "observation"
+  },
+  {
+    "count_source": "QUALIFIED_EXPORT_MANIFEST",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": 1,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "reconciliation"
+  },
+  {
+    "count_source": "QUALIFIED_EXPORT_MANIFEST",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": 4,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "sample"
+  },
+  {
+    "count_source": "QUALIFIED_EXPORT_MANIFEST",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": 208,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "source"
+  },
+  {
+    "count_source": "QUALIFIED_EXPORT_MANIFEST",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": 204,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "source_artifact"
+  },
+  {
+    "count_source": "QUALIFIED_EXPORT_MANIFEST",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": 54,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "spatial_product"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "supersession"
+  },
+  {
+    "count_source": "QUALIFIED_EXPORT_MANIFEST",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": 997,
+    "rls_enabled": false,
+    "rls_forced": false,
+    "schema": "wa_science",
+    "table": "support"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_world",
+    "table": "constraint_binding"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_world",
+    "table": "deposit"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_world",
+    "table": "generation_model"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_world",
+    "table": "generation_policy"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_world",
+    "table": "hidden_state"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_world",
+    "table": "physical_property"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_world",
+    "table": "realization"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_world",
+    "table": "scenario"
+  },
+  {
+    "count_source": "NOT_RECORDED_IN_QUALIFIED_EXPORT",
+    "live_2026_10_16_count": "NOT_VERIFIED",
+    "owner": "wa_owner",
+    "qualification_export_row_count": null,
+    "rls_enabled": true,
+    "rls_forced": true,
+    "schema": "wa_world",
+    "table": "site"
+  }
+]
