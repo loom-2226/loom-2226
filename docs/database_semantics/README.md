@@ -103,3 +103,4 @@ python -m pytest tests/test_database_data_dictionary.py tests/test_database_sema
 The generator emits exhaustive Markdown and JSON dictionaries and never drops an unresolved field. The tests independently enumerate the SQLite schemas and fail if any production field is omitted.
 
 This documentation is subordinate to governed canon/data/engineering authority and does not promote database contents to canon.
+- [Build 8 World Data Dictionary snapshot (2026-10-16)](world_database_dictionary_2026_10_16/INDEX.md) - non-runtime cross-database documentation.

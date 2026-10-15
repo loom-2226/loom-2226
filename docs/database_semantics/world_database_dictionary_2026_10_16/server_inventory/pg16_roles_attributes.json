@@ -1,0 +1,322 @@
+[
+  {
+    "bypassrls": false,
+    "canlogin": true,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "b7_inc3_fin",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": true,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "b7_inc3_pub",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": true,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "b7_inc3_rt",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": true,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "b7_inc3_spn",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": true,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "loom_dev",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": true,
+    "createdb": false,
+    "createrole": false,
+    "inherit": false,
+    "name": "loom_viewer",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "pg_checkpoint",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "pg_create_subscription",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "pg_database_owner",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "pg_execute_server_program",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "pg_monitor",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "pg_read_all_data",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "pg_read_all_settings",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "pg_read_all_stats",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "pg_read_server_files",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "pg_signal_backend",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "pg_stat_scan_tables",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "pg_use_reserved_connections",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "pg_write_all_data",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "pg_write_server_files",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": true,
+    "canlogin": true,
+    "createdb": true,
+    "createrole": true,
+    "inherit": true,
+    "name": "postgres",
+    "replication": true,
+    "superuser": true
+  },
+  {
+    "bypassrls": false,
+    "canlogin": true,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "ubuntu",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "wa_admission_writer",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "wa_agent_reader",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": false,
+    "name": "wa_agent_view_owner",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "wa_auditor",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": false,
+    "name": "wa_owner",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "wa_reference_reader",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "wa_runtime_writer",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "wa_science_governor",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "wa_science_writer",
+    "replication": false,
+    "superuser": false
+  },
+  {
+    "bypassrls": false,
+    "canlogin": false,
+    "createdb": false,
+    "createrole": false,
+    "inherit": true,
+    "name": "wa_world_writer",
+    "replication": false,
+    "superuser": false
+  }
+]

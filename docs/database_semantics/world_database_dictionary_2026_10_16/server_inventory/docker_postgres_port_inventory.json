@@ -1,0 +1,26 @@
+{
+  "classification": "POTENTIAL_DOCKER_POSTGRES_SERVICES",
+  "database_identity_and_contents": "UNKNOWN_OR_UNREADABLE",
+  "limitation": "No Docker access in this session; no credential or container discovery attempted",
+  "listening_ports_from_docker_proxy_processes": [
+    55418,
+    55419,
+    55420,
+    55421,
+    55422,
+    55540,
+    55541,
+    55640,
+    55641,
+    55740,
+    55741,
+    55820,
+    55821
+  ],
+  "qualified_world_authority_reference": {
+    "container": "loom-world-authority-pg18",
+    "last_known_port": 55418,
+    "live_connection": "UNREADABLE_AUTHENTICATION_REQUIRED",
+    "verification": "HISTORICAL_ONLY"
+  }
+}

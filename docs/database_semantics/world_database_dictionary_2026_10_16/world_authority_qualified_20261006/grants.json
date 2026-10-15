@@ -1,0 +1,6044 @@
+[
+  {
+    "grantee": "wa_agent_reader",
+    "privilege": "SELECT",
+    "schema": "wa_agent_api",
+    "table": "current_snapshot"
+  },
+  {
+    "grantee": "wa_agent_view_owner",
+    "privilege": "DELETE",
+    "schema": "wa_agent_api",
+    "table": "current_snapshot"
+  },
+  {
+    "grantee": "wa_agent_view_owner",
+    "privilege": "INSERT",
+    "schema": "wa_agent_api",
+    "table": "current_snapshot"
+  },
+  {
+    "grantee": "wa_agent_view_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_agent_api",
+    "table": "current_snapshot"
+  },
+  {
+    "grantee": "wa_agent_view_owner",
+    "privilege": "SELECT",
+    "schema": "wa_agent_api",
+    "table": "current_snapshot"
+  },
+  {
+    "grantee": "wa_agent_view_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_agent_api",
+    "table": "current_snapshot"
+  },
+  {
+    "grantee": "wa_agent_view_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_agent_api",
+    "table": "current_snapshot"
+  },
+  {
+    "grantee": "wa_agent_view_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_agent_api",
+    "table": "current_snapshot"
+  },
+  {
+    "grantee": "wa_agent_reader",
+    "privilege": "SELECT",
+    "schema": "wa_agent_api",
+    "table": "snapshot_facts"
+  },
+  {
+    "grantee": "wa_agent_view_owner",
+    "privilege": "DELETE",
+    "schema": "wa_agent_api",
+    "table": "snapshot_facts"
+  },
+  {
+    "grantee": "wa_agent_view_owner",
+    "privilege": "INSERT",
+    "schema": "wa_agent_api",
+    "table": "snapshot_facts"
+  },
+  {
+    "grantee": "wa_agent_view_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_agent_api",
+    "table": "snapshot_facts"
+  },
+  {
+    "grantee": "wa_agent_view_owner",
+    "privilege": "SELECT",
+    "schema": "wa_agent_api",
+    "table": "snapshot_facts"
+  },
+  {
+    "grantee": "wa_agent_view_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_agent_api",
+    "table": "snapshot_facts"
+  },
+  {
+    "grantee": "wa_agent_view_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_agent_api",
+    "table": "snapshot_facts"
+  },
+  {
+    "grantee": "wa_agent_view_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_agent_api",
+    "table": "snapshot_facts"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_geo",
+    "table": "body"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_geo",
+    "table": "body"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_geo",
+    "table": "body"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_geo",
+    "table": "body"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_geo",
+    "table": "body"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_geo",
+    "table": "body"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_geo",
+    "table": "body"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body_identifier"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body_identifier"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_geo",
+    "table": "body_identifier"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_geo",
+    "table": "body_identifier"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_geo",
+    "table": "body_identifier"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body_identifier"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_geo",
+    "table": "body_identifier"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_geo",
+    "table": "body_identifier"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_geo",
+    "table": "body_identifier"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body_identifier"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body_identifier"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body_identifier"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_geo",
+    "table": "body_identifier"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body_identifier"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body_identifier"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body_system"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body_system"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_geo",
+    "table": "body_system"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_geo",
+    "table": "body_system"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_geo",
+    "table": "body_system"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body_system"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_geo",
+    "table": "body_system"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_geo",
+    "table": "body_system"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_geo",
+    "table": "body_system"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body_system"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body_system"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body_system"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_geo",
+    "table": "body_system"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body_system"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "body_system"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "frame"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "frame"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_geo",
+    "table": "frame"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_geo",
+    "table": "frame"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_geo",
+    "table": "frame"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "frame"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_geo",
+    "table": "frame"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_geo",
+    "table": "frame"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_geo",
+    "table": "frame"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "frame"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "frame"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "frame"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_geo",
+    "table": "frame"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "frame"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "frame"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "geometry"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "geometry"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_geo",
+    "table": "geometry"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_geo",
+    "table": "geometry"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_geo",
+    "table": "geometry"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "geometry"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_geo",
+    "table": "geometry"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_geo",
+    "table": "geometry"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_geo",
+    "table": "geometry"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "geometry"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "geometry"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "geometry"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_geo",
+    "table": "geometry"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "geometry"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "geometry"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "location"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_geo",
+    "table": "location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_geo",
+    "table": "location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_geo",
+    "table": "location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_geo",
+    "table": "location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_geo",
+    "table": "location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_geo",
+    "table": "location"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "location"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "location"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "location"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_geo",
+    "table": "location"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "location"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "location"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "location_relation"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "location_relation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_geo",
+    "table": "location_relation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_geo",
+    "table": "location_relation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_geo",
+    "table": "location_relation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "location_relation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_geo",
+    "table": "location_relation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_geo",
+    "table": "location_relation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_geo",
+    "table": "location_relation"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "location_relation"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "location_relation"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "location_relation"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_geo",
+    "table": "location_relation"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "location_relation"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "location_relation"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "system_member"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "system_member"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_geo",
+    "table": "system_member"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_geo",
+    "table": "system_member"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_geo",
+    "table": "system_member"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "system_member"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_geo",
+    "table": "system_member"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_geo",
+    "table": "system_member"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_geo",
+    "table": "system_member"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "system_member"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "system_member"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "system_member"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_geo",
+    "table": "system_member"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "system_member"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "system_member"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "time_support"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "time_support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_geo",
+    "table": "time_support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_geo",
+    "table": "time_support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_geo",
+    "table": "time_support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "time_support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_geo",
+    "table": "time_support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_geo",
+    "table": "time_support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_geo",
+    "table": "time_support"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "time_support"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "time_support"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "time_support"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_geo",
+    "table": "time_support"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "time_support"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "time_support"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "vertical_support"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "vertical_support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_geo",
+    "table": "vertical_support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_geo",
+    "table": "vertical_support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_geo",
+    "table": "vertical_support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "vertical_support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_geo",
+    "table": "vertical_support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_geo",
+    "table": "vertical_support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_geo",
+    "table": "vertical_support"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "vertical_support"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "vertical_support"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "vertical_support"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_geo",
+    "table": "vertical_support"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "vertical_support"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_geo",
+    "table": "vertical_support"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "action_authorization"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "action_authorization"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "action_authorization"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_info",
+    "table": "action_authorization"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "action_authorization"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_info",
+    "table": "action_authorization"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "action_authorization"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_info",
+    "table": "action_authorization"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_info",
+    "table": "action_authorization"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_info",
+    "table": "action_authorization"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "action_authorization"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "agent_fact"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "agent_fact"
+  },
+  {
+    "grantee": "wa_agent_view_owner",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "agent_fact"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "agent_fact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_info",
+    "table": "agent_fact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "agent_fact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_info",
+    "table": "agent_fact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "agent_fact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_info",
+    "table": "agent_fact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_info",
+    "table": "agent_fact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_info",
+    "table": "agent_fact"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "agent_fact"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "agent_snapshot"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "agent_snapshot"
+  },
+  {
+    "grantee": "wa_agent_view_owner",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "agent_snapshot"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "agent_snapshot"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_info",
+    "table": "agent_snapshot"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "agent_snapshot"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_info",
+    "table": "agent_snapshot"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "agent_snapshot"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_info",
+    "table": "agent_snapshot"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_info",
+    "table": "agent_snapshot"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_info",
+    "table": "agent_snapshot"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "agent_snapshot"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "belief"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "belief"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "belief"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_info",
+    "table": "belief"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "belief"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_info",
+    "table": "belief"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "belief"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_info",
+    "table": "belief"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_info",
+    "table": "belief"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_info",
+    "table": "belief"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "belief"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "consumption_request"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "consumption_request"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "consumption_request"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_info",
+    "table": "consumption_request"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "consumption_request"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_info",
+    "table": "consumption_request"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "consumption_request"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_info",
+    "table": "consumption_request"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_info",
+    "table": "consumption_request"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_info",
+    "table": "consumption_request"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "consumption_request"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "context_value"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "context_value"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "context_value"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_info",
+    "table": "context_value"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "context_value"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_info",
+    "table": "context_value"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "context_value"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_info",
+    "table": "context_value"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_info",
+    "table": "context_value"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_info",
+    "table": "context_value"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "context_value"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "decision"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "decision"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "decision"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_info",
+    "table": "decision"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "decision"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_info",
+    "table": "decision"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "decision"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_info",
+    "table": "decision"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_info",
+    "table": "decision"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_info",
+    "table": "decision"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "decision"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "epistemic_loop"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "epistemic_loop"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "epistemic_loop"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_info",
+    "table": "epistemic_loop"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "epistemic_loop"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_info",
+    "table": "epistemic_loop"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "epistemic_loop"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_info",
+    "table": "epistemic_loop"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_info",
+    "table": "epistemic_loop"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_info",
+    "table": "epistemic_loop"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "epistemic_loop"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "information_artifact"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "information_artifact"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "information_artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_info",
+    "table": "information_artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "information_artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_info",
+    "table": "information_artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "information_artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_info",
+    "table": "information_artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_info",
+    "table": "information_artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_info",
+    "table": "information_artifact"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "information_artifact"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "possession"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "possession"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "possession"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_info",
+    "table": "possession"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "possession"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_info",
+    "table": "possession"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "possession"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_info",
+    "table": "possession"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_info",
+    "table": "possession"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_info",
+    "table": "possession"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "possession"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "DELETE",
+    "schema": "wa_info",
+    "table": "principal_binding"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "principal_binding"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "principal_binding"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "UPDATE",
+    "schema": "wa_info",
+    "table": "principal_binding"
+  },
+  {
+    "grantee": "wa_agent_view_owner",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "principal_binding"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "principal_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_info",
+    "table": "principal_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "principal_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_info",
+    "table": "principal_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "principal_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_info",
+    "table": "principal_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_info",
+    "table": "principal_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_info",
+    "table": "principal_binding"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "principal_binding"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "receipt"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "receipt"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "receipt"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_info",
+    "table": "receipt"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_info",
+    "table": "receipt"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_info",
+    "table": "receipt"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "receipt"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_info",
+    "table": "receipt"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_info",
+    "table": "receipt"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_info",
+    "table": "receipt"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_info",
+    "table": "receipt"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "design_version"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_meta",
+    "table": "design_version"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_meta",
+    "table": "design_version"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_meta",
+    "table": "design_version"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "design_version"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_meta",
+    "table": "design_version"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_meta",
+    "table": "design_version"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_meta",
+    "table": "design_version"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "design_version"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "design_version"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "design_version"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "design_version"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "legacy_row"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_meta",
+    "table": "legacy_row"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_meta",
+    "table": "legacy_row"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_meta",
+    "table": "legacy_row"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "legacy_row"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_meta",
+    "table": "legacy_row"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_meta",
+    "table": "legacy_row"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_meta",
+    "table": "legacy_row"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "legacy_row"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "legacy_row"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_meta",
+    "table": "legacy_row"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "legacy_row"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "legacy_row"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "source_snapshot"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_meta",
+    "table": "source_snapshot"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_meta",
+    "table": "source_snapshot"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_meta",
+    "table": "source_snapshot"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "source_snapshot"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_meta",
+    "table": "source_snapshot"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_meta",
+    "table": "source_snapshot"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_meta",
+    "table": "source_snapshot"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "source_snapshot"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "source_snapshot"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_meta",
+    "table": "source_snapshot"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "source_snapshot"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "source_snapshot"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "unit"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_meta",
+    "table": "unit"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_meta",
+    "table": "unit"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_meta",
+    "table": "unit"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "unit"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_meta",
+    "table": "unit"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_meta",
+    "table": "unit"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_meta",
+    "table": "unit"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "unit"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "unit"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_meta",
+    "table": "unit"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "unit"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_meta",
+    "table": "unit"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_nav",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_nav",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_nav",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_nav",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_nav",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_nav",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_nav",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_nav",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_nav",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_nav",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_nav",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_nav",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_nav",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_nav",
+    "table": "product"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_nav",
+    "table": "product"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_nav",
+    "table": "product"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_nav",
+    "table": "product"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_nav",
+    "table": "product"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_nav",
+    "table": "product"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_nav",
+    "table": "product"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_nav",
+    "table": "product"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_nav",
+    "table": "product"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_nav",
+    "table": "product"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_nav",
+    "table": "product"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_nav",
+    "table": "product"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_nav",
+    "table": "product"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "accessibility_assessment"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "accessibility_assessment"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "accessibility_assessment"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "accessibility_assessment"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "accessibility_assessment"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "accessibility_assessment"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "accessibility_assessment"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "accessibility_assessment"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "accessibility_assessment"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "accessibility_assessment"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "accessibility_assessment"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "actor_reference"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "actor_reference"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "actor_reference"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "actor_reference"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "actor_reference"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "actor_reference"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "actor_reference"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "actor_reference"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "actor_reference"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "actor_reference"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "actor_reference"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "artifact"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "artifact"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "artifact"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "artifact"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "asset"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "asset"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "asset"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "asset"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "asset"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "asset"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "asset"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "asset"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "asset"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "asset"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "asset"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "asset_location"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "asset_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "asset_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "asset_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "asset_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "asset_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "asset_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "asset_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "asset_location"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "asset_location"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "asset_location"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "causal_envelope"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "causal_envelope"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "causal_envelope"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "causal_envelope"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "causal_envelope"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "causal_envelope"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "causal_envelope"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "causal_envelope"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "causal_envelope"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "causal_envelope"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "causal_envelope"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "execution"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "execution"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "execution"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "execution"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "execution"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "execution"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "execution"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "execution"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "execution"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "execution"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "execution"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "mission"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "mission"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "mission"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "mission"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "mission"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "mission"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "mission"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "mission"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "mission"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "mission"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "mission"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "organization_reference"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "organization_reference"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "organization_reference"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "organization_reference"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "organization_reference"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "organization_reference"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "organization_reference"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "organization_reference"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "organization_reference"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "organization_reference"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "organization_reference"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "population_origin"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "population_origin"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "population_origin"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "population_origin"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "population_origin"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "population_origin"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "population_origin"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "population_origin"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "population_origin"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "population_origin"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "population_origin"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "population_state"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "population_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "population_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "population_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "population_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "population_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "population_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "population_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "population_state"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "population_state"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "population_state"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "project"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "project"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "project"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "project"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "project"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "project"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "project"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "project"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "project"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "project"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "project"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "project_location"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "project_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "project_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "project_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "project_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "project_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "project_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "project_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "project_location"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "project_location"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "project_location"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "project_party"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "project_party"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "project_party"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "project_party"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "project_party"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "project_party"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "project_party"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "project_party"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "project_party"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "project_party"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "project_party"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "realized_events"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "realized_events"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "realized_events"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "realized_events"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "realized_events"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "realized_events"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "realized_events"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "realized_events"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "realized_events"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "realized_events"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "realized_events"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "recoverability_assessment"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "recoverability_assessment"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "recoverability_assessment"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "recoverability_assessment"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "recoverability_assessment"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "recoverability_assessment"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "recoverability_assessment"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "recoverability_assessment"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "recoverability_assessment"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "recoverability_assessment"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "recoverability_assessment"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "reserve_interpretation"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "reserve_interpretation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "reserve_interpretation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "reserve_interpretation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "reserve_interpretation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "reserve_interpretation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "reserve_interpretation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "reserve_interpretation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "reserve_interpretation"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "reserve_interpretation"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "reserve_interpretation"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "settlement"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "settlement"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "settlement"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "settlement"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "settlement"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "settlement"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "settlement"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "settlement"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "settlement"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "settlement"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "settlement"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "settlement_asset"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "settlement_asset"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "settlement_asset"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "settlement_asset"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "settlement_asset"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "settlement_asset"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "settlement_asset"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "settlement_asset"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "settlement_asset"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "settlement_asset"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "settlement_asset"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "settlement_location"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "settlement_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "settlement_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "settlement_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "settlement_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "settlement_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "settlement_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "settlement_location"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "settlement_location"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "settlement_location"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "settlement_location"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "settlement_state"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "settlement_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "settlement_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "settlement_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "settlement_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "settlement_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "settlement_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "settlement_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "settlement_state"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "settlement_state"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "settlement_state"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "stock_state"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "stock_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "stock_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "stock_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "stock_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "stock_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "stock_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "stock_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "stock_state"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "stock_state"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "stock_state"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "trace_artifact_edge"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "trace_artifact_edge"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "trace_artifact_edge"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "trace_artifact_edge"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "trace_artifact_edge"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "trace_artifact_edge"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "trace_artifact_edge"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "trace_artifact_edge"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "trace_artifact_edge"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "trace_artifact_edge"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "trace_artifact_edge"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "trace_parent"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "trace_parent"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "trace_parent"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "trace_parent"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "trace_parent"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "trace_parent"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "trace_parent"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "trace_parent"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "trace_parent"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "trace_parent"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "trace_parent"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "world_binding"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "world_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_run",
+    "table": "world_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "world_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_run",
+    "table": "world_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "world_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_run",
+    "table": "world_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_run",
+    "table": "world_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_run",
+    "table": "world_binding"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "INSERT",
+    "schema": "wa_run",
+    "table": "world_binding"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_run",
+    "table": "world_binding"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "admission"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_science",
+    "table": "admission"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "admission"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_science",
+    "table": "admission"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "admission"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_science",
+    "table": "admission"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_science",
+    "table": "admission"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_science",
+    "table": "admission"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "admission"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "admission"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "admission"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "admission"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "admission"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "assertion"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_science",
+    "table": "assertion"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "assertion"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_science",
+    "table": "assertion"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "assertion"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_science",
+    "table": "assertion"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_science",
+    "table": "assertion"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_science",
+    "table": "assertion"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "assertion"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "assertion"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "assertion"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "assertion"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "assertion"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "assertion_input"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_science",
+    "table": "assertion_input"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "assertion_input"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_science",
+    "table": "assertion_input"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "assertion_input"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_science",
+    "table": "assertion_input"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_science",
+    "table": "assertion_input"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_science",
+    "table": "assertion_input"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "assertion_input"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "assertion_input"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "assertion_input"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "assertion_input"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "assertion_input"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "assertion_standing"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_science",
+    "table": "assertion_standing"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "assertion_standing"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_science",
+    "table": "assertion_standing"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "assertion_standing"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_science",
+    "table": "assertion_standing"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_science",
+    "table": "assertion_standing"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_science",
+    "table": "assertion_standing"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "assertion_standing"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "assertion_standing"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "assertion_standing"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "assertion_standing"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "assertion_standing"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_science",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_science",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_science",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_science",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_science",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "coverage"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "extrapolation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_science",
+    "table": "extrapolation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "extrapolation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_science",
+    "table": "extrapolation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "extrapolation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_science",
+    "table": "extrapolation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_science",
+    "table": "extrapolation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_science",
+    "table": "extrapolation"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "extrapolation"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "extrapolation"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "extrapolation"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "extrapolation"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "extrapolation"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "knowledge_event"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_science",
+    "table": "knowledge_event"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "knowledge_event"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_science",
+    "table": "knowledge_event"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "knowledge_event"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_science",
+    "table": "knowledge_event"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_science",
+    "table": "knowledge_event"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_science",
+    "table": "knowledge_event"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "knowledge_event"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "knowledge_event"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "knowledge_event"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "knowledge_event"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "knowledge_event"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "material_evidence"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_science",
+    "table": "material_evidence"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "material_evidence"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_science",
+    "table": "material_evidence"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "material_evidence"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_science",
+    "table": "material_evidence"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_science",
+    "table": "material_evidence"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_science",
+    "table": "material_evidence"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "material_evidence"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "material_evidence"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "material_evidence"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "material_evidence"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "material_evidence"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_science",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_science",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_science",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_science",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_science",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "observation"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "real_assertions"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_science",
+    "table": "real_assertions"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "real_assertions"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_science",
+    "table": "real_assertions"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "real_assertions"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_science",
+    "table": "real_assertions"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_science",
+    "table": "real_assertions"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_science",
+    "table": "real_assertions"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "real_assertions"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "real_assertions"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "real_assertions"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "real_assertions"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "real_assertions"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "reconciliation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_science",
+    "table": "reconciliation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "reconciliation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_science",
+    "table": "reconciliation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "reconciliation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_science",
+    "table": "reconciliation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_science",
+    "table": "reconciliation"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_science",
+    "table": "reconciliation"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "reconciliation"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "reconciliation"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "reconciliation"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "reconciliation"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "reconciliation"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "sample"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_science",
+    "table": "sample"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "sample"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_science",
+    "table": "sample"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "sample"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_science",
+    "table": "sample"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_science",
+    "table": "sample"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_science",
+    "table": "sample"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "sample"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "sample"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "sample"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "sample"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "sample"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "source"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_science",
+    "table": "source"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "source"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_science",
+    "table": "source"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "source"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_science",
+    "table": "source"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_science",
+    "table": "source"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_science",
+    "table": "source"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "source"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "source"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "source"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "source"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "source"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "source_artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_science",
+    "table": "source_artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "source_artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_science",
+    "table": "source_artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "source_artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_science",
+    "table": "source_artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_science",
+    "table": "source_artifact"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_science",
+    "table": "source_artifact"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "source_artifact"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "source_artifact"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "source_artifact"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "source_artifact"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "source_artifact"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "spatial_product"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_science",
+    "table": "spatial_product"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "spatial_product"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_science",
+    "table": "spatial_product"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "spatial_product"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_science",
+    "table": "spatial_product"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_science",
+    "table": "spatial_product"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_science",
+    "table": "spatial_product"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "spatial_product"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "spatial_product"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "spatial_product"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "spatial_product"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "spatial_product"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "supersession"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_science",
+    "table": "supersession"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "supersession"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_science",
+    "table": "supersession"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "supersession"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_science",
+    "table": "supersession"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_science",
+    "table": "supersession"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_science",
+    "table": "supersession"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "supersession"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "supersession"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "supersession"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "supersession"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "supersession"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_science",
+    "table": "support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_science",
+    "table": "support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_science",
+    "table": "support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_science",
+    "table": "support"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_science",
+    "table": "support"
+  },
+  {
+    "grantee": "wa_reference_reader",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "support"
+  },
+  {
+    "grantee": "wa_science_governor",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "support"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "INSERT",
+    "schema": "wa_science",
+    "table": "support"
+  },
+  {
+    "grantee": "wa_science_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "support"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_science",
+    "table": "support"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "constraint_binding"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "constraint_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_world",
+    "table": "constraint_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_world",
+    "table": "constraint_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_world",
+    "table": "constraint_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "constraint_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_world",
+    "table": "constraint_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_world",
+    "table": "constraint_binding"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_world",
+    "table": "constraint_binding"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "constraint_binding"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "INSERT",
+    "schema": "wa_world",
+    "table": "constraint_binding"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "constraint_binding"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "deposit"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "deposit"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_world",
+    "table": "deposit"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_world",
+    "table": "deposit"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_world",
+    "table": "deposit"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "deposit"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_world",
+    "table": "deposit"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_world",
+    "table": "deposit"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_world",
+    "table": "deposit"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "deposit"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "INSERT",
+    "schema": "wa_world",
+    "table": "deposit"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "deposit"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "generation_model"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "generation_model"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_world",
+    "table": "generation_model"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_world",
+    "table": "generation_model"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_world",
+    "table": "generation_model"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "generation_model"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_world",
+    "table": "generation_model"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_world",
+    "table": "generation_model"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_world",
+    "table": "generation_model"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "generation_model"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "INSERT",
+    "schema": "wa_world",
+    "table": "generation_model"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "generation_model"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "generation_policy"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "generation_policy"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_world",
+    "table": "generation_policy"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_world",
+    "table": "generation_policy"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_world",
+    "table": "generation_policy"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "generation_policy"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_world",
+    "table": "generation_policy"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_world",
+    "table": "generation_policy"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_world",
+    "table": "generation_policy"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "generation_policy"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "INSERT",
+    "schema": "wa_world",
+    "table": "generation_policy"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "generation_policy"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "hidden_state"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "hidden_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_world",
+    "table": "hidden_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_world",
+    "table": "hidden_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_world",
+    "table": "hidden_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "hidden_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_world",
+    "table": "hidden_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_world",
+    "table": "hidden_state"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_world",
+    "table": "hidden_state"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "hidden_state"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "INSERT",
+    "schema": "wa_world",
+    "table": "hidden_state"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "hidden_state"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "physical_property"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "physical_property"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_world",
+    "table": "physical_property"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_world",
+    "table": "physical_property"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_world",
+    "table": "physical_property"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "physical_property"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_world",
+    "table": "physical_property"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_world",
+    "table": "physical_property"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_world",
+    "table": "physical_property"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "physical_property"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "INSERT",
+    "schema": "wa_world",
+    "table": "physical_property"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "physical_property"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "realization"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "realization"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_world",
+    "table": "realization"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_world",
+    "table": "realization"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_world",
+    "table": "realization"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "realization"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_world",
+    "table": "realization"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_world",
+    "table": "realization"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_world",
+    "table": "realization"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "realization"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "INSERT",
+    "schema": "wa_world",
+    "table": "realization"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "realization"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "scenario"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "scenario"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_world",
+    "table": "scenario"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_world",
+    "table": "scenario"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_world",
+    "table": "scenario"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "scenario"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_world",
+    "table": "scenario"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_world",
+    "table": "scenario"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_world",
+    "table": "scenario"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "scenario"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "INSERT",
+    "schema": "wa_world",
+    "table": "scenario"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "scenario"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "scenario_states"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "scenario_states"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_world",
+    "table": "scenario_states"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_world",
+    "table": "scenario_states"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_world",
+    "table": "scenario_states"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "scenario_states"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_world",
+    "table": "scenario_states"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_world",
+    "table": "scenario_states"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_world",
+    "table": "scenario_states"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "scenario_states"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "INSERT",
+    "schema": "wa_world",
+    "table": "scenario_states"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "scenario_states"
+  },
+  {
+    "grantee": "wa_admission_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "site"
+  },
+  {
+    "grantee": "wa_auditor",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "site"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "DELETE",
+    "schema": "wa_world",
+    "table": "site"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "INSERT",
+    "schema": "wa_world",
+    "table": "site"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "REFERENCES",
+    "schema": "wa_world",
+    "table": "site"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "site"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRIGGER",
+    "schema": "wa_world",
+    "table": "site"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "TRUNCATE",
+    "schema": "wa_world",
+    "table": "site"
+  },
+  {
+    "grantee": "wa_owner",
+    "privilege": "UPDATE",
+    "schema": "wa_world",
+    "table": "site"
+  },
+  {
+    "grantee": "wa_runtime_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "site"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "INSERT",
+    "schema": "wa_world",
+    "table": "site"
+  },
+  {
+    "grantee": "wa_world_writer",
+    "privilege": "SELECT",
+    "schema": "wa_world",
+    "table": "site"
+  }
+]

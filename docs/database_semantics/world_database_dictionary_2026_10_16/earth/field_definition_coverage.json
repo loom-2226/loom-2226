@@ -1,0 +1,9 @@
+{
+  "earth_source": "loom_control.field_semantics",
+  "fallback": "Existing Earth projection contract and legacy SQLite semantic reference documents",
+  "not_claimed": "Legacy SQLite definitions are not automatically Earth PostgreSQL field definitions",
+  "original_export_field_definition_count": 0,
+  "original_export_variable_definition_count": 21,
+  "rule": "Never infer units, causal meaning, provenance, or grain from column names alone.",
+  "unrecovered_exact_postgres_field_definitions": "UNKNOWN"
+}

@@ -1,0 +1,18 @@
+{
+  "database": "loom_offworld_runtime",
+  "encoding": "UTF8",
+  "extensions": [
+    {
+      "name": "pgcrypto",
+      "schema": "wa_crypto",
+      "version": "1.3"
+    },
+    {
+      "name": "plpgsql",
+      "schema": "pg_catalog",
+      "version": "1.0"
+    }
+  ],
+  "server_version_num": "160015",
+  "version": "16.15 (Ubuntu 16.15-0ubuntu0.24.04.1)"
+}

@@ -1,0 +1,30 @@
+{
+  "version": "0.1",
+  "work_item": 115,
+  "hard_rule": "Do not infer intended semantics from names, correlations, distributions, or apparent topology. Untraced meaning is unresolved.",
+  "coverage": {"LOOM_2226_CIVSTATE.sqlite3": 53, "LOOM_2226.sqlite3": 42, "total_tables": 95},
+  "count_discrepancy": "Initiating work order said 43 core tables; verified 2026-09-06 runtime inventory lists 42. Do not invent a 43rd table.",
+  "tables": {
+    "LOOM_2226_CIVSTATE.sqlite3": [
+      "civ_actor_economic_state","civ_actor_exposure","civ_actor_lineage","civ_alpha_inv_distribution_audit","civ_asset_class","civ_asset_state","civ_assumption","civ_assumption_dependency","civ_census_node_relation","civ_country_continuity","civ_country_demographic_v2_1_audit","civ_country_evolution_phase","civ_country_institution_membership","civ_country_narrative_lens","civ_country_numeric_state","civ_country_operating_profile","civ_country_sector_asset_numeric_state","civ_country_sector_numeric_state","civ_declared_model_constant","civ_demographic_model_freeze","civ_demographic_state","civ_derivation","civ_economic_state","civ_field_derivation_binding","civ_governance_profile","civ_influence_edge","civ_infrastructure_state","civ_institution_morphology","civ_jurisdiction_recognition","civ_meta","civ_methodology_note","civ_model_run","civ_node_texture_overlay","civ_numeric_reconciliation","civ_place_dna","civ_readiness_audit","civ_recalculation_contract","civ_runtime_gate","civ_runtime_source","civ_sector","civ_sector_state","civ_social_pressure","civ_social_state","civ_subject","civ_synthetic_demographic_profile","civ_transport_flow","civ_variable_semantics","civ_workforce_state","graph_link_enrichment","nav_graph_display_edges_cache","nav_graph_edges_cache","nav_graph_nodes_cache","nav_graph_refresh_meta"
+    ],
+    "LOOM_2226.sqlite3": [
+      "atlas_mobility","atlas_profiles","atlas_subfeatures","body_zone_census","canon_source_sections","celestial_dynamics","celestial_properties","census_records","derivation_models","entities","entity_authorities","entity_demographic_profiles","entity_economic_profiles","entity_location_models","entity_scopes","entity_transport_profiles","ephemeris_states","image_assets","image_generation_jobs","image_review_candidates","image_review_state","infrastructure_capacity_profiles","infrastructure_energy_profiles","infrastructure_engineering_profiles","infrastructure_nodes","infrastructure_physical_properties","knowledge_entities","knowledge_relationships","meta","nodes","orbit_geometry_models","orbit_snapshots","organizations","placement_models","provenance_sources","region_mobility","regional_morphology","spatial_states","states","transport_hubs","transport_links","world_model_migrations"
+    ]
+  },
+  "mandatory_self_documentation_tables": ["civ_variable_semantics","civ_derivation","civ_methodology_note","civ_assumption","civ_readiness_audit"],
+  "known_semantic_contracts": {
+    "knowledge_entities": "Knowledge-noun/entity catalog. noun_id is the knowledge noun key; spatial_entity_id links a knowledge noun to a spatial/world entity. It is not a proposition/claim table.",
+    "knowledge_relationships": "Subject-predicate-object relationships between knowledge nouns with context/source/provenance. Organization/facility scope must not be projected into person-level social relationships.",
+    "entities": "Spatial/world entity catalog; entity_id is the spatial/world entity key.",
+    "image_assets": "Image metadata links through knowledge noun identity; approved current hero selection uses asset_role=HERO, is_current=1, review_status=APPROVED_REFERENCE.",
+    "civ_transport_flow": "Treat as annual corridor demand, not scheduled direct service. Direction/symmetry must not be interpreted as sequential or reciprocal operational dependency without separate evidence.",
+    "civ_actor_exposure": "Interpret as influence/control/dependency, not ownership. Organization-scope exposure does not establish individual location or person-person relationships.",
+    "graph_link_enrichment": "Empty annotation/enrichment surface keyed by link_key. Empty state means no enrichment rows are currently present; it does not establish intended future semantics beyond traced schema/consumer evidence."
+  },
+  "status_policy": {
+    "UNDERSTOOD": "Semantics traced to builder/frozen spec/methodology/derivation/audit/authored source.",
+    "PARTIALLY_UNDERSTOOD": "Purpose evidenced; specific fields remain untraced.",
+    "NOT_UNDERSTOOD": "Do not infer. Recover generating or authoritative consumer evidence first."
+  }
+}

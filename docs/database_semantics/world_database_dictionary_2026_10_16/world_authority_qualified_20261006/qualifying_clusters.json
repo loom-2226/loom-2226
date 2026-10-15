@@ -1,0 +1,38 @@
+{
+  "ddl_sha256": "3791cf91332f5c7d979dc2a8a590be4bacf3ba8ec932493f07edf510fb9cffe1",
+  "extensions": [
+    {
+      "name": "pgcrypto",
+      "version": "1.4"
+    }
+  ],
+  "live_current_connection": "NOT_VERIFIED",
+  "note": "Sealed qualification evidence, not a current live database inventory",
+  "postgres_binary_version": "postgres (PostgreSQL) 18.6 (Debian 18.6-1.pgdg13+2)",
+  "postgres_version": "18.6 (Debian 18.6-1.pgdg13+2)",
+  "psql_version": "psql (PostgreSQL) 18.6 (Debian 18.6-1.pgdg13+2)",
+  "qualification_date": "2026-10-06",
+  "qualifying_clusters": [
+    {
+      "container": "loom-wa-qual-264393010a",
+      "port_at_qualification": 55448
+    },
+    {
+      "container": "loom-wa-qual-fa0485276b",
+      "port_at_qualification": 55449
+    }
+  ],
+  "qualifying_core_inventories_identical": true,
+  "role_discrepancy": [
+    "wa_q_reference"
+  ],
+  "settings": {
+    "lc_collate": "C",
+    "lc_ctype": "C",
+    "server_encoding": "UTF8",
+    "server_version": "18.6 (Debian 18.6-1.pgdg13+2)",
+    "standard_conforming_strings": "on",
+    "timezone": "UTC"
+  },
+  "standing": "MIGRATION_QUALIFIED_SCIENCE_CANDIDATE_PRESERVED"
+}

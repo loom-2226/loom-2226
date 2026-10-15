@@ -1,0 +1,38 @@
+{
+  "created_utc": "2026-10-15T15:13:46.661431+00:00",
+  "kind": "SCHEMA_AND_SEMANTICS_ONLY",
+  "earth_status": "LIVE_POSTGRESQL_16_SCHEMA_DUMP",
+  "earth_database": "loom_dev",
+  "earth_schemas": [
+    "loom_earth",
+    "loom_control",
+    "loom_narrator",
+    "loom_timeline"
+  ],
+  "earth_field_definitions": 0,
+  "earth_variable_definitions": 21,
+  "world_authority_status": "PINNED_REPOSITORY_DDL_NOT_LIVE_VERIFIED",
+  "world_authority_ddl_sha256": "3791cf91332f5c7d979dc2a8a590be4bacf3ba8ec932493f07edf510fb9cffe1",
+  "simulated_world_rows_exported": 0,
+  "whitelisted_semantic_tables": [
+    "loom_control.field_semantics",
+    "loom_control.variable_semantics"
+  ],
+  "file_sha256": {
+    "README_FOR_CLAUDE.md": "956cd02f287689476a0802cb27481dbac8b9483caaee7d316153349cdbf4a9e8",
+    "earth/catalog.json": "c3b14087b957f7ed8dd3f5d5aa8542c61684a4d97c748f9efe4ae6ea04fc53c3",
+    "earth/live_schema.sql": "be8478a51c7ab9a076c3f618f57a3b8a282e5b780eb22130e22a5e6cc881b9b2",
+    "earth/schema_separation_contract.md": "5ce6d1f22406f910512da5d7c3c7c5b9f2a2661f82c22cef4f1a1075e6db9e13",
+    "earth/semantic_definitions.json": "d8cd1b891dcf63b57d84d6138a55b7e4b0ade9d40ad5aaec6dc9d8ec9b72ab8e",
+    "earth/source_hashes.json": "c527f14feb9577fa513097a5b18e86ff8d06c5c9bd5194bc813d1f02b2d72360",
+    "earth/source_manifest.json": "1980c8359184001995e33004881fed04c4b4b249d19de02d45bc7eee6e799233",
+    "earth/temporal_projection_contract.md": "ed52a5d44c4d824d534028ede1c0672d522740cd49612ba95bd8761b837e7f6d",
+    "world_authority/INSTALL_REFERENCE.md": "61076adb1ff366eaae7c1f053b9e59031c6a9ee8f1d56066813463fac2345b98",
+    "world_authority/REFERENCE_SCHEMA_DO_NOT_EXECUTE.sql": "3791cf91332f5c7d979dc2a8a590be4bacf3ba8ec932493f07edf510fb9cffe1",
+    "world_authority/SEMANTIC_CONTRACT.md": "6012e68c4b0387f520b65058b331352f2b2df0c7e98fb8dfd218dc61b0cfd7aa",
+    "world_authority/STORE_INTERFACE.md": "b8888219d29151fff5ef67d5b62ac242c4342920de872cf5521fa771b07e2d14",
+    "world_authority/domain_manifest.json": "5c58f338c0790be0591b6d40b85bebcf59d850b66fc69f9ba6dc098c1bf9a063",
+    "world_authority/source_schema.json": "f6157d9e4e936577fc23ffcce3e49046272c93d8f0b4df7dfa2cf8e76833ff09",
+    "world_authority/source_to_target_dictionary.csv": "6b55fff165668fdb96c44b1a0a255970ea5500c726d46182119b0aff7a01077f"
+  }
+}

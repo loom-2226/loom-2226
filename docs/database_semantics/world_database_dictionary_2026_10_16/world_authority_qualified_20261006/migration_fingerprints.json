@@ -1,0 +1,11 @@
+{
+  "installed_migration_table": "NOT_QUERIED_LIVE",
+  "note": "Matches qualified schema fingerprint; not a fresh installed migration query",
+  "qualified_ddl_sha256": "3791cf91332f5c7d979dc2a8a590be4bacf3ba8ec932493f07edf510fb9cffe1",
+  "qualified_environment": {
+    "pgcrypto_version": "1.4",
+    "postgres_server_version": "18.6"
+  },
+  "repository_migration_001_sha256": "3791cf91332f5c7d979dc2a8a590be4bacf3ba8ec932493f07edf510fb9cffe1",
+  "source_git_commit": "acd0eb9fada60a0d2509de6af8c23ec3df6c28d6"
+}
