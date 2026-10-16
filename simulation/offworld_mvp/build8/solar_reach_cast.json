@@ -1,11 +1,19 @@
 {
-  "baseline_expectations": {
-    "SMALL": {
-      "initial_outcome": "FAILED",
-      "initial_winner": "Thales Alenia Space",
-      "later_winner": "Northrop Grumman",
-      "post_failure_decision": "DECLINE",
-      "post_failure_reason": "RELIABILITY_HURDLE"
+  "accessibility_source": "simulation/offworld_mvp/build7/inputs/BUILD7_SOLAR_ACCESSIBILITY_REFERENCE_V1.json",
+  "body_choice_mutations": {
+    "reach_shift": {
+      "delta": "999",
+      "field": "body_overrides",
+      "key": "reach_delta"
+    },
+    "remove_chosen": {
+      "field": "unavailable_bodies",
+      "method": "AUTHORED_SPONSOR_UNAVAILABLE"
+    },
+    "value_shift": {
+      "delta": "-999",
+      "field": "body_overrides",
+      "key": "value_delta"
     }
   },
   "casts": {
@@ -95,45 +103,47 @@
       "sponsors": [
         {
           "cash": "20",
-          "name": "NASA",
-          "role": "agency_sponsor",
-          "wants": [
-            {
-              "body": "CERES",
-              "category": "BUILD",
-              "id": "NASA:CERES:INITIAL",
-              "max_price": "8",
-              "year": 2026
+          "decision": {
+            "base_value": "22",
+            "body_overrides": {},
+            "expected_service_cost": "5",
+            "hurdle": "1",
+            "max_contract_price": "8",
+            "prior": "0.70",
+            "reach_cost_by_accessibility": {
+              "DERIVABLE": "1",
+              "UNKNOWN": "4"
             },
-            {
-              "body": "CERES",
-              "category": "BUILD",
-              "id": "NASA:CERES:FOLLOWUP",
-              "max_price": "8",
-              "year": 2029
-            }
-          ]
+            "repeat_disutility": "9",
+            "service_category": "BUILD",
+            "unavailable_bodies": [],
+            "valuation_seed": "AUTHORED_SUBJECTIVE_VALUE:NASA",
+            "value_spread": "20"
+          },
+          "name": "NASA",
+          "role": "agency_sponsor"
         },
         {
           "cash": "22",
-          "name": "ESA",
-          "role": "agency_sponsor",
-          "wants": [
-            {
-              "body": "MOON",
-              "category": "BUILD",
-              "id": "ESA:MOON:INITIAL",
-              "max_price": "8",
-              "year": 2027
+          "decision": {
+            "base_value": "22",
+            "body_overrides": {},
+            "expected_service_cost": "5",
+            "hurdle": "1",
+            "max_contract_price": "8",
+            "prior": "0.70",
+            "reach_cost_by_accessibility": {
+              "DERIVABLE": "1",
+              "UNKNOWN": "4"
             },
-            {
-              "body": "MOON",
-              "category": "BUILD",
-              "id": "ESA:MOON:FOLLOWUP",
-              "max_price": "8",
-              "year": 2032
-            }
-          ]
+            "repeat_disutility": "9",
+            "service_category": "BUILD",
+            "unavailable_bodies": [],
+            "valuation_seed": "AUTHORED_SUBJECTIVE_VALUE:ESA",
+            "value_spread": "20"
+          },
+          "name": "ESA",
+          "role": "agency_sponsor"
         }
       ]
     },
@@ -183,24 +193,25 @@
       "sponsors": [
         {
           "cash": "20",
-          "name": "NASA",
-          "role": "agency_sponsor",
-          "wants": [
-            {
-              "body": "CERES",
-              "category": "BUILD",
-              "id": "NASA:CERES:INITIAL",
-              "max_price": "8",
-              "year": 2026
+          "decision": {
+            "base_value": "22",
+            "body_overrides": {},
+            "expected_service_cost": "5",
+            "hurdle": "1",
+            "max_contract_price": "8",
+            "prior": "0.70",
+            "reach_cost_by_accessibility": {
+              "DERIVABLE": "1",
+              "UNKNOWN": "4"
             },
-            {
-              "body": "CERES",
-              "category": "BUILD",
-              "id": "NASA:CERES:FOLLOWUP",
-              "max_price": "8",
-              "year": 2029
-            }
-          ]
+            "repeat_disutility": "9",
+            "service_category": "BUILD",
+            "unavailable_bodies": [],
+            "valuation_seed": "AUTHORED_SUBJECTIVE_VALUE:NASA",
+            "value_spread": "20"
+          },
+          "name": "NASA",
+          "role": "agency_sponsor"
         }
       ]
     }
@@ -212,11 +223,7 @@
     "last_year": 2226,
     "source": "EARTH_V4_LONG_RUN_2026_2226"
   },
-  "feedback_control": {
-    "alternate_test_only_outcome": "DELIVERED",
-    "contract_id": "NASA:CERES:INITIAL",
-    "expected_later_winner": "Thales Alenia Space"
-  },
+  "eligibility_source": "simulation/offworld_mvp/build7/inputs/BUILD7_SOLAR_BODY_CATALOG_V1.json",
   "inherited_values": {
     "frozen_kernel_agentkind": {
       "executor_agent_state": "BUILD8_LOCAL",
@@ -314,11 +321,16 @@
     "award_rule": "CHEAPEST_ELIGIBLE_QUOTE_THEN_MASTER_CAST_ID",
     "bid_rule": "QUOTE_COST_PLUS_MARGIN_PLUS_EXPECTED_RISK",
     "delivery_disclosure": "AWARD_PRICE_PUBLIC",
+    "destination_rule": "MAX_EXPECTED_NET_VALUE_OVER_ALL_PUBLIC_ELIGIBLE_BODIES",
     "funding_rule": "SPONSOR_CASH_LIMIT_NO_NEW_MONEY",
     "outcome_visibility": "HOST_ONLY_UNTIL_DELIVERY",
+    "payment_quantum": "0.000001",
     "payment_terms": "UPFRONT_FULL_PRICE_EVEN_ON_FAILED_DELIVERY_TEST_ONLY",
     "price_learning_rule": "AUTHORED_EXPONENTIAL_SHARE",
-    "risk_learning_rule": "BETA_SUCCESS_FAILURE_COUNTS"
+    "reach_basis": "PUBLIC_ACCESSIBILITY_STATUS_AUTHOR_PENALTY_NOT_TRAVEL_COST",
+    "risk_learning_rule": "BETA_SUCCESS_FAILURE_COUNTS",
+    "source_eligibility": "BUILD7_PUBLIC_STUDY_APPLICABILITY",
+    "value_basis": "SHA256_KEYED_SUBJECTIVE_TEST_ONLY_NOT_WORLD_TRUTH"
   },
   "replay_policy": {
     "total_executions_per_cast": 3
@@ -326,18 +338,37 @@
   "schema": "SOLAR_REACH_CAST_TEST_ONLY_V1",
   "source_pins": {
     "dev/solar_baseline_01/raw/loom_solar_identity_snapshot.tsv": "4f441987d0d881363092f30bc01c1c294fbb485d39c213fdf5017e528488bd52",
+    "simulation/offworld_mvp/build7/inputs/BUILD7_SOLAR_ACCESSIBILITY_REFERENCE_V1.json": "4a22af7f30400a39b3af8cd46b9286e491ef001e426bb6a88c2ac253942baea1",
+    "simulation/offworld_mvp/build7/inputs/BUILD7_SOLAR_BODY_CATALOG_V1.json": "8cb7d5f012aa650180e4f6bc630a966692a815943eab5d9aa0a3bafbac5089e2",
     "simulation/offworld_mvp/build7/opportunities.py": "ee10ef76f64cef59a0625019430ffbe08e94e1344493e22901c866daa9e5f1b4",
     "simulation/offworld_mvp/build8/master_cast_candidate.json": "d76b2ef716e5466bb344e9b07eb1681c2c0fafcd1770e721c5625fa98eea37c0",
     "simulation/offworld_mvp/build8/route1_cast_payments.py": "d59df71b944bd66620af1c6dc82d8f87590557d9066edfb3e231ace076b493b4",
     "simulation/offworld_mvp/build8/screened_yearly.py": "58c34b3cf6b54ed84dcaedbac1061bbdb0c541f5cb74084ddce26e5ff4680d8a",
-    "simulation/offworld_mvp/build8/solar_reach_executor_spike.py": "0942ad1b43c70d490c287e71ae4c452b6866a0965ebfb4a1bc2566f44175ec23",
+    "simulation/offworld_mvp/build8/solar_reach_executor_spike.py": "dd85e7a2e8583947c6b8a17af7499fa559f692f89c5f12d1bc47fc6cdb39d843",
     "simulation/offworld_mvp/phase3b/kernel/offworld_kernel/methodology.py": "6ea9f6576a6b690fec7909a4e95944a6cb0f347c20628defcab2fb2ec61b8c6e",
     "simulation/offworld_mvp/phase3b/kernel/offworld_kernel/model.py": "8189168cb575e2e3208dc32d24822f01c2d7478f7e3652550c8c432bc1b5b3a9"
   },
+  "test_only_controls": {
+    "alternate_first_outcome": "DELIVERED"
+  },
   "test_only_delivery_outcomes": {
-    "ESA:MOON:FOLLOWUP": "DELIVERED",
-    "ESA:MOON:INITIAL": "DELIVERED",
-    "NASA:CERES:FOLLOWUP": "DELIVERED",
-    "NASA:CERES:INITIAL": "FAILED"
+    "ESA": [
+      "DELIVERED",
+      "DELIVERED",
+      "DELIVERED",
+      "DELIVERED",
+      "DELIVERED",
+      "DELIVERED",
+      "DELIVERED"
+    ],
+    "NASA": [
+      "FAILED",
+      "DELIVERED",
+      "DELIVERED",
+      "DELIVERED",
+      "DELIVERED",
+      "DELIVERED",
+      "DELIVERED"
+    ]
   }
 }

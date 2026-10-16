@@ -1,131 +1,154 @@
-"""Cast-only, full-public-catalog, full-clock Executor feedback tests."""
+"""Source-eligible body choice and Executor competition: no named world targets."""
 import copy
+from decimal import Decimal as D
+from hashlib import sha256
 import json
 import unittest
-from hashlib import sha256
 from pathlib import Path
-from decimal import Decimal
+from unittest.mock import patch
 
-from .solar_reach_executor_spike import CAST, decide_bid, full_catalog, load, report, simulate
-
-
-def changed(data):
-    return sha256((json.dumps(data, sort_keys=True, indent=2) + "\n").encode()).hexdigest()
+from .solar_reach_executor_spike import (load, report, simulate, full_catalog,
+                                          eligible_public_catalog)
 
 
-class SolarExecutorSpikeTests(unittest.TestCase):
+def scenario_sha(data):
+    return sha256((json.dumps(data, sort_keys=True, indent=2)+"\n").encode()).hexdigest()
+
+
+class SolarReachChoiceTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.data, cls.source_sha = load()
-        cls.full_report = report()
-        cls.short = cls.full_report["results"]["SMALL"]["run"]
-        cls.long = cls.full_report["results"]["LONG"]["run"]
+        cls.data, cls.sha = load()
+        cls.results = report()
+        cls.small = cls.results["results"]["SMALL"]["run"]
+        cls.large = cls.results["results"]["LONG"]["run"]
+        cls.first = cls.small["awards"][0]
+        cls.sponsor = cls.first["sponsor"]
 
-    def test_full_world_and_two_replays_each(self):
-        for name in self.data["casts"]:
-            row = self.full_report["results"][name]
-            run = row["run"]
-            self.assertEqual(row["verified_replays"],
+    def altered(self, data, cast="SMALL"):
+        return simulate(data, cast, scenario_sha(data))
+
+    def test_full_catalog_clock_and_replays(self):
+        catalog = full_catalog(self.data)
+        eligible = eligible_public_catalog(self.data, catalog)
+        for name, result in self.results["results"].items():
+            r = result["run"]
+            self.assertEqual(r["catalog_count"], len(catalog))
+            self.assertEqual(r["eligible_count"], len(eligible))
+            self.assertEqual(r["year_count"],
+                             self.data["clock"]["last_year"] -
+                             self.data["clock"]["first_year"] + 1)
+            self.assertEqual(r["body_year_rows"], len(catalog)*r["year_count"])
+            self.assertEqual(result["verified_replays"],
                              self.data["replay_policy"]["total_executions_per_cast"]-1)
-            self.assertEqual(run["catalog_count"], len(full_catalog(self.data)))
-            self.assertEqual(run["year_count"], self.data["clock"]["last_year"]
-                             - self.data["clock"]["first_year"] + 1)
-            self.assertEqual(run["body_year_rows"], run["catalog_count"]*run["year_count"])
-            self.assertEqual(Decimal(run["initial_money"]), Decimal(run["ending_money"]))
-            self.assertTrue(run["annual_conservation"])
-            self.assertTrue(run["replay_hash"])
+            self.assertEqual(len(set(result["replay_hashes"])),1)
+            self.assertEqual(D(r["initial_money"]),D(r["ending_money"]))
+            self.assertTrue(r["annual_conservation"])
+            self.assertEqual(len(r["choices"]),
+                             r["year_count"]*len(self.data["casts"][name]["sponsors"]))
+            self.assertTrue(all(c["evaluated"]==len(eligible) for c in r["choices"]))
+            self.assertTrue(r["belief_yearly_sha256"])
 
-    def test_contested_award_and_later_failure_feedback(self):
-        early = self.short["awards"][0]
-        later = self.short["awards"][1]
-        expectation = self.data["baseline_expectations"]["SMALL"]
-        self.assertEqual(early["executor"], expectation["initial_winner"])
-        self.assertEqual(early["outcome"], expectation["initial_outcome"])
-        self.assertEqual(later["executor"], expectation["later_winner"])
-        initial_bids = [b for b in self.short["bids"] if b["want"]==early["id"]]
-        self.assertEqual({b["executor"] for b in initial_bids},
-                         {x["name"] for x in self.data["casts"]["SMALL"]["executors"]})
-        self.assertTrue(all(b["action"] == "BID" for b in initial_bids))
-        after = [b for b in self.short["bids"] if b["want"]==later["id"]
-                 and b["executor"]=="Thales Alenia Space"]
-        self.assertEqual([(b["action"], b["reason"]) for b in after],
-                         [(expectation["post_failure_decision"],
-                           expectation["post_failure_reason"])])
-        initial = next(x for x in self.data["casts"]["SMALL"]["executors"]
-                       if x["name"]=="Thales Alenia Space")["beliefs"]
-        final = self.short["final_executor_state"]["Thales Alenia Space"]["beliefs"]
-        self.assertEqual(final["failure"], str(int(initial["failure"])+1))
-        self.assertEqual(final["success"], initial["success"])
-        self.assertNotEqual(final["market_price"], initial["market_price"])
-        self.assertTrue(self.short["transactions"])
+    def test_ineligible_public_entities_remain_visible(self):
+        catalog=full_catalog(self.data)
+        eligible=eligible_public_catalog(self.data,catalog)
+        excluded={row["body_id"] for row in catalog
+                  if row["body_class"] in ("BARYCENTER", "SPACECRAFT", "STAR")}
+        self.assertTrue(excluded)
+        self.assertFalse(excluded & set(eligible))
+        self.assertFalse(excluded & {a["body"] for a in self.small["awards"]})
+        self.assertEqual(self.small["catalog_count"],len(catalog))
 
-    def test_actual_outcome_changes_later_bid_and_award(self):
-        altered = copy.deepcopy(self.data)
-        control = self.data["feedback_control"]
-        altered["test_only_delivery_outcomes"][
-            control["contract_id"]] = control["alternate_test_only_outcome"]
-        r = simulate(altered, "SMALL", changed(altered))
-        self.assertNotEqual(r["replay_hash"], self.short["replay_hash"])
-        first = self.short["awards"][0]["id"]
-        self.assertEqual([b for b in r["bids"] if b["want"]==first],
-                         [b for b in self.short["bids"] if b["want"]==first])
-        self.assertEqual(r["awards"][1]["executor"],
-                         control["expected_later_winner"])
-        self.assertTrue(r["annual_conservation"])
+    def test_unavailable_selected_body_moves_choice(self):
+        doc = copy.deepcopy(self.data)
+        sponsor = next(s for s in doc["casts"]["SMALL"]["sponsors"]
+                       if s["name"]==self.sponsor)
+        sponsor["decision"]["unavailable_bodies"].append(self.first["body"])
+        r = self.altered(doc)
+        self.assertEqual(r["eligible_count"],self.small["eligible_count"])
+        self.assertNotEqual(r["awards"][0]["body"],self.first["body"])
+        self.assertNotEqual(r["run_id"],self.small["run_id"])
 
-    def test_same_code_long_cast_with_more_real_competition(self):
-        self.assertGreater(len(self.data["casts"]["LONG"]["executors"]),
-                           len(self.data["casts"]["SMALL"]["executors"]))
-        self.assertGreater(len(self.long["awards"]),len(self.short["awards"]))
-        self.assertNotEqual(self.short["run_id"],self.long["run_id"])
-        self.assertEqual(self.short["catalog_count"],self.long["catalog_count"])
-        self.assertEqual(self.short["year_count"],self.long["year_count"])
+    def test_value_and_reach_shift_move_choice(self):
+        for key, mutation in self.data["body_choice_mutations"].items():
+            if key=="remove_chosen":
+                continue
+            with self.subTest(key=key):
+                doc=copy.deepcopy(self.data)
+                sponsor=next(s for s in doc["casts"]["SMALL"]["sponsors"]
+                             if s["name"]==self.sponsor)
+                sponsor["decision"]["body_overrides"][self.first["body"]] = {
+                    mutation["key"]:mutation["delta"]}
+                r=self.altered(doc)
+                self.assertNotEqual(r["awards"][0]["body"],self.first["body"])
+                self.assertNotEqual(r["replay_hash"],self.small["replay_hash"])
 
-    def test_five_knobs_have_real_consequences(self):
-        base_first = self.short["awards"][0]["executor"]
-        base_hash = self.short["replay_hash"]
-        expected = set(("capacity","margin","price_belief","reliability_prior","funding"))
-        self.assertEqual(set(self.data["knob_mutations"]), expected)
+    def test_add_sponsor_with_distinct_values_targets_elsewhere(self):
+        doc=copy.deepcopy(self.data)
+        additional=next(s for s in doc["casts"]["LONG"]["sponsors"]
+                        if s["name"] not in {s["name"] for s in doc["casts"]["SMALL"]["sponsors"]})
+        doc["casts"]["SMALL"]["sponsors"].append(copy.deepcopy(additional))
+        r=self.altered(doc)
+        destinations={c["sponsor"]:c["body"] for c in r["awards"]
+                      if c["start"]==self.first["start"]}
+        self.assertIn(additional["name"],destinations)
+        self.assertNotEqual(destinations[additional["name"]],destinations[self.sponsor])
+        self.assertEqual(r["catalog_count"],self.small["catalog_count"])
+
+    def test_failure_changes_later_executor_decision(self):
+        first=self.first
+        self.assertEqual(first["outcome"],"FAILED")
+        bids=[b for b in self.small["bids"]
+              if b["year"]==first["start"] and b["sponsor"]==first["sponsor"]]
+        self.assertTrue(all(b["action"]=="BID" for b in bids))
+        later=next(c for c in self.small["awards"] if c["start"]>first["finish"]-1)
+        self.assertNotEqual(later["executor"],first["executor"])
+        after=next(b for b in self.small["bids"]
+                   if b["year"]==later["start"] and b["sponsor"]==later["sponsor"]
+                   and b["executor"]==first["executor"])
+        self.assertEqual((after["action"],after["reason"]),
+                         ("DECLINE","RELIABILITY_HURDLE"))
+        doc=copy.deepcopy(self.data)
+        doc["test_only_delivery_outcomes"][first["sponsor"]][first["sequence"]] = (
+            doc["test_only_controls"]["alternate_first_outcome"])
+        r=self.altered(doc)
+        self.assertNotEqual(r["replay_hash"],self.small["replay_hash"])
+        next_bid=next(b for b in r["bids"]
+                     if b["year"]==later["start"] and b["sponsor"]==later["sponsor"]
+                     and b["executor"]==first["executor"])
+        self.assertEqual(next_bid["action"],"BID")
+
+    def test_five_authored_executor_knobs(self):
         for knob, mutation in self.data["knob_mutations"].items():
             with self.subTest(knob=knob):
-                candidate = copy.deepcopy(self.data)
-                cast = candidate["casts"][mutation["cast"]]
-                role = "executors" if "executor" in mutation else "sponsors"
-                target = next(x for x in cast[role]
-                              if x["name"] == mutation.get("executor",mutation.get("sponsor")))
+                doc=copy.deepcopy(self.data)
+                role="executors" if "executor" in mutation else "sponsors"
+                name=mutation.get("executor",mutation.get("sponsor"))
+                obj=next(x for x in doc["casts"]["SMALL"][role] if x["name"]==name)
                 parts=mutation["field"].split(".")
-                obj=target
                 for part in parts[:-1]:
                     obj=obj[part]
                 obj[parts[-1]]=mutation["value"]
-                r=simulate(candidate,"SMALL",changed(candidate))
-                self.assertNotEqual(r["run_id"],self.short["run_id"])
-                self.assertNotEqual(r["replay_hash"],base_hash)
+                r=self.altered(doc)
+                self.assertNotEqual(r["run_id"],self.small["run_id"])
+                self.assertNotEqual(r["replay_hash"],self.small["replay_hash"])
+                self.assertTrue(r["annual_conservation"])
                 if knob=="funding":
                     self.assertFalse(r["awards"])
-                    self.assertTrue(any(b["action"]=="BID" for b in r["bids"]))
                 else:
-                    self.assertNotEqual(r["awards"][0]["executor"],base_first)
-                    altered_thales = next(b for b in r["bids"]
-                            if b["want"]==self.short["awards"][0]["id"]
-                            and b["executor"]=="Thales Alenia Space")
-                    self.assertEqual(altered_thales["action"],
-                                     mutation["expected_bid_action"])
-                    if altered_thales["action"] == "BID":
-                        self.assertGreater(Decimal(altered_thales["price"]),
-                                           Decimal(self.short["awards"][0]["price"]))
-                self.assertTrue(r["annual_conservation"])
+                    self.assertNotEqual(r["awards"][0]["executor"],self.first["executor"])
 
-    def test_source_pin_fails_closed(self):
-        from unittest.mock import patch
-        original = Path.read_bytes
-        def tampered(path):
-            raw = original(path)
-            return raw + b"x" if path.name == "master_cast_candidate.json" else raw
-        with patch.object(Path, "read_bytes", tampered):
-            with self.assertRaisesRegex(ValueError, "SOURCE_PIN_MISMATCH"):
+    def test_source_pin_is_fail_closed(self):
+        old=Path.read_bytes
+        def mutated(path):
+            result=old(path)
+            if path.name=="master_cast_candidate.json":
+                return result+b"x"
+            return result
+        with patch.object(Path,"read_bytes",mutated):
+            with self.assertRaisesRegex(ValueError,"SOURCE_PIN_MISMATCH"):
                 load()
 
 
-if __name__ == "__main__":
+if __name__=="__main__":
     unittest.main()

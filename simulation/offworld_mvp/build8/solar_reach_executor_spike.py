@@ -1,10 +1,9 @@
-"""Noncanon cast-driven Executor Agent experiment, unchanged monetary kernel."""
+"""Noncanon, cast-driven Solar Reach. Source eligibility, no prechosen body."""
 from __future__ import annotations
 from decimal import Decimal as D
 from hashlib import sha256
 import json
 from pathlib import Path
-
 from offworld_kernel.build3 import RunIdentity
 from offworld_kernel.methodology import MethodologyHardenedBuild4Kernel
 from offworld_kernel.model import AccountKind, NodeKind, TxPurpose
@@ -30,10 +29,11 @@ def load(path=CAST):
     data = json.loads(raw)
     if raw != (json.dumps(data, sort_keys=True, indent=2) + "\n").encode():
         raise ValueError("NONCANONICAL_CAST_FILE")
-    if data["catalog_source"] not in data["source_pins"]:
-        raise ValueError("UNPINNED_PUBLIC_CATALOG")
     if source_tree_hash() != data["kernel_tree_sha256"]:
         raise ValueError("KERNEL_TREE_PIN_MISMATCH")
+    for key in ("catalog_source", "eligibility_source", "accessibility_source"):
+        if data[key] not in data["source_pins"]:
+            raise ValueError("UNPINNED_PUBLIC_SOURCE")
     for relative, pinned in data["source_pins"].items():
         source = (ROOT / relative).resolve()
         if not source.is_relative_to(ROOT) or sha256(source.read_bytes()).hexdigest() != pinned:
@@ -41,26 +41,39 @@ def load(path=CAST):
     return data, sha256(raw).hexdigest()
 
 
-
 def full_catalog(data):
-    """All active identities; no fixed body population or scope filter."""
-    path = (ROOT / data["catalog_source"]).resolve()
-    if not path.is_relative_to(ROOT):
-        raise ValueError("UNCONFINED_PUBLIC_CATALOG")
+    """All public identities including explicitly ineligible ones."""
+    lines = (ROOT / data["catalog_source"]).read_text().splitlines()
     rows = []
-    for line in path.read_text().splitlines():
-        key, name, kind, parent, status, _, _, _, identity_status = line.split("|")
-        if status != "ACTIVE" or identity_status != "ACTIVE":
+    for line in lines:
+        key, name, kind, parent, status, _, _, _, id_status = line.split("|")
+        if status != "ACTIVE" or id_status != "ACTIVE":
             raise ValueError("UNQUALIFIED_CATALOG_IDENTITY:" + key)
         rows.append({"body_id": key, "name": name, "body_class": kind})
-    if not rows or len({x["body_id"] for x in rows}) != len(rows):
+    if not rows or len({r["body_id"] for r in rows}) != len(rows):
         raise ValueError("EMPTY_OR_DUPLICATE_PUBLIC_CATALOG")
     return tuple(rows)
 
+
+def eligible_public_catalog(data, catalog):
+    """Reuse public Build7 eligibility and access statuses, never hidden WORLD."""
+    eligible = json.loads((ROOT / data["eligibility_source"]).read_text())
+    access = json.loads((ROOT / data["accessibility_source"]).read_text())
+    selected = {r["semantic_key"] for r in eligible["bodies"]}
+    metadata = {r["body_id"]: r["accessibility_status"] for r in access["records"]}
+    catalog_ids = {r["body_id"] for r in catalog}
+    if (not selected or selected != set(metadata) or not selected <= catalog_ids
+            or len(metadata) != len(access["records"])):
+        raise ValueError("PUBLIC_ELIGIBILITY_OR_ACCESS_MISMATCH")
+    forbidden = {"STAR", "BARYCENTER", "SPACECRAFT"}
+    if any(r["body_id"] in selected and r["body_class"] in forbidden for r in catalog):
+        raise ValueError("PUBLIC_INELIGIBLE_ENTITY_MISCLASSIFIED")
+    return metadata
+
+
 def decide_bid(executor, request, reserved, year):
-    """Agent-visible snapshot only. No TEST_ONLY outcome field."""
-    capability = request["category"]
-    model = executor["services"].get(capability)
+    """Executor sees only its own prices, beliefs, capacity and public request."""
+    model = executor["services"].get(request["category"])
     if model is None:
         return {"action": "DECLINE", "reason": "NO_CAPABILITY"}
     duration = int(model["duration_years"])
@@ -83,22 +96,51 @@ def decide_bid(executor, request, reserved, year):
             "duration": duration, "reliability": str(reliability)}
 
 
+def choose_body(sponsor, year, catalog, accessible, used, cash):
+    """Every eligible body evaluated each year from one sponsor rule."""
+    policy = sponsor["decision"]
+    evaluated = []
+    for body in catalog:
+        key = body["body_id"]
+        if key not in accessible:
+            continue
+        reach = accessible[key]
+        raw = sha256((policy["valuation_seed"] + "|" + sponsor["name"] + "|"
+                      + key).encode()).digest()
+        sample = D(int.from_bytes(raw[:8], "big")) / D(2**64)
+        overrides = policy["body_overrides"].get(key, {})
+        value = D(policy["base_value"]) + D(policy["value_spread"]) * sample
+        value += D(overrides.get("value_delta", "0"))
+        reach_cost = D(policy["reach_cost_by_accessibility"][reach])
+        reach_cost += D(overrides.get("reach_delta", "0"))
+        expected_cost = D(policy["expected_service_cost"])
+        repeated = D(policy["repeat_disutility"]) * used.get((sponsor["name"], key), 0)
+        score = D(policy["prior"]) * value - expected_cost - reach_cost - repeated
+        available = key not in policy["unavailable_bodies"]
+        affordable = cash >= expected_cost and cash >= D(0)
+        eligible = available and affordable and score >= D(policy["hurdle"])
+        evaluated.append({"body": key, "score": score, "value": value, "reach_cost": reach_cost,
+                          "eligible": eligible})
+    ranking = sorted((r for r in evaluated if r["eligible"]),
+                     key=lambda r: (-r["score"], r["body"]))
+    return (ranking[0] if ranking else None), len(evaluated)
+
+
 def simulate(data, cast_name, scenario_sha):
     cast = data["casts"][cast_name]
     catalog = full_catalog(data)
-    years = tuple(range(data["clock"]["first_year"], data["clock"]["last_year"] + 1))
-    if not years or not catalog:
-        raise ValueError("EMPTY_PUBLIC_WORLD")
-    available_bodies = {row["body_id"] for row in catalog}
+    accessible = eligible_public_catalog(data, catalog)
+    years = range(data["clock"]["first_year"], data["clock"]["last_year"] + 1)
     actors = [*cast["sponsors"], *cast["executors"]]
     if len({x["name"] for x in actors}) != len(actors):
         raise ValueError("DUPLICATE_CAST_MEMBER")
-    names = {x["name"] for x in cast["sponsors"]}
+    sponsors = {s["name"]: s for s in cast["sponsors"]}
     for sponsor in cast["sponsors"]:
         actor(sponsor["name"], role=sponsor["role"])
-        if any(w["body"] not in available_bodies or w["year"] not in years
-               for w in sponsor["wants"]):
-            raise ValueError("UNKNOWN_BODY_OR_YEAR")
+        policy = sponsor["decision"]
+        if (set(policy["body_overrides"]) - set(accessible)
+                or set(policy["unavailable_bodies"]) - set(accessible)):
+            raise ValueError("UNKNOWN_PUBLIC_BODY_OVERRIDE")
     for executor in cast["executors"]:
         actual = actor(executor["name"], role="executor")
         for category in executor["services"]:
@@ -112,18 +154,16 @@ def simulate(data, cast_name, scenario_sha):
                       "BUILD8_NONCANON_IN_MEMORY", tuple(sorted(
                           (name, digest(value)) for name, value in initial.items())))
     kernel = MethodologyHardenedBuild4Kernel(rid)
-    # Executor decision state is Build8-local; only money is kernel-owned.
     states = {}
     for item in actors:
-        country = actor(item["name"])["home_country"]
-        node = "EARTH:" + country
+        node = "EARTH:" + actor(item["name"])["home_country"]
         if node not in kernel.state.nodes:
             kernel.add_node(node, NodeKind.EARTH)
         account = "reach:cash:" + item["name"]
         kernel.add_account(account, item["name"], node, AccountKind.FUNDS
-                           if item["name"] in names else AccountKind.SUPPLIER,
+                           if item["name"] in sponsors else AccountKind.SUPPLIER,
                            D(item["cash"]))
-        if item["name"] in names:
+        if item["name"] in sponsors:
             kind = (AgentKind.PUBLIC if item["role"] == "agency_sponsor"
                     else AgentKind.PRIVATE_SPONSOR)
             kernel.add_agent(AgentState(item["name"], kind, node, account,
@@ -137,87 +177,98 @@ def simulate(data, cast_name, scenario_sha):
                                   "cash": str(kernel.state.accounts[account].balance),
                                   "record": {"DELIVERED": 0, "FAILED": 0}}
     initial_money = sum((a.balance for a in kernel.state.accounts.values()), D(0))
-    wants = {(s["name"], w["id"]): dict(w, sponsor=s["name"])
-             for s in cast["sponsors"] for w in s["wants"]}
-    if len(wants) != sum(len(s["wants"]) for s in cast["sponsors"]):
-        raise ValueError("DUPLICATE_WANT")
-    remaining = sorted(wants.values(), key=lambda w:(w["year"],w["sponsor"],w["id"]))
-    reserved = {}
-    pending = []
-    contracts = []
-    bids = []
-    annual = []
-    body_year = []
-    disclosure = data["policy"]["delivery_disclosure"]
+    reserved, pending, contracts, bids, annual, body_year, choices = {}, [], [], [], [], [], []
+    used = {}
+    belief_yearly = []
     for year in years:
-        # Complete existing work before evaluating new requests.
-        for job in sorted((p for p in pending if p["finish"] == year),
-                          key=lambda p:p["id"]):
-            outcome = data["test_only_delivery_outcomes"][job["id"]]
+        for job in sorted((p for p in pending if p["finish"] == year), key=lambda p:p["id"]):
+            outcomes = data["test_only_delivery_outcomes"][job["sponsor"]]
+            if job["sequence"] >= len(outcomes):
+                raise ValueError("MISSING_AUTHORED_TEST_OUTCOME")
+            outcome = outcomes[job["sequence"]]
             if outcome not in ("DELIVERED", "FAILED"):
-                raise ValueError("INVALID_TEST_OUTCOME")
-            executor = states[job["executor"]]
-            executor["record"][outcome] += 1
-            executor["beliefs"]["success" if outcome == "DELIVERED" else "failure"] = str(
-                D(executor["beliefs"]["success" if outcome == "DELIVERED" else "failure"]) + D(1))
+                raise ValueError("INVALID_AUTHORED_TEST_OUTCOME")
+            state = states[job["executor"]]
+            state["record"][outcome] += 1
+            column = "success" if outcome == "DELIVERED" else "failure"
+            state["beliefs"][column] = str(D(state["beliefs"][column]) + D(1))
             job["outcome"] = outcome
             kernel.audit("TEST_ONLY_EXECUTOR_DELIVERY", year, contract=job["id"],
                          executor=job["executor"], outcome=outcome)
         pending = [p for p in pending if p["finish"] > year]
-        for request in (w for w in remaining if w["year"] == year):
-            choices = []
-            for executor_name in sorted(states):
-                executor = states[executor_name]
-                executor["cash"] = str(kernel.state.accounts["reach:cash:" + executor_name].balance)
-                decision = decide_bid(executor, request, reserved, year)
-                bids.append({"year": year, "want": request["id"],
-                             "executor": executor_name, **decision})
-                if decision["action"] == "BID":
-                    choices.append((D(decision["price"]), executor["id"],
-                                    executor_name, decision))
-            eligible = [c for c in choices
-                        if c[0] <= D(request["max_price"])
-                        and c[0] <= kernel.state.accounts[
-                            "reach:cash:" + request["sponsor"]].balance]
-            if not eligible:
-                kernel.audit("TEST_ONLY_UNAWARDED_WANT", year, want=request["id"])
+        for sponsor_name in sorted(sponsors):
+            sponsor = sponsors[sponsor_name]
+            cash = kernel.state.accounts["reach:cash:" + sponsor_name].balance
+            selected, evaluated = choose_body(sponsor, year, catalog, accessible, used, cash)
+            choice = {"year": year, "sponsor": sponsor_name, "body": (
+                selected["body"] if selected else None), "evaluated": evaluated,
+                "score": str(selected["score"]) if selected else None}
+            choices.append(choice)
+            if selected is None:
                 continue
-            price, _, winner, offer = min(eligible)
-            job_id = request["id"]
-            job = {"id": job_id, "body": request["body"], "sponsor": request["sponsor"],
-                   "executor": winner, "start": year, "finish": year + offer["duration"],
-                   "price": str(price), "outcome": "PENDING"}
+            policy = sponsor["decision"]
+            request = {"category": policy["service_category"], "body": selected["body"],
+                       "sponsor": sponsor_name}
+            ranked = []
+            for name in sorted(states):
+                state = states[name]
+                state["cash"] = str(kernel.state.accounts["reach:cash:" + name].balance)
+                decision = decide_bid(state, request, reserved, year)
+                bids.append({"year": year, "body": request["body"], "sponsor": sponsor_name,
+                             "executor": name, **decision})
+                if decision["action"] == "BID" and D(decision["price"]) <= cash:
+                    if D(decision["price"]) <= D(policy["max_contract_price"]):
+                        ranked.append((D(decision["price"]), state["id"], name, decision))
+            if not ranked:
+                kernel.audit("TEST_ONLY_UNAWARDED_WANT", year, body=request["body"],
+                             sponsor=sponsor_name)
+                continue
+            price, _, winner, bid = min(ranked)
+            price = price.quantize(D(data["policy"]["payment_quantum"]))
+            ordinal = sum(c["sponsor"] == sponsor_name for c in contracts)
+            outcomes = data["test_only_delivery_outcomes"].get(sponsor_name)
+            if outcomes is None or ordinal >= len(outcomes):
+                raise ValueError("MISSING_AUTHORED_TEST_OUTCOME")
+            job_id = digest((run_id, sponsor_name, ordinal, year, request["body"]))[:22]
+            job = {"id": job_id, "body": request["body"], "sponsor": sponsor_name,
+                   "executor": winner, "start": year, "finish": year + bid["duration"],
+                   "sequence": ordinal, "price": str(price), "outcome": "PENDING"}
             for booked in range(year, job["finish"]):
                 key = (states[winner]["id"], booked)
                 reserved[key] = reserved.get(key, 0) + 1
                 if reserved[key] > int(states[winner]["services"][request["category"]]["capacity"]):
                     raise AssertionError("DOUBLE_BOOKED_CAPACITY")
-            tx = kernel.transfer(year, "reach:cash:" + request["sponsor"],
-                                 "reach:cash:" + winner, price, TxPurpose.CAPEX,
-                                 parent_ids=(job_id,))
+            payment = kernel.transfer(year, "reach:cash:" + sponsor_name,
+                                      "reach:cash:" + winner, price, TxPurpose.CAPEX,
+                                      parent_ids=(job_id,))
             cost = D(states[winner]["services"][request["category"]]["cost"])
             kernel.transfer(year, "reach:cash:" + winner,
                             "reach:expense:" + winner, cost, TxPurpose.OTHER_INVESTMENT,
-                            parent_ids=(tx.id,))
-            job["payment"] = tx.id
-            pending.append(job)
+                            parent_ids=(payment.id,))
+            job["payment"] = payment.id
             contracts.append(job)
-            if disclosure == "AWARD_PRICE_PUBLIC":
-                for name, state in states.items():
+            pending.append(job)
+            used[(sponsor_name, request["body"])] = used.get(
+                (sponsor_name, request["body"]), 0) + 1
+            if data["policy"]["delivery_disclosure"] == "AWARD_PRICE_PUBLIC":
+                for state in states.values():
                     if request["category"] in state["services"]:
                         learning = D(state["beliefs"]["price_learning_rate"])
                         prev = D(state["beliefs"]["market_price"])
                         state["beliefs"]["market_price"] = str(
-                            prev * (D(1) - learning) + price * learning)
+                            prev*(D(1)-learning) + price*learning)
         kernel.assert_invariants()
-        current = sum((a.balance for a in kernel.state.accounts.values()), D(0))
-        if current != initial_money:
+        cash_total = sum((a.balance for a in kernel.state.accounts.values()), D(0))
+        if cash_total != initial_money:
             raise AssertionError("YEARLY_CURRENCY_NOT_CONSERVED")
-        annual.append({"year": year, "money_total": str(current),
-                       "new_awards": sum(c["start"] == year for c in contracts),
-                       "completions": sum(c["finish"] == year for c in contracts)})
+        annual.append({"year": year, "money_total": str(cash_total),
+                       "awards": sum(c["start"] == year for c in contracts)})
+        belief_yearly.append((year, tuple(sorted(
+            (name, tuple(sorted(state["beliefs"].items())),
+             tuple(sorted(state["record"].items())))
+            for name, state in states.items()))))
         for body in catalog:
-            body_year.append((year, body["body_id"],
+            body_year.append((year, body["body_id"], body["body_id"] in accessible,
                               sum(c["body"] == body["body_id"] and c["start"] <= year
                                   for c in contracts)))
     if any(j["outcome"] == "PENDING" for j in contracts):
@@ -228,38 +279,37 @@ def simulate(data, cast_name, scenario_sha):
     tx = [(t.id, t.year, t.source_account, t.destination_account, str(t.amount),
            t.purpose.value, t.parent_ids) for t in kernel.state.transactions]
     replay = digest({"run": run_id, "body_year": body_year, "annual": annual,
-                     "contracts": contracts, "bids": bids, "transactions": tx,
-                     "beliefs": final_states, "kernel": kernel.fingerprint(),
-                     "original_event_history": kernel.event_log})
+                     "contracts": contracts, "choices": choices, "bids": bids,
+                     "transactions": tx, "beliefs": final_states,
+                     "belief_yearly": belief_yearly,
+                     "kernel": kernel.fingerprint(), "events": kernel.event_log})
     return {"run_id": run_id, "cast_name": cast_name, "replay_hash": replay,
-            "catalog_count": len(catalog), "year_count": len(years),
-            "body_year_rows": len(body_year), "initial_money": str(initial_money),
+            "catalog_count": len(catalog), "eligible_count": len(accessible),
+            "year_count": len(years), "body_year_rows": len(body_year),
+            "initial_money": str(initial_money),
             "ending_money": str(sum(a.balance for a in kernel.state.accounts.values())),
             "annual_conservation": all(D(x["money_total"]) == initial_money for x in annual),
-            "awards": contracts, "bids": bids, "final_executor_state": final_states,
-            "transactions": tx, "event_count": len(kernel.event_log),
-            "years_with_awards": [x["year"] for x in annual if x["new_awards"]],
-            "source_sha256": scenario_sha}
+            "awards": contracts, "choices": choices, "bids": bids,
+            "final_executor_state": final_states,
+            "belief_yearly_sha256": digest(belief_yearly),
+            "transactions": tx, "source_sha256": scenario_sha}
 
 
 def report(path=CAST):
     data, fingerprint = load(path)
     output = {"scenario_sha256": fingerprint, "complete_authored_cast": data,
-              "resolved_full_catalog_ids": [x["body_id"] for x in full_catalog(data)],
-              "resolved_years": list(range(data["clock"]["first_year"],
-                                           data["clock"]["last_year"] + 1)),
-              "effective_parameters": {"cast": data["casts"], "policy": data["policy"],
-                  "clock": data["clock"], "source_pins": data["source_pins"]},
-              "inherited_values": data["inherited_values"], "results": {}}
+              "resolved_public_catalog": [x["body_id"] for x in full_catalog(data)],
+              "resolved_clock": data["clock"], "inherited_values": data["inherited_values"],
+              "effective_parameters": data, "results": {}}
     for name in sorted(data["casts"]):
-        runs = [simulate(data, name, fingerprint) for _ in range(
-            data["replay_policy"]["total_executions_per_cast"])]
+        runs = [simulate(data, name, fingerprint) for _ in
+                range(data["replay_policy"]["total_executions_per_cast"])]
         if len({r["replay_hash"] for r in runs}) != 1:
             raise AssertionError("REPLAY_HASH_MISMATCH")
-        output["results"][name] = {"run": runs[0], "verified_replays": len(runs) - 1,
+        output["results"][name] = {"run": runs[0], "verified_replays": len(runs)-1,
                                    "replay_hashes": [r["replay_hash"] for r in runs]}
     return output
 
 
 if __name__ == "__main__":
-    print(json.dumps(report(), indent=2, sort_keys=True, default=str))
+    print(json.dumps(report(), indent=2, sort_keys=True))
