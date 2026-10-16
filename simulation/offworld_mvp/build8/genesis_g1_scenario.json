@@ -1,0 +1,82 @@
+{
+  "actors": [
+    {
+      "account": "SPN:FUNDS",
+      "capabilities": [
+        "EXPLORE"
+      ],
+      "id": "SPN",
+      "kind": "PRIVATE_SPONSOR",
+      "node": "EARTH:USA",
+      "objectives": [
+        "EVALUATE_DEVELOPMENT"
+      ],
+      "opening_cash": "50",
+      "policy_ref": "G1_CONSIDER_EXPLORATION",
+      "prior": "0.5",
+      "prior_key": "BODY:MOON:VOLATILES"
+    }
+  ],
+  "baseline_main_sha": "d3fd120c9a77954d3a7925aaf5285bd23c643b80",
+  "bodies": [],
+  "comparison": {
+    "algorithm": "SHA256_FIRST64_DECIMAL_V1",
+    "comparison_group": "G1_LOCAL_OPENING",
+    "decimal_precision": "28",
+    "decimal_rounding": "ROUND_HALF_EVEN",
+    "key_schema": "LOOM_COMPARISON_RANDOM_V1",
+    "policy_seed": "G1_POLICY_NO_ACTIONS",
+    "world_seed": "G1_UNBOUND_WORLD_RANDOM_NOT_USED"
+  },
+  "mission_cost_future": {
+    "hold_2026_cost": false,
+    "post_boundary": "UNAVAILABLE_NO_MISSIONS_IN_G1"
+  },
+  "nodes": [
+    {
+      "id": "EARTH:USA",
+      "kind": "EARTH"
+    }
+  ],
+  "observation_offer": {
+    "active_year": 2026,
+    "cost": "10",
+    "currency": "MODEL_CURRENCY"
+  },
+  "policies": {
+    "G1_CONSIDER_EXPLORATION": {
+      "may_consider_explore": true
+    },
+    "G1_WAIT_ONLY": {
+      "may_consider_explore": false
+    }
+  },
+  "projects": [],
+  "scenario_id": "G1_SPONSOR_OPENING",
+  "schema": "BUILD8_GENESIS_G1_SCENARIO_V1",
+  "sources": {
+    "simulation/offworld_mvp/build6e/named_world.py": "941c2f49f2766ac2f08425248e5400904a673d5ea5c2618afd455c689e93fbf4",
+    "simulation/offworld_mvp/build7/generated_campaign.py": "6b0f97abd8ddab01bd4670136a7fcc51f0996088315220e8d31aeb2daa9f3096",
+    "simulation/offworld_mvp/build7/inputs/BUILD7_EARTH_USA_2026_2045_V1.json": "b135d181910910338a6d4bcc5906f62a82256f4d8dcbc542d238be4ddaaada56",
+    "simulation/offworld_mvp/build7/inputs/BUILD7_GENERATED_CAMPAIGN_V1.json": "c7bff005cdb3d3d03a7e43e2e176ac622bcb56cc0e549003091dd65ce9d9517f",
+    "simulation/offworld_mvp/build7/runtime_flow.py": "b6044af978cadfaac286ca440cde711649217e38f4610e741f3b9b462b8fb7f5",
+    "src/loom_world_authority/store.py": "1ee14c6914dd77dab06733bb0a2962f69ee5a27338b72dea60b93beb04c70353"
+  },
+  "status": "RESEARCH_NONCANON_GENESIS_ONLY_NOT_QUALIFIED",
+  "test_alternatives": {
+    "capability": [
+      "REVIEW_STUDY"
+    ],
+    "cash": "70",
+    "cost": "15",
+    "horizon": 2036,
+    "policy": "G1_WAIT_ONLY",
+    "prior": "0.3"
+  },
+  "time": {
+    "clock_ref": "SIM_YEAR_PLUS_2025_V1",
+    "end_year": 2027,
+    "start_year": 2026
+  },
+  "world_binding": null
+}
