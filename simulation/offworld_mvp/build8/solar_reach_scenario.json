@@ -1,0 +1,2449 @@
+{
+  "base_main_sha": "19377b854c529e74afc61202d9eb2e780c5b4884",
+  "classification": "RESEARCH_NONCANON_IN_MEMORY_NOT_EXECUTED",
+  "execution_results": {
+    "A_ALL_20": "NOT_RUN_STOP_AT_G1_SEAM",
+    "B_NASA_ONLY": "NOT_RUN_STOP_AT_G1_SEAM"
+  },
+  "experiment_values": [
+    {
+      "file": "simulation/offworld_mvp/build8/country_capital_input.py",
+      "line": 9,
+      "path": "source horizon boundary",
+      "value": {
+        "qualified_end": 2031,
+        "stage_end": 2060,
+        "successor_end": 2226
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/four_usa_financier.py",
+      "line": 12,
+      "path": "SEED",
+      "value": "BUILD8_USA_FINANCIER_TEST_0"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/four_usa_financier.py",
+      "line": 14,
+      "path": "UNDERWRITING:underwriting.DEVELOPMENT_CAPEX",
+      "value": ".125"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/four_usa_financier.py",
+      "line": 14,
+      "path": "UNDERWRITING:underwriting.EXPLORATION_CAPEX",
+      "value": ".125"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/four_usa_financier.py",
+      "line": 14,
+      "path": "UNDERWRITING:underwriting.LEAD_TIME",
+      "value": "1"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/four_usa_financier.py",
+      "line": 14,
+      "path": "UNDERWRITING:underwriting.OPERATING_COST",
+      "value": ".5"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/four_usa_financier.py",
+      "line": 14,
+      "path": "UNDERWRITING:underwriting.PRICE",
+      "value": "1"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/opening.py",
+      "line": 16,
+      "path": "Build8 Earth opening defaults",
+      "value": {
+        "end_year": 2035,
+        "world_seed": "BUILD8-80-COUNTRY-10-YEAR"
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 22,
+      "path": "AUTHORING:BENNU",
+      "value": [
+        "BENNU-A1-RESOURCE",
+        "BENNU-A2-CONCEPT"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 23,
+      "path": "AUTHORING:CERES",
+      "value": [
+        "CERES-A1-SURFACE",
+        "CERES-A2-ASSESS"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 24,
+      "path": "AUTHORING:MARS",
+      "value": [
+        "MARS-A1-REMOTE",
+        "MARS-A2-SURFACE"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 25,
+      "path": "AUTHORING:MOON",
+      "value": [
+        "MOON-A1-SURFACE",
+        "MOON-A2-ASSESS"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 28,
+      "path": "PR3B_SETTINGS:A1_REOPEN_ON",
+      "value": [
+        "INSUFFICIENT",
+        "NO_RESULT"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 29,
+      "path": "PR3B_SETTINGS:A1_REOPEN_AT",
+      "value": "NEXT_YEARLY_DECISION_AFTER_REVIEW"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 30,
+      "path": "PR3B_SETTINGS:A1_RETRY_LIMIT",
+      "value": null
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 31,
+      "path": "PR3B_SETTINGS:A1_RETRY_DRAW_KEY",
+      "value": "A1_REVIEW_SEED|BODY|A1|ATTEMPT (first attempt unchanged)"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 32,
+      "path": "PR3B_SETTINGS:MAX_ACTIVE_CLAIMANTS_PER_BODY",
+      "value": 1
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 33,
+      "path": "PR3B_SETTINGS:SPONSOR_ALLOCATION_ORDER",
+      "value": "REPEATED_CAST_ID_ROUNDS"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 34,
+      "path": "PR3B_SETTINGS:A1_RESULT_SOURCE",
+      "value": "BUILD6C_AUTHORED_OR_SHA256_TEST_ONLY"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 35,
+      "path": "PR3B_SETTINGS:CHECKPOINT_BODY_COUNT",
+      "value": 45
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 36,
+      "path": "PR3B_SETTINGS:BODY_COUNT",
+      "value": 90
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 37,
+      "path": "PR3B_SETTINGS:ACCESS_UNKNOWN_TREATMENT",
+      "value": "ABSTRACT_STUDY_ONLY_NO_TRAJECTORY"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 38,
+      "path": "PR3B_SETTINGS:MAX_NEW_STAGES_PER_SPONSOR_YEAR",
+      "value": null
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 40,
+      "path": "ALL_BODIES",
+      "value": [
+        "AMUN",
+        "APOPHIS",
+        "ARIEL",
+        "ARROKOTH",
+        "ASTEROID_6178",
+        "ATLAS3I",
+        "BENNU",
+        "BORISOV",
+        "BORRELLY",
+        "BRAILLE",
+        "CALLISTO",
+        "CERES",
+        "CHARON",
+        "CHIRON",
+        "COMET_67P",
+        "COMET_HALLEY",
+        "DACTYL",
+        "DAVIDA",
+        "DEIMOS",
+        "DIDYMOS",
+        "DINKINESH",
+        "DIONE",
+        "DONALDJOHANSON",
+        "ENCELADUS",
+        "ERIS",
+        "EROS",
+        "EUROPA",
+        "EURYBATES",
+        "GANYMEDE",
+        "GASPRA",
+        "GONGGONG",
+        "HARTLEY2",
+        "HAUMEA",
+        "HYDRA",
+        "HYGIEA",
+        "HYPERION",
+        "IAPETUS",
+        "IDA",
+        "INTERAMNIA",
+        "IO",
+        "ITOKAWA",
+        "IXION",
+        "JUNO",
+        "KERBEROS",
+        "KLEOPATRA",
+        "LEUCUS",
+        "LUTETIA",
+        "MAKEMAKE",
+        "MARS",
+        "MATHILDE",
+        "MERCURY",
+        "MIMAS",
+        "MIRANDA",
+        "MOON",
+        "MS4",
+        "NEREID",
+        "NIX",
+        "OBERON",
+        "ORCUS",
+        "ORUS",
+        "OUMUAMUA",
+        "PALLAS",
+        "PATROCLUS",
+        "PHOBOS",
+        "PHOEBE",
+        "PLUTO",
+        "POLYMELE",
+        "PROTEUS",
+        "PSYCHE",
+        "QUAOAR",
+        "RHEA",
+        "RYUGU",
+        "SALACIA",
+        "SEDNA",
+        "SELAM",
+        "STEINS",
+        "STYX",
+        "SWIFTTUTTLE",
+        "TEMPEL1",
+        "TETHYS",
+        "THEMIS",
+        "TITAN",
+        "TITANIA",
+        "TOUTATIS",
+        "TRITON",
+        "UMBRIEL",
+        "VARUNA",
+        "VENUS",
+        "VESTA",
+        "WILD2"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 40,
+      "path": "body catalog admission filter",
+      "value": [
+        "SOLID",
+        "SOLID_WITH_ATMOSPHERE"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:AMUN",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:APOPHIS",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:ARIEL",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:ARROKOTH",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:ASTEROID_6178",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:ATLAS3I",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:BENNU",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:BORISOV",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:BORRELLY",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:BRAILLE",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:CALLISTO",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:CERES",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:CHARON",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:CHIRON",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:COMET_67P",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:COMET_HALLEY",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:DACTYL",
+      "value": "UNKNOWN"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:DAVIDA",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:DEIMOS",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:DIDYMOS",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:DINKINESH",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:DIONE",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:DONALDJOHANSON",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:ENCELADUS",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:ERIS",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:EROS",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:EUROPA",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:EURYBATES",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:GANYMEDE",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:GASPRA",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:GONGGONG",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:HARTLEY2",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:HAUMEA",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:HYDRA",
+      "value": "UNKNOWN"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:HYGIEA",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:HYPERION",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:IAPETUS",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:IDA",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:INTERAMNIA",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:IO",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:ITOKAWA",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:IXION",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:JUNO",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:KERBEROS",
+      "value": "UNKNOWN"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:KLEOPATRA",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:LEUCUS",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:LUTETIA",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:MAKEMAKE",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:MARS",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:MATHILDE",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:MERCURY",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:MIMAS",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:MIRANDA",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:MOON",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:MS4",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:NEREID",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:NIX",
+      "value": "UNKNOWN"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:OBERON",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:ORCUS",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:ORUS",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:OUMUAMUA",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:PALLAS",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:PATROCLUS",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:PHOBOS",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:PHOEBE",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:PLUTO",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:POLYMELE",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:PROTEUS",
+      "value": "UNKNOWN"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:PSYCHE",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:QUAOAR",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:RHEA",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:RYUGU",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:SALACIA",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:SEDNA",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:SELAM",
+      "value": "UNKNOWN"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:STEINS",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:STYX",
+      "value": "UNKNOWN"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:SWIFTTUTTLE",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:TEMPEL1",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:TETHYS",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:THEMIS",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:TITAN",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:TITANIA",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:TOUTATIS",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:TRITON",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:UMBRIEL",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:VARUNA",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:VENUS",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:VESTA",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 44,
+      "path": "REFERENCE_STATUS:WILD2",
+      "value": "DERIVABLE"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 49,
+      "path": "reference accessibility totals",
+      "value": {
+        "DERIVABLE": 83,
+        "UNKNOWN": 7
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 181,
+      "path": "repeated A1 result decision",
+      "value": "SHA256(seed|body|A1|attempt) < fraction"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 314,
+      "path": "all-body runner defaults",
+      "value": {
+        "body_count": 90,
+        "ceilings_enabled": true,
+        "end_year": 2226,
+        "failures": [],
+        "participating_sponsors": null
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py",
+      "line": 318,
+      "path": "report first year",
+      "value": "2026"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 21,
+      "path": "BODIES",
+      "value": [
+        "EUROPA",
+        "PHOBOS"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 22,
+      "path": "HISTORICAL_BODIES",
+      "value": [
+        "BENNU",
+        "CERES",
+        "MARS",
+        "MOON"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 25,
+      "path": "ORDER",
+      "value": [
+        "Australian Space Agency",
+        "Axiom",
+        "Blue Origin",
+        "CNES",
+        "CNSA",
+        "CSA",
+        "DLR",
+        "ESA",
+        "Interlune",
+        "Isar Aerospace",
+        "ispace",
+        "ISRO",
+        "JAXA",
+        "KASA",
+        "LandSpace",
+        "NASA",
+        "Roscosmos",
+        "SpaceX",
+        "Starlab",
+        "UAE Space Agency"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 30,
+      "path": "SETTINGS:CAMPAIGN_START_YEAR",
+      "value": 2036
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 31,
+      "path": "SETTINGS:CAMPAIGN_END_YEAR",
+      "value": 2226
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 32,
+      "path": "SETTINGS:MAX_NEW_STAGES_PER_SPONSOR_YEAR",
+      "value": 1
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 33,
+      "path": "SETTINGS:MAX_CLAIMANTS_PER_BODY_CAMPAIGN",
+      "value": 1
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 34,
+      "path": "SETTINGS:MAX_AUTHORED_STAGE",
+      "value": "A2"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 35,
+      "path": "SETTINGS:SPONSOR_CLAIM_ORDER",
+      "value": [
+        "Australian Space Agency",
+        "Axiom",
+        "Blue Origin",
+        "CNES",
+        "CNSA",
+        "CSA",
+        "DLR",
+        "ESA",
+        "Interlune",
+        "Isar Aerospace",
+        "ispace",
+        "ISRO",
+        "JAXA",
+        "KASA",
+        "LandSpace",
+        "NASA",
+        "Roscosmos",
+        "SpaceX",
+        "Starlab",
+        "UAE Space Agency"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 36,
+      "path": "SETTINGS:BODY_SELECTION_ORDER",
+      "value": [
+        "EUROPA",
+        "PHOBOS"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 37,
+      "path": "SETTINGS:A1_POSITIVE_REVIEW_FRACTION",
+      "value": "0.50"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 38,
+      "path": "SETTINGS:A1_REVIEW_SEED",
+      "value": "ROUTE1_BODY_PR3A_V1"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 39,
+      "path": "SETTINGS:STUDY_DURATION_YEARS",
+      "value": 1
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 40,
+      "path": "SETTINGS:A1_SERVICE_CATEGORY",
+      "value": "RUN"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 41,
+      "path": "SETTINGS:A1_SERVICE_PRICE",
+      "value": ".015"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 42,
+      "path": "SETTINGS:A2_SERVICE_CATEGORY",
+      "value": "BUILD"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 43,
+      "path": "SETTINGS:A2_SERVICE_PRICE",
+      "value": ".015"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 44,
+      "path": "SETTINGS:COUNTRY_ALLOCATION_SHARE",
+      "value": "0.25"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 45,
+      "path": "SETTINGS:FINANCIER_RESOURCE_BELIEF",
+      "value": "0.5"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 46,
+      "path": "SETTINGS:FINANCIER_RESOURCE_PRIOR",
+      "value": "0.5"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 47,
+      "path": "SETTINGS:FINANCIER_UNDERWRITING_FACTS",
+      "value": {
+        "underwriting.DEVELOPMENT_CAPEX": ".125",
+        "underwriting.EXPLORATION_CAPEX": ".125",
+        "underwriting.LEAD_TIME": "1",
+        "underwriting.OPERATING_COST": ".5",
+        "underwriting.PRICE": "1"
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 48,
+      "path": "SETTINGS:A1_DISCLOSED_EVIDENCE_SOURCE",
+      "value": "AUTHORED:UNIFORM_NEUTRAL_ROUTE1_2026"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 49,
+      "path": "SETTINGS:SPONSOR_REQUEST_CEILINGS",
+      "value": {
+        "Australian Space Agency": ".050",
+        "Axiom": ".100",
+        "Blue Origin": ".200",
+        "CNES": ".100",
+        "CNSA": ".300",
+        "CSA": ".100",
+        "DLR": ".100",
+        "ESA": ".200",
+        "ISRO": ".120",
+        "Interlune": ".025",
+        "Isar Aerospace": ".100",
+        "JAXA": ".180",
+        "KASA": ".100",
+        "LandSpace": ".100",
+        "NASA": ".350",
+        "Roscosmos": ".100",
+        "SpaceX": ".200",
+        "Starlab": ".100",
+        "UAE Space Agency": ".025",
+        "ispace": ".100"
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 50,
+      "path": "SETTINGS:LIFETIME_SPENDING_CAP",
+      "value": null
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 51,
+      "path": "SETTINGS:CARRY_CAP",
+      "value": null
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 52,
+      "path": "SETTINGS:GLOBAL_PROJECT_CAP",
+      "value": null
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 53,
+      "path": "SETTINGS:EXECUTOR_CAPACITY_CAP",
+      "value": null
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 55,
+      "path": "BLOCK_ORDER",
+      "value": [
+        "MAX_NEW_STAGES_PER_SPONSOR_YEAR",
+        "MAX_CLAIMANTS_PER_BODY_CAMPAIGN",
+        "A1_REVIEW_NOT_READY",
+        "A1_REVIEW_INSUFFICIENT",
+        "COMPARABLE_EXECUTOR_QUOTE",
+        "EXECUTOR_CAPABILITY",
+        "SPONSOR_REQUEST_CEILINGS",
+        "ACTUAL_SPONSOR_CASH",
+        "FINANCIER_CONCENTRATION",
+        "FINANCIER_INFORMATION",
+        "FINANCIER_RETURN",
+        "FINANCIER_OTHER"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 69,
+      "path": "A1 seeded uniform SHA256 modulus",
+      "value": "2**256"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 74,
+      "path": "blocker decade window",
+      "value": 10
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_body_campaign.py",
+      "line": 249,
+      "path": "project sponsor ownership fraction",
+      "value": "1"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 16,
+      "path": "EXTRA_CEILINGS:CSA",
+      "value": ".100"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 16,
+      "path": "EXTRA_CEILINGS:KASA",
+      "value": ".100"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 16,
+      "path": "EXTRA_CEILINGS:Roscosmos",
+      "value": ".100"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 17,
+      "path": "EXTRA_CEILINGS:Axiom",
+      "value": ".100"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 17,
+      "path": "EXTRA_CEILINGS:Blue Origin",
+      "value": ".200"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 17,
+      "path": "EXTRA_CEILINGS:SpaceX",
+      "value": ".200"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 18,
+      "path": "EXTRA_CEILINGS:Isar Aerospace",
+      "value": ".100"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 18,
+      "path": "EXTRA_CEILINGS:LandSpace",
+      "value": ".100"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 18,
+      "path": "EXTRA_CEILINGS:Starlab",
+      "value": ".100"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 26,
+      "path": "SERVICES:BUILD",
+      "value": [
+        "ONE_AUTHORED_BUILD_WORK_PACKAGE",
+        ".015"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 27,
+      "path": "SERVICES:LAND",
+      "value": [
+        "ONE_AUTHORED_LANDING_WORK_PACKAGE",
+        ".020"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 28,
+      "path": "SERVICES:LAUNCH",
+      "value": [
+        "ONE_AUTHORED_LAUNCH_SERVICE_UNIT",
+        ".020"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 29,
+      "path": "SERVICES:RUN",
+      "value": [
+        "ONE_AUTHORED_OPERATIONS_SERVICE_UNIT",
+        ".015"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 34,
+      "path": "PREFERRED:CNSA",
+      "value": "CASC"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 34,
+      "path": "PREFERRED:NASA",
+      "value": "Astrobotic"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 34,
+      "path": "PREFERRED:Roscosmos",
+      "value": "RKK Energia"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 35,
+      "path": "PREFERRED:ISRO",
+      "value": "HAL / L&T"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 35,
+      "path": "PREFERRED:JAXA",
+      "value": "Mitsubishi Heavy Industries"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 36,
+      "path": "PREFERRED:CNES",
+      "value": "Airbus Defence and Space"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 36,
+      "path": "PREFERRED:ESA",
+      "value": "Thales Alenia Space"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 37,
+      "path": "PREFERRED:CSA",
+      "value": "MDA Space"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 37,
+      "path": "PREFERRED:DLR",
+      "value": "OHB"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 37,
+      "path": "PREFERRED:KASA",
+      "value": "Hanwha Aerospace"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 38,
+      "path": "PREFERRED:Australian Space Agency",
+      "value": "Toyota"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 39,
+      "path": "PREFERRED:UAE Space Agency",
+      "value": "Thales Alenia Space"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 40,
+      "path": "PREFERRED:Blue Origin",
+      "value": "Blue Origin"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 40,
+      "path": "PREFERRED:SpaceX",
+      "value": "SpaceX"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 41,
+      "path": "PREFERRED:Axiom",
+      "value": "Thales Alenia Space"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 41,
+      "path": "PREFERRED:ispace",
+      "value": "ispace"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 42,
+      "path": "PREFERRED:Interlune",
+      "value": "Northrop Grumman"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 42,
+      "path": "PREFERRED:Isar Aerospace",
+      "value": "Isar Aerospace"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 43,
+      "path": "PREFERRED:LandSpace",
+      "value": "CASC"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 43,
+      "path": "PREFERRED:Starlab",
+      "value": "MDA Space"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_cast_payments.py",
+      "line": 156,
+      "path": "cast payment defaults",
+      "value": {
+        "end_year": 2035,
+        "scenario": "B",
+        "share": "0.25"
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 18,
+      "path": "CEILINGS:CNSA",
+      "value": ".300"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 18,
+      "path": "CEILINGS:ISRO",
+      "value": ".120"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 18,
+      "path": "CEILINGS:JAXA",
+      "value": ".180"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 18,
+      "path": "CEILINGS:NASA",
+      "value": ".350"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 19,
+      "path": "CEILINGS:CNES",
+      "value": ".100"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 19,
+      "path": "CEILINGS:DLR",
+      "value": ".100"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 19,
+      "path": "CEILINGS:ESA",
+      "value": ".200"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 20,
+      "path": "CEILINGS:Australian Space Agency",
+      "value": ".050"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 20,
+      "path": "CEILINGS:UAE Space Agency",
+      "value": ".025"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 21,
+      "path": "CEILINGS:Interlune",
+      "value": ".025"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 21,
+      "path": "CEILINGS:ispace",
+      "value": ".100"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 23,
+      "path": "DEFAULT_PRICE:BUILD",
+      "value": "0.085"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 23,
+      "path": "DEFAULT_PRICE:LAND",
+      "value": "0.150"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 25,
+      "path": "EVIDENCE",
+      "value": [
+        [
+          "underwriting.PRICE",
+          "1"
+        ],
+        [
+          "underwriting.EXPLORATION_CAPEX",
+          ".125"
+        ],
+        [
+          "underwriting.DEVELOPMENT_CAPEX",
+          ".125"
+        ],
+        [
+          "underwriting.OPERATING_COST",
+          ".5"
+        ],
+        [
+          "underwriting.LEAD_TIME",
+          "1"
+        ]
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 26,
+      "path": "EVIDENCE_TAG",
+      "value": "AUTHORED:UNIFORM_NEUTRAL_ROUTE1_2026"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 27,
+      "path": "PREFERRED:CNSA",
+      "value": "CASC"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 27,
+      "path": "PREFERRED:ISRO",
+      "value": "HAL / L&T"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 27,
+      "path": "PREFERRED:NASA",
+      "value": "Astrobotic"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 28,
+      "path": "PREFERRED:ESA",
+      "value": "Thales Alenia Space"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 28,
+      "path": "PREFERRED:JAXA",
+      "value": "Mitsubishi Heavy Industries"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 29,
+      "path": "PREFERRED:CNES",
+      "value": "Airbus Defence and Space"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 29,
+      "path": "PREFERRED:DLR",
+      "value": "OHB"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 30,
+      "path": "PREFERRED:Australian Space Agency",
+      "value": "Toyota"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 30,
+      "path": "PREFERRED:UAE Space Agency",
+      "value": "Thales Alenia Space"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 31,
+      "path": "PREFERRED:Interlune",
+      "value": "Northrop Grumman"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 31,
+      "path": "PREFERRED:ispace",
+      "value": "ispace"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 64,
+      "path": "run_gate1 defaults",
+      "value": {
+        "earth_end_year": 2035,
+        "run_setting": "pilot",
+        "scenario": "A",
+        "share": "0.10"
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 76,
+      "path": "allowed country allocation shares",
+      "value": [
+        "0.10",
+        "0.25"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 79,
+      "path": "Route1 opening seed",
+      "value": "BUILD8_ROUTE1_GATE1"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 93,
+      "path": "missing country sponsor preference weight",
+      "value": "1"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 103,
+      "path": "commercial_opportunity",
+      "value": "1"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 143,
+      "path": "project owner share",
+      "value": "1"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 145,
+      "path": "2026 sponsor type",
+      "value": "PRIVATE_SPONSOR for all 20"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 146,
+      "path": "2026 sponsor prior",
+      "value": "0.5"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 148,
+      "path": "2026 disclosure scenario",
+      "value": "B: one authored neutral observation per sponsor"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate1.py",
+      "line": 170,
+      "path": "financier belief and prior",
+      "value": "0.5"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate2.py",
+      "line": 15,
+      "path": "run_gate2 defaults",
+      "value": {
+        "carry_cap": null,
+        "end_year": 2029,
+        "scenario": "B",
+        "share": "0.10"
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate2.py",
+      "line": 33,
+      "path": "end year bounds",
+      "value": "2029..2035 or opt-in cast 2029..2226"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate2.py",
+      "line": 35,
+      "path": "all-body campaign horizon",
+      "value": "2226 only, carry cap=None"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate2.py",
+      "line": 36,
+      "path": "permitted carry caps",
+      "value": [
+        null,
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate2.py",
+      "line": 102,
+      "path": "annual origin years",
+      "value": "2026..end_year"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate2.py",
+      "line": 113,
+      "path": "commercial_opportunity",
+      "value": "1"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate2.py",
+      "line": 193,
+      "path": "NASA legacy exceptional study price",
+      "value": "0.300"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/route1_gate2.py",
+      "line": 207,
+      "path": "financier beliefs and priors",
+      "value": "0.5"
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 13,
+      "path": "PUBLIC_PARTICIPATION:CNSA",
+      "value": [
+        "CHN"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 13,
+      "path": "PUBLIC_PARTICIPATION:NASA",
+      "value": [
+        "USA"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 13,
+      "path": "PUBLIC_PARTICIPATION:Roscosmos",
+      "value": [
+        "RUS"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 14,
+      "path": "PUBLIC_PARTICIPATION:ISRO",
+      "value": [
+        "IND"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 14,
+      "path": "PUBLIC_PARTICIPATION:JAXA",
+      "value": [
+        "JPN"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 15,
+      "path": "PUBLIC_PARTICIPATION:ESA",
+      "value": [
+        "DEU",
+        "FRA",
+        "ITA",
+        "GBR",
+        "ESP",
+        "NLD",
+        "BEL",
+        "SWE",
+        "CHE",
+        "AUT",
+        "NOR",
+        "POL"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 16,
+      "path": "PUBLIC_PARTICIPATION:CNES",
+      "value": [
+        "FRA"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 16,
+      "path": "PUBLIC_PARTICIPATION:CSA",
+      "value": [
+        "CAN"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 16,
+      "path": "PUBLIC_PARTICIPATION:DLR",
+      "value": [
+        "DEU"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 17,
+      "path": "PUBLIC_PARTICIPATION:Australian Space Agency",
+      "value": [
+        "AUS"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 17,
+      "path": "PUBLIC_PARTICIPATION:KASA",
+      "value": [
+        "KOR"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 17,
+      "path": "PUBLIC_PARTICIPATION:UAE Space Agency",
+      "value": [
+        "ARE"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 20,
+      "path": "PRIVATE_PARTICIPATION:Blue Origin",
+      "value": [
+        "USA"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 20,
+      "path": "PRIVATE_PARTICIPATION:SpaceX",
+      "value": [
+        "USA"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 21,
+      "path": "PRIVATE_PARTICIPATION:Axiom",
+      "value": [
+        "USA",
+        "SAU",
+        "QAT",
+        "KOR",
+        "HUN",
+        "JPN"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 21,
+      "path": "PRIVATE_PARTICIPATION:ispace",
+      "value": [
+        "JPN"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 22,
+      "path": "PRIVATE_PARTICIPATION:Interlune",
+      "value": [
+        "USA"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 22,
+      "path": "PRIVATE_PARTICIPATION:Isar Aerospace",
+      "value": [
+        "DEU",
+        "GBR",
+        "USA"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 23,
+      "path": "PRIVATE_PARTICIPATION:LandSpace",
+      "value": [
+        "CHN"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 23,
+      "path": "PRIVATE_PARTICIPATION:Starlab",
+      "value": [
+        "USA",
+        "DEU",
+        "FRA",
+        "JPN",
+        "CAN"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 29,
+      "path": "PREFERENCES:USA",
+      "value": {
+        "Axiom": 1,
+        "Blue Origin": 2,
+        "Interlune": 1,
+        "Isar Aerospace": 1,
+        "NASA": 5,
+        "SpaceX": 3,
+        "Starlab": 1
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 30,
+      "path": "PREFERENCES:CHN",
+      "value": {
+        "CNSA": 5,
+        "LandSpace": 2
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 30,
+      "path": "PREFERENCES:JPN",
+      "value": {
+        "Axiom": 1,
+        "JAXA": 5,
+        "Starlab": 1,
+        "ispace": 2
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 31,
+      "path": "PREFERENCES:DEU",
+      "value": {
+        "DLR": 3,
+        "ESA": 3,
+        "Isar Aerospace": 2,
+        "Starlab": 1
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 32,
+      "path": "PREFERENCES:CAN",
+      "value": {
+        "CSA": 5,
+        "Starlab": 2
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 32,
+      "path": "PREFERENCES:FRA",
+      "value": {
+        "CNES": 4,
+        "ESA": 3,
+        "Starlab": 1
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 33,
+      "path": "PREFERENCES:GBR",
+      "value": {
+        "ESA": 3,
+        "Isar Aerospace": 2
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 33,
+      "path": "PREFERENCES:KOR",
+      "value": {
+        "Axiom": 1,
+        "KASA": 5
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 38,
+      "path": "EXECUTOR_SELECTION",
+      "value": [
+        "Astrobotic",
+        "CASC",
+        "RKK Energia",
+        "HAL / L&T",
+        "Mitsubishi Heavy Industries",
+        "Thales Alenia Space",
+        "Airbus Defence and Space",
+        "OHB",
+        "MDA Space",
+        "Hanwha Aerospace",
+        "Toyota",
+        "SpaceX",
+        "Blue Origin",
+        "ispace",
+        "Northrop Grumman",
+        "Isar Aerospace"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 45,
+      "path": "AUTHOR_CAPABILITIES:Astrobotic",
+      "value": [
+        "LAND",
+        "BUILD"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 45,
+      "path": "AUTHOR_CAPABILITIES:CASC",
+      "value": [
+        "BUILD",
+        "LAUNCH",
+        "LAND"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 46,
+      "path": "AUTHOR_CAPABILITIES:HAL / L&T",
+      "value": [
+        "BUILD",
+        "LAUNCH"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 46,
+      "path": "AUTHOR_CAPABILITIES:RKK Energia",
+      "value": [
+        "BUILD",
+        "LAUNCH"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 47,
+      "path": "AUTHOR_CAPABILITIES:Mitsubishi Heavy Industries",
+      "value": [
+        "BUILD",
+        "LAUNCH"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 48,
+      "path": "AUTHOR_CAPABILITIES:Airbus Defence and Space",
+      "value": [
+        "BUILD",
+        "RUN"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 48,
+      "path": "AUTHOR_CAPABILITIES:Thales Alenia Space",
+      "value": [
+        "BUILD",
+        "RUN"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 49,
+      "path": "AUTHOR_CAPABILITIES:MDA Space",
+      "value": [
+        "BUILD",
+        "RUN"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 49,
+      "path": "AUTHOR_CAPABILITIES:OHB",
+      "value": [
+        "BUILD"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 50,
+      "path": "AUTHOR_CAPABILITIES:Hanwha Aerospace",
+      "value": [
+        "BUILD",
+        "LAUNCH"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 50,
+      "path": "AUTHOR_CAPABILITIES:Toyota",
+      "value": [
+        "BUILD",
+        "RUN"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 51,
+      "path": "AUTHOR_CAPABILITIES:Blue Origin",
+      "value": [
+        "BUILD",
+        "LAUNCH",
+        "LAND"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 51,
+      "path": "AUTHOR_CAPABILITIES:SpaceX",
+      "value": [
+        "BUILD",
+        "LAUNCH",
+        "RUN"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 52,
+      "path": "AUTHOR_CAPABILITIES:Northrop Grumman",
+      "value": [
+        "BUILD",
+        "RUN"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 52,
+      "path": "AUTHOR_CAPABILITIES:ispace",
+      "value": [
+        "LAND",
+        "RUN"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 53,
+      "path": "AUTHOR_CAPABILITIES:Isar Aerospace",
+      "value": [
+        "LAUNCH"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 67,
+      "path": "PROJECTS:CNSA",
+      "value": [
+        "STRATEGIC",
+        "LAND",
+        "0.045"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 67,
+      "path": "PROJECTS:NASA",
+      "value": [
+        "STRATEGIC",
+        "LAND",
+        "0.045"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 68,
+      "path": "PROJECTS:Roscosmos",
+      "value": [
+        "STRATEGIC",
+        "LAUNCH",
+        "0.030"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 69,
+      "path": "PROJECTS:ISRO",
+      "value": [
+        "SCIENTIFIC",
+        "BUILD",
+        "0.015"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 70,
+      "path": "PROJECTS:JAXA",
+      "value": [
+        "SCIENTIFIC",
+        "LAND",
+        "0.030"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 71,
+      "path": "PROJECTS:ESA",
+      "value": [
+        "SCIENTIFIC",
+        "BUILD",
+        "0.030"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 72,
+      "path": "PROJECTS:CNES",
+      "value": [
+        "SCIENTIFIC",
+        "BUILD",
+        "0.015"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 73,
+      "path": "PROJECTS:DLR",
+      "value": [
+        "SCIENTIFIC",
+        "BUILD",
+        "0.015"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 74,
+      "path": "PROJECTS:CSA",
+      "value": [
+        "SCIENTIFIC",
+        "RUN",
+        "0.015"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 75,
+      "path": "PROJECTS:KASA",
+      "value": [
+        "STRATEGIC",
+        "LAUNCH",
+        "0.030"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 76,
+      "path": "PROJECTS:Australian Space Agency",
+      "value": [
+        "SCIENTIFIC",
+        "BUILD",
+        "0.015"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 77,
+      "path": "PROJECTS:UAE Space Agency",
+      "value": [
+        "STRATEGIC",
+        "BUILD",
+        "0.045"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 78,
+      "path": "PROJECTS:SpaceX",
+      "value": [
+        "COMMERCIAL",
+        "LAUNCH",
+        "0.090"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 79,
+      "path": "PROJECTS:Blue Origin",
+      "value": [
+        "COMMERCIAL",
+        "LAUNCH",
+        "0.090"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 80,
+      "path": "PROJECTS:Axiom",
+      "value": [
+        "COMMERCIAL",
+        "RUN",
+        "0.045"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 81,
+      "path": "PROJECTS:ispace",
+      "value": [
+        "COMMERCIAL",
+        "LAND",
+        "0.045"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 82,
+      "path": "PROJECTS:Interlune",
+      "value": [
+        "COMMERCIAL",
+        "BUILD",
+        "0.090"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 83,
+      "path": "PROJECTS:Isar Aerospace",
+      "value": [
+        "COMMERCIAL",
+        "LAUNCH",
+        "0.045"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 84,
+      "path": "PROJECTS:Starlab",
+      "value": [
+        "COMMERCIAL",
+        "RUN",
+        "0.090"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py",
+      "line": 85,
+      "path": "PROJECTS:LandSpace",
+      "value": [
+        "COMMERCIAL",
+        "LAUNCH",
+        "0.045"
+      ]
+    },
+    {
+      "file": "simulation/offworld_mvp/phase3b/kernel/offworld_kernel/policies/manifest.py",
+      "line": 145,
+      "path": "test_only_manifest.identity",
+      "value": {
+        "policy_id": "FINANCIER_SCREENING_V1",
+        "status": "TEST_ONLY",
+        "version": "0.1"
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/phase3b/kernel/offworld_kernel/policies/manifest.py",
+      "line": 156,
+      "path": "test_only_manifest.parameters:hurdle_rate",
+      "value": {
+        "authorization_ref": "TEST_ONLY:BUILD5_TEST001_SYNTHETIC_FIXTURE:NOT_POLICY_BASELINE",
+        "status": "TEST_ONLY",
+        "unit": "DIMENSIONLESS_ANNUAL_RATE",
+        "value": "0.20"
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/phase3b/kernel/offworld_kernel/policies/manifest.py",
+      "line": 157,
+      "path": "test_only_manifest.parameters:horizon_years",
+      "value": {
+        "authorization_ref": "TEST_ONLY:BUILD5_TEST001_SYNTHETIC_FIXTURE:NOT_POLICY_BASELINE",
+        "status": "TEST_ONLY",
+        "unit": "YEARS",
+        "value": "10"
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/phase3b/kernel/offworld_kernel/policies/manifest.py",
+      "line": 158,
+      "path": "test_only_manifest.parameters:agent_detection_rate",
+      "value": {
+        "authorization_ref": "TEST_ONLY:BUILD5_TEST001_SYNTHETIC_FIXTURE:NOT_POLICY_BASELINE",
+        "status": "TEST_ONLY",
+        "unit": "PROBABILITY",
+        "value": "0.80"
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/phase3b/kernel/offworld_kernel/policies/manifest.py",
+      "line": 159,
+      "path": "test_only_manifest.parameters:agent_false_positive_rate",
+      "value": {
+        "authorization_ref": "TEST_ONLY:BUILD5_TEST001_SYNTHETIC_FIXTURE:NOT_POLICY_BASELINE",
+        "status": "TEST_ONLY",
+        "unit": "PROBABILITY",
+        "value": "0.20"
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/phase3b/kernel/offworld_kernel/policies/manifest.py",
+      "line": 160,
+      "path": "test_only_manifest.parameters:normalized_throughput",
+      "value": {
+        "authorization_ref": "TEST_ONLY:BUILD5_TEST001_SYNTHETIC_FIXTURE:NOT_POLICY_BASELINE",
+        "status": "TEST_ONLY",
+        "unit": "MODEL_RESOURCE_UNIT_PER_YEAR",
+        "value": "10"
+      }
+    },
+    {
+      "file": "simulation/offworld_mvp/phase3b/kernel/offworld_kernel/policies/manifest.py",
+      "line": 161,
+      "path": "test_only_manifest.parameters:max_concentration_fraction",
+      "value": {
+        "authorization_ref": "TEST_ONLY:BUILD5_TEST001_SYNTHETIC_FIXTURE:NOT_POLICY_BASELINE",
+        "status": "TEST_ONLY",
+        "unit": "DIMENSIONLESS_SHARE",
+        "value": "0.80"
+      }
+    }
+  ],
+  "requested_invariants": [
+    "G1-derived single hashed opening",
+    "no duplicated sponsor or country money",
+    "all experiment values bound from scenario, not repeated literals",
+    "exact decision and ledger replay"
+  ],
+  "run_contract": {
+    "body_count": 90,
+    "end_year": 2226,
+    "gateway": "G1_GENESIS_REQUIRED_NOT_CONNECTED",
+    "output": [
+      "body_yearly",
+      "annual",
+      "receipts",
+      "attempts",
+      "transactions",
+      "replay_hash"
+    ],
+    "policy": "FINANCIER_SCREENING_V1",
+    "runner": "run_all_body_campaign",
+    "seed_experiment_label": "ROUTE1_BODY_PR3A_V1",
+    "source_missing": "REJECT",
+    "start_year": 2026,
+    "world_context": "NONE_NO_WORLD_READ"
+  },
+  "schema": "SOLAR_REACH_STEP1_PROPOSAL_V1",
+  "settings": {
+    "A_ALL_20": {
+      "body_count": 90,
+      "ceilings_enabled": true,
+      "participating_sponsors": [
+        "Australian Space Agency",
+        "Axiom",
+        "Blue Origin",
+        "CNES",
+        "CNSA",
+        "CSA",
+        "DLR",
+        "ESA",
+        "Interlune",
+        "Isar Aerospace",
+        "ispace",
+        "ISRO",
+        "JAXA",
+        "KASA",
+        "LandSpace",
+        "NASA",
+        "Roscosmos",
+        "SpaceX",
+        "Starlab",
+        "UAE Space Agency"
+      ],
+      "synthetic_stage_failures": []
+    },
+    "B_NASA_ONLY": {
+      "body_count": 90,
+      "ceilings_enabled": true,
+      "participating_sponsors": [
+        "NASA"
+      ],
+      "synthetic_stage_failures": []
+    }
+  },
+  "sources": {
+    "earth_v4_baseline_id": "EARTH_LONG_RUN_ECONOMIC_BASELINE_v4_2026_09_24",
+    "earth_v4_files": {
+      "qualified_inputs/countries_2026_2031.ndjson": "8524ada09880514088d8293df84b0cd5c4eac30dcf8d694b72192c75096e9f7c",
+      "stage_2031_2060/countries_2031_2060.ndjson": "449072d0c18ac09fc9346622d5917ef70efcb7913b5facbbd3517aa800e3e112",
+      "successor_80_2226/results/countries_2060_2226.ndjson": "ca9beba0ed8ed52b13c26691229eb5eee14f03065e60a528e614bc9a385daf15"
+    },
+    "repository": {
+      "simulation/offworld_mvp/build6/inputs/BUILD6C_2026_2041_PORTFOLIO_SCENARIO_V0_1.json": "be4de46ef8182949e99dd119f794eca9190edc7de0568f59a03a7cd05867e502",
+      "simulation/offworld_mvp/build6e/inputs/SOLAR_HIDDEN_WORLD_WATER_PRIOR_TABLE_v0.1.csv": "6c04c8e77b63d5cb66b11fad0e4405cfa8597090d61c8b23ba92f558ecc55106",
+      "simulation/offworld_mvp/build7/inputs/BUILD7_GENERATED_CAMPAIGN_V1.json": "c7bff005cdb3d3d03a7e43e2e176ac622bcb56cc0e549003091dd65ce9d9517f",
+      "simulation/offworld_mvp/build7/inputs/BUILD7_SOLAR_ACCESSIBILITY_REFERENCE_V1.json": "4a22af7f30400a39b3af8cd46b9286e491ef001e426bb6a88c2ac253942baea1",
+      "simulation/offworld_mvp/build8/country_capital_input.py": "d63eb55801550d9b9af7287fc28112e3d1b16d57a042fece7c2894d1cc9714ae",
+      "simulation/offworld_mvp/build8/four_usa_financier.py": "a6150f5cc517c3917618e325dbefb8395c1bb5b02ad35d617ff82b1adce5228d",
+      "simulation/offworld_mvp/build8/genesis_g1.py": "521c759bb363b40c4daba07a2e46d0b1f2645d46d53f48737533f0f4f0b4e63b",
+      "simulation/offworld_mvp/build8/master_cast_candidate.json": "d76b2ef716e5466bb344e9b07eb1681c2c0fafcd1770e721c5625fa98eea37c0",
+      "simulation/offworld_mvp/build8/opening.py": "4b8c6897e5c06471f263fc1b9e16d7627b2210a45f6bddc745258fbf59cd7f55",
+      "simulation/offworld_mvp/build8/route1_all_body_campaign_pr3b.py": "bc5b974bc0ad091901c8d7a55ddaa316215d4c6e6436adadd97562ef9a828481",
+      "simulation/offworld_mvp/build8/route1_body_campaign.py": "776af389bef697ef4ff68c030f3b9daa7c29cc8b6df26d220cb9c2fe018f75b7",
+      "simulation/offworld_mvp/build8/route1_cast_payments.py": "d59df71b944bd66620af1c6dc82d8f87590557d9066edfb3e231ace076b493b4",
+      "simulation/offworld_mvp/build8/route1_gate1.py": "9c07f666a70a8448781ba32e240263bd51f702aa17e98c4be4b571431f14d82d",
+      "simulation/offworld_mvp/build8/route1_gate2.py": "b6e6fb9e1310b23d3a3fd77eba48593032338bfac1e066c4ba2cd8279bc76ecf",
+      "simulation/offworld_mvp/build8/sponsor_executor_network_trial.py": "9d89c0fb19e929df39ad5439fd33c5f076ea503d9dda754a889e06fb77dcd975",
+      "simulation/offworld_mvp/phase3b/kernel/offworld_kernel/policies/manifest.py": "3a37710ccce67c318b42134375bb2250fda6180155c14533bd5ac441f5c43ae6"
+    }
+  },
+  "status": "PROPOSAL_ONLY_STOP_G1_ROUTE1_OPENING_SEAM_UNRESOLVED"
+}
