@@ -1,0 +1,70 @@
+{
+  "classification": "TEST_ONLY_NONCANON_NONRUNTIME",
+  "destinations": [
+    "MARS",
+    "EROS",
+    "VESTA",
+    "JUPITER",
+    "ARROKOTH",
+    "EUROPA"
+  ],
+  "origin": "EARTH",
+  "pricing": {
+    "basis": "median of 87 Build7 2026 non-Moon orbital-recon price / endpoint burden observations",
+    "caveat": "TEST_ONLY proxy, not market fare; 2026 median rate held numerically flat to 2226 by assumption; no inflation, technology evolution, infrastructure or market response modeled",
+    "rate_usd_millions_per_km_s": "72.269449528",
+    "source_sha256": "10b351a4c9cbecea86872de2ec7301e0899856dc1093830ceccbc85fb68bcc3e",
+    "standing": "HELD_AT_2026_LEVEL_BY_ASSUMPTION_NOT_EMPIRICAL"
+  },
+  "probe": {
+    "asset_root": "/home/ubuntu/loom_solar_assets",
+    "cache_mode": "memory_per_replay",
+    "cache_requery_each_computed_geometry": true,
+    "candidate_policy": "choose lowest priced admissible sampled route; rank sponsor value minus price",
+    "date_coverage_policy": "each sampled departure only; not a whole-year closure",
+    "replays": 2,
+    "required_packages": {
+      "lamberthub": "1.0.0",
+      "numpy": "2.5.3",
+      "spiceypy": "8.2.0"
+    },
+    "unsupported_policy": "no award and no fallback"
+  },
+  "sampling": {
+    "daily_refinement": true,
+    "flight_step_days": 0.25,
+    "include_last_day": true,
+    "max_transition_brackets_per_body_year": 1,
+    "refinement_step_days": 1,
+    "start_month_day": "01-01",
+    "strategy": "daily",
+    "stride_days": 28
+  },
+  "sponsor": {
+    "minimum_surplus_usd_millions": "0",
+    "name": "TEST_SPONSOR",
+    "values_usd_millions": {
+      "ARROKOTH": "2200",
+      "EROS": "700",
+      "EUROPA": "2000",
+      "JUPITER": "1600",
+      "MARS": "850",
+      "VESTA": "950"
+    }
+  },
+  "vehicle": {
+    "arrival_limit_km_s": 10.0,
+    "departure_limit_km_s": 10.0,
+    "flight_range_days": [
+      45.0,
+      1400.0
+    ],
+    "payload_tonnes": 2,
+    "service_type": "ORBITAL_RECON",
+    "transfer_family": "IZZO2015_M0_PROGRADE_LOW_PATH_HELIOCENTRIC"
+  },
+  "years": [
+    2026,
+    2100
+  ]
+}

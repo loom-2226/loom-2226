@@ -1,0 +1,574 @@
+{
+  "classification": "REPORT_ONLY_NO_DOWNLOAD",
+  "connectivity_observations": {
+    "horizons_api": "HEAD 405, host reachable; API generation/download not tested",
+    "naif_direct_three_urls": "HEAD 200 for nep101xl-802.bsp, nep098_part-3.bsp, nh_pred_alleph_od164.bsp; no bodies downloaded",
+    "naif_generic_kernels": "HTTPS HEAD returned HTTP 200, DNS/TLS reachable; individual missing URLs NOT tested",
+    "no_downloads": true,
+    "other_sources": "NAIF homepage HEAD 200; generic site reachability does not establish exact asset retrieval"
+  },
+  "files": [
+    {
+      "asset_id": "JUNO",
+      "body_ids": [
+        "JUNO"
+      ],
+      "path": "kernels/spk/phase4e/juno_2026_2251.bsp",
+      "sha256": "a362ba0e3ba2dd37683d80a3a844bb6f5c3613c2c5bd5f474a33d61f2242b0a8",
+      "size_bytes": 4094976,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "LUTETIA",
+      "body_ids": [
+        "LUTETIA"
+      ],
+      "path": "kernels/spk/phase4e/lutetia_2026_2251.bsp",
+      "sha256": "07ae3a15ac2205da8065a5e9e09ff826235df2639a103ab94ac6d114766b0d50",
+      "size_bytes": 4087808,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "THEMIS",
+      "body_ids": [
+        "THEMIS"
+      ],
+      "path": "kernels/spk/phase4e/themis_2026_2251.bsp",
+      "sha256": "15e1435beb8687f9aaf3fc93422330fefc7d3c38caa3e0294f4b23fac95b9b45",
+      "size_bytes": 4066304,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "DAVIDA",
+      "body_ids": [
+        "DAVIDA"
+      ],
+      "path": "kernels/spk/phase4e/davida_2026_2251.bsp",
+      "sha256": "9ddc9f5fc63b4311afa9ad927243cc74dd55341271d0cd88f5de22eb8c7871e8",
+      "size_bytes": 4059136,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "INTERAMNIA",
+      "body_ids": [
+        "INTERAMNIA"
+      ],
+      "path": "kernels/spk/phase4e/interamnia_2026_2251.bsp",
+      "sha256": "ed3dfd8f8176eff31b94dd89317ff34fa79595010864b1808565e001e5981cb9",
+      "size_bytes": 4057088,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "SEDNA",
+      "body_ids": [
+        "SEDNA"
+      ],
+      "path": "kernels/spk/phase4e/sedna_2026_2251.bsp",
+      "sha256": "2a46e07418f7f3d8c3178fae691ad42105eb644329b6160292574d36e0b59473",
+      "size_bytes": 4030464,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "QUAOAR",
+      "body_ids": [
+        "QUAOAR"
+      ],
+      "path": "kernels/spk/phase4e/quaoar_2026_2251.bsp",
+      "sha256": "49947637138bf33734d140375ed0cf1b844b367f0fd4a3aa207e798883aca06f",
+      "size_bytes": 4116480,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "ORCUS",
+      "body_ids": [
+        "ORCUS"
+      ],
+      "path": "kernels/spk/phase4e/orcus_2026_2251.bsp",
+      "sha256": "13b180ddee652f389d5987586d53b01d6861f807f534313679983c5d17a2ab4e",
+      "size_bytes": 4044800,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "GONGGONG",
+      "body_ids": [
+        "GONGGONG"
+      ],
+      "path": "kernels/spk/phase4e/gonggong_2026_2251.bsp",
+      "sha256": "e8da2390e3574a6cf032be0c8cfb83a532399af6388b408a9630aee2571a6a62",
+      "size_bytes": 4037632,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "SALACIA",
+      "body_ids": [
+        "SALACIA"
+      ],
+      "path": "kernels/spk/phase4e/salacia_2026_2251.bsp",
+      "sha256": "2ba5221f3fcb7c712fd06d978bd938a17ef10eeb8d7152b026f1782a7ead6b09",
+      "size_bytes": 3942400,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "VARUNA",
+      "body_ids": [
+        "VARUNA"
+      ],
+      "path": "kernels/spk/phase4e/varuna_2026_2251.bsp",
+      "sha256": "63ce353756ded9b85f7f5f4ae82600cb99aa1ecb0507499f075e5b508e66fa0c",
+      "size_bytes": 4035584,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "MS4",
+      "body_ids": [
+        "MS4"
+      ],
+      "path": "kernels/spk/phase4e/ms4_2026_2251.bsp",
+      "sha256": "cb0deef80c421fe704be9c9f1ea904fa608858417c2d826afce0cc323fd39405",
+      "size_bytes": 4055040,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "IXION",
+      "body_ids": [
+        "IXION"
+      ],
+      "path": "kernels/spk/phase4e/ixion_2026_2251.bsp",
+      "sha256": "446dcb249b53d1ffda63d18d937a6a8c02a57f485dc50ee72fa4244683098a75",
+      "size_bytes": 3985408,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "ARROKOTH",
+      "body_ids": [
+        "ARROKOTH"
+      ],
+      "path": "kernels/spk/phase4e/arrokoth_2026_2251.bsp",
+      "sha256": "b88f51891b0b0a6fe8d386507eff2342b5f1cac2f5dbc44d522c51ba94627b73",
+      "size_bytes": 3986432,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "APOPHIS",
+      "body_ids": [
+        "APOPHIS"
+      ],
+      "path": "kernels/spk/phase4e/apophis_2026_2251.bsp",
+      "sha256": "9c7c8084a2bb97fc4cfc1fb69e0ddd56adb27e77a768acab32adf27fd6b3689c",
+      "size_bytes": 4228096,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "IDA",
+      "body_ids": [
+        "IDA"
+      ],
+      "path": "kernels/spk/phase4e/ida_2026_2251.bsp",
+      "sha256": "d90f1cfa0eb32899facec6644ffd8a66f4872975850120e5fbc09efce21c4977",
+      "size_bytes": 4081664,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "GASPRA",
+      "body_ids": [
+        "GASPRA"
+      ],
+      "path": "kernels/spk/phase4e/gaspra_2026_2251.bsp",
+      "sha256": "568bf0dca3b9b24a98ff545537f0626f3c8cab22c7b2f8fabeb57eebdfd1fd0c",
+      "size_bytes": 4050944,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "MATHILDE",
+      "body_ids": [
+        "MATHILDE"
+      ],
+      "path": "kernels/spk/phase4e/mathilde_2026_2251.bsp",
+      "sha256": "c52efadde47d35263a3c43ecaf0c9b682bdc9f97e3147dc04535667930647b77",
+      "size_bytes": 4097024,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "STEINS",
+      "body_ids": [
+        "STEINS"
+      ],
+      "path": "kernels/spk/phase4e/steins_2026_2251.bsp",
+      "sha256": "2f795b509527854b40afe06c95a638eb3a6833cdcdb15e5e7be3aa2f3e0f1fae",
+      "size_bytes": 4076544,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "TOUTATIS",
+      "body_ids": [
+        "TOUTATIS"
+      ],
+      "path": "kernels/spk/phase4e/toutatis_2026_2251.bsp",
+      "sha256": "db123f6c35731578de196f307a33bba4426c899ba9cec25a608367d1f35980cf",
+      "size_bytes": 4046848,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "BRAILLE",
+      "body_ids": [
+        "BRAILLE"
+      ],
+      "path": "kernels/spk/phase4e/braille_2026_2251.bsp",
+      "sha256": "2d8e2bc64e8eb3b194419e93265507d034f3985c33c2e61ab14fc5fca2804247",
+      "size_bytes": 4055040,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "DINKINESH",
+      "body_ids": [
+        "DINKINESH"
+      ],
+      "path": "kernels/spk/phase4e/dinkinesh_2026_2251.bsp",
+      "sha256": "f2ffa923f7a0c390150587b32ec1914d98d9055581836df2d703afc6293c1127",
+      "size_bytes": 4058112,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "DONALDJOHANSON",
+      "body_ids": [
+        "DONALDJOHANSON"
+      ],
+      "path": "kernels/spk/phase4e/donaldjohanson_2026_2251.bsp",
+      "sha256": "b25f84881d7a32ff0f82a5b154a52238e74c301ab4b0696330d6fe64df1bcf62",
+      "size_bytes": 4074496,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "POLYMELE",
+      "body_ids": [
+        "POLYMELE"
+      ],
+      "path": "kernels/spk/phase4e/polymele_2026_2251.bsp",
+      "sha256": "b62cd886f465e457655088837e116d583192ae25f8ae3a4096e4bf4d3e787e3f",
+      "size_bytes": 4040704,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "LEUCUS",
+      "body_ids": [
+        "LEUCUS"
+      ],
+      "path": "kernels/spk/phase4e/leucus_2026_2251.bsp",
+      "sha256": "6c38119cc22f43c988d7d030919c0c7cc64564346a857aec08d84209f8646d0a",
+      "size_bytes": 4040704,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "ORUS",
+      "body_ids": [
+        "ORUS"
+      ],
+      "path": "kernels/spk/phase4e/orus_2026_2251.bsp",
+      "sha256": "74002fa2a050482bb44542e85bf65862d6978e64515079e49e113871bbdd431f",
+      "size_bytes": 4096000,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "OUMUAMUA",
+      "body_ids": [
+        "OUMUAMUA"
+      ],
+      "path": "kernels/spk/phase4e/oumuamua_2026_2251.bsp",
+      "sha256": "e655198cf97d7085dd1e4bc857e825a262d98becd75ab678c245c3534fda44ca",
+      "size_bytes": 4008960,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "BORISOV",
+      "body_ids": [
+        "BORISOV"
+      ],
+      "path": "kernels/spk/phase4e/borisov_2026_2251.bsp",
+      "sha256": "b680e9c1daaea18b19439fd65c90c2250aedc484ceda2505a15ef071171e9f81",
+      "size_bytes": 4031488,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "ATLAS3I",
+      "body_ids": [
+        "ATLAS3I"
+      ],
+      "path": "kernels/spk/phase4e/atlas3i_2026_2251.bsp",
+      "sha256": "751b425d6ee6f71209048abaa6b4d4504b487a5c49f7ac2187e54d7eec09ce20",
+      "size_bytes": 4023296,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "TEMPEL1",
+      "body_ids": [
+        "TEMPEL1"
+      ],
+      "path": "kernels/spk/phase4e/tempel1_2026_2251.bsp",
+      "sha256": "b737ac62c985666415c889e5a625c5c98255d0b9a69684871d2cfffe32cc1266",
+      "size_bytes": 4109312,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "WILD2",
+      "body_ids": [
+        "WILD2"
+      ],
+      "path": "kernels/spk/phase4e/wild2_2026_2251.bsp",
+      "sha256": "9c4d04e949e87fbfaf745c6d3db60848b823631f417a6bd640fc13d2a01e5452",
+      "size_bytes": 4088832,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "HARTLEY2",
+      "body_ids": [
+        "HARTLEY2"
+      ],
+      "path": "kernels/spk/phase4e/hartley2_2026_2251.bsp",
+      "sha256": "55df06be9bf0de8a3b9fd48f8530ad58a63f8a3eb4d6dbc07e89f65e1a39f761",
+      "size_bytes": 4086784,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "BORRELLY",
+      "body_ids": [
+        "BORRELLY"
+      ],
+      "path": "kernels/spk/phase4e/borrelly_2026_2251.bsp",
+      "sha256": "7f5d6ef135e387ff43c57e82b9d2ad83f2270a87b2418e48a744196791e9bb96",
+      "size_bytes": 4033536,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "SWIFTTUTTLE",
+      "body_ids": [
+        "SWIFTTUTTLE"
+      ],
+      "path": "kernels/spk/phase4e/swifttuttle_2026_2251.bsp",
+      "sha256": "2e4628cde65266a1dfcc66b5bc18556644e8aeade9222cc97625e672495b0928",
+      "size_bytes": 4047872,
+      "source_urls": [
+        "https://ssd.jpl.nasa.gov/api/horizons.api"
+      ]
+    },
+    {
+      "asset_id": "NEREID",
+      "body_ids": [
+        "NEREID"
+      ],
+      "path": "kernels/spk/phase4e/nep101xl-802.bsp",
+      "sha256": "006ed86a0ecea070cf209c17d08de0fe10ab3c4925e8d26ad14da64045c1b9af",
+      "size_bytes": 767016960,
+      "source_urls": [
+        "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/nep101xl-802.bsp"
+      ]
+    },
+    {
+      "asset_id": "NEP098_PART3",
+      "body_ids": [
+        "PROTEUS"
+      ],
+      "path": "kernels/spk/phase4e/nep098_part-3.bsp",
+      "sha256": "16955f87878e41b16934e697213350bc2d6a1b3e04d98f29ba7e0fce328b4355",
+      "size_bytes": 1791917056,
+      "source_urls": [
+        "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/nep098_part-3.bsp"
+      ]
+    },
+    {
+      "asset_id": "PIONEER10",
+      "body_ids": [
+        "PIONEER10"
+      ],
+      "path": "kernels/spk/phase4e/p10-a.bsp",
+      "sha256": "851ec1a9eddbd11cee25d981c7eea4031be8468cd13369ac7baec13f3afd03e5",
+      "size_bytes": 1358848,
+      "source_urls": [
+        "https://naif.jpl.nasa.gov/"
+      ]
+    },
+    {
+      "asset_id": "PIONEER11",
+      "body_ids": [
+        "PIONEER11"
+      ],
+      "path": "kernels/spk/phase4e/p11-a.bsp",
+      "sha256": "babbb7c028fa968f6cd99575f1f050fb3b93298319cc591e031db233146a54a9",
+      "size_bytes": 1403904,
+      "source_urls": [
+        "https://naif.jpl.nasa.gov/"
+      ]
+    },
+    {
+      "asset_id": "VOYAGER1",
+      "body_ids": [
+        "VOYAGER1"
+      ],
+      "path": "kernels/spk/phase4e/vgr1.x2100.bsp",
+      "sha256": "aa8f37673b5ef60296d210566d01cc49f7b32711f37003393c3327616c9fc6d0",
+      "size_bytes": 16286720,
+      "source_urls": [
+        "https://naif.jpl.nasa.gov/"
+      ]
+    },
+    {
+      "asset_id": "VOYAGER2",
+      "body_ids": [
+        "VOYAGER2"
+      ],
+      "path": "kernels/spk/phase4e/vgr2.x2100.bsp",
+      "sha256": "391f5361773322e2242fb1c81578aeb1fbf9134c3878b2f325e9b8b5f46ad7cb",
+      "size_bytes": 15744000,
+      "source_urls": [
+        "https://naif.jpl.nasa.gov/"
+      ]
+    },
+    {
+      "asset_id": "NH_OD164",
+      "body_ids": [
+        "NEWHORIZONS"
+      ],
+      "path": "kernels/spk/phase4e/nh_pred_alleph_od164.bsp",
+      "sha256": "b676f0053ee02f6e32f7e2b23ca2e865ec9f424caa3f2710e87aa06621adc050",
+      "size_bytes": 13074432,
+      "source_urls": [
+        "https://naif.jpl.nasa.gov/pub/naif/pds/data/nh-j_p_ss-spice-6-v1.0/nhsp_1000/data/spk/nh_pred_alleph_od164.bsp"
+      ]
+    },
+    {
+      "asset_id": "PROP_PIONEER10",
+      "body_ids": [
+        "PIONEER10"
+      ],
+      "path": "kernels/spk/phase4e/propagated_pioneer10_1990_2251.bsp",
+      "sha256": "217611f8da7a264eeeee8920af635fc8ac451872c269eb01c823ef73d2eb5114",
+      "size_bytes": 4614144,
+      "source_urls": [
+        "JPL mission SPK + DE440; local deterministic propagation"
+      ]
+    },
+    {
+      "asset_id": "PROP_PIONEER11",
+      "body_ids": [
+        "PIONEER11"
+      ],
+      "path": "kernels/spk/phase4e/propagated_pioneer11_1990_2251.bsp",
+      "sha256": "d081eb7f4888f3629303102365bd07355374f270a9fd80fc2969db51d8a73dd7",
+      "size_bytes": 4614144,
+      "source_urls": [
+        "JPL mission SPK + DE440; local deterministic propagation"
+      ]
+    },
+    {
+      "asset_id": "PROP_VOYAGER1",
+      "body_ids": [
+        "VOYAGER1"
+      ],
+      "path": "kernels/spk/phase4e/propagated_voyager1_2100_2251.bsp",
+      "sha256": "68ea2420006b560ae3e59243cd21a3ba515380cb2bfb54d7c9e93e38527014f3",
+      "size_bytes": 3098624,
+      "source_urls": [
+        "JPL mission SPK + DE440; local deterministic propagation"
+      ]
+    },
+    {
+      "asset_id": "PROP_VOYAGER2",
+      "body_ids": [
+        "VOYAGER2"
+      ],
+      "path": "kernels/spk/phase4e/propagated_voyager2_2100_2251.bsp",
+      "sha256": "4daa5b72afff049ad909252a35f4b8b34fbcf5fc31c1057a69238da520575726",
+      "size_bytes": 3098624,
+      "source_urls": [
+        "JPL mission SPK + DE440; local deterministic propagation"
+      ]
+    },
+    {
+      "asset_id": "PROP_NEWHORIZONS",
+      "body_ids": [
+        "NEWHORIZONS"
+      ],
+      "path": "kernels/spk/phase4e/propagated_new_horizons_2033_2251.bsp",
+      "sha256": "f8c7f0e16f1ba9dc3b6ae78b727e656c3059a5035b2e7c280f90edcd91d37506",
+      "size_bytes": 4470784,
+      "source_urls": [
+        "JPL mission SPK + DE440; local deterministic propagation"
+      ]
+    }
+  ],
+  "manifest": "manifests/solar/SOLAR_PHASE4E_CURATED_42_PLUS_5_V1.json",
+  "manifest_source_categories": [
+    "JPL mission SPK + DE440; local deterministic propagation",
+    "https://naif.jpl.nasa.gov/",
+    "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/nep098_part-3.bsp",
+    "https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/satellites/nep101xl-802.bsp",
+    "https://naif.jpl.nasa.gov/pub/naif/pds/data/nh-j_p_ss-spice-6-v1.0/nhsp_1000/data/spk/nh_pred_alleph_od164.bsp",
+    "https://ssd.jpl.nasa.gov/api/horizons.api"
+  ],
+  "missing_count": 46
+}
