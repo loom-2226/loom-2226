@@ -1,0 +1,13 @@
+{
+  "benchmark_body_rule": "LEXICOGRAPHIC_FIRST_BUILT_NON_SLOW_BODY",
+  "benchmark_measurement_departure_rule": "SECOND_AUTHORED_COARSE_DEPARTURE",
+  "benchmark_runs_per_path": 5,
+  "benchmark_warmup_departure_rule": "FIRST_AUTHORED_COARSE_DEPARTURE",
+  "bennu_build_budget_seconds": 2400,
+  "bennu_chunk_ticks": 1000,
+  "classification": "TEST_ONLY_NONCANON_NONRUNTIME",
+  "lattice_source_config": "first_lattice_slice_config.json",
+  "output_root": "/home/ubuntu/LOOM-output/stage1_destination_lattice_first_slice",
+  "validation_sample_count_per_table": 1000,
+  "validation_selection_rule": "SORTED_EVENLY_SPACED_INTEGER_INDICES_INCLUDE_FIRST_MID_LAST"
+}
