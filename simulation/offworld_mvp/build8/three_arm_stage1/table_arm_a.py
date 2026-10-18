@@ -18,7 +18,7 @@ def price(g):
  if not rows:return None
  p=min(D(E['price_rate_usd_millions_per_km_s'])*(D(str(x['departure_vinf_km_s']))+D(str(x['arrival_vinf_km_s']))) for x in rows)
  return str(p)
-def main():
+def main(*,preflight_only=False):
  begin=time.monotonic();gate_deadline=begin+C['gate_limit_seconds'];manifest=P/C['table_manifest_file'];assert digest(manifest)==C['table_manifest_sha256'],'MANIFEST_HASH_MISMATCH';table=TableTravel(E['asset_root'],manifest);direct=OnDemandTravel(asset_root=Path(E['asset_root']));m=table.manifest;data,_=base.load();cat=base.full_catalog(data);access=base.eligible_public_catalog(data,cat);assets,sources,cover=asset_index(Path(E['asset_root']));eligible={}
  for y in E['years']:
   day=f"{y}-{E['sampling']['start_month_day']}";eligible[y]=sorted(r['body_id'] for r in cat if r['body_id']!=E['origin'] and r['body_class'] not in ('STAR','BARYCENTER','SPACECRAFT') and r['body_id'] in access and table.travel.endpoint(r['body_id'],day)['status']=='DIRECT' and not missing_assets(r['body_id'],day,assets,sources,cover) and not missing_assets(E['origin'],day,assets,sources,cover))
@@ -50,6 +50,8 @@ def main():
  first=datetime.fromisoformat(m['first'].replace('Z','+00:00'));last=datetime.fromisoformat(m['last'].replace('Z','+00:00'));step=m['step_days']*86400
  n=round((last-first).total_seconds()/step)+1
  epochs=[first+timedelta(seconds=i*step) for i in range(n)]
+ source,_=direct.adapter.registry.source_for(bodies[0],_iso(epochs[0]))
+ direct.adapter._load_source(source)
  direct_times=np.asarray(str2et([_iso(x) for x in epochs]),dtype=np.float64)
  builder_time_path=table.root/'builder_et.npy';assert digest(builder_time_path)==m['builder_et_sha256'],'BUILDER_ET_HASH_MISMATCH'
  builder_times=np.load(builder_time_path)
@@ -62,6 +64,7 @@ def main():
   if mismatches:write(OUT/'time_preflight.json',{'status':'MISMATCH','per_body':time_preflight,'identity':identity});print('STOP_TIME_PREFLIGHT',body,flush=True);return 5
  write(OUT/'time_preflight.json',{'status':'PASS','per_body':time_preflight,'identity':identity,'table_manifest_sha256':digest(manifest)})
  print('TIME_PREFLIGHT_PASS',len(bodies),'TABLES',n,'TICKS_EACH',flush=True)
+ if preflight_only:return 0
  # Preflight samples all calendar departure dates in authored years; independent of adaptive refinement.
  checks=[]
  for body in bodies:
@@ -89,4 +92,4 @@ def main():
     st=time.monotonic();g=table.geometry(E['origin'],body,day,strategy=E['sampling']['strategy'],flight_range_days=E['sampling']['flight_range_days']);row={'price':price(g),'geometry_sha256':base.digest(g),'seconds':time.monotonic()-st,'sampled_solutions':g['sampled_solutions']};entry['dates'][day]=row;state['completed'][key]=entry;write(checkpoint,state);write(progress,{'status':'RUNNING','identity':identity,'body':body,'year':year,'departure':day,'completed_departures':sum(len(v['dates']) for v in state['completed'].values())})
  report={'identity':identity,'table_manifest_sha256':digest(manifest),'config_sha256':digest(P/'table_arm_a_config.json'),'elapsed_seconds':time.monotonic()-run_begin,'gate_elapsed_seconds':run_begin-begin,'departures':sum(len(v['dates']) for v in state['completed'].values()),'body_years':{k:{'departures':len(v['dates']),'feasible':any(r['price'] is not None for r in v['dates'].values()),'lowest_price_usd_millions':min((D(r['price']) for r in v['dates'].values() if r['price'] is not None),default=None)} for k,v in state['completed'].items()}}
  report['body_years']={k:{**v,'lowest_price_usd_millions':str(v['lowest_price_usd_millions']) if v['lowest_price_usd_millions'] is not None else None} for k,v in report['body_years'].items()};report['seconds_per_departure']=report['elapsed_seconds']/report['departures'] if report['departures'] else None;write(OUT/'A_REPORT.json',report);print('A_COMPLETE',json.dumps(report,sort_keys=True),flush=True);return 0
-if __name__=='__main__':sys.exit(main())
+if __name__=='__main__':sys.exit(main(preflight_only='--preflight-only' in sys.argv[1:]))
