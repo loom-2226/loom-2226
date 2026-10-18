@@ -33,9 +33,9 @@ def main():
    estimates[b]=float(measurements['100'])/100*nflight*C['comparison_departures_per_body']
  # This is only an estimate, not a measured gate runtime. Stop conservatively
  # rather than start an authorized 60-minute run known to be infeasible.
- if any(x>C['hard_limit_seconds'] for x in estimates.values()):
-  write(OUT/'gate.json',{'status':'NOT_RUN_ESTIMATED_OVER_BUDGET','identity':identity,'estimate_seconds_by_body':estimates,'limit_seconds':C['hard_limit_seconds'],'table_manifest_sha256':digest(manifest)})
-  print('STOP_PREFLIGHT_ESTIMATED_OVER_BUDGET',json.dumps({b:round(v,1) for b,v in estimates.items() if v>C['hard_limit_seconds']}),flush=True)
+ if any(survey['status_by_body'][b]=='SLOW' for b in estimates) or any(x>C['hard_limit_seconds'] for x in estimates.values()):
+  write(OUT/'gate.json',{'status':'NOT_RUN_ESTIMATED_OVER_BUDGET','identity':identity,'estimate_seconds_by_body':estimates,'survey_slow_bodies':[b for b in estimates if survey['status_by_body'][b]=='SLOW'],'limit_seconds':C['hard_limit_seconds'],'table_manifest_sha256':digest(manifest)})
+  print('STOP_PREFLIGHT_SLOW_DIRECT_PATH',json.dumps([b for b in estimates if survey['status_by_body'][b]=='SLOW']),flush=True)
   return 4
  # Preflight samples all calendar departure dates in authored years; independent of adaptive refinement.
  checks=[]
