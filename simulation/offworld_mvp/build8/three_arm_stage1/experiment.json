@@ -42,9 +42,9 @@
     "stride_days": 28
   },
   "separate_test": {
-    "body": "MARS",
-    "daily_stride_days": 1,
-    "year": 2026
+    "comparison": "PR426_DAILY_0_25_DAY_GRID_VS_DISTANCE_RESEARCH_BODY_DEPENDENT_GRID_SAME_DEPARTURE",
+    "selected_body_year_and_date": "DERIVED_FROM_A_CHECKPOINT_NOT_AUTHORED_FIXED",
+    "selection_rule": "LEXICOGRAPHIC_FIRST_COMPLETED_CHECKPOINT_DEPARTURE_WITH_PRICED_ROUTE"
   },
   "shortlist_count": 8,
   "source_commits": {

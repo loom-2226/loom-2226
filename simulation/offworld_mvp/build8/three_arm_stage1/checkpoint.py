@@ -20,7 +20,7 @@ def run():
  data,cast_sha=base.load();catalog=base.full_catalog(data);access=base.eligible_public_catalog(data,catalog)
  t=OnDemandTravel(asset_root=Path(C['asset_root']));eligible={};assets,sources,coverage=asset_index(Path(C['asset_root']))
  for year in C['years']:
-  eligible[year]=[r['body_id'] for r in catalog if r['body_id']!=C['origin'] and r['body_class'] not in ('STAR','BARYCENTER','SPACECRAFT') and r['body_id'] in access and t.endpoint(r['body_id'],f'{year}-01-01')['status']=='DIRECT' and not missing_assets(r['body_id'],f'{year}-01-01',assets,sources,coverage) and not missing_assets(C['origin'],f'{year}-01-01',assets,sources,coverage)]
+  eligible[year]=[r['body_id'] for r in catalog if r['body_id']!=C['origin'] and r['body_class'] not in ('STAR','BARYCENTER','SPACECRAFT') and r['body_id'] in access and t.endpoint(r['body_id'],f"{year}-{C['sampling']['start_month_day']}")['status']=='DIRECT' and not missing_assets(r['body_id'],f"{year}-{C['sampling']['start_month_day']}",assets,sources,coverage) and not missing_assets(C['origin'],f"{year}-{C['sampling']['start_month_day']}",assets,sources,coverage)]
  checkpoint=P/'A_CHECKPOINT.json';progress=P/'PROGRESS.json';table=P/'A_TABLE.json';state={'authored_sha256':CH,'completed':{},'started_unix':time.time()}
  if checkpoint.exists():
   state=json.loads(checkpoint.read_text());assert state['authored_sha256']==CH,'CHECKPOINT_AUTHORED_MISMATCH'
