@@ -1,0 +1,165 @@
+{
+  "builder_et_sha256": "5e0124277e440f90cf236c4676f95ea09f222c48acac579b62808bded11fe984",
+  "classification": "TEST_ONLY_NONCANON_NONRUNTIME",
+  "first": "2026-02-15T00:00:00Z",
+  "last": "2031-10-31T00:00:00Z",
+  "step_days": 0.25,
+  "superseded_status": "SUPERSEDED_RETAINED_UNMODIFIED",
+  "superseded_table_root": "/home/ubuntu/LOOM-output/stage1_destination_lattice_first_slice",
+  "supersedes_manifest_sha256": "b03091160bb18b5be06303bc6164cf38962ca104ad02545d31173180bc93f5dc",
+  "survey_output_sha256": "5586be67dcaf934a91284f1892b04ce54a7c4771d5bf9e2aa5918a444b26d05d",
+  "table_root": "/home/ubuntu/LOOM-output/stage1_destination_lattice_direct_time_rebuild",
+  "tables": {
+    "AMUN": {
+      "sha256": "bf992dcfce16ec60134d12377cc18633d5529376efdac7ff64ffba6b4bc4baa5",
+      "source_sha256": "fd94f50e0504cd868d1926024474e3c6c6b12323252cf89a92c82151e0365f8d",
+      "validation_report_sha256": "cd0c36f8f9077e25214fc57eb053570a26e6ada1b9168efec73dd7f9cc47dde0",
+      "validation_samples": 8337
+    },
+    "ASTEROID_6178": {
+      "sha256": "14afeb8746f3994ac5edd2409be4b4da7f6725d436eda9ab0d9ce3aa4c1b84d6",
+      "source_sha256": "c8eafffe2fe946bace07b63784375717187ff57960a3c828ad27d1a9be65fa19",
+      "validation_report_sha256": "6c13cfb4da5ce6092f7b1e97a910b558bd22b40f93f4ab03bd78446a818676c3",
+      "validation_samples": 8337
+    },
+    "BENNU": {
+      "sha256": "e35c0c4e8a56127ef1f83571bdfe8b17b9e300b7abb5b67ce72af4bbf41aa0ba",
+      "source_sha256": "2e25094e62542f388071b43e6f7b794024ca3fa4e399306976ac62a1a5c3b48f",
+      "validation_report_sha256": "7e8e408782681ac0b990ecc975d90dad9670f2a578a3c73aa367eababe731ee2",
+      "validation_samples": 1000
+    },
+    "CERES": {
+      "sha256": "78553169ac10ec67a34ba4303b00582ca759dceb8f71d3de393e6d315c236d61",
+      "source_sha256": "e90bf70280961d61f7b505a5d2a9c39abcc558d9a2442570e4c0e384aa9f0956",
+      "validation_report_sha256": "c56475e2b3d9d46a25d802cb10f68b729b9605211207808d348d00f7c52934d2",
+      "validation_samples": 8337
+    },
+    "CHIRON": {
+      "sha256": "df74eac5f5dfd967c6dc22ce0bf905b337eb3cee2bd8cd013c35b02c1b4e4fcf",
+      "source_sha256": "908da67ff553f8960e373c4e1dbc6c0c9ca3b4898f4815e188da5578d40fd087",
+      "validation_report_sha256": "1aedfcd311ee743c62059bd526f184c04a0cabce475857cfe7fc247be0c40475",
+      "validation_samples": 8337
+    },
+    "COMET_67P": {
+      "sha256": "85fcfbf6781486e23d8406296c2adc2df38ceb60711ed437a74158b91edbc4d6",
+      "source_sha256": "1d58cc508b21fc1e9a3d8b5b27e1ab49ba571f76504e94d3fc974b7c532422a3",
+      "validation_report_sha256": "4b8162bfaf75b7c69e3f432c0a7ecda40a2552cd9c9a5610b1f7bef889c470d1",
+      "validation_samples": 8337
+    },
+    "COMET_HALLEY": {
+      "sha256": "41629b187052540be51cd231dec205e9f0d067900c4aba1df96d52ece02f597f",
+      "source_sha256": "800ecda4992fb5326c65c9a4e654f69cd376bf0e5f6f3c8a4a5b293013c05142",
+      "validation_report_sha256": "b8916155ac82df81b8f5e58557150db47ec77d855836f3883f396eda1ba88bf1",
+      "validation_samples": 8337
+    },
+    "DIDYMOS": {
+      "sha256": "1f745af4a0f308b4bc1b29680514604781ecbdfbde0112265011436cd81b1d7b",
+      "source_sha256": "5c6cd5b808a403d5aac53718039bdb5552de80a50206da17b2f3dde9d2c34c88",
+      "validation_report_sha256": "4c7ec556ea8e60f6f90eed8db5b905c56efbfabdabf5a0e103a928bfc925ea54",
+      "validation_samples": 8337
+    },
+    "ERIS": {
+      "sha256": "8e5910b7f360b99121ca22a07e883757ff39f02af09209b53041113800f56891",
+      "source_sha256": "b326cd075e1bd5d1e896950fa79ac0ea811f3c943e502d57dce121afb4f9c9be",
+      "validation_report_sha256": "0fbcd55ac6c2b56a91de397ce69932e694e3e6e1fc82b7d01c329fe84fe3d501",
+      "validation_samples": 8337
+    },
+    "EROS": {
+      "sha256": "c057f8599228402cfcccfa09f43d1a8d4a571bc34b067112dbedb6c0c0aa14be",
+      "source_sha256": "2aa37b1080a2e666e5bd5e3d02bee1fa6ac029b65d5aea70d6b24ff9c3c9cdcf",
+      "validation_report_sha256": "aa5ce56d3335878f3d65bab75192bff225b56bd02ae0ca5d5692c34c8d3fc2d5",
+      "validation_samples": 8337
+    },
+    "EURYBATES": {
+      "sha256": "62095ce0fdd675a1d338044a967b9a771be645731f82b3b67f79e99ebc5a6972",
+      "source_sha256": "5266aeb0f71fb35bcdb10147afcaf19d27c47c3349fa1811b13bce1e555e9596",
+      "validation_report_sha256": "b092572644e3e829a23eccf56b7eb58fa28f0bdc6ebe8a4aa6a63746c8dc69ee",
+      "validation_samples": 8337
+    },
+    "HAUMEA": {
+      "sha256": "799909dd4bbca0ae960369fa2a561f063254f73c64fea0897d2abbd4433ae0d5",
+      "source_sha256": "ddde6c4fd28417fad930b3562649ad88aed58b33964cd77713011234b8841b43",
+      "validation_report_sha256": "0ed68522a60ed4fb93c346fbc5a3097c0f73fa483fd15e5c8d775fe5f68c32d5",
+      "validation_samples": 8337
+    },
+    "HYGIEA": {
+      "sha256": "4de1363c3ac5d104f61c0c1a7446b97155e377a10401839d1d56e969bdfb10e0",
+      "source_sha256": "1c0636bf10250cb86a2cb95c0515cbbe1dc1620dd16958ff7d14215a2b8a821d",
+      "validation_report_sha256": "0b52140bba1f539a3c344ac9e42ba86f82d4d64fe8eead1a2e441e10ec2cab0c",
+      "validation_samples": 8337
+    },
+    "ITOKAWA": {
+      "sha256": "13d08c6e7a688a51116d9e441228a8e97f887151c1f930e36e37c199ef24cce5",
+      "source_sha256": "cc03dcd0d36261307f42b055ea3452279525b97ccac57c0a489d09ee5e2803ed",
+      "validation_report_sha256": "0e01b658ec8d67c6cc4d7bf0ab6b8c518b0fcf4356787c8bb0e728259cf7382c",
+      "validation_samples": 8337
+    },
+    "KLEOPATRA": {
+      "sha256": "b54e9489ef086a5028a8cb31768f0496181bd106fb33520d7d9975adb4962ce6",
+      "source_sha256": "011869dba26ace7c5b023485c05e9fe832a7d98d53be9753ad99b2882196441a",
+      "validation_report_sha256": "54c34667cc2a14364b56de39d0e7045eda6e57b19df932277fd2d337b7047546",
+      "validation_samples": 8337
+    },
+    "MAKEMAKE": {
+      "sha256": "12d1c1e1a0955f844f70ad38f69cc7d5c78ef082a9e880874e9ca5e31c2f046a",
+      "source_sha256": "aec58f2a4863bc47e49f68d9516f7fb6084b44fa39b86c32f5640ecff6118463",
+      "validation_report_sha256": "3d30383ae3f0d0562f3fde3baf5b560e56025c1851a79b80cdebefc627e291cb",
+      "validation_samples": 8337
+    },
+    "MARS": {
+      "sha256": "e909e449312d29998a4738950b37a558fac7b04ac04439abd7d203f9764b0bb4",
+      "source_sha256": "9991e57b196bae1a096acc6e2afc6718102ee420d684695de0f0333064c046bc",
+      "validation_report_sha256": "f467f6a0d83f67ea5631cb03f6df3bdfd7a7f5ec0e21632a02fa18ca77308721",
+      "validation_samples": 8337
+    },
+    "MERCURY": {
+      "sha256": "1539e80dd6b796a40003eacf798ebefcc5921317d8250a7be8d63a3c1a12bf80",
+      "source_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+      "validation_report_sha256": "7f23cdfcdc5003f61497b43c04aa70f1abde3625e267b7f03a650f8d801ea8da",
+      "validation_samples": 8337
+    },
+    "PALLAS": {
+      "sha256": "66180559e34987bcf058678b181f5d6580162b308b924b8b8e5ee9d4dff4e8c7",
+      "source_sha256": "2282fbdd15c8c3bb8e41bdcc8dab990783b6cf6859d0f004f5d1657be9e85c47",
+      "validation_report_sha256": "e59862631bbd9a258e54748bad67fe0dd272df7b9f9b2bc2e463859b67a3a2b6",
+      "validation_samples": 8337
+    },
+    "PATROCLUS": {
+      "sha256": "f5031c2a918f8cb88a8951cd5c8a26902d539bd0692238f7f1088d0be2a598a2",
+      "source_sha256": "5befb0b270c454571c434ada9d0c9d7deced7d79d018c387ea0fb4dc7e28942d",
+      "validation_report_sha256": "2d185bebc54ee5e6f05007ac49d48f94d4efab1a249dcbf64c33ade6895dead0",
+      "validation_samples": 8337
+    },
+    "PLUTO": {
+      "sha256": "688c001e7a6384226071cc3bb3b0d43ba4ad9f960d6a9cad5c2896804cb729be",
+      "source_sha256": "dfbb102491a26ed41ae08ca3f8963f22f0219df1d8f265ab87b9ad825a826fc6",
+      "validation_report_sha256": "a1a3af3880c04a28495ad60c009b7f82e4a3b1d52799fe81f88bffe36771f813",
+      "validation_samples": 8337
+    },
+    "PSYCHE": {
+      "sha256": "cafd9cde1183630742324801b57f56843db2020de7607a9f0181fd21b1caca14",
+      "source_sha256": "35b52667910b76307bbd32506d653ea5960a0a24c6a03fa70dbbce91ea476e78",
+      "validation_report_sha256": "69e66ceda594f3d89ffa81a48c7dc26bf4a5c8eb343bc5e14907f18d55e00fcf",
+      "validation_samples": 8337
+    },
+    "RYUGU": {
+      "sha256": "e70793f72d6e0c08e997b21f581cec0abdf495033e6f30a6c90004170cc70633",
+      "source_sha256": "3ce3fe466e3ac30564ad7be686b89b7211bdd14fb4870849889fcc20d705b977",
+      "validation_report_sha256": "49fcb38b0ffee8258ef617b02232fa3e2477c1bd948a263b0f1bf25e355e4380",
+      "validation_samples": 8337
+    },
+    "VENUS": {
+      "sha256": "8fd8eb965ecd4240d793391c89dcdafe9c7a534c74aadaacaa713d1ad4058b32",
+      "source_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+      "validation_report_sha256": "c22a720bfe383a0bb602ff9396822bc96c66bad5adbb22e6f0544f6106c0fd20",
+      "validation_samples": 8337
+    },
+    "VESTA": {
+      "sha256": "729fe525cec34af790184edae3e798fa64ea5e143c5896cef7c38248addf048b",
+      "source_sha256": "c9db15a8baf355a85cf0bc2bea9665764f0864671974ba2dbac7e9e52ae6df26",
+      "validation_report_sha256": "c122515712a6fcd8b97ecaa590bf271bf9a2fd4b4545e74902201ab1659f5ff0",
+      "validation_samples": 8337
+    }
+  },
+  "time_conversion": "DIRECT_PATH_SPICE_STR2ET_OF_PILOT_ISO_UTC"
+}
