@@ -11,24 +11,40 @@
   "departure_limit_km_s": "10",
   "earth_baseline_root": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24",
   "earth_reader_min_end_year": 2035,
+  "estimate_seconds_per_geometry": "0.30",
   "executor_service": "BUILD",
   "funding_label": "modeled capacity, not cash",
   "funding_share": "0.00001",
   "funding_share_origin": "STAGE1_AUTHORED_EXPERIMENT_HYPOTHESIS_NOT_ROUTE1_POLICY",
+  "geometry_table_policy": "A_BUILD_ONCE_SHA256_TABLE_D_LOOKUP_ONLY",
+  "hard_stop_seconds": 7200,
   "missing_quote_policy": "NO_AWARD_NO_FALLBACK",
   "orbital_service": "ORBITAL_RECON",
   "origin": "EARTH",
   "price_rate_usd_millions_per_km_s": "72.269449528",
   "pricing_basis": "Box2 minimum sampled admissible orbital transfer, not a full year mission design",
+  "progress_check_seconds": 600,
+  "progress_checkpoint_policy": "AFTER_EACH_DEPARTURE_ATOMIC_JSON_WRITE",
   "replay_policy": "RECOMPUTE_DECISIONS_FROM_CAPTURED_QUOTE_TABLE_NO_NEW_GEOMETRY",
   "route1_unit_usd_millions": "1000",
   "sampling": {
+    "daily_refinement": true,
     "flight_range_days": [
       45.0,
       1400.0
     ],
-    "month_day": "01-01",
-    "strategy": "distance_research"
+    "flight_step_days": 0.25,
+    "include_last_day": true,
+    "max_transition_brackets_per_body_year": 1,
+    "refinement_step_days": 1,
+    "start_month_day": "01-01",
+    "strategy": "daily",
+    "stride_days": 28
+  },
+  "separate_test": {
+    "body": "MARS",
+    "daily_stride_days": 1,
+    "year": 2026
   },
   "shortlist_count": 8,
   "source_commits": {
