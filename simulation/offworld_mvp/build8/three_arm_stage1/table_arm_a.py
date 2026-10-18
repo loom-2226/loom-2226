@@ -51,7 +51,9 @@ def main():
  n=round((last-first).total_seconds()/step)+1
  epochs=[first+timedelta(seconds=i*step) for i in range(n)]
  direct_times=np.asarray(str2et([_iso(x) for x in epochs]),dtype=np.float64)
- builder_times=np.asarray(str2et([_iso(x) for x in epochs]),dtype=np.float64)
+ builder_time_path=table.root/'builder_et.npy';assert digest(builder_time_path)==m['builder_et_sha256'],'BUILDER_ET_HASH_MISMATCH'
+ builder_times=np.load(builder_time_path)
+ assert len(builder_times)==n,'BUILDER_ET_TICK_COUNT_MISMATCH'
  time_preflight={}
  for body in bodies:
   if len(np.load(table.root/(body+'.npy'),mmap_mode='r'))!=n:raise ValueError('TABLE_TICK_COUNT_MISMATCH:'+body)
