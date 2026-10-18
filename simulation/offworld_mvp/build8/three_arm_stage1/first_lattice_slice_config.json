@@ -4,7 +4,7 @@
   "build_budget_seconds": 900,
   "classification": "TEST_ONLY_NONCANON_NONRUNTIME",
   "comparison_rule": "LEXICOGRAPHIC_FIRST_ELIGIBLE_BODY_FIRST_AUTHORED_COARSE_DEPARTURE",
-  "ephemeris_time_rule": "NUMERIC_UTC_SECONDS_FROM_J2000_NOON_PLUS_SPICE_DELTET_UTC",
+  "ephemeris_time_rule": "DIRECT_PATH_SPICE_STR2ET_OF_PILOT_ISO_UTC",
   "lattice_step_days": 0.25,
   "survey_output_file": "state_survey_measured.json",
   "survey_output_sha256": "5586be67dcaf934a91284f1892b04ce54a7c4771d5bf9e2aa5918a444b26d05d",

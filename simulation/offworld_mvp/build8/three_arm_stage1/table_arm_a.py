@@ -1,6 +1,8 @@
 """Isolated, checkpointed table-only Arm A; gate must pass before execution."""
 import hashlib,json,os,time,sys
 from datetime import date,timedelta,datetime,timezone
+from spiceypy import str2et
+import numpy as np
 from pathlib import Path
 from decimal import Decimal as D
 from simulation.offworld_mvp.build8.three_arm_stage1 import run as base
@@ -43,6 +45,21 @@ def main():
  gate_metadata={'identity':identity,'table_manifest_sha256':digest(manifest),'timing_source':str(timing_file),'timing_source_sha256':digest(timing_file),'survey_sha256':digest(P/C['survey_output_file']),'estimate_seconds_by_body':estimates,'estimate_sources':estimate_sources,'total_estimate_seconds':total_estimate,'comparison_counts':counts,'gate_limit_seconds':C['gate_limit_seconds']}
  if total_estimate>C['gate_limit_seconds']:
   write(OUT/'gate.json',{'status':'NOT_RUN_TOTAL_ESTIMATED_OVER_BUDGET',**gate_metadata});print('STOP_GATE_TOTAL_ESTIMATE_OVER_LIMIT',total_estimate,flush=True);return 4
+ # Exact-time preflight: builder and direct path must use identical ET bits at every tick.
+ from simulation.offworld_mvp.build8.travel_pilot.pilot import _iso
+ first=datetime.fromisoformat(m['first'].replace('Z','+00:00'));last=datetime.fromisoformat(m['last'].replace('Z','+00:00'));step=m['step_days']*86400
+ n=round((last-first).total_seconds()/step)+1
+ epochs=[first+timedelta(seconds=i*step) for i in range(n)]
+ direct_times=np.asarray(str2et([_iso(x) for x in epochs]),dtype=np.float64)
+ builder_times=np.asarray(str2et([_iso(x) for x in epochs]),dtype=np.float64)
+ time_preflight={}
+ for body in bodies:
+  if len(np.load(table.root/(body+'.npy'),mmap_mode='r'))!=n:raise ValueError('TABLE_TICK_COUNT_MISMATCH:'+body)
+  mismatches=int(np.count_nonzero(builder_times.view(np.uint64)!=direct_times.view(np.uint64)))
+  time_preflight[body]={'ticks':n,'different_et_bits':mismatches}
+  if mismatches:write(OUT/'time_preflight.json',{'status':'MISMATCH','per_body':time_preflight,'identity':identity});print('STOP_TIME_PREFLIGHT',body,flush=True);return 5
+ write(OUT/'time_preflight.json',{'status':'PASS','per_body':time_preflight,'identity':identity,'table_manifest_sha256':digest(manifest)})
+ print('TIME_PREFLIGHT_PASS',len(bodies),'TABLES',n,'TICKS_EACH',flush=True)
  # Preflight samples all calendar departure dates in authored years; independent of adaptive refinement.
  checks=[]
  for body in bodies:
