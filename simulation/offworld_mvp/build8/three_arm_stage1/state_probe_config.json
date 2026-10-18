@@ -2,6 +2,15 @@
   "body_selection": "ALL_ELIGIBLE_DERIVED_FROM_STAGE1_ASSET_QUALIFIED_CATALOG",
   "classification": "RESEARCH_NON_RUNTIME",
   "departure_selection": "2026_START_MONTH_DAY_FROM_STAGE1_EXPERIMENT",
+  "design_validation": {
+    "mandatory_ticks": [
+      "FIRST",
+      "MIDPOINT",
+      "LAST"
+    ],
+    "maximum_sample_count": 101,
+    "sample_divisor": 99
+  },
   "hard_limit_seconds_per_body_process": 120,
   "probe_grid_step_days": 0.25,
   "probe_sizes_states_per_call": [
