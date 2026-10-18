@@ -1,0 +1,31 @@
+{
+  "classification": "RECOVERED_SURVEY_DISPOSITION_NOT_ORIGINAL_RAW_OUTPUT",
+  "provenance": "Reconstructed from earlier survey disposition recorded in first_lattice_slice_config.json and 25-body eligibility; original raw survey output not found in repository or searched output paths. No numeric probe timings asserted.",
+  "status_by_body": {
+    "AMUN": "ELIGIBLE_NOT_SLOW",
+    "ASTEROID_6178": "ELIGIBLE_NOT_SLOW",
+    "BENNU": "SLOW",
+    "CERES": "ELIGIBLE_NOT_SLOW",
+    "CHIRON": "ELIGIBLE_NOT_SLOW",
+    "COMET_67P": "ELIGIBLE_NOT_SLOW",
+    "COMET_HALLEY": "ELIGIBLE_NOT_SLOW",
+    "DIDYMOS": "ELIGIBLE_NOT_SLOW",
+    "ERIS": "ELIGIBLE_NOT_SLOW",
+    "EROS": "ELIGIBLE_NOT_SLOW",
+    "EURYBATES": "ELIGIBLE_NOT_SLOW",
+    "HAUMEA": "ELIGIBLE_NOT_SLOW",
+    "HYGIEA": "ELIGIBLE_NOT_SLOW",
+    "ITOKAWA": "ELIGIBLE_NOT_SLOW",
+    "KLEOPATRA": "ELIGIBLE_NOT_SLOW",
+    "MAKEMAKE": "ELIGIBLE_NOT_SLOW",
+    "MARS": "ELIGIBLE_NOT_SLOW",
+    "MERCURY": "ELIGIBLE_NOT_SLOW",
+    "PALLAS": "ELIGIBLE_NOT_SLOW",
+    "PATROCLUS": "ELIGIBLE_NOT_SLOW",
+    "PLUTO": "ELIGIBLE_NOT_SLOW",
+    "PSYCHE": "ELIGIBLE_NOT_SLOW",
+    "RYUGU": "ELIGIBLE_NOT_SLOW",
+    "VENUS": "ELIGIBLE_NOT_SLOW",
+    "VESTA": "ELIGIBLE_NOT_SLOW"
+  }
+}
