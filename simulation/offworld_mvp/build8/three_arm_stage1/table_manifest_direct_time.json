@@ -162,5 +162,7 @@
     }
   },
   "time_conversion": "DIRECT_PATH_SPICE_STR2ET_OF_PILOT_ISO_UTC",
-  "verification_status": "UNVERIFIED_PENDING_BITWISE_ET_PREFLIGHT"
+  "verification_result_path": "/home/ubuntu/LOOM-output/stage1_table_arm_a_direct_time_candidate/time_preflight.json",
+  "verification_result_sha256": "b57ca4e9ca3e61add7e29fd75243280ac7f542a84691518dbda93bde863a2010",
+  "verification_status": "VERIFIED_BITWISE_ET_PREFLIGHT_PASS"
 }
