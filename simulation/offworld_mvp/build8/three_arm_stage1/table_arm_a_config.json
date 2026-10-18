@@ -1,0 +1,14 @@
+{
+  "arm": "A_ONLY",
+  "checkpoint_policy": "AFTER_EACH_DEPARTURE",
+  "classification": "TEST_ONLY_NONCANON_NONRUNTIME",
+  "comparison_departures_per_body": 50,
+  "comparison_selection_rule": "EVENLY_SPACED_CALENDAR_DAYS_ACROSS_AUTHORED_YEARS",
+  "hard_limit_seconds": 3600,
+  "output_root": "/home/ubuntu/LOOM-output/stage1_table_arm_a_candidate",
+  "state_source": "SHARED_VALIDATED_TABLE",
+  "survey_output_file": "state_survey_measured.json",
+  "survey_output_sha256": "5586be67dcaf934a91284f1892b04ce54a7c4771d5bf9e2aa5918a444b26d05d",
+  "table_manifest_file": "table_manifest.json",
+  "table_manifest_sha256": "b03091160bb18b5be06303bc6164cf38962ca104ad02545d31173180bc93f5dc"
+}

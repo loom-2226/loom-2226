@@ -1,5 +1,5 @@
 {
-  "classification": "RECOVERED_SURVEY_DISPOSITION_NOT_ORIGINAL_RAW_OUTPUT",
+  "classification": "SUPERSEDED_RECOVERED_DISPOSITION_NOT_MEASURED",
   "provenance": "Reconstructed from earlier survey disposition recorded in first_lattice_slice_config.json and 25-body eligibility; original raw survey output not found in repository or searched output paths. No numeric probe timings asserted.",
   "status_by_body": {
     "AMUN": "ELIGIBLE_NOT_SLOW",
@@ -27,5 +27,7 @@
     "RYUGU": "ELIGIBLE_NOT_SLOW",
     "VENUS": "ELIGIBLE_NOT_SLOW",
     "VESTA": "ELIGIBLE_NOT_SLOW"
-  }
+  },
+  "superseded_by": "state_survey_measured.json",
+  "superseded_by_sha256": "5586be67dcaf934a91284f1892b04ce54a7c4771d5bf9e2aa5918a444b26d05d"
 }
