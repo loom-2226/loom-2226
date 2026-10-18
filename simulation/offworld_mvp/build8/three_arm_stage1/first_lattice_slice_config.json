@@ -1,0 +1,14 @@
+{
+  "artifact_policy": "OUTPUT_OUTSIDE_GIT_UNTRACKED_IMMUTABLE_TABLES",
+  "body_rule": "ALL_ELIGIBLE_FROM_STAGE1_EXCLUDING_SURVEY_SLOW",
+  "build_budget_seconds": 900,
+  "classification": "TEST_ONLY_NONCANON_NONRUNTIME",
+  "comparison_rule": "LEXICOGRAPHIC_FIRST_ELIGIBLE_BODY_2026_FIRST_COARSE_DEPARTURE",
+  "ephemeris_time_rule": "NUMERIC_UTC_SECONDS_FROM_J2000_NOON_PLUS_SPICE_DELTET_UTC",
+  "lattice_step_days": 0.25,
+  "survey_slow_exclusions": [
+    "BENNU"
+  ],
+  "validation_config": "state_probe_config.json",
+  "window_rule": "UNION_OF_AUTHORED_COARSE_AND_PERMITTED_REFINEMENT_DEPARTURES_PLUS_FLIGHT_RANGE"
+}
