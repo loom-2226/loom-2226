@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import date,timedelta
 from decimal import Decimal as D
 from simulation.offworld_mvp.build8.three_arm_stage1 import run as base
-from simulation.offworld_mvp.build8.box2_lazy_proof.proof import dates_for
+from simulation.offworld_mvp.build8.box2_lazy_proof.proof import dates_for,asset_index,missing_assets
 from simulation.offworld_mvp.build8.travel_pilot.on_demand import OnDemandTravel
 P=Path(__file__).parent
 C=json.loads((P/'experiment.json').read_text());CH=base.hfile(P/'experiment.json')
@@ -18,9 +18,9 @@ def price(geo):
  return {'status':'PRICED','usd_millions':str(p),'usd':str(p*D('1000000')),'route1_units':str(p/D(C['route1_unit_usd_millions']))}
 def run():
  data,cast_sha=base.load();catalog=base.full_catalog(data);access=base.eligible_public_catalog(data,catalog)
- t=OnDemandTravel(asset_root=Path(C['asset_root']));eligible={}
+ t=OnDemandTravel(asset_root=Path(C['asset_root']));eligible={};assets,sources,coverage=asset_index(Path(C['asset_root']))
  for year in C['years']:
-  eligible[year]=[r['body_id'] for r in catalog if r['body_id']!=C['origin'] and r['body_class'] not in ('STAR','BARYCENTER','SPACECRAFT') and r['body_id'] in access and t.endpoint(r['body_id'],f'{year}-01-01')['status']=='DIRECT']
+  eligible[year]=[r['body_id'] for r in catalog if r['body_id']!=C['origin'] and r['body_class'] not in ('STAR','BARYCENTER','SPACECRAFT') and r['body_id'] in access and t.endpoint(r['body_id'],f'{year}-01-01')['status']=='DIRECT' and not missing_assets(r['body_id'],f'{year}-01-01',assets,sources,coverage) and not missing_assets(C['origin'],f'{year}-01-01',assets,sources,coverage)]
  checkpoint=P/'A_CHECKPOINT.json';progress=P/'PROGRESS.json';table=P/'A_TABLE.json';state={'authored_sha256':CH,'completed':{},'started_unix':time.time()}
  if checkpoint.exists():
   state=json.loads(checkpoint.read_text());assert state['authored_sha256']==CH,'CHECKPOINT_AUTHORED_MISMATCH'
