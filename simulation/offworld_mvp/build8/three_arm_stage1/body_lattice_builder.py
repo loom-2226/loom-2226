@@ -41,10 +41,6 @@ def main(body):
  a=np.concatenate([np.load(folder/(f'{lo:06d}_{min(n,lo+size):06d}.npy')) for lo in range(0,n,size)]);assert a.shape==(n,6);v=validate(body,a,et,target,C['validation_sample_count_per_table']);print('VALIDATED',body,v,flush=True)
  if time.monotonic()>=deadline:print('STOP_BUDGET_BEFORE_PUBLISH',flush=True);return 2
  tmp=OUT/(body+'.pending.npy');np.save(tmp,a);tmp.replace(OUT/(body+'.npy'));results[body]={'validation':v,'sha256':sha(OUT/(body+'.npy')),'source_sha256':src.sha256,'chunk_count':len(saved['chunks'])};reference=REFERENCE/(body+'.npy');assert reference.exists(),'REFERENCE_MISSING';reference_hash=sha(reference);assert reference_hash==results[body]['sha256'],'REBUILT_TABLE_HASH_MISMATCH';results[body]['reference_sha256']=reference_hash;print('REBUILT_MATCH',body,results[body],flush=True)
- # Rebuilt table is compared with the already published reference without changing it.
- for other_body in []:
-  if time.monotonic()>=deadline:print('STOP_BUDGET_BEFORE_BODY',body,flush=True);return 2
-  src,cov=t.adapter.registry.source_for(other_body,manifest['first']);t.adapter._load_source(src);target=str(t.adapter.registry.body_identifier(other_body).identifier_value);a=np.load(OUT/(other_body+'.npy'),mmap_mode='r');assert a.shape==(n,6);v=validate(other_body,a,et,target,C['validation_sample_count_per_table']);results[other_body]={'validation':v,'sha256':sha(OUT/(other_body+'.npy')),'source_sha256':src.sha256};print('VALIDATED',other_body,v,'elapsed',round(time.monotonic()-begin,2),flush=True)
  report={'config_sha256':sha(P/'next_lattice_slice_config.json'),'results':results,'elapsed_seconds':time.monotonic()-begin,'complete':len(results)==1};atomic_json(OUT/(body+'_generic_validation.json'),report);print('REPORT_SHA256',sha(OUT/(body+'_generic_validation.json')),'TOTAL_SECONDS',report['elapsed_seconds'],'COMPLETE',report['complete'],flush=True)
  return 0 if report['complete'] else 3
 if __name__=='__main__':
