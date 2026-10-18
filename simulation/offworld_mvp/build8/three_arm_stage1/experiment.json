@@ -1,25 +1,45 @@
 {
-  "classification": "TEST_ONLY_NONCANON_NONRUNTIME",
-  "years": [2026],
-  "cast": "SMALL",
-  "origin": "EARTH",
-  "earth_baseline_root": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24",
-  "funding_share": "0.00001",
-  "funding_label": "modeled capacity, not cash",
-  "route1_unit_usd_millions": "1000",
-  "asset_root": "/home/ubuntu/loom_solar_assets",
-  "value_multiplier_route1_per_score": "0.1",
-  "shortlist_count": 8,
-  "cheap_cost_count": 8,
-  "cheap_cost_rule": "SORT_BY_PUBLIC_SEMIMAJOR_AXIS_DIFFERENCE_IF_PRESENT_ELSE_CATALOG_ORDER",
-  "sampling": {"month_day": "01-01", "strategy": "distance_research", "flight_range_days": [45.0, 1400.0]},
-  "price_rate_usd_millions_per_km_s": "72.269449528",
-  "departure_limit_km_s": "10",
   "arrival_limit_km_s": "10",
-  "transfer_family": "IZZO2015_M0_PROGRADE_LOW_PATH_HELIOCENTRIC",
+  "asset_root": "/home/ubuntu/loom_solar_assets",
+  "budget_shortfall_policy": "WAIT_CARRY_CASH_TO_NEXT_YEAR",
+  "cache_policy": "EACH_ARM_STARTS_WITH_NEW_EMPTY_ONDEMANDTRAVEL_MEMORY_CACHE",
+  "capacity_usd_per_route1_unit": "1000000000",
+  "cast": "SMALL",
+  "cheap_cost_count": 8,
+  "cheap_cost_rule": "SORT_BY_ABSOLUTE_PUBLIC_HELIOCENTRIC_RADIAL_DISTANCE_DIFFERENCE_AT_AUTHORED_EPOCH_NO_LAMBERT",
+  "classification": "TEST_ONLY_NONCANON_NONRUNTIME",
+  "departure_limit_km_s": "10",
+  "earth_baseline_root": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24",
+  "earth_reader_min_end_year": 2035,
   "executor_service": "BUILD",
-  "orbital_service": "ORBITAL_RECON",
-  "pricing_basis": "Box2 minimum sampled admissible orbital transfer, not a full year mission design",
+  "funding_label": "modeled capacity, not cash",
+  "funding_share": "0.00001",
+  "funding_share_origin": "STAGE1_AUTHORED_EXPERIMENT_HYPOTHESIS_NOT_ROUTE1_POLICY",
   "missing_quote_policy": "NO_AWARD_NO_FALLBACK",
-  "source_commits": {"main": "19377b854c529e74afc61202d9eb2e780c5b4884", "executor": "52bdba22e93cfeab4774b3a7ffc6aeba08a26769", "box2": "17e5347c078d866fe20af4b92b03d0b6deea9cfd"}
+  "orbital_service": "ORBITAL_RECON",
+  "origin": "EARTH",
+  "price_rate_usd_millions_per_km_s": "72.269449528",
+  "pricing_basis": "Box2 minimum sampled admissible orbital transfer, not a full year mission design",
+  "replay_policy": "RECOMPUTE_DECISIONS_FROM_CAPTURED_QUOTE_TABLE_NO_NEW_GEOMETRY",
+  "route1_unit_usd_millions": "1000",
+  "sampling": {
+    "flight_range_days": [
+      45.0,
+      1400.0
+    ],
+    "month_day": "01-01",
+    "strategy": "distance_research"
+  },
+  "shortlist_count": 8,
+  "source_commits": {
+    "box2": "17e5347c078d866fe20af4b92b03d0b6deea9cfd",
+    "executor": "52bdba22e93cfeab4774b3a7ffc6aeba08a26769",
+    "main": "19377b854c529e74afc61202d9eb2e780c5b4884"
+  },
+  "transfer_family": "IZZO2015_M0_PROGRADE_LOW_PATH_HELIOCENTRIC",
+  "value_multiplier_route1_per_score": "0.1",
+  "years": [
+    2026,
+    2027
+  ]
 }
