@@ -63,7 +63,13 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "FAILED_HTTP_400",
+        "request_count": 1,
+        "epochs": [],
+        "error": "HTTP 400 from TLIST_TYPE=TDB; not retried"
+      }
     },
     {
       "body": "LUTETIA",
@@ -109,7 +115,13 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "FAILED_HTTP_400",
+        "request_count": 1,
+        "epochs": [],
+        "error": "HTTP 400 from TLIST_TYPE=TDB; not retried"
+      }
     },
     {
       "body": "THEMIS",
@@ -155,7 +167,13 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "FAILED_HTTP_400",
+        "request_count": 1,
+        "epochs": [],
+        "error": "HTTP 400 from TLIST_TYPE=TDB; not retried"
+      }
     },
     {
       "body": "DAVIDA",
@@ -201,7 +219,13 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "FAILED_HTTP_400",
+        "request_count": 1,
+        "epochs": [],
+        "error": "HTTP 400 from TLIST_TYPE=TDB; not retried"
+      }
     },
     {
       "body": "INTERAMNIA",
@@ -247,7 +271,13 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "FAILED_HTTP_400",
+        "request_count": 1,
+        "epochs": [],
+        "error": "HTTP 400 from TLIST_TYPE=TDB; not retried"
+      }
     },
     {
       "body": "SEDNA",
@@ -293,7 +323,13 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "FAILED_MISSING_DE440_IN_VALIDATION",
+        "request_count": 1,
+        "epochs": [],
+        "error": "SPKINSUFFDATA for SSB center; not retried"
+      }
     },
     {
       "body": "QUAOAR",
@@ -339,7 +375,13 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "FAILED_MISSING_DE440_IN_VALIDATION",
+        "request_count": 1,
+        "epochs": [],
+        "error": "SPKINSUFFDATA for SSB center; not retried"
+      }
     },
     {
       "body": "ORCUS",
@@ -385,7 +427,13 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "FAILED_MISSING_DE440_IN_VALIDATION",
+        "request_count": 1,
+        "epochs": [],
+        "error": "SPKINSUFFDATA for SSB center; not retried"
+      }
     },
     {
       "body": "GONGGONG",
@@ -431,7 +479,13 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "FAILED_MISSING_DE440_IN_VALIDATION",
+        "request_count": 1,
+        "epochs": [],
+        "error": "SPKINSUFFDATA for SSB center; not retried"
+      }
     },
     {
       "body": "SALACIA",
@@ -477,7 +531,13 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "FAILED_MISSING_DE440_IN_VALIDATION",
+        "request_count": 1,
+        "epochs": [],
+        "error": "SPKINSUFFDATA for SSB center; not retried"
+      }
     },
     {
       "body": "VARUNA",
@@ -523,7 +583,13 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "FAILED_MISSING_DE440_IN_VALIDATION",
+        "request_count": 1,
+        "epochs": [],
+        "error": "SPKINSUFFDATA for SSB center; not retried"
+      }
     },
     {
       "body": "MS4",
@@ -569,7 +635,13 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "FAILED_MISSING_DE440_IN_VALIDATION",
+        "request_count": 1,
+        "epochs": [],
+        "error": "SPKINSUFFDATA for SSB center; not retried"
+      }
     },
     {
       "body": "IXION",
@@ -615,7 +687,13 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "FAILED_MISSING_DE440_IN_VALIDATION",
+        "request_count": 1,
+        "epochs": [],
+        "error": "SPKINSUFFDATA for SSB center; not retried"
+      }
     },
     {
       "body": "ARROKOTH",
@@ -661,7 +739,53 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 0.00015446612693555966,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 0.12138270891581897,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 0.9342637809975727,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 4.131273363955088,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 10.04317055678182,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'486958'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     },
     {
       "body": "APOPHIS",
@@ -707,7 +831,53 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 0.0012690482644560493,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 203.76925883584516,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 138674.3523899405,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 6335430.278976395,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 2412541.690333624,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'99942'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     },
     {
       "body": "IDA",
@@ -753,7 +923,53 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 0.0006201552003615036,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 0.021488391033552504,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 0.0326841120359637,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 0.059442102403377516,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 0.07365380119570382,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'243'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     },
     {
       "body": "GASPRA",
@@ -799,7 +1015,53 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 0.0007071968680306591,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 0.025210243178065327,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 0.08845489179412137,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 0.27093875989720906,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 0.5076799984094684,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'951'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     },
     {
       "body": "MATHILDE",
@@ -845,7 +1107,53 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 0.0005142520246085753,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 0.1192550062873391,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 0.48541599335894203,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 0.4535231584201469,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 0.09067282896763056,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'253'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     },
     {
       "body": "STEINS",
@@ -891,7 +1199,53 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 0.0005904981413431488,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 0.04543790249507719,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 0.2444385917548112,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 0.5903544222092155,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 0.7067777014927531,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'Steins'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     },
     {
       "body": "TOUTATIS",
@@ -937,7 +1291,53 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 0.0004646028603943742,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 0.06409604733314524,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 1.9524534147854669,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 3.936162448745382,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 149.33354256447643,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'Toutatis'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     },
     {
       "body": "BRAILLE",
@@ -983,7 +1383,53 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 0.00044802194728003604,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 0.06822622411005033,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 0.2613747428022214,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 0.439028452260438,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 0.5674410680584756,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'Braille'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     },
     {
       "body": "DINKINESH",
@@ -1029,7 +1475,53 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 0.0007544676152584205,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 0.09362093785520333,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 0.196986578340821,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 0.3102055519386639,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 0.5037062900049252,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'Dinkinesh'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     },
     {
       "body": "DONALDJOHANSON",
@@ -1075,7 +1567,53 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 0.0006017188114089847,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 0.05827774887068305,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 0.174482499995438,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 0.6750966019546006,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 0.9407356691132089,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'52246'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     },
     {
       "body": "POLYMELE",
@@ -1121,7 +1659,53 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 0.0004125604242480139,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 0.05952738522503179,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 0.015573059039863807,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 0.10095990254045356,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 0.0428432061430179,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'Polymele'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     },
     {
       "body": "LEUCUS",
@@ -1167,7 +1751,53 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 0.0004185566687810527,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 0.010386033461909536,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 0.04673569480494587,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 0.3987675828283356,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 0.07615716786105718,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'Leucus'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     },
     {
       "body": "ORUS",
@@ -1213,7 +1843,53 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 0.00044528652911484924,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 0.07004846276040817,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 0.15043752007651154,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 0.11201001485617196,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 0.2583107758975077,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'Orus'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     },
     {
       "body": "OUMUAMUA",
@@ -1259,7 +1935,53 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 0.0009129065762409452,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 0.14164151782397613,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 0.2928969251485995,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 0.9197252124104527,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 1.466396256859045,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'DES=1I'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     },
     {
       "body": "BORISOV",
@@ -1305,7 +2027,53 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 0.0011099526792222832,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 0.10667004391092658,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 0.27252290011762875,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 0.34210800498886085,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 0.4863272382342307,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'DES=2I'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     },
     {
       "body": "ATLAS3I",
@@ -1351,7 +2119,53 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 0.0021406409307897565,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 0.08346057686509244,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 0.15622843881386161,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 0.20972482249726157,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 0.3755695832985328,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'DES=3I'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     },
     {
       "body": "TEMPEL1",
@@ -1397,7 +2211,53 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 0.00037359438449208323,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 0.05433106577311505,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 0.006371404522530649,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 0.19899270066720368,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 0.5932715622327642,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'90000192;'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     },
     {
       "body": "WILD2",
@@ -1443,7 +2303,53 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 0.0002979359450772142,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 0.7181241218057054,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 1.7357491689966749,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 5.973272081853694,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 57.40297269839375,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'90000863;'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     },
     {
       "body": "HARTLEY2",
@@ -1489,7 +2395,53 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 0.00028078614214419755,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 0.025674025808163366,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 0.4765777280728278,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 1.2384654999624345,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 476.4561401634439,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'90000960;'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     },
     {
       "body": "BORRELLY",
@@ -1535,7 +2487,53 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 0.00025905296525223167,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 0.08982586222104877,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 0.20273577429938286,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 0.5614461798642583,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 1.2184316770315078,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'90000306;'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     },
     {
       "body": "SWIFTTUTTLE",
@@ -1581,7 +2579,118 @@
       "vector_comparison_status": "FAILED_PARSER_NO_NUMERIC_DIFFERENCES",
       "errors": [
         "ValueError: VECTOR_PARSE_COUNT 0"
-      ]
+      ],
+      "vector_validation_v2": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "epoch_utc": "2026-01-01T00:00:00Z",
+            "position_difference_km": 9.351480594655666e-05,
+            "horizons_jd_tdb": 2461041.50080074
+          },
+          {
+            "epoch_utc": "2076-01-01T00:00:00Z",
+            "position_difference_km": 0.11747501120130453,
+            "horizons_jd_tdb": 2479303.50080074
+          },
+          {
+            "epoch_utc": "2126-01-01T00:00:00Z",
+            "position_difference_km": 2.5957948732188716,
+            "horizons_jd_tdb": 2497565.500800739
+          },
+          {
+            "epoch_utc": "2176-01-01T00:00:00Z",
+            "position_difference_km": 0.7568593732718915,
+            "horizons_jd_tdb": 2515827.500800739
+          },
+          {
+            "epoch_utc": "2226-01-01T00:00:00Z",
+            "position_difference_km": 1.5750951170760719,
+            "horizons_jd_tdb": 2534089.500800739
+          }
+        ],
+        "request": {
+          "format": "json",
+          "COMMAND": "'90000985;'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "TLIST": "'2461041.50080073997,2479303.50080073951,2497565.50080073904,2515827.50080073904,2534089.50080073858'",
+          "TLIST_TYPE": "'JD'"
+        }
+      }
     }
-  ]
+  ],
+  "independent_vector_validation_v2": {
+    "status": "COMPLETED_WITH_REPORTED_ERRORS",
+    "no_spk_downloads": true,
+    "no_retries": true,
+    "epochs_utc": [
+      "2026-01-01",
+      "2076-01-01",
+      "2126-01-01",
+      "2176-01-01",
+      "2226-01-01"
+    ],
+    "comparison_frame": "ECLIPJ2000",
+    "center": "500@0 solar system barycenter, matching saved SPK; not heliocentric",
+    "note": "Horizons CSV position columns 2,3,4; request TLIST_TYPE TDB and SPICE JDTDB epochs. No tolerance imposed.",
+    "successful_objects": 21,
+    "failed_http_400_objects": [
+      "JUNO",
+      "LUTETIA",
+      "THEMIS",
+      "DAVIDA",
+      "INTERAMNIA"
+    ],
+    "failed_missing_de440_objects": [
+      "SEDNA",
+      "QUAOAR",
+      "ORCUS",
+      "GONGGONG",
+      "SALACIA",
+      "VARUNA",
+      "MS4",
+      "IXION"
+    ],
+    "largest_five_epoch_differences_km": [
+      {
+        "body": "APOPHIS",
+        "epoch_utc": "2176-01-01T00:00:00Z",
+        "position_difference_km": 6335430.278976395
+      },
+      {
+        "body": "APOPHIS",
+        "epoch_utc": "2226-01-01T00:00:00Z",
+        "position_difference_km": 2412541.690333624
+      },
+      {
+        "body": "APOPHIS",
+        "epoch_utc": "2126-01-01T00:00:00Z",
+        "position_difference_km": 138674.3523899405
+      },
+      {
+        "body": "HARTLEY2",
+        "epoch_utc": "2226-01-01T00:00:00Z",
+        "position_difference_km": 476.4561401634439
+      },
+      {
+        "body": "APOPHIS",
+        "epoch_utc": "2076-01-01T00:00:00Z",
+        "position_difference_km": 203.76925883584516
+      }
+    ],
+    "objects_over_1000_km": [
+      "APOPHIS"
+    ],
+    "request_count": 34,
+    "correction": "First 5 requests rejected HTTP 400 because TLIST_TYPE=TDB is unsupported; next 8 requests returned vectors but local SPICE lacked DE440 and could not resolve center 0; final 21 were compared with DE440 loaded. Earlier failures not retried. JD epochs interpreted as TDB from Horizons returned columns; nominal date labels differ by about 69 seconds in displayed UTC."
+  }
 }
