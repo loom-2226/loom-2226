@@ -8,7 +8,7 @@
   "comparison_departures_per_slow_body": 2,
   "comparison_selection_rule": "EVENLY_SPACED_CALENDAR_DAYS_ACROSS_AUTHORED_YEARS",
   "gate_limit_seconds": 3600,
-  "output_root": "/home/ubuntu/LOOM-output/stage1_table_arm_a_direct_time_candidate",
+  "output_root": "/home/ubuntu/LOOM-output/stage1_table_arm_a_memory_bounded",
   "process_memory_limit_gib": 2.0,
   "run_limit_seconds": 3600,
   "state_source": "SHARED_VALIDATED_TABLE",
