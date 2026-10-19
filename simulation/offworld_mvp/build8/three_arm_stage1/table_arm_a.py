@@ -1,5 +1,5 @@
 """Isolated, checkpointed table-only Arm A; gate must pass before execution."""
-import hashlib,json,os,time,sys
+import hashlib,json,os,time,sys,resource,gc
 from datetime import date,timedelta,datetime,timezone
 from spiceypy import str2et
 import numpy as np
@@ -18,6 +18,18 @@ def price(g):
  if not rows:return None
  p=min(D(E['price_rate_usd_millions_per_km_s'])*(D(str(x['departure_vinf_km_s']))+D(str(x['arrival_vinf_km_s']))) for x in rows)
  return str(p)
+def rss_bytes():
+ return int(Path('/proc/self/status').read_text().split('VmRSS:')[1].split('kB')[0].strip())*1024
+def enforce(stage,peak):
+ current=rss_bytes();peak=max(peak,current)
+ if peak>C['process_memory_limit_gib']*1024**3:
+  write(OUT/(stage+'_memory_stop.json'),{'status':'MEMORY_LIMIT','stage':stage,'peak_rss_bytes':peak,'limit_gib':C['process_memory_limit_gib']})
+  print('STOP_MEMORY_LIMIT',stage,peak,flush=True);return peak,False
+ return peak,True
+def clear_memos(table,direct):
+ for obj in (table.travel,direct):
+  obj._geometry.clear();obj._state_cache.clear()
+ gc.collect()
 def main(*,preflight_only=False):
  begin=time.monotonic();gate_deadline=begin+C['gate_limit_seconds'];manifest=P/C['table_manifest_file'];assert digest(manifest)==C['table_manifest_sha256'],'MANIFEST_HASH_MISMATCH';table=TableTravel(E['asset_root'],manifest);direct=OnDemandTravel(asset_root=Path(E['asset_root']));m=table.manifest;data,_=base.load();cat=base.full_catalog(data);access=base.eligible_public_catalog(data,cat);assets,sources,cover=asset_index(Path(E['asset_root']));eligible={}
  for y in E['years']:
@@ -65,16 +77,39 @@ def main(*,preflight_only=False):
  write(OUT/'time_preflight.json',{'status':'PASS','per_body':time_preflight,'identity':identity,'table_manifest_sha256':digest(manifest)})
  print('TIME_PREFLIGHT_PASS',len(bodies),'TABLES',n,'TICKS_EACH',flush=True)
  if preflight_only:return 0
- # Preflight samples all calendar departure dates in authored years; independent of adaptive refinement.
- checks=[]
+ # Persist every comparison; only an identical identity can resume.
+ gate_file=OUT/'gate_comparisons.jsonl';records={};peak_gate=0
+ if gate_file.exists():
+  for line in gate_file.read_text().splitlines():
+   row=json.loads(line)
+   if row['identity']==identity and row['equal']:
+    records[(row['body'],row['day'])]=row
+ # Preflight samples all calendar departure dates in authored years.
  for body in bodies:
-  days=[date(y,1,1)+timedelta(days=i) for y in E['years'] for i in range((date(y+1,1,1)-date(y,1,1)).days)];chosen=[days[i].isoformat() for i in even(len(days),counts[body])]
+  days=[date(y,1,1)+timedelta(days=i) for y in E['years'] for i in range((date(y+1,1,1)-date(y,1,1)).days)]
+  chosen=[days[i].isoformat() for i in even(len(days),counts[body])]
   for day in chosen:
-   if time.monotonic()>=gate_deadline:write(OUT/'gate.json',{'status':'TIME_LIMIT',**gate_metadata,'completed':checks});print('STOP_GATE_TIME_LIMIT',body,day,flush=True);return 2
-   kw={'strategy':E['sampling']['strategy'],'flight_range_days':E['sampling']['flight_range_days']};st=time.monotonic();g1=direct.geometry(E['origin'],body,day,**kw);direct_s=time.monotonic()-st
-   g2=table.geometry(E['origin'],body,day,**kw);a=base.digest(g1);b=base.digest(g2);checks.append({'body':body,'day':day,'direct_seconds':direct_s,'geometry_sha256':a,'equal':a==b});print('GATE',body,day,'DIRECT_SECONDS',round(direct_s,3),'MATCH',a==b,flush=True)
-   if a!=b:write(OUT/'gate.json',{'status':'MISMATCH',**gate_metadata,'completed':checks});return 3
- gate_summary={body:{'matches':sum(x['equal'] for x in checks if x['body']==body),'mismatches':sum(not x['equal'] for x in checks if x['body']==body),'seconds':sum(x['direct_seconds'] for x in checks if x['body']==body)} for body in bodies};write(OUT/'gate.json',{'status':'PASS',**gate_metadata,'per_body':gate_summary,'completed':checks});print('GATE_PASS_PER_BODY',json.dumps(gate_summary,sort_keys=True),flush=True);run_begin=time.monotonic();run_deadline=run_begin+C['run_limit_seconds']
+   if (body,day) in records:continue
+   if time.monotonic()>=gate_deadline:
+    write(OUT/'gate.json',{'status':'TIME_LIMIT',**gate_metadata,'completed_count':len(records),'peak_rss_bytes':peak_gate});return 2
+   kw={'strategy':E['sampling']['strategy'],'flight_range_days':E['sampling']['flight_range_days']}
+   st=time.monotonic();g1=direct.geometry(E['origin'],body,day,**kw);direct_s=time.monotonic()-st
+   a=base.digest(g1);del g1
+   g2=table.geometry(E['origin'],body,day,**kw);b=base.digest(g2);del g2
+   peak_gate=max(peak_gate,rss_bytes());clear_memos(table,direct)
+   row={'identity':identity,'body':body,'day':day,'direct_seconds':direct_s,'geometry_sha256':a,'table_geometry_sha256':b,'equal':a==b,'rss_bytes':peak_gate}
+   with gate_file.open('a') as h:
+    h.write(json.dumps(row,sort_keys=True)+'\n');h.flush();os.fsync(h.fileno())
+   records[(body,day)]=row
+   print('GATE',body,day,'DIRECT_SECONDS',round(direct_s,3),'MATCH',a==b,'PEAK_RSS',peak_gate,flush=True)
+   if a!=b:
+    write(OUT/'gate.json',{'status':'MISMATCH',**gate_metadata,'failed':row,'completed_count':len(records),'peak_rss_bytes':peak_gate});return 3
+   peak_gate,ok=enforce('gate',peak_gate)
+   if not ok:return 6
+ gate_summary={body:{'matches':sum(x['equal'] for (bb,_),x in records.items() if bb==body),'mismatches':sum(not x['equal'] for (bb,_),x in records.items() if bb==body),'seconds':sum(x['direct_seconds'] for (bb,_),x in records.items() if bb==body)} for body in bodies}
+ write(OUT/'gate.json',{'status':'PASS',**gate_metadata,'per_body':gate_summary,'completed_count':len(records),'peak_rss_bytes':peak_gate})
+ print('GATE_PASS_PER_BODY',json.dumps(gate_summary,sort_keys=True),'PEAK_RSS',peak_gate,flush=True)
+ run_begin=time.monotonic();run_deadline=run_begin+C['run_limit_seconds'];peak_arm=0
  # Gate must finish before any Arm A checkpoint.
  checkpoint=OUT/'A_CHECKPOINT.json';progress=OUT/'A_PROGRESS.json';state={'identity':identity,'completed':{}}
  if checkpoint.exists():state=json.loads(checkpoint.read_text());assert state['identity']==identity,'CHECKPOINT_IDENTITY_MISMATCH'
@@ -89,7 +124,9 @@ def main(*,preflight_only=False):
    for day in dates:
     if day in entry['dates']:continue
     if time.monotonic()>=run_deadline:write(progress,{'status':'TIME_LIMIT','identity':identity,'completed':len(state['completed'])});return 2
-    st=time.monotonic();g=table.geometry(E['origin'],body,day,strategy=E['sampling']['strategy'],flight_range_days=E['sampling']['flight_range_days']);row={'price':price(g),'geometry_sha256':base.digest(g),'seconds':time.monotonic()-st,'sampled_solutions':g['sampled_solutions']};entry['dates'][day]=row;state['completed'][key]=entry;write(checkpoint,state);write(progress,{'status':'RUNNING','identity':identity,'body':body,'year':year,'departure':day,'completed_departures':sum(len(v['dates']) for v in state['completed'].values())})
- report={'identity':identity,'table_manifest_sha256':digest(manifest),'config_sha256':digest(P/'table_arm_a_config.json'),'elapsed_seconds':time.monotonic()-run_begin,'gate_elapsed_seconds':run_begin-begin,'departures':sum(len(v['dates']) for v in state['completed'].values()),'body_years':{k:{'departures':len(v['dates']),'feasible':any(r['price'] is not None for r in v['dates'].values()),'lowest_price_usd_millions':min((D(r['price']) for r in v['dates'].values() if r['price'] is not None),default=None)} for k,v in state['completed'].items()}}
+    st=time.monotonic();g=table.geometry(E['origin'],body,day,strategy=E['sampling']['strategy'],flight_range_days=E['sampling']['flight_range_days']);row={'price':price(g),'geometry_sha256':base.digest(g),'seconds':time.monotonic()-st,'sampled_solutions':g['sampled_solutions']};entry['dates'][day]=row;state['completed'][key]=entry;write(checkpoint,state);del g;clear_memos(table,direct);peak_arm,ok=enforce('arm_a',peak_arm);
+    if not ok:return 6
+    write(progress,{'status':'RUNNING','identity':identity,'body':body,'year':year,'departure':day,'completed_departures':sum(len(v['dates']) for v in state['completed'].values())})
+ report={'identity':identity,'table_manifest_sha256':digest(manifest),'config_sha256':digest(P/'table_arm_a_config.json'),'elapsed_seconds':time.monotonic()-run_begin,'peak_rss_bytes':peak_arm,'gate_peak_rss_bytes':peak_gate,'gate_elapsed_seconds':run_begin-begin,'departures':sum(len(v['dates']) for v in state['completed'].values()),'body_years':{k:{'departures':len(v['dates']),'feasible':any(r['price'] is not None for r in v['dates'].values()),'lowest_price_usd_millions':min((D(r['price']) for r in v['dates'].values() if r['price'] is not None),default=None)} for k,v in state['completed'].items()}}
  report['body_years']={k:{**v,'lowest_price_usd_millions':str(v['lowest_price_usd_millions']) if v['lowest_price_usd_millions'] is not None else None} for k,v in report['body_years'].items()};report['seconds_per_departure']=report['elapsed_seconds']/report['departures'] if report['departures'] else None;write(OUT/'A_REPORT.json',report);print('A_COMPLETE',json.dumps(report,sort_keys=True),flush=True);return 0
 if __name__=='__main__':sys.exit(main(preflight_only='--preflight-only' in sys.argv[1:]))
