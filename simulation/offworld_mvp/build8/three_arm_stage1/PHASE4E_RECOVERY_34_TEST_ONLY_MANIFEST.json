@@ -149,6 +149,321 @@
         "request_count": 1,
         "epochs": [],
         "error": "HTTPError: HTTP Error 502: Bad Gateway (72-date TLIST URL); no retry"
+      },
+      "dense_2026_2031_second_attempt": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "month": "2026-01-01",
+            "difference_km": 9.541398640621973e-08
+          },
+          {
+            "month": "2026-02-01",
+            "difference_km": 9.979398433155043e-07
+          },
+          {
+            "month": "2026-03-01",
+            "difference_km": 4.449487730551197e-06
+          },
+          {
+            "month": "2026-04-01",
+            "difference_km": 1.05881951690285e-05
+          },
+          {
+            "month": "2026-05-01",
+            "difference_km": 1.6588760782859847e-05
+          },
+          {
+            "month": "2026-06-01",
+            "difference_km": 2.1772937115208947e-05
+          },
+          {
+            "month": "2026-07-01",
+            "difference_km": 2.8076559769438176e-05
+          },
+          {
+            "month": "2026-08-01",
+            "difference_km": 3.520530128698295e-05
+          },
+          {
+            "month": "2026-09-01",
+            "difference_km": 3.9625189168469356e-05
+          },
+          {
+            "month": "2026-10-01",
+            "difference_km": 4.095622037113309e-05
+          },
+          {
+            "month": "2026-11-01",
+            "difference_km": 4.6696331266938896e-05
+          },
+          {
+            "month": "2026-12-01",
+            "difference_km": 5.332693936111455e-05
+          },
+          {
+            "month": "2027-01-01",
+            "difference_km": 6.18730461533538e-05
+          },
+          {
+            "month": "2027-02-01",
+            "difference_km": 7.188614240177311e-05
+          },
+          {
+            "month": "2027-03-01",
+            "difference_km": 8.585420472737701e-05
+          },
+          {
+            "month": "2027-04-01",
+            "difference_km": 9.726184768308296e-05
+          },
+          {
+            "month": "2027-05-01",
+            "difference_km": 0.00011105357488939645
+          },
+          {
+            "month": "2027-06-01",
+            "difference_km": 0.00011456770963032365
+          },
+          {
+            "month": "2027-07-01",
+            "difference_km": 0.00011882869493533854
+          },
+          {
+            "month": "2027-08-01",
+            "difference_km": 0.00011993395812736714
+          },
+          {
+            "month": "2027-09-01",
+            "difference_km": 0.00012271936070422886
+          },
+          {
+            "month": "2027-10-01",
+            "difference_km": 0.00013233399436926238
+          },
+          {
+            "month": "2027-11-01",
+            "difference_km": 0.00014848011452933227
+          },
+          {
+            "month": "2027-12-01",
+            "difference_km": 0.0001753260019438633
+          },
+          {
+            "month": "2028-01-01",
+            "difference_km": 0.0002097131891946738
+          },
+          {
+            "month": "2028-02-01",
+            "difference_km": 0.000245101901186978
+          },
+          {
+            "month": "2028-03-01",
+            "difference_km": 0.00027868829317913936
+          },
+          {
+            "month": "2028-04-01",
+            "difference_km": 0.0003109216021048001
+          },
+          {
+            "month": "2028-05-01",
+            "difference_km": 0.0003406984824059897
+          },
+          {
+            "month": "2028-06-01",
+            "difference_km": 0.00036939507367606884
+          },
+          {
+            "month": "2028-07-01",
+            "difference_km": 0.0003944704748861969
+          },
+          {
+            "month": "2028-08-01",
+            "difference_km": 0.0004150387505224689
+          },
+          {
+            "month": "2028-09-01",
+            "difference_km": 0.0004330675351929896
+          },
+          {
+            "month": "2028-10-01",
+            "difference_km": 0.00044912549366395046
+          },
+          {
+            "month": "2028-11-01",
+            "difference_km": 0.0004618820865695103
+          },
+          {
+            "month": "2028-12-01",
+            "difference_km": 0.0004703822408823287
+          },
+          {
+            "month": "2029-01-01",
+            "difference_km": 0.00047585743722867714
+          },
+          {
+            "month": "2029-02-01",
+            "difference_km": 0.0004802369340908256
+          },
+          {
+            "month": "2029-03-01",
+            "difference_km": 0.0004851433357727294
+          },
+          {
+            "month": "2029-04-01",
+            "difference_km": 0.00048752978655771295
+          },
+          {
+            "month": "2029-05-01",
+            "difference_km": 0.0004941745425963726
+          },
+          {
+            "month": "2029-06-01",
+            "difference_km": 0.0005002622099241484
+          },
+          {
+            "month": "2029-07-01",
+            "difference_km": 0.0005084698454161621
+          },
+          {
+            "month": "2029-08-01",
+            "difference_km": 0.0005187248246460019
+          },
+          {
+            "month": "2029-09-01",
+            "difference_km": 0.0005310751572957183
+          },
+          {
+            "month": "2029-10-01",
+            "difference_km": 0.0005444102779375693
+          },
+          {
+            "month": "2029-11-01",
+            "difference_km": 0.0005564271612711829
+          },
+          {
+            "month": "2029-12-01",
+            "difference_km": 0.0005719144428659648
+          },
+          {
+            "month": "2030-01-01",
+            "difference_km": 0.0005935435801544592
+          },
+          {
+            "month": "2030-02-01",
+            "difference_km": 0.0006200772295090827
+          },
+          {
+            "month": "2030-03-01",
+            "difference_km": 0.0006498848911823242
+          },
+          {
+            "month": "2030-04-01",
+            "difference_km": 0.0006905266134489656
+          },
+          {
+            "month": "2030-05-01",
+            "difference_km": 0.0007450446464776602
+          },
+          {
+            "month": "2030-06-01",
+            "difference_km": 0.0008119891766575334
+          },
+          {
+            "month": "2030-07-01",
+            "difference_km": 0.0008841465665319589
+          },
+          {
+            "month": "2030-08-01",
+            "difference_km": 0.0009691039620870925
+          },
+          {
+            "month": "2030-09-01",
+            "difference_km": 0.0010603428079032202
+          },
+          {
+            "month": "2030-10-01",
+            "difference_km": 0.0011597242814756895
+          },
+          {
+            "month": "2030-11-01",
+            "difference_km": 0.001267072960913296
+          },
+          {
+            "month": "2030-12-01",
+            "difference_km": 0.001378547218582776
+          },
+          {
+            "month": "2031-01-01",
+            "difference_km": 0.0015049091042931117
+          },
+          {
+            "month": "2031-02-01",
+            "difference_km": 0.0016413997624478442
+          },
+          {
+            "month": "2031-03-01",
+            "difference_km": 0.0017671489539413268
+          },
+          {
+            "month": "2031-04-01",
+            "difference_km": 0.0019160309058974512
+          },
+          {
+            "month": "2031-05-01",
+            "difference_km": 0.0020605195998103674
+          },
+          {
+            "month": "2031-06-01",
+            "difference_km": 0.0022129375701075166
+          },
+          {
+            "month": "2031-07-01",
+            "difference_km": 0.0023619507437289784
+          },
+          {
+            "month": "2031-08-01",
+            "difference_km": 0.002506785266489656
+          },
+          {
+            "month": "2031-09-01",
+            "difference_km": 0.0026411835887516473
+          },
+          {
+            "month": "2031-10-01",
+            "difference_km": 0.00275426408982795
+          },
+          {
+            "month": "2031-11-01",
+            "difference_km": 0.002845513840755793
+          },
+          {
+            "month": "2031-12-01",
+            "difference_km": 0.0028992761955127767
+          }
+        ],
+        "attempt": "AUTHORIZED_SECOND_AND_FINAL",
+        "previous_failure": "HTTPError: HTTP Error 502: Bad Gateway (72-date TLIST URL); no retry",
+        "request": {
+          "format": "json",
+          "COMMAND": "'3;'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "START_TIME": "'2026-01-01'",
+          "STOP_TIME": "'2031-12-01'",
+          "STEP_SIZE": "'1 MONTH'"
+        },
+        "median_km": 0.00047311983905550296,
+        "max_km": 0.0028992761955127767,
+        "max_epoch": "2031-12-01"
       }
     },
     {
@@ -281,6 +596,321 @@
         "request_count": 1,
         "epochs": [],
         "error": "HTTPError: HTTP Error 502: Bad Gateway (72-date TLIST URL); no retry"
+      },
+      "dense_2026_2031_second_attempt": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "month": "2026-01-01",
+            "difference_km": 1.1175870895385742e-08
+          },
+          {
+            "month": "2026-02-01",
+            "difference_km": 1.1388685253203246e-06
+          },
+          {
+            "month": "2026-03-01",
+            "difference_km": 7.929672215526629e-06
+          },
+          {
+            "month": "2026-04-01",
+            "difference_km": 1.6878878837029155e-05
+          },
+          {
+            "month": "2026-05-01",
+            "difference_km": 2.694242029896715e-05
+          },
+          {
+            "month": "2026-06-01",
+            "difference_km": 4.4490964706241665e-05
+          },
+          {
+            "month": "2026-07-01",
+            "difference_km": 6.32709498454871e-05
+          },
+          {
+            "month": "2026-08-01",
+            "difference_km": 8.667860155351288e-05
+          },
+          {
+            "month": "2026-09-01",
+            "difference_km": 0.00011116008673264776
+          },
+          {
+            "month": "2026-10-01",
+            "difference_km": 0.00013648313238693728
+          },
+          {
+            "month": "2026-11-01",
+            "difference_km": 0.00016697534391073632
+          },
+          {
+            "month": "2026-12-01",
+            "difference_km": 0.00019646694763434424
+          },
+          {
+            "month": "2027-01-01",
+            "difference_km": 0.00022792034528960415
+          },
+          {
+            "month": "2027-02-01",
+            "difference_km": 0.000254301195831762
+          },
+          {
+            "month": "2027-03-01",
+            "difference_km": 0.0002793474776025069
+          },
+          {
+            "month": "2027-04-01",
+            "difference_km": 0.0003034675528168165
+          },
+          {
+            "month": "2027-05-01",
+            "difference_km": 0.0003211298342505647
+          },
+          {
+            "month": "2027-06-01",
+            "difference_km": 0.0003336830837282884
+          },
+          {
+            "month": "2027-07-01",
+            "difference_km": 0.00033657654161564204
+          },
+          {
+            "month": "2027-08-01",
+            "difference_km": 0.00034044528112765033
+          },
+          {
+            "month": "2027-09-01",
+            "difference_km": 0.0003450450823795417
+          },
+          {
+            "month": "2027-10-01",
+            "difference_km": 0.0003528315273380383
+          },
+          {
+            "month": "2027-11-01",
+            "difference_km": 0.00036700380401853694
+          },
+          {
+            "month": "2027-12-01",
+            "difference_km": 0.0003919672858174139
+          },
+          {
+            "month": "2028-01-01",
+            "difference_km": 0.00043598256336112263
+          },
+          {
+            "month": "2028-02-01",
+            "difference_km": 0.0004973813345369434
+          },
+          {
+            "month": "2028-03-01",
+            "difference_km": 0.0005810929092617369
+          },
+          {
+            "month": "2028-04-01",
+            "difference_km": 0.0006883803724755459
+          },
+          {
+            "month": "2028-05-01",
+            "difference_km": 0.000808344946431415
+          },
+          {
+            "month": "2028-06-01",
+            "difference_km": 0.0009470242819005103
+          },
+          {
+            "month": "2028-07-01",
+            "difference_km": 0.0010958400387763685
+          },
+          {
+            "month": "2028-08-01",
+            "difference_km": 0.0012626846533434761
+          },
+          {
+            "month": "2028-09-01",
+            "difference_km": 0.001442805185045697
+          },
+          {
+            "month": "2028-10-01",
+            "difference_km": 0.0016226933902501123
+          },
+          {
+            "month": "2028-11-01",
+            "difference_km": 0.0018276991451165372
+          },
+          {
+            "month": "2028-12-01",
+            "difference_km": 0.0020336090369073093
+          },
+          {
+            "month": "2029-01-01",
+            "difference_km": 0.002251712133722523
+          },
+          {
+            "month": "2029-02-01",
+            "difference_km": 0.0024778309673369864
+          },
+          {
+            "month": "2029-03-01",
+            "difference_km": 0.0026850624038745083
+          },
+          {
+            "month": "2029-04-01",
+            "difference_km": 0.0029183529758761966
+          },
+          {
+            "month": "2029-05-01",
+            "difference_km": 0.003145511391025458
+          },
+          {
+            "month": "2029-06-01",
+            "difference_km": 0.003379088552817194
+          },
+          {
+            "month": "2029-07-01",
+            "difference_km": 0.0036025287786394487
+          },
+          {
+            "month": "2029-08-01",
+            "difference_km": 0.0038350729126875103
+          },
+          {
+            "month": "2029-09-01",
+            "difference_km": 0.004061501854390899
+          },
+          {
+            "month": "2029-10-01",
+            "difference_km": 0.004272272277738676
+          },
+          {
+            "month": "2029-11-01",
+            "difference_km": 0.004481749868048804
+          },
+          {
+            "month": "2029-12-01",
+            "difference_km": 0.004671395254917581
+          },
+          {
+            "month": "2030-01-01",
+            "difference_km": 0.004847143811350175
+          },
+          {
+            "month": "2030-02-01",
+            "difference_km": 0.00499805214197848
+          },
+          {
+            "month": "2030-03-01",
+            "difference_km": 0.0051025751343851435
+          },
+          {
+            "month": "2030-04-01",
+            "difference_km": 0.005196630808632087
+          },
+          {
+            "month": "2030-05-01",
+            "difference_km": 0.005249509216019483
+          },
+          {
+            "month": "2030-06-01",
+            "difference_km": 0.0052533034026827855
+          },
+          {
+            "month": "2030-07-01",
+            "difference_km": 0.005212639520167023
+          },
+          {
+            "month": "2030-08-01",
+            "difference_km": 0.005116096451352368
+          },
+          {
+            "month": "2030-09-01",
+            "difference_km": 0.004967532323466429
+          },
+          {
+            "month": "2030-10-01",
+            "difference_km": 0.004768028952002023
+          },
+          {
+            "month": "2030-11-01",
+            "difference_km": 0.004516964418268388
+          },
+          {
+            "month": "2030-12-01",
+            "difference_km": 0.004230927939300507
+          },
+          {
+            "month": "2031-01-01",
+            "difference_km": 0.003896509952088214
+          },
+          {
+            "month": "2031-02-01",
+            "difference_km": 0.0035394998810640787
+          },
+          {
+            "month": "2031-03-01",
+            "difference_km": 0.0032081798084389545
+          },
+          {
+            "month": "2031-04-01",
+            "difference_km": 0.0028538334662039843
+          },
+          {
+            "month": "2031-05-01",
+            "difference_km": 0.0025237963017407934
+          },
+          {
+            "month": "2031-06-01",
+            "difference_km": 0.0022098352749927723
+          },
+          {
+            "month": "2031-07-01",
+            "difference_km": 0.0019344937979833869
+          },
+          {
+            "month": "2031-08-01",
+            "difference_km": 0.0016855016638982296
+          },
+          {
+            "month": "2031-09-01",
+            "difference_km": 0.0014853926862027306
+          },
+          {
+            "month": "2031-10-01",
+            "difference_km": 0.0013366324340067077
+          },
+          {
+            "month": "2031-11-01",
+            "difference_km": 0.0012388861661247579
+          },
+          {
+            "month": "2031-12-01",
+            "difference_km": 0.0011882805669611355
+          }
+        ],
+        "attempt": "AUTHORIZED_SECOND_AND_FINAL",
+        "previous_failure": "HTTPError: HTTP Error 502: Bad Gateway (72-date TLIST URL); no retry",
+        "request": {
+          "format": "json",
+          "COMMAND": "'21'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "START_TIME": "'2026-01-01'",
+          "STOP_TIME": "'2031-12-01'",
+          "STEP_SIZE": "'1 MONTH'"
+        },
+        "median_km": 0.0014640989356242138,
+        "max_km": 0.0052533034026827855,
+        "max_epoch": "2030-06-01"
       }
     },
     {
@@ -413,6 +1043,321 @@
         "request_count": 1,
         "epochs": [],
         "error": "HTTPError: HTTP Error 502: Bad Gateway (72-date TLIST URL); no retry"
+      },
+      "dense_2026_2031_second_attempt": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "month": "2026-01-01",
+            "difference_km": 6.664001874625056e-08
+          },
+          {
+            "month": "2026-02-01",
+            "difference_km": 8.399436383628952e-07
+          },
+          {
+            "month": "2026-03-01",
+            "difference_km": 6.8093283074623975e-06
+          },
+          {
+            "month": "2026-04-01",
+            "difference_km": 1.4363018950253055e-05
+          },
+          {
+            "month": "2026-05-01",
+            "difference_km": 2.3488163013602663e-05
+          },
+          {
+            "month": "2026-06-01",
+            "difference_km": 3.2966918978109236e-05
+          },
+          {
+            "month": "2026-07-01",
+            "difference_km": 3.873138298843996e-05
+          },
+          {
+            "month": "2026-08-01",
+            "difference_km": 4.4314810774569074e-05
+          },
+          {
+            "month": "2026-09-01",
+            "difference_km": 4.4080727776910735e-05
+          },
+          {
+            "month": "2026-10-01",
+            "difference_km": 4.4088011634124574e-05
+          },
+          {
+            "month": "2026-11-01",
+            "difference_km": 4.3862377949893964e-05
+          },
+          {
+            "month": "2026-12-01",
+            "difference_km": 4.773756242824183e-05
+          },
+          {
+            "month": "2027-01-01",
+            "difference_km": 5.047298698553106e-05
+          },
+          {
+            "month": "2027-02-01",
+            "difference_km": 5.007763963753148e-05
+          },
+          {
+            "month": "2027-03-01",
+            "difference_km": 4.801704458371288e-05
+          },
+          {
+            "month": "2027-04-01",
+            "difference_km": 4.807140467929481e-05
+          },
+          {
+            "month": "2027-05-01",
+            "difference_km": 5.0441951549173034e-05
+          },
+          {
+            "month": "2027-06-01",
+            "difference_km": 5.920833471632266e-05
+          },
+          {
+            "month": "2027-07-01",
+            "difference_km": 6.846571007815566e-05
+          },
+          {
+            "month": "2027-08-01",
+            "difference_km": 7.832166560753332e-05
+          },
+          {
+            "month": "2027-09-01",
+            "difference_km": 8.819806984579801e-05
+          },
+          {
+            "month": "2027-10-01",
+            "difference_km": 9.591217568897727e-05
+          },
+          {
+            "month": "2027-11-01",
+            "difference_km": 0.00010732982024007486
+          },
+          {
+            "month": "2027-12-01",
+            "difference_km": 0.00012104701223885977
+          },
+          {
+            "month": "2028-01-01",
+            "difference_km": 0.0001354271677735485
+          },
+          {
+            "month": "2028-02-01",
+            "difference_km": 0.0001523691706496722
+          },
+          {
+            "month": "2028-03-01",
+            "difference_km": 0.00016552359093116746
+          },
+          {
+            "month": "2028-04-01",
+            "difference_km": 0.00018148967948026997
+          },
+          {
+            "month": "2028-05-01",
+            "difference_km": 0.00019193825800020974
+          },
+          {
+            "month": "2028-06-01",
+            "difference_km": 0.00020918732019445705
+          },
+          {
+            "month": "2028-07-01",
+            "difference_km": 0.00022628283413317192
+          },
+          {
+            "month": "2028-08-01",
+            "difference_km": 0.00024088733652105566
+          },
+          {
+            "month": "2028-09-01",
+            "difference_km": 0.00025367886667866635
+          },
+          {
+            "month": "2028-10-01",
+            "difference_km": 0.00026552915497457633
+          },
+          {
+            "month": "2028-11-01",
+            "difference_km": 0.0002754186263695642
+          },
+          {
+            "month": "2028-12-01",
+            "difference_km": 0.00029285943461507746
+          },
+          {
+            "month": "2029-01-01",
+            "difference_km": 0.00031652907010117103
+          },
+          {
+            "month": "2029-02-01",
+            "difference_km": 0.0003417604043435737
+          },
+          {
+            "month": "2029-03-01",
+            "difference_km": 0.00036687480677204034
+          },
+          {
+            "month": "2029-04-01",
+            "difference_km": 0.00040376435824794496
+          },
+          {
+            "month": "2029-05-01",
+            "difference_km": 0.0004467386487504329
+          },
+          {
+            "month": "2029-06-01",
+            "difference_km": 0.0005010151757114671
+          },
+          {
+            "month": "2029-07-01",
+            "difference_km": 0.0005624527434497119
+          },
+          {
+            "month": "2029-08-01",
+            "difference_km": 0.0006320472098449788
+          },
+          {
+            "month": "2029-09-01",
+            "difference_km": 0.0007118552889492873
+          },
+          {
+            "month": "2029-10-01",
+            "difference_km": 0.0007984389487287202
+          },
+          {
+            "month": "2029-11-01",
+            "difference_km": 0.0008962189042591292
+          },
+          {
+            "month": "2029-12-01",
+            "difference_km": 0.000999544357451555
+          },
+          {
+            "month": "2030-01-01",
+            "difference_km": 0.001112172650475914
+          },
+          {
+            "month": "2030-02-01",
+            "difference_km": 0.0012355532492018258
+          },
+          {
+            "month": "2030-03-01",
+            "difference_km": 0.0013598497505422898
+          },
+          {
+            "month": "2030-04-01",
+            "difference_km": 0.0015014903753003074
+          },
+          {
+            "month": "2030-05-01",
+            "difference_km": 0.001642198814388673
+          },
+          {
+            "month": "2030-06-01",
+            "difference_km": 0.001792721491434517
+          },
+          {
+            "month": "2030-07-01",
+            "difference_km": 0.0019417370230080902
+          },
+          {
+            "month": "2030-08-01",
+            "difference_km": 0.002094211954723958
+          },
+          {
+            "month": "2030-09-01",
+            "difference_km": 0.0022488414502765215
+          },
+          {
+            "month": "2030-10-01",
+            "difference_km": 0.0023969427348315754
+          },
+          {
+            "month": "2030-11-01",
+            "difference_km": 0.002544474410885687
+          },
+          {
+            "month": "2030-12-01",
+            "difference_km": 0.002685564116445003
+          },
+          {
+            "month": "2031-01-01",
+            "difference_km": 0.002817719984383844
+          },
+          {
+            "month": "2031-02-01",
+            "difference_km": 0.002940486703762901
+          },
+          {
+            "month": "2031-03-01",
+            "difference_km": 0.003046919570120676
+          },
+          {
+            "month": "2031-04-01",
+            "difference_km": 0.0031575910234651365
+          },
+          {
+            "month": "2031-05-01",
+            "difference_km": 0.003257650288092061
+          },
+          {
+            "month": "2031-06-01",
+            "difference_km": 0.0033542223554792966
+          },
+          {
+            "month": "2031-07-01",
+            "difference_km": 0.003445372699381582
+          },
+          {
+            "month": "2031-08-01",
+            "difference_km": 0.0035320184591749034
+          },
+          {
+            "month": "2031-09-01",
+            "difference_km": 0.0036096095049278115
+          },
+          {
+            "month": "2031-10-01",
+            "difference_km": 0.0036754187235114575
+          },
+          {
+            "month": "2031-11-01",
+            "difference_km": 0.0037370184416051938
+          },
+          {
+            "month": "2031-12-01",
+            "difference_km": 0.0037959755952496144
+          }
+        ],
+        "attempt": "AUTHORIZED_SECOND_AND_FINAL",
+        "previous_failure": "HTTPError: HTTP Error 502: Bad Gateway (72-date TLIST URL); no retry",
+        "request": {
+          "format": "json",
+          "COMMAND": "'24'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "START_TIME": "'2026-01-01'",
+          "STOP_TIME": "'2031-12-01'",
+          "STEP_SIZE": "'1 MONTH'"
+        },
+        "median_km": 0.00030469425235812425,
+        "max_km": 0.0037959755952496144,
+        "max_epoch": "2031-12-01"
       }
     },
     {
@@ -545,6 +1490,321 @@
         "request_count": 1,
         "epochs": [],
         "error": "HTTPError: HTTP Error 502: Bad Gateway (72-date TLIST URL); no retry"
+      },
+      "dense_2026_2031_second_attempt": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "month": "2026-01-01",
+            "difference_km": 2.9802322387695312e-08
+          },
+          {
+            "month": "2026-02-01",
+            "difference_km": 1.390526669894243e-06
+          },
+          {
+            "month": "2026-03-01",
+            "difference_km": 6.624986553383057e-06
+          },
+          {
+            "month": "2026-04-01",
+            "difference_km": 1.1124133516959406e-05
+          },
+          {
+            "month": "2026-05-01",
+            "difference_km": 1.4384892897984193e-05
+          },
+          {
+            "month": "2026-06-01",
+            "difference_km": 1.2492684227019717e-05
+          },
+          {
+            "month": "2026-07-01",
+            "difference_km": 1.3491948997510475e-05
+          },
+          {
+            "month": "2026-08-01",
+            "difference_km": 1.6059700120499667e-05
+          },
+          {
+            "month": "2026-09-01",
+            "difference_km": 2.4504478201729457e-05
+          },
+          {
+            "month": "2026-10-01",
+            "difference_km": 2.988636564412929e-05
+          },
+          {
+            "month": "2026-11-01",
+            "difference_km": 3.70426203497933e-05
+          },
+          {
+            "month": "2026-12-01",
+            "difference_km": 4.260600296532158e-05
+          },
+          {
+            "month": "2027-01-01",
+            "difference_km": 5.431439528144704e-05
+          },
+          {
+            "month": "2027-02-01",
+            "difference_km": 7.015955360233578e-05
+          },
+          {
+            "month": "2027-03-01",
+            "difference_km": 8.479297039386625e-05
+          },
+          {
+            "month": "2027-04-01",
+            "difference_km": 0.00010794513070944615
+          },
+          {
+            "month": "2027-05-01",
+            "difference_km": 0.00013152398736237977
+          },
+          {
+            "month": "2027-06-01",
+            "difference_km": 0.0001561065794967037
+          },
+          {
+            "month": "2027-07-01",
+            "difference_km": 0.00018298200323644753
+          },
+          {
+            "month": "2027-08-01",
+            "difference_km": 0.000210589563872201
+          },
+          {
+            "month": "2027-09-01",
+            "difference_km": 0.0002410069261455261
+          },
+          {
+            "month": "2027-10-01",
+            "difference_km": 0.0002728822146464954
+          },
+          {
+            "month": "2027-11-01",
+            "difference_km": 0.0003075441012990487
+          },
+          {
+            "month": "2027-12-01",
+            "difference_km": 0.00034199856585641456
+          },
+          {
+            "month": "2028-01-01",
+            "difference_km": 0.0003800378087531448
+          },
+          {
+            "month": "2028-02-01",
+            "difference_km": 0.0004171558228753362
+          },
+          {
+            "month": "2028-03-01",
+            "difference_km": 0.0004500701664738038
+          },
+          {
+            "month": "2028-04-01",
+            "difference_km": 0.00048654453663303244
+          },
+          {
+            "month": "2028-05-01",
+            "difference_km": 0.0005178548743967326
+          },
+          {
+            "month": "2028-06-01",
+            "difference_km": 0.0005464834376700601
+          },
+          {
+            "month": "2028-07-01",
+            "difference_km": 0.0005753577921985092
+          },
+          {
+            "month": "2028-08-01",
+            "difference_km": 0.0006023238008820028
+          },
+          {
+            "month": "2028-09-01",
+            "difference_km": 0.0006284948620564212
+          },
+          {
+            "month": "2028-10-01",
+            "difference_km": 0.0006507558638149419
+          },
+          {
+            "month": "2028-11-01",
+            "difference_km": 0.0006750924283477029
+          },
+          {
+            "month": "2028-12-01",
+            "difference_km": 0.0006941160476168546
+          },
+          {
+            "month": "2029-01-01",
+            "difference_km": 0.0007134948701753112
+          },
+          {
+            "month": "2029-02-01",
+            "difference_km": 0.0007333130872248797
+          },
+          {
+            "month": "2029-03-01",
+            "difference_km": 0.0007486014536649836
+          },
+          {
+            "month": "2029-04-01",
+            "difference_km": 0.0007602880541629374
+          },
+          {
+            "month": "2029-05-01",
+            "difference_km": 0.0007731826908532501
+          },
+          {
+            "month": "2029-06-01",
+            "difference_km": 0.0007814604678835144
+          },
+          {
+            "month": "2029-07-01",
+            "difference_km": 0.0007841696944388286
+          },
+          {
+            "month": "2029-08-01",
+            "difference_km": 0.0007873737951836292
+          },
+          {
+            "month": "2029-09-01",
+            "difference_km": 0.0007856363143747533
+          },
+          {
+            "month": "2029-10-01",
+            "difference_km": 0.0007766295821081549
+          },
+          {
+            "month": "2029-11-01",
+            "difference_km": 0.0007648020634346911
+          },
+          {
+            "month": "2029-12-01",
+            "difference_km": 0.0007528990263537097
+          },
+          {
+            "month": "2030-01-01",
+            "difference_km": 0.0007392376340209185
+          },
+          {
+            "month": "2030-02-01",
+            "difference_km": 0.0007271545860984079
+          },
+          {
+            "month": "2030-03-01",
+            "difference_km": 0.0007264568786015926
+          },
+          {
+            "month": "2030-04-01",
+            "difference_km": 0.0007414925490829113
+          },
+          {
+            "month": "2030-05-01",
+            "difference_km": 0.0007780841737758704
+          },
+          {
+            "month": "2030-06-01",
+            "difference_km": 0.0008413525811028832
+          },
+          {
+            "month": "2030-07-01",
+            "difference_km": 0.0009277414863070314
+          },
+          {
+            "month": "2030-08-01",
+            "difference_km": 0.0010410719408419273
+          },
+          {
+            "month": "2030-09-01",
+            "difference_km": 0.00117830867758648
+          },
+          {
+            "month": "2030-10-01",
+            "difference_km": 0.001335216007318186
+          },
+          {
+            "month": "2030-11-01",
+            "difference_km": 0.0015135809149018188
+          },
+          {
+            "month": "2030-12-01",
+            "difference_km": 0.001697427682700174
+          },
+          {
+            "month": "2031-01-01",
+            "difference_km": 0.0018981242609180783
+          },
+          {
+            "month": "2031-02-01",
+            "difference_km": 0.0021036579603716326
+          },
+          {
+            "month": "2031-03-01",
+            "difference_km": 0.0022854997878909962
+          },
+          {
+            "month": "2031-04-01",
+            "difference_km": 0.002484063210692043
+          },
+          {
+            "month": "2031-05-01",
+            "difference_km": 0.002668291782366948
+          },
+          {
+            "month": "2031-06-01",
+            "difference_km": 0.0028479599777394816
+          },
+          {
+            "month": "2031-07-01",
+            "difference_km": 0.003011687152923159
+          },
+          {
+            "month": "2031-08-01",
+            "difference_km": 0.0031694505856156062
+          },
+          {
+            "month": "2031-09-01",
+            "difference_km": 0.0033098035263710484
+          },
+          {
+            "month": "2031-10-01",
+            "difference_km": 0.0034306232851090118
+          },
+          {
+            "month": "2031-11-01",
+            "difference_km": 0.003542698859031564
+          },
+          {
+            "month": "2031-12-01",
+            "difference_km": 0.003633100963031352
+          }
+        ],
+        "attempt": "AUTHORIZED_SECOND_AND_FINAL",
+        "previous_failure": "HTTPError: HTTP Error 502: Bad Gateway (72-date TLIST URL); no retry",
+        "request": {
+          "format": "json",
+          "COMMAND": "'Davida'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "START_TIME": "'2026-01-01'",
+          "STOP_TIME": "'2031-12-01'",
+          "STEP_SIZE": "'1 MONTH'"
+        },
+        "median_km": 0.0007038054588960829,
+        "max_km": 0.003633100963031352,
+        "max_epoch": "2031-12-01"
       }
     },
     {
@@ -677,6 +1937,321 @@
         "request_count": 1,
         "epochs": [],
         "error": "HTTPError: HTTP Error 502: Bad Gateway (72-date TLIST URL); no retry"
+      },
+      "dense_2026_2031_second_attempt": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "month": "2026-01-01",
+            "difference_km": 1.1151007970493857e-07
+          },
+          {
+            "month": "2026-02-01",
+            "difference_km": 1.6197774698378077e-06
+          },
+          {
+            "month": "2026-03-01",
+            "difference_km": 8.0023536575422e-07
+          },
+          {
+            "month": "2026-04-01",
+            "difference_km": 2.0503044799347956e-06
+          },
+          {
+            "month": "2026-05-01",
+            "difference_km": 1.6861373376626534e-06
+          },
+          {
+            "month": "2026-06-01",
+            "difference_km": 5.30801449454806e-06
+          },
+          {
+            "month": "2026-07-01",
+            "difference_km": 1.1348581926770264e-05
+          },
+          {
+            "month": "2026-08-01",
+            "difference_km": 1.3481853897780989e-05
+          },
+          {
+            "month": "2026-09-01",
+            "difference_km": 1.1029969965501674e-05
+          },
+          {
+            "month": "2026-10-01",
+            "difference_km": 1.389200661979909e-05
+          },
+          {
+            "month": "2026-11-01",
+            "difference_km": 1.8638821309170433e-05
+          },
+          {
+            "month": "2026-12-01",
+            "difference_km": 2.6611688362832924e-05
+          },
+          {
+            "month": "2027-01-01",
+            "difference_km": 3.39721900486174e-05
+          },
+          {
+            "month": "2027-02-01",
+            "difference_km": 4.216300938746215e-05
+          },
+          {
+            "month": "2027-03-01",
+            "difference_km": 5.097292431114631e-05
+          },
+          {
+            "month": "2027-04-01",
+            "difference_km": 6.146588299055044e-05
+          },
+          {
+            "month": "2027-05-01",
+            "difference_km": 7.560567291477916e-05
+          },
+          {
+            "month": "2027-06-01",
+            "difference_km": 9.31466627901105e-05
+          },
+          {
+            "month": "2027-07-01",
+            "difference_km": 0.00011169481437800204
+          },
+          {
+            "month": "2027-08-01",
+            "difference_km": 0.0001347188428321117
+          },
+          {
+            "month": "2027-09-01",
+            "difference_km": 0.00016154136554385543
+          },
+          {
+            "month": "2027-10-01",
+            "difference_km": 0.0001881528414297407
+          },
+          {
+            "month": "2027-11-01",
+            "difference_km": 0.00022124468208863267
+          },
+          {
+            "month": "2027-12-01",
+            "difference_km": 0.00025824139689724845
+          },
+          {
+            "month": "2028-01-01",
+            "difference_km": 0.0002959751464822746
+          },
+          {
+            "month": "2028-02-01",
+            "difference_km": 0.0003366835722684558
+          },
+          {
+            "month": "2028-03-01",
+            "difference_km": 0.0003780545253006633
+          },
+          {
+            "month": "2028-04-01",
+            "difference_km": 0.000424412620115713
+          },
+          {
+            "month": "2028-05-01",
+            "difference_km": 0.0004710486844470566
+          },
+          {
+            "month": "2028-06-01",
+            "difference_km": 0.0005246165654624573
+          },
+          {
+            "month": "2028-07-01",
+            "difference_km": 0.0005760845951010392
+          },
+          {
+            "month": "2028-08-01",
+            "difference_km": 0.0006352920591333206
+          },
+          {
+            "month": "2028-09-01",
+            "difference_km": 0.0006950611643655054
+          },
+          {
+            "month": "2028-10-01",
+            "difference_km": 0.0007479834472654372
+          },
+          {
+            "month": "2028-11-01",
+            "difference_km": 0.0007889088782659207
+          },
+          {
+            "month": "2028-12-01",
+            "difference_km": 0.0008225020739326255
+          },
+          {
+            "month": "2029-01-01",
+            "difference_km": 0.0008452372239979337
+          },
+          {
+            "month": "2029-02-01",
+            "difference_km": 0.0008519329641740959
+          },
+          {
+            "month": "2029-03-01",
+            "difference_km": 0.0008449267383067359
+          },
+          {
+            "month": "2029-04-01",
+            "difference_km": 0.000823844555146079
+          },
+          {
+            "month": "2029-05-01",
+            "difference_km": 0.0007925878739518938
+          },
+          {
+            "month": "2029-06-01",
+            "difference_km": 0.0007542491892035553
+          },
+          {
+            "month": "2029-07-01",
+            "difference_km": 0.0007165294882799272
+          },
+          {
+            "month": "2029-08-01",
+            "difference_km": 0.0006751839123037204
+          },
+          {
+            "month": "2029-09-01",
+            "difference_km": 0.0006332488027662676
+          },
+          {
+            "month": "2029-10-01",
+            "difference_km": 0.0005952056602666423
+          },
+          {
+            "month": "2029-11-01",
+            "difference_km": 0.0005646358823864655
+          },
+          {
+            "month": "2029-12-01",
+            "difference_km": 0.0005434418998984366
+          },
+          {
+            "month": "2030-01-01",
+            "difference_km": 0.0005323971838725926
+          },
+          {
+            "month": "2030-02-01",
+            "difference_km": 0.0005372572965448588
+          },
+          {
+            "month": "2030-03-01",
+            "difference_km": 0.0005540447265082338
+          },
+          {
+            "month": "2030-04-01",
+            "difference_km": 0.0005843046709467017
+          },
+          {
+            "month": "2030-05-01",
+            "difference_km": 0.0006222106863906651
+          },
+          {
+            "month": "2030-06-01",
+            "difference_km": 0.0006701943011670698
+          },
+          {
+            "month": "2030-07-01",
+            "difference_km": 0.0007280782078220214
+          },
+          {
+            "month": "2030-08-01",
+            "difference_km": 0.0007908342949167696
+          },
+          {
+            "month": "2030-09-01",
+            "difference_km": 0.0008581109029372579
+          },
+          {
+            "month": "2030-10-01",
+            "difference_km": 0.000920492449950309
+          },
+          {
+            "month": "2030-11-01",
+            "difference_km": 0.0009810199835355114
+          },
+          {
+            "month": "2030-12-01",
+            "difference_km": 0.0010396550207528667
+          },
+          {
+            "month": "2031-01-01",
+            "difference_km": 0.0010951545328547333
+          },
+          {
+            "month": "2031-02-01",
+            "difference_km": 0.001143509321286506
+          },
+          {
+            "month": "2031-03-01",
+            "difference_km": 0.0011863713744140216
+          },
+          {
+            "month": "2031-04-01",
+            "difference_km": 0.0012300507969574624
+          },
+          {
+            "month": "2031-05-01",
+            "difference_km": 0.0012669269143531971
+          },
+          {
+            "month": "2031-06-01",
+            "difference_km": 0.0013035451338123205
+          },
+          {
+            "month": "2031-07-01",
+            "difference_km": 0.001328500720751275
+          },
+          {
+            "month": "2031-08-01",
+            "difference_km": 0.001342854918146438
+          },
+          {
+            "month": "2031-09-01",
+            "difference_km": 0.0013525150327987562
+          },
+          {
+            "month": "2031-10-01",
+            "difference_km": 0.0013523889395752754
+          },
+          {
+            "month": "2031-11-01",
+            "difference_km": 0.0013451223931020015
+          },
+          {
+            "month": "2031-12-01",
+            "difference_km": 0.0013312518462013185
+          }
+        ],
+        "attempt": "AUTHORIZED_SECOND_AND_FINAL",
+        "previous_failure": "HTTPError: HTTP Error 502: Bad Gateway (72-date TLIST URL); no retry",
+        "request": {
+          "format": "json",
+          "COMMAND": "'Interamnia'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "START_TIME": "'2026-01-01'",
+          "STOP_TIME": "'2031-12-01'",
+          "STEP_SIZE": "'1 MONTH'"
+        },
+        "median_km": 0.0005801946330238705,
+        "max_km": 0.0013525150327987562,
+        "max_epoch": "2031-09-01"
       }
     },
     {
@@ -809,6 +2384,321 @@
         "request_count": 1,
         "epochs": [],
         "error": "ValueError: VECTOR_ROW_COUNT 73; stop time inclusive, no retry"
+      },
+      "dense_2026_2031_second_attempt": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "month": "2026-01-01",
+            "difference_km": 1.066240299940009e-06
+          },
+          {
+            "month": "2026-02-01",
+            "difference_km": 8.48984423387759e-06
+          },
+          {
+            "month": "2026-03-01",
+            "difference_km": 1.5018478153251288e-05
+          },
+          {
+            "month": "2026-04-01",
+            "difference_km": 3.065510398949705e-05
+          },
+          {
+            "month": "2026-05-01",
+            "difference_km": 4.844064750366323e-05
+          },
+          {
+            "month": "2026-06-01",
+            "difference_km": 6.775283856432446e-05
+          },
+          {
+            "month": "2026-07-01",
+            "difference_km": 8.29258068402419e-05
+          },
+          {
+            "month": "2026-08-01",
+            "difference_km": 9.590474398604911e-05
+          },
+          {
+            "month": "2026-09-01",
+            "difference_km": 0.0001055405561208036
+          },
+          {
+            "month": "2026-10-01",
+            "difference_km": 0.00012022444499456348
+          },
+          {
+            "month": "2026-11-01",
+            "difference_km": 0.0001346877177828878
+          },
+          {
+            "month": "2026-12-01",
+            "difference_km": 0.00014575001800792438
+          },
+          {
+            "month": "2027-01-01",
+            "difference_km": 0.00015228061731915966
+          },
+          {
+            "month": "2027-02-01",
+            "difference_km": 0.00016705913449615402
+          },
+          {
+            "month": "2027-03-01",
+            "difference_km": 0.00016681941998714675
+          },
+          {
+            "month": "2027-04-01",
+            "difference_km": 0.0001753205148894957
+          },
+          {
+            "month": "2027-05-01",
+            "difference_km": 0.0001896163809489118
+          },
+          {
+            "month": "2027-06-01",
+            "difference_km": 0.00019541017131648083
+          },
+          {
+            "month": "2027-07-01",
+            "difference_km": 0.00020122358583577176
+          },
+          {
+            "month": "2027-08-01",
+            "difference_km": 0.00021485892917508858
+          },
+          {
+            "month": "2027-09-01",
+            "difference_km": 0.00023332933853633352
+          },
+          {
+            "month": "2027-10-01",
+            "difference_km": 0.0002581398374689048
+          },
+          {
+            "month": "2027-11-01",
+            "difference_km": 0.0002882242981775466
+          },
+          {
+            "month": "2027-12-01",
+            "difference_km": 0.0003076128211922562
+          },
+          {
+            "month": "2028-01-01",
+            "difference_km": 0.0003440904643411021
+          },
+          {
+            "month": "2028-02-01",
+            "difference_km": 0.0003761649840117152
+          },
+          {
+            "month": "2028-03-01",
+            "difference_km": 0.0004060547690829534
+          },
+          {
+            "month": "2028-04-01",
+            "difference_km": 0.0004435428928864403
+          },
+          {
+            "month": "2028-05-01",
+            "difference_km": 0.00047559600471892393
+          },
+          {
+            "month": "2028-06-01",
+            "difference_km": 0.0005251510042913135
+          },
+          {
+            "month": "2028-07-01",
+            "difference_km": 0.0005584852289942995
+          },
+          {
+            "month": "2028-08-01",
+            "difference_km": 0.0006073552210003252
+          },
+          {
+            "month": "2028-09-01",
+            "difference_km": 0.0006577283724049799
+          },
+          {
+            "month": "2028-10-01",
+            "difference_km": 0.000699116779745827
+          },
+          {
+            "month": "2028-11-01",
+            "difference_km": 0.0007437394107853789
+          },
+          {
+            "month": "2028-12-01",
+            "difference_km": 0.0007980842476919302
+          },
+          {
+            "month": "2029-01-01",
+            "difference_km": 0.000849359821831118
+          },
+          {
+            "month": "2029-02-01",
+            "difference_km": 0.0009080999063616855
+          },
+          {
+            "month": "2029-03-01",
+            "difference_km": 0.0009574202640138021
+          },
+          {
+            "month": "2029-04-01",
+            "difference_km": 0.0010194064722869134
+          },
+          {
+            "month": "2029-05-01",
+            "difference_km": 0.001071669421323659
+          },
+          {
+            "month": "2029-06-01",
+            "difference_km": 0.0011179700131848304
+          },
+          {
+            "month": "2029-07-01",
+            "difference_km": 0.0011762783092073863
+          },
+          {
+            "month": "2029-08-01",
+            "difference_km": 0.0012164041136867372
+          },
+          {
+            "month": "2029-09-01",
+            "difference_km": 0.0012612208526126963
+          },
+          {
+            "month": "2029-10-01",
+            "difference_km": 0.0013090332515539676
+          },
+          {
+            "month": "2029-11-01",
+            "difference_km": 0.0013584463822059354
+          },
+          {
+            "month": "2029-12-01",
+            "difference_km": 0.00140633853960208
+          },
+          {
+            "month": "2030-01-01",
+            "difference_km": 0.0014602074292428204
+          },
+          {
+            "month": "2030-02-01",
+            "difference_km": 0.0015173052032824213
+          },
+          {
+            "month": "2030-03-01",
+            "difference_km": 0.0015629398250323163
+          },
+          {
+            "month": "2030-04-01",
+            "difference_km": 0.0016128434475902451
+          },
+          {
+            "month": "2030-05-01",
+            "difference_km": 0.0016731134163914059
+          },
+          {
+            "month": "2030-06-01",
+            "difference_km": 0.001733495630747162
+          },
+          {
+            "month": "2030-07-01",
+            "difference_km": 0.0017897187569213889
+          },
+          {
+            "month": "2030-08-01",
+            "difference_km": 0.0018495204753367317
+          },
+          {
+            "month": "2030-09-01",
+            "difference_km": 0.0019057284268636612
+          },
+          {
+            "month": "2030-10-01",
+            "difference_km": 0.001963399566747671
+          },
+          {
+            "month": "2030-11-01",
+            "difference_km": 0.002031886780115181
+          },
+          {
+            "month": "2030-12-01",
+            "difference_km": 0.0020909415411163824
+          },
+          {
+            "month": "2031-01-01",
+            "difference_km": 0.0021647031042930716
+          },
+          {
+            "month": "2031-02-01",
+            "difference_km": 0.002229412804347351
+          },
+          {
+            "month": "2031-03-01",
+            "difference_km": 0.00229537011244862
+          },
+          {
+            "month": "2031-04-01",
+            "difference_km": 0.0023624790052625545
+          },
+          {
+            "month": "2031-05-01",
+            "difference_km": 0.002435488765839576
+          },
+          {
+            "month": "2031-06-01",
+            "difference_km": 0.0025060746520619752
+          },
+          {
+            "month": "2031-07-01",
+            "difference_km": 0.0025821550608137525
+          },
+          {
+            "month": "2031-08-01",
+            "difference_km": 0.002664948685476796
+          },
+          {
+            "month": "2031-09-01",
+            "difference_km": 0.002743110557337801
+          },
+          {
+            "month": "2031-10-01",
+            "difference_km": 0.002815963402194492
+          },
+          {
+            "month": "2031-11-01",
+            "difference_km": 0.0028961815616072024
+          },
+          {
+            "month": "2031-12-01",
+            "difference_km": 0.002966532423128764
+          }
+        ],
+        "attempt": "AUTHORIZED_SECOND_AND_FINAL",
+        "previous_failure": "ValueError: VECTOR_ROW_COUNT 73; stop time inclusive, no retry",
+        "request": {
+          "format": "json",
+          "COMMAND": "'90377'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "START_TIME": "'2026-01-01'",
+          "STOP_TIME": "'2031-12-01'",
+          "STEP_SIZE": "'1 MONTH'"
+        },
+        "median_km": 0.0008237220347615241,
+        "max_km": 0.002966532423128764,
+        "max_epoch": "2031-12-01"
       }
     },
     {
@@ -941,6 +2831,321 @@
         "request_count": 1,
         "epochs": [],
         "error": "ValueError: VECTOR_ROW_COUNT 73; stop time inclusive, no retry"
+      },
+      "dense_2026_2031_second_attempt": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "month": "2026-01-01",
+            "difference_km": 9.830249847454215e-07
+          },
+          {
+            "month": "2026-02-01",
+            "difference_km": 7.539457464619588e-07
+          },
+          {
+            "month": "2026-03-01",
+            "difference_km": 9.334932303644129e-06
+          },
+          {
+            "month": "2026-04-01",
+            "difference_km": 2.021362151549019e-05
+          },
+          {
+            "month": "2026-05-01",
+            "difference_km": 2.965030043863395e-05
+          },
+          {
+            "month": "2026-06-01",
+            "difference_km": 4.447768725095585e-05
+          },
+          {
+            "month": "2026-07-01",
+            "difference_km": 5.967993749142595e-05
+          },
+          {
+            "month": "2026-08-01",
+            "difference_km": 7.703134200739909e-05
+          },
+          {
+            "month": "2026-09-01",
+            "difference_km": 9.684138896841344e-05
+          },
+          {
+            "month": "2026-10-01",
+            "difference_km": 0.00011703049840711347
+          },
+          {
+            "month": "2026-11-01",
+            "difference_km": 0.00013850129061652718
+          },
+          {
+            "month": "2026-12-01",
+            "difference_km": 0.00015293264929548575
+          },
+          {
+            "month": "2027-01-01",
+            "difference_km": 0.00016866779106041737
+          },
+          {
+            "month": "2027-02-01",
+            "difference_km": 0.00018138327048456624
+          },
+          {
+            "month": "2027-03-01",
+            "difference_km": 0.00018793570400384182
+          },
+          {
+            "month": "2027-04-01",
+            "difference_km": 0.00019511702234390192
+          },
+          {
+            "month": "2027-05-01",
+            "difference_km": 0.0002005988807519047
+          },
+          {
+            "month": "2027-06-01",
+            "difference_km": 0.00020532158985357002
+          },
+          {
+            "month": "2027-07-01",
+            "difference_km": 0.00020899248258020528
+          },
+          {
+            "month": "2027-08-01",
+            "difference_km": 0.00021467590688752485
+          },
+          {
+            "month": "2027-09-01",
+            "difference_km": 0.0002185914839006361
+          },
+          {
+            "month": "2027-10-01",
+            "difference_km": 0.0002229825614137641
+          },
+          {
+            "month": "2027-11-01",
+            "difference_km": 0.00022784896595989815
+          },
+          {
+            "month": "2027-12-01",
+            "difference_km": 0.00022344718465459832
+          },
+          {
+            "month": "2028-01-01",
+            "difference_km": 0.00021549083127153193
+          },
+          {
+            "month": "2028-02-01",
+            "difference_km": 0.00020575951586142939
+          },
+          {
+            "month": "2028-03-01",
+            "difference_km": 0.0001913323580606849
+          },
+          {
+            "month": "2028-04-01",
+            "difference_km": 0.00017764744158089556
+          },
+          {
+            "month": "2028-05-01",
+            "difference_km": 0.0001573681826844702
+          },
+          {
+            "month": "2028-06-01",
+            "difference_km": 0.00013684001063603727
+          },
+          {
+            "month": "2028-07-01",
+            "difference_km": 0.00011785742029954994
+          },
+          {
+            "month": "2028-08-01",
+            "difference_km": 9.48804102277502e-05
+          },
+          {
+            "month": "2028-09-01",
+            "difference_km": 7.229588868554308e-05
+          },
+          {
+            "month": "2028-10-01",
+            "difference_km": 5.350625001740073e-05
+          },
+          {
+            "month": "2028-11-01",
+            "difference_km": 4.121608390732006e-05
+          },
+          {
+            "month": "2028-12-01",
+            "difference_km": 4.138674595245111e-05
+          },
+          {
+            "month": "2029-01-01",
+            "difference_km": 4.3521024342965366e-05
+          },
+          {
+            "month": "2029-02-01",
+            "difference_km": 4.512225145930134e-05
+          },
+          {
+            "month": "2029-03-01",
+            "difference_km": 5.39210907837691e-05
+          },
+          {
+            "month": "2029-04-01",
+            "difference_km": 6.919398444813059e-05
+          },
+          {
+            "month": "2029-05-01",
+            "difference_km": 9.234435103048717e-05
+          },
+          {
+            "month": "2029-06-01",
+            "difference_km": 0.00011935130243463222
+          },
+          {
+            "month": "2029-07-01",
+            "difference_km": 0.00013975173011197652
+          },
+          {
+            "month": "2029-08-01",
+            "difference_km": 0.00014981055654298374
+          },
+          {
+            "month": "2029-09-01",
+            "difference_km": 0.00015392795363440378
+          },
+          {
+            "month": "2029-10-01",
+            "difference_km": 0.00017182454990029693
+          },
+          {
+            "month": "2029-11-01",
+            "difference_km": 0.00018799739613706051
+          },
+          {
+            "month": "2029-12-01",
+            "difference_km": 0.0002055855357343606
+          },
+          {
+            "month": "2030-01-01",
+            "difference_km": 0.00022124948684594116
+          },
+          {
+            "month": "2030-02-01",
+            "difference_km": 0.00023241617362370967
+          },
+          {
+            "month": "2030-03-01",
+            "difference_km": 0.00024238013148770253
+          },
+          {
+            "month": "2030-04-01",
+            "difference_km": 0.0002554086222665205
+          },
+          {
+            "month": "2030-05-01",
+            "difference_km": 0.00027096573076529465
+          },
+          {
+            "month": "2030-06-01",
+            "difference_km": 0.0002879777671213632
+          },
+          {
+            "month": "2030-07-01",
+            "difference_km": 0.00030445305733718247
+          },
+          {
+            "month": "2030-08-01",
+            "difference_km": 0.00032106273039339333
+          },
+          {
+            "month": "2030-09-01",
+            "difference_km": 0.0003396380402036625
+          },
+          {
+            "month": "2030-10-01",
+            "difference_km": 0.00035792560898978486
+          },
+          {
+            "month": "2030-11-01",
+            "difference_km": 0.0003777484886527657
+          },
+          {
+            "month": "2030-12-01",
+            "difference_km": 0.00039575624134984607
+          },
+          {
+            "month": "2031-01-01",
+            "difference_km": 0.0004230736174627503
+          },
+          {
+            "month": "2031-02-01",
+            "difference_km": 0.0004526434334897428
+          },
+          {
+            "month": "2031-03-01",
+            "difference_km": 0.00048282169941337035
+          },
+          {
+            "month": "2031-04-01",
+            "difference_km": 0.0005141326257803794
+          },
+          {
+            "month": "2031-05-01",
+            "difference_km": 0.0005399187577717581
+          },
+          {
+            "month": "2031-06-01",
+            "difference_km": 0.0005683101307665467
+          },
+          {
+            "month": "2031-07-01",
+            "difference_km": 0.0005958706596553728
+          },
+          {
+            "month": "2031-08-01",
+            "difference_km": 0.0006232625568333755
+          },
+          {
+            "month": "2031-09-01",
+            "difference_km": 0.0006493720314623675
+          },
+          {
+            "month": "2031-10-01",
+            "difference_km": 0.0006715726611863732
+          },
+          {
+            "month": "2031-11-01",
+            "difference_km": 0.00070017415624379
+          },
+          {
+            "month": "2031-12-01",
+            "difference_km": 0.0007204492289741872
+          }
+        ],
+        "attempt": "AUTHORIZED_SECOND_AND_FINAL",
+        "previous_failure": "ValueError: VECTOR_ROW_COUNT 73; stop time inclusive, no retry",
+        "request": {
+          "format": "json",
+          "COMMAND": "'50000'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "START_TIME": "'2026-01-01'",
+          "STOP_TIME": "'2031-12-01'",
+          "STEP_SIZE": "'1 MONTH'"
+        },
+        "median_km": 0.0001932246902022934,
+        "max_km": 0.0007204492289741872,
+        "max_epoch": "2031-12-01"
       }
     },
     {
@@ -1073,6 +3278,321 @@
         "request_count": 1,
         "epochs": [],
         "error": "ValueError: VECTOR_ROW_COUNT 73; stop time inclusive, no retry"
+      },
+      "dense_2026_2031_second_attempt": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "month": "2026-01-01",
+            "difference_km": 9.830249847454215e-07
+          },
+          {
+            "month": "2026-02-01",
+            "difference_km": 1.7841612752790171e-06
+          },
+          {
+            "month": "2026-03-01",
+            "difference_km": 1.086571585188469e-05
+          },
+          {
+            "month": "2026-04-01",
+            "difference_km": 2.3072464489765002e-05
+          },
+          {
+            "month": "2026-05-01",
+            "difference_km": 3.362631838276669e-05
+          },
+          {
+            "month": "2026-06-01",
+            "difference_km": 4.6550273580214994e-05
+          },
+          {
+            "month": "2026-07-01",
+            "difference_km": 6.453705127110414e-05
+          },
+          {
+            "month": "2026-08-01",
+            "difference_km": 7.856823731386818e-05
+          },
+          {
+            "month": "2026-09-01",
+            "difference_km": 0.00010039998582382772
+          },
+          {
+            "month": "2026-10-01",
+            "difference_km": 0.00011641957489827739
+          },
+          {
+            "month": "2026-11-01",
+            "difference_km": 0.0001394942262046419
+          },
+          {
+            "month": "2026-12-01",
+            "difference_km": 0.00016235815088433067
+          },
+          {
+            "month": "2027-01-01",
+            "difference_km": 0.0001843074312318601
+          },
+          {
+            "month": "2027-02-01",
+            "difference_km": 0.00020637190493686829
+          },
+          {
+            "month": "2027-03-01",
+            "difference_km": 0.00022394155950348647
+          },
+          {
+            "month": "2027-04-01",
+            "difference_km": 0.00024174327174938075
+          },
+          {
+            "month": "2027-05-01",
+            "difference_km": 0.0002571885651505855
+          },
+          {
+            "month": "2027-06-01",
+            "difference_km": 0.000271937685337018
+          },
+          {
+            "month": "2027-07-01",
+            "difference_km": 0.0002927516092824539
+          },
+          {
+            "month": "2027-08-01",
+            "difference_km": 0.0003118876813905371
+          },
+          {
+            "month": "2027-09-01",
+            "difference_km": 0.0003339838395381073
+          },
+          {
+            "month": "2027-10-01",
+            "difference_km": 0.0003573703633531016
+          },
+          {
+            "month": "2027-11-01",
+            "difference_km": 0.0003775166037486808
+          },
+          {
+            "month": "2027-12-01",
+            "difference_km": 0.0003990652000252709
+          },
+          {
+            "month": "2028-01-01",
+            "difference_km": 0.00042232087767344733
+          },
+          {
+            "month": "2028-02-01",
+            "difference_km": 0.0004371262745183382
+          },
+          {
+            "month": "2028-03-01",
+            "difference_km": 0.0004529764773825002
+          },
+          {
+            "month": "2028-04-01",
+            "difference_km": 0.0004726775054627907
+          },
+          {
+            "month": "2028-05-01",
+            "difference_km": 0.00048814158984839163
+          },
+          {
+            "month": "2028-06-01",
+            "difference_km": 0.0005086968107327125
+          },
+          {
+            "month": "2028-07-01",
+            "difference_km": 0.0005264545689776302
+          },
+          {
+            "month": "2028-08-01",
+            "difference_km": 0.0005454204238671768
+          },
+          {
+            "month": "2028-09-01",
+            "difference_km": 0.0005612891893569755
+          },
+          {
+            "month": "2028-10-01",
+            "difference_km": 0.0005779063737420729
+          },
+          {
+            "month": "2028-11-01",
+            "difference_km": 0.0006108697632297483
+          },
+          {
+            "month": "2028-12-01",
+            "difference_km": 0.0006421978692146988
+          },
+          {
+            "month": "2029-01-01",
+            "difference_km": 0.0006766153354371299
+          },
+          {
+            "month": "2029-02-01",
+            "difference_km": 0.000714201149732401
+          },
+          {
+            "month": "2029-03-01",
+            "difference_km": 0.0007485787939009689
+          },
+          {
+            "month": "2029-04-01",
+            "difference_km": 0.0007910823663365101
+          },
+          {
+            "month": "2029-05-01",
+            "difference_km": 0.0008373469926326595
+          },
+          {
+            "month": "2029-06-01",
+            "difference_km": 0.0008833373284624212
+          },
+          {
+            "month": "2029-07-01",
+            "difference_km": 0.0009324051954121518
+          },
+          {
+            "month": "2029-08-01",
+            "difference_km": 0.0009892664900145217
+          },
+          {
+            "month": "2029-09-01",
+            "difference_km": 0.001046597711507248
+          },
+          {
+            "month": "2029-10-01",
+            "difference_km": 0.0010984312402810273
+          },
+          {
+            "month": "2029-11-01",
+            "difference_km": 0.0011574501089791308
+          },
+          {
+            "month": "2029-12-01",
+            "difference_km": 0.0012129352307953148
+          },
+          {
+            "month": "2030-01-01",
+            "difference_km": 0.0012768921185630764
+          },
+          {
+            "month": "2030-02-01",
+            "difference_km": 0.0013482787352286766
+          },
+          {
+            "month": "2030-03-01",
+            "difference_km": 0.001409182829040519
+          },
+          {
+            "month": "2030-04-01",
+            "difference_km": 0.0014802747565107709
+          },
+          {
+            "month": "2030-05-01",
+            "difference_km": 0.0015489771599485245
+          },
+          {
+            "month": "2030-06-01",
+            "difference_km": 0.0016200455433076394
+          },
+          {
+            "month": "2030-07-01",
+            "difference_km": 0.0016938213710143818
+          },
+          {
+            "month": "2030-08-01",
+            "difference_km": 0.0017664834122347458
+          },
+          {
+            "month": "2030-09-01",
+            "difference_km": 0.0018387138570616912
+          },
+          {
+            "month": "2030-10-01",
+            "difference_km": 0.001905148727613054
+          },
+          {
+            "month": "2030-11-01",
+            "difference_km": 0.001973667303387781
+          },
+          {
+            "month": "2030-12-01",
+            "difference_km": 0.0020355539363253405
+          },
+          {
+            "month": "2031-01-01",
+            "difference_km": 0.0021001597211466514
+          },
+          {
+            "month": "2031-02-01",
+            "difference_km": 0.0021638246207193795
+          },
+          {
+            "month": "2031-03-01",
+            "difference_km": 0.002223600738819058
+          },
+          {
+            "month": "2031-04-01",
+            "difference_km": 0.0022917343479125813
+          },
+          {
+            "month": "2031-05-01",
+            "difference_km": 0.002359668280970748
+          },
+          {
+            "month": "2031-06-01",
+            "difference_km": 0.0024265354224173503
+          },
+          {
+            "month": "2031-07-01",
+            "difference_km": 0.0024908165428886306
+          },
+          {
+            "month": "2031-08-01",
+            "difference_km": 0.002553605328126455
+          },
+          {
+            "month": "2031-09-01",
+            "difference_km": 0.0026265399187550605
+          },
+          {
+            "month": "2031-10-01",
+            "difference_km": 0.0026983146322762173
+          },
+          {
+            "month": "2031-11-01",
+            "difference_km": 0.002777952879356804
+          },
+          {
+            "month": "2031-12-01",
+            "difference_km": 0.0028435937778736133
+          }
+        ],
+        "attempt": "AUTHORIZED_SECOND_AND_FINAL",
+        "previous_failure": "ValueError: VECTOR_ROW_COUNT 73; stop time inclusive, no retry",
+        "request": {
+          "format": "json",
+          "COMMAND": "'90482'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "START_TIME": "'2026-01-01'",
+          "STOP_TIME": "'2031-12-01'",
+          "STEP_SIZE": "'1 MONTH'"
+        },
+        "median_km": 0.0006594066023259144,
+        "max_km": 0.0028435937778736133,
+        "max_epoch": "2031-12-01"
       }
     },
     {
@@ -1205,6 +3725,321 @@
         "request_count": 1,
         "epochs": [],
         "error": "ValueError: VECTOR_ROW_COUNT 73; stop time inclusive, no retry"
+      },
+      "dense_2026_2031_second_attempt": {
+        "status": "COMPARED",
+        "request_count": 1,
+        "epochs": [
+          {
+            "month": "2026-01-01",
+            "difference_km": 4.053225410607362e-06
+          },
+          {
+            "month": "2026-02-01",
+            "difference_km": 8.740569486533813e-06
+          },
+          {
+            "month": "2026-03-01",
+            "difference_km": 1.8148831333377138e-05
+          },
+          {
+            "month": "2026-04-01",
+            "difference_km": 2.2727763775200086e-05
+          },
+          {
+            "month": "2026-05-01",
+            "difference_km": 2.5952604302491766e-05
+          },
+          {
+            "month": "2026-06-01",
+            "difference_km": 3.247180140270906e-05
+          },
+          {
+            "month": "2026-07-01",
+            "difference_km": 3.566212444682324e-05
+          },
+          {
+            "month": "2026-08-01",
+            "difference_km": 4.478289584050257e-05
+          },
+          {
+            "month": "2026-09-01",
+            "difference_km": 4.325820183758803e-05
+          },
+          {
+            "month": "2026-10-01",
+            "difference_km": 4.698301860603932e-05
+          },
+          {
+            "month": "2026-11-01",
+            "difference_km": 5.1506449427785445e-05
+          },
+          {
+            "month": "2026-12-01",
+            "difference_km": 6.31750822178608e-05
+          },
+          {
+            "month": "2027-01-01",
+            "difference_km": 6.828227173577689e-05
+          },
+          {
+            "month": "2027-02-01",
+            "difference_km": 8.31886121160235e-05
+          },
+          {
+            "month": "2027-03-01",
+            "difference_km": 0.0001037037403490097
+          },
+          {
+            "month": "2027-04-01",
+            "difference_km": 0.00011728643299340098
+          },
+          {
+            "month": "2027-05-01",
+            "difference_km": 0.0001402920166211246
+          },
+          {
+            "month": "2027-06-01",
+            "difference_km": 0.0001587109632667217
+          },
+          {
+            "month": "2027-07-01",
+            "difference_km": 0.00017981009614053485
+          },
+          {
+            "month": "2027-08-01",
+            "difference_km": 0.00020516192336311121
+          },
+          {
+            "month": "2027-09-01",
+            "difference_km": 0.00023323988473175595
+          },
+          {
+            "month": "2027-10-01",
+            "difference_km": 0.00025388932749588223
+          },
+          {
+            "month": "2027-11-01",
+            "difference_km": 0.0002799771753482824
+          },
+          {
+            "month": "2027-12-01",
+            "difference_km": 0.0002883512182709478
+          },
+          {
+            "month": "2028-01-01",
+            "difference_km": 0.0003124214431401651
+          },
+          {
+            "month": "2028-02-01",
+            "difference_km": 0.00033402899516381913
+          },
+          {
+            "month": "2028-03-01",
+            "difference_km": 0.0003575216575823203
+          },
+          {
+            "month": "2028-04-01",
+            "difference_km": 0.0003813410359477424
+          },
+          {
+            "month": "2028-05-01",
+            "difference_km": 0.0004014117365460872
+          },
+          {
+            "month": "2028-06-01",
+            "difference_km": 0.0004182974073297277
+          },
+          {
+            "month": "2028-07-01",
+            "difference_km": 0.00044238880552634115
+          },
+          {
+            "month": "2028-08-01",
+            "difference_km": 0.00046374226279160814
+          },
+          {
+            "month": "2028-09-01",
+            "difference_km": 0.0004806864462054092
+          },
+          {
+            "month": "2028-10-01",
+            "difference_km": 0.0005023094718332215
+          },
+          {
+            "month": "2028-11-01",
+            "difference_km": 0.0005186202025744726
+          },
+          {
+            "month": "2028-12-01",
+            "difference_km": 0.0005292789892113646
+          },
+          {
+            "month": "2029-01-01",
+            "difference_km": 0.0005430723076035028
+          },
+          {
+            "month": "2029-02-01",
+            "difference_km": 0.0005609847308958046
+          },
+          {
+            "month": "2029-03-01",
+            "difference_km": 0.0005671356110155631
+          },
+          {
+            "month": "2029-04-01",
+            "difference_km": 0.0005709993563993632
+          },
+          {
+            "month": "2029-05-01",
+            "difference_km": 0.0005814110197284073
+          },
+          {
+            "month": "2029-06-01",
+            "difference_km": 0.0005952098697607277
+          },
+          {
+            "month": "2029-07-01",
+            "difference_km": 0.0006082217243554594
+          },
+          {
+            "month": "2029-08-01",
+            "difference_km": 0.0006233231070326269
+          },
+          {
+            "month": "2029-09-01",
+            "difference_km": 0.0006403218658095146
+          },
+          {
+            "month": "2029-10-01",
+            "difference_km": 0.0006519391583028226
+          },
+          {
+            "month": "2029-11-01",
+            "difference_km": 0.000668870523048472
+          },
+          {
+            "month": "2029-12-01",
+            "difference_km": 0.0006870268665033348
+          },
+          {
+            "month": "2030-01-01",
+            "difference_km": 0.0007064050806172894
+          },
+          {
+            "month": "2030-02-01",
+            "difference_km": 0.0007274782227778474
+          },
+          {
+            "month": "2030-03-01",
+            "difference_km": 0.0007506198809000094
+          },
+          {
+            "month": "2030-04-01",
+            "difference_km": 0.0007870402054664003
+          },
+          {
+            "month": "2030-05-01",
+            "difference_km": 0.0008135920740394051
+          },
+          {
+            "month": "2030-06-01",
+            "difference_km": 0.0008389422853091809
+          },
+          {
+            "month": "2030-07-01",
+            "difference_km": 0.0008741458171680006
+          },
+          {
+            "month": "2030-08-01",
+            "difference_km": 0.0008983222814720469
+          },
+          {
+            "month": "2030-09-01",
+            "difference_km": 0.0009282347818123942
+          },
+          {
+            "month": "2030-10-01",
+            "difference_km": 0.0009567932939333358
+          },
+          {
+            "month": "2030-11-01",
+            "difference_km": 0.0009854151935694052
+          },
+          {
+            "month": "2030-12-01",
+            "difference_km": 0.0010184753000407303
+          },
+          {
+            "month": "2031-01-01",
+            "difference_km": 0.0010436772985364185
+          },
+          {
+            "month": "2031-02-01",
+            "difference_km": 0.0010788931756409382
+          },
+          {
+            "month": "2031-03-01",
+            "difference_km": 0.0011021017362752084
+          },
+          {
+            "month": "2031-04-01",
+            "difference_km": 0.0011280241872216813
+          },
+          {
+            "month": "2031-05-01",
+            "difference_km": 0.001154327329546113
+          },
+          {
+            "month": "2031-06-01",
+            "difference_km": 0.0011988869656429529
+          },
+          {
+            "month": "2031-07-01",
+            "difference_km": 0.0012368134014842586
+          },
+          {
+            "month": "2031-08-01",
+            "difference_km": 0.001283061391625151
+          },
+          {
+            "month": "2031-09-01",
+            "difference_km": 0.0013285784168348093
+          },
+          {
+            "month": "2031-10-01",
+            "difference_km": 0.0013774376435978749
+          },
+          {
+            "month": "2031-11-01",
+            "difference_km": 0.0014270285324043761
+          },
+          {
+            "month": "2031-12-01",
+            "difference_km": 0.0014770682637259803
+          }
+        ],
+        "attempt": "AUTHORIZED_SECOND_AND_FINAL",
+        "previous_failure": "ValueError: VECTOR_ROW_COUNT 73; stop time inclusive, no retry",
+        "request": {
+          "format": "json",
+          "COMMAND": "'225088'",
+          "OBJ_DATA": "'NO'",
+          "MAKE_EPHEM": "'YES'",
+          "EPHEM_TYPE": "'VECTORS'",
+          "CENTER": "'500@0'",
+          "REF_PLANE": "'ECLIPTIC'",
+          "REF_SYSTEM": "'ICRF'",
+          "OUT_UNITS": "'KM-S'",
+          "VEC_TABLE": "'2'",
+          "CSV_FORMAT": "'YES'",
+          "START_TIME": "'2026-01-01'",
+          "STOP_TIME": "'2031-12-01'",
+          "STEP_SIZE": "'1 MONTH'"
+        },
+        "median_km": 0.0005361756484074337,
+        "max_km": 0.0014770682637259803,
+        "max_epoch": "2031-12-01"
       }
     },
     {
@@ -13465,5 +16300,319 @@
         "error": "ValueError: VECTOR_ROW_COUNT 73; stop time inclusive, no retry"
       }
     ]
+  },
+  "dense_check_2026_2031_second_attempt": {
+    "classification": "RECOVERED_TEST_ONLY",
+    "authorized_objects": [
+      "JUNO",
+      "LUTETIA",
+      "THEMIS",
+      "DAVIDA",
+      "INTERAMNIA",
+      "SEDNA",
+      "QUAOAR",
+      "ORCUS",
+      "GONGGONG"
+    ],
+    "requests": 9,
+    "no_retry_loop": true,
+    "successful": [
+      "JUNO",
+      "LUTETIA",
+      "THEMIS",
+      "DAVIDA",
+      "INTERAMNIA",
+      "SEDNA",
+      "QUAOAR",
+      "ORCUS",
+      "GONGGONG"
+    ],
+    "failed": []
+  },
+  "dense_check_2026_2031_final": {
+    "classification": "RECOVERED_VINTAGE_TEST_ONLY",
+    "months": "2026-01 through 2031-12",
+    "objects_compared": 34,
+    "total_epoch_comparisons": 2448,
+    "new_vectors_requests": 9,
+    "no_retries": true,
+    "failed_again": [],
+    "all_34_summary": [
+      {
+        "body": "JUNO",
+        "median_km": 0.00047311983905550296,
+        "max_km": 0.0028992761955127767,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 2
+      },
+      {
+        "body": "LUTETIA",
+        "median_km": 0.0014640989356242138,
+        "max_km": 0.0052533034026827855,
+        "max_epoch": "2030-06-01",
+        "epoch_count": 72,
+        "attempt": 2
+      },
+      {
+        "body": "THEMIS",
+        "median_km": 0.00030469425235812425,
+        "max_km": 0.0037959755952496144,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 2
+      },
+      {
+        "body": "DAVIDA",
+        "median_km": 0.0007038054588960829,
+        "max_km": 0.003633100963031352,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 2
+      },
+      {
+        "body": "INTERAMNIA",
+        "median_km": 0.0005801946330238705,
+        "max_km": 0.0013525150327987562,
+        "max_epoch": "2031-09-01",
+        "epoch_count": 72,
+        "attempt": 2
+      },
+      {
+        "body": "SEDNA",
+        "median_km": 0.0008237220347615241,
+        "max_km": 0.002966532423128764,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 2
+      },
+      {
+        "body": "QUAOAR",
+        "median_km": 0.0001932246902022934,
+        "max_km": 0.0007204492289741872,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 2
+      },
+      {
+        "body": "ORCUS",
+        "median_km": 0.0006594066023259144,
+        "max_km": 0.0028435937778736133,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 2
+      },
+      {
+        "body": "GONGGONG",
+        "median_km": 0.0005361756484074337,
+        "max_km": 0.0014770682637259803,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 2
+      },
+      {
+        "body": "SALACIA",
+        "median_km": 0.0006269547428637754,
+        "max_km": 0.002141220202397695,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "VARUNA",
+        "median_km": 0.0005399839500492434,
+        "max_km": 0.0011787492673115034,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "MS4",
+        "median_km": 0.0008651893047420187,
+        "max_km": 0.0018967410401889678,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "IXION",
+        "median_km": 0.000574161159171256,
+        "max_km": 0.0008895957270186943,
+        "max_epoch": "2031-11-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "ARROKOTH",
+        "median_km": 0.0004471811392146197,
+        "max_km": 0.001362087252978366,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "APOPHIS",
+        "median_km": 0.00123294817020281,
+        "max_km": 21.169163975505004,
+        "max_epoch": "2031-11-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "IDA",
+        "median_km": 0.00026397322240442656,
+        "max_km": 0.005263032825485713,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "GASPRA",
+        "median_km": 0.0012663744742699922,
+        "max_km": 0.00305623780841904,
+        "max_epoch": "2029-03-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "MATHILDE",
+        "median_km": 0.001557818124511765,
+        "max_km": 0.01079191281249711,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "STEINS",
+        "median_km": 0.00039982611715812895,
+        "max_km": 0.0025227933226643546,
+        "max_epoch": "2031-05-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "TOUTATIS",
+        "median_km": 0.0016347942309216205,
+        "max_km": 0.004714376639871874,
+        "max_epoch": "2029-03-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "BRAILLE",
+        "median_km": 0.00039028270573537426,
+        "max_km": 0.0036061213966448683,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "DINKINESH",
+        "median_km": 0.003754860618267285,
+        "max_km": 0.010558677656301422,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "DONALDJOHANSON",
+        "median_km": 0.0019148112234662982,
+        "max_km": 0.004293125508001836,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "POLYMELE",
+        "median_km": 0.0003801180216088212,
+        "max_km": 0.0028436239277398363,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "LEUCUS",
+        "median_km": 0.0012558317017283978,
+        "max_km": 0.00525315908234115,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "ORUS",
+        "median_km": 0.0008466458276699013,
+        "max_km": 0.005269778224976948,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "OUMUAMUA",
+        "median_km": 0.0011318702875345358,
+        "max_km": 0.0032223656109820814,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "BORISOV",
+        "median_km": 0.00045301483271076136,
+        "max_km": 0.001058889290855753,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "ATLAS3I",
+        "median_km": 0.0007267405538659739,
+        "max_km": 0.0021769445724738987,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "TEMPEL1",
+        "median_km": 0.0004368314184441457,
+        "max_km": 0.0017445262749763884,
+        "max_epoch": "2031-08-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "WILD2",
+        "median_km": 0.0015109974908267985,
+        "max_km": 0.004647102074237324,
+        "max_epoch": "2030-01-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "HARTLEY2",
+        "median_km": 0.0004042095104638846,
+        "max_km": 0.0019316118179387128,
+        "max_epoch": "2030-04-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "BORRELLY",
+        "median_km": 0.0002934066625047663,
+        "max_km": 0.0007224600805040937,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 1
+      },
+      {
+        "body": "SWIFTTUTTLE",
+        "median_km": 0.0009207680846637157,
+        "max_km": 0.003440575418988139,
+        "max_epoch": "2031-12-01",
+        "epoch_count": 72,
+        "attempt": 1
+      }
+    ],
+    "no_spk_downloads": true,
+    "arm_a_run": false,
+    "pricing": false
   }
 }
