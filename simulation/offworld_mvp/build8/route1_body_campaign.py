@@ -341,7 +341,7 @@ class BodyCampaign:
                                 funded=sum(r['year']==year and r['outcome']=='FUNDED'
                                            for r in self.attempts),
                                 closing=str(sum((k.state.accounts[
-                                    'route1:budget:'+s].balance for s in SPONSORS),D(0)))))
+                                    'route1:budget:'+s].balance for s in ORDER),D(0)))))
 
     def report(self):
         decades=decade_counts(self.attempts)
