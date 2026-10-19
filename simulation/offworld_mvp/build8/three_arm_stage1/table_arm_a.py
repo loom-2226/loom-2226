@@ -19,13 +19,19 @@ def assess(g):
  admissible=[r for r in rows if all((lo<=D(str(r['flight_days']))<=hi,speeds(r)[0]<=dl,speeds(r)[1]<=al))]
  best=min(admissible,key=lambda r:(rate*sum(speeds(r)),D(str(r['flight_days'])))) if admissible else None
  lowest=min(rows,key=lambda r:(sum(speeds(r)),D(str(r['flight_days'])))) if rows else None
- reason=None
- if best is None:
-  if lowest is None:reason='OTHER_NO_RETAINED_TRAJECTORIES'
-  else:
-   dep,arr=speeds(lowest);fd=D(str(lowest['flight_days']))
-   reason='FLIGHT_RANGE_EDGE' if fd<=lo or fd>=hi else 'DEPARTURE_SPEED_LIMIT' if dep>dl else 'ARRIVAL_SPEED_LIMIT' if arr>al else 'OTHER_LOWEST_SPEED_ADMISSIBLE_BUT_NO_PRICE'
- return {'price':str(rate*sum(speeds(best))) if best else None,'best_flight_days':best['flight_days'] if best else None,'lowest_combined_speed_km_s':str(sum(speeds(lowest))) if lowest else None,'lowest_speed_flight_days':lowest['flight_days'] if lowest else None,'rejection_reason':reason}
+ def margins(r):
+  if r is None:return {}
+  dep,arr=speeds(r);fd=D(str(r['flight_days']))
+  # Signed margins: positive is a violation, negative is remaining headroom.
+  m={'flight_below_min_margin_days':str(lo-fd),'flight_above_max_margin_days':str(fd-hi),'departure_over_limit_margin_km_s':str(dep-dl),'arrival_over_limit_margin_km_s':str(arr-al)}
+  m.update({'flight_below_min':fd<lo,'flight_above_max':fd>hi,'departure_over_limit':dep>dl,'arrival_over_limit':arr>al,'any_other_limit':False,'other_limit_margin':'NOT_APPLICABLE_NO_OTHER_AUTHORED_LIMIT'})
+  return m
+ # Read-only speed-only study over existing geometry. Outside the authored
+ # flight range cannot be inferred from this dataset.
+ speed_only=[r for r in rows if speeds(r)[0]<=dl and speeds(r)[1]<=al]
+ speed_best=min(speed_only,key=lambda r:(sum(speeds(r)),D(str(r['flight_days'])))) if speed_only else None
+ return {'price':str(rate*sum(speeds(best))) if best else None,'best_flight_days':best['flight_days'] if best else None,'lowest_combined_speed_km_s':str(sum(speeds(lowest))) if lowest else None,'lowest_speed_flight_days':lowest['flight_days'] if lowest else None,'lowest_speed_departure_km_s':str(speeds(lowest)[0]) if lowest else None,'lowest_speed_arrival_km_s':str(speeds(lowest)[1]) if lowest else None,'lowest_speed_limits':margins(lowest),'speed_only_min_combined_km_s':str(sum(speeds(speed_best))) if speed_best else None,'speed_only_flight_days':speed_best['flight_days'] if speed_best else None,'speed_only_study_scope':'EXISTING_IN_RANGE_GEOMETRY_ONLY'}
+
 def refinement_dates(coarse,rows):
  if not E['sampling']['daily_refinement'] or not all(d in rows for d in coarse):return []
  flags=[rows[d]['price'] is not None for d in coarse]
