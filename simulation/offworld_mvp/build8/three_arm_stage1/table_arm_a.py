@@ -13,11 +13,28 @@ P=Path(__file__).resolve().parent;C=json.loads((P/'table_arm_a_config.json').rea
 def write(p,x):
  tmp=p.with_suffix('.pending.json');tmp.write_text(json.dumps(x,sort_keys=True,indent=2)+'\n');os.replace(tmp,p)
 def even(n,k):return [(i*(n-1))//(k-1) for i in range(k)]
-def price(g):
- rows=OnDemandTravel.admissible(g,departure_limit=float(E['departure_limit_km_s']),arrival_limit=float(E['arrival_limit_km_s']))
- if not rows:return None
- p=min(D(E['price_rate_usd_millions_per_km_s'])*(D(str(x['departure_vinf_km_s']))+D(str(x['arrival_vinf_km_s']))) for x in rows)
- return str(p)
+def assess(g):
+ rows=g['trajectories'];dl=D(E['departure_limit_km_s']);al=D(E['arrival_limit_km_s']);rate=D(E['price_rate_usd_millions_per_km_s']);lo=D(str(E['sampling']['flight_range_days'][0]));hi=D(str(E['sampling']['flight_range_days'][1]));
+ def speeds(r):return D(str(r['departure_vinf_km_s'])),D(str(r['arrival_vinf_km_s']))
+ admissible=[r for r in rows if all((lo<=D(str(r['flight_days']))<=hi,speeds(r)[0]<=dl,speeds(r)[1]<=al))]
+ best=min(admissible,key=lambda r:(rate*sum(speeds(r)),D(str(r['flight_days'])))) if admissible else None
+ lowest=min(rows,key=lambda r:(sum(speeds(r)),D(str(r['flight_days'])))) if rows else None
+ reason=None
+ if best is None:
+  if lowest is None:reason='OTHER_NO_RETAINED_TRAJECTORIES'
+  else:
+   dep,arr=speeds(lowest);fd=D(str(lowest['flight_days']))
+   reason='FLIGHT_RANGE_EDGE' if fd<=lo or fd>=hi else 'DEPARTURE_SPEED_LIMIT' if dep>dl else 'ARRIVAL_SPEED_LIMIT' if arr>al else 'OTHER_LOWEST_SPEED_ADMISSIBLE_BUT_NO_PRICE'
+ return {'price':str(rate*sum(speeds(best))) if best else None,'best_flight_days':best['flight_days'] if best else None,'lowest_combined_speed_km_s':str(sum(speeds(lowest))) if lowest else None,'lowest_speed_flight_days':lowest['flight_days'] if lowest else None,'rejection_reason':reason}
+def refinement_dates(coarse,rows):
+ if not E['sampling']['daily_refinement']:return []
+ flags=[rows[d]['price'] is not None for d in coarse]
+ brackets=[(a,b) for a,b,fa,fb in zip(coarse,coarse[1:],flags,flags[1:]) if fa!=fb]
+ dates=[]
+ for left,right in brackets[:E['sampling']['max_transition_brackets_per_body_year']]:
+  d=date.fromisoformat(left)+timedelta(days=E['sampling']['refinement_step_days'])
+  while d<date.fromisoformat(right):dates.append(d.isoformat());d+=timedelta(days=E['sampling']['refinement_step_days'])
+ return dates
 def rss_bytes():
  return int(Path('/proc/self/status').read_text().split('VmRSS:')[1].split('kB')[0].strip())*1024
 def enforce(stage,peak):
@@ -116,17 +133,15 @@ def main(*,preflight_only=False):
  for year in E['years']:
   for body in eligible[year]:
    key=f'{year}|{body}';entry=state['completed'].get(key,{'dates':{}});coarse=dates_for(year,E['sampling']);dates=list(coarse)
-   if all(d in entry['dates'] for d in coarse):
-    flags=[entry['dates'][d]['price'] is not None for d in coarse];trans=[(a,b) for a,b,fa,fb in zip(coarse,coarse[1:],flags,flags[1:]) if fa!=fb]
-    if trans:
-     left,right=trans[0];d=date.fromisoformat(left)+timedelta(days=1)
-     while d<date.fromisoformat(right):dates.append(d.isoformat());d+=timedelta(days=1)
-   for day in dates:
-    if day in entry['dates']:continue
-    if time.monotonic()>=run_deadline:write(progress,{'status':'TIME_LIMIT','identity':identity,'completed':len(state['completed'])});return 2
-    st=time.monotonic();g=table.geometry(E['origin'],body,day,strategy=E['sampling']['strategy'],flight_range_days=E['sampling']['flight_range_days']);row={'price':price(g),'geometry_sha256':base.digest(g),'seconds':time.monotonic()-st,'sampled_solutions':g['sampled_solutions']};entry['dates'][day]=row;state['completed'][key]=entry;write(checkpoint,state);del g;clear_memos(table,direct);peak_arm,ok=enforce('arm_a',peak_arm);
-    if not ok:return 6
-    write(progress,{'status':'RUNNING','identity':identity,'body':body,'year':year,'departure':day,'completed_departures':sum(len(v['dates']) for v in state['completed'].values())})
+   # Fresh runs must complete coarse dates before computing transition brackets.
+   for phase in ('coarse','refinement'):
+    dates=coarse if phase=='coarse' else refinement_dates(coarse,entry['dates'])
+    for day in dates:
+     if day in entry['dates']:continue
+     if time.monotonic()>=run_deadline:write(progress,{'status':'TIME_LIMIT','identity':identity,'completed':len(state['completed'])});return 2
+     st=time.monotonic();g=table.geometry(E['origin'],body,day,strategy=E['sampling']['strategy'],flight_range_days=E['sampling']['flight_range_days']);row={**assess(g),'geometry_sha256':base.digest(g),'seconds':time.monotonic()-st,'sampled_solutions':g['sampled_solutions']};entry['dates'][day]=row;state['completed'][key]=entry;write(checkpoint,state);del g;clear_memos(table,direct);peak_arm,ok=enforce('arm_a',peak_arm)
+     if not ok:return 6
+     write(progress,{'status':'RUNNING','identity':identity,'body':body,'year':year,'departure':day,'completed_departures':sum(len(v['dates']) for v in state['completed'].values())})
  report={'identity':identity,'table_manifest_sha256':digest(manifest),'config_sha256':digest(P/'table_arm_a_config.json'),'elapsed_seconds':time.monotonic()-run_begin,'peak_rss_bytes':peak_arm,'gate_peak_rss_bytes':peak_gate,'gate_elapsed_seconds':run_begin-begin,'departures':sum(len(v['dates']) for v in state['completed'].values()),'body_years':{k:{'departures':len(v['dates']),'feasible':any(r['price'] is not None for r in v['dates'].values()),'lowest_price_usd_millions':min((D(r['price']) for r in v['dates'].values() if r['price'] is not None),default=None)} for k,v in state['completed'].items()}}
- report['body_years']={k:{**v,'lowest_price_usd_millions':str(v['lowest_price_usd_millions']) if v['lowest_price_usd_millions'] is not None else None} for k,v in report['body_years'].items()};report['seconds_per_departure']=report['elapsed_seconds']/report['departures'] if report['departures'] else None;write(OUT/'A_REPORT.json',report);print('A_COMPLETE',json.dumps(report,sort_keys=True),flush=True);return 0
+ report['body_years']={k:{**v,'lowest_price_usd_millions':str(v['lowest_price_usd_millions']) if v['lowest_price_usd_millions'] is not None else None} for k,v in report['body_years'].items()};report['seconds_per_departure']=report['elapsed_seconds']/report['departures'] if report['departures'] else None;write(OUT/'A_REPORT.json',report);write(progress,{'status':'COMPLETE','identity':identity,'completed_departures':report['departures']});print('A_COMPLETE',json.dumps(report,sort_keys=True),flush=True);return 0
 if __name__=='__main__':sys.exit(main(preflight_only='--preflight-only' in sys.argv[1:]))
