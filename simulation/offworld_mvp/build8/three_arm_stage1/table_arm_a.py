@@ -27,7 +27,7 @@ def assess(g):
    reason='FLIGHT_RANGE_EDGE' if fd<=lo or fd>=hi else 'DEPARTURE_SPEED_LIMIT' if dep>dl else 'ARRIVAL_SPEED_LIMIT' if arr>al else 'OTHER_LOWEST_SPEED_ADMISSIBLE_BUT_NO_PRICE'
  return {'price':str(rate*sum(speeds(best))) if best else None,'best_flight_days':best['flight_days'] if best else None,'lowest_combined_speed_km_s':str(sum(speeds(lowest))) if lowest else None,'lowest_speed_flight_days':lowest['flight_days'] if lowest else None,'rejection_reason':reason}
 def refinement_dates(coarse,rows):
- if not E['sampling']['daily_refinement']:return []
+ if not E['sampling']['daily_refinement'] or not all(d in rows for d in coarse):return []
  flags=[rows[d]['price'] is not None for d in coarse]
  brackets=[(a,b) for a,b,fa,fb in zip(coarse,coarse[1:],flags,flags[1:]) if fa!=fb]
  dates=[]
