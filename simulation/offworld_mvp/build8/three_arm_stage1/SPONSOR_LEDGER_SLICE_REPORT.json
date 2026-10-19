@@ -66,13 +66,38 @@
       "sponsor_id": "test_sponsor",
       "target_body_id": "CHIRON",
       "vehicle_class_id": "baseline"
+    },
+    {
+      "balance_usd": "95029488.4259157392000000",
+      "best_departure_date": "2026-07-16",
+      "best_flight_days": "372.0",
+      "case_id": "affordable_failed",
+      "chance_basis": "PINNED_EXECUTOR_BELIEFS_TEST_ONLY",
+      "decision": "ACCEPT",
+      "executor_name": "Northrop Grumman",
+      "initial_budget_usd": "300000000",
+      "mission_type_id": "flyby",
+      "outcome": {
+        "draw": "0.9457703012273504002008564506",
+        "draw_sha256": "f21e00a14cae904aebaa46ecbe7399e1c746b8e4a6554c91ed88e27f1af91f20",
+        "method": "SHA256_SEED_CASE_FIRST64_TEST_ONLY",
+        "outcome": "FAILED",
+        "success_chance": "0.9"
+      },
+      "quote_status": "PRICED_TEST_ONLY",
+      "quote_test_only": true,
+      "quote_usd": "204970511.5740842608000000",
+      "spent_usd": "204970511.5740842608000000",
+      "sponsor_id": "test_sponsor",
+      "target_body_id": "AMUN",
+      "vehicle_class_id": "baseline"
     }
   ],
   "cast_sha256": "8c67e088fbd4eb3336d31c4dcdc97d28d548533cf8f69467851e5b00fa8674ee",
   "classification": "TEST_ONLY_UNCALIBRATED_PRICE_PROXY",
   "quote_sha256": "72ebceab82626e2c6e2f595a83f67f8ee838e965ab8a0d4231ca20af045d38fd",
   "resolver_sha256": "e1241168f241ad88b0f946d9d75a8fd9bbcb6248491e5a85ee1c47fd995db959",
-  "run_identity": "8b9a8d9a18a83bde2d0f2896e38a15b97b85f2c1d7759423630ce09fd4972e3c",
+  "run_identity": "9d143a107a0abcddcf18ca8a9d75415016d46b2e7ab604ae05a82d7cf80f1aa2",
   "runner_sha256": "8f953e2cf90d29cd4961b1c1a702bcd13caf90f046c4d1fac8b3ce35b6a5b939",
-  "scenario_sha256": "f13a5fc94a68a8b7d63624892150ef7b2fb5f69ef7b28215092630fa88eb40c1"
+  "scenario_sha256": "a9eb8d9c013c4fe674c80f7351c4c3ef1af0df1144f3140226e559ff8583d38f"
 }

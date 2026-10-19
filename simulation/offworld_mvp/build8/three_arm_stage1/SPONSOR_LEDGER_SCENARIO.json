@@ -38,6 +38,20 @@
       "target_body_id": "CHIRON",
       "vehicle_class_id": "baseline",
       "year": 2026
+    },
+    {
+      "case_id": "affordable_failed",
+      "decision_rule": "AFFORDABLE_ACCEPT_ELSE_REJECT",
+      "executor_name": "Northrop Grumman",
+      "expected_decision": "ACCEPT",
+      "expected_outcome": "FAILED",
+      "initial_budget_usd": "300000000",
+      "mission_type_id": "flyby",
+      "outcome_seed": "stage1-failure-6",
+      "sponsor_id": "test_sponsor",
+      "target_body_id": "AMUN",
+      "vehicle_class_id": "baseline",
+      "year": 2026
     }
   ],
   "chance_source": "EXECUTOR_BELIEFS_SUCCESS_OVER_SUCCESS_PLUS_FAILURE",
