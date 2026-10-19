@@ -40,8 +40,8 @@ def stable_hash(result):
 
 
 class FlybyCampaign(AllBodyCampaign):
-    def __init__(self):
-        super().__init__(body_count=90)
+    def __init__(self, ceilings_enabled=False):
+        super().__init__(body_count=90, ceilings_enabled=ceilings_enabled)
         self.flyby_quotes = {}
         with QUOTE_PATH.open(newline='') as stream:
             for row in csv.DictReader(stream):
@@ -91,8 +91,8 @@ class FlybyCampaign(AllBodyCampaign):
         return report
 
 
-def run_variant():
-    campaign = FlybyCampaign()
+def run_variant(ceilings_enabled=False):
+    campaign = FlybyCampaign(ceilings_enabled=ceilings_enabled)
     campaign.record_states(2026)
     start = perf_counter()
     result = run_cast_payments(end_year=2226,
@@ -104,3 +104,7 @@ def run_variant():
     result['campaign'] = campaign.report()
     result['campaign']['runtime_total_seconds'] = round(perf_counter() - start, 6)
     return result
+
+
+def run_identity(ceilings_enabled=False):
+    return "variant_ceilings_" + ("on" if ceilings_enabled else "off")

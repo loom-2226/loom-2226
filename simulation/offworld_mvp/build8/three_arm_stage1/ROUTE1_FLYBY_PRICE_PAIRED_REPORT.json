@@ -4624,6 +4624,33 @@
       "year": 2226
     }
   ],
+  "ceiling_switch_verification": [
+    {
+      "ceilings_enabled": true,
+      "funded_stages": 249,
+      "run_identity": "control_ceilings_on",
+      "runtime_seconds": 17.151,
+      "stable_sha256": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430"
+    },
+    {
+      "ceilings_enabled": false,
+      "funded_stages": 249,
+      "run_identity": "variant_ceilings_off",
+      "runtime_seconds": 16.319,
+      "stable_sha256": "07dd58d5dbae505af238e727984c774fce7df96bb6648b98130b6f977191e99f"
+    },
+    {
+      "ceilings_enabled": true,
+      "funded_stages": 218,
+      "run_identity": "variant_ceilings_on",
+      "runtime_seconds": 16.114,
+      "stable_sha256": "115cfd9eac2efc6bc913950bf6c41a39cbe55cefeea62900ec1a5670e242c457"
+    }
+  ],
+  "ceilings_enabled": {
+    "control": true,
+    "variant": false
+  },
   "classification": "TEST_ONLY_NON_CANON",
   "control_sha256": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430",
   "currency": "1 MODEL_CURRENCY = authored proxy USD 1,000,000,000",
@@ -4647,6 +4674,10 @@
     "year_policy": "exact authored year when available, otherwise 2026"
   },
   "pricing_rule_sha256": "30d8230a9f36239e57fe620e6a17e2be08533f47ef682d868d3bff3e30ef46ac",
+  "run_identity": {
+    "control": "control_ceilings_on",
+    "variant": "variant_ceilings_off"
+  },
   "runtime_seconds": {
     "control": 18.610924,
     "paired_wall": 36.402105,
@@ -4654,5 +4685,5 @@
   },
   "scope": "2026-2226, 90 bodies, same 20 sponsors and 16 executors",
   "synthetic_study_outcomes": "UNCHANGED TEST_ONLY; no physical mission or scientific evidence",
-  "variant_sha256": "115cfd9eac2efc6bc913950bf6c41a39cbe55cefeea62900ec1a5670e242c457"
+  "variant_sha256": "07dd58d5dbae505af238e727984c774fce7df96bb6648b98130b6f977191e99f"
 }

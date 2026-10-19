@@ -8,3 +8,5 @@ Scope: opt-in beside the original 201-year, 90-body Route 1 campaign. No histori
 * Keep sponsor account, ceiling, financier decision, executor category selection, commitment, disbursement and supplier-payment chain. Existing selected RUN executor receives the full A1 amount via the same project-cash to supplier transfer; it is not a vendor bid or physical-delivery proof.
 * Preserve synthetic A1 review and A2 logic, explicitly labeled. Report by year the funded body counts, supplier spend, and sponsor-ceiling blocks for control and variant, including zeros. Do not tune ceilings.
 * Require exact stable control replay, sponsor-year conservation and supplier-payment identities. Stop on any failure. No B/C/D.
+
+* Flyby variant defaults `ceilings_enabled=False` because the authored, unsourced request ceilings were the binding limit under flyby prices; Route 1 control retains its own default.
