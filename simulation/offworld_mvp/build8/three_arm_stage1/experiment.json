@@ -1,5 +1,4 @@
 {
-  "arrival_limit_km_s": "10",
   "asset_root": "/home/ubuntu/loom_solar_assets",
   "budget_shortfall_policy": "WAIT_CARRY_CASH_TO_NEXT_YEAR",
   "cache_policy": "EACH_ARM_STARTS_WITH_NEW_EMPTY_ONDEMANDTRAVEL_MEMORY_CACHE",
@@ -8,7 +7,6 @@
   "cheap_cost_count": 8,
   "cheap_cost_rule": "SORT_BY_ABSOLUTE_PUBLIC_HELIOCENTRIC_RADIAL_DISTANCE_DIFFERENCE_AT_AUTHORED_EPOCH_NO_LAMBERT",
   "classification": "TEST_ONLY_NONCANON_NONRUNTIME",
-  "departure_limit_km_s": "10",
   "earth_baseline_root": "/home/ubuntu/loom_earth_2026_2035/earth_long_run_economic_baseline_v4_2026_09_24",
   "earth_reader_min_end_year": 2035,
   "estimate_seconds_per_geometry": "0.30",
@@ -19,12 +17,34 @@
   "geometry_table_policy": "A_BUILD_ONCE_SHA256_TABLE_D_LOOKUP_ONLY",
   "hard_stop_seconds": 7200,
   "missing_quote_policy": "NO_AWARD_NO_FALLBACK",
+  "mission_types": [
+    {
+      "charged_speed_terms": [
+        "departure_vinf_km_s",
+        "arrival_vinf_km_s"
+      ],
+      "enforce_arrival_limit": true,
+      "mission_type_id": "rendezvous"
+    },
+    {
+      "charged_speed_terms": [
+        "departure_vinf_km_s"
+      ],
+      "enforce_arrival_limit": false,
+      "mission_type_id": "flyby"
+    }
+  ],
   "orbital_service": "ORBITAL_RECON",
   "origin": "EARTH",
+  "price_calibration_bounds_km_s": null,
   "price_rate_usd_millions_per_km_s": "72.269449528",
   "pricing_basis": "Box2 minimum sampled admissible orbital transfer, not a full year mission design",
   "progress_check_seconds": 600,
   "progress_checkpoint_policy": "AFTER_EACH_DEPARTURE_ATOMIC_JSON_WRITE",
+  "regression_reference_pair": {
+    "mission_type_id": "rendezvous",
+    "vehicle_class_id": "baseline"
+  },
   "replay_policy": "RECOMPUTE_DECISIONS_FROM_CAPTURED_QUOTE_TABLE_NO_NEW_GEOMETRY",
   "route1_unit_usd_millions": "1000",
   "sampling": {
@@ -41,6 +61,13 @@
     "strategy": "daily",
     "stride_days": 28
   },
+  "selected_mission_types": [
+    "rendezvous",
+    "flyby"
+  ],
+  "selected_vehicle_classes": [
+    "baseline"
+  ],
   "separate_test": {
     "comparison": "PR426_DAILY_0_25_DAY_GRID_VS_DISTANCE_RESEARCH_BODY_DEPENDENT_GRID_SAME_DEPARTURE",
     "selected_body_year_and_date": "DERIVED_FROM_A_CHECKPOINT_NOT_AUTHORED_FIXED",
@@ -54,6 +81,13 @@
   },
   "transfer_family": "IZZO2015_M0_PROGRADE_LOW_PATH_HELIOCENTRIC",
   "value_multiplier_route1_per_score": "0.1",
+  "vehicle_classes": [
+    {
+      "arrival_limit_km_s": "10",
+      "class_id": "baseline",
+      "departure_limit_km_s": "10"
+    }
+  ],
   "years": [
     2026,
     2027
