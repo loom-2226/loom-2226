@@ -1,0 +1,52 @@
+{
+  "cases": [
+    {
+      "case_id": "affordable",
+      "decision_rule": "AFFORDABLE_ACCEPT_ELSE_REJECT",
+      "executor_name": "Northrop Grumman",
+      "expected_decision": "ACCEPT",
+      "initial_budget_usd": "300000000",
+      "mission_type_id": "flyby",
+      "outcome_seed": "stage1-seed",
+      "sponsor_id": "test_sponsor",
+      "target_body_id": "AMUN",
+      "vehicle_class_id": "baseline",
+      "year": 2026
+    },
+    {
+      "case_id": "unaffordable",
+      "decision_rule": "AFFORDABLE_ACCEPT_ELSE_REJECT",
+      "executor_name": "Northrop Grumman",
+      "expected_decision": "REJECT",
+      "initial_budget_usd": "100000000",
+      "mission_type_id": "flyby",
+      "outcome_seed": "stage1-seed",
+      "sponsor_id": "test_sponsor",
+      "target_body_id": "AMUN",
+      "vehicle_class_id": "baseline",
+      "year": 2026
+    },
+    {
+      "case_id": "infeasible",
+      "decision_rule": "AFFORDABLE_ACCEPT_ELSE_REJECT",
+      "executor_name": "Northrop Grumman",
+      "expected_decision": "REJECT",
+      "initial_budget_usd": "300000000",
+      "mission_type_id": "flyby",
+      "outcome_seed": "stage1-seed",
+      "sponsor_id": "test_sponsor",
+      "target_body_id": "CHIRON",
+      "vehicle_class_id": "baseline",
+      "year": 2026
+    }
+  ],
+  "chance_source": "EXECUTOR_BELIEFS_SUCCESS_OVER_SUCCESS_PLUS_FAILURE",
+  "classification": "TEST_ONLY_NONCANON_NONRUNTIME",
+  "executor_cast_file": "../solar_reach_cast.json",
+  "executor_cast_id": "LONG",
+  "executor_cast_sha256": "8c67e088fbd4eb3336d31c4dcdc97d28d548533cf8f69467851e5b00fa8674ee",
+  "ledger_debit_rule": "DEBIT_QUOTE_ON_ACCEPT",
+  "quote_csv": "A_VEHICLE_MISSION_PAIRS.csv",
+  "quote_run_identity": "f24cd438e12d5bc62efeaa48f084acf69f6b52e261f3a771aa1e4d05d07ace75",
+  "quote_sha256": "72ebceab82626e2c6e2f595a83f67f8ee838e965ab8a0d4231ca20af045d38fd"
+}

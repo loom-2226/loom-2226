@@ -40,3 +40,9 @@ Run **each case twice** from fresh state. Compare complete canonical result byte
 ## Stop condition
 
 One short scenario file, one thin runner, and proportional tests within PR #427 only, **after separate approval**. Stop immediately on a frozen-executor edit requirement, unpinned input, unsupported executor outcome contract, non-test quote, nonconserved ledger, or replay mismatch. No B/C/D.
+
+## Approved amendment: deterministic outcome resolver and third case
+
+The frozen executor's `simulate` consumes explicitly authored `DELIVERED`/`FAILED` outcomes, not a seeded chance. Do not edit it or pretend it resolved an outcome. A new PR #427-local **TEST ONLY** `outcome_resolver.py` derives SHA-256 from authored seed and case ID, interprets its first 64 bits as a draw in [0,1), and compares that draw to a chance derived from the **existing authored executor beliefs** `success/(success+failure)` in the pinned executor cast. This is a **test-only outcome resolution**, not a full executor run or an empirically calibrated reliability. Report this distinction explicitly. The scenario authors the executor identity and cast pin; the resolver code hash and scenario/quote/cast bytes enter the run identity.
+
+A third authored case selects an `INFEASIBLE` pinned quote and must REJECT, NOT_EXECUTED, and debit zero. Every ledger entry carries the selected quote's `best_departure_date` and `best_flight_days` verbatim; infeasible rows may carry blank values. No new clock or synthetic date. Run all three cases twice and compare canonical bytes. Deliberately corrupt a ledger balance and require the conservation assertion to fail. No geometry, B/C/D, or frozen edits.
