@@ -1,0 +1,16 @@
+{
+ "classification":"EXTRAPOLATED_TEST_ONLY_NON_CANON",
+ "infeasible_policy":"EXTRAPOLATE_PROXY",
+ "quote_status":"EXTRAPOLATED_TEST_ONLY",
+ "source_years":[2026,2027],
+ "infeasible_speed_selection":"MINIMUM_DEPARTURE_SPEED_ACROSS_BOTH_QUOTED_YEARS",
+ "original_25_speed_source":"A_BODY_YEAR_REPORT_LIMITS.csv:lowest_speed_departure_km_s",
+ "recovered_34_speed_source":"RECOVERED_ARM_A_TABLE_PAIRS_TEST_ONLY.csv:needed_departure_speed_km_s",
+ "proxy_usd_millions_per_km_s":"72.269449528",
+ "model_currency_usd":"1000000000",
+ "ceilings_enabled":false,
+ "held_year":2026,
+ "A2":"UNCHANGED",
+ "missing_speed_policy":"REPORT_UNAVAILABLE_NO_INVENTED_SPEED",
+ "control_expected_sha256":"4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430"
+}

@@ -1,0 +1,756 @@
+{
+  "balance_records": 4020,
+  "blocked_attempts": 3286,
+  "blocker_categories": {
+    "cash": 3170,
+    "financier": 116,
+    "other": 0
+  },
+  "blockers": {
+    "ACTUAL_SPONSOR_CASH": 3170,
+    "FINANCIER_CONCENTRATION": 116
+  },
+  "bodies_funded": 90,
+  "cash_spent_model_units": "160.5597066416862082528",
+  "charges_by_source": {
+    "ABSTRACT_FALLBACK": {
+      "count": 57,
+      "spent_model_units": "0.855"
+    },
+    "EXTRAPOLATED_PROXY": {
+      "count": 40,
+      "spent_model_units": "133.2349674124825690872"
+    },
+    "HELD": {
+      "count": 62,
+      "spent_model_units": "25.1197392292036391656"
+    },
+    "UNCHANGED_A2": {
+      "count": 90,
+      "spent_model_units": "1.350"
+    }
+  },
+  "classification": "EXTRAPOLATED_TEST_ONLY_NON_CANON",
+  "control_seconds": 19.522581893019378,
+  "control_stable_sha256": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430",
+  "extrapolated_body_source": {
+    "ARROKOTH": {
+      "minimum_departure_km_s": "37.6743632",
+      "minimum_source": "RECOVERED_PAIRS_CSV",
+      "minimum_source_year": 2027,
+      "price_model_units": "2.7227054897819405696",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "ATLAS3I": {
+      "minimum_departure_km_s": "54.1289036",
+      "minimum_source": "RECOVERED_PAIRS_CSV",
+      "minimum_source_year": 2026,
+      "price_model_units": "3.9118660667261775008",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "BORISOV": {
+      "minimum_departure_km_s": "73.1743387",
+      "minimum_source": "RECOVERED_PAIRS_CSV",
+      "minimum_source_year": 2026,
+      "price_model_units": "5.2882691774244271336",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "CHIRON": {
+      "minimum_departure_km_s": "15.1141076",
+      "minimum_source": "ORIGINAL_LIMITS_CSV",
+      "minimum_source_year": 2027,
+      "price_model_units": "1.0922882363589612128",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "COMET_HALLEY": {
+      "minimum_departure_km_s": "31.124897",
+      "minimum_source": "ORIGINAL_LIMITS_CSV",
+      "minimum_source_year": 2027,
+      "price_model_units": "2.249379172805698616",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "ERIS": {
+      "minimum_departure_km_s": "95.6510628",
+      "minimum_source": "ORIGINAL_LIMITS_CSV",
+      "minimum_source_year": 2027,
+      "price_model_units": "6.9126496553241583584",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "EURYBATES": {
+      "minimum_departure_km_s": "11.064223",
+      "minimum_source": "ORIGINAL_LIMITS_CSV",
+      "minimum_source_year": 2026,
+      "price_model_units": "0.799605305665036744",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "GONGGONG": {
+      "minimum_departure_km_s": "90.0022551",
+      "minimum_source": "RECOVERED_PAIRS_CSV",
+      "minimum_source_year": 2026,
+      "price_model_units": "6.5044134323556305928",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "HAUMEA": {
+      "minimum_departure_km_s": "49.1902972",
+      "minimum_source": "ORIGINAL_LIMITS_CSV",
+      "minimum_source_year": 2027,
+      "price_model_units": "3.5549557007627197216",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "IXION": {
+      "minimum_departure_km_s": "31.7044569",
+      "minimum_source": "RECOVERED_PAIRS_CSV",
+      "minimum_source_year": 2027,
+      "price_model_units": "2.2912636477472013432",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "LEUCUS": {
+      "minimum_departure_km_s": "10.1659185",
+      "minimum_source": "RECOVERED_PAIRS_CSV",
+      "minimum_source_year": 2027,
+      "price_model_units": "0.734685333941511468",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "MAKEMAKE": {
+      "minimum_departure_km_s": "51.8141883",
+      "minimum_source": "ORIGINAL_LIMITS_CSV",
+      "minimum_source_year": 2027,
+      "price_model_units": "3.7445828661811381224",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "MS4": {
+      "minimum_departure_km_s": "42.5604259",
+      "minimum_source": "RECOVERED_PAIRS_CSV",
+      "minimum_source_year": 2026,
+      "price_model_units": "3.0758185514702339752",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "ORCUS": {
+      "minimum_departure_km_s": "44.9609046",
+      "minimum_source": "RECOVERED_PAIRS_CSV",
+      "minimum_source_year": 2026,
+      "price_model_units": "3.2492998257229230288",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "OUMUAMUA": {
+      "minimum_departure_km_s": "75.3821803",
+      "minimum_source": "RECOVERED_PAIRS_CSV",
+      "minimum_source_year": 2026,
+      "price_model_units": "5.4478286745014458984",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "PATROCLUS": {
+      "minimum_departure_km_s": "14.7309357",
+      "minimum_source": "ORIGINAL_LIMITS_CSV",
+      "minimum_source_year": 2027,
+      "price_model_units": "1.0645966140713633496",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "PLUTO": {
+      "minimum_departure_km_s": "31.2957206",
+      "minimum_source": "ORIGINAL_LIMITS_CSV",
+      "minimum_source_year": 2026,
+      "price_model_units": "2.2617245003440898768",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "POLYMELE": {
+      "minimum_departure_km_s": "10.6342341",
+      "minimum_source": "RECOVERED_PAIRS_CSV",
+      "minimum_source_year": 2026,
+      "price_model_units": "0.7685302445588865048",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "QUAOAR": {
+      "minimum_departure_km_s": "36.9986603",
+      "minimum_source": "RECOVERED_PAIRS_CSV",
+      "minimum_source_year": 2026,
+      "price_model_units": "2.6738728131544673384",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "SALACIA": {
+      "minimum_departure_km_s": "44.7909107",
+      "minimum_source": "RECOVERED_PAIRS_CSV",
+      "minimum_source_year": 2026,
+      "price_model_units": "3.2370144601468051496",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "SEDNA": {
+      "minimum_departure_km_s": "81.1497682",
+      "minimum_source": "RECOVERED_PAIRS_CSV",
+      "minimum_source_year": 2027,
+      "price_model_units": "5.8646490771387994096",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "SWIFTTUTTLE": {
+      "minimum_departure_km_s": "46.3480941",
+      "minimum_source": "RECOVERED_PAIRS_CSV",
+      "minimum_source_year": 2026,
+      "price_model_units": "3.3495512472789445848",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    },
+    "VARUNA": {
+      "minimum_departure_km_s": "39.624198",
+      "minimum_source": "RECOVERED_PAIRS_CSV",
+      "minimum_source_year": 2027,
+      "price_model_units": "2.863618977448478544",
+      "status": "EXTRAPOLATED_TEST_ONLY"
+    }
+  },
+  "former_block_23": {
+    "ARROKOTH": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "37.6743632",
+      "original_speed_source": "RECOVERED_PAIRS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "2.7227054897819405696",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "CNSA",
+          "year": 2036
+        },
+        {
+          "price_model_units": "2.7227054897819405696",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "CNSA",
+          "year": 2037
+        }
+      ],
+      "quoted_price_model_units": "2.7227054897819405696"
+    },
+    "ATLAS3I": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "54.1289036",
+      "original_speed_source": "RECOVERED_PAIRS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "3.9118660667261775008",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "ESA",
+          "year": 2036
+        },
+        {
+          "price_model_units": "3.9118660667261775008",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "CNSA",
+          "year": 2042
+        }
+      ],
+      "quoted_price_model_units": "3.9118660667261775008"
+    },
+    "BORISOV": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "73.1743387",
+      "original_speed_source": "RECOVERED_PAIRS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "5.2882691774244271336",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "LandSpace",
+          "year": 2036
+        },
+        {
+          "price_model_units": "5.2882691774244271336",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "CNSA",
+          "year": 2051
+        },
+        {
+          "price_model_units": "5.2882691774244271336",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "CNSA",
+          "year": 2053
+        }
+      ],
+      "quoted_price_model_units": "5.2882691774244271336"
+    },
+    "CHIRON": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "15.1141076",
+      "original_speed_source": "ORIGINAL_LIMITS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "1.0922882363589612128",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "JAXA",
+          "year": 2036
+        }
+      ],
+      "quoted_price_model_units": "1.0922882363589612128"
+    },
+    "COMET_HALLEY": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "31.124897",
+      "original_speed_source": "ORIGINAL_LIMITS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "2.249379172805698616",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "NASA",
+          "year": 2036
+        }
+      ],
+      "quoted_price_model_units": "2.249379172805698616"
+    },
+    "ERIS": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "95.6510628",
+      "original_speed_source": "ORIGINAL_LIMITS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "6.9126496553241583584",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "CNSA",
+          "year": 2036
+        },
+        {
+          "price_model_units": "6.9126496553241583584",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "CNSA",
+          "year": 2055
+        }
+      ],
+      "quoted_price_model_units": "6.9126496553241583584"
+    },
+    "EURYBATES": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "11.064223",
+      "original_speed_source": "ORIGINAL_LIMITS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "0.799605305665036744",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "ESA",
+          "year": 2036
+        }
+      ],
+      "quoted_price_model_units": "0.799605305665036744"
+    },
+    "GONGGONG": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "90.0022551",
+      "original_speed_source": "RECOVERED_PAIRS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "6.5044134323556305928",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "CNSA",
+          "year": 2036
+        }
+      ],
+      "quoted_price_model_units": "6.5044134323556305928"
+    },
+    "HAUMEA": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "49.1902972",
+      "original_speed_source": "ORIGINAL_LIMITS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "3.5549557007627197216",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "CNSA",
+          "year": 2044
+        }
+      ],
+      "quoted_price_model_units": "3.5549557007627197216"
+    },
+    "IXION": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "31.7044569",
+      "original_speed_source": "RECOVERED_PAIRS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "2.2912636477472013432",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "ESA",
+          "year": 2036
+        }
+      ],
+      "quoted_price_model_units": "2.2912636477472013432"
+    },
+    "LEUCUS": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "10.1659185",
+      "original_speed_source": "RECOVERED_PAIRS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "0.734685333941511468",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "Blue Origin",
+          "year": 2036
+        }
+      ],
+      "quoted_price_model_units": "0.734685333941511468"
+    },
+    "MAKEMAKE": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "51.8141883",
+      "original_speed_source": "ORIGINAL_LIMITS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "3.7445828661811381224",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "CNSA",
+          "year": 2045
+        },
+        {
+          "price_model_units": "3.7445828661811381224",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "ISRO",
+          "year": 2047
+        },
+        {
+          "price_model_units": "3.7445828661811381224",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "CNSA",
+          "year": 2048
+        }
+      ],
+      "quoted_price_model_units": "3.7445828661811381224"
+    },
+    "MS4": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "42.5604259",
+      "original_speed_source": "RECOVERED_PAIRS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "3.0758185514702339752",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "LandSpace",
+          "year": 2041
+        },
+        {
+          "price_model_units": "3.0758185514702339752",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "ESA",
+          "year": 2043
+        },
+        {
+          "price_model_units": "3.0758185514702339752",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "SpaceX",
+          "year": 2044
+        },
+        {
+          "price_model_units": "3.0758185514702339752",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "LandSpace",
+          "year": 2045
+        },
+        {
+          "price_model_units": "3.0758185514702339752",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "CNSA",
+          "year": 2046
+        }
+      ],
+      "quoted_price_model_units": "3.0758185514702339752"
+    },
+    "ORCUS": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "44.9609046",
+      "original_speed_source": "RECOVERED_PAIRS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "3.2492998257229230288",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "ESA",
+          "year": 2047
+        },
+        {
+          "price_model_units": "3.2492998257229230288",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "LandSpace",
+          "year": 2048
+        }
+      ],
+      "quoted_price_model_units": "3.2492998257229230288"
+    },
+    "OUMUAMUA": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "75.3821803",
+      "original_speed_source": "RECOVERED_PAIRS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "5.4478286745014458984",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "ISRO",
+          "year": 2053
+        },
+        {
+          "price_model_units": "5.4478286745014458984",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "LandSpace",
+          "year": 2054
+        }
+      ],
+      "quoted_price_model_units": "5.4478286745014458984"
+    },
+    "PATROCLUS": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "14.7309357",
+      "original_speed_source": "ORIGINAL_LIMITS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "1.0645966140713633496",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "Starlab",
+          "year": 2036
+        },
+        {
+          "price_model_units": "1.0645966140713633496",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "LandSpace",
+          "year": 2037
+        }
+      ],
+      "quoted_price_model_units": "1.0645966140713633496"
+    },
+    "PLUTO": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "31.2957206",
+      "original_speed_source": "ORIGINAL_LIMITS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "2.2617245003440898768",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "ISRO",
+          "year": 2036
+        },
+        {
+          "price_model_units": "2.2617245003440898768",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "CNSA",
+          "year": 2039
+        }
+      ],
+      "quoted_price_model_units": "2.2617245003440898768"
+    },
+    "POLYMELE": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "10.6342341",
+      "original_speed_source": "RECOVERED_PAIRS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "0.7685302445588865048",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "Axiom",
+          "year": 2036
+        },
+        {
+          "price_model_units": "0.7685302445588865048",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "NASA",
+          "year": 2037
+        }
+      ],
+      "quoted_price_model_units": "0.7685302445588865048"
+    },
+    "QUAOAR": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "36.9986603",
+      "original_speed_source": "RECOVERED_PAIRS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "2.6738728131544673384",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "CNSA",
+          "year": 2040
+        }
+      ],
+      "quoted_price_model_units": "2.6738728131544673384"
+    },
+    "SALACIA": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "44.7909107",
+      "original_speed_source": "RECOVERED_PAIRS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "3.2370144601468051496",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "NASA",
+          "year": 2047
+        }
+      ],
+      "quoted_price_model_units": "3.2370144601468051496"
+    },
+    "SEDNA": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "81.1497682",
+      "original_speed_source": "RECOVERED_PAIRS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "5.8646490771387994096",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "ESA",
+          "year": 2056
+        }
+      ],
+      "quoted_price_model_units": "5.8646490771387994096"
+    },
+    "SWIFTTUTTLE": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "46.3480941",
+      "original_speed_source": "RECOVERED_PAIRS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "3.3495512472789445848",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "CNSA",
+          "year": 2049
+        }
+      ],
+      "quoted_price_model_units": "3.3495512472789445848"
+    },
+    "VARUNA": {
+      "funded": true,
+      "if_unfunded_blocker": null,
+      "largest_any_sponsor_balance_model_units": null,
+      "minimum_departure_km_s": "39.624198",
+      "original_speed_source": "RECOVERED_PAIRS_CSV",
+      "purchases": [
+        {
+          "price_model_units": "2.863618977448478544",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "NASA",
+          "year": 2041
+        },
+        {
+          "price_model_units": "2.863618977448478544",
+          "quote_status": "EXTRAPOLATED_TEST_ONLY",
+          "source": "EXTRAPOLATED_PROXY",
+          "sponsor": "ISRO",
+          "year": 2042
+        }
+      ],
+      "quoted_price_model_units": "2.863618977448478544"
+    }
+  },
+  "funded_stages": 249,
+  "infeasible_policy": "EXTRAPOLATE_PROXY",
+  "largest_any_sponsor_balance_model_units": "385.4627912774282452078",
+  "missing_original_speed": [],
+  "output_sha256": {
+    "RECOVERED_EXTRAPOLATE_BLOCKED_ATTEMPTS_TEST_ONLY.csv": "ed53d36787000274b16bdeb9bbc89c91ee99c5a1de0f9924841aa2a3ff341836",
+    "RECOVERED_EXTRAPOLATE_SPONSOR_BALANCES_TEST_ONLY.csv": "dc161f9c51d2b07382d78573f5ca75cd881230f713cf6cfdcd3db713c7bef934"
+  },
+  "peak_rss_bytes": 140689408,
+  "quote_status": "EXTRAPOLATED_TEST_ONLY",
+  "run_identity": {
+    "classification": "EXTRAPOLATED_TEST_ONLY_NON_CANON",
+    "missing_original_speed": [],
+    "policy": {
+      "A2": "UNCHANGED",
+      "ceilings_enabled": false,
+      "classification": "EXTRAPOLATED_TEST_ONLY_NON_CANON",
+      "control_expected_sha256": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430",
+      "held_year": 2026,
+      "infeasible_policy": "EXTRAPOLATE_PROXY",
+      "infeasible_speed_selection": "MINIMUM_DEPARTURE_SPEED_ACROSS_BOTH_QUOTED_YEARS",
+      "missing_speed_policy": "REPORT_UNAVAILABLE_NO_INVENTED_SPEED",
+      "model_currency_usd": "1000000000",
+      "original_25_speed_source": "A_BODY_YEAR_REPORT_LIMITS.csv:lowest_speed_departure_km_s",
+      "proxy_usd_millions_per_km_s": "72.269449528",
+      "quote_status": "EXTRAPOLATED_TEST_ONLY",
+      "recovered_34_speed_source": "RECOVERED_ARM_A_TABLE_PAIRS_TEST_ONLY.csv:needed_departure_speed_km_s",
+      "source_years": [
+        2026,
+        2027
+      ]
+    },
+    "source_sha256": {
+      "A_BODY_YEAR_REPORT_LIMITS.csv": "3ab7b2dc748c2ceebf98b198ab29420e315c94c526ef04f65cdd7a3841a8423e",
+      "RECOVERED_ARM_A_TABLE_PAIRS_TEST_ONLY.csv": "9c857766148232e6d8ac5d71208eb191f4b9765aaa6ea3e80a53a5f1c4e69bed",
+      "RECOVERED_COMBINED_59_PINNED_QUOTES_TEST_ONLY.csv": "26c2689d45cdbccbf856a50ff39b7c3423614f7f472e25d44e8f06bb45413456",
+      "RECOVERED_COMBINED_59_QUOTE_MANIFEST_TEST_ONLY.json": "e94b06527f1c5107db3929cf340ce5b65ba5b8d01b2e4ff3450040c2b61363d9",
+      "RECOVERED_EXTRAPOLATE_INPUT_TEST_ONLY.json": "52db76872cd7b7e6c0d007f9c734a042bc72fff0045a6d2d458015d74c9679b4",
+      "RECOVERED_FLYBY_POLICY_FULL_CLOCK_REPORT_TEST_ONLY.json": "c8ebf189be7dd4aa6723058989c444bfca30e4be7fb65deb585443ab21fe1ce2"
+    }
+  },
+  "run_identity_sha256": "0f9c05ffabf84906f0d8be05e2409cda45d2631e14485f50f8515b89d555d800",
+  "total_seconds": 41.148300274973735,
+  "variant_seconds": 21.62571782292798,
+  "variant_stable_sha256": "0e2b843013a7327089bfa07ce7519ec0fa13b87d48620792aff66cf09bc1292c"
+}
