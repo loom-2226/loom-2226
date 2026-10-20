@@ -1,0 +1,21 @@
+{
+ "classification":"KT_AUTHORED_TEST_ONLY_NONCANON",
+ "parent_input_file":"VEHICLE_FLYBY_AUTHORED_TEST_ONLY.json",
+ "parent_input_sha256":"1a45564a1efb9f6bb134f00d43d05aa763ce71f99a34a9ee79029f0e97eae167",
+ "rendezvous_fixed_mission_cost_usd":"700000000",
+ "operating_cost_usd_per_year_of_flight":"0",
+ "operating_cost_status":"KT_AUTHORED_VISIBLE_VARIABLE",
+ "rendezvous_selection":"MINIMUM_TOTAL_COST_PER_SAMPLED_BODY_YEAR",
+ "arrival_braking":"ARRIVAL_VINFINITY_DIRECT_IMPULSIVE_FOR_NONMOONS",
+ "moon_braking":"SQRT(VINF_SQUARED_PLUS_2_PARENT_MU_OVER_ORBIT_RADIUS)_MINUS_SQRT(PARENT_MU_OVER_ORBIT_RADIUS)",
+ "moon_flyby":"PARENT_FLYBY_COST",
+ "moon_small_satellite_trajectory":"DACTYL_USES_IDA;SELAM_USES_DINKINESH",
+ "moon_gravity":"IGNORED_TEST_ONLY",
+ "flight_range_days":"EXISTING_45_TO_1400_UNCHANGED",
+ "stage_rule":"DERIVED_FEWEST_FEASIBLE_SERIAL_STAGES_NO_CAP",
+ "route1_A1":"RENDEZVOUS_PRICE_WHERE_PRESENT_ELSE_UNPRICED_NO_ABSTRACT_SUBSTITUTION",
+ "route1_A2":"UNCHANGED",
+ "route1_held_year":2026,
+ "route1_ceilings_enabled":false,
+ "route1_cash_financier":"UNCHANGED"
+}
