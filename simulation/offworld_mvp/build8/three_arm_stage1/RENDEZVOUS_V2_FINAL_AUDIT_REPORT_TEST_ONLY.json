@@ -1,0 +1,53 @@
+{
+  "bit_identical_to_original_float_path_for_all_nonoverflow_samples_by_construction": "FLOAT path calls original.stack unmodified and retains original arithmetic, no rounding or conversion changes; original values returned unchanged",
+  "blockers": {
+    "ACTUAL_SPONSOR_CASH": 88453,
+    "FINANCIER_CONCENTRATION": 145,
+    "UNPRICED_NO_PARENT_QUOTE_OR_PHYSICAL_PARAMETER": 91680
+  },
+  "body_year_prices": 180,
+  "checked_sha256": {
+    "authored_input": "afb5903ea80f209928d8f51346a25b13d126a8c1ab8cea6008bebb9b48d01668",
+    "old_flyby_prices_unchanged": "2a36b2ef103480c7b8624b86d6910becd69472ad78913ec2ea60141e64643b73",
+    "parent_flyby_input": "1a45564a1efb9f6bb134f00d43d05aa763ce71f99a34a9ee79029f0e97eae167",
+    "v2_geometry_csv": "b5d12d4883dc18f1fb1ead7dffd7afb3c4235b3c346b26b434bac0b6a0659788",
+    "v2_geometry_report": "35c4f2072ba8ffc8cb5b9e61874bd51bed9fe8f02adc67e36cca132aa5bb6a64",
+    "v2_prices_csv": "fcbbd92236f436c5ec33717680496215b579caabb4642e5dc4d22bd3eac440cd",
+    "v2_route1_report": "e0a08ca6d401591ce50b8a260403c8c33832e073b281b80a6963bd4b545af87b",
+    "world_authority_csv": "9a8573a16cb11e95800d71b17c753d8b8818f9cc08659b093ec9530fb4568149"
+  },
+  "classification": "KT_TEST_ONLY_NONCANON",
+  "control_sha256": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430",
+  "fallback_counts_excluding_hand_tests": {
+    "decimal60_trajectory_evaluations": 107735,
+    "decimal_stage_calls_including_tests": 202849,
+    "float_stage_calls_including_tests": 23840942,
+    "float_trajectory_evaluations": 11812731
+  },
+  "first_failure_in_raw_counter_is_synthetic_hand_test": true,
+  "funded_bodies": 43,
+  "funded_stages": 114,
+  "geometry_seconds": 664.3272834050003,
+  "hand_test_2000_arrival_mass_kg": "1.24723279292575059785440512531892447705091502838487391716102E+620",
+  "independent_bitwise_checks": 132,
+  "independent_decimal_best_quotes": 0,
+  "lowest_failure_ordering": "minimum max(departure_vinf,arrival_vinf) among fallback trajectory evaluations",
+  "lowest_float_overflow_speed_case": {
+    "arrival_vinf_km_s": 445.7804017,
+    "body": "ARROKOTH",
+    "departure_vinf_km_s": 446.8774816,
+    "flight_days": 163.25,
+    "year": 2026
+  },
+  "peak_rss_bytes": 764649472,
+  "priced": 132,
+  "route1_seconds": 24.15140426508151,
+  "sampled_departures": 3731,
+  "sampled_trajectories": 10891908,
+  "source_departure_lattice_mismatches": 0,
+  "spent_model_units": "75.8627822051335949",
+  "status": "COMPLETED",
+  "total_seconds": 704.2894068581518,
+  "unpriced": 48,
+  "variant_sha256": "c7fc6355ab7e3da436e903b5575f092adcf7dd9d7f76085a014d34b0ad5a1338"
+}

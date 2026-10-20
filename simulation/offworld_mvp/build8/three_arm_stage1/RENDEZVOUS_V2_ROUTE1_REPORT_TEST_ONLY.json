@@ -1,0 +1,364 @@
+{
+  "authored_input_sha256": "afb5903ea80f209928d8f51346a25b13d126a8c1ab8cea6008bebb9b48d01668",
+  "blocked_attempts": 180278,
+  "blockers": {
+    "ACTUAL_SPONSOR_CASH": 88453,
+    "FINANCIER_CONCENTRATION": 145,
+    "UNPRICED_NO_PARENT_QUOTE_OR_PHYSICAL_PARAMETER": 91680
+  },
+  "calculation_counts": {
+    "decimal_samples": 107736,
+    "decimal_stage_calls": 202849,
+    "first_failure": {
+      "arrival_vinf_km_s": 2000.0,
+      "body": "",
+      "departure_vinf_km_s": 10.0,
+      "flight_days": 365.25,
+      "year": null
+    },
+    "float_samples": 11812735,
+    "float_stage_calls": 23840942,
+    "lowest_failure": {
+      "arrival_vinf_km_s": 445.7804017,
+      "body": "ARROKOTH",
+      "departure_vinf_km_s": 446.8774816,
+      "flight_days": 163.25,
+      "year": 2026
+    }
+  },
+  "classification": "KT_TEST_ONLY_NONCANON",
+  "control_sha256": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430",
+  "fallback_tests": {
+    "arrival_2000_decimal_mass": "1.24723279292575059785440512531892447705091502838487391716102E+620",
+    "arrival_2000_decimal_mass_finite": true,
+    "arrival_2000_float_overflow": true,
+    "float_bit_identical_cases": [
+      [
+        10.0,
+        3.0,
+        365.25
+      ],
+      [
+        20.0,
+        5.0,
+        365.25
+      ],
+      [
+        30.0,
+        3.0,
+        900.0
+      ],
+      [
+        6.0,
+        1.0,
+        45.0
+      ]
+    ]
+  },
+  "funded_bodies": 43,
+  "funded_stages": 114,
+  "geometry_report_sha256": "35c4f2072ba8ffc8cb5b9e61874bd51bed9fe8f02adc67e36cca132aa5bb6a64",
+  "identity_sha256": "6fbdffa97af212acff861d54dc3b408518a7878707d24eaa1dabbaf44ef4e1b4",
+  "never_funded": [
+    "ARIEL",
+    "ARROKOTH",
+    "ATLAS3I",
+    "BORISOV",
+    "CALLISTO",
+    "CHARON",
+    "COMET_HALLEY",
+    "DACTYL",
+    "DIONE",
+    "ENCELADUS",
+    "ERIS",
+    "EUROPA",
+    "GANYMEDE",
+    "GONGGONG",
+    "HAUMEA",
+    "HYDRA",
+    "HYPERION",
+    "IAPETUS",
+    "IO",
+    "IXION",
+    "KERBEROS",
+    "MAKEMAKE",
+    "MIMAS",
+    "MIRANDA",
+    "MOON",
+    "MS4",
+    "NEREID",
+    "NIX",
+    "OBERON",
+    "ORCUS",
+    "OUMUAMUA",
+    "PHOEBE",
+    "PLUTO",
+    "PROTEUS",
+    "QUAOAR",
+    "RHEA",
+    "SALACIA",
+    "SEDNA",
+    "SELAM",
+    "STYX",
+    "SWIFTTUTTLE",
+    "TETHYS",
+    "TITAN",
+    "TITANIA",
+    "TRITON",
+    "UMBRIEL",
+    "VARUNA"
+  ],
+  "old31_first_funded": {
+    "ARIEL": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "CALLISTO": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "CHARON": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "",
+      "sponsor": null,
+      "year": null
+    },
+    "DACTYL": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_GM_MISSING",
+      "sponsor": null,
+      "year": null
+    },
+    "DEIMOS": {
+      "funded": true,
+      "price_model_units": "0.7068700388855866",
+      "reason": "",
+      "sponsor": "JAXA",
+      "year": 2036
+    },
+    "DIONE": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "ENCELADUS": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "EUROPA": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "GANYMEDE": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "HYDRA": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "",
+      "sponsor": null,
+      "year": null
+    },
+    "HYPERION": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "NO_59_BODY_TABLE_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "IAPETUS": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "IO": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "KERBEROS": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "",
+      "sponsor": null,
+      "year": null
+    },
+    "MIMAS": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "MIRANDA": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "MOON": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "NEREID": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "NIX": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "",
+      "sponsor": null,
+      "year": null
+    },
+    "OBERON": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "PHOBOS": {
+      "funded": true,
+      "price_model_units": "0.7068327485786549",
+      "reason": "",
+      "sponsor": "LandSpace",
+      "year": 2036
+    },
+    "PHOEBE": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "PROTEUS": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "RHEA": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "SELAM": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_GM_MISSING",
+      "sponsor": null,
+      "year": null
+    },
+    "STYX": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "",
+      "sponsor": null,
+      "year": null
+    },
+    "TETHYS": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "TITAN": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "TITANIA": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "TRITON": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    },
+    "UMBRIEL": {
+      "funded": false,
+      "price_model_units": null,
+      "reason": "PARENT_NO_FLYBY_QUOTE",
+      "sponsor": null,
+      "year": null
+    }
+  },
+  "parent_input_sha256": "1a45564a1efb9f6bb134f00d43d05aa763ce71f99a34a9ee79029f0e97eae167",
+  "peak_rss_bytes": 764649472,
+  "prices_csv_sha256": "fcbbd92236f436c5ec33717680496215b579caabb4642e5dc4d22bd3eac440cd",
+  "route1_seconds": 24.15140426508151,
+  "spent_model_units": "75.8627822051335949",
+  "total_seconds": 704.2894068581518,
+  "unpriced_bodies": {
+    "ARIEL": "PARENT_NO_FLYBY_QUOTE",
+    "CALLISTO": "PARENT_NO_FLYBY_QUOTE",
+    "DACTYL": "PARENT_GM_MISSING",
+    "DIONE": "PARENT_NO_FLYBY_QUOTE",
+    "ENCELADUS": "PARENT_NO_FLYBY_QUOTE",
+    "EUROPA": "PARENT_NO_FLYBY_QUOTE",
+    "GANYMEDE": "PARENT_NO_FLYBY_QUOTE",
+    "HYPERION": "NO_59_BODY_TABLE_QUOTE",
+    "IAPETUS": "PARENT_NO_FLYBY_QUOTE",
+    "IO": "PARENT_NO_FLYBY_QUOTE",
+    "MIMAS": "PARENT_NO_FLYBY_QUOTE",
+    "MIRANDA": "PARENT_NO_FLYBY_QUOTE",
+    "MOON": "PARENT_NO_FLYBY_QUOTE",
+    "NEREID": "PARENT_NO_FLYBY_QUOTE",
+    "OBERON": "PARENT_NO_FLYBY_QUOTE",
+    "PHOEBE": "PARENT_NO_FLYBY_QUOTE",
+    "PROTEUS": "PARENT_NO_FLYBY_QUOTE",
+    "RHEA": "PARENT_NO_FLYBY_QUOTE",
+    "SELAM": "PARENT_GM_MISSING",
+    "TETHYS": "PARENT_NO_FLYBY_QUOTE",
+    "TITAN": "PARENT_NO_FLYBY_QUOTE",
+    "TITANIA": "PARENT_NO_FLYBY_QUOTE",
+    "TRITON": "PARENT_NO_FLYBY_QUOTE",
+    "UMBRIEL": "PARENT_NO_FLYBY_QUOTE"
+  },
+  "variant_sha256": "c7fc6355ab7e3da436e903b5575f092adcf7dd9d7f76085a014d34b0ad5a1338",
+  "world_sha256": "9a8573a16cb11e95800d71b17c753d8b8818f9cc08659b093ec9530fb4568149"
+}
