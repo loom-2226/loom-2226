@@ -1,0 +1,1634 @@
+{
+  "authored_input": {
+    "bodies": [
+      "AMUN",
+      "ASTEROID_6178",
+      "BENNU",
+      "CERES",
+      "CHIRON",
+      "COMET_67P",
+      "COMET_HALLEY",
+      "DIDYMOS",
+      "ERIS",
+      "EROS",
+      "EURYBATES",
+      "HAUMEA",
+      "HYGIEA",
+      "ITOKAWA",
+      "KLEOPATRA",
+      "MAKEMAKE",
+      "MARS",
+      "MERCURY",
+      "PALLAS",
+      "PATROCLUS",
+      "PLUTO",
+      "PSYCHE",
+      "RYUGU",
+      "VENUS",
+      "VESTA"
+    ],
+    "cheap_cost_count": 8,
+    "counterfactual": "C_CHEAP_COST_TOP_8_APPLIED_TO_ARM_A",
+    "filter": "OFF_AS_AUTHORED_ARM_A",
+    "heuristic": "SORT_BY_ABSOLUTE_PUBLIC_HELIOCENTRIC_RADIAL_DISTANCE_DIFFERENCE_AT_AUTHORED_EPOCH_NO_LAMBERT",
+    "mission_types": [
+      "rendezvous",
+      "flyby"
+    ],
+    "shortlist_count": 8,
+    "table_path": "TABLE_ONLY",
+    "years": [
+      2026,
+      2027
+    ]
+  },
+  "authored_sha256": "8d7cd1c4b7a04f9523dde5dcf7a622a0f12e101a9cab34a7714eef61599fadc7",
+  "classification": "TEST_ONLY_NONCANON_NONRUNTIME",
+  "comparison_note": "NOT_EVALUATED_FILTERED is missing price due to candidate suppression, not physical infeasibility; numeric price deltas are undefined when dropped",
+  "difference_count": 170,
+  "difference_csv_sha256": "4a915337ea75aeb813363b9c7c35ec6c35299442cc4b0ea49870341de012e1e2",
+  "differences": [
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "ASTEROID_6178",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "713871472.3074291672000000",
+      "body": "ASTEROID_6178",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "2026-04-23",
+      "body": "ASTEROID_6178",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "816.5",
+      "body": "ASTEROID_6178",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "ASTEROID_6178",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "457321647.5418352712000000",
+      "body": "ASTEROID_6178",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "2026-08-13",
+      "body": "ASTEROID_6178",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "853.5",
+      "body": "ASTEROID_6178",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "CERES",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "1096394868.3319953320000000",
+      "body": "CERES",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "2026-11-05",
+      "body": "CERES",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "677.5",
+      "body": "CERES",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "CERES",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "498053851.1531186136000000",
+      "body": "CERES",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "2026-11-05",
+      "body": "CERES",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "676.5",
+      "body": "CERES",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "CHIRON",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "CHIRON",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "COMET_67P",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "780001798.3177594816000000",
+      "body": "COMET_67P",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "2026-01-01",
+      "body": "COMET_67P",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "756.0",
+      "body": "COMET_67P",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "COMET_67P",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "355818634.7511080000000",
+      "body": "COMET_67P",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "2026-12-31",
+      "body": "COMET_67P",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "425.25",
+      "body": "COMET_67P",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "COMET_HALLEY",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "COMET_HALLEY",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "DIDYMOS",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "496139209.3998283568000000",
+      "body": "DIDYMOS",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "2026-01-01",
+      "body": "DIDYMOS",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "354.75",
+      "body": "DIDYMOS",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "DIDYMOS",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "115931312.0842494064000000",
+      "body": "DIDYMOS",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "2026-02-26",
+      "body": "DIDYMOS",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "350.5",
+      "body": "DIDYMOS",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "ERIS",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "ERIS",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "EURYBATES",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "EURYBATES",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "HAUMEA",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "HAUMEA",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "HYGIEA",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "991041751.2062785304000000",
+      "body": "HYGIEA",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "2026-12-03",
+      "body": "HYGIEA",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "590.0",
+      "body": "HYGIEA",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "HYGIEA",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "486098561.8338299688000000",
+      "body": "HYGIEA",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "2026-12-03",
+      "body": "HYGIEA",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "600.5",
+      "body": "HYGIEA",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "KLEOPATRA",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "1099301336.0106078608000000",
+      "body": "KLEOPATRA",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "2026-03-26",
+      "body": "KLEOPATRA",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "549.0",
+      "body": "KLEOPATRA",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "KLEOPATRA",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "398744714.8147678856000000",
+      "body": "KLEOPATRA",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "2026-03-26",
+      "body": "KLEOPATRA",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "550.0",
+      "body": "KLEOPATRA",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "MAKEMAKE",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "MAKEMAKE",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "PALLAS",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "PALLAS",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "425476432.5928999944000000",
+      "body": "PALLAS",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "2026-08-13",
+      "body": "PALLAS",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "574.25",
+      "body": "PALLAS",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "PATROCLUS",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "PATROCLUS",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "PLUTO",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "PLUTO",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "PSYCHE",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "945988983.5974682832000000",
+      "body": "PSYCHE",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "2026-11-05",
+      "body": "PSYCHE",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "688.0",
+      "body": "PSYCHE",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "PSYCHE",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "529311262.5343179024000000",
+      "body": "PSYCHE",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "2026-12-31",
+      "body": "PSYCHE",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "976.5",
+      "body": "PSYCHE",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "VESTA",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "769299885.2885798936000000",
+      "body": "VESTA",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "2026-06-18",
+      "body": "VESTA",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "484.25",
+      "body": "VESTA",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2026
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "VESTA",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "457130689.9753474368000000",
+      "body": "VESTA",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "2026-06-18",
+      "body": "VESTA",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "473.75",
+      "body": "VESTA",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2026
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "ASTEROID_6178",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "733371316.3563034664000000",
+      "body": "ASTEROID_6178",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "2027-05-21",
+      "body": "ASTEROID_6178",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "477.5",
+      "body": "ASTEROID_6178",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "ASTEROID_6178",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "267536652.8725926712000000",
+      "body": "ASTEROID_6178",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "2027-08-13",
+      "body": "ASTEROID_6178",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "473.0",
+      "body": "ASTEROID_6178",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "CERES",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "1334463132.8195094016000000",
+      "body": "CERES",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "2027-12-31",
+      "body": "CERES",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "314.25",
+      "body": "CERES",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "CERES",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "641230391.5891213328000000",
+      "body": "CERES",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "2027-03-26",
+      "body": "CERES",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "1394.75",
+      "body": "CERES",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "CHIRON",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "CHIRON",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "COMET_67P",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "782480228.5007075720000000",
+      "body": "COMET_67P",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "2027-01-29",
+      "body": "COMET_67P",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "405.0",
+      "body": "COMET_67P",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "COMET_67P",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "212104698.6884150728000000",
+      "body": "COMET_67P",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "2027-02-26",
+      "body": "COMET_67P",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "404.25",
+      "body": "COMET_67P",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "COMET_HALLEY",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "COMET_HALLEY",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "ERIS",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "ERIS",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "EROS",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "661999619.6111751408000000",
+      "body": "EROS",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "2027-12-31",
+      "body": "EROS",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "349.25",
+      "body": "EROS",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "EROS",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "444773192.2616556608000000",
+      "body": "EROS",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "2027-12-31",
+      "body": "EROS",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "296.75",
+      "body": "EROS",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "EURYBATES",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "EURYBATES",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "HAUMEA",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "HAUMEA",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "HYGIEA",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "1055819446.0645180328000000",
+      "body": "HYGIEA",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "2027-01-01",
+      "body": "HYGIEA",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "631.25",
+      "body": "HYGIEA",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "HYGIEA",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "509904320.8628118472000000",
+      "body": "HYGIEA",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "2027-01-01",
+      "body": "HYGIEA",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "683.25",
+      "body": "HYGIEA",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "KLEOPATRA",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "966817985.6812267000000000",
+      "body": "KLEOPATRA",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "2027-10-08",
+      "body": "KLEOPATRA",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "853.0",
+      "body": "KLEOPATRA",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "KLEOPATRA",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "548345423.9312686280000000",
+      "body": "KLEOPATRA",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "2027-10-08",
+      "body": "KLEOPATRA",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "837.75",
+      "body": "KLEOPATRA",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "MAKEMAKE",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "MAKEMAKE",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "PALLAS",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "PALLAS",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "641092927.8691741240000000",
+      "body": "PALLAS",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "2027-01-29",
+      "body": "PALLAS",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "1400.0",
+      "body": "PALLAS",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "PATROCLUS",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "PATROCLUS",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "PLUTO",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "INFEASIBLE",
+      "body": "PLUTO",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "PSYCHE",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "918659727.5567487648000000",
+      "body": "PSYCHE",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "2027-12-31",
+      "body": "PSYCHE",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "553.75",
+      "body": "PSYCHE",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "PSYCHE",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "520336228.0016098744000000",
+      "body": "PSYCHE",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "2027-12-31",
+      "body": "PSYCHE",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "552.75",
+      "body": "PSYCHE",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "VESTA",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "1002706661.8773636712000000",
+      "body": "VESTA",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "2027-11-05",
+      "body": "VESTA",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "530.5",
+      "body": "VESTA",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "rendezvous",
+      "year": 2027
+    },
+    {
+      "authored": "PRICED_TEST_ONLY",
+      "body": "VESTA",
+      "difference_usd": "",
+      "field": "status",
+      "filter_off": "NOT_EVALUATED_FILTERED",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "406214600.7491012104000000",
+      "body": "VESTA",
+      "difference_usd": "",
+      "field": "lowest_price_usd",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "2027-12-03",
+      "body": "VESTA",
+      "difference_usd": "",
+      "field": "best_departure_date",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    },
+    {
+      "authored": "571.0",
+      "body": "VESTA",
+      "difference_usd": "",
+      "field": "best_flight_days",
+      "filter_off": "",
+      "mission_type_id": "flyby",
+      "year": 2027
+    }
+  ],
+  "different_body_year_missions": 68,
+  "interpretation": "Arm A has no shortlist; counterfactual applies C_CHEAP_COST top 8 to Arm A, not the reverse",
+  "legacy_regression_differences": [],
+  "run_identity": "2d60edcb4b2a60bba6f9ca84b2cca82196fe8edea14485842a24f910528f33b9",
+  "runs": {
+    "AS_AUTHORED_ARM_A": {
+      "body_years_evaluated": 50,
+      "elapsed_seconds": 256.31117417197675,
+      "geometry_hashes_verified": 1537,
+      "peak_rss_bytes": 291942400
+    },
+    "FILTER_ON_CHEAP_COST_8": {
+      "body_years_evaluated": 16,
+      "elapsed_seconds": 99.15501493215561,
+      "geometry_hashes_verified": 656,
+      "peak_rss_bytes": 291942400
+    }
+  },
+  "selected_by_year": {
+    "2026": [
+      "BENNU",
+      "RYUGU",
+      "AMUN",
+      "EROS",
+      "VENUS",
+      "ITOKAWA",
+      "MARS",
+      "MERCURY"
+    ],
+    "2027": [
+      "DIDYMOS",
+      "ITOKAWA",
+      "AMUN",
+      "VENUS",
+      "BENNU",
+      "RYUGU",
+      "MERCURY",
+      "MARS"
+    ]
+  },
+  "source_hashes": {
+    "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/A_VEHICLE_MISSION_PAIRS.csv": "72ebceab82626e2c6e2f595a83f67f8ee838e965ab8a0d4231ca20af045d38fd",
+    "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/SHORTLIST_FILTER_MEASUREMENT_TEST_ONLY.py": "6a1e9f7290b8fa4ff3a57e11138ddab929afc471a25eed0b6fb714b7457e0ee1",
+    "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/experiment.json": "d8aa0e6370bb85d62f908e697519c5e48b804e40fbcf7d9b779c9ddadc1b98ec",
+    "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/pair_pricing.py": "f7890f9558601b322bf4132d1adebc0692367da74ead69c4ab63609e15b485cd",
+    "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/run.py": "b98ed6bf846ea21d7b6e1f261ae826e3e9a3e7ab01cc09c6c27404e597f9eee6",
+    "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/table_adapter.py": "659f007962a424b50727ae6b77b8a05a9ea79d2ac3c9f8176cf261808ba1e2c1",
+    "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/table_arm_a_config.json": "7a1a35e45e2269842578704bc4cf807fe1029a8309ae53fc5c66b0f52abfac1f",
+    "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/table_manifest_direct_time.json": "848f0f9d3e75517448d6071c0397922e4ca0cfa410ffc75d7416853c84cba74a",
+    "/home/ubuntu/LOOM-output/stage1_table_arm_a_memory_bounded/A_CHECKPOINT_refined_previous.json": "cd2af157e61632789807fc7c10aa00ce66d742e323ddc5ef9d2402773e915b57"
+  },
+  "table_manifest_sha256": "848f0f9d3e75517448d6071c0397922e4ca0cfa410ffc75d7416853c84cba74a"
+}
