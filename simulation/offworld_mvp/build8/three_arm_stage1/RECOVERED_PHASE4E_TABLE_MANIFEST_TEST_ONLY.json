@@ -1,0 +1,463 @@
+{
+  "build_elapsed_seconds": 5.3629270740784705,
+  "build_peak_rss_bytes": 154693632,
+  "builder": "body_lattice_builder.py:17-30,33-49",
+  "builder_et_sha256": "5e0124277e440f90cf236c4676f95ea09f222c48acac579b62808bded11fe984",
+  "classification": "RECOVERED_VINTAGE_TEST_ONLY",
+  "dtype": "float64",
+  "first": "2026-02-15T00:00:00Z",
+  "last": "2031-10-31T00:00:00Z",
+  "recovery_manifest_sha256": "c297eeb75ea31cd280e1380ba3a6e448a199226589f2c931ab70b01ea0aa6c12",
+  "shape": [
+    8337,
+    6
+  ],
+  "step_days": 0.25,
+  "table_root": "/home/ubuntu/LOOM-output/stage1_recovered_phase4e_pr427_test_only",
+  "tables": {
+    "APOPHIS": {
+      "sha256": "307fd2acba1dc3f1fc91aaa49a9e3bd6b0340cdd4be359c7231609e77c7c9a6f",
+      "source_sha256": "adadefa7fc6722343305e3ccefd998af843dba7d1e7240a4bcfd08a96eaeb307",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "ARROKOTH": {
+      "sha256": "b4e280c62cc0b225ac713091a648500621018260c9133fddafb496e30c791c11",
+      "source_sha256": "9c0146d456a9762fa16345e1937da523b333718c3f87698060984273f7d1d2ea",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "ATLAS3I": {
+      "sha256": "1da36b75f1323d5c758fc5fb422b5d5828d7c1c23c9522bbfc328b0cdd4dd68f",
+      "source_sha256": "fca6353e3e874c79e105d6a039c5a027718da1691cc911f40875cfdbbd5f398f",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "BORISOV": {
+      "sha256": "5d3792b479c7c862980e5922f6274285f0c4783acb6557a5fe849cbcd1791e87",
+      "source_sha256": "b1c80bcb26dfc3d57c0762c0bf2d10272af05812f1a7d576cd082b2027305cc3",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "BORRELLY": {
+      "sha256": "48f5f7796b0c427260232e48cd8823ce94e78ef06105f694700bfe36ba64b875",
+      "source_sha256": "6f30c2407a9c8fec96907a94fc40bf430242d10a368bbc2300873a71e8cd5104",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "BRAILLE": {
+      "sha256": "a67904954a9fa3dcac7256660f47a8d392c76ae3c189eecde881174a308497d9",
+      "source_sha256": "372e4382842fa2d7fbb4f1c46c4b67630e39e1645956bb98a363e04f4c50ee14",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "DAVIDA": {
+      "sha256": "aae3bb9c4ce600d7149c917da4bce0b2f1ad9d77ccc9bc73b5b6905c59b80d2e",
+      "source_sha256": "6cafbc1855f375e625399dcd8fa9d15484e492492179dadcacc84a89354a4a12",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "DINKINESH": {
+      "sha256": "bbbbcd2480f5a7e62d5c0f654327b679e990eaa4947cad4889c1339f8367efe3",
+      "source_sha256": "4f90c75c96ffd2319c10e6a01b83eefc6d00250b4e60b93860afdd89747fc4c8",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "DONALDJOHANSON": {
+      "sha256": "2e262f80472ca5fc7ec19eee0c3ff29f7f8dacb7cd8ee4ecfb09b368b3c83b19",
+      "source_sha256": "13e40dd03a252db07b47f2a22a56dd2d7facb867ee2db619fe53eacf59e1dec3",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "GASPRA": {
+      "sha256": "6a877d9cd2ab9a6ead97a323e37cd59402b299e58d3d38572e4ff0e88da88364",
+      "source_sha256": "bc13aa1c15e399099dcb05daa2888b1bbc22a6ff166d75d5830e40d774122365",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "GONGGONG": {
+      "sha256": "ab8eb44274fd073207ec2671929b672f83fbc271695bf2431ceef59f2ecc9fbe",
+      "source_sha256": "1dac0adbf130c97aecbb6e0f8ab43efa585bda631ea6659b2c395e2a368c3934",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "HARTLEY2": {
+      "sha256": "2bf81f92de5941f3178b8c9a59a21a0162d51ef6aab31fe9dd0ed04b96a3b547",
+      "source_sha256": "5b71c4a2343b562a028b0c77db3611cc3309586b3b434e107f69c6cec8febde0",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "IDA": {
+      "sha256": "bebf761a6e629e4b6197ba9c0ed60eb4975a47e919ce5bed2bb66b66c8f5366f",
+      "source_sha256": "433ac3ce72af56a69d84268ae21ec31ea28c9991cd33ba027c49e17990219696",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "INTERAMNIA": {
+      "sha256": "6ce9d3109c789bfb70d6249a12680110e43bf40027bea597876910f01484f7dc",
+      "source_sha256": "382c47f52c2767ee99c56030708536ba3c8a6e6ae2e330ba25249163c76f1af9",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "IXION": {
+      "sha256": "7999429e5a1eb5fa4fe0ea0cce1066b1ae935b6aaf9b5bad4ab79d89da5d9914",
+      "source_sha256": "9b2b2f63a0fef4124c8ce1998acaa29dc12fb582660a54c022ea21ee109f80c8",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "JUNO": {
+      "sha256": "3b00bee8fc5caaa669bfde88f2dbfda3ed121c37d78f106a570978e11fc0a3c3",
+      "source_sha256": "17d588b09cfd693921f68c78bfb158c4b346cd91b816823cad5f5522210feaff",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "LEUCUS": {
+      "sha256": "ec1f304204c47abb4a633f243fc4693f9fbd2d50a4d8a85d1ab34f3d4d3ab6b8",
+      "source_sha256": "d622ef4030b4b18335322100804a4244fb07f7b133c861da6cc332ab6fff257d",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "LUTETIA": {
+      "sha256": "b66eaa2efef377c955248de2f87c3b963470fc32a6f6c4527e0b346705378970",
+      "source_sha256": "165cd6bf865d1eebaf4d55dd6c7fef37c3b008e15f304ce159b6b92dc9f94f57",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "MATHILDE": {
+      "sha256": "a457322b910ccd62b4087305111f16ded234b06037dd4d71e651addedef19e86",
+      "source_sha256": "1e43d4dd0e2f733623061090daecf742fa3b1744ce15683d309f0429e5e51256",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "MS4": {
+      "sha256": "44d07feb06f465b13401a9ed893ad2c76925e351f492286d54ba973c8a5d3cbf",
+      "source_sha256": "8a0c20a8e3e2a292b0faf8b764e7cf5bd96a72ac4bc4deae375f3c8bb8bcebe0",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "ORCUS": {
+      "sha256": "ab69656933934ec1a065fabb1d9d45d338f1e8dbf3271f9a3a16612dfd09d3a4",
+      "source_sha256": "a83d62af69ec6aec17cc6522177efc2b923bd7ada3f07d2652d1ae09a281cd50",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "ORUS": {
+      "sha256": "b28f06e5edec0c3c4f3c616f23b3dde9ec34e47858c23d2289c4a47d2d69f186",
+      "source_sha256": "3201883834e563b3995e6463dbe567b68ee9066555e2863ad44ad91b82a86a0a",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "OUMUAMUA": {
+      "sha256": "e7bae962ed69850f4d3ec3d72bc238e3780298d5409eb6bfb576a8e0b3393254",
+      "source_sha256": "e9be172935ba691000616399c2015c3505b99b307ec2964498f216af7ad41196",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "POLYMELE": {
+      "sha256": "a4a7a58262196df9f2ebea0e8de99556fa52fdc12d07a4b6b25af13dff3fbd85",
+      "source_sha256": "98700da3e171a192ba7cd89ad0d6aec16b7ec75086622e2a9901a2ade0f59206",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "QUAOAR": {
+      "sha256": "92c11b19de8d8961ed980faf4f9d25775410733e2b9270f1ba2e238482a4c067",
+      "source_sha256": "b98b88023a8d49e70d2d6ab30202bee6e2feb7aa9d2df5071c9a82316e43e55a",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "SALACIA": {
+      "sha256": "026d1386583ba87df9a1f4a36934cef0bb5e1af586138177583a1aa839152a84",
+      "source_sha256": "5057f340de113e8af1b3858fd0a315f3c10adeffa4b93e394303b76cd451426b",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "SEDNA": {
+      "sha256": "d921481a36edd6b39bf4ecec9925749dc08a0b722ac0d89f6f6add52e95774c5",
+      "source_sha256": "d10d3a8306242a8a364fe60f39ff3a63071832b6906b19fb7063102823c297da",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "STEINS": {
+      "sha256": "355b9af8205b6c7bdb01f97de308c43b2fea2aab216a2b7d7c4ba751b29fe469",
+      "source_sha256": "259c078b444a7ca0763036cbce1780428e884c2205ebf229b96c0a61533d8e32",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "SWIFTTUTTLE": {
+      "sha256": "129d315953c454cebebdfa2a0c41abe722028efd0177a293b60df52c7f98f333",
+      "source_sha256": "5c98f4a5d9265995e00d7c9cc44ddaf2571a6f1b1acdf4cc0a9b27e2563e50cd",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "TEMPEL1": {
+      "sha256": "8665d33e5126ff52b1bb92560c2a18c0ba24141e73a95cb88d3bec522f5e32ec",
+      "source_sha256": "b2740dd2a3cc6f970ab023a791933e4099867568ec489435c8409e9cffcf6975",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "THEMIS": {
+      "sha256": "76d132c2a7ed7a8917326238be4aedcd3a36cc73375b25d6828c358bdf53febe",
+      "source_sha256": "7b9fb65264717084dc89a3b71e5581c06c018cb12dca27a377a5fcbfd91b46b4",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "TOUTATIS": {
+      "sha256": "1d4f92e07977dbbe58785d96fa784b9722e069dd69c426aacb73c9728dadd3ea",
+      "source_sha256": "bb7360e15f1e86cfd4dd028e8d59dd93ccb16f965dfaff3d2c80e1a916da6c20",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "VARUNA": {
+      "sha256": "54c994b060b3e7051a5a7e446637a2c96f55d14206224fc3ad9c1ca402ca03e3",
+      "source_sha256": "db5b1e30881942caa4c39bab3153680c5a13d5e405103a761c5d4d3d56aed54b",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    },
+    "WILD2": {
+      "sha256": "6cbc0743416fea15213de4b7b0ff2da32b80570d9d5096992ac0970a4543e090",
+      "source_sha256": "1d3cc663466a2f90f028f0860cf3de3d3a24215507d834e40daa6909dda85ed0",
+      "validation": {
+        "bitwise_identical": true,
+        "max_position_component_km": 0.0,
+        "max_position_norm_km": 0.0,
+        "max_velocity_component_km_s": 0.0,
+        "max_velocity_norm_km_s": 0.0,
+        "samples": 1000
+      },
+      "validation_samples": 1000
+    }
+  },
+  "window_end": "2031-12-31T23:59:59Z",
+  "window_start": "2026-01-01T00:00:00Z"
+}
