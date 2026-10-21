@@ -1,0 +1,869 @@
+{
+  "blockers": {
+    "ACTUAL_SPONSOR_CASH": 61958,
+    "FINANCIER_CONCENTRATION": 615,
+    "UNPRICED_NO_PARENT_QUOTE_OR_PHYSICAL_PARAMETER": 7640
+  },
+  "body_ranking": [
+    {
+      "body": "KERBEROS",
+      "distinct_sponsors": 4,
+      "spent_model_units": "77.23383607197552",
+      "sponsors": [
+        "CNSA",
+        "ESA",
+        "ISRO",
+        "LandSpace"
+      ],
+      "stages": 7
+    },
+    {
+      "body": "ASTEROID_6178",
+      "distinct_sponsors": 4,
+      "spent_model_units": "3.5465418188247765",
+      "sponsors": [
+        "Australian Space Agency",
+        "Axiom",
+        "CNSA",
+        "ispace"
+      ],
+      "stages": 6
+    },
+    {
+      "body": "GANYMEDE",
+      "distinct_sponsors": 4,
+      "spent_model_units": "2.8606075217803136",
+      "sponsors": [
+        "DLR",
+        "Isar Aerospace",
+        "KASA",
+        "LandSpace"
+      ],
+      "stages": 5
+    },
+    {
+      "body": "HYGIEA",
+      "distinct_sponsors": 3,
+      "spent_model_units": "2.8419930826483544",
+      "sponsors": [
+        "NASA",
+        "SpaceX",
+        "Starlab"
+      ],
+      "stages": 5
+    },
+    {
+      "body": "NIX",
+      "distinct_sponsors": 3,
+      "spent_model_units": "51.49422404798368",
+      "sponsors": [
+        "CNSA",
+        "ISRO",
+        "LandSpace"
+      ],
+      "stages": 5
+    },
+    {
+      "body": "OBERON",
+      "distinct_sponsors": 3,
+      "spent_model_units": "3.0652582798601576",
+      "sponsors": [
+        "Blue Origin",
+        "CNSA",
+        "Starlab"
+      ],
+      "stages": 5
+    },
+    {
+      "body": "COMET_67P",
+      "distinct_sponsors": 3,
+      "spent_model_units": "2.1304382677781571",
+      "sponsors": [
+        "Blue Origin",
+        "CNSA",
+        "KASA"
+      ],
+      "stages": 4
+    },
+    {
+      "body": "HARTLEY2",
+      "distinct_sponsors": 3,
+      "spent_model_units": "2.1378844520896269",
+      "sponsors": [
+        "LandSpace",
+        "NASA",
+        "SpaceX"
+      ],
+      "stages": 4
+    },
+    {
+      "body": "KLEOPATRA",
+      "distinct_sponsors": 3,
+      "spent_model_units": "2.1317206051803207",
+      "sponsors": [
+        "ESA",
+        "LandSpace",
+        "SpaceX"
+      ],
+      "stages": 4
+    },
+    {
+      "body": "MERCURY",
+      "distinct_sponsors": 3,
+      "spent_model_units": "2.1347670958184304",
+      "sponsors": [
+        "CNSA",
+        "ISRO",
+        "LandSpace"
+      ],
+      "stages": 4
+    },
+    {
+      "body": "MIMAS",
+      "distinct_sponsors": 3,
+      "spent_model_units": "2.1918003880460919",
+      "sponsors": [
+        "CNSA",
+        "NASA",
+        "SpaceX"
+      ],
+      "stages": 4
+    },
+    {
+      "body": "TOUTATIS",
+      "distinct_sponsors": 3,
+      "spent_model_units": "2.1317198333415654",
+      "sponsors": [
+        "CNSA",
+        "Interlune",
+        "LandSpace"
+      ],
+      "stages": 4
+    },
+    {
+      "body": "NEREID",
+      "distinct_sponsors": 2,
+      "spent_model_units": "77.31773070666282",
+      "sponsors": [
+        "CNSA",
+        "ISRO"
+      ],
+      "stages": 4
+    },
+    {
+      "body": "RYUGU",
+      "distinct_sponsors": 2,
+      "spent_model_units": "2.1283346946617067",
+      "sponsors": [
+        "ESA",
+        "NASA"
+      ],
+      "stages": 4
+    },
+    {
+      "body": "STYX",
+      "distinct_sponsors": 2,
+      "spent_model_units": "38.62441803598776",
+      "sponsors": [
+        "CNSA",
+        "LandSpace"
+      ],
+      "stages": 4
+    },
+    {
+      "body": "TETHYS",
+      "distinct_sponsors": 2,
+      "spent_model_units": "2.1918003880460919",
+      "sponsors": [
+        "ISRO",
+        "NASA"
+      ],
+      "stages": 4
+    },
+    {
+      "body": "APOPHIS",
+      "distinct_sponsors": 2,
+      "spent_model_units": "1.4228622092251546",
+      "sponsors": [
+        "Axiom",
+        "CNES"
+      ],
+      "stages": 3
+    },
+    {
+      "body": "ARROKOTH",
+      "distinct_sponsors": 2,
+      "spent_model_units": "117.90945751224428",
+      "sponsors": [
+        "CNSA",
+        "ISRO"
+      ],
+      "stages": 3
+    },
+    {
+      "body": "DIDYMOS",
+      "distinct_sponsors": 2,
+      "spent_model_units": "1.4227765902412596",
+      "sponsors": [
+        "CNSA",
+        "SpaceX"
+      ],
+      "stages": 3
+    },
+    {
+      "body": "DINKINESH",
+      "distinct_sponsors": 2,
+      "spent_model_units": "1.4289606950625414",
+      "sponsors": [
+        "LandSpace",
+        "Starlab"
+      ],
+      "stages": 3
+    },
+    {
+      "body": "DONALDJOHANSON",
+      "distinct_sponsors": 2,
+      "spent_model_units": "1.4276902666530884",
+      "sponsors": [
+        "Blue Origin",
+        "ESA"
+      ],
+      "stages": 3
+    },
+    {
+      "body": "ENCELADUS",
+      "distinct_sponsors": 2,
+      "spent_model_units": "1.4662002586973946",
+      "sponsors": [
+        "ESA",
+        "ISRO"
+      ],
+      "stages": 3
+    },
+    {
+      "body": "EUROPA",
+      "distinct_sponsors": 2,
+      "spent_model_units": "1.4378037608901568",
+      "sponsors": [
+        "ISRO",
+        "JAXA"
+      ],
+      "stages": 3
+    },
+    {
+      "body": "LUTETIA",
+      "distinct_sponsors": 2,
+      "spent_model_units": "1.4262084544983816",
+      "sponsors": [
+        "CNSA",
+        "Starlab"
+      ],
+      "stages": 3
+    },
+    {
+      "body": "PATROCLUS",
+      "distinct_sponsors": 2,
+      "spent_model_units": "1.6811605766530772",
+      "sponsors": [
+        "CNSA",
+        "LandSpace"
+      ],
+      "stages": 3
+    },
+    {
+      "body": "PLUTO",
+      "distinct_sponsors": 2,
+      "spent_model_units": "25.75461202399184",
+      "sponsors": [
+        "ISRO",
+        "NASA"
+      ],
+      "stages": 3
+    },
+    {
+      "body": "POLYMELE",
+      "distinct_sponsors": 2,
+      "spent_model_units": "1.4505601323447554",
+      "sponsors": [
+        "CNSA",
+        "ESA"
+      ],
+      "stages": 3
+    },
+    {
+      "body": "CALLISTO",
+      "distinct_sponsors": 1,
+      "spent_model_units": "1.4378037608901568",
+      "sponsors": [
+        "Isar Aerospace"
+      ],
+      "stages": 3
+    },
+    {
+      "body": "IDA",
+      "distinct_sponsors": 1,
+      "spent_model_units": "1.4285978714489968",
+      "sponsors": [
+        "CNSA"
+      ],
+      "stages": 3
+    },
+    {
+      "body": "INTERAMNIA",
+      "distinct_sponsors": 1,
+      "spent_model_units": "1.4304954884662270",
+      "sponsors": [
+        "ESA"
+      ],
+      "stages": 3
+    },
+    {
+      "body": "AMUN",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7191753298153008",
+      "sponsors": [
+        "Australian Space Agency"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "ARIEL",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7775645699650394",
+      "sponsors": [
+        "Blue Origin"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "BENNU",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.719312186730707",
+      "sponsors": [
+        "CSA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "BORRELLY",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7221183109373877",
+      "sponsors": [
+        "ESA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "BRAILLE",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7201012317756085",
+      "sponsors": [
+        "Interlune"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "CERES",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7219491252622786",
+      "sponsors": [
+        "ISRO"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "CHARON",
+      "distinct_sponsors": 1,
+      "spent_model_units": "12.88480601199592",
+      "sponsors": [
+        "CNSA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "CHIRON",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7517757682668307",
+      "sponsors": [
+        "JAXA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "COMET_HALLEY",
+      "distinct_sponsors": 1,
+      "spent_model_units": "13.21379642094347",
+      "sponsors": [
+        "CNSA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "DACTYL",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7217989357244984",
+      "sponsors": [
+        "LandSpace"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "DAVIDA",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7236558763650167",
+      "sponsors": [
+        "NASA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "DEIMOS",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7192467321835139",
+      "sponsors": [
+        "Roscosmos"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "DIONE",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7406001293486973",
+      "sponsors": [
+        "Axiom"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "EROS",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7196347810297533",
+      "sponsors": [
+        "Isar Aerospace"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "EURYBATES",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7323753497988874",
+      "sponsors": [
+        "JAXA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "GASPRA",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7211420950405256",
+      "sponsors": [
+        "NASA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "HYDRA",
+      "distinct_sponsors": 1,
+      "spent_model_units": "12.88480601199592",
+      "sponsors": [
+        "CNSA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "IAPETUS",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7406001293486973",
+      "sponsors": [
+        "Axiom"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "IO",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7264018804450784",
+      "sponsors": [
+        "ISRO"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "ITOKAWA",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7188587521717348",
+      "sponsors": [
+        "LandSpace"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "IXION",
+      "distinct_sponsors": 1,
+      "spent_model_units": "19.81771318938942",
+      "sponsors": [
+        "ISRO"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "JUNO",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7205729705056893",
+      "sponsors": [
+        "NASA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "LEUCUS",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7305239178650713",
+      "sponsors": [
+        "CNSA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "MARS",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7192467321835139",
+      "sponsors": [
+        "ESA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "MATHILDE",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7203868551814338",
+      "sponsors": [
+        "ISRO"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "MIRANDA",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7775645699650394",
+      "sponsors": [
+        "SpaceX"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "ORUS",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7258843834025127",
+      "sponsors": [
+        "ESA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "PALLAS",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7208847766860209",
+      "sponsors": [
+        "ISRO"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "PHOBOS",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7192467321835139",
+      "sponsors": [
+        "NASA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "PHOEBE",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7406001293486973",
+      "sponsors": [
+        "CNSA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "PROTEUS",
+      "distinct_sponsors": 1,
+      "spent_model_units": "25.78257690222094",
+      "sponsors": [
+        "LandSpace"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "PSYCHE",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7225316487883893",
+      "sponsors": [
+        "ISRO"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "QUAOAR",
+      "distinct_sponsors": 1,
+      "spent_model_units": "37.11585593530952",
+      "sponsors": [
+        "ISRO"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "RHEA",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7406001293486973",
+      "sponsors": [
+        "LandSpace"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "SELAM",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7219803475312707",
+      "sponsors": [
+        "CNSA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "STEINS",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7214228120774692",
+      "sponsors": [
+        "ESA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "TEMPEL1",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7199693781773071",
+      "sponsors": [
+        "LandSpace"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "THEMIS",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7228433616934088",
+      "sponsors": [
+        "ESA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "TITAN",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7406001293486973",
+      "sponsors": [
+        "LandSpace"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "TITANIA",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7775645699650394",
+      "sponsors": [
+        "ESA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "TRITON",
+      "distinct_sponsors": 1,
+      "spent_model_units": "25.78257690222094",
+      "sponsors": [
+        "NASA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "UMBRIEL",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7775645699650394",
+      "sponsors": [
+        "LandSpace"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "VENUS",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7191722336679211",
+      "sponsors": [
+        "ESA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "VESTA",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7213056356474159",
+      "sponsors": [
+        "CNSA"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "WILD2",
+      "distinct_sponsors": 1,
+      "spent_model_units": "0.7223062011069493",
+      "sponsors": [
+        "LandSpace"
+      ],
+      "stages": 2
+    },
+    {
+      "body": "VARUNA",
+      "distinct_sponsors": 1,
+      "spent_model_units": "169.74371720827765",
+      "sponsors": [
+        "ISRO"
+      ],
+      "stages": 1
+    }
+  ],
+  "cash_model_units": "780.2931967431951164",
+  "classification": "TEST_ONLY_NONCANON",
+  "control_sha256": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430",
+  "elapsed_seconds": 64.928143652156,
+  "funded_bodies": 76,
+  "funded_stages": 206,
+  "geometry_report_sha256": "7d7da08b967c078892f25e984063c3d876f4b64184e71696f10392bf6333c14c",
+  "numpy_version": "2.5.3",
+  "peak_rss_bytes": 385409024,
+  "previous_replay_sha256": "ab986efbe35b049422b8936631b68b9adfd0710ff8bc912957464926a6cccf03",
+  "table_manifest_sha256": "9ae54bc7db94039b6f5916d080f36b1cb81f8dcd347ca2789779e2403d6f3eaf",
+  "top_ten": [
+    {
+      "body": "KERBEROS",
+      "distinct_sponsors": 4,
+      "spent_model_units": "77.23383607197552",
+      "sponsors": [
+        "CNSA",
+        "ESA",
+        "ISRO",
+        "LandSpace"
+      ],
+      "stages": 7
+    },
+    {
+      "body": "ASTEROID_6178",
+      "distinct_sponsors": 4,
+      "spent_model_units": "3.5465418188247765",
+      "sponsors": [
+        "Australian Space Agency",
+        "Axiom",
+        "CNSA",
+        "ispace"
+      ],
+      "stages": 6
+    },
+    {
+      "body": "GANYMEDE",
+      "distinct_sponsors": 4,
+      "spent_model_units": "2.8606075217803136",
+      "sponsors": [
+        "DLR",
+        "Isar Aerospace",
+        "KASA",
+        "LandSpace"
+      ],
+      "stages": 5
+    },
+    {
+      "body": "HYGIEA",
+      "distinct_sponsors": 3,
+      "spent_model_units": "2.8419930826483544",
+      "sponsors": [
+        "NASA",
+        "SpaceX",
+        "Starlab"
+      ],
+      "stages": 5
+    },
+    {
+      "body": "NIX",
+      "distinct_sponsors": 3,
+      "spent_model_units": "51.49422404798368",
+      "sponsors": [
+        "CNSA",
+        "ISRO",
+        "LandSpace"
+      ],
+      "stages": 5
+    },
+    {
+      "body": "OBERON",
+      "distinct_sponsors": 3,
+      "spent_model_units": "3.0652582798601576",
+      "sponsors": [
+        "Blue Origin",
+        "CNSA",
+        "Starlab"
+      ],
+      "stages": 5
+    },
+    {
+      "body": "COMET_67P",
+      "distinct_sponsors": 3,
+      "spent_model_units": "2.1304382677781571",
+      "sponsors": [
+        "Blue Origin",
+        "CNSA",
+        "KASA"
+      ],
+      "stages": 4
+    },
+    {
+      "body": "HARTLEY2",
+      "distinct_sponsors": 3,
+      "spent_model_units": "2.1378844520896269",
+      "sponsors": [
+        "LandSpace",
+        "NASA",
+        "SpaceX"
+      ],
+      "stages": 4
+    },
+    {
+      "body": "KLEOPATRA",
+      "distinct_sponsors": 3,
+      "spent_model_units": "2.1317206051803207",
+      "sponsors": [
+        "ESA",
+        "LandSpace",
+        "SpaceX"
+      ],
+      "stages": 4
+    },
+    {
+      "body": "MERCURY",
+      "distinct_sponsors": 3,
+      "spent_model_units": "2.1347670958184304",
+      "sponsors": [
+        "CNSA",
+        "ISRO",
+        "LandSpace"
+      ],
+      "stages": 4
+    }
+  ],
+  "unpriced_moons": [
+    {
+      "moon": "MOON",
+      "parent": "EARTH",
+      "reason": "PARENT_NO_SAMPLED_FLYBY_QUOTE"
+    }
+  ],
+  "variant_sha256": "f6d29d9b53bf5dd660ccbd665f956387ffe9f7b13da6dc5059a20551d1691855"
+}

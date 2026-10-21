@@ -1,0 +1,3220 @@
+{
+  "body_comparison": [
+    {
+      "body": "AMUN",
+      "new": {
+        "prices_model_units": [
+          "0.7041753298153008",
+          "0.015"
+        ],
+        "sponsors": [
+          "Australian Space Agency",
+          "Australian Space Agency"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7191753298153008",
+      "old": {
+        "prices_model_units": [
+          "0.7041753298153008",
+          "0.015"
+        ],
+        "sponsors": [
+          "Australian Space Agency",
+          "Australian Space Agency"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7191753298153008"
+    },
+    {
+      "body": "APOPHIS",
+      "new": {
+        "prices_model_units": [
+          "0.7039311046125773",
+          "0.7039311046125773",
+          "0.015"
+        ],
+        "sponsors": [
+          "Axiom",
+          "CNES",
+          "CNES"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "new_spend_model_units": "1.4228622092251546",
+      "old": {
+        "prices_model_units": [
+          "0.7039311046125773",
+          "0.7039311046125773",
+          "0.015"
+        ],
+        "sponsors": [
+          "Axiom",
+          "Isar Aerospace",
+          "Isar Aerospace"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "old_spend_model_units": "1.4228622092251546"
+    },
+    {
+      "body": "ARIEL",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "Blue Origin",
+          "Blue Origin"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.030"
+    },
+    {
+      "body": "ARROKOTH",
+      "new": {
+        "prices_model_units": [
+          "58.94722875612214",
+          "58.94722875612214",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNSA",
+          "ISRO",
+          "ISRO"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2100,
+          2114,
+          2115
+        ]
+      },
+      "new_spend_model_units": "117.90945751224428",
+      "old": {
+        "prices_model_units": [
+          "58.94722875612214",
+          "58.94722875612214",
+          "0.015"
+        ],
+        "sponsors": [
+          "ISRO",
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2083,
+          2085,
+          2086
+        ]
+      },
+      "old_spend_model_units": "117.90945751224428"
+    },
+    {
+      "body": "ASTEROID_6178",
+      "new": {
+        "prices_model_units": [
+          "0.7063083637649553",
+          "0.7063083637649553",
+          "0.7063083637649553",
+          "0.7063083637649553",
+          "0.7063083637649553",
+          "0.015"
+        ],
+        "sponsors": [
+          "Blue Origin",
+          "ispace",
+          "JAXA",
+          "Australian Space Agency",
+          "Axiom",
+          "Axiom"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039,
+          2040,
+          2041
+        ]
+      },
+      "new_spend_model_units": "3.5465418188247765",
+      "old": {
+        "prices_model_units": [
+          "0.7063083637649553",
+          "0.7063083637649553",
+          "0.7063083637649553",
+          "0.7063083637649553",
+          "0.7063083637649553",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNSA",
+          "SpaceX",
+          "Axiom",
+          "KASA",
+          "Axiom",
+          "Axiom"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039,
+          2040,
+          2041
+        ]
+      },
+      "old_spend_model_units": "3.5465418188247765"
+    },
+    {
+      "body": "BENNU",
+      "new": {
+        "prices_model_units": [
+          "0.704312186730707",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.719312186730707",
+      "old": {
+        "prices_model_units": [
+          "0.704312186730707",
+          "0.015"
+        ],
+        "sponsors": [
+          "CSA",
+          "CSA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.719312186730707"
+    },
+    {
+      "body": "BORRELLY",
+      "new": {
+        "prices_model_units": [
+          "0.7071183109373877",
+          "0.015"
+        ],
+        "sponsors": [
+          "CSA",
+          "CSA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7221183109373877",
+      "old": {
+        "prices_model_units": [
+          "0.7071183109373877",
+          "0.015"
+        ],
+        "sponsors": [
+          "ESA",
+          "ESA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7221183109373877"
+    },
+    {
+      "body": "BRAILLE",
+      "new": {
+        "prices_model_units": [
+          "0.7051012317756085",
+          "0.015"
+        ],
+        "sponsors": [
+          "ESA",
+          "ESA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7201012317756085",
+      "old": {
+        "prices_model_units": [
+          "0.7051012317756085",
+          "0.015"
+        ],
+        "sponsors": [
+          "Interlune",
+          "Interlune"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7201012317756085"
+    },
+    {
+      "body": "CALLISTO",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNES",
+          "Roscosmos",
+          "Roscosmos"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "old_spend_model_units": "0.045"
+    },
+    {
+      "body": "CERES",
+      "new": {
+        "prices_model_units": [
+          "0.7069491252622786",
+          "0.015"
+        ],
+        "sponsors": [
+          "Interlune",
+          "Interlune"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7219491252622786",
+      "old": {
+        "prices_model_units": [
+          "0.7069491252622786",
+          "0.015"
+        ],
+        "sponsors": [
+          "Isar Aerospace",
+          "Isar Aerospace"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7219491252622786"
+    },
+    {
+      "body": "CHARON",
+      "new": {
+        "prices_model_units": [
+          "12.86980601199592",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "12.88480601199592",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "DLR",
+          "DLR"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.030"
+    },
+    {
+      "body": "CHIRON",
+      "new": {
+        "prices_model_units": [
+          "0.7367757682668307",
+          "0.015"
+        ],
+        "sponsors": [
+          "Isar Aerospace",
+          "Isar Aerospace"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7517757682668307",
+      "old": {
+        "prices_model_units": [
+          "0.7367757682668307",
+          "0.015"
+        ],
+        "sponsors": [
+          "ISRO",
+          "ISRO"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7517757682668307"
+    },
+    {
+      "body": "COMET_67P",
+      "new": {
+        "prices_model_units": [
+          "0.7051460892593857",
+          "0.7051460892593857",
+          "0.7051460892593857",
+          "0.015"
+        ],
+        "sponsors": [
+          "ISRO",
+          "Axiom",
+          "KASA",
+          "KASA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039
+        ]
+      },
+      "new_spend_model_units": "2.1304382677781571",
+      "old": {
+        "prices_model_units": [
+          "0.7051460892593857",
+          "0.7051460892593857",
+          "0.7051460892593857",
+          "0.015"
+        ],
+        "sponsors": [
+          "JAXA",
+          "CNSA",
+          "Blue Origin",
+          "Blue Origin"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039
+        ]
+      },
+      "old_spend_model_units": "2.1304382677781571"
+    },
+    {
+      "body": "COMET_HALLEY",
+      "new": {
+        "prices_model_units": [
+          "13.19879642094347",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2045,
+          2046
+        ]
+      },
+      "new_spend_model_units": "13.21379642094347",
+      "old": {
+        "prices_model_units": [
+          "13.19879642094347",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "13.21379642094347"
+    },
+    {
+      "body": "DACTYL",
+      "new": {
+        "prices_model_units": [
+          "0.7067989357244984",
+          "0.015"
+        ],
+        "sponsors": [
+          "JAXA",
+          "JAXA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7217989357244984",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "ispace",
+          "ispace"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.030"
+    },
+    {
+      "body": "DAVIDA",
+      "new": {
+        "prices_model_units": [
+          "0.7086558763650167",
+          "0.015"
+        ],
+        "sponsors": [
+          "KASA",
+          "KASA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7236558763650167",
+      "old": {
+        "prices_model_units": [
+          "0.7086558763650167",
+          "0.015"
+        ],
+        "sponsors": [
+          "KASA",
+          "KASA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7236558763650167"
+    },
+    {
+      "body": "DEIMOS",
+      "new": {
+        "prices_model_units": [
+          "0.7042467321835139",
+          "0.015"
+        ],
+        "sponsors": [
+          "LandSpace",
+          "LandSpace"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7192467321835139",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "LandSpace",
+          "LandSpace"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.030"
+    },
+    {
+      "body": "DIDYMOS",
+      "new": {
+        "prices_model_units": [
+          "0.7038882951206298",
+          "0.7038882951206298",
+          "0.015"
+        ],
+        "sponsors": [
+          "NASA",
+          "Blue Origin",
+          "Blue Origin"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "new_spend_model_units": "1.4227765902412596",
+      "old": {
+        "prices_model_units": [
+          "0.7038882951206298",
+          "0.7038882951206298",
+          "0.015"
+        ],
+        "sponsors": [
+          "NASA",
+          "ISRO",
+          "ISRO"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "old_spend_model_units": "1.4227765902412596"
+    },
+    {
+      "body": "DINKINESH",
+      "new": {
+        "prices_model_units": [
+          "0.7069803475312707",
+          "0.7069803475312707",
+          "0.015"
+        ],
+        "sponsors": [
+          "Roscosmos",
+          "Isar Aerospace",
+          "Isar Aerospace"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "new_spend_model_units": "1.4289606950625414",
+      "old": {
+        "prices_model_units": [
+          "0.7069803475312707",
+          "0.7069803475312707",
+          "0.015"
+        ],
+        "sponsors": [
+          "Roscosmos",
+          "LandSpace",
+          "LandSpace"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "old_spend_model_units": "1.4289606950625414"
+    },
+    {
+      "body": "DIONE",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "SpaceX",
+          "SpaceX"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.030"
+    },
+    {
+      "body": "DONALDJOHANSON",
+      "new": {
+        "prices_model_units": [
+          "0.7063451333265442",
+          "0.7063451333265442",
+          "0.015"
+        ],
+        "sponsors": [
+          "SpaceX",
+          "ISRO",
+          "ISRO"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "new_spend_model_units": "1.4276902666530884",
+      "old": {
+        "prices_model_units": [
+          "0.7063451333265442",
+          "0.7063451333265442",
+          "0.015"
+        ],
+        "sponsors": [
+          "Starlab",
+          "NASA",
+          "NASA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "old_spend_model_units": "1.4276902666530884"
+    },
+    {
+      "body": "ENCELADUS",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "UAE Space Agency",
+          "CNES",
+          "CNES"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "old_spend_model_units": "0.045"
+    },
+    {
+      "body": "EROS",
+      "new": {
+        "prices_model_units": [
+          "0.7046347810297533",
+          "0.015"
+        ],
+        "sponsors": [
+          "Starlab",
+          "Starlab"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7196347810297533",
+      "old": {
+        "prices_model_units": [
+          "0.7046347810297533",
+          "0.015"
+        ],
+        "sponsors": [
+          "Axiom",
+          "Axiom"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7196347810297533"
+    },
+    {
+      "body": "EUROPA",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "Australian Space Agency",
+          "DLR",
+          "DLR"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "old_spend_model_units": "0.045"
+    },
+    {
+      "body": "EURYBATES",
+      "new": {
+        "prices_model_units": [
+          "0.7173753497988874",
+          "0.015"
+        ],
+        "sponsors": [
+          "Axiom",
+          "Axiom"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7323753497988874",
+      "old": {
+        "prices_model_units": [
+          "0.7173753497988874",
+          "0.015"
+        ],
+        "sponsors": [
+          "Blue Origin",
+          "Blue Origin"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7323753497988874"
+    },
+    {
+      "body": "GANYMEDE",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015",
+          "0.015",
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNES",
+          "JAXA",
+          "Australian Space Agency",
+          "Australian Space Agency",
+          "Australian Space Agency"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039,
+          2040
+        ]
+      },
+      "old_spend_model_units": "0.075"
+    },
+    {
+      "body": "GASPRA",
+      "new": {
+        "prices_model_units": [
+          "0.7061420950405256",
+          "0.015"
+        ],
+        "sponsors": [
+          "Blue Origin",
+          "Blue Origin"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7211420950405256",
+      "old": {
+        "prices_model_units": [
+          "0.7061420950405256",
+          "0.015"
+        ],
+        "sponsors": [
+          "ESA",
+          "ESA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7211420950405256"
+    },
+    {
+      "body": "HARTLEY2",
+      "new": {
+        "prices_model_units": [
+          "0.7076281506965423",
+          "0.7076281506965423",
+          "0.7076281506965423",
+          "0.015"
+        ],
+        "sponsors": [
+          "ESA",
+          "ESA",
+          "LandSpace",
+          "LandSpace"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039
+        ]
+      },
+      "new_spend_model_units": "2.1378844520896269",
+      "old": {
+        "prices_model_units": [
+          "0.7076281506965423",
+          "0.7076281506965423",
+          "0.7076281506965423",
+          "0.015"
+        ],
+        "sponsors": [
+          "Isar Aerospace",
+          "CNSA",
+          "JAXA",
+          "JAXA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039
+        ]
+      },
+      "old_spend_model_units": "2.1378844520896269"
+    },
+    {
+      "body": "HYDRA",
+      "new": {
+        "prices_model_units": [
+          "12.86980601199592",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2050,
+          2051
+        ]
+      },
+      "new_spend_model_units": "12.88480601199592",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "CSA",
+          "CSA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.030"
+    },
+    {
+      "body": "HYGIEA",
+      "new": {
+        "prices_model_units": [
+          "0.7067482706620886",
+          "0.7067482706620886",
+          "0.7067482706620886",
+          "0.7067482706620886",
+          "0.015"
+        ],
+        "sponsors": [
+          "Isar Aerospace",
+          "CNSA",
+          "CNSA",
+          "DLR",
+          "DLR"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039,
+          2040
+        ]
+      },
+      "new_spend_model_units": "2.8419930826483544",
+      "old": {
+        "prices_model_units": [
+          "0.7067482706620886",
+          "0.7067482706620886",
+          "0.7067482706620886",
+          "0.7067482706620886",
+          "0.015"
+        ],
+        "sponsors": [
+          "ISRO",
+          "ESA",
+          "CNES",
+          "LandSpace",
+          "LandSpace"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039,
+          2040
+        ]
+      },
+      "old_spend_model_units": "2.8419930826483544"
+    },
+    {
+      "body": "HYPERION",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "DLR",
+          "Roscosmos",
+          "Roscosmos"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "old_spend_model_units": "0.045"
+    },
+    {
+      "body": "IAPETUS",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "Interlune",
+          "Interlune"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.030"
+    },
+    {
+      "body": "IDA",
+      "new": {
+        "prices_model_units": [
+          "0.7067989357244984",
+          "0.7067989357244984",
+          "0.015"
+        ],
+        "sponsors": [
+          "ISRO",
+          "ESA",
+          "ESA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "new_spend_model_units": "1.4285978714489968",
+      "old": {
+        "prices_model_units": [
+          "0.7067989357244984",
+          "0.7067989357244984",
+          "0.015"
+        ],
+        "sponsors": [
+          "JAXA",
+          "LandSpace",
+          "LandSpace"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "old_spend_model_units": "1.4285978714489968"
+    },
+    {
+      "body": "INTERAMNIA",
+      "new": {
+        "prices_model_units": [
+          "0.7077477442331135",
+          "0.7077477442331135",
+          "0.015"
+        ],
+        "sponsors": [
+          "JAXA",
+          "NASA",
+          "NASA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "new_spend_model_units": "1.4304954884662270",
+      "old": {
+        "prices_model_units": [
+          "0.7077477442331135",
+          "0.7077477442331135",
+          "0.015"
+        ],
+        "sponsors": [
+          "LandSpace",
+          "NASA",
+          "NASA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "old_spend_model_units": "1.4304954884662270"
+    },
+    {
+      "body": "IO",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "ispace",
+          "ispace"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.030"
+    },
+    {
+      "body": "ITOKAWA",
+      "new": {
+        "prices_model_units": [
+          "0.7038587521717348",
+          "0.015"
+        ],
+        "sponsors": [
+          "LandSpace",
+          "LandSpace"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7188587521717348",
+      "old": {
+        "prices_model_units": [
+          "0.7038587521717348",
+          "0.015"
+        ],
+        "sponsors": [
+          "NASA",
+          "NASA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7188587521717348"
+    },
+    {
+      "body": "IXION",
+      "new": {
+        "prices_model_units": [
+          "19.80271318938942",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2076,
+          2077
+        ]
+      },
+      "new_spend_model_units": "19.81771318938942",
+      "old": {
+        "prices_model_units": [
+          "19.80271318938942",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2057,
+          2058
+        ]
+      },
+      "old_spend_model_units": "19.81771318938942"
+    },
+    {
+      "body": "JUNO",
+      "new": {
+        "prices_model_units": [
+          "0.7055729705056893",
+          "0.015"
+        ],
+        "sponsors": [
+          "NASA",
+          "NASA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7205729705056893",
+      "old": {
+        "prices_model_units": [
+          "0.7055729705056893",
+          "0.015"
+        ],
+        "sponsors": [
+          "SpaceX",
+          "SpaceX"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7205729705056893"
+    },
+    {
+      "body": "KERBEROS",
+      "new": {
+        "prices_model_units": [
+          "12.86980601199592",
+          "12.86980601199592",
+          "12.86980601199592",
+          "12.86980601199592",
+          "12.86980601199592",
+          "12.86980601199592",
+          "0.015"
+        ],
+        "sponsors": [
+          "LandSpace",
+          "CNSA",
+          "ISRO",
+          "ESA",
+          "CNSA",
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2052,
+          2054,
+          2055,
+          2056,
+          2058,
+          2061,
+          2062
+        ]
+      },
+      "new_spend_model_units": "77.23383607197552",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015",
+          "0.015",
+          "0.015",
+          "0.015",
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "KASA",
+          "Starlab",
+          "CSA",
+          "Axiom",
+          "Blue Origin",
+          "Australian Space Agency",
+          "Australian Space Agency"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039,
+          2040,
+          2041,
+          2042
+        ]
+      },
+      "old_spend_model_units": "0.105"
+    },
+    {
+      "body": "KLEOPATRA",
+      "new": {
+        "prices_model_units": [
+          "0.7055735350601069",
+          "0.7055735350601069",
+          "0.7055735350601069",
+          "0.015"
+        ],
+        "sponsors": [
+          "SpaceX",
+          "CNSA",
+          "ISRO",
+          "ISRO"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039
+        ]
+      },
+      "new_spend_model_units": "2.1317206051803207",
+      "old": {
+        "prices_model_units": [
+          "0.7055735350601069",
+          "0.7055735350601069",
+          "0.7055735350601069",
+          "0.015"
+        ],
+        "sponsors": [
+          "Starlab",
+          "CNSA",
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039
+        ]
+      },
+      "old_spend_model_units": "2.1317206051803207"
+    },
+    {
+      "body": "LEUCUS",
+      "new": {
+        "prices_model_units": [
+          "0.7155239178650713",
+          "0.015"
+        ],
+        "sponsors": [
+          "Starlab",
+          "Starlab"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7305239178650713",
+      "old": {
+        "prices_model_units": [
+          "0.7155239178650713",
+          "0.015"
+        ],
+        "sponsors": [
+          "Axiom",
+          "Axiom"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7305239178650713"
+    },
+    {
+      "body": "LUTETIA",
+      "new": {
+        "prices_model_units": [
+          "0.7056042272491908",
+          "0.7056042272491908",
+          "0.015"
+        ],
+        "sponsors": [
+          "Axiom",
+          "ESA",
+          "ESA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "new_spend_model_units": "1.4262084544983816",
+      "old": {
+        "prices_model_units": [
+          "0.7056042272491908",
+          "0.7056042272491908",
+          "0.015"
+        ],
+        "sponsors": [
+          "Blue Origin",
+          "ESA",
+          "ESA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "old_spend_model_units": "1.4262084544983816"
+    },
+    {
+      "body": "MARS",
+      "new": {
+        "prices_model_units": [
+          "0.7042467321835139",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7192467321835139",
+      "old": {
+        "prices_model_units": [
+          "0.7042467321835139",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7192467321835139"
+    },
+    {
+      "body": "MATHILDE",
+      "new": {
+        "prices_model_units": [
+          "0.7053868551814338",
+          "0.015"
+        ],
+        "sponsors": [
+          "ESA",
+          "ESA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7203868551814338",
+      "old": {
+        "prices_model_units": [
+          "0.7053868551814338",
+          "0.015"
+        ],
+        "sponsors": [
+          "ESA",
+          "ESA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7203868551814338"
+    },
+    {
+      "body": "MERCURY",
+      "new": {
+        "prices_model_units": [
+          "0.7065890319394768",
+          "0.7065890319394768",
+          "0.7065890319394768",
+          "0.015"
+        ],
+        "sponsors": [
+          "ISRO",
+          "LandSpace",
+          "LandSpace",
+          "LandSpace"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039
+        ]
+      },
+      "new_spend_model_units": "2.1347670958184304",
+      "old": {
+        "prices_model_units": [
+          "0.7065890319394768",
+          "0.7065890319394768",
+          "0.7065890319394768",
+          "0.015"
+        ],
+        "sponsors": [
+          "ISRO",
+          "LandSpace",
+          "ESA",
+          "ESA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039
+        ]
+      },
+      "old_spend_model_units": "2.1347670958184304"
+    },
+    {
+      "body": "MIMAS",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015",
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "Roscosmos",
+          "UAE Space Agency",
+          "Interlune",
+          "Interlune"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039
+        ]
+      },
+      "old_spend_model_units": "0.060"
+    },
+    {
+      "body": "MIRANDA",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "UAE Space Agency",
+          "UAE Space Agency"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.030"
+    },
+    {
+      "body": "MOON",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "Australian Space Agency",
+          "Australian Space Agency"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.030"
+    },
+    {
+      "body": "NEREID",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015",
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNES",
+          "CNES",
+          "ispace",
+          "ispace"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039
+        ]
+      },
+      "old_spend_model_units": "0.060"
+    },
+    {
+      "body": "NIX",
+      "new": {
+        "prices_model_units": [
+          "12.86980601199592",
+          "12.86980601199592",
+          "12.86980601199592",
+          "12.86980601199592",
+          "0.015"
+        ],
+        "sponsors": [
+          "NASA",
+          "LandSpace",
+          "CNSA",
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2061,
+          2062,
+          2064,
+          2068,
+          2069
+        ]
+      },
+      "new_spend_model_units": "51.49422404798368",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015",
+          "0.015",
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "CSA",
+          "CSA",
+          "KASA",
+          "CNES",
+          "CNES"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039,
+          2040
+        ]
+      },
+      "old_spend_model_units": "0.075"
+    },
+    {
+      "body": "OBERON",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015",
+          "0.015",
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "DLR",
+          "DLR",
+          "SpaceX",
+          "CSA",
+          "CSA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039,
+          2040
+        ]
+      },
+      "old_spend_model_units": "0.075"
+    },
+    {
+      "body": "ORUS",
+      "new": {
+        "prices_model_units": [
+          "0.7108843834025127",
+          "0.015"
+        ],
+        "sponsors": [
+          "LandSpace",
+          "LandSpace"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7258843834025127",
+      "old": {
+        "prices_model_units": [
+          "0.7108843834025127",
+          "0.015"
+        ],
+        "sponsors": [
+          "LandSpace",
+          "LandSpace"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7258843834025127"
+    },
+    {
+      "body": "PALLAS",
+      "new": {
+        "prices_model_units": [
+          "0.7058847766860209",
+          "0.015"
+        ],
+        "sponsors": [
+          "NASA",
+          "NASA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7208847766860209",
+      "old": {
+        "prices_model_units": [
+          "0.7058847766860209",
+          "0.015"
+        ],
+        "sponsors": [
+          "NASA",
+          "NASA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7208847766860209"
+    },
+    {
+      "body": "PATROCLUS",
+      "new": {
+        "prices_model_units": [
+          "0.8330802883265386",
+          "0.8330802883265386",
+          "0.015"
+        ],
+        "sponsors": [
+          "SpaceX",
+          "NASA",
+          "NASA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "new_spend_model_units": "1.6811605766530772",
+      "old": {
+        "prices_model_units": [
+          "0.8330802883265386",
+          "0.8330802883265386",
+          "0.015"
+        ],
+        "sponsors": [
+          "SpaceX",
+          "NASA",
+          "NASA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "old_spend_model_units": "1.6811605766530772"
+    },
+    {
+      "body": "PHOBOS",
+      "new": {
+        "prices_model_units": [
+          "0.7042467321835139",
+          "0.015"
+        ],
+        "sponsors": [
+          "Starlab",
+          "Starlab"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7192467321835139",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "Interlune",
+          "Interlune"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.030"
+    },
+    {
+      "body": "PHOEBE",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "Isar Aerospace",
+          "Isar Aerospace"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.030"
+    },
+    {
+      "body": "PLUTO",
+      "new": {
+        "prices_model_units": [
+          "12.86980601199592",
+          "12.86980601199592",
+          "0.015"
+        ],
+        "sponsors": [
+          "ISRO",
+          "LandSpace",
+          "LandSpace"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2064,
+          2069,
+          2070
+        ]
+      },
+      "new_spend_model_units": "25.75461202399184",
+      "old": {
+        "prices_model_units": [
+          "12.86980601199592",
+          "12.86980601199592",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNSA",
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2045,
+          2050,
+          2051
+        ]
+      },
+      "old_spend_model_units": "25.75461202399184"
+    },
+    {
+      "body": "POLYMELE",
+      "new": {
+        "prices_model_units": [
+          "0.7177800661723777",
+          "0.7177800661723777",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNSA",
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "new_spend_model_units": "1.4505601323447554",
+      "old": {
+        "prices_model_units": [
+          "0.7177800661723777",
+          "0.7177800661723777",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNSA",
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038
+        ]
+      },
+      "old_spend_model_units": "1.4505601323447554"
+    },
+    {
+      "body": "PROTEUS",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "ispace",
+          "ispace"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.030"
+    },
+    {
+      "body": "PSYCHE",
+      "new": {
+        "prices_model_units": [
+          "0.7075316487883893",
+          "0.015"
+        ],
+        "sponsors": [
+          "ESA",
+          "ESA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7225316487883893",
+      "old": {
+        "prices_model_units": [
+          "0.7075316487883893",
+          "0.015"
+        ],
+        "sponsors": [
+          "Starlab",
+          "Starlab"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7225316487883893"
+    },
+    {
+      "body": "QUAOAR",
+      "new": {
+        "prices_model_units": [
+          "37.10085593530952",
+          "0.015"
+        ],
+        "sponsors": [
+          "ISRO",
+          "ISRO"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2088,
+          2089
+        ]
+      },
+      "new_spend_model_units": "37.11585593530952",
+      "old": {
+        "prices_model_units": [
+          "37.10085593530952",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2067,
+          2068
+        ]
+      },
+      "old_spend_model_units": "37.11585593530952"
+    },
+    {
+      "body": "RHEA",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "JAXA",
+          "JAXA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.030"
+    },
+    {
+      "body": "RYUGU",
+      "new": {
+        "prices_model_units": [
+          "0.7044448982205689",
+          "0.7044448982205689",
+          "0.7044448982205689",
+          "0.015"
+        ],
+        "sponsors": [
+          "ISRO",
+          "ESA",
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039
+        ]
+      },
+      "new_spend_model_units": "2.1283346946617067",
+      "old": {
+        "prices_model_units": [
+          "0.7044448982205689",
+          "0.7044448982205689",
+          "0.7044448982205689",
+          "0.015"
+        ],
+        "sponsors": [
+          "ESA",
+          "ESA",
+          "ISRO",
+          "ISRO"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039
+        ]
+      },
+      "old_spend_model_units": "2.1283346946617067"
+    },
+    {
+      "body": "SELAM",
+      "new": {
+        "prices_model_units": [
+          "0.7069803475312707",
+          "0.015"
+        ],
+        "sponsors": [
+          "LandSpace",
+          "LandSpace"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7219803475312707",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "KASA",
+          "KASA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.030"
+    },
+    {
+      "body": "STEINS",
+      "new": {
+        "prices_model_units": [
+          "0.7064228120774692",
+          "0.015"
+        ],
+        "sponsors": [
+          "NASA",
+          "NASA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7214228120774692",
+      "old": {
+        "prices_model_units": [
+          "0.7064228120774692",
+          "0.015"
+        ],
+        "sponsors": [
+          "ISRO",
+          "ISRO"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7214228120774692"
+    },
+    {
+      "body": "STYX",
+      "new": {
+        "prices_model_units": [
+          "12.86980601199592",
+          "12.86980601199592",
+          "12.86980601199592",
+          "0.015"
+        ],
+        "sponsors": [
+          "ISRO",
+          "CNSA",
+          "ESA",
+          "ESA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2070,
+          2071,
+          2073,
+          2074
+        ]
+      },
+      "new_spend_model_units": "38.62441803598776",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015",
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "Roscosmos",
+          "JAXA",
+          "Starlab",
+          "Starlab"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039
+        ]
+      },
+      "old_spend_model_units": "0.060"
+    },
+    {
+      "body": "TEMPEL1",
+      "new": {
+        "prices_model_units": [
+          "0.7049693781773071",
+          "0.015"
+        ],
+        "sponsors": [
+          "SpaceX",
+          "SpaceX"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7199693781773071",
+      "old": {
+        "prices_model_units": [
+          "0.7049693781773071",
+          "0.015"
+        ],
+        "sponsors": [
+          "LandSpace",
+          "LandSpace"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7199693781773071"
+    },
+    {
+      "body": "TETHYS",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015",
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "UAE Space Agency",
+          "KASA",
+          "UAE Space Agency",
+          "UAE Space Agency"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039
+        ]
+      },
+      "old_spend_model_units": "0.060"
+    },
+    {
+      "body": "THEMIS",
+      "new": {
+        "prices_model_units": [
+          "0.7078433616934088",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7228433616934088",
+      "old": {
+        "prices_model_units": [
+          "0.7078433616934088",
+          "0.015"
+        ],
+        "sponsors": [
+          "NASA",
+          "NASA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7228433616934088"
+    },
+    {
+      "body": "TITAN",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "Australian Space Agency",
+          "Australian Space Agency"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.030"
+    },
+    {
+      "body": "TITANIA",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "Axiom",
+          "Axiom"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.030"
+    },
+    {
+      "body": "TOUTATIS",
+      "new": {
+        "prices_model_units": [
+          "0.7055732777805218",
+          "0.7055732777805218",
+          "0.7055732777805218",
+          "0.015"
+        ],
+        "sponsors": [
+          "ESA",
+          "LandSpace",
+          "ESA",
+          "ESA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039
+        ]
+      },
+      "new_spend_model_units": "2.1317198333415654",
+      "old": {
+        "prices_model_units": [
+          "0.7055732777805218",
+          "0.7055732777805218",
+          "0.7055732777805218",
+          "0.015"
+        ],
+        "sponsors": [
+          "SpaceX",
+          "LandSpace",
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A1",
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037,
+          2038,
+          2039
+        ]
+      },
+      "old_spend_model_units": "2.1317198333415654"
+    },
+    {
+      "body": "TRITON",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "Blue Origin",
+          "Blue Origin"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.030"
+    },
+    {
+      "body": "UMBRIEL",
+      "new": null,
+      "new_spend_model_units": "0",
+      "old": {
+        "prices_model_units": [
+          "0.015",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNES",
+          "CNES"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.030"
+    },
+    {
+      "body": "VARUNA",
+      "new": {
+        "prices_model_units": [
+          "169.74371720827765"
+        ],
+        "sponsors": [
+          "ISRO"
+        ],
+        "stages": [
+          "A1"
+        ],
+        "years": [
+          2205
+        ]
+      },
+      "new_spend_model_units": "169.74371720827765",
+      "old": {
+        "prices_model_units": [
+          "169.74371720827765"
+        ],
+        "sponsors": [
+          "ISRO"
+        ],
+        "stages": [
+          "A1"
+        ],
+        "years": [
+          2171
+        ]
+      },
+      "old_spend_model_units": "169.74371720827765"
+    },
+    {
+      "body": "VENUS",
+      "new": {
+        "prices_model_units": [
+          "0.7041722336679211",
+          "0.015"
+        ],
+        "sponsors": [
+          "ISRO",
+          "ISRO"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7191722336679211",
+      "old": {
+        "prices_model_units": [
+          "0.7041722336679211",
+          "0.015"
+        ],
+        "sponsors": [
+          "CNSA",
+          "CNSA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7191722336679211"
+    },
+    {
+      "body": "VESTA",
+      "new": {
+        "prices_model_units": [
+          "0.7063056356474159",
+          "0.015"
+        ],
+        "sponsors": [
+          "LandSpace",
+          "LandSpace"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7213056356474159",
+      "old": {
+        "prices_model_units": [
+          "0.7063056356474159",
+          "0.015"
+        ],
+        "sponsors": [
+          "ESA",
+          "ESA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7213056356474159"
+    },
+    {
+      "body": "WILD2",
+      "new": {
+        "prices_model_units": [
+          "0.7073062011069493",
+          "0.015"
+        ],
+        "sponsors": [
+          "NASA",
+          "NASA"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "new_spend_model_units": "0.7223062011069493",
+      "old": {
+        "prices_model_units": [
+          "0.7073062011069493",
+          "0.015"
+        ],
+        "sponsors": [
+          "ISRO",
+          "ISRO"
+        ],
+        "stages": [
+          "A1",
+          "A2"
+        ],
+        "years": [
+          2036,
+          2037
+        ]
+      },
+      "old_spend_model_units": "0.7223062011069493"
+    }
+  ],
+  "classification": "TEST_ONLY_NONCANON",
+  "delta_spend_model_units": "194.6843629275615969",
+  "elapsed_seconds": 88.13278792402707,
+  "new_flyby_sha256": "7b6de395fdac1a5e3d0751265934d599beec91c5bd19fc893cd17ea796f8507e",
+  "new_funded_bodies": 56,
+  "new_funded_stages": 151,
+  "new_spend_model_units": "629.2193770668313307",
+  "numpy_version": "2.5.3",
+  "old_flyby_sha256": "577d1616ecfc1912052b3746b4f1d20c16dc3f435f24b067c68b26d1b6a62c5a",
+  "old_funded_bodies": 78,
+  "old_funded_stages": 211,
+  "old_spend_model_units": "434.5350141392697338",
+  "peak_rss_bytes": 673447936,
+  "rendezvous_expected_sha256": "c7fc6355ab7e3da436e903b5575f092adcf7dd9d7f76085a014d34b0ad5a1338",
+  "rendezvous_original_identity_sha256": "6fbdffa97af212acff861d54dc3b408518a7878707d24eaa1dabbaf44ef4e1b4",
+  "rendezvous_replay_sha256": "c7fc6355ab7e3da436e903b5575f092adcf7dd9d7f76085a014d34b0ad5a1338"
+}
