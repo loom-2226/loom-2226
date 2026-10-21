@@ -12,6 +12,7 @@ import spiceypy as spice
 from scipy.optimize import minimize_scalar
 from numba import njit
 from lamberthub import izzo2015
+from .utc_et_lattice import utc_epochs_to_et
 from . import pilot as mod
 from .pilot import TravelPilot,_day,_iso,TECHNOLOGY,TECHNOLOGY_TABLE,SERVICE,TOF_BRACKETS
 @njit
@@ -45,7 +46,7 @@ class BatchTravelPilot(TravelPilot):
    raise ValueError('BULK_SOURCE_COVERAGE_SEAM: '+body)
   self.adapter._load_source(src)
   ident=self.adapter.registry.body_identifier(body)
-  et=np.asarray(spice.str2et([_iso(x) for x in epochs]),dtype=float)
+  et=np.asarray(utc_epochs_to_et(epochs, deltet=spice.deltet),dtype=float)
   # Direct source-object coverage preflight on span endpoints.
   # Refuse non-contiguous or source-switching dates instead of silently
   # treating propagated/missing positions as executable authority.

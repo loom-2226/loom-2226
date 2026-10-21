@@ -1,0 +1,9 @@
+# Independent 2035 UTC-to-TDB oracle (TEST_ONLY)
+
+The production interpreter was not modified. A separate venv `/home/ubuntu/venvs/loom-2035-astropy-oracle` installed Astropy **8.0.2** and PyERFA **2.0.1.5** (with their dependencies).
+
+257 unique uniformly spaced integer ticks over indices 0..14424, inclusive, from the 2026-02-15 UTC start at 6-hour intervals, were compared. The SPICE-side numeric lattice used the hash-pinned `naif0012.tls` (SHA-256 `678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b`), UTC clock seconds relative to 2000-01-01 12:00 UTC, plus `spice.deltet(u, 'UTC')`. The independent Astropy-side `Time(..., scale='utc').tdb` was converted using the split Julian date components to avoid avoidable precision loss.
+
+**Result: FAIL** against the prescribed 1 microsecond threshold. Maximum absolute difference **0.000028133392333984375 seconds (28.13 microseconds)**. Input 257-tick JSON SHA-256 `96999ec4fd1e141d62a330e2531621db6a8a847ebc2ec8cf258a8df39da40835`. Astropy/ERFA issued `dubious year` warnings on 182 future epochs. No tolerance adjustment or calibration was attempted. This result does not supersede the one-ULP within-SPICE discriminator; it remains an independent-oracle discrepancy requiring explanation before independent qualification.
+
+2035 authority transfer plan: PR #427 on `experiment/build8-fullclock-stage1-20261018` contains the numeric manifest and close-out ruling, but **main does not contain that ruling**. After the experimental evidence is reviewed, bring the specific `PR427_ASSIST_2035_NUMERIC_TABLE_MANIFEST_TEST_ONLY.json` and `PR427_ASSIST_2035_AUTHORITY_CLOSEOUT_TEST_ONLY.json` into a separately reviewed main-targeting change, preserving exact hashes and ensuring the external table root is accessible to intended consumers. Do not claim main authority or permit mixed-ET joins before that merge. This shared-lattice PR does not import the experimental authority manifest or tables.
