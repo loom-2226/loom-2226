@@ -1,0 +1,115 @@
+{
+  "classification": "TEST_ONLY_NONCANON",
+  "elapsed_seconds": 75.3695118976757,
+  "excluded": {},
+  "first": "2026-02-15T00:00:00Z",
+  "last": "2035-12-31T00:00:00+00:00",
+  "lattice": "NUMERIC_UTC_PLUS_DELTET",
+  "lsk_sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b",
+  "no_future_leap_seconds_assumed": true,
+  "original_2035_manifest_sha256": "b5cbcaf05aa691f36c190a7a7f798dc1e662582846fb0583e99a0853c70b8154",
+  "peak_rss_bytes": 1309507584,
+  "step_days": 0.25,
+  "tables": {
+    "EARTH": {
+      "action": "VERIFIED_RESUME",
+      "epoch_roundtrip_samples": 14425,
+      "seconds": 1.3598747868090868,
+      "sha256": "ff1a98b004a37a5b39df1a1c62f5c5a467fdbac1ef254afb03ed419bfa4ce586",
+      "source_file": "de440.bsp",
+      "source_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+      "spice_id": 399,
+      "table_path": "/home/ubuntu/LOOM-output/pr427_assist_2035_numeric_tables_test_only/EARTH.npy",
+      "validation_samples": 14425
+    },
+    "JUPITER": {
+      "action": "BUILT_ATOMIC",
+      "epoch_roundtrip_samples": 14425,
+      "seconds": 21.23082666611299,
+      "sha256": "285e5674761231ddce47593d57314d9e6966a81a89097c201b9f7d6452a9c400",
+      "source_file": "jup365.bsp",
+      "source_sha256": "dbf016c01ba4d022154838000cf3f06962cf958ddc503a366f7fe8f81495c5cb",
+      "spice_id": 599,
+      "table_path": "/home/ubuntu/LOOM-output/pr427_assist_2035_numeric_tables_test_only/JUPITER.npy",
+      "validation_samples": 14425
+    },
+    "MARS": {
+      "action": "BUILT_ATOMIC",
+      "epoch_roundtrip_samples": 14425,
+      "seconds": 30.394679884891957,
+      "sha256": "3f311a4f4dff38e2555e3933280a2bea2444426e56fb070f22ee9d825908000d",
+      "source_file": "mar099.bsp",
+      "source_sha256": "9991e57b196bae1a096acc6e2afc6718102ee420d684695de0f0333064c046bc",
+      "spice_id": 499,
+      "table_path": "/home/ubuntu/LOOM-output/pr427_assist_2035_numeric_tables_test_only/MARS.npy",
+      "validation_samples": 14425
+    },
+    "MERCURY": {
+      "action": "VERIFIED_RESUME",
+      "epoch_roundtrip_samples": 14425,
+      "seconds": 0.9693652861751616,
+      "sha256": "eb9b0b42a78a1d59ab515aafd35ada21073ea0e82cf031932d306558d8e9d538",
+      "source_file": "de440.bsp",
+      "source_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+      "spice_id": 199,
+      "table_path": "/home/ubuntu/LOOM-output/pr427_assist_2035_numeric_tables_test_only/MERCURY.npy",
+      "validation_samples": 14425
+    },
+    "NEPTUNE": {
+      "action": "BUILT_ATOMIC",
+      "epoch_roundtrip_samples": 14425,
+      "seconds": 1.9082886660471559,
+      "sha256": "b2fcdc6be354f2ab436e5edb9a9d3a93789ec62f80a5d544458c1688de08ee32",
+      "source_file": "nep097.bsp",
+      "source_sha256": "5c1132fdc48c54e5d2e4eb663e1ed1a876911eae9433c203f29a5a1b5e1fa9b1",
+      "spice_id": 899,
+      "table_path": "/home/ubuntu/LOOM-output/pr427_assist_2035_numeric_tables_test_only/NEPTUNE.npy",
+      "validation_samples": 14425
+    },
+    "PLUTO": {
+      "action": "BUILT_ATOMIC",
+      "epoch_roundtrip_samples": 14425,
+      "seconds": 2.3407401787117124,
+      "sha256": "e67ae9e35ae68654557776673fc755addec56094e9a435305e8227ac5941576a",
+      "source_file": "plu060.bsp",
+      "source_sha256": "dfbb102491a26ed41ae08ca3f8963f22f0219df1d8f265ab87b9ad825a826fc6",
+      "spice_id": 999,
+      "table_path": "/home/ubuntu/LOOM-output/pr427_assist_2035_numeric_tables_test_only/PLUTO.npy",
+      "validation_samples": 14425
+    },
+    "SATURN": {
+      "action": "BUILT_ATOMIC",
+      "epoch_roundtrip_samples": 14425,
+      "seconds": 10.654771807137877,
+      "sha256": "714e4039feec2d0800944f7dc03cf56bb710c6d867219b17e20e4401db63743f",
+      "source_file": "sat441.bsp",
+      "source_sha256": "d7e444a9ba7a52b8f448ff0747030789524d2f0c1212e4e2bd7f5fc3c96444d5",
+      "spice_id": 699,
+      "table_path": "/home/ubuntu/LOOM-output/pr427_assist_2035_numeric_tables_test_only/SATURN.npy",
+      "validation_samples": 14425
+    },
+    "URANUS": {
+      "action": "BUILT_ATOMIC",
+      "epoch_roundtrip_samples": 14425,
+      "seconds": 5.389936446212232,
+      "sha256": "48a558a9944df84b508eb0cfefdfa437b9599c2b3b694f09483f8518ae8e048d",
+      "source_file": "ura184_part-3.bsp",
+      "source_sha256": "273cd4ccc470d1098562cd4e94fa48fc2b4c6b1c2896308e473c949b87937c53",
+      "spice_id": 799,
+      "table_path": "/home/ubuntu/LOOM-output/pr427_assist_2035_numeric_tables_test_only/URANUS.npy",
+      "validation_samples": 14425
+    },
+    "VENUS": {
+      "action": "VERIFIED_RESUME",
+      "epoch_roundtrip_samples": 14425,
+      "seconds": 0.7143595269881189,
+      "sha256": "e11fb8a194f96dcd0e294612f40662cc297096da5cbbae0b562036eb2b72eb99",
+      "source_file": "de440.bsp",
+      "source_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+      "spice_id": 299,
+      "table_path": "/home/ubuntu/LOOM-output/pr427_assist_2035_numeric_tables_test_only/VENUS.npy",
+      "validation_samples": 14425
+    }
+  },
+  "time_samples": 14425
+}
