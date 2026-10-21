@@ -1,0 +1,44 @@
+{
+  "classification": "TEST_ONLY_NONCANON",
+  "authorization": "kT",
+  "run_identity": "PR427_ONE_ASSIST_PILOT_2026",
+  "parent_hashes": {
+    "experiment.json": "d8aa0e6370bb85d62f908e697519c5e48b804e40fbcf7d9b779c9ddadc1b98ec",
+    "table_manifest_direct_time.json": "848f0f9d3e75517448d6071c0397922e4ca0cfa410ffc75d7416853c84cba74a",
+    "PR427_GIANT_PARENT_TABLE_MANIFEST_TEST_ONLY.json": "9ae54bc7db94039b6f5916d080f36b1cb81f8dcd347ca2789779e2403d6f3eaf",
+    "RENDEZVOUS_WORLD_AUTHORITY_TEST_ONLY.csv": "9a8573a16cb11e95800d71b17c753d8b8818f9cc08659b093ec9530fb4568149",
+    "earth_table_sha256": "8a776ae3e26d5b90b1f8a14bce36e0fddf642c51489b38065dfcb7d68a7dde2a"
+  },
+  "one_assist_per_trip": 1,
+  "minimum_altitude_km": 300,
+  "minimum_bend_degrees": 1,
+  "leg_days_min": 45,
+  "leg_days_max": 1400,
+  "total_trip_days_max": null,
+  "direct_allowed": true,
+  "route_selection": "MIN_TOTAL_PRICE",
+  "search_steps_days": {
+    "departure": 56,
+    "assist_arrival": 280,
+    "target_arrival": 280
+  },
+  "halved_search_steps_days": {
+    "departure": 28,
+    "assist_arrival": 140,
+    "target_arrival": 140
+  },
+  "pilot_targets_2026": [
+    "MARS",
+    "PLUTO",
+    "JUPITER"
+  ],
+  "full_scope_body_count": 63,
+  "full_scope_years": [
+    2026,
+    2027
+  ],
+  "speed_match_policy": "EXACT_FLOAT_EQUALITY_NO_TOLERANCE",
+  "physics": "sin(delta/2)=1/(1+rp*v_infinity^2/mu); unpowered speeds equal; unmatched minimum vector burn outside bend",
+  "mass_chain": "payload -> arrival braking if rendezvous -> assist burn -> LEO departure",
+  "no_hidden_candidate_cap": true
+}

@@ -1,0 +1,317 @@
+{
+  "candidate_bodies": [
+    "JUPITER",
+    "MARS",
+    "MERCURY",
+    "NEPTUNE",
+    "PLUTO",
+    "SATURN",
+    "URANUS",
+    "VENUS"
+  ],
+  "classification": "TEST_ONLY_NONCANON",
+  "database_sha256": "e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde",
+  "elapsed_seconds": 11.37069770717062,
+  "estimated_full_63x2_seconds": 333.1458252305165,
+  "excluded_candidates": [
+    {
+      "body": "AMUN",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    },
+    {
+      "body": "ASTEROID_6178",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    },
+    {
+      "body": "BENNU",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    },
+    {
+      "body": "CERES",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    },
+    {
+      "body": "CHIRON",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    },
+    {
+      "body": "COMET_67P",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    },
+    {
+      "body": "COMET_HALLEY",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    },
+    {
+      "body": "DIDYMOS",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    },
+    {
+      "body": "ERIS",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    },
+    {
+      "body": "EROS",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    },
+    {
+      "body": "EURYBATES",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    },
+    {
+      "body": "HAUMEA",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    },
+    {
+      "body": "HYGIEA",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    },
+    {
+      "body": "ITOKAWA",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    },
+    {
+      "body": "KLEOPATRA",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    },
+    {
+      "body": "MAKEMAKE",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    },
+    {
+      "body": "PALLAS",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    },
+    {
+      "body": "PATROCLUS",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    },
+    {
+      "body": "PSYCHE",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    },
+    {
+      "body": "RYUGU",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    },
+    {
+      "body": "VESTA",
+      "reason": "NO_EXTENDED_TABLE_RECOVERED_SMALL_BODY_WINDOW_ENDS_2031-12-31"
+    }
+  ],
+  "full_run_executed": false,
+  "hand_tests": {
+    "earth_max_bend_degrees_at_5_km_s": 89.66211903112007,
+    "matched_speed_burn_km_s": 0.0,
+    "one_km_s_speed_mismatch_burn_km_s": 1.0
+  },
+  "input_sha256": "5b60e57d5c6b2b64f958a478cb6d500a9e25509fe294b31286e517d1193b7381",
+  "peak_rss_bytes": 247226368,
+  "pilot": [
+    {
+      "below_bend_by_candidate": {
+        "MERCURY": 110,
+        "NEPTUNE": 30,
+        "PLUTO": 150,
+        "SATURN": 30,
+        "URANUS": 30
+      },
+      "best_assisted": {
+        "arrival_vinf_km_s": 13.130349610677863,
+        "assist_arrival": "2030-01-30T00:00:00+00:00",
+        "assist_burn_km_s": 0.7390640790796068,
+        "assist_stages": 1,
+        "departure": "2026-11-22T00:00:00+00:00",
+        "departure_stages": 1,
+        "leg_days": [
+          1165,
+          885
+        ],
+        "mass_in_leo_kg": 5419.8275633498715,
+        "max_bend_degrees": 158.5765193728538,
+        "price_usd": 721679310.2533995,
+        "route": [
+          "EARTH",
+          "JUPITER",
+          "MARS"
+        ],
+        "target_arrival": "2032-07-03T00:00:00+00:00"
+      },
+      "direct_price_usd": 704246732.1835139,
+      "elapsed_seconds": 7.1455336038488895,
+      "lambert_failures": {},
+      "peak_rss_bytes": 246317056,
+      "search": "base",
+      "solved_lambert_pairs": 1050,
+      "steps_days": {
+        "assist_arrival": 280,
+        "departure": 56,
+        "target_arrival": 280
+      },
+      "target": "MARS",
+      "trajectory_count": 1050,
+      "winning": {
+        "direct": true,
+        "price_usd": 704246732.1835139,
+        "route": [
+          "EARTH",
+          "MARS"
+        ]
+      }
+    },
+    {
+      "below_bend_by_candidate": {
+        "MERCURY": 860,
+        "NEPTUNE": 240,
+        "PLUTO": 1200,
+        "SATURN": 120,
+        "URANUS": 240
+      },
+      "best_assisted": {
+        "arrival_vinf_km_s": 14.187969249324233,
+        "assist_arrival": "2027-03-31T00:00:00+00:00",
+        "assist_burn_km_s": 1.4847870993199421,
+        "assist_stages": 1,
+        "departure": "2026-09-27T00:00:00+00:00",
+        "departure_stages": 1,
+        "leg_days": [
+          185,
+          605
+        ],
+        "mass_in_leo_kg": 1907.5862062641718,
+        "max_bend_degrees": 41.399508944500475,
+        "price_usd": 707630344.8250567,
+        "route": [
+          "EARTH",
+          "VENUS",
+          "MARS"
+        ],
+        "target_arrival": "2028-11-25T00:00:00+00:00"
+      },
+      "direct_price_usd": 704246732.1835139,
+      "elapsed_seconds": 3.3837393559515476,
+      "lambert_failures": {},
+      "peak_rss_bytes": 246579200,
+      "search": "half",
+      "solved_lambert_pairs": 8400,
+      "steps_days": {
+        "assist_arrival": 140,
+        "departure": 28,
+        "target_arrival": 140
+      },
+      "target": "MARS",
+      "trajectory_count": 8400,
+      "winning": {
+        "direct": true,
+        "price_usd": 704246732.1835139,
+        "route": [
+          "EARTH",
+          "MARS"
+        ]
+      }
+    },
+    {
+      "below_bend_by_candidate": {
+        "MARS": 30,
+        "MERCURY": 110,
+        "NEPTUNE": 30,
+        "SATURN": 30,
+        "URANUS": 30
+      },
+      "best_assisted": {
+        "arrival_vinf_km_s": 52.7936392086967,
+        "assist_arrival": "2027-08-18T00:00:00+00:00",
+        "assist_burn_km_s": 30.59557251045579,
+        "assist_stages": 4,
+        "departure": "2026-09-27T00:00:00+00:00",
+        "departure_stages": 2,
+        "leg_days": [
+          325,
+          1165
+        ],
+        "mass_in_leo_kg": 926421760.1259476,
+        "max_bend_degrees": 10.998389496878236,
+        "price_usd": 3706387040503.7905,
+        "route": [
+          "EARTH",
+          "VENUS",
+          "PLUTO"
+        ],
+        "target_arrival": "2030-10-26T00:00:00+00:00"
+      },
+      "direct_price_usd": 12869806011.99592,
+      "elapsed_seconds": 0.3991960920393467,
+      "lambert_failures": {},
+      "peak_rss_bytes": 246841344,
+      "search": "base",
+      "solved_lambert_pairs": 1050,
+      "steps_days": {
+        "assist_arrival": 280,
+        "departure": 56,
+        "target_arrival": 280
+      },
+      "target": "PLUTO",
+      "trajectory_count": 1050,
+      "winning": {
+        "direct": true,
+        "price_usd": 12869806011.99592,
+        "route": [
+          "EARTH",
+          "PLUTO"
+        ]
+      }
+    },
+    {
+      "below_bend_by_candidate": {
+        "MARS": 30,
+        "MERCURY": 110,
+        "PLUTO": 150,
+        "SATURN": 30,
+        "URANUS": 30
+      },
+      "best_assisted": {
+        "arrival_vinf_km_s": 43.31185777353136,
+        "assist_arrival": "2028-05-24T00:00:00+00:00",
+        "assist_burn_km_s": 20.364596280072867,
+        "assist_stages": 3,
+        "departure": "2026-09-27T00:00:00+00:00",
+        "departure_stages": 2,
+        "leg_days": [
+          605,
+          1165
+        ],
+        "mass_in_leo_kg": 7452166.838864943,
+        "max_bend_degrees": 27.117290107486465,
+        "price_usd": 30508667355.45977,
+        "route": [
+          "EARTH",
+          "VENUS",
+          "NEPTUNE"
+        ],
+        "target_arrival": "2031-08-02T00:00:00+00:00"
+      },
+      "direct_price_usd": 25767576902.220943,
+      "elapsed_seconds": 0.38731376198120415,
+      "lambert_failures": {},
+      "peak_rss_bytes": 247226368,
+      "search": "base",
+      "solved_lambert_pairs": 1050,
+      "steps_days": {
+        "assist_arrival": 280,
+        "departure": 56,
+        "target_arrival": 280
+      },
+      "target": "NEPTUNE",
+      "trajectory_count": 1050,
+      "winning": {
+        "direct": true,
+        "price_usd": 25767576902.220943,
+        "route": [
+          "EARTH",
+          "NEPTUNE"
+        ]
+      }
+    }
+  ],
+  "table_manifest_sha256": "b5cbcaf05aa691f36c190a7a7f798dc1e662582846fb0583e99a0853c70b8154"
+}

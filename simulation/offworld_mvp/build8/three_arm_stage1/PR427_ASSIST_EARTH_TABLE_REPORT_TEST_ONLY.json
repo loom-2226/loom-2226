@@ -1,0 +1,21 @@
+{
+  "bitwise_direct_spice": true,
+  "kernel_files": [
+    {
+      "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+      "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+    },
+    {
+      "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+      "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+    }
+  ],
+  "peak_rss_bytes": 257150976,
+  "seconds": 0.9850775429513305,
+  "source_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+  "spice_id": 399,
+  "table_path": "/home/ubuntu/LOOM-output/pr427_assist_earth_table_test_only/EARTH.npy",
+  "table_sha256": "8a776ae3e26d5b90b1f8a14bce36e0fddf642c51489b38065dfcb7d68a7dde2a",
+  "time_grid_sha256": "5e0124277e440f90cf236c4676f95ea09f222c48acac579b62808bded11fe984",
+  "validation_samples": 8337
+}
