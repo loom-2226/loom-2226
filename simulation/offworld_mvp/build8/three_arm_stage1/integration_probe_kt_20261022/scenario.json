@@ -1,0 +1,27 @@
+{
+  "body_count": 90,
+  "classification": "TEST_ONLY_NONCANON_NONRUNTIME",
+  "end_year": 2226,
+  "main_campaign_executor": "Thales Alenia Space",
+  "main_campaign_sponsors": [
+    "ESA",
+    "UAE Space Agency"
+  ],
+  "moon_rule": "PARENT",
+  "pricing_rule": "HELD_2026",
+  "scenario_variant": "BASE",
+  "source_executor_cast_file": "../../solar_reach_cast.json",
+  "source_executor_cast_sha256": "8c67e088fbd4eb3336d31c4dcdc97d28d548533cf8f69467851e5b00fa8674ee",
+  "source_experiment_file": "../experiment.json",
+  "source_experiment_sha256": "d8aa0e6370bb85d62f908e697519c5e48b804e40fbcf7d9b779c9ddadc1b98ec",
+  "source_quote_file": "../A_VEHICLE_MISSION_PAIRS.csv",
+  "source_quote_run_identity": "f24cd438e12d5bc62efeaa48f084acf69f6b52e261f3a771aa1e4d05d07ace75",
+  "source_quote_sha256": "72ebceab82626e2c6e2f595a83f67f8ee838e965ab8a0d4231ca20af045d38fd",
+  "source_selection_file": "../SPONSOR_SELECTION_SCENARIO.json",
+  "source_selection_sha256": "858faa2567e62eba022cadf4f803cbe1fa429ab3c75cd28839ffb8c0d9a8021c",
+  "sponsor_selection_sponsors": [
+    "science",
+    "survey"
+  ],
+  "start_year": 2026
+}
