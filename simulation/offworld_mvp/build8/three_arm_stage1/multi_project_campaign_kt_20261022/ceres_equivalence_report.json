@@ -1,0 +1,20 @@
+{
+  "event_collection_counts": {
+    "kernel._boundary_event_deltas": 0,
+    "kernel.event_log": 1432,
+    "kernel.events": 290,
+    "state.fcf_events": 2
+  },
+  "event_count": 290,
+  "first_mismatch": null,
+  "ordered_zero_tolerance": true,
+  "result": "PASS",
+  "runtimes": [
+    17.75024577183649,
+    15.918906301259995
+  ],
+  "transaction_counts": [
+    8798,
+    8798
+  ]
+}

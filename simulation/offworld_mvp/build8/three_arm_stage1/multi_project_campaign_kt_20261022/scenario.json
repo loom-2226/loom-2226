@@ -1,0 +1,12 @@
+{
+  "classification": "TEST_ONLY_NONCANON_SYNTHETIC_SCENARIO",
+  "clock": {"start_year": 2026, "end_year": 2226},
+  "mission": {"type": "rendezvous", "quote_year": 2026, "hold_after_year": 2035, "flyby_comparison_type": "flyby"},
+  "family_assignment": {
+    "family": "VOLATILES",
+    "status": "PLACEHOLDER",
+    "source": "AUTHORED_GENERIC_SCENARIO_PROXY_NOT_BODY_EVIDENCE",
+    "supports_extraction_proxy": true,
+    "boundary": "Scenario proxy only; does not establish body geology or factual extraction support."
+  }
+}
