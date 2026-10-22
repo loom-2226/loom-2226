@@ -1,0 +1,38 @@
+{
+  "audit_sha256": "b2a790041668c2e557c34de7eb96efadcf552137161636eb92e938c0b85cf688",
+  "authored_sweep_scenario_sha256": "9f31048fd42defef84229cda53a2454588fef8923ac2bcda070215da2bd1fd34",
+  "cases": [
+    {
+      "annual_inflow": "10",
+      "conversion": true,
+      "mission_type": "rendezvous",
+      "name": "low"
+    },
+    {
+      "annual_inflow": "100",
+      "conversion": true,
+      "mission_type": "rendezvous",
+      "name": "medium"
+    },
+    {
+      "annual_inflow": "1000",
+      "conversion": true,
+      "mission_type": "rendezvous",
+      "name": "high"
+    },
+    {
+      "annual_inflow": "100",
+      "conversion": false,
+      "mission_type": "rendezvous",
+      "name": "zero_conversion_control"
+    }
+  ],
+  "classification": "TEST_ONLY_NONCANON_AUTHORED_SENSITIVITY",
+  "input_scenario_sha256": "0e761d2ff122c6ea48510a337b3ae79c0bd707fa371fccb2ba65e93d5243c34c",
+  "price_table_sha256": "72ebceab82626e2c6e2f595a83f67f8ee838e965ab8a0d4231ca20af045d38fd",
+  "scenario_identity_includes_case_and_annual_inflow": true,
+  "sweep_run_identity_sha256": "de9714c6d1a5b5c3f8f79f9b55487e1727f05ea1c0831b7413a7ee2bdf7a532b",
+  "world_sqlite_actual_sha256": "e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde",
+  "world_sqlite_baseline_match": true,
+  "world_sqlite_expected_baseline_sha256": "e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde"
+}

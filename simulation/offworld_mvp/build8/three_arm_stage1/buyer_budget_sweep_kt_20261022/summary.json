@@ -1,0 +1,75 @@
+{
+  "cases": [
+    {
+      "annual_inflow": "10",
+      "distinct_bodies": 21,
+      "distinct_sponsors": 11,
+      "money_returned": "1.60000",
+      "name": "low",
+      "projects_started": 21,
+      "sales": 40,
+      "ties": 0,
+      "years": 201
+    },
+    {
+      "annual_inflow": "100",
+      "distinct_bodies": 42,
+      "distinct_sponsors": 19,
+      "money_returned": "3.36000",
+      "name": "medium",
+      "projects_started": 42,
+      "sales": 84,
+      "ties": 0,
+      "years": 201
+    },
+    {
+      "annual_inflow": "1000",
+      "distinct_bodies": 42,
+      "distinct_sponsors": 19,
+      "money_returned": "3.36000",
+      "name": "high",
+      "projects_started": 42,
+      "sales": 84,
+      "ties": 0,
+      "years": 201
+    },
+    {
+      "annual_inflow": "100",
+      "distinct_bodies": 66,
+      "distinct_sponsors": 20,
+      "money_returned": "5.28000",
+      "name": "zero_conversion_control",
+      "projects_started": 66,
+      "sales": 132,
+      "ties": 862,
+      "years": 201
+    }
+  ],
+  "ceres_equivalence": {
+    "event_collection_counts": {
+      "kernel._boundary_event_deltas": 0,
+      "kernel.event_log": 1432,
+      "kernel.events": 290,
+      "state.fcf_events": 2
+    },
+    "event_count": 290,
+    "first_mismatch": null,
+    "ordered_zero_tolerance": true,
+    "result": "PASS",
+    "runtimes": [
+      15.85345895588398,
+      17.694888946134597
+    ],
+    "transaction_counts": [
+      8798,
+      8798
+    ]
+  },
+  "classification": "TEST_ONLY_NONCANON_AUTHORED_SENSITIVITY",
+  "route1_exact_hash_control": {
+    "actual_sha256": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430",
+    "expected_sha256": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430",
+    "pass_exact": true
+  },
+  "world_sqlite_baseline_match": true
+}
