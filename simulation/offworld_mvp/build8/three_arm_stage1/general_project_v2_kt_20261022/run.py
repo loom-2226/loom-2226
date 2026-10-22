@@ -68,8 +68,8 @@ def write_json(name, data):
     return path
 
 
-def run_campaign(campaign, run_name, share, end_year=2226):
-    campaign.record_states(2026)
+def run_campaign(campaign, run_name, share, start_year, end_year):
+    campaign.record_states(start_year)
     started = time.perf_counter()
     result = run_cast_payments(share=share, end_year=end_year,
         run_setting={'name': 'general_project_campaign' if run_name != 'reference' else 'ceres_downstream',
@@ -122,12 +122,14 @@ def first_difference(left, right, path='$'):
 
 def equivalence(scenario):
     reference = CeresDownstream()
+    start_year = int(scenario['full_clock']['start_year'])
+    end_year = int(scenario['full_clock']['end_year'])
     reference_result, reference_campaign, reference_seconds = run_campaign(
-        reference, 'reference', CERES_T('share'))
+        reference, 'reference', CERES_T('share'), start_year, end_year)
     generic = GeneralProjectCampaign(scenario, _read_prices(),
         project_override=scenario['project'])
     generic_result, generic_campaign, generic_seconds = run_campaign(
-        generic, 'generic', CERES_T('share'))
+        generic, 'generic', CERES_T('share'), start_year, end_year)
     reference_projection = ordered_projection(reference_result['kernel'])
     generic_projection = ordered_projection(generic_result['kernel'])
     mismatch = first_difference(reference_projection, generic_projection)
@@ -163,8 +165,10 @@ def _read_prices():
 def full_clock(scenario, prices, scenario_bytes, price_bytes, conversion_enabled):
     mode = 'full_clock' if conversion_enabled else 'conversion_zero_control'
     campaign = GeneralProjectCampaign(scenario, prices, conversion_enabled=conversion_enabled)
+    start_year = int(scenario['full_clock']['start_year'])
+    end_year = int(scenario['full_clock']['end_year'])
     result, campaign_report, elapsed = run_campaign(campaign, mode, CERES_T('share'),
-                                                      int(scenario['full_clock']['end_year']))
+                                                      start_year, end_year)
     annual = campaign_report['year_rollup']
     if len(annual) != int(scenario['full_clock']['end_year']) - int(scenario['full_clock']['start_year']) + 1:
         raise RuntimeError(f'full-clock annual coverage is incomplete: {len(annual)} rows; '
@@ -190,7 +194,7 @@ def full_clock(scenario, prices, scenario_bytes, price_bytes, conversion_enabled
         scenario_sha256=hashlib.sha256(scenario_bytes).hexdigest(),
         mission_price_table_sha256=hashlib.sha256(price_bytes).hexdigest(),
         source_price_run_identity=scenario['price_inputs']['source_run_identity'],
-        runtime_seconds=elapsed, year_range=[2026, 2226], year_count=len(annual),
+        runtime_seconds=elapsed, year_range=[start_year, end_year], year_count=len(annual),
         campaign_sponsor_count=len(campaign.requesters), executor_count=len(EXECUTORS),
         body_count=len(campaign.bodies), per_year_rollup=annual,
         route1_campaign_annual=campaign_report['annual'],
