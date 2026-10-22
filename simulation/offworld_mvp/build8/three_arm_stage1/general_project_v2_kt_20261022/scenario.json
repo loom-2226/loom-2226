@@ -1,0 +1,161 @@
+{
+  "classification": "TEST_ONLY_NON_CANON_SYNTHETIC_SCENARIO",
+  "scenario_version": 1,
+  "run_identity": "c42a874c00e029d591433fd34126e7b0f6f69826aaff2ecc4a8573596d1d296f",
+  "price_inputs": {
+    "path_from_stage1": "A_VEHICLE_MISSION_PAIRS.csv",
+    "sha256": "72ebceab82626e2c6e2f595a83f67f8ee838e965ab8a0d4231ca20af045d38fd",
+    "source_run_identity": "f24cd438e12d5bc62efeaa48f084acf69f6b52e261f3a771aa1e4d05d07ace75",
+    "supported_status": "PRICED_TEST_ONLY",
+    "mission_type": "flyby",
+    "vehicle_class": "baseline",
+    "held_year": 2026,
+    "currency": "USD",
+    "usd_per_model_currency": "1000000000",
+    "hold_policy": "exact mission year if present; otherwise hold 2026 mission quote",
+    "study_price_link": false,
+    "price_basis": "saved PR427 mission price table; not an A1/A2 study price"
+  },
+  "material_families": {
+    "VOLATILES": {
+      "in_situ": "20",
+      "accessible": "10",
+      "recoverable": "8",
+      "productive_capacity": "5",
+      "quantity_per_operation": "2",
+      "unit_opex": "0.010",
+      "unit_sale_price": "0.050",
+      "demand_per_year": "2",
+      "earth_supply_fraction": "1"
+    },
+    "METALS": {
+      "in_situ": "18",
+      "accessible": "9",
+      "recoverable": "7",
+      "productive_capacity": "4",
+      "quantity_per_operation": "1.5",
+      "unit_opex": "0.012",
+      "unit_sale_price": "0.075",
+      "demand_per_year": "1.5",
+      "earth_supply_fraction": "1"
+    },
+    "SILICATES": {
+      "in_situ": "24",
+      "accessible": "12",
+      "recoverable": "9",
+      "productive_capacity": "6",
+      "quantity_per_operation": "2",
+      "unit_opex": "0.008",
+      "unit_sale_price": "0.035",
+      "demand_per_year": "2",
+      "earth_supply_fraction": "1"
+    }
+  },
+  "project": {
+    "project_id": "P",
+    "body": "CERES",
+    "sponsor": "ISRO",
+    "executor": "HAL / L&T",
+    "executor_location": "IND",
+    "material_family": "VOLATILES",
+    "resource_name": "volatile_resource",
+    "resource_unit": "MODEL_RESOURCE_UNIT_BY_FAMILY",
+    "currency": "MODEL_CURRENCY",
+    "start_year": 2026,
+    "study_a2_review_year": 2038,
+    "study_a2_receipt_value": "0.015",
+    "mission_price_year": 2026,
+    "mission_price_source": "HELD_2026_MISSION_PRICE",
+    "physical_construction_cost": "0.060",
+    "construction_stage_1": "0.030",
+    "construction_stage_2": "0.030",
+    "operating_float": "0.020",
+    "financier_return_share": "0.20",
+    "local_reinvest_share": "0.40",
+    "owner_return_share": "0.20",
+    "reserve_share": "0.20",
+    "financier_id": "CERES_TEST_FINANCIER",
+    "owner_type": "public_agency",
+    "owner_id": "STATE:IND",
+    "return_revenue_source": "resource_export_to_earth_buyer",
+    "appropriation_delay_years": 3,
+    "appropriations": [
+      {"receipt_offset": 15, "paid_offset": 18, "amount": "0.020", "reason": "Synthetic first owner-return appropriation"},
+      {"receipt_offset": 16, "paid_offset": 19, "amount": "0.040", "reason": "Synthetic second owner-return appropriation"}
+    ],
+    "buyer": {
+      "account": "earth_market",
+      "endowment": "100",
+      "demand_per_year": "2",
+      "unit_sale_price": "0.050"
+    },
+    "accounts": {
+      "project_cash": "ceres:physical:cash",
+      "financier_cash": "ceres:physical:financier",
+      "reinvestment": "ceres:physical:reinvestment",
+      "budget_prefix": "route1:budget:",
+      "supplier_prefix": "route1:executor:",
+      "treasury_prefix": "treasury:",
+      "resource_id_prefix": "general:resource:",
+      "commitment_id_prefix": "general:commitment:",
+      "return_claim_id_prefix": "general:return_claim:",
+      "plan_id_prefix": "general:construction:"
+    },
+    "ids": {
+      "node": "OFF:ROUTE1:CERES",
+      "asset": "MINE-P",
+      "resource": "ceres:synthetic:volatile_resource",
+      "commitment": "ceres:physical:commitment",
+      "return_claim": "ceres:physical:return_claim",
+      "plan": "ceres:physical:construction",
+      "policy": "BUILD8_CERES_TEST_ONLY_AUTHORED_DECISION",
+      "wip": "ceres:physical:wip",
+      "asset_class": "mine",
+      "development_plan_basis": "BUILD8_CERES_TEST_ONLY_PHYSICAL_PLAN",
+      "financing_claim_basis": "BUILD8_CERES_TEST_ONLY_FUNDED_COMMITMENT",
+      "financing_claim_scope": "SYNTHETIC_NOT_A_FORECAST",
+      "operate_request_prefix": "ceres:operate:",
+      "operate_decision_prefix": "ceres:operate:decision:",
+      "operate_decision_reason": "TEST_ONLY authorized operating fixture",
+      "operate_decision_evidence_prefix": "TEST_ONLY:ceres:operating:",
+      "market_prefix": "ceres:market:",
+      "market_source": "BUILD8_CERES_TEST_ONLY_MARKET",
+      "sale_request_prefix": "ceres:sale:",
+      "sale_decision_prefix": "ceres:sale:decision:",
+      "sale_decision_reason": "TEST_ONLY finite-buyer offer",
+      "sale_decision_evidence_prefix": "TEST_ONLY:ceres:market:",
+      "distribution_request_prefix": "ceres:distribution:",
+      "distribution_decision_prefix": "ceres:distribution:decision:",
+      "distribution_decision_reason": "TEST_ONLY split; exhausted financier claim residual to legal state owner",
+      "distribution_decision_evidence_prefix": "TEST_ONLY:ceres:distribution:",
+      "appropriation_spent_event": "BUILD8_TEST_ONLY_APPROPRIATION_SPENT"
+    },
+    "operator_grants": [
+      {"operator": "ISRO", "owner": "STATE:IND", "reason": "Delegated operation; no legal ownership share"}
+    ],
+    "schedule_offsets": {
+      "construction_year_1": 13,
+      "construction_year_2": 14,
+      "operation_year_1": 15,
+      "operation_year_2": 16,
+      "operation_year_3": 17,
+      "operation_year_4": 18,
+      "appropriation_year_2": 19
+    }
+  },
+  "full_clock": {
+    "start_year": 2026,
+    "end_year": 2226,
+    "sponsor_count": 20,
+    "executor_count": 16,
+    "body_count": 90,
+    "body_family_assignment": "sorted_body_ids_round_robin_over_authored_material_families",
+    "synthetic_extraction_evidence": "PLACEHOLDER_ONLY",
+    "unpriced_policy": "A physical mission cannot fund without a PRICED_TEST_ONLY flyby quote; unpriced body is reported UNPRICED"
+  },
+  "equivalence": {
+    "source_module": "simulation.offworld_mvp.build8.ceres_downstream.CeresDownstream",
+    "id_rename_policy": "one-to-one mapping only; all other fields exact",
+    "comparison": "ordered kernel transaction projection and ordered kernel event projection"
+  }
+}
