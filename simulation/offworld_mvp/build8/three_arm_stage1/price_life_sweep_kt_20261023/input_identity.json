@@ -1,0 +1,82 @@
+{
+  "authored_scenario_sha256": "b5307253f05a05c0dbd405c91e9218dbf0592d51bf7eab064db2dd31aa31ae7b",
+  "base_scenario_sha256": "0e761d2ff122c6ea48510a337b3ae79c0bd707fa371fccb2ba65e93d5243c34c",
+  "cases": [
+    {
+      "annual_inflow": "1000",
+      "conversion": true,
+      "mission_type": "rendezvous",
+      "name": "price_x1_sales_2",
+      "price_multiplier": "1",
+      "sale_cap": 2
+    },
+    {
+      "annual_inflow": "1000",
+      "conversion": true,
+      "mission_type": "rendezvous",
+      "name": "price_x1_sales_3",
+      "price_multiplier": "1",
+      "sale_cap": 3
+    },
+    {
+      "annual_inflow": "1000",
+      "conversion": true,
+      "mission_type": "rendezvous",
+      "name": "price_x1_sales_4",
+      "price_multiplier": "1",
+      "sale_cap": 4
+    },
+    {
+      "annual_inflow": "1000",
+      "conversion": true,
+      "mission_type": "rendezvous",
+      "name": "price_x3_sales_2",
+      "price_multiplier": "3",
+      "sale_cap": 2
+    },
+    {
+      "annual_inflow": "1000",
+      "conversion": true,
+      "mission_type": "rendezvous",
+      "name": "price_x3_sales_3",
+      "price_multiplier": "3",
+      "sale_cap": 3
+    },
+    {
+      "annual_inflow": "1000",
+      "conversion": true,
+      "mission_type": "rendezvous",
+      "name": "price_x3_sales_4",
+      "price_multiplier": "3",
+      "sale_cap": 4
+    },
+    {
+      "annual_inflow": "1000",
+      "conversion": true,
+      "mission_type": "rendezvous",
+      "name": "price_x10_sales_2",
+      "price_multiplier": "10",
+      "sale_cap": 2
+    },
+    {
+      "annual_inflow": "1000",
+      "conversion": true,
+      "mission_type": "rendezvous",
+      "name": "price_x10_sales_3",
+      "price_multiplier": "10",
+      "sale_cap": 3
+    },
+    {
+      "annual_inflow": "1000",
+      "conversion": true,
+      "mission_type": "rendezvous",
+      "name": "price_x10_sales_4",
+      "price_multiplier": "10",
+      "sale_cap": 4
+    }
+  ],
+  "price_table_sha256": "72ebceab82626e2c6e2f595a83f67f8ee838e965ab8a0d4231ca20af045d38fd",
+  "sale_cap_provenance": "run_multi_project.py PortfolioCampaign.on_year hard-codes sales at operation_year_1 and operation_year_2; operating events operation_year_1..4; VOLATILES recoverable 8 / quantity_per_operation 2 = four events",
+  "sweep_identity_sha256": "3203f285b2ea56baa8e99d5ac704a1d709d7f81fb03b7b10307dde66d39387cb",
+  "world_db_sha256": "e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde"
+}
