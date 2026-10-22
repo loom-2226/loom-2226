@@ -1,0 +1,26 @@
+{
+  "audit_sha256": "b2a790041668c2e557c34de7eb96efadcf552137161636eb92e938c0b85cf688",
+  "authored_scenario_sha256": "463a079ddd1fd7d1fc5ed41d530ccf79f48bac2792f75e8dad9d45a493d3d408",
+  "family_assignment": {
+    "boundary": "Scenario proxy only; does not establish body geology or factual extraction support.",
+    "family": "VOLATILES",
+    "source": "AUTHORED_GENERIC_SCENARIO_PROXY_NOT_BODY_EVIDENCE",
+    "status": "PLACEHOLDER",
+    "supports_extraction_proxy": true
+  },
+  "price_sources": {
+    "recovered_combined_59": "26c2689d45cdbccbf856a50ff39b7c3423614f7f472e25d44e8f06bb45413456",
+    "rendezvous_v2_90": "fcbbd92236f436c5ec33717680496215b579caabb4642e5dc4d22bd3eac440cd",
+    "vehicle_flyby": "2a36b2ef103480c7b8624b86d6910becd69472ad78913ec2ea60141e64643b73"
+  },
+  "price_table_sha256": "72ebceab82626e2c6e2f595a83f67f8ee838e965ab8a0d4231ca20af045d38fd",
+  "report_label": "SELECTION: Box 3 rule re-implemented. Boundary admission NOT used. Firewall checked by tripwire test only.",
+  "run_identity": "c42a874c00e029d591433fd34126e7b0f6f69826aaff2ecc4a8573596d1d296f",
+  "scenario_price_policy": {
+    "flyby_comparison_type": "flyby",
+    "hold_after_year": 2035,
+    "quote_year": 2026,
+    "type": "rendezvous"
+  },
+  "scenario_sha256": "0e761d2ff122c6ea48510a337b3ae79c0bd707fa371fccb2ba65e93d5243c34c"
+}

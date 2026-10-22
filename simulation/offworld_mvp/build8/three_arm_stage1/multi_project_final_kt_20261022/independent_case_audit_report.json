@@ -1,0 +1,77 @@
+{
+  "audit_scope": "Read-only consistency checks on saved run reports; not an independent kernel replay.",
+  "cases": {
+    "a1_flyby_comparison": {
+      "bodies_ever_started": 1,
+      "completed": 1,
+      "eligible_study_receipts": "PASS_FOR_STARTED_PROJECTS",
+      "limitations": [
+        "Selection currently picks at most one candidate per sponsor per annual callback.",
+        "Family extraction support is scenario PLACEHOLDER, not observed geology.",
+        "No Box3 boundary admission: tripwire protects the selector projection only."
+      ],
+      "monetary_conservation": "KERNEL_INVARIANTS_USED; NOT INDEPENDENTLY RECONCILED AGAINST_BOUNDARY_INFLOWS",
+      "non_ceres_chain": true,
+      "per_year_event_count_reconciliation": "PASS",
+      "return_events": 3,
+      "roster_bodies": 90,
+      "roster_sponsors": 20,
+      "sales": 2,
+      "sponsors_ever_started": 1,
+      "starts": 1,
+      "ties": 0,
+      "ties_dominate": false,
+      "unpriced_bodies": 54,
+      "year_count": 201
+    },
+    "full_clock": {
+      "bodies_ever_started": 1,
+      "completed": 1,
+      "eligible_study_receipts": "PASS_FOR_STARTED_PROJECTS",
+      "limitations": [
+        "Selection currently picks at most one candidate per sponsor per annual callback.",
+        "Family extraction support is scenario PLACEHOLDER, not observed geology.",
+        "No Box3 boundary admission: tripwire protects the selector projection only."
+      ],
+      "monetary_conservation": "KERNEL_INVARIANTS_USED; NOT INDEPENDENTLY RECONCILED AGAINST_BOUNDARY_INFLOWS",
+      "non_ceres_chain": true,
+      "per_year_event_count_reconciliation": "PASS",
+      "return_events": 3,
+      "roster_bodies": 90,
+      "roster_sponsors": 20,
+      "sales": 2,
+      "sponsors_ever_started": 1,
+      "starts": 1,
+      "ties": 0,
+      "ties_dominate": false,
+      "unpriced_bodies": 24,
+      "year_count": 201
+    },
+    "zero_conversion_control": {
+      "bodies_ever_started": 1,
+      "completed": 1,
+      "eligible_study_receipts": "PASS_FOR_STARTED_PROJECTS",
+      "limitations": [
+        "Selection currently picks at most one candidate per sponsor per annual callback.",
+        "Family extraction support is scenario PLACEHOLDER, not observed geology.",
+        "No Box3 boundary admission: tripwire protects the selector projection only."
+      ],
+      "monetary_conservation": "KERNEL_INVARIANTS_USED; NOT INDEPENDENTLY RECONCILED AGAINST_BOUNDARY_INFLOWS",
+      "non_ceres_chain": true,
+      "per_year_event_count_reconciliation": "PASS",
+      "return_events": 3,
+      "roster_bodies": 90,
+      "roster_sponsors": 20,
+      "sales": 2,
+      "sponsors_ever_started": 1,
+      "starts": 1,
+      "ties": 7198,
+      "ties_dominate": true,
+      "unpriced_bodies": 24,
+      "year_count": 201
+    }
+  },
+  "report_label": "SELECTION: Box 3 rule re-implemented. Boundary admission NOT used. Firewall checked by tripwire test only.",
+  "route1_exact_control": "PASS",
+  "selection_tripwire": "PASS_WITH_DELIBERATE_LEAK_REJECTED"
+}

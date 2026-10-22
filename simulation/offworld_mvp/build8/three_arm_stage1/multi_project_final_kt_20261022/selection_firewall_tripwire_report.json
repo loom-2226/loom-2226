@@ -1,0 +1,21 @@
+{
+  "allowlisted_fields": [
+    "body",
+    "eligibility_year",
+    "quoted_price_model",
+    "quoted_price_usd",
+    "review_status",
+    "reviewed_result",
+    "roster_index",
+    "sponsor",
+    "total_capital_commitment"
+  ],
+  "boundary_admission_used": false,
+  "check": {
+    "clean_input": "PASS",
+    "deliberate_hidden_field": "REJECTED",
+    "leak_removed": true
+  },
+  "report_label": "SELECTION: Box 3 rule re-implemented. Boundary admission NOT used. Firewall checked by tripwire test only.",
+  "selection_rule": "All affordable per sponsor, lowest commitment then earliest eligible year then roster index"
+}
