@@ -1,0 +1,901 @@
+body,mission_type,year,status,winning_source,winning_field,source_unit,model_units,selected_unit,unpriced_reason
+AMUN,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2049705115740842608,model_units,
+AMUN,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.773538686350595,model_units,
+AMUN,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.1822723396746786048,model_units,
+AMUN,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7600501147651563,model_units,
+AMUN,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2049705115740842608,model_units,
+AMUN,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.773538686350595,model_units,
+AMUN,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2049705115740842608,model_units,
+AMUN,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.773538686350595,model_units,
+AMUN,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2049705115740842608,model_units,
+AMUN,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.773538686350595,model_units,
+APOPHIS,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.1334940963965898632,model_units,
+APOPHIS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7100194290509928,model_units,
+APOPHIS,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.074444362476820396,model_units,
+APOPHIS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7079553418979657,model_units,
+APOPHIS,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.1334940963965898632,model_units,
+APOPHIS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7100194290509928,model_units,
+APOPHIS,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.1334940963965898632,model_units,
+APOPHIS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7100194290509928,model_units,
+APOPHIS,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.1334940963965898632,model_units,
+APOPHIS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7100194290509928,model_units,
+ARIEL,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+ARIEL,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,33.53048940329838,model_units,
+ARIEL,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+ARIEL,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,29.19628974256282,model_units,
+ARIEL,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+ARIEL,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+ARIEL,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+ARIEL,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+ARIEL,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+ARIEL,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+ARROKOTH,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,58.24722875612214,model_units,
+ARROKOTH,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,9021850532.03038,model_units,
+ARROKOTH,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,52.053568185801125,model_units,
+ARROKOTH,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,8062602344.855912,model_units,
+ARROKOTH,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,58.24722875612214,model_units,
+ARROKOTH,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,9021850532.03038,model_units,
+ARROKOTH,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,58.24722875612214,model_units,
+ARROKOTH,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,9021850532.03038,model_units,
+ARROKOTH,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,58.24722875612214,model_units,
+ARROKOTH,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,9021850532.03038,model_units,
+ASTEROID_6178,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4573216475418352712,model_units,
+ASTEROID_6178,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7156029876306036,model_units,
+ASTEROID_6178,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2675366528725926712,model_units,
+ASTEROID_6178,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7252353714728482,model_units,
+ASTEROID_6178,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4573216475418352712,model_units,
+ASTEROID_6178,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7156029876306036,model_units,
+ASTEROID_6178,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4573216475418352712,model_units,
+ASTEROID_6178,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7156029876306036,model_units,
+ASTEROID_6178,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4573216475418352712,model_units,
+ASTEROID_6178,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7156029876306036,model_units,
+ATLAS3I,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,1065351.090347459,model_units,
+ATLAS3I,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,18806254.98086541,model_units,
+ATLAS3I,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,7891325.111946831,model_units,
+ATLAS3I,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,379277974236.4729,model_units,
+ATLAS3I,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,1065351.090347459,model_units,
+ATLAS3I,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,18806254.98086541,model_units,
+ATLAS3I,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,1065351.090347459,model_units,
+ATLAS3I,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,18806254.98086541,model_units,
+ATLAS3I,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,1065351.090347459,model_units,
+ATLAS3I,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,18806254.98086541,model_units,
+BENNU,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2345341800014205776,model_units,
+BENNU,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7109968303277811,model_units,
+BENNU,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2932320195175483072,model_units,
+BENNU,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.714049977834052,model_units,
+BENNU,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2345341800014205776,model_units,
+BENNU,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7109968303277811,model_units,
+BENNU,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2345341800014205776,model_units,
+BENNU,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7109968303277811,model_units,
+BENNU,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2345341800014205776,model_units,
+BENNU,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7109968303277811,model_units,
+BORISOV,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,2454163725.275295,model_units,
+BORISOV,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.971397548868517E+18,model_units,
+BORISOV,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,8736619110.1196,model_units,
+BORISOV,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,5.4127910211975224E+20,model_units,
+BORISOV,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,2454163725.275295,model_units,
+BORISOV,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.971397548868517E+18,model_units,
+BORISOV,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,2454163725.275295,model_units,
+BORISOV,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.971397548868517E+18,model_units,
+BORISOV,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,2454163725.275295,model_units,
+BORISOV,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.971397548868517E+18,model_units,
+BORRELLY,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5076247762049648128,model_units,
+BORRELLY,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.2221228651849084,model_units,
+BORRELLY,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.3761090632161489024,model_units,
+BORRELLY,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.9924142117055016,model_units,
+BORRELLY,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5076247762049648128,model_units,
+BORRELLY,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.2221228651849084,model_units,
+BORRELLY,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5076247762049648128,model_units,
+BORRELLY,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.2221228651849084,model_units,
+BORRELLY,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5076247762049648128,model_units,
+BORRELLY,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.2221228651849084,model_units,
+BRAILLE,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.3507888183759133032,model_units,
+BRAILLE,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.8894916060479671,model_units,
+BRAILLE,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5721969367487466832,model_units,
+BRAILLE,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.8128519034126068,model_units,
+BRAILLE,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.3507888183759133032,model_units,
+BRAILLE,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.8894916060479671,model_units,
+BRAILLE,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.3507888183759133032,model_units,
+BRAILLE,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.8894916060479671,model_units,
+BRAILLE,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.3507888183759133032,model_units,
+BRAILLE,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.8894916060479671,model_units,
+CALLISTO,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+CALLISTO,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.7444372903935205,model_units,
+CALLISTO,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+CALLISTO,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.7410505122156429,model_units,
+CALLISTO,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+CALLISTO,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+CALLISTO,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+CALLISTO,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+CALLISTO,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+CALLISTO,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+CERES,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4980538511531186136,model_units,
+CERES,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.8173420490819302,model_units,
+CERES,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.6412303915891213328,model_units,
+CERES,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.8029257175554394,model_units,
+CERES,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4980538511531186136,model_units,
+CERES,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.8173420490819302,model_units,
+CERES,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4980538511531186136,model_units,
+CERES,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.8173420490819302,model_units,
+CERES,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4980538511531186136,model_units,
+CERES,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.8173420490819302,model_units,
+CHARON,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+CHARON,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,38263924.680126136,model_units,
+CHARON,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+CHARON,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,57111623.235673096,model_units,
+CHARON,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+CHARON,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,38263924.680126136,model_units,
+CHARON,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+CHARON,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,38263924.680126136,model_units,
+CHARON,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+CHARON,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,38263924.680126136,model_units,
+CHIRON,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.03677576826683063,model_units,
+CHIRON,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,18.67059879597077,model_units,
+CHIRON,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.03627528569043463,model_units,
+CHIRON,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,19.276426940027443,model_units,
+CHIRON,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.03677576826683063,model_units,
+CHIRON,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,18.67059879597077,model_units,
+CHIRON,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.03677576826683063,model_units,
+CHIRON,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,18.67059879597077,model_units,
+CHIRON,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.03677576826683063,model_units,
+CHIRON,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,18.67059879597077,model_units,
+COMET_67P,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.355818634751108,model_units,
+COMET_67P,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7224110850829878,model_units,
+COMET_67P,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2121046986884150728,model_units,
+COMET_67P,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.723279077958549,model_units,
+COMET_67P,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.355818634751108,model_units,
+COMET_67P,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7224110850829878,model_units,
+COMET_67P,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.355818634751108,model_units,
+COMET_67P,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7224110850829878,model_units,
+COMET_67P,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.355818634751108,model_units,
+COMET_67P,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7224110850829878,model_units,
+COMET_HALLEY,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,12.49879642094347,model_units,
+COMET_HALLEY,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,36908661.171130264,model_units,
+COMET_HALLEY,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,10.84577539022667,model_units,
+COMET_HALLEY,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,28764749.428195692,model_units,
+COMET_HALLEY,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,12.49879642094347,model_units,
+COMET_HALLEY,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,36908661.171130264,model_units,
+COMET_HALLEY,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,12.49879642094347,model_units,
+COMET_HALLEY,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,36908661.171130264,model_units,
+COMET_HALLEY,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,12.49879642094347,model_units,
+COMET_HALLEY,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,36908661.171130264,model_units,
+DACTYL,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+DACTYL,rendezvous,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,Exact-year saved row(s) are not PRICED_TEST_ONLY (rendezvous_v2_90=UNPRICED); source reasons: rendezvous_v2_90:PARENT_GM_MISSING.
+DACTYL,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+DACTYL,rendezvous,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,Exact-year saved row(s) are not PRICED_TEST_ONLY (rendezvous_v2_90=UNPRICED); source reasons: rendezvous_v2_90:PARENT_GM_MISSING.
+DACTYL,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+DACTYL,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+DACTYL,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+DACTYL,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+DACTYL,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+DACTYL,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+DAVIDA,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5786886484567735752,model_units,
+DAVIDA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7401505579423892,model_units,
+DAVIDA,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.573577254326951672,model_units,
+DAVIDA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7398036322147433,model_units,
+DAVIDA,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5786886484567735752,model_units,
+DAVIDA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7401505579423892,model_units,
+DAVIDA,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5786886484567735752,model_units,
+DAVIDA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7401505579423892,model_units,
+DAVIDA,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5786886484567735752,model_units,
+DAVIDA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7401505579423892,model_units,
+DEIMOS,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+DEIMOS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7068700388855866,model_units,
+DEIMOS,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+DEIMOS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7140782068396171,model_units,
+DEIMOS,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+DEIMOS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7068700388855866,model_units,
+DEIMOS,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+DEIMOS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7068700388855866,model_units,
+DEIMOS,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+DEIMOS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7068700388855866,model_units,
+DIDYMOS,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.1159313120842494064,model_units,
+DIDYMOS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.709088085667263,model_units,
+DIDYMOS,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.1720750842115530408,model_units,
+DIDYMOS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7099193594611932,model_units,
+DIDYMOS,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.1159313120842494064,model_units,
+DIDYMOS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.709088085667263,model_units,
+DIDYMOS,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.1159313120842494064,model_units,
+DIDYMOS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.709088085667263,model_units,
+DIDYMOS,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.1159313120842494064,model_units,
+DIDYMOS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.709088085667263,model_units,
+DINKINESH,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4998531580919071352,model_units,
+DINKINESH,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7204959301491945,model_units,
+DINKINESH,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.419276559375957072,model_units,
+DINKINESH,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7202988213094187,model_units,
+DINKINESH,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4998531580919071352,model_units,
+DINKINESH,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7204959301491945,model_units,
+DINKINESH,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4998531580919071352,model_units,
+DINKINESH,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7204959301491945,model_units,
+DINKINESH,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4998531580919071352,model_units,
+DINKINESH,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7204959301491945,model_units,
+DIONE,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+DIONE,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.8496042326627383,model_units,
+DIONE,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+DIONE,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.8295400146977583,model_units,
+DIONE,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+DIONE,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+DIONE,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+DIONE,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+DIONE,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+DIONE,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+DONALDJOHANSON,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4598791549564568992,model_units,
+DONALDJOHANSON,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7291021160420972,model_units,
+DONALDJOHANSON,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.3404585293100965968,model_units,
+DONALDJOHANSON,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7273720005713677,model_units,
+DONALDJOHANSON,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4598791549564568992,model_units,
+DONALDJOHANSON,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7291021160420972,model_units,
+DONALDJOHANSON,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4598791549564568992,model_units,
+DONALDJOHANSON,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7291021160420972,model_units,
+DONALDJOHANSON,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4598791549564568992,model_units,
+DONALDJOHANSON,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7291021160420972,model_units,
+ENCELADUS,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+ENCELADUS,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.8994975380378543,model_units,
+ENCELADUS,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+ENCELADUS,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.8728128567178982,model_units,
+ENCELADUS,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+ENCELADUS,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+ENCELADUS,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+ENCELADUS,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+ENCELADUS,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+ENCELADUS,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+ERIS,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,25373703730479225,model_units,
+ERIS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,6.028392693349309E+34,model_units,
+ERIS,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,17715104112076042,model_units,
+ERIS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,6.10404039856395E+34,model_units,
+ERIS,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,25373703730479225,model_units,
+ERIS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,6.028392693349309E+34,model_units,
+ERIS,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,25373703730479225,model_units,
+ERIS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,6.028392693349309E+34,model_units,
+ERIS,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,25373703730479225,model_units,
+ERIS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,6.028392693349309E+34,model_units,
+EROS,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2901126677214611488,model_units,
+EROS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7138016751453564,model_units,
+EROS,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4447731922616556608,model_units,
+EROS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7127972382650174,model_units,
+EROS,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2901126677214611488,model_units,
+EROS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7138016751453564,model_units,
+EROS,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2901126677214611488,model_units,
+EROS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7138016751453564,model_units,
+EROS,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2901126677214611488,model_units,
+EROS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7138016751453564,model_units,
+EUROPA,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+EUROPA,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.783825734139165,model_units,
+EUROPA,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+EUROPA,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.7772627673478694,model_units,
+EUROPA,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+EUROPA,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+EUROPA,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+EUROPA,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+EUROPA,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+EUROPA,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+EURYBATES,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.017375349798887327,model_units,
+EURYBATES,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.8549766022703252,model_units,
+EURYBATES,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.02581518469595614,model_units,
+EURYBATES,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.8599863994440858,model_units,
+EURYBATES,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.017375349798887327,model_units,
+EURYBATES,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.8549766022703252,model_units,
+EURYBATES,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.017375349798887327,model_units,
+EURYBATES,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.8549766022703252,model_units,
+EURYBATES,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.017375349798887327,model_units,
+EURYBATES,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.8549766022703252,model_units,
+GANYMEDE,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+GANYMEDE,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.7580636848026799,model_units,
+GANYMEDE,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+GANYMEDE,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.7535378851896012,model_units,
+GANYMEDE,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+GANYMEDE,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+GANYMEDE,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+GANYMEDE,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+GANYMEDE,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+GANYMEDE,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+GASPRA,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4453669363781428504,model_units,
+GASPRA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7227470794914993,model_units,
+GASPRA,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4027516872169028928,model_units,
+GASPRA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.722903198893892,model_units,
+GASPRA,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4453669363781428504,model_units,
+GASPRA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7227470794914993,model_units,
+GASPRA,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4453669363781428504,model_units,
+GASPRA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7227470794914993,model_units,
+GASPRA,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4453669363781428504,model_units,
+GASPRA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7227470794914993,model_units,
+GONGGONG,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,323607966512.19275,model_units,
+GONGGONG,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,2.309352311713559E+31,model_units,
+GONGGONG,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,464642995301.6134,model_units,
+GONGGONG,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,2.3975115584166082E+31,model_units,
+GONGGONG,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,323607966512.19275,model_units,
+GONGGONG,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,2.309352311713559E+31,model_units,
+GONGGONG,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,323607966512.19275,model_units,
+GONGGONG,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,2.309352311713559E+31,model_units,
+GONGGONG,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,323607966512.19275,model_units,
+GONGGONG,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,2.309352311713559E+31,model_units,
+HARTLEY2,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5340617141254171624,model_units,
+HARTLEY2,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7320748714258155,model_units,
+HARTLEY2,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4414406383625159496,model_units,
+HARTLEY2,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7422354037633737,model_units,
+HARTLEY2,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5340617141254171624,model_units,
+HARTLEY2,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7320748714258155,model_units,
+HARTLEY2,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5340617141254171624,model_units,
+HARTLEY2,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7320748714258155,model_units,
+HARTLEY2,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5340617141254171624,model_units,
+HARTLEY2,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7320748714258155,model_units,
+HAUMEA,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,6914.620954075839,model_units,
+HAUMEA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,25727721638697.34,model_units,
+HAUMEA,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,5839.769495320857,model_units,
+HAUMEA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,22987094738971.1,model_units,
+HAUMEA,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,6914.620954075839,model_units,
+HAUMEA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,25727721638697.34,model_units,
+HAUMEA,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,6914.620954075839,model_units,
+HAUMEA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,25727721638697.34,model_units,
+HAUMEA,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,6914.620954075839,model_units,
+HAUMEA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,25727721638697.34,model_units,
+HYDRA,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+HYDRA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,40998324.28823179,model_units,
+HYDRA,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+HYDRA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,61358844.80868739,model_units,
+HYDRA,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+HYDRA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,40998324.28823179,model_units,
+HYDRA,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+HYDRA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,40998324.28823179,model_units,
+HYDRA,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+HYDRA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,40998324.28823179,model_units,
+HYGIEA,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4860985618338299688,model_units,
+HYGIEA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.756433191809692,model_units,
+HYGIEA,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5099043208628118472,model_units,
+HYGIEA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.774179798126795,model_units,
+HYGIEA,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4860985618338299688,model_units,
+HYGIEA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.756433191809692,model_units,
+HYGIEA,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4860985618338299688,model_units,
+HYGIEA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.756433191809692,model_units,
+HYGIEA,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4860985618338299688,model_units,
+HYGIEA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.756433191809692,model_units,
+HYPERION,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+HYPERION,rendezvous,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,Exact-year saved row(s) are not PRICED_TEST_ONLY (rendezvous_v2_90=UNPRICED); source reasons: rendezvous_v2_90:NO_59_BODY_TABLE_QUOTE.
+HYPERION,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+HYPERION,rendezvous,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,Exact-year saved row(s) are not PRICED_TEST_ONLY (rendezvous_v2_90=UNPRICED); source reasons: rendezvous_v2_90:NO_59_BODY_TABLE_QUOTE.
+HYPERION,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+HYPERION,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+HYPERION,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+HYPERION,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+HYPERION,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+HYPERION,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+IAPETUS,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+IAPETUS,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.8266540661307989,model_units,
+IAPETUS,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+IAPETUS,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.8091617820663575,model_units,
+IAPETUS,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+IAPETUS,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+IAPETUS,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+IAPETUS,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+IAPETUS,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+IAPETUS,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+IDA,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4891782521560161608,model_units,
+IDA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7292471850971886,model_units,
+IDA,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4888848237370425752,model_units,
+IDA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7292154554000597,model_units,
+IDA,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4891782521560161608,model_units,
+IDA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7292471850971886,model_units,
+IDA,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4891782521560161608,model_units,
+IDA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7292471850971886,model_units,
+IDA,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4891782521560161608,model_units,
+IDA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7292471850971886,model_units,
+INTERAMNIA,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5397990484114909792,model_units,
+INTERAMNIA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7672600099599044,model_units,
+INTERAMNIA,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5148884051303452256,model_units,
+INTERAMNIA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.8269184917888162,model_units,
+INTERAMNIA,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5397990484114909792,model_units,
+INTERAMNIA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7672600099599044,model_units,
+INTERAMNIA,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5397990484114909792,model_units,
+INTERAMNIA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7672600099599044,model_units,
+INTERAMNIA,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5397990484114909792,model_units,
+INTERAMNIA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7672600099599044,model_units,
+IO,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+IO,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.8564654900293131,model_units,
+IO,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+IO,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.8443296242296422,model_units,
+IO,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+IO,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+IO,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+IO,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+IO,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+IO,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+ITOKAWA,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.1019393612730874296,model_units,
+ITOKAWA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7129100475078249,model_units,
+ITOKAWA,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.204673513044303992,model_units,
+ITOKAWA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7073681068055054,model_units,
+ITOKAWA,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.1019393612730874296,model_units,
+ITOKAWA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7129100475078249,model_units,
+ITOKAWA,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.1019393612730874296,model_units,
+ITOKAWA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7129100475078249,model_units,
+ITOKAWA,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.1019393612730874296,model_units,
+ITOKAWA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7129100475078249,model_units,
+IXION,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,19.10271318938942,model_units,
+IXION,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,626762446.5797112,model_units,
+IXION,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,16.247131371385267,model_units,
+IXION,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,398695569.12333344,model_units,
+IXION,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,19.10271318938942,model_units,
+IXION,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,626762446.5797112,model_units,
+IXION,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,19.10271318938942,model_units,
+IXION,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,626762446.5797112,model_units,
+IXION,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,19.10271318938942,model_units,
+IXION,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,626762446.5797112,model_units,
+JUNO,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.398693172243364516,model_units,
+JUNO,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7604705824365854,model_units,
+JUNO,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5245563230104029536,model_units,
+JUNO,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7393573706724584,model_units,
+JUNO,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.398693172243364516,model_units,
+JUNO,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7604705824365854,model_units,
+JUNO,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.398693172243364516,model_units,
+JUNO,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7604705824365854,model_units,
+JUNO,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.398693172243364516,model_units,
+JUNO,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7604705824365854,model_units,
+KERBEROS,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+KERBEROS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,40795122.84260992,model_units,
+KERBEROS,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+KERBEROS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,61042755.47187248,model_units,
+KERBEROS,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+KERBEROS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,40795122.84260992,model_units,
+KERBEROS,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+KERBEROS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,40795122.84260992,model_units,
+KERBEROS,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+KERBEROS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,40795122.84260992,model_units,
+KLEOPATRA,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.3987447148147678856,model_units,
+KLEOPATRA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.8161385932065905,model_units,
+KLEOPATRA,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.548345423931268628,model_units,
+KLEOPATRA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7420349127047558,model_units,
+KLEOPATRA,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.3987447148147678856,model_units,
+KLEOPATRA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.8161385932065905,model_units,
+KLEOPATRA,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.3987447148147678856,model_units,
+KLEOPATRA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.8161385932065905,model_units,
+KLEOPATRA,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.3987447148147678856,model_units,
+KLEOPATRA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.8161385932065905,model_units,
+LEUCUS,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.015523917865071274,model_units,
+LEUCUS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7939533825464252,model_units,
+LEUCUS,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.015195364686191818,model_units,
+LEUCUS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.9502779981746916,model_units,
+LEUCUS,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.015523917865071274,model_units,
+LEUCUS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7939533825464252,model_units,
+LEUCUS,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.015523917865071274,model_units,
+LEUCUS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7939533825464252,model_units,
+LEUCUS,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.015523917865071274,model_units,
+LEUCUS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7939533825464252,model_units,
+LUTETIA,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.401528953173393708,model_units,
+LUTETIA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7410026879700911,model_units,
+LUTETIA,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5042535942850523856,model_units,
+LUTETIA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7255420028850657,model_units,
+LUTETIA,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.401528953173393708,model_units,
+LUTETIA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7410026879700911,model_units,
+LUTETIA,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.401528953173393708,model_units,
+LUTETIA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7410026879700911,model_units,
+LUTETIA,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.401528953173393708,model_units,
+LUTETIA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7410026879700911,model_units,
+MAKEMAKE,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,55051.37599752657,model_units,
+MAKEMAKE,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,7771504290314557,model_units,
+MAKEMAKE,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,52164.543799563586,model_units,
+MAKEMAKE,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,7586975167955005,model_units,
+MAKEMAKE,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,55051.37599752657,model_units,
+MAKEMAKE,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,7771504290314557,model_units,
+MAKEMAKE,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,55051.37599752657,model_units,
+MAKEMAKE,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,7771504290314557,model_units,
+MAKEMAKE,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,55051.37599752657,model_units,
+MAKEMAKE,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,7771504290314557,model_units,
+MARS,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2209987553029269768,model_units,
+MARS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7083523157123556,model_units,
+MARS,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2533365732737350072,model_units,
+MARS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7179989756727257,model_units,
+MARS,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2209987553029269768,model_units,
+MARS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7083523157123556,model_units,
+MARS,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2209987553029269768,model_units,
+MARS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7083523157123556,model_units,
+MARS,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2209987553029269768,model_units,
+MARS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7083523157123556,model_units,
+MATHILDE,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.3810122562888255904,model_units,
+MATHILDE,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7936187483302453,model_units,
+MATHILDE,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5680009002397014752,model_units,
+MATHILDE,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7313042521900723,model_units,
+MATHILDE,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.3810122562888255904,model_units,
+MATHILDE,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7936187483302453,model_units,
+MATHILDE,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.3810122562888255904,model_units,
+MATHILDE,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7936187483302453,model_units,
+MATHILDE,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.3810122562888255904,model_units,
+MATHILDE,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7936187483302453,model_units,
+MERCURY,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4761198997746917464,model_units,
+MERCURY,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.9259615415507438,model_units,
+MERCURY,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4625145832915596168,model_units,
+MERCURY,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.9066633113365463,model_units,
+MERCURY,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4761198997746917464,model_units,
+MERCURY,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.9259615415507438,model_units,
+MERCURY,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4761198997746917464,model_units,
+MERCURY,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.9259615415507438,model_units,
+MERCURY,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4761198997746917464,model_units,
+MERCURY,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.9259615415507438,model_units,
+MIMAS,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+MIMAS,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.9527142656654353,model_units,
+MIMAS,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+MIMAS,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.9188994525097792,model_units,
+MIMAS,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+MIMAS,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+MIMAS,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+MIMAS,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+MIMAS,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+MIMAS,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+MIRANDA,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+MIRANDA,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,22.30041972032444,model_units,
+MIRANDA,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+MIRANDA,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,19.531583799423084,model_units,
+MIRANDA,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+MIRANDA,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+MIRANDA,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+MIRANDA,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+MIRANDA,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+MIRANDA,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+MOON,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+MOON,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.7041845649714936,model_units,
+MOON,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+MOON,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.7041845649714936,model_units,
+MOON,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+MOON,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+MOON,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+MOON,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+MOON,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+MOON,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+MS4,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,1764.4637314999177,model_units,
+MS4,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,5958957321423.906,model_units,
+MS4,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,1926.0420167519565,model_units,
+MS4,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,5142046756021.322,model_units,
+MS4,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,1764.4637314999177,model_units,
+MS4,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,5958957321423.906,model_units,
+MS4,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,1764.4637314999177,model_units,
+MS4,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,5958957321423.906,model_units,
+MS4,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,1764.4637314999177,model_units,
+MS4,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,5958957321423.906,model_units,
+NEREID,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+NEREID,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,309438.4505641659,model_units,
+NEREID,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+NEREID,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,381211.3723717114,model_units,
+NEREID,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+NEREID,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+NEREID,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+NEREID,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+NEREID,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+NEREID,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+NIX,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+NIX,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,40469065.53304545,model_units,
+NIX,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+NIX,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,60535712.14852003,model_units,
+NIX,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+NIX,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,40469065.53304545,model_units,
+NIX,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+NIX,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,40469065.53304545,model_units,
+NIX,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+NIX,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,40469065.53304545,model_units,
+OBERON,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+OBERON,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,36.591951863741646,model_units,
+OBERON,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+OBERON,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,33.32315202395446,model_units,
+OBERON,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+OBERON,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+OBERON,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+OBERON,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+OBERON,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+OBERON,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+ORCUS,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,51710.9645784749,model_units,
+ORCUS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,6766198740267.5,model_units,
+ORCUS,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,52059.27169222146,model_units,
+ORCUS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,6596379115027.497,model_units,
+ORCUS,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,51710.9645784749,model_units,
+ORCUS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,6766198740267.5,model_units,
+ORCUS,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,51710.9645784749,model_units,
+ORCUS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,6766198740267.5,model_units,
+ORCUS,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,51710.9645784749,model_units,
+ORCUS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,6766198740267.5,model_units,
+ORUS,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.64960641356247158,model_units,
+ORUS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7824358796376939,model_units,
+ORUS,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.6534325605749425784,model_units,
+ORUS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7808360006622709,model_units,
+ORUS,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.64960641356247158,model_units,
+ORUS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7824358796376939,model_units,
+ORUS,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.64960641356247158,model_units,
+ORUS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7824358796376939,model_units,
+ORUS,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.64960641356247158,model_units,
+ORUS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7824358796376939,model_units,
+OUMUAMUA,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,263522606083.76475,model_units,
+OUMUAMUA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.6743653968179588E+21,model_units,
+OUMUAMUA,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,37917794079.985566,model_units,
+OUMUAMUA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,4.948727325244453E+22,model_units,
+OUMUAMUA,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,263522606083.76475,model_units,
+OUMUAMUA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.6743653968179588E+21,model_units,
+OUMUAMUA,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,263522606083.76475,model_units,
+OUMUAMUA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.6743653968179588E+21,model_units,
+OUMUAMUA,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,263522606083.76475,model_units,
+OUMUAMUA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.6743653968179588E+21,model_units,
+PALLAS,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4254764325928999944,model_units,
+PALLAS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.2115001907184787,model_units,
+PALLAS,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.641092927869174124,model_units,
+PALLAS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.0482014386584225,model_units,
+PALLAS,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4254764325928999944,model_units,
+PALLAS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.2115001907184787,model_units,
+PALLAS,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4254764325928999944,model_units,
+PALLAS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.2115001907184787,model_units,
+PALLAS,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4254764325928999944,model_units,
+PALLAS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.2115001907184787,model_units,
+PATROCLUS,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.13308028832653852,model_units,
+PATROCLUS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,2.101279085222658,model_units,
+PATROCLUS,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.032612486855759464,model_units,
+PATROCLUS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.0141768384920928,model_units,
+PATROCLUS,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.13308028832653852,model_units,
+PATROCLUS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,2.101279085222658,model_units,
+PATROCLUS,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.13308028832653852,model_units,
+PATROCLUS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,2.101279085222658,model_units,
+PATROCLUS,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.13308028832653852,model_units,
+PATROCLUS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,2.101279085222658,model_units,
+PHOBOS,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+PHOBOS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7068327485786549,model_units,
+PHOBOS,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+PHOBOS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7134901377744045,model_units,
+PHOBOS,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+PHOBOS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7068327485786549,model_units,
+PHOBOS,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+PHOBOS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7068327485786549,model_units,
+PHOBOS,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+PHOBOS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7068327485786549,model_units,
+PHOEBE,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+PHOEBE,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.8596680071514212,model_units,
+PHOEBE,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+PHOEBE,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.8372798438559784,model_units,
+PHOEBE,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+PHOEBE,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+PHOEBE,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+PHOEBE,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+PHOEBE,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+PHOEBE,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+PLUTO,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,12.16980601199592,model_units,
+PLUTO,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,44669372.4284115,model_units,
+PLUTO,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,13.803442146123821,model_units,
+PLUTO,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,67081712.42467608,model_units,
+PLUTO,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,12.16980601199592,model_units,
+PLUTO,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,44669372.4284115,model_units,
+PLUTO,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,12.16980601199592,model_units,
+PLUTO,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,44669372.4284115,model_units,
+PLUTO,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,12.16980601199592,model_units,
+PLUTO,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,44669372.4284115,model_units,
+POLYMELE,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.017780066172377683,model_units,
+POLYMELE,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.9274079749589912,model_units,
+POLYMELE,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.03584544731795178,model_units,
+POLYMELE,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.0893737848144302,model_units,
+POLYMELE,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.017780066172377683,model_units,
+POLYMELE,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.9274079749589912,model_units,
+POLYMELE,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.017780066172377683,model_units,
+POLYMELE,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.9274079749589912,model_units,
+POLYMELE,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,0.017780066172377683,model_units,
+POLYMELE,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.9274079749589912,model_units,
+PROTEUS,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+PROTEUS,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,13751.150534916129,model_units,
+PROTEUS,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+PROTEUS,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,15012.991422260137,model_units,
+PROTEUS,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+PROTEUS,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+PROTEUS,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+PROTEUS,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+PROTEUS,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+PROTEUS,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+PSYCHE,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5293112625343179024,model_units,
+PSYCHE,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7351397978494385,model_units,
+PSYCHE,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5203362280016098744,model_units,
+PSYCHE,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7356378748961365,model_units,
+PSYCHE,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5293112625343179024,model_units,
+PSYCHE,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7351397978494385,model_units,
+PSYCHE,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5293112625343179024,model_units,
+PSYCHE,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7351397978494385,model_units,
+PSYCHE,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5293112625343179024,model_units,
+PSYCHE,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7351397978494385,model_units,
+QUAOAR,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,36.40085593530952,model_units,
+QUAOAR,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,4326292220.68595,model_units,
+QUAOAR,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,36.41821969741595,model_units,
+QUAOAR,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,4300835160.487842,model_units,
+QUAOAR,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,36.40085593530952,model_units,
+QUAOAR,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,4326292220.68595,model_units,
+QUAOAR,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,36.40085593530952,model_units,
+QUAOAR,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,4326292220.68595,model_units,
+QUAOAR,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,36.40085593530952,model_units,
+QUAOAR,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,4326292220.68595,model_units,
+RHEA,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+RHEA,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.831781582655214,model_units,
+RHEA,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+RHEA,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.8140478174616184,model_units,
+RHEA,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+RHEA,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+RHEA,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+RHEA,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+RHEA,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+RHEA,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+RYUGU,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2593137192741775864,model_units,
+RYUGU,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7079313067912598,model_units,
+RYUGU,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.1738256454066349264,model_units,
+RYUGU,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7119901043646024,model_units,
+RYUGU,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2593137192741775864,model_units,
+RYUGU,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7079313067912598,model_units,
+RYUGU,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2593137192741775864,model_units,
+RYUGU,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7079313067912598,model_units,
+RYUGU,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2593137192741775864,model_units,
+RYUGU,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7079313067912598,model_units,
+SALACIA,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,36846.89849842315,model_units,
+SALACIA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,19430952428802.71,model_units,
+SALACIA,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,59378.51610816907,model_units,
+SALACIA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,22035160076807.9,model_units,
+SALACIA,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,36846.89849842315,model_units,
+SALACIA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,19430952428802.71,model_units,
+SALACIA,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,36846.89849842315,model_units,
+SALACIA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,19430952428802.71,model_units,
+SALACIA,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,36846.89849842315,model_units,
+SALACIA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,19430952428802.71,model_units,
+SEDNA,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,17323002526.67755,model_units,
+SEDNA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.7750730243491295E+28,model_units,
+SEDNA,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,14274652627.732505,model_units,
+SEDNA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,7.2058426606752E+27,model_units,
+SEDNA,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,17323002526.67755,model_units,
+SEDNA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.7750730243491295E+28,model_units,
+SEDNA,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,17323002526.67755,model_units,
+SEDNA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.7750730243491295E+28,model_units,
+SEDNA,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,17323002526.67755,model_units,
+SEDNA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,1.7750730243491295E+28,model_units,
+SELAM,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+SELAM,rendezvous,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,Exact-year saved row(s) are not PRICED_TEST_ONLY (rendezvous_v2_90=UNPRICED); source reasons: rendezvous_v2_90:PARENT_GM_MISSING.
+SELAM,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+SELAM,rendezvous,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,Exact-year saved row(s) are not PRICED_TEST_ONLY (rendezvous_v2_90=UNPRICED); source reasons: rendezvous_v2_90:PARENT_GM_MISSING.
+SELAM,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+SELAM,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+SELAM,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+SELAM,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+SELAM,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+SELAM,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+STEINS,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4651850984444081784,model_units,
+STEINS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.777485140255888,model_units,
+STEINS,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.473673087475912156,model_units,
+STEINS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7356648419436802,model_units,
+STEINS,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4651850984444081784,model_units,
+STEINS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.777485140255888,model_units,
+STEINS,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4651850984444081784,model_units,
+STEINS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.777485140255888,model_units,
+STEINS,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4651850984444081784,model_units,
+STEINS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.777485140255888,model_units,
+STYX,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+STYX,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,40199382.82647385,model_units,
+STYX,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+STYX,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,60116479.644795384,model_units,
+STYX,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+STYX,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,40199382.82647385,model_units,
+STYX,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+STYX,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,40199382.82647385,model_units,
+STYX,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+STYX,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,40199382.82647385,model_units,
+SWIFTTUTTLE,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,5742050.254883641,model_units,
+SWIFTTUTTLE,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,423040047892.73605,model_units,
+SWIFTTUTTLE,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,156192637.85689533,model_units,
+SWIFTTUTTLE,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,513699498134.3723,model_units,
+SWIFTTUTTLE,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,5742050.254883641,model_units,
+SWIFTTUTTLE,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,423040047892.73605,model_units,
+SWIFTTUTTLE,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,5742050.254883641,model_units,
+SWIFTTUTTLE,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,423040047892.73605,model_units,
+SWIFTTUTTLE,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,5742050.254883641,model_units,
+SWIFTTUTTLE,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,423040047892.73605,model_units,
+TEMPEL1,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.335297290940935232,model_units,
+TEMPEL1,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.797919772737346,model_units,
+TEMPEL1,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.6508618350780022792,model_units,
+TEMPEL1,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7486378078558363,model_units,
+TEMPEL1,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.335297290940935232,model_units,
+TEMPEL1,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.797919772737346,model_units,
+TEMPEL1,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.335297290940935232,model_units,
+TEMPEL1,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.797919772737346,model_units,
+TEMPEL1,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.335297290940935232,model_units,
+TEMPEL1,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.797919772737346,model_units,
+TETHYS,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+TETHYS,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.8712299887803813,model_units,
+TETHYS,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+TETHYS,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.8483069617496152,model_units,
+TETHYS,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+TETHYS,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+TETHYS,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+TETHYS,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+TETHYS,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+TETHYS,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+THEMIS,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5442718985930632856,model_units,
+THEMIS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.728490794038809,model_units,
+THEMIS,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5170031826702133728,model_units,
+THEMIS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7280383642372835,model_units,
+THEMIS,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5442718985930632856,model_units,
+THEMIS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.728490794038809,model_units,
+THEMIS,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5442718985930632856,model_units,
+THEMIS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.728490794038809,model_units,
+THEMIS,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5442718985930632856,model_units,
+THEMIS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.728490794038809,model_units,
+TITAN,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+TITAN,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.8164705635884638,model_units,
+TITAN,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+TITAN,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,0.8006232205500823,model_units,
+TITAN,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+TITAN,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+TITAN,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+TITAN,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+TITAN,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+TITAN,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+TITANIA,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+TITANIA,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,38.39863858088452,model_units,
+TITANIA,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+TITANIA,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,35.10242324634314,model_units,
+TITANIA,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+TITANIA,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+TITANIA,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+TITANIA,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+TITANIA,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+TITANIA,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+TOUTATIS,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.3987212272436712856,model_units,
+TOUTATIS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7139310288421353,model_units,
+TOUTATIS,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.1259795551693931872,model_units,
+TOUTATIS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7230183674758496,model_units,
+TOUTATIS,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.3987212272436712856,model_units,
+TOUTATIS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7139310288421353,model_units,
+TOUTATIS,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.3987212272436712856,model_units,
+TOUTATIS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7139310288421353,model_units,
+TOUTATIS,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.3987212272436712856,model_units,
+TOUTATIS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7139310288421353,model_units,
+TRITON,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+TRITON,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,46413.558897984664,model_units,
+TRITON,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+TRITON,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,53639.808997605016,model_units,
+TRITON,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+TRITON,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+TRITON,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+TRITON,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+TRITON,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+TRITON,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+UMBRIEL,flyby,2026,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+UMBRIEL,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,42.54870973230616,model_units,
+UMBRIEL,flyby,2027,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+UMBRIEL,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,lowest_price_usd,USD,39.198342656314644,model_units,
+UMBRIEL,flyby,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+UMBRIEL,rendezvous,2035,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+UMBRIEL,flyby,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+UMBRIEL,rendezvous,2036,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+UMBRIEL,flyby,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,No saved row for this body and mission type in any supplied quote source.
+UMBRIEL,rendezvous,2226,UNPRICED,NONE,,UNPRICED,,UNPRICED,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+VARUNA,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,169.04371720827765,model_units,
+VARUNA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,113462389221.14295,model_units,
+VARUNA,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,166.28736075654016,model_units,
+VARUNA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,119822902266.80906,model_units,
+VARUNA,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,169.04371720827765,model_units,
+VARUNA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,113462389221.14295,model_units,
+VARUNA,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,169.04371720827765,model_units,
+VARUNA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,113462389221.14295,model_units,
+VARUNA,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,launch_cost_usd,USD,169.04371720827765,model_units,
+VARUNA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,113462389221.14295,model_units,
+VENUS,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2042410815661082512,model_units,
+VENUS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7103524839666251,model_units,
+VENUS,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.3521105398844409896,model_units,
+VENUS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7121964580882537,model_units,
+VENUS,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2042410815661082512,model_units,
+VENUS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7103524839666251,model_units,
+VENUS,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2042410815661082512,model_units,
+VENUS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7103524839666251,model_units,
+VENUS,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.2042410815661082512,model_units,
+VENUS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7103524839666251,model_units,
+VESTA,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4571306899753474368,model_units,
+VESTA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7205183527461759,model_units,
+VESTA,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4062146007491012104,model_units,
+VESTA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7580663969718097,model_units,
+VESTA,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4571306899753474368,model_units,
+VESTA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7205183527461759,model_units,
+VESTA,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4571306899753474368,model_units,
+VESTA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7205183527461759,model_units,
+VESTA,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4571306899753474368,model_units,
+VESTA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7205183527461759,model_units,
+WILD2,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5177649604837981152,model_units,
+WILD2,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7262671870447943,model_units,
+WILD2,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.4095383233215086,model_units,
+WILD2,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7358016819169891,model_units,
+WILD2,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5177649604837981152,model_units,
+WILD2,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7262671870447943,model_units,
+WILD2,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5177649604837981152,model_units,
+WILD2,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7262671870447943,model_units,
+WILD2,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,lowest_price_usd,USD,0.5177649604837981152,model_units,
+WILD2,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,total_usd,USD,0.7262671870447943,model_units,
