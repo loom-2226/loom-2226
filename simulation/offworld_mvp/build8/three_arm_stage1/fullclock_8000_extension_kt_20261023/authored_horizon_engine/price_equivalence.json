@@ -1,0 +1,25 @@
+[
+  {
+    "body": "VENUS",
+    "old_sha256": "afd617d533521248533845da17d9f252df8e2802cd3acdb756966e24cfa5e5e9",
+    "copy_sha256": "afd617d533521248533845da17d9f252df8e2802cd3acdb756966e24cfa5e5e9",
+    "equal": true
+  },
+  {
+    "body": "TITAN",
+    "old_sha256": "9ecd6e158769c98fded7d965359c413a68a1dd47ba3e416a69af0aa741de80f1",
+    "copy_sha256": "3e537df8cf488d69d3d816baf39d2a96bed25158a2e4df1d40d1355b8430c87f",
+    "equal": false,
+    "first_difference": {
+      "field": "status",
+      "old": "UNPRICED",
+      "copy": "PRICED"
+    }
+  },
+  {
+    "body": "ERIS",
+    "old_sha256": "c5c0528956e9fd0f106c133b0fa1f3e54adf10a678513f8006d45f807549197e",
+    "copy_sha256": "c5c0528956e9fd0f106c133b0fa1f3e54adf10a678513f8006d45f807549197e",
+    "equal": true
+  }
+]

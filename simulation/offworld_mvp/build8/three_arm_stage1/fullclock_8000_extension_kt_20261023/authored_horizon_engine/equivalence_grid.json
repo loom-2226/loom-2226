@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "comparison": "exact SHA256 of full flight-grid arrays, no tolerance",
+  "step_days": [
+    0.25,
+    1.0,
+    10.0,
+    30.0
+  ],
+  "limits_integer_days": "46..5000",
+  "comparisons": 19820,
+  "aggregate_sha256": "32b5c5f6994685711e41bdf8a50a05ce0f67c29bcc4aed801a99ba1776a64483",
+  "scope_limit": "grid only, not yet price equivalence across sample bodies",
+  "scenario_sha256": "e961912cbb1780077bfff77a8663b1f492f23d1e58b425b968a52614660b0c82"
+}

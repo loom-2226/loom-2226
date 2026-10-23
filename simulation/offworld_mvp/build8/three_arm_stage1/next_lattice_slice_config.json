@@ -1,0 +1,19 @@
+{
+  "benchmark_body_rule": "LEXICOGRAPHIC_FIRST_BUILT_NON_SLOW_BODY",
+  "benchmark_measurement_departure_rule": "SECOND_AUTHORED_COARSE_DEPARTURE",
+  "benchmark_runs_per_path": 5,
+  "benchmark_warmup_departure_rule": "FIRST_AUTHORED_COARSE_DEPARTURE",
+  "body_selection_rule": "FROM_SURVEY_STATUS",
+  "build_budget_seconds": 2400,
+  "build_selection_rule": "EXPLICIT_BODY_ARGUMENT_QUALIFIED_AGAINST_SURVEY",
+  "chunk_ticks": 1000,
+  "classification": "TEST_ONLY_NONCANON_NONRUNTIME",
+  "fast_body_validation": "ALL_TICKS_BITWISE",
+  "lattice_source_config": "first_lattice_slice_config.json",
+  "output_root": "/home/ubuntu/LOOM-output/stage1_destination_lattice_first_slice",
+  "rebuild_output_root": "/home/ubuntu/LOOM-output/stage1_destination_lattice_direct_time_rebuild",
+  "survey_output_file": "state_survey_measured.json",
+  "survey_output_sha256": "5586be67dcaf934a91284f1892b04ce54a7c4771d5bf9e2aa5918a444b26d05d",
+  "validation_sample_count_per_table": 1000,
+  "validation_selection_rule": "SORTED_EVENLY_SPACED_INTEGER_INDICES_INCLUDE_FIRST_MID_LAST"
+}

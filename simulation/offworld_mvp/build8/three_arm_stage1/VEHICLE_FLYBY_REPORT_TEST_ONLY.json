@@ -1,0 +1,415 @@
+{
+  "authored_input": {
+    "arrival_speed_limit": null,
+    "classification": "AUTHORED_BY_KT_TEST_ONLY_NONCANON",
+    "departure_lattice": "EXISTING_AUTHORED_COARSE_AND_REFINEMENT_DATES_UNCHANGED",
+    "departure_speed_limit": null,
+    "dry_mass_fraction_dry_over_dry_plus_propellant": "0.10",
+    "earth_constant_source": "src/loom_solar_gis.py:93 REFERENCE_PHYSICAL_CONSTANTS EA; provisional engineering reference; NOT KERNEL CONSTANTS",
+    "earth_mean_radius_km": "6371.0084",
+    "earth_mu_km3_s2": "398600.4355",
+    "fixed_mission_cost_usd": "700000000",
+    "flight_range_days": "EXISTING_AUTHORED_45_TO_1400_UNCHANGED",
+    "hydrolox_exhaust_velocity_km_s": "4.4",
+    "launch_cost_held_after_year": 2035,
+    "launch_cost_usd_per_kg_leo": "4000",
+    "launch_cost_year_base": 2026,
+    "mission_type": "flyby",
+    "parking_orbit_altitude_km": "300",
+    "payload_kg": "400",
+    "proxy_usd_millions_per_km_s": "72.269449528",
+    "route1_A2": "UNCHANGED",
+    "route1_cash_and_financier": "UNCHANGED",
+    "route1_ceilings_enabled": false,
+    "route1_control_sha256": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430",
+    "route1_held_rule": "2026 FOR YEARS OUTSIDE 2026_AND_2027",
+    "stage_model": "serial stages; identical dry/(dry+propellant); stage dry mass discarded; equal stage delta-v minimizes initial mass for fixed number of stages; no manufacturing or staging costs authored",
+    "stage_rule": "MINIMUM_POSITIVE_INTEGER_WITH_EACH_STAGE_DRY_FRACTION_AND_EQUAL_OPTIMAL_IDEAL_DELTA_V; NO STAGE CAP",
+    "years": [
+      2026,
+      2027
+    ]
+  },
+  "authored_sha256": "1a45564a1efb9f6bb134f00d43d05aa763ce71f99a34a9ee79029f0e97eae167",
+  "blocked_attempts": 52440,
+  "blockers": {
+    "ACTUAL_SPONSOR_CASH": 52222,
+    "FINANCIER_CONCENTRATION": 218
+  },
+  "classification": "KT_AUTHORED_TEST_ONLY_NONCANON",
+  "control_sha256": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430",
+  "former_23_first_funded": {
+    "ARROKOTH": {
+      "blockers": {},
+      "funded": true,
+      "price_model_units": "58.94722875612214",
+      "sponsor": "ISRO",
+      "year": 2083
+    },
+    "ATLAS3I": {
+      "blockers": {
+        "ACTUAL_SPONSOR_CASH": 3820
+      },
+      "funded": false,
+      "price_model_units": null,
+      "sponsor": null,
+      "year": null
+    },
+    "BORISOV": {
+      "blockers": {
+        "ACTUAL_SPONSOR_CASH": 3820
+      },
+      "funded": false,
+      "price_model_units": null,
+      "sponsor": null,
+      "year": null
+    },
+    "CHIRON": {
+      "blockers": {},
+      "funded": true,
+      "price_model_units": "0.7367757682668307",
+      "sponsor": "ISRO",
+      "year": 2036
+    },
+    "COMET_HALLEY": {
+      "blockers": {},
+      "funded": true,
+      "price_model_units": "13.19879642094347",
+      "sponsor": "CNSA",
+      "year": 2036
+    },
+    "ERIS": {
+      "blockers": {
+        "ACTUAL_SPONSOR_CASH": 3820
+      },
+      "funded": false,
+      "price_model_units": null,
+      "sponsor": null,
+      "year": null
+    },
+    "EURYBATES": {
+      "blockers": {},
+      "funded": true,
+      "price_model_units": "0.7173753497988874",
+      "sponsor": "Blue Origin",
+      "year": 2036
+    },
+    "GONGGONG": {
+      "blockers": {
+        "ACTUAL_SPONSOR_CASH": 3820
+      },
+      "funded": false,
+      "price_model_units": null,
+      "sponsor": null,
+      "year": null
+    },
+    "HAUMEA": {
+      "blockers": {
+        "ACTUAL_SPONSOR_CASH": 3820
+      },
+      "funded": false,
+      "price_model_units": null,
+      "sponsor": null,
+      "year": null
+    },
+    "IXION": {
+      "blockers": {},
+      "funded": true,
+      "price_model_units": "19.80271318938942",
+      "sponsor": "CNSA",
+      "year": 2057
+    },
+    "LEUCUS": {
+      "blockers": {},
+      "funded": true,
+      "price_model_units": "0.7155239178650713",
+      "sponsor": "Axiom",
+      "year": 2036
+    },
+    "MAKEMAKE": {
+      "blockers": {
+        "ACTUAL_SPONSOR_CASH": 3820
+      },
+      "funded": false,
+      "price_model_units": null,
+      "sponsor": null,
+      "year": null
+    },
+    "MS4": {
+      "blockers": {
+        "ACTUAL_SPONSOR_CASH": 3820
+      },
+      "funded": false,
+      "price_model_units": null,
+      "sponsor": null,
+      "year": null
+    },
+    "ORCUS": {
+      "blockers": {
+        "ACTUAL_SPONSOR_CASH": 3820
+      },
+      "funded": false,
+      "price_model_units": null,
+      "sponsor": null,
+      "year": null
+    },
+    "OUMUAMUA": {
+      "blockers": {
+        "ACTUAL_SPONSOR_CASH": 3820
+      },
+      "funded": false,
+      "price_model_units": null,
+      "sponsor": null,
+      "year": null
+    },
+    "PATROCLUS": {
+      "blockers": {},
+      "funded": true,
+      "price_model_units": "0.8330802883265386",
+      "sponsor": "SpaceX",
+      "year": 2036
+    },
+    "PLUTO": {
+      "blockers": {},
+      "funded": true,
+      "price_model_units": "12.86980601199592",
+      "sponsor": "CNSA",
+      "year": 2045
+    },
+    "POLYMELE": {
+      "blockers": {},
+      "funded": true,
+      "price_model_units": "0.7177800661723777",
+      "sponsor": "CNSA",
+      "year": 2036
+    },
+    "QUAOAR": {
+      "blockers": {},
+      "funded": true,
+      "price_model_units": "37.10085593530952",
+      "sponsor": "CNSA",
+      "year": 2067
+    },
+    "SALACIA": {
+      "blockers": {
+        "ACTUAL_SPONSOR_CASH": 3820
+      },
+      "funded": false,
+      "price_model_units": null,
+      "sponsor": null,
+      "year": null
+    },
+    "SEDNA": {
+      "blockers": {
+        "ACTUAL_SPONSOR_CASH": 3820
+      },
+      "funded": false,
+      "price_model_units": null,
+      "sponsor": null,
+      "year": null
+    },
+    "SWIFTTUTTLE": {
+      "blockers": {
+        "ACTUAL_SPONSOR_CASH": 3820
+      },
+      "funded": false,
+      "price_model_units": null,
+      "sponsor": null,
+      "year": null
+    },
+    "VARUNA": {
+      "blockers": {},
+      "funded": true,
+      "price_model_units": "169.74371720827765",
+      "sponsor": "ISRO",
+      "year": 2171
+    }
+  },
+  "funded_bodies": 78,
+  "funded_stages": 211,
+  "geometry_body_years": 118,
+  "geometry_csv_sha256": "41b96b0d0376fc7742287890bbb779ce5679c6053d639a6a00167b7e7943f759",
+  "geometry_departures": 3731,
+  "geometry_differences_against_old_priced": [],
+  "geometry_seconds": 652.7253024189267,
+  "hand_tests": [
+    {
+      "actual": {
+        "departure_vinf_km_s": 10.0,
+        "fixed_mission_cost_usd": 700000000.0,
+        "launch_cost_usd": 14427506.678189019,
+        "leo_injection_delta_v_km_s": 7.085723212271492,
+        "mass_in_leo_kg": 3606.8766695472546,
+        "model_units": "0.714427506678189",
+        "stages": 1,
+        "total_usd": 714427506.678189
+      },
+      "expected_mass_kg_approx": 3600,
+      "expected_stage_count": 1,
+      "mass_ratio_actual_to_expected": 1.0019101859853485,
+      "stage_count_matches": true,
+      "vinf_km_s": 10
+    },
+    {
+      "actual": {
+        "departure_vinf_km_s": 20.0,
+        "fixed_mission_cost_usd": 700000000.0,
+        "launch_cost_usd": 199675711.74978253,
+        "leo_injection_delta_v_km_s": 15.062706254050262,
+        "mass_in_leo_kg": 49918.92793744563,
+        "model_units": "0.8996757117497826",
+        "stages": 2,
+        "total_usd": 899675711.7497826
+      },
+      "expected_mass_kg_approx": 50000,
+      "expected_stage_count": 2,
+      "mass_ratio_actual_to_expected": 0.9983785587489126,
+      "stage_count_matches": true,
+      "vinf_km_s": 20
+    },
+    {
+      "actual": {
+        "departure_vinf_km_s": 30.0,
+        "fixed_mission_cost_usd": 700000000.0,
+        "launch_cost_usd": 5431805504.78807,
+        "leo_injection_delta_v_km_s": 24.199759235336188,
+        "mass_in_leo_kg": 1357951.3761970175,
+        "model_units": "6.13180550478807",
+        "stages": 3,
+        "total_usd": 6131805504.78807
+      },
+      "expected_mass_kg_approx": 1360000,
+      "expected_stage_count": 3,
+      "mass_ratio_actual_to_expected": 0.9984936589683953,
+      "stage_count_matches": true,
+      "vinf_km_s": 30
+    }
+  ],
+  "never_funded": [
+    "ATLAS3I",
+    "BORISOV",
+    "ERIS",
+    "GONGGONG",
+    "HAUMEA",
+    "MAKEMAKE",
+    "MS4",
+    "ORCUS",
+    "OUMUAMUA",
+    "SALACIA",
+    "SEDNA",
+    "SWIFTTUTTLE"
+  ],
+  "never_funded_blockers": {
+    "ATLAS3I": {
+      "ACTUAL_SPONSOR_CASH": 3820
+    },
+    "BORISOV": {
+      "ACTUAL_SPONSOR_CASH": 3820
+    },
+    "ERIS": {
+      "ACTUAL_SPONSOR_CASH": 3820
+    },
+    "GONGGONG": {
+      "ACTUAL_SPONSOR_CASH": 3820
+    },
+    "HAUMEA": {
+      "ACTUAL_SPONSOR_CASH": 3820
+    },
+    "MAKEMAKE": {
+      "ACTUAL_SPONSOR_CASH": 3820
+    },
+    "MS4": {
+      "ACTUAL_SPONSOR_CASH": 3820
+    },
+    "ORCUS": {
+      "ACTUAL_SPONSOR_CASH": 3820
+    },
+    "OUMUAMUA": {
+      "ACTUAL_SPONSOR_CASH": 3820
+    },
+    "SALACIA": {
+      "ACTUAL_SPONSOR_CASH": 3820
+    },
+    "SEDNA": {
+      "ACTUAL_SPONSOR_CASH": 3820
+    },
+    "SWIFTTUTTLE": {
+      "ACTUAL_SPONSOR_CASH": 3820
+    }
+  },
+  "peak_rss_bytes": 552390656,
+  "prices_csv_sha256": "2a36b2ef103480c7b8624b86d6910becd69472ad78913ec2ea60141e64643b73",
+  "route1_seconds": 26.84701578388922,
+  "run_identity": {
+    "authored_input": {
+      "arrival_speed_limit": null,
+      "classification": "AUTHORED_BY_KT_TEST_ONLY_NONCANON",
+      "departure_lattice": "EXISTING_AUTHORED_COARSE_AND_REFINEMENT_DATES_UNCHANGED",
+      "departure_speed_limit": null,
+      "dry_mass_fraction_dry_over_dry_plus_propellant": "0.10",
+      "earth_constant_source": "src/loom_solar_gis.py:93 REFERENCE_PHYSICAL_CONSTANTS EA; provisional engineering reference; NOT KERNEL CONSTANTS",
+      "earth_mean_radius_km": "6371.0084",
+      "earth_mu_km3_s2": "398600.4355",
+      "fixed_mission_cost_usd": "700000000",
+      "flight_range_days": "EXISTING_AUTHORED_45_TO_1400_UNCHANGED",
+      "hydrolox_exhaust_velocity_km_s": "4.4",
+      "launch_cost_held_after_year": 2035,
+      "launch_cost_usd_per_kg_leo": "4000",
+      "launch_cost_year_base": 2026,
+      "mission_type": "flyby",
+      "parking_orbit_altitude_km": "300",
+      "payload_kg": "400",
+      "proxy_usd_millions_per_km_s": "72.269449528",
+      "route1_A2": "UNCHANGED",
+      "route1_cash_and_financier": "UNCHANGED",
+      "route1_ceilings_enabled": false,
+      "route1_control_sha256": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430",
+      "route1_held_rule": "2026 FOR YEARS OUTSIDE 2026_AND_2027",
+      "stage_model": "serial stages; identical dry/(dry+propellant); stage dry mass discarded; equal stage delta-v minimizes initial mass for fixed number of stages; no manufacturing or staging costs authored",
+      "stage_rule": "MINIMUM_POSITIVE_INTEGER_WITH_EACH_STAGE_DRY_FRACTION_AND_EQUAL_OPTIMAL_IDEAL_DELTA_V; NO STAGE CAP",
+      "years": [
+        2026,
+        2027
+      ]
+    },
+    "authored_input_sha256": "1a45564a1efb9f6bb134f00d43d05aa763ce71f99a34a9ee79029f0e97eae167",
+    "classification": "KT_AUTHORED_TEST_ONLY_NONCANON",
+    "geometry_policy": "TABLE_PATH_REUSE_PINNED_DEPARTURE_LATTICE_WITHOUT_SPEED_LIMITS",
+    "held_year": 2026,
+    "pricing_policy": "MINIMUM_DEPARTURE_VINF_PER_BODY_YEAR",
+    "source_sha256": {
+      "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/A_BODY_YEAR_REPORT_LIMITS.csv": "3ab7b2dc748c2ceebf98b198ab29420e315c94c526ef04f65cdd7a3841a8423e",
+      "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/A_VEHICLE_MISSION_PAIRS.csv": "72ebceab82626e2c6e2f595a83f67f8ee838e965ab8a0d4231ca20af045d38fd",
+      "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/RECOVERED_ARM_A_TABLE_CHECKPOINT_TEST_ONLY.json": "a697cfcfa7742c72b9083c3903f2e5d863002012b6ff63a4eba2c7094bc79b16",
+      "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/RECOVERED_ARM_A_TABLE_PAIRS_TEST_ONLY.csv": "9c857766148232e6d8ac5d71208eb191f4b9765aaa6ea3e80a53a5f1c4e69bed",
+      "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/RECOVERED_COMBINED_59_PINNED_QUOTES_TEST_ONLY.csv": "26c2689d45cdbccbf856a50ff39b7c3423614f7f472e25d44e8f06bb45413456",
+      "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/RECOVERED_PHASE4E_TABLE_MANIFEST_TEST_ONLY.json": "69704efe91305617cfae9731569634477517f7886ba7df80f49177eb2f4e78cf",
+      "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/experiment.json": "d8aa0e6370bb85d62f908e697519c5e48b804e40fbcf7d9b779c9ddadc1b98ec",
+      "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/run_recovered_tables_arm_a_test_only.py": "5faede16838d452a5c4de00ad700722e37e34f9c3336bca971dac9689ac649af",
+      "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/run_vehicle_flyby_test_only.py": "384214957c99c801f4da7d535320f1e4ba0424ac959635982a1198e75e5e0dd0",
+      "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/table_adapter.py": "659f007962a424b50727ae6b77b8a05a9ea79d2ac3c9f8176cf261808ba1e2c1",
+      "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/table_manifest.json": "b03091160bb18b5be06303bc6164cf38962ca104ad02545d31173180bc93f5dc",
+      "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/vehicle_flyby_cost_test_only.py": "917635f622894fa6f05e5a28b4a291cedcd85d0447a06e4005d3cb747a319e2d",
+      "src/loom_solar_gis.py": "73812ccf8e71d913798e8e3ebb25d64937ba4491e5540d09e5b7e80f646d4f0a"
+    }
+  },
+  "run_identity_sha256": "5006160050f4257a49e808f6fab033dd4bdeb27d4f88b5ac27271f3b1cf7c4e1",
+  "source_sha256": {
+    "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/A_BODY_YEAR_REPORT_LIMITS.csv": "3ab7b2dc748c2ceebf98b198ab29420e315c94c526ef04f65cdd7a3841a8423e",
+    "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/A_VEHICLE_MISSION_PAIRS.csv": "72ebceab82626e2c6e2f595a83f67f8ee838e965ab8a0d4231ca20af045d38fd",
+    "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/RECOVERED_ARM_A_TABLE_CHECKPOINT_TEST_ONLY.json": "a697cfcfa7742c72b9083c3903f2e5d863002012b6ff63a4eba2c7094bc79b16",
+    "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/RECOVERED_ARM_A_TABLE_PAIRS_TEST_ONLY.csv": "9c857766148232e6d8ac5d71208eb191f4b9765aaa6ea3e80a53a5f1c4e69bed",
+    "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/RECOVERED_COMBINED_59_PINNED_QUOTES_TEST_ONLY.csv": "26c2689d45cdbccbf856a50ff39b7c3423614f7f472e25d44e8f06bb45413456",
+    "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/RECOVERED_PHASE4E_TABLE_MANIFEST_TEST_ONLY.json": "69704efe91305617cfae9731569634477517f7886ba7df80f49177eb2f4e78cf",
+    "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/experiment.json": "d8aa0e6370bb85d62f908e697519c5e48b804e40fbcf7d9b779c9ddadc1b98ec",
+    "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/run_recovered_tables_arm_a_test_only.py": "5faede16838d452a5c4de00ad700722e37e34f9c3336bca971dac9689ac649af",
+    "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/run_vehicle_flyby_test_only.py": "384214957c99c801f4da7d535320f1e4ba0424ac959635982a1198e75e5e0dd0",
+    "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/table_adapter.py": "659f007962a424b50727ae6b77b8a05a9ea79d2ac3c9f8176cf261808ba1e2c1",
+    "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/table_manifest.json": "b03091160bb18b5be06303bc6164cf38962ca104ad02545d31173180bc93f5dc",
+    "/home/ubuntu/LOOM-output/.stage1_three_arm_20261018/simulation/offworld_mvp/build8/three_arm_stage1/vehicle_flyby_cost_test_only.py": "917635f622894fa6f05e5a28b4a291cedcd85d0447a06e4005d3cb747a319e2d",
+    "src/loom_solar_gis.py": "73812ccf8e71d913798e8e3ebb25d64937ba4491e5540d09e5b7e80f646d4f0a"
+  },
+  "spent_model_units": "434.5350141392697338",
+  "total_seconds": 695.5820480620023,
+  "variant_sha256": "577d1616ecfc1912052b3746b4f1d20c16dc3f435f24b067c68b26d1b6a62c5a"
+}

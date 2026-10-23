@@ -1,0 +1,181 @@
+{
+  "cases": [
+    {
+      "blocked_purchases_by_blocker": {},
+      "bodies_funded": 90,
+      "case": {
+        "ceilings_enabled": true,
+        "expected_stable_sha256": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430",
+        "infeasible_policy": "NOT_APPLICABLE",
+        "name": "control"
+      },
+      "cash_spent_model_currency": "3.735",
+      "charges_by_price_source": {
+        "CONTROL_UNMODIFIED": {
+          "cash_spent_model_currency": "3.735",
+          "count": 249
+        }
+      },
+      "funded_stages": 249,
+      "never_funded": [],
+      "peak_rss_bytes": 99323904,
+      "runtime_seconds": 20.870363814989105,
+      "stable_sha256": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430"
+    },
+    {
+      "blocked_purchases_by_blocker": {
+        "ACTUAL_SPONSOR_CASH": 37,
+        "FINANCIER_CONCENTRATION": 6
+      },
+      "bodies_funded": 90,
+      "case": {
+        "ceilings_enabled": false,
+        "infeasible_policy": "ABSTRACT_FALLBACK",
+        "name": "variant_abstract_fallback"
+      },
+      "cash_spent_model_currency": "27.9247392292036391656",
+      "charges_by_price_source": {
+        "ABSTRACT_FALLBACK": {
+          "cash_spent_model_currency": "1.455",
+          "count": 97
+        },
+        "HELD": {
+          "cash_spent_model_currency": "25.1197392292036391656",
+          "count": 62
+        },
+        "UNCHANGED_A2": {
+          "cash_spent_model_currency": "1.350",
+          "count": 90
+        }
+      },
+      "funded_stages": 249,
+      "never_funded": [],
+      "peak_rss_bytes": 100978688,
+      "runtime_seconds": 16.914441340137273,
+      "stable_sha256": "8c5f45e64ab6ad4f795d61ee2d835cf9334398be6322aa909b71c28861f6654d"
+    },
+    {
+      "blocked_purchases_by_blocker": {
+        "ACTUAL_SPONSOR_CASH": 22,
+        "FINANCIER_CONCENTRATION": 6,
+        "INFEASIBLE_FLYBY_QUOTE": 87860
+      },
+      "bodies_funded": 67,
+      "case": {
+        "ceilings_enabled": false,
+        "infeasible_policy": "BLOCK",
+        "name": "variant_block"
+      },
+      "cash_spent_model_currency": "26.9797392292036391656",
+      "charges_by_price_source": {
+        "ABSTRACT_FALLBACK": {
+          "cash_spent_model_currency": "0.855",
+          "count": 57
+        },
+        "HELD": {
+          "cash_spent_model_currency": "25.1197392292036391656",
+          "count": 62
+        },
+        "UNCHANGED_A2": {
+          "cash_spent_model_currency": "1.005",
+          "count": 67
+        }
+      },
+      "funded_stages": 186,
+      "never_funded": [
+        "ARROKOTH",
+        "ATLAS3I",
+        "BORISOV",
+        "CHIRON",
+        "COMET_HALLEY",
+        "ERIS",
+        "EURYBATES",
+        "GONGGONG",
+        "HAUMEA",
+        "IXION",
+        "LEUCUS",
+        "MAKEMAKE",
+        "MS4",
+        "ORCUS",
+        "OUMUAMUA",
+        "PATROCLUS",
+        "PLUTO",
+        "POLYMELE",
+        "QUAOAR",
+        "SALACIA",
+        "SEDNA",
+        "SWIFTTUTTLE",
+        "VARUNA"
+      ],
+      "never_funded_binding_limits": {
+        "ARROKOTH": "DEPARTURE_SPEED",
+        "ATLAS3I": "DEPARTURE_SPEED",
+        "BORISOV": "DEPARTURE_SPEED",
+        "CHIRON": "ORIGINAL_25_INFEASIBLE_LIMIT_UNSPECIFIED",
+        "COMET_HALLEY": "ORIGINAL_25_INFEASIBLE_LIMIT_UNSPECIFIED",
+        "ERIS": "ORIGINAL_25_INFEASIBLE_LIMIT_UNSPECIFIED",
+        "EURYBATES": "ORIGINAL_25_INFEASIBLE_LIMIT_UNSPECIFIED",
+        "GONGGONG": "DEPARTURE_SPEED",
+        "HAUMEA": "ORIGINAL_25_INFEASIBLE_LIMIT_UNSPECIFIED",
+        "IXION": "DEPARTURE_SPEED",
+        "LEUCUS": "DEPARTURE_SPEED",
+        "MAKEMAKE": "ORIGINAL_25_INFEASIBLE_LIMIT_UNSPECIFIED",
+        "MS4": "DEPARTURE_SPEED",
+        "ORCUS": "DEPARTURE_SPEED",
+        "OUMUAMUA": "DEPARTURE_SPEED",
+        "PATROCLUS": "ORIGINAL_25_INFEASIBLE_LIMIT_UNSPECIFIED",
+        "PLUTO": "ORIGINAL_25_INFEASIBLE_LIMIT_UNSPECIFIED",
+        "POLYMELE": "DEPARTURE_SPEED",
+        "QUAOAR": "DEPARTURE_SPEED",
+        "SALACIA": "DEPARTURE_SPEED",
+        "SEDNA": "DEPARTURE_SPEED",
+        "SWIFTTUTTLE": "DEPARTURE_SPEED",
+        "VARUNA": "DEPARTURE_SPEED"
+      },
+      "peak_rss_bytes": 334966784,
+      "runtime_seconds": 18.59637292311527,
+      "stable_sha256": "b9f5a360a133cddd651db16d0f03b9b9e8f596fdc0b0148a15891dea82790171"
+    }
+  ],
+  "classification": "TEST_ONLY_NON_CANON",
+  "elapsed_seconds": 56.50670600798912,
+  "near_misses": {
+    "LEUCUS": {
+      "abstract_fallback_funded": true,
+      "binding_limit": "DEPARTURE_SPEED",
+      "block_never_funded": true
+    },
+    "POLYMELE": {
+      "abstract_fallback_funded": true,
+      "binding_limit": "DEPARTURE_SPEED",
+      "block_never_funded": true
+    }
+  },
+  "peak_rss_bytes": 334966784,
+  "run_identity": {
+    "classification": "TEST_ONLY_NON_CANON",
+    "combined_quote_sha256": "26c2689d45cdbccbf856a50ff39b7c3423614f7f472e25d44e8f06bb45413456",
+    "input_sha256": "755fe325dce931fa042e8cbf2b121fdd31b355c7a30cf677356d5050b462e6fd",
+    "original_report_sha256": "38f53845722bf9e5ada3b98da1d2bb7a37353c276857e9c87251a7be131c0aaa",
+    "policy_cases": [
+      {
+        "ceilings_enabled": true,
+        "expected_stable_sha256": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430",
+        "infeasible_policy": "NOT_APPLICABLE",
+        "name": "control"
+      },
+      {
+        "ceilings_enabled": false,
+        "infeasible_policy": "ABSTRACT_FALLBACK",
+        "name": "variant_abstract_fallback"
+      },
+      {
+        "ceilings_enabled": false,
+        "infeasible_policy": "BLOCK",
+        "name": "variant_block"
+      }
+    ],
+    "quote_manifest_sha256": "e94b06527f1c5107db3929cf340ce5b65ba5b8d01b2e4ff3450040c2b61363d9"
+  },
+  "run_identity_sha256": "617f0c357c016820bb96460f932aa9c0ee87c088a2c491ba7943c7c0ed8bf183"
+}

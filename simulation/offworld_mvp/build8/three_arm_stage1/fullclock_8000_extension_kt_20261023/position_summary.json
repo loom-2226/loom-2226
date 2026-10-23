@@ -1,0 +1,23 @@
+{
+  "classification": "TEST_ONLY_NONCANON",
+  "required_last_date": "2057-11-25T00:00:00Z",
+  "priced_departures": "2026-01-01 through 2035-12-31",
+  "hold_after_2035": "2026 level",
+  "lattice_step_days": 0.25,
+  "body_count": 90,
+  "position_status": {
+    "PASS": 86,
+    "EXCLUDED": 4
+  },
+  "oracle_status": {
+    "PASS": 85,
+    "PENDING": 1,
+    "EXCLUDED": 4
+  },
+  "recovered_phase4e": 34,
+  "route1_control": {
+    "status": "PASS",
+    "hash": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430"
+  },
+  "database_sha256": "e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde"
+}

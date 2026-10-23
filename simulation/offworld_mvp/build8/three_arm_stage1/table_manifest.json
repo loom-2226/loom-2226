@@ -1,0 +1,110 @@
+{
+  "classification": "TEST_ONLY_NONCANON_NONRUNTIME",
+  "first": "2026-02-15T00:00:00Z",
+  "last": "2031-10-31T00:00:00Z",
+  "step_days": 0.25,
+  "survey_output_sha256": "5586be67dcaf934a91284f1892b04ce54a7c4771d5bf9e2aa5918a444b26d05d",
+  "table_root": "/home/ubuntu/LOOM-output/stage1_destination_lattice_first_slice",
+  "tables": {
+    "AMUN": {
+      "sha256": "b2fe96e9c4d4bfa555ef939b805aa03732237f567d756a665bff1bc73fc47d4d",
+      "source_sha256": "fd94f50e0504cd868d1926024474e3c6c6b12323252cf89a92c82151e0365f8d"
+    },
+    "ASTEROID_6178": {
+      "sha256": "b2c08c9e23d753d8a3dd92676ee65e17829958dd534889cadcf22c3ba124c1b4",
+      "source_sha256": "c8eafffe2fe946bace07b63784375717187ff57960a3c828ad27d1a9be65fa19"
+    },
+    "BENNU": {
+      "sha256": "3b67af18feae56b3e70f9f33c8f1112b0167dda159b96c34d12408bc88cdb5ce",
+      "source_sha256": "2e25094e62542f388071b43e6f7b794024ca3fa4e399306976ac62a1a5c3b48f"
+    },
+    "CERES": {
+      "sha256": "614ea8bca5111d04a30fca7859380f705991c81395f9c3b57255799b705ba283",
+      "source_sha256": "e90bf70280961d61f7b505a5d2a9c39abcc558d9a2442570e4c0e384aa9f0956"
+    },
+    "CHIRON": {
+      "sha256": "f12dfdbae0cb30cfb5a4f285d1f2d1b08f24c3c1f88b1f596ed344b53ef9d869",
+      "source_sha256": "908da67ff553f8960e373c4e1dbc6c0c9ca3b4898f4815e188da5578d40fd087"
+    },
+    "COMET_67P": {
+      "sha256": "6a72b6271993e25bf555df014da0dc2857942cdcadb07cba2b3c9dfe41fe76ec",
+      "source_sha256": "1d58cc508b21fc1e9a3d8b5b27e1ab49ba571f76504e94d3fc974b7c532422a3"
+    },
+    "COMET_HALLEY": {
+      "sha256": "67ea148c68e94574e810a619ae4fa55da132563d51c38ee79b2cb1b824ed7978",
+      "source_sha256": "800ecda4992fb5326c65c9a4e654f69cd376bf0e5f6f3c8a4a5b293013c05142"
+    },
+    "DIDYMOS": {
+      "sha256": "8f866e2cc0b57b96b53db5f25d71d1a222f20b9162d87d3c2828d4854c061027",
+      "source_sha256": "5c6cd5b808a403d5aac53718039bdb5552de80a50206da17b2f3dde9d2c34c88"
+    },
+    "ERIS": {
+      "sha256": "25c11a8e7bc9d6dcd6c9497dc261050551c55b558b256f2d6a0eff111799cbcb",
+      "source_sha256": "b326cd075e1bd5d1e896950fa79ac0ea811f3c943e502d57dce121afb4f9c9be"
+    },
+    "EROS": {
+      "sha256": "a4fe355abca49c892a7548761dd50b3d5a1b75b44b4efb380242b7d15b9084c0",
+      "source_sha256": "2aa37b1080a2e666e5bd5e3d02bee1fa6ac029b65d5aea70d6b24ff9c3c9cdcf"
+    },
+    "EURYBATES": {
+      "sha256": "22ca0e7cecde2451670e8e3a05e94dc63a9ffbe3865fc661f366267dad799567",
+      "source_sha256": "5266aeb0f71fb35bcdb10147afcaf19d27c47c3349fa1811b13bce1e555e9596"
+    },
+    "HAUMEA": {
+      "sha256": "8ba36533d433f9ab652ea55fb58da0ce0c8b3b7e2cab3102a31dcb7f5fb6416c",
+      "source_sha256": "ddde6c4fd28417fad930b3562649ad88aed58b33964cd77713011234b8841b43"
+    },
+    "HYGIEA": {
+      "sha256": "744eb8f6c57b6e19ac6b403f34ea50623ec758f33c945ce3e3d6ffa4c913380b",
+      "source_sha256": "1c0636bf10250cb86a2cb95c0515cbbe1dc1620dd16958ff7d14215a2b8a821d"
+    },
+    "ITOKAWA": {
+      "sha256": "9b8d62b8bfc34bdaedae24a8f8b6b5003280a6773720dbebb5b12d75360b63fc",
+      "source_sha256": "cc03dcd0d36261307f42b055ea3452279525b97ccac57c0a489d09ee5e2803ed"
+    },
+    "KLEOPATRA": {
+      "sha256": "b37d05ecc602d4d9283952cb0a7bbb8deedc89129866c6e770e2ea26646189e1",
+      "source_sha256": "011869dba26ace7c5b023485c05e9fe832a7d98d53be9753ad99b2882196441a"
+    },
+    "MAKEMAKE": {
+      "sha256": "ceddd250347d1c03666264356db749f5fadf592add3ce11923f07011c4374b3c",
+      "source_sha256": "aec58f2a4863bc47e49f68d9516f7fb6084b44fa39b86c32f5640ecff6118463"
+    },
+    "MARS": {
+      "sha256": "20c4be0b0a86c3ca9e92a70be91b93cfd88fc27c2fc7e5f893cf0a325265a6e2",
+      "source_sha256": "9991e57b196bae1a096acc6e2afc6718102ee420d684695de0f0333064c046bc"
+    },
+    "MERCURY": {
+      "sha256": "df81d16f8946e8d7544c7deaf0309402f22a1602e4a62b0474e5037ab1ffc1cc",
+      "source_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+    },
+    "PALLAS": {
+      "sha256": "d085c0c6d7649254c170f99517cc10d4c234047e42d1670ad919edcee7862219",
+      "source_sha256": "2282fbdd15c8c3bb8e41bdcc8dab990783b6cf6859d0f004f5d1657be9e85c47"
+    },
+    "PATROCLUS": {
+      "sha256": "3c5ef31c57f0a5ec4a85cd98a914f7f374779ad4017aa5c274029a24da18d5b2",
+      "source_sha256": "5befb0b270c454571c434ada9d0c9d7deced7d79d018c387ea0fb4dc7e28942d"
+    },
+    "PLUTO": {
+      "sha256": "34fb412072070c2acbbe64244571c767cc37a44d5d22a25f5c41ba0127825b0b",
+      "source_sha256": "dfbb102491a26ed41ae08ca3f8963f22f0219df1d8f265ab87b9ad825a826fc6"
+    },
+    "PSYCHE": {
+      "sha256": "559d752c75880caba48c9297b7dc6f7b5dbe8fe84e0dfe005fa0f3f43833ca25",
+      "source_sha256": "35b52667910b76307bbd32506d653ea5960a0a24c6a03fa70dbbce91ea476e78"
+    },
+    "RYUGU": {
+      "sha256": "2c282b91da98059eb8f484a214f5000ce34bc29e7b7b3435127f10280c7fa41c",
+      "source_sha256": "3ce3fe466e3ac30564ad7be686b89b7211bdd14fb4870849889fcc20d705b977"
+    },
+    "VENUS": {
+      "sha256": "c258e24cf48d2fef6468a1bcf48c9120dc594c17c4d97f7707826d6129ab58bf",
+      "source_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+    },
+    "VESTA": {
+      "sha256": "5c4be26ef746e35ba988a5151c977907049d48b2d0f43caafb18b3c3f34ac74d",
+      "source_sha256": "c9db15a8baf355a85cf0bc2bea9665764f0864671974ba2dbac7e9e52ae6df26"
+    }
+  }
+}

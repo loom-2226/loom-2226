@@ -1,0 +1,30 @@
+SCENARIO {"body_count": 90, "classification": "TEST_ONLY_NONCANON_NONRUNTIME", "end_year": 2226, "main_campaign_executor": "Thales Alenia Space", "main_campaign_sponsors": ["ESA", "UAE Space Agency"], "moon_rule": "PARENT", "pricing_rule": "HELD_2026", "scenario_variant": "BASE", "source_executor_cast_file": "../../solar_reach_cast.json", "source_executor_cast_sha256": "8c67e088fbd4eb3336d31c4dcdc97d28d548533cf8f69467851e5b00fa8674ee", "source_experiment_file": "../experiment.json", "source_experiment_sha256": "d8aa0e6370bb85d62f908e697519c5e48b804e40fbcf7d9b779c9ddadc1b98ec", "source_quote_file": "../A_VEHICLE_MISSION_PAIRS.csv", "source_quote_run_identity": "f24cd438e12d5bc62efeaa48f084acf69f6b52e261f3a771aa1e4d05d07ace75", "source_quote_sha256": "72ebceab82626e2c6e2f595a83f67f8ee838e965ab8a0d4231ca20af045d38fd", "source_selection_file": "../SPONSOR_SELECTION_SCENARIO.json", "source_selection_sha256": "858faa2567e62eba022cadf4f803cbe1fa429ab3c75cd28839ffb8c0d9a8021c", "sponsor_selection_sponsors": ["science", "survey"], "start_year": 2026}
+SCENARIO_SHA256 9e8cd0f93e0340e327d425224a3480cc6e2b6cce70a9a3837c29b0b7e76b944f RUN_IDENTITY 079648888e22612fee5d89f9dd3d14526a116421a676a3f7293d2775c12ed196
+J1 BLOCKED {'selection_sponsors': ['science', 'survey'], 'main_sponsors': ['ESA', 'UAE Space Agency'], 'mapped_selection_sponsors': [], 'pr_quote_mission_types': ['flyby', 'rendezvous'], 'main_service_categories': ['BUILD', 'LAND', 'LAUNCH', 'RUN'], 'main_executor_quotes': {'ESA': {'executor': 'Thales Alenia Space', 'price': '0.015'}, 'UAE Space Agency': {'executor': 'Thales Alenia Space', 'price': '0.015'}}, 'reason': 'PR sponsor identities and USD mission quote units have no authored bridge to main campaign sponsor/category budget units; no conversion or motive mapping authored'}
+J2 BLOCKED {'return_source': 'resource_export_to_earth_buyer', 'destination_rules': {"('resource_export_to_earth_buyer', 'public_agency')": ('country_treasury', 3), "('resource_export_to_earth_buyer', 'private_company')": ('company_funds', 0), "('resource_export_to_earth_buyer', 'financier')": ('financier_claim_account', 0)}, 'main_campaign_hook': 'AllBodyCampaign.on_year', 'reason': 'Ceres return distributions require completed resource export sale, owner and return account; mission outcome is not an authored sale or owner-return claim. No mission-return amount exists to credit next-year budget. Public treasury rule delays appropriation three years, not next year.'}
+J3 BLOCKED {'main_2040_observation_year': 2040, 'reason': 'No authored interface maps Route1 A1/A2 generated hidden-truth observation to a later PR-priced mission candidate utility/belief decision. PR selector consumes authored values and executor beliefs, not campaign observations.'}
+J4 BLOCKED {'single_run_completed': True, 'reason': 'No exposed year-step/resume entry point for the same AllBodyCampaign state; persistent_trial uses separate country-opening path. Hash-for-hash segmented comparison cannot be performed without changing existing runner.'}
+J5 BLOCKED {'selection_replay_pass': True, 'selection_hash': '6ab1095957875d715b45d14766193d2bd735a775e77b9ea88c5be4ff35caa5e5', 'variant_hash': '613b37714488ec0ce6a85293f00e805f4ad25a1a143322b5966b5a1fb335fa53', 'variant_identity_changed': True, 'reason': 'Selection-only replay works; no joined full-clock state from J1-J4 to replay and compare'}
+	Command being timed: "timeout 3300 /home/ubuntu/worktrees/loom/offworld-runtime-b7/.venv/bin/python -m simulation.offworld_mvp.build8.three_arm_stage1.integration_probe_kt_20261022.probe"
+	User time (seconds): 15.21
+	System time (seconds): 2.12
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:17.35
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 112820
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 441648
+	Voluntary context switches: 1095
+	Involuntary context switches: 884
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 104
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

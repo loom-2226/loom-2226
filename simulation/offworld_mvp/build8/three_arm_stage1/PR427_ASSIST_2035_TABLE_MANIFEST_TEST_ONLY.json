@@ -1,0 +1,214 @@
+{
+  "classification": "TEST_ONLY_NONCANON",
+  "elapsed_seconds": 77.41419058013707,
+  "excluded": {},
+  "first": "2026-02-15T00:00:00Z",
+  "last": "2035-12-31T00:00:00+00:00",
+  "parent_manifest_hashes": {
+    "earth": "f71ce8d184e3c527079f6a23f28abd3ecc46a7927ef8953ece1811f3fc19843d",
+    "giants": "9ae54bc7db94039b6f5916d080f36b1cb81f8dcd347ca2789779e2403d6f3eaf",
+    "original_25": "848f0f9d3e75517448d6071c0397922e4ca0cfa410ffc75d7416853c84cba74a"
+  },
+  "peak_rss_bytes": 1309954048,
+  "recovered_small_bodies_policy": "NO_EXTENSION_AFTER_2031-12-31",
+  "step_days": 0.25,
+  "table_root": "/home/ubuntu/LOOM-output/pr427_assist_2035_tables_test_only",
+  "tables": {
+    "EARTH": {
+      "kernel_files": [
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+          "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+          "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+        }
+      ],
+      "seconds": 1.4802491881418973,
+      "sha256": "6ff22e52df92512568e92398f477b800072e20d95c2b6143c415c8ea721b09d7",
+      "source_file": "de440.bsp",
+      "source_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+      "spice_id": 399,
+      "table_path": "/home/ubuntu/LOOM-output/pr427_assist_2035_tables_test_only/EARTH.npy",
+      "validation_samples": 14425
+    },
+    "JUPITER": {
+      "kernel_files": [
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+          "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/phase4b/jup365.bsp",
+          "sha256": "dbf016c01ba4d022154838000cf3f06962cf958ddc503a366f7fe8f81495c5cb"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+          "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+        }
+      ],
+      "seconds": 21.52383590489626,
+      "sha256": "29ff7e40a95b1ac8990c800aafb7b1c3c2acb23a7971f7f09255e6038fbb64a0",
+      "source_file": "jup365.bsp",
+      "source_sha256": "dbf016c01ba4d022154838000cf3f06962cf958ddc503a366f7fe8f81495c5cb",
+      "spice_id": 599,
+      "table_path": "/home/ubuntu/LOOM-output/pr427_assist_2035_tables_test_only/JUPITER.npy",
+      "validation_samples": 14425
+    },
+    "MARS": {
+      "kernel_files": [
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+          "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/satellite_systems/mar099.bsp",
+          "sha256": "9991e57b196bae1a096acc6e2afc6718102ee420d684695de0f0333064c046bc"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+          "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+        }
+      ],
+      "seconds": 29.571207226952538,
+      "sha256": "687535bcd9bc82692989078a48efe6756bc39a3367317ff65fbf1526108823ff",
+      "source_file": "mar099.bsp",
+      "source_sha256": "9991e57b196bae1a096acc6e2afc6718102ee420d684695de0f0333064c046bc",
+      "spice_id": 499,
+      "table_path": "/home/ubuntu/LOOM-output/pr427_assist_2035_tables_test_only/MARS.npy",
+      "validation_samples": 14425
+    },
+    "MERCURY": {
+      "kernel_files": [
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+          "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+          "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+        }
+      ],
+      "seconds": 0.7553091200534254,
+      "sha256": "6ef121f715fdf90e9099d16b5118086ccddc1d28442704c4429c871649915a91",
+      "source_file": "de440.bsp",
+      "source_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+      "spice_id": 199,
+      "table_path": "/home/ubuntu/LOOM-output/pr427_assist_2035_tables_test_only/MERCURY.npy",
+      "validation_samples": 14425
+    },
+    "NEPTUNE": {
+      "kernel_files": [
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+          "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/satellite_systems/nep097.bsp",
+          "sha256": "5c1132fdc48c54e5d2e4eb663e1ed1a876911eae9433c203f29a5a1b5e1fa9b1"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+          "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+        }
+      ],
+      "seconds": 4.036155933979899,
+      "sha256": "fdbbbf4379f90bb6da3e63bcaaa271e8c65e6089b06074b342e0e270c85afd92",
+      "source_file": "nep097.bsp",
+      "source_sha256": "5c1132fdc48c54e5d2e4eb663e1ed1a876911eae9433c203f29a5a1b5e1fa9b1",
+      "spice_id": 899,
+      "table_path": "/home/ubuntu/LOOM-output/pr427_assist_2035_tables_test_only/NEPTUNE.npy",
+      "validation_samples": 14425
+    },
+    "PLUTO": {
+      "kernel_files": [
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+          "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/phase4b/plu060.bsp",
+          "sha256": "dfbb102491a26ed41ae08ca3f8963f22f0219df1d8f265ab87b9ad825a826fc6"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+          "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+        }
+      ],
+      "seconds": 2.4379607799928635,
+      "sha256": "77ea6c160c3a2cd5e75345308de4369da6173573f4ff80d7c2f4bf695c0a047a",
+      "source_file": "plu060.bsp",
+      "source_sha256": "dfbb102491a26ed41ae08ca3f8963f22f0219df1d8f265ab87b9ad825a826fc6",
+      "spice_id": 999,
+      "table_path": "/home/ubuntu/LOOM-output/pr427_assist_2035_tables_test_only/PLUTO.npy",
+      "validation_samples": 14425
+    },
+    "SATURN": {
+      "kernel_files": [
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+          "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/satellite_systems/sat441.bsp",
+          "sha256": "d7e444a9ba7a52b8f448ff0747030789524d2f0c1212e4e2bd7f5fc3c96444d5"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+          "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+        }
+      ],
+      "seconds": 10.64407444302924,
+      "sha256": "d30baa6c2482e29e844023b53a6029d568ebd781eda706a87144927dfbe95989",
+      "source_file": "sat441.bsp",
+      "source_sha256": "d7e444a9ba7a52b8f448ff0747030789524d2f0c1212e4e2bd7f5fc3c96444d5",
+      "spice_id": 699,
+      "table_path": "/home/ubuntu/LOOM-output/pr427_assist_2035_tables_test_only/SATURN.npy",
+      "validation_samples": 14425
+    },
+    "URANUS": {
+      "kernel_files": [
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+          "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/satellite_systems/ura184_part-3.bsp",
+          "sha256": "273cd4ccc470d1098562cd4e94fa48fc2b4c6b1c2896308e473c949b87937c53"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+          "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+        }
+      ],
+      "seconds": 5.803483149036765,
+      "sha256": "e21d2925b7516b902adc4bb8a19478b457f3f22b8a2397b3963b7341cddc6af7",
+      "source_file": "ura184_part-3.bsp",
+      "source_sha256": "273cd4ccc470d1098562cd4e94fa48fc2b4c6b1c2896308e473c949b87937c53",
+      "spice_id": 799,
+      "table_path": "/home/ubuntu/LOOM-output/pr427_assist_2035_tables_test_only/URANUS.npy",
+      "validation_samples": 14425
+    },
+    "VENUS": {
+      "kernel_files": [
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+          "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+          "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+        }
+      ],
+      "seconds": 0.7485622058156878,
+      "sha256": "8945e54b5c88d09b244f22552c80740b10969c5f356b732eddecb54d8fa2e6e1",
+      "source_file": "de440.bsp",
+      "source_sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5",
+      "spice_id": 299,
+      "table_path": "/home/ubuntu/LOOM-output/pr427_assist_2035_tables_test_only/VENUS.npy",
+      "validation_samples": 14425
+    }
+  },
+  "time_samples": 14425
+}

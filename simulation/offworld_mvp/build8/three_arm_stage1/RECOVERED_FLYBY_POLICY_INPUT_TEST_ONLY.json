@@ -1,0 +1,13 @@
+{
+  "classification": "TEST_ONLY_NON_CANON",
+  "infeasible_policy_options": ["ABSTRACT_FALLBACK", "BLOCK"],
+  "cases": [
+    {"name": "control", "ceilings_enabled": true, "infeasible_policy": "NOT_APPLICABLE", "expected_stable_sha256": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430"},
+    {"name": "variant_abstract_fallback", "ceilings_enabled": false, "infeasible_policy": "ABSTRACT_FALLBACK"},
+    {"name": "variant_block", "ceilings_enabled": false, "infeasible_policy": "BLOCK"}
+  ],
+  "held_year": 2026,
+  "exact_quote_years": [2026, 2027],
+  "ceilings_note": "Control retains original ceilings-on baseline to preserve mandatory hash; both variants ceilings off",
+  "A2": "unchanged"
+}

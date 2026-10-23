@@ -1,0 +1,66 @@
+{
+  "classification": "TEST_ONLY_NONCANON_SYNTHETIC_SCENARIO",
+  "clock": {
+    "end_year": 2226,
+    "start_year": 2026
+  },
+  "family_assignment": {
+    "boundary": "Scenario proxy only; does not establish body geology or factual extraction support.",
+    "family": "VOLATILES",
+    "source": "AUTHORED_GENERIC_SCENARIO_PROXY_NOT_BODY_EVIDENCE",
+    "status": "PLACEHOLDER",
+    "supports_extraction_proxy": true
+  },
+  "material_families": {
+    "METALS": {
+      "accessible": "9",
+      "demand_per_year": "1.5",
+      "earth_supply_fraction": "1",
+      "in_situ": "18",
+      "productive_capacity": "4",
+      "quantity_per_operation": "1.5",
+      "recoverable": "7",
+      "unit_opex": "0.012",
+      "unit_sale_price": "0.075"
+    },
+    "ORGANICS": {
+      "accessible": "10",
+      "demand_per_year": "2",
+      "earth_supply_fraction": "1",
+      "in_situ": "20",
+      "productive_capacity": "5",
+      "quantity_per_operation": "2",
+      "recoverable": "8",
+      "unit_opex": "0.010",
+      "unit_sale_price": "0.040"
+    },
+    "SILICATES": {
+      "accessible": "12",
+      "demand_per_year": "2",
+      "earth_supply_fraction": "1",
+      "in_situ": "24",
+      "productive_capacity": "6",
+      "quantity_per_operation": "2",
+      "recoverable": "9",
+      "unit_opex": "0.008",
+      "unit_sale_price": "0.035"
+    },
+    "VOLATILES": {
+      "accessible": "10",
+      "demand_per_year": "2",
+      "earth_supply_fraction": "1",
+      "in_situ": "20",
+      "productive_capacity": "5",
+      "quantity_per_operation": "2",
+      "recoverable": "8",
+      "unit_opex": "0.010",
+      "unit_sale_price": "0.050"
+    }
+  },
+  "mission": {
+    "flyby_comparison_type": "flyby",
+    "hold_after_year": 2035,
+    "quote_year": 2026,
+    "type": "rendezvous"
+  }
+}

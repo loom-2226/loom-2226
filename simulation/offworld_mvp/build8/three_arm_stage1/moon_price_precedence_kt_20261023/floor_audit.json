@@ -1,0 +1,1650 @@
+{
+  "all_below_floor": 205,
+  "campaign_used_below_floor": 0,
+  "file": "simulation/offworld_mvp/build8/three_arm_stage1/moon_price_precedence_kt_20261023/precedence_merged_prices.json",
+  "floor_model_units": "0.7",
+  "priced_rows_checked": 667,
+  "result": "PASS",
+  "unused_below_floor_rows": [
+    {
+      "body": "AMUN",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2049705115740842608",
+      "year": 2026
+    },
+    {
+      "body": "AMUN",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.1822723396746786048",
+      "year": 2027
+    },
+    {
+      "body": "AMUN",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2049705115740842608",
+      "year": 2035
+    },
+    {
+      "body": "AMUN",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2049705115740842608",
+      "year": 2036
+    },
+    {
+      "body": "AMUN",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2049705115740842608",
+      "year": 2226
+    },
+    {
+      "body": "APOPHIS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.1334940963965898632",
+      "year": 2026
+    },
+    {
+      "body": "APOPHIS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.074444362476820396",
+      "year": 2027
+    },
+    {
+      "body": "APOPHIS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.1334940963965898632",
+      "year": 2035
+    },
+    {
+      "body": "APOPHIS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.1334940963965898632",
+      "year": 2036
+    },
+    {
+      "body": "APOPHIS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.1334940963965898632",
+      "year": 2226
+    },
+    {
+      "body": "ASTEROID_6178",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4573216475418352712",
+      "year": 2026
+    },
+    {
+      "body": "ASTEROID_6178",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2675366528725926712",
+      "year": 2027
+    },
+    {
+      "body": "ASTEROID_6178",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4573216475418352712",
+      "year": 2035
+    },
+    {
+      "body": "ASTEROID_6178",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4573216475418352712",
+      "year": 2036
+    },
+    {
+      "body": "ASTEROID_6178",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4573216475418352712",
+      "year": 2226
+    },
+    {
+      "body": "BENNU",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2345341800014205776",
+      "year": 2026
+    },
+    {
+      "body": "BENNU",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2932320195175483072",
+      "year": 2027
+    },
+    {
+      "body": "BENNU",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2345341800014205776",
+      "year": 2035
+    },
+    {
+      "body": "BENNU",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2345341800014205776",
+      "year": 2036
+    },
+    {
+      "body": "BENNU",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2345341800014205776",
+      "year": 2226
+    },
+    {
+      "body": "BORRELLY",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5076247762049648128",
+      "year": 2026
+    },
+    {
+      "body": "BORRELLY",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.3761090632161489024",
+      "year": 2027
+    },
+    {
+      "body": "BORRELLY",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5076247762049648128",
+      "year": 2035
+    },
+    {
+      "body": "BORRELLY",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5076247762049648128",
+      "year": 2036
+    },
+    {
+      "body": "BORRELLY",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5076247762049648128",
+      "year": 2226
+    },
+    {
+      "body": "BRAILLE",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.3507888183759133032",
+      "year": 2026
+    },
+    {
+      "body": "BRAILLE",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5721969367487466832",
+      "year": 2027
+    },
+    {
+      "body": "BRAILLE",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.3507888183759133032",
+      "year": 2035
+    },
+    {
+      "body": "BRAILLE",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.3507888183759133032",
+      "year": 2036
+    },
+    {
+      "body": "BRAILLE",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.3507888183759133032",
+      "year": 2226
+    },
+    {
+      "body": "CERES",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4980538511531186136",
+      "year": 2026
+    },
+    {
+      "body": "CERES",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.6412303915891213328",
+      "year": 2027
+    },
+    {
+      "body": "CERES",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4980538511531186136",
+      "year": 2035
+    },
+    {
+      "body": "CERES",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4980538511531186136",
+      "year": 2036
+    },
+    {
+      "body": "CERES",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4980538511531186136",
+      "year": 2226
+    },
+    {
+      "body": "CHIRON",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.03677576826683063",
+      "year": 2026
+    },
+    {
+      "body": "CHIRON",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.03627528569043463",
+      "year": 2027
+    },
+    {
+      "body": "CHIRON",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.03677576826683063",
+      "year": 2035
+    },
+    {
+      "body": "CHIRON",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.03677576826683063",
+      "year": 2036
+    },
+    {
+      "body": "CHIRON",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.03677576826683063",
+      "year": 2226
+    },
+    {
+      "body": "COMET_67P",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.355818634751108",
+      "year": 2026
+    },
+    {
+      "body": "COMET_67P",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2121046986884150728",
+      "year": 2027
+    },
+    {
+      "body": "COMET_67P",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.355818634751108",
+      "year": 2035
+    },
+    {
+      "body": "COMET_67P",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.355818634751108",
+      "year": 2036
+    },
+    {
+      "body": "COMET_67P",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.355818634751108",
+      "year": 2226
+    },
+    {
+      "body": "DAVIDA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5786886484567735752",
+      "year": 2026
+    },
+    {
+      "body": "DAVIDA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.573577254326951672",
+      "year": 2027
+    },
+    {
+      "body": "DAVIDA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5786886484567735752",
+      "year": 2035
+    },
+    {
+      "body": "DAVIDA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5786886484567735752",
+      "year": 2036
+    },
+    {
+      "body": "DAVIDA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5786886484567735752",
+      "year": 2226
+    },
+    {
+      "body": "DIDYMOS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.1159313120842494064",
+      "year": 2026
+    },
+    {
+      "body": "DIDYMOS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.1720750842115530408",
+      "year": 2027
+    },
+    {
+      "body": "DIDYMOS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.1159313120842494064",
+      "year": 2035
+    },
+    {
+      "body": "DIDYMOS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.1159313120842494064",
+      "year": 2036
+    },
+    {
+      "body": "DIDYMOS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.1159313120842494064",
+      "year": 2226
+    },
+    {
+      "body": "DINKINESH",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4998531580919071352",
+      "year": 2026
+    },
+    {
+      "body": "DINKINESH",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.419276559375957072",
+      "year": 2027
+    },
+    {
+      "body": "DINKINESH",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4998531580919071352",
+      "year": 2035
+    },
+    {
+      "body": "DINKINESH",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4998531580919071352",
+      "year": 2036
+    },
+    {
+      "body": "DINKINESH",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4998531580919071352",
+      "year": 2226
+    },
+    {
+      "body": "DONALDJOHANSON",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4598791549564568992",
+      "year": 2026
+    },
+    {
+      "body": "DONALDJOHANSON",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.3404585293100965968",
+      "year": 2027
+    },
+    {
+      "body": "DONALDJOHANSON",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4598791549564568992",
+      "year": 2035
+    },
+    {
+      "body": "DONALDJOHANSON",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4598791549564568992",
+      "year": 2036
+    },
+    {
+      "body": "DONALDJOHANSON",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4598791549564568992",
+      "year": 2226
+    },
+    {
+      "body": "EROS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2901126677214611488",
+      "year": 2026
+    },
+    {
+      "body": "EROS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4447731922616556608",
+      "year": 2027
+    },
+    {
+      "body": "EROS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2901126677214611488",
+      "year": 2035
+    },
+    {
+      "body": "EROS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2901126677214611488",
+      "year": 2036
+    },
+    {
+      "body": "EROS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2901126677214611488",
+      "year": 2226
+    },
+    {
+      "body": "EURYBATES",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.017375349798887327",
+      "year": 2026
+    },
+    {
+      "body": "EURYBATES",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.02581518469595614",
+      "year": 2027
+    },
+    {
+      "body": "EURYBATES",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.017375349798887327",
+      "year": 2035
+    },
+    {
+      "body": "EURYBATES",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.017375349798887327",
+      "year": 2036
+    },
+    {
+      "body": "EURYBATES",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.017375349798887327",
+      "year": 2226
+    },
+    {
+      "body": "GASPRA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4453669363781428504",
+      "year": 2026
+    },
+    {
+      "body": "GASPRA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4027516872169028928",
+      "year": 2027
+    },
+    {
+      "body": "GASPRA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4453669363781428504",
+      "year": 2035
+    },
+    {
+      "body": "GASPRA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4453669363781428504",
+      "year": 2036
+    },
+    {
+      "body": "GASPRA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4453669363781428504",
+      "year": 2226
+    },
+    {
+      "body": "HARTLEY2",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5340617141254171624",
+      "year": 2026
+    },
+    {
+      "body": "HARTLEY2",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4414406383625159496",
+      "year": 2027
+    },
+    {
+      "body": "HARTLEY2",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5340617141254171624",
+      "year": 2035
+    },
+    {
+      "body": "HARTLEY2",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5340617141254171624",
+      "year": 2036
+    },
+    {
+      "body": "HARTLEY2",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5340617141254171624",
+      "year": 2226
+    },
+    {
+      "body": "HYGIEA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4860985618338299688",
+      "year": 2026
+    },
+    {
+      "body": "HYGIEA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5099043208628118472",
+      "year": 2027
+    },
+    {
+      "body": "HYGIEA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4860985618338299688",
+      "year": 2035
+    },
+    {
+      "body": "HYGIEA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4860985618338299688",
+      "year": 2036
+    },
+    {
+      "body": "HYGIEA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4860985618338299688",
+      "year": 2226
+    },
+    {
+      "body": "IDA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4891782521560161608",
+      "year": 2026
+    },
+    {
+      "body": "IDA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4888848237370425752",
+      "year": 2027
+    },
+    {
+      "body": "IDA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4891782521560161608",
+      "year": 2035
+    },
+    {
+      "body": "IDA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4891782521560161608",
+      "year": 2036
+    },
+    {
+      "body": "IDA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4891782521560161608",
+      "year": 2226
+    },
+    {
+      "body": "INTERAMNIA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5397990484114909792",
+      "year": 2026
+    },
+    {
+      "body": "INTERAMNIA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5148884051303452256",
+      "year": 2027
+    },
+    {
+      "body": "INTERAMNIA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5397990484114909792",
+      "year": 2035
+    },
+    {
+      "body": "INTERAMNIA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5397990484114909792",
+      "year": 2036
+    },
+    {
+      "body": "INTERAMNIA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5397990484114909792",
+      "year": 2226
+    },
+    {
+      "body": "ITOKAWA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.1019393612730874296",
+      "year": 2026
+    },
+    {
+      "body": "ITOKAWA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.204673513044303992",
+      "year": 2027
+    },
+    {
+      "body": "ITOKAWA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.1019393612730874296",
+      "year": 2035
+    },
+    {
+      "body": "ITOKAWA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.1019393612730874296",
+      "year": 2036
+    },
+    {
+      "body": "ITOKAWA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.1019393612730874296",
+      "year": 2226
+    },
+    {
+      "body": "JUNO",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.398693172243364516",
+      "year": 2026
+    },
+    {
+      "body": "JUNO",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5245563230104029536",
+      "year": 2027
+    },
+    {
+      "body": "JUNO",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.398693172243364516",
+      "year": 2035
+    },
+    {
+      "body": "JUNO",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.398693172243364516",
+      "year": 2036
+    },
+    {
+      "body": "JUNO",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.398693172243364516",
+      "year": 2226
+    },
+    {
+      "body": "KLEOPATRA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.3987447148147678856",
+      "year": 2026
+    },
+    {
+      "body": "KLEOPATRA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.548345423931268628",
+      "year": 2027
+    },
+    {
+      "body": "KLEOPATRA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.3987447148147678856",
+      "year": 2035
+    },
+    {
+      "body": "KLEOPATRA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.3987447148147678856",
+      "year": 2036
+    },
+    {
+      "body": "KLEOPATRA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.3987447148147678856",
+      "year": 2226
+    },
+    {
+      "body": "LEUCUS",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.015523917865071274",
+      "year": 2026
+    },
+    {
+      "body": "LEUCUS",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.015195364686191818",
+      "year": 2027
+    },
+    {
+      "body": "LEUCUS",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.015523917865071274",
+      "year": 2035
+    },
+    {
+      "body": "LEUCUS",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.015523917865071274",
+      "year": 2036
+    },
+    {
+      "body": "LEUCUS",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.015523917865071274",
+      "year": 2226
+    },
+    {
+      "body": "LUTETIA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.401528953173393708",
+      "year": 2026
+    },
+    {
+      "body": "LUTETIA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5042535942850523856",
+      "year": 2027
+    },
+    {
+      "body": "LUTETIA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.401528953173393708",
+      "year": 2035
+    },
+    {
+      "body": "LUTETIA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.401528953173393708",
+      "year": 2036
+    },
+    {
+      "body": "LUTETIA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.401528953173393708",
+      "year": 2226
+    },
+    {
+      "body": "MARS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2209987553029269768",
+      "year": 2026
+    },
+    {
+      "body": "MARS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2533365732737350072",
+      "year": 2027
+    },
+    {
+      "body": "MARS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2209987553029269768",
+      "year": 2035
+    },
+    {
+      "body": "MARS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2209987553029269768",
+      "year": 2036
+    },
+    {
+      "body": "MARS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2209987553029269768",
+      "year": 2226
+    },
+    {
+      "body": "MATHILDE",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.3810122562888255904",
+      "year": 2026
+    },
+    {
+      "body": "MATHILDE",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5680009002397014752",
+      "year": 2027
+    },
+    {
+      "body": "MATHILDE",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.3810122562888255904",
+      "year": 2035
+    },
+    {
+      "body": "MATHILDE",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.3810122562888255904",
+      "year": 2036
+    },
+    {
+      "body": "MATHILDE",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.3810122562888255904",
+      "year": 2226
+    },
+    {
+      "body": "MERCURY",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4761198997746917464",
+      "year": 2026
+    },
+    {
+      "body": "MERCURY",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4625145832915596168",
+      "year": 2027
+    },
+    {
+      "body": "MERCURY",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4761198997746917464",
+      "year": 2035
+    },
+    {
+      "body": "MERCURY",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4761198997746917464",
+      "year": 2036
+    },
+    {
+      "body": "MERCURY",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4761198997746917464",
+      "year": 2226
+    },
+    {
+      "body": "ORUS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.64960641356247158",
+      "year": 2026
+    },
+    {
+      "body": "ORUS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.6534325605749425784",
+      "year": 2027
+    },
+    {
+      "body": "ORUS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.64960641356247158",
+      "year": 2035
+    },
+    {
+      "body": "ORUS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.64960641356247158",
+      "year": 2036
+    },
+    {
+      "body": "ORUS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.64960641356247158",
+      "year": 2226
+    },
+    {
+      "body": "PALLAS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4254764325928999944",
+      "year": 2026
+    },
+    {
+      "body": "PALLAS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.641092927869174124",
+      "year": 2027
+    },
+    {
+      "body": "PALLAS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4254764325928999944",
+      "year": 2035
+    },
+    {
+      "body": "PALLAS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4254764325928999944",
+      "year": 2036
+    },
+    {
+      "body": "PALLAS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4254764325928999944",
+      "year": 2226
+    },
+    {
+      "body": "PATROCLUS",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.13308028832653852",
+      "year": 2026
+    },
+    {
+      "body": "PATROCLUS",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.032612486855759464",
+      "year": 2027
+    },
+    {
+      "body": "PATROCLUS",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.13308028832653852",
+      "year": 2035
+    },
+    {
+      "body": "PATROCLUS",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.13308028832653852",
+      "year": 2036
+    },
+    {
+      "body": "PATROCLUS",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.13308028832653852",
+      "year": 2226
+    },
+    {
+      "body": "POLYMELE",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.017780066172377683",
+      "year": 2026
+    },
+    {
+      "body": "POLYMELE",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.03584544731795178",
+      "year": 2027
+    },
+    {
+      "body": "POLYMELE",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.017780066172377683",
+      "year": 2035
+    },
+    {
+      "body": "POLYMELE",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.017780066172377683",
+      "year": 2036
+    },
+    {
+      "body": "POLYMELE",
+      "field": "launch_cost_usd",
+      "mission_type": "flyby",
+      "source": "vehicle_flyby",
+      "value_model_units": "0.017780066172377683",
+      "year": 2226
+    },
+    {
+      "body": "PSYCHE",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5293112625343179024",
+      "year": 2026
+    },
+    {
+      "body": "PSYCHE",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5203362280016098744",
+      "year": 2027
+    },
+    {
+      "body": "PSYCHE",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5293112625343179024",
+      "year": 2035
+    },
+    {
+      "body": "PSYCHE",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5293112625343179024",
+      "year": 2036
+    },
+    {
+      "body": "PSYCHE",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5293112625343179024",
+      "year": 2226
+    },
+    {
+      "body": "RYUGU",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2593137192741775864",
+      "year": 2026
+    },
+    {
+      "body": "RYUGU",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.1738256454066349264",
+      "year": 2027
+    },
+    {
+      "body": "RYUGU",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2593137192741775864",
+      "year": 2035
+    },
+    {
+      "body": "RYUGU",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2593137192741775864",
+      "year": 2036
+    },
+    {
+      "body": "RYUGU",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2593137192741775864",
+      "year": 2226
+    },
+    {
+      "body": "STEINS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4651850984444081784",
+      "year": 2026
+    },
+    {
+      "body": "STEINS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.473673087475912156",
+      "year": 2027
+    },
+    {
+      "body": "STEINS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4651850984444081784",
+      "year": 2035
+    },
+    {
+      "body": "STEINS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4651850984444081784",
+      "year": 2036
+    },
+    {
+      "body": "STEINS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4651850984444081784",
+      "year": 2226
+    },
+    {
+      "body": "TEMPEL1",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.335297290940935232",
+      "year": 2026
+    },
+    {
+      "body": "TEMPEL1",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.6508618350780022792",
+      "year": 2027
+    },
+    {
+      "body": "TEMPEL1",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.335297290940935232",
+      "year": 2035
+    },
+    {
+      "body": "TEMPEL1",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.335297290940935232",
+      "year": 2036
+    },
+    {
+      "body": "TEMPEL1",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.335297290940935232",
+      "year": 2226
+    },
+    {
+      "body": "THEMIS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5442718985930632856",
+      "year": 2026
+    },
+    {
+      "body": "THEMIS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5170031826702133728",
+      "year": 2027
+    },
+    {
+      "body": "THEMIS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5442718985930632856",
+      "year": 2035
+    },
+    {
+      "body": "THEMIS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5442718985930632856",
+      "year": 2036
+    },
+    {
+      "body": "THEMIS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5442718985930632856",
+      "year": 2226
+    },
+    {
+      "body": "TOUTATIS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.3987212272436712856",
+      "year": 2026
+    },
+    {
+      "body": "TOUTATIS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.1259795551693931872",
+      "year": 2027
+    },
+    {
+      "body": "TOUTATIS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.3987212272436712856",
+      "year": 2035
+    },
+    {
+      "body": "TOUTATIS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.3987212272436712856",
+      "year": 2036
+    },
+    {
+      "body": "TOUTATIS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.3987212272436712856",
+      "year": 2226
+    },
+    {
+      "body": "VENUS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2042410815661082512",
+      "year": 2026
+    },
+    {
+      "body": "VENUS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.3521105398844409896",
+      "year": 2027
+    },
+    {
+      "body": "VENUS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2042410815661082512",
+      "year": 2035
+    },
+    {
+      "body": "VENUS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2042410815661082512",
+      "year": 2036
+    },
+    {
+      "body": "VENUS",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.2042410815661082512",
+      "year": 2226
+    },
+    {
+      "body": "VESTA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4571306899753474368",
+      "year": 2026
+    },
+    {
+      "body": "VESTA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4062146007491012104",
+      "year": 2027
+    },
+    {
+      "body": "VESTA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4571306899753474368",
+      "year": 2035
+    },
+    {
+      "body": "VESTA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4571306899753474368",
+      "year": 2036
+    },
+    {
+      "body": "VESTA",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4571306899753474368",
+      "year": 2226
+    },
+    {
+      "body": "WILD2",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5177649604837981152",
+      "year": 2026
+    },
+    {
+      "body": "WILD2",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.4095383233215086",
+      "year": 2027
+    },
+    {
+      "body": "WILD2",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5177649604837981152",
+      "year": 2035
+    },
+    {
+      "body": "WILD2",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5177649604837981152",
+      "year": 2036
+    },
+    {
+      "body": "WILD2",
+      "field": "lowest_price_usd",
+      "mission_type": "flyby",
+      "source": "recovered_combined_59",
+      "value_model_units": "0.5177649604837981152",
+      "year": 2226
+    }
+  ]
+}

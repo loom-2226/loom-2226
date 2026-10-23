@@ -162,7 +162,7 @@ def run_cast_payments(share=D('.25'), scenario='B', end_year=2035,
     if run_setting == 'cast_payments':
         selected = {'name': 'cast_payments', 'payload': trial}
     elif (isinstance(run_setting, dict) and set(run_setting) == {'name', 'campaign'}
-          and run_setting['name'] in ('two_body_campaign', 'all_body_campaign', 'ceres_downstream')):
+          and run_setting['name'] in ('two_body_campaign', 'all_body_campaign', 'ceres_downstream', 'general_project_campaign')):
         selected = {**run_setting, 'payments': trial}
     else:
         raise ValueError('cast payment runner requires a named payment or campaign run')

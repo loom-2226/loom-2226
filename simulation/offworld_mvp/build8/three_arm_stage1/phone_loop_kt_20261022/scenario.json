@@ -1,0 +1,60 @@
+{
+  "accessible_model_units": "10",
+  "authored_appropriation_delay_years": 3,
+  "buyer": "earth_market",
+  "buyer_demand_model_units": "2",
+  "classification": "TEST_ONLY_PLACEHOLDER_PHONE_LOOP",
+  "conversion_classification": "PLACEHOLDER_NOT_A_REAL_FX_OR_MARKET_PRICE",
+  "development_delay_years": 1,
+  "executor": "Northrop Grumman",
+  "extraction_delay_years": 1,
+  "financier_return_share": "0.20",
+  "first_mission": {
+    "body": "CERES",
+    "mission_type_id": "flyby",
+    "vehicle_class_id": "baseline",
+    "year": 2026
+  },
+  "in_situ_model_units": "20",
+  "initial_budget_usd": "600000000",
+  "local_reinvest_share": "0.40",
+  "material_family_for_sale": "VOLATILES",
+  "material_presence_method": "source prior free_ice_weight positive; PLACEHOLDER proxy, not generated hidden truth",
+  "mission_completion_delay_years": 2,
+  "next_mission": {
+    "body": "AMUN",
+    "mission_type_id": "flyby",
+    "vehicle_class_id": "baseline"
+  },
+  "owner": "STATE:IND",
+  "owner_return_share": "0.20",
+  "owner_type": "public_agency",
+  "prior_rows": {
+    "AMUN": {
+      "free_ice_weight": "1",
+      "prior_regime": "UNKNOWN_NEA"
+    },
+    "CERES": {
+      "free_ice_weight": "10",
+      "prior_regime": "CARBONACEOUS_DWARF"
+    }
+  },
+  "productive_capacity_model_units": "5",
+  "quantity_model_units": "2",
+  "recoverable_model_units": "8",
+  "reserve_share": "0.20",
+  "return_to_sponsor_classification": "PLACEHOLDER_AUTHORED_FULL_TREASURY_APPROPRIATION",
+  "return_to_sponsor_fraction": "1",
+  "sale_unit_conversion_usd_per_model_currency": "12000000000",
+  "source_ceres": "../../ceres_downstream.py",
+  "source_ceres_sha256": "36b28b0c2b1ebff46016bd05db9033bab08ef2515ac4b1cf9319c3a594134168",
+  "source_material_prior": "../../../build6e/inputs/SOLAR_HIDDEN_WORLD_WATER_PRIOR_TABLE_v0.1.csv",
+  "source_material_prior_sha256": "6c04c8e77b63d5cb66b11fad0e4405cfa8597090d61c8b23ba92f558ecc55106",
+  "source_quote_sha256": "72ebceab82626e2c6e2f595a83f67f8ee838e965ab8a0d4231ca20af045d38fd",
+  "source_quotes": "../A_VEHICLE_MISSION_PAIRS.csv",
+  "source_return_sha256": "d162cc0701af60ad5928dff702b61ff3b7fccf907efe3a76b1a4f4eb2f393e78",
+  "source_return_table": "../../return_routing.py",
+  "sponsor": "ISRO",
+  "unit_opex_model_currency": "0.010",
+  "unit_sale_price_model_currency": "0.050"
+}

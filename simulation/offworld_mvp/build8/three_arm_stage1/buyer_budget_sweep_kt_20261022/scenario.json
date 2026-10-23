@@ -1,0 +1,30 @@
+{
+  "classification": "TEST_ONLY_NONCANON_AUTHORED_BUYER_FUNDING_SENSITIVITY",
+  "clock": {"start_year": 2026, "end_year": 2226},
+  "coverage": {"bodies": 90, "sponsors": 20},
+  "buyer_funding": {
+    "account": "earth_market",
+    "inflow_source": "new_year_specific_EARTH_BOUNDARY_account",
+    "levels_model_currency_per_year": {"low": "10", "medium": "100", "high": "1000"},
+    "reference_endowment_model_currency": "100",
+    "scope": "same annual amount for all buyers, bodies, sponsors, and years",
+    "governor": null,
+    "size_dependence": false,
+    "empirical_calibration": false
+  },
+  "cases": [
+    {"name": "low", "mission_type": "rendezvous", "conversion": true, "annual_inflow": "10"},
+    {"name": "medium", "mission_type": "rendezvous", "conversion": true, "annual_inflow": "100"},
+    {"name": "high", "mission_type": "rendezvous", "conversion": true, "annual_inflow": "1000"},
+    {"name": "zero_conversion_control", "mission_type": "rendezvous", "conversion": false, "annual_inflow": "100"}
+  ],
+  "boundaries": {
+    "no_names": true,
+    "no_size_dependence": true,
+    "no_governor": true,
+    "selection_fields_unchanged": true,
+    "selector_budget": "sponsor_accounts_only",
+    "buyer_funding_applied_after_candidate_selection": true,
+    "zero_conversion_means": "mission price conversion is zero; construction and sales are unchanged"
+  }
+}

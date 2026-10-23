@@ -1,0 +1,1571 @@
+{
+  "cases": {
+    "A1_FLYBY_COMPLETE": {
+      "blockers": {
+        "ACTUAL_SPONSOR_CASH": 62048,
+        "FINANCIER_CONCENTRATION": 628,
+        "UNPRICED_NO_PARENT_QUOTE_OR_PHYSICAL_PARAMETER": 3820
+      },
+      "body_stages": {
+        "AMUN": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "APOPHIS": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "ARIEL": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "ARROKOTH": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "ASTEROID_6178": {
+          "A1": 5,
+          "distinct_sponsors": 4,
+          "other": 1,
+          "total": 6
+        },
+        "BENNU": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "BORRELLY": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "BRAILLE": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "CALLISTO": {
+          "A1": 2,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 3
+        },
+        "CERES": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "CHARON": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "CHIRON": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "COMET_67P": {
+          "A1": 3,
+          "distinct_sponsors": 3,
+          "other": 1,
+          "total": 4
+        },
+        "COMET_HALLEY": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "DACTYL": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "DAVIDA": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "DEIMOS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "DIDYMOS": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "DINKINESH": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "DIONE": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "DONALDJOHANSON": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "ENCELADUS": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "EROS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "EUROPA": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "EURYBATES": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "GANYMEDE": {
+          "A1": 4,
+          "distinct_sponsors": 4,
+          "other": 1,
+          "total": 5
+        },
+        "GASPRA": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "HARTLEY2": {
+          "A1": 3,
+          "distinct_sponsors": 3,
+          "other": 1,
+          "total": 4
+        },
+        "HYDRA": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "HYGIEA": {
+          "A1": 4,
+          "distinct_sponsors": 3,
+          "other": 1,
+          "total": 5
+        },
+        "IAPETUS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "IDA": {
+          "A1": 2,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 3
+        },
+        "INTERAMNIA": {
+          "A1": 2,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 3
+        },
+        "IO": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "ITOKAWA": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "IXION": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "JUNO": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "KERBEROS": {
+          "A1": 6,
+          "distinct_sponsors": 4,
+          "other": 1,
+          "total": 7
+        },
+        "KLEOPATRA": {
+          "A1": 3,
+          "distinct_sponsors": 3,
+          "other": 1,
+          "total": 4
+        },
+        "LEUCUS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "LUTETIA": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "MARS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "MATHILDE": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "MERCURY": {
+          "A1": 3,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 4
+        },
+        "MIMAS": {
+          "A1": 3,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 4
+        },
+        "MIRANDA": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "MOON": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "NEREID": {
+          "A1": 3,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 4
+        },
+        "NIX": {
+          "A1": 4,
+          "distinct_sponsors": 3,
+          "other": 1,
+          "total": 5
+        },
+        "OBERON": {
+          "A1": 4,
+          "distinct_sponsors": 4,
+          "other": 1,
+          "total": 5
+        },
+        "ORUS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "PALLAS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "PATROCLUS": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "PHOBOS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "PHOEBE": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "PLUTO": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "POLYMELE": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "PROTEUS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "PSYCHE": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "QUAOAR": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "RHEA": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "RYUGU": {
+          "A1": 3,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 4
+        },
+        "SELAM": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "STEINS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "STYX": {
+          "A1": 3,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 4
+        },
+        "TEMPEL1": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "TETHYS": {
+          "A1": 3,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 4
+        },
+        "THEMIS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "TITAN": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "TITANIA": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "TOUTATIS": {
+          "A1": 3,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 4
+        },
+        "TRITON": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "UMBRIEL": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "VARUNA": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 0,
+          "total": 1
+        },
+        "VENUS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "VESTA": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "WILD2": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        }
+      },
+      "cash_model_units": "781.0119562908385808",
+      "funded_bodies": 77,
+      "funded_stages": 208,
+      "unpriced_bodies": [
+        "HYPERION"
+      ],
+      "variant_sha256": "aa734a89929d46ec649381aad0628d3e6082f67dfdf80d489205cb7a68c7ad9a"
+    },
+    "A1_RENDEZVOUS_COMPLETE": {
+      "blockers": {
+        "ACTUAL_SPONSOR_CASH": 104735,
+        "FINANCIER_CONCENTRATION": 287,
+        "UNPRICED_NO_PARENT_QUOTE_OR_PHYSICAL_PARAMETER": 11460
+      },
+      "body_stages": {
+        "AMUN": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "APOPHIS": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "ARIEL": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "ASTEROID_6178": {
+          "A1": 5,
+          "distinct_sponsors": 5,
+          "other": 1,
+          "total": 6
+        },
+        "BENNU": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "BORRELLY": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "BRAILLE": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "CALLISTO": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "CERES": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "CHIRON": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "COMET_67P": {
+          "A1": 3,
+          "distinct_sponsors": 3,
+          "other": 1,
+          "total": 4
+        },
+        "DAVIDA": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "DEIMOS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "DIDYMOS": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "DINKINESH": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "DIONE": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "DONALDJOHANSON": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "ENCELADUS": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "EROS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "EUROPA": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "EURYBATES": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "GANYMEDE": {
+          "A1": 4,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 5
+        },
+        "GASPRA": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "HARTLEY2": {
+          "A1": 3,
+          "distinct_sponsors": 3,
+          "other": 1,
+          "total": 4
+        },
+        "HYGIEA": {
+          "A1": 4,
+          "distinct_sponsors": 4,
+          "other": 1,
+          "total": 5
+        },
+        "IAPETUS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "IDA": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "INTERAMNIA": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "IO": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "ITOKAWA": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "JUNO": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "KLEOPATRA": {
+          "A1": 3,
+          "distinct_sponsors": 3,
+          "other": 1,
+          "total": 4
+        },
+        "LEUCUS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "LUTETIA": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "MARS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "MATHILDE": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "MERCURY": {
+          "A1": 3,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 4
+        },
+        "MIMAS": {
+          "A1": 3,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 4
+        },
+        "MIRANDA": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "MOON": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "OBERON": {
+          "A1": 4,
+          "distinct_sponsors": 3,
+          "other": 1,
+          "total": 5
+        },
+        "ORUS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "PALLAS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "PATROCLUS": {
+          "A1": 2,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 3
+        },
+        "PHOBOS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "PHOEBE": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "POLYMELE": {
+          "A1": 2,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 3
+        },
+        "PSYCHE": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "RHEA": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "RYUGU": {
+          "A1": 3,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 4
+        },
+        "STEINS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "TEMPEL1": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "TETHYS": {
+          "A1": 3,
+          "distinct_sponsors": 2,
+          "other": 1,
+          "total": 4
+        },
+        "THEMIS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "TITAN": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "TITANIA": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "TOUTATIS": {
+          "A1": 3,
+          "distinct_sponsors": 3,
+          "other": 1,
+          "total": 4
+        },
+        "UMBRIEL": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "VENUS": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "VESTA": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        },
+        "WILD2": {
+          "A1": 1,
+          "distinct_sponsors": 1,
+          "other": 1,
+          "total": 2
+        }
+      },
+      "cash_model_units": "378.3832842317923708",
+      "funded_bodies": 61,
+      "funded_stages": 163,
+      "unpriced_bodies": [
+        "DACTYL",
+        "HYPERION",
+        "SELAM"
+      ],
+      "variant_sha256": "07938c5248da41061da26e8ac84aa63bb5029dbfecd3ac16bb789afe8e0e6dfb"
+    }
+  },
+  "classification": "TEST_ONLY_NONCANON",
+  "control_sha256": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430",
+  "database_sha256": "e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde",
+  "elapsed_seconds": 179.0375432439614,
+  "geometry_stats": [
+    {
+      "parent": "JUPITER",
+      "sampled_departures": 41,
+      "sampled_trajectories": 167093,
+      "year": 2026
+    },
+    {
+      "parent": "SATURN",
+      "sampled_departures": 14,
+      "sampled_trajectories": 75767,
+      "year": 2026
+    },
+    {
+      "parent": "URANUS",
+      "sampled_departures": 14,
+      "sampled_trajectories": 75894,
+      "year": 2026
+    },
+    {
+      "parent": "NEPTUNE",
+      "sampled_departures": 14,
+      "sampled_trajectories": 75894,
+      "year": 2026
+    },
+    {
+      "parent": "JUPITER",
+      "sampled_departures": 41,
+      "sampled_trajectories": 158944,
+      "year": 2027
+    },
+    {
+      "parent": "SATURN",
+      "sampled_departures": 14,
+      "sampled_trajectories": 75487,
+      "year": 2027
+    },
+    {
+      "parent": "URANUS",
+      "sampled_departures": 14,
+      "sampled_trajectories": 75894,
+      "year": 2027
+    },
+    {
+      "parent": "NEPTUNE",
+      "sampled_departures": 14,
+      "sampled_trajectories": 75894,
+      "year": 2027
+    }
+  ],
+  "giant_rendezvous": [
+    {
+      "arrival_braking_delta_v_km_s": 17.346615079015365,
+      "arrival_vinf_km_s": 21.4868413,
+      "body": "ARIEL",
+      "braking_stages": 2,
+      "departure_date": "2026-08-13",
+      "departure_stages": 2,
+      "departure_vinf_km_s": 16.921829,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "8207622.350824595",
+      "price_model_units": "33.53048940329838",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 4.7626275131649365,
+      "arrival_vinf_km_s": 5.790408,
+      "body": "CALLISTO",
+      "braking_stages": 1,
+      "departure_date": "2026-10-29",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 9.2953345,
+      "flight_days": 1271.25,
+      "mass_in_leo_kg": "11109.322598380111",
+      "price_model_units": "0.7444372903935205",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 6.0297291850698524,
+      "arrival_vinf_km_s": 7.533278,
+      "body": "DIONE",
+      "braking_stages": 1,
+      "departure_date": "2026-06-18",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 11.5425983,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "37401.058165684575",
+      "price_model_units": "0.8496042326627383",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 6.753284489533421,
+      "arrival_vinf_km_s": 7.533278,
+      "body": "ENCELADUS",
+      "braking_stages": 1,
+      "departure_date": "2026-06-18",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 11.5425983,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "49874.38450946358",
+      "price_model_units": "0.8994975380378543",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 6.564134210398466,
+      "arrival_vinf_km_s": 5.8897821,
+      "body": "EUROPA",
+      "braking_stages": 1,
+      "departure_date": "2026-11-01",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 9.2469395,
+      "flight_days": 1303.75,
+      "mass_in_leo_kg": "20956.43353479125",
+      "price_model_units": "0.783825734139165",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 5.587592910775909,
+      "arrival_vinf_km_s": 5.8687777,
+      "body": "GANYMEDE",
+      "braking_stages": 1,
+      "departure_date": "2026-10-31",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 9.2565222,
+      "flight_days": 1297.5,
+      "mass_in_leo_kg": "14515.921200669974",
+      "price_model_units": "0.7580636848026799",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 5.571078030027398,
+      "arrival_vinf_km_s": 7.533278,
+      "body": "IAPETUS",
+      "braking_stages": 1,
+      "departure_date": "2026-06-18",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 11.5425983,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "31663.516532699723",
+      "price_model_units": "0.8266540661307989",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 7.862861593514271,
+      "arrival_vinf_km_s": 5.8286754,
+      "body": "IO",
+      "braking_stages": 1,
+      "departure_date": "2026-10-30",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 9.2757155,
+      "flight_days": 1284.25,
+      "mass_in_leo_kg": "39116.372507328255",
+      "price_model_units": "0.8564654900293131",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 5.5525856,
+      "arrival_vinf_km_s": 5.5525856,
+      "body": "JUPITER",
+      "braking_stages": 1,
+      "departure_date": "2026-10-21",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 9.4779866,
+      "flight_days": 1169.5,
+      "mass_in_leo_kg": "15226.149563027038",
+      "price_model_units": "0.7609045982521081",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 7.280191373679047,
+      "arrival_vinf_km_s": 7.533278,
+      "body": "MIMAS",
+      "braking_stages": 1,
+      "departure_date": "2026-06-18",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 11.5425983,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "63178.566416358844",
+      "price_model_units": "0.9527142656654353",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 16.786843464205315,
+      "arrival_vinf_km_s": 21.4868413,
+      "body": "MIRANDA",
+      "braking_stages": 2,
+      "departure_date": "2026-08-13",
+      "departure_stages": 2,
+      "departure_vinf_km_s": 16.921829,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "5400104.93008111",
+      "price_model_units": "22.30041972032444",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 35.7845112,
+      "arrival_vinf_km_s": 35.7845112,
+      "body": "NEPTUNE",
+      "braking_stages": 4,
+      "departure_date": "2026-05-21",
+      "departure_stages": 3,
+      "departure_vinf_km_s": 26.7205078,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "199804079845.69214",
+      "price_model_units": "799217.0193827685",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 34.70560007449134,
+      "arrival_vinf_km_s": 35.7845112,
+      "body": "NEREID",
+      "braking_stages": 4,
+      "departure_date": "2026-05-21",
+      "departure_stages": 3,
+      "departure_vinf_km_s": 26.7205078,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "77359437641.04147",
+      "price_model_units": "309438.4505641659",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 20.26509650128639,
+      "arrival_vinf_km_s": 22.9882682,
+      "body": "OBERON",
+      "braking_stages": 3,
+      "departure_date": "2026-08-13",
+      "departure_stages": 2,
+      "departure_vinf_km_s": 17.4954748,
+      "flight_days": 1322.25,
+      "mass_in_leo_kg": "8972987.965935411",
+      "price_model_units": "36.591951863741646",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 6.201173930792962,
+      "arrival_vinf_km_s": 7.533278,
+      "body": "PHOEBE",
+      "braking_stages": 1,
+      "departure_date": "2026-06-18",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 11.5425983,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "39917.0017878553",
+      "price_model_units": "0.8596680071514212",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 30.41833258735411,
+      "arrival_vinf_km_s": 36.4818299,
+      "body": "PROTEUS",
+      "braking_stages": 4,
+      "departure_date": "2026-06-18",
+      "departure_stages": 3,
+      "departure_vinf_km_s": 25.7738924,
+      "flight_days": 1361.25,
+      "mass_in_leo_kg": "3437612633.729032",
+      "price_model_units": "13751.150534916129",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 5.682961056940329,
+      "arrival_vinf_km_s": 7.533278,
+      "body": "RHEA",
+      "braking_stages": 1,
+      "departure_date": "2026-06-18",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 11.5425983,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "32945.39566380348",
+      "price_model_units": "0.831781582655214",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 7.533278,
+      "arrival_vinf_km_s": 7.533278,
+      "body": "SATURN",
+      "braking_stages": 1,
+      "departure_date": "2026-06-18",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 11.5425983,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "71566.65710916821",
+      "price_model_units": "0.9862666284366729",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 6.380257717212164,
+      "arrival_vinf_km_s": 7.533278,
+      "body": "TETHYS",
+      "braking_stages": 1,
+      "departure_date": "2026-06-18",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 11.5425983,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "42807.49719509534",
+      "price_model_units": "0.8712299887803813",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 5.329581884600845,
+      "arrival_vinf_km_s": 7.533278,
+      "body": "TITAN",
+      "braking_stages": 1,
+      "departure_date": "2026-06-18",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 11.5425983,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "29117.640897115954",
+      "price_model_units": "0.8164705635884638",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 20.263334448501205,
+      "arrival_vinf_km_s": 23.3453984,
+      "body": "TITANIA",
+      "braking_stages": 3,
+      "departure_date": "2026-08-13",
+      "departure_stages": 2,
+      "departure_vinf_km_s": 17.6411456,
+      "flight_days": 1305.0,
+      "mass_in_leo_kg": "9424659.64522113",
+      "price_model_units": "38.39863858088452",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 31.92918092120751,
+      "arrival_vinf_km_s": 35.7845112,
+      "body": "TRITON",
+      "braking_stages": 4,
+      "departure_date": "2026-05-21",
+      "departure_stages": 3,
+      "departure_vinf_km_s": 26.7205078,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "11603214724.496166",
+      "price_model_units": "46413.558897984664",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 20.26657207304608,
+      "arrival_vinf_km_s": 24.04421,
+      "body": "UMBRIEL",
+      "braking_stages": 3,
+      "departure_date": "2026-08-13",
+      "departure_stages": 2,
+      "departure_vinf_km_s": 17.9362137,
+      "flight_days": 1272.5,
+      "mass_in_leo_kg": "10462177.43307654",
+      "price_model_units": "42.54870973230616",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 21.4868413,
+      "arrival_vinf_km_s": 21.4868413,
+      "body": "URANUS",
+      "braking_stages": 3,
+      "departure_date": "2026-08-13",
+      "departure_stages": 2,
+      "departure_vinf_km_s": 16.921829,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "12742861.553064857",
+      "price_model_units": "51.67144621225943",
+      "year": 2026
+    },
+    {
+      "arrival_braking_delta_v_km_s": 17.311755772603178,
+      "arrival_vinf_km_s": 21.4497574,
+      "body": "ARIEL",
+      "braking_stages": 2,
+      "departure_date": "2027-08-13",
+      "departure_stages": 2,
+      "departure_vinf_km_s": 16.5654041,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "7124072.435640705",
+      "price_model_units": "29.19628974256282",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 4.816913700378128,
+      "arrival_vinf_km_s": 5.9109631,
+      "body": "CALLISTO",
+      "braking_stages": 1,
+      "departure_date": "2027-12-03",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 8.9214256,
+      "flight_days": 1258.75,
+      "mass_in_leo_kg": "10262.62805391073",
+      "price_model_units": "0.7410505122156429",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 6.0122910330258446,
+      "arrival_vinf_km_s": 7.4960416,
+      "body": "DIONE",
+      "braking_stages": 1,
+      "departure_date": "2027-06-18",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 11.2272558,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "32385.003674439573",
+      "price_model_units": "0.8295400146977583",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 6.738838423575761,
+      "arrival_vinf_km_s": 7.4960416,
+      "body": "ENCELADUS",
+      "braking_stages": 1,
+      "departure_date": "2027-06-18",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 11.2272558,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "43203.21417947457",
+      "price_model_units": "0.8728128567178982",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 6.57484831921108,
+      "arrival_vinf_km_s": 5.9266111,
+      "body": "EUROPA",
+      "braking_stages": 1,
+      "departure_date": "2027-12-03",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 8.9134721,
+      "flight_days": 1264.0,
+      "mass_in_leo_kg": "19315.691836967366",
+      "price_model_units": "0.7772627673478694",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 5.606557560896688,
+      "arrival_vinf_km_s": 5.9217802,
+      "body": "GANYMEDE",
+      "braking_stages": 1,
+      "departure_date": "2027-12-03",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 8.915907,
+      "flight_days": 1262.25,
+      "mass_in_leo_kg": "13384.471297400283",
+      "price_model_units": "0.7535378851896012",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 5.539348975847232,
+      "arrival_vinf_km_s": 7.4960416,
+      "body": "IAPETUS",
+      "braking_stages": 1,
+      "departure_date": "2027-06-18",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 11.2272558,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "27290.445516589385",
+      "price_model_units": "0.8091617820663575",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 7.882024986333818,
+      "arrival_vinf_km_s": 5.9109631,
+      "body": "IO",
+      "braking_stages": 1,
+      "departure_date": "2027-12-03",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 8.9214256,
+      "flight_days": 1258.75,
+      "mass_in_leo_kg": "36082.40605741054",
+      "price_model_units": "0.8443296242296422",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 5.8695135,
+      "arrival_vinf_km_s": 5.8695135,
+      "body": "JUPITER",
+      "braking_stages": 1,
+      "departure_date": "2027-12-03",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 8.9597663,
+      "flight_days": 1242.75,
+      "mass_in_leo_kg": "14876.123011985035",
+      "price_model_units": "0.7595044920479401",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 7.267219909500655,
+      "arrival_vinf_km_s": 7.4960416,
+      "body": "MIMAS",
+      "braking_stages": 1,
+      "departure_date": "2027-06-18",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 11.2272558,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "54724.86312744479",
+      "price_model_units": "0.9188994525097792",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 16.752910186878893,
+      "arrival_vinf_km_s": 21.4497574,
+      "body": "MIRANDA",
+      "braking_stages": 2,
+      "departure_date": "2027-08-13",
+      "departure_stages": 2,
+      "departure_vinf_km_s": 16.5654041,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "4707895.949855771",
+      "price_model_units": "19.531583799423084",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 35.8054095,
+      "arrival_vinf_km_s": 35.8054095,
+      "body": "NEPTUNE",
+      "braking_stages": 4,
+      "departure_date": "2027-05-21",
+      "departure_stages": 3,
+      "departure_vinf_km_s": 27.1719845,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "246955093931.70505",
+      "price_model_units": "987821.0757268202",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 34.726478179043156,
+      "arrival_vinf_km_s": 35.8054095,
+      "body": "NEREID",
+      "braking_stages": 4,
+      "departure_date": "2027-05-21",
+      "departure_stages": 3,
+      "departure_vinf_km_s": 27.1719845,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "95302668092.92784",
+      "price_model_units": "381211.3723717114",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 20.263699902582783,
+      "arrival_vinf_km_s": 22.9868456,
+      "body": "OBERON",
+      "braking_stages": 3,
+      "departure_date": "2027-08-13",
+      "departure_stages": 2,
+      "departure_vinf_km_s": 17.2128697,
+      "flight_days": 1320.5,
+      "mass_in_leo_kg": "8155788.005988615",
+      "price_model_units": "33.32315202395446",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 6.1657303394271255,
+      "arrival_vinf_km_s": 7.4960416,
+      "body": "PHOEBE",
+      "braking_stages": 1,
+      "departure_date": "2027-06-18",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 11.2272558,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "34319.960963994585",
+      "price_model_units": "0.8372798438559784",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 30.58666437421883,
+      "arrival_vinf_km_s": 36.6573238,
+      "body": "PROTEUS",
+      "braking_stages": 4,
+      "departure_date": "2027-06-18",
+      "departure_stages": 3,
+      "departure_vinf_km_s": 25.7730819,
+      "flight_days": 1356.25,
+      "mass_in_leo_kg": "3753072855.5650344",
+      "price_model_units": "15012.991422260137",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 5.663194759906947,
+      "arrival_vinf_km_s": 7.4960416,
+      "body": "RHEA",
+      "braking_stages": 1,
+      "departure_date": "2027-06-18",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 11.2272558,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "28511.954365404614",
+      "price_model_units": "0.8140478174616184",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 7.4960416,
+      "arrival_vinf_km_s": 7.4960416,
+      "body": "SATURN",
+      "braking_stages": 1,
+      "departure_date": "2027-06-18",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 11.2272558,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "61207.832547017024",
+      "price_model_units": "0.9448313301880682",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 6.3644657076212106,
+      "arrival_vinf_km_s": 7.4960416,
+      "body": "TETHYS",
+      "braking_stages": 1,
+      "departure_date": "2027-06-18",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 11.2272558,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "37076.74043740381",
+      "price_model_units": "0.8483069617496152",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 5.303883094560687,
+      "arrival_vinf_km_s": 7.4960416,
+      "body": "TITAN",
+      "braking_stages": 1,
+      "departure_date": "2027-06-18",
+      "departure_stages": 1,
+      "departure_vinf_km_s": 11.2272558,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "25155.805137520576",
+      "price_model_units": "0.8006232205500823",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 20.262775994321654,
+      "arrival_vinf_km_s": 23.3448265,
+      "body": "TITANIA",
+      "braking_stages": 3,
+      "departure_date": "2027-08-13",
+      "departure_stages": 2,
+      "departure_vinf_km_s": 17.3730465,
+      "flight_days": 1303.25,
+      "mass_in_leo_kg": "8600605.811585786",
+      "price_model_units": "35.10242324634314",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 32.7894470400892,
+      "arrival_vinf_km_s": 36.6573238,
+      "body": "TRITON",
+      "braking_stages": 4,
+      "departure_date": "2027-06-18",
+      "departure_stages": 3,
+      "departure_vinf_km_s": 25.7730819,
+      "flight_days": 1356.25,
+      "mass_in_leo_kg": "13409777249.401255",
+      "price_model_units": "53639.808997605016",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 20.26782078278842,
+      "arrival_vinf_km_s": 24.0455049,
+      "body": "UMBRIEL",
+      "braking_stages": 3,
+      "departure_date": "2027-08-13",
+      "departure_stages": 2,
+      "departure_vinf_km_s": 17.6964075,
+      "flight_days": 1270.75,
+      "mass_in_leo_kg": "9624585.66407866",
+      "price_model_units": "39.198342656314644",
+      "year": 2027
+    },
+    {
+      "arrival_braking_delta_v_km_s": 21.4497574,
+      "arrival_vinf_km_s": 21.4497574,
+      "body": "URANUS",
+      "braking_stages": 3,
+      "departure_date": "2027-08-13",
+      "departure_stages": 2,
+      "departure_vinf_km_s": 16.5654041,
+      "flight_days": 1400.0,
+      "mass_in_leo_kg": "11180655.695056008",
+      "price_model_units": "45.42262278022403",
+      "year": 2027
+    }
+  ],
+  "moon": {
+    "arrival_braking_delta_v_km_s": 0.4217950799619572,
+    "arrival_speed_relative_to_earth_km_s": 0,
+    "departure_delta_v_km_s": 3.201823997710906,
+    "departure_speed_relative_to_earth_km_s": 0,
+    "difference_flyby_kg": -0.11308913388779729,
+    "difference_rendezvous_kg": 6.141242873405872,
+    "earth_mu_km3_s2": 398600.4355,
+    "flight_days": "NOT_APPLICABLE",
+    "flyby_mass_in_leo_kg": 939.8869108661122,
+    "flyby_model_units": "0.7037595476434644",
+    "flyby_stages": 1,
+    "hand_reference_flyby_kg": 940,
+    "hand_reference_rendezvous_kg": 1040,
+    "moon_orbit_radius_km": 384400.0,
+    "parking_radius_km": 6671.0084,
+    "rendezvous_braking_stack_kg": 445.22004967996827,
+    "rendezvous_braking_stages": 1,
+    "rendezvous_departure_stages": 1,
+    "rendezvous_mass_in_leo_kg": 1046.1412428734059,
+    "rendezvous_model_units": "0.7041845649714936"
+  },
+  "numpy_version": "2.5.3",
+  "peak_rss_bytes": 615809024,
+  "table_manifest_sha256": "9ae54bc7db94039b6f5916d080f36b1cb81f8dcd347ca2789779e2403d6f3eaf"
+}

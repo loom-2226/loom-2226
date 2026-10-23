@@ -1,0 +1,18 @@
+{
+ "classification":"TEST_ONLY_NONCANON",
+ "clock_years":[2026,2226],
+ "priced_departure_years":[2026,2035],
+ "post_2035_price_rule":"HOLD_2026_PRICE",
+ "max_arrival_date":"2057-11-25T00:00:00Z",
+ "flight_limit_days":[1400,3000,5000,8000],
+ "mission_type":"rendezvous",
+ "treasury_return_share":"1",
+ "material_price_multiplier":"1",
+ "sales_cap":4,
+ "buyer_budget":"high",
+ "minimum_price_model_units":"0.7",
+ "floor_violation":"FAIL_NO_EDIT",
+ "position_source_policy":"VERIFIED_TABLE_ONLY_NO_FALLBACK",
+ "all_bodies":90,
+ "all_sponsors":20
+}

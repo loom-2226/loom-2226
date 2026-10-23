@@ -1,0 +1,11 @@
+# kT Build 8 integration boundary probe
+
+TEST_ONLY / NON-CANON / NON-RUNTIME. Executed against PR #427 with the existing Python environment. No main or frozen-path modifications.
+
+`scenario.json` is the single authored input. Its raw SHA-256 and a source-pinned run identity are printed in `run.log` and recorded in `results.json`. Source file SHA-256 values are verified before probing. The selected Route 1 campaign uses two existing sponsors, their common preferred executor, all 90 main-authored bodies and 2026–2226. The probe does not invent mission prices, resource returns, geology, or sponsor utility.
+
+The J1 PR selection experiment runs with its existing authored `science`/`survey` sponsor identities, while the main campaign uses the existing `ESA`/`UAE Space Agency` actors. Their mismatch is **the boundary**, not a successful join. Likewise the main Route 1 `BUILD` service unit is not equivalent to the PR flyby/rendezvous USD price. The scenario records the PR's held-2026 and parent-moon rules, but this probe does **not** reprice trajectories or demonstrate parent-moon coverage. The source quote file is a bounded PR quote artifact, not a 90-body 201-year mission-quote catalogue.
+
+J2 requires a realized resource sale and authorized owner return; a completed mission is not a sale. Main's public-agency treasury destination carries a three-year appropriation delay. J3 has no authored adapter from the campaign's generated-truth study observations into the PR sponsor selector's utility inputs. J4 executes the 201-year, 90-body campaign but cannot compare against a segmented continuation of the same kernel: the exposed runner has no matching year-step/resume entry point. J5 verifies PR sponsor-selection replay and input sensitivity, but cannot qualify joined world replay because J1–J4 do not form a joined run.
+
+Each join is marked BLOCKED, not PASS. The run establishes missing authored interfaces, **not** that all potential integrations are impossible. No source implementation was patched to force a join. `run.log` contains wall time and peak RSS. `results.json` contains the actual annual-row fingerprint and join evidence. The database SHA-256 was checked before and after externally and was unchanged.

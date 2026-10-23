@@ -1,0 +1,110 @@
+{
+  "builder_et_sha256": "5e0124277e440f90cf236c4676f95ea09f222c48acac579b62808bded11fe984",
+  "classification": "TEST_ONLY_NONCANON",
+  "elapsed_seconds": 43.35568994912319,
+  "first": "2026-02-15T00:00:00Z",
+  "last": "2031-10-31T00:00:00Z",
+  "numpy_version": "2.5.3",
+  "peak_rss_bytes": 1206566912,
+  "spiceypy_version": "6.0.3",
+  "step_days": 0.25,
+  "table_root": "/home/ubuntu/LOOM-output/pr427_giant_parent_tables_test_only",
+  "tables": {
+    "JUPITER": {
+      "bitwise_direct_spice": true,
+      "kernel_files": [
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+          "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/phase4b/jup365.bsp",
+          "sha256": "dbf016c01ba4d022154838000cf3f06962cf958ddc503a366f7fe8f81495c5cb"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+          "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+        }
+      ],
+      "seconds": 23.269220001995564,
+      "source_file": "/home/ubuntu/loom_solar_assets/kernels/spk/phase4b/jup365.bsp",
+      "source_sha256": "dbf016c01ba4d022154838000cf3f06962cf958ddc503a366f7fe8f81495c5cb",
+      "spice_id": 599,
+      "spice_id_type": "PLANET_CENTER",
+      "table_sha256": "a9accf85a576a2be4589ba8789bc72cff3f914fc8c5bc138a5770d17e18d73ad",
+      "validation_samples": 1000
+    },
+    "NEPTUNE": {
+      "bitwise_direct_spice": true,
+      "kernel_files": [
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+          "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/satellite_systems/nep097.bsp",
+          "sha256": "5c1132fdc48c54e5d2e4eb663e1ed1a876911eae9433c203f29a5a1b5e1fa9b1"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+          "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+        }
+      ],
+      "seconds": 2.2372161969542503,
+      "source_file": "/home/ubuntu/loom_solar_assets/kernels/spk/satellite_systems/nep097.bsp",
+      "source_sha256": "5c1132fdc48c54e5d2e4eb663e1ed1a876911eae9433c203f29a5a1b5e1fa9b1",
+      "spice_id": 899,
+      "spice_id_type": "PLANET_CENTER",
+      "table_sha256": "9236ae1580f44686c3a8fbbe11cdb15f91204d64865fa151d5083ec6cf9c9c99",
+      "validation_samples": 1000
+    },
+    "SATURN": {
+      "bitwise_direct_spice": true,
+      "kernel_files": [
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+          "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/satellite_systems/sat441.bsp",
+          "sha256": "d7e444a9ba7a52b8f448ff0747030789524d2f0c1212e4e2bd7f5fc3c96444d5"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+          "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+        }
+      ],
+      "seconds": 11.356092686066404,
+      "source_file": "/home/ubuntu/loom_solar_assets/kernels/spk/satellite_systems/sat441.bsp",
+      "source_sha256": "d7e444a9ba7a52b8f448ff0747030789524d2f0c1212e4e2bd7f5fc3c96444d5",
+      "spice_id": 699,
+      "spice_id_type": "PLANET_CENTER",
+      "table_sha256": "0b058aac8bf8667f3fff716443abb18805a13a69994fc9a0128e70e4f0d8e81a",
+      "validation_samples": 1000
+    },
+    "URANUS": {
+      "bitwise_direct_spice": true,
+      "kernel_files": [
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/lsk/naif0012.tls",
+          "sha256": "678e32bdb5a744117a467cd9601cd6b373f0e9bc9bbde1371d5eee39600a039b"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/satellite_systems/ura184_part-3.bsp",
+          "sha256": "273cd4ccc470d1098562cd4e94fa48fc2b4c6b1c2896308e473c949b87937c53"
+        },
+        {
+          "path": "/home/ubuntu/loom_solar_assets/kernels/spk/de440.bsp",
+          "sha256": "a4ce9bf9b3282becc9f4b2ac3cebe03a2ae7599981aabd7265fd8482fff7c4b5"
+        }
+      ],
+      "seconds": 6.479262504959479,
+      "source_file": "/home/ubuntu/loom_solar_assets/kernels/spk/satellite_systems/ura184_part-3.bsp",
+      "source_sha256": "273cd4ccc470d1098562cd4e94fa48fc2b4c6b1c2896308e473c949b87937c53",
+      "spice_id": 799,
+      "spice_id_type": "PLANET_CENTER",
+      "table_sha256": "638c5372ce41b0c2bf94196f5bbe8bcb08279c3b32eb57ff99b4dd1917210f4b",
+      "validation_samples": 1000
+    }
+  }
+}

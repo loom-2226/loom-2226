@@ -1,0 +1,6607 @@
+{
+  "body_count": 90,
+  "campaign_sponsor_count": 20,
+  "evidence_status_table": [
+    {
+      "count": 0,
+      "meaning": "No synthetic extraction is admitted as a REAL observation in general mode.",
+      "status": "REAL"
+    },
+    {
+      "count": 4,
+      "meaning": "Synthetic lifecycle extraction outputs; not observations or scientific evidence.",
+      "status": "PLACEHOLDER"
+    },
+    {
+      "count": 249,
+      "meaning": "Paid A1/A2 study outcomes remain analytically separate from physical missions.",
+      "status": "TEST_ONLY_STUDY"
+    }
+  ],
+  "executor_count": 16,
+  "kernel_transaction_count": 8799,
+  "lifecycle_annual": [
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": false,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2026
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2027
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2028
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2029
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2030
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2031
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2032
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2033
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2034
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2035
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2036
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2037
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2038
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 1,
+      "mission_price_model_currency": "0.4980538511531186136",
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_price_transaction": "tx-001349",
+      "mission_price_usd": "498053851.1531186136000000",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2039
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2040
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 2,
+      "sale_amount": "0.100",
+      "sales": 1,
+      "sponsor_exhausted": [],
+      "year": 2041
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 1,
+      "sale_amount": "0.100",
+      "sales": 1,
+      "sponsor_exhausted": [],
+      "year": 2042
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2043
+    },
+    {
+      "completed": 1,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2044
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2045
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2046
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2047
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2048
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2049
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2050
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2051
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2052
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2053
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2054
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2055
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2056
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2057
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2058
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2059
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2060
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2061
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2062
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2063
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2064
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2065
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2066
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2067
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2068
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2069
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2070
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2071
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2072
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2073
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2074
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2075
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2076
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2077
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2078
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2079
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2080
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2081
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2082
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2083
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2084
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2085
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2086
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2087
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2088
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2089
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2090
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2091
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2092
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2093
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2094
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2095
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2096
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2097
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2098
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2099
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2100
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2101
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2102
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2103
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2104
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2105
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2106
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2107
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2108
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2109
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2110
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2111
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2112
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2113
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2114
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2115
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2116
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2117
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2118
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2119
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2120
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2121
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2122
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2123
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2124
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2125
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2126
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2127
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2128
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2129
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2130
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2131
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2132
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2133
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2134
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2135
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2136
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2137
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2138
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2139
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2140
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2141
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2142
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2143
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2144
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2145
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2146
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2147
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2148
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2149
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2150
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2151
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2152
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2153
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2154
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2155
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2156
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2157
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2158
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2159
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2160
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2161
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2162
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2163
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2164
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2165
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2166
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2167
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2168
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2169
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2170
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2171
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2172
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2173
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2174
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2175
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2176
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2177
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2178
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2179
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2180
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2181
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2182
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2183
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2184
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2185
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2186
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2187
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2188
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2189
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2190
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2191
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2192
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2193
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2194
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2195
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2196
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2197
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2198
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2199
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2200
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2201
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2202
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2203
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2204
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2205
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2206
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2207
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2208
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2209
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2210
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2211
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2212
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2213
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2214
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2215
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2216
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2217
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2218
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2219
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2220
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2221
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2222
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2223
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2224
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2225
+    },
+    {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 0,
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2226
+    }
+  ],
+  "mission_price_policy": {
+    "currency": "USD",
+    "held_year": 2026,
+    "hold_policy": "exact mission year if present; otherwise hold 2026 mission quote",
+    "mission_type": "flyby",
+    "path_from_stage1": "A_VEHICLE_MISSION_PAIRS.csv",
+    "price_basis": "saved PR427 mission price table; not an A1/A2 study price",
+    "sha256": "72ebceab82626e2c6e2f595a83f67f8ee838e965ab8a0d4231ca20af045d38fd",
+    "source_run_identity": "f24cd438e12d5bc62efeaa48f084acf69f6b52e261f3a771aa1e4d05d07ace75",
+    "study_price_link": false,
+    "supported_status": "PRICED_TEST_ONLY",
+    "usd_per_model_currency": "1000000000",
+    "vehicle_class": "baseline"
+  },
+  "mission_price_table_sha256": "72ebceab82626e2c6e2f595a83f67f8ee838e965ab8a0d4231ca20af045d38fd",
+  "per_year_rollup": [
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2026
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2027
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2028
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2029
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2030
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2031
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2032
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2033
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2034
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2035
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2036
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2037
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2038
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 1,
+      "returns": 0,
+      "sales": 0,
+      "year": 2039
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2040
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 2,
+      "sales": 1,
+      "year": 2041
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 1,
+      "sales": 1,
+      "year": 2042
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2043
+    },
+    {
+      "completed": 1,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2044
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2045
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2046
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2047
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2048
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2049
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2050
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2051
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2052
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2053
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2054
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2055
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2056
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2057
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2058
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2059
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2060
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2061
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2062
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2063
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2064
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2065
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2066
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2067
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2068
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2069
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2070
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2071
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2072
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2073
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2074
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2075
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2076
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2077
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2078
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2079
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2080
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2081
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2082
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2083
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2084
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2085
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2086
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2087
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2088
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2089
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2090
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2091
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2092
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2093
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2094
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2095
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2096
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2097
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2098
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2099
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2100
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2101
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2102
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2103
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2104
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2105
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2106
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2107
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2108
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2109
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2110
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2111
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2112
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2113
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2114
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2115
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2116
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2117
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2118
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2119
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2120
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2121
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2122
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2123
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2124
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2125
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2126
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2127
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2128
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2129
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2130
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2131
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2132
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2133
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2134
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2135
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2136
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2137
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2138
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2139
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2140
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2141
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2142
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2143
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2144
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2145
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2146
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2147
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2148
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2149
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2150
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2151
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2152
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2153
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2154
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2155
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2156
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2157
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2158
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2159
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2160
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2161
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2162
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2163
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2164
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2165
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2166
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2167
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2168
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2169
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2170
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2171
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2172
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2173
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2174
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2175
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2176
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2177
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2178
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2179
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2180
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2181
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2182
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2183
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2184
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2185
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2186
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2187
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2188
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2189
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2190
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2191
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2192
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2193
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2194
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2195
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2196
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2197
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2198
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2199
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2200
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2201
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2202
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2203
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2204
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2205
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2206
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2207
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2208
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2209
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2210
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2211
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2212
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2213
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2214
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2215
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2216
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2217
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2218
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2219
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2220
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2221
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2222
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2223
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2224
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2225
+    },
+    {
+      "completed": 0,
+      "exhausted_sponsors": [],
+      "funded": 0,
+      "returns": 0,
+      "sales": 0,
+      "year": 2226
+    }
+  ],
+  "physical_mission_funded": 1,
+  "physical_projects_completed": 1,
+  "project": {
+    "appropriations": [
+      {
+        "amount": "0.020",
+        "destination_account": "route1:budget:ISRO",
+        "eligible_year": 2044,
+        "paid_year": 2044,
+        "reason": "Synthetic first owner-return appropriation",
+        "receipt_year": 2041,
+        "scripted": true,
+        "source_return_tx": "tx-001480",
+        "source_sale_tx": "tx-001476",
+        "spent_on_project": "0.020",
+        "tx": "tx-001620",
+        "unspent_amount": "0"
+      },
+      {
+        "amount": "0.040",
+        "destination_account": "route1:budget:ISRO",
+        "eligible_year": 2045,
+        "paid_year": 2045,
+        "reason": "Synthetic second owner-return appropriation",
+        "receipt_year": 2042,
+        "scripted": true,
+        "source_return_tx": "tx-001533",
+        "source_sale_tx": "tx-001530",
+        "spent_on_project": "0",
+        "tx": "tx-001666",
+        "unspent_amount": "0.040"
+      }
+    ],
+    "body": "CERES",
+    "buyer_checks": [
+      {
+        "after": "99.900",
+        "before": "100",
+        "paid": "0.100",
+        "year": 2041
+      },
+      {
+        "after": "99.800",
+        "before": "99.900",
+        "paid": "0.100",
+        "year": 2042
+      }
+    ],
+    "executor": "HAL / L&T",
+    "physical": [
+      {
+        "disbursement_tx": "tx-001351",
+        "financier_debit": "0.080",
+        "investment_tx": "tx-001350",
+        "project_cash": "0.080",
+        "sponsor_debit": "0.080",
+        "stage": "FINANCE",
+        "study_receipt": "tx-000857",
+        "study_review": "SUPPORTS_ADVANCE",
+        "year": 2039
+      },
+      {
+        "amount": "0.030",
+        "project_cash": "0.050",
+        "stage": "CONSTRUCTION",
+        "supplier_balance": "0.5730538511531186136",
+        "tx": "tx-001353",
+        "year": 2039
+      },
+      {
+        "amount": "0.030",
+        "project_cash": "0.020",
+        "stage": "CONSTRUCTION",
+        "supplier_balance": "0.6180538511531186136",
+        "tx": "tx-001418",
+        "year": 2040
+      },
+      {
+        "asset": "MINE-P",
+        "capacity": "5",
+        "remaining": "8",
+        "stage": "COMMISSIONED",
+        "year": 2040
+      },
+      {
+        "actual": "2",
+        "event": "evt-001475",
+        "evidence": "PLACEHOLDER",
+        "inventory": "2",
+        "opex": "0.020",
+        "opex_tx": "tx-001473",
+        "remaining": "6",
+        "stage": "EXTRACTED",
+        "year": 2041
+      },
+      {
+        "buyer_after": "99.900",
+        "evidence": "PLACEHOLDER",
+        "project_cash": "0.100",
+        "quantity": "2",
+        "revenue": "0.100",
+        "stage": "SOLD",
+        "tx": "tx-001476",
+        "year": 2041
+      },
+      {
+        "financier_return": "0.02000",
+        "owner_return": "0.02000",
+        "project_reserve": "0.02000",
+        "reinvestment": "0.04000",
+        "sale_tx": "tx-001476",
+        "stage": "DISTRIBUTED",
+        "txs": [
+          "tx-001478",
+          "tx-001479",
+          "tx-001480"
+        ],
+        "year": 2041
+      },
+      {
+        "amount": "0.020",
+        "stage": "REINVESTED_INTO_OPERATIONS",
+        "transaction": "tx-001526",
+        "year": 2042
+      },
+      {
+        "actual": "2",
+        "event": "evt-001529",
+        "evidence": "PLACEHOLDER",
+        "inventory": "2",
+        "opex": "0.020",
+        "opex_tx": "tx-001527",
+        "remaining": "4",
+        "stage": "EXTRACTED",
+        "year": 2042
+      },
+      {
+        "buyer_after": "99.800",
+        "evidence": "PLACEHOLDER",
+        "project_cash": "0.12000",
+        "quantity": "2",
+        "revenue": "0.100",
+        "stage": "SOLD",
+        "tx": "tx-001530",
+        "year": 2042
+      },
+      {
+        "financier_return": "0.00000",
+        "owner_return": "0.04000",
+        "project_reserve": "0.04000",
+        "reinvestment": "0.04000",
+        "sale_tx": "tx-001530",
+        "stage": "DISTRIBUTED",
+        "txs": [
+          "tx-001532",
+          "tx-001533"
+        ],
+        "year": 2042
+      },
+      {
+        "amount": "0.020",
+        "classification": "EXPLICIT_NO_TREASURY_FALLBACK",
+        "source": "ceres:physical:cash",
+        "stage": "PROJECT_RESERVE_FUNDED_OPERATIONS",
+        "year": 2043
+      },
+      {
+        "actual": "2",
+        "event": "evt-001578",
+        "evidence": "PLACEHOLDER",
+        "inventory": "2",
+        "opex": "0.020",
+        "opex_tx": "tx-001576",
+        "remaining": "2",
+        "stage": "EXTRACTED",
+        "year": 2043
+      },
+      {
+        "amount": "0.020",
+        "destination_account": "route1:budget:ISRO",
+        "eligible_year": 2044,
+        "paid_year": 2044,
+        "reason": "Synthetic first owner-return appropriation",
+        "receipt_year": 2041,
+        "scripted": true,
+        "source_return_tx": "tx-001480",
+        "source_sale_tx": "tx-001476",
+        "spent_on_project": "0.020",
+        "stage": "TREASURY_APPROPRIATION",
+        "tx": "tx-001620",
+        "unspent_amount": "0",
+        "year": 2044
+      },
+      {
+        "amount": "0.020",
+        "appropriation_tx": "tx-001620",
+        "classification": "SCRIPTED_NOT_A_DECISION",
+        "stage": "APPROPRIATION_FUNDED_OPERATIONS_SCRIPTED",
+        "transaction": "tx-001621",
+        "year": 2044
+      },
+      {
+        "actual": "2",
+        "event": "evt-001624",
+        "evidence": "PLACEHOLDER",
+        "inventory": "4",
+        "opex": "0.020",
+        "opex_tx": "tx-001622",
+        "remaining": "0",
+        "stage": "EXTRACTED",
+        "year": 2044
+      },
+      {
+        "amount": "0.040",
+        "destination_account": "route1:budget:ISRO",
+        "eligible_year": 2045,
+        "paid_year": 2045,
+        "reason": "Synthetic second owner-return appropriation",
+        "receipt_year": 2042,
+        "scripted": true,
+        "source_return_tx": "tx-001533",
+        "source_sale_tx": "tx-001530",
+        "spent_on_project": "0",
+        "stage": "TREASURY_APPROPRIATION",
+        "tx": "tx-001666",
+        "unspent_amount": "0.040",
+        "year": 2045
+      }
+    ],
+    "placeholder_outputs": [
+      {
+        "amount": "2",
+        "event": "evt-001475",
+        "evidence": "PLACEHOLDER",
+        "source": "SYNTHETIC_SCENARIO_RESOURCE",
+        "year": 2041
+      },
+      {
+        "amount": "2",
+        "event": "evt-001529",
+        "evidence": "PLACEHOLDER",
+        "source": "SYNTHETIC_SCENARIO_RESOURCE",
+        "year": 2042
+      },
+      {
+        "amount": "2",
+        "event": "evt-001578",
+        "evidence": "PLACEHOLDER",
+        "source": "SYNTHETIC_SCENARIO_RESOURCE",
+        "year": 2043
+      },
+      {
+        "amount": "2",
+        "event": "evt-001624",
+        "evidence": "PLACEHOLDER",
+        "source": "SYNTHETIC_SCENARIO_RESOURCE",
+        "year": 2044
+      }
+    ],
+    "project_id": "P",
+    "return_spends": [
+      {
+        "amount": "0.020",
+        "classification": "SCRIPTED_NOT_A_DECISION",
+        "expense_tx": "tx-001622",
+        "funding_tx": "tx-001621",
+        "source": "TREASURY_OWNER_DISTRIBUTION",
+        "source_appropriation_tx": "tx-001620",
+        "source_return_tx": "tx-001480",
+        "source_sale_tx": "tx-001476",
+        "year": 2044
+      }
+    ],
+    "returns": [
+      {
+        "amount": "0.02000",
+        "kind": "financier",
+        "owner": "ceres:physical:financier",
+        "owner_type": "financier",
+        "return_tx": "tx-001478",
+        "sale_tx": "tx-001476",
+        "source": "resource_export_to_earth_buyer",
+        "year": 2041
+      },
+      {
+        "amount": "0.02000",
+        "kind": "owner",
+        "owner": "treasury:IND",
+        "owner_type": "public_agency",
+        "return_tx": "tx-001480",
+        "sale_tx": "tx-001476",
+        "source": "resource_export_to_earth_buyer",
+        "year": 2041
+      },
+      {
+        "amount": "0.04000",
+        "kind": "owner",
+        "owner": "treasury:IND",
+        "owner_type": "public_agency",
+        "return_tx": "tx-001533",
+        "sale_tx": "tx-001530",
+        "source": "resource_export_to_earth_buyer",
+        "year": 2042
+      }
+    ],
+    "sales": [
+      [
+        2041,
+        "tx-001476"
+      ],
+      [
+        2042,
+        "tx-001530"
+      ]
+    ],
+    "schedule": {
+      "appropriation_year_2": 2045,
+      "construction_year_1": 2039,
+      "construction_year_2": 2040,
+      "operation_year_1": 2041,
+      "operation_year_2": 2042,
+      "operation_year_3": 2043,
+      "operation_year_4": 2044
+    },
+    "sponsor": "ISRO",
+    "start_year": 2026
+  },
+  "returns": 3,
+  "route1_campaign_annual": [
+    {
+      "attempted": 90,
+      "closing": "64.57466685430020308325000001",
+      "funded": 90,
+      "year": 2036
+    },
+    {
+      "attempted": 90,
+      "closing": "70.13402521628057601324999999",
+      "funded": 90,
+      "year": 2037
+    },
+    {
+      "attempted": 39,
+      "closing": "76.60670720327116724950000000",
+      "funded": 39,
+      "year": 2038
+    },
+    {
+      "attempted": 19,
+      "closing": "83.53147923524999127050000000",
+      "funded": 19,
+      "year": 2039
+    },
+    {
+      "attempted": 7,
+      "closing": "90.21589214732379521839999999",
+      "funded": 7,
+      "year": 2040
+    },
+    {
+      "attempted": 3,
+      "closing": "97.70198083873647550089999999",
+      "funded": 3,
+      "year": 2041
+    },
+    {
+      "attempted": 1,
+      "closing": "105.3866136347857834259000000",
+      "funded": 1,
+      "year": 2042
+    },
+    {
+      "attempted": 0,
+      "closing": "113.2592922474559246221500001",
+      "funded": 0,
+      "year": 2043
+    },
+    {
+      "attempted": 0,
+      "closing": "121.3069280902457424371500000",
+      "funded": 0,
+      "year": 2044
+    },
+    {
+      "attempted": 0,
+      "closing": "129.5304963470931829884000000",
+      "funded": 0,
+      "year": 2045
+    },
+    {
+      "attempted": 0,
+      "closing": "137.9715601175820377283999999",
+      "funded": 0,
+      "year": 2046
+    },
+    {
+      "attempted": 0,
+      "closing": "146.5504092165802894434000000",
+      "funded": 0,
+      "year": 2047
+    },
+    {
+      "attempted": 0,
+      "closing": "155.3110762227169767584000001",
+      "funded": 0,
+      "year": 2048
+    },
+    {
+      "attempted": 0,
+      "closing": "164.2586303025677904084000000",
+      "funded": 0,
+      "year": 2049
+    },
+    {
+      "attempted": 0,
+      "closing": "173.3933253067506200209000000",
+      "funded": 0,
+      "year": 2050
+    },
+    {
+      "attempted": 0,
+      "closing": "182.7141050515234998983999999",
+      "funded": 0,
+      "year": 2051
+    },
+    {
+      "attempted": 0,
+      "closing": "192.2190503504642751584000000",
+      "funded": 0,
+      "year": 2052
+    },
+    {
+      "attempted": 0,
+      "closing": "201.9093385952324889983999999",
+      "funded": 0,
+      "year": 2053
+    },
+    {
+      "attempted": 0,
+      "closing": "211.7869712552508489783999999",
+      "funded": 0,
+      "year": 2054
+    },
+    {
+      "attempted": 0,
+      "closing": "221.8505828001555930909000000",
+      "funded": 0,
+      "year": 2055
+    },
+    {
+      "attempted": 0,
+      "closing": "232.1089275754959132184000001",
+      "funded": 0,
+      "year": 2056
+    },
+    {
+      "attempted": 0,
+      "closing": "242.5770393423548549446500000",
+      "funded": 0,
+      "year": 2057
+    },
+    {
+      "attempted": 0,
+      "closing": "253.2638360904427667011499998",
+      "funded": 0,
+      "year": 2058
+    },
+    {
+      "attempted": 0,
+      "closing": "264.1767049924776875826500001",
+      "funded": 0,
+      "year": 2059
+    },
+    {
+      "attempted": 0,
+      "closing": "275.3220152666541266576500000",
+      "funded": 0,
+      "year": 2060
+    },
+    {
+      "attempted": 0,
+      "closing": "287.0495890757870572701500001",
+      "funded": 0,
+      "year": 2061
+    },
+    {
+      "attempted": 0,
+      "closing": "298.9850541190255862551500001",
+      "funded": 0,
+      "year": 2062
+    },
+    {
+      "attempted": 0,
+      "closing": "311.1059957120810566501500000",
+      "funded": 0,
+      "year": 2063
+    },
+    {
+      "attempted": 0,
+      "closing": "323.3929996990644683026500000",
+      "funded": 0,
+      "year": 2064
+    },
+    {
+      "attempted": 0,
+      "closing": "335.8146500827418761201500000",
+      "funded": 0,
+      "year": 2065
+    },
+    {
+      "attempted": 0,
+      "closing": "348.3490068047566920826499999",
+      "funded": 0,
+      "year": 2066
+    },
+    {
+      "attempted": 0,
+      "closing": "360.9810813008491953851499998",
+      "funded": 0,
+      "year": 2067
+    },
+    {
+      "attempted": 0,
+      "closing": "373.6814624704071444576500000",
+      "funded": 0,
+      "year": 2068
+    },
+    {
+      "attempted": 0,
+      "closing": "386.4175433265332513426499999",
+      "funded": 0,
+      "year": 2069
+    },
+    {
+      "attempted": 0,
+      "closing": "399.1591354720673207576499998",
+      "funded": 0,
+      "year": 2070
+    },
+    {
+      "attempted": 0,
+      "closing": "411.8776859338650430051500000",
+      "funded": 0,
+      "year": 2071
+    },
+    {
+      "attempted": 0,
+      "closing": "424.5411271083190298426499998",
+      "funded": 0,
+      "year": 2072
+    },
+    {
+      "attempted": 0,
+      "closing": "437.1178908748071054951499997",
+      "funded": 0,
+      "year": 2073
+    },
+    {
+      "attempted": 0,
+      "closing": "449.5885534565435558051499999",
+      "funded": 0,
+      "year": 2074
+    },
+    {
+      "attempted": 0,
+      "closing": "461.9435921078579819751499999",
+      "funded": 0,
+      "year": 2075
+    },
+    {
+      "attempted": 0,
+      "closing": "474.1764985484404916001499998",
+      "funded": 0,
+      "year": 2076
+    },
+    {
+      "attempted": 0,
+      "closing": "486.2371580778714316551499999",
+      "funded": 0,
+      "year": 2077
+    },
+    {
+      "attempted": 0,
+      "closing": "498.1191412517725975726499995",
+      "funded": 0,
+      "year": 2078
+    },
+    {
+      "attempted": 0,
+      "closing": "509.8355674143435922901499999",
+      "funded": 0,
+      "year": 2079
+    },
+    {
+      "attempted": 0,
+      "closing": "521.3838263777524947726499998",
+      "funded": 0,
+      "year": 2080
+    },
+    {
+      "attempted": 0,
+      "closing": "532.7512436599759228801499997",
+      "funded": 0,
+      "year": 2081
+    },
+    {
+      "attempted": 0,
+      "closing": "543.9124361009730632851499998",
+      "funded": 0,
+      "year": 2082
+    },
+    {
+      "attempted": 0,
+      "closing": "554.9554916313371294076499998",
+      "funded": 0,
+      "year": 2083
+    },
+    {
+      "attempted": 0,
+      "closing": "565.9274268631324167976499996",
+      "funded": 0,
+      "year": 2084
+    },
+    {
+      "attempted": 0,
+      "closing": "576.8535194711826711838999997",
+      "funded": 0,
+      "year": 2085
+    },
+    {
+      "attempted": 0,
+      "closing": "587.7793203182008313038999996",
+      "funded": 0,
+      "year": 2086
+    },
+    {
+      "attempted": 0,
+      "closing": "598.6711704225023039126499996",
+      "funded": 0,
+      "year": 2087
+    },
+    {
+      "attempted": 0,
+      "closing": "609.5132196817507631988999998",
+      "funded": 0,
+      "year": 2088
+    },
+    {
+      "attempted": 0,
+      "closing": "620.2805912218512028413999998",
+      "funded": 0,
+      "year": 2089
+    },
+    {
+      "attempted": 0,
+      "closing": "630.9370567486520318338999998",
+      "funded": 0,
+      "year": 2090
+    },
+    {
+      "attempted": 0,
+      "closing": "641.4775073929763497048999997",
+      "funded": 0,
+      "year": 2091
+    },
+    {
+      "attempted": 0,
+      "closing": "651.9020440861401882173999996",
+      "funded": 0,
+      "year": 2092
+    },
+    {
+      "attempted": 0,
+      "closing": "662.1995933234277039173999999",
+      "funded": 0,
+      "year": 2093
+    },
+    {
+      "attempted": 0,
+      "closing": "672.3672635419430098623999998",
+      "funded": 0,
+      "year": 2094
+    },
+    {
+      "attempted": 0,
+      "closing": "682.3994906658956071773999999",
+      "funded": 0,
+      "year": 2095
+    },
+    {
+      "attempted": 0,
+      "closing": "692.2855548067770689898999997",
+      "funded": 0,
+      "year": 2096
+    },
+    {
+      "attempted": 0,
+      "closing": "702.0144266873805695973999999",
+      "funded": 0,
+      "year": 2097
+    },
+    {
+      "attempted": 0,
+      "closing": "711.5887658740345502399000000",
+      "funded": 0,
+      "year": 2098
+    },
+    {
+      "attempted": 0,
+      "closing": "720.9938767097738372373999998",
+      "funded": 0,
+      "year": 2099
+    },
+    {
+      "attempted": 0,
+      "closing": "730.2255920590145135774000001",
+      "funded": 0,
+      "year": 2100
+    },
+    {
+      "attempted": 0,
+      "closing": "739.4141144534925291724000000",
+      "funded": 0,
+      "year": 2101
+    },
+    {
+      "attempted": 0,
+      "closing": "748.5013214337137004924000000",
+      "funded": 0,
+      "year": 2102
+    },
+    {
+      "attempted": 0,
+      "closing": "757.4771433652860578954000001",
+      "funded": 0,
+      "year": 2103
+    },
+    {
+      "attempted": 0,
+      "closing": "766.3414992766617938066499999",
+      "funded": 0,
+      "year": 2104
+    },
+    {
+      "attempted": 0,
+      "closing": "775.0965638109063478026499999",
+      "funded": 0,
+      "year": 2105
+    },
+    {
+      "attempted": 0,
+      "closing": "783.7451270726947234411500000",
+      "funded": 0,
+      "year": 2106
+    },
+    {
+      "attempted": 0,
+      "closing": "792.2902219464188803126500001",
+      "funded": 0,
+      "year": 2107
+    },
+    {
+      "attempted": 0,
+      "closing": "800.7350258008431014136500001",
+      "funded": 0,
+      "year": 2108
+    },
+    {
+      "attempted": 0,
+      "closing": "809.0828244329308182846500002",
+      "funded": 0,
+      "year": 2109
+    },
+    {
+      "attempted": 0,
+      "closing": "817.3369901731629572011500001",
+      "funded": 0,
+      "year": 2110
+    },
+    {
+      "attempted": 0,
+      "closing": "825.5009647299062783661500000",
+      "funded": 0,
+      "year": 2111
+    },
+    {
+      "attempted": 0,
+      "closing": "833.5782447027647885049000000",
+      "funded": 0,
+      "year": 2112
+    },
+    {
+      "attempted": 0,
+      "closing": "841.5720091886464615474000000",
+      "funded": 0,
+      "year": 2113
+    },
+    {
+      "attempted": 0,
+      "closing": "849.4855044781218727913999999",
+      "funded": 0,
+      "year": 2114
+    },
+    {
+      "attempted": 0,
+      "closing": "857.3220193863801512591499999",
+      "funded": 0,
+      "year": 2115
+    },
+    {
+      "attempted": 0,
+      "closing": "865.0848675966280471636500000",
+      "funded": 0,
+      "year": 2116
+    },
+    {
+      "attempted": 0,
+      "closing": "872.7773730569319806596499999",
+      "funded": 0,
+      "year": 2117
+    },
+    {
+      "attempted": 0,
+      "closing": "880.4028567202214584376500000",
+      "funded": 0,
+      "year": 2118
+    },
+    {
+      "attempted": 0,
+      "closing": "887.9646241774602281738999998",
+      "funded": 0,
+      "year": 2119
+    },
+    {
+      "attempted": 0,
+      "closing": "895.4659540926797587538999997",
+      "funded": 0,
+      "year": 2120
+    },
+    {
+      "attempted": 0,
+      "closing": "902.9100874482706596998999998",
+      "funded": 0,
+      "year": 2121
+    },
+    {
+      "attempted": 0,
+      "closing": "910.3002176331017109976499999",
+      "funded": 0,
+      "year": 2122
+    },
+    {
+      "attempted": 0,
+      "closing": "917.6394814073646914131499997",
+      "funded": 0,
+      "year": 2123
+    },
+    {
+      "attempted": 0,
+      "closing": "924.9309507718666130321499997",
+      "funded": 0,
+      "year": 2124
+    },
+    {
+      "attempted": 0,
+      "closing": "932.1776257604381412691499997",
+      "funded": 0,
+      "year": 2125
+    },
+    {
+      "attempted": 0,
+      "closing": "939.3824281637885456463999998",
+      "funded": 0,
+      "year": 2126
+    },
+    {
+      "attempted": 0,
+      "closing": "946.5481961822373386016499997",
+      "funded": 0,
+      "year": 2127
+    },
+    {
+      "attempted": 0,
+      "closing": "953.6776799937773832948999998",
+      "funded": 0,
+      "year": 2128
+    },
+    {
+      "attempted": 0,
+      "closing": "960.7735382132830891491499999",
+      "funded": 0,
+      "year": 2129
+    },
+    {
+      "attempted": 0,
+      "closing": "967.8383352087294048791499998",
+      "funded": 0,
+      "year": 2130
+    },
+    {
+      "attempted": 0,
+      "closing": "974.8745392313486179791499999",
+      "funded": 0,
+      "year": 2131
+    },
+    {
+      "attempted": 0,
+      "closing": "981.8845213089717197513999998",
+      "funded": 0,
+      "year": 2132
+    },
+    {
+      "attempted": 0,
+      "closing": "988.8705548455640641791499998",
+      "funded": 0,
+      "year": 2133
+    },
+    {
+      "attempted": 0,
+      "closing": "995.8348158652728760401499998",
+      "funded": 0,
+      "year": 2134
+    },
+    {
+      "attempted": 0,
+      "closing": "1002.779383949950349718400000",
+      "funded": 0,
+      "year": 2135
+    },
+    {
+      "attempted": 0,
+      "closing": "1009.706605420014157138400000",
+      "funded": 0,
+      "year": 2136
+    },
+    {
+      "attempted": 0,
+      "closing": "1016.618449900654517007900000",
+      "funded": 0,
+      "year": 2137
+    },
+    {
+      "attempted": 0,
+      "closing": "1023.516727510763149076900000",
+      "funded": 0,
+      "year": 2138
+    },
+    {
+      "attempted": 0,
+      "closing": "1030.403142998678591825900000",
+      "funded": 0,
+      "year": 2139
+    },
+    {
+      "attempted": 0,
+      "closing": "1037.279311034807088711400000",
+      "funded": 0,
+      "year": 2140
+    },
+    {
+      "attempted": 0,
+      "closing": "1044.146762254887825350399999",
+      "funded": 0,
+      "year": 2141
+    },
+    {
+      "attempted": 0,
+      "closing": "1051.006947143178426613399999",
+      "funded": 0,
+      "year": 2142
+    },
+    {
+      "attempted": 0,
+      "closing": "1057.861239447859695482900000",
+      "funded": 0,
+      "year": 2143
+    },
+    {
+      "attempted": 0,
+      "closing": "1064.710939515010223037900000",
+      "funded": 0,
+      "year": 2144
+    },
+    {
+      "attempted": 0,
+      "closing": "1071.557277611105146657150000",
+      "funded": 0,
+      "year": 2145
+    },
+    {
+      "attempted": 0,
+      "closing": "1078.401417229697093993400000",
+      "funded": 0,
+      "year": 2146
+    },
+    {
+      "attempted": 0,
+      "closing": "1085.244458362260474399900000",
+      "funded": 0,
+      "year": 2147
+    },
+    {
+      "attempted": 0,
+      "closing": "1092.087440230654364774150000",
+      "funded": 0,
+      "year": 2148
+    },
+    {
+      "attempted": 0,
+      "closing": "1098.931344554458497631649999",
+      "funded": 0,
+      "year": 2149
+    },
+    {
+      "attempted": 0,
+      "closing": "1105.777098951308899063400000",
+      "funded": 0,
+      "year": 2150
+    },
+    {
+      "attempted": 0,
+      "closing": "1112.625579888813321756150000",
+      "funded": 0,
+      "year": 2151
+    },
+    {
+      "attempted": 0,
+      "closing": "1119.477615528623782352900000",
+      "funded": 0,
+      "year": 2152
+    },
+    {
+      "attempted": 0,
+      "closing": "1126.333988456283475473650000",
+      "funded": 0,
+      "year": 2153
+    },
+    {
+      "attempted": 0,
+      "closing": "1133.195438292940706174900000",
+      "funded": 0,
+      "year": 2154
+    },
+    {
+      "attempted": 0,
+      "closing": "1140.062664186137247338650000",
+      "funded": 0,
+      "year": 2155
+    },
+    {
+      "attempted": 0,
+      "closing": "1146.936327181331056005400000",
+      "funded": 0,
+      "year": 2156
+    },
+    {
+      "attempted": 0,
+      "closing": "1153.817051632644145548900000",
+      "funded": 0,
+      "year": 2157
+    },
+    {
+      "attempted": 0,
+      "closing": "1160.705421649856094315649999",
+      "funded": 0,
+      "year": 2158
+    },
+    {
+      "attempted": 0,
+      "closing": "1167.601989862100952751900001",
+      "funded": 0,
+      "year": 2159
+    },
+    {
+      "attempted": 0,
+      "closing": "1174.507279238362429725150000",
+      "funded": 0,
+      "year": 2160
+    },
+    {
+      "attempted": 0,
+      "closing": "1181.421784857854111891399999",
+      "funded": 0,
+      "year": 2161
+    },
+    {
+      "attempted": 0,
+      "closing": "1188.345922389723410981899999",
+      "funded": 0,
+      "year": 2162
+    },
+    {
+      "attempted": 0,
+      "closing": "1195.280027323751580215400000",
+      "funded": 0,
+      "year": 2163
+    },
+    {
+      "attempted": 0,
+      "closing": "1202.224412222398845838650000",
+      "funded": 0,
+      "year": 2164
+    },
+    {
+      "attempted": 0,
+      "closing": "1209.179368443425869048900000",
+      "funded": 0,
+      "year": 2165
+    },
+    {
+      "attempted": 0,
+      "closing": "1216.145167625365675769900000",
+      "funded": 0,
+      "year": 2166
+    },
+    {
+      "attempted": 0,
+      "closing": "1223.122063035783861980150000",
+      "funded": 0,
+      "year": 2167
+    },
+    {
+      "attempted": 0,
+      "closing": "1230.110290819457429616650000",
+      "funded": 0,
+      "year": 2168
+    },
+    {
+      "attempted": 0,
+      "closing": "1237.110071160780285754149999",
+      "funded": 0,
+      "year": 2169
+    },
+    {
+      "attempted": 0,
+      "closing": "1244.121609371358603256900000",
+      "funded": 0,
+      "year": 2170
+    },
+    {
+      "attempted": 0,
+      "closing": "1251.145096908842625887400000",
+      "funded": 0,
+      "year": 2171
+    },
+    {
+      "attempted": 0,
+      "closing": "1258.180707001522911239400000",
+      "funded": 0,
+      "year": 2172
+    },
+    {
+      "attempted": 0,
+      "closing": "1265.228597302035021657649999",
+      "funded": 0,
+      "year": 2173
+    },
+    {
+      "attempted": 0,
+      "closing": "1272.288914467120098685150000",
+      "funded": 0,
+      "year": 2174
+    },
+    {
+      "attempted": 0,
+      "closing": "1279.361794906436406047650000",
+      "funded": 0,
+      "year": 2175
+    },
+    {
+      "attempted": 0,
+      "closing": "1286.447365136073825720150000",
+      "funded": 0,
+      "year": 2176
+    },
+    {
+      "attempted": 0,
+      "closing": "1293.545742757959997826150000",
+      "funded": 0,
+      "year": 2177
+    },
+    {
+      "attempted": 0,
+      "closing": "1300.657036295860112840900001",
+      "funded": 0,
+      "year": 2178
+    },
+    {
+      "attempted": 0,
+      "closing": "1307.781344767628925201900000",
+      "funded": 0,
+      "year": 2179
+    },
+    {
+      "attempted": 0,
+      "closing": "1314.918760178083174948900000",
+      "funded": 0,
+      "year": 2180
+    },
+    {
+      "attempted": 0,
+      "closing": "1322.069368021602470698899999",
+      "funded": 0,
+      "year": 2181
+    },
+    {
+      "attempted": 0,
+      "closing": "1329.233247470907273087400000",
+      "funded": 0,
+      "year": 2182
+    },
+    {
+      "attempted": 0,
+      "closing": "1336.410470733151180729900001",
+      "funded": 0,
+      "year": 2183
+    },
+    {
+      "attempted": 0,
+      "closing": "1343.601102101917365302149999",
+      "funded": 0,
+      "year": 2184
+    },
+    {
+      "attempted": 0,
+      "closing": "1350.805199775040957310899999",
+      "funded": 0,
+      "year": 2185
+    },
+    {
+      "attempted": 0,
+      "closing": "1358.022817652068795217400000",
+      "funded": 0,
+      "year": 2186
+    },
+    {
+      "attempted": 0,
+      "closing": "1365.254005664007503453900000",
+      "funded": 0,
+      "year": 2187
+    },
+    {
+      "attempted": 0,
+      "closing": "1372.498810081589583425650000",
+      "funded": 0,
+      "year": 2188
+    },
+    {
+      "attempted": 0,
+      "closing": "1379.757273802549885492399999",
+      "funded": 0,
+      "year": 2189
+    },
+    {
+      "attempted": 0,
+      "closing": "1387.029436619289421419650000",
+      "funded": 0,
+      "year": 2190
+    },
+    {
+      "attempted": 0,
+      "closing": "1394.315334892444652243900000",
+      "funded": 0,
+      "year": 2191
+    },
+    {
+      "attempted": 0,
+      "closing": "1401.615002181801384589650000",
+      "funded": 0,
+      "year": 2192
+    },
+    {
+      "attempted": 0,
+      "closing": "1408.928468721391752037150000",
+      "funded": 0,
+      "year": 2193
+    },
+    {
+      "attempted": 0,
+      "closing": "1416.255762594183289883900000",
+      "funded": 0,
+      "year": 2194
+    },
+    {
+      "attempted": 0,
+      "closing": "1423.596909902608052839900000",
+      "funded": 0,
+      "year": 2195
+    },
+    {
+      "attempted": 0,
+      "closing": "1430.951934934338620236150000",
+      "funded": 0,
+      "year": 2196
+    },
+    {
+      "attempted": 0,
+      "closing": "1438.320860264443659732399999",
+      "funded": 0,
+      "year": 2197
+    },
+    {
+      "attempted": 0,
+      "closing": "1445.703706882352340137150000",
+      "funded": 0,
+      "year": 2198
+    },
+    {
+      "attempted": 0,
+      "closing": "1453.100494264006607058399999",
+      "funded": 0,
+      "year": 2199
+    },
+    {
+      "attempted": 0,
+      "closing": "1460.511240057653712890899999",
+      "funded": 0,
+      "year": 2200
+    },
+    {
+      "attempted": 0,
+      "closing": "1467.935960760535311916899999",
+      "funded": 0,
+      "year": 2201
+    },
+    {
+      "attempted": 0,
+      "closing": "1475.374671827351660893899999",
+      "funded": 0,
+      "year": 2202
+    },
+    {
+      "attempted": 0,
+      "closing": "1482.827387808369719764649999",
+      "funded": 0,
+      "year": 2203
+    },
+    {
+      "attempted": 0,
+      "closing": "1490.294122440077243511650000",
+      "funded": 0,
+      "year": 2204
+    },
+    {
+      "attempted": 0,
+      "closing": "1497.774888729084429803150000",
+      "funded": 0,
+      "year": 2205
+    },
+    {
+      "attempted": 0,
+      "closing": "1505.269699029375473760900000",
+      "funded": 0,
+      "year": 2206
+    },
+    {
+      "attempted": 0,
+      "closing": "1512.778565113553451021400000",
+      "funded": 0,
+      "year": 2207
+    },
+    {
+      "attempted": 0,
+      "closing": "1520.301498238462324761899999",
+      "funded": 0,
+      "year": 2208
+    },
+    {
+      "attempted": 0,
+      "closing": "1527.838509204555324234900000",
+      "funded": 0,
+      "year": 2209
+    },
+    {
+      "attempted": 0,
+      "closing": "1535.389608386964421331899999",
+      "funded": 0,
+      "year": 2210
+    },
+    {
+      "attempted": 0,
+      "closing": "1542.954805816338417061400000",
+      "funded": 0,
+      "year": 2211
+    },
+    {
+      "attempted": 0,
+      "closing": "1550.534111223202850462400000",
+      "funded": 0,
+      "year": 2212
+    },
+    {
+      "attempted": 0,
+      "closing": "1558.127534079999391239899998",
+      "funded": 0,
+      "year": 2213
+    },
+    {
+      "attempted": 0,
+      "closing": "1565.735083640071677819149999",
+      "funded": 0,
+      "year": 2214
+    },
+    {
+      "attempted": 0,
+      "closing": "1573.356768870684859320149999",
+      "funded": 0,
+      "year": 2215
+    },
+    {
+      "attempted": 0,
+      "closing": "1580.992598042513021751150000",
+      "funded": 0,
+      "year": 2216
+    },
+    {
+      "attempted": 0,
+      "closing": "1588.642579310480458040400000",
+      "funded": 0,
+      "year": 2217
+    },
+    {
+      "attempted": 0,
+      "closing": "1596.306720744585536980400001",
+      "funded": 0,
+      "year": 2218
+    },
+    {
+      "attempted": 0,
+      "closing": "1603.985030355853411105900000",
+      "funded": 0,
+      "year": 2219
+    },
+    {
+      "attempted": 0,
+      "closing": "1611.677516119157696329900000",
+      "funded": 0,
+      "year": 2220
+    },
+    {
+      "attempted": 0,
+      "closing": "1619.384185993641845483650001",
+      "funded": 0,
+      "year": 2221
+    },
+    {
+      "attempted": 0,
+      "closing": "1627.105047941114494702649999",
+      "funded": 0,
+      "year": 2222
+    },
+    {
+      "attempted": 0,
+      "closing": "1634.840109942641747036150000",
+      "funded": 0,
+      "year": 2223
+    },
+    {
+      "attempted": 0,
+      "closing": "1642.589380013499885511399999",
+      "funded": 0,
+      "year": 2224
+    },
+    {
+      "attempted": 0,
+      "closing": "1650.352866220691315744899999",
+      "funded": 0,
+      "year": 2225
+    },
+    {
+      "attempted": 0,
+      "closing": "1658.130576689322294714899998",
+      "funded": 0,
+      "year": 2226
+    }
+  ],
+  "run_identity": "c42a874c00e029d591433fd34126e7b0f6f69826aaff2ecc4a8573596d1d296f:conversion=1",
+  "run_name": "full_clock",
+  "runtime_seconds": 17.914126094896346,
+  "sales": 2,
+  "scenario_sha256": "0e761d2ff122c6ea48510a337b3ae79c0bd707fa371fccb2ba65e93d5243c34c",
+  "source_price_run_identity": "f24cd438e12d5bc62efeaa48f084acf69f6b52e261f3a771aa1e4d05d07ace75",
+  "sponsor_exhaustion_by_year": [
+    {
+      "sponsors": [],
+      "year": 2026
+    },
+    {
+      "sponsors": [],
+      "year": 2027
+    },
+    {
+      "sponsors": [],
+      "year": 2028
+    },
+    {
+      "sponsors": [],
+      "year": 2029
+    },
+    {
+      "sponsors": [],
+      "year": 2030
+    },
+    {
+      "sponsors": [],
+      "year": 2031
+    },
+    {
+      "sponsors": [],
+      "year": 2032
+    },
+    {
+      "sponsors": [],
+      "year": 2033
+    },
+    {
+      "sponsors": [],
+      "year": 2034
+    },
+    {
+      "sponsors": [],
+      "year": 2035
+    },
+    {
+      "sponsors": [],
+      "year": 2036
+    },
+    {
+      "sponsors": [],
+      "year": 2037
+    },
+    {
+      "sponsors": [],
+      "year": 2038
+    },
+    {
+      "sponsors": [],
+      "year": 2039
+    },
+    {
+      "sponsors": [],
+      "year": 2040
+    },
+    {
+      "sponsors": [],
+      "year": 2041
+    },
+    {
+      "sponsors": [],
+      "year": 2042
+    },
+    {
+      "sponsors": [],
+      "year": 2043
+    },
+    {
+      "sponsors": [],
+      "year": 2044
+    },
+    {
+      "sponsors": [],
+      "year": 2045
+    },
+    {
+      "sponsors": [],
+      "year": 2046
+    },
+    {
+      "sponsors": [],
+      "year": 2047
+    },
+    {
+      "sponsors": [],
+      "year": 2048
+    },
+    {
+      "sponsors": [],
+      "year": 2049
+    },
+    {
+      "sponsors": [],
+      "year": 2050
+    },
+    {
+      "sponsors": [],
+      "year": 2051
+    },
+    {
+      "sponsors": [],
+      "year": 2052
+    },
+    {
+      "sponsors": [],
+      "year": 2053
+    },
+    {
+      "sponsors": [],
+      "year": 2054
+    },
+    {
+      "sponsors": [],
+      "year": 2055
+    },
+    {
+      "sponsors": [],
+      "year": 2056
+    },
+    {
+      "sponsors": [],
+      "year": 2057
+    },
+    {
+      "sponsors": [],
+      "year": 2058
+    },
+    {
+      "sponsors": [],
+      "year": 2059
+    },
+    {
+      "sponsors": [],
+      "year": 2060
+    },
+    {
+      "sponsors": [],
+      "year": 2061
+    },
+    {
+      "sponsors": [],
+      "year": 2062
+    },
+    {
+      "sponsors": [],
+      "year": 2063
+    },
+    {
+      "sponsors": [],
+      "year": 2064
+    },
+    {
+      "sponsors": [],
+      "year": 2065
+    },
+    {
+      "sponsors": [],
+      "year": 2066
+    },
+    {
+      "sponsors": [],
+      "year": 2067
+    },
+    {
+      "sponsors": [],
+      "year": 2068
+    },
+    {
+      "sponsors": [],
+      "year": 2069
+    },
+    {
+      "sponsors": [],
+      "year": 2070
+    },
+    {
+      "sponsors": [],
+      "year": 2071
+    },
+    {
+      "sponsors": [],
+      "year": 2072
+    },
+    {
+      "sponsors": [],
+      "year": 2073
+    },
+    {
+      "sponsors": [],
+      "year": 2074
+    },
+    {
+      "sponsors": [],
+      "year": 2075
+    },
+    {
+      "sponsors": [],
+      "year": 2076
+    },
+    {
+      "sponsors": [],
+      "year": 2077
+    },
+    {
+      "sponsors": [],
+      "year": 2078
+    },
+    {
+      "sponsors": [],
+      "year": 2079
+    },
+    {
+      "sponsors": [],
+      "year": 2080
+    },
+    {
+      "sponsors": [],
+      "year": 2081
+    },
+    {
+      "sponsors": [],
+      "year": 2082
+    },
+    {
+      "sponsors": [],
+      "year": 2083
+    },
+    {
+      "sponsors": [],
+      "year": 2084
+    },
+    {
+      "sponsors": [],
+      "year": 2085
+    },
+    {
+      "sponsors": [],
+      "year": 2086
+    },
+    {
+      "sponsors": [],
+      "year": 2087
+    },
+    {
+      "sponsors": [],
+      "year": 2088
+    },
+    {
+      "sponsors": [],
+      "year": 2089
+    },
+    {
+      "sponsors": [],
+      "year": 2090
+    },
+    {
+      "sponsors": [],
+      "year": 2091
+    },
+    {
+      "sponsors": [],
+      "year": 2092
+    },
+    {
+      "sponsors": [],
+      "year": 2093
+    },
+    {
+      "sponsors": [],
+      "year": 2094
+    },
+    {
+      "sponsors": [],
+      "year": 2095
+    },
+    {
+      "sponsors": [],
+      "year": 2096
+    },
+    {
+      "sponsors": [],
+      "year": 2097
+    },
+    {
+      "sponsors": [],
+      "year": 2098
+    },
+    {
+      "sponsors": [],
+      "year": 2099
+    },
+    {
+      "sponsors": [],
+      "year": 2100
+    },
+    {
+      "sponsors": [],
+      "year": 2101
+    },
+    {
+      "sponsors": [],
+      "year": 2102
+    },
+    {
+      "sponsors": [],
+      "year": 2103
+    },
+    {
+      "sponsors": [],
+      "year": 2104
+    },
+    {
+      "sponsors": [],
+      "year": 2105
+    },
+    {
+      "sponsors": [],
+      "year": 2106
+    },
+    {
+      "sponsors": [],
+      "year": 2107
+    },
+    {
+      "sponsors": [],
+      "year": 2108
+    },
+    {
+      "sponsors": [],
+      "year": 2109
+    },
+    {
+      "sponsors": [],
+      "year": 2110
+    },
+    {
+      "sponsors": [],
+      "year": 2111
+    },
+    {
+      "sponsors": [],
+      "year": 2112
+    },
+    {
+      "sponsors": [],
+      "year": 2113
+    },
+    {
+      "sponsors": [],
+      "year": 2114
+    },
+    {
+      "sponsors": [],
+      "year": 2115
+    },
+    {
+      "sponsors": [],
+      "year": 2116
+    },
+    {
+      "sponsors": [],
+      "year": 2117
+    },
+    {
+      "sponsors": [],
+      "year": 2118
+    },
+    {
+      "sponsors": [],
+      "year": 2119
+    },
+    {
+      "sponsors": [],
+      "year": 2120
+    },
+    {
+      "sponsors": [],
+      "year": 2121
+    },
+    {
+      "sponsors": [],
+      "year": 2122
+    },
+    {
+      "sponsors": [],
+      "year": 2123
+    },
+    {
+      "sponsors": [],
+      "year": 2124
+    },
+    {
+      "sponsors": [],
+      "year": 2125
+    },
+    {
+      "sponsors": [],
+      "year": 2126
+    },
+    {
+      "sponsors": [],
+      "year": 2127
+    },
+    {
+      "sponsors": [],
+      "year": 2128
+    },
+    {
+      "sponsors": [],
+      "year": 2129
+    },
+    {
+      "sponsors": [],
+      "year": 2130
+    },
+    {
+      "sponsors": [],
+      "year": 2131
+    },
+    {
+      "sponsors": [],
+      "year": 2132
+    },
+    {
+      "sponsors": [],
+      "year": 2133
+    },
+    {
+      "sponsors": [],
+      "year": 2134
+    },
+    {
+      "sponsors": [],
+      "year": 2135
+    },
+    {
+      "sponsors": [],
+      "year": 2136
+    },
+    {
+      "sponsors": [],
+      "year": 2137
+    },
+    {
+      "sponsors": [],
+      "year": 2138
+    },
+    {
+      "sponsors": [],
+      "year": 2139
+    },
+    {
+      "sponsors": [],
+      "year": 2140
+    },
+    {
+      "sponsors": [],
+      "year": 2141
+    },
+    {
+      "sponsors": [],
+      "year": 2142
+    },
+    {
+      "sponsors": [],
+      "year": 2143
+    },
+    {
+      "sponsors": [],
+      "year": 2144
+    },
+    {
+      "sponsors": [],
+      "year": 2145
+    },
+    {
+      "sponsors": [],
+      "year": 2146
+    },
+    {
+      "sponsors": [],
+      "year": 2147
+    },
+    {
+      "sponsors": [],
+      "year": 2148
+    },
+    {
+      "sponsors": [],
+      "year": 2149
+    },
+    {
+      "sponsors": [],
+      "year": 2150
+    },
+    {
+      "sponsors": [],
+      "year": 2151
+    },
+    {
+      "sponsors": [],
+      "year": 2152
+    },
+    {
+      "sponsors": [],
+      "year": 2153
+    },
+    {
+      "sponsors": [],
+      "year": 2154
+    },
+    {
+      "sponsors": [],
+      "year": 2155
+    },
+    {
+      "sponsors": [],
+      "year": 2156
+    },
+    {
+      "sponsors": [],
+      "year": 2157
+    },
+    {
+      "sponsors": [],
+      "year": 2158
+    },
+    {
+      "sponsors": [],
+      "year": 2159
+    },
+    {
+      "sponsors": [],
+      "year": 2160
+    },
+    {
+      "sponsors": [],
+      "year": 2161
+    },
+    {
+      "sponsors": [],
+      "year": 2162
+    },
+    {
+      "sponsors": [],
+      "year": 2163
+    },
+    {
+      "sponsors": [],
+      "year": 2164
+    },
+    {
+      "sponsors": [],
+      "year": 2165
+    },
+    {
+      "sponsors": [],
+      "year": 2166
+    },
+    {
+      "sponsors": [],
+      "year": 2167
+    },
+    {
+      "sponsors": [],
+      "year": 2168
+    },
+    {
+      "sponsors": [],
+      "year": 2169
+    },
+    {
+      "sponsors": [],
+      "year": 2170
+    },
+    {
+      "sponsors": [],
+      "year": 2171
+    },
+    {
+      "sponsors": [],
+      "year": 2172
+    },
+    {
+      "sponsors": [],
+      "year": 2173
+    },
+    {
+      "sponsors": [],
+      "year": 2174
+    },
+    {
+      "sponsors": [],
+      "year": 2175
+    },
+    {
+      "sponsors": [],
+      "year": 2176
+    },
+    {
+      "sponsors": [],
+      "year": 2177
+    },
+    {
+      "sponsors": [],
+      "year": 2178
+    },
+    {
+      "sponsors": [],
+      "year": 2179
+    },
+    {
+      "sponsors": [],
+      "year": 2180
+    },
+    {
+      "sponsors": [],
+      "year": 2181
+    },
+    {
+      "sponsors": [],
+      "year": 2182
+    },
+    {
+      "sponsors": [],
+      "year": 2183
+    },
+    {
+      "sponsors": [],
+      "year": 2184
+    },
+    {
+      "sponsors": [],
+      "year": 2185
+    },
+    {
+      "sponsors": [],
+      "year": 2186
+    },
+    {
+      "sponsors": [],
+      "year": 2187
+    },
+    {
+      "sponsors": [],
+      "year": 2188
+    },
+    {
+      "sponsors": [],
+      "year": 2189
+    },
+    {
+      "sponsors": [],
+      "year": 2190
+    },
+    {
+      "sponsors": [],
+      "year": 2191
+    },
+    {
+      "sponsors": [],
+      "year": 2192
+    },
+    {
+      "sponsors": [],
+      "year": 2193
+    },
+    {
+      "sponsors": [],
+      "year": 2194
+    },
+    {
+      "sponsors": [],
+      "year": 2195
+    },
+    {
+      "sponsors": [],
+      "year": 2196
+    },
+    {
+      "sponsors": [],
+      "year": 2197
+    },
+    {
+      "sponsors": [],
+      "year": 2198
+    },
+    {
+      "sponsors": [],
+      "year": 2199
+    },
+    {
+      "sponsors": [],
+      "year": 2200
+    },
+    {
+      "sponsors": [],
+      "year": 2201
+    },
+    {
+      "sponsors": [],
+      "year": 2202
+    },
+    {
+      "sponsors": [],
+      "year": 2203
+    },
+    {
+      "sponsors": [],
+      "year": 2204
+    },
+    {
+      "sponsors": [],
+      "year": 2205
+    },
+    {
+      "sponsors": [],
+      "year": 2206
+    },
+    {
+      "sponsors": [],
+      "year": 2207
+    },
+    {
+      "sponsors": [],
+      "year": 2208
+    },
+    {
+      "sponsors": [],
+      "year": 2209
+    },
+    {
+      "sponsors": [],
+      "year": 2210
+    },
+    {
+      "sponsors": [],
+      "year": 2211
+    },
+    {
+      "sponsors": [],
+      "year": 2212
+    },
+    {
+      "sponsors": [],
+      "year": 2213
+    },
+    {
+      "sponsors": [],
+      "year": 2214
+    },
+    {
+      "sponsors": [],
+      "year": 2215
+    },
+    {
+      "sponsors": [],
+      "year": 2216
+    },
+    {
+      "sponsors": [],
+      "year": 2217
+    },
+    {
+      "sponsors": [],
+      "year": 2218
+    },
+    {
+      "sponsors": [],
+      "year": 2219
+    },
+    {
+      "sponsors": [],
+      "year": 2220
+    },
+    {
+      "sponsors": [],
+      "year": 2221
+    },
+    {
+      "sponsors": [],
+      "year": 2222
+    },
+    {
+      "sponsors": [],
+      "year": 2223
+    },
+    {
+      "sponsors": [],
+      "year": 2224
+    },
+    {
+      "sponsors": [],
+      "year": 2225
+    },
+    {
+      "sponsors": [],
+      "year": 2226
+    }
+  ],
+  "traced_chain": {
+    "appropriations": [
+      {
+        "amount": "0.020",
+        "destination_account": "route1:budget:ISRO",
+        "eligible_year": 2044,
+        "paid_year": 2044,
+        "reason": "Synthetic first owner-return appropriation",
+        "receipt_year": 2041,
+        "scripted": true,
+        "source_return_tx": "tx-001480",
+        "source_sale_tx": "tx-001476",
+        "spent_on_project": "0.020",
+        "tx": "tx-001620",
+        "unspent_amount": "0"
+      },
+      {
+        "amount": "0.040",
+        "destination_account": "route1:budget:ISRO",
+        "eligible_year": 2045,
+        "paid_year": 2045,
+        "reason": "Synthetic second owner-return appropriation",
+        "receipt_year": 2042,
+        "scripted": true,
+        "source_return_tx": "tx-001533",
+        "source_sale_tx": "tx-001530",
+        "spent_on_project": "0",
+        "tx": "tx-001666",
+        "unspent_amount": "0.040"
+      }
+    ],
+    "body": "CERES",
+    "construction": [
+      {
+        "amount": "0.030",
+        "project_cash": "0.050",
+        "stage": "CONSTRUCTION",
+        "supplier_balance": "0.5730538511531186136",
+        "tx": "tx-001353",
+        "year": 2039
+      },
+      {
+        "amount": "0.030",
+        "project_cash": "0.020",
+        "stage": "CONSTRUCTION",
+        "supplier_balance": "0.6180538511531186136",
+        "tx": "tx-001418",
+        "year": 2040
+      }
+    ],
+    "executor": "HAL / L&T",
+    "extractions": [
+      {
+        "actual": "2",
+        "event": "evt-001475",
+        "evidence": "PLACEHOLDER",
+        "inventory": "2",
+        "opex": "0.020",
+        "opex_tx": "tx-001473",
+        "remaining": "6",
+        "stage": "EXTRACTED",
+        "year": 2041
+      },
+      {
+        "actual": "2",
+        "event": "evt-001529",
+        "evidence": "PLACEHOLDER",
+        "inventory": "2",
+        "opex": "0.020",
+        "opex_tx": "tx-001527",
+        "remaining": "4",
+        "stage": "EXTRACTED",
+        "year": 2042
+      },
+      {
+        "actual": "2",
+        "event": "evt-001578",
+        "evidence": "PLACEHOLDER",
+        "inventory": "2",
+        "opex": "0.020",
+        "opex_tx": "tx-001576",
+        "remaining": "2",
+        "stage": "EXTRACTED",
+        "year": 2043
+      },
+      {
+        "actual": "2",
+        "event": "evt-001624",
+        "evidence": "PLACEHOLDER",
+        "inventory": "4",
+        "opex": "0.020",
+        "opex_tx": "tx-001622",
+        "remaining": "0",
+        "stage": "EXTRACTED",
+        "year": 2044
+      }
+    ],
+    "financing": {
+      "disbursement_tx": "tx-001351",
+      "financier_debit": "0.080",
+      "investment_tx": "tx-001350",
+      "project_cash": "0.080",
+      "sponsor_debit": "0.080",
+      "stage": "FINANCE",
+      "study_receipt": "tx-000857",
+      "study_review": "SUPPORTS_ADVANCE",
+      "year": 2039
+    },
+    "mission_price_settlement": {
+      "completed": 0,
+      "conversion_enabled": true,
+      "funded": 1,
+      "mission_price_model_currency": "0.4980538511531186136",
+      "mission_price_status": "PRICED_TEST_ONLY",
+      "mission_price_transaction": "tx-001349",
+      "mission_price_usd": "498053851.1531186136000000",
+      "mission_quote_source_year": 2026,
+      "quote_held": true,
+      "returns": 0,
+      "sales": 0,
+      "sponsor_exhausted": [],
+      "year": 2039
+    },
+    "mission_price_transaction": "tx-001349",
+    "project_id": "P",
+    "returns": [
+      {
+        "amount": "0.02000",
+        "kind": "financier",
+        "owner": "ceres:physical:financier",
+        "owner_type": "financier",
+        "return_tx": "tx-001478",
+        "sale_tx": "tx-001476",
+        "source": "resource_export_to_earth_buyer",
+        "year": 2041
+      },
+      {
+        "amount": "0.02000",
+        "kind": "owner",
+        "owner": "treasury:IND",
+        "owner_type": "public_agency",
+        "return_tx": "tx-001480",
+        "sale_tx": "tx-001476",
+        "source": "resource_export_to_earth_buyer",
+        "year": 2041
+      },
+      {
+        "amount": "0.04000",
+        "kind": "owner",
+        "owner": "treasury:IND",
+        "owner_type": "public_agency",
+        "return_tx": "tx-001533",
+        "sale_tx": "tx-001530",
+        "source": "resource_export_to_earth_buyer",
+        "year": 2042
+      }
+    ],
+    "sales": [
+      [
+        2041,
+        "tx-001476"
+      ],
+      [
+        2042,
+        "tx-001530"
+      ]
+    ],
+    "sponsor": "ISRO",
+    "study_receipt": "tx-000857"
+  },
+  "unpriced_mission_bodies": [
+    "APOPHIS",
+    "ARIEL",
+    "ARROKOTH",
+    "ATLAS3I",
+    "BORISOV",
+    "BORRELLY",
+    "BRAILLE",
+    "CALLISTO",
+    "CHARON",
+    "CHIRON",
+    "COMET_HALLEY",
+    "DACTYL",
+    "DAVIDA",
+    "DEIMOS",
+    "DINKINESH",
+    "DIONE",
+    "DONALDJOHANSON",
+    "ENCELADUS",
+    "ERIS",
+    "EUROPA",
+    "EURYBATES",
+    "GANYMEDE",
+    "GASPRA",
+    "GONGGONG",
+    "HARTLEY2",
+    "HAUMEA",
+    "HYDRA",
+    "HYPERION",
+    "IAPETUS",
+    "IDA",
+    "INTERAMNIA",
+    "IO",
+    "IXION",
+    "JUNO",
+    "KERBEROS",
+    "LEUCUS",
+    "LUTETIA",
+    "MAKEMAKE",
+    "MATHILDE",
+    "MIMAS",
+    "MIRANDA",
+    "MOON",
+    "MS4",
+    "NEREID",
+    "NIX",
+    "OBERON",
+    "ORCUS",
+    "ORUS",
+    "OUMUAMUA",
+    "PATROCLUS",
+    "PHOBOS",
+    "PHOEBE",
+    "PLUTO",
+    "POLYMELE",
+    "PROTEUS",
+    "QUAOAR",
+    "RHEA",
+    "SALACIA",
+    "SEDNA",
+    "SELAM",
+    "STEINS",
+    "STYX",
+    "SWIFTTUTTLE",
+    "TEMPEL1",
+    "TETHYS",
+    "THEMIS",
+    "TITAN",
+    "TITANIA",
+    "TOUTATIS",
+    "TRITON",
+    "UMBRIEL",
+    "VARUNA",
+    "WILD2"
+  ],
+  "unpriced_mission_count": 73,
+  "year_count": 201,
+  "year_range": [
+    2026,
+    2226
+  ],
+  "zero_conversion_control": false
+}

@@ -1,0 +1,31 @@
+{
+  "allowed_id_rename_mapping": {},
+  "comparison": "ordered transactions and ordered kernel event projections; zero tolerance",
+  "equivalence_evidence_boundary": "Exact replay includes the legacy Ceres kernel realized-output admission call to preserve event identity. This equivalence fixture is TEST_ONLY and does not qualify synthetic extraction as scientific evidence. The general full-clock run does not admit synthetic extraction observations and records PLACEHOLDER only.",
+  "event_collections": [
+    [
+      "kernel.events",
+      "kernel.event_log",
+      "kernel._boundary_event_deltas",
+      "state.fcf_events"
+    ],
+    [
+      "kernel.events",
+      "kernel.event_log",
+      "kernel._boundary_event_deltas",
+      "state.fcf_events"
+    ]
+  ],
+  "first_mismatch": null,
+  "generic_class": "GeneralProjectCampaign",
+  "generic_runtime_seconds": 24.367759111337364,
+  "ordered_projection_exact": true,
+  "reference_class": "CeresDownstream",
+  "reference_runtime_seconds": 25.288569158874452,
+  "result": "PASS",
+  "run_identity": "c42a874c00e029d591433fd34126e7b0f6f69826aaff2ecc4a8573596d1d296f",
+  "transaction_counts": [
+    8798,
+    8798
+  ]
+}

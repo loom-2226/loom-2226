@@ -283,7 +283,7 @@ class AllBodyCampaign(BodyCampaign):
         self.annual.append(dict(
             year=year, attempted=len(today), funded=funded_count,
             closing=str(sum((k.state.accounts['route1:budget:' + s].balance
-                             for s in SPONSORS), D(0)))))
+                             for s in ORDER), D(0)))))
         self.record_states(year)
 
     def report(self):

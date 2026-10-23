@@ -1,0 +1,14 @@
+{
+  "classification": "TEST_ONLY_NONCANON_PRICES_ONLY",
+  "clock_context": [2026, 2226],
+  "coverage": {"bodies": 90, "sponsors": 20, "holdout_bodies": 33},
+  "departure_rule": "HELD_2026_DEPARTURE_RULE",
+  "flight_time_limits_days": [1400, 3000, 5000, 8000],
+  "flight_time_min_days": 45,
+  "mission_type": "rendezvous",
+  "minimum_price_model_units": "0.7",
+  "floor_action": "FAIL_NEVER_CLAMP",
+  "no_fallback": true,
+  "no_campaign_run": true,
+  "clean_price_sha256": "49fbd0f1015268d24e931b9e1d7083cb8a0cd3f6c02a4942a130d0885695922f"
+}

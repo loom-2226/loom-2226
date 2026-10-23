@@ -1,0 +1,242 @@
+{
+  "cases": [
+    {
+      "bodies_ever_started": 42,
+      "case": "price_x1_sales_2",
+      "last_start_year": 2065,
+      "price_multiplier": "1",
+      "projects_started": 42,
+      "returned_over_committed": "0.08307438953703929594139993133",
+      "sale_cap": 2,
+      "scenario_sha256": "c9dbd7af33fcade7ae77bd5582c6cbd1e8f0e653e3d4f8d168d9b8f329cb58a7",
+      "sponsor_capital_deferrals": 3049,
+      "sponsors_ever_started": 19,
+      "total_committed": "40.4456778885136503728",
+      "total_returned": "3.36000"
+    },
+    {
+      "bodies_ever_started": 42,
+      "case": "price_x1_sales_3",
+      "last_start_year": 2065,
+      "price_multiplier": "1",
+      "projects_started": 42,
+      "returned_over_committed": "0.1246115843055589439120998970",
+      "sale_cap": 3,
+      "scenario_sha256": "4ce544db246b11ccf2b588fce279963e64f3064f90af2481c9b23febd6a3fd85",
+      "sponsor_capital_deferrals": 3049,
+      "sponsors_ever_started": 19,
+      "total_committed": "40.4456778885136503728",
+      "total_returned": "5.04000"
+    },
+    {
+      "bodies_ever_started": 42,
+      "case": "price_x1_sales_4",
+      "last_start_year": 2065,
+      "price_multiplier": "1",
+      "projects_started": 42,
+      "returned_over_committed": "0.1661487790740785918827998627",
+      "sale_cap": 4,
+      "scenario_sha256": "4bac8353d7c0815a5d0b5ad7e9da37bf73fbc13d3cb3a80ed71a5b16b903c748",
+      "sponsor_capital_deferrals": 3049,
+      "sponsors_ever_started": 19,
+      "total_committed": "40.4456778885136503728",
+      "total_returned": "6.72000"
+    },
+    {
+      "bodies_ever_started": 42,
+      "case": "price_x3_sales_2",
+      "last_start_year": 2065,
+      "price_multiplier": "3",
+      "projects_started": 42,
+      "returned_over_committed": "0.2492231686111178878241997940",
+      "sale_cap": 2,
+      "scenario_sha256": "335ba2d1213c4735ca5a35733f024ff036061e5abb67b5016c8f41c22adbf963",
+      "sponsor_capital_deferrals": 3049,
+      "sponsors_ever_started": 19,
+      "total_committed": "40.4456778885136503728",
+      "total_returned": "10.08000"
+    },
+    {
+      "bodies_ever_started": 42,
+      "case": "price_x3_sales_3",
+      "last_start_year": 2065,
+      "price_multiplier": "3",
+      "projects_started": 42,
+      "returned_over_committed": "0.3738347529166768317362996910",
+      "sale_cap": 3,
+      "scenario_sha256": "6e7a7c09d427af956c7dcd0fdf39d7f60794958076e096e17d5e5642fb97ce64",
+      "sponsor_capital_deferrals": 3049,
+      "sponsors_ever_started": 19,
+      "total_committed": "40.4456778885136503728",
+      "total_returned": "15.12000"
+    },
+    {
+      "bodies_ever_started": 42,
+      "case": "price_x3_sales_4",
+      "last_start_year": 2065,
+      "price_multiplier": "3",
+      "projects_started": 42,
+      "returned_over_committed": "0.4984463372222357756483995880",
+      "sale_cap": 4,
+      "scenario_sha256": "8e1cf5cbf7b1f120d866bcc1ccfb52a37e4496f447720d01e18db8c35759fbba",
+      "sponsor_capital_deferrals": 3049,
+      "sponsors_ever_started": 19,
+      "total_committed": "40.4456778885136503728",
+      "total_returned": "20.16000"
+    },
+    {
+      "bodies_ever_started": 42,
+      "case": "price_x10_sales_2",
+      "last_start_year": 2065,
+      "price_multiplier": "10",
+      "projects_started": 42,
+      "returned_over_committed": "0.8307438953703929594139993133",
+      "sale_cap": 2,
+      "scenario_sha256": "892a53f4799ebe9ab9c77ddf290f52d2362c6cd13d96c3f2ec167d7ebecef4b9",
+      "sponsor_capital_deferrals": 3049,
+      "sponsors_ever_started": 19,
+      "total_committed": "40.4456778885136503728",
+      "total_returned": "33.60000"
+    },
+    {
+      "bodies_ever_started": 42,
+      "case": "price_x10_sales_3",
+      "last_start_year": 2065,
+      "price_multiplier": "10",
+      "projects_started": 42,
+      "returned_over_committed": "1.246115843055589439120998970",
+      "sale_cap": 3,
+      "scenario_sha256": "f51823f17a4ab285e70b371f1b0734dd41eb133576123c424fc1e5e4ef70a9cb",
+      "sponsor_capital_deferrals": 3049,
+      "sponsors_ever_started": 19,
+      "total_committed": "40.4456778885136503728",
+      "total_returned": "50.40000"
+    },
+    {
+      "bodies_ever_started": 42,
+      "case": "price_x10_sales_4",
+      "last_start_year": 2065,
+      "price_multiplier": "10",
+      "projects_started": 42,
+      "returned_over_committed": "1.661487790740785918827998627",
+      "sale_cap": 4,
+      "scenario_sha256": "380c7a60f2a885505dc3e6f5c3077d8dad6092b1adfe37ffe4f2fa7db96eb95a",
+      "sponsor_capital_deferrals": 3049,
+      "sponsors_ever_started": 19,
+      "total_committed": "40.4456778885136503728",
+      "total_returned": "67.20000"
+    }
+  ],
+  "ceres_equivalence": {
+    "event_collection_counts": {
+      "kernel._boundary_event_deltas": 0,
+      "kernel.event_log": 1432,
+      "kernel.events": 290,
+      "state.fcf_events": 2
+    },
+    "event_count": 290,
+    "first_mismatch": null,
+    "ordered_zero_tolerance": true,
+    "result": "PASS",
+    "runtimes": [
+      15.646518745925277,
+      17.016981102060527
+    ],
+    "transaction_counts": [
+      8798,
+      8798
+    ]
+  },
+  "classification": "TEST_ONLY_NONCANON",
+  "input_identity": {
+    "authored_scenario_sha256": "b5307253f05a05c0dbd405c91e9218dbf0592d51bf7eab064db2dd31aa31ae7b",
+    "base_scenario_sha256": "0e761d2ff122c6ea48510a337b3ae79c0bd707fa371fccb2ba65e93d5243c34c",
+    "cases": [
+      {
+        "annual_inflow": "1000",
+        "conversion": true,
+        "mission_type": "rendezvous",
+        "name": "price_x1_sales_2",
+        "price_multiplier": "1",
+        "sale_cap": 2
+      },
+      {
+        "annual_inflow": "1000",
+        "conversion": true,
+        "mission_type": "rendezvous",
+        "name": "price_x1_sales_3",
+        "price_multiplier": "1",
+        "sale_cap": 3
+      },
+      {
+        "annual_inflow": "1000",
+        "conversion": true,
+        "mission_type": "rendezvous",
+        "name": "price_x1_sales_4",
+        "price_multiplier": "1",
+        "sale_cap": 4
+      },
+      {
+        "annual_inflow": "1000",
+        "conversion": true,
+        "mission_type": "rendezvous",
+        "name": "price_x3_sales_2",
+        "price_multiplier": "3",
+        "sale_cap": 2
+      },
+      {
+        "annual_inflow": "1000",
+        "conversion": true,
+        "mission_type": "rendezvous",
+        "name": "price_x3_sales_3",
+        "price_multiplier": "3",
+        "sale_cap": 3
+      },
+      {
+        "annual_inflow": "1000",
+        "conversion": true,
+        "mission_type": "rendezvous",
+        "name": "price_x3_sales_4",
+        "price_multiplier": "3",
+        "sale_cap": 4
+      },
+      {
+        "annual_inflow": "1000",
+        "conversion": true,
+        "mission_type": "rendezvous",
+        "name": "price_x10_sales_2",
+        "price_multiplier": "10",
+        "sale_cap": 2
+      },
+      {
+        "annual_inflow": "1000",
+        "conversion": true,
+        "mission_type": "rendezvous",
+        "name": "price_x10_sales_3",
+        "price_multiplier": "10",
+        "sale_cap": 3
+      },
+      {
+        "annual_inflow": "1000",
+        "conversion": true,
+        "mission_type": "rendezvous",
+        "name": "price_x10_sales_4",
+        "price_multiplier": "10",
+        "sale_cap": 4
+      }
+    ],
+    "price_table_sha256": "72ebceab82626e2c6e2f595a83f67f8ee838e965ab8a0d4231ca20af045d38fd",
+    "sale_cap_provenance": "run_multi_project.py PortfolioCampaign.on_year hard-codes sales at operation_year_1 and operation_year_2; operating events operation_year_1..4; VOLATILES recoverable 8 / quantity_per_operation 2 = four events",
+    "sweep_identity_sha256": "3203f285b2ea56baa8e99d5ac704a1d709d7f81fb03b7b10307dde66d39387cb",
+    "world_db_sha256": "e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde"
+  },
+  "organics_note": "Absent from original 3-family authored placeholder table. Added as explicitly synthetic unused row; all 90 bodies remain assigned VOLATILES by parent scenario family_assignment.",
+  "route1_control_hash": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430",
+  "route1_control_pass": true,
+  "selection_firewall": {
+    "clean_input": "PASS",
+    "deliberate_hidden_field": "REJECTED",
+    "leak_removed": true,
+    "reason": "selection input schema violation: extra=['hidden_world_field'] missing=[]"
+  }
+}

@@ -1,0 +1,710 @@
+{
+  "cases": {
+    "A1_FLYBY_PARENT_MOONS": {
+      "blocked_attempts": 140660,
+      "blockers": {
+        "ACTUAL_SPONSOR_CASH": 56287,
+        "FINANCIER_CONCENTRATION": 333,
+        "UNPRICED_NO_PARENT_QUOTE_OR_PHYSICAL_PARAMETER": 84040
+      },
+      "cash_model_units": "629.2193770668313307",
+      "funded_bodies": 56,
+      "funded_stages": 151,
+      "old23": {
+        "ARROKOTH": {
+          "funded": true,
+          "price_model_units": "58.94722875612214",
+          "sponsor": "CNSA",
+          "year": 2100
+        },
+        "ATLAS3I": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "BORISOV": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "CHIRON": {
+          "funded": true,
+          "price_model_units": "0.7367757682668307",
+          "sponsor": "Isar Aerospace",
+          "year": 2036
+        },
+        "COMET_HALLEY": {
+          "funded": true,
+          "price_model_units": "13.19879642094347",
+          "sponsor": "CNSA",
+          "year": 2045
+        },
+        "ERIS": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "EURYBATES": {
+          "funded": true,
+          "price_model_units": "0.7173753497988874",
+          "sponsor": "Axiom",
+          "year": 2036
+        },
+        "GONGGONG": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "HAUMEA": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "IXION": {
+          "funded": true,
+          "price_model_units": "19.80271318938942",
+          "sponsor": "CNSA",
+          "year": 2076
+        },
+        "LEUCUS": {
+          "funded": true,
+          "price_model_units": "0.7155239178650713",
+          "sponsor": "Starlab",
+          "year": 2036
+        },
+        "MAKEMAKE": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "MS4": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "ORCUS": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "OUMUAMUA": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "PATROCLUS": {
+          "funded": true,
+          "price_model_units": "0.8330802883265386",
+          "sponsor": "SpaceX",
+          "year": 2036
+        },
+        "PLUTO": {
+          "funded": true,
+          "price_model_units": "12.86980601199592",
+          "sponsor": "ISRO",
+          "year": 2064
+        },
+        "POLYMELE": {
+          "funded": true,
+          "price_model_units": "0.7177800661723777",
+          "sponsor": "CNSA",
+          "year": 2036
+        },
+        "QUAOAR": {
+          "funded": true,
+          "price_model_units": "37.10085593530952",
+          "sponsor": "ISRO",
+          "year": 2088
+        },
+        "SALACIA": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "SEDNA": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "SWIFTTUTTLE": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "VARUNA": {
+          "funded": true,
+          "price_model_units": "169.74371720827765",
+          "sponsor": "ISRO",
+          "year": 2205
+        }
+      },
+      "old31": {
+        "ARIEL": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "CALLISTO": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "CHARON": {
+          "funded": true,
+          "price_model_units": "12.86980601199592",
+          "sponsor": "CNSA",
+          "year": 2036
+        },
+        "DACTYL": {
+          "funded": true,
+          "price_model_units": "0.7067989357244984",
+          "sponsor": "JAXA",
+          "year": 2036
+        },
+        "DEIMOS": {
+          "funded": true,
+          "price_model_units": "0.7042467321835139",
+          "sponsor": "LandSpace",
+          "year": 2036
+        },
+        "DIONE": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "ENCELADUS": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "EUROPA": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "GANYMEDE": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "HYDRA": {
+          "funded": true,
+          "price_model_units": "12.86980601199592",
+          "sponsor": "CNSA",
+          "year": 2050
+        },
+        "HYPERION": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "IAPETUS": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "IO": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "KERBEROS": {
+          "funded": true,
+          "price_model_units": "12.86980601199592",
+          "sponsor": "LandSpace",
+          "year": 2052
+        },
+        "MIMAS": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "MIRANDA": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "MOON": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "NEREID": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "NIX": {
+          "funded": true,
+          "price_model_units": "12.86980601199592",
+          "sponsor": "NASA",
+          "year": 2061
+        },
+        "OBERON": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "PHOBOS": {
+          "funded": true,
+          "price_model_units": "0.7042467321835139",
+          "sponsor": "Starlab",
+          "year": 2036
+        },
+        "PHOEBE": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "PROTEUS": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "RHEA": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "SELAM": {
+          "funded": true,
+          "price_model_units": "0.7069803475312707",
+          "sponsor": "LandSpace",
+          "year": 2036
+        },
+        "STYX": {
+          "funded": true,
+          "price_model_units": "12.86980601199592",
+          "sponsor": "ISRO",
+          "year": 2070
+        },
+        "TETHYS": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "TITAN": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "TITANIA": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "TRITON": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "UMBRIEL": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        }
+      },
+      "variant_sha256": "7b6de395fdac1a5e3d0751265934d599beec91c5bd19fc893cd17ea796f8507e"
+    },
+    "A1_RENDEZVOUS": {
+      "blocked_attempts": 180278,
+      "blockers": {
+        "ACTUAL_SPONSOR_CASH": 88453,
+        "FINANCIER_CONCENTRATION": 145,
+        "UNPRICED_NO_PARENT_QUOTE_OR_PHYSICAL_PARAMETER": 91680
+      },
+      "cash_model_units": "75.8627822051335949",
+      "funded_bodies": 43,
+      "funded_stages": 114,
+      "old23": {
+        "ARROKOTH": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "ATLAS3I": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "BORISOV": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "CHIRON": {
+          "funded": true,
+          "price_model_units": "18.67059879597077",
+          "sponsor": "CNSA",
+          "year": 2043
+        },
+        "COMET_HALLEY": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "ERIS": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "EURYBATES": {
+          "funded": true,
+          "price_model_units": "0.8549766022703252",
+          "sponsor": "SpaceX",
+          "year": 2036
+        },
+        "GONGGONG": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "HAUMEA": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "IXION": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "LEUCUS": {
+          "funded": true,
+          "price_model_units": "0.7939533825464252",
+          "sponsor": "LandSpace",
+          "year": 2036
+        },
+        "MAKEMAKE": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "MS4": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "ORCUS": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "OUMUAMUA": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "PATROCLUS": {
+          "funded": true,
+          "price_model_units": "2.101279085222658",
+          "sponsor": "ISRO",
+          "year": 2036
+        },
+        "PLUTO": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "POLYMELE": {
+          "funded": true,
+          "price_model_units": "0.9274079749589912",
+          "sponsor": "NASA",
+          "year": 2036
+        },
+        "QUAOAR": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "SALACIA": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "SEDNA": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "SWIFTTUTTLE": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "VARUNA": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        }
+      },
+      "old31": {
+        "ARIEL": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "CALLISTO": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "CHARON": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "DACTYL": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "DEIMOS": {
+          "funded": true,
+          "price_model_units": "0.7068700388855866",
+          "sponsor": "JAXA",
+          "year": 2036
+        },
+        "DIONE": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "ENCELADUS": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "EUROPA": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "GANYMEDE": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "HYDRA": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "HYPERION": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "IAPETUS": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "IO": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "KERBEROS": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "MIMAS": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "MIRANDA": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "MOON": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "NEREID": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "NIX": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "OBERON": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "PHOBOS": {
+          "funded": true,
+          "price_model_units": "0.7068327485786549",
+          "sponsor": "LandSpace",
+          "year": 2036
+        },
+        "PHOEBE": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "PROTEUS": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "RHEA": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "SELAM": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "STYX": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "TETHYS": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "TITAN": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "TITANIA": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "TRITON": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        },
+        "UMBRIEL": {
+          "funded": false,
+          "price_model_units": null,
+          "sponsor": null,
+          "year": null
+        }
+      },
+      "variant_sha256": "3d94a53fcec4004d1e7600d1d3dc31b6411d800a0c23408e1dac9518bf300450"
+    }
+  },
+  "classification": "TEST_ONLY_NONCANON",
+  "comparison": "Exact string comparison of six pinned numeric fields; all differences retained",
+  "control_sha256": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430",
+  "elapsed_seconds": 77.32931887800805,
+  "flyby_body_years": 118,
+  "flyby_differences": [],
+  "flyby_method": "Recompute flyby vehicle cost from minimum departure speed in saved sampled-departure rows; no new trajectory geometry",
+  "literal_fields": [
+    "classification",
+    "previous_report_used",
+    "flyby_method",
+    "comparison",
+    "literal_fields"
+  ],
+  "numpy_version": "2.5.3",
+  "peak_rss_bytes": 592605184,
+  "previous_report_used": "A1_RENDEZVOUS",
+  "sampled_departures": 3731,
+  "source_sha256": {
+    "RECOVERED_FLYBY_POLICY_FULL_CLOCK_REPORT_TEST_ONLY.json": "c8ebf189be7dd4aa6723058989c444bfca30e4be7fb65deb585443ab21fe1ce2",
+    "RENDEZVOUS_V2_PRICES_TEST_ONLY.csv": "fcbbd92236f436c5ec33717680496215b579caabb4642e5dc4d22bd3eac440cd",
+    "RENDEZVOUS_V2_ROUTE1_REPORT_TEST_ONLY.json": "e0a08ca6d401591ce50b8a260403c8c33832e073b281b80a6963bd4b545af87b",
+    "RENDEZVOUS_V2_SAMPLED_DEPARTURES_TEST_ONLY.csv": "b5d12d4883dc18f1fb1ead7dffd7afb3c4235b3c346b26b434bac0b6a0659788",
+    "VEHICLE_FLYBY_AUTHORED_TEST_ONLY.json": "1a45564a1efb9f6bb134f00d43d05aa763ce71f99a34a9ee79029f0e97eae167",
+    "VEHICLE_FLYBY_PRICES_TEST_ONLY.csv": "2a36b2ef103480c7b8624b86d6910becd69472ad78913ec2ea60141e64643b73"
+  }
+}

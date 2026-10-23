@@ -1,0 +1,243 @@
+{
+  "cases": [
+    {
+      "bodies_ever_started": 57,
+      "case": "share_1_price_x1_sales_4",
+      "last_start_year": 2140,
+      "price_multiplier": "1",
+      "projects_started": 57,
+      "refill_share": "1",
+      "refill_transactions": 228,
+      "scenario_sha256": "478236fe6ef5e12f93b6b30b08833d1953c4b6423a32d9cc5d753bf9ef4bb324",
+      "sponsors_ever_started": 20,
+      "sponsors_out_of_budget": 0,
+      "total_committed": "124.2581766338780427472",
+      "total_refilled": "7.98000",
+      "total_returned": "9.12000"
+    }
+  ],
+  "ceres_equivalence": {
+    "event_collection_counts": {
+      "kernel._boundary_event_deltas": 0,
+      "kernel.event_log": 1432,
+      "kernel.events": 290,
+      "state.fcf_events": 2
+    },
+    "event_count": 290,
+    "first_mismatch": null,
+    "ordered_zero_tolerance": true,
+    "result": "PASS",
+    "runtimes": [
+      16.801983919925988,
+      18.922956644091755
+    ],
+    "transaction_counts": [
+      8798,
+      8798
+    ]
+  },
+  "classification": "TEST_ONLY_NONCANON",
+  "db_sha256_after": "e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde",
+  "db_sha256_before": "e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde",
+  "identity": {
+    "authored_scenario_sha256": "ffc3cb6517d77a810574191d4729e41e099ddcb12a3a7bd1afb77f2dfe2b96f5",
+    "base_scenario_sha256": "0e761d2ff122c6ea48510a337b3ae79c0bd707fa371fccb2ba65e93d5243c34c",
+    "cases": [
+      {
+        "annual_inflow": "1000",
+        "conversion": true,
+        "mission_type": "rendezvous",
+        "name": "share_1_price_x1_sales_4",
+        "price_multiplier": "1",
+        "refill_share": "1"
+      }
+    ],
+    "price_table_sha256": "fa17b1faa3c798eddd05c8c9fdb36990f0893af601d837c1d9c7279ff0534681",
+    "return_routing": {
+      "('resource_export_to_earth_buyer', 'financier')": [
+        "financier_claim_account",
+        0
+      ],
+      "('resource_export_to_earth_buyer', 'private_company')": [
+        "company_funds",
+        0
+      ],
+      "('resource_export_to_earth_buyer', 'public_agency')": [
+        "country_treasury",
+        3
+      ]
+    },
+    "run_identity_sha256": "c880a30965e76fcb4bf9d2300256487ec184081d35b5d7f1f91d01f819d6fc4f",
+    "world_db_before_sha256": "e21304e687e63e264edb44f36ff7c68fa3f119307315bce49008711547fa7cde"
+  },
+  "route1_hash": "4df0a020fd3714650129f18d78cbfe7440fa35ecb3e4807873aea993c4656430",
+  "route1_pass": true,
+  "selector_firewall": {
+    "clean_input": "PASS",
+    "deliberate_hidden_field": "REJECTED",
+    "leak_removed": true,
+    "reason": "selection input schema violation: extra=['hidden_world_field'] missing=[]"
+  },
+  "sponsors": [
+    {
+      "appropriation_required": true,
+      "had_project": true,
+      "project_owner": "STATE:AUS",
+      "project_owner_type": "public_agency",
+      "return_destination": "treasury:AUS",
+      "sponsor": "Australian Space Agency"
+    },
+    {
+      "appropriation_required": true,
+      "had_project": true,
+      "project_owner": "STATE:USA",
+      "project_owner_type": "public_agency",
+      "return_destination": "treasury:USA",
+      "sponsor": "Axiom"
+    },
+    {
+      "appropriation_required": true,
+      "had_project": true,
+      "project_owner": "STATE:USA",
+      "project_owner_type": "public_agency",
+      "return_destination": "treasury:USA",
+      "sponsor": "Blue Origin"
+    },
+    {
+      "appropriation_required": true,
+      "had_project": true,
+      "project_owner": "STATE:FRA",
+      "project_owner_type": "public_agency",
+      "return_destination": "treasury:FRA",
+      "sponsor": "CNES"
+    },
+    {
+      "appropriation_required": true,
+      "had_project": true,
+      "project_owner": "STATE:CHN",
+      "project_owner_type": "public_agency",
+      "return_destination": "treasury:CHN",
+      "sponsor": "CNSA"
+    },
+    {
+      "appropriation_required": true,
+      "had_project": true,
+      "project_owner": "STATE:CAN",
+      "project_owner_type": "public_agency",
+      "return_destination": "treasury:CAN",
+      "sponsor": "CSA"
+    },
+    {
+      "appropriation_required": true,
+      "had_project": true,
+      "project_owner": "STATE:DEU",
+      "project_owner_type": "public_agency",
+      "return_destination": "treasury:DEU",
+      "sponsor": "DLR"
+    },
+    {
+      "appropriation_required": true,
+      "had_project": true,
+      "project_owner": "STATE:DEU",
+      "project_owner_type": "public_agency",
+      "return_destination": "treasury:DEU",
+      "sponsor": "ESA"
+    },
+    {
+      "appropriation_required": true,
+      "had_project": true,
+      "project_owner": "STATE:IND",
+      "project_owner_type": "public_agency",
+      "return_destination": "treasury:IND",
+      "sponsor": "ISRO"
+    },
+    {
+      "appropriation_required": true,
+      "had_project": true,
+      "project_owner": "STATE:USA",
+      "project_owner_type": "public_agency",
+      "return_destination": "treasury:USA",
+      "sponsor": "Interlune"
+    },
+    {
+      "appropriation_required": true,
+      "had_project": true,
+      "project_owner": "STATE:DEU",
+      "project_owner_type": "public_agency",
+      "return_destination": "treasury:DEU",
+      "sponsor": "Isar Aerospace"
+    },
+    {
+      "appropriation_required": true,
+      "had_project": true,
+      "project_owner": "STATE:JPN",
+      "project_owner_type": "public_agency",
+      "return_destination": "treasury:JPN",
+      "sponsor": "JAXA"
+    },
+    {
+      "appropriation_required": true,
+      "had_project": true,
+      "project_owner": "STATE:KOR",
+      "project_owner_type": "public_agency",
+      "return_destination": "treasury:KOR",
+      "sponsor": "KASA"
+    },
+    {
+      "appropriation_required": true,
+      "had_project": true,
+      "project_owner": "STATE:CHN",
+      "project_owner_type": "public_agency",
+      "return_destination": "treasury:CHN",
+      "sponsor": "LandSpace"
+    },
+    {
+      "appropriation_required": true,
+      "had_project": true,
+      "project_owner": "STATE:USA",
+      "project_owner_type": "public_agency",
+      "return_destination": "treasury:USA",
+      "sponsor": "NASA"
+    },
+    {
+      "appropriation_required": true,
+      "had_project": true,
+      "project_owner": "STATE:RUS",
+      "project_owner_type": "public_agency",
+      "return_destination": "treasury:RUS",
+      "sponsor": "Roscosmos"
+    },
+    {
+      "appropriation_required": true,
+      "had_project": true,
+      "project_owner": "STATE:USA",
+      "project_owner_type": "public_agency",
+      "return_destination": "treasury:USA",
+      "sponsor": "SpaceX"
+    },
+    {
+      "appropriation_required": true,
+      "had_project": true,
+      "project_owner": "STATE:USA",
+      "project_owner_type": "public_agency",
+      "return_destination": "treasury:USA",
+      "sponsor": "Starlab"
+    },
+    {
+      "appropriation_required": true,
+      "had_project": true,
+      "project_owner": "STATE:ARE",
+      "project_owner_type": "public_agency",
+      "return_destination": "treasury:ARE",
+      "sponsor": "UAE Space Agency"
+    },
+    {
+      "appropriation_required": true,
+      "had_project": true,
+      "project_owner": "STATE:JPN",
+      "project_owner_type": "public_agency",
+      "return_destination": "treasury:JPN",
+      "sponsor": "ispace"
+    }
+  ]
+}

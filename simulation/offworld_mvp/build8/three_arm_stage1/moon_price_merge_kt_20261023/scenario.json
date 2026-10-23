@@ -1,0 +1,78 @@
+{
+  "annual_earth_inflow_model_currency": "1000",
+  "cap_provenance": "Prior accepted sweep: four operating events, VOLATILES recoverable 8 at 2 per event; sale cap 4.",
+  "classification": "TEST_ONLY_NONCANON_AUTHORED_SPONSOR_REFILL",
+  "clock": {
+    "end_year": 2226,
+    "start_year": 2026
+  },
+  "coverage": {
+    "bodies": 90,
+    "sponsors": 20
+  },
+  "family_assignment": "VOLATILES for every body; no body-specific assignment",
+  "governor": null,
+  "material_families": {
+    "METALS": {
+      "accessible": "9",
+      "demand_per_year": "1.5",
+      "earth_supply_fraction": "1",
+      "in_situ": "18",
+      "productive_capacity": "4",
+      "quantity_per_operation": "1.5",
+      "recoverable": "7",
+      "unit_opex": "0.012",
+      "unit_sale_price": "0.075"
+    },
+    "ORGANICS": {
+      "accessible": "10",
+      "demand_per_year": "2",
+      "earth_supply_fraction": "1",
+      "in_situ": "20",
+      "productive_capacity": "5",
+      "quantity_per_operation": "2",
+      "recoverable": "8",
+      "unit_opex": "0.010",
+      "unit_sale_price": "0.040"
+    },
+    "SILICATES": {
+      "accessible": "12",
+      "demand_per_year": "2",
+      "earth_supply_fraction": "1",
+      "in_situ": "24",
+      "productive_capacity": "6",
+      "quantity_per_operation": "2",
+      "recoverable": "9",
+      "unit_opex": "0.008",
+      "unit_sale_price": "0.035"
+    },
+    "VOLATILES": {
+      "accessible": "10",
+      "demand_per_year": "2",
+      "earth_supply_fraction": "1",
+      "in_situ": "20",
+      "productive_capacity": "5",
+      "quantity_per_operation": "2",
+      "recoverable": "8",
+      "unit_opex": "0.010",
+      "unit_sale_price": "0.050"
+    }
+  },
+  "merged_price_file": "merged_prices.json",
+  "merged_price_sha256": "3fcaeb7031bb4233431dadafb01d36e88162bd1f75ce85a4728a72730579e380",
+  "mission_type": "rendezvous",
+  "names_in_policy": false,
+  "operating_events_available": 4,
+  "organics_placeholder_origin": "Absent from original 3-family authored placeholder table. Added as explicitly synthetic unused row; all 90 bodies remain assigned VOLATILES by parent scenario family_assignment.",
+  "price_multipliers": [
+    "1"
+  ],
+  "refill_rule": "For every owner return routed by existing table to country_treasury, after existing delay, appropriate authored share of actual receipt into that projects sponsor budget using existing appropriation operation. No change to financier or local reinvestment.",
+  "sales_caps": [
+    4
+  ],
+  "size_factor": null,
+  "treasury_return_appropriation_share_levels": [
+    "1"
+  ]
+}

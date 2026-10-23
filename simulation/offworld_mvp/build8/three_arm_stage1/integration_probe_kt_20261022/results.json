@@ -1,0 +1,155 @@
+{
+  "campaign": {
+    "annual_rows_sha256": "0255b7c1161c7919b6945d733185f4364e461662249aa27de5f0dc5bf3a50b81",
+    "body_count": 90,
+    "first_year": 2026,
+    "last_year": 2226,
+    "result_campaign_keys": [
+      "a1_attempt_counts",
+      "accessibility",
+      "annual",
+      "attempts",
+      "body_count",
+      "body_yearly",
+      "claims",
+      "decades",
+      "eligible_body_ids",
+      "limits",
+      "no_a3",
+      "receipts",
+      "reopened_bodies",
+      "runtime_decades",
+      "runtime_total_seconds",
+      "runtime_years",
+      "source_standings",
+      "studies"
+    ],
+    "yearly_rows": 4020
+  },
+  "classification": "TEST_ONLY_NONCANON_NONRUNTIME",
+  "elapsed_seconds": 17.158,
+  "joins": {
+    "J1": {
+      "evidence": {
+        "main_executor_quotes": {
+          "ESA": {
+            "executor": "Thales Alenia Space",
+            "price": "0.015"
+          },
+          "UAE Space Agency": {
+            "executor": "Thales Alenia Space",
+            "price": "0.015"
+          }
+        },
+        "main_service_categories": [
+          "BUILD",
+          "LAND",
+          "LAUNCH",
+          "RUN"
+        ],
+        "main_sponsors": [
+          "ESA",
+          "UAE Space Agency"
+        ],
+        "mapped_selection_sponsors": [],
+        "pr_quote_mission_types": [
+          "flyby",
+          "rendezvous"
+        ],
+        "reason": "PR sponsor identities and USD mission quote units have no authored bridge to main campaign sponsor/category budget units; no conversion or motive mapping authored",
+        "selection_sponsors": [
+          "science",
+          "survey"
+        ]
+      },
+      "file": "three_arm_stage1/sponsor_selection.py / build8/route1_cast_payments.py",
+      "function": "run / CastPaymentTrial.choose_quote",
+      "status": "BLOCKED"
+    },
+    "J2": {
+      "evidence": {
+        "destination_rules": {
+          "('resource_export_to_earth_buyer', 'financier')": [
+            "financier_claim_account",
+            0
+          ],
+          "('resource_export_to_earth_buyer', 'private_company')": [
+            "company_funds",
+            0
+          ],
+          "('resource_export_to_earth_buyer', 'public_agency')": [
+            "country_treasury",
+            3
+          ]
+        },
+        "main_campaign_hook": "AllBodyCampaign.on_year",
+        "reason": "Ceres return distributions require completed resource export sale, owner and return account; mission outcome is not an authored sale or owner-return claim. No mission-return amount exists to credit next-year budget. Public treasury rule delays appropriation three years, not next year.",
+        "return_source": "resource_export_to_earth_buyer"
+      },
+      "file": "build8/ceres_downstream.py / build8/return_routing.py",
+      "function": "CeresDownstream._distribute / _appropriate / resolve_destination",
+      "status": "BLOCKED"
+    },
+    "J3": {
+      "evidence": {
+        "main_2040_observation_year": 2040,
+        "reason": "No authored interface maps Route1 A1/A2 generated hidden-truth observation to a later PR-priced mission candidate utility/belief decision. PR selector consumes authored values and executor beliefs, not campaign observations."
+      },
+      "file": "build8/route1_all_body_campaign_pr3b.py / build8/box3_2040_observation_proof.py",
+      "function": "AllBodyCampaign.review_completed / Box3 2040 observation flow",
+      "status": "BLOCKED"
+    },
+    "J4": {
+      "evidence": {
+        "reason": "No exposed year-step/resume entry point for the same AllBodyCampaign state; persistent_trial uses separate country-opening path. Hash-for-hash segmented comparison cannot be performed without changing existing runner.",
+        "single_run_completed": true
+      },
+      "file": "build8/route1_all_body_campaign_pr3b.py / build8/persistent_trial.py",
+      "function": "run_all_body_campaign / run_persistent_trial",
+      "status": "BLOCKED"
+    },
+    "J5": {
+      "evidence": {
+        "reason": "Selection-only replay works; no joined full-clock state from J1-J4 to replay and compare",
+        "selection_hash": "6ab1095957875d715b45d14766193d2bd735a775e77b9ea88c5be4ff35caa5e5",
+        "selection_replay_pass": true,
+        "variant_hash": "613b37714488ec0ce6a85293f00e805f4ad25a1a143322b5966b5a1fb335fa53",
+        "variant_identity_changed": true
+      },
+      "file": "three_arm_stage1/sponsor_selection.py / build8/route1_all_body_campaign_pr3b.py",
+      "function": "run / run_all_body_campaign",
+      "status": "BLOCKED"
+    }
+  },
+  "peak_rss_kib": 112820,
+  "run_identity": "079648888e22612fee5d89f9dd3d14526a116421a676a3f7293d2775c12ed196",
+  "scenario": {
+    "body_count": 90,
+    "classification": "TEST_ONLY_NONCANON_NONRUNTIME",
+    "end_year": 2226,
+    "main_campaign_executor": "Thales Alenia Space",
+    "main_campaign_sponsors": [
+      "ESA",
+      "UAE Space Agency"
+    ],
+    "moon_rule": "PARENT",
+    "pricing_rule": "HELD_2026",
+    "scenario_variant": "BASE",
+    "source_executor_cast_file": "../../solar_reach_cast.json",
+    "source_executor_cast_sha256": "8c67e088fbd4eb3336d31c4dcdc97d28d548533cf8f69467851e5b00fa8674ee",
+    "source_experiment_file": "../experiment.json",
+    "source_experiment_sha256": "d8aa0e6370bb85d62f908e697519c5e48b804e40fbcf7d9b779c9ddadc1b98ec",
+    "source_quote_file": "../A_VEHICLE_MISSION_PAIRS.csv",
+    "source_quote_run_identity": "f24cd438e12d5bc62efeaa48f084acf69f6b52e261f3a771aa1e4d05d07ace75",
+    "source_quote_sha256": "72ebceab82626e2c6e2f595a83f67f8ee838e965ab8a0d4231ca20af045d38fd",
+    "source_selection_file": "../SPONSOR_SELECTION_SCENARIO.json",
+    "source_selection_sha256": "858faa2567e62eba022cadf4f803cbe1fa429ab3c75cd28839ffb8c0d9a8021c",
+    "sponsor_selection_sponsors": [
+      "science",
+      "survey"
+    ],
+    "start_year": 2026
+  },
+  "scenario_sha256": "9e8cd0f93e0340e327d425224a3480cc6e2b6cce70a9a3837c29b0b7e76b944f",
+  "started_utc": "2026-10-21T17:49:00.588824+00:00"
+}
