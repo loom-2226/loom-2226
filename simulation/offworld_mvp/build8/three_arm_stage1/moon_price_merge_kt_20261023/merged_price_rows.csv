@@ -1,0 +1,901 @@
+body,mission_type,year,status,source,price_field,unpriced_reason
+AMUN,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,204970511.5740842608000000,
+AMUN,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,1023322996.6519960424000000,
+AMUN,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,182272339.6746786048000000,
+AMUN,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,997074537.4559127168000000,
+AMUN,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,204970511.5740842608000000,
+AMUN,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,1023322996.6519960424000000,
+AMUN,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,204970511.5740842608000000,
+AMUN,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,1023322996.6519960424000000,
+AMUN,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,204970511.5740842608000000,
+AMUN,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,1023322996.6519960424000000,
+APOPHIS,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,133494096.3965898632000000,
+APOPHIS,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,396779773.5246061408000000,
+APOPHIS,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,74444362.4768203960000000,
+APOPHIS,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,316077801.7676149032000000,
+APOPHIS,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,133494096.3965898632000000,
+APOPHIS,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,396779773.5246061408000000,
+APOPHIS,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,133494096.3965898632000000,
+APOPHIS,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,396779773.5246061408000000,
+APOPHIS,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,133494096.3965898632000000,
+APOPHIS,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,396779773.5246061408000000,
+ARIEL,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+ARIEL,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,33.53048940329838,
+ARIEL,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+ARIEL,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,29.19628974256282,
+ARIEL,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+ARIEL,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+ARIEL,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+ARIEL,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+ARIEL,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+ARIEL,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+ARROKOTH,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+ARROKOTH,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,9021850532.03038,
+ARROKOTH,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+ARROKOTH,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,8062602344.855912,
+ARROKOTH,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+ARROKOTH,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,9021850532.03038,
+ARROKOTH,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+ARROKOTH,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,9021850532.03038,
+ARROKOTH,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+ARROKOTH,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,9021850532.03038,
+ASTEROID_6178,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,457321647.5418352712000000,
+ASTEROID_6178,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,713871472.3074291672000000,
+ASTEROID_6178,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,267536652.8725926712000000,
+ASTEROID_6178,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,733371316.3563034664000000,
+ASTEROID_6178,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,457321647.5418352712000000,
+ASTEROID_6178,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,713871472.3074291672000000,
+ASTEROID_6178,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,457321647.5418352712000000,
+ASTEROID_6178,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,713871472.3074291672000000,
+ASTEROID_6178,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,457321647.5418352712000000,
+ASTEROID_6178,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,713871472.3074291672000000,
+ATLAS3I,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+ATLAS3I,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,18806254.98086541,
+ATLAS3I,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+ATLAS3I,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,379277974236.4729,
+ATLAS3I,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+ATLAS3I,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,18806254.98086541,
+ATLAS3I,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+ATLAS3I,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,18806254.98086541,
+ATLAS3I,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+ATLAS3I,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,18806254.98086541,
+BENNU,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,234534180.0014205776000000,
+BENNU,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,560353404.9062081376000000,
+BENNU,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,293232019.5175483072000000,
+BENNU,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,640410010.4789143352000000,
+BENNU,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,234534180.0014205776000000,
+BENNU,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,560353404.9062081376000000,
+BENNU,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,234534180.0014205776000000,
+BENNU,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,560353404.9062081376000000,
+BENNU,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,234534180.0014205776000000,
+BENNU,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,560353404.9062081376000000,
+BORISOV,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+BORISOV,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,1.971397548868517E+18,
+BORISOV,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+BORISOV,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,5.4127910211975224E+20,
+BORISOV,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+BORISOV,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,1.971397548868517E+18,
+BORISOV,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+BORISOV,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,1.971397548868517E+18,
+BORISOV,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+BORISOV,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,1.971397548868517E+18,
+BORRELLY,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,507624776.2049648128000000,
+BORRELLY,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,1.2221228651849084,
+BORRELLY,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,376109063.2161489024000000,
+BORRELLY,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,0.9924142117055016,
+BORRELLY,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,507624776.2049648128000000,
+BORRELLY,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,1.2221228651849084,
+BORRELLY,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,507624776.2049648128000000,
+BORRELLY,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,1.2221228651849084,
+BORRELLY,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,507624776.2049648128000000,
+BORRELLY,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,1.2221228651849084,
+BRAILLE,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,350788818.3759133032000000,
+BRAILLE,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,0.8894916060479671,
+BRAILLE,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,572196936.7487466832000000,
+BRAILLE,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,1168203657.9348139544000000,
+BRAILLE,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,350788818.3759133032000000,
+BRAILLE,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,0.8894916060479671,
+BRAILLE,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,350788818.3759133032000000,
+BRAILLE,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,0.8894916060479671,
+BRAILLE,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,350788818.3759133032000000,
+BRAILLE,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,0.8894916060479671,
+CALLISTO,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+CALLISTO,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.7444372903935205,
+CALLISTO,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+CALLISTO,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.7410505122156429,
+CALLISTO,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+CALLISTO,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+CALLISTO,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+CALLISTO,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+CALLISTO,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+CALLISTO,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+CERES,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,498053851.1531186136000000,
+CERES,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,1096394868.3319953320000000,
+CERES,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,641230391.5891213328000000,
+CERES,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,1334463132.8195094016000000,
+CERES,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,498053851.1531186136000000,
+CERES,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,1096394868.3319953320000000,
+CERES,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,498053851.1531186136000000,
+CERES,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,1096394868.3319953320000000,
+CERES,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,498053851.1531186136000000,
+CERES,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,1096394868.3319953320000000,
+CHARON,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+CHARON,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,38263924.680126136,
+CHARON,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+CHARON,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,57111623.235673096,
+CHARON,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+CHARON,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,38263924.680126136,
+CHARON,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+CHARON,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,38263924.680126136,
+CHARON,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+CHARON,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,38263924.680126136,
+CHIRON,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+CHIRON,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,18.67059879597077,
+CHIRON,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+CHIRON,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,19.276426940027443,
+CHIRON,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+CHIRON,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,18.67059879597077,
+CHIRON,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+CHIRON,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,18.67059879597077,
+CHIRON,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+CHIRON,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,18.67059879597077,
+COMET_67P,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,355818634.7511080000000,
+COMET_67P,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,780001798.3177594816000000,
+COMET_67P,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,212104698.6884150728000000,
+COMET_67P,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,782480228.5007075720000000,
+COMET_67P,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,355818634.7511080000000,
+COMET_67P,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,780001798.3177594816000000,
+COMET_67P,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,355818634.7511080000000,
+COMET_67P,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,780001798.3177594816000000,
+COMET_67P,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,355818634.7511080000000,
+COMET_67P,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,780001798.3177594816000000,
+COMET_HALLEY,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+COMET_HALLEY,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,36908661.171130264,
+COMET_HALLEY,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+COMET_HALLEY,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,28764749.428195692,
+COMET_HALLEY,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+COMET_HALLEY,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,36908661.171130264,
+COMET_HALLEY,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+COMET_HALLEY,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,36908661.171130264,
+COMET_HALLEY,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+COMET_HALLEY,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,36908661.171130264,
+DACTYL,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+DACTYL,rendezvous,2026,UNPRICED,NONE,,Exact-year saved row(s) are not PRICED_TEST_ONLY (rendezvous_v2_90=UNPRICED); source reasons: rendezvous_v2_90:PARENT_GM_MISSING.
+DACTYL,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+DACTYL,rendezvous,2027,UNPRICED,NONE,,Exact-year saved row(s) are not PRICED_TEST_ONLY (rendezvous_v2_90=UNPRICED); source reasons: rendezvous_v2_90:PARENT_GM_MISSING.
+DACTYL,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+DACTYL,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+DACTYL,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+DACTYL,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+DACTYL,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+DACTYL,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+DAVIDA,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,578688648.4567735752000000,
+DAVIDA,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,977268827.4158010632000000,
+DAVIDA,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,573577254.326951672000000,
+DAVIDA,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,973502049.7561173168000000,
+DAVIDA,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,578688648.4567735752000000,
+DAVIDA,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,977268827.4158010632000000,
+DAVIDA,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,578688648.4567735752000000,
+DAVIDA,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,977268827.4158010632000000,
+DAVIDA,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,578688648.4567735752000000,
+DAVIDA,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,977268827.4158010632000000,
+DEIMOS,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+DEIMOS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,0.7068700388855866,
+DEIMOS,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+DEIMOS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,0.7140782068396171,
+DEIMOS,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+DEIMOS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,0.7068700388855866,
+DEIMOS,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+DEIMOS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,0.7068700388855866,
+DEIMOS,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+DEIMOS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,0.7068700388855866,
+DIDYMOS,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,115931312.0842494064000000,
+DIDYMOS,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,496139209.3998283568000000,
+DIDYMOS,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,172075084.2115530408000000,
+DIDYMOS,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,459475306.0455494824000000,
+DIDYMOS,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,115931312.0842494064000000,
+DIDYMOS,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,496139209.3998283568000000,
+DIDYMOS,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,115931312.0842494064000000,
+DIDYMOS,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,496139209.3998283568000000,
+DIDYMOS,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,115931312.0842494064000000,
+DIDYMOS,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,496139209.3998283568000000,
+DINKINESH,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,499853158.0919071352000000,
+DINKINESH,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,786128505.9440002568000000,
+DINKINESH,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,419276559.375957072000000,
+DINKINESH,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,758084613.4516231104000000,
+DINKINESH,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,499853158.0919071352000000,
+DINKINESH,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,786128505.9440002568000000,
+DINKINESH,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,499853158.0919071352000000,
+DINKINESH,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,786128505.9440002568000000,
+DINKINESH,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,499853158.0919071352000000,
+DINKINESH,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,786128505.9440002568000000,
+DIONE,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+DIONE,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.8496042326627383,
+DIONE,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+DIONE,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.8295400146977583,
+DIONE,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+DIONE,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+DIONE,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+DIONE,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+DIONE,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+DIONE,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+DONALDJOHANSON,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,459879154.9564568992000000,
+DONALDJOHANSON,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,882617811.2198326224000000,
+DONALDJOHANSON,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,340458529.3100965968000000,
+DONALDJOHANSON,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,765338803.9868951664000000,
+DONALDJOHANSON,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,459879154.9564568992000000,
+DONALDJOHANSON,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,882617811.2198326224000000,
+DONALDJOHANSON,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,459879154.9564568992000000,
+DONALDJOHANSON,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,882617811.2198326224000000,
+DONALDJOHANSON,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,459879154.9564568992000000,
+DONALDJOHANSON,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,882617811.2198326224000000,
+ENCELADUS,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+ENCELADUS,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.8994975380378543,
+ENCELADUS,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+ENCELADUS,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.8728128567178982,
+ENCELADUS,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+ENCELADUS,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+ENCELADUS,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+ENCELADUS,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+ENCELADUS,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+ENCELADUS,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+ERIS,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+ERIS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,6.028392693349309E+34,
+ERIS,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+ERIS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,6.10404039856395E+34,
+ERIS,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+ERIS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,6.028392693349309E+34,
+ERIS,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+ERIS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,6.028392693349309E+34,
+ERIS,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+ERIS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,6.028392693349309E+34,
+EROS,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,290112667.7214611488000000,
+EROS,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,608025267.9545277744000000,
+EROS,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,444773192.2616556608000000,
+EROS,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,661999619.6111751408000000,
+EROS,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,290112667.7214611488000000,
+EROS,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,608025267.9545277744000000,
+EROS,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,290112667.7214611488000000,
+EROS,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,608025267.9545277744000000,
+EROS,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,290112667.7214611488000000,
+EROS,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,608025267.9545277744000000,
+EUROPA,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+EUROPA,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.783825734139165,
+EUROPA,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+EUROPA,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.7772627673478694,
+EUROPA,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+EUROPA,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+EUROPA,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+EUROPA,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+EUROPA,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+EUROPA,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+EURYBATES,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+EURYBATES,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,0.8549766022703252,
+EURYBATES,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+EURYBATES,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,0.8599863994440858,
+EURYBATES,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+EURYBATES,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,0.8549766022703252,
+EURYBATES,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+EURYBATES,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,0.8549766022703252,
+EURYBATES,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+EURYBATES,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,0.8549766022703252,
+GANYMEDE,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+GANYMEDE,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.7580636848026799,
+GANYMEDE,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+GANYMEDE,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.7535378851896012,
+GANYMEDE,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+GANYMEDE,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+GANYMEDE,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+GANYMEDE,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+GANYMEDE,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+GANYMEDE,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+GASPRA,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,445366936.3781428504000000,
+GASPRA,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,788397217.4113630440000000,
+GASPRA,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,402751687.2169028928000000,
+GASPRA,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,789866802.2136250184000000,
+GASPRA,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,445366936.3781428504000000,
+GASPRA,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,788397217.4113630440000000,
+GASPRA,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,445366936.3781428504000000,
+GASPRA,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,788397217.4113630440000000,
+GASPRA,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,445366936.3781428504000000,
+GASPRA,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,788397217.4113630440000000,
+GONGGONG,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+GONGGONG,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,2.309352311713559E+31,
+GONGGONG,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+GONGGONG,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,2.3975115584166082E+31,
+GONGGONG,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+GONGGONG,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,2.309352311713559E+31,
+GONGGONG,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+GONGGONG,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,2.309352311713559E+31,
+GONGGONG,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+GONGGONG,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,2.309352311713559E+31,
+HARTLEY2,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,534061714.1254171624000000,
+HARTLEY2,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,945597861.3366227472000000,
+HARTLEY2,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,441440638.3625159496000000,
+HARTLEY2,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,982110967.2575164968000000,
+HARTLEY2,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,534061714.1254171624000000,
+HARTLEY2,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,945597861.3366227472000000,
+HARTLEY2,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,534061714.1254171624000000,
+HARTLEY2,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,945597861.3366227472000000,
+HARTLEY2,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,534061714.1254171624000000,
+HARTLEY2,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,945597861.3366227472000000,
+HAUMEA,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+HAUMEA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,25727721638697.34,
+HAUMEA,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+HAUMEA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,22987094738971.1,
+HAUMEA,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+HAUMEA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,25727721638697.34,
+HAUMEA,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+HAUMEA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,25727721638697.34,
+HAUMEA,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+HAUMEA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,25727721638697.34,
+HYDRA,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+HYDRA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,40998324.28823179,
+HYDRA,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+HYDRA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,61358844.80868739,
+HYDRA,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+HYDRA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,40998324.28823179,
+HYDRA,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+HYDRA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,40998324.28823179,
+HYDRA,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+HYDRA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,40998324.28823179,
+HYGIEA,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,486098561.8338299688000000,
+HYGIEA,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,991041751.2062785304000000,
+HYGIEA,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,509904320.8628118472000000,
+HYGIEA,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,1055819446.0645180328000000,
+HYGIEA,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,486098561.8338299688000000,
+HYGIEA,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,991041751.2062785304000000,
+HYGIEA,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,486098561.8338299688000000,
+HYGIEA,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,991041751.2062785304000000,
+HYGIEA,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,486098561.8338299688000000,
+HYGIEA,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,991041751.2062785304000000,
+HYPERION,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+HYPERION,rendezvous,2026,UNPRICED,NONE,,Exact-year saved row(s) are not PRICED_TEST_ONLY (rendezvous_v2_90=UNPRICED); source reasons: rendezvous_v2_90:NO_59_BODY_TABLE_QUOTE.
+HYPERION,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+HYPERION,rendezvous,2027,UNPRICED,NONE,,Exact-year saved row(s) are not PRICED_TEST_ONLY (rendezvous_v2_90=UNPRICED); source reasons: rendezvous_v2_90:NO_59_BODY_TABLE_QUOTE.
+HYPERION,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+HYPERION,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+HYPERION,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+HYPERION,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+HYPERION,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+HYPERION,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+IAPETUS,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+IAPETUS,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.8266540661307989,
+IAPETUS,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+IAPETUS,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.8091617820663575,
+IAPETUS,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+IAPETUS,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+IAPETUS,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+IAPETUS,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+IAPETUS,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+IAPETUS,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+IDA,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,489178252.1560161608000000,
+IDA,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,878999200.3855711816000000,
+IDA,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,488884823.7370425752000000,
+IDA,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,879489483.5581140864000000,
+IDA,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,489178252.1560161608000000,
+IDA,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,878999200.3855711816000000,
+IDA,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,489178252.1560161608000000,
+IDA,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,878999200.3855711816000000,
+IDA,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,489178252.1560161608000000,
+IDA,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,878999200.3855711816000000,
+INTERAMNIA,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,539799048.4114909792000000,
+INTERAMNIA,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,1092364422.8126536304000000,
+INTERAMNIA,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,514888405.1303452256000000,
+INTERAMNIA,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,1252774126.6016995984000000,
+INTERAMNIA,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,539799048.4114909792000000,
+INTERAMNIA,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,1092364422.8126536304000000,
+INTERAMNIA,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,539799048.4114909792000000,
+INTERAMNIA,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,1092364422.8126536304000000,
+INTERAMNIA,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,539799048.4114909792000000,
+INTERAMNIA,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,1092364422.8126536304000000,
+IO,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+IO,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.8564654900293131,
+IO,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+IO,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.8443296242296422,
+IO,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+IO,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+IO,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+IO,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+IO,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+IO,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+ITOKAWA,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,101939361.2730874296000000,
+ITOKAWA,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,475130147.982570928000000,
+ITOKAWA,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,204673513.044303992000000,
+ITOKAWA,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,382596800.1044517544000000,
+ITOKAWA,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,101939361.2730874296000000,
+ITOKAWA,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,475130147.982570928000000,
+ITOKAWA,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,101939361.2730874296000000,
+ITOKAWA,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,475130147.982570928000000,
+ITOKAWA,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,101939361.2730874296000000,
+ITOKAWA,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,475130147.982570928000000,
+IXION,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+IXION,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,626762446.5797112,
+IXION,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+IXION,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,398695569.12333344,
+IXION,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+IXION,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,626762446.5797112,
+IXION,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+IXION,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,626762446.5797112,
+IXION,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+IXION,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,626762446.5797112,
+JUNO,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,398693172.2433645160000000,
+JUNO,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,1049500588.4258722112000000,
+JUNO,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,524556323.0104029536000000,
+JUNO,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,940822888.7212986368000000,
+JUNO,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,398693172.2433645160000000,
+JUNO,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,1049500588.4258722112000000,
+JUNO,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,398693172.2433645160000000,
+JUNO,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,1049500588.4258722112000000,
+JUNO,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,398693172.2433645160000000,
+JUNO,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,1049500588.4258722112000000,
+KERBEROS,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+KERBEROS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,40795122.84260992,
+KERBEROS,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+KERBEROS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,61042755.47187248,
+KERBEROS,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+KERBEROS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,40795122.84260992,
+KERBEROS,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+KERBEROS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,40795122.84260992,
+KERBEROS,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+KERBEROS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,40795122.84260992,
+KLEOPATRA,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,398744714.8147678856000000,
+KLEOPATRA,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,1099301336.0106078608000000,
+KLEOPATRA,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,548345423.9312686280000000,
+KLEOPATRA,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,966817985.6812267000000000,
+KLEOPATRA,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,398744714.8147678856000000,
+KLEOPATRA,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,1099301336.0106078608000000,
+KLEOPATRA,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,398744714.8147678856000000,
+KLEOPATRA,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,1099301336.0106078608000000,
+KLEOPATRA,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,398744714.8147678856000000,
+KLEOPATRA,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,1099301336.0106078608000000,
+LEUCUS,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+LEUCUS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,0.7939533825464252,
+LEUCUS,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+LEUCUS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,0.9502779981746916,
+LEUCUS,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+LEUCUS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,0.7939533825464252,
+LEUCUS,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+LEUCUS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,0.7939533825464252,
+LEUCUS,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+LEUCUS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,0.7939533825464252,
+LUTETIA,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,401528953.1733937080000000,
+LUTETIA,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,913963810.4922633336000000,
+LUTETIA,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,504253594.2850523856000000,
+LUTETIA,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,864736318.6350736856000000,
+LUTETIA,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,401528953.1733937080000000,
+LUTETIA,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,913963810.4922633336000000,
+LUTETIA,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,401528953.1733937080000000,
+LUTETIA,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,913963810.4922633336000000,
+LUTETIA,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,401528953.1733937080000000,
+LUTETIA,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,913963810.4922633336000000,
+MAKEMAKE,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+MAKEMAKE,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,7771504290314557,
+MAKEMAKE,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+MAKEMAKE,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,7586975167955005,
+MAKEMAKE,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+MAKEMAKE,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,7771504290314557,
+MAKEMAKE,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+MAKEMAKE,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,7771504290314557,
+MAKEMAKE,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+MAKEMAKE,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,7771504290314557,
+MARS,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,220998755.3029269768000000,
+MARS,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,407759699.8991749920000000,
+MARS,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,253336573.2737350072000000,
+MARS,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,728498917.2960706592000000,
+MARS,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,220998755.3029269768000000,
+MARS,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,407759699.8991749920000000,
+MARS,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,220998755.3029269768000000,
+MARS,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,407759699.8991749920000000,
+MARS,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,220998755.3029269768000000,
+MARS,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,407759699.8991749920000000,
+MATHILDE,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,381012256.2888255904000000,
+MATHILDE,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,1041517415.9532112192000000,
+MATHILDE,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,568000900.2397014752000000,
+MATHILDE,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,909964867.2259708872000000,
+MATHILDE,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,381012256.2888255904000000,
+MATHILDE,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,1041517415.9532112192000000,
+MATHILDE,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,381012256.2888255904000000,
+MATHILDE,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,1041517415.9532112192000000,
+MATHILDE,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,381012256.2888255904000000,
+MATHILDE,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,1041517415.9532112192000000,
+MERCURY,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,476119899.7746917464000000,
+MERCURY,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,1375248996.4970672840000000,
+MERCURY,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,462514583.2915596168000000,
+MERCURY,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,1384483030.2829937584000000,
+MERCURY,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,476119899.7746917464000000,
+MERCURY,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,1375248996.4970672840000000,
+MERCURY,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,476119899.7746917464000000,
+MERCURY,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,1375248996.4970672840000000,
+MERCURY,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,476119899.7746917464000000,
+MERCURY,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,1375248996.4970672840000000,
+MIMAS,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+MIMAS,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.9527142656654353,
+MIMAS,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+MIMAS,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.9188994525097792,
+MIMAS,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+MIMAS,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+MIMAS,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+MIMAS,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+MIMAS,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+MIMAS,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+MIRANDA,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+MIRANDA,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,22.30041972032444,
+MIRANDA,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+MIRANDA,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,19.531583799423084,
+MIRANDA,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+MIRANDA,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+MIRANDA,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+MIRANDA,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+MIRANDA,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+MIRANDA,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+MOON,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+MOON,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.7041845649714936,
+MOON,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+MOON,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.7041845649714936,
+MOON,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+MOON,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+MOON,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+MOON,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+MOON,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+MOON,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+MS4,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+MS4,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,5958957321423.906,
+MS4,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+MS4,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,5142046756021.322,
+MS4,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+MS4,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,5958957321423.906,
+MS4,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+MS4,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,5958957321423.906,
+MS4,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+MS4,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,5958957321423.906,
+NEREID,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+NEREID,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,309438.4505641659,
+NEREID,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+NEREID,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,381211.3723717114,
+NEREID,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+NEREID,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+NEREID,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+NEREID,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+NEREID,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+NEREID,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+NIX,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+NIX,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,40469065.53304545,
+NIX,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+NIX,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,60535712.14852003,
+NIX,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+NIX,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,40469065.53304545,
+NIX,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+NIX,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,40469065.53304545,
+NIX,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+NIX,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,40469065.53304545,
+OBERON,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+OBERON,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,36.591951863741646,
+OBERON,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+OBERON,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,33.32315202395446,
+OBERON,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+OBERON,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+OBERON,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+OBERON,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+OBERON,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+OBERON,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+ORCUS,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+ORCUS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,6766198740267.5,
+ORCUS,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+ORCUS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,6596379115027.497,
+ORCUS,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+ORCUS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,6766198740267.5,
+ORCUS,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+ORCUS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,6766198740267.5,
+ORCUS,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+ORCUS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,6766198740267.5,
+ORUS,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,649606413.5624715800000000,
+ORUS,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,1136719891.4107480168000000,
+ORUS,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,653432560.5749425784000000,
+ORUS,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,1135659965.9831355104000000,
+ORUS,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,649606413.5624715800000000,
+ORUS,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,1136719891.4107480168000000,
+ORUS,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,649606413.5624715800000000,
+ORUS,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,1136719891.4107480168000000,
+ORUS,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,649606413.5624715800000000,
+ORUS,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,1136719891.4107480168000000,
+OUMUAMUA,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+OUMUAMUA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,1.6743653968179588E+21,
+OUMUAMUA,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+OUMUAMUA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,4.948727325244453E+22,
+OUMUAMUA,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+OUMUAMUA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,1.6743653968179588E+21,
+OUMUAMUA,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+OUMUAMUA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,1.6743653968179588E+21,
+OUMUAMUA,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+OUMUAMUA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,1.6743653968179588E+21,
+PALLAS,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,425476432.5928999944000000,
+PALLAS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,1.2115001907184787,
+PALLAS,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,641092927.8691741240000000,
+PALLAS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,1.0482014386584225,
+PALLAS,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,425476432.5928999944000000,
+PALLAS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,1.2115001907184787,
+PALLAS,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,425476432.5928999944000000,
+PALLAS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,1.2115001907184787,
+PALLAS,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,425476432.5928999944000000,
+PALLAS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,1.2115001907184787,
+PATROCLUS,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+PATROCLUS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,2.101279085222658,
+PATROCLUS,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+PATROCLUS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,1.0141768384920928,
+PATROCLUS,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+PATROCLUS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,2.101279085222658,
+PATROCLUS,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+PATROCLUS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,2.101279085222658,
+PATROCLUS,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+PATROCLUS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,2.101279085222658,
+PHOBOS,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+PHOBOS,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,0.7068327485786549,
+PHOBOS,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+PHOBOS,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,0.7134901377744045,
+PHOBOS,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+PHOBOS,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,0.7068327485786549,
+PHOBOS,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+PHOBOS,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,0.7068327485786549,
+PHOBOS,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+PHOBOS,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,0.7068327485786549,
+PHOEBE,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+PHOEBE,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.8596680071514212,
+PHOEBE,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+PHOEBE,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.8372798438559784,
+PHOEBE,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+PHOEBE,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+PHOEBE,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+PHOEBE,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+PHOEBE,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+PHOEBE,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+PLUTO,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+PLUTO,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,44669372.4284115,
+PLUTO,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+PLUTO,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,67081712.42467608,
+PLUTO,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+PLUTO,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,44669372.4284115,
+PLUTO,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+PLUTO,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,44669372.4284115,
+PLUTO,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+PLUTO,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,44669372.4284115,
+POLYMELE,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+POLYMELE,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,0.9274079749589912,
+POLYMELE,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+POLYMELE,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,1.0893737848144302,
+POLYMELE,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+POLYMELE,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,0.9274079749589912,
+POLYMELE,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+POLYMELE,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,0.9274079749589912,
+POLYMELE,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+POLYMELE,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,0.9274079749589912,
+PROTEUS,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+PROTEUS,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,13751.150534916129,
+PROTEUS,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+PROTEUS,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,15012.991422260137,
+PROTEUS,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+PROTEUS,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+PROTEUS,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+PROTEUS,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+PROTEUS,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+PROTEUS,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+PSYCHE,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,529311262.5343179024000000,
+PSYCHE,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,945988983.5974682832000000,
+PSYCHE,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,520336228.0016098744000000,
+PSYCHE,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,918659727.5567487648000000,
+PSYCHE,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,529311262.5343179024000000,
+PSYCHE,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,945988983.5974682832000000,
+PSYCHE,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,529311262.5343179024000000,
+PSYCHE,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,945988983.5974682832000000,
+PSYCHE,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,529311262.5343179024000000,
+PSYCHE,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,945988983.5974682832000000,
+QUAOAR,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+QUAOAR,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,4326292220.68595,
+QUAOAR,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+QUAOAR,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,4300835160.487842,
+QUAOAR,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+QUAOAR,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,4326292220.68595,
+QUAOAR,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+QUAOAR,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,4326292220.68595,
+QUAOAR,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+QUAOAR,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,4326292220.68595,
+RHEA,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+RHEA,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.831781582655214,
+RHEA,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+RHEA,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.8140478174616184,
+RHEA,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+RHEA,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+RHEA,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+RHEA,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+RHEA,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+RHEA,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+RYUGU,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,259313719.2741775864000000,
+RYUGU,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,439777501.5205280856000000,
+RYUGU,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,173825645.4066349264000000,
+RYUGU,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,588235724.5902755344000000,
+RYUGU,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,259313719.2741775864000000,
+RYUGU,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,439777501.5205280856000000,
+RYUGU,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,259313719.2741775864000000,
+RYUGU,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,439777501.5205280856000000,
+RYUGU,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,259313719.2741775864000000,
+RYUGU,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,439777501.5205280856000000,
+SALACIA,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+SALACIA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,19430952428802.71,
+SALACIA,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+SALACIA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,22035160076807.9,
+SALACIA,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+SALACIA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,19430952428802.71,
+SALACIA,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+SALACIA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,19430952428802.71,
+SALACIA,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+SALACIA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,19430952428802.71,
+SEDNA,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+SEDNA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,1.7750730243491295E+28,
+SEDNA,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+SEDNA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,7.2058426606752E+27,
+SEDNA,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+SEDNA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,1.7750730243491295E+28,
+SEDNA,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+SEDNA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,1.7750730243491295E+28,
+SEDNA,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+SEDNA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,1.7750730243491295E+28,
+SELAM,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+SELAM,rendezvous,2026,UNPRICED,NONE,,Exact-year saved row(s) are not PRICED_TEST_ONLY (rendezvous_v2_90=UNPRICED); source reasons: rendezvous_v2_90:PARENT_GM_MISSING.
+SELAM,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+SELAM,rendezvous,2027,UNPRICED,NONE,,Exact-year saved row(s) are not PRICED_TEST_ONLY (rendezvous_v2_90=UNPRICED); source reasons: rendezvous_v2_90:PARENT_GM_MISSING.
+SELAM,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+SELAM,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+SELAM,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+SELAM,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+SELAM,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+SELAM,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+STEINS,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,465185098.4444081784000000,
+STEINS,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,1029402779.7246582872000000,
+STEINS,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,473673087.4759121560000000,
+STEINS,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,896530374.0406880912000000,
+STEINS,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,465185098.4444081784000000,
+STEINS,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,1029402779.7246582872000000,
+STEINS,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,465185098.4444081784000000,
+STEINS,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,1029402779.7246582872000000,
+STEINS,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,465185098.4444081784000000,
+STEINS,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,1029402779.7246582872000000,
+STYX,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+STYX,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,40199382.82647385,
+STYX,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+STYX,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,60116479.644795384,
+STYX,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+STYX,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,40199382.82647385,
+STYX,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+STYX,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,40199382.82647385,
+STYX,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+STYX,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,40199382.82647385,
+SWIFTTUTTLE,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+SWIFTTUTTLE,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,423040047892.73605,
+SWIFTTUTTLE,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+SWIFTTUTTLE,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,513699498134.3723,
+SWIFTTUTTLE,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+SWIFTTUTTLE,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,423040047892.73605,
+SWIFTTUTTLE,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+SWIFTTUTTLE,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,423040047892.73605,
+SWIFTTUTTLE,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+SWIFTTUTTLE,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,423040047892.73605,
+TEMPEL1,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,335297290.940935232000000,
+TEMPEL1,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,1036994887.7520333656000000,
+TEMPEL1,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,650861835.0780022792000000,
+TEMPEL1,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,1034604900.9214176416000000,
+TEMPEL1,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,335297290.940935232000000,
+TEMPEL1,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,1036994887.7520333656000000,
+TEMPEL1,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,335297290.940935232000000,
+TEMPEL1,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,1036994887.7520333656000000,
+TEMPEL1,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,335297290.940935232000000,
+TEMPEL1,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,1036994887.7520333656000000,
+TETHYS,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+TETHYS,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.8712299887803813,
+TETHYS,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+TETHYS,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.8483069617496152,
+TETHYS,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+TETHYS,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+TETHYS,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+TETHYS,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+TETHYS,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+TETHYS,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+THEMIS,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,544271898.5930632856000000,
+THEMIS,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,886362228.7118324056000000,
+THEMIS,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,517003182.6702133728000000,
+THEMIS,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,866171373.0943511816000000,
+THEMIS,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,544271898.5930632856000000,
+THEMIS,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,886362228.7118324056000000,
+THEMIS,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,544271898.5930632856000000,
+THEMIS,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,886362228.7118324056000000,
+THEMIS,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,544271898.5930632856000000,
+THEMIS,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,886362228.7118324056000000,
+TITAN,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+TITAN,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.8164705635884638,
+TITAN,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+TITAN,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,0.8006232205500823,
+TITAN,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+TITAN,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+TITAN,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+TITAN,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+TITAN,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+TITAN,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+TITANIA,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+TITANIA,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,38.39863858088452,
+TITANIA,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+TITANIA,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,35.10242324634314,
+TITANIA,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+TITANIA,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+TITANIA,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+TITANIA,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+TITANIA,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+TITANIA,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+TOUTATIS,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,398721227.2436712856000000,
+TOUTATIS,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,676980122.5415957712000000,
+TOUTATIS,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,125979555.1693931872000000,
+TOUTATIS,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,690499069.8055969880000000,
+TOUTATIS,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,398721227.2436712856000000,
+TOUTATIS,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,676980122.5415957712000000,
+TOUTATIS,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,398721227.2436712856000000,
+TOUTATIS,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,676980122.5415957712000000,
+TOUTATIS,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,398721227.2436712856000000,
+TOUTATIS,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,676980122.5415957712000000,
+TRITON,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+TRITON,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,46413.558897984664,
+TRITON,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+TRITON,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,53639.808997605016,
+TRITON,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+TRITON,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+TRITON,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+TRITON,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+TRITON,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+TRITON,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+UMBRIEL,flyby,2026,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+UMBRIEL,rendezvous,2026,PRICED_TEST_ONLY,pr427_complete_moon_giant,42.54870973230616,
+UMBRIEL,flyby,2027,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+UMBRIEL,rendezvous,2027,PRICED_TEST_ONLY,pr427_complete_moon_giant,39.198342656314644,
+UMBRIEL,flyby,2035,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+UMBRIEL,rendezvous,2035,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+UMBRIEL,flyby,2036,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+UMBRIEL,rendezvous,2036,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+UMBRIEL,flyby,2226,UNPRICED,NONE,,No saved row for this body and mission type in any supplied quote source.
+UMBRIEL,rendezvous,2226,UNPRICED,NONE,,"No exact-year quote row for this body and mission type; saved source years are [2026, 2027]."
+VARUNA,flyby,2026,PRICED_TEST_ONLY,vehicle_flyby,,
+VARUNA,rendezvous,2026,PRICED_TEST_ONLY,rendezvous_v2_90,113462389221.14295,
+VARUNA,flyby,2027,PRICED_TEST_ONLY,vehicle_flyby,,
+VARUNA,rendezvous,2027,PRICED_TEST_ONLY,rendezvous_v2_90,119822902266.80906,
+VARUNA,flyby,2035,PRICED_TEST_ONLY,vehicle_flyby,,
+VARUNA,rendezvous,2035,PRICED_TEST_ONLY,rendezvous_v2_90,113462389221.14295,
+VARUNA,flyby,2036,PRICED_TEST_ONLY,vehicle_flyby,,
+VARUNA,rendezvous,2036,PRICED_TEST_ONLY,rendezvous_v2_90,113462389221.14295,
+VARUNA,flyby,2226,PRICED_TEST_ONLY,vehicle_flyby,,
+VARUNA,rendezvous,2226,PRICED_TEST_ONLY,rendezvous_v2_90,113462389221.14295,
+VENUS,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,204241081.5661082512000000,
+VENUS,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,503594402.9550726392000000,
+VENUS,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,352110539.8844409896000000,
+VENUS,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,587728508.6857082192000000,
+VENUS,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,204241081.5661082512000000,
+VENUS,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,503594402.9550726392000000,
+VENUS,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,204241081.5661082512000000,
+VENUS,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,503594402.9550726392000000,
+VENUS,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,204241081.5661082512000000,
+VENUS,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,503594402.9550726392000000,
+VESTA,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,457130689.9753474368000000,
+VESTA,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,769299885.2885798936000000,
+VESTA,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,406214600.7491012104000000,
+VESTA,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,1002706661.8773636712000000,
+VESTA,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,457130689.9753474368000000,
+VESTA,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,769299885.2885798936000000,
+VESTA,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,457130689.9753474368000000,
+VESTA,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,769299885.2885798936000000,
+VESTA,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,457130689.9753474368000000,
+VESTA,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,769299885.2885798936000000,
+WILD2,flyby,2026,PRICED_TEST_ONLY,recovered_combined_59,517764960.4837981152000000,
+WILD2,rendezvous,2026,PRICED_TEST_ONLY,recovered_combined_59,866396326.2098969872000000,
+WILD2,flyby,2027,PRICED_TEST_ONLY,recovered_combined_59,409538323.321508600000000,
+WILD2,rendezvous,2027,PRICED_TEST_ONLY,recovered_combined_59,873424775.8926233824000000,
+WILD2,flyby,2035,PRICED_TEST_ONLY,recovered_combined_59,517764960.4837981152000000,
+WILD2,rendezvous,2035,PRICED_TEST_ONLY,recovered_combined_59,866396326.2098969872000000,
+WILD2,flyby,2036,PRICED_TEST_ONLY,recovered_combined_59,517764960.4837981152000000,
+WILD2,rendezvous,2036,PRICED_TEST_ONLY,recovered_combined_59,866396326.2098969872000000,
+WILD2,flyby,2226,PRICED_TEST_ONLY,recovered_combined_59,517764960.4837981152000000,
+WILD2,rendezvous,2226,PRICED_TEST_ONLY,recovered_combined_59,866396326.2098969872000000,

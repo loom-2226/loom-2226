@@ -1,0 +1,731 @@
+{
+  "bodies": {
+    "AMUN": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "APOPHIS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "ARIEL": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "ARROKOTH": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "ASTEROID_6178": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "ATLAS3I": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "BENNU": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "BORISOV": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "BORRELLY": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "BRAILLE": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "CALLISTO": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "CERES": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "CHARON": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "CHIRON": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "COMET_67P": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "COMET_HALLEY": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "DACTYL": {
+      "candidate": false,
+      "positive": true,
+      "priced": false,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "UNPRICED"
+    },
+    "DAVIDA": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "DEIMOS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "DIDYMOS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "DINKINESH": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "DIONE": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "DONALDJOHANSON": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "ENCELADUS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "ERIS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "EROS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "EUROPA": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "EURYBATES": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "GANYMEDE": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "GASPRA": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "GONGGONG": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "HARTLEY2": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "HAUMEA": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "HYDRA": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "HYGIEA": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "HYPERION": {
+      "candidate": false,
+      "positive": true,
+      "priced": false,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "UNPRICED"
+    },
+    "IAPETUS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "IDA": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "INTERAMNIA": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "IO": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "ITOKAWA": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "IXION": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "JUNO": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "KERBEROS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "KLEOPATRA": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "LEUCUS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "LUTETIA": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "MAKEMAKE": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "MARS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "MATHILDE": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "MERCURY": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "MIMAS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "MIRANDA": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "MOON": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "MS4": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "NEREID": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "NIX": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "OBERON": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "ORCUS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "ORUS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "OUMUAMUA": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "PALLAS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "PATROCLUS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "PHOBOS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "PHOEBE": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "PLUTO": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "POLYMELE": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "PROTEUS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "PSYCHE": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "QUAOAR": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "RHEA": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "RYUGU": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "SALACIA": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "SEDNA": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "SELAM": {
+      "candidate": false,
+      "positive": true,
+      "priced": false,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "UNPRICED"
+    },
+    "STEINS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "STYX": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "SWIFTTUTTLE": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "TEMPEL1": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "TETHYS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "THEMIS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "TITAN": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "TITANIA": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "TOUTATIS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "TRITON": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "UMBRIEL": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "VARUNA": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": false,
+      "studied": true,
+      "terminal_stage": "CANDIDATE_NOT_STARTED"
+    },
+    "VENUS": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "VESTA": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    },
+    "WILD2": {
+      "candidate": true,
+      "positive": true,
+      "priced": true,
+      "started": true,
+      "studied": true,
+      "terminal_stage": "STARTED"
+    }
+  },
+  "counts": {
+    "candidate": 87,
+    "positive": 90,
+    "priced": 87,
+    "started": 63,
+    "studied": 90
+  }
+}
