@@ -18,20 +18,69 @@ assert CONFIG['treasury_return_appropriation_share_levels']==['0','0.5','1']
 assert CONFIG['sales_caps']==[4]
 assert CONFIG['price_multipliers']==['1','3','10']
 
-# Sale cap from accepted prior sweep, replacing only in-memory dispatch.
-core=s.m.PortfolioCampaign.__mro__[1]
-core_globals=__import__(core.__module__,fromlist=['PortfolioCampaign']).__dict__
-source=inspect.getsource(core.on_year)
-needle="if year in (p.offset_year('operation_year_1'),p.offset_year('operation_year_2')):"
-assert source.count(needle)==1
-patched=textwrap.dedent(source).replace(needle,"if year in tuple(p.offset_year('operation_year_'+str(i)) for i in range(1,self.sale_cap+1)):")
-patched=patched.replace('super().on_year(year,k,rows)','AllBodyCampaign.on_year(self,year,k,rows)')
-ns={};exec(compile(patched,'<sale-cap-4-in-memory>','exec'),core_globals,ns)
-core.on_year=ns['on_year']
+# V3 copies preserve all previously committed lifecycle and portfolio evidence.
+from simulation.offworld_mvp.build8.three_arm_stage1.sponsor_refill_v3_kt_20261023 import run_multi_project as v3
+from simulation.offworld_mvp.build8.three_arm_stage1.sponsor_refill_v3_kt_20261023 import general_project as v3gp
+from simulation.offworld_mvp.build8.three_arm_stage1.multi_project_final_kt_20261022 import run_final as final
+v3.SCENARIO=json.loads((HERE.parent/'multi_project_final_kt_20261022/scenario.json').read_text())
+v3.SCENARIO['scripted_appropriations_enabled']=False
+s.m=v3
+s.base=__import__('simulation.offworld_mvp.build8.three_arm_stage1.multi_project_rule_selection_kt_20261022.run_selection',fromlist=['run_selection'])
+# FinalCampaign normally inherits the earlier portfolio. Keep the selection
+# behavior, but use the v3 copied portfolio as its only campaign parent.
+from simulation.offworld_mvp.build8.three_arm_stage1.multi_project_rule_selection_kt_20261022 import run_selection as selection
+from simulation.offworld_mvp.build8.three_arm_stage1.multi_project_rule_selection_kt_20261022 import selection_rule
+class V3RendezvousCampaign(v3.PortfolioCampaign):
+    _policy_filter=selection.RuleCampaign._policy_filter
+    def _start_proposal(self,kernel,candidate,year):
+        try:
+            return super()._start_proposal(kernel,candidate,year)
+        except AttributeError as exc:
+            identity=(candidate['body'],candidate['sponsor'])
+            if ('NoneType' not in str(exc) or identity not in self.project_states
+                or not any(x['body']==identity[0] and x['sponsor']==identity[1]
+                           and x['year']==year for x in self.started)):
+                raise
+            candidate['mission_tx']=None
+            return True
+# Rebuild the established buyer/selection/boundary mixin chain on v3.
+class V3Boundary(v3.PortfolioCampaign):
+    def on_year(self,year,k,rows):
+        self.initial_total=v3._total_money(k)
+        super().on_year(year,k,rows)
+class V3Selected(V3Boundary):
+    _policy_filter=selection.RuleCampaign._policy_filter
+    _start_proposal=selection.RuleCampaign._start_proposal
+class V3Final(V3Selected):
+    pass
+# Existing buyer-funded campaign must resolve to V3Final, not legacy parents.
+s.parent.FinalCampaign=V3RendezvousCampaign
 
+# Ensure v3 portfolio lifecycle also inherits shared-treasury creation.
+# The original shared treasury start handles multiple projects owned by one
+# state, while the v3 lifecycle supplies the changed operating rules.
+class V3SharedTreasuryLifecycle(s.SharedTreasuryLifecycle):
+    _operate=v3gp.EconomicLifecycle._operate
+    _appropriate=v3gp.EconomicLifecycle._appropriate
+v3.PortfolioLifecycle=V3SharedTreasuryLifecycle
+legacy_module=__import__("simulation.offworld_mvp.build8.three_arm_stage1.multi_project_campaign_kt_20261022.run_multi_project",fromlist=["PortfolioLifecycle"])
+legacy_module.PortfolioLifecycle=V3SharedTreasuryLifecycle
+legacy_module.PortfolioCampaign.on_year=v3.PortfolioCampaign.on_year
+legacy_module.PortfolioCampaign._definition=v3.PortfolioCampaign._definition
+# Existing buyer-funded mixins ultimately dispatch into this portfolio class.
+# Replace its implementation methods with the v3 copied methods for this
+# process only; committed source remains unchanged.
+legacy=s.m.PortfolioCampaign
+for method in ('on_year','_definition','_start_proposal'):
+    setattr(legacy,method,getattr(v3.PortfolioCampaign,method))
 instances=[]
 class RefillCampaign(s.FundedCampaign):
+    _start_proposal=s.FundedCampaign._start_proposal
     sale_cap=4
+    # Preserve the original tested buyer/selection mixin MRO. Route only the
+    # portfolio implementation and lifecycle through their v3 copies.
+    _definition=V3RendezvousCampaign._definition
+    _start_proposal=s.FundedCampaign._start_proposal
     def __init__(self,*args,refill_share,**kwargs):
         self.refill_share=D(refill_share)
         self.refill_rows=[]
@@ -39,10 +88,12 @@ class RefillCampaign(s.FundedCampaign):
         super().__init__(*args,**kwargs)
         instances.append(self)
     def _definition(self,*args):
-        definition=super()._definition(*args)
+        definition=V3RendezvousCampaign._definition(self,*args)
+        definition['financier_id']=definition['project_id']+':FINANCIER'
         # Suppress old fixed two-receipt appropriations; each eligible receipt
         # instead authors its own exact amount at decision time.
         definition['appropriations']=[]
+        definition['scripted_appropriations_enabled']=False
         return definition
     def on_year(self,year,k,rows):
         super().on_year(year,k,rows)
@@ -66,7 +117,7 @@ class RefillCampaign(s.FundedCampaign):
                       'paid_offset':int(year)-p.start_year,
                       'amount':str(amount),'reason':'TEST_ONLY_AUTHORED_TREASURY_RETURN_SHARE'}
                 p.definition['appropriations'].append(rule)
-                try:self.lifecycles[key]._appropriate(k,year)
+                try:v3gp.EconomicLifecycle._appropriate(self.lifecycles[key],k,year)
                 finally:p.definition['appropriations'].pop()
                 record=p.appropriations[-1]
                 assert record['source_return_tx']==receipt['return_tx']
@@ -82,7 +133,7 @@ s.FundedCampaign=RefillCampaign
 s.HERE=HERE;s.CONFIG=CONFIG;s.SCENARIO_PATH=HERE/'scenario.json'
 s.m.HERE=HERE;s.m.OUT=HERE;s.base.OUT=HERE;s.m.write=s.write
 s.m._total_money=s._conservation_total
-s.base.boundary._total_money=s._conservation_total
+
 s.parent.OUT=PREVIOUS
 base_scenario,scenario_bytes,price_bytes,prices,audit=s.m.load_inputs()
 parent_portfolio=json.loads((PREVIOUS/'scenario_portfolio.json').read_text())
