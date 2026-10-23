@@ -1,0 +1,132 @@
+{
+  "start": "2026-01-01T00:00:00Z",
+  "end": "2248-11-25T00:00:00+00:00",
+  "rows": [
+    {
+      "body": "AMUN",
+      "required_end": "2248-11-25T00:00:00+00:00",
+      "status": "EXCLUDED",
+      "kernel": "",
+      "reason": "SpiceUNPARSEDTIME: \n================================================================================\n\nToolkit version: CSPICE_N0067\n\nSPICE(UNPARSEDTIME) --\n\nThe input string contains an unrecognizable substring beginning at the character marked by <+>: \"2248-11-25T00:00:00<+>00:00\"\n\nstr2et_c --> STR2ET\n\n================================================================================"
+    },
+    {
+      "body": "APOPHIS",
+      "required_end": "2248-11-25T00:00:00+00:00",
+      "status": "EXCLUDED",
+      "kernel": "",
+      "reason": "AssertionError: KERNEL_HASH_MISMATCH:/home/ubuntu/loom_solar_assets/kernels/spk/phase4e/apophis_2026_2251.bsp"
+    },
+    {
+      "body": "ARIEL",
+      "required_end": "2248-11-25T00:00:00+00:00",
+      "status": "EXCLUDED",
+      "kernel": "",
+      "reason": "SpiceUNPARSEDTIME: \n================================================================================\n\nToolkit version: CSPICE_N0067\n\nSPICE(UNPARSEDTIME) --\n\nThe input string contains an unrecognizable substring beginning at the character marked by <+>: \"2248-11-25T00:00:00<+>00:00\"\n\nstr2et_c --> STR2ET\n\n================================================================================"
+    },
+    {
+      "body": "ARROKOTH",
+      "required_end": "2248-11-25T00:00:00+00:00",
+      "status": "EXCLUDED",
+      "kernel": "",
+      "reason": "AssertionError: KERNEL_HASH_MISMATCH:/home/ubuntu/loom_solar_assets/kernels/spk/phase4e/arrokoth_2026_2251.bsp"
+    },
+    {
+      "body": "ASTEROID_6178",
+      "required_end": "2248-11-25T00:00:00+00:00",
+      "status": "EXCLUDED",
+      "kernel": "",
+      "reason": "SpiceUNPARSEDTIME: \n================================================================================\n\nToolkit version: CSPICE_N0067\n\nSPICE(UNPARSEDTIME) --\n\nThe input string contains an unrecognizable substring beginning at the character marked by <+>: \"2248-11-25T00:00:00<+>00:00\"\n\nstr2et_c --> STR2ET\n\n================================================================================"
+    },
+    {
+      "body": "ATLAS3I",
+      "required_end": "2248-11-25T00:00:00+00:00",
+      "status": "EXCLUDED",
+      "kernel": "",
+      "reason": "AssertionError: KERNEL_HASH_MISMATCH:/home/ubuntu/loom_solar_assets/kernels/spk/phase4e/atlas3i_2026_2251.bsp"
+    },
+    {
+      "body": "BENNU",
+      "required_end": "2248-11-25T00:00:00+00:00",
+      "status": "EXCLUDED",
+      "kernel": "",
+      "reason": "AssertionError: DIFFERENT_SOURCE_AT_ENDPOINTS"
+    },
+    {
+      "body": "BORISOV",
+      "required_end": "2248-11-25T00:00:00+00:00",
+      "status": "EXCLUDED",
+      "kernel": "",
+      "reason": "AssertionError: KERNEL_HASH_MISMATCH:/home/ubuntu/loom_solar_assets/kernels/spk/phase4e/borisov_2026_2251.bsp"
+    },
+    {
+      "body": "BORRELLY",
+      "required_end": "2248-11-25T00:00:00+00:00",
+      "status": "EXCLUDED",
+      "kernel": "",
+      "reason": "AssertionError: KERNEL_HASH_MISMATCH:/home/ubuntu/loom_solar_assets/kernels/spk/phase4e/borrelly_2026_2251.bsp"
+    },
+    {
+      "body": "BRAILLE",
+      "required_end": "2248-11-25T00:00:00+00:00",
+      "status": "EXCLUDED",
+      "kernel": "",
+      "reason": "AssertionError: KERNEL_HASH_MISMATCH:/home/ubuntu/loom_solar_assets/kernels/spk/phase4e/braille_2026_2251.bsp"
+    },
+    {
+      "body": "CALLISTO",
+      "required_end": "2248-11-25T00:00:00+00:00",
+      "status": "EXCLUDED",
+      "kernel": "",
+      "reason": "AssertionError: DIFFERENT_SOURCE_AT_ENDPOINTS"
+    },
+    {
+      "body": "CERES",
+      "required_end": "2248-11-25T00:00:00+00:00",
+      "status": "EXCLUDED",
+      "kernel": "",
+      "reason": "SpiceUNPARSEDTIME: \n================================================================================\n\nToolkit version: CSPICE_N0067\n\nSPICE(UNPARSEDTIME) --\n\nThe input string contains an unrecognizable substring beginning at the character marked by <+>: \"2248-11-25T00:00:00<+>00:00\"\n\nstr2et_c --> STR2ET\n\n================================================================================"
+    },
+    {
+      "body": "CHARON",
+      "required_end": "2248-11-25T00:00:00+00:00",
+      "status": "EXCLUDED",
+      "kernel": "",
+      "reason": "AssertionError: DIFFERENT_SOURCE_AT_ENDPOINTS"
+    },
+    {
+      "body": "CHIRON",
+      "required_end": "2248-11-25T00:00:00+00:00",
+      "status": "EXCLUDED",
+      "kernel": "",
+      "reason": "SpiceUNPARSEDTIME: \n================================================================================\n\nToolkit version: CSPICE_N0067\n\nSPICE(UNPARSEDTIME) --\n\nThe input string contains an unrecognizable substring beginning at the character marked by <+>: \"2248-11-25T00:00:00<+>00:00\"\n\nstr2et_c --> STR2ET\n\n================================================================================"
+    },
+    {
+      "body": "COMET_67P",
+      "required_end": "2248-11-25T00:00:00+00:00",
+      "status": "EXCLUDED",
+      "kernel": "",
+      "reason": "SpiceUNPARSEDTIME: \n================================================================================\n\nToolkit version: CSPICE_N0067\n\nSPICE(UNPARSEDTIME) --\n\nThe input string contains an unrecognizable substring beginning at the character marked by <+>: \"2248-11-25T00:00:00<+>00:00\"\n\nstr2et_c --> STR2ET\n\n================================================================================"
+    },
+    {
+      "body": "COMET_HALLEY",
+      "required_end": "2248-11-25T00:00:00+00:00",
+      "status": "EXCLUDED",
+      "kernel": "",
+      "reason": "SpiceUNPARSEDTIME: \n================================================================================\n\nToolkit version: CSPICE_N0067\n\nSPICE(UNPARSEDTIME) --\n\nThe input string contains an unrecognizable substring beginning at the character marked by <+>: \"2248-11-25T00:00:00<+>00:00\"\n\nstr2et_c --> STR2ET\n\n================================================================================"
+    },
+    {
+      "body": "DACTYL",
+      "required_end": "2248-11-25T00:00:00+00:00",
+      "status": "EXCLUDED",
+      "kernel": "",
+      "reason": "CelestialStateError: no qualified source coverage for LOOM body DACTYL at 2026-01-01T00:00:00Z"
+    },
+    {
+      "body": "DAVIDA",
+      "required_end": "2248-11-25T00:00:00+00:00",
+      "status": "EXCLUDED",
+      "kernel": "",
+      "reason": "AssertionError: KERNEL_HASH_MISMATCH:/home/ubuntu/loom_solar_assets/kernels/spk/phase4e/davida_2026_2251.bsp"
+    }
+  ]
+}
