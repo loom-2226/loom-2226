@@ -1,0 +1,40 @@
+{
+  "header": "ALL bodies. ALL sponsors. 2026-2226.",
+  "status": "NON-GOVERNING SANDBOX. Not canon, not engineering authority. Wayfarer is the calibration ship; every coefficient is derived from its seed ledger at run time.",
+  "rules_version": "0.1",
+  "sources": {
+    "repo": "loom-2226/loom-2226",
+    "seed": "geometry/wayfarer_geometry_seed.sql",
+    "mode_cards": "src/wayfarer_torch_mode_cards.py",
+    "canon": "canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md"
+  },
+  "reference_ship": {
+    "name": "Wayfarer",
+    "crew": {"value": 6, "source": "CANON II v2.4 section 13"},
+    "payload_capacity_t": {"value": 50, "source": "CANON II v2.4 section 13 (payload target)"},
+    "payload_aboard_t": {"value": 0, "status": "SANDBOX_DECISION", "note": "kT 2026-10-24: reference ship flies with an empty hold for now. Canon identity 858.5 t dry + 300 t fluid = 1,158.5 t wet has no payload line; the canon question itself stays open and is not settled by this sandbox."},
+    "metric_capable": {"value": true, "source": "CANON II v2.4"},
+    "carries_launch": {"value": true, "source": "CANON II v2.4a amendment"},
+    "design_mode": {"value": "CRUISE", "source": "torch mode cards give exactly 1 g at reference wet mass in CRUISE"},
+    "design_accel_g": {"value": 1.0, "source": "derived from mode cards"},
+    "remass_seed_key": "mass.normal_remass_t",
+    "protected_water_seed_key": "mass.protected_water_t"
+  },
+  "ledger_scaling": {
+    "habitation_life_support": {"driver": "crew", "why": "people need habitat and life support"},
+    "armor_fixed_shield": {"driver": "crew", "why": "forward armor wraps the habitat, so it follows crew size"},
+    "structure": {"driver": "wet_mass", "why": "frames and tank shells carry the loaded ship"},
+    "rcs_docking_service": {"driver": "wet_mass", "why": "attitude control follows ship mass"},
+    "propulsion": {"driver": "torch_scale", "why": "reactor, torch and nozzle follow thrust"},
+    "thermal_radiators": {"driver": "torch_scale", "why": "waste heat follows torch power"},
+    "electrical": {"driver": "torch_scale", "why": "generation follows torch power"},
+    "mission_courier_systems": {"driver": "payload_capacity", "why": "cargo handling follows payload capacity"},
+    "avionics_sensors_comms": {"driver": "per_hull", "why": "one avionics suite per ship"},
+    "relational_plant": {"driver": "metric_capable", "why": "fixed 88 t plant if the hull flies Metric, otherwise none"},
+    "planetary_launch": {"driver": "carries_launch", "why": "fixed launch if carried, otherwise none"},
+    "engineering_reserve": {"driver": "reserve_fraction_of_dry", "why": "reserve kept as the same share of dry mass"}
+  },
+  "fluid_scaling": {
+    "protected_water": {"driver": "crew", "why": "reserve water follows people"}
+  }
+}

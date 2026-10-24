@@ -1,0 +1,201 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "new_shuttle": {
+  "shuttle_dry_t": 34.1,
+  "drones_pods_t": 1.2,
+  "length_m": 14.4,
+  "diameter_m": 4.3,
+  "clearance_m": 0.25,
+  "bay_length_m": 15.4,
+  "venus_kit_t": 12.5,
+  "note": "drones: two Mars drones (395 kg each in pods) and two dense-air drones (204 kg each in pods); Venus balloon kit is hold payload, loaded only for Venus surface trips"
+ },
+ "v0_3_winner_with_old_shuttle": {
+  "id": "CWRAP_G|AFT|STRAKE_QUAD|ACCORDION|1300K|ext0|centre|0",
+  "length_m": 54.0,
+  "dry_t": 867.7,
+  "dv_km_s": 722.7,
+  "accel_g": 0.992,
+  "metric_r_fast": 6.5,
+  "metric_r_hard": 6.5,
+  "torch_mw": 403,
+  "hull_mw_hard": 1.06,
+  "notes": [],
+  "midship_m": 15.0,
+  "bay": [
+   19.75,
+   31.25,
+   0.0,
+   0.0
+  ],
+  "tank_x": [
+   18,
+   33.0
+  ]
+ },
+ "same_design_new_shuttle": {
+  "id": "CWRAP_G|SPLIT|STRAKE_QUAD|ACCORDION|1300K|ext0|centre|0",
+  "length_m": 54.9,
+  "dry_t": 872.8,
+  "dv_km_s": 719.2,
+  "accel_g": 0.988,
+  "metric_r_fast": 6.5,
+  "metric_r_hard": 6.5,
+  "torch_mw": 422,
+  "hull_mw_hard": 1.11,
+  "notes": [],
+  "midship_m": 15.9,
+  "bay": [
+   18.25,
+   33.65,
+   0.0,
+   0.0
+  ],
+  "tank_x": [
+   18,
+   30.5
+  ]
+ },
+ "new_headline_winner": {
+  "id": "CWRAP_G|SPLIT|STRAKE_QUAD|ACCORDION|1300K|ext0|centre|0",
+  "length_m": 54.9,
+  "dry_t": 872.8,
+  "dv_km_s": 719.2,
+  "accel_g": 0.988,
+  "metric_r_fast": 6.5,
+  "metric_r_hard": 6.5,
+  "torch_mw": 422,
+  "hull_mw_hard": 1.11,
+  "notes": [],
+  "midship_m": 15.9,
+  "bay": [
+   18.25,
+   33.65,
+   0.0,
+   0.0
+  ],
+  "tank_x": [
+   18,
+   30.5
+  ]
+ },
+ "top5": [
+  {
+   "id": "CWRAP_G|SPLIT|STRAKE_QUAD|ACCORDION|1300K|ext0|centre|0",
+   "length_m": 54.9,
+   "dry_t": 872.8,
+   "dv_km_s": 719.2,
+   "accel_g": 0.988,
+   "metric_r_fast": 6.5,
+   "metric_r_hard": 6.5,
+   "torch_mw": 422,
+   "hull_mw_hard": 1.11,
+   "notes": [],
+   "midship_m": 15.9,
+   "bay": [
+    18.25,
+    33.65,
+    0.0,
+    0.0
+   ],
+   "tank_x": [
+    18,
+    30.5
+   ]
+  },
+  {
+   "id": "CWRAP_G|SPLIT|STRAKE_QUAD|ACCORDION|1300K|ext0|forward|0",
+   "length_m": 54.9,
+   "dry_t": 872.8,
+   "dv_km_s": 719.2,
+   "accel_g": 0.988,
+   "metric_r_fast": 6.5,
+   "metric_r_hard": 6.5,
+   "torch_mw": 422,
+   "hull_mw_hard": 1.11,
+   "notes": [],
+   "midship_m": 15.9,
+   "bay": [
+    18.25,
+    33.65,
+    0.0,
+    0.0
+   ],
+   "tank_x": [
+    18,
+    30.5
+   ]
+  },
+  {
+   "id": "CWRAP_G|AFT|STRAKE_QUAD|ACCORDION|1300K|ext2|forward|0",
+   "length_m": 56.9,
+   "dry_t": 879.1,
+   "dv_km_s": 714.9,
+   "accel_g": 0.983,
+   "metric_r_fast": 6.5,
+   "metric_r_hard": 6.5,
+   "torch_mw": 464,
+   "hull_mw_hard": 1.22,
+   "notes": [],
+   "midship_m": 17.9,
+   "bay": [
+    18.25,
+    33.65,
+    0.0,
+    0.0
+   ],
+   "tank_x": [
+    18,
+    30.5
+   ]
+  },
+  {
+   "id": "CWRAP_G|AFT|STRAKE_QUAD|ACCORDION|1300K|ext2|centre|0",
+   "length_m": 56.9,
+   "dry_t": 879.1,
+   "dv_km_s": 714.9,
+   "accel_g": 0.983,
+   "metric_r_fast": 6.5,
+   "metric_r_hard": 6.5,
+   "torch_mw": 464,
+   "hull_mw_hard": 1.22,
+   "notes": [],
+   "midship_m": 17.9,
+   "bay": [
+    19.25,
+    34.65,
+    0.0,
+    0.0
+   ],
+   "tank_x": [
+    18,
+    30.5
+   ]
+  },
+  {
+   "id": "CWRAP_G|SPLIT|STRAKE_QUAD|ACCORDION|1300K|ext2|centre|0",
+   "length_m": 56.9,
+   "dry_t": 879.1,
+   "dv_km_s": 714.9,
+   "accel_g": 0.983,
+   "metric_r_fast": 6.5,
+   "metric_r_hard": 6.5,
+   "torch_mw": 464,
+   "hull_mw_hard": 1.22,
+   "notes": [],
+   "midship_m": 17.9,
+   "bay": [
+    19.25,
+    34.65,
+    0.0,
+    0.0
+   ],
+   "tank_x": [
+    18,
+    30.5
+   ]
+  }
+ ],
+ "n": 1920,
+ "venus_kit_in_hold_dv_km_s": 710.6
+}

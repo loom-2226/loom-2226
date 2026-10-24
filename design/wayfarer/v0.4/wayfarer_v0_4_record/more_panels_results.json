@@ -1,0 +1,67 @@
+[
+ {
+  "name": "4 diagonals (winner)",
+  "n": 4,
+  "hard_span_m": 2,
+  "torch_cap_mw": 402.27661432525923,
+  "escape_2m": 0.8679838441039307,
+  "escape_24m": 0.7565581279147235,
+  "shuttle_margin_m": 1.2319805153394638,
+  "blocks_slot": false,
+  "hits_side_drop_tanks": false,
+  "panel_mass_t": 9.12,
+  "panel_z_moment_tm": -8.881784197001252e-16
+ },
+ {
+  "name": "5: diagonals + keel",
+  "n": 5,
+  "hard_span_m": 2,
+  "torch_cap_mw": 417.1739161781292,
+  "escape_2m": 0.7993505412156536,
+  "escape_24m": 0.6276602830974188,
+  "shuttle_margin_m": 1.2319805153394638,
+  "blocks_slot": false,
+  "hits_side_drop_tanks": false,
+  "panel_mass_t": 11.4,
+  "panel_z_moment_tm": -10.260000000000002
+ },
+ {
+  "name": "6 even, 60 deg",
+  "n": 6,
+  "hard_span_m": 2,
+  "torch_cap_mw": 442.2772434587007,
+  "escape_2m": 0.7864801864801865,
+  "escape_24m": 0.554524642024642,
+  "shuttle_margin_m": 0.29999999999999916,
+  "blocks_slot": false,
+  "hits_side_drop_tanks": true,
+  "panel_mass_t": 13.68,
+  "panel_z_moment_tm": 4.809201294725685e-15
+ },
+ {
+  "name": "8 even, 45 deg",
+  "n": 8,
+  "hard_span_m": 2,
+  "torch_cap_mw": 464.99337184535483,
+  "escape_2m": 0.697707223701731,
+  "escape_24m": 0.4372544940079893,
+  "shuttle_margin_m": -1.9499999999999997,
+  "blocks_slot": true,
+  "hits_side_drop_tanks": true,
+  "panel_mass_t": 18.24,
+  "panel_z_moment_tm": 3.683091962250592e-16
+ },
+ {
+  "name": "8 even, offset 22.5",
+  "n": 8,
+  "hard_span_m": 2,
+  "torch_cap_mw": 464.99337184535483,
+  "escape_2m": 0.697707223701731,
+  "escape_24m": 0.4372544940079893,
+  "shuttle_margin_m": -0.22792455435709624,
+  "blocks_slot": true,
+  "hits_side_drop_tanks": false,
+  "panel_mass_t": 18.24,
+  "panel_z_moment_tm": 4.884981308350689e-15
+ }
+]

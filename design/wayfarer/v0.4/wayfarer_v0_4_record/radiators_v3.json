@@ -1,0 +1,196 @@
+{
+  "header": "ALL bodies. ALL sponsors. 2026-2226.",
+  "status": "UNCONSTRAINED DESIGN SEARCH v0.3 (canon set aside, physics kept). Radiator architecture options informed by published NASA work. Not canon, not engineering.",
+  "version": "0.3",
+  "sources": {
+    "juhasz_cc_heatpipe": {
+      "what": "carbon-carbon heat-pipe radiator, Nb-1Zr liner, potassium; 1.45 kg/m2; segmented heat pipes tolerate micrometeoroids",
+      "url": "https://ntrs.nasa.gov/citations/20020082957"
+    },
+    "ohp_alkali_nep": {
+      "what": "alkali-metal oscillating heat pipe radiator, 750-1000 K; 7.65 kg/m2 prototype, <4 kg/m2 predicted, <6 target, <3 industry wish",
+      "url": "https://tfaws.nasa.gov/wp-content/uploads/TFAWS2025-TCP-VI-03_High-Temp-OHP-Radiator_Miller.pdf"
+    },
+    "marvl_nep": {
+      "what": "robot-assembled modular radiators; tri/quad-wing arrays lose to wing-to-wing view factors; planar bi-wing 20-40% lighter; 4.5 kg/m2 threshold, 3 kg/m2 goal",
+      "url": "https://ntrs.nasa.gov/api/citations/20260002836/downloads/ICES_Paper-MARVL_FINAL_v2.pdf"
+    },
+    "liquid_belt_droplet": {
+      "what": "liquid belt radiator 0.6-1.3 kg/m2 (20-50% of heat pipe systems); liquid metals emit only ~0.1-0.2; droplet inventory loss risk",
+      "url": "https://ntrs.nasa.gov/api/citations/19850015934/downloads/19850015934.pdf"
+    },
+    "discovery_ii": {
+      "what": "NASA spherical-torus fusion ship: 7,895 MW fusion, 4,830 MW jet, ~1,1-1,2 GW to radiators, helium coolant 997-1,700 K, C-C heat-pipe radiators, 240 m long",
+      "url": "https://ntrs.nasa.gov/api/citations/20050160960/downloads/20050160960.pdf"
+    },
+    "direct_fusion_drive": {
+      "what": "recycles bremsstrahlung and synchrotron heat through the RF heating system; tungsten at ~2000 K, radiators at 625 K",
+      "url": "https://w3.pppl.gov/ppst/docs/paluszek2014iac.pdf"
+    },
+    "sma_morphing": {
+      "what": "shape-memory morphing radiator; crewed missions need ~12:1 turndown, current tech ~3:1",
+      "url": "https://ntrs.nasa.gov/citations/20170000376"
+    }
+  },
+  "placements": {
+    "ROOT_QUAD": {
+      "label": "Four wings on the aft root band",
+      "wings": 4,
+      "spacing_deg": 90,
+      "azimuths_deg": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "chord_m": 5.0,
+      "manifold_m": 6.0,
+      "recess_m": 0.5,
+      "drop_tank_azimuths": "sides",
+      "drop_clear_roots": true,
+      "plant_fins": "fore fins for the fore half",
+      "note": "the repo layout"
+    },
+    "ROOT_BIWING": {
+      "label": "Two flat wings on the aft root band",
+      "wings": 2,
+      "spacing_deg": 180,
+      "azimuths_deg": [
+        0,
+        180
+      ],
+      "chord_m": 5.0,
+      "manifold_m": 6.0,
+      "recess_m": 0.5,
+      "drop_tank_azimuths": "lower_diagonals",
+      "drop_clear_roots": false,
+      "plant_fins": "fore fins for the fore half",
+      "note": "MARVL/Discovery II style co-planar wings; drop tanks move to the lower diagonals"
+    },
+    "STRAKE_QUAD": {
+      "label": "Four hull strakes on the diagonals",
+      "wings": 4,
+      "spacing_deg": 90,
+      "azimuths_deg": [
+        45,
+        135,
+        225,
+        315
+      ],
+      "chord_from_x": 14.0,
+      "chord_to": "midship_end",
+      "manifold_m": 2.0,
+      "drop_tank_azimuths": "sides",
+      "drop_clear_roots": false,
+      "plant_fins": "none (strakes carry the plant)",
+      "note": "long radiators along the hull; root band shrinks to 2 m of heat exchangers"
+    },
+    "STRAKE_BIWING": {
+      "label": "Two hull strakes on the sides",
+      "wings": 2,
+      "spacing_deg": 180,
+      "azimuths_deg": [
+        0,
+        180
+      ],
+      "chord_from_x": 14.0,
+      "chord_to": "midship_end",
+      "manifold_m": 2.0,
+      "drop_tank_azimuths": "lower_diagonals",
+      "drop_clear_roots": false,
+      "plant_fins": "none (strakes carry the plant)",
+      "note": "co-planar strakes; drop tanks on the lower diagonals"
+    }
+  },
+  "strake_recess_m_by_layout": {
+    "CWRAP": 0.2,
+    "T4_top": 0.3,
+    "T4_bay": 0.3,
+    "SADDLE": 1.0,
+    "note": "free depth between tanks and hull skin under each strake root; authored from the layouts",
+    "CWRAP_G": 0.5
+  },
+  "strake_side_recess_m_by_layout": {
+    "CWRAP": 0.2,
+    "T4_top": 1.2,
+    "T4_bay": 1.2,
+    "SADDLE": 0.25,
+    "CWRAP_G": 0.5
+  },
+  "mechanisms": {
+    "ACCORDION": {
+      "label": "Accordion heat-pipe pleats",
+      "areal_kg_m2": 5.0,
+      "max_pleats": 12,
+      "pleat_m": 2.0,
+      "pleat_stack_m": 0.04,
+      "partial": "stepwise",
+      "torch_g_limit": 7.5,
+      "emissivity": 0.9,
+      "basis": "3 kg/m2 C-C or OHP heat-pipe panel (Juhasz, OHP, MARVL range) plus 2 kg/m2 hinges and flexible joints"
+    },
+    "ROLLOUT": {
+      "label": "Roll-out pumped-loop membrane",
+      "areal_kg_m2": 6.0,
+      "max_span_m": 25.0,
+      "drum_m": 0.45,
+      "partial": "continuous",
+      "torch_g_limit": 2.0,
+      "emissivity": 0.9,
+      "basis": "flexible panel cannot use rigid heat pipes; pumped liquid-metal microchannels assumed"
+    },
+    "RIGID": {
+      "label": "Hinged rigid heat-pipe panel",
+      "areal_kg_m2": 4.0,
+      "max_span_m": 8.0,
+      "partial": "none",
+      "torch_g_limit": 7.5,
+      "emissivity": 0.9,
+      "root_only": true,
+      "basis": "the repo placeholder; C-C heat-pipe panel with structure"
+    }
+  },
+  "temperatures_k": [
+    900,
+    1100,
+    1300
+  ],
+  "view_factor": {
+    "method": "2D Monte Carlo from each wing face: fraction of emission reaching space, hull, or other wings",
+    "rays_per_span": 20000,
+    "note": "hull and wings treated as absorbers (net loss); finite chord along x ignored"
+  },
+  "torch_check": {
+    "cruise_jet_power_tw": 11.361,
+    "discovery_ii_jet_mw": 4830,
+    "discovery_ii_radiator_mw": 1119
+  },
+  "score": {
+    "weights": {
+      "field_wrap": 0.15,
+      "metric_radius_fast": 0.15,
+      "metric_radius_hard": 0.15,
+      "torch_capacity_5g": 0.15,
+      "hull_heat_hard": 0.1,
+      "agility": 0.1,
+      "balance": 0.05,
+      "inertia": 0.05,
+      "dry": 0.05,
+      "cryo_power_hard": 0.05
+    },
+    "note": "authored weights for the single pick; also reported: Pareto set and best per placement/temperature"
+  },
+  "hull_coating": {
+    "absorptivity": 0.1,
+    "reflected_escape_fraction": 0.5,
+    "note": "low-absorptivity coating on the hull under every radiator; half of what it reflects is assumed to escape to space (authored)"
+  },
+  "torch_rating_required_g": {
+    "value": 5.0,
+    "note": "headline pick requires main radiators usable in HARD torch burns (5 g); roll-out designs are still reported"
+  },
+  "water_heat_context": {
+    "water_t": 300,
+    "cp_kj_kg_k": 4.18
+  }
+}
