@@ -1,0 +1,214 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "UNCONSTRAINED DESIGN SEARCH, deployable UAV v0.1 (canon set aside, physics kept). Every assumption is authored and visible. Not canon, not engineering.",
+ "version": "0.1",
+ "brief": "kT 2026-10-24: a deployable UAV that rides with the shuttle or is dropped alone by Wayfarer; roles: scout ahead of the shuttle, overwatch and relay for crew, fetch samples, long-endurance survey; atmosphere worlds (Earth, Mars, Titan, Venus clouds); size decided by the search.",
+ "sources": {
+  "ingenuity": {
+   "what": "1.8 kg coaxial, 1.21 m rotors, 350 W typical input, 72 flights, longest 704 m",
+   "url": "https://en.wikipedia.org/wiki/Ingenuity_(helicopter)"
+  },
+  "mars_heli_capabilities": {
+   "what": "Mars Science Helicopter hexacopter: 6 x 1.28 m rotors, 32.5 kg, solidity 0.25, Ct/sigma 0.12, hover tip Mach 0.8, disk loading 15.6 N/m2; 24.9 km range or 11.1 min hover empty, 14.2 km with 5 kg",
+   "url": "https://rotorcraft.arc.nasa.gov/Publications/files/MarsHeliCapabilities_Final_Update.pdf"
+  },
+  "mahd": {
+   "what": "Mid-Air Helicopter Delivery: 31 kg helicopter plus 47-50 kg jetpack separates at ~600 m, hovers at 200 m, helicopter takes off in mid-air; 275 kg entry mass, no lander",
+   "url": "https://arxiv.org/pdf/2203.03704"
+  },
+  "dragonfly": {
+   "what": "Titan octocopter: ~450 kg, 8 x 1.35 m rotors, MMRTG ~70 W charging a battery, ~30 min and up to 8-16 km per flight at ~10 m/s; released from its parachute at ~1.2 km and flies to the ground; launch July 2028",
+   "url": "https://en.wikipedia.org/wiki/Dragonfly_(Titan_space_probe)"
+  },
+  "ares": {
+   "what": "ARES Mars airplane: 6.25 m span, 175 kg at pull-out, Mach 0.65 (~140 m/s) at 1-2 km, 500+ km range on a rocket motor; folded wings, deployed mid-air from a 2.65 m aeroshell",
+   "url": "https://ntrs.nasa.gov/api/citations/20040034201/downloads/20040034201.pdf"
+  },
+  "vamp": {
+   "what": "Venus flying wing: 55 m span, 900 kg, 10% buoyant, solar 8 kW+, cruises 110 km/h at 50-65 km, enters without an aeroshell",
+   "url": "https://en.wikipedia.org/wiki/Venus_Atmospheric_Maneuverable_Platform"
+  },
+  "venus_winds": {
+   "what": "Venus Express: zonal winds ~60 m/s at 44-64 km, ~102 m/s at the cloud tops",
+   "url": "https://sci.esa.int/web/venus-express/-/43391-a-3d-view-of-variable-winds-in-venus-s-cloud-layers"
+  },
+  "laser_beaming": {
+   "what": "Lockheed Martin Stalker UAV kept aloft 48 h by laser power beaming (LaserMotive, 2012)",
+   "url": "https://www.militaryaerospace.com/uncrewed/article/16720247/lockheed-martin-and-lasermotive-use-laser-to-power-uav-for-48-hours"
+  }
+ },
+ "worlds": {
+  "Mars": {
+   "rho": 0.016,
+   "g": 3.71,
+   "sound_m_s": 230,
+   "fm": 0.4,
+   "rotor_cruise_m_s": 30,
+   "insolation_wh_m2_day": 2500,
+   "wind_m_s": 10,
+   "beam_ok": true,
+   "thermal_fraction": 0.02,
+   "note": "density near the ground, thin; sets rotor size; Ingenuity-class efficiency (ROAMX)"
+  },
+  "Titan": {
+   "rho": 5.43,
+   "g": 1.35,
+   "sound_m_s": 195,
+   "fm": 0.6,
+   "rotor_cruise_m_s": 15,
+   "insolation_wh_m2_day": 10,
+   "wind_m_s": 2,
+   "beam_ok": false,
+   "thermal_fraction": 0.05,
+   "note": "94 K: heated, insulated avionics and battery (Dragonfly uses RTG waste heat); haze blocks beams; sunlight ~0.1% of Earth's"
+  },
+  "Venus clouds": {
+   "rho": 0.94,
+   "g": 8.87,
+   "sound_m_s": 270,
+   "fm": 0.6,
+   "rotor_cruise_m_s": 30,
+   "insolation_wh_m2_day": 9000,
+   "wind_m_s": 60,
+   "beam_ok": false,
+   "thermal_fraction": 0.02,
+   "note": "55 km, 27 C, 0.5 bar; sulfuric acid haze needs coatings; 60 m/s winds; insolation authored for a drone drifting with the clouds (sun about half the time)"
+  },
+  "Earth": {
+   "rho": 1.1,
+   "g": 9.81,
+   "sound_m_s": 335,
+   "fm": 0.65,
+   "rotor_cruise_m_s": 30,
+   "insolation_wh_m2_day": 5000,
+   "wind_m_s": 10,
+   "beam_ok": true,
+   "thermal_fraction": 0.0,
+   "note": "about 1 km up"
+  }
+ },
+ "rotor": {
+  "solidity": 0.25,
+  "ct_over_sigma": 0.12,
+  "tip_mach": 0.8,
+  "disk_loading_use": 0.85,
+  "cruise_power_fraction": 0.8,
+  "kg_per_m2_disc": 0.55,
+  "fold_factor": 0.6,
+  "basis": "Mars Science Helicopter design point; cruise power ~0.8 of hover at ~30 m/s matches its range vs hover time; blade/hub/arm mass authored",
+  "layout": "three coaxial pairs on folding arms (Y6); disc area counts each pair once; coaxial losses folded into the figure of merit"
+ },
+ "wing": {
+  "cl": 0.7,
+  "ld": {
+   "Mars": 10,
+   "Titan": 14,
+   "Venus clouds": 14,
+   "Earth": 14
+  },
+  "kg_per_m2": 2.5,
+  "mars_cruise_m_s": 100,
+  "prop_eff": 0.7,
+  "loiter_power_fraction": 0.85,
+  "basis": "ARES-class wing sized for Mars at 100 m/s; folds for stowage; elsewhere it flies slower on the same wing"
+ },
+ "mass": {
+  "avionics_kg": 3.0,
+  "avionics_fraction": 0.03,
+  "sensor_kit_kg": 4.0,
+  "motor_kw_per_kg": 6.0,
+  "structure_fraction": 0.15,
+  "growth_margin": 0.2,
+  "idle_w": 25,
+  "basis": "authored; sensor kit = cameras, lidar, radio relay; motors include drives"
+ },
+ "power": {
+  "battery_wh_per_kg": 600,
+  "battery_usable": 0.85,
+  "rps_w_per_kg": 8.0,
+  "solar_kg_per_m2": 1.5,
+  "solar_eff": 0.35,
+  "solar_max_m2": 4.0,
+  "beam_receiver_kw_per_kg": 2.0,
+  "notes": [
+   "battery 600 Wh/kg is a 2226 assumption (2026 packs ~250-300; lithium-sulfur cells ~400-500)",
+   "rps: radioisotope power at 8 W/kg is a 2226 assumption (MMRTG ~2.5 W/kg)",
+   "solar panels fold out on the ground to recharge",
+   "beam: laser power from the landed shuttle, line of sight, clear air only"
+  ]
+ },
+ "roles": {
+  "scout": {
+   "range_km": 40,
+   "note": "one charge, cruise, out and back 20 km"
+  },
+  "overwatch": {
+   "hours": 1.0,
+   "note": "on station per charge (hover for rotor-only, circling for winged); or unlimited near the shuttle with beamed power"
+  },
+  "fetch": {
+   "payload_kg": 5.0,
+   "range_km": 10,
+   "note": "vertical take-off and landing with a 5 kg sample case, 10 km round trip loaded"
+  },
+  "survey": {
+   "days": 30,
+   "km_per_day": 20,
+   "note": "alone, recharging from its own source; Dragonfly-style hops"
+  }
+ },
+ "airframes": {
+  "ROTOR": {
+   "label": "Folding multirotor",
+   "vtol": true
+  },
+  "HYBRID": {
+   "label": "Multirotor plus folding wing (lift and cruise)",
+   "vtol": true
+  }
+ },
+ "power_options": [
+  "BAT",
+  "BAT+RPS",
+  "BAT+SOLAR",
+  "BAT+BEAM",
+  "BAT+RPS+BEAM",
+  "BAT+SOLAR+BEAM"
+ ],
+ "drop_pod": {
+  "beta_target": 50,
+  "cd": 1.4,
+  "umbrella_kg_m2": 16.0,
+  "structure_fraction": 0.2,
+  "deorbit_km_s": 0.15,
+  "kick_isp_s": 290,
+  "mars_jetpack_ratio": 1.5,
+  "chute_fraction": 0.05,
+  "wayfarer_slot_t": 1.75,
+  "basis": "umbrella areal mass from the shuttle heat-shield model at low ballistic coefficient; Mars jetpack per MAHD (47 kg for a 31 kg helicopter); elsewhere a parachute and mid-air release like Dragonfly; slot = one of Wayfarer's six ~1.75 t drone berths (canon compendium)"
+ },
+ "stowage": {
+  "max_m": [
+   3.2,
+   2.2,
+   1.3
+  ],
+  "note": "authored envelope per drone: a side bay on the shuttle's lowest deck; in the landing version the deck no longer holds a separate rover"
+ },
+ "score": {
+  "weights": {
+   "mass": 0.35,
+   "shuttle_growth": 0.25,
+   "margin": 0.2,
+   "maturity": 0.2
+  },
+  "maturity": {
+   "ROTOR": 0.8,
+   "HYBRID": 0.6,
+   "BAT": 1.0,
+   "RPS": 0.8,
+   "SOLAR": 0.9,
+   "BEAM": 0.6
+  }
+ }
+}

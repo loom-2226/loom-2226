@@ -1,0 +1,168 @@
+{
+ "engine": "TORCH150",
+ "entry": "BICONIC",
+ "rover": "CABIN_DRIVE",
+ "venus": "BALLOON",
+ "elong": 1.0,
+ "dry_t": 34.1451,
+ "breakdown_t": {
+  "cabin_crew_systems": 7.1,
+  "rover": 1.6,
+  "hardened_cabin": 5.1836,
+  "tanks": 0.8487,
+  "engine": 7.2471,
+  "legs": 2.071,
+  "aero_surfaces": 0.7366,
+  "heat_shield": 1.6384,
+  "venus_kits": 10.4254,
+  "venus_hardening_rest": 0.0849,
+  "structure": 3.1812,
+  "growth_margin": 4.4537
+ },
+ "prop_cap_t": 28.2897,
+ "wet_t": 69.9616,
+ "dims_m": [
+  14.3961,
+  4.3188,
+  4.3188
+ ],
+ "bay_m": [
+  15.3961,
+  4.8188,
+  4.7188
+ ],
+ "beta_kg_m2": 1558.4384,
+ "heat_load_j_cm2": 46246.886,
+ "jobs": {
+  "Moon": {
+   "ok": true,
+   "why": "",
+   "prop_t": 7.2315,
+   "start_t": 41.4366,
+   "liftoff_t": 37.6665,
+   "surface_t": 37.6665,
+   "entry_t": null,
+   "ascent_dv": 1.7885,
+   "start": "Moon"
+  },
+  "Mercury": {
+   "ok": true,
+   "why": "",
+   "prop_t": 14.0554,
+   "start_t": 48.2605,
+   "liftoff_t": 40.6498,
+   "surface_t": 40.6498,
+   "entry_t": null,
+   "ascent_dv": 3.2404,
+   "start": "Mercury"
+  },
+  "Ceres": {
+   "ok": true,
+   "why": "",
+   "prop_t": 1.8749,
+   "start_t": 36.08,
+   "liftoff_t": 35.1476,
+   "surface_t": 35.1476,
+   "entry_t": null,
+   "ascent_dv": 0.4701,
+   "start": "Ceres"
+  },
+  "Callisto": {
+   "ok": true,
+   "why": "",
+   "prop_t": 7.4134,
+   "start_t": 41.6185,
+   "liftoff_t": 37.749,
+   "surface_t": 37.749,
+   "entry_t": null,
+   "ascent_dv": 1.8302,
+   "start": "Callisto"
+  },
+  "Mars": {
+   "ok": true,
+   "why": "",
+   "prop_t": 12.0244,
+   "start_t": 46.2495,
+   "liftoff_t": 42.2568,
+   "surface_t": 42.2568,
+   "entry_t": 46.0912,
+   "ascent_dv": 3.9576,
+   "start": "Mars"
+  },
+  "Earth": {
+   "ok": true,
+   "why": "",
+   "prop_t": 28.2901,
+   "start_t": 62.4952,
+   "liftoff_t": 60.4671,
+   "surface_t": 60.4671,
+   "entry_t": 62.2524,
+   "ascent_dv": 10.734,
+   "start": "Earth"
+  },
+  "Titan": {
+   "ok": true,
+   "why": "",
+   "prop_t": 9.5331,
+   "start_t": 43.7382,
+   "liftoff_t": 43.2227,
+   "surface_t": 43.2227,
+   "entry_t": 43.3826,
+   "ascent_dv": 4.1114,
+   "start": "Titan"
+  },
+  "Venus clouds": {
+   "ok": true,
+   "why": "",
+   "prop_t": 21.5147,
+   "start_t": 55.7198,
+   "liftoff_t": 55.4239,
+   "surface_t": 55.4239,
+   "entry_t": 55.563,
+   "ascent_dv": 9.1063,
+   "start": "Venus@55"
+  },
+  "Venus surface": {
+   "ok": true,
+   "why": "",
+   "prop_t": 23.7673,
+   "start_t": 69.9616,
+   "liftoff_t": 59.6525,
+   "surface_t": 69.032,
+   "entry_t": 69.7647,
+   "ascent_dv": 9.1063,
+   "start": "Venus@55"
+  }
+ },
+ "kit": {
+  "dropped": 9.3795,
+  "kept": 1.0459,
+  "stow_m3": 76.8992
+ },
+ "venus_info": {
+  "balloon": {
+   "gas_t": 3.4862,
+   "envelope_t": 5.3934,
+   "rigging_t": 0.5,
+   "dewar_t": 1.0459,
+   "radius_m": 26.7455,
+   "dropped_t": 9.3795
+  }
+ },
+ "cabin_hardened": true,
+ "cab_hard": {
+  "R_m": 1.4202,
+  "wall_mm": 31.9694,
+  "hull_t": 4.6668,
+  "insulation_t": 0.5168,
+  "leak_kw": 8.6622,
+  "od_m": 3.1044,
+  "stress_mpa": 207.289
+ },
+ "venus_rover": null,
+ "sink_note": "ascent water soaks up 456 MJ of 7,463 MJ it can hold",
+ "torch_gw": 10.4942,
+ "f_vac_kn": null,
+ "notes": [],
+ "iterations": 18
+}

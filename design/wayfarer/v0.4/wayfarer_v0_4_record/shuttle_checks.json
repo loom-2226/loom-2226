@@ -1,0 +1,884 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "requirements": {
+  "all nine": {
+   "expedition": {
+    "key": "TORCH100|CAPSULE|VENUS|DROP_CITY|e1.25",
+    "wet_t": 67.9,
+    "dry_t": 33.4,
+    "prop_t": 34.5,
+    "dims_m": [
+     8.3,
+     5.4,
+     5.4
+    ],
+    "bay_m": [
+     9.3,
+     5.9,
+     5.8
+    ],
+    "torch_gw": 6.8
+   },
+   "port": {
+    "key": "TORCH100|CAPSULE|VENUS|DROP_CITY|e1.5",
+    "wet_t": 61.3,
+    "dry_t": 31.9,
+    "prop_t": 29.4,
+    "dims_m": [
+     9.7,
+     4.8,
+     4.8
+    ],
+    "bay_m": [
+     10.7,
+     5.3,
+     5.2
+    ],
+    "torch_gw": 6.1
+   },
+   "chemical_port": null
+  },
+  "all but Earth surface": {
+   "expedition": {
+    "key": "TORCH100|CAPSULE|VENUS|DROP_CITY|e1.5",
+    "wet_t": 52.7,
+    "dry_t": 30.1,
+    "prop_t": 22.6,
+    "dims_m": [
+     9.5,
+     4.7,
+     4.7
+    ],
+    "bay_m": [
+     10.5,
+     5.2,
+     5.1
+    ],
+    "torch_gw": 5.3
+   },
+   "port": {
+    "key": "TORCH100|CAPSULE|VENUS|DROP_CITY|e1.5",
+    "wet_t": 52.2,
+    "dry_t": 30.0,
+    "prop_t": 22.2,
+    "dims_m": [
+     9.5,
+     4.7,
+     4.7
+    ],
+    "bay_m": [
+     10.5,
+     5.2,
+     5.1
+    ],
+    "torch_gw": 5.2
+   },
+   "chemical_port": null
+  },
+  "all but Venus surface": {
+   "expedition": {
+    "key": "TORCH100|CAPSULE|OPEN|NONE|e1.5",
+    "wet_t": 43.3,
+    "dry_t": 21.2,
+    "prop_t": 22.1,
+    "dims_m": [
+     8.3,
+     4.1,
+     4.1
+    ],
+    "bay_m": [
+     9.3,
+     4.6,
+     4.5
+    ],
+    "torch_gw": 4.3
+   },
+   "port": {
+    "key": "TORCH100|CAPSULE|OPEN|NONE|e1.5",
+    "wet_t": 39.2,
+    "dry_t": 20.4,
+    "prop_t": 18.8,
+    "dims_m": [
+     8.1,
+     4.0,
+     4.0
+    ],
+    "bay_m": [
+     9.1,
+     4.5,
+     4.4
+    ],
+    "torch_gw": 3.9
+   },
+   "chemical_port": null
+  },
+  "all but Earth and Venus surface": {
+   "expedition": {
+    "key": "TORCH100|CAPSULE|OPEN|NONE|e1.5",
+    "wet_t": 33.7,
+    "dry_t": 19.3,
+    "prop_t": 14.5,
+    "dims_m": [
+     7.9,
+     3.9,
+     3.9
+    ],
+    "bay_m": [
+     8.9,
+     4.4,
+     4.3
+    ],
+    "torch_gw": 3.4
+   },
+   "port": {
+    "key": "TORCH100|CAPSULE|OPEN|NONE|e1.5",
+    "wet_t": 33.2,
+    "dry_t": 19.1,
+    "prop_t": 14.1,
+    "dims_m": [
+     7.9,
+     3.9,
+     3.9
+    ],
+    "bay_m": [
+     8.9,
+     4.4,
+     4.3
+    ],
+    "torch_gw": 3.3
+   },
+   "chemical_port": null
+  },
+  "airless + Mars + Titan": {
+   "expedition": {
+    "key": "TORCH75|CAPSULE|OPEN|NONE|e1.25",
+    "wet_t": 23.8,
+    "dry_t": 16.2,
+    "prop_t": 7.6,
+    "dims_m": [
+     6.8,
+     4.0,
+     4.0
+    ],
+    "bay_m": [
+     7.8,
+     4.5,
+     4.4
+    ],
+    "torch_gw": 1.8
+   },
+   "port": {
+    "key": "TORCH50|CAPSULE|OPEN|NONE|e1.25",
+    "wet_t": 20.3,
+    "dry_t": 15.0,
+    "prop_t": 5.3,
+    "dims_m": [
+     6.8,
+     3.9,
+     3.9
+    ],
+    "bay_m": [
+     7.8,
+     4.4,
+     4.3
+    ],
+    "torch_gw": 1.0
+   },
+   "chemical_port": {
+    "key": "HYDROLOX|CAPSULE|OPEN|NONE|e1.5",
+    "wet_t": 94.8,
+    "dry_t": 29.6,
+    "prop_t": 65.1,
+    "dims_m": [
+     12.4,
+     6.2,
+     6.2
+    ],
+    "bay_m": [
+     13.4,
+     6.7,
+     6.6
+    ],
+    "torch_gw": null
+   }
+  },
+  "airless only": {
+   "expedition": {
+    "key": "TORCH50|CAPSULE|OPEN|NONE|e1.0",
+    "wet_t": 22.6,
+    "dry_t": 15.0,
+    "prop_t": 7.6,
+    "dims_m": [
+     6.8,
+     4.5,
+     4.5
+    ],
+    "bay_m": [
+     7.8,
+     5.0,
+     4.9
+    ],
+    "torch_gw": 1.1
+   },
+   "port": {
+    "key": "TORCH50|CAPSULE|OPEN|NONE|e1.0",
+    "wet_t": 19.8,
+    "dry_t": 14.7,
+    "prop_t": 5.1,
+    "dims_m": [
+     6.8,
+     4.4,
+     4.4
+    ],
+    "bay_m": [
+     7.8,
+     4.9,
+     4.8
+    ],
+    "torch_gw": 1.0
+   },
+   "chemical_port": {
+    "key": "HYDROLOX|CAPSULE|OPEN|NONE|e1.0",
+    "wet_t": 39.5,
+    "dry_t": 16.5,
+    "prop_t": 22.9,
+    "dims_m": [
+     6.8,
+     5.8,
+     5.8
+    ],
+    "bay_m": [
+     7.8,
+     6.3,
+     6.2
+    ],
+    "torch_gw": null
+   }
+  }
+ },
+ "venus_strategies": {
+  "DIRECT": {
+   "TORCH100": {
+    "ok": false,
+    "wet_t": 1043.4,
+    "why": "mass runs away (no closed design)",
+    "kits": {}
+   },
+   "TORCH200": {
+    "ok": false,
+    "wet_t": 1250.3,
+    "why": "mass runs away (no closed design)",
+    "kits": {}
+   }
+  },
+  "FLY_UP": {
+   "TORCH100": {
+    "ok": false,
+    "wet_t": 1418.7,
+    "why": "torchlet electric output below fan power",
+    "kits": {
+     "fans": {
+      "peak_mw": 18149.7,
+      "energy_gj": 39238.07,
+      "fan_t": 6049.9,
+      "power_t": 0.0,
+      "reactant_t": 0.0,
+      "power_ok": 0
+     }
+    }
+   },
+   "TORCH200": {
+    "ok": false,
+    "wet_t": 1226.0,
+    "why": "torchlet electric output below fan power",
+    "kits": {
+     "fans": {
+      "peak_mw": 10703.81,
+      "energy_gj": 23271.57,
+      "fan_t": 3567.94,
+      "power_t": 0.0,
+      "reactant_t": 0.0,
+      "power_ok": 0
+     }
+    }
+   }
+  },
+  "BALLOON": {
+   "TORCH100": {
+    "ok": false,
+    "wet_t": 102.7,
+    "why": "over cap",
+    "kits": {
+     "balloon": {
+      "gas_t": 5.13,
+      "envelope_t": 6.98,
+      "rigging_t": 0.5,
+      "dewar_t": 1.54,
+      "radius_m": 30.43,
+      "dropped_t": 12.61
+     }
+    }
+   },
+   "TORCH200": {
+    "ok": false,
+    "wet_t": 162.2,
+    "why": "over cap",
+    "kits": {
+     "balloon": {
+      "gas_t": 8.09,
+      "envelope_t": 9.45,
+      "rigging_t": 0.5,
+      "dewar_t": 2.43,
+      "radius_m": 35.41,
+      "dropped_t": 18.04
+     }
+    }
+   }
+  },
+  "DROP_CITY": {
+   "TORCH100": {
+    "ok": true,
+    "wet_t": 53.8,
+    "why": "",
+    "kits": {
+     "rover_balloon": {
+      "gas_t": 0.24,
+      "envelope_t": 0.91,
+      "rigging_t": 0.0,
+      "dewar_t": 0.07,
+      "radius_m": 11.0,
+      "dropped_t": 1.15
+     }
+    }
+   },
+   "TORCH200": {
+    "ok": true,
+    "wet_t": 70.7,
+    "why": "",
+    "kits": {
+     "rover_balloon": {
+      "gas_t": 0.24,
+      "envelope_t": 0.91,
+      "rigging_t": 0.0,
+      "dewar_t": 0.07,
+      "radius_m": 11.0,
+      "dropped_t": 1.15
+     }
+    }
+   }
+  },
+  "DROP_FLOAT": {
+   "TORCH100": {
+    "ok": true,
+    "wet_t": 70.5,
+    "why": "",
+    "kits": {
+     "rover_balloon": {
+      "gas_t": 0.24,
+      "envelope_t": 0.91,
+      "rigging_t": 0.0,
+      "dewar_t": 0.07,
+      "radius_m": 11.0,
+      "dropped_t": 1.15
+     },
+     "float": {
+      "gas_t": 3.28,
+      "envelope_t": 1.73,
+      "rigging_t": 0.3,
+      "dewar_t": 0.98,
+      "radius_m": 26.2,
+      "dropped_t": 5.3
+     }
+    }
+   },
+   "TORCH200": {
+    "ok": false,
+    "wet_t": 103.0,
+    "why": "over cap",
+    "kits": {
+     "rover_balloon": {
+      "gas_t": 0.24,
+      "envelope_t": 0.91,
+      "rigging_t": 0.0,
+      "dewar_t": 0.07,
+      "radius_m": 11.0,
+      "dropped_t": 1.15
+     },
+     "float": {
+      "gas_t": 4.88,
+      "envelope_t": 2.25,
+      "rigging_t": 0.3,
+      "dewar_t": 1.46,
+      "radius_m": 29.92,
+      "dropped_t": 7.43
+     }
+    }
+   }
+  }
+ },
+ "fly_up_fans_at_70t": {
+  "no wings (umbrella body)": {
+   "peak_mw": 76.2,
+   "fan_t": 25.4,
+   "share_of_70t": 0.36,
+   "energy_gj": 174
+  },
+  "lifting-body wings": {
+   "peak_mw": 29.7,
+   "fan_t": 9.9,
+   "share_of_70t": 0.14,
+   "energy_gj": 79
+  }
+ },
+ "heat_shields": {
+  "LIFTING_BODY": {
+   "ok": true,
+   "wet_t": 75.7,
+   "shield_t": 2.21,
+   "aero_t": 1.13,
+   "beta": 1514,
+   "dims_m": [
+    13.6,
+    5.1,
+    4.0
+   ],
+   "Earth": {
+    "heat_load_j_cm2": 79289,
+    "q_peak_w_cm2": 105.1,
+    "g_peak": 1.83,
+    "landing_speed_m_s": 166
+   },
+   "Venus": {
+    "heat_load_j_cm2": 65199,
+    "q_peak_w_cm2": 92.8,
+    "g_peak": 1.65,
+    "landing_speed_m_s": 17
+   },
+   "Mars": {
+    "heat_load_j_cm2": 13321,
+    "q_peak_w_cm2": 13.1,
+    "g_peak": 0.6,
+    "landing_speed_m_s": 943
+   }
+  },
+  "BICONIC": {
+   "ok": true,
+   "wet_t": 71.9,
+   "shield_t": 1.54,
+   "aero_t": 0.7,
+   "beta": 1813,
+   "dims_m": [
+    13.5,
+    4.1,
+    4.1
+   ],
+   "Earth": {
+    "heat_load_j_cm2": 53230,
+    "q_peak_w_cm2": 115.2,
+    "g_peak": 2.79,
+    "landing_speed_m_s": 193
+   },
+   "Venus": {
+    "heat_load_j_cm2": 42735,
+    "q_peak_w_cm2": 100.8,
+    "g_peak": 2.53,
+    "landing_speed_m_s": 20
+   },
+   "Mars": {
+    "heat_load_j_cm2": 9271,
+    "q_peak_w_cm2": 14.3,
+    "g_peak": 0.9,
+    "landing_speed_m_s": 1307
+   }
+  },
+  "CAPSULE": {
+   "ok": true,
+   "wet_t": 67.9,
+   "shield_t": 0.94,
+   "aero_t": 0.28,
+   "beta": 1983,
+   "dims_m": [
+    8.3,
+    5.4,
+    5.4
+   ],
+   "Earth": {
+    "heat_load_j_cm2": 27695,
+    "q_peak_w_cm2": 81.8,
+    "g_peak": 4.07,
+    "landing_speed_m_s": 206
+   },
+   "Venus": {
+    "heat_load_j_cm2": 21422,
+    "q_peak_w_cm2": 76.9,
+    "g_peak": 3.57,
+    "landing_speed_m_s": 21
+   },
+   "Mars": {
+    "heat_load_j_cm2": 4970,
+    "q_peak_w_cm2": 9.8,
+    "g_peak": 1.11,
+    "landing_speed_m_s": 1548
+   }
+  },
+  "DEPLOYABLE": {
+   "ok": false,
+   "wet_t": 113.0,
+   "shield_t": 13.27,
+   "aero_t": 0.29,
+   "beta": 100,
+   "dims_m": [
+    18.8,
+    4.1,
+    3.3
+   ],
+   "Earth": {
+    "heat_load_j_cm2": 5395,
+    "q_peak_w_cm2": 21.4,
+    "g_peak": 4.4,
+    "landing_speed_m_s": 43
+   },
+   "Venus": {
+    "heat_load_j_cm2": 4301,
+    "q_peak_w_cm2": 21.3,
+    "g_peak": 4.73,
+    "landing_speed_m_s": 5
+   },
+   "Mars": {
+    "heat_load_j_cm2": 1022,
+    "q_peak_w_cm2": 2.5,
+    "g_peak": 1.3,
+    "landing_speed_m_s": 242
+   },
+   "umbrella_d_m": 32.0
+  },
+  "DEPLOYABLE_200": {
+   "ok": true,
+   "wet_t": 85.3,
+   "shield_t": 6.15,
+   "aero_t": 0.28,
+   "beta": 200,
+   "dims_m": [
+    17.2,
+    3.9,
+    3.3
+   ],
+   "Earth": {
+    "heat_load_j_cm2": 9296,
+    "q_peak_w_cm2": 35.0,
+    "g_peak": 4.71,
+    "landing_speed_m_s": 62
+   },
+   "Venus": {
+    "heat_load_j_cm2": 7296,
+    "q_peak_w_cm2": 35.5,
+    "g_peak": 4.6,
+    "landing_speed_m_s": 7
+   },
+   "Mars": {
+    "heat_load_j_cm2": 1764,
+    "q_peak_w_cm2": 4.2,
+    "g_peak": 1.31,
+    "landing_speed_m_s": 386
+   },
+   "umbrella_d_m": 19.7
+  },
+  "DEPLOYABLE_400": {
+   "ok": true,
+   "wet_t": 74.9,
+   "shield_t": 3.37,
+   "aero_t": 0.28,
+   "beta": 400,
+   "dims_m": [
+    16.6,
+    3.8,
+    3.3
+   ],
+   "Earth": {
+    "heat_load_j_cm2": 16007,
+    "q_peak_w_cm2": 58.1,
+    "g_peak": 4.89,
+    "landing_speed_m_s": 88
+   },
+   "Venus": {
+    "heat_load_j_cm2": 12387,
+    "q_peak_w_cm2": 59.5,
+    "g_peak": 4.59,
+    "landing_speed_m_s": 9
+   },
+   "Mars": {
+    "heat_load_j_cm2": 3040,
+    "q_peak_w_cm2": 7.0,
+    "g_peak": 1.32,
+    "landing_speed_m_s": 648
+   },
+   "umbrella_d_m": 13.0
+  },
+  "DEPLOYABLE_800": {
+   "ok": true,
+   "wet_t": 70.3,
+   "shield_t": 2.0,
+   "aero_t": 0.28,
+   "beta": 800,
+   "dims_m": [
+    16.3,
+    3.8,
+    3.3
+   ],
+   "Earth": {
+    "heat_load_j_cm2": 27537,
+    "q_peak_w_cm2": 96.5,
+    "g_peak": 5.16,
+    "landing_speed_m_s": 128
+   },
+   "Venus": {
+    "heat_load_j_cm2": 21059,
+    "q_peak_w_cm2": 99.5,
+    "g_peak": 4.65,
+    "landing_speed_m_s": 13
+   },
+   "Mars": {
+    "heat_load_j_cm2": 5207,
+    "q_peak_w_cm2": 11.7,
+    "g_peak": 1.33,
+    "landing_speed_m_s": 1042
+   },
+   "umbrella_d_m": 8.9
+  }
+ },
+ "winner": {
+  "engine": "TORCH100",
+  "entry": "DEPLOYABLE_800",
+  "rover": "VENUS",
+  "venus": "DROP_CITY",
+  "elong": 1.25,
+  "dry_t": 35.2224,
+  "breakdown_t": {
+   "cabin_crew_systems": 7.1,
+   "rover": 4.6122,
+   "hardened_cabin": 0.0,
+   "tanks": 1.054,
+   "engine": 9.0358,
+   "legs": 2.0319,
+   "aero_surfaces": 0.2799,
+   "heat_shield": 2.0064,
+   "venus_kits": 1.2264,
+   "venus_hardening_rest": 0.0,
+   "structure": 3.2816,
+   "growth_margin": 4.5942
+  },
+  "prop_cap_t": 35.1351,
+  "wet_t": 70.3579,
+  "dims_m": [
+   14.5894,
+   4.1757,
+   3.4165
+  ],
+  "bay_m": [
+   15.5894,
+   4.6757,
+   3.8165
+  ],
+  "beta_kg_m2": 800,
+  "heat_load_j_cm2": 27537.1216,
+  "jobs": {
+   "Moon": {
+    "ok": true,
+    "why": "",
+    "prop_t": 7.5727,
+    "start_t": 42.7951,
+    "liftoff_t": 38.844,
+    "surface_t": 38.844,
+    "entry_t": null,
+    "ascent_dv": 1.8166,
+    "start": "Moon"
+   },
+   "Mercury": {
+    "ok": true,
+    "why": "",
+    "prop_t": 16.5162,
+    "start_t": 51.7386,
+    "liftoff_t": 42.7105,
+    "surface_t": 42.7105,
+    "entry_t": null,
+    "ascent_dv": 3.624,
+    "start": "Mercury"
+   },
+   "Ceres": {
+    "ok": true,
+    "why": "",
+    "prop_t": 1.9307,
+    "start_t": 37.1531,
+    "liftoff_t": 36.193,
+    "surface_t": 36.193,
+    "entry_t": null,
+    "ascent_dv": 0.4701,
+    "start": "Ceres"
+   },
+   "Callisto": {
+    "ok": true,
+    "why": "",
+    "prop_t": 7.6339,
+    "start_t": 42.8563,
+    "liftoff_t": 38.8718,
+    "surface_t": 38.8718,
+    "entry_t": null,
+    "ascent_dv": 1.8302,
+    "start": "Callisto"
+   },
+   "Mars": {
+    "ok": true,
+    "why": "",
+    "prop_t": 14.4342,
+    "start_t": 49.6566,
+    "liftoff_t": 45.0786,
+    "surface_t": 45.0786,
+    "entry_t": 49.4866,
+    "ascent_dv": 4.6447,
+    "start": "Mars"
+   },
+   "Earth": {
+    "ok": true,
+    "why": "",
+    "prop_t": 35.1355,
+    "start_t": 70.3579,
+    "liftoff_t": 67.7302,
+    "surface_t": 67.7302,
+    "entry_t": 70.0845,
+    "ascent_dv": 10.9658,
+    "start": "Earth"
+   },
+   "Titan": {
+    "ok": true,
+    "why": "",
+    "prop_t": 9.8092,
+    "start_t": 45.0317,
+    "liftoff_t": 44.5082,
+    "surface_t": 44.5082,
+    "entry_t": 44.6655,
+    "ascent_dv": 4.1114,
+    "start": "Titan"
+   },
+   "Venus clouds": {
+    "ok": true,
+    "why": "",
+    "prop_t": 26.447,
+    "start_t": 61.6694,
+    "liftoff_t": 61.2651,
+    "surface_t": 61.2651,
+    "entry_t": 61.4958,
+    "ascent_dv": 9.1066,
+    "start": "Venus@55"
+   },
+   "Venus surface": {
+    "ok": true,
+    "why": "",
+    "prop_t": 25.5883,
+    "start_t": 60.8107,
+    "liftoff_t": 59.2584,
+    "surface_t": 60.4121,
+    "entry_t": 60.6396,
+    "ascent_dv": 9.1066,
+    "start": "Venus@55"
+   }
+  },
+  "kit": {
+   "dropped": 1.1537,
+   "kept": 0.0727,
+   "stow_m3": 7.1321
+  },
+  "venus_info": {
+   "rover_balloon": {
+    "gas_t": 0.2422,
+    "envelope_t": 0.9115,
+    "rigging_t": 0.0,
+    "dewar_t": 0.0727,
+    "radius_m": 10.9952,
+    "dropped_t": 1.1537
+   }
+  },
+  "cabin_hardened": false,
+  "cab_hard": null,
+  "venus_rover": {
+   "mass_t": 4.6122,
+   "dims_m": [
+    3.6,
+    2.64,
+    2.64
+   ],
+   "cabin": {
+    "R_m": 1.0464,
+    "wall_mm": 23.5552,
+    "hull_t": 1.4359,
+    "insulation_t": 0.2158,
+    "leak_kw": 3.7858,
+    "od_m": 2.34,
+    "stress_mpa": 207.289
+   },
+   "heat_kw": 5.0858,
+   "ice_t": 0.5605,
+   "crew": 2
+  },
+  "sink_note": null,
+  "torch_gw": 7.0358,
+  "f_vac_kn": null,
+  "notes": [],
+  "iterations": 19
+ },
+ "refly": {
+  "Earth": {
+   "table_mass_ratio": 1.86,
+   "own_mass_ratio": 1.807,
+   "own_dv_km_s": 10.64,
+   "liftoff_t": 67.7
+  },
+  "Venus clouds": {
+   "table_mass_ratio": 1.69,
+   "own_mass_ratio": 1.611,
+   "own_dv_km_s": 8.9,
+   "liftoff_t": 61.3
+  },
+  "Mercury": {
+   "table_mass_ratio": 1.199,
+   "own_mass_ratio": 1.176,
+   "own_dv_km_s": 3.24,
+   "liftoff_t": 42.7
+  },
+  "Mars": {
+   "table_mass_ratio": 1.262,
+   "own_mass_ratio": 1.219,
+   "own_dv_km_s": 3.95,
+   "liftoff_t": 45.1
+  }
+ },
+ "sensitivity": {
+  "torchlet 0.5 GW per tonne": {
+   "wet_t": 130.9,
+   "closes": true
+  },
+  "torchlet 2 GW per tonne": {
+   "wet_t": 57.1,
+   "closes": true
+  },
+  "heat shield 50% heavier per m2": {
+   "wet_t": 74.4,
+   "closes": true
+  },
+  "umbrella ribs 15 kg/m2": {
+   "wet_t": 73.4,
+   "closes": true
+  },
+  "growth margin 25%": {
+   "wet_t": 82.2,
+   "closes": true
+  },
+  "rover sortie 48 h": {
+   "wet_t": 77.5,
+   "closes": true
+  },
+  "4 crew instead of 6": {
+   "wet_t": 62.8,
+   "closes": true
+  }
+ }
+}

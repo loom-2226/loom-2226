@@ -1,0 +1,51 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "UNCONSTRAINED DESIGN SEARCH, deployable UAV v0.1 (canon set aside, physics kept). Every assumption is authored and visible. Not canon, not engineering.",
+ "n": 3672,
+ "n_ok": 0,
+ "best_by_family": [],
+ "winner": null,
+ "shuttle_growth": {
+  "rover drop (70 t)": {
+   "base_t": 70.35790724978638,
+   "t_per_t": 4.715714167435863
+  },
+  "shuttle lands (balloon)": {
+   "base_t": 166.35363348063973,
+   "t_per_t": 8.635556468857857
+  }
+ },
+ "sensitivity": {},
+ "fail_counts": {
+  "BAT|Mars|survey": 612,
+  "BAT|Titan|survey": 612,
+  "BAT|Venus clouds|survey": 612,
+  "BAT|Earth|survey": 612,
+  "BAT+SOLAR|Titan|survey": 612,
+  "BAT+BEAM|Mars|survey": 612,
+  "BAT+BEAM|Titan|survey": 612,
+  "BAT+BEAM|Venus clouds|survey": 612,
+  "BAT+BEAM|Earth|survey": 612,
+  "BAT+SOLAR+BEAM|Titan|survey": 612,
+  "BAT+RPS+BEAM|Mars|fetch": 604,
+  "BAT+RPS+BEAM|Titan|fetch": 604,
+  "BAT+RPS+BEAM|Venus clouds|fetch": 604,
+  "BAT+RPS+BEAM|Earth|fetch": 604,
+  "BAT+RPS|Mars|fetch": 480,
+  "BAT+RPS|Titan|fetch": 480,
+  "BAT+RPS|Venus clouds|fetch": 480,
+  "BAT+RPS|Earth|fetch": 480,
+  "BAT+SOLAR+BEAM|Mars|fetch": 469,
+  "BAT+SOLAR+BEAM|Titan|fetch": 469,
+  "BAT+SOLAR+BEAM|Venus clouds|fetch": 469,
+  "BAT+SOLAR+BEAM|Earth|fetch": 469,
+  "BAT+BEAM|Mars|fetch": 425,
+  "BAT+BEAM|Titan|fetch": 425,
+  "BAT+BEAM|Venus clouds|fetch": 425,
+  "BAT+BEAM|Earth|fetch": 425,
+  "BAT|Mars|overwatch": 374,
+  "BAT+RPS|Mars|overwatch": 374,
+  "BAT+SOLAR|Mars|overwatch": 374,
+  "BAT+SOLAR|Mars|fetch": 344
+ }
+}

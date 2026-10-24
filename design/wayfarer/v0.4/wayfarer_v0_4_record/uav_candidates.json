@@ -1,0 +1,278 @@
+{
+ "one drone, all worlds": {
+  "d": {
+   "airframe": "HYBRID",
+   "power": "BAT+RPS",
+   "mass_kg": 190,
+   "battery_fraction": 0.12,
+   "disk_loading_cap": 40,
+   "rotor_d_m": 4.654,
+   "wing_span_m": 10.035,
+   "payload_kg": 5.945,
+   "stow_m": [
+    3.645,
+    3.092,
+    0.96
+   ],
+   "fits_shuttle": false,
+   "parts": {
+    "rotors": 28.067,
+    "motors": 7.938,
+    "wing": 31.469,
+    "battery": 22.8,
+    "rps": 12.405,
+    "solar": 0.0,
+    "beam_receiver": 0.0,
+    "thermal": 9.5,
+    "avionics_sensors": 12.7,
+    "structure": 28.5
+   },
+   "battery_wh": 11628.0,
+   "rps_w": 99.241,
+   "solar_m2": 0.0,
+   "roles": {
+    "Mars": {
+     "scout": true,
+     "overwatch": true,
+     "fetch": true,
+     "survey": true,
+     "range_km": 414.906,
+     "hours": 1.043,
+     "beam": false,
+     "holds_60_m_s": true
+    },
+    "Titan": {
+     "scout": true,
+     "overwatch": true,
+     "fetch": true,
+     "survey": true,
+     "range_km": 2485.114,
+     "hours": 97.14,
+     "beam": false,
+     "holds_60_m_s": false
+    },
+    "Venus clouds": {
+     "scout": true,
+     "overwatch": true,
+     "fetch": true,
+     "survey": true,
+     "range_km": 242.246,
+     "hours": 3.014,
+     "beam": false,
+     "holds_60_m_s": false
+    },
+    "Earth": {
+     "scout": true,
+     "overwatch": true,
+     "fetch": true,
+     "survey": true,
+     "range_km": 219.135,
+     "hours": 2.804,
+     "beam": false,
+     "holds_60_m_s": false
+    }
+   },
+   "perf": {
+    "Mars": {
+     "hover_w": 36638.432,
+     "wh_per_km": 28.026,
+     "cruise_m_s": 130.0,
+     "mode": "wing",
+     "loiter_w": 11152.35,
+     "top_speed_m_s": 250.0
+    },
+    "Titan": {
+     "hover_w": 315.837,
+     "wh_per_km": 4.679,
+     "cruise_m_s": 15,
+     "mode": "rotor",
+     "loiter_w": 119.703,
+     "top_speed_m_s": 15
+    },
+    "Venus clouds": {
+     "hover_w": 11797.53,
+     "wh_per_km": 48.001,
+     "cruise_m_s": 30,
+     "mode": "wing",
+     "loiter_w": 3858.402,
+     "top_speed_m_s": 50.433
+    },
+    "Earth": {
+     "hover_w": 11709.049,
+     "wh_per_km": 53.063,
+     "cruise_m_s": 30,
+     "mode": "wing",
+     "loiter_w": 4146.64,
+     "top_speed_m_s": 49.029
+    }
+   }
+  },
+  "pod": {
+   "pod_kg": 702.652,
+   "entry_kg": 892.652,
+   "umbrella_d_m": 5.08,
+   "jetpack_kg": 285.0,
+   "per_slot": 1
+  }
+ },
+ "Mars drone": {
+  "d": {
+   "airframe": "ROTOR",
+   "power": "BAT+SOLAR+BEAM",
+   "mass_kg": 80,
+   "battery_fraction": 0.12,
+   "disk_loading_cap": 15,
+   "rotor_d_m": 3.02,
+   "wing_span_m": 0,
+   "payload_kg": 6.42,
+   "stow_m": [
+    2.412,
+    2.112,
+    0.695
+   ],
+   "fits_shuttle": true,
+   "parts": {
+    "rotors": 11.818,
+    "motors": 3.346,
+    "wing": 0.0,
+    "battery": 9.6,
+    "rps": 0.0,
+    "solar": 5.832,
+    "beam_receiver": 7.721,
+    "thermal": 1.6,
+    "avionics_sensors": 9.4,
+    "structure": 12.0
+   },
+   "battery_wh": 4896.0,
+   "rps_w": 0.0,
+   "solar_m2": 3.888,
+   "roles": {
+    "Mars": {
+     "scout": true,
+     "overwatch": true,
+     "fetch": true,
+     "survey": true,
+     "range_km": 42.805,
+     "hours": 0.317,
+     "beam": true,
+     "holds_60_m_s": false
+    }
+   },
+   "perf": {
+    "Mars": {
+     "hover_w": 15441.182,
+     "wh_per_km": 114.379,
+     "cruise_m_s": 30,
+     "mode": "rotor",
+     "loiter_w": 15441.182,
+     "top_speed_m_s": 30
+    }
+   }
+  },
+  "pod": {
+   "pod_kg": 314.73,
+   "entry_kg": 394.73,
+   "umbrella_d_m": 3.506,
+   "jetpack_kg": 120.0,
+   "per_slot": 4
+  }
+ },
+ "dense-air drone": {
+  "d": {
+   "airframe": "ROTOR",
+   "power": "BAT+RPS",
+   "mass_kg": 60,
+   "battery_fraction": 0.15,
+   "disk_loading_cap": 40,
+   "rotor_d_m": 2.499,
+   "wing_span_m": 0,
+   "payload_kg": 5.319,
+   "stow_m": [
+    2.099,
+    1.799,
+    0.663
+   ],
+   "fits_shuttle": true,
+   "parts": {
+    "rotors": 8.093,
+    "motors": 0.848,
+    "wing": 0.0,
+    "battery": 9.0,
+    "rps": 6.826,
+    "solar": 0.0,
+    "beam_receiver": 0.0,
+    "thermal": 3.0,
+    "avionics_sensors": 8.8,
+    "structure": 9.0
+   },
+   "battery_wh": 4590.0,
+   "rps_w": 54.608,
+   "solar_m2": 0.0,
+   "roles": {
+    "Titan": {
+     "scout": true,
+     "overwatch": true,
+     "fetch": true,
+     "survey": true,
+     "range_km": 2558.152,
+     "hours": 37.899,
+     "beam": false,
+     "holds_60_m_s": false
+    },
+    "Venus clouds": {
+     "scout": true,
+     "overwatch": true,
+     "fetch": true,
+     "survey": true,
+     "range_km": 158.257,
+     "hours": 1.172,
+     "beam": false,
+     "holds_60_m_s": false
+    },
+    "Earth": {
+     "scout": true,
+     "overwatch": true,
+     "fetch": true,
+     "survey": true,
+     "range_km": 159.448,
+     "hours": 1.181,
+     "beam": false,
+     "holds_60_m_s": false
+    }
+   },
+   "perf": {
+    "Titan": {
+     "hover_w": 121.113,
+     "wh_per_km": 1.794,
+     "cruise_m_s": 15,
+     "mode": "rotor",
+     "loiter_w": 121.113,
+     "top_speed_m_s": 15
+    },
+    "Venus clouds": {
+     "hover_w": 3915.469,
+     "wh_per_km": 29.003,
+     "cruise_m_s": 30,
+     "mode": "rotor",
+     "loiter_w": 3915.469,
+     "top_speed_m_s": 30
+    },
+    "Earth": {
+     "hover_w": 3886.229,
+     "wh_per_km": 28.787,
+     "cruise_m_s": 30,
+     "mode": "rotor",
+     "loiter_w": 3886.229,
+     "top_speed_m_s": 30
+    }
+   }
+  },
+  "pod": {
+   "pod_kg": 143.512,
+   "entry_kg": 203.512,
+   "umbrella_d_m": 3.065,
+   "jetpack_kg": 0.0,
+   "per_slot": 8
+  }
+ }
+}

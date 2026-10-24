@@ -1,0 +1,284 @@
+{
+  "header": "ALL bodies. ALL sponsors. 2026-2226.",
+  "status": "UNCONSTRAINED DESIGN SEARCH. Canon set aside at kT's request (2026-10-24); physics kept. Every assumption below is authored and visible. Not canon, not engineering.",
+  "version": "0.2",
+  "fixed_modules": {
+    "habitat_x": [
+      0,
+      14
+    ],
+    "habitat_r": 4.3,
+    "hull_r": 4.5,
+    "service_x": [
+      14,
+      18
+    ],
+    "docking_collar_x": 16,
+    "aft_block_m": {
+      "manifold": 6,
+      "shield": 5,
+      "reactor": 7,
+      "nozzle": 7
+    },
+    "aft_radii_m": {
+      "shield": 2.75,
+      "reactor": 2.125,
+      "nozzle": 3.0
+    },
+    "radiator_root_offset_m": [
+      1,
+      6
+    ],
+    "note": "habitat, service region and aft torch chain are kept as in the repo reference; only the midship changes"
+  },
+  "fluids": {
+    "remass_t": 250,
+    "protected_water_t": 50,
+    "water_t_per_m3": 1.0,
+    "ullage_fraction": 0.05,
+    "note": "protected water now lives in the main tanks for every layout, so all are judged on 315 m3"
+  },
+  "shuttle": {
+    "mass_t": 33,
+    "length_m": 10.5,
+    "width_m": 3.9,
+    "height_m": 3.1,
+    "bay": {
+      "length_m": 11.5,
+      "width_m": 4.4,
+      "depth_m": 3.5
+    }
+  },
+  "layouts": {
+    "T4_top": {
+      "label": "Four tanks, shuttle on top",
+      "tank": "four_cyl",
+      "tank_r": 1.5,
+      "tank_centre_r": 2.7,
+      "shuttle": "top_recessed",
+      "bay_floor_z": 3.6,
+      "bay_x_offset_from_midship": -2.0,
+      "min_midship_m": 9.0,
+      "plant_allowed": [
+        "AXIS",
+        "SPLIT",
+        "AFT"
+      ]
+    },
+    "T4_bay": {
+      "label": "Four tanks, flush bay section",
+      "tank": "four_cyl",
+      "tank_r": 1.5,
+      "tank_centre_r": 2.7,
+      "shuttle": "flush_section",
+      "bay_section_m": 12.0,
+      "bay_floor_z": 1.0,
+      "plant_allowed": [
+        "AXIS",
+        "KEEL",
+        "SPLIT",
+        "AFT"
+      ],
+      "keel_z": -1.0
+    },
+    "CWRAP": {
+      "label": "Wrap-around tanks, shuttle on axis",
+      "tank": "c_wrap",
+      "r_in": 2.9,
+      "r_out": 4.3,
+      "slot_half_width": 2.2,
+      "area_m2_per_m": 25.0,
+      "shuttle": "on_axis",
+      "min_midship_m": 12.5,
+      "plant_allowed": [
+        "KEEL",
+        "SPLIT",
+        "AFT"
+      ],
+      "keel_z": -1.12,
+      "keel_volume_m3_per_m_of_bay": 7.33,
+      "c_tank_penalty_t": {
+        "value": 8,
+        "note": "assumed extra shell mass for non-round pressure vessels"
+      }
+    },
+    "SADDLE": {
+      "label": "Two saddle tanks, shuttle on top",
+      "tank": "two_cyl",
+      "tank_r": 2.0,
+      "tank_y": 2.25,
+      "shuttle": "top_recessed",
+      "bay_floor_z": 2.0,
+      "bay_x_offset_from_midship": 0.5,
+      "min_midship_m": 12.0,
+      "plant_allowed": [
+        "KEEL",
+        "SPLIT",
+        "AFT"
+      ],
+      "keel_z": -3.0
+    },
+    "CWRAP_G": {
+      "label": "Wrap-around tanks with strake grooves, shuttle on axis",
+      "tank": "c_wrap",
+      "r_in": 2.9,
+      "r_out": 4.3,
+      "slot_half_width": 2.2,
+      "area_m2_per_m": 21.0,
+      "shuttle": "on_axis",
+      "min_midship_m": 12.5,
+      "plant_allowed": [
+        "KEEL",
+        "SPLIT",
+        "AFT"
+      ],
+      "keel_z": -1.12,
+      "keel_volume_m3_per_m_of_bay": 7.33,
+      "c_tank_penalty_t": {
+        "value": 8,
+        "note": "assumed extra shell mass for non-round pressure vessels"
+      },
+      "groove_note": "four 2 m x 0.5 m grooves cut along the diagonals so accordion strakes stow flush; costs 4 m2 of tank section per metre (authored)"
+    }
+  },
+  "plant": {
+    "mass_t": 88,
+    "density_t_m3": [
+      1.0,
+      1.5
+    ],
+    "fore_block_x": [
+      14.0,
+      19.25
+    ],
+    "aft_block_rel_midship_end": [
+      -1.25,
+      4.0
+    ],
+    "axis_note": "AXIS sits in the gaps around four round tanks, as in the repo reference",
+    "keel_note": "KEEL sits below the shuttle or tanks; centroid heights are authored estimates per layout"
+  },
+  "plant_fins": {
+    "options": [
+      "SHARED",
+      "NORMAL",
+      "FAST",
+      "HARD"
+    ],
+    "equivalent_area_m2_at_900K": {
+      "NORMAL": 106,
+      "FAST": 202,
+      "HARD": 719
+    },
+    "two_sided": true,
+    "chord_m": 5.0,
+    "areal_mass_kg_m2": {
+      "value": 8,
+      "note": "assumed thin high-temperature panel"
+    },
+    "note": "SHARED means the plant dumps heat through the main radiators as today. A dedicated set lets Metric up to that mode run with the big radiators folded. Fins overlapping the main radiator roots get a view-factor warning, not a rejection.",
+    "placement": "diagonals (45/135/225/315 deg) at each plant block; 4 fins per block; diagonals keep clear of the cardinal main radiators, the vertical shuttle exit and the side drop tanks"
+  },
+  "drop_tanks": {
+    "water_t_options": [
+      0,
+      100,
+      200,
+      300
+    ],
+    "diameter_m_options": [
+      3.0,
+      3.6
+    ],
+    "shell_fraction": 0.1,
+    "radial_gap_m": 0.3,
+    "clearance_m": 2.0,
+    "forward_limit_x": 2.0,
+    "note": "two tanks on the sides; placed as close to the mass centre as clearances allow"
+  },
+  "mass_rules": {
+    "structure_t_per_m_of_length": 2.632,
+    "note": "structure scales with ship length; the other repo seed ledger lines keep their mass and move with their module (RCS and reserve with the ship's middle)"
+  },
+  "torch": {
+    "ve_km_s": {
+      "ECON": 3000,
+      "CRUISE": 2000
+    },
+    "cruise_thrust_kn": 11361.0
+  },
+  "score_weights": {
+    "reach": 0.3,
+    "field_wrap": 0.25,
+    "agility": 0.2,
+    "balance": 0.15,
+    "inertia": 0.1,
+    "note": "superseded by roles in v0.2 analysis; kept for the record"
+  },
+  "metric_fold": {
+    "main_radiator_span_m": 8.0,
+    "source": "repo geometry compiler placeholder panel span (OPEN)",
+    "note": "radius the Metric field must clear in NORMAL and FAST, from whatever panels are out in that mode"
+  },
+  "roles": {
+    "courier": {
+      "note": "base hull, drop tanks off; what Metric and Loom see",
+      "weights": {
+        "field_wrap": 0.3,
+        "metric_radius_fast": 0.2,
+        "agility": 0.15,
+        "balance": 0.15,
+        "inertia": 0.1,
+        "dry": 0.1
+      }
+    },
+    "long_haul": {
+      "note": "drop-tank kit on the chosen hull",
+      "weights": {
+        "reach": 0.55,
+        "agility": 0.3,
+        "extent": 0.15
+      }
+    }
+  },
+  "search_v0_2": {
+    "heat_options": [
+      "SHARED",
+      "SHARED_PARTIAL",
+      "FINS_BLOCKS",
+      "FINS_FORE",
+      "FINS_FORE_MAIN_PARTIAL"
+    ],
+    "heat_notes": {
+      "SHARED": "plant heat through the main radiators, fully deployed for Metric (today)",
+      "SHARED_PARTIAL": "main radiators deploy only as far as the Metric mode needs",
+      "FINS_BLOCKS": "dedicated fins at every plant block",
+      "FINS_FORE": "split plant only: all dedicated fins at the fore block; aft half's heat is piped forward past the bay",
+      "FINS_FORE_MAIN_PARTIAL": "split plant only: fore fins take the fore half, main radiators partly deployed take the aft half"
+    },
+    "fin_sizes": [
+      "NORMAL",
+      "FAST",
+      "HARD"
+    ],
+    "extend_midship_m": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "bay_positions_on_axis": [
+      "centre",
+      "forward"
+    ],
+    "fin_root_clearance_m": 1.0,
+    "max_fin_offset_m": 3.0,
+    "main_radiator": {
+      "count": 4,
+      "chord_m": 5.0,
+      "span_m": 8.0,
+      "source": "repo geometry compiler placeholder (OPEN)"
+    },
+    "rule": "plant fins overlapping the main radiator roots (plus clearance) are rejected, not warned"
+  }
+}

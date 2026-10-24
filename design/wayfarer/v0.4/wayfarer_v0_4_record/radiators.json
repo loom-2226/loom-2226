@@ -1,0 +1,58 @@
+{
+  "header": "ALL bodies. ALL sponsors. 2026-2226.",
+  "status": "UNCONSTRAINED DESIGN EXPLORATION (canon set aside, physics kept). Collapsible main radiators for the v0.2 winning Wayfarer layout. Not canon, not engineering.",
+  "version": "0.1",
+  "layout": {
+    "assemblies": 4, "azimuths_deg": [0, 90, 180, 270], "root_chord_m": 5.0, "hull_r_m": 4.5,
+    "two_sided": true,
+    "note": "same four cardinal roots on the 5 m root band as the repo placeholder"
+  },
+  "metric_heat_from_canon": {
+    "source": "CANON II v2.4 section 5 certified metric card",
+    "cold_load_kw": {"NORMAL": 20.0, "FAST": 38.1, "EXPEDITE": 63.5, "HARD": 136.0},
+    "cryo_electrical_mw_at_900K": {"NORMAL": 3.5, "FAST": 6.7, "EXPEDITE": 11.2, "HARD": 23.9},
+    "canon_equivalent_area_m2_at_900K": {"NORMAL": 106, "FAST": 202, "EXPEDITE": 336, "HARD": 719},
+    "cold_temperature_k": 20.0,
+    "rule": "heat rejected = cold load + cryo electrical; cryo electrical scales with (T_reject - 20 K) at the same fraction of ideal efficiency as canon's 900 K numbers"
+  },
+  "emission": {
+    "effective_emissivity": 0.90,
+    "source": "back-solved from canon: 24.04 MW over 719 m2 at 900 K implies 0.90 of blackbody"
+  },
+  "temperatures_k": [900, 1100, 1300],
+  "temperature_notes": {
+    "900": "canon high-drive reject interface",
+    "1100": "assumed refractory panels with sodium or lithium heat pipes",
+    "1300": "assumed carbon-carbon or niobium panels with lithium heat pipes; pushes cryo power up"
+  },
+  "torch": {"cruise_jet_power_tw": 11.361, "note": "torch heat landing on the ship is an open hold in the repo; we report what each radiator can carry instead"},
+  "mechanisms": {
+    "RIGID": {"label": "Hinged rigid panel", "max_span_m": 8.0, "areal_kg_m2": 10.0,
+              "stowed_protrusion_m": 0.15, "partial": "none", "step_m": null, "torch_g_limit": 7.5,
+              "how": "one stiff panel swings out from flat against the hull; the repo placeholder",
+              "limit_why": "folds flat along the hull, so span is limited by free hull length"},
+    "ACCORDION": {"label": "Accordion fold", "max_span_m": 24.0, "areal_kg_m2": 12.0,
+                  "stowed_protrusion_m": 0.0, "partial": "stepwise", "step_m": 2.0, "torch_g_limit": 7.5,
+                  "pleat_width_m": 2.0, "pleat_stack_m": 0.04, "recess_depth_m": 0.5,
+                  "how": "stiff 2 m pleats fold zig-zag into a recess at the root and open one pleat at a time",
+                  "limit_why": "12 pleats fit a 0.5 m recess"},
+    "TELESCOPE": {"label": "Telescoping panels", "max_span_m": 7.5, "areal_kg_m2": 15.0,
+                  "stowed_protrusion_m": 0.0, "partial": "continuous", "step_m": null, "torch_g_limit": 7.5,
+                  "how": "nested panels slide out of a cassette inside the hull",
+                  "limit_why": "cassette depth inside the hull caps each section at 1.5 m"},
+    "ROLLOUT": {"label": "Roll-out membrane", "max_span_m": 25.0, "areal_kg_m2": 6.0,
+                "stowed_protrusion_m": 0.0, "partial": "continuous", "step_m": null, "torch_g_limit": 2.0,
+                "membrane_thickness_m": 0.003, "drum_core_d_m": 0.3,
+                "how": "flexible radiator sheet unrolls from a drum, held taut by edge booms",
+                "limit_why": "edge boom length; sheet must be retracted for burns above about 2 g"},
+    "DROPLET": {"label": "Droplet sheet", "max_span_m": 20.0, "areal_kg_m2": 2.0,
+                "stowed_protrusion_m": 0.0, "partial": "continuous", "step_m": null, "torch_g_limit": 0.0,
+                "how": "a sheet of hot liquid-metal droplets sprayed from root to a collector on a boom",
+                "limit_why": "boom length; any thrust blows the droplets off course, so coast and Metric only"}
+  },
+  "assumption_notes": [
+    "areal masses, span limits and g limits are authored estimates, not sourced figures",
+    "droplet and membrane radiators at 900-1300 K are speculative even for 2226",
+    "fin efficiency, view factors between radiators and the hull, and micrometeoroid margins are folded into the single 0.90 emissivity"
+  ]
+}

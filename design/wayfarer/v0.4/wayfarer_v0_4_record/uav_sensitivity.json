@@ -1,0 +1,49 @@
+{
+ "Mars | base": [
+  80,
+  [
+   2.4,
+   2.1,
+   0.7
+  ],
+  3.02
+ ],
+ "Mars | 2026 batteries 300 Wh/kg": null,
+ "Mars | Mars air 0.012 (high ground)": null,
+ "Mars | Mars survey 10 km/day": [
+  70,
+  [
+   2.3,
+   2.0,
+   0.7
+  ],
+  2.82
+ ],
+ "dense | base": [
+  60,
+  [
+   2.1,
+   1.8,
+   0.7
+  ],
+  2.5
+ ],
+ "dense | 2026 batteries 300 Wh/kg": [
+  160,
+  [
+   3.0,
+   2.7,
+   0.8
+  ],
+  4.08
+ ],
+ "dense | today's RTG 2.5 W/kg": [
+  200,
+  [
+   3.3,
+   3.0,
+   0.8
+  ],
+  4.56
+ ]
+}

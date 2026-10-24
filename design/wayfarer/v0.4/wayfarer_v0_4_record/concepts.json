@@ -1,0 +1,711 @@
+{
+  "header": "ALL bodies. ALL sponsors. 2026-2226.",
+  "status": "UNCONSTRAINED EXPLORATION. Canon deliberately set aside at kT's request (2026-10-24). Physics kept. Not canon, not engineering.",
+  "version": "0.1",
+  "common": {
+    "reference_dry_t": 858.5,
+    "reference_length_m": 57.0,
+    "normal_remass_t": 250.0,
+    "protected_water_t": 50.0,
+    "shuttle_t": 33.0,
+    "structure_t_per_added_m": {
+      "value": 2.632,
+      "note": "crude: Wayfarer's 150 t structure line spread over 57 m"
+    },
+    "drop_tank_mass_fraction": {
+      "value": 0.1,
+      "note": "assumed tank dry mass as share of the water it carries"
+    },
+    "torch_cards_km_s": {
+      "ECON": 3000,
+      "CRUISE": 2000
+    },
+    "cruise_thrust_kn": 11361.0,
+    "water_t_per_m3": 1.0,
+    "liquid_hydrogen_t_per_m3": 0.0708
+  },
+  "concepts": [
+    {
+      "id": "A",
+      "name": "Today",
+      "idea": "Repo reference: four long tanks, shuttle semi-recessed on top.",
+      "fluid": "water",
+      "added_length_m": 0,
+      "shuttle_center_z_m": 5.15,
+      "drop_tanks": null,
+      "envelope": {
+        "sections": [
+          [
+            0,
+            38,
+            4.5
+          ],
+          [
+            38,
+            43,
+            2.75
+          ],
+          [
+            43,
+            50,
+            2.125
+          ],
+          [
+            50,
+            57,
+            3.0
+          ]
+        ],
+        "protrusions": [
+          {
+            "x0": 16,
+            "x1": 27.5,
+            "dy": 4.4,
+            "h": 2.6
+          }
+        ],
+        "extra_cylinders": []
+      },
+      "parts": [
+        {
+          "kind": "cyl",
+          "role": "habitat",
+          "x0": 0,
+          "x1": 14,
+          "r": 4.3,
+          "y": 0,
+          "z": 0
+        },
+        {
+          "kind": "cyl",
+          "role": "tank",
+          "x0": 18,
+          "x1": 32,
+          "r": 1.5,
+          "y": 1.909,
+          "z": 1.909
+        },
+        {
+          "kind": "cyl",
+          "role": "tank",
+          "x0": 18,
+          "x1": 32,
+          "r": 1.5,
+          "y": -1.909,
+          "z": 1.909
+        },
+        {
+          "kind": "cyl",
+          "role": "tank",
+          "x0": 18,
+          "x1": 32,
+          "r": 1.5,
+          "y": -1.909,
+          "z": -1.909
+        },
+        {
+          "kind": "cyl",
+          "role": "tank",
+          "x0": 18,
+          "x1": 32,
+          "r": 1.5,
+          "y": 1.909,
+          "z": -1.909
+        },
+        {
+          "kind": "cyl",
+          "role": "core",
+          "x0": 14,
+          "x1": 38,
+          "r": 0.7,
+          "y": 0,
+          "z": 0
+        },
+        {
+          "kind": "box",
+          "role": "bay",
+          "x0": 16,
+          "x1": 27.5,
+          "y": 0,
+          "z": 5.35,
+          "dy": 4.4,
+          "dz": 3.5
+        },
+        {
+          "kind": "box",
+          "role": "shuttle",
+          "x0": 16.5,
+          "x1": 27,
+          "y": 0,
+          "z": 5.15,
+          "dy": 3.9,
+          "dz": 3.1
+        }
+      ],
+      "aft_start_m": 32
+    },
+    {
+      "id": "B",
+      "name": "Wrap-around tanks",
+      "idea": "Two C-shaped tanks hug a central bay; shuttle rides on the axis and lifts out through a top slot.",
+      "fluid": "water",
+      "added_length_m": 0,
+      "shuttle_center_z_m": 0.0,
+      "drop_tanks": null,
+      "envelope": {
+        "sections": [
+          [
+            0,
+            38,
+            4.5
+          ],
+          [
+            38,
+            43,
+            2.75
+          ],
+          [
+            43,
+            50,
+            2.125
+          ],
+          [
+            50,
+            57,
+            3.0
+          ]
+        ],
+        "protrusions": [],
+        "extra_cylinders": []
+      },
+      "parts": [
+        {
+          "kind": "cyl",
+          "role": "habitat",
+          "x0": 0,
+          "x1": 14,
+          "r": 4.3,
+          "y": 0,
+          "z": 0
+        },
+        {
+          "kind": "ctank",
+          "role": "tank",
+          "x0": 18,
+          "x1": 32,
+          "r_in": 2.9,
+          "r_out": 4.3,
+          "slot_half_width": 2.2
+        },
+        {
+          "kind": "box",
+          "role": "bay",
+          "x0": 19.25,
+          "x1": 30.75,
+          "y": 0,
+          "z": 0,
+          "dy": 4.4,
+          "dz": 3.5
+        },
+        {
+          "kind": "box",
+          "role": "shuttle",
+          "x0": 19.75,
+          "x1": 30.25,
+          "y": 0,
+          "z": 0,
+          "dy": 3.9,
+          "dz": 3.1
+        }
+      ],
+      "aft_start_m": 32,
+      "notes": [
+        "relational plant and technical core must move off the axis",
+        "C-shaped pressure vessels are heavier than cylinders (not estimated)"
+      ]
+    },
+    {
+      "id": "C",
+      "name": "Stretched, flush bay",
+      "idea": "Add a 12 m bay section behind the habitat; shuttle sits fully inside a round 9 m hull.",
+      "fluid": "water",
+      "added_length_m": 12,
+      "shuttle_center_z_m": 2.55,
+      "drop_tanks": null,
+      "envelope": {
+        "sections": [
+          [
+            0,
+            50,
+            4.5
+          ],
+          [
+            50,
+            55,
+            2.75
+          ],
+          [
+            55,
+            62,
+            2.125
+          ],
+          [
+            62,
+            69,
+            3.0
+          ]
+        ],
+        "protrusions": [],
+        "extra_cylinders": []
+      },
+      "parts": [
+        {
+          "kind": "cyl",
+          "role": "habitat",
+          "x0": 0,
+          "x1": 14,
+          "r": 4.3,
+          "y": 0,
+          "z": 0
+        },
+        {
+          "kind": "box",
+          "role": "bay",
+          "x0": 18,
+          "x1": 29.5,
+          "y": 0,
+          "z": 2.75,
+          "dy": 4.4,
+          "dz": 3.5
+        },
+        {
+          "kind": "box",
+          "role": "shuttle",
+          "x0": 18.5,
+          "x1": 29,
+          "y": 0,
+          "z": 2.55,
+          "dy": 3.9,
+          "dz": 3.1
+        },
+        {
+          "kind": "cyl",
+          "role": "tank",
+          "x0": 30,
+          "x1": 44,
+          "r": 1.5,
+          "y": 1.909,
+          "z": 1.909
+        },
+        {
+          "kind": "cyl",
+          "role": "tank",
+          "x0": 30,
+          "x1": 44,
+          "r": 1.5,
+          "y": -1.909,
+          "z": 1.909
+        },
+        {
+          "kind": "cyl",
+          "role": "tank",
+          "x0": 30,
+          "x1": 44,
+          "r": 1.5,
+          "y": -1.909,
+          "z": -1.909
+        },
+        {
+          "kind": "cyl",
+          "role": "tank",
+          "x0": 30,
+          "x1": 44,
+          "r": 1.5,
+          "y": 1.909,
+          "z": -1.909
+        },
+        {
+          "kind": "cyl",
+          "role": "core",
+          "x0": 14,
+          "x1": 50,
+          "r": 0.7,
+          "y": 0,
+          "z": -0.2
+        }
+      ],
+      "aft_start_m": 44
+    },
+    {
+      "id": "D",
+      "name": "Drop-tank hauler",
+      "idea": "Today's ship plus two jettisonable side tanks of 100 t water each for long hauls.",
+      "fluid": "water",
+      "added_length_m": 0,
+      "shuttle_center_z_m": 5.15,
+      "drop_tanks": {
+        "water_t": 200.0
+      },
+      "envelope": {
+        "sections": [
+          [
+            0,
+            38,
+            4.5
+          ],
+          [
+            38,
+            43,
+            2.75
+          ],
+          [
+            43,
+            50,
+            2.125
+          ],
+          [
+            50,
+            57,
+            3.0
+          ]
+        ],
+        "protrusions": [
+          {
+            "x0": 16,
+            "x1": 27.5,
+            "dy": 4.4,
+            "h": 2.6
+          }
+        ],
+        "extra_cylinders": [
+          [
+            18,
+            32.15,
+            1.5
+          ],
+          [
+            18,
+            32.15,
+            1.5
+          ]
+        ]
+      },
+      "parts": [
+        {
+          "kind": "cyl",
+          "role": "habitat",
+          "x0": 0,
+          "x1": 14,
+          "r": 4.3,
+          "y": 0,
+          "z": 0
+        },
+        {
+          "kind": "cyl",
+          "role": "tank",
+          "x0": 18,
+          "x1": 32,
+          "r": 1.5,
+          "y": 1.909,
+          "z": 1.909
+        },
+        {
+          "kind": "cyl",
+          "role": "tank",
+          "x0": 18,
+          "x1": 32,
+          "r": 1.5,
+          "y": -1.909,
+          "z": 1.909
+        },
+        {
+          "kind": "cyl",
+          "role": "tank",
+          "x0": 18,
+          "x1": 32,
+          "r": 1.5,
+          "y": -1.909,
+          "z": -1.909
+        },
+        {
+          "kind": "cyl",
+          "role": "tank",
+          "x0": 18,
+          "x1": 32,
+          "r": 1.5,
+          "y": 1.909,
+          "z": -1.909
+        },
+        {
+          "kind": "cyl",
+          "role": "core",
+          "x0": 14,
+          "x1": 38,
+          "r": 0.7,
+          "y": 0,
+          "z": 0
+        },
+        {
+          "kind": "box",
+          "role": "bay",
+          "x0": 16,
+          "x1": 27.5,
+          "y": 0,
+          "z": 5.35,
+          "dy": 4.4,
+          "dz": 3.5
+        },
+        {
+          "kind": "box",
+          "role": "shuttle",
+          "x0": 16.5,
+          "x1": 27,
+          "y": 0,
+          "z": 5.15,
+          "dy": 3.9,
+          "dz": 3.1
+        },
+        {
+          "kind": "cyl",
+          "role": "droptank",
+          "x0": 18,
+          "x1": 32.15,
+          "r": 1.5,
+          "y": 6.2,
+          "z": 0
+        },
+        {
+          "kind": "cyl",
+          "role": "droptank",
+          "x0": 18,
+          "x1": 32.15,
+          "r": 1.5,
+          "y": -6.2,
+          "z": 0
+        }
+      ],
+      "aft_start_m": 32,
+      "notes": [
+        "drop tanks must be off before any Loom commit",
+        "Metric certification changes with attached mass"
+      ]
+    },
+    {
+      "id": "E",
+      "name": "Hydrogen hauler",
+      "idea": "What a liquid-hydrogen working fluid does: one fat 14 m tank, shuttle recessed into its top.",
+      "fluid": "liquid_hydrogen",
+      "added_length_m": 11,
+      "shuttle_center_z_m": 5.05,
+      "drop_tanks": null,
+      "envelope": {
+        "sections": [
+          [
+            0,
+            18,
+            4.5
+          ],
+          [
+            18,
+            43,
+            7.0
+          ],
+          [
+            43,
+            49,
+            4.5
+          ],
+          [
+            49,
+            54,
+            2.75
+          ],
+          [
+            54,
+            61,
+            2.125
+          ],
+          [
+            61,
+            68,
+            3.0
+          ]
+        ],
+        "protrusions": [],
+        "extra_cylinders": []
+      },
+      "parts": [
+        {
+          "kind": "cyl",
+          "role": "habitat",
+          "x0": 0,
+          "x1": 14,
+          "r": 4.3,
+          "y": 0,
+          "z": 0
+        },
+        {
+          "kind": "cyl",
+          "role": "core",
+          "x0": 14,
+          "x1": 18,
+          "r": 0.7,
+          "y": 0,
+          "z": 0
+        },
+        {
+          "kind": "cyl",
+          "role": "tank",
+          "x0": 18,
+          "x1": 43,
+          "r": 7.0,
+          "y": 0,
+          "z": 0,
+          "minus_box": {
+            "dx": 11.5,
+            "dy": 4.4,
+            "dz": 3.5
+          }
+        },
+        {
+          "kind": "box",
+          "role": "bay",
+          "x0": 19,
+          "x1": 30.5,
+          "y": 0,
+          "z": 5.25,
+          "dy": 4.4,
+          "dz": 3.5
+        },
+        {
+          "kind": "box",
+          "role": "shuttle",
+          "x0": 19.5,
+          "x1": 30,
+          "y": 0,
+          "z": 5.05,
+          "dy": 3.9,
+          "dz": 3.1
+        }
+      ],
+      "aft_start_m": 43,
+      "notes": [
+        "hydrogen tank mass and insulation not estimated, so delta-v here is optimistic",
+        "50 t protected water still needs its own small tank"
+      ]
+    },
+    {
+      "id": "F",
+      "name": "Wrap-around + drop tanks",
+      "idea": "Concept B's round hull and on-axis shuttle, with D's two 100 t jettisonable side tanks for long hauls.",
+      "fluid": "water",
+      "added_length_m": 0,
+      "shuttle_center_z_m": 0.0,
+      "drop_tanks": {
+        "water_t": 200.0
+      },
+      "envelope": {
+        "sections": [
+          [
+            0,
+            38,
+            4.5
+          ],
+          [
+            38,
+            43,
+            2.75
+          ],
+          [
+            43,
+            50,
+            2.125
+          ],
+          [
+            50,
+            57,
+            3.0
+          ]
+        ],
+        "protrusions": [],
+        "extra_cylinders": [
+          [
+            18,
+            32.15,
+            1.5
+          ],
+          [
+            18,
+            32.15,
+            1.5
+          ]
+        ]
+      },
+      "parts": [
+        {
+          "kind": "cyl",
+          "role": "habitat",
+          "x0": 0,
+          "x1": 14,
+          "r": 4.3,
+          "y": 0,
+          "z": 0
+        },
+        {
+          "kind": "ctank",
+          "role": "tank",
+          "x0": 18,
+          "x1": 32,
+          "r_in": 2.9,
+          "r_out": 4.3,
+          "slot_half_width": 2.2
+        },
+        {
+          "kind": "box",
+          "role": "bay",
+          "x0": 19.25,
+          "x1": 30.75,
+          "y": 0,
+          "z": 0,
+          "dy": 4.4,
+          "dz": 3.5
+        },
+        {
+          "kind": "box",
+          "role": "shuttle",
+          "x0": 19.75,
+          "x1": 30.25,
+          "y": 0,
+          "z": 0,
+          "dy": 3.9,
+          "dz": 3.1
+        },
+        {
+          "kind": "cyl",
+          "role": "droptank",
+          "x0": 18,
+          "x1": 32.15,
+          "r": 1.5,
+          "y": 6.2,
+          "z": 0
+        },
+        {
+          "kind": "cyl",
+          "role": "droptank",
+          "x0": 18,
+          "x1": 32.15,
+          "r": 1.5,
+          "y": -6.2,
+          "z": 0
+        }
+      ],
+      "aft_start_m": 32,
+      "notes": [
+        "relational plant and technical core must move off the axis",
+        "C-shaped pressure vessels are heavier than cylinders (not estimated)",
+        "drop tanks must be off before any Loom commit",
+        "Metric certification changes with attached mass"
+      ]
+    }
+  ]
+}

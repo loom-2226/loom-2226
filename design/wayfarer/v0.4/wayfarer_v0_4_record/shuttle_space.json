@@ -1,0 +1,830 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "UNCONSTRAINED DESIGN SEARCH, shuttle v0.1 (canon set aside, physics kept). Every assumption is authored and visible. Not canon, not engineering.",
+ "version": "0.1",
+ "brief": "kT 2026-10-24: atmospheric landing including Venus pressures, aerobraking, a human-drivable rover aboard, and airless landings too.",
+ "sources": {
+  "venus_atmosphere": {
+   "what": "Venus T and P every 5 km to 100 km (VIRA); surface density 65 kg/m3",
+   "url": "https://en.wikipedia.org/wiki/Atmosphere_of_Venus"
+  },
+  "venera_9": {
+   "what": "parachute dropped at ~50 km, fell by drag alone, landed at ~7 m/s; worked 53 min",
+   "url": "https://en.wikipedia.org/wiki/Venera_9"
+  },
+  "venus_sample_return_2024": {
+   "what": "surface launch 'almost impossibly difficult due to the density'; a high-temperature aircraft lifts the sample off the surface; rocket launches from a balloon at ~60-65 km; metal-bellows surface balloon 'an extremely difficult technology element'; orbit from 65 km nearly as hard as from Earth's surface",
+   "url": "https://ntrs.nasa.gov/api/citations/20240000426/downloads/Venus%20sample%20return_ASCEND-2024.pdf"
+  },
+  "havoc": {
+   "what": "NASA crewed Venus airship at ~50 km: Earth-like pressure and temperature, breathable air is a lifting gas, sulfuric acid haze",
+   "url": "https://ntrs.nasa.gov/api/citations/20160006580/downloads/20160006580.pdf"
+  },
+  "venus_cooling": {
+   "what": "24 h consumable cooling for a Venus lander: 18 kg NH3/He vented for 150 W at 92 bar",
+   "url": "https://www.1-act.com/wp-content/uploads/2019/08/24-Hour-Consumable-based-Cooling-System-for-Venus-Lander.pdf"
+  },
+  "sic_electronics": {
+   "what": "SiC integrated circuit ran 21.7 days at 460 C and 93 atm in NASA GEER; SiC logic 4,000 h at 500 C",
+   "url": "https://science.nasa.gov/technology/technology-highlights/electronics-demonstrate-operability-in-simulated-venus-conditions"
+  },
+  "adept": {
+   "what": "deployable carbon-fabric heat shield (umbrella ribs); Venus target 250 W/cm2; ballistic coefficient <50 kg/m2 vs ~250 rigid; 6.5 m example aeroshell ~870 kg of 2,500 kg",
+   "url": "https://websites.isae-supaero.fr/IMG/pdf/adept_presentation_raj_final_6_14_12.pdf"
+  },
+  "hiad_applications": {
+   "what": "LOFTID 6 m, 1,100 kg, 8 km/s, 40 W/cm2; Gen-2 flexible TPS ~50 W/cm2; HIAD aerocapture cases at Mars and Earth with L/D 0.2",
+   "url": "https://ntrs.nasa.gov/api/citations/20240015418/downloads/AIAA_SciTech_2025_HIAD_Applications_Dutta_v2p1.pdf"
+  },
+  "hiad_scaling": {
+   "what": ">36 t landed at Mars needs a 16-20 m HIAD",
+   "url": "https://ntrs.nasa.gov/api/citations/20260007785/downloads/260901%20AFOSR%20HIAD%20Developments%20v2.pdf"
+  },
+  "tps_correlation": {
+   "what": "Laub & Venkatapathy TPS mass fraction % = 0.091 Q^0.51575, Q = stagnation heat load in J/cm2 (over-predicts at high loads)",
+   "url": "https://arxiv.org/pdf/2308.07005"
+  },
+  "mars_ascent_vehicle": {
+   "what": "NASA MAV trades: 24.4 t storable SSTO to 500 km; LOX/CH4 two-stage 42.9-48.9 t; crew cabin 3.9-4.3 t for 4",
+   "url": "https://ntrs.nasa.gov/api/citations/20170003404/downloads/20170003404.pdf"
+  },
+  "delta_v_budget": {
+   "what": "Earth to LEO 9.3-10 km/s incl. 1.5-2 drag and gravity losses; Mars surface to low orbit 4.1; Moon surface to low orbit 1.87",
+   "url": "https://en.wikipedia.org/wiki/Delta-v_budget"
+  },
+  "sev": {
+   "what": "NASA Space Exploration Vehicle: 2 crew for 2 weeks, 4.5 m long, 3 m tall, ~3-4 t; the same cabin mounts on a wheeled chassis or an in-space flyer",
+   "url": "https://en.wikipedia.org/wiki/Space_Exploration_Vehicle"
+  },
+  "direct_fusion_drive": {
+   "what": "small fusion drive concept that gives both thrust and electric power",
+   "url": "https://w3.pppl.gov/ppst/docs/paluszek2014iac.pdf"
+  },
+  "canon_candidate": {
+   "what": "Wayfarer candidate spec: shuttle ~30-35 t lifting-body/VTOL; ground vehicle 2.7-3.0 x 1.5-1.7 x 1.3-1.5 m, 1.2-1.8 t",
+   "url": "repo: engineering/current/LOOM_2226_Wayfarer_Canon_Candidate_Specification_v0.1.md"
+  },
+  "canon_atlas_venus": {
+   "what": "Venus is a cloud/orbital civilization (~1.8M); surface access is not the settlement norm",
+   "url": "repo: canon/current/LOOM_2226_Earth_Solar_System_Canon_Atlas_v3.2.md"
+  }
+ },
+ "bodies": {
+  "Moon": {
+   "gm": 4904869500000.0,
+   "r_km": 1737.4,
+   "orbit_km": 100,
+   "atm": null
+  },
+  "Mercury": {
+   "gm": 22032000000000.0,
+   "r_km": 2439.7,
+   "orbit_km": 200,
+   "atm": null,
+   "note": "dayside surface ~700 K; work near the terminator or at night"
+  },
+  "Ceres": {
+   "gm": 62630000000.0,
+   "r_km": 469.7,
+   "orbit_km": 200,
+   "atm": null
+  },
+  "Callisto": {
+   "gm": 7179300000000.0,
+   "r_km": 2410.3,
+   "orbit_km": 100,
+   "atm": null,
+   "note": "stands in for the Galilean and other large airless moons"
+  },
+  "Mars": {
+   "gm": 42828370000000.0,
+   "r_km": 3389.5,
+   "orbit_km": 300,
+   "atm": {
+    "kind": "exp",
+    "rho0": 0.02,
+    "p0": 610,
+    "h_km": 11.1,
+    "interface_km": 125,
+    "perigee_km": 30,
+    "gas": "CO2"
+   }
+  },
+  "Earth": {
+   "gm": 398600400000000.0,
+   "r_km": 6371.0,
+   "orbit_km": 300,
+   "atm": {
+    "kind": "table",
+    "interface_km": 120,
+    "perigee_km": 50,
+    "gas": "air",
+    "alt_km": [
+     0,
+     10,
+     20,
+     30,
+     40,
+     50,
+     60,
+     70,
+     80,
+     90,
+     100,
+     110,
+     120,
+     150,
+     200
+    ],
+    "rho": [
+     1.225,
+     0.4135,
+     0.0889,
+     0.0184,
+     0.004,
+     0.00103,
+     0.00031,
+     8.3e-05,
+     1.85e-05,
+     3.4e-06,
+     5.6e-07,
+     9.7e-08,
+     2.2e-08,
+     2.1e-09,
+     2.5e-10
+    ],
+    "p_pa": [
+     101325,
+     26500,
+     5529,
+     1197,
+     287,
+     79.8,
+     21.9,
+     5.2,
+     1.05,
+     0.18,
+     0.032,
+     0.0073,
+     0.0025,
+     0.00045,
+     8e-05
+    ],
+    "source": "US Standard Atmosphere 1976, rounded"
+   }
+  },
+  "Titan": {
+   "gm": 8978000000000.0,
+   "r_km": 2574.7,
+   "orbit_km": 1500,
+   "atm": {
+    "kind": "exp2",
+    "rho0": 5.43,
+    "p0": 146700,
+    "h1_km": 17,
+    "break_km": 44,
+    "h2_km": 30,
+    "interface_km": 600,
+    "perigee_km": 150,
+    "gas": "N2",
+    "source": "authored two-layer fit to the Huygens-era profile (surface 1.47 bar, 94 K; tropopause ~44 km at ~0.1 bar, 70 K; stratospheric scale height ~30 km)"
+   }
+  },
+  "Venus": {
+   "gm": 324859000000000.0,
+   "r_km": 6051.8,
+   "orbit_km": 250,
+   "atm": {
+    "kind": "vira",
+    "interface_km": 140,
+    "perigee_km": 65,
+    "gas": "CO2",
+    "molar_kg": 0.04345,
+    "alt_km": [
+     0,
+     5,
+     10,
+     15,
+     20,
+     25,
+     30,
+     35,
+     40,
+     45,
+     50,
+     55,
+     60,
+     65,
+     70,
+     80,
+     90,
+     100
+    ],
+    "t_c": [
+     462,
+     424,
+     385,
+     348,
+     306,
+     264,
+     222,
+     180,
+     143,
+     110,
+     75,
+     27,
+     -10,
+     -30,
+     -43,
+     -76,
+     -104,
+     -112
+    ],
+    "p_atm": [
+     92.1,
+     66.65,
+     47.39,
+     33.04,
+     22.52,
+     14.93,
+     9.851,
+     5.917,
+     3.501,
+     1.979,
+     1.066,
+     0.5314,
+     0.2357,
+     0.09765,
+     0.0369,
+     0.00476,
+     0.0003736,
+     2.66e-05
+    ],
+    "above_100_scale_km": 3.8,
+    "cloud_deck_km": 55
+   }
+  }
+ },
+ "sutton_graves_k": {
+  "air": 0.00017415,
+  "CO2": 0.0001896,
+  "N2": 0.00017407,
+  "note": "q [W/m2] = k sqrt(rho/r_nose) v^3; convective only; radiative heating ignored (fair below ~8 km/s)",
+  "source": "Sutton & Graves 1971, NASA TR R-376"
+ },
+ "jobs": {
+  "Moon": {
+   "body": "Moon"
+  },
+  "Mercury": {
+   "body": "Mercury"
+  },
+  "Ceres": {
+   "body": "Ceres"
+  },
+  "Callisto": {
+   "body": "Callisto"
+  },
+  "Mars": {
+   "body": "Mars"
+  },
+  "Earth": {
+   "body": "Earth"
+  },
+  "Titan": {
+   "body": "Titan"
+  },
+  "Venus clouds": {
+   "body": "Venus",
+   "site_km": 55,
+   "note": "dock at a cloud city and launch from it"
+  },
+  "Venus surface": {
+   "body": "Venus",
+   "site_km": 0
+  }
+ },
+ "job_rules": {
+  "round_trip": "every job starts and ends in the mothership's parking orbit, carrying crew and rover both ways",
+  "dv_margin_fraction": 0.05,
+  "rendezvous_km_s": 0.05,
+  "hover_km_s": 0.03,
+  "landing_tw": 2.5,
+  "landing_burn_alt_km": {
+   "Mars": 1.5,
+   "Earth": 1.5,
+   "Titan": 0.5,
+   "Venus": 0.3
+  },
+  "liftoff_tw": 1.4,
+  "q_max_kpa": 40,
+  "note": "margins and ratings are authored conceptual-design values"
+ },
+ "propulsion": {
+  "METHALOX": {
+   "label": "Methane/oxygen rocket",
+   "ve_vac_km_s": 3.63,
+   "pc_bar": 300,
+   "gamma": 1.2,
+   "bulk_density": 820,
+   "tank_fraction": 0.06,
+   "engine_tw": 120,
+   "fuel_from": "carbon needed: made at Mars, Venus (CO2) or Titan (methane); Wayfarer carries only water",
+   "plume": "chemical",
+   "trl": 0.9
+  },
+  "HYDROLOX": {
+   "label": "Hydrogen/oxygen rocket",
+   "ve_vac_km_s": 4.41,
+   "pc_bar": 200,
+   "gamma": 1.2,
+   "bulk_density": 360,
+   "tank_fraction": 0.1,
+   "engine_tw": 60,
+   "fuel_from": "Wayfarer water split by electrolysis",
+   "plume": "steam",
+   "trl": 0.9
+  },
+  "NTR": {
+   "label": "Nuclear thermal hydrogen rocket",
+   "ve_vac_km_s": 8.83,
+   "pc_bar": 70,
+   "gamma": 1.4,
+   "bulk_density": 71,
+   "tank_fraction": 0.15,
+   "engine_tw": 5,
+   "fuel_from": "hydrogen from Wayfarer water",
+   "plume": "radioactive risk in air",
+   "trl": 0.6
+  },
+  "TORCH": {
+   "label": "Fusion torchlet on water",
+   "ve_max_km_s": 20.0,
+   "ve_min_km_s": 5.0,
+   "pc_equiv_bar": 400,
+   "gamma": 1.6667,
+   "bulk_density": 1000,
+   "tank_fraction": 0.03,
+   "gw_per_t": 2.0,
+   "fixed_t": 2.0,
+   "electric_fraction": 0.02,
+   "specific_power_kw_kg": [
+    25,
+    50,
+    75,
+    100,
+    150,
+    200
+   ],
+   "fuel_from": "Wayfarer water",
+   "plume": "GW-class plasma",
+   "trl": 0.3,
+   "notes": [
+    "power-limited like Wayfarer's torch: lower exhaust speed buys thrust (5-20 km/s, authored)",
+    "pc_equiv: a ~10 T magnetic nozzle holds ~400 bar of plasma pressure; expansion against ambient air is lost (authored model)",
+    "1 GW of jet power per tonne is authored; Wayfarer's own torch implies far more, Discovery II far less",
+    "inherits Wayfarer's open torch heat-deposition question"
+   ]
+  }
+ },
+ "entry": {
+  "PROPULSIVE": {
+   "label": "No heat shield (burn all the way down)",
+   "ld": 0.0,
+   "aerobrakes": false,
+   "trl": 1.0,
+   "aspect_lwh": [
+    10.5,
+    3.9,
+    3.9
+   ],
+   "fly_ld": 1.0,
+   "kind": "none",
+   "packing": 0.58
+  },
+  "LIFTING_BODY": {
+   "label": "Lifting body, rigid tiles",
+   "ld": 1.0,
+   "cd": 0.85,
+   "planform_fill": 0.85,
+   "nose_r_m": 1.0,
+   "aero_fraction": 0.08,
+   "aerobrakes": true,
+   "reusable": true,
+   "trl": 0.85,
+   "precedent": "Space Shuttle, HL-20, Dream Chaser, X-37B",
+   "aspect_lwh": [
+    10.5,
+    3.9,
+    3.1
+   ],
+   "fly_ld": 4.0,
+   "acreage_factor": 0.35,
+   "kind": "rigid",
+   "packing": 0.45
+  },
+  "BICONIC": {
+   "label": "Biconic with flaps, rigid tiles (belly-flop)",
+   "ld": 0.5,
+   "cd": 0.9,
+   "planform_fill": 0.8,
+   "nose_r_m": 1.6,
+   "aero_fraction": 0.05,
+   "aerobrakes": true,
+   "reusable": true,
+   "trl": 0.8,
+   "precedent": "Starship",
+   "aspect_lwh": [
+    12.0,
+    3.6,
+    3.6
+   ],
+   "fly_ld": 2.0,
+   "acreage_factor": 0.45,
+   "kind": "rigid",
+   "packing": 0.55
+  },
+  "CAPSULE": {
+   "label": "Blunt capsule, ablative shield",
+   "ld": 0.3,
+   "cd": 1.5,
+   "nose_r_m": 5.0,
+   "aero_fraction": 0.02,
+   "aerobrakes": true,
+   "reusable": false,
+   "trl": 0.95,
+   "precedent": "Apollo, Orion, Dragon",
+   "aspect_lwh": [
+    5.5,
+    5.0,
+    5.0
+   ],
+   "fly_ld": 1.0,
+   "acreage_factor": 1.0,
+   "kind": "rigid",
+   "packing": 0.5
+  },
+  "DEPLOYABLE": {
+   "label": "Capsule body plus deployable umbrella shield (beta 100)",
+   "ld": 0.2,
+   "cd": 1.4,
+   "beta_target": 100,
+   "q_limit_w_cm2": 250,
+   "aero_fraction": 0.02,
+   "aerobrakes": true,
+   "reusable": "umbrella ribs re-stow (assumed for 2226); fabric replaced every few entries",
+   "trl": 0.5,
+   "precedent": "ADEPT (umbrella), HIAD/LOFTID (inflatable)",
+   "aspect_lwh": [
+    11.0,
+    4.4,
+    3.6
+   ],
+   "fly_ld": 1.0,
+   "nose_r_fraction_of_d": 0.25,
+   "kind": "deployable",
+   "packing": 0.58
+  },
+  "note": "aspect_lwh: bounding-box proportions; fly_ld: lift-to-drag when flying slowly on fans in the low Venus atmosphere (1 = fans hold the weight)",
+  "acreage_note": "windward acreage of a lifting body sees a fraction of the nose heat load (authored from Shuttle-type heating distributions); capsules and umbrellas take the stagnation value",
+  "DEPLOYABLE_200": {
+   "label": "Capsule body plus deployable umbrella shield (beta 200)",
+   "ld": 0.2,
+   "cd": 1.4,
+   "beta_target": 200,
+   "q_limit_w_cm2": 250,
+   "aero_fraction": 0.02,
+   "aerobrakes": true,
+   "reusable": "umbrella ribs re-stow (assumed for 2226); fabric replaced every few entries",
+   "trl": 0.5,
+   "precedent": "ADEPT (umbrella), HIAD/LOFTID (inflatable)",
+   "aspect_lwh": [
+    11.0,
+    4.4,
+    3.6
+   ],
+   "fly_ld": 1.0,
+   "nose_r_fraction_of_d": 0.25,
+   "kind": "deployable",
+   "packing": 0.58
+  },
+  "DEPLOYABLE_400": {
+   "label": "Capsule body plus deployable umbrella shield (beta 400)",
+   "ld": 0.2,
+   "cd": 1.4,
+   "beta_target": 400,
+   "q_limit_w_cm2": 250,
+   "aero_fraction": 0.02,
+   "aerobrakes": true,
+   "reusable": "umbrella ribs re-stow (assumed for 2226); fabric replaced every few entries",
+   "trl": 0.5,
+   "precedent": "ADEPT (umbrella), HIAD/LOFTID (inflatable)",
+   "aspect_lwh": [
+    11.0,
+    4.4,
+    3.6
+   ],
+   "fly_ld": 1.0,
+   "nose_r_fraction_of_d": 0.25,
+   "kind": "deployable",
+   "packing": 0.58
+  },
+  "DEPLOYABLE_800": {
+   "label": "Capsule body plus deployable umbrella shield (beta 800)",
+   "ld": 0.2,
+   "cd": 1.4,
+   "beta_target": 800,
+   "q_limit_w_cm2": 250,
+   "aero_fraction": 0.02,
+   "aerobrakes": true,
+   "reusable": "umbrella ribs re-stow (assumed for 2226); fabric replaced every few entries",
+   "trl": 0.5,
+   "precedent": "ADEPT (umbrella), HIAD/LOFTID (inflatable)",
+   "aspect_lwh": [
+    11.0,
+    4.4,
+    3.6
+   ],
+   "fly_ld": 1.0,
+   "nose_r_fraction_of_d": 0.25,
+   "kind": "deployable",
+   "packing": 0.58
+  },
+  "packing_note": "usable fraction of the bounding box: lifting body 0.45, biconic 0.55, capsule 0.50, a plain body behind a deployable shield 0.58 (authored); the deployable body is kept flat (11:4.4:3.6) to suit the mothership's slot"
+ },
+ "rovers": {
+  "OPEN": {
+   "label": "Open rover, crew in suits",
+   "mass_t": 0.45,
+   "dims_m": [
+    3.1,
+    2.1,
+    1.2
+   ],
+   "crew": 2,
+   "works": [
+    "vacuum",
+    "Mars",
+    "Titan",
+    "Earth"
+   ],
+   "basis": "Apollo LRV 210 kg plus 2226 margin; folds"
+  },
+  "PRESS": {
+   "label": "Pressurised rover",
+   "mass_t": 3.0,
+   "dims_m": [
+    4.5,
+    2.6,
+    3.0
+   ],
+   "crew": 2,
+   "works": [
+    "vacuum",
+    "Mars",
+    "Titan",
+    "Earth"
+   ],
+   "basis": "NASA SEV class"
+  },
+  "VENUS": {
+   "label": "Hardened pressurised rover (bathyscaphe on wheels)",
+   "crew": 2,
+   "cabin_m3": 4.8,
+   "chassis_t": 1.0,
+   "battery_t": 0.6,
+   "hatch_skirt_t": 0.3,
+   "works": [
+    "vacuum",
+    "Mars",
+    "Titan",
+    "Earth",
+    "Venus surface"
+   ],
+   "basis": "computed: titanium sphere like Alvin's 2.1 m crew sphere (3 people on 10 h dives), hot-face insulation, ice heat sink, high-temperature drive; wheels beside the sphere; mates to the shuttle like a rescue submersible",
+   "length_m": 3.6,
+   "layout_note": "sphere cabin slung low between four wheels; 3.6 m long so it can ride crosswise on the shuttle's lowest deck and drive out a side door"
+  },
+  "CABIN_DRIVE": {
+   "label": "Crew cabin drives off on its own chassis",
+   "chassis_t": 1.6,
+   "works": [
+    "vacuum",
+    "Mars",
+    "Titan",
+    "Earth",
+    "Venus surface (if cabin hardened)"
+   ],
+   "basis": "SEV idea: one cabin on a wheeled chassis or a flyer; no second cabin to harden"
+  }
+ },
+ "cabin": {
+  "crew": 6,
+  "t_per_crew": 0.8,
+  "m3_per_crew": 2.0,
+  "crew_and_kit_t": 0.8,
+  "basis": "MAV cabin ~1 t/crew for a multi-day ascent; shuttle hops are hours to days (authored 0.8)"
+ },
+ "systems_t": 1.5,
+ "legs_fraction": 0.03,
+ "structure_fraction": 0.12,
+ "growth_margin": 0.15,
+ "hardening": {
+  "titanium": {
+   "density": 4430,
+   "e_gpa_hot": 90,
+   "poisson": 0.34,
+   "knockdown": 0.25,
+   "safety": 1.5,
+   "note": "Ti-6Al-4V at ~735 K; thin sphere buckling P = 2E/sqrt(3(1-nu^2)) (t/R)^2 times knockdown; yield checked too"
+  },
+  "shape_factor_noncabin_sphere": 1.3,
+  "insulation": {
+   "k_w_mk": 0.05,
+   "thickness_m": 0.1,
+   "density": 150,
+   "note": "fibrous/aerogel blanket in hot dense CO2 (authored; gas conduction rises with pressure)"
+  },
+  "ice_sink_mj_per_kg": 0.49,
+  "water_sink_max_rise_k": 70,
+  "internal_heat_kw_per_crew": 0.15,
+  "internal_heat_kw_base": 1.0,
+  "rest_of_ship_fraction": 0.1,
+  "rest_note": "pressure-compensated bladder tanks, high-temperature seals, SiC electronics outside the cabin (authored)",
+  "surface_stay_h": 12,
+  "sortie_h_drop": 15
+ },
+ "venus_strategies": {
+  "NONE": {
+   "label": "No Venus surface",
+   "shuttle_lands": false
+  },
+  "DIRECT": {
+   "label": "Shuttle lands, rockets straight up",
+   "shuttle_lands": true,
+   "rocket_from_km": 0,
+   "trl": 0.6
+  },
+  "FLY_UP": {
+   "label": "Shuttle lands, flies up on fans, rockets from 40 km",
+   "shuttle_lands": true,
+   "rocket_from_km": 40,
+   "fan_kw_per_kg": 3.0,
+   "fan_efficiency": 0.6,
+   "climb_m_s": 10,
+   "lift_to_drag": 4.0,
+   "trl": 0.4,
+   "precedent": "the 2024 sample-return study lifts off the surface with a high-temperature aircraft",
+   "cl": 0.8,
+   "fan_disc_fraction_of_planform": 0.3,
+   "fuel_cell_kw_per_kg": 2.0,
+   "fuel_cell_mj_per_kg": 7.4,
+   "power_note": "torchlet supplies electric power (Direct Fusion Drive idea); rockets without a power plant need fuel cells"
+  },
+  "BALLOON": {
+   "label": "Shuttle lands, balloon lifts it to 55 km, rockets from there",
+   "shuttle_lands": true,
+   "rocket_from_km": 55,
+   "envelope_kg_m2": 0.6,
+   "rigging_t": 0.5,
+   "lift_gas": "H2",
+   "trl": 0.3,
+   "precedent": "JPL metal-bellows balloon idea, called 'an extremely difficult technology element' (2024)",
+   "dewar_fraction": 0.3,
+   "lift_margin": 1.1
+  },
+  "DROP_CITY": {
+   "label": "Shuttle docks at a cloud city; hardened rover drops to the surface and floats back up",
+   "shuttle_lands": false,
+   "rocket_from_km": 55,
+   "rover_envelope_kg_m2": 0.6,
+   "trl": 0.55,
+   "precedent": "Venera drag-only descent; HAVOC cloud-level crew; 2024 mid-air hand-off at ~60 km",
+   "dewar_fraction": 0.3,
+   "lift_margin": 1.1,
+   "needs": "a cloud city with a capture deck (canon: Venus is a cloud civilization)"
+  },
+  "DROP_FLOAT": {
+   "label": "Shuttle floats on its own envelope; hardened rover drops and floats back up",
+   "shuttle_lands": false,
+   "rocket_from_km": 55,
+   "rover_envelope_kg_m2": 0.6,
+   "float_envelope_kg_m2": 0.2,
+   "trl": 0.45,
+   "dewar_fraction": 0.3,
+   "lift_margin": 1.1,
+   "rigging_t": 0.3
+  }
+ },
+ "geometry": {
+  "aspect_lwh": [
+   10.5,
+   3.9,
+   3.1
+  ],
+  "packing": 0.45,
+  "systems_m3": 6.0,
+  "engine_m3_per_t": 1.5,
+  "rover_clearance_m": 0.15,
+  "wall_m": 0.2,
+  "bay_margin_m": [
+   1.0,
+   0.5,
+   0.4
+  ],
+  "current_bay_m": [
+   11.5,
+   4.4,
+   3.5
+  ],
+  "slot_max_cross_m": [
+   5.2,
+   4.0
+  ],
+  "note": "bounding box keeps each body's proportions; packing (usable share of the box) is set per body type in entry; slot_max is the widest bay the wrap-around tanks could give up (authored)",
+  "elongation_options": [
+   1.0,
+   1.25,
+   1.5
+  ],
+  "elongation_note": "stretch the body: length x e, width and height / sqrt(e); a longer, slimmer shuttle needs a longer bay but less of the mothership's cross-section"
+ },
+ "ascent_reference": {
+  "m0_t": 40,
+  "cd": 0.6,
+  "front_m2_per_t23": 1.03,
+  "volume_m3_per_t": 2.75,
+  "note": "Delta-v from the ascent simulator is computed once per world and engine for a 40 t reference shuttle, then reused in sizing; the winner is re-flown at its own mass as a check"
+ },
+ "score": {
+  "weights": {
+   "wet_mass": 0.3,
+   "bay_fit": 0.25,
+   "maturity": 0.25,
+   "operations": 0.2
+  },
+  "ops_penalties": {
+   "plume_near_settlements": 0.25,
+   "ablative_refurbish": 0.2,
+   "deployable_fabric": 0.1,
+   "single_use_envelope": 0.1,
+   "needs_cloud_city": 0.1,
+   "only_two_reach_venus_surface": 0.05
+  },
+  "note": "authored weights for the single pick; feasibility (all nine jobs, aerobraking, wet mass cap) is decided first"
+ },
+ "lift_gas": {
+  "h2_lift_kg_per_kg": 20.55,
+  "note": "hydrogen at ambient pressure and temperature lifts 43.45/2.016 - 1 = 20.55 kg per kg in CO2 at any height; Venus has no free oxygen, so hydrogen does not burn there"
+ },
+ "design_caps": {
+  "wet_t_max": 100,
+  "note": "authored: past ~100 t the shuttle is a second ship"
+ },
+ "refuel_ports": {
+  "jobs": [
+   "Moon",
+   "Mercury",
+   "Ceres",
+   "Callisto",
+   "Mars",
+   "Earth",
+   "Titan",
+   "Venus clouds"
+  ],
+  "reserve_fraction": 0.1,
+  "note": "port runs: tanks topped up at a settled port before the climb (canon 2226 has settlements on all of these); expedition runs carry everything from orbit"
+ },
+ "tps_model": {
+  "areal_coeff": 0.1365,
+  "exponent": 0.51575,
+  "basis": "areal TPS kg/m2 = 0.1365 * Q^0.51575 (Q in J/cm2): the Laub & Venkatapathy probe correlation turned into areal density at a probe-like beta*Cd of ~150 kg/m2, so vehicles of any density are judged per square metre of heated skin",
+  "lifting": {
+   "edge_factor": 1.3,
+   "leeward_area_factor": 1.5,
+   "leeward_kg_m2": 2.0,
+   "check": "Shuttle-orbiter-like case (beta ~470, 250 m2 planform) gives ~8 t, close to the orbiter's real ~9 t"
+  },
+  "capsule": {
+   "shield_factor": 1.1,
+   "backshell_kg_m2": 3.0
+  },
+  "deployable": {
+   "rib_kg_m2": 5.0,
+   "body_kg_m2": 2.0,
+   "check": "beta 100 gives ~17 kg/m2 of umbrella, between LOFTID-class and the small ADEPT example (~26 kg/m2)",
+   "side_kg_m2": 6.0,
+   "side_share": 0.6,
+   "side_note": "light blankets over the front 60% of a long body behind an umbrella, where the flow curling round the rim lands (authored)"
+  }
+ },
+ "tech_2226": {
+  "torchlet_gw_per_t": 2.0,
+  "note": "2226 baseline for finalizing: still ~40x below what Wayfarer's own torch implies per tonne (12 TW jet from a 160 t propulsion block), because small fusion drives pay a size penalty; earlier runs used 1.0"
+ },
+ "trip_payload_t": {
+  "Mars": 0.08,
+  "default": 0.06,
+  "note": "one drone per trip: the Mars drone or the dense-air drone"
+ }
+}
