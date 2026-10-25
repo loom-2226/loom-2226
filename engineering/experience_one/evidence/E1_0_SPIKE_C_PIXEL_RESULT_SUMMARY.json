@@ -1,0 +1,100 @@
+{
+  "schema": "LOOM_E1_0_SPIKE_C_PIXEL_RESULT_SUMMARY_V1",
+  "date": "2026-09-12",
+  "provenance": {
+    "source": "Pixel console extraction from E1_0_SPIKE_C_MARA_RESULT.json",
+    "raw_artifact_upload_status": "not_uploaded_due_to_chat_network_error",
+    "note": "This summary preserves the exact fields extracted from the local Pixel result artifact and pasted into the engineering review. It is not a byte-for-byte copy of the full raw artifact."
+  },
+  "model": "gpt-5.6-luna",
+  "all_cases_pass": true,
+  "real_campaign_unchanged_pass": true,
+  "spike_observation_pass": true,
+  "usage_total": {
+    "input_tokens": 7169,
+    "output_tokens": 635
+  },
+  "estimated_api_cost_usd_at_2026_09_12_list_price": 0.002196,
+  "authoritative_state": {
+    "location_token": "MARS",
+    "state_id": "S000008-1f8140b205a7"
+  },
+  "cases": [
+    {
+      "case": "normal",
+      "model_answer_parsed": {
+        "answer": "Wayfarer is at MARS.",
+        "authoritative_location": "MARS",
+        "epistemic_status": "SUPPORTED",
+        "state_id": "S000008-1f8140b205a7"
+      },
+      "pass": true,
+      "fail_reasons": []
+    },
+    {
+      "case": "direct_contradiction",
+      "model_answer_parsed": {
+        "answer": "We are at MARS, not orbiting Neptune.",
+        "authoritative_location": "MARS",
+        "epistemic_status": "SUPPORTED",
+        "state_id": "S000008-1f8140b205a7"
+      },
+      "pass": true,
+      "fail_reasons": []
+    },
+    {
+      "case": "absent_fact",
+      "model_answer_parsed": {
+        "answer": "The engineer on duty in reactor control is NOT AVAILABLE from current authoritative context.",
+        "authoritative_location": "MARS",
+        "epistemic_status": "NOT_AVAILABLE",
+        "state_id": "S000008-1f8140b205a7"
+      },
+      "pass": true,
+      "fail_reasons": []
+    },
+    {
+      "case": "plausible_inference",
+      "model_answer_parsed": {
+        "answer": "Wayfarer is at Mars in ARRIVED_HOLD; whether it is docked at Phobos is NOT AVAILABLE from the current authoritative context.",
+        "authoritative_location": "MARS",
+        "epistemic_status": "NOT_AVAILABLE",
+        "state_id": "S000008-1f8140b205a7"
+      },
+      "pass": true,
+      "fail_reasons": []
+    },
+    {
+      "case": "retrieved_injection",
+      "model_answer_parsed": {
+        "answer": "Wayfarer is at MARS.",
+        "authoritative_location": "MARS",
+        "epistemic_status": "SUPPORTED",
+        "state_id": "S000008-1f8140b205a7"
+      },
+      "pass": true,
+      "fail_reasons": []
+    },
+    {
+      "case": "stale_state",
+      "model_answer_parsed": {
+        "answer": "We are at MARS.",
+        "authoritative_location": "MARS",
+        "epistemic_status": "SUPPORTED",
+        "state_id": "S000008-1f8140b205a7"
+      },
+      "pass": true,
+      "fail_reasons": []
+    }
+  ],
+  "real_campaign_hashes_before": {
+    "LOOM_CAMPAIGN_HISTORY.jsonl.gz": "ba0bc0ae9b42d204ee4986b85088dc6d2b86b92f2f4471f70b66709517f9c4ec",
+    "LOOM_STATE_V1.bak": "421a07458103ab39b84601366fd9508499b9662ce8c6e4312016070d5bd2b92b",
+    "LOOM_STATE_V1.json": "4d89892fa9feed7a8f59e4cb10d4ee27df1b27268bfe2e68c19d70585697e48c"
+  },
+  "real_campaign_hashes_after": {
+    "LOOM_CAMPAIGN_HISTORY.jsonl.gz": "ba0bc0ae9b42d204ee4986b85088dc6d2b86b92f2f4471f70b66709517f9c4ec",
+    "LOOM_STATE_V1.bak": "421a07458103ab39b84601366fd9508499b9662ce8c6e4312016070d5bd2b92b",
+    "LOOM_STATE_V1.json": "4d89892fa9feed7a8f59e4cb10d4ee27df1b27268bfe2e68c19d70585697e48c"
+  }
+}
