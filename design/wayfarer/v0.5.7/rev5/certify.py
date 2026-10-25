@@ -5,7 +5,7 @@ inputs/cert_criteria_v0.1.json. Writes out/certification_report.json,
 out/CERTIFICATION_REPORT_v0.5.md and out/wayfarer_v05_card.json (the
 machine-readable ship card for Navigator, gate G10).
 Python 3 standard library only. Usage: python certify.py"""
-import hashlib, json, math, random
+import hashlib, json, math, random, sys
 from pathlib import Path
 import build_v05 as B
 
@@ -986,6 +986,27 @@ def g12(I, C, G):
 
 
 # ---------------------------------------------------------------- report
+
+# ---------------------------------------------------------------- G10 v0.2 flight dynamics
+def g10(r4, scr):
+    """G10 v0.2 (CERTIFICATION_BASIS_v0.2, PROPOSED): flight-dynamics tests of RCS, torch, Metric and Loom
+    in ../g10/g10_flight_dynamics.py, built on main's src/ modules. Navigator missions are follow-up validation, not gating."""
+    g10_dir = HERE.parent / "g10"
+    try:
+        sys.path.insert(0, str(g10_dir))
+        import g10_flight_dynamics as FD
+        r = FD.run(r4["checks"])
+    except Exception as e:   # outside the loom-2226 repo the main src/ modules are absent
+        return gate("G10", "Flight dynamics (basis v0.2, PROPOSED)", [chk("G10 v0.2 tests run", f"not run: {e}", "run", False)], force=OPEN,
+                    notes=["G10 v0.2 needs the loom-2226 repository root (src/ modules on main). " + "; ".join(scr)])
+    (g10_dir / "g10_results.json").write_text(json.dumps(r, indent=1))
+    checks = [dict(c, name=f"{grp.split('_')[0]}: {c['name']}") for grp, cs in r["checks"].items() for c in cs]
+    return gate("G10", "Flight dynamics: RCS, torch, Metric, Loom (basis v0.2, PROPOSED)", checks,
+                notes=[f"{r['passed']}/{r['total']} checks pass. Sources: main {r['sources']['main_commit'][:8]}; see g10/G10_SOURCE_MAP.md.",
+                       "Basis v0.2 is PROPOSED: Sol to agree it. Not computed by design: Metric delta-v and remass (CANON II s20); Loom domain fit (PR #356).",
+                       "Follow-up validation, not gating: " + "; ".join(r["deferred_not_gating"]),
+                       "Screening only (ideal rocket equation at CRUISE from the S1 mass): " + "; ".join(scr) + "."])
+
 def main():
     I, C, G = load()
     G["_sha"] = hashlib.sha256((HERE / "out/wayfarer_v05_geometry.json").read_bytes()).hexdigest()
@@ -1003,11 +1024,7 @@ def main():
     for dv in (50, 100, 200, 300):
         used = M1 * (1 - math.exp(-dv / vc))
         scr.append(f"{dv} km/s: {used:.1f} t ({'within' if 150 - used >= 50 else 'beyond'} 150 t dispatch less the 50 t reserve)")
-    r10 = gate("G10", "Mission suite (Navigator, run by Sol)", [chk("E1, FR-01B-R and MV-01 flown by Navigator", "awaiting Sol", "arrival remass >= 50 t", False)],
-               notes=["Machine-readable card written to out/wayfarer_v05_card.json (full inertia tensors, principal axes, usable remass per state).",
-                      "Screening only, not a Navigator result (Q6 v0.1 buckets, ideal rocket equation at CRUISE from the S1 mass): " + "; ".join(scr) + ".",
-                      "Sol reported (2026-10-25): the Navigator entry point needs its CIVSTATE database in the run context, has no ship-card import contract, and the three missions have no executable fixtures. Those are integration steps for Sol; this gate stays OPEN until Navigator flies the missions."],
-               force=OPEN)
+    r10 = g10(r4, scr)
     r11, r12 = g11(I, C, G, r4), g12(I, C, G)
     gates = [r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12]
     kd_path = HERE / "inputs/kt_decisions.json"

@@ -1,0 +1,868 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-GOVERNING G10 v0.2 flight-dynamics tests (engineering); not mission results, not canon outputs",
+ "geometry_sha256": "ed692f90d49a2d8aa9f25a4dfc48b4a4410680e4accc77f7938a027952f8e1bf",
+ "sources": {
+  "main_commit": "19377b854c529e74afc61202d9eb2e780c5b4884",
+  "rcs_controller": "src/wayfarer_rcs_closed_loop_gnc.py:_torque_command, gains and gates",
+  "translation_law": "src/wayfarer_rcs_time_domain_mount_coupling.py:TRANSLATION_RESPONSE_RATE_S_INV, VELOCITY_GATE_M_S, _CASES",
+  "torch_card": "src/wayfarer_torch_mode_cards.py:MODE_CARDS, mode_outputs",
+  "metric_card": "src/wayfarer_e1_metric_frontier_closure.py:build_metric_closure",
+  "ship_card": "design/wayfarer/v0.5.7/rev5/out/wayfarer_v05_card.json"
+ },
+ "checks": {
+  "C_card": [
+   {
+    "name": "card names the geometry it was made from",
+    "value": "ed692f90d49a",
+    "limit": "ed692f90d49a",
+    "pass": true,
+    "unit": "",
+    "note": ""
+   },
+   {
+    "name": "card mass, CG and inertia match the geometry in every state",
+    "value": 0.002652,
+    "limit": 0.01,
+    "pass": true,
+    "unit": "max abs / rel",
+    "note": ""
+   },
+   {
+    "name": "torch exhaust velocities match the working card (src/wayfarer_torch_mode_cards.py)",
+    "value": "all",
+    "limit": "all",
+    "pass": true,
+    "unit": "",
+    "note": ""
+   },
+   {
+    "name": "torch thrust by mode matches the working card",
+    "value": 122.2,
+    "limit": 1.0,
+    "pass": false,
+    "unit": "% worst",
+    "note": "the ship card assumes a constant 11.361 TW jet power; the working card's mdot gives 5.11 TW (ECON) to 12.78 TW (HARD, LIMIT)"
+   }
+  ],
+  "R_rcs": [
+   {
+    "name": "RCS 180 deg roll slew settles (main controller gates, 240 s budget), worst state",
+    "value": 55.9,
+    "limit": 240.0,
+    "pass": true,
+    "unit": "s",
+    "note": "worst S1"
+   },
+   {
+    "name": "RCS 180 deg pitch slew settles (main controller gates, 240 s budget), worst state",
+    "value": 61.6,
+    "limit": 240.0,
+    "pass": true,
+    "unit": "s",
+    "note": "worst S2"
+   },
+   {
+    "name": "RCS 180 deg yaw slew settles (main controller gates, 240 s budget), worst state",
+    "value": 61.7,
+    "limit": 240.0,
+    "pass": true,
+    "unit": "s",
+    "note": "worst S2"
+   },
+   {
+    "name": "RCS 180 deg slews on all axes with any one cluster out (S2)",
+    "value": 0,
+    "limit": 0,
+    "pass": true,
+    "unit": "failures",
+    "note": ""
+   },
+   {
+    "name": "RCS alone holds attitude against torch thrust error (all RCS couples)",
+    "value": 18.74,
+    "limit": 3.08,
+    "pass": false,
+    "unit": "MN m",
+    "note": "worst S2 HARD at 47.77 MN; trim + 0.5 deg error"
+   },
+   {
+    "name": "torch thrust-vector authority covers trim + error",
+    "value": "not declared",
+    "limit": 0.847,
+    "pass": false,
+    "unit": "deg",
+    "note": "the magnetic nozzle must steer the thrust line through the CG; not yet in the rev 5 card"
+   },
+   {
+    "name": "RCS translation on all three axes meets main's response law and test velocities",
+    "value": 2,
+    "limit": 0,
+    "pass": false,
+    "unit": "axes short",
+    "note": "x (S1: 0.0 of 14.9 kN); x (S5: 0.0 of 11.4 kN)"
+   }
+  ],
+  "T_torch": [
+   {
+    "name": "torch: integrated delta-v agrees with the rocket equation (all modes, full usable remass)",
+    "value": 0.007,
+    "limit": 0.1,
+    "pass": true,
+    "unit": "% worst",
+    "note": ""
+   },
+   {
+    "name": "torch: peak acceleration within the 4 g crew cap and the 5 g structural rating",
+    "value": 4.0,
+    "limit": 4.0,
+    "pass": true,
+    "unit": "g",
+    "note": ""
+   },
+   {
+    "name": "torch: trim stays within the G3 limit as the tanks drain",
+    "value": 0.329,
+    "limit": 0.5,
+    "pass": true,
+    "unit": "deg",
+    "note": "CG interpolated between S1 (full) and S4 (burnt out)"
+   },
+   {
+    "name": "torch: burns over 2 h 45 min are split by coast breaks ([V2 6113])",
+    "value": 3,
+    "limit": "listed",
+    "pass": true,
+    "unit": "burns",
+    "note": "ECON 3667.5 min: 22 break(s); CRUISE 733.5 min: 4 break(s); EXPEDITE 183.4 min: 1 break(s)"
+   }
+  ],
+  "M_metric": [
+   {
+    "name": "Metric: nominal sequence (prep, ramp, transport, collapse, relaxation) is valid",
+    "value": "valid",
+    "limit": "valid",
+    "pass": true,
+    "unit": "",
+    "note": ""
+   },
+   {
+    "name": "Metric: torch to Metric ramp without a coast is refused (torch and high Metric exclusive)",
+    "value": "refused",
+    "limit": "refused",
+    "pass": true,
+    "unit": "",
+    "note": ""
+   },
+   {
+    "name": "Metric: cold load within the cryoplant class in every mode",
+    "value": 136.0,
+    "limit": 150.0,
+    "pass": true,
+    "unit": "kW",
+    "note": ""
+   },
+   {
+    "name": "Metric: heat of every mode rejected (rev 5 G4)",
+    "value": 4,
+    "limit": 4,
+    "pass": true,
+    "unit": "modes",
+    "note": ""
+   },
+   {
+    "name": "Metric: ramps within canon's 10-30 s",
+    "value": "10-30",
+    "limit": "10-30",
+    "pass": true,
+    "unit": "s",
+    "note": ""
+   }
+  ],
+  "L_loom": [
+   {
+    "name": "Loom: metric collapse -> NRE relaxation -> Loom formation sequence is valid",
+    "value": "valid",
+    "limit": "valid",
+    "pass": true,
+    "unit": "",
+    "note": ""
+   },
+   {
+    "name": "Loom: direct mid-field Metric -> Loom is refused (not crew-rated)",
+    "value": "refused",
+    "limit": "refused",
+    "pass": true,
+    "unit": "",
+    "note": ""
+   },
+   {
+    "name": "Loom: E1 configuration lock (DOCKED / FREE / STOWED) is reachable",
+    "value": 5,
+    "limit": 5,
+    "pass": true,
+    "unit": "items",
+    "note": "strakes stowed (span 0); hot fins folded (torch only); shuttle docked in the translating state (S1 to S4, S7); crown gores and shutters inside the armour envelope; no external attachment at the docking collar"
+   },
+   {
+    "name": "Loom: torch delta-v available at arrival above the 50 t reserve (normal dispatch, ECON)",
+    "value": 295.0,
+    "limit": "reported",
+    "pass": true,
+    "unit": "km/s",
+    "note": "CRUISE 196.7, EXPEDITE 98.3 km/s; the arrival mismatch itself comes from the natural transport map (not computed)"
+   }
+  ]
+ },
+ "passed": 20,
+ "total": 24,
+ "verdict": false,
+ "detail": {
+  "torch_cards": [
+   {
+    "mode": "ECON",
+    "ve_km_s": 3000.0,
+    "card_ve_km_s": 3000,
+    "mdot_kg_s": 1.1361,
+    "working_card_thrust_mn": 3.408,
+    "ship_card_thrust_mn": 7.574,
+    "diff_pct": 122.2,
+    "working_card_jet_power_tw": 5.112
+   },
+   {
+    "mode": "CRUISE",
+    "ve_km_s": 2000.0,
+    "card_ve_km_s": 2000,
+    "mdot_kg_s": 5.6805,
+    "working_card_thrust_mn": 11.361,
+    "ship_card_thrust_mn": 11.361,
+    "diff_pct": -0.0,
+    "working_card_jet_power_tw": 11.361
+   },
+   {
+    "mode": "EXPEDITE",
+    "ve_km_s": 1000.0,
+    "card_ve_km_s": 1000,
+    "mdot_kg_s": 22.722,
+    "working_card_thrust_mn": 22.722,
+    "ship_card_thrust_mn": 22.722,
+    "diff_pct": -0.0,
+    "working_card_jet_power_tw": 11.361
+   },
+   {
+    "mode": "FAST",
+    "ve_km_s": 700.0,
+    "card_ve_km_s": 700,
+    "mdot_kg_s": 48.69,
+    "working_card_thrust_mn": 34.083,
+    "ship_card_thrust_mn": 32.46,
+    "diff_pct": -4.8,
+    "working_card_jet_power_tw": 11.929
+   },
+   {
+    "mode": "HARD",
+    "ve_km_s": 450.0,
+    "card_ve_km_s": 450,
+    "mdot_kg_s": 126.2334,
+    "working_card_thrust_mn": 56.805,
+    "ship_card_thrust_mn": 50.493,
+    "diff_pct": -11.1,
+    "working_card_jet_power_tw": 12.781
+   },
+   {
+    "mode": "LIMIT",
+    "ve_km_s": 300.0,
+    "card_ve_km_s": 300,
+    "mdot_kg_s": 284.0251,
+    "working_card_thrust_mn": 85.208,
+    "ship_card_thrust_mn": 75.74,
+    "diff_pct": -11.1,
+    "working_card_jet_power_tw": 12.781
+   }
+  ],
+  "rcs": {
+   "slews": [
+    {
+     "state": "S1",
+     "axis": "roll",
+     "torque_mnm": 0.46,
+     "duration_s": 55.9,
+     "pass": true
+    },
+    {
+     "state": "S1",
+     "axis": "pitch",
+     "torque_mnm": 2.05,
+     "duration_s": 61.4,
+     "pass": true
+    },
+    {
+     "state": "S1",
+     "axis": "yaw",
+     "torque_mnm": 2.05,
+     "duration_s": 61.5,
+     "pass": true
+    },
+    {
+     "state": "S2",
+     "axis": "roll",
+     "torque_mnm": 0.46,
+     "duration_s": 55.9,
+     "pass": true
+    },
+    {
+     "state": "S2",
+     "axis": "pitch",
+     "torque_mnm": 2.05,
+     "duration_s": 61.6,
+     "pass": true
+    },
+    {
+     "state": "S2",
+     "axis": "yaw",
+     "torque_mnm": 2.05,
+     "duration_s": 61.7,
+     "pass": true
+    },
+    {
+     "state": "S3",
+     "axis": "roll",
+     "torque_mnm": 0.46,
+     "duration_s": 55.8,
+     "pass": true
+    },
+    {
+     "state": "S3",
+     "axis": "pitch",
+     "torque_mnm": 2.05,
+     "duration_s": 61.4,
+     "pass": true
+    },
+    {
+     "state": "S3",
+     "axis": "yaw",
+     "torque_mnm": 2.05,
+     "duration_s": 61.4,
+     "pass": true
+    },
+    {
+     "state": "S4",
+     "axis": "roll",
+     "torque_mnm": 0.46,
+     "duration_s": 55.8,
+     "pass": true
+    },
+    {
+     "state": "S4",
+     "axis": "pitch",
+     "torque_mnm": 2.05,
+     "duration_s": 61.2,
+     "pass": true
+    },
+    {
+     "state": "S4",
+     "axis": "yaw",
+     "torque_mnm": 2.05,
+     "duration_s": 61.2,
+     "pass": true
+    },
+    {
+     "state": "S5",
+     "axis": "roll",
+     "torque_mnm": 0.46,
+     "duration_s": 55.8,
+     "pass": true
+    },
+    {
+     "state": "S5",
+     "axis": "pitch",
+     "torque_mnm": 2.05,
+     "duration_s": 61.2,
+     "pass": true
+    },
+    {
+     "state": "S5",
+     "axis": "yaw",
+     "torque_mnm": 2.05,
+     "duration_s": 61.2,
+     "pass": true
+    },
+    {
+     "state": "S6",
+     "axis": "roll",
+     "torque_mnm": 0.46,
+     "duration_s": 55.9,
+     "pass": true
+    },
+    {
+     "state": "S6",
+     "axis": "pitch",
+     "torque_mnm": 2.05,
+     "duration_s": 61.4,
+     "pass": true
+    },
+    {
+     "state": "S6",
+     "axis": "yaw",
+     "torque_mnm": 2.05,
+     "duration_s": 61.5,
+     "pass": true
+    },
+    {
+     "state": "S7",
+     "axis": "roll",
+     "torque_mnm": 0.46,
+     "duration_s": 55.8,
+     "pass": true
+    },
+    {
+     "state": "S7",
+     "axis": "pitch",
+     "torque_mnm": 2.05,
+     "duration_s": 61.4,
+     "pass": true
+    },
+    {
+     "state": "S7",
+     "axis": "yaw",
+     "torque_mnm": 2.05,
+     "duration_s": 61.4,
+     "pass": true
+    }
+   ],
+   "torch_disturbance": [
+    {
+     "state": "S1",
+     "mode": "ECON",
+     "thrust_mn": 3.41,
+     "disturbance_mnm": 1.38
+    },
+    {
+     "state": "S1",
+     "mode": "CRUISE",
+     "thrust_mn": 11.36,
+     "disturbance_mnm": 4.59
+    },
+    {
+     "state": "S1",
+     "mode": "EXPEDITE",
+     "thrust_mn": 22.72,
+     "disturbance_mnm": 9.17
+    },
+    {
+     "state": "S1",
+     "mode": "FAST",
+     "thrust_mn": 34.08,
+     "disturbance_mnm": 13.76
+    },
+    {
+     "state": "S1",
+     "mode": "HARD",
+     "thrust_mn": 45.8,
+     "disturbance_mnm": 18.49
+    },
+    {
+     "state": "S1",
+     "mode": "LIMIT",
+     "thrust_mn": 45.8,
+     "disturbance_mnm": 18.49
+    },
+    {
+     "state": "S2",
+     "mode": "ECON",
+     "thrust_mn": 3.41,
+     "disturbance_mnm": 1.34
+    },
+    {
+     "state": "S2",
+     "mode": "CRUISE",
+     "thrust_mn": 11.36,
+     "disturbance_mnm": 4.46
+    },
+    {
+     "state": "S2",
+     "mode": "EXPEDITE",
+     "thrust_mn": 22.72,
+     "disturbance_mnm": 8.91
+    },
+    {
+     "state": "S2",
+     "mode": "FAST",
+     "thrust_mn": 34.08,
+     "disturbance_mnm": 13.37
+    },
+    {
+     "state": "S2",
+     "mode": "HARD",
+     "thrust_mn": 47.77,
+     "disturbance_mnm": 18.74
+    },
+    {
+     "state": "S2",
+     "mode": "LIMIT",
+     "thrust_mn": 47.77,
+     "disturbance_mnm": 18.74
+    },
+    {
+     "state": "S3",
+     "mode": "ECON",
+     "thrust_mn": 3.41,
+     "disturbance_mnm": 1.11
+    },
+    {
+     "state": "S3",
+     "mode": "CRUISE",
+     "thrust_mn": 11.36,
+     "disturbance_mnm": 3.7
+    },
+    {
+     "state": "S3",
+     "mode": "EXPEDITE",
+     "thrust_mn": 22.72,
+     "disturbance_mnm": 7.39
+    },
+    {
+     "state": "S3",
+     "mode": "FAST",
+     "thrust_mn": 34.08,
+     "disturbance_mnm": 11.09
+    },
+    {
+     "state": "S3",
+     "mode": "HARD",
+     "thrust_mn": 41.88,
+     "disturbance_mnm": 13.62
+    },
+    {
+     "state": "S3",
+     "mode": "LIMIT",
+     "thrust_mn": 41.88,
+     "disturbance_mnm": 13.62
+    },
+    {
+     "state": "S4",
+     "mode": "ECON",
+     "thrust_mn": 3.41,
+     "disturbance_mnm": 1.08
+    },
+    {
+     "state": "S4",
+     "mode": "CRUISE",
+     "thrust_mn": 11.36,
+     "disturbance_mnm": 3.59
+    },
+    {
+     "state": "S4",
+     "mode": "EXPEDITE",
+     "thrust_mn": 22.72,
+     "disturbance_mnm": 7.18
+    },
+    {
+     "state": "S4",
+     "mode": "FAST",
+     "thrust_mn": 34.08,
+     "disturbance_mnm": 10.77
+    },
+    {
+     "state": "S4",
+     "mode": "HARD",
+     "thrust_mn": 36.0,
+     "disturbance_mnm": 11.37
+    },
+    {
+     "state": "S4",
+     "mode": "LIMIT",
+     "thrust_mn": 36.0,
+     "disturbance_mnm": 11.37
+    },
+    {
+     "state": "S5",
+     "mode": "ECON",
+     "thrust_mn": 3.41,
+     "disturbance_mnm": 1.06
+    },
+    {
+     "state": "S5",
+     "mode": "CRUISE",
+     "thrust_mn": 11.36,
+     "disturbance_mnm": 3.54
+    },
+    {
+     "state": "S5",
+     "mode": "EXPEDITE",
+     "thrust_mn": 22.72,
+     "disturbance_mnm": 7.08
+    },
+    {
+     "state": "S5",
+     "mode": "FAST",
+     "thrust_mn": 34.08,
+     "disturbance_mnm": 10.63
+    },
+    {
+     "state": "S5",
+     "mode": "HARD",
+     "thrust_mn": 34.83,
+     "disturbance_mnm": 10.86
+    },
+    {
+     "state": "S5",
+     "mode": "LIMIT",
+     "thrust_mn": 34.83,
+     "disturbance_mnm": 10.86
+    },
+    {
+     "state": "S6",
+     "mode": "ECON",
+     "thrust_mn": 3.41,
+     "disturbance_mnm": 1.41
+    },
+    {
+     "state": "S6",
+     "mode": "CRUISE",
+     "thrust_mn": 11.36,
+     "disturbance_mnm": 4.69
+    },
+    {
+     "state": "S6",
+     "mode": "EXPEDITE",
+     "thrust_mn": 22.72,
+     "disturbance_mnm": 9.39
+    },
+    {
+     "state": "S6",
+     "mode": "FAST",
+     "thrust_mn": 34.08,
+     "disturbance_mnm": 14.08
+    },
+    {
+     "state": "S6",
+     "mode": "HARD",
+     "thrust_mn": 44.64,
+     "disturbance_mnm": 18.44
+    },
+    {
+     "state": "S6",
+     "mode": "LIMIT",
+     "thrust_mn": 44.64,
+     "disturbance_mnm": 18.44
+    },
+    {
+     "state": "S7",
+     "mode": "ECON",
+     "thrust_mn": 3.41,
+     "disturbance_mnm": 1.39
+    },
+    {
+     "state": "S7",
+     "mode": "CRUISE",
+     "thrust_mn": 11.36,
+     "disturbance_mnm": 4.63
+    },
+    {
+     "state": "S7",
+     "mode": "EXPEDITE",
+     "thrust_mn": 22.72,
+     "disturbance_mnm": 9.26
+    },
+    {
+     "state": "S7",
+     "mode": "FAST",
+     "thrust_mn": 34.08,
+     "disturbance_mnm": 13.89
+    },
+    {
+     "state": "S7",
+     "mode": "HARD",
+     "thrust_mn": 43.35,
+     "disturbance_mnm": 17.67
+    },
+    {
+     "state": "S7",
+     "mode": "LIMIT",
+     "thrust_mn": 43.35,
+     "disturbance_mnm": 17.67
+    }
+   ],
+   "translation": [
+    {
+     "state": "S1",
+     "axis": "x",
+     "force_kn_pos": 0.0,
+     "force_kn_neg": 0.0,
+     "needed_kn": 14.9,
+     "ok": false
+    },
+    {
+     "state": "S1",
+     "axis": "y",
+     "force_kn_pos": 150.0,
+     "force_kn_neg": 150.0,
+     "needed_kn": 46.7,
+     "ok": true
+    },
+    {
+     "state": "S1",
+     "axis": "z",
+     "force_kn_pos": 150.0,
+     "force_kn_neg": 150.0,
+     "needed_kn": 22.4,
+     "ok": true
+    },
+    {
+     "state": "S5",
+     "axis": "x",
+     "force_kn_pos": 0.0,
+     "force_kn_neg": 0.0,
+     "needed_kn": 11.4,
+     "ok": false
+    },
+    {
+     "state": "S5",
+     "axis": "y",
+     "force_kn_pos": 150.0,
+     "force_kn_neg": 150.0,
+     "needed_kn": 35.5,
+     "ok": true
+    },
+    {
+     "state": "S5",
+     "axis": "z",
+     "force_kn_pos": 150.0,
+     "force_kn_neg": 150.0,
+     "needed_kn": 17.0,
+     "ok": true
+    }
+   ],
+   "tvc_needed_deg": 0.847,
+   "rcs_full_pitch_mnm": 3.08
+  },
+  "burns": [
+   {
+    "mode": "ECON",
+    "cap_g": 4.0,
+    "burn_min": 3667.5,
+    "dv_km_s": 722.78,
+    "rocket_eq_km_s": 722.78,
+    "error_pct": -0.0,
+    "peak_g": 0.379,
+    "peak_trim_deg": 0.329,
+    "coast_breaks": 22
+   },
+   {
+    "mode": "CRUISE",
+    "cap_g": 4.0,
+    "burn_min": 733.5,
+    "dv_km_s": 481.85,
+    "rocket_eq_km_s": 481.85,
+    "error_pct": -0.0,
+    "peak_g": 1.262,
+    "peak_trim_deg": 0.329,
+    "coast_breaks": 4
+   },
+   {
+    "mode": "EXPEDITE",
+    "cap_g": 4.0,
+    "burn_min": 183.4,
+    "dv_km_s": 240.92,
+    "rocket_eq_km_s": 240.93,
+    "error_pct": -0.001,
+    "peak_g": 2.525,
+    "peak_trim_deg": 0.329,
+    "coast_breaks": 1
+   },
+   {
+    "mode": "FAST",
+    "cap_g": 4.0,
+    "burn_min": 85.6,
+    "dv_km_s": 168.64,
+    "rocket_eq_km_s": 168.65,
+    "error_pct": -0.002,
+    "peak_g": 3.787,
+    "peak_trim_deg": 0.329,
+    "coast_breaks": 0
+   },
+   {
+    "mode": "HARD",
+    "cap_g": 4.0,
+    "burn_min": 46.1,
+    "dv_km_s": 108.41,
+    "rocket_eq_km_s": 108.42,
+    "error_pct": -0.004,
+    "peak_g": 4.0,
+    "peak_trim_deg": 0.329,
+    "coast_breaks": 0
+   },
+   {
+    "mode": "LIMIT",
+    "cap_g": 4.0,
+    "burn_min": 30.7,
+    "dv_km_s": 72.27,
+    "rocket_eq_km_s": 72.28,
+    "error_pct": -0.007,
+    "peak_g": 4.0,
+    "peak_trim_deg": 0.329,
+    "coast_breaks": 0
+   }
+  ],
+  "metric": {
+   "modes": [
+    {
+     "mode": "NORMAL",
+     "ramp_s": 10.0,
+     "cold_load_kw": 20.0,
+     "upstream_electrical_mw": 3.72,
+     "canon_900k_area_m2": 106.0
+    },
+    {
+     "mode": "FAST",
+     "ramp_s": 12.0,
+     "cold_load_kw": 38.1,
+     "upstream_electrical_mw": 7.12,
+     "canon_900k_area_m2": 202.0
+    },
+    {
+     "mode": "EXPEDITE",
+     "ramp_s": 15.0,
+     "cold_load_kw": 63.5,
+     "upstream_electrical_mw": 11.9,
+     "canon_900k_area_m2": 336.0
+    },
+    {
+     "mode": "HARD",
+     "ramp_s": 30.0,
+     "cold_load_kw": 136.0,
+     "upstream_electrical_mw": 25.4,
+     "canon_900k_area_m2": 719.0
+    }
+   ],
+   "not_computed": "metric delta-v and remass (CANON II s20: no exact values without a calibrated U^M_gamma and terminal solver)",
+   "physics_validation_holds": [
+    "FULL_TIME_DEPENDENT_4D_FINITE_RSET_BENCHMARK",
+    "METRIC_ENVIRONMENT_CORRECTION_POWER_AND_THERMAL_CALIBRATION",
+    "PATH_DEPENDENT_ORDINARY_STATE_PROPAGATOR_CALIBRATION",
+    "WAKE_AND_FINITE_CONSERVATION_LEDGER_VALIDATION",
+    "NODE_TOPOLOGY_FAILURE_AND_ENVIRONMENTAL_CERTIFICATION_CALIBRATION"
+   ]
+  },
+  "loom": {
+   "arrival_dv_km_s": {
+    "ECON": 295.0,
+    "CRUISE": 196.7,
+    "EXPEDITE": 98.3
+   },
+   "configuration_lock": {
+    "strakes stowed (span 0)": true,
+    "hot fins folded (torch only)": true,
+    "shuttle docked in the translating state (S1 to S4, S7)": true,
+    "crown gores and shutters inside the armour envelope": true,
+    "no external attachment at the docking collar": true
+   },
+   "not_computed": "Loom domain fit: PR #356 INDETERMINATE_NOT_CERTIFIABLE; route topology and the natural transport map"
+  }
+ },
+ "deferred_not_gating": [
+  "E1, FR-01B-R and MV-01 flown in Navigator: no executable fixtures, no ship-card import, and canon II s20 bars exact remass/delta-v outputs until U^M_gamma and a terminal solver exist",
+  "Loom translation-domain fit: PR #356"
+ ]
+}

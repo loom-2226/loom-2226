@@ -21,7 +21,7 @@ Criteria sha256 `61f294d969294fcf3f9e5d6e3bb913cab3b227e31c168fcc1b3199a85ed987f
 | G7 Compartments and crew space | PASS |
 | G8 Shuttle, drones and bay exit | PASS |
 | G9 Failures and reserves | PASS |
-| G10 Mission suite (Navigator, run by Sol) | OPEN |
+| G10 Flight dynamics: RCS, torch, Metric, Loom (basis v0.2, PROPOSED) | FAIL |
 | G11 Canon fit | PASS |
 | G12 Images | PASS |
 
@@ -252,14 +252,38 @@ Script verdict on certification: NOT YET: at least one gate is OPEN or FAIL, or 
 | L5 depressurised: the rest of the habitat stays pressurised | isolated  | isolated | yes | floor L4 is a bulkhead; two ladderway hatches close on a pressure drop; a plug seals the trunk |
 - Torch failure after departure is a Q6/Q7 degraded-mission case (survival possible, completion not assumed).
 
-## G10 Mission suite (Navigator, run by Sol): OPEN
+## G10 Flight dynamics: RCS, torch, Metric, Loom (basis v0.2, PROPOSED): FAIL
 
 | Check | Value | Limit | Pass | Note |
 |---|---|---|---|---|
-| E1, FR-01B-R and MV-01 flown by Navigator | awaiting Sol  | arrival remass >= 50 t | NO |  |
-- Machine-readable card written to out/wayfarer_v05_card.json (full inertia tensors, principal axes, usable remass per state).
-- Screening only, not a Navigator result (Q6 v0.1 buckets, ideal rocket equation at CRUISE from the S1 mass): 50 km/s: 28.8 t (within 150 t dispatch less the 50 t reserve); 100 km/s: 56.9 t (within 150 t dispatch less the 50 t reserve); 200 km/s: 111.1 t (beyond 150 t dispatch less the 50 t reserve); 300 km/s: 162.6 t (beyond 150 t dispatch less the 50 t reserve).
-- Sol reported (2026-10-25): the Navigator entry point needs its CIVSTATE database in the run context, has no ship-card import contract, and the three missions have no executable fixtures. Those are integration steps for Sol; this gate stays OPEN until Navigator flies the missions.
+| C: card names the geometry it was made from | ed692f90d49a  | ed692f90d49a | yes |  |
+| C: card mass, CG and inertia match the geometry in every state | 0.00265 max abs / rel | 0.01 | yes |  |
+| C: torch exhaust velocities match the working card (src/wayfarer_torch_mode_cards.py) | all  | all | yes |  |
+| C: torch thrust by mode matches the working card | 122.2 % worst | 1 | NO | the ship card assumes a constant 11.361 TW jet power; the working card's mdot gives 5.11 TW (ECON) to 12.78 TW (HARD, LIMIT) |
+| R: RCS 180 deg roll slew settles (main controller gates, 240 s budget), worst state | 55.9 s | 240.0 | yes | worst S1 |
+| R: RCS 180 deg pitch slew settles (main controller gates, 240 s budget), worst state | 61.6 s | 240.0 | yes | worst S2 |
+| R: RCS 180 deg yaw slew settles (main controller gates, 240 s budget), worst state | 61.7 s | 240.0 | yes | worst S2 |
+| R: RCS 180 deg slews on all axes with any one cluster out (S2) | 0 failures | 0 | yes |  |
+| R: RCS alone holds attitude against torch thrust error (all RCS couples) | 18.7 MN m | 3.08 | NO | worst S2 HARD at 47.77 MN; trim + 0.5 deg error |
+| R: torch thrust-vector authority covers trim + error | not declared deg | 0.847 | NO | the magnetic nozzle must steer the thrust line through the CG; not yet in the rev 5 card |
+| R: RCS translation on all three axes meets main's response law and test velocities | 2 axes short | 0 | NO | x (S1: 0.0 of 14.9 kN); x (S5: 0.0 of 11.4 kN) |
+| T: torch: integrated delta-v agrees with the rocket equation (all modes, full usable remass) | 0.007 % worst | 0.1 | yes |  |
+| T: torch: peak acceleration within the 4 g crew cap and the 5 g structural rating | 4 g | 4 | yes |  |
+| T: torch: trim stays within the G3 limit as the tanks drain | 0.329 deg | 0.5 | yes | CG interpolated between S1 (full) and S4 (burnt out) |
+| T: torch: burns over 2 h 45 min are split by coast breaks ([V2 6113]) | 3 burns | listed | yes | ECON 3667.5 min: 22 break(s); CRUISE 733.5 min: 4 break(s); EXPEDITE 183.4 min: 1 break(s) |
+| M: Metric: nominal sequence (prep, ramp, transport, collapse, relaxation) is valid | valid  | valid | yes |  |
+| M: Metric: torch to Metric ramp without a coast is refused (torch and high Metric exclusive) | refused  | refused | yes |  |
+| M: Metric: cold load within the cryoplant class in every mode | 136.0 kW | 150.0 | yes |  |
+| M: Metric: heat of every mode rejected (rev 5 G4) | 4 modes | 4 | yes |  |
+| M: Metric: ramps within canon's 10-30 s | 10-30 s | 10-30 | yes |  |
+| L: Loom: metric collapse -> NRE relaxation -> Loom formation sequence is valid | valid  | valid | yes |  |
+| L: Loom: direct mid-field Metric -> Loom is refused (not crew-rated) | refused  | refused | yes |  |
+| L: Loom: E1 configuration lock (DOCKED / FREE / STOWED) is reachable | 5 items | 5 | yes | strakes stowed (span 0); hot fins folded (torch only); shuttle docked in the translating state (S1 to S4, S7); crown gores and shutters inside the armour envelope; no external attachment at the docking collar |
+| L: Loom: torch delta-v available at arrival above the 50 t reserve (normal dispatch, ECON) | 295.0 km/s | reported | yes | CRUISE 196.7, EXPEDITE 98.3 km/s; the arrival mismatch itself comes from the natural transport map (not computed) |
+- 20/24 checks pass. Sources: main 19377b85; see g10/G10_SOURCE_MAP.md.
+- Basis v0.2 is PROPOSED: Sol to agree it. Not computed by design: Metric delta-v and remass (CANON II s20); Loom domain fit (PR #356).
+- Follow-up validation, not gating: E1, FR-01B-R and MV-01 flown in Navigator: no executable fixtures, no ship-card import, and canon II s20 bars exact remass/delta-v outputs until U^M_gamma and a terminal solver exist; Loom translation-domain fit: PR #356
+- Screening only (ideal rocket equation at CRUISE from the S1 mass): 50 km/s: 28.8 t (within 150 t dispatch less the 50 t reserve); 100 km/s: 56.9 t (within 150 t dispatch less the 50 t reserve); 200 km/s: 111.1 t (beyond 150 t dispatch less the 50 t reserve); 300 km/s: 162.6 t (beyond 150 t dispatch less the 50 t reserve).
 
 ## G11 Canon fit: PASS
 
