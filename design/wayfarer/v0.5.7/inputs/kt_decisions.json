@@ -1,0 +1,71 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "kT's decisions on the declared assumptions of CERTIFICATION_BASIS.md (rule 5). Read by certify.py only; the geometry does not depend on them.",
+ "decided_by": "kT",
+ "date": "2026-10-26",
+ "decisions": {
+  "torch_heat": {
+   "decision": "ACCEPTED",
+   "date": "2026-10-25",
+   "kT": "Accept the torch-heat wording.",
+   "as": "v0.5.2 torch heat package (kT chose the package and 1,750 K fins on 2026-10-25 and accepted this wording the same day): the remass shell lets no more than ~360 ppm of the burn's energy escape as light, counting its own glow; design value 180 ppm; with the heat model's other assumptions 1.40 GW reaches hot structure and 0.48 MW the magnet coils.",
+   "superseded": {
+    "decision": "ACCEPTED",
+    "date": "2026-10-25",
+    "as": "v0.5.1: declared gap in canon: torch heat isolation; at most ~387 MW (34 ppm of jet power) reaches the ship during burns."
+   }
+  },
+  "torch_fin_temperature": {
+   "decision": "ACCEPTED",
+   "date": "2026-10-25",
+   "as": "kT: \"Let's go 1750.\" Hot fins at 1,750 K, recorded as an engineering extrapolation (technology milestone), with 1,500 K fins as the fallback."
+  },
+  "torch_neutrons": {
+   "decision": "ACCEPTED",
+   "as": "covered by the same declared gap: the torch and shadow shield keep neutron and gamma dose in the habitat within crew limits during burns; the shadow geometry is checked (G6)."
+  },
+  "plant_power": {
+   "decision": "ACCEPTED",
+   "as": "canon states the relational plant supplies ~34.8 MW for Metric HARD at a 1,300 K reject temperature. Option not taken: a 900 K loop for the cryo chain."
+  },
+  "gcr": {
+   "decision": "ACCEPTED",
+   "as": "crew protection from galactic cosmic rays relies on canon's off-Earth MED-MOD-RADIATION milestone plus crew time-in-space limits."
+  },
+  "shelter_life_support": {
+   "decision": "ACCEPTED",
+   "as": "72 h of life support for 10 people in the storm shelter, from the life-support room on the same deck, recorded as a design provision to be sized in detail later."
+  },
+  "crown_dome": {
+   "decision": "ACCEPTED",
+   "date": "2026-10-26",
+   "kT": "Agree to 1-3 (1: the crown dome assumption).",
+   "as": "Crown dome over L1 and the L2 viewport band: proof-tested transparent ceramic panes up to 2.3 m (band panes 16-18 mm plates) as a 2226 materials milestone; tambour gores and shutters of armour-equivalent Strata laminate (Builder-derived, MHL-22); the dome and shutters open only at low speed or with the bow out of the dust flow, closed for solar particle events, radiation belts and torch burns."
+  },
+  "berth_viewports": {
+   "decision": "ACCEPTED",
+   "date": "2026-10-26",
+   "kT": "Agree to 1-3 (2: the shielded viewport assumption).",
+   "as": "Every opening below the crown carries an acrylic shield plug and insert with at least the g/cm2 they replace (armour 27, berth ring 8, shelter jacket 20), so berths and shelter keep their screens with the shutters open; the dose is accepted as a provision until a transport check (OLTARIS) is run; plugs are encapsulated and counted as fire load."
+  },
+  "habitat_changes_v057": {
+   "decision": "APPROVED",
+   "date": "2026-10-26",
+   "kT": "Agree to 1-3 (3: the habitat changes).",
+   "as": "kT approves, as design owner: berths 2.10 x 0.70 m with a 4 cm partition; medical opening at 202 deg; the L3 floor-edge water collar; one berth per person (G7); viewports in the berth ring; the service-section shield band. Sol remains second reviewer."
+  },
+  "torch_tvc": {
+   "decision": "ACCEPTED",
+   "date": "2026-10-26",
+   "kT": "agree 1-4",
+   "as": "Declare 1 deg of torch thrust-vector authority (decision 2), on the assumed 0.5 deg thrust error."
+  }
+ },
+ "design_decisions_2026_10_26": {
+  "kT": "agree 1-4, and keep only current files (old revisions live in git history)",
+  "1": "main's torch working card (src/wayfarer_torch_mode_cards.py) governs; the ship holds jet power to its 11.361 TW heat-rejection ceiling",
+  "2": "1 deg torch thrust-vector authority (declared item torch_tvc)",
+  "3": "axial RCS thrusters, one per cluster (rev 6)",
+  "4": "Loom configuration declared: strakes stowed, crown gores closed, docking collar free"
+ }
+}

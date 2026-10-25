@@ -1,0 +1,125 @@
+{
+ "geometry_sha256": "a534c6b61523811796a954366db6774772631111c086a05c0728170c4c2277d8",
+ "stations": {
+  "PILOT": {
+   "eye_m": [
+    0.775,
+    0.45,
+    0.45
+   ],
+   "visible_in_30deg": 1.0,
+   "visible_in_60deg": 0.999,
+   "visible_in_90deg": 0.89,
+   "field_of_regard": 0.751,
+   "eye_to_window_m": 0.651
+  },
+  "NAV": {
+   "eye_m": [
+    0.775,
+    -0.45,
+    0.45
+   ],
+   "visible_in_30deg": 1.0,
+   "visible_in_60deg": 0.999,
+   "visible_in_90deg": 0.889,
+   "field_of_regard": 0.754,
+   "eye_to_window_m": 0.651
+  },
+  "S1": {
+   "eye_m": [
+    2.55,
+    2.262,
+    2.531
+   ],
+   "visible_in_30deg": 0.362,
+   "visible_in_60deg": 0.092,
+   "visible_in_90deg": 0.042,
+   "forward_hemisphere_visible": 0.015,
+   "eye_to_window_m": 1.27,
+   "looks_off_bow_axis_deg": 25.4
+  },
+  "S2": {
+   "eye_m": [
+    2.55,
+    -2.531,
+    2.262
+   ],
+   "visible_in_30deg": 0.368,
+   "visible_in_60deg": 0.093,
+   "visible_in_90deg": 0.043,
+   "forward_hemisphere_visible": 0.011,
+   "eye_to_window_m": 1.27,
+   "looks_off_bow_axis_deg": 25.4
+  },
+  "S3": {
+   "eye_m": [
+    2.55,
+    -2.262,
+    -2.531
+   ],
+   "visible_in_30deg": 0.385,
+   "visible_in_60deg": 0.098,
+   "visible_in_90deg": 0.045,
+   "forward_hemisphere_visible": 0.013,
+   "eye_to_window_m": 1.27,
+   "looks_off_bow_axis_deg": 25.4
+  },
+  "S4": {
+   "eye_m": [
+    2.55,
+    2.531,
+    -2.262
+   ],
+   "visible_in_30deg": 0.385,
+   "visible_in_60deg": 0.098,
+   "visible_in_90deg": 0.045,
+   "forward_hemisphere_visible": 0.013,
+   "eye_to_window_m": 1.27,
+   "looks_off_bow_axis_deg": 25.4
+  }
+ },
+ "crown": {
+  "r_m": 2.8,
+  "glazed_area_m2": 25.0,
+  "roots": 8,
+  "blades": 16,
+  "central_pane_m": 2.3
+ },
+ "paths": {
+  "walkway_cells": 1037,
+  "all_reachable_with_0.8m_path": true,
+  "reach": {
+   "ladder0": true,
+   "ladder1": true,
+   "PILOT": true,
+   "NAV": true,
+   "S1": true,
+   "S2": true,
+   "S3": true,
+   "S4": true
+  },
+  "min_headroom_on_walkways_m": 2.28
+ },
+ "sensor_ring": {
+  "mass_t": 8.485,
+  "volume_m3": 12.99,
+  "density_t_m3": 0.65
+ },
+ "checks": {
+  "couch fits 99th-pct male + 3% elongation (2.10 m)": true,
+  "loads eyeballs-in (+Gx) at every station": true,
+  "forward stations: >= 90% clear across a 60 deg cone": true,
+  "eye to nearest window >= 0.33 m": true,
+  "0.8 m walkways reach both ladders and every couch": true,
+  "walkway headroom >= 2.1 m": true,
+  "sensor packing <= 0.85 t/m3": true,
+  "crown panes: central pane <= 2.5 m (declared ceramic milestone, crown_dome)": true,
+  "at least 10 windows (crown counts as one; the canon candidate's 16 upper bound is superseded in amendment v2.4f)": true,
+  "displays >= 0.33 m from the eye, outside the central 60 deg view": true,
+  "no change to ship length or dry mass (new items paid from the reserve)": true,
+  "forward stations: >= 90% across 60 deg through the crown frame": true
+ },
+ "ship_windows": 12,
+ "flight_deck_above_floor_m": 1.775,
+ "under_flight_deck_m": 1.675
+}

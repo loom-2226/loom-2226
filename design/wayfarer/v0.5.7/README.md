@@ -1,9 +1,39 @@
-# Wayfarer v0.5.7 rev 4 candidate
+# Wayfarer v0.5.7 (rev 6)
 
-NON-GOVERNING SANDBOX. NOT CANON. NOT RUNTIME. NOT CERTIFIED.
+ALL bodies. ALL sponsors. 2026-2226.
 
-Complete extracted source ZIP `wayfarer_v0_5_7_rev4_candidate_2026-10-26.zip`, SHA-256 `6551b00f39939e8f0f205bfeb9a02408394a8e02028fd0a94c7779b59b629dc2`. Geometry SHA-256 `646ac1bad6852d1c7b25e92e3dd79e46e2d6b719d2edd20270af86203d6ab359` verified before regeneration. Read `candidate/CHANGES_v0.5.7.md` first.
+**NON-GOVERNING SANDBOX.** No canon promotion and no runtime integration. Do not put the amendment in `canon/current/`. PR #430 stays as is. Let loom-gate run; no bypass.
 
-Rev 4 incorporates the non-governing rev 3.1 viewport band study into the candidate build: full Ti 14 x 4 cm edge rings, lounge mid-transom, bolted mullion roots, 16 mm general and 18 mm lounge ceramic panes, and 5.87 t band mass. 2226 ceramic remains a declared technological assumption. Closed-form checks are not a complete shell FE model, fatigue qualification or dose transport study.
+This folder holds only the current design. Earlier revisions are in git history; rev 5 is commit `ef1b871`.
 
-G10 Navigator mission suite remains OPEN; certified=false. No canon promotion, no runtime integration, no amendment to canon/current/. PR #430 remains unchanged. Let loom-gate run without bypass.
+| Read | For |
+|---|---|
+| `SPEC.md` | The ship as it stands |
+| `CERTIFICATION_BASIS.md` | What "certified" means (v0.2, agreed by Claude and Sol) |
+| `out/CERTIFICATION_REPORT_v0.5.md` | The latest gate results (generated) |
+| `PROPOSED_CANON_AMENDMENT_v2.4f.md` | What would change in canon; kT's decision |
+| `REVIEW_RECORD.md` | Reviews and decisions, in order |
+| `render/out/wayfarer_v05_viewer.html` | Phone 3D viewer, with a toggle back to rev 5 |
+
+## What changed in rev 6
+
+kT's four decisions of 2026-10-26:
+
+1. **Torch card:** main's working card now governs, held to the 11.36 TW the cooling is sized for. FAST, HARD and LIMIT thrust are unchanged. ECON thrust drops to 3.4 MN (burns are longer; Δv is the same).
+2. **Torch steering:** 1° of thrust-vector authority, so the torch keeps its thrust line through the centre of mass.
+3. **Axial RCS:** one 25 kN axial thruster per cluster (8 in all, 4.0 t from the reserve), so the ship can translate along its axis.
+4. **Loom configuration:** declared in the card: strakes stowed, crown gores closed, docking collar free.
+
+Results:
+- G10 now passes with two declared items (25/25 checks).
+- Every gate is PASS or PASS-DECLARED.
+- Two new declared items await kT: axial RCS plume clearance, and the 15-minute burn coasts used in the G10 tests.
+- Dry mass is unchanged at 867.7 t. The reserve is 47.6 t.
+
+## Run
+
+From the repository root, so that G10 can import main's `src/` modules:
+
+```sh
+sh design/wayfarer/v0.5.7/run_all.sh
+```
