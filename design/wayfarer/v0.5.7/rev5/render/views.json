@@ -1,0 +1,2048 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "Render views for Wayfarer v0.5 (VISUAL REFERENCE). Ship coordinates: x bow to aft, y starboard, z toward the shuttle slot.",
+ "size": [
+  1600,
+  900
+ ],
+ "views": [
+  {
+   "id": "ext_hero",
+   "kind": "exterior",
+   "title": "Wayfarer, arriving at Neptune",
+   "caption": "Radiators stowed, bay doors shut. The slot along the top is the shuttle's way out.",
+   "eye": [
+    -22,
+    -27,
+    15
+   ],
+   "target": [
+    22,
+    0,
+    -2
+   ],
+   "fov": 36,
+   "sun": [
+    -0.65,
+    0.55,
+    0.52
+   ],
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "labels": [
+    {
+     "t": "Habitat, 5 decks; crown dome closed",
+     "at": [
+      5,
+      -3.0,
+      3.4
+     ],
+     "off": [
+      -40,
+      -60
+     ]
+    },
+    {
+     "t": "Bay doors over the slot",
+     "at": [
+      25,
+      0,
+      4.5
+     ],
+     "off": [
+      0,
+      -50
+     ]
+    },
+    {
+     "t": "Docking collar",
+     "at": [
+      16,
+      0,
+      -4.75
+     ],
+     "off": [
+      -20,
+      60
+     ]
+    },
+    {
+     "t": "Radiator strake (stowed)",
+     "at": [
+      28,
+      -3.7,
+      2.6
+     ],
+     "off": [
+      30,
+      60
+     ]
+    },
+    {
+     "t": "Shadow shield",
+     "at": [
+      36.8,
+      0,
+      3.0
+     ],
+     "off": [
+      0,
+      -50
+     ]
+    },
+    {
+     "t": "Magnetic nozzle",
+     "at": [
+      50,
+      0,
+      3.0
+     ],
+     "off": [
+      40,
+      -40
+     ]
+    },
+    {
+     "t": "Hot fin (folded)",
+     "at": [
+      47,
+      -4.6,
+      3.9
+     ],
+     "off": [
+      60,
+      60
+     ]
+    }
+   ],
+   "exposure": 0.85
+  },
+  {
+   "id": "ext_burn",
+   "kind": "exterior",
+   "title": "Torch burn, hot fins out",
+   "caption": "Four hot fins unfold aft of the shield on the strake lines and glow at 1,750 K, carrying 1.4 GW of torch heat; the strakes open just 4 m for the magnet coils' cooling. Up to 5 g; everyone is in a couch.",
+   "eye": [
+    92,
+    -58,
+    -40
+   ],
+   "target": [
+    34,
+    0,
+    7
+   ],
+   "fov": 48,
+   "sun": [
+    -0.4,
+    0.75,
+    0.5
+   ],
+   "planet": true,
+   "planetC": [
+    -1600,
+    -300,
+    1200
+   ],
+   "planetR": 900,
+   "show": "exterior",
+   "strakeSpan": 4,
+   "plume": true,
+   "hot": 1.0,
+   "exposure": 0.9,
+   "labels": [
+    {
+     "t": "Hot fins, 1,750 K, 28 m",
+     "at": [
+      46,
+      -16.5,
+      -13.8
+     ],
+     "off": [
+      60,
+      50
+     ]
+    },
+    {
+     "t": "Strakes, 4 m out for coil cooling",
+     "at": [
+      24,
+      -6.0,
+      -5.0
+     ],
+     "off": [
+      -40,
+      70
+     ]
+    },
+    {
+     "t": "Fusion exhaust",
+     "at": [
+      75,
+      0,
+      0
+     ],
+     "off": [
+      0,
+      -60
+     ]
+    },
+    {
+     "t": "Habitat",
+     "at": [
+      4,
+      0,
+      -4.5
+     ],
+     "off": [
+      -60,
+      40
+     ]
+    }
+   ],
+   "plumeI": 0.55,
+   "finSpan": 28
+  },
+  {
+   "id": "ext_aft",
+   "kind": "exterior",
+   "title": "From aft: fins and the shuttle lane",
+   "caption": "Looking forward past the nozzle. The four hot fins sit on the strake lines, edge-on to the burn; the two on the slot side stand 1.05 m clear of the slot edge lines, leaving the shuttle a clear lane straight up.",
+   "eye": [
+    118,
+    -30,
+    30
+   ],
+   "target": [
+    36,
+    0,
+    2
+   ],
+   "fov": 34,
+   "sun": [
+    -0.5,
+    0.55,
+    0.65
+   ],
+   "planet": true,
+   "planetC": [
+    -1800,
+    900,
+    -1300
+   ],
+   "planetR": 900,
+   "show": "exterior",
+   "strakeSpan": 4,
+   "finSpan": 28,
+   "hot": 0.85,
+   "exposure": 0.9,
+   "labels": [
+    {
+     "t": "Shuttle lane (slot side)",
+     "at": [
+      36,
+      0,
+      12
+     ],
+     "off": [
+      -30,
+      -70
+     ]
+    },
+    {
+     "t": "Hot fin, edge-on to the burn",
+     "at": [
+      46,
+      16.5,
+      13.8
+     ],
+     "off": [
+      40,
+      -40
+     ]
+    },
+    {
+     "t": "Magnetic nozzle",
+     "at": [
+      52,
+      0,
+      -3.0
+     ],
+     "off": [
+      60,
+      60
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ext_profile",
+   "kind": "exterior",
+   "title": "Port side profile",
+   "caption": "53.3 m long, 9 m across the hull. Bow to the left.",
+   "eye": [
+    26.6,
+    -78,
+    1
+   ],
+   "target": [
+    26.6,
+    0,
+    0
+   ],
+   "fov": 31,
+   "sun": [
+    -0.3,
+    0.6,
+    0.75
+   ],
+   "planet": false,
+   "show": "exterior",
+   "strakeSpan": 0,
+   "labels": [
+    {
+     "t": "Habitat x 0-14",
+     "at": [
+      7,
+      -4.5,
+      -4.5
+     ],
+     "off": [
+      0,
+      60
+     ]
+    },
+    {
+     "t": "Service x 14-18",
+     "at": [
+      16,
+      -4.5,
+      -4.5
+     ],
+     "off": [
+      0,
+      95
+     ]
+    },
+    {
+     "t": "Tanks and bay x 18-32",
+     "at": [
+      25,
+      -4.5,
+      -4.5
+     ],
+     "off": [
+      0,
+      60
+     ]
+    },
+    {
+     "t": "Manifold",
+     "at": [
+      33.3,
+      -4.5,
+      -4.5
+     ],
+     "off": [
+      0,
+      95
+     ]
+    },
+    {
+     "t": "Shield",
+     "at": [
+      36.8,
+      -2.9,
+      2.6
+     ],
+     "off": [
+      0,
+      -70
+     ]
+    },
+    {
+     "t": "Reactor",
+     "at": [
+      42.8,
+      -2.2,
+      2.0
+     ],
+     "off": [
+      0,
+      -95
+     ]
+    },
+    {
+     "t": "Nozzle",
+     "at": [
+      50,
+      -2.6,
+      2.4
+     ],
+     "off": [
+      0,
+      -70
+     ]
+    },
+    {
+     "t": "Docking collar",
+     "at": [
+      16,
+      0,
+      -4.75
+     ],
+     "off": [
+      60,
+      130
+     ]
+    },
+    {
+     "t": "Hot fins (folded)",
+     "at": [
+      46,
+      -3.7,
+      -4.4
+     ],
+     "off": [
+      40,
+      90
+     ]
+    }
+   ],
+   "exposure": 0.85
+  },
+  {
+   "id": "ext_departure",
+   "kind": "exterior",
+   "title": "Shuttle departure",
+   "caption": "Doors stand up at the slot edges; the rover-drop shuttle backs off its nose port and rises straight out through the 4.8 m slot.",
+   "eye": [
+    2,
+    -27,
+    25
+   ],
+   "target": [
+    26,
+    0,
+    5
+   ],
+   "fov": 34,
+   "sun": [
+    -0.5,
+    0.45,
+    0.75
+   ],
+   "planet": true,
+   "planetC": [
+    2200,
+    2600,
+    -2400
+   ],
+   "planetR": 600,
+   "show": "exterior",
+   "doorsOpen": true,
+   "shuttleLift": 8.5,
+   "strakeSpan": 0,
+   "labels": [
+    {
+     "t": "Rover-drop shuttle, 12.8 m",
+     "at": [
+      25,
+      0,
+      10.4
+     ],
+     "off": [
+      0,
+      -60
+     ]
+    },
+    {
+     "t": "Door, open",
+     "at": [
+      20,
+      -2.5,
+      6.4
+     ],
+     "off": [
+      -80,
+      -30
+     ]
+    },
+    {
+     "t": "Wrap-around tank",
+     "at": [
+      29,
+      -4.4,
+      1
+     ],
+     "off": [
+      40,
+      60
+     ]
+    }
+   ],
+   "exposure": 0.85
+  },
+  {
+   "id": "ext_metric",
+   "kind": "exterior",
+   "title": "Metric HARD configuration",
+   "caption": "One 2 m pleat of each strake out: enough for Metric HARD. Field geometry radius 6.5 m.",
+   "eye": [
+    78,
+    -26,
+    22
+   ],
+   "target": [
+    30,
+    0,
+    0
+   ],
+   "fov": 34,
+   "sun": [
+    -0.55,
+    0.6,
+    0.6
+   ],
+   "planet": true,
+   "planetC": [
+    -900,
+    -700,
+    -800
+   ],
+   "planetR": 700,
+   "show": "exterior",
+   "strakeSpan": 2,
+   "hot": 0.35,
+   "labels": [
+    {
+     "t": "Strakes, one 2 m pleat out",
+     "at": [
+      24,
+      -5.6,
+      4.6
+     ],
+     "off": [
+      -60,
+      -50
+     ]
+    },
+    {
+     "t": "RCS cluster",
+     "at": [
+      44,
+      -2.9,
+      0
+     ],
+     "off": [
+      40,
+      60
+     ]
+    }
+   ],
+   "exposure": 0.85
+  },
+  {
+   "id": "cut_long",
+   "kind": "cutaway",
+   "title": "Cutaway along the axis",
+   "caption": "Cut through the centreline, looking from port. Water in blue (full tanks).",
+   "eye": [
+    26.6,
+    -56,
+    6
+   ],
+   "target": [
+    26.6,
+    0,
+    0
+   ],
+   "fov": 34,
+   "sun": [
+    -0.35,
+    0.55,
+    -0.75
+   ],
+   "clip": [
+    0,
+    -1,
+    0,
+    0
+   ],
+   "show": "cutaway",
+   "fluids": "S1",
+   "labels": [
+    {
+     "t": "Command",
+     "at": [
+      1.6,
+      0,
+      1.0
+     ],
+     "off": [
+      0,
+      -95
+     ]
+    },
+    {
+     "t": "Common",
+     "at": [
+      4.4,
+      0,
+      3.0
+     ],
+     "off": [
+      0,
+      -80
+     ]
+    },
+    {
+     "t": "Quarters",
+     "at": [
+      7.0,
+      0,
+      3.0
+     ],
+     "off": [
+      0,
+      -115
+     ]
+    },
+    {
+     "t": "Shelter / medical",
+     "at": [
+      9.6,
+      0,
+      3.0
+     ],
+     "off": [
+      0,
+      -80
+     ]
+    },
+    {
+     "t": "Mission / EVA",
+     "at": [
+      12.2,
+      0,
+      3.0
+     ],
+     "off": [
+      0,
+      -115
+     ]
+    },
+    {
+     "t": "Plant (fore)",
+     "at": [
+      15.5,
+      0,
+      0.5
+     ],
+     "off": [
+      0,
+      95
+     ]
+    },
+    {
+     "t": "Shuttle",
+     "at": [
+      25,
+      0,
+      0
+     ],
+     "off": [
+      0,
+      -80
+     ]
+    },
+    {
+     "t": "Water",
+     "at": [
+      24,
+      0,
+      -3.4
+     ],
+     "off": [
+      0,
+      80
+     ]
+    },
+    {
+     "t": "Plant (aft)",
+     "at": [
+      33.3,
+      0,
+      0.5
+     ],
+     "off": [
+      0,
+      95
+     ]
+    },
+    {
+     "t": "Shield",
+     "at": [
+      36.8,
+      0,
+      1.5
+     ],
+     "off": [
+      0,
+      -80
+     ]
+    },
+    {
+     "t": "Reactor",
+     "at": [
+      42.8,
+      0,
+      1.2
+     ],
+     "off": [
+      0,
+      -80
+     ]
+    },
+    {
+     "t": "Nozzle",
+     "at": [
+      50,
+      0,
+      2.0
+     ],
+     "off": [
+      0,
+      -80
+     ]
+    }
+   ],
+   "exposure": 0.95
+  },
+  {
+   "id": "cut_hab",
+   "kind": "cutaway",
+   "title": "Habitat cutaway",
+   "caption": "Five decks, aft is down under thrust. Crew cabins blue, guest cabins violet, storm shelter dark blue.",
+   "eye": [
+    6.5,
+    -27,
+    9
+   ],
+   "target": [
+    8.5,
+    0,
+    -0.5
+   ],
+   "fov": 36,
+   "sun": [
+    -0.35,
+    0.65,
+    -0.65
+   ],
+   "clip": [
+    0,
+    -1,
+    0,
+    0
+   ],
+   "show": "cutaway",
+   "fluids": "S1",
+   "labels": [
+    {
+     "t": "L1 Command",
+     "at": [
+      1.4,
+      0,
+      0.5
+     ],
+     "off": [
+      -60,
+      -200
+     ]
+    },
+    {
+     "t": "L2 Common",
+     "at": [
+      4.45,
+      0,
+      2.6
+     ],
+     "off": [
+      0,
+      -140
+     ]
+    },
+    {
+     "t": "L3 Quarters",
+     "at": [
+      7.05,
+      0,
+      3.1
+     ],
+     "off": [
+      0,
+      -110
+     ]
+    },
+    {
+     "t": "L4 Storm shelter",
+     "at": [
+      9.65,
+      0,
+      2.9
+     ],
+     "off": [
+      0,
+      -140
+     ]
+    },
+    {
+     "t": "L4 Medical",
+     "at": [
+      9.65,
+      0,
+      -2.6
+     ],
+     "off": [
+      0,
+      120
+     ]
+    },
+    {
+     "t": "L5 Workshop",
+     "at": [
+      12.25,
+      0,
+      3.0
+     ],
+     "off": [
+      0,
+      -110
+     ]
+    },
+    {
+     "t": "L5 Transfer vestibule",
+     "at": [
+      12.25,
+      0,
+      -3.0
+     ],
+     "off": [
+      0,
+      150
+     ]
+    },
+    {
+     "t": "Tunnel to collar",
+     "at": [
+      15.2,
+      0,
+      -3.0
+     ],
+     "off": [
+      0,
+      110
+     ]
+    },
+    {
+     "t": "Docking collar",
+     "at": [
+      16,
+      0,
+      -4.7
+     ],
+     "off": [
+      60,
+      150
+     ]
+    },
+    {
+     "t": "Central trunk (lift, utilities)",
+     "at": [
+      7.0,
+      0,
+      0.0
+     ],
+     "off": [
+      90,
+      40
+     ]
+    },
+    {
+     "t": "Bow sensors",
+     "at": [
+      0.6,
+      0,
+      1.5
+     ],
+     "off": [
+      -90,
+      -40
+     ]
+    }
+   ],
+   "exposure": 0.95
+  },
+  {
+   "id": "cut_mid",
+   "kind": "cutaway",
+   "title": "Midship section at x = 24 m",
+   "caption": "Looking aft at the cut: C-shaped tank around the bay, shuttle on the axis, slot and doors on top.",
+   "eye": [
+    -4,
+    -9,
+    8
+   ],
+   "target": [
+    24,
+    0,
+    0
+   ],
+   "fov": 22,
+   "sun": [
+    -0.75,
+    0.45,
+    0.45
+   ],
+   "clip": [
+    -1,
+    0,
+    0,
+    24
+   ],
+   "show": "cutaway",
+   "fluids": "S1",
+   "strakeSpan": 4,
+   "labels": [
+    {
+     "t": "Water in the tank cells",
+     "at": [
+      24,
+      -3.0,
+      -2.2
+     ],
+     "off": [
+      -80,
+      80
+     ]
+    },
+    {
+     "t": "Shuttle in the bore",
+     "at": [
+      24,
+      0,
+      0.3
+     ],
+     "off": [
+      0,
+      -30
+     ]
+    },
+    {
+     "t": "Slot and doors",
+     "at": [
+      24,
+      0,
+      4.6
+     ],
+     "off": [
+      0,
+      -50
+     ]
+    },
+    {
+     "t": "Strake",
+     "at": [
+      24,
+      -6.0,
+      5.0
+     ],
+     "off": [
+      -60,
+      -40
+     ]
+    },
+    {
+     "t": "Upper longeron (edges the slot)",
+     "at": [
+      24,
+      -2.75,
+      2.6
+     ],
+     "off": [
+      -110,
+      -40
+     ]
+    },
+    {
+     "t": "Lower longeron",
+     "at": [
+      24,
+      -2.75,
+      -2.6
+     ],
+     "off": [
+      -90,
+      60
+     ]
+    }
+   ],
+   "exposure": 0.95
+  },
+  {
+   "id": "cmd_cutaway",
+   "kind": "command",
+   "title": "L1 command deck, layout D",
+   "caption": "Cut away on the port side, bow up. Under thrust everyone lies on their back facing the bow, so up to 5 g presses them into the couch. S2 and S3 sit on the cut-away side.",
+   "eye": [
+    -1.0,
+    -7.6,
+    -2.0
+   ],
+   "target": [
+    1.55,
+    0.25,
+    0.15
+   ],
+   "up": [
+    -1,
+    0,
+    0
+   ],
+   "fov": 34,
+   "sun": [
+    -0.45,
+    0.35,
+    0.82
+   ],
+   "show": "command",
+   "cmd": true,
+   "holes": true,
+   "windowFrames": true,
+   "clip": [
+    0,
+    -1,
+    0,
+    -1.0
+   ],
+   "lights": [
+    {
+     "at": [
+      1.0,
+      1.2,
+      1.4
+     ],
+     "c": [
+      1.6,
+      1.55,
+      1.45
+     ]
+    },
+    {
+     "at": [
+      1.9,
+      0.6,
+      -2.0
+     ],
+     "c": [
+      1.4,
+      1.35,
+      1.3
+     ]
+    }
+   ],
+   "planet": false,
+   "exposure": 1.0,
+   "labels": [
+    {
+     "t": "PILOT and NAV",
+     "at": [
+      0.85,
+      -0.45,
+      0.3
+     ],
+     "off": [
+      -150,
+      -80
+     ]
+    },
+    {
+     "t": "Flight deck, 1.78 m above the floor",
+     "at": [
+      1.275,
+      -0.85,
+      -0.9
+     ],
+     "off": [
+      -200,
+      40
+     ]
+    },
+    {
+     "t": "Crown dome (open)",
+     "at": [
+      0.1,
+      0.45,
+      0.9
+     ],
+     "off": [
+      90,
+      -60
+     ]
+    },
+    {
+     "t": "Sensor ring at the shoulder",
+     "at": [
+      1.5,
+      0.0,
+      3.45
+     ],
+     "off": [
+      60,
+      -70
+     ]
+    },
+    {
+     "t": "Support couch S1",
+     "at": [
+      2.65,
+      1.4,
+      3.0
+     ],
+     "off": [
+      60,
+      70
+     ]
+    },
+    {
+     "t": "Support couch S4",
+     "at": [
+      2.65,
+      3.0,
+      -1.6
+     ],
+     "off": [
+      -60,
+      90
+     ]
+    },
+    {
+     "t": "Ladder down to L2",
+     "at": [
+      2.4,
+      1.4,
+      0.35
+     ],
+     "off": [
+      90,
+      80
+     ]
+    },
+    {
+     "t": "Columns carry the deck at 5 g",
+     "at": [
+      2.2,
+      -0.8,
+      -1.5
+     ],
+     "off": [
+      -120,
+      90
+     ]
+    },
+    {
+     "t": "Ladder up to the flight deck",
+     "at": [
+      2.6,
+      0.0,
+      -1.63
+     ],
+     "off": [
+      60,
+      110
+     ]
+    }
+   ],
+   "bore": {
+    "wall_m": 0.23,
+    "armour_m": 0.2,
+    "splay_deg": 12
+   },
+   "shadows": false
+  },
+  {
+   "id": "cmd_pov",
+   "kind": "command",
+   "title": "The pilot's view",
+   "caption": "From PILOT's eye looking at the bow through the crown dome (v0.5.7). Rings: the 60 and 90 deg cones the study scored; the Osteon blades sit edge-on, outside the central cone. Displays now ride on arms from the flight deck.",
+   "eye": [
+    0.775,
+    0.45,
+    0.45
+   ],
+   "target": [
+    -4,
+    0.45,
+    0.45
+   ],
+   "up": [
+    0,
+    0,
+    1
+   ],
+   "fov": 96,
+   "sun": [
+    -0.55,
+    0.35,
+    -0.76
+   ],
+   "planet": true,
+   "planetC": [
+    -2600,
+    950,
+    700
+   ],
+   "planetR": 1000,
+   "show": "command",
+   "cmd": true,
+   "cmdHideCrew": [
+    "PILOT"
+   ],
+   "holes": true,
+   "windowFrames": true,
+   "lights": [
+    {
+     "at": [
+      0.95,
+      0.0,
+      -0.2
+     ],
+     "c": [
+      0.22,
+      0.24,
+      0.28
+     ]
+    }
+   ],
+   "exposure": 1.2,
+   "cones": [
+    {
+     "half": 30,
+     "t": "60 deg"
+    },
+    {
+     "half": 45,
+     "t": "90 deg"
+    }
+   ],
+   "labels": [
+    {
+     "t": "PILOT's display",
+     "at": [
+      0.3,
+      0.45,
+      0.0
+     ],
+     "off": [
+      220,
+      -30
+     ]
+    }
+   ],
+   "near": 0.05,
+   "bore": {
+    "wall_m": 0.23,
+    "armour_m": 0.2,
+    "splay_deg": 12
+   }
+  },
+  {
+   "id": "ext_nose",
+   "kind": "command",
+   "title": "The nose: crown dome (v0.5.7)",
+   "caption": "A 25 m2 crown dome replaces the 8 nose windows: an Osteon frame of 8 roots forking into 16 blades round a clear 2.3 m centre pane. Open here; the gores stow inside the brow ring.",
+   "eye": [
+    -12.5,
+    -8.0,
+    3.2
+   ],
+   "target": [
+    2.6,
+    0.4,
+    1.9
+   ],
+   "fov": 30,
+   "sun": [
+    -0.7,
+    0.45,
+    0.55
+   ],
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "exposure": 0.9,
+   "labels": [
+    {
+     "t": "Crown dome, open",
+     "at": [
+      0.12,
+      -0.6,
+      0.9
+     ],
+     "off": [
+      -110,
+      -90
+     ]
+    },
+    {
+     "t": "Brow ring (gores stowed)",
+     "at": [
+      0.75,
+      -2.4,
+      1.6
+     ],
+     "off": [
+      60,
+      -80
+     ]
+    },
+    {
+     "t": "Shoulder window (1 of 4)",
+     "at": [
+      1.25,
+      -2.81,
+      2.81
+     ],
+     "off": [
+      90,
+      -40
+     ]
+    }
+   ],
+   "bore": {
+    "wall_m": 0.23,
+    "armour_m": 0.2,
+    "splay_deg": 12
+   },
+   "holes": true,
+   "windowFrames": true,
+   "windowPanes": true,
+   "crownOpen": 1,
+   "cmd": true
+  },
+  {
+   "id": "hab_crew",
+   "kind": "command",
+   "title": "Habitat crew systems",
+   "caption": "Cut along the ship's axis, bow up, walls left out: rooms show as coloured floors. Berths 2.10 m, one per person. A casualty moves at 0 g down the port ladder shaft and straight into the medical bay. v0.5.7: a 0.35 m viewport at the outer end of every berth.",
+   "eye": [
+    2.2,
+    1.0,
+    14.5
+   ],
+   "target": [
+    9.0,
+    -1.6,
+    -0.6
+   ],
+   "up": [
+    -1,
+    0,
+    0
+   ],
+   "fov": 40,
+   "sun": [
+    -0.3,
+    0.5,
+    -0.8
+   ],
+   "show": "habitat",
+   "hab": true,
+   "roomsAsFloors": true,
+   "fluids": "S1",
+   "litter": true,
+   "route": true,
+   "clip": [
+    0,
+    0.174,
+    0.985,
+    0
+   ],
+   "shadows": false,
+   "planet": false,
+   "exposure": 1.0,
+   "lights": [
+    {
+     "at": [
+      6.0,
+      -1.5,
+      0.0
+     ],
+     "c": [
+      1.5,
+      1.45,
+      1.4
+     ]
+    },
+    {
+     "at": [
+      9.0,
+      -2.0,
+      -1.0
+     ],
+     "c": [
+      1.5,
+      1.45,
+      1.4
+     ]
+    },
+    {
+     "at": [
+      12.0,
+      -1.5,
+      0.5
+     ],
+     "c": [
+      1.2,
+      1.2,
+      1.2
+     ]
+    }
+   ],
+   "labels": [
+    {
+     "t": "L3: berths 2.10 m, one per person",
+     "at": [
+      7.6,
+      -1.2,
+      -3.4
+     ],
+     "off": [
+      150,
+      -50
+     ]
+    },
+    {
+     "t": "Berth water ring and floor-edge collar",
+     "at": [
+      7.0,
+      -1.41,
+      -3.86
+     ],
+     "off": [
+      170,
+      60
+     ]
+    },
+    {
+     "t": "Port ladder shaft: casualty route at 0 g",
+     "at": [
+      5.2,
+      -1.4,
+      0.0
+     ],
+     "off": [
+      -200,
+      -30
+     ]
+    },
+    {
+     "t": "Medical bay, opening moved to 202 deg",
+     "at": [
+      10.2,
+      -3.0,
+      0.0
+     ],
+     "off": [
+      -190,
+      40
+     ]
+    },
+    {
+     "t": "L4/L5 pressure hatch",
+     "at": [
+      10.8,
+      -1.4,
+      -0.3
+     ],
+     "off": [
+      -150,
+      90
+     ]
+    },
+    {
+     "t": "Central trunk",
+     "at": [
+      9.0,
+      0.0,
+      0.0
+     ],
+     "off": [
+      160,
+      -60
+     ]
+    },
+    {
+     "t": "Berth viewport (v0.5.7)",
+     "at": [
+      7.55,
+      -0.86,
+      -4.42
+     ],
+     "off": [
+      160,
+      40
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ext_docking",
+   "kind": "exterior",
+   "title": "Docking view",
+   "caption": "Two cameras with lights at the docking collar give the final approach; the 0.4 m window in the L5 vestibule gives the crew a direct view of the approach corridor.",
+   "eye": [
+    -4.0,
+    -13.0,
+    -21.0
+   ],
+   "target": [
+    13.5,
+    0.0,
+    -3.0
+   ],
+   "fov": 28,
+   "sun": [
+    -0.5,
+    -0.5,
+    0.7
+   ],
+   "planet": true,
+   "planetC": [
+    600,
+    -900,
+    1200
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "holes": true,
+   "windowFrames": true,
+   "windowPanes": true,
+   "exposure": 0.9,
+   "labels": [
+    {
+     "t": "Docking collar",
+     "at": [
+      16.0,
+      0.0,
+      -4.95
+     ],
+     "off": [
+      110,
+      60
+     ]
+    },
+    {
+     "t": "Docking cameras",
+     "at": [
+      14.2,
+      0.0,
+      -4.6
+     ],
+     "off": [
+      -60,
+      100
+     ]
+    },
+    {
+     "t": "L5 vestibule window",
+     "at": [
+      12.45,
+      0.0,
+      -4.5
+     ],
+     "off": [
+      -130,
+      -40
+     ]
+    }
+   ]
+  },
+  {
+   "id": "crown_open",
+   "kind": "command",
+   "title": "Crown dome, open",
+   "caption": "v0.5.7 main design. A Builder-grammar (Osteon) frame: 8 graded roots spring from the brow ring and fork into 16 thin blades round a 2.3 m clear central pane. Open, the Strata tambour gores sit retracted inside the brow ring.",
+   "eye": [
+    -11.0,
+    -7.0,
+    5.5
+   ],
+   "target": [
+    1.2,
+    0,
+    0.3
+   ],
+   "fov": 30,
+   "sun": [
+    -0.7,
+    0.45,
+    0.55
+   ],
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "command",
+   "cmd": true,
+   "holes": true,
+   "windowFrames": true,
+   "crown": {
+    "r": 2.8,
+    "mer": 8,
+    "center": 1.15,
+    "fork": 2.0,
+    "open": 1
+   },
+   "exposure": 0.9,
+   "lights": [
+    {
+     "at": [
+      1.0,
+      0,
+      0
+     ],
+     "c": [
+      1.2,
+      1.15,
+      1.1
+     ]
+    }
+   ],
+   "labels": [
+    {
+     "t": "Clear central pane, 2.3 m",
+     "at": [
+      0.05,
+      0,
+      0.6
+     ],
+     "off": [
+      -140,
+      -90
+     ]
+    },
+    {
+     "t": "Brow ring (gores stowed inside)",
+     "at": [
+      0.75,
+      -2.4,
+      1.6
+     ],
+     "off": [
+      60,
+      -90
+     ]
+    }
+   ]
+  },
+  {
+   "id": "crown_closed",
+   "kind": "command",
+   "title": "Crown dome, closed",
+   "caption": "v0.5.7 main design. For burns and fast cruise the 16 Strata tambour gores run out of the brow ring on meridian tracks and close flush, restoring the armour's 27 g/cm2.",
+   "eye": [
+    -11.0,
+    -7.0,
+    5.5
+   ],
+   "target": [
+    1.2,
+    0,
+    0.3
+   ],
+   "fov": 30,
+   "sun": [
+    -0.7,
+    0.45,
+    0.55
+   ],
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "holes": true,
+   "windowFrames": true,
+   "windowPanes": true,
+   "crown": {
+    "r": 2.8,
+    "mer": 8,
+    "center": 1.15,
+    "fork": 2.0,
+    "open": 0
+   },
+   "exposure": 0.9,
+   "labels": []
+  },
+  {
+   "id": "crown_standing",
+   "kind": "command",
+   "title": "Standing on L1 at cruise (1 g)",
+   "caption": "v0.5.7 main design (command/BOW_OPTIONS_STUDY.md, option C). At about 1 g the crew stand on the L1 floor and the bow is overhead: a sky ceiling above a working deck. Eye 1.6 m above the floor.",
+   "eye": [
+    1.4,
+    0.0,
+    2.4
+   ],
+   "target": [
+    -3.0,
+    0.0,
+    -0.6
+   ],
+   "up": [
+    0,
+    0,
+    -1
+   ],
+   "fov": 95,
+   "near": 0.05,
+   "sun": [
+    -0.55,
+    0.35,
+    -0.76
+   ],
+   "planet": true,
+   "planetC": [
+    -2600,
+    950,
+    700
+   ],
+   "planetR": 1000,
+   "show": "command",
+   "cmd": true,
+   "holes": true,
+   "windowFrames": true,
+   "crown": {
+    "r": 2.8,
+    "mer": 8,
+    "center": 1.15,
+    "fork": 2.0,
+    "open": 1
+   },
+   "lights": [
+    {
+     "at": [
+      1.2,
+      0.0,
+      -1.0
+     ],
+     "c": [
+      0.5,
+      0.52,
+      0.58
+     ]
+    }
+   ],
+   "exposure": 1.15,
+   "labels": []
+  },
+  {
+   "id": "ext_viewports",
+   "kind": "exterior",
+   "title": "Berth viewports (v0.5.7)",
+   "caption": "Ten 0.5 m berth viewports on L3 (two tiers), with medical and storm-shelter viewports on L4 below. Acrylic plugs fill the armour openings (and continue through the shelter's water jacket), so the berths and the shelter keep their screens with the dust shutters open.",
+   "eye": [
+    3.0,
+    -7.5,
+    -15.0
+   ],
+   "target": [
+    7.2,
+    -1.2,
+    -2.6
+   ],
+   "fov": 34,
+   "sun": [
+    -0.45,
+    -0.35,
+    -0.82
+   ],
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "exposure": 0.95,
+   "labels": [
+    {
+     "t": "Berth viewports, two tiers",
+     "at": [
+      7.0,
+      -0.86,
+      -4.42
+     ],
+     "off": [
+      150,
+      70
+     ]
+    },
+    {
+     "t": "L3 quarters deck",
+     "at": [
+      6.0,
+      -3.4,
+      -2.95
+     ],
+     "off": [
+      -170,
+      -50
+     ]
+    }
+   ],
+   "shutters": "open"
+  },
+  {
+   "id": "structure_v057",
+   "kind": "exterior",
+   "title": "Structure: four longerons (v0.5.7)",
+   "caption": "Skin, tanks and machinery hidden. Four 0.40 m CFRP tubes in an X run x 14-34.3 m between the habitat ring frame and the thrust cone; the upper pair edge the bay slot. v0.5.6 had five members weighing 36.9 t; these weigh 12.6 t with the reserve spread.",
+   "eye": [
+    -4.0,
+    -24.0,
+    10.0
+   ],
+   "target": [
+    24.0,
+    0.0,
+    0.0
+   ],
+   "fov": 32,
+   "sun": [
+    -0.55,
+    0.62,
+    0.55
+   ],
+   "planet": false,
+   "show": "structure",
+   "longeronHighlight": true,
+   "exposure": 1.0,
+   "labels": [
+    {
+     "t": "Upper longerons (slot edges)",
+     "at": [
+      24,
+      -2.75,
+      2.6
+     ],
+     "off": [
+      0,
+      -70
+     ]
+    },
+    {
+     "t": "Lower longerons",
+     "at": [
+      24,
+      -2.75,
+      -2.6
+     ],
+     "off": [
+      0,
+      80
+     ]
+    },
+    {
+     "t": "Ring frames, every 2 m",
+     "at": [
+      16,
+      -4.3,
+      0
+     ],
+     "off": [
+      -120,
+      40
+     ]
+    },
+    {
+     "t": "Thrust cone",
+     "at": [
+      36,
+      -3.6,
+      0
+     ],
+     "off": [
+      60,
+      60
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ext_hab_viewports",
+   "kind": "exterior",
+   "title": "Viewports open (v0.5.7)",
+   "caption": "Shutters and dome open, as at low speed. The L2 viewport band runs round the common deck (1.6 m tall in the lounge); berth viewports on L3; medical, shelter, suit-room and workshop viewports below. Every opening below the crown carries an acrylic shield plug.",
+   "eye": [
+    -6.0,
+    11.0,
+    12.0
+   ],
+   "target": [
+    6.0,
+    0.8,
+    1.6
+   ],
+   "fov": 40,
+   "sun": [
+    -0.5,
+    0.6,
+    0.62
+   ],
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "exposure": 0.92,
+   "labels": [
+    {
+     "t": "Crown dome, open",
+     "at": [
+      0.3,
+      0.6,
+      1.4
+     ],
+     "off": [
+      -60,
+      -80
+     ]
+    },
+    {
+     "t": "L2 viewport band",
+     "at": [
+      4.2,
+      3.5,
+      2.65
+     ],
+     "off": [
+      -150,
+      -50
+     ]
+    },
+    {
+     "t": "Berth viewports (L3)",
+     "at": [
+      7.55,
+      1.16,
+      4.35
+     ],
+     "off": [
+      150,
+      -50
+     ]
+    },
+    {
+     "t": "Workshop viewports (L5)",
+     "at": [
+      12.3,
+      -2.6,
+      3.7
+     ],
+     "off": [
+      110,
+      60
+     ]
+    }
+   ],
+   "shutters": "open",
+   "crownOpen": 1,
+   "cmd": true,
+   "interior": true,
+   "roomsAsFloors": true
+  },
+  {
+   "id": "ext_closed",
+   "kind": "exterior",
+   "title": "Everything closed: cruise at speed (v0.5.7)",
+   "caption": "Crown gores and every Strata shutter closed flush with the armour, as at cruise speed, in solar storms and in torch burns. The hull reads as one smooth shell.",
+   "eye": [
+    -6.0,
+    11.0,
+    12.0
+   ],
+   "target": [
+    6.0,
+    0.8,
+    1.6
+   ],
+   "fov": 40,
+   "sun": [
+    -0.5,
+    0.6,
+    0.62
+   ],
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "exposure": 0.92,
+   "shutters": "closed",
+   "crownOpen": 0,
+   "labels": [
+    {
+     "t": "Crown gores closed",
+     "at": [
+      0.3,
+      0.6,
+      1.4
+     ],
+     "off": [
+      -60,
+      -80
+     ]
+    },
+    {
+     "t": "L2 band shutter",
+     "at": [
+      4.2,
+      3.5,
+      2.65
+     ],
+     "off": [
+      -150,
+      -50
+     ]
+    }
+   ]
+  }
+ ]
+}
