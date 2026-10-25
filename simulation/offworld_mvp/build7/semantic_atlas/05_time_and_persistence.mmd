@@ -1,0 +1,22 @@
+flowchart TD
+GEN["2026 no-target genesis"] --> PUB["2026 public remote choice"]
+PUB --> SPN["2026 sponsor prospecting"]
+SPN --> Y["Annual loop 2027 to 2035"]
+Y --> RP["Recurring public remote choice"]
+RP --> HAS{"Opening project exists?"}
+HAS -->|no| NONE["No project activity"]
+HAS -->|yes| ST{"Study state"}
+ST -->|proposed| AUTH["Authorize start and spend"]
+ST -->|active due| OBS["Observe complete and admit"]
+ST -->|completed unreviewed| REV["Sponsor study review"]
+ST -->|reviewed| OPP["Sponsor annual opportunity decision"]
+AUTH --> EPOCH["Policy and system epochs"]
+OBS --> EPOCH
+REV --> EPOCH
+OPP --> EPOCH
+NONE --> EPOCH
+EPOCH --> DB["World Authority persistence"]
+DB --> REP["Hash checks and replay"]
+REP --> NEXT{"Another year?"}
+NEXT -->|yes| Y
+NEXT -->|no| END["Campaign summary"]
