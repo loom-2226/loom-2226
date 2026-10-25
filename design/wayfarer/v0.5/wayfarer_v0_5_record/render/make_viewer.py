@@ -24,9 +24,12 @@ def rnd(o):
 
 
 keep = ("id", "name", "system", "mat", "tags", "shape")
-geo = {"length_m": G["length_m"], "thrust_line_offset_m": G["thrust_line_offset_m"], "features": G["features"],
+geo = {"version": G["version"], "window_bore": G.get("window_bore"), "length_m": G["length_m"], "thrust_line_offset_m": G["thrust_line_offset_m"], "features": G["features"],
        "parts": [{k: p[k] for k in keep} for p in G["parts"]],
        "fluids_by_state": {"S1": [{k: p[k] for k in keep} for p in G["fluids_by_state"]["S1"]]}}
+cmd_scene = json.loads((HERE / "out/l1_scene.json").read_text())
+hab_scene = json.loads((HERE / "out/hab_scene.json").read_text())
+assert cmd_scene["geometry_sha256"] == SHA, "l1_scene.json is stale: run command/l1_study.py"
 engine = (HERE / "loomgl.js").read_text()
 engine = re.sub(r"^export\s+", "", engine, flags=re.M)
 S1 = G["states"]["S1"]
@@ -93,7 +96,7 @@ footer{color:var(--steel);font-size:11px;letter-spacing:.03em;line-height:1.6;bo
 <div class="wrap">
 <header>
   <span class="eyebrow">LOOM 2226 · Reference courier · Visual reference</span>
-  <h1>Wayfarer v0.5</h1>
+  <h1>Wayfarer v__VER__</h1>
   <p class="sub">Drag to turn the ship, pinch or scroll to zoom, two fingers to pan. Every shape is built from the same geometry file the certification checks run on.</p>
 </header>
 <div class="stage" id="stage">
@@ -107,6 +110,8 @@ footer{color:var(--steel);font-size:11px;letter-spacing:.03em;line-height:1.6;bo
     <button class="chip" type="button" data-mode="metric" aria-pressed="false">Metric HARD</button>
     <button class="chip" type="button" data-mode="burn" aria-pressed="false">Torch burn</button>
     <button class="chip" type="button" data-mode="shuttle" aria-pressed="false">Shuttle out</button>
+    <button class="chip" type="button" data-mode="cmd" aria-pressed="false">Command deck</button>
+    <button class="chip" type="button" data-mode="hab" aria-pressed="false">Habitat decks</button>
   </div>
   <div class="row" role="group" aria-label="Show">
     <button class="chip" type="button" data-tog="cut" aria-pressed="false">Cutaway</button>
@@ -125,6 +130,8 @@ footer{color:var(--steel);font-size:11px;letter-spacing:.03em;line-height:1.6;bo
 <script type="module">
 __ENGINE__
 const GEO = __GEO__;
+const CMD = __CMD__;
+const HAB = __HAB__;
 const STATS = __STATS__;
 const GATES = __GATES__;
 const SHA = "__SHA__";
@@ -133,13 +140,26 @@ document.getElementById("stats").innerHTML = STATS.map((s, i) => `<div class="st
 const cls = v => v === "PASS" ? "PASS" : v === "PASS-DECLARED" ? "DECL" : v === "OPEN" ? "OPEN" : "FAIL";
 const word = v => v === "PASS-DECLARED" ? "Declared" : v[0] + v.slice(1).toLowerCase();
 document.getElementById("gates").innerHTML = GATES.map(g => `<div class="gate"><span class="id">${g.g}</span><span class="t">${g.t}</span><span class="pill ${cls(g.v)}">${word(g.v)}</span></div>`).join("");
-document.getElementById("foot").textContent = `VISUAL REFERENCE. Wayfarer v0.5, NON-GOVERNING sandbox design. Generated from wayfarer_v05_geometry.json, sha256 ${SHA}. ALL bodies. ALL sponsors. 2026-2226.`;
+document.getElementById("foot").textContent = `VISUAL REFERENCE. Wayfarer v__VER__, NON-GOVERNING sandbox design. Generated from wayfarer_v05_geometry.json, sha256 ${SHA}. ALL bodies. ALL sponsors. 2026-2226.`;
 const MODES = {
   cruise: {strakeSpan: 0, note: "Coasting: radiator strakes stowed in their grooves, bay doors shut."},
   metric: {strakeSpan: 2, hot: 0.35, note: "Metric HARD: one 2 m pleat of each strake out, enough for 34.9 MW. Field geometry radius 6.5 m."},
-  burn: {strakeSpan: 24, hot: 1.0, plume: true, note: "Torch burn: strakes at full 24 m span glowing at 1,300 K. Up to 5 g, everyone in a couch."},
+  burn: {strakeSpan: 4, finSpan: 28, hot: 1.0, plume: true, note: "Torch burn: four hot fins unfolded aft at 1,750 K carry the torch's 1.4 GW; the strakes open 4 m for the magnet coils' cooling. Up to 5 g, everyone in a couch."},
   shuttle: {strakeSpan: 0, doorsOpen: true, shuttleLift: 8.5, note: "Shuttle out: doors stand up at the slot edges and the 12.8 m rover-drop shuttle rises straight out."},
+  hab: {strakeSpan: 0, hab: true, cmd: true, note: "Habitat decks: cut along the axis, bow up, walls left out so rooms show as coloured floors. Ten 2.10 m berths, one per person; a casualty moves at 0 g down the port ladder shaft into the medical bay (yellow litter)."},
+  cmd: {strakeSpan: 0, cmd: true, note: "Command deck, layout D: bow up, port side cut away. PILOT and NAV lie on a flight deck 1.78 m up, eyes 0.55 m below their nose windows; four support couches lie along the rim. Everyone faces the bow, so thrust presses them into the couch."},
 };
+const CMD_CLIP = [0, -1, 0, -1.0];
+const HAB_CLIP = [0, 0.174, 0.985, 0];
+const HAB_LABELS = [["Berths", [7.6, -1.2, -3.4]], ["Port shaft", [5.2, -1.4, 0]], ["Medical bay", [10.2, -3.0, 0]], ["L4/L5 hatch", [10.8, -1.4, -0.3]], ["Trunk", [9.0, 0, 0]]];
+const habHome = {az: 1.396, el: 0.45, dist: 15, tx: 9.0, ty: -1.6, tz: -0.6};
+const CMD_LABELS = [["PILOT", [0.8, 0.45, 0.2]], ["NAV", [0.8, -0.45, 0.2]], ["Flight deck", [1.3, 0, -1.4]], ["Nose windows", [0.1, 0, 0.9]], ["Sensors", [1.5, 0, 3.45]],
+                    ["S1", [2.55, 1.4, 2.9]], ["S4", [2.55, 2.9, -1.4]], ["Ladder to L2", [2.4, 1.4, 0]]];
+const cmdHome = {az: -2.875, el: 0.30, dist: 8.5, tx: 1.2, ty: 0.25, tz: 0.15};
+function cmdFit() {   // keep the deck's width in frame on a tall phone screen
+  const r = cv.getBoundingClientRect(), a = r.width / Math.max(r.height, 1);
+  return Math.max(8.5, 3.1 / (Math.tan(20 * Math.PI / 180) * a));
+}
 const LABELS = [["Habitat", [7, 0, 4.6]], ["Docking collar", [16, 0, -4.8]], ["Tanks and bay", [25, 0, 4.6]], ["Shield", [36.8, 0, 2.9]], ["Reactor", [42.8, 0, 2.3]], ["Nozzle", [50, 0, 3.1]]];
 const ROOM_LABELS = [["Command", [1.8, 2, 0]], ["Common", [4.4, 2.6, 0]], ["Quarters", [7.0, 2.6, 0]], ["Shelter", [9.6, 0, 3]], ["Mission", [12.2, 2.6, 0]], ["Shuttle", [25, 0, 0]], ["Plant", [15.5, 0, 0]]];
 let st = {mode: "cruise", cut: false, rooms: true, water: true, labels: true};
@@ -149,9 +169,21 @@ const hideExt = new Set(["room", "outfit", "floor", "core", "avionics", "pressur
 function rebuild() {
   if (!ship) return;
   const m = MODES[st.mode];
+  if (m.hab) {
+    ship.build({show: p => p.mat !== "outfit" && p.id !== "core_racks" && !p.id.startsWith("room_L1"), strakeSpan: 0, fluids: GEO.fluids_by_state.S1,
+                features: false, windowFrames: true, roomsAsFloors: true, hab: HAB, litter: true, cmdClip: HAB_CLIP});
+    document.getElementById("note").textContent = m.note;
+    dirty = true; return;
+  }
+  if (m.cmd) {
+    ship.build({show: p => p.mat !== "outfit" && p.id !== "room_L1-command" && p.id !== "core_racks" && (st.rooms || !p.mat.startsWith("room_")), strakeSpan: 0, fluids: [],
+                features: false, windowFrames: true, bore: {wall_m: 0.23, armour_m: 0.2, splay_deg: 12}, cmd: CMD, cmdClip: CMD_CLIP});
+    document.getElementById("note").textContent = m.note;
+    dirty = true; return;
+  }
   const show = st.cut ? (p => p.mat !== "outfit" && (st.rooms || !p.mat.startsWith("room_")))
                       : (p => !(p.tags || []).includes("room") && !hideExt.has(p.mat) && !p.mat.startsWith("room_"));
-  ship.build({show, strakeSpan: m.strakeSpan, doorsOpen: !!m.doorsOpen, shuttleLift: m.shuttleLift || 0, plume: !!m.plume,
+  ship.build({show, strakeSpan: m.strakeSpan, finSpan: m.finSpan || 0, doorsOpen: !!m.doorsOpen, shuttleLift: m.shuttleLift || 0, plume: !!m.plume,
               fluids: st.cut && st.water ? GEO.fluids_by_state.S1 : [], features: !st.cut});
   document.getElementById("note").textContent = m.note + (st.cut ? " Cutaway: the port half is removed." : "");
   dirty = true;
@@ -168,16 +200,29 @@ function resize() {
   home.dist = fitDist(); if (first) { cam.dist = home.dist; first = false; }
   dirty = true;
 }
+const isCmd = () => !!MODES[st.mode].cmd;
+function camEye() {   // ship-z-up orbit; in the command deck the bow is up (orbit about the ship x axis)
+  if (isCmd()) return [cam.tx - cam.dist * Math.sin(cam.el), cam.ty + cam.dist * Math.cos(cam.el) * Math.cos(cam.az), cam.tz + cam.dist * Math.cos(cam.el) * Math.sin(cam.az)];
+  return [cam.tx + cam.dist * Math.cos(cam.el) * Math.cos(cam.az), cam.ty + cam.dist * Math.cos(cam.el) * Math.sin(cam.az), cam.tz + cam.dist * Math.sin(cam.el)];
+}
+const zoomLim = () => isCmd() ? [2.5, 30] : [14, 220];
 function frame() {
   if (dirty && ship) {
     dirty = false;
     const m = MODES[st.mode];
-    const eye = [cam.tx + cam.dist * Math.cos(cam.el) * Math.cos(cam.az), cam.ty + cam.dist * Math.cos(cam.el) * Math.sin(cam.az), cam.tz + cam.dist * Math.sin(cam.el)];
+    if (m.cmd) {
+      const eye = camEye();
+      ship.draw({eye, target: [cam.tx, cam.ty, cam.tz], up: [-1, 0, 0], fov: 40, sun: [-0.35, 0.3, 0.88], planet: false, clip: m.hab ? HAB_CLIP : CMD_CLIP, holes: true, shadows: false, exposure: 1.0,
+                 lights: m.hab ? [{at: [6.0, -1.5, 0.0], c: [1.5, 1.45, 1.4]}, {at: [9.0, -2.0, -1.0], c: [1.5, 1.45, 1.4]}, {at: [12.0, -1.5, 0.5], c: [1.2, 1.2, 1.2]}]
+                               : [{at: [1.0, 1.2, 1.4], c: [1.6, 1.55, 1.45]}, {at: [1.9, 0.6, -2.0], c: [1.4, 1.35, 1.3]}]});
+    } else {
+    const eye = camEye();
     ship.draw({eye, target: [cam.tx, cam.ty, cam.tz], fov: 38, sun: [-0.55, 0.62, 0.55], planet: true, planetC: [900, -500, -900], planetR: 1000,
                clip: st.cut ? [0, -1, 0, 0] : null, hot: m.hot || 0, exposure: 0.88, plumeI: 0.55});
+    }
     stage.querySelectorAll(".lab").forEach(e => e.remove());
     const placed = [];
-    if (st.labels) for (const [t, at] of (st.cut ? ROOM_LABELS : LABELS)) {
+    if (st.labels) for (const [t, at] of (m.hab ? HAB_LABELS : m.cmd ? CMD_LABELS : st.cut ? ROOM_LABELS : LABELS)) {
       const [x, y, ok] = ship.project(...at); if (!ok) continue;
       const r = cv.getBoundingClientRect(); if (x < 20 || y < 24 || x > r.width - 20 || y > r.height) continue;
       const w = t.length * 7.5 + 16;
@@ -200,18 +245,31 @@ cv.addEventListener("pointermove", e => {
   } else if (pts.size === 2) {
     const [a, b] = [...pts.values()], d = Math.hypot(a[0] - b[0], a[1] - b[1]), c = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
     if (last) {
-      cam.dist = Math.max(14, Math.min(220, cam.dist * last.d / d));
-      const k = cam.dist * 0.0016, rx = -Math.sin(cam.az), ry = Math.cos(cam.az);
+      const [z0, z1] = zoomLim(); cam.dist = Math.max(z0, Math.min(z1, cam.dist * last.d / d));
+      const k = cam.dist * 0.0016;
+      if (isCmd()) {   // pan in the screen plane, bow up
+        const e = camEye(), f = [cam.tx - e[0], cam.ty - e[1], cam.tz - e[2]], fl = Math.hypot(...f); f.forEach((v, i) => f[i] = v / fl);
+        const r = [0, f[2], -f[1]], rl = Math.hypot(...r) || 1; r.forEach((v, i) => r[i] = v / rl);
+        const u = [f[1] * r[2] - f[2] * r[1], f[2] * r[0] - f[0] * r[2], f[0] * r[1] - f[1] * r[0]];
+        const dx = (c[0] - last.c[0]) * k, dy = (c[1] - last.c[1]) * k;
+        cam.tx += -dx * r[0] + dy * u[0]; cam.ty += -dx * r[1] + dy * u[1]; cam.tz += -dx * r[2] + dy * u[2];
+      } else {
+      const rx = -Math.sin(cam.az), ry = Math.cos(cam.az);
       cam.tx -= (c[0] - last.c[0]) * k * rx; cam.ty -= (c[0] - last.c[0]) * k * ry; cam.tz += (c[1] - last.c[1]) * k;
+      }
       dirty = true;
     }
     last = {d, c};
   }
 });
-cv.addEventListener("wheel", e => { e.preventDefault(); cam.dist = Math.max(14, Math.min(220, cam.dist * Math.exp(e.deltaY * 0.001))); dirty = true; }, {passive: false});
-document.getElementById("reset").addEventListener("click", () => { cam = {...home, az: st.cut ? -Math.PI / 2 - 0.35 : home.az, el: st.cut ? 0.25 : home.el}; dirty = true; });
+cv.addEventListener("wheel", e => { e.preventDefault(); const [z0, z1] = zoomLim(); cam.dist = Math.max(z0, Math.min(z1, cam.dist * Math.exp(e.deltaY * 0.001))); dirty = true; }, {passive: false});
+document.getElementById("reset").addEventListener("click", () => { cam = isCmd() ? {...cmdHome, dist: cmdFit()} : {...home, az: st.cut ? -Math.PI / 2 - 0.35 : home.az, el: st.cut ? 0.25 : home.el}; dirty = true; });
 document.querySelectorAll("[data-mode]").forEach(b => b.addEventListener("click", () => {
-  st.mode = b.dataset.mode; document.querySelectorAll("[data-mode]").forEach(x => x.setAttribute("aria-pressed", x === b)); rebuild();
+  const was = isCmd();
+  st.mode = b.dataset.mode; document.querySelectorAll("[data-mode]").forEach(x => x.setAttribute("aria-pressed", x === b));
+  if (isCmd() !== was || isCmd()) cam = MODES[st.mode].hab ? {...habHome, dist: Math.max(15, cmdFit() * 1.6)} : isCmd() ? {...cmdHome, dist: cmdFit()} : {...home};
+  document.getElementById("hint").textContent = MODES[st.mode].hab ? "Bow up · cut along the axis" : isCmd() ? "Bow up · port side cut away" : "Bow at left · slot side up";
+  rebuild();
 }));
 document.querySelectorAll("[data-tog]").forEach(b => b.addEventListener("click", () => {
   const k = b.dataset.tog; st[k] = !st[k]; b.setAttribute("aria-pressed", st[k]);
@@ -223,8 +281,8 @@ resize(); rebuild(); requestAnimationFrame(frame);
 window.__viewerReady = !!ship;
 </script>
 """
-html = (html.replace("__ENGINE__", engine).replace("__GEO__", json.dumps(rnd(geo), separators=(",", ":")))
-        .replace("__STATS__", json.dumps(stats)).replace("__GATES__", json.dumps(gates)).replace("__SHA__", SHA))
+html = (html.replace("__ENGINE__", engine).replace("__GEO__", json.dumps(rnd(geo), separators=(",", ":"))).replace("__CMD__", json.dumps(rnd(cmd_scene), separators=(",", ":"))).replace("__HAB__", json.dumps(rnd(hab_scene), separators=(",", ":")))
+        .replace("__STATS__", json.dumps(stats)).replace("__GATES__", json.dumps(gates)).replace("__SHA__", SHA).replace("__VER__", G["version"]))
 out = HERE / "out/wayfarer_v05_viewer.html"
 out.write_text(html)
 man_p = HERE / "out/manifest.json"

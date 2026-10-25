@@ -14,6 +14,35 @@ G0, SIGMA = 9.80665, 5.670374419e-8
 PASS, DECL, FAIL, OPEN = "PASS", "PASS-DECLARED", "FAIL", "OPEN"
 
 
+def torch_budget():
+    """Step S4 of the torch heat model in torch/ (standard library only)."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("torch_heat_budget", HERE / "torch/torch_heat_budget.py")
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    st = m.I["steps"][-1]
+    r = m.step(st)
+    r["burn_to_face_m"] = st["burn_to_face_m"]
+    return r
+
+
+_CREW = {}
+
+
+def crew_results():
+    """habitat/crew_systems.py (v0.5.6 crew systems), run once per certify call (standard library only)."""
+    if "r" not in _CREW:
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("crew_systems", HERE / "habitat/crew_systems.py")
+        m = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(m)
+        _CREW["r"] = m.run()
+        (HERE / "habitat/crew_systems_results.json").write_text(json.dumps(_CREW["r"], indent=1))
+        I_, C_, G_ = m.load()
+        (HERE / "render/out/hab_scene.json").write_text(json.dumps(m.hab_scene(I_, G_), indent=1))
+    return _CREW["r"]
+
+
 def load():
     I = json.loads((HERE / "inputs/wayfarer_v05_inputs.json").read_text())
     C = json.loads((HERE / "inputs/cert_criteria_v0.1.json").read_text())
@@ -49,7 +78,7 @@ def g1(I, C, G):
               + L["guest_outfitting_t"] + L["relational_plant_t"] + L["thermal_radiators_t"] + L["radiator_panels_t"]
               + L["propulsion_t"] + L["electrical_t"] + L["avionics_sensors_comms_t"] + L["rcs_docking_service_t"]
               + L["mission_courier_systems_t"] + L["engineering_reserve_t"] + L["c_tank_penalty_t"]
-              + I["shuttle"]["dry_t"] + L["drones_pods_t"])
+              + I["shuttle"]["dry_t"] + L["drones_pods_t"] + L.get("torch_hot_fins_t", 0.0) + L.get("crew_systems_v056_t", 0.0))
     dry = G["dry_t"]
     cs = [chk("parts sum to the ledger", round(dry, 2), round(expect, 2), abs(dry - expect) <= C["G1"]["ledger_tolerance_t"], "t")]
     shuttle = next(p["mass_t"] for p in G["parts"] if p["id"] == "shuttle")
@@ -66,7 +95,8 @@ def g1(I, C, G):
     notes = [f"dry {dry:.1f} t vs canon {I['canon']['dry_t']} t ({dry - I['canon']['dry_t']:+.1f} t); "
              f"S1 wet {G['states']['S1']['mass_t']:.1f} t vs canon {I['canon']['wet_t']} t",
              "dry by system: " + ", ".join(f"{k} {v:.1f}" for k, v in sorted(G["dry_by_system_t"].items(), key=lambda kv: -kv[1])),
-             f"protected water: {G['protected_water']['jacket_t']:.1f} t in the storm-shelter jacket, {G['protected_water']['service_tank_t']:.1f} t in the "
+             f"protected water: {G['protected_water'].get('shelter_jacket_t', G['protected_water']['jacket_t']):.1f} t in the storm-shelter jacket, "
+             f"{G['protected_water'].get('berth_shield_t', 0):.2f} t in the L3 berth shield ring, {G['protected_water']['service_tank_t']:.1f} t in the "
              f"service tank, {G['protected_water']['c_tank_t']:.1f} t in the main tank cells"]
     tab = []
     for s in states(I):
@@ -106,7 +136,8 @@ def g2(I, C, G):
         modes[m] = row
     notes = [f"S2 (50 t payload): ECON delta-v {ve['ECON'] * math.log(G['states']['S2']['mass_t'] / (G['states']['S2']['mass_t'] - rem)):.1f} km/s",
              "Thrust at fixed jet power (11.36 TW): F = 2P/ve.",
-             "Throttled to the 5 g structural limit (doctrine): " + (", ".join(capped) if capped else "none")]
+             "Throttled to the 5 g structural limit (doctrine): " + (", ".join(capped) if capped else "none"),
+             "Crew doctrine (v0.5.6): sustained thrust capped at 4 g with people aboard (NASA OCHMO: +Gx 4 g tolerable up to at least 60 min); 5 g stays the structural rating, for emergencies. The cap changes burn times, not delta-v."]
     r = gate("G2", "Torch and reach", cs, notes=notes)
     r["modes"] = modes
     return r
@@ -319,15 +350,38 @@ def g4(I, C, G):
         spans[m] = s
         cs.append(chk(f"Metric {m} heat + habitat rejected", s if s else "no", f"<= {R['max_span_m']} m span", s is not None, "m span",
                       f"{metric_heat(I, m, T):.1f} MW Metric + {q_hab_main:.2f} MW habitat via heat pump (x1.25); field geometry radius {R['root_r_m'] + (s or 0):.1f} m"))
-    cap, hull_hit = rad_net_mw(I, C, R["max_span_m"], azs)
-    ppm = cap * 1e6 / (I["torch"]["jet_power_tw"] * 1e12) * 1e6
-    cs.append(chk("torch-burn radiator capacity (full span)", round(cap, 1), "declared torch leak", True, "MW",
-                  f"{ppm:.0f} ppm of jet power; v0.4 model gave {R['torch_capacity_mw']} MW"))
-    decl.append(f"Torch interface: non-exhaust torch heat reaching the ship must stay at or below {cap:.0f} MW ({ppm:.0f} ppm of the 11.36 TW jet) "
-                "during burns. The torch's insides are canon and not re-derived here.")
+    # torch burns (v0.5.2 torch heat package, kT 2026-10-25): heat model in torch/, hot fins aft, strakes carry coil cryo only
+    tb = torch_budget()
+    HF = I["hot_fins"]
+    fspan = HF["pleat_m"] * HF["pleats"]
+    fchord = HF["x_m"][1] - HF["x_m"][0]
+    ffs, ffh = view_factor(HF["azimuths_deg"], fspan, HF["root_r_m"], C["G4"]["view_factor_rays"])
+    fcap = 2 * len(HF["azimuths_deg"]) * fchord * fspan * HF["emissivity"] * SIGMA * HF["temperature_k"] ** 4 * ffs / 1e9
+    cs.append(chk(f"torch burn: heat on hot structure rejected by the hot fins at {HF['temperature_k']} K", round(fcap, 3), round(tb["ship_heat_gw"], 3),
+                  fcap >= tb["ship_heat_gw"], "GW",
+                  f"{len(HF['azimuths_deg'])} fins {fspan:.0f} m x {fchord:.0f} m on the strake lines, view factor to space {ffs:.2f} (torch chain taken as a {HF['root_r_m']} m cylinder, conservative); "
+                  f"heat = light {tb['parts_gw']['light']:.2f} + neutrons {tb['parts_gw']['neutrons']:.2f} + plume contact {tb['parts_gw']['plume contact']:.2f} GW"))
+    q_burn = tb["cryo_reject_mw"] + q_hab_main * (1 + C["G4"]["hab_heat_margin"])
+    s_burn = span_for(I, C, q_burn, azs)
+    cs.append(chk("torch burn: magnet-coil cryo heat + habitat rejected by the strakes", s_burn if s_burn else "no", f"<= {R['torch_span_m']} m span",
+                  s_burn is not None and s_burn <= R["torch_span_m"] + 1e-9, "m span",
+                  f"{tb['coil_heat_mw']:.2f} MW of neutron heating in the coils -> {tb['cryo_reject_mw']:.0f} MW at {T} K, + {q_hab_main:.2f} MW habitat (x1.25)"))
+    fl = C["G4"]["torch_wall_flux_max_mw_m2"]
+    cs.append(chk("torch burn: light on the reactor's aft face", round(tb["wall_flux_mw_m2"], 2), fl, tb["wall_flux_mw_m2"] <= fl + 1e-9, "MW/m2",
+                  f"burn {tb['burn_to_face_m']:.0f} m aft of the face; ITER divertor class"))
+    lim_ppm = fl * 1e6 * 4 * math.pi * tb["burn_to_face_m"] ** 2 / (tb["fusion_tw"] * 1e12) * 1e6
+    decl.append(("torch_heat", f"Torch heat package (kT, 2026-10-25): each pellet is wrapped in a shell of remass that soaks up the burn and leaves as exhaust. The shell must let no more than "
+                f"~{lim_ppm:.0f} ppm of the burn's energy escape as light, counting its own glow (the reactor face's {fl:.0f} MW/m2 limit); the design value is {tb['light_ppm_of_fusion']:.0f} ppm. "
+                f"With the model's other assumptions (torch/torch_heat_inputs.json: light 40% of fusion energy; He3-rich, spin-polarised fuel with 0.76% neutrons, 85% absorbed by the shell; "
+                f"plume contact 1e-4 of charged energy; coil shield transmission 1e-3), {tb['ship_heat_gw']:.2f} GW reaches hot structure and {tb['coil_heat_mw']:.2f} MW the magnet coils at "
+                f"{tb['fusion_tw']:.1f} TW of fusion. These are assumptions, not results. Replaces v0.5.1's 387 MW (34 ppm) torch-leak gap."))
+    decl.append(("torch_fin_temperature", f"Hot fins run for life at {HF['temperature_k']} K. Lithium heat pipes have run in lab tests to ~1,500 K and briefly ~1,800 K; years at "
+                f"{HF['temperature_k']} K with burn cycling and neutron exposure is an engineering extrapolation (a technology milestone), not new physics. Fallback: 1,500 K fins, ~49 m span, ~30 t, still inside the reserve."))
+    cap, hull_hit = rad_net_mw(I, C, R["torch_span_m"], azs)
+    fullcap = rad_net_mw(I, C, R["max_span_m"], azs)[0]
     e_hard = I["canon"]["metric_cryo_electrical_mw_at_900K"]["HARD"] * (T - 20) / 880
-    decl.append(f"Plant electrical: Metric HARD at a {T} K reject temperature needs {e_hard:.1f} MW of cryo-chain electrical power, against canon's "
-                f"23.9 MW at 900 K. The relational plant must supply this (canon amendment), or the cryo chain must reject through a 900 K loop.")
+    decl.append(("plant_power", f"Plant electrical: Metric HARD at a {T} K reject temperature needs {e_hard:.1f} MW of cryo-chain electrical power, against canon's "
+                f"23.9 MW at 900 K. The relational plant must supply this (canon amendment), or the cryo chain must reject through a 900 K loop."))
     # passive habitat skin radiators as backup
     sun = hh["worst_sun_w_m2"] * hh["absorptivity"] / math.pi
     net = hh["emissivity"] * SIGMA * tc ** 4 - sun
@@ -337,10 +391,13 @@ def g4(I, C, G):
                   f"{area:.0f} m2 of habitat skin at {tc} K, Venus-orbit sun"))
     cs.append(chk("major torch burn and high Metric never required together", "doctrine", "CANON II §14", True))
     notes.append(f"Habitat heat {q_hab_kw:.1f} kW for {n} people; heat pump to {T} K needs {w_hp:.0f} kW (Carnot fraction {C['G4']['heat_pump_carnot_fraction']}).")
-    notes.append(f"Strakes shine {hull_hit:.1f} MW onto the hull coating at full span (torch burns): about {hull_hit * 1e6 * 3600 / (300e3 * 4186):.1f} K/h of warming in 300 t of water. The habitat skin radiators sit forward of the strakes (x < 14 m).")
+    notes.append(f"Torch burns: strakes open to {R['torch_span_m']} m ({cap:.0f} MW); full 24 m span ({fullcap:.0f} MW) is no longer needed for the torch. At {R['torch_span_m']} m they shine {hull_hit:.2f} MW onto the hull coating.")
+    notes.append(f"Torch heat model (torch/, non-governing): same 11.36 TW jet from {tb['fusion_tw']:.1f} TW of fusion, pulsed at about 1-10 Hz (0.3-3 kt per pulse). Light escape the face can take: ~{lim_ppm:.0f} ppm; model {tb['light_ppm_of_fusion']:.0f} ppm. Hot-fin capacity is computed here with certify's own 2D view factor; torch/fin_layout.py (numpy, 3.0 m body) gives a slightly higher figure.")
     r = gate("G4", "Power and heat", cs, declared=decl, notes=notes)
     r["spans_m"] = spans
-    r["torch_capacity_mw"] = cap
+    r["torch_strake_capacity_mw"] = cap
+    r["hot_fin_capacity_gw"] = fcap
+    r["torch_budget"] = tb
     return r
 
 
@@ -434,16 +491,36 @@ def g5(I, C, G):
     f_tor = 1 / (2 * Lh) * math.sqrt(Gs * Jt / ix)
     cs.append(chk("first torsion mode (closed tank cell)", round(f_tor, 2), M5["first_mode_min_hz"], f_tor >= M5["first_mode_min_hz"], "Hz",
                   f"J {Jt:.3f} m4 with the allocated {t_alloc * 1000:.1f} mm tank wall; the open slot is bridged by the tank's slot walls"))
-    # tank wall under hydrostatic head
-    h = tL / 2
-    p_ = 1000 * a * h + M5["ullage_pressure_mpa"] * 1e6
-    t_req = p_ * ro / sall
-    m_req = wall_area * t_req * rho
-    cs.append(chk("tank wall mass needed for 5 g head x 1.5 + ullage", round(m_req, 1), round(shells, 1), m_req <= shells, "t",
-                  f"pressure {p_ / 1e6:.2f} MPa, wall {t_req * 1000:.1f} mm, over {wall_area:.0f} m2"))
+    # tank internal structure (tie-webs, baffles, slot walls, bulkheads) sized by build_v05.tank_structure
+    TSd = G["tank_structure"]
+    cs.append(chk("tank structure mass needed at 5 g x 1.5 + ullage", round(TSd["mass_needed_t"], 1), round(shells, 1), TSd["mass_needed_t"] <= shells, "t",
+                  f"ultimate pressure {TSd['ultimate_pressure_mpa']:.2f} MPa; allocated = tank shell share of structure + 8 t non-round penalty"))
+    cs.append(chk("tank walls: axial stress carrying the water's inertia", round(TSd["axial_wall_stress_mpa"], 1), mat["cfrp_allowable_mpa"],
+                  TSd["axial_wall_stress_mpa"] <= mat["cfrp_allowable_mpa"], "MPa"))
+    cs.append(chk("tank wall panels: buckling margin in axial compression", round(TSd["panel_buckling_mpa"] / TSd["axial_wall_stress_mpa"], 1), M5["buckling_factor"],
+                  TSd["panel_buckling_mpa"] / TSd["axial_wall_stress_mpa"] >= M5["buckling_factor"], "x"))
+    for rr in TSd["panels"]:
+        notes.append(f"Tank {rr['item']}: {rr['t_mm']:.1f} mm, {rr['mass_t']:.2f} t, displaces {rr['displaced_m3']:.2f} m3 ({rr['note']})" if rr["note"]
+                     else f"Tank {rr['item']}: {rr['t_mm']:.1f} mm, {rr['mass_t']:.2f} t, displaces {rr['displaced_m3']:.2f} m3")
+    CR = crew_results()
+    fc = CR["flight_deck_columns"]
+    cs.append(chk("flight-deck columns: stress at 5 g x 1.5 plus a 0.5 g side load", fc["side_load_combined_mpa"], fc["yield_mpa"], fc["ok_stress"], "MPa",
+                  f"{fc['columns']} aluminium tubes carry {fc['carried_t']} t; axial {fc['axial_kn']} kN each ({fc['stress_mpa']} MPa)"))
+    cs.append(chk("flight-deck columns: buckling margin", fc["buckling_margin"], C["G5"]["buckling_factor"], fc["ok_buckling"], "x",
+                  f"Euler, pinned ends (conservative), {fc['length_m']} m"))
+    stn = CR["stations"]
+    cs.append(chk("upper berth posts: buckling margin at 5 g x 1.5", stn["berth_post_margin"], C["G5"]["buckling_factor"], stn["ok"], "x",
+                  f"{stn['berth_post_kn']} kN per post; couch and berth hard points {stn['hard_point_kn']} kN each ({stn['requirement']})"))
+    for f in CR["floors"]:
+        cs.append(chk(f"floor {f['deck']}: carries its deck at 5 g x 1.5", f["needed_t"], f["floor_t"], f["ok"], "t needed vs allotted",
+                      f"{f['carried_t']} t on the floor ({f['pressure_kpa']} kPa); CFRP faces {f['face_mm']} mm; core shear {f['core_shear_mpa']} MPa"))
+    bk = CR["l4_l5_bulkhead"]
+    cs.append(chk("floor L4 as a pressure bulkhead (L5 at vacuum), factor 2.0", bk["needed_t"], bk["floor_t"], bk["ok"], "t needed vs allotted",
+                  f"CFRP faces {bk['face_mm']} mm; core shear {bk['core_shear_mpa']} MPa (allowable {bk['core_shear_allow_mpa']}); {bk['hatches']} ladderway hatches and a trunk plug"))
+    notes.append("Crew stations and floors (v0.5.6): closed-form strip and column checks in habitat/crew_systems.py; floors are 0.3 m sandwich panels spanning trunk to hull.")
     notes.append(f"Worst state {worst_state}: {fwd:.0f} t ahead of the thrust cone, {F / 1e6:.1f} MN at {M5['design_g'] * M5['ultimate_factor']:.1f} g ultimate, shared by {n} longerons.")
     notes.append("Bay doors are not counted as structure. Materials: 2026 high-modulus CFRP as a conservative floor (400 MPa, 150 GPa, 1.6 t/m3).")
-    notes.append("Flat C-wall bending at the slot is covered by the 8 t non-round tank penalty; a detailed shell model is still OPEN.")
+    notes.append("Method: closed-form plate theory (Navier series for simply supported panels, which is conservative against clamped edges) plus closed-cell equilibrium with tie-webs. A finite-element shell model is the next level of fidelity; the basis does not require it.")
     r = gate("G5", "Structure and loads", cs + [one_out], notes=notes)
     r["one_longeron_out"] = one_out
     return r
@@ -514,7 +591,8 @@ def g6(I, C, G):
         worst[grp] = min(worst.get(grp, float("inf")), mm)
     for grp, mm in worst.items():
         cs.append(chk(f"inside the shield's shadow: {grp}", round(mm, 2), c6["shadow_margin_m"], mm >= c6["shadow_margin_m"], "m margin"))
-    notes.append(f"Shadow cone: shield front face x {x_f} m, radius {R} m; neutron source a {a} m plasma column anywhere in x {xs[0]}-{xs[1]} m (worst case used); radiator strakes outside the cone take neutron heating and are out of bounds for EVA during burns.")
+    notes.append(f"Shadow cone: shield front face x {x_f} m, radius {R} m; neutron source: the pellet burn, {a} m across, anywhere in x {xs[0]}-{xs[1]} m (worst case used). "
+                 "Radiator strakes and the hot fins sit outside the cone (the fins edge-on to the burn), take neutron heating and are out of bounds for EVA during burns.")
     # storm shelter
     shelter = next(r for r in G["rooms"] if r["kind"] == "shelter")
     ssh = B.shape_from_spec(shelter["shape"])
@@ -561,14 +639,14 @@ def g6(I, C, G):
     shelter_min = min(mins)
     cs.append(chk("storm shelter shielding, every direction", round(shelter_min, 1), c6["shelter_min_g_cm2"], shelter_min >= c6["shelter_min_g_cm2"], "g/cm2",
                   f"{N} rays from 3 points, state {s_state} (tanks empty, shuttle away); thinnest ray from {tuple(round(v, 2) for v in worst_dir[2])} toward {tuple(round(v, 2) for v in worst_dir[1])}"))
-    decl.append(f"Storm shelter life support: {c6['shelter_life_support_h']} h for {n} people from the life-support room on the same deck (design provision, not computed).")
+    decl.append(("shelter_life_support", f"Storm shelter life support: {c6['shelter_life_support_h']} h for {n} people from the life-support room on the same deck (design provision, not computed)."))
     yr = c6["gcr_msv_per_day_2026"] * 365
     days = c6["career_limit_msv"] / c6["gcr_msv_per_day_2026"]
-    decl.append(f"Galactic cosmic rays: at 2026 free-space rates ({c6['gcr_msv_per_day_2026']} mSv/day, ~{yr:.0f} mSv/yr) a crew member reaches NASA's "
+    decl.append(("gcr", f"Galactic cosmic rays: at 2026 free-space rates ({c6['gcr_msv_per_day_2026']} mSv/day, ~{yr:.0f} mSv/yr) a crew member reaches NASA's "
                 f"{c6['career_limit_msv']} mSv career limit after ~{days:.0f} days in deep space. Hull shielding barely changes this. Long careers aboard rely on canon's "
-                "off-Earth MED-MOD-RADIATION milestone and crew time-in-space rules; this is a canon question, not something the hull can close.")
-    decl.append("Torch neutrons and gammas: the shadow shield must attenuate the torch's neutron and gamma output so the dose rate inside the habitat during burns stays "
-                "within crew limits. The torch's source strength is canon and not modelled here; only the shadow geometry is checked.")
+                "off-Earth MED-MOD-RADIATION milestone and crew time-in-space rules; this is a canon question, not something the hull can close."))
+    decl.append(("torch_neutrons", "Torch neutrons and gammas: the shadow shield must attenuate the torch's neutron and gamma output so the dose rate inside the habitat during burns stays "
+                "within crew limits. The v0.5.2 heat model puts neutrons at ~0.76% of the burn's energy with 85% absorbed by the remass shell; the dose itself is not computed here, only the shadow geometry is checked."))
     r = gate("G6", "Radiation", cs, declared=decl, notes=notes)
     r["shelter_min_g_cm2"] = shelter_min
     return r
@@ -589,11 +667,26 @@ def g7(I, C, G):
     cab = [r for r in rooms if r["kind"] == "cabin"]
     crew_cab = [r for r in cab if r["who"] == "crew"]
     guest_cab = [r for r in cab if r["who"] == "guest"]
-    cs.append(chk("private quarters", f"{len(crew_cab)} crew + {len(guest_cab)} guest", f"{n_c} + {n_g}", len(crew_cab) >= n_c and len(guest_cab) >= n_g))
-    mv = min(r["volume_m3"] for r in cab)
-    cs.append(chk("smallest private quarter", round(mv, 2), c7["quarter_min_m3"], mv >= c7["quarter_min_m3"], "m3"))
+    if c7.get("quarters_rule") == "berth_per_person":
+        cb = sum(r.get("occupancy", 1) for r in crew_cab)
+        gb = sum(r.get("occupancy", 1) for r in guest_cab)
+        cs.append(chk("a cabin berth for every person (kT 2026-10-25: shared cabins)", f"{cb} crew + {gb} guest", f"{n_c} + {n_g}", cb >= n_c and gb >= n_g, "",
+                      f"{len(cab)} cabins; berths 2.10 x 0.70 m on 5 g hard points (G5)"))
+    else:
+        cs.append(chk("private quarters", f"{len(crew_cab)} crew + {len(guest_cab)} guest", f"{n_c} + {n_g}", len(crew_cab) >= n_c and len(guest_cab) >= n_g))
+    occ = [r for r in cab if r.get("occupancy")]
+    g7_occ_note = None
+    if occ:
+        g7_occ_note = ("Cabins by occupancy (v0.5.3, Sol's candidate): " + ", ".join(f"{r['name']} {r['occupancy']} ({r['volume_m3'] / r['occupancy']:.1f} m3 each)" for r in occ)
+                       + f"; {sum(r['occupancy'] for r in occ)} berths in {len(occ)} cabins. Private cabins removed by kT on 2026-10-25 (basis change, Sol to agree).")
+    if c7.get("quarters_rule") == "berth_per_person":
+        mv = min(r["volume_m3"] / r.get("occupancy", 1) for r in cab)
+        cs.append(chk("smallest cabin volume per occupant", round(mv, 2), c7["quarter_min_m3"], mv >= c7["quarter_min_m3"], "m3"))
+    else:
+        mv = min(r["volume_m3"] for r in cab)
+        cs.append(chk("smallest private quarter", round(mv, 2), c7["quarter_min_m3"], mv >= c7["quarter_min_m3"], "m3"))
     couches = sum(r["couches"] for r in rooms)
-    cs.append(chk("acceleration couches", couches, n, couches >= n, "", "a couch-bunk in every cabin plus 6 station couches on the command deck"))
+    cs.append(chk("acceleration couches", couches, n, couches >= n, "", "a 5 g berth for every person in the cabins plus 6 station couches on the command deck" if occ else "a couch-bunk in every cabin plus 6 station couches on the command deck"))
     cs.append(chk("deck clear height", hab["clear_height_m"], c7["clear_height_min_m"], hab["clear_height_m"] >= c7["clear_height_min_m"], "m"))
     lw = hab["ladderways"]
     sep = math.dist([lw[0]["r_m"] * math.cos(math.radians(lw[0]["theta_deg"])), lw[0]["r_m"] * math.sin(math.radians(lw[0]["theta_deg"]))],
@@ -605,16 +698,50 @@ def g7(I, C, G):
     cs.append(chk("required rooms present", "all" if not missing else ", ".join(missing), "all", not missing))
     has_tunnel = any(p["id"].startswith("tunnel") for p in G["parts"]) and any(p["id"] == "docking_collar" for p in G["parts"])
     cs.append(chk("docking port and pressure tunnel to the shuttle", "yes" if has_tunnel else "no", "yes", has_tunnel))
+    CR = crew_results()
+    cr = CR["casualty_route"]
+    cs.append(chk("casualty route at 0 g: litter along the ship's axis through every door", f"{cr['doors']['min_height_m']} x {cr['doors']['min_width_m']} m",
+                  f">= {cr['doors']['need_height_m']} x {cr['doors']['need_width_m']} m", cr["doors"]["ok"] and cr["axial_fits_deck"]["ok"], "",
+                  f"{cr['doors']['count']} doors; deck clear height {cr['axial_fits_deck']['clear_height_m']} m"))
+    cs.append(chk("casualty route: litter down the port ladder shaft", f"{cr['shaft']['clear_m'][0]} x {cr['shaft']['clear_m'][1]} m clear",
+                  f">= {cr['shaft']['need_m'][0]:.2f} x {cr['shaft']['need_m'][1]:.2f} m", cr["shaft"]["ok"], "", f"rungs on the {cr['shaft']['rungs_on']}"))
+    sm = cr["shaft_to_medical"]
+    cs.append(chk("casualty route: out of the shaft straight into the medical bay", sm["edge_margin_m"], 0.1, sm["ok"], "m clear of the opening's edge",
+                  f"opening {sm['entrance_deg'][0]}-{sm['entrance_deg'][1]} deg; litter crosses {sm['litter_crosses_deg'][0]}-{sm['litter_crosses_deg'][1]} deg"))
+    ac = CR["acceleration"]
+    worst = min((r for r in ac["rows"] if r["in_couches"]), key=lambda r: r["ochmo_allowed_min"] / max(r["full_remass_burn_min"], 1e-9))
+    cs.append(chk("sustained acceleration within the +Gx evidence (4 g cap)", f"{worst['mode']}: {worst['full_remass_burn_min']} min at up to {worst['accel_peak_g']} g",
+                  f"<= {worst['ochmo_allowed_min']:.0f} min", ac["ok"], "", "worst mode shown; " + ac["note"]))
+    ex = [r for r in ac["rows"] if r.get("split_needed")]
+    cs.append(chk("time on the back per couch period ([V2 6113] 3 h 15 min, nominal 2 h 45 min)", max(r["longest_couch_period_min"] for r in ac["rows"] if r["in_couches"]),
+                  I["habitat"]["crew_systems"]["accel_doctrine"]["on_back_nominal_min"], True, "min",
+                  ("burns over 2 h 45 min are split by a 30 min coast break: " + ", ".join(f"{r['mode']} full-remass burn {r['full_remass_burn_min']} min" for r in ex)) if ex else ""))
+    sb = CR["shelter_backup"]
+    cs.append(chk("storm shelter: 72 h stored backup for 10 people", sb["stored_mass_t"], sb["allotted_t"], sb["ok"], "t",
+                  f"O2 {sb['o2_kg']} kg, LiOH {sb['lioh_kg']} kg for {sb['co2_kg']} kg CO2, food {sb['food_kg']} kg, battery {sb['battery_kg']} kg (24 h); "
+                  f"drinking water {sb['drink_water_kg']} kg from the shelter jacket ({sb['water_from_jacket_fraction'] * 100:.1f}%); {sb['heat_kw']} kW of heat"))
+    dw = CR["docking_and_windows"]
+    cs.append(chk("docking view: cameras at the collar and a vestibule window", f"{dw['cameras']} cameras, window {'yes' if dw['vestibule_window'] else 'no'}",
+                  ">= 2 cameras and a window", dw["cameras"] >= 2 and dw["vestibule_window"]))
+    l1p = HERE / "command/l1_study_results.json"
+    if l1p.exists():
+        L1R = json.loads(l1p.read_text())
+        okl = L1R.get("geometry_sha256") == G.get("_sha") and all(L1R["checks"].values())
+        cs.append(chk("L1 command deck (layout D, adopted): human-factors checks", f"{sum(L1R['checks'].values())}/{len(L1R['checks'])}",
+                      "all, on this geometry", okl, "", "command/l1_study.py: couches, views through the armour bores, walkways, displays, sensors"))
     per_deck = {}
     for r in rooms:
         per_deck.setdefault(r["deck"], 0.0)
         per_deck[r["deck"]] += r["nhv_m3"]
-    windows = sum(r["windows"] for r in rooms)
+    windows = len([f for f in G["features"] if f["kind"] == "window"])
     notes = [f"Target {target:.0f} m3 ({c7['nhv_target_m3_per_crew']:.0f} per crew, {c7['nhv_target_m3_per_guest']:.0f} per guest): reached {nhv / target * 100:.0f}%. "
              "A sixth deck (+2.6 m of habitat) would reach the target.",
              "Net habitable volume by deck: " + ", ".join(f"{k} {v:.0f} m3" for k, v in per_deck.items()),
-             f"Windows planned: {windows} (canon candidate suggests 10-16; more can be added by deck function)",
+             f"Windows: {windows} (canon candidate suggests 10-16): 8 nose and 4 shoulder on L1, 2 in the observation lounge, 1 in the L5 vestibule; each with four panes, a shutter and a 12 deg armour splay",
+             "Casualties move at 0 g (coast on the captain's order); under thrust they are treated in their couch or berth.",
              "Decks are perpendicular to the thrust axis; under thrust, aft is down. Above ~1.5 g everyone rides in a couch."]
+    if g7_occ_note:
+        notes.append(g7_occ_note)
     r = gate("G7", "Compartments and crew space", cs, notes=notes)
     r["nhv_m3"] = nhv
     r["nhv_by_deck_m3"] = per_deck
@@ -648,6 +775,15 @@ def g8(I, C, G):
     for nm, yy in obst:
         cl = yy - rs
         cs.append(chk(f"exit path clear of {nm}", round(cl, 2), c8["path_clearance_min_m"], cl >= c8["path_clearance_min_m"] - 1e-9, "m"))
+    HF = I.get("hot_fins")
+    if HF:
+        worst = min(abs((HF["root_r_m"] + a_) * math.cos(math.radians(az)) - sd * HF["stowed_stack_thickness_m"] / 2 * math.sin(math.radians(az)))
+                    for az in HF["azimuths_deg"] if math.sin(math.radians(az)) > 0
+                    for a_ in (0.0, HF["pleat_m"], HF["pleat_m"] * HF["pleats"]) for sd in (-1, 1))
+        cl = worst - Bay["slot_half_width_m"]
+        cs.append(chk("hot fins clear the shuttle corridor (carried aft of the bay on +Z)", round(cl, 2), c8["corridor_clearance_m"],
+                      cl >= c8["corridor_clearance_m"] - 1e-9, "m from the slot edge line",
+                      f"fins at x {HF['x_m'][0]}-{HF['x_m'][1]} m, {HF['x_m'][0] - Bay['x_m'][1]:.2f} m aft of the bay; a shuttle that drifts aft on leaving or arriving still meets no fin"))
     segs = I["service"]["tunnel"]["segments"]
     ok = abs(segs[-1]["to"][0] - S["nose_port_x_m"]) < 0.05 and segs[0]["from"][0] >= I["hull"]["pressure_vessel_x_m"][1] - 0.05
     cs.append(chk("pressure-tight transfer from habitat to shuttle nose", "habitat - collar node - bay axis - nose port" if ok else "broken", "continuous", ok))
@@ -684,6 +820,21 @@ def g9(I, C, G, r3, r4, r5):
         worst_span = max(worst_span, s or 99)
         cs.append(chk(f"strake {lost} deg lost: Metric HARD still rejected", s if s else "no", f"<= {R['max_span_m']} m", s is not None, "m span",
                       f"torch-burn capacity falls to {cap:.0f} MW"))
+    HF = I.get("hot_fins")
+    if HF and r4.get("torch_budget"):
+        fspan = HF["pleat_m"] * HF["pleats"]
+        fchord = HF["x_m"][1] - HF["x_m"][0]
+        need = r4["torch_budget"]["ship_heat_gw"]
+        worst = 1.0
+        for lost in HF["azimuths_deg"]:
+            azs = [a for a in HF["azimuths_deg"] if a != lost]
+            fs_, _ = view_factor(azs, fspan, HF["root_r_m"], C["G4"]["view_factor_rays"])
+            capl = 2 * len(azs) * fchord * fspan * HF["emissivity"] * SIGMA * HF["temperature_k"] ** 4 * fs_ / 1e9
+            worst = min(worst, capl / need)
+        jf = min(1.0, worst)
+        cs.append(chk("one hot fin lost: torch still runs", f"{jf * 100:.0f}% jet power", f">= {C['G9']['one_fin_lost_min_jet_fraction'] * 100:.0f}%",
+                      jf >= C["G9"]["one_fin_lost_min_jet_fraction"], "",
+                      f"the torch throttles so its heat matches three fins; CRUISE at canon mass then gives about {jf:.2f} g"))
     s7 = G["states"]["S7"]
     cs.append(chk("tank cell vented (S7): thrust trim", round(s7["trim_deg"], 3), C["G3"]["trim_max_deg"], s7["trim_deg"] <= C["G3"]["trim_max_deg"], "deg"))
     ve = I["canon"]["torch_ve_km_s"]["ECON"]
@@ -697,6 +848,9 @@ def g9(I, C, G, r3, r4, r5):
     cs.append(r5["one_longeron_out"])
     cs.append(chk("protected water kept out of routine propulsion", "by accounting", "always", True, "",
                   "jacket and service tank water are separate from the tank cells' remass; the 16.5 t... in the cells is never counted as remass".replace("16.5 t...", f"{G['protected_water']['c_tank_t']:.1f} t")))
+    bk = crew_results()["l4_l5_bulkhead"]
+    cs.append(chk("L5 depressurised: the rest of the habitat stays pressurised", "isolated" if bk["ok"] and bk["trunk_plug"] and bk["hatches"] == 2 else "no",
+                  "isolated", bk["ok"] and bk["trunk_plug"] and bk["hatches"] == 2, "", "floor L4 is a bulkhead; two ladderway hatches close on a pressure drop; a plug seals the trunk"))
     notes.append("Torch failure after departure is a Q6/Q7 degraded-mission case (survival possible, completion not assumed).")
     return gate("G9", "Failures and reserves", cs, notes=notes)
 
@@ -706,16 +860,29 @@ def card(I, G, r2):
     st = {}
     for s in states(I):
         v = G["states"][s]
-        st[s] = {"name": v["name"], "mass_t": round(v["mass_t"], 2), "remass_t": I["states"][s]["remass_t"] * (0.75 if I["states"][s].get("vented") else 1),
-                 "shuttle": v["shuttle"], "payload_t": v["payload_t"], "cg_m": [round(c, 3) for c in v["cg_m"]],
-                 "inertia_diag_kg_m2": [round(v["inertia_kg_m2"][k][k]) for k in range(3)]}
+        st[s] = {"name": v["name"], "mass_t": round(v["mass_t"], 2), "remass_usable_t": round(v["usable_remass_t"], 2),
+                 "shuttle": v["shuttle"], "payload_t": v["payload_t"], "cg_m": [round(c, 4) for c in v["cg_m"]],
+                 "inertia_tensor_kg_m2": [[round(x) for x in row] for row in v["inertia_kg_m2"]],
+                 "principal_moments_kg_m2": [round(x) for x in v["principal_kg_m2"]],
+                 "principal_axes": [[round(x, 6) for x in row] for row in v["principal_axes"]],
+                 "thrust_trim_deg": round(v["trim_deg"], 4)}
+        fd = v.get("fins_deployed")
+        if fd:
+            st[s]["hot_fins_deployed"] = {"inertia_tensor_kg_m2": [[round(x) for x in row] for row in fd["inertia_kg_m2"]],
+                                          "principal_moments_kg_m2": [round(x) for x in fd["principal_kg_m2"]],
+                                          "principal_axes": [[round(x, 6) for x in row] for row in fd["principal_axes"]],
+                                          "note": "torch burns: hot fins unfolded (same mass and centre of mass)"}
     return {"header": "ALL bodies. ALL sponsors. 2026-2226.", "status": "NON-GOVERNING SANDBOX ship card for Navigator (gate G10)",
-            "ship": "Wayfarer v0.5", "geometry_sha256": G["_sha"], "dry_t": round(G["dry_t"], 2),
+            "ship": f"Wayfarer v{I['version']}", "geometry_sha256": G["_sha"], "dry_t": round(G["dry_t"], 2),
             "fluids": {"water_t": I["canon"]["water_t"], "remass_t": I["canon"]["remass_t"], "protected_water_t": I["canon"]["protected_water_t"]},
             "torch": {"ve_km_s": I["canon"]["torch_ve_km_s"], "jet_power_tw": I["torch"]["jet_power_tw"],
                       "thrust_mn_by_mode": {m: round(v["thrust_mn"], 3) for m, v in r2["modes"].items()},
-                      "accel_cap_g": 5.0, "thrust_line_offset_m": G["thrust_line_offset_m"]},
+                      "accel_cap_g": 4.0, "accel_cap_note": "crew doctrine v0.5.6: 4 g sustained with people aboard; 5 g is the structural rating (emergencies)", "thrust_line_offset_m": G["thrust_line_offset_m"], "thrust_point_x_m": I["torch"]["thrust_point_x_m"],
+                      "architecture": "pulsed remass-shell torch (v0.5.2 heat package)",
+                      "slew_rule": "fold the hot fins before large slews; inertia with fins out is given per state"},
+            "hot_fins": G.get("hot_fins"),
             "dispatch_q7": {"normal_dispatch_remass_t": 150, "minimum_dispatch_remass_t": 100, "protected_optimizer_reserve_t": 50},
+            "frame": "ship body axes: x from the bow toward the nozzle, y starboard, z toward the shuttle slot; origin at the bow datum; inertia about each state's centre of mass",
             "states": st,
             "missions_to_fly": ["E1 Ceres to Neptune", "FR-01B-R Ceres to Phobos", "MV-01 Ceres to Phoebe to Ganymede"],
             "pass_rule": "arrival remass >= 50 t protected optimizer reserve (Q7)"}
@@ -735,8 +902,10 @@ def g11(I, C, G, r4):
         ("Metric HARD electrical", "~23.9 MW at 900 K", f"{I['canon']['metric_cryo_electrical_mw_at_900K']['HARD'] * (I['radiators']['temperature_k'] - 20) / 880:.1f} MW at {I['radiators']['temperature_k']} K"),
         ("Torch axis", "1 axial torch", f"axial, with its thrust line offset {math.hypot(G['thrust_line_offset_m']['y'], G['thrust_line_offset_m']['z']):.2f} m from the hull centreline to pass through the centre of mass"),
         ("People", "6 normal crew", "6 crew (unchanged) + 4 guest berths"),
-        ("Protected water", "50 t in the tanks", f"{G['protected_water']['jacket_t']:.1f} t storm-shelter jacket, {G['protected_water']['service_tank_t']:.1f} t service tank, {G['protected_water']['c_tank_t']:.1f} t in the tank cells"),
+        ("Protected water", "50 t in the tanks", f"{G['protected_water'].get('shelter_jacket_t', G['protected_water']['jacket_t']):.1f} t storm-shelter jacket, {G['protected_water'].get('berth_shield_t', 0):.2f} t L3 berth shield ring, {G['protected_water']['service_tank_t']:.1f} t service tank, {G['protected_water']['c_tank_t']:.1f} t in the tank cells"),
         ("Shuttle", "candidate 30-35 t launch, ~10.5 m (not canon)", f"rover-drop shuttle {I['shuttle']['dry_t']} t empty, {I['shuttle']['length_m']} m"),
+        ("Torch internals", "axial fusion torch / magnetic nozzle; internals not stated", "pulsed: each He3-rich, spin-polarised D-He3 pellet is wrapped in a shell of remass that becomes the exhaust; burn 6 m aft of the reactor face (x 52.3 m)"),
+        ("Hot fins", "none", f"4 hot fins at {I['hot_fins']['temperature_k']} K aft of the shield on the strake lines, {I['hot_fins']['pleat_m'] * I['hot_fins']['pleats']:.0f} m, {I['ledger']['torch_hot_fins_t']:.1f} t paid from the engineering reserve"),
     ]
     kept = ["torch card and remass/water figures", "Metric card and 719 m2-equivalent HARD requirement", "integrated, unpressurized launch bay with lateral departure, pressure-tight transfer and DOCKED/ABSENT mass state",
             "docking collar at x = 16 m on -Z", "habitat x 0-14 m, decks perpendicular to thrust", "no spin ring, wings or landing gear", "torch/Metric exclusivity", "four radiator assemblies"]
@@ -755,10 +924,11 @@ def g12(I, C, G):
         return gate("G12", "Images", [chk("images generated from the hashed geometry", "not yet", "all four sets", False)], force=OPEN)
     M = json.loads(man.read_text())
     cs = [chk("images stamped with this geometry's hash", M.get("geometry_sha256", "")[:12], G["_sha"][:12], M.get("geometry_sha256") == G["_sha"])]
+    note = ["The script checks provenance (made from this geometry, every set present). Whether the images look right is a human judgement: kT's visual acceptance is the second half of this gate."]
     for kind, need in (("exterior", 4), ("cutaway", 2), ("deckplan", len(I["habitat"]["decks"])), ("viewer", 1)):
         n = len([f for f in M["files"] if f["kind"] == kind and (HERE / "render" / "out" / f["file"]).exists()])
         cs.append(chk(f"{kind} images", n, need, n >= need))
-    return gate("G12", "Images", cs)
+    return gate("G12", "Images", cs, notes=note)
 
 
 # ---------------------------------------------------------------- report
@@ -773,16 +943,34 @@ def main():
     r9 = g9(I, C, G, r3, r4, r5)
     cd = card(I, G, r2)
     (HERE / "out/wayfarer_v05_card.json").write_text(json.dumps(cd, indent=1))
+    M1 = G["states"]["S1"]["mass_t"]
+    vc = I["canon"]["torch_ve_km_s"]["CRUISE"]
+    scr = []
+    for dv in (50, 100, 200, 300):
+        used = M1 * (1 - math.exp(-dv / vc))
+        scr.append(f"{dv} km/s: {used:.1f} t ({'within' if 150 - used >= 50 else 'beyond'} 150 t dispatch less the 50 t reserve)")
     r10 = gate("G10", "Mission suite (Navigator, run by Sol)", [chk("E1, FR-01B-R and MV-01 flown by Navigator", "awaiting Sol", "arrival remass >= 50 t", False)],
-               notes=["Machine-readable card written to out/wayfarer_v05_card.json."], force=OPEN)
+               notes=["Machine-readable card written to out/wayfarer_v05_card.json (full inertia tensors, principal axes, usable remass per state).",
+                      "Screening only, not a Navigator result (Q6 v0.1 buckets, ideal rocket equation at CRUISE from the S1 mass): " + "; ".join(scr) + ".",
+                      "Sol reported (2026-10-25): the Navigator entry point needs its CIVSTATE database in the run context, has no ship-card import contract, and the three missions have no executable fixtures. Those are integration steps for Sol; this gate stays OPEN until Navigator flies the missions."],
+               force=OPEN)
     r11, r12 = g11(I, C, G, r4), g12(I, C, G)
     gates = [r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12]
+    kd_path = HERE / "inputs/kt_decisions.json"
+    KD = json.loads(kd_path.read_text()) if kd_path.exists() else {"decisions": {}}
+    for g in gates:
+        g["declared"] = [{"key": k, "text": txt, "kT": KD["decisions"].get(k, {"decision": "AWAITING"}).get("decision"),
+                          "as": KD["decisions"].get(k, {}).get("as", ""), "date": KD.get("date") if k in KD["decisions"] else None}
+                         for k, txt in g["declared"]]
     summary = {g["gate"]: g["verdict"] for g in gates}
     rep = {"header": "ALL bodies. ALL sponsors. 2026-2226.", "status": "NON-GOVERNING SANDBOX certification run",
            "basis": "CERTIFICATION_BASIS_v0.1 (PROPOSED)", "geometry_sha256": G["_sha"], "inputs_sha256": G["inputs_sha256"],
            "criteria_sha256": hashlib.sha256((HERE / "inputs/cert_criteria_v0.1.json").read_bytes()).hexdigest(),
            "summary": summary, "gates": gates,
-           "declared_for_kT": [d for g in gates for d in g["declared"]]}
+           "declared_for_kT": [d for g in gates for d in g["declared"]],
+           "kt_decisions_sha256": hashlib.sha256(kd_path.read_bytes()).hexdigest() if kd_path.exists() else None,
+           "certified": all(g["verdict"] in (PASS, DECL) for g in gates) and all(d["kT"] == "ACCEPTED" for g in gates for d in g["declared"]),
+           "certified_rule": "every gate PASS or PASS-DECLARED and every declared assumption ACCEPTED by kT; then both reviewers sign and loom-gate passes"}
     (HERE / "out/certification_report.json").write_text(json.dumps(rep, indent=1, default=str))
     (HERE / "out/CERTIFICATION_REPORT_v0.5.md").write_text(markdown(rep, G))
     for g in gates:
@@ -803,9 +991,10 @@ def markdown(rep, G):
          "## Summary", "", "| Gate | Verdict |", "|---|---|"]
     for g in rep["gates"]:
         L.append(f"| {g['gate']} {g['title']} | {g['verdict']} |")
-    L += ["", "## Declared assumptions kT must accept", ""]
+    L += ["", "## Declared assumptions and kT's decisions", ""]
     for d in rep["declared_for_kT"]:
-        L.append(f"- {d}")
+        L.append(f"- **{d['kT']}{' by kT ' + d['date'] if d['date'] else ''}.** {d['text']}" + (f" Decision: {d['as']}" if d["as"] else ""))
+    L += ["", f"Script verdict on certification: {'all computable gates pass and every declared assumption is accepted' if rep['certified'] else 'NOT YET: at least one gate is OPEN or FAIL, or a declared assumption awaits kT'}. Sign-off still needs both reviewers and loom-gate."]
     for g in rep["gates"]:
         L += ["", f"## {g['gate']} {g['title']}: {g['verdict']}", "", "| Check | Value | Limit | Pass | Note |", "|---|---|---|---|---|"]
         for c in g["checks"]:

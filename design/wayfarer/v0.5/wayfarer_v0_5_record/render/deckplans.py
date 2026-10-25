@@ -50,6 +50,8 @@ def bed(cx, cy, s, r, th, L=2.0, W=0.9):
 
 def deck_svg(dk, W=1200, Hh=1320, s=112, small=False):
     cx, cy = W / 2, 690
+    if dk.get("command_layout"):
+        Hh = 1400
     hab = I["habitat"]
     rooms = [r for r in G["rooms"] if r["deck"] == dk["id"]]
     feats = [f for f in G["features"] if f.get("room", "").startswith(dk["id"] + "-")]
@@ -72,7 +74,7 @@ def deck_svg(dk, W=1200, Hh=1320, s=112, small=False):
         if r["shape"]["k"] == "domecyl":
             o.append(f'<circle cx="{cx}" cy="{cy}" r="{Ru * s}" fill="{fill}" stroke="#4b5563" stroke-width="2"/>')
         else:
-            r0, r1 = hab["room_r_m"]
+            r0, r1 = (r["shape"]["r0"], r["shape"]["r1"]) if r["shape"]["k"] == "sector" and not r.get("jacket") and kind != "shelter" else hab["room_r_m"]
             o.append(f'<path d="{sector(cx, cy, s, r0, r1, a0, a1)}" fill="{fill}" stroke="#4b5563" stroke-width="2"/>')
         if kind == "shelter":
             jac = hab["shelter_jacket"]["water_thickness_m"]
@@ -81,11 +83,28 @@ def deck_svg(dk, W=1200, Hh=1320, s=112, small=False):
             for p_ in (sector(cx, cy, s, r1 - jac, r1, a0, a1), sector(cx, cy, s, r0, r0 + jac, a0, a1),
                        sector(cx, cy, s, r0, r1, a0, a0 + da), sector(cx, cy, s, r0, r1, a1 - da, a1)):
                 o.append(f'<path d="{p_}" fill="url(#hatch)" opacity="0.85"/>')
-        if kind == "cabin":
+        if kind == "cabin" and r.get("bunks"):
+            for b in r["bunks"]:
+                rb = (b["radial_m"][0] + b["radial_m"][1]) / 2
+                o.append(bed(cx, cy, s, rb, b["angle_deg"], b["radial_m"][1] - b["radial_m"][0], b["width_m"]))
+                if b["tiers"] > 1:
+                    bx, by = P(cx, cy, s, b["radial_m"][1] - 0.35, b["angle_deg"])
+                    o.append(text(bx, by + 5, f'x{b["tiers"]}', 13, 500, "#3b4a6b"))
+        elif kind == "cabin":
             o.append(bed(cx, cy, s, 3.15, (a0 + a1) / 2, 1.9, 0.8))
+        for dd in [r.get("door"), r.get("entrance")]:
+            if dd:
+                rr_ = dd.get("at_r_m", hab["corridor_r_m"][1])
+                half = math.degrees(dd["clear_width_m"] / 2 / rr_)
+                c_ = dd["center_deg"]
+                o.append(f'<path d="{sector(cx, cy, s, rr_ - 0.06, rr_ + 0.06, c_ - half, c_ + half, 10)}" fill="#ffffff" stroke="#d97706" stroke-width="2"/>')
         # label
         am = (a0 + a1) / 2
-        if r["shape"]["k"] == "domecyl":
+        if r["shape"]["k"] == "domecyl" and dk.get("command_layout", {}).get("flight_deck"):
+            lx, ly = cx, cy + 2.42 * s
+        elif r["shape"]["k"] == "domecyl" and dk.get("command_layout"):
+            lx, ly = cx, cy - 3.05 * s
+        elif r["shape"]["k"] == "domecyl":
             lx, ly = cx, cy - 0.9 * s
         else:
             rr = {"cabin": 3.15, "vestibule": 2.25}.get(kind, 2.95)
@@ -104,8 +123,44 @@ def deck_svg(dk, W=1200, Hh=1320, s=112, small=False):
         else:
             o.append(text(lx, ly, name, fs))
             o.append(text(lx, ly + 19, f'{r["volume_m3"]:.1f} m³ · {r["nhv_m3"]:.1f} m³ free', 13, 400, MUTED))
+    bs = hab.get("berth_shield")
+    if bs and bs["deck"] == dk["id"]:
+        o.append(f'<path d="{sector(cx, cy, s, bs["r_m"][0], bs["r_m"][1], 0, 360, 180)}" fill="url(#hatch)" opacity="0.9"/>')
+        o.append(text(cx, cy - Rp * s - 4, "8 cm water ring (berth shield)", 13, 500, "#2b5ea8"))
     # command deck stations
-    if dk.get("dome"):
+    CLy = dk.get("command_layout")
+    if dk.get("dome") and CLy:
+        Q = lambda y, z: (cx - y * s, cy - z * s)
+        ring_r = CLy.get("sensor_ring", {}).get("r_in_m") or CLy.get("sensor_bore_r_m")
+        o.append(f'<circle cx="{cx}" cy="{cy}" r="{ring_r * s:.1f}" fill="none" stroke="#6d5aa8" stroke-width="2" stroke-dasharray="10 6"/>')
+        pl = CLy.get("flight_deck") or CLy["platform"]
+        (ax, ay), (bx_, by_) = Q(pl["y_m"][1], pl["z_m"][1]), Q(pl["y_m"][0], pl["z_m"][0])
+        o.append(f'<rect x="{min(ax, bx_):.1f}" y="{min(ay, by_):.1f}" width="{abs(bx_ - ax):.1f}" height="{abs(by_ - ay):.1f}" fill="#e5e7eb" stroke="#4b5563" stroke-width="2.5" stroke-dasharray="{"12 6" if "flight_deck" in CLy else "none"}"/>')
+        if "flight_deck" in CLy:
+            lx0, ly0 = Q(0.3, pl["z_m"][0] - 0.05)
+            lx1, ly1 = Q(-0.3, pl["z_m"][0] - 0.45)
+            o.append(f'<rect x="{min(lx0, lx1):.1f}" y="{min(ly0, ly1):.1f}" width="{abs(lx1 - lx0):.1f}" height="{abs(ly1 - ly0):.1f}" fill="#fff7d6" stroke="#8a6d00" stroke-width="2"/>')
+            o.append(text((lx0 + lx1) / 2, max(ly0, ly1) + 18, "Ladder up", 13, 500, "#6b5600"))
+        cw = CLy["couch"]["width_m"]
+        for st in CLy["stations"]:
+            (hy, hz), (fy, fz) = st["head_yz_m"], st["feet_yz_m"]
+            L = math.hypot(fy - hy, fz - hz); uy, uz = (fy - hy) / L, (fz - hz) / L; vy, vz = -uz, uy
+            pts = [Q(y + sg * cw / 2 * vy, z + sg * cw / 2 * vz) for (y, z) in ((hy, hz), (fy, fz)) for sg in ((-1, 1) if (y, z) == (hy, hz) else (1, -1))]
+            fwd = st["base"] in ("platform", "flight_deck")
+            o.append(f'<path d="M{" L".join(f"{a:.1f},{b:.1f}" for a, b in pts)} Z" fill="{"#ffffff" if not fwd else "#dbeafe"}" stroke="{"#1d4ed8" if fwd else "#3b6b68"}" stroke-width="2.5" />')
+            ex, ey = Q(hy + uy * CLy["couch"]["eye_from_head_end_m"], hz + uz * CLy["couch"]["eye_from_head_end_m"])
+            o.append(f'<circle cx="{ex:.1f}" cy="{ey:.1f}" r="7" fill="#dc2626"/>')
+            mx, my = Q(hy + uy * L * 0.6, hz + uz * L * 0.6)
+            o.append(text(mx, my + 5, st["id"], 14, 500, "#1d4ed8" if fwd else "#3b6b68"))
+        for w in CLy["forward_windows"]:
+            wx, wy = Q(*w["yz_m"])
+            o.append(f'<circle cx="{wx:.1f}" cy="{wy:.1f}" r="{w["d_m"] / 2 * s:.1f}" fill="none" stroke="#0284c7" stroke-width="3" stroke-dasharray="6 4"/>')
+        for lw in hab["ladderways"]:
+            x, y = P(cx, cy, s, lw["r_m"], lw["theta_deg"])
+            h = lw["size_m"] * s
+            o.append(f'<rect x="{x - h / 2:.1f}" y="{y - h / 2:.1f}" width="{h:.1f}" height="{h:.1f}" fill="#fff7d6" stroke="#8a6d00" stroke-width="2"/>')
+            o.append(text(x, y + 5, "Ladder", 13, 500, "#6b5600"))
+    elif dk.get("dome"):
         for k, th in enumerate([30, 70, 110, 150, 210, 330]):
             x, y = P(cx, cy, s, 3.15, th)
             o.append(f'<rect x="{x - 0.45 * s:.1f}" y="{y - 0.3 * s:.1f}" width="{0.9 * s:.1f}" height="{0.6 * s:.1f}" rx="10" fill="#ffffff" stroke="#3b6b68" stroke-width="2"/>')
@@ -127,6 +182,8 @@ def deck_svg(dk, W=1200, Hh=1320, s=112, small=False):
             o.append(text(x, y + h / 2 + 16, "Ladder", 13, 500, "#6b5600"))
     # windows, hatches
     for f in feats:
+        if f.get("forward"):
+            continue          # nose windows are drawn as dashed circles overhead
         th = math.degrees(math.atan2(f["pos"][2], f["pos"][1]))
         span = math.degrees(f["d_m"] / Rp)
         o.append(f'<path d="{sector(cx, cy, s, Rp - 0.04, Rp + 0.16, th - span / 2, th + span / 2, 6)}" fill="#2b6cb0"/>')
@@ -159,24 +216,35 @@ def deck_svg(dk, W=1200, Hh=1320, s=112, small=False):
     o.append(text(60, 70, f'{dk["id"]}  {dk["name"]}', 34, 500, INK, "start"))
     o.append(text(60, 106, f'Deck x {x0d}-{x1d} m from the bow; floor at x {x1d} m; clear height {hab["clear_height_m"]} m. Looking aft (down under thrust).', 17, 400, MUTED, "start"))
     line = f'Net habitable volume on this deck {nhv:.0f} m³'
-    if people:
+    occ = sum(r.get("occupancy", 0) for r in rooms if r["kind"] == "cabin")
+    if people and occ:
+        line += f'; {people} cabins with {occ} berths ({sum(len(r.get("bunks", [])) for r in rooms)} bunk footprints, 5 g restraints); 8 cm water ring'
+    elif people:
         line += f'; {people} private cabins, each with a couch-bunk and a window'
     elif couches:
         line += f'; {couches} acceleration couches'
     o.append(text(60, 134, line, 17, 400, MUTED, "start"))
-    o.append(text(W - 40, Hh - 40, f"VISUAL REFERENCE · Wayfarer v0.5 (NON-GOVERNING) · from wayfarer_v05_geometry.json sha256 {SHA[:16]}…", 12, 400, "#8b94a3", "end"))
+    if dk.get("command_layout"):
+        yb = cy + Ro * s + 72
+        if "flight_deck" in CLy:
+            o.append(text(60, yb, f"Grey dashed: flight deck {3.0 - CLy['flight_deck']['x_m'][0]:.2f} m up, carrying PILOT and NAV on their backs facing the bow; four support couches lie along the rim.", 15, 400, MUTED, "start"))
+            o.append(text(60, yb + 22, "Purple dashed: inner edge of the sensor ring overhead. Blue dashed: the eight nose windows. Red: eye points.", 15, 400, MUTED, "start"))
+        else:
+            o.append(text(60, yb, "Pilot and navigator on a 1.2 m platform, on their backs facing the bow; four support couches on the floor.", 15, 400, MUTED, "start"))
+            o.append(text(60, yb + 22, "Purple dashed: 2.5 m viewing bore through the sensor ring overhead. Blue dashed: the two 0.8 m nose windows. Red: eye points.", 15, 400, MUTED, "start"))
+    o.append(text(W - 40, Hh - 40, f"VISUAL REFERENCE · Wayfarer v{G['version']} (NON-GOVERNING) · from wayfarer_v05_geometry.json sha256 {SHA[:16]}…", 12, 400, "#8b94a3", "end"))
     o.append(text(W - 40, Hh - 22, "ALL bodies. ALL sponsors. 2026-2226.", 12, 400, "#8b94a3", "end"))
     o.append("</svg>")
     return "\n".join(o), nhv
 
 
 def overview(svgs):
-    W, H = 2400, 1700
+    W, H = 2400, 1870
     o = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">', f'<rect width="{W}" height="{H}" fill="#f7f8fa"/>']
-    o.append(text(60, 80, "Wayfarer v0.5 habitat: five decks for 6 crew and 4 guests", 40, 500, INK, "start"))
+    o.append(text(60, 80, f"Wayfarer v{G['version']} habitat: five decks for 6 crew and 4 guests", 40, 500, INK, "start"))
     nhv = sum(r["nhv_m3"] for r in G["rooms"])
-    o.append(text(60, 122, f"Pressure vessel 8.6 m across, x 0.2-13.7 m. Net habitable volume {nhv:.0f} m³ ({nhv / 10:.1f} m³ per person). 16 windows, 16 couches, two ladders per deck.", 22, 400, MUTED, "start"))
-    pos = [(60, 170), (860, 170), (1660, 170), (460, 930), (1260, 930)]
+    o.append(text(60, 122, f"Pressure vessel 8.6 m across, x 0.2-13.7 m. Net habitable volume {nhv:.0f} m³ ({nhv / 10:.1f} m³ per person). {sum(len([f for f in G["features"] if f["kind"] == "window"]) for _ in [0])} windows, {sum(r["couches"] for r in G["rooms"])} couches and berths, two ladders per deck.", 22, 400, MUTED, "start"))
+    pos = [(60, 170), (860, 170), (1660, 170), (460, 1000), (1260, 1000)]
     for (x, y), (svg, dk) in zip(pos, svgs):
         inner = svg.split("\n", 1)[1].rsplit("</svg>", 1)[0]
         o.append(f'<g transform="translate({x},{y}) scale(0.6)">{inner}</g>')

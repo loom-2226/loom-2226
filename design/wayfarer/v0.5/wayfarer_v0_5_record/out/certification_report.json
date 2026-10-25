@@ -2,9 +2,9 @@
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
  "status": "NON-GOVERNING SANDBOX certification run",
  "basis": "CERTIFICATION_BASIS_v0.1 (PROPOSED)",
- "geometry_sha256": "406424a71d8d3195dc23bc732d29ec3ca6686ef15d5bf61fa0be64171eeba2a1",
- "inputs_sha256": "361c63e096197ba0d977a6f4b98aff0178674e8297285475d63127fe5a7247d9",
- "criteria_sha256": "54ee15ea7eb9d4dcb376ef46825db262939fcbf715deeede309393cd59997a6c",
+ "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369",
+ "inputs_sha256": "9e529f165140fbd003fcf3a7c1b2df18532099e08da7cfe1b6699ab72faf750f",
+ "criteria_sha256": "61f294d969294fcf3f9e5d6e3bb913cab3b227e31c168fcc1b3199a85ed987fe",
  "summary": {
   "G1": "PASS",
   "G2": "PASS",
@@ -67,24 +67,24 @@
     },
     {
      "name": "S5 mass = dry + fluids + payload",
-     "value": 887.43,
-     "limit": 887.43,
+     "value": 888.3,
+     "limit": 888.3,
      "unit": "t",
      "pass": true,
      "note": "burnt out, shuttle away"
     },
     {
      "name": "S6 mass = dry + fluids + payload",
-     "value": 1137.43,
-     "limit": 1137.43,
+     "value": 1138.3,
+     "limit": 1138.3,
      "unit": "t",
      "pass": true,
      "note": "full, shuttle away"
     },
     {
      "name": "S7 mass = dry + fluids + payload",
-     "value": 1104.93,
-     "limit": 1104.93,
+     "value": 1105.18,
+     "limit": 1105.18,
      "unit": "t",
      "pass": true,
      "note": "one tank cell breached and vented"
@@ -99,7 +99,7 @@
     },
     {
      "name": "tank volume",
-     "value": 322.4,
+     "value": 322.6,
      "limit": 315.0,
      "unit": "m3",
      "pass": true,
@@ -109,8 +109,8 @@
    "declared": [],
    "notes": [
     "dry 867.7 t vs canon 858.5 t (+9.2 t); S1 wet 1167.7 t vs canon 1158.5 t",
-    "dry by system: propulsion 173.5, habitat 171.3, structure 158.6, thermal 107.1, plant 95.4, electrical 59.6, shuttle 30.3, avionics 21.7, mission 21.7, service 14.1, rcs 13.0, drones 1.3",
-    "protected water: 16.5 t in the storm-shelter jacket, 32.5 t in the service tank, 1.0 t in the main tank cells"
+    "dry by system: habitat 170.2, propulsion 168.5, structure 154.1, thermal 125.1, plant 92.7, electrical 57.9, shuttle 29.4, avionics 21.1, mission 21.1, service 13.7, rcs 12.6, drones 1.3",
+    "protected water: 16.5 t in the storm-shelter jacket, 5.70 t in the L3 berth shield ring, 27.8 t in the service tank, 0.0 t in the main tank cells"
    ],
    "mass_states": [
     {
@@ -118,112 +118,112 @@
      "name": "reference departure",
      "mass_t": 1167.7,
      "cg_m": [
-      24.613,
-      0.036,
-      -0.415
+      24.568,
+      0.027,
+      -0.358
      ],
-     "Ixx": 12021587.42319945,
-     "Iyy": 178093677.9756431,
-     "Izz": 178907182.08025867,
-     "Ixy": 229671.77004535048,
-     "Ixz": 1591448.4460712164,
-     "Iyz": 5918.518590228545
+     "Ixx": 12529585.605275583,
+     "Iyy": 185277930.19257262,
+     "Izz": 186183442.54104373,
+     "Ixy": 232944.9388161644,
+     "Ixz": 1195463.369111263,
+     "Iyz": 10535.472007440752
     },
     {
      "state": "S2",
      "name": "loaded departure",
      "mass_t": 1217.7,
      "cg_m": [
-      24.239,
-      0.035,
-      -0.398
+      24.196,
+      0.026,
+      -0.344
      ],
-     "Ixx": 12592678.38722168,
-     "Iyy": 182224091.20473734,
-     "Izz": 183386757.4677311,
-     "Ixy": 213566.6426327743,
-     "Ixz": 1772474.0519017023,
-     "Iyz": 6032.42104904896
+     "Ixx": 13098551.225818137,
+     "Iyy": 189366935.8550303,
+     "Izz": 190623678.7942492,
+     "Ixy": 220974.42583523097,
+     "Ixz": 1350998.402118403,
+     "Iyz": 10390.199083978896
     },
     {
      "state": "S3",
      "name": "normal dispatch",
      "mass_t": 1067.7,
      "cg_m": [
-      24.688,
-      0.04,
-      -0.34
+      24.627,
+      0.03,
+      -0.278
      ],
-     "Ixx": 10914362.72715915,
-     "Iyy": 176499544.98828566,
-     "Izz": 176990448.80345917,
-     "Ixy": 229205.9297504234,
-     "Ixz": 1662302.7864645696,
-     "Iyz": 7746.6509920480385
+     "Ixx": 11412160.463940745,
+     "Iyy": 183658456.0269225,
+     "Izz": 184251697.06875116,
+     "Ixy": 231083.0839231389,
+     "Ixz": 1254571.3050722745,
+     "Iyz": 11712.081964906894
     },
     {
      "state": "S4",
      "name": "burnt out, shuttle home",
      "mass_t": 917.7,
      "cg_m": [
-      24.413,
-      0.046,
-      -0.197
+      24.311,
+      0.034,
+      -0.125
      ],
-     "Ixx": 9224769.187536223,
-     "Iyy": 173621797.90640995,
-     "Izz": 173657440.8974474,
-     "Ixy": 215087.66179500925,
-     "Ixz": 1404762.6803335662,
-     "Iyz": 11783.914704251578
+     "Ixx": 9703097.954820637,
+     "Iyy": 180541432.39880568,
+     "Izz": 180699126.91758117,
+     "Ixy": 218709.23470834497,
+     "Ixz": 939222.5727694511,
+     "Iyz": 14505.825278714105
     },
     {
      "state": "S5",
      "name": "burnt out, shuttle away",
-     "mass_t": 887.4,
+     "mass_t": 888.3,
      "cg_m": [
-      24.388,
-      0.048,
-      -0.203
+      24.284,
+      0.036,
+      -0.129
      ],
-     "Ixx": 9168886.160034489,
-     "Iyy": 173160351.82300386,
-     "Izz": 173197380.46416312,
-     "Ixy": 213743.76819602435,
-     "Ixz": 1406477.0534149634,
-     "Iyz": 11694.605311716186
+     "Ixx": 9649549.569592329,
+     "Iyy": 180089090.5343425,
+     "Izz": 180247457.3211354,
+     "Ixy": 217564.5815183445,
+     "Ixz": 939655.6145667552,
+     "Iyz": 14565.461173303453
     },
     {
      "state": "S6",
      "name": "full, shuttle away",
-     "mass_t": 1137.4,
+     "mass_t": 1138.3,
      "cg_m": [
-      24.599,
-      0.037,
-      -0.426
+      24.553,
+      0.028,
+      -0.368
      ],
-     "Ixx": 11961593.560211433,
-     "Iyy": 177636146.72452492,
-     "Izz": 178455198.95705667,
-     "Ixy": 228788.14581789647,
-     "Ixz": 1595548.2006663766,
-     "Iyz": 5644.106838442738
+     "Ixx": 12472652.492841486,
+     "Iyy": 184833327.93454856,
+     "Izz": 185742924.93533543,
+     "Ixy": 232201.2115475586,
+     "Ixz": 1199011.7840924994,
+     "Iyz": 10432.223068190957
     },
     {
      "state": "S7",
      "name": "one tank cell breached and vented",
-     "mass_t": 1104.9,
+     "mass_t": 1105.2,
      "cg_m": [
-      24.759,
-      0.176,
-      -0.369
+      24.705,
+      0.166,
+      -0.31
      ],
-     "Ixx": 11294047.107833572,
-     "Iyy": 177273461.0807582,
-     "Izz": 177851456.7562405,
-     "Ixy": 648941.8757850897,
-     "Ixz": 1727777.1112056882,
-     "Iyz": 43907.32193061977
+     "Ixx": 11801894.350666074,
+     "Iyy": 184495050.58099905,
+     "Izz": 185175297.09142,
+     "Ixy": 627209.1841794155,
+     "Ixz": 1333228.5066266125,
+     "Iyz": 57016.137819919844
     }
    ]
   },
@@ -261,77 +261,78 @@
    "notes": [
     "S2 (50 t payload): ECON delta-v 689.4 km/s",
     "Thrust at fixed jet power (11.36 TW): F = 2P/ve.",
-    "Throttled to the 5 g structural limit (doctrine): HARD in S4 (5.6 g at full jet power), HARD in S5 (5.8 g at full jet power), LIMIT in S1 (6.6 g at full jet power), LIMIT in S2 (6.3 g at full jet power), LIMIT in S3 (7.2 g at full jet power), LIMIT in S4 (8.4 g at full jet power), LIMIT in S5 (8.7 g at full jet power), LIMIT in S6 (6.8 g at full jet power), LIMIT in S7 (7.0 g at full jet power)"
+    "Throttled to the 5 g structural limit (doctrine): HARD in S4 (5.6 g at full jet power), HARD in S5 (5.8 g at full jet power), LIMIT in S1 (6.6 g at full jet power), LIMIT in S2 (6.3 g at full jet power), LIMIT in S3 (7.2 g at full jet power), LIMIT in S4 (8.4 g at full jet power), LIMIT in S5 (8.7 g at full jet power), LIMIT in S6 (6.8 g at full jet power), LIMIT in S7 (7.0 g at full jet power)",
+    "Crew doctrine (v0.5.6): sustained thrust capped at 4 g with people aboard (NASA OCHMO: +Gx 4 g tolerable up to at least 60 min); 5 g stays the structural rating, for emergencies. The cap changes burn times, not delta-v."
    ],
    "modes": {
     "ECON": {
      "thrust_mn": 7.574,
-     "dv_full_remass_S1_km_s": 722.7748219951837,
+     "dv_full_remass_S1_km_s": 722.7749989144357,
      "accel_g": {
       "S1": 0.661,
       "S2": 0.634,
       "S3": 0.723,
       "S4": 0.842,
-      "S5": 0.87,
-      "S6": 0.679,
+      "S5": 0.869,
+      "S6": 0.678,
       "S7": 0.699
      }
     },
     "CRUISE": {
      "thrust_mn": 11.361,
-     "dv_full_remass_S1_km_s": 481.84988133012246,
+     "dv_full_remass_S1_km_s": 481.8499992762905,
      "accel_g": {
       "S1": 0.992,
       "S2": 0.951,
       "S3": 1.085,
       "S4": 1.262,
-      "S5": 1.305,
-      "S6": 1.019,
+      "S5": 1.304,
+      "S6": 1.018,
       "S7": 1.048
      }
     },
     "EXPEDITE": {
      "thrust_mn": 22.722,
-     "dv_full_remass_S1_km_s": 240.92494066506123,
+     "dv_full_remass_S1_km_s": 240.92499963814524,
      "accel_g": {
       "S1": 1.984,
       "S2": 1.903,
       "S3": 2.17,
       "S4": 2.525,
-      "S5": 2.611,
-      "S6": 2.037,
-      "S7": 2.097
+      "S5": 2.608,
+      "S6": 2.035,
+      "S7": 2.096
      }
     },
     "FAST": {
      "thrust_mn": 32.46,
-     "dv_full_remass_S1_km_s": 168.64745846554285,
+     "dv_full_remass_S1_km_s": 168.64749974670167,
      "accel_g": {
       "S1": 2.835,
       "S2": 2.718,
       "S3": 3.1,
       "S4": 3.607,
-      "S5": 3.73,
-      "S6": 2.91,
-      "S7": 2.996
+      "S5": 3.726,
+      "S6": 2.908,
+      "S7": 2.995
      }
     },
     "HARD": {
      "thrust_mn": 50.49333333333333,
-     "dv_full_remass_S1_km_s": 108.41622329927756,
+     "dv_full_remass_S1_km_s": 108.41624983716535,
      "accel_g": {
       "S1": 4.409,
       "S2": 4.228,
       "S3": 4.822,
       "S4": 5.0,
       "S5": 5.0,
-      "S6": 4.527,
-      "S7": 4.66
+      "S6": 4.523,
+      "S7": 4.659
      }
     },
     "LIMIT": {
      "thrust_mn": 75.74,
-     "dv_full_remass_S1_km_s": 72.27748219951837,
+     "dv_full_remass_S1_km_s": 72.27749989144357,
      "accel_g": {
       "S1": 5.0,
       "S2": 5.0,
@@ -351,63 +352,63 @@
    "checks": [
     {
      "name": "thrust trim S1",
-     "value": 0.316,
+     "value": 0.328,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.120 m from the thrust line"
+     "note": "lateral offset 0.159 m from the thrust line"
     },
     {
      "name": "thrust trim S2",
-     "value": 0.27,
+     "value": 0.294,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.104 m from the thrust line"
+     "note": "lateral offset 0.144 m from the thrust line"
     },
     {
      "name": "thrust trim S3",
-     "value": 0.132,
+     "value": 0.163,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.050 m from the thrust line"
+     "note": "lateral offset 0.079 m from the thrust line"
     },
     {
      "name": "thrust trim S4",
-     "value": 0.278,
+     "value": 0.155,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.106 m from the thrust line"
+     "note": "lateral offset 0.076 m from the thrust line"
     },
     {
      "name": "thrust trim S5",
-     "value": 0.259,
+     "value": 0.146,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.099 m from the thrust line"
+     "note": "lateral offset 0.071 m from the thrust line"
     },
     {
      "name": "thrust trim S6",
-     "value": 0.343,
+     "value": 0.347,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.130 m from the thrust line"
+     "note": "lateral offset 0.168 m from the thrust line"
     },
     {
      "name": "thrust trim S7",
-     "value": 0.338,
+     "value": 0.347,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.127 m from the thrust line"
+     "note": "lateral offset 0.167 m from the thrust line"
     },
     {
      "name": "180 deg slew, pitch (about y) +",
-     "value": 33.4,
+     "value": 34.1,
      "limit": 120.0,
      "unit": "s",
      "pass": true,
@@ -415,7 +416,7 @@
     },
     {
      "name": "180 deg slew, pitch (about y) -",
-     "value": 33.4,
+     "value": 34.1,
      "limit": 120.0,
      "unit": "s",
      "pass": true,
@@ -423,7 +424,7 @@
     },
     {
      "name": "180 deg slew, yaw (about z) +",
-     "value": 33.5,
+     "value": 34.2,
      "limit": 120.0,
      "unit": "s",
      "pass": true,
@@ -431,7 +432,7 @@
     },
     {
      "name": "180 deg slew, yaw (about z) -",
-     "value": 33.5,
+     "value": 34.2,
      "limit": 120.0,
      "unit": "s",
      "pass": true,
@@ -504,11 +505,11 @@
    ],
    "declared": [],
    "notes": [
-    "Thrust line offset from the hull axis: y +0.07 m, z -0.30 m (torch chain 180 t), chosen to centre the centre-of-mass range",
+    "Thrust line offset from the hull axis: y +0.04 m, z -0.20 m (torch chain 175 t), chosen to centre the centre-of-mass range",
     "roll +: 180 deg in 19 s (2 couples, 0.46 MN m, worst state S2); roll is rate-limited by doctrine, not gated",
     "roll -: 180 deg in 19 s (2 couples, 0.46 MN m, worst state S2); roll is rate-limited by doctrine, not gated",
-    "With any one cluster out, the slowest 180 deg pitch/yaw slew is 47 s (one couple, S2).",
-    "Shuttle undocking: S1 trim 0.316 deg, S6 (shuttle away) 0.343 deg; both inside the limit.",
+    "With any one cluster out, the slowest 180 deg pitch/yaw slew is 48 s (one couple, S2).",
+    "Shuttle undocking: S1 trim 0.328 deg, S6 (shuttle away) 0.347 deg; both inside the limit.",
     "Inertia is from intrinsic component shapes (sampled volumes), not centroid-only point masses."
    ]
   },
@@ -550,12 +551,28 @@
      "note": "34.9 MW Metric + 0.37 MW habitat via heat pump (x1.25); field geometry radius 6.5 m"
     },
     {
-     "name": "torch-burn radiator capacity (full span)",
-     "value": 387.2,
-     "limit": "declared torch leak",
-     "unit": "MW",
+     "name": "torch burn: heat on hot structure rejected by the hot fins at 1750 K",
+     "value": 1.49,
+     "limit": 1.4,
+     "unit": "GW",
      "pass": true,
-     "note": "34 ppm of jet power; v0.4 model gave 387.7 MW"
+     "note": "4 fins 28 m x 19 m on the strake lines, view factor to space 0.73 (torch chain taken as a 4.75 m cylinder, conservative); heat = light 0.09 + neutrons 0.56 + plume contact 0.75 GW"
+    },
+    {
+     "name": "torch burn: magnet-coil cryo heat + habitat rejected by the strakes",
+     "value": 4.0,
+     "limit": "<= 4.0 m span",
+     "unit": "m span",
+     "pass": true,
+     "note": "0.48 MW of neutron heating in the coils -> 48 MW at 1300 K, + 0.37 MW habitat (x1.25)"
+    },
+    {
+     "name": "torch burn: light on the reactor's aft face",
+     "value": 5.03,
+     "limit": 10.0,
+     "unit": "MW/m2",
+     "pass": true,
+     "note": "burn 6 m aft of the face; ITER divertor class"
     },
     {
      "name": "habitat heat on passive skin radiators (backup, heat pump failed)",
@@ -575,12 +592,32 @@
     }
    ],
    "declared": [
-    "Torch interface: non-exhaust torch heat reaching the ship must stay at or below 387 MW (34 ppm of the 11.36 TW jet) during burns. The torch's insides are canon and not re-derived here.",
-    "Plant electrical: Metric HARD at a 1300 K reject temperature needs 34.8 MW of cryo-chain electrical power, against canon's 23.9 MW at 900 K. The relational plant must supply this (canon amendment), or the cryo chain must reject through a 900 K loop."
+    {
+     "key": "torch_heat",
+     "text": "Torch heat package (kT, 2026-10-25): each pellet is wrapped in a shell of remass that soaks up the burn and leaves as exhaust. The shell must let no more than ~358 ppm of the burn's energy escape as light, counting its own glow (the reactor face's 10 MW/m2 limit); the design value is 180 ppm. With the model's other assumptions (torch/torch_heat_inputs.json: light 40% of fusion energy; He3-rich, spin-polarised fuel with 0.76% neutrons, 85% absorbed by the shell; plume contact 1e-4 of charged energy; coil shield transmission 1e-3), 1.40 GW reaches hot structure and 0.48 MW the magnet coils at 12.6 TW of fusion. These are assumptions, not results. Replaces v0.5.1's 387 MW (34 ppm) torch-leak gap.",
+     "kT": "ACCEPTED",
+     "as": "v0.5.2 torch heat package (kT chose the package and 1,750 K fins on 2026-10-25 and accepted this wording the same day): the remass shell lets no more than ~360 ppm of the burn's energy escape as light, counting its own glow; design value 180 ppm; with the heat model's other assumptions 1.40 GW reaches hot structure and 0.48 MW the magnet coils.",
+     "date": "2026-10-25"
+    },
+    {
+     "key": "torch_fin_temperature",
+     "text": "Hot fins run for life at 1750 K. Lithium heat pipes have run in lab tests to ~1,500 K and briefly ~1,800 K; years at 1750 K with burn cycling and neutron exposure is an engineering extrapolation (a technology milestone), not new physics. Fallback: 1,500 K fins, ~49 m span, ~30 t, still inside the reserve.",
+     "kT": "ACCEPTED",
+     "as": "kT: \"Let's go 1750.\" Hot fins at 1,750 K, recorded as an engineering extrapolation (technology milestone), with 1,500 K fins as the fallback.",
+     "date": "2026-10-25"
+    },
+    {
+     "key": "plant_power",
+     "text": "Plant electrical: Metric HARD at a 1300 K reject temperature needs 34.8 MW of cryo-chain electrical power, against canon's 23.9 MW at 900 K. The relational plant must supply this (canon amendment), or the cryo chain must reject through a 900 K loop.",
+     "kT": "ACCEPTED",
+     "as": "canon states the relational plant supplies ~34.8 MW for Metric HARD at a 1,300 K reject temperature. Option not taken: a 900 K loop for the cryo chain.",
+     "date": "2026-10-25"
+    }
    ],
    "notes": [
     "Habitat heat 46.5 kW for 10 people; heat pump to 1300 K needs 324 kW (Carnot fraction 0.5).",
-    "Strakes shine 2.6 MW onto the hull coating at full span (torch burns): about 7.3 K/h of warming in 300 t of water. The habitat skin radiators sit forward of the strakes (x < 14 m)."
+    "Torch burns: strakes open to 4.0 m (73 MW); full 24 m span (387 MW) is no longer needed for the torch. At 4.0 m they shine 1.46 MW onto the hull coating.",
+    "Torch heat model (torch/, non-governing): same 11.36 TW jet from 12.6 TW of fusion, pulsed at about 1-10 Hz (0.3-3 kt per pulse). Light escape the face can take: ~358 ppm; model 180 ppm. Hot-fin capacity is computed here with certify's own 2D view factor; torch/fin_layout.py (numpy, 3.0 m body) gives a slightly higher figure."
    ],
    "spans_m": {
     "NORMAL": 2.0,
@@ -588,7 +625,27 @@
     "EXPEDITE": 2.0,
     "HARD": 2.0
    },
-   "torch_capacity_mw": 387.2123137678948
+   "torch_strake_capacity_mw": 73.01945448681384,
+   "hot_fin_capacity_gw": 1.489716518902526,
+   "torch_budget": {
+    "id": "S4",
+    "name": "+ Burn further aft",
+    "what": "burn 6 m aft of the reactor face, still inside the 53.3 m envelope",
+    "fusion_tw": 12.640766441867108,
+    "light_escaping_gw": 2.273795786030172,
+    "neutrons_escaping_gw": 14.410473743728502,
+    "ship_heat_gw": 1.3995255156767956,
+    "parts_gw": {
+     "light": 0.08867803565517669,
+     "neutrons": 0.5620084760054116,
+     "plume contact": 0.7488390040162073
+    },
+    "coil_heat_mw": 0.4755456335430406,
+    "cryo_reject_mw": 47.55456335430406,
+    "wall_flux_mw_m2": 5.026192207336437,
+    "light_ppm_of_fusion": 179.87800000000001,
+    "burn_to_face_m": 6.0
+   }
   },
   {
    "gate": "G5",
@@ -597,15 +654,15 @@
    "checks": [
     {
      "name": "longeron starboard: stress at 5.0 g x 1.5",
-     "value": 64.2,
+     "value": 65.1,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
-     "note": "area 0.234 m2; buckling between frames 14x the load"
+     "note": "area 0.227 m2; buckling between frames 15x the load"
     },
     {
      "name": "longeron starboard: buckling margin",
-     "value": 14.4,
+     "value": 14.6,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -613,15 +670,15 @@
     },
     {
      "name": "longeron slot sill starboard: stress at 5.0 g x 1.5",
-     "value": 64.2,
+     "value": 65.1,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
-     "note": "area 0.234 m2; buckling between frames 76x the load"
+     "note": "area 0.227 m2; buckling between frames 77x the load"
     },
     {
      "name": "longeron slot sill starboard: buckling margin",
-     "value": 75.7,
+     "value": 76.8,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -629,15 +686,15 @@
     },
     {
      "name": "longeron slot sill port: stress at 5.0 g x 1.5",
-     "value": 64.2,
+     "value": 65.1,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
-     "note": "area 0.234 m2; buckling between frames 76x the load"
+     "note": "area 0.227 m2; buckling between frames 77x the load"
     },
     {
      "name": "longeron slot sill port: buckling margin",
-     "value": 75.7,
+     "value": 76.8,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -645,15 +702,15 @@
     },
     {
      "name": "longeron port: stress at 5.0 g x 1.5",
-     "value": 64.2,
+     "value": 65.1,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
-     "note": "area 0.234 m2; buckling between frames 14x the load"
+     "note": "area 0.227 m2; buckling between frames 15x the load"
     },
     {
      "name": "longeron port: buckling margin",
-     "value": 14.4,
+     "value": 14.6,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -661,15 +718,15 @@
     },
     {
      "name": "longeron keel: stress at 5.0 g x 1.5",
-     "value": 64.2,
+     "value": 65.1,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
-     "note": "area 0.234 m2; buckling between frames 14x the load"
+     "note": "area 0.227 m2; buckling between frames 15x the load"
     },
     {
      "name": "longeron keel: buckling margin",
-     "value": 14.4,
+     "value": 14.6,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -677,31 +734,111 @@
     },
     {
      "name": "first bending mode (longerons only, free-free)",
-     "value": 8.87,
+     "value": 8.74,
      "limit": 1.0,
      "unit": "Hz",
      "pass": true,
-     "note": "EI from longerons alone: Iy 7.63, Iz 12.54 m4; skin, tank walls and the habitat shell add stiffness"
+     "note": "EI from longerons alone: Iy 7.41, Iz 12.18 m4; skin, tank walls and the habitat shell add stiffness"
     },
     {
      "name": "first torsion mode (closed tank cell)",
-     "value": 3.98,
+     "value": 3.75,
      "limit": 1.0,
      "unit": "Hz",
      "pass": true,
-     "note": "J 2.128 m4 with the allocated 35.2 mm tank wall; the open slot is bridged by the tank's slot walls"
+     "note": "J 1.965 m4 with the allocated 33.7 mm tank wall; the open slot is bridged by the tank's slot walls"
     },
     {
-     "name": "tank wall mass needed for 5 g head x 1.5 + ullage",
-     "value": 6.2,
-     "limit": 34.7,
+     "name": "tank structure mass needed at 5 g x 1.5 + ullage",
+     "value": 18.3,
+     "limit": 33.7,
      "unit": "t",
      "pass": true,
-     "note": "pressure 0.59 MPa, wall 6.3 mm, over 616 m2"
+     "note": "ultimate pressure 0.65 MPa; allocated = tank shell share of structure + 8 t non-round penalty"
+    },
+    {
+     "name": "tank walls: axial stress carrying the water's inertia",
+     "value": 25.9,
+     "limit": 400,
+     "unit": "MPa",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "tank wall panels: buckling margin in axial compression",
+     "value": 8.2,
+     "limit": 1.5,
+     "unit": "x",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "flight-deck columns: stress at 5 g x 1.5 plus a 0.5 g side load",
+     "value": 114.3,
+     "limit": 503,
+     "unit": "MPa",
+     "pass": true,
+     "note": "4 aluminium tubes carry 0.741 t; axial 13.63 kN each (19.8 MPa)"
+    },
+    {
+     "name": "flight-deck columns: buckling margin",
+     "value": 8.49,
+     "limit": 1.5,
+     "unit": "x",
+     "pass": true,
+     "note": "Euler, pinned ends (conservative), 1.675 m"
+    },
+    {
+     "name": "upper berth posts: buckling margin at 5 g x 1.5",
+     "value": 10.2,
+     "limit": 1.5,
+     "unit": "x",
+     "pass": true,
+     "note": "2.57 kN per post; couch and berth hard points 2.76 kN each (each couch or berth hard point rated >= 3 kN ultimate)"
+    },
+    {
+     "name": "floor L1: carries its deck at 5 g x 1.5",
+     "value": 0.77,
+     "limit": 1.58,
+     "unit": "t needed vs allotted",
+     "pass": true,
+     "note": "4.62 t on the floor (6.8 kPa); CFRP faces 0.08 mm; core shear 0.039 MPa"
+    },
+    {
+     "name": "floor L2: carries its deck at 5 g x 1.5",
+     "value": 0.77,
+     "limit": 1.58,
+     "unit": "t needed vs allotted",
+     "pass": true,
+     "note": "7.16 t on the floor (10.5 kPa); CFRP faces 0.12 mm; core shear 0.061 MPa"
+    },
+    {
+     "name": "floor L3: carries its deck at 5 g x 1.5",
+     "value": 0.79,
+     "limit": 1.58,
+     "unit": "t needed vs allotted",
+     "pass": true,
+     "note": "12.6 t on the floor (18.4 kPa); CFRP faces 0.22 mm; core shear 0.107 MPa"
+    },
+    {
+     "name": "floor L4: carries its deck at 5 g x 1.5",
+     "value": 0.86,
+     "limit": 1.58,
+     "unit": "t needed vs allotted",
+     "pass": true,
+     "note": "36.73 t on the floor (53.7 kPa); CFRP faces 0.64 mm; core shear 0.313 MPa"
+    },
+    {
+     "name": "floor L4 as a pressure bulkhead (L5 at vacuum), factor 2.0",
+     "value": 1.14,
+     "limit": 1.58,
+     "unit": "t needed vs allotted",
+     "pass": true,
+     "note": "CFRP faces 2.4 mm; core shear 1.18 MPa (allowable 1.5); 2 ladderway hatches and a trunk plug"
     },
     {
      "name": "one longeron lost: the other four at 1 g limit load",
-     "value": 10.7,
+     "value": 10.9,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
@@ -710,13 +847,21 @@
    ],
    "declared": [],
    "notes": [
-    "Worst state S2: 1020 t ahead of the thrust cone, 75.0 MN at 7.5 g ultimate, shared by 5 longerons.",
+    "Tank outer wall: 13.2 mm, 7.41 t, displaces 0.00 m3 (panels 0.4 x 1.0 m between tie-webs and baffles)",
+    "Tank inner wall: 7.9 mm, 1.48 t, displaces 0.00 m3 (panels 0.23 x 1.0 m)",
+    "Tank slot walls (2): 31.9 mm, 4.23 t, displaces 2.65 m3 (supported at the inner corner, the sill longeron and the outer corner; panels 1.0 x 2.11 m)",
+    "Tank solid bulkheads (fore, mid, aft): 13.9 mm, 1.62 t, displaces 1.01 m3 (panels 0.4 x 1.85 m between tie-webs)",
+    "Tank keel cell wall: 30.6 mm, 1.22 t, displaces 0.76 m3 (port/starboard cell split; panels 1.0 x 1.85 m)",
+    "Tank radial tie-webs (54, perforated): 1.5 mm, 1.62 t, displaces 1.01 m3 (tension 0.26 MN/m each)",
+    "Tank ring baffles (12, perforated): 3.0 mm, 0.70 t, displaces 0.44 m3",
+    "Crew stations and floors (v0.5.6): closed-form strip and column checks in habitat/crew_systems.py; floors are 0.3 m sandwich panels spanning trunk to hull.",
+    "Worst state S2: 1005 t ahead of the thrust cone, 73.9 MN at 7.5 g ultimate, shared by 5 longerons.",
     "Bay doors are not counted as structure. Materials: 2026 high-modulus CFRP as a conservative floor (400 MPa, 150 GPa, 1.6 t/m3).",
-    "Flat C-wall bending at the slot is covered by the 8 t non-round tank penalty; a detailed shell model is still OPEN."
+    "Method: closed-form plate theory (Navier series for simply supported panels, which is conservative against clamped edges) plus closed-cell equilibrium with tie-webs. A finite-element shell model is the next level of fidelity; the basis does not require it."
    ],
    "one_longeron_out": {
     "name": "one longeron lost: the other four at 1 g limit load",
-    "value": 10.7,
+    "value": 10.9,
     "limit": 400,
     "unit": "MPa",
     "pass": true,
@@ -730,7 +875,7 @@
    "checks": [
     {
      "name": "inside the shield's shadow: habitat (pressure vessel, armour, rooms)",
-     "value": 0.94,
+     "value": 0.79,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -738,7 +883,7 @@
     },
     {
      "name": "inside the shield's shadow: Docking collar",
-     "value": 0.85,
+     "value": 0.55,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -746,7 +891,7 @@
     },
     {
      "name": "inside the shield's shadow: Pressure tunnel: habitat to collar node",
-     "value": 2.09,
+     "value": 1.78,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -754,7 +899,7 @@
     },
     {
      "name": "inside the shield's shadow: Pressure tunnel: collar node to bay axis",
-     "value": 2.41,
+     "value": 2.11,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -762,7 +907,7 @@
     },
     {
      "name": "inside the shield's shadow: Pressure tunnel: docking adapter to shuttle nose",
-     "value": 4.13,
+     "value": 4.04,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -770,7 +915,7 @@
     },
     {
      "name": "inside the shield's shadow: Bay liner and cradle",
-     "value": 0.56,
+     "value": 0.58,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -778,7 +923,7 @@
     },
     {
      "name": "inside the shield's shadow: Rover-drop shuttle (docked, tanks empty)",
-     "value": 1.04,
+     "value": 1.11,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -794,7 +939,7 @@
     },
     {
      "name": "storm shelter shielding, every direction",
-     "value": 56.1,
+     "value": 55.1,
      "limit": 40.0,
      "unit": "g/cm2",
      "pass": true,
@@ -802,14 +947,32 @@
     }
    ],
    "declared": [
-    "Storm shelter life support: 72 h for 10 people from the life-support room on the same deck (design provision, not computed).",
-    "Galactic cosmic rays: at 2026 free-space rates (1.8 mSv/day, ~657 mSv/yr) a crew member reaches NASA's 600 mSv career limit after ~333 days in deep space. Hull shielding barely changes this. Long careers aboard rely on canon's off-Earth MED-MOD-RADIATION milestone and crew time-in-space rules; this is a canon question, not something the hull can close.",
-    "Torch neutrons and gammas: the shadow shield must attenuate the torch's neutron and gamma output so the dose rate inside the habitat during burns stays within crew limits. The torch's source strength is canon and not modelled here; only the shadow geometry is checked."
+    {
+     "key": "shelter_life_support",
+     "text": "Storm shelter life support: 72 h for 10 people from the life-support room on the same deck (design provision, not computed).",
+     "kT": "ACCEPTED",
+     "as": "72 h of life support for 10 people in the storm shelter, from the life-support room on the same deck, recorded as a design provision to be sized in detail later.",
+     "date": "2026-10-25"
+    },
+    {
+     "key": "gcr",
+     "text": "Galactic cosmic rays: at 2026 free-space rates (1.8 mSv/day, ~657 mSv/yr) a crew member reaches NASA's 600 mSv career limit after ~333 days in deep space. Hull shielding barely changes this. Long careers aboard rely on canon's off-Earth MED-MOD-RADIATION milestone and crew time-in-space rules; this is a canon question, not something the hull can close.",
+     "kT": "ACCEPTED",
+     "as": "crew protection from galactic cosmic rays relies on canon's off-Earth MED-MOD-RADIATION milestone plus crew time-in-space limits.",
+     "date": "2026-10-25"
+    },
+    {
+     "key": "torch_neutrons",
+     "text": "Torch neutrons and gammas: the shadow shield must attenuate the torch's neutron and gamma output so the dose rate inside the habitat during burns stays within crew limits. The v0.5.2 heat model puts neutrons at ~0.76% of the burn's energy with 85% absorbed by the remass shell; the dose itself is not computed here, only the shadow geometry is checked.",
+     "kT": "ACCEPTED",
+     "as": "covered by the same declared gap: the torch and shadow shield keep neutron and gamma dose in the habitat within crew limits during burns; the shadow geometry is checked (G6).",
+     "date": "2026-10-25"
+    }
    ],
    "notes": [
-    "Shadow cone: shield front face x 34.3 m, radius 2.75 m; neutron source a 1.0 m plasma column anywhere in x 39.3-46.3 m (worst case used); radiator strakes outside the cone take neutron heating and are out of bounds for EVA during burns."
+    "Shadow cone: shield front face x 34.3 m, radius 2.75 m; neutron source: the pellet burn, 0.3 m across, anywhere in x 52.0-52.6 m (worst case used). Radiator strakes and the hot fins sit outside the cone (the fins edge-on to the burn), take neutron heating and are out of bounds for EVA during burns."
    ],
-   "shelter_min_g_cm2": 56.059469608534954
+   "shelter_min_g_cm2": 55.08268797455064
   },
   {
    "gate": "G7",
@@ -826,23 +989,23 @@
     },
     {
      "name": "net habitable volume per person",
-     "value": 31.8,
+     "value": 32.2,
      "limit": 25.0,
      "unit": "m3",
      "pass": true,
-     "note": "318 m3 total"
+     "note": "322 m3 total"
     },
     {
-     "name": "private quarters",
+     "name": "a cabin berth for every person (kT 2026-10-25: shared cabins)",
      "value": "6 crew + 4 guest",
      "limit": "6 + 4",
      "unit": "",
      "pass": true,
-     "note": ""
+     "note": "4 cabins; berths 2.10 x 0.70 m on 5 g hard points (G5)"
     },
     {
-     "name": "smallest private quarter",
-     "value": 8.2,
+     "name": "smallest cabin volume per occupant",
+     "value": 5.85,
      "limit": 2.1,
      "unit": "m3",
      "pass": true,
@@ -854,7 +1017,7 @@
      "limit": 10,
      "unit": "",
      "pass": true,
-     "note": "a couch-bunk in every cabin plus 6 station couches on the command deck"
+     "note": "a 5 g berth for every person in the cabins plus 6 station couches on the command deck"
     },
     {
      "name": "deck clear height",
@@ -887,20 +1050,86 @@
      "unit": "",
      "pass": true,
      "note": ""
+    },
+    {
+     "name": "casualty route at 0 g: litter along the ship's axis through every door",
+     "value": "2.05 x 0.8 m",
+     "limit": ">= 2.05 x 0.7 m",
+     "unit": "",
+     "pass": true,
+     "note": "4 doors; deck clear height 2.3 m"
+    },
+    {
+     "name": "casualty route: litter down the port ladder shaft",
+     "value": "0.8 x 0.6 m clear",
+     "limit": ">= 0.70 x 0.45 m",
+     "unit": "",
+     "pass": true,
+     "note": "rungs on the inboard face (r 1.0 m side), so the outboard side of the shaft stays clear for a litter"
+    },
+    {
+     "name": "casualty route: out of the shaft straight into the medical bay",
+     "value": 0.24,
+     "limit": 0.1,
+     "unit": "m clear of the opening's edge",
+     "pass": true,
+     "note": "opening 165.8-238.2 deg; litter crosses 173.2-186.8 deg"
+    },
+    {
+     "name": "sustained acceleration within the +Gx evidence (4 g cap)",
+     "value": "FAST: 89.9 min at up to 3.61 g",
+     "limit": "<= 112 min",
+     "unit": "",
+     "pass": true,
+     "note": "worst mode shown; Full usable remass (S1) in one burn at full jet power, throttled to the crew cap. OCHMO allowed time interpolated log-linearly between its two +Gx evidence points (2 g >= 24 h, 4 g >= 60 min) at the burn's peak acceleration."
+    },
+    {
+     "name": "time on the back per couch period ([V2 6113] 3 h 15 min, nominal 2 h 45 min)",
+     "value": 165,
+     "limit": 165,
+     "unit": "min",
+     "pass": true,
+     "note": "burns over 2 h 45 min are split by a 30 min coast break: EXPEDITE full-remass burn 183.4 min"
+    },
+    {
+     "name": "storm shelter: 72 h stored backup for 10 people",
+     "value": 0.216,
+     "limit": 0.3,
+     "unit": "t",
+     "pass": true,
+     "note": "O2 25.2 kg, LiOH 43.6 kg for 30.0 kg CO2, food 18.6 kg, battery 72.0 kg (24 h); drinking water 48.6 kg from the shelter jacket (0.3%); 2.0 kW of heat"
+    },
+    {
+     "name": "docking view: cameras at the collar and a vestibule window",
+     "value": "2 cameras, window yes",
+     "limit": ">= 2 cameras and a window",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "L1 command deck (layout D, adopted): human-factors checks",
+     "value": "12/12",
+     "limit": "all, on this geometry",
+     "unit": "",
+     "pass": true,
+     "note": "command/l1_study.py: couches, views through the armour bores, walkways, displays, sensors"
     }
    ],
    "declared": [],
    "notes": [
-    "Target 370 m3 (45 per crew, 25 per guest): reached 86%. A sixth deck (+2.6 m of habitat) would reach the target.",
-    "Net habitable volume by deck: L1 44 m3, L2 81 m3, L3 80 m3, L4 57 m3, L5 57 m3",
-    "Windows planned: 16 (canon candidate suggests 10-16; more can be added by deck function)",
-    "Decks are perpendicular to the thrust axis; under thrust, aft is down. Above ~1.5 g everyone rides in a couch."
+    "Target 370 m3 (45 per crew, 25 per guest): reached 87%. A sixth deck (+2.6 m of habitat) would reach the target.",
+    "Net habitable volume by deck: L1 51 m3, L2 81 m3, L3 77 m3, L4 57 m3, L5 57 m3",
+    "Windows: 15 (canon candidate suggests 10-16): 8 nose and 4 shoulder on L1, 2 in the observation lounge, 1 in the L5 vestibule; each with four panes, a shutter and a 12 deg armour splay",
+    "Casualties move at 0 g (coast on the captain's order); under thrust they are treated in their couch or berth.",
+    "Decks are perpendicular to the thrust axis; under thrust, aft is down. Above ~1.5 g everyone rides in a couch.",
+    "Cabins by occupancy (v0.5.3, Sol's candidate): Captain's cabin 1 (15.6 m3 each), Crew cabin A 2 (7.8 m3 each), Guest cabin 4 (5.9 m3 each), Crew cabin B 3 (7.8 m3 each); 10 berths in 4 cabins. Private cabins removed by kT on 2026-10-25 (basis change, Sol to agree)."
    ],
-   "nhv_m3": 318.1340301725481,
+   "nhv_m3": 321.51304142738036,
    "nhv_by_deck_m3": {
-    "L1": 44.37569071890132,
+    "L1": 50.72444950917208,
     "L2": 80.50291904915674,
-    "L3": 79.6832578908811,
+    "L3": 76.71351035544264,
     "L4": 56.566196668354436,
     "L5": 57.005965845254465
    }
@@ -983,6 +1212,14 @@
      "note": ""
     },
     {
+     "name": "hot fins clear the shuttle corridor (carried aft of the bay on +Z)",
+     "value": 1.05,
+     "limit": 1.0,
+     "unit": "m from the slot edge line",
+     "pass": true,
+     "note": "fins at x 34.3-53.3 m, 2.25 m aft of the bay; a shuttle that drifts aft on leaving or arriving still meets no fin"
+    },
+    {
      "name": "pressure-tight transfer from habitat to shuttle nose",
      "value": "habitat - collar node - bay axis - nose port",
      "limit": "continuous",
@@ -1052,8 +1289,16 @@
      "note": "torch-burn capacity falls to 318 MW"
     },
     {
+     "name": "one hot fin lost: torch still runs",
+     "value": "88% jet power",
+     "limit": ">= 50%",
+     "unit": "",
+     "pass": true,
+     "note": "the torch throttles so its heat matches three fins; CRUISE at canon mass then gives about 0.88 g"
+    },
+    {
      "name": "tank cell vented (S7): thrust trim",
-     "value": 0.338,
+     "value": 0.347,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
@@ -1077,7 +1322,7 @@
     },
     {
      "name": "one longeron lost: the other four at 1 g limit load",
-     "value": 10.7,
+     "value": 10.9,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
@@ -1089,7 +1334,15 @@
      "limit": "always",
      "unit": "",
      "pass": true,
-     "note": "jacket and service tank water are separate from the tank cells' remass; the 1.0 t in the cells is never counted as remass"
+     "note": "jacket and service tank water are separate from the tank cells' remass; the 0.0 t in the cells is never counted as remass"
+    },
+    {
+     "name": "L5 depressurised: the rest of the habitat stays pressurised",
+     "value": "isolated",
+     "limit": "isolated",
+     "unit": "",
+     "pass": true,
+     "note": "floor L4 is a bulkhead; two ladderway hatches close on a pressure drop; a plug seals the trunk"
     }
    ],
    "declared": [],
@@ -1113,7 +1366,9 @@
    ],
    "declared": [],
    "notes": [
-    "Machine-readable card written to out/wayfarer_v05_card.json."
+    "Machine-readable card written to out/wayfarer_v05_card.json (full inertia tensors, principal axes, usable remass per state).",
+    "Screening only, not a Navigator result (Q6 v0.1 buckets, ideal rocket equation at CRUISE from the S1 mass): 50 km/s: 28.8 t (within 150 t dispatch less the 50 t reserve); 100 km/s: 56.9 t (within 150 t dispatch less the 50 t reserve); 200 km/s: 111.1 t (beyond 150 t dispatch less the 50 t reserve); 300 km/s: 162.6 t (beyond 150 t dispatch less the 50 t reserve).",
+    "Sol reported (2026-10-25): the Navigator entry point needs its CIVSTATE database in the run context, has no ship-card import contract, and the three missions have no executable fixtures. Those are integration steps for Sol; this gate stays OPEN until Navigator flies the missions."
    ]
   },
   {
@@ -1123,7 +1378,7 @@
    "checks": [
     {
      "name": "every departure listed with its reason",
-     "value": 12,
+     "value": 14,
      "limit": "complete",
      "unit": "",
      "pass": true,
@@ -1179,7 +1434,7 @@
     {
      "item": "Torch axis",
      "canon": "1 axial torch",
-     "v0.5": "axial, with its thrust line offset 0.31 m from the hull centreline to pass through the centre of mass"
+     "v0.5": "axial, with its thrust line offset 0.20 m from the hull centreline to pass through the centre of mass"
     },
     {
      "item": "People",
@@ -1189,12 +1444,22 @@
     {
      "item": "Protected water",
      "canon": "50 t in the tanks",
-     "v0.5": "16.5 t storm-shelter jacket, 32.5 t service tank, 1.0 t in the tank cells"
+     "v0.5": "16.5 t storm-shelter jacket, 5.70 t L3 berth shield ring, 27.8 t service tank, 0.0 t in the tank cells"
     },
     {
      "item": "Shuttle",
      "canon": "candidate 30-35 t launch, ~10.5 m (not canon)",
      "v0.5": "rover-drop shuttle 27.9 t empty, 12.8 m"
+    },
+    {
+     "item": "Torch internals",
+     "canon": "axial fusion torch / magnetic nozzle; internals not stated",
+     "v0.5": "pulsed: each He3-rich, spin-polarised D-He3 pellet is wrapped in a shell of remass that becomes the exhaust; burn 6 m aft of the reactor face (x 52.3 m)"
+    },
+    {
+     "item": "Hot fins",
+     "canon": "none",
+     "v0.5": "4 hot fins at 1750 K aft of the shield on the strake lines, 28 m, 21.0 t paid from the engineering reserve"
     }
    ]
   },
@@ -1205,15 +1470,15 @@
    "checks": [
     {
      "name": "images stamped with this geometry's hash",
-     "value": "406424a71d8d",
-     "limit": "406424a71d8d",
+     "value": "14bb3c2c3743",
+     "limit": "14bb3c2c3743",
      "unit": "",
      "pass": true,
      "note": ""
     },
     {
      "name": "exterior images",
-     "value": 5,
+     "value": 7,
      "limit": 4,
      "unit": "",
      "pass": true,
@@ -1229,7 +1494,7 @@
     },
     {
      "name": "deckplan images",
-     "value": 6,
+     "value": 7,
      "limit": 5,
      "unit": "",
      "pass": true,
@@ -1245,14 +1510,56 @@
     }
    ],
    "declared": [],
-   "notes": []
+   "notes": [
+    "The script checks provenance (made from this geometry, every set present). Whether the images look right is a human judgement: kT's visual acceptance is the second half of this gate."
+   ]
   }
  ],
  "declared_for_kT": [
-  "Torch interface: non-exhaust torch heat reaching the ship must stay at or below 387 MW (34 ppm of the 11.36 TW jet) during burns. The torch's insides are canon and not re-derived here.",
-  "Plant electrical: Metric HARD at a 1300 K reject temperature needs 34.8 MW of cryo-chain electrical power, against canon's 23.9 MW at 900 K. The relational plant must supply this (canon amendment), or the cryo chain must reject through a 900 K loop.",
-  "Storm shelter life support: 72 h for 10 people from the life-support room on the same deck (design provision, not computed).",
-  "Galactic cosmic rays: at 2026 free-space rates (1.8 mSv/day, ~657 mSv/yr) a crew member reaches NASA's 600 mSv career limit after ~333 days in deep space. Hull shielding barely changes this. Long careers aboard rely on canon's off-Earth MED-MOD-RADIATION milestone and crew time-in-space rules; this is a canon question, not something the hull can close.",
-  "Torch neutrons and gammas: the shadow shield must attenuate the torch's neutron and gamma output so the dose rate inside the habitat during burns stays within crew limits. The torch's source strength is canon and not modelled here; only the shadow geometry is checked."
- ]
+  {
+   "key": "torch_heat",
+   "text": "Torch heat package (kT, 2026-10-25): each pellet is wrapped in a shell of remass that soaks up the burn and leaves as exhaust. The shell must let no more than ~358 ppm of the burn's energy escape as light, counting its own glow (the reactor face's 10 MW/m2 limit); the design value is 180 ppm. With the model's other assumptions (torch/torch_heat_inputs.json: light 40% of fusion energy; He3-rich, spin-polarised fuel with 0.76% neutrons, 85% absorbed by the shell; plume contact 1e-4 of charged energy; coil shield transmission 1e-3), 1.40 GW reaches hot structure and 0.48 MW the magnet coils at 12.6 TW of fusion. These are assumptions, not results. Replaces v0.5.1's 387 MW (34 ppm) torch-leak gap.",
+   "kT": "ACCEPTED",
+   "as": "v0.5.2 torch heat package (kT chose the package and 1,750 K fins on 2026-10-25 and accepted this wording the same day): the remass shell lets no more than ~360 ppm of the burn's energy escape as light, counting its own glow; design value 180 ppm; with the heat model's other assumptions 1.40 GW reaches hot structure and 0.48 MW the magnet coils.",
+   "date": "2026-10-25"
+  },
+  {
+   "key": "torch_fin_temperature",
+   "text": "Hot fins run for life at 1750 K. Lithium heat pipes have run in lab tests to ~1,500 K and briefly ~1,800 K; years at 1750 K with burn cycling and neutron exposure is an engineering extrapolation (a technology milestone), not new physics. Fallback: 1,500 K fins, ~49 m span, ~30 t, still inside the reserve.",
+   "kT": "ACCEPTED",
+   "as": "kT: \"Let's go 1750.\" Hot fins at 1,750 K, recorded as an engineering extrapolation (technology milestone), with 1,500 K fins as the fallback.",
+   "date": "2026-10-25"
+  },
+  {
+   "key": "plant_power",
+   "text": "Plant electrical: Metric HARD at a 1300 K reject temperature needs 34.8 MW of cryo-chain electrical power, against canon's 23.9 MW at 900 K. The relational plant must supply this (canon amendment), or the cryo chain must reject through a 900 K loop.",
+   "kT": "ACCEPTED",
+   "as": "canon states the relational plant supplies ~34.8 MW for Metric HARD at a 1,300 K reject temperature. Option not taken: a 900 K loop for the cryo chain.",
+   "date": "2026-10-25"
+  },
+  {
+   "key": "shelter_life_support",
+   "text": "Storm shelter life support: 72 h for 10 people from the life-support room on the same deck (design provision, not computed).",
+   "kT": "ACCEPTED",
+   "as": "72 h of life support for 10 people in the storm shelter, from the life-support room on the same deck, recorded as a design provision to be sized in detail later.",
+   "date": "2026-10-25"
+  },
+  {
+   "key": "gcr",
+   "text": "Galactic cosmic rays: at 2026 free-space rates (1.8 mSv/day, ~657 mSv/yr) a crew member reaches NASA's 600 mSv career limit after ~333 days in deep space. Hull shielding barely changes this. Long careers aboard rely on canon's off-Earth MED-MOD-RADIATION milestone and crew time-in-space rules; this is a canon question, not something the hull can close.",
+   "kT": "ACCEPTED",
+   "as": "crew protection from galactic cosmic rays relies on canon's off-Earth MED-MOD-RADIATION milestone plus crew time-in-space limits.",
+   "date": "2026-10-25"
+  },
+  {
+   "key": "torch_neutrons",
+   "text": "Torch neutrons and gammas: the shadow shield must attenuate the torch's neutron and gamma output so the dose rate inside the habitat during burns stays within crew limits. The v0.5.2 heat model puts neutrons at ~0.76% of the burn's energy with 85% absorbed by the remass shell; the dose itself is not computed here, only the shadow geometry is checked.",
+   "kT": "ACCEPTED",
+   "as": "covered by the same declared gap: the torch and shadow shield keep neutron and gamma dose in the habitat within crew limits during burns; the shadow geometry is checked (G6).",
+   "date": "2026-10-25"
+  }
+ ],
+ "kt_decisions_sha256": "4dc36b60bed40cf5c9d519a0afb147f89cc5004d51cbd6062dce1c92fb40904e",
+ "certified": false,
+ "certified_rule": "every gate PASS or PASS-DECLARED and every declared assumption ACCEPTED by kT; then both reviewers sign and loom-gate passes"
 }

@@ -7,16 +7,17 @@
 // World (GL) coordinates: X = x - xc, Y = z, Z = -y.
 
 export const MATS = {
-  hull_armor:   {c: [0.60, 0.60, 0.585], m: 0.05, r: 0.72, seam: 1},
+  hull_armor:   {c: [0.60, 0.60, 0.585], m: 0.05, r: 0.72, seam: 1, holes: 1},
   hull_skin:    {c: [0.66, 0.665, 0.65], m: 0.08, r: 0.62, seam: 1},
   door:         {c: [0.50, 0.51, 0.53], m: 0.15, r: 0.55, seam: 1},
-  pressure_hull:{c: [0.82, 0.82, 0.80], m: 0.0, r: 0.6},
+  pressure_hull:{c: [0.82, 0.82, 0.80], m: 0.0, r: 0.6, holes: 1},
   bulkhead:     {c: [0.55, 0.55, 0.56], m: 0.2, r: 0.6},
   floor:        {c: [0.42, 0.43, 0.45], m: 0.2, r: 0.7},
   core:         {c: [0.45, 0.46, 0.48], m: 0.3, r: 0.5},
   avionics:     {c: [0.16, 0.20, 0.24], m: 0.4, r: 0.4},
   outfit:       {c: [0.42, 0.43, 0.45], m: 0.1, r: 0.8},
   radiator:     {c: [0.05, 0.05, 0.055], m: 0.35, r: 0.35, kind: 2},
+  hotfin:       {c: [0.08, 0.072, 0.065], m: 0.55, r: 0.38, kind: 4},
   manifold:     {c: [0.33, 0.34, 0.36], m: 0.65, r: 0.38},
   shield:       {c: [0.22, 0.22, 0.24], m: 0.7, r: 0.4},
   reactor:      {c: [0.40, 0.41, 0.43], m: 0.85, r: 0.28},
@@ -55,6 +56,17 @@ export const MATS = {
   plume:        {c: [0.75, 0.62, 1.0], m: 0, r: 1, kind: 9},
   window:       {c: [0.02, 0.03, 0.045], m: 0.9, r: 0.05, em: [0.035, 0.03, 0.022]},
   hatch:        {c: [0.72, 0.72, 0.70], m: 0.3, r: 0.4},
+  // L1 command scene (render-only items placed from render/out/l1_scene.json, the scene the ray tests score)
+  couch:        {c: [0.20, 0.24, 0.29], m: 0.15, r: 0.55},
+  crew:         {c: [0.86, 0.42, 0.12], m: 0.0, r: 0.75},
+  helmet:       {c: [0.90, 0.90, 0.88], m: 0.1, r: 0.35},
+  screen:       {c: [0.025, 0.035, 0.05], m: 0.3, r: 0.2, em: [0.012, 0.075, 0.11]},
+  rail:         {c: [0.62, 0.63, 0.65], m: 0.7, r: 0.35},
+  well:         {c: [0.03, 0.035, 0.04], m: 0.0, r: 0.9},
+  frame:        {c: [0.30, 0.31, 0.33], m: 0.6, r: 0.4, nosec: 1},
+  mattress:     {c: [0.55, 0.62, 0.72], m: 0.0, r: 0.85},
+  litter:       {c: [0.95, 0.72, 0.15], m: 0.0, r: 0.6},
+  camera:       {c: [0.08, 0.08, 0.09], m: 0.6, r: 0.3},
   hold_door:    {c: [0.46, 0.47, 0.49], m: 0.3, r: 0.5},
   engine_bell:  {c: [0.10, 0.10, 0.11], m: 0.8, r: 0.3},
 };
@@ -158,7 +170,46 @@ function ellProfile(xa, xb, xc, R, inward = false, M = 24, xs = null) {
   return out;
 }
 
+function latheArc(mb, prof, a0, a1) {  // lathe over the arc a0..a1 degrees
+  const n = Math.max(4, Math.ceil((a1 - a0) / 3));
+  const th = [...Array(n + 1)].map((_, k) => (a0 + (a1 - a0) * k / n) * D2R);
+  for (let j = 0; j < prof.length - 1; j++) {
+    const [xa, ra, nxa, nra] = prof[j], [xb, rb, nxb, nrb] = prof[j + 1];
+    mb.strip(th.map(t => cyl(xa, ra, t)), th.map(t => cyl(xb, rb, t)), th.map(t => [nxa, nra * Math.cos(t), nra * Math.sin(t)]),
+             th.map(t => [nxb, nrb * Math.cos(t), nrb * Math.sin(t)]), k => [(nxa + nxb) / 2, (nra + nrb) / 2 * Math.cos(th[k]), (nra + nrb) / 2 * Math.sin(th[k])]);
+  }
+}
+
+function meshDomeSolid(mb, s) {
+  // solid ellipsoidal cap (plus cylinder to xc), optionally only r >= rin, truncated at xc < xb, with angular gaps [centre, half-width]
+  const h = s.xb - s.xa, R = s.R, rin = s.rin || 0, xe = s.xc;
+  const x0 = rin > 0 ? s.xb - h * Math.sqrt(Math.max(0, 1 - (rin / R) ** 2)) : s.xa;
+  const u0 = (s.xb - x0) / h, u1 = Math.max(0, (s.xb - Math.min(xe, s.xb)) / h), M = 28;
+  const outer = [];
+  for (let i = 0; i <= M; i++) {
+    const u = u0 + (u1 - u0) * i / M, x = s.xb - u * h, r = R * Math.sqrt(Math.max(0, 1 - u * u));
+    let nx = -u / h, nr = r / (R * R); const L = Math.hypot(nx, nr) || 1;
+    outer.push([x, r, nx / L, nr / L]);
+  }
+  if (xe > s.xb) { outer.push([s.xb, R, 0, 1]); outer.push([xe, R, 0, 1]); }
+  const rEnd = outer[outer.length - 1][1];
+  const gaps = (s.gaps || []).map(([c, w]) => [c - w, c + w]).sort((a, b) => a[0] - b[0]);
+  const arcs = [];
+  if (!gaps.length) arcs.push([0, 360]);
+  else for (let k = 0; k < gaps.length; k++) { const a0 = gaps[k][1], a1 = k + 1 < gaps.length ? gaps[k + 1][0] : gaps[0][0] + 360; if (a1 > a0) arcs.push([a0, a1]); }
+  for (const [a0, a1] of arcs) {
+    latheArc(mb, outer, a0, a1);
+    if (rin > 0) latheArc(mb, [[x0, rin, 0, -1], [xe, rin, 0, -1]], a0, a1);
+    latheArc(mb, [[xe, rin, 1, 0], [xe, rEnd, 1, 0]], a0, a1);
+    if (gaps.length) for (const [a, sg] of [[a0, -1], [a1, 1]]) {
+      const t = a * D2R, n = [0, -Math.sin(t) * sg, Math.cos(t) * sg];
+      mb.strip(outer.map(q => cyl(q[0], rin, t)), outer.map(q => cyl(q[0], q[1], t)), outer.map(() => n), outer.map(() => n), () => n);
+    }
+  }
+}
+
 function meshDome(mb, s) {
+  if ((s.rin || 0) > 0 || (s.gaps && s.gaps.length) || (s.t <= 0 && s.xc < s.xb)) return meshDomeSolid(mb, s);
   lathe(mb, ellProfile(s.xa, s.xb, s.xc, s.R, false, 24, s.xs !== undefined ? s.xs + 0.015 : null));   // tiny gap: avoids z-fighting with the part ahead
   if (s.t > 0) {
     lathe(mb, ellProfile(s.xa + s.t, s.xb, s.xc, s.R - s.t, true));
@@ -225,6 +276,184 @@ function meshPanel(mb, s, span, tilt = 0) {
   mb.quad(P(s.x1, a0, -t), P(s.x1, a1, -t), P(s.x1, a1, t), P(s.x1, a0, t), [1, 0, 0]);
 }
 
+function meshOBox(mb, c, A, h) {   // oriented box: centre c, unit axes A[0..2], half sizes h[0..2] (ship coords)
+  const P = (a, b, d) => [0, 1, 2].map(i => c[i] + a * h[0] * A[0][i] + b * h[1] * A[1][i] + d * h[2] * A[2][i]);
+  for (let k = 0; k < 3; k++) for (const sg of [-1, 1]) {
+    const k1 = (k + 1) % 3, k2 = (k + 2) % 3, q = [];
+    for (const [p1, p2] of [[-1, -1], [1, -1], [1, 1], [-1, 1]]) { const w = [0, 0, 0]; w[k] = sg; w[k1] = p1; w[k2] = p2; q.push(P(...w)); }
+    mb.quad(q[0], q[1], q[2], q[3], A[k].map(v => v * sg));
+  }
+}
+
+function meshSphere(mb, c, r, n = 14) {
+  const prof = [];
+  for (let i = 0; i <= n; i++) { const a = Math.PI * i / n; prof.push([c[0] - r * Math.cos(a), r * Math.sin(a), -Math.cos(a), Math.sin(a)]); }
+  lathe(mb, prof, 2 * n, c[2], c[1]);
+}
+
+function meshBore(mb, p, nn, r, b, n = 40) {
+  // window opening seen from inside: pane frame at the pressure hull, opening splayed outward through the armour
+  // b: {wall_m, armour_m, splay_deg}; a is distance along the outward normal from the outer surface point p
+  const u = nn, a0 = Math.abs(u[0]) < 0.9 ? [1, 0, 0] : [0, 1, 0];
+  const v = [u[1]*a0[2]-u[2]*a0[1], u[2]*a0[0]-u[0]*a0[2], u[0]*a0[1]-u[1]*a0[0]], lv = Math.hypot(...v); for (let i = 0; i < 3; i++) v[i] /= lv;
+  const w = [u[1]*v[2]-u[2]*v[1], u[2]*v[0]-u[0]*v[2], u[0]*v[1]-u[1]*v[0]];
+  const th = [...Array(n + 1)].map((_, k) => k / n * 2 * Math.PI), t = Math.tan(b.splay_deg * D2R);
+  const rd = q => [0, 1, 2].map(i => Math.cos(q) * v[i] + Math.sin(q) * w[i]);
+  const at = (a, rr, q) => p.map((x, i) => x + a * u[i] + rr * rd(q)[i]);
+  const prof = [[-b.wall_m, r], [-b.armour_m, r], [0.006, r + (b.armour_m + 0.006) * t]];
+  for (let j = 0; j < prof.length - 1; j++) {
+    const [aa, ra] = prof[j], [ab, rb] = prof[j + 1], f = (rb - ra) / (ab - aa), L = Math.hypot(1, f);
+    const nr = q => rd(q).map((x, i) => (-x + f * u[i]) / L);
+    mb.strip(th.map(q => at(aa, ra, q)), th.map(q => at(ab, rb, q)), th.map(nr), th.map(nr), k => nr(th[k]));
+  }
+  const ro = prof[2][1], up = u, dn = u.map(x => -x);
+  mb.strip(th.map(q => at(0.006, ro, q)), th.map(q => at(0.006, ro + 0.05, q)), th.map(() => up), th.map(() => up), () => up);   // outer rim
+  mb.strip(th.map(q => at(-b.wall_m - 0.004, r - 0.035, q)), th.map(q => at(-b.wall_m - 0.004, r + 0.01, q)), th.map(() => dn), th.map(() => dn), () => dn);   // pane frame, cabin side
+}
+
+function meshRing(mb, p0, p1, ri, ro, n = 32) {   // hollow tube (window frame): axis p0->p1, inner and outer radius
+  const d = p1.map((v, i) => v - p0[i]), L = Math.hypot(...d), u = d.map(v => v / L);
+  const a = Math.abs(u[0]) < 0.9 ? [1, 0, 0] : [0, 1, 0];
+  const v = [u[1]*a[2]-u[2]*a[1], u[2]*a[0]-u[0]*a[2], u[0]*a[1]-u[1]*a[0]], lv = Math.hypot(...v); for (let i = 0; i < 3; i++) v[i] /= lv;
+  const w = [u[1]*v[2]-u[2]*v[1], u[2]*v[0]-u[0]*v[2], u[0]*v[1]-u[1]*v[0]];
+  const th = [...Array(n + 1)].map((_, k) => k / n * 2 * Math.PI);
+  const rd = t => [0, 1, 2].map(i => Math.cos(t) * v[i] + Math.sin(t) * w[i]);
+  const at = (p, r, t) => p.map((x, i) => x + r * rd(t)[i]);
+  mb.strip(th.map(t => at(p0, ro, t)), th.map(t => at(p1, ro, t)), th.map(rd), th.map(rd), k => rd(th[k]));
+  const ir = t => rd(t).map(x => -x);
+  mb.strip(th.map(t => at(p0, ri, t)), th.map(t => at(p1, ri, t)), th.map(ir), th.map(ir), k => ir(th[k]));
+  for (const [p, sg] of [[p0, -1], [p1, 1]]) { const nn = u.map(x => x * sg);
+    mb.strip(th.map(t => at(p, ri, t)), th.map(t => at(p, ro, t)), th.map(() => nn), th.map(() => nn), () => nn); }
+}
+
+// a person lying on their back: T(s along the body from the head, l sideways, t up from the support surface)
+function crewFigure(mb, T, axes) {
+  meshSphere(mb("helmet"), T(0.15, 0, 0.13), 0.13);
+  for (const sg of [-1, 1]) {
+    meshTube(mb("crew"), {p0: T(0.30, sg * 0.08, 0.11), p1: T(0.95, sg * 0.08, 0.11), r: 0.11}, 16);       // torso
+    meshSphere(mb("crew"), T(0.31, sg * 0.10, 0.11), 0.10, 10);                                            // shoulders
+    meshTube(mb("crew"), {p0: T(0.92, sg * 0.10, 0.08), p1: T(1.84, sg * 0.10, 0.08), r: 0.075}, 14);      // legs
+    meshTube(mb("crew"), {p0: T(0.34, sg * 0.25, 0.08), p1: T(0.98, sg * 0.25, 0.08), r: 0.05}, 12);       // arms
+    meshOBox(mb("couch"), T(1.89, sg * 0.10, 0.12), axes, [0.05, 0.055, 0.11]);                             // boots
+  }
+}
+
+// habitat crew systems: berths (with sleepers), cabin doors, ladder shafts, medical doors, a litter (render/out/hab_scene.json)
+export function habitatMeshes(sc, opt = {}) {
+  const G = {}, mb = m => (G[m] ||= new MB(opt.xc));
+  const clip = opt.clip, gone = p => clip && clip[0] * p[0] + clip[1] * p[1] + clip[2] * p[2] + clip[3] > 0;
+  const up = [-1, 0, 0];
+  for (const b of sc.bunks) {
+    const t = b.angle_deg * D2R, u = [0, Math.cos(t), Math.sin(t)], v = [0, -Math.sin(t), Math.cos(t)];
+    const [r0, r1] = b.radial_m, W = b.width_m, L = r1 - r0;
+    const P = (s, l, h) => [b.pan_x - h, (r1 - s) * u[1] + l * v[1], (r1 - s) * u[2] + l * v[2]];   // head at the outer wall
+    if (gone(P(L / 2, 0, 0))) continue;
+    const box = (m, s0, s1, l0, l1, h0, h1) => meshOBox(mb(m), P((s0 + s1) / 2, (l0 + l1) / 2, (h0 + h1) / 2), [u, v, up], [(s1 - s0) / 2, (l1 - l0) / 2, (h1 - h0) / 2]);
+    box("couch", 0, L, -W / 2, W / 2, -0.06, 0);                  // pan
+    box("mattress", 0.02, L - 0.02, -W / 2 + 0.03, W / 2 - 0.03, 0, 0.07);
+    for (const sg of [-1, 1]) box("couch", 0.3, 1.2, sg * (W / 2 - 0.03) - 0.02, sg * (W / 2 - 0.03) + 0.02, 0.07, 0.15);   // restraint rails
+    if (b.tier === 2) for (const s0 of [0.03, L - 0.03]) for (const sg of [-1, 1])
+      meshTube(mb("rail"), {p0: P(s0, sg * (W / 2 - 0.03), -0.06), p1: P(s0, sg * (W / 2 - 0.03), -0.06 - (sc.tier_h || 1.08) + 0.06), r: 0.02}, 8);
+    crewFigure(mb, (s, l, h) => P(s + 0.05, l, h + 0.07), [u, v, up]);
+  }
+  for (const d of sc.doors) {
+    const t = d.center_deg * D2R, n = [0, Math.cos(t), Math.sin(t)], tg = [0, -Math.sin(t), Math.cos(t)];
+    const c = [d.floor_x - d.height_m / 2, (d.at_r_m - 0.05) * n[1], (d.at_r_m - 0.05) * n[2]];
+    if (gone(c)) continue;
+    meshOBox(mb("door"), c, [[1, 0, 0], tg, n], [d.height_m / 2, d.width_m / 2, 0.02]);
+  }
+  const m = sc.medical, half = m.width_m / 2 / m.at_r_m;
+  for (const sg of [-1, 1]) {      // bi-parting doors, slid open beside the opening
+    const t = m.center_deg * D2R + sg * (half + 0.6 / m.at_r_m / 1.0), n = [0, Math.cos(t), Math.sin(t)], tg = [0, -Math.sin(t), Math.cos(t)];
+    const c = [(m.x_m[0] + m.x_m[1]) / 2 + 0.1, (m.at_r_m - 0.06) * n[1], (m.at_r_m - 0.06) * n[2]];
+    if (!gone(c)) meshOBox(mb("door"), c, [[1, 0, 0], tg, n], [1.05, 0.6, 0.02]);
+  }
+  for (const l of sc.ladderways) {                 // rails and rungs on the inboard face of each shaft, every deck L1-L4
+    const t = l.theta_deg * D2R, n = [0, Math.cos(t), Math.sin(t)], tg = [0, -Math.sin(t), Math.cos(t)];
+    const ri = l.r_m - l.size_m / 2 + 0.06;
+    for (const d of sc.decks.slice(0, -1)) {
+      const xa = d.x_m[1] - 1.0, xb = d.x_m[1] + sc.floor_t_m + 2.3;
+      if (gone([(xa + xb) / 2, ri * n[1], ri * n[2]])) continue;
+      for (const sg of [-1, 1]) {
+        const q = [0, ri * n[1] + sg * 0.22 * tg[1], ri * n[2] + sg * 0.22 * tg[2]];
+        meshTube(mb("rail"), {p0: [xa, q[1], q[2]], p1: [Math.min(xb, d.x_m[1] + sc.floor_t_m + 2.29), q[1], q[2]], r: 0.018}, 8);
+      }
+      for (let x = d.x_m[1] + 0.15; x < d.x_m[1] + sc.floor_t_m + 2.3; x += 0.3)
+        meshTube(mb("rail"), {p0: [x, ri * n[1] - 0.22 * tg[1], ri * n[2] - 0.22 * tg[2]], p1: [x, ri * n[1] + 0.22 * tg[1], ri * n[2] + 0.22 * tg[2]], r: 0.014}, 6);
+    }
+  }
+  if (opt.litter && sc.litter) {
+    const L = sc.litter, t = L.pose.theta_deg * D2R, u = [0, Math.cos(t), Math.sin(t)], v = [0, -Math.sin(t), Math.cos(t)];
+    const rc = (L.pose.r_m[0] + L.pose.r_m[1]) / 2, c = [L.pose.x, rc * u[1], rc * u[2]];
+    meshOBox(mb("litter"), c, [u, v, up], [L.length_m / 2, L.width_m / 2, 0.05]);
+    const fl = sc.decks.find(d => d.x_m[0] < L.pose.x && L.pose.x < d.x_m[1]);
+    if (fl) meshOBox(mb("couch"), [(L.pose.x + 0.05 + fl.x_m[1]) / 2, c[1], c[2]], [[1, 0, 0], u, v], [(fl.x_m[1] - L.pose.x - 0.05) / 2, L.length_m / 2 - 0.3, 0.2]);   // treatment couch
+  }
+  return G;
+}
+
+// L1 command scene: couches, crew, displays, ladders, from render/out/l1_scene.json (ship coords)
+export function commandMeshes(sc, opt = {}) {
+  const G = {}, mb = m => (G[m] ||= new MB(opt.xc));
+  const hide = opt.hide || new Set(), hideCrew = opt.hideCrew || new Set(), clip = opt.clip;
+  const gone = p => clip && clip[0] * p[0] + clip[1] * p[1] + clip[2] * p[2] + clip[3] > 0;
+  const nrm = v => { const L = Math.hypot(...v); return v.map(x => x / L); };
+  const cross = (a, b) => [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]];
+  const domeX = r => sc.dome.xb - (sc.dome.xb - sc.dome.xa) * Math.sqrt(Math.max(0, 1 - (r / sc.dome.R) ** 2));
+  const hidden = new Set();
+  for (const c of sc.couches) {
+    const [hy, hz] = c.head, [fy, fz] = c.feet, L = c.L, u = nrm([0, fy - hy, fz - hz]), v = [0, -u[2], u[1]], up = [-1, 0, 0];
+    const mid = [c.base_x, (hy + fy) / 2, (hz + fz) / 2];
+    if (hide.has(c.id) || gone(mid)) { hidden.add(c.id); continue; }
+    const back = sc.couch.back_above_base_m, W = sc.couch.width_m;
+    const P = (s, l, t) => [c.base_x - t, hy + s * u[1] + l * v[1], hz + s * u[2] + l * v[2]];
+    const box = (m, s0, s1, l0, l1, t0, t1) => meshOBox(mb(m), P((s0 + s1) / 2, (l0 + l1) / 2, (t0 + t1) / 2), [u, v, up], [(s1 - s0) / 2, (l1 - l0) / 2, (t1 - t0) / 2]);
+    box("couch", 0.25, L - 0.25, -0.2, 0.2, 0, back - 0.1);                 // pedestal
+    box("couch", 0, L, -W / 2, W / 2, back - 0.1, back);                     // pan
+    for (const sg of [-1, 1]) {
+      box("couch", 0.35, 1.15, sg * (W / 2 - 0.05) - 0.025, sg * (W / 2 - 0.05) + 0.025, back, back + 0.08);   // side bolsters
+      box("couch", 0.02, 0.30, sg * 0.165 - 0.025, sg * 0.165 + 0.025, back, back + 0.12);                    // head wings
+    }
+    box("couch", L - 0.07, L, -0.22, 0.22, back, back + 0.2);               // foot plate
+    if (hideCrew.has(c.id)) continue;
+    crewFigure(mb, (s, l, t) => P(s, l, back + t), [u, v, up]);
+  }
+  for (const d of sc.displays) {
+    if (hidden.has(d.for)) continue;
+    const c = d.box.map(([a, b]) => (a + b) / 2), cc = sc.couches.find(k => k.id === d.for);
+    const n = nrm(cc.eye.map((e, i) => e - c[i]));
+    const [hy, hz] = cc.head, [fy, fz] = cc.feet, u = nrm([0, fy - hy, fz - hz]), lat = [0, -u[2], u[1]];
+    const dl = lat[0] * n[0] + lat[1] * n[1] + lat[2] * n[2];
+    const hor = nrm(lat.map((x, i) => x - dl * n[i])), ver = cross(n, hor);
+    const pilot = d.for === "PILOT" || d.for === "NAV";
+    meshOBox(mb("screen"), c, [hor, ver, n], [pilot ? 0.225 : 0.2, pilot ? 0.14 : 0.13, 0.015]);
+    meshOBox(mb("couch"), c.map((x, i) => x - n[i] * 0.03), [hor, ver, n], [pilot ? 0.24 : 0.215, pilot ? 0.155 : 0.145, 0.015]);
+    // mounts (indicative): pilots' displays hang from the dome just above them; support displays sit on an arm from the couch
+    const b = c.map((x, i) => x - n[i] * 0.045);
+    if (pilot) { const top = domeX(Math.hypot(b[1], b[2])); if (b[0] - top > 0.02) meshTube(mb("rail"), {p0: b, p1: [top, b[1], b[2]], r: 0.022}, 10); }
+    else meshTube(mb("rail"), {p0: b, p1: [cc.base_x - sc.couch.back_above_base_m, b[1], b[2]], r: 0.022}, 10);
+  }
+  for (const l of sc.ladders) {
+    const ctr = [sc.floor_x, l.y, l.z];
+    if (gone(ctr)) continue;
+    const s = l.size / 2, th = Math.atan2(l.z, l.y), rad = [0, Math.cos(th), Math.sin(th)], tan = [0, -Math.sin(th), Math.cos(th)];
+    meshOBox(mb("well"), [sc.floor_x - 0.004, l.y, l.z], [[1, 0, 0], rad, tan], [0.004, s, s]);
+    for (const sg of [-1, 1]) {
+      const b = [sc.floor_x, l.y + rad[1] * (s - 0.05) + tan[1] * sg * (s - 0.08), l.z + rad[2] * (s - 0.05) + tan[2] * sg * (s - 0.08)];
+      meshTube(mb("rail"), {p0: b, p1: [sc.floor_x - 1.05, b[1], b[2]], r: 0.022}, 10);
+    }
+    const t0 = [sc.floor_x - 1.05, l.y + rad[1] * (s - 0.05), l.z + rad[2] * (s - 0.05)];
+    meshTube(mb("rail"), {p0: t0.map((x, i) => x - tan[i] * (s - 0.08)), p1: t0.map((x, i) => x + tan[i] * (s - 0.08)), r: 0.022}, 10);
+  }
+  const fl = sc.flight_deck_ladder;
+  if (fl && !gone([(fl.x[0] + fl.x[1]) / 2, 0, fl.z])) {
+    const top = domeX(Math.hypot(fl.y[1], fl.z)) + 0.08;
+    for (const y of fl.y) meshTube(mb("rail"), {p0: [fl.x[1], y, fl.z], p1: [top, y, fl.z], r: 0.022}, 10);
+    for (let x = fl.x[1] - 0.3; x > fl.x[0] + 0.05; x -= 0.3) meshTube(mb("rail"), {p0: [x, fl.y[0], fl.z], p1: [x, fl.y[1], fl.z], r: 0.016}, 8);
+  }
+  return G;
+}
+
 function meshShuttle(mb, s, lift = 0) {
   const x0 = s.p0[0], L = s.p1[0] - s.p0[0], R = s.r;
   const pts = [[0, 0.0], [0.15, 0.32], [0.6, 0.62], [3.0, 1.25], [6.2, R], [L - 1.2, R], [L - 0.2, R * 0.86], [L, R * 0.78]];
@@ -255,6 +484,12 @@ export function shapeMesh(mb, p, opt = {}) {
     const span = opt.strakeSpan ?? 0;
     if (span > 0.01) meshPanel(mb, {x0: s.x0, x1: s.x1, a: s.a, r0: s.r0 + s.span, t: 0.06}, span, 0.12);
     meshPanel(mb, s, s.span);      // stowed stack / root block
+    return;
+  }
+  if (p.tags && p.tags.includes("fin")) {      // hot fins: folded stack, or unfolded to finSpan in torch burns
+    const span = opt.finSpan ?? 0;
+    if (span > 0.01) meshPanel(mb, {x0: s.x0, x1: s.x1, a: s.a, r0: s.r0, t: 0.06}, span, 0.10);
+    else meshPanel(mb, s, s.span);
     return;
   }
   if (p.tags && p.tags.includes("door") && opt.doorsOpen) {
@@ -289,6 +524,8 @@ uniform vec3 uC; uniform float uM; uniform float uR; uniform float uSeam; unifor
 uniform vec3 uSun; uniform vec3 uSunC; uniform vec3 uEye; uniform sampler2D uSh; uniform float uShOn;
 uniform vec4 uClip; uniform float uClipOn; uniform float uExp; uniform float uAlpha; uniform float uHot;
 uniform vec3 uPlanetDir; uniform float uShZ; uniform float uLen; uniform float uSec; uniform vec3 uRim; uniform vec3 uRimC;
+uniform float uNoSec; uniform float uHoleOn; uniform vec4 uWinP[16]; uniform vec3 uWinN[16]; uniform int uNWin; uniform float uArm; uniform float uSplay;
+uniform vec3 uPLP[3]; uniform vec3 uPLC[3]; uniform int uNPL;
 out vec4 o;
 float sh(vec3 n){
   if(uShOn<0.5) return 1.0;
@@ -301,8 +538,10 @@ vec3 aces(vec3 x){ return clamp((x*(2.51*x+0.03))/(x*(2.43*x+0.59)+0.14),0.0,1.0
 vec3 env(vec3 r){ float pl=max(dot(r,uPlanetDir),0.0); return vec3(0.010,0.014,0.025)+vec3(0.05,0.11,0.22)*pow(pl,6.0)+vec3(0.015)*max(r.y,0.0); }
 void main(){
   if(uClipOn>0.5 && dot(vec4(vW,1.0),uClip)>0.0) discard;
+  if(uHoleOn>0.5){ for(int i=0;i<16;i++){ if(i>=uNWin) break; vec3 d=vW-uWinP[i].xyz; float a=dot(d,uWinN[i]);
+    if(a>-0.6 && a<0.2 && length(d-a*uWinN[i])<uWinP[i].w+clamp(a+uArm,0.0,uArm)*uSplay) discard; } }
   vec3 base=uC;
-  if(!gl_FrontFacing){ if(uClipOn>0.5){ o=vec4(pow(aces(base*uSec*uExp),vec3(1.0/2.2)),1.0); return; } discard; }
+  if(!gl_FrontFacing){ if(uClipOn>0.5 && uNoSec<0.5){ o=vec4(pow(aces(base*uSec*uExp),vec3(1.0/2.2)),1.0); return; } discard; }
   vec3 n=normalize(vN); vec3 v=normalize(uEye-vW); vec3 l=uSun;
   if(uKind==9){ float f=pow(1.0-abs(dot(n,v)),1.5); float t=clamp((vShip.x-uLen)/70.0,0.0,1.0);
     o=vec4(uC*(1.0-t)*(0.6+1.6*(1.0-f)), (1.0-t)*(1.0-f)*uAlpha); return; }
@@ -322,16 +561,22 @@ void main(){
   vec3 hr=normalize(uRim+v); float nlr=max(dot(n,uRim),0.0); float nhr=max(dot(n,hr),0.0); float dr=nhr*nhr*(a2-1.0)+1.0;
   col+=(kd*base/3.14159+F*(a2/(3.14159*dr*dr))*0.25)*uRimC*nlr;
   vec3 hemi=mix(vec3(0.020,0.022,0.030),vec3(0.040,0.050,0.070),n.y*0.5+0.5)+vec3(0.05,0.10,0.20)*0.35*max(dot(n,uPlanetDir),0.0);
-  col+=kd*base*hemi*1.6; vec3 r=reflect(-v,n); col+=env(r)*mix(F0,vec3(1.0),pow(1.0-nv,5.0))*(1.0-uR*0.7)*2.0;
+  col+=kd*base*hemi*1.6;
+  for(int i=0;i<3;i++){ if(i>=uNPL) break; vec3 lv=uPLP[i]-vW; float d2=dot(lv,lv); lv=normalize(lv); vec3 hh=normalize(lv+v);
+    float q=max(dot(n,lv),0.0); float dd=pow(max(dot(n,hh),0.0),24.0)*(1.0-uR)*0.6;
+    col+=(kd*base/3.14159+F0*dd)*uPLC[i]*q/(1.0+0.35*d2); }
+  vec3 r=reflect(-v,n); col+=env(r)*mix(F0,vec3(1.0),pow(1.0-nv,5.0))*(1.0-uR*0.7)*2.0;
   if(uKind==2){ col+=uHot*vec3(1.0,0.32,0.07)*(0.55+0.45*fract(sin(floor(vShip.x*0.5)*7.13)*91.7)); }
+  if(uKind==4){ col+=uHot*vec3(1.0,0.44,0.12)*0.62*(0.70+0.30*fract(sin(floor(vShip.x*0.5)*5.31)*71.3)); }
   col+=uEm;
   o=vec4(pow(aces(col*uExp),vec3(1.0/2.2)),1.0);
 }`;
 
 const SVS = `#version 300 es
-in vec3 aP; uniform mat4 uL; void main(){ gl_Position=uL*vec4(aP,1.0); }`;
+in vec3 aP; uniform mat4 uL; out vec3 vW; void main(){ vW=aP; gl_Position=uL*vec4(aP,1.0); }`;
 const SFS = `#version 300 es
-precision highp float; out vec4 o; void main(){ o=vec4(1.0); }`;
+precision highp float; in vec3 vW; uniform vec4 uClip; uniform float uClipOn; out vec4 o;
+void main(){ if(uClipOn>0.5 && dot(vec4(vW,1.0),uClip)>0.0) discard; o=vec4(1.0); }`;
 
 const BVS = `#version 300 es
 in vec2 aQ; out vec2 vQ; void main(){ vQ=aQ; gl_Position=vec4(aQ,0.9999,1.0); }`;
@@ -420,7 +665,7 @@ export class Ship {
     this.meshes = [];
   }
 
-  // config: {show(part)->bool, strakeSpan, doorsOpen, shuttleLift, fluids:[parts], plume, guestCabins:Set}
+  // config: {show(part)->bool, strakeSpan, finSpan, doorsOpen, shuttleLift, fluids:[parts], plume, guestCabins:Set}
   build(cfg) {
     const gl = this.gl;
     for (const m of this.meshes) { gl.deleteBuffer(m.pb); gl.deleteBuffer(m.nb); gl.deleteBuffer(m.ib); }
@@ -429,13 +674,44 @@ export class Ship {
     const parts = [...this.geo.parts, ...(cfg.fluids || [])];
     for (const p of parts) {
       if (cfg.show && !cfg.show(p)) continue;
+      if ((p.tags || []).includes("no_render")) continue;
+      if (cfg.roomsAsFloors && (p.tags || []).includes("room") && p.shape.k === "sector") {
+        const s = p.shape, key = (p.mat === "room_cabin" && p.id.includes("-G") ? "room_cabin_guest" : p.mat) + "|floor";
+        (groups[key] ||= {mat: key.split("|")[0], system: "floorplan", mb: new MB(this.xc), ids: []});
+        meshSector(groups[key].mb, {...s, x0: s.x1 - 0.03, x1: s.x1 - 0.005});
+        continue;
+      }
       let mat = p.mat;
       if (mat === "room_cabin" && p.id.includes("-G")) mat = "room_cabin_guest";
       const key = mat + "|" + p.system;
       (groups[key] ||= {mat, system: p.system, mb: new MB(this.xc), ids: []});
       shapeMesh(groups[key].mb, p, cfg); groups[key].ids.push(p.id);
     }
+    const tw = (p) => this.toWorld(...p), twn = n => [n[0], n[2], -n[1]];
+    this.win = (this.geo.features || []).filter(f => f.kind === "window").slice(0, 16).map(f => ({p: tw(f.pos), n: twn(f.normal), r: f.d_m / 2}));
+    this.bore = cfg.bore || this.geo.window_bore || {wall_m: 0.23, armour_m: 0.2, splay_deg: 0};
+    if (cfg.windowFrames) {
+      const mb = new MB(this.xc), pane = new MB(this.xc);
+      for (const f of (this.geo.features || []).filter(f => f.kind === "window")) {
+        const n = f.normal, p = f.pos, r = f.d_m / 2;
+        meshBore(mb, p, n, r, this.bore);
+        if (cfg.windowPanes) meshTube(pane, {p0: p.map((v, i) => v - n[i] * (this.bore.armour_m + 0.01)), p1: p.map((v, i) => v - n[i] * this.bore.armour_m), r: r + 0.01}, 40);
+      }
+      groups["frame|feature"] = {mat: "frame", system: "feature", mb, ids: ["window_frames"]};
+      if (cfg.windowPanes) groups["window|feature"] = {mat: "window", system: "feature", mb: pane, ids: ["window_panes"]};
+    }
+    if (cfg.cmd) {
+      const sc = {...cfg.cmd}, ring = this.geo.parts.find(p => p.id === "bow_sensors");
+      if (ring) { sc.ring_rin = ring.shape.rin; sc.ring_x = ring.shape.xc; sc.ring_gaps = ring.shape.gaps; }
+      const G = commandMeshes(sc, {xc: this.xc, hide: new Set(cfg.cmdHide || []), hideCrew: new Set(cfg.cmdHideCrew || []), clip: cfg.cmdClip});
+      for (const [mat, mb] of Object.entries(G)) groups[mat + "|cmd"] = {mat, system: "cmd", mb, ids: ["l1_scene"], noclip: true};
+    }
+    if (cfg.hab) {
+      const G = habitatMeshes({...cfg.hab, tier_h: cfg.hab.tier_h}, {xc: this.xc, clip: cfg.cmdClip, litter: cfg.litter});
+      for (const [mat, mb] of Object.entries(G)) groups[mat + "|hab"] = {mat, system: "hab", mb, ids: ["hab_scene"], noclip: true};
+    }
     if (cfg.features) for (const f of this.geo.features || []) {
+      if (f.kind === "window" && cfg.windowFrames) continue;   // drawn as openings with panes instead
       const mat = f.kind === "hold_door" ? "hold_door" : f.kind;
       const key = mat + "|feature";
       (groups[key] ||= {mat, system: "feature", mb: new MB(this.xc), ids: []});
@@ -467,7 +743,7 @@ export class Ship {
       groups["plume"] = {mat: "plume", system: "plume", mb, ids: ["plume"]};
     }
     for (const g of Object.values(groups)) {
-      const m = {mat: g.mat, system: g.system, n: g.mb.i.length, ids: g.ids};
+      const m = {mat: g.mat, system: g.system, n: g.mb.i.length, ids: g.ids, noclip: !!g.noclip};
       m.pb = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, m.pb); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(g.mb.p), gl.STATIC_DRAW);
       m.nb = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, m.nb); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(g.mb.n), gl.STATIC_DRAW);
       m.ib = gl.createBuffer(); gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, m.ib); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint32Array(g.mb.i), gl.STATIC_DRAW);
@@ -484,7 +760,7 @@ export class Ship {
     const gl = this.gl, W = this.cv.width, H = this.cv.height;
     const eye = this.toWorld(...view.eye), tgt = this.toWorld(...view.target);
     const up = view.up ? this.toWorld(...view.up).map((v, i) => v - this.toWorld(0, 0, 0)[i]) : [0, 1, 0];
-    const P = view.ortho ? M4.ortho(-view.ortho * W / H, view.ortho * W / H, -view.ortho, view.ortho, 0.1, 2000) : M4.persp((view.fov || 35) * D2R, W / H, 0.5, 3000);
+    const P = view.ortho ? M4.ortho(-view.ortho * W / H, view.ortho * W / H, -view.ortho, view.ortho, 0.1, 2000) : M4.persp((view.fov || 35) * D2R, W / H, view.near || 0.5, 3000);
     const Vm = M4.look(eye, tgt, up), VP = M4.mul(P, Vm);
     const sun = norm(view.sun || [-0.55, 0.62, 0.55]);
     const lc = [0, 0, 0], le = lc.map((v, i) => v + sun[i] * 120);
@@ -492,8 +768,11 @@ export class Ship {
     // shadow pass
     gl.bindFramebuffer(gl.FRAMEBUFFER, this.fb); gl.viewport(0, 0, this.shSize, this.shSize);
     gl.clear(gl.DEPTH_BUFFER_BIT); gl.enable(gl.DEPTH_TEST); gl.disable(gl.CULL_FACE);
-    gl.useProgram(this.shp.p); gl.uniformMatrix4fv(this.shp.U.uL, false, L);
-    for (const m of this.meshes) { if (m.mat === "plume") continue; this.bind(m, false); gl.drawElements(gl.TRIANGLES, m.n, gl.UNSIGNED_INT, 0); }
+    let clip = [0, 0, 0, 0], clipOn = 0;
+    if (view.clip) { const [a, b, c, d] = view.clip; clip = [a, c, -b, d + a * this.xc]; clipOn = 1; }
+    gl.useProgram(this.shp.p); gl.uniformMatrix4fv(this.shp.U.uL, false, L); gl.uniform4fv(this.shp.U.uClip, clip);
+    for (const m of this.meshes) { if (m.mat === "plume") continue; gl.uniform1f(this.shp.U.uClipOn, m.noclip ? 0 : clipOn);
+      this.bind(m, false); gl.drawElements(gl.TRIANGLES, m.n, gl.UNSIGNED_INT, 0); }
     gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.viewport(0, 0, W, H);
     gl.clearColor(0, 0, 0, 1); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     // background
@@ -511,15 +790,21 @@ export class Ship {
     gl.uniform3fv(U.uPlanetDir, norm(planetC.map((v, i) => v - eye[i])));
     gl.uniform3fv(U.uRim, norm(view.rim || [0.6, -0.15, -0.8])); gl.uniform3fv(U.uRimC, view.rimC || [0.22, 0.30, 0.45]);
     gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, this.shTex); gl.uniform1i(U.uSh, 0); gl.uniform1f(U.uShOn, view.shadows === false ? 0 : 1);
-    let clip = [0, 0, 0, 0], clipOn = 0;
-    if (view.clip) { const [a, b, c, d] = view.clip; clip = [a, c, -b, d + a * this.xc]; clipOn = 1; }
-    gl.uniform4fv(U.uClip, clip); gl.uniform1f(U.uClipOn, clipOn); gl.uniform1f(U.uExp, view.exposure || 1.0); gl.uniform1f(U.uHot, view.hot || 0);
+    gl.uniform4fv(U.uClip, clip);
+    const W16 = new Float32Array(64), N16 = new Float32Array(48), win = this.win || [];
+    win.forEach((w, i) => { W16.set([...w.p, w.r], i * 4); N16.set(w.n, i * 3); });
+    gl.uniform4fv(U["uWinP[0]"], W16); gl.uniform3fv(U["uWinN[0]"], N16); gl.uniform1i(U.uNWin, win.length);
+    const bo = this.bore || {armour_m: 0.2, splay_deg: 0}; gl.uniform1f(U.uArm, bo.armour_m); gl.uniform1f(U.uSplay, Math.tan(bo.splay_deg * D2R));
+    const lights = (view.lights || []).slice(0, 3), PLP = new Float32Array(9), PLC = new Float32Array(9);
+    lights.forEach((l, i) => { PLP.set(this.toWorld(...l.at), i * 3); PLC.set(l.c, i * 3); });
+    gl.uniform3fv(U["uPLP[0]"], PLP); gl.uniform3fv(U["uPLC[0]"], PLC); gl.uniform1i(U.uNPL, lights.length); gl.uniform1f(U.uClipOn, clipOn); gl.uniform1f(U.uExp, view.exposure || 1.0); gl.uniform1f(U.uHot, view.hot || 0);
     gl.uniform1f(U.uShZ, (this.cfg && this.cfg.shuttleLift) || 0); gl.uniform1f(U.uLen, this.geo.length_m);
     for (const m of this.meshes) {
       if (m.mat === "plume") continue;
       const mt = MATS[m.mat] || MATS.equipment;
       gl.uniform3fv(U.uC, mt.c); gl.uniform1f(U.uM, mt.m); gl.uniform1f(U.uR, mt.r); gl.uniform1f(U.uSeam, mt.seam || 0); gl.uniform1i(U.uKind, mt.kind || 0);
       gl.uniform3fv(U.uEm, (view.emissive && view.emissive[m.mat]) || mt.em || [0, 0, 0]); gl.uniform1f(U.uAlpha, 1); gl.uniform1f(U.uSec, mt.sec ?? 0.55);
+      gl.uniform1f(U.uClipOn, m.noclip ? 0 : clipOn); gl.uniform1f(U.uHoleOn, view.holes && mt.holes ? 1 : 0); gl.uniform1f(U.uNoSec, mt.nosec ? 1 : 0);
       this.bind(m, true); gl.drawElements(gl.TRIANGLES, m.n, gl.UNSIGNED_INT, 0);
     }
     const pl = this.meshes.find(m => m.mat === "plume");

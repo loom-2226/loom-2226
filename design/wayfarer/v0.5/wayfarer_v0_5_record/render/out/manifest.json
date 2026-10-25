@@ -3,95 +3,137 @@
   {
    "file": "ext_hero.png",
    "kind": "exterior",
-   "title": "Wayfarer v0.5, arriving at Neptune",
-   "geometry_sha256": "406424a71d8d3195dc23bc732d29ec3ca6686ef15d5bf61fa0be64171eeba2a1"
+   "title": "Wayfarer, arriving at Neptune",
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
   },
   {
    "file": "ext_burn.png",
    "kind": "exterior",
-   "title": "Torch burn, radiators fully out",
-   "geometry_sha256": "406424a71d8d3195dc23bc732d29ec3ca6686ef15d5bf61fa0be64171eeba2a1"
+   "title": "Torch burn, hot fins out",
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
+  },
+  {
+   "file": "ext_aft.png",
+   "kind": "exterior",
+   "title": "From aft: fins and the shuttle lane",
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
   },
   {
    "file": "ext_profile.png",
    "kind": "exterior",
    "title": "Port side profile",
-   "geometry_sha256": "406424a71d8d3195dc23bc732d29ec3ca6686ef15d5bf61fa0be64171eeba2a1"
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
   },
   {
    "file": "ext_departure.png",
    "kind": "exterior",
    "title": "Shuttle departure",
-   "geometry_sha256": "406424a71d8d3195dc23bc732d29ec3ca6686ef15d5bf61fa0be64171eeba2a1"
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
   },
   {
    "file": "ext_metric.png",
    "kind": "exterior",
    "title": "Metric HARD configuration",
-   "geometry_sha256": "406424a71d8d3195dc23bc732d29ec3ca6686ef15d5bf61fa0be64171eeba2a1"
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
   },
   {
    "file": "cut_long.png",
    "kind": "cutaway",
    "title": "Cutaway along the axis",
-   "geometry_sha256": "406424a71d8d3195dc23bc732d29ec3ca6686ef15d5bf61fa0be64171eeba2a1"
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
   },
   {
    "file": "cut_hab.png",
    "kind": "cutaway",
    "title": "Habitat cutaway",
-   "geometry_sha256": "406424a71d8d3195dc23bc732d29ec3ca6686ef15d5bf61fa0be64171eeba2a1"
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
   },
   {
    "file": "cut_mid.png",
    "kind": "cutaway",
    "title": "Midship section at x = 24 m",
-   "geometry_sha256": "406424a71d8d3195dc23bc732d29ec3ca6686ef15d5bf61fa0be64171eeba2a1"
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
+  },
+  {
+   "file": "cmd_cutaway.png",
+   "kind": "command",
+   "title": "L1 command deck, layout D",
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
+  },
+  {
+   "file": "cmd_pov.png",
+   "kind": "command",
+   "title": "The pilot's view",
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
+  },
+  {
+   "file": "ext_nose.png",
+   "kind": "command",
+   "title": "The nose, layout D",
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
+  },
+  {
+   "file": "hab_crew.png",
+   "kind": "command",
+   "title": "Habitat crew systems",
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
+  },
+  {
+   "file": "ext_docking.png",
+   "kind": "exterior",
+   "title": "Docking view",
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
   },
   {
    "file": "deck_L1.png",
    "kind": "deckplan",
    "title": "deck_L1.svg",
-   "geometry_sha256": "406424a71d8d3195dc23bc732d29ec3ca6686ef15d5bf61fa0be64171eeba2a1"
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
+  },
+  {
+   "file": "deck_L1_section.png",
+   "kind": "deckplan",
+   "title": "deck_L1_section.svg",
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
   },
   {
    "file": "deck_L2.png",
    "kind": "deckplan",
    "title": "deck_L2.svg",
-   "geometry_sha256": "406424a71d8d3195dc23bc732d29ec3ca6686ef15d5bf61fa0be64171eeba2a1"
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
   },
   {
    "file": "deck_L3.png",
    "kind": "deckplan",
    "title": "deck_L3.svg",
-   "geometry_sha256": "406424a71d8d3195dc23bc732d29ec3ca6686ef15d5bf61fa0be64171eeba2a1"
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
   },
   {
    "file": "deck_L4.png",
    "kind": "deckplan",
    "title": "deck_L4.svg",
-   "geometry_sha256": "406424a71d8d3195dc23bc732d29ec3ca6686ef15d5bf61fa0be64171eeba2a1"
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
   },
   {
    "file": "deck_L5.png",
    "kind": "deckplan",
    "title": "deck_L5.svg",
-   "geometry_sha256": "406424a71d8d3195dc23bc732d29ec3ca6686ef15d5bf61fa0be64171eeba2a1"
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
   },
   {
    "file": "deck_overview.png",
    "kind": "deckplan",
    "title": "deck_overview.svg",
-   "geometry_sha256": "406424a71d8d3195dc23bc732d29ec3ca6686ef15d5bf61fa0be64171eeba2a1"
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
   },
   {
    "file": "wayfarer_v05_viewer.html",
    "kind": "viewer",
    "title": "Wayfarer v0.5 Viewer",
-   "geometry_sha256": "406424a71d8d3195dc23bc732d29ec3ca6686ef15d5bf61fa0be64171eeba2a1"
+   "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369"
   }
  ],
- "geometry_sha256": "406424a71d8d3195dc23bc732d29ec3ca6686ef15d5bf61fa0be64171eeba2a1",
+ "geometry_sha256": "14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369",
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
  "status": "VISUAL REFERENCE images generated from the hashed v0.5 geometry"
 }

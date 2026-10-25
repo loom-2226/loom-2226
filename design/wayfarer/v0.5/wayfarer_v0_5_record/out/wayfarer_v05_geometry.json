@@ -1,6 +1,6 @@
 {
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
- "status": "NON-GOVERNING SANDBOX. Wayfarer v0.5 geometry and mass properties.",
+ "status": "NON-GOVERNING SANDBOX. Wayfarer v0.5.6 geometry and mass properties.",
  "features": [
   {
    "kind": "window",
@@ -94,153 +94,146 @@
   },
   {
    "kind": "window",
-   "room": "L3-C1",
+   "room": "L5-vestibule",
    "pos": [
-    7.25,
-    1.1646857029613433,
-    -4.346666218300808
+    12.45,
+    -8.266365894244633e-16,
+    -4.5
    ],
    "normal": [
     0.0,
-    0.25881904510252074,
-    -0.9659258262890683
+    -1.8369701987210297e-16,
+    -1.0
    ],
-   "d_m": 0.45
+   "d_m": 0.4
   },
   {
    "kind": "window",
-   "room": "L3-C2",
+   "room": "L1-command",
    "pos": [
-    7.25,
-    3.1819805153394642,
-    -3.181980515339464
+    0.023618689896258704,
+    0.45,
+    0.45
    ],
    "normal": [
-    0.0,
-    0.7071067811865476,
-    -0.7071067811865475
+    -0.9972287456590782,
+    0.05260622031291331,
+    0.05260622031291331
    ],
-   "d_m": 0.45
+   "d_m": 0.8,
+   "forward": true
   },
   {
    "kind": "window",
-   "room": "L3-C3",
+   "room": "L1-command",
    "pos": [
-    7.25,
-    4.346666218300808,
-    -1.1646857029613433
+    0.023618689896258704,
+    -0.45,
+    0.45
    ],
    "normal": [
-    0.0,
-    0.9659258262890683,
-    -0.25881904510252074
+    -0.9972287456590782,
+    -0.05260622031291331,
+    0.05260622031291331
    ],
-   "d_m": 0.45
+   "d_m": 0.8,
+   "forward": true
   },
   {
    "kind": "window",
-   "room": "L3-C4",
+   "room": "L1-command",
    "pos": [
-    7.25,
-    4.346666218300808,
-    1.1646857029613433
+    0.10474808254407542,
+    1.25,
+    0.45
    ],
    "normal": [
-    0.0,
-    0.9659258262890683,
-    0.25881904510252074
+    -0.9872290305959067,
+    0.14989030794655214,
+    0.053960510860758766
    ],
-   "d_m": 0.45
+   "d_m": 0.6,
+   "forward": true
   },
   {
    "kind": "window",
-   "room": "L3-C5",
+   "room": "L1-command",
    "pos": [
-    7.25,
-    3.1819805153394642,
-    3.181980515339464
+    0.10474808254407542,
+    -1.25,
+    0.45
    ],
    "normal": [
-    0.0,
-    0.7071067811865476,
-    0.7071067811865475
+    -0.9872290305959067,
+    -0.14989030794655214,
+    0.053960510860758766
    ],
-   "d_m": 0.45
+   "d_m": 0.6,
+   "forward": true
   },
   {
    "kind": "window",
-   "room": "L3-C6",
+   "room": "L1-command",
    "pos": [
-    7.25,
-    1.1646857029613433,
-    4.346666218300808
+    0.11250477619655941,
+    0.45,
+    1.3
    ],
    "normal": [
-    0.0,
-    0.25881904510252074,
-    0.9659258262890683
+    -0.9862322981978203,
+    0.05409290619911434,
+    0.1562683956863303
    ],
-   "d_m": 0.45
+   "d_m": 0.6,
+   "forward": true
   },
   {
    "kind": "window",
-   "room": "L3-G1",
+   "room": "L1-command",
    "pos": [
-    7.25,
-    -4.346666218300807,
-    1.1646857029613447
+    0.11250477619655941,
+    -0.45,
+    1.3
    ],
    "normal": [
-    0.0,
-    -0.9659258262890682,
-    0.258819045102521
+    -0.9862322981978203,
+    -0.05409290619911434,
+    0.1562683956863303
    ],
-   "d_m": 0.45
+   "d_m": 0.6,
+   "forward": true
   },
   {
    "kind": "window",
-   "room": "L3-G2",
+   "room": "L1-command",
    "pos": [
-    7.25,
-    -4.346666218300808,
-    -1.1646857029613435
+    0.021128936136917353,
+    0.45,
+    -0.4
    ],
    "normal": [
-    0.0,
-    -0.9659258262890683,
-    -0.2588190451025208
+    -0.9975237581561992,
+    0.052565525940850656,
+    -0.046724911947422815
    ],
-   "d_m": 0.45
+   "d_m": 0.6,
+   "forward": true
   },
   {
    "kind": "window",
-   "room": "L3-G3",
+   "room": "L1-command",
    "pos": [
-    7.25,
-    -3.1819805153394647,
-    -3.181980515339464
+    0.021128936136917353,
+    -0.45,
+    -0.4
    ],
    "normal": [
-    0.0,
-    -0.7071067811865477,
-    -0.7071067811865475
+    -0.9975237581561992,
+    -0.052565525940850656,
+    -0.046724911947422815
    ],
-   "d_m": 0.45
-  },
-  {
-   "kind": "window",
-   "room": "L3-G4",
-   "pos": [
-    7.25,
-    -1.1646857029613429,
-    -4.346666218300808
-   ],
-   "normal": [
-    0.0,
-    -0.25881904510252063,
-    -0.9659258262890683
-   ],
-   "d_m": 0.45
+   "d_m": 0.6,
+   "forward": true
   },
   {
    "kind": "hatch",
@@ -256,6 +249,36 @@
     0.0
    ],
    "d_m": 1.1
+  },
+  {
+   "kind": "camera",
+   "name": "collar camera with lights, beside the port looking out along its axis",
+   "pos": [
+    16.0,
+    0.95,
+    -4.5
+   ],
+   "normal": [
+    0.0,
+    0.2065583488874152,
+    -0.9784342842035457
+   ],
+   "d_m": 0.2
+  },
+  {
+   "kind": "camera",
+   "name": "wide hull camera with lights",
+   "pos": [
+    14.2,
+    0.0,
+    -4.6
+   ],
+   "normal": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "d_m": 0.2
   },
   {
    "kind": "hold_door",
@@ -294,42 +317,134 @@
    ]
   }
  ],
- "version": "0.5.0",
- "inputs_sha256": "361c63e096197ba0d977a6f4b98aff0178674e8297285475d63127fe5a7247d9",
+ "window_bore": {
+  "armour_m": 0.2,
+  "wall_m": 0.23,
+  "splay_deg": 12,
+  "prov": "CLAUDE_DESIGN v0.5.6: openings splayed outward 12 deg through the 0.20 m armour so the armour does not narrow the view (command/l1_bore_check.py: straight bores cut the pilots' 60 deg cone to 89%; 12 deg restores 99.7%)"
+ },
+ "version": "0.5.6",
+ "inputs_sha256": "9e529f165140fbd003fcf3a7c1b2df18532099e08da7cfe1b6699ab72faf750f",
  "length_m": 53.3,
- "dry_t": 867.682,
+ "dry_t": 867.6817472270931,
  "dry_by_system_t": {
-  "habitat": 171.32821783044352,
-  "structure": 158.64125486451837,
-  "avionics": 21.68711618106881,
-  "plant": 95.42331119670276,
-  "mission": 21.68711618106881,
-  "service": 14.096625517694724,
-  "electrical": 59.63956949793922,
-  "thermal": 107.11700424153508,
-  "rcs": 13.012269708641284,
-  "propulsion": 173.49692944855045,
-  "shuttle": 30.253527072590988,
-  "drones": 1.2990582592460216
+  "habitat": 170.2244928724588,
+  "structure": 154.09162840453803,
+  "avionics": 21.065157676628566,
+  "service": 13.742352489808567,
+  "plant": 92.6866937771657,
+  "mission": 21.065157676628566,
+  "electrical": 57.92918361072856,
+  "thermal": 125.06902679640385,
+  "rcs": 12.639094605977139,
+  "propulsion": 168.52126141302855,
+  "shuttle": 29.38589495889685,
+  "drones": 1.2618029448300514
  },
  "protected_water": {
-  "jacket_t": 16.483365295282162,
-  "service_tank_t": 32.51,
-  "c_tank_t": 1.0066347047178397,
+  "jacket_t": 22.1872409171398,
+  "berth_shield_t": 5.703875621857638,
+  "shelter_jacket_t": 16.483365295282162,
+  "service_tank_t": 27.81,
+  "c_tank_t": 0.002759082860201545,
   "service_tank_capacity_t": 32.51548396465435,
-  "chosen_to_minimise_worst_trim_deg": 0.343301174825154
+  "chosen_to_minimise_worst_trim_deg": 0.3469303190587689
  },
  "thrust_line_offset_m": {
-  "y": 0.07,
-  "z": -0.30000000000000004,
-  "torch_chain_t": 180.0030643028711
+  "y": 0.03999999999999998,
+  "z": -0.20000000000000007,
+  "torch_chain_t": 174.8408087160171
  },
- "tank_volume_m3": 322.3721000756864,
+ "hot_fins": {
+  "span_m": 28.0,
+  "panels_t": 17.024,
+  "total_t": 24.883747227093078,
+  "temperature_k": 1750,
+  "azimuths_deg": [
+   40,
+   140,
+   220,
+   320
+  ],
+  "root_r_m": 4.75,
+  "x_m": [
+   34.3,
+   53.3
+  ]
+ },
+ "tank_volume_m3": 322.58023511649094,
+ "tank_volume_gross_m3": 328.4545925299446,
+ "tank_structure": {
+  "ultimate_pressure_mpa": 0.64646165625,
+  "panels": [
+   {
+    "item": "outer wall",
+    "area_m2": 349.9912328122818,
+    "t_mm": 13.237331146936075,
+    "mass_t": 7.412719755616917,
+    "displaced_m3": 0.0,
+    "note": "panels 0.4 x 1.0 m between tie-webs and baffles"
+   },
+   {
+    "item": "inner wall",
+    "area_m2": 117.29532861774592,
+    "t_mm": 7.90625219740175,
+    "mass_t": 1.4837863194064227,
+    "displaced_m3": 0.0,
+    "note": "panels 0.23 x 1.0 m"
+   },
+   {
+    "item": "slot walls (2)",
+    "area_m2": 83.0376809520961,
+    "t_mm": 31.867952416603334,
+    "mass_t": 4.23398538458638,
+    "displaced_m3": 2.6462408653664875,
+    "note": "supported at the inner corner, the sill longeron and the outer corner; panels 1.0 x 2.11 m"
+   },
+   {
+    "item": "solid bulkheads (fore, mid, aft)",
+    "area_m2": 72.9899094510988,
+    "t_mm": 13.890506717548789,
+    "mass_t": 1.622186924070025,
+    "displaced_m3": 1.0138668275437657,
+    "note": "panels 0.4 x 1.85 m between tie-webs"
+   },
+   {
+    "item": "keel cell wall",
+    "area_m2": 24.974999999999994,
+    "t_mm": 30.623534087559932,
+    "mass_t": 1.2237164221388948,
+    "displaced_m3": 0.7648227638368091,
+    "note": "port/starboard cell split; panels 1.0 x 1.85 m"
+   },
+   {
+    "item": "radial tie-webs (54, perforated)",
+    "area_m2": 1348.6499999999996,
+    "t_mm": 1.5,
+    "mass_t": 1.6183799999999995,
+    "displaced_m3": 1.0114874999999997,
+    "note": "tension 0.26 MN/m each"
+   },
+   {
+    "item": "ring baffles (12, perforated)",
+    "area_m2": 291.9596378043952,
+    "t_mm": 3.0,
+    "mass_t": 0.7007031307305485,
+    "displaced_m3": 0.4379394567065928,
+    "note": ""
+   }
+  ],
+  "mass_needed_t": 18.295477936549187,
+  "displaced_m3": 5.874357413453655,
+  "axial_wall_stress_mpa": 25.87361492665873,
+  "panel_buckling_mpa": 211.86035802590527,
+  "perimeter_m": 36.76475869497214
+ },
  "tank_cells_m3": {
-  "starboard_fore": 80.5930250189216,
-  "starboard_aft": 80.5930250189216,
-  "port_fore": 80.5930250189216,
-  "port_aft": 80.5930250189216
+  "starboard_fore": 82.11364813248615,
+  "starboard_aft": 82.11364813248615,
+  "port_fore": 82.11364813248615,
+  "port_aft": 82.11364813248615
  },
  "service_sectors_m3": {
   "protected_water_tank": 34.14125816288707,
@@ -342,7 +457,7 @@
    "id": "armor",
    "name": "Armour and fixed shielding shell",
    "system": "habitat",
-   "mass_t": 113.85735995061124,
+   "mass_t": 110.59207780229998,
    "prov": "CANON_MASS_DESIGN_POSITION",
    "mat": "hull_armor",
    "dry": true,
@@ -366,7 +481,7 @@
    "id": "pressure_vessel",
    "name": "Pressure vessel (inner hull)",
    "system": "structure",
-   "mass_t": 16.265337135801605,
+   "mass_t": 15.798868257471426,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "pressure_hull",
    "dry": true,
@@ -390,7 +505,7 @@
    "id": "aft_bulkhead",
    "name": "Aft pressure bulkhead (L5 floor)",
    "system": "structure",
-   "mass_t": 5.421779045267202,
+   "mass_t": 5.266289419157141,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "bulkhead",
    "dry": true,
@@ -415,7 +530,7 @@
    "id": "floor_L1",
    "name": "L1 floor",
    "system": "structure",
-   "mass_t": 1.6265337135801605,
+   "mass_t": 1.5798868257471426,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "floor",
    "dry": true,
@@ -440,7 +555,7 @@
    "id": "floor_L2",
    "name": "L2 floor",
    "system": "structure",
-   "mass_t": 1.6265337135801605,
+   "mass_t": 1.5798868257471426,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "floor",
    "dry": true,
@@ -465,7 +580,7 @@
    "id": "floor_L3",
    "name": "L3 floor",
    "system": "structure",
-   "mass_t": 1.6265337135801605,
+   "mass_t": 1.5798868257471426,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "floor",
    "dry": true,
@@ -490,7 +605,7 @@
    "id": "floor_L4",
    "name": "L4 floor",
    "system": "structure",
-   "mass_t": 1.6265337135801605,
+   "mass_t": 1.5798868257471426,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "floor",
    "dry": true,
@@ -515,7 +630,7 @@
    "id": "core_trunk",
    "name": "Central trunk (utilities, avionics racks, goods lift)",
    "system": "habitat",
-   "mass_t": 2.168711618106881,
+   "mass_t": 2.1065157676628568,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "core",
    "dry": true,
@@ -540,7 +655,7 @@
    "id": "core_racks",
    "name": "Avionics racks in the trunk",
    "system": "avionics",
-   "mass_t": 13.012269708641284,
+   "mass_t": 12.63909460597714,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "avionics",
    "dry": true,
@@ -563,9 +678,9 @@
   },
   {
    "id": "bow_sensors",
-   "name": "Bow sensors and command electronics",
+   "name": "Bow sensors and command electronics (shoulder ring)",
    "system": "avionics",
-   "mass_t": 8.674846472427523,
+   "mass_t": 8.426063070651427,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "avionics",
    "dry": true,
@@ -574,22 +689,66 @@
     "k": "domecyl",
     "xa": 0.2,
     "xb": 2.35,
-    "xc": 1.0,
+    "xc": 2.0,
     "R": 4.15,
-    "t": 0.0
+    "t": 0.0,
+    "rin": 2.9,
+    "gaps": [
+     [
+      45,
+      14
+     ],
+     [
+      135,
+      14
+     ],
+     [
+      225,
+      14
+     ],
+     [
+      315,
+      14
+     ]
+    ]
    },
-   "volume_m3": 4.508839956370835,
+   "volume_m3": 12.994515818817002,
    "centroid_m": [
-    0.7292765121405121,
-    0.0033582831767777523,
-    0.021456089687104968
+    1.565442693121299,
+    -0.00600156534420453,
+    0.04466564422184958
+   ]
+  },
+  {
+   "id": "flight_deck",
+   "name": "Flight deck (mezzanine carrying the pilot and navigator couches)",
+   "system": "habitat",
+   "mass_t": 0.42130315353257136,
+   "prov": "ENGINEERING_ASSUMPTION: mezzanine deck carrying the pilot and navigator 1.77 m above the L1 floor, eyes 0.55 m below their nose windows; reached by a short ladder at its -Z end; mass from the L1 room outfitting (3.0 to 2.6 t)",
+   "mat": "equipment",
+   "dry": true,
+   "tags": [],
+   "shape": {
+    "k": "box",
+    "x0": 1.225,
+    "x1": 1.325,
+    "y0": -0.85,
+    "y1": 0.85,
+    "z0": -1.55,
+    "z1": 0.75
+   },
+   "volume_m3": 0.3909999999999994,
+   "centroid_m": [
+    1.275,
+    0.0,
+    -0.4
    ]
   },
   {
    "id": "room_L1-command",
    "name": "Command and navigation",
    "system": "habitat",
-   "mass_t": 3.253067427160321,
+   "mass_t": 2.738470497961714,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_command",
    "dry": true,
@@ -602,21 +761,20 @@
     "xb": 2.35,
     "xc": 3.0,
     "R": 4.15,
-    "t": 0.0,
-    "xs": 1.0
+    "t": 0.0
    },
-   "volume_m3": 98.61264604200292,
+   "volume_m3": 112.72099890927129,
    "centroid_m": [
-    2.083103262133485,
-    0.0230921086117173,
-    -0.006926287856393506
+    1.9113231944594962,
+    0.05587613148799596,
+    -0.04190827493439194
    ]
   },
   {
    "id": "room_L2-galley",
    "name": "Galley",
    "system": "habitat",
-   "mass_t": 2.168711618106881,
+   "mass_t": 2.1065157676628568,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_galley",
    "dry": true,
@@ -643,7 +801,7 @@
    "id": "room_L2-wardroom",
    "name": "Wardroom (table for 10)",
    "system": "habitat",
-   "mass_t": 1.3012269708641284,
+   "mass_t": 1.263909460597714,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_wardroom",
    "dry": true,
@@ -670,7 +828,7 @@
    "id": "room_L2-observation",
    "name": "Observation",
    "system": "habitat",
-   "mass_t": 0.6506134854320642,
+   "mass_t": 0.631954730298857,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_observation",
    "dry": true,
@@ -697,7 +855,7 @@
    "id": "room_L2-exercise",
    "name": "Exercise",
    "system": "habitat",
-   "mass_t": 1.7349692944855049,
+   "mass_t": 1.6852126141302854,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_exercise",
    "dry": true,
@@ -724,7 +882,7 @@
    "id": "room_L2-hygiene",
    "name": "Washroom",
    "system": "habitat",
-   "mass_t": 0.6506134854320642,
+   "mass_t": 0.631954730298857,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_hygiene",
    "dry": true,
@@ -748,10 +906,10 @@
    ]
   },
   {
-   "id": "room_L3-C1",
-   "name": "Crew cabin 1",
+   "id": "room_L3-CAPT",
+   "name": "Captain's cabin",
    "system": "habitat",
-   "mass_t": 0.4879601140740482,
+   "mass_t": 0.4739660477241428,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_cabin",
    "dry": true,
@@ -763,130 +921,22 @@
     "x0": 5.9,
     "x1": 8.2,
     "r0": 1.9,
-    "r1": 4.15,
-    "a0": -90,
-    "a1": -60
-   },
-   "volume_m3": 8.196611582756619,
-   "centroid_m": [
-    7.05,
-    0.8096994243605634,
-    -3.021839390572896
-   ]
-  },
-  {
-   "id": "room_L3-C2",
-   "name": "Crew cabin 2",
-   "system": "habitat",
-   "mass_t": 0.4879601140740482,
-   "prov": "ENGINEERING_ASSUMPTION",
-   "mat": "room_cabin",
-   "dry": true,
-   "tags": [
-    "room"
-   ],
-   "shape": {
-    "k": "sector",
-    "x0": 5.9,
-    "x1": 8.2,
-    "r0": 1.9,
-    "r1": 4.15,
-    "a0": -60,
-    "a1": -30
-   },
-   "volume_m3": 8.196611582756619,
-   "centroid_m": [
-    7.05,
-    2.2121399662123324,
-    -2.2121399662123324
-   ]
-  },
-  {
-   "id": "room_L3-C3",
-   "name": "Crew cabin 3",
-   "system": "habitat",
-   "mass_t": 0.4879601140740482,
-   "prov": "ENGINEERING_ASSUMPTION",
-   "mat": "room_cabin",
-   "dry": true,
-   "tags": [
-    "room"
-   ],
-   "shape": {
-    "k": "sector",
-    "x0": 5.9,
-    "x1": 8.2,
-    "r0": 1.9,
-    "r1": 4.15,
-    "a0": -30,
-    "a1": 0
-   },
-   "volume_m3": 8.196611582756619,
-   "centroid_m": [
-    7.05,
-    3.021839390572896,
-    -0.8096994243605634
-   ]
-  },
-  {
-   "id": "room_L3-C4",
-   "name": "Crew cabin 4",
-   "system": "habitat",
-   "mass_t": 0.4879601140740482,
-   "prov": "ENGINEERING_ASSUMPTION",
-   "mat": "room_cabin",
-   "dry": true,
-   "tags": [
-    "room"
-   ],
-   "shape": {
-    "k": "sector",
-    "x0": 5.9,
-    "x1": 8.2,
-    "r0": 1.9,
-    "r1": 4.15,
+    "r1": 4.07,
     "a0": 0,
-    "a1": 30
-   },
-   "volume_m3": 8.196611582756619,
-   "centroid_m": [
-    7.05,
-    3.021839390572896,
-    0.8096994243605634
-   ]
-  },
-  {
-   "id": "room_L3-C5",
-   "name": "Crew cabin 5",
-   "system": "habitat",
-   "mass_t": 0.4879601140740482,
-   "prov": "ENGINEERING_ASSUMPTION",
-   "mat": "room_cabin",
-   "dry": true,
-   "tags": [
-    "room"
-   ],
-   "shape": {
-    "k": "sector",
-    "x0": 5.9,
-    "x1": 8.2,
-    "r0": 1.9,
-    "r1": 4.15,
-    "a0": 30,
     "a1": 60
    },
-   "volume_m3": 8.196611582756619,
+   "volume_m3": 15.60129048939632,
    "centroid_m": [
     7.05,
-    2.2121399662123324,
-    2.2121399662123324
+    2.5772917387842265,
+    1.4880000791672714
    ]
   },
   {
-   "id": "room_L3-C6",
-   "name": "Crew cabin 6",
+   "id": "room_L3-CA",
+   "name": "Crew cabin A",
    "system": "habitat",
-   "mass_t": 0.4879601140740482,
+   "mass_t": 0.9479320954482856,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_cabin",
    "dry": true,
@@ -898,49 +948,22 @@
     "x0": 5.9,
     "x1": 8.2,
     "r0": 1.9,
-    "r1": 4.15,
+    "r1": 4.07,
     "a0": 60,
-    "a1": 90
-   },
-   "volume_m3": 8.196611582756619,
-   "centroid_m": [
-    7.05,
-    0.8096994243605641,
-    3.0218393905728957
-   ]
-  },
-  {
-   "id": "room_L3-HC",
-   "name": "Crew washroom",
-   "system": "habitat",
-   "mass_t": 0.6506134854320642,
-   "prov": "ENGINEERING_ASSUMPTION",
-   "mat": "room_hygiene",
-   "dry": true,
-   "tags": [
-    "room"
-   ],
-   "shape": {
-    "k": "sector",
-    "x0": 5.9,
-    "x1": 8.2,
-    "r0": 1.9,
-    "r1": 4.15,
-    "a0": 90,
     "a1": 120
    },
-   "volume_m3": 8.196611582756619,
+   "volume_m3": 15.60129048939632,
    "centroid_m": [
     7.05,
-    -0.8096994243605631,
-    3.021839390572896
+    1.8222745340832074e-16,
+    2.9760001583345432
    ]
   },
   {
    "id": "room_L3-HG",
    "name": "Guest washroom",
    "system": "habitat",
-   "mass_t": 0.6506134854320642,
+   "mass_t": 0.631954730298857,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_hygiene",
    "dry": true,
@@ -952,22 +975,22 @@
     "x0": 5.9,
     "x1": 8.2,
     "r0": 1.9,
-    "r1": 4.15,
+    "r1": 4.07,
     "a0": 120,
     "a1": 150
    },
-   "volume_m3": 8.196611582756619,
+   "volume_m3": 7.80064524469816,
    "centroid_m": [
     7.05,
-    -2.2121399662123324,
-    2.2121399662123324
+    -2.178583319233909,
+    2.1785833192339092
    ]
   },
   {
-   "id": "room_L3-G1",
-   "name": "Guest cabin 1",
+   "id": "room_L3-GUEST",
+   "name": "Guest cabin",
    "system": "habitat",
-   "mass_t": 0.4879601140740482,
+   "mass_t": 1.8958641908965712,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_cabin",
    "dry": true,
@@ -979,76 +1002,22 @@
     "x0": 5.9,
     "x1": 8.2,
     "r0": 1.9,
-    "r1": 4.15,
+    "r1": 4.07,
     "a0": 150,
-    "a1": 180
-   },
-   "volume_m3": 8.196611582756619,
-   "centroid_m": [
-    7.05,
-    -3.021839390572896,
-    0.8096994243605629
-   ]
-  },
-  {
-   "id": "room_L3-G2",
-   "name": "Guest cabin 2",
-   "system": "habitat",
-   "mass_t": 0.4879601140740482,
-   "prov": "ENGINEERING_ASSUMPTION",
-   "mat": "room_cabin",
-   "dry": true,
-   "tags": [
-    "room"
-   ],
-   "shape": {
-    "k": "sector",
-    "x0": 5.9,
-    "x1": 8.2,
-    "r0": 1.9,
-    "r1": 4.15,
-    "a0": 180,
-    "a1": 210
-   },
-   "volume_m3": 8.196611582756619,
-   "centroid_m": [
-    7.05,
-    -3.021839390572896,
-    -0.8096994243605635
-   ]
-  },
-  {
-   "id": "room_L3-G3",
-   "name": "Guest cabin 3",
-   "system": "habitat",
-   "mass_t": 0.4879601140740482,
-   "prov": "ENGINEERING_ASSUMPTION",
-   "mat": "room_cabin",
-   "dry": true,
-   "tags": [
-    "room"
-   ],
-   "shape": {
-    "k": "sector",
-    "x0": 5.9,
-    "x1": 8.2,
-    "r0": 1.9,
-    "r1": 4.15,
-    "a0": 210,
     "a1": 240
    },
-   "volume_m3": 8.196611582756619,
+   "volume_m3": 23.40193573409448,
    "centroid_m": [
     7.05,
-    -2.212139966212332,
-    -2.212139966212333
+    -2.710194545300998,
+    -0.7261944397446364
    ]
   },
   {
-   "id": "room_L3-G4",
-   "name": "Guest cabin 4",
+   "id": "room_L3-CB",
+   "name": "Crew cabin B",
    "system": "habitat",
-   "mass_t": 0.4879601140740482,
+   "mass_t": 1.4218981431724285,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_cabin",
    "dry": true,
@@ -1060,22 +1029,49 @@
     "x0": 5.9,
     "x1": 8.2,
     "r0": 1.9,
-    "r1": 4.15,
+    "r1": 4.07,
     "a0": 240,
-    "a1": 270
+    "a1": 330
    },
-   "volume_m3": 8.196611582756619,
+   "volume_m3": 23.40193573409448,
    "centroid_m": [
     7.05,
-    -0.8096994243605659,
-    -3.0218393905728953
+    0.7261944397446349,
+    -2.7101945453009986
+   ]
+  },
+  {
+   "id": "room_L3-HC",
+   "name": "Crew washroom",
+   "system": "habitat",
+   "mass_t": 0.631954730298857,
+   "prov": "ENGINEERING_ASSUMPTION",
+   "mat": "room_hygiene",
+   "dry": true,
+   "tags": [
+    "room"
+   ],
+   "shape": {
+    "k": "sector",
+    "x0": 5.9,
+    "x1": 8.2,
+    "r0": 1.9,
+    "r1": 4.07,
+    "a0": 330,
+    "a1": 360
+   },
+   "volume_m3": 7.80064524469816,
+   "centroid_m": [
+    7.05,
+    2.976000158334543,
+    -0.7974168391006367
    ]
   },
   {
    "id": "room_L4-shelter",
    "name": "Storm shelter",
    "system": "habitat",
-   "mass_t": 1.0843558090534404,
+   "mass_t": 1.0532578838314284,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_shelter",
    "dry": true,
@@ -1102,7 +1098,7 @@
    "id": "room_L4-medical",
    "name": "Medical bay",
    "system": "habitat",
-   "mass_t": 3.253067427160321,
+   "mass_t": 3.159773651494285,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_medical",
    "dry": true,
@@ -1129,7 +1125,7 @@
    "id": "room_L4-eclss",
    "name": "Life support",
    "system": "habitat",
-   "mass_t": 15.180981326748165,
+   "mass_t": 14.745610373639998,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_eclss",
    "dry": true,
@@ -1156,7 +1152,7 @@
    "id": "room_L5-airlock",
    "name": "Airlock",
    "system": "habitat",
-   "mass_t": 3.253067427160321,
+   "mass_t": 3.159773651494285,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_airlock",
    "dry": true,
@@ -1183,7 +1179,7 @@
    "id": "room_L5-suits",
    "name": "Suit room",
    "system": "habitat",
-   "mass_t": 1.6265337135801605,
+   "mass_t": 1.5798868257471426,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_suits",
    "dry": true,
@@ -1210,7 +1206,7 @@
    "id": "room_L5-workshop",
    "name": "Workshop",
    "system": "habitat",
-   "mass_t": 3.253067427160321,
+   "mass_t": 3.159773651494285,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_workshop",
    "dry": true,
@@ -1237,7 +1233,7 @@
    "id": "room_L5-custody",
    "name": "Custody locker",
    "system": "habitat",
-   "mass_t": 0.5421779045267202,
+   "mass_t": 0.5266289419157142,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_custody",
    "dry": true,
@@ -1264,7 +1260,7 @@
    "id": "room_L5-stores",
    "name": "Stores",
    "system": "habitat",
-   "mass_t": 3.253067427160321,
+   "mass_t": 3.159773651494285,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_stores",
    "dry": true,
@@ -1291,7 +1287,7 @@
    "id": "room_L5-vestibule",
    "name": "Transfer vestibule",
    "system": "habitat",
-   "mass_t": 0.3253067427160321,
+   "mass_t": 0.3159773651494285,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_vestibule",
    "dry": true,
@@ -1318,7 +1314,7 @@
    "id": "room_L5-stores2",
    "name": "Stores",
    "system": "habitat",
-   "mass_t": 3.253067427160321,
+   "mass_t": 3.159773651494285,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_stores",
    "dry": true,
@@ -1342,10 +1338,582 @@
    ]
   },
   {
+   "id": "nose_window_frame",
+   "name": "Nose window cluster: Cupola-style frame, 8 window assemblies, shutters",
+   "system": "habitat",
+   "mass_t": 1.8511195825811617,
+   "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 0.0,
+    "x1": 0.25,
+    "y0": -1.6,
+    "y1": 1.6,
+    "z0": -0.75,
+    "z1": 1.65
+   },
+   "volume_m3": 1.92,
+   "centroid_m": [
+    0.125,
+    0.0,
+    0.44999999999999996
+   ]
+  },
+  {
+   "id": "window_L1-command_0",
+   "name": "Window assembly (L1-command, 0.5 m)",
+   "system": "habitat",
+   "mass_t": 0.10545927198991001,
+   "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 1.2068170843181298,
+    "x1": 1.5068170843181297,
+    "y0": 2.5873981999288733,
+    "y1": 2.887398199928873,
+    "z0": 2.587398199928873,
+    "z1": 2.8873981999288727
+   },
+   "volume_m3": 0.026999999999999955,
+   "centroid_m": [
+    1.3568170843181298,
+    2.7373981999288732,
+    2.737398199928873
+   ]
+  },
+  {
+   "id": "window_L1-command_1",
+   "name": "Window assembly (L1-command, 0.5 m)",
+   "system": "habitat",
+   "mass_t": 0.10545927198991001,
+   "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 1.2068170843181298,
+    "x1": 1.5068170843181297,
+    "y0": -2.8873981999288727,
+    "y1": -2.587398199928873,
+    "z0": 2.5873981999288733,
+    "z1": 2.887398199928873
+   },
+   "volume_m3": 0.026999999999999955,
+   "centroid_m": [
+    1.3568170843181298,
+    -2.737398199928873,
+    2.7373981999288732
+   ]
+  },
+  {
+   "id": "window_L1-command_2",
+   "name": "Window assembly (L1-command, 0.5 m)",
+   "system": "habitat",
+   "mass_t": 0.10545927198991001,
+   "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 1.2068170843181298,
+    "x1": 1.5068170843181297,
+    "y0": -2.8873981999288736,
+    "y1": -2.5873981999288738,
+    "z0": -2.8873981999288727,
+    "z1": -2.587398199928873
+   },
+   "volume_m3": 0.026999999999999955,
+   "centroid_m": [
+    1.3568170843181298,
+    -2.7373981999288737,
+    -2.737398199928873
+   ]
+  },
+  {
+   "id": "window_L1-command_3",
+   "name": "Window assembly (L1-command, 0.5 m)",
+   "system": "habitat",
+   "mass_t": 0.10545927198991001,
+   "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 1.2068170843181298,
+    "x1": 1.5068170843181297,
+    "y0": 2.5873981999288724,
+    "y1": 2.8873981999288723,
+    "z0": -2.8873981999288736,
+    "z1": -2.5873981999288738
+   },
+   "volume_m3": 0.026999999999999955,
+   "centroid_m": [
+    1.3568170843181298,
+    2.7373981999288723,
+    -2.7373981999288737
+   ]
+  },
+  {
+   "id": "window_L2-observation_4",
+   "name": "Window assembly (L2-observation, 0.8 m)",
+   "system": "habitat",
+   "mass_t": 0.26997573629416965,
+   "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 4.499999999999999,
+    "x1": 4.8,
+    "y0": -4.351777344357447,
+    "y1": -4.051777344357446,
+    "z0": 0.9758628461959665,
+    "z1": 1.2758628461959665
+   },
+   "volume_m3": 0.02700000000000012,
+   "centroid_m": [
+    4.6499999999999995,
+    -4.201777344357446,
+    1.1258628461959665
+   ]
+  },
+  {
+   "id": "window_L2-observation_5",
+   "name": "Window assembly (L2-observation, 0.8 m)",
+   "system": "habitat",
+   "mass_t": 0.26997573629416965,
+   "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 4.499999999999999,
+    "x1": 4.8,
+    "y0": -4.351777344357448,
+    "y1": -4.051777344357447,
+    "z0": -1.2758628461959653,
+    "z1": -0.9758628461959654
+   },
+   "volume_m3": 0.02700000000000012,
+   "centroid_m": [
+    4.6499999999999995,
+    -4.201777344357447,
+    -1.1258628461959654
+   ]
+  },
+  {
+   "id": "window_L5-vestibule_6",
+   "name": "Window assembly (L5-vestibule, 0.4 m)",
+   "system": "habitat",
+   "mass_t": 0.08,
+   "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 12.299999999999999,
+    "x1": 12.6,
+    "y0": -0.1500000000000008,
+    "y1": 0.1499999999999992,
+    "z0": -4.5,
+    "z1": -4.199999999999999
+   },
+   "volume_m3": 0.027000000000000125,
+   "centroid_m": [
+    12.45,
+    -8.049116928532385e-16,
+    -4.35
+   ]
+  },
+  {
+   "id": "flight_deck_column_0",
+   "name": "Flight-deck column",
+   "system": "habitat",
+   "mass_t": 0.004209770990984191,
+   "prov": "CLAUDE_DESIGN v0.5.6: four tubular columns at the deck corners carry the flight deck to the L1 floor in compression under thrust; all four sit inside the deck footprint, which the walkway check already treats as blocked, and outside the trunk opening (r 0.9 m)",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve"
+   ],
+   "shape": {
+    "k": "tube",
+    "p0": [
+     1.325,
+     0.8,
+     -1.5
+    ],
+    "p1": [
+     3.0,
+     0.8,
+     -1.5
+    ],
+    "r": 0.038
+   },
+   "volume_m3": 0.0075985701512376325,
+   "centroid_m": [
+    2.1625,
+    0.8,
+    -1.5
+   ]
+  },
+  {
+   "id": "flight_deck_column_1",
+   "name": "Flight-deck column",
+   "system": "habitat",
+   "mass_t": 0.004209770990984191,
+   "prov": "CLAUDE_DESIGN v0.5.6: four tubular columns at the deck corners carry the flight deck to the L1 floor in compression under thrust; all four sit inside the deck footprint, which the walkway check already treats as blocked, and outside the trunk opening (r 0.9 m)",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve"
+   ],
+   "shape": {
+    "k": "tube",
+    "p0": [
+     1.325,
+     -0.8,
+     -1.5
+    ],
+    "p1": [
+     3.0,
+     -0.8,
+     -1.5
+    ],
+    "r": 0.038
+   },
+   "volume_m3": 0.0075985701512376325,
+   "centroid_m": [
+    2.1625,
+    -0.8,
+    -1.5
+   ]
+  },
+  {
+   "id": "flight_deck_column_2",
+   "name": "Flight-deck column",
+   "system": "habitat",
+   "mass_t": 0.004209770990984191,
+   "prov": "CLAUDE_DESIGN v0.5.6: four tubular columns at the deck corners carry the flight deck to the L1 floor in compression under thrust; all four sit inside the deck footprint, which the walkway check already treats as blocked, and outside the trunk opening (r 0.9 m)",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve"
+   ],
+   "shape": {
+    "k": "tube",
+    "p0": [
+     1.325,
+     0.8,
+     0.7
+    ],
+    "p1": [
+     3.0,
+     0.8,
+     0.7
+    ],
+    "r": 0.038
+   },
+   "volume_m3": 0.0075985701512376325,
+   "centroid_m": [
+    2.1625,
+    0.8,
+    0.7
+   ]
+  },
+  {
+   "id": "flight_deck_column_3",
+   "name": "Flight-deck column",
+   "system": "habitat",
+   "mass_t": 0.004209770990984191,
+   "prov": "CLAUDE_DESIGN v0.5.6: four tubular columns at the deck corners carry the flight deck to the L1 floor in compression under thrust; all four sit inside the deck footprint, which the walkway check already treats as blocked, and outside the trunk opening (r 0.9 m)",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve"
+   ],
+   "shape": {
+    "k": "tube",
+    "p0": [
+     1.325,
+     -0.8,
+     0.7
+    ],
+    "p1": [
+     3.0,
+     -0.8,
+     0.7
+    ],
+    "r": 0.038
+   },
+   "volume_m3": 0.0075985701512376325,
+   "centroid_m": [
+    2.1625,
+    -0.8,
+    0.7
+   ]
+  },
+  {
+   "id": "hatch_L4L5_0",
+   "name": "L4/L5 pressure hatch at the 0 deg ladderway",
+   "system": "habitat",
+   "mass_t": 0.15,
+   "prov": "CLAUDE_DESIGN v0.5.6: floor L4 becomes a pressure bulkhead so a depressurised L5 (airlock, docking tunnel) cannot take the rest of the habitat. Two hinged pressure hatches (rounded-square, ISS CBM-hatch style) close the ladderways; a pressure plug with a lift hatch and feedthroughs seals the trunk at the same plane. Hatches stand open in normal operations and close automatically on a pressure drop",
+   "mat": "hatch",
+   "dry": true,
+   "tags": [
+    "from_reserve"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 10.8,
+    "x1": 10.860000000000001,
+    "y0": 0.95,
+    "y1": 1.8499999999999999,
+    "z0": -0.45,
+    "z1": 0.45
+   },
+   "volume_m3": 0.0486000000000004,
+   "centroid_m": [
+    10.830000000000002,
+    1.4,
+    0.0
+   ]
+  },
+  {
+   "id": "hatch_L4L5_180",
+   "name": "L4/L5 pressure hatch at the 180 deg ladderway",
+   "system": "habitat",
+   "mass_t": 0.15,
+   "prov": "CLAUDE_DESIGN v0.5.6: floor L4 becomes a pressure bulkhead so a depressurised L5 (airlock, docking tunnel) cannot take the rest of the habitat. Two hinged pressure hatches (rounded-square, ISS CBM-hatch style) close the ladderways; a pressure plug with a lift hatch and feedthroughs seals the trunk at the same plane. Hatches stand open in normal operations and close automatically on a pressure drop",
+   "mat": "hatch",
+   "dry": true,
+   "tags": [
+    "from_reserve"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 10.8,
+    "x1": 10.860000000000001,
+    "y0": -1.8499999999999999,
+    "y1": -0.95,
+    "z0": -0.44999999999999984,
+    "z1": 0.4500000000000002
+   },
+   "volume_m3": 0.0486000000000004,
+   "centroid_m": [
+    10.830000000000002,
+    -1.4,
+    1.6653345369377348e-16
+   ]
+  },
+  {
+   "id": "trunk_plug_L4L5",
+   "name": "Trunk pressure plug with lift hatch and feedthroughs (L4/L5)",
+   "system": "habitat",
+   "mass_t": 0.15,
+   "prov": "CLAUDE_DESIGN v0.5.6: floor L4 becomes a pressure bulkhead so a depressurised L5 (airlock, docking tunnel) cannot take the rest of the habitat. Two hinged pressure hatches (rounded-square, ISS CBM-hatch style) close the ladderways; a pressure plug with a lift hatch and feedthroughs seals the trunk at the same plane. Hatches stand open in normal operations and close automatically on a pressure drop",
+   "mat": "bulkhead",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render"
+   ],
+   "shape": {
+    "k": "sector",
+    "x0": 10.8,
+    "x1": 11.100000000000001,
+    "r0": 0.0,
+    "r1": 0.9,
+    "a0": 0.0,
+    "a1": 360.0
+   },
+   "volume_m3": 0.7634070148223217,
+   "centroid_m": [
+    10.950000000000001,
+    -0.0,
+    0.0
+   ]
+  },
+  {
+   "id": "doors_L4-medical",
+   "name": "Medical bay: bi-parting sliding doors",
+   "system": "habitat",
+   "mass_t": 0.1,
+   "prov": "CLAUDE change v0.5.6: centre moved 210 -> 202 deg (still inside the medical wall: 165.8-238.2 deg) so a litter coming out of the port ladder shaft clears the opening's edge by 0.3 m instead of 0.03 m; SOL TO AGREE",
+   "mat": "door",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 8.5,
+    "x1": 10.8,
+    "y0": -1.861649323676896,
+    "y1": -1.6616493236768959,
+    "z0": -0.8117525274902327,
+    "z1": -0.6117525274902328
+   },
+   "volume_m3": 0.0920000000000001,
+   "centroid_m": [
+    9.65,
+    -1.761649323676896,
+    -0.7117525274902328
+   ]
+  },
+  {
+   "id": "shelter_backup",
+   "name": "Storm shelter 72 h stored life support (O2, LiOH, food, battery)",
+   "system": "habitat",
+   "mass_t": 0.3,
+   "prov": "Consumption: Barta, Anderson and Lange, NASA JSC 2015 (ntrs.nasa.gov 20150009498): O2 0.84, CO2 1.00, drinking water 1.62, food 0.62 kg per person per day. Stored backup on L4 for 72 h if the life-support room's regenerative systems are unavailable; drinking water drawn from the shelter's own water jacket. Battery covers 24 h of essential loads; the plant otherwise powers the shelter",
+   "mat": "equipment",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 9.450000000000001,
+    "x1": 9.85,
+    "y0": -0.19999999999999982,
+    "y1": 0.2000000000000002,
+    "z0": 2.8,
+    "z1": 3.2
+   },
+   "volume_m3": 0.06399999999999983,
+   "centroid_m": [
+    9.65,
+    1.942890293094024e-16,
+    3.0
+   ]
+  },
+  {
+   "id": "rescue_kit",
+   "name": "Litter, vertical-lift harness, rope system and hoist points",
+   "system": "habitat",
+   "mass_t": 0.05,
+   "prov": "CLAUDE_DESIGN v0.5.6 (habitat and L1 close-out); checked by habitat/crew_systems.py",
+   "mat": "equipment",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 9.5,
+    "x1": 9.8,
+    "y0": -2.399756633902888,
+    "y1": -2.099756633902888,
+    "z0": -2.8311555509164226,
+    "z1": -2.5311555509164227
+   },
+   "volume_m3": 0.027000000000000034,
+   "centroid_m": [
+    9.65,
+    -2.249756633902888,
+    -2.6811555509164227
+   ]
+  },
+  {
+   "id": "docking_camera_0",
+   "name": "Docking camera: collar camera with lights, beside the port looking out along its axis",
+   "system": "service",
+   "mass_t": 0.025,
+   "prov": "CLAUDE_DESIGN v0.5.6: the collar (x 16 m, -Z) cannot be seen from L1; cameras give the final approach, the vestibule window the proximity view",
+   "mat": "rcs",
+   "dry": true,
+   "tags": [
+    "from_reserve"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 15.9,
+    "x1": 16.1,
+    "y0": 0.85,
+    "y1": 1.05,
+    "z0": -4.6,
+    "z1": -4.4
+   },
+   "volume_m3": 0.008000000000000018,
+   "centroid_m": [
+    16.0,
+    0.95,
+    -4.5
+   ]
+  },
+  {
+   "id": "docking_camera_1",
+   "name": "Docking camera: wide hull camera with lights",
+   "system": "service",
+   "mass_t": 0.025,
+   "prov": "CLAUDE_DESIGN v0.5.6: the collar (x 16 m, -Z) cannot be seen from L1; cameras give the final approach, the vestibule window the proximity view",
+   "mat": "rcs",
+   "dry": true,
+   "tags": [
+    "from_reserve"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 14.1,
+    "x1": 14.299999999999999,
+    "y0": -0.1,
+    "y1": 0.1,
+    "z0": -4.699999999999999,
+    "z1": -4.5
+   },
+   "volume_m3": 0.007999999999999945,
+   "centroid_m": [
+    14.2,
+    0.0,
+    -4.6
+   ]
+  },
+  {
    "id": "outfit_L1",
    "name": "L1 distributed outfitting",
    "system": "habitat",
-   "mass_t": 0.8674846472427524,
+   "mass_t": 0.8426063070651427,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "outfit",
    "dry": true,
@@ -1370,7 +1938,7 @@
    "id": "outfit_L2",
    "name": "L2 distributed outfitting",
    "system": "habitat",
-   "mass_t": 0.8674846472427524,
+   "mass_t": 0.8426063070651427,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "outfit",
    "dry": true,
@@ -1395,7 +1963,7 @@
    "id": "outfit_L3",
    "name": "L3 distributed outfitting",
    "system": "habitat",
-   "mass_t": 0.8674846472427524,
+   "mass_t": 0.8426063070651427,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "outfit",
    "dry": true,
@@ -1404,12 +1972,12 @@
     "k": "sector",
     "x0": 5.9,
     "x1": 8.2,
-    "r0": 4.050000000000001,
-    "r1": 4.15,
+    "r0": 4.15,
+    "r1": 4.25,
     "a0": 0.0,
     "a1": 360.0
    },
-   "volume_m3": 5.925043744670324,
+   "volume_m3": 6.06955700673545,
    "centroid_m": [
     7.05,
     -0.0,
@@ -1420,7 +1988,7 @@
    "id": "outfit_L4",
    "name": "L4 distributed outfitting",
    "system": "habitat",
-   "mass_t": 0.8674846472427524,
+   "mass_t": 0.8426063070651427,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "outfit",
    "dry": true,
@@ -1445,7 +2013,7 @@
    "id": "outfit_L5",
    "name": "L5 distributed outfitting",
    "system": "habitat",
-   "mass_t": 0.8674846472427524,
+   "mass_t": 0.8426063070651427,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "outfit",
    "dry": true,
@@ -1470,7 +2038,7 @@
    "id": "plant_fore",
    "name": "Relational plant, fore block",
    "system": "plant",
-   "mass_t": 47.71165559835138,
+   "mass_t": 46.34334688858285,
    "prov": "DERIVED: SPLIT plant, half of 88 t; shortened 1 m vs v0.4 to leave room for the transfer tunnel (density 1.17 t/m3, inside the 1.0-1.5 t/m3 range)",
    "mat": "plant",
    "dry": true,
@@ -1495,7 +2063,7 @@
    "id": "courier_systems",
    "name": "Mission and courier systems",
    "system": "mission",
-   "mass_t": 21.68711618106881,
+   "mass_t": 21.065157676628566,
    "prov": "CANON_MASS_DESIGN_POSITION",
    "mat": "equipment",
    "dry": true,
@@ -1520,7 +2088,7 @@
    "id": "service_arm",
    "name": "Service arm and umbilicals",
    "system": "service",
-   "mass_t": 8.132668567900803,
+   "mass_t": 7.899434128735713,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "equipment",
    "dry": true,
@@ -1545,7 +2113,7 @@
    "id": "docking_collar",
    "name": "Docking collar",
    "system": "service",
-   "mass_t": 4.337423236213762,
+   "mass_t": 4.2130315353257135,
    "prov": "CANON position (x = 16, -Z), mass ENGINEERING_ASSUMPTION",
    "mat": "collar",
    "dry": true,
@@ -1575,7 +2143,7 @@
    "id": "tunnel_0",
    "name": "Pressure tunnel: habitat to collar node",
    "system": "service",
-   "mass_t": 0.6690706055861658,
+   "mass_t": 0.649882524066201,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "tunnel",
    "dry": true,
@@ -1607,7 +2175,7 @@
    "id": "tunnel_1",
    "name": "Pressure tunnel: collar node to bay axis",
    "system": "service",
-   "mass_t": 0.6921420057787917,
+   "mass_t": 0.6722922662753797,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "tunnel",
    "dry": true,
@@ -1639,7 +2207,7 @@
    "id": "tunnel_2",
    "name": "Pressure tunnel: docking adapter to shuttle nose",
    "system": "service",
-   "mass_t": 0.26532110221520316,
+   "mass_t": 0.2577120354055619,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "tunnel",
    "dry": true,
@@ -1671,7 +2239,7 @@
    "id": "longeron_starboard",
    "name": "Longeron (starboard)",
    "system": "structure",
-   "mass_t": 7.590490663374083,
+   "mass_t": 7.372805186819999,
    "prov": "ENGINEERING_ASSUMPTION (v0.5 packaging): v0.3 placed five 0.4 m tubes at r 4.1 m, which clashes with the tank (outer radius 4.3 m) and puts the slot sills inside the 4.8 m slot. v0.5 uses flat planks in the 0.2 m gap between tank and skin, and two round sills set into the tank beside the slot.",
    "mat": "longeron",
    "dry": true,
@@ -1698,7 +2266,7 @@
    "id": "longeron_slot_sill_starboard",
    "name": "Longeron (slot sill starboard)",
    "system": "structure",
-   "mass_t": 7.590490663374083,
+   "mass_t": 7.372805186819999,
    "prov": "ENGINEERING_ASSUMPTION (v0.5 packaging): v0.3 placed five 0.4 m tubes at r 4.1 m, which clashes with the tank (outer radius 4.3 m) and puts the slot sills inside the 4.8 m slot. v0.5 uses flat planks in the 0.2 m gap between tank and skin, and two round sills set into the tank beside the slot.",
    "mat": "longeron",
    "dry": true,
@@ -1730,7 +2298,7 @@
    "id": "longeron_slot_sill_port",
    "name": "Longeron (slot sill port)",
    "system": "structure",
-   "mass_t": 7.590490663374083,
+   "mass_t": 7.372805186819999,
    "prov": "ENGINEERING_ASSUMPTION (v0.5 packaging): v0.3 placed five 0.4 m tubes at r 4.1 m, which clashes with the tank (outer radius 4.3 m) and puts the slot sills inside the 4.8 m slot. v0.5 uses flat planks in the 0.2 m gap between tank and skin, and two round sills set into the tank beside the slot.",
    "mat": "longeron",
    "dry": true,
@@ -1762,7 +2330,7 @@
    "id": "longeron_port",
    "name": "Longeron (port)",
    "system": "structure",
-   "mass_t": 7.590490663374083,
+   "mass_t": 7.372805186819999,
    "prov": "ENGINEERING_ASSUMPTION (v0.5 packaging): v0.3 placed five 0.4 m tubes at r 4.1 m, which clashes with the tank (outer radius 4.3 m) and puts the slot sills inside the 4.8 m slot. v0.5 uses flat planks in the 0.2 m gap between tank and skin, and two round sills set into the tank beside the slot.",
    "mat": "longeron",
    "dry": true,
@@ -1789,7 +2357,7 @@
    "id": "longeron_keel",
    "name": "Longeron (keel)",
    "system": "structure",
-   "mass_t": 7.590490663374083,
+   "mass_t": 7.372805186819999,
    "prov": "ENGINEERING_ASSUMPTION (v0.5 packaging): v0.3 placed five 0.4 m tubes at r 4.1 m, which clashes with the tank (outer radius 4.3 m) and puts the slot sills inside the 4.8 m slot. v0.5 uses flat planks in the 0.2 m gap between tank and skin, and two round sills set into the tank beside the slot.",
    "mat": "longeron",
    "dry": true,
@@ -1816,7 +2384,7 @@
    "id": "skin_service",
    "name": "Outer skin, service region",
    "system": "structure",
-   "mass_t": 2.991326369802594,
+   "mass_t": 2.905538989879802,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "hull_skin",
    "dry": true,
@@ -1841,7 +2409,7 @@
    "id": "skin_midship",
    "name": "Outer skin, midship (C-shaped, open at the slot)",
    "system": "structure",
-   "mass_t": 10.693991772044274,
+   "mass_t": 10.387301888820295,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "hull_skin",
    "dry": true,
@@ -1870,7 +2438,7 @@
    "id": "skin_aft",
    "name": "Outer skin, manifold region",
    "system": "structure",
-   "mass_t": 1.495663184901297,
+   "mass_t": 1.452769494939901,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "hull_skin",
    "dry": true,
@@ -1895,7 +2463,7 @@
    "id": "frame_14",
    "name": "Ring frame x 14",
    "system": "structure",
-   "mass_t": 1.6758226139916805,
+   "mass_t": 1.6277621841031165,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -1920,7 +2488,7 @@
    "id": "frame_16",
    "name": "Ring frame x 16",
    "system": "structure",
-   "mass_t": 1.6758226139916805,
+   "mass_t": 1.6277621841031165,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -1945,7 +2513,7 @@
    "id": "frame_18",
    "name": "Ring frame x 18",
    "system": "structure",
-   "mass_t": 1.6758226139916805,
+   "mass_t": 1.6277621841031165,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -1974,7 +2542,7 @@
    "id": "frame_20",
    "name": "Ring frame x 20",
    "system": "structure",
-   "mass_t": 1.6758226139916805,
+   "mass_t": 1.6277621841031165,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -2003,7 +2571,7 @@
    "id": "frame_22",
    "name": "Ring frame x 22",
    "system": "structure",
-   "mass_t": 1.6758226139916805,
+   "mass_t": 1.6277621841031165,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -2032,7 +2600,7 @@
    "id": "frame_24",
    "name": "Ring frame x 24",
    "system": "structure",
-   "mass_t": 1.6758226139916805,
+   "mass_t": 1.6277621841031165,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -2061,7 +2629,7 @@
    "id": "frame_26",
    "name": "Ring frame x 26",
    "system": "structure",
-   "mass_t": 1.6758226139916805,
+   "mass_t": 1.6277621841031165,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -2090,7 +2658,7 @@
    "id": "frame_28",
    "name": "Ring frame x 28",
    "system": "structure",
-   "mass_t": 1.6758226139916805,
+   "mass_t": 1.6277621841031165,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -2119,7 +2687,7 @@
    "id": "frame_30",
    "name": "Ring frame x 30",
    "system": "structure",
-   "mass_t": 1.6758226139916805,
+   "mass_t": 1.6277621841031165,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -2148,7 +2716,7 @@
    "id": "frame_32",
    "name": "Ring frame x 32",
    "system": "structure",
-   "mass_t": 1.6758226139916805,
+   "mass_t": 1.6277621841031165,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -2177,7 +2745,7 @@
    "id": "frame_34",
    "name": "Ring frame x 34",
    "system": "structure",
-   "mass_t": 1.6758226139916805,
+   "mass_t": 1.6277621841031165,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -2202,7 +2770,7 @@
    "id": "tank_shell_out",
    "name": "Tank outer wall",
    "system": "structure",
-   "mass_t": 19.084662239340553,
+   "mass_t": 18.53733875543314,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "tank_shell",
    "dry": true,
@@ -2210,7 +2778,7 @@
    "shape": {
     "k": "cslot",
     "x0": 18.0,
-    "x1": 31.25,
+    "x1": 31.5,
     "r0": 4.28,
     "r1": 4.3,
     "hw": 2.4,
@@ -2225,9 +2793,9 @@
     "side": 0,
     "holes": []
    },
-   "volume_m3": 5.7937984755787575,
+   "volume_m3": 5.903115427948168,
    "centroid_m": [
-    24.64526438943291,
+    24.770646736403343,
     0.0,
     -0.9315351812267662
    ]
@@ -2236,7 +2804,7 @@
    "id": "tank_shell_in",
    "name": "Tank inner wall",
    "system": "structure",
-   "mass_t": 15.614723650369543,
+   "mass_t": 15.16691352717257,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "tank_shell",
    "dry": true,
@@ -2244,7 +2812,7 @@
    "shape": {
     "k": "cslot",
     "x0": 18.0,
-    "x1": 31.25,
+    "x1": 31.5,
     "r0": 2.45,
     "r1": 2.47,
     "hw": 2.4,
@@ -2254,9 +2822,9 @@
     "side": 0,
     "holes": []
    },
-   "volume_m3": 2.336273762014039,
+   "volume_m3": 2.3803543990331715,
    "centroid_m": [
-    24.649012235086612,
+    24.77446529612598,
     0.0,
     -1.3452955861614404
    ]
@@ -2265,7 +2833,7 @@
    "id": "bay_liner",
    "name": "Bay liner and cradle",
    "system": "structure",
-   "mass_t": 4.337423236213762,
+   "mass_t": 4.2130315353257135,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "bay",
    "dry": true,
@@ -2294,7 +2862,7 @@
    "id": "door_starboard",
    "name": "Bay door, starboard",
    "system": "structure",
-   "mass_t": 1.0843558090534404,
+   "mass_t": 1.0532578838314284,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "door",
    "dry": true,
@@ -2321,7 +2889,7 @@
    "id": "door_port",
    "name": "Bay door, port",
    "system": "structure",
-   "mass_t": 1.0843558090534404,
+   "mass_t": 1.0532578838314284,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "door",
    "dry": true,
@@ -2348,7 +2916,7 @@
    "id": "thrust_cone",
    "name": "Thrust cone (longerons to reactor frame)",
    "system": "structure",
-   "mass_t": 17.67499968757108,
+   "mass_t": 17.168103506452283,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "thrust_cone",
    "dry": true,
@@ -2370,16 +2938,16 @@
   },
   {
    "id": "electrical",
-   "name": "Electrical conversion and distribution",
+   "name": "Electrical conversion and distribution (aft C-ring)",
    "system": "electrical",
-   "mass_t": 59.63956949793922,
-   "prov": "CANON_MASS_DESIGN_POSITION",
+   "mass_t": 31.597736514942852,
+   "prov": "ENGINEERING_ASSUMPTION: the aft C-ring (x 31.5-32.3) is too small for all 55 t; 25 t moves to the free ring at x 17.0-18.0 ahead of the bay (theta -45 to 225 deg, clear of the tunnel elbow on -Z)",
    "mat": "equipment",
    "dry": true,
    "tags": [],
    "shape": {
     "k": "cslot",
-    "x0": 31.25,
+    "x0": 31.5,
     "x1": 32.3,
     "r0": 2.45,
     "r1": 4.3,
@@ -2390,18 +2958,43 @@
     "side": 0,
     "holes": []
    },
-   "volume_m3": 30.570601788520083,
+   "volume_m3": 23.29188707696766,
    "centroid_m": [
-    31.77768648068669,
+    31.902046842427954,
     0.0,
     -1.0281748486046536
+   ]
+  },
+  {
+   "id": "electrical_fwd",
+   "name": "Electrical conversion and distribution (service ring)",
+   "system": "electrical",
+   "mass_t": 26.33144709578571,
+   "prov": "ENGINEERING_ASSUMPTION: the aft C-ring (x 31.5-32.3) is too small for all 55 t; 25 t moves to the free ring at x 17.0-18.0 ahead of the bay (theta -45 to 225 deg, clear of the tunnel elbow on -Z)",
+   "mat": "equipment",
+   "dry": true,
+   "tags": [],
+   "shape": {
+    "k": "sector",
+    "x0": 17.0,
+    "x1": 18.0,
+    "r0": 2.0,
+    "r1": 4.3,
+    "a0": -45,
+    "a1": 225
+   },
+   "volume_m3": 34.14125816288707,
+   "centroid_m": [
+    17.5,
+    6.04565883481344e-17,
+    0.9873310147909852
    ]
   },
   {
    "id": "plant_aft",
    "name": "Relational plant, aft block",
    "system": "plant",
-   "mass_t": 47.71165559835138,
+   "mass_t": 46.34334688858285,
    "prov": "DERIVED",
    "mat": "plant",
    "dry": true,
@@ -2426,7 +3019,7 @@
    "id": "manifold",
    "name": "Radiator manifold, pumps and heat exchangers",
    "system": "thermal",
-   "mass_t": 97.59202281480964,
+   "mass_t": 94.79320954482856,
    "prov": "CANON_MASS_DESIGN_POSITION",
    "mat": "manifold",
    "dry": true,
@@ -2451,7 +3044,7 @@
    "id": "strake_40",
    "name": "Radiator strake 40 deg (stowed)",
    "system": "thermal",
-   "mass_t": 2.3812453566813554,
+   "mass_t": 2.312954312893817,
    "prov": "DERIVED (v0.4 STRAKE_QUAD ACCORDION 1300K)",
    "mat": "radiator",
    "dry": true,
@@ -2478,7 +3071,7 @@
    "id": "strake_140",
    "name": "Radiator strake 140 deg (stowed)",
    "system": "thermal",
-   "mass_t": 2.3812453566813554,
+   "mass_t": 2.312954312893817,
    "prov": "DERIVED (v0.4 STRAKE_QUAD ACCORDION 1300K)",
    "mat": "radiator",
    "dry": true,
@@ -2505,7 +3098,7 @@
    "id": "strake_220",
    "name": "Radiator strake 220 deg (stowed)",
    "system": "thermal",
-   "mass_t": 2.3812453566813554,
+   "mass_t": 2.312954312893817,
    "prov": "DERIVED (v0.4 STRAKE_QUAD ACCORDION 1300K)",
    "mat": "radiator",
    "dry": true,
@@ -2532,7 +3125,7 @@
    "id": "strake_320",
    "name": "Radiator strake 320 deg (stowed)",
    "system": "thermal",
-   "mass_t": 2.3812453566813554,
+   "mass_t": 2.312954312893817,
    "prov": "DERIVED (v0.4 STRAKE_QUAD ACCORDION 1300K)",
    "mat": "radiator",
    "dry": true,
@@ -2556,10 +3149,230 @@
    ]
   },
   {
+   "id": "hotfin_40",
+   "name": "Hot fin 40 deg (folded)",
+   "system": "thermal",
+   "mass_t": 4.256,
+   "prov": "KT_DECISION 2026-10-25: four fins on the strake lines at 1,750 K (torch/fin_layout.py search: four fins on the strake lines are the best layout; 5 or 6 add mass and crowd the aft RCS)",
+   "mat": "hotfin",
+   "dry": true,
+   "tags": [
+    "fin",
+    "from_reserve"
+   ],
+   "shape": {
+    "k": "panel",
+    "x0": 34.3,
+    "x1": 53.3,
+    "a": 40,
+    "r0": 4.75,
+    "span": 2.0,
+    "t": 0.6
+   },
+   "volume_m3": 22.8,
+   "centroid_m": [
+    43.8,
+    4.404755547934124,
+    3.6960287556976006
+   ]
+  },
+  {
+   "id": "hotfin_root_40",
+   "name": "Hot fin 40 deg root truss, fold-out drive and hot loop",
+   "system": "thermal",
+   "mass_t": 1.0,
+   "prov": "ENGINEERING_ASSUMPTION: fold-out mechanism, root trusses and the hot loop from the reactor face and coil shield (~25% of fin mass)",
+   "mat": "radiator",
+   "dry": true,
+   "tags": [
+    "from_reserve"
+   ],
+   "shape": {
+    "k": "panel",
+    "x0": 39.3,
+    "x1": 53.3,
+    "a": 40,
+    "r0": 3.0,
+    "span": 1.75,
+    "t": 0.3
+   },
+   "volume_m3": 7.35,
+   "centroid_m": [
+    46.3,
+    2.9684222170860397,
+    2.4908019875353395
+   ]
+  },
+  {
+   "id": "hotfin_140",
+   "name": "Hot fin 140 deg (folded)",
+   "system": "thermal",
+   "mass_t": 4.256,
+   "prov": "KT_DECISION 2026-10-25: four fins on the strake lines at 1,750 K (torch/fin_layout.py search: four fins on the strake lines are the best layout; 5 or 6 add mass and crowd the aft RCS)",
+   "mat": "hotfin",
+   "dry": true,
+   "tags": [
+    "fin",
+    "from_reserve"
+   ],
+   "shape": {
+    "k": "panel",
+    "x0": 34.3,
+    "x1": 53.3,
+    "a": 140,
+    "r0": 4.75,
+    "span": 2.0,
+    "t": 0.6
+   },
+   "volume_m3": 22.8,
+   "centroid_m": [
+    43.8,
+    -4.404755547934123,
+    3.696028755697602
+   ]
+  },
+  {
+   "id": "hotfin_root_140",
+   "name": "Hot fin 140 deg root truss, fold-out drive and hot loop",
+   "system": "thermal",
+   "mass_t": 1.0,
+   "prov": "ENGINEERING_ASSUMPTION: fold-out mechanism, root trusses and the hot loop from the reactor face and coil shield (~25% of fin mass)",
+   "mat": "radiator",
+   "dry": true,
+   "tags": [
+    "from_reserve"
+   ],
+   "shape": {
+    "k": "panel",
+    "x0": 39.3,
+    "x1": 53.3,
+    "a": 140,
+    "r0": 3.0,
+    "span": 1.75,
+    "t": 0.3
+   },
+   "volume_m3": 7.35,
+   "centroid_m": [
+    46.3,
+    -2.9684222170860393,
+    2.4908019875353404
+   ]
+  },
+  {
+   "id": "hotfin_220",
+   "name": "Hot fin 220 deg (folded)",
+   "system": "thermal",
+   "mass_t": 4.256,
+   "prov": "KT_DECISION 2026-10-25: four fins on the strake lines at 1,750 K (torch/fin_layout.py search: four fins on the strake lines are the best layout; 5 or 6 add mass and crowd the aft RCS)",
+   "mat": "hotfin",
+   "dry": true,
+   "tags": [
+    "fin",
+    "from_reserve"
+   ],
+   "shape": {
+    "k": "panel",
+    "x0": 34.3,
+    "x1": 53.3,
+    "a": 220,
+    "r0": 4.75,
+    "span": 2.0,
+    "t": 0.6
+   },
+   "volume_m3": 22.8,
+   "centroid_m": [
+    43.8,
+    -4.404755547934124,
+    -3.6960287556976006
+   ]
+  },
+  {
+   "id": "hotfin_root_220",
+   "name": "Hot fin 220 deg root truss, fold-out drive and hot loop",
+   "system": "thermal",
+   "mass_t": 1.0,
+   "prov": "ENGINEERING_ASSUMPTION: fold-out mechanism, root trusses and the hot loop from the reactor face and coil shield (~25% of fin mass)",
+   "mat": "radiator",
+   "dry": true,
+   "tags": [
+    "from_reserve"
+   ],
+   "shape": {
+    "k": "panel",
+    "x0": 39.3,
+    "x1": 53.3,
+    "a": 220,
+    "r0": 3.0,
+    "span": 1.75,
+    "t": 0.3
+   },
+   "volume_m3": 7.35,
+   "centroid_m": [
+    46.3,
+    -2.9684222170860397,
+    -2.4908019875353395
+   ]
+  },
+  {
+   "id": "hotfin_320",
+   "name": "Hot fin 320 deg (folded)",
+   "system": "thermal",
+   "mass_t": 4.256,
+   "prov": "KT_DECISION 2026-10-25: four fins on the strake lines at 1,750 K (torch/fin_layout.py search: four fins on the strake lines are the best layout; 5 or 6 add mass and crowd the aft RCS)",
+   "mat": "hotfin",
+   "dry": true,
+   "tags": [
+    "fin",
+    "from_reserve"
+   ],
+   "shape": {
+    "k": "panel",
+    "x0": 34.3,
+    "x1": 53.3,
+    "a": 320,
+    "r0": 4.75,
+    "span": 2.0,
+    "t": 0.6
+   },
+   "volume_m3": 22.8,
+   "centroid_m": [
+    43.8,
+    4.404755547934123,
+    -3.696028755697603
+   ]
+  },
+  {
+   "id": "hotfin_root_320",
+   "name": "Hot fin 320 deg root truss, fold-out drive and hot loop",
+   "system": "thermal",
+   "mass_t": 1.0,
+   "prov": "ENGINEERING_ASSUMPTION: fold-out mechanism, root trusses and the hot loop from the reactor face and coil shield (~25% of fin mass)",
+   "mat": "radiator",
+   "dry": true,
+   "tags": [
+    "from_reserve"
+   ],
+   "shape": {
+    "k": "panel",
+    "x0": 39.3,
+    "x1": 53.3,
+    "a": 320,
+    "r0": 3.0,
+    "span": 1.75,
+    "t": 0.3
+   },
+   "volume_m3": 7.35,
+   "centroid_m": [
+    46.3,
+    2.968422217086039,
+    -2.490801987535341
+   ]
+  },
+  {
    "id": "rcs_F+Y",
    "name": "RCS cluster F+Y",
    "system": "rcs",
-   "mass_t": 1.6265337135801605,
+   "mass_t": 1.5798868257471426,
    "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
    "mat": "rcs",
    "dry": true,
@@ -2584,7 +3397,7 @@
    "id": "rcs_F+Z",
    "name": "RCS cluster F+Z",
    "system": "rcs",
-   "mass_t": 1.6265337135801605,
+   "mass_t": 1.5798868257471426,
    "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
    "mat": "rcs",
    "dry": true,
@@ -2609,7 +3422,7 @@
    "id": "rcs_F-Y",
    "name": "RCS cluster F-Y",
    "system": "rcs",
-   "mass_t": 1.6265337135801605,
+   "mass_t": 1.5798868257471426,
    "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
    "mat": "rcs",
    "dry": true,
@@ -2634,7 +3447,7 @@
    "id": "rcs_F-Z",
    "name": "RCS cluster F-Z",
    "system": "rcs",
-   "mass_t": 1.6265337135801605,
+   "mass_t": 1.5798868257471426,
    "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
    "mat": "rcs",
    "dry": true,
@@ -2659,7 +3472,7 @@
    "id": "rcs_A+Y",
    "name": "RCS cluster A+Y",
    "system": "rcs",
-   "mass_t": 1.6265337135801605,
+   "mass_t": 1.5798868257471426,
    "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
    "mat": "rcs",
    "dry": true,
@@ -2675,22 +3488,22 @@
     "z0": -0.4,
     "z1": 0.4,
     "offset_yz": [
-     0.07,
-     -0.30000000000000004
+     0.03999999999999998,
+     -0.20000000000000007
     ]
    },
    "volume_m3": 0.5119999999999981,
    "centroid_m": [
     44.0,
-    2.67,
-    -0.30000000000000004
+    2.64,
+    -0.20000000000000007
    ]
   },
   {
    "id": "rcs_A+Z",
    "name": "RCS cluster A+Z",
    "system": "rcs",
-   "mass_t": 1.6265337135801605,
+   "mass_t": 1.5798868257471426,
    "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
    "mat": "rcs",
    "dry": true,
@@ -2706,22 +3519,22 @@
     "z0": 2.2,
     "z1": 3.0,
     "offset_yz": [
-     0.07,
-     -0.30000000000000004
+     0.03999999999999998,
+     -0.20000000000000007
     ]
    },
    "volume_m3": 0.5119999999999981,
    "centroid_m": [
     44.0,
-    0.07000000000000017,
-    2.3
+    0.04000000000000015,
+    2.4
    ]
   },
   {
    "id": "rcs_A-Y",
    "name": "RCS cluster A-Y",
    "system": "rcs",
-   "mass_t": 1.6265337135801605,
+   "mass_t": 1.5798868257471426,
    "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
    "mat": "rcs",
    "dry": true,
@@ -2737,22 +3550,22 @@
     "z0": -0.3999999999999997,
     "z1": 0.40000000000000036,
     "offset_yz": [
-     0.07,
-     -0.30000000000000004
+     0.03999999999999998,
+     -0.20000000000000007
     ]
    },
    "volume_m3": 0.5119999999999981,
    "centroid_m": [
     44.0,
-    -2.5300000000000002,
-    -0.2999999999999997
+    -2.56,
+    -0.19999999999999973
    ]
   },
   {
    "id": "rcs_A-Z",
    "name": "RCS cluster A-Z",
    "system": "rcs",
-   "mass_t": 1.6265337135801605,
+   "mass_t": 1.5798868257471426,
    "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
    "mat": "rcs",
    "dry": true,
@@ -2768,22 +3581,22 @@
     "z0": -3.0,
     "z1": -2.2,
     "offset_yz": [
-     0.07,
-     -0.30000000000000004
+     0.03999999999999998,
+     -0.20000000000000007
     ]
    },
    "volume_m3": 0.5119999999999981,
    "centroid_m": [
     44.0,
-    0.06999999999999951,
-    -2.9000000000000004
+    0.03999999999999948,
+    -2.8000000000000003
    ]
   },
   {
    "id": "shield",
    "name": "Shadow shield",
    "system": "propulsion",
-   "mass_t": 48.79601140740482,
+   "mass_t": 47.39660477241428,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "shield",
    "dry": true,
@@ -2799,22 +3612,22 @@
     "a0": 0.0,
     "a1": 360.0,
     "offset_yz": [
-     0.07,
-     -0.30000000000000004
+     0.03999999999999998,
+     -0.20000000000000007
     ]
    },
    "volume_m3": 118.79147221386405,
    "centroid_m": [
     36.8,
-    0.07,
-    -0.30000000000000004
+    0.03999999999999998,
+    -0.20000000000000007
    ]
   },
   {
    "id": "reactor",
    "name": "Fusion reactor and thrust frame",
    "system": "propulsion",
-   "mass_t": 92.17024376954244,
+   "mass_t": 89.52692012567141,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "reactor",
    "dry": true,
@@ -2830,22 +3643,22 @@
     "a0": 0.0,
     "a1": 360.0,
     "offset_yz": [
-     0.07,
-     -0.30000000000000004
+     0.03999999999999998,
+     -0.20000000000000007
     ]
    },
    "volume_m3": 99.30378028456487,
    "centroid_m": [
     42.8,
-    0.07,
-    -0.30000000000000004
+    0.03999999999999998,
+    -0.20000000000000007
    ]
   },
   {
    "id": "nozzle",
    "name": "Magnetic nozzle",
    "system": "propulsion",
-   "mass_t": 32.53067427160321,
+   "mass_t": 31.597736514942852,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "nozzle",
    "dry": true,
@@ -2860,22 +3673,22 @@
     "r1": 3.0,
     "t": 0.15,
     "offset_yz": [
-     0.07,
-     -0.30000000000000004
+     0.03999999999999998,
+     -0.20000000000000007
     ]
    },
    "volume_m3": 16.410894624189666,
    "centroid_m": [
     49.99600256942268,
-    0.11104664226483178,
-    -0.3255176977229947
+    0.08104664226483184,
+    -0.22551769772299488
    ]
   },
   {
    "id": "shuttle",
    "name": "Rover-drop shuttle (docked, tanks empty)",
    "system": "shuttle",
-   "mass_t": 30.253527072590988,
+   "mass_t": 29.38589495889685,
    "prov": "DERIVED",
    "mat": "shuttle",
    "dry": true,
@@ -2908,7 +3721,7 @@
    "id": "drone_0",
    "name": "Mars drone pod 1",
    "system": "drones",
-   "mass_t": 0.42832054457610896,
+   "mass_t": 0.41603686411341423,
    "prov": "DERIVED",
    "mat": "drone",
    "dry": true,
@@ -2935,7 +3748,7 @@
    "id": "drone_1",
    "name": "Mars drone pod 2",
    "system": "drones",
-   "mass_t": 0.42832054457610896,
+   "mass_t": 0.41603686411341423,
    "prov": "DERIVED",
    "mat": "drone",
    "dry": true,
@@ -2962,7 +3775,7 @@
    "id": "drone_2",
    "name": "dense-air drone pod 1",
    "system": "drones",
-   "mass_t": 0.22120858504690183,
+   "mass_t": 0.2148646083016114,
    "prov": "DERIVED",
    "mat": "drone",
    "dry": true,
@@ -2989,7 +3802,7 @@
    "id": "drone_3",
    "name": "dense-air drone pod 2",
    "system": "drones",
-   "mass_t": 0.22120858504690183,
+   "mass_t": 0.2148646083016114,
    "prov": "DERIVED",
    "mat": "drone",
    "dry": true,
@@ -3131,7 +3944,7 @@
     "id": "jacket_ceiling",
     "name": "Storm-shelter water jacket (ceiling)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.56374416641591,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -3159,7 +3972,7 @@
     "id": "jacket_floor",
     "name": "Storm-shelter water jacket (floor)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.56374416641591,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -3184,10 +3997,68 @@
     ]
    },
    {
+    "id": "jacket_berth_ring",
+    "name": "L3 berth shield ring (8 cm water)",
+    "system": "water",
+    "mass_t": 4.751596056701504,
+    "prov": "DERIVED (protected water)",
+    "mat": "water",
+    "dry": false,
+    "tags": [
+     "berth_shield",
+     "protected",
+     "water"
+    ],
+    "shape": {
+     "k": "sector",
+     "x0": 5.9,
+     "x1": 8.2,
+     "r0": 4.07,
+     "r1": 4.15,
+     "a0": 0,
+     "a1": 360
+    },
+    "volume_m3": 4.751596056701504,
+    "centroid_m": [
+     7.05,
+     -0.0,
+     0.0
+    ]
+   },
+   {
+    "id": "jacket_berth_ring",
+    "name": "L3 berth shield collar at the floor edge (12 cm water)",
+    "system": "water",
+    "mass_t": 0.9522795651561342,
+    "prov": "DERIVED (protected water)",
+    "mat": "water",
+    "dry": false,
+    "tags": [
+     "berth_shield",
+     "protected",
+     "water"
+    ],
+    "shape": {
+     "k": "sector",
+     "x0": 8.2,
+     "x1": 8.5,
+     "r0": 4.15,
+     "r1": 4.27,
+     "a0": 0,
+     "a1": 360
+    },
+    "volume_m3": 0.9522795651561342,
+    "centroid_m": [
+     8.35,
+     -0.0,
+     0.0
+    ]
+   },
+   {
     "id": "pw_service",
     "name": "Protected water, service tank",
     "system": "water",
-    "mass_t": 32.51,
+    "mass_t": 27.81,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -3203,20 +4074,20 @@
      "r1": 4.3,
      "a0": 45,
      "a1": 135,
-     "settled_fraction": 0.9522203266468863
+     "settled_fraction": 0.8145569758243588
     },
-    "volume_m3": 32.51,
+    "volume_m3": 27.809999999999995,
     "centroid_m": [
-     15.570503066527802,
-     -0.004090693348415472,
-     2.9652167509813077
+     15.777046353674807,
+     -0.004379854312678565,
+     2.966496267108446
     ]
    },
    {
     "id": "water_starboard_fore",
     "name": "Water, tank cell starboard fore",
     "system": "water",
-    "mass_t": 62.75165867617946,
+    "mass_t": 62.50068977071505,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -3226,7 +4097,7 @@
     "shape": {
      "k": "cslot",
      "x0": 18.0,
-     "x1": 24.625,
+     "x1": 24.75,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -3251,11 +4122,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.7786239399929045
+     "settled_fraction": 0.7750095383016217
     },
-    "volume_m3": 62.75165867617945,
+    "volume_m3": 63.63886052741991,
     "centroid_m": [
-     22.044892243265085,
+     22.133413902668746,
      2.430028422100459,
      -1.2196917964435725
     ]
@@ -3264,7 +4135,7 @@
     "id": "water_starboard_aft",
     "name": "Water, tank cell starboard aft",
     "system": "water",
-    "mass_t": 62.75165867617946,
+    "mass_t": 62.50068977071505,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -3273,8 +4144,8 @@
     ],
     "shape": {
      "k": "cslot",
-     "x0": 24.625,
-     "x1": 31.25,
+     "x0": 24.75,
+     "x1": 31.5,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -3299,11 +4170,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.7786239399929045
+     "settled_fraction": 0.7750095383016217
     },
-    "volume_m3": 62.75165867617945,
+    "volume_m3": 63.63886052741991,
     "centroid_m": [
-     28.65758565429315,
+     28.870933319435164,
      2.425994442537683,
      -1.220432409570838
     ]
@@ -3312,7 +4183,7 @@
     "id": "water_port_fore",
     "name": "Water, tank cell port fore",
     "system": "water",
-    "mass_t": 62.75165867617946,
+    "mass_t": 62.50068977071505,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -3322,7 +4193,7 @@
     "shape": {
      "k": "cslot",
      "x0": 18.0,
-     "x1": 24.625,
+     "x1": 24.75,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -3347,11 +4218,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.7786239399929045
+     "settled_fraction": 0.7750095383016217
     },
-    "volume_m3": 62.75165867617945,
+    "volume_m3": 63.63886052741991,
     "centroid_m": [
-     22.050145733802022,
+     22.138741668637255,
      -2.4268075438256935,
      -1.2151814345551268
     ]
@@ -3360,7 +4231,7 @@
     "id": "water_port_aft",
     "name": "Water, tank cell port aft",
     "system": "water",
-    "mass_t": 62.75165867617946,
+    "mass_t": 62.50068977071505,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -3369,8 +4240,8 @@
     ],
     "shape": {
      "k": "cslot",
-     "x0": 24.625,
-     "x1": 31.25,
+     "x0": 24.75,
+     "x1": 31.5,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -3395,11 +4266,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.7786239399929045
+     "settled_fraction": 0.7750095383016217
     },
-    "volume_m3": 62.75165867617945,
+    "volume_m3": 63.63886052741991,
     "centroid_m": [
-     28.681886113666575,
+     28.895577346022538,
      -2.427964846829121,
      -1.209460981304403
     ]
@@ -3522,7 +4393,7 @@
     "id": "jacket_ceiling",
     "name": "Storm-shelter water jacket (ceiling)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.56374416641591,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -3550,7 +4421,7 @@
     "id": "jacket_floor",
     "name": "Storm-shelter water jacket (floor)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.56374416641591,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -3575,10 +4446,68 @@
     ]
    },
    {
+    "id": "jacket_berth_ring",
+    "name": "L3 berth shield ring (8 cm water)",
+    "system": "water",
+    "mass_t": 4.751596056701504,
+    "prov": "DERIVED (protected water)",
+    "mat": "water",
+    "dry": false,
+    "tags": [
+     "berth_shield",
+     "protected",
+     "water"
+    ],
+    "shape": {
+     "k": "sector",
+     "x0": 5.9,
+     "x1": 8.2,
+     "r0": 4.07,
+     "r1": 4.15,
+     "a0": 0,
+     "a1": 360
+    },
+    "volume_m3": 4.751596056701504,
+    "centroid_m": [
+     7.05,
+     -0.0,
+     0.0
+    ]
+   },
+   {
+    "id": "jacket_berth_ring",
+    "name": "L3 berth shield collar at the floor edge (12 cm water)",
+    "system": "water",
+    "mass_t": 0.9522795651561342,
+    "prov": "DERIVED (protected water)",
+    "mat": "water",
+    "dry": false,
+    "tags": [
+     "berth_shield",
+     "protected",
+     "water"
+    ],
+    "shape": {
+     "k": "sector",
+     "x0": 8.2,
+     "x1": 8.5,
+     "r0": 4.15,
+     "r1": 4.27,
+     "a0": 0,
+     "a1": 360
+    },
+    "volume_m3": 0.9522795651561342,
+    "centroid_m": [
+     8.35,
+     -0.0,
+     0.0
+    ]
+   },
+   {
     "id": "pw_service",
     "name": "Protected water, service tank",
     "system": "water",
-    "mass_t": 32.51,
+    "mass_t": 27.81,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -3594,20 +4523,20 @@
      "r1": 4.3,
      "a0": 45,
      "a1": 135,
-     "settled_fraction": 0.9522203266468863
+     "settled_fraction": 0.8145569758243588
     },
-    "volume_m3": 32.51,
+    "volume_m3": 27.809999999999995,
     "centroid_m": [
-     15.570503066527802,
-     -0.004090693348415472,
-     2.9652167509813077
+     15.777046353674807,
+     -0.004379854312678565,
+     2.966496267108446
     ]
    },
    {
     "id": "water_starboard_fore",
     "name": "Water, tank cell starboard fore",
     "system": "water",
-    "mass_t": 62.75165867617946,
+    "mass_t": 62.50068977071505,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -3617,7 +4546,7 @@
     "shape": {
      "k": "cslot",
      "x0": 18.0,
-     "x1": 24.625,
+     "x1": 24.75,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -3642,11 +4571,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.7786239399929045
+     "settled_fraction": 0.7750095383016217
     },
-    "volume_m3": 62.75165867617945,
+    "volume_m3": 63.63886052741991,
     "centroid_m": [
-     22.044892243265085,
+     22.133413902668746,
      2.430028422100459,
      -1.2196917964435725
     ]
@@ -3655,7 +4584,7 @@
     "id": "water_starboard_aft",
     "name": "Water, tank cell starboard aft",
     "system": "water",
-    "mass_t": 62.75165867617946,
+    "mass_t": 62.50068977071505,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -3664,8 +4593,8 @@
     ],
     "shape": {
      "k": "cslot",
-     "x0": 24.625,
-     "x1": 31.25,
+     "x0": 24.75,
+     "x1": 31.5,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -3690,11 +4619,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.7786239399929045
+     "settled_fraction": 0.7750095383016217
     },
-    "volume_m3": 62.75165867617945,
+    "volume_m3": 63.63886052741991,
     "centroid_m": [
-     28.65758565429315,
+     28.870933319435164,
      2.425994442537683,
      -1.220432409570838
     ]
@@ -3703,7 +4632,7 @@
     "id": "water_port_fore",
     "name": "Water, tank cell port fore",
     "system": "water",
-    "mass_t": 62.75165867617946,
+    "mass_t": 62.50068977071505,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -3713,7 +4642,7 @@
     "shape": {
      "k": "cslot",
      "x0": 18.0,
-     "x1": 24.625,
+     "x1": 24.75,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -3738,11 +4667,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.7786239399929045
+     "settled_fraction": 0.7750095383016217
     },
-    "volume_m3": 62.75165867617945,
+    "volume_m3": 63.63886052741991,
     "centroid_m": [
-     22.050145733802022,
+     22.138741668637255,
      -2.4268075438256935,
      -1.2151814345551268
     ]
@@ -3751,7 +4680,7 @@
     "id": "water_port_aft",
     "name": "Water, tank cell port aft",
     "system": "water",
-    "mass_t": 62.75165867617946,
+    "mass_t": 62.50068977071505,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -3760,8 +4689,8 @@
     ],
     "shape": {
      "k": "cslot",
-     "x0": 24.625,
-     "x1": 31.25,
+     "x0": 24.75,
+     "x1": 31.5,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -3786,11 +4715,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.7786239399929045
+     "settled_fraction": 0.7750095383016217
     },
-    "volume_m3": 62.75165867617945,
+    "volume_m3": 63.63886052741991,
     "centroid_m": [
-     28.681886113666575,
+     28.895577346022538,
      -2.427964846829121,
      -1.209460981304403
     ]
@@ -3967,7 +4896,7 @@
     "id": "jacket_ceiling",
     "name": "Storm-shelter water jacket (ceiling)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.56374416641591,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -3995,7 +4924,7 @@
     "id": "jacket_floor",
     "name": "Storm-shelter water jacket (floor)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.56374416641591,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -4020,10 +4949,68 @@
     ]
    },
    {
+    "id": "jacket_berth_ring",
+    "name": "L3 berth shield ring (8 cm water)",
+    "system": "water",
+    "mass_t": 4.751596056701504,
+    "prov": "DERIVED (protected water)",
+    "mat": "water",
+    "dry": false,
+    "tags": [
+     "berth_shield",
+     "protected",
+     "water"
+    ],
+    "shape": {
+     "k": "sector",
+     "x0": 5.9,
+     "x1": 8.2,
+     "r0": 4.07,
+     "r1": 4.15,
+     "a0": 0,
+     "a1": 360
+    },
+    "volume_m3": 4.751596056701504,
+    "centroid_m": [
+     7.05,
+     -0.0,
+     0.0
+    ]
+   },
+   {
+    "id": "jacket_berth_ring",
+    "name": "L3 berth shield collar at the floor edge (12 cm water)",
+    "system": "water",
+    "mass_t": 0.9522795651561342,
+    "prov": "DERIVED (protected water)",
+    "mat": "water",
+    "dry": false,
+    "tags": [
+     "berth_shield",
+     "protected",
+     "water"
+    ],
+    "shape": {
+     "k": "sector",
+     "x0": 8.2,
+     "x1": 8.5,
+     "r0": 4.15,
+     "r1": 4.27,
+     "a0": 0,
+     "a1": 360
+    },
+    "volume_m3": 0.9522795651561342,
+    "centroid_m": [
+     8.35,
+     -0.0,
+     0.0
+    ]
+   },
+   {
     "id": "pw_service",
     "name": "Protected water, service tank",
     "system": "water",
-    "mass_t": 32.51,
+    "mass_t": 27.81,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -4039,20 +5026,20 @@
      "r1": 4.3,
      "a0": 45,
      "a1": 135,
-     "settled_fraction": 0.9522203266468863
+     "settled_fraction": 0.8145569758243588
     },
-    "volume_m3": 32.51,
+    "volume_m3": 27.809999999999995,
     "centroid_m": [
-     15.570503066527802,
-     -0.004090693348415472,
-     2.9652167509813077
+     15.777046353674807,
+     -0.004379854312678565,
+     2.966496267108446
     ]
    },
    {
     "id": "water_starboard_fore",
     "name": "Water, tank cell starboard fore",
     "system": "water",
-    "mass_t": 37.75165867617946,
+    "mass_t": 37.50068977071505,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -4062,7 +5049,7 @@
     "shape": {
      "k": "cslot",
      "x0": 18.0,
-     "x1": 24.625,
+     "x1": 24.75,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -4087,11 +5074,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.4684233985176278
+     "settled_fraction": 0.4650091442480685
     },
-    "volume_m3": 37.75165867617946,
+    "volume_m3": 38.18359724917439,
     "centroid_m": [
-     23.07279644976948,
+     23.180036790724163,
      2.430028422100459,
      -1.2196917964435725
     ]
@@ -4100,7 +5087,7 @@
     "id": "water_starboard_aft",
     "name": "Water, tank cell starboard aft",
     "system": "water",
-    "mass_t": 37.75165867617946,
+    "mass_t": 37.50068977071505,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -4109,8 +5096,8 @@
     ],
     "shape": {
      "k": "cslot",
-     "x0": 24.625,
-     "x1": 31.25,
+     "x0": 24.75,
+     "x1": 31.5,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -4135,11 +5122,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.4684233985176278
+     "settled_fraction": 0.4650091442480685
     },
-    "volume_m3": 37.75165867617946,
+    "volume_m3": 38.18359724917439,
     "centroid_m": [
-     29.69039275469372,
+     29.92254838568868,
      2.425994442537683,
      -1.220432409570838
     ]
@@ -4148,7 +5135,7 @@
     "id": "water_port_fore",
     "name": "Water, tank cell port fore",
     "system": "water",
-    "mass_t": 37.75165867617946,
+    "mass_t": 37.50068977071505,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -4158,7 +5145,7 @@
     "shape": {
      "k": "cslot",
      "x0": 18.0,
-     "x1": 24.625,
+     "x1": 24.75,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -4183,11 +5170,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.4684233985176278
+     "settled_fraction": 0.4650091442480685
     },
-    "volume_m3": 37.75165867617946,
+    "volume_m3": 38.18359724917439,
     "centroid_m": [
-     23.075956971511744,
+     23.1832334738246,
      -2.4268075438256935,
      -1.2151814345551268
     ]
@@ -4196,7 +5183,7 @@
     "id": "water_port_aft",
     "name": "Water, tank cell port aft",
     "system": "water",
-    "mass_t": 37.75165867617946,
+    "mass_t": 37.50068977071505,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -4205,8 +5192,8 @@
     ],
     "shape": {
      "k": "cslot",
-     "x0": 24.625,
-     "x1": 31.25,
+     "x0": 24.75,
+     "x1": 31.5,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -4231,11 +5218,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.4684233985176278
+     "settled_fraction": 0.4650091442480685
     },
-    "volume_m3": 37.75165867617946,
+    "volume_m3": 38.18359724917439,
     "centroid_m": [
-     29.705012012053498,
+     29.937334910431762,
      -2.427964846829121,
      -1.209460981304403
     ]
@@ -4358,7 +5345,7 @@
     "id": "jacket_ceiling",
     "name": "Storm-shelter water jacket (ceiling)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.56374416641591,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -4386,7 +5373,7 @@
     "id": "jacket_floor",
     "name": "Storm-shelter water jacket (floor)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.56374416641591,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -4411,10 +5398,68 @@
     ]
    },
    {
+    "id": "jacket_berth_ring",
+    "name": "L3 berth shield ring (8 cm water)",
+    "system": "water",
+    "mass_t": 4.751596056701504,
+    "prov": "DERIVED (protected water)",
+    "mat": "water",
+    "dry": false,
+    "tags": [
+     "berth_shield",
+     "protected",
+     "water"
+    ],
+    "shape": {
+     "k": "sector",
+     "x0": 5.9,
+     "x1": 8.2,
+     "r0": 4.07,
+     "r1": 4.15,
+     "a0": 0,
+     "a1": 360
+    },
+    "volume_m3": 4.751596056701504,
+    "centroid_m": [
+     7.05,
+     -0.0,
+     0.0
+    ]
+   },
+   {
+    "id": "jacket_berth_ring",
+    "name": "L3 berth shield collar at the floor edge (12 cm water)",
+    "system": "water",
+    "mass_t": 0.9522795651561342,
+    "prov": "DERIVED (protected water)",
+    "mat": "water",
+    "dry": false,
+    "tags": [
+     "berth_shield",
+     "protected",
+     "water"
+    ],
+    "shape": {
+     "k": "sector",
+     "x0": 8.2,
+     "x1": 8.5,
+     "r0": 4.15,
+     "r1": 4.27,
+     "a0": 0,
+     "a1": 360
+    },
+    "volume_m3": 0.9522795651561342,
+    "centroid_m": [
+     8.35,
+     -0.0,
+     0.0
+    ]
+   },
+   {
     "id": "pw_service",
     "name": "Protected water, service tank",
     "system": "water",
-    "mass_t": 32.51,
+    "mass_t": 27.81,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -4430,20 +5475,20 @@
      "r1": 4.3,
      "a0": 45,
      "a1": 135,
-     "settled_fraction": 0.9522203266468863
+     "settled_fraction": 0.8145569758243588
     },
-    "volume_m3": 32.51,
+    "volume_m3": 27.809999999999995,
     "centroid_m": [
-     15.570503066527802,
-     -0.004090693348415472,
-     2.9652167509813077
+     15.777046353674807,
+     -0.004379854312678565,
+     2.966496267108446
     ]
    },
    {
     "id": "water_starboard_fore",
     "name": "Water, tank cell starboard fore",
     "system": "water",
-    "mass_t": 0.2516586761794599,
+    "mass_t": 0.0006897707150503862,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -4453,7 +5498,7 @@
     "shape": {
      "k": "cslot",
      "x0": 18.0,
-     "x1": 24.625,
+     "x1": 24.75,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -4478,11 +5523,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.003122586304712791
+     "settled_fraction": 8.553167738888833e-06
     },
-    "volume_m3": 0.2516586761794599,
+    "volume_m3": 0.0007023318061292498,
     "centroid_m": [
-     24.614652759526074,
+     24.749971122807285,
      2.430028422100459,
      -1.2196917964435725
     ]
@@ -4491,7 +5536,7 @@
     "id": "water_starboard_aft",
     "name": "Water, tank cell starboard aft",
     "system": "water",
-    "mass_t": 0.2516586761794599,
+    "mass_t": 0.0006897707150503862,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -4500,8 +5545,8 @@
     ],
     "shape": {
      "k": "cslot",
-     "x0": 24.625,
-     "x1": 31.25,
+     "x0": 24.75,
+     "x1": 31.5,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -4526,11 +5571,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.003122586304712791
+     "settled_fraction": 8.553167738888833e-06
     },
-    "volume_m3": 0.2516586761794599,
+    "volume_m3": 0.0007023318061292498,
     "centroid_m": [
-     31.239603405294577,
+     31.499970985068952,
      2.425994442537683,
      -1.220432409570838
     ]
@@ -4539,7 +5584,7 @@
     "id": "water_port_fore",
     "name": "Water, tank cell port fore",
     "system": "water",
-    "mass_t": 0.2516586761794599,
+    "mass_t": 0.0006897707150503862,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -4549,7 +5594,7 @@
     "shape": {
      "k": "cslot",
      "x0": 18.0,
-     "x1": 24.625,
+     "x1": 24.75,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -4574,11 +5619,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.003122586304712791
+     "settled_fraction": 8.553167738888833e-06
     },
-    "volume_m3": 0.2516586761794599,
+    "volume_m3": 0.0007023318061292498,
     "centroid_m": [
-     24.614673828076317,
+     24.749971181605627,
      -2.4268075438256935,
      -1.2151814345551268
     ]
@@ -4587,7 +5632,7 @@
     "id": "water_port_aft",
     "name": "Water, tank cell port aft",
     "system": "water",
-    "mass_t": 0.2516586761794599,
+    "mass_t": 0.0006897707150503862,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -4596,8 +5641,8 @@
     ],
     "shape": {
      "k": "cslot",
-     "x0": 24.625,
-     "x1": 31.25,
+     "x0": 24.75,
+     "x1": 31.5,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -4622,11 +5667,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.003122586304712791
+     "settled_fraction": 8.553167738888833e-06
     },
-    "volume_m3": 0.2516586761794599,
+    "volume_m3": 0.0007023318061292498,
     "centroid_m": [
-     31.23970085963388,
+     31.499971257045598,
      -2.427964846829121,
      -1.209460981304403
     ]
@@ -4749,7 +5794,7 @@
     "id": "jacket_ceiling",
     "name": "Storm-shelter water jacket (ceiling)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.56374416641591,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -4777,7 +5822,7 @@
     "id": "jacket_floor",
     "name": "Storm-shelter water jacket (floor)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.56374416641591,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -4802,10 +5847,68 @@
     ]
    },
    {
+    "id": "jacket_berth_ring",
+    "name": "L3 berth shield ring (8 cm water)",
+    "system": "water",
+    "mass_t": 4.751596056701504,
+    "prov": "DERIVED (protected water)",
+    "mat": "water",
+    "dry": false,
+    "tags": [
+     "berth_shield",
+     "protected",
+     "water"
+    ],
+    "shape": {
+     "k": "sector",
+     "x0": 5.9,
+     "x1": 8.2,
+     "r0": 4.07,
+     "r1": 4.15,
+     "a0": 0,
+     "a1": 360
+    },
+    "volume_m3": 4.751596056701504,
+    "centroid_m": [
+     7.05,
+     -0.0,
+     0.0
+    ]
+   },
+   {
+    "id": "jacket_berth_ring",
+    "name": "L3 berth shield collar at the floor edge (12 cm water)",
+    "system": "water",
+    "mass_t": 0.9522795651561342,
+    "prov": "DERIVED (protected water)",
+    "mat": "water",
+    "dry": false,
+    "tags": [
+     "berth_shield",
+     "protected",
+     "water"
+    ],
+    "shape": {
+     "k": "sector",
+     "x0": 8.2,
+     "x1": 8.5,
+     "r0": 4.15,
+     "r1": 4.27,
+     "a0": 0,
+     "a1": 360
+    },
+    "volume_m3": 0.9522795651561342,
+    "centroid_m": [
+     8.35,
+     -0.0,
+     0.0
+    ]
+   },
+   {
     "id": "pw_service",
     "name": "Protected water, service tank",
     "system": "water",
-    "mass_t": 32.51,
+    "mass_t": 27.81,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -4821,20 +5924,20 @@
      "r1": 4.3,
      "a0": 45,
      "a1": 135,
-     "settled_fraction": 0.9522203266468863
+     "settled_fraction": 0.8145569758243588
     },
-    "volume_m3": 32.51,
+    "volume_m3": 27.809999999999995,
     "centroid_m": [
-     15.570503066527802,
-     -0.004090693348415472,
-     2.9652167509813077
+     15.777046353674807,
+     -0.004379854312678565,
+     2.966496267108446
     ]
    },
    {
     "id": "water_starboard_fore",
     "name": "Water, tank cell starboard fore",
     "system": "water",
-    "mass_t": 0.2516586761794599,
+    "mass_t": 0.0006897707150503862,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -4844,7 +5947,7 @@
     "shape": {
      "k": "cslot",
      "x0": 18.0,
-     "x1": 24.625,
+     "x1": 24.75,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -4869,11 +5972,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.003122586304712791
+     "settled_fraction": 8.553167738888833e-06
     },
-    "volume_m3": 0.2516586761794599,
+    "volume_m3": 0.0007023318061292498,
     "centroid_m": [
-     24.614652759526074,
+     24.749971122807285,
      2.430028422100459,
      -1.2196917964435725
     ]
@@ -4882,7 +5985,7 @@
     "id": "water_starboard_aft",
     "name": "Water, tank cell starboard aft",
     "system": "water",
-    "mass_t": 0.2516586761794599,
+    "mass_t": 0.0006897707150503862,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -4891,8 +5994,8 @@
     ],
     "shape": {
      "k": "cslot",
-     "x0": 24.625,
-     "x1": 31.25,
+     "x0": 24.75,
+     "x1": 31.5,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -4917,11 +6020,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.003122586304712791
+     "settled_fraction": 8.553167738888833e-06
     },
-    "volume_m3": 0.2516586761794599,
+    "volume_m3": 0.0007023318061292498,
     "centroid_m": [
-     31.239603405294577,
+     31.499970985068952,
      2.425994442537683,
      -1.220432409570838
     ]
@@ -4930,7 +6033,7 @@
     "id": "water_port_fore",
     "name": "Water, tank cell port fore",
     "system": "water",
-    "mass_t": 0.2516586761794599,
+    "mass_t": 0.0006897707150503862,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -4940,7 +6043,7 @@
     "shape": {
      "k": "cslot",
      "x0": 18.0,
-     "x1": 24.625,
+     "x1": 24.75,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -4965,11 +6068,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.003122586304712791
+     "settled_fraction": 8.553167738888833e-06
     },
-    "volume_m3": 0.2516586761794599,
+    "volume_m3": 0.0007023318061292498,
     "centroid_m": [
-     24.614673828076317,
+     24.749971181605627,
      -2.4268075438256935,
      -1.2151814345551268
     ]
@@ -4978,7 +6081,7 @@
     "id": "water_port_aft",
     "name": "Water, tank cell port aft",
     "system": "water",
-    "mass_t": 0.2516586761794599,
+    "mass_t": 0.0006897707150503862,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -4987,8 +6090,8 @@
     ],
     "shape": {
      "k": "cslot",
-     "x0": 24.625,
-     "x1": 31.25,
+     "x0": 24.75,
+     "x1": 31.5,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -5013,11 +6116,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.003122586304712791
+     "settled_fraction": 8.553167738888833e-06
     },
-    "volume_m3": 0.2516586761794599,
+    "volume_m3": 0.0007023318061292498,
     "centroid_m": [
-     31.23970085963388,
+     31.499971257045598,
      -2.427964846829121,
      -1.209460981304403
     ]
@@ -5140,7 +6243,7 @@
     "id": "jacket_ceiling",
     "name": "Storm-shelter water jacket (ceiling)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.56374416641591,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -5168,7 +6271,7 @@
     "id": "jacket_floor",
     "name": "Storm-shelter water jacket (floor)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.56374416641591,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -5193,10 +6296,68 @@
     ]
    },
    {
+    "id": "jacket_berth_ring",
+    "name": "L3 berth shield ring (8 cm water)",
+    "system": "water",
+    "mass_t": 4.751596056701504,
+    "prov": "DERIVED (protected water)",
+    "mat": "water",
+    "dry": false,
+    "tags": [
+     "berth_shield",
+     "protected",
+     "water"
+    ],
+    "shape": {
+     "k": "sector",
+     "x0": 5.9,
+     "x1": 8.2,
+     "r0": 4.07,
+     "r1": 4.15,
+     "a0": 0,
+     "a1": 360
+    },
+    "volume_m3": 4.751596056701504,
+    "centroid_m": [
+     7.05,
+     -0.0,
+     0.0
+    ]
+   },
+   {
+    "id": "jacket_berth_ring",
+    "name": "L3 berth shield collar at the floor edge (12 cm water)",
+    "system": "water",
+    "mass_t": 0.9522795651561342,
+    "prov": "DERIVED (protected water)",
+    "mat": "water",
+    "dry": false,
+    "tags": [
+     "berth_shield",
+     "protected",
+     "water"
+    ],
+    "shape": {
+     "k": "sector",
+     "x0": 8.2,
+     "x1": 8.5,
+     "r0": 4.15,
+     "r1": 4.27,
+     "a0": 0,
+     "a1": 360
+    },
+    "volume_m3": 0.9522795651561342,
+    "centroid_m": [
+     8.35,
+     -0.0,
+     0.0
+    ]
+   },
+   {
     "id": "pw_service",
     "name": "Protected water, service tank",
     "system": "water",
-    "mass_t": 32.51,
+    "mass_t": 27.81,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -5212,20 +6373,20 @@
      "r1": 4.3,
      "a0": 45,
      "a1": 135,
-     "settled_fraction": 0.9522203266468863
+     "settled_fraction": 0.8145569758243588
     },
-    "volume_m3": 32.51,
+    "volume_m3": 27.809999999999995,
     "centroid_m": [
-     15.570503066527802,
-     -0.004090693348415472,
-     2.9652167509813077
+     15.777046353674807,
+     -0.004379854312678565,
+     2.966496267108446
     ]
    },
    {
     "id": "water_starboard_fore",
     "name": "Water, tank cell starboard fore",
     "system": "water",
-    "mass_t": 62.75165867617946,
+    "mass_t": 62.50068977071505,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -5235,7 +6396,7 @@
     "shape": {
      "k": "cslot",
      "x0": 18.0,
-     "x1": 24.625,
+     "x1": 24.75,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -5260,11 +6421,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.7786239399929045
+     "settled_fraction": 0.7750095383016217
     },
-    "volume_m3": 62.75165867617945,
+    "volume_m3": 63.63886052741991,
     "centroid_m": [
-     22.044892243265085,
+     22.133413902668746,
      2.430028422100459,
      -1.2196917964435725
     ]
@@ -5273,7 +6434,7 @@
     "id": "water_starboard_aft",
     "name": "Water, tank cell starboard aft",
     "system": "water",
-    "mass_t": 62.75165867617946,
+    "mass_t": 62.50068977071505,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -5282,8 +6443,8 @@
     ],
     "shape": {
      "k": "cslot",
-     "x0": 24.625,
-     "x1": 31.25,
+     "x0": 24.75,
+     "x1": 31.5,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -5308,11 +6469,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.7786239399929045
+     "settled_fraction": 0.7750095383016217
     },
-    "volume_m3": 62.75165867617945,
+    "volume_m3": 63.63886052741991,
     "centroid_m": [
-     28.65758565429315,
+     28.870933319435164,
      2.425994442537683,
      -1.220432409570838
     ]
@@ -5321,7 +6482,7 @@
     "id": "water_port_fore",
     "name": "Water, tank cell port fore",
     "system": "water",
-    "mass_t": 62.75165867617946,
+    "mass_t": 62.50068977071505,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -5331,7 +6492,7 @@
     "shape": {
      "k": "cslot",
      "x0": 18.0,
-     "x1": 24.625,
+     "x1": 24.75,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -5356,11 +6517,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.7786239399929045
+     "settled_fraction": 0.7750095383016217
     },
-    "volume_m3": 62.75165867617945,
+    "volume_m3": 63.63886052741991,
     "centroid_m": [
-     22.050145733802022,
+     22.138741668637255,
      -2.4268075438256935,
      -1.2151814345551268
     ]
@@ -5369,7 +6530,7 @@
     "id": "water_port_aft",
     "name": "Water, tank cell port aft",
     "system": "water",
-    "mass_t": 62.75165867617946,
+    "mass_t": 62.50068977071505,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -5378,8 +6539,8 @@
     ],
     "shape": {
      "k": "cslot",
-     "x0": 24.625,
-     "x1": 31.25,
+     "x0": 24.75,
+     "x1": 31.5,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -5404,11 +6565,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.7786239399929045
+     "settled_fraction": 0.7750095383016217
     },
-    "volume_m3": 62.75165867617945,
+    "volume_m3": 63.63886052741991,
     "centroid_m": [
-     28.681886113666575,
+     28.895577346022538,
      -2.427964846829121,
      -1.209460981304403
     ]
@@ -5531,7 +6692,7 @@
     "id": "jacket_ceiling",
     "name": "Storm-shelter water jacket (ceiling)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.56374416641591,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -5559,7 +6720,7 @@
     "id": "jacket_floor",
     "name": "Storm-shelter water jacket (floor)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.56374416641591,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -5584,10 +6745,68 @@
     ]
    },
    {
+    "id": "jacket_berth_ring",
+    "name": "L3 berth shield ring (8 cm water)",
+    "system": "water",
+    "mass_t": 4.751596056701504,
+    "prov": "DERIVED (protected water)",
+    "mat": "water",
+    "dry": false,
+    "tags": [
+     "berth_shield",
+     "protected",
+     "water"
+    ],
+    "shape": {
+     "k": "sector",
+     "x0": 5.9,
+     "x1": 8.2,
+     "r0": 4.07,
+     "r1": 4.15,
+     "a0": 0,
+     "a1": 360
+    },
+    "volume_m3": 4.751596056701504,
+    "centroid_m": [
+     7.05,
+     -0.0,
+     0.0
+    ]
+   },
+   {
+    "id": "jacket_berth_ring",
+    "name": "L3 berth shield collar at the floor edge (12 cm water)",
+    "system": "water",
+    "mass_t": 0.9522795651561342,
+    "prov": "DERIVED (protected water)",
+    "mat": "water",
+    "dry": false,
+    "tags": [
+     "berth_shield",
+     "protected",
+     "water"
+    ],
+    "shape": {
+     "k": "sector",
+     "x0": 8.2,
+     "x1": 8.5,
+     "r0": 4.15,
+     "r1": 4.27,
+     "a0": 0,
+     "a1": 360
+    },
+    "volume_m3": 0.9522795651561342,
+    "centroid_m": [
+     8.35,
+     -0.0,
+     0.0
+    ]
+   },
+   {
     "id": "pw_service",
     "name": "Protected water, service tank",
     "system": "water",
-    "mass_t": 32.51,
+    "mass_t": 27.81,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -5603,20 +6822,20 @@
      "r1": 4.3,
      "a0": 45,
      "a1": 135,
-     "settled_fraction": 0.9522203266468863
+     "settled_fraction": 0.8145569758243588
     },
-    "volume_m3": 32.51,
+    "volume_m3": 27.809999999999995,
     "centroid_m": [
-     15.570503066527802,
-     -0.004090693348415472,
-     2.9652167509813077
+     15.777046353674807,
+     -0.004379854312678565,
+     2.966496267108446
     ]
    },
    {
     "id": "water_starboard_fore",
     "name": "Water, tank cell starboard fore",
     "system": "water",
-    "mass_t": 62.75165867617946,
+    "mass_t": 62.50068977071505,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -5626,7 +6845,7 @@
     "shape": {
      "k": "cslot",
      "x0": 18.0,
-     "x1": 24.625,
+     "x1": 24.75,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -5651,11 +6870,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.7786239399929045
+     "settled_fraction": 0.7750095383016217
     },
-    "volume_m3": 62.75165867617945,
+    "volume_m3": 63.63886052741991,
     "centroid_m": [
-     22.044892243265085,
+     22.133413902668746,
      2.430028422100459,
      -1.2196917964435725
     ]
@@ -5664,7 +6883,7 @@
     "id": "water_starboard_aft",
     "name": "Water, tank cell starboard aft",
     "system": "water",
-    "mass_t": 62.75165867617946,
+    "mass_t": 62.50068977071505,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -5673,8 +6892,8 @@
     ],
     "shape": {
      "k": "cslot",
-     "x0": 24.625,
-     "x1": 31.25,
+     "x0": 24.75,
+     "x1": 31.5,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -5699,11 +6918,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.7786239399929045
+     "settled_fraction": 0.7750095383016217
     },
-    "volume_m3": 62.75165867617945,
+    "volume_m3": 63.63886052741991,
     "centroid_m": [
-     28.65758565429315,
+     28.870933319435164,
      2.425994442537683,
      -1.220432409570838
     ]
@@ -5712,7 +6931,7 @@
     "id": "water_port_aft",
     "name": "Water, tank cell port aft",
     "system": "water",
-    "mass_t": 62.75165867617946,
+    "mass_t": 62.50068977071505,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -5721,8 +6940,8 @@
     ],
     "shape": {
      "k": "cslot",
-     "x0": 24.625,
-     "x1": 31.25,
+     "x0": 24.75,
+     "x1": 31.5,
      "r0": 2.47,
      "r1": 4.28,
      "hw": 2.4,
@@ -5747,11 +6966,11 @@
        0.27
       ]
      ],
-     "settled_fraction": 0.7786239399929045
+     "settled_fraction": 0.7750095383016217
     },
-    "volume_m3": 62.75165867617945,
+    "volume_m3": 63.63886052741991,
     "centroid_m": [
-     28.681886113666575,
+     28.895577346022538,
      -2.427964846829121,
      -1.209460981304403
     ]
@@ -5773,8 +6992,8 @@
     0.2,
     3.0
    ],
-   "volume_m3": 98.61264604200292,
-   "nhv_m3": 44.37569071890132,
+   "volume_m3": 112.72099890927129,
+   "nhv_m3": 50.72444950917208,
    "couches": 6,
    "windows": 4,
    "shape": {
@@ -5783,8 +7002,7 @@
     "xb": 2.35,
     "xc": 3.0,
     "R": 4.15,
-    "t": 0.0,
-    "xs": 1.0
+    "t": 0.0
    }
   },
   {
@@ -5956,199 +7174,99 @@
    }
   },
   {
-   "id": "L3-C1",
+   "id": "L3-CAPT",
    "deck": "L3",
-   "name": "Crew cabin 1",
-   "kind": "cabin",
-   "who": "crew",
-   "theta_deg": [
-    -90,
-    -60
-   ],
-   "x_m": [
-    5.9,
-    8.2
-   ],
-   "volume_m3": 8.196611582756619,
-   "nhv_m3": 5.327797528791803,
-   "couches": 1,
-   "windows": 1,
-   "shape": {
-    "k": "sector",
-    "x0": 5.9,
-    "x1": 8.2,
-    "r0": 1.9,
-    "r1": 4.15,
-    "a0": -90,
-    "a1": -60
-   }
-  },
-  {
-   "id": "L3-C2",
-   "deck": "L3",
-   "name": "Crew cabin 2",
-   "kind": "cabin",
-   "who": "crew",
-   "theta_deg": [
-    -60,
-    -30
-   ],
-   "x_m": [
-    5.9,
-    8.2
-   ],
-   "volume_m3": 8.196611582756619,
-   "nhv_m3": 5.327797528791803,
-   "couches": 1,
-   "windows": 1,
-   "shape": {
-    "k": "sector",
-    "x0": 5.9,
-    "x1": 8.2,
-    "r0": 1.9,
-    "r1": 4.15,
-    "a0": -60,
-    "a1": -30
-   }
-  },
-  {
-   "id": "L3-C3",
-   "deck": "L3",
-   "name": "Crew cabin 3",
-   "kind": "cabin",
-   "who": "crew",
-   "theta_deg": [
-    -30,
-    0
-   ],
-   "x_m": [
-    5.9,
-    8.2
-   ],
-   "volume_m3": 8.196611582756619,
-   "nhv_m3": 5.327797528791803,
-   "couches": 1,
-   "windows": 1,
-   "shape": {
-    "k": "sector",
-    "x0": 5.9,
-    "x1": 8.2,
-    "r0": 1.9,
-    "r1": 4.15,
-    "a0": -30,
-    "a1": 0
-   }
-  },
-  {
-   "id": "L3-C4",
-   "deck": "L3",
-   "name": "Crew cabin 4",
+   "name": "Captain's cabin",
    "kind": "cabin",
    "who": "crew",
    "theta_deg": [
     0,
-    30
-   ],
-   "x_m": [
-    5.9,
-    8.2
-   ],
-   "volume_m3": 8.196611582756619,
-   "nhv_m3": 5.327797528791803,
-   "couches": 1,
-   "windows": 1,
-   "shape": {
-    "k": "sector",
-    "x0": 5.9,
-    "x1": 8.2,
-    "r0": 1.9,
-    "r1": 4.15,
-    "a0": 0,
-    "a1": 30
-   }
-  },
-  {
-   "id": "L3-C5",
-   "deck": "L3",
-   "name": "Crew cabin 5",
-   "kind": "cabin",
-   "who": "crew",
-   "theta_deg": [
-    30,
     60
    ],
    "x_m": [
     5.9,
     8.2
    ],
-   "volume_m3": 8.196611582756619,
-   "nhv_m3": 5.327797528791803,
+   "volume_m3": 15.60129048939632,
+   "nhv_m3": 10.140838818107609,
    "couches": 1,
-   "windows": 1,
-   "shape": {
-    "k": "sector",
-    "x0": 5.9,
-    "x1": 8.2,
-    "r0": 1.9,
-    "r1": 4.15,
-    "a0": 30,
-    "a1": 60
-   }
-  },
-  {
-   "id": "L3-C6",
-   "deck": "L3",
-   "name": "Crew cabin 6",
-   "kind": "cabin",
-   "who": "crew",
-   "theta_deg": [
-    60,
-    90
-   ],
-   "x_m": [
-    5.9,
-    8.2
-   ],
-   "volume_m3": 8.196611582756619,
-   "nhv_m3": 5.327797528791803,
-   "couches": 1,
-   "windows": 1,
-   "shape": {
-    "k": "sector",
-    "x0": 5.9,
-    "x1": 8.2,
-    "r0": 1.9,
-    "r1": 4.15,
-    "a0": 60,
-    "a1": 90
-   }
-  },
-  {
-   "id": "L3-HC",
-   "deck": "L3",
-   "name": "Crew washroom",
-   "kind": "hygiene",
-   "who": null,
-   "theta_deg": [
-    90,
-    120
-   ],
-   "x_m": [
-    5.9,
-    8.2
-   ],
-   "volume_m3": 8.196611582756619,
-   "nhv_m3": 4.098305791378309,
-   "couches": 0,
    "windows": 0,
    "shape": {
     "k": "sector",
     "x0": 5.9,
     "x1": 8.2,
     "r0": 1.9,
-    "r1": 4.15,
-    "a0": 90,
+    "r1": 4.07,
+    "a0": 0,
+    "a1": 60
+   },
+   "occupancy": 1,
+   "bunks": [
+    {
+     "angle_deg": 15,
+     "tiers": 1,
+     "radial_m": [
+      1.925,
+      4.025
+     ],
+     "width_m": 0.7,
+     "prov": "CLAUDE change v0.5.6 to Sol's frozen footprint (was 2.00 x 0.75 m at r 2.01-4.01): 2.10 x 0.70 m to fit the 99th-percentile male plus 3% spinal growth [V2 4102]; needs the r 1.9 partition to be 4 cm (r 1.88-1.92) instead of Sol's 11 cm wall band; outer corners stay 3 cm inside the berth water ring. SOL TO AGREE"
+    }
+   ],
+   "door": {
+    "center_deg": 45,
+    "clear_width_m": 0.8,
+    "type": "sliding; no inward swing",
+    "height_m": 2.05,
+    "height_prov": "CLAUDE_DESIGN v0.5.6: 2.05 m clear so a 2.0 m litter carried along the ship's axis (0 g) passes"
+   }
+  },
+  {
+   "id": "L3-CA",
+   "deck": "L3",
+   "name": "Crew cabin A",
+   "kind": "cabin",
+   "who": "crew",
+   "theta_deg": [
+    60,
+    120
+   ],
+   "x_m": [
+    5.9,
+    8.2
+   ],
+   "volume_m3": 15.60129048939632,
+   "nhv_m3": 10.140838818107609,
+   "couches": 2,
+   "windows": 0,
+   "shape": {
+    "k": "sector",
+    "x0": 5.9,
+    "x1": 8.2,
+    "r0": 1.9,
+    "r1": 4.07,
+    "a0": 60,
     "a1": 120
+   },
+   "occupancy": 2,
+   "bunks": [
+    {
+     "angle_deg": 75,
+     "tiers": 2,
+     "radial_m": [
+      1.925,
+      4.025
+     ],
+     "width_m": 0.7,
+     "prov": "CLAUDE change v0.5.6 to Sol's frozen footprint (was 2.00 x 0.75 m at r 2.01-4.01): 2.10 x 0.70 m to fit the 99th-percentile male plus 3% spinal growth [V2 4102]; needs the r 1.9 partition to be 4 cm (r 1.88-1.92) instead of Sol's 11 cm wall band; outer corners stay 3 cm inside the berth water ring. SOL TO AGREE"
+    }
+   ],
+   "door": {
+    "center_deg": 105,
+    "clear_width_m": 0.8,
+    "type": "sliding; no inward swing",
+    "height_m": 2.05,
+    "height_prov": "CLAUDE_DESIGN v0.5.6: 2.05 m clear so a 2.0 m litter carried along the ship's axis (0 g) passes"
    }
   },
   {
@@ -6165,8 +7283,8 @@
     5.9,
     8.2
    ],
-   "volume_m3": 8.196611582756619,
-   "nhv_m3": 4.098305791378309,
+   "volume_m3": 7.80064524469816,
+   "nhv_m3": 3.90032262234908,
    "couches": 0,
    "windows": 0,
    "shape": {
@@ -6174,121 +7292,153 @@
     "x0": 5.9,
     "x1": 8.2,
     "r0": 1.9,
-    "r1": 4.15,
+    "r1": 4.07,
     "a0": 120,
     "a1": 150
    }
   },
   {
-   "id": "L3-G1",
+   "id": "L3-GUEST",
    "deck": "L3",
-   "name": "Guest cabin 1",
+   "name": "Guest cabin",
    "kind": "cabin",
    "who": "guest",
    "theta_deg": [
     150,
-    180
-   ],
-   "x_m": [
-    5.9,
-    8.2
-   ],
-   "volume_m3": 8.196611582756619,
-   "nhv_m3": 5.327797528791803,
-   "couches": 1,
-   "windows": 1,
-   "shape": {
-    "k": "sector",
-    "x0": 5.9,
-    "x1": 8.2,
-    "r0": 1.9,
-    "r1": 4.15,
-    "a0": 150,
-    "a1": 180
-   }
-  },
-  {
-   "id": "L3-G2",
-   "deck": "L3",
-   "name": "Guest cabin 2",
-   "kind": "cabin",
-   "who": "guest",
-   "theta_deg": [
-    180,
-    210
-   ],
-   "x_m": [
-    5.9,
-    8.2
-   ],
-   "volume_m3": 8.196611582756619,
-   "nhv_m3": 5.327797528791803,
-   "couches": 1,
-   "windows": 1,
-   "shape": {
-    "k": "sector",
-    "x0": 5.9,
-    "x1": 8.2,
-    "r0": 1.9,
-    "r1": 4.15,
-    "a0": 180,
-    "a1": 210
-   }
-  },
-  {
-   "id": "L3-G3",
-   "deck": "L3",
-   "name": "Guest cabin 3",
-   "kind": "cabin",
-   "who": "guest",
-   "theta_deg": [
-    210,
     240
    ],
    "x_m": [
     5.9,
     8.2
    ],
-   "volume_m3": 8.196611582756619,
-   "nhv_m3": 5.327797528791803,
-   "couches": 1,
-   "windows": 1,
+   "volume_m3": 23.40193573409448,
+   "nhv_m3": 15.211258227161412,
+   "couches": 4,
+   "windows": 0,
    "shape": {
     "k": "sector",
     "x0": 5.9,
     "x1": 8.2,
     "r0": 1.9,
-    "r1": 4.15,
-    "a0": 210,
+    "r1": 4.07,
+    "a0": 150,
     "a1": 240
+   },
+   "occupancy": 4,
+   "bunks": [
+    {
+     "angle_deg": 169,
+     "tiers": 2,
+     "radial_m": [
+      1.925,
+      4.025
+     ],
+     "width_m": 0.7,
+     "prov": "CLAUDE change v0.5.6 to Sol's frozen footprint (was 2.00 x 0.75 m at r 2.01-4.01): 2.10 x 0.70 m to fit the 99th-percentile male plus 3% spinal growth [V2 4102]; needs the r 1.9 partition to be 4 cm (r 1.88-1.92) instead of Sol's 11 cm wall band; outer corners stay 3 cm inside the berth water ring. SOL TO AGREE"
+    },
+    {
+     "angle_deg": 221,
+     "tiers": 2,
+     "radial_m": [
+      1.925,
+      4.025
+     ],
+     "width_m": 0.7,
+     "prov": "CLAUDE change v0.5.6 to Sol's frozen footprint (was 2.00 x 0.75 m at r 2.01-4.01): 2.10 x 0.70 m to fit the 99th-percentile male plus 3% spinal growth [V2 4102]; needs the r 1.9 partition to be 4 cm (r 1.88-1.92) instead of Sol's 11 cm wall band; outer corners stay 3 cm inside the berth water ring. SOL TO AGREE"
+    }
+   ],
+   "door": {
+    "center_deg": 195,
+    "clear_width_m": 0.8,
+    "type": "sliding; no inward swing",
+    "height_m": 2.05,
+    "height_prov": "CLAUDE_DESIGN v0.5.6: 2.05 m clear so a 2.0 m litter carried along the ship's axis (0 g) passes"
    }
   },
   {
-   "id": "L3-G4",
+   "id": "L3-CB",
    "deck": "L3",
-   "name": "Guest cabin 4",
+   "name": "Crew cabin B",
    "kind": "cabin",
-   "who": "guest",
+   "who": "crew",
    "theta_deg": [
     240,
-    270
+    330
    ],
    "x_m": [
     5.9,
     8.2
    ],
-   "volume_m3": 8.196611582756619,
-   "nhv_m3": 5.327797528791803,
-   "couches": 1,
-   "windows": 1,
+   "volume_m3": 23.40193573409448,
+   "nhv_m3": 15.211258227161412,
+   "couches": 3,
+   "windows": 0,
    "shape": {
     "k": "sector",
     "x0": 5.9,
     "x1": 8.2,
     "r0": 1.9,
-    "r1": 4.15,
+    "r1": 4.07,
     "a0": 240,
-    "a1": 270
+    "a1": 330
+   },
+   "occupancy": 3,
+   "bunks": [
+    {
+     "angle_deg": 259,
+     "tiers": 2,
+     "radial_m": [
+      1.925,
+      4.025
+     ],
+     "width_m": 0.7,
+     "prov": "CLAUDE change v0.5.6 to Sol's frozen footprint (was 2.00 x 0.75 m at r 2.01-4.01): 2.10 x 0.70 m to fit the 99th-percentile male plus 3% spinal growth [V2 4102]; needs the r 1.9 partition to be 4 cm (r 1.88-1.92) instead of Sol's 11 cm wall band; outer corners stay 3 cm inside the berth water ring. SOL TO AGREE"
+    },
+    {
+     "angle_deg": 311,
+     "tiers": 1,
+     "radial_m": [
+      1.925,
+      4.025
+     ],
+     "width_m": 0.7,
+     "prov": "CLAUDE change v0.5.6 to Sol's frozen footprint (was 2.00 x 0.75 m at r 2.01-4.01): 2.10 x 0.70 m to fit the 99th-percentile male plus 3% spinal growth [V2 4102]; needs the r 1.9 partition to be 4 cm (r 1.88-1.92) instead of Sol's 11 cm wall band; outer corners stay 3 cm inside the berth water ring. SOL TO AGREE"
+    }
+   ],
+   "door": {
+    "center_deg": 285,
+    "clear_width_m": 0.8,
+    "type": "sliding; no inward swing",
+    "height_m": 2.05,
+    "height_prov": "CLAUDE_DESIGN v0.5.6: 2.05 m clear so a 2.0 m litter carried along the ship's axis (0 g) passes"
+   }
+  },
+  {
+   "id": "L3-HC",
+   "deck": "L3",
+   "name": "Crew washroom",
+   "kind": "hygiene",
+   "who": null,
+   "theta_deg": [
+    330,
+    360
+   ],
+   "x_m": [
+    5.9,
+    8.2
+   ],
+   "volume_m3": 7.80064524469816,
+   "nhv_m3": 3.90032262234908,
+   "couches": 0,
+   "windows": 0,
+   "shape": {
+    "k": "sector",
+    "x0": 5.9,
+    "x1": 8.2,
+    "r0": 1.9,
+    "r1": 4.07,
+    "a0": 330,
+    "a1": 360
    }
   },
   {
@@ -6373,6 +7523,28 @@
     "r1": 4.15,
     "a0": 165,
     "a1": 255
+   },
+   "entrance": {
+    "center_deg": 202,
+    "clear_width_m": 2.4,
+    "at_r_m": 1.9,
+    "for": "rigid stretcher 2.0 x 0.60 m",
+    "type": "2.4 m clear aperture with bi-parting curved sliding doors (2 x 1.2 m), air- and smoke-tight for isolation (infection, smoke); not a pressure boundary",
+    "prov": "SOL_CANDIDATE (WAYFARER_V05_HABITAT_CLAUDE_INTEGRATION_2026-10-25, HABITAT_DESIGN_DATA.json): frozen for implementation, not physically certified",
+    "moved_from_deg": 210,
+    "closure_mass_t": 0.1,
+    "litter_lane": {
+     "theta_deg": [
+      171,
+      189
+     ],
+     "r_m": [
+      1.9,
+      3.95
+     ],
+     "note": "kept clear of fixed equipment: the litter leaves the port ladder shaft and goes straight into the bay"
+    },
+    "change_prov": "CLAUDE change v0.5.6: centre moved 210 -> 202 deg (still inside the medical wall: 165.8-238.2 deg) so a litter coming out of the port ladder shaft clears the opening's edge by 0.3 m instead of 0.03 m; SOL TO AGREE"
    }
   },
   {
@@ -6588,7 +7760,7 @@
    "volume_m3": 10.928815443675498,
    "nhv_m3": 8.7430523549404,
    "couches": 0,
-   "windows": 0,
+   "windows": 1,
    "shape": {
     "k": "sector",
     "x0": 11.1,
@@ -6662,53 +7834,53 @@
    "remass_t": 250,
    "shuttle": "docked",
    "payload_t": 0,
-   "mass_t": 1167.682,
+   "mass_t": 1167.6817472270932,
    "cg_m": [
-    24.612984013172166,
-    0.03647479224776063,
-    -0.41485436060299263
+    24.567888354638264,
+    0.027146456695351342,
+    -0.35828845011009136
    ],
    "inertia_kg_m2": [
     [
-     12021587.42319945,
-     229671.77004535048,
-     1591448.4460712164
+     12529585.605275583,
+     232944.9388161644,
+     1195463.369111263
     ],
     [
-     229671.77004535048,
-     178093677.9756431,
-     5918.518590228545
+     232944.9388161644,
+     185277930.19257262,
+     10535.472007440752
     ],
     [
-     1591448.4460712164,
-     5918.518590228545,
-     178907182.08025867
+     1195463.369111263,
+     10535.472007440752,
+     186183442.54104373
     ]
    ],
    "principal_kg_m2": [
-    12006095.075931387,
-    178093916.03292188,
-    178922436.37024793
+    12521042.325480428,
+    185278082.79887724,
+    186191833.21453428
    ],
    "principal_axes": [
     [
-     0.9999535872791047,
-     -0.0013824306720224703,
-     -0.009534787521849828
+     0.9999753993544024,
+     -0.0013479444396481204,
+     -0.0068835842256345335
     ],
     [
-     0.0012889869810962153,
-     0.9999511531290427,
-     -0.009799483071068463
+     0.0012563403073078748,
+     0.9999108329623214,
+     -0.013294650564375343
     ],
     [
-     0.009547868883281555,
-     0.009786738033412585,
-     0.9999065246104022
+     0.006900890887125838,
+     0.013285675383067049,
+     0.9998879279872219
     ]
    ],
-   "trim_deg": 0.3160975550705065,
-   "lateral_offset_m": 0.11964724695684839,
+   "trim_deg": 0.32810385654685353,
+   "lateral_offset_m": 0.15880946764516068,
    "usable_remass_t": 250.0,
    "water_t": 300.0,
    "parts": [
@@ -6722,24 +7894,19 @@
     "core_trunk",
     "core_racks",
     "bow_sensors",
+    "flight_deck",
     "room_L1-command",
     "room_L2-galley",
     "room_L2-wardroom",
     "room_L2-observation",
     "room_L2-exercise",
     "room_L2-hygiene",
-    "room_L3-C1",
-    "room_L3-C2",
-    "room_L3-C3",
-    "room_L3-C4",
-    "room_L3-C5",
-    "room_L3-C6",
-    "room_L3-HC",
+    "room_L3-CAPT",
+    "room_L3-CA",
     "room_L3-HG",
-    "room_L3-G1",
-    "room_L3-G2",
-    "room_L3-G3",
-    "room_L3-G4",
+    "room_L3-GUEST",
+    "room_L3-CB",
+    "room_L3-HC",
     "room_L4-shelter",
     "room_L4-medical",
     "room_L4-eclss",
@@ -6750,6 +7917,26 @@
     "room_L5-stores",
     "room_L5-vestibule",
     "room_L5-stores2",
+    "nose_window_frame",
+    "window_L1-command_0",
+    "window_L1-command_1",
+    "window_L1-command_2",
+    "window_L1-command_3",
+    "window_L2-observation_4",
+    "window_L2-observation_5",
+    "window_L5-vestibule_6",
+    "flight_deck_column_0",
+    "flight_deck_column_1",
+    "flight_deck_column_2",
+    "flight_deck_column_3",
+    "hatch_L4L5_0",
+    "hatch_L4L5_180",
+    "trunk_plug_L4L5",
+    "doors_L4-medical",
+    "shelter_backup",
+    "rescue_kit",
+    "docking_camera_0",
+    "docking_camera_1",
     "outfit_L1",
     "outfit_L2",
     "outfit_L3",
@@ -6788,12 +7975,21 @@
     "door_port",
     "thrust_cone",
     "electrical",
+    "electrical_fwd",
     "plant_aft",
     "manifold",
     "strake_40",
     "strake_140",
     "strake_220",
     "strake_320",
+    "hotfin_40",
+    "hotfin_root_40",
+    "hotfin_140",
+    "hotfin_root_140",
+    "hotfin_220",
+    "hotfin_root_220",
+    "hotfin_320",
+    "hotfin_root_320",
     "rcs_F+Y",
     "rcs_F+Z",
     "rcs_F-Y",
@@ -6816,65 +8012,114 @@
     "jacket_radial_b",
     "jacket_ceiling",
     "jacket_floor",
+    "jacket_berth_ring",
+    "jacket_berth_ring",
     "pw_service",
     "water_starboard_fore",
     "water_starboard_aft",
     "water_port_fore",
     "water_port_aft"
-   ]
+   ],
+   "fins_deployed": {
+    "cg_m": [
+     24.567888354638264,
+     0.02714645669535133,
+     -0.35828845011009136
+    ],
+    "inertia_kg_m2": [
+     [
+      19056988.000093464,
+      235384.54788116924,
+      1191562.0444170034
+     ],
+     [
+      235384.54788116924,
+      187979012.93007204,
+      13403.882313251961
+     ],
+     [
+      1191562.0444170034,
+      13403.882313251961,
+      190018236.91975242
+     ]
+    ],
+    "principal_kg_m2": [
+     19048355.776064977,
+     187979230.08798218,
+     190026651.98587075
+    ],
+    "principal_axes": [
+     [
+      0.9999747452820087,
+      -0.0013927906264250727,
+      -0.00696914144300871
+     ],
+     [
+      0.001341510067870719,
+      0.999972033351448,
+      -0.007357504040656674
+     ],
+     [
+      0.006979194002140977,
+      0.007347969055556796,
+      0.9999486477823943
+     ]
+    ],
+    "trim_deg": 0.32810385654685353
+   }
   },
   "S2": {
    "name": "loaded departure",
    "remass_t": 250,
    "shuttle": "docked",
    "payload_t": 50,
-   "mass_t": 1217.682,
+   "mass_t": 1217.6817472270932,
    "cg_m": [
-    24.238790093365015,
-    0.034977078056052095,
-    -0.3978197669815466
+    24.19554605849694,
+    0.02603177887591415,
+    -0.3435765415623125
    ],
    "inertia_kg_m2": [
     [
-     12592678.38722168,
-     213566.6426327743,
-     1772474.0519017023
+     13098551.225818137,
+     220974.42583523097,
+     1350998.402118403
     ],
     [
-     213566.6426327743,
-     182224091.20473734,
-     6032.42104904896
+     220974.42583523097,
+     189366935.8550303,
+     10390.199083978896
     ],
     [
-     1772474.0519017023,
-     6032.42104904896,
-     183386757.4677311
+     1350998.402118403,
+     10390.199083978896,
+     190623678.7942492
     ]
    ],
    "principal_kg_m2": [
-    12574017.24613924,
-    182224302.25789785,
-    183405207.55565292
+    13087993.690226836,
+    189367097.61993665,
+    190634074.56493416
    ],
    "principal_axes": [
     [
-     0.9999453749889922,
-     -0.0012584274565002962,
-     -0.010376097458133825
+     0.9999702627685827,
+     -0.0012530631529392286,
+     -0.007609429102513563
     ],
     [
-     0.0011858548118102398,
-     0.9999748147375748,
-     -0.006997402297870152
+     0.0011804661560956445,
+     0.9999538211009286,
+     -0.00953740873122866
     ],
     [
-     0.010384641856572212,
-     0.006984715519594064,
-     0.9999216834145667
+     0.00762102868291067,
+     0.009528142441575372,
+     0.9999255644413874
     ]
    ],
-   "trim_deg": 0.26984084698289734,
-   "lateral_offset_m": 0.10390049024819821,
+   "trim_deg": 0.29408492480061876,
+   "lateral_offset_m": 0.14425440890442753,
    "usable_remass_t": 250.0,
    "water_t": 300.0,
    "parts": [
@@ -6888,24 +8133,19 @@
     "core_trunk",
     "core_racks",
     "bow_sensors",
+    "flight_deck",
     "room_L1-command",
     "room_L2-galley",
     "room_L2-wardroom",
     "room_L2-observation",
     "room_L2-exercise",
     "room_L2-hygiene",
-    "room_L3-C1",
-    "room_L3-C2",
-    "room_L3-C3",
-    "room_L3-C4",
-    "room_L3-C5",
-    "room_L3-C6",
-    "room_L3-HC",
+    "room_L3-CAPT",
+    "room_L3-CA",
     "room_L3-HG",
-    "room_L3-G1",
-    "room_L3-G2",
-    "room_L3-G3",
-    "room_L3-G4",
+    "room_L3-GUEST",
+    "room_L3-CB",
+    "room_L3-HC",
     "room_L4-shelter",
     "room_L4-medical",
     "room_L4-eclss",
@@ -6916,6 +8156,26 @@
     "room_L5-stores",
     "room_L5-vestibule",
     "room_L5-stores2",
+    "nose_window_frame",
+    "window_L1-command_0",
+    "window_L1-command_1",
+    "window_L1-command_2",
+    "window_L1-command_3",
+    "window_L2-observation_4",
+    "window_L2-observation_5",
+    "window_L5-vestibule_6",
+    "flight_deck_column_0",
+    "flight_deck_column_1",
+    "flight_deck_column_2",
+    "flight_deck_column_3",
+    "hatch_L4L5_0",
+    "hatch_L4L5_180",
+    "trunk_plug_L4L5",
+    "doors_L4-medical",
+    "shelter_backup",
+    "rescue_kit",
+    "docking_camera_0",
+    "docking_camera_1",
     "outfit_L1",
     "outfit_L2",
     "outfit_L3",
@@ -6954,12 +8214,21 @@
     "door_port",
     "thrust_cone",
     "electrical",
+    "electrical_fwd",
     "plant_aft",
     "manifold",
     "strake_40",
     "strake_140",
     "strake_220",
     "strake_320",
+    "hotfin_40",
+    "hotfin_root_40",
+    "hotfin_140",
+    "hotfin_root_140",
+    "hotfin_220",
+    "hotfin_root_220",
+    "hotfin_320",
+    "hotfin_root_320",
     "rcs_F+Y",
     "rcs_F+Z",
     "rcs_F-Y",
@@ -6982,6 +8251,8 @@
     "jacket_radial_b",
     "jacket_ceiling",
     "jacket_floor",
+    "jacket_berth_ring",
+    "jacket_berth_ring",
     "pw_service",
     "water_starboard_fore",
     "water_starboard_aft",
@@ -6989,60 +8260,107 @@
     "water_port_aft",
     "payload_hold_starboard",
     "payload_hold_port"
-   ]
+   ],
+   "fins_deployed": {
+    "cg_m": [
+     24.19554605849694,
+     0.02603177887591414,
+     -0.3435765415623125
+    ],
+    "inertia_kg_m2": [
+     [
+      19625953.620636016,
+      223414.03490023548,
+      1347097.0774241434
+     ],
+     [
+      223414.03490023548,
+      192068018.5925297,
+      13258.609389790236
+     ],
+     [
+      1347097.0774241434,
+      13258.609389790236,
+      194458473.17295793
+     ]
+    ],
+    "principal_kg_m2": [
+     19615285.60429833,
+     192068214.27686977,
+     194468945.50495553
+    ],
+    "principal_axes": [
+     [
+      0.9999694833082624,
+      -0.001294876249658726,
+      -0.007704268148548124
+     ],
+     [
+      0.0012467405062321461,
+      0.9999796947528322,
+      -0.006249457587877115
+     ],
+     [
+      0.007712203985682912,
+      0.006239661651934711,
+      0.9999507930554147
+     ]
+    ],
+    "trim_deg": 0.29408492480061876
+   }
   },
   "S3": {
    "name": "normal dispatch",
    "remass_t": 150,
    "shuttle": "docked",
    "payload_t": 0,
-   "mass_t": 1067.682,
+   "mass_t": 1067.6817472270932,
    "cg_m": [
-    24.6884575183833,
-    0.03986177205559937,
-    -0.33980043116843317
+    24.626654312463202,
+    0.029659737293170882,
+    -0.2779364905878387
    ],
    "inertia_kg_m2": [
     [
-     10914362.72715915,
-     229205.9297504234,
-     1662302.7864645696
+     11412160.463940745,
+     231083.0839231389,
+     1254571.3050722745
     ],
     [
-     229205.9297504234,
-     176499544.98828566,
-     7746.6509920480385
+     231083.0839231389,
+     183658456.0269225,
+     11712.081964906894
     ],
     [
-     1662302.7864645696,
-     7746.6509920480385,
-     176990448.80345917
+     1254571.3050722745,
+     11712.081964906894,
+     184251697.06875116
     ]
    ],
    "principal_kg_m2": [
-    10897408.940246325,
-    176499663.32229325,
-    177007284.25636443
+    11402744.768798959,
+    183658468.16738436,
+    184261100.62343106
    ],
    "principal_axes": [
     [
-     0.999948964706018,
-     -0.0013835371424795264,
-     -0.010007687462055732
+     0.9999727619139839,
+     -0.0013409818622937976,
+     -0.007257905880069462
     ],
     [
-     0.0011852188632070944,
-     0.9998033483409369,
-     -0.01979545156083547
+     0.0011793231242782055,
+     0.9997521407570367,
+     -0.022232099511537384
     ],
     [
-     0.010033107176199502,
-     0.019782579994188445,
-     0.9997539628774494
+     0.007285919783218212,
+     0.022222934535460367,
+     0.9997264908731514
     ]
    ],
-   "trim_deg": 0.1323560637417643,
-   "lateral_offset_m": 0.049923813003634195,
+   "trim_deg": 0.16277578026920608,
+   "lateral_offset_m": 0.07861944796292136,
    "usable_remass_t": 150.0,
    "water_t": 200.0,
    "parts": [
@@ -7056,24 +8374,19 @@
     "core_trunk",
     "core_racks",
     "bow_sensors",
+    "flight_deck",
     "room_L1-command",
     "room_L2-galley",
     "room_L2-wardroom",
     "room_L2-observation",
     "room_L2-exercise",
     "room_L2-hygiene",
-    "room_L3-C1",
-    "room_L3-C2",
-    "room_L3-C3",
-    "room_L3-C4",
-    "room_L3-C5",
-    "room_L3-C6",
-    "room_L3-HC",
+    "room_L3-CAPT",
+    "room_L3-CA",
     "room_L3-HG",
-    "room_L3-G1",
-    "room_L3-G2",
-    "room_L3-G3",
-    "room_L3-G4",
+    "room_L3-GUEST",
+    "room_L3-CB",
+    "room_L3-HC",
     "room_L4-shelter",
     "room_L4-medical",
     "room_L4-eclss",
@@ -7084,6 +8397,26 @@
     "room_L5-stores",
     "room_L5-vestibule",
     "room_L5-stores2",
+    "nose_window_frame",
+    "window_L1-command_0",
+    "window_L1-command_1",
+    "window_L1-command_2",
+    "window_L1-command_3",
+    "window_L2-observation_4",
+    "window_L2-observation_5",
+    "window_L5-vestibule_6",
+    "flight_deck_column_0",
+    "flight_deck_column_1",
+    "flight_deck_column_2",
+    "flight_deck_column_3",
+    "hatch_L4L5_0",
+    "hatch_L4L5_180",
+    "trunk_plug_L4L5",
+    "doors_L4-medical",
+    "shelter_backup",
+    "rescue_kit",
+    "docking_camera_0",
+    "docking_camera_1",
     "outfit_L1",
     "outfit_L2",
     "outfit_L3",
@@ -7122,12 +8455,21 @@
     "door_port",
     "thrust_cone",
     "electrical",
+    "electrical_fwd",
     "plant_aft",
     "manifold",
     "strake_40",
     "strake_140",
     "strake_220",
     "strake_320",
+    "hotfin_40",
+    "hotfin_root_40",
+    "hotfin_140",
+    "hotfin_root_140",
+    "hotfin_220",
+    "hotfin_root_220",
+    "hotfin_320",
+    "hotfin_root_320",
     "rcs_F+Y",
     "rcs_F+Z",
     "rcs_F-Y",
@@ -7150,65 +8492,114 @@
     "jacket_radial_b",
     "jacket_ceiling",
     "jacket_floor",
+    "jacket_berth_ring",
+    "jacket_berth_ring",
     "pw_service",
     "water_starboard_fore",
     "water_starboard_aft",
     "water_port_fore",
     "water_port_aft"
-   ]
+   ],
+   "fins_deployed": {
+    "cg_m": [
+     24.626654312463202,
+     0.02965973729317087,
+     -0.2779364905878387
+    ],
+    "inertia_kg_m2": [
+     [
+      17939562.85875862,
+      233522.69298814284,
+      1250669.980378015
+     ],
+     [
+      233522.69298814284,
+      186359538.76442185,
+      14580.492270718074
+     ],
+     [
+      1250669.980378015,
+      14580.492270718074,
+      188086491.44745988
+     ]
+    ],
+    "principal_kg_m2": [
+     17930046.811114088,
+     186359709.2394362,
+     188095837.02009007
+    ],
+    "principal_axes": [
+     [
+      0.999972029657944,
+      -0.001385796483495822,
+      -0.007349793866395902
+     ],
+     [
+      0.0013167047976311008,
+      0.9999549801815133,
+      -0.009397015412626665
+     ],
+     [
+      0.007362485330924298,
+      0.009387075066045785,
+      0.9999288357835553
+     ]
+    ],
+    "trim_deg": 0.1627757802692061
+   }
   },
   "S4": {
    "name": "burnt out, shuttle home",
    "remass_t": 0,
    "shuttle": "docked",
    "payload_t": 0,
-   "mass_t": 917.682,
+   "mass_t": 917.6817472270931,
    "cg_m": [
-    24.412669215612322,
-    0.04632629139232507,
-    -0.19654962789997224
+    24.311331725929524,
+    0.03445668114969011,
+    -0.12457365520688253
    ],
    "inertia_kg_m2": [
     [
-     9224769.187536223,
-     215087.66179500925,
-     1404762.6803335662
+     9703097.954820637,
+     218709.23470834497,
+     939222.5727694511
     ],
     [
-     215087.66179500925,
-     173621797.90640995,
-     11783.914704251578
+     218709.23470834497,
+     180541432.39880568,
+     14505.825278714105
     ],
     [
-     1404762.6803335662,
-     11783.914704251578,
-     173657440.8974474
+     939222.5727694511,
+     14505.825278714105,
+     180699126.91758117
     ]
    ],
    "principal_kg_m2": [
-    9212487.94945849,
-    173618441.23514348,
-    173673078.8067916
+    9697659.509988146,
+    180540208.58107954,
+    180705789.18013978
    ],
    "principal_axes": [
     [
-     0.9999626612197251,
-     -0.0013075839324958529,
-     -0.00854203667895638
+     0.9999840984714039,
+     -0.0012796842580214895,
+     -0.005492286639739619
     ],
     [
-     -0.0009408552128803943,
-     0.9661357603802353,
-     -0.2580325702425428
+     0.0007504657918110431,
+     0.9954484719804957,
+     -0.09529835482730845
     ],
     [
-     0.00859016634492914,
-     0.25803097244083684,
-     0.9660984558022039
+     0.005589240147695548,
+     0.09529271766455207,
+     0.9954336031874126
     ]
    ],
-   "trim_deg": 0.2778064748342086,
-   "lateral_offset_m": 0.10612456815872238,
+   "trim_deg": 0.15482179957687384,
+   "lateral_offset_m": 0.07562976842967623,
    "usable_remass_t": 0.0,
    "water_t": 50.0,
    "parts": [
@@ -7222,24 +8613,19 @@
     "core_trunk",
     "core_racks",
     "bow_sensors",
+    "flight_deck",
     "room_L1-command",
     "room_L2-galley",
     "room_L2-wardroom",
     "room_L2-observation",
     "room_L2-exercise",
     "room_L2-hygiene",
-    "room_L3-C1",
-    "room_L3-C2",
-    "room_L3-C3",
-    "room_L3-C4",
-    "room_L3-C5",
-    "room_L3-C6",
-    "room_L3-HC",
+    "room_L3-CAPT",
+    "room_L3-CA",
     "room_L3-HG",
-    "room_L3-G1",
-    "room_L3-G2",
-    "room_L3-G3",
-    "room_L3-G4",
+    "room_L3-GUEST",
+    "room_L3-CB",
+    "room_L3-HC",
     "room_L4-shelter",
     "room_L4-medical",
     "room_L4-eclss",
@@ -7250,6 +8636,26 @@
     "room_L5-stores",
     "room_L5-vestibule",
     "room_L5-stores2",
+    "nose_window_frame",
+    "window_L1-command_0",
+    "window_L1-command_1",
+    "window_L1-command_2",
+    "window_L1-command_3",
+    "window_L2-observation_4",
+    "window_L2-observation_5",
+    "window_L5-vestibule_6",
+    "flight_deck_column_0",
+    "flight_deck_column_1",
+    "flight_deck_column_2",
+    "flight_deck_column_3",
+    "hatch_L4L5_0",
+    "hatch_L4L5_180",
+    "trunk_plug_L4L5",
+    "doors_L4-medical",
+    "shelter_backup",
+    "rescue_kit",
+    "docking_camera_0",
+    "docking_camera_1",
     "outfit_L1",
     "outfit_L2",
     "outfit_L3",
@@ -7288,12 +8694,21 @@
     "door_port",
     "thrust_cone",
     "electrical",
+    "electrical_fwd",
     "plant_aft",
     "manifold",
     "strake_40",
     "strake_140",
     "strake_220",
     "strake_320",
+    "hotfin_40",
+    "hotfin_root_40",
+    "hotfin_140",
+    "hotfin_root_140",
+    "hotfin_220",
+    "hotfin_root_220",
+    "hotfin_320",
+    "hotfin_root_320",
     "rcs_F+Y",
     "rcs_F+Z",
     "rcs_F-Y",
@@ -7316,65 +8731,114 @@
     "jacket_radial_b",
     "jacket_ceiling",
     "jacket_floor",
+    "jacket_berth_ring",
+    "jacket_berth_ring",
     "pw_service",
     "water_starboard_fore",
     "water_starboard_aft",
     "water_port_fore",
     "water_port_aft"
-   ]
+   ],
+   "fins_deployed": {
+    "cg_m": [
+     24.311331725929524,
+     0.0344566811496901,
+     -0.12457365520688253
+    ],
+    "inertia_kg_m2": [
+     [
+      16230500.349638514,
+      221148.84377334942,
+      935321.248075191
+     ],
+     [
+      221148.84377334942,
+      183242515.1363051,
+      17374.235584525297
+     ],
+     [
+      935321.248075191,
+      17374.235584525297,
+      184533921.2962899
+     ]
+    ],
+    "principal_kg_m2": [
+     16225010.041538892,
+     183242540.78761497,
+     184539385.95307967
+    ],
+    "principal_axes": [
+     [
+      0.9999836842260457,
+      -0.0013235061067403248,
+      -0.0055569428006256895
+     ],
+     [
+      0.00124362834056029,
+      0.9998962121142801,
+      -0.014353340658713609
+     ],
+     [
+      0.005575362791295277,
+      0.014346195701298203,
+      0.9998815439834089
+     ]
+    ],
+    "trim_deg": 0.15482179957687384
+   }
   },
   "S5": {
    "name": "burnt out, shuttle away",
    "remass_t": 0,
    "shuttle": "absent",
    "payload_t": 0,
-   "mass_t": 887.4284729274091,
+   "mass_t": 888.2958522681963,
    "cg_m": [
-    24.387532703175047,
-    0.04790561158946403,
-    -0.20325024622604873
+    24.283587570934017,
+    0.035596549595897024,
+    -0.12869470151955859
    ],
    "inertia_kg_m2": [
     [
-     9168886.160034489,
-     213743.76819602435,
-     1406477.0534149634
+     9649549.569592329,
+     217564.5815183445,
+     939655.6145667552
     ],
     [
-     213743.76819602435,
-     173160351.82300386,
-     11694.605311716186
+     217564.5815183445,
+     180089090.5343425,
+     14565.461173303453
     ],
     [
-     1406477.0534149634,
-     11694.605311716186,
-     173197380.46416312
+     939655.6145667552,
+     14565.461173303453,
+     180247457.3211354
     ]
    ],
    "principal_kg_m2": [
-    9156548.795418743,
-    173157132.09334642,
-    173212937.55843633
+    9644096.593380606,
+    180087859.96373233,
+    180254140.8679572
    ],
    "principal_axes": [
     [
-     0.9999623981716986,
-     -0.0013026250797261686,
-     -0.008573529646936588
+     0.9999840187831419,
+     -0.001275959347448896,
+     -0.00550764069817887
     ],
     [
-     -0.0008854162242875776,
-     0.9681508514343256,
-     -0.2503660218661875
+     0.0007456290844490736,
+     0.995454161639749,
+     -0.09523894219998863
     ],
     [
-     0.008626603086673257,
-     0.2503641987882696,
-     0.9681132938268605
+     0.0056041248723598305,
+     0.09523331350870877,
+     0.9954392044633197
     ]
    ],
-   "trim_deg": 0.25948802834427204,
-   "lateral_offset_m": 0.09924050007207659,
+   "trim_deg": 0.1461024582082147,
+   "lateral_offset_m": 0.07144113637706391,
    "usable_remass_t": 0.0,
    "water_t": 50.0,
    "parts": [
@@ -7388,24 +8852,19 @@
     "core_trunk",
     "core_racks",
     "bow_sensors",
+    "flight_deck",
     "room_L1-command",
     "room_L2-galley",
     "room_L2-wardroom",
     "room_L2-observation",
     "room_L2-exercise",
     "room_L2-hygiene",
-    "room_L3-C1",
-    "room_L3-C2",
-    "room_L3-C3",
-    "room_L3-C4",
-    "room_L3-C5",
-    "room_L3-C6",
-    "room_L3-HC",
+    "room_L3-CAPT",
+    "room_L3-CA",
     "room_L3-HG",
-    "room_L3-G1",
-    "room_L3-G2",
-    "room_L3-G3",
-    "room_L3-G4",
+    "room_L3-GUEST",
+    "room_L3-CB",
+    "room_L3-HC",
     "room_L4-shelter",
     "room_L4-medical",
     "room_L4-eclss",
@@ -7416,6 +8875,26 @@
     "room_L5-stores",
     "room_L5-vestibule",
     "room_L5-stores2",
+    "nose_window_frame",
+    "window_L1-command_0",
+    "window_L1-command_1",
+    "window_L1-command_2",
+    "window_L1-command_3",
+    "window_L2-observation_4",
+    "window_L2-observation_5",
+    "window_L5-vestibule_6",
+    "flight_deck_column_0",
+    "flight_deck_column_1",
+    "flight_deck_column_2",
+    "flight_deck_column_3",
+    "hatch_L4L5_0",
+    "hatch_L4L5_180",
+    "trunk_plug_L4L5",
+    "doors_L4-medical",
+    "shelter_backup",
+    "rescue_kit",
+    "docking_camera_0",
+    "docking_camera_1",
     "outfit_L1",
     "outfit_L2",
     "outfit_L3",
@@ -7454,12 +8933,21 @@
     "door_port",
     "thrust_cone",
     "electrical",
+    "electrical_fwd",
     "plant_aft",
     "manifold",
     "strake_40",
     "strake_140",
     "strake_220",
     "strake_320",
+    "hotfin_40",
+    "hotfin_root_40",
+    "hotfin_140",
+    "hotfin_root_140",
+    "hotfin_220",
+    "hotfin_root_220",
+    "hotfin_320",
+    "hotfin_root_320",
     "rcs_F+Y",
     "rcs_F+Z",
     "rcs_F-Y",
@@ -7481,65 +8969,114 @@
     "jacket_radial_b",
     "jacket_ceiling",
     "jacket_floor",
+    "jacket_berth_ring",
+    "jacket_berth_ring",
     "pw_service",
     "water_starboard_fore",
     "water_starboard_aft",
     "water_port_fore",
     "water_port_aft"
-   ]
+   ],
+   "fins_deployed": {
+    "cg_m": [
+     24.283587570934017,
+     0.03559654959589701,
+     -0.12869470151955859
+    ],
+    "inertia_kg_m2": [
+     [
+      16176951.96441021,
+      220004.19058334923,
+      935754.2898724952
+     ],
+     [
+      220004.19058334923,
+      182790173.2718419,
+      17433.87147911503
+     ],
+     [
+      935754.2898724952,
+      17433.87147911503,
+      184082251.69984412
+     ]
+    ],
+    "principal_kg_m2": [
+     16171446.838007962,
+     182790195.10533437,
+     184087734.9927538
+    ],
+    "principal_axes": [
+     [
+      0.999983601456742,
+      -0.001319800204149508,
+      -0.005572696387275982
+     ],
+     [
+      0.0012394951298545643,
+      0.9998956990056527,
+      -0.014389397548896942
+     ],
+     [
+      0.005591106279324216,
+      0.014382254253706593,
+      0.9998809380587046
+     ]
+    ],
+    "trim_deg": 0.1461024582082147
+   }
   },
   "S6": {
    "name": "full, shuttle away",
    "remass_t": 250,
    "shuttle": "absent",
    "payload_t": 0,
-   "mass_t": 1137.428472927409,
+   "mass_t": 1138.2958522681963,
    "cg_m": [
-    24.598700365380143,
-    0.03744495533141783,
-    -0.42588873149172457
+    24.552860739777977,
+    0.027847261256280096,
+    -0.36753791433236843
    ],
    "inertia_kg_m2": [
     [
-     11961593.560211433,
-     228788.14581789647,
-     1595548.2006663766
+     12472652.492841486,
+     232201.2115475586,
+     1199011.7840924994
     ],
     [
-     228788.14581789647,
-     177636146.72452492,
-     5644.106838442738
+     232201.2115475586,
+     184833327.93454856,
+     10432.223068190957
     ],
     [
-     1595548.2006663766,
-     5644.106838442738,
-     178455198.95705667
+     1199011.7840924994,
+     10432.223068190957,
+     185742924.93533543
     ]
    ],
    "principal_kg_m2": [
-    11945988.705942111,
-    177636388.8441152,
-    178470561.6917357
+    12464043.264324015,
+    184833482.60695425,
+    185751379.49144724
    ],
    "principal_axes": [
     [
-     0.99995314022382,
-     -0.0013804274497287636,
-     -0.009581846198805399
+     0.9999751546098853,
+     -0.0013466625403606414,
+     -0.006919296419337023
     ],
     [
-     0.0012902889649648484,
-     0.9999549204507467,
-     -0.009407030388365887
+     0.0012557567001824108,
+     0.9999130669698892,
+     -0.013125607718489366
     ],
     [
-     0.009594399976466274,
-     0.009394226226613062,
-     0.9999098439372895
+     0.006936370668167013,
+     0.013116592654805975,
+     0.9998899148201676
     ]
    ],
-   "trim_deg": 0.343301174825154,
-   "lateral_offset_m": 0.13003001057436278,
+   "trim_deg": 0.34685804787803026,
+   "lateral_offset_m": 0.16797809916120943,
    "usable_remass_t": 250.0,
    "water_t": 300.0,
    "parts": [
@@ -7553,24 +9090,19 @@
     "core_trunk",
     "core_racks",
     "bow_sensors",
+    "flight_deck",
     "room_L1-command",
     "room_L2-galley",
     "room_L2-wardroom",
     "room_L2-observation",
     "room_L2-exercise",
     "room_L2-hygiene",
-    "room_L3-C1",
-    "room_L3-C2",
-    "room_L3-C3",
-    "room_L3-C4",
-    "room_L3-C5",
-    "room_L3-C6",
-    "room_L3-HC",
+    "room_L3-CAPT",
+    "room_L3-CA",
     "room_L3-HG",
-    "room_L3-G1",
-    "room_L3-G2",
-    "room_L3-G3",
-    "room_L3-G4",
+    "room_L3-GUEST",
+    "room_L3-CB",
+    "room_L3-HC",
     "room_L4-shelter",
     "room_L4-medical",
     "room_L4-eclss",
@@ -7581,6 +9113,26 @@
     "room_L5-stores",
     "room_L5-vestibule",
     "room_L5-stores2",
+    "nose_window_frame",
+    "window_L1-command_0",
+    "window_L1-command_1",
+    "window_L1-command_2",
+    "window_L1-command_3",
+    "window_L2-observation_4",
+    "window_L2-observation_5",
+    "window_L5-vestibule_6",
+    "flight_deck_column_0",
+    "flight_deck_column_1",
+    "flight_deck_column_2",
+    "flight_deck_column_3",
+    "hatch_L4L5_0",
+    "hatch_L4L5_180",
+    "trunk_plug_L4L5",
+    "doors_L4-medical",
+    "shelter_backup",
+    "rescue_kit",
+    "docking_camera_0",
+    "docking_camera_1",
     "outfit_L1",
     "outfit_L2",
     "outfit_L3",
@@ -7619,12 +9171,21 @@
     "door_port",
     "thrust_cone",
     "electrical",
+    "electrical_fwd",
     "plant_aft",
     "manifold",
     "strake_40",
     "strake_140",
     "strake_220",
     "strake_320",
+    "hotfin_40",
+    "hotfin_root_40",
+    "hotfin_140",
+    "hotfin_root_140",
+    "hotfin_220",
+    "hotfin_root_220",
+    "hotfin_320",
+    "hotfin_root_320",
     "rcs_F+Y",
     "rcs_F+Z",
     "rcs_F-Y",
@@ -7646,12 +9207,61 @@
     "jacket_radial_b",
     "jacket_ceiling",
     "jacket_floor",
+    "jacket_berth_ring",
+    "jacket_berth_ring",
     "pw_service",
     "water_starboard_fore",
     "water_starboard_aft",
     "water_port_fore",
     "water_port_aft"
-   ]
+   ],
+   "fins_deployed": {
+    "cg_m": [
+     24.552860739777977,
+     0.027847261256280086,
+     -0.36753791433236843
+    ],
+    "inertia_kg_m2": [
+     [
+      19000054.88765937,
+      234640.8206125631,
+      1195110.4593982399
+     ],
+     [
+      234640.8206125631,
+      187534410.672048,
+      13300.633374002398
+     ],
+     [
+      1195110.4593982399,
+      13300.633374002398,
+      189577719.31404415
+     ]
+    ],
+    "principal_kg_m2": [
+     18991355.666274972,
+     187534628.19467384,
+     189586201.01280278
+    ],
+    "principal_axes": [
+     [
+      0.999974492141314,
+      -0.0013915821384158434,
+      -0.007005609600414664
+     ],
+     [
+      0.0013404792053743515,
+      0.9999725000231652,
+      -0.0072939915629954034
+     ],
+     [
+      0.007015567134689758,
+      0.0072844146348990295,
+      0.9999488582528637
+     ]
+    ],
+    "trim_deg": 0.3468580478780303
+   }
   },
   "S7": {
    "name": "one tank cell breached and vented",
@@ -7660,55 +9270,55 @@
    "vented": true,
    "shuttle": "docked",
    "payload_t": 0,
-   "mass_t": 1104.9303413238206,
+   "mass_t": 1105.181057456378,
    "cg_m": [
-    24.758533779464763,
-    0.17637053643661738,
-    -0.3694018560462087
+    24.705262536366224,
+    0.16592355268645292,
+    -0.3098290576637861
    ],
    "inertia_kg_m2": [
     [
-     11294047.107833572,
-     648941.8757850897,
-     1727777.1112056882
+     11801894.350666074,
+     627209.1841794155,
+     1333228.5066266125
     ],
     [
-     648941.8757850897,
-     177273461.0807582,
-     43907.32193061977
+     627209.1841794155,
+     184495050.58099905,
+     57016.137819919844
     ],
     [
-     1727777.1112056882,
-     43907.32193061977,
-     177851456.7562405
+     1333228.5066266125,
+     57016.137819919844,
+     185175297.09142
     ]
    ],
    "principal_kg_m2": [
-    11273592.933139611,
-    177271704.3019459,
-    177873667.70974675
+    11789368.033173013,
+    184491813.19265792,
+    185191060.79725412
    ],
    "principal_axes": [
     [
-     0.999938594622427,
-     -0.003906308436421806,
-     -0.010370522596521414
+     0.9999638626507279,
+     -0.0036289957283293078,
+     -0.007687898454055162
     ],
     [
-     0.0030166878246322185,
-     0.9964228114958373,
-     -0.0844540130798979
+     0.002931991000342418,
+     0.9960443466389949,
+     -0.08880913780277078
     ],
     [
-     0.010663328706090661,
-     0.0844175425200852,
-     0.9963734098899746
+     0.007979775774419178,
+     0.08878338762686061,
+     0.9960189924193658
     ]
    ],
-   "trim_deg": 0.3378136080439844,
-   "lateral_offset_m": 0.1270090888262427,
+   "trim_deg": 0.3469303190587691,
+   "lateral_offset_m": 0.16709028406371548,
    "usable_remass_t": 187.5,
-   "water_t": 237.24834132382054,
+   "water_t": 237.49931022928496,
    "parts": [
     "armor",
     "pressure_vessel",
@@ -7720,24 +9330,19 @@
     "core_trunk",
     "core_racks",
     "bow_sensors",
+    "flight_deck",
     "room_L1-command",
     "room_L2-galley",
     "room_L2-wardroom",
     "room_L2-observation",
     "room_L2-exercise",
     "room_L2-hygiene",
-    "room_L3-C1",
-    "room_L3-C2",
-    "room_L3-C3",
-    "room_L3-C4",
-    "room_L3-C5",
-    "room_L3-C6",
-    "room_L3-HC",
+    "room_L3-CAPT",
+    "room_L3-CA",
     "room_L3-HG",
-    "room_L3-G1",
-    "room_L3-G2",
-    "room_L3-G3",
-    "room_L3-G4",
+    "room_L3-GUEST",
+    "room_L3-CB",
+    "room_L3-HC",
     "room_L4-shelter",
     "room_L4-medical",
     "room_L4-eclss",
@@ -7748,6 +9353,26 @@
     "room_L5-stores",
     "room_L5-vestibule",
     "room_L5-stores2",
+    "nose_window_frame",
+    "window_L1-command_0",
+    "window_L1-command_1",
+    "window_L1-command_2",
+    "window_L1-command_3",
+    "window_L2-observation_4",
+    "window_L2-observation_5",
+    "window_L5-vestibule_6",
+    "flight_deck_column_0",
+    "flight_deck_column_1",
+    "flight_deck_column_2",
+    "flight_deck_column_3",
+    "hatch_L4L5_0",
+    "hatch_L4L5_180",
+    "trunk_plug_L4L5",
+    "doors_L4-medical",
+    "shelter_backup",
+    "rescue_kit",
+    "docking_camera_0",
+    "docking_camera_1",
     "outfit_L1",
     "outfit_L2",
     "outfit_L3",
@@ -7786,12 +9411,21 @@
     "door_port",
     "thrust_cone",
     "electrical",
+    "electrical_fwd",
     "plant_aft",
     "manifold",
     "strake_40",
     "strake_140",
     "strake_220",
     "strake_320",
+    "hotfin_40",
+    "hotfin_root_40",
+    "hotfin_140",
+    "hotfin_root_140",
+    "hotfin_220",
+    "hotfin_root_220",
+    "hotfin_320",
+    "hotfin_root_320",
     "rcs_F+Y",
     "rcs_F+Z",
     "rcs_F-Y",
@@ -7814,11 +9448,60 @@
     "jacket_radial_b",
     "jacket_ceiling",
     "jacket_floor",
+    "jacket_berth_ring",
+    "jacket_berth_ring",
     "pw_service",
     "water_starboard_fore",
     "water_starboard_aft",
     "water_port_aft"
-   ]
+   ],
+   "fins_deployed": {
+    "cg_m": [
+     24.705262536366224,
+     0.16592355268645292,
+     -0.3098290576637861
+    ],
+    "inertia_kg_m2": [
+     [
+      18329296.745483954,
+      629648.7932444194,
+      1329327.181932353
+     ],
+     [
+      629648.7932444194,
+      187196133.31849846,
+      59884.5481257312
+     ],
+     [
+      1329327.181932353,
+      59884.5481257312,
+      189010091.47012872
+     ]
+    ],
+    "principal_kg_m2": [
+     18316600.107718512,
+     187196176.51880652,
+     189022744.90758604
+    ],
+    "principal_axes": [
+     [
+      0.9999627471708804,
+      -0.003725490304833164,
+      -0.007786205266659809
+     ],
+     [
+      0.003446688703248447,
+      0.9993630627881835,
+      -0.035518855156157124
+     ],
+     [
+      0.007913571093309668,
+      0.035490695352581696,
+      0.9993386742921246
+     ]
+    ],
+    "trim_deg": 0.3469303190587691
+   }
   }
  }
 }

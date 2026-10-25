@@ -149,9 +149,11 @@ class DomeCyl(Shape):
     """Body of revolution along x: half-ellipsoid nose from xa (apex) to xb, then cylinder to xc.
     Radius R. If t > 0 it is a shell of thickness t (plus no end caps)."""
 
-    def __init__(self, xa, xb, xc, R, t=0.0, xs=None):
+    def __init__(self, xa, xb, xc, R, t=0.0, xs=None, rin=0.0, gaps=()):
         self.xa, self.xb, self.xc, self.R, self.t = xa, xb, xc, R, t
         self.xs = xs          # optional flat cut: keep only x >= xs (solid only)
+        self.rin = rin        # optional axial bore: keep only r >= rin (solid only; v0.5.4 sensor ring)
+        self.gaps = tuple(tuple(g) for g in gaps)   # optional azimuth gaps (centre_deg, half_width_deg), solid only (v0.5.5)
 
     def rad(self, x):
         if x < self.xa or x > self.xc:
@@ -166,6 +168,12 @@ class DomeCyl(Shape):
         if R < 0 or (self.xs is not None and x < self.xs):
             return False
         r = math.hypot(y, z)
+        if self.rin and r < self.rin:
+            return False
+        if self.gaps:
+            a = math.degrees(math.atan2(z, y)) % 360
+            if any(abs((a - g + 180) % 360 - 180) <= hw for g, hw in self.gaps):
+                return False
         if self.t:
             # shell: inside outer surface, outside the inner surface offset by t
             inner = DomeCyl(self.xa + self.t, self.xb, self.xc, self.R - self.t).rad(x)
@@ -176,6 +184,16 @@ class DomeCyl(Shape):
         return (self.xa if self.xs is None else self.xs, self.xc), (-self.R, self.R), (-self.R, self.R)
 
     def volume(self):
+        if not self.t and (self.xc < self.xb or self.rin or self.gaps):
+            # v0.5.4 fix: the closed form below assumed xc >= xb; integrate the solid of revolution directly
+            x0 = max(self.xa, self.xs if self.xs is not None else self.xa)
+            n = 4000
+            h = (self.xc - x0) / n
+            tot = 0.0
+            for i in range(n):
+                rr = self.rad(x0 + (i + 0.5) * h)
+                tot += math.pi * max(0.0, rr * rr - self.rin * self.rin) * h if rr > self.rin else 0.0
+            return tot * (1 - sum(2 * hw for _, hw in self.gaps) / 360)
         full = 2 / 3 * math.pi * self.R ** 2 * (self.xb - self.xa) + math.pi * self.R ** 2 * (self.xc - self.xb)
         if not self.t:
             if self.xs is not None:
@@ -190,6 +208,10 @@ class DomeCyl(Shape):
         s = {"k": "domecyl", "xa": self.xa, "xb": self.xb, "xc": self.xc, "R": self.R, "t": self.t}
         if self.xs is not None:
             s["xs"] = self.xs
+        if self.rin:
+            s["rin"] = self.rin
+        if self.gaps:
+            s["gaps"] = [list(g) for g in self.gaps]
         return s
 
 
@@ -485,9 +507,23 @@ def build(I, dy=0.0, dz=0.0):
     add("core_racks", "Avionics racks in the trunk", "avionics", Sector(core_x0, decks[-1]["x_m"][1], 0.0, hab["core_r_m"] * 0.9),
         av["core_racks"], "ENGINEERING_ASSUMPTION", "avionics")
     d1 = decks[0]
-    add("bow_sensors", "Bow sensors and command electronics", "avionics",
-        DomeCyl(px0, px0 + H["pressure_head_depth_m"], d1["x_m"][0] + 0.8, hab["usable_r_m"]), av["bow_sensors"],
+    CL = d1.get("command_layout", {})
+    SR = CL.get("sensor_ring")
+    if SR:
+        sens_shape = DomeCyl(px0, px0 + H["pressure_head_depth_m"], SR["x_aft_m"], hab["usable_r_m"], rin=SR["r_in_m"], gaps=SR["gaps_deg"])
+    else:
+        sens_shape = DomeCyl(px0, px0 + H["pressure_head_depth_m"], d1["x_m"][0] + 0.8, hab["usable_r_m"], rin=CL.get("sensor_bore_r_m", 0.0))
+    add("bow_sensors", "Bow sensors and command electronics" + (" (shoulder ring)" if SR else (" (ring around the viewing bore)" if CL else "")), "avionics",
+        sens_shape, av["bow_sensors"],
         "ENGINEERING_ASSUMPTION", "avionics")
+    if CL.get("platform"):
+        pl = CL["platform"]
+        add("command_platform", "Command platform (raised forward couches)", "habitat",
+            Box(pl["x_m"][0], pl["x_m"][1], pl["y_m"][0], pl["y_m"][1], pl["z_m"][0], pl["z_m"][1]), pl["mass_t"], pl["prov"], "equipment")
+    if CL.get("flight_deck"):
+        fd = CL["flight_deck"]
+        add("flight_deck", "Flight deck (mezzanine carrying the pilot and navigator couches)", "habitat",
+            Box(fd["x_m"][0], fd["x_m"][1], fd["y_m"][0], fd["y_m"][1], fd["z_m"][0], fd["z_m"][1]), fd["mass_t"], fd["prov"], "equipment")
     # --- rooms
     rooms = []
     ff = hab["free_fraction"]
@@ -498,7 +534,8 @@ def build(I, dy=0.0, dz=0.0):
         for rm in d["rooms"]:
             a0, a1 = rm["theta_deg"]
             if d.get("dome"):
-                shape = DomeCyl(px0, px0 + H["pressure_head_depth_m"], x1, hab["usable_r_m"], xs=d1["x_m"][0] + 0.8)
+                xs_cut = None if d.get("command_layout", {}).get("sensor_ring") else d1["x_m"][0] + 0.8
+                shape = DomeCyl(px0, px0 + H["pressure_head_depth_m"], x1, hab["usable_r_m"], xs=xs_cut)
                 xin0 = x0
             else:
                 r0, r1 = rm.get("r_m", hab["room_r_m"])
@@ -519,7 +556,7 @@ def build(I, dy=0.0, dz=0.0):
             rooms.append({"id": rm["id"], "deck": d["id"], "name": rm["name"], "kind": rm["kind"], "who": rm.get("who"),
                           "theta_deg": [a0, a1], "x_m": [x0, x1], "volume_m3": vol,
                           "nhv_m3": vol * ff[rm["kind"]], "couches": rm.get("couches", 0), "windows": rm.get("windows", 0),
-                          "shape": interior.spec()})
+                          "shape": interior.spec(), **{k: rm[k] for k in ("occupancy", "bunks", "door", "entrance") if k in rm}})
             add(f"room_{rm['id']}", rm["name"], "habitat", interior, rm["mass_t"], "ENGINEERING_ASSUMPTION", f"room_{rm['kind']}",
                 tags=("room",))
         if not d.get("dome"):
@@ -528,11 +565,86 @@ def build(I, dy=0.0, dz=0.0):
             rooms.append({"id": f"{d['id']}-corridor", "deck": d["id"], "name": "Corridor ring", "kind": "corridor", "who": None,
                           "theta_deg": [0, 360], "x_m": [x0, x1], "volume_m3": sh.volume(),
                           "nhv_m3": sh.volume() * ff["corridor"], "couches": 0, "windows": 0, "shape": sh.spec()})
+    # --- v0.5.6 crew systems, paid from the engineering reserve (dry mass unchanged)
+    CS = hab.get("crew_systems")
+    if CS:
+        rt = ("from_reserve",)
+        nr = ("from_reserve", "no_render")
+        WM = I["features"].get("window_mass")
+        if WM:
+            def wmass(d):
+                return max(WM["min_assembly_t"], WM["t_per_0p8m_window"] * math.pi * (d / 2) ** 2 / WM["area_0p8m_m2"])
+            fw = [f for f in features(I, rooms) if f["kind"] == "window"]
+            nose = [f for f in fw if f.get("forward")]
+            if nose:
+                ys = [f["pos"][1] for f in nose]
+                zs = [f["pos"][2] for f in nose]
+                add("nose_window_frame", "Nose window cluster: Cupola-style frame, 8 window assemblies, shutters", "habitat",
+                    Box(0.0, 0.25, min(ys) - 0.35, max(ys) + 0.35, min(zs) - 0.35, max(zs) + 0.35),
+                    sum(wmass(f["d_m"]) for f in nose) + WM["nose_cluster_frame_t"], WM["prov"], "frame", tags=nr)
+            for k, f in enumerate([f for f in fw if not f.get("forward")]):
+                c = [f["pos"][i] - 0.15 * f["normal"][i] for i in range(3)]
+                add(f"window_{f['room']}_{k}", f"Window assembly ({f['room']}, {f['d_m']:.1f} m)", "habitat",
+                    Box(c[0] - 0.15, c[0] + 0.15, c[1] - 0.15, c[1] + 0.15, c[2] - 0.15, c[2] + 0.15), wmass(f["d_m"]), WM["prov"], "frame", tags=nr)
+        fdc = CL.get("flight_deck", {}).get("columns")
+        if fdc:
+            fd = CL["flight_deck"]
+            Lc = d1["x_m"][1] - fd["x_m"][1]
+            m1 = math.pi / 4 * (fdc["od_m"] ** 2 - (fdc["od_m"] - 2 * fdc["wall_m"]) ** 2) * Lc * fdc["density_t_m3"] * fdc["fittings_factor"]
+            for k, (y, z) in enumerate(fdc["positions_yz_m"]):
+                add(f"flight_deck_column_{k}", "Flight-deck column", "habitat", Tube((fd["x_m"][1], y, z), (d1["x_m"][1], y, z), fdc["od_m"] / 2),
+                    m1, fdc["prov"], "frame", tags=rt)
+        iso = CS.get("l4_l5_isolation")
+        if iso:
+            d4 = next(d for d in decks if d["id"] == "L4")
+            fx = d4["x_m"][1]
+            for h in iso["hatches"]:
+                lw = next(l for l in hab["ladderways"] if l["theta_deg"] == h["ladderway_theta_deg"])
+                y, z = lw["r_m"] * math.cos(math.radians(lw["theta_deg"])), lw["r_m"] * math.sin(math.radians(lw["theta_deg"]))
+                hs = iso["hatch_size_m"] / 2
+                add(f"hatch_L4L5_{lw['theta_deg']}", f"L4/L5 pressure hatch at the {lw['theta_deg']} deg ladderway", "habitat",
+                    Box(fx, fx + 0.06, y - hs, y + hs, z - hs, z + hs), iso["hatch_t"], iso["prov"], "hatch", tags=rt)
+            add("trunk_plug_L4L5", "Trunk pressure plug with lift hatch and feedthroughs (L4/L5)", "habitat",
+                Sector(fx, fx + hab["floor_thickness_m"], 0.0, hab["core_r_m"]), iso["trunk_plug_t"], iso["prov"], "bulkhead", tags=nr)
+        for rm in [r for d in decks for r in d["rooms"] if r.get("entrance", {}).get("closure_mass_t")]:
+            e = rm["entrance"]
+            d = next(d for d in decks if rm in d["rooms"])
+            th = math.radians(e["center_deg"])
+            y, z = e["at_r_m"] * math.cos(th), e["at_r_m"] * math.sin(th)
+            add(f"doors_{rm['id']}", f"{rm['name']}: bi-parting sliding doors", "habitat",
+                Box(d["x_m"][0], d["x_m"][1], y - 0.1, y + 0.1, z - 0.1, z + 0.1), e["closure_mass_t"], e["change_prov"], "door", tags=nr)
+        sb = CS.get("shelter_backup")
+        if sb:
+            d4 = next(d for d in decks if d["id"] == "L4")
+            sh = next(r for r in d4["rooms"] if r["kind"] == "shelter")
+            th = math.radians(sum(sh["theta_deg"]) / 2)
+            xm = sum(d4["x_m"]) / 2
+            add("shelter_backup", "Storm shelter 72 h stored life support (O2, LiOH, food, battery)", "habitat",
+                Box(xm - 0.2, xm + 0.2, 3.0 * math.cos(th) - 0.2, 3.0 * math.cos(th) + 0.2, 3.0 * math.sin(th) - 0.2, 3.0 * math.sin(th) + 0.2),
+                sb["mass_t"], sb["prov"], "equipment", tags=nr)
+        if CS.get("rescue_kit_t"):
+            th = math.radians(230)
+            xm = sum(next(d for d in decks if d["id"] == "L4")["x_m"]) / 2
+            add("rescue_kit", "Litter, vertical-lift harness, rope system and hoist points", "habitat",
+                Box(xm - 0.15, xm + 0.15, 3.5 * math.cos(th) - 0.15, 3.5 * math.cos(th) + 0.15, 3.5 * math.sin(th) - 0.15, 3.5 * math.sin(th) + 0.15),
+                CS["rescue_kit_t"], CS["prov"], "equipment", tags=nr)
+        dv = CS.get("docking_view")
+        if dv:
+            for k, cam in enumerate(dv["cameras"]):
+                x, y, z = cam["pos_m"]
+                add(f"docking_camera_{k}", f"Docking camera: {cam['name']}", "service", Box(x - 0.1, x + 0.1, y - 0.1, y + 0.1, z - 0.1, z + 0.1),
+                    dv["cameras_t"] / len(dv["cameras"]), dv["prov"], "rcs", tags=rt)
     n_dist = len([d for d in decks])
     for d in decks:
         x0, x1 = d["x_m"]
-        add(f"outfit_{d['id']}", f"{d['id']} distributed outfitting", "habitat", Sector(x0, x1, hab["usable_r_m"] - 0.1, hab["usable_r_m"]),
+        orr = hab.get("outfit_r_by_deck_m", {}).get(d["id"], [hab["usable_r_m"] - 0.1, hab["usable_r_m"]])
+        add(f"outfit_{d['id']}", f"{d['id']} distributed outfitting", "habitat", Sector(x0, x1, orr[0], orr[1]),
             hab["distributed_outfitting_t"] / n_dist, "ENGINEERING_ASSUMPTION", "outfit")
+    bs = hab.get("berth_shield")
+    if bs:
+        jacket_parts.append(("berth_ring", Sector(bs["x_m"][0], bs["x_m"][1], bs["r_m"][0], bs["r_m"][1], bs["theta_deg"][0], bs["theta_deg"][1])))
+        for k, cl in enumerate(bs.get("floor_collars", [])):
+            jacket_parts.append(("berth_ring", Sector(cl["x_m"][0], cl["x_m"][1], cl["r_m"][0], cl["r_m"][1], cl["theta_deg"][0], cl["theta_deg"][1])))
     jacket_vol = sum(sh.volume() for _, sh in jacket_parts)
     # --- service region
     sv = I["service"]
@@ -602,8 +714,12 @@ def build(I, dy=0.0, dz=0.0):
         Frustum(H["shield_x_m"][0], H["shield_x_m"][1], Ro - 0.1, H["shield_r_m"] + 0.2, 0.06), SS["thrust_cone"],
         "ENGINEERING_ASSUMPTION", "thrust_cone")
     # --- midship equipment
-    add("electrical", "Electrical conversion and distribution", "electrical",
-        CSlot(tx1, mx1, T["r_in_m"], T["r_out_m"], T["slot_half_width_m"]), L["electrical_t"], "CANON_MASS_DESIGN_POSITION", "equipment")
+    es = L["electrical_split"]
+    add("electrical", "Electrical conversion and distribution (aft C-ring)", "electrical",
+        CSlot(tx1, mx1, T["r_in_m"], T["r_out_m"], T["slot_half_width_m"]), es["aft_c_ring"], es["prov"], "equipment")
+    er = I["service"]["electrical_ring"]
+    add("electrical_fwd", "Electrical conversion and distribution (service ring)", "electrical",
+        Sector(er["x_m"][0], er["x_m"][1], er["r_m"][0], er["r_m"][1], er["theta_deg"][0], er["theta_deg"][1]), es["service_ring"], es["prov"], "equipment")
     add("plant_aft", "Relational plant, aft block", "plant", Sector(mx1, H["manifold_x_m"][1], 0.0, pf["r_m"]),
         I["ledger"]["relational_plant_t"] - pf["mass_t"], "DERIVED", "plant")
     add("manifold", "Radiator manifold, pumps and heat exchangers", "thermal",
@@ -613,6 +729,19 @@ def build(I, dy=0.0, dz=0.0):
         add(f"strake_{a}", f"Radiator strake {a} deg (stowed)", "thermal",
             Panel(R["x_m"][0], R["x_m"][1], a, R["root_r_m"] - g["depth_m"], g["depth_m"], g["width_m"]),
             L["radiator_panels_t"] / 4, R["prov"], "radiator", tags=("strake",))
+    # --- hot fins aft of the shield (v0.5.2): paid from the engineering reserve, folded except in torch burns
+    HF = I.get("hot_fins")
+    if HF:
+        nf = len(HF["azimuths_deg"])
+        fx0, fx1 = HF["x_m"]
+        panels_t = 2 * nf * (fx1 - fx0) * HF["pleat_m"] * HF["pleats"] * HF["kg_per_m2_face"] / 1000
+        for a in HF["azimuths_deg"]:
+            add(f"hotfin_{a}", f"Hot fin {a} deg (folded)", "thermal",
+                Panel(fx0, fx1, a, HF["root_r_m"], HF["pleat_m"], HF["stowed_stack_thickness_m"]),
+                panels_t / nf, HF["prov"], "hotfin", tags=("fin", "from_reserve"))
+            add(f"hotfin_root_{a}", f"Hot fin {a} deg root truss, fold-out drive and hot loop", "thermal",
+                Panel(HF["x_m"][0] + 5.0, fx1, a, 3.0, HF["root_r_m"] - 3.0, 0.3),
+                HF["allowance_t"] / nf, HF["allowance_prov"], "radiator", tags=("from_reserve",))
     # --- RCS
     for c in I["rcs"]["clusters"]:
         y, z = c["r_m"] * math.cos(math.radians(c["theta_deg"])), c["r_m"] * math.sin(math.radians(c["theta_deg"]))
@@ -643,7 +772,7 @@ def build(I, dy=0.0, dz=0.0):
                 dr["mass_t"], I["drones"]["prov"], "drone", tags=("drone",))
             k += 1
     # --- engineering reserve: spread over the dry parts in proportion to mass
-    dry_parts = [p for p in parts if p.dry]
+    dry_parts = [p for p in parts if p.dry and "from_reserve" not in p.tags]
     base = sum(p.mass_t for p in dry_parts)
     for p in dry_parts:
         p.mass_t *= 1 + L["engineering_reserve_t"] / base
@@ -673,8 +802,9 @@ def fluids(I, sec, jacket_parts, jacket_t, w_service, state):
     out = []
     jv = sum(sh.volume() for _, sh in jacket_parts)
     for nm, sh in jacket_parts:
-        out.append(Part(f"jacket_{nm}", f"Storm-shelter water jacket ({nm})", "water", sh, jacket_t * sh.volume() / jv,
-                        "DERIVED (protected water)", "water", dry=False, tags=("water", "protected")))
+        label = ("L3 berth shield ring (8 cm water)" if sh.r1 - sh.r0 < 0.1 else "L3 berth shield collar at the floor edge (12 cm water)") if nm == "berth_ring" else f"Storm-shelter water jacket ({nm})"
+        out.append(Part(f"jacket_{nm}", label, "water", sh, jacket_t * sh.volume() / jv,
+                        "DERIVED (protected water)", "water", dry=False, tags=("water", "protected") + (("berth_shield",) if nm == "berth_ring" else ())))
     tank = sec["protected_water_tank"]
     if w_service > 0:
         f = w_service / (tank.volume() / (1 + I["protected_water"]["service_tank_ullage_fraction"]))
@@ -682,7 +812,9 @@ def fluids(I, sec, jacket_parts, jacket_t, w_service, state):
                         w_service, "DERIVED (protected water)", "water", dry=False, tags=("water", "protected")))
     w_ctank_protected = I["canon"]["protected_water_t"] - jacket_t - w_service
     remass = st["remass_t"]
-    vol = {n: c.volume() for n, c in cells.items()}
+    gross = {n: c.volume() for n, c in cells.items()}
+    net_f = 1 - tank_structure(I, sum(gross.values()))["displaced_m3"] / sum(gross.values())
+    vol = {n: v * net_f for n, v in gross.items()}
     tot = sum(vol.values())
     iso = st.get("isolated_cell")
     for n, c in cells.items():
@@ -743,12 +875,26 @@ def features(I, rooms):
                 nrm = [0.0, math.cos(math.radians(th)), math.sin(math.radians(th))]
             pos = [x, rr * math.cos(math.radians(th)), rr * math.sin(math.radians(th))]
             out.append({"kind": "window", "room": r["id"], "pos": pos, "normal": nrm, "d_m": F["window_d_m"].get(r["kind"], 0.5)})
+    for d in I["habitat"]["decks"]:
+        for w in d.get("command_layout", {}).get("forward_windows", []):
+            y, z = w["yz_m"]
+            rr = math.hypot(y, z)
+            u = math.sqrt(max(0.0, 1 - (rr / Ro) ** 2))
+            x = xb - (xb - xa) * u
+            gx, gr = -u / (xb - xa), rr / Ro ** 2           # outward normal of the ellipsoidal cap
+            Ln = math.hypot(gx, gr)
+            nrm = [gx / Ln, gr / Ln * (y / rr if rr else 0.0), gr / Ln * (z / rr if rr else 0.0)]
+            out.append({"kind": "window", "room": d["rooms"][0]["id"], "pos": [x, y, z], "normal": nrm, "d_m": w["d_m"], "forward": True})
     for r in rooms:
         if r["kind"] == "airlock":
             th = math.radians(sum(r["theta_deg"]) / 2)
             x = sum(r["x_m"]) / 2
             out.append({"kind": "hatch", "room": r["id"], "pos": [x, Ro * math.cos(th), Ro * math.sin(th)],
                         "normal": [0, math.cos(th), math.sin(th)], "d_m": F["airlock_hatch_d_m"]})
+    for cam in I["habitat"].get("crew_systems", {}).get("docking_view", {}).get("cameras", []):
+        x, y, z = cam["pos_m"]
+        r = math.hypot(y, z) or 1.0
+        out.append({"kind": "camera", "name": cam["name"], "pos": [x, y, z], "normal": [0.0, y / r, z / r], "d_m": 0.2})
     for k, v in I["service"]["sectors"].items():
         if k.startswith("hold"):
             th = math.radians(sum(v["theta_deg"]) / 2)
@@ -756,6 +902,80 @@ def features(I, rooms):
             out.append({"kind": "hold_door", "sector": k, "pos": [x, Ro * math.cos(th), Ro * math.sin(th)],
                         "normal": [0, math.cos(th), math.sin(th)], "size_m": F["hold_door_m"]})
     return out
+
+
+def plate_beta(ab, nu=0.3, N=199):
+    """Simply supported a x b plate (a >= b) under uniform pressure q: sigma_max = beta q b^2 / t^2.
+    Navier double series at the centre (Timoshenko and Woinowsky-Krieger); 1.0 -> 0.2874, long -> 0.75 (Roark 11.4 case 1a)."""
+    a, b = max(ab, 1.0), 1.0
+    mx = my = 0.0
+    for m in range(1, N + 1, 2):
+        for n in range(1, N + 1, 2):
+            k = 16 / (math.pi ** 6 * m * n * (m * m / a ** 2 + n * n / b ** 2) ** 2) * (-1) ** ((m - 1) // 2 + (n - 1) // 2)
+            wxx, wyy = k * (m * math.pi / a) ** 2, k * (n * math.pi / b) ** 2
+            mx += wxx + nu * wyy
+            my += wyy + nu * wxx
+    return 6 * max(mx, my)
+
+
+def tank_structure(I, gross_m3):
+    """Size the tank's walls, tie-webs, baffles and bulkheads for the ultimate hydrostatic head plus ullage pressure.
+    Returns the panel table, the structural mass needed and the water volume the structure displaces."""
+    TS, T, M = I["tank_structure"], I["tanks"], I["materials"]
+    sig, rho = M["cfrp_allowable_mpa"] * 1e6, M["cfrp_density_t_m3"]
+    ro, ri, hw = T["r_out_m"], T["r_in_m"], T["slot_half_width_m"]
+    L = T["x_m"][1] - T["x_m"][0]
+    h = L / 2                                          # head of one fore/aft cell along the thrust axis
+    p = TS["ultimate_factor"] * (1000 * 9.80665 * TS["design_g"] * h + TS["ullage_mpa"] * 1e6)
+    g = T["groove"]
+    span_o = 360 - (180 - 2 * math.degrees(math.acos(hw / ro)))
+    span_i = 360 - (180 - 2 * math.degrees(math.acos(min(1.0, hw / ri))))
+    arc_o, arc_i = math.radians(span_o) * ro, math.radians(span_i) * ri
+    zo, zi = math.sqrt(ro ** 2 - hw ** 2), math.sqrt(max(ri ** 2 - hw ** 2, 0.0))
+    sill_z = next(it["z_m"] for it in I["longerons"]["items"] if it["kind"] == "tube" and it["z_m"] > 0)
+    A_sec = gross_m3 / L
+    depth = ro - ri
+    sw, bs, mg = TS["web_spacing_outer_m"], TS["baffle_spacing_m"], TS["min_gauge_mm"] / 1000
+    of, allow = TS["perforated_open_fraction"], TS["model_wall_allowance_m"]
+
+    def thick(a, b):
+        a, b = max(a, b), min(a, b)
+        return max(mg, b * math.sqrt(plate_beta(a / b, TS["nu"]) * p / sig)), a / b
+
+    rows = []
+
+    def add(name, area, t, displaced, solid=1.0, note=""):
+        rows.append({"item": name, "area_m2": area, "t_mm": t * 1000, "mass_t": area * t * rho * solid, "displaced_m3": displaced, "note": note})
+
+    t, r = thick(bs, sw)
+    add("outer wall", arc_o * L + 4 * 2 * g["depth_m"] * L, t, (arc_o * L) * max(0.0, t - allow), note=f"panels {sw} x {bs} m between tie-webs and baffles")
+    t, r = thick(bs, sw * ri / ro)
+    add("inner wall", arc_i * L, t, arc_i * L * max(0.0, t - allow), note=f"panels {sw * ri / ro:.2f} x {bs} m")
+    t, r = thick(bs, max(sill_z - zi, zo - sill_z))
+    add("slot walls (2)", 2 * (zo - zi) * L, t, 2 * (zo - zi) * L * t, note=f"supported at the inner corner, the sill longeron and the outer corner; panels {bs} x {max(sill_z - zi, zo - sill_z):.2f} m")
+    t, r = thick(depth, sw)
+    add("solid bulkheads (fore, mid, aft)", 3 * A_sec, t, 3 * A_sec * t, note=f"panels {sw} x {depth:.2f} m between tie-webs")
+    t, r = thick(depth, bs)
+    add("keel cell wall", depth * L, t, depth * L * t, note=f"port/starboard cell split; panels {bs} x {depth:.2f} m")
+    n_web = int(arc_o / sw)
+    t_web = max(mg, p * sw / (sig * (1 - of)))
+    add(f"radial tie-webs ({n_web}, perforated)", n_web * depth * L, t_web, n_web * depth * L * t_web * (1 - of), 1 - of,
+        note=f"tension {p * sw / 1e6:.2f} MN/m each")
+    n_baf = max(0, int(round(L / bs)) - 2)
+    t_b = TS["intermediate_baffle_mm"] / 1000
+    add(f"ring baffles ({n_baf}, perforated)", n_baf * A_sec, t_b, n_baf * A_sec * t_b * (1 - of), 1 - of)
+    mass = sum(r_["mass_t"] for r_ in rows)
+    disp = sum(r_["displaced_m3"] for r_ in rows)
+    # axial: the aft bulkhead pushes the water's inertia into the walls; check wall stress and panel buckling
+    perim = arc_o + arc_i + 2 * (zo - zi)
+    wall_area = sum(rr["area_m2"] / L * rr["t_mm"] / 1000 for rr in rows[:3])
+    Fax = p * A_sec
+    sig_ax = Fax / wall_area
+    tmin = min(rows[0]["t_mm"], rows[1]["t_mm"]) / 1000
+    E = M["cfrp_e_gpa"] * 1e9
+    sig_cr = 4 * math.pi ** 2 * E / (12 * (1 - TS["nu"] ** 2)) * (tmin / sw) ** 2
+    return {"ultimate_pressure_mpa": p / 1e6, "panels": rows, "mass_needed_t": mass, "displaced_m3": disp,
+            "axial_wall_stress_mpa": sig_ax / 1e6, "panel_buckling_mpa": sig_cr / 1e6, "perimeter_m": perim}
 
 
 def snames(I):
@@ -812,12 +1032,31 @@ def main():
         states[s] = {**st, **mp, "principal_kg_m2": ev, "principal_axes": evec, "trim_deg": t, "lateral_offset_m": e,
                      "usable_remass_t": usable, "water_t": sum(p.mass_t for p in ps if "water" in p.tags),
                      "parts": [p.id for p in ps]}
+    # hot fins deployed (torch burns): same mass, panels unfolded to full span
+    HF = I.get("hot_fins")
+    fins_out = None
+    if HF:
+        span_dep = HF["pleat_m"] * HF["pleats"]
+        for s in snames(I):
+            ps, *_ = state_parts(I, parts, sec, jacket_parts, jacket_t, w_service, s)
+            dep = [Part(p.id + "_deployed", p.name.replace("(folded)", "(deployed)"), p.system,
+                        Panel(p.shape.x0, p.shape.x1, p.shape.a, p.shape.r0, span_dep, 0.06), p.mass_t, p.prov, p.mat, tags=p.tags)
+                   if "fin" in p.tags else p for p in ps]
+            mpd = mass_props(dep)
+            evd, evecd = eig_sym3(mpd["inertia_kg_m2"])
+            states[s]["fins_deployed"] = {"cg_m": mpd["cg_m"], "inertia_kg_m2": mpd["inertia_kg_m2"], "principal_kg_m2": evd,
+                                          "principal_axes": evecd, "trim_deg": trim_deg(I, mpd, DY, DZ)[0]}
+        fins_out = {"span_m": span_dep, "panels_t": sum(p.mass_t for p in parts if "fin" in p.tags),
+                    "total_t": sum(p.mass_t for p in parts if "from_reserve" in p.tags), "temperature_k": HF["temperature_k"],
+                    "azimuths_deg": HF["azimuths_deg"], "root_r_m": HF["root_r_m"], "x_m": HF["x_m"]}
     dry = sum(p.mass_t for p in parts if p.dry)
     by_system = {}
     for p in parts:
         by_system[p.system] = by_system.get(p.system, 0.0) + p.mass_t
     ref_parts, cells, _, wcp = state_parts(I, parts, sec, jacket_parts, jacket_t, w_service, "S1")
-    tank_vol = sum(c.volume() for c in cells.values())
+    tank_gross = sum(c.volume() for c in cells.values())
+    ts = tank_structure(I, tank_gross)
+    tank_vol = tank_gross - ts["displaced_m3"]
 
     def pjson(p):
         c, _, n = p.moments()
@@ -830,15 +1069,19 @@ def main():
         all_water[s] = [pjson(p) for p in ps if not p.dry]
     out = {
         "header": "ALL bodies. ALL sponsors. 2026-2226.",
-        "status": "NON-GOVERNING SANDBOX. Wayfarer v0.5 geometry and mass properties.",
+        "status": f"NON-GOVERNING SANDBOX. Wayfarer v{I['version']} geometry and mass properties.",
         "features": features(I, rooms),
+        "window_bore": I["features"].get("window_bore"),
         "version": I["version"], "inputs_sha256": hashlib.sha256(raw).hexdigest(),
         "length_m": I["hull"]["length_m"], "dry_t": dry,
         "dry_by_system_t": by_system,
-        "protected_water": {"jacket_t": jacket_t, "service_tank_t": w_service, "c_tank_t": I["canon"]["protected_water_t"] - jacket_t - w_service,
+        "protected_water": {"jacket_t": jacket_t, "berth_shield_t": sum(sh.volume() for nm, sh in jacket_parts if nm == "berth_ring"),
+                            "shelter_jacket_t": sum(sh.volume() for nm, sh in jacket_parts if nm != "berth_ring"), "service_tank_t": w_service, "c_tank_t": I["canon"]["protected_water_t"] - jacket_t - w_service,
                             "service_tank_capacity_t": tank_cap, "chosen_to_minimise_worst_trim_deg": best[1]},
         "thrust_line_offset_m": {"y": DY, "z": DZ, "torch_chain_t": m_chain},
-        "tank_volume_m3": tank_vol, "tank_cells_m3": {n: c.volume() for n, c in cells.items()},
+        "hot_fins": fins_out,
+        "tank_volume_m3": tank_vol, "tank_volume_gross_m3": tank_gross, "tank_structure": ts,
+        "tank_cells_m3": {n: c.volume() for n, c in cells.items()},
         "service_sectors_m3": {k: v.volume() for k, v in sec.items() if not k.startswith("_")},
         "parts": [pjson(p) for p in parts],
         "fluids_by_state": all_water,
@@ -869,7 +1112,7 @@ def shape_from_spec(s):
         sh = CSlot(s["x0"], s["x1"], s["r0"], s["r1"], s["hw"], s.get("grooves", ()), s.get("gw", 0.0), s.get("gd", 0.0),
                    s.get("side", 0), s.get("holes", ()))
     elif k == "domecyl":
-        sh = DomeCyl(s["xa"], s["xb"], s["xc"], s["R"], s["t"], s.get("xs"))
+        sh = DomeCyl(s["xa"], s["xb"], s["xc"], s["R"], s["t"], s.get("xs"), s.get("rin", 0.0), s.get("gaps", ()))
     elif k == "frustum":
         sh = Frustum(s["x0"], s["x1"], s["r0"], s["r1"], s["t"])
     elif k == "tube":

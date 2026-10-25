@@ -9,7 +9,7 @@
   {
    "id": "ext_hero",
    "kind": "exterior",
-   "title": "Wayfarer v0.5, arriving at Neptune",
+   "title": "Wayfarer, arriving at Neptune",
    "caption": "Radiators stowed, bay doors shut. The slot along the top is the shuttle's way out.",
    "eye": [
     -22,
@@ -37,7 +37,7 @@
    "show": "exterior",
    "labels": [
     {
-     "t": "Habitat, 5 decks, 16 windows",
+     "t": "Habitat, 5 decks, 14 windows",
      "at": [
       5,
       -3.0,
@@ -107,6 +107,18 @@
       40,
       -40
      ]
+    },
+    {
+     "t": "Hot fin (folded)",
+     "at": [
+      47,
+      -4.6,
+      3.9
+     ],
+     "off": [
+      60,
+      60
+     ]
     }
    ],
    "exposure": 0.85
@@ -114,19 +126,19 @@
   {
    "id": "ext_burn",
    "kind": "exterior",
-   "title": "Torch burn, radiators fully out",
-   "caption": "Four accordion strakes at full 24 m span glow at 1,300 K to carry torch heat. Up to 5 g; everyone is in a couch.",
+   "title": "Torch burn, hot fins out",
+   "caption": "Four hot fins unfold aft of the shield on the strake lines and glow at 1,750 K, carrying 1.4 GW of torch heat; the strakes open just 4 m for the magnet coils' cooling. Up to 5 g; everyone is in a couch.",
    "eye": [
-    78,
-    -50,
-    -34
+    92,
+    -58,
+    -40
    ],
    "target": [
-    28,
+    34,
     0,
-    1
+    7
    ],
-   "fov": 44,
+   "fov": 48,
    "sun": [
     -0.4,
     0.75,
@@ -140,21 +152,33 @@
    ],
    "planetR": 900,
    "show": "exterior",
-   "strakeSpan": 24,
+   "strakeSpan": 4,
    "plume": true,
    "hot": 1.0,
    "exposure": 0.9,
    "labels": [
     {
-     "t": "Strakes at 1,300 K, 24 m span",
+     "t": "Hot fins, 1,750 K, 28 m",
      "at": [
-      23,
-      -18,
-      -14
+      46,
+      -16.5,
+      -13.8
      ],
      "off": [
-      0,
-      60
+      60,
+      50
+     ]
+    },
+    {
+     "t": "Strakes, 4 m out for coil cooling",
+     "at": [
+      24,
+      -6.0,
+      -5.0
+     ],
+     "off": [
+      -40,
+      70
      ]
     },
     {
@@ -177,12 +201,85 @@
       -4.5
      ],
      "off": [
-      -30,
-      50
+      -60,
+      40
      ]
     }
    ],
-   "plumeI": 0.55
+   "plumeI": 0.55,
+   "finSpan": 28
+  },
+  {
+   "id": "ext_aft",
+   "kind": "exterior",
+   "title": "From aft: fins and the shuttle lane",
+   "caption": "Looking forward past the nozzle. The four hot fins sit on the strake lines, edge-on to the burn; the two on the slot side stand 1.05 m clear of the slot edge lines, leaving the shuttle a clear lane straight up.",
+   "eye": [
+    118,
+    -30,
+    30
+   ],
+   "target": [
+    36,
+    0,
+    2
+   ],
+   "fov": 34,
+   "sun": [
+    -0.5,
+    0.55,
+    0.65
+   ],
+   "planet": true,
+   "planetC": [
+    -1800,
+    900,
+    -1300
+   ],
+   "planetR": 900,
+   "show": "exterior",
+   "strakeSpan": 4,
+   "finSpan": 28,
+   "hot": 0.85,
+   "exposure": 0.9,
+   "labels": [
+    {
+     "t": "Shuttle lane (slot side)",
+     "at": [
+      36,
+      0,
+      12
+     ],
+     "off": [
+      -30,
+      -70
+     ]
+    },
+    {
+     "t": "Hot fin, edge-on to the burn",
+     "at": [
+      46,
+      16.5,
+      13.8
+     ],
+     "off": [
+      40,
+      -40
+     ]
+    },
+    {
+     "t": "Magnetic nozzle",
+     "at": [
+      52,
+      0,
+      -3.0
+     ],
+     "off": [
+      60,
+      60
+     ]
+    }
+   ]
   },
   {
    "id": "ext_profile",
@@ -303,6 +400,18 @@
      "off": [
       60,
       130
+     ]
+    },
+    {
+     "t": "Hot fins (folded)",
+     "at": [
+      46,
+      -3.7,
+      -4.4
+     ],
+     "off": [
+      40,
+      90
      ]
     }
    ],
@@ -886,6 +995,588 @@
     }
    ],
    "exposure": 0.95
+  },
+  {
+   "id": "cmd_cutaway",
+   "kind": "command",
+   "title": "L1 command deck, layout D",
+   "caption": "Cut away on the port side, bow up. Under thrust everyone lies on their back facing the bow, so up to 5 g presses them into the couch. S2 and S3 sit on the cut-away side.",
+   "eye": [
+    -1.0,
+    -7.6,
+    -2.0
+   ],
+   "target": [
+    1.55,
+    0.25,
+    0.15
+   ],
+   "up": [
+    -1,
+    0,
+    0
+   ],
+   "fov": 34,
+   "sun": [
+    -0.45,
+    0.35,
+    0.82
+   ],
+   "show": "command",
+   "cmd": true,
+   "holes": true,
+   "windowFrames": true,
+   "clip": [
+    0,
+    -1,
+    0,
+    -1.0
+   ],
+   "lights": [
+    {
+     "at": [
+      1.0,
+      1.2,
+      1.4
+     ],
+     "c": [
+      1.6,
+      1.55,
+      1.45
+     ]
+    },
+    {
+     "at": [
+      1.9,
+      0.6,
+      -2.0
+     ],
+     "c": [
+      1.4,
+      1.35,
+      1.3
+     ]
+    }
+   ],
+   "planet": false,
+   "exposure": 1.0,
+   "labels": [
+    {
+     "t": "PILOT and NAV",
+     "at": [
+      0.85,
+      -0.45,
+      0.3
+     ],
+     "off": [
+      -150,
+      -80
+     ]
+    },
+    {
+     "t": "Flight deck, 1.78 m above the floor",
+     "at": [
+      1.275,
+      -0.85,
+      -0.9
+     ],
+     "off": [
+      -200,
+      40
+     ]
+    },
+    {
+     "t": "8 nose windows",
+     "at": [
+      0.1,
+      0.45,
+      0.9
+     ],
+     "off": [
+      90,
+      -60
+     ]
+    },
+    {
+     "t": "Sensor ring at the shoulder",
+     "at": [
+      1.5,
+      0.0,
+      3.45
+     ],
+     "off": [
+      60,
+      -70
+     ]
+    },
+    {
+     "t": "Support couch S1",
+     "at": [
+      2.65,
+      1.4,
+      3.0
+     ],
+     "off": [
+      60,
+      70
+     ]
+    },
+    {
+     "t": "Support couch S4",
+     "at": [
+      2.65,
+      3.0,
+      -1.6
+     ],
+     "off": [
+      -60,
+      90
+     ]
+    },
+    {
+     "t": "Ladder down to L2",
+     "at": [
+      2.4,
+      1.4,
+      0.35
+     ],
+     "off": [
+      90,
+      80
+     ]
+    },
+    {
+     "t": "Columns carry the deck at 5 g",
+     "at": [
+      2.2,
+      -0.8,
+      -1.5
+     ],
+     "off": [
+      -120,
+      90
+     ]
+    },
+    {
+     "t": "Ladder up to the flight deck",
+     "at": [
+      2.6,
+      0.0,
+      -1.63
+     ],
+     "off": [
+      60,
+      110
+     ]
+    }
+   ],
+   "bore": {
+    "wall_m": 0.23,
+    "armour_m": 0.2,
+    "splay_deg": 12
+   },
+   "shadows": false
+  },
+  {
+   "id": "cmd_pov",
+   "kind": "command",
+   "title": "The pilot's view",
+   "caption": "From PILOT's eye, 0.55 m below the 0.8 m window, looking at the bow. Rings: the 60 and 90 deg cones the study scored. Openings splayed 12 deg through the 20 cm armour.",
+   "eye": [
+    0.775,
+    0.45,
+    0.45
+   ],
+   "target": [
+    -4,
+    0.45,
+    0.45
+   ],
+   "up": [
+    0,
+    0,
+    1
+   ],
+   "fov": 96,
+   "sun": [
+    -0.55,
+    0.35,
+    -0.76
+   ],
+   "planet": true,
+   "planetC": [
+    -2600,
+    950,
+    700
+   ],
+   "planetR": 1000,
+   "show": "command",
+   "cmd": true,
+   "cmdHideCrew": [
+    "PILOT"
+   ],
+   "holes": true,
+   "windowFrames": true,
+   "lights": [
+    {
+     "at": [
+      0.95,
+      0.0,
+      -0.2
+     ],
+     "c": [
+      0.22,
+      0.24,
+      0.28
+     ]
+    }
+   ],
+   "exposure": 1.2,
+   "cones": [
+    {
+     "half": 30,
+     "t": "60 deg"
+    },
+    {
+     "half": 45,
+     "t": "90 deg"
+    }
+   ],
+   "labels": [
+    {
+     "t": "PILOT's window, 0.8 m",
+     "at": [
+      0.23,
+      0.45,
+      0.82
+     ],
+     "off": [
+      0,
+      -50
+     ]
+    },
+    {
+     "t": "NAV's window",
+     "at": [
+      0.23,
+      -0.45,
+      0.6
+     ],
+     "off": [
+      -60,
+      -60
+     ]
+    },
+    {
+     "t": "PILOT's display",
+     "at": [
+      0.3,
+      0.45,
+      0.0
+     ],
+     "off": [
+      220,
+      -30
+     ]
+    }
+   ],
+   "near": 0.05,
+   "bore": {
+    "wall_m": 0.23,
+    "armour_m": 0.2,
+    "splay_deg": 12
+   }
+  },
+  {
+   "id": "ext_nose",
+   "kind": "command",
+   "title": "The nose, layout D",
+   "caption": "A Cupola-style cluster of 8 nose windows (2 x 0.8 m, 6 x 0.6 m) plus four shoulder windows: 14 on the ship. Shutters not yet sized.",
+   "eye": [
+    -12.5,
+    -8.0,
+    3.2
+   ],
+   "target": [
+    2.6,
+    0.4,
+    1.9
+   ],
+   "fov": 30,
+   "sun": [
+    -0.7,
+    0.45,
+    0.55
+   ],
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "exposure": 0.9,
+   "labels": [
+    {
+     "t": "8 nose windows",
+     "at": [
+      0.05,
+      -0.45,
+      0.45
+     ],
+     "off": [
+      -90,
+      -90
+     ]
+    },
+    {
+     "t": "Shoulder window (1 of 4)",
+     "at": [
+      1.25,
+      -2.81,
+      2.81
+     ],
+     "off": [
+      40,
+      -70
+     ]
+    }
+   ],
+   "bore": {
+    "wall_m": 0.23,
+    "armour_m": 0.2,
+    "splay_deg": 12
+   },
+   "holes": true,
+   "windowFrames": true,
+   "windowPanes": true
+  },
+  {
+   "id": "hab_crew",
+   "kind": "command",
+   "title": "Habitat crew systems",
+   "caption": "Cut along the ship's axis, bow up, walls left out: rooms show as coloured floors. Berths 2.10 m, one per person. A casualty moves at 0 g down the port ladder shaft and straight into the medical bay.",
+   "eye": [
+    2.2,
+    1.0,
+    14.5
+   ],
+   "target": [
+    9.0,
+    -1.6,
+    -0.6
+   ],
+   "up": [
+    -1,
+    0,
+    0
+   ],
+   "fov": 40,
+   "sun": [
+    -0.3,
+    0.5,
+    -0.8
+   ],
+   "show": "habitat",
+   "hab": true,
+   "roomsAsFloors": true,
+   "fluids": "S1",
+   "litter": true,
+   "route": true,
+   "clip": [
+    0,
+    0.174,
+    0.985,
+    0
+   ],
+   "shadows": false,
+   "planet": false,
+   "exposure": 1.0,
+   "lights": [
+    {
+     "at": [
+      6.0,
+      -1.5,
+      0.0
+     ],
+     "c": [
+      1.5,
+      1.45,
+      1.4
+     ]
+    },
+    {
+     "at": [
+      9.0,
+      -2.0,
+      -1.0
+     ],
+     "c": [
+      1.5,
+      1.45,
+      1.4
+     ]
+    },
+    {
+     "at": [
+      12.0,
+      -1.5,
+      0.5
+     ],
+     "c": [
+      1.2,
+      1.2,
+      1.2
+     ]
+    }
+   ],
+   "labels": [
+    {
+     "t": "L3: berths 2.10 m, one per person",
+     "at": [
+      7.6,
+      -1.2,
+      -3.4
+     ],
+     "off": [
+      150,
+      -50
+     ]
+    },
+    {
+     "t": "Berth water ring and floor-edge collar",
+     "at": [
+      7.0,
+      -1.41,
+      -3.86
+     ],
+     "off": [
+      170,
+      60
+     ]
+    },
+    {
+     "t": "Port ladder shaft: casualty route at 0 g",
+     "at": [
+      5.2,
+      -1.4,
+      0.0
+     ],
+     "off": [
+      -200,
+      -30
+     ]
+    },
+    {
+     "t": "Medical bay, opening moved to 202 deg",
+     "at": [
+      10.2,
+      -3.0,
+      0.0
+     ],
+     "off": [
+      -190,
+      40
+     ]
+    },
+    {
+     "t": "L4/L5 pressure hatch",
+     "at": [
+      10.8,
+      -1.4,
+      -0.3
+     ],
+     "off": [
+      -150,
+      90
+     ]
+    },
+    {
+     "t": "Central trunk",
+     "at": [
+      9.0,
+      0.0,
+      0.0
+     ],
+     "off": [
+      160,
+      -60
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ext_docking",
+   "kind": "exterior",
+   "title": "Docking view",
+   "caption": "Two cameras with lights at the docking collar give the final approach; the 0.4 m window in the L5 vestibule gives the crew a direct view of the approach corridor.",
+   "eye": [
+    -4.0,
+    -13.0,
+    -21.0
+   ],
+   "target": [
+    13.5,
+    0.0,
+    -3.0
+   ],
+   "fov": 28,
+   "sun": [
+    -0.5,
+    -0.5,
+    0.7
+   ],
+   "planet": true,
+   "planetC": [
+    600,
+    -900,
+    1200
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "holes": true,
+   "windowFrames": true,
+   "windowPanes": true,
+   "exposure": 0.9,
+   "labels": [
+    {
+     "t": "Docking collar",
+     "at": [
+      16.0,
+      0.0,
+      -4.95
+     ],
+     "off": [
+      110,
+      60
+     ]
+    },
+    {
+     "t": "Docking cameras",
+     "at": [
+      14.2,
+      0.0,
+      -4.6
+     ],
+     "off": [
+      -60,
+      100
+     ]
+    },
+    {
+     "t": "L5 vestibule window",
+     "at": [
+      12.45,
+      0.0,
+      -4.5
+     ],
+     "off": [
+      -130,
+      -40
+     ]
+    }
+   ]
   }
  ]
 }
