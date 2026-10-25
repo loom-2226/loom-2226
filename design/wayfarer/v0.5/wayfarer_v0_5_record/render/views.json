@@ -1,0 +1,891 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "Render views for Wayfarer v0.5 (VISUAL REFERENCE). Ship coordinates: x bow to aft, y starboard, z toward the shuttle slot.",
+ "size": [
+  1600,
+  900
+ ],
+ "views": [
+  {
+   "id": "ext_hero",
+   "kind": "exterior",
+   "title": "Wayfarer v0.5, arriving at Neptune",
+   "caption": "Radiators stowed, bay doors shut. The slot along the top is the shuttle's way out.",
+   "eye": [
+    -22,
+    -27,
+    15
+   ],
+   "target": [
+    22,
+    0,
+    -2
+   ],
+   "fov": 36,
+   "sun": [
+    -0.65,
+    0.55,
+    0.52
+   ],
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "labels": [
+    {
+     "t": "Habitat, 5 decks, 16 windows",
+     "at": [
+      5,
+      -3.0,
+      3.4
+     ],
+     "off": [
+      -40,
+      -60
+     ]
+    },
+    {
+     "t": "Bay doors over the slot",
+     "at": [
+      25,
+      0,
+      4.5
+     ],
+     "off": [
+      0,
+      -50
+     ]
+    },
+    {
+     "t": "Docking collar",
+     "at": [
+      16,
+      0,
+      -4.75
+     ],
+     "off": [
+      -20,
+      60
+     ]
+    },
+    {
+     "t": "Radiator strake (stowed)",
+     "at": [
+      28,
+      -3.7,
+      2.6
+     ],
+     "off": [
+      30,
+      60
+     ]
+    },
+    {
+     "t": "Shadow shield",
+     "at": [
+      36.8,
+      0,
+      3.0
+     ],
+     "off": [
+      0,
+      -50
+     ]
+    },
+    {
+     "t": "Magnetic nozzle",
+     "at": [
+      50,
+      0,
+      3.0
+     ],
+     "off": [
+      40,
+      -40
+     ]
+    }
+   ],
+   "exposure": 0.85
+  },
+  {
+   "id": "ext_burn",
+   "kind": "exterior",
+   "title": "Torch burn, radiators fully out",
+   "caption": "Four accordion strakes at full 24 m span glow at 1,300 K to carry torch heat. Up to 5 g; everyone is in a couch.",
+   "eye": [
+    78,
+    -50,
+    -34
+   ],
+   "target": [
+    28,
+    0,
+    1
+   ],
+   "fov": 44,
+   "sun": [
+    -0.4,
+    0.75,
+    0.5
+   ],
+   "planet": true,
+   "planetC": [
+    -1600,
+    -300,
+    1200
+   ],
+   "planetR": 900,
+   "show": "exterior",
+   "strakeSpan": 24,
+   "plume": true,
+   "hot": 1.0,
+   "exposure": 0.9,
+   "labels": [
+    {
+     "t": "Strakes at 1,300 K, 24 m span",
+     "at": [
+      23,
+      -18,
+      -14
+     ],
+     "off": [
+      0,
+      60
+     ]
+    },
+    {
+     "t": "Fusion exhaust",
+     "at": [
+      75,
+      0,
+      0
+     ],
+     "off": [
+      0,
+      -60
+     ]
+    },
+    {
+     "t": "Habitat",
+     "at": [
+      4,
+      0,
+      -4.5
+     ],
+     "off": [
+      -30,
+      50
+     ]
+    }
+   ],
+   "plumeI": 0.55
+  },
+  {
+   "id": "ext_profile",
+   "kind": "exterior",
+   "title": "Port side profile",
+   "caption": "53.3 m long, 9 m across the hull. Bow to the left.",
+   "eye": [
+    26.6,
+    -78,
+    1
+   ],
+   "target": [
+    26.6,
+    0,
+    0
+   ],
+   "fov": 31,
+   "sun": [
+    -0.3,
+    0.6,
+    0.75
+   ],
+   "planet": false,
+   "show": "exterior",
+   "strakeSpan": 0,
+   "labels": [
+    {
+     "t": "Habitat x 0-14",
+     "at": [
+      7,
+      -4.5,
+      -4.5
+     ],
+     "off": [
+      0,
+      60
+     ]
+    },
+    {
+     "t": "Service x 14-18",
+     "at": [
+      16,
+      -4.5,
+      -4.5
+     ],
+     "off": [
+      0,
+      95
+     ]
+    },
+    {
+     "t": "Tanks and bay x 18-32",
+     "at": [
+      25,
+      -4.5,
+      -4.5
+     ],
+     "off": [
+      0,
+      60
+     ]
+    },
+    {
+     "t": "Manifold",
+     "at": [
+      33.3,
+      -4.5,
+      -4.5
+     ],
+     "off": [
+      0,
+      95
+     ]
+    },
+    {
+     "t": "Shield",
+     "at": [
+      36.8,
+      -2.9,
+      2.6
+     ],
+     "off": [
+      0,
+      -70
+     ]
+    },
+    {
+     "t": "Reactor",
+     "at": [
+      42.8,
+      -2.2,
+      2.0
+     ],
+     "off": [
+      0,
+      -95
+     ]
+    },
+    {
+     "t": "Nozzle",
+     "at": [
+      50,
+      -2.6,
+      2.4
+     ],
+     "off": [
+      0,
+      -70
+     ]
+    },
+    {
+     "t": "Docking collar",
+     "at": [
+      16,
+      0,
+      -4.75
+     ],
+     "off": [
+      60,
+      130
+     ]
+    }
+   ],
+   "exposure": 0.85
+  },
+  {
+   "id": "ext_departure",
+   "kind": "exterior",
+   "title": "Shuttle departure",
+   "caption": "Doors stand up at the slot edges; the rover-drop shuttle backs off its nose port and rises straight out through the 4.8 m slot.",
+   "eye": [
+    2,
+    -27,
+    25
+   ],
+   "target": [
+    26,
+    0,
+    5
+   ],
+   "fov": 34,
+   "sun": [
+    -0.5,
+    0.45,
+    0.75
+   ],
+   "planet": true,
+   "planetC": [
+    2200,
+    2600,
+    -2400
+   ],
+   "planetR": 600,
+   "show": "exterior",
+   "doorsOpen": true,
+   "shuttleLift": 8.5,
+   "strakeSpan": 0,
+   "labels": [
+    {
+     "t": "Rover-drop shuttle, 12.8 m",
+     "at": [
+      25,
+      0,
+      10.4
+     ],
+     "off": [
+      0,
+      -60
+     ]
+    },
+    {
+     "t": "Door, open",
+     "at": [
+      20,
+      -2.5,
+      6.4
+     ],
+     "off": [
+      -80,
+      -30
+     ]
+    },
+    {
+     "t": "Wrap-around tank",
+     "at": [
+      29,
+      -4.4,
+      1
+     ],
+     "off": [
+      40,
+      60
+     ]
+    }
+   ],
+   "exposure": 0.85
+  },
+  {
+   "id": "ext_metric",
+   "kind": "exterior",
+   "title": "Metric HARD configuration",
+   "caption": "One 2 m pleat of each strake out: enough for Metric HARD. Field geometry radius 6.5 m.",
+   "eye": [
+    78,
+    -26,
+    22
+   ],
+   "target": [
+    30,
+    0,
+    0
+   ],
+   "fov": 34,
+   "sun": [
+    -0.55,
+    0.6,
+    0.6
+   ],
+   "planet": true,
+   "planetC": [
+    -900,
+    -700,
+    -800
+   ],
+   "planetR": 700,
+   "show": "exterior",
+   "strakeSpan": 2,
+   "hot": 0.35,
+   "labels": [
+    {
+     "t": "Strakes, one 2 m pleat out",
+     "at": [
+      24,
+      -5.6,
+      4.6
+     ],
+     "off": [
+      -60,
+      -50
+     ]
+    },
+    {
+     "t": "RCS cluster",
+     "at": [
+      44,
+      -2.9,
+      0
+     ],
+     "off": [
+      40,
+      60
+     ]
+    }
+   ],
+   "exposure": 0.85
+  },
+  {
+   "id": "cut_long",
+   "kind": "cutaway",
+   "title": "Cutaway along the axis",
+   "caption": "Cut through the centreline, looking from port. Water in blue (full tanks).",
+   "eye": [
+    26.6,
+    -56,
+    6
+   ],
+   "target": [
+    26.6,
+    0,
+    0
+   ],
+   "fov": 34,
+   "sun": [
+    -0.35,
+    0.55,
+    -0.75
+   ],
+   "clip": [
+    0,
+    -1,
+    0,
+    0
+   ],
+   "show": "cutaway",
+   "fluids": "S1",
+   "labels": [
+    {
+     "t": "Command",
+     "at": [
+      1.6,
+      0,
+      1.0
+     ],
+     "off": [
+      0,
+      -95
+     ]
+    },
+    {
+     "t": "Common",
+     "at": [
+      4.4,
+      0,
+      3.0
+     ],
+     "off": [
+      0,
+      -80
+     ]
+    },
+    {
+     "t": "Quarters",
+     "at": [
+      7.0,
+      0,
+      3.0
+     ],
+     "off": [
+      0,
+      -115
+     ]
+    },
+    {
+     "t": "Shelter / medical",
+     "at": [
+      9.6,
+      0,
+      3.0
+     ],
+     "off": [
+      0,
+      -80
+     ]
+    },
+    {
+     "t": "Mission / EVA",
+     "at": [
+      12.2,
+      0,
+      3.0
+     ],
+     "off": [
+      0,
+      -115
+     ]
+    },
+    {
+     "t": "Plant (fore)",
+     "at": [
+      15.5,
+      0,
+      0.5
+     ],
+     "off": [
+      0,
+      95
+     ]
+    },
+    {
+     "t": "Shuttle",
+     "at": [
+      25,
+      0,
+      0
+     ],
+     "off": [
+      0,
+      -80
+     ]
+    },
+    {
+     "t": "Water",
+     "at": [
+      24,
+      0,
+      -3.4
+     ],
+     "off": [
+      0,
+      80
+     ]
+    },
+    {
+     "t": "Plant (aft)",
+     "at": [
+      33.3,
+      0,
+      0.5
+     ],
+     "off": [
+      0,
+      95
+     ]
+    },
+    {
+     "t": "Shield",
+     "at": [
+      36.8,
+      0,
+      1.5
+     ],
+     "off": [
+      0,
+      -80
+     ]
+    },
+    {
+     "t": "Reactor",
+     "at": [
+      42.8,
+      0,
+      1.2
+     ],
+     "off": [
+      0,
+      -80
+     ]
+    },
+    {
+     "t": "Nozzle",
+     "at": [
+      50,
+      0,
+      2.0
+     ],
+     "off": [
+      0,
+      -80
+     ]
+    }
+   ],
+   "exposure": 0.95
+  },
+  {
+   "id": "cut_hab",
+   "kind": "cutaway",
+   "title": "Habitat cutaway",
+   "caption": "Five decks, aft is down under thrust. Crew cabins blue, guest cabins violet, storm shelter dark blue.",
+   "eye": [
+    6.5,
+    -27,
+    9
+   ],
+   "target": [
+    8.5,
+    0,
+    -0.5
+   ],
+   "fov": 36,
+   "sun": [
+    -0.35,
+    0.65,
+    -0.65
+   ],
+   "clip": [
+    0,
+    -1,
+    0,
+    0
+   ],
+   "show": "cutaway",
+   "fluids": "S1",
+   "labels": [
+    {
+     "t": "L1 Command",
+     "at": [
+      1.4,
+      0,
+      0.5
+     ],
+     "off": [
+      -60,
+      -200
+     ]
+    },
+    {
+     "t": "L2 Common",
+     "at": [
+      4.45,
+      0,
+      2.6
+     ],
+     "off": [
+      0,
+      -140
+     ]
+    },
+    {
+     "t": "L3 Quarters",
+     "at": [
+      7.05,
+      0,
+      3.1
+     ],
+     "off": [
+      0,
+      -110
+     ]
+    },
+    {
+     "t": "L4 Storm shelter",
+     "at": [
+      9.65,
+      0,
+      2.9
+     ],
+     "off": [
+      0,
+      -140
+     ]
+    },
+    {
+     "t": "L4 Medical",
+     "at": [
+      9.65,
+      0,
+      -2.6
+     ],
+     "off": [
+      0,
+      120
+     ]
+    },
+    {
+     "t": "L5 Workshop",
+     "at": [
+      12.25,
+      0,
+      3.0
+     ],
+     "off": [
+      0,
+      -110
+     ]
+    },
+    {
+     "t": "L5 Transfer vestibule",
+     "at": [
+      12.25,
+      0,
+      -3.0
+     ],
+     "off": [
+      0,
+      150
+     ]
+    },
+    {
+     "t": "Tunnel to collar",
+     "at": [
+      15.2,
+      0,
+      -3.0
+     ],
+     "off": [
+      0,
+      110
+     ]
+    },
+    {
+     "t": "Docking collar",
+     "at": [
+      16,
+      0,
+      -4.7
+     ],
+     "off": [
+      60,
+      150
+     ]
+    },
+    {
+     "t": "Central trunk (lift, utilities)",
+     "at": [
+      7.0,
+      0,
+      0.0
+     ],
+     "off": [
+      90,
+      40
+     ]
+    },
+    {
+     "t": "Bow sensors",
+     "at": [
+      0.6,
+      0,
+      1.5
+     ],
+     "off": [
+      -90,
+      -40
+     ]
+    }
+   ],
+   "exposure": 0.95
+  },
+  {
+   "id": "cut_mid",
+   "kind": "cutaway",
+   "title": "Midship section at x = 24 m",
+   "caption": "Looking aft at the cut: C-shaped tank around the bay, shuttle on the axis, slot and doors on top.",
+   "eye": [
+    -4,
+    -9,
+    8
+   ],
+   "target": [
+    24,
+    0,
+    0
+   ],
+   "fov": 22,
+   "sun": [
+    -0.75,
+    0.45,
+    0.45
+   ],
+   "clip": [
+    -1,
+    0,
+    0,
+    24
+   ],
+   "show": "cutaway",
+   "fluids": "S1",
+   "strakeSpan": 4,
+   "labels": [
+    {
+     "t": "Water in the tank cells",
+     "at": [
+      24,
+      -3.0,
+      -2.2
+     ],
+     "off": [
+      -80,
+      80
+     ]
+    },
+    {
+     "t": "Shuttle in the bore",
+     "at": [
+      24,
+      0,
+      0.3
+     ],
+     "off": [
+      0,
+      -30
+     ]
+    },
+    {
+     "t": "Slot and doors",
+     "at": [
+      24,
+      0,
+      4.6
+     ],
+     "off": [
+      0,
+      -50
+     ]
+    },
+    {
+     "t": "Sill longeron",
+     "at": [
+      24,
+      -2.75,
+      2.6
+     ],
+     "off": [
+      -100,
+      -40
+     ]
+    },
+    {
+     "t": "Keel longeron",
+     "at": [
+      24,
+      0,
+      -4.4
+     ],
+     "off": [
+      0,
+      60
+     ]
+    },
+    {
+     "t": "Strake",
+     "at": [
+      24,
+      -6.0,
+      5.0
+     ],
+     "off": [
+      -60,
+      -40
+     ]
+    }
+   ],
+   "exposure": 0.95
+  }
+ ]
+}

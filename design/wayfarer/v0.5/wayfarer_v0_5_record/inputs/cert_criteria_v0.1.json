@@ -1,0 +1,27 @@
+{
+  "header": "ALL bodies. ALL sponsors. 2026-2226.",
+  "status": "PROPOSED with CERTIFICATION_BASIS_v0.1; thresholds marked A are authored and open to Sol's challenge before results",
+  "G1": {"ledger_tolerance_t": 0.1, "tank_volume_min_m3": 315.0},
+  "G2": {"dv_fraction_of_canon_card": 0.95, "accel_min_g_S1": 0.95, "A": ["dv_fraction_of_canon_card", "accel_min_g_S1"],
+         "torch_g_limit_doctrine": 5.0},
+  "G3": {"trim_max_deg": 0.5, "slew_180_max_s": 120.0, "couples_for_slew": 2, "A": ["trim_max_deg"]},
+  "G4": {"hab_heat_margin": 0.25, "heat_pump_carnot_fraction": 0.5, "A": ["hab_heat_margin", "heat_pump_carnot_fraction"],
+         "view_factor_rays": 20000},
+  "G5": {"design_g": 5.0, "ultimate_factor": 1.5, "buckling_factor": 1.5, "first_mode_min_hz": 1.0,
+         "ullage_pressure_mpa": 0.1, "cfrp_shear_g_gpa": 20.0, "A": ["design_g", "ultimate_factor", "first_mode_min_hz", "cfrp_shear_g_gpa"]},
+  "G6": {"shadow_margin_m": 0.5, "shelter_min_g_cm2": 40.0, "shelter_m3_per_person_min": 2.0, "shelter_life_support_h": 72,
+         "rays": 600, "ray_step_m": 0.02, "ray_max_m": 70.0, "shelter_state": "S5",
+         "gcr_msv_per_day_2026": 1.8, "career_limit_msv": 600,
+         "A": ["shelter_m3_per_person_min", "shelter_life_support_h"]},
+  "G7": {"nhv_min_m3_per_person": 25.0, "nhv_target_m3_per_crew": 45.0, "nhv_target_m3_per_guest": 25.0,
+         "quarter_min_m3": 2.1, "clear_height_min_m": 2.1, "ladder_separation_min_m": 2.0,
+         "required_kinds": ["command", "cabin", "galley", "wardroom", "hygiene", "medical", "exercise", "eclss", "stores", "airlock", "suits", "shelter", "vestibule", "custody"],
+         "A": ["clear_height_min_m"]},
+  "G8": {"radial_clearance_min_m": 0.25, "axial_clearance_min_m": 0.5, "path_clearance_min_m": 0.5, "drones_min": 4},
+  "G9": {"one_longeron_out_g": 1.0},
+  "sources": {
+    "NASA OCHMO radiation brief": "https://www.nasa.gov/wp-content/uploads/2023/03/radiation-protection-technical-brief-ochmo.pdf",
+    "Curiosity RAD cruise dose": "https://www.swri.org/press-release/swri-led-team-calculates-radiation-exposure-associated-trip-mars",
+    "NASA NTRS 20180002051 habitable volume": "https://ntrs.nasa.gov/api/citations/20180002051/downloads/20180002051.pdf"
+  }
+}

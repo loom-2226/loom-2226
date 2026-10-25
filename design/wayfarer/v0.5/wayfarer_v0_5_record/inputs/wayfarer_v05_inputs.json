@@ -1,0 +1,1142 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-GOVERNING SANDBOX. Wayfarer v0.5 inputs for certification against CERTIFICATION_BASIS_v0.1.",
+ "version": "0.5.0",
+ "date": "2026-10-25",
+ "provenance_classes": [
+  "CANON",
+  "PUBLISHED_PHYSICS",
+  "DERIVED",
+  "ENGINEERING_ASSUMPTION",
+  "FICTIONAL_CONSTITUTIVE_LAW",
+  "OPEN",
+  "KT_DECISION"
+ ],
+ "coordinates": {
+  "note": "Repo convention: x from bow (0) to aft, +Z is the shuttle-slot side, -Z the docking side. Azimuth theta is measured from +Y toward +Z: y = r cos(theta), z = r sin(theta). Under torch thrust aft is down.",
+  "prov": "CANON"
+ },
+ "decisions": {
+  "prov": "KT_DECISION",
+  "date": "2026-10-24",
+  "layout": "keep v0.4 layout (C-shaped wrap-around tanks, five longerons, on-axis bay with a lateral slot); departures go to kT as a canon amendment",
+  "shuttle": "rover-drop shuttle, TORCH150|BICONIC|VENUS|DROP_CITY|e1.0",
+  "people": {
+   "crew": 6,
+   "guests": 4
+  },
+  "images": [
+   "exterior stills",
+   "cutaways",
+   "deck plans",
+   "3D viewer"
+  ]
+ },
+ "baseline_source": {
+  "prov": "DERIVED",
+  "from": "ship_sizer/wayfarer_v4_1.py, row 'Rover drop from a cloud city' (CWRAP_G|SPLIT|STRAKE_QUAD|ACCORDION|1300K|ext0|centre)",
+  "length_m": 53.3,
+  "dry_t": 861.7,
+  "dv_km_s": 727.0,
+  "accel_g": 0.997,
+  "torch_capacity_mw": 387.7
+ },
+ "canon": {
+  "prov": "CANON",
+  "source": "CANON II v2.4 \u00a75, \u00a713, \u00a714; Schematic Amendment v2.4a",
+  "main_body_m": [
+   57,
+   9
+  ],
+  "normal_crew": 6,
+  "payload_target_t": 50,
+  "water_t": 300,
+  "remass_t": 250,
+  "protected_water_t": 50,
+  "dry_t": 858.5,
+  "wet_t": 1158.5,
+  "relational_plant_t": 88,
+  "torch_ve_km_s": {
+   "ECON": 3000,
+   "CRUISE": 2000,
+   "EXPEDITE": 1000,
+   "FAST": 700,
+   "HARD": 450,
+   "LIMIT": 300
+  },
+  "torch_card_dv_econ_km_s": 729,
+  "metric_electrical_hard_mw": 23.9,
+  "bay_reservation_x_m": [
+   16,
+   28
+  ],
+  "structural_grammar": "4 axial longerons, 4 major tanks in quadrature, 4 radiator assemblies in quadrature, 1 axial torch",
+  "launch_bay": "semi-recessed, unpressurized, lateral departure, pressure-tight crew transfer, DOCKED/ABSENT mass state",
+  "torch_metric_exclusive": true,
+  "metric_cold_load_kw": {
+   "NORMAL": 20.0,
+   "FAST": 38.1,
+   "EXPEDITE": 63.5,
+   "HARD": 136.0
+  },
+  "metric_cryo_electrical_mw_at_900K": {
+   "NORMAL": 3.5,
+   "FAST": 6.7,
+   "EXPEDITE": 11.2,
+   "HARD": 23.9
+  },
+  "metric_equivalent_area_m2_at_900K": {
+   "NORMAL": 106,
+   "FAST": 202,
+   "EXPEDITE": 336,
+   "HARD": 719
+  }
+ },
+ "torch": {
+  "prov": "DERIVED",
+  "note": "Cruise thrust 11.361 MN gives 1 g at the canon wet mass (1,158.5 t x 9.80665). Jet power is held at the CRUISE value (0.5 F ve = 11.36 TW); lower exhaust velocity gives more thrust at the same power.",
+  "cruise_thrust_mn": 11.361,
+  "jet_power_tw": 11.361,
+  "thrust_point_x_m": 46.3,
+  "neutron_source_x_m": [
+   39.3,
+   46.3
+  ],
+  "neutron_source_radius_m": 1.0,
+  "neutron_source_prov": "ENGINEERING_ASSUMPTION: burning plasma column inside the reactor block, radius 1.0 m",
+  "thrust_line_offset": {
+   "prov": "DERIVED: the whole torch chain (shield, reactor, nozzle, aft RCS) is offset sideways so its thrust line runs through the middle of the centre-of-mass range; build_v05.py picks the offset that minimises the worst trim angle over S1-S7",
+   "search_y_m": [
+    -0.2,
+    0.2
+   ],
+   "search_z_m": [
+    -0.8,
+    0.2
+   ],
+   "step_m": 0.01,
+   "design_target_deg": 0.35,
+   "rule": "among protected-water splits and offsets whose worst trim over S1-S7 is within the design target (70% of the 0.5 deg limit), take the smallest offset; ENGINEERING_ASSUMPTION"
+  }
+ },
+ "hull": {
+  "prov": "DERIVED",
+  "length_m": 53.3,
+  "outer_r_m": 4.5,
+  "pressure_r_m": 4.3,
+  "bow_cap_depth_m": 2.35,
+  "pressure_head_depth_m": 2.15,
+  "pressure_vessel_x_m": [
+   0.2,
+   13.7
+  ],
+  "habitat_shell_x_m": [
+   0.0,
+   14.0
+  ],
+  "service_x_m": [
+   14.0,
+   18.0
+  ],
+  "midship_x_m": [
+   18.0,
+   32.3
+  ],
+  "manifold_x_m": [
+   32.3,
+   34.3
+  ],
+  "shield_x_m": [
+   34.3,
+   39.3
+  ],
+  "shield_r_m": 2.75,
+  "reactor_x_m": [
+   39.3,
+   46.3
+  ],
+  "reactor_r_m": 2.125,
+  "nozzle_x_m": [
+   46.3,
+   53.3
+  ],
+  "nozzle_r_m": [
+   2.125,
+   3.0
+  ]
+ },
+ "tanks": {
+  "prov": "DERIVED",
+  "kind": "C-shaped wrap-around, four strake grooves (v0.4 CWRAP_G)",
+  "x_m": [
+   18.0,
+   31.25
+  ],
+  "r_in_m": 2.45,
+  "r_out_m": 4.3,
+  "slot_half_width_m": 2.4,
+  "groove": {
+   "azimuths_deg": [
+    40,
+    140,
+    220,
+    320
+   ],
+   "width_m": 2.0,
+   "depth_m": 0.5
+  },
+  "section_area_m2": 25.85,
+  "cells": {
+   "prov": "ENGINEERING_ASSUMPTION",
+   "note": "Four isolatable cells: port/starboard split at the keel (theta 270) and the slot, fore/aft split at mid-length. Q7: one cell isolated = 25% of remass.",
+   "names": [
+    "starboard_fore",
+    "starboard_aft",
+    "port_fore",
+    "port_aft"
+   ]
+  },
+  "ullage_fraction": 0.05,
+  "x_note": "DERIVED: v0.4 sized the tank at 12.5 m from the 25.85 m2/m formula; the v0.5 solid model gives about 24.3 m2/m net of walls, grooves and the sill longerons, so the tank is 13.25 m (322 m3, 2% over the 315 m3 needed). The electrical C-ring aft of it (x 31.25-32.3) is then about 2 t/m3."
+ },
+ "bay": {
+  "prov": "DERIVED",
+  "x_m": [
+   18.25,
+   32.05
+  ],
+  "bore_r_m": 2.4,
+  "slot_half_width_m": 2.4,
+  "doors": {
+   "kind": "two clamshell doors hinged at the slot edges, opening to vertical",
+   "prov": "ENGINEERING_ASSUMPTION",
+   "mass_t": 2.0,
+   "note": "door mass is inside the 6 t bay_liner share of structure"
+  }
+ },
+ "shuttle": {
+  "prov": "DERIVED",
+  "source": "ship_sizer/shuttle_alternatives.json, 'Rover drop from a cloud city'",
+  "key": "TORCH150|BICONIC|VENUS|DROP_CITY|e1.0",
+  "dry_t": 27.9,
+  "length_m": 12.8,
+  "diameter_m": 3.8,
+  "x_m": [
+   18.75,
+   31.55
+  ],
+  "water_cap_t": 23.1,
+  "max_trip_t": 51.1,
+  "torch_gw": 7.7,
+  "venus_kit_t": 1.7,
+  "crew_seats": 6,
+  "venus_surface_crew": 2,
+  "nose_port_x_m": 18.75
+ },
+ "drones": {
+  "prov": "DERIVED",
+  "source": "ship_sizer/uav_candidates.json",
+  "carried": [
+   {
+    "name": "Mars drone pod",
+    "count": 2,
+    "mass_t": 0.395,
+    "stowed_m": [
+     3.4,
+     1.1,
+     1.1
+    ]
+   },
+   {
+    "name": "dense-air drone pod",
+    "count": 2,
+    "mass_t": 0.204,
+    "stowed_m": [
+     2.9,
+     0.9,
+     0.9
+    ]
+   }
+  ],
+  "berth_capacity": {
+   "Mars drone pod": 8,
+   "dense-air drone pod": 16
+  },
+  "stowed_dims_prov": "ENGINEERING_ASSUMPTION: folded drone in its umbrella pod, umbrella stowed"
+ },
+ "service": {
+  "prov": "ENGINEERING_ASSUMPTION",
+  "plant_fore": {
+   "x_m": [
+    14.0,
+    17.0
+   ],
+   "r_m": 2.0,
+   "mass_t": 44.0,
+   "prov": "DERIVED: SPLIT plant, half of 88 t; shortened 1 m vs v0.4 to leave room for the transfer tunnel (density 1.17 t/m3, inside the 1.0-1.5 t/m3 range)"
+  },
+  "sectors": {
+   "protected_water_tank": {
+    "theta_deg": [
+     45,
+     135
+    ],
+    "x_m": [
+     14.0,
+     17.0
+    ],
+    "r_m": [
+     2.0,
+     4.3
+    ]
+   },
+   "hold_starboard": {
+    "theta_deg": [
+     -45,
+     45
+    ],
+    "x_m": [
+     14.0,
+     17.0
+    ],
+    "r_m": [
+     2.0,
+     4.3
+    ]
+   },
+   "hold_port": {
+    "theta_deg": [
+     135,
+     225
+    ],
+    "x_m": [
+     14.0,
+     17.0
+    ],
+    "r_m": [
+     2.0,
+     4.3
+    ]
+   },
+   "transfer_and_courier": {
+    "theta_deg": [
+     225,
+     315
+    ],
+    "x_m": [
+     14.0,
+     17.0
+    ],
+    "r_m": [
+     2.0,
+     4.3
+    ]
+   }
+  },
+  "docking_collar": {
+   "x_m": 16.0,
+   "theta_deg": 270,
+   "port_d_m": 1.6,
+   "mass_t": 4.0,
+   "prov": "CANON position (x = 16, -Z), mass ENGINEERING_ASSUMPTION"
+  },
+  "tunnel": {
+   "d_m": 1.2,
+   "prov": "ENGINEERING_ASSUMPTION",
+   "segments": [
+    {
+     "name": "habitat to collar node",
+     "from": [
+      13.7,
+      0.0,
+      -3.0
+     ],
+     "to": [
+      16.6,
+      0.0,
+      -3.0
+     ]
+    },
+    {
+     "name": "collar node to bay axis",
+     "from": [
+      17.6,
+      0.0,
+      -3.0
+     ],
+     "to": [
+      17.6,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "name": "docking adapter to shuttle nose",
+     "from": [
+      17.6,
+      0.0,
+      0.0
+     ],
+     "to": [
+      18.75,
+      0.0,
+      0.0
+     ]
+    }
+   ]
+  }
+ },
+ "habitat": {
+  "prov": "ENGINEERING_ASSUMPTION",
+  "usable_r_m": 4.15,
+  "core_r_m": 0.9,
+  "corridor_r_m": [
+   0.9,
+   1.9
+  ],
+  "room_r_m": [
+   1.9,
+   4.15
+  ],
+  "floor_thickness_m": 0.3,
+  "clear_height_m": 2.3,
+  "ladderways": [
+   {
+    "theta_deg": 0,
+    "r_m": 1.4,
+    "size_m": 0.8
+   },
+   {
+    "theta_deg": 180,
+    "r_m": 1.4,
+    "size_m": 0.8
+   }
+  ],
+  "core_note": "Central trunk: utilities, avionics racks and a goods lift; not an egress path. Egress is by the two ladderways in the corridor ring.",
+  "decks": [
+   {
+    "id": "L1",
+    "name": "Command",
+    "x_m": [
+     0.2,
+     3.0
+    ],
+    "dome": true,
+    "rooms": [
+     {
+      "id": "L1-command",
+      "name": "Command and navigation",
+      "kind": "command",
+      "theta_deg": [
+       0,
+       360
+      ],
+      "r_m": [
+       0.0,
+       4.15
+      ],
+      "mass_t": 3.0,
+      "couches": 6,
+      "windows": 4
+     }
+    ]
+   },
+   {
+    "id": "L2",
+    "name": "Common",
+    "x_m": [
+     3.3,
+     5.6
+    ],
+    "rooms": [
+     {
+      "id": "L2-galley",
+      "name": "Galley",
+      "kind": "galley",
+      "theta_deg": [
+       -60,
+       30
+      ],
+      "mass_t": 2.0
+     },
+     {
+      "id": "L2-wardroom",
+      "name": "Wardroom (table for 10)",
+      "kind": "wardroom",
+      "theta_deg": [
+       30,
+       150
+      ],
+      "mass_t": 1.2
+     },
+     {
+      "id": "L2-observation",
+      "name": "Observation",
+      "kind": "observation",
+      "theta_deg": [
+       150,
+       210
+      ],
+      "mass_t": 0.6,
+      "windows": 2
+     },
+     {
+      "id": "L2-exercise",
+      "name": "Exercise",
+      "kind": "exercise",
+      "theta_deg": [
+       210,
+       270
+      ],
+      "mass_t": 1.6
+     },
+     {
+      "id": "L2-hygiene",
+      "name": "Washroom",
+      "kind": "hygiene",
+      "theta_deg": [
+       270,
+       300
+      ],
+      "mass_t": 0.6
+     }
+    ]
+   },
+   {
+    "id": "L3",
+    "name": "Quarters",
+    "x_m": [
+     5.9,
+     8.2
+    ],
+    "rooms": [
+     {
+      "id": "L3-C1",
+      "name": "Crew cabin 1",
+      "kind": "cabin",
+      "who": "crew",
+      "theta_deg": [
+       -90,
+       -60
+      ],
+      "mass_t": 0.45,
+      "couches": 1,
+      "windows": 1
+     },
+     {
+      "id": "L3-C2",
+      "name": "Crew cabin 2",
+      "kind": "cabin",
+      "who": "crew",
+      "theta_deg": [
+       -60,
+       -30
+      ],
+      "mass_t": 0.45,
+      "couches": 1,
+      "windows": 1
+     },
+     {
+      "id": "L3-C3",
+      "name": "Crew cabin 3",
+      "kind": "cabin",
+      "who": "crew",
+      "theta_deg": [
+       -30,
+       0
+      ],
+      "mass_t": 0.45,
+      "couches": 1,
+      "windows": 1
+     },
+     {
+      "id": "L3-C4",
+      "name": "Crew cabin 4",
+      "kind": "cabin",
+      "who": "crew",
+      "theta_deg": [
+       0,
+       30
+      ],
+      "mass_t": 0.45,
+      "couches": 1,
+      "windows": 1
+     },
+     {
+      "id": "L3-C5",
+      "name": "Crew cabin 5",
+      "kind": "cabin",
+      "who": "crew",
+      "theta_deg": [
+       30,
+       60
+      ],
+      "mass_t": 0.45,
+      "couches": 1,
+      "windows": 1
+     },
+     {
+      "id": "L3-C6",
+      "name": "Crew cabin 6",
+      "kind": "cabin",
+      "who": "crew",
+      "theta_deg": [
+       60,
+       90
+      ],
+      "mass_t": 0.45,
+      "couches": 1,
+      "windows": 1
+     },
+     {
+      "id": "L3-HC",
+      "name": "Crew washroom",
+      "kind": "hygiene",
+      "theta_deg": [
+       90,
+       120
+      ],
+      "mass_t": 0.6
+     },
+     {
+      "id": "L3-HG",
+      "name": "Guest washroom",
+      "kind": "hygiene",
+      "theta_deg": [
+       120,
+       150
+      ],
+      "mass_t": 0.6
+     },
+     {
+      "id": "L3-G1",
+      "name": "Guest cabin 1",
+      "kind": "cabin",
+      "who": "guest",
+      "theta_deg": [
+       150,
+       180
+      ],
+      "mass_t": 0.45,
+      "couches": 1,
+      "windows": 1
+     },
+     {
+      "id": "L3-G2",
+      "name": "Guest cabin 2",
+      "kind": "cabin",
+      "who": "guest",
+      "theta_deg": [
+       180,
+       210
+      ],
+      "mass_t": 0.45,
+      "couches": 1,
+      "windows": 1
+     },
+     {
+      "id": "L3-G3",
+      "name": "Guest cabin 3",
+      "kind": "cabin",
+      "who": "guest",
+      "theta_deg": [
+       210,
+       240
+      ],
+      "mass_t": 0.45,
+      "couches": 1,
+      "windows": 1
+     },
+     {
+      "id": "L3-G4",
+      "name": "Guest cabin 4",
+      "kind": "cabin",
+      "who": "guest",
+      "theta_deg": [
+       240,
+       270
+      ],
+      "mass_t": 0.45,
+      "couches": 1,
+      "windows": 1
+     }
+    ]
+   },
+   {
+    "id": "L4",
+    "name": "Medical, life support, storm shelter",
+    "x_m": [
+     8.5,
+     10.8
+    ],
+    "rooms": [
+     {
+      "id": "L4-shelter",
+      "name": "Storm shelter",
+      "kind": "shelter",
+      "theta_deg": [
+       15,
+       165
+      ],
+      "mass_t": 1.0,
+      "jacket": true
+     },
+     {
+      "id": "L4-medical",
+      "name": "Medical bay",
+      "kind": "medical",
+      "theta_deg": [
+       165,
+       255
+      ],
+      "mass_t": 3.0
+     },
+     {
+      "id": "L4-eclss",
+      "name": "Life support",
+      "kind": "eclss",
+      "theta_deg": [
+       255,
+       375
+      ],
+      "mass_t": 14.0
+     }
+    ]
+   },
+   {
+    "id": "L5",
+    "name": "Mission, EVA and transfer",
+    "x_m": [
+     11.1,
+     13.4
+    ],
+    "rooms": [
+     {
+      "id": "L5-airlock",
+      "name": "Airlock",
+      "kind": "airlock",
+      "theta_deg": [
+       -20,
+       20
+      ],
+      "mass_t": 3.0
+     },
+     {
+      "id": "L5-suits",
+      "name": "Suit room",
+      "kind": "suits",
+      "theta_deg": [
+       20,
+       80
+      ],
+      "mass_t": 1.5
+     },
+     {
+      "id": "L5-workshop",
+      "name": "Workshop",
+      "kind": "workshop",
+      "theta_deg": [
+       80,
+       170
+      ],
+      "mass_t": 3.0
+     },
+     {
+      "id": "L5-custody",
+      "name": "Custody locker",
+      "kind": "custody",
+      "theta_deg": [
+       170,
+       200
+      ],
+      "mass_t": 0.5
+     },
+     {
+      "id": "L5-stores",
+      "name": "Stores",
+      "kind": "stores",
+      "theta_deg": [
+       200,
+       250
+      ],
+      "mass_t": 3.0
+     },
+     {
+      "id": "L5-vestibule",
+      "name": "Transfer vestibule",
+      "kind": "vestibule",
+      "theta_deg": [
+       250,
+       290
+      ],
+      "mass_t": 0.3
+     },
+     {
+      "id": "L5-stores2",
+      "name": "Stores",
+      "kind": "stores",
+      "theta_deg": [
+       290,
+       340
+      ],
+      "mass_t": 3.0
+     }
+    ]
+   }
+  ],
+  "distributed_outfitting_t": 4.0,
+  "free_fraction": {
+   "prov": "ENGINEERING_ASSUMPTION: share of each room's volume left free for people after equipment and stowage (NASA net habitable volume sense)",
+   "command": 0.45,
+   "galley": 0.5,
+   "wardroom": 0.75,
+   "observation": 0.8,
+   "exercise": 0.5,
+   "hygiene": 0.5,
+   "cabin": 0.65,
+   "shelter": 0.8,
+   "medical": 0.5,
+   "eclss": 0.15,
+   "airlock": 0.7,
+   "suits": 0.4,
+   "workshop": 0.5,
+   "custody": 0.1,
+   "stores": 0.1,
+   "vestibule": 0.8,
+   "corridor": 0.9
+  },
+  "shelter_jacket": {
+   "water_thickness_m": 0.2,
+   "faces": [
+    "outer",
+    "inner",
+    "radial",
+    "ceiling",
+    "floor"
+   ],
+   "prov": "ENGINEERING_ASSUMPTION: 20 cm water (NASA millennial-event guidance), drawn from the protected water reserve",
+   "note": "v0.5 run 1 left the floor bare (aft is shielded by the tanks) and an oblique aft-and-sideways ray came out at 39.1 g/cm2; the floor face is now jacketed too"
+  },
+  "guest_outfitting_note": "Habitation line 45 t (6 crew, seed ledger) + 6.0 t for 4 guests: cabins, washroom, couches, life-support capacity, stores; ENGINEERING_ASSUMPTION",
+  "windows_note": "ENGINEERING_ASSUMPTION: 16 windows by deck function (canon candidate 10-16): 4 forward on command, 2 in the observation lounge, 1 in each of the 10 cabins; none in the storm shelter or medical bay"
+ },
+ "ledger": {
+  "prov": "CANON_MASS_DESIGN_POSITION (repo seed ledger masses)",
+  "structure_t_per_m": 2.632,
+  "structure_split": {
+   "prov": "ENGINEERING_ASSUMPTION: shares of the 2.632 t/m structure line",
+   "pressure_vessel_and_bulkheads": 20.0,
+   "decks_and_core": 8.0,
+   "outer_skin_midship": 14.0,
+   "longerons": 35.0,
+   "ring_frames": 17.0,
+   "tank_shells": 24.0,
+   "bay_liner": 6.0,
+   "thrust_cone": 16.3
+  },
+  "armor_fixed_shield_t": 105.0,
+  "habitation_life_support_t": 45.0,
+  "guest_outfitting_t": 6.0,
+  "relational_plant_t": 88.0,
+  "thermal_radiators_t": 90.0,
+  "propulsion_t": 160.0,
+  "propulsion_split": {
+   "shield": 45.0,
+   "reactor": 85.0,
+   "nozzle": 30.0,
+   "prov": "ENGINEERING_ASSUMPTION"
+  },
+  "electrical_t": 55.0,
+  "avionics_sensors_comms_t": 20.0,
+  "avionics_split": {
+   "bow_sensors": 8.0,
+   "core_racks": 12.0,
+   "prov": "ENGINEERING_ASSUMPTION"
+  },
+  "rcs_docking_service_t": 25.0,
+  "rcs_split": {
+   "rcs_clusters": 12.0,
+   "docking_collar": 4.0,
+   "service_arm_and_umbilicals": 7.5,
+   "transfer_tunnel": 1.5,
+   "prov": "ENGINEERING_ASSUMPTION"
+  },
+  "mission_courier_systems_t": 20.0,
+  "engineering_reserve_t": 67.5,
+  "engineering_reserve_rule": "spread over dry parts in proportion to their mass (growth margin), not lumped at one point",
+  "c_tank_penalty_t": 8.0,
+  "radiator_panels_t": 8.784,
+  "drones_pods_t": 1.198,
+  "venus_kit_t": 1.7
+ },
+ "longerons": {
+  "prov": "ENGINEERING_ASSUMPTION (v0.5 packaging): v0.3 placed five 0.4 m tubes at r 4.1 m, which clashes with the tank (outer radius 4.3 m) and puts the slot sills inside the 4.8 m slot. v0.5 uses flat planks in the 0.2 m gap between tank and skin, and two round sills set into the tank beside the slot.",
+  "x_m": [
+   14.0,
+   34.3
+  ],
+  "items": [
+   {
+    "name": "starboard",
+    "kind": "plank",
+    "theta_deg": 0,
+    "r_m": [
+     4.3,
+     4.48
+    ],
+    "width_m": 1.2
+   },
+   {
+    "name": "slot sill starboard",
+    "kind": "tube",
+    "y_m": 2.75,
+    "z_m": 2.6,
+    "d_m": 0.5
+   },
+   {
+    "name": "slot sill port",
+    "kind": "tube",
+    "y_m": -2.75,
+    "z_m": 2.6,
+    "d_m": 0.5
+   },
+   {
+    "name": "port",
+    "kind": "plank",
+    "theta_deg": 180,
+    "r_m": [
+     4.3,
+     4.48
+    ],
+    "width_m": 1.2
+   },
+   {
+    "name": "keel",
+    "kind": "plank",
+    "theta_deg": 270,
+    "r_m": [
+     4.3,
+     4.48
+    ],
+    "width_m": 1.2
+   }
+  ]
+ },
+ "frames": {
+  "spacing_m": 2.0,
+  "r_m_midship": [
+   4.3,
+   4.48
+  ],
+  "r_m_elsewhere": [
+   4.1,
+   4.48
+  ],
+  "prov": "ENGINEERING_ASSUMPTION: ring frames sit outside the tank in the midship"
+ },
+ "radiators": {
+  "prov": "DERIVED (v0.4 STRAKE_QUAD ACCORDION 1300K)",
+  "azimuths_deg": [
+   40,
+   140,
+   220,
+   320
+  ],
+  "x_m": [
+   14.0,
+   32.3
+  ],
+  "root_r_m": 4.5,
+  "pleat_m": 2.0,
+  "max_pleats": 12,
+  "max_span_m": 24.0,
+  "temperature_k": 1300,
+  "emissivity": 0.9,
+  "areal_kg_m2": 5.0,
+  "torch_g_limit": 7.5,
+  "span_by_mode_m": {
+   "NORMAL": 2.0,
+   "FAST": 2.0,
+   "EXPEDITE": 2.0,
+   "HARD": 2.0
+  },
+  "torch_capacity_mw": 387.7,
+  "hull_heat_hard_mw": 1.02,
+  "hull_coating": {
+   "absorptivity": 0.1,
+   "reflected_escape_fraction": 0.5,
+   "prov": "ENGINEERING_ASSUMPTION (v0.3 radiators_v3.json)"
+  },
+  "azimuth_note": "ENGINEERING_ASSUMPTION (v0.5): v0.4 put the strakes on the 45 deg diagonals, but a 2 m groove there breaks 0.28 m into the 4.8 m slot. 40/140/220/320 keeps the stowed stack outside the slot and stays mirror-symmetric."
+ },
+ "rcs": {
+  "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
+  "thruster_kn": 25.0,
+  "clusters": [
+   {
+    "id": "F+Y",
+    "x_m": 3.0,
+    "theta_deg": 0,
+    "r_m": 4.6,
+    "thrusters": 3
+   },
+   {
+    "id": "F+Z",
+    "x_m": 3.0,
+    "theta_deg": 90,
+    "r_m": 4.6,
+    "thrusters": 3
+   },
+   {
+    "id": "F-Y",
+    "x_m": 3.0,
+    "theta_deg": 180,
+    "r_m": 4.6,
+    "thrusters": 3
+   },
+   {
+    "id": "F-Z",
+    "x_m": 3.0,
+    "theta_deg": 270,
+    "r_m": 4.6,
+    "thrusters": 3
+   },
+   {
+    "id": "A+Y",
+    "x_m": 44.0,
+    "theta_deg": 0,
+    "r_m": 2.6,
+    "thrusters": 3
+   },
+   {
+    "id": "A+Z",
+    "x_m": 44.0,
+    "theta_deg": 90,
+    "r_m": 2.6,
+    "thrusters": 3
+   },
+   {
+    "id": "A-Y",
+    "x_m": 44.0,
+    "theta_deg": 180,
+    "r_m": 2.6,
+    "thrusters": 3
+   },
+   {
+    "id": "A-Z",
+    "x_m": 44.0,
+    "theta_deg": 270,
+    "r_m": 2.6,
+    "thrusters": 3
+   }
+  ],
+  "slew_couples": 2
+ },
+ "materials": {
+  "prov": "PUBLISHED_PHYSICS: 2026 high-modulus carbon-fibre composite, used as a conservative floor for 2226 (same values as the v0.3 closing checks)",
+  "cfrp_allowable_mpa": 400,
+  "cfrp_e_gpa": 150,
+  "cfrp_density_t_m3": 1.6
+ },
+ "habitat_heat": {
+  "prov": "ENGINEERING_ASSUMPTION",
+  "metabolic_w_per_person": 150,
+  "avionics_kw": 20,
+  "eclss_galley_kw": 15,
+  "lighting_misc_kw": 10,
+  "radiator": {
+   "kind": "body-mounted low-temperature panels on the midship skin between the strakes",
+   "temperature_k": 290,
+   "emissivity": 0.85,
+   "absorptivity": 0.15,
+   "x_m": [
+    18.0,
+    30.5
+   ],
+   "share_of_skin": 0.5,
+   "worst_sun_w_m2": 2601,
+   "sun_note": "Venus orbit (0.723 AU), PUBLISHED_PHYSICS"
+  }
+ },
+ "states": {
+  "prov": "CERTIFICATION_BASIS_v0.1 \u00a75",
+  "S1": {
+   "name": "reference departure",
+   "remass_t": 250,
+   "shuttle": "docked",
+   "payload_t": 0
+  },
+  "S2": {
+   "name": "loaded departure",
+   "remass_t": 250,
+   "shuttle": "docked",
+   "payload_t": 50
+  },
+  "S3": {
+   "name": "normal dispatch",
+   "remass_t": 150,
+   "shuttle": "docked",
+   "payload_t": 0
+  },
+  "S4": {
+   "name": "burnt out, shuttle home",
+   "remass_t": 0,
+   "shuttle": "docked",
+   "payload_t": 0
+  },
+  "S5": {
+   "name": "burnt out, shuttle away",
+   "remass_t": 0,
+   "shuttle": "absent",
+   "payload_t": 0
+  },
+  "S6": {
+   "name": "full, shuttle away",
+   "remass_t": 250,
+   "shuttle": "absent",
+   "payload_t": 0
+  },
+  "S7": {
+   "name": "one tank cell breached and vented",
+   "remass_t": 250,
+   "isolated_cell": "port_fore",
+   "vented": true,
+   "shuttle": "docked",
+   "payload_t": 0
+  }
+ },
+ "payload": {
+  "split": {
+   "hold_starboard": 0.5,
+   "hold_port": 0.5
+  },
+  "prov": "ENGINEERING_ASSUMPTION: balanced loading doctrine"
+ },
+ "protected_water": {
+  "prov": "DERIVED: split chosen by build_v05.py to minimise the worst thrust-trim angle over S1-S7",
+  "locations": [
+   "shelter_jacket",
+   "protected_water_tank",
+   "c_tank"
+  ],
+  "service_tank_ullage_fraction": 0.05
+ },
+ "metric_heat_rule": {
+  "prov": "DERIVED (ship_sizer/radiators.json)",
+  "rule": "heat rejected = cold load + cryo electrical; cryo electrical scales with (T_reject - 20 K) at the same fraction of ideal efficiency as canon's 900 K figures",
+  "cold_temperature_k": 20.0
+ },
+ "features": {
+  "prov": "ENGINEERING_ASSUMPTION: visual hull features with no separate mass (inside their systems' ledger lines)",
+  "window_d_m": {
+   "command": 0.5,
+   "observation": 0.8,
+   "cabin": 0.45
+  },
+  "airlock_hatch_d_m": 1.1,
+  "hold_door_m": [
+   2.4,
+   1.8
+  ]
+ }
+}

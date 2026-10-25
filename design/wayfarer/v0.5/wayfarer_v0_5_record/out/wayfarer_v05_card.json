@@ -1,0 +1,169 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-GOVERNING SANDBOX ship card for Navigator (gate G10)",
+ "ship": "Wayfarer v0.5",
+ "geometry_sha256": "406424a71d8d3195dc23bc732d29ec3ca6686ef15d5bf61fa0be64171eeba2a1",
+ "dry_t": 867.68,
+ "fluids": {
+  "water_t": 300,
+  "remass_t": 250,
+  "protected_water_t": 50
+ },
+ "torch": {
+  "ve_km_s": {
+   "ECON": 3000,
+   "CRUISE": 2000,
+   "EXPEDITE": 1000,
+   "FAST": 700,
+   "HARD": 450,
+   "LIMIT": 300
+  },
+  "jet_power_tw": 11.361,
+  "thrust_mn_by_mode": {
+   "ECON": 7.574,
+   "CRUISE": 11.361,
+   "EXPEDITE": 22.722,
+   "FAST": 32.46,
+   "HARD": 50.493,
+   "LIMIT": 75.74
+  },
+  "accel_cap_g": 5.0,
+  "thrust_line_offset_m": {
+   "y": 0.07,
+   "z": -0.30000000000000004,
+   "torch_chain_t": 180.0030643028711
+  }
+ },
+ "dispatch_q7": {
+  "normal_dispatch_remass_t": 150,
+  "minimum_dispatch_remass_t": 100,
+  "protected_optimizer_reserve_t": 50
+ },
+ "states": {
+  "S1": {
+   "name": "reference departure",
+   "mass_t": 1167.68,
+   "remass_t": 250,
+   "shuttle": "docked",
+   "payload_t": 0,
+   "cg_m": [
+    24.613,
+    0.036,
+    -0.415
+   ],
+   "inertia_diag_kg_m2": [
+    12021587,
+    178093678,
+    178907182
+   ]
+  },
+  "S2": {
+   "name": "loaded departure",
+   "mass_t": 1217.68,
+   "remass_t": 250,
+   "shuttle": "docked",
+   "payload_t": 50,
+   "cg_m": [
+    24.239,
+    0.035,
+    -0.398
+   ],
+   "inertia_diag_kg_m2": [
+    12592678,
+    182224091,
+    183386757
+   ]
+  },
+  "S3": {
+   "name": "normal dispatch",
+   "mass_t": 1067.68,
+   "remass_t": 150,
+   "shuttle": "docked",
+   "payload_t": 0,
+   "cg_m": [
+    24.688,
+    0.04,
+    -0.34
+   ],
+   "inertia_diag_kg_m2": [
+    10914363,
+    176499545,
+    176990449
+   ]
+  },
+  "S4": {
+   "name": "burnt out, shuttle home",
+   "mass_t": 917.68,
+   "remass_t": 0,
+   "shuttle": "docked",
+   "payload_t": 0,
+   "cg_m": [
+    24.413,
+    0.046,
+    -0.197
+   ],
+   "inertia_diag_kg_m2": [
+    9224769,
+    173621798,
+    173657441
+   ]
+  },
+  "S5": {
+   "name": "burnt out, shuttle away",
+   "mass_t": 887.43,
+   "remass_t": 0,
+   "shuttle": "absent",
+   "payload_t": 0,
+   "cg_m": [
+    24.388,
+    0.048,
+    -0.203
+   ],
+   "inertia_diag_kg_m2": [
+    9168886,
+    173160352,
+    173197380
+   ]
+  },
+  "S6": {
+   "name": "full, shuttle away",
+   "mass_t": 1137.43,
+   "remass_t": 250,
+   "shuttle": "absent",
+   "payload_t": 0,
+   "cg_m": [
+    24.599,
+    0.037,
+    -0.426
+   ],
+   "inertia_diag_kg_m2": [
+    11961594,
+    177636147,
+    178455199
+   ]
+  },
+  "S7": {
+   "name": "one tank cell breached and vented",
+   "mass_t": 1104.93,
+   "remass_t": 187.5,
+   "shuttle": "docked",
+   "payload_t": 0,
+   "cg_m": [
+    24.759,
+    0.176,
+    -0.369
+   ],
+   "inertia_diag_kg_m2": [
+    11294047,
+    177273461,
+    177851457
+   ]
+  }
+ },
+ "missions_to_fly": [
+  "E1 Ceres to Neptune",
+  "FR-01B-R Ceres to Phobos",
+  "MV-01 Ceres to Phoebe to Ganymede"
+ ],
+ "pass_rule": "arrival remass >= 50 t protected optimizer reserve (Q7)"
+}
