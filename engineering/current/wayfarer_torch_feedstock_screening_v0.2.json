@@ -1,0 +1,38 @@
+{
+  "artifact_id": "WAYFARER_TORCH_FEEDSTOCK_SCREENING_V0.2",
+  "status": "ENGINEERING_SCREENING_NON_CANON",
+  "date": "2026-09-11",
+  "authority_boundary": "Does not alter CANON II; final CERTIFIED/DERATED/CONTINGENCY/PROHIBITED mode ratings remain blocked on plasma/material closure.",
+  "design_rule": "At fixed ship mass, acceleration and exhaust velocity, ideal thrust and mass flow are species-independent; species effects enter through attainable exhaust velocity, efficiency, conditioning, storage, materials, radiation and maintenance.",
+  "screening_dispositions": ["ADVANCE_PRIMARY", "ADVANCE_ALTERNATE", "ADVANCE_SPECIAL", "ADVANCE_CONTINGENCY", "DEFER"],
+  "feeds": [
+    {"species":"H2O","class":"TF-A","screening":"ADVANCE_PRIMARY","normal_role":"PRIMARY_CANDIDATE","storage_class":"DENSE_MODERATE_T_LIQUID","mode_screen":{"ECON":"TEST","CRUISE":"TEST","EXPEDITE":"TEST","FAST":"TEST","HARD":"TEST","LIMIT":"TEST"}},
+    {"species":"NH3","class":"TF-A","screening":"ADVANCE_ALTERNATE","normal_role":"ALTERNATE_CANDIDATE","storage_class":"DENSE_PRESSURE_OR_REFRIGERATED_LIQUID","mode_screen":{"ECON":"TEST","CRUISE":"TEST","EXPEDITE":"TEST","FAST":"TEST","HARD":"TEST","LIMIT":"TEST"}},
+    {"species":"Ar","class":"TF-B","screening":"ADVANCE_ALTERNATE","normal_role":"ALTERNATE_DEPOT_CANDIDATE","storage_class":"CRYOGENIC_LIQUID_APPROX_87K","mode_screen":{"ECON":"TEST","CRUISE":"TEST","EXPEDITE":"TEST","FAST":"TEST","HARD":"TEST","LIMIT":"TEST"}},
+    {"species":"N2","class":"TF-B","screening":"ADVANCE_ALTERNATE","normal_role":"ALTERNATE_REGIONAL_CANDIDATE","storage_class":"CRYOGENIC_LIQUID_APPROX_77K","mode_screen":{"ECON":"TEST","CRUISE":"TEST","EXPEDITE":"TEST","FAST":"TEST","HARD":"TEST","LIMIT":"TEST"}},
+    {"species":"CO2","class":"TF-A","screening":"ADVANCE_ALTERNATE","normal_role":"ALTERNATE_REGIONAL_CANDIDATE","storage_class":"PRESSURE_REFRIGERATED_TRIPLE_POINT_216_58K_5_185BAR","mode_screen":{"ECON":"TEST","CRUISE":"TEST","EXPEDITE":"TEST","FAST":"TEST","HARD":"TEST","LIMIT":"TEST"}},
+    {"species":"H2","class":"TF-B","screening":"ADVANCE_SPECIAL","normal_role":"SPECIALIZED_HIGH_ISP_CANDIDATE","storage_class":"DEEP_CRYOGENIC_APPROX_20K_LOW_DENSITY","mode_screen":{"ECON":"SPECIAL_TEST","CRUISE":"SPECIAL_TEST","EXPEDITE":"SPECIAL_TEST","FAST":"SPECIAL_TEST","HARD":"SPECIAL_TEST","LIMIT":"SPECIAL_TEST"}},
+    {"species":"O2","class":"TF-B","screening":"ADVANCE_CONTINGENCY","normal_role":"CONTINGENCY_CANDIDATE","storage_class":"CRYOGENIC_OXIDIZER","mode_screen":{"ECON":"CONTINGENCY_TEST","CRUISE":"CONTINGENCY_TEST","EXPEDITE":"CONTINGENCY_TEST","FAST":"CONTINGENCY_TEST","HARD":"CONTINGENCY_TEST","LIMIT":"CONTINGENCY_TEST"}},
+    {"species":"CH4","class":"TF-C","screening":"ADVANCE_CONTINGENCY","normal_role":"CONTINGENCY_CANDIDATE","storage_class":"CRYOGENIC_LIQUID_APPROX_112K","mode_screen":{"ECON":"CONTINGENCY_TEST","CRUISE":"CONTINGENCY_TEST","EXPEDITE":"CONTINGENCY_TEST","FAST":"CONTINGENCY_TEST","HARD":"CONTINGENCY_TEST","LIMIT":"CONTINGENCY_TEST"}},
+    {"species":"CO","class":"TF-C","screening":"DEFER","normal_role":"DEFERRED","storage_class":"REFRIGERATED_TOXIC_VOLATILE","mode_screen":{"ECON":"DEFER","CRUISE":"DEFER","EXPEDITE":"DEFER","FAST":"DEFER","HARD":"DEFER","LIMIT":"DEFER"}}
+  ],
+  "required_final_rating_variables": [
+    "impurity_fraction_max",
+    "minimum_nozzle_entry_ionization_fraction",
+    "species_radiative_loss_fraction",
+    "charge_state_distribution",
+    "erosion_rate_by_species_and_mass_flow",
+    "recombination_or_condensation_risk",
+    "magnetic_nozzle_efficiency",
+    "conditioner_max_throughput_kg_s",
+    "feed_switch_transient",
+    "purge_and_decontamination_requirement"
+  ],
+  "provisional_doctrine": {
+    "primary":"H2O",
+    "alternates":["NH3","Ar","N2","CO2"],
+    "specialized":["H2"],
+    "contingency":["O2","CH4"],
+    "deferred":["CO"]
+  }
+}
