@@ -1,0 +1,1266 @@
+<title>Wayfarer Compare Viewer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&display=swap">
+<style>
+/* Layout: one column; the ship fills the top, configuration chips and figures below, gate verdicts last. LOOM HUD look, dark only by design. */
+:root{
+  --void:#05070B; --deep:#0B1220; --midnight:#11182B; --slate:#1E2A3A; --nebula:#22364A;
+  --ion:#00D1FF; --amber:#FF8703; --ice:#C7D3DF; --steel:#8A97A6; --white:#FFFFFF;
+  --ok:#22C55E; --caution:#F59E0B; --crit:#EF4444; --hair:#00D1FF2E; --divider:#8A97A640;
+  --font:Montserrat,"Avenir Next","Segoe UI",Roboto,system-ui,sans-serif;
+  color-scheme:dark;
+}
+html,body{background:var(--void);color:var(--white)}
+body{font-family:var(--font);font-size:15px;line-height:1.5;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 28px}
+.wrap{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+header{display:flex;flex-direction:column;gap:4px}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ion)}
+h1{font-size:30px;font-weight:200;letter-spacing:.2em;text-transform:uppercase;margin:0;text-wrap:balance}
+.sub{color:var(--ice);font-size:14px;max-width:62ch;margin:0}
+.stage.big canvas{height:88svh}
+.expand{position:absolute;right:10px;top:48px;font:inherit;font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:#05070BCC;color:var(--ice);border:1px solid var(--hair);border-radius:999px;padding:6px 12px;cursor:pointer}
+.row[hidden]{display:none}
+.stage{position:relative;border:1px solid var(--hair);border-radius:12px;overflow:hidden;background:var(--void);touch-action:none}
+canvas{display:block;width:100%;height:min(68vh,560px)}
+.lab{position:absolute;transform:translate(-50%,-130%);font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--white);background:#05070BCC;border:1px solid var(--hair);padding:2px 6px;border-radius:2px;white-space:nowrap;pointer-events:none}
+.hint{position:absolute;left:12px;bottom:10px;font-size:11px;color:var(--steel);letter-spacing:.04em;pointer-events:none}
+.reset{position:absolute;right:10px;top:10px;font:inherit;font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:#05070BCC;color:var(--ice);border:1px solid var(--hair);border-radius:999px;padding:6px 12px;cursor:pointer}
+.controls{display:flex;flex-direction:column;gap:10px}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;background:var(--slate);color:var(--ice);border:1px solid var(--divider);border-radius:999px;padding:8px 14px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ion);color:var(--void);border-color:var(--ion)}
+.chip:focus-visible,.reset:focus-visible{outline:2px solid var(--white);outline-offset:2px}
+.mode-note{color:var(--ice);font-size:13px;margin:0;min-height:1.5em}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--divider);border:1px solid var(--divider);border-radius:12px;overflow:hidden}
+.stat{background:var(--deep);padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.stat .k{font-size:10.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--steel)}
+.stat .v{font-size:22px;font-weight:300;color:var(--white);font-variant-numeric:tabular-nums}
+.stat .u{font-size:12px;color:var(--ion);margin-left:4px;font-weight:400}
+.stat.hero .v{color:var(--amber)}
+.stat .was{font-size:11px;color:var(--steel)}
+h2{font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ion);margin:6px 0 0}
+.gates{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+.gate{display:flex;align-items:center;gap:10px;background:var(--deep);border:1px solid var(--divider);border-radius:8px;padding:9px 12px;min-width:0}
+.gate .id{font-size:12px;font-weight:600;color:var(--steel);font-variant-numeric:tabular-nums;width:2.6em;flex:none}
+.gate .t{font-size:13px;color:var(--ice);flex:1;min-width:0}
+.pill{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:3px 8px;flex:none;border:1px solid}
+.pill.PASS{color:var(--ok);border-color:var(--ok)}
+.pill.DECL{color:var(--caution);border-color:var(--caution)}
+.pill.OPEN{color:var(--steel);border-color:var(--steel);border-style:dashed}
+.pill.FAIL{color:var(--crit);border-color:var(--crit)}
+.changes{margin:0;padding-left:18px;color:var(--ice);font-size:13.5px;display:flex;flex-direction:column;gap:6px}
+.changes b{color:var(--white);font-weight:500}
+.legend{color:var(--steel);font-size:12px;margin:0}
+footer{color:var(--steel);font-size:11px;letter-spacing:.03em;line-height:1.6;border-top:1px solid var(--divider);padding-top:12px;overflow-wrap:anywhere}
+@media (max-width:520px){h1{font-size:22px;letter-spacing:.14em}.stat .v{font-size:19px}}
+</style>
+<div class="wrap">
+<header>
+  <span class="eyebrow">LOOM 2226 · Reference courier · Visual reference</span>
+  <h1 id="vtitle">Wayfarer v0.5.7</h1>
+  <p class="sub">Drag to turn the ship, pinch or scroll to zoom, two fingers to pan. Every shape is built from the same geometry file the certification checks run on.</p>
+</header>
+<div class="stage" id="stage">
+  <canvas id="cv" aria-label="3D model of Wayfarer v0.5"></canvas>
+  <button class="reset" id="reset" type="button">Reset view</button>
+  <button class="expand" id="expand" type="button" aria-pressed="false">Expand</button>
+  <div class="hint" id="hint">Bow at left · slot side up</div>
+</div>
+<div class="controls">
+  <div class="row" role="group" aria-label="Version" id="verrow"><button class="chip" type="button" data-ver="0.5.6" aria-pressed="false">v0.5.6 (accepted)</button><button class="chip" type="button" data-ver="0.5.7" aria-pressed="true">v0.5.7 (candidate)</button></div>
+  <div class="row" role="group" aria-label="Configuration">
+    <button class="chip" type="button" data-mode="cruise" aria-pressed="true">Coasting</button>
+    <button class="chip" type="button" data-mode="metric" aria-pressed="false">Metric HARD</button>
+    <button class="chip" type="button" data-mode="burn" aria-pressed="false">Torch burn</button>
+    <button class="chip" type="button" data-mode="shuttle" aria-pressed="false">Shuttle out</button>
+    <button class="chip" type="button" data-mode="cmd" aria-pressed="false">Command deck</button>
+    <button class="chip" type="button" data-mode="hab" aria-pressed="false">Habitat decks</button>
+    <button class="chip" type="button" data-mode="structure" aria-pressed="false">Structure</button>
+  </div>
+  <div class="row" role="group" aria-label="View from" id="lookrow" hidden>
+    <button class="chip" type="button" data-look="orbit" aria-pressed="true">Orbit</button>
+    <button class="chip" type="button" data-look="PILOT" aria-pressed="false">Pilot</button>
+    <button class="chip" type="button" data-look="NAV" aria-pressed="false">Navigator</button>
+    <button class="chip" type="button" data-look="S1" aria-pressed="false">Support 1</button>
+    <button class="chip" type="button" data-look="S3" aria-pressed="false">Support 3</button>
+    <button class="chip" type="button" data-look="STAND" aria-pressed="false">Standing (1 g)</button>
+  </div>
+  <div class="row" role="group" aria-label="Crown dome" id="petrow">
+    <button class="chip" type="button" data-pet="1" aria-pressed="false">Dome + shutters open</button>
+    <button class="chip" type="button" data-pet="0" aria-pressed="true">All closed</button>
+  </div>
+  <div class="row" role="group" aria-label="Show">
+    <button class="chip" type="button" data-tog="cut" aria-pressed="false">Cutaway</button>
+    <button class="chip" type="button" data-tog="rooms" aria-pressed="true">Rooms</button>
+    <button class="chip" type="button" data-tog="water" aria-pressed="true">Water</button>
+    <button class="chip" type="button" data-tog="labels" aria-pressed="true">Labels</button>
+  </div>
+  <p class="mode-note" id="note"></p>
+</div>
+<div class="stats" id="stats"></div>
+<h2>What changed in v0.5.7</h2>
+<ul class="changes">
+  <li><b>Four longerons, sized.</b> Five members (3 planks, 2 sills; 36.9 t at 65 MPa against 400) become four 0.40 m CFRP tubes in an X, matching canon. 21.2 t goes back to the engineering reserve. Tap <i>Structure</i>, then switch versions.</li>
+  <li><b>Joints counted.</b> 8 titanium end fittings, a node-mount and hatch allowance (location open: the longeron lines sit under the stowed strakes), 4 bay-corner doublers: 3.3 t.</li>
+  <li><b>Berth viewports.</b> One 0.35 m viewport at the outer end of every berth (10). Acrylic plugs carry the armour's and the ring's g/cm², so the berths stay storm-shelter grade with the shutter open. Tap <i>Habitat decks</i>.</li>
+  <li><b>Crown dome replaces the 8 nose windows.</b> 25 m² of ceramic glazing inside r 2.8 m on an Osteon frame (8 roots forking into 16 edge-on blades round a clear 2.3 m centre pane); 16 tambour gores close it flush and stow in the brow ring. Pilots see 75% of the forward sky (was 22%). Use <i>Dome open / closed</i>; in <i>Command deck</i> try View from: Pilot or Standing.</li>
+  <li><b>Rev 4: the band's load path closed</b> (after Sol's review): 14 x 4 cm titanium edge rings all the way round, a mid transom in the 1.6 m lounge, bolted mullion roots, and plate-sized 2226-ceramic panes (16 mm, 18 mm in the lounge). Band 5.9 t. New G5 checks.</li>
+  <li><b>Viewports everywhere (rev 3).</b> A panoramic band round the L2 common deck (19 m², 1.6 m tall in the lounge) on Osteon titanium mullions; berth viewports up to 0.5 m; medical 2, storm shelter 2 (the plug continues through the water jacket), suit room 1, workshop 2. Every opening below the crown has an acrylic shield plug and a Strata shutter. ~48 m² of glazing in all. Tap <i>Dome + shutters open</i>.</li>
+  <li><b>Concepts, not in the build:</b> external spines and visor sketches, Osteon longeron joints.</li>
+</ul>
+<h2>Certification gates</h2>
+<div class="gates" id="gates"></div>
+<p class="legend">PASS: computed and inside the limit. DECLARED: passes on an assumption kT must accept. OPEN: not yet run (G10 is Sol's Navigator run). Basis v0.1 is still a proposal; nothing here is canon.</p>
+<footer id="foot"></footer>
+</div>
+<script type="module">
+// loomgl.js -- ALL bodies. ALL sponsors. 2026-2226.
+// NON-GOVERNING SANDBOX. A small self-contained WebGL2 renderer for Wayfarer v0.5.
+// Builds meshes from the part shapes in wayfarer_v05_geometry.json (the same
+// shapes certify.py checks), so every image is generated from the hashed
+// geometry. No external libraries.
+// Ship coordinates: x bow->aft, y starboard, z toward the shuttle slot.
+// World (GL) coordinates: X = x - xc, Y = z, Z = -y.
+
+const MATS = {
+  hull_armor:   {c: [0.60, 0.60, 0.585], m: 0.05, r: 0.72, seam: 1, holes: 1},
+  hull_skin:    {c: [0.66, 0.665, 0.65], m: 0.08, r: 0.62, seam: 1},
+  door:         {c: [0.50, 0.51, 0.53], m: 0.15, r: 0.55, seam: 1},
+  pressure_hull:{c: [0.82, 0.82, 0.80], m: 0.0, r: 0.6, holes: 1},
+  bulkhead:     {c: [0.55, 0.55, 0.56], m: 0.2, r: 0.6},
+  floor:        {c: [0.42, 0.43, 0.45], m: 0.2, r: 0.7},
+  core:         {c: [0.45, 0.46, 0.48], m: 0.3, r: 0.5},
+  avionics:     {c: [0.16, 0.20, 0.24], m: 0.4, r: 0.4},
+  outfit:       {c: [0.42, 0.43, 0.45], m: 0.1, r: 0.8},
+  radiator:     {c: [0.05, 0.05, 0.055], m: 0.35, r: 0.35, kind: 2},
+  hotfin:       {c: [0.08, 0.072, 0.065], m: 0.55, r: 0.38, kind: 4},
+  manifold:     {c: [0.33, 0.34, 0.36], m: 0.65, r: 0.38},
+  shield:       {c: [0.22, 0.22, 0.24], m: 0.7, r: 0.4},
+  reactor:      {c: [0.40, 0.41, 0.43], m: 0.85, r: 0.28},
+  nozzle:       {c: [0.93, 0.62, 0.36], m: 1.0, r: 0.22, kind: 3},
+  rcs:          {c: [0.28, 0.28, 0.30], m: 0.6, r: 0.4},
+  collar:       {c: [0.78, 0.78, 0.76], m: 0.4, r: 0.35},
+  shuttle:      {c: [0.86, 0.86, 0.84], m: 0.05, r: 0.5, kind: 1},
+  tank_shell:   {c: [0.88, 0.88, 0.86], m: 0.0, r: 0.55},
+  longeron:     {c: [0.13, 0.13, 0.14], m: 0.3, r: 0.4},
+  frame:        {c: [0.30, 0.30, 0.32], m: 0.5, r: 0.45},
+  bay:          {c: [0.48, 0.48, 0.49], m: 0.4, r: 0.5},
+  thrust_cone:  {c: [0.28, 0.28, 0.30], m: 0.6, r: 0.4},
+  plant:        {c: [0.34, 0.32, 0.56], m: 0.6, r: 0.3},
+  equipment:    {c: [0.44, 0.44, 0.41], m: 0.2, r: 0.6},
+  tunnel:       {c: [0.74, 0.74, 0.71], m: 0.2, r: 0.5},
+  drone:        {c: [0.86, 0.44, 0.10], m: 0.1, r: 0.5},
+  water:        {c: [0.10, 0.34, 0.72], m: 0.0, r: 0.15},
+  cargo:        {c: [0.55, 0.45, 0.30], m: 0.0, r: 0.8},
+  room_command: {c: [0.20, 0.62, 0.60], m: 0, r: 0.8},
+  room_galley:  {c: [0.86, 0.62, 0.24], m: 0, r: 0.8},
+  room_wardroom:{c: [0.90, 0.50, 0.28], m: 0, r: 0.8},
+  room_observation:{c: [0.45, 0.70, 0.90], m: 0, r: 0.8},
+  room_exercise:{c: [0.45, 0.72, 0.36], m: 0, r: 0.8},
+  room_hygiene: {c: [0.62, 0.80, 0.88], m: 0, r: 0.8},
+  room_cabin:   {c: [0.42, 0.55, 0.85], m: 0, r: 0.8},
+  room_cabin_guest:{c: [0.62, 0.50, 0.82], m: 0, r: 0.8},
+  room_shelter: {c: [0.28, 0.34, 0.50], m: 0, r: 0.8},
+  room_medical: {c: [0.88, 0.40, 0.45], m: 0, r: 0.8},
+  room_eclss:   {c: [0.45, 0.58, 0.48], m: 0, r: 0.8},
+  room_airlock: {c: [0.92, 0.80, 0.25], m: 0, r: 0.8},
+  room_suits:   {c: [0.92, 0.66, 0.30], m: 0, r: 0.8},
+  room_workshop:{c: [0.60, 0.48, 0.36], m: 0, r: 0.8},
+  room_custody: {c: [0.62, 0.20, 0.22], m: 0, r: 0.8},
+  room_stores:  {c: [0.78, 0.72, 0.58], m: 0, r: 0.8},
+  room_vestibule:{c: [0.72, 0.74, 0.76], m: 0, r: 0.8},
+  plume:        {c: [0.75, 0.62, 1.0], m: 0, r: 1, kind: 9},
+  window:       {c: [0.02, 0.03, 0.045], m: 0.9, r: 0.05, em: [0.035, 0.03, 0.022]},
+  hatch:        {c: [0.72, 0.72, 0.70], m: 0.3, r: 0.4},
+  // L1 command scene (render-only items placed from render/out/l1_scene.json, the scene the ray tests score)
+  couch:        {c: [0.20, 0.24, 0.29], m: 0.15, r: 0.55},
+  crew:         {c: [0.86, 0.42, 0.12], m: 0.0, r: 0.75},
+  helmet:       {c: [0.90, 0.90, 0.88], m: 0.1, r: 0.35},
+  screen:       {c: [0.025, 0.035, 0.05], m: 0.3, r: 0.2, em: [0.012, 0.075, 0.11]},
+  rail:         {c: [0.62, 0.63, 0.65], m: 0.7, r: 0.35},
+  well:         {c: [0.03, 0.035, 0.04], m: 0.0, r: 0.9},
+  frame:        {c: [0.30, 0.31, 0.33], m: 0.6, r: 0.4, nosec: 1},
+  mattress:     {c: [0.55, 0.62, 0.72], m: 0.0, r: 0.85},
+  litter:       {c: [0.95, 0.72, 0.15], m: 0.0, r: 0.6},
+  shutter:      {c: [0.62, 0.62, 0.60], m: 0.1, r: 0.65, seam: 1},
+  brow:         {c: [0.64, 0.64, 0.625], m: 0.08, r: 0.55},
+  tambour:      {c: [0.58, 0.59, 0.60], m: 0.15, r: 0.5, kind: 5},
+  camera:       {c: [0.08, 0.08, 0.09], m: 0.6, r: 0.3},
+  hold_door:    {c: [0.46, 0.47, 0.49], m: 0.3, r: 0.5},
+  engine_bell:  {c: [0.10, 0.10, 0.11], m: 0.8, r: 0.3},
+};
+for (const [k, v] of Object.entries(MATS)) v.sec = k.startsWith("room_") ? 0.95 : (k === "water" ? 0.9 : 0.55);
+
+// ------------------------------------------------------------ mesh builder
+class MB {
+  constructor(xc) { this.p = []; this.n = []; this.i = []; this.xc = xc; }
+  w(x, y, z) { return [x - this.xc, z, -y]; }
+  wn(nx, ny, nz) { return [nx, nz, -ny]; }
+  v(s, n) { const k = this.p.length / 3; const a = this.w(...s), b = this.wn(...n); this.p.push(...a); this.n.push(...b); return k; }
+  tri(a, b, c, ref) {   // ref: reference normal in ship coords, used to fix winding
+    const P = this.p, A = [P[a*3], P[a*3+1], P[a*3+2]], B = [P[b*3], P[b*3+1], P[b*3+2]], C = [P[c*3], P[c*3+1], P[c*3+2]];
+    const u = [B[0]-A[0], B[1]-A[1], B[2]-A[2]], v = [C[0]-A[0], C[1]-A[1], C[2]-A[2]];
+    const cr = [u[1]*v[2]-u[2]*v[1], u[2]*v[0]-u[0]*v[2], u[0]*v[1]-u[1]*v[0]];
+    const R = this.wn(...ref);
+    if (cr[0]*R[0] + cr[1]*R[1] + cr[2]*R[2] < 0) this.i.push(a, c, b); else this.i.push(a, b, c);
+  }
+  quad(s0, s1, s2, s3, n) { const a = this.v(s0, n), b = this.v(s1, n), c = this.v(s2, n), d = this.v(s3, n); this.tri(a, b, c, n); this.tri(a, c, d, n); }
+  // strip of smooth quads: rows A[k], B[k] with normals NA[k], NB[k]; ref(k) gives the outward direction
+  strip(A, B, NA, NB, ref) {
+    const ia = A.map((s, k) => this.v(s, NA[k])), ib = B.map((s, k) => this.v(s, NB[k]));
+    for (let k = 0; k < A.length - 1; k++) { const r = ref(k); this.tri(ia[k], ib[k], ib[k+1], r); this.tri(ia[k], ib[k+1], ia[k+1], r); }
+  }
+}
+
+const D2R = Math.PI / 180;
+const cyl = (x, r, t) => [x, r * Math.cos(t), r * Math.sin(t)];
+
+function meshSector(mb, s, ox = 0, oy = 0) {
+  const span = Math.min(s.a1 - s.a0, 360), full = span >= 359.999;
+  const n = Math.max(6, Math.ceil(span / 3));
+  const th = [...Array(n + 1)].map((_, k) => (s.a0 + span * k / n) * D2R);
+  const P = (x, r, t) => { const q = cyl(x, r, t); return [q[0], q[1] + oy, q[2] + ox]; };
+  const rad = t => [0, Math.cos(t), Math.sin(t)];
+  mb.strip(th.map(t => P(s.x0, s.r1, t)), th.map(t => P(s.x1, s.r1, t)), th.map(rad), th.map(rad), k => rad(th[k]));
+  if (s.r0 > 1e-6) { const ir = t => rad(t).map(v => -v);
+    mb.strip(th.map(t => P(s.x0, s.r0, t)), th.map(t => P(s.x1, s.r0, t)), th.map(ir), th.map(ir), k => ir(th[k])); }
+  for (const [x, nx] of [[s.x0, -1], [s.x1, 1]]) {
+    const nn = th.map(() => [nx, 0, 0]);
+    mb.strip(th.map(t => P(x, s.r0, t)), th.map(t => P(x, s.r1, t)), nn, nn, () => [nx, 0, 0]);
+  }
+  if (!full) for (const [t, sg] of [[th[0], -1], [th[n], 1]]) {
+    const tn = [0, -Math.sin(t) * sg, Math.cos(t) * sg];
+    mb.quad(P(s.x0, s.r0, t), P(s.x1, s.r0, t), P(s.x1, s.r1, t), P(s.x0, s.r1, t), tn);
+  }
+}
+
+function meshCSlot(mb, s, x0o) {
+  const x0 = x0o ?? s.x0, x1 = s.x1, r0 = s.r0, r1 = s.r1, hw = s.hw;
+  const ao = Math.acos(Math.min(1, hw / r1)) / D2R, ai = Math.acos(Math.min(1, hw / r0)) / D2R;
+  let o0 = 180 - ao, o1 = 360 + ao, i0 = 180 - ai, i1 = 360 + ai;
+  if (s.side === 1) { o0 = 270; i0 = 270; }
+  if (s.side === -1) { o1 = 270; i1 = 270; }
+  const N = Math.max(24, Math.round((o1 - o0) * 1.5));
+  const T = [...Array(N + 1)].map((_, k) => k / N);
+  const ro = t => {
+    const th = t * D2R; let r = r1;
+    if (s.gw) for (const a of s.grooves) { const d = th - a * D2R; if (Math.cos(d) > 0 && Math.abs(r1 * Math.sin(d)) < s.gw / 2) r = r1 - s.gd; }
+    return r;
+  };
+  const tho = T.map(t => o0 + (o1 - o0) * t), thi = T.map(t => i0 + (i1 - i0) * t);
+  const rad = d => [0, Math.cos(d * D2R), Math.sin(d * D2R)];
+  const nrad = d => rad(d).map(v => -v);
+  const O = (x, k) => cyl(x, ro(tho[k]), tho[k] * D2R), In = (x, k) => cyl(x, r0, thi[k] * D2R);
+  mb.strip(T.map((_, k) => O(x0, k)), T.map((_, k) => O(x1, k)), tho.map(rad), tho.map(rad), k => rad(tho[k]));
+  mb.strip(T.map((_, k) => In(x0, k)), T.map((_, k) => In(x1, k)), thi.map(nrad), thi.map(nrad), k => nrad(thi[k]));
+  for (const [x, nx] of [[x0, -1], [x1, 1]]) { const nn = T.map(() => [nx, 0, 0]);
+    mb.strip(T.map((_, k) => In(x, k)), T.map((_, k) => O(x, k)), nn, nn, () => [nx, 0, 0]); }
+  for (const [k, sg] of [[0, 1], [N, -1]]) {
+    const a = In(x0, k), b = O(x0, k), c = O(x1, k), d = In(x1, k);
+    const e = [0, b[1] - a[1], b[2] - a[2]]; // along wall in yz
+    const nrm = [0, -e[2] * sg, e[1] * sg]; const L = Math.hypot(nrm[1], nrm[2]) || 1;
+    mb.quad(a, b, c, d, [0, nrm[1] / L, nrm[2] / L]);
+  }
+}
+
+function lathe(mb, prof, nth = 64, ox = 0, oy = 0) {  // prof: [[x, r, nx, nr], ...] around the ship x axis
+  const th = [...Array(nth + 1)].map((_, k) => k / nth * 2 * Math.PI);
+  for (let j = 0; j < prof.length - 1; j++) {
+    const [xa, ra, nxa, nra] = prof[j], [xb, rb, nxb, nrb] = prof[j + 1];
+    const A = th.map(t => { const q = cyl(xa, ra, t); return [q[0], q[1] + oy, q[2] + ox]; });
+    const B = th.map(t => { const q = cyl(xb, rb, t); return [q[0], q[1] + oy, q[2] + ox]; });
+    const NA = th.map(t => [nxa, nra * Math.cos(t), nra * Math.sin(t)]), NB = th.map(t => [nxb, nrb * Math.cos(t), nrb * Math.sin(t)]);
+    mb.strip(A, B, NA, NB, k => [(nxa + nxb) / 2, (nra + nrb) / 2 * Math.cos(th[k]), (nra + nrb) / 2 * Math.sin(th[k])]);
+  }
+}
+
+function ellProfile(xa, xb, xc, R, inward = false, M = 24, xs = null) {
+  const h = xb - xa, out = [];
+  const u0 = xs === null ? 1 : Math.max(0, Math.min(1, (xb - xs) / h));
+  if (xs !== null) { const r0 = R * Math.sqrt(Math.max(0, 1 - u0 * u0)); out.push([xs, 0, -1, 0]); out.push([xs, r0, -1, 0]); }
+  for (let i = 0; i <= M; i++) {
+    const u = u0 * (1 - i / M), x = xb - u * h, r = R * Math.sqrt(Math.max(0, 1 - u * u));
+    let nx = -(u) / h, nr = (r / R) / R; const L = Math.hypot(nx, nr) || 1; nx /= L; nr /= L;
+    if (i === 0 && xs === null) { nx = -1; nr = 0; }
+    out.push(inward ? [x, r, -nx, -nr] : [x, r, nx, nr]);
+  }
+  out.push(inward ? [xc, R, 0, -1] : [xc, R, 0, 1]);
+  out[out.length - 2] = inward ? [xb, R, 0, -1] : [xb, R, 0, 1];
+  return out;
+}
+
+function latheArc(mb, prof, a0, a1) {  // lathe over the arc a0..a1 degrees
+  const n = Math.max(4, Math.ceil((a1 - a0) / 3));
+  const th = [...Array(n + 1)].map((_, k) => (a0 + (a1 - a0) * k / n) * D2R);
+  for (let j = 0; j < prof.length - 1; j++) {
+    const [xa, ra, nxa, nra] = prof[j], [xb, rb, nxb, nrb] = prof[j + 1];
+    mb.strip(th.map(t => cyl(xa, ra, t)), th.map(t => cyl(xb, rb, t)), th.map(t => [nxa, nra * Math.cos(t), nra * Math.sin(t)]),
+             th.map(t => [nxb, nrb * Math.cos(t), nrb * Math.sin(t)]), k => [(nxa + nxb) / 2, (nra + nrb) / 2 * Math.cos(th[k]), (nra + nrb) / 2 * Math.sin(th[k])]);
+  }
+}
+
+function meshDomeSolid(mb, s) {
+  // solid ellipsoidal cap (plus cylinder to xc), optionally only r >= rin, truncated at xc < xb, with angular gaps [centre, half-width]
+  const h = s.xb - s.xa, R = s.R, rin = s.rin || 0, xe = s.xc;
+  const x0 = rin > 0 ? s.xb - h * Math.sqrt(Math.max(0, 1 - (rin / R) ** 2)) : s.xa;
+  const u0 = (s.xb - x0) / h, u1 = Math.max(0, (s.xb - Math.min(xe, s.xb)) / h), M = 28;
+  const outer = [];
+  for (let i = 0; i <= M; i++) {
+    const u = u0 + (u1 - u0) * i / M, x = s.xb - u * h, r = R * Math.sqrt(Math.max(0, 1 - u * u));
+    let nx = -u / h, nr = r / (R * R); const L = Math.hypot(nx, nr) || 1;
+    outer.push([x, r, nx / L, nr / L]);
+  }
+  if (xe > s.xb) { outer.push([s.xb, R, 0, 1]); outer.push([xe, R, 0, 1]); }
+  const rEnd = outer[outer.length - 1][1];
+  const gaps = (s.gaps || []).map(([c, w]) => [c - w, c + w]).sort((a, b) => a[0] - b[0]);
+  const arcs = [];
+  if (!gaps.length) arcs.push([0, 360]);
+  else for (let k = 0; k < gaps.length; k++) { const a0 = gaps[k][1], a1 = k + 1 < gaps.length ? gaps[k + 1][0] : gaps[0][0] + 360; if (a1 > a0) arcs.push([a0, a1]); }
+  for (const [a0, a1] of arcs) {
+    latheArc(mb, outer, a0, a1);
+    if (rin > 0) latheArc(mb, [[x0, rin, 0, -1], [xe, rin, 0, -1]], a0, a1);
+    latheArc(mb, [[xe, rin, 1, 0], [xe, rEnd, 1, 0]], a0, a1);
+    if (gaps.length) for (const [a, sg] of [[a0, -1], [a1, 1]]) {
+      const t = a * D2R, n = [0, -Math.sin(t) * sg, Math.cos(t) * sg];
+      mb.strip(outer.map(q => cyl(q[0], rin, t)), outer.map(q => cyl(q[0], q[1], t)), outer.map(() => n), outer.map(() => n), () => n);
+    }
+  }
+}
+
+function meshDome(mb, s) {
+  if ((s.rin || 0) > 0 || (s.gaps && s.gaps.length) || (s.t <= 0 && s.xc < s.xb)) return meshDomeSolid(mb, s);
+  lathe(mb, ellProfile(s.xa, s.xb, s.xc, s.R, false, 24, s.xs !== undefined ? s.xs + 0.015 : null));   // tiny gap: avoids z-fighting with the part ahead
+  if (s.t > 0) {
+    lathe(mb, ellProfile(s.xa + s.t, s.xb, s.xc, s.R - s.t, true));
+    lathe(mb, [[s.xc, s.R - s.t, 1, 0], [s.xc, s.R, 1, 0]]);
+  } else lathe(mb, [[s.xc, 0, 1, 0], [s.xc, s.R, 1, 0]]);
+}
+
+function meshFrustum(mb, s, ox = 0, oy = 0) {
+  const L = s.x1 - s.x0, dr = s.r1 - s.r0, k = Math.hypot(L, dr), nx = -dr / k, nr = L / k;
+  lathe(mb, [[s.x0, s.r0, nx, nr], [s.x1, s.r1, nx, nr]], 64, ox, oy);
+  if (s.t > 0) {
+    lathe(mb, [[s.x0, s.r0 - s.t, -nx, -nr], [s.x1, s.r1 - s.t, -nx, -nr]], 64, ox, oy);
+    lathe(mb, [[s.x0, s.r0 - s.t, -1, 0], [s.x0, s.r0, -1, 0]], 64, ox, oy);
+    lathe(mb, [[s.x1, s.r1 - s.t, 1, 0], [s.x1, s.r1, 1, 0]], 64, ox, oy);
+  } else {
+    lathe(mb, [[s.x0, 0, -1, 0], [s.x0, s.r0, -1, 0]], 64, ox, oy);
+    lathe(mb, [[s.x1, 0, 1, 0], [s.x1, s.r1, 1, 0]], 64, ox, oy);
+  }
+}
+
+function meshTube(mb, s, n = 24) {
+  const p0 = s.p0, p1 = s.p1, d = p1.map((v, i) => v - p0[i]), L = Math.hypot(...d), u = d.map(v => v / L);
+  let a = Math.abs(u[0]) < 0.9 ? [1, 0, 0] : [0, 1, 0];
+  const v = [u[1]*a[2]-u[2]*a[1], u[2]*a[0]-u[0]*a[2], u[0]*a[1]-u[1]*a[0]], lv = Math.hypot(...v); for (let i = 0; i < 3; i++) v[i] /= lv;
+  const w = [u[1]*v[2]-u[2]*v[1], u[2]*v[0]-u[0]*v[2], u[0]*v[1]-u[1]*v[0]];
+  const th = [...Array(n + 1)].map((_, k) => k / n * 2 * Math.PI);
+  const ring = (p, t) => [0, 1, 2].map(i => p[i] + s.r * (Math.cos(t) * v[i] + Math.sin(t) * w[i]));
+  const nr = t => [0, 1, 2].map(i => Math.cos(t) * v[i] + Math.sin(t) * w[i]);
+  mb.strip(th.map(t => ring(p0, t)), th.map(t => ring(p1, t)), th.map(nr), th.map(nr), k => nr(th[k]));
+  for (const [p, sg] of [[p0, -1], [p1, 1]]) {
+    const c = mb.v(p, u.map(x => x * sg)); const ids = th.map(t => mb.v(ring(p, t), u.map(x => x * sg)));
+    for (let k = 0; k < n; k++) mb.tri(c, ids[k], ids[k + 1], u.map(x => x * sg));
+  }
+}
+
+function meshBox(mb, b) {
+  const [x0, x1, y0, y1, z0, z1] = b;
+  mb.quad([x0,y0,z0],[x0,y1,z0],[x0,y1,z1],[x0,y0,z1],[-1,0,0]); mb.quad([x1,y0,z0],[x1,y1,z0],[x1,y1,z1],[x1,y0,z1],[1,0,0]);
+  mb.quad([x0,y0,z0],[x1,y0,z0],[x1,y0,z1],[x0,y0,z1],[0,-1,0]); mb.quad([x0,y1,z0],[x1,y1,z0],[x1,y1,z1],[x0,y1,z1],[0,1,0]);
+  mb.quad([x0,y0,z0],[x1,y0,z0],[x1,y1,z0],[x0,y1,z0],[0,0,-1]); mb.quad([x0,y0,z1],[x1,y0,z1],[x1,y1,z1],[x0,y1,z1],[0,0,1]);
+}
+
+function meshPanel(mb, s, span, tilt = 0) {
+  // flat plate along x at azimuth a from radius r0 outward by span, thickness t (tangential); optional accordion zig-zag
+  const c = Math.cos(s.a * D2R), sn = Math.sin(s.a * D2R);
+  const P = (x, along, across) => [x, along * c - across * sn, along * sn + across * c];
+  const t = s.t / 2, a0 = s.r0, a1 = s.r0 + span;
+  const N = [0, -sn, c], A = [0, c, sn];
+  if (tilt > 0 && span > 0.5) {   // accordion pleats: alternating facets
+    const np = Math.max(1, Math.round(span / 2));
+    for (let k = 0; k < np; k++) {
+      const ra = a0 + span * k / np, rb = a0 + span * (k + 1) / np, off = (k % 2 ? 1 : -1) * tilt;
+      const na = [0, -sn * Math.cos(off) + c * Math.sin(off), c * Math.cos(off) + sn * Math.sin(off)];
+      mb.quad(P(s.x0, ra, -t), P(s.x1, ra, -t), P(s.x1, rb, t), P(s.x0, rb, t), na);
+      mb.quad(P(s.x0, ra, -t), P(s.x1, ra, -t), P(s.x1, rb, t), P(s.x0, rb, t), na.map(v => -v));
+    }
+    return;
+  }
+  mb.quad(P(s.x0, a0, t), P(s.x1, a0, t), P(s.x1, a1, t), P(s.x0, a1, t), N);
+  mb.quad(P(s.x0, a0, -t), P(s.x1, a0, -t), P(s.x1, a1, -t), P(s.x0, a1, -t), N.map(v => -v));
+  mb.quad(P(s.x0, a1, -t), P(s.x1, a1, -t), P(s.x1, a1, t), P(s.x0, a1, t), A);
+  mb.quad(P(s.x0, a0, -t), P(s.x1, a0, -t), P(s.x1, a0, t), P(s.x0, a0, t), A.map(v => -v));
+  mb.quad(P(s.x0, a0, -t), P(s.x0, a1, -t), P(s.x0, a1, t), P(s.x0, a0, t), [-1, 0, 0]);
+  mb.quad(P(s.x1, a0, -t), P(s.x1, a1, -t), P(s.x1, a1, t), P(s.x1, a0, t), [1, 0, 0]);
+}
+
+function meshOBox(mb, c, A, h) {   // oriented box: centre c, unit axes A[0..2], half sizes h[0..2] (ship coords)
+  const P = (a, b, d) => [0, 1, 2].map(i => c[i] + a * h[0] * A[0][i] + b * h[1] * A[1][i] + d * h[2] * A[2][i]);
+  for (let k = 0; k < 3; k++) for (const sg of [-1, 1]) {
+    const k1 = (k + 1) % 3, k2 = (k + 2) % 3, q = [];
+    for (const [p1, p2] of [[-1, -1], [1, -1], [1, 1], [-1, 1]]) { const w = [0, 0, 0]; w[k] = sg; w[k1] = p1; w[k2] = p2; q.push(P(...w)); }
+    mb.quad(q[0], q[1], q[2], q[3], A[k].map(v => v * sg));
+  }
+}
+
+function meshSphere(mb, c, r, n = 14) {
+  const prof = [];
+  for (let i = 0; i <= n; i++) { const a = Math.PI * i / n; prof.push([c[0] - r * Math.cos(a), r * Math.sin(a), -Math.cos(a), Math.sin(a)]); }
+  lathe(mb, prof, 2 * n, c[2], c[1]);
+}
+
+function meshBore(mb, p, nn, r, b, n = 40) {
+  // window opening seen from inside: pane frame at the pressure hull, opening splayed outward through the armour
+  // b: {wall_m, armour_m, splay_deg}; a is distance along the outward normal from the outer surface point p
+  const u = nn, a0 = Math.abs(u[0]) < 0.9 ? [1, 0, 0] : [0, 1, 0];
+  const v = [u[1]*a0[2]-u[2]*a0[1], u[2]*a0[0]-u[0]*a0[2], u[0]*a0[1]-u[1]*a0[0]], lv = Math.hypot(...v); for (let i = 0; i < 3; i++) v[i] /= lv;
+  const w = [u[1]*v[2]-u[2]*v[1], u[2]*v[0]-u[0]*v[2], u[0]*v[1]-u[1]*v[0]];
+  const th = [...Array(n + 1)].map((_, k) => k / n * 2 * Math.PI), t = Math.tan(b.splay_deg * D2R);
+  const rd = q => [0, 1, 2].map(i => Math.cos(q) * v[i] + Math.sin(q) * w[i]);
+  const at = (a, rr, q) => p.map((x, i) => x + a * u[i] + rr * rd(q)[i]);
+  const prof = [[-b.wall_m, r], [-b.armour_m, r], [0.006, r + (b.armour_m + 0.006) * t]];
+  for (let j = 0; j < prof.length - 1; j++) {
+    const [aa, ra] = prof[j], [ab, rb] = prof[j + 1], f = (rb - ra) / (ab - aa), L = Math.hypot(1, f);
+    const nr = q => rd(q).map((x, i) => (-x + f * u[i]) / L);
+    mb.strip(th.map(q => at(aa, ra, q)), th.map(q => at(ab, rb, q)), th.map(nr), th.map(nr), k => nr(th[k]));
+  }
+  const ro = prof[2][1], up = u, dn = u.map(x => -x);
+  mb.strip(th.map(q => at(0.006, ro, q)), th.map(q => at(0.006, ro + 0.05, q)), th.map(() => up), th.map(() => up), () => up);   // outer rim
+  mb.strip(th.map(q => at(-b.wall_m - 0.004, r - 0.035, q)), th.map(q => at(-b.wall_m - 0.004, r + 0.01, q)), th.map(() => dn), th.map(() => dn), () => dn);   // pane frame, cabin side
+}
+
+function meshRing(mb, p0, p1, ri, ro, n = 32) {   // hollow tube (window frame): axis p0->p1, inner and outer radius
+  const d = p1.map((v, i) => v - p0[i]), L = Math.hypot(...d), u = d.map(v => v / L);
+  const a = Math.abs(u[0]) < 0.9 ? [1, 0, 0] : [0, 1, 0];
+  const v = [u[1]*a[2]-u[2]*a[1], u[2]*a[0]-u[0]*a[2], u[0]*a[1]-u[1]*a[0]], lv = Math.hypot(...v); for (let i = 0; i < 3; i++) v[i] /= lv;
+  const w = [u[1]*v[2]-u[2]*v[1], u[2]*v[0]-u[0]*v[2], u[0]*v[1]-u[1]*v[0]];
+  const th = [...Array(n + 1)].map((_, k) => k / n * 2 * Math.PI);
+  const rd = t => [0, 1, 2].map(i => Math.cos(t) * v[i] + Math.sin(t) * w[i]);
+  const at = (p, r, t) => p.map((x, i) => x + r * rd(t)[i]);
+  mb.strip(th.map(t => at(p0, ro, t)), th.map(t => at(p1, ro, t)), th.map(rd), th.map(rd), k => rd(th[k]));
+  const ir = t => rd(t).map(x => -x);
+  mb.strip(th.map(t => at(p0, ri, t)), th.map(t => at(p1, ri, t)), th.map(ir), th.map(ir), k => ir(th[k]));
+  for (const [p, sg] of [[p0, -1], [p1, 1]]) { const nn = u.map(x => x * sg);
+    mb.strip(th.map(t => at(p, ri, t)), th.map(t => at(p, ro, t)), th.map(() => nn), th.map(() => nn), () => nn); }
+}
+
+// CONCEPT (non-governing): crown dome, Osteon/Strata version. A Builder-grammar frame: 8 graded roots spring
+// from a brow ring and fork once into 16 blades that land on a slim ring round a 2.3 m central pane. Blades are
+// flat and set edge-on to the pilots. Strata tambour gores close the dome on meridian tracks and retract into
+// the brow ring, so nothing sits outside the glass when it is open.
+function crownMeshes(cw, xc) {
+  const G = {}, mb = m => (G[m] ||= new MB(xc));
+  const R = cw.r, c0 = cw.center || 1.15, rf = cw.fork || 2.0, N = cw.mer || 8;
+  const xm = r => 2.35 - 2.25 * Math.sqrt(Math.max(0, 1 - (r / 4.4) ** 2));      // mid-wall surface
+  const xo = r => 2.35 - 2.35 * Math.sqrt(Math.max(0, 1 - (r / 4.5) ** 2));      // armour outer surface
+  const P = (r, a, x = xm) => [x(r), r * Math.cos(a), r * Math.sin(a)];
+  const nrm = (r, a) => { const u = Math.sqrt(Math.max(1e-6, 1 - (r / 4.4) ** 2)); const nx = -1, nr = r / (4.4 * 4.4) * 2.25 / u, L = Math.hypot(nx, nr); return [nx / L, nr / L * Math.cos(a), nr / L * Math.sin(a)]; };
+  const cross = (a, b) => [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]];
+  const unit = v => { const L = Math.hypot(...v) || 1; return v.map(x => x / L); };
+  // a flat blade swept along a surface path: thickness w (sideways, tapered) and depth d (along the surface normal)
+  function blade(path, w0, w1, d, m) {
+    const n = path.length, rows = [];
+    for (let i = 0; i < n; i++) {
+      const [r, a] = path[i], c = P(r, a), nn = nrm(r, a);
+      const nb = path[Math.min(i + 1, n - 1)], pb = path[Math.max(i - 1, 0)];
+      const t = unit(P(nb[0], nb[1]).map((v, k) => v - P(pb[0], pb[1])[k])), sd = unit(cross(nn, t));
+      const w = (w0 + (w1 - w0) * i / (n - 1)) / 2;
+      rows.push({c, nn, sd, w});
+    }
+    const corner = (q, sw, dn) => q.c.map((v, k) => v + q.sd[k] * q.w * sw + q.nn[k] * d * dn);
+    for (const [s1, d1, s2, d2, nf] of [[1, -0.5, 1, 0.5, q => q.sd], [-1, -0.5, -1, 0.5, q => q.sd.map(v => -v)],
+                                         [-1, -0.5, 1, -0.5, q => q.nn.map(v => -v)], [-1, 0.5, 1, 0.5, q => q.nn]])
+      mb(m).strip(rows.map(q => corner(q, s1, d1)), rows.map(q => corner(q, s2, d2)), rows.map(nf), rows.map(nf), k => nf(rows[k]));
+  }
+  const seg = (r0, a0, r1, a1, k = 24) => [...Array(k + 1)].map((_, i) => { const t = i / k, e = t * t * (3 - 2 * t); return [r0 + (r1 - r0) * t, a0 + (a1 - a0) * e]; });
+  const half = Math.PI / N / 2;
+  for (let j = 0; j < N; j++) {
+    const a = 2 * Math.PI * j / N;
+    blade(seg(R, a, rf, a, 12), 0.075, 0.05, 0.16, "frame");                     // root, thick at the brow ring
+    for (const sg of [-1, 1]) blade(seg(rf, a, c0, a + sg * half), 0.05, 0.03, 0.12, "frame");   // forks, thinning inward
+  }
+  { const ring = [...Array(97)].map((_, i) => [c0, 2 * Math.PI * i / 96]); blade(ring, 0.04, 0.04, 0.10, "frame"); }
+  // brow ring: a smooth raised band round the rim that holds the frame roots and the retracted tambour gores
+  const prof = [];
+  for (let i = 0; i <= 24; i++) {
+    const r = R - 0.1 + 1.0 * i / 24, bump = 0.22 * Math.sin(Math.PI * i / 24) ** 0.7;
+    const x0 = xo(r), u = Math.sqrt(Math.max(1e-6, 1 - (r / 4.5) ** 2)), nx = -1, nr = r / (4.5 * 4.5) * 2.35 / u, L = Math.hypot(nx, nr);
+    prof.push([x0 + nx / L * bump, r + nr / L * bump, nx / L, nr / L]);
+  }
+  lathe(mb("brow"), prof, 96);
+  // closed: strata tambour gores sit flush in the armour opening
+  if ((cw.open ?? 1) < 0.5) {
+    const cap = [];
+    for (let i = 0; i <= 30; i++) { const r = (R + 0.05) * i / 30, u = Math.sqrt(Math.max(1e-6, 1 - (r / 4.5) ** 2)), nx = -1, nr = r / (4.5 * 4.5) * 2.35 / u, L = Math.hypot(nx, nr);
+      cap.push([xo(r) - 0.005, r, nx / L, nr / L]); }
+    lathe(mb("tambour"), cap, 96);
+  }
+  return G;
+}
+
+// a person lying on their back: T(s along the body from the head, l sideways, t up from the support surface)
+function crewFigure(mb, T, axes) {
+  meshSphere(mb("helmet"), T(0.15, 0, 0.13), 0.13);
+  for (const sg of [-1, 1]) {
+    meshTube(mb("crew"), {p0: T(0.30, sg * 0.08, 0.11), p1: T(0.95, sg * 0.08, 0.11), r: 0.11}, 16);       // torso
+    meshSphere(mb("crew"), T(0.31, sg * 0.10, 0.11), 0.10, 10);                                            // shoulders
+    meshTube(mb("crew"), {p0: T(0.92, sg * 0.10, 0.08), p1: T(1.84, sg * 0.10, 0.08), r: 0.075}, 14);      // legs
+    meshTube(mb("crew"), {p0: T(0.34, sg * 0.25, 0.08), p1: T(0.98, sg * 0.25, 0.08), r: 0.05}, 12);       // arms
+    meshOBox(mb("couch"), T(1.89, sg * 0.10, 0.12), axes, [0.05, 0.055, 0.11]);                             // boots
+  }
+}
+
+// habitat crew systems: berths (with sleepers), cabin doors, ladder shafts, medical doors, a litter (render/out/hab_scene.json)
+function habitatMeshes(sc, opt = {}) {
+  const G = {}, mb = m => (G[m] ||= new MB(opt.xc));
+  const clip = opt.clip, gone = p => clip && clip[0] * p[0] + clip[1] * p[1] + clip[2] * p[2] + clip[3] > 0;
+  const up = [-1, 0, 0];
+  for (const b of sc.bunks) {
+    const t = b.angle_deg * D2R, u = [0, Math.cos(t), Math.sin(t)], v = [0, -Math.sin(t), Math.cos(t)];
+    const [r0, r1] = b.radial_m, W = b.width_m, L = r1 - r0;
+    const P = (s, l, h) => [b.pan_x - h, (r1 - s) * u[1] + l * v[1], (r1 - s) * u[2] + l * v[2]];   // head at the outer wall
+    if (gone(P(L / 2, 0, 0))) continue;
+    const box = (m, s0, s1, l0, l1, h0, h1) => meshOBox(mb(m), P((s0 + s1) / 2, (l0 + l1) / 2, (h0 + h1) / 2), [u, v, up], [(s1 - s0) / 2, (l1 - l0) / 2, (h1 - h0) / 2]);
+    box("couch", 0, L, -W / 2, W / 2, -0.06, 0);                  // pan
+    box("mattress", 0.02, L - 0.02, -W / 2 + 0.03, W / 2 - 0.03, 0, 0.07);
+    for (const sg of [-1, 1]) box("couch", 0.3, 1.2, sg * (W / 2 - 0.03) - 0.02, sg * (W / 2 - 0.03) + 0.02, 0.07, 0.15);   // restraint rails
+    if (b.tier === 2) for (const s0 of [0.03, L - 0.03]) for (const sg of [-1, 1])
+      meshTube(mb("rail"), {p0: P(s0, sg * (W / 2 - 0.03), -0.06), p1: P(s0, sg * (W / 2 - 0.03), -0.06 - (sc.tier_h || 1.08) + 0.06), r: 0.02}, 8);
+    crewFigure(mb, (s, l, h) => P(s + 0.05, l, h + 0.07), [u, v, up]);
+  }
+  for (const d of sc.doors) {
+    const t = d.center_deg * D2R, n = [0, Math.cos(t), Math.sin(t)], tg = [0, -Math.sin(t), Math.cos(t)];
+    const c = [d.floor_x - d.height_m / 2, (d.at_r_m - 0.05) * n[1], (d.at_r_m - 0.05) * n[2]];
+    if (gone(c)) continue;
+    meshOBox(mb("door"), c, [[1, 0, 0], tg, n], [d.height_m / 2, d.width_m / 2, 0.02]);
+  }
+  const m = sc.medical, half = m.width_m / 2 / m.at_r_m;
+  for (const sg of [-1, 1]) {      // bi-parting doors, slid open beside the opening
+    const t = m.center_deg * D2R + sg * (half + 0.6 / m.at_r_m / 1.0), n = [0, Math.cos(t), Math.sin(t)], tg = [0, -Math.sin(t), Math.cos(t)];
+    const c = [(m.x_m[0] + m.x_m[1]) / 2 + 0.1, (m.at_r_m - 0.06) * n[1], (m.at_r_m - 0.06) * n[2]];
+    if (!gone(c)) meshOBox(mb("door"), c, [[1, 0, 0], tg, n], [1.05, 0.6, 0.02]);
+  }
+  for (const l of sc.ladderways) {                 // rails and rungs on the inboard face of each shaft, every deck L1-L4
+    const t = l.theta_deg * D2R, n = [0, Math.cos(t), Math.sin(t)], tg = [0, -Math.sin(t), Math.cos(t)];
+    const ri = l.r_m - l.size_m / 2 + 0.06;
+    for (const d of sc.decks.slice(0, -1)) {
+      const xa = d.x_m[1] - 1.0, xb = d.x_m[1] + sc.floor_t_m + 2.3;
+      if (gone([(xa + xb) / 2, ri * n[1], ri * n[2]])) continue;
+      for (const sg of [-1, 1]) {
+        const q = [0, ri * n[1] + sg * 0.22 * tg[1], ri * n[2] + sg * 0.22 * tg[2]];
+        meshTube(mb("rail"), {p0: [xa, q[1], q[2]], p1: [Math.min(xb, d.x_m[1] + sc.floor_t_m + 2.29), q[1], q[2]], r: 0.018}, 8);
+      }
+      for (let x = d.x_m[1] + 0.15; x < d.x_m[1] + sc.floor_t_m + 2.3; x += 0.3)
+        meshTube(mb("rail"), {p0: [x, ri * n[1] - 0.22 * tg[1], ri * n[2] - 0.22 * tg[2]], p1: [x, ri * n[1] + 0.22 * tg[1], ri * n[2] + 0.22 * tg[2]], r: 0.014}, 6);
+    }
+  }
+  if (opt.litter && sc.litter) {
+    const L = sc.litter, t = L.pose.theta_deg * D2R, u = [0, Math.cos(t), Math.sin(t)], v = [0, -Math.sin(t), Math.cos(t)];
+    const rc = (L.pose.r_m[0] + L.pose.r_m[1]) / 2, c = [L.pose.x, rc * u[1], rc * u[2]];
+    meshOBox(mb("litter"), c, [u, v, up], [L.length_m / 2, L.width_m / 2, 0.05]);
+    const fl = sc.decks.find(d => d.x_m[0] < L.pose.x && L.pose.x < d.x_m[1]);
+    if (fl) meshOBox(mb("couch"), [(L.pose.x + 0.05 + fl.x_m[1]) / 2, c[1], c[2]], [[1, 0, 0], u, v], [(fl.x_m[1] - L.pose.x - 0.05) / 2, L.length_m / 2 - 0.3, 0.2]);   // treatment couch
+  }
+  return G;
+}
+
+// L1 command scene: couches, crew, displays, ladders, from render/out/l1_scene.json (ship coords)
+function commandMeshes(sc, opt = {}) {
+  const G = {}, mb = m => (G[m] ||= new MB(opt.xc));
+  const hide = opt.hide || new Set(), hideCrew = opt.hideCrew || new Set(), clip = opt.clip;
+  const gone = p => clip && clip[0] * p[0] + clip[1] * p[1] + clip[2] * p[2] + clip[3] > 0;
+  const nrm = v => { const L = Math.hypot(...v); return v.map(x => x / L); };
+  const cross = (a, b) => [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]];
+  const domeX = r => sc.dome.xb - (sc.dome.xb - sc.dome.xa) * Math.sqrt(Math.max(0, 1 - (r / sc.dome.R) ** 2));
+  const hidden = new Set();
+  for (const c of sc.couches) {
+    const [hy, hz] = c.head, [fy, fz] = c.feet, L = c.L, u = nrm([0, fy - hy, fz - hz]), v = [0, -u[2], u[1]], up = [-1, 0, 0];
+    const mid = [c.base_x, (hy + fy) / 2, (hz + fz) / 2];
+    if (hide.has(c.id) || gone(mid)) { hidden.add(c.id); continue; }
+    const back = sc.couch.back_above_base_m, W = sc.couch.width_m;
+    const P = (s, l, t) => [c.base_x - t, hy + s * u[1] + l * v[1], hz + s * u[2] + l * v[2]];
+    const box = (m, s0, s1, l0, l1, t0, t1) => meshOBox(mb(m), P((s0 + s1) / 2, (l0 + l1) / 2, (t0 + t1) / 2), [u, v, up], [(s1 - s0) / 2, (l1 - l0) / 2, (t1 - t0) / 2]);
+    box("couch", 0.25, L - 0.25, -0.2, 0.2, 0, back - 0.1);                 // pedestal
+    box("couch", 0, L, -W / 2, W / 2, back - 0.1, back);                     // pan
+    for (const sg of [-1, 1]) {
+      box("couch", 0.35, 1.15, sg * (W / 2 - 0.05) - 0.025, sg * (W / 2 - 0.05) + 0.025, back, back + 0.08);   // side bolsters
+      box("couch", 0.02, 0.30, sg * 0.165 - 0.025, sg * 0.165 + 0.025, back, back + 0.12);                    // head wings
+    }
+    box("couch", L - 0.07, L, -0.22, 0.22, back, back + 0.2);               // foot plate
+    if (hideCrew.has(c.id)) continue;
+    crewFigure(mb, (s, l, t) => P(s, l, back + t), [u, v, up]);
+  }
+  for (const d of sc.displays) {
+    if (hidden.has(d.for)) continue;
+    const c = d.box.map(([a, b]) => (a + b) / 2), cc = sc.couches.find(k => k.id === d.for);
+    const n = nrm(cc.eye.map((e, i) => e - c[i]));
+    const [hy, hz] = cc.head, [fy, fz] = cc.feet, u = nrm([0, fy - hy, fz - hz]), lat = [0, -u[2], u[1]];
+    const dl = lat[0] * n[0] + lat[1] * n[1] + lat[2] * n[2];
+    const hor = nrm(lat.map((x, i) => x - dl * n[i])), ver = cross(n, hor);
+    const pilot = d.for === "PILOT" || d.for === "NAV";
+    meshOBox(mb("screen"), c, [hor, ver, n], [pilot ? 0.225 : 0.2, pilot ? 0.14 : 0.13, 0.015]);
+    meshOBox(mb("couch"), c.map((x, i) => x - n[i] * 0.03), [hor, ver, n], [pilot ? 0.24 : 0.215, pilot ? 0.155 : 0.145, 0.015]);
+    // mounts (indicative): pilots' displays hang from the dome just above them; support displays sit on an arm from the couch
+    const b = c.map((x, i) => x - n[i] * 0.045);
+    if (pilot && opt.crown) {   // crown concept: the dome is glass, so the pilot displays sit on arms from the flight deck's head end
+      const ar = [cc.base_x, b[1], cc.head[1] + 0.12]; meshTube(mb("rail"), {p0: b, p1: [cc.base_x - 0.05, b[1], b[2]], r: 0.022}, 10);
+    } else if (pilot) { const top = domeX(Math.hypot(b[1], b[2])); if (b[0] - top > 0.02) meshTube(mb("rail"), {p0: b, p1: [top, b[1], b[2]], r: 0.022}, 10); }
+    else meshTube(mb("rail"), {p0: b, p1: [cc.base_x - sc.couch.back_above_base_m, b[1], b[2]], r: 0.022}, 10);
+  }
+  for (const l of sc.ladders) {
+    const ctr = [sc.floor_x, l.y, l.z];
+    if (gone(ctr)) continue;
+    const s = l.size / 2, th = Math.atan2(l.z, l.y), rad = [0, Math.cos(th), Math.sin(th)], tan = [0, -Math.sin(th), Math.cos(th)];
+    meshOBox(mb("well"), [sc.floor_x - 0.004, l.y, l.z], [[1, 0, 0], rad, tan], [0.004, s, s]);
+    for (const sg of [-1, 1]) {
+      const b = [sc.floor_x, l.y + rad[1] * (s - 0.05) + tan[1] * sg * (s - 0.08), l.z + rad[2] * (s - 0.05) + tan[2] * sg * (s - 0.08)];
+      meshTube(mb("rail"), {p0: b, p1: [sc.floor_x - 1.05, b[1], b[2]], r: 0.022}, 10);
+    }
+    const t0 = [sc.floor_x - 1.05, l.y + rad[1] * (s - 0.05), l.z + rad[2] * (s - 0.05)];
+    meshTube(mb("rail"), {p0: t0.map((x, i) => x - tan[i] * (s - 0.08)), p1: t0.map((x, i) => x + tan[i] * (s - 0.08)), r: 0.022}, 10);
+  }
+  const fl = sc.flight_deck_ladder;
+  if (fl && !gone([(fl.x[0] + fl.x[1]) / 2, 0, fl.z])) {
+    const top = opt.crown ? fl.x[0] - 0.6 : domeX(Math.hypot(fl.y[1], fl.z)) + 0.08;   // crown concept: handholds stop 0.6 m above the deck
+    for (const y of fl.y) meshTube(mb("rail"), {p0: [fl.x[1], y, fl.z], p1: [top, y, fl.z], r: 0.022}, 10);
+    for (let x = fl.x[1] - 0.3; x > fl.x[0] + 0.05; x -= 0.3) meshTube(mb("rail"), {p0: [x, fl.y[0], fl.z], p1: [x, fl.y[1], fl.z], r: 0.016}, 8);
+  }
+  return G;
+}
+
+function meshShuttle(mb, s, lift = 0) {
+  const x0 = s.p0[0], L = s.p1[0] - s.p0[0], R = s.r;
+  const pts = [[0, 0.0], [0.15, 0.32], [0.6, 0.62], [3.0, 1.25], [6.2, R], [L - 1.2, R], [L - 0.2, R * 0.86], [L, R * 0.78]];
+  const prof = [];
+  for (let i = 0; i < pts.length; i++) {
+    const [a, r] = pts[i], [b, rb] = pts[Math.min(i + 1, pts.length - 1)], [pa, pr] = pts[Math.max(i - 1, 0)];
+    const dx = (b - pa) || 1, dr = rb - pr, k = Math.hypot(dx, dr);
+    prof.push([x0 + a, r, i === 0 ? -1 : -dr / k, i === 0 ? 0 : dx / k]);
+  }
+  const before = mb.p.length / 3;
+  lathe(mb, prof, 48);
+  lathe(mb, [[x0 + L, 0, 1, 0], [x0 + L, R * 0.78, 1, 0]], 48);
+  if (lift) for (let k = before; k < mb.p.length / 3; k++) mb.p[k * 3 + 1] += lift;
+}
+
+function meshPlume(mb, x0, R0, len, ox, oy) {
+  const prof = [];
+  for (let i = 0; i <= 20; i++) { const t = i / 20, r = R0 * (0.75 + 1.9 * Math.sqrt(t)); prof.push([x0 + len * t, r, 0, 1]); }
+  lathe(mb, prof, 48, ox, oy);
+}
+
+function shapeMesh(mb, p, opt = {}) {
+  let s = p.shape, ox = 0, oy = 0;
+  if (s.offset_yz) { oy = s.offset_yz[0]; ox = s.offset_yz[1]; }
+  const before = mb.p.length / 3;
+  if (p.id === "shuttle" && s.k === "tube") { meshShuttle(mb, s, opt.shuttleLift || 0); return; }
+  if (p.tags && p.tags.includes("strake")) {
+    const span = opt.strakeSpan ?? 0;
+    if (span > 0.01) meshPanel(mb, {x0: s.x0, x1: s.x1, a: s.a, r0: s.r0 + s.span, t: 0.06}, span, 0.12);
+    meshPanel(mb, s, s.span);      // stowed stack / root block
+    return;
+  }
+  if (p.tags && p.tags.includes("fin")) {      // hot fins: folded stack, or unfolded to finSpan in torch burns
+    const span = opt.finSpan ?? 0;
+    if (span > 0.01) meshPanel(mb, {x0: s.x0, x1: s.x1, a: s.a, r0: s.r0, t: 0.06}, span, 0.10);
+    else meshPanel(mb, s, s.span);
+    return;
+  }
+  if (p.tags && p.tags.includes("door") && opt.doorsOpen) {
+    const sg = p.id.includes("starboard") ? 1 : -1, y = sg * 2.45, z0 = Math.sqrt(4.5 * 4.5 - 2.4 * 2.4);
+    meshBox(mb, [s.x0, s.x1, Math.min(y, y + sg * 0.1), Math.max(y, y + sg * 0.1), z0, z0 + 2.5]);
+    return;
+  }
+  const x0 = s.settled_fraction !== undefined ? s.x1 - s.settled_fraction * (s.x1 - s.x0) : undefined;
+  switch (s.k) {
+    case "sector": meshSector(mb, x0 !== undefined ? {...s, x0} : s, ox, oy); break;
+    case "cslot": meshCSlot(mb, s, x0); break;
+    case "domecyl": meshDome(mb, s); break;
+    case "frustum": meshFrustum(mb, s, ox, oy); break;
+    case "tube": meshTube(mb, s); break;
+    case "box": meshBox(mb, [s.x0, s.x1, s.y0, s.y1, s.z0, s.z1]); break;
+    case "panel": meshPanel(mb, s, s.span); break;
+  }
+  if ((ox || oy) && (s.k === "box")) for (let k = before; k < mb.p.length / 3; k++) { mb.p[k*3+1] += ox; mb.p[k*3+2] -= oy; }
+}
+
+// ------------------------------------------------------------ GL
+const VS = `#version 300 es
+in vec3 aP; in vec3 aN;
+uniform mat4 uVP; uniform mat4 uL; uniform float uXc;
+out vec3 vW; out vec3 vN; out vec4 vS; out vec3 vShip;
+void main(){ vW=aP; vN=aN; vS=uL*vec4(aP,1.0); vShip=vec3(aP.x+uXc,-aP.z,aP.y); gl_Position=uVP*vec4(aP,1.0); }`;
+
+const FS = `#version 300 es
+precision highp float;
+in vec3 vW; in vec3 vN; in vec4 vS; in vec3 vShip;
+uniform vec3 uC; uniform float uM; uniform float uR; uniform float uSeam; uniform int uKind; uniform vec3 uEm;
+uniform vec3 uSun; uniform vec3 uSunC; uniform vec3 uEye; uniform sampler2D uSh; uniform float uShOn;
+uniform vec4 uClip; uniform float uClipOn; uniform float uExp; uniform float uAlpha; uniform float uHot;
+uniform vec3 uPlanetDir; uniform float uShZ; uniform float uLen; uniform float uSec; uniform vec3 uRim; uniform vec3 uRimC;
+uniform float uCrown; uniform float uNoSec; uniform float uHoleOn; uniform vec4 uWinP[40]; uniform vec3 uWinN[40]; uniform int uNWin; uniform vec4 uBand[6]; uniform int uNBand; uniform float uArm; uniform float uSplay;
+uniform vec3 uPLP[3]; uniform vec3 uPLC[3]; uniform int uNPL;
+out vec4 o;
+float sh(vec3 n){
+  if(uShOn<0.5) return 1.0;
+  vec3 p=vS.xyz/vS.w*0.5+0.5; if(p.x<0.0||p.x>1.0||p.y<0.0||p.y>1.0) return 1.0;
+  float b=0.0018+0.004*(1.0-max(dot(n,uSun),0.0)); float s=0.0; vec2 t=1.0/vec2(textureSize(uSh,0));
+  for(int i=-2;i<=2;i++) for(int j=-2;j<=2;j++){ s+= (p.z-b> texture(uSh,p.xy+vec2(i,j)*t).r)?0.0:1.0; }
+  return s/25.0;
+}
+vec3 aces(vec3 x){ return clamp((x*(2.51*x+0.03))/(x*(2.43*x+0.59)+0.14),0.0,1.0); }
+vec3 env(vec3 r){ float pl=max(dot(r,uPlanetDir),0.0); return vec3(0.010,0.014,0.025)+vec3(0.05,0.11,0.22)*pow(pl,6.0)+vec3(0.015)*max(r.y,0.0); }
+void main(){
+  if(uClipOn>0.5 && dot(vec4(vW,1.0),uClip)>0.0) discard;
+  if(uHoleOn>0.5 && uCrown>0.0 && vShip.x<1.4 && length(vShip.yz)<uCrown) discard;
+  if(uHoleOn>0.5){ for(int i=0;i<40;i++){ if(i>=uNWin) break; vec3 d=vW-uWinP[i].xyz; float a=dot(d,uWinN[i]);
+    if(a>-0.6 && a<0.2 && length(d-a*uWinN[i])<uWinP[i].w+clamp(a+uArm,0.0,uArm)*uSplay) discard; }
+    float ang=degrees(atan(vShip.z,vShip.y)); if(ang<0.0) ang+=360.0; float rr=length(vShip.yz);
+    for(int i=0;i<6;i++){ if(i>=uNBand) break; vec4 b=uBand[i]; if(rr>4.0 && vShip.x>b.x && vShip.x<b.y && ang>b.z && ang<b.w) discard; } }
+  vec3 base=uC;
+  if(!gl_FrontFacing){ if(uClipOn>0.5 && uNoSec<0.5){ o=vec4(pow(aces(base*uSec*uExp),vec3(1.0/2.2)),1.0); return; } discard; }
+  vec3 n=normalize(vN); vec3 v=normalize(uEye-vW); vec3 l=uSun;
+  if(uKind==9){ float f=pow(1.0-abs(dot(n,v)),1.5); float t=clamp((vShip.x-uLen)/70.0,0.0,1.0);
+    o=vec4(uC*(1.0-t)*(0.6+1.6*(1.0-f)), (1.0-t)*(1.0-f)*uAlpha); return; }
+  if(uSeam>0.5){ float th=atan(vShip.z,vShip.y)*57.2958; float sx=abs(fract(vShip.x/2.0+0.5)-0.5)*2.0; float st=abs(fract(th/15.0+0.5)-0.5)*15.0*0.0785*4.5;
+    float sm=smoothstep(0.0,0.035,abs(fract(vShip.x/2.0)-0.5)*2.0*1.0); float line=min(smoothstep(0.0,0.012,abs(fract(vShip.x/2.0)-0.0)),1.0);
+    float a=1.0-0.18*(1.0-smoothstep(0.0,0.02,abs(fract(vShip.x/2.0+0.5)-0.5)))-0.14*(1.0-smoothstep(0.0,0.025,abs(fract(th/15.0+0.5)-0.5)*0.262*4.5));
+    float tile=0.94+0.06*fract(sin(dot(floor(vec2(vShip.x/2.0,th/15.0)),vec2(12.9898,78.233)))*43758.5453); base*=a*tile; }
+  if(uKind==1){ if(vShip.z< uShZ-0.55) base=vec3(0.07,0.07,0.075); }
+  if(uKind==3){ float ring=step(0.5,fract(vShip.x/0.7)); base*=0.75+0.25*ring; }
+  if(uKind==5){ float rr=length(vShip.yz); float an=atan(vShip.z,vShip.y)*57.2958;
+    float slat=smoothstep(0.0,0.012,abs(fract(rr/0.16)-0.5)*0.16); float gore=smoothstep(0.0,0.02,abs(fract(an/22.5+0.5)-0.5)*22.5*0.0175*max(rr,0.3));
+    base*=(0.80+0.20*slat)*(0.55+0.45*gore); }
+  vec3 h=normalize(l+v); float nl=max(dot(n,l),0.0), nv=max(dot(n,v),1e-3), nh=max(dot(n,h),0.0), vh=max(dot(v,h),0.0);
+  float a2=pow(max(uR,0.05),4.0); float d=nh*nh*(a2-1.0)+1.0; float D=a2/(3.14159*d*d);
+  float k=pow(uR+1.0,2.0)/8.0; float G=(nl/(nl*(1.0-k)+k))*(nv/(nv*(1.0-k)+k));
+  vec3 F0=mix(vec3(0.04),base,uM); vec3 F=F0+(1.0-F0)*pow(1.0-vh,5.0);
+  vec3 spec=D*G*F/(4.0*nl*nv+1e-3); vec3 kd=(1.0-F)*(1.0-uM);
+  float s=sh(n);
+  vec3 col=(kd*base/3.14159+spec)*uSunC*nl*s;
+  vec3 hr=normalize(uRim+v); float nlr=max(dot(n,uRim),0.0); float nhr=max(dot(n,hr),0.0); float dr=nhr*nhr*(a2-1.0)+1.0;
+  col+=(kd*base/3.14159+F*(a2/(3.14159*dr*dr))*0.25)*uRimC*nlr;
+  vec3 hemi=mix(vec3(0.020,0.022,0.030),vec3(0.040,0.050,0.070),n.y*0.5+0.5)+vec3(0.05,0.10,0.20)*0.35*max(dot(n,uPlanetDir),0.0);
+  col+=kd*base*hemi*1.6;
+  for(int i=0;i<3;i++){ if(i>=uNPL) break; vec3 lv=uPLP[i]-vW; float d2=dot(lv,lv); lv=normalize(lv); vec3 hh=normalize(lv+v);
+    float q=max(dot(n,lv),0.0); float dd=pow(max(dot(n,hh),0.0),24.0)*(1.0-uR)*0.6;
+    col+=(kd*base/3.14159+F0*dd)*uPLC[i]*q/(1.0+0.35*d2); }
+  vec3 r=reflect(-v,n); col+=env(r)*mix(F0,vec3(1.0),pow(1.0-nv,5.0))*(1.0-uR*0.7)*2.0;
+  if(uKind==2){ col+=uHot*vec3(1.0,0.32,0.07)*(0.55+0.45*fract(sin(floor(vShip.x*0.5)*7.13)*91.7)); }
+  if(uKind==4){ col+=uHot*vec3(1.0,0.44,0.12)*0.62*(0.70+0.30*fract(sin(floor(vShip.x*0.5)*5.31)*71.3)); }
+  col+=uEm;
+  o=vec4(pow(aces(col*uExp),vec3(1.0/2.2)),1.0);
+}`;
+
+const SVS = `#version 300 es
+in vec3 aP; uniform mat4 uL; out vec3 vW; void main(){ vW=aP; gl_Position=uL*vec4(aP,1.0); }`;
+const SFS = `#version 300 es
+precision highp float; in vec3 vW; uniform vec4 uClip; uniform float uClipOn; out vec4 o;
+void main(){ if(uClipOn>0.5 && dot(vec4(vW,1.0),uClip)>0.0) discard; o=vec4(1.0); }`;
+
+const BVS = `#version 300 es
+in vec2 aQ; out vec2 vQ; void main(){ vQ=aQ; gl_Position=vec4(aQ,0.9999,1.0); }`;
+const BFS = `#version 300 es
+precision highp float; in vec2 vQ; uniform mat4 uIVP; uniform vec3 uEye; uniform vec3 uSun; uniform vec3 uPlanetC; uniform float uPlanetR; uniform float uStars; uniform float uPlanetOn;
+out vec4 o;
+float h3(vec3 p){ p=fract(p*0.3183099+0.1); p*=17.0; return fract(p.x*p.y*p.z*(p.x+p.y+p.z)); }
+vec3 aces(vec3 x){ return clamp((x*(2.51*x+0.03))/(x*(2.43*x+0.59)+0.14),0.0,1.0); }
+void main(){
+  vec4 a=uIVP*vec4(vQ,1.0,1.0); vec3 d=normalize(a.xyz/a.w-uEye);
+  vec3 col=vec3(0.0035,0.004,0.007);
+  vec3 g=d*300.0; vec3 c=floor(g); float s=h3(c); vec3 f=fract(g)-0.5;
+  if(s>0.985){ float b=pow((s-0.985)/0.015,3.0); float dd=length(f); col+=vec3(0.8,0.85,1.0)*b*smoothstep(0.32,0.0,dd)*uStars; }
+  vec3 g2=d*90.0; vec3 c2=floor(g2); float s2=h3(c2+7.0); if(s2>0.996){ float dd=length(fract(g2)-0.5); col+=vec3(1.0,0.95,0.85)*smoothstep(0.25,0.0,dd)*1.4*uStars; }
+  if(uPlanetOn>0.5){
+    vec3 oc=uEye-uPlanetC; float b=dot(oc,d); float cc=dot(oc,oc)-uPlanetR*uPlanetR; float disc=b*b-cc;
+    float dist=length(cross(d,uPlanetC-uEye));
+    if(disc>0.0 && -b-sqrt(disc)>0.0){ vec3 p=uEye+d*(-b-sqrt(disc)); vec3 n=normalize(p-uPlanetC);
+      float lat=dot(n,normalize(vec3(0.15,1.0,0.1))); float band=0.5+0.5*sin(lat*38.0+sin(lat*9.0)*1.7);
+      vec3 alb=mix(vec3(0.10,0.21,0.42),vec3(0.15,0.30,0.55),band*0.6); float nl=max(dot(n,uSun),0.0);
+      float rim=pow(1.0-max(dot(n,-d),0.0),3.0);
+      col=alb*(nl*1.25+0.015)+vec3(0.35,0.6,1.0)*rim*nl*0.8; }
+    else { float glow=smoothstep(uPlanetR*1.06,uPlanetR,dist); col+=vec3(0.2,0.42,0.9)*glow*glow*0.35*max(dot(normalize(uPlanetC-uEye),uSun)*-0.5+0.6,0.2); }
+  }
+  o=vec4(pow(aces(col*1.6),vec3(1.0/2.2)),1.0);
+}`;
+
+function compile(gl, vs, fs) {
+  const p = gl.createProgram();
+  for (const [t, src] of [[gl.VERTEX_SHADER, vs], [gl.FRAGMENT_SHADER, fs]]) {
+    const s = gl.createShader(t); gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+    gl.attachShader(p, s);
+  }
+  gl.bindAttribLocation(p, 0, "aP"); gl.bindAttribLocation(p, 1, "aN"); gl.bindAttribLocation(p, 0, "aQ");
+  gl.linkProgram(p);
+  if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p));
+  const U = {}; const n = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS);
+  for (let i = 0; i < n; i++) { const u = gl.getActiveUniform(p, i); U[u.name] = gl.getUniformLocation(p, u.name); }
+  return {p, U};
+}
+
+// ------------------------------------------------------------ math
+const M4 = {
+  mul(a, b) { const o = new Float32Array(16); for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) { let s = 0; for (let k = 0; k < 4; k++) s += a[k * 4 + j] * b[i * 4 + k]; o[i * 4 + j] = s; } return o; },
+  persp(fov, asp, n, f) { const t = 1 / Math.tan(fov / 2), o = new Float32Array(16); o[0] = t / asp; o[5] = t; o[10] = (f + n) / (n - f); o[11] = -1; o[14] = 2 * f * n / (n - f); return o; },
+  ortho(l, r, b, t, n, f) { const o = new Float32Array(16); o[0] = 2 / (r - l); o[5] = 2 / (t - b); o[10] = -2 / (f - n); o[12] = -(r + l) / (r - l); o[13] = -(t + b) / (t - b); o[14] = -(f + n) / (f - n); o[15] = 1; return o; },
+  look(e, c, u) {
+    const z = norm(sub(e, c)), x = norm(crs(u, z)), y = crs(z, x), o = new Float32Array(16);
+    o[0] = x[0]; o[4] = x[1]; o[8] = x[2]; o[1] = y[0]; o[5] = y[1]; o[9] = y[2]; o[2] = z[0]; o[6] = z[1]; o[10] = z[2];
+    o[12] = -dot(x, e); o[13] = -dot(y, e); o[14] = -dot(z, e); o[15] = 1; return o;
+  },
+  inv(m) {
+    const a = m, o = new Float32Array(16);
+    const b00 = a[0]*a[5]-a[1]*a[4], b01 = a[0]*a[6]-a[2]*a[4], b02 = a[0]*a[7]-a[3]*a[4], b03 = a[1]*a[6]-a[2]*a[5], b04 = a[1]*a[7]-a[3]*a[5], b05 = a[2]*a[7]-a[3]*a[6];
+    const b06 = a[8]*a[13]-a[9]*a[12], b07 = a[8]*a[14]-a[10]*a[12], b08 = a[8]*a[15]-a[11]*a[12], b09 = a[9]*a[14]-a[10]*a[13], b10 = a[9]*a[15]-a[11]*a[13], b11 = a[10]*a[15]-a[11]*a[14];
+    let d = b00*b11-b01*b10+b02*b09+b03*b08-b04*b07+b05*b06; d = 1 / d;
+    o[0]=(a[5]*b11-a[6]*b10+a[7]*b09)*d; o[1]=(a[2]*b10-a[1]*b11-a[3]*b09)*d; o[2]=(a[13]*b05-a[14]*b04+a[15]*b03)*d; o[3]=(a[10]*b04-a[9]*b05-a[11]*b03)*d;
+    o[4]=(a[6]*b08-a[4]*b11-a[7]*b07)*d; o[5]=(a[0]*b11-a[2]*b08+a[3]*b07)*d; o[6]=(a[14]*b02-a[12]*b05-a[15]*b01)*d; o[7]=(a[8]*b05-a[10]*b02+a[11]*b01)*d;
+    o[8]=(a[4]*b10-a[5]*b08+a[7]*b06)*d; o[9]=(a[1]*b08-a[0]*b10-a[3]*b06)*d; o[10]=(a[12]*b04-a[13]*b02+a[15]*b00)*d; o[11]=(a[9]*b02-a[8]*b04-a[11]*b00)*d;
+    o[12]=(a[5]*b07-a[4]*b09-a[6]*b06)*d; o[13]=(a[0]*b09-a[1]*b07+a[2]*b06)*d; o[14]=(a[13]*b01-a[12]*b03-a[14]*b00)*d; o[15]=(a[8]*b03-a[9]*b01+a[10]*b00)*d;
+    return o;
+  },
+};
+const sub = (a, b) => a.map((v, i) => v - b[i]), dot = (a, b) => a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+const crs = (a, b) => [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]];
+const norm = a => { const l = Math.hypot(...a) || 1; return a.map(v => v / l); };
+const V3 = {sub, dot, crs, norm};
+
+// ------------------------------------------------------------ scene
+class Ship {
+  constructor(canvas, geo, opts = {}) {
+    this.cv = canvas; this.geo = geo; this.xc = geo.length_m / 2;
+    const gl = canvas.getContext("webgl2", {antialias: true, preserveDrawingBuffer: true});
+    if (!gl) throw new Error("WebGL2 not available");
+    this.gl = gl;
+    this.main = compile(gl, VS, FS); this.shp = compile(gl, SVS, SFS); this.bg = compile(gl, BVS, BFS);
+    this.quad = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, this.quad); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    this.shSize = opts.shadowSize || 2048;
+    this.shTex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, this.shTex);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.DEPTH_COMPONENT32F, this.shSize, this.shSize, 0, gl.DEPTH_COMPONENT, gl.FLOAT, null);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    this.fb = gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER, this.fb);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.TEXTURE_2D, this.shTex, 0); gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    this.meshes = [];
+  }
+
+  // config: {show(part)->bool, strakeSpan, finSpan, doorsOpen, shuttleLift, fluids:[parts], plume, guestCabins:Set}
+  build(cfg) {
+    const gl = this.gl;
+    for (const m of this.meshes) { gl.deleteBuffer(m.pb); gl.deleteBuffer(m.nb); gl.deleteBuffer(m.ib); }
+    this.meshes = [];
+    const groups = {};
+    const parts = [...this.geo.parts, ...(cfg.fluids || [])];
+    for (const p of parts) {
+      if (cfg.show && !cfg.show(p)) continue;
+      if ((p.tags || []).includes("no_render")) continue;
+      if (cfg.roomsAsFloors && (p.tags || []).includes("room") && p.shape.k === "sector") {
+        const s = p.shape, key = (p.mat === "room_cabin" && p.id.includes("-G") ? "room_cabin_guest" : p.mat) + "|floor";
+        (groups[key] ||= {mat: key.split("|")[0], system: "floorplan", mb: new MB(this.xc), ids: []});
+        meshSector(groups[key].mb, {...s, x0: s.x1 - 0.03, x1: s.x1 - 0.005});
+        continue;
+      }
+      let mat = p.mat;
+      if (mat === "room_cabin" && p.id.includes("-G")) mat = "room_cabin_guest";
+      const key = mat + "|" + p.system;
+      (groups[key] ||= {mat, system: p.system, mb: new MB(this.xc), ids: []});
+      shapeMesh(groups[key].mb, p, cfg); groups[key].ids.push(p.id);
+    }
+    const tw = (p) => this.toWorld(...p), twn = n => [n[0], n[2], -n[1]];
+    const crown = cfg.crown || null;
+    this.crownR = crown ? crown.r : 0;
+    const wins = (this.geo.features || []).filter(f => f.kind === "window" && !(crown && f.forward));
+    this.win = wins.slice(0, 40).map(f => ({p: tw(f.pos), n: twn(f.normal), r: f.d_m / 2}));
+    if (crown) {
+      const G = crownMeshes(crown, this.xc);
+      for (const [mat, mb] of Object.entries(G)) groups[mat + "|crown"] = {mat, system: "crown", mb, ids: ["crown_concept"]};
+    }
+    this.bore = cfg.bore || this.geo.window_bore || {wall_m: 0.23, armour_m: 0.2, splay_deg: 0};
+    if (cfg.windowFrames) {
+      const mb = new MB(this.xc), pane = new MB(this.xc);
+      for (const f of wins) {
+        const n = f.normal, p = f.pos, r = f.d_m / 2;
+        meshBore(mb, p, n, r, this.bore);
+        if (cfg.windowPanes) meshTube(pane, {p0: p.map((v, i) => v - n[i] * (this.bore.armour_m + 0.01)), p1: p.map((v, i) => v - n[i] * this.bore.armour_m), r: r + 0.01}, 40);
+      }
+      groups["frame|feature"] = {mat: "frame", system: "feature", mb, ids: ["window_frames"]};
+      if (cfg.windowPanes) groups["window|feature"] = {mat: "window", system: "feature", mb: pane, ids: ["window_panes"]};
+    }
+    // v0.5.7 rev 3: viewport band (open: panes, Osteon mullions, sill and head; closed: tambour shutter flush with the armour)
+    this.bandHoles = [];
+    const bands = (cfg.bands === false) ? [] : (this.geo.bands || []);
+    if (bands.length) {
+      const pane = new MB(this.xc), fr = new MB(this.xc), lip = new MB(this.xc), sh = new MB(this.xc);
+      for (const b of bands) {
+        const [x0, x1] = b.x, [a0, a1] = b.a;
+        if (cfg.shuttersClosed) { latheArc(sh, [[x0 - 0.03, 4.505, 0, 1], [x1 + 0.03, 4.505, 0, 1]], a0, a1); continue; }
+        this.bandHoles.push([x0, x1, a0, a1]);
+        latheArc(pane, [[x0, 4.30, 0, 1], [x1, 4.30, 0, 1]], a0, a1);
+        for (const xe of [x0, x1]) latheArc(lip, [[xe - 0.05, 4.27, 0, 1], [xe - 0.05, 4.53, -1, 0], [xe + 0.05, 4.53, 1, 0], [xe + 0.05, 4.27, 0, 1]], a0, a1);
+        if (x1 - x0 > 1.0) { const xm = (x0 + x1) / 2; latheArc(fr, [[xm - 0.04, 4.28, 0, 1], [xm - 0.04, 4.46, -1, 0], [xm + 0.04, 4.46, 1, 0], [xm + 0.04, 4.28, 0, 1]], a0, a1); }   // rev 4: lounge transom
+        for (let a = a0; a <= a1 + 1e-6; a += b.mullion_deg) {
+          const t = a * D2R, c = Math.cos(t), s_ = Math.sin(t), R = [0, c, s_], Tn = [0, -s_, c];
+          const end = a === a0 || a1 - a < 1e-6;
+          meshOBox(fr, [(x0 + x1) / 2, 4.39 * c, 4.39 * s_], [[1, 0, 0], R, Tn], [(x1 - x0) / 2, 0.12, end ? 0.06 : 0.025]);
+          for (const xe of [x0, x1]) meshOBox(fr, [xe, 4.39 * c, 4.39 * s_], [[1, 0, 0], R, Tn], [0.09, 0.12, 0.07]);   // forked root where the mullion meets the sill
+        }
+      }
+      for (const [g, mat] of [[pane, "window"], [fr, "frame"], [lip, "brow"], [sh, "shutter"]]) if (g.p.length) groups[mat + "|band"] = {mat, system: "band", mb: g, ids: ["viewport_band"]};
+    }
+    if (cfg.cmd) {
+      const sc = {...cfg.cmd}, ring = this.geo.parts.find(p => p.id === "bow_sensors");
+      if (ring) { sc.ring_rin = ring.shape.rin; sc.ring_x = ring.shape.xc; sc.ring_gaps = ring.shape.gaps; }
+      const G = commandMeshes(sc, {xc: this.xc, hide: new Set(cfg.cmdHide || []), hideCrew: new Set(cfg.cmdHideCrew || []), clip: cfg.cmdClip, crown: !!cfg.crown});
+      for (const [mat, mb] of Object.entries(G)) groups[mat + "|cmd"] = {mat, system: "cmd", mb, ids: ["l1_scene"], noclip: true};
+    }
+    if (cfg.hab) {
+      const G = habitatMeshes({...cfg.hab, tier_h: cfg.hab.tier_h}, {xc: this.xc, clip: cfg.cmdClip, litter: cfg.litter});
+      for (const [mat, mb] of Object.entries(G)) groups[mat + "|hab"] = {mat, system: "hab", mb, ids: ["hab_scene"], noclip: true};
+    }
+    if (cfg.features) for (const f of this.geo.features || []) {
+      if (f.kind === "window" && cfg.windowFrames) continue;   // drawn as openings with panes instead
+      const mat = f.kind === "hold_door" ? "hold_door" : f.kind;
+      const key = mat + "|feature";
+      (groups[key] ||= {mat, system: "feature", mb: new MB(this.xc), ids: []});
+      const mb = groups[key].mb, n = f.normal, p = f.pos;
+      if (f.kind === "hold_door") {
+        const [w, h] = f.size_m, th = Math.atan2(p[2], p[1]), tn = [0, -Math.sin(th), Math.cos(th)];
+        const c = (a, b, o) => [p[0] + a, p[1] + n[1] * o + tn[1] * b, p[2] + n[2] * o + tn[2] * b];
+        mb.quad(c(-w / 2, -h / 2, 0.035), c(w / 2, -h / 2, 0.035), c(w / 2, h / 2, 0.035), c(-w / 2, h / 2, 0.035), n);
+      } else {
+        const r = f.d_m / 2, dz = f.kind === "hatch" ? 0.07 : 0.06;
+        if (f.kind === "window" && cfg.shuttersClosed) {   // Strata dust shutter closed over the viewport
+          (groups["shutter|feature"] ||= {mat: "shutter", system: "feature", mb: new MB(this.xc), ids: []});
+          meshTube(groups["shutter|feature"].mb, {p0: p.map((v, i) => v - n[i] * 0.05), p1: p.map((v, i) => v + n[i] * dz), r: r + 0.02});
+          continue;
+        }
+        meshTube(mb, {p0: p.map((v, i) => v - n[i] * 0.05), p1: p.map((v, i) => v + n[i] * dz), r});
+        if (f.kind === "window") {
+          (groups["hatch|feature"] ||= {mat: "hatch", system: "feature", mb: new MB(this.xc), ids: []});
+          meshTube(groups["hatch|feature"].mb, {p0: p.map((v, i) => v - n[i] * 0.05), p1: p.map((v, i) => v + n[i] * 0.035), r: r + 0.09});
+        }
+      }
+    }
+    if (cfg.shuttleDetail !== false && parts.some(p => p.id === "shuttle" && (!cfg.show || cfg.show(p)))) {
+      const s = this.geo.parts.find(p => p.id === "shuttle").shape, lift = cfg.shuttleLift || 0;
+      const mb = new MB(this.xc); const L = s.p1[0] - s.p0[0];
+      meshFrustum(mb, {x0: s.p1[0] - 0.05, x1: s.p1[0] + 0.9, r0: 0.75, r1: 1.15, t: 0.05}, lift, 0);
+      for (const a of [62, 82, 98, 118]) { const th = a * D2R, x = s.p0[0] + 2.2, r = 1.08;
+        meshTube(mb, {p0: [x, (r - 0.04) * Math.cos(th), (r - 0.04) * Math.sin(th) + lift], p1: [x + 0.02, (r + 0.06) * Math.cos(th), (r + 0.06) * Math.sin(th) + lift], r: 0.17}); }
+      groups["engine_bell|shuttle"] = {mat: "engine_bell", system: "shuttle", mb, ids: ["shuttle_detail"]};
+    }
+    if (cfg.plume) {
+      const off = this.geo.thrust_line_offset_m;
+      const mb = new MB(this.xc); meshPlume(mb, this.geo.length_m, 3.0, 70, off.z, off.y);
+      groups["plume"] = {mat: "plume", system: "plume", mb, ids: ["plume"]};
+    }
+    for (const g of Object.values(groups)) {
+      const m = {mat: g.mat, system: g.system, n: g.mb.i.length, ids: g.ids, noclip: !!g.noclip};
+      m.pb = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, m.pb); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(g.mb.p), gl.STATIC_DRAW);
+      m.nb = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, m.nb); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(g.mb.n), gl.STATIC_DRAW);
+      m.ib = gl.createBuffer(); gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, m.ib); gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint32Array(g.mb.i), gl.STATIC_DRAW);
+      this.meshes.push(m);
+    }
+    this.cfg = cfg;
+    return this.meshes.reduce((s, m) => s + m.n / 3, 0);
+  }
+
+  toWorld(x, y, z) { return [x - this.xc, z, -y]; }
+
+  // view: {eye:[ship xyz], target:[ship xyz], fov, sun:[world dir], clip:[a,b,c,d] in ship coords (keep where a x + b y + c z + d <= 0), exposure, planet, hot, stars}
+  draw(view) {
+    const gl = this.gl, W = this.cv.width, H = this.cv.height;
+    const eye = this.toWorld(...view.eye), tgt = this.toWorld(...view.target);
+    const up = view.up ? this.toWorld(...view.up).map((v, i) => v - this.toWorld(0, 0, 0)[i]) : [0, 1, 0];
+    const P = view.ortho ? M4.ortho(-view.ortho * W / H, view.ortho * W / H, -view.ortho, view.ortho, 0.1, 2000) : M4.persp((view.fov || 35) * D2R, W / H, view.near || 0.5, 3000);
+    const Vm = M4.look(eye, tgt, up), VP = M4.mul(P, Vm);
+    const sun = norm(view.sun || [-0.55, 0.62, 0.55]);
+    const lc = [0, 0, 0], le = lc.map((v, i) => v + sun[i] * 120);
+    const LV = M4.look(le, lc, Math.abs(sun[1]) > 0.95 ? [1, 0, 0] : [0, 1, 0]), LP = M4.ortho(-40, 40, -40, 40, 1, 260), L = M4.mul(LP, LV);
+    // shadow pass
+    gl.bindFramebuffer(gl.FRAMEBUFFER, this.fb); gl.viewport(0, 0, this.shSize, this.shSize);
+    gl.clear(gl.DEPTH_BUFFER_BIT); gl.enable(gl.DEPTH_TEST); gl.disable(gl.CULL_FACE);
+    let clip = [0, 0, 0, 0], clipOn = 0;
+    if (view.clip) { const [a, b, c, d] = view.clip; clip = [a, c, -b, d + a * this.xc]; clipOn = 1; }
+    gl.useProgram(this.shp.p); gl.uniformMatrix4fv(this.shp.U.uL, false, L); gl.uniform4fv(this.shp.U.uClip, clip);
+    for (const m of this.meshes) { if (m.mat === "plume") continue; gl.uniform1f(this.shp.U.uClipOn, m.noclip ? 0 : clipOn);
+      this.bind(m, false); gl.drawElements(gl.TRIANGLES, m.n, gl.UNSIGNED_INT, 0); }
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.viewport(0, 0, W, H);
+    gl.clearColor(0, 0, 0, 1); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    // background
+    const planetC = view.planetC ? this.toWorld(...view.planetC) : [-900, -600, -1400];
+    gl.disable(gl.DEPTH_TEST); gl.useProgram(this.bg.p);
+    gl.uniformMatrix4fv(this.bg.U.uIVP, false, M4.inv(VP)); gl.uniform3fv(this.bg.U.uEye, eye); gl.uniform3fv(this.bg.U.uSun, sun);
+    gl.uniform3fv(this.bg.U.uPlanetC, planetC); gl.uniform1f(this.bg.U.uPlanetR, view.planetR || 700); gl.uniform1f(this.bg.U.uStars, view.stars ?? 1);
+    gl.uniform1f(this.bg.U.uPlanetOn, view.planet ? 1 : 0);
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.quad); gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0); gl.disableVertexAttribArray(1);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    // main
+    gl.enable(gl.DEPTH_TEST); gl.useProgram(this.main.p); const U = this.main.U;
+    gl.uniformMatrix4fv(U.uVP, false, VP); gl.uniformMatrix4fv(U.uL, false, L); gl.uniform1f(U.uXc, this.xc);
+    gl.uniform3fv(U.uSun, sun); gl.uniform3fv(U.uSunC, view.sunC || [3.4, 3.25, 3.05]); gl.uniform3fv(U.uEye, eye);
+    gl.uniform3fv(U.uPlanetDir, norm(planetC.map((v, i) => v - eye[i])));
+    gl.uniform3fv(U.uRim, norm(view.rim || [0.6, -0.15, -0.8])); gl.uniform3fv(U.uRimC, view.rimC || [0.22, 0.30, 0.45]);
+    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, this.shTex); gl.uniform1i(U.uSh, 0); gl.uniform1f(U.uShOn, view.shadows === false ? 0 : 1);
+    gl.uniform4fv(U.uClip, clip);
+    const W16 = new Float32Array(160), N16 = new Float32Array(120), win = this.win || [];
+    win.forEach((w, i) => { W16.set([...w.p, w.r], i * 4); N16.set(w.n, i * 3); });
+    gl.uniform4fv(U["uWinP[0]"], W16); gl.uniform3fv(U["uWinN[0]"], N16); gl.uniform1i(U.uNWin, win.length);
+    const BH = new Float32Array(24); (this.bandHoles || []).slice(0, 6).forEach((b, i) => BH.set(b, i * 4));
+    if (U["uBand[0]"]) { gl.uniform4fv(U["uBand[0]"], BH); gl.uniform1i(U.uNBand, Math.min(6, (this.bandHoles || []).length)); }
+    const bo = this.bore || {armour_m: 0.2, splay_deg: 0}; gl.uniform1f(U.uCrown, this.crownR || 0); gl.uniform1f(U.uArm, bo.armour_m); gl.uniform1f(U.uSplay, Math.tan(bo.splay_deg * D2R));
+    const lights = (view.lights || []).slice(0, 3), PLP = new Float32Array(9), PLC = new Float32Array(9);
+    lights.forEach((l, i) => { PLP.set(this.toWorld(...l.at), i * 3); PLC.set(l.c, i * 3); });
+    gl.uniform3fv(U["uPLP[0]"], PLP); gl.uniform3fv(U["uPLC[0]"], PLC); gl.uniform1i(U.uNPL, lights.length); gl.uniform1f(U.uClipOn, clipOn); gl.uniform1f(U.uExp, view.exposure || 1.0); gl.uniform1f(U.uHot, view.hot || 0);
+    gl.uniform1f(U.uShZ, (this.cfg && this.cfg.shuttleLift) || 0); gl.uniform1f(U.uLen, this.geo.length_m);
+    for (const m of this.meshes) {
+      if (m.mat === "plume") continue;
+      const mt = MATS[m.mat] || MATS.equipment;
+      gl.uniform3fv(U.uC, mt.c); gl.uniform1f(U.uM, mt.m); gl.uniform1f(U.uR, mt.r); gl.uniform1f(U.uSeam, mt.seam || 0); gl.uniform1i(U.uKind, mt.kind || 0);
+      gl.uniform3fv(U.uEm, (view.emissive && view.emissive[m.mat]) || mt.em || [0, 0, 0]); gl.uniform1f(U.uAlpha, 1); gl.uniform1f(U.uSec, mt.sec ?? 0.55);
+      gl.uniform1f(U.uClipOn, m.noclip ? 0 : clipOn); gl.uniform1f(U.uHoleOn, view.holes && mt.holes ? 1 : 0); gl.uniform1f(U.uNoSec, mt.nosec ? 1 : 0);
+      this.bind(m, true); gl.drawElements(gl.TRIANGLES, m.n, gl.UNSIGNED_INT, 0);
+    }
+    const pl = this.meshes.find(m => m.mat === "plume");
+    if (pl) {
+      gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE); gl.depthMask(false); gl.uniform1f(U.uClipOn, 0);
+      const mt = MATS.plume; gl.uniform3fv(U.uC, mt.c.map(v => v * (view.plumeI || 1.0))); gl.uniform1i(U.uKind, 9); gl.uniform1f(U.uAlpha, 0.9);
+      this.bind(pl, true); gl.drawElements(gl.TRIANGLES, pl.n, gl.UNSIGNED_INT, 0);
+      gl.depthMask(true); gl.disable(gl.BLEND);
+    }
+    this.VP = VP;
+  }
+
+  bind(m, normals) {
+    const gl = this.gl;
+    gl.bindBuffer(gl.ARRAY_BUFFER, m.pb); gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0);
+    if (normals) { gl.bindBuffer(gl.ARRAY_BUFFER, m.nb); gl.enableVertexAttribArray(1); gl.vertexAttribPointer(1, 3, gl.FLOAT, false, 0, 0); }
+    else gl.disableVertexAttribArray(1);
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, m.ib);
+  }
+
+  project(x, y, z) {   // ship coords -> CSS pixel position on the canvas
+    const w = this.toWorld(x, y, z), m = this.VP;
+    const cx = m[0]*w[0]+m[4]*w[1]+m[8]*w[2]+m[12], cy = m[1]*w[0]+m[5]*w[1]+m[9]*w[2]+m[13], cw = m[3]*w[0]+m[7]*w[1]+m[11]*w[2]+m[15];
+    const r = this.cv.getBoundingClientRect();
+    return [(cx / cw * 0.5 + 0.5) * r.width, (1 - (cy / cw * 0.5 + 0.5)) * r.height, cw > 0];
+  }
+}
+
+const VERS = {"0.5.6":{"ver":"0.5.6","sha":"14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369","geo":{"version":"0.5.6","window_bore":{"armour_m":0.2,"wall_m":0.23,"splay_deg":12,"prov":"CLAUDE_DESIGN v0.5.6: openings splayed outward 12 deg through the 0.20 m armour so the armour does not narrow the view (command/l1_bore_check.py: straight bores cut the pilots' 60 deg cone to 89%; 12 deg restores 99.7%)"},"crown":null,"length_m":53.3,"thrust_line_offset_m":{"y":0.04,"z":-0.2,"torch_chain_t":174.841},"features":[{"kind":"window","room":"L1-command","pos":[1.25,2.812,2.812],"normal":[-0.712,0.496,0.496],"d_m":0.5},{"kind":"window","room":"L1-command","pos":[1.25,-2.812,2.812],"normal":[-0.712,-0.496,0.496],"d_m":0.5},{"kind":"window","room":"L1-command","pos":[1.25,-2.812,-2.812],"normal":[-0.712,-0.496,-0.496],"d_m":0.5},{"kind":"window","room":"L1-command","pos":[1.25,2.812,-2.812],"normal":[-0.712,0.496,-0.496],"d_m":0.5},{"kind":"window","room":"L2-observation","pos":[4.65,-4.347,1.165],"normal":[0.0,-0.966,0.259],"d_m":0.8},{"kind":"window","room":"L2-observation","pos":[4.65,-4.347,-1.165],"normal":[0.0,-0.966,-0.259],"d_m":0.8},{"kind":"window","room":"L5-vestibule","pos":[12.45,-0.0,-4.5],"normal":[0.0,-0.0,-1.0],"d_m":0.4},{"kind":"window","room":"L1-command","pos":[0.024,0.45,0.45],"normal":[-0.997,0.053,0.053],"d_m":0.8,"forward":true},{"kind":"window","room":"L1-command","pos":[0.024,-0.45,0.45],"normal":[-0.997,-0.053,0.053],"d_m":0.8,"forward":true},{"kind":"window","room":"L1-command","pos":[0.105,1.25,0.45],"normal":[-0.987,0.15,0.054],"d_m":0.6,"forward":true},{"kind":"window","room":"L1-command","pos":[0.105,-1.25,0.45],"normal":[-0.987,-0.15,0.054],"d_m":0.6,"forward":true},{"kind":"window","room":"L1-command","pos":[0.113,0.45,1.3],"normal":[-0.986,0.054,0.156],"d_m":0.6,"forward":true},{"kind":"window","room":"L1-command","pos":[0.113,-0.45,1.3],"normal":[-0.986,-0.054,0.156],"d_m":0.6,"forward":true},{"kind":"window","room":"L1-command","pos":[0.021,0.45,-0.4],"normal":[-0.998,0.053,-0.047],"d_m":0.6,"forward":true},{"kind":"window","room":"L1-command","pos":[0.021,-0.45,-0.4],"normal":[-0.998,-0.053,-0.047],"d_m":0.6,"forward":true},{"kind":"hatch","room":"L5-airlock","pos":[12.25,4.5,0.0],"normal":[0,1.0,0.0],"d_m":1.1},{"kind":"camera","name":"collar camera with lights, beside the port looking out along its axis","pos":[16.0,0.95,-4.5],"normal":[0.0,0.207,-0.978],"d_m":0.2},{"kind":"camera","name":"wide hull camera with lights","pos":[14.2,0.0,-4.6],"normal":[0.0,0.0,-1.0],"d_m":0.2},{"kind":"hold_door","sector":"hold_starboard","pos":[15.5,4.5,0.0],"normal":[0,1.0,0.0],"size_m":[2.4,1.8]},{"kind":"hold_door","sector":"hold_port","pos":[15.5,-4.5,0.0],"normal":[0,-1.0,0.0],"size_m":[2.4,1.8]}],"parts":[{"id":"armor","name":"Armour and fixed shielding shell","system":"habitat","mat":"hull_armor","tags":[],"shape":{"k":"domecyl","xa":0.0,"xb":2.35,"xc":14.0,"R":4.5,"t":0.2}},{"id":"pressure_vessel","name":"Pressure vessel (inner hull)","system":"structure","mat":"pressure_hull","tags":[],"shape":{"k":"domecyl","xa":0.2,"xb":2.35,"xc":13.4,"R":4.3,"t":0.03}},{"id":"aft_bulkhead","name":"Aft pressure bulkhead (L5 floor)","system":"structure","mat":"bulkhead","tags":[],"shape":{"k":"sector","x0":13.4,"x1":13.7,"r0":0.0,"r1":4.3,"a0":0.0,"a1":360.0}},{"id":"floor_L1","name":"L1 floor","system":"structure","mat":"floor","tags":[],"shape":{"k":"sector","x0":3.0,"x1":3.3,"r0":0.9,"r1":4.15,"a0":0.0,"a1":360.0}},{"id":"floor_L2","name":"L2 floor","system":"structure","mat":"floor","tags":[],"shape":{"k":"sector","x0":5.6,"x1":5.9,"r0":0.9,"r1":4.15,"a0":0.0,"a1":360.0}},{"id":"floor_L3","name":"L3 floor","system":"structure","mat":"floor","tags":[],"shape":{"k":"sector","x0":8.2,"x1":8.5,"r0":0.9,"r1":4.15,"a0":0.0,"a1":360.0}},{"id":"floor_L4","name":"L4 floor","system":"structure","mat":"floor","tags":[],"shape":{"k":"sector","x0":10.8,"x1":11.1,"r0":0.9,"r1":4.15,"a0":0.0,"a1":360.0}},{"id":"core_trunk","name":"Central trunk (utilities, avionics racks, goods lift)","system":"habitat","mat":"core","tags":[],"shape":{"k":"sector","x0":3.3,"x1":13.4,"r0":0.0,"r1":0.9,"a0":0.0,"a1":360.0}},{"id":"core_racks","name":"Avionics racks in the trunk","system":"avionics","mat":"avionics","tags":[],"shape":{"k":"sector","x0":3.3,"x1":13.4,"r0":0.0,"r1":0.81,"a0":0.0,"a1":360.0}},{"id":"bow_sensors","name":"Bow sensors and command electronics (shoulder ring)","system":"avionics","mat":"avionics","tags":[],"shape":{"k":"domecyl","xa":0.2,"xb":2.35,"xc":2.0,"R":4.15,"t":0.0,"rin":2.9,"gaps":[[45,14],[135,14],[225,14],[315,14]]}},{"id":"flight_deck","name":"Flight deck (mezzanine carrying the pilot and navigator couches)","system":"habitat","mat":"equipment","tags":[],"shape":{"k":"box","x0":1.225,"x1":1.325,"y0":-0.85,"y1":0.85,"z0":-1.55,"z1":0.75}},{"id":"room_L1-command","name":"Command and navigation","system":"habitat","mat":"room_command","tags":["room"],"shape":{"k":"domecyl","xa":0.2,"xb":2.35,"xc":3.0,"R":4.15,"t":0.0}},{"id":"room_L2-galley","name":"Galley","system":"habitat","mat":"room_galley","tags":["room"],"shape":{"k":"sector","x0":3.3,"x1":5.6,"r0":1.9,"r1":4.15,"a0":-60,"a1":30}},{"id":"room_L2-wardroom","name":"Wardroom (table for 10)","system":"habitat","mat":"room_wardroom","tags":["room"],"shape":{"k":"sector","x0":3.3,"x1":5.6,"r0":1.9,"r1":4.15,"a0":30,"a1":150}},{"id":"room_L2-observation","name":"Observation","system":"habitat","mat":"room_observation","tags":["room"],"shape":{"k":"sector","x0":3.3,"x1":5.6,"r0":1.9,"r1":4.15,"a0":150,"a1":210}},{"id":"room_L2-exercise","name":"Exercise","system":"habitat","mat":"room_exercise","tags":["room"],"shape":{"k":"sector","x0":3.3,"x1":5.6,"r0":1.9,"r1":4.15,"a0":210,"a1":270}},{"id":"room_L2-hygiene","name":"Washroom","system":"habitat","mat":"room_hygiene","tags":["room"],"shape":{"k":"sector","x0":3.3,"x1":5.6,"r0":1.9,"r1":4.15,"a0":270,"a1":300}},{"id":"room_L3-CAPT","name":"Captain's cabin","system":"habitat","mat":"room_cabin","tags":["room"],"shape":{"k":"sector","x0":5.9,"x1":8.2,"r0":1.9,"r1":4.07,"a0":0,"a1":60}},{"id":"room_L3-CA","name":"Crew cabin A","system":"habitat","mat":"room_cabin","tags":["room"],"shape":{"k":"sector","x0":5.9,"x1":8.2,"r0":1.9,"r1":4.07,"a0":60,"a1":120}},{"id":"room_L3-HG","name":"Guest washroom","system":"habitat","mat":"room_hygiene","tags":["room"],"shape":{"k":"sector","x0":5.9,"x1":8.2,"r0":1.9,"r1":4.07,"a0":120,"a1":150}},{"id":"room_L3-GUEST","name":"Guest cabin","system":"habitat","mat":"room_cabin","tags":["room"],"shape":{"k":"sector","x0":5.9,"x1":8.2,"r0":1.9,"r1":4.07,"a0":150,"a1":240}},{"id":"room_L3-CB","name":"Crew cabin B","system":"habitat","mat":"room_cabin","tags":["room"],"shape":{"k":"sector","x0":5.9,"x1":8.2,"r0":1.9,"r1":4.07,"a0":240,"a1":330}},{"id":"room_L3-HC","name":"Crew washroom","system":"habitat","mat":"room_hygiene","tags":["room"],"shape":{"k":"sector","x0":5.9,"x1":8.2,"r0":1.9,"r1":4.07,"a0":330,"a1":360}},{"id":"room_L4-shelter","name":"Storm shelter","system":"habitat","mat":"room_shelter","tags":["room"],"shape":{"k":"sector","x0":8.7,"x1":10.6,"r0":2.1,"r1":3.95,"a0":18.788,"a1":161.212}},{"id":"room_L4-medical","name":"Medical bay","system":"habitat","mat":"room_medical","tags":["room"],"shape":{"k":"sector","x0":8.5,"x1":10.8,"r0":1.9,"r1":4.15,"a0":165,"a1":255}},{"id":"room_L4-eclss","name":"Life support","system":"habitat","mat":"room_eclss","tags":["room"],"shape":{"k":"sector","x0":8.5,"x1":10.8,"r0":1.9,"r1":4.15,"a0":255,"a1":375}},{"id":"room_L5-airlock","name":"Airlock","system":"habitat","mat":"room_airlock","tags":["room"],"shape":{"k":"sector","x0":11.1,"x1":13.4,"r0":1.9,"r1":4.15,"a0":-20,"a1":20}},{"id":"room_L5-suits","name":"Suit room","system":"habitat","mat":"room_suits","tags":["room"],"shape":{"k":"sector","x0":11.1,"x1":13.4,"r0":1.9,"r1":4.15,"a0":20,"a1":80}},{"id":"room_L5-workshop","name":"Workshop","system":"habitat","mat":"room_workshop","tags":["room"],"shape":{"k":"sector","x0":11.1,"x1":13.4,"r0":1.9,"r1":4.15,"a0":80,"a1":170}},{"id":"room_L5-custody","name":"Custody locker","system":"habitat","mat":"room_custody","tags":["room"],"shape":{"k":"sector","x0":11.1,"x1":13.4,"r0":1.9,"r1":4.15,"a0":170,"a1":200}},{"id":"room_L5-stores","name":"Stores","system":"habitat","mat":"room_stores","tags":["room"],"shape":{"k":"sector","x0":11.1,"x1":13.4,"r0":1.9,"r1":4.15,"a0":200,"a1":250}},{"id":"room_L5-vestibule","name":"Transfer vestibule","system":"habitat","mat":"room_vestibule","tags":["room"],"shape":{"k":"sector","x0":11.1,"x1":13.4,"r0":1.9,"r1":4.15,"a0":250,"a1":290}},{"id":"room_L5-stores2","name":"Stores","system":"habitat","mat":"room_stores","tags":["room"],"shape":{"k":"sector","x0":11.1,"x1":13.4,"r0":1.9,"r1":4.15,"a0":290,"a1":340}},{"id":"nose_window_frame","name":"Nose window cluster: Cupola-style frame, 8 window assemblies, shutters","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":0.0,"x1":0.25,"y0":-1.6,"y1":1.6,"z0":-0.75,"z1":1.65}},{"id":"window_L1-command_0","name":"Window assembly (L1-command, 0.5 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":1.207,"x1":1.507,"y0":2.587,"y1":2.887,"z0":2.587,"z1":2.887}},{"id":"window_L1-command_1","name":"Window assembly (L1-command, 0.5 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":1.207,"x1":1.507,"y0":-2.887,"y1":-2.587,"z0":2.587,"z1":2.887}},{"id":"window_L1-command_2","name":"Window assembly (L1-command, 0.5 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":1.207,"x1":1.507,"y0":-2.887,"y1":-2.587,"z0":-2.887,"z1":-2.587}},{"id":"window_L1-command_3","name":"Window assembly (L1-command, 0.5 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":1.207,"x1":1.507,"y0":2.587,"y1":2.887,"z0":-2.887,"z1":-2.587}},{"id":"window_L2-observation_4","name":"Window assembly (L2-observation, 0.8 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":4.5,"x1":4.8,"y0":-4.352,"y1":-4.052,"z0":0.976,"z1":1.276}},{"id":"window_L2-observation_5","name":"Window assembly (L2-observation, 0.8 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":4.5,"x1":4.8,"y0":-4.352,"y1":-4.052,"z0":-1.276,"z1":-0.976}},{"id":"window_L5-vestibule_6","name":"Window assembly (L5-vestibule, 0.4 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":12.3,"x1":12.6,"y0":-0.15,"y1":0.15,"z0":-4.5,"z1":-4.2}},{"id":"flight_deck_column_0","name":"Flight-deck column","system":"habitat","mat":"frame","tags":["from_reserve"],"shape":{"k":"tube","p0":[1.325,0.8,-1.5],"p1":[3.0,0.8,-1.5],"r":0.038}},{"id":"flight_deck_column_1","name":"Flight-deck column","system":"habitat","mat":"frame","tags":["from_reserve"],"shape":{"k":"tube","p0":[1.325,-0.8,-1.5],"p1":[3.0,-0.8,-1.5],"r":0.038}},{"id":"flight_deck_column_2","name":"Flight-deck column","system":"habitat","mat":"frame","tags":["from_reserve"],"shape":{"k":"tube","p0":[1.325,0.8,0.7],"p1":[3.0,0.8,0.7],"r":0.038}},{"id":"flight_deck_column_3","name":"Flight-deck column","system":"habitat","mat":"frame","tags":["from_reserve"],"shape":{"k":"tube","p0":[1.325,-0.8,0.7],"p1":[3.0,-0.8,0.7],"r":0.038}},{"id":"hatch_L4L5_0","name":"L4/L5 pressure hatch at the 0 deg ladderway","system":"habitat","mat":"hatch","tags":["from_reserve"],"shape":{"k":"box","x0":10.8,"x1":10.86,"y0":0.95,"y1":1.85,"z0":-0.45,"z1":0.45}},{"id":"hatch_L4L5_180","name":"L4/L5 pressure hatch at the 180 deg ladderway","system":"habitat","mat":"hatch","tags":["from_reserve"],"shape":{"k":"box","x0":10.8,"x1":10.86,"y0":-1.85,"y1":-0.95,"z0":-0.45,"z1":0.45}},{"id":"trunk_plug_L4L5","name":"Trunk pressure plug with lift hatch and feedthroughs (L4/L5)","system":"habitat","mat":"bulkhead","tags":["from_reserve","no_render"],"shape":{"k":"sector","x0":10.8,"x1":11.1,"r0":0.0,"r1":0.9,"a0":0.0,"a1":360.0}},{"id":"doors_L4-medical","name":"Medical bay: bi-parting sliding doors","system":"habitat","mat":"door","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":8.5,"x1":10.8,"y0":-1.862,"y1":-1.662,"z0":-0.812,"z1":-0.612}},{"id":"shelter_backup","name":"Storm shelter 72 h stored life support (O2, LiOH, food, battery)","system":"habitat","mat":"equipment","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":9.45,"x1":9.85,"y0":-0.2,"y1":0.2,"z0":2.8,"z1":3.2}},{"id":"rescue_kit","name":"Litter, vertical-lift harness, rope system and hoist points","system":"habitat","mat":"equipment","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":9.5,"x1":9.8,"y0":-2.4,"y1":-2.1,"z0":-2.831,"z1":-2.531}},{"id":"docking_camera_0","name":"Docking camera: collar camera with lights, beside the port looking out along its axis","system":"service","mat":"rcs","tags":["from_reserve"],"shape":{"k":"box","x0":15.9,"x1":16.1,"y0":0.85,"y1":1.05,"z0":-4.6,"z1":-4.4}},{"id":"docking_camera_1","name":"Docking camera: wide hull camera with lights","system":"service","mat":"rcs","tags":["from_reserve"],"shape":{"k":"box","x0":14.1,"x1":14.3,"y0":-0.1,"y1":0.1,"z0":-4.7,"z1":-4.5}},{"id":"outfit_L1","name":"L1 distributed outfitting","system":"habitat","mat":"outfit","tags":[],"shape":{"k":"sector","x0":0.2,"x1":3.0,"r0":4.05,"r1":4.15,"a0":0.0,"a1":360.0}},{"id":"outfit_L2","name":"L2 distributed outfitting","system":"habitat","mat":"outfit","tags":[],"shape":{"k":"sector","x0":3.3,"x1":5.6,"r0":4.05,"r1":4.15,"a0":0.0,"a1":360.0}},{"id":"outfit_L3","name":"L3 distributed outfitting","system":"habitat","mat":"outfit","tags":[],"shape":{"k":"sector","x0":5.9,"x1":8.2,"r0":4.15,"r1":4.25,"a0":0.0,"a1":360.0}},{"id":"outfit_L4","name":"L4 distributed outfitting","system":"habitat","mat":"outfit","tags":[],"shape":{"k":"sector","x0":8.5,"x1":10.8,"r0":4.05,"r1":4.15,"a0":0.0,"a1":360.0}},{"id":"outfit_L5","name":"L5 distributed outfitting","system":"habitat","mat":"outfit","tags":[],"shape":{"k":"sector","x0":11.1,"x1":13.4,"r0":4.05,"r1":4.15,"a0":0.0,"a1":360.0}},{"id":"plant_fore","name":"Relational plant, fore block","system":"plant","mat":"plant","tags":[],"shape":{"k":"sector","x0":14.0,"x1":17.0,"r0":0.0,"r1":2.0,"a0":0.0,"a1":360.0}},{"id":"courier_systems","name":"Mission and courier systems","system":"mission","mat":"equipment","tags":[],"shape":{"k":"sector","x0":14.0,"x1":17.0,"r0":2.0,"r1":4.3,"a0":225,"a1":315}},{"id":"service_arm","name":"Service arm and umbilicals","system":"service","mat":"equipment","tags":[],"shape":{"k":"sector","x0":14.0,"x1":17.0,"r0":2.0,"r1":4.3,"a0":225,"a1":315}},{"id":"docking_collar","name":"Docking collar","system":"service","mat":"collar","tags":[],"shape":{"k":"tube","p0":[16.0,0.0,-3.6],"p1":[16.0,0.0,-4.75],"r":0.8}},{"id":"tunnel_0","name":"Pressure tunnel: habitat to collar node","system":"service","mat":"tunnel","tags":["inhabited"],"shape":{"k":"tube","p0":[13.7,0.0,-3.0],"p1":[16.6,0.0,-3.0],"r":0.6}},{"id":"tunnel_1","name":"Pressure tunnel: collar node to bay axis","system":"service","mat":"tunnel","tags":["inhabited"],"shape":{"k":"tube","p0":[17.6,0.0,-3.0],"p1":[17.6,0.0,0.0],"r":0.6}},{"id":"tunnel_2","name":"Pressure tunnel: docking adapter to shuttle nose","system":"service","mat":"tunnel","tags":["inhabited"],"shape":{"k":"tube","p0":[17.6,0.0,0.0],"p1":[18.75,0.0,0.0],"r":0.6}},{"id":"longeron_starboard","name":"Longeron (starboard)","system":"structure","mat":"longeron","tags":["longeron"],"shape":{"k":"panel","x0":14.0,"x1":34.3,"a":0,"r0":4.3,"span":0.18,"t":1.2}},{"id":"longeron_slot_sill_starboard","name":"Longeron (slot sill starboard)","system":"structure","mat":"longeron","tags":["longeron"],"shape":{"k":"tube","p0":[14.0,2.75,2.6],"p1":[34.3,2.75,2.6],"r":0.25}},{"id":"longeron_slot_sill_port","name":"Longeron (slot sill port)","system":"structure","mat":"longeron","tags":["longeron"],"shape":{"k":"tube","p0":[14.0,-2.75,2.6],"p1":[34.3,-2.75,2.6],"r":0.25}},{"id":"longeron_port","name":"Longeron (port)","system":"structure","mat":"longeron","tags":["longeron"],"shape":{"k":"panel","x0":14.0,"x1":34.3,"a":180,"r0":4.3,"span":0.18,"t":1.2}},{"id":"longeron_keel","name":"Longeron (keel)","system":"structure","mat":"longeron","tags":["longeron"],"shape":{"k":"panel","x0":14.0,"x1":34.3,"a":270,"r0":4.3,"span":0.18,"t":1.2}},{"id":"skin_service","name":"Outer skin, service region","system":"structure","mat":"hull_skin","tags":[],"shape":{"k":"sector","x0":14.0,"x1":18.0,"r0":4.48,"r1":4.5,"a0":0.0,"a1":360.0}},{"id":"skin_midship","name":"Outer skin, midship (C-shaped, open at the slot)","system":"structure","mat":"hull_skin","tags":[],"shape":{"k":"cslot","x0":18.0,"x1":32.3,"r0":4.48,"r1":4.5,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"skin_aft","name":"Outer skin, manifold region","system":"structure","mat":"hull_skin","tags":[],"shape":{"k":"sector","x0":32.3,"x1":34.3,"r0":4.48,"r1":4.5,"a0":0.0,"a1":360.0}},{"id":"frame_14","name":"Ring frame x 14","system":"structure","mat":"frame","tags":[],"shape":{"k":"sector","x0":14.0,"x1":14.15,"r0":4.1,"r1":4.48,"a0":0.0,"a1":360.0}},{"id":"frame_16","name":"Ring frame x 16","system":"structure","mat":"frame","tags":[],"shape":{"k":"sector","x0":16.0,"x1":16.15,"r0":4.1,"r1":4.48,"a0":0.0,"a1":360.0}},{"id":"frame_18","name":"Ring frame x 18","system":"structure","mat":"frame","tags":[],"shape":{"k":"cslot","x0":18.0,"x1":18.15,"r0":4.3,"r1":4.48,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"frame_20","name":"Ring frame x 20","system":"structure","mat":"frame","tags":[],"shape":{"k":"cslot","x0":20.0,"x1":20.15,"r0":4.3,"r1":4.48,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"frame_22","name":"Ring frame x 22","system":"structure","mat":"frame","tags":[],"shape":{"k":"cslot","x0":22.0,"x1":22.15,"r0":4.3,"r1":4.48,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"frame_24","name":"Ring frame x 24","system":"structure","mat":"frame","tags":[],"shape":{"k":"cslot","x0":24.0,"x1":24.15,"r0":4.3,"r1":4.48,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"frame_26","name":"Ring frame x 26","system":"structure","mat":"frame","tags":[],"shape":{"k":"cslot","x0":26.0,"x1":26.15,"r0":4.3,"r1":4.48,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"frame_28","name":"Ring frame x 28","system":"structure","mat":"frame","tags":[],"shape":{"k":"cslot","x0":28.0,"x1":28.15,"r0":4.3,"r1":4.48,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"frame_30","name":"Ring frame x 30","system":"structure","mat":"frame","tags":[],"shape":{"k":"cslot","x0":30.0,"x1":30.15,"r0":4.3,"r1":4.48,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"frame_32","name":"Ring frame x 32","system":"structure","mat":"frame","tags":[],"shape":{"k":"cslot","x0":32.0,"x1":32.15,"r0":4.3,"r1":4.48,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"frame_34","name":"Ring frame x 34","system":"structure","mat":"frame","tags":[],"shape":{"k":"sector","x0":34.0,"x1":34.15,"r0":4.1,"r1":4.48,"a0":0.0,"a1":360.0}},{"id":"tank_shell_out","name":"Tank outer wall","system":"structure","mat":"tank_shell","tags":[],"shape":{"k":"cslot","x0":18.0,"x1":31.5,"r0":4.28,"r1":4.3,"hw":2.4,"grooves":[40,140,220,320],"gw":2.0,"gd":0.0,"side":0,"holes":[]}},{"id":"tank_shell_in","name":"Tank inner wall","system":"structure","mat":"tank_shell","tags":[],"shape":{"k":"cslot","x0":18.0,"x1":31.5,"r0":2.45,"r1":2.47,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"bay_liner","name":"Bay liner and cradle","system":"structure","mat":"bay","tags":[],"shape":{"k":"cslot","x0":18.25,"x1":32.05,"r0":2.4,"r1":2.44,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"door_starboard","name":"Bay door, starboard","system":"structure","mat":"door","tags":["door"],"shape":{"k":"sector","x0":18.25,"x1":32.05,"r0":4.4,"r1":4.5,"a0":57.769,"a1":90.0}},{"id":"door_port","name":"Bay door, port","system":"structure","mat":"door","tags":["door"],"shape":{"k":"sector","x0":18.25,"x1":32.05,"r0":4.4,"r1":4.5,"a0":90.0,"a1":122.231}},{"id":"thrust_cone","name":"Thrust cone (longerons to reactor frame)","system":"structure","mat":"thrust_cone","tags":[],"shape":{"k":"frustum","x0":34.3,"x1":39.3,"r0":4.4,"r1":2.95,"t":0.06}},{"id":"electrical","name":"Electrical conversion and distribution (aft C-ring)","system":"electrical","mat":"equipment","tags":[],"shape":{"k":"cslot","x0":31.5,"x1":32.3,"r0":2.45,"r1":4.3,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"electrical_fwd","name":"Electrical conversion and distribution (service ring)","system":"electrical","mat":"equipment","tags":[],"shape":{"k":"sector","x0":17.0,"x1":18.0,"r0":2.0,"r1":4.3,"a0":-45,"a1":225}},{"id":"plant_aft","name":"Relational plant, aft block","system":"plant","mat":"plant","tags":[],"shape":{"k":"sector","x0":32.3,"x1":34.3,"r0":0.0,"r1":2.0,"a0":0.0,"a1":360.0}},{"id":"manifold","name":"Radiator manifold, pumps and heat exchangers","system":"thermal","mat":"manifold","tags":[],"shape":{"k":"sector","x0":32.3,"x1":34.3,"r0":2.0,"r1":4.48,"a0":0.0,"a1":360.0}},{"id":"strake_40","name":"Radiator strake 40 deg (stowed)","system":"thermal","mat":"radiator","tags":["strake"],"shape":{"k":"panel","x0":14.0,"x1":32.3,"a":40,"r0":4.0,"span":0.5,"t":2.0}},{"id":"strake_140","name":"Radiator strake 140 deg (stowed)","system":"thermal","mat":"radiator","tags":["strake"],"shape":{"k":"panel","x0":14.0,"x1":32.3,"a":140,"r0":4.0,"span":0.5,"t":2.0}},{"id":"strake_220","name":"Radiator strake 220 deg (stowed)","system":"thermal","mat":"radiator","tags":["strake"],"shape":{"k":"panel","x0":14.0,"x1":32.3,"a":220,"r0":4.0,"span":0.5,"t":2.0}},{"id":"strake_320","name":"Radiator strake 320 deg (stowed)","system":"thermal","mat":"radiator","tags":["strake"],"shape":{"k":"panel","x0":14.0,"x1":32.3,"a":320,"r0":4.0,"span":0.5,"t":2.0}},{"id":"hotfin_40","name":"Hot fin 40 deg (folded)","system":"thermal","mat":"hotfin","tags":["fin","from_reserve"],"shape":{"k":"panel","x0":34.3,"x1":53.3,"a":40,"r0":4.75,"span":2.0,"t":0.6}},{"id":"hotfin_root_40","name":"Hot fin 40 deg root truss, fold-out drive and hot loop","system":"thermal","mat":"radiator","tags":["from_reserve"],"shape":{"k":"panel","x0":39.3,"x1":53.3,"a":40,"r0":3.0,"span":1.75,"t":0.3}},{"id":"hotfin_140","name":"Hot fin 140 deg (folded)","system":"thermal","mat":"hotfin","tags":["fin","from_reserve"],"shape":{"k":"panel","x0":34.3,"x1":53.3,"a":140,"r0":4.75,"span":2.0,"t":0.6}},{"id":"hotfin_root_140","name":"Hot fin 140 deg root truss, fold-out drive and hot loop","system":"thermal","mat":"radiator","tags":["from_reserve"],"shape":{"k":"panel","x0":39.3,"x1":53.3,"a":140,"r0":3.0,"span":1.75,"t":0.3}},{"id":"hotfin_220","name":"Hot fin 220 deg (folded)","system":"thermal","mat":"hotfin","tags":["fin","from_reserve"],"shape":{"k":"panel","x0":34.3,"x1":53.3,"a":220,"r0":4.75,"span":2.0,"t":0.6}},{"id":"hotfin_root_220","name":"Hot fin 220 deg root truss, fold-out drive and hot loop","system":"thermal","mat":"radiator","tags":["from_reserve"],"shape":{"k":"panel","x0":39.3,"x1":53.3,"a":220,"r0":3.0,"span":1.75,"t":0.3}},{"id":"hotfin_320","name":"Hot fin 320 deg (folded)","system":"thermal","mat":"hotfin","tags":["fin","from_reserve"],"shape":{"k":"panel","x0":34.3,"x1":53.3,"a":320,"r0":4.75,"span":2.0,"t":0.6}},{"id":"hotfin_root_320","name":"Hot fin 320 deg root truss, fold-out drive and hot loop","system":"thermal","mat":"radiator","tags":["from_reserve"],"shape":{"k":"panel","x0":39.3,"x1":53.3,"a":320,"r0":3.0,"span":1.75,"t":0.3}},{"id":"rcs_F+Y","name":"RCS cluster F+Y","system":"rcs","mat":"rcs","tags":[],"shape":{"k":"box","x0":2.6,"x1":3.4,"y0":4.2,"y1":5.0,"z0":-0.4,"z1":0.4}},{"id":"rcs_F+Z","name":"RCS cluster F+Z","system":"rcs","mat":"rcs","tags":[],"shape":{"k":"box","x0":2.6,"x1":3.4,"y0":-0.4,"y1":0.4,"z0":4.2,"z1":5.0}},{"id":"rcs_F-Y","name":"RCS cluster F-Y","system":"rcs","mat":"rcs","tags":[],"shape":{"k":"box","x0":2.6,"x1":3.4,"y0":-5.0,"y1":-4.2,"z0":-0.4,"z1":0.4}},{"id":"rcs_F-Z","name":"RCS cluster F-Z","system":"rcs","mat":"rcs","tags":[],"shape":{"k":"box","x0":2.6,"x1":3.4,"y0":-0.4,"y1":0.4,"z0":-5.0,"z1":-4.2}},{"id":"rcs_A+Y","name":"RCS cluster A+Y","system":"rcs","mat":"rcs","tags":["torch_chain"],"shape":{"k":"box","x0":43.6,"x1":44.4,"y0":2.2,"y1":3.0,"z0":-0.4,"z1":0.4,"offset_yz":[0.04,-0.2]}},{"id":"rcs_A+Z","name":"RCS cluster A+Z","system":"rcs","mat":"rcs","tags":["torch_chain"],"shape":{"k":"box","x0":43.6,"x1":44.4,"y0":-0.4,"y1":0.4,"z0":2.2,"z1":3.0,"offset_yz":[0.04,-0.2]}},{"id":"rcs_A-Y","name":"RCS cluster A-Y","system":"rcs","mat":"rcs","tags":["torch_chain"],"shape":{"k":"box","x0":43.6,"x1":44.4,"y0":-3.0,"y1":-2.2,"z0":-0.4,"z1":0.4,"offset_yz":[0.04,-0.2]}},{"id":"rcs_A-Z","name":"RCS cluster A-Z","system":"rcs","mat":"rcs","tags":["torch_chain"],"shape":{"k":"box","x0":43.6,"x1":44.4,"y0":-0.4,"y1":0.4,"z0":-3.0,"z1":-2.2,"offset_yz":[0.04,-0.2]}},{"id":"shield","name":"Shadow shield","system":"propulsion","mat":"shield","tags":["torch_chain"],"shape":{"k":"sector","x0":34.3,"x1":39.3,"r0":0.0,"r1":2.75,"a0":0.0,"a1":360.0,"offset_yz":[0.04,-0.2]}},{"id":"reactor","name":"Fusion reactor and thrust frame","system":"propulsion","mat":"reactor","tags":["torch_chain"],"shape":{"k":"sector","x0":39.3,"x1":46.3,"r0":0.0,"r1":2.125,"a0":0.0,"a1":360.0,"offset_yz":[0.04,-0.2]}},{"id":"nozzle","name":"Magnetic nozzle","system":"propulsion","mat":"nozzle","tags":["torch_chain"],"shape":{"k":"frustum","x0":46.3,"x1":53.3,"r0":2.125,"r1":3.0,"t":0.15,"offset_yz":[0.04,-0.2]}},{"id":"shuttle","name":"Rover-drop shuttle (docked, tanks empty)","system":"shuttle","mat":"shuttle","tags":["inhabited_when_docked","shuttle"],"shape":{"k":"tube","p0":[18.75,0,0],"p1":[31.55,0,0],"r":1.9}},{"id":"drone_0","name":"Mars drone pod 1","system":"drones","mat":"drone","tags":["drone"],"shape":{"k":"box","x0":14.3,"x1":15.4,"y0":2.59,"y1":3.61,"z0":-1.7,"z1":1.7}},{"id":"drone_1","name":"Mars drone pod 2","system":"drones","mat":"drone","tags":["drone"],"shape":{"k":"box","x0":14.3,"x1":15.4,"y0":-3.61,"y1":-2.59,"z0":-1.7,"z1":1.7}},{"id":"drone_2","name":"dense-air drone pod 1","system":"drones","mat":"drone","tags":["drone"],"shape":{"k":"box","x0":15.6,"x1":16.5,"y0":2.665,"y1":3.535,"z0":-1.45,"z1":1.45}},{"id":"drone_3","name":"dense-air drone pod 2","system":"drones","mat":"drone","tags":["drone"],"shape":{"k":"box","x0":15.6,"x1":16.5,"y0":-3.535,"y1":-2.665,"z0":-1.45,"z1":1.45}}],"fluids_by_state":{"S1":[{"id":"jacket_outer","name":"Storm-shelter water jacket (outer)","system":"water","mat":"water","tags":["protected","water"],"shape":{"k":"sector","x0":8.5,"x1":10.8,"r0":3.95,"r1":4.15,"a0":15,"a1":165}},{"id":"jacket_inner","name":"Storm-shelter water jacket (inner)","system":"water","mat":"water","tags":["protected","water"],"shape":{"k":"sector","x0":8.5,"x1":10.8,"r0":1.9,"r1":2.1,"a0":15,"a1":165}},{"id":"jacket_radial_a","name":"Storm-shelter water jacket (radial_a)","system":"water","mat":"water","tags":["protected","water"],"shape":{"k":"sector","x0":8.5,"x1":10.8,"r0":1.9,"r1":4.15,"a0":15,"a1":18.788}},{"id":"jacket_radial_b","name":"Storm-shelter water jacket (radial_b)","system":"water","mat":"water","tags":["protected","water"],"shape":{"k":"sector","x0":8.5,"x1":10.8,"r0":1.9,"r1":4.15,"a0":161.212,"a1":165}},{"id":"jacket_ceiling","name":"Storm-shelter water jacket (ceiling)","system":"water","mat":"water","tags":["protected","water"],"shape":{"k":"sector","x0":8.5,"x1":8.7,"r0":1.9,"r1":4.15,"a0":15,"a1":165}},{"id":"jacket_floor","name":"Storm-shelter water jacket (floor)","system":"water","mat":"water","tags":["protected","water"],"shape":{"k":"sector","x0":10.6,"x1":10.8,"r0":1.9,"r1":4.15,"a0":15,"a1":165}},{"id":"jacket_berth_ring","name":"L3 berth shield ring (8 cm water)","system":"water","mat":"water","tags":["berth_shield","protected","water"],"shape":{"k":"sector","x0":5.9,"x1":8.2,"r0":4.07,"r1":4.15,"a0":0,"a1":360}},{"id":"jacket_berth_ring","name":"L3 berth shield collar at the floor edge (12 cm water)","system":"water","mat":"water","tags":["berth_shield","protected","water"],"shape":{"k":"sector","x0":8.2,"x1":8.5,"r0":4.15,"r1":4.27,"a0":0,"a1":360}},{"id":"pw_service","name":"Protected water, service tank","system":"water","mat":"water","tags":["protected","water"],"shape":{"k":"sector","x0":14.0,"x1":17.0,"r0":2.0,"r1":4.3,"a0":45,"a1":135,"settled_fraction":0.815}},{"id":"water_starboard_fore","name":"Water, tank cell starboard fore","system":"water","mat":"water","tags":["water"],"shape":{"k":"cslot","x0":18.0,"x1":24.75,"r0":2.47,"r1":4.28,"hw":2.4,"grooves":[40,140,220,320],"gw":2.0,"gd":0.5,"side":1,"holes":[[2.75,2.6,0.27],[-2.75,2.6,0.27]],"settled_fraction":0.775}},{"id":"water_starboard_aft","name":"Water, tank cell starboard aft","system":"water","mat":"water","tags":["water"],"shape":{"k":"cslot","x0":24.75,"x1":31.5,"r0":2.47,"r1":4.28,"hw":2.4,"grooves":[40,140,220,320],"gw":2.0,"gd":0.5,"side":1,"holes":[[2.75,2.6,0.27],[-2.75,2.6,0.27]],"settled_fraction":0.775}},{"id":"water_port_fore","name":"Water, tank cell port fore","system":"water","mat":"water","tags":["water"],"shape":{"k":"cslot","x0":18.0,"x1":24.75,"r0":2.47,"r1":4.28,"hw":2.4,"grooves":[40,140,220,320],"gw":2.0,"gd":0.5,"side":-1,"holes":[[2.75,2.6,0.27],[-2.75,2.6,0.27]],"settled_fraction":0.775}},{"id":"water_port_aft","name":"Water, tank cell port aft","system":"water","mat":"water","tags":["water"],"shape":{"k":"cslot","x0":24.75,"x1":31.5,"r0":2.47,"r1":4.28,"hw":2.4,"grooves":[40,140,220,320],"gw":2.0,"gd":0.5,"side":-1,"holes":[[2.75,2.6,0.27],[-2.75,2.6,0.27]],"settled_fraction":0.775}}]}},"cmd":{"header":"ALL bodies. ALL sponsors. 2026-2226.","status":"VISUAL REFERENCE input: the L1 scene scored by command/l1_study.py (NON-GOVERNING)","geometry_sha256":"14bb3c2c3743811e020ba4288b5503392a362e0cc03948fc35bf181b6d629369","dome":{"xa":0.2,"xb":2.35,"R":4.15},"floor_x":3.0,"couch":{"width_m":0.7,"back_above_base_m":0.25,"eye_above_back_m":0.2},"couches":[{"id":"PILOT","role":"Pilot / flight control","base_x":1.225,"head":[0.45,0.65],"feet":[0.45,-1.45],"L":2.1,"eye":[0.775,0.45,0.45],"envelope":[[0.575,1.225],[0.1,0.8],[-1.45,0.65]]},{"id":"NAV","role":"Navigation / command","base_x":1.225,"head":[-0.45,0.65],"feet":[-0.45,-1.45],"L":2.1,"eye":[0.775,-0.45,0.45],"envelope":[[0.575,1.225],[-0.8,-0.1],[-1.45,0.65]]},{"id":"S1","role":"Support station","base_x":3.0,"head":[2.439,2.439],"feet":[0.573,3.402],"L":2.1,"eye":[2.55,2.262,2.531],"envelope":[[2.35,3.0],[0.413,2.6],[2.128,3.713]]},{"id":"S2","role":"Support station","base_x":3.0,"head":[-2.439,2.439],"feet":[-3.402,0.573],"L":2.1,"eye":[2.55,-2.531,2.262],"envelope":[[2.35,3.0],[-3.713,-2.128],[0.413,2.6]]},{"id":"S3","role":"Support station","base_x":3.0,"head":[-2.439,-2.439],"feet":[-0.573,-3.402],"L":2.1,"eye":[2.55,-2.262,-2.531],"envelope":[[2.35,3.0],[-2.6,-0.413],[-3.713,-2.128]]},{"id":"S4","role":"Support station","base_x":3.0,"head":[2.439,-2.439],"feet":[3.402,-0.573],"L":2.1,"eye":[2.55,2.531,-2.262],"envelope":[[2.35,3.0],[2.128,3.713],[-2.6,-0.413]]}],"displays":[{"for":"PILOT","box":[[0.276,0.496],[0.225,0.675],[-0.049,0.171]]},{"for":"NAV","box":[[0.276,0.496],[-0.675,-0.225],[-0.049,0.171]]},{"for":"S1","box":[[2.017,2.217],[1.895,2.295],[2.245,2.445]]},{"for":"S2","box":[[2.017,2.217],[-2.545,-2.145],[1.995,2.195]]},{"for":"S3","box":[[2.017,2.217],[-2.295,-1.895],[-2.445,-2.245]]},{"for":"S4","box":[[2.017,2.217],[2.145,2.545],[-2.195,-1.995]]}],"ladders":[{"y":1.4,"z":0.0,"size":0.8},{"y":-1.4,"z":0.0,"size":0.8}],"flight_deck":{"x":[1.225,1.325],"y":[-0.85,0.85],"z":[-1.55,0.75]},"flight_deck_ladder":{"z":-1.63,"y":[-0.25,0.25],"x":[1.225,3.0],"note":"indicative: inputs say 'reached by a short ladder at its -Z end'; not sized"}},"hab":{"header":"ALL bodies. ALL sponsors. 2026-2226.","status":"VISUAL REFERENCE input: habitat crew systems (NON-GOVERNING)","bunks":[{"room":"L3-CAPT","angle_deg":15,"radial_m":[1.925,4.025],"width_m":0.7,"pan_x":7.95,"tier":1,"tiers":1},{"room":"L3-CA","angle_deg":75,"radial_m":[1.925,4.025],"width_m":0.7,"pan_x":7.95,"tier":1,"tiers":2},{"room":"L3-CA","angle_deg":75,"radial_m":[1.925,4.025],"width_m":0.7,"pan_x":6.87,"tier":2,"tiers":2},{"room":"L3-GUEST","angle_deg":169,"radial_m":[1.925,4.025],"width_m":0.7,"pan_x":7.95,"tier":1,"tiers":2},{"room":"L3-GUEST","angle_deg":169,"radial_m":[1.925,4.025],"width_m":0.7,"pan_x":6.87,"tier":2,"tiers":2},{"room":"L3-GUEST","angle_deg":221,"radial_m":[1.925,4.025],"width_m":0.7,"pan_x":7.95,"tier":1,"tiers":2},{"room":"L3-GUEST","angle_deg":221,"radial_m":[1.925,4.025],"width_m":0.7,"pan_x":6.87,"tier":2,"tiers":2},{"room":"L3-CB","angle_deg":259,"radial_m":[1.925,4.025],"width_m":0.7,"pan_x":7.95,"tier":1,"tiers":2},{"room":"L3-CB","angle_deg":259,"radial_m":[1.925,4.025],"width_m":0.7,"pan_x":6.87,"tier":2,"tiers":2},{"room":"L3-CB","angle_deg":311,"radial_m":[1.925,4.025],"width_m":0.7,"pan_x":7.95,"tier":1,"tiers":1}],"doors":[{"room":"L3-CAPT","center_deg":45,"width_m":0.8,"height_m":2.05,"floor_x":8.2,"at_r_m":1.9},{"room":"L3-CA","center_deg":105,"width_m":0.8,"height_m":2.05,"floor_x":8.2,"at_r_m":1.9},{"room":"L3-GUEST","center_deg":195,"width_m":0.8,"height_m":2.05,"floor_x":8.2,"at_r_m":1.9},{"room":"L3-CB","center_deg":285,"width_m":0.8,"height_m":2.05,"floor_x":8.2,"at_r_m":1.9}],"decks":[{"id":"L1","x_m":[0.2,3.0]},{"id":"L2","x_m":[3.3,5.6]},{"id":"L3","x_m":[5.9,8.2]},{"id":"L4","x_m":[8.5,10.8]},{"id":"L5","x_m":[11.1,13.4]}],"ladderways":[{"theta_deg":0,"r_m":1.4,"size_m":0.8},{"theta_deg":180,"r_m":1.4,"size_m":0.8}],"floor_t_m":0.3,"medical":{"center_deg":202,"width_m":2.4,"at_r_m":1.9,"x_m":[8.5,10.8]},"litter":{"length_m":2.0,"width_m":0.6,"pose":{"theta_deg":180,"r_m":[1.95,3.95],"x":10.2}},"route":[[1.8,-1.4,0.0],[3.0,-1.4,0.0],[9.8,-1.4,0.0],[10.3,-1.4,0.0],[10.3,-3.0,0.0]],"rungs_on":"inboard"},"stats":[["Length","53.3","m"],["Dry mass","867.7","t"],["Departure mass","1,167.7","t"],["ECON reach","723","km/s"],["Cruise thrust","0.99","g"],["Crew + guests","6 + 4",""],["Living volume","322","m\u00b3"],["Longerons","5 \u00b7 36.9","t"],["Windows","15",""]],"gates":[{"g":"G1","t":"Mass and fluids ledger","v":"PASS"},{"g":"G2","t":"Torch and reach","v":"PASS"},{"g":"G3","t":"Balance and attitude","v":"PASS"},{"g":"G4","t":"Power and heat","v":"PASS-DECLARED"},{"g":"G5","t":"Structure and loads","v":"PASS"},{"g":"G6","t":"Radiation","v":"PASS-DECLARED"},{"g":"G7","t":"Compartments and crew space","v":"PASS"},{"g":"G8","t":"Shuttle, drones and bay exit","v":"PASS"},{"g":"G9","t":"Failures and reserves","v":"PASS"},{"g":"G10","t":"Mission suite (Navigator, run by Sol)","v":"OPEN"},{"g":"G11","t":"Canon fit","v":"PASS"},{"g":"G12","t":"Images","v":"PASS"}],"certified":false},"0.5.7":{"ver":"0.5.7","sha":"ed692f90d49a2d8aa9f25a4dfc48b4a4410680e4accc77f7938a027952f8e1bf","geo":{"version":"0.5.7","window_bore":{"armour_m":0.2,"wall_m":0.23,"splay_deg":12,"prov":"CLAUDE_DESIGN v0.5.6: openings splayed outward 12 deg through the 0.20 m armour so the armour does not narrow the view (command/l1_bore_check.py: straight bores cut the pilots' 60 deg cone to 89%; 12 deg restores 99.7%)"},"crown":{"r":2.8,"mer":8,"center":1.15,"fork":2.0},"length_m":53.3,"thrust_line_offset_m":{"y":0.04,"z":-0.2,"torch_chain_t":176.972},"features":[{"kind":"window","room":"L1-command","pos":[1.25,2.812,2.812],"normal":[-0.712,0.496,0.496],"d_m":0.5},{"kind":"window","room":"L1-command","pos":[1.25,-2.812,2.812],"normal":[-0.712,-0.496,0.496],"d_m":0.5},{"kind":"window","room":"L1-command","pos":[1.25,-2.812,-2.812],"normal":[-0.712,-0.496,-0.496],"d_m":0.5},{"kind":"window","room":"L1-command","pos":[1.25,2.812,-2.812],"normal":[-0.712,0.496,-0.496],"d_m":0.5},{"kind":"window","room":"L4-shelter","pos":[9.85,2.739,3.57],"normal":[0.0,0.609,0.793],"d_m":0.35},{"kind":"window","room":"L4-shelter","pos":[9.85,-2.739,3.57],"normal":[0.0,-0.609,0.793],"d_m":0.35},{"kind":"window","room":"L4-medical","pos":[9.85,-4.462,-0.587],"normal":[0.0,-0.991,-0.131],"d_m":0.5},{"kind":"window","room":"L4-medical","pos":[9.85,-2.739,-3.57],"normal":[0.0,-0.609,-0.793],"d_m":0.5},{"kind":"window","room":"L5-suits","pos":[12.45,2.893,3.447],"normal":[0.0,0.643,0.766],"d_m":0.45},{"kind":"window","room":"L5-workshop","pos":[12.45,-0.974,4.393],"normal":[0.0,-0.216,0.976],"d_m":0.45},{"kind":"window","room":"L5-workshop","pos":[12.45,-3.795,2.418],"normal":[0.0,-0.843,0.537],"d_m":0.45},{"kind":"window","room":"L5-vestibule","pos":[12.45,-0.0,-4.5],"normal":[0.0,-0.0,-1.0],"d_m":0.4},{"kind":"window","room":"L3-CAPT","berth":true,"tier":"lower","pos":[7.55,4.347,1.165],"normal":[0.0,0.966,0.259],"d_m":0.5},{"kind":"window","room":"L3-CA","berth":true,"tier":"lower","pos":[7.55,1.165,4.347],"normal":[0.0,0.259,0.966],"d_m":0.5},{"kind":"window","room":"L3-CA","berth":true,"tier":"upper","pos":[6.45,1.165,4.347],"normal":[0.0,0.259,0.966],"d_m":0.5},{"kind":"window","room":"L3-GUEST","berth":true,"tier":"lower","pos":[7.55,-4.417,0.859],"normal":[0.0,-0.982,0.191],"d_m":0.5},{"kind":"window","room":"L3-GUEST","berth":true,"tier":"upper","pos":[6.45,-4.417,0.859],"normal":[0.0,-0.982,0.191],"d_m":0.5},{"kind":"window","room":"L3-GUEST","berth":true,"tier":"lower","pos":[7.55,-3.396,-2.952],"normal":[0.0,-0.755,-0.656],"d_m":0.5},{"kind":"window","room":"L3-GUEST","berth":true,"tier":"upper","pos":[6.45,-3.396,-2.952],"normal":[0.0,-0.755,-0.656],"d_m":0.5},{"kind":"window","room":"L3-CB","berth":true,"tier":"lower","pos":[7.55,-0.859,-4.417],"normal":[0.0,-0.191,-0.982],"d_m":0.5},{"kind":"window","room":"L3-CB","berth":true,"tier":"upper","pos":[6.45,-0.859,-4.417],"normal":[0.0,-0.191,-0.982],"d_m":0.5},{"kind":"window","room":"L3-CB","berth":true,"tier":"lower","pos":[7.55,2.952,-3.396],"normal":[0.0,0.656,-0.755],"d_m":0.5},{"kind":"hatch","room":"L5-airlock","pos":[12.25,4.5,0.0],"normal":[0,1.0,0.0],"d_m":1.1},{"kind":"camera","name":"collar camera with lights, beside the port looking out along its axis","pos":[16.0,0.95,-4.5],"normal":[0.0,0.207,-0.978],"d_m":0.2},{"kind":"camera","name":"wide hull camera with lights","pos":[14.2,0.0,-4.6],"normal":[0.0,0.0,-1.0],"d_m":0.2},{"kind":"hold_door","sector":"hold_starboard","pos":[15.5,4.5,0.0],"normal":[0,1.0,0.0],"size_m":[2.4,1.8]},{"kind":"hold_door","sector":"hold_port","pos":[15.5,-4.5,0.0],"normal":[0,-1.0,0.0],"size_m":[2.4,1.8]}],"parts":[{"id":"armor","name":"Armour and fixed shielding shell","system":"habitat","mat":"hull_armor","tags":[],"shape":{"k":"domecyl","xa":0.0,"xb":2.35,"xc":14.0,"R":4.5,"t":0.2}},{"id":"pressure_vessel","name":"Pressure vessel (inner hull)","system":"structure","mat":"pressure_hull","tags":[],"shape":{"k":"domecyl","xa":0.2,"xb":2.35,"xc":13.4,"R":4.3,"t":0.03}},{"id":"aft_bulkhead","name":"Aft pressure bulkhead (L5 floor)","system":"structure","mat":"bulkhead","tags":[],"shape":{"k":"sector","x0":13.4,"x1":13.7,"r0":0.0,"r1":4.3,"a0":0.0,"a1":360.0}},{"id":"floor_L1","name":"L1 floor","system":"structure","mat":"floor","tags":[],"shape":{"k":"sector","x0":3.0,"x1":3.3,"r0":0.9,"r1":4.15,"a0":0.0,"a1":360.0}},{"id":"floor_L2","name":"L2 floor","system":"structure","mat":"floor","tags":[],"shape":{"k":"sector","x0":5.6,"x1":5.9,"r0":0.9,"r1":4.15,"a0":0.0,"a1":360.0}},{"id":"floor_L3","name":"L3 floor","system":"structure","mat":"floor","tags":[],"shape":{"k":"sector","x0":8.2,"x1":8.5,"r0":0.9,"r1":4.15,"a0":0.0,"a1":360.0}},{"id":"floor_L4","name":"L4 floor","system":"structure","mat":"floor","tags":[],"shape":{"k":"sector","x0":10.8,"x1":11.1,"r0":0.9,"r1":4.15,"a0":0.0,"a1":360.0}},{"id":"core_trunk","name":"Central trunk (utilities, avionics racks, goods lift)","system":"habitat","mat":"core","tags":[],"shape":{"k":"sector","x0":3.3,"x1":13.4,"r0":0.0,"r1":0.9,"a0":0.0,"a1":360.0}},{"id":"core_racks","name":"Avionics racks in the trunk","system":"avionics","mat":"avionics","tags":[],"shape":{"k":"sector","x0":3.3,"x1":13.4,"r0":0.0,"r1":0.81,"a0":0.0,"a1":360.0}},{"id":"bow_sensors","name":"Bow sensors and command electronics (shoulder ring)","system":"avionics","mat":"avionics","tags":[],"shape":{"k":"domecyl","xa":0.2,"xb":2.35,"xc":2.0,"R":4.15,"t":0.0,"rin":2.9,"gaps":[[45,14],[135,14],[225,14],[315,14]]}},{"id":"flight_deck","name":"Flight deck (mezzanine carrying the pilot and navigator couches)","system":"habitat","mat":"equipment","tags":[],"shape":{"k":"box","x0":1.225,"x1":1.325,"y0":-0.85,"y1":0.85,"z0":-1.55,"z1":0.75}},{"id":"room_L1-command","name":"Command and navigation","system":"habitat","mat":"room_command","tags":["room"],"shape":{"k":"domecyl","xa":0.2,"xb":2.35,"xc":3.0,"R":4.15,"t":0.0}},{"id":"room_L2-galley","name":"Galley","system":"habitat","mat":"room_galley","tags":["room"],"shape":{"k":"sector","x0":3.3,"x1":5.6,"r0":1.9,"r1":4.15,"a0":-60,"a1":30}},{"id":"room_L2-wardroom","name":"Wardroom (table for 10)","system":"habitat","mat":"room_wardroom","tags":["room"],"shape":{"k":"sector","x0":3.3,"x1":5.6,"r0":1.9,"r1":4.15,"a0":30,"a1":150}},{"id":"room_L2-observation","name":"Observation","system":"habitat","mat":"room_observation","tags":["room"],"shape":{"k":"sector","x0":3.3,"x1":5.6,"r0":1.9,"r1":4.15,"a0":150,"a1":210}},{"id":"room_L2-exercise","name":"Exercise","system":"habitat","mat":"room_exercise","tags":["room"],"shape":{"k":"sector","x0":3.3,"x1":5.6,"r0":1.9,"r1":4.15,"a0":210,"a1":270}},{"id":"room_L2-hygiene","name":"Washroom","system":"habitat","mat":"room_hygiene","tags":["room"],"shape":{"k":"sector","x0":3.3,"x1":5.6,"r0":1.9,"r1":4.15,"a0":270,"a1":300}},{"id":"room_L3-CAPT","name":"Captain's cabin","system":"habitat","mat":"room_cabin","tags":["room"],"shape":{"k":"sector","x0":5.9,"x1":8.2,"r0":1.9,"r1":4.07,"a0":0,"a1":60}},{"id":"room_L3-CA","name":"Crew cabin A","system":"habitat","mat":"room_cabin","tags":["room"],"shape":{"k":"sector","x0":5.9,"x1":8.2,"r0":1.9,"r1":4.07,"a0":60,"a1":120}},{"id":"room_L3-HG","name":"Guest washroom","system":"habitat","mat":"room_hygiene","tags":["room"],"shape":{"k":"sector","x0":5.9,"x1":8.2,"r0":1.9,"r1":4.07,"a0":120,"a1":150}},{"id":"room_L3-GUEST","name":"Guest cabin","system":"habitat","mat":"room_cabin","tags":["room"],"shape":{"k":"sector","x0":5.9,"x1":8.2,"r0":1.9,"r1":4.07,"a0":150,"a1":240}},{"id":"room_L3-CB","name":"Crew cabin B","system":"habitat","mat":"room_cabin","tags":["room"],"shape":{"k":"sector","x0":5.9,"x1":8.2,"r0":1.9,"r1":4.07,"a0":240,"a1":330}},{"id":"room_L3-HC","name":"Crew washroom","system":"habitat","mat":"room_hygiene","tags":["room"],"shape":{"k":"sector","x0":5.9,"x1":8.2,"r0":1.9,"r1":4.07,"a0":330,"a1":360}},{"id":"room_L4-shelter","name":"Storm shelter","system":"habitat","mat":"room_shelter","tags":["room"],"shape":{"k":"sector","x0":8.7,"x1":10.6,"r0":2.1,"r1":3.95,"a0":18.788,"a1":161.212}},{"id":"room_L4-medical","name":"Medical bay","system":"habitat","mat":"room_medical","tags":["room"],"shape":{"k":"sector","x0":8.5,"x1":10.8,"r0":1.9,"r1":4.15,"a0":165,"a1":255}},{"id":"room_L4-eclss","name":"Life support","system":"habitat","mat":"room_eclss","tags":["room"],"shape":{"k":"sector","x0":8.5,"x1":10.8,"r0":1.9,"r1":4.15,"a0":255,"a1":375}},{"id":"room_L5-airlock","name":"Airlock","system":"habitat","mat":"room_airlock","tags":["room"],"shape":{"k":"sector","x0":11.1,"x1":13.4,"r0":1.9,"r1":4.15,"a0":-20,"a1":20}},{"id":"room_L5-suits","name":"Suit room","system":"habitat","mat":"room_suits","tags":["room"],"shape":{"k":"sector","x0":11.1,"x1":13.4,"r0":1.9,"r1":4.15,"a0":20,"a1":80}},{"id":"room_L5-workshop","name":"Workshop","system":"habitat","mat":"room_workshop","tags":["room"],"shape":{"k":"sector","x0":11.1,"x1":13.4,"r0":1.9,"r1":4.15,"a0":80,"a1":170}},{"id":"room_L5-custody","name":"Custody locker","system":"habitat","mat":"room_custody","tags":["room"],"shape":{"k":"sector","x0":11.1,"x1":13.4,"r0":1.9,"r1":4.15,"a0":170,"a1":200}},{"id":"room_L5-stores","name":"Stores","system":"habitat","mat":"room_stores","tags":["room"],"shape":{"k":"sector","x0":11.1,"x1":13.4,"r0":1.9,"r1":4.15,"a0":200,"a1":250}},{"id":"room_L5-vestibule","name":"Transfer vestibule","system":"habitat","mat":"room_vestibule","tags":["room"],"shape":{"k":"sector","x0":11.1,"x1":13.4,"r0":1.9,"r1":4.15,"a0":250,"a1":290}},{"id":"room_L5-stores2","name":"Stores","system":"habitat","mat":"room_stores","tags":["room"],"shape":{"k":"sector","x0":11.1,"x1":13.4,"r0":1.9,"r1":4.15,"a0":290,"a1":340}},{"id":"crown_dome","name":"Crown dome: ceramic panes, Osteon frame, brow ring, tambour gore tracks and drives","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":0.0,"x1":0.6,"y0":-2.8,"y1":2.8,"z0":-2.8,"z1":2.8}},{"id":"window_L1-command_0","name":"Window assembly (L1-command, 0.50 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":1.214,"x1":1.514,"y0":2.582,"y1":2.882,"z0":2.582,"z1":2.882}},{"id":"window_L1-command_1","name":"Window assembly (L1-command, 0.50 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":1.214,"x1":1.514,"y0":-2.882,"y1":-2.582,"z0":2.582,"z1":2.882}},{"id":"window_L1-command_2","name":"Window assembly (L1-command, 0.50 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":1.214,"x1":1.514,"y0":-2.882,"y1":-2.582,"z0":-2.882,"z1":-2.582}},{"id":"window_L1-command_3","name":"Window assembly (L1-command, 0.50 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":1.214,"x1":1.514,"y0":2.582,"y1":2.882,"z0":-2.882,"z1":-2.582}},{"id":"window_L4-shelter_4","name":"Window assembly (L4-shelter, 0.35 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":9.7,"x1":10.0,"y0":2.492,"y1":2.792,"z0":3.293,"z1":3.593}},{"id":"window_L4-shelter_5","name":"Window assembly (L4-shelter, 0.35 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":9.7,"x1":10.0,"y0":-2.792,"y1":-2.492,"z0":3.293,"z1":3.593}},{"id":"window_L4-medical_6","name":"Window assembly (L4-medical, 0.50 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":9.7,"x1":10.0,"y0":-4.453,"y1":-4.153,"z0":-0.716,"z1":-0.416}},{"id":"window_L4-medical_7","name":"Window assembly (L4-medical, 0.50 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":9.7,"x1":10.0,"y0":-2.792,"y1":-2.492,"z0":-3.593,"z1":-3.293}},{"id":"window_L5-suits_8","name":"Window assembly (L5-suits, 0.45 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":12.3,"x1":12.6,"y0":2.64,"y1":2.94,"z0":3.175,"z1":3.475}},{"id":"window_L5-workshop_9","name":"Window assembly (L5-workshop, 0.45 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":12.3,"x1":12.6,"y0":-1.089,"y1":-0.789,"z0":4.087,"z1":4.387}},{"id":"window_L5-workshop_10","name":"Window assembly (L5-workshop, 0.45 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":12.3,"x1":12.6,"y0":-3.81,"y1":-3.51,"z0":2.182,"z1":2.482}},{"id":"window_L5-vestibule_11","name":"Window assembly (L5-vestibule, 0.40 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":12.3,"x1":12.6,"y0":-0.15,"y1":0.15,"z0":-4.49,"z1":-4.19}},{"id":"window_L3-CAPT_12","name":"Window assembly (L3-CAPT, 0.50 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":7.46,"x1":7.64,"y0":4.16,"y1":4.34,"z0":1.049,"z1":1.229}},{"id":"window_L3-CA_13","name":"Window assembly (L3-CA, 0.50 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":7.46,"x1":7.64,"y0":1.049,"y1":1.229,"z0":4.16,"z1":4.34}},{"id":"window_L3-CA_14","name":"Window assembly (L3-CA, 0.50 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":6.36,"x1":6.54,"y0":1.049,"y1":1.229,"z0":4.16,"z1":4.34}},{"id":"window_L3-GUEST_15","name":"Window assembly (L3-GUEST, 0.50 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":7.46,"x1":7.64,"y0":-4.409,"y1":-4.229,"z0":0.75,"z1":0.93}},{"id":"window_L3-GUEST_16","name":"Window assembly (L3-GUEST, 0.50 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":6.36,"x1":6.54,"y0":-4.409,"y1":-4.229,"z0":0.75,"z1":0.93}},{"id":"window_L3-GUEST_17","name":"Window assembly (L3-GUEST, 0.50 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":7.46,"x1":7.64,"y0":-3.411,"y1":-3.231,"z0":-2.977,"z1":-2.797}},{"id":"window_L3-GUEST_18","name":"Window assembly (L3-GUEST, 0.50 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":6.36,"x1":6.54,"y0":-3.411,"y1":-3.231,"z0":-2.977,"z1":-2.797}},{"id":"window_L3-CB_19","name":"Window assembly (L3-CB, 0.50 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":7.46,"x1":7.64,"y0":-0.93,"y1":-0.75,"z0":-4.409,"z1":-4.229}},{"id":"window_L3-CB_20","name":"Window assembly (L3-CB, 0.50 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":6.36,"x1":6.54,"y0":-0.93,"y1":-0.75,"z0":-4.409,"z1":-4.229}},{"id":"window_L3-CB_21","name":"Window assembly (L3-CB, 0.50 m)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":7.46,"x1":7.64,"y0":2.797,"y1":2.977,"z0":-3.411,"z1":-3.231}},{"id":"flight_deck_column_0","name":"Flight-deck column","system":"habitat","mat":"frame","tags":["from_reserve"],"shape":{"k":"tube","p0":[1.325,0.8,-1.5],"p1":[3.0,0.8,-1.5],"r":0.038}},{"id":"flight_deck_column_1","name":"Flight-deck column","system":"habitat","mat":"frame","tags":["from_reserve"],"shape":{"k":"tube","p0":[1.325,-0.8,-1.5],"p1":[3.0,-0.8,-1.5],"r":0.038}},{"id":"flight_deck_column_2","name":"Flight-deck column","system":"habitat","mat":"frame","tags":["from_reserve"],"shape":{"k":"tube","p0":[1.325,0.8,0.7],"p1":[3.0,0.8,0.7],"r":0.038}},{"id":"flight_deck_column_3","name":"Flight-deck column","system":"habitat","mat":"frame","tags":["from_reserve"],"shape":{"k":"tube","p0":[1.325,-0.8,0.7],"p1":[3.0,-0.8,0.7],"r":0.038}},{"id":"hatch_L4L5_0","name":"L4/L5 pressure hatch at the 0 deg ladderway","system":"habitat","mat":"hatch","tags":["from_reserve"],"shape":{"k":"box","x0":10.8,"x1":10.86,"y0":0.95,"y1":1.85,"z0":-0.45,"z1":0.45}},{"id":"hatch_L4L5_180","name":"L4/L5 pressure hatch at the 180 deg ladderway","system":"habitat","mat":"hatch","tags":["from_reserve"],"shape":{"k":"box","x0":10.8,"x1":10.86,"y0":-1.85,"y1":-0.95,"z0":-0.45,"z1":0.45}},{"id":"trunk_plug_L4L5","name":"Trunk pressure plug with lift hatch and feedthroughs (L4/L5)","system":"habitat","mat":"bulkhead","tags":["from_reserve","no_render"],"shape":{"k":"sector","x0":10.8,"x1":11.1,"r0":0.0,"r1":0.9,"a0":0.0,"a1":360.0}},{"id":"doors_L4-medical","name":"Medical bay: bi-parting sliding doors","system":"habitat","mat":"door","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":8.5,"x1":10.8,"y0":-1.862,"y1":-1.662,"z0":-0.812,"z1":-0.612}},{"id":"shelter_backup","name":"Storm shelter 72 h stored life support (O2, LiOH, food, battery)","system":"habitat","mat":"equipment","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":9.45,"x1":9.85,"y0":-0.2,"y1":0.2,"z0":2.8,"z1":3.2}},{"id":"rescue_kit","name":"Litter, vertical-lift harness, rope system and hoist points","system":"habitat","mat":"equipment","tags":["from_reserve","no_render"],"shape":{"k":"box","x0":9.5,"x1":9.8,"y0":-2.4,"y1":-2.1,"z0":-2.831,"z1":-2.531}},{"id":"docking_camera_0","name":"Docking camera: collar camera with lights, beside the port looking out along its axis","system":"service","mat":"rcs","tags":["from_reserve"],"shape":{"k":"box","x0":15.9,"x1":16.1,"y0":0.85,"y1":1.05,"z0":-4.6,"z1":-4.4}},{"id":"docking_camera_1","name":"Docking camera: wide hull camera with lights","system":"service","mat":"rcs","tags":["from_reserve"],"shape":{"k":"box","x0":14.1,"x1":14.3,"y0":-0.1,"y1":0.1,"z0":-4.7,"z1":-4.5}},{"id":"outfit_L1","name":"L1 distributed outfitting","system":"habitat","mat":"outfit","tags":[],"shape":{"k":"sector","x0":0.2,"x1":3.0,"r0":4.05,"r1":4.15,"a0":0.0,"a1":360.0}},{"id":"outfit_L2","name":"L2 distributed outfitting","system":"habitat","mat":"outfit","tags":[],"shape":{"k":"sector","x0":3.3,"x1":5.6,"r0":4.05,"r1":4.15,"a0":0.0,"a1":360.0}},{"id":"outfit_L3","name":"L3 distributed outfitting","system":"habitat","mat":"outfit","tags":[],"shape":{"k":"sector","x0":5.9,"x1":8.2,"r0":4.15,"r1":4.25,"a0":0.0,"a1":360.0}},{"id":"outfit_L4","name":"L4 distributed outfitting","system":"habitat","mat":"outfit","tags":[],"shape":{"k":"sector","x0":8.5,"x1":10.8,"r0":4.05,"r1":4.15,"a0":0.0,"a1":360.0}},{"id":"outfit_L5","name":"L5 distributed outfitting","system":"habitat","mat":"outfit","tags":[],"shape":{"k":"sector","x0":11.1,"x1":13.4,"r0":4.05,"r1":4.15,"a0":0.0,"a1":360.0}},{"id":"plant_fore","name":"Relational plant, fore block","system":"plant","mat":"plant","tags":[],"shape":{"k":"sector","x0":14.0,"x1":17.0,"r0":0.0,"r1":2.0,"a0":0.0,"a1":360.0}},{"id":"courier_systems","name":"Mission and courier systems","system":"mission","mat":"equipment","tags":[],"shape":{"k":"sector","x0":14.0,"x1":17.0,"r0":2.0,"r1":4.3,"a0":225,"a1":315}},{"id":"service_arm","name":"Service arm and umbilicals","system":"service","mat":"equipment","tags":[],"shape":{"k":"sector","x0":14.0,"x1":17.0,"r0":2.0,"r1":4.3,"a0":225,"a1":315}},{"id":"docking_collar","name":"Docking collar","system":"service","mat":"collar","tags":[],"shape":{"k":"tube","p0":[16.0,0.0,-3.6],"p1":[16.0,0.0,-4.75],"r":0.8}},{"id":"tunnel_0","name":"Pressure tunnel: habitat to collar node","system":"service","mat":"tunnel","tags":["inhabited"],"shape":{"k":"tube","p0":[13.7,0.0,-3.0],"p1":[16.6,0.0,-3.0],"r":0.6}},{"id":"tunnel_1","name":"Pressure tunnel: collar node to bay axis","system":"service","mat":"tunnel","tags":["inhabited"],"shape":{"k":"tube","p0":[17.6,0.0,-3.0],"p1":[17.6,0.0,0.0],"r":0.6}},{"id":"tunnel_2","name":"Pressure tunnel: docking adapter to shuttle nose","system":"service","mat":"tunnel","tags":["inhabited"],"shape":{"k":"tube","p0":[17.6,0.0,0.0],"p1":[18.75,0.0,0.0],"r":0.6}},{"id":"longeron_upper_starboard","name":"Longeron (upper starboard)","system":"structure","mat":"longeron","tags":["longeron"],"shape":{"k":"tube","p0":[14.0,2.75,2.6],"p1":[34.3,2.75,2.6],"r":0.2}},{"id":"longeron_upper_port","name":"Longeron (upper port)","system":"structure","mat":"longeron","tags":["longeron"],"shape":{"k":"tube","p0":[14.0,-2.75,2.6],"p1":[34.3,-2.75,2.6],"r":0.2}},{"id":"longeron_lower_starboard","name":"Longeron (lower starboard)","system":"structure","mat":"longeron","tags":["longeron"],"shape":{"k":"tube","p0":[14.0,2.75,-2.6],"p1":[34.3,2.75,-2.6],"r":0.2}},{"id":"longeron_lower_port","name":"Longeron (lower port)","system":"structure","mat":"longeron","tags":["longeron"],"shape":{"k":"tube","p0":[14.0,-2.75,-2.6],"p1":[34.3,-2.75,-2.6],"r":0.2}},{"id":"viewport_band_0","name":"L2 viewport band, segment 0 (300-360 deg)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"sector","x0":3.9,"x1":4.5,"r0":4.25,"r1":4.3,"a0":300,"a1":360}},{"id":"viewport_band_1","name":"L2 viewport band, segment 1 (0-150 deg)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"sector","x0":3.9,"x1":4.5,"r0":4.25,"r1":4.3,"a0":0,"a1":150}},{"id":"viewport_band_2","name":"L2 viewport band, segment 2 (150-210 deg)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"sector","x0":3.6,"x1":5.2,"r0":4.25,"r1":4.3,"a0":150,"a1":210}},{"id":"viewport_band_3","name":"L2 viewport band, segment 3 (210-270 deg)","system":"habitat","mat":"frame","tags":["from_reserve","no_render"],"shape":{"k":"sector","x0":3.9,"x1":4.5,"r0":4.25,"r1":4.3,"a0":210,"a1":270}},{"id":"service_shield_band","name":"Service-section shield band (polyethylene)","system":"habitat","mat":"equipment","tags":["from_reserve","no_render"],"shape":{"k":"sector","x0":14.0,"x1":17.0,"r0":4.3,"r1":4.36,"a0":0.0,"a1":360.0}},{"id":"longeron_end_fitting_14_upper_starboard","name":"Longeron end fitting (upper starboard, x 14)","system":"structure","mat":"frame","tags":["longeron_joint","no_render"],"shape":{"k":"box","x0":14.0,"x1":14.5,"y0":2.45,"y1":3.05,"z0":2.3,"z1":2.9}},{"id":"longeron_end_fitting_14_upper_port","name":"Longeron end fitting (upper port, x 14)","system":"structure","mat":"frame","tags":["longeron_joint","no_render"],"shape":{"k":"box","x0":14.0,"x1":14.5,"y0":-3.05,"y1":-2.45,"z0":2.3,"z1":2.9}},{"id":"longeron_end_fitting_14_lower_starboard","name":"Longeron end fitting (lower starboard, x 14)","system":"structure","mat":"frame","tags":["longeron_joint","no_render"],"shape":{"k":"box","x0":14.0,"x1":14.5,"y0":2.45,"y1":3.05,"z0":-2.9,"z1":-2.3}},{"id":"longeron_end_fitting_14_lower_port","name":"Longeron end fitting (lower port, x 14)","system":"structure","mat":"frame","tags":["longeron_joint","no_render"],"shape":{"k":"box","x0":14.0,"x1":14.5,"y0":-3.05,"y1":-2.45,"z0":-2.9,"z1":-2.3}},{"id":"longeron_end_fitting_34.3_upper_starboard","name":"Longeron end fitting (upper starboard, x 34.3)","system":"structure","mat":"frame","tags":["longeron_joint","no_render"],"shape":{"k":"box","x0":33.8,"x1":34.3,"y0":2.45,"y1":3.05,"z0":2.3,"z1":2.9}},{"id":"longeron_end_fitting_34.3_upper_port","name":"Longeron end fitting (upper port, x 34.3)","system":"structure","mat":"frame","tags":["longeron_joint","no_render"],"shape":{"k":"box","x0":33.8,"x1":34.3,"y0":-3.05,"y1":-2.45,"z0":2.3,"z1":2.9}},{"id":"longeron_end_fitting_34.3_lower_starboard","name":"Longeron end fitting (lower starboard, x 34.3)","system":"structure","mat":"frame","tags":["longeron_joint","no_render"],"shape":{"k":"box","x0":33.8,"x1":34.3,"y0":2.45,"y1":3.05,"z0":-2.9,"z1":-2.3}},{"id":"longeron_end_fitting_34.3_lower_port","name":"Longeron end fitting (lower port, x 34.3)","system":"structure","mat":"frame","tags":["longeron_joint","no_render"],"shape":{"k":"box","x0":33.8,"x1":34.3,"y0":-3.05,"y1":-2.45,"z0":-2.9,"z1":-2.3}},{"id":"node_mount_allowance","name":"Field-node mounts and access hatches (allowance; location open)","system":"structure","mat":"frame","tags":["longeron_joint","no_render"],"shape":{"k":"sector","x0":14.0,"x1":34.3,"r0":4.37,"r1":4.48,"a0":0.0,"a1":360.0}},{"id":"bay_corner_18_p","name":"Bay-slot corner doubler (x 18)","system":"structure","mat":"frame","tags":["longeron_joint","no_render"],"shape":{"k":"box","x0":17.7,"x1":18.3,"y0":-2.55,"y1":-2.25,"z0":3.3,"z1":3.7}},{"id":"bay_corner_18_s","name":"Bay-slot corner doubler (x 18)","system":"structure","mat":"frame","tags":["longeron_joint","no_render"],"shape":{"k":"box","x0":17.7,"x1":18.3,"y0":2.25,"y1":2.55,"z0":3.3,"z1":3.7}},{"id":"bay_corner_32.3_p","name":"Bay-slot corner doubler (x 32.3)","system":"structure","mat":"frame","tags":["longeron_joint","no_render"],"shape":{"k":"box","x0":32.0,"x1":32.6,"y0":-2.55,"y1":-2.25,"z0":3.3,"z1":3.7}},{"id":"bay_corner_32.3_s","name":"Bay-slot corner doubler (x 32.3)","system":"structure","mat":"frame","tags":["longeron_joint","no_render"],"shape":{"k":"box","x0":32.0,"x1":32.6,"y0":2.25,"y1":2.55,"z0":3.3,"z1":3.7}},{"id":"skin_service","name":"Outer skin, service region","system":"structure","mat":"hull_skin","tags":[],"shape":{"k":"sector","x0":14.0,"x1":18.0,"r0":4.48,"r1":4.5,"a0":0.0,"a1":360.0}},{"id":"skin_midship","name":"Outer skin, midship (C-shaped, open at the slot)","system":"structure","mat":"hull_skin","tags":[],"shape":{"k":"cslot","x0":18.0,"x1":32.3,"r0":4.48,"r1":4.5,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"skin_aft","name":"Outer skin, manifold region","system":"structure","mat":"hull_skin","tags":[],"shape":{"k":"sector","x0":32.3,"x1":34.3,"r0":4.48,"r1":4.5,"a0":0.0,"a1":360.0}},{"id":"frame_14","name":"Ring frame x 14","system":"structure","mat":"frame","tags":[],"shape":{"k":"sector","x0":14.0,"x1":14.15,"r0":4.1,"r1":4.48,"a0":0.0,"a1":360.0}},{"id":"frame_16","name":"Ring frame x 16","system":"structure","mat":"frame","tags":[],"shape":{"k":"sector","x0":16.0,"x1":16.15,"r0":4.1,"r1":4.48,"a0":0.0,"a1":360.0}},{"id":"frame_18","name":"Ring frame x 18","system":"structure","mat":"frame","tags":[],"shape":{"k":"cslot","x0":18.0,"x1":18.15,"r0":4.3,"r1":4.48,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"frame_20","name":"Ring frame x 20","system":"structure","mat":"frame","tags":[],"shape":{"k":"cslot","x0":20.0,"x1":20.15,"r0":4.3,"r1":4.48,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"frame_22","name":"Ring frame x 22","system":"structure","mat":"frame","tags":[],"shape":{"k":"cslot","x0":22.0,"x1":22.15,"r0":4.3,"r1":4.48,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"frame_24","name":"Ring frame x 24","system":"structure","mat":"frame","tags":[],"shape":{"k":"cslot","x0":24.0,"x1":24.15,"r0":4.3,"r1":4.48,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"frame_26","name":"Ring frame x 26","system":"structure","mat":"frame","tags":[],"shape":{"k":"cslot","x0":26.0,"x1":26.15,"r0":4.3,"r1":4.48,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"frame_28","name":"Ring frame x 28","system":"structure","mat":"frame","tags":[],"shape":{"k":"cslot","x0":28.0,"x1":28.15,"r0":4.3,"r1":4.48,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"frame_30","name":"Ring frame x 30","system":"structure","mat":"frame","tags":[],"shape":{"k":"cslot","x0":30.0,"x1":30.15,"r0":4.3,"r1":4.48,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"frame_32","name":"Ring frame x 32","system":"structure","mat":"frame","tags":[],"shape":{"k":"cslot","x0":32.0,"x1":32.15,"r0":4.3,"r1":4.48,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"frame_34","name":"Ring frame x 34","system":"structure","mat":"frame","tags":[],"shape":{"k":"sector","x0":34.0,"x1":34.15,"r0":4.1,"r1":4.48,"a0":0.0,"a1":360.0}},{"id":"tank_shell_out","name":"Tank outer wall","system":"structure","mat":"tank_shell","tags":[],"shape":{"k":"cslot","x0":18.0,"x1":31.5,"r0":4.28,"r1":4.3,"hw":2.4,"grooves":[40,140,220,320],"gw":2.0,"gd":0.0,"side":0,"holes":[]}},{"id":"tank_shell_in","name":"Tank inner wall","system":"structure","mat":"tank_shell","tags":[],"shape":{"k":"cslot","x0":18.0,"x1":31.5,"r0":2.45,"r1":2.47,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"bay_liner","name":"Bay liner and cradle","system":"structure","mat":"bay","tags":[],"shape":{"k":"cslot","x0":18.25,"x1":32.05,"r0":2.4,"r1":2.44,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"door_starboard","name":"Bay door, starboard","system":"structure","mat":"door","tags":["door"],"shape":{"k":"sector","x0":18.25,"x1":32.05,"r0":4.4,"r1":4.5,"a0":57.769,"a1":90.0}},{"id":"door_port","name":"Bay door, port","system":"structure","mat":"door","tags":["door"],"shape":{"k":"sector","x0":18.25,"x1":32.05,"r0":4.4,"r1":4.5,"a0":90.0,"a1":122.231}},{"id":"thrust_cone","name":"Thrust cone (longerons to reactor frame)","system":"structure","mat":"thrust_cone","tags":[],"shape":{"k":"frustum","x0":34.3,"x1":39.3,"r0":4.4,"r1":2.95,"t":0.06}},{"id":"electrical","name":"Electrical conversion and distribution (aft C-ring)","system":"electrical","mat":"equipment","tags":[],"shape":{"k":"cslot","x0":31.5,"x1":32.3,"r0":2.45,"r1":4.3,"hw":2.4,"grooves":[],"gw":0.0,"gd":0.0,"side":0,"holes":[]}},{"id":"electrical_fwd","name":"Electrical conversion and distribution (service ring)","system":"electrical","mat":"equipment","tags":[],"shape":{"k":"sector","x0":17.0,"x1":18.0,"r0":2.0,"r1":4.3,"a0":-45,"a1":225}},{"id":"plant_aft","name":"Relational plant, aft block","system":"plant","mat":"plant","tags":[],"shape":{"k":"sector","x0":32.3,"x1":34.3,"r0":0.0,"r1":2.0,"a0":0.0,"a1":360.0}},{"id":"manifold","name":"Radiator manifold, pumps and heat exchangers","system":"thermal","mat":"manifold","tags":[],"shape":{"k":"sector","x0":32.3,"x1":34.3,"r0":2.0,"r1":4.48,"a0":0.0,"a1":360.0}},{"id":"strake_40","name":"Radiator strake 40 deg (stowed)","system":"thermal","mat":"radiator","tags":["strake"],"shape":{"k":"panel","x0":14.0,"x1":32.3,"a":40,"r0":4.0,"span":0.5,"t":2.0}},{"id":"strake_140","name":"Radiator strake 140 deg (stowed)","system":"thermal","mat":"radiator","tags":["strake"],"shape":{"k":"panel","x0":14.0,"x1":32.3,"a":140,"r0":4.0,"span":0.5,"t":2.0}},{"id":"strake_220","name":"Radiator strake 220 deg (stowed)","system":"thermal","mat":"radiator","tags":["strake"],"shape":{"k":"panel","x0":14.0,"x1":32.3,"a":220,"r0":4.0,"span":0.5,"t":2.0}},{"id":"strake_320","name":"Radiator strake 320 deg (stowed)","system":"thermal","mat":"radiator","tags":["strake"],"shape":{"k":"panel","x0":14.0,"x1":32.3,"a":320,"r0":4.0,"span":0.5,"t":2.0}},{"id":"hotfin_40","name":"Hot fin 40 deg (folded)","system":"thermal","mat":"hotfin","tags":["fin","from_reserve"],"shape":{"k":"panel","x0":34.3,"x1":53.3,"a":40,"r0":4.75,"span":2.0,"t":0.6}},{"id":"hotfin_root_40","name":"Hot fin 40 deg root truss, fold-out drive and hot loop","system":"thermal","mat":"radiator","tags":["from_reserve"],"shape":{"k":"panel","x0":39.3,"x1":53.3,"a":40,"r0":3.0,"span":1.75,"t":0.3}},{"id":"hotfin_140","name":"Hot fin 140 deg (folded)","system":"thermal","mat":"hotfin","tags":["fin","from_reserve"],"shape":{"k":"panel","x0":34.3,"x1":53.3,"a":140,"r0":4.75,"span":2.0,"t":0.6}},{"id":"hotfin_root_140","name":"Hot fin 140 deg root truss, fold-out drive and hot loop","system":"thermal","mat":"radiator","tags":["from_reserve"],"shape":{"k":"panel","x0":39.3,"x1":53.3,"a":140,"r0":3.0,"span":1.75,"t":0.3}},{"id":"hotfin_220","name":"Hot fin 220 deg (folded)","system":"thermal","mat":"hotfin","tags":["fin","from_reserve"],"shape":{"k":"panel","x0":34.3,"x1":53.3,"a":220,"r0":4.75,"span":2.0,"t":0.6}},{"id":"hotfin_root_220","name":"Hot fin 220 deg root truss, fold-out drive and hot loop","system":"thermal","mat":"radiator","tags":["from_reserve"],"shape":{"k":"panel","x0":39.3,"x1":53.3,"a":220,"r0":3.0,"span":1.75,"t":0.3}},{"id":"hotfin_320","name":"Hot fin 320 deg (folded)","system":"thermal","mat":"hotfin","tags":["fin","from_reserve"],"shape":{"k":"panel","x0":34.3,"x1":53.3,"a":320,"r0":4.75,"span":2.0,"t":0.6}},{"id":"hotfin_root_320","name":"Hot fin 320 deg root truss, fold-out drive and hot loop","system":"thermal","mat":"radiator","tags":["from_reserve"],"shape":{"k":"panel","x0":39.3,"x1":53.3,"a":320,"r0":3.0,"span":1.75,"t":0.3}},{"id":"rcs_F+Y","name":"RCS cluster F+Y","system":"rcs","mat":"rcs","tags":[],"shape":{"k":"box","x0":2.6,"x1":3.4,"y0":4.2,"y1":5.0,"z0":-0.4,"z1":0.4}},{"id":"rcs_F+Z","name":"RCS cluster F+Z","system":"rcs","mat":"rcs","tags":[],"shape":{"k":"box","x0":2.6,"x1":3.4,"y0":-0.4,"y1":0.4,"z0":4.2,"z1":5.0}},{"id":"rcs_F-Y","name":"RCS cluster F-Y","system":"rcs","mat":"rcs","tags":[],"shape":{"k":"box","x0":2.6,"x1":3.4,"y0":-5.0,"y1":-4.2,"z0":-0.4,"z1":0.4}},{"id":"rcs_F-Z","name":"RCS cluster F-Z","system":"rcs","mat":"rcs","tags":[],"shape":{"k":"box","x0":2.6,"x1":3.4,"y0":-0.4,"y1":0.4,"z0":-5.0,"z1":-4.2}},{"id":"rcs_A+Y","name":"RCS cluster A+Y","system":"rcs","mat":"rcs","tags":["torch_chain"],"shape":{"k":"box","x0":43.6,"x1":44.4,"y0":2.2,"y1":3.0,"z0":-0.4,"z1":0.4,"offset_yz":[0.04,-0.2]}},{"id":"rcs_A+Z","name":"RCS cluster A+Z","system":"rcs","mat":"rcs","tags":["torch_chain"],"shape":{"k":"box","x0":43.6,"x1":44.4,"y0":-0.4,"y1":0.4,"z0":2.2,"z1":3.0,"offset_yz":[0.04,-0.2]}},{"id":"rcs_A-Y","name":"RCS cluster A-Y","system":"rcs","mat":"rcs","tags":["torch_chain"],"shape":{"k":"box","x0":43.6,"x1":44.4,"y0":-3.0,"y1":-2.2,"z0":-0.4,"z1":0.4,"offset_yz":[0.04,-0.2]}},{"id":"rcs_A-Z","name":"RCS cluster A-Z","system":"rcs","mat":"rcs","tags":["torch_chain"],"shape":{"k":"box","x0":43.6,"x1":44.4,"y0":-0.4,"y1":0.4,"z0":-3.0,"z1":-2.2,"offset_yz":[0.04,-0.2]}},{"id":"shield","name":"Shadow shield","system":"propulsion","mat":"shield","tags":["torch_chain"],"shape":{"k":"sector","x0":34.3,"x1":39.3,"r0":0.0,"r1":2.75,"a0":0.0,"a1":360.0,"offset_yz":[0.04,-0.2]}},{"id":"reactor","name":"Fusion reactor and thrust frame","system":"propulsion","mat":"reactor","tags":["torch_chain"],"shape":{"k":"sector","x0":39.3,"x1":46.3,"r0":0.0,"r1":2.125,"a0":0.0,"a1":360.0,"offset_yz":[0.04,-0.2]}},{"id":"nozzle","name":"Magnetic nozzle","system":"propulsion","mat":"nozzle","tags":["torch_chain"],"shape":{"k":"frustum","x0":46.3,"x1":53.3,"r0":2.125,"r1":3.0,"t":0.15,"offset_yz":[0.04,-0.2]}},{"id":"shuttle","name":"Rover-drop shuttle (docked, tanks empty)","system":"shuttle","mat":"shuttle","tags":["inhabited_when_docked","shuttle"],"shape":{"k":"tube","p0":[18.75,0,0],"p1":[31.55,0,0],"r":1.9}},{"id":"drone_0","name":"Mars drone pod 1","system":"drones","mat":"drone","tags":["drone"],"shape":{"k":"box","x0":14.3,"x1":15.4,"y0":2.59,"y1":3.61,"z0":-1.7,"z1":1.7}},{"id":"drone_1","name":"Mars drone pod 2","system":"drones","mat":"drone","tags":["drone"],"shape":{"k":"box","x0":14.3,"x1":15.4,"y0":-3.61,"y1":-2.59,"z0":-1.7,"z1":1.7}},{"id":"drone_2","name":"dense-air drone pod 1","system":"drones","mat":"drone","tags":["drone"],"shape":{"k":"box","x0":15.6,"x1":16.5,"y0":2.665,"y1":3.535,"z0":-1.45,"z1":1.45}},{"id":"drone_3","name":"dense-air drone pod 2","system":"drones","mat":"drone","tags":["drone"],"shape":{"k":"box","x0":15.6,"x1":16.5,"y0":-3.535,"y1":-2.665,"z0":-1.45,"z1":1.45}}],"fluids_by_state":{"S1":[{"id":"jacket_outer","name":"Storm-shelter water jacket (outer)","system":"water","mat":"water","tags":["protected","water"],"shape":{"k":"sector","x0":8.5,"x1":10.8,"r0":3.95,"r1":4.15,"a0":15,"a1":165}},{"id":"jacket_inner","name":"Storm-shelter water jacket (inner)","system":"water","mat":"water","tags":["protected","water"],"shape":{"k":"sector","x0":8.5,"x1":10.8,"r0":1.9,"r1":2.1,"a0":15,"a1":165}},{"id":"jacket_radial_a","name":"Storm-shelter water jacket (radial_a)","system":"water","mat":"water","tags":["protected","water"],"shape":{"k":"sector","x0":8.5,"x1":10.8,"r0":1.9,"r1":4.15,"a0":15,"a1":18.788}},{"id":"jacket_radial_b","name":"Storm-shelter water jacket (radial_b)","system":"water","mat":"water","tags":["protected","water"],"shape":{"k":"sector","x0":8.5,"x1":10.8,"r0":1.9,"r1":4.15,"a0":161.212,"a1":165}},{"id":"jacket_ceiling","name":"Storm-shelter water jacket (ceiling)","system":"water","mat":"water","tags":["protected","water"],"shape":{"k":"sector","x0":8.5,"x1":8.7,"r0":1.9,"r1":4.15,"a0":15,"a1":165}},{"id":"jacket_floor","name":"Storm-shelter water jacket (floor)","system":"water","mat":"water","tags":["protected","water"],"shape":{"k":"sector","x0":10.6,"x1":10.8,"r0":1.9,"r1":4.15,"a0":15,"a1":165}},{"id":"jacket_berth_ring","name":"L3 berth shield ring (8 cm water)","system":"water","mat":"water","tags":["berth_shield","protected","water"],"shape":{"k":"sector","x0":5.9,"x1":8.2,"r0":4.07,"r1":4.15,"a0":0,"a1":360}},{"id":"jacket_berth_ring","name":"L3 berth shield collar at the floor edge (12 cm water)","system":"water","mat":"water","tags":["berth_shield","protected","water"],"shape":{"k":"sector","x0":8.2,"x1":8.5,"r0":4.15,"r1":4.27,"a0":0,"a1":360}},{"id":"pw_service","name":"Protected water, service tank","system":"water","mat":"water","tags":["protected","water"],"shape":{"k":"sector","x0":14.0,"x1":17.0,"r0":2.0,"r1":4.3,"a0":45,"a1":135,"settled_fraction":0.815}},{"id":"water_starboard_fore","name":"Water, tank cell starboard fore","system":"water","mat":"water","tags":["water"],"shape":{"k":"cslot","x0":18.0,"x1":24.75,"r0":2.47,"r1":4.28,"hw":2.4,"grooves":[40,140,220,320],"gw":2.0,"gd":0.5,"side":1,"holes":[[2.75,2.6,0.22],[-2.75,2.6,0.22],[2.75,-2.6,0.22],[-2.75,-2.6,0.22]],"settled_fraction":0.777}},{"id":"water_starboard_aft","name":"Water, tank cell starboard aft","system":"water","mat":"water","tags":["water"],"shape":{"k":"cslot","x0":24.75,"x1":31.5,"r0":2.47,"r1":4.28,"hw":2.4,"grooves":[40,140,220,320],"gw":2.0,"gd":0.5,"side":1,"holes":[[2.75,2.6,0.22],[-2.75,2.6,0.22],[2.75,-2.6,0.22],[-2.75,-2.6,0.22]],"settled_fraction":0.777}},{"id":"water_port_fore","name":"Water, tank cell port fore","system":"water","mat":"water","tags":["water"],"shape":{"k":"cslot","x0":18.0,"x1":24.75,"r0":2.47,"r1":4.28,"hw":2.4,"grooves":[40,140,220,320],"gw":2.0,"gd":0.5,"side":-1,"holes":[[2.75,2.6,0.22],[-2.75,2.6,0.22],[2.75,-2.6,0.22],[-2.75,-2.6,0.22]],"settled_fraction":0.777}},{"id":"water_port_aft","name":"Water, tank cell port aft","system":"water","mat":"water","tags":["water"],"shape":{"k":"cslot","x0":24.75,"x1":31.5,"r0":2.47,"r1":4.28,"hw":2.4,"grooves":[40,140,220,320],"gw":2.0,"gd":0.5,"side":-1,"holes":[[2.75,2.6,0.22],[-2.75,2.6,0.22],[2.75,-2.6,0.22],[-2.75,-2.6,0.22]],"settled_fraction":0.777}}]}},"cmd":{"header":"ALL bodies. ALL sponsors. 2026-2226.","status":"VISUAL REFERENCE input: the L1 scene scored by command/l1_study.py (NON-GOVERNING)","geometry_sha256":"ed692f90d49a2d8aa9f25a4dfc48b4a4410680e4accc77f7938a027952f8e1bf","dome":{"xa":0.2,"xb":2.35,"R":4.15},"floor_x":3.0,"couch":{"width_m":0.7,"back_above_base_m":0.25,"eye_above_back_m":0.2},"couches":[{"id":"PILOT","role":"Pilot / flight control","base_x":1.225,"head":[0.45,0.65],"feet":[0.45,-1.45],"L":2.1,"eye":[0.775,0.45,0.45],"envelope":[[0.575,1.225],[0.1,0.8],[-1.45,0.65]]},{"id":"NAV","role":"Navigation / command","base_x":1.225,"head":[-0.45,0.65],"feet":[-0.45,-1.45],"L":2.1,"eye":[0.775,-0.45,0.45],"envelope":[[0.575,1.225],[-0.8,-0.1],[-1.45,0.65]]},{"id":"S1","role":"Support station","base_x":3.0,"head":[2.439,2.439],"feet":[0.573,3.402],"L":2.1,"eye":[2.55,2.262,2.531],"envelope":[[2.35,3.0],[0.413,2.6],[2.128,3.713]]},{"id":"S2","role":"Support station","base_x":3.0,"head":[-2.439,2.439],"feet":[-3.402,0.573],"L":2.1,"eye":[2.55,-2.531,2.262],"envelope":[[2.35,3.0],[-3.713,-2.128],[0.413,2.6]]},{"id":"S3","role":"Support station","base_x":3.0,"head":[-2.439,-2.439],"feet":[-0.573,-3.402],"L":2.1,"eye":[2.55,-2.262,-2.531],"envelope":[[2.35,3.0],[-2.6,-0.413],[-3.713,-2.128]]},{"id":"S4","role":"Support station","base_x":3.0,"head":[2.439,-2.439],"feet":[3.402,-0.573],"L":2.1,"eye":[2.55,2.531,-2.262],"envelope":[[2.35,3.0],[2.128,3.713],[-2.6,-0.413]]}],"displays":[{"for":"PILOT","box":[[0.276,0.496],[0.225,0.675],[-0.049,0.171]]},{"for":"NAV","box":[[0.276,0.496],[-0.675,-0.225],[-0.049,0.171]]},{"for":"S1","box":[[2.017,2.217],[1.895,2.295],[2.245,2.445]]},{"for":"S2","box":[[2.017,2.217],[-2.545,-2.145],[1.995,2.195]]},{"for":"S3","box":[[2.017,2.217],[-2.295,-1.895],[-2.445,-2.245]]},{"for":"S4","box":[[2.017,2.217],[2.145,2.545],[-2.195,-1.995]]}],"ladders":[{"y":1.4,"z":0.0,"size":0.8},{"y":-1.4,"z":0.0,"size":0.8}],"flight_deck":{"x":[1.225,1.325],"y":[-0.85,0.85],"z":[-1.55,0.75]},"flight_deck_ladder":{"z":-1.63,"y":[-0.25,0.25],"x":[1.225,3.0],"note":"indicative: inputs say 'reached by a short ladder at its -Z end'; not sized"}},"hab":{"header":"ALL bodies. ALL sponsors. 2026-2226.","status":"VISUAL REFERENCE input: habitat crew systems (NON-GOVERNING)","bunks":[{"room":"L3-CAPT","angle_deg":15,"radial_m":[1.925,4.025],"width_m":0.7,"pan_x":7.95,"tier":1,"tiers":1},{"room":"L3-CA","angle_deg":75,"radial_m":[1.925,4.025],"width_m":0.7,"pan_x":7.95,"tier":1,"tiers":2},{"room":"L3-CA","angle_deg":75,"radial_m":[1.925,4.025],"width_m":0.7,"pan_x":6.87,"tier":2,"tiers":2},{"room":"L3-GUEST","angle_deg":169,"radial_m":[1.925,4.025],"width_m":0.7,"pan_x":7.95,"tier":1,"tiers":2},{"room":"L3-GUEST","angle_deg":169,"radial_m":[1.925,4.025],"width_m":0.7,"pan_x":6.87,"tier":2,"tiers":2},{"room":"L3-GUEST","angle_deg":221,"radial_m":[1.925,4.025],"width_m":0.7,"pan_x":7.95,"tier":1,"tiers":2},{"room":"L3-GUEST","angle_deg":221,"radial_m":[1.925,4.025],"width_m":0.7,"pan_x":6.87,"tier":2,"tiers":2},{"room":"L3-CB","angle_deg":259,"radial_m":[1.925,4.025],"width_m":0.7,"pan_x":7.95,"tier":1,"tiers":2},{"room":"L3-CB","angle_deg":259,"radial_m":[1.925,4.025],"width_m":0.7,"pan_x":6.87,"tier":2,"tiers":2},{"room":"L3-CB","angle_deg":311,"radial_m":[1.925,4.025],"width_m":0.7,"pan_x":7.95,"tier":1,"tiers":1}],"doors":[{"room":"L3-CAPT","center_deg":45,"width_m":0.8,"height_m":2.05,"floor_x":8.2,"at_r_m":1.9},{"room":"L3-CA","center_deg":105,"width_m":0.8,"height_m":2.05,"floor_x":8.2,"at_r_m":1.9},{"room":"L3-GUEST","center_deg":195,"width_m":0.8,"height_m":2.05,"floor_x":8.2,"at_r_m":1.9},{"room":"L3-CB","center_deg":285,"width_m":0.8,"height_m":2.05,"floor_x":8.2,"at_r_m":1.9}],"decks":[{"id":"L1","x_m":[0.2,3.0]},{"id":"L2","x_m":[3.3,5.6]},{"id":"L3","x_m":[5.9,8.2]},{"id":"L4","x_m":[8.5,10.8]},{"id":"L5","x_m":[11.1,13.4]}],"ladderways":[{"theta_deg":0,"r_m":1.4,"size_m":0.8},{"theta_deg":180,"r_m":1.4,"size_m":0.8}],"floor_t_m":0.3,"medical":{"center_deg":202,"width_m":2.4,"at_r_m":1.9,"x_m":[8.5,10.8]},"litter":{"length_m":2.0,"width_m":0.6,"pose":{"theta_deg":180,"r_m":[1.95,3.95],"x":10.2}},"route":[[1.8,-1.4,0.0],[3.0,-1.4,0.0],[9.8,-1.4,0.0],[10.3,-1.4,0.0],[10.3,-3.0,0.0]],"rungs_on":"inboard"},"stats":[["Length","53.3","m"],["Dry mass","867.7","t"],["Departure mass","1,167.7","t"],["ECON reach","723","km/s"],["Cruise thrust","0.99","g"],["Crew + guests","6 + 4",""],["Living volume","322","m\u00b3"],["Longerons","4 \u00b7 12.6","t"],["Windows","12 + 10","berth"]],"gates":[{"g":"G1","t":"Mass and fluids ledger","v":"PASS"},{"g":"G2","t":"Torch and reach","v":"PASS"},{"g":"G3","t":"Balance and attitude","v":"PASS"},{"g":"G4","t":"Power and heat","v":"PASS-DECLARED"},{"g":"G5","t":"Structure and loads","v":"PASS"},{"g":"G6","t":"Radiation","v":"PASS-DECLARED"},{"g":"G7","t":"Compartments and crew space","v":"PASS"},{"g":"G8","t":"Shuttle, drones and bay exit","v":"PASS"},{"g":"G9","t":"Failures and reserves","v":"PASS"},{"g":"G10","t":"Mission suite (Navigator, run by Sol)","v":"OPEN"},{"g":"G11","t":"Canon fit","v":"PASS"},{"g":"G12","t":"Images","v":"PASS"}],"certified":false}};
+let VER = "0.5.7";
+let GEO = VERS[VER].geo, CMD = VERS[VER].cmd, HAB = VERS[VER].hab, STATS = VERS[VER].stats, GATES = VERS[VER].gates, SHA = VERS[VER].sha;
+const stage = document.getElementById("stage"), cv = document.getElementById("cv");
+const cls = v => v === "PASS" ? "PASS" : v === "PASS-DECLARED" ? "DECL" : v === "OPEN" ? "OPEN" : "FAIL";
+const word = v => v === "PASS-DECLARED" ? "Declared" : v[0] + v.slice(1).toLowerCase();
+function panels() {
+  const o = VERS[Object.keys(VERS)[0]];
+  document.getElementById("stats").innerHTML = STATS.map((s, i) => { const b = o.stats[i], diff = VER !== o.ver && b && b[1] !== s[1];
+    return `<div class="stat${i === 3 ? " hero" : ""}"><span class="k">${s[0]}</span><span class="v">${s[1]}<span class="u">${s[2]}</span></span>${diff ? `<span class="was">v${o.ver}: ${b[1]} ${b[2]}</span>` : ""}</div>`; }).join("");
+  document.getElementById("gates").innerHTML = GATES.map(g => `<div class="gate"><span class="id">${g.g}</span><span class="t">${g.t}</span><span class="pill ${cls(g.v)}">${word(g.v)}</span></div>`).join("");
+  document.getElementById("vtitle").textContent = `Wayfarer v${VER}`;
+  document.getElementById("foot").textContent = `VISUAL REFERENCE. Wayfarer v${VER}, NON-GOVERNING sandbox design. Generated from wayfarer_v05_geometry.json, sha256 ${SHA}. ALL bodies. ALL sponsors. 2026-2226.`;
+}
+panels();
+const MODES = {
+  cruise: {strakeSpan: 0, note: "Coasting: radiator strakes stowed in their grooves, bay doors shut."},
+  metric: {strakeSpan: 2, hot: 0.35, note: "Metric HARD: one 2 m pleat of each strake out, enough for 34.9 MW. Field geometry radius 6.5 m."},
+  burn: {strakeSpan: 4, finSpan: 28, hot: 1.0, plume: true, note: "Torch burn: four hot fins unfolded aft at 1,750 K carry the torch's 1.4 GW; the strakes open 4 m for the magnet coils' cooling. Up to 5 g, everyone in a couch."},
+  shuttle: {strakeSpan: 0, doorsOpen: true, shuttleLift: 8.5, note: "Shuttle out: doors stand up at the slot edges and the 12.8 m rover-drop shuttle rises straight out."},
+  hab: {strakeSpan: 0, hab: true, cmd: true, note: "Habitat decks: cut along the axis, bow up, walls left out so rooms show as coloured floors. Ten 2.10 m berths, one per person; a casualty moves at 0 g down the port ladder shaft into the medical bay (yellow litter). v0.5.7 adds a 0.35 m viewport at the outer end of every berth."},
+  structure: {strakeSpan: 0, structure: true, note: "Structure: skin, tanks and machinery hidden. Longerons in amber, ring frames and the thrust cone in grey. v0.5.6: five members (three flat planks outside the tank, two round sills beside the bay slot). v0.5.7: four 0.40 m tubes in an X, the upper pair edging the slot."},
+  cmd: {strakeSpan: 0, cmd: true, note: "Command deck, layout D: bow up, port side cut away. PILOT and NAV lie on a flight deck 1.78 m up, eyes 0.55 m below their nose windows; four support couches lie along the rim. Everyone faces the bow, so thrust presses them into the couch."},
+};
+const CMD_CLIP = [0, -1, 0, -1.0];
+const HAB_CLIP = [0, 0.174, 0.985, 0];
+const HAB_LABELS = [["Berths", [7.6, -1.2, -3.4]], ["Berth viewport", [7.55, -1.16, -4.35]], ["Port shaft", [5.2, -1.4, 0]], ["Medical bay", [10.2, -3.0, 0]], ["L4/L5 hatch", [10.8, -1.4, -0.3]], ["Trunk", [9.0, 0, 0]]];
+const habHome = {az: 1.396, el: 0.45, dist: 15, tx: 9.0, ty: -1.6, tz: -0.6};
+const CMD_LABELS = [["PILOT", [0.8, 0.45, 0.2]], ["NAV", [0.8, -0.45, 0.2]], ["Flight deck", [1.3, 0, -1.4]], ["Nose windows", [0.1, 0, 0.9]], ["Sensors", [1.5, 0, 3.45]],
+                    ["S1", [2.55, 1.4, 2.9]], ["S4", [2.55, 2.9, -1.4]], ["Ladder to L2", [2.4, 1.4, 0]]];
+const cmdHome = {az: -2.875, el: 0.30, dist: 8.5, tx: 1.2, ty: 0.25, tz: 0.15};
+function cmdFit() {   // keep the deck's width in frame on a tall phone screen
+  const r = cv.getBoundingClientRect(), a = r.width / Math.max(r.height, 1);
+  return Math.max(8.5, 3.1 / (Math.tan(20 * Math.PI / 180) * a));
+}
+const LABELS = [["Habitat", [7, 0, 4.6]], ["Docking collar", [16, 0, -4.8]], ["Tanks and bay", [25, 0, 4.6]], ["Shield", [36.8, 0, 2.9]], ["Reactor", [42.8, 0, 2.3]], ["Nozzle", [50, 0, 3.1]]];
+const ROOM_LABELS = [["Command", [1.8, 2, 0]], ["Common", [4.4, 2.6, 0]], ["Quarters", [7.0, 2.6, 0]], ["Shelter", [9.6, 0, 3]], ["Mission", [12.2, 2.6, 0]], ["Shuttle", [25, 0, 0]], ["Plant", [15.5, 0, 0]]];
+let look = {id: "orbit", yaw: 0, pitch: 0, fov: 90};
+let st = {petals: 0, mode: "cruise", cut: false, rooms: true, water: true, labels: true};
+let ship;
+try { ship = new Ship(cv, GEO, {shadowSize: 2048}); } catch (e) { stage.insertAdjacentHTML("beforeend", `<p class="mode-note" style="padding:16px">This device could not start WebGL 2, so the 3D view is unavailable. The figures below still apply.</p>`); }
+const hideExt = new Set(["room", "outfit", "floor", "core", "avionics", "pressure_hull", "bulkhead", "plant", "equipment", "manifold", "frame", "longeron", "tunnel", "drone", "water", "cargo"]);
+const crownOf = (open) => GEO.crown ? {...GEO.crown, open} : null;
+function rebuild() {
+  if (!ship) return;
+  const m = MODES[st.mode];
+  if (m.hab) {
+    ship.build({show: p => p.mat !== "outfit" && p.id !== "core_racks" && !p.id.startsWith("room_L1"), strakeSpan: 0, fluids: GEO.fluids_by_state.S1,
+                features: false, windowFrames: true, roomsAsFloors: true, hab: HAB, litter: true, cmdClip: HAB_CLIP});
+    document.getElementById("note").textContent = m.note;
+    dirty = true; return;
+  }
+  if (m.cmd) {
+    const inside = look.id !== "orbit";
+    ship.build({show: p => p.mat !== "outfit" && p.id !== "room_L1-command" && p.id !== "core_racks" && (st.rooms || !p.mat.startsWith("room_")), strakeSpan: 0, fluids: [],
+                features: false, windowFrames: true, bore: {wall_m: 0.23, armour_m: 0.2, splay_deg: 12}, cmd: CMD, cmdClip: inside ? null : CMD_CLIP,
+                cmdHideCrew: inside ? [look.id] : [], crown: crownOf(st.petals), shuttersClosed: !st.petals});
+    document.getElementById("note").textContent = (GEO.crown ? m.note.replace("eyes 0.55 m below their nose windows", "under the crown dome") : m.note) + (GEO.crown ? " v0.5.7: the crown dome replaces the 8 nose windows; pilot displays ride on flight-deck arms. Dome open / closed below." : "");
+    dirty = true; return;
+  }
+  MATS.longeron.c = m.structure ? [0.95, 0.55, 0.12] : [0.13, 0.13, 0.14];
+  if (m.structure) {
+    ship.build({show: p => ["longeron", "frame", "thrust_cone", "shield"].includes(p.mat) || p.id === "docking_collar", strakeSpan: 0, fluids: [], features: false, bands: false});
+    document.getElementById("note").textContent = m.note; dirty = true; return;
+  }
+  const show = st.cut ? (p => p.mat !== "outfit" && (st.rooms || !p.mat.startsWith("room_")))
+                      : (p => !(p.tags || []).includes("room") && !hideExt.has(p.mat) && !p.mat.startsWith("room_"));
+  const domeOpen = (m.plume || m.hot) ? 0 : st.petals, inner = new Set(["pressure_hull", "floor", "bulkhead", "avionics"]);
+  const show2 = GEO.crown && domeOpen && !st.cut ? (p => p.mat !== "outfit" && p.id !== "core_racks") : show;
+  ship.build({show: show2, strakeSpan: m.strakeSpan, finSpan: m.finSpan || 0, doorsOpen: !!m.doorsOpen, shuttleLift: m.shuttleLift || 0, plume: !!m.plume,
+              fluids: st.cut && st.water ? GEO.fluids_by_state.S1 : [], features: !st.cut, crown: crownOf(domeOpen), shuttersClosed: !!GEO.crown && !domeOpen, cmd: GEO.crown && domeOpen && !st.cut ? CMD : null, cmdClip: null, roomsAsFloors: !!GEO.crown && domeOpen});
+  document.getElementById("note").textContent = m.note + (GEO.crown ? (domeOpen ? " Crown dome open (low speed or bow out of the dust flow)." : " Crown dome closed: gores flush with the armour.") : "") + (st.cut ? " Cutaway: the port half is removed." : "");
+  dirty = true;
+}
+const home = {az: -2.25, el: 0.38, dist: 88, tx: 26, ty: 0, tz: 0};
+let cam = {...home}, dirty = true, first = true;
+function fitDist() {
+  const r = cv.getBoundingClientRect(), a = r.width / Math.max(r.height, 1);
+  return Math.max(62, 31 / (Math.tan(19 * Math.PI / 180) * Math.min(a, 1.6)));
+}
+function resize() {
+  const r = cv.getBoundingClientRect(), d = Math.min(window.devicePixelRatio || 1, 2);
+  cv.width = Math.round(r.width * d); cv.height = Math.round(r.height * d);
+  home.dist = fitDist(); if (first) { cam.dist = home.dist; first = false; }
+  dirty = true;
+}
+const isCmd = () => !!MODES[st.mode].cmd;
+function camEye() {   // ship-z-up orbit; in the command deck the bow is up (orbit about the ship x axis)
+  if (isCmd()) return [cam.tx - cam.dist * Math.sin(cam.el), cam.ty + cam.dist * Math.cos(cam.el) * Math.cos(cam.az), cam.tz + cam.dist * Math.cos(cam.el) * Math.sin(cam.az)];
+  return [cam.tx + cam.dist * Math.cos(cam.el) * Math.cos(cam.az), cam.ty + cam.dist * Math.cos(cam.el) * Math.sin(cam.az), cam.tz + cam.dist * Math.sin(cam.el)];
+}
+const zoomLim = () => isCmd() ? [2.5, 30] : [14, 220];
+function frame() {
+  if (dirty && ship) {
+    dirty = false;
+    const m = MODES[st.mode];
+    if (m.cmd && look.id !== "orbit") {
+      const [eye, f0, up0] = lookBasis();
+      const r0 = [f0[1] * up0[2] - f0[2] * up0[1], f0[2] * up0[0] - f0[0] * up0[2], f0[0] * up0[1] - f0[1] * up0[0]];
+      const cp = Math.cos(look.pitch), d = [0, 1, 2].map(i => f0[i] * cp * Math.cos(look.yaw) + r0[i] * cp * Math.sin(look.yaw) + up0[i] * Math.sin(look.pitch));
+      ship.draw({eye, target: eye.map((v, i) => v + d[i]), up: up0, fov: look.fov, near: 0.05, sun: [-0.55, 0.35, -0.76], planet: true, planetC: [-2600, 950, 700], planetR: 1000,
+                 clip: null, holes: true, shadows: false, exposure: 1.15, lights: [{at: [1.2, 0.0, -0.6], c: [0.45, 0.48, 0.55]}]});
+      stage.querySelectorAll(".lab").forEach(e => e.remove());
+      requestAnimationFrame(frame); return;
+    }
+    if (m.cmd) {
+      const eye = camEye();
+      ship.draw({eye, target: [cam.tx, cam.ty, cam.tz], up: [-1, 0, 0], fov: 40, sun: [-0.35, 0.3, 0.88], planet: false, clip: m.hab ? HAB_CLIP : CMD_CLIP, holes: true, shadows: false, exposure: 1.0,
+                 lights: m.hab ? [{at: [6.0, -1.5, 0.0], c: [1.5, 1.45, 1.4]}, {at: [9.0, -2.0, -1.0], c: [1.5, 1.45, 1.4]}, {at: [12.0, -1.5, 0.5], c: [1.2, 1.2, 1.2]}]
+                               : [{at: [1.0, 1.2, 1.4], c: [1.6, 1.55, 1.45]}, {at: [1.9, 0.6, -2.0], c: [1.4, 1.35, 1.3]}]});
+    } else {
+    const eye = camEye();
+    ship.draw({eye, target: [cam.tx, cam.ty, cam.tz], fov: 38, sun: [-0.55, 0.62, 0.55], planet: true, planetC: [900, -500, -900], planetR: 1000,
+               clip: st.cut ? [0, -1, 0, 0] : null, hot: m.hot || 0, exposure: 0.88, plumeI: 0.55, holes: !!GEO.crown});
+    }
+    stage.querySelectorAll(".lab").forEach(e => e.remove());
+    const placed = [];
+    if (st.labels) for (const [t, at] of (m.hab ? HAB_LABELS : m.cmd ? CMD_LABELS.map(([t, at]) => [t === "Nose windows" && GEO.crown ? "Crown dome" : t, at]) : st.cut ? ROOM_LABELS : (GEO.crown ? [["Crown dome", [0.2, 0, 1.8]], ...LABELS] : LABELS))) {
+      const [x, y, ok] = ship.project(...at); if (!ok) continue;
+      const r = cv.getBoundingClientRect(); if (x < 20 || y < 24 || x > r.width - 20 || y > r.height) continue;
+      const w = t.length * 7.5 + 16;
+      if (placed.some(b => Math.abs(b[0] - x) < (b[2] + w) / 2 + 4 && Math.abs(b[1] - y) < 24)) continue;
+      placed.push([x, y, w]);
+      stage.insertAdjacentHTML("beforeend", `<div class="lab" style="left:${x}px;top:${y}px">${t}</div>`);
+    }
+  }
+  requestAnimationFrame(frame);
+}
+function lookBasis() {   // eye, forward (toward the bow) and up (toward the head) for each station
+  if (look.id === "STAND") return [[CMD.floor_x - 1.6, 0.0, 2.4], [-1, 0, 0], [0, 0, -1]];
+  const c = CMD.couches.find(k => k.id === look.id);
+  const h = [0, c.head[0] - c.feet[0], c.head[1] - c.feet[1]], L = Math.hypot(...h);
+  return [c.eye, [-1, 0, 0], h.map(v => v / L)];
+}
+const inLook = () => isCmd() && look.id !== "orbit";
+const pts = new Map(); let last = null;
+cv.addEventListener("pointerdown", e => { cv.setPointerCapture(e.pointerId); pts.set(e.pointerId, [e.clientX, e.clientY]); last = null; });
+cv.addEventListener("pointerup", e => { pts.delete(e.pointerId); last = null; });
+cv.addEventListener("pointercancel", e => { pts.delete(e.pointerId); last = null; });
+cv.addEventListener("pointermove", e => {
+  if (!pts.has(e.pointerId)) return;
+  const prev = pts.get(e.pointerId); pts.set(e.pointerId, [e.clientX, e.clientY]);
+  if (inLook()) {
+    if (pts.size === 1) { look.yaw -= (e.clientX - prev[0]) * 0.005; look.pitch = Math.max(-1.4, Math.min(1.4, look.pitch - (e.clientY - prev[1]) * 0.005)); dirty = true; }
+    else if (pts.size === 2) { const [a, b] = [...pts.values()], d = Math.hypot(a[0] - b[0], a[1] - b[1]);
+      if (last) { look.fov = Math.max(40, Math.min(115, look.fov * last.d / d)); dirty = true; } last = {d, c: [0, 0]}; }
+    return;
+  }
+  if (pts.size === 1) {
+    cam.az -= (e.clientX - prev[0]) * 0.008; cam.el = Math.max(-1.45, Math.min(1.45, cam.el + (e.clientY - prev[1]) * 0.006)); dirty = true;
+  } else if (pts.size === 2) {
+    const [a, b] = [...pts.values()], d = Math.hypot(a[0] - b[0], a[1] - b[1]), c = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+    if (last) {
+      const [z0, z1] = zoomLim(); cam.dist = Math.max(z0, Math.min(z1, cam.dist * last.d / d));
+      const k = cam.dist * 0.0016;
+      if (isCmd()) {   // pan in the screen plane, bow up
+        const e = camEye(), f = [cam.tx - e[0], cam.ty - e[1], cam.tz - e[2]], fl = Math.hypot(...f); f.forEach((v, i) => f[i] = v / fl);
+        const r = [0, f[2], -f[1]], rl = Math.hypot(...r) || 1; r.forEach((v, i) => r[i] = v / rl);
+        const u = [f[1] * r[2] - f[2] * r[1], f[2] * r[0] - f[0] * r[2], f[0] * r[1] - f[1] * r[0]];
+        const dx = (c[0] - last.c[0]) * k, dy = (c[1] - last.c[1]) * k;
+        cam.tx += -dx * r[0] + dy * u[0]; cam.ty += -dx * r[1] + dy * u[1]; cam.tz += -dx * r[2] + dy * u[2];
+      } else {
+      const rx = -Math.sin(cam.az), ry = Math.cos(cam.az);
+      cam.tx -= (c[0] - last.c[0]) * k * rx; cam.ty -= (c[0] - last.c[0]) * k * ry; cam.tz += (c[1] - last.c[1]) * k;
+      }
+      dirty = true;
+    }
+    last = {d, c};
+  }
+});
+cv.addEventListener("wheel", e => { e.preventDefault(); if (inLook()) { look.fov = Math.max(40, Math.min(115, look.fov * Math.exp(e.deltaY * 0.001))); dirty = true; return; } const [z0, z1] = zoomLim(); cam.dist = Math.max(z0, Math.min(z1, cam.dist * Math.exp(e.deltaY * 0.001))); dirty = true; }, {passive: false});
+document.getElementById("reset").addEventListener("click", () => { cam = isCmd() ? {...cmdHome, dist: cmdFit()} : {...home, az: st.cut ? -Math.PI / 2 - 0.35 : home.az, el: st.cut ? 0.25 : home.el}; dirty = true; });
+document.querySelectorAll("[data-mode]").forEach(b => b.addEventListener("click", () => {
+  const was = isCmd();
+  st.mode = b.dataset.mode; document.querySelectorAll("[data-mode]").forEach(x => x.setAttribute("aria-pressed", x === b));
+  if (MODES[st.mode].structure) cam = {...home, dist: home.dist * 0.6, tx: 24, el: 0.32};
+  else if (isCmd() !== was || isCmd()) cam = MODES[st.mode].hab ? {...habHome, dist: Math.max(15, cmdFit() * 1.6)} : isCmd() ? {...cmdHome, dist: cmdFit()} : {...home};
+  document.getElementById("lookrow").hidden = !(isCmd() && !MODES[st.mode].hab);
+  document.getElementById("petrow").hidden = !GEO.crown || !!MODES[st.mode].hab || !!MODES[st.mode].structure;
+  if (!isCmd() || MODES[st.mode].hab) setLook("orbit");
+  st.petals = isCmd() && !MODES[st.mode].hab ? 1 : 0;   // command deck opens the dome; outside at cruise speed it is closed
+  document.querySelectorAll("[data-pet]").forEach(x => x.setAttribute("aria-pressed", +x.dataset.pet === st.petals));
+  document.getElementById("hint").textContent = MODES[st.mode].hab ? "Bow up · cut along the axis" : isCmd() ? "Bow up · port side cut away" : "Bow at left · slot side up";
+  rebuild();
+}));
+document.querySelectorAll("[data-tog]").forEach(b => b.addEventListener("click", () => {
+  const k = b.dataset.tog; st[k] = !st[k]; b.setAttribute("aria-pressed", st[k]);
+  if (k === "cut" && st.cut) { cam.az = -Math.PI / 2 - 0.35; cam.el = 0.25; }
+  rebuild();
+}));
+document.querySelectorAll("[data-ver]").forEach(b => b.addEventListener("click", () => {
+  VER = b.dataset.ver; const v = VERS[VER];
+  GEO = v.geo; CMD = v.cmd; HAB = v.hab; STATS = v.stats; GATES = v.gates; SHA = v.sha;
+  document.querySelectorAll("[data-ver]").forEach(x => x.setAttribute("aria-pressed", x === b));
+  if (ship) ship.geo = GEO;
+  document.getElementById("petrow").hidden = !GEO.crown || !!MODES[st.mode].hab || !!MODES[st.mode].structure;
+  panels(); rebuild();
+}));
+function setLook(id) {
+  look = {id, yaw: 0, pitch: 0, fov: id === "orbit" ? 90 : (id === "STAND" ? 95 : 100)};
+  document.querySelectorAll("[data-look]").forEach(x => x.setAttribute("aria-pressed", x.dataset.look === id));
+  if (id !== "orbit") document.getElementById("hint").textContent = "Your eye at this station · drag to turn your head · pinch for field of view";
+}
+document.querySelectorAll("[data-look]").forEach(b => b.addEventListener("click", () => { setLook(b.dataset.look); rebuild(); }));
+document.querySelectorAll("[data-pet]").forEach(b => b.addEventListener("click", () => {
+  st.petals = +b.dataset.pet; document.querySelectorAll("[data-pet]").forEach(x => x.setAttribute("aria-pressed", x === b)); rebuild(); }));
+document.getElementById("expand").addEventListener("click", e => {
+  const on = stage.classList.toggle("big"); e.currentTarget.setAttribute("aria-pressed", on); e.currentTarget.textContent = on ? "Shrink" : "Expand";
+  if (on) stage.scrollIntoView({block: "start", behavior: "smooth"});
+});
+new ResizeObserver(resize).observe(cv);
+resize(); rebuild(); requestAnimationFrame(frame);
+window.__viewerReady = !!ship;
+</script>
