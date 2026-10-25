@@ -29,7 +29,9 @@ G0 = 9.80665
 I, C, G = CT.load()
 CARD = json.loads((REV / "out/wayfarer_v05_card.json").read_text())
 STATES = list(CARD["states"])
-MISALIGN_DEG = 0.5            # thrust-vector error assumed by the structure review (A)
+MISALIGN_DEG = 0.5            # ENGINEERING_ASSUMPTION (structure review A): torch thrust-vector error; not a demonstrated disturbance history
+SEGMENT_MAX_MIN = 165.0       # longest continuous burn before a coast break ([V2 6113])
+COAST_MIN = 15.0              # ENGINEERING_ASSUMPTION: length of each coast break (free space: changes elapsed time, not delta-v)
 CREW_G = CARD["torch"]["accel_cap_g"]
 STRUCT_G = C["G5"]["design_g"]
 RESERVE_T = CARD["dispatch_q7"]["protected_optimizer_reserve_t"]
@@ -67,8 +69,8 @@ def card_conformance():
                      "working_card_thrust_mn": round(F / 1e6, 3), "ship_card_thrust_mn": cf, "diff_pct": round(100 * d, 1), "working_card_jet_power_tw": round(P / 1e12, 3)})
     ve_ok = all(abs(r["ve_km_s"] - r["card_ve_km_s"]) < 1e-9 for r in rows)
     cs.append(chk("torch exhaust velocities match the working card (src/wayfarer_torch_mode_cards.py)", "all" if ve_ok else "differ", "all", ve_ok))
-    cs.append(chk("torch thrust by mode matches the working card", round(100 * worst_t, 1), 1.0, worst_t <= 0.01, "% worst",
-                  "the ship card assumes a constant 11.361 TW jet power; the working card's mdot gives 5.11 TW (ECON) to 12.78 TW (HARD, LIMIT)"))
+    cs.append(chk("torch thrust by mode: ship card and working card agree (which governs is unresolved: kT)", round(100 * worst_t, 1), 1.0, worst_t <= 0.01, "% worst",
+                  "AUTHORITY CONFLICT, not a rounding error: the ship card assumes a constant 11.361 TW jet power; the working card gives 5.11 TW (ECON) to 12.78 TW (HARD, LIMIT). This test does not choose between them"))
     return cs, rows
 
 
@@ -155,8 +157,8 @@ def rcs_tests():
     tvc_have = (I.get("torch", {}) or {}).get("tvc_authority_deg") or CARD["torch"].get("tvc_authority_deg")
     cs.append(chk("RCS alone holds attitude against torch thrust error (all RCS couples)", round(worst_h["disturbance_mnm"], 2), round(full / 1e6, 2),
                   worst_h["disturbance_mnm"] * 1e6 <= full, "MN m", f"worst {worst_h['state']} {worst_h['mode']} at {worst_h['thrust_mn']} MN; trim + {MISALIGN_DEG} deg error"))
-    cs.append(chk("torch thrust-vector authority covers trim + error", tvc_have if tvc_have is not None else "not declared", round(tvc_need, 3),
-                  tvc_have is not None and tvc_have >= tvc_need, "deg", "the magnetic nozzle must steer the thrust line through the CG; not yet in the rev 5 card"))
+    cs.append(chk(f"torch thrust-vector authority covers trim + an ASSUMED {MISALIGN_DEG} deg error", tvc_have if tvc_have is not None else "not declared", round(tvc_need, 3),
+                  tvc_have is not None and tvc_have >= tvc_need, "deg", f"conditional on the {MISALIGN_DEG} deg assumption; not a demonstrated requirement or a qualified nozzle capability; no TVC declared in the rev 5 card"))
     # translation: main's response law and test velocities, rev 5 thruster forces
     tr = []
     vmax = [max(abs(v[j]) for v in (c["target_velocity_m_s"] for c in COUP._CASES.values())) for j in range(3)]
@@ -186,21 +188,27 @@ def burn(mode, cap_g, dt=1.0):
     m0 = CARD["states"]["S1"]["mass_t"] * 1e3
     usable = (CARD["states"]["S1"]["remass_usable_t"]) * 1e3
     m, t, dv, peak_g, peak_trim, burned = m0, 0.0, 0.0, 0.0, 0.0, 0.0
+    seg, segs, coast_t, longest = 0.0, 1, 0.0, 0.0        # burn segments separated by simulated coasts (no thrust, no flow)
     while burned < usable - 1e-6:
+        if seg >= SEGMENT_MAX_MIN * 60 - 1e-9:
+            coast_t += COAST_MIN * 60                       # coast: thrust off, mass and velocity unchanged in free space
+            longest, seg, segs = max(longest, seg), 0.0, segs + 1
         F = min(mdot0 * ve, cap_g * G0 * m)            # throttled: the g cap reduces mdot at fixed ve
         mdot = F / ve
-        step = min(dt, (usable - burned) / mdot)
+        step = min(dt, (usable - burned) / mdot, SEGMENT_MAX_MIN * 60 - seg)
         a = F / m
         dv += a * step
         m -= mdot * step
         burned += mdot * step
         t += step
+        seg += step
         peak_g = max(peak_g, a / G0)
         peak_trim = max(peak_trim, interp_state(1 - burned / usable)[1])
     rocket = ve * math.log(m0 / (m0 - usable))
     return {"mode": mode, "cap_g": cap_g, "burn_min": round(t / 60, 1), "dv_km_s": round(dv / 1e3, 2), "rocket_eq_km_s": round(rocket / 1e3, 2),
             "error_pct": round(100 * (dv - rocket) / rocket, 3), "peak_g": round(peak_g, 3), "peak_trim_deg": round(peak_trim, 3),
-            "coast_breaks": max(0, math.ceil(t / 60 / 165) - 1)}
+            "segments": segs, "coast_breaks": segs - 1, "longest_segment_min": round(max(longest, seg) / 60, 1),
+            "elapsed_with_coasts_min": round((t + coast_t) / 60, 1)}
 
 
 def torch_tests():
@@ -211,8 +219,10 @@ def torch_tests():
               max(r["peak_g"] for r in rows) <= CREW_G + 1e-6, "g"),
           chk("torch: trim stays within the G3 limit as the tanks drain", max(r["peak_trim_deg"] for r in rows), C["G3"]["trim_max_deg"],
               max(r["peak_trim_deg"] for r in rows) <= C["G3"]["trim_max_deg"], "deg", "CG interpolated between S1 (full) and S4 (burnt out)")]
-    long = [f"{r['mode']} {r['burn_min']} min: {r['coast_breaks']} break(s)" for r in rows if r["coast_breaks"]]
-    cs.append(chk("torch: burns over 2 h 45 min are split by coast breaks ([V2 6113])", len(long), "listed", True, "burns", "; ".join(long) or "none"))
+    long = [f"{r['mode']} {r['burn_min']} min burning in {r['segments']} segments, {r['elapsed_with_coasts_min']} min elapsed" for r in rows if r["coast_breaks"]]
+    worst_seg = max(r["longest_segment_min"] for r in rows)
+    cs.append(chk(f"torch: interrupted burns simulated, no segment over {SEGMENT_MAX_MIN:.0f} min ([V2 6113]); delta-v unchanged by the coasts",
+                  worst_seg, SEGMENT_MAX_MIN, worst_seg <= SEGMENT_MAX_MIN + 1e-6, "min", f"coast {COAST_MIN:.0f} min each (ASSUMPTION). " + "; ".join(long)))
     return cs, rows
 
 
@@ -257,6 +267,20 @@ def metric_tests(g4_checks=None):
 
 
 # ------------------------------------------------------------------ L. Loom configuration and sequence (new)
+def find(o, key):
+    """first dict stored under key anywhere in the inputs (the crown_dome block sits inside the L1 deck)."""
+    if isinstance(o, dict):
+        if isinstance(o.get(key), dict):
+            return o[key]
+        o = list(o.values())
+    if isinstance(o, list):
+        for v in o:
+            r = find(v, key)
+            if r:
+                return r
+    return {}
+
+
 def loom_tests():
     mc = METRIC.build_metric_closure()
     cs = []
@@ -266,13 +290,16 @@ def loom_tests():
     cs.append(chk("Loom: direct mid-field Metric -> Loom is refused (not crew-rated)", "refused" if not direct else "allowed", "refused",
                   (not direct) and not mc["operating_rules"]["direct_midfield_metric_to_loom_crew_rated"]))
     # configuration lock: E1 committed configuration (PR #179): launch DOCKED, external attachment FREE, deployables STOWED
-    lock = {"strakes stowed (span 0)": I["radiators"]["span_by_mode_m"] is not None,
-            "hot fins folded (torch only)": "torch burns only" in I["hot_fins"]["deployed"],
-            "shuttle docked in the translating state (S1 to S4, S7)": all(CARD["states"][s]["shuttle"] == "docked" for s in ("S1", "S2", "S3", "S4", "S7")),
-            "crown gores and shutters inside the armour envelope": bool(G.get("crown")),
-            "no external attachment at the docking collar": True}
-    cs.append(chk("Loom: E1 configuration lock (DOCKED / FREE / STOWED) is reachable", sum(lock.values()), len(lock), all(lock.values()), "items",
-                  "; ".join(k for k, v in lock.items() if v)))
+    # each item passes only if the rev 5 card or inputs declare it; nothing is assumed
+    span = I["radiators"].get("span_by_mode_m", {})
+    lock = {"shuttle docked in the translating states (S1 to S4, S7)": all(CARD["states"][s]["shuttle"] == "docked" for s in ("S1", "S2", "S3", "S4", "S7")),
+            "hot fins folded outside torch burns": "folded" in I["hot_fins"]["deployed"] and "torch burns only" in I["hot_fins"]["deployed"],
+            "strakes stowed for Loom (a LOOM entry with span 0)": span.get("LOOM") == 0,
+            "crown gores closed for Loom (crown_dome doctrine names Loom)": "loom" in str(find(I, "crown_dome").get("doctrine", "")).lower(),
+            "docking collar free of external attachments (a declared collar state)": "state" in I["service"]["docking_collar"] or "loom_state" in I["service"]["docking_collar"]}
+    missing = [k for k, v in lock.items() if not v]
+    cs.append(chk("Loom: E1 configuration lock (DOCKED / FREE / STOWED) is declared in the card", sum(lock.values()), len(lock), not missing, "items",
+                  ("not declared: " + "; ".join(missing)) if missing else "all declared"))
     # arrival: Loom gives no free velocity reset; the torch must close the arrival mismatch above the 50 t reserve
     st = CARD["states"]["S3"]
     m0 = st["mass_t"] * 1e3

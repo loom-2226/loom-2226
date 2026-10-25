@@ -28,8 +28,10 @@ import main's `src/` modules; they do not copy them.
 - The card names the geometry sha256 it was made from.
 - The card's mass, CG and inertia match the geometry in every state
   (≤ 1% relative).
-- The card's torch exhaust velocities and thrust by mode match the working
-  card, `src/wayfarer_torch_mode_cards.py` (≤ 1%).
+- The card's torch exhaust velocities and thrust by mode agree with the
+  working card, `src/wayfarer_torch_mode_cards.py` (≤ 1%).
+  - This check reports agreement only. It does not decide which card
+    governs; that is held for kT.
 
 ### R. RCS
 - 180° slews on roll, pitch and yaw settle in every state, within 240 s.
@@ -39,6 +41,9 @@ import main's `src/` modules; they do not copy them.
 - Attitude is held against the torch's disturbance torque in every state and
   mode. The disturbance is thrust × lever × sin(trim + 0.5° error). It is
   held by the RCS, by declared torch thrust-vector authority, or both.
+  - The 0.5° error is an ENGINEERING_ASSUMPTION, not a demonstrated
+    disturbance history. Any TVC figure derived from it is conditional on
+    that assumption; it is not a qualified nozzle capability.
 - Translation on all three axes meets main's response law (0.16 s⁻¹) at
   main's test velocities.
 
@@ -48,8 +53,10 @@ import main's `src/` modules; they do not copy them.
   - peak acceleration stays within the crew cap (4 g) and the structural
     rating (5 g);
   - trim stays within the G3 limit as the CG migrates from S1 to S4.
-- Burns longer than 2 h 45 min are split by coast breaks ([V2 6113]). This is
-  reported, not limited.
+- Interrupted burns are simulated: no burn segment longer than 2 h 45 min
+  ([V2 6113]), with a coast between segments (15 min each, an
+  ENGINEERING_ASSUMPTION). In free space the coasts change elapsed time, not
+  Δv, so the Δv check above holds on the interrupted burn.
 
 ### M. Metric
 - The mode sequence is valid: prep, ramp, transport, collapse, NRE
@@ -64,7 +71,14 @@ import main's `src/` modules; they do not copy them.
 - The sequence is valid: Metric collapse, NRE relaxation, Loom formation,
   translation, arrival.
 - Going directly from mid-field Metric to Loom is refused (not crew-rated).
-- The E1 configuration lock (DOCKED / FREE / STOWED) is reachable.
+- The E1 configuration lock (DOCKED / FREE / STOWED) is declared in the card
+  or inputs. Each item passes only if it is declared; nothing is assumed:
+  - shuttle docked in the translating states;
+  - hot fins folded outside torch burns;
+  - strakes stowed for Loom (a LOOM span entry of 0);
+  - crown gores closed for Loom (named in the crown doctrine);
+  - docking collar free of external attachments (a declared collar state).
+  - This is a declaration check, not a dynamic lock.
 - Torch Δv available at arrival, above the 50 t reserve, is reported.
 - **Not computed:** Loom domain fit (PR #356, INDETERMINATE_NOT_CERTIFIABLE)
   and the natural transport map.
@@ -73,17 +87,22 @@ import main's `src/` modules; they do not copy them.
 - E1, FR-01B-R and MV-01 flown in Navigator, once fixtures, a card import and
   the §20 solver exist.
 
-## First run on rev 5 (geometry ed692f90...): 20 of 24 checks pass, G10 FAIL
+## Run on rev 5 after Sol's review (geometry ed692f90...): 19 of 24 pass, G10 FAIL
 
-| Check | Result | What it means |
+Sol reproduced the first run (20/24) independently and found four places
+where the checks claimed more than they tested. All four are corrected:
+- The torch check no longer implies which card governs.
+- The TVC check is labelled as conditional on the assumed 0.5° error.
+- Coast breaks are now simulated, not just counted.
+- The Loom lock no longer contains an unconditional pass. Three items are
+  not declared in the card, so the check now fails (20 → 19).
+
+| Check | Result | Status |
 |---|---|---|
-| C: card torch thrust | 122% off | The card assumes a constant 11.361 TW. The working card gives 5.11 TW (ECON) to 12.78 TW (HARD, LIMIT). |
-| R: RCS holds against torch error | 18.7 vs 3.1 MN·m | RCS cannot hold against the torch error (worst case S2 HARD, 47.8 MN). |
-| R: torch TVC authority | not declared; needs 0.85° | The magnetic nozzle must steer the thrust line. |
-| R: translation | x: 0 kN | The rev 5 RCS has no axial thrusters. |
+| C: torch thrust, ship card vs working card | 122% apart | HOLD for kT: which card governs |
+| R: RCS holds against torch error | 18.7 vs 3.1 MN·m | follows the TVC decision |
+| R: torch TVC authority | not declared; 0.85° if the 0.5° assumption holds | HOLD for kT |
+| R: translation | x: 0 kN | HOLD for kT: axial RCS (rev 6) |
+| L: Loom configuration declared | 2 of 5 | card gap: declare the Loom strake span, crown state and collar state |
 
-These are the propulsion fixes for kT to decide:
-1. Regenerate the card's torch block from `MODE_CARDS`.
-2. Declare at least 1° of torch thrust-vector authority. This is a new
-   declared item.
-3. Add axial (±x) RCS thrusters (rev 6).
+No ship change is made by this basis. The decisions stay with kT.

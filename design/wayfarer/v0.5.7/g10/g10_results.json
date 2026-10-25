@@ -37,12 +37,12 @@
     "note": ""
    },
    {
-    "name": "torch thrust by mode matches the working card",
+    "name": "torch thrust by mode: ship card and working card agree (which governs is unresolved: kT)",
     "value": 122.2,
     "limit": 1.0,
     "pass": false,
     "unit": "% worst",
-    "note": "the ship card assumes a constant 11.361 TW jet power; the working card's mdot gives 5.11 TW (ECON) to 12.78 TW (HARD, LIMIT)"
+    "note": "AUTHORITY CONFLICT, not a rounding error: the ship card assumes a constant 11.361 TW jet power; the working card gives 5.11 TW (ECON) to 12.78 TW (HARD, LIMIT). This test does not choose between them"
    }
   ],
   "R_rcs": [
@@ -87,12 +87,12 @@
     "note": "worst S2 HARD at 47.77 MN; trim + 0.5 deg error"
    },
    {
-    "name": "torch thrust-vector authority covers trim + error",
+    "name": "torch thrust-vector authority covers trim + an ASSUMED 0.5 deg error",
     "value": "not declared",
     "limit": 0.847,
     "pass": false,
     "unit": "deg",
-    "note": "the magnetic nozzle must steer the thrust line through the CG; not yet in the rev 5 card"
+    "note": "conditional on the 0.5 deg assumption; not a demonstrated requirement or a qualified nozzle capability; no TVC declared in the rev 5 card"
    },
    {
     "name": "RCS translation on all three axes meets main's response law and test velocities",
@@ -129,12 +129,12 @@
     "note": "CG interpolated between S1 (full) and S4 (burnt out)"
    },
    {
-    "name": "torch: burns over 2 h 45 min are split by coast breaks ([V2 6113])",
-    "value": 3,
-    "limit": "listed",
+    "name": "torch: interrupted burns simulated, no segment over 165 min ([V2 6113]); delta-v unchanged by the coasts",
+    "value": 165.0,
+    "limit": 165.0,
     "pass": true,
-    "unit": "burns",
-    "note": "ECON 3667.5 min: 22 break(s); CRUISE 733.5 min: 4 break(s); EXPEDITE 183.4 min: 1 break(s)"
+    "unit": "min",
+    "note": "coast 15 min each (ASSUMPTION). ECON 3667.5 min burning in 23 segments, 3997.5 min elapsed; CRUISE 733.5 min burning in 5 segments, 793.5 min elapsed; EXPEDITE 183.4 min burning in 2 segments, 198.4 min elapsed"
    }
   ],
   "M_metric": [
@@ -197,12 +197,12 @@
     "note": ""
    },
    {
-    "name": "Loom: E1 configuration lock (DOCKED / FREE / STOWED) is reachable",
-    "value": 5,
+    "name": "Loom: E1 configuration lock (DOCKED / FREE / STOWED) is declared in the card",
+    "value": 2,
     "limit": 5,
-    "pass": true,
+    "pass": false,
     "unit": "items",
-    "note": "strakes stowed (span 0); hot fins folded (torch only); shuttle docked in the translating state (S1 to S4, S7); crown gores and shutters inside the armour envelope; no external attachment at the docking collar"
+    "note": "not declared: strakes stowed for Loom (a LOOM entry with span 0); crown gores closed for Loom (crown_dome doctrine names Loom); docking collar free of external attachments (a declared collar state)"
    },
    {
     "name": "Loom: torch delta-v available at arrival above the 50 t reserve (normal dispatch, ECON)",
@@ -214,7 +214,7 @@
    }
   ]
  },
- "passed": 20,
+ "passed": 19,
  "total": 24,
  "verdict": false,
  "detail": {
@@ -747,7 +747,10 @@
     "error_pct": -0.0,
     "peak_g": 0.379,
     "peak_trim_deg": 0.329,
-    "coast_breaks": 22
+    "segments": 23,
+    "coast_breaks": 22,
+    "longest_segment_min": 165.0,
+    "elapsed_with_coasts_min": 3997.5
    },
    {
     "mode": "CRUISE",
@@ -758,7 +761,10 @@
     "error_pct": -0.0,
     "peak_g": 1.262,
     "peak_trim_deg": 0.329,
-    "coast_breaks": 4
+    "segments": 5,
+    "coast_breaks": 4,
+    "longest_segment_min": 165.0,
+    "elapsed_with_coasts_min": 793.5
    },
    {
     "mode": "EXPEDITE",
@@ -769,7 +775,10 @@
     "error_pct": -0.001,
     "peak_g": 2.525,
     "peak_trim_deg": 0.329,
-    "coast_breaks": 1
+    "segments": 2,
+    "coast_breaks": 1,
+    "longest_segment_min": 165.0,
+    "elapsed_with_coasts_min": 198.4
    },
    {
     "mode": "FAST",
@@ -780,7 +789,10 @@
     "error_pct": -0.002,
     "peak_g": 3.787,
     "peak_trim_deg": 0.329,
-    "coast_breaks": 0
+    "segments": 1,
+    "coast_breaks": 0,
+    "longest_segment_min": 85.6,
+    "elapsed_with_coasts_min": 85.6
    },
    {
     "mode": "HARD",
@@ -791,7 +803,10 @@
     "error_pct": -0.004,
     "peak_g": 4.0,
     "peak_trim_deg": 0.329,
-    "coast_breaks": 0
+    "segments": 1,
+    "coast_breaks": 0,
+    "longest_segment_min": 46.1,
+    "elapsed_with_coasts_min": 46.1
    },
    {
     "mode": "LIMIT",
@@ -802,7 +817,10 @@
     "error_pct": -0.007,
     "peak_g": 4.0,
     "peak_trim_deg": 0.329,
-    "coast_breaks": 0
+    "segments": 1,
+    "coast_breaks": 0,
+    "longest_segment_min": 30.7,
+    "elapsed_with_coasts_min": 30.7
    }
   ],
   "metric": {
@@ -852,11 +870,11 @@
     "EXPEDITE": 98.3
    },
    "configuration_lock": {
-    "strakes stowed (span 0)": true,
-    "hot fins folded (torch only)": true,
-    "shuttle docked in the translating state (S1 to S4, S7)": true,
-    "crown gores and shutters inside the armour envelope": true,
-    "no external attachment at the docking collar": true
+    "shuttle docked in the translating states (S1 to S4, S7)": true,
+    "hot fins folded outside torch burns": true,
+    "strakes stowed for Loom (a LOOM entry with span 0)": false,
+    "crown gores closed for Loom (crown_dome doctrine names Loom)": false,
+    "docking collar free of external attachments (a declared collar state)": false
    },
    "not_computed": "Loom domain fit: PR #356 INDETERMINATE_NOT_CERTIFIABLE; route topology and the natural transport map"
   }

@@ -25,33 +25,34 @@ for g, cs in R["checks"].items():
     for c in cs:
         col = OK if c["pass"] else BAD
         val = f"{c['value']} vs {c['limit']} {c['unit']}".strip()
-        fig.text(0.05, y, ("✓ " if c["pass"] else "✗ ") + c["name"][:95], color=col, fontsize=10.5, va="top")
+        fig.text(0.05, y, ("✓ " if c["pass"] else "✗ ") + c["name"].split("; delta-v")[0][:100], color=col, fontsize=10.5, va="top")
         fig.text(0.96, y, val[:34], color=col if not c["pass"] else MUT, fontsize=10.5, va="top", ha="right"); y -= 0.0165
     y -= 0.008
 # chart 1: torch thrust, ship card vs working card
 tc = R["detail"]["torch_cards"]
-ax = fig.add_axes([0.07, 0.07, 0.40, 0.25]); ax.set_facecolor(BG)
+ax = fig.add_axes([0.07, 0.10, 0.40, 0.23]); ax.set_facecolor(BG)
 xs = range(len(tc)); w = 0.38
 ax.bar([i - w / 2 for i in xs], [t["ship_card_thrust_mn"] for t in tc], w, color=A1, label="rev 5 ship card")
 ax.bar([i + w / 2 for i in xs], [t["working_card_thrust_mn"] for t in tc], w, color=A2, label="main working card")
 ax.set_xticks(list(xs)); ax.set_xticklabels([t["mode"] for t in tc], color=FG, fontsize=9.5)
 ax.set_ylabel("thrust, MN", color=FG); ax.tick_params(colors=MUT)
-ax.set_title("Torch thrust by mode: the card disagrees", color=FG, fontsize=12.5, loc="left")
+ax.set_title("Torch thrust: two cards disagree (kT to choose)", color=FG, fontsize=12.5, loc="left")
 ax.legend(frameon=False, labelcolor=FG, fontsize=9.5)
 for s in ax.spines.values(): s.set_color("#2a3242")
 # chart 2: torch disturbance vs RCS authority, worst state per mode
 hold = R["detail"]["rcs"]["torch_disturbance"]; modes = [t["mode"] for t in tc]
 worst = [max(h["disturbance_mnm"] for h in hold if h["mode"] == m) for m in modes]
-ax2 = fig.add_axes([0.56, 0.07, 0.40, 0.25]); ax2.set_facecolor(BG)
+ax2 = fig.add_axes([0.56, 0.10, 0.40, 0.23]); ax2.set_facecolor(BG)
 ax2.bar(range(len(modes)), worst, 0.6, color=A2)
 rc = R["detail"]["rcs"]["rcs_full_pitch_mnm"]
 ax2.axhline(rc, color=OK, lw=2); ax2.text(-0.4, rc + 0.4, f"all RCS: {rc} MN·m", color=OK, ha="left", fontsize=10)
 ax2.set_xticks(range(len(modes))); ax2.set_xticklabels(modes, color=FG, fontsize=9.5)
 ax2.set_ylabel("disturbance torque, MN·m", color=FG); ax2.tick_params(colors=MUT)
-ax2.set_title(f"Torch error torque vs RCS: needs {R['detail']['rcs']['tvc_needed_deg']}° TVC", color=FG, fontsize=12.5, loc="left")
+ax2.set_title(f"Torch error torque vs RCS (0.5° error assumed)", color=FG, fontsize=12.5, loc="left")
 for s in ax2.spines.values(): s.set_color("#2a3242")
-fig.text(0.04, 0.025, "Fixes for kT: regenerate the card's torch block from MODE_CARDS;  declare torch thrust-vector authority (≥ 1°);  add axial RCS thrusters (rev 6).\n"
+fig.text(0.04, 0.02, "Decisions held for kT: which torch card governs (ship card or MODE_CARDS);  torch thrust-vector authority (needs 0.85°, if the 0.5° error\n"
+         "assumption holds);  axial RCS thrusters (rev 6).  Card gap: declare the Loom configuration (strakes, crown gores, docking collar).\n"
          "Not computed by design: Metric Δv/remass (CANON II §20); Loom domain fit (PR #356). Navigator missions are follow-up validation.",
-         color=FG, fontsize=11, va="bottom")
+         color=FG, fontsize=10.5, va="bottom")
 fig.savefig(HERE / "g10_results.png", facecolor=BG)
 print("ok")
