@@ -1,0 +1,1 @@
+Exact tested harness source to reuse: `engineering/experience_one/spikes/e1_0_spike_b_disposable_campaign.py` from PR #109, blob `f42799b362786a144768706f5f895d0b9d03412f`. Do not fork its flight/persistence logic.

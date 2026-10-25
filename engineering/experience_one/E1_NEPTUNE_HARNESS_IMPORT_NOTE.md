@@ -1,0 +1,1 @@
+The tested Spike B continuity harness remains the source implementation to reuse. Current PR work is intentionally not duplicating its flight or persistence logic.

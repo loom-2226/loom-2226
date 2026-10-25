@@ -1,0 +1,51 @@
+{
+  "authority_path": "EXISTING_NAVIGATOR_CAMPAIGN_FLIGHT_PATH",
+  "authorized_plan_number": 1,
+  "committed_and_arrived_pass": true,
+  "committed_plan_sha256": "38b43bc50363cffc69eea114fc6231ed50441aec85aa4bc8458270feb6c91f2e",
+  "destination": "NEPTUNE_SYSTEM",
+  "determinism_scope": "AUTHORITATIVE_FLIGHT_RUNTIME_ONLY",
+  "disposable_mode_after_restart": "EXISTING",
+  "ephemeris_scope": "ROUTE_REQUIRED_ONLY",
+  "flight_id": "F000001",
+  "flight_record_types": ["FLIGHT_COMMITTED", "FLIGHT_PHASE", "FLIGHT_PHASE", "FLIGHT_ARRIVED"],
+  "last_flight": {
+    "arrival_epoch_utc": "2226-08-22T09:45:17.864616Z",
+    "committed_plan_sha256": "38b43bc50363cffc69eea114fc6231ed50441aec85aa4bc8458270feb6c91f2e",
+    "departure_epoch_utc": "2226-08-22T01:32:00Z",
+    "departure_state_id": "S000001-edb9dd7eeb23",
+    "flight_id": "F000001",
+    "metric": "HARD",
+    "remass_used_t": 13.396758438646657,
+    "route": "CERES>NEPTUNE_SYSTEM",
+    "runtime_sha256": "4ed0223c83d1900d0cfcb57cb0622d982bdddfed2ef8f3241dfc392dd3a8d350",
+    "strategy": "DIRECT_NAVIGATION",
+    "torch": "CRUISE"
+  },
+  "origin": "CERES",
+  "presentation_scope": "SEQUENCE_B_C_D_OUT_OF_SCOPE_FOR_FLIGHT_SEAM",
+  "priority": "BALANCED",
+  "qualification_pass": true,
+  "real_campaign_hashes_after": {
+    "LOOM_CAMPAIGN_HISTORY.jsonl.gz": "6e0975cafde5e687549cd70dcdbe6f5ee7f7ad9e026f293a293426edfbc15757",
+    "LOOM_STATE_V1.bak": null,
+    "LOOM_STATE_V1.json": "9cf47904b4ed78a086ee3e01ea3b6ac7f95b4a48ee719db02163622252264049"
+  },
+  "real_campaign_hashes_before": {
+    "LOOM_CAMPAIGN_HISTORY.jsonl.gz": "6e0975cafde5e687549cd70dcdbe6f5ee7f7ad9e026f293a293426edfbc15757",
+    "LOOM_STATE_V1.bak": null,
+    "LOOM_STATE_V1.json": "9cf47904b4ed78a086ee3e01ea3b6ac7f95b4a48ee719db02163622252264049"
+  },
+  "real_campaign_unchanged_pass": true,
+  "replay_pass": true,
+  "restart_destination_pass": true,
+  "restart_epoch_utc": "2226-08-22T09:45:17.864616Z",
+  "restart_location": "NEPTUNE_SYSTEM",
+  "restart_remass_t": 236.60324156135334,
+  "restart_state_id": "S000002-17d132b08c45",
+  "restart_state_sha256": "17d132b08c452b5ab2ae9f6630218daf6417b7dcfc7346b0000ceb26098148fc",
+  "restart_wet_mass_t": 1145.1032415613533,
+  "schema": "LOOM_E1_NEPTUNE_QUALIFICATION_RESULT_V1",
+  "captured_from": "Pixel 10 Pro / Termux V3 user-run output on 2026-09-13",
+  "qualification_epoch_utc": "2226-08-22T01:32:00Z"
+}

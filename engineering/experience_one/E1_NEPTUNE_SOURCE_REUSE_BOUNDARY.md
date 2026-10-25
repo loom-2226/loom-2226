@@ -1,0 +1,1 @@
+Reuse the prior tested continuity harness; do not fork Navigator flight/persistence logic. Ceres-origin proof is the only missing empirical seam.
