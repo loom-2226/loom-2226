@@ -1,0 +1,1946 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-GOVERNING SANDBOX. Wayfarer v0.5.5 candidate inputs: v0.5.3 (torch heat package, Sol's habitat package with shared cabins) plus Claude's optimised L1 command level (flight-deck mezzanine, cupola-style nose windows, shoulder sensor ring), for certification against CERTIFICATION_BASIS_v0.1.",
+ "version": "0.5.7",
+ "date": "2026-10-25",
+ "provenance_classes": [
+  "CANON",
+  "PUBLISHED_PHYSICS",
+  "DERIVED",
+  "ENGINEERING_ASSUMPTION",
+  "FICTIONAL_CONSTITUTIVE_LAW",
+  "OPEN",
+  "KT_DECISION"
+ ],
+ "coordinates": {
+  "note": "Repo convention: x from bow (0) to aft, +Z is the shuttle-slot side, -Z the docking side. Azimuth theta is measured from +Y toward +Z: y = r cos(theta), z = r sin(theta). Under torch thrust aft is down.",
+  "prov": "CANON"
+ },
+ "decisions": {
+  "prov": "KT_DECISION",
+  "date": "2026-10-24",
+  "layout": "keep v0.4 layout (C-shaped wrap-around tanks, five longerons, on-axis bay with a lateral slot); departures go to kT as a canon amendment",
+  "shuttle": "rover-drop shuttle, TORCH150|BICONIC|VENUS|DROP_CITY|e1.0",
+  "people": {
+   "crew": 6,
+   "guests": 4
+  },
+  "images": [
+   "exterior stills",
+   "cutaways",
+   "deck plans",
+   "3D viewer"
+  ]
+ },
+ "baseline_source": {
+  "prov": "DERIVED",
+  "from": "ship_sizer/wayfarer_v4_1.py, row 'Rover drop from a cloud city' (CWRAP_G|SPLIT|STRAKE_QUAD|ACCORDION|1300K|ext0|centre)",
+  "length_m": 53.3,
+  "dry_t": 861.7,
+  "dv_km_s": 727.0,
+  "accel_g": 0.997,
+  "torch_capacity_mw": 387.7
+ },
+ "canon": {
+  "prov": "CANON",
+  "source": "CANON II v2.4 \u00a75, \u00a713, \u00a714; Schematic Amendment v2.4a",
+  "main_body_m": [
+   57,
+   9
+  ],
+  "normal_crew": 6,
+  "payload_target_t": 50,
+  "water_t": 300,
+  "remass_t": 250,
+  "protected_water_t": 50,
+  "dry_t": 858.5,
+  "wet_t": 1158.5,
+  "relational_plant_t": 88,
+  "torch_ve_km_s": {
+   "ECON": 3000,
+   "CRUISE": 2000,
+   "EXPEDITE": 1000,
+   "FAST": 700,
+   "HARD": 450,
+   "LIMIT": 300
+  },
+  "torch_card_dv_econ_km_s": 729,
+  "metric_electrical_hard_mw": 23.9,
+  "bay_reservation_x_m": [
+   16,
+   28
+  ],
+  "structural_grammar": "4 axial longerons, 4 major tanks in quadrature, 4 radiator assemblies in quadrature, 1 axial torch",
+  "launch_bay": "semi-recessed, unpressurized, lateral departure, pressure-tight crew transfer, DOCKED/ABSENT mass state",
+  "torch_metric_exclusive": true,
+  "metric_cold_load_kw": {
+   "NORMAL": 20.0,
+   "FAST": 38.1,
+   "EXPEDITE": 63.5,
+   "HARD": 136.0
+  },
+  "metric_cryo_electrical_mw_at_900K": {
+   "NORMAL": 3.5,
+   "FAST": 6.7,
+   "EXPEDITE": 11.2,
+   "HARD": 23.9
+  },
+  "metric_equivalent_area_m2_at_900K": {
+   "NORMAL": 106,
+   "FAST": 202,
+   "EXPEDITE": 336,
+   "HARD": 719
+  }
+ },
+ "torch": {
+  "prov": "DERIVED",
+  "note": "Cruise thrust 11.361 MN gives 1 g at the canon wet mass (1,158.5 t x 9.80665). Jet power is held at the CRUISE value (0.5 F ve = 11.36 TW); lower exhaust velocity gives more thrust at the same power.",
+  "cruise_thrust_mn": 11.361,
+  "jet_power_tw": 11.361,
+  "thrust_point_x_m": 52.3,
+  "neutron_source_x_m": [
+   52.0,
+   52.6
+  ],
+  "neutron_source_radius_m": 0.3,
+  "neutron_source_prov": "ENGINEERING_ASSUMPTION (v0.5.2): pulsed shell burns at the burn point; 0.6 m of aim scatter along x and 0.3 m sideways",
+  "thrust_line_offset": {
+   "prov": "DERIVED: the whole torch chain (shield, reactor, nozzle, aft RCS) is offset sideways so its thrust line runs through the middle of the centre-of-mass range; build_v05.py picks the offset that minimises the worst trim angle over S1-S7",
+   "search_y_m": [
+    -0.2,
+    0.2
+   ],
+   "search_z_m": [
+    -0.8,
+    0.2
+   ],
+   "step_m": 0.01,
+   "design_target_deg": 0.35,
+   "rule": "among protected-water splits and offsets whose worst trim over S1-S7 is within the design target (70% of the 0.5 deg limit), take the smallest offset; ENGINEERING_ASSUMPTION"
+  },
+  "thrust_point_prov": "KT_DECISION (2026-10-25, torch heat package step S4): each pellet burns 6 m aft of the reactor face (x 46.3), still inside the 53.3 m envelope; the thrust line pivots here",
+  "heat_package": {
+   "prov": "KT_DECISION 2026-10-25 (torch heat exploration; non-governing model in torch/)",
+   "model": "torch/torch_heat_inputs.json, step S4",
+   "what": [
+    "Heat leaves with the exhaust: each fuel pellet is wrapped in a shell of remass that soaks up the burn and becomes the exhaust (pulsed torch, Fusion Driven Rocket principle)",
+    "Cleaner fuel: helium-3-rich, spin-polarised D-He3 (neutrons ~0.76% of fusion energy)",
+    "Thick, closed shell: traps 99.98% of the burn's light and 85% of its neutron energy",
+    "Burn 6 m aft of the reactor face",
+    "Four hot fins at 1,750 K aft of the shield, on the strake lines"
+   ],
+   "fusion_tw": "about 12.6 TW for the 11.36 TW jet (DERIVED in the model)",
+   "pulses": "about 1-10 per second; 0.3-3 kt each at full power (DERIVED in the model)"
+  }
+ },
+ "hull": {
+  "prov": "DERIVED",
+  "length_m": 53.3,
+  "outer_r_m": 4.5,
+  "pressure_r_m": 4.3,
+  "bow_cap_depth_m": 2.35,
+  "pressure_head_depth_m": 2.15,
+  "pressure_vessel_x_m": [
+   0.2,
+   13.7
+  ],
+  "habitat_shell_x_m": [
+   0.0,
+   14.0
+  ],
+  "service_x_m": [
+   14.0,
+   18.0
+  ],
+  "midship_x_m": [
+   18.0,
+   32.3
+  ],
+  "manifold_x_m": [
+   32.3,
+   34.3
+  ],
+  "shield_x_m": [
+   34.3,
+   39.3
+  ],
+  "shield_r_m": 2.75,
+  "reactor_x_m": [
+   39.3,
+   46.3
+  ],
+  "reactor_r_m": 2.125,
+  "nozzle_x_m": [
+   46.3,
+   53.3
+  ],
+  "nozzle_r_m": [
+   2.125,
+   3.0
+  ]
+ },
+ "tanks": {
+  "prov": "DERIVED",
+  "kind": "C-shaped wrap-around, four strake grooves (v0.4 CWRAP_G)",
+  "x_m": [
+   18.0,
+   31.5
+  ],
+  "r_in_m": 2.45,
+  "r_out_m": 4.3,
+  "slot_half_width_m": 2.4,
+  "groove": {
+   "azimuths_deg": [
+    40,
+    140,
+    220,
+    320
+   ],
+   "width_m": 2.0,
+   "depth_m": 0.5
+  },
+  "section_area_m2": 25.85,
+  "cells": {
+   "prov": "ENGINEERING_ASSUMPTION",
+   "note": "Four isolatable cells: port/starboard split at the keel (theta 270) and the slot, fore/aft split at mid-length. Q7: one cell isolated = 25% of remass.",
+   "names": [
+    "starboard_fore",
+    "starboard_aft",
+    "port_fore",
+    "port_aft"
+   ]
+  },
+  "ullage_fraction": 0.05,
+  "x_note": "DERIVED: the solid model gives about 24.3 m2/m of section, and the tank's internal structure (tie-webs, baffles, slot walls, bulkheads) displaces about 6 m3; 13.5 m gives about 322 m3 net, 2% over the 315 m3 needed."
+ },
+ "bay": {
+  "prov": "DERIVED",
+  "x_m": [
+   18.25,
+   32.05
+  ],
+  "bore_r_m": 2.4,
+  "slot_half_width_m": 2.4,
+  "doors": {
+   "kind": "two clamshell doors hinged at the slot edges, opening to vertical",
+   "prov": "ENGINEERING_ASSUMPTION",
+   "mass_t": 2.0,
+   "note": "door mass is inside the 6 t bay_liner share of structure"
+  }
+ },
+ "shuttle": {
+  "prov": "DERIVED",
+  "source": "ship_sizer/shuttle_alternatives.json, 'Rover drop from a cloud city'",
+  "key": "TORCH150|BICONIC|VENUS|DROP_CITY|e1.0",
+  "dry_t": 27.9,
+  "length_m": 12.8,
+  "diameter_m": 3.8,
+  "x_m": [
+   18.75,
+   31.55
+  ],
+  "water_cap_t": 23.1,
+  "max_trip_t": 51.1,
+  "torch_gw": 7.7,
+  "venus_kit_t": 1.7,
+  "crew_seats": 6,
+  "venus_surface_crew": 2,
+  "nose_port_x_m": 18.75
+ },
+ "drones": {
+  "prov": "DERIVED",
+  "source": "ship_sizer/uav_candidates.json",
+  "carried": [
+   {
+    "name": "Mars drone pod",
+    "count": 2,
+    "mass_t": 0.395,
+    "stowed_m": [
+     3.4,
+     1.1,
+     1.1
+    ]
+   },
+   {
+    "name": "dense-air drone pod",
+    "count": 2,
+    "mass_t": 0.204,
+    "stowed_m": [
+     2.9,
+     0.9,
+     0.9
+    ]
+   }
+  ],
+  "berth_capacity": {
+   "Mars drone pod": 8,
+   "dense-air drone pod": 16
+  },
+  "stowed_dims_prov": "ENGINEERING_ASSUMPTION: folded drone in its umbrella pod, umbrella stowed"
+ },
+ "service": {
+  "prov": "ENGINEERING_ASSUMPTION",
+  "plant_fore": {
+   "x_m": [
+    14.0,
+    17.0
+   ],
+   "r_m": 2.0,
+   "mass_t": 44.0,
+   "prov": "DERIVED: SPLIT plant, half of 88 t; shortened 1 m vs v0.4 to leave room for the transfer tunnel (density 1.17 t/m3, inside the 1.0-1.5 t/m3 range)"
+  },
+  "sectors": {
+   "protected_water_tank": {
+    "theta_deg": [
+     45,
+     135
+    ],
+    "x_m": [
+     14.0,
+     17.0
+    ],
+    "r_m": [
+     2.0,
+     4.3
+    ]
+   },
+   "hold_starboard": {
+    "theta_deg": [
+     -45,
+     45
+    ],
+    "x_m": [
+     14.0,
+     17.0
+    ],
+    "r_m": [
+     2.0,
+     4.3
+    ]
+   },
+   "hold_port": {
+    "theta_deg": [
+     135,
+     225
+    ],
+    "x_m": [
+     14.0,
+     17.0
+    ],
+    "r_m": [
+     2.0,
+     4.3
+    ]
+   },
+   "transfer_and_courier": {
+    "theta_deg": [
+     225,
+     315
+    ],
+    "x_m": [
+     14.0,
+     17.0
+    ],
+    "r_m": [
+     2.0,
+     4.3
+    ]
+   }
+  },
+  "docking_collar": {
+   "x_m": 16.0,
+   "theta_deg": 270,
+   "port_d_m": 1.6,
+   "mass_t": 4.0,
+   "prov": "CANON position (x = 16, -Z), mass ENGINEERING_ASSUMPTION"
+  },
+  "tunnel": {
+   "d_m": 1.2,
+   "prov": "ENGINEERING_ASSUMPTION",
+   "segments": [
+    {
+     "name": "habitat to collar node",
+     "from": [
+      13.7,
+      0.0,
+      -3.0
+     ],
+     "to": [
+      16.6,
+      0.0,
+      -3.0
+     ]
+    },
+    {
+     "name": "collar node to bay axis",
+     "from": [
+      17.6,
+      0.0,
+      -3.0
+     ],
+     "to": [
+      17.6,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "name": "docking adapter to shuttle nose",
+     "from": [
+      17.6,
+      0.0,
+      0.0
+     ],
+     "to": [
+      18.75,
+      0.0,
+      0.0
+     ]
+    }
+   ]
+  },
+  "electrical_ring": {
+   "x_m": [
+    17.0,
+    18.0
+   ],
+   "r_m": [
+    2.0,
+    4.3
+   ],
+   "theta_deg": [
+    -45,
+    225
+   ]
+  }
+ },
+ "habitat": {
+  "prov": "ENGINEERING_ASSUMPTION",
+  "usable_r_m": 4.15,
+  "core_r_m": 0.9,
+  "corridor_r_m": [
+   0.9,
+   1.9
+  ],
+  "room_r_m": [
+   1.9,
+   4.15
+  ],
+  "floor_thickness_m": 0.3,
+  "clear_height_m": 2.3,
+  "ladderways": [
+   {
+    "theta_deg": 0,
+    "r_m": 1.4,
+    "size_m": 0.8
+   },
+   {
+    "theta_deg": 180,
+    "r_m": 1.4,
+    "size_m": 0.8
+   }
+  ],
+  "core_note": "Central trunk: utilities, avionics racks and a goods lift; not an egress path. Egress is by the two ladderways in the corridor ring.",
+  "decks": [
+   {
+    "id": "L1",
+    "name": "Command",
+    "x_m": [
+     0.2,
+     3.0
+    ],
+    "dome": true,
+    "rooms": [
+     {
+      "id": "L1-command",
+      "name": "Command and navigation",
+      "kind": "command",
+      "theta_deg": [
+       0,
+       360
+      ],
+      "r_m": [
+       0.0,
+       4.15
+      ],
+      "mass_t": 2.6,
+      "couches": 6,
+      "windows": 4
+     }
+    ],
+    "command_layout": {
+     "prov": "ADOPTED by kT 2026-10-25 (\"Adopt layout D\"): option D of command/l1_options.py, scored against NASA-STD-3001 Vol 2 derived criteria (command/L1_OPTIONS_v0.5.5.md); v0.5.6 adds the window frame, flight-deck columns, access and casualty lowering",
+     "couch": {
+      "length_m": 2.1,
+      "width_m": 0.7,
+      "back_above_base_m": 0.25,
+      "eye_above_back_m": 0.2,
+      "eye_from_head_end_m": 0.2,
+      "orientation": "supine, facing the bow: thrust loads the occupant eyeballs-in (+Gx), the best-tolerated axis",
+      "prov": "NASA-STD-3001 Vol 2 [V2 4102] accommodation of 1st-percentile female to 99th-percentile male: male stature mean 178.6 cm, SD 6.8 cm (NTRS 20080010652) gives 99th percentile ~194 cm, plus 3% spinal elongation (Appendix E) ~200 cm; couch 2.10 m",
+      "intended_shape": "kT 2026-10-25, noted not modelled: knees-up contour like the Soyuz Kazbek seat, liner moulded to each person (back flat, hips and knees bent, legs raised; suits [V2 6113], whose limit assumes feet raised). The checks keep the flat 2.10 x 0.70 m envelope; a knees-up couch is ~1.5 m long but its knees stand ~0.6 m above the couch back, so dome clearance must be checked before adoption"
+     },
+     "flight_deck": {
+      "x_m": [
+       1.225,
+       1.325
+      ],
+      "y_m": [
+       -0.85,
+       0.85
+      ],
+      "z_m": [
+       -1.55,
+       0.75
+      ],
+      "mass_t": 0.4,
+      "eye_to_window_m": 0.55,
+      "prov": "ENGINEERING_ASSUMPTION: mezzanine deck carrying the pilot and navigator 1.77 m above the L1 floor, eyes 0.55 m below their nose windows; reached by a short ladder at its -Z end; mass from the L1 room outfitting (3.0 to 2.6 t)",
+      "columns": {
+       "positions_yz_m": [
+        [
+         0.8,
+         -1.5
+        ],
+        [
+         -0.8,
+         -1.5
+        ],
+        [
+         0.8,
+         0.7
+        ],
+        [
+         -0.8,
+         0.7
+        ]
+       ],
+       "od_m": 0.076,
+       "wall_m": 0.003,
+       "material": "aluminium 7075-T6",
+       "e_gpa": 71.7,
+       "yield_mpa": 503,
+       "density_t_m3": 2.81,
+       "fittings_factor": 1.3,
+       "base": "fixed (bolted to floor hard points)",
+       "prov": "CLAUDE_DESIGN v0.5.6: four tubular columns at the deck corners carry the flight deck to the L1 floor in compression under thrust; all four sit inside the deck footprint, which the walkway check already treats as blocked, and outside the trunk opening (r 0.9 m)"
+      },
+      "loads": {
+       "couch_t": 0.05,
+       "occupant_t": 0.1,
+       "displays_t": 0.02,
+       "lateral_g": 0.5,
+       "prov": "ENGINEERING_ASSUMPTION: couch 50 kg, occupant with IVA suit 100 kg, two displays 20 kg; lateral case 0.5 g (RCS and docking, a generous upper bound)"
+      },
+      "access": {
+       "ladder": {
+        "z_m": -1.63,
+        "y_m": [
+         -0.25,
+         0.25
+        ],
+        "rung_pitch_m": 0.3,
+        "handholds_above_deck_m": 1.0
+       },
+       "egress": "unstrap, slide off the couch's foot end onto the ladder head, climb down 1.78 m (6 rungs)",
+       "prov": "CLAUDE_DESIGN v0.5.6",
+       "casualty": "treated in the couch under thrust; moved at 0 g (habitat.crew_systems.casualty_doctrine)"
+      }
+     },
+     "sensor_ring": {
+      "x_aft_m": 2.0,
+      "r_in_m": 2.9,
+      "gaps_deg": [
+       [
+        45,
+        14
+       ],
+       [
+        135,
+        14
+       ],
+       [
+        225,
+        14
+       ],
+       [
+        315,
+        14
+       ]
+      ],
+      "prov": "ENGINEERING_ASSUMPTION: bow sensors and command electronics (unchanged mass) in a ring at the dome shoulder, r >= 2.9 m, x <= 2.0 m, with gaps for the four shoulder windows; 0.65 t/m3; leaves the nose open and >= 2.1 m headroom over the walkways"
+     },
+     "stations": [
+      {
+       "id": "PILOT",
+       "role": "Pilot / flight control",
+       "base": "flight_deck",
+       "head_yz_m": [
+        0.45,
+        0.65
+       ],
+       "feet_yz_m": [
+        0.45,
+        -1.45
+       ]
+      },
+      {
+       "id": "NAV",
+       "role": "Navigation / command",
+       "base": "flight_deck",
+       "head_yz_m": [
+        -0.45,
+        0.65
+       ],
+       "feet_yz_m": [
+        -0.45,
+        -1.45
+       ]
+      },
+      {
+       "id": "S1",
+       "role": "Support station",
+       "base": "floor",
+       "head_yz_m": [
+        2.4395,
+        2.4395
+       ],
+       "feet_yz_m": [
+        0.5731,
+        3.4021
+       ],
+       "window_deg": 45
+      },
+      {
+       "id": "S2",
+       "role": "Support station",
+       "base": "floor",
+       "head_yz_m": [
+        -2.4395,
+        2.4395
+       ],
+       "feet_yz_m": [
+        -3.4021,
+        0.5731
+       ],
+       "window_deg": 135
+      },
+      {
+       "id": "S3",
+       "role": "Support station",
+       "base": "floor",
+       "head_yz_m": [
+        -2.4395,
+        -2.4395
+       ],
+       "feet_yz_m": [
+        -0.5731,
+        -3.4021
+       ],
+       "window_deg": 225
+      },
+      {
+       "id": "S4",
+       "role": "Support station",
+       "base": "floor",
+       "head_yz_m": [
+        2.4395,
+        -2.4395
+       ],
+       "feet_yz_m": [
+        3.4021,
+        -0.5731
+       ],
+       "window_deg": 315
+      }
+     ],
+     "forward_windows": [
+      {
+       "for": "PILOT",
+       "yz_m": [
+        0.45,
+        0.45
+       ],
+       "d_m": 0.8
+      },
+      {
+       "for": "NAV",
+       "yz_m": [
+        -0.45,
+        0.45
+       ],
+       "d_m": 0.8
+      },
+      {
+       "yz_m": [
+        1.25,
+        0.45
+       ],
+       "d_m": 0.6
+      },
+      {
+       "yz_m": [
+        -1.25,
+        0.45
+       ],
+       "d_m": 0.6
+      },
+      {
+       "yz_m": [
+        0.45,
+        1.3
+       ],
+       "d_m": 0.6
+      },
+      {
+       "yz_m": [
+        -0.45,
+        1.3
+       ],
+       "d_m": 0.6
+      },
+      {
+       "yz_m": [
+        0.45,
+        -0.4
+       ],
+       "d_m": 0.6
+      },
+      {
+       "yz_m": [
+        -0.45,
+        -0.4
+       ],
+       "d_m": 0.6
+      }
+     ],
+     "forward_windows_prov": "ENGINEERING_ASSUMPTION modelled on the ISS Cupola (7 windows, 80 cm top window, each with a debris pane, two 25 mm pressure panes, a scratch pane and an external shutter): 2 x 0.8 m + 6 x 0.6 m in the nose, >= 10 cm mullions",
+     "displays": "pilot and navigator: panels 0.55 m from the eye, 45 deg toward the feet; support: 0.5 m from the eye, 30 deg inboard; all outside the central 60 deg view (FAA HFDS 5.1.2.13: >= 0.33 m)",
+     "window_frame": {
+      "kind": "Cupola-style forged frame carrying the 8 nose windows",
+      "panes": "outer debris pane, two 25 mm pressure panes, inner scratch pane (as the ISS Cupola)",
+      "shutters": "armour-equivalent petals over every opening, closed at cruise speed and during torch burns; when closed they restore the armour's areal density (their mass is the armour the openings remove, already carried in the armour part)",
+      "mullions": "tapered: 10 cm at the panes, narrowing to about 1.5 cm at the outer surface between the two 0.8 m openings",
+      "prov": "CLAUDE_DESIGN v0.5.6 (ISS Cupola analogue: 1,880 kg, 7 windows, 80 cm top window, four panes, Kevlar/Nextel shutters; en.wikipedia.org/wiki/Cupola_(ISS_module))"
+     },
+     "crown_dome": {
+      "adopted": true,
+      "prov": "KT_DECISION 2026-10-25 ('incorporate the crown viewport design into main design'); design from command/BOW_OPTIONS_STUDY.md option C. Replaces the 8 nose windows (kept below as forward_windows for v0.5.6 comparison). NON-GOVERNING; SOL TO REVIEW",
+      "r_m": 2.8,
+      "glazed_area_m2": 25.0,
+      "roots": 8,
+      "blades": 16,
+      "fork_r_m": 2.0,
+      "centre_ring_r_m": 1.15,
+      "central_pane_m": 2.3,
+      "frame": "Osteon (Builder-derived OST-22 grammar): 8 graded titanium roots from the brow ring fork once into 16 flat blades, 3-7.5 cm thick, set edge-on to the pilots, landing on a slim ring round the clear central pane",
+      "panes": {
+       "stack": "two 6 mm pressure panes (each carries full load) + 8 mm debris pane + 3 mm scratch pane",
+       "material": "flaw-controlled transparent ceramic (2226 extrapolation of ALON), segments ~1.5 m, central pane 2.3 m",
+       "kg_per_m2": 85
+      },
+      "brow_ring": {
+       "height_m": 0.22,
+       "width_m": 1.0,
+       "houses": "16 retracted gores and their drives"
+      },
+      "gores": {
+       "count": 16,
+       "kind": "tambour: armour-equivalent Strata laminate slats on meridian tracks (Builder-derived MHL-22)",
+       "closed_restores_g_cm2": 27,
+       "mass_note": "the gores carry the armour the opening removes (already in the armour part), so they are not new mass"
+      },
+      "mass_t": {
+       "panes": 2.13,
+       "frame": 1.8,
+       "brow_ring": 0.5,
+       "gore_tracks_and_drives": 0.5
+      },
+      "doctrine": "open only at low speed or with the bow facing away from the dust flow (braking and tail-first coasting); closed for solar particle events, radiation belts and torch burns. Stuck closed is safe; stuck open: turn the bow out of the dust flow.",
+      "views": "pilots 76% of the forward sky (v0.5.6 nose windows 22%); standing crew at 1 g 89% of the overhead cone; support couches ~8% (sensor ring)",
+      "displays": "pilot displays on arms from the flight deck (they no longer hang from the nose)"
+     }
+    }
+   },
+   {
+    "id": "L2",
+    "name": "Common",
+    "x_m": [
+     3.3,
+     5.6
+    ],
+    "rooms": [
+     {
+      "id": "L2-galley",
+      "name": "Galley",
+      "kind": "galley",
+      "theta_deg": [
+       -60,
+       30
+      ],
+      "mass_t": 2.0,
+      "windows": 0,
+      "windows_prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports ... for livability; they can be shuttered'): acrylic shield plug kit, Strata dust shutter; on L2 the round windows give way to the viewport band"
+     },
+     {
+      "id": "L2-wardroom",
+      "name": "Wardroom (table for 10)",
+      "kind": "wardroom",
+      "theta_deg": [
+       30,
+       150
+      ],
+      "mass_t": 1.2,
+      "windows": 0,
+      "windows_prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports ... for livability; they can be shuttered'): acrylic shield plug kit, Strata dust shutter; on L2 the round windows give way to the viewport band"
+     },
+     {
+      "id": "L2-observation",
+      "name": "Observation",
+      "kind": "observation",
+      "theta_deg": [
+       150,
+       210
+      ],
+      "mass_t": 0.6,
+      "windows": 0,
+      "windows_prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports ... for livability; they can be shuttered'): acrylic shield plug kit, Strata dust shutter; on L2 the round windows give way to the viewport band"
+     },
+     {
+      "id": "L2-exercise",
+      "name": "Exercise",
+      "kind": "exercise",
+      "theta_deg": [
+       210,
+       270
+      ],
+      "mass_t": 1.6,
+      "windows": 0,
+      "windows_prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports ... for livability; they can be shuttered'): acrylic shield plug kit, Strata dust shutter; on L2 the round windows give way to the viewport band"
+     },
+     {
+      "id": "L2-hygiene",
+      "name": "Washroom",
+      "kind": "hygiene",
+      "theta_deg": [
+       270,
+       300
+      ],
+      "mass_t": 0.6
+     }
+    ]
+   },
+   {
+    "id": "L3",
+    "name": "Quarters",
+    "x_m": [
+     5.9,
+     8.2
+    ],
+    "rooms": [
+     {
+      "id": "L3-CAPT",
+      "name": "Captain's cabin",
+      "kind": "cabin",
+      "who": "crew",
+      "theta_deg": [
+       0,
+       60
+      ],
+      "r_m": [
+       1.9,
+       4.07
+      ],
+      "mass_t": 0.45,
+      "couches": 1,
+      "windows": 0,
+      "occupancy": 1,
+      "bunks": [
+       {
+        "angle_deg": 15,
+        "tiers": 1,
+        "radial_m": [
+         1.925,
+         4.025
+        ],
+        "width_m": 0.7,
+        "prov": "CLAUDE change v0.5.6 to Sol's frozen footprint (was 2.00 x 0.75 m at r 2.01-4.01): 2.10 x 0.70 m to fit the 99th-percentile male plus 3% spinal growth [V2 4102]; needs the r 1.9 partition to be 4 cm (r 1.88-1.92) instead of Sol's 11 cm wall band; outer corners stay 3 cm inside the berth water ring. SOL TO AGREE"
+       }
+      ],
+      "door": {
+       "center_deg": 45,
+       "clear_width_m": 0.8,
+       "type": "sliding; no inward swing",
+       "height_m": 2.05,
+       "height_prov": "CLAUDE_DESIGN v0.5.6: 2.05 m clear so a 2.0 m litter carried along the ship's axis (0 g) passes"
+      },
+      "prov": "SOL_CANDIDATE (WAYFARER_V05_HABITAT_CLAUDE_INTEGRATION_2026-10-25, HABITAT_DESIGN_DATA.json): frozen for implementation, not physically certified",
+      "berth_viewports": true
+     },
+     {
+      "id": "L3-CA",
+      "name": "Crew cabin A",
+      "kind": "cabin",
+      "who": "crew",
+      "theta_deg": [
+       60,
+       120
+      ],
+      "r_m": [
+       1.9,
+       4.07
+      ],
+      "mass_t": 0.9,
+      "couches": 2,
+      "windows": 0,
+      "occupancy": 2,
+      "bunks": [
+       {
+        "angle_deg": 75,
+        "tiers": 2,
+        "radial_m": [
+         1.925,
+         4.025
+        ],
+        "width_m": 0.7,
+        "prov": "CLAUDE change v0.5.6 to Sol's frozen footprint (was 2.00 x 0.75 m at r 2.01-4.01): 2.10 x 0.70 m to fit the 99th-percentile male plus 3% spinal growth [V2 4102]; needs the r 1.9 partition to be 4 cm (r 1.88-1.92) instead of Sol's 11 cm wall band; outer corners stay 3 cm inside the berth water ring. SOL TO AGREE"
+       }
+      ],
+      "door": {
+       "center_deg": 105,
+       "clear_width_m": 0.8,
+       "type": "sliding; no inward swing",
+       "height_m": 2.05,
+       "height_prov": "CLAUDE_DESIGN v0.5.6: 2.05 m clear so a 2.0 m litter carried along the ship's axis (0 g) passes"
+      },
+      "prov": "SOL_CANDIDATE (WAYFARER_V05_HABITAT_CLAUDE_INTEGRATION_2026-10-25, HABITAT_DESIGN_DATA.json): frozen for implementation, not physically certified",
+      "berth_viewports": true
+     },
+     {
+      "id": "L3-HG",
+      "name": "Guest washroom",
+      "kind": "hygiene",
+      "theta_deg": [
+       120,
+       150
+      ],
+      "r_m": [
+       1.9,
+       4.07
+      ],
+      "mass_t": 0.6,
+      "prov": "SOL_CANDIDATE (WAYFARER_V05_HABITAT_CLAUDE_INTEGRATION_2026-10-25, HABITAT_DESIGN_DATA.json): frozen for implementation, not physically certified"
+     },
+     {
+      "id": "L3-GUEST",
+      "name": "Guest cabin",
+      "kind": "cabin",
+      "who": "guest",
+      "theta_deg": [
+       150,
+       240
+      ],
+      "r_m": [
+       1.9,
+       4.07
+      ],
+      "mass_t": 1.8,
+      "couches": 4,
+      "windows": 0,
+      "occupancy": 4,
+      "bunks": [
+       {
+        "angle_deg": 169,
+        "tiers": 2,
+        "radial_m": [
+         1.925,
+         4.025
+        ],
+        "width_m": 0.7,
+        "prov": "CLAUDE change v0.5.6 to Sol's frozen footprint (was 2.00 x 0.75 m at r 2.01-4.01): 2.10 x 0.70 m to fit the 99th-percentile male plus 3% spinal growth [V2 4102]; needs the r 1.9 partition to be 4 cm (r 1.88-1.92) instead of Sol's 11 cm wall band; outer corners stay 3 cm inside the berth water ring. SOL TO AGREE"
+       },
+       {
+        "angle_deg": 221,
+        "tiers": 2,
+        "radial_m": [
+         1.925,
+         4.025
+        ],
+        "width_m": 0.7,
+        "prov": "CLAUDE change v0.5.6 to Sol's frozen footprint (was 2.00 x 0.75 m at r 2.01-4.01): 2.10 x 0.70 m to fit the 99th-percentile male plus 3% spinal growth [V2 4102]; needs the r 1.9 partition to be 4 cm (r 1.88-1.92) instead of Sol's 11 cm wall band; outer corners stay 3 cm inside the berth water ring. SOL TO AGREE"
+       }
+      ],
+      "door": {
+       "center_deg": 195,
+       "clear_width_m": 0.8,
+       "type": "sliding; no inward swing",
+       "height_m": 2.05,
+       "height_prov": "CLAUDE_DESIGN v0.5.6: 2.05 m clear so a 2.0 m litter carried along the ship's axis (0 g) passes"
+      },
+      "prov": "SOL_CANDIDATE (WAYFARER_V05_HABITAT_CLAUDE_INTEGRATION_2026-10-25, HABITAT_DESIGN_DATA.json): frozen for implementation, not physically certified",
+      "berth_viewports": true
+     },
+     {
+      "id": "L3-CB",
+      "name": "Crew cabin B",
+      "kind": "cabin",
+      "who": "crew",
+      "theta_deg": [
+       240,
+       330
+      ],
+      "r_m": [
+       1.9,
+       4.07
+      ],
+      "mass_t": 1.35,
+      "couches": 3,
+      "windows": 0,
+      "occupancy": 3,
+      "bunks": [
+       {
+        "angle_deg": 259,
+        "tiers": 2,
+        "radial_m": [
+         1.925,
+         4.025
+        ],
+        "width_m": 0.7,
+        "prov": "CLAUDE change v0.5.6 to Sol's frozen footprint (was 2.00 x 0.75 m at r 2.01-4.01): 2.10 x 0.70 m to fit the 99th-percentile male plus 3% spinal growth [V2 4102]; needs the r 1.9 partition to be 4 cm (r 1.88-1.92) instead of Sol's 11 cm wall band; outer corners stay 3 cm inside the berth water ring. SOL TO AGREE"
+       },
+       {
+        "angle_deg": 311,
+        "tiers": 1,
+        "radial_m": [
+         1.925,
+         4.025
+        ],
+        "width_m": 0.7,
+        "prov": "CLAUDE change v0.5.6 to Sol's frozen footprint (was 2.00 x 0.75 m at r 2.01-4.01): 2.10 x 0.70 m to fit the 99th-percentile male plus 3% spinal growth [V2 4102]; needs the r 1.9 partition to be 4 cm (r 1.88-1.92) instead of Sol's 11 cm wall band; outer corners stay 3 cm inside the berth water ring. SOL TO AGREE"
+       }
+      ],
+      "door": {
+       "center_deg": 285,
+       "clear_width_m": 0.8,
+       "type": "sliding; no inward swing",
+       "height_m": 2.05,
+       "height_prov": "CLAUDE_DESIGN v0.5.6: 2.05 m clear so a 2.0 m litter carried along the ship's axis (0 g) passes"
+      },
+      "prov": "SOL_CANDIDATE (WAYFARER_V05_HABITAT_CLAUDE_INTEGRATION_2026-10-25, HABITAT_DESIGN_DATA.json): frozen for implementation, not physically certified",
+      "berth_viewports": true
+     },
+     {
+      "id": "L3-HC",
+      "name": "Crew washroom",
+      "kind": "hygiene",
+      "theta_deg": [
+       330,
+       360
+      ],
+      "r_m": [
+       1.9,
+       4.07
+      ],
+      "mass_t": 0.6,
+      "prov": "SOL_CANDIDATE (WAYFARER_V05_HABITAT_CLAUDE_INTEGRATION_2026-10-25, HABITAT_DESIGN_DATA.json): frozen for implementation, not physically certified"
+     }
+    ],
+    "berths": {
+     "prov": "SOL_CANDIDATE (WAYFARER_V05_HABITAT_CLAUDE_INTEGRATION_2026-10-25, HABITAT_DESIGN_DATA.json): frozen for implementation, not physically certified",
+     "tier_m": {
+      "frame": 0.14,
+      "mattress": 0.12,
+      "clearance": 0.82
+     },
+     "two_tiers_m": 2.16,
+     "restraint_g": 5,
+     "status": "authored arrangement; clear height, access and the 5 g load path are not verified"
+    },
+    "partition_m": {
+     "r_m": 1.9,
+     "thickness_m": 0.04,
+     "prov": "CLAUDE_DESIGN v0.5.6 (sandwich partition); Sol's evidence used an 11 cm wall band. SOL TO AGREE"
+    }
+   },
+   {
+    "id": "L4",
+    "name": "Medical, life support, storm shelter",
+    "x_m": [
+     8.5,
+     10.8
+    ],
+    "rooms": [
+     {
+      "id": "L4-shelter",
+      "name": "Storm shelter",
+      "kind": "shelter",
+      "theta_deg": [
+       15,
+       165
+      ],
+      "mass_t": 1.0,
+      "jacket": true,
+      "windows": 2,
+      "windows_prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports ... for livability; they can be shuttered'): acrylic shield plug kit, Strata dust shutter"
+     },
+     {
+      "id": "L4-medical",
+      "name": "Medical bay",
+      "kind": "medical",
+      "theta_deg": [
+       165,
+       255
+      ],
+      "mass_t": 3.0,
+      "entrance": {
+       "center_deg": 202,
+       "clear_width_m": 2.4,
+       "at_r_m": 1.9,
+       "for": "rigid stretcher 2.0 x 0.60 m",
+       "type": "2.4 m clear aperture with bi-parting curved sliding doors (2 x 1.2 m), air- and smoke-tight for isolation (infection, smoke); not a pressure boundary",
+       "prov": "SOL_CANDIDATE (WAYFARER_V05_HABITAT_CLAUDE_INTEGRATION_2026-10-25, HABITAT_DESIGN_DATA.json): frozen for implementation, not physically certified",
+       "moved_from_deg": 210,
+       "closure_mass_t": 0.1,
+       "litter_lane": {
+        "theta_deg": [
+         171,
+         189
+        ],
+        "r_m": [
+         1.9,
+         3.95
+        ],
+        "note": "kept clear of fixed equipment: the litter leaves the port ladder shaft and goes straight into the bay"
+       },
+       "change_prov": "CLAUDE change v0.5.6: centre moved 210 -> 202 deg (still inside the medical wall: 165.8-238.2 deg) so a litter coming out of the port ladder shaft clears the opening's edge by 0.3 m instead of 0.03 m; SOL TO AGREE"
+      },
+      "windows": 2,
+      "windows_prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports ... for livability; they can be shuttered'): acrylic shield plug kit, Strata dust shutter"
+     },
+     {
+      "id": "L4-eclss",
+      "name": "Life support",
+      "kind": "eclss",
+      "theta_deg": [
+       255,
+       375
+      ],
+      "mass_t": 14.0
+     }
+    ]
+   },
+   {
+    "id": "L5",
+    "name": "Mission, EVA and transfer",
+    "x_m": [
+     11.1,
+     13.4
+    ],
+    "rooms": [
+     {
+      "id": "L5-airlock",
+      "name": "Airlock",
+      "kind": "airlock",
+      "theta_deg": [
+       -20,
+       20
+      ],
+      "mass_t": 3.0
+     },
+     {
+      "id": "L5-suits",
+      "name": "Suit room",
+      "kind": "suits",
+      "theta_deg": [
+       20,
+       80
+      ],
+      "mass_t": 1.5,
+      "windows": 1,
+      "windows_prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports ... for livability; they can be shuttered'): acrylic shield plug kit, Strata dust shutter"
+     },
+     {
+      "id": "L5-workshop",
+      "name": "Workshop",
+      "kind": "workshop",
+      "theta_deg": [
+       80,
+       170
+      ],
+      "mass_t": 3.0,
+      "windows": 2,
+      "windows_prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports ... for livability; they can be shuttered'): acrylic shield plug kit, Strata dust shutter"
+     },
+     {
+      "id": "L5-custody",
+      "name": "Custody locker",
+      "kind": "custody",
+      "theta_deg": [
+       170,
+       200
+      ],
+      "mass_t": 0.5
+     },
+     {
+      "id": "L5-stores",
+      "name": "Stores",
+      "kind": "stores",
+      "theta_deg": [
+       200,
+       250
+      ],
+      "mass_t": 3.0
+     },
+     {
+      "id": "L5-vestibule",
+      "name": "Transfer vestibule",
+      "kind": "vestibule",
+      "theta_deg": [
+       250,
+       290
+      ],
+      "mass_t": 0.3,
+      "windows": 1
+     },
+     {
+      "id": "L5-stores2",
+      "name": "Stores",
+      "kind": "stores",
+      "theta_deg": [
+       290,
+       340
+      ],
+      "mass_t": 3.0
+     }
+    ]
+   }
+  ],
+  "distributed_outfitting_t": 4.0,
+  "free_fraction": {
+   "prov": "ENGINEERING_ASSUMPTION: share of each room's volume left free for people after equipment and stowage (NASA net habitable volume sense)",
+   "command": 0.45,
+   "galley": 0.5,
+   "wardroom": 0.75,
+   "observation": 0.8,
+   "exercise": 0.5,
+   "hygiene": 0.5,
+   "cabin": 0.65,
+   "shelter": 0.8,
+   "medical": 0.5,
+   "eclss": 0.15,
+   "airlock": 0.7,
+   "suits": 0.4,
+   "workshop": 0.5,
+   "custody": 0.1,
+   "stores": 0.1,
+   "vestibule": 0.8,
+   "corridor": 0.9
+  },
+  "shelter_jacket": {
+   "water_thickness_m": 0.2,
+   "faces": [
+    "outer",
+    "inner",
+    "radial",
+    "ceiling",
+    "floor"
+   ],
+   "prov": "ENGINEERING_ASSUMPTION: 20 cm water (NASA millennial-event guidance), drawn from the protected water reserve",
+   "note": "v0.5 run 1 left the floor bare (aft is shielded by the tanks) and an oblique aft-and-sideways ray came out at 39.1 g/cm2; the floor face is now jacketed too"
+  },
+  "guest_outfitting_note": "Habitation line 45 t (6 crew, seed ledger) + 6.0 t for 4 guests: cabins, washroom, couches, life-support capacity, stores; ENGINEERING_ASSUMPTION",
+  "windows_note": "ENGINEERING_ASSUMPTION (v0.5.6): 15 windows. L1: 8 nose (Cupola-style cluster) + 4 shoulder; L2 observation lounge: 2; L5 transfer vestibule: 1 (docking and proximity operations). L3 cabins have none (continuous berth water ring). Every window: four panes, external shutter, armour opening splayed 12 deg",
+  "outfit_r_by_deck_m": {
+   "L3": [
+    4.15,
+    4.25
+   ],
+   "prov": "DERIVED (v0.5.3 reconciliation): the L3 distributed-outfitting layer moves out of the berth shield ring (r 4.07-4.15) into the 12 cm utility gap between the usable radius and the pressure wall (r 4.15-4.27)"
+  },
+  "berth_shield": {
+   "prov": "SOL_CANDIDATE (WAYFARER_V05_HABITAT_CLAUDE_INTEGRATION_2026-10-25, HABITAT_DESIGN_DATA.json): frozen for implementation, not physically certified",
+   "deck": "L3",
+   "x_m": [
+    5.9,
+    8.2
+   ],
+   "r_m": [
+    4.07,
+    4.15
+   ],
+   "theta_deg": [
+    0,
+    360
+   ],
+   "water_from": "protected water (50 t): reallocated from the service tank, so total water and protected water are unchanged",
+   "radiation_screen_sol": "600 directions x 36 points, S5, 2 cm steps: minimum 40.92 g/cm2 (v0.5 geometry; screen only, not dose)",
+   "floor_collars": [
+    {
+     "x_m": [
+      8.2,
+      8.5
+     ],
+     "r_m": [
+      4.15,
+      4.27
+     ],
+     "theta_deg": [
+      0,
+      360
+     ]
+    }
+   ],
+   "collar_prov": "CLAUDE addition v0.5.6: a 12 cm water collar in the utility gap (r 4.15-4.27, behind the edge of floor L3, x 8.2-8.5). The v0.5.6 reserve draws lower the reserve spread over the dry parts by 0.45%, and the bunk screen's 0.1 g/cm2 margin went to 39.91 g/cm2; the weakest ray leaves the captain's bunk aft and outward and passes under the ring's aft edge through the floor junction. The collar (0.95 t, moved from the service tank; protected water total unchanged) closes that gap. The 8 cm ring itself is unchanged. SOL TO AGREE",
+   "service_band": {
+    "x_m": [
+     14.0,
+     17.0
+    ],
+    "r_m": [
+     4.3,
+     4.36
+    ],
+    "mass_t": 0.6,
+    "material": "polyethylene tiles inside the service-section skin",
+    "prov": "CLAUDE_DESIGN v0.5.7, found during integration: the v0.5.6 port and starboard planks (r 4.3-4.48 from x 14) also screened the berths' aft-outboard rays; with four tubes the weakest berth ray (crew cabin B, 311 deg, aft through the service section at x ~15.3) fell from 49.1 to 39.97 g/cm2. A 0.6 t polyethylene band in the service section restores it. Paid from the reserve. SOL TO AGREE"
+   }
+  },
+  "crew_systems": {
+   "prov": "CLAUDE_DESIGN v0.5.6 (habitat and L1 close-out); checked by habitat/crew_systems.py",
+   "litter": {
+    "length_m": 2.0,
+    "width_m": 0.6,
+    "depth_m": 0.35,
+    "margin_m": 0.05,
+    "prov": "rigid litter 2.0 x 0.60 m (Sol's stretcher) with patient, 0.35 m deep"
+   },
+   "casualty_doctrine": [
+    "Casualty moves happen at 0 g: the captain orders coast, which is available at any time (an emergency burn means everyone is already in a couch).",
+    "The litter is carried with its length along the ship's axis: through 2.05 m doors, end-first down the port ladder shaft (theta 180), out of the shaft at L4 and straight through the medical opening.",
+    "Under thrust the casualty stays in their couch or berth (each is a 5 g couch) and is treated there until coast.",
+    "Above ~1.5 g everyone is in a couch; no casualty moves."
+   ],
+   "ladder_shafts": {
+    "rungs_on": "inboard face (r 1.0 m side), so the outboard side of the shaft stays clear for a litter",
+    "clear_m": [
+     0.8,
+     0.6
+    ]
+   },
+   "rescue_kit_t": 0.05,
+   "l4_l5_isolation": {
+    "hatches": [
+     {
+      "ladderway_theta_deg": 0
+     },
+     {
+      "ladderway_theta_deg": 180
+     }
+    ],
+    "hatch_size_m": 0.9,
+    "hatch_t": 0.15,
+    "trunk_plug_t": 0.15,
+    "pressure_kpa": 101.3,
+    "burst_factor": 2.0,
+    "prov": "CLAUDE_DESIGN v0.5.6: floor L4 becomes a pressure bulkhead so a depressurised L5 (airlock, docking tunnel) cannot take the rest of the habitat. Two hinged pressure hatches (rounded-square, ISS CBM-hatch style) close the ladderways; a pressure plug with a lift hatch and feedthroughs seals the trunk at the same plane. Hatches stand open in normal operations and close automatically on a pressure drop"
+   },
+   "shelter_backup": {
+    "people": 10,
+    "hours": 72,
+    "o2_kg_per_person_day": 0.84,
+    "co2_kg_per_person_day": 1.0,
+    "drink_kg_per_person_day": 1.62,
+    "food_kg_per_person_day": 0.62,
+    "lioh_kg_per_kg_co2": 1.09,
+    "lioh_utilisation": 0.75,
+    "canister_factor": 1.4,
+    "o2_tank_factor": 1.4,
+    "food_packaging_factor": 1.5,
+    "battery_hours": 24,
+    "essential_load_kw": 0.6,
+    "battery_kwh_per_kg": 0.2,
+    "fans_sensors_t": 0.02,
+    "heat_per_person_kw": 0.14,
+    "mass_t": 0.3,
+    "prov": "Consumption: Barta, Anderson and Lange, NASA JSC 2015 (ntrs.nasa.gov 20150009498): O2 0.84, CO2 1.00, drinking water 1.62, food 0.62 kg per person per day. Stored backup on L4 for 72 h if the life-support room's regenerative systems are unavailable; drinking water drawn from the shelter's own water jacket. Battery covers 24 h of essential loads; the plant otherwise powers the shelter"
+   },
+   "accel_doctrine": {
+    "couch_above_g": 1.5,
+    "sustained_cap_g": 4.0,
+    "cap_evidence": "NASA OCHMO acceleration brief: +Gx 4 g tolerable up to at least 60 min; 2 g at least 24 h",
+    "on_back_limit_min": 195,
+    "on_back_nominal_min": 165,
+    "coast_break_min": 30,
+    "prov": "CLAUDE_DESIGN v0.5.6: crew doctrine caps sustained thrust at 4 g (the 5 g structural rating stays as margin, emergencies only). [V2 6113] limits time on the back with feet raised to 3 h 15 min (nominal 2 h 45 min); burns longer than 2 h 45 min are split by a 30 min coast break"
+   },
+   "docking_view": {
+    "cameras": [
+     {
+      "name": "collar camera with lights, beside the port looking out along its axis",
+      "pos_m": [
+       16.0,
+       0.95,
+       -4.5
+      ]
+     },
+     {
+      "name": "wide hull camera with lights",
+      "pos_m": [
+       14.2,
+       0.0,
+       -4.6
+      ]
+     }
+    ],
+    "cameras_t": 0.05,
+    "window": "L5 transfer vestibule, 0.4 m, facing -Z toward the approach corridor",
+    "stations": "docking displays at the L5 vestibule and on L1",
+    "prov": "CLAUDE_DESIGN v0.5.6: the collar (x 16 m, -Z) cannot be seen from L1; cameras give the final approach, the vestibule window the proximity view"
+   },
+   "rescue_kit": "rigid litter 2.0 x 0.60 m with restraints, vacuum mattress, tether set",
+   "station_loads": {
+    "couch_t": 0.05,
+    "berth_pan_t": 0.04,
+    "occupant_t": 0.1,
+    "hard_points_per_station": 4,
+    "berth_post": {
+     "od_m": 0.04,
+     "wall_m": 0.002,
+     "length_m": 1.08,
+     "material": "aluminium 7075-T6",
+     "e_gpa": 71.7,
+     "yield_mpa": 503
+    },
+    "floor": {
+     "depth_m": 0.3,
+     "face": "CFRP (materials.cfrp_*)",
+     "core_t_m3": 0.05,
+     "core_shear_mpa": 1.5,
+     "span_m": 3.25
+    },
+    "prov": "ENGINEERING_ASSUMPTION v0.5.6: couch 50 kg, berth pan 40 kg, occupant with IVA suit 100 kg; each couch or berth bolts to 4 floor hard points; upper berth tier stands on 4 posts (tier height 1.08 m, Sol's 2 tiers in 2.16 m); floors are 0.3 m sandwich panels spanning trunk (r 0.9) to hull (r 4.15), face stress from simple strip bending, aluminium honeycomb core ~50 kg/m3"
+   },
+   "berth_viewports": {
+    "prov": "CLAUDE_DESIGN v0.5.7 (kT 2026-10-25: 'more shieldable viewports in the berths'); NON-GOVERNING; SOL TO AGREE (his habitat package and berth ring) rev 3: enlarged to 0.5 m (fits the 0.82 m clear height of each tier)",
+    "d_m": 0.5,
+    "per": "one per berth, at its outer end just above the mattress",
+    "x_m_by_tier": {
+     "lower": 7.55,
+     "upper": 6.45
+    },
+    "plug": {
+     "material": "acrylic (PMMA), encapsulated between glass panes",
+     "density_t_m3": 1.18,
+     "thick_m": 0.23,
+     "g_cm2": 27.14,
+     "replaces": "armour 0.20 m at 1.35 t/m3 = 27.0 g/cm2 (fills the 12 deg splayed bore)"
+    },
+    "insert": {
+     "material": "acrylic (PMMA)",
+     "density_t_m3": 1.18,
+     "thick_m": 0.07,
+     "g_cm2": 8.26,
+     "replaces": "berth ring water 0.08 m = 8.0 g/cm2"
+    },
+    "shutter": "external dust shutter only (radiation carried by the acrylic); closed at cruise speed like every window",
+    "open_items": [
+     "dose, not just g/cm2: PMMA is ~8% hydrogen by mass against water's 11%; a GCR/SPE transport check may ask for a thicker plug",
+     "fire load: PMMA is flammable, encapsulated; count it in the fire-load budget",
+     "Sol to agree: changes his berth ring"
+    ],
+    "applies_to": "every habitat window below the crown: berth viewports, the new L2/L4/L5 viewports, and the existing shoulder, lounge and vestibule windows all carry the acrylic plug and insert kit (mass-neutral)",
+    "shelter_plug": "storm-shelter viewports: the plug continues through the 20 cm water jacket as 17 cm more acrylic (20.1 g/cm2), so the shelter keeps its screen and people sheltering for 72 h can still see out"
+   },
+   "viewport_band": {
+    "prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports'): a continuous panoramic band round the L2 common deck at standing and seated eye height, taller (1.6 m) in the observation lounge; skips the washroom (270-300 deg). NON-GOVERNING; SOL TO AGREE",
+    "deck": "L2",
+    "segments": [
+     {
+      "x_m": [
+       3.9,
+       4.5
+      ],
+      "theta_deg": [
+       300,
+       360
+      ]
+     },
+     {
+      "x_m": [
+       3.9,
+       4.5
+      ],
+      "theta_deg": [
+       0,
+       150
+      ]
+     },
+     {
+      "x_m": [
+       3.6,
+       5.2
+      ],
+      "theta_deg": [
+       150,
+       210
+      ]
+     },
+     {
+      "x_m": [
+       3.9,
+       4.5
+      ],
+      "theta_deg": [
+       210,
+       270
+      ]
+     }
+    ],
+    "glazed_area_m2": 19.36,
+    "mullion_spacing_deg": 15,
+    "mullions": "Osteon titanium mullions every 15 deg (1.13 m), forking into the sill and head beams; they carry the deck's axial load (5 g x 1.5 of everything ahead, plus the pressure end load) across the band",
+    "panes": "flat ALON segments 1.1 m wide: two 16 mm pressure panes (each full load) + 8 mm debris + 3 mm scratch; inboard, a 23 cm acrylic shield plug and 3 cm of acrylic for the pressure hull",
+    "shutter": "Strata tambour band: slats run round the hull in a track and stow in the head beam; closed flush with the armour at cruise speed, in solar storms and in burns, and for night",
+    "kg_per_m2": {
+     "panes": 159,
+     "frame_and_mullions": 40,
+     "shutter_track_and_drive": 25
+    },
+    "heat": "low-e inner coating (emissivity 0.1): ~42 W per m2 of glazing radiated to space with the shutters open"
+   }
+  }
+ },
+ "ledger": {
+  "prov": "CANON_MASS_DESIGN_POSITION (repo seed ledger masses)",
+  "structure_t_per_m": 2.632,
+  "structure_split": {
+   "prov": "ENGINEERING_ASSUMPTION: shares of the 2.632 t/m structure line; v0.5.7: longerons 35 -> 10.56 t (four sized tubes, incl. 10% splices) + 3.276 t joints; the remaining 21.164 t is released to the engineering reserve and spread like it (structure line unchanged)",
+   "pressure_vessel_and_bulkheads": 20.0,
+   "decks_and_core": 8.0,
+   "outer_skin_midship": 14.0,
+   "longerons": 10.56,
+   "ring_frames": 17.0,
+   "tank_shells": 24.0,
+   "bay_liner": 6.0,
+   "thrust_cone": 16.3,
+   "longeron_joints": 3.276,
+   "released_to_reserve": 21.164
+  },
+  "armor_fixed_shield_t": 105.0,
+  "habitation_life_support_t": 45.0,
+  "guest_outfitting_t": 6.0,
+  "relational_plant_t": 88.0,
+  "thermal_radiators_t": 90.0,
+  "propulsion_t": 160.0,
+  "propulsion_split": {
+   "shield": 45.0,
+   "reactor": 85.0,
+   "nozzle": 30.0,
+   "prov": "ENGINEERING_ASSUMPTION"
+  },
+  "electrical_t": 55.0,
+  "avionics_sensors_comms_t": 20.0,
+  "avionics_split": {
+   "bow_sensors": 8.0,
+   "core_racks": 12.0,
+   "prov": "ENGINEERING_ASSUMPTION"
+  },
+  "rcs_docking_service_t": 25.0,
+  "rcs_split": {
+   "rcs_clusters": 12.0,
+   "docking_collar": 4.0,
+   "service_arm_and_umbilicals": 7.5,
+   "transfer_tunnel": 1.5,
+   "prov": "ENGINEERING_ASSUMPTION"
+  },
+  "mission_courier_systems_t": 20.0,
+  "engineering_reserve_t": 33.458,
+  "engineering_reserve_rule": "spread over dry parts in proportion to their mass (growth margin), not lumped at one point",
+  "c_tank_penalty_t": 8.0,
+  "radiator_panels_t": 8.784,
+  "drones_pods_t": 1.198,
+  "venus_kit_t": 1.7,
+  "electrical_split": {
+   "aft_c_ring": 30.0,
+   "service_ring": 25.0,
+   "prov": "ENGINEERING_ASSUMPTION: the aft C-ring (x 31.5-32.3) is too small for all 55 t; 25 t moves to the free ring at x 17.0-18.0 ahead of the bay (theta -45 to 225 deg, clear of the tunnel elbow on -Z)"
+  },
+  "torch_hot_fins_t": 21.024,
+  "torch_hot_fins_prov": "KT_DECISION (v0.5.2): the hot fins are paid from the 67.5 t engineering reserve, so dry and wet mass, and so the performance card, are unchanged; the fins are not given growth margin from what is left",
+  "engineering_reserve_v055_t": 46.476,
+  "reserve_draws_v056": {
+   "windows_t": 2.893,
+   "flight_deck_columns_t": 0.017,
+   "l4_l5_isolation_t": 0.45,
+   "medical_doors_t": 0.1,
+   "shelter_backup_t": 0.3,
+   "rescue_kit_t": 0.05,
+   "docking_cameras_t": 0.05,
+   "total_t": 3.86,
+   "prov": "v0.5.6 items paid from the engineering reserve (dry mass unchanged); window assemblies were previously treated as inside the ledger lines and are now carried explicitly (conservative: those lines are not reduced)"
+  },
+  "crew_systems_v056_t": 3.86,
+  "reserve_draws_v057": {
+   "berth_viewports_t": 1.055,
+   "prov": "window assemblies at the 0.08 t minimum (features.window_mass); the acrylic replaces armour and ring water at equal-or-greater g/cm2 (+4 kg in all); v0.5.7 also: 6 habitat viewports (0.45 m), crown dome assembly replacing the 8-window nose cluster; rev 3: berth viewports 0.5 m, L2 viewport band (replaces the lounge's two 0.8 m windows and the L2 round viewports), medical 2, shelter 2, suits 1, workshop 2",
+   "service_shield_band_t": 0.6,
+   "habitat_viewports_t": 0.627,
+   "nose_windows_removed_t": -1.851,
+   "crown_dome_t": 4.93,
+   "observation_windows_removed_t": -0.54,
+   "viewport_band_t": 4.337
+  },
+  "crew_systems_v057_t": 9.158
+ },
+ "longerons": {
+  "prov": "CLAUDE_DESIGN v0.5.7 (structure/longeron_study.py, kT 2026-10-25 'consolidate'): four CFRP tubes in an X, matching canon's 4 axial longerons. The upper pair stay where the v0.5.6 slot sills were (edging the bay slot); the lower pair mirror them in the tank's lower cells. Sized at 5 g x 1.5 to a 250 MPa design stress (400 MPa floor x 0.62 for impact, joints, environment). v0.5.6 had 3 planks + 2 sills (36.9 t) running at 65 MPa. NON-GOVERNING; SOL TO REVIEW",
+  "x_m": [
+   14.0,
+   34.3
+  ],
+  "items": [
+   {
+    "name": "upper starboard",
+    "kind": "tube",
+    "y_m": 2.75,
+    "z_m": 2.6,
+    "d_m": 0.4,
+    "wall_m": 0.0716
+   },
+   {
+    "name": "upper port",
+    "kind": "tube",
+    "y_m": -2.75,
+    "z_m": 2.6,
+    "d_m": 0.4,
+    "wall_m": 0.0716
+   },
+   {
+    "name": "lower starboard",
+    "kind": "tube",
+    "y_m": 2.75,
+    "z_m": -2.6,
+    "d_m": 0.4,
+    "wall_m": 0.0716
+   },
+   {
+    "name": "lower port",
+    "kind": "tube",
+    "y_m": -2.75,
+    "z_m": -2.6,
+    "d_m": 0.4,
+    "wall_m": 0.0716
+   }
+  ],
+  "joints": {
+   "prov": "CLAUDE_DESIGN v0.5.7, conventional (2026) masses from structure/longeron_study.py; Osteon (Builder OST-22) versions would save ~0.8-1.4 t more and are NOT assumed",
+   "end_fittings": {
+    "count": 8,
+    "each_t": 0.212,
+    "x_m": [
+     14.0,
+     34.3
+    ],
+    "note": "titanium, 18.5 MN each at ultimate, into the habitat ring frame (x 14) and the thrust cone (x 34.3)"
+   },
+   "node_mounts": {
+    "count": 20,
+    "each_t": 0.055,
+    "note": "allowance: mount 0.04 t + flush access hatch 0.015 t for each of the 5 node rings x 4 that fall on x 14-34.3. LOCATION OPEN: the longeron lines (43.4 deg) lie under the stowed strakes (40 deg +-12.7), so the mounts go on ring frames in the clear arcs (beam and keel) and tie to the longerons through the frames. Sol to place against PR #184."
+   },
+   "bay_corners": {
+    "count": 4,
+    "each_t": 0.12,
+    "x_m": [
+     18.0,
+     32.3
+    ],
+    "note": "doublers at the four corners of the bay slot"
+   }
+  }
+ },
+ "frames": {
+  "spacing_m": 2.0,
+  "r_m_midship": [
+   4.3,
+   4.48
+  ],
+  "r_m_elsewhere": [
+   4.1,
+   4.48
+  ],
+  "prov": "ENGINEERING_ASSUMPTION: ring frames sit outside the tank in the midship"
+ },
+ "radiators": {
+  "prov": "DERIVED (v0.4 STRAKE_QUAD ACCORDION 1300K)",
+  "azimuths_deg": [
+   40,
+   140,
+   220,
+   320
+  ],
+  "x_m": [
+   14.0,
+   32.3
+  ],
+  "root_r_m": 4.5,
+  "pleat_m": 2.0,
+  "max_pleats": 12,
+  "max_span_m": 24.0,
+  "temperature_k": 1300,
+  "emissivity": 0.9,
+  "areal_kg_m2": 5.0,
+  "torch_g_limit": 7.5,
+  "span_by_mode_m": {
+   "NORMAL": 2.0,
+   "FAST": 2.0,
+   "EXPEDITE": 2.0,
+   "HARD": 2.0
+  },
+  "torch_capacity_mw": 387.7,
+  "hull_heat_hard_mw": 1.02,
+  "hull_coating": {
+   "absorptivity": 0.1,
+   "reflected_escape_fraction": 0.5,
+   "prov": "ENGINEERING_ASSUMPTION (v0.3 radiators_v3.json)"
+  },
+  "azimuth_note": "ENGINEERING_ASSUMPTION (v0.5): v0.4 put the strakes on the 45 deg diagonals, but a 2 m groove there breaks 0.28 m into the 4.8 m slot. 40/140/220/320 keeps the stowed stack outside the slot and stays mirror-symmetric.",
+  "torch_span_m": 4.0,
+  "torch_span_prov": "DERIVED (v0.5.2): during torch burns the strakes carry only the magnet coils' cryo heat (about 48 MW) plus habitat heat, which two 2 m pleats reject"
+ },
+ "rcs": {
+  "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
+  "thruster_kn": 25.0,
+  "clusters": [
+   {
+    "id": "F+Y",
+    "x_m": 3.0,
+    "theta_deg": 0,
+    "r_m": 4.6,
+    "thrusters": 3
+   },
+   {
+    "id": "F+Z",
+    "x_m": 3.0,
+    "theta_deg": 90,
+    "r_m": 4.6,
+    "thrusters": 3
+   },
+   {
+    "id": "F-Y",
+    "x_m": 3.0,
+    "theta_deg": 180,
+    "r_m": 4.6,
+    "thrusters": 3
+   },
+   {
+    "id": "F-Z",
+    "x_m": 3.0,
+    "theta_deg": 270,
+    "r_m": 4.6,
+    "thrusters": 3
+   },
+   {
+    "id": "A+Y",
+    "x_m": 44.0,
+    "theta_deg": 0,
+    "r_m": 2.6,
+    "thrusters": 3
+   },
+   {
+    "id": "A+Z",
+    "x_m": 44.0,
+    "theta_deg": 90,
+    "r_m": 2.6,
+    "thrusters": 3
+   },
+   {
+    "id": "A-Y",
+    "x_m": 44.0,
+    "theta_deg": 180,
+    "r_m": 2.6,
+    "thrusters": 3
+   },
+   {
+    "id": "A-Z",
+    "x_m": 44.0,
+    "theta_deg": 270,
+    "r_m": 2.6,
+    "thrusters": 3
+   }
+  ],
+  "slew_couples": 2
+ },
+ "materials": {
+  "prov": "PUBLISHED_PHYSICS: 2026 high-modulus carbon-fibre composite, used as a conservative floor for 2226 (same values as the v0.3 closing checks)",
+  "cfrp_allowable_mpa": 400,
+  "cfrp_e_gpa": 150,
+  "cfrp_density_t_m3": 1.6
+ },
+ "habitat_heat": {
+  "prov": "ENGINEERING_ASSUMPTION",
+  "metabolic_w_per_person": 150,
+  "avionics_kw": 20,
+  "eclss_galley_kw": 15,
+  "lighting_misc_kw": 10,
+  "radiator": {
+   "kind": "body-mounted low-temperature panels on the midship skin between the strakes",
+   "temperature_k": 290,
+   "emissivity": 0.85,
+   "absorptivity": 0.15,
+   "x_m": [
+    18.0,
+    30.5
+   ],
+   "share_of_skin": 0.5,
+   "worst_sun_w_m2": 2601,
+   "sun_note": "Venus orbit (0.723 AU), PUBLISHED_PHYSICS"
+  }
+ },
+ "states": {
+  "prov": "CERTIFICATION_BASIS_v0.1 \u00a75",
+  "S1": {
+   "name": "reference departure",
+   "remass_t": 250,
+   "shuttle": "docked",
+   "payload_t": 0
+  },
+  "S2": {
+   "name": "loaded departure",
+   "remass_t": 250,
+   "shuttle": "docked",
+   "payload_t": 50
+  },
+  "S3": {
+   "name": "normal dispatch",
+   "remass_t": 150,
+   "shuttle": "docked",
+   "payload_t": 0
+  },
+  "S4": {
+   "name": "burnt out, shuttle home",
+   "remass_t": 0,
+   "shuttle": "docked",
+   "payload_t": 0
+  },
+  "S5": {
+   "name": "burnt out, shuttle away",
+   "remass_t": 0,
+   "shuttle": "absent",
+   "payload_t": 0
+  },
+  "S6": {
+   "name": "full, shuttle away",
+   "remass_t": 250,
+   "shuttle": "absent",
+   "payload_t": 0
+  },
+  "S7": {
+   "name": "one tank cell breached and vented",
+   "remass_t": 250,
+   "isolated_cell": "port_fore",
+   "vented": true,
+   "shuttle": "docked",
+   "payload_t": 0
+  }
+ },
+ "payload": {
+  "split": {
+   "hold_starboard": 0.5,
+   "hold_port": 0.5
+  },
+  "prov": "ENGINEERING_ASSUMPTION: balanced loading doctrine"
+ },
+ "protected_water": {
+  "prov": "DERIVED: split chosen by build_v05.py to minimise the worst thrust-trim angle over S1-S7",
+  "locations": [
+   "shelter_jacket",
+   "berth_shield",
+   "protected_water_tank",
+   "c_tank"
+  ],
+  "service_tank_ullage_fraction": 0.05
+ },
+ "metric_heat_rule": {
+  "prov": "DERIVED (ship_sizer/radiators.json)",
+  "rule": "heat rejected = cold load + cryo electrical; cryo electrical scales with (T_reject - 20 K) at the same fraction of ideal efficiency as canon's 900 K figures",
+  "cold_temperature_k": 20.0
+ },
+ "features": {
+  "prov": "ENGINEERING_ASSUMPTION: visual hull features; from v0.5.6 every window assembly also carries its own mass from the engineering reserve (features.window_mass)",
+  "window_d_m": {
+   "command": 0.5,
+   "observation": 0.8,
+   "cabin": 0.45,
+   "vestibule": 0.4,
+   "berth": 0.5,
+   "wardroom": 0.45,
+   "galley": 0.45,
+   "exercise": 0.45,
+   "medical": 0.5,
+   "workshop": 0.45,
+   "shelter": 0.35,
+   "suits": 0.45
+  },
+  "airlock_hatch_d_m": 1.1,
+  "hold_door_m": [
+   2.4,
+   1.8
+  ],
+  "window_bore": {
+   "armour_m": 0.2,
+   "wall_m": 0.23,
+   "splay_deg": 12,
+   "prov": "CLAUDE_DESIGN v0.5.6: openings splayed outward 12 deg through the 0.20 m armour so the armour does not narrow the view (command/l1_bore_check.py: straight bores cut the pilots' 60 deg cone to 89%; 12 deg restores 99.7%)"
+  },
+  "window_mass": {
+   "t_per_0p8m_window": 0.27,
+   "area_0p8m_m2": 0.5027,
+   "min_assembly_t": 0.08,
+   "nose_cluster_frame_t": 0.4,
+   "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows"
+  }
+ },
+ "tank_structure": {
+  "prov": "ENGINEERING_ASSUMPTION (structural concept). Plate bending: Navier series for simply supported plates (Timoshenko and Woinowsky-Krieger, Theory of Plates and Shells), matching Roark Table 11.4 case 1a to 3 decimals; nu 0.3",
+  "concept": "Radial tie-webs join the inner and outer walls so the C-shaped cell does not try to open under pressure; perforated ring baffles every 1 m also stop slosh; the flat slot walls are supported by the inner corner, the sill longeron and the outer corner; solid bulkheads at both ends and mid-length; a solid radial wall at the keel separates port and starboard cells.",
+  "design_g": 5.0,
+  "ultimate_factor": 1.5,
+  "ullage_mpa": 0.1,
+  "web_spacing_outer_m": 0.4,
+  "baffle_spacing_m": 1.0,
+  "min_gauge_mm": 1.5,
+  "perforated_open_fraction": 0.5,
+  "intermediate_baffle_mm": 3.0,
+  "nu": 0.3,
+  "model_wall_allowance_m": 0.02
+ },
+ "hot_fins": {
+  "prov": "KT_DECISION 2026-10-25: four fins on the strake lines at 1,750 K (torch/fin_layout.py search: four fins on the strake lines are the best layout; 5 or 6 add mass and crowd the aft RCS)",
+  "azimuths_deg": [
+   40,
+   140,
+   220,
+   320
+  ],
+  "x_m": [
+   34.3,
+   53.3
+  ],
+  "root_r_m": 4.75,
+  "root_prov": "DERIVED: 0.25 m outside the hull line on short standoffs, so the folded 0.6 m stacks of the two slot-side fins stay more than 1.0 m outside the slot edge lines (shuttle corridor)",
+  "temperature_k": 1750,
+  "temperature_prov": "KT_DECISION 2026-10-25. Engineering extrapolation: lithium heat pipes have run in lab tests to ~1,500 K and briefly ~1,800 K; long life at 1,750 K is not yet demonstrated (declared in G4)",
+  "pleat_m": 2.0,
+  "pleats": 14,
+  "stowed_stack_thickness_m": 0.6,
+  "emissivity": 0.9,
+  "kg_per_m2_face": 4.0,
+  "kg_prov": "ENGINEERING_ASSUMPTION: refractory heat pipes in carbon fins, per radiating face",
+  "allowance_t": 4.0,
+  "allowance_prov": "ENGINEERING_ASSUMPTION: fold-out mechanism, root trusses and the hot loop from the reactor face and coil shield (~25% of fin mass)",
+  "deployed": "torch burns only; folded in their 0.6 m stacks otherwise (and before big slews)",
+  "pleats_prov": "DERIVED: 14 pleats of 2 m (28 m) so the conservative standard-library view factor in certify.py (torch chain treated as a 4.5 m cylinder) clears 1.40 GW; the numpy model in torch/fin_layout.py needs 25.7 m"
+ },
+ "windows_note": "ENGINEERING_ASSUMPTION (v0.5.7 rev 3): crown dome (25 m2) over L1; a panoramic viewport band round L2 (19.4 m2, 1.6 m tall in the lounge); round viewports: L1 shoulder 4, L3 berths 10 (0.5 m), L4 medical 2 and storm shelter 2, L5 suits 1, workshop 2, vestibule 1. Every opening below the crown has an acrylic shield plug and a Strata dust shutter"
+}

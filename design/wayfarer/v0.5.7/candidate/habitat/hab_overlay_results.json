@@ -1,0 +1,194 @@
+{
+ "geometry_sha256": "262b21a303242286dc9f0f2cd727dab84749ac2a5a5cec257d7b35c0d5efdda0",
+ "ring": {
+  "ring_volume_m3": 4.7516,
+  "samples": 25000,
+  "overlap_samples": {},
+  "ring_water_t_S1": 5.7039,
+  "in_every_state": true,
+  "protected_water": {
+   "jacket_t": 22.1872409171398,
+   "berth_shield_t": 5.703875621857638,
+   "shelter_jacket_t": 16.483365295282162,
+   "service_tank_t": 27.81,
+   "c_tank_t": 0.002759082860201545,
+   "service_tank_capacity_t": 32.51548396465435,
+   "chosen_to_minimise_worst_trim_deg": 0.346760709426898
+  }
+ },
+ "plan": {
+  "bunks": [
+   {
+    "room": "L3-CAPT",
+    "bunk_deg": 15,
+    "tiers": 1,
+    "outer_corner_r_m": 4.0402,
+    "clear_to_shield_m": 0.0298,
+    "clear_to_side_walls_m": 0.148,
+    "door_edge_to_bunk_corner_m": 0.263
+   },
+   {
+    "room": "L3-CA",
+    "bunk_deg": 75,
+    "tiers": 2,
+    "outer_corner_r_m": 4.0402,
+    "clear_to_shield_m": 0.0298,
+    "clear_to_side_walls_m": 0.148,
+    "door_edge_to_bunk_corner_m": 0.263
+   },
+   {
+    "room": "L3-GUEST",
+    "bunk_deg": 169,
+    "tiers": 2,
+    "outer_corner_r_m": 4.0402,
+    "clear_to_shield_m": 0.0298,
+    "clear_to_side_walls_m": 0.277,
+    "door_edge_to_bunk_corner_m": 0.135
+   },
+   {
+    "room": "L3-GUEST",
+    "bunk_deg": 221,
+    "tiers": 2,
+    "outer_corner_r_m": 4.0402,
+    "clear_to_shield_m": 0.0298,
+    "clear_to_side_walls_m": 0.277,
+    "door_edge_to_bunk_corner_m": 0.135
+   },
+   {
+    "room": "L3-CB",
+    "bunk_deg": 259,
+    "tiers": 2,
+    "outer_corner_r_m": 4.0402,
+    "clear_to_shield_m": 0.0298,
+    "clear_to_side_walls_m": 0.277,
+    "door_edge_to_bunk_corner_m": 0.135
+   },
+   {
+    "room": "L3-CB",
+    "bunk_deg": 311,
+    "tiers": 1,
+    "outer_corner_r_m": 4.0402,
+    "clear_to_shield_m": 0.0298,
+    "clear_to_side_walls_m": 0.277,
+    "door_edge_to_bunk_corner_m": 0.135
+   }
+  ],
+  "medical_entrance": {
+   "arc_deg": 72.4,
+   "spans_deg": [
+    165.8,
+    238.2
+   ],
+   "medical_wall_deg": [
+    165,
+    255
+   ],
+   "fits_in_medical_wall": true
+  },
+  "berths_total": 10,
+  "two_tier_stack_m": 2.16,
+  "deck_clear_m": 2.3
+ },
+ "radiation": {
+  "state": "S5",
+  "points": 36,
+  "directions": 600,
+  "step_m": 0.02,
+  "minimum_g_cm2": 40.75,
+  "below_40": 0,
+  "worst": [
+   [
+    "L3-CAPT@15:x6.45:r3.85",
+    40.75,
+    [
+     -0.145,
+     0.985,
+     0.089
+    ]
+   ],
+   [
+    "L3-CAPT@15:x7.55:r3.85",
+    40.75,
+    [
+     -0.215,
+     0.952,
+     0.217
+    ]
+   ],
+   [
+    "L3-CB@311:x7.55:r2.25",
+    40.8,
+    [
+     0.785,
+     -0.584,
+     0.207
+    ]
+   ],
+   [
+    "L3-CAPT@15:x6.45:r2.25",
+    41.61,
+    [
+     -0.268,
+     0.58,
+     0.769
+    ]
+   ],
+   [
+    "L3-CB@259:x6.45:r3.85",
+    41.71,
+    [
+     0.015,
+     -0.426,
+     -0.905
+    ]
+   ],
+   [
+    "L3-CB@259:x7.55:r3.85",
+    41.71,
+    [
+     0.015,
+     -0.426,
+     -0.905
+    ]
+   ]
+  ],
+  "by_point": {
+   "L3-CAPT@15:x6.45:r3.85": 40.75,
+   "L3-CAPT@15:x7.55:r3.85": 40.75,
+   "L3-CB@311:x7.55:r2.25": 40.8,
+   "L3-CAPT@15:x6.45:r2.25": 41.61,
+   "L3-CB@259:x6.45:r3.85": 41.71,
+   "L3-CB@259:x7.55:r3.85": 41.71,
+   "L3-CB@311:x6.45:r3.85": 41.71,
+   "L3-CB@311:x7.55:r3.85": 41.71,
+   "L3-GUEST@169:x6.45:r3.85": 42.17,
+   "L3-GUEST@169:x7.55:r3.85": 42.17,
+   "L3-GUEST@221:x6.45:r3.85": 42.17,
+   "L3-GUEST@221:x7.55:r3.85": 42.17,
+   "L3-CAPT@15:x6.45:r3.05": 42.64,
+   "L3-CAPT@15:x7.55:r3.05": 43.57,
+   "L3-CA@75:x6.45:r3.85": 44.29,
+   "L3-CA@75:x7.55:r3.85": 44.29,
+   "L3-CB@259:x6.45:r3.05": 44.42,
+   "L3-CB@311:x6.45:r3.05": 44.63,
+   "L3-CB@259:x7.55:r2.25": 44.77,
+   "L3-CA@75:x6.45:r3.05": 45.47,
+   "L3-CAPT@15:x7.55:r2.25": 45.75,
+   "L3-CA@75:x6.45:r2.25": 46.17,
+   "L3-CB@311:x6.45:r2.25": 46.5,
+   "L3-CA@75:x7.55:r3.05": 46.65,
+   "L3-CB@259:x7.55:r3.05": 46.74,
+   "L3-CB@311:x7.55:r3.05": 46.78,
+   "L3-CB@259:x6.45:r2.25": 46.79,
+   "L3-GUEST@169:x6.45:r3.05": 46.81,
+   "L3-GUEST@221:x6.45:r3.05": 46.93,
+   "L3-GUEST@221:x7.55:r3.05": 48.47,
+   "L3-GUEST@169:x7.55:r3.05": 48.63,
+   "L3-GUEST@169:x6.45:r2.25": 48.89,
+   "L3-GUEST@221:x6.45:r2.25": 50.25,
+   "L3-GUEST@169:x7.55:r2.25": 50.51,
+   "L3-CA@75:x7.55:r2.25": 51.43,
+   "L3-GUEST@221:x7.55:r2.25": 54.22
+  }
+ }
+}

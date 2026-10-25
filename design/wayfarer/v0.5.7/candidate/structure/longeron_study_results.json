@@ -1,0 +1,311 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-GOVERNING study on the v0.5.6 baseline; the build is unchanged",
+ "load": {
+  "state": "S2",
+  "mass_ahead_of_cone_t": 1004.6,
+  "F_ultimate_mn": 73.9,
+  "F_1g_mn": 9.85
+ },
+ "today": {
+  "longeron_mass_t": 36.86,
+  "stress_mpa": 65.1,
+  "allowable_mpa": 400,
+  "note": "from G5; no end fittings or node mounts are in the 35 t"
+ },
+ "assumptions": {
+  "design_compression_mpa": {
+   "value": 250.0,
+   "prov": "ENGINEERING_ASSUMPTION: 400 MPa floor x 0.62 knockdown for impact damage, joints and environment (compression after impact)"
+  },
+  "splice_allowance": {
+   "value": 0.1,
+   "prov": "ENGINEERING_ASSUMPTION: +10% on span mass for splices, ply drops and frame clips"
+  },
+  "min_wall_mm": {
+   "value": 4.0,
+   "prov": "ENGINEERING_ASSUMPTION: minimum CFRP tube wall for handling and impact"
+  },
+  "ti_ftu_mpa": {
+   "value": 900.0,
+   "prov": "PUBLISHED_PHYSICS: Ti-6Al-4V ultimate tensile strength ~900-950 MPa"
+  },
+  "ti_density": {
+   "value": 4.43,
+   "prov": "PUBLISHED_PHYSICS: Ti-6Al-4V 4.43 t/m3"
+  },
+  "fitting_factor": {
+   "value": 2.5,
+   "prov": "ENGINEERING_ASSUMPTION: conventional lug/flange fitting, material ~2.5x the ideal (fitting factor 1.15 x load-spreading inefficiency)"
+  },
+  "fitting_length_m": {
+   "value": 0.8,
+   "prov": "ENGINEERING_ASSUMPTION: load is transferred into the frame or cone over ~0.8 m"
+  },
+  "fitting_fixed_t": {
+   "value": 0.03,
+   "prov": "ENGINEERING_ASSUMPTION: bolts, shims and inspection access per fitting"
+  },
+  "osteon_saving": {
+   "value": [
+    0.3,
+    0.4,
+    0.5
+   ],
+   "prov": "BUILDER-DERIVED (OST-22), grounded in 2026 topology-optimised metal brackets that save 30-60%: low / central / high"
+  },
+  "node_module_t": {
+   "value": 0.2,
+   "prov": "ENGINEERING_ASSUMPTION: one field-node module; canon gives the plant (88 t) but not a node's mass"
+  },
+  "node_mount_t": {
+   "value": 0.04,
+   "prov": "ENGINEERING_ASSUMPTION: conventional mount on the ring frame nearest the station, in the dry tank-skin gap, tied into the longeron; sized for alignment stiffness, not strength (the 5 g x 1.5 load is only ~15 kN)"
+  },
+  "node_hatch_t": {
+   "value": 0.015,
+   "prov": "ENGINEERING_ASSUMPTION: flush external access hatch per node in the service band (replaces skin, so only the frame and seal count)"
+  },
+  "strake_housing_t": {
+   "value": 0.05,
+   "prov": "ENGINEERING_ASSUMPTION: shallow root fairing per stowed strake, x 14-32.3"
+  },
+  "bay_corner_t": {
+   "value": 0.12,
+   "prov": "ENGINEERING_ASSUMPTION: conventional doubler at each corner of the bay slot"
+  },
+  "side_load_g": {
+   "value": 0.5,
+   "prov": "ENGINEERING_ASSUMPTION: the 0.5 g side load already used for the flight-deck columns"
+  },
+  "shear_centre_offset_m": {
+   "value": 0.5,
+   "prov": "ENGINEERING_ASSUMPTION: offset between the mass line and the shear centre of the slotted section"
+  },
+  "cfrp_shear_allow_mpa": {
+   "value": 60.0,
+   "prov": "ENGINEERING_ASSUMPTION: in-plane shear allowable, quasi-isotropic CFRP"
+  }
+ },
+ "layouts": {
+  "5": {
+   "n": 5,
+   "members": [
+    {
+     "name": "starboard plank",
+     "kind": "CFRP plank in the tank-skin gap",
+     "width_m": 1.2,
+     "thick_mm": 84.3,
+     "area_m2": 0.1012,
+     "azimuth_deg": 0.0,
+     "stress_mpa": 146.1,
+     "buckling_margin": 1.5
+    },
+    {
+     "name": "port plank",
+     "kind": "CFRP plank in the tank-skin gap",
+     "width_m": 1.2,
+     "thick_mm": 84.3,
+     "area_m2": 0.1012,
+     "azimuth_deg": 180.0,
+     "stress_mpa": 146.1,
+     "buckling_margin": 1.5
+    },
+    {
+     "name": "keel plank",
+     "kind": "CFRP plank in the tank-skin gap",
+     "width_m": 1.2,
+     "thick_mm": 84.3,
+     "area_m2": 0.1012,
+     "azimuth_deg": 270.0,
+     "stress_mpa": 146.1,
+     "buckling_margin": 1.5
+    },
+    {
+     "name": "slot sill starboard",
+     "kind": "CFRP tube",
+     "D_m": 0.5,
+     "wall_mm": 41.0,
+     "area_m2": 0.0591,
+     "azimuth_deg": 43.4,
+     "stress_mpa": 250.0,
+     "buckling_margin": 29.5
+    },
+    {
+     "name": "slot sill port",
+     "kind": "CFRP tube",
+     "D_m": 0.5,
+     "wall_mm": 41.0,
+     "area_m2": 0.0591,
+     "azimuth_deg": 136.6,
+     "stress_mpa": 250.0,
+     "buckling_margin": 29.5
+    }
+   ],
+   "span_mass_t": 15.07,
+   "first_bending_hz": 5.28,
+   "Iy_m4": 2.704,
+   "Iz_m4": 4.793,
+   "one_out_worst_mpa": 58.8,
+   "tank_volume_m3": 322.6,
+   "tank_needed_m3": 315.0,
+   "strake_root_clearance_m": [
+    -0.028,
+    -0.028
+   ],
+   "node_azimuth_offset_deg": [
+    0.0,
+    0.0,
+    0.0,
+    1.6,
+    1.6
+   ],
+   "node_stations_on_longerons": [
+    14.35,
+    18.45,
+    22.55,
+    26.65,
+    30.75
+   ],
+   "fittings": {
+    "end_fittings": 10,
+    "end_fitting_each_t": 0.175,
+    "node_mounts": 25,
+    "node_mount_place": "ring frame nearest each station, in the dry 18 cm tank-skin gap; the longerons run inside the remass tank, so nothing mounts on them directly",
+    "node_hatches_t": 0.38,
+    "strake_root_housings_t": 0.2,
+    "bay_corners": 4,
+    "conventional_t": 3.81,
+    "osteon_t": {
+     "low_saving": 2.93,
+     "central": 2.64,
+     "high_saving": 2.34
+    }
+   },
+   "torsion": {
+    "torque_mnm": 3.69,
+    "cell_shear_flow_kn_m": 77.3,
+    "cell_wall_shear_mpa": 9.8,
+    "cell_wall_allow_mpa": 60.0,
+    "open_gap_m": 0.8,
+    "portal_bending_mpa": 52.0
+   },
+   "total_conventional_t": 18.88,
+   "total_osteon_t": {
+    "low_saving": 18.0,
+    "central": 17.71,
+    "high_saving": 17.41
+   },
+   "saving_vs_today_t": {
+    "low_saving": 18.9,
+    "central": 19.2,
+    "high_saving": 19.5
+   }
+  },
+  "4": {
+   "n": 4,
+   "members": [
+    {
+     "name": "upper starboard (slot edge)",
+     "kind": "CFRP tube",
+     "D_m": 0.4,
+     "wall_mm": 71.6,
+     "area_m2": 0.0739,
+     "azimuth_deg": 43.4,
+     "stress_mpa": 250.0,
+     "buckling_margin": 20.9
+    },
+    {
+     "name": "upper port (slot edge)",
+     "kind": "CFRP tube",
+     "D_m": 0.4,
+     "wall_mm": 71.6,
+     "area_m2": 0.0739,
+     "azimuth_deg": 136.6,
+     "stress_mpa": 250.0,
+     "buckling_margin": 20.9
+    },
+    {
+     "name": "lower starboard",
+     "kind": "CFRP tube",
+     "D_m": 0.4,
+     "wall_mm": 71.6,
+     "area_m2": 0.0739,
+     "azimuth_deg": 316.6,
+     "stress_mpa": 250.0,
+     "buckling_margin": 20.9
+    },
+    {
+     "name": "lower port",
+     "kind": "CFRP tube",
+     "D_m": 0.4,
+     "wall_mm": 71.6,
+     "area_m2": 0.0739,
+     "azimuth_deg": 223.4,
+     "stress_mpa": 250.0,
+     "buckling_margin": 20.9
+    }
+   ],
+   "span_mass_t": 10.56,
+   "first_bending_hz": 4.54,
+   "Iy_m4": 1.998,
+   "Iz_m4": 2.235,
+   "one_out_worst_mpa": 66.7,
+   "tank_volume_m3": 321.1,
+   "tank_needed_m3": 315.0,
+   "strake_root_clearance_m": [
+    0.022,
+    0.022,
+    0.022,
+    0.022
+   ],
+   "node_azimuth_offset_deg": [
+    1.6,
+    1.6,
+    1.6,
+    1.6
+   ],
+   "node_stations_on_longerons": [
+    14.35,
+    18.45,
+    22.55,
+    26.65,
+    30.75
+   ],
+   "fittings": {
+    "end_fittings": 8,
+    "end_fitting_each_t": 0.212,
+    "node_mounts": 20,
+    "node_mount_place": "ring frame nearest each station, in the dry 18 cm tank-skin gap; the longerons run inside the remass tank, so nothing mounts on them directly",
+    "node_hatches_t": 0.3,
+    "strake_root_housings_t": 0.2,
+    "bay_corners": 4,
+    "conventional_t": 3.47,
+    "osteon_t": {
+     "low_saving": 2.65,
+     "central": 2.38,
+     "high_saving": 2.11
+    }
+   },
+   "torsion": {
+    "torque_mnm": 3.69,
+    "cell_shear_flow_kn_m": 77.3,
+    "cell_wall_shear_mpa": 9.8,
+    "cell_wall_allow_mpa": 60.0,
+    "open_gap_m": 0.8,
+    "portal_bending_mpa": 18.7
+   },
+   "total_conventional_t": 14.03,
+   "total_osteon_t": {
+    "low_saving": 13.21,
+    "central": 12.94,
+    "high_saving": 12.67
+   },
+   "saving_vs_today_t": {
+    "low_saving": 23.7,
+    "central": 23.9,
+    "high_saving": 24.2
+   }
+  }
+ }
+}

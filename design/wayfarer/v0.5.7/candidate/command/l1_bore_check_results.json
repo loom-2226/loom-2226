@@ -1,0 +1,105 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-GOVERNING check, v0.5.5 layout D",
+ "geometry_sha256": "8002b4df904d354b9590f768cd5162008292f0bb13c7085cb10a2d323e2f8e56",
+ "armour_t_m": 0.2,
+ "criterion": ">= 90% clear across 60 deg (L1_OPTIONS_v0.5.5.md)",
+ "rows": [
+  {
+   "splay_deg": 0,
+   "armour_web_m": 0.1,
+   "PILOT": {
+    "60deg_study": 0.999,
+    "60deg_with_bore": 0.893,
+    "90deg_study": 0.649,
+    "90deg_with_bore": 0.418
+   },
+   "NAV": {
+    "60deg_study": 0.999,
+    "60deg_with_bore": 0.893,
+    "90deg_study": 0.652,
+    "90deg_with_bore": 0.419
+   }
+  },
+  {
+   "splay_deg": 10,
+   "armour_web_m": 0.029,
+   "PILOT": {
+    "60deg_study": 0.999,
+    "60deg_with_bore": 0.99,
+    "90deg_study": 0.649,
+    "90deg_with_bore": 0.481
+   },
+   "NAV": {
+    "60deg_study": 0.999,
+    "60deg_with_bore": 0.989,
+    "90deg_study": 0.652,
+    "90deg_with_bore": 0.482
+   }
+  },
+  {
+   "splay_deg": 12,
+   "armour_web_m": 0.015,
+   "PILOT": {
+    "60deg_study": 0.999,
+    "60deg_with_bore": 0.997,
+    "90deg_study": 0.649,
+    "90deg_with_bore": 0.493
+   },
+   "NAV": {
+    "60deg_study": 0.999,
+    "60deg_with_bore": 0.997,
+    "90deg_study": 0.652,
+    "90deg_with_bore": 0.495
+   }
+  },
+  {
+   "splay_deg": 15,
+   "armour_web_m": -0.007,
+   "PILOT": {
+    "60deg_study": 0.999,
+    "60deg_with_bore": 0.999,
+    "90deg_study": 0.649,
+    "90deg_with_bore": 0.511
+   },
+   "NAV": {
+    "60deg_study": 0.999,
+    "60deg_with_bore": 0.999,
+    "90deg_study": 0.652,
+    "90deg_with_bore": 0.514
+   }
+  },
+  {
+   "splay_deg": 20,
+   "armour_web_m": -0.046,
+   "PILOT": {
+    "60deg_study": 0.999,
+    "60deg_with_bore": 0.999,
+    "90deg_study": 0.649,
+    "90deg_with_bore": 0.543
+   },
+   "NAV": {
+    "60deg_study": 0.999,
+    "60deg_with_bore": 0.999,
+    "90deg_study": 0.652,
+    "90deg_with_bore": 0.542
+   }
+  },
+  {
+   "splay_deg": 36,
+   "armour_web_m": -0.191,
+   "PILOT": {
+    "60deg_study": 0.999,
+    "60deg_with_bore": 0.999,
+    "90deg_study": 0.649,
+    "90deg_with_bore": 0.649
+   },
+   "NAV": {
+    "60deg_study": 0.999,
+    "60deg_with_bore": 0.999,
+    "90deg_study": 0.652,
+    "90deg_with_bore": 0.651
+   }
+  }
+ ]
+}
