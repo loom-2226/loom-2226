@@ -1,0 +1,128 @@
+[
+ {
+  "door_m": 2.0,
+  "ladders": true,
+  "valid_poses": 7929,
+  "start_poses": 0,
+  "path": false,
+  "wall_band_m": 0.11
+ },
+ {
+  "door_m": 2.4,
+  "ladders": true,
+  "valid_poses": 8648,
+  "start_poses": 0,
+  "path": false,
+  "wall_band_m": 0.11
+ },
+ {
+  "door_m": 2.8,
+  "ladders": true,
+  "valid_poses": 9076,
+  "start_poses": 0,
+  "path": false,
+  "wall_band_m": 0.11
+ },
+ {
+  "door_m": 2.0,
+  "ladders": false,
+  "valid_poses": 10810,
+  "start_poses": 109,
+  "path": true,
+  "goal_pose": {
+   "r": 2.7,
+   "phi": 202.0,
+   "psi": 80.0
+  },
+  "wall_band_m": 0.11
+ },
+ {
+  "door_m": 2.4,
+  "ladders": false,
+  "valid_poses": 12860,
+  "start_poses": 203,
+  "path": true,
+  "goal_pose": {
+   "r": 2.7,
+   "phi": 208.0,
+   "psi": 80.0
+  },
+  "wall_band_m": 0.11
+ },
+ {
+  "door_m": 2.8,
+  "ladders": false,
+  "valid_poses": 14619,
+  "start_poses": 345,
+  "path": true,
+  "goal_pose": {
+   "r": 2.7,
+   "phi": 216.0,
+   "psi": 80.0
+  },
+  "wall_band_m": 0.11
+ },
+ {
+  "door_m": 2.0,
+  "ladders": true,
+  "valid_poses": 9120,
+  "start_poses": 92,
+  "path": false,
+  "wall_band_m": 0.01
+ },
+ {
+  "door_m": 2.4,
+  "ladders": true,
+  "valid_poses": 9239,
+  "start_poses": 92,
+  "path": false,
+  "wall_band_m": 0.01
+ },
+ {
+  "door_m": 2.8,
+  "ladders": true,
+  "valid_poses": 9292,
+  "start_poses": 92,
+  "path": false,
+  "wall_band_m": 0.01
+ },
+ {
+  "door_m": 2.0,
+  "ladders": false,
+  "valid_poses": 15235,
+  "start_poses": 765,
+  "path": true,
+  "goal_pose": {
+   "r": 2.7,
+   "phi": 204.0,
+   "psi": 80.0
+  },
+  "wall_band_m": 0.01
+ },
+ {
+  "door_m": 2.4,
+  "ladders": false,
+  "valid_poses": 15784,
+  "start_poses": 791,
+  "path": true,
+  "goal_pose": {
+   "r": 2.7,
+   "phi": 216.0,
+   "psi": 80.0
+  },
+  "wall_band_m": 0.01
+ },
+ {
+  "door_m": 2.8,
+  "ladders": false,
+  "valid_poses": 16108,
+  "start_poses": 810,
+  "path": true,
+  "goal_pose": {
+   "r": 2.7,
+   "phi": 216.0,
+   "psi": 80.0
+  },
+  "wall_band_m": 0.01
+ }
+]
