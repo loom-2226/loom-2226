@@ -1,0 +1,920 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:loom:solar-basemap:0.1",
+  "title": "Derived cartographic Solar basemap prototype; not physical authority",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/manifest"
+    },
+    {
+      "$ref": "#/$defs/root"
+    },
+    {
+      "$ref": "#/$defs/chunk"
+    },
+    {
+      "$ref": "#/$defs/provenance"
+    }
+  ],
+  "$defs": {
+    "vec3": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Namespaced optional nonauthoritative extensions."
+    },
+    "resource": {
+      "type": "object",
+      "properties": {
+        "uri": {
+          "type": "string",
+          "pattern": "^(objects|provenance)/[a-f0-9]{64}\\.json$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "gzip_bytes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "uri",
+        "sha256",
+        "bytes",
+        "gzip_bytes"
+      ],
+      "additionalProperties": false
+    },
+    "bound": {
+      "type": "object",
+      "properties": {
+        "center_km": {
+          "$ref": "#/$defs/vec3"
+        },
+        "radius_km": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "center_km",
+        "radius_km"
+      ],
+      "additionalProperties": false
+    },
+    "authority": {
+      "type": "object",
+      "properties": {
+        "ledger_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "canonical_ledger_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "manifest_sha256": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "sample_source_dictionary": {
+          "$ref": "#/$defs/resource"
+        }
+      },
+      "required": [
+        "ledger_sha256",
+        "canonical_ledger_sha256",
+        "manifest_sha256",
+        "sample_source_dictionary"
+      ],
+      "additionalProperties": false
+    },
+    "inputs": {
+      "type": "object",
+      "properties": {
+        "resolver_git_sha": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "resolver_module_hashes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "compiler_git_sha": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "compiler_module_hashes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "toolchain": {
+          "type": "object",
+          "required": [
+            "python",
+            "spiceypy",
+            "cspice",
+            "platform"
+          ],
+          "properties": {
+            "python": {
+              "type": "string",
+              "minLength": 1
+            },
+            "spiceypy": {
+              "type": "string",
+              "minLength": 1
+            },
+            "cspice": {
+              "type": "string",
+              "minLength": 1
+            },
+            "platform": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false
+        },
+        "epoch_binary64_hex": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{16}$"
+        },
+        "kernel_assets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "bytes": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "source_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "sha256",
+              "bytes",
+              "source_id"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "resolver_git_sha",
+        "resolver_module_hashes",
+        "compiler_git_sha",
+        "compiler_module_hashes",
+        "toolchain",
+        "epoch_binary64_hex",
+        "kernel_assets"
+      ],
+      "additionalProperties": false
+    },
+    "generation": {
+      "type": "object",
+      "properties": {
+        "spec_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "anchor_policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "horizon_policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sampling_policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "simplification_policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "serialization_policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "client_policy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "spec": {
+          "$ref": "#/$defs/resource"
+        }
+      },
+      "required": [
+        "spec_version",
+        "anchor_policy",
+        "horizon_policy",
+        "sampling_policy",
+        "simplification_policy",
+        "serialization_policy",
+        "client_policy",
+        "spec"
+      ],
+      "additionalProperties": false
+    },
+    "manifest": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "loom.solar-basemap.manifest/0.1"
+        },
+        "build_id": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "build_spec_id": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "epoch_et": {
+          "type": "number"
+        },
+        "epoch_tdb": {
+          "type": "string",
+          "minLength": 1
+        },
+        "frame": {
+          "const": "ECLIPJ2000"
+        },
+        "center": {
+          "const": "SUN"
+        },
+        "units": {
+          "const": "km"
+        },
+        "aberration": {
+          "const": "NONE"
+        },
+        "authority": {
+          "$ref": "#/$defs/authority"
+        },
+        "inputs": {
+          "$ref": "#/$defs/inputs"
+        },
+        "generation": {
+          "$ref": "#/$defs/generation"
+        },
+        "root": {
+          "$ref": "#/$defs/resource"
+        },
+        "provenance": {
+          "$ref": "#/$defs/resource"
+        },
+        "counts": {
+          "type": "object",
+          "properties": {
+            "catalog": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "resolved": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "unresolved": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "requested_curves": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "available_curves": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "catalog",
+            "resolved",
+            "unresolved",
+            "requested_curves",
+            "available_curves"
+          ],
+          "additionalProperties": false
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      },
+      "required": [
+        "schema",
+        "build_id",
+        "build_spec_id",
+        "epoch_et",
+        "epoch_tdb",
+        "frame",
+        "center",
+        "units",
+        "aberration",
+        "authority",
+        "inputs",
+        "generation",
+        "root",
+        "provenance",
+        "counts",
+        "extensions"
+      ],
+      "additionalProperties": false
+    },
+    "feature": {
+      "type": "object",
+      "properties": {
+        "body_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "body_class": {
+          "type": "string",
+          "minLength": 1
+        },
+        "catalog_parent_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resolution": {
+          "enum": [
+            "RESOLVED",
+            "UNRESOLVED"
+          ]
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "position_semantic": {
+          "const": "PHYSICAL_EPOCH_POSITION"
+        },
+        "position_km": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/vec3"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "geometry_status": {
+          "enum": [
+            "AVAILABLE",
+            "NOT_REQUESTED",
+            "UNRESOLVED",
+            "PARTIAL",
+            "SAMPLING_LIMIT"
+          ]
+        },
+        "node_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "body_id",
+        "name",
+        "body_class",
+        "catalog_parent_id",
+        "resolution",
+        "reason",
+        "position_semantic",
+        "position_km",
+        "source_ref",
+        "geometry_status",
+        "node_id"
+      ],
+      "additionalProperties": false
+    },
+    "level": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "resource": {
+          "$ref": "#/$defs/resource"
+        },
+        "measured_error_km": {
+          "type": "number",
+          "minimum": 0
+        },
+        "vertices": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "segments": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "level",
+        "resource",
+        "measured_error_km",
+        "vertices",
+        "segments"
+      ],
+      "additionalProperties": false
+    },
+    "node": {
+      "type": "object",
+      "properties": {
+        "node_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "parent_node_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "anchor_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "anchor_position_km": {
+          "$ref": "#/$defs/vec3"
+        },
+        "content_bound": {
+          "$ref": "#/$defs/bound"
+        },
+        "subtree_bound": {
+          "$ref": "#/$defs/bound"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "levels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/level"
+          }
+        }
+      },
+      "required": [
+        "node_id",
+        "parent_node_id",
+        "anchor_id",
+        "anchor_position_km",
+        "content_bound",
+        "subtree_bound",
+        "members",
+        "children",
+        "levels"
+      ],
+      "additionalProperties": false
+    },
+    "sample": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 4,
+      "maxItems": 4,
+      "description": "ET,x,y,z (SPICE ET and ECLIPJ2000 anchor-local km)."
+    },
+    "segment": {
+      "type": "object",
+      "properties": {
+        "body_source_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "anchor_source_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authority_class": {
+          "enum": [
+            "DIRECT",
+            "PROPAGATED"
+          ]
+        },
+        "sample_indices": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "points": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sample"
+          }
+        }
+      },
+      "required": [
+        "body_source_ref",
+        "anchor_source_ref",
+        "authority_class",
+        "sample_indices",
+        "points"
+      ],
+      "additionalProperties": false
+    },
+    "gap": {
+      "type": "object",
+      "properties": {
+        "start_et": {
+          "type": "number"
+        },
+        "end_et": {
+          "type": "number"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "start_et",
+        "end_et",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "error": {
+      "type": "object",
+      "properties": {
+        "sampling_probe_error_km": {
+          "type": "number",
+          "minimum": 0
+        },
+        "simplification_error_km": {
+          "type": "number",
+          "minimum": 0
+        },
+        "sampling_status": {
+          "enum": [
+            "VALIDATED_PROBES",
+            "SAMPLING_LIMIT",
+            "UNAVAILABLE"
+          ]
+        },
+        "gpu_budget_css_px": {
+          "const": 0.25
+        }
+      },
+      "required": [
+        "sampling_probe_error_km",
+        "simplification_error_km",
+        "sampling_status",
+        "gpu_budget_css_px"
+      ],
+      "additionalProperties": false
+    },
+    "curve": {
+      "type": "object",
+      "properties": {
+        "feature_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "semantic": {
+          "enum": [
+            "PHYSICAL_TRAJECTORY",
+            "HELIOCENTRIC_REFERENCE_ORBIT",
+            "PARENT_RELATIVE_REFERENCE_ORBIT",
+            "DERIVED_CARTOGRAPHIC_CONTEXT"
+          ]
+        },
+        "anchor_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "horizon_reference_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "frame": {
+          "const": "ECLIPJ2000"
+        },
+        "start_et": {
+          "type": "number"
+        },
+        "end_et": {
+          "type": "number"
+        },
+        "horizon_status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "closed": {
+          "const": false
+        },
+        "geometry_status": {
+          "enum": [
+            "AVAILABLE",
+            "NOT_REQUESTED",
+            "UNRESOLVED",
+            "PARTIAL",
+            "SAMPLING_LIMIT"
+          ]
+        },
+        "segments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/segment"
+          }
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/gap"
+          }
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "audit": {
+          "$ref": "#/$defs/resource"
+        },
+        "error": {
+          "$ref": "#/$defs/error"
+        }
+      },
+      "required": [
+        "feature_id",
+        "semantic",
+        "anchor_id",
+        "horizon_reference_id",
+        "frame",
+        "start_et",
+        "end_et",
+        "horizon_status",
+        "closed",
+        "geometry_status",
+        "segments",
+        "gaps",
+        "source_refs",
+        "audit",
+        "error"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "semantic": {
+                "const": "PHYSICAL_TRAJECTORY"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "anchor_id": {
+                "const": "SUN"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "root": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "loom.solar-basemap.root/0.1"
+        },
+        "build_spec_id": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "epoch_et": {
+          "type": "number"
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/feature"
+          }
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/node"
+          }
+        },
+        "curves": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/curve"
+          }
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      },
+      "required": [
+        "schema",
+        "build_spec_id",
+        "epoch_et",
+        "features",
+        "nodes",
+        "curves",
+        "extensions"
+      ],
+      "additionalProperties": false
+    },
+    "chunk": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "loom.solar-basemap.chunk/0.1"
+        },
+        "build_spec_id": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "node_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "level": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "curves": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/curve"
+          }
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      },
+      "required": [
+        "schema",
+        "build_spec_id",
+        "node_id",
+        "level",
+        "curves",
+        "extensions"
+      ],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "source_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "body_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "asset_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "capability": {
+          "type": "string",
+          "minLength": 1
+        },
+        "navigation_grade": {
+          "type": "boolean"
+        },
+        "uncertainty_km": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "coverage_start_et": {
+          "type": "number"
+        },
+        "coverage_end_et": {
+          "type": "number"
+        },
+        "lineage": {
+          "type": [
+            "object",
+            "array",
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "source_ref",
+        "body_id",
+        "source_id",
+        "asset_sha256",
+        "capability",
+        "navigation_grade",
+        "uncertainty_km",
+        "coverage_start_et",
+        "coverage_end_et",
+        "lineage"
+      ],
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "loom.solar-basemap.provenance/0.1"
+        },
+        "build_spec_id": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          }
+        },
+        "sample_resources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/resource"
+          }
+        },
+        "extensions": {
+          "$ref": "#/$defs/extensions"
+        }
+      },
+      "required": [
+        "schema",
+        "build_spec_id",
+        "sources",
+        "sample_resources",
+        "extensions"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

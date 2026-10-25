@@ -1,0 +1,62 @@
+{
+  "spec_version": "loom.solar-basemap.prototype/0.1",
+  "status": "IMPLEMENTATION_SPEC_NOT_GENERATED_PRODUCT",
+  "epoch_tdb": "2226-01-01T00:00:00 TDB",
+  "epoch_et": 7131844800.0,
+  "frame": "ECLIPJ2000",
+  "center": "SUN",
+  "units": "km",
+  "aberration": "NONE",
+  "catalog_policy": "ALL_GOVERNED_IDENTITIES_INCLUDING_UNRESOLVED",
+  "requested_reference_curves": {
+    "MERCURY": "SUN", "VENUS": "SUN", "EARTH": "SUN", "MARS": "SUN",
+    "JUPITER": "SUN", "SATURN": "SUN", "URANUS": "SUN", "NEPTUNE": "SUN",
+    "MOON": "EARTH", "PHOBOS": "MARS", "DEIMOS": "MARS", "CHARON": "PLUTO"
+  },
+  "anchor_policy": "EXPLICIT_CARTOGRAPHIC_PRIMARY_V1_CATALOG_PARENT_UNCHANGED",
+  "horizon_policy": "PINNED_INSPECTOR_AUTOMATIC_PLAN",
+  "max_orbit_years": 100,
+  "sampling_policy": {
+    "id": "EXACT_RESOLVER_ADAPTIVE_PROBES_V1",
+    "seed_count": 65,
+    "probe_fractions": [0.25, 0.5, 0.75],
+    "tolerance_radius_fraction": 0.000001,
+    "tolerance_min_km": 0.01,
+    "max_step_span_fraction": 0.00390625,
+    "max_vertices": 16385,
+    "max_depth": 20,
+    "validation_offset_grid_count": 8192,
+    "validation_reinsert_passes": 1,
+    "source_boundaries": "BODY_AND_ANCHOR_UNION_EXISTING_NATIVE_ET_PROBES",
+    "error_claim": "MEASURED_PROBES_NOT_CONTINUOUS_PHYSICAL_CERTIFICATION"
+  },
+  "simplification_policy": {
+    "id": "NESTED_SEGMENTED_RDP_V1",
+    "coarse_radius_divisor": 128,
+    "next_level_divisor_factor": 4,
+    "mandatory": ["EPOCH_T", "SEGMENT_ENDPOINTS", "SOURCE_SEAMS", "COVERAGE_BOUNDARIES"],
+    "ties": "EARLIEST_ET",
+    "closed": false
+  },
+  "serialization_policy": "PYTHON_PINNED_SORTED_UTF8_FINITE_ROUNDTRIP_JSON_GZIP_MTIME0_V1",
+  "client_policy": {
+    "id": "SEMANTIC_BOUNDS_SSE_V1",
+    "projection": "PERSPECTIVE_CONTINUOUS_SUN_SCENE",
+    "prefetch_sse_css_px": 0.5,
+    "refine_sse_css_px": 0.75,
+    "coarsen_sse_css_px": 0.35,
+    "gpu_error_css_px": 0.25,
+    "coarsen_dwell_ms": 250,
+    "local_prefetch_diameter_css_px": 12,
+    "local_fade_start_diameter_css_px": 16,
+    "local_fade_end_diameter_css_px": 24,
+    "satellite_separation_glyph_diameters": 2,
+    "context_fade_start_viewport_diagonals": 8,
+    "context_fade_end_viewport_diagonals": 16,
+    "late_replacement_fade_ms": 150,
+    "max_concurrent_fetches": 2,
+    "render_dpr_cap": 2,
+    "cache_policy": "ROOT_PLUS_MEASURED_TWO_SYSTEM_FRONTIER_AND_ONE_PREFETCH_FRONTIER",
+    "draw_policy": "ON_DEMAND"
+  }
+}
