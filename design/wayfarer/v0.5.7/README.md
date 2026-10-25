@@ -1,11 +1,9 @@
-# Wayfarer v0.5.7 rev 3 candidate
+# Wayfarer v0.5.7 rev 4 candidate
 
 NON-GOVERNING SANDBOX. NOT CANON. NOT RUNTIME. NOT CERTIFIED.
 
-Complete extracted source ZIP `wayfarer_v0_5_7_candidate_2026-10-25.zip`, SHA-256 `9169d9ef2cfd607c63383fd55c38f808963c07dadc166a683e21030edb986531`. Geometry SHA-256 `262b21a303242286dc9f0f2cd727dab84749ac2a5a5cec257d7b35c0d5efdda0` verified. Read `candidate/CHANGES_v0.5.7.md` first.
+Complete extracted source ZIP `wayfarer_v0_5_7_rev4_candidate_2026-10-26.zip`, SHA-256 `6551b00f39939e8f0f205bfeb9a02408394a8e02028fd0a94c7779b59b629dc2`. Geometry SHA-256 `646ac1bad6852d1c7b25e92e3dd79e46e2d6b719d2edd20270af86203d6ab359` verified before regeneration. Read `candidate/CHANGES_v0.5.7.md` first.
 
-Compared to v0.5.6 in PR #430: crown dome, panoramic L2 band, more habitat viewports, four longerons, revised service shielding. Source bundle includes compare/v0.5.6 subset and viewer toggle.
+Rev 4 incorporates the non-governing rev 3.1 viewport band study into the candidate build: full Ti 14 x 4 cm edge rings, lounge mid-transom, bolted mullion roots, 16 mm general and 18 mm lounge ceramic panes, and 5.87 t band mass. 2226 ceramic remains a declared technological assumption. Closed-form checks are not a complete shell FE model, fatigue qualification or dose transport study.
 
-Independent review note: L2 viewport-band script reports 19.36 m2 glazing, 23 mullions, 48.4 MPa axial stress vs 600 MPa assumed allowable, buckling margin 4.4, and 12.4 mm calculated panes vs 16 mm assumed. This is a simplified axial load distribution and membrane model, not proof of full ring/pressure-vessel load redistribution or glazing edge loads. Shelter plug is specified as 17 cm added acrylic through water jacket, but dose equivalence and detailed integration are not established by a separate physical transport calculation. The shielding model reports berth minimum 40.75 g/cm2. G10 Navigator missions remain OPEN; certified=false. No reviewer qualification sign-off.
-
-PR #430 remains unchanged. Do not move proposed amendment to canon/current/. Let loom-gate run without bypass.
+G10 Navigator mission suite remains OPEN; certified=false. No canon promotion, no runtime integration, no amendment to canon/current/. PR #430 remains unchanged. Let loom-gate run without bypass.

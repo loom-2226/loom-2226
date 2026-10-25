@@ -687,11 +687,12 @@ def build(I, dy=0.0, dz=0.0):
             SS["longerons"] / len(lo["items"]), lo["prov"], "longeron", tags=("longeron",))
     VB = I["habitat"].get("crew_systems", {}).get("viewport_band")
     if VB:   # v0.5.7 rev 3: panoramic viewport band round L2 (panes, Osteon mullions, tambour shutter), paid from the reserve
+        tot_m2 = sum((sg["x_m"][1] - sg["x_m"][0]) * Rp * math.radians(sg["theta_deg"][1] - sg["theta_deg"][0]) for sg in VB["segments"])
         for k, sg in enumerate(VB["segments"]):
             a_m2 = (sg["x_m"][1] - sg["x_m"][0]) * Rp * math.radians(sg["theta_deg"][1] - sg["theta_deg"][0])
             add(f"viewport_band_{k}", f"L2 viewport band, segment {k} ({sg['theta_deg'][0]}-{sg['theta_deg'][1]} deg)", "habitat",
                 Sector(sg["x_m"][0], sg["x_m"][1], Rp - 0.05, Rp, sg["theta_deg"][0], sg["theta_deg"][1]),
-                a_m2 * sum(VB["kg_per_m2"].values()) / 1000, VB["prov"], "frame", tags=("from_reserve", "no_render"))
+                (VB["mass_t"] * a_m2 / tot_m2) if "mass_t" in VB else a_m2 * sum(VB["kg_per_m2"].values()) / 1000, VB["prov"], "frame", tags=("from_reserve", "no_render"))
     SB = I["habitat"]["berth_shield"].get("service_band")
     if SB:   # v0.5.7: polyethylene band in the service section, restores the berths' aft-outboard screen once the planks are gone
         add("service_shield_band", "Service-section shield band (polyethylene)", "habitat", Sector(SB["x_m"][0], SB["x_m"][1], SB["r_m"][0], SB["r_m"][1]),

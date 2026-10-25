@@ -290,12 +290,21 @@ def viewport_band(I, C, G):
     others = sum(math.pi * (f["d_m"] / 2) ** 2 for f in G["features"] if f["kind"] == "window")
     crown = I["habitat"]["decks"][0].get("command_layout", {}).get("crown_dome", {}).get("glazed_area_m2", 0.0)
     glazing = area + others + crown
-    return {"glazed_area_m2": area, "mass_ahead_t": round(ahead, 1), "mullions": n, "mullion_section_m": [t, w],
+    res = {"glazed_area_m2": area, "mass_ahead_t": round(ahead, 1), "mullions": n, "mullion_section_m": [t, w],
             "axial_load_thrust_mn": round(F_thrust / 1e6, 2), "axial_load_pressure_mn": round(F_press / 1e6, 2),
             "mullion_stress_mpa": round(sig / 1e6, 1), "allow_mpa": allow / 1e6, "mullion_buckling_margin": round(buck, 1), "tallest_mullion_m": Lm,
-            "pane_mm_each": round(pane_mm, 1), "pane_mm_assumed": 16,
+            "pane_hoop_membrane_mm_withdrawn": round(pane_mm, 1),
             "glazing_total_m2": round(glazing, 1), "heat_loss_kw_all_open": round(glazing * 42 / 1000, 2),
-            "ok": sig <= allow and buck >= C["G5"]["buckling_factor"] and pane_mm <= 16}
+            "ok": sig <= allow and buck >= C["G5"]["buckling_factor"]}
+    if "edge_rings" in VB:   # rev 4: the full load path (habitat/viewport_band_study.py): rings, panes as plates, shell at the rings, mullion roots
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("viewport_band_study", ROOT / "habitat/viewport_band_study.py")
+        m = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(m)
+        lp = m.run(vb={k: v for k, v in res.items()})
+        res["load_path"] = {k: lp[k] for k in ("1_hoop_to_edge_rings", "2_panes_check", "3_rings", "4_shell_at_ring", "5_mullion_root_joint", "mass")}
+        res["ok"] = res["ok"] and lp["verdict"]
+    return res
 
 
 def run():

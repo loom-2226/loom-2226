@@ -783,6 +783,7 @@ export class Ship {
         this.bandHoles.push([x0, x1, a0, a1]);
         latheArc(pane, [[x0, 4.30, 0, 1], [x1, 4.30, 0, 1]], a0, a1);
         for (const xe of [x0, x1]) latheArc(lip, [[xe - 0.05, 4.27, 0, 1], [xe - 0.05, 4.53, -1, 0], [xe + 0.05, 4.53, 1, 0], [xe + 0.05, 4.27, 0, 1]], a0, a1);
+        if (x1 - x0 > 1.0) { const xm = (x0 + x1) / 2; latheArc(fr, [[xm - 0.04, 4.28, 0, 1], [xm - 0.04, 4.46, -1, 0], [xm + 0.04, 4.46, 1, 0], [xm + 0.04, 4.28, 0, 1]], a0, a1); }   // rev 4: lounge transom
         for (let a = a0; a <= a1 + 1e-6; a += b.mullion_deg) {
           const t = a * D2R, c = Math.cos(t), s_ = Math.sin(t), R = [0, c, s_], Tn = [0, -s_, c];
           const end = a === a0 || a1 - a < 1e-6;

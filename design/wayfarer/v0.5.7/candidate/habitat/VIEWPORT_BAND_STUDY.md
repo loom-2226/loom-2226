@@ -2,7 +2,7 @@
 
 ALL bodies. ALL sponsors. 2026-2226.
 
-**NON-GOVERNING STUDY, 2026-10-26.** Baseline: v0.5.7 rev 3 (geometry `262b21a3...`). **The build is unchanged.** Source: `habitat/viewport_band_study.py` (results in `viewport_band_study_results.json`, figure `viewport_band_study.png`). Method: closed-form.
+**NON-GOVERNING STUDY, 2026-10-26.** Baseline: v0.5.7 rev 3 (geometry `262b21a3...`). The build was unchanged at rev 3.1. **Rev 4 builds in the corrections, and these checks now run inside G5.** Source: `habitat/viewport_band_study.py` (results in `viewport_band_study_results.json`, figure `viewport_band_study.png`). Method: closed-form.
 
 **Sol's qualification:** the rev 3 check spread the axial load over 23 mullions but did not show the path through the interrupted pressure shell, the end rings and the window joints.
 

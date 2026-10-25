@@ -1,5 +1,5 @@
 """L2 viewport band: the full load path -- ALL bodies. ALL sponsors. 2026-2226.
-NON-GOVERNING STUDY on the v0.5.7 rev 3 candidate (geometry 262b21a3...). It changes nothing in the build.
+NON-GOVERNING. Written as a study on rev 3 (geometry 262b21a3...); from rev 4 its checks run inside crew_systems / G5.
 Answers Sol's qualification on PR #432: the rev 3 check spread the axial load over 23 mullions but did not show
 the path through the interrupted pressure shell, the end rings and the window joints.
 
@@ -18,7 +18,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 I = json.loads((ROOT / "inputs/wayfarer_v05_inputs.json").read_text())
-CR = json.loads((ROOT / "habitat/crew_systems_results.json").read_text())
+CR = None   # crew_systems viewport_band results: passed to run(), or read from habitat/crew_systems_results.json
 VB = I["habitat"]["crew_systems"]["viewport_band"]
 R = I["hull"]["pressure_r_m"]
 t_sh = 0.03                     # pressure hull wall (build: DomeCyl t 0.03)
@@ -48,7 +48,9 @@ def plate_beta(ab):
     return 0.75
 
 
-def run():
+def run(vb=None):
+    global CR
+    CR = {"viewport_band": vb} if vb else json.loads((ROOT / "habitat/crew_systems_results.json").read_text())
     segs = VB["segments"]
     sp = R * math.radians(VB["mullion_spacing_deg"])          # mullion spacing, m
     n_mull = CR["viewport_band"]["mullions"]
@@ -72,7 +74,7 @@ def run():
     # 3. axial flow into the mullions; ring as a continuous beam between mullions
     q = max(p_u * R / 2, CR["viewport_band"]["axial_load_thrust_mn"] * 1e6 / (2 * math.pi * R))   # N/m of circumference
     M = q * sp ** 2 / 12
-    dx, w = 0.14, 0.04                                           # ring: 14 cm along the ship x 4 cm radial (bending about the radial axis)
+    dx, w = [v / 100 for v in VB["edge_rings"]["section_cm"]] if "edge_rings" in VB else (0.14, 0.04)   # ring: 14 cm along the ship x 4 cm radial (bending about the radial axis)
     Z = w * dx ** 2 / 6
     A_r = dx * w
     sig_b = M / Z / 1e6
@@ -98,7 +100,7 @@ def run():
     out["5_mullion_root_joint"] = {"load_kn": round(Pm / 1e3, 1), "four_M16_double_shear_kn": round(cap / 1e3, 1), "margin": round(cap / Pm, 2), "ok": cap / Pm >= 1.5}
     # mass vs the rev 3 allowance
     area = VB["glazed_area_m2"]
-    frame_allow = area * VB["kg_per_m2"]["frame_and_mullions"] / 1e3
+    frame_allow = (VB["edge_rings"]["t"] + VB["lounge_transom"]["t"] + VB["mullion_t"]) if "edge_rings" in VB else area * VB["kg_per_m2"]["frame_and_mullions"] / 1e3
     mull_t = n_mull * 0.05 * 0.20 * (sum((s["x_m"][1] - s["x_m"][0]) * (s["theta_deg"][1] - s["theta_deg"][0]) for s in segs) / 330) * a("ti_density")
     transom_t = 0.04 * 0.08 * R * math.radians(60) * a("ti_density")
     lounge_area = sum((s["x_m"][1] - s["x_m"][0]) * R * math.radians(s["theta_deg"][1] - s["theta_deg"][0]) for s in segs if s["x_m"][1] - s["x_m"][0] > 1.0)
@@ -107,7 +109,16 @@ def run():
     out["mass"] = {"rings_t": round(ring_t, 2), "mullions_t": round(mull_t, 2), "lounge_transom_t": round(transom_t, 3), "frame_needed_t": round(need, 2),
                    "frame_allowed_rev3_t": round(frame_allow, 2), "lounge_pane_extra_t": round(pane_extra, 3),
                    "band_increase_t": round(max(0.0, need - frame_allow) + pane_extra, 2)}
-    out["verdict"] = all(out[k]["ok"] for k in ("3_rings", "4_shell_at_ring", "5_mullion_root_joint"))
+    spec = VB.get("pane_mm")
+    if spec:   # rev 4: the specified panes against the plate sizing (2226 ceramic; lounge with its transom if one is fitted)
+        cer = "ceramic 2226 (crown milestone)"
+        need_l = panes["lounge with a mid transom (0.8 x 1.13 m)" if VB.get("lounge_transom") else "lounge, no transom (1.13 x 1.6 m)"][cer]
+        need_g = panes["general band (0.6 x 1.13 m)"][cer]
+        out["2_panes_check"] = {"general_need_mm": need_g, "general_spec_mm": spec["general"], "lounge_need_mm": need_l, "lounge_spec_mm": spec["lounge"],
+                                "ok": need_g <= spec["general"] and need_l <= spec["lounge"]}
+    if "edge_rings" in VB:   # rev 4: the specified ring section and masses
+        out["mass"]["specified_band_t"] = VB.get("mass_t")
+    out["verdict"] = all(out[k]["ok"] for k in ("3_rings", "4_shell_at_ring", "5_mullion_root_joint") + (("2_panes_check",) if spec else ()))
     return out
 
 

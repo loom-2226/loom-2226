@@ -4,7 +4,7 @@ ALL bodies. ALL sponsors. 2026-2226.
 
 **NON-GOVERNING SANDBOX.** v0.5.1 (Sol's review fixes) plus kT's torch heat package of 2026-10-25: remass-shell torch, cleaner fuel, burn moved aft, four 1,750 K hot fins. No canon promotion, no runtime integration. v0.5 in PR #430 stays as archived.
 
-v0.5.7 (rev 3) makes the crown dome the main design, replacing the 8 nose windows, and maximises viewports for livability: a panoramic band round the L2 common deck and 22 round viewports, all shielded by acrylic plugs and closed by flush Strata shutters. It also adds four sized longerons (matching canon) with their joints, shielded viewports (10 berths plus 6 in the habitat, with acrylic plugs) and a service shield band. The spine and visor sketches stay concepts. The accepted v0.5.6 files are in `compare/v0.5.6/`, and the viewer toggles between the two versions.
+v0.5.7 (rev 4) makes the crown dome the main design, replacing the 8 nose windows, and maximises viewports for livability: a panoramic band round the L2 common deck and 22 round viewports, all shielded by acrylic plugs and closed by flush Strata shutters. Rev 4 closes the band's load path with titanium edge rings, a lounge transom and plate-sized panes (`habitat/VIEWPORT_BAND_STUDY.md`). It also adds four sized longerons (matching canon) with their joints, shielded viewports (10 berths plus 6 in the habitat, with acrylic plugs) and a service shield band. The spine and visor sketches stay concepts. The accepted v0.5.6 files are in `compare/v0.5.6/`, and the viewer toggles between the two versions.
 
 Read in this order:
 1. `CHANGES_v0.5.7.md`: what v0.5.7 changes, the v0.5.6 comparison table, and what Sol is asked to review.

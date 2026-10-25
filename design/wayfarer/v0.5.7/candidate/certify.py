@@ -519,10 +519,20 @@ def g5(I, C, G):
                   f"CFRP faces {bk['face_mm']} mm; core shear {bk['core_shear_mpa']} MPa (allowable {bk['core_shear_allow_mpa']}); {bk['hatches']} ladderway hatches and a trunk plug"))
     vb = CR.get("viewport_band")
     if vb:
-        cs.append(chk("L2 viewport band: Osteon mullions carry the axial load across the band", vb["mullion_stress_mpa"], vb["allow_mpa"], vb["ok"], "MPa",
+        cs.append(chk("L2 viewport band: Osteon mullions carry the axial load across the band", vb["mullion_stress_mpa"], vb["allow_mpa"],
+                      vb["mullion_stress_mpa"] <= vb["allow_mpa"] and vb["mullion_buckling_margin"] >= C["G5"]["buckling_factor"], "MPa",
                       f"{vb['mullions']} titanium mullions {vb['mullion_section_m'][0] * 100:.0f} x {vb['mullion_section_m'][1] * 100:.0f} cm; worst of 5 g x 1.5 on {vb['mass_ahead_t']} t ahead "
-                      f"({vb['axial_load_thrust_mn']} MN) and 2 x the pressure end load ({vb['axial_load_pressure_mn']} MN); buckling margin {vb['mullion_buckling_margin']}; "
-                      f"curved panes need {vb['pane_mm_each']} mm each as hoop membranes (16 mm assumed)"))
+                      f"({vb['axial_load_thrust_mn']} MN) and 2 x the pressure end load ({vb['axial_load_pressure_mn']} MN); buckling margin {vb['mullion_buckling_margin']}"))
+        lp = vb.get("load_path")
+        if lp:   # rev 4: habitat/viewport_band_study.py
+            r3, s4, j5, p2 = lp["3_rings"], lp["4_shell_at_ring"], lp["5_mullion_root_joint"], lp["2_panes_check"]
+            cs.append(chk("L2 band edge rings: hoop across the band + beam between mullions", r3["with_lounge_hoop_mpa"], r3["allow_mpa"], r3["ok"], "MPa",
+                          f"Ti {r3['ring_section_cm'][0]:.0f} x {r3['ring_section_cm'][1]:.0f} cm sill and head rings, full circle; {r3['ring_moment_knm']} kN m between mullions"))
+            cs.append(chk("L2 band: pressure shell next to the rings (discontinuity bending + axial)", s4["axial_plus_bending_mpa"], s4["allow_mpa"], s4["ok"], "MPa",
+                          f"rigid-ring bound; dies out within {s4['decay_length_m']} m"))
+            cs.append(chk("L2 band: mullion root joints", j5["margin"], 1.5, j5["ok"], "x", f"{j5['load_kn']} kN each; 4 x M16 Ti bolts in double shear"))
+            cs.append(chk("L2 band panes as plates (2226 ceramic), lounge with its transom", p2["lounge_need_mm"], p2["lounge_spec_mm"], p2["ok"], "mm needed vs specified",
+                          f"general band {p2['general_need_mm']} mm needed, {p2['general_spec_mm']} specified; the glass is not trusted to pass hoop tension through its edges"))
     notes.append("Crew stations and floors (v0.5.6): closed-form strip and column checks in habitat/crew_systems.py; floors are 0.3 m sandwich panels spanning trunk to hull.")
     notes.append(f"Worst state {worst_state}: {fwd:.0f} t ahead of the thrust cone, {F / 1e6:.1f} MN at {M5['design_g'] * M5['ultimate_factor']:.1f} g ultimate, shared by {n} longerons.")
     notes.append("Bay doors are not counted as structure. Materials: 2026 high-modulus CFRP as a conservative floor (400 MPa, 150 GPa, 1.6 t/m3).")
@@ -654,7 +664,7 @@ def g6(I, C, G):
     CD = I["habitat"]["decks"][0].get("command_layout", {}).get("crown_dome", {})
     if CD.get("adopted"):
         decl.append(("crown_dome", f"Crown dome (v0.5.7): {CD['glazed_area_m2']:.0f} m2 of glazing inside r {CD['r_m']} m replaces the 8 nose windows. Assumes (1) proof-tested transparent ceramic panes up to "
-                     f"{CD['central_pane_m']} m across (2026's largest are ~0.76 m), a 2226 materials milestone like the 1,750 K fins; (2) tambour gores of armour-equivalent Strata laminate (Builder-derived, MHL-22) that restore "
+                     f"{CD['central_pane_m']} m across (2026's largest are ~0.76 m), a 2226 materials milestone like the 1,750 K fins (rev 4: the L2 viewport band's 16-18 mm plate panes rely on the same ceramic; 2026 ALON would need 25-29 mm); (2) tambour gores of armour-equivalent Strata laminate (Builder-derived, MHL-22) that restore "
                      f"{CD['gores']['closed_restores_g_cm2']} g/cm2 when closed and stow in the brow ring; (3) the operating rule: {CD['doctrine']} With the gores open, L1 loses the armour over the crown (glass 2-9 g/cm2); L1 is not a shelter."))
     decl.append(("shelter_life_support", f"Storm shelter life support: {c6['shelter_life_support_h']} h for {n} people from the life-support room on the same deck (design provision, not computed)."))
     yr = c6["gcr_msv_per_day_2026"] * 365

@@ -2,15 +2,15 @@
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
  "status": "NON-GOVERNING closed-form checks, v0.5.6 crew systems",
  "flight_deck_columns": {
-  "carried_t": 0.748,
+  "carried_t": 0.747,
   "columns": 4,
   "length_m": 1.675,
   "ultimate_g": 7.5,
-  "axial_kn": 13.75,
+  "axial_kn": 13.74,
   "stress_mpa": 20.0,
   "buckling_kn": 115.8,
-  "buckling_margin": 8.42,
-  "side_load_combined_mpa": 115.3,
+  "buckling_margin": 8.43,
+  "side_load_combined_mpa": 115.2,
   "yield_mpa": 503,
   "ok_stress": true,
   "ok_buckling": true
@@ -32,41 +32,41 @@
    "pressure_kpa": 14.1,
    "face_mm": 0.17,
    "needed_t": 0.78,
-   "floor_t": 1.605,
+   "floor_t": 1.602,
    "core_shear_mpa": 0.082,
    "ok": true
   },
   {
    "deck": "L2",
-   "carried_t": 11.61,
+   "carried_t": 13.13,
    "people_t": 0.0,
-   "pressure_kpa": 17.0,
-   "face_mm": 0.2,
+   "pressure_kpa": 19.2,
+   "face_mm": 0.23,
    "needed_t": 0.79,
-   "floor_t": 1.605,
-   "core_shear_mpa": 0.099,
+   "floor_t": 1.602,
+   "core_shear_mpa": 0.112,
    "ok": true
   },
   {
    "deck": "L3",
-   "carried_t": 12.71,
+   "carried_t": 12.69,
    "people_t": 1.0,
    "pressure_kpa": 18.6,
    "face_mm": 0.22,
    "needed_t": 0.79,
-   "floor_t": 1.605,
+   "floor_t": 1.602,
    "core_shear_mpa": 0.108,
    "ok": true
   },
   {
    "deck": "L4",
-   "carried_t": 37.05,
+   "carried_t": 37.01,
    "people_t": 0.0,
-   "pressure_kpa": 54.2,
+   "pressure_kpa": 54.1,
    "face_mm": 0.64,
    "needed_t": 0.86,
-   "floor_t": 1.605,
-   "core_shear_mpa": 0.316,
+   "floor_t": 1.602,
+   "core_shear_mpa": 0.315,
    "ok": true
   }
  ],
@@ -75,7 +75,7 @@
   "factor": 2.0,
   "face_mm": 2.4,
   "needed_t": 1.14,
-  "floor_t": 1.605,
+  "floor_t": 1.602,
   "core_shear_mpa": 1.18,
   "core_shear_allow_mpa": 1.5,
   "hatches": 2,
@@ -237,22 +237,79 @@
  },
  "viewport_band": {
   "glazed_area_m2": 19.36,
-  "mass_ahead_t": 64.8,
+  "mass_ahead_t": 64.7,
   "mullions": 23,
   "mullion_section_m": [
    0.05,
    0.2
   ],
-  "axial_load_thrust_mn": 4.77,
+  "axial_load_thrust_mn": 4.76,
   "axial_load_pressure_mn": 11.14,
   "mullion_stress_mpa": 48.4,
   "allow_mpa": 600.0,
   "mullion_buckling_margin": 4.4,
   "tallest_mullion_m": 1.6,
-  "pane_mm_each": 12.4,
-  "pane_mm_assumed": 16,
+  "pane_hoop_membrane_mm_withdrawn": 12.4,
   "glazing_total_m2": 48.3,
   "heat_loss_kw_all_open": 2.03,
-  "ok": true
+  "ok": true,
+  "load_path": {
+   "1_hoop_to_edge_rings": {
+    "general band 0.6 m": {
+     "ring_tension_kn": 261.4,
+     "ti_area_needed_cm2": 4.4
+    },
+    "lounge 1.6 m": {
+     "ring_tension_kn": 697.1,
+     "ti_area_needed_cm2": 11.6
+    }
+   },
+   "2_panes_check": {
+    "general_need_mm": 14.6,
+    "general_spec_mm": 16,
+    "lounge_need_mm": 17.2,
+    "lounge_spec_mm": 18,
+    "ok": true
+   },
+   "3_rings": {
+    "axial_flow_kn_m": 435.7,
+    "mullion_load_kn": 490.5,
+    "ring_moment_knm": 46.0,
+    "ring_section_cm": [
+     14.000000000000002,
+     4.0
+    ],
+    "bending_mpa": 352.1,
+    "with_lounge_hoop_mpa": 476.6,
+    "allow_mpa": 600.0,
+    "two_rings_t": 1.34,
+    "ok": true
+   },
+   "4_shell_at_ring": {
+    "hoop_mpa": 29.0,
+    "axial_mpa": 14.5,
+    "discontinuity_bending_mpa": 52.7,
+    "axial_plus_bending_mpa": 67.3,
+    "allow_mpa": 250.0,
+    "decay_length_m": 0.878,
+    "ok": true
+   },
+   "5_mullion_root_joint": {
+    "load_kn": 490.5,
+    "four_M16_double_shear_kn": 884.7,
+    "margin": 1.8,
+    "ok": true
+   },
+   "mass": {
+    "rings_t": 1.34,
+    "mullions_t": 0.8,
+    "lounge_transom_t": 0.064,
+    "frame_needed_t": 2.2,
+    "frame_allowed_rev3_t": 2.2,
+    "lounge_pane_extra_t": 0.064,
+    "band_increase_t": 0.06,
+    "specified_band_t": 5.867
+   }
+  }
  }
 }

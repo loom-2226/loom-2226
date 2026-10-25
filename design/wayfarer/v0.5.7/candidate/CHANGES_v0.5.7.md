@@ -1,4 +1,4 @@
-# Wayfarer v0.5.7 candidate (rev 3): crown dome, viewports everywhere, four longerons
+# Wayfarer v0.5.7 candidate (rev 4): crown dome, viewports everywhere, four longerons
 
 ALL bodies. ALL sponsors. 2026-2226.
 
@@ -8,21 +8,35 @@ ALL bodies. ALL sponsors. 2026-2226.
 
 | | v0.5.6 (accepted) | v0.5.7 (candidate) |
 |---|---|---|
-| Geometry sha256 | `14bb3c2c...629369` | `262b21a3...dda0` |
+| Geometry sha256 | `14bb3c2c...629369` | `646ac1ba...b359` |
 | Dry / departure (S1) mass | 867.7 / 1,167.7 t | 867.7 / 1,167.7 t (unchanged) |
-| Worst thrust trim | 0.347° | 0.347° |
+| Worst thrust trim | 0.347° | 0.348° |
 | Nose | 8 nose windows (Cupola-style cluster) | **Crown dome**, 25 m², Osteon frame and tambour gores |
 | Pilots' view (forward sky / 60° cone) | 22% / 99.7% | **75% / 99.9%** |
 | Longerons | 5 (3 flat planks outside the tank, 2 sills): 36.9 t, 65 MPa against 400 | **4 CFRP tubes in an X**, matching canon: 11.4 t, 211 MPa against 400 |
 | Longeron joints | not counted | 3.5 t (8 end fittings, node-mount and hatch allowance, 4 bay-corner doublers) |
 | Buckling between frames / first bending mode | 14.6x / 8.7 Hz | 23x / 5.0 Hz (need 1.5x / 1 Hz) |
 | One longeron lost, 1 g | 10.9 MPa | 37.4 MPa |
-| Engineering reserve | 42.6 t | **54.6 t** (33.5 t ledger + 21.2 t released from the longerons) |
+| Engineering reserve | 42.6 t | **53.1 t** (31.9 t ledger + 21.2 t released from the longerons) |
 | Tank volume | 322.6 m³ | 321.6 m³ (need 315) |
 | Glazing | 15 windows, ~4 m² | **~48 m²**: crown dome 25 m², L2 viewport band 19 m², 22 round viewports. Every opening below the crown has an acrylic shield plug and a Strata shutter |
-| Berth radiation screen (minimum) | 40.24 g/cm² | **40.75 g/cm²** (need 40) |
+| Berth radiation screen (minimum) | 40.24 g/cm² | **40.69 g/cm²** (need 40) |
 | Storm shelter screen | 55.1 g/cm² | 55.6 g/cm² |
 | Gates | G1-G9, G11, G12 pass; G10 open | Same; two new G6 declared items await kT: `crown_dome` and `berth_viewports` |
+
+## Rev 4: the viewport band's load path, closed (kT 2026-10-26, after Sol's review of the rev 3.1 study, PR #432 commit 11477c5e)
+
+The rev 3.1 study (`habitat/VIEWPORT_BAND_STUDY.md`) found two corrections. Rev 4 builds them in and runs the study inside G5.
+
+- **Rule:** the glass is not trusted to pass hoop tension through its edges. Each pane is a plate between frame members, and the titanium frame carries the shell's loads round the band.
+- **Edge rings:** Ti-6Al-4V, 14 x 4 cm, sill and head, all the way round (they close over the washroom). They carry the hoop across the band and act as beams between mullions: 477 MPa against 600. 1.34 t.
+- **Lounge transom:** a mid-height Osteon bar across the 1.6 m panes, halving their span. 0.06 t.
+- **Mullion roots:** 4 x M16 Ti bolts in double shear, margin 1.8. An integral Osteon fork would remove the bolts.
+- **Panes:** plate-sized, flaw-controlled 2226 ceramic. 16 mm in the 0.6 m band (14.6 mm needed); **18 mm in the lounge** (17.2 mm needed). This relies on the crown dome's ceramic milestone, so the `crown_dome` declared item now covers the band. 2026 ALON would need 25-29 mm. The rev 3 hoop-membrane figure (12.4 mm) is withdrawn.
+- **Shell next to the rings:** 67 MPa against 250; the bending dies out within 0.88 m.
+- **Mass:** the band goes from 4.34 t to **5.87 t** (+1.53 t, from the reserve).
+- **New G5 checks:** edge rings, shell at the rings, mullion roots, panes as plates.
+- **Still open (not required to archive):** a finite-element shell model, fatigue of the ring-to-shell bond under pressure and thermal cycles, and dose through the acrylic (OLTARIS).
 
 ## Rev 3: maximise viewports (kT 2026-10-25: "maximize viewports and take advantage of the specific tech ... for livability. They can be shuttered too")
 
@@ -37,7 +51,7 @@ The technology is what makes this possible:
 - **Mullions:** 23 Osteon titanium mullions, 5 x 20 cm, every 15°, forking into the sill and head beams. The worst load is twice the pressure end load (11.1 MN), giving 48 MPa against a 600 MPa allowable. Thrust: 5 g x 1.5 on the 64.8 t ahead, 4.8 MN. Buckling margin 4.4 on the 1.6 m lounge mullions. This is a new G5 check.
 - **Panes:** curved with the hull, so they carry pressure as hoop membranes: 12.4 mm each needed, 16 mm assumed.
 - **Shutter:** a Strata tambour band runs round the hull in a track and stows in the head beam.
-- **Mass:** 4.34 t (225 kg/m²).
+- **Mass:** 4.34 t in rev 3, 5.87 t from rev 4.
 
 **Round viewports.**
 - Berths: enlarged to 0.5 m (10). Each tier has 0.82 m of clear height.

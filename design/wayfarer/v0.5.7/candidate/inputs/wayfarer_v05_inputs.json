@@ -1452,7 +1452,7 @@
     "shelter_plug": "storm-shelter viewports: the plug continues through the 20 cm water jacket as 17 cm more acrylic (20.1 g/cm2), so the shelter keeps its screen and people sheltering for 72 h can still see out"
    },
    "viewport_band": {
-    "prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports'): a continuous panoramic band round the L2 common deck at standing and seated eye height, taller (1.6 m) in the observation lounge; skips the washroom (270-300 deg). NON-GOVERNING; SOL TO AGREE",
+    "prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports'): a continuous panoramic band round the L2 common deck at standing and seated eye height, taller (1.6 m) in the observation lounge; skips the washroom (270-300 deg). NON-GOVERNING; SOL TO AGREE; rev 4 (kT 2026-10-26, after Sol's review of the rev 3.1 study): titanium edge rings, a mid transom in the lounge, plate-sized panes on the crown's 2226 ceramic milestone",
     "deck": "L2",
     "segments": [
      {
@@ -1499,14 +1499,39 @@
     "glazed_area_m2": 19.36,
     "mullion_spacing_deg": 15,
     "mullions": "Osteon titanium mullions every 15 deg (1.13 m), forking into the sill and head beams; they carry the deck's axial load (5 g x 1.5 of everything ahead, plus the pressure end load) across the band",
-    "panes": "flat ALON segments 1.1 m wide: two 16 mm pressure panes (each full load) + 8 mm debris + 3 mm scratch; inboard, a 23 cm acrylic shield plug and 3 cm of acrylic for the pressure hull",
+    "panes": "flat plates between frame members (the glass is not trusted to pass hoop tension through its edges); two pressure panes each carrying full load, plus 8 mm debris and 3 mm scratch panes; flaw-controlled 2226 ceramic (the crown dome's milestone): 16 mm in the 0.6 m band, 18 mm in the lounge",
     "shutter": "Strata tambour band: slats run round the hull in a track and stow in the head beam; closed flush with the armour at cruise speed, in solar storms and in burns, and for night",
     "kg_per_m2": {
-     "panes": 159,
-     "frame_and_mullions": 40,
+     "panes_general": 158.7,
+     "panes_lounge": 173.4,
      "shutter_track_and_drive": 25
     },
-    "heat": "low-e inner coating (emissivity 0.1): ~42 W per m2 of glazing radiated to space with the shutters open"
+    "heat": "low-e inner coating (emissivity 0.1): ~42 W per m2 of glazing radiated to space with the shutters open",
+    "edge_rings": {
+     "section_cm": [
+      14,
+      4
+     ],
+     "material": "Ti-6Al-4V",
+     "full_circle": true,
+     "t": 1.34,
+     "note": "sill and head rings, all the way round (they close over the washroom); carry the hoop across the band and act as continuous beams between mullions (habitat/viewport_band_study.py)"
+    },
+    "lounge_transom": {
+     "section_cm": [
+      8,
+      4
+     ],
+     "t": 0.064,
+     "note": "mid-height Osteon transom across the 1.6 m lounge panes, halving their span"
+    },
+    "mullion_t": 0.8,
+    "mullion_roots": "4 x M16 Ti bolts in double shear per root (or an integral Osteon fork)",
+    "pane_mm": {
+     "general": 16,
+     "lounge": 18
+    },
+    "mass_t": 5.867
    }
   }
  },
@@ -1554,7 +1579,7 @@
    "prov": "ENGINEERING_ASSUMPTION"
   },
   "mission_courier_systems_t": 20.0,
-  "engineering_reserve_t": 33.458,
+  "engineering_reserve_t": 31.928,
   "engineering_reserve_rule": "spread over dry parts in proportion to their mass (growth margin), not lumped at one point",
   "c_tank_penalty_t": 8.0,
   "radiator_panels_t": 8.784,
@@ -1582,15 +1607,15 @@
   "crew_systems_v056_t": 3.86,
   "reserve_draws_v057": {
    "berth_viewports_t": 1.055,
-   "prov": "window assemblies at the 0.08 t minimum (features.window_mass); the acrylic replaces armour and ring water at equal-or-greater g/cm2 (+4 kg in all); v0.5.7 also: 6 habitat viewports (0.45 m), crown dome assembly replacing the 8-window nose cluster; rev 3: berth viewports 0.5 m, L2 viewport band (replaces the lounge's two 0.8 m windows and the L2 round viewports), medical 2, shelter 2, suits 1, workshop 2",
+   "prov": "window assemblies at the 0.08 t minimum (features.window_mass); the acrylic replaces armour and ring water at equal-or-greater g/cm2 (+4 kg in all); v0.5.7 also: 6 habitat viewports (0.45 m), crown dome assembly replacing the 8-window nose cluster; rev 3: berth viewports 0.5 m, L2 viewport band (replaces the lounge's two 0.8 m windows and the L2 round viewports), medical 2, shelter 2, suits 1, workshop 2; rev 4: band 4.337 -> 5.867 t (edge rings, transom, plate-sized panes)",
    "service_shield_band_t": 0.6,
    "habitat_viewports_t": 0.627,
    "nose_windows_removed_t": -1.851,
    "crown_dome_t": 4.93,
    "observation_windows_removed_t": -0.54,
-   "viewport_band_t": 4.337
+   "viewport_band_t": 5.867
   },
-  "crew_systems_v057_t": 9.158
+  "crew_systems_v057_t": 10.688
  },
  "longerons": {
   "prov": "CLAUDE_DESIGN v0.5.7 (structure/longeron_study.py, kT 2026-10-25 'consolidate'): four CFRP tubes in an X, matching canon's 4 axial longerons. The upper pair stay where the v0.5.6 slot sills were (edging the bay slot); the lower pair mirror them in the tank's lower cells. Sized at 5 g x 1.5 to a 250 MPa design stress (400 MPa floor x 0.62 for impact, joints, environment). v0.5.6 had 3 planks + 2 sills (36.9 t) running at 65 MPa. NON-GOVERNING; SOL TO REVIEW",

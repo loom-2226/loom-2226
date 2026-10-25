@@ -2,8 +2,8 @@
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
  "status": "NON-GOVERNING SANDBOX certification run",
  "basis": "CERTIFICATION_BASIS_v0.1 (PROPOSED)",
- "geometry_sha256": "262b21a303242286dc9f0f2cd727dab84749ac2a5a5cec257d7b35c0d5efdda0",
- "inputs_sha256": "92935b0ba8ef4603dee5997d84d1a5758451cbdd81384df0ea0a310ea12af5ec",
+ "geometry_sha256": "646ac1bad6852d1c7b25e92e3dd79e46e2d6b719d2edd20270af86203d6ab359",
+ "inputs_sha256": "ab8a3344c9ec0555792e16446f8bca752c1461970537937240ee2df6176efa1d",
  "criteria_sha256": "61f294d969294fcf3f9e5d6e3bb913cab3b227e31c168fcc1b3199a85ed987fe",
  "summary": {
   "G1": "PASS",
@@ -67,16 +67,16 @@
     },
     {
      "name": "S5 mass = dry + fluids + payload",
-     "value": 887.83,
-     "limit": 887.83,
+     "value": 887.88,
+     "limit": 887.88,
      "unit": "t",
      "pass": true,
      "note": "burnt out, shuttle away"
     },
     {
      "name": "S6 mass = dry + fluids + payload",
-     "value": 1137.83,
-     "limit": 1137.83,
+     "value": 1137.88,
+     "limit": 1137.88,
      "unit": "t",
      "pass": true,
      "note": "full, shuttle away"
@@ -109,7 +109,7 @@
    "declared": [],
    "notes": [
     "dry 867.7 t vs canon 858.5 t (+9.2 t); S1 wet 1167.7 t vs canon 1158.5 t",
-    "dry by system: habitat 182.0, propulsion 171.2, structure 133.9, thermal 126.7, plant 94.2, electrical 58.9, shuttle 29.9, avionics 21.4, mission 21.4, service 14.0, rcs 12.8, drones 1.3",
+    "dry by system: habitat 183.3, propulsion 170.9, structure 133.7, thermal 126.5, plant 94.0, electrical 58.7, shuttle 29.8, avionics 21.4, mission 21.4, service 13.9, rcs 12.8, drones 1.3",
     "protected water: 16.5 t in the storm-shelter jacket, 5.70 t in the L3 berth shield ring, 27.8 t in the service tank, 0.0 t in the main tank cells"
    ],
    "mass_states": [
@@ -118,112 +118,112 @@
      "name": "reference departure",
      "mass_t": 1167.7,
      "cg_m": [
-      24.417,
+      24.391,
       0.023,
-      -0.362
+      -0.36
      ],
-     "Ixx": 12365860.678371385,
-     "Iyy": 190955911.8946169,
-     "Izz": 191730067.3836747,
-     "Ixy": 194575.5560979994,
-     "Ixz": 1279527.0401113403,
-     "Iyz": 8149.004608304298
+     "Ixx": 12380151.44580037,
+     "Iyy": 191287174.84017986,
+     "Izz": 192067118.62749985,
+     "Ixy": 129951.60884974163,
+     "Ixz": 1268020.2725989225,
+     "Iyz": 7940.736188373143
     },
     {
      "state": "S2",
      "name": "loaded departure",
      "mass_t": 1217.7,
      "cg_m": [
-      24.051,
+      24.026,
       0.022,
-      -0.347
+      -0.345
      ],
-     "Ixx": 12934939.645823017,
-     "Iyy": 194915190.09634137,
-     "Izz": 196040441.83057642,
-     "Ixy": 184677.11704066477,
-     "Ixz": 1434008.7722278554,
-     "Iyz": 7932.266485270175
+     "Ixx": 12949151.968220053,
+     "Iyy": 195223633.7021332,
+     "Izz": 196354752.71715248,
+     "Ixy": 120029.88063083566,
+     "Ixz": 1421069.910214617,
+     "Iyz": 7723.632536926467
     },
     {
      "state": "S3",
      "name": "normal dispatch",
      "mass_t": 1067.7,
      "cg_m": [
-      24.463,
+      24.434,
       0.025,
-      -0.284
+      -0.281
      ],
-     "Ixx": 11248812.0641287,
-     "Iyy": 189353582.99465913,
-     "Izz": 189815191.21704063,
-     "Ixy": 191793.70135065826,
-     "Ixz": 1324314.3405019308,
-     "Iyz": 8608.520339196912
+     "Ixx": 11262686.225477226,
+     "Iyy": 189687206.91624075,
+     "Izz": 190155018.8266021,
+     "Ixy": 127110.20984830934,
+     "Ixz": 1310491.658220598,
+     "Iyz": 8417.112234357457
     },
     {
      "state": "S4",
      "name": "burnt out, shuttle home",
      "mass_t": 917.7,
      "cg_m": [
-      24.122,
+      24.088,
       0.029,
-      -0.134
+      -0.132
      ],
-     "Ixx": 9542080.894585768,
-     "Iyy": 186126966.6623879,
-     "Izz": 186150866.66471633,
-     "Ixy": 180200.5579283672,
-     "Ixz": 992185.4136254711,
-     "Iyz": 10140.049125809068
+     "Ixx": 9555159.897336997,
+     "Iyy": 186438424.22194728,
+     "Izz": 186469320.74924368,
+     "Ixy": 115341.92189380473,
+     "Ixz": 972803.0656653492,
+     "Iyz": 9980.821489105578
     },
     {
      "state": "S5",
      "name": "burnt out, shuttle away",
-     "mass_t": 887.8,
+     "mass_t": 887.9,
      "cg_m": [
-      24.087,
+      24.052,
       0.03,
-      -0.139
+      -0.136
      ],
-     "Ixx": 9487606.713012608,
-     "Iyy": 185656384.85861185,
-     "Izz": 185681058.2382434,
-     "Ixy": 179011.73338574194,
-     "Ixz": 993669.6366359018,
-     "Iyz": 10213.048527582358
+     "Ixx": 9500809.180623386,
+     "Iyy": 185966550.2792963,
+     "Izz": 185998194.72250718,
+     "Ixy": 114120.04719361206,
+     "Ixz": 974329.9807723378,
+     "Iyz": 10055.639168074073
     },
     {
      "state": "S6",
      "name": "full, shuttle away",
-     "mass_t": 1137.8,
+     "mass_t": 1137.9,
      "cg_m": [
-      24.398,
+      24.371,
       0.023,
-      -0.371
+      -0.369
      ],
-     "Ixx": 12307942.219382554,
-     "Iyy": 190498042.02692708,
-     "Izz": 191276435.0150341,
-     "Ixy": 193792.98346610286,
-     "Ixz": 1284868.4659283855,
-     "Iyz": 8089.648542007304
+     "Ixx": 12322389.514120964,
+     "Iyy": 190828981.25035343,
+     "Izz": 191613104.1900977,
+     "Ixy": 129149.10831021564,
+     "Ixz": 1273593.4125274452,
+     "Iyz": 7881.734330529318
     },
     {
      "state": "S7",
      "name": "one tank cell breached and vented",
      "mass_t": 1105.2,
      "cg_m": [
-      24.547,
+      24.518,
       0.161,
-      -0.315
+      -0.312
      ],
-     "Ixx": 11639744.682184722,
-     "Iyy": 190216877.1367882,
-     "Izz": 190766621.676659,
-     "Ixy": 565166.2529859459,
-     "Ixz": 1405486.3019305528,
-     "Iyz": 49844.81610521534
+     "Ixx": 11653745.142228,
+     "Iyy": 190555886.05739066,
+     "Izz": 191111629.7362467,
+     "Ixy": 496252.8455657129,
+     "Ixz": 1392854.6980908625,
+     "Iyz": 50011.362133760515
     }
    ]
   },
@@ -267,7 +267,7 @@
    "modes": {
     "ECON": {
      "thrust_mn": 7.574,
-     "dv_full_remass_S1_km_s": 722.7750358913916,
+     "dv_full_remass_S1_km_s": 722.7752045214787,
      "accel_g": {
       "S1": 0.661,
       "S2": 0.634,
@@ -280,7 +280,7 @@
     },
     "CRUISE": {
      "thrust_mn": 11.361,
-     "dv_full_remass_S1_km_s": 481.8500239275944,
+     "dv_full_remass_S1_km_s": 481.8501363476525,
      "accel_g": {
       "S1": 0.992,
       "S2": 0.951,
@@ -293,7 +293,7 @@
     },
     "EXPEDITE": {
      "thrust_mn": 22.722,
-     "dv_full_remass_S1_km_s": 240.9250119637972,
+     "dv_full_remass_S1_km_s": 240.92506817382625,
      "accel_g": {
       "S1": 1.984,
       "S2": 1.903,
@@ -306,7 +306,7 @@
     },
     "FAST": {
      "thrust_mn": 32.46,
-     "dv_full_remass_S1_km_s": 168.64750837465803,
+     "dv_full_remass_S1_km_s": 168.64754772167836,
      "accel_g": {
       "S1": 2.835,
       "S2": 2.718,
@@ -319,7 +319,7 @@
     },
     "HARD": {
      "thrust_mn": 50.49333333333333,
-     "dv_full_remass_S1_km_s": 108.41625538370874,
+     "dv_full_remass_S1_km_s": 108.41628067822181,
      "accel_g": {
       "S1": 4.409,
       "S2": 4.228,
@@ -332,7 +332,7 @@
     },
     "LIMIT": {
      "thrust_mn": 75.74,
-     "dv_full_remass_S1_km_s": 72.27750358913916,
+     "dv_full_remass_S1_km_s": 72.27752045214787,
      "accel_g": {
       "S1": 5.0,
       "S2": 5.0,
@@ -352,59 +352,59 @@
    "checks": [
     {
      "name": "thrust trim S1",
-     "value": 0.312,
+     "value": 0.33,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.152 m from the thrust line"
+     "note": "lateral offset 0.161 m from the thrust line"
     },
     {
      "name": "thrust trim S2",
-     "value": 0.278,
+     "value": 0.296,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.137 m from the thrust line"
+     "note": "lateral offset 0.146 m from the thrust line"
     },
     {
      "name": "thrust trim S3",
-     "value": 0.152,
+     "value": 0.17,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.074 m from the thrust line"
+     "note": "lateral offset 0.083 m from the thrust line"
     },
     {
      "name": "thrust trim S4",
-     "value": 0.154,
+     "value": 0.141,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.076 m from the thrust line"
+     "note": "lateral offset 0.069 m from the thrust line"
     },
     {
      "name": "thrust trim S5",
-     "value": 0.144,
+     "value": 0.131,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.071 m from the thrust line"
+     "note": "lateral offset 0.065 m from the thrust line"
     },
     {
      "name": "thrust trim S6",
-     "value": 0.332,
+     "value": 0.348,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.162 m from the thrust line"
+     "note": "lateral offset 0.170 m from the thrust line"
     },
     {
      "name": "thrust trim S7",
-     "value": 0.347,
+     "value": 0.341,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.168 m from the thrust line"
+     "note": "lateral offset 0.165 m from the thrust line"
     },
     {
      "name": "180 deg slew, pitch (about y) +",
@@ -505,11 +505,11 @@
    ],
    "declared": [],
    "notes": [
-    "Thrust line offset from the hull axis: y +0.03 m, z -0.21 m (torch chain 178 t), chosen to centre the centre-of-mass range",
+    "Thrust line offset from the hull axis: y +0.04 m, z -0.20 m (torch chain 177 t), chosen to centre the centre-of-mass range",
     "roll +: 180 deg in 19 s (2 couples, 0.46 MN m, worst state S2); roll is rate-limited by doctrine, not gated",
     "roll -: 180 deg in 19 s (2 couples, 0.46 MN m, worst state S2); roll is rate-limited by doctrine, not gated",
     "With any one cluster out, the slowest 180 deg pitch/yaw slew is 49 s (one couple, S2).",
-    "Shuttle undocking: S1 trim 0.312 deg, S6 (shuttle away) 0.332 deg; both inside the limit.",
+    "Shuttle undocking: S1 trim 0.330 deg, S6 (shuttle away) 0.348 deg; both inside the limit.",
     "Inertia is from intrinsic component shapes (sampled volumes), not centroid-only point masses."
    ]
   },
@@ -654,7 +654,7 @@
    "checks": [
     {
      "name": "longeron upper starboard: stress at 5.0 g x 1.5",
-     "value": 211.7,
+     "value": 212.2,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
@@ -662,7 +662,7 @@
     },
     {
      "name": "longeron upper starboard: buckling margin",
-     "value": 22.9,
+     "value": 22.8,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -670,7 +670,7 @@
     },
     {
      "name": "longeron upper port: stress at 5.0 g x 1.5",
-     "value": 211.7,
+     "value": 212.2,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
@@ -678,7 +678,7 @@
     },
     {
      "name": "longeron upper port: buckling margin",
-     "value": 22.9,
+     "value": 22.8,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -686,7 +686,7 @@
     },
     {
      "name": "longeron lower starboard: stress at 5.0 g x 1.5",
-     "value": 211.7,
+     "value": 212.2,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
@@ -694,7 +694,7 @@
     },
     {
      "name": "longeron lower starboard: buckling margin",
-     "value": 22.9,
+     "value": 22.8,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -702,7 +702,7 @@
     },
     {
      "name": "longeron lower port: stress at 5.0 g x 1.5",
-     "value": 211.7,
+     "value": 212.2,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
@@ -710,7 +710,7 @@
     },
     {
      "name": "longeron lower port: buckling margin",
-     "value": 22.9,
+     "value": 22.8,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -718,7 +718,7 @@
     },
     {
      "name": "first bending mode (longerons only, free-free)",
-     "value": 4.93,
+     "value": 4.92,
      "limit": 1.0,
      "unit": "Hz",
      "pass": true,
@@ -730,7 +730,7 @@
      "limit": 1.0,
      "unit": "Hz",
      "pass": true,
-     "note": "J 1.985 m4 with the allocated 34.2 mm tank wall; the open slot is bridged by the tank's slot walls"
+     "note": "J 1.982 m4 with the allocated 34.2 mm tank wall; the open slot is bridged by the tank's slot walls"
     },
     {
      "name": "tank structure mass needed at 5 g x 1.5 + ullage",
@@ -758,15 +758,15 @@
     },
     {
      "name": "flight-deck columns: stress at 5 g x 1.5 plus a 0.5 g side load",
-     "value": 115.3,
+     "value": 115.2,
      "limit": 503,
      "unit": "MPa",
      "pass": true,
-     "note": "4 aluminium tubes carry 0.748 t; axial 13.75 kN each (20.0 MPa)"
+     "note": "4 aluminium tubes carry 0.747 t; axial 13.74 kN each (20.0 MPa)"
     },
     {
      "name": "flight-deck columns: buckling margin",
-     "value": 8.42,
+     "value": 8.43,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -783,7 +783,7 @@
     {
      "name": "floor L1: carries its deck at 5 g x 1.5",
      "value": 0.78,
-     "limit": 1.605,
+     "limit": 1.602,
      "unit": "t needed vs allotted",
      "pass": true,
      "note": "9.61 t on the floor (14.1 kPa); CFRP faces 0.17 mm; core shear 0.082 MPa"
@@ -791,31 +791,31 @@
     {
      "name": "floor L2: carries its deck at 5 g x 1.5",
      "value": 0.79,
-     "limit": 1.605,
+     "limit": 1.602,
      "unit": "t needed vs allotted",
      "pass": true,
-     "note": "11.61 t on the floor (17.0 kPa); CFRP faces 0.2 mm; core shear 0.099 MPa"
+     "note": "13.13 t on the floor (19.2 kPa); CFRP faces 0.23 mm; core shear 0.112 MPa"
     },
     {
      "name": "floor L3: carries its deck at 5 g x 1.5",
      "value": 0.79,
-     "limit": 1.605,
+     "limit": 1.602,
      "unit": "t needed vs allotted",
      "pass": true,
-     "note": "12.71 t on the floor (18.6 kPa); CFRP faces 0.22 mm; core shear 0.108 MPa"
+     "note": "12.69 t on the floor (18.6 kPa); CFRP faces 0.22 mm; core shear 0.108 MPa"
     },
     {
      "name": "floor L4: carries its deck at 5 g x 1.5",
      "value": 0.86,
-     "limit": 1.605,
+     "limit": 1.602,
      "unit": "t needed vs allotted",
      "pass": true,
-     "note": "37.05 t on the floor (54.2 kPa); CFRP faces 0.64 mm; core shear 0.316 MPa"
+     "note": "37.01 t on the floor (54.1 kPa); CFRP faces 0.64 mm; core shear 0.315 MPa"
     },
     {
      "name": "floor L4 as a pressure bulkhead (L5 at vacuum), factor 2.0",
      "value": 1.14,
-     "limit": 1.605,
+     "limit": 1.602,
      "unit": "t needed vs allotted",
      "pass": true,
      "note": "CFRP faces 2.4 mm; core shear 1.18 MPa (allowable 1.5); 2 ladderway hatches and a trunk plug"
@@ -826,11 +826,43 @@
      "limit": 600.0,
      "unit": "MPa",
      "pass": true,
-     "note": "23 titanium mullions 5 x 20 cm; worst of 5 g x 1.5 on 64.8 t ahead (4.77 MN) and 2 x the pressure end load (11.14 MN); buckling margin 4.4; curved panes need 12.4 mm each as hoop membranes (16 mm assumed)"
+     "note": "23 titanium mullions 5 x 20 cm; worst of 5 g x 1.5 on 64.7 t ahead (4.76 MN) and 2 x the pressure end load (11.14 MN); buckling margin 4.4"
+    },
+    {
+     "name": "L2 band edge rings: hoop across the band + beam between mullions",
+     "value": 476.6,
+     "limit": 600.0,
+     "unit": "MPa",
+     "pass": true,
+     "note": "Ti 14 x 4 cm sill and head rings, full circle; 46.0 kN m between mullions"
+    },
+    {
+     "name": "L2 band: pressure shell next to the rings (discontinuity bending + axial)",
+     "value": 67.3,
+     "limit": 250.0,
+     "unit": "MPa",
+     "pass": true,
+     "note": "rigid-ring bound; dies out within 0.878 m"
+    },
+    {
+     "name": "L2 band: mullion root joints",
+     "value": 1.8,
+     "limit": 1.5,
+     "unit": "x",
+     "pass": true,
+     "note": "490.5 kN each; 4 x M16 Ti bolts in double shear"
+    },
+    {
+     "name": "L2 band panes as plates (2226 ceramic), lounge with its transom",
+     "value": 17.2,
+     "limit": 18,
+     "unit": "mm needed vs specified",
+     "pass": true,
+     "note": "general band 14.6 mm needed, 16 specified; the glass is not trusted to pass hoop tension through its edges"
     },
     {
      "name": "one longeron lost: the others at 1 g limit load",
-     "value": 37.6,
+     "value": 37.7,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
@@ -853,7 +885,7 @@
    ],
    "one_longeron_out": {
     "name": "one longeron lost: the others at 1 g limit load",
-    "value": 37.6,
+    "value": 37.7,
     "limit": 400,
     "unit": "MPa",
     "pass": true,
@@ -867,7 +899,7 @@
    "checks": [
     {
      "name": "inside the shield's shadow: habitat (pressure vessel, armour, rooms)",
-     "value": 0.78,
+     "value": 0.79,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -875,7 +907,7 @@
     },
     {
      "name": "inside the shield's shadow: Docking collar",
-     "value": 0.56,
+     "value": 0.55,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -883,7 +915,7 @@
     },
     {
      "name": "inside the shield's shadow: Pressure tunnel: habitat to collar node",
-     "value": 1.79,
+     "value": 1.78,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -891,7 +923,7 @@
     },
     {
      "name": "inside the shield's shadow: Pressure tunnel: collar node to bay axis",
-     "value": 2.12,
+     "value": 2.11,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -899,7 +931,7 @@
     },
     {
      "name": "inside the shield's shadow: Pressure tunnel: docking adapter to shuttle nose",
-     "value": 4.03,
+     "value": 4.04,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -948,7 +980,7 @@
     },
     {
      "key": "crown_dome",
-     "text": "Crown dome (v0.5.7): 25 m2 of glazing inside r 2.8 m replaces the 8 nose windows. Assumes (1) proof-tested transparent ceramic panes up to 2.3 m across (2026's largest are ~0.76 m), a 2226 materials milestone like the 1,750 K fins; (2) tambour gores of armour-equivalent Strata laminate (Builder-derived, MHL-22) that restore 27 g/cm2 when closed and stow in the brow ring; (3) the operating rule: open only at low speed or with the bow facing away from the dust flow (braking and tail-first coasting); closed for solar particle events, radiation belts and torch burns. Stuck closed is safe; stuck open: turn the bow out of the dust flow. With the gores open, L1 loses the armour over the crown (glass 2-9 g/cm2); L1 is not a shelter.",
+     "text": "Crown dome (v0.5.7): 25 m2 of glazing inside r 2.8 m replaces the 8 nose windows. Assumes (1) proof-tested transparent ceramic panes up to 2.3 m across (2026's largest are ~0.76 m), a 2226 materials milestone like the 1,750 K fins (rev 4: the L2 viewport band's 16-18 mm plate panes rely on the same ceramic; 2026 ALON would need 25-29 mm); (2) tambour gores of armour-equivalent Strata laminate (Builder-derived, MHL-22) that restore 27 g/cm2 when closed and stow in the brow ring; (3) the operating rule: open only at low speed or with the bow facing away from the dust flow (braking and tail-first coasting); closed for solar particle events, radiation belts and torch burns. Stuck closed is safe; stuck open: turn the bow out of the dust flow. With the gores open, L1 loses the armour over the crown (glass 2-9 g/cm2); L1 is not a shelter.",
      "kT": "AWAITING",
      "as": "",
      "date": null
@@ -978,7 +1010,7 @@
    "notes": [
     "Shadow cone: shield front face x 34.3 m, radius 2.75 m; neutron source: the pellet burn, 0.3 m across, anywhere in x 52.0-52.6 m (worst case used). Radiator strakes and the hot fins sit outside the cone (the fins edge-on to the burn), take neutron heating and are out of bounds for EVA during burns."
    ],
-   "shelter_min_g_cm2": 55.612214204155784
+   "shelter_min_g_cm2": 55.55052488054804
   },
   {
    "gate": "G7",
@@ -1312,7 +1344,7 @@
     },
     {
      "name": "tank cell vented (S7): thrust trim",
-     "value": 0.347,
+     "value": 0.341,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
@@ -1336,7 +1368,7 @@
     },
     {
      "name": "one longeron lost: the others at 1 g limit load",
-     "value": 37.6,
+     "value": 37.7,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
@@ -1448,7 +1480,7 @@
     {
      "item": "Torch axis",
      "canon": "1 axial torch",
-     "v0.5": "axial, with its thrust line offset 0.21 m from the hull centreline to pass through the centre of mass"
+     "v0.5": "axial, with its thrust line offset 0.20 m from the hull centreline to pass through the centre of mass"
     },
     {
      "item": "People",
@@ -1484,8 +1516,8 @@
    "checks": [
     {
      "name": "images stamped with this geometry's hash",
-     "value": "262b21a30324",
-     "limit": "262b21a30324",
+     "value": "646ac1bad685",
+     "limit": "646ac1bad685",
      "unit": "",
      "pass": true,
      "note": ""
@@ -1560,7 +1592,7 @@
   },
   {
    "key": "crown_dome",
-   "text": "Crown dome (v0.5.7): 25 m2 of glazing inside r 2.8 m replaces the 8 nose windows. Assumes (1) proof-tested transparent ceramic panes up to 2.3 m across (2026's largest are ~0.76 m), a 2226 materials milestone like the 1,750 K fins; (2) tambour gores of armour-equivalent Strata laminate (Builder-derived, MHL-22) that restore 27 g/cm2 when closed and stow in the brow ring; (3) the operating rule: open only at low speed or with the bow facing away from the dust flow (braking and tail-first coasting); closed for solar particle events, radiation belts and torch burns. Stuck closed is safe; stuck open: turn the bow out of the dust flow. With the gores open, L1 loses the armour over the crown (glass 2-9 g/cm2); L1 is not a shelter.",
+   "text": "Crown dome (v0.5.7): 25 m2 of glazing inside r 2.8 m replaces the 8 nose windows. Assumes (1) proof-tested transparent ceramic panes up to 2.3 m across (2026's largest are ~0.76 m), a 2226 materials milestone like the 1,750 K fins (rev 4: the L2 viewport band's 16-18 mm plate panes rely on the same ceramic; 2026 ALON would need 25-29 mm); (2) tambour gores of armour-equivalent Strata laminate (Builder-derived, MHL-22) that restore 27 g/cm2 when closed and stow in the brow ring; (3) the operating rule: open only at low speed or with the bow facing away from the dust flow (braking and tail-first coasting); closed for solar particle events, radiation belts and torch burns. Stuck closed is safe; stuck open: turn the bow out of the dust flow. With the gores open, L1 loses the armour over the crown (glass 2-9 g/cm2); L1 is not a shelter.",
    "kT": "AWAITING",
    "as": "",
    "date": null
