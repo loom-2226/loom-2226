@@ -17,3 +17,18 @@ Re-run inside this directory (build, L1 study, habitat overlay, certify): G1-G9,
 Key values: dry 867.68 t; longerons axial + bending 248.3 MPa (limit 250); ring flexure fingers 116.3 MPa (fatigue limit 200); berth screen 40.63 g/cm2; worst trim 0.348 deg; reserve 51.6 t.
 
 Still NON-GOVERNING: no canon promotion, no runtime integration, PR #430 unchanged, nothing merged.
+
+## Update 2026-10-26: G10 v0.2 basis agreed by Sol; G10 FAIL 19/24
+
+G10 v0.1 (Navigator missions) was replaced by G10 v0.2, a set of flight-dynamics tests: `../g10/g10_flight_dynamics.py` and `../g10/CERTIFICATION_BASIS_v0.2_G10.md`. They reuse main's `src/` modules (main 19377b85).
+
+Sol's first review of 318ac4b raised four places where the tests claimed more than they checked. All four were fixed at b1d50de. Sol then re-ran `certify.py` from the repository root in an isolated checkout at b1d50de, reproduced the result (G10 19/24, FAIL; the 11 other gates PASS or PASS-DECLARED; geometry `ed692f90…f8e1bf`), and recorded his disposition: **AGREE, as a proposed engineering certification basis**. The basis stays NON-GOVERNING and is not promoted to canon.
+
+Five G10 failures remain open:
+1. Torch thrust: the ship card and `MODE_CARDS` disagree by 122%. Which one governs is HOLD for kT.
+2. Torch thrust-vector authority is not declared. 0.847° is needed if the assumed 0.5° error holds. HOLD for kT.
+3. RCS cannot hold attitude against the torch error (18.74 vs 3.08 MN·m). This follows decision 2.
+4. There are no axial RCS thrusters (x translation 0 kN). HOLD for kT (rev 6).
+5. Loom configuration is not declared in the card (2 of 5 items: the strake Loom span, crown Loom state and collar state are missing).
+
+`certified` is false. PR #430 is unchanged; nothing merged; loom-gate neither bypassed nor modified.
