@@ -2,8 +2,8 @@
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
  "status": "NON-GOVERNING SANDBOX certification run",
  "basis": "CERTIFICATION_BASIS_v0.1 (PROPOSED)",
- "geometry_sha256": "1cb0a96412b721c1bf75d6d094182c02091cb6b2716260c6590d2d986f8db21f",
- "inputs_sha256": "13679fb4dbfa10422eb12f52cd824880bdf1674743a42c70f0d2c4755a8246a1",
+ "geometry_sha256": "ed692f90d49a2d8aa9f25a4dfc48b4a4410680e4accc77f7938a027952f8e1bf",
+ "inputs_sha256": "ce7684a10a32f162c3f438a2be6d22e5a5a74b09be11ac3cea20902199625b99",
  "criteria_sha256": "61f294d969294fcf3f9e5d6e3bb913cab3b227e31c168fcc1b3199a85ed987fe",
  "summary": {
   "G1": "PASS",
@@ -17,7 +17,7 @@
   "G9": "PASS",
   "G10": "OPEN",
   "G11": "PASS",
-  "G12": "FAIL"
+  "G12": "PASS"
  },
  "gates": [
   {
@@ -654,15 +654,15 @@
    "checks": [
     {
      "name": "longeron upper starboard: stress at 5.0 g x 1.5",
-     "value": 246.7,
+     "value": 222.0,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
-     "note": "material area 0.0835 m2; combined axial + conservative offset and 0.5 deg thrust-error bending; design target 250 MPa; buckling 22x"
+     "note": "area 0.083 m2; buckling between frames 22x the load"
     },
     {
      "name": "longeron upper starboard: buckling margin",
-     "value": 22.4,
+     "value": 22.3,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -670,15 +670,15 @@
     },
     {
      "name": "longeron upper port: stress at 5.0 g x 1.5",
-     "value": 246.7,
+     "value": 222.0,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
-     "note": "material area 0.0835 m2; combined axial + conservative offset and 0.5 deg thrust-error bending; design target 250 MPa; buckling 22x"
+     "note": "area 0.083 m2; buckling between frames 22x the load"
     },
     {
      "name": "longeron upper port: buckling margin",
-     "value": 22.4,
+     "value": 22.3,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -686,15 +686,15 @@
     },
     {
      "name": "longeron lower starboard: stress at 5.0 g x 1.5",
-     "value": 246.7,
+     "value": 222.0,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
-     "note": "material area 0.0835 m2; combined axial + conservative offset and 0.5 deg thrust-error bending; design target 250 MPa; buckling 22x"
+     "note": "area 0.083 m2; buckling between frames 22x the load"
     },
     {
      "name": "longeron lower starboard: buckling margin",
-     "value": 22.4,
+     "value": 22.3,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -702,27 +702,35 @@
     },
     {
      "name": "longeron lower port: stress at 5.0 g x 1.5",
-     "value": 246.7,
+     "value": 222.0,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
-     "note": "material area 0.0835 m2; combined axial + conservative offset and 0.5 deg thrust-error bending; design target 250 MPa; buckling 22x"
+     "note": "area 0.083 m2; buckling between frames 22x the load"
     },
     {
      "name": "longeron lower port: buckling margin",
-     "value": 22.4,
+     "value": 22.3,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
      "note": ""
     },
     {
+     "name": "longerons: axial + bending at 5 g x 1.5 (thrust-line offset and 0.5 deg thrust error), real material area",
+     "value": 248.3,
+     "limit": 250.0,
+     "unit": "MPa",
+     "pass": true,
+     "note": "22.6 MN m; area 0.0830 m2 from the structure line (part mass includes the spread reserve); limit = the 250 MPa design stress (400 MPa floor x 0.62)"
+    },
+    {
      "name": "first bending mode (longerons only, free-free)",
-     "value": 4.83,
+     "value": 4.81,
      "limit": 1.0,
      "unit": "Hz",
      "pass": true,
-     "note": "EI from longerons alone: Iy 2.26, Iz 2.53 m4; skin, tank walls and the habitat shell add stiffness"
+     "note": "EI from longerons alone: Iy 2.24, Iz 2.51 m4; skin, tank walls and the habitat shell add stiffness"
     },
     {
      "name": "first torsion mode (closed tank cell)",
@@ -853,6 +861,14 @@
      "note": "490.5 kN each; 4 x M16 Ti bolts in double shear"
     },
     {
+     "name": "L2 band rings: Ti/CFRP thermal mismatch taken by flexure fingers (fatigue)",
+     "value": 116.3,
+     "limit": 200.0,
+     "unit": "MPa",
+     "pass": true,
+     "note": "1.74 mm radial over 50.0 K; fingers 80 x 40 x 2.5 mm at 50 mm; plus 217.8 MPa static from the shear flow (allow 600)"
+    },
+    {
      "name": "L2 band panes as plates (2226 ceramic), lounge with its transom",
      "value": 17.2,
      "limit": 18,
@@ -861,16 +877,8 @@
      "note": "general band 14.6 mm needed, 16 specified; the glass is not trusted to pass hoop tension through its edges"
     },
     {
-     "name": "L2 ring thermal flexure fatigue",
-     "value": 116.3,
-     "limit": 200.0,
-     "unit": "MPa",
-     "pass": true,
-     "note": "1.74 mm radial at 50.0 K; axial 217.8 MPa"
-    },
-    {
      "name": "one longeron lost: the others at 1 g limit load",
-     "value": 39.2,
+     "value": 39.5,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
@@ -887,14 +895,13 @@
     "Tank radial tie-webs (54, perforated): 1.5 mm, 1.62 t, displaces 1.01 m3 (tension 0.26 MN/m each)",
     "Tank ring baffles (12, perforated): 3.0 mm, 0.70 t, displaces 0.44 m3",
     "Crew stations and floors (v0.5.6): closed-form strip and column checks in habitat/crew_systems.py; floors are 0.3 m sandwich panels spanning trunk to hull.",
-    "Rev5 G5: tube material area from actual wall geometry; axial + offset and 0.5 deg thrust-error bending; 250 MPa design target (400 MPa floor).",
     "Worst state S2: 1002 t ahead of the thrust cone, 73.7 MN at 7.5 g ultimate, shared by 4 longerons.",
     "Bay doors are not counted as structure. Materials: 2026 high-modulus CFRP as a conservative floor (400 MPa, 150 GPa, 1.6 t/m3).",
     "Method: closed-form plate theory (Navier series for simply supported panels, which is conservative against clamped edges) plus closed-cell equilibrium with tie-webs. A finite-element shell model is the next level of fidelity; the basis does not require it."
    ],
    "one_longeron_out": {
     "name": "one longeron lost: the others at 1 g limit load",
-    "value": 39.2,
+    "value": 39.5,
     "limit": 400,
     "unit": "MPa",
     "pass": true,
@@ -1377,7 +1384,7 @@
     },
     {
      "name": "one longeron lost: the others at 1 g limit load",
-     "value": 39.2,
+     "value": 39.5,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
@@ -1521,14 +1528,14 @@
   {
    "gate": "G12",
    "title": "Images",
-   "verdict": "FAIL",
+   "verdict": "PASS",
    "checks": [
     {
      "name": "images stamped with this geometry's hash",
-     "value": "646ac1bad685",
-     "limit": "1cb0a96412b7",
+     "value": "ed692f90d49a",
+     "limit": "ed692f90d49a",
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
@@ -1628,7 +1635,7 @@
    "date": "2026-10-26"
   }
  ],
- "kt_decisions_sha256": "1652d6c5f82f867a0aa35ede4ed2b8304668b0187d33fd9ca65ac56dcd6ab911",
+ "kt_decisions_sha256": "7b5fe0f41318ebf54cf52a35c01f88cf1a855540e8b50ed6a98fecdfc722b94b",
  "certified": false,
  "certified_rule": "every gate PASS or PASS-DECLARED and every declared assumption ACCEPTED by kT; then both reviewers sign and loom-gate passes"
 }

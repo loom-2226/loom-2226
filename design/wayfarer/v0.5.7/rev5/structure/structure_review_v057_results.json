@@ -1,0 +1,87 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-GOVERNING review of v0.5.7 rev 4",
+ "assumptions": {
+  "thrust_misalignment_deg": {
+   "value": 0.5,
+   "note": "ENGINEERING_ASSUMPTION: torch thrust vector error / gimbal authority used by the trim budget"
+  },
+  "design_mpa": {
+   "value": 250.0,
+   "note": "the design stress the longerons were sized to (400 MPa floor x 0.62)"
+  },
+  "floor_mpa": {
+   "value": 400.0,
+   "note": "materials.cfrp_allowable_mpa (what G5 checks against)"
+  },
+  "dT_K": {
+   "value": 50.0,
+   "note": "ENGINEERING_ASSUMPTION: ring-to-shell temperature swing as shutters open to deep space and close"
+  },
+  "alpha_ti": {
+   "value": 8.6e-06,
+   "note": "Ti-6Al-4V"
+  },
+  "alpha_cfrp": {
+   "value": 5e-07,
+   "note": "quasi-isotropic CFRP, in-plane"
+  }
+ },
+ "A_longerons": {
+  "state": "S2",
+  "mass_ahead_t": 1001.9,
+  "cg_ahead_m": [
+   20.109,
+   0.019,
+   -0.383
+  ],
+  "F_ult_mn": 73.7,
+  "moment_offset_mnm": 13.5,
+  "moment_misalignment_mnm": 9.1,
+  "area_G5_m2": 0.0868,
+  "area_structure_line_m2": 0.0739,
+  "G5_method": {
+   "axial_mpa": 212.2,
+   "plus_bending_mpa": 237.3
+  },
+  "structure_line": {
+   "axial_mpa": 249.3,
+   "plus_bending_mpa": 278.8
+  },
+  "design_mpa": 250.0,
+  "floor_mpa": 400.0,
+  "area_needed_for_design_m2": 0.0824,
+  "area_increase_pct": 11.5,
+  "extra_span_mass_t": 1.22,
+  "findings": [
+   "G5 computes longeron area from part mass, which includes the spread engineering reserve (a mass margin, not material): unconservative once members are sized tight",
+   "G5 checks axial load only; the thrust line's offset from the mass ahead and a 0.5 deg thrust error add bending"
+  ]
+ },
+ "B_band": {
+  "ring_to_shell": {
+   "shear_flow_kn_m": 435.7,
+   "bolts": "2 rows of M10 Ti at 50 mm",
+   "per_bolt_kn": 10.9,
+   "bolt_shear_capacity_kn": 43.2,
+   "margin": 3.97,
+   "cfrp_bearing_mpa": 36.3,
+   "bearing_allow_mpa": 400,
+   "ok": true
+  },
+  "vierendeel_shear": {
+   "lateral_kn": 89.1,
+   "mullion_moment_knm": 6.2,
+   "mullion_weak_axis_mpa": 74.4,
+   "allow_mpa": 600,
+   "ok": true,
+   "note": "no diagonals across the band, so lateral shear is carried by mullion bending (a Vierendeel frame)"
+  }
+ },
+ "C_thermal": {
+  "ring_circumference_m": 27.02,
+  "free_mismatch_mm": 10.9,
+  "ring_stress_if_locked_mpa": 46.2,
+  "verdict": "not covered by any check: a bolted Ti ring on a CFRP shell fights a ~10 mm circumferential mismatch every shutter cycle; needs compliant (slotted or flexure) attachments, or a CFRP ring with titanium only at the mullion roots"
+ }
+}

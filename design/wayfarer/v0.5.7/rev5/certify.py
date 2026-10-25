@@ -429,21 +429,13 @@ def g5(I, C, G):
         fwd += p["mass_t"]
     F = fwd * 1e3 * a
     n = len(lparts)
-    # REV5: structural material only; reserve mass is not tube area.
-    tube_areas = [math.pi * (it["d_m"]**2 - (it["d_m"] - 2*it["wall_m"])**2)/4 for it in lo["items"]]
-    fwd_items = [parts[pid] for pid in st["parts"] if pid in parts and "torch_chain" not in parts[pid]["tags"] and pid != "thrust_cone" and parts[pid]["centroid_m"][0] < lo["x_m"][1]] + G["fluids_by_state"][worst_state]
-    cg_ahead = [sum(p["mass_t"]*p["centroid_m"][k] for p in fwd_items)/fwd for k in range(3)]
-    off = G["thrust_line_offset_m"]
-    M_offset = F * math.hypot(cg_ahead[1]-off["y"],cg_ahead[2]-off["z"])
-    M_error = F * math.sin(math.radians(0.5)) * (lo["x_m"][1]-cg_ahead[0])
-    M_total = M_offset + M_error
-    Iy_lons = sum(A * it["z_m"]**2 for A,it in zip(tube_areas,lo["items"]))
-    design_stress_mpa = 250.0
     per = F / n
     worst_sigma, worst_buck = 0.0, float("inf")
+    SSl = I["ledger"]["structure_split"]
+    real_area = "released_to_reserve" in SSl     # rev 5: area from the structure line's material, not part mass (which carries the spread reserve)
     for p, it in zip(lparts, lo["items"]):
-        A = tube_areas[lo["items"].index(it)]
-        sig = per / A + M_total * max(abs(x["z_m"]) for x in lo["items"]) / Iy_lons
+        A = SSl["longerons"] / 1.10 / (rho * Llon) / n if real_area else p["mass_t"] / (rho * Llon)
+        sig = per / A
         if it["kind"] == "tube":
             D = it["d_m"]
             d = math.sqrt(max(D * D - 4 * A / math.pi, 0.0))
@@ -455,11 +447,23 @@ def g5(I, C, G):
         worst_sigma = max(worst_sigma, sig)
         worst_buck = min(worst_buck, Pcr / per)
         cs.append(chk(f"longeron {it['name']}: stress at {M5['design_g']} g x {M5['ultimate_factor']}", round(sig / 1e6, 1), mat["cfrp_allowable_mpa"],
-                      sig / 1e6 <= design_stress_mpa, "MPa", f"material area {A:.4f} m2; combined axial + conservative offset and 0.5 deg thrust-error bending; design target 250 MPa; buckling {Pcr / per:.0f}x"))
+                      sig <= sall, "MPa", f"area {A:.3f} m2; buckling between frames {Pcr / per:.0f}x the load"))
         cs.append(chk(f"longeron {it['name']}: buckling margin", round(Pcr / per, 1), M5["buckling_factor"], Pcr / per >= M5["buckling_factor"], "x"))
+    if real_area:   # rev 5 (structure review A): axial plus bending from the thrust line's offset and a 0.5 deg thrust error
+        items_f = [parts[pid] for pid in st["parts"] if pid in parts and "torch_chain" not in parts[pid]["tags"] and pid != "thrust_cone" and parts[pid]["centroid_m"][0] < lo["x_m"][1]]
+        items_f += G["fluids_by_state"][worst_state]
+        cgf = [sum(q["mass_t"] * q["centroid_m"][k] for q in items_f) / fwd for k in range(3)]
+        off = G["thrust_line_offset_m"]
+        Mb = F * math.hypot(cgf[1] - off["y"], cgf[2] - off["z"]) + F * math.sin(math.radians(0.5)) * (lo["x_m"][1] - cgf[0])
+        Ar = SSl["longerons"] / 1.10 / (rho * Llon) / n
+        zz = [it["z_m"] for it in lo["items"]]
+        sb = Mb * max(abs(z) for z in zz) / sum(Ar * z * z for z in zz)
+        s_comb = per / Ar + sb
+        cs.append(chk("longerons: axial + bending at 5 g x 1.5 (thrust-line offset and 0.5 deg thrust error), real material area", round(s_comb / 1e6, 1), 250.0, s_comb <= 250e6, "MPa",
+                      f"{Mb / 1e6:.1f} MN m; area {Ar:.4f} m2 from the structure line (part mass includes the spread reserve); limit = the 250 MPa design stress (400 MPa floor x 0.62)"))
     # one longeron out at 1 g limit
     F1 = fwd * 1e3 * C["G9"]["one_longeron_out_g"] * G0 / (n - 1)
-    A_min = min(tube_areas)
+    A_min = (SSl["longerons"] / 1.10 / (rho * Llon) / n) if real_area else min(p["mass_t"] / (rho * Llon) for p in lparts)
     sig1 = F1 / A_min
     one_out = chk("one longeron lost: the others at 1 g limit load", round(sig1 / 1e6, 1), mat["cfrp_allowable_mpa"], sig1 <= sall, "MPa")
     # bending first mode (longerons only), free-free beam
@@ -471,7 +475,7 @@ def g5(I, C, G):
             rm = sum(it["r_m"]) / 2
             th = math.radians(it["theta_deg"])
             pos.append((rm * math.cos(th), rm * math.sin(th)))
-    As = tube_areas
+    As = [(SSl["longerons"] / 1.10 / (rho * Llon) / n) if real_area else p["mass_t"] / (rho * Llon) for p in lparts]
     yb = sum(A * y for A, (y, z) in zip(As, pos)) / sum(As)
     zb = sum(A * z for A, (y, z) in zip(As, pos)) / sum(As)
     Iy = sum(A * (z - zb) ** 2 for A, (y, z) in zip(As, pos))
@@ -541,13 +545,13 @@ def g5(I, C, G):
             cs.append(chk("L2 band: pressure shell next to the rings (discontinuity bending + axial)", s4["axial_plus_bending_mpa"], s4["allow_mpa"], s4["ok"], "MPa",
                           f"rigid-ring bound; dies out within {s4['decay_length_m']} m"))
             cs.append(chk("L2 band: mullion root joints", j5["margin"], 1.5, j5["ok"], "x", f"{j5['load_kn']} kN each; 4 x M16 Ti bolts in double shear"))
+            th = lp.get("6_thermal")
+            if th:
+                cs.append(chk("L2 band rings: Ti/CFRP thermal mismatch taken by flexure fingers (fatigue)", th["finger_bending_mpa"], th["fatigue_allow_mpa"], th["ok"], "MPa",
+                              f"{th['radial_mismatch_mm']} mm radial over {th['dT_K']} K; fingers {th['finger']}; plus {th['finger_axial_mpa']} MPa static from the shear flow (allow 600)"))
             cs.append(chk("L2 band panes as plates (2226 ceramic), lounge with its transom", p2["lounge_need_mm"], p2["lounge_spec_mm"], p2["ok"], "mm needed vs specified",
                           f"general band {p2['general_need_mm']} mm needed, {p2['general_spec_mm']} specified; the glass is not trusted to pass hoop tension through its edges"))
-    if vb and vb.get("load_path", {}).get("6_thermal"):
-        th = vb["load_path"]["6_thermal"]
-        cs.append(chk("L2 ring thermal flexure fatigue", th["finger_bending_mpa"], th["fatigue_allow_mpa"], th["ok"], "MPa", f"{th['radial_mismatch_mm']} mm radial at {th['dT_K']} K; axial {th['finger_axial_mpa']} MPa"))
     notes.append("Crew stations and floors (v0.5.6): closed-form strip and column checks in habitat/crew_systems.py; floors are 0.3 m sandwich panels spanning trunk to hull.")
-    notes.append("Rev5 G5: tube material area from actual wall geometry; axial + offset and 0.5 deg thrust-error bending; 250 MPa design target (400 MPa floor).")
     notes.append(f"Worst state {worst_state}: {fwd:.0f} t ahead of the thrust cone, {F / 1e6:.1f} MN at {M5['design_g'] * M5['ultimate_factor']:.1f} g ultimate, shared by {n} longerons.")
     notes.append("Bay doors are not counted as structure. Materials: 2026 high-modulus CFRP as a conservative floor (400 MPa, 150 GPa, 1.6 t/m3).")
     notes.append("Method: closed-form plate theory (Navier series for simply supported panels, which is conservative against clamped edges) plus closed-cell equilibrium with tie-webs. A finite-element shell model is the next level of fidelity; the basis does not require it.")

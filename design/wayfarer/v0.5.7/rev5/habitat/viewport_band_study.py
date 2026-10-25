@@ -110,13 +110,15 @@ def run(vb=None):
                    "frame_allowed_rev3_t": round(frame_allow, 2), "lounge_pane_extra_t": round(pane_extra, 3),
                    "band_increase_t": round(max(0.0, need - frame_allow) + pane_extra, 2)}
     at = VB.get("edge_rings", {}).get("attachments")
-    if at:
+    if at:   # rev 5: thermal mismatch between the titanium rings and the CFRP shell, taken by flexure fingers
         dT, da = 50.0, 8.6e-6 - 0.5e-6
         dr = da * dT * R
         fl, ft, fw = at["finger_m"]["length"], at["finger_m"]["thick"], at["finger_m"]["width"]
-        sb = 3 * 114e9 * ft * dr / (2 * fl ** 2)
+        sb = 3 * 114e9 * ft * dr / (2 * fl ** 2)          # guided cantilever... conservative fixed-free form
         sa = q * at["pitch_m"] / (fw * ft)
-        out["6_thermal"] = {"dT_K": dT, "radial_mismatch_mm": round(dr * 1e3, 2), "circumferential_mismatch_mm": round(da * dT * 2 * math.pi * R * 1e3, 1), "finger": f"{fl * 1e3:.0f} x {fw * 1e3:.0f} x {ft * 1e3:.1f} mm at {at['pitch_m'] * 1e3:.0f} mm", "finger_bending_mpa": round(sb / 1e6, 1), "fatigue_allow_mpa": 200.0, "finger_axial_mpa": round(sa / 1e6, 1), "ok": sb <= 200e6 and sa + sb <= 600e6}
+        out["6_thermal"] = {"dT_K": dT, "radial_mismatch_mm": round(dr * 1e3, 2), "circumferential_mismatch_mm": round(da * dT * 2 * math.pi * R * 1e3, 1),
+                            "finger": f"{fl * 1e3:.0f} x {fw * 1e3:.0f} x {ft * 1e3:.1f} mm at {at['pitch_m'] * 1e3:.0f} mm", "finger_bending_mpa": round(sb / 1e6, 1),
+                            "fatigue_allow_mpa": 200.0, "finger_axial_mpa": round(sa / 1e6, 1), "ok": sb <= 200e6 and sa + sb <= 600e6}
     spec = VB.get("pane_mm")
     if spec:   # rev 4: the specified panes against the plate sizing (2226 ceramic; lounge with its transom if one is fitted)
         cer = "ceramic 2226 (crown milestone)"
