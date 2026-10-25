@@ -54,7 +54,7 @@ class Phase4EResidualClosureTests(unittest.TestCase):
         self.assertEqual(state.provenance["ephemeris_source_id"], "NAIF_NEP098_808")
         self.assertEqual(state.provenance["state_capability"], "EPHEMERIS_PARTIAL")
         self.assertEqual(state.provenance["units"], "km,km/s")
-        self.assertEqual(state.reference_frame, "J2000/ECLIPTIC")
+        self.assertEqual(state.reference_frame, "ECLIPJ2000")
         terminal = self.service.resolve("PROTEUS", "2199-12-30T23:58:50Z")
         self.assertEqual(terminal, self.service.resolve("PROTEUS", "2199-12-30T23:58:50Z"))
         with self.assertRaises(CelestialStateError):

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LOOM · Solar Ephemeris Inspector</title>
+<link rel="stylesheet" href="/design/loom-tokens.css"><link rel="stylesheet" href="/inspector.css">
+<header><img src="/design/loom-wordmark-white.svg" alt="LOOM"><div><h1 class="loom-type-title">Solar Ephemeris Inspector <small>v0.1</small></h1><span>Phase-4 authority qualification · PostgreSQL → governed resolver → scene</span></div><button id="mobileControls" type="button" aria-expanded="false" aria-controls="controls">Controls</button></header>
+<section class="toolbar" id="controls" aria-label="Epoch and reference controls">
+  <div class="toolbar-head"><strong>Scene controls</strong><button id="toggleControls" type="button" aria-expanded="true">Hide</button></div>
+  <div class="toolbar-body">
+  <label>SPICE ET seconds or TDB calendar<input id="epoch" value="2026-01-01T00:00:00 TDB" aria-label="SPICE ET seconds or TDB calendar"></label><button id="load">Evaluate</button><p class="time-help">Physical time is numeric SPICE ET. TDB calendar entries end in “TDB”; explicit UTC entries use the pinned LSK projection and do not define future UTC.</p>
+  <button data-year="2026">2026</button><button data-year="2226">2226</button><button data-year="2250">2250</button>
+  <label>Step days<input id="step" type="number" value="1" min="0.000001" step="any"></label>
+  <button id="back">− Step</button><button id="forward">+ Step</button><button id="play" aria-pressed="false">Play</button>
+  <label>System<select id="system" aria-label="System"><option value="SUN">Solar</option></select></label>
+  <label>Reference center<select id="center"><option value="SUN">Sun</option></select></label>
+  <label>Presentation<select id="mode"><option>PHYSICAL</option><option>SCHEMATIC</option></select></label>
+  <label>Scene scope<select id="scope"><option value="planetary" selected>Planetary system</option><option value="all">Whole catalog</option><option value="local">Center + family + selection</option></select></label><span id="orbitStatus" role="status"></span>
+  <fieldset id="pathLayers"><legend>Display layers and resolver paths</legend><label><input id="layerSun" type="checkbox" checked> Sun</label><label><input id="layerPlanets" type="checkbox" checked> Planets</label><label><input id="layerMoons" type="checkbox"> Moons</label><label><input id="layerMinor" type="checkbox"> Minor bodies</label><label><input id="layerSpacecraft" type="checkbox"> Spacecraft / interstellar</label><label><input id="layerBarycenters" type="checkbox"> Barycenters</label><label><input id="layerSelected" type="checkbox" checked> Selected path</label></fieldset>
+  <button id="fit">Fit scene</button>
+  <button id="focusSelected" type="button">Focus object</button><button id="focusSystem" type="button">Focus system</button>
+  <button id="clearSelection" type="button">Clear selection</button>
+  </div>
+</section>
+<div id="message" role="status">Loading governed catalog; first evaluation verifies pinned local assets…</div>
+<main>
+  <section id="stage" aria-label="Interactive Solar System scene">
+    <div id="labels"></div><div id="sceneStatus"></div>
+    <div id="sceneActions" aria-label="Scene navigation"><button id="sceneFocus" type="button">Focus object</button><button id="sceneSystem" type="button">System</button><button id="zoomIn" type="button">Zoom +</button><button id="zoomOut" type="button">Zoom −</button></div>
+    <div id="help">Drag: rotate · Two-finger drag: pan · Pinch / wheel: zoom · Tap: select<br>Point markers are enlarged for inspection; physical mode preserves positions.</div>
+  </section>
+  <aside>
+    <section><h2 class="loom-type-subhead">Reconciliation</h2><div id="counts"></div><p>Catalog = resolved + unresolved. Resolved = direct + propagated. Catalog-only and partial are catalog subsets. Scene eligible counts objects admitted by scope and layers; marker/label LOD may hide some at distance. Local scope includes the selected object, including when its catalog parent is NULL.</p></section>
+    <section><h2 class="loom-type-subhead">Catalog / selection</h2><label>Find object<input id="search" placeholder="Name or ID"></label><select id="catalog" size="7" aria-label="Governed catalog"></select><div id="selection"></div><button id="catalogFocus" type="button">Focus selected object</button><details><summary>Exact state + provenance + catalog record</summary><pre id="detail"></pre></details><details><summary>Automatic trajectory horizons and coverage</summary><div id="horizons"></div></details></section>
+    <section><h2 class="loom-type-subhead">Selected trajectory</h2><label>Start ET or TDB<input id="start" value="2026-01-01T00:00:00 TDB"></label><label>End ET or TDB<input id="end" value="2027-01-01T00:00:00 TDB"></label><label>Samples<input id="samples" type="number" min="2" max="512" value="96"></label><button id="trace">Sample resolver</button><button id="clearPath">Clear path</button><p>Automatic minor-body paths show one-year resolver arcs as zoom permits; selected paths stay visible. Use this control for longer spans. Direct: solid · Propagated: dashed. Seams: rings. No gap is bridged. Satellite horizons use their governed orbital reference; drawn positions use the selected scene center at each sample. Choose a local system center to see its satellite orbit around that center.</p><div id="pathStatus"></div><div id="seams"></div><details><summary>Inspect exact trajectory samples and gaps</summary><select id="sampleList" aria-label="Trajectory samples"></select><pre id="sampleDetail"></pre></details></section>
+    <section><h2 class="loom-type-subhead">Failed resolution</h2><div id="failures"></div></section>
+  </aside>
+</main>
+<script src="/three.min.js"></script><script src="/presentation.js"></script><script src="/inspector.js"></script>
+</html>

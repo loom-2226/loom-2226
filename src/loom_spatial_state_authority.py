@@ -50,7 +50,7 @@ def _vec3(value: Sequence[float], name: str) -> tuple[float, float, float]:
 @dataclass(frozen=True)
 class SpatialState:
     entity_id: str
-    epoch_utc: str
+    epoch_utc: str | None
     reference_frame: str
     position_km: Sequence[float]
     velocity_km_s: Sequence[float]
@@ -58,6 +58,7 @@ class SpatialState:
     navigation_grade: bool | None = None
     uncertainty: Mapping[str, Any] = field(default_factory=dict)
     payload: Mapping[str, Any] = field(default_factory=dict)
+    epoch_et: float | None = None
 
     def __post_init__(self) -> None:
         entity = str(self.entity_id).strip()
@@ -65,7 +66,15 @@ class SpatialState:
         if not entity or not frame:
             raise CelestialStateError("entity_id and reference_frame are required")
         object.__setattr__(self, "entity_id", entity)
-        object.__setattr__(self, "epoch_utc", _iso(_epoch(self.epoch_utc)))
+        if self.epoch_utc is not None:
+            object.__setattr__(self, "epoch_utc", _iso(_epoch(self.epoch_utc)))
+        if self.epoch_et is not None:
+            et = float(self.epoch_et)
+            if not math.isfinite(et):
+                raise CelestialStateError("epoch_et must be finite")
+            object.__setattr__(self, "epoch_et", et)
+        if self.epoch_utc is None and self.epoch_et is None:
+            raise CelestialStateError("a physical epoch is required")
         object.__setattr__(self, "reference_frame", frame)
         object.__setattr__(self, "position_km", _vec3(self.position_km, "position_km"))
         object.__setattr__(self, "velocity_km_s", _vec3(self.velocity_km_s, "velocity_km_s"))
