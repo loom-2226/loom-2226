@@ -1,0 +1,318 @@
+{
+ "corridor_half_width_m": 3.4,
+ "min_pair_angle_deg": 49.07393669039545,
+ "layouts": {
+  "3@1500": {
+   "N": 3,
+   "T": 1500,
+   "angles_from_plusZ_deg": [
+    57.1,
+    180.0,
+    302.9
+   ],
+   "span_m": 54.43,
+   "face_m2": 6205,
+   "planform_m2": 3103,
+   "mass_t": 24.8,
+   "view_factor": 0.873,
+   "fin_centroid_z_m": 1.26,
+   "min_gap_deg": 114.1,
+   "roots_m": [
+    4.05,
+    4.05,
+    3.0
+   ]
+  },
+  "4@1500": {
+   "N": 4,
+   "T": 1500,
+   "angles_from_plusZ_deg": [
+    49.1,
+    133.4,
+    226.6,
+    310.9
+   ],
+   "span_m": 49.2,
+   "face_m2": 7478,
+   "planform_m2": 3739,
+   "mass_t": 29.9,
+   "view_factor": 0.725,
+   "fin_centroid_z_m": 0.06,
+   "min_gap_deg": 84.3,
+   "roots_m": [
+    4.5,
+    4.5,
+    3.0,
+    3.0
+   ]
+  },
+  "5@1500": {
+   "N": 5,
+   "T": 1500,
+   "angles_from_plusZ_deg": [
+    49.1,
+    118.5,
+    180.0,
+    241.5,
+    310.9
+   ],
+   "span_m": 47.21,
+   "face_m2": 8969,
+   "planform_m2": 4485,
+   "mass_t": 35.9,
+   "view_factor": 0.604,
+   "fin_centroid_z_m": -3.04,
+   "min_gap_deg": 61.5,
+   "roots_m": [
+    4.5,
+    4.5,
+    3.0,
+    3.0,
+    3.0
+   ]
+  },
+  "6@1500": {
+   "N": 6,
+   "T": 1500,
+   "angles_from_plusZ_deg": [
+    49.1,
+    100.4,
+    153.8,
+    206.2,
+    259.6,
+    310.9
+   ],
+   "span_m": 46.3,
+   "face_m2": 10556,
+   "planform_m2": 5278,
+   "mass_t": 42.2,
+   "view_factor": 0.513,
+   "fin_centroid_z_m": -3.36,
+   "min_gap_deg": 51.4,
+   "roots_m": [
+    4.5,
+    4.5,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+   ]
+  },
+  "7@1500": {
+   "N": 7,
+   "T": 1500,
+   "angles_from_plusZ_deg": [
+    49.1,
+    98.7,
+    136.4,
+    180.0,
+    223.6,
+    261.3,
+    310.9
+   ],
+   "span_m": 45.75,
+   "face_m2": 12169,
+   "planform_m2": 6084,
+   "mass_t": 48.7,
+   "view_factor": 0.445,
+   "fin_centroid_z_m": -5.04,
+   "min_gap_deg": 37.6,
+   "roots_m": [
+    4.5,
+    4.5,
+    3.0,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+   ]
+  },
+  "8@1500": {
+   "N": 8,
+   "T": 1500,
+   "angles_from_plusZ_deg": [
+    49.1,
+    86.5,
+    120.9,
+    161.3,
+    198.7,
+    239.1,
+    273.5,
+    310.9
+   ],
+   "span_m": 45.4,
+   "face_m2": 13800,
+   "planform_m2": 6900,
+   "mass_t": 55.2,
+   "view_factor": 0.393,
+   "fin_centroid_z_m": -4.53,
+   "min_gap_deg": 34.4,
+   "roots_m": [
+    4.5,
+    4.5,
+    3.41,
+    3.41,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+   ]
+  },
+  "3@2000": {
+   "N": 3,
+   "T": 2000,
+   "angles_from_plusZ_deg": [
+    58.1,
+    180.0,
+    301.9
+   ],
+   "span_m": 17.02,
+   "face_m2": 1940,
+   "planform_m2": 970,
+   "mass_t": 7.8,
+   "view_factor": 0.884,
+   "fin_centroid_z_m": 0.58,
+   "min_gap_deg": 116.1,
+   "roots_m": [
+    4.01,
+    4.01,
+    3.0
+   ]
+  },
+  "4@2000": {
+   "N": 4,
+   "T": 2000,
+   "angles_from_plusZ_deg": [
+    49.1,
+    132.4,
+    227.6,
+    310.9
+   ],
+   "span_m": 14.95,
+   "face_m2": 2272,
+   "planform_m2": 1136,
+   "mass_t": 9.1,
+   "view_factor": 0.755,
+   "fin_centroid_z_m": 0.39,
+   "min_gap_deg": 83.3,
+   "roots_m": [
+    4.5,
+    4.5,
+    3.0,
+    3.0
+   ]
+  },
+  "5@2000": {
+   "N": 5,
+   "T": 2000,
+   "angles_from_plusZ_deg": [
+    49.1,
+    112.5,
+    180.0,
+    247.5,
+    310.9
+   ],
+   "span_m": 14.05,
+   "face_m2": 2669,
+   "planform_m2": 1334,
+   "mass_t": 10.7,
+   "view_factor": 0.642,
+   "fin_centroid_z_m": -0.52,
+   "min_gap_deg": 63.5,
+   "roots_m": [
+    4.5,
+    4.5,
+    3.0,
+    3.0,
+    3.0
+   ]
+  },
+  "6@2000": {
+   "N": 6,
+   "T": 2000,
+   "angles_from_plusZ_deg": [
+    49.1,
+    103.4,
+    152.8,
+    207.2,
+    256.6,
+    310.9
+   ],
+   "span_m": 13.56,
+   "face_m2": 3092,
+   "planform_m2": 1546,
+   "mass_t": 12.4,
+   "view_factor": 0.555,
+   "fin_centroid_z_m": -1.19,
+   "min_gap_deg": 49.4,
+   "roots_m": [
+    4.5,
+    4.5,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+   ]
+  },
+  "7@2000": {
+   "N": 7,
+   "T": 2000,
+   "angles_from_plusZ_deg": [
+    49.1,
+    88.7,
+    134.4,
+    180.0,
+    225.6,
+    271.3,
+    310.9
+   ],
+   "span_m": 13.27,
+   "face_m2": 3530,
+   "planform_m2": 1765,
+   "mass_t": 14.1,
+   "view_factor": 0.486,
+   "fin_centroid_z_m": -1.15,
+   "min_gap_deg": 39.6,
+   "roots_m": [
+    4.5,
+    4.5,
+    3.4,
+    3.4,
+    3.0,
+    3.0,
+    3.0
+   ]
+  },
+  "8@2000": {
+   "N": 8,
+   "T": 2000,
+   "angles_from_plusZ_deg": [
+    49.1,
+    88.5,
+    125.9,
+    161.3,
+    198.7,
+    234.1,
+    271.5,
+    310.9
+   ],
+   "span_m": 13.08,
+   "face_m2": 3977,
+   "planform_m2": 1988,
+   "mass_t": 15.9,
+   "view_factor": 0.431,
+   "fin_centroid_z_m": -1.78,
+   "min_gap_deg": 35.4,
+   "roots_m": [
+    4.5,
+    4.5,
+    3.4,
+    3.4,
+    3.0,
+    3.0,
+    3.0,
+    3.0
+   ]
+  }
+ }
+}

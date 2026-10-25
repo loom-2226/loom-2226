@@ -1,0 +1,113 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-GOVERNING study on v0.5.7 rev 3; the build is unchanged",
+ "assumptions": {
+  "p_pa": {
+   "value": 101325.0,
+   "note": "cabin pressure, 1 atm"
+  },
+  "pressure_factor": {
+   "value": 2.0,
+   "note": "proof/ultimate factor on pressure loads, as used for the L4 bulkhead (crew_systems)"
+  },
+  "ti_allow_mpa": {
+   "value": 600.0,
+   "note": "Ti-6Al-4V: 900 MPa UTS, knocked down for joints (same as the rev 3 mullion check)"
+  },
+  "ti_shear_mpa": {
+   "value": 550.0,
+   "note": "Ti-6Al-4V bolt ultimate shear"
+  },
+  "ti_density": {
+   "value": 4.43,
+   "note": "t/m3"
+  },
+  "shell_e_gpa": {
+   "value": 60.0,
+   "note": "quasi-isotropic CFRP laminate (the 150 GPa in materials is the unidirectional longeron value)"
+  },
+  "shell_allow_mpa": {
+   "value": 250.0,
+   "note": "CFRP design stress after the 0.62 knockdown used for the longerons"
+  },
+  "nu": {
+   "value": 0.3,
+   "note": ""
+  },
+  "pane_allow": {
+   "value": {
+    "ALON 2026": 70000000.0,
+    "ceramic 2226 (crown milestone)": 200000000.0
+   },
+   "note": "design stress for flat panes in bending"
+  },
+  "ceramic_density": {
+   "value": 3.69,
+   "note": "t/m3"
+  }
+ },
+ "mullion_spacing_m": 1.126,
+ "1_hoop_to_edge_rings": {
+  "general band 0.6 m": {
+   "ring_tension_kn": 261.4,
+   "ti_area_needed_cm2": 4.4
+  },
+  "lounge 1.6 m": {
+   "ring_tension_kn": 697.1,
+   "ti_area_needed_cm2": 11.6
+  }
+ },
+ "2_panes_mm_each": {
+  "general band (0.6 x 1.13 m)": {
+   "ALON 2026": 24.7,
+   "ceramic 2226 (crown milestone)": 14.6
+  },
+  "lounge, no transom (1.13 x 1.6 m)": {
+   "ALON 2026": 41.1,
+   "ceramic 2226 (crown milestone)": 24.3
+  },
+  "lounge with a mid transom (0.8 x 1.13 m)": {
+   "ALON 2026": 29.0,
+   "ceramic 2226 (crown milestone)": 17.2
+  }
+ },
+ "3_rings": {
+  "axial_flow_kn_m": 435.7,
+  "mullion_load_kn": 490.5,
+  "ring_moment_knm": 46.0,
+  "ring_section_cm": [
+   14.000000000000002,
+   4.0
+  ],
+  "bending_mpa": 352.1,
+  "with_lounge_hoop_mpa": 476.6,
+  "allow_mpa": 600.0,
+  "two_rings_t": 1.34,
+  "ok": true
+ },
+ "4_shell_at_ring": {
+  "hoop_mpa": 29.0,
+  "axial_mpa": 14.5,
+  "discontinuity_bending_mpa": 52.7,
+  "axial_plus_bending_mpa": 67.3,
+  "allow_mpa": 250.0,
+  "decay_length_m": 0.878,
+  "ok": true
+ },
+ "5_mullion_root_joint": {
+  "load_kn": 490.5,
+  "four_M16_double_shear_kn": 884.7,
+  "margin": 1.8,
+  "ok": true
+ },
+ "mass": {
+  "rings_t": 1.34,
+  "mullions_t": 0.8,
+  "lounge_transom_t": 0.064,
+  "frame_needed_t": 2.2,
+  "frame_allowed_rev3_t": 0.77,
+  "lounge_pane_extra_t": 0.064,
+  "band_increase_t": 1.49
+ },
+ "verdict": true
+}

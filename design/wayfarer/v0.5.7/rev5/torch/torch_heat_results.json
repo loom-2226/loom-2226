@@ -1,0 +1,158 @@
+{
+ "steps": [
+  {
+   "id": "S0",
+   "name": "As built",
+   "what": "steady plasma column inside the reactor block; its first wall surrounds the burn",
+   "fusion_tw": 23.183348637894095,
+   "light_escaping_gw": 9273.339455157638,
+   "neutrons_escaping_gw": 1159.1674318947048,
+   "ship_heat_gw": 9516.764615855527,
+   "parts_gw": {
+    "light": 8346.005509641875,
+    "neutrons": 1043.2506887052343,
+    "plume contact": 127.50841750841751
+   },
+   "coil_heat_mw": 20865.01377410469,
+   "cryo_reject_mw": 2086501.3774104689,
+   "wall_flux_mw_m2": 184487.2266571802,
+   "light_ppm_of_fusion": 400000.0,
+   "fins_fit_at_k": null,
+   "cryo_ok": false,
+   "flux_ok": false
+  },
+  {
+   "id": "S1",
+   "name": "+ Heat leaves with the exhaust",
+   "what": "each fuel pellet is wrapped in a shell of remass that soaks up the burn and becomes the exhaust; burn moved 3 m aft of the throat coil",
+   "fusion_tw": 13.397337725763892,
+   "light_escaping_gw": 497.28238170490425,
+   "neutrons_escaping_gw": 275.9851571507362,
+   "ship_heat_gw": 71.87746714963592,
+   "parts_gw": {
+    "light": 45.749979116851186,
+    "neutrons": 25.39063445786773,
+    "plume contact": 0.736853574917014
+   },
+   "coil_heat_mw": 9.107510185974295,
+   "cryo_reject_mw": 910.7510185974294,
+   "wall_flux_mw_m2": 2473.279661276444,
+   "light_ppm_of_fusion": 37118.00000000001,
+   "fins_fit_at_k": null,
+   "cryo_ok": false,
+   "flux_ok": false
+  },
+  {
+   "id": "S2",
+   "name": "+ Cleaner fuel",
+   "what": "He3-rich, spin-polarised D-He3",
+   "fusion_tw": 13.155926385141598,
+   "light_escaping_gw": 490.61985803205346,
+   "neutrons_escaping_gw": 41.19383669715536,
+   "ship_heat_gw": 49.706216994143006,
+   "parts_gw": {
+    "light": 45.13702693894892,
+    "neutrons": 3.789832976138294,
+    "plume contact": 0.7793570790557881
+   },
+   "coil_heat_mw": 1.3593966110061273,
+   "cryo_reject_mw": 135.93966110061274,
+   "wall_flux_mw_m2": 2440.1429870264137,
+   "light_ppm_of_fusion": 37292.688,
+   "fins_fit_at_k": 3000,
+   "cryo_ok": true,
+   "flux_ok": false
+  },
+  {
+   "id": "S3",
+   "name": "+ Thick, closed shell",
+   "what": "shell compressed to ~1-2 cm, fully closed; traps 99.98% of light and 85% of neutron energy; re-radiates 0.01%",
+   "fusion_tw": 12.640766441867108,
+   "light_escaping_gw": 2.273795786030172,
+   "neutrons_escaping_gw": 14.410473743728502,
+   "ship_heat_gw": 2.2837918007540052,
+   "parts_gw": {
+    "light": 0.2091892123147758,
+    "neutrons": 1.3257635844230222,
+    "plume contact": 0.7488390040162073
+   },
+   "coil_heat_mw": 0.4755456335430406,
+   "cryo_reject_mw": 47.55456335430406,
+   "wall_flux_mw_m2": 11.308932466506983,
+   "light_ppm_of_fusion": 179.87800000000001,
+   "fins_fit_at_k": 1500,
+   "cryo_ok": true,
+   "flux_ok": false
+  },
+  {
+   "id": "S4",
+   "name": "+ Burn further aft",
+   "what": "burn 6 m aft of the reactor face, still inside the 53.3 m envelope",
+   "fusion_tw": 12.640766441867108,
+   "light_escaping_gw": 2.273795786030172,
+   "neutrons_escaping_gw": 14.410473743728502,
+   "ship_heat_gw": 1.3995255156767956,
+   "parts_gw": {
+    "light": 0.08867803565517669,
+    "neutrons": 0.5620084760054116,
+    "plume contact": 0.7488390040162073
+   },
+   "coil_heat_mw": 0.4755456335430406,
+   "cryo_reject_mw": 47.55456335430406,
+   "wall_flux_mw_m2": 5.026192207336437,
+   "light_ppm_of_fusion": 179.87800000000001,
+   "fins_fit_at_k": 1500,
+   "cryo_ok": true,
+   "flux_ok": true
+  }
+ ],
+ "fins_gw": {
+  "1500": 3.269823623706357,
+  "2000": 10.334257378627498,
+  "2500": 25.230120553289794,
+  "3000": 52.31717797930171
+ },
+ "light_ppm_allowed_by_wall": {
+  "4": 159.05833776329854,
+  "6": 357.88125996742167,
+  "7": 487.11615940010176
+ },
+ "modes": {
+  "ECON": {
+   "ve": 3000,
+   "remass_kg_s": 2.5246666666666666,
+   "kev_per_nucleon": 46.64438202247191,
+   "regen_mw": 22.722
+  },
+  "CRUISE": {
+   "ve": 2000,
+   "remass_kg_s": 5.6805,
+   "kev_per_nucleon": 20.73083645443196,
+   "regen_mw": 51.124500000000005
+  },
+  "EXPEDITE": {
+   "ve": 1000,
+   "remass_kg_s": 22.722,
+   "kev_per_nucleon": 5.18270911360799,
+   "regen_mw": 204.49800000000002
+  },
+  "FAST": {
+   "ve": 700,
+   "remass_kg_s": 46.371428571428574,
+   "kev_per_nucleon": 2.539527465667915,
+   "regen_mw": 417.34285714285716
+  },
+  "HARD": {
+   "ve": 450,
+   "remass_kg_s": 112.2074074074074,
+   "kev_per_nucleon": 1.049498595505618,
+   "regen_mw": 1009.8666666666666
+  },
+  "LIMIT": {
+   "ve": 300,
+   "remass_kg_s": 191.11726666666667,
+   "kev_per_nucleon": 0.4664438202247191,
+   "regen_mw": 1720.0554
+  }
+ }
+}
