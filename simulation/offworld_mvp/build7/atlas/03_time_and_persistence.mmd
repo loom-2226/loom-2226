@@ -1,0 +1,23 @@
+flowchart TD
+  GEN["2026: generated world and opening epoch"] --> OPEN["Opening PUB choice; SPN prospecting only if a body is characterized"]
+  OPEN --> YEAR["Annual loop: 2027–2035"]
+  YEAR --> PUB["PUB remote choice each year"]
+  PUB --> PROJECTS["Iterate all created projects"]
+  PROJECTS --> STATE{"Study activity state"}
+  STATE -->|"PROPOSED"| PORT["SPN portfolio policy, authorized actions"]
+  STATE -->|"ACTIVE and due"| COMPLETE["Observe, update belief, complete, admit"]
+  STATE -->|"COMPLETED and unreviewed"| REVIEW["SPN study review and execution"]
+  STATE -->|"otherwise"| NONE["No activity in this branch"]
+  PORT --> ELIG{"Study review existed before this year's project loop?"}
+  COMPLETE --> ELIG
+  REVIEW --> ELIG
+  NONE --> ELIG
+  ELIG -->|"yes and opening project exists"| OPP["SPN annual opportunity policy; optional investment"]
+  ELIG -->|"no"| NEXT["Next year or finish"]
+  OPP --> NEXT
+  NEXT -->|"next year"| YEAR
+  POLICY["Policy epoch: snapshot, worker, decision"] --> WA["World Authority persisted epoch"]
+  SYSTEM["System epoch: transition, accounting audit"] --> WA
+  WA --> TRACE["Persisted decisions, state, causal records and replay provenance"]
+  YEAR -.-> POLICY
+  PROJECTS -.-> SYSTEM

@@ -1,0 +1,24 @@
+flowchart TD
+ CAND["Visible SCREENED, capable, preliminary-comparable candidates"] --> UNRES["Exclude characterized bodies"]
+ UNRES --> AFF["Require finite, affordable mission cost"]
+ AFF --> MIN["Choose minimum modeled cost; SHA256 breaks exact ties"]
+ MIN --> PUBPOL{"PUB explorer policy"}
+ PUBPOL -->|"AUTHORIZE"| REM["Paid remote observation"]
+ PUBPOL -->|"not authorized"| WAIT["No remote transition"]
+ REM --> PUBBEL["Update PUB belief per material family"]
+ PUBBEL --> PUBPUB{"PUB publication policy per signal"}
+ PUBPUB -->|"PUBLISH"| SPNBEL["SPN published information and independent belief"]
+ SPNBEL --> OPPS["Regional opportunities from observations, beliefs and priors"]
+ OPPS --> OPEN{"SPN prospecting policy"}
+ OPEN -->|"INITIATE_PROJECT"| FUND["Create project, commitment and disbursement"]
+ FUND --> PORT{"SPN portfolio policy"}
+ PORT -->|"AUTHORIZE"| STUDY["Authorize, start and spend study"]
+ STUDY --> RESULT["Due: region observation, belief update, completion and admission"]
+ RESULT --> REVIEW{"SPN study review: ADVANCE / DEFER / ABANDON"}
+ REVIEW --> STATE["Persistent project state"]
+ STATE --> ANNUAL{"SPN annual opportunity policy after prior review"}
+ ANNUAL -->|"CONSIDER_PROSPECTING"| RECHECK["Re-derive opportunity, check drift"]
+ RECHECK --> REINV{"SPN prospecting policy"}
+ REINV -->|"INITIATE_PROJECT"| FUND
+ ANNUAL -->|"not financed"| HOLD["Retain state"]
+ FIN["FIN registered, no independent annual decision evidenced"] -.-> HOLD

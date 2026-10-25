@@ -1,0 +1,22 @@
+flowchart TD
+ SEED["World seed and material priors"] --> GEN["Generated hidden world"]
+ GEN --> BODY["Sealed body material presence"]
+ GEN --> REGION["Sealed regional material truth"]
+ PUBREQ["PUB mission selected and authorized"] --> REM["explore_paid REMOTE"]
+ BODY -->|"trusted read after authorization"| REM
+ REM --> SIGNAL["Four noisy material-family signals"]
+ SIGNAL --> PUBBEL["PUB belief update: detection and false-positive assumptions"]
+ PUBBEL --> PUBPUB{"PUB publication policy per observation"}
+ PUBPUB -->|"PUBLISH"| INFO["Published information"]
+ INFO --> SPNBEL["SPN independently updated beliefs"]
+ SPNBEL --> OPP["Sponsor visible opportunity"]
+ OPP --> STUDY["Authorized and paid regional study"]
+ REGION -->|"trusted read at transition"| STUDY
+ STUDY --> ROBS["observe_region_study"]
+ ROBS --> CLASS["Classify regional observation"]
+ ROBS --> SPNREG["SPN belief update, fixed .80/.20"]
+ CLASS --> RESULT["Complete and admit study result"]
+ SPNREG --> REVIEW{"SPN review"}
+ RESULT --> REVIEW
+ BODY -.->|"not a direct Agent input"| PUBREQ
+ REGION -.->|"not a direct Agent input"| OPP
