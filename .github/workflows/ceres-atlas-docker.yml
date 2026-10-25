@@ -1,0 +1,189 @@
+name: Ceres Atlas Docker qualification
+
+on:
+  push:
+    branches:
+      - engineering/ceres-atlas-docker-qualification-20260919
+    paths:
+      - '.dockerignore'
+      - 'Dockerfile'
+      - '.github/workflows/ceres-atlas-docker.yml'
+      - 'tests/ceres_atlas_browser.test.mjs'
+      - 'tests/test_ceres_atlas_server.py'
+      - 'tests/test_ceres_browser_tap.py'
+      - 'tools/check_ceres_browser_tap.py'
+      - 'tools/serve_ceres_atlas.py'
+      - 'web/ceres-atlas/**'
+      - 'docs/ceres/manifest.json'
+      - 'docs/ceres/*.png'
+      - 'data/LOOM_2226.sqlite3'
+      - 'data/LOOM_2226_CIVSTATE.sqlite3'
+  pull_request:
+    branches: [main]
+    paths:
+      - '.dockerignore'
+      - 'Dockerfile'
+      - '.github/workflows/ceres-atlas-docker.yml'
+      - 'tests/ceres_atlas_browser.test.mjs'
+      - 'tests/test_ceres_atlas_server.py'
+      - 'tests/test_ceres_browser_tap.py'
+      - 'tools/check_ceres_browser_tap.py'
+      - 'tools/serve_ceres_atlas.py'
+      - 'web/ceres-atlas/**'
+      - 'docs/ceres/manifest.json'
+      - 'docs/ceres/*.png'
+      - 'data/LOOM_2226.sqlite3'
+      - 'data/LOOM_2226_CIVSTATE.sqlite3'
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/engineering/ceres-atlas-docker-qualification-20260919'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.13'
+      - name: Install pinned Python test dependency
+        run: python -m pip install --disable-pip-version-check pytest==8.4.2
+      - name: Install pinned Playwright and Chromium
+        run: |
+          npm install --no-save --package-lock=false --ignore-scripts playwright@1.63.0
+          ./node_modules/.bin/playwright install --with-deps chromium
+      - name: Run Python and model checks
+        run: |
+          python -B -m pytest -p no:cacheprovider \
+            tests/test_ceres_atlas_server.py \
+            tests/test_ceres_browser_tap.py \
+            tests/test_database_data_dictionary.py -q
+          node --test tests/ceres_atlas_model.test.mjs
+      - name: Build unexported qualification image
+        run: |
+          set -euo pipefail
+          docker build --pull --iidfile "$RUNNER_TEMP/ceres-atlas.iid" \
+            --tag loom-ceres-atlas:qualification .
+          image_id="$(cat "$RUNNER_TEMP/ceres-atlas.iid")"
+          echo "IMAGE_ID=$image_id" >> "$GITHUB_ENV"
+          cat > "$RUNNER_TEMP/ceres-atlas-compatibility.yml" <<EOF
+          schema_version: 1
+          artifact: private-ceres-atlas-docker-qualification
+          image_id: $image_id
+          base_image: python:3.13.7-slim-bookworm@sha256:adafcc17694d715c905b4c7bebd96907a1fd5cf183395f0ebc4d3428bd22d92d
+          world_mount: read_only_external
+          civstate_mount: read_only_external
+          media_mount: read_only_external
+          browser_requirement: seven_passes_zero_skips
+          ghcr_publication: not_performed
+          EOF
+          echo "### Image content" >> "$GITHUB_STEP_SUMMARY"
+          echo "Built local image $image_id from the pinned Python base." >> "$GITHUB_STEP_SUMMARY"
+          cat "$RUNNER_TEMP/ceres-atlas-compatibility.yml" >> "$GITHUB_STEP_SUMMARY"
+          if docker run --rm --entrypoint sh loom-ceres-atlas:qualification -c \
+            "test ! -e /app/data && ! find /app -type f \( -name '*.sqlite' -o -name '*.sqlite3' -o -name '*.db' -o -name '*.png' \) | grep -q ."; then
+            echo 'Image content inspection passed: no database or PNG payload is embedded.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'Restricted database or media payload found in image.' >&2
+            exit 1
+          fi
+          docker history --no-trunc loom-ceres-atlas:qualification >> "$GITHUB_STEP_SUMMARY"
+          docker save loom-ceres-atlas:qualification -o "$RUNNER_TEMP/ceres-atlas-image.tar"
+          if tar -tf "$RUNNER_TEMP/ceres-atlas-image.tar" | grep -Eiq '(^|/)([^/]*\.(sqlite3?|db|png|pem|key|env)|id_rsa|credentials|secret)($|/)'; then
+            echo 'Restricted database, image, credential or secret path found in an image layer.' >&2
+            exit 1
+          fi
+          echo 'Full image-layer archive inspection passed: no restricted database, image or credential paths.' >> "$GITHUB_STEP_SUMMARY"
+      - name: Create disposable representative database mounts
+        run: |
+          set -euo pipefail
+          fixture="$RUNNER_TEMP/ceres-atlas-fixture"
+          mkdir -p "$fixture"
+          cp data/LOOM_2226.sqlite3 "$fixture/world.sqlite3"
+          cp data/LOOM_2226_CIVSTATE.sqlite3 "$fixture/civstate.sqlite3"
+          python tests/create_ceres_media_fixture.py "$fixture/media.sqlite3"
+          chmod a+r "$fixture"/*.sqlite3
+          echo "CERES_FIXTURE=$fixture" >> "$GITHUB_ENV"
+      - name: Start qualified container with read-only mounts
+        run: |
+          set -euo pipefail
+          docker run --detach --name ceres-atlas-qualification \
+            --read-only --tmpfs /tmp:rw,nosuid,nodev,size=64m \
+            --publish 8768:8768 \
+            --volume "$CERES_FIXTURE:/data:ro" \
+            --env CERES_WORLD_DB=/data/world.sqlite3 \
+            --env CERES_CIVSTATE_DB=/data/civstate.sqlite3 \
+            --env CERES_MEDIA_DB=/data/media.sqlite3 \
+            loom-ceres-atlas:qualification
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8768/healthz; then
+              echo
+              exit 0
+            fi
+            sleep 1
+          done
+          docker logs ceres-atlas-qualification
+          exit 1
+      - name: Run seven browser tests against the container
+        shell: bash
+        run: |
+          set -euo pipefail
+          CERES_ATLAS_BASE_URL=http://127.0.0.1:8768/ \
+            node --test --test-reporter=tap tests/ceres_atlas_browser.test.mjs | tee "$RUNNER_TEMP/ceres-browser.tap"
+          python tools/check_ceres_browser_tap.py "$RUNNER_TEMP/ceres-browser.tap"
+      - name: Verify live SQL mutation and MEDIA blob retrieval
+        run: |
+          set -euo pipefail
+          before="$(curl --fail --silent http://127.0.0.1:8768/atlas-data.json)"
+          python - "$CERES_FIXTURE/civstate.sqlite3" <<'PY'
+          import sqlite3, sys
+          path = sys.argv[1]
+          with sqlite3.connect(path) as db:
+              db.execute("UPDATE civ_demographic_state SET biological_population = biological_population + 1 WHERE subject_id='BODY:CERES:CERES' AND year=2226")
+              db.commit()
+          PY
+          after="$(curl --fail --silent http://127.0.0.1:8768/atlas-data.json)"
+          BEFORE="$before" AFTER="$after" python - <<'PY'
+          import json, os
+          b = json.loads(os.environ['BEFORE'])['body']['demographic']['biological_population']
+          a = json.loads(os.environ['AFTER'])['body']['demographic']['biological_population']
+          assert a == b + 1, (b, a)
+          PY
+          curl --fail --silent --output "$RUNNER_TEMP/ceres-hero.png" http://127.0.0.1:8768/assets/ceres-world-hero.png
+          test "$(sha256sum "$RUNNER_TEMP/ceres-hero.png" | cut -d' ' -f1)" = fa5fc5876d8f66631837ce498d77e139444b9247e8b2a66ff6dd8ad611e1f08e
+          test "$(wc -c < "$RUNNER_TEMP/ceres-hero.png")" -eq 1261154
+          echo 'Live disposable CIVSTATE mutation and approved MEDIA retrieval passed.' >> "$GITHUB_STEP_SUMMARY"
+      - name: Negative startup verification rejects missing mounts and incompatible databases
+        run: |
+          set -euo pipefail
+          expect_fail() {
+            name="$1"; shift
+            if docker run --rm --read-only --tmpfs /tmp:rw,nosuid,nodev,size=64m \
+              --volume "$CERES_FIXTURE:/data:ro" "$@" loom-ceres-atlas:qualification; then
+              echo "$name was incorrectly accepted." >&2; exit 1
+            fi
+          }
+          expect_fail 'missing WORLD mount' --env CERES_WORLD_DB=/data/missing-world.sqlite3 --env CERES_CIVSTATE_DB=/data/civstate.sqlite3 --env CERES_MEDIA_DB=/data/media.sqlite3
+          expect_fail 'missing CIVSTATE mount' --env CERES_WORLD_DB=/data/world.sqlite3 --env CERES_CIVSTATE_DB=/data/missing-civstate.sqlite3 --env CERES_MEDIA_DB=/data/media.sqlite3
+          expect_fail 'missing MEDIA mount' --env CERES_WORLD_DB=/data/world.sqlite3 --env CERES_CIVSTATE_DB=/data/civstate.sqlite3 --env CERES_MEDIA_DB=/data/missing-media.sqlite3
+          cp "$CERES_FIXTURE/world.sqlite3" "$CERES_FIXTURE/world-corrupt.sqlite3"
+          printf 'x' | dd of="$CERES_FIXTURE/world-corrupt.sqlite3" bs=1 seek=0 conv=notrunc status=none
+          expect_fail 'incompatible WORLD identity' --env CERES_WORLD_DB=/data/world-corrupt.sqlite3 --env CERES_CIVSTATE_DB=/data/civstate.sqlite3 --env CERES_MEDIA_DB=/data/media.sqlite3
+          cp "$CERES_FIXTURE/civstate.sqlite3" "$CERES_FIXTURE/civstate-incompatible.sqlite3"
+          printf 'x' | dd of="$CERES_FIXTURE/civstate-incompatible.sqlite3" bs=1 seek=0 conv=notrunc status=none
+          expect_fail 'incompatible CIVSTATE schema' --env CERES_WORLD_DB=/data/world.sqlite3 --env CERES_CIVSTATE_DB=/data/civstate-incompatible.sqlite3 --env CERES_MEDIA_DB=/data/media.sqlite3
+          cp "$CERES_FIXTURE/media.sqlite3" "$CERES_FIXTURE/media-incompatible.sqlite3"
+          printf 'x' | dd of="$CERES_FIXTURE/media-incompatible.sqlite3" bs=1 seek=0 conv=notrunc status=none
+          expect_fail 'incompatible MEDIA identity' --env CERES_WORLD_DB=/data/world.sqlite3 --env CERES_CIVSTATE_DB=/data/civstate.sqlite3 --env CERES_MEDIA_DB=/data/media-incompatible.sqlite3
+          echo 'Negative startup checks passed: missing WORLD/CIVSTATE/MEDIA and incompatible database inputs rejected.' >> "$GITHUB_STEP_SUMMARY"
+      - name: Stop qualified container
+        if: always()
+        run: docker rm --force ceres-atlas-qualification || true

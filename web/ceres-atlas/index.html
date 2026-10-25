@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <title>Ceres Atlas · LOOM 2226</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.mjs"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to Ceres dossier</a>
+  <header class="masthead">
+    <img class="loom-banner" src="/assets/loom-wordmark-white.svg" alt="LOOM"><span class="product-lockup">/ ATLAS</span>
+    <span class="edition">Private · Local</span>
+  </header>
+  <main id="main" tabindex="-1">
+    <section id="loading" class="message" role="status">
+      <h1>Ceres Atlas</h1><p>Opening the local Ceres dossier…</p>
+    </section>
+    <section id="load-error" class="message" hidden aria-labelledby="error-title">
+      <p class="eyebrow">Collection unavailable</p>
+      <h1 id="error-title" tabindex="-1">The local collection could not be opened</h1>
+      <p id="error-message"></p>
+      <button id="retry-load" type="button">Try again</button>
+    </section>
+    <section id="list-view" hidden aria-labelledby="list-title">
+      <div class="intro">
+        <p class="eyebrow">Facility collection / 01</p>
+        <h1 id="list-title" tabindex="-1">Ceres Atlas</h1>
+        <p class="lede">Five facilities. A closer look at Ceres.</p>
+        <p class="muted">Explore the approved reference imagery and recorded identities.</p><nav class="domain-strip" aria-label="Atlas domains"><a href="#domain=people">PEOPLE</a><a href="#domain=economy">ECONOMY</a><a href="#domain=transit">TRANSIT</a><a href="#domain=infrastructure">INFRASTRUCTURE</a><a href="#domain=institutions">INSTITUTIONS / GOVERNANCE</a><a href="#domain=society">SOCIETY</a></nav>
+      </div>
+      <div class="filters">
+        <div><label for="search">Find a facility</label>
+          <input id="search" type="search" placeholder="Name, ID or facility type" maxlength="200" autocomplete="off">
+        </div>
+        <div><label for="type-filter">Facility type</label>
+          <select id="type-filter"><option value="">All types</option></select>
+        </div>
+        <button id="clear-filters" class="secondary" type="button">Clear filters</button>
+      </div>
+      <p id="result-count" class="muted" role="status" aria-live="polite" aria-atomic="true"></p>
+      <ul id="facilities" class="facility-grid" aria-label="Ceres facilities"></ul>
+      <div id="empty" class="message" hidden>
+        <h2>No matching facilities</h2><p>Try a different name or clear the filters.</p>
+      </div>
+    </section>
+    <section id="detail-view" hidden aria-labelledby="detail-title"></section>
+    <noscript><p class="message">Enable JavaScript to browse this local collection. No internet connection is needed.</p></noscript>
+  </main>
+  <footer>Private Ceres Atlas · Prototype 08R · Local only</footer>
+</body>
+</html>
