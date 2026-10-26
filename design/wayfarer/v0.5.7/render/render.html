@@ -1,0 +1,79 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Wayfarer render</title>
+<style>
+html,body{margin:0;background:#000;overflow:hidden;font-family:"Helvetica Neue",Arial,sans-serif}
+#wrap{position:relative}
+canvas{display:block}
+.lab{position:absolute;color:#e8edf5;font-size:15px;letter-spacing:.02em;white-space:nowrap;transform:translate(-50%,-50%);
+  background:rgba(8,12,20,.62);padding:3px 8px;border-radius:4px;border:1px solid rgba(160,190,230,.35)}
+#lines{position:absolute;left:0;top:0;pointer-events:none}
+#title{position:absolute;left:28px;top:22px;color:#f2f5fa;font-size:26px;font-weight:500}
+#cap{position:absolute;left:28px;top:58px;color:#b9c3d3;font-size:16px;max-width:900px}
+#stamp{position:absolute;right:20px;bottom:14px;color:#7f8da3;font-size:12px;text-align:right}
+#scale{position:absolute;left:28px;bottom:16px;color:#9aa6b8;font-size:12px}
+</style></head>
+<body><div id="wrap"><canvas id="c"></canvas><svg id="lines"></svg><div id="title"></div><div id="cap"></div><div id="stamp"></div><div id="scale"></div></div>
+<script type="module">
+import {Ship, MATS} from "./loomgl.js";
+const q = new URLSearchParams(location.search);
+const V = await (await fetch("views.json")).json();
+const view = V.views.find(v => v.id === q.get("view"));
+const geoTxt = await (await fetch("../out/wayfarer_v05_geometry.json")).text();
+const geo = JSON.parse(geoTxt);
+const sha = q.get("sha") || "";
+const [W, H] = V.size;
+const cv = document.getElementById("c"); const dpr = window.devicePixelRatio || 1;
+cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + "px"; cv.style.height = H + "px";
+const ship = new Ship(cv, geo, {shadowSize: 4096});
+const hideExt = new Set(["room", "outfit", "floor", "core", "avionics", "pressure_hull", "bulkhead", "plant", "equipment", "manifold", "frame", "longeron", "tunnel", "drone", "water", "cargo"]);
+const show = {
+  exterior: p => !(p.tags || []).includes("room") && !hideExt.has(p.mat) && !p.mat.startsWith("room_"),
+  cutaway: p => p.mat !== "outfit",
+  command: p => p.mat !== "outfit" && p.id !== "room_L1-command" && p.id !== "core_racks",
+  structure: p => ["longeron", "frame", "thrust_cone", "shield"].includes(p.mat) || p.id === "docking_collar",
+  habitat: p => p.mat !== "outfit" && p.id !== "core_racks" && !p.id.startsWith("room_L1"),   // racks share the trunk's top face (z-fighting at the trunk opening)
+};
+const cmd = view.cmd ? await (await fetch("out/l1_scene.json")).json() : null;
+const hab = view.hab ? await (await fetch("out/hab_scene.json")).json() : null;
+const fluids = view.fluids ? geo.fluids_by_state[view.fluids] : [];
+const crownCfg = view.crown || (geo.crown ? {...geo.crown, open: view.crownOpen ?? (view.cmd ? 1 : 0)} : null);   // v0.5.7: the crown dome is the main design
+if (crownCfg) view.holes = true;
+if (view.longeronHighlight) MATS.longeron.c = [0.95, 0.55, 0.12];
+const tris = ship.build({show: view.interior ? (p => p.mat !== "outfit" && p.id !== "core_racks") : show[view.show], strakeSpan: view.strakeSpan || 0, finSpan: view.finSpan || 0, doorsOpen: !!view.doorsOpen,
+                         shuttleLift: view.shuttleLift || 0, fluids, plume: !!view.plume, features: view.show === "exterior",
+                         windowFrames: !!view.windowFrames, windowPanes: !!view.windowPanes, bore: view.bore, cmd, hab, litter: !!view.litter, crown: crownCfg, shuttersClosed: view.shutters === "closed" || (view.shutters === undefined && !!crownCfg && crownCfg.open < 0.5 && view.show === "exterior"), roomsAsFloors: !!view.roomsAsFloors, cmdHide: view.cmdHide, cmdHideCrew: view.cmdHideCrew, cmdClip: view.clip});
+ship.draw(view);
+document.getElementById("title").textContent = view.title;
+document.getElementById("cap").textContent = view.caption;
+document.getElementById("stamp").innerHTML = `VISUAL REFERENCE - Wayfarer v${geo.version} (NON-GOVERNING) - generated from wayfarer_v05_geometry.json${cmd ? " and the scored L1 scene (l1_scene.json)" : ""}${hab ? " and the habitat scene (hab_scene.json)" : ""}<br>sha256 ${sha.slice(0, 16)}... - ALL bodies. ALL sponsors. 2026-2226.`;
+const wrap = document.getElementById("wrap");
+const svg = document.getElementById("lines"); svg.setAttribute("width", W); svg.setAttribute("height", H);
+if (view.route && hab) {    // dashed path through projected 3D points
+  const pts = hab.route.map(q => ship.project(...q)).filter(q => q[2]);
+  svg.insertAdjacentHTML("beforeend", `<polyline points="${pts.map(q => q[0] + "," + q[1]).join(" ")}" fill="none" stroke="rgba(255,190,60,0.95)" stroke-width="3.5" stroke-dasharray="12 8" stroke-linejoin="round"/>`);
+  const e = pts[pts.length - 1];
+  if (e) svg.insertAdjacentHTML("beforeend", `<circle cx="${e[0]}" cy="${e[1]}" r="6" fill="rgba(255,190,60,0.95)"/>`);
+}
+for (const c of view.cones || []) {   // view cones about the camera axis (perspective views looking along the cone axis)
+  const rad = Math.tan(c.half * Math.PI / 180) / Math.tan((view.fov || 35) * Math.PI / 360) * H / 2;
+  svg.insertAdjacentHTML("beforeend", `<circle cx="${W / 2}" cy="${H / 2}" r="${rad}" fill="none" stroke="${c.col || "rgba(255,200,120,0.85)"}" stroke-width="2" stroke-dasharray="10 8"/>`
+    + `<text x="${W / 2 + rad * 0.72 + 10}" y="${H / 2 - rad * 0.72 - 6}" fill="${c.col || "rgba(255,200,120,0.95)"}" font-size="16" font-family="Helvetica Neue,Arial">${c.t}</text>`);
+}
+const placed = [];
+for (const L of view.labels || []) {
+  const [ax, ay, ok] = ship.project(...L.at); if (!ok) continue;
+  const off = L.off || [0, -46];
+  const d = document.createElement("div"); d.className = "lab"; d.textContent = L.t; wrap.appendChild(d);
+  const w = d.offsetWidth, h = d.offsetHeight;
+  let x = ax + off[0], y = ay + off[1];
+  for (let it = 0; it < 40; it++) {
+    const hit = placed.find(b => Math.abs(b.x - x) < (b.w + w) / 2 + 6 && Math.abs(b.y - y) < (b.h + h) / 2 + 4);
+    if (!hit) break; y += (off[1] <= 0 ? -1 : 1) * ((hit.h + h) / 2 + 6 - Math.abs(hit.y - y));
+  }
+  x = Math.min(Math.max(x, w / 2 + 8), W - w / 2 - 8);
+  placed.push({x, y, w, h}); d.style.left = x + "px"; d.style.top = y + "px";
+  const ey = y + (ay > y ? h / 2 : -h / 2);
+  svg.insertAdjacentHTML("beforeend", `<line x1="${x}" y1="${ey}" x2="${ax}" y2="${ay}" stroke="rgba(170,200,240,0.75)" stroke-width="1.2"/><circle cx="${ax}" cy="${ay}" r="3" fill="#cfe0ff"/>`);
+}
+window.__info = {tris}; window.__done = true;
+</script></body></html>

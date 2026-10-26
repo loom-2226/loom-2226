@@ -10,6 +10,8 @@ LOOM_STATE*.bak
 LOOM_HISTORY*.jsonl*
 LOOM_Navigator_Cache_v1/
 *.html
+# ...except design pages, which are source (render harnesses) or deliverables (viewers)
+!design/**/*.html
 *.log
 
 # Local credentials / auth

@@ -1,0 +1,325 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-GOVERNING closed-form checks, v0.5.6 crew systems",
+ "flight_deck_columns": {
+  "carried_t": 0.744,
+  "columns": 4,
+  "length_m": 1.675,
+  "ultimate_g": 7.5,
+  "axial_kn": 13.67,
+  "stress_mpa": 19.9,
+  "buckling_kn": 115.8,
+  "buckling_margin": 8.47,
+  "side_load_combined_mpa": 114.7,
+  "yield_mpa": 503,
+  "ok_stress": true,
+  "ok_buckling": true
+ },
+ "stations": {
+  "hard_point_kn": 2.76,
+  "requirement": "each couch or berth hard point rated >= 3 kN ultimate",
+  "berth_post_kn": 2.57,
+  "berth_post_buckling_kn": 26.2,
+  "berth_post_margin": 10.2,
+  "berth_post_stress_mpa": 10.8,
+  "ok": true
+ },
+ "floors": [
+  {
+   "deck": "L1",
+   "carried_t": 9.57,
+   "people_t": 0.6,
+   "pressure_kpa": 14.0,
+   "face_mm": 0.17,
+   "needed_t": 0.78,
+   "floor_t": 1.588,
+   "core_shear_mpa": 0.082,
+   "ok": true
+  },
+  {
+   "deck": "L2",
+   "carried_t": 13.13,
+   "people_t": 0.0,
+   "pressure_kpa": 19.2,
+   "face_mm": 0.23,
+   "needed_t": 0.79,
+   "floor_t": 1.588,
+   "core_shear_mpa": 0.112,
+   "ok": true
+  },
+  {
+   "deck": "L3",
+   "carried_t": 12.63,
+   "people_t": 1.0,
+   "pressure_kpa": 18.5,
+   "face_mm": 0.22,
+   "needed_t": 0.79,
+   "floor_t": 1.588,
+   "core_shear_mpa": 0.108,
+   "ok": true
+  },
+  {
+   "deck": "L4",
+   "carried_t": 36.89,
+   "people_t": 0.0,
+   "pressure_kpa": 54.0,
+   "face_mm": 0.64,
+   "needed_t": 0.86,
+   "floor_t": 1.588,
+   "core_shear_mpa": 0.314,
+   "ok": true
+  }
+ ],
+ "l4_l5_bulkhead": {
+  "pressure_kpa": 101.3,
+  "factor": 2.0,
+  "face_mm": 2.4,
+  "needed_t": 1.14,
+  "floor_t": 1.588,
+  "core_shear_mpa": 1.18,
+  "core_shear_allow_mpa": 1.5,
+  "hatches": 2,
+  "trunk_plug": true,
+  "ok": true
+ },
+ "casualty_route": {
+  "doctrine": [
+   "Casualty moves happen at 0 g: the captain orders coast, which is available at any time (an emergency burn means everyone is already in a couch).",
+   "The litter is carried with its length along the ship's axis: through 2.05 m doors, end-first down the port ladder shaft (theta 180), out of the shaft at L4 and straight through the medical opening.",
+   "Under thrust the casualty stays in their couch or berth (each is a 5 g couch) and is treated there until coast.",
+   "Above ~1.5 g everyone is in a couch; no casualty moves."
+  ],
+  "axial_fits_deck": {
+   "need_m": 2.05,
+   "clear_height_m": 2.3,
+   "ok": true
+  },
+  "doors": {
+   "count": 4,
+   "min_height_m": 2.05,
+   "min_width_m": 0.8,
+   "need_height_m": 2.05,
+   "need_width_m": 0.7,
+   "ok": true
+  },
+  "shaft": {
+   "clear_m": [
+    0.8,
+    0.6
+   ],
+   "need_m": [
+    0.7,
+    0.44999999999999996
+   ],
+   "rungs_on": "inboard face (r 1.0 m side), so the outboard side of the shaft stays clear for a litter",
+   "ok": true
+  },
+  "shaft_to_medical": {
+   "shaft_theta_deg": 180,
+   "entrance_deg": [
+    165.8,
+    238.2
+   ],
+   "litter_crosses_deg": [
+    173.2,
+    186.8
+   ],
+   "edge_margin_m": 0.24,
+   "entrance_inside_medical_wall": true,
+   "ok": true
+  },
+  "bay_fits_litter": {
+   "outer_corner_r_m": 3.961,
+   "room_r_m": 4.15,
+   "ok": true
+  },
+  "ok": true
+ },
+ "acceleration": {
+  "cap_g": 4.0,
+  "rows": [
+   {
+    "mode": "ECON",
+    "ve_km_s": 3000,
+    "accel_start_g": 0.3,
+    "accel_peak_g": 0.38,
+    "capped": false,
+    "full_remass_burn_min": 3667.5,
+    "in_couches": false
+   },
+   {
+    "mode": "CRUISE",
+    "ve_km_s": 2000,
+    "accel_start_g": 0.99,
+    "accel_peak_g": 1.26,
+    "capped": false,
+    "full_remass_burn_min": 733.5,
+    "in_couches": false
+   },
+   {
+    "mode": "EXPEDITE",
+    "ve_km_s": 1000,
+    "accel_start_g": 1.98,
+    "accel_peak_g": 2.52,
+    "capped": false,
+    "full_remass_burn_min": 183.4,
+    "in_couches": true,
+    "ochmo_allowed_min": 626.0,
+    "split_needed": true,
+    "longest_couch_period_min": 165,
+    "ok": true
+   },
+   {
+    "mode": "FAST",
+    "ve_km_s": 700,
+    "accel_start_g": 2.83,
+    "accel_peak_g": 3.61,
+    "capped": false,
+    "full_remass_burn_min": 89.9,
+    "in_couches": true,
+    "ochmo_allowed_min": 112.0,
+    "split_needed": false,
+    "longest_couch_period_min": 89.9,
+    "ok": true
+   },
+   {
+    "mode": "HARD",
+    "ve_km_s": 450,
+    "accel_start_g": 4.0,
+    "accel_peak_g": 4.0,
+    "capped": true,
+    "full_remass_burn_min": 46.1,
+    "in_couches": true,
+    "ochmo_allowed_min": 60.0,
+    "split_needed": false,
+    "longest_couch_period_min": 46.1,
+    "ok": true
+   },
+   {
+    "mode": "LIMIT",
+    "ve_km_s": 300,
+    "accel_start_g": 4.0,
+    "accel_peak_g": 4.0,
+    "capped": true,
+    "full_remass_burn_min": 30.7,
+    "in_couches": true,
+    "ochmo_allowed_min": 60.0,
+    "split_needed": false,
+    "longest_couch_period_min": 30.7,
+    "ok": true
+   }
+  ],
+  "ok": true,
+  "note": "Full usable remass (S1) in one burn at the working card's mass flow (held to the 11.361 TW heat ceiling), throttled to the crew cap. OCHMO allowed time interpolated log-linearly between its two +Gx evidence points (2 g >= 24 h, 4 g >= 60 min) at the burn's peak acceleration."
+ },
+ "shelter_backup": {
+  "o2_kg": 25.2,
+  "co2_kg": 30.0,
+  "lioh_kg": 43.6,
+  "food_kg": 18.6,
+  "drink_water_kg": 48.6,
+  "battery_kg": 72.0,
+  "stored_mass_t": 0.216,
+  "allotted_t": 0.3,
+  "water_from_jacket_fraction": 0.0029,
+  "heat_kw": 2.0,
+  "ok": true
+ },
+ "docking_and_windows": {
+  "windows": 22,
+  "window_assembly_t": 2.184,
+  "ledger_windows_t": 2.1839999999999997,
+  "cameras": 2,
+  "vestibule_window": true,
+  "bore_splay_deg": 12,
+  "berth_viewports": 10,
+  "ok": true
+ },
+ "viewport_band": {
+  "glazed_area_m2": 19.36,
+  "mass_ahead_t": 66.3,
+  "mullions": 23,
+  "mullion_section_m": [
+   0.05,
+   0.2
+  ],
+  "axial_load_thrust_mn": 4.88,
+  "axial_load_pressure_mn": 11.12,
+  "mullion_stress_mpa": 48.4,
+  "allow_mpa": 600.0,
+  "mullion_buckling_margin": 4.3,
+  "tallest_mullion_m": 1.6,
+  "pane_hoop_membrane_mm_withdrawn": 12.4,
+  "glazing_total_m2": 48.3,
+  "heat_loss_kw_all_open": 2.03,
+  "ok": true,
+  "load_path": {
+   "1_hoop_to_edge_rings": {
+    "general band 0.6 m": {
+     "ring_tension_kn": 261.4,
+     "ti_area_needed_cm2": 4.4
+    },
+    "lounge 1.6 m": {
+     "ring_tension_kn": 697.1,
+     "ti_area_needed_cm2": 11.6
+    }
+   },
+   "2_panes_check": {
+    "general_need_mm": 14.6,
+    "general_spec_mm": 16,
+    "lounge_need_mm": 17.2,
+    "lounge_spec_mm": 18,
+    "ok": true
+   },
+   "3_rings": {
+    "axial_flow_kn_m": 435.7,
+    "mullion_load_kn": 490.5,
+    "ring_moment_knm": 46.0,
+    "ring_section_cm": [
+     14.000000000000002,
+     4.0
+    ],
+    "bending_mpa": 352.1,
+    "with_lounge_hoop_mpa": 476.6,
+    "allow_mpa": 600.0,
+    "two_rings_t": 1.34,
+    "ok": true
+   },
+   "4_shell_at_ring": {
+    "hoop_mpa": 29.0,
+    "axial_mpa": 14.5,
+    "discontinuity_bending_mpa": 52.7,
+    "axial_plus_bending_mpa": 67.3,
+    "allow_mpa": 250.0,
+    "decay_length_m": 0.878,
+    "ok": true
+   },
+   "5_mullion_root_joint": {
+    "load_kn": 490.5,
+    "four_M16_double_shear_kn": 884.7,
+    "margin": 1.8,
+    "ok": true
+   },
+   "6_thermal": {
+    "dT_K": 50.0,
+    "radial_mismatch_mm": 1.74,
+    "circumferential_mismatch_mm": 10.9,
+    "finger": "80 x 40 x 2.5 mm at 50 mm",
+    "finger_bending_mpa": 116.3,
+    "fatigue_allow_mpa": 200.0,
+    "finger_axial_mpa": 217.8,
+    "ok": true
+   },
+   "mass": {
+    "rings_t": 1.34,
+    "mullions_t": 0.8,
+    "lounge_transom_t": 0.064,
+    "frame_needed_t": 2.2,
+    "frame_allowed_rev3_t": 2.2,
+    "lounge_pane_extra_t": 0.064,
+    "band_increase_t": 0.06,
+    "specified_band_t": 5.867
+   }
+  }
+ }
+}
