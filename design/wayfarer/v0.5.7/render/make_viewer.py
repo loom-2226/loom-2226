@@ -27,7 +27,7 @@ def version_pack(geo_p, rep_p, cmd_p, hab_p, inp_p, check_scene=True):
     sha = hashlib.sha256(gb).hexdigest()
     G = json.loads(gb)
     R = json.loads(rep_p.read_text())
-    geo = {"version": G["version"], "window_bore": G.get("window_bore"), "crown": G.get("crown"), "length_m": G["length_m"], "thrust_line_offset_m": G["thrust_line_offset_m"], "features": G["features"],
+    geo = {"version": G["version"], "window_bore": G.get("window_bore"), "crown": G.get("crown"), "skin": bool(G.get("skin")), "length_m": G["length_m"], "thrust_line_offset_m": G["thrust_line_offset_m"], "features": G["features"],
            "parts": [{k: p[k] for k in keep} for p in G["parts"]],
            "fluids_by_state": {"S1": [{k: p[k] for k in keep} for p in G["fluids_by_state"]["S1"]]}}
     cmd = json.loads(cmd_p.read_text())
@@ -153,6 +153,14 @@ footer{color:var(--steel);font-size:11px;letter-spacing:.03em;line-height:1.6;bo
     <button class="chip" type="button" data-pet="1" aria-pressed="false">Dome + shutters open</button>
     <button class="chip" type="button" data-pet="0" aria-pressed="true">All closed</button>
   </div>
+  <div class="row" role="group" aria-label="Skin" id="skinrow">
+    <button class="chip" type="button" data-skin="1" aria-pressed="true">Strata skin</button>
+    <button class="chip" type="button" data-skin="0" aria-pressed="false">Engineering grey</button>
+  </div>
+  <div class="row" role="group" aria-label="Flanks" id="coldrow">
+    <button class="chip" type="button" data-cold="0" aria-pressed="true">Flanks: normal</button>
+    <button class="chip" type="button" data-cold="1" aria-pressed="false">Flanks: cold running</button>
+  </div>
   <div class="row" role="group" aria-label="Show">
     <button class="chip" type="button" data-tog="cut" aria-pressed="false">Cutaway</button>
     <button class="chip" type="button" data-tog="rooms" aria-pressed="true">Rooms</button>
@@ -164,6 +172,9 @@ footer{color:var(--steel);font-size:11px;letter-spacing:.03em;line-height:1.6;bo
 <div class="stats" id="stats"></div>
 <h2>What changed in v0.5.7</h2>
 <ul class="changes">
+  <li><b>Rev 7: the skin (kT's four decisions, Sol agreed).</b> Strata over the whole habitat armour, bare at the bow where the dust hits; tunable-emissivity flanks with two modes, <i>normal</i> (light, shedding heat) and <i>cold running</i> (low-e, holding heat: about 17 h before the strakes must open). Shading only: no new shielding is implied. Strata's look is a placeholder.</li>
+  <li><b>Rev 7: 208 metric node faces</b>, 13 rings x 16, flush on the hull. Placement is on HOLD (PR #184): 20 sit under the stowed strakes, 12 on the bay doors, 80 on the torch chain. Each face must carry the armour's g/cm2: as open holes they would drop the berth screen to 14.8.</li>
+  <li><b>Rev 7: external equipment.</b> Retractable sensor turrets, flush RF arrays, laser terminals, star trackers, service ports, vents, crawler docks and grip points, grapple fixtures and EVA rails (amber). Most are located inside existing ledger lines; 1.4 t of new hardware from the reserve. Drone bays on HOLD.</li>
   <li><b>Four longerons, sized.</b> Five members (3 planks, 2 sills; 36.9 t at 65 MPa against 400) become four 0.40 m CFRP tubes in an X, matching canon. 21.2 t goes back to the engineering reserve. Tap <i>Structure</i>, then switch versions.</li>
   <li><b>Joints counted.</b> 8 titanium end fittings, a node-mount and hatch allowance (location open: the longeron lines sit under the stowed strakes), 4 bay-corner doublers: 3.3 t.</li>
   <li><b>Berth viewports.</b> One 0.35 m viewport at the outer end of every berth (10). Acrylic plugs carry the armour's and the ring's g/cm², so the berths stay storm-shelter grade with the shutter open. Tap <i>Habitat decks</i>.</li>
@@ -214,10 +225,10 @@ function cmdFit() {   // keep the deck's width in frame on a tall phone screen
   const r = cv.getBoundingClientRect(), a = r.width / Math.max(r.height, 1);
   return Math.max(8.5, 3.1 / (Math.tan(20 * Math.PI / 180) * a));
 }
-const LABELS = [["Habitat", [7, 0, 4.6]], ["Docking collar", [16, 0, -4.8]], ["Tanks and bay", [25, 0, 4.6]], ["Shield", [36.8, 0, 2.9]], ["Reactor", [42.8, 0, 2.3]], ["Nozzle", [50, 0, 3.1]]];
+const LABELS = [["Sensor turret", [24.6, 4.7, 0]], ["Node faces", [10.25, -3.2, 3.2]], ["Habitat", [7, 0, 4.6]], ["Docking collar", [16, 0, -4.8]], ["Tanks and bay", [25, 0, 4.6]], ["Shield", [36.8, 0, 2.9]], ["Reactor", [42.8, 0, 2.3]], ["Nozzle", [50, 0, 3.1]]];
 const ROOM_LABELS = [["Command", [1.8, 2, 0]], ["Common", [4.4, 2.6, 0]], ["Quarters", [7.0, 2.6, 0]], ["Shelter", [9.6, 0, 3]], ["Mission", [12.2, 2.6, 0]], ["Shuttle", [25, 0, 0]], ["Plant", [15.5, 0, 0]]];
 let look = {id: "orbit", yaw: 0, pitch: 0, fov: 90};
-let st = {petals: 0, mode: "cruise", cut: false, rooms: true, water: true, labels: true};
+let st = {petals: 0, mode: "cruise", cut: false, rooms: true, water: true, labels: true, skin: 1, cold: 0};
 let ship;
 try { ship = new Ship(cv, GEO, {shadowSize: 2048}); } catch (e) { stage.insertAdjacentHTML("beforeend", `<p class="mode-note" style="padding:16px">This device could not start WebGL 2, so the 3D view is unavailable. The figures below still apply.</p>`); }
 const hideExt = new Set(["room", "outfit", "floor", "core", "avionics", "pressure_hull", "bulkhead", "plant", "equipment", "manifold", "frame", "longeron", "tunnel", "drone", "water", "cargo"]);
@@ -250,7 +261,8 @@ function rebuild() {
   const show2 = GEO.crown && domeOpen && !st.cut ? (p => p.mat !== "outfit" && p.id !== "core_racks") : show;
   ship.build({show: show2, strakeSpan: m.strakeSpan, finSpan: m.finSpan || 0, doorsOpen: !!m.doorsOpen, shuttleLift: m.shuttleLift || 0, plume: !!m.plume,
               fluids: st.cut && st.water ? GEO.fluids_by_state.S1 : [], features: !st.cut, crown: crownOf(domeOpen), shuttersClosed: !!GEO.crown && !domeOpen, cmd: GEO.crown && domeOpen && !st.cut ? CMD : null, cmdClip: null, roomsAsFloors: !!GEO.crown && domeOpen});
-  document.getElementById("note").textContent = m.note + (GEO.crown ? (domeOpen ? " Crown dome open (low speed or bow out of the dust flow)." : " Crown dome closed: gores flush with the armour.") : "") + (st.cut ? " Cutaway: the port half is removed." : "");
+  const skinNote = GEO.skin && st.skin ? (st.cold ? " Flanks cold running: low emissivity holds the heat in (finite: about 17 h on the protected water)." : " Strata skin: bare Strata bow, flanks in normal mode.") : "";
+  document.getElementById("note").textContent = m.note + skinNote + (GEO.crown ? (domeOpen ? " Crown dome open (low speed or bow out of the dust flow)." : " Crown dome closed: gores flush with the armour.") : "") + (st.cut ? " Cutaway: the port half is removed." : "");
   dirty = true;
 }
 const home = {az: -2.25, el: 0.38, dist: 88, tx: 26, ty: 0, tz: 0};
@@ -292,7 +304,8 @@ function frame() {
     } else {
     const eye = camEye();
     ship.draw({eye, target: [cam.tx, cam.ty, cam.tz], fov: 38, sun: [-0.55, 0.62, 0.55], planet: true, planetC: [900, -500, -900], planetR: 1000,
-               clip: st.cut ? [0, -1, 0, 0] : null, hot: m.hot || 0, exposure: 0.88, plumeI: 0.55, holes: !!GEO.crown});
+               clip: st.cut ? [0, -1, 0, 0] : null, hot: m.hot || 0, exposure: 0.88, plumeI: 0.55, holes: !!GEO.crown,
+               finish: GEO.skin ? st.skin : 0, cold: st.cold});
     }
     stage.querySelectorAll(".lab").forEach(e => e.remove());
     const placed = [];
@@ -375,7 +388,7 @@ document.querySelectorAll("[data-ver]").forEach(b => b.addEventListener("click",
   document.querySelectorAll("[data-ver]").forEach(x => x.setAttribute("aria-pressed", x === b));
   if (ship) ship.geo = GEO;
   document.getElementById("petrow").hidden = !GEO.crown || !!MODES[st.mode].hab || !!MODES[st.mode].structure;
-  panels(); rebuild();
+  panels(); skinRows(); rebuild();
 }));
 function setLook(id) {
   look = {id, yaw: 0, pitch: 0, fov: id === "orbit" ? 90 : (id === "STAND" ? 95 : 100)};
@@ -383,6 +396,12 @@ function setLook(id) {
   if (id !== "orbit") document.getElementById("hint").textContent = "Your eye at this station · drag to turn your head · pinch for field of view";
 }
 document.querySelectorAll("[data-look]").forEach(b => b.addEventListener("click", () => { setLook(b.dataset.look); rebuild(); }));
+function skinRows() { document.getElementById("skinrow").hidden = !GEO.skin; document.getElementById("coldrow").hidden = !GEO.skin || !st.skin; }
+document.querySelectorAll("[data-skin]").forEach(b => b.addEventListener("click", () => {
+  st.skin = +b.dataset.skin; document.querySelectorAll("[data-skin]").forEach(x => x.setAttribute("aria-pressed", x === b)); skinRows(); rebuild(); }));
+document.querySelectorAll("[data-cold]").forEach(b => b.addEventListener("click", () => {
+  st.cold = +b.dataset.cold; document.querySelectorAll("[data-cold]").forEach(x => x.setAttribute("aria-pressed", x === b)); rebuild(); }));
+skinRows();
 document.querySelectorAll("[data-pet]").forEach(b => b.addEventListener("click", () => {
   st.petals = +b.dataset.pet; document.querySelectorAll("[data-pet]").forEach(x => x.setAttribute("aria-pressed", x === b)); rebuild(); }));
 document.getElementById("expand").addEventListener("click", e => {

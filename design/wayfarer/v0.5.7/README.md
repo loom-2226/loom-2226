@@ -1,10 +1,10 @@
-# Wayfarer v0.5.7 (rev 6)
+# Wayfarer v0.5.7 (rev 7)
 
 ALL bodies. ALL sponsors. 2026-2226.
 
 **NON-GOVERNING SANDBOX.** No canon promotion and no runtime integration. Do not put the amendment in `canon/current/`. PR #430 stays as is. Let loom-gate run; no bypass.
 
-This folder holds only the current design. Earlier revisions are in git history; rev 5 is commit `ef1b871`.
+This folder holds only the current design. Earlier revisions are in git history; rev 6 is commit `55b19c8`, rev 5 is `ef1b871`.
 
 | Read | For |
 |---|---|
@@ -13,7 +13,20 @@ This folder holds only the current design. Earlier revisions are in git history;
 | `out/CERTIFICATION_REPORT_v0.5.md` | The latest gate results (generated) |
 | `PROPOSED_CANON_AMENDMENT_v2.4f.md` | What would change in canon; kT's decision |
 | `REVIEW_RECORD.md` | Reviews and decisions, in order |
-| `render/out/wayfarer_v05_viewer.html` | Phone 3D viewer, with a toggle back to rev 5 |
+| `render/out/wayfarer_v05_viewer.html` | Phone 3D viewer, with a toggle back to rev 6 |
+
+## What changed in rev 7
+
+kT's skin decisions of 2026-10-26, agreed by Sol:
+
+1. **Low signature** is a skin criterion.
+2. **Tunable-emissivity flanks** (proposed Frontier item F5-TE-01): normal mode sheds heat; cold running holds it, for about 17 h on the protected water.
+3. **208 metric node faces** on the hull, flush, each carrying the armour's g/cm². Placement is on hold against PR #184.
+4. **Strata** faces the whole habitat armour, bare at the bow.
+
+Plus an external equipment inventory built into the geometry: sensor turrets, RF arrays, laser terminals, star trackers, service ports, vents, crawler docks and grip points, grapple fixtures, EVA rails. Most of it sits inside existing ledger lines; 1.4 t of new hardware comes from the reserve.
+
+Results: dry mass unchanged; reserve 46.2 t; berth screen 40.38 g/cm² (limit 40). Every gate is PASS or PASS-DECLARED. Four new declared items await kT.
 
 ## What changed in rev 6
 

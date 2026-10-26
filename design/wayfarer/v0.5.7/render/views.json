@@ -2043,6 +2043,111 @@
      ]
     }
    ]
+  },
+  {
+   "id": "ext_skin",
+   "kind": "exterior",
+   "title": "Wayfarer rev 7 skin: normal flanks",
+   "caption": "Strata over the habitat armour, bare at the bow; tunable flanks in normal mode (light, shedding heat). 208 node faces and the external equipment are drawn from the geometry. Strata's look is a placeholder.",
+   "eye": [
+    -8,
+    -13,
+    5.5
+   ],
+   "target": [
+    9,
+    0,
+    0.5
+   ],
+   "fov": 40,
+   "sun": [
+    -0.65,
+    0.55,
+    0.52
+   ],
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "labels": [
+    {
+     "t": "Bare Strata bow",
+     "at": [
+      1.2,
+      -2.0,
+      3.4
+     ],
+     "off": [
+      -60,
+      -50
+     ]
+    },
+    {
+     "t": "Node face ring",
+     "at": [
+      10.25,
+      -3.18,
+      -3.18
+     ],
+     "off": [
+      40,
+      60
+     ]
+    },
+    {
+     "t": "Sensor turret (stowed)",
+     "at": [
+      24.6,
+      -4.55,
+      0.0
+     ],
+     "off": [
+      40,
+      50
+     ]
+    }
+   ],
+   "exposure": 0.85,
+   "finish": 1,
+   "cold": 0
+  },
+  {
+   "id": "ext_skin_cold",
+   "kind": "exterior",
+   "title": "Wayfarer rev 7 skin: cold running",
+   "caption": "Flanks switched to low emissivity: they radiate 12% as much heat at the same temperature. The heat is held, not removed: about 17 h warms the protected water by 15 K, then the strakes must open. The metallic look is a proposed optical property.",
+   "eye": [
+    -8,
+    -13,
+    5.5
+   ],
+   "target": [
+    9,
+    0,
+    0.5
+   ],
+   "fov": 40,
+   "sun": [
+    -0.65,
+    0.55,
+    0.52
+   ],
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "labels": [],
+   "exposure": 0.85,
+   "finish": 1,
+   "cold": 1
   }
  ]
 }

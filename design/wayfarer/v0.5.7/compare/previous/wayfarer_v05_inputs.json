@@ -1,8 +1,8 @@
 {
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
- "status": "NON-GOVERNING SANDBOX. Wayfarer v0.5.5 candidate inputs: v0.5.3 (torch heat package, Sol's habitat package with shared cabins) plus Claude's optimised L1 command level (flight-deck mezzanine, cupola-style nose windows, shoulder sensor ring), for certification against CERTIFICATION_BASIS_v0.1.",
+ "status": "NON-GOVERNING SANDBOX. Wayfarer v0.5.7 rev 6 inputs, certified against CERTIFICATION_BASIS.md (v0.2). Previous revisions are in git history (rev 5: commit ef1b871).",
  "version": "0.5.7",
- "date": "2026-10-25",
+ "date": "2026-10-26",
  "provenance_classes": [
   "CANON",
   "PUBLISHED_PHYSICS",
@@ -94,9 +94,8 @@
  },
  "torch": {
   "prov": "DERIVED",
-  "note": "Cruise thrust 11.361 MN gives 1 g at the canon wet mass (1,158.5 t x 9.80665). Jet power is held at the CRUISE value (0.5 F ve = 11.36 TW); lower exhaust velocity gives more thrust at the same power.",
+  "note": "Torch working card from main (src/wayfarer_torch_mode_cards.py MODE_CARDS): mdot and ve per mode; thrust = mdot ve. The ship's heat rejection is sized for 11.361 TW of jet power, so modes whose card power is higher (FAST, HARD, LIMIT) are throttled in mass flow to that ceiling; the 4 g crew cap may throttle further.",
   "cruise_thrust_mn": 11.361,
-  "jet_power_tw": 11.361,
   "thrust_point_x_m": 52.3,
   "neutron_source_x_m": [
    52.0,
@@ -131,6 +130,41 @@
    ],
    "fusion_tw": "about 12.6 TW for the 11.36 TW jet (DERIVED in the model)",
    "pulses": "about 1-10 per second; 0.3-3 kt each at full power (DERIVED in the model)"
+  },
+  "mode_cards": {
+   "prov": "KT_DECISION 2026-10-26 (agree 1): main's working card governs; src/wayfarer_torch_mode_cards.py at main 19377b85",
+   "modes": {
+    "ECON": {
+     "mdot_kg_s": 1.1361,
+     "ve_km_s": 3000.0
+    },
+    "CRUISE": {
+     "mdot_kg_s": 5.680502,
+     "ve_km_s": 2000.0
+    },
+    "EXPEDITE": {
+     "mdot_kg_s": 22.722008,
+     "ve_km_s": 1000.0
+    },
+    "FAST": {
+     "mdot_kg_s": 48.690017,
+     "ve_km_s": 700.0
+    },
+    "HARD": {
+     "mdot_kg_s": 126.233378,
+     "ve_km_s": 450.0
+    },
+    "LIMIT": {
+     "mdot_kg_s": 284.025101,
+     "ve_km_s": 300.0
+    }
+   }
+  },
+  "jet_power_ceiling_tw": 11.361,
+  "jet_power_ceiling_prov": "DERIVED: the hot fins (G4) and strake cryo span are sized at 11.361 TW (CRUISE card power); a higher ceiling needs larger fins",
+  "tvc": {
+   "authority_deg": 1.0,
+   "prov": "KT_DECISION 2026-10-26 (agree 2): the magnetic nozzle steers the thrust line by up to 1 deg (asymmetric coil current), enough to hold the thrust line through the CG with trim plus an assumed 0.5 deg error (0.85 deg). ENGINEERING_ASSUMPTION: no qualified nozzle capability yet; declared in G10"
   }
  },
  "hull": {
@@ -352,7 +386,8 @@
    "theta_deg": 270,
    "port_d_m": 1.6,
    "mass_t": 4.0,
-   "prov": "CANON position (x = 16, -Z), mass ENGINEERING_ASSUMPTION"
+   "prov": "CANON position (x = 16, -Z), mass ENGINEERING_ASSUMPTION",
+   "loom_state": "FREE: nothing attached at the collar for Loom formation and translation (E1 lock); the shuttle stays DOCKED in its bay (KT_DECISION 2026-10-26, agree 4)"
   },
   "tunnel": {
    "d_m": 1.2,
@@ -654,67 +689,6 @@
        "window_deg": 315
       }
      ],
-     "forward_windows": [
-      {
-       "for": "PILOT",
-       "yz_m": [
-        0.45,
-        0.45
-       ],
-       "d_m": 0.8
-      },
-      {
-       "for": "NAV",
-       "yz_m": [
-        -0.45,
-        0.45
-       ],
-       "d_m": 0.8
-      },
-      {
-       "yz_m": [
-        1.25,
-        0.45
-       ],
-       "d_m": 0.6
-      },
-      {
-       "yz_m": [
-        -1.25,
-        0.45
-       ],
-       "d_m": 0.6
-      },
-      {
-       "yz_m": [
-        0.45,
-        1.3
-       ],
-       "d_m": 0.6
-      },
-      {
-       "yz_m": [
-        -0.45,
-        1.3
-       ],
-       "d_m": 0.6
-      },
-      {
-       "yz_m": [
-        0.45,
-        -0.4
-       ],
-       "d_m": 0.6
-      },
-      {
-       "yz_m": [
-        -0.45,
-        -0.4
-       ],
-       "d_m": 0.6
-      }
-     ],
-     "forward_windows_prov": "ENGINEERING_ASSUMPTION modelled on the ISS Cupola (7 windows, 80 cm top window, each with a debris pane, two 25 mm pressure panes, a scratch pane and an external shutter): 2 x 0.8 m + 6 x 0.6 m in the nose, >= 10 cm mullions",
      "displays": "pilot and navigator: panels 0.55 m from the eye, 45 deg toward the feet; support: 0.5 m from the eye, 30 deg inboard; all outside the central 60 deg view (FAA HFDS 5.1.2.13: >= 0.33 m)",
      "window_frame": {
       "kind": "Cupola-style forged frame carrying the 8 nose windows",
@@ -725,7 +699,7 @@
      },
      "crown_dome": {
       "adopted": true,
-      "prov": "KT_DECISION 2026-10-25 ('incorporate the crown viewport design into main design'); design from command/BOW_OPTIONS_STUDY.md option C. Replaces the 8 nose windows (kept below as forward_windows for v0.5.6 comparison). NON-GOVERNING; SOL TO REVIEW",
+      "prov": "KT_DECISION 2026-10-25 ('incorporate the crown viewport design into main design'); bow options study option C. Replaced the 8 nose windows of v0.5.6. NON-GOVERNING; SOL TO REVIEW",
       "r_m": 2.8,
       "glazed_area_m2": 25.0,
       "roots": 8,
@@ -756,7 +730,7 @@
        "brow_ring": 0.5,
        "gore_tracks_and_drives": 0.5
       },
-      "doctrine": "open only at low speed or with the bow facing away from the dust flow (braking and tail-first coasting); closed for solar particle events, radiation belts and torch burns. Stuck closed is safe; stuck open: turn the bow out of the dust flow.",
+      "doctrine": "open only at low speed or with the bow facing away from the dust flow (braking and tail-first coasting); closed for solar particle events, radiation belts, torch burns and Loom formation and translation. Stuck closed is safe; stuck open: turn the bow out of the dust flow.",
       "views": "pilots 76% of the forward sky (v0.5.6 nose windows 22%); standing crew at 1 g 89% of the overhead cone; support couches ~8% (sensor ring)",
       "displays": "pilot displays on arms from the flight deck (they no longer hang from the nose)"
      }
@@ -1589,7 +1563,7 @@
    "prov": "ENGINEERING_ASSUMPTION"
   },
   "mission_courier_systems_t": 20.0,
-  "engineering_reserve_t": 31.928,
+  "engineering_reserve_t": 27.928,
   "engineering_reserve_rule": "spread over dry parts in proportion to their mass (growth margin), not lumped at one point",
   "c_tank_penalty_t": 8.0,
   "radiator_panels_t": 8.784,
@@ -1625,7 +1599,9 @@
    "observation_windows_removed_t": -0.54,
    "viewport_band_t": 5.867
   },
-  "crew_systems_v057_t": 10.688
+  "crew_systems_v057_t": 10.688,
+  "rcs_axial_t": 4.0,
+  "rcs_axial_prov": "ENGINEERING_ASSUMPTION: 8 thrusters at the 0.5 t per thruster of the existing clusters (12 t / 24), paid from the engineering reserve (dry mass unchanged)"
  },
  "longerons": {
   "prov": "CLAUDE_DESIGN v0.5.7 (structure/longeron_study.py, kT 2026-10-25 'consolidate'): four CFRP tubes in an X, matching canon's 4 axial longerons. The upper pair stay where the v0.5.6 slot sills were (edging the bay slot); the lower pair mirror them in the tank's lower cells. Sized at 5 g x 1.5 to a 250 MPa design stress (400 MPa floor x 0.62 for impact, joints, environment). v0.5.6 had 3 planks + 2 sills (36.9 t) running at 65 MPa. NON-GOVERNING; SOL TO REVIEW REV 5 (structure review 2026-10-26): wall 72 -> 84 mm (area 0.0830 m2, 1% margin) so axial + bending (thrust-line offset 13.5 MN m + 0.5 deg thrust error 9.1 MN m) stays within the 250 MPa design stress",
@@ -1730,7 +1706,8 @@
    "NORMAL": 2.0,
    "FAST": 2.0,
    "EXPEDITE": 2.0,
-   "HARD": 2.0
+   "HARD": 2.0,
+   "LOOM": 0.0
   },
   "torch_capacity_mw": 387.7,
   "hull_heat_hard_mw": 1.02,
@@ -1741,7 +1718,8 @@
   },
   "azimuth_note": "ENGINEERING_ASSUMPTION (v0.5): v0.4 put the strakes on the 45 deg diagonals, but a 2 m groove there breaks 0.28 m into the 4.8 m slot. 40/140/220/320 keeps the stowed stack outside the slot and stays mirror-symmetric.",
   "torch_span_m": 4.0,
-  "torch_span_prov": "DERIVED (v0.5.2): during torch burns the strakes carry only the magnet coils' cryo heat (about 48 MW) plus habitat heat, which two 2 m pleats reject"
+  "torch_span_prov": "DERIVED (v0.5.2): during torch burns the strakes carry only the magnet coils' cryo heat (about 48 MW) plus habitat heat, which two 2 m pleats reject",
+  "span_by_mode_prov_loom": "KT_DECISION 2026-10-26 (agree 4): strakes fully stowed for Loom formation and translation (E1 lock: STOWED)"
  },
  "rcs": {
   "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
@@ -1752,59 +1730,92 @@
     "x_m": 3.0,
     "theta_deg": 0,
     "r_m": 4.6,
-    "thrusters": 3
+    "thrusters": 3,
+    "axial": {
+     "sign": 1,
+     "cant_out_deg": 10.0
+    }
    },
    {
     "id": "F+Z",
     "x_m": 3.0,
     "theta_deg": 90,
     "r_m": 4.6,
-    "thrusters": 3
+    "thrusters": 3,
+    "axial": {
+     "sign": 1,
+     "cant_out_deg": 10.0
+    }
    },
    {
     "id": "F-Y",
     "x_m": 3.0,
     "theta_deg": 180,
     "r_m": 4.6,
-    "thrusters": 3
+    "thrusters": 3,
+    "axial": {
+     "sign": 1,
+     "cant_out_deg": 10.0
+    }
    },
    {
     "id": "F-Z",
     "x_m": 3.0,
     "theta_deg": 270,
     "r_m": 4.6,
-    "thrusters": 3
+    "thrusters": 3,
+    "axial": {
+     "sign": 1,
+     "cant_out_deg": 10.0
+    }
    },
    {
     "id": "A+Y",
     "x_m": 44.0,
     "theta_deg": 0,
     "r_m": 2.6,
-    "thrusters": 3
+    "thrusters": 3,
+    "axial": {
+     "sign": -1,
+     "cant_out_deg": 10.0
+    }
    },
    {
     "id": "A+Z",
     "x_m": 44.0,
     "theta_deg": 90,
     "r_m": 2.6,
-    "thrusters": 3
+    "thrusters": 3,
+    "axial": {
+     "sign": -1,
+     "cant_out_deg": 10.0
+    }
    },
    {
     "id": "A-Y",
     "x_m": 44.0,
     "theta_deg": 180,
     "r_m": 2.6,
-    "thrusters": 3
+    "thrusters": 3,
+    "axial": {
+     "sign": -1,
+     "cant_out_deg": 10.0
+    }
    },
    {
     "id": "A-Z",
     "x_m": 44.0,
     "theta_deg": 270,
     "r_m": 2.6,
-    "thrusters": 3
+    "thrusters": 3,
+    "axial": {
+     "sign": -1,
+     "cant_out_deg": 10.0
+    }
    }
   ],
-  "slew_couples": 2
+  "slew_couples": 2,
+  "axial_prov": "KT_DECISION 2026-10-26 (agree 3): one axial thruster per cluster. Bow thrusters exhaust forward (force +x), aft thrusters exhaust aft (force -x), each canted 10 deg outward to keep plumes off the crown, hull and torch chain. ENGINEERING_ASSUMPTION: plume clearance not yet modelled"
  },
  "materials": {
   "prov": "PUBLISHED_PHYSICS: 2026 high-modulus carbon-fibre composite, used as a conservative floor for 2226 (same values as the v0.3 closing checks)",
@@ -1932,7 +1943,6 @@
    "t_per_0p8m_window": 0.27,
    "area_0p8m_m2": 0.5027,
    "min_assembly_t": 0.08,
-   "nose_cluster_frame_t": 0.4,
    "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows"
   }
  },
@@ -1977,5 +1987,6 @@
   "deployed": "torch burns only; folded in their 0.6 m stacks otherwise (and before big slews)",
   "pleats_prov": "DERIVED: 14 pleats of 2 m (28 m) so the conservative standard-library view factor in certify.py (torch chain treated as a 4.5 m cylinder) clears 1.40 GW; the numpy model in torch/fin_layout.py needs 25.7 m"
  },
- "windows_note": "ENGINEERING_ASSUMPTION (v0.5.7 rev 3): crown dome (25 m2) over L1; a panoramic viewport band round L2 (19.4 m2, 1.6 m tall in the lounge); round viewports: L1 shoulder 4, L3 berths 10 (0.5 m), L4 medical 2 and storm shelter 2, L5 suits 1, workshop 2, vestibule 1. Every opening below the crown has an acrylic shield plug and a Strata dust shutter"
+ "windows_note": "ENGINEERING_ASSUMPTION (v0.5.7 rev 3): crown dome (25 m2) over L1; a panoramic viewport band round L2 (19.4 m2, 1.6 m tall in the lounge); round viewports: L1 shoulder 4, L3 berths 10 (0.5 m), L4 medical 2 and storm shelter 2, L5 suits 1, workshop 2, vestibule 1. Every opening below the crown has an acrylic shield plug and a Strata dust shutter",
+ "revision": "rev 6"
 }

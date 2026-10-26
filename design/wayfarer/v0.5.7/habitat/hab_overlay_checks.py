@@ -80,13 +80,46 @@ def plan_checks():
 DIRS = []
 
 
-def _init():
+class OpenBores:
+    """rev 7 sensitivity only: the armour with every metric node face treated as an open bore through it
+    (the worst case; the faces' materials, covers and seals are OPEN). Not the design case."""
+
+    def __init__(self, sh, faces, depth):
+        self.sh, self.depth = sh, depth
+        self.rings = {}
+        for f in faces:
+            self.rings.setdefault(round(f["pos"][0], 3), []).append(f)
+
+    def bbox(self):
+        return self.sh.bbox()
+
+    def contains(self, x, y, z):
+        if not self.sh.contains(x, y, z):
+            return False
+        for rx, fs in self.rings.items():
+            if abs(x - rx) > 0.6:
+                continue
+            for f in fs:
+                d = (x - f["pos"][0], y - f["pos"][1], z - f["pos"][2])
+                n = f["normal"]
+                a = d[0] * n[0] + d[1] * n[1] + d[2] * n[2]
+                if -self.depth - 0.02 <= a <= 0.02:
+                    q = (d[0] - a * n[0], d[1] - a * n[1], d[2] - a * n[2])
+                    if q[0] ** 2 + q[1] ** 2 + q[2] ** 2 < (f["d_m"] / 2) ** 2:
+                        return False
+        return True
+
+
+def _init(open_bores=False):
     global ITEMS, DIRS
     ITEMS = []
+    faces = [f for f in G["features"] if f["kind"] == "node_face" and f["pos"][0] <= I["hull"]["habitat_shell_x_m"][1]]
     for p in G["parts"] + G["fluids_by_state"]["S5"]:
         if "shuttle" in p.get("tags", []) or p["volume_m3"] <= 0:
             continue
         sh = B.shape_from_spec(p["shape"])
+        if open_bores and p["id"] == "armor":
+            sh = OpenBores(sh, faces, I["hull"]["outer_r_m"] - I["hull"]["pressure_r_m"])
         ITEMS.append((sh, p["mass_t"] / p["volume_m3"], sh.bbox()))
     N = 600
     DIRS = []
@@ -104,7 +137,7 @@ def _screen(task):
     return label, m, DIRS[v.index(m)]
 
 
-def radiation_screen(step=0.02):
+def radiation_screen(step=0.02, open_bores=False):
     pts = []
     for r in G["rooms"]:
         for b in r.get("bunks", []):
@@ -112,7 +145,7 @@ def radiation_screen(step=0.02):
             for x in (6.45, 7.55):
                 for rad in (2.25, 3.05, 3.85):
                     pts.append((f"{r['id']}@{b['angle_deg']}:x{x}:r{rad}", (x, rad * math.cos(th), rad * math.sin(th)), step))
-    with Pool(2, initializer=_init) as pool:
+    with Pool(2, initializer=_init, initargs=(open_bores,)) as pool:
         res = pool.map(_screen, pts)
     res.sort(key=lambda t: t[1])
     return {"state": "S5", "points": len(res), "directions": 600, "step_m": step, "minimum_g_cm2": round(res[0][1], 2),
@@ -129,4 +162,7 @@ if __name__ == "__main__":
     print("plan", json.dumps(OUT["plan"]), flush=True)
     OUT["radiation"] = radiation_screen(0.05 if quick else 0.02)
     print("radiation", json.dumps({k: v for k, v in OUT["radiation"].items() if k != "by_point"}), flush=True)
+    if any(f["kind"] == "node_face" for f in G["features"]):   # rev 7: node faces as open bores (worst case, sensitivity only)
+        OUT["radiation_node_faces_open"] = radiation_screen(0.05 if quick else 0.02, open_bores=True)
+        print("radiation_node_faces_open", json.dumps({k: v for k, v in OUT["radiation_node_faces_open"].items() if k != "by_point"}), flush=True)
     (ROOT / "habitat" / ("hab_overlay_results_quick.json" if quick else "hab_overlay_results.json")).write_text(json.dumps(OUT, indent=1))

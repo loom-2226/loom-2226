@@ -72,7 +72,16 @@ export const MATS = {
   camera:       {c: [0.08, 0.08, 0.09], m: 0.6, r: 0.3},
   hold_door:    {c: [0.46, 0.47, 0.49], m: 0.3, r: 0.5},
   engine_bell:  {c: [0.10, 0.10, 0.11], m: 0.8, r: 0.3},
+  // rev 7 external equipment and metric node faces (drawn from the geometry's parts and features)
+  sensor:       {c: [0.06, 0.07, 0.08], m: 0.5, r: 0.25},
+  antenna:      {c: [0.34, 0.35, 0.37], m: 0.3, r: 0.55},
+  port:         {c: [0.40, 0.41, 0.43], m: 0.7, r: 0.35},
+  dock:         {c: [0.30, 0.31, 0.33], m: 0.6, r: 0.4},
+  rail_ext:     {c: [0.70, 0.62, 0.20], m: 0.3, r: 0.45},
+  node_face:    {c: [0.035, 0.04, 0.05], m: 0.25, r: 0.15, kind: 6},
 };
+// rev 7 skin (kT 2026-10-26): which materials take the Strata / tunable-flank finish (1 = full detail, 2 = colour only)
+export const SKINMAT = {hull_armor: 1, hull_skin: 1, door: 1, shutter: 1, brow: 2, tambour: 2};
 for (const [k, v] of Object.entries(MATS)) v.sec = k.startsWith("room_") ? 0.95 : (k === "water" ? 0.9 : 0.55);
 
 // ------------------------------------------------------------ mesh builder
@@ -585,7 +594,9 @@ uniform vec4 uClip; uniform float uClipOn; uniform float uExp; uniform float uAl
 uniform vec3 uPlanetDir; uniform float uShZ; uniform float uLen; uniform float uSec; uniform vec3 uRim; uniform vec3 uRimC;
 uniform float uCrown; uniform float uNoSec; uniform float uHoleOn; uniform vec4 uWinP[40]; uniform vec3 uWinN[40]; uniform int uNWin; uniform vec4 uBand[6]; uniform int uNBand; uniform float uArm; uniform float uSplay;
 uniform vec3 uPLP[3]; uniform vec3 uPLC[3]; uniform int uNPL;
+uniform float uSkin; uniform float uSkinMat; uniform float uCold;
 out vec4 o;
+float hsh(vec2 p){ return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453); }
 float sh(vec3 n){
   if(uShOn<0.5) return 1.0;
   vec3 p=vS.xyz/vS.w*0.5+0.5; if(p.x<0.0||p.x>1.0||p.y<0.0||p.y>1.0) return 1.0;
@@ -602,12 +613,33 @@ void main(){
     if(a>-0.6 && a<0.2 && length(d-a*uWinN[i])<uWinP[i].w+clamp(a+uArm,0.0,uArm)*uSplay) discard; }
     float ang=degrees(atan(vShip.z,vShip.y)); if(ang<0.0) ang+=360.0; float rr=length(vShip.yz);
     for(int i=0;i<6;i++){ if(i>=uNBand) break; vec4 b=uBand[i]; if(rr>4.0 && vShip.x>b.x && vShip.x<b.y && ang>b.z && ang<b.w) discard; } }
-  vec3 base=uC;
+  vec3 base=uC; float R=uR; float M=uM;
   if(!gl_FrontFacing){ if(uClipOn>0.5 && uNoSec<0.5){ o=vec4(pow(aces(base*uSec*uExp),vec3(1.0/2.2)),1.0); return; } discard; }
   vec3 n=normalize(vN); vec3 v=normalize(uEye-vW); vec3 l=uSun;
+  bool skin = uSkin>0.5 && uSkinMat>0.5;
+  if(skin){   // rev 7: bare Strata bow (placeholder look), tunable flanks: normal (light, high IR emissivity) or cold running (low-e, metallic: a proposed optical property)
+    float x=vShip.x; float rr=max(length(vShip.yz),0.3); float thr=atan(vShip.z,vShip.y); float deg=degrees(thr); if(deg<0.0) deg+=360.0; float s=thr*rr;
+    vec3 Ta=vec3(1.0,0.0,0.0); vec3 Tc=cross(Ta,n); Tc = length(Tc)>1e-3 ? normalize(Tc) : vec3(0.0,1.0,0.0);
+    float pd=22.5; float dd=deg-11.25; vec2 cell=vec2(floor(x/2.0),floor(dd/pd)); float h1=hsh(cell), h2=hsh(cell+3.3);
+    bool bow = x<2.6;
+    float fwd=max(-n.x,0.0); float wear=clamp(pow(fwd,1.3)*0.9+0.4*exp(-x/2.0),0.0,1.0);
+    if(bow){ base=vec3(0.105,0.098,0.092)*(0.92+0.12*h1); M=0.35; R=0.6;
+      float grain=0.5+0.5*sin(s*90.0+sin(x*7.0)*1.5); base*=0.93+0.10*grain*(1.0-smoothstep(0.004,0.02,fwidth(s)));
+      base=mix(base,vec3(0.16,0.15,0.14),wear*0.3); R=mix(R,0.85,wear); }
+    else if(uCold<0.5){ base=vec3(0.76,0.765,0.75)*(0.95+0.08*h1); M=0.0; R=0.55+0.12*h2; }
+    else { base=vec3(0.80,0.81,0.83)*(0.95+0.07*h1); M=1.0; R=0.22+0.08*h2; }
+    if(uSkinMat<1.5){
+      float sa=(fract(x/2.0+0.5)-0.5)*2.0; float pc=pd/57.2958*rr; float sc=(fract((dd/57.2958*rr)/pc+0.5)-0.5)*pc;
+      float wa=0.008+fwidth(x)*1.2, wc=0.008+fwidth(s)*1.2;
+      float ga=(1.0-smoothstep(0.0,wa,abs(sa)))*min(1.0,0.008/wa), gc=(1.0-smoothstep(0.0,wc,abs(sc)))*min(1.0,0.008/wc);
+      if(bow){ ga=0.0; gc*=0.5; }
+      n=normalize(n-Ta*sign(sa)*ga*0.6-Tc*sign(sc)*gc*0.6);
+      base=mix(base,base*0.55,max(ga,gc)*0.85);
+    }
+  }
   if(uKind==9){ float f=pow(1.0-abs(dot(n,v)),1.5); float t=clamp((vShip.x-uLen)/70.0,0.0,1.0);
     o=vec4(uC*(1.0-t)*(0.6+1.6*(1.0-f)), (1.0-t)*(1.0-f)*uAlpha); return; }
-  if(uSeam>0.5){ float th=atan(vShip.z,vShip.y)*57.2958; float sx=abs(fract(vShip.x/2.0+0.5)-0.5)*2.0; float st=abs(fract(th/15.0+0.5)-0.5)*15.0*0.0785*4.5;
+  if(uSeam>0.5 && !skin){ float th=atan(vShip.z,vShip.y)*57.2958; float sx=abs(fract(vShip.x/2.0+0.5)-0.5)*2.0; float st=abs(fract(th/15.0+0.5)-0.5)*15.0*0.0785*4.5;
     float sm=smoothstep(0.0,0.035,abs(fract(vShip.x/2.0)-0.5)*2.0*1.0); float line=min(smoothstep(0.0,0.012,abs(fract(vShip.x/2.0)-0.0)),1.0);
     float a=1.0-0.18*(1.0-smoothstep(0.0,0.02,abs(fract(vShip.x/2.0+0.5)-0.5)))-0.14*(1.0-smoothstep(0.0,0.025,abs(fract(th/15.0+0.5)-0.5)*0.262*4.5));
     float tile=0.94+0.06*fract(sin(dot(floor(vec2(vShip.x/2.0,th/15.0)),vec2(12.9898,78.233)))*43758.5453); base*=a*tile; }
@@ -617,10 +649,10 @@ void main(){
     float slat=smoothstep(0.0,0.012,abs(fract(rr/0.16)-0.5)*0.16); float gore=smoothstep(0.0,0.02,abs(fract(an/22.5+0.5)-0.5)*22.5*0.0175*max(rr,0.3));
     base*=(0.80+0.20*slat)*(0.55+0.45*gore); }
   vec3 h=normalize(l+v); float nl=max(dot(n,l),0.0), nv=max(dot(n,v),1e-3), nh=max(dot(n,h),0.0), vh=max(dot(v,h),0.0);
-  float a2=pow(max(uR,0.05),4.0); float d=nh*nh*(a2-1.0)+1.0; float D=a2/(3.14159*d*d);
-  float k=pow(uR+1.0,2.0)/8.0; float G=(nl/(nl*(1.0-k)+k))*(nv/(nv*(1.0-k)+k));
-  vec3 F0=mix(vec3(0.04),base,uM); vec3 F=F0+(1.0-F0)*pow(1.0-vh,5.0);
-  vec3 spec=D*G*F/(4.0*nl*nv+1e-3); vec3 kd=(1.0-F)*(1.0-uM);
+  float a2=pow(max(R,0.05),4.0); float d=nh*nh*(a2-1.0)+1.0; float D=a2/(3.14159*d*d);
+  float k=pow(R+1.0,2.0)/8.0; float G=(nl/(nl*(1.0-k)+k))*(nv/(nv*(1.0-k)+k));
+  vec3 F0=mix(vec3(0.04),base,M); vec3 F=F0+(1.0-F0)*pow(1.0-vh,5.0);
+  vec3 spec=D*G*F/(4.0*nl*nv+1e-3); vec3 kd=(1.0-F)*(1.0-M);
   float s=sh(n);
   vec3 col=(kd*base/3.14159+spec)*uSunC*nl*s;
   vec3 hr=normalize(uRim+v); float nlr=max(dot(n,uRim),0.0); float nhr=max(dot(n,hr),0.0); float dr=nhr*nhr*(a2-1.0)+1.0;
@@ -628,9 +660,10 @@ void main(){
   vec3 hemi=mix(vec3(0.020,0.022,0.030),vec3(0.040,0.050,0.070),n.y*0.5+0.5)+vec3(0.05,0.10,0.20)*0.35*max(dot(n,uPlanetDir),0.0);
   col+=kd*base*hemi*1.6;
   for(int i=0;i<3;i++){ if(i>=uNPL) break; vec3 lv=uPLP[i]-vW; float d2=dot(lv,lv); lv=normalize(lv); vec3 hh=normalize(lv+v);
-    float q=max(dot(n,lv),0.0); float dd=pow(max(dot(n,hh),0.0),24.0)*(1.0-uR)*0.6;
+    float q=max(dot(n,lv),0.0); float dd=pow(max(dot(n,hh),0.0),24.0)*(1.0-R)*0.6;
     col+=(kd*base/3.14159+F0*dd)*uPLC[i]*q/(1.0+0.35*d2); }
-  vec3 r=reflect(-v,n); col+=env(r)*mix(F0,vec3(1.0),pow(1.0-nv,5.0))*(1.0-uR*0.7)*2.0;
+  vec3 r=reflect(-v,n); col+=env(r)*mix(F0,vec3(1.0),pow(1.0-nv,5.0))*(1.0-R*0.7)*2.0;
+  if(uKind==6){ col*=0.85; }
   if(uKind==2){ col+=uHot*vec3(1.0,0.32,0.07)*(0.55+0.45*fract(sin(floor(vShip.x*0.5)*7.13)*91.7)); }
   if(uKind==4){ col+=uHot*vec3(1.0,0.44,0.12)*0.62*(0.70+0.30*fract(sin(floor(vShip.x*0.5)*5.31)*71.3)); }
   col+=uEm;
@@ -805,6 +838,14 @@ export class Ship {
     }
     if (cfg.features) for (const f of this.geo.features || []) {
       if (f.kind === "window" && cfg.windowFrames) continue;   // drawn as openings with panes instead
+      if (f.kind === "node_face") {   // rev 7: visible flush face (materials, cover and seal OPEN)
+        (groups["node_face|feature"] ||= {mat: "node_face", system: "feature", mb: new MB(this.xc), ids: []});
+        const n = f.normal, p = f.pos, r = f.d_m / 2;
+        meshTube(groups["node_face|feature"].mb, {p0: p.map((v, i) => v - n[i] * 0.02), p1: p.map((v, i) => v + n[i] * 0.012), r}, 28);
+        (groups["port|nodering"] ||= {mat: "port", system: "feature", mb: new MB(this.xc), ids: []});
+        meshTube(groups["port|nodering"].mb, {p0: p.map((v, i) => v - n[i] * 0.02), p1: p.map((v, i) => v + n[i] * 0.008), r: r + 0.035}, 28);
+        continue;
+      }
       const mat = f.kind === "hold_door" ? "hold_door" : f.kind;
       const key = mat + "|feature";
       (groups[key] ||= {mat, system: "feature", mb: new MB(this.xc), ids: []});
@@ -902,6 +943,7 @@ export class Ship {
     for (const m of this.meshes) {
       if (m.mat === "plume") continue;
       const mt = MATS[m.mat] || MATS.equipment;
+      gl.uniform1f(U.uSkin, view.finish || 0); gl.uniform1f(U.uSkinMat, SKINMAT[m.mat] || 0); gl.uniform1f(U.uCold, view.cold || 0);
       gl.uniform3fv(U.uC, mt.c); gl.uniform1f(U.uM, mt.m); gl.uniform1f(U.uR, mt.r); gl.uniform1f(U.uSeam, mt.seam || 0); gl.uniform1i(U.uKind, mt.kind || 0);
       gl.uniform3fv(U.uEm, (view.emissive && view.emissive[m.mat]) || mt.em || [0, 0, 0]); gl.uniform1f(U.uAlpha, 1); gl.uniform1f(U.uSec, mt.sec ?? 0.55);
       gl.uniform1f(U.uClipOn, m.noclip ? 0 : clipOn); gl.uniform1f(U.uHoleOn, view.holes && mt.holes ? 1 : 0); gl.uniform1f(U.uNoSec, mt.nosec ? 1 : 0);

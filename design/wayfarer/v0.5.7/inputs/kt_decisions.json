@@ -67,5 +67,14 @@
   "2": "1 deg torch thrust-vector authority (declared item torch_tvc)",
   "3": "axial RCS thrusters, one per cluster (rev 6)",
   "4": "Loom configuration declared: strakes stowed, crown gores closed, docking collar free"
+ },
+ "design_decisions_2026_10_26_skin": {
+  "kT": "YES / YES / Option 3 / YES; 'I want sol to agree with the design choices. I want you to handle making it'",
+  "1": "low signature is a skin criterion",
+  "2": "open an F5 Frontier item for tunable emissivity (F5-TE-01, provisional)",
+  "3": "metric nodes show on the hull (option 3: all 208)",
+  "4": "the habitat armour face is Strata",
+  "sol": "AGREE 1-6 with qualifications: cold running accounts for retained heat (no heat sink, no multiplier; mirror look is a proposed optical property); node faces are not qualified penetrations and stations are not moved for the look (PR #184 OPEN); inventory is a draft requirement",
+  "note": "design choices only; the rev 7 declared items (strata_armour, node_faces, cold_running, external_equipment) still await kT's acceptance of their wording"
  }
 }

@@ -79,7 +79,7 @@ def g1(I, C, G):
               + L["propulsion_t"] + L["electrical_t"] + L["avionics_sensors_comms_t"] + L["rcs_docking_service_t"]
               + L["mission_courier_systems_t"] + L["engineering_reserve_t"] + L["c_tank_penalty_t"]
               + I["shuttle"]["dry_t"] + L["drones_pods_t"] + L.get("torch_hot_fins_t", 0.0) + L.get("crew_systems_v056_t", 0.0) + L.get("crew_systems_v057_t", 0.0)
-              + L.get("rcs_axial_t", 0.0))
+              + L.get("rcs_axial_t", 0.0) + L.get("reserve_draws_rev7", {}).get("total_t", 0.0))
     dry = G["dry_t"]
     cs = [chk("parts sum to the ledger", round(dry, 2), round(expect, 2), abs(dry - expect) <= C["G1"]["ledger_tolerance_t"], "t")]
     shuttle = next(p["mass_t"] for p in G["parts"] if p["id"] == "shuttle")
@@ -400,11 +400,30 @@ def g4(I, C, G):
     cs.append(chk("habitat heat on passive skin radiators (backup, heat pump failed)", round(backup, 1), round(q_hab_kw, 1), backup >= q_hab_kw, "kW",
                   f"{area:.0f} m2 of habitat skin at {tc} K, Venus-orbit sun"))
     cs.append(chk("major torch burn and high Metric never required together", "doctrine", "CANON II §14", True))
+    CR, SK = I.get("cold_running"), I.get("skin")
+    if CR and SK:   # rev 7 (Sol qualification 2): cold running holds heat in; it does not remove it
+        md = SK["flanks"]["modes"]
+        hr = I["habitat_heat"]["radiator"]
+        a_sk = 2 * math.pi * I["hull"]["outer_r_m"] * (hr["x_m"][1] - hr["x_m"][0]) * hr["share_of_skin"]
+        leak = md["cold_running"]["emissivity"] * SIGMA * hr["temperature_k"] ** 4 * a_sk / 1000
+        q_in = q_hab_kw * (1 + C["G4"]["hab_heat_margin"])
+        e_buf = I["canon"]["protected_water_t"] * 1000 * CR["water_cp_kj_kg_k"] * CR["buffer_dT_k"]
+        hrs = e_buf / max(q_in - leak, 1e-9) / 3600
+        ratio = md["cold_running"]["emissivity"] / md["normal"]["emissivity"]
+        decl.append(("cold_running", f"Cold running (rev 7, F5 provisional item F5-TE-01): the tunable flanks drop from emissivity {md['normal']['emissivity']} to "
+                     f"{md['cold_running']['emissivity']}, so at the same skin temperature they radiate {ratio * 100:.0f}% as much. Heat is held, not removed: habitat heat "
+                     f"{q_in:.1f} kW (x1.25) less {leak:.1f} kW still leaking through {a_sk:.0f} m2 of low-e skin at {hr['temperature_k']} K warms the "
+                     f"{I['canon']['protected_water_t']:.0f} t of protected water by {CR['buffer_dT_k']:.0f} K in about {hrs:.0f} h. Then the ship must open the strakes "
+                     f"or switch the flanks back to normal. {CR['not_modelled']}. The metallic look in the viewer is a proposed optical property."))
+        r_cold = {"hours": hrs, "leak_kw": leak, "in_kw": q_in, "area_m2": a_sk}
+    else:
+        r_cold = None
     notes.append(f"Habitat heat {q_hab_kw:.1f} kW for {n} people; heat pump to {T} K needs {w_hp:.0f} kW (Carnot fraction {C['G4']['heat_pump_carnot_fraction']}).")
     notes.append(f"Torch burns: strakes open to {R['torch_span_m']} m ({cap:.0f} MW); full 24 m span ({fullcap:.0f} MW) is no longer needed for the torch. At {R['torch_span_m']} m they shine {hull_hit:.2f} MW onto the hull coating.")
     notes.append(f"Torch heat model (torch/, non-governing): same 11.36 TW jet from {tb['fusion_tw']:.1f} TW of fusion, pulsed at about 1-10 Hz (0.3-3 kt per pulse). Light escape the face can take: ~{lim_ppm:.0f} ppm; model {tb['light_ppm_of_fusion']:.0f} ppm. Hot-fin capacity is computed here with certify's own 2D view factor; torch/fin_layout.py (numpy, 3.0 m body) gives a slightly higher figure.")
     r = gate("G4", "Power and heat", cs, declared=decl, notes=notes)
     r["spans_m"] = spans
+    r["cold_running"] = r_cold
     r["torch_strake_capacity_mw"] = cap
     r["hot_fin_capacity_gw"] = fcap
     r["torch_budget"] = tb
@@ -612,6 +631,39 @@ def ray_density(origin, d, items, step, tmax):
     return tot
 
 
+class _OpenBores:
+    """rev 7 sensitivity: the armour with every node face on the habitat as an open bore (worst case only)."""
+
+    def __init__(self, sh, faces, depth):
+        self.sh, self.faces, self.depth = sh, faces, depth
+
+    def bbox(self):
+        return self.sh.bbox()
+
+    def contains(self, x, y, z):
+        if not self.sh.contains(x, y, z):
+            return False
+        for f in self.faces:
+            if abs(x - f["pos"][0]) > 0.6:
+                continue
+            d = (x - f["pos"][0], y - f["pos"][1], z - f["pos"][2])
+            n = f["normal"]
+            a = d[0] * n[0] + d[1] * n[1] + d[2] * n[2]
+            if -self.depth - 0.02 <= a <= 0.02:
+                q = (d[0] - a * n[0], d[1] - a * n[1], d[2] - a * n[2])
+                if q[0] ** 2 + q[1] ** 2 + q[2] ** 2 < (f["d_m"] / 2) ** 2:
+                    return False
+        return True
+
+
+def _open_bores(sh, faces, depth):
+    return _OpenBores(sh, faces, depth)
+
+
+def _is_armor(sh):
+    return isinstance(sh, B.DomeCyl) and abs(sh.xc - 14.0) < 1e-6 and abs(sh.R - 4.5) < 1e-6 and abs(sh.t - 0.2) < 1e-6 and sh.xa == 0.0
+
+
 def g6(I, C, G):
     c6 = C["G6"]
     cs, decl, notes = [], [], []
@@ -694,6 +746,27 @@ def g6(I, C, G):
         decl.append(("crown_dome", f"Crown dome (v0.5.7): {CD['glazed_area_m2']:.0f} m2 of glazing inside r {CD['r_m']} m replaces the 8 nose windows. Assumes (1) proof-tested transparent ceramic panes up to "
                      f"{CD['central_pane_m']} m across (2026's largest are ~0.76 m), a 2226 materials milestone like the 1,750 K fins (rev 4: the L2 viewport band's 16-18 mm plate panes rely on the same ceramic; 2026 ALON would need 25-29 mm); (2) tambour gores of armour-equivalent Strata laminate (Builder-derived, MHL-22) that restore "
                      f"{CD['gores']['closed_restores_g_cm2']} g/cm2 when closed and stow in the brow ring; (3) the operating rule: {CD['doctrine']} With the gores open, L1 loses the armour over the crown (glass 2-9 g/cm2); L1 is not a shelter."))
+    SK, NF = I.get("skin"), G.get("node_faces")
+    if SK:
+        decl.append(("strata_armour", f"Habitat armour face (rev 7, kT 2026-10-26): {SK['armour_face']['material']}. {SK['armour_face']['status']}. Bow x {SK['bow']['x_m'][0]}-{SK['bow']['x_m'][1]} m: {SK['bow']['finish']}."))
+    if NF:
+        hp = HERE / "habitat/hab_overlay_results.json"
+        ho = json.loads(hp.read_text()) if hp.exists() else {}
+        fresh = ho.get("geometry_sha256") == G["_sha"]
+        dz = ho.get("radiation", {}).get("minimum_g_cm2") if fresh else None
+        ob = ho.get("radiation_node_faces_open", {}) if fresh else {}
+        faces = [f for f in G["features"] if f["kind"] == "node_face" and f["pos"][0] <= H["habitat_shell_x_m"][1]]
+        items_ob = [(_open_bores(sh, faces, H["outer_r_m"] - H["pressure_r_m"]) if _is_armor(sh) else sh, rho, bb) for sh, rho, bb in items]
+        sh_open = min(min(ray_density(o, d, items_ob, c6["ray_step_m"], c6["ray_max_m"]) for d in dirs) for o in pts)
+        fl = ", ".join(f"{v} {k.replace('_', ' ')}" for k, v in sorted(NF["flags"].items()))
+        cs.append(chk("berth screen with node faces armour-equivalent (design case)", dz if dz is not None else "not run", c6["shelter_min_g_cm2"],
+                      dz is not None and dz >= c6["shelter_min_g_cm2"], "g/cm2", "habitat/hab_overlay_checks.py, 600 directions, 2 cm steps, state S5, includes the rev 7 equipment"))
+        decl.append(("node_faces", f"Metric node faces (rev 7, kT 2026-10-26; Sol: AGREE, placement HOLD): {NF['count']} visible flush or recessed faces, 13 rings x 16 at 22.5 deg "
+                     f"(rev 5 longeron-study layout). {NF['clear']} are clear; the rest are flagged: {fl}. The design case assumes every face carries at least the armour's "
+                     f"g/cm2 it replaces, like the berth-viewport plugs. Sensitivity, faces as open bores through the armour: berth screen "
+                     f"{ob.get('minimum_g_cm2', 'not run')} g/cm2 ({ob.get('below_40', '?')} of {ob.get('points', '?')} berth points below 40) and storm shelter {sh_open:.1f} g/cm2. "
+                     "So a face must be armour-equivalent: materials, cover, seal and mount stay OPEN, and no dust check exists in the basis yet "
+                     "(faces flagged 'faces dust flow' meet the flow when coasting bow-first). Node stations are not moved for the look; PR #184 stays OPEN."))
     decl.append(("shelter_life_support", f"Storm shelter life support: {c6['shelter_life_support_h']} h for {n} people from the life-support room on the same deck (design provision, not computed)."))
     yr = c6["gcr_msv_per_day_2026"] * 365
     days = c6["career_limit_msv"] / c6["gcr_msv_per_day_2026"]
@@ -915,7 +988,45 @@ def g9(I, C, G, r3, r4, r5):
     cs.append(chk("L5 depressurised: the rest of the habitat stays pressurised", "isolated" if bk["ok"] and bk["trunk_plug"] and bk["hatches"] == 2 else "no",
                   "isolated", bk["ok"] and bk["trunk_plug"] and bk["hatches"] == 2, "", "floor L4 is a bulkhead; two ladderway hatches close on a pressure drop; a plug seals the trunk"))
     notes.append("Torch failure after departure is a Q6/Q7 degraded-mission case (survival possible, completion not assumed).")
-    return gate("G9", "Failures and reserves", cs, notes=notes)
+    decl = []
+    EE = G.get("external_equipment")
+    if EE:   # rev 7 external equipment inventory (draft requirement; Sol: AGREE with the review's corrections)
+        res = G["ledger_reserve_t"]
+        cs.append(chk("engineering reserve after the rev 7 equipment", round(res, 2), "> 0", res > 0, "t",
+                      f"{EE['new_from_reserve_t']:.2f} t of new hardware drawn; {EE['located_t']:.2f} t located inside existing ledger lines (no new mass)"))
+        ext = [p for p in G["parts"] if "external" in p["tags"]]
+        nfs = [f for f in G["features"] if f["kind"] == "node_face"]
+        others = [f for f in G["features"] if f["kind"] != "node_face"]
+        hits = []
+
+        def rect(f):   # feature footprint: (x0, x1, a0, a1) in m and deg on the hull
+            x, y, z = f["pos"]
+            rr = math.hypot(y, z) or 1.0
+            th = math.degrees(math.atan2(z, y)) % 360
+            ax, ac = (f["size_m"][0], f["size_m"][1]) if f.get("size_m") else (f["d_m"], f["d_m"])
+            da = math.degrees(ac / 2 / rr)
+            return x - ax / 2, x + ax / 2, th - da, th + da
+
+        def arcs_meet(a0, a1, b0, b1, pad):
+            for k in (-360, 0, 360):
+                if a0 - pad <= b1 + k and b0 + k <= a1 + pad:
+                    return True
+            return False
+        for p in ext:
+            sp = p["shape"]
+            for f in nfs + others:
+                fx0, fx1, fa0, fa1 = rect(f)
+                pad = math.degrees(0.03 / sp["r1"])
+                if sp["x0"] - 0.03 <= fx1 and fx0 <= sp["x1"] + 0.03 and arcs_meet(sp["a0"], sp["a1"], fa0, fa1, pad):
+                    hits.append(f"{p['id']}/{f['kind']}")
+                    break
+        cs.append(chk("external equipment clear of node faces, windows, hatches and doors", len(hits), 0, not hits, "overlaps", ", ".join(hits[:6])))
+        nb = "; ".join(f"{d['id']} {d['status']}" for d in EE["not_built"])
+        decl.append(("external_equipment", f"External equipment (rev 7, ENGINEERING_ASSUMPTION): {len(ext)} parts from the inventory's 13 item types. Items with a ledger line are located "
+                     f"inside it (sensor turrets in mission systems, RF arrays, laser terminals and aft trackers in the avionics racks, forward trackers in the bow sensor ring, "
+                     f"service ports in the service arm, vents in life support, the docking target in the collar): {EE['located_t']:.2f} t, no new mass. New hardware "
+                     f"(crawler docks and points, grapple fixtures, EVA rails): {EE['new_from_reserve_t']:.2f} t from the reserve. Not built: {nb}. Masses are 2026-analogue allowances to be sized."))
+    return gate("G9", "Failures and reserves", cs, declared=decl, notes=notes)
 
 
 # ---------------------------------------------------------------- G10 card

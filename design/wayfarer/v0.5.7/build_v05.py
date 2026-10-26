@@ -801,6 +801,22 @@ def build(I, dy=0.0, dz=0.0):
             add(f"drone_{k}", f"{dr['name']} {i + 1}", "drones", Box(x0, x0 + w, yc - l / 2 * 0.3, yc + l / 2 * 0.3, -l / 2, l / 2),
                 dr["mass_t"], I["drones"]["prov"], "drone", tags=("drone",))
             k += 1
+    # --- rev 7: external equipment. Items with a ledger line are located (mass moved from that line's part);
+    #     only new hardware ("draw_from": "reserve") is paid from the engineering reserve.
+    EQ = I.get("external_equipment")
+    if EQ:
+        for it in EQ["items"]:
+            for k, (x0, x1, a0, a1, r0, r1) in enumerate(equipment_sectors(I, it)):
+                m = it["each_t"]
+                if it["draw_from"] == "reserve":
+                    tags = ("from_reserve", "external")
+                else:
+                    host = next(q for q in parts if q.id == it["draw_from"])
+                    host.mass_t -= m
+                    assert host.mass_t > 0, it["id"]
+                    tags = ("external", "located")
+                add(f"ext_{it['id']}_{k}", it["name"], "external", Sector(x0, x1, r0, r1, a0, a1), m,
+                    it.get("prov", EQ["prov"]) + ("" if it["draw_from"] == "reserve" else f"; mass moved from {it['draw_from']}"), it["mat"], tags=tags)
     # --- engineering reserve: spread over the dry parts in proportion to mass
     dry_parts = [p for p in parts if p.dry and "from_reserve" not in p.tags]
     base = sum(p.mass_t for p in dry_parts)
@@ -879,6 +895,87 @@ def state_parts(I, parts, sec, jacket_parts, jacket_t, w_service, state):
     return ps + fl + payload_parts(I, sec, state), cells, usable, wcp
 
 
+def hull_surface(I, x):
+    """outer radius and outward unit normal (x, radial) of the hull at station x (armour, skin, shield, reactor, nozzle)."""
+    H = I["hull"]
+    Ro, xa, xb = H["outer_r_m"], H["habitat_shell_x_m"][0], H["habitat_shell_x_m"][0] + H["bow_cap_depth_m"]
+    if x < xb:
+        u = (xb - x) / (xb - xa)
+        rr = Ro * math.sqrt(max(0.0, 1 - u * u))
+        nx, nr = -u / (xb - xa), rr / Ro ** 2
+        L = math.hypot(nx, nr)
+        return rr, nx / L, nr / L
+    if x <= H["manifold_x_m"][1]:
+        return Ro, 0.0, 1.0
+    if x <= H["shield_x_m"][1]:
+        return H["shield_r_m"], 0.0, 1.0
+    if x <= H["reactor_x_m"][1]:
+        return H["reactor_r_m"], 0.0, 1.0
+    (n0, n1), (r0, r1) = H["nozzle_x_m"], H["nozzle_r_m"]
+    rr = r0 + (r1 - r0) * (x - n0) / (n1 - n0)
+    L = math.hypot(r1 - r0, n1 - n0)
+    return rr, -(r1 - r0) / L, (n1 - n0) / L
+
+
+def equipment_sectors(I, it):
+    """rev 7: (x0, x1, a0, a1, r0, r1) patches on the hull for one external-equipment item."""
+    out = []
+    lx, w, h = it["size_m"]
+    if "rails" in it:
+        for x0, x1, th in it["rails"]:
+            rr = hull_surface(I, x0)[0]
+            da = math.degrees(0.04 / rr) / 2
+            out.append((x0, x1, th - da, th + da, rr, rr + 0.03))
+        return out
+    pts = it.get("at") or [(x, th) for x in it["grid"]["x_m"] for th in it["grid"]["theta_deg"]]
+    for x, th in pts:
+        rr = hull_surface(I, x)[0]
+        da = math.degrees(w / rr) / 2
+        out.append((x - lx / 2, x + lx / 2, th - da, th + da, rr - h + 0.015, rr + 0.015))
+    assert len(out) == it["count"], it["id"]
+    return out
+
+
+def node_faces(I, F_other):
+    """rev 7 (kT 2026-10-26, Sol AGREE with qualifications): 208 visible metric node faces on the rev 5 longeron-study layout.
+    Placement is HOLD (PR #184); each face carries flags for the conflicts the placement check must resolve."""
+    NF = I.get("node_faces")
+    if not NF:
+        return []
+    H, R, T = I["hull"], I["radiators"], I["tanks"]
+    Lh = H["length_m"]
+    g_half = math.degrees(T["groove"]["width_m"] / 2 / H["outer_r_m"])
+    doors = [(v["x_m"], v["theta_deg"]) for k, v in I["service"]["sectors"].items() if k.startswith("hold")]
+    BD = I["bay"]["doors"] if "doors" in I["bay"] else {}
+    out = []
+    r_face = NF["face_d_m"] / 2
+    for k in range(NF["rings"]):
+        x = Lh * (k + 0.5) / NF["rings"]
+        rr, nx, nr = hull_surface(I, x)
+        for j in range(NF["per_ring"]):
+            th = NF["azimuth_phase_deg"] + j * NF["azimuth_step_deg"]
+            t = math.radians(th)
+            pos = [x, rr * math.cos(t), rr * math.sin(t)]
+            nrm = [nx, nr * math.cos(t), nr * math.sin(t)]
+            fl = []
+            if R["x_m"][0] <= x <= R["x_m"][1] and any(abs((th - a + 180) % 360 - 180) <= g_half for a in R["azimuths_deg"]):
+                fl.append("under_stowed_strake")
+            if 18.25 <= x <= 32.05 and 57.77 <= th % 360 <= 122.23:
+                fl.append("on_bay_door")
+            if x > H["manifold_x_m"][1]:
+                fl.append("on_torch_chain")
+            if nx < -0.1 and x < H["habitat_shell_x_m"][1]:
+                fl.append("faces_dust_flow_bow_first")
+            for f in F_other:
+                d = math.dist(pos, f["pos"])
+                rad = f.get("d_m") or max(f.get("size_m", [0.0, 0.0])) / 2 * 2
+                if d < r_face + rad / 2 + 0.05:
+                    fl.append(f"overlaps_{f['kind']}")
+                    break
+            out.append({"kind": "node_face", "ring": k, "theta_deg": th, "pos": pos, "normal": nrm, "d_m": NF["face_d_m"], "flags": fl})
+    return out
+
+
 def features(I, rooms):
     """Visual hull features (windows, hatches, hold doors) placed from the room and sector data."""
     F, H = I["features"], I["hull"]
@@ -933,6 +1030,7 @@ def features(I, rooms):
             x = sum(v["x_m"]) / 2
             out.append({"kind": "hold_door", "sector": k, "pos": [x, Ro * math.cos(th), Ro * math.sin(th)],
                         "normal": [0, math.cos(th), math.sin(th)], "size_m": F["hold_door_m"]})
+    out += node_faces(I, list(out))
     return out
 
 
@@ -1125,6 +1223,19 @@ def main():
         "rooms": rooms,
         "states": states,
     }
+    if I.get("skin"):
+        nfs = [f for f in out["features"] if f["kind"] == "node_face"]
+        fl = {}
+        for f in nfs:
+            for t in f["flags"]:
+                fl[t] = fl.get(t, 0) + 1
+        ext = [p for p in parts if "external" in p.tags]
+        out["skin"] = I["skin"]
+        out["node_faces"] = {"count": len(nfs), "clear": sum(1 for f in nfs if not f["flags"]), "flags": fl, "status": I["node_faces"]["status"]}
+        out["external_equipment"] = {"parts": len(ext), "located_t": sum(p.mass_t for p in ext if "located" in p.tags),
+                                     "new_from_reserve_t": sum(p.mass_t for p in ext if "from_reserve" in p.tags),
+                                     "not_built": I["external_equipment"]["not_built"]}
+        out["ledger_reserve_t"] = I["ledger"]["engineering_reserve_t"] + I["ledger"]["structure_split"].get("released_to_reserve", 0.0)
     OUT.mkdir(exist_ok=True)
     txt = json.dumps(out, indent=1, default=float)
     (OUT / "wayfarer_v05_geometry.json").write_text(txt)

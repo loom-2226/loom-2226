@@ -4,8 +4,8 @@ ALL bodies. ALL sponsors. 2026-2226.
 
 **Status: PROPOSED. NOT CANON.** For kT's decision only. Do not place in `canon/current/` until kT approves it in writing.
 **Parent authority:** CANON II Engineering, Ships and Operations v2.4; CANON II Wayfarer Schematic Amendment v2.4a.
-**Evidence:** Wayfarer v0.5.7 rev 6 (non-governing), report `out/CERTIFICATION_REPORT_v0.5.md`. Supersedes the earlier drafts (v2.4d, v2.4e), which are in git history.
-**Preconditions for adoption:** certification basis v0.2 is agreed by Claude and Sol (2026-10-26); every gate PASS or PASS-DECLARED with every declared assumption accepted by kT; Sol signs; loom-gate passes. Accepted by kT: torch heat, 1,750 K fins, plant power, shelter life support, cosmic rays, crown dome, berth viewports, torch thrust-vector control. Awaiting kT: axial RCS plume clearance (`rcs_axial_plumes`) and the burn-coast test assumption (`g10_burn_coasts`). Navigator missions (E1, FR-01B-R, MV-01) follow as validation once fixtures and the CANON II §20 solver exist.
+**Evidence:** Wayfarer v0.5.7 rev 7 (non-governing), report `out/CERTIFICATION_REPORT_v0.5.md`. Supersedes the earlier drafts (v2.4d, v2.4e), which are in git history.
+**Preconditions for adoption:** certification basis v0.2 is agreed by Claude and Sol (2026-10-26); every gate PASS or PASS-DECLARED with every declared assumption accepted by kT; Sol signs; loom-gate passes. Accepted by kT: torch heat, 1,750 K fins, plant power, shelter life support, cosmic rays, crown dome, berth viewports, torch thrust-vector control. Awaiting kT: axial RCS plume clearance (`rcs_axial_plumes`), the burn-coast test assumption (`g10_burn_coasts`), and rev 7's `strata_armour`, `node_faces`, `cold_running` and `external_equipment`. Navigator missions (E1, FR-01B-R, MV-01) follow as validation once fixtures and the CANON II §20 solver exist.
 
 ## 1. Reference courier mass ledger (would replace the §13 values)
 
@@ -65,6 +65,10 @@ Eight clusters of 25 kN thrusters, four at the bow and four aft: three per clust
 
 Pressure vessel 8.6 m across inside an armour and MMOD shell, x 0-14. Five decks perpendicular to thrust: command (pilot and navigator on a flight deck 1.78 m up in the nose, supine facing the bow, under a 25 m2 crown dome (ceramic panes on an Osteon frame, closed by tambour gores that stow in a brow ring; open only at low speed or with the bow out of the dust flow); bow sensors in a ring at the dome shoulder; four support couches along the rim); common; quarters (four shared cabins: captain 1, crew 2 and 3, guests 4; ten berths with 5 g restraints, behind an 8 cm water ring); medical, life support and storm shelter; mission, EVA and transfer. ~315 m3 of living volume. Glazing for livability, about 48 m2: the crown dome over L1; a panoramic viewport band round the L2 common deck (19 m2, 1.6 m tall in the lounge, on Osteon titanium mullions between titanium edge rings; ceramic plate panes on the crown's materials milestone); and 22 round viewports: 4 L1 shoulder, 10 berth (0.5 m), 2 medical, 2 storm shelter, 1 suit room, 2 workshop, 1 vestibule. Every opening below the crown has an acrylic shield plug (berths and shelter keep their screens with the shutters open) and a flush Strata shutter, closed at cruise speed, in storms and in burns. This goes beyond the canon candidate's 10-16 windows: kT's call. 16 acceleration couches and berths, two ladders per deck. Storm shelter behind a 20 cm water jacket drawn from the protected water; the rest of the protected water in a service tank on +Z.
 
+## 5a. Hull skin (rev 7; kT decisions 2026-10-26, Sol agreed)
+
+Low signature is a skin criterion: an operational constraint, not a promise of invisibility. The habitat armour (x 0-14) is faced in **Strata laminate** (Builder-derived, MHL-22) over its whole area, not only in the gores and shutters; the bow (x 0-2.6) is bare Strata, the erosion face that meets the dust flow. Naming the material implies no new shielding performance: the armour keeps its 105 t ledger line, and Strata's density, properties and appearance stay open. Aft of the bow the flanks carry a **tunable-emissivity layer** (proposed Frontier item F5-TE-01) with two modes: normal (emissivity 0.85, light in sunlight) and cold running (0.10), which holds heat for a finite time. The hull shows **208 metric node faces** (13 rings x 16), flush or recessed; each must carry at least the armour's g/cm2, and their placement is held against PR #184. External equipment (passive sensor turrets, flush RF arrays, laser terminals, star trackers, service ports, vents, hull-crawler docks and grip points, grapple fixtures, EVA rails) is part of the geometry; drone bays are held.
+
 ## 6. Planetary launch
 
 Rover-drop shuttle: 27.9 t empty, 12.8 x 3.8 m. The Venus surface is reached by a hardened rover dropped from a cloud city. This replaces the candidate 30-35 t, ~10.5 m launch (candidate, not canon).
@@ -78,6 +82,10 @@ Rover-drop shuttle: 27.9 t empty, 12.8 x 3.8 m. The Venus surface is reached by 
 4. **Galactic cosmic rays.** Long careers aboard rely on the off-Earth MED-MOD-RADIATION milestone plus crew time-in-space limits; the hull alone cannot keep a full-time crew under 600 mSv.
 5. **Torch thrust-vector control (accepted 2026-10-26).** Up to 1 deg of steering by the magnetic nozzle, against an assumed 0.5 deg thrust error; not yet a qualified nozzle capability.
 6. **Axial RCS plumes (awaiting kT).** The canted axial thrusters' plumes clear the crown, hull, hot fins and torch chain; not yet modelled.
+7. **Strata habitat armour (rev 7, awaiting kT's wording).** Strata faces the whole habitat armour; no new shielding performance is implied; density, properties and appearance open.
+8. **Node faces (rev 7, awaiting kT; placement HOLD).** 208 faces, each carrying at least the armour's g/cm2. If they were open bores through the armour the worst berth screen would fall from 40.4 to 14.8 g/cm2. Materials, covers, seals and mounts open; PR #184 open.
+9. **Cold running (rev 7, awaiting kT; F5-TE-01 provisional).** Low emissivity holds heat, it does not remove it: about 17 h on the protected water before the strakes must open. The metallic look is a proposed optical property.
+10. **External equipment (rev 7, awaiting kT).** 2026-analogue mass allowances; most items located inside existing ledger lines, 1.4 t of new hardware from the reserve.
 
 ## 8. Unchanged by this amendment
 

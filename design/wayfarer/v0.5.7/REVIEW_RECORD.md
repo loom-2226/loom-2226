@@ -74,3 +74,37 @@ kT: "agree 1-4", and keep only current files. Old revisions live in git history;
 - Stale labels fixed: the L1 section and deck plan still said "nose windows"; the viewer said 0.35 m berth viewports.
 
 Still NON-GOVERNING: no canon promotion, no runtime integration. PR #430 is unchanged, nothing is merged, and loom-gate is neither bypassed nor modified.
+
+## Rev 7 (2026-10-26): the skin, node faces and external equipment
+
+NON-GOVERNING engineering candidate. Built by Claude after Sol's design agreement; Sol reviews the build. No canon promotion, no runtime integration, no gate bypass, PR #430 untouched.
+
+**kT's decisions** (recorded in `inputs/kt_decisions.json`, `design_decisions_2026_10_26_skin`)
+1. Low signature is a skin criterion.
+2. Open an F5 Frontier item for tunable emissivity: `engineering/frontiers/F5_TUNABLE_EMISSIVITY_ITEM_v0.1.md` (F5-TE-01, PROPOSED; not entered in the register).
+3. The metric nodes show on the hull: all 208 (option 3).
+4. The habitat armour face is Strata.
+kT: "I want sol to agree with the design choices. I want you to handle making it."
+
+**Sol (2026-10-26): AGREE 1-6**, with two qualifications carried into the build:
+- Cold running must account for retained heat; no heat sink, no radiative multiplier; the mirror look is a proposed optical property.
+- Node faces join the dust and radiation checks as discontinuities; they are not qualified penetrations; stations are not moved for the look (PR #184 OPEN).
+- The inventory is a draft requirement: allocate new mass against the reserve, reconcile existing equipment, keep the drone-bay and node-placement holds.
+
+**What was built**
+- `inputs/`: `skin` (Strata habitat armour, bare Strata bow x 0-2.6, tunable flanks with normal 0.85 / cold running 0.10 emissivity, seams on the frames and node rings), `node_faces` (13 x 16, 0.35 m, HOLD), `external_equipment` (13 item types; drone bays HOLD, navigation lights OPTIONAL, crawler rails not yet), `cold_running` (protected-water buffer, 15 K rise).
+- `build_v05.py`: 55 external parts; items with a ledger line are located inside it (mass moved from that line's part), only new hardware draws on the reserve (`ledger.reserve_draws_rev7`, 1.42 t). 208 node faces as geometry features, each flagged for the placement check.
+- `certify.py`: G6 berth screen with node faces armour-equivalent, an open-bore sensitivity and declared items `strata_armour` and `node_faces`; G4 declared item `cold_running` with the computed endurance; G9 reserve and equipment-clearance checks and declared item `external_equipment`.
+- `habitat/hab_overlay_checks.py`: the berth screen also runs with node faces as open bores (worst case, sensitivity only).
+- `render/`: Strata/tunable skin shading, node faces and equipment drawn from the geometry; viewer chips for Strata skin / engineering grey and flanks normal / cold running; stills `ext_skin` and `ext_skin_cold`. `compare/previous/` now holds rev 6.
+
+**Result**
+- Geometry `74e22938...dc161271`; dry 867.68 t (unchanged); reserve 46.17 t; worst trim 0.341°.
+- Minimum berth screen 40.38 g/cm² (limit 40), down from 40.45 by the 1.42 t of new hardware. The forecast was about 40.4 for that draw.
+- Node faces as open bores (sensitivity, not the design case): berth screen 14.78 g/cm², 30 of 36 berth points below 40; storm shelter 36.3 g/cm². So each face must carry at least the armour's g/cm².
+- Node faces: 76 of 208 clear; 20 under the stowed strakes, 12 on the bay doors, 80 on the torch chain, 16 facing the dust flow bow-first, 2 on the hold doors, 1 on a window, 1 on a camera. Placement stays HOLD.
+- Cold running: 58.1 kW in, 7.1 kW leaking through the low-e skin, about 17 h to warm the 50 t of protected water by 15 K. Plant standby heat is not modelled (OPEN).
+- External equipment: 1.88 t located inside existing lines (including their share of growth margin), 1.42 t new; no overlaps with node faces, windows, hatches or doors.
+- Every gate PASS or PASS-DECLARED; G10 25/25. Declared items awaiting kT: `rcs_axial_plumes`, `g10_burn_coasts`, `strata_armour`, `node_faces`, `cold_running`, `external_equipment`.
+- No dust check exists in the basis yet; the node-face dust flag is reported, not gated.
+- `certified` stays false.

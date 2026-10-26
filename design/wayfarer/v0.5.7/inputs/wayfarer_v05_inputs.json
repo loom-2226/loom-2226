@@ -1,6 +1,6 @@
 {
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
- "status": "NON-GOVERNING SANDBOX. Wayfarer v0.5.7 rev 6 inputs, certified against CERTIFICATION_BASIS.md (v0.2). Previous revisions are in git history (rev 5: commit ef1b871).",
+ "status": "NON-GOVERNING SANDBOX. Wayfarer v0.5.7 rev 7 inputs, certified against CERTIFICATION_BASIS.md (v0.2). Previous revisions are in git history (rev 6: commit 55b19c8; rev 5: ef1b871).",
  "version": "0.5.7",
  "date": "2026-10-26",
  "provenance_classes": [
@@ -1563,7 +1563,7 @@
    "prov": "ENGINEERING_ASSUMPTION"
   },
   "mission_courier_systems_t": 20.0,
-  "engineering_reserve_t": 27.928,
+  "engineering_reserve_t": 26.5072,
   "engineering_reserve_rule": "spread over dry parts in proportion to their mass (growth margin), not lumped at one point",
   "c_tank_penalty_t": 8.0,
   "radiator_panels_t": 8.784,
@@ -1601,7 +1601,15 @@
   },
   "crew_systems_v057_t": 10.688,
   "rcs_axial_t": 4.0,
-  "rcs_axial_prov": "ENGINEERING_ASSUMPTION: 8 thrusters at the 0.5 t per thruster of the existing clusters (12 t / 24), paid from the engineering reserve (dry mass unchanged)"
+  "rcs_axial_prov": "ENGINEERING_ASSUMPTION: 8 thrusters at the 0.5 t per thruster of the existing clusters (12 t / 24), paid from the engineering reserve (dry mass unchanged)",
+  "reserve_draws_rev7": {
+   "crawler_docks_t": 0.6,
+   "crawler_points_t": 0.4008,
+   "grapple_fixtures_t": 0.12,
+   "eva_rails_t": 0.3,
+   "total_t": 1.4208,
+   "prov": "rev 7 external equipment that is new hardware (external_equipment draw_from: reserve); everything else is located inside its existing ledger line"
+  }
  },
  "longerons": {
   "prov": "CLAUDE_DESIGN v0.5.7 (structure/longeron_study.py, kT 2026-10-25 'consolidate'): four CFRP tubes in an X, matching canon's 4 axial longerons. The upper pair stay where the v0.5.6 slot sills were (edging the bay slot); the lower pair mirror them in the tank's lower cells. Sized at 5 g x 1.5 to a 250 MPa design stress (400 MPa floor x 0.62 for impact, joints, environment). v0.5.6 had 3 planks + 2 sills (36.9 t) running at 65 MPa. NON-GOVERNING; SOL TO REVIEW REV 5 (structure review 2026-10-26): wall 72 -> 84 mm (area 0.0830 m2, 1% margin) so axial + bending (thrust-line offset 13.5 MN m + 0.5 deg thrust error 9.1 MN m) stays within the 250 MPa design stress",
@@ -1988,5 +1996,410 @@
   "pleats_prov": "DERIVED: 14 pleats of 2 m (28 m) so the conservative standard-library view factor in certify.py (torch chain treated as a 4.5 m cylinder) clears 1.40 GW; the numpy model in torch/fin_layout.py needs 25.7 m"
  },
  "windows_note": "ENGINEERING_ASSUMPTION (v0.5.7 rev 3): crown dome (25 m2) over L1; a panoramic viewport band round L2 (19.4 m2, 1.6 m tall in the lounge); round viewports: L1 shoulder 4, L3 berths 10 (0.5 m), L4 medical 2 and storm shelter 2, L5 suits 1, workshop 2, vestibule 1. Every opening below the crown has an acrylic shield plug and a Strata dust shutter",
- "revision": "rev 6"
+ "revision": "rev 7",
+ "skin": {
+  "prov": "KT_DECISION 2026-10-26 (Sol: AGREE 1-6 with qualifications)",
+  "criteria": {
+   "low_signature": "a skin criterion (Canon I s9.5 provisional, s8.2-8.3): an operational design constraint, not a promise of invisibility"
+  },
+  "armour_face": {
+   "material": "Strata laminate (Builder-derived, MHL-22) over the whole habitat armour, x 0-14",
+   "status": "DECLARED: density, physical properties and appearance OPEN; naming the material implies no new shielding performance (the armour keeps its 105 t ledger line and the ray screens are unchanged)"
+  },
+  "bow": {
+   "x_m": [
+    0.0,
+    2.6
+   ],
+   "finish": "bare Strata: the erosion face meets the dust flow"
+  },
+  "flanks": {
+   "x_m": [
+    2.6,
+    34.3
+   ],
+   "finish": "tunable-emissivity layer over the armour and midship skin",
+   "frontier_item": "F5-TE-01 (provisional; engineering/frontiers/F5_TUNABLE_EMISSIVITY_ITEM_v0.1.md)",
+   "modes": {
+    "normal": {
+     "emissivity": 0.85,
+     "solar_absorptivity": 0.15,
+     "note": "the existing habitat skin-radiator values (habitat_heat.radiator); a light surface: high in the infrared, low in sunlight"
+    },
+    "cold_running": {
+     "emissivity": 0.1,
+     "note": "F5 scenario value, provisional until the register freezes; appearance in the viewer (metallic, low-e) is a proposed optical property, not a consequence of low emissivity"
+    }
+   },
+   "rule": "Stefan-Boltzmann accountant, emissivity bounded 0-1, no radiative multiplier, no unexplained heat sink"
+  },
+  "seams": {
+   "axial": "at the 2 m ring frames",
+   "circumferential_deg": 22.5,
+   "phase_deg": 11.25,
+   "note": "panels 2 m x 22.5 deg; node faces (every 22.5 deg) sit mid-panel"
+  },
+  "viewer_placeholder": "Strata appearance is Claude's placeholder (dark bronze-grey, fine layered grain) until kT sets it"
+ },
+ "node_faces": {
+  "prov": "KT_DECISION 2026-10-26 (Sol: AGREE 1-6 with qualifications); layout from the rev 5 longeron study (commit ef1b871, structure/longeron_study.py): stations 53.3*(k+0.5)/13 m, 16 per ring at 22.5 deg",
+  "rings": 13,
+  "per_ring": 16,
+  "azimuth_step_deg": 22.5,
+  "azimuth_phase_deg": 0.0,
+  "face_d_m": 0.35,
+  "face": "flush or recessed visible face; materials, protective cover, seal and mount interface OPEN",
+  "mass": "not allocated (node modules belong to the relational plant line; face covers OPEN)",
+  "status": "HOLD: placement against PR #184 OPEN; faces not qualified as armour penetrations"
+ },
+ "external_equipment": {
+  "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26)",
+  "rule": "items that already have a ledger line take their mass from that line's part (located, not new); only new hardware is paid from the engineering reserve",
+  "items": [
+   {
+    "id": "sensor_turret",
+    "name": "Passive optical/IR sensor turret (retractable, flush when stowed)",
+    "count": 2,
+    "each_t": 0.5,
+    "draw_from": "courier_systems",
+    "at": [
+     [
+      24.6,
+      0.0
+     ],
+     [
+      24.6,
+      180.0
+     ]
+    ],
+    "size_m": [
+     1.0,
+     0.9,
+     0.18
+    ],
+    "mat": "sensor",
+    "why": "passive sensing is the courier's core job (Canon I s8.3-8.4, s9.5)"
+   },
+   {
+    "id": "rf_array",
+    "name": "Conformal phased-array RF panel (flush)",
+    "count": 4,
+    "each_t": 0.1,
+    "draw_from": "core_racks",
+    "at": [
+     [
+      28.7,
+      0.0
+     ],
+     [
+      28.7,
+      180.0
+     ],
+     [
+      28.7,
+      270.0
+     ],
+     [
+      20.5,
+      270.0
+     ]
+    ],
+    "size_m": [
+     1.4,
+     1.0,
+     0.03
+    ],
+    "mat": "antenna",
+    "why": "radio comms and ranging without a dish (Canon I s10.8)"
+   },
+   {
+    "id": "laser_terminal",
+    "name": "Laser comms terminal (stows behind a flush cover)",
+    "count": 2,
+    "each_t": 0.1,
+    "draw_from": "core_racks",
+    "at": [
+     [
+      33.3,
+      67.5
+     ],
+     [
+      33.3,
+      292.5
+     ]
+    ],
+    "size_m": [
+     0.5,
+     0.5,
+     0.12
+    ],
+    "mat": "sensor",
+    "why": "high-rate store-and-forward links (Canon I s10.8)"
+   },
+   {
+    "id": "star_tracker",
+    "name": "Star tracker",
+    "count": 4,
+    "each_t": 0.01,
+    "draw_from": "bow_sensors",
+    "at": [
+     [
+      3.2,
+      45.0
+     ],
+     [
+      3.2,
+      225.0
+     ],
+     [
+      33.6,
+      112.5
+     ],
+     [
+      33.6,
+      247.5
+     ]
+    ],
+    "size_m": [
+     0.2,
+     0.2,
+     0.08
+    ],
+    "mat": "sensor",
+    "why": "attitude and navigation; the forward pair sits in the bow sensor ring, the aft pair is fed from it"
+   },
+   {
+    "id": "service_port",
+    "name": "Service port (2 remass fill: water and CO2; 1 power/data)",
+    "count": 3,
+    "each_t": 0.033,
+    "draw_from": "service_arm",
+    "at": [
+     [
+      31.2,
+      255.0
+     ],
+     [
+      31.2,
+      285.0
+     ],
+     [
+      31.2,
+      270.0
+     ]
+    ],
+    "size_m": [
+     0.4,
+     0.4,
+     0.03
+    ],
+    "mat": "port",
+    "why": "refuelling and shore power; already paid by the service-arm-and-umbilicals line"
+   },
+   {
+    "id": "vent",
+    "name": "Vent and relief valve",
+    "count": 4,
+    "each_t": 0.005,
+    "draw_from": "room_L4-eclss",
+    "at": [
+     [
+      11.5,
+      135.0
+     ],
+     [
+      11.5,
+      225.0
+     ],
+     [
+      33.0,
+      157.5
+     ],
+     [
+      33.0,
+      202.5
+     ]
+    ],
+    "size_m": [
+     0.12,
+     0.12,
+     0.03
+    ],
+    "mat": "port",
+    "why": "pressure relief and ECLSS; discharge points away from sensors and ports"
+   },
+   {
+    "id": "docking_target",
+    "name": "Docking target",
+    "count": 1,
+    "each_t": 0.02,
+    "draw_from": "docking_collar",
+    "at": [
+     [
+      17.3,
+      270.0
+     ]
+    ],
+    "size_m": [
+     0.3,
+     0.3,
+     0.02
+    ],
+    "mat": "port",
+    "why": "reconciled with the two existing docking cameras with lights"
+   },
+   {
+    "id": "crawler_dock",
+    "name": "Hull-crawler dock (crawler stowed)",
+    "count": 3,
+    "each_t": 0.2,
+    "draw_from": "reserve",
+    "at": [
+     [
+      13.2,
+      22.5
+     ],
+     [
+      13.2,
+      202.5
+     ],
+     [
+      33.8,
+      0.0
+     ]
+    ],
+    "size_m": [
+     0.8,
+     0.6,
+     0.15
+    ],
+    "mat": "dock",
+    "why": "robots inspect, clean and replace skin tiles (Canon I s7.10, s10.4); discrete docks and points first, rails only where access proves it"
+   },
+   {
+    "id": "crawler_point",
+    "name": "Hull-crawler attachment point (recessed)",
+    "count": 24,
+    "each_t": 0.0167,
+    "draw_from": "reserve",
+    "grid": {
+     "x_m": [
+      5.0,
+      9.0,
+      13.0,
+      17.5,
+      20.0,
+      24.0
+     ],
+     "theta_deg": [
+      11.25,
+      168.75,
+      191.25,
+      348.75
+     ]
+    },
+    "size_m": [
+     0.12,
+     0.12,
+     0.02
+    ],
+    "mat": "port",
+    "why": "crawler grip points between docks"
+   },
+   {
+    "id": "grapple_fixture",
+    "name": "Grapple fixture (recessed, into the x 14 ring frame)",
+    "count": 4,
+    "each_t": 0.03,
+    "draw_from": "reserve",
+    "at": [
+     [
+      13.6,
+      90.0
+     ],
+     [
+      13.6,
+      180.0
+     ],
+     [
+      13.6,
+      270.0
+     ],
+     [
+      13.6,
+      337.5
+     ]
+    ],
+    "size_m": [
+     0.4,
+     0.4,
+     0.05
+    ],
+    "mat": "dock",
+    "why": "station arms and tugs can hold the ship; load path into the habitat ring frame"
+   },
+   {
+    "id": "eva_rail",
+    "name": "EVA handrail (recessed)",
+    "count": 4,
+    "each_t": 0.075,
+    "draw_from": "reserve",
+    "rails": [
+     [
+      12.8,
+      17.6,
+      14.0
+     ],
+     [
+      19.0,
+      24.0,
+      14.0
+     ],
+     [
+      12.8,
+      15.4,
+      346.0
+     ],
+     [
+      25.2,
+      30.0,
+      352.0
+     ]
+    ],
+    "size_m": [
+     0.0,
+     0.04,
+     0.03
+    ],
+    "mat": "rail_ext",
+    "why": "human repair when robots can't; route from the L5 external hatch (x 12.2, 0 deg) to the sensors, hold door and ports"
+   }
+  ],
+  "not_built": [
+   {
+    "id": "drone_bay",
+    "status": "HOLD",
+    "note": "canon gives 4-12 capable drones (Canon I s8.4); the 4 carried drones are surface-access craft. First test launch and recovery through the existing hold doors."
+   },
+   {
+    "id": "nav_lights",
+    "status": "OPTIONAL",
+    "note": "traffic requirement unresolved; registry markings stay open with the ship's history (Canon I s9.5)"
+   },
+   {
+    "id": "crawler_rails",
+    "status": "NOT YET",
+    "note": "add only where inspection or repair access proves it"
+   }
+  ]
+ },
+ "cold_running": {
+  "prov": "ENGINEERING_ASSUMPTION rev 7 (Sol qualification 2: retained heat must be accounted)",
+  "buffer": "protected water (canon 50 t) warmed from 293 K to 308 K; remass is not counted",
+  "buffer_dT_k": 15.0,
+  "water_cp_kj_kg_k": 4.186,
+  "radiators": "strakes stowed, hot fins folded; the habitat heat pump stops rejecting",
+  "skin_area_rule": "the habitat skin-radiator area (habitat_heat.radiator: midship x 18-30.5, half the skin) at 290 K",
+  "not_modelled": "relational-plant and cryoplant standby heat in a coast (OPEN); counting it shortens the endurance"
+ }
 }
