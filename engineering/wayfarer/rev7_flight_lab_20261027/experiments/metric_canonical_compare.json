@@ -1,0 +1,35 @@
+{
+  "name": "metric_canonical_compare",
+  "phases": [
+    {
+      "kind": "metric",
+      "duration_s": 80,
+      "model": "canonical",
+      "mode": "NORMAL",
+      "illustrative_profile": "linear_ramp_plateau_collapse",
+      "profile_note": "Historical comparison only: experiment-declared geometric path, conditional; no canonical physical propagation or energy accounting."
+    }
+  ],
+  "checks": {
+    "metric_path_m": {
+      "min": 1
+    }
+  },
+  "initial": {
+    "position_m": [
+      1000,
+      0,
+      0
+    ],
+    "velocity_m_s": [
+      10,
+      0,
+      0
+    ],
+    "omega_rad_s": [
+      0,
+      0,
+      0.001
+    ]
+  }
+}

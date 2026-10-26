@@ -1,0 +1,28 @@
+{
+  "basis": "mass-matched torque-free reference with inertial +Y thrust",
+  "engine_source": "Wayfarer CRUISE card, conventional numerical surrogate",
+  "GMAT_version": "R2026a",
+  "dt_s": 1.0,
+  "position_difference_m": 0.002318704031742408,
+  "velocity_difference_m_s": 1.2966777506832443e-06,
+  "mass_difference_kg": 7.653143256902695e-07,
+  "lab_end_state_SI": [
+    149597869632.58502,
+    19623840.356745064,
+    -1.7708912513578398e-08,
+    -3.5580500990317105,
+    35630.95750676331,
+    -1.1949136406642677e-10,
+    1164271.7000000074
+  ],
+  "gmat_end_state_SI": [
+    149597869632.5851,
+    19623840.35906196,
+    0.0,
+    -3.558050099812249,
+    35630.95750805999,
+    0.0,
+    1164271.699999242
+  ],
+  "scope": "Independent ordinary trajectory comparison only; NOT installed torch hardware"
+}

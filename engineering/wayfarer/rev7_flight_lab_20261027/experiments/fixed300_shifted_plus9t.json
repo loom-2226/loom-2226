@@ -1,0 +1,20 @@
+{
+  "name": "fixed300_shifted_plus9t_10s_180deg",
+  "phases": [
+    {
+      "kind": "rcs_turn",
+      "duration_s": 10,
+      "axis": "pitch",
+      "angle_deg": 180,
+      "post_hold_s": 4.0
+    }
+  ],
+  "checks": {
+    "attitude_error_deg": {
+      "max": 0.25
+    },
+    "rate_deg_s": {
+      "max": 0.05
+    }
+  }
+}

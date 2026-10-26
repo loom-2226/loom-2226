@@ -1,0 +1,42 @@
+{
+  "name": "Wayfarer NORMAL canonical operating request with incomplete certification",
+  "initial": {
+    "position_m": [1000, 2000, 3000],
+    "velocity_m_s": [10, 20, 30],
+    "q_body_to_inertial": [1, 0, 0, 0],
+    "omega_rad_s": [0, 0, 0],
+    "frame": "experiment-declared ICRF axes; illustrative initial position and velocity",
+    "epoch": "experiment start; no ephemeris claim"
+  },
+  "phases": [
+    {
+      "kind": "metric",
+      "model": "canonical",
+      "mode": "NORMAL",
+      "duration_s": 105,
+      "support_scenario": "MVP_2226",
+      "operating_sequence": [
+        {"state": "COAST", "duration_s": 0},
+        {"state": "RELATIONAL_READY", "duration_s": 5},
+        {"state": "METRIC_RAMP", "duration_s": 10},
+        {"state": "METRIC_TRANSPORT", "duration_s": 60},
+        {"state": "METRIC_COLLAPSE", "duration_s": 10},
+        {"state": "NRE_RELAXATION", "duration_s": 20},
+        {"state": "COAST", "duration_s": 0}
+      ],
+      "timing_note": "Prep 5 s, transport 60 s, collapse 10 s and relaxation 20 s are explicit experiment schedule inputs. Only acquisition ramp 10 s is source-derived. No physical time constant, trajectory or duty law is asserted.",
+      "declared_capacities": {
+        "cold_load_w": 150000,
+        "delivered_electrical_w": 3500000,
+        "required_upstream_electrical_w": 3800000
+      },
+      "capacity_note": "Illustrative available capacities compared to requirements; not measured or certified installed support.",
+      "gates": {
+        "environment": {"status": "UNKNOWN", "provenance": "No current applicable signed environment record supplied."},
+        "u_calibration": {"status": "UNKNOWN", "provenance": "PATH_DEPENDENT_ORDINARY_STATE_PROPAGATOR_CALIBRATION is open in the copied closure."},
+        "conservation": {"status": "UNKNOWN", "provenance": "No finite ordinary/relational/bank/radiation/environment ledger supplied."}
+      }
+    }
+  ],
+  "checks": {"final_speed_m_s": {"max": 1000}}
+}
