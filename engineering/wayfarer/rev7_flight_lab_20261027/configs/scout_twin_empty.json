@@ -1,0 +1,1161 @@
+{
+  "name": "Scout twin with exhausted port feed; starboard remains fueled",
+  "provenance": {
+    "source": "authored scratch fixture, cylinder 90 t, length 12 m, radius 2 m"
+  },
+  "base": {
+    "mass_kg": 90000.0,
+    "cg_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "inertia_kg_m2": [
+      [
+        180000.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1170000.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1170000.0
+      ]
+    ]
+  },
+  "components": [],
+  "tanks": [
+    {
+      "id": "prop",
+      "capacity_kg": 10000.0,
+      "initial_kg": 0,
+      "cg_m": [
+        0,
+        0,
+        0
+      ],
+      "inertia_full_kg_m2": [
+        [
+          20000.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          100000.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          100000.0
+        ]
+      ]
+    },
+    {
+      "id": "rcs_prop",
+      "capacity_kg": 200.0,
+      "initial_kg": 200.0,
+      "cg_m": [
+        1,
+        1,
+        0
+      ],
+      "inertia_full_kg_m2": [
+        [
+          200,
+          0,
+          0
+        ],
+        [
+          0,
+          200,
+          0
+        ],
+        [
+          0,
+          0,
+          200
+        ]
+      ]
+    },
+    {
+      "id": "aux",
+      "capacity_kg": 100.0,
+      "initial_kg": 100.0,
+      "cg_m": [
+        0,
+        -1,
+        1
+      ],
+      "inertia_full_kg_m2": [
+        [
+          100,
+          0,
+          0
+        ],
+        [
+          0,
+          100,
+          0
+        ],
+        [
+          0,
+          0,
+          100
+        ]
+      ]
+    }
+  ],
+  "rcs": [
+    {
+      "id": "F+Y_inward",
+      "pos_m": [
+        -4.2,
+        2.3,
+        0.0
+      ],
+      "direction": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "F+Y_tan+",
+      "pos_m": [
+        -4.2,
+        2.3,
+        0.0
+      ],
+      "direction": [
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "F+Y_tan-",
+      "pos_m": [
+        -4.2,
+        2.3,
+        0.0
+      ],
+      "direction": [
+        -0.0,
+        0.0,
+        -1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "F+Y_axial",
+      "pos_m": [
+        -4.2,
+        2.3,
+        0.0
+      ],
+      "direction": [
+        0.984807753012208,
+        -0.1736481776669303,
+        -0.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "F+Z_inward",
+      "pos_m": [
+        -4.2,
+        1.408343819019456e-16,
+        2.3
+      ],
+      "direction": [
+        -0.0,
+        -6.123233995736766e-17,
+        -1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "F+Z_tan+",
+      "pos_m": [
+        -4.2,
+        1.408343819019456e-16,
+        2.3
+      ],
+      "direction": [
+        0.0,
+        -1.0,
+        6.123233995736766e-17
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "F+Z_tan-",
+      "pos_m": [
+        -4.2,
+        1.408343819019456e-16,
+        2.3
+      ],
+      "direction": [
+        -0.0,
+        1.0,
+        -6.123233995736766e-17
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "F+Z_axial",
+      "pos_m": [
+        -4.2,
+        1.408343819019456e-16,
+        2.3
+      ],
+      "direction": [
+        0.984807753012208,
+        -1.0632884247878856e-17,
+        -0.1736481776669303
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "F-Y_inward",
+      "pos_m": [
+        -4.2,
+        -2.3,
+        2.816687638038912e-16
+      ],
+      "direction": [
+        -0.0,
+        1.0,
+        -1.2246467991473532e-16
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "F-Y_tan+",
+      "pos_m": [
+        -4.2,
+        -2.3,
+        2.816687638038912e-16
+      ],
+      "direction": [
+        0.0,
+        -1.2246467991473532e-16,
+        -1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "F-Y_tan-",
+      "pos_m": [
+        -4.2,
+        -2.3,
+        2.816687638038912e-16
+      ],
+      "direction": [
+        -0.0,
+        1.2246467991473532e-16,
+        1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "F-Y_axial",
+      "pos_m": [
+        -4.2,
+        -2.3,
+        2.816687638038912e-16
+      ],
+      "direction": [
+        0.984807753012208,
+        0.1736481776669303,
+        -2.1265768495757713e-17
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "F-Z_inward",
+      "pos_m": [
+        -4.2,
+        -4.225031457058368e-16,
+        -2.3
+      ],
+      "direction": [
+        -0.0,
+        1.8369701987210297e-16,
+        1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "F-Z_tan+",
+      "pos_m": [
+        -4.2,
+        -4.225031457058368e-16,
+        -2.3
+      ],
+      "direction": [
+        0.0,
+        1.0,
+        -1.8369701987210297e-16
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "F-Z_tan-",
+      "pos_m": [
+        -4.2,
+        -4.225031457058368e-16,
+        -2.3
+      ],
+      "direction": [
+        -0.0,
+        -1.0,
+        1.8369701987210297e-16
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "F-Z_axial",
+      "pos_m": [
+        -4.2,
+        -4.225031457058368e-16,
+        -2.3
+      ],
+      "direction": [
+        0.984807753012208,
+        3.1898652743636566e-17,
+        0.1736481776669303
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "A+Y_inward",
+      "pos_m": [
+        4.0,
+        1.32,
+        -0.10000000000000003
+      ],
+      "direction": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "A+Y_tan+",
+      "pos_m": [
+        4.0,
+        1.32,
+        -0.10000000000000003
+      ],
+      "direction": [
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "A+Y_tan-",
+      "pos_m": [
+        4.0,
+        1.32,
+        -0.10000000000000003
+      ],
+      "direction": [
+        -0.0,
+        0.0,
+        -1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "A+Y_axial",
+      "pos_m": [
+        4.0,
+        1.32,
+        -0.10000000000000003
+      ],
+      "direction": [
+        -0.984807753012208,
+        -0.1736481776669303,
+        -0.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "A+Z_inward",
+      "pos_m": [
+        4.0,
+        0.02000000000000007,
+        1.2
+      ],
+      "direction": [
+        -0.0,
+        -6.123233995736766e-17,
+        -1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "A+Z_tan+",
+      "pos_m": [
+        4.0,
+        0.02000000000000007,
+        1.2
+      ],
+      "direction": [
+        0.0,
+        -1.0,
+        6.123233995736766e-17
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "A+Z_tan-",
+      "pos_m": [
+        4.0,
+        0.02000000000000007,
+        1.2
+      ],
+      "direction": [
+        -0.0,
+        1.0,
+        -6.123233995736766e-17
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "A+Z_axial",
+      "pos_m": [
+        4.0,
+        0.02000000000000007,
+        1.2
+      ],
+      "direction": [
+        -0.984807753012208,
+        -1.0632884247878856e-17,
+        -0.1736481776669303
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "A-Y_inward",
+      "pos_m": [
+        4.0,
+        -1.28,
+        -0.09999999999999988
+      ],
+      "direction": [
+        -0.0,
+        1.0,
+        -1.2246467991473532e-16
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "A-Y_tan+",
+      "pos_m": [
+        4.0,
+        -1.28,
+        -0.09999999999999988
+      ],
+      "direction": [
+        0.0,
+        -1.2246467991473532e-16,
+        -1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "A-Y_tan-",
+      "pos_m": [
+        4.0,
+        -1.28,
+        -0.09999999999999988
+      ],
+      "direction": [
+        -0.0,
+        1.2246467991473532e-16,
+        1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "A-Y_axial",
+      "pos_m": [
+        4.0,
+        -1.28,
+        -0.09999999999999988
+      ],
+      "direction": [
+        -0.984807753012208,
+        0.1736481776669303,
+        -2.1265768495757713e-17
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "A-Z_inward",
+      "pos_m": [
+        4.0,
+        0.01999999999999975,
+        -1.4000000000000001
+      ],
+      "direction": [
+        -0.0,
+        1.8369701987210297e-16,
+        1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "A-Z_tan+",
+      "pos_m": [
+        4.0,
+        0.01999999999999975,
+        -1.4000000000000001
+      ],
+      "direction": [
+        0.0,
+        1.0,
+        -1.8369701987210297e-16
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "A-Z_tan-",
+      "pos_m": [
+        4.0,
+        0.01999999999999975,
+        -1.4000000000000001
+      ],
+      "direction": [
+        -0.0,
+        -1.0,
+        1.8369701987210297e-16
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "A-Z_axial",
+      "pos_m": [
+        4.0,
+        0.01999999999999975,
+        -1.4000000000000001
+      ],
+      "direction": [
+        -0.984807753012208,
+        3.1898652743636566e-17,
+        0.1736481776669303
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0
+    },
+    {
+      "id": "F+Y_inward_extra_gimbal",
+      "pos_m": [
+        -4.2,
+        2.3,
+        0.0
+      ],
+      "direction": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "max_N": 12000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0,
+      "installed_mass_kg": 12.0,
+      "gimbal": {
+        "axial_direction": [
+          1,
+          0,
+          0
+        ],
+        "limit_deg": 25.0,
+        "rate_deg_s": 30.0,
+        "lag_s": 0.1,
+        "policy": "wrench_sign",
+        "switch_fraction": 0.5,
+        "positive_angles_deg": [
+          -25.0,
+          -0.5640766543334945
+        ],
+        "negative_angles_deg": [
+          25.0,
+          -1.950007423104549
+        ],
+        "initial_angles_deg": [
+          0,
+          0
+        ],
+        "initialization_note": "Neutral start; feedback chooses saved direction targets; extra hardware mass assumed 12 kg each",
+        "wrench_component": 4
+      }
+    },
+    {
+      "id": "F+Z_inward_extra_gimbal",
+      "pos_m": [
+        -4.2,
+        1.408343819019456e-16,
+        2.3
+      ],
+      "direction": [
+        -0.0,
+        -6.123233995736766e-17,
+        -1.0
+      ],
+      "max_N": 12000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0,
+      "installed_mass_kg": 12.0,
+      "gimbal": {
+        "axial_direction": [
+          1,
+          0,
+          0
+        ],
+        "limit_deg": 25.0,
+        "rate_deg_s": 30.0,
+        "lag_s": 0.1,
+        "policy": "wrench_sign",
+        "switch_fraction": 0.5,
+        "positive_angles_deg": [
+          -24.27732951174874,
+          -5.628568902942987
+        ],
+        "negative_angles_deg": [
+          0.5814611495022209,
+          -10.231078655120523
+        ],
+        "initial_angles_deg": [
+          0,
+          0
+        ],
+        "initialization_note": "Neutral start; feedback chooses saved direction targets; extra hardware mass assumed 12 kg each",
+        "wrench_component": 4
+      }
+    },
+    {
+      "id": "F-Y_inward_extra_gimbal",
+      "pos_m": [
+        -4.2,
+        -2.3,
+        2.816687638038912e-16
+      ],
+      "direction": [
+        -0.0,
+        1.0,
+        -1.2246467991473532e-16
+      ],
+      "max_N": 12000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0,
+      "installed_mass_kg": 12.0,
+      "gimbal": {
+        "axial_direction": [
+          1,
+          0,
+          0
+        ],
+        "limit_deg": 25.0,
+        "rate_deg_s": 30.0,
+        "lag_s": 0.1,
+        "policy": "wrench_sign",
+        "switch_fraction": 0.5,
+        "positive_angles_deg": [
+          25.0,
+          2.49215305290252
+        ],
+        "negative_angles_deg": [
+          -25.0,
+          1.4454097616772281
+        ],
+        "initial_angles_deg": [
+          0,
+          0
+        ],
+        "initialization_note": "Neutral start; feedback chooses saved direction targets; extra hardware mass assumed 12 kg each",
+        "wrench_component": 4
+      }
+    },
+    {
+      "id": "F-Z_inward_extra_gimbal",
+      "pos_m": [
+        -4.2,
+        -4.225031457058368e-16,
+        -2.3
+      ],
+      "direction": [
+        -0.0,
+        1.8369701987210297e-16,
+        1.0
+      ],
+      "max_N": 12000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0,
+      "installed_mass_kg": 12.0,
+      "gimbal": {
+        "axial_direction": [
+          1,
+          0,
+          0
+        ],
+        "limit_deg": 25.0,
+        "rate_deg_s": 30.0,
+        "lag_s": 0.1,
+        "policy": "wrench_sign",
+        "switch_fraction": 0.5,
+        "positive_angles_deg": [
+          -0.5839731251696558,
+          -9.688844859845377
+        ],
+        "negative_angles_deg": [
+          -3.379212742556725,
+          24.986006356579598
+        ],
+        "initial_angles_deg": [
+          0,
+          0
+        ],
+        "initialization_note": "Neutral start; feedback chooses saved direction targets; extra hardware mass assumed 12 kg each",
+        "wrench_component": 4
+      }
+    },
+    {
+      "id": "A+Y_inward_extra_gimbal",
+      "pos_m": [
+        4.0,
+        1.32,
+        -0.10000000000000003
+      ],
+      "direction": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "max_N": 12000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0,
+      "installed_mass_kg": 12.0,
+      "gimbal": {
+        "axial_direction": [
+          1,
+          0,
+          0
+        ],
+        "limit_deg": 25.0,
+        "rate_deg_s": 30.0,
+        "lag_s": 0.1,
+        "policy": "wrench_sign",
+        "switch_fraction": 0.5,
+        "positive_angles_deg": [
+          25.0,
+          -2.4921474275354507
+        ],
+        "negative_angles_deg": [
+          -25.0,
+          -1.4454076499755109
+        ],
+        "initial_angles_deg": [
+          0,
+          0
+        ],
+        "initialization_note": "Neutral start; feedback chooses saved direction targets; extra hardware mass assumed 12 kg each",
+        "wrench_component": 4
+      }
+    },
+    {
+      "id": "A+Z_inward_extra_gimbal",
+      "pos_m": [
+        4.0,
+        0.02000000000000007,
+        1.2
+      ],
+      "direction": [
+        -0.0,
+        -6.123233995736766e-17,
+        -1.0
+      ],
+      "max_N": 12000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0,
+      "installed_mass_kg": 12.0,
+      "gimbal": {
+        "axial_direction": [
+          1,
+          0,
+          0
+        ],
+        "limit_deg": 25.0,
+        "rate_deg_s": 30.0,
+        "lag_s": 0.1,
+        "policy": "wrench_sign",
+        "switch_fraction": 0.5,
+        "positive_angles_deg": [
+          -0.5839729595150891,
+          9.688845642116583
+        ],
+        "negative_angles_deg": [
+          11.170791023854708,
+          -14.492717032843077
+        ],
+        "initial_angles_deg": [
+          0,
+          0
+        ],
+        "initialization_note": "Neutral start; feedback chooses saved direction targets; extra hardware mass assumed 12 kg each",
+        "wrench_component": 4
+      }
+    },
+    {
+      "id": "A-Y_inward_extra_gimbal",
+      "pos_m": [
+        4.0,
+        -1.28,
+        -0.09999999999999988
+      ],
+      "direction": [
+        -0.0,
+        1.0,
+        -1.2246467991473532e-16
+      ],
+      "max_N": 12000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0,
+      "installed_mass_kg": 12.0,
+      "gimbal": {
+        "axial_direction": [
+          1,
+          0,
+          0
+        ],
+        "limit_deg": 25.0,
+        "rate_deg_s": 30.0,
+        "lag_s": 0.1,
+        "policy": "wrench_sign",
+        "switch_fraction": 0.5,
+        "positive_angles_deg": [
+          -25.0,
+          0.5640702628590759
+        ],
+        "negative_angles_deg": [
+          25.0,
+          1.9500049939014652
+        ],
+        "initial_angles_deg": [
+          0,
+          0
+        ],
+        "initialization_note": "Neutral start; feedback chooses saved direction targets; extra hardware mass assumed 12 kg each",
+        "wrench_component": 4
+      }
+    },
+    {
+      "id": "A-Z_inward_extra_gimbal",
+      "pos_m": [
+        4.0,
+        0.01999999999999975,
+        -1.4000000000000001
+      ],
+      "direction": [
+        -0.0,
+        1.8369701987210297e-16,
+        1.0
+      ],
+      "max_N": 12000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "rcs_prop",
+      "isp_s": 3000.0,
+      "installed_mass_kg": 12.0,
+      "gimbal": {
+        "axial_direction": [
+          1,
+          0,
+          0
+        ],
+        "limit_deg": 25.0,
+        "rate_deg_s": 30.0,
+        "lag_s": 0.1,
+        "policy": "wrench_sign",
+        "switch_fraction": 0.5,
+        "positive_angles_deg": [
+          2.9148181778986855,
+          -16.172752726618732
+        ],
+        "negative_angles_deg": [
+          0.5814611771548682,
+          10.231078977005701
+        ],
+        "initial_angles_deg": [
+          0,
+          0
+        ],
+        "initialization_note": "Neutral start; feedback chooses saved direction targets; extra hardware mass assumed 12 kg each",
+        "wrench_component": 4
+      }
+    }
+  ],
+  "torch": [
+    {
+      "id": "torch_port",
+      "pos_m": [
+        6.5,
+        0.2,
+        0.12
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "modes": {
+        "CRUISE": {
+          "max_N": 300000.0,
+          "ve_m_s": 500000.0
+        }
+      },
+      "tank": "prop",
+      "gimbal_limit_deg": 1.0,
+      "auto_trim": false,
+      "installed_mass_kg": 75.0,
+      "max_N": 100000.0,
+      "lag_s": 0.1,
+      "command_slew_fullscale_s": 2.0
+    },
+    {
+      "id": "torch_starboard",
+      "pos_m": [
+        6.5,
+        -0.2,
+        -0.12
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "modes": {
+        "CRUISE": {
+          "max_N": 300000.0,
+          "ve_m_s": 500000.0
+        }
+      },
+      "tank": "aux",
+      "gimbal_limit_deg": 1.0,
+      "auto_trim": false,
+      "installed_mass_kg": 75.0,
+      "max_N": 100000.0,
+      "lag_s": 0.1,
+      "command_slew_fullscale_s": 2.0
+    }
+  ],
+  "metric": {
+    "canonical": {
+      "law": "canonical_envelope",
+      "modes": {
+        "NORMAL": {
+          "beta": 0.268,
+          "ramp_s": 10.0,
+          "cold_load_W": 20000.0
+        },
+        "FAST": {
+          "beta": 0.437,
+          "ramp_s": 12.0,
+          "cold_load_W": 38100.0
+        },
+        "EXPEDITE": {
+          "beta": 0.519,
+          "ramp_s": 15.0,
+          "cold_load_W": 63500.0
+        },
+        "HARD": {
+          "beta": 0.595,
+          "ramp_s": 30.0,
+          "cold_load_W": 136000.0
+        }
+      },
+      "epistemic": "mode envelope only; physical arrival unresolved"
+    },
+    "experimental_shift": {
+      "law": "experimental_coordinate_shift",
+      "modes": {
+        "NORMAL": {
+          "beta": 0.268,
+          "ramp_s": 10.0,
+          "cold_load_W": 20000.0
+        },
+        "FAST": {
+          "beta": 0.437,
+          "ramp_s": 12.0,
+          "cold_load_W": 38100.0
+        },
+        "EXPEDITE": {
+          "beta": 0.519,
+          "ramp_s": 15.0,
+          "cold_load_W": 63500.0
+        },
+        "HARD": {
+          "beta": 0.595,
+          "ramp_s": 30.0,
+          "cold_load_W": 136000.0
+        }
+      },
+      "epistemic": "stipulated coordinate translation without ordinary delta-v; non-canon"
+    }
+  }
+}

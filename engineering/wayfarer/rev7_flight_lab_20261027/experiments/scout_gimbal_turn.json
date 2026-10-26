@@ -1,0 +1,31 @@
+{
+  "name": "scout_gimbal_turn",
+  "phases": [
+    {
+      "kind": "rcs_turn",
+      "duration_s": 20.0,
+      "post_hold_s": 4.0,
+      "axis": "pitch"
+    }
+  ],
+  "checks": {
+    "attitude_error_deg": {
+      "max": 0.25
+    },
+    "rate_deg_s": {
+      "max": 0.05
+    },
+    "propellant_available": {
+      "min": 1
+    },
+    "peak_gimbal_rate_deg_s": {
+      "max": 30.000001
+    },
+    "peak_gimbal_angle_deg": {
+      "max": 25.000001
+    },
+    "residual_velocity_m_s": {
+      "max": 0.1
+    }
+  }
+}

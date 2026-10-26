@@ -1,0 +1,45 @@
+{
+  "name": "gimbal_constraints",
+  "phases": [
+    {
+      "kind": "rcs_turn",
+      "duration_s": 12.0,
+      "post_hold_s": 4.0,
+      "axis": "pitch",
+      "checks": {
+        "peak_force_residual_N": {
+          "max": 8000.0
+        },
+        "peak_offaxis_torque_Nm": {
+          "max": 80000.0
+        },
+        "residual_velocity_m_s": {
+          "max": 0.005
+        },
+        "residual_displacement_m": {
+          "max": 0.05
+        },
+        "peak_gimbal_rate_deg_s": {
+          "max": 30.000001
+        },
+        "peak_gimbal_angle_deg": {
+          "max": 25.000001
+        },
+        "gate_entry_s": {
+          "max": 12.1
+        },
+        "gate_hold_s": {
+          "min": 3.9
+        }
+      }
+    }
+  ],
+  "checks": {
+    "attitude_error_deg": {
+      "max": 0.25
+    },
+    "rate_deg_s": {
+      "max": 0.05
+    }
+  }
+}

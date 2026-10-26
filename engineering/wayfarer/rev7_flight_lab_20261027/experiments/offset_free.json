@@ -1,0 +1,35 @@
+{
+  "name": "offset_free",
+  "phases": [
+    {
+      "kind": "torch",
+      "duration_s": 12.0,
+      "hold_attitude": false
+    },
+    {
+      "kind": "coast",
+      "duration_s": 2.0,
+      "hold_attitude": false
+    }
+  ],
+  "checks": {
+    "torch_attitude_drift_deg": {
+      "max": 1.0
+    },
+    "torch_final_angular_rate_deg_s": {
+      "max": 0.05
+    },
+    "propellant_available": {
+      "min": 1
+    },
+    "known_propellant_used_kg": {
+      "min": 1.0
+    },
+    "peak_throttle": {
+      "max": 1.000001
+    },
+    "final_angular_rate_deg_s": {
+      "max": 0.05
+    }
+  }
+}

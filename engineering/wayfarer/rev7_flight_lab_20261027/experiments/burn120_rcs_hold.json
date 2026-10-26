@@ -1,0 +1,23 @@
+{
+  "name": "burn120_rcs_hold",
+  "phases": [
+    {
+      "kind": "torch",
+      "duration_s": 120,
+      "mode": "CRUISE",
+      "throttle": 1.0,
+      "hold_attitude": true
+    }
+  ],
+  "checks": {
+    "known_propellant_used_kg": {
+      "min": 1
+    },
+    "torch_attitude_drift_deg": {
+      "max": 1.0
+    },
+    "torch_final_angular_rate_deg_s": {
+      "max": 0.05
+    }
+  }
+}

@@ -1,0 +1,217 @@
+[
+  {
+    "ship_config": "wayfarer",
+    "experiment": "reversal40",
+    "status": "pass",
+    "metrics": {
+      "attitude_error_deg": 0.0016145098871981978,
+      "rate_deg_s": 0.0003992638920760016,
+      "gate_entry_s": 40.0,
+      "mass_end_kg": 1167680.0,
+      "known_propellant_used_kg": 0.0,
+      "total_propellant_used_kg": null,
+      "metric_path_m": 0.0,
+      "final_speed_m_s": 6.944958205387138e-17,
+      "final_angular_rate_deg_s": 0.0003992638920760016
+    },
+    "warnings": [
+      "RCS propellant model unspecified"
+    ],
+    "ship_sha256": "7d8e6c6358536a10a9e3dedc486d6b0231e3ab3e01fc46bba85abf2242c56d9d",
+    "experiment_sha256": "a58739706f5526985b008eea7e514733aef7b2f3d78fbb7f595341f546a6ceab"
+  },
+  {
+    "ship_config": "wayfarer",
+    "experiment": "translate20",
+    "status": "pass",
+    "metrics": {
+      "translation_velocity_error_m_s": 7.746970929289887e-05,
+      "attitude_hold_error_deg": 6.633101247372694e-08,
+      "mass_end_kg": 1167680.0,
+      "known_propellant_used_kg": 0.0,
+      "total_propellant_used_kg": null,
+      "metric_path_m": 0.0,
+      "final_speed_m_s": 0.5000774697092929,
+      "final_angular_rate_deg_s": 2.5076413663731178e-08
+    },
+    "warnings": [
+      "RCS propellant model unspecified"
+    ],
+    "ship_sha256": "7d8e6c6358536a10a9e3dedc486d6b0231e3ab3e01fc46bba85abf2242c56d9d",
+    "experiment_sha256": "386b7f9b65f9f4055ce5dbb343915466fff81eeaac73c3556389371122995aef"
+  },
+  {
+    "ship_config": "wayfarer_rcs_300k",
+    "experiment": "reversal10",
+    "status": "fail",
+    "metrics": {
+      "attitude_error_deg": 23.770389612355608,
+      "rate_deg_s": 32.16757924328438,
+      "gate_entry_s": null,
+      "mass_end_kg": 1170484.619457027,
+      "known_propellant_used_kg": 195.38054297286897,
+      "total_propellant_used_kg": null,
+      "metric_path_m": 0.0,
+      "final_speed_m_s": 3.297960767263114e-16,
+      "final_angular_rate_deg_s": 32.16757924328438
+    },
+    "warnings": [
+      "RCS propellant model unspecified"
+    ],
+    "ship_sha256": "d2c71a623f6ace13cf5ee42755c37624e787437fcc72f9f2a1a8648ca7397c76",
+    "experiment_sha256": "cd9d52a11b63fecf148cc271e5b3ab8e48e426008ffaae69b1cb701b301287eb"
+  },
+  {
+    "ship_config": "scout",
+    "experiment": "reversal40",
+    "status": "pass",
+    "metrics": {
+      "attitude_error_deg": 0.0016142963039677428,
+      "rate_deg_s": 0.00039498960427670636,
+      "gate_entry_s": 40.0,
+      "mass_end_kg": 99996.95888928244,
+      "known_propellant_used_kg": 3.041110717543604,
+      "total_propellant_used_kg": 3.041110717543604,
+      "metric_path_m": 0.0,
+      "final_speed_m_s": 5.993458549838613e-17,
+      "final_angular_rate_deg_s": 0.00039498960427670636
+    },
+    "warnings": [],
+    "ship_sha256": "b229f375175c6acf8ae02f56b44dc86e419261c958c6af9470ee3cb2c0d6653e",
+    "experiment_sha256": "a58739706f5526985b008eea7e514733aef7b2f3d78fbb7f595341f546a6ceab"
+  },
+  {
+    "ship_config": "wayfarer",
+    "experiment": "burn120",
+    "status": "pass",
+    "metrics": {
+      "torch_attitude_drift_deg": 4.859673034831258e-14,
+      "torch_final_angular_rate_deg_s": 9.602135818620042e-16,
+      "torch_peak_angular_rate_deg_s": 9.93695376109741e-16,
+      "mass_end_kg": 1166998.339999998,
+      "known_propellant_used_kg": 681.6600000000037,
+      "total_propellant_used_kg": 681.6600000000037,
+      "metric_path_m": 0.0,
+      "final_speed_m_s": 1167.8868265184533,
+      "final_angular_rate_deg_s": 9.602135818620042e-16
+    },
+    "warnings": [],
+    "ship_sha256": "7d8e6c6358536a10a9e3dedc486d6b0231e3ab3e01fc46bba85abf2242c56d9d",
+    "experiment_sha256": "0b5065fb951d857dda7d7f564f92cc302cffbb1a3493cae455986a6e160aecd8"
+  },
+  {
+    "ship_config": "wayfarer_twin_torch",
+    "experiment": "burn120",
+    "status": "fail",
+    "metrics": {
+      "torch_attitude_drift_deg": 125.85228893350394,
+      "torch_final_angular_rate_deg_s": 20.70174956293369,
+      "torch_peak_angular_rate_deg_s": 21.451656752402027,
+      "mass_end_kg": 1168598.3397584944,
+      "known_propellant_used_kg": 681.6602415000032,
+      "total_propellant_used_kg": 681.6602415000032,
+      "metric_path_m": 0.0,
+      "final_speed_m_s": 180.73918892805017,
+      "final_angular_rate_deg_s": 20.70174956293369
+    },
+    "warnings": [],
+    "ship_sha256": "70181dc555535f68fa0f75418ad49d8c608a5b13b599ba083ad6e26d40f61947",
+    "experiment_sha256": "0b5065fb951d857dda7d7f564f92cc302cffbb1a3493cae455986a6e160aecd8"
+  },
+  {
+    "ship_config": "wayfarer_twin_torch",
+    "experiment": "burn120_rcs_hold",
+    "status": "pass",
+    "metrics": {
+      "torch_attitude_drift_deg": 3.917401849463072e-08,
+      "torch_final_angular_rate_deg_s": 4.025371581517768e-13,
+      "torch_peak_angular_rate_deg_s": 0.00875455937619907,
+      "mass_end_kg": 1168598.3397584944,
+      "known_propellant_used_kg": 681.6602415000032,
+      "total_propellant_used_kg": null,
+      "metric_path_m": 0.0,
+      "final_speed_m_s": 1166.1743730322466,
+      "final_angular_rate_deg_s": 4.025371581517768e-13
+    },
+    "warnings": [
+      "RCS propellant model unspecified"
+    ],
+    "ship_sha256": "70181dc555535f68fa0f75418ad49d8c608a5b13b599ba083ad6e26d40f61947",
+    "experiment_sha256": "d422038c6d6d9bac210dca28dfc80780a204d6429c6b99f59410d761928e5c1a"
+  },
+  {
+    "ship_config": "scout",
+    "experiment": "burn120",
+    "status": "pass",
+    "metrics": {
+      "torch_attitude_drift_deg": 0.0,
+      "torch_final_angular_rate_deg_s": 0.0,
+      "torch_peak_angular_rate_deg_s": 0.0,
+      "mass_end_kg": 99928.00000000061,
+      "known_propellant_used_kg": 72.00000000000121,
+      "total_propellant_used_kg": 72.00000000000121,
+      "metric_path_m": 0.0,
+      "final_speed_m_s": 360.12966224159925,
+      "final_angular_rate_deg_s": 0.0
+    },
+    "warnings": [],
+    "ship_sha256": "b229f375175c6acf8ae02f56b44dc86e419261c958c6af9470ee3cb2c0d6653e",
+    "experiment_sha256": "0b5065fb951d857dda7d7f564f92cc302cffbb1a3493cae455986a6e160aecd8"
+  },
+  {
+    "ship_config": "wayfarer",
+    "experiment": "metric_canonical",
+    "status": "indeterminate",
+    "metrics": {
+      "mass_end_kg": null,
+      "known_propellant_used_kg": 0,
+      "total_propellant_used_kg": 0,
+      "metric_path_m": 5624106512.080041,
+      "final_speed_m_s": 0.0,
+      "final_angular_rate_deg_s": 0.0
+    },
+    "warnings": [],
+    "ship_sha256": "7d8e6c6358536a10a9e3dedc486d6b0231e3ab3e01fc46bba85abf2242c56d9d",
+    "experiment_sha256": "28f5e05a53d0dfaa61469ec57767dd4893133c85930d51223e56ad9708ef73a0"
+  },
+  {
+    "ship_config": "wayfarer",
+    "experiment": "metric_experimental",
+    "status": "pass",
+    "metrics": {
+      "mass_end_kg": 1167680.0,
+      "known_propellant_used_kg": 0,
+      "total_propellant_used_kg": 0,
+      "metric_path_m": 5624106512.080041,
+      "final_speed_m_s": 0.0,
+      "final_angular_rate_deg_s": 0.0
+    },
+    "warnings": [],
+    "ship_sha256": "7d8e6c6358536a10a9e3dedc486d6b0231e3ab3e01fc46bba85abf2242c56d9d",
+    "experiment_sha256": "b57718a392a1f0c6d397d9d5c213a93ae00eadea84fe01e9ececc98c5d8b2d3c"
+  },
+  {
+    "ship_config": "wayfarer",
+    "experiment": "combined",
+    "status": "pass",
+    "metrics": {
+      "torch_attitude_drift_deg": 4.859673034831258e-14,
+      "torch_final_angular_rate_deg_s": 9.602135818620042e-16,
+      "torch_peak_angular_rate_deg_s": 9.93695376109741e-16,
+      "attitude_error_deg": 0.0016145098871989502,
+      "rate_deg_s": 0.0003992638920768159,
+      "gate_entry_s": 219.99999999999406,
+      "mass_end_kg": 1166998.339999998,
+      "known_propellant_used_kg": 681.6600000000037,
+      "total_propellant_used_kg": null,
+      "metric_path_m": 5624106512.080041,
+      "final_speed_m_s": 1167.8868265184533,
+      "final_angular_rate_deg_s": 0.0003992638920768159
+    },
+    "warnings": [
+      "RCS propellant model unspecified"
+    ],
+    "ship_sha256": "7d8e6c6358536a10a9e3dedc486d6b0231e3ab3e01fc46bba85abf2242c56d9d",
+    "experiment_sha256": "c08caedf02c4ccf3fe2c82bc8889a8d45f5dc4e3220d379a638bb612d2a85b3d"
+  }
+]
