@@ -1,0 +1,1589 @@
+{
+  "classification": "RESEARCH NON-CANON NOT STRUCTURALLY OR BALLISTICALLY QUALIFIED",
+  "source_pr432_head": "3485830a56dfead79b2ef8bba031a595b536fbb5",
+  "geometry": "Outer +1.2m 50deg conical nose, central flat 2m, crown r3.5m. Inner pressure hull and interior unchanged.",
+  "panels": "Nominally individually removable outward with independent perimeter retainers; no actual retainers/bearings/window mounts tested.",
+  "outer_armor_mass_allocation_kg_per_m2": 270,
+  "tile_presets": {
+    "radial_trapezoids_12": {
+      "type": "radial",
+      "rings": [
+        0.0,
+        0.9,
+        2.0,
+        3.5
+      ],
+      "ns": [
+        1,
+        12,
+        12
+      ],
+      "offsets": [
+        0,
+        0,
+        0
+      ]
+    },
+    "staggered_trapezoids_12": {
+      "type": "radial",
+      "rings": [
+        0.0,
+        0.9,
+        2.0,
+        2.75,
+        3.5
+      ],
+      "ns": [
+        1,
+        12,
+        12,
+        12
+      ],
+      "offsets": [
+        0,
+        0,
+        0,
+        0.2617993877991494
+      ]
+    },
+    "staggered_trapezoids_compact_12": {
+      "type": "radial",
+      "rings": [
+        0.0,
+        0.75,
+        2.0,
+        2.75,
+        3.5
+      ],
+      "ns": [
+        1,
+        12,
+        12,
+        12
+      ],
+      "offsets": [
+        0,
+        0,
+        0,
+        0.2617993877991494
+      ]
+    },
+    "large_hex_1p6": {
+      "type": "hex",
+      "spacing": 1.6
+    },
+    "medium_hex_1p2": {
+      "type": "hex",
+      "spacing": 1.2
+    },
+    "large_hex_shifted_1p6": {
+      "type": "hex",
+      "spacing": 1.6,
+      "origin_xy_m": [
+        0.0,
+        0.5333
+      ]
+    },
+    "medium_hex_shifted_1p2": {
+      "type": "hex",
+      "spacing": 1.2,
+      "origin_xy_m": [
+        0.0,
+        0.8
+      ]
+    }
+  },
+  "tile_areas_and_seams": {
+    "radial_trapezoids_12": {
+      "panel_count": 25,
+      "total_surface_area_m2": 52.888,
+      "smallest_panel_area_m2": 0.8351,
+      "largest_panel_area_m2": 3.3601,
+      "median_panel_area_m2": 2.5447,
+      "largest_panel_armor_mass_kg": 907.2,
+      "median_panel_armor_mass_kg": 687.1,
+      "panel_area_m2": {
+        "0": 2.5447,
+        "1000": 0.8351,
+        "1001": 0.8351,
+        "1002": 0.8351,
+        "1003": 0.8351,
+        "1004": 0.8351,
+        "1005": 0.8351,
+        "1006": 0.8351,
+        "1007": 0.8351,
+        "1008": 0.8351,
+        "1009": 0.8351,
+        "1010": 0.8351,
+        "1011": 0.8351,
+        "2000": 3.3601,
+        "2001": 3.3601,
+        "2002": 3.3601,
+        "2003": 3.3601,
+        "2004": 3.3601,
+        "2005": 3.3601,
+        "2006": 3.3601,
+        "2007": 3.3601,
+        "2008": 3.3601,
+        "2009": 3.3601,
+        "2010": 3.3601,
+        "2011": 3.3601
+      },
+      "width_sensitivity": {
+        "5": {
+          "seam_band_area_m2": 0.189,
+          "surface_fraction": 0.003573
+        },
+        "10": {
+          "seam_band_area_m2": 0.2687,
+          "surface_fraction": 0.00508
+        },
+        "20": {
+          "seam_band_area_m2": 0.9586,
+          "surface_fraction": 0.018124
+        }
+      }
+    },
+    "staggered_trapezoids_12": {
+      "panel_count": 37,
+      "total_surface_area_m2": 52.888,
+      "smallest_panel_area_m2": 0.8351,
+      "largest_panel_area_m2": 2.5447,
+      "median_panel_area_m2": 1.451,
+      "largest_panel_armor_mass_kg": 687.1,
+      "median_panel_armor_mass_kg": 391.8,
+      "panel_area_m2": {
+        "0": 2.5447,
+        "1000": 0.8351,
+        "1001": 0.8351,
+        "1002": 0.8351,
+        "1003": 0.8351,
+        "1004": 0.8351,
+        "1005": 0.8351,
+        "1006": 0.8351,
+        "1007": 0.8351,
+        "1008": 0.8351,
+        "1009": 0.8351,
+        "1010": 0.8351,
+        "1011": 0.8351,
+        "2000": 1.451,
+        "2001": 1.451,
+        "2002": 1.451,
+        "2003": 1.451,
+        "2004": 1.451,
+        "2005": 1.451,
+        "2006": 1.451,
+        "2007": 1.451,
+        "2008": 1.451,
+        "2009": 1.451,
+        "2010": 1.451,
+        "2011": 1.451,
+        "3000": 1.9092,
+        "3001": 1.9092,
+        "3002": 1.9092,
+        "3003": 1.9092,
+        "3004": 1.9092,
+        "3005": 1.9092,
+        "3006": 1.9092,
+        "3007": 1.9092,
+        "3008": 1.9092,
+        "3009": 1.9092,
+        "3010": 1.9092,
+        "3011": 1.9092
+      },
+      "width_sensitivity": {
+        "5": {
+          "seam_band_area_m2": 0.4578,
+          "surface_fraction": 0.008656
+        },
+        "10": {
+          "seam_band_area_m2": 0.5375,
+          "surface_fraction": 0.010163
+        },
+        "20": {
+          "seam_band_area_m2": 1.4962,
+          "surface_fraction": 0.02829
+        }
+      }
+    },
+    "staggered_trapezoids_compact_12": {
+      "panel_count": 37,
+      "total_surface_area_m2": 52.888,
+      "smallest_panel_area_m2": 0.8999,
+      "largest_panel_area_m2": 1.9092,
+      "median_panel_area_m2": 1.451,
+      "largest_panel_armor_mass_kg": 515.5,
+      "median_panel_armor_mass_kg": 391.8,
+      "panel_area_m2": {
+        "0": 1.7671,
+        "1000": 0.8999,
+        "1001": 0.8999,
+        "1002": 0.8999,
+        "1003": 0.8999,
+        "1004": 0.8999,
+        "1005": 0.8999,
+        "1006": 0.8999,
+        "1007": 0.8999,
+        "1008": 0.8999,
+        "1009": 0.8999,
+        "1010": 0.8999,
+        "1011": 0.8999,
+        "2000": 1.451,
+        "2001": 1.451,
+        "2002": 1.451,
+        "2003": 1.451,
+        "2004": 1.451,
+        "2005": 1.451,
+        "2006": 1.451,
+        "2007": 1.451,
+        "2008": 1.451,
+        "2009": 1.451,
+        "2010": 1.451,
+        "2011": 1.451,
+        "3000": 1.9092,
+        "3001": 1.9092,
+        "3002": 1.9092,
+        "3003": 1.9092,
+        "3004": 1.9092,
+        "3005": 1.9092,
+        "3006": 1.9092,
+        "3007": 1.9092,
+        "3008": 1.9092,
+        "3009": 1.9092,
+        "3010": 1.9092,
+        "3011": 1.9092
+      },
+      "width_sensitivity": {
+        "5": {
+          "seam_band_area_m2": 0.4529,
+          "surface_fraction": 0.008564
+        },
+        "10": {
+          "seam_band_area_m2": 0.5542,
+          "surface_fraction": 0.010478
+        },
+        "20": {
+          "seam_band_area_m2": 1.5044,
+          "surface_fraction": 0.028444
+        }
+      }
+    },
+    "large_hex_1p6": {
+      "panel_count": 31,
+      "total_surface_area_m2": 52.888,
+      "smallest_panel_area_m2": 0.0892,
+      "largest_panel_area_m2": 3.3191,
+      "median_panel_area_m2": 2.4367,
+      "largest_panel_armor_mass_kg": 896.2,
+      "median_panel_armor_mass_kg": 657.9,
+      "panel_area_m2": {
+        "128129": 0.0892,
+        "128130": 0.0892,
+        "129151": 0.0892,
+        "129152": 2.4367,
+        "129153": 3.3191,
+        "129154": 2.4367,
+        "129155": 0.0892,
+        "130174": 0.0892,
+        "130175": 3.3191,
+        "130176": 2.5111,
+        "130177": 2.5111,
+        "130178": 3.3191,
+        "130179": 0.0892,
+        "131198": 2.4367,
+        "131199": 2.5111,
+        "131200": 2.2155,
+        "131201": 2.5111,
+        "131202": 2.4367,
+        "132221": 0.0892,
+        "132222": 3.3191,
+        "132223": 2.5111,
+        "132224": 2.5111,
+        "132225": 3.3191,
+        "132226": 0.0892,
+        "133245": 0.0892,
+        "133246": 2.4367,
+        "133247": 3.3191,
+        "133248": 2.4367,
+        "133249": 0.0892,
+        "134270": 0.0892,
+        "134271": 0.0892
+      },
+      "width_sensitivity": {
+        "5": {
+          "seam_band_area_m2": 0.3013,
+          "surface_fraction": 0.005698
+        },
+        "10": {
+          "seam_band_area_m2": 0.6261,
+          "surface_fraction": 0.011838
+        },
+        "20": {
+          "seam_band_area_m2": 1.3167,
+          "surface_fraction": 0.024897
+        }
+      }
+    },
+    "medium_hex_1p2": {
+      "panel_count": 43,
+      "total_surface_area_m2": 52.888,
+      "smallest_panel_area_m2": 0.0033,
+      "largest_panel_area_m2": 1.8588,
+      "median_panel_area_m2": 1.5519,
+      "largest_panel_armor_mass_kg": 501.9,
+      "median_panel_armor_mass_kg": 419.0,
+      "panel_area_m2": {
+        "127106": 0.0033,
+        "128128": 0.7282,
+        "128129": 1.5519,
+        "128130": 1.5519,
+        "128131": 0.7282,
+        "129150": 0.0033,
+        "129151": 1.5519,
+        "129152": 1.8588,
+        "129153": 1.6653,
+        "129154": 1.8588,
+        "129155": 1.5519,
+        "129156": 0.0033,
+        "130174": 1.5519,
+        "130175": 1.6653,
+        "130176": 1.2473,
+        "130177": 1.2473,
+        "130178": 1.6653,
+        "130179": 1.5519,
+        "131197": 0.7282,
+        "131198": 1.8588,
+        "131199": 1.2473,
+        "131200": 1.2476,
+        "131201": 1.2473,
+        "131202": 1.8588,
+        "131203": 0.7282,
+        "132221": 1.5519,
+        "132222": 1.6653,
+        "132223": 1.2473,
+        "132224": 1.2473,
+        "132225": 1.6653,
+        "132226": 1.5519,
+        "133244": 0.0033,
+        "133245": 1.5519,
+        "133246": 1.8588,
+        "133247": 1.6653,
+        "133248": 1.8588,
+        "133249": 1.5519,
+        "133250": 0.0033,
+        "134269": 0.7282,
+        "134270": 1.5519,
+        "134271": 1.5519,
+        "134272": 0.7282,
+        "135294": 0.0033
+      },
+      "width_sensitivity": {
+        "5": {
+          "seam_band_area_m2": 0.3599,
+          "surface_fraction": 0.006806
+        },
+        "10": {
+          "seam_band_area_m2": 0.7744,
+          "surface_fraction": 0.014642
+        },
+        "20": {
+          "seam_band_area_m2": 1.5172,
+          "surface_fraction": 0.028687
+        }
+      }
+    },
+    "large_hex_shifted_1p6": {
+      "panel_count": 25,
+      "total_surface_area_m2": 52.888,
+      "smallest_panel_area_m2": 0.3015,
+      "largest_panel_area_m2": 3.3392,
+      "median_panel_area_m2": 2.3111,
+      "largest_panel_armor_mass_kg": 901.6,
+      "median_panel_armor_mass_kg": 624.0,
+      "panel_area_m2": {
+        "129151": 0.3015,
+        "129152": 2.3111,
+        "129153": 2.7195,
+        "129154": 1.1823,
+        "130174": 0.6458,
+        "130175": 3.3289,
+        "130176": 2.6008,
+        "130177": 2.9659,
+        "130178": 2.1338,
+        "131198": 3.3392,
+        "131199": 2.2227,
+        "131200": 2.2168,
+        "131201": 2.9659,
+        "131202": 1.1823,
+        "132221": 1.104,
+        "132222": 3.0939,
+        "132223": 2.2227,
+        "132224": 2.6008,
+        "132225": 2.7195,
+        "133245": 1.104,
+        "133246": 3.3392,
+        "133247": 3.3289,
+        "133248": 2.3111,
+        "134270": 0.6458,
+        "134271": 0.3015
+      },
+      "width_sensitivity": {
+        "5": {
+          "seam_band_area_m2": 0.3206,
+          "surface_fraction": 0.006062
+        },
+        "10": {
+          "seam_band_area_m2": 0.6279,
+          "surface_fraction": 0.011873
+        },
+        "20": {
+          "seam_band_area_m2": 1.2902,
+          "surface_fraction": 0.024395
+        }
+      }
+    },
+    "medium_hex_shifted_1p2": {
+      "panel_count": 42,
+      "total_surface_area_m2": 52.888,
+      "smallest_panel_area_m2": 0.136,
+      "largest_panel_area_m2": 1.9404,
+      "median_panel_area_m2": 1.3557,
+      "largest_panel_armor_mass_kg": 523.9,
+      "median_panel_armor_mass_kg": 366.0,
+      "panel_area_m2": {
+        "128128": 0.5721,
+        "128129": 0.903,
+        "128130": 0.4681,
+        "129150": 0.3472,
+        "129151": 1.8008,
+        "129152": 1.9181,
+        "129153": 1.9287,
+        "129154": 1.6463,
+        "129155": 0.136,
+        "130173": 0.3952,
+        "130174": 1.9404,
+        "130175": 1.4866,
+        "130176": 1.2662,
+        "130177": 1.5715,
+        "130178": 1.9256,
+        "130179": 0.136,
+        "131197": 1.8977,
+        "131198": 1.4453,
+        "131199": 1.247,
+        "131200": 1.2473,
+        "131201": 1.5715,
+        "131202": 1.6463,
+        "132220": 0.8025,
+        "132221": 1.8601,
+        "132222": 1.2475,
+        "132223": 1.247,
+        "132224": 1.2662,
+        "132225": 1.9287,
+        "132226": 0.4681,
+        "133244": 1.2021,
+        "133245": 1.8601,
+        "133246": 1.4453,
+        "133247": 1.4866,
+        "133248": 1.9181,
+        "133249": 0.903,
+        "134268": 0.8025,
+        "134269": 1.8977,
+        "134270": 1.9404,
+        "134271": 1.8008,
+        "134272": 0.5721,
+        "135293": 0.3952,
+        "135294": 0.3472
+      },
+      "width_sensitivity": {
+        "5": {
+          "seam_band_area_m2": 0.4268,
+          "surface_fraction": 0.008069
+        },
+        "10": {
+          "seam_band_area_m2": 0.8542,
+          "surface_fraction": 0.016151
+        },
+        "20": {
+          "seam_band_area_m2": 1.7457,
+          "surface_fraction": 0.033008
+        }
+      }
+    }
+  },
+  "forward_hemisphere_sightline_scores": {
+    "radial_trapezoids_12": {
+      "PILOT": {
+        "sample_count": 4096,
+        "baseline_visible_rays": 3024,
+        "base_fraction": 0.738281,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 26,
+            "still_visible": 2998,
+            "forward_visible_fraction": 0.731934,
+            "lost_forward_percentage_points": 0.6348
+          },
+          "10": {
+            "blocked_visible_rays": 41,
+            "still_visible": 2983,
+            "forward_visible_fraction": 0.728271,
+            "lost_forward_percentage_points": 1.001
+          },
+          "20": {
+            "blocked_visible_rays": 76,
+            "still_visible": 2948,
+            "forward_visible_fraction": 0.719727,
+            "lost_forward_percentage_points": 1.8555
+          }
+        }
+      },
+      "NAV": {
+        "sample_count": 4096,
+        "baseline_visible_rays": 3026,
+        "base_fraction": 0.73877,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 15,
+            "still_visible": 3011,
+            "forward_visible_fraction": 0.735107,
+            "lost_forward_percentage_points": 0.3662
+          },
+          "10": {
+            "blocked_visible_rays": 35,
+            "still_visible": 2991,
+            "forward_visible_fraction": 0.730225,
+            "lost_forward_percentage_points": 0.8545
+          },
+          "20": {
+            "blocked_visible_rays": 84,
+            "still_visible": 2942,
+            "forward_visible_fraction": 0.718262,
+            "lost_forward_percentage_points": 2.0508
+          }
+        }
+      },
+      "S1": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 182,
+        "base_fraction": 0.11849,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 0,
+            "still_visible": 182,
+            "forward_visible_fraction": 0.11849,
+            "lost_forward_percentage_points": 0.0
+          },
+          "10": {
+            "blocked_visible_rays": 0,
+            "still_visible": 182,
+            "forward_visible_fraction": 0.11849,
+            "lost_forward_percentage_points": 0.0
+          },
+          "20": {
+            "blocked_visible_rays": 5,
+            "still_visible": 177,
+            "forward_visible_fraction": 0.115234,
+            "lost_forward_percentage_points": 0.3255
+          }
+        }
+      },
+      "S2": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 185,
+        "base_fraction": 0.120443,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 2,
+            "still_visible": 183,
+            "forward_visible_fraction": 0.119141,
+            "lost_forward_percentage_points": 0.1302
+          },
+          "10": {
+            "blocked_visible_rays": 3,
+            "still_visible": 182,
+            "forward_visible_fraction": 0.11849,
+            "lost_forward_percentage_points": 0.1953
+          },
+          "20": {
+            "blocked_visible_rays": 3,
+            "still_visible": 182,
+            "forward_visible_fraction": 0.11849,
+            "lost_forward_percentage_points": 0.1953
+          }
+        }
+      },
+      "S3": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 173,
+        "base_fraction": 0.11263,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 2,
+            "still_visible": 171,
+            "forward_visible_fraction": 0.111328,
+            "lost_forward_percentage_points": 0.1302
+          },
+          "10": {
+            "blocked_visible_rays": 2,
+            "still_visible": 171,
+            "forward_visible_fraction": 0.111328,
+            "lost_forward_percentage_points": 0.1302
+          },
+          "20": {
+            "blocked_visible_rays": 5,
+            "still_visible": 168,
+            "forward_visible_fraction": 0.109375,
+            "lost_forward_percentage_points": 0.3255
+          }
+        }
+      },
+      "S4": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 179,
+        "base_fraction": 0.116536,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 1,
+            "still_visible": 178,
+            "forward_visible_fraction": 0.115885,
+            "lost_forward_percentage_points": 0.0651
+          },
+          "10": {
+            "blocked_visible_rays": 1,
+            "still_visible": 178,
+            "forward_visible_fraction": 0.115885,
+            "lost_forward_percentage_points": 0.0651
+          },
+          "20": {
+            "blocked_visible_rays": 2,
+            "still_visible": 177,
+            "forward_visible_fraction": 0.115234,
+            "lost_forward_percentage_points": 0.1302
+          }
+        }
+      }
+    },
+    "staggered_trapezoids_12": {
+      "PILOT": {
+        "sample_count": 4096,
+        "baseline_visible_rays": 3024,
+        "base_fraction": 0.738281,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 26,
+            "still_visible": 2998,
+            "forward_visible_fraction": 0.731934,
+            "lost_forward_percentage_points": 0.6348
+          },
+          "10": {
+            "blocked_visible_rays": 52,
+            "still_visible": 2972,
+            "forward_visible_fraction": 0.725586,
+            "lost_forward_percentage_points": 1.2695
+          },
+          "20": {
+            "blocked_visible_rays": 106,
+            "still_visible": 2918,
+            "forward_visible_fraction": 0.712402,
+            "lost_forward_percentage_points": 2.5879
+          }
+        }
+      },
+      "NAV": {
+        "sample_count": 4096,
+        "baseline_visible_rays": 3026,
+        "base_fraction": 0.73877,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 23,
+            "still_visible": 3003,
+            "forward_visible_fraction": 0.733154,
+            "lost_forward_percentage_points": 0.5615
+          },
+          "10": {
+            "blocked_visible_rays": 49,
+            "still_visible": 2977,
+            "forward_visible_fraction": 0.726807,
+            "lost_forward_percentage_points": 1.1963
+          },
+          "20": {
+            "blocked_visible_rays": 113,
+            "still_visible": 2913,
+            "forward_visible_fraction": 0.711182,
+            "lost_forward_percentage_points": 2.7588
+          }
+        }
+      },
+      "S1": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 182,
+        "base_fraction": 0.11849,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 0,
+            "still_visible": 182,
+            "forward_visible_fraction": 0.11849,
+            "lost_forward_percentage_points": 0.0
+          },
+          "10": {
+            "blocked_visible_rays": 0,
+            "still_visible": 182,
+            "forward_visible_fraction": 0.11849,
+            "lost_forward_percentage_points": 0.0
+          },
+          "20": {
+            "blocked_visible_rays": 5,
+            "still_visible": 177,
+            "forward_visible_fraction": 0.115234,
+            "lost_forward_percentage_points": 0.3255
+          }
+        }
+      },
+      "S2": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 185,
+        "base_fraction": 0.120443,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 2,
+            "still_visible": 183,
+            "forward_visible_fraction": 0.119141,
+            "lost_forward_percentage_points": 0.1302
+          },
+          "10": {
+            "blocked_visible_rays": 3,
+            "still_visible": 182,
+            "forward_visible_fraction": 0.11849,
+            "lost_forward_percentage_points": 0.1953
+          },
+          "20": {
+            "blocked_visible_rays": 6,
+            "still_visible": 179,
+            "forward_visible_fraction": 0.116536,
+            "lost_forward_percentage_points": 0.3906
+          }
+        }
+      },
+      "S3": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 173,
+        "base_fraction": 0.11263,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 4,
+            "still_visible": 169,
+            "forward_visible_fraction": 0.110026,
+            "lost_forward_percentage_points": 0.2604
+          },
+          "10": {
+            "blocked_visible_rays": 4,
+            "still_visible": 169,
+            "forward_visible_fraction": 0.110026,
+            "lost_forward_percentage_points": 0.2604
+          },
+          "20": {
+            "blocked_visible_rays": 5,
+            "still_visible": 168,
+            "forward_visible_fraction": 0.109375,
+            "lost_forward_percentage_points": 0.3255
+          }
+        }
+      },
+      "S4": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 179,
+        "base_fraction": 0.116536,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 3,
+            "still_visible": 176,
+            "forward_visible_fraction": 0.114583,
+            "lost_forward_percentage_points": 0.1953
+          },
+          "10": {
+            "blocked_visible_rays": 4,
+            "still_visible": 175,
+            "forward_visible_fraction": 0.113932,
+            "lost_forward_percentage_points": 0.2604
+          },
+          "20": {
+            "blocked_visible_rays": 6,
+            "still_visible": 173,
+            "forward_visible_fraction": 0.11263,
+            "lost_forward_percentage_points": 0.3906
+          }
+        }
+      }
+    },
+    "staggered_trapezoids_compact_12": {
+      "PILOT": {
+        "sample_count": 4096,
+        "baseline_visible_rays": 3024,
+        "base_fraction": 0.738281,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 24,
+            "still_visible": 3000,
+            "forward_visible_fraction": 0.732422,
+            "lost_forward_percentage_points": 0.5859
+          },
+          "10": {
+            "blocked_visible_rays": 53,
+            "still_visible": 2971,
+            "forward_visible_fraction": 0.725342,
+            "lost_forward_percentage_points": 1.2939
+          },
+          "20": {
+            "blocked_visible_rays": 109,
+            "still_visible": 2915,
+            "forward_visible_fraction": 0.71167,
+            "lost_forward_percentage_points": 2.6611
+          }
+        }
+      },
+      "NAV": {
+        "sample_count": 4096,
+        "baseline_visible_rays": 3026,
+        "base_fraction": 0.73877,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 25,
+            "still_visible": 3001,
+            "forward_visible_fraction": 0.732666,
+            "lost_forward_percentage_points": 0.6104
+          },
+          "10": {
+            "blocked_visible_rays": 51,
+            "still_visible": 2975,
+            "forward_visible_fraction": 0.726318,
+            "lost_forward_percentage_points": 1.2451
+          },
+          "20": {
+            "blocked_visible_rays": 117,
+            "still_visible": 2909,
+            "forward_visible_fraction": 0.710205,
+            "lost_forward_percentage_points": 2.8564
+          }
+        }
+      },
+      "S1": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 182,
+        "base_fraction": 0.11849,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 0,
+            "still_visible": 182,
+            "forward_visible_fraction": 0.11849,
+            "lost_forward_percentage_points": 0.0
+          },
+          "10": {
+            "blocked_visible_rays": 0,
+            "still_visible": 182,
+            "forward_visible_fraction": 0.11849,
+            "lost_forward_percentage_points": 0.0
+          },
+          "20": {
+            "blocked_visible_rays": 5,
+            "still_visible": 177,
+            "forward_visible_fraction": 0.115234,
+            "lost_forward_percentage_points": 0.3255
+          }
+        }
+      },
+      "S2": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 185,
+        "base_fraction": 0.120443,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 2,
+            "still_visible": 183,
+            "forward_visible_fraction": 0.119141,
+            "lost_forward_percentage_points": 0.1302
+          },
+          "10": {
+            "blocked_visible_rays": 3,
+            "still_visible": 182,
+            "forward_visible_fraction": 0.11849,
+            "lost_forward_percentage_points": 0.1953
+          },
+          "20": {
+            "blocked_visible_rays": 6,
+            "still_visible": 179,
+            "forward_visible_fraction": 0.116536,
+            "lost_forward_percentage_points": 0.3906
+          }
+        }
+      },
+      "S3": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 173,
+        "base_fraction": 0.11263,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 4,
+            "still_visible": 169,
+            "forward_visible_fraction": 0.110026,
+            "lost_forward_percentage_points": 0.2604
+          },
+          "10": {
+            "blocked_visible_rays": 4,
+            "still_visible": 169,
+            "forward_visible_fraction": 0.110026,
+            "lost_forward_percentage_points": 0.2604
+          },
+          "20": {
+            "blocked_visible_rays": 5,
+            "still_visible": 168,
+            "forward_visible_fraction": 0.109375,
+            "lost_forward_percentage_points": 0.3255
+          }
+        }
+      },
+      "S4": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 179,
+        "base_fraction": 0.116536,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 3,
+            "still_visible": 176,
+            "forward_visible_fraction": 0.114583,
+            "lost_forward_percentage_points": 0.1953
+          },
+          "10": {
+            "blocked_visible_rays": 4,
+            "still_visible": 175,
+            "forward_visible_fraction": 0.113932,
+            "lost_forward_percentage_points": 0.2604
+          },
+          "20": {
+            "blocked_visible_rays": 6,
+            "still_visible": 173,
+            "forward_visible_fraction": 0.11263,
+            "lost_forward_percentage_points": 0.3906
+          }
+        }
+      }
+    },
+    "large_hex_1p6": {
+      "PILOT": {
+        "sample_count": 4096,
+        "baseline_visible_rays": 3024,
+        "base_fraction": 0.738281,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 16,
+            "still_visible": 3008,
+            "forward_visible_fraction": 0.734375,
+            "lost_forward_percentage_points": 0.3906
+          },
+          "10": {
+            "blocked_visible_rays": 27,
+            "still_visible": 2997,
+            "forward_visible_fraction": 0.731689,
+            "lost_forward_percentage_points": 0.6592
+          },
+          "20": {
+            "blocked_visible_rays": 66,
+            "still_visible": 2958,
+            "forward_visible_fraction": 0.722168,
+            "lost_forward_percentage_points": 1.6113
+          }
+        }
+      },
+      "NAV": {
+        "sample_count": 4096,
+        "baseline_visible_rays": 3026,
+        "base_fraction": 0.73877,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 5,
+            "still_visible": 3021,
+            "forward_visible_fraction": 0.737549,
+            "lost_forward_percentage_points": 0.1221
+          },
+          "10": {
+            "blocked_visible_rays": 26,
+            "still_visible": 3000,
+            "forward_visible_fraction": 0.732422,
+            "lost_forward_percentage_points": 0.6348
+          },
+          "20": {
+            "blocked_visible_rays": 62,
+            "still_visible": 2964,
+            "forward_visible_fraction": 0.723633,
+            "lost_forward_percentage_points": 1.5137
+          }
+        }
+      },
+      "S1": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 182,
+        "base_fraction": 0.11849,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 0,
+            "still_visible": 182,
+            "forward_visible_fraction": 0.11849,
+            "lost_forward_percentage_points": 0.0
+          },
+          "10": {
+            "blocked_visible_rays": 0,
+            "still_visible": 182,
+            "forward_visible_fraction": 0.11849,
+            "lost_forward_percentage_points": 0.0
+          },
+          "20": {
+            "blocked_visible_rays": 2,
+            "still_visible": 180,
+            "forward_visible_fraction": 0.117188,
+            "lost_forward_percentage_points": 0.1302
+          }
+        }
+      },
+      "S2": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 185,
+        "base_fraction": 0.120443,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 0,
+            "still_visible": 185,
+            "forward_visible_fraction": 0.120443,
+            "lost_forward_percentage_points": 0.0
+          },
+          "10": {
+            "blocked_visible_rays": 3,
+            "still_visible": 182,
+            "forward_visible_fraction": 0.11849,
+            "lost_forward_percentage_points": 0.1953
+          },
+          "20": {
+            "blocked_visible_rays": 5,
+            "still_visible": 180,
+            "forward_visible_fraction": 0.117188,
+            "lost_forward_percentage_points": 0.3255
+          }
+        }
+      },
+      "S3": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 173,
+        "base_fraction": 0.11263,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 0,
+            "still_visible": 173,
+            "forward_visible_fraction": 0.11263,
+            "lost_forward_percentage_points": 0.0
+          },
+          "10": {
+            "blocked_visible_rays": 1,
+            "still_visible": 172,
+            "forward_visible_fraction": 0.111979,
+            "lost_forward_percentage_points": 0.0651
+          },
+          "20": {
+            "blocked_visible_rays": 2,
+            "still_visible": 171,
+            "forward_visible_fraction": 0.111328,
+            "lost_forward_percentage_points": 0.1302
+          }
+        }
+      },
+      "S4": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 179,
+        "base_fraction": 0.116536,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 2,
+            "still_visible": 177,
+            "forward_visible_fraction": 0.115234,
+            "lost_forward_percentage_points": 0.1302
+          },
+          "10": {
+            "blocked_visible_rays": 2,
+            "still_visible": 177,
+            "forward_visible_fraction": 0.115234,
+            "lost_forward_percentage_points": 0.1302
+          },
+          "20": {
+            "blocked_visible_rays": 5,
+            "still_visible": 174,
+            "forward_visible_fraction": 0.113281,
+            "lost_forward_percentage_points": 0.3255
+          }
+        }
+      }
+    },
+    "medium_hex_1p2": {
+      "PILOT": {
+        "sample_count": 4096,
+        "baseline_visible_rays": 3024,
+        "base_fraction": 0.738281,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 31,
+            "still_visible": 2993,
+            "forward_visible_fraction": 0.730713,
+            "lost_forward_percentage_points": 0.7568
+          },
+          "10": {
+            "blocked_visible_rays": 54,
+            "still_visible": 2970,
+            "forward_visible_fraction": 0.725098,
+            "lost_forward_percentage_points": 1.3184
+          },
+          "20": {
+            "blocked_visible_rays": 92,
+            "still_visible": 2932,
+            "forward_visible_fraction": 0.71582,
+            "lost_forward_percentage_points": 2.2461
+          }
+        }
+      },
+      "NAV": {
+        "sample_count": 4096,
+        "baseline_visible_rays": 3026,
+        "base_fraction": 0.73877,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 32,
+            "still_visible": 2994,
+            "forward_visible_fraction": 0.730957,
+            "lost_forward_percentage_points": 0.7812
+          },
+          "10": {
+            "blocked_visible_rays": 63,
+            "still_visible": 2963,
+            "forward_visible_fraction": 0.723389,
+            "lost_forward_percentage_points": 1.5381
+          },
+          "20": {
+            "blocked_visible_rays": 109,
+            "still_visible": 2917,
+            "forward_visible_fraction": 0.712158,
+            "lost_forward_percentage_points": 2.6611
+          }
+        }
+      },
+      "S1": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 182,
+        "base_fraction": 0.11849,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 0,
+            "still_visible": 182,
+            "forward_visible_fraction": 0.11849,
+            "lost_forward_percentage_points": 0.0
+          },
+          "10": {
+            "blocked_visible_rays": 1,
+            "still_visible": 181,
+            "forward_visible_fraction": 0.117839,
+            "lost_forward_percentage_points": 0.0651
+          },
+          "20": {
+            "blocked_visible_rays": 3,
+            "still_visible": 179,
+            "forward_visible_fraction": 0.116536,
+            "lost_forward_percentage_points": 0.1953
+          }
+        }
+      },
+      "S2": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 185,
+        "base_fraction": 0.120443,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 2,
+            "still_visible": 183,
+            "forward_visible_fraction": 0.119141,
+            "lost_forward_percentage_points": 0.1302
+          },
+          "10": {
+            "blocked_visible_rays": 2,
+            "still_visible": 183,
+            "forward_visible_fraction": 0.119141,
+            "lost_forward_percentage_points": 0.1302
+          },
+          "20": {
+            "blocked_visible_rays": 3,
+            "still_visible": 182,
+            "forward_visible_fraction": 0.11849,
+            "lost_forward_percentage_points": 0.1953
+          }
+        }
+      },
+      "S3": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 173,
+        "base_fraction": 0.11263,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 1,
+            "still_visible": 172,
+            "forward_visible_fraction": 0.111979,
+            "lost_forward_percentage_points": 0.0651
+          },
+          "10": {
+            "blocked_visible_rays": 4,
+            "still_visible": 169,
+            "forward_visible_fraction": 0.110026,
+            "lost_forward_percentage_points": 0.2604
+          },
+          "20": {
+            "blocked_visible_rays": 8,
+            "still_visible": 165,
+            "forward_visible_fraction": 0.107422,
+            "lost_forward_percentage_points": 0.5208
+          }
+        }
+      },
+      "S4": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 179,
+        "base_fraction": 0.116536,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 1,
+            "still_visible": 178,
+            "forward_visible_fraction": 0.115885,
+            "lost_forward_percentage_points": 0.0651
+          },
+          "10": {
+            "blocked_visible_rays": 4,
+            "still_visible": 175,
+            "forward_visible_fraction": 0.113932,
+            "lost_forward_percentage_points": 0.2604
+          },
+          "20": {
+            "blocked_visible_rays": 5,
+            "still_visible": 174,
+            "forward_visible_fraction": 0.113281,
+            "lost_forward_percentage_points": 0.3255
+          }
+        }
+      }
+    },
+    "large_hex_shifted_1p6": {
+      "PILOT": {
+        "sample_count": 4096,
+        "baseline_visible_rays": 3024,
+        "base_fraction": 0.738281,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 14,
+            "still_visible": 3010,
+            "forward_visible_fraction": 0.734863,
+            "lost_forward_percentage_points": 0.3418
+          },
+          "10": {
+            "blocked_visible_rays": 32,
+            "still_visible": 2992,
+            "forward_visible_fraction": 0.730469,
+            "lost_forward_percentage_points": 0.7812
+          },
+          "20": {
+            "blocked_visible_rays": 73,
+            "still_visible": 2951,
+            "forward_visible_fraction": 0.720459,
+            "lost_forward_percentage_points": 1.7822
+          }
+        }
+      },
+      "NAV": {
+        "sample_count": 4096,
+        "baseline_visible_rays": 3026,
+        "base_fraction": 0.73877,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 14,
+            "still_visible": 3012,
+            "forward_visible_fraction": 0.735352,
+            "lost_forward_percentage_points": 0.3418
+          },
+          "10": {
+            "blocked_visible_rays": 28,
+            "still_visible": 2998,
+            "forward_visible_fraction": 0.731934,
+            "lost_forward_percentage_points": 0.6836
+          },
+          "20": {
+            "blocked_visible_rays": 65,
+            "still_visible": 2961,
+            "forward_visible_fraction": 0.7229,
+            "lost_forward_percentage_points": 1.5869
+          }
+        }
+      },
+      "S1": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 182,
+        "base_fraction": 0.11849,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 0,
+            "still_visible": 182,
+            "forward_visible_fraction": 0.11849,
+            "lost_forward_percentage_points": 0.0
+          },
+          "10": {
+            "blocked_visible_rays": 2,
+            "still_visible": 180,
+            "forward_visible_fraction": 0.117188,
+            "lost_forward_percentage_points": 0.1302
+          },
+          "20": {
+            "blocked_visible_rays": 4,
+            "still_visible": 178,
+            "forward_visible_fraction": 0.115885,
+            "lost_forward_percentage_points": 0.2604
+          }
+        }
+      },
+      "S2": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 185,
+        "base_fraction": 0.120443,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 1,
+            "still_visible": 184,
+            "forward_visible_fraction": 0.119792,
+            "lost_forward_percentage_points": 0.0651
+          },
+          "10": {
+            "blocked_visible_rays": 2,
+            "still_visible": 183,
+            "forward_visible_fraction": 0.119141,
+            "lost_forward_percentage_points": 0.1302
+          },
+          "20": {
+            "blocked_visible_rays": 4,
+            "still_visible": 181,
+            "forward_visible_fraction": 0.117839,
+            "lost_forward_percentage_points": 0.2604
+          }
+        }
+      },
+      "S3": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 173,
+        "base_fraction": 0.11263,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 1,
+            "still_visible": 172,
+            "forward_visible_fraction": 0.111979,
+            "lost_forward_percentage_points": 0.0651
+          },
+          "10": {
+            "blocked_visible_rays": 2,
+            "still_visible": 171,
+            "forward_visible_fraction": 0.111328,
+            "lost_forward_percentage_points": 0.1302
+          },
+          "20": {
+            "blocked_visible_rays": 4,
+            "still_visible": 169,
+            "forward_visible_fraction": 0.110026,
+            "lost_forward_percentage_points": 0.2604
+          }
+        }
+      },
+      "S4": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 179,
+        "base_fraction": 0.116536,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 0,
+            "still_visible": 179,
+            "forward_visible_fraction": 0.116536,
+            "lost_forward_percentage_points": 0.0
+          },
+          "10": {
+            "blocked_visible_rays": 0,
+            "still_visible": 179,
+            "forward_visible_fraction": 0.116536,
+            "lost_forward_percentage_points": 0.0
+          },
+          "20": {
+            "blocked_visible_rays": 2,
+            "still_visible": 177,
+            "forward_visible_fraction": 0.115234,
+            "lost_forward_percentage_points": 0.1302
+          }
+        }
+      }
+    },
+    "medium_hex_shifted_1p2": {
+      "PILOT": {
+        "sample_count": 4096,
+        "baseline_visible_rays": 3024,
+        "base_fraction": 0.738281,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 26,
+            "still_visible": 2998,
+            "forward_visible_fraction": 0.731934,
+            "lost_forward_percentage_points": 0.6348
+          },
+          "10": {
+            "blocked_visible_rays": 57,
+            "still_visible": 2967,
+            "forward_visible_fraction": 0.724365,
+            "lost_forward_percentage_points": 1.3916
+          },
+          "20": {
+            "blocked_visible_rays": 101,
+            "still_visible": 2923,
+            "forward_visible_fraction": 0.713623,
+            "lost_forward_percentage_points": 2.4658
+          }
+        }
+      },
+      "NAV": {
+        "sample_count": 4096,
+        "baseline_visible_rays": 3026,
+        "base_fraction": 0.73877,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 21,
+            "still_visible": 3005,
+            "forward_visible_fraction": 0.733643,
+            "lost_forward_percentage_points": 0.5127
+          },
+          "10": {
+            "blocked_visible_rays": 54,
+            "still_visible": 2972,
+            "forward_visible_fraction": 0.725586,
+            "lost_forward_percentage_points": 1.3184
+          },
+          "20": {
+            "blocked_visible_rays": 102,
+            "still_visible": 2924,
+            "forward_visible_fraction": 0.713867,
+            "lost_forward_percentage_points": 2.4902
+          }
+        }
+      },
+      "S1": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 182,
+        "base_fraction": 0.11849,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 1,
+            "still_visible": 181,
+            "forward_visible_fraction": 0.117839,
+            "lost_forward_percentage_points": 0.0651
+          },
+          "10": {
+            "blocked_visible_rays": 4,
+            "still_visible": 178,
+            "forward_visible_fraction": 0.115885,
+            "lost_forward_percentage_points": 0.2604
+          },
+          "20": {
+            "blocked_visible_rays": 7,
+            "still_visible": 175,
+            "forward_visible_fraction": 0.113932,
+            "lost_forward_percentage_points": 0.4557
+          }
+        }
+      },
+      "S2": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 185,
+        "base_fraction": 0.120443,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 2,
+            "still_visible": 183,
+            "forward_visible_fraction": 0.119141,
+            "lost_forward_percentage_points": 0.1302
+          },
+          "10": {
+            "blocked_visible_rays": 3,
+            "still_visible": 182,
+            "forward_visible_fraction": 0.11849,
+            "lost_forward_percentage_points": 0.1953
+          },
+          "20": {
+            "blocked_visible_rays": 6,
+            "still_visible": 179,
+            "forward_visible_fraction": 0.116536,
+            "lost_forward_percentage_points": 0.3906
+          }
+        }
+      },
+      "S3": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 173,
+        "base_fraction": 0.11263,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 3,
+            "still_visible": 170,
+            "forward_visible_fraction": 0.110677,
+            "lost_forward_percentage_points": 0.1953
+          },
+          "10": {
+            "blocked_visible_rays": 4,
+            "still_visible": 169,
+            "forward_visible_fraction": 0.110026,
+            "lost_forward_percentage_points": 0.2604
+          },
+          "20": {
+            "blocked_visible_rays": 5,
+            "still_visible": 168,
+            "forward_visible_fraction": 0.109375,
+            "lost_forward_percentage_points": 0.3255
+          }
+        }
+      },
+      "S4": {
+        "sample_count": 1536,
+        "baseline_visible_rays": 179,
+        "base_fraction": 0.116536,
+        "seam_width_mm": {
+          "5": {
+            "blocked_visible_rays": 1,
+            "still_visible": 178,
+            "forward_visible_fraction": 0.115885,
+            "lost_forward_percentage_points": 0.0651
+          },
+          "10": {
+            "blocked_visible_rays": 3,
+            "still_visible": 176,
+            "forward_visible_fraction": 0.114583,
+            "lost_forward_percentage_points": 0.1953
+          },
+          "20": {
+            "blocked_visible_rays": 7,
+            "still_visible": 172,
+            "forward_visible_fraction": 0.111979,
+            "lost_forward_percentage_points": 0.4557
+          }
+        }
+      }
+    }
+  },
+  "model_limits": [
+    "Seam bands are artificially totally opaque, with 5/10/20mm total projected-XY strip width; metal mount geometry and optical seam scattering unspecified.",
+    "Large trapezoids on a conical surface must be curved/molded or faceted: a mathematical r-phi patch is not automatically a flat planar pane.",
+    "Hex cells are planar-XY projected cells traced onto nose surface and can straddle the flat-to-conical transition at r=2m; not guaranteed manufacturable as single flat panels.",
+    "Panel count includes cropped boundary slivers. Tiny edge tiles may be practically unacceptable and could be merged.",
+    "270kg/m2 is an incumbent *mass allocation* for opaque equivalent armour, not certified protective ability of transparent tile.",
+    "Replacing an outer tile from outside need not disturb the inner pressure boundary, but retaining hardware and service access are unverified.",
+    "Rasterized panel areas approximate curved outer area; no ray refraction or actual pressure panel structural redesign.",
+    "The inner pressure frame continues to obstruct vision in every comparison; no magical frameless pressure hull assumed."
+  ]
+}
