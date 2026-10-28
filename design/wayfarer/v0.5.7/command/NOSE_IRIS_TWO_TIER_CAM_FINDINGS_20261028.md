@@ -68,3 +68,10 @@ The only remaining near-term design question worth a tight test is a **recessed 
 - `render/make_two_tier_cam_viewer.py`, self-contained touchscreen-orbit viewer `render/out/nose_two_tier_cam_viewer.html`. Four candidates (R1.80, 1.76, 1.75, 1.74), 16 rigid moving leaves, two levels, 93 sampled motion frames, selectable pressure hull/exterior/central boss. Viewer depicts sheet faces; slab thickness and clearance are checked in the executable calculation, not actually rendered as mechanical parts.
 
 No source branches, canon, runtime or Rev 7 PR #432 files were modified.
+
+
+---
+
+## ERRATUM — 29 October 2026: four-window visibility scoring
+
+The four-window iris figures in this historical report were **overstated** by an angular-mask bug: source research code selected the smallest **signed** angle difference instead of the smallest **absolute** difference from the intended window sector centres. The code and primary result JSONs have since been corrected. For the R1.76 m iris with a fixed R0.12 m centre boss and four genuine 40° sectors, corrected worst Pilot/NAV forward-hemisphere visibility is **26.17%**, not the previously cited ~32–33%. The corresponding corrected 60° forward-cone figure is **98.66%**. A wholly transparent, **unprotected and unqualified**, outer annulus could reach only **32.81%** in the same ray model. The original corrected Rev 7 reference remains **69.14%**. **See** `command/NOSE_IRIS_INTERLOCK_AND_VISIBILITY_CORRECTION_20261029.md` for the source, scope, checks and other aperture radii. This appended erratum supersedes incompatible historical figures above; the original test prose remains as an auditable record.

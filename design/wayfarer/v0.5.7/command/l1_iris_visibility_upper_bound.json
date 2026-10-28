@@ -1,0 +1,23 @@
+{
+  "classification": "RESEARCH: CORRECTED ANGULAR WINDOW MASK",
+  "note": "Prior code used min(signed angle offsets) rather than min(abs(angle offsets)), allowing out-of-sector rays. Corrected in l1_armoured_iris.py.",
+  "source": "PR432, angular 50-degree 1.76m iris, unchanged source room, rings, sensors",
+  "stow_outer_radius_m": 2.70176,
+  "fixed_armoured_hub_radius_m": 0.12,
+  "corrected_cases": [
+    {
+      "name": "four 40-degree externally shuttered sectors",
+      "worst_pilot_cone60": 0.9866,
+      "worst_pilot_forward": 0.2617,
+      "worst_support_forward": 0.0391
+    },
+    {
+      "name": "entire exterior annulus fully transparent, not shutter-qualified",
+      "worst_pilot_cone60": 0.9866,
+      "worst_pilot_forward": 0.3281,
+      "worst_support_forward": 0.043
+    }
+  ],
+  "rev7_reference_pilot_forward": 0.6914,
+  "importance": "Full ring is optical upper bound ONLY and no external shutter packaging is shown"
+}

@@ -85,10 +85,10 @@ def center_screen():
     for hub in center_only:
         r_outer=SOURCE_BEST['max_leaf_radial_m']+.04
         def ap(r,phi,c,pat):
-            alpha=np.minimum.reduce([D.angdiff(phi,u) for u in (45,135,225,315)])
+            alpha=np.minimum.reduce([np.abs(D.angdiff(phi,u)) for u in (45,135,225,315)])
             return ((r>=hub)&(r<=R))|((r>=r_outer)&(r<=3.5)&(alpha<=20))
         def fr(r,phi,c,pat):
-            alpha=np.minimum.reduce([D.angdiff(phi,u) for u in (45,135,225,315)])
+            alpha=np.minimum.reduce([np.abs(D.angdiff(phi,u)) for u in (45,135,225,315)])
             return (abs(r-R)<.04)|((r>=r_outer)&((abs(r-r_outer)<.04)|(abs(r-3.5)<.04)|(abs(alpha-20)*np.pi/180*r<.04)))
         D.aperture,D.frame_hit=ap,fr
         try:st=REF.detail(SHAPE,3.5,'radial')

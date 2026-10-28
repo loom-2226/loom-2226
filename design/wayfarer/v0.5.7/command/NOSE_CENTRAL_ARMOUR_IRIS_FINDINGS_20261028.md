@@ -66,3 +66,10 @@ This is the **same ray geometry and unchanged crew** used for the corrected base
 - `render/make_armoured_iris_viewer.py`: self-contained rotatable HTML `render/out/nose_armoured_iris_viewer.html`, selectable nose, 0–90° 16-blade motion, saved 1° collision states and the central aperture/stow-band geometry. Desktop and Android browser compatible in principle; HTML/JS syntax was validated, browser-specific operation not yet independently tested.
 
 The animation is **visual evidence of a studied geometry**, not a certification of a 2226 manufacturing design.
+
+
+---
+
+## ERRATUM — 29 October 2026: four-window visibility scoring
+
+The four-window iris figures in this historical report were **overstated** by an angular-mask bug: source research code selected the smallest **signed** angle difference instead of the smallest **absolute** difference from the intended window sector centres. The code and primary result JSONs have since been corrected. For the R1.76 m iris with a fixed R0.12 m centre boss and four genuine 40° sectors, corrected worst Pilot/NAV forward-hemisphere visibility is **26.17%**, not the previously cited ~32–33%. The corresponding corrected 60° forward-cone figure is **98.66%**. A wholly transparent, **unprotected and unqualified**, outer annulus could reach only **32.81%** in the same ray model. The original corrected Rev 7 reference remains **69.14%**. **See** `command/NOSE_IRIS_INTERLOCK_AND_VISIBILITY_CORRECTION_20261029.md` for the source, scope, checks and other aperture radii. This appended erratum supersedes incompatible historical figures above; the original test prose remains as an auditable record.

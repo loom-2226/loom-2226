@@ -1621,27 +1621,27 @@
   "visibility": {
     "without_fixed_hub": {
       "worst_pilot_cone60": 1.0,
-      "worst_pilot_forward": 0.3203,
-      "worst_support_forward": 0.043
+      "worst_pilot_forward": 0.2617,
+      "worst_support_forward": 0.0391
     },
     "with_fixed_hub": [
       {
         "hub_radius_m": 0.1,
         "pilot_cone60": 0.9911,
-        "pilot_forward": 0.3164,
-        "support_forward": 0.043
+        "pilot_forward": 0.2578,
+        "support_forward": 0.0391
       },
       {
         "hub_radius_m": 0.12,
         "pilot_cone60": 0.9866,
-        "pilot_forward": 0.3164,
-        "support_forward": 0.043
+        "pilot_forward": 0.2578,
+        "support_forward": 0.0391
       },
       {
         "hub_radius_m": 0.13,
         "pilot_cone60": 0.9821,
-        "pilot_forward": 0.3164,
-        "support_forward": 0.043
+        "pilot_forward": 0.2578,
+        "support_forward": 0.0391
       }
     ]
   },

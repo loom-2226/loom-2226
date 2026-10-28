@@ -66,3 +66,10 @@ Do **not** announce a finished iris or modify Rev 7, canon or runtime. A further
 - `render/make_flush_scarf_viewer.py` produces self-contained offline `render/out/nose_iris_flush_scarf_viewer.html`: actual 16 moving main blade faces, mobile rotation and motion slider, plus a schematic of the mating seam cross-section.
 
 The code uses the isolated research geometry and does not change any qualified or authoritative spacecraft structure.
+
+
+---
+
+## ERRATUM — 29 October 2026: four-window visibility scoring
+
+The four-window iris figures in this historical report were **overstated** by an angular-mask bug: source research code selected the smallest **signed** angle difference instead of the smallest **absolute** difference from the intended window sector centres. The code and primary result JSONs have since been corrected. For the R1.76 m iris with a fixed R0.12 m centre boss and four genuine 40° sectors, corrected worst Pilot/NAV forward-hemisphere visibility is **26.17%**, not the previously cited ~32–33%. The corresponding corrected 60° forward-cone figure is **98.66%**. A wholly transparent, **unprotected and unqualified**, outer annulus could reach only **32.81%** in the same ray model. The original corrected Rev 7 reference remains **69.14%**. **See** `command/NOSE_IRIS_INTERLOCK_AND_VISIBILITY_CORRECTION_20261029.md` for the source, scope, checks and other aperture radii. This appended erratum supersedes incompatible historical figures above; the original test prose remains as an auditable record.

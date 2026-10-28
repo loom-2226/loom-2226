@@ -1,0 +1,433 @@
+{
+  "status": "RESEARCH NON-CANON NOT QUALIFIED",
+  "source": "PR432 Rev7 3485830a + experimental 1.76m angular iris",
+  "assumptions": "Blade edge modeled as a two-dimensional matched dividing curve across the full nominal panel depth. Clearance gap equals twice adverse edge recession.",
+  "normal_equivalent_material_reference_m": 0.1962787632487465,
+  "hub_radius_m": 0.12,
+  "radius_m": 1.76,
+  "cam_motion": [
+    {
+      "lap_deg": 2.0,
+      "full_cam_sampled_clear": true,
+      "open_clear_radius_m": 1.75687,
+      "signed_room_for_actuators_m": 0.03825
+    },
+    {
+      "lap_deg": 3.0,
+      "full_cam_sampled_clear": true,
+      "open_clear_radius_m": 1.75084,
+      "signed_room_for_actuators_m": 0.02395
+    },
+    {
+      "lap_deg": 4.0,
+      "full_cam_sampled_clear": true,
+      "open_clear_radius_m": 1.74468,
+      "signed_room_for_actuators_m": 0.00967
+    }
+  ],
+  "seam_cross_section_checks": [
+    {
+      "type": "straight_scarf",
+      "lap_deg": 2.0,
+      "edge_recession_mm": 0.25,
+      "hub_nominal_lap_width_mm": 4.1888,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 23.4436,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 172.8352,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "straight_scarf",
+      "lap_deg": 2.0,
+      "edge_recession_mm": 0.5,
+      "hub_nominal_lap_width_mm": 4.1888,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 46.8872,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 149.3916,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "straight_scarf",
+      "lap_deg": 2.0,
+      "edge_recession_mm": 1.0,
+      "hub_nominal_lap_width_mm": 4.1888,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 93.6763,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 102.6025,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "straight_scarf",
+      "lap_deg": 2.0,
+      "edge_recession_mm": 2.0,
+      "hub_nominal_lap_width_mm": 4.1888,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 187.3525,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 8.9262,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "releasable_dogleg",
+      "lap_deg": 2.0,
+      "edge_recession_mm": 0.25,
+      "hub_nominal_lap_width_mm": 4.1888,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 52.086,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 144.1928,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "releasable_dogleg",
+      "lap_deg": 2.0,
+      "edge_recession_mm": 0.5,
+      "hub_nominal_lap_width_mm": 4.1888,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 73.6658,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 122.6129,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "releasable_dogleg",
+      "lap_deg": 2.0,
+      "edge_recession_mm": 1.0,
+      "hub_nominal_lap_width_mm": 4.1888,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 95.9323,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 100.3464,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "releasable_dogleg",
+      "lap_deg": 2.0,
+      "edge_recession_mm": 2.0,
+      "hub_nominal_lap_width_mm": 4.1888,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 176.5626,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 19.7162,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "reverse_lap_labyrinth",
+      "lap_deg": 2.0,
+      "edge_recession_mm": 0.25,
+      "hub_nominal_lap_width_mm": 4.1888,
+      "max_lateral_interpenetration_during_axial_peel_mm": 3.6888,
+      "axially_releasable": false,
+      "max_normal_void_depth_mm": 23.4436,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 172.8352,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "reverse_lap_labyrinth",
+      "lap_deg": 2.0,
+      "edge_recession_mm": 0.5,
+      "hub_nominal_lap_width_mm": 4.1888,
+      "max_lateral_interpenetration_during_axial_peel_mm": 3.1888,
+      "axially_releasable": false,
+      "max_normal_void_depth_mm": 46.8872,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 149.3916,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "reverse_lap_labyrinth",
+      "lap_deg": 2.0,
+      "edge_recession_mm": 1.0,
+      "hub_nominal_lap_width_mm": 4.1888,
+      "max_lateral_interpenetration_during_axial_peel_mm": 2.1888,
+      "axially_releasable": false,
+      "max_normal_void_depth_mm": 93.6763,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 102.6025,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "reverse_lap_labyrinth",
+      "lap_deg": 2.0,
+      "edge_recession_mm": 2.0,
+      "hub_nominal_lap_width_mm": 4.1888,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0.1888,
+      "axially_releasable": false,
+      "max_normal_void_depth_mm": 187.3525,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 8.9262,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "straight_scarf",
+      "lap_deg": 3.0,
+      "edge_recession_mm": 0.25,
+      "hub_nominal_lap_width_mm": 6.2832,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 15.6945,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 180.5843,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "straight_scarf",
+      "lap_deg": 3.0,
+      "edge_recession_mm": 0.5,
+      "hub_nominal_lap_width_mm": 6.2832,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 31.2908,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 164.9879,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "straight_scarf",
+      "lap_deg": 3.0,
+      "edge_recession_mm": 1.0,
+      "hub_nominal_lap_width_mm": 6.2832,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 62.4835,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 133.7952,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "straight_scarf",
+      "lap_deg": 3.0,
+      "edge_recession_mm": 2.0,
+      "hub_nominal_lap_width_mm": 6.2832,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 124.9671,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 71.3117,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "releasable_dogleg",
+      "lap_deg": 3.0,
+      "edge_recession_mm": 0.25,
+      "hub_nominal_lap_width_mm": 6.2832,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 34.724,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 161.5548,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "releasable_dogleg",
+      "lap_deg": 3.0,
+      "edge_recession_mm": 0.5,
+      "hub_nominal_lap_width_mm": 6.2832,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 66.3091,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 129.9697,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "releasable_dogleg",
+      "lap_deg": 3.0,
+      "edge_recession_mm": 1.0,
+      "hub_nominal_lap_width_mm": 6.2832,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 81.0226,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 115.2561,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "releasable_dogleg",
+      "lap_deg": 3.0,
+      "edge_recession_mm": 2.0,
+      "hub_nominal_lap_width_mm": 6.2832,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 110.8421,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 85.4367,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "reverse_lap_labyrinth",
+      "lap_deg": 3.0,
+      "edge_recession_mm": 0.25,
+      "hub_nominal_lap_width_mm": 6.2832,
+      "max_lateral_interpenetration_during_axial_peel_mm": 5.7832,
+      "axially_releasable": false,
+      "max_normal_void_depth_mm": 15.6945,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 180.5843,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "reverse_lap_labyrinth",
+      "lap_deg": 3.0,
+      "edge_recession_mm": 0.5,
+      "hub_nominal_lap_width_mm": 6.2832,
+      "max_lateral_interpenetration_during_axial_peel_mm": 5.2832,
+      "axially_releasable": false,
+      "max_normal_void_depth_mm": 31.2908,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 164.9879,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "reverse_lap_labyrinth",
+      "lap_deg": 3.0,
+      "edge_recession_mm": 1.0,
+      "hub_nominal_lap_width_mm": 6.2832,
+      "max_lateral_interpenetration_during_axial_peel_mm": 4.2832,
+      "axially_releasable": false,
+      "max_normal_void_depth_mm": 62.4835,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 133.7952,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "reverse_lap_labyrinth",
+      "lap_deg": 3.0,
+      "edge_recession_mm": 2.0,
+      "hub_nominal_lap_width_mm": 6.2832,
+      "max_lateral_interpenetration_during_axial_peel_mm": 2.2832,
+      "axially_releasable": false,
+      "max_normal_void_depth_mm": 124.9671,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 71.3117,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "straight_scarf",
+      "lap_deg": 4.0,
+      "edge_recession_mm": 0.25,
+      "hub_nominal_lap_width_mm": 8.3776,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 11.7708,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 184.5079,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "straight_scarf",
+      "lap_deg": 4.0,
+      "edge_recession_mm": 0.5,
+      "hub_nominal_lap_width_mm": 8.3776,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 23.4436,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 172.8352,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "straight_scarf",
+      "lap_deg": 4.0,
+      "edge_recession_mm": 1.0,
+      "hub_nominal_lap_width_mm": 8.3776,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 46.8872,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 149.3916,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "straight_scarf",
+      "lap_deg": 4.0,
+      "edge_recession_mm": 2.0,
+      "hub_nominal_lap_width_mm": 8.3776,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 93.6763,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 102.6025,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "releasable_dogleg",
+      "lap_deg": 4.0,
+      "edge_recession_mm": 0.25,
+      "hub_nominal_lap_width_mm": 8.3776,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 26.092,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 170.1867,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "releasable_dogleg",
+      "lap_deg": 4.0,
+      "edge_recession_mm": 0.5,
+      "hub_nominal_lap_width_mm": 8.3776,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 52.086,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 144.1928,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "releasable_dogleg",
+      "lap_deg": 4.0,
+      "edge_recession_mm": 1.0,
+      "hub_nominal_lap_width_mm": 8.3776,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 73.6658,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 122.6129,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "releasable_dogleg",
+      "lap_deg": 4.0,
+      "edge_recession_mm": 2.0,
+      "hub_nominal_lap_width_mm": 8.3776,
+      "max_lateral_interpenetration_during_axial_peel_mm": 0,
+      "axially_releasable": true,
+      "max_normal_void_depth_mm": 95.9323,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 100.3464,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "reverse_lap_labyrinth",
+      "lap_deg": 4.0,
+      "edge_recession_mm": 0.25,
+      "hub_nominal_lap_width_mm": 8.3776,
+      "max_lateral_interpenetration_during_axial_peel_mm": 7.8776,
+      "axially_releasable": false,
+      "max_normal_void_depth_mm": 11.7708,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 184.5079,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "reverse_lap_labyrinth",
+      "lap_deg": 4.0,
+      "edge_recession_mm": 0.5,
+      "hub_nominal_lap_width_mm": 8.3776,
+      "max_lateral_interpenetration_during_axial_peel_mm": 7.3776,
+      "axially_releasable": false,
+      "max_normal_void_depth_mm": 23.4436,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 172.8352,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "reverse_lap_labyrinth",
+      "lap_deg": 4.0,
+      "edge_recession_mm": 1.0,
+      "hub_nominal_lap_width_mm": 8.3776,
+      "max_lateral_interpenetration_during_axial_peel_mm": 6.3776,
+      "axially_releasable": false,
+      "max_normal_void_depth_mm": 46.8872,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 149.3916,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    },
+    {
+      "type": "reverse_lap_labyrinth",
+      "lap_deg": 4.0,
+      "edge_recession_mm": 2.0,
+      "hub_nominal_lap_width_mm": 8.3776,
+      "max_lateral_interpenetration_during_axial_peel_mm": 4.3776,
+      "axially_releasable": false,
+      "max_normal_void_depth_mm": 93.6763,
+      "nominal_material_depth_remaining_at_weakest_cross_section_mm": 102.6025,
+      "note": "Only two-dimensional geometric occupancy, not mechanical/ballistic performance"
+    }
+  ],
+  "limits": [
+    "This is mechanical edge clearance and material occupancy, not a hypervelocity impact model.",
+    "A 2D releasable joint does not demonstrate a manufactured 16-blade mechanism.",
+    "The underlying 20cm normal exterior armour on angular facets is a declared test assumption.",
+    "No bearing, seal, finite impact strength, cyclic fatigue or joint stiffness qualified.",
+    "The earlier iris broad forward-hemisphere visibility deficit still applies."
+  ]
+}

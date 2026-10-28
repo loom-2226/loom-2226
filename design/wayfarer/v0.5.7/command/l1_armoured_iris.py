@@ -128,7 +128,7 @@ def visibility(name,shape,R,r_outer):
     crown=3.2 if shape[0]==.8 else 3.5
     pcenters=[45,135,225,315]
     def alpha(phi):
-        return np.minimum.reduce([D.angdiff(phi,u) for u in pcenters])
+        return np.minimum.reduce([np.abs(D.angdiff(phi,u)) for u in pcenters])
     def aperture(r,phi,c,pat):
         return (r<=R)|((r>=r_outer)&(r<=crown)&(alpha(phi)<=20))
     def frame(r,phi,c,pat):

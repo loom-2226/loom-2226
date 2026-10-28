@@ -1140,36 +1140,36 @@
       ],
       "associated_window_layout_visibility": {
         "worst_pilot_cone60": 0.8259,
-        "worst_pilot_forward": 0.3516,
-        "worst_support_forward": 0.0625,
+        "worst_pilot_forward": 0.2422,
+        "worst_support_forward": 0.0234,
         "stations": {
           "PILOT": {
-            "forward_integrated": 0.3555,
+            "forward_integrated": 0.2422,
             "cone60_integrated": 0.8259,
-            "forward_dual": 0.3086,
+            "forward_dual": 0.2148,
             "cone60_dual": 0.7946
           },
           "NAV": {
-            "forward_integrated": 0.3516,
+            "forward_integrated": 0.2422,
             "cone60_integrated": 0.8304,
-            "forward_dual": 0.3086,
+            "forward_dual": 0.2148,
             "cone60_dual": 0.7902
           },
           "S1": {
-            "forward_integrated": 0.0859,
-            "forward_dual": 0.0859
+            "forward_integrated": 0.0352,
+            "forward_dual": 0.0352
           },
           "S2": {
-            "forward_integrated": 0.0781,
-            "forward_dual": 0.0742
+            "forward_integrated": 0.0391,
+            "forward_dual": 0.0352
           },
           "S3": {
-            "forward_integrated": 0.0664,
-            "forward_dual": 0.0664
+            "forward_integrated": 0.0312,
+            "forward_dual": 0.0312
           },
           "S4": {
-            "forward_integrated": 0.0625,
-            "forward_dual": 0.0625
+            "forward_integrated": 0.0234,
+            "forward_dual": 0.0234
           }
         }
       }
@@ -3419,36 +3419,36 @@
       ],
       "associated_window_layout_visibility": {
         "worst_pilot_cone60": 0.9554,
-        "worst_pilot_forward": 0.3945,
-        "worst_support_forward": 0.0664,
+        "worst_pilot_forward": 0.2773,
+        "worst_support_forward": 0.043,
         "stations": {
           "PILOT": {
-            "forward_integrated": 0.3945,
+            "forward_integrated": 0.2812,
             "cone60_integrated": 0.9554,
-            "forward_dual": 0.3398,
+            "forward_dual": 0.25,
             "cone60_dual": 0.9241
           },
           "NAV": {
-            "forward_integrated": 0.3984,
+            "forward_integrated": 0.2773,
             "cone60_integrated": 0.9554,
-            "forward_dual": 0.3477,
+            "forward_dual": 0.2578,
             "cone60_dual": 0.933
           },
           "S1": {
-            "forward_integrated": 0.0781,
-            "forward_dual": 0.0664
+            "forward_integrated": 0.0508,
+            "forward_dual": 0.0391
           },
           "S2": {
-            "forward_integrated": 0.0742,
-            "forward_dual": 0.0703
+            "forward_integrated": 0.0547,
+            "forward_dual": 0.0508
           },
           "S3": {
-            "forward_integrated": 0.0703,
-            "forward_dual": 0.0664
+            "forward_integrated": 0.0469,
+            "forward_dual": 0.043
           },
           "S4": {
-            "forward_integrated": 0.0664,
-            "forward_dual": 0.0664
+            "forward_integrated": 0.043,
+            "forward_dual": 0.043
           }
         }
       }
@@ -4584,36 +4584,36 @@
       ],
       "associated_window_layout_visibility": {
         "worst_pilot_cone60": 1.0,
-        "worst_pilot_forward": 0.3203,
-        "worst_support_forward": 0.043,
+        "worst_pilot_forward": 0.2617,
+        "worst_support_forward": 0.0391,
         "stations": {
           "PILOT": {
-            "forward_integrated": 0.3203,
+            "forward_integrated": 0.2617,
             "cone60_integrated": 1.0,
-            "forward_dual": 0.3008,
+            "forward_dual": 0.25,
             "cone60_dual": 1.0
           },
           "NAV": {
-            "forward_integrated": 0.3203,
+            "forward_integrated": 0.2656,
             "cone60_integrated": 1.0,
-            "forward_dual": 0.3047,
+            "forward_dual": 0.2578,
             "cone60_dual": 1.0
           },
           "S1": {
-            "forward_integrated": 0.0547,
-            "forward_dual": 0.043
+            "forward_integrated": 0.0469,
+            "forward_dual": 0.0352
           },
           "S2": {
-            "forward_integrated": 0.0508,
-            "forward_dual": 0.043
+            "forward_integrated": 0.0469,
+            "forward_dual": 0.0391
           },
           "S3": {
-            "forward_integrated": 0.0508,
-            "forward_dual": 0.043
+            "forward_integrated": 0.0469,
+            "forward_dual": 0.0391
           },
           "S4": {
-            "forward_integrated": 0.043,
-            "forward_dual": 0.043
+            "forward_integrated": 0.0391,
+            "forward_dual": 0.0391
           }
         }
       }
