@@ -1,0 +1,3865 @@
+{
+  "classification": "NON-CANON NON-RUNTIME OPTICAL GEOMETRY SENSITIVITY ONLY",
+  "PR432_source_sha": "3485830a56dfead79b2ef8bba031a595b536fbb5",
+  "held_37_layout_key": "staggered_trapezoids_compact_12",
+  "held_37_layout": {
+    "type": "radial",
+    "rings": [
+      0.0,
+      0.75,
+      2.0,
+      2.75,
+      3.5
+    ],
+    "ns": [
+      1,
+      12,
+      12,
+      12
+    ],
+    "offsets": [
+      0,
+      0,
+      0,
+      0.2617993877991494
+    ]
+  },
+  "held_outer_crown_radius_m": 3.5,
+  "held_outer_seam_total_width_m": 0.01,
+  "inner_window_modes": {
+    "current_8x80": {
+      "spokes": 8,
+      "width": 0.08,
+      "ring": 1.15,
+      "rotation_deg": 0
+    },
+    "slim_8x40": {
+      "spokes": 8,
+      "width": 0.04,
+      "ring": 1.15,
+      "rotation_deg": 0
+    },
+    "slim_8x40_hub075": {
+      "spokes": 8,
+      "width": 0.04,
+      "ring": 0.75,
+      "rotation_deg": 0
+    },
+    "slim_8x40_ring150": {
+      "spokes": 8,
+      "width": 0.04,
+      "ring": 1.5,
+      "rotation_deg": 0
+    },
+    "slim_8x40_ring200": {
+      "spokes": 8,
+      "width": 0.04,
+      "ring": 2.0,
+      "rotation_deg": 0
+    },
+    "slim_8x40_ring300_bound": {
+      "spokes": 8,
+      "width": 0.04,
+      "ring": 3.0,
+      "rotation_deg": 0
+    },
+    "current_width_8x80_ring200": {
+      "spokes": 8,
+      "width": 0.08,
+      "ring": 2.0,
+      "rotation_deg": 0
+    },
+    "slim_12x40_hub075": {
+      "spokes": 12,
+      "width": 0.04,
+      "ring": 0.75,
+      "rotation_deg": 0
+    },
+    "slim_12x40_hub075_rot15": {
+      "spokes": 12,
+      "width": 0.04,
+      "ring": 0.75,
+      "rotation_deg": 15
+    },
+    "wide_12x80_hub075": {
+      "spokes": 12,
+      "width": 0.08,
+      "ring": 0.75,
+      "rotation_deg": 0
+    },
+    "sparse_4x80": {
+      "spokes": 4,
+      "width": 0.08,
+      "ring": 1.15,
+      "rotation_deg": 0
+    },
+    "rim_only_upper_bound": {
+      "spokes": 0,
+      "width": 0.02,
+      "ring": null,
+      "rotation_deg": 0
+    }
+  },
+  "inner_radii_tested_m": [
+    3.5,
+    3.65,
+    3.8
+  ],
+  "baseline": "current_8x80__innerR3.5",
+  "results": {
+    "current_8x80__innerR3.5": {
+      "inner_radius_m": 3.5,
+      "frame": "current_8x80",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.08,
+        "ring": 1.15,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.725342,
+          "visible": 2971,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 249,
+            "visible": 2971
+          }
+        },
+        "NAV": {
+          "fraction": 0.726318,
+          "visible": 2975,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 247,
+            "visible": 2975
+          }
+        },
+        "S1": {
+          "fraction": 0.11849,
+          "visible": 182,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 10,
+            "visible": 182
+          }
+        },
+        "S2": {
+          "fraction": 0.11849,
+          "visible": 182,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 11,
+            "visible": 182
+          }
+        },
+        "S3": {
+          "fraction": 0.110026,
+          "visible": 169,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 7,
+            "visible": 169
+          }
+        },
+        "S4": {
+          "fraction": 0.113932,
+          "visible": 175,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 9,
+            "visible": 175
+          }
+        }
+      },
+      "pilot_NAV_min": 0.725342,
+      "support_min": 0.110026
+    },
+    "slim_8x40__innerR3.5": {
+      "inner_radius_m": 3.5,
+      "frame": "slim_8x40",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.04,
+        "ring": 1.15,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.757812,
+          "visible": 3104,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 116,
+            "visible": 3104
+          }
+        },
+        "NAV": {
+          "fraction": 0.758789,
+          "visible": 3108,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 114,
+            "visible": 3108
+          }
+        },
+        "S1": {
+          "fraction": 0.120443,
+          "visible": 185,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 7,
+            "visible": 185
+          }
+        },
+        "S2": {
+          "fraction": 0.123698,
+          "visible": 190,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 3,
+            "visible": 190
+          }
+        },
+        "S3": {
+          "fraction": 0.11263,
+          "visible": 173,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 3,
+            "visible": 173
+          }
+        },
+        "S4": {
+          "fraction": 0.116536,
+          "visible": 179,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 5,
+            "visible": 179
+          }
+        }
+      },
+      "pilot_NAV_min": 0.757812,
+      "support_min": 0.11263
+    },
+    "slim_8x40_hub075__innerR3.5": {
+      "inner_radius_m": 3.5,
+      "frame": "slim_8x40_hub075",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.04,
+        "ring": 0.75,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.740723,
+          "visible": 3034,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 186,
+            "visible": 3034
+          }
+        },
+        "NAV": {
+          "fraction": 0.739258,
+          "visible": 3028,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 194,
+            "visible": 3028
+          }
+        },
+        "S1": {
+          "fraction": 0.121745,
+          "visible": 187,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 5,
+            "visible": 187
+          }
+        },
+        "S2": {
+          "fraction": 0.125,
+          "visible": 192,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 1,
+            "visible": 192
+          }
+        },
+        "S3": {
+          "fraction": 0.113281,
+          "visible": 174,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 2,
+            "visible": 174
+          }
+        },
+        "S4": {
+          "fraction": 0.116536,
+          "visible": 179,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 5,
+            "visible": 179
+          }
+        }
+      },
+      "pilot_NAV_min": 0.739258,
+      "support_min": 0.113281
+    },
+    "slim_8x40_ring150__innerR3.5": {
+      "inner_radius_m": 3.5,
+      "frame": "slim_8x40_ring150",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.04,
+        "ring": 1.5,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.77002,
+          "visible": 3154,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 66,
+            "visible": 3154
+          }
+        },
+        "NAV": {
+          "fraction": 0.770508,
+          "visible": 3156,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 66,
+            "visible": 3156
+          }
+        },
+        "S1": {
+          "fraction": 0.121745,
+          "visible": 187,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 5,
+            "visible": 187
+          }
+        },
+        "S2": {
+          "fraction": 0.124349,
+          "visible": 191,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 2,
+            "visible": 191
+          }
+        },
+        "S3": {
+          "fraction": 0.113281,
+          "visible": 174,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 2,
+            "visible": 174
+          }
+        },
+        "S4": {
+          "fraction": 0.115885,
+          "visible": 178,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 6,
+            "visible": 178
+          }
+        }
+      },
+      "pilot_NAV_min": 0.77002,
+      "support_min": 0.113281
+    },
+    "slim_8x40_ring200__innerR3.5": {
+      "inner_radius_m": 3.5,
+      "frame": "slim_8x40_ring200",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.04,
+        "ring": 2.0,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.7771,
+          "visible": 3183,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 37,
+            "visible": 3183
+          }
+        },
+        "NAV": {
+          "fraction": 0.777832,
+          "visible": 3186,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 36,
+            "visible": 3186
+          }
+        },
+        "S1": {
+          "fraction": 0.121745,
+          "visible": 187,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 5,
+            "visible": 187
+          }
+        },
+        "S2": {
+          "fraction": 0.122396,
+          "visible": 188,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 5,
+            "visible": 188
+          }
+        },
+        "S3": {
+          "fraction": 0.111979,
+          "visible": 172,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 4,
+            "visible": 172
+          }
+        },
+        "S4": {
+          "fraction": 0.114583,
+          "visible": 176,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 8,
+            "visible": 176
+          }
+        }
+      },
+      "pilot_NAV_min": 0.7771,
+      "support_min": 0.111979
+    },
+    "slim_8x40_ring300_bound__innerR3.5": {
+      "inner_radius_m": 3.5,
+      "frame": "slim_8x40_ring300_bound",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.04,
+        "ring": 3.0,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.786133,
+          "visible": 3220,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 0,
+            "visible": 3220
+          }
+        },
+        "NAV": {
+          "fraction": 0.786621,
+          "visible": 3222,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 0,
+            "visible": 3222
+          }
+        },
+        "S1": {
+          "fraction": 0.121745,
+          "visible": 187,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 5,
+            "visible": 187
+          }
+        },
+        "S2": {
+          "fraction": 0.123698,
+          "visible": 190,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 3,
+            "visible": 190
+          }
+        },
+        "S3": {
+          "fraction": 0.113932,
+          "visible": 175,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 1,
+            "visible": 175
+          }
+        },
+        "S4": {
+          "fraction": 0.116536,
+          "visible": 179,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 5,
+            "visible": 179
+          }
+        }
+      },
+      "pilot_NAV_min": 0.786133,
+      "support_min": 0.113932
+    },
+    "current_width_8x80_ring200__innerR3.5": {
+      "inner_radius_m": 3.5,
+      "frame": "current_width_8x80_ring200",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.08,
+        "ring": 2.0,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.766846,
+          "visible": 3141,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 79,
+            "visible": 3141
+          }
+        },
+        "NAV": {
+          "fraction": 0.765869,
+          "visible": 3137,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 85,
+            "visible": 3137
+          }
+        },
+        "S1": {
+          "fraction": 0.120443,
+          "visible": 185,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 7,
+            "visible": 185
+          }
+        },
+        "S2": {
+          "fraction": 0.117839,
+          "visible": 181,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 12,
+            "visible": 181
+          }
+        },
+        "S3": {
+          "fraction": 0.109375,
+          "visible": 168,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 8,
+            "visible": 168
+          }
+        },
+        "S4": {
+          "fraction": 0.110677,
+          "visible": 170,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 14,
+            "visible": 170
+          }
+        }
+      },
+      "pilot_NAV_min": 0.765869,
+      "support_min": 0.109375
+    },
+    "slim_12x40_hub075__innerR3.5": {
+      "inner_radius_m": 3.5,
+      "frame": "slim_12x40_hub075",
+      "configuration": {
+        "spokes": 12,
+        "width": 0.04,
+        "ring": 0.75,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.729248,
+          "visible": 2987,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 233,
+            "visible": 2987
+          }
+        },
+        "NAV": {
+          "fraction": 0.731201,
+          "visible": 2995,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 227,
+            "visible": 2995
+          }
+        },
+        "S1": {
+          "fraction": 0.121745,
+          "visible": 187,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 5,
+            "visible": 187
+          }
+        },
+        "S2": {
+          "fraction": 0.122396,
+          "visible": 188,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 5,
+            "visible": 188
+          }
+        },
+        "S3": {
+          "fraction": 0.111328,
+          "visible": 171,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 5,
+            "visible": 171
+          }
+        },
+        "S4": {
+          "fraction": 0.115234,
+          "visible": 177,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 7,
+            "visible": 177
+          }
+        }
+      },
+      "pilot_NAV_min": 0.729248,
+      "support_min": 0.111328
+    },
+    "slim_12x40_hub075_rot15__innerR3.5": {
+      "inner_radius_m": 3.5,
+      "frame": "slim_12x40_hub075_rot15",
+      "configuration": {
+        "spokes": 12,
+        "width": 0.04,
+        "ring": 0.75,
+        "rotation_deg": 15
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.729004,
+          "visible": 2986,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 234,
+            "visible": 2986
+          }
+        },
+        "NAV": {
+          "fraction": 0.725586,
+          "visible": 2972,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 250,
+            "visible": 2972
+          }
+        },
+        "S1": {
+          "fraction": 0.121745,
+          "visible": 187,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 5,
+            "visible": 187
+          }
+        },
+        "S2": {
+          "fraction": 0.122396,
+          "visible": 188,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 5,
+            "visible": 188
+          }
+        },
+        "S3": {
+          "fraction": 0.110026,
+          "visible": 169,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 7,
+            "visible": 169
+          }
+        },
+        "S4": {
+          "fraction": 0.114583,
+          "visible": 176,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 8,
+            "visible": 176
+          }
+        }
+      },
+      "pilot_NAV_min": 0.725586,
+      "support_min": 0.110026
+    },
+    "wide_12x80_hub075__innerR3.5": {
+      "inner_radius_m": 3.5,
+      "frame": "wide_12x80_hub075",
+      "configuration": {
+        "spokes": 12,
+        "width": 0.08,
+        "ring": 0.75,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.67334,
+          "visible": 2758,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 462,
+            "visible": 2758
+          }
+        },
+        "NAV": {
+          "fraction": 0.675293,
+          "visible": 2766,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 456,
+            "visible": 2766
+          }
+        },
+        "S1": {
+          "fraction": 0.117188,
+          "visible": 180,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 12,
+            "visible": 180
+          }
+        },
+        "S2": {
+          "fraction": 0.116536,
+          "visible": 179,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 14,
+            "visible": 179
+          }
+        },
+        "S3": {
+          "fraction": 0.110026,
+          "visible": 169,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 7,
+            "visible": 169
+          }
+        },
+        "S4": {
+          "fraction": 0.113281,
+          "visible": 174,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 10,
+            "visible": 174
+          }
+        }
+      },
+      "pilot_NAV_min": 0.67334,
+      "support_min": 0.110026
+    },
+    "sparse_4x80__innerR3.5": {
+      "inner_radius_m": 3.5,
+      "frame": "sparse_4x80",
+      "configuration": {
+        "spokes": 4,
+        "width": 0.08,
+        "ring": 1.15,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.736572,
+          "visible": 3017,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 203,
+            "visible": 3017
+          }
+        },
+        "NAV": {
+          "fraction": 0.737793,
+          "visible": 3022,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 200,
+            "visible": 3022
+          }
+        },
+        "S1": {
+          "fraction": 0.122396,
+          "visible": 188,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 4,
+            "visible": 188
+          }
+        },
+        "S2": {
+          "fraction": 0.120443,
+          "visible": 185,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 8,
+            "visible": 185
+          }
+        },
+        "S3": {
+          "fraction": 0.111979,
+          "visible": 172,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 4,
+            "visible": 172
+          }
+        },
+        "S4": {
+          "fraction": 0.117188,
+          "visible": 180,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 4,
+            "visible": 180
+          }
+        }
+      },
+      "pilot_NAV_min": 0.736572,
+      "support_min": 0.111979
+    },
+    "rim_only_upper_bound__innerR3.5": {
+      "inner_radius_m": 3.5,
+      "frame": "rim_only_upper_bound",
+      "configuration": {
+        "spokes": 0,
+        "width": 0.02,
+        "ring": null,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.786133,
+          "visible": 3220,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 0,
+            "visible": 3220
+          }
+        },
+        "NAV": {
+          "fraction": 0.786621,
+          "visible": 3222,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 0,
+            "visible": 3222
+          }
+        },
+        "S1": {
+          "fraction": 0.125,
+          "visible": 192,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 0,
+            "visible": 192
+          }
+        },
+        "S2": {
+          "fraction": 0.125651,
+          "visible": 193,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 0,
+            "visible": 193
+          }
+        },
+        "S3": {
+          "fraction": 0.114583,
+          "visible": 176,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 0,
+            "visible": 176
+          }
+        },
+        "S4": {
+          "fraction": 0.119792,
+          "visible": 184,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 0,
+            "visible": 184
+          }
+        }
+      },
+      "pilot_NAV_min": 0.786133,
+      "support_min": 0.114583
+    },
+    "current_8x80__innerR3.65": {
+      "inner_radius_m": 3.65,
+      "frame": "current_8x80",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.08,
+        "ring": 1.15,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.725342,
+          "visible": 2971,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 249,
+            "visible": 2971
+          }
+        },
+        "NAV": {
+          "fraction": 0.726318,
+          "visible": 2975,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 247,
+            "visible": 2975
+          }
+        },
+        "S1": {
+          "fraction": 0.119141,
+          "visible": 183,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 9,
+            "visible": 183
+          }
+        },
+        "S2": {
+          "fraction": 0.119792,
+          "visible": 184,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 9,
+            "visible": 184
+          }
+        },
+        "S3": {
+          "fraction": 0.110677,
+          "visible": 170,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 6,
+            "visible": 170
+          }
+        },
+        "S4": {
+          "fraction": 0.114583,
+          "visible": 176,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 8,
+            "visible": 176
+          }
+        }
+      },
+      "pilot_NAV_min": 0.725342,
+      "support_min": 0.110677
+    },
+    "slim_8x40__innerR3.65": {
+      "inner_radius_m": 3.65,
+      "frame": "slim_8x40",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.04,
+        "ring": 1.15,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.757812,
+          "visible": 3104,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 116,
+            "visible": 3104
+          }
+        },
+        "NAV": {
+          "fraction": 0.758789,
+          "visible": 3108,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 114,
+            "visible": 3108
+          }
+        },
+        "S1": {
+          "fraction": 0.120443,
+          "visible": 185,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 7,
+            "visible": 185
+          }
+        },
+        "S2": {
+          "fraction": 0.123698,
+          "visible": 190,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 3,
+            "visible": 190
+          }
+        },
+        "S3": {
+          "fraction": 0.11263,
+          "visible": 173,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 3,
+            "visible": 173
+          }
+        },
+        "S4": {
+          "fraction": 0.116536,
+          "visible": 179,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 5,
+            "visible": 179
+          }
+        }
+      },
+      "pilot_NAV_min": 0.757812,
+      "support_min": 0.11263
+    },
+    "slim_8x40_hub075__innerR3.65": {
+      "inner_radius_m": 3.65,
+      "frame": "slim_8x40_hub075",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.04,
+        "ring": 0.75,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.740723,
+          "visible": 3034,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 186,
+            "visible": 3034
+          }
+        },
+        "NAV": {
+          "fraction": 0.739258,
+          "visible": 3028,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 194,
+            "visible": 3028
+          }
+        },
+        "S1": {
+          "fraction": 0.121745,
+          "visible": 187,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 5,
+            "visible": 187
+          }
+        },
+        "S2": {
+          "fraction": 0.125,
+          "visible": 192,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 1,
+            "visible": 192
+          }
+        },
+        "S3": {
+          "fraction": 0.113281,
+          "visible": 174,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 2,
+            "visible": 174
+          }
+        },
+        "S4": {
+          "fraction": 0.116536,
+          "visible": 179,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 5,
+            "visible": 179
+          }
+        }
+      },
+      "pilot_NAV_min": 0.739258,
+      "support_min": 0.113281
+    },
+    "slim_8x40_ring150__innerR3.65": {
+      "inner_radius_m": 3.65,
+      "frame": "slim_8x40_ring150",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.04,
+        "ring": 1.5,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.77002,
+          "visible": 3154,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 66,
+            "visible": 3154
+          }
+        },
+        "NAV": {
+          "fraction": 0.770508,
+          "visible": 3156,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 66,
+            "visible": 3156
+          }
+        },
+        "S1": {
+          "fraction": 0.121745,
+          "visible": 187,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 5,
+            "visible": 187
+          }
+        },
+        "S2": {
+          "fraction": 0.124349,
+          "visible": 191,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 2,
+            "visible": 191
+          }
+        },
+        "S3": {
+          "fraction": 0.113281,
+          "visible": 174,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 2,
+            "visible": 174
+          }
+        },
+        "S4": {
+          "fraction": 0.115885,
+          "visible": 178,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 6,
+            "visible": 178
+          }
+        }
+      },
+      "pilot_NAV_min": 0.77002,
+      "support_min": 0.113281
+    },
+    "slim_8x40_ring200__innerR3.65": {
+      "inner_radius_m": 3.65,
+      "frame": "slim_8x40_ring200",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.04,
+        "ring": 2.0,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.7771,
+          "visible": 3183,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 37,
+            "visible": 3183
+          }
+        },
+        "NAV": {
+          "fraction": 0.777832,
+          "visible": 3186,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 36,
+            "visible": 3186
+          }
+        },
+        "S1": {
+          "fraction": 0.121745,
+          "visible": 187,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 5,
+            "visible": 187
+          }
+        },
+        "S2": {
+          "fraction": 0.122396,
+          "visible": 188,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 5,
+            "visible": 188
+          }
+        },
+        "S3": {
+          "fraction": 0.111979,
+          "visible": 172,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 4,
+            "visible": 172
+          }
+        },
+        "S4": {
+          "fraction": 0.114583,
+          "visible": 176,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 8,
+            "visible": 176
+          }
+        }
+      },
+      "pilot_NAV_min": 0.7771,
+      "support_min": 0.111979
+    },
+    "slim_8x40_ring300_bound__innerR3.65": {
+      "inner_radius_m": 3.65,
+      "frame": "slim_8x40_ring300_bound",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.04,
+        "ring": 3.0,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.786133,
+          "visible": 3220,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 0,
+            "visible": 3220
+          }
+        },
+        "NAV": {
+          "fraction": 0.786621,
+          "visible": 3222,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 0,
+            "visible": 3222
+          }
+        },
+        "S1": {
+          "fraction": 0.121745,
+          "visible": 187,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 5,
+            "visible": 187
+          }
+        },
+        "S2": {
+          "fraction": 0.123698,
+          "visible": 190,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 3,
+            "visible": 190
+          }
+        },
+        "S3": {
+          "fraction": 0.113932,
+          "visible": 175,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 1,
+            "visible": 175
+          }
+        },
+        "S4": {
+          "fraction": 0.116536,
+          "visible": 179,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 5,
+            "visible": 179
+          }
+        }
+      },
+      "pilot_NAV_min": 0.786133,
+      "support_min": 0.113932
+    },
+    "current_width_8x80_ring200__innerR3.65": {
+      "inner_radius_m": 3.65,
+      "frame": "current_width_8x80_ring200",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.08,
+        "ring": 2.0,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.766846,
+          "visible": 3141,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 79,
+            "visible": 3141
+          }
+        },
+        "NAV": {
+          "fraction": 0.765869,
+          "visible": 3137,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 85,
+            "visible": 3137
+          }
+        },
+        "S1": {
+          "fraction": 0.121094,
+          "visible": 186,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 6,
+            "visible": 186
+          }
+        },
+        "S2": {
+          "fraction": 0.119141,
+          "visible": 183,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 10,
+            "visible": 183
+          }
+        },
+        "S3": {
+          "fraction": 0.110026,
+          "visible": 169,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 7,
+            "visible": 169
+          }
+        },
+        "S4": {
+          "fraction": 0.111328,
+          "visible": 171,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 13,
+            "visible": 171
+          }
+        }
+      },
+      "pilot_NAV_min": 0.765869,
+      "support_min": 0.110026
+    },
+    "slim_12x40_hub075__innerR3.65": {
+      "inner_radius_m": 3.65,
+      "frame": "slim_12x40_hub075",
+      "configuration": {
+        "spokes": 12,
+        "width": 0.04,
+        "ring": 0.75,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.729248,
+          "visible": 2987,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 233,
+            "visible": 2987
+          }
+        },
+        "NAV": {
+          "fraction": 0.731201,
+          "visible": 2995,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 227,
+            "visible": 2995
+          }
+        },
+        "S1": {
+          "fraction": 0.121745,
+          "visible": 187,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 5,
+            "visible": 187
+          }
+        },
+        "S2": {
+          "fraction": 0.122396,
+          "visible": 188,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 5,
+            "visible": 188
+          }
+        },
+        "S3": {
+          "fraction": 0.111328,
+          "visible": 171,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 5,
+            "visible": 171
+          }
+        },
+        "S4": {
+          "fraction": 0.115234,
+          "visible": 177,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 7,
+            "visible": 177
+          }
+        }
+      },
+      "pilot_NAV_min": 0.729248,
+      "support_min": 0.111328
+    },
+    "slim_12x40_hub075_rot15__innerR3.65": {
+      "inner_radius_m": 3.65,
+      "frame": "slim_12x40_hub075_rot15",
+      "configuration": {
+        "spokes": 12,
+        "width": 0.04,
+        "ring": 0.75,
+        "rotation_deg": 15
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.729004,
+          "visible": 2986,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 234,
+            "visible": 2986
+          }
+        },
+        "NAV": {
+          "fraction": 0.725586,
+          "visible": 2972,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 250,
+            "visible": 2972
+          }
+        },
+        "S1": {
+          "fraction": 0.121745,
+          "visible": 187,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 5,
+            "visible": 187
+          }
+        },
+        "S2": {
+          "fraction": 0.122396,
+          "visible": 188,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 5,
+            "visible": 188
+          }
+        },
+        "S3": {
+          "fraction": 0.110026,
+          "visible": 169,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 7,
+            "visible": 169
+          }
+        },
+        "S4": {
+          "fraction": 0.114583,
+          "visible": 176,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 8,
+            "visible": 176
+          }
+        }
+      },
+      "pilot_NAV_min": 0.725586,
+      "support_min": 0.110026
+    },
+    "wide_12x80_hub075__innerR3.65": {
+      "inner_radius_m": 3.65,
+      "frame": "wide_12x80_hub075",
+      "configuration": {
+        "spokes": 12,
+        "width": 0.08,
+        "ring": 0.75,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.67334,
+          "visible": 2758,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 462,
+            "visible": 2758
+          }
+        },
+        "NAV": {
+          "fraction": 0.675293,
+          "visible": 2766,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 456,
+            "visible": 2766
+          }
+        },
+        "S1": {
+          "fraction": 0.117839,
+          "visible": 181,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 11,
+            "visible": 181
+          }
+        },
+        "S2": {
+          "fraction": 0.117839,
+          "visible": 181,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 12,
+            "visible": 181
+          }
+        },
+        "S3": {
+          "fraction": 0.110677,
+          "visible": 170,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 6,
+            "visible": 170
+          }
+        },
+        "S4": {
+          "fraction": 0.113932,
+          "visible": 175,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 9,
+            "visible": 175
+          }
+        }
+      },
+      "pilot_NAV_min": 0.67334,
+      "support_min": 0.110677
+    },
+    "sparse_4x80__innerR3.65": {
+      "inner_radius_m": 3.65,
+      "frame": "sparse_4x80",
+      "configuration": {
+        "spokes": 4,
+        "width": 0.08,
+        "ring": 1.15,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.736572,
+          "visible": 3017,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 203,
+            "visible": 3017
+          }
+        },
+        "NAV": {
+          "fraction": 0.737793,
+          "visible": 3022,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 200,
+            "visible": 3022
+          }
+        },
+        "S1": {
+          "fraction": 0.123047,
+          "visible": 189,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 3,
+            "visible": 189
+          }
+        },
+        "S2": {
+          "fraction": 0.121745,
+          "visible": 187,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 6,
+            "visible": 187
+          }
+        },
+        "S3": {
+          "fraction": 0.11263,
+          "visible": 173,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 3,
+            "visible": 173
+          }
+        },
+        "S4": {
+          "fraction": 0.117839,
+          "visible": 181,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 3,
+            "visible": 181
+          }
+        }
+      },
+      "pilot_NAV_min": 0.736572,
+      "support_min": 0.11263
+    },
+    "rim_only_upper_bound__innerR3.65": {
+      "inner_radius_m": 3.65,
+      "frame": "rim_only_upper_bound",
+      "configuration": {
+        "spokes": 0,
+        "width": 0.02,
+        "ring": null,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.786133,
+          "visible": 3220,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 0,
+            "visible": 3220
+          }
+        },
+        "NAV": {
+          "fraction": 0.786621,
+          "visible": 3222,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 0,
+            "visible": 3222
+          }
+        },
+        "S1": {
+          "fraction": 0.125,
+          "visible": 192,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 0,
+            "visible": 192
+          }
+        },
+        "S2": {
+          "fraction": 0.125651,
+          "visible": 193,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 0,
+            "visible": 193
+          }
+        },
+        "S3": {
+          "fraction": 0.114583,
+          "visible": 176,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 0,
+            "visible": 176
+          }
+        },
+        "S4": {
+          "fraction": 0.119792,
+          "visible": 184,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 0,
+            "visible": 184
+          }
+        }
+      },
+      "pilot_NAV_min": 0.786133,
+      "support_min": 0.114583
+    },
+    "current_8x80__innerR3.8": {
+      "inner_radius_m": 3.8,
+      "frame": "current_8x80",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.08,
+        "ring": 1.15,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.725342,
+          "visible": 2971,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 249,
+            "visible": 2971
+          }
+        },
+        "NAV": {
+          "fraction": 0.726318,
+          "visible": 2975,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 247,
+            "visible": 2975
+          }
+        },
+        "S1": {
+          "fraction": 0.119141,
+          "visible": 183,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 9,
+            "visible": 183
+          }
+        },
+        "S2": {
+          "fraction": 0.119792,
+          "visible": 184,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 9,
+            "visible": 184
+          }
+        },
+        "S3": {
+          "fraction": 0.110677,
+          "visible": 170,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 6,
+            "visible": 170
+          }
+        },
+        "S4": {
+          "fraction": 0.114583,
+          "visible": 176,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 8,
+            "visible": 176
+          }
+        }
+      },
+      "pilot_NAV_min": 0.725342,
+      "support_min": 0.110677
+    },
+    "slim_8x40__innerR3.8": {
+      "inner_radius_m": 3.8,
+      "frame": "slim_8x40",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.04,
+        "ring": 1.15,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.757812,
+          "visible": 3104,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 116,
+            "visible": 3104
+          }
+        },
+        "NAV": {
+          "fraction": 0.758789,
+          "visible": 3108,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 114,
+            "visible": 3108
+          }
+        },
+        "S1": {
+          "fraction": 0.120443,
+          "visible": 185,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 7,
+            "visible": 185
+          }
+        },
+        "S2": {
+          "fraction": 0.123698,
+          "visible": 190,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 3,
+            "visible": 190
+          }
+        },
+        "S3": {
+          "fraction": 0.11263,
+          "visible": 173,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 3,
+            "visible": 173
+          }
+        },
+        "S4": {
+          "fraction": 0.116536,
+          "visible": 179,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 5,
+            "visible": 179
+          }
+        }
+      },
+      "pilot_NAV_min": 0.757812,
+      "support_min": 0.11263
+    },
+    "slim_8x40_hub075__innerR3.8": {
+      "inner_radius_m": 3.8,
+      "frame": "slim_8x40_hub075",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.04,
+        "ring": 0.75,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.740723,
+          "visible": 3034,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 186,
+            "visible": 3034
+          }
+        },
+        "NAV": {
+          "fraction": 0.739258,
+          "visible": 3028,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 194,
+            "visible": 3028
+          }
+        },
+        "S1": {
+          "fraction": 0.121745,
+          "visible": 187,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 5,
+            "visible": 187
+          }
+        },
+        "S2": {
+          "fraction": 0.125,
+          "visible": 192,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 1,
+            "visible": 192
+          }
+        },
+        "S3": {
+          "fraction": 0.113281,
+          "visible": 174,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 2,
+            "visible": 174
+          }
+        },
+        "S4": {
+          "fraction": 0.116536,
+          "visible": 179,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 5,
+            "visible": 179
+          }
+        }
+      },
+      "pilot_NAV_min": 0.739258,
+      "support_min": 0.113281
+    },
+    "slim_8x40_ring150__innerR3.8": {
+      "inner_radius_m": 3.8,
+      "frame": "slim_8x40_ring150",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.04,
+        "ring": 1.5,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.77002,
+          "visible": 3154,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 66,
+            "visible": 3154
+          }
+        },
+        "NAV": {
+          "fraction": 0.770508,
+          "visible": 3156,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 66,
+            "visible": 3156
+          }
+        },
+        "S1": {
+          "fraction": 0.121745,
+          "visible": 187,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 5,
+            "visible": 187
+          }
+        },
+        "S2": {
+          "fraction": 0.124349,
+          "visible": 191,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 2,
+            "visible": 191
+          }
+        },
+        "S3": {
+          "fraction": 0.113281,
+          "visible": 174,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 2,
+            "visible": 174
+          }
+        },
+        "S4": {
+          "fraction": 0.115885,
+          "visible": 178,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 6,
+            "visible": 178
+          }
+        }
+      },
+      "pilot_NAV_min": 0.77002,
+      "support_min": 0.113281
+    },
+    "slim_8x40_ring200__innerR3.8": {
+      "inner_radius_m": 3.8,
+      "frame": "slim_8x40_ring200",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.04,
+        "ring": 2.0,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.7771,
+          "visible": 3183,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 37,
+            "visible": 3183
+          }
+        },
+        "NAV": {
+          "fraction": 0.777832,
+          "visible": 3186,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 36,
+            "visible": 3186
+          }
+        },
+        "S1": {
+          "fraction": 0.121745,
+          "visible": 187,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 5,
+            "visible": 187
+          }
+        },
+        "S2": {
+          "fraction": 0.122396,
+          "visible": 188,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 5,
+            "visible": 188
+          }
+        },
+        "S3": {
+          "fraction": 0.111979,
+          "visible": 172,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 4,
+            "visible": 172
+          }
+        },
+        "S4": {
+          "fraction": 0.114583,
+          "visible": 176,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 8,
+            "visible": 176
+          }
+        }
+      },
+      "pilot_NAV_min": 0.7771,
+      "support_min": 0.111979
+    },
+    "slim_8x40_ring300_bound__innerR3.8": {
+      "inner_radius_m": 3.8,
+      "frame": "slim_8x40_ring300_bound",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.04,
+        "ring": 3.0,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.786133,
+          "visible": 3220,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 0,
+            "visible": 3220
+          }
+        },
+        "NAV": {
+          "fraction": 0.786621,
+          "visible": 3222,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 0,
+            "visible": 3222
+          }
+        },
+        "S1": {
+          "fraction": 0.121745,
+          "visible": 187,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 5,
+            "visible": 187
+          }
+        },
+        "S2": {
+          "fraction": 0.123698,
+          "visible": 190,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 3,
+            "visible": 190
+          }
+        },
+        "S3": {
+          "fraction": 0.113932,
+          "visible": 175,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 1,
+            "visible": 175
+          }
+        },
+        "S4": {
+          "fraction": 0.116536,
+          "visible": 179,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 5,
+            "visible": 179
+          }
+        }
+      },
+      "pilot_NAV_min": 0.786133,
+      "support_min": 0.113932
+    },
+    "current_width_8x80_ring200__innerR3.8": {
+      "inner_radius_m": 3.8,
+      "frame": "current_width_8x80_ring200",
+      "configuration": {
+        "spokes": 8,
+        "width": 0.08,
+        "ring": 2.0,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.766846,
+          "visible": 3141,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 79,
+            "visible": 3141
+          }
+        },
+        "NAV": {
+          "fraction": 0.765869,
+          "visible": 3137,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 85,
+            "visible": 3137
+          }
+        },
+        "S1": {
+          "fraction": 0.121094,
+          "visible": 186,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 6,
+            "visible": 186
+          }
+        },
+        "S2": {
+          "fraction": 0.119141,
+          "visible": 183,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 10,
+            "visible": 183
+          }
+        },
+        "S3": {
+          "fraction": 0.110026,
+          "visible": 169,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 7,
+            "visible": 169
+          }
+        },
+        "S4": {
+          "fraction": 0.111328,
+          "visible": 171,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 13,
+            "visible": 171
+          }
+        }
+      },
+      "pilot_NAV_min": 0.765869,
+      "support_min": 0.110026
+    },
+    "slim_12x40_hub075__innerR3.8": {
+      "inner_radius_m": 3.8,
+      "frame": "slim_12x40_hub075",
+      "configuration": {
+        "spokes": 12,
+        "width": 0.04,
+        "ring": 0.75,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.729248,
+          "visible": 2987,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 233,
+            "visible": 2987
+          }
+        },
+        "NAV": {
+          "fraction": 0.731201,
+          "visible": 2995,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 227,
+            "visible": 2995
+          }
+        },
+        "S1": {
+          "fraction": 0.121745,
+          "visible": 187,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 5,
+            "visible": 187
+          }
+        },
+        "S2": {
+          "fraction": 0.122396,
+          "visible": 188,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 5,
+            "visible": 188
+          }
+        },
+        "S3": {
+          "fraction": 0.111328,
+          "visible": 171,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 5,
+            "visible": 171
+          }
+        },
+        "S4": {
+          "fraction": 0.115234,
+          "visible": 177,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 7,
+            "visible": 177
+          }
+        }
+      },
+      "pilot_NAV_min": 0.729248,
+      "support_min": 0.111328
+    },
+    "slim_12x40_hub075_rot15__innerR3.8": {
+      "inner_radius_m": 3.8,
+      "frame": "slim_12x40_hub075_rot15",
+      "configuration": {
+        "spokes": 12,
+        "width": 0.04,
+        "ring": 0.75,
+        "rotation_deg": 15
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.729004,
+          "visible": 2986,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 234,
+            "visible": 2986
+          }
+        },
+        "NAV": {
+          "fraction": 0.725586,
+          "visible": 2972,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 250,
+            "visible": 2972
+          }
+        },
+        "S1": {
+          "fraction": 0.121745,
+          "visible": 187,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 5,
+            "visible": 187
+          }
+        },
+        "S2": {
+          "fraction": 0.122396,
+          "visible": 188,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 5,
+            "visible": 188
+          }
+        },
+        "S3": {
+          "fraction": 0.110026,
+          "visible": 169,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 7,
+            "visible": 169
+          }
+        },
+        "S4": {
+          "fraction": 0.114583,
+          "visible": 176,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 8,
+            "visible": 176
+          }
+        }
+      },
+      "pilot_NAV_min": 0.725586,
+      "support_min": 0.110026
+    },
+    "wide_12x80_hub075__innerR3.8": {
+      "inner_radius_m": 3.8,
+      "frame": "wide_12x80_hub075",
+      "configuration": {
+        "spokes": 12,
+        "width": 0.08,
+        "ring": 0.75,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.67334,
+          "visible": 2758,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 462,
+            "visible": 2758
+          }
+        },
+        "NAV": {
+          "fraction": 0.675293,
+          "visible": 2766,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 456,
+            "visible": 2766
+          }
+        },
+        "S1": {
+          "fraction": 0.117839,
+          "visible": 181,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 11,
+            "visible": 181
+          }
+        },
+        "S2": {
+          "fraction": 0.117839,
+          "visible": 181,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 12,
+            "visible": 181
+          }
+        },
+        "S3": {
+          "fraction": 0.110677,
+          "visible": 170,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 6,
+            "visible": 170
+          }
+        },
+        "S4": {
+          "fraction": 0.113932,
+          "visible": 175,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 9,
+            "visible": 175
+          }
+        }
+      },
+      "pilot_NAV_min": 0.67334,
+      "support_min": 0.110677
+    },
+    "sparse_4x80__innerR3.8": {
+      "inner_radius_m": 3.8,
+      "frame": "sparse_4x80",
+      "configuration": {
+        "spokes": 4,
+        "width": 0.08,
+        "ring": 1.15,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.736572,
+          "visible": 3017,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 203,
+            "visible": 3017
+          }
+        },
+        "NAV": {
+          "fraction": 0.737793,
+          "visible": 3022,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 200,
+            "visible": 3022
+          }
+        },
+        "S1": {
+          "fraction": 0.123047,
+          "visible": 189,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 3,
+            "visible": 189
+          }
+        },
+        "S2": {
+          "fraction": 0.121745,
+          "visible": 187,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 6,
+            "visible": 187
+          }
+        },
+        "S3": {
+          "fraction": 0.11263,
+          "visible": 173,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 3,
+            "visible": 173
+          }
+        },
+        "S4": {
+          "fraction": 0.117839,
+          "visible": 181,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 3,
+            "visible": 181
+          }
+        }
+      },
+      "pilot_NAV_min": 0.736572,
+      "support_min": 0.11263
+    },
+    "rim_only_upper_bound__innerR3.8": {
+      "inner_radius_m": 3.8,
+      "frame": "rim_only_upper_bound",
+      "configuration": {
+        "spokes": 0,
+        "width": 0.02,
+        "ring": null,
+        "rotation_deg": 0
+      },
+      "stations": {
+        "PILOT": {
+          "fraction": 0.786133,
+          "visible": 3220,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 223,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 72,
+            "sensor": 0,
+            "interior": 581,
+            "inner_frame": 0,
+            "visible": 3220
+          }
+        },
+        "NAV": {
+          "fraction": 0.786621,
+          "visible": 3222,
+          "sample_count": 4096,
+          "blockage_breakdown": {
+            "geometry": 0,
+            "exterior_opaque": 224,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 71,
+            "sensor": 0,
+            "interior": 579,
+            "inner_frame": 0,
+            "visible": 3222
+          }
+        },
+        "S1": {
+          "fraction": 0.125,
+          "visible": 192,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 458,
+            "exterior_opaque": 651,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 3,
+            "sensor": 83,
+            "interior": 149,
+            "inner_frame": 0,
+            "visible": 192
+          }
+        },
+        "S2": {
+          "fraction": 0.125651,
+          "visible": 193,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 457,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 5,
+            "sensor": 85,
+            "interior": 146,
+            "inner_frame": 0,
+            "visible": 193
+          }
+        },
+        "S3": {
+          "fraction": 0.114583,
+          "visible": 176,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 456,
+            "exterior_opaque": 650,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 8,
+            "sensor": 84,
+            "interior": 162,
+            "inner_frame": 0,
+            "visible": 176
+          }
+        },
+        "S4": {
+          "fraction": 0.119792,
+          "visible": 184,
+          "sample_count": 1536,
+          "blockage_breakdown": {
+            "geometry": 459,
+            "exterior_opaque": 649,
+            "inner_pressure_opaque": 0,
+            "held_37_outer_seams": 11,
+            "sensor": 80,
+            "interior": 153,
+            "inner_frame": 0,
+            "visible": 184
+          }
+        }
+      },
+      "pilot_NAV_min": 0.786133,
+      "support_min": 0.114583
+    }
+  },
+  "limits": [
+    "Only ray geometry; no optical refraction, reflection, stress/fracture or pressure qualification",
+    "Outer 37 tile geometry and 10mm opaque seam, actual seat eyes and source sensor/furniture unchanged",
+    "Inner opaque-to-transparent substitutions at r3.65 and r3.8 are structural pressure hull changes even though ellipsoid surface stays fixed",
+    "Slimmer or fewer inner support members are view upper bounds, not structurally earned",
+    "Inner pressure framing must be independently load bearing; do not pretend outer protective tile joints support cabin pressure",
+    "Source classifies frames at pressure opening; supporting frames and mounts are only assumed line bands, not actual geometry",
+    "At this sample density, absolute percentages differ from previous coarse 256-ray evaluations",
+    "No changes to governing source or crew interior"
+  ]
+}
