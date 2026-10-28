@@ -1,0 +1,168 @@
+{
+  "status": "NON-GOVERNING, NECESSARY STOWAGE CHECK ONLY",
+  "source_sha": "3485830a56dfead79b2ef8bba031a595b536fbb5",
+  "assumptions": {
+    "areal_kg_m2": 270.0,
+    "effective_density_kg_m3": 1375.0,
+    "outer_r_m": 4.5,
+    "pressure_r_m": 4.3
+  },
+  "models": [
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown_r_m": 3.0,
+      "exterior_coverage_m2": 33.52,
+      "exterior_annulus_m2": 43.15,
+      "exterior_annulus_area_margin_m2": 9.63,
+      "exterior_annulus_area_ratio": 1.287,
+      "shutter_meridian_m": 3.397,
+      "stow_meridian_m": 1.831,
+      "minimum_radial_stow_layers": 2,
+      "layer_equivalent_thickness_m": 0.1964,
+      "shutter_material_t": 9.05,
+      "shutter_material_m3": 6.58,
+      "minimum_pressure_clearance_m_by_layers": [
+        0.0508,
+        -0.1889,
+        -0.4286,
+        -0.6683
+      ],
+      "inward_stow_min_layers_clear_pressure": false,
+      "nominal_outward_extra_diameter_m": 0.225,
+      "node_ring_0_count": 16,
+      "node_ring_0_x_m": 2.05,
+      "node_ring_0_radial_m": 4.463,
+      "no_swept_volume_proof": true
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown_r_m": 3.2,
+      "exterior_coverage_m2": 38.27,
+      "exterior_annulus_m2": 38.39,
+      "exterior_annulus_area_margin_m2": 0.12,
+      "exterior_annulus_area_ratio": 1.003,
+      "shutter_meridian_m": 3.642,
+      "stow_meridian_m": 1.587,
+      "minimum_radial_stow_layers": 3,
+      "layer_equivalent_thickness_m": 0.1964,
+      "shutter_material_t": 10.33,
+      "shutter_material_m3": 7.51,
+      "minimum_pressure_clearance_m_by_layers": [
+        0.0508,
+        -0.1889,
+        -0.4286,
+        -0.6683
+      ],
+      "inward_stow_min_layers_clear_pressure": false,
+      "nominal_outward_extra_diameter_m": 0.225,
+      "node_ring_0_count": 16,
+      "node_ring_0_x_m": 2.05,
+      "node_ring_0_radial_m": 4.463,
+      "no_swept_volume_proof": true
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown_r_m": 3.5,
+      "exterior_coverage_m2": 45.98,
+      "exterior_annulus_m2": 30.68,
+      "exterior_annulus_area_margin_m2": -15.3,
+      "exterior_annulus_area_ratio": 0.667,
+      "shutter_meridian_m": 4.008,
+      "stow_meridian_m": 1.221,
+      "minimum_radial_stow_layers": 4,
+      "layer_equivalent_thickness_m": 0.1964,
+      "shutter_material_t": 12.41,
+      "shutter_material_m3": 9.03,
+      "minimum_pressure_clearance_m_by_layers": [
+        0.0508,
+        -0.1889,
+        -0.4286,
+        -0.6683
+      ],
+      "inward_stow_min_layers_clear_pressure": false,
+      "nominal_outward_extra_diameter_m": 0.225,
+      "node_ring_0_count": 16,
+      "node_ring_0_x_m": 2.05,
+      "node_ring_0_radial_m": 4.463,
+      "no_swept_volume_proof": true
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown_r_m": 3.2,
+      "exterior_coverage_m2": 43.07,
+      "exterior_annulus_m2": 48.92,
+      "exterior_annulus_area_margin_m2": 5.85,
+      "exterior_annulus_area_ratio": 1.136,
+      "shutter_meridian_m": 3.867,
+      "stow_meridian_m": 2.022,
+      "minimum_radial_stow_layers": 2,
+      "layer_equivalent_thickness_m": 0.1964,
+      "shutter_material_t": 11.63,
+      "shutter_material_m3": 8.46,
+      "minimum_pressure_clearance_m_by_layers": [
+        0.0707,
+        -0.2348,
+        -0.5402,
+        -0.8416
+      ],
+      "inward_stow_min_layers_clear_pressure": false,
+      "nominal_outward_extra_diameter_m": 0.301,
+      "node_ring_0_count": 16,
+      "node_ring_0_x_m": 2.05,
+      "node_ring_0_radial_m": 4.463,
+      "no_swept_volume_proof": true
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown_r_m": 3.5,
+      "exterior_coverage_m2": 52.89,
+      "exterior_annulus_m2": 39.1,
+      "exterior_annulus_area_margin_m2": -13.79,
+      "exterior_annulus_area_ratio": 0.739,
+      "shutter_meridian_m": 4.334,
+      "stow_meridian_m": 1.556,
+      "minimum_radial_stow_layers": 3,
+      "layer_equivalent_thickness_m": 0.1964,
+      "shutter_material_t": 14.28,
+      "shutter_material_m3": 10.39,
+      "minimum_pressure_clearance_m_by_layers": [
+        0.0707,
+        -0.2348,
+        -0.5402,
+        -0.8416
+      ],
+      "inward_stow_min_layers_clear_pressure": false,
+      "nominal_outward_extra_diameter_m": 0.301,
+      "node_ring_0_count": 16,
+      "node_ring_0_x_m": 2.05,
+      "node_ring_0_radial_m": 4.463,
+      "no_swept_volume_proof": true
+    }
+  ],
+  "limitations": [
+    "Areal and meridional capacity are only necessary constraints",
+    "Stacking test assumes armour equivalent density and sliding normal to 35/50 degree facets",
+    "Original nodes are treated as exclusion-risk evidence, not full body solids",
+    "No shutter kinematics, actuator, seal, track, spall containment, or ballistic qualification"
+  ]
+}
