@@ -1,0 +1,182 @@
+{
+  "classification": "RESEARCH NON-CANON NON-GOVERNING NO FEA NO WINDOW QUALIFICATION",
+  "upstream_PR432_source": "3485830a56dfead79b2ef8bba031a595b536fbb5",
+  "held_outer_37_panels": {
+    "type": "radial",
+    "rings": [
+      0.0,
+      0.75,
+      2.0,
+      2.75,
+      3.5
+    ],
+    "ns": [
+      1,
+      12,
+      12,
+      12
+    ],
+    "offsets": [
+      0,
+      0,
+      0,
+      0.2617993877991494
+    ]
+  },
+  "pressure_assumption": "101.3 kPa from source L4/L5 crew isolation setpoint used as analog, not independently verified for L1",
+  "acceleration_assumption": "4 g from crew accel_doctrine sustained cap, NOT a quantified dome support load case",
+  "prior_inner_2p13t_pressure_panes_based_on_25m2": true,
+  "geometry": {
+    "pressure_shape_a_m": 4.3,
+    "pressure_shape_b_m": 2.15,
+    "transparent_radius_m": 3.5,
+    "projected_aperture_m2": 38.48451000647496,
+    "curved_surface_m2": 41.383299001689764,
+    "axial_pressure_resultant_MN": 3.898480863655914,
+    "perimeter_ring_circumference_m": 21.991148575128552,
+    "max_abs_membrane_N_per_m": 435589.9999991165,
+    "station_membrane": {
+      "0.0": {
+        "r_m": 1e-05,
+        "meridional_membrane_N_per_m": 435589.9999991165,
+        "hoop_membrane_N_per_m": 435589.99999734963,
+        "meridian_radius_curvature_m": 8.599999999947674,
+        "hoop_radius_curvature_m": 8.599999999982556,
+        "surface_slope_dx_dr": 1.1627906976775632e-06
+      },
+      "1.0": {
+        "r_m": 1.0001321425,
+        "meridional_membrane_N_per_m": 426661.86431125324,
+        "hoop_membrane_N_per_m": 408618.7667523169,
+        "meridian_radius_curvature_m": 8.081951287717079,
+        "hoop_radius_curvature_m": 8.423728811673312,
+        "surface_slope_dx_dr": 0.11957372700942841
+      },
+      "2.0": {
+        "r_m": 1.9999626191666666,
+        "meridional_membrane_N_per_m": 398691.27010861,
+        "hoop_membrane_N_per_m": 321478.84649372293,
+        "meridian_radius_curvature_m": 6.5943945408449505,
+        "hoop_radius_curvature_m": 7.8714959547603165,
+        "surface_slope_dx_dr": 0.26269720332974233
+      },
+      "3.0": {
+        "r_m": 3.0000847616666664,
+        "meridional_membrane_N_per_m": 347085.47427678877,
+        "hoop_membrane_N_per_m": 147508.34766152783,
+        "meridian_radius_curvature_m": 4.350849532811711,
+        "hoop_radius_curvature_m": 6.85262535590896,
+        "surface_slope_dx_dr": 0.4869474104096592
+      },
+      "3.5": {
+        "r_m": 3.5,
+        "meridional_membrane_N_per_m": 308965.00000000006,
+        "hoop_membrane_N_per_m": 3819.5081967208644,
+        "meridian_radius_curvature_m": 3.0689697133585705,
+        "hoop_radius_curvature_m": 6.100000000000001,
+        "surface_slope_dx_dr": 0.7005606728972562
+      }
+    },
+    "all_meridional_tension": true,
+    "all_hoop_tension": true,
+    "max_radial_bending_source": "Membrane idealization deliberately EXCLUDES boundary-bending stress, thermal mismatch, flange fasteners and pressure load redistribution"
+  },
+  "material_sensitivity": {
+    "fused_silica": {
+      "normal_thickness_m_at_source_areal_mass": 0.03855203619909502,
+      "full_single_dome_mass_t": 3.525857074943968,
+      "source_like_areal_mass_kg_m2": 85.2,
+      "ideal_pressure_max_membrane_stress_MPa": 11.298754694812763,
+      "acceleration_4g_normal_inertial_pressure_proxy_kPa": 3.34210632,
+      "incremental_ideal_4g_membrane_stress_if_aligned_MPa": 0.3727703797992439,
+      "fully_constrained_thermal_stress_proxy_MPa_by_delta_T_K": {
+        "10": 0.4777710843373494,
+        "20": 0.9555421686746988,
+        "40": 1.9110843373493975
+      },
+      "mode_I_surface_flaw_critical_length_mm_pressure_only": 1.1180866165918744,
+      "mode_I_surface_flaw_critical_length_mm_pressure_plus_20K_fully_clamped_upper_proxy": 0.9505168382201258,
+      "fully_independent_two_panes_each_same_thickness_mass_t": 7.051714149887936,
+      "half_source_mass_per_pane_dual_case_pressure_stress_MPa": 22.597509389625525,
+      "ideal_t_for_5_MPa_MPa_tension_m": 0.08711799999982331,
+      "ideal_t_for_10_MPa_MPa_tension_m": 0.043558999999911654,
+      "ideal_t_for_20_MPa_MPa_tension_m": 0.021779499999955827,
+      "source_properties": {
+        "density_kg_m3": 2210,
+        "elastic_modulus_GPa": 72.1,
+        "poisson": 0.17,
+        "cte_micro_per_K": 0.55,
+        "KIC_MPa_sqrt_m": 0.75,
+        "source": "NIST ceramics data portal / NASA ISS fused silica window fracture paper; density common reference"
+      }
+    },
+    "transparent_spinel": {
+      "normal_thickness_m_at_source_areal_mass": 0.023798882681564246,
+      "full_single_dome_mass_t": 3.525857074943968,
+      "source_like_areal_mass_kg_m2": 85.2,
+      "ideal_pressure_max_membrane_stress_MPa": 18.30296009385959,
+      "acceleration_4g_normal_inertial_pressure_proxy_kPa": 3.34210632,
+      "incremental_ideal_4g_membrane_stress_if_aligned_MPa": 0.6038542803987752,
+      "fully_constrained_thermal_stress_proxy_MPa_by_delta_T_K": {
+        "10": 21.606756756756756,
+        "20": 43.21351351351351,
+        "40": 86.42702702702702
+      },
+      "mode_I_surface_flaw_critical_length_mm_pressure_only": 2.7345043478581816,
+      "mode_I_surface_flaw_critical_length_mm_pressure_plus_20K_fully_clamped_upper_proxy": 0.24206857865657014,
+      "fully_independent_two_panes_each_same_thickness_mass_t": 7.051714149887936,
+      "half_source_mass_per_pane_dual_case_pressure_stress_MPa": 36.60592018771918,
+      "ideal_t_for_5_MPa_MPa_tension_m": 0.08711799999982331,
+      "ideal_t_for_10_MPa_MPa_tension_m": 0.043558999999911654,
+      "ideal_t_for_20_MPa_MPa_tension_m": 0.021779499999955827,
+      "source_properties": {
+        "density_kg_m3": 3580,
+        "elastic_modulus_GPa": 271,
+        "poisson": 0.26,
+        "cte_micro_per_K": 5.9,
+        "KIC_MPa_sqrt_m": 1.9,
+        "source": "NRL Optica optical ceramics published table (2015)"
+      }
+    },
+    "ALON": {
+      "normal_thickness_m_at_source_areal_mass": 0.02259946949602122,
+      "full_single_dome_mass_t": 3.525857074943968,
+      "source_like_areal_mass_kg_m2": 85.2,
+      "ideal_pressure_max_membrane_stress_MPa": 19.27434624409236,
+      "acceleration_4g_normal_inertial_pressure_proxy_kPa": 3.34210632,
+      "incremental_ideal_4g_membrane_stress_if_aligned_MPa": 0.6359024125987102,
+      "fully_constrained_thermal_stress_proxy_MPa_by_delta_T_K": {
+        "10": 24.224999999999998,
+        "20": 48.449999999999996,
+        "40": 96.89999999999999
+      },
+      "mode_I_surface_flaw_critical_length_mm_pressure_only": 1.3387850085396773,
+      "mode_I_surface_flaw_critical_length_mm_pressure_plus_20K_fully_clamped_upper_proxy": 0.10843775319583118,
+      "fully_independent_two_panes_each_same_thickness_mass_t": 7.051714149887936,
+      "half_source_mass_per_pane_dual_case_pressure_stress_MPa": 38.54869248818472,
+      "ideal_t_for_5_MPa_MPa_tension_m": 0.08711799999982331,
+      "ideal_t_for_10_MPa_MPa_tension_m": 0.043558999999911654,
+      "ideal_t_for_20_MPa_MPa_tension_m": 0.021779499999955827,
+      "source_properties": {
+        "density_kg_m3": 3770,
+        "elastic_modulus_GPa": 323,
+        "poisson": 0.24,
+        "cte_micro_per_K": 5.7,
+        "KIC_MPa_sqrt_m": 1.4,
+        "source": "NRL Optica optical ceramics published table (2015): 3.77 g/cm3, grain/process variable"
+      }
+    }
+  },
+  "cautions": [
+    "Linear thin-shell axisymmetric membrane equilibrium ignores bending stresses and stress concentrations at perimeter supports, joints and thermal gradients.",
+    "Elastic material modulus and KIC are borrowed from published 2015 NRL ceramic measurements / NIST silica; flaw model assumes Y=1.12 and is only fracture-mechanics scaling, not probability or proof test.",
+    "Full clamping thermal proxy is an upper-bound stress scale, not actual field: free thermal expansion gives much lower restraint; gradients may cause bending.",
+    "Transparent 7m across is a hypothetical manufacturable 2226 pane, not proven size, structural reliability or long-term optical/thermal cycle performance.",
+    "Perimeter mount is mandatory: visually frameless does NOT mean structurally support-free.",
+    "Single shell creates a single full-pressure failure boundary; laminated layers do not automatically offer independent backup. A second separately sealed pressure shell and its cavity/venting would need real design if strict loss-of-one-layer redundancy is required.",
+    "Reference total 85.2kg/m2 is an existing window-area/mass ratio and not a real approved 2226 material property; new surface area and perimeter support alter actual ledger.",
+    "Outer 37-piece impact layer held fixed; cannot assume it fully protects inner pane from all damage, crack growth, thermal stress or cosmic radiation.",
+    "Pressure shape is original oblate ellipsoidal 2.15m-deep bow pressure head; only r<=3.5m exchanged for transparent shell.",
+    "Using pressure alone to declare safety would be false; flaw reliability, material manufacture at 7m and perimeter integration remain blocking."
+  ]
+}
