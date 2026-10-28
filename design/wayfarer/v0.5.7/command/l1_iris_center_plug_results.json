@@ -1,0 +1,1657 @@
+{
+  "status": "RESEARCH NON-CANON NOT QUALIFIED",
+  "design": "+1.2m, 50deg, R1.8m iris",
+  "plug": {
+    "body_radius_m": 0.1,
+    "face_lip_radius_m": 0.13,
+    "armor_equivalent_body_depth_m": 0.19628,
+    "lip_depth_m": 0.006,
+    "nominal_mass_body_only_kg": 8.48,
+    "closed_body_front_x_m": -1.2,
+    "closed_body_rear_x_m": -1.004,
+    "parked_ring_center_radial_m": 2.5,
+    "rear_leaf_face_x_m": 0.1036,
+    "minimum_pressure_head_gap_path_m": 0.025,
+    "minimum_axial_gap_behind_open_blades_m": 0.0197
+  },
+  "blade": {
+    "closed_sector_coverage_width_deg": 24.5,
+    "center_hole_radius_m": 0.1,
+    "outer_face_step_even_odd_m": 0.2163,
+    "same_tier_2d_collision_test": "prior 0-62deg pass",
+    "kinematics": "2-level rigid wedge rotation, common x-translation, no real rail"
+  },
+  "center_coverage": "Closed disk idealized fully covered: annular 16 rotating leaves r>=.10 plus full-density central body r<=.10, overlap lip to .13; finite gasket/closure seam NOT modeled",
+  "path_samples": 177,
+  "plug_sweep": [
+    {
+      "stage": "axial",
+      "progress": 0.0,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -1.2,
+      "minimum_pressure_gap_m": 1.2037,
+      "lip_front_to_shell_gap_m": 0.0,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.02,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -1.1764,
+      "minimum_pressure_gap_m": 1.1801,
+      "lip_front_to_shell_gap_m": 0.0236,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.04,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -1.1529,
+      "minimum_pressure_gap_m": 1.1566,
+      "lip_front_to_shell_gap_m": 0.0471,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.06,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -1.1293,
+      "minimum_pressure_gap_m": 1.133,
+      "lip_front_to_shell_gap_m": 0.0707,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.08,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -1.1057,
+      "minimum_pressure_gap_m": 1.1094,
+      "lip_front_to_shell_gap_m": 0.0943,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.1,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -1.0821,
+      "minimum_pressure_gap_m": 1.0858,
+      "lip_front_to_shell_gap_m": 0.1179,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.12,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -1.0586,
+      "minimum_pressure_gap_m": 1.0623,
+      "lip_front_to_shell_gap_m": 0.1414,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.14,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -1.035,
+      "minimum_pressure_gap_m": 1.0387,
+      "lip_front_to_shell_gap_m": 0.165,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.16,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -1.0114,
+      "minimum_pressure_gap_m": 1.0151,
+      "lip_front_to_shell_gap_m": 0.1886,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.18,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.9878,
+      "minimum_pressure_gap_m": 0.9916,
+      "lip_front_to_shell_gap_m": 0.2122,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.2,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.9643,
+      "minimum_pressure_gap_m": 0.968,
+      "lip_front_to_shell_gap_m": 0.2357,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.22,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.9407,
+      "minimum_pressure_gap_m": 0.9444,
+      "lip_front_to_shell_gap_m": 0.2593,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.24,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.9171,
+      "minimum_pressure_gap_m": 0.9208,
+      "lip_front_to_shell_gap_m": 0.2829,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.26,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.8935,
+      "minimum_pressure_gap_m": 0.8973,
+      "lip_front_to_shell_gap_m": 0.3065,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.28,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.87,
+      "minimum_pressure_gap_m": 0.8737,
+      "lip_front_to_shell_gap_m": 0.33,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.3,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.8464,
+      "minimum_pressure_gap_m": 0.8501,
+      "lip_front_to_shell_gap_m": 0.3536,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.32,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.8228,
+      "minimum_pressure_gap_m": 0.8265,
+      "lip_front_to_shell_gap_m": 0.3772,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.34,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.7992,
+      "minimum_pressure_gap_m": 0.803,
+      "lip_front_to_shell_gap_m": 0.4008,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.36,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.7757,
+      "minimum_pressure_gap_m": 0.7794,
+      "lip_front_to_shell_gap_m": 0.4243,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.38,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.7521,
+      "minimum_pressure_gap_m": 0.7558,
+      "lip_front_to_shell_gap_m": 0.4479,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.4,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.7285,
+      "minimum_pressure_gap_m": 0.7322,
+      "lip_front_to_shell_gap_m": 0.4715,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.42,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.7049,
+      "minimum_pressure_gap_m": 0.7087,
+      "lip_front_to_shell_gap_m": 0.4951,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.44,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.6814,
+      "minimum_pressure_gap_m": 0.6851,
+      "lip_front_to_shell_gap_m": 0.5186,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.46,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.6578,
+      "minimum_pressure_gap_m": 0.6615,
+      "lip_front_to_shell_gap_m": 0.5422,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.48,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.6342,
+      "minimum_pressure_gap_m": 0.6379,
+      "lip_front_to_shell_gap_m": 0.5658,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.5,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.6106,
+      "minimum_pressure_gap_m": 0.6144,
+      "lip_front_to_shell_gap_m": 0.5894,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.52,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.5871,
+      "minimum_pressure_gap_m": 0.5908,
+      "lip_front_to_shell_gap_m": 0.6129,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.54,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.5635,
+      "minimum_pressure_gap_m": 0.5672,
+      "lip_front_to_shell_gap_m": 0.6365,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.56,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.5399,
+      "minimum_pressure_gap_m": 0.5436,
+      "lip_front_to_shell_gap_m": 0.6601,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.58,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.5163,
+      "minimum_pressure_gap_m": 0.5201,
+      "lip_front_to_shell_gap_m": 0.6837,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.6,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.4928,
+      "minimum_pressure_gap_m": 0.4965,
+      "lip_front_to_shell_gap_m": 0.7072,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.62,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.4692,
+      "minimum_pressure_gap_m": 0.4729,
+      "lip_front_to_shell_gap_m": 0.7308,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.64,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.4456,
+      "minimum_pressure_gap_m": 0.4493,
+      "lip_front_to_shell_gap_m": 0.7544,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.66,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.422,
+      "minimum_pressure_gap_m": 0.4258,
+      "lip_front_to_shell_gap_m": 0.778,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.68,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.3985,
+      "minimum_pressure_gap_m": 0.4022,
+      "lip_front_to_shell_gap_m": 0.8015,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.7,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.3749,
+      "minimum_pressure_gap_m": 0.3786,
+      "lip_front_to_shell_gap_m": 0.8251,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.72,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.3513,
+      "minimum_pressure_gap_m": 0.355,
+      "lip_front_to_shell_gap_m": 0.8487,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.74,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.3277,
+      "minimum_pressure_gap_m": 0.3315,
+      "lip_front_to_shell_gap_m": 0.8723,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.76,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.3042,
+      "minimum_pressure_gap_m": 0.3079,
+      "lip_front_to_shell_gap_m": 0.8958,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.78,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.2806,
+      "minimum_pressure_gap_m": 0.2843,
+      "lip_front_to_shell_gap_m": 0.9194,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.8,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.257,
+      "minimum_pressure_gap_m": 0.2607,
+      "lip_front_to_shell_gap_m": 0.943,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.82,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.2334,
+      "minimum_pressure_gap_m": 0.2372,
+      "lip_front_to_shell_gap_m": 0.9666,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.84,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.2099,
+      "minimum_pressure_gap_m": 0.2136,
+      "lip_front_to_shell_gap_m": 0.9901,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.86,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.1863,
+      "minimum_pressure_gap_m": 0.19,
+      "lip_front_to_shell_gap_m": 1.0137,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.88,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.1627,
+      "minimum_pressure_gap_m": 0.1664,
+      "lip_front_to_shell_gap_m": 1.0373,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.9,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.1392,
+      "minimum_pressure_gap_m": 0.1429,
+      "lip_front_to_shell_gap_m": 1.0608,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.92,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.1156,
+      "minimum_pressure_gap_m": 0.1193,
+      "lip_front_to_shell_gap_m": 1.0844,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.94,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.092,
+      "minimum_pressure_gap_m": 0.0957,
+      "lip_front_to_shell_gap_m": 1.108,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.96,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.0684,
+      "minimum_pressure_gap_m": 0.0721,
+      "lip_front_to_shell_gap_m": 1.1316,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 0.98,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.0449,
+      "minimum_pressure_gap_m": 0.0486,
+      "lip_front_to_shell_gap_m": 1.1551,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "axial",
+      "progress": 1.0,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.0213,
+      "minimum_pressure_gap_m": 0.025,
+      "lip_front_to_shell_gap_m": 1.1787,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.0,
+      "plug_axis_radius_m": 0.0,
+      "front_x_m": -0.0213,
+      "minimum_pressure_gap_m": 0.025,
+      "lip_front_to_shell_gap_m": 1.1787,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.008,
+      "plug_axis_radius_m": 0.02,
+      "front_x_m": -0.0213,
+      "minimum_pressure_gap_m": 0.025,
+      "lip_front_to_shell_gap_m": 1.1787,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.016,
+      "plug_axis_radius_m": 0.04,
+      "front_x_m": -0.0213,
+      "minimum_pressure_gap_m": 0.025,
+      "lip_front_to_shell_gap_m": 1.1787,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.024,
+      "plug_axis_radius_m": 0.06,
+      "front_x_m": -0.0213,
+      "minimum_pressure_gap_m": 0.025,
+      "lip_front_to_shell_gap_m": 1.1787,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.032,
+      "plug_axis_radius_m": 0.08,
+      "front_x_m": -0.0213,
+      "minimum_pressure_gap_m": 0.025,
+      "lip_front_to_shell_gap_m": 1.1787,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.04,
+      "plug_axis_radius_m": 0.1,
+      "front_x_m": -0.0213,
+      "minimum_pressure_gap_m": 0.025,
+      "lip_front_to_shell_gap_m": 1.1787,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.048,
+      "plug_axis_radius_m": 0.12,
+      "front_x_m": -0.0213,
+      "minimum_pressure_gap_m": 0.025,
+      "lip_front_to_shell_gap_m": 1.1787,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.056,
+      "plug_axis_radius_m": 0.14,
+      "front_x_m": -0.0213,
+      "minimum_pressure_gap_m": 0.0252,
+      "lip_front_to_shell_gap_m": 1.1787,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.064,
+      "plug_axis_radius_m": 0.16,
+      "front_x_m": -0.0212,
+      "minimum_pressure_gap_m": 0.0253,
+      "lip_front_to_shell_gap_m": 1.1788,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.072,
+      "plug_axis_radius_m": 0.18,
+      "front_x_m": -0.0211,
+      "minimum_pressure_gap_m": 0.0254,
+      "lip_front_to_shell_gap_m": 1.1789,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.08,
+      "plug_axis_radius_m": 0.2,
+      "front_x_m": -0.021,
+      "minimum_pressure_gap_m": 0.0255,
+      "lip_front_to_shell_gap_m": 1.179,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.088,
+      "plug_axis_radius_m": 0.22,
+      "front_x_m": -0.0208,
+      "minimum_pressure_gap_m": 0.0256,
+      "lip_front_to_shell_gap_m": 1.1792,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.096,
+      "plug_axis_radius_m": 0.24,
+      "front_x_m": -0.0206,
+      "minimum_pressure_gap_m": 0.0257,
+      "lip_front_to_shell_gap_m": 1.1794,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.104,
+      "plug_axis_radius_m": 0.26,
+      "front_x_m": -0.0203,
+      "minimum_pressure_gap_m": 0.0258,
+      "lip_front_to_shell_gap_m": 1.1797,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.112,
+      "plug_axis_radius_m": 0.28,
+      "front_x_m": -0.02,
+      "minimum_pressure_gap_m": 0.0259,
+      "lip_front_to_shell_gap_m": 1.18,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.12,
+      "plug_axis_radius_m": 0.3,
+      "front_x_m": -0.0196,
+      "minimum_pressure_gap_m": 0.026,
+      "lip_front_to_shell_gap_m": 1.1804,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.128,
+      "plug_axis_radius_m": 0.32,
+      "front_x_m": -0.0192,
+      "minimum_pressure_gap_m": 0.0261,
+      "lip_front_to_shell_gap_m": 1.1808,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.136,
+      "plug_axis_radius_m": 0.34,
+      "front_x_m": -0.0187,
+      "minimum_pressure_gap_m": 0.0262,
+      "lip_front_to_shell_gap_m": 1.1813,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.144,
+      "plug_axis_radius_m": 0.36,
+      "front_x_m": -0.0182,
+      "minimum_pressure_gap_m": 0.0263,
+      "lip_front_to_shell_gap_m": 1.1818,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.152,
+      "plug_axis_radius_m": 0.38,
+      "front_x_m": -0.0176,
+      "minimum_pressure_gap_m": 0.0264,
+      "lip_front_to_shell_gap_m": 1.1824,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.16,
+      "plug_axis_radius_m": 0.4,
+      "front_x_m": -0.017,
+      "minimum_pressure_gap_m": 0.0265,
+      "lip_front_to_shell_gap_m": 1.183,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.168,
+      "plug_axis_radius_m": 0.42,
+      "front_x_m": -0.0164,
+      "minimum_pressure_gap_m": 0.0266,
+      "lip_front_to_shell_gap_m": 1.1836,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.176,
+      "plug_axis_radius_m": 0.44,
+      "front_x_m": -0.0157,
+      "minimum_pressure_gap_m": 0.0267,
+      "lip_front_to_shell_gap_m": 1.1843,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.184,
+      "plug_axis_radius_m": 0.46,
+      "front_x_m": -0.0149,
+      "minimum_pressure_gap_m": 0.0268,
+      "lip_front_to_shell_gap_m": 1.1851,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.192,
+      "plug_axis_radius_m": 0.48,
+      "front_x_m": -0.0141,
+      "minimum_pressure_gap_m": 0.0269,
+      "lip_front_to_shell_gap_m": 1.1859,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.2,
+      "plug_axis_radius_m": 0.5,
+      "front_x_m": -0.0133,
+      "minimum_pressure_gap_m": 0.027,
+      "lip_front_to_shell_gap_m": 1.1867,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.208,
+      "plug_axis_radius_m": 0.52,
+      "front_x_m": -0.0124,
+      "minimum_pressure_gap_m": 0.0271,
+      "lip_front_to_shell_gap_m": 1.1876,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.216,
+      "plug_axis_radius_m": 0.54,
+      "front_x_m": -0.0115,
+      "minimum_pressure_gap_m": 0.0272,
+      "lip_front_to_shell_gap_m": 1.1885,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.224,
+      "plug_axis_radius_m": 0.56,
+      "front_x_m": -0.0105,
+      "minimum_pressure_gap_m": 0.0273,
+      "lip_front_to_shell_gap_m": 1.1895,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.232,
+      "plug_axis_radius_m": 0.58,
+      "front_x_m": -0.0095,
+      "minimum_pressure_gap_m": 0.0274,
+      "lip_front_to_shell_gap_m": 1.1905,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.24,
+      "plug_axis_radius_m": 0.6,
+      "front_x_m": -0.0084,
+      "minimum_pressure_gap_m": 0.0275,
+      "lip_front_to_shell_gap_m": 1.1916,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.248,
+      "plug_axis_radius_m": 0.62,
+      "front_x_m": -0.0073,
+      "minimum_pressure_gap_m": 0.0276,
+      "lip_front_to_shell_gap_m": 1.1927,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.256,
+      "plug_axis_radius_m": 0.64,
+      "front_x_m": -0.0061,
+      "minimum_pressure_gap_m": 0.0277,
+      "lip_front_to_shell_gap_m": 1.1939,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.264,
+      "plug_axis_radius_m": 0.66,
+      "front_x_m": -0.0049,
+      "minimum_pressure_gap_m": 0.0278,
+      "lip_front_to_shell_gap_m": 1.1951,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.272,
+      "plug_axis_radius_m": 0.68,
+      "front_x_m": -0.0036,
+      "minimum_pressure_gap_m": 0.0279,
+      "lip_front_to_shell_gap_m": 1.1964,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.28,
+      "plug_axis_radius_m": 0.7,
+      "front_x_m": -0.0023,
+      "minimum_pressure_gap_m": 0.028,
+      "lip_front_to_shell_gap_m": 1.1977,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.288,
+      "plug_axis_radius_m": 0.72,
+      "front_x_m": -0.0009,
+      "minimum_pressure_gap_m": 0.0281,
+      "lip_front_to_shell_gap_m": 1.1991,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.296,
+      "plug_axis_radius_m": 0.74,
+      "front_x_m": 0.0005,
+      "minimum_pressure_gap_m": 0.0282,
+      "lip_front_to_shell_gap_m": 1.2005,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.304,
+      "plug_axis_radius_m": 0.76,
+      "front_x_m": 0.0019,
+      "minimum_pressure_gap_m": 0.0283,
+      "lip_front_to_shell_gap_m": 1.2019,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.312,
+      "plug_axis_radius_m": 0.78,
+      "front_x_m": 0.0034,
+      "minimum_pressure_gap_m": 0.0284,
+      "lip_front_to_shell_gap_m": 1.2034,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.32,
+      "plug_axis_radius_m": 0.8,
+      "front_x_m": 0.005,
+      "minimum_pressure_gap_m": 0.0285,
+      "lip_front_to_shell_gap_m": 1.205,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.328,
+      "plug_axis_radius_m": 0.82,
+      "front_x_m": 0.0066,
+      "minimum_pressure_gap_m": 0.0286,
+      "lip_front_to_shell_gap_m": 1.2066,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.336,
+      "plug_axis_radius_m": 0.84,
+      "front_x_m": 0.0082,
+      "minimum_pressure_gap_m": 0.0287,
+      "lip_front_to_shell_gap_m": 1.2082,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.344,
+      "plug_axis_radius_m": 0.86,
+      "front_x_m": 0.0099,
+      "minimum_pressure_gap_m": 0.0288,
+      "lip_front_to_shell_gap_m": 1.2099,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.352,
+      "plug_axis_radius_m": 0.88,
+      "front_x_m": 0.0117,
+      "minimum_pressure_gap_m": 0.029,
+      "lip_front_to_shell_gap_m": 1.2117,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.36,
+      "plug_axis_radius_m": 0.9,
+      "front_x_m": 0.0135,
+      "minimum_pressure_gap_m": 0.0291,
+      "lip_front_to_shell_gap_m": 1.2135,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.368,
+      "plug_axis_radius_m": 0.92,
+      "front_x_m": 0.0153,
+      "minimum_pressure_gap_m": 0.0292,
+      "lip_front_to_shell_gap_m": 1.2153,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.376,
+      "plug_axis_radius_m": 0.94,
+      "front_x_m": 0.0172,
+      "minimum_pressure_gap_m": 0.0293,
+      "lip_front_to_shell_gap_m": 1.2172,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.384,
+      "plug_axis_radius_m": 0.96,
+      "front_x_m": 0.0192,
+      "minimum_pressure_gap_m": 0.0294,
+      "lip_front_to_shell_gap_m": 1.2192,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.392,
+      "plug_axis_radius_m": 0.98,
+      "front_x_m": 0.0211,
+      "minimum_pressure_gap_m": 0.0295,
+      "lip_front_to_shell_gap_m": 1.2211,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.4,
+      "plug_axis_radius_m": 1.0,
+      "front_x_m": 0.0232,
+      "minimum_pressure_gap_m": 0.0296,
+      "lip_front_to_shell_gap_m": 1.2232,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.408,
+      "plug_axis_radius_m": 1.02,
+      "front_x_m": 0.0253,
+      "minimum_pressure_gap_m": 0.0297,
+      "lip_front_to_shell_gap_m": 1.2253,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.416,
+      "plug_axis_radius_m": 1.04,
+      "front_x_m": 0.0274,
+      "minimum_pressure_gap_m": 0.0298,
+      "lip_front_to_shell_gap_m": 1.2274,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.424,
+      "plug_axis_radius_m": 1.06,
+      "front_x_m": 0.0296,
+      "minimum_pressure_gap_m": 0.0299,
+      "lip_front_to_shell_gap_m": 1.2296,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.432,
+      "plug_axis_radius_m": 1.08,
+      "front_x_m": 0.0318,
+      "minimum_pressure_gap_m": 0.03,
+      "lip_front_to_shell_gap_m": 1.2318,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.44,
+      "plug_axis_radius_m": 1.1,
+      "front_x_m": 0.0341,
+      "minimum_pressure_gap_m": 0.0301,
+      "lip_front_to_shell_gap_m": 1.2341,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.448,
+      "plug_axis_radius_m": 1.12,
+      "front_x_m": 0.0365,
+      "minimum_pressure_gap_m": 0.0302,
+      "lip_front_to_shell_gap_m": 1.2365,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.456,
+      "plug_axis_radius_m": 1.14,
+      "front_x_m": 0.0389,
+      "minimum_pressure_gap_m": 0.0304,
+      "lip_front_to_shell_gap_m": 1.2389,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.464,
+      "plug_axis_radius_m": 1.16,
+      "front_x_m": 0.0413,
+      "minimum_pressure_gap_m": 0.0305,
+      "lip_front_to_shell_gap_m": 1.2413,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.472,
+      "plug_axis_radius_m": 1.18,
+      "front_x_m": 0.0438,
+      "minimum_pressure_gap_m": 0.0306,
+      "lip_front_to_shell_gap_m": 1.2438,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.48,
+      "plug_axis_radius_m": 1.2,
+      "front_x_m": 0.0463,
+      "minimum_pressure_gap_m": 0.0307,
+      "lip_front_to_shell_gap_m": 1.2463,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.488,
+      "plug_axis_radius_m": 1.22,
+      "front_x_m": 0.0489,
+      "minimum_pressure_gap_m": 0.0308,
+      "lip_front_to_shell_gap_m": 1.2489,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.496,
+      "plug_axis_radius_m": 1.24,
+      "front_x_m": 0.0516,
+      "minimum_pressure_gap_m": 0.0309,
+      "lip_front_to_shell_gap_m": 1.2516,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.504,
+      "plug_axis_radius_m": 1.26,
+      "front_x_m": 0.0543,
+      "minimum_pressure_gap_m": 0.031,
+      "lip_front_to_shell_gap_m": 1.2543,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.512,
+      "plug_axis_radius_m": 1.28,
+      "front_x_m": 0.057,
+      "minimum_pressure_gap_m": 0.0311,
+      "lip_front_to_shell_gap_m": 1.257,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.52,
+      "plug_axis_radius_m": 1.3,
+      "front_x_m": 0.0598,
+      "minimum_pressure_gap_m": 0.0312,
+      "lip_front_to_shell_gap_m": 1.2598,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.528,
+      "plug_axis_radius_m": 1.32,
+      "front_x_m": 0.0627,
+      "minimum_pressure_gap_m": 0.0314,
+      "lip_front_to_shell_gap_m": 1.2627,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.536,
+      "plug_axis_radius_m": 1.34,
+      "front_x_m": 0.0656,
+      "minimum_pressure_gap_m": 0.0315,
+      "lip_front_to_shell_gap_m": 1.2656,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.544,
+      "plug_axis_radius_m": 1.36,
+      "front_x_m": 0.0686,
+      "minimum_pressure_gap_m": 0.0316,
+      "lip_front_to_shell_gap_m": 1.2686,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.552,
+      "plug_axis_radius_m": 1.38,
+      "front_x_m": 0.0716,
+      "minimum_pressure_gap_m": 0.0317,
+      "lip_front_to_shell_gap_m": 1.2716,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.56,
+      "plug_axis_radius_m": 1.4,
+      "front_x_m": 0.0746,
+      "minimum_pressure_gap_m": 0.0318,
+      "lip_front_to_shell_gap_m": 1.2746,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.568,
+      "plug_axis_radius_m": 1.42,
+      "front_x_m": 0.0778,
+      "minimum_pressure_gap_m": 0.0319,
+      "lip_front_to_shell_gap_m": 1.2778,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.576,
+      "plug_axis_radius_m": 1.44,
+      "front_x_m": 0.0809,
+      "minimum_pressure_gap_m": 0.0321,
+      "lip_front_to_shell_gap_m": 1.2809,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.584,
+      "plug_axis_radius_m": 1.46,
+      "front_x_m": 0.0841,
+      "minimum_pressure_gap_m": 0.0322,
+      "lip_front_to_shell_gap_m": 1.2841,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.592,
+      "plug_axis_radius_m": 1.48,
+      "front_x_m": 0.0874,
+      "minimum_pressure_gap_m": 0.0323,
+      "lip_front_to_shell_gap_m": 1.2874,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.6,
+      "plug_axis_radius_m": 1.5,
+      "front_x_m": 0.0908,
+      "minimum_pressure_gap_m": 0.0324,
+      "lip_front_to_shell_gap_m": 1.2908,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.608,
+      "plug_axis_radius_m": 1.52,
+      "front_x_m": 0.0942,
+      "minimum_pressure_gap_m": 0.0325,
+      "lip_front_to_shell_gap_m": 1.2942,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.616,
+      "plug_axis_radius_m": 1.54,
+      "front_x_m": 0.0976,
+      "minimum_pressure_gap_m": 0.0327,
+      "lip_front_to_shell_gap_m": 1.2976,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.624,
+      "plug_axis_radius_m": 1.56,
+      "front_x_m": 0.1011,
+      "minimum_pressure_gap_m": 0.0328,
+      "lip_front_to_shell_gap_m": 1.3011,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.632,
+      "plug_axis_radius_m": 1.58,
+      "front_x_m": 0.1046,
+      "minimum_pressure_gap_m": 0.0329,
+      "lip_front_to_shell_gap_m": 1.3046,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.64,
+      "plug_axis_radius_m": 1.6,
+      "front_x_m": 0.1083,
+      "minimum_pressure_gap_m": 0.033,
+      "lip_front_to_shell_gap_m": 1.3083,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.648,
+      "plug_axis_radius_m": 1.62,
+      "front_x_m": 0.1119,
+      "minimum_pressure_gap_m": 0.0331,
+      "lip_front_to_shell_gap_m": 1.3119,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.656,
+      "plug_axis_radius_m": 1.64,
+      "front_x_m": 0.1156,
+      "minimum_pressure_gap_m": 0.0333,
+      "lip_front_to_shell_gap_m": 1.3156,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.664,
+      "plug_axis_radius_m": 1.66,
+      "front_x_m": 0.1194,
+      "minimum_pressure_gap_m": 0.0334,
+      "lip_front_to_shell_gap_m": 1.3194,
+      "blade_back_axial_clearance_if_overlap_m": null
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.672,
+      "plug_axis_radius_m": 1.68,
+      "front_x_m": 0.1233,
+      "minimum_pressure_gap_m": 0.0335,
+      "lip_front_to_shell_gap_m": 1.3233,
+      "blade_back_axial_clearance_if_overlap_m": 0.0197
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.68,
+      "plug_axis_radius_m": 1.7,
+      "front_x_m": 0.1272,
+      "minimum_pressure_gap_m": 0.0336,
+      "lip_front_to_shell_gap_m": 1.3272,
+      "blade_back_axial_clearance_if_overlap_m": 0.0236
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.688,
+      "plug_axis_radius_m": 1.72,
+      "front_x_m": 0.1311,
+      "minimum_pressure_gap_m": 0.0338,
+      "lip_front_to_shell_gap_m": 1.3311,
+      "blade_back_axial_clearance_if_overlap_m": 0.0275
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.696,
+      "plug_axis_radius_m": 1.74,
+      "front_x_m": 0.1351,
+      "minimum_pressure_gap_m": 0.0339,
+      "lip_front_to_shell_gap_m": 1.3351,
+      "blade_back_axial_clearance_if_overlap_m": 0.0316
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.704,
+      "plug_axis_radius_m": 1.76,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.0376,
+      "lip_front_to_shell_gap_m": 1.3356,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.712,
+      "plug_axis_radius_m": 1.78,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.0419,
+      "lip_front_to_shell_gap_m": 1.3356,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.72,
+      "plug_axis_radius_m": 1.8,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.0462,
+      "lip_front_to_shell_gap_m": 1.3356,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.728,
+      "plug_axis_radius_m": 1.82,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.0506,
+      "lip_front_to_shell_gap_m": 1.3356,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.736,
+      "plug_axis_radius_m": 1.84,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.055,
+      "lip_front_to_shell_gap_m": 1.3356,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.744,
+      "plug_axis_radius_m": 1.86,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.0595,
+      "lip_front_to_shell_gap_m": 1.3356,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.752,
+      "plug_axis_radius_m": 1.88,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.0641,
+      "lip_front_to_shell_gap_m": 1.3236,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.76,
+      "plug_axis_radius_m": 1.9,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.0687,
+      "lip_front_to_shell_gap_m": 1.2998,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.768,
+      "plug_axis_radius_m": 1.92,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.0734,
+      "lip_front_to_shell_gap_m": 1.276,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.776,
+      "plug_axis_radius_m": 1.94,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.0781,
+      "lip_front_to_shell_gap_m": 1.2521,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.784,
+      "plug_axis_radius_m": 1.96,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.0829,
+      "lip_front_to_shell_gap_m": 1.2283,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.792,
+      "plug_axis_radius_m": 1.98,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.0878,
+      "lip_front_to_shell_gap_m": 1.2045,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.8,
+      "plug_axis_radius_m": 2.0,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.0927,
+      "lip_front_to_shell_gap_m": 1.1806,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.808,
+      "plug_axis_radius_m": 2.02,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.0977,
+      "lip_front_to_shell_gap_m": 1.1568,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.816,
+      "plug_axis_radius_m": 2.04,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.1028,
+      "lip_front_to_shell_gap_m": 1.133,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.824,
+      "plug_axis_radius_m": 2.06,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.1079,
+      "lip_front_to_shell_gap_m": 1.1091,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.832,
+      "plug_axis_radius_m": 2.08,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.1131,
+      "lip_front_to_shell_gap_m": 1.0853,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.84,
+      "plug_axis_radius_m": 2.1,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.1184,
+      "lip_front_to_shell_gap_m": 1.0615,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.848,
+      "plug_axis_radius_m": 2.12,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.1237,
+      "lip_front_to_shell_gap_m": 1.0376,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.856,
+      "plug_axis_radius_m": 2.14,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.1291,
+      "lip_front_to_shell_gap_m": 1.0138,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.864,
+      "plug_axis_radius_m": 2.16,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.1346,
+      "lip_front_to_shell_gap_m": 0.9899,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.872,
+      "plug_axis_radius_m": 2.18,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.1401,
+      "lip_front_to_shell_gap_m": 0.9661,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.88,
+      "plug_axis_radius_m": 2.2,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.1457,
+      "lip_front_to_shell_gap_m": 0.9423,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.888,
+      "plug_axis_radius_m": 2.22,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.1514,
+      "lip_front_to_shell_gap_m": 0.9184,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.896,
+      "plug_axis_radius_m": 2.24,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.1572,
+      "lip_front_to_shell_gap_m": 0.8946,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.904,
+      "plug_axis_radius_m": 2.26,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.163,
+      "lip_front_to_shell_gap_m": 0.8708,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.912,
+      "plug_axis_radius_m": 2.28,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.1689,
+      "lip_front_to_shell_gap_m": 0.8469,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.92,
+      "plug_axis_radius_m": 2.3,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.1749,
+      "lip_front_to_shell_gap_m": 0.8231,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.928,
+      "plug_axis_radius_m": 2.32,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.1809,
+      "lip_front_to_shell_gap_m": 0.7993,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.936,
+      "plug_axis_radius_m": 2.34,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.187,
+      "lip_front_to_shell_gap_m": 0.7754,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.944,
+      "plug_axis_radius_m": 2.36,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.1932,
+      "lip_front_to_shell_gap_m": 0.7516,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.952,
+      "plug_axis_radius_m": 2.38,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.1995,
+      "lip_front_to_shell_gap_m": 0.7278,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.96,
+      "plug_axis_radius_m": 2.4,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.2058,
+      "lip_front_to_shell_gap_m": 0.7039,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.968,
+      "plug_axis_radius_m": 2.42,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.2122,
+      "lip_front_to_shell_gap_m": 0.6801,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.976,
+      "plug_axis_radius_m": 2.44,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.2187,
+      "lip_front_to_shell_gap_m": 0.6563,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.984,
+      "plug_axis_radius_m": 2.46,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.2253,
+      "lip_front_to_shell_gap_m": 0.6324,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 0.992,
+      "plug_axis_radius_m": 2.48,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.232,
+      "lip_front_to_shell_gap_m": 0.6086,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    },
+    {
+      "stage": "lateral",
+      "progress": 1.0,
+      "plug_axis_radius_m": 2.5,
+      "front_x_m": 0.1356,
+      "minimum_pressure_gap_m": 0.2387,
+      "lip_front_to_shell_gap_m": 0.5848,
+      "blade_back_axial_clearance_if_overlap_m": 0.032
+    }
+  ],
+  "visibility": {
+    "without_fixed_hub": {
+      "worst_pilot_cone60": 1.0,
+      "worst_pilot_forward": 0.3203,
+      "worst_support_forward": 0.043
+    },
+    "with_fixed_hub": [
+      {
+        "hub_radius_m": 0.1,
+        "pilot_cone60": 0.9911,
+        "pilot_forward": 0.3164,
+        "support_forward": 0.043
+      },
+      {
+        "hub_radius_m": 0.12,
+        "pilot_cone60": 0.9866,
+        "pilot_forward": 0.3164,
+        "support_forward": 0.043
+      },
+      {
+        "hub_radius_m": 0.13,
+        "pilot_cone60": 0.9821,
+        "pilot_forward": 0.3164,
+        "support_forward": 0.043
+      }
+    ]
+  },
+  "limitations": [
+    "No actual gasket tolerance or recess cut; cap contact/lip engagement and finite seam not verified",
+    "Sequential operation requires all iris leaves opened before withdrawing/parking center plug and cap centered before final close; if cap remains installed throughout rotation, leaf-tip cutout must be rechecked",
+    "Hub plug is body mass only; drive and mechanical support not counted",
+    "Common model has alternating exterior face step 0.216m; closed face is NOT flush",
+    "Parked cap in an ideal empty layer behind blade stack assumes no rail, node or support at that location",
+    "The axial swept plug test uses circle/radial bounds, not full collision mesh or actual plug-bearer",
+    "Optical fixed boss alternative reduces view; retracted cap leaves iris open with no permanent boss"
+  ]
+}

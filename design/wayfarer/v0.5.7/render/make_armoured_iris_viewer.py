@@ -45,6 +45,7 @@ h3{font-size:14px;margin:18px 0 7px}.key{display:inline-block;width:12px;height:
 <strong>Iris motion</strong><label>Opening angle <span id="angleLabel">0°</span></label>
 <input id="stage" type="range" min="0" max="90" value="62" step="1">
 <label><input type="checkbox" id="blades" checked> 16 overlapping armour leaves</label>
+<label><input type="checkbox" id="hub" checked> Fixed 0.12 m-radius armoured centre boss</label>
 <label><input type="checkbox" id="shell" checked> Outer armoured nose</label>
 <label><input type="checkbox" id="pressure" checked> Existing pressure head</label>
 <label><input type="checkbox" id="sensors"> Sensor ring and Metric nodes</label>
@@ -55,7 +56,7 @@ h3{font-size:14px;margin:18px 0 7px}.key{display:inline-block;width:12px;height:
 <p><span class="key" style="background:#6a94ae"></span> Fixed armour
 <span class="key" style="background:#62b7ee"></span> Pressure head</p>
 <h3>Limits of this test</h3>
-<p class="muted">The 16 polygonal blades mathematically cover the closed disk. <b>That is not a physically sealed zero-radius closure.</b> The central tips need a real overlap/seal, likely a tiny cap or articulated tip. Outer and inner tiers are staggered ~0.413 m; flush closure across their seams has not been achieved.</p>
+<p class="muted">An optional fixed 0.12 m-radius armour centre boss covers the zero-radius tip. With truncated leaves this gives ideal nominal area coverage but its circular lap joint and loaded seal remain unqualified. The fixed boss permanently obscures about 1% of the sampled Pilot/NAV forward cone. Outer and inner tiers are staggered ~0.413 m; flush closure across their seams has not been achieved.</p>
 <p class="muted">The open-state blades turn into an opaque annulus. The pressure-head slot is an idealised axial interval, not a manufactured bearing, track, slot or actuating mechanism. An apparent collision-free state does not demonstrate ballistic protection, thermal, pressure or hardware qualification.</p>
 <p class="muted">Drag to rotate the ship. Mouse wheel zooms. Colours, scale and triangle positions are illustrative but the vertices use metres and computed 16-blade motion.</p>
 </aside></main>
@@ -83,6 +84,13 @@ function surface(o,typ){
   tri(A,B,C,color,opacity);tri(B,E,C,color,opacity);
  }
 }
+function addHub(o){
+ const rad=.12,segments=48,face=profile(0,o)-.001;
+ for(let j=0;j<segments;j++){
+  let aa=j*2*Math.PI/segments,bb=(j+1)*2*Math.PI/segments;
+  tri([face,0,0],[face,rad*Math.cos(aa),rad*Math.sin(aa)],[face,rad*Math.cos(bb),rad*Math.sin(bb)],'#c0d4e6',.97);
+ }
+}
 function addBlades(o,a,s){
  const N=D.count,half=Math.PI/N+D.overlap_deg*deg,R=o.R;
  const pivotR=R+D.pivot_dr,pivotTheta=D.pivot_phi_deg*deg;
@@ -98,10 +106,10 @@ function addBlades(o,a,s){
    return [x,ca*yy-sa*zz,sa*yy+ca*zz];
   }
   const steps=24;
-  const center=mk(0,0),edge=[];
-  for(let j=0;j<=steps;j++)edge.push(mk(R,-half+(2*half*j/steps)));
+  const inner=[],edge=[];
+  for(let j=0;j<=steps;j++){let ang=-half+(2*half*j/steps);inner.push(mk(.12,ang));edge.push(mk(R,ang))}
   let color=(k%2===0)?'#e7b576':'#65c6b9';
-  for(let j=0;j<steps;j++)tri(center,edge[j],edge[j+1],color,.92);
+  for(let j=0;j<steps;j++){tri(inner[j],edge[j],inner[j+1],color,.92);tri(edge[j],edge[j+1],inner[j+1],color,.92)}
  }
 }
 function dots(){for(let p of D.nodes){const q=project(p);ctx.beginPath();ctx.fillStyle='#c6a6ff';ctx.arc(q[0],q[1],3,0,Math.PI*2);ctx.fill()}}
@@ -113,6 +121,7 @@ function draw(){
  if(elem('shell').checked)surface(o,'outer');
  if(elem('pressure').checked)surface(o,'pressure');
  if(elem('blades').checked)addBlades(o,+bar.value,s);
+ if(elem('hub').checked)addHub(o);
  triangles.sort((a,b)=>a.depth-b.depth);
  for(let t of triangles){ctx.globalAlpha=t.alpha;ctx.fillStyle=t.color;ctx.beginPath();ctx.moveTo(t.v[0][0],t.v[0][1]);ctx.lineTo(t.v[1][0],t.v[1][1]);ctx.lineTo(t.v[2][0],t.v[2][1]);ctx.closePath();ctx.fill()}
  ctx.globalAlpha=1;
@@ -135,7 +144,7 @@ function draw(){
   (v.worst_pilot_cone60===undefined?'':'<div class="stat">Pilot/NAV forward 60° sampling with outer views <b>'+Math.round(v.worst_pilot_cone60*100)+'%</b></div>')+
   '<div class="stat muted">Geometry only. Full closed zero-radius seal <b class="no">NOT PROVEN</b>.</div>';
 }
-for(let id of ['model','stage','shell','pressure','blades','sensors'])elem(id).addEventListener('input',draw);
+for(let id of ['model','stage','shell','pressure','blades','hub','sensors'])elem(id).addEventListener('input',draw);
 canvas.addEventListener('pointerdown',e=>{drag=true;last=[e.clientX,e.clientY];canvas.setPointerCapture(e.pointerId)});
 canvas.addEventListener('pointerup',()=>drag=false);canvas.addEventListener('pointercancel',()=>drag=false);
 canvas.addEventListener('pointermove',e=>{if(!drag)return;yaw+=(e.clientX-last[0])*.008;pitch=Math.max(-1.5,Math.min(1.5,pitch+(e.clientY-last[1])*.008));last=[e.clientX,e.clientY];draw()});
