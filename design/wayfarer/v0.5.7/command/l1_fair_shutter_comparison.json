@@ -1,0 +1,102 @@
+{
+  "status": "RESEARCH / non-governing / necessary-geometry comparison only",
+  "sources": "PR #432 Rev7 plus independent nose research branch",
+  "assumptions": {
+    "same_areal_protection_kg_m2": 270,
+    "effective_density_kg_m3_from_geometry_armor_part": 1375.6,
+    "equivalent_layer_thickness_m": 0.1963,
+    "rev7_brow_height_m": 0.22,
+    "rev7_brow_width_m": 1.0,
+    "conditional_brow_gross_annular_volume_m3": 4.562,
+    "brow_radial_width_interpretation": "HYPOTHETICAL (not manufactured geometry)"
+  },
+  "cases": [
+    {
+      "name": "Rev7 original 2.8 m dome + declared brow",
+      "crown_r_m": 2.8,
+      "stow_radial_range_m": [
+        2.8,
+        3.8
+      ],
+      "opening_outer_area_m2": 25.497,
+      "outer_stow_surface_area_m2": 24.169,
+      "ideal_surface_area_margin_m2": -1.328,
+      "cover_meridian_length_m": 2.864,
+      "stow_meridian_length_m": 1.161,
+      "minimum_lengthwise_layer_count": 3,
+      "closed_g_cm2": 27,
+      "armour_equivalent_material_t": 6.884,
+      "effective_volume_m3": 5.005,
+      "equivalent_layer_thickness_m": 0.1963,
+      "pressure_clearance_x_m_by_nested_layers": [
+        -0.009,
+        -0.257,
+        -0.495
+      ],
+      "press_head_intersection_at_required_layers": true,
+      "exterior_node_ring_0_r_m": 4.463,
+      "measured_swept_volume": "UNAVAILABLE"
+    },
+    {
+      "name": "Angular compact +0.8m /35deg / crown3.2",
+      "crown_r_m": 3.2,
+      "stow_radial_range_m": [
+        3.2,
+        4.5
+      ],
+      "opening_outer_area_m2": 38.274,
+      "outer_stow_surface_area_m2": 38.39,
+      "ideal_surface_area_margin_m2": 0.116,
+      "cover_meridian_length_m": 3.642,
+      "stow_meridian_length_m": 1.587,
+      "minimum_lengthwise_layer_count": 3,
+      "closed_g_cm2": 27,
+      "armour_equivalent_material_t": 10.334,
+      "effective_volume_m3": 7.512,
+      "equivalent_layer_thickness_m": 0.1963,
+      "pressure_clearance_x_m_by_nested_layers": [
+        0.051,
+        -0.189,
+        -0.428
+      ],
+      "press_head_intersection_at_required_layers": true,
+      "exterior_node_ring_0_r_m": 4.463,
+      "measured_swept_volume": "UNAVAILABLE"
+    },
+    {
+      "name": "Angular panoramic +1.2m /50deg / crown3.5",
+      "crown_r_m": 3.5,
+      "stow_radial_range_m": [
+        3.5,
+        4.5
+      ],
+      "opening_outer_area_m2": 52.886,
+      "outer_stow_surface_area_m2": 39.1,
+      "ideal_surface_area_margin_m2": -13.786,
+      "cover_meridian_length_m": 4.333,
+      "stow_meridian_length_m": 1.556,
+      "minimum_lengthwise_layer_count": 3,
+      "closed_g_cm2": 27,
+      "armour_equivalent_material_t": 14.279,
+      "effective_volume_m3": 10.38,
+      "equivalent_layer_thickness_m": 0.1963,
+      "pressure_clearance_x_m_by_nested_layers": [
+        0.071,
+        -0.234,
+        -0.54
+      ],
+      "press_head_intersection_at_required_layers": true,
+      "exterior_node_ring_0_r_m": 4.463,
+      "measured_swept_volume": "UNAVAILABLE"
+    }
+  ],
+  "limitations": [
+    "Same necessary area, path length and pressure envelope checks; no actual track solids or folded slat geometry",
+    "Brow height and width are declared in input but radial and axial orientation is not defined by built mesh",
+    "Rev7 gores only have declared brow stowage, not explicit manufactured shutter paths",
+    "Equivalent density inferred from whole armour part is an effective accounting density, not proven materials constitutive law",
+    "Radial stacking is one mechanism, not a proof of impossibility for hinged or translated shutters",
+    "Sensor assembly clearance and Metric-node field of regard are not certified",
+    "Negative axial x clearance in this model is not normal penetration depth"
+  ]
+}
