@@ -1,0 +1,299 @@
+{
+  "classification": "RESEARCH NON-CANON NON-RUNTIME NON-GOVERNING NOT IMPACT QUALIFIED",
+  "authoritative_PR432_head": "3485830a56dfead79b2ef8bba031a595b536fbb5",
+  "branch": "research/wayfarer-nose-l1-search-20261028",
+  "baseline": {
+    "Rev7_corrected_pilot_forward_hemisphere": 0.6914,
+    "Rev7_corrected_worst_support_forward_hemisphere": 0.0547,
+    "source_crown_pressure_panes_t": 2.13,
+    "source_crown_frame_t": 1.8,
+    "source_crown_brow_t": 0.5,
+    "source_crown_tracks_drives_t": 0.5,
+    "source_crown_deck_total_t": 4.93,
+    "source_original_crown_glazing_approx_m2": 25.0,
+    "source_exterior_opaque_armour_already_in_fixed_armour_ledger": true
+  },
+  "target": "Test no-shutter transparent outer protection + transparent pressure panes retaining source L1 eyes/rings and internal pressure profile",
+  "physics_context": [
+    "27 g/cm2 is the incumbent opaque armour equivalence and mass budget only. No published ALON, spinel or nanoscale composite HVI evidence supplied establishing equal functional protection.",
+    "Transparency assumed optically perfect for sampled geometric LOS; real transmittance/scatter/refraction at the displayed thickness remains unqualified.",
+    "No existing source pressure window extending beyond original aperture is qualified. Extending to 3.5m means replacing opaque parts of the pressure hull with structural glazing, while retaining its physical envelope and pressure barrier.",
+    "Density determines volume for a given areal mass; DOES NOT determine equivalent impact resistance.",
+    "Original armor on the exterior has been counted in an existing fixed armour ledger. Treat replacing its area as reallocation, not 14 tonnes of automatically added mass.",
+    "The scale-up of baseline pressure panes is only an area-ratio illustration; it does not account for larger pane span, support structure, differential pressure, thermal stress or redundancy.",
+    "Exterior nose is a conical/flat research geometry, not a certified triangulated aircraft/ship pressure fitting.",
+    "Sensor ray masking and 4 L1 support stations unchanged; no pressure-window qualification or mechanical frame sizing."
+  ],
+  "result_rows": [
+    {
+      "crown_radius_m": 2.8,
+      "external_profile": {
+        "extension_m": 1.2,
+        "flat_radius_m": 2.0,
+        "facet_angle_deg": 50
+      },
+      "external_protective_glazing_surface_area_m2": 31.33,
+      "pressure_surface_new_glazing_area_m2": 25.53,
+      "replacing_opaque_protective_areal_mass_t": 8.4591,
+      "scaled_source_2_13t_pressure_panes_t": 2.1752,
+      "additional_press_pane_est_t_over_2_13t": 0.0452,
+      "line_of_sight": {
+        "worst_pilot_forward_hemisphere": 0.4961,
+        "worst_pilot_cone60": 1.0,
+        "worst_support_forward_hemisphere": 0.043,
+        "eyes": {
+          "PILOT": {
+            "forward_integrated": 0.4961,
+            "cone60_integrated": 1.0,
+            "forward_dual": 0.4609,
+            "cone60_dual": 0.9286
+          },
+          "NAV": {
+            "forward_integrated": 0.5273,
+            "cone60_integrated": 1.0,
+            "forward_dual": 0.4883,
+            "cone60_dual": 0.9286
+          },
+          "S1": {
+            "forward_integrated": 0.0508,
+            "forward_dual": 0.0469
+          },
+          "S2": {
+            "forward_integrated": 0.0664,
+            "forward_dual": 0.0508
+          },
+          "S3": {
+            "forward_integrated": 0.043,
+            "forward_dual": 0.0312
+          },
+          "S4": {
+            "forward_integrated": 0.0469,
+            "forward_dual": 0.0469
+          }
+        }
+      },
+      "materials_at_constant_areal_allocation": {
+        "fused_silica": {
+          "rho_kg_m3": 2210,
+          "provenance": "generic measured density; not HVI window performance",
+          "physical_normal_thickness_m": 0.122172,
+          "max_needed_axial_thickness_m": 0.190066,
+          "min_exterior_to_pressure_clearance_m": 0.96488,
+          "min_clearance_remaining_after_illustrative_exterior_protection_m": 0.774814,
+          "critical_radius_m": 2.8,
+          "surface_profile_geometrically_fits": true,
+          "critical_caveat": "Does not reserve space for primary/redundant pressure panes, ribs, mounting/spacing or optical damage layers",
+          "mass_at_same_areal_allocation_t": 8.4591,
+          "total_material_volume_m3": 3.8276
+        },
+        "spinel_MgAl2O4": {
+          "rho_kg_m3": 3581,
+          "provenance": "NIST reported single crystal density 3.581 g/cm3; polycrystal may differ",
+          "physical_normal_thickness_m": 0.075398,
+          "max_needed_axial_thickness_m": 0.117298,
+          "min_exterior_to_pressure_clearance_m": 0.96488,
+          "min_clearance_remaining_after_illustrative_exterior_protection_m": 0.847582,
+          "critical_radius_m": 2.8,
+          "surface_profile_geometrically_fits": true,
+          "critical_caveat": "Does not reserve space for primary/redundant pressure panes, ribs, mounting/spacing or optical damage layers",
+          "mass_at_same_areal_allocation_t": 8.4591,
+          "total_material_volume_m3": 2.3622
+        },
+        "ALON": {
+          "rho_kg_m3": 3670,
+          "provenance": "National Academies of Sciences 3.67 g/cm3; processing-dependent",
+          "physical_normal_thickness_m": 0.073569,
+          "max_needed_axial_thickness_m": 0.114454,
+          "min_exterior_to_pressure_clearance_m": 0.96488,
+          "min_clearance_remaining_after_illustrative_exterior_protection_m": 0.850426,
+          "critical_radius_m": 2.8,
+          "surface_profile_geometrically_fits": true,
+          "critical_caveat": "Does not reserve space for primary/redundant pressure panes, ribs, mounting/spacing or optical damage layers",
+          "mass_at_same_areal_allocation_t": 8.4591,
+          "total_material_volume_m3": 2.3049
+        }
+      },
+      "pressure_coverage_replaces_prior_solid_pressure_hull_portions": false
+    },
+    {
+      "crown_radius_m": 3.2,
+      "external_profile": {
+        "extension_m": 1.2,
+        "flat_radius_m": 2.0,
+        "facet_angle_deg": 50
+      },
+      "external_protective_glazing_surface_area_m2": 43.07,
+      "pressure_surface_new_glazing_area_m2": 33.93,
+      "replacing_opaque_protective_areal_mass_t": 11.6289,
+      "scaled_source_2_13t_pressure_panes_t": 2.8908,
+      "additional_press_pane_est_t_over_2_13t": 0.7608,
+      "line_of_sight": {
+        "worst_pilot_forward_hemisphere": 0.6367,
+        "worst_pilot_cone60": 1.0,
+        "worst_support_forward_hemisphere": 0.0742,
+        "eyes": {
+          "PILOT": {
+            "forward_integrated": 0.6367,
+            "cone60_integrated": 1.0,
+            "forward_dual": 0.6016,
+            "cone60_dual": 0.9286
+          },
+          "NAV": {
+            "forward_integrated": 0.6758,
+            "cone60_integrated": 1.0,
+            "forward_dual": 0.6367,
+            "cone60_dual": 0.9286
+          },
+          "S1": {
+            "forward_integrated": 0.0898,
+            "forward_dual": 0.082
+          },
+          "S2": {
+            "forward_integrated": 0.0938,
+            "forward_dual": 0.082
+          },
+          "S3": {
+            "forward_integrated": 0.0781,
+            "forward_dual": 0.0742
+          },
+          "S4": {
+            "forward_integrated": 0.0742,
+            "forward_dual": 0.0742
+          }
+        }
+      },
+      "materials_at_constant_areal_allocation": {
+        "fused_silica": {
+          "rho_kg_m3": 2210,
+          "provenance": "generic measured density; not HVI window performance",
+          "physical_normal_thickness_m": 0.122172,
+          "max_needed_axial_thickness_m": 0.190066,
+          "min_exterior_to_pressure_clearance_m": 0.683755,
+          "min_clearance_remaining_after_illustrative_exterior_protection_m": 0.493689,
+          "critical_radius_m": 3.2,
+          "surface_profile_geometrically_fits": true,
+          "critical_caveat": "Does not reserve space for primary/redundant pressure panes, ribs, mounting/spacing or optical damage layers",
+          "mass_at_same_areal_allocation_t": 11.6289,
+          "total_material_volume_m3": 5.2619
+        },
+        "spinel_MgAl2O4": {
+          "rho_kg_m3": 3581,
+          "provenance": "NIST reported single crystal density 3.581 g/cm3; polycrystal may differ",
+          "physical_normal_thickness_m": 0.075398,
+          "max_needed_axial_thickness_m": 0.117298,
+          "min_exterior_to_pressure_clearance_m": 0.683755,
+          "min_clearance_remaining_after_illustrative_exterior_protection_m": 0.566457,
+          "critical_radius_m": 3.2,
+          "surface_profile_geometrically_fits": true,
+          "critical_caveat": "Does not reserve space for primary/redundant pressure panes, ribs, mounting/spacing or optical damage layers",
+          "mass_at_same_areal_allocation_t": 11.6289,
+          "total_material_volume_m3": 3.2474
+        },
+        "ALON": {
+          "rho_kg_m3": 3670,
+          "provenance": "National Academies of Sciences 3.67 g/cm3; processing-dependent",
+          "physical_normal_thickness_m": 0.073569,
+          "max_needed_axial_thickness_m": 0.114454,
+          "min_exterior_to_pressure_clearance_m": 0.683755,
+          "min_clearance_remaining_after_illustrative_exterior_protection_m": 0.569301,
+          "critical_radius_m": 3.2,
+          "surface_profile_geometrically_fits": true,
+          "critical_caveat": "Does not reserve space for primary/redundant pressure panes, ribs, mounting/spacing or optical damage layers",
+          "mass_at_same_areal_allocation_t": 11.6289,
+          "total_material_volume_m3": 3.1686
+        }
+      },
+      "pressure_coverage_replaces_prior_solid_pressure_hull_portions": true
+    },
+    {
+      "crown_radius_m": 3.5,
+      "external_profile": {
+        "extension_m": 1.2,
+        "flat_radius_m": 2.0,
+        "facet_angle_deg": 50
+      },
+      "external_protective_glazing_surface_area_m2": 52.89,
+      "pressure_surface_new_glazing_area_m2": 41.38,
+      "replacing_opaque_protective_areal_mass_t": 14.2803,
+      "scaled_source_2_13t_pressure_panes_t": 3.5256,
+      "additional_press_pane_est_t_over_2_13t": 1.3956,
+      "line_of_sight": {
+        "worst_pilot_forward_hemisphere": 0.7266,
+        "worst_pilot_cone60": 1.0,
+        "worst_support_forward_hemisphere": 0.1094,
+        "eyes": {
+          "PILOT": {
+            "forward_integrated": 0.7266,
+            "cone60_integrated": 1.0,
+            "forward_dual": 0.6797,
+            "cone60_dual": 0.9286
+          },
+          "NAV": {
+            "forward_integrated": 0.7734,
+            "cone60_integrated": 1.0,
+            "forward_dual": 0.7344,
+            "cone60_dual": 0.9286
+          },
+          "S1": {
+            "forward_integrated": 0.1328,
+            "forward_dual": 0.1211
+          },
+          "S2": {
+            "forward_integrated": 0.1367,
+            "forward_dual": 0.125
+          },
+          "S3": {
+            "forward_integrated": 0.1094,
+            "forward_dual": 0.1016
+          },
+          "S4": {
+            "forward_integrated": 0.1094,
+            "forward_dual": 0.1094
+          }
+        }
+      },
+      "materials_at_constant_areal_allocation": {
+        "fused_silica": {
+          "rho_kg_m3": 2210,
+          "provenance": "generic measured density; not HVI window performance",
+          "physical_normal_thickness_m": 0.122172,
+          "max_needed_axial_thickness_m": 0.190066,
+          "min_exterior_to_pressure_clearance_m": 0.51337,
+          "min_clearance_remaining_after_illustrative_exterior_protection_m": 0.323304,
+          "critical_radius_m": 3.5,
+          "surface_profile_geometrically_fits": true,
+          "critical_caveat": "Does not reserve space for primary/redundant pressure panes, ribs, mounting/spacing or optical damage layers",
+          "mass_at_same_areal_allocation_t": 14.2803,
+          "total_material_volume_m3": 6.4617
+        },
+        "spinel_MgAl2O4": {
+          "rho_kg_m3": 3581,
+          "provenance": "NIST reported single crystal density 3.581 g/cm3; polycrystal may differ",
+          "physical_normal_thickness_m": 0.075398,
+          "max_needed_axial_thickness_m": 0.117298,
+          "min_exterior_to_pressure_clearance_m": 0.51337,
+          "min_clearance_remaining_after_illustrative_exterior_protection_m": 0.396072,
+          "critical_radius_m": 3.5,
+          "surface_profile_geometrically_fits": true,
+          "critical_caveat": "Does not reserve space for primary/redundant pressure panes, ribs, mounting/spacing or optical damage layers",
+          "mass_at_same_areal_allocation_t": 14.2803,
+          "total_material_volume_m3": 3.9878
+        },
+        "ALON": {
+          "rho_kg_m3": 3670,
+          "provenance": "National Academies of Sciences 3.67 g/cm3; processing-dependent",
+          "physical_normal_thickness_m": 0.073569,
+          "max_needed_axial_thickness_m": 0.114454,
+          "min_exterior_to_pressure_clearance_m": 0.51337,
+          "min_clearance_remaining_after_illustrative_exterior_protection_m": 0.398916,
+          "critical_radius_m": 3.5,
+          "surface_profile_geometrically_fits": true,
+          "critical_caveat": "Does not reserve space for primary/redundant pressure panes, ribs, mounting/spacing or optical damage layers",
+          "mass_at_same_areal_allocation_t": 14.2803,
+          "total_material_volume_m3": 3.8911
+        }
+      },
+      "pressure_coverage_replaces_prior_solid_pressure_hull_portions": true
+    }
+  ]
+}

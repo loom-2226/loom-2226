@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wayfarer: transparent nose, no shutters</title><style>
+*{box-sizing:border-box}body{margin:0;background:#091522;color:#e5edf7;font:14px system-ui,Arial,sans-serif}
+header{padding:12px 15px;border-bottom:1px solid #3c536a;background:#142638}
+h1{font-size:18px;margin:0 0 5px}small,.muted{color:#adbdce}
+main{display:grid;grid-template-columns:minmax(0,1fr) 340px;min-height:calc(100dvh - 72px)}
+canvas{width:100%;height:calc(100dvh - 115px);max-height:750px;min-height:360px;background:radial-gradient(circle at 45% 50%,#243e53,#091522 75%)}
+aside{background:#122234;border-left:1px solid #3c536a;padding:15px;overflow:auto}
+label{display:block;margin:12px 0 5px}select{background:#29445c;color:#eaf4fe;border:1px solid #7b91a4;border-radius:6px;padding:8px;width:100%}
+.stat{border-bottom:1px solid #364c62;padding:8px 0}.green{color:#a5dbbd}.gold{color:#ecc78d}
+legend{font-weight:600}
+@media(max-width:780px){main{display:block}canvas{height:53dvh;max-height:none;min-height:300px}aside{border:0;border-top:1px solid #3c536a}}
+</style></head><body><header><h1>WAYFARER · NO-SHUTTER TRANSPARENT NOSE</h1><small>50° faceted exterior · original Rev 7 pressure-envelope shape + seats/sensor locations · non-canon research</small></header>
+<main><div><canvas id="scene"></canvas><p style="padding:12px;color:#acc2d3;margin:0">Cross-section (not a raytraced material simulation): <span style="color:#79cfce">turquoise = transparent exterior and pressure glazing</span>; <span style="color:#e7ba75">gold = opaque exterior</span>; <span style="color:#91c4ed">blue dashed = original pressure-head envelope</span>. All variants have NO mechanical shutters.</p></div>
+<aside><label>Transparent crown radius</label><select id="crown"><option value="2.8">2.8 m (smaller glazing)</option><option value="3.2">3.2 m</option><option value="3.5" selected>3.5 m (full panorama candidate)</option></select>
+<label>Illustrative material density</label><select id="mat"><option value="ALON" selected>ALON ceramic, 3.67 g/cm³</option><option value="spinel_MgAl2O4">Spinel, 3.581 g/cm³</option><option value="fused_silica">Fused silica, 2.21 g/cm³</option></select>
+<div id="facts"></div>
+<h3>Important distinction</h3>
+<p class="muted">The 27 g/cm² figure comes from Wayfarer's existing <b>opaque armour mass allocation</b>. The material selector changes thickness and enclosed volume at that same mass, but <b>does not change protection performance</b>. No candidate has passed an equivalent spacecraft impact test.</p>
+<p class="muted">The large crown replaces some *opaque pressure hull panels* with structural glazing. The blue boundary remains in the same place, but the material and load path are NOT unchanged or qualified.</p>
+<p class="muted">Visibility is a sampled directional score with source crew eyes/furniture/sensor masking, assuming optically perfect transmission. Thick panes may scatter, tint or distort. This viewer does not claim real optical quality.</p>
+<p class="muted">A nominal no-shutter layout eliminates shutters, pivots and their storage annulus, but does not eliminate the need for pressure redundancy, perimeter framing, micrometeoroid qualification or damaged-window maintenance.</p>
+</aside></main><script>
+const D={"rows":[{"crown":2.8,"exterior_area":31.33,"pressure_area":25.53,"protected_mass_t":8.4591,"pressure_panes_t":2.1752,"pilot":0.4961,"cone":1.0,"support":0.043,"materials":{"fused_silica":{"thick_m":0.122172,"axial_outer_m":0.190066,"min_clearance_m":0.774814},"spinel_MgAl2O4":{"thick_m":0.075398,"axial_outer_m":0.117298,"min_clearance_m":0.847582},"ALON":{"thick_m":0.073569,"axial_outer_m":0.114454,"min_clearance_m":0.850426}}},{"crown":3.2,"exterior_area":43.07,"pressure_area":33.93,"protected_mass_t":11.6289,"pressure_panes_t":2.8908,"pilot":0.6367,"cone":1.0,"support":0.0742,"materials":{"fused_silica":{"thick_m":0.122172,"axial_outer_m":0.190066,"min_clearance_m":0.493689},"spinel_MgAl2O4":{"thick_m":0.075398,"axial_outer_m":0.117298,"min_clearance_m":0.566457},"ALON":{"thick_m":0.073569,"axial_outer_m":0.114454,"min_clearance_m":0.569301}}},{"crown":3.5,"exterior_area":52.89,"pressure_area":41.38,"protected_mass_t":14.2803,"pressure_panes_t":3.5256,"pilot":0.7266,"cone":1.0,"support":0.1094,"materials":{"fused_silica":{"thick_m":0.122172,"axial_outer_m":0.190066,"min_clearance_m":0.323304},"spinel_MgAl2O4":{"thick_m":0.075398,"axial_outer_m":0.117298,"min_clearance_m":0.396072},"ALON":{"thick_m":0.073569,"axial_outer_m":0.114454,"min_clearance_m":0.398916}}}],"reference_pilot":0.6914,"reference_support":0.0547,"iris_pilot":0.2617,"shape":{"extension":1.2,"flat":2.0,"facet":50}},el=id=>document.getElementById(id),c=el('scene'),cx=c.getContext('2d');
+function fext(r){return -1.2+Math.max(0,r-2)*Math.tan(50*Math.PI/180)}
+function fpress(r){return 2.35-2.15*Math.sqrt(Math.max(0,1-(r/4.3)**2))}
+function draw(){
+ const d=D.rows.find(x=>x.crown===+el('crown').value),p=d.materials[el('mat').value];
+ let scale=devicePixelRatio||1,W=c.clientWidth,H=c.clientHeight;c.width=W*scale;c.height=H*scale;cx.setTransform(scale,0,0,scale,0,0);cx.clearRect(0,0,W,H);
+ const loX=-1.8,hiX=3.15,loY=-4.6,hiY=4.6;
+ function X(v){return 35+(v-loX)/(hiX-loX)*(W-70)}function Y(v){return 20+(hiY-v)/(hiY-loY)*(H-40)}
+ function stroke(fn,start,end,color,width=3,dash=[],both=true){cx.strokeStyle=color;cx.lineWidth=width;cx.setLineDash(dash);
+ for(let sign of (both?[1,-1]:[1])){
+  cx.beginPath();for(let i=0;i<=250;i++){let r=start+(end-start)*i/250;
+   let x=X(fn(r)),y=Y(sign*r);if(!i)cx.moveTo(x,y);else cx.lineTo(x,y)}cx.stroke();
+ }cx.setLineDash([])}
+ // Transparent pressure membrane and unchanged mathematical envelope.
+ stroke(fpress,0,4.3,'#8fc2e9',2,[6,7]);
+ stroke(fpress,0,d.crown,'#65c7c8',5);
+ // Exterior opaque ring, and transparent protective surface.
+ stroke(fext,d.crown,4.5,'#dfb978',6);
+ stroke(fext,0,d.crown,'#65dbd6',7);
+ // Protective material thickness illustrated as a second arc shifted aft.
+ const ax=m=>m<=2?p.thick_m:p.axial_outer_m;
+ stroke(r=>fext(r)+ax(r),0,d.crown,'#72aaa9',1.5,[3,3]);
+ // Axis and glass line crossing.
+ cx.strokeStyle='#567087';cx.lineWidth=1;cx.setLineDash([3,5]);cx.beginPath();cx.moveTo(0,Y(0));cx.lineTo(W,Y(0));cx.stroke();cx.setLineDash([]);
+ cx.textAlign='left';cx.font='12px system-ui';cx.fillStyle='#d9eafa';cx.fillText('SPACE ←',12,26);cx.textAlign='right';cx.fillText('CABIN →',W-12,26);cx.textAlign='left';
+ cx.fillStyle='#8bcaca';cx.fillText('Transparent crown radius '+d.crown.toFixed(1)+'m',15,H-14);
+ el('facts').innerHTML=
+ '<div class="stat">Pilot/NAV visible forward hemisphere <b class="green">'+(d.pilot*100).toFixed(2)+'%</b></div>'+
+ '<div class="stat">Original Rev 7 reference <b>'+(D.reference_pilot*100).toFixed(2)+'%</b></div>'+
+ '<div class="stat">Old 16-leaf iris + four windows <b>'+(D.iris_pilot*100).toFixed(2)+'%</b></div>'+
+ '<div class="stat">Worst support forward hemisphere <b>'+(d.support*100).toFixed(2)+'%</b></div>'+
+ '<div class="stat">External protected glazing <b>'+d.exterior_area.toFixed(2)+' m²</b></div>'+
+ '<div class="stat">Mass at 27 g/cm² <b class="gold">'+d.protected_mass_t.toFixed(2)+' t</b></div>'+
+ '<div class="stat">Physical protective thickness, normal <b>'+(p.thick_m*100).toFixed(2)+' cm</b></div>'+
+ '<div class="stat">Least gross exterior-to-pressure clearance after layer <b>'+p.min_clearance_m.toFixed(3)+' m</b></div>'+
+ '<div class="stat">New pressure glazing area <b>'+d.pressure_area.toFixed(2)+' m²</b></div>'+
+ '<div class="stat">Illustrative source-mass-scaled pressure panes <b>'+d.pressure_panes_t.toFixed(2)+' t</b></div>'+
+ '<div class="stat muted">Pressure strength, optical transmission and impact-protection equivalence: <b>UNQUALIFIED</b></div>';
+}
+for(let id of ['crown','mat'])el(id).addEventListener('input',draw);
+addEventListener('resize',draw);draw();
+</script></body></html>
