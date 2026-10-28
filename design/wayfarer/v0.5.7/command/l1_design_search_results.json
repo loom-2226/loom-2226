@@ -1,0 +1,6114 @@
+{
+  "status": "NON-CANON | RESEARCH | NOT QUALIFIED",
+  "source_sha": "3485830a56dfead79b2ef8bba031a595b536fbb5",
+  "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271",
+  "envelope": {
+    "tested": 90,
+    "passed": 28,
+    "by_extension": {
+      "0.4": 1,
+      "0.8": 4,
+      "1.2": 6,
+      "1.6": 8,
+      "2": 9
+    },
+    "shapes": [
+      [
+        0.4,
+        2,
+        35,
+        0.21965,
+        0.45069
+      ],
+      [
+        0.8,
+        1.2,
+        35,
+        0.05949,
+        0.29052
+      ],
+      [
+        0.8,
+        1.6,
+        35,
+        0.33957,
+        0.57061
+      ],
+      [
+        0.8,
+        2,
+        35,
+        0.61965,
+        0.85069
+      ],
+      [
+        0.8,
+        2,
+        42.5,
+        0.23654,
+        0.49403
+      ],
+      [
+        1.2,
+        1.2,
+        35,
+        0.45949,
+        0.69052
+      ],
+      [
+        1.2,
+        1.6,
+        35,
+        0.73957,
+        0.97061
+      ],
+      [
+        1.2,
+        1.6,
+        42.5,
+        0.27001,
+        0.52749
+      ],
+      [
+        1.2,
+        2,
+        35,
+        1.01965,
+        1.25069
+      ],
+      [
+        1.2,
+        2,
+        42.5,
+        0.63654,
+        0.89403
+      ],
+      [
+        1.2,
+        2,
+        50,
+        0.07833,
+        0.37622
+      ],
+      [
+        1.6,
+        1.2,
+        35,
+        0.85949,
+        1.09052
+      ],
+      [
+        1.6,
+        1.2,
+        42.5,
+        0.30348,
+        0.56096
+      ],
+      [
+        1.6,
+        1.6,
+        35,
+        1.13957,
+        1.37061
+      ],
+      [
+        1.6,
+        1.6,
+        42.5,
+        0.67001,
+        0.92749
+      ],
+      [
+        1.6,
+        1.6,
+        50,
+        0.00163,
+        0.29952
+      ],
+      [
+        1.6,
+        2,
+        35,
+        1.41965,
+        1.65069
+      ],
+      [
+        1.6,
+        2,
+        42.5,
+        1.03654,
+        1.29403
+      ],
+      [
+        1.6,
+        2,
+        50,
+        0.47833,
+        0.77622
+      ],
+      [
+        2,
+        1.2,
+        35,
+        1.25949,
+        1.49052
+      ],
+      [
+        2,
+        1.2,
+        42.5,
+        0.70348,
+        0.96096
+      ],
+      [
+        2,
+        1.6,
+        35,
+        1.53957,
+        1.77061
+      ],
+      [
+        2,
+        1.6,
+        42.5,
+        1.07001,
+        1.32749
+      ],
+      [
+        2,
+        1.6,
+        50,
+        0.40163,
+        0.69952
+      ],
+      [
+        2,
+        2,
+        35,
+        1.81965,
+        2.05069
+      ],
+      [
+        2,
+        2,
+        42.5,
+        1.43654,
+        1.69403
+      ],
+      [
+        2,
+        2,
+        50,
+        0.87833,
+        1.17622
+      ],
+      [
+        2,
+        2,
+        57.5,
+        0.04513,
+        0.40557
+      ]
+    ]
+  },
+  "search": {
+    "tested": 2000,
+    "original_grid_total": 233280,
+    "after_envelope": 72576,
+    "sensor_ring_pilot_cone_ge90": 533,
+    "detailed": 20
+  },
+  "baseline": {
+    "stations": {
+      "PILOT": {
+        "eye_m": [
+          0.775,
+          0.45,
+          0.45
+        ],
+        "visible_in_30deg": 1.0,
+        "visible_in_60deg": 0.999,
+        "visible_in_90deg": 0.89,
+        "field_of_regard": 0.751,
+        "eye_to_window_m": 0.651
+      },
+      "NAV": {
+        "eye_m": [
+          0.775,
+          -0.45,
+          0.45
+        ],
+        "visible_in_30deg": 1.0,
+        "visible_in_60deg": 0.999,
+        "visible_in_90deg": 0.889,
+        "field_of_regard": 0.754,
+        "eye_to_window_m": 0.651
+      },
+      "S1": {
+        "eye_m": [
+          2.55,
+          2.262,
+          2.531
+        ],
+        "visible_in_30deg": 0.362,
+        "visible_in_60deg": 0.092,
+        "visible_in_90deg": 0.042,
+        "forward_hemisphere_visible": 0.015,
+        "eye_to_window_m": 1.27,
+        "looks_off_bow_axis_deg": 25.4
+      },
+      "S2": {
+        "eye_m": [
+          2.55,
+          -2.531,
+          2.262
+        ],
+        "visible_in_30deg": 0.368,
+        "visible_in_60deg": 0.093,
+        "visible_in_90deg": 0.043,
+        "forward_hemisphere_visible": 0.011,
+        "eye_to_window_m": 1.27,
+        "looks_off_bow_axis_deg": 25.4
+      },
+      "S3": {
+        "eye_m": [
+          2.55,
+          -2.262,
+          -2.531
+        ],
+        "visible_in_30deg": 0.385,
+        "visible_in_60deg": 0.098,
+        "visible_in_90deg": 0.045,
+        "forward_hemisphere_visible": 0.013,
+        "eye_to_window_m": 1.27,
+        "looks_off_bow_axis_deg": 25.4
+      },
+      "S4": {
+        "eye_m": [
+          2.55,
+          2.531,
+          -2.262
+        ],
+        "visible_in_30deg": 0.385,
+        "visible_in_60deg": 0.098,
+        "visible_in_90deg": 0.045,
+        "forward_hemisphere_visible": 0.013,
+        "eye_to_window_m": 1.27,
+        "looks_off_bow_axis_deg": 25.4
+      }
+    },
+    "paths": {
+      "walkway_cells": 1037,
+      "all_reachable_with_0.8m_path": true,
+      "reach": {
+        "ladder0": true,
+        "ladder1": true,
+        "PILOT": true,
+        "NAV": true,
+        "S1": true,
+        "S2": true,
+        "S3": true,
+        "S4": true
+      },
+      "min_headroom_on_walkways_m": 2.28
+    }
+  },
+  "pareto": [
+    {
+      "shape": [
+        1.6,
+        1.6,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        0,
+        0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8242,
+      "support_min": 0.2422,
+      "crew_min": 0.2422,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8242,
+        0.8438,
+        0.2461,
+        0.2578,
+        0.25,
+        0.2422
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        0,
+        -0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.9414,
+      "support_min": 0.2383,
+      "crew_min": 0.2383,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.9492,
+        0.9414,
+        0.2383,
+        0.2539,
+        0.2461,
+        0.2383
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        1.2,
+        42.5
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        15,
+        -0.2
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 33.93,
+      "pilot_min": 0.8438,
+      "support_min": 0.2031,
+      "crew_min": 0.2031,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8477,
+        0.8438,
+        0.2031,
+        0.2109,
+        0.207,
+        0.207
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.918,
+      "support_min": 0.2031,
+      "crew_min": 0.2031,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.918,
+        0.957,
+        0.2227,
+        0.2188,
+        0.2266,
+        0.2031
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.4,
+        2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8828,
+      "support_min": 0.1992,
+      "crew_min": 0.1992,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8828,
+        0.9258,
+        0.2227,
+        0.2188,
+        0.2227,
+        0.1992
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        1.6,
+        42.5
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        0,
+        0
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 33.93,
+      "pilot_min": 0.7656,
+      "support_min": 0.1875,
+      "crew_min": 0.1875,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7656,
+        0.7969,
+        0.1953,
+        0.1992,
+        0.1992,
+        0.1875
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.4,
+        2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        0,
+        -0.2
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 28.04,
+      "pilot_min": 0.7617,
+      "support_min": 0.1797,
+      "crew_min": 0.1797,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7852,
+        0.7617,
+        0.1797,
+        0.1797,
+        0.1875,
+        0.1914
+      ],
+      "shutter_armor_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        2,
+        42.5
+      ],
+      "crown": 3,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        15,
+        -0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 29.54,
+      "pilot_min": 0.7969,
+      "support_min": 0.1758,
+      "crew_min": 0.1758,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8008,
+        0.7969,
+        0.1758,
+        0.1797,
+        0.1797,
+        0.1797
+      ],
+      "shutter_armor_t": 7.98,
+      "shutter_material_m3": 5.8,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.8672,
+      "support_min": 0.1641,
+      "crew_min": 0.1641,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8672,
+        0.9062,
+        0.1875,
+        0.1836,
+        0.1953,
+        0.1641
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 2.8,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        15,
+        0
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 25.53,
+      "pilot_min": 0.7617,
+      "support_min": 0.1602,
+      "crew_min": 0.1602,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7617,
+        0.7891,
+        0.168,
+        0.1641,
+        0.1719,
+        0.1602
+      ],
+      "shutter_armor_t": 6.89,
+      "shutter_material_m3": 5.01,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 28.04,
+      "pilot_min": 0.7656,
+      "support_min": 0.1562,
+      "crew_min": 0.1562,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7656,
+        0.7734,
+        0.1797,
+        0.168,
+        0.1719,
+        0.1562
+      ],
+      "shutter_armor_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.4,
+        2,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.8203,
+      "support_min": 0.1562,
+      "crew_min": 0.1562,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8203,
+        0.8555,
+        0.1719,
+        0.1797,
+        0.1875,
+        0.1562
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.4,
+        2,
+        35
+      ],
+      "crown": 3,
+      "windows": "current",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        15,
+        0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 25.53,
+      "pilot_min": 0.6406,
+      "support_min": 0.1523,
+      "crew_min": 0.1523,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6406,
+        0.6641,
+        0.1523,
+        0.1562,
+        0.1562,
+        0.1562
+      ],
+      "shutter_armor_t": 6.89,
+      "shutter_material_m3": 5.01,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        15,
+        0
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 29.54,
+      "pilot_min": 0.8203,
+      "support_min": 0.1523,
+      "crew_min": 0.1523,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8203,
+        0.8555,
+        0.168,
+        0.1758,
+        0.1641,
+        0.1523
+      ],
+      "shutter_armor_t": 7.98,
+      "shutter_material_m3": 5.8,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0.2,
+        15,
+        -0.2
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 33.93,
+      "pilot_min": 0.9414,
+      "support_min": 0.1523,
+      "crew_min": 0.1523,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.9492,
+        0.9414,
+        0.1602,
+        0.1641,
+        0.1641,
+        0.1523
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.4,
+        2,
+        35
+      ],
+      "crown": 3,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 29.54,
+      "pilot_min": 0.7656,
+      "support_min": 0.1484,
+      "crew_min": 0.1484,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7656,
+        0.793,
+        0.1523,
+        0.1484,
+        0.1641,
+        0.1484
+      ],
+      "shutter_armor_t": 7.98,
+      "shutter_material_m3": 5.8,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "current",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        0,
+        -0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 25.53,
+      "pilot_min": 0.8516,
+      "support_min": 0.1445,
+      "crew_min": 0.1445,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8633,
+        0.8516,
+        0.1602,
+        0.1562,
+        0.1641,
+        0.1445
+      ],
+      "shutter_armor_t": 6.89,
+      "shutter_material_m3": 5.01,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.6,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        15,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 24.06,
+      "pilot_min": 0.6562,
+      "support_min": 0.1289,
+      "crew_min": 0.1289,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6562,
+        0.6641,
+        0.1289,
+        0.1367,
+        0.1523,
+        0.1445
+      ],
+      "shutter_armor_t": 6.5,
+      "shutter_material_m3": 4.72,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.4,
+        2,
+        35
+      ],
+      "crown": 2.8,
+      "windows": "current",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        -15,
+        -0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 25.53,
+      "pilot_min": 0.8008,
+      "support_min": 0.1289,
+      "crew_min": 0.1289,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8047,
+        0.8008,
+        0.1289,
+        0.1367,
+        0.1445,
+        0.1367
+      ],
+      "shutter_armor_t": 6.89,
+      "shutter_material_m3": 5.01,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 24.06,
+      "pilot_min": 0.7344,
+      "support_min": 0.125,
+      "crew_min": 0.125,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7344,
+        0.75,
+        0.1445,
+        0.1328,
+        0.1367,
+        0.125
+      ],
+      "shutter_armor_t": 6.5,
+      "shutter_material_m3": 4.72,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.4,
+        2,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 24.06,
+      "pilot_min": 0.6797,
+      "support_min": 0.1211,
+      "crew_min": 0.1211,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6797,
+        0.6875,
+        0.1367,
+        0.1289,
+        0.1289,
+        0.1211
+      ],
+      "shutter_armor_t": 6.5,
+      "shutter_material_m3": 4.72,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 21.72,
+      "pilot_min": 0.707,
+      "support_min": 0.1133,
+      "crew_min": 0.1133,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.707,
+        0.7227,
+        0.1172,
+        0.1211,
+        0.1133,
+        0.1133
+      ],
+      "shutter_armor_t": 5.86,
+      "shutter_material_m3": 4.27,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.4,
+        2,
+        35
+      ],
+      "crown": 3,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 21.72,
+      "pilot_min": 0.6562,
+      "support_min": 0.1094,
+      "crew_min": 0.1094,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6562,
+        0.6562,
+        0.1172,
+        0.1094,
+        0.1133,
+        0.1133
+      ],
+      "shutter_armor_t": 5.86,
+      "shutter_material_m3": 4.27,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 2.8,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 19.57,
+      "pilot_min": 0.6836,
+      "support_min": 0.0977,
+      "crew_min": 0.0977,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6836,
+        0.6875,
+        0.1055,
+        0.0977,
+        0.0977,
+        0.0977
+      ],
+      "shutter_armor_t": 5.28,
+      "shutter_material_m3": 3.84,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.4,
+        2,
+        35
+      ],
+      "crown": 2.8,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 19.57,
+      "pilot_min": 0.6289,
+      "support_min": 0.0938,
+      "crew_min": 0.0938,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6328,
+        0.6289,
+        0.0977,
+        0.0977,
+        0.0938,
+        0.0938
+      ],
+      "shutter_armor_t": 5.28,
+      "shutter_material_m3": 3.84,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.4,
+        2,
+        35
+      ],
+      "crown": 2.8,
+      "windows": "segmented",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 17.46,
+      "pilot_min": 0.5,
+      "support_min": 0.0625,
+      "crew_min": 0.0625,
+      "pilot_cone_min": 0.9688,
+      "forward": [
+        0.5117,
+        0.5,
+        0.082,
+        0.0625,
+        0.0703,
+        0.0703
+      ],
+      "shutter_armor_t": 4.71,
+      "shutter_material_m3": 3.43,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    }
+  ],
+  "shortlist": [
+    {
+      "shape": [
+        1.6,
+        1.6,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        0,
+        0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8242,
+      "support_min": 0.2422,
+      "crew_min": 0.2422,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8242,
+        0.8438,
+        0.2461,
+        0.2578,
+        0.25,
+        0.2422
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        0,
+        -0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.9414,
+      "support_min": 0.2383,
+      "crew_min": 0.2383,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.9492,
+        0.9414,
+        0.2383,
+        0.2539,
+        0.2461,
+        0.2383
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        2,
+        1.2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        15,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.7422,
+      "support_min": 0.2227,
+      "crew_min": 0.2227,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7422,
+        0.7695,
+        0.2227,
+        0.2344,
+        0.2383,
+        0.2305
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        -15,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8242,
+      "support_min": 0.2109,
+      "crew_min": 0.2109,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8242,
+        0.8555,
+        0.2148,
+        0.2227,
+        0.2344,
+        0.2109
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        1.2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        15,
+        -0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.9219,
+      "support_min": 0.2031,
+      "crew_min": 0.2031,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.9297,
+        0.9219,
+        0.2188,
+        0.2227,
+        0.2148,
+        0.2031
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.918,
+      "support_min": 0.2031,
+      "crew_min": 0.2031,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.918,
+        0.957,
+        0.2227,
+        0.2188,
+        0.2266,
+        0.2031
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        1.2,
+        42.5
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        15,
+        -0.2
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 33.93,
+      "pilot_min": 0.8438,
+      "support_min": 0.2031,
+      "crew_min": 0.2031,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8477,
+        0.8438,
+        0.2031,
+        0.2109,
+        0.207,
+        0.207
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        1.6,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8867,
+      "support_min": 0.1992,
+      "crew_min": 0.1992,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8867,
+        0.9297,
+        0.2227,
+        0.2188,
+        0.2266,
+        0.1992
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.4,
+        2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8828,
+      "support_min": 0.1992,
+      "crew_min": 0.1992,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8828,
+        0.9258,
+        0.2227,
+        0.2188,
+        0.2227,
+        0.1992
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.6,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        -15,
+        0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.7891,
+      "support_min": 0.1992,
+      "crew_min": 0.1992,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7891,
+        0.8047,
+        0.1992,
+        0.2109,
+        0.207,
+        0.2031
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8672,
+      "support_min": 0.1953,
+      "crew_min": 0.1953,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8672,
+        0.9102,
+        0.2188,
+        0.2188,
+        0.2188,
+        0.1953
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8633,
+      "support_min": 0.1953,
+      "crew_min": 0.1953,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8633,
+        0.9023,
+        0.2188,
+        0.2188,
+        0.2188,
+        0.1953
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.6,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8516,
+      "support_min": 0.1953,
+      "crew_min": 0.1953,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8516,
+        0.8867,
+        0.2188,
+        0.2188,
+        0.2188,
+        0.1953
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        1.6,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8516,
+      "support_min": 0.1953,
+      "crew_min": 0.1953,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8516,
+        0.8906,
+        0.2188,
+        0.2188,
+        0.2188,
+        0.1953
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        1.2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8438,
+      "support_min": 0.1953,
+      "crew_min": 0.1953,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8438,
+        0.8828,
+        0.2188,
+        0.2148,
+        0.2148,
+        0.1953
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8242,
+      "support_min": 0.1875,
+      "crew_min": 0.1875,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8242,
+        0.8555,
+        0.2188,
+        0.2109,
+        0.207,
+        0.1875
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        1.6,
+        42.5
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        0,
+        0
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 33.93,
+      "pilot_min": 0.7656,
+      "support_min": 0.1875,
+      "crew_min": 0.1875,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7656,
+        0.7969,
+        0.1953,
+        0.1992,
+        0.1992,
+        0.1875
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        2,
+        2,
+        57.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8008,
+      "support_min": 0.1836,
+      "crew_min": 0.1836,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8008,
+        0.8359,
+        0.207,
+        0.2109,
+        0.207,
+        0.1836
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        2,
+        2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        15,
+        0.2
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 41.38,
+      "pilot_min": 0.5156,
+      "support_min": 0.1836,
+      "crew_min": 0.1836,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.5156,
+        0.5312,
+        0.1836,
+        0.1953,
+        0.1914,
+        0.1914
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        2,
+        1.6,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.7812,
+      "support_min": 0.1797,
+      "crew_min": 0.1797,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7812,
+        0.8125,
+        0.1992,
+        0.207,
+        0.2031,
+        0.1797
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.7773,
+      "support_min": 0.1797,
+      "crew_min": 0.1797,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7773,
+        0.8125,
+        0.1992,
+        0.2031,
+        0.2031,
+        0.1797
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.4,
+        2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        0,
+        -0.2
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 28.04,
+      "pilot_min": 0.7617,
+      "support_min": 0.1797,
+      "crew_min": 0.1797,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7852,
+        0.7617,
+        0.1797,
+        0.1797,
+        0.1875,
+        0.1914
+      ],
+      "shutter_armor_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        2,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.7617,
+      "support_min": 0.1797,
+      "crew_min": 0.1797,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7617,
+        0.7852,
+        0.1953,
+        0.1992,
+        0.1992,
+        0.1797
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.7578,
+      "support_min": 0.1797,
+      "crew_min": 0.1797,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7578,
+        0.7852,
+        0.1953,
+        0.1992,
+        0.1992,
+        0.1797
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        1.6,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.75,
+      "support_min": 0.1797,
+      "crew_min": 0.1797,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.75,
+        0.7812,
+        0.1953,
+        0.1992,
+        0.1992,
+        0.1797
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        1.6,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.7461,
+      "support_min": 0.1797,
+      "crew_min": 0.1797,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7461,
+        0.7734,
+        0.1953,
+        0.1992,
+        0.1992,
+        0.1797
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        2,
+        1.2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.7422,
+      "support_min": 0.1797,
+      "crew_min": 0.1797,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7422,
+        0.7695,
+        0.1953,
+        0.1992,
+        0.1992,
+        0.1797
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.6,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        -15,
+        0.2
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 33.93,
+      "pilot_min": 0.7148,
+      "support_min": 0.1797,
+      "crew_min": 0.1797,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7148,
+        0.7344,
+        0.1797,
+        0.1914,
+        0.1914,
+        0.1797
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.7148,
+      "support_min": 0.1797,
+      "crew_min": 0.1797,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7148,
+        0.7383,
+        0.1914,
+        0.1875,
+        0.1953,
+        0.1797
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        2,
+        42.5
+      ],
+      "crown": 3,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        15,
+        -0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 29.54,
+      "pilot_min": 0.7969,
+      "support_min": 0.1758,
+      "crew_min": 0.1758,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8008,
+        0.7969,
+        0.1758,
+        0.1797,
+        0.1797,
+        0.1797
+      ],
+      "shutter_armor_t": 7.98,
+      "shutter_material_m3": 5.8,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0.2,
+        0,
+        0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.793,
+      "support_min": 0.1758,
+      "crew_min": 0.1758,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.793,
+        0.8203,
+        0.1797,
+        0.1836,
+        0.1875,
+        0.1758
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.6719,
+      "support_min": 0.1719,
+      "crew_min": 0.1719,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6719,
+        0.6992,
+        0.1797,
+        0.1836,
+        0.1875,
+        0.1719
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        2,
+        2,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.6523,
+      "support_min": 0.1719,
+      "crew_min": 0.1719,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6523,
+        0.6953,
+        0.1797,
+        0.1797,
+        0.1758,
+        0.1719
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.6484,
+      "support_min": 0.1719,
+      "crew_min": 0.1719,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6484,
+        0.6875,
+        0.1797,
+        0.1758,
+        0.1758,
+        0.1719
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        15,
+        0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.5977,
+      "support_min": 0.1719,
+      "crew_min": 0.1719,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.5977,
+        0.6172,
+        0.1875,
+        0.1836,
+        0.1719,
+        0.1758
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        2,
+        2,
+        57.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0.2,
+        0,
+        -0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8828,
+      "support_min": 0.168,
+      "crew_min": 0.168,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8906,
+        0.8828,
+        0.1758,
+        0.1758,
+        0.1797,
+        0.168
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        1.6,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.6406,
+      "support_min": 0.168,
+      "crew_min": 0.168,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6406,
+        0.6719,
+        0.1758,
+        0.1758,
+        0.1758,
+        0.168
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        2,
+        1.6,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.6406,
+      "support_min": 0.168,
+      "crew_min": 0.168,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6406,
+        0.6719,
+        0.1758,
+        0.1758,
+        0.1758,
+        0.168
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        2,
+        42.5
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        15,
+        0.2
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 33.93,
+      "pilot_min": 0.5117,
+      "support_min": 0.168,
+      "crew_min": 0.168,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.5117,
+        0.5312,
+        0.168,
+        0.1797,
+        0.1797,
+        0.168
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.8672,
+      "support_min": 0.1641,
+      "crew_min": 0.1641,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8672,
+        0.9062,
+        0.1875,
+        0.1836,
+        0.1953,
+        0.1641
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0.2,
+        15,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.7578,
+      "support_min": 0.1641,
+      "crew_min": 0.1641,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7578,
+        0.7852,
+        0.1641,
+        0.168,
+        0.1797,
+        0.1641
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        2,
+        42.5
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        15,
+        -0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.8633,
+      "support_min": 0.1602,
+      "crew_min": 0.1602,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8672,
+        0.8633,
+        0.1719,
+        0.1836,
+        0.1836,
+        0.1602
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 2.8,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        15,
+        0
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 25.53,
+      "pilot_min": 0.7617,
+      "support_min": 0.1602,
+      "crew_min": 0.1602,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7617,
+        0.7891,
+        0.168,
+        0.1641,
+        0.1719,
+        0.1602
+      ],
+      "shutter_armor_t": 6.89,
+      "shutter_material_m3": 5.01,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        15,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 28.04,
+      "pilot_min": 0.6172,
+      "support_min": 0.1602,
+      "crew_min": 0.1602,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6172,
+        0.6406,
+        0.1641,
+        0.1602,
+        0.1797,
+        0.168
+      ],
+      "shutter_armor_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.4,
+        2,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.8203,
+      "support_min": 0.1562,
+      "crew_min": 0.1562,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8203,
+        0.8555,
+        0.1719,
+        0.1797,
+        0.1875,
+        0.1562
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.6,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.7891,
+      "support_min": 0.1562,
+      "crew_min": 0.1562,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7891,
+        0.8164,
+        0.168,
+        0.1719,
+        0.1836,
+        0.1562
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        1.6,
+        50
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.7812,
+      "support_min": 0.1562,
+      "crew_min": 0.1562,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7812,
+        0.8125,
+        0.168,
+        0.1719,
+        0.1836,
+        0.1562
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        2,
+        42.5
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.7773,
+      "support_min": 0.1562,
+      "crew_min": 0.1562,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7773,
+        0.8125,
+        0.168,
+        0.1719,
+        0.1836,
+        0.1562
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 28.04,
+      "pilot_min": 0.7656,
+      "support_min": 0.1562,
+      "crew_min": 0.1562,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7656,
+        0.7734,
+        0.1797,
+        0.168,
+        0.1719,
+        0.1562
+      ],
+      "shutter_armor_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        1.6,
+        42.5
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.7656,
+      "support_min": 0.1562,
+      "crew_min": 0.1562,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7656,
+        0.7969,
+        0.168,
+        0.1641,
+        0.1836,
+        0.1562
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.7617,
+      "support_min": 0.1562,
+      "crew_min": 0.1562,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7617,
+        0.7852,
+        0.168,
+        0.1641,
+        0.1797,
+        0.1562
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        1.2,
+        42.5
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.7617,
+      "support_min": 0.1562,
+      "crew_min": 0.1562,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7617,
+        0.7852,
+        0.168,
+        0.1641,
+        0.1797,
+        0.1562
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        1.2,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.75,
+      "support_min": 0.1562,
+      "crew_min": 0.1562,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.75,
+        0.7812,
+        0.168,
+        0.1602,
+        0.1758,
+        0.1562
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.4,
+        2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 28.04,
+      "pilot_min": 0.7188,
+      "support_min": 0.1562,
+      "crew_min": 0.1562,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7227,
+        0.7188,
+        0.1797,
+        0.168,
+        0.168,
+        0.1562
+      ],
+      "shutter_armor_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        2,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.6172,
+      "support_min": 0.1562,
+      "crew_min": 0.1562,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6172,
+        0.6445,
+        0.168,
+        0.1758,
+        0.1758,
+        0.1562
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        0,
+        0.2
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 28.04,
+      "pilot_min": 0.5977,
+      "support_min": 0.1562,
+      "crew_min": 0.1562,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6055,
+        0.5977,
+        0.1562,
+        0.1602,
+        0.168,
+        0.1719
+      ],
+      "shutter_armor_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0.2,
+        15,
+        -0.2
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 33.93,
+      "pilot_min": 0.9414,
+      "support_min": 0.1523,
+      "crew_min": 0.1523,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.9492,
+        0.9414,
+        0.1602,
+        0.1641,
+        0.1641,
+        0.1523
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        15,
+        0
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 29.54,
+      "pilot_min": 0.8203,
+      "support_min": 0.1523,
+      "crew_min": 0.1523,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8203,
+        0.8555,
+        0.168,
+        0.1758,
+        0.1641,
+        0.1523
+      ],
+      "shutter_armor_t": 7.98,
+      "shutter_material_m3": 5.8,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.6,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        15,
+        -0.2
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 28.04,
+      "pilot_min": 0.7383,
+      "support_min": 0.1523,
+      "crew_min": 0.1523,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.75,
+        0.7383,
+        0.1641,
+        0.1602,
+        0.1641,
+        0.1523
+      ],
+      "shutter_armor_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.4,
+        2,
+        35
+      ],
+      "crown": 3,
+      "windows": "current",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        15,
+        0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 25.53,
+      "pilot_min": 0.6406,
+      "support_min": 0.1523,
+      "crew_min": 0.1523,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6406,
+        0.6641,
+        0.1523,
+        0.1562,
+        0.1562,
+        0.1562
+      ],
+      "shutter_armor_t": 6.89,
+      "shutter_material_m3": 5.01,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        42.5
+      ],
+      "crown": 3,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        15,
+        0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 29.54,
+      "pilot_min": 0.5352,
+      "support_min": 0.1523,
+      "crew_min": 0.1523,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.5352,
+        0.5508,
+        0.1523,
+        0.1641,
+        0.1719,
+        0.1562
+      ],
+      "shutter_armor_t": 7.98,
+      "shutter_material_m3": 5.8,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 29.54,
+      "pilot_min": 0.8203,
+      "support_min": 0.1484,
+      "crew_min": 0.1484,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8203,
+        0.8555,
+        0.1523,
+        0.168,
+        0.1641,
+        0.1484
+      ],
+      "shutter_armor_t": 7.98,
+      "shutter_material_m3": 5.8,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.4,
+        2,
+        35
+      ],
+      "crown": 3,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 29.54,
+      "pilot_min": 0.7656,
+      "support_min": 0.1484,
+      "crew_min": 0.1484,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7656,
+        0.793,
+        0.1523,
+        0.1484,
+        0.1641,
+        0.1484
+      ],
+      "shutter_armor_t": 7.98,
+      "shutter_material_m3": 5.8,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        2,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.707,
+      "support_min": 0.1484,
+      "crew_min": 0.1484,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.707,
+        0.7305,
+        0.1641,
+        0.1562,
+        0.1758,
+        0.1484
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.6,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 28.04,
+      "pilot_min": 0.6875,
+      "support_min": 0.1484,
+      "crew_min": 0.1484,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6875,
+        0.6992,
+        0.1758,
+        0.1641,
+        0.1562,
+        0.1484
+      ],
+      "shutter_armor_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        1.6,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 28.04,
+      "pilot_min": 0.6523,
+      "support_min": 0.1484,
+      "crew_min": 0.1484,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6523,
+        0.668,
+        0.168,
+        0.1484,
+        0.1562,
+        0.1484
+      ],
+      "shutter_armor_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        1.6,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        15,
+        0.2
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 28.04,
+      "pilot_min": 0.6016,
+      "support_min": 0.1484,
+      "crew_min": 0.1484,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6094,
+        0.6016,
+        0.1602,
+        0.1484,
+        0.1602,
+        0.1484
+      ],
+      "shutter_armor_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.5859,
+      "support_min": 0.1484,
+      "crew_min": 0.1484,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.5859,
+        0.6172,
+        0.1602,
+        0.1758,
+        0.1758,
+        0.1484
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        2,
+        2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.5664,
+      "support_min": 0.1484,
+      "crew_min": 0.1484,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.5664,
+        0.5938,
+        0.1523,
+        0.1719,
+        0.1758,
+        0.1484
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        2,
+        1.6,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.5586,
+      "support_min": 0.1484,
+      "crew_min": 0.1484,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.5586,
+        0.5859,
+        0.1523,
+        0.1719,
+        0.168,
+        0.1484
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "current",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        0,
+        -0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 25.53,
+      "pilot_min": 0.8516,
+      "support_min": 0.1445,
+      "crew_min": 0.1445,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8633,
+        0.8516,
+        0.1602,
+        0.1562,
+        0.1641,
+        0.1445
+      ],
+      "shutter_armor_t": 6.89,
+      "shutter_material_m3": 5.01,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.6,
+        35
+      ],
+      "crown": 3,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 29.54,
+      "pilot_min": 0.7227,
+      "support_min": 0.1445,
+      "crew_min": 0.1445,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7227,
+        0.7656,
+        0.1445,
+        0.1484,
+        0.1602,
+        0.1445
+      ],
+      "shutter_armor_t": 7.98,
+      "shutter_material_m3": 5.8,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        1.6,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.6719,
+      "support_min": 0.1445,
+      "crew_min": 0.1445,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6719,
+        0.6992,
+        0.1562,
+        0.1484,
+        0.1641,
+        0.1445
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        2,
+        1.6,
+        50
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.668,
+      "support_min": 0.1445,
+      "crew_min": 0.1445,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.668,
+        0.6992,
+        0.1523,
+        0.1484,
+        0.1602,
+        0.1445
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 28.04,
+      "pilot_min": 0.6602,
+      "support_min": 0.1445,
+      "crew_min": 0.1445,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6602,
+        0.6602,
+        0.168,
+        0.1484,
+        0.1484,
+        0.1445
+      ],
+      "shutter_armor_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        42.5
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.6602,
+      "support_min": 0.1445,
+      "crew_min": 0.1445,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6602,
+        0.6992,
+        0.1523,
+        0.1484,
+        0.1602,
+        0.1445
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        42.5
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        15,
+        0
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 33.93,
+      "pilot_min": 0.6602,
+      "support_min": 0.1445,
+      "crew_min": 0.1445,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6602,
+        0.6992,
+        0.1562,
+        0.1602,
+        0.1602,
+        0.1445
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 28.04,
+      "pilot_min": 0.6562,
+      "support_min": 0.1445,
+      "crew_min": 0.1445,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6562,
+        0.6758,
+        0.168,
+        0.1484,
+        0.1562,
+        0.1445
+      ],
+      "shutter_armor_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        1.2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 28.04,
+      "pilot_min": 0.6445,
+      "support_min": 0.1445,
+      "crew_min": 0.1445,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6445,
+        0.6484,
+        0.1641,
+        0.1445,
+        0.1523,
+        0.1445
+      ],
+      "shutter_armor_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        2,
+        2,
+        57.5
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        -0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.7305,
+      "support_min": 0.1406,
+      "crew_min": 0.1406,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.75,
+        0.7305,
+        0.1484,
+        0.1484,
+        0.1602,
+        0.1406
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        1.6,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        -15,
+        -0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 28.04,
+      "pilot_min": 0.6758,
+      "support_min": 0.1406,
+      "crew_min": 0.1406,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6836,
+        0.6758,
+        0.1445,
+        0.1406,
+        0.1523,
+        0.1445
+      ],
+      "shutter_armor_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        2,
+        2,
+        57.5
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.6523,
+      "support_min": 0.1406,
+      "crew_min": 0.1406,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6523,
+        0.6914,
+        0.1484,
+        0.1484,
+        0.1602,
+        0.1406
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        1.6,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 28.04,
+      "pilot_min": 0.6484,
+      "support_min": 0.1406,
+      "crew_min": 0.1406,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6484,
+        0.6602,
+        0.1562,
+        0.1406,
+        0.1602,
+        0.1445
+      ],
+      "shutter_armor_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        1.6,
+        42.5
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.6484,
+      "support_min": 0.1406,
+      "crew_min": 0.1406,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6484,
+        0.6836,
+        0.1484,
+        0.1484,
+        0.1602,
+        0.1406
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 28.04,
+      "pilot_min": 0.6172,
+      "support_min": 0.1406,
+      "crew_min": 0.1406,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6172,
+        0.6406,
+        0.1562,
+        0.1406,
+        0.1484,
+        0.1406
+      ],
+      "shutter_armor_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "segmented",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        15,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 27.33,
+      "pilot_min": 0.5898,
+      "support_min": 0.1406,
+      "crew_min": 0.1406,
+      "pilot_cone_min": 0.9107,
+      "forward": [
+        0.5977,
+        0.5898,
+        0.1445,
+        0.1406,
+        0.1445,
+        0.1562
+      ],
+      "shutter_armor_t": 7.38,
+      "shutter_material_m3": 5.37,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        2,
+        42.5
+      ],
+      "crown": 3,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 29.54,
+      "pilot_min": 0.7109,
+      "support_min": 0.1367,
+      "crew_min": 0.1367,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7109,
+        0.7422,
+        0.1445,
+        0.1484,
+        0.1523,
+        0.1367
+      ],
+      "shutter_armor_t": 7.98,
+      "shutter_material_m3": 5.8,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        1.6,
+        42.5
+      ],
+      "crown": 3,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 29.54,
+      "pilot_min": 0.6992,
+      "support_min": 0.1367,
+      "crew_min": 0.1367,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6992,
+        0.7305,
+        0.1367,
+        0.1484,
+        0.1523,
+        0.1367
+      ],
+      "shutter_armor_t": 7.98,
+      "shutter_material_m3": 5.8,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        1.6,
+        50
+      ],
+      "crown": 3,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 29.54,
+      "pilot_min": 0.6953,
+      "support_min": 0.1367,
+      "crew_min": 0.1367,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6953,
+        0.7305,
+        0.1367,
+        0.1484,
+        0.1484,
+        0.1367
+      ],
+      "shutter_armor_t": 7.98,
+      "shutter_material_m3": 5.8,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        1.2,
+        35
+      ],
+      "crown": 3,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 29.54,
+      "pilot_min": 0.6875,
+      "support_min": 0.1367,
+      "crew_min": 0.1367,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6875,
+        0.7266,
+        0.1367,
+        0.1484,
+        0.1484,
+        0.1367
+      ],
+      "shutter_armor_t": 7.98,
+      "shutter_material_m3": 5.8,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        1.2,
+        42.5
+      ],
+      "crown": 3,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 29.54,
+      "pilot_min": 0.6797,
+      "support_min": 0.1367,
+      "crew_min": 0.1367,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6797,
+        0.7188,
+        0.1367,
+        0.1484,
+        0.1484,
+        0.1367
+      ],
+      "shutter_armor_t": 7.98,
+      "shutter_material_m3": 5.8,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown": 3,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 29.54,
+      "pilot_min": 0.6719,
+      "support_min": 0.1367,
+      "crew_min": 0.1367,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6719,
+        0.6992,
+        0.1367,
+        0.1406,
+        0.1445,
+        0.1367
+      ],
+      "shutter_armor_t": 7.98,
+      "shutter_material_m3": 5.8,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        2,
+        1.6,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0.2,
+        -15,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.6406,
+      "support_min": 0.1367,
+      "crew_min": 0.1367,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6406,
+        0.6719,
+        0.1523,
+        0.1367,
+        0.1367,
+        0.1445
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        1.2,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.6367,
+      "support_min": 0.1367,
+      "crew_min": 0.1367,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6367,
+        0.6602,
+        0.1484,
+        0.1484,
+        0.1602,
+        0.1367
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        1.6,
+        2,
+        50
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.6367,
+      "support_min": 0.1367,
+      "crew_min": 0.1367,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6367,
+        0.6719,
+        0.1484,
+        0.1484,
+        0.1602,
+        0.1367
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        2,
+        1.2,
+        42.5
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.6367,
+      "support_min": 0.1367,
+      "crew_min": 0.1367,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.6367,
+        0.6758,
+        0.1484,
+        0.1484,
+        0.1602,
+        0.1367
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        2,
+        1.6,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        -15,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 28.04,
+      "pilot_min": 0.5625,
+      "support_min": 0.1367,
+      "crew_min": 0.1367,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.5625,
+        0.5625,
+        0.1367,
+        0.1406,
+        0.1445,
+        0.1406
+      ],
+      "shutter_armor_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        2,
+        1.6,
+        42.5
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        -15,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 33.93,
+      "pilot_min": 0.5586,
+      "support_min": 0.1367,
+      "crew_min": 0.1367,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.5586,
+        0.5859,
+        0.1367,
+        0.1445,
+        0.1367,
+        0.1367
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        2,
+        2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.5117,
+      "support_min": 0.1367,
+      "crew_min": 0.1367,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.5117,
+        0.5195,
+        0.1445,
+        0.1523,
+        0.1641,
+        0.1367
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 2.8,
+      "windows": "current",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 25.53,
+      "pilot_min": 0.7617,
+      "support_min": 0.1328,
+      "crew_min": 0.1328,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7617,
+        0.7891,
+        0.1367,
+        0.1367,
+        0.1445,
+        0.1328
+      ],
+      "shutter_armor_t": 6.89,
+      "shutter_material_m3": 5.01,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED"
+    }
+  ],
+  "detail": [
+    {
+      "shape": [
+        1.6,
+        1.6,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        0,
+        0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8242,
+      "support_min": 0.2422,
+      "crew_min": 0.2422,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8242,
+        0.8438,
+        0.2461,
+        0.2578,
+        0.25,
+        0.2422
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED",
+      "detail": {
+        "PILOT": {
+          "integrated": 0.9152,
+          "dual": 0.8661
+        },
+        "NAV": {
+          "integrated": 0.9152,
+          "dual": 0.8438
+        },
+        "S1": {
+          "integrated": 0.1484,
+          "dual": 0.1328
+        },
+        "S2": {
+          "integrated": 0.1523,
+          "dual": 0.1406
+        },
+        "S3": {
+          "integrated": 0.125,
+          "dual": 0.1094
+        },
+        "S4": {
+          "integrated": 0.125,
+          "dual": 0.1094
+        }
+      },
+      "paths": {
+        "walkway_cells": 933,
+        "all_reachable_with_0.8m_path": true,
+        "reach": {
+          "ladder0": true,
+          "ladder1": true,
+          "PILOT": true,
+          "NAV": true,
+          "S1": true,
+          "S2": true,
+          "S3": true,
+          "S4": true
+        },
+        "min_headroom_on_walkways_m": 2.3
+      }
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        0,
+        -0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.9414,
+      "support_min": 0.2383,
+      "crew_min": 0.2383,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.9492,
+        0.9414,
+        0.2383,
+        0.2539,
+        0.2461,
+        0.2383
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED",
+      "detail": {
+        "PILOT": {
+          "integrated": 1.0,
+          "dual": 0.9196
+        },
+        "NAV": {
+          "integrated": 1.0,
+          "dual": 0.9107
+        },
+        "S1": {
+          "integrated": 0.1484,
+          "dual": 0.1406
+        },
+        "S2": {
+          "integrated": 0.1484,
+          "dual": 0.1367
+        },
+        "S3": {
+          "integrated": 0.1211,
+          "dual": 0.1016
+        },
+        "S4": {
+          "integrated": 0.1211,
+          "dual": 0.1094
+        }
+      },
+      "paths": {
+        "walkway_cells": 933,
+        "all_reachable_with_0.8m_path": true,
+        "reach": {
+          "ladder0": true,
+          "ladder1": true,
+          "PILOT": true,
+          "NAV": true,
+          "S1": true,
+          "S2": true,
+          "S3": true,
+          "S4": true
+        },
+        "min_headroom_on_walkways_m": 2.3
+      }
+    },
+    {
+      "shape": [
+        2,
+        1.2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        15,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.7422,
+      "support_min": 0.2227,
+      "crew_min": 0.2227,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7422,
+        0.7695,
+        0.2227,
+        0.2344,
+        0.2383,
+        0.2305
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED",
+      "detail": {
+        "PILOT": {
+          "integrated": 1.0,
+          "dual": 0.8929
+        },
+        "NAV": {
+          "integrated": 1.0,
+          "dual": 0.9241
+        },
+        "S1": {
+          "integrated": 0.1523,
+          "dual": 0.1484
+        },
+        "S2": {
+          "integrated": 0.1484,
+          "dual": 0.1367
+        },
+        "S3": {
+          "integrated": 0.1289,
+          "dual": 0.1211
+        },
+        "S4": {
+          "integrated": 0.1289,
+          "dual": 0.1289
+        }
+      },
+      "paths": {
+        "walkway_cells": 683,
+        "all_reachable_with_0.8m_path": false,
+        "reach": {
+          "ladder0": true,
+          "ladder1": false,
+          "PILOT": false,
+          "NAV": false,
+          "S1": false,
+          "S2": false,
+          "S3": false,
+          "S4": false
+        },
+        "min_headroom_on_walkways_m": 2.3
+      }
+    },
+    {
+      "shape": [
+        1.2,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        -15,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8242,
+      "support_min": 0.2109,
+      "crew_min": 0.2109,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8242,
+        0.8555,
+        0.2148,
+        0.2227,
+        0.2344,
+        0.2109
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED",
+      "detail": {
+        "PILOT": {
+          "integrated": 1.0,
+          "dual": 0.9241
+        },
+        "NAV": {
+          "integrated": 1.0,
+          "dual": 0.9241
+        },
+        "S1": {
+          "integrated": 0.1211,
+          "dual": 0.1094
+        },
+        "S2": {
+          "integrated": 0.1211,
+          "dual": 0.1094
+        },
+        "S3": {
+          "integrated": 0.1133,
+          "dual": 0.0938
+        },
+        "S4": {
+          "integrated": 0.1094,
+          "dual": 0.0938
+        }
+      },
+      "paths": {
+        "walkway_cells": 1005,
+        "all_reachable_with_0.8m_path": true,
+        "reach": {
+          "ladder0": true,
+          "ladder1": true,
+          "PILOT": true,
+          "NAV": true,
+          "S1": true,
+          "S2": true,
+          "S3": true,
+          "S4": true
+        },
+        "min_headroom_on_walkways_m": 2.3
+      }
+    },
+    {
+      "shape": [
+        1.6,
+        1.2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        15,
+        -0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.9219,
+      "support_min": 0.2031,
+      "crew_min": 0.2031,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.9297,
+        0.9219,
+        0.2188,
+        0.2227,
+        0.2148,
+        0.2031
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED",
+      "detail": {
+        "PILOT": {
+          "integrated": 1.0,
+          "dual": 0.9241
+        },
+        "NAV": {
+          "integrated": 1.0,
+          "dual": 0.9196
+        },
+        "S1": {
+          "integrated": 0.1289,
+          "dual": 0.1289
+        },
+        "S2": {
+          "integrated": 0.1328,
+          "dual": 0.1289
+        },
+        "S3": {
+          "integrated": 0.1055,
+          "dual": 0.0977
+        },
+        "S4": {
+          "integrated": 0.1172,
+          "dual": 0.1016
+        }
+      },
+      "paths": {
+        "walkway_cells": 823,
+        "all_reachable_with_0.8m_path": false,
+        "reach": {
+          "ladder0": true,
+          "ladder1": false,
+          "PILOT": false,
+          "NAV": false,
+          "S1": false,
+          "S2": false,
+          "S3": false,
+          "S4": false
+        },
+        "min_headroom_on_walkways_m": 2.28
+      }
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.918,
+      "support_min": 0.2031,
+      "crew_min": 0.2031,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.918,
+        0.957,
+        0.2227,
+        0.2188,
+        0.2266,
+        0.2031
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED",
+      "detail": {
+        "PILOT": {
+          "integrated": 1.0,
+          "dual": 0.9152
+        },
+        "NAV": {
+          "integrated": 1.0,
+          "dual": 0.933
+        },
+        "S1": {
+          "integrated": 0.1328,
+          "dual": 0.1172
+        },
+        "S2": {
+          "integrated": 0.1367,
+          "dual": 0.1289
+        },
+        "S3": {
+          "integrated": 0.1094,
+          "dual": 0.1055
+        },
+        "S4": {
+          "integrated": 0.1133,
+          "dual": 0.1094
+        }
+      },
+      "paths": {
+        "walkway_cells": 1037,
+        "all_reachable_with_0.8m_path": true,
+        "reach": {
+          "ladder0": true,
+          "ladder1": true,
+          "PILOT": true,
+          "NAV": true,
+          "S1": true,
+          "S2": true,
+          "S3": true,
+          "S4": true
+        },
+        "min_headroom_on_walkways_m": 2.28
+      }
+    },
+    {
+      "shape": [
+        1.6,
+        1.2,
+        42.5
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        15,
+        -0.2
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 33.93,
+      "pilot_min": 0.8438,
+      "support_min": 0.2031,
+      "crew_min": 0.2031,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8477,
+        0.8438,
+        0.2031,
+        0.2109,
+        0.207,
+        0.207
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED",
+      "detail": {
+        "PILOT": {
+          "integrated": 1.0,
+          "dual": 0.9241
+        },
+        "NAV": {
+          "integrated": 1.0,
+          "dual": 0.9196
+        },
+        "S1": {
+          "integrated": 0.1523,
+          "dual": 0.1328
+        },
+        "S2": {
+          "integrated": 0.1406,
+          "dual": 0.1328
+        },
+        "S3": {
+          "integrated": 0.1211,
+          "dual": 0.1133
+        },
+        "S4": {
+          "integrated": 0.1211,
+          "dual": 0.1133
+        }
+      },
+      "paths": {
+        "walkway_cells": 683,
+        "all_reachable_with_0.8m_path": false,
+        "reach": {
+          "ladder0": true,
+          "ladder1": false,
+          "PILOT": false,
+          "NAV": false,
+          "S1": false,
+          "S2": false,
+          "S3": false,
+          "S4": false
+        },
+        "min_headroom_on_walkways_m": 2.3
+      }
+    },
+    {
+      "shape": [
+        1.6,
+        1.6,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8867,
+      "support_min": 0.1992,
+      "crew_min": 0.1992,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8867,
+        0.9297,
+        0.2227,
+        0.2188,
+        0.2266,
+        0.1992
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED",
+      "detail": {
+        "PILOT": {
+          "integrated": 1.0,
+          "dual": 0.9062
+        },
+        "NAV": {
+          "integrated": 1.0,
+          "dual": 0.9196
+        },
+        "S1": {
+          "integrated": 0.1328,
+          "dual": 0.125
+        },
+        "S2": {
+          "integrated": 0.1367,
+          "dual": 0.1289
+        },
+        "S3": {
+          "integrated": 0.1094,
+          "dual": 0.1016
+        },
+        "S4": {
+          "integrated": 0.1133,
+          "dual": 0.1094
+        }
+      },
+      "paths": {
+        "walkway_cells": 1037,
+        "all_reachable_with_0.8m_path": true,
+        "reach": {
+          "ladder0": true,
+          "ladder1": true,
+          "PILOT": true,
+          "NAV": true,
+          "S1": true,
+          "S2": true,
+          "S3": true,
+          "S4": true
+        },
+        "min_headroom_on_walkways_m": 2.28
+      }
+    },
+    {
+      "shape": [
+        0.4,
+        2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8828,
+      "support_min": 0.1992,
+      "crew_min": 0.1992,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8828,
+        0.9258,
+        0.2227,
+        0.2188,
+        0.2227,
+        0.1992
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED",
+      "detail": {
+        "PILOT": {
+          "integrated": 1.0,
+          "dual": 0.933
+        },
+        "NAV": {
+          "integrated": 1.0,
+          "dual": 0.9286
+        },
+        "S1": {
+          "integrated": 0.1328,
+          "dual": 0.125
+        },
+        "S2": {
+          "integrated": 0.1367,
+          "dual": 0.1211
+        },
+        "S3": {
+          "integrated": 0.1094,
+          "dual": 0.1016
+        },
+        "S4": {
+          "integrated": 0.1133,
+          "dual": 0.1016
+        }
+      },
+      "paths": {
+        "walkway_cells": 1037,
+        "all_reachable_with_0.8m_path": true,
+        "reach": {
+          "ladder0": true,
+          "ladder1": true,
+          "PILOT": true,
+          "NAV": true,
+          "S1": true,
+          "S2": true,
+          "S3": true,
+          "S4": true
+        },
+        "min_headroom_on_walkways_m": 2.28
+      }
+    },
+    {
+      "shape": [
+        0.8,
+        1.6,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        -15,
+        0.2
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.7891,
+      "support_min": 0.1992,
+      "crew_min": 0.1992,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7891,
+        0.8047,
+        0.1992,
+        0.2109,
+        0.207,
+        0.2031
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED",
+      "detail": {
+        "PILOT": {
+          "integrated": 0.9152,
+          "dual": 0.8348
+        },
+        "NAV": {
+          "integrated": 0.9152,
+          "dual": 0.8259
+        },
+        "S1": {
+          "integrated": 0.1133,
+          "dual": 0.1055
+        },
+        "S2": {
+          "integrated": 0.1172,
+          "dual": 0.1094
+        },
+        "S3": {
+          "integrated": 0.1133,
+          "dual": 0.1094
+        },
+        "S4": {
+          "integrated": 0.1055,
+          "dual": 0.0977
+        }
+      },
+      "paths": {
+        "walkway_cells": 1053,
+        "all_reachable_with_0.8m_path": true,
+        "reach": {
+          "ladder0": true,
+          "ladder1": true,
+          "PILOT": true,
+          "NAV": true,
+          "S1": true,
+          "S2": true,
+          "S3": true,
+          "S4": true
+        },
+        "min_headroom_on_walkways_m": 2.28
+      }
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8672,
+      "support_min": 0.1953,
+      "crew_min": 0.1953,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8672,
+        0.9102,
+        0.2188,
+        0.2188,
+        0.2188,
+        0.1953
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED",
+      "detail": {
+        "PILOT": {
+          "integrated": 1.0,
+          "dual": 0.9286
+        },
+        "NAV": {
+          "integrated": 1.0,
+          "dual": 0.9286
+        },
+        "S1": {
+          "integrated": 0.1328,
+          "dual": 0.1211
+        },
+        "S2": {
+          "integrated": 0.1367,
+          "dual": 0.125
+        },
+        "S3": {
+          "integrated": 0.1094,
+          "dual": 0.1016
+        },
+        "S4": {
+          "integrated": 0.1094,
+          "dual": 0.1094
+        }
+      },
+      "paths": {
+        "walkway_cells": 1037,
+        "all_reachable_with_0.8m_path": true,
+        "reach": {
+          "ladder0": true,
+          "ladder1": true,
+          "PILOT": true,
+          "NAV": true,
+          "S1": true,
+          "S2": true,
+          "S3": true,
+          "S4": true
+        },
+        "min_headroom_on_walkways_m": 2.28
+      }
+    },
+    {
+      "shape": [
+        0.8,
+        2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8633,
+      "support_min": 0.1953,
+      "crew_min": 0.1953,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8633,
+        0.9023,
+        0.2188,
+        0.2188,
+        0.2188,
+        0.1953
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED",
+      "detail": {
+        "PILOT": {
+          "integrated": 1.0,
+          "dual": 0.9152
+        },
+        "NAV": {
+          "integrated": 1.0,
+          "dual": 0.933
+        },
+        "S1": {
+          "integrated": 0.1328,
+          "dual": 0.1172
+        },
+        "S2": {
+          "integrated": 0.1367,
+          "dual": 0.125
+        },
+        "S3": {
+          "integrated": 0.1094,
+          "dual": 0.1055
+        },
+        "S4": {
+          "integrated": 0.1094,
+          "dual": 0.1016
+        }
+      },
+      "paths": {
+        "walkway_cells": 1037,
+        "all_reachable_with_0.8m_path": true,
+        "reach": {
+          "ladder0": true,
+          "ladder1": true,
+          "PILOT": true,
+          "NAV": true,
+          "S1": true,
+          "S2": true,
+          "S3": true,
+          "S4": true
+        },
+        "min_headroom_on_walkways_m": 2.28
+      }
+    },
+    {
+      "shape": [
+        0.8,
+        1.6,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8516,
+      "support_min": 0.1953,
+      "crew_min": 0.1953,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8516,
+        0.8867,
+        0.2188,
+        0.2188,
+        0.2188,
+        0.1953
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED",
+      "detail": {
+        "PILOT": {
+          "integrated": 1.0,
+          "dual": 0.9152
+        },
+        "NAV": {
+          "integrated": 1.0,
+          "dual": 0.933
+        },
+        "S1": {
+          "integrated": 0.1328,
+          "dual": 0.1211
+        },
+        "S2": {
+          "integrated": 0.1367,
+          "dual": 0.1172
+        },
+        "S3": {
+          "integrated": 0.1094,
+          "dual": 0.1016
+        },
+        "S4": {
+          "integrated": 0.1094,
+          "dual": 0.0977
+        }
+      },
+      "paths": {
+        "walkway_cells": 1037,
+        "all_reachable_with_0.8m_path": true,
+        "reach": {
+          "ladder0": true,
+          "ladder1": true,
+          "PILOT": true,
+          "NAV": true,
+          "S1": true,
+          "S2": true,
+          "S3": true,
+          "S4": true
+        },
+        "min_headroom_on_walkways_m": 2.28
+      }
+    },
+    {
+      "shape": [
+        1.2,
+        1.6,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8516,
+      "support_min": 0.1953,
+      "crew_min": 0.1953,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8516,
+        0.8906,
+        0.2188,
+        0.2188,
+        0.2188,
+        0.1953
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED",
+      "detail": {
+        "PILOT": {
+          "integrated": 1.0,
+          "dual": 0.9286
+        },
+        "NAV": {
+          "integrated": 1.0,
+          "dual": 0.9286
+        },
+        "S1": {
+          "integrated": 0.1328,
+          "dual": 0.1211
+        },
+        "S2": {
+          "integrated": 0.1367,
+          "dual": 0.1211
+        },
+        "S3": {
+          "integrated": 0.1094,
+          "dual": 0.0977
+        },
+        "S4": {
+          "integrated": 0.1094,
+          "dual": 0.1016
+        }
+      },
+      "paths": {
+        "walkway_cells": 1037,
+        "all_reachable_with_0.8m_path": true,
+        "reach": {
+          "ladder0": true,
+          "ladder1": true,
+          "PILOT": true,
+          "NAV": true,
+          "S1": true,
+          "S2": true,
+          "S3": true,
+          "S4": true
+        },
+        "min_headroom_on_walkways_m": 2.28
+      }
+    },
+    {
+      "shape": [
+        1.6,
+        1.2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8438,
+      "support_min": 0.1953,
+      "crew_min": 0.1953,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8438,
+        0.8828,
+        0.2188,
+        0.2148,
+        0.2148,
+        0.1953
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED",
+      "detail": {
+        "PILOT": {
+          "integrated": 1.0,
+          "dual": 0.9107
+        },
+        "NAV": {
+          "integrated": 1.0,
+          "dual": 0.933
+        },
+        "S1": {
+          "integrated": 0.1328,
+          "dual": 0.125
+        },
+        "S2": {
+          "integrated": 0.1367,
+          "dual": 0.1289
+        },
+        "S3": {
+          "integrated": 0.1055,
+          "dual": 0.0977
+        },
+        "S4": {
+          "integrated": 0.1094,
+          "dual": 0.1016
+        }
+      },
+      "paths": {
+        "walkway_cells": 1037,
+        "all_reachable_with_0.8m_path": true,
+        "reach": {
+          "ladder0": true,
+          "ladder1": true,
+          "PILOT": true,
+          "NAV": true,
+          "S1": true,
+          "S2": true,
+          "S3": true,
+          "S4": true
+        },
+        "min_headroom_on_walkways_m": 2.28
+      }
+    },
+    {
+      "shape": [
+        1.2,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8242,
+      "support_min": 0.1875,
+      "crew_min": 0.1875,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8242,
+        0.8555,
+        0.2188,
+        0.2109,
+        0.207,
+        0.1875
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED",
+      "detail": {
+        "PILOT": {
+          "integrated": 1.0,
+          "dual": 0.9241
+        },
+        "NAV": {
+          "integrated": 1.0,
+          "dual": 0.9241
+        },
+        "S1": {
+          "integrated": 0.1328,
+          "dual": 0.1172
+        },
+        "S2": {
+          "integrated": 0.1328,
+          "dual": 0.1211
+        },
+        "S3": {
+          "integrated": 0.1016,
+          "dual": 0.1016
+        },
+        "S4": {
+          "integrated": 0.1016,
+          "dual": 0.0938
+        }
+      },
+      "paths": {
+        "walkway_cells": 1037,
+        "all_reachable_with_0.8m_path": true,
+        "reach": {
+          "ladder0": true,
+          "ladder1": true,
+          "PILOT": true,
+          "NAV": true,
+          "S1": true,
+          "S2": true,
+          "S3": true,
+          "S4": true
+        },
+        "min_headroom_on_walkways_m": 2.28
+      }
+    },
+    {
+      "shape": [
+        1.2,
+        1.6,
+        42.5
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        0,
+        0
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 33.93,
+      "pilot_min": 0.7656,
+      "support_min": 0.1875,
+      "crew_min": 0.1875,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7656,
+        0.7969,
+        0.1953,
+        0.1992,
+        0.1992,
+        0.1875
+      ],
+      "shutter_armor_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED",
+      "detail": {
+        "PILOT": {
+          "integrated": 1.0,
+          "dual": 0.9286
+        },
+        "NAV": {
+          "integrated": 1.0,
+          "dual": 0.9286
+        },
+        "S1": {
+          "integrated": 0.125,
+          "dual": 0.1094
+        },
+        "S2": {
+          "integrated": 0.1211,
+          "dual": 0.1133
+        },
+        "S3": {
+          "integrated": 0.0977,
+          "dual": 0.0859
+        },
+        "S4": {
+          "integrated": 0.0977,
+          "dual": 0.0859
+        }
+      },
+      "paths": {
+        "walkway_cells": 933,
+        "all_reachable_with_0.8m_path": true,
+        "reach": {
+          "ladder0": true,
+          "ladder1": true,
+          "PILOT": true,
+          "NAV": true,
+          "S1": true,
+          "S2": true,
+          "S3": true,
+          "S4": true
+        },
+        "min_headroom_on_walkways_m": 2.3
+      }
+    },
+    {
+      "shape": [
+        2,
+        2,
+        57.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.8008,
+      "support_min": 0.1836,
+      "crew_min": 0.1836,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.8008,
+        0.8359,
+        0.207,
+        0.2109,
+        0.207,
+        0.1836
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED",
+      "detail": {
+        "PILOT": {
+          "integrated": 1.0,
+          "dual": 0.9107
+        },
+        "NAV": {
+          "integrated": 1.0,
+          "dual": 0.9286
+        },
+        "S1": {
+          "integrated": 0.125,
+          "dual": 0.1016
+        },
+        "S2": {
+          "integrated": 0.1328,
+          "dual": 0.1211
+        },
+        "S3": {
+          "integrated": 0.1016,
+          "dual": 0.0859
+        },
+        "S4": {
+          "integrated": 0.1016,
+          "dual": 0.0977
+        }
+      },
+      "paths": {
+        "walkway_cells": 1037,
+        "all_reachable_with_0.8m_path": true,
+        "reach": {
+          "ladder0": true,
+          "ladder1": true,
+          "PILOT": true,
+          "NAV": true,
+          "S1": true,
+          "S2": true,
+          "S3": true,
+          "S4": true
+        },
+        "min_headroom_on_walkways_m": 2.28
+      }
+    },
+    {
+      "shape": [
+        2,
+        2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        -0.2,
+        15,
+        0.2
+      ],
+      "shutter": "segmented_retractable",
+      "area_m2": 41.38,
+      "pilot_min": 0.5156,
+      "support_min": 0.1836,
+      "crew_min": 0.1836,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.5156,
+        0.5312,
+        0.1836,
+        0.1953,
+        0.1914,
+        0.1914
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED",
+      "detail": {
+        "PILOT": {
+          "integrated": 0.9152,
+          "dual": 0.8304
+        },
+        "NAV": {
+          "integrated": 0.9152,
+          "dual": 0.8527
+        },
+        "S1": {
+          "integrated": 0.1289,
+          "dual": 0.1133
+        },
+        "S2": {
+          "integrated": 0.1289,
+          "dual": 0.125
+        },
+        "S3": {
+          "integrated": 0.1094,
+          "dual": 0.1055
+        },
+        "S4": {
+          "integrated": 0.1094,
+          "dual": 0.1016
+        }
+      },
+      "paths": {
+        "walkway_cells": 683,
+        "all_reachable_with_0.8m_path": false,
+        "reach": {
+          "ladder0": true,
+          "ladder1": false,
+          "PILOT": false,
+          "NAV": false,
+          "S1": false,
+          "S2": false,
+          "S3": false,
+          "S4": false
+        },
+        "min_headroom_on_walkways_m": 2.3
+      }
+    },
+    {
+      "shape": [
+        2,
+        1.6,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "shutter": "radial_tambour",
+      "area_m2": 41.38,
+      "pilot_min": 0.7812,
+      "support_min": 0.1797,
+      "crew_min": 0.1797,
+      "pilot_cone_min": 1.0,
+      "forward": [
+        0.7812,
+        0.8125,
+        0.1992,
+        0.207,
+        0.2031,
+        0.1797
+      ],
+      "shutter_armor_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "packaging": "existing_ring",
+      "pressure_openings": "UNQUALIFIED",
+      "shutter_stowage": "UNVERIFIED",
+      "detail": {
+        "PILOT": {
+          "integrated": 1.0,
+          "dual": 0.9062
+        },
+        "NAV": {
+          "integrated": 1.0,
+          "dual": 0.9286
+        },
+        "S1": {
+          "integrated": 0.1172,
+          "dual": 0.0977
+        },
+        "S2": {
+          "integrated": 0.1328,
+          "dual": 0.125
+        },
+        "S3": {
+          "integrated": 0.0977,
+          "dual": 0.0898
+        },
+        "S4": {
+          "integrated": 0.0977,
+          "dual": 0.0938
+        }
+      },
+      "paths": {
+        "walkway_cells": 1037,
+        "all_reachable_with_0.8m_path": true,
+        "reach": {
+          "ladder0": true,
+          "ladder1": true,
+          "PILOT": true,
+          "NAV": true,
+          "S1": true,
+          "S2": true,
+          "S3": true,
+          "S4": true
+        },
+        "min_headroom_on_walkways_m": 2.28
+      }
+    }
+  ],
+  "warnings": [
+    "Approximate analytic cone exterior; actual plane-facet intersections not yet tested",
+    "Pressure openings are hypothetical, not structural qualifications",
+    "Sensor-relocation variants are visibility upper bounds only",
+    "Shutter areal mass does NOT demonstrate swept-volume stowage",
+    "100 preliminary shortlisted, 20 furniture/dual-frame screens",
+    "Detailed stage jointly measures pressure/exterior glazing and existing room obstructions"
+  ]
+}

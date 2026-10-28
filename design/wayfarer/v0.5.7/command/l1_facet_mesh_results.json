@@ -1,0 +1,607 @@
+{
+  "status": "NON-GOVERNING CONCEPT MESH, NOT CERTIFIED",
+  "source_sha": "3485830a56dfead79b2ef8bba031a595b536fbb5",
+  "runs": [
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "pressure": {
+        "pressure_gap_min_m": 0.2912,
+        "original_envelope_vertex_margin_min_m": 0.8
+      },
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.7656,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.7344,
+          "cone60_dual": 0.9152
+        },
+        "NAV": {
+          "forward_integrated": 0.8125,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.75,
+          "cone60_dual": 0.933
+        },
+        "S1": {
+          "forward_integrated": 0.1328,
+          "forward_dual": 0.1172
+        },
+        "S2": {
+          "forward_integrated": 0.1406,
+          "forward_dual": 0.1289
+        },
+        "S3": {
+          "forward_integrated": 0.1094,
+          "forward_dual": 0.1055
+        },
+        "S4": {
+          "forward_integrated": 0.1133,
+          "forward_dual": 0.1094
+        }
+      },
+      "mesh_triangles": 360,
+      "area_m2": 41.38,
+      "analytic": {
+        "PILOT": {
+          "forward_integrated": 0.7656,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.7305,
+          "cone60_dual": 0.9152
+        },
+        "NAV": {
+          "forward_integrated": 0.8125,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.75,
+          "cone60_dual": 0.933
+        },
+        "S1": {
+          "forward_integrated": 0.1328,
+          "forward_dual": 0.1172
+        },
+        "S2": {
+          "forward_integrated": 0.1367,
+          "forward_dual": 0.1289
+        },
+        "S3": {
+          "forward_integrated": 0.1094,
+          "forward_dual": 0.1055
+        },
+        "S4": {
+          "forward_integrated": 0.1133,
+          "forward_dual": 0.1094
+        }
+      }
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "pressure": {
+        "pressure_gap_min_m": 0.2912,
+        "original_envelope_vertex_margin_min_m": 0.8
+      },
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.6445,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6172,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.6641,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6328,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0938,
+          "forward_dual": 0.082
+        },
+        "S2": {
+          "forward_integrated": 0.1016,
+          "forward_dual": 0.0977
+        },
+        "S3": {
+          "forward_integrated": 0.0781,
+          "forward_dual": 0.0781
+        },
+        "S4": {
+          "forward_integrated": 0.0781,
+          "forward_dual": 0.0742
+        }
+      },
+      "mesh_triangles": 360,
+      "area_m2": 28.04,
+      "analytic": {
+        "PILOT": {
+          "forward_integrated": 0.6445,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6172,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.6641,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6328,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0938,
+          "forward_dual": 0.082
+        },
+        "S2": {
+          "forward_integrated": 0.0977,
+          "forward_dual": 0.0977
+        },
+        "S3": {
+          "forward_integrated": 0.0781,
+          "forward_dual": 0.0781
+        },
+        "S4": {
+          "forward_integrated": 0.0781,
+          "forward_dual": 0.0742
+        }
+      }
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "pressure": {
+        "pressure_gap_min_m": 0.2912,
+        "original_envelope_vertex_margin_min_m": 0.8
+      },
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.7266,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6836,
+          "cone60_dual": 0.9152
+        },
+        "NAV": {
+          "forward_integrated": 0.7695,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.7031,
+          "cone60_dual": 0.933
+        },
+        "S1": {
+          "forward_integrated": 0.1055,
+          "forward_dual": 0.0977
+        },
+        "S2": {
+          "forward_integrated": 0.1094,
+          "forward_dual": 0.0977
+        },
+        "S3": {
+          "forward_integrated": 0.0898,
+          "forward_dual": 0.0859
+        },
+        "S4": {
+          "forward_integrated": 0.0781,
+          "forward_dual": 0.0742
+        }
+      },
+      "mesh_triangles": 360,
+      "area_m2": 33.93,
+      "analytic": {
+        "PILOT": {
+          "forward_integrated": 0.7266,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6797,
+          "cone60_dual": 0.9152
+        },
+        "NAV": {
+          "forward_integrated": 0.7695,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.7031,
+          "cone60_dual": 0.933
+        },
+        "S1": {
+          "forward_integrated": 0.1055,
+          "forward_dual": 0.0977
+        },
+        "S2": {
+          "forward_integrated": 0.1094,
+          "forward_dual": 0.0977
+        },
+        "S3": {
+          "forward_integrated": 0.0898,
+          "forward_dual": 0.0859
+        },
+        "S4": {
+          "forward_integrated": 0.0781,
+          "forward_dual": 0.0742
+        }
+      }
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "targeted",
+      "pressure": {
+        "pressure_gap_min_m": 0.2912,
+        "original_envelope_vertex_margin_min_m": 0.8
+      },
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.6211,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5859,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.6445,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6094,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0625,
+          "forward_dual": 0.0586
+        },
+        "S2": {
+          "forward_integrated": 0.0703,
+          "forward_dual": 0.0664
+        },
+        "S3": {
+          "forward_integrated": 0.0547,
+          "forward_dual": 0.0547
+        },
+        "S4": {
+          "forward_integrated": 0.0469,
+          "forward_dual": 0.043
+        }
+      },
+      "mesh_triangles": 360,
+      "area_m2": 24.06,
+      "analytic": {
+        "PILOT": {
+          "forward_integrated": 0.6211,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5859,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.6445,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6094,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0625,
+          "forward_dual": 0.0586
+        },
+        "S2": {
+          "forward_integrated": 0.0703,
+          "forward_dual": 0.0664
+        },
+        "S3": {
+          "forward_integrated": 0.0547,
+          "forward_dual": 0.0547
+        },
+        "S4": {
+          "forward_integrated": 0.0469,
+          "forward_dual": 0.043
+        }
+      }
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "pressure": {
+        "pressure_gap_min_m": 0.4379,
+        "original_envelope_vertex_margin_min_m": 1.2
+      },
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.7266,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6797,
+          "cone60_dual": 0.9286
+        },
+        "NAV": {
+          "forward_integrated": 0.7734,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.7344,
+          "cone60_dual": 0.9286
+        },
+        "S1": {
+          "forward_integrated": 0.1328,
+          "forward_dual": 0.1211
+        },
+        "S2": {
+          "forward_integrated": 0.1367,
+          "forward_dual": 0.125
+        },
+        "S3": {
+          "forward_integrated": 0.1094,
+          "forward_dual": 0.1016
+        },
+        "S4": {
+          "forward_integrated": 0.1094,
+          "forward_dual": 0.1094
+        }
+      },
+      "mesh_triangles": 360,
+      "area_m2": 41.38,
+      "analytic": {
+        "PILOT": {
+          "forward_integrated": 0.7266,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6797,
+          "cone60_dual": 0.9286
+        },
+        "NAV": {
+          "forward_integrated": 0.7734,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.7344,
+          "cone60_dual": 0.9286
+        },
+        "S1": {
+          "forward_integrated": 0.1328,
+          "forward_dual": 0.1211
+        },
+        "S2": {
+          "forward_integrated": 0.1367,
+          "forward_dual": 0.125
+        },
+        "S3": {
+          "forward_integrated": 0.1094,
+          "forward_dual": 0.1016
+        },
+        "S4": {
+          "forward_integrated": 0.1094,
+          "forward_dual": 0.1094
+        }
+      }
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "pressure": {
+        "pressure_gap_min_m": 0.4379,
+        "original_envelope_vertex_margin_min_m": 1.2
+      },
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.6367,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6016,
+          "cone60_dual": 0.9286
+        },
+        "NAV": {
+          "forward_integrated": 0.6758,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6367,
+          "cone60_dual": 0.9286
+        },
+        "S1": {
+          "forward_integrated": 0.0898,
+          "forward_dual": 0.0859
+        },
+        "S2": {
+          "forward_integrated": 0.0938,
+          "forward_dual": 0.082
+        },
+        "S3": {
+          "forward_integrated": 0.0781,
+          "forward_dual": 0.0742
+        },
+        "S4": {
+          "forward_integrated": 0.0742,
+          "forward_dual": 0.0742
+        }
+      },
+      "mesh_triangles": 360,
+      "area_m2": 33.93,
+      "analytic": {
+        "PILOT": {
+          "forward_integrated": 0.6367,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6016,
+          "cone60_dual": 0.9286
+        },
+        "NAV": {
+          "forward_integrated": 0.6758,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6367,
+          "cone60_dual": 0.9286
+        },
+        "S1": {
+          "forward_integrated": 0.0898,
+          "forward_dual": 0.082
+        },
+        "S2": {
+          "forward_integrated": 0.0938,
+          "forward_dual": 0.082
+        },
+        "S3": {
+          "forward_integrated": 0.0781,
+          "forward_dual": 0.0742
+        },
+        "S4": {
+          "forward_integrated": 0.0742,
+          "forward_dual": 0.0742
+        }
+      }
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "pressure": {
+        "pressure_gap_min_m": 0.4379,
+        "original_envelope_vertex_margin_min_m": 1.2
+      },
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.5195,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4922,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.5508,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5195,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0781,
+          "forward_dual": 0.0703
+        },
+        "S2": {
+          "forward_integrated": 0.0742,
+          "forward_dual": 0.0664
+        },
+        "S3": {
+          "forward_integrated": 0.0703,
+          "forward_dual": 0.0625
+        },
+        "S4": {
+          "forward_integrated": 0.0664,
+          "forward_dual": 0.0625
+        }
+      },
+      "mesh_triangles": 360,
+      "area_m2": 28.04,
+      "analytic": {
+        "PILOT": {
+          "forward_integrated": 0.5195,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4922,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.5508,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5195,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0781,
+          "forward_dual": 0.0703
+        },
+        "S2": {
+          "forward_integrated": 0.0742,
+          "forward_dual": 0.0664
+        },
+        "S3": {
+          "forward_integrated": 0.0664,
+          "forward_dual": 0.0625
+        },
+        "S4": {
+          "forward_integrated": 0.0664,
+          "forward_dual": 0.0625
+        }
+      }
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown": 3.2,
+      "windows": "targeted",
+      "pressure": {
+        "pressure_gap_min_m": 0.4379,
+        "original_envelope_vertex_margin_min_m": 1.2
+      },
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.4766,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4531,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.5,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4688,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0391,
+          "forward_dual": 0.0391
+        },
+        "S2": {
+          "forward_integrated": 0.0391,
+          "forward_dual": 0.0352
+        },
+        "S3": {
+          "forward_integrated": 0.043,
+          "forward_dual": 0.0391
+        },
+        "S4": {
+          "forward_integrated": 0.0391,
+          "forward_dual": 0.0352
+        }
+      },
+      "mesh_triangles": 360,
+      "area_m2": 24.06,
+      "analytic": {
+        "PILOT": {
+          "forward_integrated": 0.4766,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4531,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.5,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4688,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0391,
+          "forward_dual": 0.0352
+        },
+        "S2": {
+          "forward_integrated": 0.0391,
+          "forward_dual": 0.0352
+        },
+        "S3": {
+          "forward_integrated": 0.0391,
+          "forward_dual": 0.0391
+        },
+        "S4": {
+          "forward_integrated": 0.0391,
+          "forward_dual": 0.0352
+        }
+      }
+    }
+  ],
+  "mesh_method": "72 azimuth sectors x flat centre, triangulated frustum and radial collar to round shell"
+}

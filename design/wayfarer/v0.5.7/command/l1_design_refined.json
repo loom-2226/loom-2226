@@ -1,0 +1,2028 @@
+{
+  "status": "RESEARCH, NON-CANON, NOT QUALIFIED",
+  "baseline_note": "Rev 7 l1_study supports counted SHOULDER windows only; corrected reference counts crown pressure and exterior glazing for all stations with same assumptions as candidate",
+  "source_sha": "3485830a56dfead79b2ef8bba031a595b536fbb5",
+  "original_baseline": {
+    "PILOT": {
+      "eye_m": [
+        0.775,
+        0.45,
+        0.45
+      ],
+      "visible_in_30deg": 1.0,
+      "visible_in_60deg": 0.999,
+      "visible_in_90deg": 0.89,
+      "field_of_regard": 0.751,
+      "eye_to_window_m": 0.651
+    },
+    "NAV": {
+      "eye_m": [
+        0.775,
+        -0.45,
+        0.45
+      ],
+      "visible_in_30deg": 1.0,
+      "visible_in_60deg": 0.999,
+      "visible_in_90deg": 0.889,
+      "field_of_regard": 0.754,
+      "eye_to_window_m": 0.651
+    },
+    "S1": {
+      "eye_m": [
+        2.55,
+        2.262,
+        2.531
+      ],
+      "visible_in_30deg": 0.362,
+      "visible_in_60deg": 0.092,
+      "visible_in_90deg": 0.042,
+      "forward_hemisphere_visible": 0.015,
+      "eye_to_window_m": 1.27,
+      "looks_off_bow_axis_deg": 25.4
+    },
+    "S2": {
+      "eye_m": [
+        2.55,
+        -2.531,
+        2.262
+      ],
+      "visible_in_30deg": 0.368,
+      "visible_in_60deg": 0.093,
+      "visible_in_90deg": 0.043,
+      "forward_hemisphere_visible": 0.011,
+      "eye_to_window_m": 1.27,
+      "looks_off_bow_axis_deg": 25.4
+    },
+    "S3": {
+      "eye_m": [
+        2.55,
+        -2.262,
+        -2.531
+      ],
+      "visible_in_30deg": 0.385,
+      "visible_in_60deg": 0.098,
+      "visible_in_90deg": 0.045,
+      "forward_hemisphere_visible": 0.013,
+      "eye_to_window_m": 1.27,
+      "looks_off_bow_axis_deg": 25.4
+    },
+    "S4": {
+      "eye_m": [
+        2.55,
+        2.531,
+        -2.262
+      ],
+      "visible_in_30deg": 0.385,
+      "visible_in_60deg": 0.098,
+      "visible_in_90deg": 0.045,
+      "forward_hemisphere_visible": 0.013,
+      "eye_to_window_m": 1.27,
+      "looks_off_bow_axis_deg": 25.4
+    }
+  },
+  "consistent_baseline": {
+    "PILOT": {
+      "forward_integrated": 0.6914,
+      "cone60_integrated": 1.0,
+      "forward_dual": 0.6172,
+      "cone60_dual": 1.0
+    },
+    "NAV": {
+      "forward_integrated": 0.7344,
+      "cone60_integrated": 1.0,
+      "forward_dual": 0.6758,
+      "cone60_dual": 1.0
+    },
+    "S1": {
+      "forward_integrated": 0.0703,
+      "forward_dual": 0.0664
+    },
+    "S2": {
+      "forward_integrated": 0.0781,
+      "forward_dual": 0.0742
+    },
+    "S3": {
+      "forward_integrated": 0.0547,
+      "forward_dual": 0.0469
+    },
+    "S4": {
+      "forward_integrated": 0.0664,
+      "forward_dual": 0.0625
+    }
+  },
+  "coarse_count": 356,
+  "detailed_count": 28,
+  "candidates": [
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 2.8,
+      "windows": "current",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.7617,
+        0.7891,
+        0.1367,
+        0.1367,
+        0.1445,
+        0.1328
+      ],
+      "cone": 1.0,
+      "area_m2": 25.53,
+      "extension": 0.8,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.6367,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5977,
+          "cone60_dual": 0.9152
+        },
+        "NAV": {
+          "forward_integrated": 0.6797,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6133,
+          "cone60_dual": 0.933
+        },
+        "S1": {
+          "forward_integrated": 0.0664,
+          "forward_dual": 0.0547
+        },
+        "S2": {
+          "forward_integrated": 0.0703,
+          "forward_dual": 0.0625
+        },
+        "S3": {
+          "forward_integrated": 0.0547,
+          "forward_dual": 0.0508
+        },
+        "S4": {
+          "forward_integrated": 0.0625,
+          "forward_dual": 0.0547
+        }
+      },
+      "pressure_surface_glazing_m2": 25.53,
+      "shutter_equiv_t": 6.89,
+      "shutter_material_m3": 5.01,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0547,
+      "pilot_forward": 0.6367,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.0508,
+      "pilot_60_dual": 0.9152
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3,
+      "windows": "current",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.7617,
+        0.7891,
+        0.1367,
+        0.1367,
+        0.1445,
+        0.1328
+      ],
+      "cone": 1.0,
+      "area_m2": 25.53,
+      "extension": 0.8,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.6367,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5977,
+          "cone60_dual": 0.9152
+        },
+        "NAV": {
+          "forward_integrated": 0.6797,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6133,
+          "cone60_dual": 0.933
+        },
+        "S1": {
+          "forward_integrated": 0.0664,
+          "forward_dual": 0.0547
+        },
+        "S2": {
+          "forward_integrated": 0.0703,
+          "forward_dual": 0.0625
+        },
+        "S3": {
+          "forward_integrated": 0.0547,
+          "forward_dual": 0.0508
+        },
+        "S4": {
+          "forward_integrated": 0.0625,
+          "forward_dual": 0.0547
+        }
+      },
+      "pressure_surface_glazing_m2": 25.53,
+      "shutter_equiv_t": 6.89,
+      "shutter_material_m3": 5.01,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0547,
+      "pilot_forward": 0.6367,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.0508,
+      "pilot_60_dual": 0.9152
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "current",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.7617,
+        0.7891,
+        0.1367,
+        0.1367,
+        0.1445,
+        0.1328
+      ],
+      "cone": 1.0,
+      "area_m2": 25.53,
+      "extension": 0.8,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.6367,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5977,
+          "cone60_dual": 0.9152
+        },
+        "NAV": {
+          "forward_integrated": 0.6797,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6133,
+          "cone60_dual": 0.933
+        },
+        "S1": {
+          "forward_integrated": 0.0664,
+          "forward_dual": 0.0547
+        },
+        "S2": {
+          "forward_integrated": 0.0703,
+          "forward_dual": 0.0625
+        },
+        "S3": {
+          "forward_integrated": 0.0547,
+          "forward_dual": 0.0508
+        },
+        "S4": {
+          "forward_integrated": 0.0625,
+          "forward_dual": 0.0547
+        }
+      },
+      "pressure_surface_glazing_m2": 25.53,
+      "shutter_equiv_t": 6.89,
+      "shutter_material_m3": 5.01,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0547,
+      "pilot_forward": 0.6367,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.0508,
+      "pilot_60_dual": 0.9152
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "current",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.7617,
+        0.7891,
+        0.1367,
+        0.1367,
+        0.1445,
+        0.1328
+      ],
+      "cone": 1.0,
+      "area_m2": 25.53,
+      "extension": 0.8,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.6367,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5977,
+          "cone60_dual": 0.9152
+        },
+        "NAV": {
+          "forward_integrated": 0.6797,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6133,
+          "cone60_dual": 0.933
+        },
+        "S1": {
+          "forward_integrated": 0.0664,
+          "forward_dual": 0.0547
+        },
+        "S2": {
+          "forward_integrated": 0.0703,
+          "forward_dual": 0.0625
+        },
+        "S3": {
+          "forward_integrated": 0.0547,
+          "forward_dual": 0.0508
+        },
+        "S4": {
+          "forward_integrated": 0.0625,
+          "forward_dual": 0.0547
+        }
+      },
+      "pressure_surface_glazing_m2": 25.53,
+      "shutter_equiv_t": 6.89,
+      "shutter_material_m3": 5.01,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0547,
+      "pilot_forward": 0.6367,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.0508,
+      "pilot_60_dual": 0.9152
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 2.8,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.7617,
+        0.7891,
+        0.1367,
+        0.1367,
+        0.1445,
+        0.1328
+      ],
+      "cone": 1.0,
+      "area_m2": 25.53,
+      "extension": 0.8,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.6367,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5977,
+          "cone60_dual": 0.9152
+        },
+        "NAV": {
+          "forward_integrated": 0.6797,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6133,
+          "cone60_dual": 0.933
+        },
+        "S1": {
+          "forward_integrated": 0.0664,
+          "forward_dual": 0.0547
+        },
+        "S2": {
+          "forward_integrated": 0.0703,
+          "forward_dual": 0.0625
+        },
+        "S3": {
+          "forward_integrated": 0.0547,
+          "forward_dual": 0.0508
+        },
+        "S4": {
+          "forward_integrated": 0.0625,
+          "forward_dual": 0.0547
+        }
+      },
+      "pressure_surface_glazing_m2": 25.53,
+      "shutter_equiv_t": 6.89,
+      "shutter_material_m3": 5.01,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0547,
+      "pilot_forward": 0.6367,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.0508,
+      "pilot_60_dual": 0.9152
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.8203,
+        0.8555,
+        0.1523,
+        0.168,
+        0.1641,
+        0.1484
+      ],
+      "cone": 1.0,
+      "area_m2": 29.54,
+      "extension": 0.8,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.6836,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6367,
+          "cone60_dual": 0.9152
+        },
+        "NAV": {
+          "forward_integrated": 0.7344,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6641,
+          "cone60_dual": 0.933
+        },
+        "S1": {
+          "forward_integrated": 0.0781,
+          "forward_dual": 0.0703
+        },
+        "S2": {
+          "forward_integrated": 0.0977,
+          "forward_dual": 0.082
+        },
+        "S3": {
+          "forward_integrated": 0.0625,
+          "forward_dual": 0.0586
+        },
+        "S4": {
+          "forward_integrated": 0.0703,
+          "forward_dual": 0.0664
+        }
+      },
+      "pressure_surface_glazing_m2": 29.54,
+      "shutter_equiv_t": 7.98,
+      "shutter_material_m3": 5.8,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0625,
+      "pilot_forward": 0.6836,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.0586,
+      "pilot_60_dual": 0.9152
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.8672,
+        0.9062,
+        0.1875,
+        0.1836,
+        0.1953,
+        0.1641
+      ],
+      "cone": 1.0,
+      "area_m2": 33.93,
+      "extension": 0.8,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.7266,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6797,
+          "cone60_dual": 0.9152
+        },
+        "NAV": {
+          "forward_integrated": 0.7695,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.7031,
+          "cone60_dual": 0.933
+        },
+        "S1": {
+          "forward_integrated": 0.1055,
+          "forward_dual": 0.0977
+        },
+        "S2": {
+          "forward_integrated": 0.1094,
+          "forward_dual": 0.0977
+        },
+        "S3": {
+          "forward_integrated": 0.0898,
+          "forward_dual": 0.0859
+        },
+        "S4": {
+          "forward_integrated": 0.0781,
+          "forward_dual": 0.0742
+        }
+      },
+      "pressure_surface_glazing_m2": 33.93,
+      "shutter_equiv_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0781,
+      "pilot_forward": 0.7266,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.0742,
+      "pilot_60_dual": 0.9152
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.918,
+        0.957,
+        0.2227,
+        0.2188,
+        0.2266,
+        0.2031
+      ],
+      "cone": 1.0,
+      "area_m2": 41.38,
+      "extension": 0.8,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.7656,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.7305,
+          "cone60_dual": 0.9152
+        },
+        "NAV": {
+          "forward_integrated": 0.8125,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.75,
+          "cone60_dual": 0.933
+        },
+        "S1": {
+          "forward_integrated": 0.1328,
+          "forward_dual": 0.1172
+        },
+        "S2": {
+          "forward_integrated": 0.1367,
+          "forward_dual": 0.1289
+        },
+        "S3": {
+          "forward_integrated": 0.1094,
+          "forward_dual": 0.1055
+        },
+        "S4": {
+          "forward_integrated": 0.1133,
+          "forward_dual": 0.1094
+        }
+      },
+      "pressure_surface_glazing_m2": 41.38,
+      "shutter_equiv_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.1094,
+      "pilot_forward": 0.7656,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.1055,
+      "pilot_60_dual": 0.9152
+    },
+    {
+      "shape": [
+        0.4,
+        2,
+        35
+      ],
+      "crown": 2.8,
+      "windows": "segmented",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.5117,
+        0.5,
+        0.0508,
+        0.0508,
+        0.0508,
+        0.0508
+      ],
+      "cone": 0.9688,
+      "area_m2": 17.46,
+      "extension": 0.4,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.4336,
+          "cone60_integrated": 0.9688,
+          "forward_dual": 0.3906,
+          "cone60_dual": 0.9286
+        },
+        "NAV": {
+          "forward_integrated": 0.4258,
+          "cone60_integrated": 0.9732,
+          "forward_dual": 0.4023,
+          "cone60_dual": 0.9152
+        },
+        "S1": {
+          "forward_integrated": 0.0156,
+          "forward_dual": 0.0156
+        },
+        "S2": {
+          "forward_integrated": 0.0156,
+          "forward_dual": 0.0156
+        },
+        "S3": {
+          "forward_integrated": 0.0117,
+          "forward_dual": 0.0117
+        },
+        "S4": {
+          "forward_integrated": 0.0273,
+          "forward_dual": 0.0195
+        }
+      },
+      "pressure_surface_glazing_m2": 17.46,
+      "shutter_equiv_t": 4.71,
+      "shutter_material_m3": 3.43,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0117,
+      "pilot_forward": 0.4258,
+      "pilot_60": 0.9688,
+      "min_support_dual": 0.0117,
+      "pilot_60_dual": 0.9152
+    },
+    {
+      "shape": [
+        0.4,
+        2,
+        35
+      ],
+      "crown": 3,
+      "windows": "segmented",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.5391,
+        0.5312,
+        0.0664,
+        0.0625,
+        0.0664,
+        0.0625
+      ],
+      "cone": 0.9688,
+      "area_m2": 19.96,
+      "extension": 0.4,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.4531,
+          "cone60_integrated": 0.9688,
+          "forward_dual": 0.4102,
+          "cone60_dual": 0.9286
+        },
+        "NAV": {
+          "forward_integrated": 0.4492,
+          "cone60_integrated": 0.9732,
+          "forward_dual": 0.4258,
+          "cone60_dual": 0.9152
+        },
+        "S1": {
+          "forward_integrated": 0.0234,
+          "forward_dual": 0.0195
+        },
+        "S2": {
+          "forward_integrated": 0.0234,
+          "forward_dual": 0.0234
+        },
+        "S3": {
+          "forward_integrated": 0.0156,
+          "forward_dual": 0.0156
+        },
+        "S4": {
+          "forward_integrated": 0.0352,
+          "forward_dual": 0.0273
+        }
+      },
+      "pressure_surface_glazing_m2": 19.96,
+      "shutter_equiv_t": 5.39,
+      "shutter_material_m3": 3.92,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0156,
+      "pilot_forward": 0.4492,
+      "pilot_60": 0.9688,
+      "min_support_dual": 0.0156,
+      "pilot_60_dual": 0.9152
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "segmented",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.5625,
+        0.5547,
+        0.0938,
+        0.0781,
+        0.0859,
+        0.0742
+      ],
+      "cone": 0.9107,
+      "area_m2": 22.7,
+      "extension": 0.8,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.4766,
+          "cone60_integrated": 0.9107,
+          "forward_dual": 0.4219,
+          "cone60_dual": 0.8348
+        },
+        "NAV": {
+          "forward_integrated": 0.4805,
+          "cone60_integrated": 0.9107,
+          "forward_dual": 0.4492,
+          "cone60_dual": 0.8527
+        },
+        "S1": {
+          "forward_integrated": 0.0469,
+          "forward_dual": 0.0391
+        },
+        "S2": {
+          "forward_integrated": 0.0391,
+          "forward_dual": 0.0352
+        },
+        "S3": {
+          "forward_integrated": 0.0312,
+          "forward_dual": 0.0273
+        },
+        "S4": {
+          "forward_integrated": 0.043,
+          "forward_dual": 0.0352
+        }
+      },
+      "pressure_surface_glazing_m2": 22.7,
+      "shutter_equiv_t": 6.13,
+      "shutter_material_m3": 4.46,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0312,
+      "pilot_forward": 0.4766,
+      "pilot_60": 0.9107,
+      "min_support_dual": 0.0273,
+      "pilot_60_dual": 0.8348
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "segmented",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.5977,
+        0.5898,
+        0.1211,
+        0.1016,
+        0.1133,
+        0.1055
+      ],
+      "cone": 0.9107,
+      "area_m2": 27.33,
+      "extension": 0.8,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.5039,
+          "cone60_integrated": 0.9107,
+          "forward_dual": 0.4609,
+          "cone60_dual": 0.8348
+        },
+        "NAV": {
+          "forward_integrated": 0.5078,
+          "cone60_integrated": 0.9107,
+          "forward_dual": 0.4844,
+          "cone60_dual": 0.8527
+        },
+        "S1": {
+          "forward_integrated": 0.0742,
+          "forward_dual": 0.0586
+        },
+        "S2": {
+          "forward_integrated": 0.0586,
+          "forward_dual": 0.0547
+        },
+        "S3": {
+          "forward_integrated": 0.0508,
+          "forward_dual": 0.0469
+        },
+        "S4": {
+          "forward_integrated": 0.0703,
+          "forward_dual": 0.0625
+        }
+      },
+      "pressure_surface_glazing_m2": 27.33,
+      "shutter_equiv_t": 7.38,
+      "shutter_material_m3": 5.37,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0508,
+      "pilot_forward": 0.5039,
+      "pilot_60": 0.9107,
+      "min_support_dual": 0.0469,
+      "pilot_60_dual": 0.8348
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 2.8,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.6836,
+        0.6875,
+        0.1055,
+        0.0977,
+        0.0977,
+        0.0977
+      ],
+      "cone": 1.0,
+      "area_m2": 19.57,
+      "extension": 0.8,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.5781,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5469,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.5938,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5586,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0352,
+          "forward_dual": 0.0273
+        },
+        "S2": {
+          "forward_integrated": 0.0391,
+          "forward_dual": 0.0391
+        },
+        "S3": {
+          "forward_integrated": 0.0273,
+          "forward_dual": 0.0234
+        },
+        "S4": {
+          "forward_integrated": 0.0352,
+          "forward_dual": 0.0273
+        }
+      },
+      "pressure_surface_glazing_m2": 19.57,
+      "shutter_equiv_t": 5.28,
+      "shutter_material_m3": 3.84,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0273,
+      "pilot_forward": 0.5781,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.0234,
+      "pilot_60_dual": 1.0
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.707,
+        0.7227,
+        0.1172,
+        0.1211,
+        0.1133,
+        0.1133
+      ],
+      "cone": 1.0,
+      "area_m2": 21.72,
+      "extension": 0.8,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.5977,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5703,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.625,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5859,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.043,
+          "forward_dual": 0.0391
+        },
+        "S2": {
+          "forward_integrated": 0.0586,
+          "forward_dual": 0.0508
+        },
+        "S3": {
+          "forward_integrated": 0.0352,
+          "forward_dual": 0.0352
+        },
+        "S4": {
+          "forward_integrated": 0.043,
+          "forward_dual": 0.0391
+        }
+      },
+      "pressure_surface_glazing_m2": 21.72,
+      "shutter_equiv_t": 5.86,
+      "shutter_material_m3": 4.27,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0352,
+      "pilot_forward": 0.5977,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.0352,
+      "pilot_60_dual": 1.0
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.2,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.7344,
+        0.75,
+        0.1445,
+        0.1328,
+        0.1367,
+        0.125
+      ],
+      "cone": 1.0,
+      "area_m2": 24.06,
+      "extension": 0.8,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.6211,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5859,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.6445,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6094,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0625,
+          "forward_dual": 0.0586
+        },
+        "S2": {
+          "forward_integrated": 0.0703,
+          "forward_dual": 0.0664
+        },
+        "S3": {
+          "forward_integrated": 0.0547,
+          "forward_dual": 0.0547
+        },
+        "S4": {
+          "forward_integrated": 0.0469,
+          "forward_dual": 0.043
+        }
+      },
+      "pressure_surface_glazing_m2": 24.06,
+      "shutter_equiv_t": 6.5,
+      "shutter_material_m3": 4.72,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0469,
+      "pilot_forward": 0.6211,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.043,
+      "pilot_60_dual": 1.0
+    },
+    {
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.7656,
+        0.7734,
+        0.1797,
+        0.168,
+        0.1719,
+        0.1562
+      ],
+      "cone": 1.0,
+      "area_m2": 28.04,
+      "extension": 0.8,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.6445,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6172,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.6641,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6328,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0938,
+          "forward_dual": 0.082
+        },
+        "S2": {
+          "forward_integrated": 0.0977,
+          "forward_dual": 0.0977
+        },
+        "S3": {
+          "forward_integrated": 0.0781,
+          "forward_dual": 0.0781
+        },
+        "S4": {
+          "forward_integrated": 0.0781,
+          "forward_dual": 0.0742
+        }
+      },
+      "pressure_surface_glazing_m2": 28.04,
+      "shutter_equiv_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0781,
+      "pilot_forward": 0.6445,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.0742,
+      "pilot_60_dual": 1.0
+    },
+    {
+      "shape": [
+        0.8,
+        2,
+        42.5
+      ],
+      "crown": 3.2,
+      "windows": "current",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.6367,
+        0.668,
+        0.1211,
+        0.125,
+        0.1289,
+        0.1055
+      ],
+      "cone": 1.0,
+      "area_m2": 25.53,
+      "extension": 0.8,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.5391,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4844,
+          "cone60_dual": 0.9152
+        },
+        "NAV": {
+          "forward_integrated": 0.5742,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5234,
+          "cone60_dual": 0.933
+        },
+        "S1": {
+          "forward_integrated": 0.0547,
+          "forward_dual": 0.0469
+        },
+        "S2": {
+          "forward_integrated": 0.0664,
+          "forward_dual": 0.0547
+        },
+        "S3": {
+          "forward_integrated": 0.0469,
+          "forward_dual": 0.043
+        },
+        "S4": {
+          "forward_integrated": 0.0508,
+          "forward_dual": 0.0391
+        }
+      },
+      "pressure_surface_glazing_m2": 25.53,
+      "shutter_equiv_t": 6.89,
+      "shutter_material_m3": 5.01,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0469,
+      "pilot_forward": 0.5391,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.0391,
+      "pilot_60_dual": 0.9152
+    },
+    {
+      "shape": [
+        0.8,
+        2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "current",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.6367,
+        0.668,
+        0.1211,
+        0.125,
+        0.1289,
+        0.1055
+      ],
+      "cone": 1.0,
+      "area_m2": 25.53,
+      "extension": 0.8,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.5391,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4844,
+          "cone60_dual": 0.9152
+        },
+        "NAV": {
+          "forward_integrated": 0.5742,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5234,
+          "cone60_dual": 0.933
+        },
+        "S1": {
+          "forward_integrated": 0.0547,
+          "forward_dual": 0.0469
+        },
+        "S2": {
+          "forward_integrated": 0.0664,
+          "forward_dual": 0.0547
+        },
+        "S3": {
+          "forward_integrated": 0.0469,
+          "forward_dual": 0.043
+        },
+        "S4": {
+          "forward_integrated": 0.0508,
+          "forward_dual": 0.0391
+        }
+      },
+      "pressure_surface_glazing_m2": 25.53,
+      "shutter_equiv_t": 6.89,
+      "shutter_material_m3": 5.01,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0469,
+      "pilot_forward": 0.5391,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.0391,
+      "pilot_60_dual": 0.9152
+    },
+    {
+      "shape": [
+        0.8,
+        2,
+        42.5
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.7773,
+        0.8125,
+        0.168,
+        0.1719,
+        0.1836,
+        0.1562
+      ],
+      "cone": 1.0,
+      "area_m2": 33.93,
+      "extension": 0.8,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.6523,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5977,
+          "cone60_dual": 0.9152
+        },
+        "NAV": {
+          "forward_integrated": 0.6992,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6484,
+          "cone60_dual": 0.933
+        },
+        "S1": {
+          "forward_integrated": 0.0898,
+          "forward_dual": 0.082
+        },
+        "S2": {
+          "forward_integrated": 0.1016,
+          "forward_dual": 0.0859
+        },
+        "S3": {
+          "forward_integrated": 0.082,
+          "forward_dual": 0.0781
+        },
+        "S4": {
+          "forward_integrated": 0.0742,
+          "forward_dual": 0.0664
+        }
+      },
+      "pressure_surface_glazing_m2": 33.93,
+      "shutter_equiv_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0742,
+      "pilot_forward": 0.6523,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.0664,
+      "pilot_60_dual": 0.9152
+    },
+    {
+      "shape": [
+        1.6,
+        1.6,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.8867,
+        0.9297,
+        0.2227,
+        0.2188,
+        0.2266,
+        0.1992
+      ],
+      "cone": 1.0,
+      "area_m2": 41.38,
+      "extension": 1.6,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.7422,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6992,
+          "cone60_dual": 0.9062
+        },
+        "NAV": {
+          "forward_integrated": 0.7891,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.7305,
+          "cone60_dual": 0.9196
+        },
+        "S1": {
+          "forward_integrated": 0.1328,
+          "forward_dual": 0.125
+        },
+        "S2": {
+          "forward_integrated": 0.1367,
+          "forward_dual": 0.1289
+        },
+        "S3": {
+          "forward_integrated": 0.1094,
+          "forward_dual": 0.1016
+        },
+        "S4": {
+          "forward_integrated": 0.1133,
+          "forward_dual": 0.1094
+        }
+      },
+      "pressure_surface_glazing_m2": 41.38,
+      "shutter_equiv_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.1094,
+      "pilot_forward": 0.7422,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.1016,
+      "pilot_60_dual": 0.9062
+    },
+    {
+      "shape": [
+        0.8,
+        2,
+        42.5
+      ],
+      "crown": 3.2,
+      "windows": "segmented",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.4922,
+        0.5156,
+        0.0703,
+        0.0742,
+        0.0703,
+        0.0625
+      ],
+      "cone": 0.9107,
+      "area_m2": 22.7,
+      "extension": 0.8,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.4102,
+          "cone60_integrated": 0.9152,
+          "forward_dual": 0.3828,
+          "cone60_dual": 0.8348
+        },
+        "NAV": {
+          "forward_integrated": 0.4492,
+          "cone60_integrated": 0.9107,
+          "forward_dual": 0.4023,
+          "cone60_dual": 0.8527
+        },
+        "S1": {
+          "forward_integrated": 0.0312,
+          "forward_dual": 0.0273
+        },
+        "S2": {
+          "forward_integrated": 0.0352,
+          "forward_dual": 0.0312
+        },
+        "S3": {
+          "forward_integrated": 0.0195,
+          "forward_dual": 0.0156
+        },
+        "S4": {
+          "forward_integrated": 0.0352,
+          "forward_dual": 0.0312
+        }
+      },
+      "pressure_surface_glazing_m2": 22.7,
+      "shutter_equiv_t": 6.13,
+      "shutter_material_m3": 4.46,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0195,
+      "pilot_forward": 0.4102,
+      "pilot_60": 0.9107,
+      "min_support_dual": 0.0156,
+      "pilot_60_dual": 0.8348
+    },
+    {
+      "shape": [
+        0.8,
+        2,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "segmented",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.5391,
+        0.5664,
+        0.1016,
+        0.1016,
+        0.0977,
+        0.0898
+      ],
+      "cone": 0.9107,
+      "area_m2": 27.33,
+      "extension": 0.8,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.4492,
+          "cone60_integrated": 0.9152,
+          "forward_dual": 0.418,
+          "cone60_dual": 0.8348
+        },
+        "NAV": {
+          "forward_integrated": 0.4922,
+          "cone60_integrated": 0.9107,
+          "forward_dual": 0.4453,
+          "cone60_dual": 0.8527
+        },
+        "S1": {
+          "forward_integrated": 0.0625,
+          "forward_dual": 0.0469
+        },
+        "S2": {
+          "forward_integrated": 0.0586,
+          "forward_dual": 0.0586
+        },
+        "S3": {
+          "forward_integrated": 0.0391,
+          "forward_dual": 0.0352
+        },
+        "S4": {
+          "forward_integrated": 0.0586,
+          "forward_dual": 0.0547
+        }
+      },
+      "pressure_surface_glazing_m2": 27.33,
+      "shutter_equiv_t": 7.38,
+      "shutter_material_m3": 5.37,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0391,
+      "pilot_forward": 0.4492,
+      "pilot_60": 0.9107,
+      "min_support_dual": 0.0352,
+      "pilot_60_dual": 0.8348
+    },
+    {
+      "shape": [
+        0.8,
+        2,
+        42.5
+      ],
+      "crown": 3.2,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.6133,
+        0.625,
+        0.1211,
+        0.1133,
+        0.1211,
+        0.1133
+      ],
+      "cone": 1.0,
+      "area_m2": 24.06,
+      "extension": 0.8,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.5156,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4922,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.543,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0508,
+          "forward_dual": 0.043
+        },
+        "S2": {
+          "forward_integrated": 0.0508,
+          "forward_dual": 0.043
+        },
+        "S3": {
+          "forward_integrated": 0.0469,
+          "forward_dual": 0.0469
+        },
+        "S4": {
+          "forward_integrated": 0.043,
+          "forward_dual": 0.0391
+        }
+      },
+      "pressure_surface_glazing_m2": 24.06,
+      "shutter_equiv_t": 6.5,
+      "shutter_material_m3": 4.72,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.043,
+      "pilot_forward": 0.5156,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.0391,
+      "pilot_60_dual": 1.0
+    },
+    {
+      "shape": [
+        1.2,
+        1.6,
+        42.5
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.6523,
+        0.668,
+        0.168,
+        0.1484,
+        0.1562,
+        0.1484
+      ],
+      "cone": 1.0,
+      "area_m2": 28.04,
+      "extension": 1.2,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.5469,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5078,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.5781,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5273,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0898,
+          "forward_dual": 0.0742
+        },
+        "S2": {
+          "forward_integrated": 0.0781,
+          "forward_dual": 0.0703
+        },
+        "S3": {
+          "forward_integrated": 0.0742,
+          "forward_dual": 0.0664
+        },
+        "S4": {
+          "forward_integrated": 0.0703,
+          "forward_dual": 0.0664
+        }
+      },
+      "pressure_surface_glazing_m2": 28.04,
+      "shutter_equiv_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0703,
+      "pilot_forward": 0.5469,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.0664,
+      "pilot_60_dual": 1.0
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.8672,
+        0.9102,
+        0.2188,
+        0.2188,
+        0.2188,
+        0.1953
+      ],
+      "cone": 1.0,
+      "area_m2": 41.38,
+      "extension": 1.2,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.7266,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6797,
+          "cone60_dual": 0.9286
+        },
+        "NAV": {
+          "forward_integrated": 0.7734,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.7344,
+          "cone60_dual": 0.9286
+        },
+        "S1": {
+          "forward_integrated": 0.1328,
+          "forward_dual": 0.1211
+        },
+        "S2": {
+          "forward_integrated": 0.1367,
+          "forward_dual": 0.125
+        },
+        "S3": {
+          "forward_integrated": 0.1094,
+          "forward_dual": 0.1016
+        },
+        "S4": {
+          "forward_integrated": 0.1094,
+          "forward_dual": 0.1094
+        }
+      },
+      "pressure_surface_glazing_m2": 41.38,
+      "shutter_equiv_t": 11.17,
+      "shutter_material_m3": 8.13,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.1094,
+      "pilot_forward": 0.7266,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.1016,
+      "pilot_60_dual": 0.9286
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown": 3.5,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.6172,
+        0.6406,
+        0.1562,
+        0.1406,
+        0.1484,
+        0.1406
+      ],
+      "cone": 1.0,
+      "area_m2": 28.04,
+      "extension": 1.2,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.5195,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4922,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.5508,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5195,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0781,
+          "forward_dual": 0.0703
+        },
+        "S2": {
+          "forward_integrated": 0.0742,
+          "forward_dual": 0.0664
+        },
+        "S3": {
+          "forward_integrated": 0.0664,
+          "forward_dual": 0.0625
+        },
+        "S4": {
+          "forward_integrated": 0.0664,
+          "forward_dual": 0.0625
+        }
+      },
+      "pressure_surface_glazing_m2": 28.04,
+      "shutter_equiv_t": 7.57,
+      "shutter_material_m3": 5.51,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0664,
+      "pilot_forward": 0.5195,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.0625,
+      "pilot_60_dual": 1.0
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown": 3.2,
+      "windows": "radial",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.7617,
+        0.7852,
+        0.168,
+        0.1641,
+        0.1797,
+        0.1562
+      ],
+      "cone": 1.0,
+      "area_m2": 33.93,
+      "extension": 1.2,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.6367,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6016,
+          "cone60_dual": 0.9286
+        },
+        "NAV": {
+          "forward_integrated": 0.6758,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6367,
+          "cone60_dual": 0.9286
+        },
+        "S1": {
+          "forward_integrated": 0.0898,
+          "forward_dual": 0.082
+        },
+        "S2": {
+          "forward_integrated": 0.0938,
+          "forward_dual": 0.082
+        },
+        "S3": {
+          "forward_integrated": 0.0781,
+          "forward_dual": 0.0742
+        },
+        "S4": {
+          "forward_integrated": 0.0742,
+          "forward_dual": 0.0742
+        }
+      },
+      "pressure_surface_glazing_m2": 33.93,
+      "shutter_equiv_t": 9.16,
+      "shutter_material_m3": 6.66,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0742,
+      "pilot_forward": 0.6367,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.0742,
+      "pilot_60_dual": 0.9286
+    },
+    {
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown": 3.2,
+      "windows": "targeted",
+      "sensors": "ring",
+      "shift": [
+        0,
+        0,
+        0
+      ],
+      "coarse": [
+        0.5664,
+        0.5781,
+        0.1094,
+        0.0977,
+        0.1133,
+        0.1094
+      ],
+      "cone": 1.0,
+      "area_m2": 24.06,
+      "extension": 1.2,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.4766,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4531,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.5,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4688,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0391,
+          "forward_dual": 0.0352
+        },
+        "S2": {
+          "forward_integrated": 0.0391,
+          "forward_dual": 0.0352
+        },
+        "S3": {
+          "forward_integrated": 0.0391,
+          "forward_dual": 0.0391
+        },
+        "S4": {
+          "forward_integrated": 0.0391,
+          "forward_dual": 0.0352
+        }
+      },
+      "pressure_surface_glazing_m2": 24.06,
+      "shutter_equiv_t": 6.5,
+      "shutter_material_m3": 4.72,
+      "access": "Rev 7 unchanged PASS",
+      "pressure_window_structural_fit": "NOT TESTED",
+      "sensor_packaging": "Rev 7 ring physically retained",
+      "shutter_swept_volume": "NOT DEMONSTRATED",
+      "min_support": 0.0391,
+      "pilot_forward": 0.4766,
+      "pilot_60": 1.0,
+      "min_support_dual": 0.0352,
+      "pilot_60_dual": 1.0
+    }
+  ],
+  "qualifications": [
+    "The pressure head remains in its original geometry, but the new apertures are NOT qualified for pressure loading.",
+    "The original ring sensor geometry is retained, but multi-layer transparent openings at changed positions still need spatial equipment check.",
+    "Shutter material mass is a minimum areal allocation, not actual actuator/stowage mass. No validated stow volume.",
+    "Results are per-ray sampled, not a probabilistic impact assessment.",
+    "The analytic cone surface is not yet an intersection-certified 3D facet mesh."
+  ]
+}
