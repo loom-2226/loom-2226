@@ -187,6 +187,21 @@ def area_m2(crown,pattern):
     else:frac=np.where(rr<=2,1,4*48/360)
     return round(float(np.trapz(2*np.pi*rr*np.sqrt(1+derivative**2)*frac,rr)),2)
 
+def exterior_aperture_area_m2(shape,crown,pattern):
+    # Idealised exterior-panel surface area: flat central face then conical facets.
+    # Differs from pressure-pane area. 72-sector triangulations vary slightly.
+    ext,face,angle=shape
+    limit=2.8 if pattern=='current' else crown
+    rr=np.linspace(.0005,limit,2001)
+    slope=np.where(rr<=face,1.0,1/np.cos(np.deg2rad(angle)))
+    if pattern in ('current','radial'):
+        fraction=np.ones_like(rr)
+    elif pattern=='segmented':
+        fraction=np.where(rr<=1.15,1,8*28/360)
+    else:
+        fraction=np.where(rr<=2,1,4*48/360)
+    return round(float(np.trapz(2*np.pi*rr*slope*fraction,rr)),2)
+
 def screen():
     shapes=profile_screen()
     assert len(shapes)==28, len(shapes)
@@ -211,13 +226,14 @@ def screen():
         cone=[visibility_one(eye,shape,c,w,se,cone=True) for eye in eyes[:2]]
         # Window area is geometric pressure-area estimate, NOT structural pane qualification.
         area=area_m2(c,w)
+        outer_area=exterior_aperture_area_m2(shape,c,w)
         record=dict(shape=list(shape),crown=c,windows=w,sensors=se,
-                    shift=[dr,rot,dx],shutter=sh,area_m2=area,
+                    shift=[dr,rot,dx],shutter=sh,area_m2=area,exterior_window_m2=outer_area,
                     pilot_min=min(vis[:2]),support_min=min(vis[2:]),
                     crew_min=min(vis),pilot_cone_min=min(cone),
                     forward=vis,
-                    shutter_armor_t=round(area*.27,2),
-                    shutter_material_m3=round(area*.27/1.375,2),
+                    shutter_armor_t=round(outer_area*.27,2),
+                    shutter_material_m3=round(outer_area*.27/1.375,2),
                     packaging='existing_ring' if se=='ring' else 'UNVERIFIED_RELOCATION',
                     pressure_openings='UNQUALIFIED',
                     shutter_stowage='UNVERIFIED')

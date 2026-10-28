@@ -45,19 +45,22 @@ These are conditional modelled visibility estimates. Source-reported Pilot/NAV ~
 
 50° axial incidence is more grazing than 35° but **facet angle does not establish impact survival**. Original frontal dust collection projection is approximately π×4.5² = 63.6 m² for all nose candidates. All panes require protection at high speeds.
 
-## Shutter packaging test
+## Shutter packaging test (CORRECTED: exterior area, not pressure area)
 
-At 27 g/cm² armour-equivalent closed-shutter protection (270 kg/m²) and assumed stored effective density 1.375 t/m³:
+The pressure-surface pane area in the preceding table is **not the exterior armour area**. Shutters must protect the actual outward-facing facets; the area varies substantially with facet angle. The 35° frustum increases area relative to the pressure dome and 50° increases it further. The values below integrate the flat centre and inclined exterior facets using the same aperture map (idealised rotational surface, 72-sector mesh checked for ray intersection).
 
-| Glazing | Armour-equivalent material | Material volume alone | Illustrative gross shoulder pocket |
-|---:|---:|---:|---:|
-| 41.38 m² | 11.17 t | 8.13 m³ | ~5.5 m³ for 3.5 m crown |
-| 33.93 m² | 9.16 t | 6.66 m³ | ~6.9 m³ for 3.2 m crown |
-| 28.04 m² | 7.57 t | 5.51 m³ | ~5.5 m³ for 3.5 m crown |
+At 27 g/cm² armour-equivalent surface protection (270 kg/m²) and illustrative stored effective density 1.375 t/m³:
 
-These volumes **exclude** tracks, actuators, clearances, structure, and sensor conflicts. The 3.5 m radial shutter cannot stow in the assumed shoulder pocket; the 3.2 m radial shutter leaves only ~0.24 m³ gross difference before mechanisms, not proof of fit.
+| Candidate | Pressure glazing | EXTERIOR shutter coverage | Armour-equivalent material | Stowed material volume | Illustrative gross shoulder pocket |
+|---|---:|---:|---:|---:|---:|
+| +0.8 m, 35°, radial crown 3.5 | 41.38 m² | 45.98 m² | 12.42 t | 9.03 m³ | ~5.5 m³ |
+| +1.2 m, 50°, radial crown 3.5 | 41.38 m² | 52.89 m² | 14.28 t | 10.39 m³ | ~5.5 m³ |
+| +0.8 m, 35°, radial crown 3.2 | 33.93 m² | 38.27 m² | 10.33 t | 7.52 m³ | ~6.9 m³ |
+| +0.8 m, 35°, targeted crown 3.5 | 28.04 m² | 31.21 m² | 8.43 t | 6.13 m³ | ~5.5 m³ |
 
-The 41.38 m² glazing requires about 1.39 t additional pressure-pane material above the declared 25 m² at 85 kg/m², but total dry mass, extra frames, centre of gravity and shutter mass accounting are unclosed. Shutter armour may replace existing armour, so do not automatically charge the entire 11.17 t as an *incremental* mass.
+These stow estimates **exclude** tracks, actuators, clearance, structure and sensor conflicts. Every listed configuration fails the simple nominal gross pocket volume comparison, even before machinery. This rejects the *shoulder-pocket architecture*, not all conceivable shutter concepts. Another physical stow location or smaller protected apertures would need to be modeled. Do not assume vacant L2 or service rack space.
+
+The 41.38 m² *pressure panes* require about 1.39 t additional pane material above the declared 25 m² at 85 kg/m². Frame and total dry-mass/CG closure remain unverified. Exterior shutter armour may replace original armour; the listed surface material mass is **not** a verified incremental spacecraft mass.
 
 ## Closure boundaries
 
@@ -70,11 +73,11 @@ The 41.38 m² glazing requires about 1.39 t additional pressure-pane material ab
 
 ## Decision and stopping condition
 
-**No configuration has demonstrated full physical closure.** The leading blockers are shutter stowage and structurally credible pressure apertures. The computational search is a useful screening result, not a certified design.
+**No configuration has demonstrated full physical closure.** The leading blockers are shutter stowage and structurally credible pressure apertures. The shutter calculation explicitly uses exterior armour area, not the interior pressure-pane area. The computational search is a useful screening result, not a certified design.
 
 Keep two non-governing directions:
 
 1. **Visibility-first:** +1.2 m extension; central face 2.0 m; 50° facets; radial 3.5 m glazing. Gives 10.94% worst-support visibility versus 5.47% consistent reference and improves pilot forward sky, but the minimum protective material volume exceeds shoulder pocket capacity.
-2. **Compact hypothesis:** +0.8 m extension; face 1.2 m; 35° facets; radial 3.2 m glazing. Gives 7.81% worst-support visibility at 33.93 m² glazing; shutter material nearly fills the estimated gross pocket and lower axial dust grazing must be dealt with.
+2. **Compact hypothesis:** +0.8 m extension; face 1.2 m; 35° facets; radial 3.2 m glazing. Gives 7.81% worst-support visibility at 33.93 m² glazing; shutter material by itself exceeds the estimated shoulder pocket and lower axial dust grazing must be dealt with.
 
 **Smallest next experiment:** try *one* physically drawn, stowable, segmented shutter for the 3.2-m crown with the real sensor ring occupancy and 0.8 m circulation preserved. If it cannot fit, reduce windows or retain Rev 7 and improve sensor/remote visualisation. No main-ship redesign or new engineering framework is justified.

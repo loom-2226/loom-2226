@@ -95,8 +95,9 @@ def main():
     for i,q in enumerate(chosen):
         z={**q,'stations':detail(tuple(q['shape']),q['crown'],q['windows']),
            'pressure_surface_glazing_m2':q['area_m2'],
-           'shutter_equiv_t':round(.27*q['area_m2'],2),
-           'shutter_material_m3':round(.27*q['area_m2']/1.375,2),
+           'exterior_shutter_area_m2':D.exterior_aperture_area_m2(q['shape'],q['crown'],q['windows']),
+           'shutter_equiv_t':round(.27*D.exterior_aperture_area_m2(q['shape'],q['crown'],q['windows']),2),
+           'shutter_material_m3':round(.27*D.exterior_aperture_area_m2(q['shape'],q['crown'],q['windows'])/1.375,2),
            'access':'Rev 7 unchanged PASS',
            'pressure_window_structural_fit':'NOT TESTED',
            'sensor_packaging':'Rev 7 ring physically retained',

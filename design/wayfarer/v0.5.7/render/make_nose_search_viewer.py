@@ -37,7 +37,7 @@ for n,q in enumerate(examples,1):
     options.append({'name':('%s | crown %.1f m | +%.1f m | %.0f°'%(q['windows'],q['crown'],sh[0],sh[2])),
                     'shape':sh,'extension':sh[0],'crown':q['crown'],'windows':q['windows'],
                     'sensors':q['sensors'],'metrics':q['stations'],
-                    'area':q['area_m2'],'shutter':q['shutter_equiv_t'],'paths':True,
+                    'area':q['area_m2'],'outer_area':q['exterior_shutter_area_m2'],'shutter':q['shutter_equiv_t'],'paths':True,
                     'qual':q['shutter_swept_volume']})
 DATA={'options':options,'scene':scene,'source':R['source_sha'],'geometry_sha':R['geometry_sha256']}
 html=r'''<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
@@ -163,6 +163,7 @@ document.getElementById('meta').innerHTML='<div class="stat"><b>Length envelope:
 '<div class="stat"><b>Pilot score:</b> '+pilot+'</div>'+
 '<div class="stat"><b>Worst support score:</b> '+sup+'</div>'+
 '<div class="stat"><b>Pane area (estimate):</b> '+(o.area===undefined?'Rev 7 declared 25 m²':o.area+' m²')+'</div>'+
+'<div class="stat"><b>Outer shutter area:</b> '+(o.outer_area===undefined?'Unresolved':o.outer_area+' m²')+'</div>'+
 '<div class="stat"><b>Shutter material (27 g/cm²):</b> '+(o.shutter===undefined?'Unresolved':o.shutter+' t · storage UNVERIFIED')+'</div>';
 }
 document.getElementById('prov').textContent='PR #432: '+DATA.source.slice(0,12)+' · source geometry SHA-256: '+DATA.geometry_sha.slice(0,16);
