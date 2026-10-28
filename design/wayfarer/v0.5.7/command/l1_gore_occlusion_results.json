@@ -1,0 +1,125 @@
+{
+  "source": "single rigid hinge sector rotated around every 22.5 degree azimuth",
+  "metric": "fraction of forward cone directly occluded by petal mesh only",
+  "sample_count_per_eye": 224,
+  "angles": [
+    -30,
+    -45,
+    -60,
+    -75,
+    -85,
+    -90
+  ],
+  "cases": [
+    {
+      "design": "Rev7",
+      "results": [
+        {
+          "angle_deg": -30,
+          "pilot_cone_occluded_fraction": 0.317,
+          "nav_cone_occluded_fraction": 0.3125
+        },
+        {
+          "angle_deg": -45,
+          "pilot_cone_occluded_fraction": 0.1071,
+          "nav_cone_occluded_fraction": 0.1027
+        },
+        {
+          "angle_deg": -60,
+          "pilot_cone_occluded_fraction": 0.0134,
+          "nav_cone_occluded_fraction": 0.0134
+        },
+        {
+          "angle_deg": -75,
+          "pilot_cone_occluded_fraction": 0.0,
+          "nav_cone_occluded_fraction": 0.0
+        },
+        {
+          "angle_deg": -85,
+          "pilot_cone_occluded_fraction": 0.0,
+          "nav_cone_occluded_fraction": 0.0
+        },
+        {
+          "angle_deg": -90,
+          "pilot_cone_occluded_fraction": 0.0,
+          "nav_cone_occluded_fraction": 0.0
+        }
+      ]
+    },
+    {
+      "design": "compact",
+      "results": [
+        {
+          "angle_deg": -30,
+          "pilot_cone_occluded_fraction": 0.1607,
+          "nav_cone_occluded_fraction": 0.1562
+        },
+        {
+          "angle_deg": -45,
+          "pilot_cone_occluded_fraction": 0.0312,
+          "nav_cone_occluded_fraction": 0.0268
+        },
+        {
+          "angle_deg": -60,
+          "pilot_cone_occluded_fraction": 0.0,
+          "nav_cone_occluded_fraction": 0.0
+        },
+        {
+          "angle_deg": -75,
+          "pilot_cone_occluded_fraction": 0.0,
+          "nav_cone_occluded_fraction": 0.0
+        },
+        {
+          "angle_deg": -85,
+          "pilot_cone_occluded_fraction": 0.0,
+          "nav_cone_occluded_fraction": 0.0
+        },
+        {
+          "angle_deg": -90,
+          "pilot_cone_occluded_fraction": 0.0,
+          "nav_cone_occluded_fraction": 0.0
+        }
+      ]
+    },
+    {
+      "design": "panorama",
+      "results": [
+        {
+          "angle_deg": -30,
+          "pilot_cone_occluded_fraction": 0.1161,
+          "nav_cone_occluded_fraction": 0.1339
+        },
+        {
+          "angle_deg": -45,
+          "pilot_cone_occluded_fraction": 0.0134,
+          "nav_cone_occluded_fraction": 0.0089
+        },
+        {
+          "angle_deg": -60,
+          "pilot_cone_occluded_fraction": 0.0,
+          "nav_cone_occluded_fraction": 0.0
+        },
+        {
+          "angle_deg": -75,
+          "pilot_cone_occluded_fraction": 0.0,
+          "nav_cone_occluded_fraction": 0.0
+        },
+        {
+          "angle_deg": -85,
+          "pilot_cone_occluded_fraction": 0.0,
+          "nav_cone_occluded_fraction": 0.0
+        },
+        {
+          "angle_deg": -90,
+          "pilot_cone_occluded_fraction": 0.0,
+          "nav_cone_occluded_fraction": 0.0
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "No crew/furniture/window aperture mask in this measure",
+    "The triangle surface is thin for ray occlusion, not ballistic panel thickness",
+    "Collisions with other petals not tested"
+  ]
+}

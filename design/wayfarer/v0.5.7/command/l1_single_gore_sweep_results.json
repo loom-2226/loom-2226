@@ -1,0 +1,2850 @@
+{
+  "classification": "RESEARCH NON-GOVERNING; point-cloud sweep not CAD",
+  "assumptions": {
+    "sectors": 16,
+    "per_sector_half_angle_deg": 11.25,
+    "normal_layer_equivalent_m": 0.1963,
+    "hinge": "outer perimeter, tangent to crown ring at sector centre, no stand-off",
+    "angular_step_deg": 5,
+    "radial_samples": 48,
+    "azimuth_samples": 9,
+    "material_depth_samples": 3,
+    "physical_meaning": "constant-thickness rigid curved or faceted 22.5-degree segment"
+  },
+  "mechanisms": [
+    {
+      "design": "Rev7",
+      "tests": [
+        {
+          "direction": "aft_fold_positive",
+          "crown_m": 2.8,
+          "shape": null,
+          "hinge_pivot_m": [
+            0.5103,
+            2.8,
+            0.0
+          ],
+          "full_travel_clear": false,
+          "first_collision_angle_deg": {
+            "pressure": 0,
+            "fixed_armor": 20,
+            "bow_sensor": 80,
+            "metric_node_face": 145
+          },
+          "max_radial_m": 5.586,
+          "most_forward_x_m": 0.0,
+          "sample_count_per_angle": 1296,
+          "angles": [
+            {
+              "angle_deg": 0,
+              "counts": {
+                "pressure": 153,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.0,
+              "max_x_m": 0.692,
+              "max_radial_m": 2.8
+            },
+            {
+              "angle_deg": 5,
+              "counts": {
+                "pressure": 785,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.213,
+              "max_x_m": 0.702,
+              "max_radial_m": 2.8
+            },
+            {
+              "angle_deg": 10,
+              "counts": {
+                "pressure": 1048,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.366,
+              "max_x_m": 0.711,
+              "max_radial_m": 2.801
+            },
+            {
+              "angle_deg": 15,
+              "counts": {
+                "pressure": 1130,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.461,
+              "max_x_m": 0.928,
+              "max_radial_m": 2.802
+            },
+            {
+              "angle_deg": 20,
+              "counts": {
+                "pressure": 1167,
+                "fixed_armor": 2,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.505,
+              "max_x_m": 1.168,
+              "max_radial_m": 2.803
+            },
+            {
+              "angle_deg": 25,
+              "counts": {
+                "pressure": 1185,
+                "fixed_armor": 20,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.51,
+              "max_x_m": 1.403,
+              "max_radial_m": 2.812
+            },
+            {
+              "angle_deg": 30,
+              "counts": {
+                "pressure": 1196,
+                "fixed_armor": 22,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.51,
+              "max_x_m": 1.631,
+              "max_radial_m": 2.83
+            },
+            {
+              "angle_deg": 35,
+              "counts": {
+                "pressure": 1207,
+                "fixed_armor": 24,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.51,
+              "max_x_m": 1.851,
+              "max_radial_m": 2.849
+            },
+            {
+              "angle_deg": 40,
+              "counts": {
+                "pressure": 1212,
+                "fixed_armor": 24,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.51,
+              "max_x_m": 2.06,
+              "max_radial_m": 2.868
+            },
+            {
+              "angle_deg": 45,
+              "counts": {
+                "pressure": 1214,
+                "fixed_armor": 29,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.51,
+              "max_x_m": 2.258,
+              "max_radial_m": 2.887
+            },
+            {
+              "angle_deg": 50,
+              "counts": {
+                "pressure": 1217,
+                "fixed_armor": 33,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.51,
+              "max_x_m": 2.442,
+              "max_radial_m": 2.906
+            },
+            {
+              "angle_deg": 55,
+              "counts": {
+                "pressure": 1217,
+                "fixed_armor": 37,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.51,
+              "max_x_m": 2.612,
+              "max_radial_m": 2.924
+            },
+            {
+              "angle_deg": 60,
+              "counts": {
+                "pressure": 1217,
+                "fixed_armor": 42,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.51,
+              "max_x_m": 2.766,
+              "max_radial_m": 2.942
+            },
+            {
+              "angle_deg": 65,
+              "counts": {
+                "pressure": 1217,
+                "fixed_armor": 42,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.51,
+              "max_x_m": 2.902,
+              "max_radial_m": 2.959
+            },
+            {
+              "angle_deg": 70,
+              "counts": {
+                "pressure": 1214,
+                "fixed_armor": 53,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.51,
+              "max_x_m": 3.021,
+              "max_radial_m": 2.975
+            },
+            {
+              "angle_deg": 75,
+              "counts": {
+                "pressure": 1214,
+                "fixed_armor": 60,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.51,
+              "max_x_m": 3.12,
+              "max_radial_m": 2.99
+            },
+            {
+              "angle_deg": 80,
+              "counts": {
+                "pressure": 1212,
+                "fixed_armor": 64,
+                "bow_sensor": 2,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.51,
+              "max_x_m": 3.199,
+              "max_radial_m": 3.004
+            },
+            {
+              "angle_deg": 85,
+              "counts": {
+                "pressure": 1214,
+                "fixed_armor": 64,
+                "bow_sensor": 2,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.51,
+              "max_x_m": 3.258,
+              "max_radial_m": 3.017
+            },
+            {
+              "angle_deg": 90,
+              "counts": {
+                "pressure": 1206,
+                "fixed_armor": 70,
+                "bow_sensor": 8,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.51,
+              "max_x_m": 3.296,
+              "max_radial_m": 3.028
+            },
+            {
+              "angle_deg": 95,
+              "counts": {
+                "pressure": 1196,
+                "fixed_armor": 72,
+                "bow_sensor": 17,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.51,
+              "max_x_m": 3.329,
+              "max_radial_m": 3.039
+            },
+            {
+              "angle_deg": 100,
+              "counts": {
+                "pressure": 1194,
+                "fixed_armor": 72,
+                "bow_sensor": 62,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.51,
+              "max_x_m": 3.342,
+              "max_radial_m": 3.047
+            },
+            {
+              "angle_deg": 105,
+              "counts": {
+                "pressure": 1185,
+                "fixed_armor": 79,
+                "bow_sensor": 185,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.51,
+              "max_x_m": 3.333,
+              "max_radial_m": 3.218
+            },
+            {
+              "angle_deg": 110,
+              "counts": {
+                "pressure": 1181,
+                "fixed_armor": 80,
+                "bow_sensor": 365,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.51,
+              "max_x_m": 3.302,
+              "max_radial_m": 3.458
+            },
+            {
+              "angle_deg": 115,
+              "counts": {
+                "pressure": 1165,
+                "fixed_armor": 103,
+                "bow_sensor": 466,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.502,
+              "max_x_m": 3.25,
+              "max_radial_m": 3.693
+            },
+            {
+              "angle_deg": 120,
+              "counts": {
+                "pressure": 1161,
+                "fixed_armor": 107,
+                "bow_sensor": 519,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.485,
+              "max_x_m": 3.178,
+              "max_radial_m": 3.921
+            },
+            {
+              "angle_deg": 125,
+              "counts": {
+                "pressure": 1145,
+                "fixed_armor": 107,
+                "bow_sensor": 541,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.468,
+              "max_x_m": 3.085,
+              "max_radial_m": 4.141
+            },
+            {
+              "angle_deg": 130,
+              "counts": {
+                "pressure": 1107,
+                "fixed_armor": 141,
+                "bow_sensor": 549,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.451,
+              "max_x_m": 2.972,
+              "max_radial_m": 4.35
+            },
+            {
+              "angle_deg": 135,
+              "counts": {
+                "pressure": 972,
+                "fixed_armor": 243,
+                "bow_sensor": 575,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.435,
+              "max_x_m": 2.841,
+              "max_radial_m": 4.548
+            },
+            {
+              "angle_deg": 140,
+              "counts": {
+                "pressure": 826,
+                "fixed_armor": 277,
+                "bow_sensor": 562,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.42,
+              "max_x_m": 2.692,
+              "max_radial_m": 4.732
+            },
+            {
+              "angle_deg": 145,
+              "counts": {
+                "pressure": 628,
+                "fixed_armor": 353,
+                "bow_sensor": 350,
+                "metric_node_face": 89
+              },
+              "min_x_m": 0.405,
+              "max_x_m": 2.526,
+              "max_radial_m": 4.902
+            },
+            {
+              "angle_deg": 150,
+              "counts": {
+                "pressure": 334,
+                "fixed_armor": 498,
+                "bow_sensor": 132,
+                "metric_node_face": 80
+              },
+              "min_x_m": 0.391,
+              "max_x_m": 2.345,
+              "max_radial_m": 5.055
+            },
+            {
+              "angle_deg": 155,
+              "counts": {
+                "pressure": 121,
+                "fixed_armor": 512,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.378,
+              "max_x_m": 2.15,
+              "max_radial_m": 5.192
+            },
+            {
+              "angle_deg": 160,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 374,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.366,
+              "max_x_m": 1.942,
+              "max_radial_m": 5.31
+            },
+            {
+              "angle_deg": 165,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 177,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.355,
+              "max_x_m": 1.724,
+              "max_radial_m": 5.409
+            },
+            {
+              "angle_deg": 170,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 104,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.345,
+              "max_x_m": 1.497,
+              "max_radial_m": 5.489
+            },
+            {
+              "angle_deg": 175,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 23,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.336,
+              "max_x_m": 1.261,
+              "max_radial_m": 5.548
+            },
+            {
+              "angle_deg": 180,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.329,
+              "max_x_m": 1.021,
+              "max_radial_m": 5.586
+            }
+          ]
+        },
+        {
+          "direction": "forward_flower_negative",
+          "crown_m": 2.8,
+          "shape": null,
+          "hinge_pivot_m": [
+            0.5103,
+            2.8,
+            0.0
+          ],
+          "full_travel_clear": false,
+          "first_collision_angle_deg": {
+            "pressure": 0,
+            "fixed_armor": null,
+            "bow_sensor": null,
+            "metric_node_face": null
+          },
+          "max_radial_m": 5.632,
+          "most_forward_x_m": -2.321,
+          "sample_count_per_angle": 1296,
+          "angles": [
+            {
+              "angle_deg": 0,
+              "counts": {
+                "pressure": 153,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.0,
+              "max_x_m": 0.692,
+              "max_radial_m": 2.8
+            },
+            {
+              "angle_deg": -5,
+              "counts": {
+                "pressure": 7,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.241,
+              "max_x_m": 0.684,
+              "max_radial_m": 2.8
+            },
+            {
+              "angle_deg": -10,
+              "counts": {
+                "pressure": 3,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.476,
+              "max_x_m": 0.676,
+              "max_radial_m": 2.801
+            },
+            {
+              "angle_deg": -15,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.703,
+              "max_x_m": 0.666,
+              "max_radial_m": 2.802
+            },
+            {
+              "angle_deg": -20,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.922,
+              "max_x_m": 0.655,
+              "max_radial_m": 2.803
+            },
+            {
+              "angle_deg": -25,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.129,
+              "max_x_m": 0.643,
+              "max_radial_m": 2.805
+            },
+            {
+              "angle_deg": -30,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.324,
+              "max_x_m": 0.63,
+              "max_radial_m": 2.807
+            },
+            {
+              "angle_deg": -35,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.505,
+              "max_x_m": 0.616,
+              "max_radial_m": 2.81
+            },
+            {
+              "angle_deg": -40,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.671,
+              "max_x_m": 0.601,
+              "max_radial_m": 2.812
+            },
+            {
+              "angle_deg": -45,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.82,
+              "max_x_m": 0.585,
+              "max_radial_m": 2.815
+            },
+            {
+              "angle_deg": -50,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.951,
+              "max_x_m": 0.569,
+              "max_radial_m": 2.819
+            },
+            {
+              "angle_deg": -55,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.064,
+              "max_x_m": 0.553,
+              "max_radial_m": 2.823
+            },
+            {
+              "angle_deg": -60,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.157,
+              "max_x_m": 0.536,
+              "max_radial_m": 2.826
+            },
+            {
+              "angle_deg": -65,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.23,
+              "max_x_m": 0.519,
+              "max_radial_m": 2.83
+            },
+            {
+              "angle_deg": -70,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.282,
+              "max_x_m": 0.51,
+              "max_radial_m": 2.835
+            },
+            {
+              "angle_deg": -75,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.312,
+              "max_x_m": 0.51,
+              "max_radial_m": 2.869
+            },
+            {
+              "angle_deg": -80,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.321,
+              "max_x_m": 0.51,
+              "max_radial_m": 2.954
+            },
+            {
+              "angle_deg": -85,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.309,
+              "max_x_m": 0.51,
+              "max_radial_m": 3.099
+            },
+            {
+              "angle_deg": -90,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.275,
+              "max_x_m": 0.51,
+              "max_radial_m": 3.31
+            },
+            {
+              "angle_deg": -95,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.237,
+              "max_x_m": 0.51,
+              "max_radial_m": 3.551
+            },
+            {
+              "angle_deg": -100,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.178,
+              "max_x_m": 0.51,
+              "max_radial_m": 3.786
+            },
+            {
+              "angle_deg": -105,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.099,
+              "max_x_m": 0.51,
+              "max_radial_m": 4.014
+            },
+            {
+              "angle_deg": -110,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.0,
+              "max_x_m": 0.51,
+              "max_radial_m": 4.232
+            },
+            {
+              "angle_deg": -115,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.882,
+              "max_x_m": 0.51,
+              "max_radial_m": 4.44
+            },
+            {
+              "angle_deg": -120,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.745,
+              "max_x_m": 0.51,
+              "max_radial_m": 4.635
+            },
+            {
+              "angle_deg": -125,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.591,
+              "max_x_m": 0.51,
+              "max_radial_m": 4.816
+            },
+            {
+              "angle_deg": -130,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.422,
+              "max_x_m": 0.51,
+              "max_radial_m": 4.981
+            },
+            {
+              "angle_deg": -135,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.237,
+              "max_x_m": 0.51,
+              "max_radial_m": 5.13
+            },
+            {
+              "angle_deg": -140,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.04,
+              "max_x_m": 0.51,
+              "max_radial_m": 5.262
+            },
+            {
+              "angle_deg": -145,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.83,
+              "max_x_m": 0.51,
+              "max_radial_m": 5.374
+            },
+            {
+              "angle_deg": -150,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.611,
+              "max_x_m": 0.51,
+              "max_radial_m": 5.467
+            },
+            {
+              "angle_deg": -155,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.382,
+              "max_x_m": 0.51,
+              "max_radial_m": 5.54
+            },
+            {
+              "angle_deg": -160,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.147,
+              "max_x_m": 0.516,
+              "max_radial_m": 5.592
+            },
+            {
+              "angle_deg": -165,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.093,
+              "max_x_m": 0.56,
+              "max_radial_m": 5.622
+            },
+            {
+              "angle_deg": -170,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.31,
+              "max_x_m": 0.655,
+              "max_radial_m": 5.632
+            },
+            {
+              "angle_deg": -175,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.319,
+              "max_x_m": 0.807,
+              "max_radial_m": 5.619
+            },
+            {
+              "angle_deg": -180,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.329,
+              "max_x_m": 1.021,
+              "max_radial_m": 5.586
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "design": "angular_compact",
+      "tests": [
+        {
+          "direction": "aft_fold_positive",
+          "crown_m": 3.2,
+          "shape": [
+            0.8,
+            1.2,
+            35
+          ],
+          "hinge_pivot_m": [
+            0.6004,
+            3.2,
+            0.0
+          ],
+          "full_travel_clear": false,
+          "first_collision_angle_deg": {
+            "pressure": 15,
+            "fixed_armor": 15,
+            "bow_sensor": 45,
+            "metric_node_face": 155
+          },
+          "max_radial_m": 6.385,
+          "most_forward_x_m": -0.8,
+          "sample_count_per_angle": 1296,
+          "angles": [
+            {
+              "angle_deg": 0,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.8,
+              "max_x_m": 0.761,
+              "max_radial_m": 3.2
+            },
+            {
+              "angle_deg": 5,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.617,
+              "max_x_m": 0.776,
+              "max_radial_m": 3.2
+            },
+            {
+              "angle_deg": 10,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.426,
+              "max_x_m": 0.789,
+              "max_radial_m": 3.201
+            },
+            {
+              "angle_deg": 15,
+              "counts": {
+                "pressure": 36,
+                "fixed_armor": 2,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.226,
+              "max_x_m": 0.8,
+              "max_radial_m": 3.202
+            },
+            {
+              "angle_deg": 20,
+              "counts": {
+                "pressure": 466,
+                "fixed_armor": 4,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.021,
+              "max_x_m": 0.81,
+              "max_radial_m": 3.204
+            },
+            {
+              "angle_deg": 25,
+              "counts": {
+                "pressure": 881,
+                "fixed_armor": 4,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.184,
+              "max_x_m": 0.855,
+              "max_radial_m": 3.206
+            },
+            {
+              "angle_deg": 30,
+              "counts": {
+                "pressure": 1101,
+                "fixed_armor": 6,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.391,
+              "max_x_m": 1.15,
+              "max_radial_m": 3.208
+            },
+            {
+              "angle_deg": 35,
+              "counts": {
+                "pressure": 1140,
+                "fixed_armor": 18,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.6,
+              "max_x_m": 1.441,
+              "max_radial_m": 3.211
+            },
+            {
+              "angle_deg": 40,
+              "counts": {
+                "pressure": 1165,
+                "fixed_armor": 24,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.6,
+              "max_x_m": 1.725,
+              "max_radial_m": 3.228
+            },
+            {
+              "angle_deg": 45,
+              "counts": {
+                "pressure": 1178,
+                "fixed_armor": 24,
+                "bow_sensor": 11,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.6,
+              "max_x_m": 2.001,
+              "max_radial_m": 3.248
+            },
+            {
+              "angle_deg": 50,
+              "counts": {
+                "pressure": 1185,
+                "fixed_armor": 24,
+                "bow_sensor": 13,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.6,
+              "max_x_m": 2.266,
+              "max_radial_m": 3.269
+            },
+            {
+              "angle_deg": 55,
+              "counts": {
+                "pressure": 1192,
+                "fixed_armor": 26,
+                "bow_sensor": 17,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.6,
+              "max_x_m": 2.519,
+              "max_radial_m": 3.289
+            },
+            {
+              "angle_deg": 60,
+              "counts": {
+                "pressure": 1194,
+                "fixed_armor": 33,
+                "bow_sensor": 28,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.6,
+              "max_x_m": 2.757,
+              "max_radial_m": 3.309
+            },
+            {
+              "angle_deg": 65,
+              "counts": {
+                "pressure": 1198,
+                "fixed_armor": 37,
+                "bow_sensor": 35,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.6,
+              "max_x_m": 2.978,
+              "max_radial_m": 3.328
+            },
+            {
+              "angle_deg": 70,
+              "counts": {
+                "pressure": 1201,
+                "fixed_armor": 41,
+                "bow_sensor": 47,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.6,
+              "max_x_m": 3.182,
+              "max_radial_m": 3.347
+            },
+            {
+              "angle_deg": 75,
+              "counts": {
+                "pressure": 1201,
+                "fixed_armor": 49,
+                "bow_sensor": 61,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.6,
+              "max_x_m": 3.366,
+              "max_radial_m": 3.365
+            },
+            {
+              "angle_deg": 80,
+              "counts": {
+                "pressure": 1201,
+                "fixed_armor": 53,
+                "bow_sensor": 78,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.6,
+              "max_x_m": 3.528,
+              "max_radial_m": 3.383
+            },
+            {
+              "angle_deg": 85,
+              "counts": {
+                "pressure": 1201,
+                "fixed_armor": 55,
+                "bow_sensor": 102,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.6,
+              "max_x_m": 3.669,
+              "max_radial_m": 3.399
+            },
+            {
+              "angle_deg": 90,
+              "counts": {
+                "pressure": 1194,
+                "fixed_armor": 62,
+                "bow_sensor": 132,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.6,
+              "max_x_m": 3.786,
+              "max_radial_m": 3.414
+            },
+            {
+              "angle_deg": 95,
+              "counts": {
+                "pressure": 1188,
+                "fixed_armor": 59,
+                "bow_sensor": 168,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.6,
+              "max_x_m": 3.896,
+              "max_radial_m": 3.428
+            },
+            {
+              "angle_deg": 100,
+              "counts": {
+                "pressure": 1188,
+                "fixed_armor": 61,
+                "bow_sensor": 205,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.6,
+              "max_x_m": 3.98,
+              "max_radial_m": 3.441
+            },
+            {
+              "angle_deg": 105,
+              "counts": {
+                "pressure": 1188,
+                "fixed_armor": 68,
+                "bow_sensor": 270,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.6,
+              "max_x_m": 4.04,
+              "max_radial_m": 3.453
+            },
+            {
+              "angle_deg": 110,
+              "counts": {
+                "pressure": 1183,
+                "fixed_armor": 71,
+                "bow_sensor": 319,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.6,
+              "max_x_m": 4.073,
+              "max_radial_m": 3.463
+            },
+            {
+              "angle_deg": 115,
+              "counts": {
+                "pressure": 1179,
+                "fixed_armor": 66,
+                "bow_sensor": 320,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.6,
+              "max_x_m": 4.079,
+              "max_radial_m": 3.471
+            },
+            {
+              "angle_deg": 120,
+              "counts": {
+                "pressure": 1170,
+                "fixed_armor": 79,
+                "bow_sensor": 309,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.6,
+              "max_x_m": 4.059,
+              "max_radial_m": 3.75
+            },
+            {
+              "angle_deg": 125,
+              "counts": {
+                "pressure": 1161,
+                "fixed_armor": 96,
+                "bow_sensor": 297,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.6,
+              "max_x_m": 4.013,
+              "max_radial_m": 4.041
+            },
+            {
+              "angle_deg": 130,
+              "counts": {
+                "pressure": 1143,
+                "fixed_armor": 100,
+                "bow_sensor": 297,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.583,
+              "max_x_m": 3.941,
+              "max_radial_m": 4.325
+            },
+            {
+              "angle_deg": 135,
+              "counts": {
+                "pressure": 990,
+                "fixed_armor": 216,
+                "bow_sensor": 291,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.566,
+              "max_x_m": 3.843,
+              "max_radial_m": 4.601
+            },
+            {
+              "angle_deg": 140,
+              "counts": {
+                "pressure": 847,
+                "fixed_armor": 220,
+                "bow_sensor": 274,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.55,
+              "max_x_m": 3.721,
+              "max_radial_m": 4.866
+            },
+            {
+              "angle_deg": 145,
+              "counts": {
+                "pressure": 710,
+                "fixed_armor": 222,
+                "bow_sensor": 254,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.533,
+              "max_x_m": 3.575,
+              "max_radial_m": 5.119
+            },
+            {
+              "angle_deg": 150,
+              "counts": {
+                "pressure": 542,
+                "fixed_armor": 289,
+                "bow_sensor": 205,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.517,
+              "max_x_m": 3.406,
+              "max_radial_m": 5.356
+            },
+            {
+              "angle_deg": 155,
+              "counts": {
+                "pressure": 345,
+                "fixed_armor": 359,
+                "bow_sensor": 94,
+                "metric_node_face": 1
+              },
+              "min_x_m": 0.502,
+              "max_x_m": 3.216,
+              "max_radial_m": 5.578
+            },
+            {
+              "angle_deg": 160,
+              "counts": {
+                "pressure": 128,
+                "fixed_armor": 453,
+                "bow_sensor": 0,
+                "metric_node_face": 26
+              },
+              "min_x_m": 0.488,
+              "max_x_m": 3.006,
+              "max_radial_m": 5.781
+            },
+            {
+              "angle_deg": 165,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 472,
+                "bow_sensor": 0,
+                "metric_node_face": 30
+              },
+              "min_x_m": 0.474,
+              "max_x_m": 2.778,
+              "max_radial_m": 5.965
+            },
+            {
+              "angle_deg": 170,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 345,
+                "bow_sensor": 0,
+                "metric_node_face": 7
+              },
+              "min_x_m": 0.462,
+              "max_x_m": 2.533,
+              "max_radial_m": 6.128
+            },
+            {
+              "angle_deg": 175,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 192,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.45,
+              "max_x_m": 2.273,
+              "max_radial_m": 6.268
+            },
+            {
+              "angle_deg": 180,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.44,
+              "max_x_m": 2.001,
+              "max_radial_m": 6.385
+            }
+          ]
+        },
+        {
+          "direction": "forward_flower_negative",
+          "crown_m": 3.2,
+          "shape": [
+            0.8,
+            1.2,
+            35
+          ],
+          "hinge_pivot_m": [
+            0.6004,
+            3.2,
+            0.0
+          ],
+          "full_travel_clear": true,
+          "first_collision_angle_deg": {
+            "pressure": null,
+            "fixed_armor": null,
+            "bow_sensor": null,
+            "metric_node_face": null
+          },
+          "max_radial_m": 6.679,
+          "most_forward_x_m": -2.878,
+          "sample_count_per_angle": 1296,
+          "angles": [
+            {
+              "angle_deg": 0,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.8,
+              "max_x_m": 0.761,
+              "max_radial_m": 3.2
+            },
+            {
+              "angle_deg": -5,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.072,
+              "max_x_m": 0.751,
+              "max_radial_m": 3.2
+            },
+            {
+              "angle_deg": -10,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.332,
+              "max_x_m": 0.739,
+              "max_radial_m": 3.201
+            },
+            {
+              "angle_deg": -15,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.577,
+              "max_x_m": 0.727,
+              "max_radial_m": 3.202
+            },
+            {
+              "angle_deg": -20,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.805,
+              "max_x_m": 0.713,
+              "max_radial_m": 3.204
+            },
+            {
+              "angle_deg": -25,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.015,
+              "max_x_m": 0.699,
+              "max_radial_m": 3.206
+            },
+            {
+              "angle_deg": -30,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.205,
+              "max_x_m": 0.683,
+              "max_radial_m": 3.208
+            },
+            {
+              "angle_deg": -35,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.374,
+              "max_x_m": 0.668,
+              "max_radial_m": 3.211
+            },
+            {
+              "angle_deg": -40,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.52,
+              "max_x_m": 0.651,
+              "max_radial_m": 3.214
+            },
+            {
+              "angle_deg": -45,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.642,
+              "max_x_m": 0.634,
+              "max_radial_m": 3.218
+            },
+            {
+              "angle_deg": -50,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.74,
+              "max_x_m": 0.618,
+              "max_radial_m": 3.222
+            },
+            {
+              "angle_deg": -55,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.812,
+              "max_x_m": 0.6,
+              "max_radial_m": 3.226
+            },
+            {
+              "angle_deg": -60,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.858,
+              "max_x_m": 0.6,
+              "max_radial_m": 3.409
+            },
+            {
+              "angle_deg": -65,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.878,
+              "max_x_m": 0.6,
+              "max_radial_m": 3.617
+            },
+            {
+              "angle_deg": -70,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.872,
+              "max_x_m": 0.6,
+              "max_radial_m": 3.821
+            },
+            {
+              "angle_deg": -75,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.839,
+              "max_x_m": 0.6,
+              "max_radial_m": 4.027
+            },
+            {
+              "angle_deg": -80,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.78,
+              "max_x_m": 0.6,
+              "max_radial_m": 4.228
+            },
+            {
+              "angle_deg": -85,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.695,
+              "max_x_m": 0.6,
+              "max_radial_m": 4.422
+            },
+            {
+              "angle_deg": -90,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.585,
+              "max_x_m": 0.6,
+              "max_radial_m": 4.606
+            },
+            {
+              "angle_deg": -95,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.468,
+              "max_x_m": 0.6,
+              "max_radial_m": 4.873
+            },
+            {
+              "angle_deg": -100,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.327,
+              "max_x_m": 0.6,
+              "max_radial_m": 5.132
+            },
+            {
+              "angle_deg": -105,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.165,
+              "max_x_m": 0.6,
+              "max_radial_m": 5.377
+            },
+            {
+              "angle_deg": -110,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.981,
+              "max_x_m": 0.6,
+              "max_radial_m": 5.605
+            },
+            {
+              "angle_deg": -115,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.778,
+              "max_x_m": 0.6,
+              "max_radial_m": 5.815
+            },
+            {
+              "angle_deg": -120,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.556,
+              "max_x_m": 0.6,
+              "max_radial_m": 6.005
+            },
+            {
+              "angle_deg": -125,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.318,
+              "max_x_m": 0.6,
+              "max_radial_m": 6.174
+            },
+            {
+              "angle_deg": -130,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.066,
+              "max_x_m": 0.6,
+              "max_radial_m": 6.32
+            },
+            {
+              "angle_deg": -135,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.8,
+              "max_x_m": 0.6,
+              "max_radial_m": 6.443
+            },
+            {
+              "angle_deg": -140,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.525,
+              "max_x_m": 0.6,
+              "max_radial_m": 6.54
+            },
+            {
+              "angle_deg": -145,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.24,
+              "max_x_m": 0.6,
+              "max_radial_m": 6.612
+            },
+            {
+              "angle_deg": -150,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.051,
+              "max_x_m": 0.81,
+              "max_radial_m": 6.659
+            },
+            {
+              "angle_deg": -155,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.346,
+              "max_x_m": 1.017,
+              "max_radial_m": 6.679
+            },
+            {
+              "angle_deg": -160,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.391,
+              "max_x_m": 1.221,
+              "max_radial_m": 6.672
+            },
+            {
+              "angle_deg": -165,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.401,
+              "max_x_m": 1.427,
+              "max_radial_m": 6.639
+            },
+            {
+              "angle_deg": -170,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.412,
+              "max_x_m": 1.627,
+              "max_radial_m": 6.58
+            },
+            {
+              "angle_deg": -175,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.425,
+              "max_x_m": 1.818,
+              "max_radial_m": 6.495
+            },
+            {
+              "angle_deg": -180,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.44,
+              "max_x_m": 2.001,
+              "max_radial_m": 6.385
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "design": "angular_panorama",
+      "tests": [
+        {
+          "direction": "aft_fold_positive",
+          "crown_m": 3.5,
+          "shape": [
+            1.2,
+            2.0,
+            50
+          ],
+          "hinge_pivot_m": [
+            0.5876,
+            3.5,
+            0.0
+          ],
+          "full_travel_clear": false,
+          "first_collision_angle_deg": {
+            "pressure": 20,
+            "fixed_armor": 15,
+            "bow_sensor": 55,
+            "metric_node_face": 165
+          },
+          "max_radial_m": 6.985,
+          "most_forward_x_m": -1.2,
+          "sample_count_per_angle": 1296,
+          "angles": [
+            {
+              "angle_deg": 0,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.2,
+              "max_x_m": 0.714,
+              "max_radial_m": 3.5
+            },
+            {
+              "angle_deg": 5,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.057,
+              "max_x_m": 0.732,
+              "max_radial_m": 3.5
+            },
+            {
+              "angle_deg": 10,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.902,
+              "max_x_m": 0.749,
+              "max_radial_m": 3.501
+            },
+            {
+              "angle_deg": 15,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 2,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.736,
+              "max_x_m": 0.765,
+              "max_radial_m": 3.502
+            },
+            {
+              "angle_deg": 20,
+              "counts": {
+                "pressure": 36,
+                "fixed_armor": 4,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.566,
+              "max_x_m": 0.78,
+              "max_radial_m": 3.504
+            },
+            {
+              "angle_deg": 25,
+              "counts": {
+                "pressure": 290,
+                "fixed_armor": 4,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.387,
+              "max_x_m": 0.793,
+              "max_radial_m": 3.506
+            },
+            {
+              "angle_deg": 30,
+              "counts": {
+                "pressure": 483,
+                "fixed_armor": 6,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.201,
+              "max_x_m": 0.952,
+              "max_radial_m": 3.509
+            },
+            {
+              "angle_deg": 35,
+              "counts": {
+                "pressure": 612,
+                "fixed_armor": 6,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.009,
+              "max_x_m": 1.283,
+              "max_radial_m": 3.512
+            },
+            {
+              "angle_deg": 40,
+              "counts": {
+                "pressure": 877,
+                "fixed_armor": 6,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.187,
+              "max_x_m": 1.609,
+              "max_radial_m": 3.515
+            },
+            {
+              "angle_deg": 45,
+              "counts": {
+                "pressure": 1050,
+                "fixed_armor": 8,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.387,
+              "max_x_m": 1.927,
+              "max_radial_m": 3.519
+            },
+            {
+              "angle_deg": 50,
+              "counts": {
+                "pressure": 1107,
+                "fixed_armor": 18,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.588,
+              "max_x_m": 2.235,
+              "max_radial_m": 3.524
+            },
+            {
+              "angle_deg": 55,
+              "counts": {
+                "pressure": 1133,
+                "fixed_armor": 24,
+                "bow_sensor": 8,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.588,
+              "max_x_m": 2.53,
+              "max_radial_m": 3.541
+            },
+            {
+              "angle_deg": 60,
+              "counts": {
+                "pressure": 1155,
+                "fixed_armor": 26,
+                "bow_sensor": 9,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.588,
+              "max_x_m": 2.81,
+              "max_radial_m": 3.562
+            },
+            {
+              "angle_deg": 65,
+              "counts": {
+                "pressure": 1161,
+                "fixed_armor": 26,
+                "bow_sensor": 19,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.588,
+              "max_x_m": 3.074,
+              "max_radial_m": 3.584
+            },
+            {
+              "angle_deg": 70,
+              "counts": {
+                "pressure": 1169,
+                "fixed_armor": 26,
+                "bow_sensor": 35,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.588,
+              "max_x_m": 3.318,
+              "max_radial_m": 3.605
+            },
+            {
+              "angle_deg": 75,
+              "counts": {
+                "pressure": 1178,
+                "fixed_armor": 30,
+                "bow_sensor": 49,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.588,
+              "max_x_m": 3.542,
+              "max_radial_m": 3.626
+            },
+            {
+              "angle_deg": 80,
+              "counts": {
+                "pressure": 1179,
+                "fixed_armor": 28,
+                "bow_sensor": 71,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.588,
+              "max_x_m": 3.744,
+              "max_radial_m": 3.646
+            },
+            {
+              "angle_deg": 85,
+              "counts": {
+                "pressure": 1181,
+                "fixed_armor": 29,
+                "bow_sensor": 80,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.588,
+              "max_x_m": 3.921,
+              "max_radial_m": 3.666
+            },
+            {
+              "angle_deg": 90,
+              "counts": {
+                "pressure": 1187,
+                "fixed_armor": 15,
+                "bow_sensor": 96,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.588,
+              "max_x_m": 4.073,
+              "max_radial_m": 3.685
+            },
+            {
+              "angle_deg": 95,
+              "counts": {
+                "pressure": 1188,
+                "fixed_armor": 19,
+                "bow_sensor": 116,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.588,
+              "max_x_m": 4.215,
+              "max_radial_m": 3.703
+            },
+            {
+              "angle_deg": 100,
+              "counts": {
+                "pressure": 1188,
+                "fixed_armor": 26,
+                "bow_sensor": 135,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.588,
+              "max_x_m": 4.33,
+              "max_radial_m": 3.719
+            },
+            {
+              "angle_deg": 105,
+              "counts": {
+                "pressure": 1188,
+                "fixed_armor": 33,
+                "bow_sensor": 168,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.588,
+              "max_x_m": 4.417,
+              "max_radial_m": 3.735
+            },
+            {
+              "angle_deg": 110,
+              "counts": {
+                "pressure": 1188,
+                "fixed_armor": 39,
+                "bow_sensor": 204,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.588,
+              "max_x_m": 4.474,
+              "max_radial_m": 3.749
+            },
+            {
+              "angle_deg": 115,
+              "counts": {
+                "pressure": 1179,
+                "fixed_armor": 50,
+                "bow_sensor": 225,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.588,
+              "max_x_m": 4.502,
+              "max_radial_m": 3.762
+            },
+            {
+              "angle_deg": 120,
+              "counts": {
+                "pressure": 1170,
+                "fixed_armor": 58,
+                "bow_sensor": 217,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.588,
+              "max_x_m": 4.5,
+              "max_radial_m": 3.864
+            },
+            {
+              "angle_deg": 125,
+              "counts": {
+                "pressure": 1170,
+                "fixed_armor": 64,
+                "bow_sensor": 203,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.588,
+              "max_x_m": 4.468,
+              "max_radial_m": 4.196
+            },
+            {
+              "angle_deg": 130,
+              "counts": {
+                "pressure": 1060,
+                "fixed_armor": 165,
+                "bow_sensor": 192,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.588,
+              "max_x_m": 4.407,
+              "max_radial_m": 4.521
+            },
+            {
+              "angle_deg": 135,
+              "counts": {
+                "pressure": 894,
+                "fixed_armor": 187,
+                "bow_sensor": 175,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.588,
+              "max_x_m": 4.316,
+              "max_radial_m": 4.839
+            },
+            {
+              "angle_deg": 140,
+              "counts": {
+                "pressure": 753,
+                "fixed_armor": 188,
+                "bow_sensor": 162,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.588,
+              "max_x_m": 4.197,
+              "max_radial_m": 5.147
+            },
+            {
+              "angle_deg": 145,
+              "counts": {
+                "pressure": 632,
+                "fixed_armor": 199,
+                "bow_sensor": 154,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.571,
+              "max_x_m": 4.051,
+              "max_radial_m": 5.442
+            },
+            {
+              "angle_deg": 150,
+              "counts": {
+                "pressure": 509,
+                "fixed_armor": 206,
+                "bow_sensor": 120,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.554,
+              "max_x_m": 3.878,
+              "max_radial_m": 5.723
+            },
+            {
+              "angle_deg": 155,
+              "counts": {
+                "pressure": 392,
+                "fixed_armor": 225,
+                "bow_sensor": 72,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.537,
+              "max_x_m": 3.681,
+              "max_radial_m": 5.986
+            },
+            {
+              "angle_deg": 160,
+              "counts": {
+                "pressure": 205,
+                "fixed_armor": 308,
+                "bow_sensor": 29,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.52,
+              "max_x_m": 3.459,
+              "max_radial_m": 6.231
+            },
+            {
+              "angle_deg": 165,
+              "counts": {
+                "pressure": 58,
+                "fixed_armor": 321,
+                "bow_sensor": 0,
+                "metric_node_face": 10
+              },
+              "min_x_m": 0.505,
+              "max_x_m": 3.216,
+              "max_radial_m": 6.455
+            },
+            {
+              "angle_deg": 170,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 249,
+                "bow_sensor": 0,
+                "metric_node_face": 19
+              },
+              "min_x_m": 0.489,
+              "max_x_m": 2.953,
+              "max_radial_m": 6.656
+            },
+            {
+              "angle_deg": 175,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 119,
+                "bow_sensor": 0,
+                "metric_node_face": 8
+              },
+              "min_x_m": 0.475,
+              "max_x_m": 2.672,
+              "max_radial_m": 6.833
+            },
+            {
+              "angle_deg": 180,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.461,
+              "max_x_m": 2.375,
+              "max_radial_m": 6.985
+            }
+          ]
+        },
+        {
+          "direction": "forward_flower_negative",
+          "crown_m": 3.5,
+          "shape": [
+            1.2,
+            2.0,
+            50
+          ],
+          "hinge_pivot_m": [
+            0.5876,
+            3.5,
+            0.0
+          ],
+          "full_travel_clear": true,
+          "first_collision_angle_deg": {
+            "pressure": null,
+            "fixed_armor": null,
+            "bow_sensor": null,
+            "metric_node_face": null
+          },
+          "max_radial_m": 7.414,
+          "most_forward_x_m": -3.327,
+          "sample_count_per_angle": 1296,
+          "angles": [
+            {
+              "angle_deg": 0,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.2,
+              "max_x_m": 0.714,
+              "max_radial_m": 3.5
+            },
+            {
+              "angle_deg": -5,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.497,
+              "max_x_m": 0.7,
+              "max_radial_m": 3.5
+            },
+            {
+              "angle_deg": -10,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.778,
+              "max_x_m": 0.686,
+              "max_radial_m": 3.501
+            },
+            {
+              "angle_deg": -15,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.041,
+              "max_x_m": 0.671,
+              "max_radial_m": 3.502
+            },
+            {
+              "angle_deg": -20,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.284,
+              "max_x_m": 0.655,
+              "max_radial_m": 3.504
+            },
+            {
+              "angle_deg": -25,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.505,
+              "max_x_m": 0.638,
+              "max_radial_m": 3.506
+            },
+            {
+              "angle_deg": -30,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.703,
+              "max_x_m": 0.622,
+              "max_radial_m": 3.509
+            },
+            {
+              "angle_deg": -35,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.876,
+              "max_x_m": 0.605,
+              "max_radial_m": 3.512
+            },
+            {
+              "angle_deg": -40,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -3.022,
+              "max_x_m": 0.588,
+              "max_radial_m": 3.515
+            },
+            {
+              "angle_deg": -45,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -3.141,
+              "max_x_m": 0.588,
+              "max_radial_m": 3.701
+            },
+            {
+              "angle_deg": -50,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -3.231,
+              "max_x_m": 0.588,
+              "max_radial_m": 3.901
+            },
+            {
+              "angle_deg": -55,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -3.293,
+              "max_x_m": 0.588,
+              "max_radial_m": 4.097
+            },
+            {
+              "angle_deg": -60,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -3.325,
+              "max_x_m": 0.588,
+              "max_radial_m": 4.289
+            },
+            {
+              "angle_deg": -65,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -3.327,
+              "max_x_m": 0.588,
+              "max_radial_m": 4.476
+            },
+            {
+              "angle_deg": -70,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -3.299,
+              "max_x_m": 0.588,
+              "max_radial_m": 4.657
+            },
+            {
+              "angle_deg": -75,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -3.242,
+              "max_x_m": 0.588,
+              "max_radial_m": 4.829
+            },
+            {
+              "angle_deg": -80,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -3.155,
+              "max_x_m": 0.588,
+              "max_radial_m": 4.998
+            },
+            {
+              "angle_deg": -85,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -3.04,
+              "max_x_m": 0.588,
+              "max_radial_m": 5.156
+            },
+            {
+              "angle_deg": -90,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.898,
+              "max_x_m": 0.588,
+              "max_radial_m": 5.301
+            },
+            {
+              "angle_deg": -95,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.746,
+              "max_x_m": 0.588,
+              "max_radial_m": 5.585
+            },
+            {
+              "angle_deg": -100,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.568,
+              "max_x_m": 0.588,
+              "max_radial_m": 5.866
+            },
+            {
+              "angle_deg": -105,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.367,
+              "max_x_m": 0.588,
+              "max_radial_m": 6.129
+            },
+            {
+              "angle_deg": -110,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -2.143,
+              "max_x_m": 0.588,
+              "max_radial_m": 6.372
+            },
+            {
+              "angle_deg": -115,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.899,
+              "max_x_m": 0.588,
+              "max_radial_m": 6.593
+            },
+            {
+              "angle_deg": -120,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.635,
+              "max_x_m": 0.588,
+              "max_radial_m": 6.791
+            },
+            {
+              "angle_deg": -125,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.355,
+              "max_x_m": 0.588,
+              "max_radial_m": 6.963
+            },
+            {
+              "angle_deg": -130,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -1.059,
+              "max_x_m": 0.588,
+              "max_radial_m": 7.11
+            },
+            {
+              "angle_deg": -135,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.752,
+              "max_x_m": 0.789,
+              "max_radial_m": 7.229
+            },
+            {
+              "angle_deg": -140,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.434,
+              "max_x_m": 0.988,
+              "max_radial_m": 7.319
+            },
+            {
+              "angle_deg": -145,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": -0.108,
+              "max_x_m": 1.185,
+              "max_radial_m": 7.38
+            },
+            {
+              "angle_deg": -150,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.223,
+              "max_x_m": 1.377,
+              "max_radial_m": 7.412
+            },
+            {
+              "angle_deg": -155,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.383,
+              "max_x_m": 1.563,
+              "max_radial_m": 7.414
+            },
+            {
+              "angle_deg": -160,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.396,
+              "max_x_m": 1.741,
+              "max_radial_m": 7.387
+            },
+            {
+              "angle_deg": -165,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.41,
+              "max_x_m": 1.911,
+              "max_radial_m": 7.329
+            },
+            {
+              "angle_deg": -170,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.426,
+              "max_x_m": 2.078,
+              "max_radial_m": 7.243
+            },
+            {
+              "angle_deg": -175,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.443,
+              "max_x_m": 2.233,
+              "max_radial_m": 7.128
+            },
+            {
+              "angle_deg": -180,
+              "counts": {
+                "pressure": 0,
+                "fixed_armor": 0,
+                "bow_sensor": 0,
+                "metric_node_face": 0
+              },
+              "min_x_m": 0.461,
+              "max_x_m": 2.375,
+              "max_radial_m": 6.985
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Single rigid panel only; no servo torque, hinge bracket, 16-sector self-collision, door/frame seals, impact response, folding slats or quantified rail bodies",
+    "Section hinge taken tangent at sector centre, not a curved ring linkage; edge-seal mismatch is untested",
+    "Sample-based swept intersections; a zero count is not a continuous-mesh guarantee",
+    "Bow sensor and original Metric ring reused in place, no newly invented rearrangement",
+    "Closed panel replaces existing fixed crown armor; exterior shield check begins outside crown ring"
+  ]
+}
