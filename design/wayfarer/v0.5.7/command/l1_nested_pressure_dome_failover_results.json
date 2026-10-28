@@ -1,0 +1,184 @@
+{
+  "classification": "RESEARCH NON-CANON NON-RUNTIME NOT SAFE/QUALIFIED",
+  "source_pr432_head": "3485830a56dfead79b2ef8bba031a595b536fbb5",
+  "outer_37_held": {
+    "type": "radial",
+    "rings": [
+      0.0,
+      0.75,
+      2.0,
+      2.75,
+      3.5
+    ],
+    "ns": [
+      1,
+      12,
+      12,
+      12
+    ],
+    "offsets": [
+      0,
+      0,
+      0,
+      0.2617993877991494
+    ]
+  },
+  "geometry": "Source original ellipsoidal pressure head for inner primary. Identical outer backup translated in -x by tested separation; same 3.5m crown. Outer shield is original fixed 37 tiles.",
+  "fixed_assumptions": {
+    "inner_shell_normal_thickness_m": 0.03855203619909502,
+    "outer_backup_shell_normal_thickness_m": 0.03855203619909502,
+    "outer_shield_normal_thickness_m": 0.07356948228882834,
+    "nominal_reference_pressure_Pa": 101300.0,
+    "pressure_material": "Fused silica material-density benchmark only, not 2226 specification",
+    "outer_protective_material": "ALON density benchmark only, not ballistic qualification",
+    "cabin_temp_for_cavity_gas_K": 293.15,
+    "cavity_initial_kPa": 0.0,
+    "cavity_must_be_isolated_from_space_during_normal_operation": true
+  },
+  "two_pressure_panes_total_material_mass_t": 7.051714149887936,
+  "incremental_to_single_pressure_pane_t": 3.525857074943968,
+  "outer_protective_37_material_allocation_t": 14.27976,
+  "per_individual_pressure_shell_axial_pressure_resultant_MN": 3.898480863655914,
+  "per_individual_pressure_shell_perimeter_ideal_meridional_force_kN_per_m": 308.96500000000003,
+  "two_pressure_shells_each_have_own_perimeter_load_path_required": true,
+  "separation_sensitivity": [
+    {
+      "axial_center_separation_m": 0.06,
+      "min_free_gap_between_pressure_shells_axial_m": 0.012929,
+      "min_free_gap_between_pressure_shells_normal_approx_m": 0.010589,
+      "min_shield_to_outer_pressure_shell_gap_axial_m": 0.315381,
+      "critical_r_between_pressure_m": 3.5,
+      "critical_r_outer_shield_m": 3.5,
+      "inter_pressure_void_volume_m3": 0.71366,
+      "gas_to_fill_cavity_at_cabin_p_and_293K_kg": 0.8591,
+      "positive_gross_axial_gaps": true
+    },
+    {
+      "axial_center_separation_m": 0.08,
+      "min_free_gap_between_pressure_shells_axial_m": 0.032929,
+      "min_free_gap_between_pressure_shells_normal_approx_m": 0.026969,
+      "min_shield_to_outer_pressure_shell_gap_axial_m": 0.295381,
+      "critical_r_between_pressure_m": 3.5,
+      "critical_r_outer_shield_m": 3.5,
+      "inter_pressure_void_volume_m3": 1.48335,
+      "gas_to_fill_cavity_at_cabin_p_and_293K_kg": 1.7857,
+      "positive_gross_axial_gaps": true
+    },
+    {
+      "axial_center_separation_m": 0.1,
+      "min_free_gap_between_pressure_shells_axial_m": 0.052929,
+      "min_free_gap_between_pressure_shells_normal_approx_m": 0.04335,
+      "min_shield_to_outer_pressure_shell_gap_axial_m": 0.275381,
+      "critical_r_between_pressure_m": 3.5,
+      "critical_r_outer_shield_m": 3.5,
+      "inter_pressure_void_volume_m3": 2.253041,
+      "gas_to_fill_cavity_at_cabin_p_and_293K_kg": 2.7123,
+      "positive_gross_axial_gaps": true
+    },
+    {
+      "axial_center_separation_m": 0.12,
+      "min_free_gap_between_pressure_shells_axial_m": 0.072929,
+      "min_free_gap_between_pressure_shells_normal_approx_m": 0.05973,
+      "min_shield_to_outer_pressure_shell_gap_axial_m": 0.255381,
+      "critical_r_between_pressure_m": 3.5,
+      "critical_r_outer_shield_m": 3.5,
+      "inter_pressure_void_volume_m3": 3.022731,
+      "gas_to_fill_cavity_at_cabin_p_and_293K_kg": 3.6388,
+      "positive_gross_axial_gaps": true
+    },
+    {
+      "axial_center_separation_m": 0.15,
+      "min_free_gap_between_pressure_shells_axial_m": 0.102929,
+      "min_free_gap_between_pressure_shells_normal_approx_m": 0.0843,
+      "min_shield_to_outer_pressure_shell_gap_axial_m": 0.225381,
+      "critical_r_between_pressure_m": 3.5,
+      "critical_r_outer_shield_m": 3.5,
+      "inter_pressure_void_volume_m3": 4.177266,
+      "gas_to_fill_cavity_at_cabin_p_and_293K_kg": 5.0287,
+      "positive_gross_axial_gaps": true
+    },
+    {
+      "axial_center_separation_m": 0.2,
+      "min_free_gap_between_pressure_shells_axial_m": 0.152929,
+      "min_free_gap_between_pressure_shells_normal_approx_m": 0.125251,
+      "min_shield_to_outer_pressure_shell_gap_axial_m": 0.175381,
+      "critical_r_between_pressure_m": 3.5,
+      "critical_r_outer_shield_m": 3.5,
+      "inter_pressure_void_volume_m3": 6.101492,
+      "gas_to_fill_cavity_at_cabin_p_and_293K_kg": 7.3451,
+      "positive_gross_axial_gaps": true
+    },
+    {
+      "axial_center_separation_m": 0.25,
+      "min_free_gap_between_pressure_shells_axial_m": 0.202929,
+      "min_free_gap_between_pressure_shells_normal_approx_m": 0.166202,
+      "min_shield_to_outer_pressure_shell_gap_axial_m": 0.125381,
+      "critical_r_between_pressure_m": 3.5,
+      "critical_r_outer_shield_m": 3.5,
+      "inter_pressure_void_volume_m3": 8.025717,
+      "gas_to_fill_cavity_at_cabin_p_and_293K_kg": 9.6615,
+      "positive_gross_axial_gaps": true
+    }
+  ],
+  "reference_separation_m": 0.12,
+  "nominal_static_failover_states": [
+    {
+      "event": "normal",
+      "cabin_kPa": 101.3,
+      "cavity_kPa": 0.0,
+      "space_kPa": 0.0,
+      "inner_diff_kPa": 101.3,
+      "outer_backup_diff_kPa": 0.0,
+      "inner_axial_force_MN": 3.898480863655914,
+      "outer_axial_force_MN": 0.0,
+      "narrative": "Inner primary bears pressure; cavity evacuated and ISOLATED; backup stands unloaded."
+    },
+    {
+      "event": "inner_primary_fails_stable",
+      "cabin_kPa": 101.3,
+      "cavity_kPa": 101.3,
+      "space_kPa": 0.0,
+      "inner_diff_kPa": 0.0,
+      "outer_backup_diff_kPa": 101.3,
+      "inner_axial_force_MN": 0.0,
+      "outer_axial_force_MN": 3.898480863655914,
+      "narrative": "If backup and both perimeter seals remain sound, cavity fills from cabin and backup takes full pressure; NOT an impact-transient prediction."
+    },
+    {
+      "event": "outer_backup_fails_stable",
+      "cabin_kPa": 101.3,
+      "cavity_kPa": 0.0,
+      "space_kPa": 0.0,
+      "inner_diff_kPa": 101.3,
+      "outer_backup_diff_kPa": 0.0,
+      "inner_axial_force_MN": 3.898480863655914,
+      "outer_axial_force_MN": 0.0,
+      "narrative": "Inner primary still bears full pressure; exposed cavity is vacuum through failed backup."
+    },
+    {
+      "event": "both_fail",
+      "cabin_kPa": null,
+      "cavity_kPa": null,
+      "space_kPa": 0.0,
+      "inner_diff_kPa": null,
+      "outer_backup_diff_kPa": null,
+      "inner_axial_force_MN": null,
+      "outer_axial_force_MN": null,
+      "narrative": "Lost pressure containment; no maintained cabin pressure is claimed."
+    }
+  ],
+  "limits": [
+    "This models two separately sealed structural boundaries, not a laminated single monolith.",
+    "Vented-to-space cavity must be isolated in service (no permanently open vent), else inner failure can vent cabin gas through the vent before pressure backup stabilizes.",
+    "Stable failover states do not show dynamic rupture pressure waves, shock, acoustic loading or debris impact of failed pane into backup.",
+    "At 101.3kPa nominal pressure the two shell axial projected loads are distributed by the cavity pressure; total 3.9MN, not 7.8MN simultaneously in normal quasi-static operation. Each shell attachment still must be individually capable of 3.9MN on failover.",
+    "The 101.3kPa assumption is source L4/L5 isolation reference, not authoritative L1 pressure setpoint.",
+    "The backup pane sits forward of the source pressure ellipsoid and requires an additional, independent sealed perimeter attachment; this is not qualified by the gross positive clearance.",
+    "Same curvature shell x-translation is not the same as a constant-normal inter-shell gap; the calculated free gap and cavity are first-order axial/normal approximations.",
+    "No permanent optics model of six transparent surfaces including two pressure shells and outer protective canopy.",
+    "The ~7t mass omits two independent pressure perimeter rings, gap seals, mass of vents, maintenance access and structural supports.",
+    "The 37 outer shield modules remain replaceable independently of the pressure system, but joints/impact equivalence are unqualified.",
+    "No claim of practical manufacture, strength, thermal cycling, flaw reliability or compliant edge geometry at 7m diameter.",
+    "Outer protective skin assumed not pressurized and vacuum-exposed; fracture of it does NOT imply pressure loss but may expose backup to impact."
+  ]
+}
