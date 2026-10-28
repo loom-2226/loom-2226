@@ -1,0 +1,385 @@
+{
+  "classification": "RESEARCH / NON-GOVERNING; sampled path check not full swept-solid CAD",
+  "shape": [
+    0.8,
+    1.2,
+    35
+  ],
+  "central_r_m": 1.45,
+  "outer_glazing_r_m": 3.2,
+  "ring_window_centres_deg": [
+    45,
+    135,
+    225,
+    315
+  ],
+  "ring_window_width_deg": 40,
+  "ring_opaque_storage_centres_deg": [
+    0,
+    90,
+    180,
+    270
+  ],
+  "central_park_drifts_y_m": [
+    -2.8,
+    2.8
+  ],
+  "effective_armour_thickness_m": 0.1962787632487465,
+  "source": "PR432 unchanged geometry",
+  "sequences": [
+    {
+      "sequence": "central_first",
+      "frames": [
+        {
+          "t": 0.0,
+          "central_t": 0.0,
+          "ring_t": 0.0,
+          "minimum_central_to_ring_sample_distance_m": 0.1293,
+          "max_radius_m": 3.145,
+          "minimum_node_face_surface_clearance_m": 1.7766,
+          "max_central_gap_outward_m": 0.0,
+          "minimum_external_skin_gap_m": -0.2396
+        },
+        {
+          "t": 0.1,
+          "central_t": 0.2,
+          "ring_t": 0.0,
+          "minimum_central_to_ring_sample_distance_m": 0.2614,
+          "max_radius_m": 3.145,
+          "minimum_node_face_surface_clearance_m": 1.7766,
+          "max_central_gap_outward_m": 0.236,
+          "minimum_external_skin_gap_m": -0.2396
+        },
+        {
+          "t": 0.2,
+          "central_t": 0.4,
+          "ring_t": 0.0,
+          "minimum_central_to_ring_sample_distance_m": 0.1975,
+          "max_radius_m": 3.145,
+          "minimum_node_face_surface_clearance_m": 1.7766,
+          "max_central_gap_outward_m": 0.67,
+          "minimum_external_skin_gap_m": -0.2396
+        },
+        {
+          "t": 0.3,
+          "central_t": 0.6,
+          "ring_t": 0.0,
+          "minimum_central_to_ring_sample_distance_m": 0.144,
+          "max_radius_m": 3.145,
+          "minimum_node_face_surface_clearance_m": 1.7766,
+          "max_central_gap_outward_m": 0.706,
+          "minimum_external_skin_gap_m": -0.2396
+        },
+        {
+          "t": 0.4,
+          "central_t": 0.8,
+          "ring_t": 0.0,
+          "minimum_central_to_ring_sample_distance_m": 0.1414,
+          "max_radius_m": 3.6454,
+          "minimum_node_face_surface_clearance_m": 1.5453,
+          "max_central_gap_outward_m": 0.511,
+          "minimum_external_skin_gap_m": -0.2396
+        },
+        {
+          "t": 0.5,
+          "central_t": 1.0,
+          "ring_t": 0.0,
+          "minimum_central_to_ring_sample_distance_m": 0.297,
+          "max_radius_m": 4.3226,
+          "minimum_node_face_surface_clearance_m": 0.7326,
+          "max_central_gap_outward_m": 0.557,
+          "minimum_external_skin_gap_m": -0.2396
+        },
+        {
+          "t": 0.6,
+          "central_t": 1.0,
+          "ring_t": 0.2,
+          "minimum_central_to_ring_sample_distance_m": 0.3522,
+          "max_radius_m": 4.3226,
+          "minimum_node_face_surface_clearance_m": 0.7326,
+          "max_central_gap_outward_m": 0.557,
+          "minimum_external_skin_gap_m": 0.0167
+        },
+        {
+          "t": 0.7,
+          "central_t": 1.0,
+          "ring_t": 0.4,
+          "minimum_central_to_ring_sample_distance_m": 0.1567,
+          "max_radius_m": 4.3226,
+          "minimum_node_face_surface_clearance_m": 0.7326,
+          "max_central_gap_outward_m": 0.557,
+          "minimum_external_skin_gap_m": 0.0167
+        },
+        {
+          "t": 0.8,
+          "central_t": 1.0,
+          "ring_t": 0.6,
+          "minimum_central_to_ring_sample_distance_m": 0.0921,
+          "max_radius_m": 4.3226,
+          "minimum_node_face_surface_clearance_m": 0.7326,
+          "max_central_gap_outward_m": 0.557,
+          "minimum_external_skin_gap_m": 0.0167
+        },
+        {
+          "t": 0.9,
+          "central_t": 1.0,
+          "ring_t": 0.8,
+          "minimum_central_to_ring_sample_distance_m": 0.0937,
+          "max_radius_m": 4.3226,
+          "minimum_node_face_surface_clearance_m": 0.7326,
+          "max_central_gap_outward_m": 0.557,
+          "minimum_external_skin_gap_m": 0.0167
+        },
+        {
+          "t": 1.0,
+          "central_t": 1.0,
+          "ring_t": 1.0,
+          "minimum_central_to_ring_sample_distance_m": 0.0993,
+          "max_radius_m": 4.3226,
+          "minimum_node_face_surface_clearance_m": 0.7326,
+          "max_central_gap_outward_m": 0.557,
+          "minimum_external_skin_gap_m": 0.0167
+        }
+      ]
+    },
+    {
+      "sequence": "ring_first",
+      "frames": [
+        {
+          "t": 0.0,
+          "central_t": 0.0,
+          "ring_t": 0.0,
+          "minimum_central_to_ring_sample_distance_m": 0.1293,
+          "max_radius_m": 3.145,
+          "minimum_node_face_surface_clearance_m": 1.7766,
+          "max_central_gap_outward_m": 0.0,
+          "minimum_external_skin_gap_m": -0.2396
+        },
+        {
+          "t": 0.1,
+          "central_t": 0.0,
+          "ring_t": 0.2,
+          "minimum_central_to_ring_sample_distance_m": 0.0528,
+          "max_radius_m": 3.145,
+          "minimum_node_face_surface_clearance_m": 1.9592,
+          "max_central_gap_outward_m": 0.0,
+          "minimum_external_skin_gap_m": -0.2396
+        },
+        {
+          "t": 0.2,
+          "central_t": 0.0,
+          "ring_t": 0.4,
+          "minimum_central_to_ring_sample_distance_m": 0.0288,
+          "max_radius_m": 3.145,
+          "minimum_node_face_surface_clearance_m": 1.9617,
+          "max_central_gap_outward_m": 0.0,
+          "minimum_external_skin_gap_m": -0.2396
+        },
+        {
+          "t": 0.3,
+          "central_t": 0.0,
+          "ring_t": 0.6,
+          "minimum_central_to_ring_sample_distance_m": 0.0284,
+          "max_radius_m": 3.145,
+          "minimum_node_face_surface_clearance_m": 1.9592,
+          "max_central_gap_outward_m": 0.0,
+          "minimum_external_skin_gap_m": -0.2396
+        },
+        {
+          "t": 0.4,
+          "central_t": 0.0,
+          "ring_t": 0.8,
+          "minimum_central_to_ring_sample_distance_m": 0.0285,
+          "max_radius_m": 3.145,
+          "minimum_node_face_surface_clearance_m": 1.9617,
+          "max_central_gap_outward_m": 0.0,
+          "minimum_external_skin_gap_m": -0.2396
+        },
+        {
+          "t": 0.5,
+          "central_t": 0.0,
+          "ring_t": 1.0,
+          "minimum_central_to_ring_sample_distance_m": 0.0297,
+          "max_radius_m": 3.145,
+          "minimum_node_face_surface_clearance_m": 1.9592,
+          "max_central_gap_outward_m": 0.0,
+          "minimum_external_skin_gap_m": -0.2396
+        },
+        {
+          "t": 0.6,
+          "central_t": 0.2,
+          "ring_t": 1.0,
+          "minimum_central_to_ring_sample_distance_m": 0.1371,
+          "max_radius_m": 3.145,
+          "minimum_node_face_surface_clearance_m": 1.9592,
+          "max_central_gap_outward_m": 0.28,
+          "minimum_external_skin_gap_m": 0.0167
+        },
+        {
+          "t": 0.7,
+          "central_t": 0.4,
+          "ring_t": 1.0,
+          "minimum_central_to_ring_sample_distance_m": 0.0533,
+          "max_radius_m": 3.145,
+          "minimum_node_face_surface_clearance_m": 1.9592,
+          "max_central_gap_outward_m": 0.67,
+          "minimum_external_skin_gap_m": 0.0167
+        },
+        {
+          "t": 0.8,
+          "central_t": 0.6,
+          "ring_t": 1.0,
+          "minimum_central_to_ring_sample_distance_m": 0.0327,
+          "max_radius_m": 3.145,
+          "minimum_node_face_surface_clearance_m": 1.9592,
+          "max_central_gap_outward_m": 0.706,
+          "minimum_external_skin_gap_m": 0.0167
+        },
+        {
+          "t": 0.9,
+          "central_t": 0.8,
+          "ring_t": 1.0,
+          "minimum_central_to_ring_sample_distance_m": 0.0368,
+          "max_radius_m": 3.6454,
+          "minimum_node_face_surface_clearance_m": 1.5453,
+          "max_central_gap_outward_m": 0.511,
+          "minimum_external_skin_gap_m": 0.0167
+        },
+        {
+          "t": 1.0,
+          "central_t": 1.0,
+          "ring_t": 1.0,
+          "minimum_central_to_ring_sample_distance_m": 0.0993,
+          "max_radius_m": 4.3226,
+          "minimum_node_face_surface_clearance_m": 0.7326,
+          "max_central_gap_outward_m": 0.557,
+          "minimum_external_skin_gap_m": 0.0167
+        }
+      ]
+    },
+    {
+      "sequence": "simultaneous",
+      "frames": [
+        {
+          "t": 0.0,
+          "central_t": 0.0,
+          "ring_t": 0.0,
+          "minimum_central_to_ring_sample_distance_m": 0.1293,
+          "max_radius_m": 3.145,
+          "minimum_node_face_surface_clearance_m": 1.7766,
+          "max_central_gap_outward_m": 0.0,
+          "minimum_external_skin_gap_m": -0.2396
+        },
+        {
+          "t": 0.1,
+          "central_t": 0.1,
+          "ring_t": 0.1,
+          "minimum_central_to_ring_sample_distance_m": 0.1242,
+          "max_radius_m": 3.145,
+          "minimum_node_face_surface_clearance_m": 1.8659,
+          "max_central_gap_outward_m": 0.118,
+          "minimum_external_skin_gap_m": -0.1215
+        },
+        {
+          "t": 0.2,
+          "central_t": 0.2,
+          "ring_t": 0.2,
+          "minimum_central_to_ring_sample_distance_m": 0.1197,
+          "max_radius_m": 3.145,
+          "minimum_node_face_surface_clearance_m": 1.9592,
+          "max_central_gap_outward_m": 0.236,
+          "minimum_external_skin_gap_m": -0.0033
+        },
+        {
+          "t": 0.3,
+          "central_t": 0.3,
+          "ring_t": 0.3,
+          "minimum_central_to_ring_sample_distance_m": 0.0405,
+          "max_radius_m": 3.145,
+          "minimum_node_face_surface_clearance_m": 1.9598,
+          "max_central_gap_outward_m": 0.486,
+          "minimum_external_skin_gap_m": 0.0167
+        },
+        {
+          "t": 0.4,
+          "central_t": 0.4,
+          "ring_t": 0.4,
+          "minimum_central_to_ring_sample_distance_m": 0.0282,
+          "max_radius_m": 3.145,
+          "minimum_node_face_surface_clearance_m": 1.9617,
+          "max_central_gap_outward_m": 0.67,
+          "minimum_external_skin_gap_m": 0.0167
+        },
+        {
+          "t": 0.5,
+          "central_t": 0.5,
+          "ring_t": 0.5,
+          "minimum_central_to_ring_sample_distance_m": 0.0366,
+          "max_radius_m": 3.145,
+          "minimum_node_face_surface_clearance_m": 1.9598,
+          "max_central_gap_outward_m": 0.799,
+          "minimum_external_skin_gap_m": 0.0167
+        },
+        {
+          "t": 0.6,
+          "central_t": 0.6,
+          "ring_t": 0.6,
+          "minimum_central_to_ring_sample_distance_m": 0.0288,
+          "max_radius_m": 3.145,
+          "minimum_node_face_surface_clearance_m": 1.9592,
+          "max_central_gap_outward_m": 0.706,
+          "minimum_external_skin_gap_m": 0.0167
+        },
+        {
+          "t": 0.7,
+          "central_t": 0.7,
+          "ring_t": 0.7,
+          "minimum_central_to_ring_sample_distance_m": 0.0166,
+          "max_radius_m": 3.2935,
+          "minimum_node_face_surface_clearance_m": 1.9598,
+          "max_central_gap_outward_m": 0.604,
+          "minimum_external_skin_gap_m": 0.0167
+        },
+        {
+          "t": 0.8,
+          "central_t": 0.8,
+          "ring_t": 0.8,
+          "minimum_central_to_ring_sample_distance_m": 0.0407,
+          "max_radius_m": 3.6454,
+          "minimum_node_face_surface_clearance_m": 1.5453,
+          "max_central_gap_outward_m": 0.511,
+          "minimum_external_skin_gap_m": 0.0167
+        },
+        {
+          "t": 0.9,
+          "central_t": 0.9,
+          "ring_t": 0.9,
+          "minimum_central_to_ring_sample_distance_m": 0.0309,
+          "max_radius_m": 3.9884,
+          "minimum_node_face_surface_clearance_m": 1.0759,
+          "max_central_gap_outward_m": 0.463,
+          "minimum_external_skin_gap_m": 0.0167
+        },
+        {
+          "t": 1.0,
+          "central_t": 1.0,
+          "ring_t": 1.0,
+          "minimum_central_to_ring_sample_distance_m": 0.0993,
+          "max_radius_m": 4.3226,
+          "minimum_node_face_surface_clearance_m": 0.7326,
+          "max_central_gap_outward_m": 0.557,
+          "minimum_external_skin_gap_m": 0.0167
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Two rigid central halves are taken from the original faceted central patch, each with fixed curvature and thickness",
+    "For central translation, exterior x offset is optimistically adjusted continuously to avoid the outer skin; a real track path with required actuators is not drawn",
+    "0.1m sample point distance does not certify triangle mesh intersections; optical seals and overlap not considered",
+    "Fixed armour and pressure collisions are screened by exterior signed x gap only; no complete hull mesh",
+    "Crown and pane structural closure, shutters impact response, rail clearance, actuator mass and power are unresolved",
+    "Metric nodes screened as small face spheres, not their mounts/field requirements",
+    "The central panels remain externally proud at parked pose; do not call this flush or concealed"
+  ]
+}

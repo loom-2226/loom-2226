@@ -1,0 +1,953 @@
+{
+  "status": "RESEARCH",
+  "options": [
+    {
+      "name": "Rev7",
+      "shape": null,
+      "crown_m": 2.8,
+      "centre_radius_m": 1.2,
+      "window_width_deg": 22.0,
+      "window_centres_deg": [
+        55.0,
+        125.0,
+        235.0,
+        305.0
+      ],
+      "exterior_central_area_m2": 4.55,
+      "exterior_outer_area_m2": 5.12,
+      "total_exterior_area_m2": 9.67,
+      "shield_equivalent_t": 2.61,
+      "pilot_cone60": 1.0,
+      "pilot_forward": 0.4531,
+      "support_forward": 0.0039,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.4531,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4062,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.4609,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4453,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0156,
+          "forward_dual": 0.0156
+        },
+        "S2": {
+          "forward_integrated": 0.0234,
+          "forward_dual": 0.0195
+        },
+        "S3": {
+          "forward_integrated": 0.0039,
+          "forward_dual": 0.0
+        },
+        "S4": {
+          "forward_integrated": 0.0156,
+          "forward_dual": 0.0156
+        }
+      }
+    },
+    {
+      "name": "Rev7",
+      "shape": null,
+      "crown_m": 2.8,
+      "centre_radius_m": 1.2,
+      "window_width_deg": 40.0,
+      "window_centres_deg": [
+        45.0,
+        135.0,
+        225.0,
+        315.0
+      ],
+      "exterior_central_area_m2": 4.55,
+      "exterior_outer_area_m2": 9.31,
+      "total_exterior_area_m2": 13.86,
+      "shield_equivalent_t": 3.74,
+      "pilot_cone60": 1.0,
+      "pilot_forward": 0.5234,
+      "support_forward": 0.0117,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.5234,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4766,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.5352,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5078,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0195,
+          "forward_dual": 0.0195
+        },
+        "S2": {
+          "forward_integrated": 0.0234,
+          "forward_dual": 0.0234
+        },
+        "S3": {
+          "forward_integrated": 0.0117,
+          "forward_dual": 0.0117
+        },
+        "S4": {
+          "forward_integrated": 0.0273,
+          "forward_dual": 0.0273
+        }
+      }
+    },
+    {
+      "name": "Rev7",
+      "shape": null,
+      "crown_m": 2.8,
+      "centre_radius_m": 1.45,
+      "window_width_deg": 22.0,
+      "window_centres_deg": [
+        55.0,
+        125.0,
+        235.0,
+        305.0
+      ],
+      "exterior_central_area_m2": 6.66,
+      "exterior_outer_area_m2": 4.61,
+      "total_exterior_area_m2": 11.26,
+      "shield_equivalent_t": 3.04,
+      "pilot_cone60": 1.0,
+      "pilot_forward": 0.5312,
+      "support_forward": 0.0117,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.5312,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4961,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.5469,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5234,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0234,
+          "forward_dual": 0.0234
+        },
+        "S2": {
+          "forward_integrated": 0.0234,
+          "forward_dual": 0.0234
+        },
+        "S3": {
+          "forward_integrated": 0.0117,
+          "forward_dual": 0.0078
+        },
+        "S4": {
+          "forward_integrated": 0.0156,
+          "forward_dual": 0.0156
+        }
+      }
+    },
+    {
+      "name": "Rev7",
+      "shape": null,
+      "crown_m": 2.8,
+      "centre_radius_m": 1.45,
+      "window_width_deg": 40.0,
+      "window_centres_deg": [
+        45.0,
+        135.0,
+        225.0,
+        315.0
+      ],
+      "exterior_central_area_m2": 6.66,
+      "exterior_outer_area_m2": 8.37,
+      "total_exterior_area_m2": 15.03,
+      "shield_equivalent_t": 4.06,
+      "pilot_cone60": 1.0,
+      "pilot_forward": 0.582,
+      "support_forward": 0.0195,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.582,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.543,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.5977,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5625,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0273,
+          "forward_dual": 0.0273
+        },
+        "S2": {
+          "forward_integrated": 0.0273,
+          "forward_dual": 0.0273
+        },
+        "S3": {
+          "forward_integrated": 0.0195,
+          "forward_dual": 0.0195
+        },
+        "S4": {
+          "forward_integrated": 0.0273,
+          "forward_dual": 0.0273
+        }
+      }
+    },
+    {
+      "name": "Rev7",
+      "shape": null,
+      "crown_m": 2.8,
+      "centre_radius_m": 1.8,
+      "window_width_deg": 22.0,
+      "window_centres_deg": [
+        55.0,
+        125.0,
+        235.0,
+        305.0
+      ],
+      "exterior_central_area_m2": 10.3,
+      "exterior_outer_area_m2": 3.71,
+      "total_exterior_area_m2": 14.02,
+      "shield_equivalent_t": 3.78,
+      "pilot_cone60": 1.0,
+      "pilot_forward": 0.6133,
+      "support_forward": 0.0195,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.6133,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5898,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.6211,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6094,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0273,
+          "forward_dual": 0.0273
+        },
+        "S2": {
+          "forward_integrated": 0.0352,
+          "forward_dual": 0.0352
+        },
+        "S3": {
+          "forward_integrated": 0.0195,
+          "forward_dual": 0.0156
+        },
+        "S4": {
+          "forward_integrated": 0.0273,
+          "forward_dual": 0.0273
+        }
+      }
+    },
+    {
+      "name": "Rev7",
+      "shape": null,
+      "crown_m": 2.8,
+      "centre_radius_m": 1.8,
+      "window_width_deg": 40.0,
+      "window_centres_deg": [
+        45.0,
+        135.0,
+        225.0,
+        315.0
+      ],
+      "exterior_central_area_m2": 10.3,
+      "exterior_outer_area_m2": 6.75,
+      "total_exterior_area_m2": 17.06,
+      "shield_equivalent_t": 4.6,
+      "pilot_cone60": 1.0,
+      "pilot_forward": 0.6445,
+      "support_forward": 0.0234,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.6445,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.625,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.6484,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.6289,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0312,
+          "forward_dual": 0.0312
+        },
+        "S2": {
+          "forward_integrated": 0.0391,
+          "forward_dual": 0.0391
+        },
+        "S3": {
+          "forward_integrated": 0.0234,
+          "forward_dual": 0.0234
+        },
+        "S4": {
+          "forward_integrated": 0.0352,
+          "forward_dual": 0.0352
+        }
+      }
+    },
+    {
+      "name": "Compact",
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown_m": 3.2,
+      "centre_radius_m": 1.2,
+      "window_width_deg": 22.0,
+      "window_centres_deg": [
+        55.0,
+        125.0,
+        235.0,
+        305.0
+      ],
+      "exterior_central_area_m2": 4.52,
+      "exterior_outer_area_m2": 8.25,
+      "total_exterior_area_m2": 12.77,
+      "shield_equivalent_t": 3.45,
+      "pilot_cone60": 0.8884,
+      "pilot_forward": 0.2812,
+      "support_forward": 0.0195,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.2812,
+          "cone60_integrated": 0.8884,
+          "forward_dual": 0.25,
+          "cone60_dual": 0.8348
+        },
+        "NAV": {
+          "forward_integrated": 0.3047,
+          "cone60_integrated": 0.8884,
+          "forward_dual": 0.2617,
+          "cone60_dual": 0.8304
+        },
+        "S1": {
+          "forward_integrated": 0.0273,
+          "forward_dual": 0.0273
+        },
+        "S2": {
+          "forward_integrated": 0.0273,
+          "forward_dual": 0.0273
+        },
+        "S3": {
+          "forward_integrated": 0.0195,
+          "forward_dual": 0.0195
+        },
+        "S4": {
+          "forward_integrated": 0.0234,
+          "forward_dual": 0.0156
+        }
+      }
+    },
+    {
+      "name": "Compact",
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown_m": 3.2,
+      "centre_radius_m": 1.2,
+      "window_width_deg": 40.0,
+      "window_centres_deg": [
+        45.0,
+        135.0,
+        225.0,
+        315.0
+      ],
+      "exterior_central_area_m2": 4.52,
+      "exterior_outer_area_m2": 15.0,
+      "total_exterior_area_m2": 19.52,
+      "shield_equivalent_t": 5.27,
+      "pilot_cone60": 0.942,
+      "pilot_forward": 0.4141,
+      "support_forward": 0.0273,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.418,
+          "cone60_integrated": 0.942,
+          "forward_dual": 0.3672,
+          "cone60_dual": 0.8795
+        },
+        "NAV": {
+          "forward_integrated": 0.4141,
+          "cone60_integrated": 0.942,
+          "forward_dual": 0.3867,
+          "cone60_dual": 0.8705
+        },
+        "S1": {
+          "forward_integrated": 0.0391,
+          "forward_dual": 0.0391
+        },
+        "S2": {
+          "forward_integrated": 0.0391,
+          "forward_dual": 0.0352
+        },
+        "S3": {
+          "forward_integrated": 0.0352,
+          "forward_dual": 0.0352
+        },
+        "S4": {
+          "forward_integrated": 0.0273,
+          "forward_dual": 0.0273
+        }
+      }
+    },
+    {
+      "name": "Compact",
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown_m": 3.2,
+      "centre_radius_m": 1.45,
+      "window_width_deg": 22.0,
+      "window_centres_deg": [
+        55.0,
+        125.0,
+        235.0,
+        305.0
+      ],
+      "exterior_central_area_m2": 7.06,
+      "exterior_outer_area_m2": 7.63,
+      "total_exterior_area_m2": 14.69,
+      "shield_equivalent_t": 3.97,
+      "pilot_cone60": 1.0,
+      "pilot_forward": 0.3398,
+      "support_forward": 0.0273,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.3398,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.3203,
+          "cone60_dual": 0.9911
+        },
+        "NAV": {
+          "forward_integrated": 0.3672,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.332,
+          "cone60_dual": 0.9911
+        },
+        "S1": {
+          "forward_integrated": 0.0273,
+          "forward_dual": 0.0273
+        },
+        "S2": {
+          "forward_integrated": 0.0273,
+          "forward_dual": 0.0273
+        },
+        "S3": {
+          "forward_integrated": 0.0273,
+          "forward_dual": 0.0273
+        },
+        "S4": {
+          "forward_integrated": 0.0273,
+          "forward_dual": 0.0195
+        }
+      }
+    },
+    {
+      "name": "Compact",
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown_m": 3.2,
+      "centre_radius_m": 1.45,
+      "window_width_deg": 40.0,
+      "window_centres_deg": [
+        45.0,
+        135.0,
+        225.0,
+        315.0
+      ],
+      "exterior_central_area_m2": 7.06,
+      "exterior_outer_area_m2": 13.87,
+      "total_exterior_area_m2": 20.94,
+      "shield_equivalent_t": 5.65,
+      "pilot_cone60": 1.0,
+      "pilot_forward": 0.4648,
+      "support_forward": 0.0312,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.4648,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4336,
+          "cone60_dual": 0.9911
+        },
+        "NAV": {
+          "forward_integrated": 0.4648,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4453,
+          "cone60_dual": 0.9911
+        },
+        "S1": {
+          "forward_integrated": 0.0391,
+          "forward_dual": 0.0391
+        },
+        "S2": {
+          "forward_integrated": 0.0391,
+          "forward_dual": 0.0352
+        },
+        "S3": {
+          "forward_integrated": 0.043,
+          "forward_dual": 0.043
+        },
+        "S4": {
+          "forward_integrated": 0.0312,
+          "forward_dual": 0.0312
+        }
+      }
+    },
+    {
+      "name": "Compact",
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown_m": 3.2,
+      "centre_radius_m": 1.8,
+      "window_width_deg": 22.0,
+      "window_centres_deg": [
+        55.0,
+        125.0,
+        235.0,
+        305.0
+      ],
+      "exterior_central_area_m2": 11.43,
+      "exterior_outer_area_m2": 6.56,
+      "total_exterior_area_m2": 17.99,
+      "shield_equivalent_t": 4.86,
+      "pilot_cone60": 1.0,
+      "pilot_forward": 0.4531,
+      "support_forward": 0.0312,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.4531,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4219,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.4609,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4258,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0352,
+          "forward_dual": 0.0352
+        },
+        "S2": {
+          "forward_integrated": 0.0469,
+          "forward_dual": 0.0391
+        },
+        "S3": {
+          "forward_integrated": 0.0312,
+          "forward_dual": 0.0312
+        },
+        "S4": {
+          "forward_integrated": 0.0352,
+          "forward_dual": 0.0273
+        }
+      }
+    },
+    {
+      "name": "Compact",
+      "shape": [
+        0.8,
+        1.2,
+        35
+      ],
+      "crown_m": 3.2,
+      "centre_radius_m": 1.8,
+      "window_width_deg": 40.0,
+      "window_centres_deg": [
+        45.0,
+        135.0,
+        225.0,
+        315.0
+      ],
+      "exterior_central_area_m2": 11.43,
+      "exterior_outer_area_m2": 11.93,
+      "total_exterior_area_m2": 23.36,
+      "shield_equivalent_t": 6.31,
+      "pilot_cone60": 1.0,
+      "pilot_forward": 0.5352,
+      "support_forward": 0.0352,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.5469,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5078,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.5352,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.5039,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0469,
+          "forward_dual": 0.0469
+        },
+        "S2": {
+          "forward_integrated": 0.0586,
+          "forward_dual": 0.0469
+        },
+        "S3": {
+          "forward_integrated": 0.043,
+          "forward_dual": 0.043
+        },
+        "S4": {
+          "forward_integrated": 0.0352,
+          "forward_dual": 0.0352
+        }
+      }
+    },
+    {
+      "name": "Panorama",
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown_m": 3.5,
+      "centre_radius_m": 1.2,
+      "window_width_deg": 22.0,
+      "window_centres_deg": [
+        55.0,
+        125.0,
+        235.0,
+        305.0
+      ],
+      "exterior_central_area_m2": 4.52,
+      "exterior_outer_area_m2": 11.82,
+      "total_exterior_area_m2": 16.35,
+      "shield_equivalent_t": 4.41,
+      "pilot_cone60": 0.7857,
+      "pilot_forward": 0.2461,
+      "support_forward": 0.0273,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.2461,
+          "cone60_integrated": 0.8036,
+          "forward_dual": 0.2305,
+          "cone60_dual": 0.7366
+        },
+        "NAV": {
+          "forward_integrated": 0.2617,
+          "cone60_integrated": 0.7857,
+          "forward_dual": 0.2461,
+          "cone60_dual": 0.7411
+        },
+        "S1": {
+          "forward_integrated": 0.0273,
+          "forward_dual": 0.0195
+        },
+        "S2": {
+          "forward_integrated": 0.0312,
+          "forward_dual": 0.0273
+        },
+        "S3": {
+          "forward_integrated": 0.0273,
+          "forward_dual": 0.0234
+        },
+        "S4": {
+          "forward_integrated": 0.0273,
+          "forward_dual": 0.0273
+        }
+      }
+    },
+    {
+      "name": "Panorama",
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown_m": 3.5,
+      "centre_radius_m": 1.2,
+      "window_width_deg": 40.0,
+      "window_centres_deg": [
+        45.0,
+        135.0,
+        225.0,
+        315.0
+      ],
+      "exterior_central_area_m2": 4.52,
+      "exterior_outer_area_m2": 21.49,
+      "total_exterior_area_m2": 26.02,
+      "shield_equivalent_t": 7.02,
+      "pilot_cone60": 0.8393,
+      "pilot_forward": 0.3945,
+      "support_forward": 0.0508,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.3945,
+          "cone60_integrated": 0.8527,
+          "forward_dual": 0.3672,
+          "cone60_dual": 0.7946
+        },
+        "NAV": {
+          "forward_integrated": 0.3984,
+          "cone60_integrated": 0.8393,
+          "forward_dual": 0.375,
+          "cone60_dual": 0.7991
+        },
+        "S1": {
+          "forward_integrated": 0.0547,
+          "forward_dual": 0.0469
+        },
+        "S2": {
+          "forward_integrated": 0.0547,
+          "forward_dual": 0.0469
+        },
+        "S3": {
+          "forward_integrated": 0.0547,
+          "forward_dual": 0.0508
+        },
+        "S4": {
+          "forward_integrated": 0.0508,
+          "forward_dual": 0.0508
+        }
+      }
+    },
+    {
+      "name": "Panorama",
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown_m": 3.5,
+      "centre_radius_m": 1.45,
+      "window_width_deg": 22.0,
+      "window_centres_deg": [
+        55.0,
+        125.0,
+        235.0,
+        305.0
+      ],
+      "exterior_central_area_m2": 6.61,
+      "exterior_outer_area_m2": 11.31,
+      "total_exterior_area_m2": 17.92,
+      "shield_equivalent_t": 4.84,
+      "pilot_cone60": 0.9107,
+      "pilot_forward": 0.2812,
+      "support_forward": 0.0273,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.2812,
+          "cone60_integrated": 0.9196,
+          "forward_dual": 0.2695,
+          "cone60_dual": 0.8884
+        },
+        "NAV": {
+          "forward_integrated": 0.3086,
+          "cone60_integrated": 0.9107,
+          "forward_dual": 0.293,
+          "cone60_dual": 0.8839
+        },
+        "S1": {
+          "forward_integrated": 0.0273,
+          "forward_dual": 0.0195
+        },
+        "S2": {
+          "forward_integrated": 0.0312,
+          "forward_dual": 0.0312
+        },
+        "S3": {
+          "forward_integrated": 0.0312,
+          "forward_dual": 0.0273
+        },
+        "S4": {
+          "forward_integrated": 0.0273,
+          "forward_dual": 0.0273
+        }
+      }
+    },
+    {
+      "name": "Panorama",
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown_m": 3.5,
+      "centre_radius_m": 1.45,
+      "window_width_deg": 40.0,
+      "window_centres_deg": [
+        45.0,
+        135.0,
+        225.0,
+        315.0
+      ],
+      "exterior_central_area_m2": 6.61,
+      "exterior_outer_area_m2": 20.57,
+      "total_exterior_area_m2": 27.18,
+      "shield_equivalent_t": 7.34,
+      "pilot_cone60": 0.9464,
+      "pilot_forward": 0.4258,
+      "support_forward": 0.0508,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.4258,
+          "cone60_integrated": 0.9464,
+          "forward_dual": 0.3984,
+          "cone60_dual": 0.9241
+        },
+        "NAV": {
+          "forward_integrated": 0.4375,
+          "cone60_integrated": 0.9464,
+          "forward_dual": 0.4219,
+          "cone60_dual": 0.9152
+        },
+        "S1": {
+          "forward_integrated": 0.0547,
+          "forward_dual": 0.0469
+        },
+        "S2": {
+          "forward_integrated": 0.0547,
+          "forward_dual": 0.0508
+        },
+        "S3": {
+          "forward_integrated": 0.0586,
+          "forward_dual": 0.0547
+        },
+        "S4": {
+          "forward_integrated": 0.0508,
+          "forward_dual": 0.0508
+        }
+      }
+    },
+    {
+      "name": "Panorama",
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown_m": 3.5,
+      "centre_radius_m": 1.8,
+      "window_width_deg": 22.0,
+      "window_centres_deg": [
+        55.0,
+        125.0,
+        235.0,
+        305.0
+      ],
+      "exterior_central_area_m2": 10.18,
+      "exterior_outer_area_m2": 10.44,
+      "total_exterior_area_m2": 20.62,
+      "shield_equivalent_t": 5.57,
+      "pilot_cone60": 1.0,
+      "pilot_forward": 0.3398,
+      "support_forward": 0.0312,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.3398,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.3281,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.3516,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.3359,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0352,
+          "forward_dual": 0.0234
+        },
+        "S2": {
+          "forward_integrated": 0.0352,
+          "forward_dual": 0.0352
+        },
+        "S3": {
+          "forward_integrated": 0.0312,
+          "forward_dual": 0.0273
+        },
+        "S4": {
+          "forward_integrated": 0.0312,
+          "forward_dual": 0.0312
+        }
+      }
+    },
+    {
+      "name": "Panorama",
+      "shape": [
+        1.2,
+        2,
+        50
+      ],
+      "crown_m": 3.5,
+      "centre_radius_m": 1.8,
+      "window_width_deg": 40.0,
+      "window_centres_deg": [
+        45.0,
+        135.0,
+        225.0,
+        315.0
+      ],
+      "exterior_central_area_m2": 10.18,
+      "exterior_outer_area_m2": 18.98,
+      "total_exterior_area_m2": 29.16,
+      "shield_equivalent_t": 7.87,
+      "pilot_cone60": 1.0,
+      "pilot_forward": 0.4688,
+      "support_forward": 0.0547,
+      "stations": {
+        "PILOT": {
+          "forward_integrated": 0.4688,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4453,
+          "cone60_dual": 1.0
+        },
+        "NAV": {
+          "forward_integrated": 0.4688,
+          "cone60_integrated": 1.0,
+          "forward_dual": 0.4492,
+          "cone60_dual": 1.0
+        },
+        "S1": {
+          "forward_integrated": 0.0625,
+          "forward_dual": 0.0508
+        },
+        "S2": {
+          "forward_integrated": 0.0625,
+          "forward_dual": 0.0586
+        },
+        "S3": {
+          "forward_integrated": 0.0586,
+          "forward_dual": 0.0547
+        },
+        "S4": {
+          "forward_integrated": 0.0547,
+          "forward_dual": 0.0547
+        }
+      }
+    }
+  ]
+}
