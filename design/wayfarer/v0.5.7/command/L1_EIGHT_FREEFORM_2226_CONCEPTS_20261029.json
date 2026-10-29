@@ -1,0 +1,2394 @@
+{
+  "classification": "EXPLORATORY RESEARCH NON-CANON NON-RUNTIME, UNCONSTRAINED CONCEPT GEOMETRY NOT QUALIFIED",
+  "requirements": [
+    "Six working contoured acceleration chairs",
+    "Six crew operational functions"
+  ],
+  "deliberately_unconstrained": [
+    "Existing hull",
+    "Existing ladders",
+    "Existing source L1 flight-deck elevation",
+    "Existing support ring",
+    "Number and shape of internal deck tiers",
+    "Standing-station location",
+    "Screen mount topology",
+    "Interior plan size"
+  ],
+  "important_caveat": "Initial 2226 layouts deliberately ignore pressure hull fit and all access/egress, structural and load-path qualification. A concept is not a buildable part of Wayfarer yet.",
+  "shared_seat_reference": "Illustrative segmented 1.58m projected-length Kazbek-inspired shell, not fitted or qualified. Acceleration orientation is visually represented but no real g-load test.",
+  "designs": [
+    {
+      "id": "F1",
+      "name": "Tiered command",
+      "idea": "Pilot and Navigator forward/lower, Captain centred behind and raised; 3 supporting mission stations.",
+      "advantage": "Command supervision and external view",
+      "tradeoff": "Raised Captain could lose screen sightlines; tier access remains unresolved",
+      "layout": {
+        "seats": [
+          {
+            "id": "PILOT",
+            "role": "Flight",
+            "base_x": 2.75,
+            "head": [
+              -0.83,
+              2.41
+            ],
+            "feet": [
+              -0.83,
+              0.83
+            ],
+            "eye": [
+              2.3,
+              -0.83,
+              2.21
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              -0.83,
+              1.62
+            ]
+          },
+          {
+            "id": "NAV",
+            "role": "Navigation / Loom",
+            "base_x": 2.75,
+            "head": [
+              0.83,
+              2.41
+            ],
+            "feet": [
+              0.83,
+              0.83
+            ],
+            "eye": [
+              2.3,
+              0.83,
+              2.21
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              0.83,
+              1.62
+            ]
+          },
+          {
+            "id": "S1",
+            "role": "Captain / command",
+            "base_x": 1.88,
+            "head": [
+              0.0,
+              0.16
+            ],
+            "feet": [
+              0.0,
+              -1.42
+            ],
+            "eye": [
+              1.43,
+              0.0,
+              -0.04
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              0,
+              -0.63
+            ]
+          },
+          {
+            "id": "S2",
+            "role": "Engineering",
+            "base_x": 3.28,
+            "head": [
+              -2.064,
+              -0.527
+            ],
+            "feet": [
+              -3.036,
+              -1.773
+            ],
+            "eye": [
+              2.83,
+              -2.187,
+              -0.685
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": -38,
+            "center_yz": [
+              -2.55,
+              -1.15
+            ]
+          },
+          {
+            "id": "S3",
+            "role": "Sensors / EW",
+            "base_x": 3.28,
+            "head": [
+              2.064,
+              -0.527
+            ],
+            "feet": [
+              3.036,
+              -1.773
+            ],
+            "eye": [
+              2.83,
+              2.187,
+              -0.685
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 38,
+            "center_yz": [
+              2.55,
+              -1.15
+            ]
+          },
+          {
+            "id": "S4",
+            "role": "Mission operations",
+            "base_x": 3.28,
+            "head": [
+              0.0,
+              -2.21
+            ],
+            "feet": [
+              0.0,
+              -3.79
+            ],
+            "eye": [
+              2.83,
+              0.0,
+              -2.41
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              0,
+              -3.0
+            ]
+          }
+        ],
+        "stand": {
+          "eye_xyz": [
+            1.87,
+            0,
+            -1.45
+          ],
+          "floor_x": 2.5,
+          "anchor_yz": [
+            0,
+            -1.45
+          ],
+          "foot_restraints": true,
+          "handholds": true,
+          "low_g_only": true
+        },
+        "platforms": [
+          {
+            "x": 2.84,
+            "y": 0,
+            "z": 1.65,
+            "wy": 2.65,
+            "wz": 2.8
+          },
+          {
+            "x": 1.98,
+            "y": 0,
+            "z": -0.75,
+            "wy": 1.55,
+            "wz": 2.25
+          },
+          {
+            "x": 3.34,
+            "y": -1.85,
+            "z": -1.35,
+            "wy": 2.6,
+            "wz": 3.4
+          },
+          {
+            "x": 3.34,
+            "y": 1.85,
+            "z": -1.35,
+            "wy": 2.6,
+            "wz": 3.4
+          }
+        ]
+      },
+      "screens": [
+        {
+          "for_station": "PILOT",
+          "center_xyz": [
+            1.8272,
+            -0.83,
+            1.8406
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 38.0
+        },
+        {
+          "for_station": "NAV",
+          "center_xyz": [
+            1.8272,
+            0.83,
+            1.8406
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 38.0
+        },
+        {
+          "for_station": "S1",
+          "center_xyz": [
+            0.9385,
+            0.0,
+            -0.3841
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S2",
+          "center_xyz": [
+            2.3385,
+            -2.3989,
+            -0.9562
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S3",
+          "center_xyz": [
+            2.3385,
+            2.3989,
+            -0.9562
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S4",
+          "center_xyz": [
+            2.3385,
+            0.0,
+            -2.7541
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        }
+      ],
+      "levels": 3,
+      "role_centres": {
+        "Flight": [
+          -0.83,
+          1.62
+        ],
+        "Navigation / Loom": [
+          0.83,
+          1.62
+        ],
+        "Captain / command": [
+          0,
+          -0.63
+        ],
+        "Engineering": [
+          -2.55,
+          -1.15
+        ],
+        "Sensors / EW": [
+          2.55,
+          -1.15
+        ],
+        "Mission operations": [
+          0,
+          -3.0
+        ]
+      }
+    },
+    {
+      "id": "F2",
+      "name": "Triangular command cluster",
+      "idea": "Three command seats face a shared triangular decision area; specialist stations surround it.",
+      "advantage": "Rapid Pilot-NAV-Captain conversation",
+      "tradeoff": "Denser primary cluster may obstruct mutual screens",
+      "layout": {
+        "seats": [
+          {
+            "id": "PILOT",
+            "role": "Flight",
+            "base_x": 2.45,
+            "head": [
+              -1.469,
+              2.487
+            ],
+            "feet": [
+              -1.331,
+              0.913
+            ],
+            "eye": [
+              2.0,
+              -1.451,
+              2.288
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 5,
+            "center_yz": [
+              -1.4,
+              1.7
+            ]
+          },
+          {
+            "id": "NAV",
+            "role": "Navigation / Loom",
+            "base_x": 2.45,
+            "head": [
+              1.469,
+              2.487
+            ],
+            "feet": [
+              1.331,
+              0.913
+            ],
+            "eye": [
+              2.0,
+              1.451,
+              2.288
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": -5,
+            "center_yz": [
+              1.4,
+              1.7
+            ]
+          },
+          {
+            "id": "S1",
+            "role": "Captain / command",
+            "base_x": 2.42,
+            "head": [
+              0.0,
+              0.74
+            ],
+            "feet": [
+              0.0,
+              -0.84
+            ],
+            "eye": [
+              1.97,
+              0.0,
+              0.54
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              0,
+              -0.05
+            ]
+          },
+          {
+            "id": "S2",
+            "role": "Engineering",
+            "base_x": 2.82,
+            "head": [
+              -2.195,
+              -0.692
+            ],
+            "feet": [
+              -3.405,
+              -1.708
+            ],
+            "eye": [
+              2.37,
+              -2.348,
+              -0.821
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": -50,
+            "center_yz": [
+              -2.8,
+              -1.2
+            ]
+          },
+          {
+            "id": "S3",
+            "role": "Sensors / EW",
+            "base_x": 2.82,
+            "head": [
+              2.195,
+              -0.692
+            ],
+            "feet": [
+              3.405,
+              -1.708
+            ],
+            "eye": [
+              2.37,
+              2.348,
+              -0.821
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 50,
+            "center_yz": [
+              2.8,
+              -1.2
+            ]
+          },
+          {
+            "id": "S4",
+            "role": "Mission operations",
+            "base_x": 2.82,
+            "head": [
+              0.0,
+              -2.36
+            ],
+            "feet": [
+              0.0,
+              -3.94
+            ],
+            "eye": [
+              2.37,
+              0.0,
+              -2.56
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              0,
+              -3.15
+            ]
+          }
+        ],
+        "stand": {
+          "eye_xyz": [
+            2.0700000000000003,
+            0,
+            -1.45
+          ],
+          "floor_x": 2.7,
+          "anchor_yz": [
+            0,
+            -1.45
+          ],
+          "foot_restraints": true,
+          "handholds": true,
+          "low_g_only": true
+        },
+        "platforms": [
+          {
+            "x": 2.8,
+            "y": 0,
+            "z": 0.9,
+            "wy": 5.2,
+            "wz": 3.65
+          },
+          {
+            "x": 2.91,
+            "y": 0,
+            "z": -2.6,
+            "wy": 6.7,
+            "wz": 2.5
+          }
+        ]
+      },
+      "screens": [
+        {
+          "for_station": "PILOT",
+          "center_xyz": [
+            1.5272,
+            -1.4188,
+            1.92
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 38.0
+        },
+        {
+          "for_station": "NAV",
+          "center_xyz": [
+            1.5272,
+            1.4188,
+            1.92
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 38.0
+        },
+        {
+          "for_station": "S1",
+          "center_xyz": [
+            1.4785,
+            0.0,
+            0.1959
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S2",
+          "center_xyz": [
+            1.8785,
+            -2.6116,
+            -1.0422
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S3",
+          "center_xyz": [
+            1.8785,
+            2.6116,
+            -1.0422
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S4",
+          "center_xyz": [
+            1.8785,
+            0.0,
+            -2.9041
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        }
+      ],
+      "levels": 3,
+      "role_centres": {
+        "Flight": [
+          -1.4,
+          1.7
+        ],
+        "Navigation / Loom": [
+          1.4,
+          1.7
+        ],
+        "Captain / command": [
+          0,
+          -0.05
+        ],
+        "Engineering": [
+          -2.8,
+          -1.2
+        ],
+        "Sensors / EW": [
+          2.8,
+          -1.2
+        ],
+        "Mission operations": [
+          0,
+          -3.15
+        ]
+      }
+    },
+    {
+      "id": "F3",
+      "name": "Horseshoe bridge",
+      "idea": "A curved crew arc surrounds open command space and a reachable shared workpoint.",
+      "advantage": "Shared situational awareness across all six roles",
+      "tradeoff": "Longer cross-bridge communication and no privileged Captain view",
+      "layout": {
+        "seats": [
+          {
+            "id": "PILOT",
+            "role": "Flight",
+            "base_x": 2.45,
+            "head": [
+              -2.134,
+              2.966
+            ],
+            "feet": [
+              -1.466,
+              1.534
+            ],
+            "eye": [
+              2.0,
+              -2.049,
+              2.785
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 25,
+            "center_yz": [
+              -1.8,
+              2.25
+            ]
+          },
+          {
+            "id": "NAV",
+            "role": "Navigation / Loom",
+            "base_x": 2.45,
+            "head": [
+              2.134,
+              2.966
+            ],
+            "feet": [
+              1.466,
+              1.534
+            ],
+            "eye": [
+              2.0,
+              2.049,
+              2.785
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": -25,
+            "center_yz": [
+              1.8,
+              2.25
+            ]
+          },
+          {
+            "id": "S1",
+            "role": "Captain / command",
+            "base_x": 2.55,
+            "head": [
+              0.0,
+              -1.81
+            ],
+            "feet": [
+              0.0,
+              -3.39
+            ],
+            "eye": [
+              2.1,
+              0.0,
+              -2.01
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              0,
+              -2.6
+            ]
+          },
+          {
+            "id": "S2",
+            "role": "Engineering",
+            "base_x": 2.55,
+            "head": [
+              -2.516,
+              -0.155
+            ],
+            "feet": [
+              -3.884,
+              -0.945
+            ],
+            "eye": [
+              2.1,
+              -2.689,
+              -0.255
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": -60,
+            "center_yz": [
+              -3.2,
+              -0.55
+            ]
+          },
+          {
+            "id": "S3",
+            "role": "Sensors / EW",
+            "base_x": 2.55,
+            "head": [
+              2.516,
+              -0.155
+            ],
+            "feet": [
+              3.884,
+              -0.945
+            ],
+            "eye": [
+              2.1,
+              2.689,
+              -0.255
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 60,
+            "center_yz": [
+              3.2,
+              -0.55
+            ]
+          },
+          {
+            "id": "S4",
+            "role": "Mission operations",
+            "base_x": 2.55,
+            "head": [
+              -1.38,
+              -1.708
+            ],
+            "feet": [
+              -1.92,
+              -3.192
+            ],
+            "eye": [
+              2.1,
+              -1.448,
+              -1.896
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": -20,
+            "center_yz": [
+              -1.65,
+              -2.45
+            ]
+          }
+        ],
+        "stand": {
+          "eye_xyz": [
+            2.22,
+            0.6,
+            -0.4
+          ],
+          "floor_x": 2.85,
+          "anchor_yz": [
+            0.6,
+            -0.4
+          ],
+          "foot_restraints": true,
+          "handholds": true,
+          "low_g_only": true
+        },
+        "platforms": [
+          {
+            "x": 2.68,
+            "y": -1.65,
+            "z": 0.75,
+            "wy": 3.65,
+            "wz": 5.3
+          },
+          {
+            "x": 2.68,
+            "y": 1.65,
+            "z": 0.75,
+            "wy": 3.65,
+            "wz": 5.3
+          },
+          {
+            "x": 2.68,
+            "y": 0,
+            "z": -2.75,
+            "wy": 4.1,
+            "wz": 1.1
+          }
+        ]
+      },
+      "screens": [
+        {
+          "for_station": "PILOT",
+          "center_xyz": [
+            1.5272,
+            -1.8929,
+            2.4502
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 38.0
+        },
+        {
+          "for_station": "NAV",
+          "center_xyz": [
+            1.5272,
+            1.8929,
+            2.4502
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 38.0
+        },
+        {
+          "for_station": "S1",
+          "center_xyz": [
+            1.6085,
+            0.0,
+            -2.3541
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S2",
+          "center_xyz": [
+            1.6085,
+            -2.987,
+            -0.4271
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S3",
+          "center_xyz": [
+            1.6085,
+            2.987,
+            -0.4271
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S4",
+          "center_xyz": [
+            1.6085,
+            -1.5657,
+            -2.2194
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        }
+      ],
+      "levels": 2,
+      "role_centres": {
+        "Flight": [
+          -1.8,
+          2.25
+        ],
+        "Navigation / Loom": [
+          1.8,
+          2.25
+        ],
+        "Captain / command": [
+          0,
+          -2.6
+        ],
+        "Engineering": [
+          -3.2,
+          -0.55
+        ],
+        "Sensors / EW": [
+          3.2,
+          -0.55
+        ],
+        "Mission operations": [
+          -1.65,
+          -2.45
+        ]
+      }
+    },
+    {
+      "id": "F4",
+      "name": "Amphitheatre command",
+      "idea": "Flight stations on a low forward tier; Captain on a raised middle tier; three specialists on an even higher aft tier.",
+      "advantage": "Tiered command visibility and distinct specialist levels",
+      "tradeoff": "Multiple step changes may be awkward in weightlessness and faults",
+      "layout": {
+        "seats": [
+          {
+            "id": "PILOT",
+            "role": "Flight",
+            "base_x": 3.25,
+            "head": [
+              -1.0,
+              3.14
+            ],
+            "feet": [
+              -1.0,
+              1.56
+            ],
+            "eye": [
+              2.8,
+              -1.0,
+              2.94
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              -1.0,
+              2.35
+            ]
+          },
+          {
+            "id": "NAV",
+            "role": "Navigation / Loom",
+            "base_x": 3.25,
+            "head": [
+              1.0,
+              3.14
+            ],
+            "feet": [
+              1.0,
+              1.56
+            ],
+            "eye": [
+              2.8,
+              1.0,
+              2.94
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              1.0,
+              2.35
+            ]
+          },
+          {
+            "id": "S1",
+            "role": "Captain / command",
+            "base_x": 2.5,
+            "head": [
+              0.0,
+              1.11
+            ],
+            "feet": [
+              0.0,
+              -0.47
+            ],
+            "eye": [
+              2.05,
+              0.0,
+              0.91
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              0,
+              0.32
+            ]
+          },
+          {
+            "id": "S2",
+            "role": "Engineering",
+            "base_x": 1.93,
+            "head": [
+              -1.88,
+              -0.708
+            ],
+            "feet": [
+              -2.42,
+              -2.192
+            ],
+            "eye": [
+              1.48,
+              -1.948,
+              -0.896
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": -20,
+            "center_yz": [
+              -2.15,
+              -1.45
+            ]
+          },
+          {
+            "id": "S3",
+            "role": "Sensors / EW",
+            "base_x": 1.93,
+            "head": [
+              1.88,
+              -0.708
+            ],
+            "feet": [
+              2.42,
+              -2.192
+            ],
+            "eye": [
+              1.48,
+              1.948,
+              -0.896
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 20,
+            "center_yz": [
+              2.15,
+              -1.45
+            ]
+          },
+          {
+            "id": "S4",
+            "role": "Mission operations",
+            "base_x": 1.48,
+            "head": [
+              0.0,
+              -2.53
+            ],
+            "feet": [
+              0.0,
+              -4.11
+            ],
+            "eye": [
+              1.03,
+              0.0,
+              -2.73
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              0,
+              -3.32
+            ]
+          }
+        ],
+        "stand": {
+          "eye_xyz": [
+            1.79,
+            0,
+            -1.03
+          ],
+          "floor_x": 2.42,
+          "anchor_yz": [
+            0,
+            -1.03
+          ],
+          "foot_restraints": true,
+          "handholds": true,
+          "low_g_only": true
+        },
+        "platforms": [
+          {
+            "x": 3.36,
+            "y": 0,
+            "z": 2.25,
+            "wy": 3.6,
+            "wz": 2.55
+          },
+          {
+            "x": 2.62,
+            "y": 0,
+            "z": 0.38,
+            "wy": 2.0,
+            "wz": 1.7
+          },
+          {
+            "x": 2.05,
+            "y": 0,
+            "z": -1.55,
+            "wy": 5.3,
+            "wz": 2.25
+          },
+          {
+            "x": 1.6,
+            "y": 0,
+            "z": -3.3,
+            "wy": 1.7,
+            "wz": 1.45
+          }
+        ]
+      },
+      "screens": [
+        {
+          "for_station": "PILOT",
+          "center_xyz": [
+            2.3272,
+            -1.0,
+            2.5706
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 38.0
+        },
+        {
+          "for_station": "NAV",
+          "center_xyz": [
+            2.3272,
+            1.0,
+            2.5706
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 38.0
+        },
+        {
+          "for_station": "S1",
+          "center_xyz": [
+            1.5585,
+            0.0,
+            0.5659
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S2",
+          "center_xyz": [
+            0.9885,
+            -2.0657,
+            -1.2194
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S3",
+          "center_xyz": [
+            0.9885,
+            2.0657,
+            -1.2194
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S4",
+          "center_xyz": [
+            0.5385,
+            0.0,
+            -3.0741
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        }
+      ],
+      "levels": 4,
+      "role_centres": {
+        "Flight": [
+          -1.0,
+          2.35
+        ],
+        "Navigation / Loom": [
+          1.0,
+          2.35
+        ],
+        "Captain / command": [
+          0,
+          0.32
+        ],
+        "Engineering": [
+          -2.15,
+          -1.45
+        ],
+        "Sensors / EW": [
+          2.15,
+          -1.45
+        ],
+        "Mission operations": [
+          0,
+          -3.32
+        ]
+      }
+    },
+    {
+      "id": "F5",
+      "name": "Mission pods",
+      "idea": "Pilot/NAV paired; engineering and mission form a separate task pod; sensors and Captain form another.",
+      "advantage": "Specialist workflows and local collaboration",
+      "tradeoff": "Separated groups reduce cross-role awareness",
+      "layout": {
+        "seats": [
+          {
+            "id": "PILOT",
+            "role": "Flight",
+            "base_x": 2.4,
+            "head": [
+              -0.9,
+              3.64
+            ],
+            "feet": [
+              -0.9,
+              2.06
+            ],
+            "eye": [
+              1.95,
+              -0.9,
+              3.44
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              -0.9,
+              2.85
+            ]
+          },
+          {
+            "id": "NAV",
+            "role": "Navigation / Loom",
+            "base_x": 2.4,
+            "head": [
+              0.9,
+              3.64
+            ],
+            "feet": [
+              0.9,
+              2.06
+            ],
+            "eye": [
+              1.95,
+              0.9,
+              3.44
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              0.9,
+              2.85
+            ]
+          },
+          {
+            "id": "S1",
+            "role": "Captain / command",
+            "base_x": 2.6,
+            "head": [
+              1.766,
+              -1.305
+            ],
+            "feet": [
+              3.134,
+              -2.095
+            ],
+            "eye": [
+              2.15,
+              1.939,
+              -1.405
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 60,
+            "center_yz": [
+              2.45,
+              -1.7
+            ]
+          },
+          {
+            "id": "S2",
+            "role": "Engineering",
+            "base_x": 2.7,
+            "head": [
+              -2.045,
+              0.758
+            ],
+            "feet": [
+              -3.255,
+              -0.258
+            ],
+            "eye": [
+              2.25,
+              -2.198,
+              0.629
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": -50,
+            "center_yz": [
+              -2.65,
+              0.25
+            ]
+          },
+          {
+            "id": "S3",
+            "role": "Sensors / EW",
+            "base_x": 2.6,
+            "head": [
+              1.845,
+              0.608
+            ],
+            "feet": [
+              3.055,
+              -0.408
+            ],
+            "eye": [
+              2.15,
+              1.998,
+              0.479
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 50,
+            "center_yz": [
+              2.45,
+              0.1
+            ]
+          },
+          {
+            "id": "S4",
+            "role": "Mission operations",
+            "base_x": 2.7,
+            "head": [
+              -2.045,
+              -1.242
+            ],
+            "feet": [
+              -3.255,
+              -2.258
+            ],
+            "eye": [
+              2.25,
+              -2.198,
+              -1.371
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": -50,
+            "center_yz": [
+              -2.65,
+              -1.75
+            ]
+          }
+        ],
+        "stand": {
+          "eye_xyz": [
+            2.22,
+            0,
+            -0.75
+          ],
+          "floor_x": 2.85,
+          "anchor_yz": [
+            0,
+            -0.75
+          ],
+          "foot_restraints": true,
+          "handholds": true,
+          "low_g_only": true
+        },
+        "platforms": [
+          {
+            "x": 2.55,
+            "y": 0,
+            "z": 2.75,
+            "wy": 3.2,
+            "wz": 2.25
+          },
+          {
+            "x": 2.84,
+            "y": -2.6,
+            "z": -0.75,
+            "wy": 2.35,
+            "wz": 4.3
+          },
+          {
+            "x": 2.75,
+            "y": 2.45,
+            "z": -0.75,
+            "wy": 2.35,
+            "wz": 4.3
+          },
+          {
+            "x": 2.95,
+            "y": 0,
+            "z": -0.8,
+            "wy": 1.7,
+            "wz": 2.2
+          }
+        ]
+      },
+      "screens": [
+        {
+          "for_station": "PILOT",
+          "center_xyz": [
+            1.4772,
+            -0.9,
+            3.0706
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 38.0
+        },
+        {
+          "for_station": "NAV",
+          "center_xyz": [
+            1.4772,
+            0.9,
+            3.0706
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 38.0
+        },
+        {
+          "for_station": "S1",
+          "center_xyz": [
+            1.6585,
+            2.237,
+            -1.5771
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S2",
+          "center_xyz": [
+            1.7585,
+            -2.4616,
+            0.4078
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S3",
+          "center_xyz": [
+            1.6585,
+            2.2616,
+            0.2578
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S4",
+          "center_xyz": [
+            1.7585,
+            -2.4616,
+            -1.5922
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        }
+      ],
+      "levels": 3,
+      "role_centres": {
+        "Flight": [
+          -0.9,
+          2.85
+        ],
+        "Navigation / Loom": [
+          0.9,
+          2.85
+        ],
+        "Captain / command": [
+          2.45,
+          -1.7
+        ],
+        "Engineering": [
+          -2.65,
+          0.25
+        ],
+        "Sensors / EW": [
+          2.45,
+          0.1
+        ],
+        "Mission operations": [
+          -2.65,
+          -1.75
+        ]
+      }
+    },
+    {
+      "id": "F6",
+      "name": "Split-level command",
+      "idea": "Two-level bridge: flight pair on lower forward deck; Captain and specialists on a separate elevated command gallery.",
+      "advantage": "Clear command oversight with specialist work physically separated",
+      "tradeoff": "Movement between tiers and direct reach difficult in emergency",
+      "layout": {
+        "seats": [
+          {
+            "id": "PILOT",
+            "role": "Flight",
+            "base_x": 3.35,
+            "head": [
+              -0.95,
+              2.94
+            ],
+            "feet": [
+              -0.95,
+              1.36
+            ],
+            "eye": [
+              2.9,
+              -0.95,
+              2.74
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              -0.95,
+              2.15
+            ]
+          },
+          {
+            "id": "NAV",
+            "role": "Navigation / Loom",
+            "base_x": 3.35,
+            "head": [
+              0.95,
+              2.94
+            ],
+            "feet": [
+              0.95,
+              1.36
+            ],
+            "eye": [
+              2.9,
+              0.95,
+              2.74
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              0.95,
+              2.15
+            ]
+          },
+          {
+            "id": "S1",
+            "role": "Captain / command",
+            "base_x": 1.7,
+            "head": [
+              0.0,
+              1.04
+            ],
+            "feet": [
+              0.0,
+              -0.54
+            ],
+            "eye": [
+              1.25,
+              0.0,
+              0.84
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              0,
+              0.25
+            ]
+          },
+          {
+            "id": "S2",
+            "role": "Engineering",
+            "base_x": 1.72,
+            "head": [
+              -2.105,
+              -0.636
+            ],
+            "feet": [
+              -2.895,
+              -2.004
+            ],
+            "eye": [
+              1.27,
+              -2.205,
+              -0.809
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": -30,
+            "center_yz": [
+              -2.5,
+              -1.32
+            ]
+          },
+          {
+            "id": "S3",
+            "role": "Sensors / EW",
+            "base_x": 1.72,
+            "head": [
+              2.105,
+              -0.636
+            ],
+            "feet": [
+              2.895,
+              -2.004
+            ],
+            "eye": [
+              1.27,
+              2.205,
+              -0.809
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 30,
+            "center_yz": [
+              2.5,
+              -1.32
+            ]
+          },
+          {
+            "id": "S4",
+            "role": "Mission operations",
+            "base_x": 1.72,
+            "head": [
+              0.0,
+              -2.39
+            ],
+            "feet": [
+              0.0,
+              -3.97
+            ],
+            "eye": [
+              1.27,
+              0.0,
+              -2.59
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              0,
+              -3.18
+            ]
+          }
+        ],
+        "stand": {
+          "eye_xyz": [
+            1.1,
+            0,
+            -1.45
+          ],
+          "floor_x": 1.73,
+          "anchor_yz": [
+            0,
+            -1.45
+          ],
+          "foot_restraints": true,
+          "handholds": true,
+          "low_g_only": true
+        },
+        "platforms": [
+          {
+            "x": 3.48,
+            "y": 0,
+            "z": 2.1,
+            "wy": 3.45,
+            "wz": 3.1
+          },
+          {
+            "x": 1.86,
+            "y": 0,
+            "z": -1.28,
+            "wy": 6.3,
+            "wz": 4.9
+          }
+        ]
+      },
+      "screens": [
+        {
+          "for_station": "PILOT",
+          "center_xyz": [
+            2.4272,
+            -0.95,
+            2.3706
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 38.0
+        },
+        {
+          "for_station": "NAV",
+          "center_xyz": [
+            2.4272,
+            0.95,
+            2.3706
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 38.0
+        },
+        {
+          "for_station": "S1",
+          "center_xyz": [
+            0.7585,
+            0.0,
+            0.4959
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S2",
+          "center_xyz": [
+            0.7785,
+            -2.3771,
+            -1.107
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S3",
+          "center_xyz": [
+            0.7785,
+            2.3771,
+            -1.107
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S4",
+          "center_xyz": [
+            0.7785,
+            0.0,
+            -2.9341
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        }
+      ],
+      "levels": 3,
+      "role_centres": {
+        "Flight": [
+          -0.95,
+          2.15
+        ],
+        "Navigation / Loom": [
+          0.95,
+          2.15
+        ],
+        "Captain / command": [
+          0,
+          0.25
+        ],
+        "Engineering": [
+          -2.5,
+          -1.32
+        ],
+        "Sensors / EW": [
+          2.5,
+          -1.32
+        ],
+        "Mission operations": [
+          0,
+          -3.18
+        ]
+      }
+    },
+    {
+      "id": "F7",
+      "name": "Central command well",
+      "idea": "Captain at the middle of an inward-facing cluster; Pilot/NAV split toward opposite sides of the view.",
+      "advantage": "Collective command coordination and captain access",
+      "tradeoff": "Pilot/NAV lose some close-pair synchronization",
+      "layout": {
+        "seats": [
+          {
+            "id": "PILOT",
+            "role": "Flight",
+            "base_x": 2.55,
+            "head": [
+              -2.355,
+              2.484
+            ],
+            "feet": [
+              -3.145,
+              1.116
+            ],
+            "eye": [
+              2.1,
+              -2.455,
+              2.311
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": -30,
+            "center_yz": [
+              -2.75,
+              1.8
+            ]
+          },
+          {
+            "id": "NAV",
+            "role": "Navigation / Loom",
+            "base_x": 2.55,
+            "head": [
+              2.355,
+              2.484
+            ],
+            "feet": [
+              3.145,
+              1.116
+            ],
+            "eye": [
+              2.1,
+              2.455,
+              2.311
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 30,
+            "center_yz": [
+              2.75,
+              1.8
+            ]
+          },
+          {
+            "id": "S1",
+            "role": "Captain / command",
+            "base_x": 1.92,
+            "head": [
+              0.0,
+              0.84
+            ],
+            "feet": [
+              0.0,
+              -0.74
+            ],
+            "eye": [
+              1.47,
+              0.0,
+              0.64
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              0,
+              0.05
+            ]
+          },
+          {
+            "id": "S2",
+            "role": "Engineering",
+            "base_x": 2.85,
+            "head": [
+              -2.166,
+              -1.205
+            ],
+            "feet": [
+              -3.534,
+              -1.995
+            ],
+            "eye": [
+              2.4,
+              -2.339,
+              -1.305
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": -60,
+            "center_yz": [
+              -2.85,
+              -1.6
+            ]
+          },
+          {
+            "id": "S3",
+            "role": "Sensors / EW",
+            "base_x": 2.85,
+            "head": [
+              2.166,
+              -1.205
+            ],
+            "feet": [
+              3.534,
+              -1.995
+            ],
+            "eye": [
+              2.4,
+              2.339,
+              -1.305
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 60,
+            "center_yz": [
+              2.85,
+              -1.6
+            ]
+          },
+          {
+            "id": "S4",
+            "role": "Mission operations",
+            "base_x": 2.85,
+            "head": [
+              0.0,
+              -2.41
+            ],
+            "feet": [
+              0.0,
+              -3.99
+            ],
+            "eye": [
+              2.4,
+              0.0,
+              -2.61
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              0,
+              -3.2
+            ]
+          }
+        ],
+        "stand": {
+          "eye_xyz": [
+            1.9700000000000002,
+            0,
+            -1.15
+          ],
+          "floor_x": 2.6,
+          "anchor_yz": [
+            0,
+            -1.15
+          ],
+          "foot_restraints": true,
+          "handholds": true,
+          "low_g_only": true
+        },
+        "platforms": [
+          {
+            "x": 2.98,
+            "y": 0,
+            "z": -0.6,
+            "wy": 6.5,
+            "wz": 7.0
+          },
+          {
+            "x": 2.05,
+            "y": 0,
+            "z": 0.08,
+            "wy": 1.8,
+            "wz": 1.8
+          }
+        ]
+      },
+      "screens": [
+        {
+          "for_station": "PILOT",
+          "center_xyz": [
+            1.6272,
+            -2.6397,
+            1.9911
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 38.0
+        },
+        {
+          "for_station": "NAV",
+          "center_xyz": [
+            1.6272,
+            2.6397,
+            1.9911
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 38.0
+        },
+        {
+          "for_station": "S1",
+          "center_xyz": [
+            0.9785,
+            0.0,
+            0.2959
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S2",
+          "center_xyz": [
+            1.9085,
+            -2.637,
+            -1.4771
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S3",
+          "center_xyz": [
+            1.9085,
+            2.637,
+            -1.4771
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S4",
+          "center_xyz": [
+            1.9085,
+            0.0,
+            -2.9541
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        }
+      ],
+      "levels": 3,
+      "role_centres": {
+        "Flight": [
+          -2.75,
+          1.8
+        ],
+        "Navigation / Loom": [
+          2.75,
+          1.8
+        ],
+        "Captain / command": [
+          0,
+          0.05
+        ],
+        "Engineering": [
+          -2.85,
+          -1.6
+        ],
+        "Sensors / EW": [
+          2.85,
+          -1.6
+        ],
+        "Mission operations": [
+          0,
+          -3.2
+        ]
+      }
+    },
+    {
+      "id": "F8",
+      "name": "Panoramic observation arc",
+      "idea": "Broad forward crew crescent, one rear centre Captain and specialist group, designed around the view.",
+      "advantage": "Shared experience of the panorama and distributed external observation",
+      "tradeoff": "Larger lateral separation weakens urgent crew cross-checking",
+      "layout": {
+        "seats": [
+          {
+            "id": "PILOT",
+            "role": "Flight",
+            "base_x": 2.45,
+            "head": [
+              -2.505,
+              1.834
+            ],
+            "feet": [
+              -3.295,
+              0.466
+            ],
+            "eye": [
+              2.0,
+              -2.605,
+              1.661
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": -30,
+            "center_yz": [
+              -2.9,
+              1.15
+            ]
+          },
+          {
+            "id": "NAV",
+            "role": "Navigation / Loom",
+            "base_x": 2.45,
+            "head": [
+              -0.913,
+              3.798
+            ],
+            "feet": [
+              -1.187,
+              2.242
+            ],
+            "eye": [
+              2.0,
+              -0.948,
+              3.601
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": -10,
+            "center_yz": [
+              -1.05,
+              3.02
+            ]
+          },
+          {
+            "id": "S1",
+            "role": "Captain / command",
+            "base_x": 2.14,
+            "head": [
+              0.0,
+              -0.46
+            ],
+            "feet": [
+              0.0,
+              -2.04
+            ],
+            "eye": [
+              1.69,
+              0.0,
+              -0.66
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              0,
+              -1.25
+            ]
+          },
+          {
+            "id": "S2",
+            "role": "Engineering",
+            "base_x": 2.45,
+            "head": [
+              2.505,
+              1.834
+            ],
+            "feet": [
+              3.295,
+              0.466
+            ],
+            "eye": [
+              2.0,
+              2.605,
+              1.661
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 30,
+            "center_yz": [
+              2.9,
+              1.15
+            ]
+          },
+          {
+            "id": "S3",
+            "role": "Sensors / EW",
+            "base_x": 2.45,
+            "head": [
+              0.913,
+              3.798
+            ],
+            "feet": [
+              1.187,
+              2.242
+            ],
+            "eye": [
+              2.0,
+              0.948,
+              3.601
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 10,
+            "center_yz": [
+              1.05,
+              3.02
+            ]
+          },
+          {
+            "id": "S4",
+            "role": "Mission operations",
+            "base_x": 2.64,
+            "head": [
+              0.0,
+              -2.41
+            ],
+            "feet": [
+              0.0,
+              -3.99
+            ],
+            "eye": [
+              2.19,
+              0.0,
+              -2.61
+            ],
+            "L": 1.58,
+            "width": 0.7,
+            "heading_deg": 0,
+            "center_yz": [
+              0,
+              -3.2
+            ]
+          }
+        ],
+        "stand": {
+          "eye_xyz": [
+            1.94,
+            0,
+            -0.05
+          ],
+          "floor_x": 2.57,
+          "anchor_yz": [
+            0,
+            -0.05
+          ],
+          "foot_restraints": true,
+          "handholds": true,
+          "low_g_only": true
+        },
+        "platforms": [
+          {
+            "x": 2.63,
+            "y": -2.25,
+            "z": 1.5,
+            "wy": 2.8,
+            "wz": 3.75
+          },
+          {
+            "x": 2.63,
+            "y": 0,
+            "z": 2.0,
+            "wy": 2.45,
+            "wz": 4.4
+          },
+          {
+            "x": 2.63,
+            "y": 2.25,
+            "z": 1.5,
+            "wy": 2.8,
+            "wz": 3.75
+          },
+          {
+            "x": 2.75,
+            "y": 0,
+            "z": -2.2,
+            "wy": 3.6,
+            "wz": 2.7
+          }
+        ]
+      },
+      "screens": [
+        {
+          "for_station": "PILOT",
+          "center_xyz": [
+            1.5272,
+            -2.7897,
+            1.3411
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 38.0
+        },
+        {
+          "for_station": "NAV",
+          "center_xyz": [
+            1.5272,
+            -1.0121,
+            3.2372
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 38.0
+        },
+        {
+          "for_station": "S1",
+          "center_xyz": [
+            1.1985,
+            0.0,
+            -1.0041
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S2",
+          "center_xyz": [
+            1.5085,
+            2.7771,
+            1.363
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S3",
+          "center_xyz": [
+            1.5085,
+            1.0078,
+            3.2621
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        },
+        {
+          "for_station": "S4",
+          "center_xyz": [
+            1.6985,
+            0.0,
+            -2.9541
+          ],
+          "half_width_m": 0.22,
+          "half_height_m": 0.14,
+          "angle_deg": 35.0
+        }
+      ],
+      "levels": 3,
+      "role_centres": {
+        "Flight": [
+          -2.9,
+          1.15
+        ],
+        "Navigation / Loom": [
+          -1.05,
+          3.02
+        ],
+        "Captain / command": [
+          0,
+          -1.25
+        ],
+        "Engineering": [
+          2.9,
+          1.15
+        ],
+        "Sensors / EW": [
+          1.05,
+          3.02
+        ],
+        "Mission operations": [
+          0,
+          -3.2
+        ]
+      }
+    }
+  ],
+  "assessment": {
+    "candidate_shortlist": [
+      "F1",
+      "F3",
+      "F6"
+    ],
+    "why": [
+      "F1: directly provides raised centred Captain with forward Pilot/NAV pair and is simplest crew supervision topology",
+      "F3: strong crew interaction and shared information across a continuous open horseshoe",
+      "F6: true alternative with multiple physical levels and separated flight versus command responsibilities"
+    ],
+    "not_proven": "This is qualitative selection for discussion and user viewing, not measured human performance or a demonstrated optimum. The other five remain equally selectable.",
+    "next_real_test": "Compare actual task movements and views in the 3D render; select a topology before applying 3D hull, circulation and g-load fit checks."
+  }
+}
