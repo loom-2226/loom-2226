@@ -1,0 +1,673 @@
+{
+  "classification": "RESEARCH / NON-CANON / NON-RUNTIME / NOT HULL- OR 4G-QUALIFIED",
+  "basis": {
+    "I1": "Continuous terraced lower operations deck",
+    "I3": "Open observation and social/mission plotting commons"
+  },
+  "coordinates": "Renderer plan: Y lateral, Z toward forward canopy, H=4-X visual tier height in metres. Not governing ship-frame coordinates.",
+  "design": {
+    "id": "L1-I4",
+    "name": "Command Commons",
+    "idea": "Unified main operations deck, broad raised Pilot/Captain command terrace, forward lower Navigator, panoramic observation edge, shared mission plotting table, and integrated separate work bay.",
+    "advantage": "A recognisable six-person command deck that also supports low-g collaboration and observation",
+    "tradeoff": "Tier movement, structural loads and final pressure-hull fit remain unresolved",
+    "layout": {
+      "seats": [
+        {
+          "id": "PILOT",
+          "role": "Flight",
+          "base_x": 1.91,
+          "head": [
+            -0.8611,
+            0.327
+          ],
+          "feet": [
+            -0.9989,
+            -1.247
+          ],
+          "eye": [
+            1.46,
+            -0.8786,
+            0.1278
+          ],
+          "L": 1.58,
+          "width": 0.7,
+          "heading_deg": -5,
+          "center_yz": [
+            -0.93,
+            -0.46
+          ]
+        },
+        {
+          "id": "NAV",
+          "role": "Navigation / Loom",
+          "base_x": 2.76,
+          "head": [
+            0.0,
+            3.29
+          ],
+          "feet": [
+            0.0,
+            1.71
+          ],
+          "eye": [
+            2.31,
+            0.0,
+            3.09
+          ],
+          "L": 1.58,
+          "width": 0.7,
+          "heading_deg": 0,
+          "center_yz": [
+            0,
+            2.5
+          ]
+        },
+        {
+          "id": "S1",
+          "role": "Captain / command",
+          "base_x": 1.91,
+          "head": [
+            0.8611,
+            0.327
+          ],
+          "feet": [
+            0.9989,
+            -1.247
+          ],
+          "eye": [
+            1.46,
+            0.8786,
+            0.1278
+          ],
+          "L": 1.58,
+          "width": 0.7,
+          "heading_deg": 5,
+          "center_yz": [
+            0.93,
+            -0.46
+          ]
+        },
+        {
+          "id": "S2",
+          "role": "Engineering",
+          "base_x": 3.31,
+          "head": [
+            -2.6691,
+            -0.2525
+          ],
+          "feet": [
+            -3.4109,
+            -1.6475
+          ],
+          "eye": [
+            2.86,
+            -2.763,
+            -0.4291
+          ],
+          "L": 1.58,
+          "width": 0.7,
+          "heading_deg": -28,
+          "center_yz": [
+            -3.04,
+            -0.95
+          ]
+        },
+        {
+          "id": "S3",
+          "role": "Sensors / EW",
+          "base_x": 3.31,
+          "head": [
+            2.6891,
+            0.0975
+          ],
+          "feet": [
+            3.4309,
+            -1.2975
+          ],
+          "eye": [
+            2.86,
+            2.783,
+            -0.0791
+          ],
+          "L": 1.58,
+          "width": 0.7,
+          "heading_deg": 28,
+          "center_yz": [
+            3.06,
+            -0.6
+          ]
+        },
+        {
+          "id": "S4",
+          "role": "Mission operations",
+          "base_x": 3.31,
+          "head": [
+            2.1841,
+            -2.3275
+          ],
+          "feet": [
+            2.7759,
+            -3.7925
+          ],
+          "eye": [
+            2.86,
+            2.259,
+            -2.513
+          ],
+          "L": 1.58,
+          "width": 0.7,
+          "heading_deg": 22,
+          "center_yz": [
+            2.48,
+            -3.06
+          ]
+        }
+      ],
+      "stand": {
+        "eye_xyz": [
+          2.7,
+          0.26,
+          -2.03
+        ],
+        "floor_x": 3.31,
+        "anchor_yz": [
+          0.26,
+          -2.03
+        ],
+        "foot_restraints": true,
+        "handholds": true,
+        "low_g_only": true
+      },
+      "platforms": [],
+      "work_area": {
+        "label": "Independent mission equipment bay",
+        "floor_x": 3.31,
+        "anchor_yz": [
+          -2.43,
+          -3.17
+        ],
+        "purpose": "Robotics/EVA/survey and equipment handling in low-g",
+        "surface_width_m": 1.45,
+        "foot_restraints": true,
+        "handholds": true,
+        "local_display": true
+      }
+    },
+    "screens": [
+      {
+        "for_station": "PILOT",
+        "center_xyz": [
+          0.9872,
+          -0.9108,
+          -0.2402
+        ],
+        "half_width_m": 0.22,
+        "half_height_m": 0.14,
+        "angle_deg": 38.0
+      },
+      {
+        "for_station": "NAV",
+        "center_xyz": [
+          1.8372,
+          0.0,
+          2.7206
+        ],
+        "half_width_m": 0.22,
+        "half_height_m": 0.14,
+        "angle_deg": 38.0
+      },
+      {
+        "for_station": "S1",
+        "center_xyz": [
+          0.9872,
+          0.9108,
+          -0.2402
+        ],
+        "half_width_m": 0.22,
+        "half_height_m": 0.14,
+        "angle_deg": 38.0
+      },
+      {
+        "for_station": "S2",
+        "center_xyz": [
+          2.3626,
+          -2.9205,
+          -0.7253
+        ],
+        "half_width_m": 0.22,
+        "half_height_m": 0.14,
+        "angle_deg": 34.0
+      },
+      {
+        "for_station": "S3",
+        "center_xyz": [
+          2.3626,
+          2.9405,
+          -0.3753
+        ],
+        "half_width_m": 0.22,
+        "half_height_m": 0.14,
+        "angle_deg": 34.0
+      },
+      {
+        "for_station": "S4",
+        "center_xyz": [
+          2.3626,
+          2.3847,
+          -2.8241
+        ],
+        "half_width_m": 0.22,
+        "half_height_m": 0.14,
+        "angle_deg": 34.0
+      }
+    ],
+    "levels": 4,
+    "role_centres": {
+      "Flight": [
+        -0.87,
+        -0.4
+      ],
+      "Navigation / Loom": [
+        0,
+        2.1
+      ],
+      "Captain / command": [
+        0.87,
+        -0.4
+      ],
+      "Engineering": [
+        -2.55,
+        -1.3
+      ],
+      "Sensors / EW": [
+        2.55,
+        -1.3
+      ],
+      "Mission operations": [
+        2.6,
+        -3.55
+      ]
+    },
+    "interior": {
+      "blocks": [
+        {
+          "y": 0,
+          "z": -0.56,
+          "height": 0.68,
+          "wy": 8.15,
+          "wz": 8.05,
+          "th": 0.16,
+          "color": "#365264",
+          "opacity": 1,
+          "tag": "continuous_main_deck"
+        },
+        {
+          "y": 0,
+          "z": -0.47,
+          "height": 2.09,
+          "wy": 3.62,
+          "wz": 3.16,
+          "th": 0.18,
+          "color": "#496b75",
+          "opacity": 1,
+          "tag": "broad_pilot_captain_terrace"
+        },
+        {
+          "y": 0,
+          "z": 2.48,
+          "height": 1.24,
+          "wy": 2.8,
+          "wz": 2.52,
+          "th": 0.16,
+          "color": "#3f6974",
+          "opacity": 1,
+          "tag": "navigator_forward_platform"
+        },
+        {
+          "y": -3.85,
+          "z": -1.2,
+          "height": 1.04,
+          "wy": 0.37,
+          "wz": 2.72,
+          "th": 0.56,
+          "color": "#4b6570",
+          "opacity": 1,
+          "tag": "engineering_side_storage"
+        },
+        {
+          "y": 3.85,
+          "z": -0.88,
+          "height": 1.04,
+          "wy": 0.37,
+          "wz": 2.45,
+          "th": 0.56,
+          "color": "#4b6570",
+          "opacity": 1,
+          "tag": "sensor_side_storage"
+        },
+        {
+          "y": 3.24,
+          "z": -3.78,
+          "height": 1.1,
+          "wy": 1.24,
+          "wz": 0.37,
+          "th": 0.68,
+          "color": "#4a6170",
+          "opacity": 1,
+          "tag": "mission_ops_lockers"
+        },
+        {
+          "y": -3.07,
+          "z": -3.9,
+          "height": 1.02,
+          "wy": 1.62,
+          "wz": 0.38,
+          "th": 0.67,
+          "color": "#5b6673",
+          "opacity": 1,
+          "tag": "work_bay_storage"
+        },
+        {
+          "y": 0.21,
+          "z": -3.25,
+          "height": 1.06,
+          "wy": 1.52,
+          "wz": 0.8,
+          "th": 0.11,
+          "color": "#397e83",
+          "opacity": 1,
+          "tag": "mission_table_top"
+        },
+        {
+          "y": 0.21,
+          "z": -3.25,
+          "height": 0.83,
+          "wy": 0.4,
+          "wz": 0.42,
+          "th": 0.34,
+          "color": "#365d6e",
+          "opacity": 1,
+          "tag": "mission_table_base"
+        },
+        {
+          "y": 0.22,
+          "z": -2.06,
+          "height": 1.06,
+          "wy": 0.72,
+          "wz": 0.43,
+          "th": 0.07,
+          "color": "#377988",
+          "opacity": 1,
+          "tag": "command_lean_support"
+        },
+        {
+          "y": -2.42,
+          "z": -3.27,
+          "height": 1.08,
+          "wy": 1.44,
+          "wz": 0.55,
+          "th": 0.11,
+          "color": "#695a73",
+          "opacity": 1,
+          "tag": "independent_mission_bench"
+        },
+        {
+          "y": -2.42,
+          "z": -3.65,
+          "height": 1.42,
+          "wy": 1.25,
+          "wz": 0.06,
+          "th": 0.51,
+          "color": "#50688b",
+          "opacity": 1,
+          "tag": "workbench_local_display"
+        }
+      ],
+      "rails": [
+        {
+          "a": [
+            -1.88,
+            -1.85,
+            2.21
+          ],
+          "b": [
+            -1.88,
+            0.97,
+            2.21
+          ],
+          "color": "#85d5ce",
+          "radius": 0.02
+        },
+        {
+          "a": [
+            1.88,
+            -1.85,
+            2.21
+          ],
+          "b": [
+            1.88,
+            0.97,
+            2.21
+          ],
+          "color": "#85d5ce",
+          "radius": 0.02
+        },
+        {
+          "a": [
+            -1.5,
+            1.36,
+            1.37
+          ],
+          "b": [
+            -1.5,
+            3.55,
+            1.37
+          ],
+          "color": "#7ec5ce",
+          "radius": 0.02
+        },
+        {
+          "a": [
+            1.5,
+            1.36,
+            1.37
+          ],
+          "b": [
+            1.5,
+            3.55,
+            1.37
+          ],
+          "color": "#7ec5ce",
+          "radius": 0.02
+        },
+        {
+          "a": [
+            -3.67,
+            -3.65,
+            0.94
+          ],
+          "b": [
+            -3.67,
+            -1.75,
+            0.94
+          ],
+          "color": "#7cb7ba",
+          "radius": 0.02
+        },
+        {
+          "a": [
+            3.67,
+            -3.22,
+            0.94
+          ],
+          "b": [
+            3.67,
+            -1.3,
+            0.94
+          ],
+          "color": "#7cb7ba",
+          "radius": 0.02
+        }
+      ],
+      "lights": [
+        {
+          "a": [
+            -3.7,
+            -3.67,
+            0.86
+          ],
+          "b": [
+            -3.7,
+            1.38,
+            0.86
+          ],
+          "color": "#70c9c2",
+          "radius": 0.023
+        },
+        {
+          "a": [
+            3.7,
+            -3.67,
+            0.86
+          ],
+          "b": [
+            3.7,
+            1.38,
+            0.86
+          ],
+          "color": "#70c9c2",
+          "radius": 0.023
+        },
+        {
+          "a": [
+            -1.65,
+            -1.89,
+            2.22
+          ],
+          "b": [
+            1.65,
+            -1.89,
+            2.22
+          ],
+          "color": "#edc58a",
+          "radius": 0.025
+        },
+        {
+          "a": [
+            -1.3,
+            3.71,
+            1.39
+          ],
+          "b": [
+            1.3,
+            3.71,
+            1.39
+          ],
+          "color": "#86dbde",
+          "radius": 0.026
+        },
+        {
+          "a": [
+            -1.02,
+            -3.86,
+            0.86
+          ],
+          "b": [
+            1.07,
+            -3.86,
+            0.86
+          ],
+          "color": "#6ab6bd",
+          "radius": 0.02
+        }
+      ],
+      "transfers": [
+        {
+          "name": "port_terrace_access",
+          "a": [
+            -1.7,
+            -1.47,
+            0.84
+          ],
+          "b": [
+            -1.7,
+            -1.47,
+            2.04
+          ],
+          "rungs": 5
+        },
+        {
+          "name": "starboard_terrace_access",
+          "a": [
+            1.7,
+            -1.47,
+            0.84
+          ],
+          "b": [
+            1.7,
+            -1.47,
+            2.04
+          ],
+          "rungs": 5
+        },
+        {
+          "name": "navigator_access",
+          "a": [
+            -1.16,
+            1.59,
+            0.84
+          ],
+          "b": [
+            -1.16,
+            1.59,
+            1.2
+          ],
+          "rungs": 2
+        }
+      ],
+      "observation": {
+        "radius_m": 3.92,
+        "from_rad": -0.92,
+        "to_rad": 0.92,
+        "height": 1.09,
+        "segments": 18,
+        "type": "low_profile_view_handhold_not_glazing"
+      },
+      "consoles": [
+        {
+          "label": "MISSION TABLE",
+          "pos": [
+            0.21,
+            -3.25,
+            1.35
+          ],
+          "color": "#9be2df"
+        },
+        {
+          "label": "SHIP CONDITION",
+          "pos": [
+            0.25,
+            -2.03,
+            1.39
+          ],
+          "color": "#9acee9"
+        }
+      ],
+      "phases": [
+        "coast+standing collaboration",
+        "approach+six specialist stations",
+        "4g+six occupied seats; standing stations inactive"
+      ]
+    }
+  },
+  "acceptance_checks": {
+    "six_seat_roles": "PASS geometric count",
+    "raised_pilot_and_captain": "PASS authored levels",
+    "single_lower_underside": "PASS authored main floor",
+    "separate_anchored_workbench": "PASS authored positions",
+    "crew_reach/egress/4g": "NOT TESTED",
+    "ship_hull_pressure_fit": "NOT TESTED"
+  },
+  "stop": "One phone-viewable, coherent furnished 3D concept; no new runtime systems or architectural speculation"
+}
