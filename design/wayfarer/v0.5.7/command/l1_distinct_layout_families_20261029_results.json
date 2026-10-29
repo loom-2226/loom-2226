@@ -1,0 +1,1500 @@
+{
+  "classification": "RESEARCH / NON-CANON / NON-RUNTIME / UNQUALIFIED",
+  "why_redo": "Prior 500 candidate permutations were all the same support-ring architecture and visually indistinguishable. Five *topologically distinct* concept families, each perturbed 100 times, make honest, visible comparisons.",
+  "source_sha": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271",
+  "prior_500_results": "L1_500_TO_1_INTERIOR_RESEARCH_RESULTS_20261029.md; retained only as a narrow single-family sweep",
+  "families": [
+    {
+      "family": {
+        "id": "L1-A",
+        "name": "Inboard panoramic ring",
+        "idea": "Four seats around the inner shoulder, maximal crew visibility",
+        "angles": [
+          45,
+          135,
+          225,
+          315
+        ],
+        "radii": [
+          2.92,
+          2.92,
+          2.92,
+          2.92
+        ],
+        "yaws": [
+          -15,
+          -15,
+          -15,
+          -15
+        ],
+        "stand": [
+          0.1,
+          1.15
+        ],
+        "display": 40,
+        "stand_style": "compact"
+      },
+      "valid": 100,
+      "failures": {},
+      "chosen": {
+        "id": "L1-A",
+        "layout": {
+          "family": "L1-A",
+          "family_name": "Inboard panoramic ring",
+          "family_idea": "Four seats around the inner shoulder, maximal crew visibility",
+          "stand_style": "compact",
+          "seats": [
+            {
+              "id": "PILOT",
+              "role": "Flight",
+              "eye": [
+                0.775,
+                0.45,
+                0.45
+              ],
+              "base_x": 1.225,
+              "head": [
+                0.45,
+                0.65
+              ],
+              "feet": [
+                0.45,
+                -0.93
+              ],
+              "L": 1.58,
+              "width": 0.7,
+              "u": [
+                0.0,
+                -1.0
+              ],
+              "side": [
+                1.0,
+                0.0
+              ],
+              "center": [
+                0.45,
+                -0.14
+              ],
+              "projected_length_m": 1.58,
+              "notes": "Kazbek-inspired contoured seat envelope; 1.58m projected head-to-foot, bent knee, full back support; NOT certified"
+            },
+            {
+              "id": "NAV",
+              "role": "Navigation / Loom",
+              "eye": [
+                0.775,
+                -0.45,
+                0.45
+              ],
+              "base_x": 1.225,
+              "head": [
+                -0.45,
+                0.65
+              ],
+              "feet": [
+                -0.45,
+                -0.93
+              ],
+              "L": 1.58,
+              "width": 0.7,
+              "u": [
+                0.0,
+                -1.0
+              ],
+              "side": [
+                1.0,
+                0.0
+              ],
+              "center": [
+                -0.45,
+                -0.14
+              ],
+              "projected_length_m": 1.58,
+              "notes": "Kazbek-inspired contoured seat envelope; 1.58m projected head-to-foot, bent knee, full back support; NOT certified"
+            },
+            {
+              "id": "S1",
+              "role": "Captain / command",
+              "eye": [
+                2.55,
+                2.0648,
+                2.0648
+              ],
+              "base_x": 3.0,
+              "head": [
+                2.2049,
+                1.9221
+              ],
+              "feet": [
+                1.0975,
+                3.0491
+              ],
+              "L": 1.58,
+              "width": 0.7,
+              "u": [
+                -0.7008990753559621,
+                0.7132604616584026
+              ],
+              "side": [
+                -0.7132604616584026,
+                -0.7008990753559621
+              ],
+              "center": [
+                1.651221346614585,
+                2.485575473453059
+              ],
+              "projected_length_m": 1.58,
+              "notes": "Kazbek-inspired contoured seat envelope; 1.58m projected head-to-foot, bent knee, full back support; NOT certified"
+            },
+            {
+              "id": "S2",
+              "role": "Sensors / EW",
+              "eye": [
+                2.55,
+                -2.0648,
+                2.0648
+              ],
+              "base_x": 3.0,
+              "head": [
+                -1.9221,
+                2.2049
+              ],
+              "feet": [
+                -3.0491,
+                1.0975
+              ],
+              "L": 1.58,
+              "width": 0.7,
+              "u": [
+                -0.7132604616584026,
+                -0.700899075355962
+              ],
+              "side": [
+                0.700899075355962,
+                -0.7132604616584026
+              ],
+              "center": [
+                -2.485575473453059,
+                1.651221346614585
+              ],
+              "projected_length_m": 1.58,
+              "notes": "Kazbek-inspired contoured seat envelope; 1.58m projected head-to-foot, bent knee, full back support; NOT certified"
+            },
+            {
+              "id": "S3",
+              "role": "Engineering",
+              "eye": [
+                2.55,
+                -2.0648,
+                -2.0648
+              ],
+              "base_x": 3.0,
+              "head": [
+                -2.2049,
+                -1.9221
+              ],
+              "feet": [
+                -1.0975,
+                -3.0491
+              ],
+              "L": 1.58,
+              "width": 0.7,
+              "u": [
+                0.7008990753559624,
+                -0.7132604616584021
+              ],
+              "side": [
+                0.7132604616584021,
+                0.7008990753559624
+              ],
+              "center": [
+                -1.6512213466145833,
+                -2.4855754734530597
+              ],
+              "projected_length_m": 1.58,
+              "notes": "Kazbek-inspired contoured seat envelope; 1.58m projected head-to-foot, bent knee, full back support; NOT certified"
+            },
+            {
+              "id": "S4",
+              "role": "Mission operations",
+              "eye": [
+                2.55,
+                2.0648,
+                -2.0648
+              ],
+              "base_x": 3.0,
+              "head": [
+                1.9221,
+                -2.2049
+              ],
+              "feet": [
+                3.0491,
+                -1.0975
+              ],
+              "L": 1.58,
+              "width": 0.7,
+              "u": [
+                0.7132604616584027,
+                0.7008990753559617
+              ],
+              "side": [
+                -0.7008990753559617,
+                0.7132604616584027
+              ],
+              "center": [
+                2.485575473453059,
+                -1.651221346614585
+              ],
+              "projected_length_m": 1.58,
+              "notes": "Kazbek-inspired contoured seat envelope; 1.58m projected head-to-foot, bent knee, full back support; NOT certified"
+            }
+          ],
+          "stand": {
+            "eye_xyz": [
+              2.38,
+              0.1,
+              1.15
+            ],
+            "anchor_yz": [
+              0.1,
+              1.15
+            ],
+            "foot_restraints": true,
+            "handholds": true,
+            "low_g_only": true
+          },
+          "settings": {
+            "radii_m": [
+              2.92,
+              2.92,
+              2.92,
+              2.92
+            ],
+            "angles_deg": [
+              45.0,
+              135.0,
+              225.0,
+              315.0
+            ],
+            "individual_yaws_deg": [
+              -15.0,
+              -15.0,
+              -15.0,
+              -15.0
+            ],
+            "display_angle_from_bow_deg": 40,
+            "stand_y_m": 0.1,
+            "stand_z_m": 1.15
+          },
+          "screens": [
+            {
+              "for_station": "PILOT",
+              "center_xyz": [
+                0.3537,
+                0.45,
+                0.0965
+              ],
+              "gaze_off_forward_deg": 40,
+              "eye_to_center_m": 0.55,
+              "normal_to_eye": [
+                0.766044443118978,
+                -0.0,
+                0.6427876096865393
+              ],
+              "half_width_m": 0.22,
+              "half_height_m": 0.14,
+              "controls_reach_proxy_m": 0.48
+            },
+            {
+              "for_station": "NAV",
+              "center_xyz": [
+                0.3537,
+                -0.45,
+                0.0965
+              ],
+              "gaze_off_forward_deg": 40,
+              "eye_to_center_m": 0.55,
+              "normal_to_eye": [
+                0.766044443118978,
+                -0.0,
+                0.6427876096865393
+              ],
+              "half_width_m": 0.22,
+              "half_height_m": 0.14,
+              "controls_reach_proxy_m": 0.48
+            },
+            {
+              "for_station": "S1",
+              "center_xyz": [
+                2.1287,
+                1.817,
+                2.317
+              ],
+              "gaze_off_forward_deg": 40,
+              "eye_to_center_m": 0.55,
+              "normal_to_eye": [
+                0.766044443118978,
+                0.4505292412795644,
+                -0.4584749872333221
+              ],
+              "half_width_m": 0.22,
+              "half_height_m": 0.14,
+              "controls_reach_proxy_m": 0.48
+            },
+            {
+              "for_station": "S2",
+              "center_xyz": [
+                2.1287,
+                -2.317,
+                1.817
+              ],
+              "gaze_off_forward_deg": 40,
+              "eye_to_center_m": 0.55,
+              "normal_to_eye": [
+                0.766044443118978,
+                0.4584749872333221,
+                0.45052924127956434
+              ],
+              "half_width_m": 0.22,
+              "half_height_m": 0.14,
+              "controls_reach_proxy_m": 0.48
+            },
+            {
+              "for_station": "S3",
+              "center_xyz": [
+                2.1287,
+                -1.817,
+                -2.317
+              ],
+              "gaze_off_forward_deg": 40,
+              "eye_to_center_m": 0.55,
+              "normal_to_eye": [
+                0.766044443118978,
+                -0.4505292412795646,
+                0.45847498723332175
+              ],
+              "half_width_m": 0.22,
+              "half_height_m": 0.14,
+              "controls_reach_proxy_m": 0.48
+            },
+            {
+              "for_station": "S4",
+              "center_xyz": [
+                2.1287,
+                2.317,
+                -1.817
+              ],
+              "gaze_off_forward_deg": 40,
+              "eye_to_center_m": 0.55,
+              "normal_to_eye": [
+                0.766044443118978,
+                -0.4584749872333222,
+                -0.4505292412795642
+              ],
+              "half_width_m": 0.22,
+              "half_height_m": 0.14,
+              "controls_reach_proxy_m": 0.48
+            }
+          ]
+        },
+        "screens": [
+          {
+            "for_station": "PILOT",
+            "center_xyz": [
+              0.3537,
+              0.45,
+              0.0965
+            ],
+            "gaze_off_forward_deg": 40,
+            "eye_to_center_m": 0.55,
+            "normal_to_eye": [
+              0.766044443118978,
+              -0.0,
+              0.6427876096865393
+            ],
+            "half_width_m": 0.22,
+            "half_height_m": 0.14,
+            "controls_reach_proxy_m": 0.48
+          },
+          {
+            "for_station": "NAV",
+            "center_xyz": [
+              0.3537,
+              -0.45,
+              0.0965
+            ],
+            "gaze_off_forward_deg": 40,
+            "eye_to_center_m": 0.55,
+            "normal_to_eye": [
+              0.766044443118978,
+              -0.0,
+              0.6427876096865393
+            ],
+            "half_width_m": 0.22,
+            "half_height_m": 0.14,
+            "controls_reach_proxy_m": 0.48
+          },
+          {
+            "for_station": "S1",
+            "center_xyz": [
+              2.1287,
+              1.817,
+              2.317
+            ],
+            "gaze_off_forward_deg": 40,
+            "eye_to_center_m": 0.55,
+            "normal_to_eye": [
+              0.766044443118978,
+              0.4505292412795644,
+              -0.4584749872333221
+            ],
+            "half_width_m": 0.22,
+            "half_height_m": 0.14,
+            "controls_reach_proxy_m": 0.48
+          },
+          {
+            "for_station": "S2",
+            "center_xyz": [
+              2.1287,
+              -2.317,
+              1.817
+            ],
+            "gaze_off_forward_deg": 40,
+            "eye_to_center_m": 0.55,
+            "normal_to_eye": [
+              0.766044443118978,
+              0.4584749872333221,
+              0.45052924127956434
+            ],
+            "half_width_m": 0.22,
+            "half_height_m": 0.14,
+            "controls_reach_proxy_m": 0.48
+          },
+          {
+            "for_station": "S3",
+            "center_xyz": [
+              2.1287,
+              -1.817,
+              -2.317
+            ],
+            "gaze_off_forward_deg": 40,
+            "eye_to_center_m": 0.55,
+            "normal_to_eye": [
+              0.766044443118978,
+              -0.4505292412795646,
+              0.45847498723332175
+            ],
+            "half_width_m": 0.22,
+            "half_height_m": 0.14,
+            "controls_reach_proxy_m": 0.48
+          },
+          {
+            "for_station": "S4",
+            "center_xyz": [
+              2.1287,
+              2.317,
+              -1.817
+            ],
+            "gaze_off_forward_deg": 40,
+            "eye_to_center_m": 0.55,
+            "normal_to_eye": [
+              0.766044443118978,
+              -0.4584749872333222,
+              -0.4505292412795642
+            ],
+            "half_width_m": 0.22,
+            "half_height_m": 0.14,
+            "controls_reach_proxy_m": 0.48
+          }
+        ],
+        "metrics": {
+          "path": {
+            "both_ladders": true,
+            "reachable_support": 4,
+            "route_cost_m": 5.2
+          },
+          "sightline": {
+            "PILOT": {
+              "forward_cone_60_fraction": 1.0,
+              "forward_hemisphere_geometric_fraction": 0.9427
+            },
+            "NAV": {
+              "forward_cone_60_fraction": 1.0,
+              "forward_hemisphere_geometric_fraction": 0.9453
+            },
+            "S1": {
+              "forward_cone_60_fraction": 0.8,
+              "forward_hemisphere_geometric_fraction": 0.3385
+            },
+            "S2": {
+              "forward_cone_60_fraction": 0.8063,
+              "forward_hemisphere_geometric_fraction": 0.3438
+            },
+            "S3": {
+              "forward_cone_60_fraction": 0.8063,
+              "forward_hemisphere_geometric_fraction": 0.3438
+            },
+            "S4": {
+              "forward_cone_60_fraction": 0.7875,
+              "forward_hemisphere_geometric_fraction": 0.3359
+            }
+          },
+          "captain_stand_distance_m": 2.047,
+          "mean_support_forward_fraction": 0.3405,
+          "objective_proxy": 5.8141
+        },
+        "selected_sample": 0,
+        "geometry_proxy_only": true
+      }
+    },
+    {
+      "family": {
+        "id": "L1-B",
+        "name": "Perimeter free core",
+        "idea": "Four perimeter workstations leave the central floor open",
+        "angles": [
+          45,
+          135,
+          225,
+          315
+        ],
+        "radii": [
+          3.38,
+          3.38,
+          3.38,
+          3.38
+        ],
+        "yaws": [
+          -2,
+          -2,
+          -2,
+          -2
+        ],
+        "stand": [
+          0.15,
+          1.35
+        ],
+        "display": 35,
+        "stand_style": "round"
+      },
+      "valid": 100,
+      "failures": {},
+      "chosen": {
+        "id": "L1-B",
+        "layout": {
+          "family": "L1-B",
+          "family_name": "Perimeter free core",
+          "family_idea": "Four perimeter workstations leave the central floor open",
+          "stand_style": "round",
+          "seats": [
+            {
+              "id": "PILOT",
+              "role": "Flight",
+              "eye": [
+                0.775,
+                0.45,
+                0.45
+              ],
+              "base_x": 1.225,
+              "head": [
+                0.45,
+                0.65
+              ],
+              "feet": [
+                0.45,
+                -0.93
+              ],
+              "L": 1.58,
+              "width": 0.7,
+              "u": [
+                0.0,
+                -1.0
+              ],
+              "side": [
+                1.0,
+                0.0
+              ],
+              "center": [
+                0.45,
+                -0.14
+              ],
+              "projected_length_m": 1.58,
+              "notes": "Kazbek-inspired contoured seat envelope; 1.58m projected head-to-foot, bent knee, full back support; NOT certified"
+            },
+            {
+              "id": "NAV",
+              "role": "Navigation / Loom",
+              "eye": [
+                0.775,
+                -0.45,
+                0.45
+              ],
+              "base_x": 1.225,
+              "head": [
+                -0.45,
+                0.65
+              ],
+              "feet": [
+                -0.45,
+                -0.93
+              ],
+              "L": 1.58,
+              "width": 0.7,
+              "u": [
+                0.0,
+                -1.0
+              ],
+              "side": [
+                1.0,
+                0.0
+              ],
+              "center": [
+                -0.45,
+                -0.14
+              ],
+              "projected_length_m": 1.58,
+              "notes": "Kazbek-inspired contoured seat envelope; 1.58m projected head-to-foot, bent knee, full back support; NOT certified"
+            },
+            {
+              "id": "S1",
+              "role": "Captain / command",
+              "eye": [
+                2.55,
+                2.39,
+                2.39
+              ],
+              "base_x": 3.0,
+              "head": [
+                2.5587,
+                2.2826
+              ],
+              "feet": [
+                1.2262,
+                3.1315
+              ],
+              "L": 1.58,
+              "width": 0.7,
+              "u": [
+                -0.8433837703343497,
+                0.5373116562448808
+              ],
+              "side": [
+                -0.5373116562448808,
+                -0.8433837703343497
+              ],
+              "center": [
+                1.8924244959135654,
+                2.707034797595311
+              ],
+              "projected_length_m": 1.58,
+              "notes": "Kazbek-inspired contoured seat envelope; 1.58m projected head-to-foot, bent knee, full back support; NOT certified"
+            },
+            {
+              "id": "S2",
+              "role": "Sensors / EW",
+              "eye": [
+                2.55,
+                -2.39,
+                2.39
+              ],
+              "base_x": 3.0,
+              "head": [
+                -2.2826,
+                2.5587
+              ],
+              "feet": [
+                -3.1315,
+                1.2262
+              ],
+              "L": 1.58,
+              "width": 0.7,
+              "u": [
+                -0.5373116562448808,
+                -0.8433837703343496
+              ],
+              "side": [
+                0.8433837703343496,
+                -0.5373116562448808
+              ],
+              "center": [
+                -2.707034797595311,
+                1.8924244959135654
+              ],
+              "projected_length_m": 1.58,
+              "notes": "Kazbek-inspired contoured seat envelope; 1.58m projected head-to-foot, bent knee, full back support; NOT certified"
+            },
+            {
+              "id": "S3",
+              "role": "Engineering",
+              "eye": [
+                2.55,
+                -2.39,
+                -2.39
+              ],
+              "base_x": 3.0,
+              "head": [
+                -2.5587,
+                -2.2826
+              ],
+              "feet": [
+                -1.2262,
+                -3.1315
+              ],
+              "L": 1.58,
+              "width": 0.7,
+              "u": [
+                0.84338377033435,
+                -0.5373116562448802
+              ],
+              "side": [
+                0.5373116562448802,
+                0.84338377033435
+              ],
+              "center": [
+                -1.8924244959135634,
+                -2.7070347975953113
+              ],
+              "projected_length_m": 1.58,
+              "notes": "Kazbek-inspired contoured seat envelope; 1.58m projected head-to-foot, bent knee, full back support; NOT certified"
+            },
+            {
+              "id": "S4",
+              "role": "Mission operations",
+              "eye": [
+                2.55,
+                2.39,
+                -2.39
+              ],
+              "base_x": 3.0,
+              "head": [
+                2.2826,
+                -2.5587
+              ],
+              "feet": [
+                3.1315,
+                -1.2262
+              ],
+              "L": 1.58,
+              "width": 0.7,
+              "u": [
+                0.537311656244881,
+                0.8433837703343495
+              ],
+              "side": [
+                -0.8433837703343495,
+                0.537311656244881
+              ],
+              "center": [
+                2.70703479759531,
+                -1.8924244959135659
+              ],
+              "projected_length_m": 1.58,
+              "notes": "Kazbek-inspired contoured seat envelope; 1.58m projected head-to-foot, bent knee, full back support; NOT certified"
+            }
+          ],
+          "stand": {
+            "eye_xyz": [
+              2.38,
+              0.15,
+              1.35
+            ],
+            "anchor_yz": [
+              0.15,
+              1.35
+            ],
+            "foot_restraints": true,
+            "handholds": true,
+            "low_g_only": true
+          },
+          "settings": {
+            "radii_m": [
+              3.38,
+              3.38,
+              3.38,
+              3.38
+            ],
+            "angles_deg": [
+              45.0,
+              135.0,
+              225.0,
+              315.0
+            ],
+            "individual_yaws_deg": [
+              -2.0,
+              -2.0,
+              -2.0,
+              -2.0
+            ],
+            "display_angle_from_bow_deg": 35,
+            "stand_y_m": 0.15,
+            "stand_z_m": 1.35
+          },
+          "screens": [
+            {
+              "for_station": "PILOT",
+              "center_xyz": [
+                0.3245,
+                0.45,
+                0.1345
+              ],
+              "gaze_off_forward_deg": 35,
+              "eye_to_center_m": 0.55,
+              "normal_to_eye": [
+                0.8191520442889918,
+                -0.0,
+                0.573576436351046
+              ],
+              "half_width_m": 0.22,
+              "half_height_m": 0.14,
+              "controls_reach_proxy_m": 0.48
+            },
+            {
+              "for_station": "NAV",
+              "center_xyz": [
+                0.3245,
+                -0.45,
+                0.1345
+              ],
+              "gaze_off_forward_deg": 35,
+              "eye_to_center_m": 0.55,
+              "normal_to_eye": [
+                0.8191520442889918,
+                -0.0,
+                0.573576436351046
+              ],
+              "half_width_m": 0.22,
+              "half_height_m": 0.14,
+              "controls_reach_proxy_m": 0.48
+            },
+            {
+              "for_station": "S1",
+              "center_xyz": [
+                2.0995,
+                2.1239,
+                2.5595
+              ],
+              "gaze_off_forward_deg": 35,
+              "eye_to_center_m": 0.55,
+              "normal_to_eye": [
+                0.8191520442889918,
+                0.4837450574646854,
+                -0.30818930499881697
+              ],
+              "half_width_m": 0.22,
+              "half_height_m": 0.14,
+              "controls_reach_proxy_m": 0.48
+            },
+            {
+              "for_station": "S2",
+              "center_xyz": [
+                2.0995,
+                -2.5595,
+                2.1239
+              ],
+              "gaze_off_forward_deg": 35,
+              "eye_to_center_m": 0.55,
+              "normal_to_eye": [
+                0.8191520442889918,
+                0.30818930499881697,
+                0.4837450574646853
+              ],
+              "half_width_m": 0.22,
+              "half_height_m": 0.14,
+              "controls_reach_proxy_m": 0.48
+            },
+            {
+              "for_station": "S3",
+              "center_xyz": [
+                2.0995,
+                -2.1239,
+                -2.5595
+              ],
+              "gaze_off_forward_deg": 35,
+              "eye_to_center_m": 0.55,
+              "normal_to_eye": [
+                0.8191520442889918,
+                -0.48374505746468555,
+                0.30818930499881664
+              ],
+              "half_width_m": 0.22,
+              "half_height_m": 0.14,
+              "controls_reach_proxy_m": 0.48
+            },
+            {
+              "for_station": "S4",
+              "center_xyz": [
+                2.0995,
+                2.5595,
+                -2.1239
+              ],
+              "gaze_off_forward_deg": 35,
+              "eye_to_center_m": 0.55,
+              "normal_to_eye": [
+                0.8191520442889918,
+                -0.3081893049988171,
+                -0.48374505746468527
+              ],
+              "half_width_m": 0.22,
+              "half_height_m": 0.14,
+              "controls_reach_proxy_m": 0.48
+            }
+          ]
+        },
+        "screens": [
+          {
+            "for_station": "PILOT",
+            "center_xyz": [
+              0.3245,
+              0.45,
+              0.1345
+            ],
+            "gaze_off_forward_deg": 35,
+            "eye_to_center_m": 0.55,
+            "normal_to_eye": [
+              0.8191520442889918,
+              -0.0,
+              0.573576436351046
+            ],
+            "half_width_m": 0.22,
+            "half_height_m": 0.14,
+            "controls_reach_proxy_m": 0.48
+          },
+          {
+            "for_station": "NAV",
+            "center_xyz": [
+              0.3245,
+              -0.45,
+              0.1345
+            ],
+            "gaze_off_forward_deg": 35,
+            "eye_to_center_m": 0.55,
+            "normal_to_eye": [
+              0.8191520442889918,
+              -0.0,
+              0.573576436351046
+            ],
+            "half_width_m": 0.22,
+            "half_height_m": 0.14,
+            "controls_reach_proxy_m": 0.48
+          },
+          {
+            "for_station": "S1",
+            "center_xyz": [
+              2.0995,
+              2.1239,
+              2.5595
+            ],
+            "gaze_off_forward_deg": 35,
+            "eye_to_center_m": 0.55,
+            "normal_to_eye": [
+              0.8191520442889918,
+              0.4837450574646854,
+              -0.30818930499881697
+            ],
+            "half_width_m": 0.22,
+            "half_height_m": 0.14,
+            "controls_reach_proxy_m": 0.48
+          },
+          {
+            "for_station": "S2",
+            "center_xyz": [
+              2.0995,
+              -2.5595,
+              2.1239
+            ],
+            "gaze_off_forward_deg": 35,
+            "eye_to_center_m": 0.55,
+            "normal_to_eye": [
+              0.8191520442889918,
+              0.30818930499881697,
+              0.4837450574646853
+            ],
+            "half_width_m": 0.22,
+            "half_height_m": 0.14,
+            "controls_reach_proxy_m": 0.48
+          },
+          {
+            "for_station": "S3",
+            "center_xyz": [
+              2.0995,
+              -2.1239,
+              -2.5595
+            ],
+            "gaze_off_forward_deg": 35,
+            "eye_to_center_m": 0.55,
+            "normal_to_eye": [
+              0.8191520442889918,
+              -0.48374505746468555,
+              0.30818930499881664
+            ],
+            "half_width_m": 0.22,
+            "half_height_m": 0.14,
+            "controls_reach_proxy_m": 0.48
+          },
+          {
+            "for_station": "S4",
+            "center_xyz": [
+              2.0995,
+              2.5595,
+              -2.1239
+            ],
+            "gaze_off_forward_deg": 35,
+            "eye_to_center_m": 0.55,
+            "normal_to_eye": [
+              0.8191520442889918,
+              -0.3081893049988171,
+              -0.48374505746468527
+            ],
+            "half_width_m": 0.22,
+            "half_height_m": 0.14,
+            "controls_reach_proxy_m": 0.48
+          }
+        ],
+        "metrics": {
+          "path": {
+            "both_ladders": true,
+            "reachable_support": 4,
+            "route_cost_m": 5.46
+          },
+          "sightline": {
+            "PILOT": {
+              "forward_cone_60_fraction": 1.0,
+              "forward_hemisphere_geometric_fraction": 0.9427
+            },
+            "NAV": {
+              "forward_cone_60_fraction": 1.0,
+              "forward_hemisphere_geometric_fraction": 0.9453
+            },
+            "S1": {
+              "forward_cone_60_fraction": 0.55,
+              "forward_hemisphere_geometric_fraction": 0.2812
+            },
+            "S2": {
+              "forward_cone_60_fraction": 0.5375,
+              "forward_hemisphere_geometric_fraction": 0.2812
+            },
+            "S3": {
+              "forward_cone_60_fraction": 0.55,
+              "forward_hemisphere_geometric_fraction": 0.2786
+            },
+            "S4": {
+              "forward_cone_60_fraction": 0.5375,
+              "forward_hemisphere_geometric_fraction": 0.2786
+            }
+          },
+          "captain_stand_distance_m": 2.209,
+          "mean_support_forward_fraction": 0.2799,
+          "objective_proxy": 6.1226
+        },
+        "selected_sample": 0,
+        "geometry_proxy_only": true
+      }
+    },
+    {
+      "family": {
+        "id": "L1-C",
+        "name": "Paired mission pods",
+        "idea": "Side-by-side work teams on upper and lower arcs, facing shared displays",
+        "angles": [
+          65,
+          115,
+          245,
+          295
+        ],
+        "radii": [
+          3.05,
+          3.05,
+          3.05,
+          3.05
+        ],
+        "yaws": [
+          -12,
+          -12,
+          12,
+          12
+        ],
+        "stand": [
+          0,
+          1.05
+        ],
+        "display": 37,
+        "stand_style": "wide"
+      },
+      "valid": 6,
+      "failures": {
+        "2d_paths": 72,
+        "standing_overlap": 22
+      },
+      "chosen": {
+        "id": "L1-C",
+        "layout": {
+          "family": "L1-C",
+          "family_name": "Paired mission pods",
+          "family_idea": "Side-by-side work teams on upper and lower arcs, facing shared displays",
+          "stand_style": "wide",
+          "seats": [
+            {
+              "id": "PILOT",
+              "role": "Flight",
+              "eye": [
+                0.775,
+                0.45,
+                0.45
+              ],
+              "base_x": 1.225,
+              "head": [
+                0.45,
+                0.65
+              ],
+              "feet": [
+                0.45,
+                -0.93
+              ],
+              "L": 1.58,
+              "width": 0.7,
+              "u": [
+                0.0,
+                -1.0
+              ],
+              "side": [
+                1.0,
+                0.0
+              ],
+              "center": [
+                0.45,
+                -0.14
+              ],
+              "projected_length_m": 1.58,
+              "notes": "Kazbek-inspired contoured seat envelope; 1.58m projected head-to-foot, bent knee, full back support; NOT certified"
+            },
+            {
+              "id": "NAV",
+              "role": "Navigation / Loom",
+              "eye": [
+                0.775,
+                -0.45,
+                0.45
+              ],
+              "base_x": 1.225,
+              "head": [
+                -0.45,
+                0.65
+              ],
+              "feet": [
+                -0.45,
+                -0.93
+              ],
+              "L": 1.58,
+              "width": 0.7,
+              "u": [
+                0.0,
+                -1.0
+              ],
+              "side": [
+                1.0,
+                0.0
+              ],
+              "center": [
+                -0.45,
+                -0.14
+              ],
+              "projected_length_m": 1.58,
+              "notes": "Kazbek-inspired contoured seat envelope; 1.58m projected head-to-foot, bent knee, full back support; NOT certified"
+            },
+            {
+              "id": "S1",
+              "role": "Captain / command",
+              "eye": [
+                2.55,
+                1.397,
+                2.6608
+              ],
+              "base_x": 3.0,
+              "head": [
+                1.5722,
+                2.5643
+              ],
+              "feet": [
+                0.1883,
+                3.3266
+              ],
+              "L": 1.58,
+              "width": 0.7,
+              "u": [
+                -0.8759056546105609,
+                0.48248241856180096
+              ],
+              "side": [
+                -0.48248241856180096,
+                -0.8759056546105609
+              ],
+              "center": [
+                0.8802274736960123,
+                2.9454367970716175
+              ],
+              "projected_length_m": 1.58,
+              "notes": "Kazbek-inspired contoured seat envelope; 1.58m projected head-to-foot, bent knee, full back support; NOT certified"
+            },
+            {
+              "id": "S2",
+              "role": "Sensors / EW",
+              "eye": [
+                2.55,
+                -1.5049,
+                2.7493
+              ],
+              "base_x": 3.0,
+              "head": [
+                -1.3355,
+                2.8558
+              ],
+              "feet": [
+                -2.6733,
+                2.015
+              ],
+              "L": 1.58,
+              "width": 0.7,
+              "u": [
+                -0.8466626033386007,
+                -0.5321300932177239
+              ],
+              "side": [
+                0.5321300932177239,
+                -0.8466626033386007
+              ],
+              "center": [
+                -2.004397507082427,
+                2.435370452943907
+              ],
+              "projected_length_m": 1.58,
+              "notes": "Kazbek-inspired contoured seat envelope; 1.58m projected head-to-foot, bent knee, full back support; NOT certified"
+            },
+            {
+              "id": "S3",
+              "role": "Engineering",
+              "eye": [
+                2.55,
+                -1.3083,
+                -2.7544
+              ],
+              "base_x": 3.0,
+              "head": [
+                -1.5082,
+                -2.7576
+              ],
+              "feet": [
+                0.0716,
+                -2.7323
+              ],
+              "L": 1.58,
+              "width": 0.7,
+              "u": [
+                0.9998718248790822,
+                0.01601042825704105
+              ],
+              "side": [
+                -0.01601042825704105,
+                0.9998718248790822
+              ],
+              "center": [
+                -0.718345572414109,
+                -2.744971784990863
+              ],
+              "projected_length_m": 1.58,
+              "notes": "Kazbek-inspired contoured seat envelope; 1.58m projected head-to-foot, bent knee, full back support; NOT certified"
+            },
+            {
+              "id": "S4",
+              "role": "Mission operations",
+              "eye": [
+                2.55,
+                1.4487,
+                -2.7165
+              ],
+              "base_x": 3.0,
+              "head": [
+                1.3368,
+                -2.8822
+              ],
+              "feet": [
+                2.221,
+                -1.5728
+              ],
+              "L": 1.58,
+              "width": 0.7,
+              "u": [
+                0.5596523034947691,
+                0.8287275180618772
+              ],
+              "side": [
+                -0.8287275180618772,
+                0.5596523034947691
+              ],
+              "center": [
+                1.7789200379978936,
+                -2.227535923987566
+              ],
+              "projected_length_m": 1.58,
+              "notes": "Kazbek-inspired contoured seat envelope; 1.58m projected head-to-foot, bent knee, full back support; NOT certified"
+            }
+          ],
+          "stand": {
+            "eye_xyz": [
+              2.38,
+              -0.003656537143696001,
+              1.0913232082971114
+            ],
+            "anchor_yz": [
+              -0.003656537143696001,
+              1.0913232082971114
+            ],
+            "foot_restraints": true,
+            "handholds": true,
+            "low_g_only": true
+          },
+          "settings": {
+            "radii_m": [
+              3.005220547357957,
+              3.134234115878464,
+              3.0493258984493967,
+              3.0786516962125305
+            ],
+            "angles_deg": [
+              62.29873076116372,
+              118.6944502255445,
+              244.59361542447874,
+              298.07138825684757
+            ],
+            "individual_yaws_deg": [
+              -15.64557086789611,
+              -11.04414181073875,
+              11.824572215232699,
+              13.397674597338849
+            ],
+            "display_angle_from_bow_deg": 37,
+            "stand_y_m": -0.003656537143696001,
+            "stand_z_m": 1.0913232082971114
+          },
+          "screens": [
+            {
+              "for_station": "PILOT",
+              "center_xyz": [
+                0.3358,
+                0.45,
+                0.119
+              ],
+              "gaze_off_forward_deg": 37,
+              "eye_to_center_m": 0.55,
+              "normal_to_eye": [
+                0.7986355100472928,
+                -0.0,
+                0.6018150231520483
+              ],
+              "half_width_m": 0.22,
+              "half_height_m": 0.14,
+              "controls_reach_proxy_m": 0.48
+            },
+            {
+              "for_station": "NAV",
+              "center_xyz": [
+                0.3358,
+                -0.45,
+                0.119
+              ],
+              "gaze_off_forward_deg": 37,
+              "eye_to_center_m": 0.55,
+              "normal_to_eye": [
+                0.7986355100472928,
+                -0.0,
+                0.6018150231520483
+              ],
+              "half_width_m": 0.22,
+              "half_height_m": 0.14,
+              "controls_reach_proxy_m": 0.48
+            },
+            {
+              "for_station": "S1",
+              "center_xyz": [
+                2.1108,
+                1.1071,
+                2.8205
+              ],
+              "gaze_off_forward_deg": 37,
+              "eye_to_center_m": 0.55,
+              "normal_to_eye": [
+                0.7986355100472928,
+                0.5271331818084647,
+                -0.2903651678972265
+              ],
+              "half_width_m": 0.29,
+              "half_height_m": 0.14,
+              "controls_reach_proxy_m": 0.48
+            },
+            {
+              "for_station": "S2",
+              "center_xyz": [
+                2.1108,
+                -1.7851,
+                2.5732
+              ],
+              "gaze_off_forward_deg": 37,
+              "eye_to_center_m": 0.55,
+              "normal_to_eye": [
+                0.7986355100472928,
+                0.5095342742301934,
+                0.3202438843697261
+              ],
+              "half_width_m": 0.29,
+              "half_height_m": 0.14,
+              "controls_reach_proxy_m": 0.48
+            },
+            {
+              "for_station": "S3",
+              "center_xyz": [
+                2.1108,
+                -0.9773,
+                -2.7491
+              ],
+              "gaze_off_forward_deg": 37,
+              "eye_to_center_m": 0.55,
+              "normal_to_eye": [
+                0.7986355100472928,
+                -0.6017378854386856,
+                -0.009635316252185366
+              ],
+              "half_width_m": 0.29,
+              "half_height_m": 0.14,
+              "controls_reach_proxy_m": 0.48
+            },
+            {
+              "for_station": "S4",
+              "center_xyz": [
+                2.1108,
+                1.6339,
+                -2.4422
+              ],
+              "gaze_off_forward_deg": 37,
+              "eye_to_center_m": 0.55,
+              "normal_to_eye": [
+                0.7986355100472928,
+                -0.33680716398480165,
+                -0.4987406704691481
+              ],
+              "half_width_m": 0.29,
+              "half_height_m": 0.14,
+              "controls_reach_proxy_m": 0.48
+            }
+          ]
+        },
+        "screens": [
+          {
+            "for_station": "PILOT",
+            "center_xyz": [
+              0.3358,
+              0.45,
+              0.119
+            ],
+            "gaze_off_forward_deg": 37,
+            "eye_to_center_m": 0.55,
+            "normal_to_eye": [
+              0.7986355100472928,
