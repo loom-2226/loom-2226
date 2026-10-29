@@ -1,0 +1,43 @@
+{
+  "frame": "Source ship axial X mapped to render vertical H=4-X. Illustrated I4 Z-forward remains a distinct, nonphysical orientation.",
+  "hull": {
+    "inner_radius_m": 4.3,
+    "skin_t_m": 0.03,
+    "cylinder_shoulder_h_m": 1.65,
+    "bow_tip_h_m": 3.8,
+    "dome_axial_extent_m": 2.15,
+    "L1_visible_aft_h_m": 0.7000000000000002,
+    "source_cylinder_aft_h_m": -9.399999999999999
+  },
+  "source_L1_floor": {
+    "inner_hole_r_m": 0.9,
+    "outer_r_m": 4.15,
+    "top_h_m": 1.0,
+    "bottom_h_m": 0.7000000000000002
+  },
+  "shoulder_sensors": {
+    "radial_inner_m": 2.9,
+    "radial_outer_m": 4.15,
+    "source_x_reference_m": 2.0
+  },
+  "source_ladders": [
+    {
+      "y": 1.4,
+      "z": 0,
+      "diameter_m": 0.8
+    },
+    {
+      "y": -1.4,
+      "z": 0,
+      "diameter_m": 0.8
+    }
+  ],
+  "scope": "Source dimensions + hypothetical cutaway shell/ring graphics. Internal columns, lights and detail are conceptual, not qualified.",
+  "conflicts": {
+    "main_deck_area_m2": 65.608,
+    "main_deck_area_outside_source_L1_floor_outer_radius_m2": 13.783,
+    "main_deck_area_over_source_central_opening_m2": 2.545,
+    "source_8p6m_hull_not_fitted": true,
+    "note": "These are plan-area estimates. The original L1 annular floor and two ladder apertures are not incorporated into I4, so deck/floor conflict is real."
+  }
+}
