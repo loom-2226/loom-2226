@@ -2,8 +2,8 @@
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
  "status": "NON-GOVERNING SANDBOX certification run",
  "basis": "CERTIFICATION_BASIS.md v0.2 (agreed by Claude and Sol; PROPOSED to kT)",
- "geometry_sha256": "92905754eec2cae2ea50083803b419c830de7849ef69194e3a863c8a8efa03f1",
- "inputs_sha256": "dd1d7aa75af9d7254f0ab2190f72b7620ec079192150efe09e3701599a6aa4b2",
+ "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
+ "inputs_sha256": "3e56410f46e370a819904e9f548da9f8ab5f5976910c1ca52298602b30cbf7f1",
  "criteria_sha256": "5bf7777930bb8dc1e72460daf3b1e5a6776b7b9f266e68269f0e7d847823d980",
  "summary": {
   "G1": "PASS",
@@ -12,7 +12,7 @@
   "G4": "PASS-DECLARED",
   "G5": "PASS-DECLARED",
   "G6": "PASS-DECLARED",
-  "G7": "FAIL",
+  "G7": "PASS-DECLARED",
   "G8": "PASS",
   "G9": "PASS-DECLARED",
   "G10": "PASS-DECLARED",
@@ -122,12 +122,12 @@
       0.025,
       -0.357
      ],
-     "Ixx": 12448014.241386753,
-     "Iyy": 191624421.72760195,
-     "Izz": 192446923.30061877,
-     "Ixy": 115806.84898710705,
-     "Ixz": 1290768.3412278853,
-     "Iyz": 4216.0371439887385
+     "Ixx": 12447905.924661128,
+     "Iyy": 191624374.30637255,
+     "Izz": 192446862.40512243,
+     "Ixy": 115522.9383318862,
+     "Ixz": 1291109.0340141507,
+     "Iyz": 4159.741000656548
     },
     {
      "state": "S2",
@@ -138,12 +138,12 @@
       0.024,
       -0.342
      ],
-     "Ixx": 13016934.548737887,
-     "Iyy": 195569166.50889906,
-     "Izz": 196742931.19525874,
-     "Ixy": 105154.92606546753,
-     "Ixz": 1442943.4363583806,
-     "Iyz": 4025.1192030069906
+     "Ixx": 13016825.73947237,
+     "Iyy": 195569118.62182716,
+     "Izz": 196742870.27306494,
+     "Ixy": 104875.8526162965,
+     "Ixz": 1443278.3244973863,
+     "Iyz": 3968.6129402180813
     },
     {
      "state": "S3",
@@ -154,12 +154,12 @@
       0.027,
       -0.279
      ],
-     "Ixx": 11330091.95016465,
-     "Iyy": 190023000.39809275,
-     "Izz": 190533809.80100834,
-     "Ixy": 113077.05324001703,
-     "Ixz": 1334264.4266964814,
-     "Iyz": 4853.247057982255
+     "Ixx": 11329981.196513774,
+     "Iyy": 190022950.4794874,
+     "Izz": 190533748.9659627,
+     "Ixy": 112792.55599992641,
+     "Ixz": 1334605.82338459,
+     "Iyz": 4795.946611771826
     },
     {
      "state": "S4",
@@ -170,12 +170,12 @@
       0.031,
       -0.128
      ],
-     "Ixx": 9621693.238895785,
-     "Iyy": 186781270.14961892,
-     "Izz": 186856003.4109188,
-     "Ixy": 100677.61934697273,
-     "Ixz": 997306.9497305097,
-     "Iyz": 6723.930030114968
+     "Ixx": 9621577.834035465,
+     "Iyy": 186781215.4644255,
+     "Izz": 186855942.69125187,
+     "Ixy": 100397.67835156759,
+     "Ixz": 997642.8789249965,
+     "Iyz": 6664.712732735806
     },
     {
      "state": "S5",
@@ -186,12 +186,12 @@
       0.032,
       -0.133
      ],
-     "Ixx": 9567836.766555727,
-     "Iyy": 186314345.1776958,
-     "Izz": 186389791.04253766,
-     "Ixy": 99409.02295718658,
-     "Ixz": 998669.4812090547,
-     "Iyz": 6792.478622840061
+     "Ixx": 9567721.524915487,
+     "Iyy": 186314290.6282476,
+     "Izz": 186389730.350346,
+     "Ixy": 99129.54397906012,
+     "Ixz": 999004.8559828069,
+     "Iyz": 6733.334370932201
     },
     {
      "state": "S6",
@@ -202,12 +202,12 @@
       0.025,
       -0.366
      ],
-     "Ixx": 12390806.944839649,
-     "Iyy": 191170725.13179782,
-     "Izz": 191997313.0167428,
-     "Ixy": 114979.96526406438,
-     "Ixz": 1296128.5581256303,
-     "Iyz": 4141.053202756833
+     "Ixx": 12390698.939463662,
+     "Iyy": 191170678.00504196,
+     "Izz": 191997252.1381226,
+     "Ixy": 114696.3121031312,
+     "Ixz": 1296468.941918749,
+     "Iyz": 4084.889882397212
     },
     {
      "state": "S7",
@@ -218,12 +218,12 @@
       0.163,
       -0.31
      ],
-     "Ixx": 11720792.289463729,
-     "Iyy": 190889927.7396173,
-     "Izz": 191487953.7294205,
-     "Ixy": 483947.89481059904,
-     "Ixz": 1416510.3488137037,
-     "Iyz": 46775.4866121149
+     "Ixx": 11720686.137865912,
+     "Iyy": 190889878.8140895,
+     "Izz": 191487896.50335032,
+     "Ixy": 483662.28514293756,
+     "Ixz": 1416853.0804148975,
+     "Iyz": 46720.76533349689
     }
    ]
   },
@@ -1099,7 +1099,7 @@
   {
    "gate": "G7",
    "title": "Compartments and crew space",
-   "verdict": "FAIL",
+   "verdict": "PASS-DECLARED",
    "checks": [
     {
      "name": "people aboard",
@@ -1231,8 +1231,8 @@
     },
     {
      "name": "I4 human-factors source geometry hash",
-     "value": "92905754eec2cae2ea50083803b419c830de7849ef69194e3a863c8a8efa03f1",
-     "limit": "92905754eec2cae2ea50083803b419c830de7849ef69194e3a863c8a8efa03f1",
+     "value": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
+     "limit": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
      "unit": "",
      "pass": true,
      "note": ""
@@ -1246,19 +1246,19 @@
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
-     "name": "I4 human factors: 2p10m_99pct_couch_envelope",
-     "value": false,
+     "name": "I4 human factors: contoured_couch_nominal_length_1p58m",
+     "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
      "name": "I4 human factors: plan_seat_envelope_inside_annulus",
-     "value": false,
+     "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
@@ -1271,10 +1271,10 @@
     },
     {
      "name": "I4 human factors: 0p8m_walkway_to_floor_seats",
-     "value": false,
+     "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
@@ -1286,11 +1286,11 @@
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
-     "name": "I4 human factors: terrace_worst_corner_2p10m_standing_headroom",
-     "value": false,
+     "name": "I4 human factors: terrace_worst_corner_1p2m_crawl_clearance",
+     "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
@@ -1575,8 +1575,8 @@
    "checks": [
     {
      "name": "C: card names the geometry it was made from",
-     "value": "92905754eec2",
-     "limit": "92905754eec2",
+     "value": "ea1fcb59f1e0",
+     "limit": "ea1fcb59f1e0",
      "pass": true,
      "unit": "",
      "note": ""
@@ -1904,7 +1904,7 @@
     {
      "name": "images stamped with this geometry's hash",
      "value": "74e2293894af",
-     "limit": "92905754eec2",
+     "limit": "ea1fcb59f1e0",
      "unit": "",
      "pass": false,
      "note": ""
@@ -2069,7 +2069,7 @@
    "date": null
   }
  ],
- "kt_decisions_sha256": "0af8b3e1107be7077fbe912db8658ff73da5928411e070181878f2217644c90a",
+ "kt_decisions_sha256": "60cbdc61e0464e98588c1221f88777ae38d241b147b1cf2f951335403df82278",
  "certified": false,
  "certified_rule": "every gate PASS or PASS-DECLARED and every declared assumption ACCEPTED by kT; then both reviewers sign and loom-gate passes"
 }

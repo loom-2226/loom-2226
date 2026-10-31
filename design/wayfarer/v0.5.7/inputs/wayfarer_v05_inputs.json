@@ -609,12 +609,12 @@
        "role": "Mission operations",
        "base": "floor",
        "head_yz_m": [
-        2.1541,
-        -1.2675
+        1.9041,
+        -0.9675
        ],
        "feet_yz_m": [
-        2.7459,
-        -2.7325
+        2.4959,
+        -2.4325
        ]
       }
      ],
@@ -809,27 +809,32 @@
         "role": "Mission operations",
         "base_x": 2.95,
         "head": [
-         2.1541,
-         -1.2675
+         1.9041,
+         -0.9675
         ],
         "feet": [
-         2.7459,
-         -2.7325
+         2.4959,
+         -2.4325
         ],
         "eye": [
          2.86,
-         2.229,
-         -1.453
+         1.979,
+         -1.153
         ],
         "L": 1.58,
         "width": 0.7,
         "heading_deg": 22,
         "center_yz": [
-         2.45,
-         -2.0
+         2.2,
+         -1.7
         ],
         "source_viewer_base_x": 3.31,
-        "source_coordinates": "X ship axial; Y,Z transverse; bow -X"
+        "source_coordinates": "X ship axial; Y,Z transverse; bow -X",
+        "placement_step1c": {
+         "delta_y_m": -0.25,
+         "delta_z_m": 0.3,
+         "reason": "kT 2026-10-31 S4 entirely on source annulus with 0.8m walkway"
+        }
        }
       ],
       "platforms": {
@@ -899,6 +904,16 @@
        "od_m": 0.076,
        "mass_total_t": 0.016839083963936765,
        "prov": "Original Rev7 hardware allowance conserved; column size/loading must be requalified for revised height"
+      },
+      "i4_couch_acceptance": {
+       "decision": "kT: couch, not berth; nominal 1.58m contoured seats; hard point and 4g shape unknown",
+       "length_target_m": 1.58,
+       "status": "provisional I4 seat-shape screen only; physical occupant fit HOLD"
+      },
+      "terrace_access": {
+       "rule": "crawl, not standing",
+       "minimum_clearance_m": 1.2,
+       "status": "kT accepted for design check; hands/feet/transfer/egress physical verification HOLD"
       }
      }
     }
@@ -2586,5 +2601,14 @@
   "cryo_standby_kw": 10.0,
   "standby_prov": "ENGINEERING_ASSUMPTION (screening placeholders 10+10 kW, NOT sourced or qualified); editable, replace with measured/engineering budget"
  },
- "step1_lock_record": "KT 2026-10-31 constrained I4; Rev7 crown retained; no 1.2m nose extension"
+ "step1_lock_record": "KT 2026-10-31 constrained I4; Rev7 crown retained; no 1.2m nose extension",
+ "step1b_kT_update": {
+  "date": "2026-10-31",
+  "S4_shift_yz_m": [
+   -0.25,
+   0.3
+  ],
+  "couch_vs_berth": true,
+  "terrace_crawl_access_min_m": 1.2
+ }
 }

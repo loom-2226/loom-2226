@@ -1,0 +1,71 @@
+{
+  "fq": "FQ9",
+  "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
+  "phases": [
+    {
+      "index": 0,
+      "kind": "torch",
+      "mass_start": 1167681.453466738,
+      "mass_end": 1167340.623466737,
+      "propellant_kg": 340.83000000000396,
+      "t_start_s": 0.0,
+      "t_end_s": 60.00000000000058,
+      "attitude_error_deg": null,
+      "rate_deg_s": null,
+      "min_allocated_fraction": 1.0,
+      "depletion_steps": 0
+    },
+    {
+      "index": 1,
+      "kind": "coast",
+      "mass_start": 1167340.623466737,
+      "mass_end": 1167340.623466737,
+      "propellant_kg": 0.0,
+      "t_start_s": 60.00000000000058,
+      "t_end_s": 65.00000000000058,
+      "attitude_error_deg": null,
+      "rate_deg_s": null,
+      "min_allocated_fraction": 1.0,
+      "depletion_steps": 0
+    },
+    {
+      "index": 2,
+      "kind": "rcs_turn",
+      "mass_start": 1167340.623466737,
+      "mass_end": 1166872.081264401,
+      "propellant_kg": 468.5422023357072,
+      "t_start_s": 65.00000000000058,
+      "t_end_s": 188.99999999999355,
+      "attitude_error_deg": 6.387905582130731e-05,
+      "rate_deg_s": 8.47178758664663e-06,
+      "min_allocated_fraction": 1.0,
+      "depletion_steps": 0
+    },
+    {
+      "index": 3,
+      "kind": "torch",
+      "mass_start": 1166872.081264401,
+      "mass_end": 1166531.2512619598,
+      "propellant_kg": 340.8300024403261,
+      "t_start_s": 188.99999999999355,
+      "t_end_s": 248.99999999999014,
+      "attitude_error_deg": null,
+      "rate_deg_s": null,
+      "min_allocated_fraction": 1.0,
+      "depletion_steps": 0
+    }
+  ],
+  "mass_delta_kg": 1150.2022047783248,
+  "fuel_sum_kg": 1150.2022047760372,
+  "ledger_error_kg": 2.2876065486343578e-09,
+  "final_speed_m_s": 0.7626573714580483,
+  "final_state": {
+    "mass_kg": 1166531.2512619598,
+    "tanks_kg": {
+      "remass": 248849.79779522185
+    }
+  },
+  "qualification": "pass",
+  "warnings": [],
+  "runtime_s": 22.75344908516854
+}

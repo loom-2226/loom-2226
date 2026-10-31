@@ -105,7 +105,34 @@
   "drone_armour_option": "OPTION only, not baseline; gores remain baseline, drone bay HOLD",
   "node_faces": "ACCEPT armour-equivalent rule; placement HOLD PR #184",
   "external_equipment": "ACCEPT visible allowance 1.4208t editable; compare 0t without claiming fixed design",
-  "RCS": "PROPOSAL ONLY: unprotected remass water, nominal ve 1.96km/s (Isp 200s), NASA-TM-105877 laboratory water resistojet demonstrated Isp up to 234s at mN scale; scale and feed/heat/power unqualified",
-  "repo": "Design candidate step1 lock only; separate config/lab/results, no render or runtime changes"
+  "RCS": {
+   "decision": "ACCEPT (fuel source only)",
+   "fuel_source": "250t unprotected remass water inventory; never protected 50t water",
+   "exhaust_velocity": "VARIABLE (1.00 and 1.96km/s numerical screening only); no single baseline ve chosen",
+   "hardware": "32 original 25kN RCS nozzles/mounts unchanged; feed system physical design OPEN",
+   "feed_power": "OPEN; no hardware certification"
+  },
+  "repo": "Design candidate step1 lock only; separate config/lab/results, no render or runtime changes",
+  "L1_human_factors_step1c": "Couches assessed as 1.58m nominal contoured couches (NOT 2.10m flat berths); terrace clearance >=1.20m crawl; S4 shift Y-0.25m Z+0.30m, new geometry build required. Unverified 4g crew body/couch mount and actual obstruction sightline remain HOLD.",
+  "RCS_power": {
+   "status": "PENDING kT design selection",
+   "decision_alternatives": {
+    "A": "Plant heat on demand",
+    "B": "Charged hot-water storage"
+   },
+   "water_conditioning_J_kg": 2600000,
+   "ideal_exhaust_kinetic_J_kg": "0.5*ve_m_s^2",
+   "screening": {
+    "ve_1000_m_s": {
+     "flow_kg_s_at_25kN": 25.0,
+     "minimum_power_MW_per_nozzle": 77.5
+    },
+    "ve_1960_m_s": {
+     "flow_kg_s_at_25kN": 12.755102040816327,
+     "minimum_power_MW_per_nozzle": 57.663265306122454
+    }
+   },
+   "note": "minimum energy rate; no conversion losses/heater efficiency/tank draw, water superheat, off-state store recharging or rejection budget, no assumed free power"
+  }
  }
 }

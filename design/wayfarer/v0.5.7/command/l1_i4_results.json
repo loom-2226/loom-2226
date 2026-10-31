@@ -1,11 +1,11 @@
 {
-  "geometry_sha256": "92905754eec2cae2ea50083803b419c830de7849ef69194e3a863c8a8efa03f1",
-  "status": "Step1b I4 bounded structural plan/sightline upper-bound screening; DOES NOT qualify physical station occupancy",
+  "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
+  "status": "kT 2026-10-31 bounded I4 couch+crawl 1.2m rule; does NOT qualify physical occupant fit/egress",
   "couches": [
     {
       "id": "PILOT",
       "length_m": 1.58,
-      "min_2p10_m": false,
+      "contoured_couch_length_1p58m": true,
       "radius_head_m": 1.517,
       "radius_feet_m": 2.978,
       "within_4p15m_plan": true,
@@ -19,7 +19,7 @@
     {
       "id": "NAV",
       "length_m": 1.58,
-      "min_2p10_m": false,
+      "contoured_couch_length_1p58m": true,
       "radius_head_m": 3.29,
       "radius_feet_m": 1.71,
       "within_4p15m_plan": true,
@@ -33,7 +33,7 @@
     {
       "id": "S1",
       "length_m": 1.58,
-      "min_2p10_m": false,
+      "contoured_couch_length_1p58m": true,
       "radius_head_m": 1.517,
       "radius_feet_m": 2.978,
       "within_4p15m_plan": true,
@@ -47,7 +47,7 @@
     {
       "id": "S2",
       "length_m": 1.58,
-      "min_2p10_m": false,
+      "contoured_couch_length_1p58m": true,
       "radius_head_m": 2.479,
       "radius_feet_m": 3.511,
       "within_4p15m_plan": true,
@@ -61,7 +61,7 @@
     {
       "id": "S3",
       "length_m": 1.58,
-      "min_2p10_m": false,
+      "contoured_couch_length_1p58m": true,
       "radius_head_m": 2.479,
       "radius_feet_m": 3.511,
       "within_4p15m_plan": true,
@@ -75,13 +75,13 @@
     {
       "id": "S4",
       "length_m": 1.58,
-      "min_2p10_m": false,
-      "radius_head_m": 2.499,
-      "radius_feet_m": 3.874,
-      "within_4p15m_plan": false,
+      "contoured_couch_length_1p58m": true,
+      "radius_head_m": 2.136,
+      "radius_feet_m": 3.485,
+      "within_4p15m_plan": true,
       "eye_x_m": 2.5,
       "sightline": {
-        "visible_upper_bound": 0.547,
+        "visible_upper_bound": 0.789,
         "eye_inside_shell": true,
         "model": "upper bound ONLY; panes open, no Osteon/sensor/other occupant blocking"
       }
@@ -90,8 +90,8 @@
   "walkways": {
     "grid_step_m": 0.1,
     "path_half_width_m": 0.4,
-    "walkable_cells": 1149,
-    "connected_cells": 980,
+    "walkable_cells": 1140,
+    "connected_cells": 971,
     "to_seats": {
       "PILOT": {
         "reachable_floor_clearance_to_seat_edge_m": 0.485,
@@ -119,8 +119,8 @@
         "requires_vertical_transfer": false
       },
       "S4": {
-        "reachable_floor_clearance_to_seat_edge_m": 0.522,
-        "reachable_with_0p8m_route_to_seat_edge": false,
+        "reachable_floor_clearance_to_seat_edge_m": 0.408,
+        "reachable_with_0p8m_route_to_seat_edge": true,
         "requires_vertical_transfer": false
       }
     }
@@ -155,18 +155,18 @@
   },
   "checks": {
     "six_role_seats_present": true,
-    "2p10m_99pct_couch_envelope": false,
-    "plan_seat_envelope_inside_annulus": false,
+    "contoured_couch_nominal_length_1p58m": true,
+    "plan_seat_envelope_inside_annulus": true,
     "pilot_captain_crown_60deg_upper_bound_ge_0p90": true,
-    "0p8m_walkway_to_floor_seats": false,
+    "0p8m_walkway_to_floor_seats": true,
     "both_ladders_landings_clear": true,
-    "terrace_worst_corner_2p10m_standing_headroom": false
+    "terrace_worst_corner_1p2m_crawl_clearance": true
   },
   "known_HOLD": [
-    "nominal I4 seat 1.58m envelope below 2.10m criterion",
+    "1.58m I4 contoured seat accepted as couch for plan screen, but knees-up occupant clearance and 4g hard-point fit HOLD",
     "sightlines optimistic: Osteon ribs/sensors/pane shutter and other obstacles unmodelled",
     "walkway 2D floor only, not raised-terrrace egress and ladder handholds",
-    "bare shell clearance not occupant headroom",
+    "bare shell clearance against 1.2m crawl threshold is an optimistic upper bound, not certified access",
     "platform loads beyond isolated 4-column beam check unqualified"
   ]
 }

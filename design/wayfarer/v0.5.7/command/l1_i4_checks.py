@@ -60,7 +60,7 @@ verts=[(deck['y_m'][0]+cut,deck['z_m'][0]),(deck['y_m'][1]-cut,deck['z_m'][0]),
        (deck['y_m'][0],deck['z_m'][1]),(deck['y_m'][1],deck['z_m'][1])]
 ch=min(front-dome(math.hypot(y,z)) for y,z in verts)
 couch=[{'id':s['id'],'length_m':round(math.dist(s['head'],s['feet']),4),
-        'min_2p10_m':round(math.dist(s['head'],s['feet']),4)>=2.10-1e-5,
+        'contoured_couch_length_1p58m':round(math.dist(s['head'],s['feet']),4)>=1.58-1e-5,
         'radius_head_m':round(math.hypot(*s['head']),3),'radius_feet_m':round(math.hypot(*s['feet']),3),
         'within_4p15m_plan':max(math.hypot(*s['head']),math.hypot(*s['feet']))+.35<=4.15,
         'eye_x_m':round(s['base_x']-.45,3),'sightline':ray_fraction(s)}
@@ -98,23 +98,23 @@ landings={'none_overlapped_by_terrace_or_nav':all(not inside_rect(x['y_m'],x['z_
           'both_ladders_in_same_connected_walk_region':all(x in seen for x in start)}
 checks={
 'six_role_seats_present':len(seats)==6 and len(set(s['id'] for s in seats))==6,
-'2p10m_99pct_couch_envelope':all(x['min_2p10_m'] for x in couch),
+'contoured_couch_nominal_length_1p58m':all(x['contoured_couch_length_1p58m'] for x in couch),
 'plan_seat_envelope_inside_annulus':all(x['within_4p15m_plan'] for x in couch),
 'pilot_captain_crown_60deg_upper_bound_ge_0p90':all(x['sightline']['visible_upper_bound']>=.9 for x in couch if x['id'] in ('PILOT','S1')),
 '0p8m_walkway_to_floor_seats':all(reach[k]['reachable_with_0p8m_route_to_seat_edge'] for k in ('S2','S3','S4')),
 'both_ladders_landings_clear':landings['none_overlapped_by_terrace_or_nav'] and landings['both_ladders_in_same_connected_walk_region'],
-'terrace_worst_corner_2p10m_standing_headroom':raw>=2.1,
+'terrace_worst_corner_1p2m_crawl_clearance':raw>=1.2,
 }
-out={'geometry_sha256':H,'status':'Step1b I4 bounded structural plan/sightline upper-bound screening; DOES NOT qualify physical station occupancy',
+out={'geometry_sha256':H,'status':'kT 2026-10-31 bounded I4 couch+crawl 1.2m rule; does NOT qualify physical occupant fit/egress',
 'couches':couch,'walkways':{'grid_step_m':step,'path_half_width_m':.4,'walkable_cells':len(walkable),'connected_cells':len(seen),'to_seats':reach},
 'ladders':{'holes':ladder_holes,'checks':landings},
 'headroom':{'terrace_center_m':round(front-dome(1.96),3),'worst_corner_m':round(raw,3),
            'chamfer_OPTION_not_geometry':{'cut_m':cut,'worst_corner_m':round(ch,3),'gain_m':round(ch-raw,3),
                                         'note':'trim two symmetric outer-forward plan corners; theoretical shell envelope only; reduces usable deck area, no recomputed mass/CG/inertia'}},
-'checks':checks,'known_HOLD':['nominal I4 seat 1.58m envelope below 2.10m criterion',
+'checks':checks,'known_HOLD':['1.58m I4 contoured seat accepted as couch for plan screen, but knees-up occupant clearance and 4g hard-point fit HOLD',
  'sightlines optimistic: Osteon ribs/sensors/pane shutter and other obstacles unmodelled',
  'walkway 2D floor only, not raised-terrrace egress and ladder handholds',
- 'bare shell clearance not occupant headroom','platform loads beyond isolated 4-column beam check unqualified']}
+ 'bare shell clearance against 1.2m crawl threshold is an optimistic upper bound, not certified access','platform loads beyond isolated 4-column beam check unqualified']}
 outpath=ROOT/'command/l1_i4_results.json'
 outpath.write_text(json.dumps(out,indent=2))
 print(json.dumps({'geometry_sha256':H,'checks':checks,'headroom':out['headroom'],'crown_upper_bound':{x['id']:x['sightline']['visible_upper_bound'] for x in couch},'paths':reach},indent=2))
