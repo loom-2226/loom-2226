@@ -1,0 +1,24 @@
+{
+  "scope": "step-end moving-vector and actuator discretization sensitivity; not an error bound",
+  "dt_0.02_s": {
+    "attitude_error_deg": 0.028993430157378857,
+    "rate_deg_s": 0.01869325888314345,
+    "peak_force_N": 7066.948852720504,
+    "peak_offaxis_torque_Nm": 71698.25114425791,
+    "residual_velocity_m_s": 0.003044672773649513
+  },
+  "dt_0.01_s": {
+    "attitude_error_deg": 0.026577325581277348,
+    "rate_deg_s": 0.017025630120164493,
+    "peak_force_N": 7491.736114502026,
+    "peak_offaxis_torque_Nm": 77452.39499479554,
+    "residual_velocity_m_s": 0.003108264590780049
+  },
+  "fine_minus_coarse": {
+    "attitude_error_deg": -0.002416104576101509,
+    "rate_deg_s": -0.0016676287629789587,
+    "peak_force_N": 424.7872617815219,
+    "peak_offaxis_torque_Nm": 5754.143850537628,
+    "residual_velocity_m_s": 6.359181713053597e-05
+  }
+}

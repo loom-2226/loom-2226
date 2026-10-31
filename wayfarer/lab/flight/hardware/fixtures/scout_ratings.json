@@ -1,0 +1,304 @@
+{
+  "scope": "HYPOTHETICAL NON-CANON synthetic rating and temperature/load inputs; no measured hardware evidence",
+  "engine_ratings": {
+    "default": {
+      "thrust_N": 4000.0
+    },
+    "by_id": {
+      "F+Y_inward_extra_gimbal": {
+        "thrust_N": 12000.0
+      },
+      "F+Z_inward_extra_gimbal": {
+        "thrust_N": 12000.0
+      },
+      "F-Y_inward_extra_gimbal": {
+        "thrust_N": 12000.0
+      },
+      "F-Z_inward_extra_gimbal": {
+        "thrust_N": 12000.0
+      },
+      "A+Y_inward_extra_gimbal": {
+        "thrust_N": 12000.0
+      },
+      "A+Z_inward_extra_gimbal": {
+        "thrust_N": 12000.0
+      },
+      "A-Y_inward_extra_gimbal": {
+        "thrust_N": 12000.0
+      },
+      "A-Z_inward_extra_gimbal": {
+        "thrust_N": 12000.0
+      },
+      "scout_torch": {
+        "thrust_N": 300000.0
+      }
+    }
+  },
+  "feed_ratings": {
+    "by_id": {
+      "prop": {
+        "peak_flow_kg_s": 1.0
+      },
+      "rcs_prop": {
+        "peak_flow_kg_s": 2.0
+      }
+    }
+  },
+  "mount_ratings": {
+    "default": {
+      "force_N": 25000.0,
+      "dynamic_factor": 1.5
+    },
+    "by_id": {
+      "-4.2,2.3,0": {
+        "force_N": 100.0
+      }
+    }
+  },
+  "plume": {
+    "half_angle_deg": 5.0,
+    "length_m": 1.0,
+    "composition": "synthetic exhaust; chemistry unverified"
+  },
+  "geometry": {
+    "deployment": "fixture fixed; hypothetical sphere envelopes",
+    "sphere_envelopes": [
+      {
+        "id": "scout_hull_cylinder_cover_0",
+        "center_m": [
+          -5.75,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_1",
+        "center_m": [
+          -5.25,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_2",
+        "center_m": [
+          -4.75,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_3",
+        "center_m": [
+          -4.25,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_4",
+        "center_m": [
+          -3.75,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_5",
+        "center_m": [
+          -3.25,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_6",
+        "center_m": [
+          -2.75,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_7",
+        "center_m": [
+          -2.25,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_8",
+        "center_m": [
+          -1.75,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_9",
+        "center_m": [
+          -1.25,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_10",
+        "center_m": [
+          -0.75,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_11",
+        "center_m": [
+          -0.25,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_12",
+        "center_m": [
+          0.25,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_13",
+        "center_m": [
+          0.75,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_14",
+        "center_m": [
+          1.25,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_15",
+        "center_m": [
+          1.75,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_16",
+        "center_m": [
+          2.25,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_17",
+        "center_m": [
+          2.75,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_18",
+        "center_m": [
+          3.25,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_19",
+        "center_m": [
+          3.75,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_20",
+        "center_m": [
+          4.25,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_21",
+        "center_m": [
+          4.75,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_22",
+        "center_m": [
+          5.25,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      },
+      {
+        "id": "scout_hull_cylinder_cover_23",
+        "center_m": [
+          5.75,
+          0,
+          0
+        ],
+        "radius_m": 2.0155644370746373
+      }
+    ],
+    "construction": "Conservative sphere cover of declared 12 m long, 2 m radius Scout cylinder, every 0.5 m. Aft mounts inherited from Scout fixture may be inside the cylinder."
+  },
+  "thermal": {
+    "default": {
+      "peak_K": 700.0,
+      "rating_K": 900.0,
+      "load_W": 5000.0,
+      "capacity_W": 10000.0
+    },
+    "by_id": {
+      "F+Y_inward_extra_gimbal": {
+        "rating_K": 650.0
+      }
+    }
+  },
+  "intentional_failures": [
+    "100 N force rating at first fore mount",
+    "650 K rating against 700 K declared peak at first added gimbal",
+    "coarse cylinder clearance exposes inherited aft mounts inside the declared hull envelope"
+  ],
+  "evidence_gaps": "All physical supplier/acceptance/material/endurance evidence remains absent; fully declared means numerical fixture inputs only."
+}

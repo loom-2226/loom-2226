@@ -1,0 +1,717 @@
+{
+  "name": "Scout example cylinder; non-canon",
+  "provenance": {
+    "source": "authored scratch fixture, cylinder 90 t, length 12 m, radius 2 m"
+  },
+  "base": {
+    "mass_kg": 90000.0,
+    "cg_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "inertia_kg_m2": [
+      [
+        180000.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1170000.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1170000.0
+      ]
+    ]
+  },
+  "components": [],
+  "tanks": [
+    {
+      "id": "prop",
+      "capacity_kg": 10000.0,
+      "initial_kg": 10000.0,
+      "cg_m": [
+        0,
+        0,
+        0
+      ],
+      "inertia_full_kg_m2": [
+        [
+          20000.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          100000.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          100000.0
+        ]
+      ]
+    }
+  ],
+  "rcs": [
+    {
+      "id": "F+Y_inward",
+      "pos_m": [
+        -4.2,
+        2.3,
+        0.0
+      ],
+      "direction": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "F+Y_tan+",
+      "pos_m": [
+        -4.2,
+        2.3,
+        0.0
+      ],
+      "direction": [
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "F+Y_tan-",
+      "pos_m": [
+        -4.2,
+        2.3,
+        0.0
+      ],
+      "direction": [
+        -0.0,
+        0.0,
+        -1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "F+Y_axial",
+      "pos_m": [
+        -4.2,
+        2.3,
+        0.0
+      ],
+      "direction": [
+        0.984807753012208,
+        -0.1736481776669303,
+        -0.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "F+Z_inward",
+      "pos_m": [
+        -4.2,
+        1.408343819019456e-16,
+        2.3
+      ],
+      "direction": [
+        -0.0,
+        -6.123233995736766e-17,
+        -1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "F+Z_tan+",
+      "pos_m": [
+        -4.2,
+        1.408343819019456e-16,
+        2.3
+      ],
+      "direction": [
+        0.0,
+        -1.0,
+        6.123233995736766e-17
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "F+Z_tan-",
+      "pos_m": [
+        -4.2,
+        1.408343819019456e-16,
+        2.3
+      ],
+      "direction": [
+        -0.0,
+        1.0,
+        -6.123233995736766e-17
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "F+Z_axial",
+      "pos_m": [
+        -4.2,
+        1.408343819019456e-16,
+        2.3
+      ],
+      "direction": [
+        0.984807753012208,
+        -1.0632884247878856e-17,
+        -0.1736481776669303
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "F-Y_inward",
+      "pos_m": [
+        -4.2,
+        -2.3,
+        2.816687638038912e-16
+      ],
+      "direction": [
+        -0.0,
+        1.0,
+        -1.2246467991473532e-16
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "F-Y_tan+",
+      "pos_m": [
+        -4.2,
+        -2.3,
+        2.816687638038912e-16
+      ],
+      "direction": [
+        0.0,
+        -1.2246467991473532e-16,
+        -1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "F-Y_tan-",
+      "pos_m": [
+        -4.2,
+        -2.3,
+        2.816687638038912e-16
+      ],
+      "direction": [
+        -0.0,
+        1.2246467991473532e-16,
+        1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "F-Y_axial",
+      "pos_m": [
+        -4.2,
+        -2.3,
+        2.816687638038912e-16
+      ],
+      "direction": [
+        0.984807753012208,
+        0.1736481776669303,
+        -2.1265768495757713e-17
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "F-Z_inward",
+      "pos_m": [
+        -4.2,
+        -4.225031457058368e-16,
+        -2.3
+      ],
+      "direction": [
+        -0.0,
+        1.8369701987210297e-16,
+        1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "F-Z_tan+",
+      "pos_m": [
+        -4.2,
+        -4.225031457058368e-16,
+        -2.3
+      ],
+      "direction": [
+        0.0,
+        1.0,
+        -1.8369701987210297e-16
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "F-Z_tan-",
+      "pos_m": [
+        -4.2,
+        -4.225031457058368e-16,
+        -2.3
+      ],
+      "direction": [
+        -0.0,
+        -1.0,
+        1.8369701987210297e-16
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "F-Z_axial",
+      "pos_m": [
+        -4.2,
+        -4.225031457058368e-16,
+        -2.3
+      ],
+      "direction": [
+        0.984807753012208,
+        3.1898652743636566e-17,
+        0.1736481776669303
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "A+Y_inward",
+      "pos_m": [
+        4.0,
+        1.32,
+        -0.10000000000000003
+      ],
+      "direction": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "A+Y_tan+",
+      "pos_m": [
+        4.0,
+        1.32,
+        -0.10000000000000003
+      ],
+      "direction": [
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "A+Y_tan-",
+      "pos_m": [
+        4.0,
+        1.32,
+        -0.10000000000000003
+      ],
+      "direction": [
+        -0.0,
+        0.0,
+        -1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "A+Y_axial",
+      "pos_m": [
+        4.0,
+        1.32,
+        -0.10000000000000003
+      ],
+      "direction": [
+        -0.984807753012208,
+        -0.1736481776669303,
+        -0.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "A+Z_inward",
+      "pos_m": [
+        4.0,
+        0.02000000000000007,
+        1.2
+      ],
+      "direction": [
+        -0.0,
+        -6.123233995736766e-17,
+        -1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "A+Z_tan+",
+      "pos_m": [
+        4.0,
+        0.02000000000000007,
+        1.2
+      ],
+      "direction": [
+        0.0,
+        -1.0,
+        6.123233995736766e-17
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "A+Z_tan-",
+      "pos_m": [
+        4.0,
+        0.02000000000000007,
+        1.2
+      ],
+      "direction": [
+        -0.0,
+        1.0,
+        -6.123233995736766e-17
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "A+Z_axial",
+      "pos_m": [
+        4.0,
+        0.02000000000000007,
+        1.2
+      ],
+      "direction": [
+        -0.984807753012208,
+        -1.0632884247878856e-17,
+        -0.1736481776669303
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "A-Y_inward",
+      "pos_m": [
+        4.0,
+        -1.28,
+        -0.09999999999999988
+      ],
+      "direction": [
+        -0.0,
+        1.0,
+        -1.2246467991473532e-16
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "A-Y_tan+",
+      "pos_m": [
+        4.0,
+        -1.28,
+        -0.09999999999999988
+      ],
+      "direction": [
+        0.0,
+        -1.2246467991473532e-16,
+        -1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "A-Y_tan-",
+      "pos_m": [
+        4.0,
+        -1.28,
+        -0.09999999999999988
+      ],
+      "direction": [
+        -0.0,
+        1.2246467991473532e-16,
+        1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "A-Y_axial",
+      "pos_m": [
+        4.0,
+        -1.28,
+        -0.09999999999999988
+      ],
+      "direction": [
+        -0.984807753012208,
+        0.1736481776669303,
+        -2.1265768495757713e-17
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "A-Z_inward",
+      "pos_m": [
+        4.0,
+        0.01999999999999975,
+        -1.4000000000000001
+      ],
+      "direction": [
+        -0.0,
+        1.8369701987210297e-16,
+        1.0
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "A-Z_tan+",
+      "pos_m": [
+        4.0,
+        0.01999999999999975,
+        -1.4000000000000001
+      ],
+      "direction": [
+        0.0,
+        1.0,
+        -1.8369701987210297e-16
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "A-Z_tan-",
+      "pos_m": [
+        4.0,
+        0.01999999999999975,
+        -1.4000000000000001
+      ],
+      "direction": [
+        -0.0,
+        -1.0,
+        1.8369701987210297e-16
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    },
+    {
+      "id": "A-Z_axial",
+      "pos_m": [
+        4.0,
+        0.01999999999999975,
+        -1.4000000000000001
+      ],
+      "direction": [
+        -0.984807753012208,
+        3.1898652743636566e-17,
+        0.1736481776669303
+      ],
+      "max_N": 4000.0,
+      "lag_s": 0.05,
+      "command_slew_fullscale_s": 10.0,
+      "tank": "prop",
+      "ve_m_s": 30000.0
+    }
+  ],
+  "torch": [
+    {
+      "id": "scout_torch",
+      "pos_m": [
+        6.5,
+        0,
+        0
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "modes": {
+        "CRUISE": {
+          "max_N": 300000.0,
+          "ve_m_s": 500000.0
+        }
+      },
+      "tank": "prop",
+      "gimbal_limit_deg": 1.0,
+      "auto_trim": true
+    }
+  ],
+  "metric": {
+    "canonical": {
+      "law": "canonical_envelope",
+      "modes": {
+        "NORMAL": {
+          "beta": 0.268,
+          "ramp_s": 10.0,
+          "cold_load_W": 20000.0
+        },
+        "FAST": {
+          "beta": 0.437,
+          "ramp_s": 12.0,
+          "cold_load_W": 38100.0
+        },
+        "EXPEDITE": {
+          "beta": 0.519,
+          "ramp_s": 15.0,
+          "cold_load_W": 63500.0
+        },
+        "HARD": {
+          "beta": 0.595,
+          "ramp_s": 30.0,
+          "cold_load_W": 136000.0
+        }
+      },
+      "epistemic": "mode envelope only; physical arrival unresolved"
+    },
+    "experimental_shift": {
+      "law": "experimental_coordinate_shift",
+      "modes": {
+        "NORMAL": {
+          "beta": 0.268,
+          "ramp_s": 10.0,
+          "cold_load_W": 20000.0
+        },
+        "FAST": {
+          "beta": 0.437,
+          "ramp_s": 12.0,
+          "cold_load_W": 38100.0
+        },
+        "EXPEDITE": {
+          "beta": 0.519,
+          "ramp_s": 15.0,
+          "cold_load_W": 63500.0
+        },
+        "HARD": {
+          "beta": 0.595,
+          "ramp_s": 30.0,
+          "cold_load_W": 136000.0
+        }
+      },
+      "epistemic": "stipulated coordinate translation without ordinary delta-v; non-canon"
+    }
+  }
+}

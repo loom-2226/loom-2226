@@ -1,0 +1,39 @@
+{
+  "name": "combined",
+  "phases": [
+    {
+      "kind": "torch",
+      "duration_s": 120,
+      "mode": "CRUISE"
+    },
+    {
+      "kind": "coast",
+      "duration_s": 60
+    },
+    {
+      "kind": "rcs_turn",
+      "duration_s": 40,
+      "axis": "pitch"
+    },
+    {
+      "kind": "metric",
+      "duration_s": 80,
+      "model": "experimental_shift",
+      "mode": "NORMAL"
+    }
+  ],
+  "checks": {
+    "attitude_error_deg": {
+      "max": 0.25
+    },
+    "rate_deg_s": {
+      "max": 0.05
+    },
+    "known_propellant_used_kg": {
+      "min": 1
+    },
+    "metric_path_m": {
+      "min": 1
+    }
+  }
+}

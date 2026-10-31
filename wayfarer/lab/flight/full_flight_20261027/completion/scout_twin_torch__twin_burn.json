@@ -1,0 +1,506 @@
+{
+  "ship": "Scout hypothetical twin torch and independent tanks",
+  "experiment": "twin_burn",
+  "ship_sha256": "01a7a4dc1d96b55e2d8f19c57c845c443c76f8bba4bc414a1dfb5e8a43d67984",
+  "experiment_sha256": "f516bdcceffdf7590ac09179f11d96281a4db253489ecbd7dc80ec648bf07460",
+  "dt_s": 0.02,
+  "phases": [
+    {
+      "actuators_start": {
+        "rcs_cmd": {
+          "F+Y_inward": 0.0,
+          "F+Y_tan+": 0.0,
+          "F+Y_tan-": 0.0,
+          "F+Y_axial": 0.0,
+          "F+Z_inward": 0.0,
+          "F+Z_tan+": 0.0,
+          "F+Z_tan-": 0.0,
+          "F+Z_axial": 0.0,
+          "F-Y_inward": 0.0,
+          "F-Y_tan+": 0.0,
+          "F-Y_tan-": 0.0,
+          "F-Y_axial": 0.0,
+          "F-Z_inward": 0.0,
+          "F-Z_tan+": 0.0,
+          "F-Z_tan-": 0.0,
+          "F-Z_axial": 0.0,
+          "A+Y_inward": 0.0,
+          "A+Y_tan+": 0.0,
+          "A+Y_tan-": 0.0,
+          "A+Y_axial": 0.0,
+          "A+Z_inward": 0.0,
+          "A+Z_tan+": 0.0,
+          "A+Z_tan-": 0.0,
+          "A+Z_axial": 0.0,
+          "A-Y_inward": 0.0,
+          "A-Y_tan+": 0.0,
+          "A-Y_tan-": 0.0,
+          "A-Y_axial": 0.0,
+          "A-Z_inward": 0.0,
+          "A-Z_tan+": 0.0,
+          "A-Z_tan-": 0.0,
+          "A-Z_axial": 0.0,
+          "F+Y_inward_extra_gimbal": 0.0,
+          "F+Z_inward_extra_gimbal": 0.0,
+          "F-Y_inward_extra_gimbal": 0.0,
+          "F-Z_inward_extra_gimbal": 0.0,
+          "A+Y_inward_extra_gimbal": 0.0,
+          "A+Z_inward_extra_gimbal": 0.0,
+          "A-Y_inward_extra_gimbal": 0.0,
+          "A-Z_inward_extra_gimbal": 0.0
+        },
+        "rcs_act": {
+          "F+Y_inward": 0.0,
+          "F+Y_tan+": 0.0,
+          "F+Y_tan-": 0.0,
+          "F+Y_axial": 0.0,
+          "F+Z_inward": 0.0,
+          "F+Z_tan+": 0.0,
+          "F+Z_tan-": 0.0,
+          "F+Z_axial": 0.0,
+          "F-Y_inward": 0.0,
+          "F-Y_tan+": 0.0,
+          "F-Y_tan-": 0.0,
+          "F-Y_axial": 0.0,
+          "F-Z_inward": 0.0,
+          "F-Z_tan+": 0.0,
+          "F-Z_tan-": 0.0,
+          "F-Z_axial": 0.0,
+          "A+Y_inward": 0.0,
+          "A+Y_tan+": 0.0,
+          "A+Y_tan-": 0.0,
+          "A+Y_axial": 0.0,
+          "A+Z_inward": 0.0,
+          "A+Z_tan+": 0.0,
+          "A+Z_tan-": 0.0,
+          "A+Z_axial": 0.0,
+          "A-Y_inward": 0.0,
+          "A-Y_tan+": 0.0,
+          "A-Y_tan-": 0.0,
+          "A-Y_axial": 0.0,
+          "A-Z_inward": 0.0,
+          "A-Z_tan+": 0.0,
+          "A-Z_tan-": 0.0,
+          "A-Z_axial": 0.0,
+          "F+Y_inward_extra_gimbal": 0.0,
+          "F+Z_inward_extra_gimbal": 0.0,
+          "F-Y_inward_extra_gimbal": 0.0,
+          "F-Z_inward_extra_gimbal": 0.0,
+          "A+Y_inward_extra_gimbal": 0.0,
+          "A+Z_inward_extra_gimbal": 0.0,
+          "A-Y_inward_extra_gimbal": 0.0,
+          "A-Z_inward_extra_gimbal": 0.0
+        },
+        "torch_cmd": {
+          "torch_port": 0.0,
+          "torch_starboard": 0.0
+        },
+        "torch_act": {
+          "torch_port": 0.0,
+          "torch_starboard": 0.0
+        },
+        "gimbal_angles_deg": {
+          "F+Y_inward_extra_gimbal": [
+            0.0,
+            0.0
+          ],
+          "F+Z_inward_extra_gimbal": [
+            0.0,
+            0.0
+          ],
+          "F-Y_inward_extra_gimbal": [
+            0.0,
+            0.0
+          ],
+          "F-Z_inward_extra_gimbal": [
+            0.0,
+            0.0
+          ],
+          "A+Y_inward_extra_gimbal": [
+            0.0,
+            0.0
+          ],
+          "A+Z_inward_extra_gimbal": [
+            0.0,
+            0.0
+          ],
+          "A-Y_inward_extra_gimbal": [
+            0.0,
+            0.0
+          ],
+          "A-Z_inward_extra_gimbal": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "actuators_end": {
+        "rcs_cmd": {
+          "F+Y_inward": 0.0,
+          "F+Y_tan+": 0.0,
+          "F+Y_tan-": 0.0,
+          "F+Y_axial": 0.0,
+          "F+Z_inward": 0.0,
+          "F+Z_tan+": 0.0024756816710902276,
+          "F+Z_tan-": 0.0,
+          "F+Z_axial": 0.0,
+          "F-Y_inward": 0.0,
+          "F-Y_tan+": 0.000637820930291763,
+          "F-Y_tan-": 0.0,
+          "F-Y_axial": 0.0,
+          "F-Z_inward": 0.0,
+          "F-Z_tan+": 0.0,
+          "F-Z_tan-": 0.0,
+          "F-Z_axial": 0.0,
+          "A+Y_inward": 0.0,
+          "A+Y_tan+": 0.0,
+          "A+Y_tan-": 0.0,
+          "A+Y_axial": 0.0,
+          "A+Z_inward": 0.0,
+          "A+Z_tan+": 0.0,
+          "A+Z_tan-": 0.0,
+          "A+Z_axial": 0.0,
+          "A-Y_inward": 0.0,
+          "A-Y_tan+": 0.0,
+          "A-Y_tan-": 0.0,
+          "A-Y_axial": 0.0,
+          "A-Z_inward": 0.0,
+          "A-Z_tan+": 0.0,
+          "A-Z_tan-": 0.0,
+          "A-Z_axial": 0.0,
+          "F+Y_inward_extra_gimbal": 0.0013782657151117771,
+          "F+Z_inward_extra_gimbal": 0.001020569162250454,
+          "F-Y_inward_extra_gimbal": 0.0,
+          "F-Z_inward_extra_gimbal": 0.0,
+          "A+Y_inward_extra_gimbal": 0.0,
+          "A+Z_inward_extra_gimbal": 0.0,
+          "A-Y_inward_extra_gimbal": 0.0022874104668038657,
+          "A-Z_inward_extra_gimbal": 0.000846399236086043
+        },
+        "rcs_act": {
+          "F+Y_inward": 0.0,
+          "F+Y_tan+": 0.0,
+          "F+Y_tan-": 1.6143074648561076e-110,
+          "F+Y_axial": 0.0,
+          "F+Z_inward": 0.0,
+          "F+Z_tan+": 0.002475496339771998,
+          "F+Z_tan-": 0.0,
+          "F+Z_axial": 0.0,
+          "F-Y_inward": 0.0,
+          "F-Y_tan+": 0.0006377731825264581,
+          "F-Y_tan-": 0.0,
+          "F-Y_axial": 0.0,
+          "F-Z_inward": 0.0,
+          "F-Z_tan+": 0.0,
+          "F-Z_tan-": 0.0,
+          "F-Z_axial": 0.0,
+          "A+Y_inward": 0.0,
+          "A+Y_tan+": 0.0,
+          "A+Y_tan-": 0.0,
+          "A+Y_axial": 0.0,
+          "A+Z_inward": 0.0,
+          "A+Z_tan+": 0.0,
+          "A+Z_tan-": 0.0,
+          "A+Z_axial": 0.0,
+          "A-Y_inward": 0.0,
+          "A-Y_tan+": 0.0,
+          "A-Y_tan-": 0.0,
+          "A-Y_axial": 0.0,
+          "A-Z_inward": 0.0,
+          "A-Z_tan+": 0.0,
+          "A-Z_tan-": 0.0,
+          "A-Z_axial": 0.0,
+          "F+Y_inward_extra_gimbal": 0.0013781590429860714,
+          "F+Z_inward_extra_gimbal": 0.001020780362004348,
+          "F-Y_inward_extra_gimbal": 0.0,
+          "F-Z_inward_extra_gimbal": 0.0,
+          "A+Y_inward_extra_gimbal": 0.0,
+          "A+Z_inward_extra_gimbal": 0.0,
+          "A-Y_inward_extra_gimbal": 0.002287235735445367,
+          "A-Z_inward_extra_gimbal": 0.0008466234743166286
+        },
+        "torch_cmd": {
+          "torch_port": 1.0,
+          "torch_starboard": 1.0
+        },
+        "torch_act": {
+          "torch_port": 0.9999999999999998,
+          "torch_starboard": 0.9999999999999998
+        },
+        "gimbal_angles_deg": {
+          "F+Y_inward_extra_gimbal": [
+            24.999999999999993,
+            -1.9500074231045483
+          ],
+          "F+Z_inward_extra_gimbal": [
+            0.5814611495022207,
+            -10.23107865512052
+          ],
+          "F-Y_inward_extra_gimbal": [
+            -24.999999999999993,
+            1.445409761677228
+          ],
+          "F-Z_inward_extra_gimbal": [
+            -3.3792127425567244,
+            24.98600635657959
+          ],
+          "A+Y_inward_extra_gimbal": [
+            -24.999999999999993,
+            -1.4454076499755106
+          ],
+          "A+Z_inward_extra_gimbal": [
+            11.170791023854706,
+            -14.49271703284307
+          ],
+          "A-Y_inward_extra_gimbal": [
+            24.999999999999993,
+            1.9500049939014643
+          ],
+          "A-Z_inward_extra_gimbal": [
+            0.5814611771548681,
+            10.2310789770057
+          ]
+        }
+      },
+      "t_start_s": 0.0,
+      "mass_start_kg": 100546.0,
+      "tanks_start_kg": {
+        "prop": 10000.0,
+        "rcs_prop": 200.0,
+        "aux": 100.0
+      },
+      "state_start": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "state_end": [
+        1.0,
+        -7.348990200406703e-13,
+        -8.62598515544828e-10,
+        -8.542728587271113e-10,
+        -2.1383252798812704e-15,
+        -1.7343218242662554e-14,
+        -2.374540215882689e-14,
+        -139.72489057411383,
+        1.6840235617179374e-05,
+        2.519161177403644e-05,
+        -23.576799240671335,
+        1.533513769693416e-06,
+        2.1959409059882033e-06
+      ],
+      "metric_law": null,
+      "kind": "torch",
+      "duration_s": 12.0,
+      "t_end_s": 11.999999999999833,
+      "mass_end_kg": 100541.22708513262,
+      "cg_end_m": [
+        0.011590947436245815,
+        0.0010274250464948418,
+        0.0009232978957799318
+      ],
+      "inertia_end_kg_m2": [
+        [
+          201031.59103284377,
+          -202.61074996737517,
+          20.27598189452144
+        ],
+        [
+          -202.61074996737517,
+          1278680.2767680914,
+          94.22087876368906
+        ],
+        [
+          20.27598189452144,
+          94.22087876368906,
+          1278883.6036241523
+        ]
+      ],
+      "propellant_used_kg": 4.772914866897534,
+      "known_propellant_used_kg": 4.772914866897534,
+      "rcs_propellant_unresolved": false,
+      "propellant_unresolved": false,
+      "peak_force_N": 200000.0469799973,
+      "peak_offaxis_torque_Nm": 32.12154391052209,
+      "minimum_allocated_fraction": 1.0,
+      "max_ideal_tvc_trim_deg": 0.0,
+      "peak_angular_rate_deg_s": 0.0003534508413430523,
+      "phase_attitude_drift_deg": 1.391171191814052e-07,
+      "peak_gimbal_rate_deg_s": 29.999999999999996,
+      "peak_gimbal_angle_deg": 24.999999999999993,
+      "gimbal_limit_steps": 228,
+      "slew_limit_steps": 48,
+      "throttle_clamp_steps": 0,
+      "thrust_limit_steps": 1176,
+      "allocation_limit_steps": 0,
+      "peak_command_slew_fullscale_s": 2.0000000000000018,
+      "peak_throttle": 0.9999999999999998,
+      "peak_force_residual_N": 0.2509413768507775,
+      "peak_torque_residual_Nm": 81.24884592768127,
+      "propellant_depletion_steps": 0,
+      "propellant_available": 1,
+      "residual_velocity_m_s": 23.576799240671487,
+      "residual_displacement_m": 139.7248905741171,
+      "metric_unresolved": false,
+      "qualification": {
+        "status": "pass",
+        "checks": []
+      }
+    }
+  ],
+  "metrics": {
+    "torch_attitude_drift_deg": 1.391171191814052e-07,
+    "torch_final_angular_rate_deg_s": 1.6892091880186182e-12,
+    "torch_peak_angular_rate_deg_s": 0.0003534508413430523,
+    "peak_gimbal_rate_deg_s": 29.999999999999996,
+    "peak_gimbal_angle_deg": 24.999999999999993,
+    "gimbal_limit_steps": 228,
+    "slew_limit_steps": 48,
+    "throttle_clamp_steps": 0.0,
+    "thrust_limit_steps": 1176,
+    "allocation_limit_steps": 0.0,
+    "peak_command_slew_fullscale_s": 2.0000000000000018,
+    "peak_throttle": 0.9999999999999998,
+    "peak_force_residual_N": 0.2509413768507775,
+    "peak_torque_residual_Nm": 81.24884592768127,
+    "propellant_depletion_steps": 0.0,
+    "peak_angular_rate_deg_s": 0.0003534508413430523,
+    "propellant_available": 1,
+    "residual_velocity_m_s": 23.576799240671487,
+    "residual_displacement_m": 139.7248905741171,
+    "mass_end_kg": 100541.22708513262,
+    "known_propellant_used_kg": 4.7729148668976205,
+    "total_propellant_used_kg": 4.7729148668976205,
+    "metric_path_m": 0.0,
+    "final_speed_m_s": 23.576799240671487,
+    "final_angular_rate_deg_s": 1.6892091880186182e-12
+  },
+  "qualification": {
+    "status": "pass",
+    "checks": [
+      {
+        "metric": "propellant_available",
+        "measured": 1.0,
+        "criterion": {
+          "min": 1
+        },
+        "status": "pass"
+      },
+      {
+        "metric": "known_propellant_used_kg",
+        "measured": 4.7729148668976205,
+        "criterion": {
+          "min": 1
+        },
+        "status": "pass"
+      }
+    ],
+    "scope": "Only the configured numerical criteria; no hardware certification",
+    "conditional_on_unknown_propellant": false
+  },
+  "physical_qualification": {
+    "status": "pass",
+    "checks": [
+      {
+        "metric": "propellant_available",
+        "measured": 1.0,
+        "criterion": {
+          "min": 1
+        },
+        "status": "pass"
+      }
+    ],
+    "scope": "Declared propellant availability only; excludes hardware feasibility"
+  },
+  "system_status": "pass",
+  "mass_accounting": "declared tank depletion and installed masses",
+  "gimbal_initialization": {
+    "F+Y_inward_extra_gimbal": "Neutral start; feedback chooses saved direction targets; extra hardware mass assumed 12 kg each",
+    "F+Z_inward_extra_gimbal": "Neutral start; feedback chooses saved direction targets; extra hardware mass assumed 12 kg each",
+    "F-Y_inward_extra_gimbal": "Neutral start; feedback chooses saved direction targets; extra hardware mass assumed 12 kg each",
+    "F-Z_inward_extra_gimbal": "Neutral start; feedback chooses saved direction targets; extra hardware mass assumed 12 kg each",
+    "A+Y_inward_extra_gimbal": "Neutral start; feedback chooses saved direction targets; extra hardware mass assumed 12 kg each",
+    "A+Z_inward_extra_gimbal": "Neutral start; feedback chooses saved direction targets; extra hardware mass assumed 12 kg each",
+    "A-Y_inward_extra_gimbal": "Neutral start; feedback chooses saved direction targets; extra hardware mass assumed 12 kg each",
+    "A-Z_inward_extra_gimbal": "Neutral start; feedback chooses saved direction targets; extra hardware mass assumed 12 kg each"
+  },
+  "final_state": {
+    "time_s": 11.999999999999833,
+    "position_m": [
+      -139.72489057411383,
+      1.6840235617179374e-05,
+      2.519161177403644e-05
+    ],
+    "velocity_m_s": [
+      -23.576799240671335,
+      1.533513769693416e-06,
+      2.1959409059882033e-06
+    ],
+    "q_body_to_inertial": [
+      1.0,
+      -7.348990200406703e-13,
+      -8.62598515544828e-10,
+      -8.542728587271113e-10
+    ],
+    "omega_rad_s": [
+      -2.1383252798812704e-15,
+      -1.7343218242662554e-14,
+      -2.374540215882689e-14
+    ],
+    "mass_kg": 100541.22708513262,
+    "cg_m": [
+      0.011590947436245815,
+      0.0010274250464948418,
+      0.0009232978957799318
+    ],
+    "inertia_kg_m2": [
+      [
+        201031.59103284377,
+        -202.61074996737517,
+        20.27598189452144
+      ],
+      [
+        -202.61074996737517,
+        1278680.2767680914,
+        94.22087876368906
+      ],
+      [
+        20.27598189452144,
+        94.22087876368906,
+        1278883.6036241523
+      ]
+    ],
+    "tanks_kg": {
+      "prop": 9997.62950340636,
+      "rcs_prop": 199.96807831942607,
+      "aux": 97.62950340683523
+    },
+    "metric_path_m": 0.0,
+    "metric_unresolved": false
+  },
+  "rcs_impulse_Ns": 939.1342463981906,
+  "torch_impulse_Ns": 2370496.593161891,
+  "warnings": [],
+  "rcs_propellant_unresolved": false,
+  "propellant_unresolved": false,
+  "evidence_class": "non-governing numerical experiment; experimental metric laws not physical validation",
+  "model_limits": [
+    "canonical metric requests execute transition/hold checks; U^M_gamma and finite ledgers absent",
+    "canonical metric arrival mass, position, velocity, attitude, and remass ledger unresolved",
+    "rigid body; fuel centroids and intrinsic inertia scale linearly with fill",
+    "no slosh, plume, thermal, flex, sensor, valve, or tank feed network",
+    "torch auto-trim instantaneous unless tvc_rate_deg_s declared; no structural TVC model",
+    "no full variable-inertia angular-momentum flux law",
+    "conditional metric path estimates do not establish physical arrival state"
+  ]
+}
