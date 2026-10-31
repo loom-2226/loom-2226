@@ -22,14 +22,23 @@ At Phase 2 bootstrap, PR #437 was OPEN/UNMERGED and live main was f07354f57244d6
 - Rebuilt lab/build_v05.py: exact byte SHA256 5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256.
 - Reran lab/certify.py: all 12 gates PASS or PASS-DECLARED, all 18 declarations kT ACCEPTED, machine certified=true.
 - Python compilation: 52/52 modules compile.
-- Non-Metric flight/cards/hardware regression: 49/49 tests PASS; Metric/canonical tests explicitly excluded, not claimed as passes. Cards/hardware subset separately 18/18 PASS.
+- Full flight/cards/hardware/Metric-canonical regression: 61/61 PASS, all five original test modules, zero skips. Four prior excluded tests and eight canonical operation tests restored. Earlier cards/hardware subset 18/18 PASS.
 - render/deckplans.py L1-L5; render/export_glb.mjs produced two-scene 5d73 GLB; render/render.js produced cmd_cutaway PNG; make_viewer.py regenerated viewer; G12 PASS-DECLARED.
 - FQ1-FQ10 same-hash numerical replay from Phase 1 remains under lab/flight_qual/integration_20261101, including 93 half-step parity verdict pairs, zero changes. No new FQ mission or Metric flight campaign performed in Phase 2.
 
 ## Holds and historical exceptions
 
-**Metric arrival HOLD, Navigator EXCLUDED, RCS power source OPEN.** Historical unpromoted Metric/canon-related lab code and its source references are retained as history but not executed; there are no runtime compatibility shims. Old archived setup/patch scripts that require a missing scratch source were not represented as portable runner qualification. Future repair requires separate scope. PR #433 and #436 remain non-governing historical evidence.
+**Metric arrival HOLD, Navigator EXCLUDED, RCS power source OPEN.** Metric/canonical lab tests are now executed; source-derived ramp HOLD, torch overlap veto and unresolved arrival remain enforced; there are no runtime compatibility shims. Old archived setup/patch scripts that require a missing scratch source were not represented as portable runner qualification. Future repair requires separate scope. PR #433 and #436 remain non-governing historical evidence.
 
 Independent review + exact-head loom-gate required before kT merges Phase 2. Because #437 has not been verified merged, direct main promotion and closure of archive PRs #429/#430/#432 are HOLD; retain archive branches on any later closure. No automatic user merge was performed.
 
 Rollback: close unmerged conditional Phase 2 PR or revert migration commit, leaving main untouched. No freeze/canon/runtime changes.
+
+
+## Review correction — all 61 lab tests
+
+Executed the complete lab suite with test_cards, test_flightlab, test_completion, test_hardware_assess and test_canon_metric_operation in one invocation: **61/61 PASS**, zero exclusions. A reproducible runner is at wayfarer/lab/flight/run_lab_regression.py, replacing the non-Metric-only runner.
+
+Import/path changes only to canonical_metric_operation in flightlab.py: old detached source/src/ imports now use the repository src/; G10 input is wayfarer/lab/g10; canon and engineering spec provenance hashes resolve against the repository root. Logic of Metric engagement, phase transitions, hold at ramp, refusal of torch overlap, and no invented terminal arrival state remains unchanged. Original PR #433 flightlab.py SHA256 137d13fe182578d227b444ad27ca5d55ac85475028e5e7909f53e2916a761bb2 identifies the preserved historical version, NOT the relocated working file after the import repair.
+
+Metric arrival remains HOLD, Navigator EXCLUDED, RCS heating supply OPEN. Passing a HOLD behavior test is not a certification of flight or arrival.

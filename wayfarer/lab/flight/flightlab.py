@@ -276,16 +276,16 @@ def canonical_metric_operation(phase, pre_state, torch_outputs):
     The copied source's open physics holds cannot be cleared by these declarations.
     """
     import ast, sys
-    root=Path(__file__).resolve().parent
-    card_path='source/src/wayfarer_e1_metric_frontier_closure.py'
-    support_path='source/src/wayfarer_2226_frontier_accountant.py'
-    g10_path='source/design/wayfarer/v0.5.7/g10/g10_flight_dynamics.py'
-    canon_path='source/canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md'
-    spec_path='source/engineering/experience_one/WAYFARER_E1_METRIC_CANON_AND_GLB_INTEGRATION_SPEC_v0.1.md'
-    # Import only the small existing card/accountant, suppressing source-tree bytecode.
+    root=Path(__file__).resolve().parents[3]  # actual repository root; no old 'source/' checkout
+    card_path='src/wayfarer_e1_metric_frontier_closure.py'
+    support_path='src/wayfarer_2226_frontier_accountant.py'
+    g10_path='wayfarer/lab/g10/g10_flight_dynamics.py'
+    canon_path='canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md'
+    spec_path='engineering/experience_one/WAYFARER_E1_METRIC_CANON_AND_GLB_INTEGRATION_SPEC_v0.1.md'
+    # Import the existing repo source card, not a duplicate; suppress bytecode.
     old_bytecode=sys.dont_write_bytecode
     sys.dont_write_bytecode=True
-    sys.path.insert(0,str(root/'source'))
+    sys.path.insert(0,str(root))
     try:
         from src.wayfarer_e1_metric_frontier_closure import build_metric_closure
         closure=build_metric_closure(phase.get('support_scenario','MVP_2226'))
