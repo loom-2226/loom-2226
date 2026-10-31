@@ -1,3 +1,5 @@
+> SUPERSEDED for FQ5/FQ8/FQ10 by the linked FQ5_FQ10_RESPONSE_LOCK_2026_10_31.md after the 5t RCS reserve and TVC throttle/cut decisions. The original failures remain historical counterfactual evidence.
+
 # Wayfarer Step 1c G7 decision and FQ1–FQ10 conventional flight campaign
 
 **ALL bodies. ALL sponsors. 2026–2226.** 2026-10-31.

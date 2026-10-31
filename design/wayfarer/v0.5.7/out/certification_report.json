@@ -2069,7 +2069,7 @@
    "date": null
   }
  ],
- "kt_decisions_sha256": "60cbdc61e0464e98588c1221f88777ae38d241b147b1cf2f951335403df82278",
+ "kt_decisions_sha256": "1263f6056eadf2fe33da3263afe9d2f9d3dff30d82d433ef22d90a6dc294e5f7",
  "certified": false,
  "certified_rule": "every gate PASS or PASS-DECLARED and every declared assumption ACCEPTED by kT; then both reviewers sign and loom-gate passes"
 }

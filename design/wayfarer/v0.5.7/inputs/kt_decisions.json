@@ -106,33 +106,47 @@
   "node_faces": "ACCEPT armour-equivalent rule; placement HOLD PR #184",
   "external_equipment": "ACCEPT visible allowance 1.4208t editable; compare 0t without claiming fixed design",
   "RCS": {
-   "decision": "ACCEPT (fuel source only)",
-   "fuel_source": "250t unprotected remass water inventory; never protected 50t water",
-   "exhaust_velocity": "VARIABLE (1.00 and 1.96km/s numerical screening only); no single baseline ve chosen",
-   "hardware": "32 original 25kN RCS nozzles/mounts unchanged; feed system physical design OPEN",
-   "feed_power": "OPEN; no hardware certification"
+   "decision": "ACCEPT 2026-10-31",
+   "fuel_source": "unprotected remass tank only, initial 250t; same physical tank as torch",
+   "torch_min_unprotected_remass_kg": 5000,
+   "rcs_ring_fenced_reserve_kg": 5000,
+   "protected_water_buffer_kg": 50000,
+   "remass_budget": "Torch initial usable 245t. RCS has priority over torch on shared water inventory; RCS can draw the remaining 5t until exhausted.",
+   "exhaust_velocity": "VARIABLE; 1.96 km/s FQ scenario, 1.00 km/s prior sensitivity. No absolute nozzle exhaust law certified.",
+   "hardware": "Original Rev7 32x25kN RCS nozzle/geometry unmodified. No extra tank/pressure/bus mass allocated.",
+   "qualification": "Numerical remass accounting only, hardware feed and power remain unqualified"
   },
   "repo": "Design candidate step1 lock only; separate config/lab/results, no render or runtime changes",
   "L1_human_factors_step1c": "Couches assessed as 1.58m nominal contoured couches (NOT 2.10m flat berths); terrace clearance >=1.20m crawl; S4 shift Y-0.25m Z+0.30m, new geometry build required. Unverified 4g crew body/couch mount and actual obstruction sightline remain HOLD.",
   "RCS_power": {
-   "status": "PENDING kT design selection",
-   "decision_alternatives": {
-    "A": "Plant heat on demand",
-    "B": "Charged hot-water storage"
-   },
-   "water_conditioning_J_kg": 2600000,
-   "ideal_exhaust_kinetic_J_kg": "0.5*ve_m_s^2",
-   "screening": {
+   "decision": "A: ship plant heats on demand ACCEPTED as architecture choice, NOT power closure",
+   "status": "DECLARED / POWER DELIVERY AND WASTE HEAT OPEN",
+   "option_B": "Precharged hot-water store between manoeuvres, OPTION only, not baseline",
+   "conditioning_J_per_kg": 2600000,
+   "ideal_jet_kinetic_J_per_kg": "0.5*ve_m_s^2",
+   "at_F_25000N": {
     "ve_1000_m_s": {
-     "flow_kg_s_at_25kN": 25.0,
-     "minimum_power_MW_per_nozzle": 77.5
+     "flow_kg_s": 25.0,
+     "total_minimum_MW": 77.5
     },
     "ve_1960_m_s": {
-     "flow_kg_s_at_25kN": 12.755102040816327,
-     "minimum_power_MW_per_nozzle": 57.663265306122454
+     "flow_kg_s": 12.755102040816327,
+     "total_minimum_MW": 57.663265306122454
     }
    },
-   "note": "minimum energy rate; no conversion losses/heater efficiency/tank draw, water superheat, off-state store recharging or rejection budget, no assumed free power"
+   "power_model_limits": "minimum first-law sensible/latent heat proxy and jet kinetic. No actual installed heaters, converter efficiency, recharge, plume, power bus, waste-heat or concurrent duty closure.",
+   "PR436": "optional card data concept, not adopted/modified as part of PR435"
+  },
+  "FQ10_safing": {
+   "decision": "Throttle torch until RCS can hold, cut if RCS remains saturated or attitude/rate thresholds exceeded. kT accepted 2026-10-31",
+   "torque_authority": "Compute bounded achievable zero-net-force RCS torque allocation at current mass/CG, rather than fixed throttle",
+   "reserve_fraction_of_rcs_authority": 0.9,
+   "cap_reference": "0.56 CRUISE and 0.14 HARD are upper screening estimates, not commands overriding authority",
+   "fault_detection_delay_s": 0.2,
+   "cut_angle_deg": 0.75,
+   "cut_rate_deg_s": 0.5,
+   "max_saturation_s": 0.4,
+   "qualification": "Modelled ideal event detector and instantaneous torch throttle/cut; sensor, controller, actuator slew, safing power and hardware qualification remain HOLD"
   }
  }
 }

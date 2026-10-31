@@ -1,0 +1,17 @@
+{
+  "status": "kT ACCEPTED policy, NON-GOVERNING; PR436 draft cards NOT ADOPTED",
+  "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
+  "RCS_propellant": "5t ring-fenced inside existing 250t unprotected remass tank",
+  "torch_lower_remass_limit_kg": 5000,
+  "protected_buffer_kg": 50000,
+  "RCS_nozzle_count": 32,
+  "thrust_per_nozzle_N": 25000,
+  "v_e_m_s": 1960,
+  "heat_architecture": "A: ship plant on demand, declared not qualified",
+  "min_supply_power_MW_per_nozzle_1960": 57.663265306122454,
+  "min_supply_power_MW_per_nozzle_1000": 77.5,
+  "conditioning_J_kg": 2600000,
+  "jet_J_kg": "0.5*ve_m_s^2",
+  "option_B": "Charged hot-water store only; non-baseline",
+  "open": "Bus MW, heater response, valve ramp, concurrent load, waste heat, failure detection and nozzle mechanism"
+}
