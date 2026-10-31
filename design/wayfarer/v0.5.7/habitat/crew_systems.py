@@ -35,6 +35,17 @@ def tube(od, wall):
 
 def columns(I, C, G):
     CL = I["habitat"]["decks"][0]["command_layout"]
+    if CL.get("i4_lock"):
+        # Step1: structure is rearranged but its loads/column mounts are NOT qualified.
+        # Never substitute the obsolete Rev7 flight-deck column PASS for a relocated I4 terrace.
+        tc = CL["i4_lock"]["terrace_columns"]
+        return {"carried_t": "HOLD", "columns": len(tc["positions_yz_m"]),
+                "length_m": round(I["habitat"]["decks"][0]["x_m"][1] - tc["x_m_end"], 3),
+                "ultimate_g": C["G5"]["design_g"] * C["G5"]["ultimate_factor"],
+                "axial_kn":"HOLD", "stress_mpa":"HOLD", "buckling_kn":"HOLD",
+                "buckling_margin":0.0,"side_load_combined_mpa":"HOLD",
+                "yield_mpa":"HOLD", "ok_stress":False,"ok_buckling":False,
+                "disposition":"REQUALIFICATION_REQUIRED: 3D loads, mounts, acceleration furniture and hull/headroom"}
     fd, c, ld = CL["flight_deck"], CL["flight_deck"]["columns"], CL["flight_deck"]["loads"]
     P = {p["id"]: p for p in G["parts"]}
     W_t = P["flight_deck"]["mass_t"] + 2 * (ld["couch_t"] + ld["occupant_t"]) + ld["displays_t"]
