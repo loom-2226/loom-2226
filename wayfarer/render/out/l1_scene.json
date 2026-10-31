@@ -1,626 +1,677 @@
 {
-  "header": "ALL bodies. ALL sponsors. 2026-2226.",
-  "status": "kT AOI Option A: two independent ceramic pressure domes with 3.023m3 gel, 37 separate outer nonpressure panes, closed Rev7 armour gores; physical fault survival HOLD",
-  "geometry_sha256": "faf75e0da8a58c850c72d3e6941f5af94cadb06dcf8dfbaa510fac56b77327af",
-  "dome": {
-    "xa": 0.2,
-    "xb": 2.35,
-    "R": 4.15
-  },
-  "floor_x": 3.0,
-  "couch": {
-    "width_m": 0.7,
-    "back_above_base_m": 0.25,
-    "eye_above_back_m": 0.2
-  },
-  "couches": [
-    {
-      "id": "PILOT",
-      "role": "Flight",
-      "base_x": 2.41,
-      "head": [
-        -0.9111,
-        -1.213
-      ],
-      "feet": [
-        -1.0489,
-        -2.787
-      ],
-      "L": 1.5800205188541063,
-      "eye": [
-        1.9600000000000002,
-        -0.9285428114515801,
-        -1.4122379189026644
-      ],
-      "envelope": [
-        [
-          1.9600000000000002,
-          2.41
-        ],
-        [
-          -1.3988999999999998,
-          -0.5611
-        ],
-        [
-          -3.137,
-          -0.8630000000000001
-        ]
-      ]
-    },
-    {
-      "id": "NAV",
-      "role": "Navigation / Loom",
-      "base_x": 2.76,
-      "head": [
-        0.0,
-        3.29
-      ],
-      "feet": [
-        0.0,
-        1.71
-      ],
-      "L": 1.58,
-      "eye": [
-        2.3099999999999996,
-        0.0,
-        3.09
-      ],
-      "envelope": [
-        [
-          2.3099999999999996,
-          2.76
-        ],
-        [
-          -0.35,
-          0.35
-        ],
-        [
-          1.3599999999999999,
-          3.64
-        ]
-      ]
-    },
-    {
-      "id": "S1",
-      "role": "Captain / command",
-      "base_x": 2.41,
-      "head": [
-        0.9111,
-        -1.213
-      ],
-      "feet": [
-        1.0489,
-        -2.787
-      ],
-      "L": 1.5800205188541063,
-      "eye": [
-        1.9600000000000002,
-        0.9285428114515801,
-        -1.4122379189026644
-      ],
-      "envelope": [
-        [
-          1.9600000000000002,
-          2.41
-        ],
-        [
-          0.5611,
-          1.3988999999999998
-        ],
-        [
-          -3.137,
-          -0.8630000000000001
-        ]
-      ]
-    },
-    {
-      "id": "S2",
-      "role": "Engineering",
-      "base_x": 2.95,
-      "head": [
-        -2.4791,
-        -0.0025
-      ],
-      "feet": [
-        -3.2209,
-        -1.3975
-      ],
-      "L": 1.5799658983661642,
-      "eye": [
-        2.5,
-        -2.573000760866686,
-        -0.17908608979378143
-      ],
-      "envelope": [
-        [
-          2.5,
-          2.95
-        ],
-        [
-          -3.5709,
-          -2.1290999999999998
-        ],
-        [
-          -1.7475,
-          0.3475
-        ]
-      ]
-    },
-    {
-      "id": "S3",
-      "role": "Sensors / EW",
-      "base_x": 2.95,
-      "head": [
-        2.4791,
-        -0.0025
-      ],
-      "feet": [
-        3.2209,
-        -1.3975
-      ],
-      "L": 1.5799658983661642,
-      "eye": [
-        2.5,
-        2.573000760866686,
-        -0.17908608979378143
-      ],
-      "envelope": [
-        [
-          2.5,
-          2.95
-        ],
-        [
-          2.1290999999999998,
-          3.5709
-        ],
-        [
-          -1.7475,
-          0.3475
-        ]
-      ]
-    },
-    {
-      "id": "S4",
-      "role": "Mission operations",
-      "base_x": 2.95,
-      "head": [
-        2.1041,
-        -0.9675
-      ],
-      "feet": [
-        2.6959,
-        -2.4325
-      ],
-      "L": 1.5800165315590846,
-      "eye": [
-        2.5,
-        2.179,
-        -1.153
-      ],
-      "envelope": [
-        [
-          2.5,
-          2.95
-        ],
-        [
-          1.7540999999999998,
-          3.0459
-        ],
-        [
-          -2.7825,
-          -0.6175
-        ]
-      ]
-    }
-  ],
-  "displays": [
-    {
-      "for": "PILOT",
-      "box": [
-        [
-          1.8850000000000002,
-          1.955
-        ],
-        [
-          -1.1259263897338432,
-          -0.725926389733843
-        ],
-        [
-          -1.4923522310672648,
-          -1.2723522310672646
-        ]
-      ]
-    },
-    {
-      "for": "NAV",
-      "box": [
-        [
-          2.2349999999999994,
-          2.3049999999999997
-        ],
-        [
-          -0.2,
-          0.2
-        ],
-        [
-          3.0100000000000002,
-          3.23
-        ]
-      ]
-    },
-    {
-      "for": "S1",
-      "box": [
-        [
-          1.8850000000000002,
-          1.955
-        ],
-        [
-          0.725926389733843,
-          1.1259263897338432
-        ],
-        [
-          -1.4923522310672648,
-          -1.2723522310672646
-        ]
-      ]
-    },
-    {
-      "for": "S2",
-      "box": [
-        [
-          2.425,
-          2.495
-        ],
-        [
-          -2.7589156467366833,
-          -2.358915646736683
-        ],
-        [
-          -0.2625981763247142,
-          -0.04259817632471423
-        ]
-      ]
-    },
-    {
-      "for": "S3",
-      "box": [
-        [
-          2.425,
-          2.495
-        ],
-        [
-          2.358915646736683,
-          2.7589156467366833
-        ],
-        [
-          -0.2625981763247142,
-          -0.04259817632471423
-        ]
-      ]
-    },
-    {
-      "for": "S4",
-      "box": [
-        [
-          2.425,
-          2.495
-        ],
-        [
-          1.9678,
-          2.3678
-        ],
-        [
-          -1.2351249330469027,
-          -1.0151249330469025
-        ]
-      ]
-    }
-  ],
-  "ladders": [
-    {
-      "y": 1.4,
-      "z": 0,
-      "size": 0.8
-    },
-    {
-      "y": -1.4,
-      "z": 0,
-      "size": 0.8
-    }
-  ],
-  "flight_deck": {
-    "x": [
-      2.41,
-      2.51
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "kT integrated I4; 37 [1,12,12,12] with original rings and stagger; NAV platform and parked L1/L2 hatch leaves; 4g seated doctrine, twin dome and AOI optical research, source 702cca4ef985f754b066e4289f3cc63a4d13c87608b40a75fc9520cf67d0cfb3",
+ "geometry_sha256": "702cca4ef985f754b066e4289f3cc63a4d13c87608b40a75fc9520cf67d0cfb3",
+ "dome": {
+  "xa": 0.2,
+  "xb": 2.35,
+  "R": 4.15
+ },
+ "floor_x": 3.0,
+ "couch": {
+  "width_m": 0.7,
+  "back_above_base_m": 0.25,
+  "eye_above_back_m": 0.2
+ },
+ "couches": [
+  {
+   "id": "PILOT",
+   "role": "Flight",
+   "base_x": 2.41,
+   "head": [
+    -0.9111,
+    -1.213
+   ],
+   "feet": [
+    -1.0489,
+    -2.787
+   ],
+   "L": 1.5800205188541063,
+   "eye": [
+    1.9600000000000002,
+    -0.9285428114515801,
+    -1.4122379189026644
+   ],
+   "envelope": [
+    [
+     1.9600000000000002,
+     2.41
     ],
-    "y": [
-      -1.7,
-      1.7
+    [
+     -1.3988999999999998,
+     -0.5611
     ],
-    "z": [
-      -3.01,
-      -0.91
+    [
+     -3.137,
+     -0.8630000000000001
     ]
+   ]
   },
-  "flight_deck_ladder": null,
-  "carryover": [
-    {
-      "id": "engineering_cabinet",
-      "kind": "box",
-      "xyz": [
-        2.95,
-        -3.45,
-        1.1
-      ],
-      "size": [
-        0.54,
-        0.35,
-        0.7
-      ],
-      "mass_t": 0.08,
-      "source": "candidate interior.blocks; H=4-X in source",
-      "collision": "solid"
-    },
-    {
-      "id": "sensors_cabinet",
-      "kind": "box",
-      "xyz": [
-        2.95,
-        3.45,
-        1.1
-      ],
-      "size": [
-        0.54,
-        0.35,
-        0.7
-      ],
-      "mass_t": 0.08,
-      "source": "candidate interior.blocks; H=4-X in source",
-      "collision": "solid"
-    },
-    {
-      "id": "shared_map_table",
-      "kind": "box",
-      "xyz": [
-        2.92,
-        0.4,
-        -3.45
-      ],
-      "size": [
-        0.12,
-        1.1,
-        0.63
-      ],
-      "mass_t": 0.095,
-      "source": "candidate interior.blocks; H=4-X in source",
-      "collision": "solid"
-    },
-    {
-      "id": "equipment_workbench",
-      "kind": "box",
-      "xyz": [
-        2.9299999999999997,
-        -2.45,
-        -2.18
-      ],
-      "size": [
-        0.13,
-        1.38,
-        0.54
-      ],
-      "mass_t": 0.09,
-      "source": "candidate interior.blocks; H=4-X in source",
-      "collision": "solid"
-    },
-    {
-      "id": "workbench_display",
-      "kind": "box",
-      "xyz": [
-        2.58,
-        -2.45,
-        -2.44
-      ],
-      "size": [
-        0.42,
-        1.16,
-        0.06
-      ],
-      "mass_t": 0.03,
-      "source": "candidate interior.blocks; H=4-X in source",
-      "collision": "solid"
-    },
-    {
-      "id": "rails_0",
-      "kind": "tube",
-      "a": [
-        1.77,
-        -1.72,
-        -3.03
-      ],
-      "b": [
-        1.77,
-        -1.72,
-        -0.94
-      ],
-      "radius_m": 0.025,
-      "mass_t": 0.009,
-      "source": "candidate rails (H=4-X)",
-      "collision": "slender"
-    },
-    {
-      "id": "rails_1",
-      "kind": "tube",
-      "a": [
-        1.77,
-        1.72,
-        -3.03
-      ],
-      "b": [
-        1.77,
-        1.72,
-        -0.94
-      ],
-      "radius_m": 0.025,
-      "mass_t": 0.009,
-      "source": "candidate rails (H=4-X)",
-      "collision": "slender"
-    },
-    {
-      "id": "rails_2",
-      "kind": "tube",
-      "a": [
-        2.65,
-        -1.36,
-        1.5
-      ],
-      "b": [
-        2.65,
-        -1.36,
-        3.57
-      ],
-      "radius_m": 0.022,
-      "mass_t": 0.009,
-      "source": "candidate rails (H=4-X)",
-      "collision": "slender"
-    },
-    {
-      "id": "rails_3",
-      "kind": "tube",
-      "a": [
-        2.65,
-        1.36,
-        1.5
-      ],
-      "b": [
-        2.65,
-        1.36,
-        3.57
-      ],
-      "radius_m": 0.022,
-      "mass_t": 0.009,
-      "source": "candidate rails (H=4-X)",
-      "collision": "slender"
-    },
-    {
-      "id": "lights_0",
-      "kind": "tube",
-      "a": [
-        1.7799999999999998,
-        -1.6,
-        -2.94
-      ],
-      "b": [
-        1.7799999999999998,
-        1.6,
-        -2.94
-      ],
-      "radius_m": 0.026,
-      "mass_t": 0.004,
-      "source": "candidate lights (H=4-X)",
-      "collision": "slender"
-    },
-    {
-      "id": "lights_1",
-      "kind": "tube",
-      "a": [
-        2.1999999999999997,
-        -1.18,
-        3.61
-      ],
-      "b": [
-        2.1999999999999997,
-        1.18,
-        3.61
-      ],
-      "radius_m": 0.024,
-      "mass_t": 0.004,
-      "source": "candidate lights (H=4-X); +0.45m FORWARD to avoid NAV couch 3D",
-      "collision": "slender"
-    },
-    {
-      "id": "transfer_0",
-      "kind": "tube",
-      "a": [
-        3.1,
-        -1.65,
-        -0.65
-      ],
-      "b": [
-        2.05,
-        -1.65,
-        -1.15
-      ],
-      "radius_m": 0.03,
-      "mass_t": 0.022,
-      "source": "command_off-axis hand/foot access; shifted to reach directly from source port ladder landing (old y/z -1.67,-3.20 was isolated by terrace)",
-      "collision": "access"
-    },
-    {
-      "id": "transfer_1",
-      "kind": "tube",
-      "a": [
-        3.1,
-        -1.14,
-        1.47
-      ],
-      "b": [
-        2.8,
-        -1.14,
-        1.67
-      ],
-      "radius_m": 0.03,
-      "mass_t": 0.022,
-      "source": "navigator hand/foot access",
-      "collision": "access"
-    },
-    {
-      "id": "observation_rail",
-      "kind": "arc",
-      "radius_m": 4.05,
-      "angles_rad": [
-        -0.92,
-        0.92
-      ],
-      "x_m": 2.35,
-      "tube_radius_m": 0.022,
-      "mass_t": 0.025,
-      "source": "candidate observation, 4.05m perimeter to clear couch; relocated forward 0.52m to clear S3/S4 couch AABBs",
-      "collision": "slender"
-    },
-    {
-      "id": "low_g_command_point",
-      "kind": "box",
-      "xyz": [
-        3.17,
-        -1.35,
-        -3.55
-      ],
-      "size": [
-        0.14,
-        0.25,
-        0.25
-      ],
-      "mass_t": 0.028,
-      "source": "candidate low-g standing/foot restraints",
-      "collision": "low_g_only"
-    },
-    {
-      "id": "map_console",
-      "kind": "box",
-      "xyz": [
-        2.62,
-        0.4,
-        -3.45
-      ],
-      "size": [
-        0.03,
-        0.22,
-        0.035
-      ],
-      "mass_t": 0.012,
-      "source": "candidate common mission plot; mounted to table",
-      "collision": "intentional_table_contact"
-    }
+  {
+   "id": "NAV",
+   "role": "Navigation / Loom",
+   "base_x": 2.76,
+   "head": [
+    0.0,
+    3.29
+   ],
+   "feet": [
+    0.0,
+    1.71
+   ],
+   "L": 1.58,
+   "eye": [
+    2.3099999999999996,
+    0.0,
+    3.09
+   ],
+   "envelope": [
+    [
+     2.3099999999999996,
+     2.76
+    ],
+    [
+     -0.35,
+     0.35
+    ],
+    [
+     1.3599999999999999,
+     3.64
+    ]
+   ]
+  },
+  {
+   "id": "S1",
+   "role": "Captain / command",
+   "base_x": 2.41,
+   "head": [
+    0.9111,
+    -1.213
+   ],
+   "feet": [
+    1.0489,
+    -2.787
+   ],
+   "L": 1.5800205188541063,
+   "eye": [
+    1.9600000000000002,
+    0.9285428114515801,
+    -1.4122379189026644
+   ],
+   "envelope": [
+    [
+     1.9600000000000002,
+     2.41
+    ],
+    [
+     0.5611,
+     1.3988999999999998
+    ],
+    [
+     -3.137,
+     -0.8630000000000001
+    ]
+   ]
+  },
+  {
+   "id": "S2",
+   "role": "Engineering",
+   "base_x": 2.95,
+   "head": [
+    -2.4791,
+    -0.0025
+   ],
+   "feet": [
+    -3.2209,
+    -1.3975
+   ],
+   "L": 1.5799658983661642,
+   "eye": [
+    2.5,
+    -2.573000760866686,
+    -0.17908608979378143
+   ],
+   "envelope": [
+    [
+     2.5,
+     2.95
+    ],
+    [
+     -3.5709,
+     -2.1290999999999998
+    ],
+    [
+     -1.7475,
+     0.3475
+    ]
+   ]
+  },
+  {
+   "id": "S3",
+   "role": "Sensors / EW",
+   "base_x": 2.95,
+   "head": [
+    2.4791,
+    -0.0025
+   ],
+   "feet": [
+    3.2209,
+    -1.3975
+   ],
+   "L": 1.5799658983661642,
+   "eye": [
+    2.5,
+    2.573000760866686,
+    -0.17908608979378143
+   ],
+   "envelope": [
+    [
+     2.5,
+     2.95
+    ],
+    [
+     2.1290999999999998,
+     3.5709
+    ],
+    [
+     -1.7475,
+     0.3475
+    ]
+   ]
+  },
+  {
+   "id": "S4",
+   "role": "Mission operations",
+   "base_x": 2.95,
+   "head": [
+    2.1041,
+    -0.9675
+   ],
+   "feet": [
+    2.6959,
+    -2.4325
+   ],
+   "L": 1.5800165315590846,
+   "eye": [
+    2.5,
+    2.179,
+    -1.153
+   ],
+   "envelope": [
+    [
+     2.5,
+     2.95
+    ],
+    [
+     1.7540999999999998,
+     3.0459
+    ],
+    [
+     -2.7825,
+     -0.6175
+    ]
+   ]
+  }
+ ],
+ "displays": [
+  {
+   "for": "PILOT",
+   "box": [
+    [
+     1.8850000000000002,
+     1.955
+    ],
+    [
+     -1.1259263897338432,
+     -0.725926389733843
+    ],
+    [
+     -1.4923522310672648,
+     -1.2723522310672646
+    ]
+   ]
+  },
+  {
+   "for": "NAV",
+   "box": [
+    [
+     2.2349999999999994,
+     2.3049999999999997
+    ],
+    [
+     -0.2,
+     0.2
+    ],
+    [
+     3.0100000000000002,
+     3.23
+    ]
+   ]
+  },
+  {
+   "for": "S1",
+   "box": [
+    [
+     1.8850000000000002,
+     1.955
+    ],
+    [
+     0.725926389733843,
+     1.1259263897338432
+    ],
+    [
+     -1.4923522310672648,
+     -1.2723522310672646
+    ]
+   ]
+  },
+  {
+   "for": "S2",
+   "box": [
+    [
+     2.425,
+     2.495
+    ],
+    [
+     -2.7589156467366833,
+     -2.358915646736683
+    ],
+    [
+     -0.2625981763247142,
+     -0.04259817632471423
+    ]
+   ]
+  },
+  {
+   "for": "S3",
+   "box": [
+    [
+     2.425,
+     2.495
+    ],
+    [
+     2.358915646736683,
+     2.7589156467366833
+    ],
+    [
+     -0.2625981763247142,
+     -0.04259817632471423
+    ]
+   ]
+  },
+  {
+   "for": "S4",
+   "box": [
+    [
+     2.425,
+     2.495
+    ],
+    [
+     1.9678,
+     2.3678
+    ],
+    [
+     -1.2351249330469027,
+     -1.0151249330469025
+    ]
+   ]
+  }
+ ],
+ "ladders": [
+  {
+   "y": 1.4,
+   "z": 0,
+   "size": 0.8
+  },
+  {
+   "y": -1.4,
+   "z": 0,
+   "size": 0.8
+  }
+ ],
+ "flight_deck": {
+  "x": [
+   2.41,
+   2.51
+  ],
+  "y": [
+   -1.7,
+   1.7
+  ],
+  "z": [
+   -3.01,
+   -0.91
   ]
+ },
+ "flight_deck_ladder": null,
+ "carryover": [
+  {
+   "id": "engineering_cabinet",
+   "kind": "box",
+   "xyz": [
+    2.95,
+    -3.45,
+    1.1
+   ],
+   "size": [
+    0.54,
+    0.35,
+    0.7
+   ],
+   "mass_t": 0.08,
+   "source": "candidate interior.blocks; H=4-X in source",
+   "collision": "solid"
+  },
+  {
+   "id": "sensors_cabinet",
+   "kind": "box",
+   "xyz": [
+    2.95,
+    3.45,
+    1.1
+   ],
+   "size": [
+    0.54,
+    0.35,
+    0.7
+   ],
+   "mass_t": 0.08,
+   "source": "candidate interior.blocks; H=4-X in source",
+   "collision": "solid"
+  },
+  {
+   "id": "shared_map_table",
+   "kind": "box",
+   "xyz": [
+    2.92,
+    0.4,
+    -3.45
+   ],
+   "size": [
+    0.12,
+    1.1,
+    0.63
+   ],
+   "mass_t": 0.095,
+   "source": "candidate interior.blocks; H=4-X in source",
+   "collision": "solid"
+  },
+  {
+   "id": "equipment_workbench",
+   "kind": "box",
+   "xyz": [
+    2.9299999999999997,
+    -2.45,
+    -2.18
+   ],
+   "size": [
+    0.13,
+    1.38,
+    0.54
+   ],
+   "mass_t": 0.09,
+   "source": "candidate interior.blocks; H=4-X in source",
+   "collision": "solid"
+  },
+  {
+   "id": "workbench_display",
+   "kind": "box",
+   "xyz": [
+    2.58,
+    -2.45,
+    -2.44
+   ],
+   "size": [
+    0.42,
+    1.16,
+    0.06
+   ],
+   "mass_t": 0.03,
+   "source": "candidate interior.blocks; H=4-X in source",
+   "collision": "solid"
+  },
+  {
+   "id": "rails_0",
+   "kind": "tube",
+   "a": [
+    1.77,
+    -1.72,
+    -3.03
+   ],
+   "b": [
+    1.77,
+    -1.72,
+    -0.94
+   ],
+   "radius_m": 0.025,
+   "mass_t": 0.009,
+   "source": "candidate rails (H=4-X)",
+   "collision": "slender"
+  },
+  {
+   "id": "rails_1",
+   "kind": "tube",
+   "a": [
+    1.77,
+    1.72,
+    -3.03
+   ],
+   "b": [
+    1.77,
+    1.72,
+    -0.94
+   ],
+   "radius_m": 0.025,
+   "mass_t": 0.009,
+   "source": "candidate rails (H=4-X)",
+   "collision": "slender"
+  },
+  {
+   "id": "rails_2",
+   "kind": "tube",
+   "a": [
+    2.65,
+    -1.36,
+    1.5
+   ],
+   "b": [
+    2.65,
+    -1.36,
+    3.57
+   ],
+   "radius_m": 0.022,
+   "mass_t": 0.009,
+   "source": "candidate rails (H=4-X)",
+   "collision": "slender"
+  },
+  {
+   "id": "rails_3",
+   "kind": "tube",
+   "a": [
+    2.65,
+    1.36,
+    1.5
+   ],
+   "b": [
+    2.65,
+    1.36,
+    3.57
+   ],
+   "radius_m": 0.022,
+   "mass_t": 0.009,
+   "source": "candidate rails (H=4-X)",
+   "collision": "slender"
+  },
+  {
+   "id": "lights_0",
+   "kind": "tube",
+   "a": [
+    1.7799999999999998,
+    -1.6,
+    -2.94
+   ],
+   "b": [
+    1.7799999999999998,
+    1.6,
+    -2.94
+   ],
+   "radius_m": 0.026,
+   "mass_t": 0.004,
+   "source": "candidate lights (H=4-X)",
+   "collision": "slender"
+  },
+  {
+   "id": "lights_1",
+   "kind": "tube",
+   "a": [
+    2.1999999999999997,
+    -1.18,
+    3.61
+   ],
+   "b": [
+    2.1999999999999997,
+    1.18,
+    3.61
+   ],
+   "radius_m": 0.024,
+   "mass_t": 0.004,
+   "source": "candidate lights (H=4-X); +0.45m FORWARD to avoid NAV couch 3D",
+   "collision": "slender"
+  },
+  {
+   "id": "transfer_0",
+   "kind": "tube",
+   "a": [
+    3.1,
+    -1.65,
+    -0.65
+   ],
+   "b": [
+    2.05,
+    -1.65,
+    -1.15
+   ],
+   "radius_m": 0.03,
+   "mass_t": 0.022,
+   "source": "command_off-axis hand/foot access; shifted to reach directly from source port ladder landing (old y/z -1.67,-3.20 was isolated by terrace)",
+   "collision": "access"
+  },
+  {
+   "id": "transfer_1",
+   "kind": "tube",
+   "a": [
+    3.1,
+    -1.14,
+    1.47
+   ],
+   "b": [
+    2.8,
+    -1.14,
+    1.67
+   ],
+   "radius_m": 0.03,
+   "mass_t": 0.022,
+   "source": "navigator hand/foot access",
+   "collision": "access"
+  },
+  {
+   "id": "observation_rail",
+   "kind": "arc",
+   "radius_m": 4.05,
+   "angles_rad": [
+    -0.92,
+    0.92
+   ],
+   "x_m": 2.35,
+   "tube_radius_m": 0.022,
+   "mass_t": 0.025,
+   "source": "candidate observation, 4.05m perimeter to clear couch; relocated forward 0.52m to clear S3/S4 couch AABBs",
+   "collision": "slender"
+  },
+  {
+   "id": "low_g_command_point",
+   "kind": "box",
+   "xyz": [
+    3.17,
+    -1.35,
+    -3.55
+   ],
+   "size": [
+    0.14,
+    0.25,
+    0.25
+   ],
+   "mass_t": 0.028,
+   "source": "candidate low-g standing/foot restraints",
+   "collision": "low_g_only"
+  },
+  {
+   "id": "map_console",
+   "kind": "box",
+   "xyz": [
+    2.62,
+    0.4,
+    -3.45
+   ],
+   "size": [
+    0.03,
+    0.22,
+    0.035
+   ],
+   "mass_t": 0.012,
+   "source": "candidate common mission plot; mounted to table",
+   "collision": "intentional_table_contact"
+  }
+ ],
+ "navigator_platform": {
+  "x_m": [
+   2.76,
+   2.86
+  ],
+  "y_m": [
+   -1.325,
+   1.325
+  ],
+  "z_m": [
+   1.45,
+   3.65
+  ]
+ },
+ "command_terrace": {
+  "x_m": [
+   2.41,
+   2.51
+  ],
+  "y_m": [
+   -1.7,
+   1.7
+  ],
+  "z_m": [
+   -3.01,
+   -0.91
+  ]
+ },
+ "l1_l2_hatches": [
+  {
+   "id": "l1_l2_hatch_0",
+   "y": 1.4,
+   "z": 0,
+   "size_m": 0.8,
+   "state": "OPEN/PARKED, crew-clear; closed position is a potential future operation",
+   "mass_basis": "existing L1/L2 outfitting; no new reserve draw; not a pressure seal"
+  },
+  {
+   "id": "l1_l2_hatch_1",
+   "y": -1.4,
+   "z": 0,
+   "size_m": 0.8,
+   "state": "OPEN/PARKED, crew-clear; closed position is a potential future operation",
+   "mass_basis": "existing L1/L2 outfitting; no new reserve draw; not a pressure seal"
+  }
+ ],
+ "operating_phases": [
+  "coast+standing collaboration",
+  "approach+six specialist stations",
+  "4g+six occupied seats; standing stations inactive"
+ ]
 }

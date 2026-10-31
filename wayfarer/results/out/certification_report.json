@@ -2,8 +2,8 @@
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
  "status": "NON-GOVERNING SANDBOX certification run",
  "basis": "CERTIFICATION_BASIS.md v0.2 (agreed by Claude and Sol; PROPOSED to kT)",
- "geometry_sha256": "faf75e0da8a58c850c72d3e6941f5af94cadb06dcf8dfbaa510fac56b77327af",
- "inputs_sha256": "c2a88cf70276c6da7605c7bc169b460777ca9836610c57de63e5e22f5ba83e91",
+ "geometry_sha256": "702cca4ef985f754b066e4289f3cc63a4d13c87608b40a75fc9520cf67d0cfb3",
+ "inputs_sha256": "3e744c35772d71ec93eb0663386a57c4d7f2ec4dcf5d9a3fc4a6bdbf6af64ba2",
  "criteria_sha256": "5bf7777930bb8dc1e72460daf3b1e5a6776b7b9f266e68269f0e7d847823d980",
  "summary": {
   "G1": "PASS",
@@ -51,7 +51,7 @@
     },
     {
      "name": "AOI and backup dome entirely drawn from positive existing reserve",
-     "value": 17.823,
+     "value": 17.786,
      "limit": 0.0,
      "unit": "t",
      "pass": true,
@@ -142,16 +142,16 @@
      "name": "reference departure",
      "mass_t": 1167.7,
      "cg_m": [
-      24.226,
+      24.225,
       0.023,
       -0.355
      ],
-     "Ixx": 12447821.594606034,
-     "Iyy": 194706563.0025476,
-     "Izz": 195526394.02921614,
-     "Ixy": 134711.1058760319,
-     "Ixz": 1355589.034108245,
-     "Iyz": 3519.9131801842814
+     "Ixx": 12451336.748173378,
+     "Iyy": 194722146.530063,
+     "Izz": 195541952.43636128,
+     "Ixy": 134678.88254485733,
+     "Ixz": 1355915.860776383,
+     "Iyz": 3514.69575798764
     },
     {
      "state": "S2",
@@ -162,12 +162,12 @@
       0.022,
       -0.341
      ],
-     "Ixx": 13016679.117149092,
-     "Iyy": 198503384.48805302,
-     "Izz": 199674532.17913124,
-     "Ixy": 125120.76727035735,
-     "Ixz": 1504055.7143928038,
-     "Iyz": 3292.1398275601896
+     "Ixx": 13020193.963105433,
+     "Iyy": 198518334.75442365,
+     "Izz": 199689457.62744975,
+     "Ixy": 125089.87350562226,
+     "Ixz": 1504365.9053244623,
+     "Iyz": 3286.891859003179
     },
     {
      "state": "S3",
@@ -178,76 +178,76 @@
       0.025,
       -0.277
      ],
-     "Ixx": 11329596.863095235,
-     "Iyy": 193119589.67505488,
-     "Izz": 193628051.87330893,
-     "Ixy": 131447.95392684935,
-     "Ixz": 1383078.625297009,
-     "Iyz": 3973.562673872104
+     "Ixx": 11333110.376594298,
+     "Iyy": 193135220.8402892,
+     "Izz": 193643659.57021886,
+     "Ixy": 131413.84218087007,
+     "Ixz": 1383336.154231193,
+     "Iyz": 3968.254387142588
     },
     {
      "state": "S4",
      "name": "burnt out, shuttle home",
      "mass_t": 917.7,
      "cg_m": [
-      23.878,
+      23.877,
       0.029,
       -0.126
      ],
-     "Ixx": 9620620.902638396,
-     "Iyy": 189730212.96484423,
-     "Izz": 189803216.1638851,
-     "Ixy": 119054.4680597868,
-     "Ixz": 1014718.0598789214,
-     "Iyz": 5493.895155257274
+     "Ixx": 9624131.285839992,
+     "Iyy": 189745177.43734294,
+     "Izz": 189818160.32121718,
+     "Ixy": 119017.36563890874,
+     "Ixz": 1014838.8443407351,
+     "Iyz": 5488.413440979122
     },
     {
      "state": "S5",
      "name": "burnt out, shuttle away",
-     "mass_t": 888.4,
+     "mass_t": 888.5,
      "cg_m": [
-      23.836,
+      23.835,
       0.03,
       -0.13
      ],
-     "Ixx": 9567350.584515674,
-     "Iyy": 189252606.07851857,
-     "Izz": 189326302.28101698,
-     "Ixy": 117689.64928585646,
-     "Ixz": 1016845.3478164163,
-     "Iyz": 5573.732410485025
+     "Ixx": 9570863.410215186,
+     "Iyy": 189267517.83029056,
+     "Izz": 189341193.6022188,
+     "Ixy": 117651.83718698731,
+     "Ixz": 1016969.2648408827,
+     "Iyz": 5568.263109460027
     },
     {
      "state": "S6",
      "name": "full, shuttle away",
-     "mass_t": 1138.4,
+     "mass_t": 1138.5,
      "cg_m": [
-      24.202,
+      24.201,
       0.023,
       -0.365
      ],
-     "Ixx": 12391254.338514024,
-     "Iyy": 194248883.06473327,
-     "Izz": 195072723.04135212,
-     "Ixy": 133820.84318431956,
-     "Ixz": 1362717.2932070096,
-     "Iyz": 3468.833850032621
+     "Ixx": 12394772.186561786,
+     "Iyy": 194264445.0724016,
+     "Izz": 195088259.5583098,
+     "Ixy": 133788.1830352745,
+     "Ixz": 1363051.6077667763,
+     "Iyz": 3463.6380562660634
     },
     {
      "state": "S7",
      "name": "one tank cell breached and vented",
      "mass_t": 1105.2,
      "cg_m": [
-      24.344,
+      24.343,
       0.161,
       -0.308
      ],
-     "Ixx": 11721072.8706148,
-     "Iyy": 194022310.47498742,
-     "Izz": 194618516.08805227,
-     "Ixy": 474248.8232175102,
-     "Ixz": 1471891.5713191198,
-     "Iyz": 46241.623300959174
+     "Ixx": 11724587.429052273,
+     "Iyy": 194038102.27844456,
+     "Izz": 194634284.1590292,
+     "Ixy": 474094.08239973534,
+     "Ixz": 1472177.7181338784,
+     "Iyz": 46237.78498239226
     }
    ]
   },
@@ -895,7 +895,7 @@
      "limit": 1.572,
      "unit": "t needed vs allotted",
      "pass": true,
-     "note": "13.34 t on the floor (19.5 kPa); CFRP faces 0.23 mm; core shear 0.114 MPa"
+     "note": "13.38 t on the floor (19.6 kPa); CFRP faces 0.23 mm; core shear 0.114 MPa"
     },
     {
      "name": "floor L2: carries its deck at 5 g x 1.5",
@@ -935,7 +935,7 @@
      "limit": 600.0,
      "unit": "MPa",
      "pass": true,
-     "note": "23 titanium mullions 5 x 20 cm; worst of 5 g x 1.5 on 73.8 t ahead (5.43 MN) and 2 x the pressure end load (11.05 MN); buckling margin 3.9"
+     "note": "23 titanium mullions 5 x 20 cm; worst of 5 g x 1.5 on 73.9 t ahead (5.43 MN) and 2 x the pressure end load (11.05 MN); buckling margin 3.9"
     },
     {
      "name": "L2 band edge rings: hoop across the band + beam between mullions",
@@ -1135,6 +1135,34 @@
      "note": "27 g/cm2 Rev7 gores, separate from 37 outer panes; shelter transport not re-qualified by simple areal sum"
     },
     {
+     "name": "I4 source 37-pane radial boundaries preserved exactly",
+     "value": [
+      0,
+      0.75,
+      2.0,
+      2.75,
+      3.5
+     ],
+     "limit": [
+      0,
+      0.75,
+      2.0,
+      2.75,
+      3.5
+     ],
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "I4 outermost ring stagger pi/12 preserved",
+     "value": 0.261799,
+     "limit": 0.261799,
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
      "name": "I4 outer protection 37 separate panes [1,12,12,12]",
      "value": 37,
      "limit": 37,
@@ -1144,7 +1172,7 @@
     },
     {
      "name": "I4 segmented pane outer chord max 1.9m",
-     "value": 1.734,
+     "value": 1.812,
      "limit": 1.9,
      "unit": "m",
      "pass": true,
@@ -1227,7 +1255,7 @@
    "notes": [
     "Shadow cone: shield front face x 34.3 m, radius 2.75 m; neutron source: the pellet burn, 0.3 m across, anywhere in x 52.0-52.6 m (worst case used). Radiator strakes and the hot fins sit outside the cone (the fins edge-on to the burn), take neutron heating and are out of bounds for EVA during burns."
    ],
-   "shelter_min_g_cm2": 54.909679284833
+   "shelter_min_g_cm2": 54.90822610543873
   },
   {
    "gate": "G7",
@@ -1364,11 +1392,19 @@
     },
     {
      "name": "I4 human-factors source geometry hash",
-     "value": "faf75e0da8a58c850c72d3e6941f5af94cadb06dcf8dfbaa510fac56b77327af",
-     "limit": "faf75e0da8a58c850c72d3e6941f5af94cadb06dcf8dfbaa510fac56b77327af",
+     "value": "702cca4ef985f754b066e4289f3cc63a4d13c87608b40a75fc9520cf67d0cfb3",
+     "limit": "702cca4ef985f754b066e4289f3cc63a4d13c87608b40a75fc9520cf67d0cfb3",
      "unit": "",
      "pass": true,
      "note": ""
+    },
+    {
+     "name": "I4 human factors: l1_l2_parked_hatch_leaves_clear_of_seats_and_ladders",
+     "value": true,
+     "limit": true,
+     "unit": "",
+     "pass": true,
+     "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
      "name": "I4 human factors: six_role_seats_present",
@@ -1471,7 +1507,7 @@
    "notes": [
     "Target 370 m3 (45 per crew, 25 per guest): reached 87%. A sixth deck (+2.6 m of habitat) would reach the target.",
     "Net habitable volume by deck: L1 51 m3, L2 81 m3, L3 77 m3, L4 57 m3, L5 57 m3",
-    "Windows: the crown dome over L1 (25 m2), a panoramic viewport band round L2 (19.4 m2, 1.6 m tall in the lounge), 12 round viewports (4 shoulder on L1; L4 medical 2, storm shelter 2; L5 suits 1, workshop 2, vestibule 1) and 10 berth viewports (0.5 m) on L3. With every shutter open about 2.55 kW radiates through the low-e glazing; shutters close for night. The canon candidate suggests 10-16 windows; amendment v2.4f proposes more (kT's call). Below the crown every window has four panes, a dust shutter, a 12 deg armour splay and an acrylic shield plug",
+    "Windows: the crown dome over L1 (25 m2), a panoramic viewport band round L2 (19.4 m2, 1.6 m tall in the lounge), 12 round viewports (4 shoulder on L1; L4 medical 2, storm shelter 2; L5 suits 1, workshop 2, vestibule 1) and 10 berth viewports (0.5 m) on L3. With every shutter open about 2.59 kW radiates through the low-e glazing; shutters close for night. The canon candidate suggests 10-16 windows; amendment v2.4f proposes more (kT's call). Below the crown every window has four panes, a dust shutter, a 12 deg armour splay and an acrylic shield plug",
     "Casualties move at 0 g (coast on the captain's order); under thrust they are treated in their couch or berth.",
     "Decks are perpendicular to the thrust axis; under thrust, aft is down. Above ~1.5 g everyone rides in a couch.",
     "Cabins by occupancy (v0.5.3, Sol's candidate): Captain's cabin 1 (15.6 m3 each), Crew cabin A 2 (7.8 m3 each), Guest cabin 4 (5.9 m3 each), Crew cabin B 3 (7.8 m3 each); 10 berths in 4 cabins. Private cabins removed by kT on 2026-10-25 (basis change, Sol to agree)."
@@ -1697,7 +1733,7 @@
     },
     {
      "name": "engineering reserve after the rev 7 equipment",
-     "value": 37.48,
+     "value": 37.45,
      "limit": "> 0",
      "unit": "t",
      "pass": true,
@@ -1732,8 +1768,8 @@
    "checks": [
     {
      "name": "C: card names the geometry it was made from",
-     "value": "faf75e0da8a5",
-     "limit": "faf75e0da8a5",
+     "value": "702cca4ef985",
+     "limit": "702cca4ef985",
      "pass": true,
      "unit": "",
      "note": ""
@@ -2060,8 +2096,8 @@
    "checks": [
     {
      "name": "render manifest matches locked geometry",
-     "value": "faf75e0da8a58c850c72d3e6941f5af94cadb06dcf8dfbaa510fac56b77327af",
-     "limit": "faf75e0da8a58c850c72d3e6941f5af94cadb06dcf8dfbaa510fac56b77327af",
+     "value": "702cca4ef985f754b066e4289f3cc63a4d13c87608b40a75fc9520cf67d0cfb3",
+     "limit": "702cca4ef985f754b066e4289f3cc63a4d13c87608b40a75fc9520cf67d0cfb3",
      "unit": "",
      "pass": true,
      "note": ""
@@ -2297,6 +2333,6 @@
   "rcs_power_source": "OPEN: idle torch reactor versus dedicated supply; no ship-wide budget",
   "rcs_power_option_B": "hot-water store OPTION, not baseline",
   "required_final_authority": "separate reviewer signatures and loom-gate per existing basis",
-  "geometry_sha256": "faf75e0da8a58c850c72d3e6941f5af94cadb06dcf8dfbaa510fac56b77327af"
+  "geometry_sha256": "702cca4ef985f754b066e4289f3cc63a4d13c87608b40a75fc9520cf67d0cfb3"
  }
 }

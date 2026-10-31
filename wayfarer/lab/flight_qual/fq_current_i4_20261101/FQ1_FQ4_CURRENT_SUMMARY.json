@@ -1,0 +1,28 @@
+{
+ "geometry_sha256": "702cca4ef985f754b066e4289f3cc63a4d13c87608b40a75fc9520cf67d0cfb3",
+ "source_state": "S4 no-remass mass/CG/inertia + unchanged tank",
+ "dt_s": 0.2,
+ "total": 78,
+ "passed": 78,
+ "by_gate": {
+  "FQ1": {
+   "total": 6,
+   "passed": 6
+  },
+  "FQ2": {
+   "total": 48,
+   "passed": 48
+  },
+  "FQ3": {
+   "total": 12,
+   "passed": 12
+  },
+  "FQ4": {
+   "total": 12,
+   "passed": 12
+  }
+ },
+ "status": "PASS_NUMERICAL",
+ "constraints": "two water propellant states, no Metric/Navigator; not FQ5\u2013FQ10 nor physical flight certificate",
+ "failures": []
+}

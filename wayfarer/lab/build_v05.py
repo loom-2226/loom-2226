@@ -1271,6 +1271,7 @@ def main():
                    "center": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["centre_ring_r_m"], "fork": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["fork_r_m"],
                    "innerR": I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("i4_crown_option_B",{}).get("inner_diameter_m",0)/2,
                    "outerPaneRings": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["panes"].get("ring_boundaries_m"),
+                   "outerBandStaggerRad": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["panes"].get("outermost_band_stagger_rad",0.0),
                    "aoi": I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("adaptive_optogel")}
                   if I["habitat"]["decks"][0].get("command_layout", {}).get("crown_dome", {}).get("adopted") else None),
         "version": I["version"], "inputs_sha256": hashlib.sha256(raw).hexdigest(),

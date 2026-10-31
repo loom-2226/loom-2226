@@ -169,7 +169,15 @@ for q in I.get('i4_carryover',{}).get('items',[]):
     if q['id'].startswith('transfer_'):
         a=q['a'];floor_transfer_reach[q['id']]=any(math.hypot(origin+iy*step-a[1],origin+iz*step-a[2])<1.2
                                                       for iy,iz in floor_reach)
+# Two L1/L2 hatch leaves parked beside (not across) the preserved 0.8 m ladder openings.
+# Rendered from existing outfitting allowance, no new pressure-seal qualification.
+hatch_clear={}
+for j,y in enumerate((-1.4,1.4)):
+    yc=y+(1 if y>0 else -1)*(.8*.9)
+    b=[[3.0-.047,3.0-.003],[yc-.8*.36,yc+.8*.36],[-.8*.42,.8*.42]]
+    hatch_clear['l1_l2_hatch_'+str(j)]=not any(overlap_volume(b,v)>1e-9 for v in seat_boxes.values()) and not any(overlap_volume(b,v)>1e-9 for v in ladder_boxes)
 checks={
+'l1_l2_parked_hatch_leaves_clear_of_seats_and_ladders':len(hatch_clear)==2 and all(hatch_clear.values()),
 'six_role_seats_present':len(seats)==6 and len(set(s['id'] for s in seats))==6,
 'contoured_couch_nominal_length_1p58m':all(x['contoured_couch_length_1p58m'] for x in couch),
 'plan_seat_envelope_inside_annulus':all(x['within_4p15m_plan'] for x in couch),
@@ -184,7 +192,7 @@ checks={
 
 }
 out={'geometry_sha256':H,'status':'kT 2026-10-31 bounded I4 couch+crawl 1.2m rule; does NOT qualify physical occupant fit/egress',
-'couches':couch,'walkways':{'grid_step_m':step,'path_half_width_m':.4,'walkable_cells':len(walkable),'connected_cells':len(seen),'to_seats':reach},
+'couches':couch,'l1_l2_hatch_clear':hatch_clear,'walkways':{'grid_step_m':step,'path_half_width_m':.4,'walkable_cells':len(walkable),'connected_cells':len(seen),'to_seats':reach},
 'ladders':{'holes':ladder_holes,'checks':landings},
 'headroom':{'terrace_center_m':round(front-dome(1.96),3),'worst_corner_m':round(raw,3),
            'chamfer_OPTION_not_geometry':{'cut_m':cut,'worst_corner_m':round(ch,3),'gain_m':round(ch-raw,3),

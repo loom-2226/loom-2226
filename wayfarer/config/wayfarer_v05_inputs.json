@@ -628,9 +628,9 @@
      },
      "crown_dome": {
       "adopted": true,
-      "prov": "kT OPTION A 2026-11-01: 37 outer nonpressure panes + TWO INDEPENDENT seamless ~7m ceramic pressure domes, AOI-2226 interlayer, 16 Rev7 armour gores; mechanical independence and gel impact response not qualified",
-      "r_m": 3.35,
-      "glazed_area_m2": 37.516,
+      "prov": "kT OPTION A 2026-11-01: 37 outer nonpressure panes + TWO INDEPENDENT seamless ~7m ceramic pressure domes, AOI-2226 interlayer, 16 Rev7 armour gores; mechanical independence and gel impact response not qualified; original I4 radii/stagger restored 2026-11-01; +0.036319t from engineering reserve",
+      "r_m": 3.5,
+      "glazed_area_m2": 38.48451,
       "roots": 12,
       "blades": 16,
       "fork_r_m": 2.0,
@@ -640,15 +640,15 @@
       "panes": {
        "material": "2226 flaw-controlled transparent ceramic (not ALON fabrication claim)",
        "outer_layer": "37 independent segmented debris/dust/thermal panes, distribution 1+12+12+12, NOT pressure-rated",
-       "outer_radius_m": 3.35,
+       "outer_radius_m": 3.5,
        "ring_boundaries_m": [
         0,
         0.75,
-        1.6,
-        2.48,
-        3.35
+        2.0,
+        2.75,
+        3.5
        ],
-       "maximum_outer_circumferential_edge_m": 1.7341,
+       "maximum_outer_circumferential_edge_m": 1.811733,
        "outer_thickness_m": 0.01,
        "outer_density_kg_m3": 3750,
        "inner_layer": "TWO separately pressure-capable seamless ~7m monolithic transparent ceramic domes, 0.12m axial backup offset; AOI-2226 in ~3.023m3 interspace",
@@ -657,7 +657,9 @@
        "inner_thickness_m": 0.028,
        "inner_density_kg_m3": 3750,
        "inner_shape": "X(r)=2.35-2.15*sqrt(1-(r/4.3)^2), 0<=r<=3.50",
-       "pressure_milestone": "PENDING: two independent full-scale ~7m monolithic ceramic pressure enclosures and no shock/crack coupling through AOI; earlier one-dome approval does not carry"
+       "pressure_milestone": "PENDING: two independent full-scale ~7m monolithic ceramic pressure enclosures and no shock/crack coupling through AOI; earlier one-dome approval does not carry",
+       "outermost_band_stagger_rad": 0.261799387799,
+       "outer_pattern_provenance": "RESTORED f07354f: 37 modules [1,12,12,12], radii [0,.75,2,2.75,3.5], final band \u03c0/12 stagger. Maximum hoop chord 1.812m; within existing 1.9m check. Additional outer ceramic mass from reserve."
       },
       "brow_ring": {
        "height_m": 0.22,
@@ -671,7 +673,7 @@
        "mass_note": "the gores carry the armour the opening removes (already in the armour part), so they are not new mass"
       },
       "mass_t": {
-       "panes": 2.441419,
+       "panes": 2.477738,
        "frame": 1.8,
        "brow_ring": 0.5,
        "gore_tracks_and_drives": 0.5
@@ -1838,7 +1840,7 @@
    "prov": "ENGINEERING_ASSUMPTION"
   },
   "mission_courier_systems_t": 20.0,
-  "engineering_reserve_t": 17.822535,
+  "engineering_reserve_t": 17.786216,
   "engineering_reserve_rule": "spread over dry parts in proportion to their mass (growth margin), not lumped at one point",
   "c_tank_penalty_t": 8.0,
   "radiator_panels_t": 8.784,
@@ -1885,7 +1887,7 @@
    "total_t": 1.4208,
    "prov": "rev 7 external equipment that is new hardware (external_equipment draw_from: reserve); everything else is located inside its existing ledger line"
   },
-  "i4_carryover_t": 0.839419,
+  "i4_carryover_t": 0.875738,
   "aoi_crown_t": 7.345246,
   "aoi_aft_bulkhead_reinforcement_t": 0.5
  },
@@ -3006,7 +3008,7 @@
   "NAV_platform": "Existing i4_lock.platforms.navigator_platform, retain without duplication",
   "mounts": "rail, lighting, transfers and low-g station accepted for geometry screen; load/egress qualification separate",
   "sum_new_from_reserve_t": 0.528,
-  "crown_increment_from_reserve_t": 0.311419,
+  "crown_increment_from_reserve_t": 0.347738,
   "pressure_shell_replacement_credit_t": 3.310664,
   "crown": "kT Option A 2026-11-01 replaces prior Option B: TWO independently sealed ~7m pressure domes with AOI in their 3.023m3 gap, 37 protective outer panes, 16 closed Strata gores",
   "gel_from_reserve_t": 3.0,

@@ -1,3 +1,7 @@
+# I4 completeness repair, final source 702cca4ef985f754b066e4289f3cc63a4d13c87608b40a75fc9520cf67d0cfb3
+
+See [I4 completeness recovery](I4_COMPLETENESS_RECOVERY_2026_11_01.md) for f07354f item mapping, restored 37 panes, NAV platform, hatches, optical viewer, G7/G6 and FQ1-FQ4 latest new geometry. **certified=false**, draft PR #439; previous docs retain historical evidence.
+
 # Wayfarer current AOI-2226 Option A review
 
 NEW geometry SHA256: faf75e0da8a58c850c72d3e6941f5af94cadb06dcf8dfbaa510fac56b77327af. 37 protective outer panes, TWO independently pressure-capable ~7m ceramic domes, 3.023m3 optogel between; failure independence and current visual evidence remain kT HOLD. See [Option A report](AOI_2226_CROWN_OPTION_A_2026_11_01.md).

@@ -828,6 +828,12 @@ def g6(I, C, G):
         cs.append(chk("I4 closed Strata gores plus dome pair and outer ceramic restore old areal mass",
             round(protected,3),prior,protected>=prior,"g/cm2",
             "27 g/cm2 Rev7 gores, separate from 37 outer panes; shelter transport not re-qualified by simple areal sum"))
+        cs.append(chk("I4 source 37-pane radial boundaries preserved exactly",
+            CD["panes"]["ring_boundaries_m"],[0,.75,2.,2.75,3.5],
+            CD["panes"]["ring_boundaries_m"]==[0,.75,2.,2.75,3.5]))
+        cs.append(chk("I4 outermost ring stagger pi/12 preserved",
+            round(CD["panes"].get("outermost_band_stagger_rad",0),6),round(math.pi/12,6),
+            abs(CD["panes"].get("outermost_band_stagger_rad",0)-math.pi/12)<1e-8))
         cs.append(chk("I4 outer protection 37 separate panes [1,12,12,12]",
             B2["outer_count"],37,B2["outer_count"]==37))
         cs.append(chk("I4 segmented pane outer chord max 1.9m",

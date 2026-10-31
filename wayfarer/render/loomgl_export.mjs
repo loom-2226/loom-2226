@@ -55,7 +55,9 @@ export const MATS = {
   room_vestibule:{c: [0.72, 0.74, 0.76], m: 0, r: 0.8},
   plume:        {c: [0.75, 0.62, 1.0], m: 0, r: 1, kind: 9},
   window:       {c: [0.02, 0.03, 0.045], m: 0.9, r: 0.05, em: [0.035, 0.03, 0.022]},
-  aoi:          {c: [0.08, 0.24, 0.29], m: 0.1, r: 0.11, em: [0.012, 0.028, 0.035]},
+  crown_glass:  {c: [0.20, 0.40, 0.52], m: 0.35, r: 0.10, alpha: 0.13},
+  crown_pane:   {c: [0.23, 0.42, 0.50], m: 0.25, r: 0.20, alpha: 0.16},
+  aoi:          {c: [0.08, 0.24, 0.29], m: 0.1, r: 0.11, alpha: 0.10, em: [0.012, 0.028, 0.035]},
   hatch:        {c: [0.72, 0.72, 0.70], m: 0.3, r: 0.4},
   // L1 command scene (render-only items placed from render/out/l1_scene.json, the scene the ray tests score)
   couch:        {c: [0.20, 0.24, 0.29], m: 0.15, r: 0.55},
@@ -345,8 +347,8 @@ function meshRing(mb, p0, p1, ri, ro, n = 32) {   // hollow tube (window frame):
 // the brow ring, so nothing sits outside the glass when it is open.
 export function crownMeshes(cw, xc) {
   const G = {}, mb = m => (G[m] ||= new MB(xc));
-  // kT I4 Option B: 37 OUTER nonpressure panes, ONE seamless pressure dome.
-  // Rev7's 16 armour-equivalent Strata gores still close over both skins.
+  // kT I4 Option A: 37 OUTER nonpressure panes, TWO seamless independent pressure domes + AOI.
+  // 16 Strata gores close over all; transparent shader is REPRESENTATION not optics qualification.
   if (cw.outerPaneRings && cw.innerR) {
     const bounds=cw.outerPaneRings, outer=bounds[bounds.length-1], inner=cw.innerR;
     const X=r=>2.35-2.15*Math.sqrt(Math.max(0,1-(r/4.3)**2));
@@ -356,22 +358,23 @@ export function crownMeshes(cw, xc) {
        return [-1/q,v*Math.cos(a)/q,v*Math.sin(a)/q];};
     const innerProfile=[];
     for(let j=0;j<=84;j++){const r=inner*j/84;const nn=NN(r,0);innerProfile.push([X(r),r,nn[0],nn[1]]);}
-    lathe(mb("window"),innerProfile,96);
+    lathe(mb("crown_glass"),innerProfile,96);
     if (cw.aoi) {
       // AOI is a filled NON-PRESSURE interlayer with an independent backup
       // ceramic dome offset 0.12 m forward. Renderer surfaces do not imply
       // proven fragment shock absorption or pressure-seal function.
       const backup=innerProfile.map(row=>[row[0]-.12,row[1],row[2],row[3]]);
       const gel=innerProfile.map(row=>[row[0]-.06,row[1],row[2],row[3]]);
-      lathe(mb("window"),backup,96);
+      lathe(mb("crown_glass"),backup,96);
       lathe(mb("aoi"),gel,96);
     }
     // 1 centre pane and 12 trapezoids in each of three concentric bands.
-    const B=mb("window"), seam=mb("frame");
+    const B=mb("crown_pane"), seam=mb("frame");
     for(let ring=0;ring<4;ring++){
       const r0=bounds[ring],r1=bounds[ring+1],count=ring===0?1:12;
       for(let i=0;i<count;i++){
-        const a0=2*Math.PI*i/count, a1=2*Math.PI*(i+1)/count,nn=8,steps=6;
+        const off=ring===3?(cw.outerBandStaggerRad||0):0;
+        const a0=2*Math.PI*i/count+off, a1=2*Math.PI*(i+1)/count+off,nn=8,steps=6;
         for(let j=0;j<steps;j++){
           const u=r0+(r1-r0)*j/steps,v=r0+(r1-r0)*(j+1)/steps;
           const aa=[...Array(nn+1)].map((_,k)=>a0+(a1-a0)*k/nn);
@@ -556,6 +559,12 @@ export function commandMeshes(sc, opt = {}) {
     } else if (pilot) { const top = domeX(Math.hypot(b[1], b[2])); if (b[0] - top > 0.02) meshTube(mb("rail"), {p0: b, p1: [top, b[1], b[2]], r: 0.022}, 10); }
     else meshTube(mb("rail"), {p0: b, p1: [cc.base_x - sc.couch.back_above_base_m, b[1], b[2]], r: 0.022}, 10);
   }
+  // The platforms exist in source mass geometry; show both in the interactive and GLB command scene.
+  for(const [name,p] of [["navigator_platform",sc.navigator_platform],["command_terrace",sc.command_terrace]]) {
+    if(!p)continue;
+    meshBox(mb(name==="navigator_platform"?"floor":"equipment"),
+      [p.x_m[0],p.x_m[1],p.y_m[0],p.y_m[1],p.z_m[0],p.z_m[1]]);
+  }
   for (const it of sc.carryover || []) {
     const mt=it.id.startsWith("lights")?"screen":it.kind==="tube"||it.kind==="arc"?"rail":"equipment";
     if(it.kind==="box"){
@@ -581,6 +590,15 @@ export function commandMeshes(sc, opt = {}) {
     }
     const t0 = [sc.floor_x - 1.05, l.y + rad[1] * (s - 0.05), l.z + rad[2] * (s - 0.05)];
     meshTube(mb("rail"), {p0: t0.map((x, i) => x - tan[i] * (s - 0.08)), p1: t0.map((x, i) => x + tan[i] * (s - 0.08)), r: 0.022}, 10);
+  }
+  // L1/L2 transfer hatch leaves: parked clear of both 0.8 m ladder holes.
+  // These are visual uses of the existing floor/door outfitting mass, not a pressure seal proof.
+  for(const h of sc.l1_l2_hatches||[]) {
+    const yPark=h.y+(h.y>=0?1:-1)*(h.size_m*.9), z=h.z, w=h.size_m;
+    meshOBox(mb("hatch"),[sc.floor_x-.025,yPark,z],[[1,0,0],[0,1,0],[0,0,1]],
+      [.022,w*.36,w*.42]);
+    meshTube(mb("rail"),{p0:[sc.floor_x-.06,h.y-w/2,h.z-w/2],
+      p1:[sc.floor_x-.06,h.y+w/2,h.z-w/2],r:.018},8);
   }
   const fl = sc.flight_deck_ladder;
   if (fl && !gone([(fl.x[0] + fl.x[1]) / 2, 0, fl.z])) {
@@ -736,7 +754,7 @@ void main(){
   if(uKind==2){ col+=uHot*vec3(1.0,0.32,0.07)*(0.55+0.45*fract(sin(floor(vShip.x*0.5)*7.13)*91.7)); }
   if(uKind==4){ col+=uHot*vec3(1.0,0.44,0.12)*0.62*(0.70+0.30*fract(sin(floor(vShip.x*0.5)*5.31)*71.3)); }
   col+=uEm;
-  o=vec4(pow(aces(col*uExp),vec3(1.0/2.2)),1.0);
+  o=vec4(pow(aces(col*uExp),vec3(1.0/2.2)),uAlpha);
 }`;
 
 const SVS = `#version 300 es
@@ -979,7 +997,7 @@ export class Ship {
     let clip = [0, 0, 0, 0], clipOn = 0;
     if (view.clip) { const [a, b, c, d] = view.clip; clip = [a, c, -b, d + a * this.xc]; clipOn = 1; }
     gl.useProgram(this.shp.p); gl.uniformMatrix4fv(this.shp.U.uL, false, L); gl.uniform4fv(this.shp.U.uClip, clip);
-    for (const m of this.meshes) { if (m.mat === "plume") continue; gl.uniform1f(this.shp.U.uClipOn, m.noclip ? 0 : clipOn);
+    for (const m of this.meshes) { if (m.mat === "plume" || (MATS[m.mat]&&MATS[m.mat].alpha)) continue; gl.uniform1f(this.shp.U.uClipOn, m.noclip ? 0 : clipOn);
       this.bind(m, false); gl.drawElements(gl.TRIANGLES, m.n, gl.UNSIGNED_INT, 0); }
     gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.viewport(0, 0, W, H);
     gl.clearColor(0, 0, 0, 1); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -1010,7 +1028,7 @@ export class Ship {
     gl.uniform3fv(U["uPLP[0]"], PLP); gl.uniform3fv(U["uPLC[0]"], PLC); gl.uniform1i(U.uNPL, lights.length); gl.uniform1f(U.uClipOn, clipOn); gl.uniform1f(U.uExp, view.exposure || 1.0); gl.uniform1f(U.uHot, view.hot || 0);
     gl.uniform1f(U.uShZ, (this.cfg && this.cfg.shuttleLift) || 0); gl.uniform1f(U.uLen, this.geo.length_m);
     for (const m of this.meshes) {
-      if (m.mat === "plume") continue;
+      if (m.mat === "plume" || (MATS[m.mat]&&MATS[m.mat].alpha)) continue;
       const mt = MATS[m.mat] || MATS.equipment;
       gl.uniform1f(U.uSkin, view.finish || 0); gl.uniform1f(U.uSkinMat, SKINMAT[m.mat] || 0); gl.uniform1f(U.uCold, view.cold || 0);
       gl.uniform3fv(U.uC, mt.c); gl.uniform1f(U.uM, mt.m); gl.uniform1f(U.uR, mt.r); gl.uniform1f(U.uSeam, mt.seam || 0); gl.uniform1i(U.uKind, mt.kind || 0);
@@ -1018,6 +1036,20 @@ export class Ship {
       gl.uniform1f(U.uClipOn, m.noclip ? 0 : clipOn); gl.uniform1f(U.uHoleOn, view.holes && mt.holes ? 1 : 0); gl.uniform1f(U.uNoSec, mt.nosec ? 1 : 0);
       this.bind(m, true); gl.drawElements(gl.TRIANGLES, m.n, gl.UNSIGNED_INT, 0);
     }
+    // Opaque depth first, then source-crown semi-transparent optical illustration.
+    // The independent 7 m ceramic domes still require kT pressure/damage qualification.
+    gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA); gl.depthMask(false);
+    for(const m of this.meshes){
+      const mt=MATS[m.mat]; if(!mt?.alpha)continue;
+      gl.uniform1f(U.uSkin,0);gl.uniform1f(U.uSkinMat,0);gl.uniform1f(U.uCold,0);
+      gl.uniform3fv(U.uC,mt.c);gl.uniform1f(U.uM,mt.m);gl.uniform1f(U.uR,mt.r);
+      gl.uniform1f(U.uSeam,0);gl.uniform1i(U.uKind,0);
+      gl.uniform3fv(U.uEm,mt.em||[0,0,0]);gl.uniform1f(U.uAlpha,mt.alpha);
+      gl.uniform1f(U.uSec,mt.sec||0.55);gl.uniform1f(U.uClipOn,m.noclip?0:clipOn);
+      gl.uniform1f(U.uHoleOn,0);gl.uniform1f(U.uNoSec,1);
+      this.bind(m,true);gl.drawElements(gl.TRIANGLES,m.n,gl.UNSIGNED_INT,0);
+    }
+    gl.depthMask(true);gl.disable(gl.BLEND);
     const pl = this.meshes.find(m => m.mat === "plume");
     if (pl) {
       gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE); gl.depthMask(false); gl.uniform1f(U.uClipOn, 0);

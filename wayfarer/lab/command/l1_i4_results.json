@@ -1,5 +1,5 @@
 {
-  "geometry_sha256": "faf75e0da8a58c850c72d3e6941f5af94cadb06dcf8dfbaa510fac56b77327af",
+  "geometry_sha256": "702cca4ef985f754b066e4289f3cc63a4d13c87608b40a75fc9520cf67d0cfb3",
   "status": "kT 2026-10-31 bounded I4 couch+crawl 1.2m rule; does NOT qualify physical occupant fit/egress",
   "couches": [
     {
@@ -25,7 +25,7 @@
       "within_4p15m_plan": true,
       "eye_x_m": 2.31,
       "sightline": {
-        "visible_upper_bound": 0.706,
+        "visible_upper_bound": 0.853,
         "eye_inside_shell": true,
         "model": "upper bound ONLY; panes open, no Osteon/sensor/other occupant blocking"
       }
@@ -53,7 +53,7 @@
       "within_4p15m_plan": true,
       "eye_x_m": 2.5,
       "sightline": {
-        "visible_upper_bound": 0.978,
+        "visible_upper_bound": 1.0,
         "eye_inside_shell": true,
         "model": "upper bound ONLY; panes open, no Osteon/sensor/other occupant blocking"
       }
@@ -67,7 +67,7 @@
       "within_4p15m_plan": true,
       "eye_x_m": 2.5,
       "sightline": {
-        "visible_upper_bound": 0.978,
+        "visible_upper_bound": 1.0,
         "eye_inside_shell": true,
         "model": "upper bound ONLY; panes open, no Osteon/sensor/other occupant blocking"
       }
@@ -87,6 +87,10 @@
       }
     }
   ],
+  "l1_l2_hatch_clear": {
+    "l1_l2_hatch_0": true,
+    "l1_l2_hatch_1": true
+  },
   "walkways": {
     "grid_step_m": 0.1,
     "path_half_width_m": 0.4,
@@ -385,6 +389,7 @@
     "transfer_1": true
   },
   "checks": {
+    "l1_l2_parked_hatch_leaves_clear_of_seats_and_ladders": true,
     "six_role_seats_present": true,
     "contoured_couch_nominal_length_1p58m": true,
     "plan_seat_envelope_inside_annulus": true,
