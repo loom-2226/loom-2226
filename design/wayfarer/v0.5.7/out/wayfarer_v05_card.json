@@ -1,0 +1,767 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-GOVERNING SANDBOX ship card for Navigator (gate G10)",
+ "ship": "Wayfarer v0.5.7-step1-I4-lock",
+ "geometry_sha256": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+ "dry_t": 867.68,
+ "fluids": {
+  "water_t": 300,
+  "remass_t": 250,
+  "protected_water_t": 50
+ },
+ "torch": {
+  "ve_km_s": {
+   "ECON": 3000,
+   "CRUISE": 2000,
+   "EXPEDITE": 1000,
+   "FAST": 700,
+   "HARD": 450,
+   "LIMIT": 300
+  },
+  "mode_cards": {
+   "ECON": {
+    "mdot_kg_s": 1.1361,
+    "ve_km_s": 3000.0
+   },
+   "CRUISE": {
+    "mdot_kg_s": 5.680502,
+    "ve_km_s": 2000.0
+   },
+   "EXPEDITE": {
+    "mdot_kg_s": 22.722008,
+    "ve_km_s": 1000.0
+   },
+   "FAST": {
+    "mdot_kg_s": 48.690017,
+    "ve_km_s": 700.0
+   },
+   "HARD": {
+    "mdot_kg_s": 126.233378,
+    "ve_km_s": 450.0
+   },
+   "LIMIT": {
+    "mdot_kg_s": 284.025101,
+    "ve_km_s": 300.0
+   }
+  },
+  "mode_cards_source": "KT_DECISION 2026-10-26 (agree 1): main's working card governs; src/wayfarer_torch_mode_cards.py at main 19377b85",
+  "card_thrust_mn_by_mode": {
+   "ECON": 3.408,
+   "CRUISE": 11.361,
+   "EXPEDITE": 22.722,
+   "FAST": 34.083,
+   "HARD": 56.805,
+   "LIMIT": 85.208
+  },
+  "jet_power_ceiling_tw": 11.361,
+  "thrust_mn_by_mode": {
+   "ECON": 3.408,
+   "CRUISE": 11.361,
+   "EXPEDITE": 22.722,
+   "FAST": 32.46,
+   "HARD": 50.493,
+   "LIMIT": 75.74
+  },
+  "thrust_note": "thrust_mn_by_mode is what this ship can run: the working card held to its heat-rejection ceiling; the crew cap may throttle further",
+  "tvc_authority_deg": 1.0,
+  "accel_cap_g": 4.0,
+  "accel_cap_note": "crew doctrine v0.5.6: 4 g sustained with people aboard; 5 g is the structural rating (emergencies)",
+  "thrust_line_offset_m": {
+   "y": 0.03999999999999998,
+   "z": -0.20000000000000007,
+   "torch_chain_t": 177.8868424004487
+  },
+  "thrust_point_x_m": 52.3,
+  "architecture": "pulsed remass-shell torch (v0.5.2 heat package)",
+  "slew_rule": "fold the hot fins before large slews; inertia with fins out is given per state"
+ },
+ "hot_fins": {
+  "span_m": 28.0,
+  "panels_t": 17.024,
+  "total_t": 36.99225346673798,
+  "temperature_k": 1750,
+  "azimuths_deg": [
+   40,
+   140,
+   220,
+   320
+  ],
+  "root_r_m": 4.75,
+  "x_m": [
+   34.3,
+   53.3
+  ]
+ },
+ "dispatch_q7": {
+  "normal_dispatch_remass_t": 150,
+  "minimum_dispatch_remass_t": 100,
+  "protected_optimizer_reserve_t": 50
+ },
+ "frame": "ship body axes: x from the bow toward the nozzle, y starboard, z toward the shuttle slot; origin at the bow datum; inertia about each state's centre of mass",
+ "states": {
+  "S1": {
+   "name": "reference departure",
+   "mass_t": 1167.68,
+   "remass_usable_t": 250.0,
+   "shuttle": "docked",
+   "payload_t": 0,
+   "cg_m": [
+    24.4005,
+    0.0246,
+    -0.3571
+   ],
+   "inertia_tensor_kg_m2": [
+    [
+     12447954,
+     115750,
+     1291109
+    ],
+    [
+     115750,
+     191624374,
+     4174
+    ],
+    [
+     1291109,
+     4174,
+     192446911
+    ]
+   ],
+   "principal_moments_kg_m2": [
+    12438619,
+    191624419,
+    192456201
+   ],
+   "principal_axes": [
+    [
+     0.999974,
+     -0.000646,
+     -0.007172
+    ],
+    [
+     0.000603,
+     0.999982,
+     -0.006021
+    ],
+    [
+     0.007176,
+     0.006016,
+     0.999956
+    ]
+   ],
+   "thrust_trim_deg": 0.3243,
+   "hot_fins_deployed": {
+    "inertia_tensor_kg_m2": [
+     [
+      18975357,
+      118190,
+      1287208
+     ],
+     [
+      118190,
+      194325457,
+      7042
+     ],
+     [
+      1287208,
+      7042,
+      196281705
+     ]
+    ],
+    "principal_moments_kg_m2": [
+     18965933,
+     194325505,
+     196291081
+    ],
+    "principal_axes": [
+     [
+      0.999973,
+      -0.000674,
+      -0.007259
+     ],
+     [
+      0.000644,
+      0.999992,
+      -0.004024
+     ],
+     [
+      0.007262,
+      0.004019,
+      0.999966
+     ]
+    ],
+    "note": "torch burns: hot fins unfolded (same mass and centre of mass)"
+   }
+  },
+  "S2": {
+   "name": "loaded departure",
+   "mass_t": 1217.68,
+   "remass_usable_t": 250.0,
+   "shuttle": "docked",
+   "payload_t": 50,
+   "cg_m": [
+    24.035,
+    0.0236,
+    -0.3425
+   ],
+   "inertia_tensor_kg_m2": [
+    [
+     13016874,
+     105099,
+     1443278
+    ],
+    [
+     105099,
+     195569119,
+     3983
+    ],
+    [
+     1443278,
+     3983,
+     196742918
+    ]
+   ],
+   "principal_moments_kg_m2": [
+    13005476,
+    195569160,
+    196754275
+   ],
+   "principal_axes": [
+    [
+     0.999969,
+     -0.000575,
+     -0.007855
+    ],
+    [
+     0.000544,
+     0.999992,
+     -0.004062
+    ],
+    [
+     0.007857,
+     0.004057,
+     0.999961
+    ]
+   ],
+   "thrust_trim_deg": 0.2907,
+   "hot_fins_deployed": {
+    "inertia_tensor_kg_m2": [
+     [
+      19544276,
+      107539,
+      1439377
+     ],
+     [
+      107539,
+      198270201,
+      6851
+     ],
+     [
+      1439377,
+      6851,
+      200577713
+     ]
+    ],
+    "principal_moments_kg_m2": [
+     19532768,
+     198270240,
+     200589182
+    ],
+    "principal_axes": [
+     [
+      0.999968,
+      -0.000601,
+      -0.00795
+     ],
+     [
+      0.000575,
+      0.999994,
+      -0.003328
+     ],
+     [
+      0.007952,
+      0.003323,
+      0.999963
+     ]
+    ],
+    "note": "torch burns: hot fins unfolded (same mass and centre of mass)"
+   }
+  },
+  "S3": {
+   "name": "normal dispatch",
+   "mass_t": 1067.68,
+   "remass_usable_t": 150.0,
+   "shuttle": "docked",
+   "payload_t": 0,
+   "cg_m": [
+    24.4448,
+    0.0268,
+    -0.2785
+   ],
+   "inertia_tensor_kg_m2": [
+    [
+     11330029,
+     113020,
+     1334606
+    ],
+    [
+     113020,
+     190022950,
+     4811
+    ],
+    [
+     1334606,
+     4811,
+     190533797
+    ]
+   ],
+   "principal_moments_kg_m2": [
+    11320019,
+    190022961,
+    190543797
+   ],
+   "principal_axes": [
+    [
+     0.999972,
+     -0.000632,
+     -0.007447
+    ],
+    [
+     0.000551,
+     0.999941,
+     -0.010858
+    ],
+    [
+     0.007453,
+     0.010853,
+     0.999913
+    ]
+   ],
+   "thrust_trim_deg": 0.1638,
+   "hot_fins_deployed": {
+    "inertia_tensor_kg_m2": [
+     [
+      17857432,
+      115460,
+      1330704
+     ],
+     [
+      115460,
+      192724033,
+      7679
+     ],
+     [
+      1330704,
+      7679,
+      194368591
+     ]
+    ],
+    "principal_moments_kg_m2": [
+     17847324,
+     192724065,
+     194378667
+    ],
+    "principal_axes": [
+     [
+      0.999971,
+      -0.00066,
+      -0.007538
+     ],
+     [
+      0.000621,
+      0.999986,
+      -0.005172
+     ],
+     [
+      0.007542,
+      0.005167,
+      0.999958
+     ]
+    ],
+    "note": "torch burns: hot fins unfolded (same mass and centre of mass)"
+   }
+  },
+  "S4": {
+   "name": "burnt out, shuttle home",
+   "mass_t": 917.68,
+   "remass_usable_t": 0.0,
+   "shuttle": "docked",
+   "payload_t": 0,
+   "cg_m": [
+    24.1006,
+    0.0312,
+    -0.1285
+   ],
+   "inertia_tensor_kg_m2": [
+    [
+     9621626,
+     100622,
+     997643
+    ],
+    [
+     100622,
+     186781215,
+     6681
+    ],
+    [
+     997643,
+     6681,
+     186855991
+    ]
+   ],
+   "principal_moments_kg_m2": [
+    9615953,
+    186780624,
+    186862255
+   ],
+   "principal_axes": [
+    [
+     0.999984,
+     -0.000568,
+     -0.005629
+    ],
+    [
+     6.4e-05,
+     0.996019,
+     -0.089142
+    ],
+    [
+     0.005657,
+     0.08914,
+     0.996003
+    ]
+   ],
+   "thrust_trim_deg": 0.1464,
+   "hot_fins_deployed": {
+    "inertia_tensor_kg_m2": [
+     [
+      16149028,
+      103061,
+      993742
+     ],
+     [
+      103061,
+      189482298,
+      9550
+     ],
+     [
+      993742,
+      9550,
+      190690785
+     ]
+    ],
+    "principal_moments_kg_m2": [
+     16143309,
+     189482275,
+     190696527
+    ],
+    "principal_axes": [
+     [
+      0.999984,
+      -0.000594,
+      -0.005693
+     ],
+     [
+      0.000547,
+      0.999965,
+      -0.008351
+     ],
+     [
+      0.005698,
+      0.008348,
+      0.999949
+     ]
+    ],
+    "note": "torch burns: hot fins unfolded (same mass and centre of mass)"
+   }
+  },
+  "S5": {
+   "name": "burnt out, shuttle away",
+   "mass_t": 888.14,
+   "remass_usable_t": 0.0,
+   "shuttle": "absent",
+   "payload_t": 0,
+   "cg_m": [
+    24.0657,
+    0.0322,
+    -0.1327
+   ],
+   "inertia_tensor_kg_m2": [
+    [
+     9567770,
+     99353,
+     999005
+    ],
+    [
+     99353,
+     186314291,
+     6750
+    ],
+    [
+     999005,
+     6750,
+     186389778
+    ]
+   ],
+   "principal_moments_kg_m2": [
+    9562070,
+    186313692,
+    186396076
+   ],
+   "principal_axes": [
+    [
+     0.999984,
+     -0.000562,
+     -0.005649
+    ],
+    [
+     5.6e-05,
+     0.996023,
+     -0.089101
+    ],
+    [
+     0.005677,
+     0.089099,
+     0.996007
+    ]
+   ],
+   "thrust_trim_deg": 0.1374,
+   "hot_fins_deployed": {
+    "inertia_tensor_kg_m2": [
+     [
+      16095172,
+      101793,
+      995104
+     ],
+     [
+      101793,
+      189015373,
+      9618
+     ],
+     [
+      995104,
+      9618,
+      190224573
+     ]
+    ],
+    "principal_moments_kg_m2": [
+     16089426,
+     189015348,
+     190230345
+    ],
+    "principal_axes": [
+     [
+      0.999983,
+      -0.000588,
+      -0.005714
+     ],
+     [
+      0.00054,
+      0.999965,
+      -0.008398
+     ],
+     [
+      0.005719,
+      0.008395,
+      0.999948
+     ]
+    ],
+    "note": "torch burns: hot fins unfolded (same mass and centre of mass)"
+   }
+  },
+  "S6": {
+   "name": "full, shuttle away",
+   "mass_t": 1138.14,
+   "remass_usable_t": 250.0,
+   "shuttle": "absent",
+   "payload_t": 0,
+   "cg_m": [
+    24.381,
+    0.0252,
+    -0.3664
+   ],
+   "inertia_tensor_kg_m2": [
+    [
+     12390747,
+     114923,
+     1296469
+    ],
+    [
+     114923,
+     191170678,
+     4099
+    ],
+    [
+     1296469,
+     4099,
+     191997300
+    ]
+   ],
+   "principal_moments_kg_m2": [
+    12381315,
+    191170723,
+    192006687
+   ],
+   "principal_axes": [
+    [
+     0.999974,
+     -0.000643,
+     -0.007218
+    ],
+    [
+     0.0006,
+     0.999982,
+     -0.0059
+    ],
+    [
+     0.007221,
+     0.005896,
+     0.999957
+    ]
+   ],
+   "thrust_trim_deg": 0.3429,
+   "hot_fins_deployed": {
+    "inertia_tensor_kg_m2": [
+     [
+      18918150,
+      117363,
+      1292568
+     ],
+     [
+      117363,
+      193871761,
+      6967
+     ],
+     [
+      1292568,
+      6967,
+      195832095
+     ]
+    ],
+    "principal_moments_kg_m2": [
+     18908628,
+     193871808,
+     195841569
+    ],
+    "principal_axes": [
+     [
+      0.999973,
+      -0.00067,
+      -0.007306
+     ],
+     [
+      0.000641,
+      0.999992,
+      -0.003977
+     ],
+     [
+      0.007308,
+      0.003972,
+      0.999965
+     ]
+    ],
+    "note": "torch burns: hot fins unfolded (same mass and centre of mass)"
+   }
+  },
+  "S7": {
+   "name": "one tank cell breached and vented",
+   "mass_t": 1105.18,
+   "remass_usable_t": 187.5,
+   "shuttle": "docked",
+   "payload_t": 0,
+   "cg_m": [
+    24.5289,
+    0.1632,
+    -0.3098
+   ],
+   "inertia_tensor_kg_m2": [
+    [
+     11720731,
+     483891,
+     1416853
+    ],
+    [
+     483891,
+     190889879,
+     46735
+    ],
+    [
+     1416853,
+     46735,
+     191487942
+    ]
+   ],
+   "principal_moments_kg_m2": [
+    11708260,
+    190887009,
+    191503282
+   ],
+   "principal_axes": [
+    [
+     0.999965,
+     -0.002698,
+     -0.00788
+    ],
+    [
+     0.002041,
+     0.996604,
+     -0.082319
+    ],
+    [
+     0.008075,
+     0.0823,
+     0.996575
+    ]
+   ],
+   "thrust_trim_deg": 0.3404,
+   "hot_fins_deployed": {
+    "inertia_tensor_kg_m2": [
+     [
+      18248134,
+      486330,
+      1412952
+     ],
+     [
+      486330,
+      193590962,
+      49604
+     ],
+     [
+      1412952,
+      49604,
+      195322736
+     ]
+    ],
+    "principal_moments_kg_m2": [
+     18235513,
+     193590667,
+     195335651
+    ],
+    "principal_axes": [
+     [
+      0.999964,
+      -0.002771,
+      -0.007978
+     ],
+     [
+      0.002525,
+      0.999526,
+      -0.030685
+     ],
+     [
+      0.008059,
+      0.030664,
+      0.999497
+     ]
+    ],
+    "note": "torch burns: hot fins unfolded (same mass and centre of mass)"
+   }
+  }
+ },
+ "missions_to_fly": [
+  "E1 Ceres to Neptune",
+  "FR-01B-R Ceres to Phobos",
+  "MV-01 Ceres to Phoebe to Ganymede"
+ ],
+ "pass_rule": "arrival remass >= 50 t protected optimizer reserve (Q7)"
+}

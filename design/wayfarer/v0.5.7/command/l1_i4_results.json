@@ -1,0 +1,295 @@
+{
+  "geometry_sha256": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+  "status": "kT 2026-10-31 bounded I4 couch+crawl 1.2m rule; does NOT qualify physical occupant fit/egress",
+  "couches": [
+    {
+      "id": "PILOT",
+      "length_m": 1.58,
+      "contoured_couch_length_1p58m": true,
+      "radius_head_m": 1.517,
+      "radius_feet_m": 2.978,
+      "within_4p15m_plan": true,
+      "eye_x_m": 1.96,
+      "sightline": {
+        "visible_upper_bound": 1.0,
+        "eye_inside_shell": true,
+        "model": "upper bound ONLY; panes open, no Osteon/sensor/other occupant blocking"
+      }
+    },
+    {
+      "id": "NAV",
+      "length_m": 1.58,
+      "contoured_couch_length_1p58m": true,
+      "radius_head_m": 3.29,
+      "radius_feet_m": 1.71,
+      "within_4p15m_plan": true,
+      "eye_x_m": 2.31,
+      "sightline": {
+        "visible_upper_bound": 0.269,
+        "eye_inside_shell": true,
+        "model": "upper bound ONLY; panes open, no Osteon/sensor/other occupant blocking"
+      }
+    },
+    {
+      "id": "S1",
+      "length_m": 1.58,
+      "contoured_couch_length_1p58m": true,
+      "radius_head_m": 1.517,
+      "radius_feet_m": 2.978,
+      "within_4p15m_plan": true,
+      "eye_x_m": 1.96,
+      "sightline": {
+        "visible_upper_bound": 1.0,
+        "eye_inside_shell": true,
+        "model": "upper bound ONLY; panes open, no Osteon/sensor/other occupant blocking"
+      }
+    },
+    {
+      "id": "S2",
+      "length_m": 1.58,
+      "contoured_couch_length_1p58m": true,
+      "radius_head_m": 2.479,
+      "radius_feet_m": 3.511,
+      "within_4p15m_plan": true,
+      "eye_x_m": 2.5,
+      "sightline": {
+        "visible_upper_bound": 0.614,
+        "eye_inside_shell": true,
+        "model": "upper bound ONLY; panes open, no Osteon/sensor/other occupant blocking"
+      }
+    },
+    {
+      "id": "S3",
+      "length_m": 1.58,
+      "contoured_couch_length_1p58m": true,
+      "radius_head_m": 2.479,
+      "radius_feet_m": 3.511,
+      "within_4p15m_plan": true,
+      "eye_x_m": 2.5,
+      "sightline": {
+        "visible_upper_bound": 0.6,
+        "eye_inside_shell": true,
+        "model": "upper bound ONLY; panes open, no Osteon/sensor/other occupant blocking"
+      }
+    },
+    {
+      "id": "S4",
+      "length_m": 1.58,
+      "contoured_couch_length_1p58m": true,
+      "radius_head_m": 2.316,
+      "radius_feet_m": 3.631,
+      "within_4p15m_plan": true,
+      "eye_x_m": 2.5,
+      "sightline": {
+        "visible_upper_bound": 0.681,
+        "eye_inside_shell": true,
+        "model": "upper bound ONLY; panes open, no Osteon/sensor/other occupant blocking"
+      }
+    }
+  ],
+  "walkways": {
+    "grid_step_m": 0.1,
+    "path_half_width_m": 0.4,
+    "walkable_cells": 1147,
+    "connected_cells": 976,
+    "to_seats": {
+      "PILOT": {
+        "reachable_floor_clearance_to_seat_edge_m": 0.485,
+        "reachable_with_0p8m_route_to_seat_edge": true,
+        "requires_vertical_transfer": true
+      },
+      "NAV": {
+        "reachable_floor_clearance_to_seat_edge_m": 0.867,
+        "reachable_with_0p8m_route_to_seat_edge": false,
+        "requires_vertical_transfer": true
+      },
+      "S1": {
+        "reachable_floor_clearance_to_seat_edge_m": 0.485,
+        "reachable_with_0p8m_route_to_seat_edge": true,
+        "requires_vertical_transfer": true
+      },
+      "S2": {
+        "reachable_floor_clearance_to_seat_edge_m": 0.401,
+        "reachable_with_0p8m_route_to_seat_edge": true,
+        "requires_vertical_transfer": false
+      },
+      "S3": {
+        "reachable_floor_clearance_to_seat_edge_m": 0.401,
+        "reachable_with_0p8m_route_to_seat_edge": true,
+        "requires_vertical_transfer": false
+      },
+      "S4": {
+        "reachable_floor_clearance_to_seat_edge_m": 0.408,
+        "reachable_with_0p8m_route_to_seat_edge": true,
+        "requires_vertical_transfer": false
+      }
+    }
+  },
+  "ladders": {
+    "holes": [
+      {
+        "y_m": 1.4,
+        "z_m": 0.0,
+        "diameter_m": 0.8
+      },
+      {
+        "y_m": -1.4,
+        "z_m": 1.7145055188062944e-16,
+        "diameter_m": 0.8
+      }
+    ],
+    "checks": {
+      "none_overlapped_by_terrace_or_nav": true,
+      "both_ladders_in_same_connected_walk_region": true
+    }
+  },
+  "headroom": {
+    "terrace_center_m": 1.974,
+    "worst_corner_m": 1.339,
+    "chamfer_OPTION_not_geometry": {
+      "cut_m": 0.5,
+      "worst_corner_m": 1.473,
+      "gain_m": 0.135,
+      "note": "trim two symmetric outer-forward plan corners; theoretical shell envelope only; reduces usable deck area, no recomputed mass/CG/inertia"
+    }
+  },
+  "couch_terrace_3D_AABB": {
+    "S2": {
+      "couch_aabb": {
+        "x_m": [
+          2.5,
+          2.95
+        ],
+        "y_m": [
+          -3.5709,
+          -2.1290999999999998
+        ],
+        "z_m": [
+          -1.7475,
+          0.3475
+        ]
+      },
+      "terrace_aabb": {
+        "x_m": [
+          2.41,
+          2.51
+        ],
+        "y_m": [
+          -1.7,
+          1.7
+        ],
+        "z_m": [
+          -3.01,
+          -0.91
+        ],
+        "mass_t": 0.3,
+        "prov": "ENGINEERING_ASSUMPTION: allocated from original 0.4 t flight deck, not additional ship mass"
+      },
+      "overlap_m_by_axis": {
+        "x_m": 0.009999999999999787,
+        "y_m": 0,
+        "z_m": 0.8375
+      },
+      "solid_intersection": false,
+      "min_y_separation_m": 0.4291,
+      "minimum_clearance_m": 0.4291
+    },
+    "S3": {
+      "couch_aabb": {
+        "x_m": [
+          2.5,
+          2.95
+        ],
+        "y_m": [
+          2.1290999999999998,
+          3.5709
+        ],
+        "z_m": [
+          -1.7475,
+          0.3475
+        ]
+      },
+      "terrace_aabb": {
+        "x_m": [
+          2.41,
+          2.51
+        ],
+        "y_m": [
+          -1.7,
+          1.7
+        ],
+        "z_m": [
+          -3.01,
+          -0.91
+        ],
+        "mass_t": 0.3,
+        "prov": "ENGINEERING_ASSUMPTION: allocated from original 0.4 t flight deck, not additional ship mass"
+      },
+      "overlap_m_by_axis": {
+        "x_m": 0.009999999999999787,
+        "y_m": 0,
+        "z_m": 0.8375
+      },
+      "solid_intersection": false,
+      "min_y_separation_m": 0.4291,
+      "minimum_clearance_m": 0.4291
+    },
+    "S4": {
+      "couch_aabb": {
+        "x_m": [
+          2.5,
+          2.95
+        ],
+        "y_m": [
+          1.7540999999999998,
+          3.0459
+        ],
+        "z_m": [
+          -2.7825,
+          -0.6175
+        ]
+      },
+      "terrace_aabb": {
+        "x_m": [
+          2.41,
+          2.51
+        ],
+        "y_m": [
+          -1.7,
+          1.7
+        ],
+        "z_m": [
+          -3.01,
+          -0.91
+        ],
+        "mass_t": 0.3,
+        "prov": "ENGINEERING_ASSUMPTION: allocated from original 0.4 t flight deck, not additional ship mass"
+      },
+      "overlap_m_by_axis": {
+        "x_m": 0.009999999999999787,
+        "y_m": 0,
+        "z_m": 1.8725
+      },
+      "solid_intersection": false,
+      "min_y_separation_m": 0.0541,
+      "minimum_clearance_m": 0.0541
+    }
+  },
+  "checks": {
+    "six_role_seats_present": true,
+    "contoured_couch_nominal_length_1p58m": true,
+    "plan_seat_envelope_inside_annulus": true,
+    "pilot_captain_crown_60deg_upper_bound_ge_0p90": true,
+    "0p8m_walkway_to_floor_seats": true,
+    "both_ladders_landings_clear": true,
+    "terrace_worst_corner_1p2m_crawl_clearance": true,
+    "floor_couches_vs_terrace_3D_AABB_nonintersection": true
+  },
+  "known_HOLD": [
+    "1.58m I4 contoured seat accepted as couch for plan screen, but knees-up occupant clearance and 4g hard-point fit HOLD",
+    "sightlines optimistic: Osteon ribs/sensors/pane shutter and other obstacles unmodelled",
+    "walkway 2D floor only, not raised-terrrace egress and ladder handholds",
+    "bare shell clearance against 1.2m crawl threshold is an optimistic upper bound, not certified access",
+    "platform loads beyond isolated 4-column beam check unqualified"
+  ]
+}
