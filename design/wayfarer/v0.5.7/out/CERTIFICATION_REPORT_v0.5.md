@@ -23,7 +23,7 @@ Criteria sha256 `5bf7777930bb8dc1e72460daf3b1e5a6776b7b9f266e68269f0e7d847823d98
 | G9 Failures and reserves | PASS-DECLARED |
 | G10 Flight dynamics: RCS, torch, Metric, Loom | PASS-DECLARED |
 | G11 Canon fit | PASS |
-| G12 Images | FAIL |
+| G12 Images | PASS-DECLARED |
 
 ## Declared assumptions and kT's decisions
 
@@ -44,6 +44,7 @@ Criteria sha256 `5bf7777930bb8dc1e72460daf3b1e5a6776b7b9f266e68269f0e7d847823d98
 - **ACCEPTED by kT 2026-10-31.** Torch thrust-vector control: the magnetic nozzle steers the thrust line by up to 1.0 deg (asymmetric coil current). Needed: trim plus an assumed 0.5 deg thrust error (0.843 deg). The error is an engineering assumption, not a measured disturbance history; the authority is not a qualified nozzle capability. Decision: Declare 1 deg of torch thrust-vector authority (decision 2), on the assumed 0.5 deg thrust error.
 - **AWAITING.** Axial RCS: one 25 kN thruster per cluster, canted 10 deg outward (bow ones exhaust forward, aft ones aft). Assumes the plumes clear the crown glazing, hull, hot fins and torch chain; plume impingement is not yet modelled.
 - **AWAITING.** Long torch burns split into segments of at most 165 min ([V2 6113]) with 15 min coasts (engineering assumption; in free space the coasts change elapsed time, not delta-v).
+- **AWAITING.** Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only
 
 Script verdict on certification: NOT YET: at least one gate is OPEN or FAIL, or a declared assumption awaits kT. Sign-off still needs both reviewers and loom-gate.
 
@@ -331,13 +332,16 @@ Script verdict on certification: NOT YET: at least one gate is OPEN or FAIL, or 
 | Torch internals | axial fusion torch / magnetic nozzle; internals not stated | pulsed: each He3-rich, spin-polarised D-He3 pellet is wrapped in a shell of remass that becomes the exhaust; burn 6 m aft of the reactor face (x 52.3 m) |
 | Hot fins | none | 4 hot fins at 1750 K aft of the shield on the strake lines, 28 m, 21.0 t paid from the engineering reserve |
 
-## G12 Images: FAIL
+## G12 Images: PASS-DECLARED
 
 | Check | Value | Limit | Pass | Note |
 |---|---|---|---|---|
-| images stamped with this geometry's hash | 74e2293894af  | ea1fcb59f1e0 | NO |  |
-| exterior images | 13  | 4 | yes |  |
-| cutaway images | 3  | 2 | yes |  |
-| deckplan images | 7  | 5 | yes |  |
-| viewer images | 1  | 1 | yes |  |
-- The script checks provenance (made from this geometry, every set present). Whether the images look right is a human judgement: kT's visual acceptance is the second half of this gate.
+| render manifest matches locked geometry | ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266  | ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266 | yes |  |
+| all indexed images and viewer have current hash and exist | 0  | 0 | yes |  |
+| exterior current-geometry artifacts | 4  | 4 | yes |  |
+| cutaway current-geometry artifacts | 2  | 2 | yes |  |
+| deckplan current-geometry artifacts | 6  | 5 | yes |  |
+| viewer current-geometry artifacts | 1  | 1 | yes |  |
+| one GLB with exterior and I4 interior scenes stamped with current hash | True  | True | yes |  |
+- Manifest hash + current files + 2-scene GLB verified; full 64-character SHA stamped by source render templates.
+- G12 visuals remain NON-GOVERNING pending kT aesthetic/geometry interpretation review; screenshot existence does not qualify hardware, pressure crown or humans.

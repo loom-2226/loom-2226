@@ -17,7 +17,7 @@
   "G9": "PASS-DECLARED",
   "G10": "PASS-DECLARED",
   "G11": "PASS",
-  "G12": "FAIL"
+  "G12": "PASS-DECLARED"
  },
  "gates": [
   {
@@ -1899,52 +1899,77 @@
   {
    "gate": "G12",
    "title": "Images",
-   "verdict": "FAIL",
+   "verdict": "PASS-DECLARED",
    "checks": [
     {
-     "name": "images stamped with this geometry's hash",
-     "value": "74e2293894af",
-     "limit": "ea1fcb59f1e0",
+     "name": "render manifest matches locked geometry",
+     "value": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
+     "limit": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
-     "name": "exterior images",
-     "value": 13,
+     "name": "all indexed images and viewer have current hash and exist",
+     "value": 0,
+     "limit": 0,
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "exterior current-geometry artifacts",
+     "value": 4,
      "limit": 4,
      "unit": "",
      "pass": true,
      "note": ""
     },
     {
-     "name": "cutaway images",
-     "value": 3,
+     "name": "cutaway current-geometry artifacts",
+     "value": 2,
      "limit": 2,
      "unit": "",
      "pass": true,
      "note": ""
     },
     {
-     "name": "deckplan images",
-     "value": 7,
+     "name": "deckplan current-geometry artifacts",
+     "value": 6,
      "limit": 5,
      "unit": "",
      "pass": true,
      "note": ""
     },
     {
-     "name": "viewer images",
+     "name": "viewer current-geometry artifacts",
      "value": 1,
      "limit": 1,
      "unit": "",
      "pass": true,
      "note": ""
+    },
+    {
+     "name": "one GLB with exterior and I4 interior scenes stamped with current hash",
+     "value": true,
+     "limit": true,
+     "unit": "",
+     "pass": true,
+     "note": ""
     }
    ],
-   "declared": [],
+   "declared": [
+    {
+     "key": "kT_visual_acceptance",
+     "text": "Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only",
+     "kT": "AWAITING",
+     "as": "",
+     "date": null
+    }
+   ],
    "notes": [
-    "The script checks provenance (made from this geometry, every set present). Whether the images look right is a human judgement: kT's visual acceptance is the second half of this gate."
+    "Manifest hash + current files + 2-scene GLB verified; full 64-character SHA stamped by source render templates.",
+    "G12 visuals remain NON-GOVERNING pending kT aesthetic/geometry interpretation review; screenshot existence does not qualify hardware, pressure crown or humans."
    ]
   }
  ],
@@ -2064,6 +2089,13 @@
   {
    "key": "g10_burn_coasts",
    "text": "Long torch burns split into segments of at most 165 min ([V2 6113]) with 15 min coasts (engineering assumption; in free space the coasts change elapsed time, not delta-v).",
+   "kT": "AWAITING",
+   "as": "",
+   "date": null
+  },
+  {
+   "key": "kT_visual_acceptance",
+   "text": "Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only",
    "kT": "AWAITING",
    "as": "",
    "date": null

@@ -133,9 +133,15 @@ def deck_svg(dk, W=1200, Hh=1320, s=112, small=False):
         Q = lambda y, z: (cx - y * s, cy - z * s)
         ring_r = CLy.get("sensor_ring", {}).get("r_in_m") or CLy.get("sensor_bore_r_m")
         o.append(f'<circle cx="{cx}" cy="{cy}" r="{ring_r * s:.1f}" fill="none" stroke="#6d5aa8" stroke-width="2" stroke-dasharray="10 6"/>')
-        pl = CLy.get("flight_deck") or CLy["platform"]
+        pl = (CLy["i4_lock"]["platforms"]["command_terrace"]
+              if CLy.get("i4_lock") else (CLy.get("flight_deck") or CLy["platform"]))
         (ax, ay), (bx_, by_) = Q(pl["y_m"][1], pl["z_m"][1]), Q(pl["y_m"][0], pl["z_m"][0])
         o.append(f'<rect x="{min(ax, bx_):.1f}" y="{min(ay, by_):.1f}" width="{abs(bx_ - ax):.1f}" height="{abs(by_ - ay):.1f}" fill="#e5e7eb" stroke="#4b5563" stroke-width="2.5" stroke-dasharray="{"12 6" if "flight_deck" in CLy else "none"}"/>')
+        if CLy.get("i4_lock"):
+            nav=CLy["i4_lock"]["platforms"]["navigator_platform"]
+            (ay0,az0),(ay1,az1)=Q(nav["y_m"][0],nav["z_m"][0]),Q(nav["y_m"][1],nav["z_m"][1])
+            o.append(f'<rect x="{min(ay0,ay1):.1f}" y="{min(az0,az1):.1f}" width="{abs(ay1-ay0):.1f}" height="{abs(az1-az0):.1f}" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2" stroke-dasharray="6 4"/>')
+            # I4 legend is in the lower title block, avoiding overlap with ladder symbols
         if "flight_deck" in CLy:
             lx0, ly0 = Q(0.3, pl["z_m"][0] - 0.05)
             lx1, ly1 = Q(-0.3, pl["z_m"][0] - 0.45)
@@ -151,7 +157,7 @@ def deck_svg(dk, W=1200, Hh=1320, s=112, small=False):
             ex, ey = Q(hy + uy * CLy["couch"]["eye_from_head_end_m"], hz + uz * CLy["couch"]["eye_from_head_end_m"])
             o.append(f'<circle cx="{ex:.1f}" cy="{ey:.1f}" r="7" fill="#dc2626"/>')
             mx, my = Q(hy + uy * L * 0.6, hz + uz * L * 0.6)
-            o.append(text(mx, my + 5, st["id"], 14, 500, "#1d4ed8" if fwd else "#3b6b68"))
+            o.append(text(mx, my + 5, "S1/CAPT" if CLy.get("i4_lock") and st["id"]=="S1" else st["id"], 14, 500, "#1d4ed8" if fwd else "#3b6b68"))
         if CLy.get("crown_dome", {}).get("adopted"):   # v0.5.7: crown dome overhead
             cr = CLy["crown_dome"]["r_m"]
             qx, qy = Q(0.0, 0.0)
@@ -228,13 +234,16 @@ def deck_svg(dk, W=1200, Hh=1320, s=112, small=False):
     o.append(text(60, 134, line, 17, 400, MUTED, "start"))
     if dk.get("command_layout"):
         yb = cy + Ro * s + 72
-        if "flight_deck" in CLy:
+        if CLy.get("i4_lock"):
+            o.append(text(60,yb,"I4: paired PILOT/CAPTAIN terrace lowered 0.5m; NAV separate; 1.58m contoured couches.",14,400,MUTED,"start"))
+            o.append(text(60,yb+22,"Terrace min axial clearance 1.339m (1.2m crawl rule); physical suit, egress and load paths HOLD.",14,400,MUTED,"start"))
+        elif "flight_deck" in CLy:
             o.append(text(60, yb, f"Grey dashed: flight deck {3.0 - CLy['flight_deck']['x_m'][0]:.2f} m up, carrying PILOT and NAV on their backs facing the bow; four support couches lie along the rim.", 15, 400, MUTED, "start"))
             o.append(text(60, yb + 22, "Purple dashed: inner edge of the sensor ring overhead. Blue dashed: the crown dome overhead. Red: eye points.", 15, 400, MUTED, "start"))
         else:
             o.append(text(60, yb, "Pilot and navigator on a 1.2 m platform, on their backs facing the bow; four support couches on the floor.", 15, 400, MUTED, "start"))
             o.append(text(60, yb + 22, "Purple dashed: 2.5 m viewing bore through the sensor ring overhead. Blue dashed: the two 0.8 m nose windows. Red: eye points.", 15, 400, MUTED, "start"))
-    o.append(text(W - 40, Hh - 40, f"VISUAL REFERENCE · Wayfarer v{G['version']} (NON-GOVERNING) · from wayfarer_v05_geometry.json sha256 {SHA[:16]}…", 12, 400, "#8b94a3", "end"))
+    o.append(text(W - 40, Hh - 40, f"VISUAL REFERENCE · Wayfarer v{G['version']} (NON-GOVERNING) · geometry sha256 {SHA}", 10, 400, "#8b94a3", "end"))
     o.append(text(W - 40, Hh - 22, "ALL bodies. ALL sponsors. 2026-2226.", 12, 400, "#8b94a3", "end"))
     o.append("</svg>")
     return "\n".join(o), nhv
@@ -250,7 +259,7 @@ def overview(svgs):
     for (x, y), (svg, dk) in zip(pos, svgs):
         inner = svg.split("\n", 1)[1].rsplit("</svg>", 1)[0]
         o.append(f'<g transform="translate({x},{y}) scale(0.6)">{inner}</g>')
-    o.append(text(W - 40, H - 24, f"VISUAL REFERENCE · from wayfarer_v05_geometry.json sha256 {SHA[:16]}… · ALL bodies. ALL sponsors. 2026-2226.", 16, 400, "#8b94a3", "end"))
+    o.append(text(W - 40, H - 24, f"VISUAL REFERENCE · geometry sha256 {SHA} · ALL bodies. ALL sponsors. 2026-2226.", 16, 400, "#8b94a3", "end"))
     o.append("</svg>")
     return "\n".join(o)
 

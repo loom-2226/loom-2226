@@ -19,7 +19,7 @@ const srv = http.createServer((req, res) => {
   const V = JSON.parse(fs.readFileSync(path.join(__dirname, "views.json")));
   const want = process.argv.slice(2);
   const browser = await chromium.launch({args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist"]});
-  const page = await browser.newPage({viewport: {width: V.size[0], height: V.size[1]}, deviceScaleFactor: 2});
+  const page = await browser.newPage({viewport: {width: V.size[0], height: V.size[1]}, deviceScaleFactor: 1});
   page.on("console", m => { if (m.type() === "error") console.log("console:", m.text()); });
   page.on("pageerror", e => console.log("pageerror:", e.message));
   const manPath = path.join(__dirname, "out/manifest.json");

@@ -1131,12 +1131,28 @@ def g12(I, C, G):
     if not man.exists():
         return gate("G12", "Images", [chk("images generated from the hashed geometry", "not yet", "all four sets", False)], force=OPEN)
     M = json.loads(man.read_text())
-    cs = [chk("images stamped with this geometry's hash", M.get("geometry_sha256", "")[:12], G["_sha"][:12], M.get("geometry_sha256") == G["_sha"])]
-    note = ["The script checks provenance (made from this geometry, every set present). Whether the images look right is a human judgement: kT's visual acceptance is the second half of this gate."]
-    for kind, need in (("exterior", 4), ("cutaway", 2), ("deckplan", len(I["habitat"]["decks"])), ("viewer", 1)):
-        n = len([f for f in M["files"] if f["kind"] == kind and (HERE / "render" / "out" / f["file"]).exists()])
-        cs.append(chk(f"{kind} images", n, need, n >= need))
-    return gate("G12", "Images", cs, notes=note)
+    srcsha=G["_sha"]
+    files=M.get("files",[])
+    cs=[chk("render manifest matches locked geometry",M.get("geometry_sha256"),srcsha,M.get("geometry_sha256")==srcsha)]
+    mismatch=[e["file"] for e in files if e.get("geometry_sha256")!=srcsha or not (HERE/"render"/"out"/e["file"]).is_file()]
+    cs.append(chk("all indexed images and viewer have current hash and exist",len(mismatch),0,not mismatch))
+    for kind, need in (("exterior",4),("cutaway",2),("deckplan",len(I["habitat"]["decks"])),("viewer",1)):
+        n=sum(1 for f in files if f["kind"]==kind and f.get("geometry_sha256")==srcsha and (HERE/"render"/"out"/f["file"]).exists())
+        cs.append(chk(f"{kind} current-geometry artifacts",n,need,n>=need))
+    import struct
+    glb=HERE/"render"/"out"/"wayfarer_I4_in_out_ea1fcb59.glb"
+    glb_valid=False
+    if glb.exists():
+        raw=glb.read_bytes()
+        if len(raw)>=20 and raw[:4]==b"glTF":
+            jlen,jtyp=struct.unpack_from("<II",raw,12)
+            if jtyp==0x4e4f534a and 20+jlen<=len(raw):
+                desc=json.loads(raw[20:20+jlen])
+                glb_valid=(desc.get("extras",{}).get("geometry_sha256")==srcsha and len(desc.get("scenes",[]))>=2)
+    cs.append(chk("one GLB with exterior and I4 interior scenes stamped with current hash",glb_valid,True,glb_valid))
+    note=["Manifest hash + current files + 2-scene GLB verified; full 64-character SHA stamped by source render templates.",
+          "G12 visuals remain NON-GOVERNING pending kT aesthetic/geometry interpretation review; screenshot existence does not qualify hardware, pressure crown or humans."]
+    return gate("G12","Images",cs,declared=[("kT_visual_acceptance","Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only")],notes=note)
 
 
 # ---------------------------------------------------------------- report

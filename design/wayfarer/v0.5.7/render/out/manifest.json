@@ -1,193 +1,118 @@
 {
- "files": [
-  {
-   "file": "ext_hero.png",
-   "kind": "exterior",
-   "title": "Wayfarer, arriving at Neptune",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "ext_burn.png",
-   "kind": "exterior",
-   "title": "Torch burn, hot fins out",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "ext_aft.png",
-   "kind": "exterior",
-   "title": "From aft: fins and the shuttle lane",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "ext_profile.png",
-   "kind": "exterior",
-   "title": "Port side profile",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "ext_departure.png",
-   "kind": "exterior",
-   "title": "Shuttle departure",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "ext_metric.png",
-   "kind": "exterior",
-   "title": "Metric HARD configuration",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "cut_long.png",
-   "kind": "cutaway",
-   "title": "Cutaway along the axis",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "cut_hab.png",
-   "kind": "cutaway",
-   "title": "Habitat cutaway",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "cut_mid.png",
-   "kind": "cutaway",
-   "title": "Midship section at x = 24 m",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "cmd_cutaway.png",
-   "kind": "command",
-   "title": "L1 command deck, layout D",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "cmd_pov.png",
-   "kind": "command",
-   "title": "The pilot's view",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "ext_nose.png",
-   "kind": "command",
-   "title": "The nose: crown dome (v0.5.7)",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "hab_crew.png",
-   "kind": "command",
-   "title": "Habitat crew systems",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "ext_docking.png",
-   "kind": "exterior",
-   "title": "Docking view",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "crown_open.png",
-   "kind": "command",
-   "title": "Crown dome, open",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "crown_closed.png",
-   "kind": "command",
-   "title": "Crown dome, closed",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "crown_standing.png",
-   "kind": "command",
-   "title": "Standing on L1 at cruise (1 g)",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "ext_viewports.png",
-   "kind": "exterior",
-   "title": "Berth viewports (v0.5.7)",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "structure_v057.png",
-   "kind": "exterior",
-   "title": "Structure: four longerons (v0.5.7)",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "ext_hab_viewports.png",
-   "kind": "exterior",
-   "title": "Viewports open (v0.5.7)",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "ext_closed.png",
-   "kind": "exterior",
-   "title": "Everything closed: cruise at speed (v0.5.7)",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "ext_skin.png",
-   "kind": "exterior",
-   "title": "Wayfarer rev 7 skin: normal flanks",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "ext_skin_cold.png",
-   "kind": "exterior",
-   "title": "Wayfarer rev 7 skin: cold running",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "deck_L1.png",
-   "kind": "deckplan",
-   "title": "deck_L1.svg",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "deck_L1_section.png",
-   "kind": "deckplan",
-   "title": "deck_L1_section.svg",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "deck_L2.png",
-   "kind": "deckplan",
-   "title": "deck_L2.svg",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "deck_L3.png",
-   "kind": "deckplan",
-   "title": "deck_L3.svg",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "deck_L4.png",
-   "kind": "deckplan",
-   "title": "deck_L4.svg",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "deck_L5.png",
-   "kind": "deckplan",
-   "title": "deck_L5.svg",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "deck_overview.png",
-   "kind": "deckplan",
-   "title": "deck_overview.svg",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
-  },
-  {
-   "file": "wayfarer_v05_viewer.html",
-   "kind": "viewer",
-   "title": "Wayfarer v0.5 Viewer",
-   "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
+  "files": [
+    {
+      "file": "cmd_cutaway.png",
+      "kind": "command",
+      "title": "L1 command deck, I4 layout",
+      "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266"
+    },
+    {
+      "file": "cmd_pov.png",
+      "kind": "command",
+      "title": "The pilot's view",
+      "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266"
+    },
+    {
+      "file": "crown_closed.png",
+      "kind": "command",
+      "title": "Crown dome, closed",
+      "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266"
+    },
+    {
+      "file": "crown_open.png",
+      "kind": "command",
+      "title": "Crown dome, open",
+      "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266"
+    },
+    {
+      "file": "cut_hab.png",
+      "kind": "cutaway",
+      "title": "Habitat cutaway",
+      "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266"
+    },
+    {
+      "file": "cut_long.png",
+      "kind": "cutaway",
+      "title": "Cutaway along the axis",
+      "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266"
+    },
+    {
+      "file": "ext_burn.png",
+      "kind": "exterior",
+      "title": "Torch burn, hot fins out",
+      "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266"
+    },
+    {
+      "file": "ext_closed.png",
+      "kind": "exterior",
+      "title": "Everything closed: cruise at speed (v0.5.7)",
+      "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266"
+    },
+    {
+      "file": "ext_docking.png",
+      "kind": "exterior",
+      "title": "Docking view",
+      "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266"
+    },
+    {
+      "file": "ext_metric.png",
+      "kind": "exterior",
+      "title": "Metric HARD configuration",
+      "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266"
+    },
+    {
+      "file": "wayfarer_v05_viewer.html",
+      "kind": "viewer",
+      "title": "Wayfarer v0.5 Viewer",
+      "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266"
+    },
+    {
+      "file": "deck_L1.png",
+      "kind": "deckplan",
+      "title": "deck_L1.svg",
+      "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266"
+    },
+    {
+      "file": "deck_L2.png",
+      "kind": "deckplan",
+      "title": "deck_L2.svg",
+      "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266"
+    },
+    {
+      "file": "deck_L3.png",
+      "kind": "deckplan",
+      "title": "deck_L3.svg",
+      "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266"
+    },
+    {
+      "file": "deck_L4.png",
+      "kind": "deckplan",
+      "title": "deck_L4.svg",
+      "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266"
+    },
+    {
+      "file": "deck_L5.png",
+      "kind": "deckplan",
+      "title": "deck_L5.svg",
+      "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266"
+    },
+    {
+      "file": "deck_overview.png",
+      "kind": "deckplan",
+      "title": "deck_overview.svg",
+      "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266"
+    }
+  ],
+  "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
+  "header": "ALL bodies. ALL sponsors. 2026-2226.",
+  "status": "CURRENT-LOCK render track only. I4 scene/current images and 2-scene GLB; kT visual acceptance outstanding.",
+  "asset": {
+    "file": "wayfarer_I4_in_out_ea1fcb59.glb",
+    "kind": "glb",
+    "scenes": [
+      "Exterior, crown closed",
+      "Interior, I4 stations, crown open"
+    ],
+    "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266"
   }
- ],
- "geometry_sha256": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271",
- "header": "ALL bodies. ALL sponsors. 2026-2226.",
- "status": "VISUAL REFERENCE images generated from the hashed v0.5 geometry"
 }
