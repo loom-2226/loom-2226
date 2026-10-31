@@ -4,6 +4,7 @@ where it crosses the inner surface of the dome, so it treats the window as a hol
 In front of that surface sits 0.20 m of armour. This re-runs the pilots' 60 and 90 deg cones with
 one more test: the ray must also clear the armour opening at the outer surface, whose radius is the
 window radius plus 0.20 m x tan(splay). Splay 0 is a straight bore.
+"""
 import json, math, sys
 from pathlib import Path
 

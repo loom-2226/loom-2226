@@ -1,0 +1,116 @@
+{
+  "CRUISE_no_response": {
+    "mode": "CRUISE",
+    "response": false,
+    "status": "pass",
+    "peak_attitude_error_deg": 179.99511091688476,
+    "peak_rate_deg_s": 81.41004202495284,
+    "final_attitude_error_deg": 19.227308565787336,
+    "final_rate_deg_s": 81.41004202495284,
+    "events": [
+      {
+        "t_s": 60.05,
+        "event": "fault_injected",
+        "kind": "stuck_tvc"
+      }
+    ],
+    "authority_fraction": null,
+    "torch_cap_fraction": 1.0,
+    "fuel_used_kg": 8775.360900659995,
+    "min_allocated_fraction": 0.0004571412173638875,
+    "runtime_s": 59.06
+  },
+  "CRUISE_mitigated": {
+    "mode": "CRUISE",
+    "response": true,
+    "status": "pass",
+    "peak_attitude_error_deg": 0.1074992963594601,
+    "peak_rate_deg_s": 0.19388327512416156,
+    "final_attitude_error_deg": 8.438077134132536e-08,
+    "final_rate_deg_s": 1.3384663651254653e-08,
+    "events": [
+      {
+        "t_s": 60.05,
+        "event": "fault_injected",
+        "kind": "stuck_tvc"
+      },
+      {
+        "t_s": 60.2,
+        "event": "detected_then_throttled",
+        "mode": "CRUISE",
+        "torque_unmitigated_Nm": 5978999.547326565,
+        "calculated_allocation_fraction": 0.5387988065560504,
+        "torch_cap_fraction": 0.4849189259004454
+      },
+      {
+        "t_s": 60.65,
+        "event": "torch_cut_due_to_loss_of_control",
+        "angle_deg": 0.09529946730773584,
+        "rate_deg_s": 0.15449035656950205,
+        "saturation_s": 0.44999999999999996
+      }
+    ],
+    "authority_fraction": 0.5387988065560504,
+    "torch_cap_fraction": 0.0,
+    "fuel_used_kg": 446.5226574598276,
+    "min_allocated_fraction": 0.35524144814861136,
+    "runtime_s": 49.33
+  },
+  "HARD_no_response": {
+    "mode": "HARD",
+    "response": false,
+    "status": "pass",
+    "peak_attitude_error_deg": 179.68951876080817,
+    "peak_rate_deg_s": 365.8127119114838,
+    "final_attitude_error_deg": 15.771290546640449,
+    "final_rate_deg_s": 365.8127119114838,
+    "events": [
+      {
+        "t_s": 60.05,
+        "event": "fault_injected",
+        "kind": "stuck_tvc"
+      }
+    ],
+    "authority_fraction": null,
+    "torch_cap_fraction": 1.0,
+    "fuel_used_kg": 18633.493739915964,
+    "min_allocated_fraction": 0.00025307142572673273,
+    "runtime_s": 38.46
+  },
+  "HARD_mitigated": {
+    "mode": "HARD",
+    "response": true,
+    "status": "pass",
+    "peak_attitude_error_deg": 0.6048997409507977,
+    "peak_rate_deg_s": 1.0094488174087373,
+    "final_attitude_error_deg": 3.994451487360493e-08,
+    "final_rate_deg_s": 2.6975070298878356e-08,
+    "events": [
+      {
+        "t_s": 60.05,
+        "event": "fault_injected",
+        "kind": "stuck_tvc"
+      },
+      {
+        "t_s": 60.2,
+        "event": "detected_then_throttled",
+        "mode": "HARD",
+        "torque_unmitigated_Nm": 23922135.435979255,
+        "calculated_allocation_fraction": 0.13435144283146425,
+        "torch_cap_fraction": 0.12091629854831783
+      },
+      {
+        "t_s": 60.2,
+        "event": "torch_cut_due_to_loss_of_control",
+        "angle_deg": 0.07730822193098218,
+        "rate_deg_s": 1.0094488174087373,
+        "saturation_s": 0.0
+      }
+    ],
+    "authority_fraction": 0.13435144283146425,
+    "torch_cap_fraction": 0.0,
+    "fuel_used_kg": 6406.815124841141,
+    "min_allocated_fraction": 0.08329484569851918,
+    "runtime_s": 34.48
+  }
+}

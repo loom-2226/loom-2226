@@ -26,7 +26,11 @@ ALL bodies. ALL sponsors. 2026–2226.
 
 - Historical full FQ1–FQ10 matrix in PR #435 was run on predecessor geometry `ea1fcb59...`. These outputs remain historical; they are not relabelled as current-geometry passes.
 - **Current-geometry evidence:** one authorised 40s RCS pitch flip on `5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256` with recorded 9 simultaneously firing nozzles, ~244.46MW thrust-weighted ideal floor, ~518.97MW 9-nozzle nameplate concurrency allowance and 1,845.22MW all-nozzles ceiling (NOT observed).
-- **Phase 1 replay:** independently reconstruct current S1/S4 mass, CG and full inertia (tensor error <1e-5 kg m²) and run non-governing conventional FQ1–FQ10 replay at the same SHA; detailed current-hash results to be indexed under `flight_qual/integration_20261101/`. A replay is evidence, not automatic adoption of PR #433 or PR #436 source into production.
+- **Phase 1 replay:** independently reconstruct current S1/S4 mass, CG and full inertia (tensor error <1e-5 kg m²) and run non-governing conventional FQ1–FQ10 replay at the same SHA; fully replayed final-hash results indexed under `flight_qual/integration_20261101/`. Current-hash replay has **93/93 timestep-parity verdict pairs**, 78/78 fueled-state PASS per timestep and 15 expected empty-tank FAIL per timestep; FQ5 FQ8 FQ9 FQ10 checks PASS in their bounded/conditional sense. See [replay report](flight_qual/integration_20261101/FQ1_FQ10_REPLAY_5D73_2026_11_01.md). A replay is evidence, not automatic adoption of PR #433 or PR #436 source into production.
+
+## Integration-only Python defect repair
+
+- Historical `command/l1_bore_check.py` inherited an unterminated module docstring from PR #435 (not part of active I4 qualification). Closed **only** the documentation string so all 29 Python sources compile. No executable law, geometry, mass, render or FQ method changed. Archive PR #435 untouched.
 
 ## Required integration gate / recovery
 
