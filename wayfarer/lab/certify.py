@@ -79,7 +79,8 @@ def g1(I, C, G):
               + L["propulsion_t"] + L["electrical_t"] + L["avionics_sensors_comms_t"] + L["rcs_docking_service_t"]
               + L["mission_courier_systems_t"] + L["engineering_reserve_t"] + L["c_tank_penalty_t"]
               + I["shuttle"]["dry_t"] + L["drones_pods_t"] + L.get("torch_hot_fins_t", 0.0) + L.get("crew_systems_v056_t", 0.0) + L.get("crew_systems_v057_t", 0.0)
-              + L.get("rcs_axial_t", 0.0) + L.get("reserve_draws_rev7", {}).get("total_t", 0.0))
+              + L.get("rcs_axial_t", 0.0) + L.get("reserve_draws_rev7", {}).get("total_t", 0.0)
+              + L.get("i4_carryover_t", 0.0))
     dry = G["dry_t"]
     cs = [chk("parts sum to the ledger", round(dry, 2), round(expect, 2), abs(dry - expect) <= C["G1"]["ledger_tolerance_t"], "t")]
     shuttle = next(p["mass_t"] for p in G["parts"] if p["id"] == "shuttle")
@@ -753,7 +754,28 @@ def g6(I, C, G):
                      f"(armour {BV['plug']['g_cm2']} vs 27.0, ring {BV['insert']['g_cm2']} vs 8.0), so the ray screen, which treats the hull as continuous, is unchanged. "
                      "Rev 3: the same plug kit is in every opening below the crown, including the L2 viewport band, and continues through the storm-shelter jacket (17 cm more acrylic for the 20 cm of water). Not yet shown: the dose. Acrylic is ~8% hydrogen by mass against water's 11%, so per g/cm2 it may stop cosmic-ray secondaries slightly less well; a transport check may ask for a thicker plug. Encapsulated for fire."))
     CD = I["habitat"]["decks"][0].get("command_layout", {}).get("crown_dome", {})
-    if CD.get("adopted"):
+    if CD.get("adopted") and CD.get("i4_crown_option_B"):
+        B2=CD["i4_crown_option_B"]
+        pressure=B2["inner_areal_g_cm2"]
+        outer=B2["outer_areal_g_cm2"]
+        protected=pressure+outer+B2["closed_gore_g_cm2"]
+        prior=B2["replaced_pressure_hull_comparator_g_cm2"]+B2["replaced_armor_g_cm2"]
+        cs.append(chk("I4 monolithic inner pressure dome exceeds replaced shell areal mass",
+            round(pressure,3),B2["replaced_pressure_hull_comparator_g_cm2"],pressure>=B2["replaced_pressure_hull_comparator_g_cm2"],"g/cm2",
+            "material areal equivalent, NOT pressure-buckling or high-energy radiation proof"))
+        cs.append(chk("I4 closed Strata gores plus two ceramic layers restore former areal mass",
+            round(protected,3),prior,protected>=prior,"g/cm2",
+            "27 g/cm2 Rev7 gores, separate from 37 outer panes; shelter transport not re-qualified by simple areal sum"))
+        cs.append(chk("I4 outer protection 37 separate panes [1,12,12,12]",
+            B2["outer_count"],37,B2["outer_count"]==37))
+        cs.append(chk("I4 segmented pane outer chord max 1.9m",
+            round(CD["panes"]["maximum_outer_circumferential_edge_m"],3),1.9,
+            CD["panes"]["maximum_outer_circumferential_edge_m"]<=1.9,"m",
+            "maximum hoop chord, not longest corner-to-corner diagonal"))
+        decl.append(("crown_dome","Rev7 16 closing Strata gores and opening doctrine are retained; their original acceptance applied only to the earlier segmented 2.3m pressure panes, not the new 7m seamless dome."))
+        decl.append(("crown_monolith_7m",
+            "NEW kT ACCEPTANCE REQUIRED: ONE ~7m monolithic transparent ceramic primary pressure dome, X(r)=2.35-2.15sqrt(1-(r/4.3)^2), 28mm nominal thickness, ~10.5g/cm2, full-scale proof and flaw control UNSHOWN. 37 independent outer 10mm nonpressure dust/thermal panes at ~3.75g/cm2, 16 Rev7 closing Strata gores restore ~42.25g/cm2 when closed. No secondary pressure dome, no optogel. This is a speculative 2226 materials breakthrough, not a qualified physical pressure enclosure or dose transport."))
+    elif CD.get("adopted"):
         decl.append(("crown_dome", f"Crown dome (v0.5.7): {CD['glazed_area_m2']:.0f} m2 of glazing inside r {CD['r_m']} m replaces the 8 nose windows. Assumes (1) proof-tested transparent ceramic panes up to "
                      f"{CD['central_pane_m']} m across (2026's largest are ~0.76 m), a 2226 materials milestone like the 1,750 K fins (rev 4: the L2 viewport band's 16-18 mm plate panes rely on the same ceramic; 2026 ALON would need 25-29 mm); (2) tambour gores of armour-equivalent Strata laminate (Builder-derived, MHL-22) that restore "
                      f"{CD['gores']['closed_restores_g_cm2']} g/cm2 when closed and stow in the brow ring; (3) the operating rule: {CD['doctrine']} With the gores open, L1 loses the armour over the crown (glass 2-9 g/cm2); L1 is not a shelter."))

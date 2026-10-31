@@ -32,13 +32,13 @@
  "floors": [
   {
    "deck": "L1",
-   "carried_t": 9.57,
+   "carried_t": 10.38,
    "people_t": 0.6,
-   "pressure_kpa": 14.0,
-   "face_mm": 0.17,
+   "pressure_kpa": 15.2,
+   "face_mm": 0.18,
    "needed_t": 0.78,
-   "floor_t": 1.588,
-   "core_shear_mpa": 0.082,
+   "floor_t": 1.587,
+   "core_shear_mpa": 0.088,
    "ok": true
   },
   {
@@ -48,7 +48,7 @@
    "pressure_kpa": 19.2,
    "face_mm": 0.23,
    "needed_t": 0.79,
-   "floor_t": 1.588,
+   "floor_t": 1.587,
    "core_shear_mpa": 0.112,
    "ok": true
   },
@@ -59,18 +59,18 @@
    "pressure_kpa": 18.5,
    "face_mm": 0.22,
    "needed_t": 0.79,
-   "floor_t": 1.588,
+   "floor_t": 1.587,
    "core_shear_mpa": 0.108,
    "ok": true
   },
   {
    "deck": "L4",
-   "carried_t": 36.89,
+   "carried_t": 36.87,
    "people_t": 0.0,
-   "pressure_kpa": 54.0,
+   "pressure_kpa": 53.9,
    "face_mm": 0.64,
    "needed_t": 0.86,
-   "floor_t": 1.588,
+   "floor_t": 1.587,
    "core_shear_mpa": 0.314,
    "ok": true
   }
@@ -80,7 +80,7 @@
   "factor": 2.0,
   "face_mm": 2.4,
   "needed_t": 1.14,
-  "floor_t": 1.588,
+  "floor_t": 1.587,
   "core_shear_mpa": 1.18,
   "core_shear_allow_mpa": 1.5,
   "hatches": 2,
@@ -242,21 +242,21 @@
  },
  "viewport_band": {
   "glazed_area_m2": 19.36,
-  "mass_ahead_t": 66.3,
+  "mass_ahead_t": 67.1,
   "mullions": 23,
   "mullion_section_m": [
    0.05,
    0.2
   ],
-  "axial_load_thrust_mn": 4.88,
-  "axial_load_pressure_mn": 11.12,
-  "mullion_stress_mpa": 48.4,
+  "axial_load_thrust_mn": 4.93,
+  "axial_load_pressure_mn": 11.11,
+  "mullion_stress_mpa": 48.3,
   "allow_mpa": 600.0,
   "mullion_buckling_margin": 4.3,
   "tallest_mullion_m": 1.6,
   "pane_hoop_membrane_mm_withdrawn": 12.4,
-  "glazing_total_m2": 48.3,
-  "heat_loss_kw_all_open": 2.03,
+  "glazing_total_m2": 60.8,
+  "heat_loss_kw_all_open": 2.55,
   "ok": true,
   "load_path": {
    "1_hoop_to_edge_rings": {

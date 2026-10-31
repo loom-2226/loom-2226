@@ -536,6 +536,31 @@ def build(I, dy=0.0, dz=0.0):
                                   ("cabinetry",I4["other_cabinetry_t"],-3.45,1.10)):
             add("i4_"+name,name,"habitat",Box(2.86,2.98,y-0.20,y+0.20,z-0.20,z+0.20),
                 mass,"ENGINEERING_ASSUMPTION: redistributed L1 room outfitting; low-g visual mass proxy","equipment",tags=("no_render",))
+    # 2026-11-01 I4 candidate carry-over: reserve-funded interior pieces only.
+    # Existing I4 NAV/terrace structural platforms are NOT duplicated.
+    for obj in I.get("i4_carryover",{}).get("items",[]):
+        tag=obj["id"]
+        if obj["kind"]=="box":
+            x,y,z=obj["xyz"];sx,sy,sz=obj["size"]
+            shape=Box(x-sx/2,x+sx/2,y-sy/2,y+sy/2,z-sz/2,z+sz/2)
+        elif obj["kind"]=="tube":
+            shape=Tube(tuple(obj["a"]),tuple(obj["b"]),obj["radius_m"])
+        elif obj["kind"]=="arc":
+            # Deterministic ring-rail approximation with fixed 18 angular segments.
+            for k in range(18):
+                a=obj["angles_rad"][0]+(obj["angles_rad"][1]-obj["angles_rad"][0])*k/18
+                b=obj["angles_rad"][0]+(obj["angles_rad"][1]-obj["angles_rad"][0])*(k+1)/18
+                y,z=obj["radius_m"]*math.cos(a),obj["radius_m"]*math.sin(a)
+                yy,zz=obj["radius_m"]*math.cos(b),obj["radius_m"]*math.sin(b)
+                add("i4_"+tag+"_"+str(k),tag,"habitat",
+                    Tube((obj["x_m"],y,z),(obj["x_m"],yy,zz),obj["tube_radius_m"]),
+                    obj["mass_t"]/18,"I4_CARRYOVER: "+obj["source"],"rail",
+                    tags=("from_reserve","no_render"))
+            continue
+        else:
+            raise ValueError("unknown I4 item kind "+obj["kind"])
+        add("i4_"+tag,tag,"habitat",shape,obj["mass_t"],
+            "I4_CARRYOVER: "+obj["source"],"equipment",tags=("from_reserve","no_render"))
     if CL.get("flight_deck"):
         fd = CL["flight_deck"]
         add("flight_deck", "Flight deck (mezzanine carrying the pilot and navigator couches)", "habitat",
@@ -1228,7 +1253,9 @@ def main():
         "bands": ([{"x": sg["x_m"], "a": sg["theta_deg"], "mullion_deg": I["habitat"]["crew_systems"]["viewport_band"]["mullion_spacing_deg"]}
                    for sg in I["habitat"]["crew_systems"]["viewport_band"]["segments"]] if I["habitat"].get("crew_systems", {}).get("viewport_band") else []),
         "crown": ({"r": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["r_m"], "mer": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["roots"],
-                   "center": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["centre_ring_r_m"], "fork": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["fork_r_m"]}
+                   "center": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["centre_ring_r_m"], "fork": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["fork_r_m"],
+                   "innerR": I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("i4_crown_option_B",{}).get("inner_diameter_m",0)/2,
+                   "outerPaneRings": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["panes"].get("ring_boundaries_m")}
                   if I["habitat"]["decks"][0].get("command_layout", {}).get("crown_dome", {}).get("adopted") else None),
         "version": I["version"], "inputs_sha256": hashlib.sha256(raw).hexdigest(),
         "length_m": I["hull"]["length_m"], "dry_t": dry,

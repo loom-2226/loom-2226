@@ -1,6 +1,6 @@
 {
   "header": "ALL bodies. ALL sponsors. 2026-2226.",
-  "status": "NON-GOVERNING current-geometry views 5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256 2026-11-01; crew max 4g, structure 5g; no Metric physics development",
+  "status": "New I4 carryover and Option B crown geometry 9d6f0059c8e6a4ff314b3d58e9c9b52ff7c9100d624c5c1d06d975531c3573c1; new 7m monolithic pressure ceramic kT milestone awaiting acceptance",
   "size": [
     1600,
     900
@@ -1189,7 +1189,7 @@
       "id": "cmd_pov",
       "kind": "command",
       "title": "The pilot's view",
-      "caption": "From PILOT's eye looking at the bow through the crown dome (v0.5.7). Rings: the 60 and 90 deg cones the study scored; the Osteon blades sit edge-on, outside the central cone. Displays now ride on arms from the command terrace. I4 six couch positions on Rev7 annulus; crew envelopes not physically qualified.",
+      "caption": "From PILOT's eye looking at the bow through the crown dome (v0.5.7). Rings: the 60 and 90 deg cones the study scored; the Protective 37-pane seams surround the single smooth pressure dome; occluded sightline test pending. Displays now ride on arms from the command terrace. I4 six source-annulus couches plus low-g workstations, transfer handrails, NAV platform; full suited-body clearance is declared, not hardware-qualified.",
       "eye": [
         0.775,
         0.45,
@@ -1280,7 +1280,7 @@
       "id": "ext_nose",
       "kind": "command",
       "title": "The nose: crown dome (v0.5.7)",
-      "caption": "A 25 m2 crown dome replaces the 8 nose windows: an Osteon frame of 8 roots forking into 16 blades round a clear 2.3 m centre pane. Open here; the gores stow inside the brow ring. I4 six couch positions on Rev7 annulus; crew envelopes not physically qualified.",
+      "caption": "37 separate outer protective ceramic panes [1,12,12,12], maximum hoop chord 1.73m, over ONE seamless 7m monolithic transparent ceramic primary pressure dome; 16 Strata armour gores close over both. Open here; the gores stow inside the brow ring. I4 six source-annulus couches plus low-g workstations, transfer handrails, NAV platform; full suited-body clearance is declared, not hardware-qualified.",
       "eye": [
         -12.5,
         -8.0,
@@ -1605,7 +1605,7 @@
       "id": "crown_open",
       "kind": "command",
       "title": "Crown dome, open",
-      "caption": "v0.5.7 main design. A Builder-grammar (Osteon) frame: 8 graded roots spring from the brow ring and fork into 16 thin blades round a 2.3 m clear central pane. Open, the Strata tambour gores sit retracted inside the brow ring. I4 six couch positions on Rev7 annulus; crew envelopes not physically qualified.",
+      "caption": "v0.5.7 main design. 37-pane outer debris/thermal layer [1,12,12,12] over one continuous 7m ceramic pressure dome; 16 Strata gores still close above both. Open, the Strata tambour gores sit retracted inside the brow ring. I4 six source-annulus couches plus low-g workstations, transfer handrails, NAV platform; full suited-body clearance is declared, not hardware-qualified.",
       "eye": [
         -11.0,
         -7.0,
@@ -1634,11 +1634,18 @@
       "holes": true,
       "windowFrames": true,
       "crown": {
-        "r": 2.8,
-        "mer": 8,
+        "r": 3.35,
+        "mer": 12,
         "center": 1.15,
         "fork": 2.0,
-        "open": 1
+        "innerR": 3.5,
+        "outerPaneRings": [
+          0,
+          0.75,
+          1.6,
+          2.48,
+          3.35
+        ]
       },
       "exposure": 0.9,
       "lights": [
@@ -1657,7 +1664,7 @@
       ],
       "labels": [
         {
-          "t": "Clear central pane, 2.3 m",
+          "t": "Outer centre 1.5 m; seamless inner 7 m",
           "at": [
             0.05,
             0,
@@ -1723,11 +1730,18 @@
       "windowFrames": true,
       "windowPanes": true,
       "crown": {
-        "r": 2.8,
-        "mer": 8,
+        "r": 3.35,
+        "mer": 12,
         "center": 1.15,
         "fork": 2.0,
-        "open": 0
+        "innerR": 3.5,
+        "outerPaneRings": [
+          0,
+          0.75,
+          1.6,
+          2.48,
+          3.35
+        ]
       },
       "exposure": 0.9,
       "labels": []
@@ -1736,7 +1750,7 @@
       "id": "crown_standing",
       "kind": "command",
       "title": "Standing on L1 at cruise (1 g)",
-      "caption": "v0.5.7 main design (command/BOW_OPTIONS_STUDY.md, option C). At about 1 g the crew stand on the L1 floor and the bow is overhead: a sky ceiling above a working deck. Eye 1.6 m above the floor. I4 six couch positions on Rev7 annulus; crew envelopes not physically qualified.",
+      "caption": "v0.5.7 main design (command/BOW_OPTIONS_STUDY.md, option C). At about 1 g the crew stand on the L1 floor and the bow is overhead: a sky ceiling above a working deck. Eye 1.6 m above the floor. I4 six source-annulus couches plus low-g workstations, transfer handrails, NAV platform; full suited-body clearance is declared, not hardware-qualified.",
       "eye": [
         1.4,
         0.0,
@@ -1771,11 +1785,18 @@
       "holes": true,
       "windowFrames": true,
       "crown": {
-        "r": 2.8,
-        "mer": 8,
+        "r": 3.35,
+        "mer": 12,
         "center": 1.15,
         "fork": 2.0,
-        "open": 1
+        "innerR": 3.5,
+        "outerPaneRings": [
+          0,
+          0.75,
+          1.6,
+          2.48,
+          3.35
+        ]
       },
       "lights": [
         {
@@ -1940,7 +1961,7 @@
       "id": "ext_hab_viewports",
       "kind": "exterior",
       "title": "Viewports open (v0.5.7)",
-      "caption": "Shutters and dome open, as at low speed. The L2 viewport band runs round the common deck (1.6 m tall in the lounge); berth viewports on L3; medical, shelter, suit-room and workshop viewports below. Every opening below the crown carries an acrylic shield plug. I4 six couch positions on Rev7 annulus; crew envelopes not physically qualified.",
+      "caption": "Shutters and dome open, as at low speed. The L2 viewport band runs round the common deck (1.6 m tall in the lounge); berth viewports on L3; medical, shelter, suit-room and workshop viewports below. Every opening below the crown carries an acrylic shield plug. I4 six source-annulus couches plus low-g workstations, transfer handrails, NAV platform; full suited-body clearance is declared, not hardware-qualified.",
       "eye": [
         -6.0,
         11.0,

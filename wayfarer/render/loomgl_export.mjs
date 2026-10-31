@@ -344,6 +344,51 @@ function meshRing(mb, p0, p1, ri, ro, n = 32) {   // hollow tube (window frame):
 // the brow ring, so nothing sits outside the glass when it is open.
 export function crownMeshes(cw, xc) {
   const G = {}, mb = m => (G[m] ||= new MB(xc));
+  // kT I4 Option B: 37 OUTER nonpressure panes, ONE seamless pressure dome.
+  // Rev7's 16 armour-equivalent Strata gores still close over both skins.
+  if (cw.outerPaneRings && cw.innerR) {
+    const bounds=cw.outerPaneRings, outer=bounds[bounds.length-1], inner=cw.innerR;
+    const X=r=>2.35-2.15*Math.sqrt(Math.max(0,1-(r/4.3)**2));
+    const PP=(r,a,offset=0)=>[X(r)-offset,r*Math.cos(a),r*Math.sin(a)];
+    const NN=(r,a)=>{const u=Math.sqrt(Math.max(.0001,1-(r/4.3)**2));
+       const v=2.15*r/(4.3*4.3*u),q=Math.hypot(1,v);
+       return [-1/q,v*Math.cos(a)/q,v*Math.sin(a)/q];};
+    const innerProfile=[];
+    for(let j=0;j<=84;j++){const r=inner*j/84;const nn=NN(r,0);innerProfile.push([X(r),r,nn[0],nn[1]]);}
+    lathe(mb("window"),innerProfile,96);
+    // 1 centre pane and 12 trapezoids in each of three concentric bands.
+    const B=mb("window"), seam=mb("frame");
+    for(let ring=0;ring<4;ring++){
+      const r0=bounds[ring],r1=bounds[ring+1],count=ring===0?1:12;
+      for(let i=0;i<count;i++){
+        const a0=2*Math.PI*i/count, a1=2*Math.PI*(i+1)/count,nn=8,steps=6;
+        for(let j=0;j<steps;j++){
+          const u=r0+(r1-r0)*j/steps,v=r0+(r1-r0)*(j+1)/steps;
+          const aa=[...Array(nn+1)].map((_,k)=>a0+(a1-a0)*k/nn);
+          B.strip(aa.map(a=>PP(u,a,.05)),aa.map(a=>PP(v,a,.05)),aa.map(a=>NN(u,a)),aa.map(a=>NN(v,a)),k=>NN((u+v)/2,aa[k]));
+        }
+        if(ring) meshTube(seam,{p0:PP(r0,a0,.047),p1:PP(r1,a0,.047),r:.015},8);
+      }
+      if(ring){
+        const n=96;
+        for(let j=0;j<n;j++){const a0=2*Math.PI*j/n,a1=2*Math.PI*(j+1)/n;
+          meshTube(seam,{p0:PP(r0,a0,.045),p1:PP(r0,a1,.045),r:.013},5);}
+      }
+    }
+    // Existing 16 Strata gore operating rule, with protective closed mantle.
+    const brow=[];
+    for(let j=0;j<=24;j++){const r=outer-.10+j*.35/24,n=NN(r,0);brow.push([X(r)-.03,r,n[0],n[1]]);}
+    lathe(mb("brow"),brow,96);
+    if((cw.open??1)<.5){
+      const cap=[];for(let j=0;j<=60;j++){const r=outer*j/60,n=NN(r,0);cap.push([X(r)-.085,r,n[0],n[1]]);}
+      lathe(mb("tambour"),cap,96);
+      for(let i=0;i<16;i++){
+        const a=2*Math.PI*i/16;
+        meshTube(mb("frame"),{p0:PP(.02,a,.09),p1:PP(outer,a,.09),r:.024},10);
+      }
+    }
+    return G;
+  }
   const R = cw.r, c0 = cw.center || 1.15, rf = cw.fork || 2.0, N = cw.mer || 8;
   const xm = r => 2.35 - 2.25 * Math.sqrt(Math.max(0, 1 - (r / 4.4) ** 2));      // mid-wall surface
   const xo = r => 2.35 - 2.35 * Math.sqrt(Math.max(0, 1 - (r / 4.5) ** 2));      // armour outer surface
@@ -500,6 +545,20 @@ export function commandMeshes(sc, opt = {}) {
       const ar = [cc.base_x, b[1], cc.head[1] + 0.12]; meshTube(mb("rail"), {p0: b, p1: [cc.base_x - 0.05, b[1], b[2]], r: 0.022}, 10);
     } else if (pilot) { const top = domeX(Math.hypot(b[1], b[2])); if (b[0] - top > 0.02) meshTube(mb("rail"), {p0: b, p1: [top, b[1], b[2]], r: 0.022}, 10); }
     else meshTube(mb("rail"), {p0: b, p1: [cc.base_x - sc.couch.back_above_base_m, b[1], b[2]], r: 0.022}, 10);
+  }
+  for (const it of sc.carryover || []) {
+    const mt=it.id.startsWith("lights")?"screen":it.kind==="tube"||it.kind==="arc"?"rail":"equipment";
+    if(it.kind==="box"){
+      const c=it.xyz,[sx,sy,sz]=it.size;
+      meshBox(mb(mt),[c[0]-sx/2,c[0]+sx/2,c[1]-sy/2,c[1]+sy/2,c[2]-sz/2,c[2]+sz/2]);
+    }else if(it.kind==="tube"){
+      meshTube(mb(mt),{p0:it.a,p1:it.b,r:it.radius_m},8);
+    }else if(it.kind==="arc"){
+      const [a0,a1]=it.angles_rad;
+      for(let j=0;j<18;j++){const a=a0+(a1-a0)*j/18,b=a0+(a1-a0)*(j+1)/18;
+        meshTube(mb("rail"),{p0:[it.x_m,it.radius_m*Math.cos(a),it.radius_m*Math.sin(a)],
+             p1:[it.x_m,it.radius_m*Math.cos(b),it.radius_m*Math.sin(b)],r:it.tube_radius_m},6);}
+    }
   }
   for (const l of sc.ladders) {
     const ctr = [sc.floor_x, l.y, l.z];
