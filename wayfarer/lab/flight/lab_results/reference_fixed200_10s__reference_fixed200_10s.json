@@ -1,0 +1,407 @@
+{
+  "ship": "Wayfarer original mounts 200 kN nonaxial, S1, lag 0.05",
+  "experiment": "fixed200_10s_reference_replay",
+  "ship_sha256": "60ef6ab7e0d3127bd88adbbda7bf7ff0a90d8a32f7b5371c4616fd7b8fb39bc6",
+  "experiment_sha256": "9e43740860f90e9b84a280b14a260499f88ffa1f2f67ba740e7f13f516782b20",
+  "dt_s": 0.02,
+  "phases": [
+    {
+      "actuators_start": {
+        "rcs_cmd": {
+          "F+Y_inward": 0.0,
+          "F+Y_tan+": 0.0,
+          "F+Y_tan-": 0.0,
+          "F+Y_axial": 0.0,
+          "F+Z_inward": 0.0,
+          "F+Z_tan+": 0.0,
+          "F+Z_tan-": 0.0,
+          "F+Z_axial": 0.0,
+          "F-Y_inward": 0.0,
+          "F-Y_tan+": 0.0,
+          "F-Y_tan-": 0.0,
+          "F-Y_axial": 0.0,
+          "F-Z_inward": 0.0,
+          "F-Z_tan+": 0.0,
+          "F-Z_tan-": 0.0,
+          "F-Z_axial": 0.0,
+          "A+Y_inward": 0.0,
+          "A+Y_tan+": 0.0,
+          "A+Y_tan-": 0.0,
+          "A+Y_axial": 0.0,
+          "A+Z_inward": 0.0,
+          "A+Z_tan+": 0.0,
+          "A+Z_tan-": 0.0,
+          "A+Z_axial": 0.0,
+          "A-Y_inward": 0.0,
+          "A-Y_tan+": 0.0,
+          "A-Y_tan-": 0.0,
+          "A-Y_axial": 0.0,
+          "A-Z_inward": 0.0,
+          "A-Z_tan+": 0.0,
+          "A-Z_tan-": 0.0,
+          "A-Z_axial": 0.0
+        },
+        "rcs_act": {
+          "F+Y_inward": 0.0,
+          "F+Y_tan+": 0.0,
+          "F+Y_tan-": 0.0,
+          "F+Y_axial": 0.0,
+          "F+Z_inward": 0.0,
+          "F+Z_tan+": 0.0,
+          "F+Z_tan-": 0.0,
+          "F+Z_axial": 0.0,
+          "F-Y_inward": 0.0,
+          "F-Y_tan+": 0.0,
+          "F-Y_tan-": 0.0,
+          "F-Y_axial": 0.0,
+          "F-Z_inward": 0.0,
+          "F-Z_tan+": 0.0,
+          "F-Z_tan-": 0.0,
+          "F-Z_axial": 0.0,
+          "A+Y_inward": 0.0,
+          "A+Y_tan+": 0.0,
+          "A+Y_tan-": 0.0,
+          "A+Y_axial": 0.0,
+          "A+Z_inward": 0.0,
+          "A+Z_tan+": 0.0,
+          "A+Z_tan-": 0.0,
+          "A+Z_axial": 0.0,
+          "A-Y_inward": 0.0,
+          "A-Y_tan+": 0.0,
+          "A-Y_tan-": 0.0,
+          "A-Y_axial": 0.0,
+          "A-Z_inward": 0.0,
+          "A-Z_tan+": 0.0,
+          "A-Z_tan-": 0.0,
+          "A-Z_axial": 0.0
+        },
+        "torch_cmd": {
+          "torch_centerline": 0.0
+        },
+        "torch_act": {
+          "torch_centerline": 0.0
+        },
+        "gimbal_angles_deg": {}
+      },
+      "actuators_end": {
+        "rcs_cmd": {
+          "F+Y_inward": 0.0,
+          "F+Y_tan+": 0.0,
+          "F+Y_tan-": 1.0,
+          "F+Y_axial": 0.0,
+          "F+Z_inward": 1.0,
+          "F+Z_tan+": 0.0,
+          "F+Z_tan-": 0.021991414330180703,
+          "F+Z_axial": 0.0,
+          "F-Y_inward": 0.0,
+          "F-Y_tan+": 1.0,
+          "F-Y_tan-": 0.0,
+          "F-Y_axial": 0.0,
+          "F-Z_inward": 0.0,
+          "F-Z_tan+": 0.0,
+          "F-Z_tan-": 0.01830467012057763,
+          "F-Z_axial": 0.0,
+          "A+Y_inward": 0.0,
+          "A+Y_tan+": 1.0,
+          "A+Y_tan-": 0.0,
+          "A+Y_axial": 0.0,
+          "A+Z_inward": 0.0,
+          "A+Z_tan+": 0.0,
+          "A+Z_tan-": 0.0,
+          "A+Z_axial": 0.0,
+          "A-Y_inward": 0.0,
+          "A-Y_tan+": 0.0,
+          "A-Y_tan-": 1.0,
+          "A-Y_axial": 0.0,
+          "A-Z_inward": 1.0,
+          "A-Z_tan+": 0.0,
+          "A-Z_tan-": 0.0036867442096030745,
+          "A-Z_axial": 0.0
+        },
+        "rcs_act": {
+          "F+Y_inward": 1.9815323899791982e-119,
+          "F+Y_tan+": 1.908127752016436e-69,
+          "F+Y_tan-": 0.9999999999999999,
+          "F+Y_axial": 1.4029132305583865e-69,
+          "F+Z_inward": 0.9999999999999999,
+          "F+Z_tan+": 2.4844040082528507e-72,
+          "F+Z_tan-": 0.021990614849379735,
+          "F+Z_axial": 1.402913230558378e-69,
+          "F-Y_inward": 1.919650661326561e-71,
+          "F-Y_tan+": 0.9999999999999999,
+          "F-Y_tan-": 1.98122647892357e-69,
+          "F-Y_axial": 1.4029132305583865e-69,
+          "F-Z_inward": 1.6990525416262392e-69,
+          "F-Z_tan+": 1.1437185068754127e-70,
+          "F-Z_tan-": 0.018348676475730397,
+          "F-Z_axial": 1.4029132305583865e-69,
+          "A+Y_inward": 0.0,
+          "A+Y_tan+": 0.9999999999999999,
+          "A+Y_tan-": 1.6990525416262392e-69,
+          "A+Y_axial": 1.4029132305583865e-69,
+          "A+Z_inward": 2.029728774995452e-69,
+          "A+Z_tan+": 9.427894414778465e-71,
+          "A+Z_tan-": 5.430795112911764e-58,
+          "A+Z_axial": 1.4029132305583865e-69,
+          "A-Y_inward": 5.07633381076233e-121,
+          "A-Y_tan+": 1.8596254559445504e-69,
+          "A-Y_tan-": 0.9999999999999999,
+          "A-Y_axial": 1.4029132305583865e-69,
+          "A-Z_inward": 0.9999999999999999,
+          "A-Z_tan+": 1.306790431536936e-119,
+          "A-Z_tan-": 0.0036419383736493406,
+          "A-Z_axial": 1.402913230558378e-69
+        },
+        "torch_cmd": {
+          "torch_centerline": 0.0
+        },
+        "torch_act": {
+          "torch_centerline": 0.0
+        },
+        "gimbal_angles_deg": {}
+      },
+      "t_start_s": 0.0,
+      "mass_start_kg": 1167680.0,
+      "tanks_start_kg": {
+        "remass": 250000.0
+      },
+      "state_start": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "state_end": [
+        -0.37687855895310984,
+        0.00040247619472317517,
+        0.9262625902052298,
+        6.164931852546605e-05,
+        -0.00010593908702005363,
+        -0.27505057173131225,
+        -0.00016927577043882337,
+        -1.0940163246525267e-15,
+        1.8967031993633e-15,
+        -1.121560284829259e-15,
+        -2.5932447056056163e-16,
+        2.8363043689006188e-16,
+        -2.5307284555674955e-16
+      ],
+      "metric_law": null,
+      "kind": "rcs_turn",
+      "duration_s": 10.0,
+      "t_end_s": 13.99999999999979,
+      "mass_end_kg": 1167680.0,
+      "cg_end_m": [
+        24.3996,
+        0.0248,
+        -0.3564
+      ],
+      "inertia_end_kg_m2": [
+        [
+          12445594.999999989,
+          120526.99999999991,
+          1310016.0000000019
+        ],
+        [
+          120526.99999999991,
+          191668541.00000018,
+          4090.000000000001
+        ],
+        [
+          1310016.0000000019,
+          4090.000000000001,
+          192492153.0000001
+        ]
+      ],
+      "propellant_used_kg": null,
+      "known_propellant_used_kg": 0.0,
+      "rcs_propellant_unresolved": true,
+      "propellant_unresolved": true,
+      "peak_force_N": 2.947897244267497e-10,
+      "peak_offaxis_torque_Nm": 347361.4634478589,
+      "minimum_allocated_fraction": 0.013010612195431648,
+      "max_ideal_tvc_trim_deg": 0.3226901767928222,
+      "peak_angular_rate_deg_s": 41.72802517489334,
+      "phase_attitude_drift_deg": 135.71906614218582,
+      "peak_gimbal_rate_deg_s": 0.0,
+      "peak_gimbal_angle_deg": 0.0,
+      "gimbal_limit_steps": 0,
+      "slew_limit_steps": 15,
+      "throttle_clamp_steps": 0,
+      "thrust_limit_steps": 561,
+      "allocation_limit_steps": 653,
+      "peak_command_slew_fullscale_s": 10.000000000000004,
+      "peak_throttle": 0.9999999999999999,
+      "peak_force_residual_N": 2.0508069434250993e-10,
+      "peak_torque_residual_Nm": 1866165073.6489105,
+      "propellant_depletion_steps": 0,
+      "propellant_available": null,
+      "residual_velocity_m_s": 4.601535297269308e-16,
+      "residual_displacement_m": 2.460132560978674e-15,
+      "metric_unresolved": false,
+      "at_target_time": {
+        "t_s": 10.0,
+        "attitude_error_deg": 48.48815864149881,
+        "rate_deg_s": 13.655640227862113
+      },
+      "attitude_error_deg": 48.48815864149881,
+      "rate_deg_s": 13.655640227862113,
+      "gate_entry_s": null,
+      "gate_hold_s": 0.0,
+      "sustained_gate_duration_s": 0.0,
+      "post_hold_s": 4.0,
+      "at_end": {
+        "attitude_error_deg": 44.28096106848847,
+        "rate_deg_s": 15.759241066291745
+      },
+      "qualification": {
+        "status": "pass",
+        "checks": []
+      }
+    }
+  ],
+  "metrics": {
+    "attitude_error_deg": 48.48815864149881,
+    "rate_deg_s": 13.655640227862113,
+    "gate_entry_s": null,
+    "peak_gimbal_rate_deg_s": 0.0,
+    "peak_gimbal_angle_deg": 0.0,
+    "gimbal_limit_steps": 0.0,
+    "slew_limit_steps": 15,
+    "throttle_clamp_steps": 0.0,
+    "thrust_limit_steps": 561,
+    "allocation_limit_steps": 653,
+    "peak_command_slew_fullscale_s": 10.000000000000004,
+    "peak_throttle": 0.9999999999999999,
+    "peak_force_residual_N": 2.0508069434250993e-10,
+    "peak_torque_residual_Nm": 1866165073.6489105,
+    "propellant_depletion_steps": 0.0,
+    "peak_angular_rate_deg_s": 41.72802517489334,
+    "propellant_available": null,
+    "residual_velocity_m_s": 4.601535297269308e-16,
+    "residual_displacement_m": 2.460132560978674e-15,
+    "gate_hold_s": 0.0,
+    "sustained_gate_duration_s": 0.0,
+    "mass_end_kg": 1167680.0,
+    "known_propellant_used_kg": 0.0,
+    "total_propellant_used_kg": null,
+    "metric_path_m": 0.0,
+    "final_speed_m_s": 4.601535297269308e-16,
+    "final_angular_rate_deg_s": 15.759241066291745
+  },
+  "qualification": {
+    "status": "fail",
+    "checks": [
+      {
+        "metric": "attitude_error_deg",
+        "measured": 48.48815864149881,
+        "criterion": {
+          "max": 0.25
+        },
+        "status": "fail"
+      },
+      {
+        "metric": "rate_deg_s",
+        "measured": 13.655640227862113,
+        "criterion": {
+          "max": 0.05
+        },
+        "status": "fail"
+      }
+    ],
+    "scope": "Only the configured numerical criteria; no hardware certification",
+    "conditional_on_unknown_propellant": true
+  },
+  "physical_qualification": {
+    "status": "indeterminate",
+    "checks": [
+      {
+        "metric": "propellant_available",
+        "status": "indeterminate",
+        "reason": "unmeasured"
+      }
+    ],
+    "scope": "Declared propellant availability only; excludes hardware feasibility"
+  },
+  "system_status": "fail",
+  "mass_accounting": "frozen for unspecified consumption; known tanks deplete",
+  "gimbal_initialization": {},
+  "final_state": {
+    "time_s": 13.99999999999979,
+    "position_m": [
+      -1.0940163246525267e-15,
+      1.8967031993633e-15,
+      -1.121560284829259e-15
+    ],
+    "velocity_m_s": [
+      -2.5932447056056163e-16,
+      2.8363043689006188e-16,
+      -2.5307284555674955e-16
+    ],
+    "q_body_to_inertial": [
+      -0.37687855895310984,
+      0.00040247619472317517,
+      0.9262625902052298,
+      6.164931852546605e-05
+    ],
+    "omega_rad_s": [
+      -0.00010593908702005363,
+      -0.27505057173131225,
+      -0.00016927577043882337
+    ],
+    "mass_kg": 1167680.0,
+    "cg_m": [
+      24.3996,
+      0.0248,
+      -0.3564
+    ],
+    "inertia_kg_m2": [
+      [
+        12445594.999999989,
+        120526.99999999991,
+        1310016.0000000019
+      ],
+      [
+        120526.99999999991,
+        191668541.00000018,
+        4090.000000000001
+      ],
+      [
+        1310016.0000000019,
+        4090.000000000001,
+        192492153.0000001
+      ]
+    ],
+    "tanks_kg": {
+      "remass": 250000.0
+    },
+    "metric_path_m": 0.0,
+    "metric_unresolved": false
+  },
+  "rcs_impulse_Ns": 17421351.611159083,
+  "torch_impulse_Ns": 0.0,
+  "warnings": [
+    "RCS propellant model unspecified"
+  ],
+  "rcs_propellant_unresolved": true,
+  "propellant_unresolved": true,
+  "evidence_class": "non-governing numerical experiment; experimental metric laws not physical validation",
+  "model_limits": [
+    "canonical metric requests execute transition/hold checks; U^M_gamma and finite ledgers absent",
+    "canonical metric arrival mass, position, velocity, attitude, and remass ledger unresolved",
+    "rigid body; fuel centroids and intrinsic inertia scale linearly with fill",
+    "no slosh, plume, thermal, flex, sensor, valve, or tank feed network",
+    "torch auto-trim instantaneous unless tvc_rate_deg_s declared; no structural TVC model",
+    "no full variable-inertia angular-momentum flux law",
+    "conditional metric path estimates do not establish physical arrival state"
+  ]
+}

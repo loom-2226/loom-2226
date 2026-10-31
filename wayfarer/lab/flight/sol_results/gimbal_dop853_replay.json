@@ -1,0 +1,9 @@
+{
+  "solver": "independently coded equations with SciPy DOP853",
+  "scope": "realized moving-gimbal wrench replay, frozen mass; controller and hardware not independently qualified",
+  "steps": 800,
+  "max_attitude_difference_deg": 7.221687916441823e-10,
+  "max_rate_difference_rad_s": 8.69649627709887e-15,
+  "final_position_difference_m": 2.5685008627874963e-13,
+  "final_velocity_difference_m_s": 2.811170971735121e-14
+}

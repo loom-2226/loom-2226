@@ -1,0 +1,371 @@
+[
+  {
+    "label": "baseline25_10s",
+    "state": "S1",
+    "axis": 1,
+    "coarse_N": 25000,
+    "failed_cluster": null,
+    "duration_s": 10,
+    "dt_s": 0.02,
+    "actuator_tau_s": 0.05,
+    "command_slew_fullscale_s": 10,
+    "slew_policy": "common interpolation fraction preserves force balance for fixed directions; changing gimbals need separate residual check",
+    "at_target_time": {
+      "attitude_error_deg": 135.07271142166874,
+      "rate_deg_s": 9.117067960819046
+    },
+    "at_end": {
+      "attitude_error_deg": 91.20363096299486,
+      "rate_deg_s": 12.817479044830728
+    },
+    "gate_entry_s": null,
+    "gate_hold_s": 0.0,
+    "minimum_allocated_fraction": 0.0007123776468145877,
+    "peak_actual_fraction": 1.0000000000000324,
+    "peak_net_force_N": 2.296782625719281e-11,
+    "peak_offaxis_torque_Nm": 2047.674158969693,
+    "peak_angular_accel_rad_s2": 0.016146126065818,
+    "peak_rate_deg_s": 12.798976990641936,
+    "total_scalar_impulse_Ns": 4859848.603612312,
+    "residual_velocity_m_s": [
+      -8.303420390733923e-17,
+      5.619316749157265e-17,
+      -2.6179393649960594e-17
+    ],
+    "displacement_m": [
+      -5.02008202941253e-16,
+      3.8565133526321155e-16,
+      -3.1102114259554754e-16
+    ],
+    "pass_at_target": false,
+    "mass_model": "frozen rev7 mass/inertia; propellant not qualified; Isp/tank distribution missing"
+  },
+  {
+    "label": "baseline25_40s",
+    "state": "S1",
+    "axis": 1,
+    "coarse_N": 25000,
+    "failed_cluster": null,
+    "duration_s": 40,
+    "dt_s": 0.02,
+    "actuator_tau_s": 0.05,
+    "command_slew_fullscale_s": 10,
+    "slew_policy": "common interpolation fraction preserves force balance for fixed directions; changing gimbals need separate residual check",
+    "at_target_time": {
+      "attitude_error_deg": 0.001013287698544997,
+      "rate_deg_s": 0.00016827657800123734
+    },
+    "at_end": {
+      "attitude_error_deg": 2.618479811633208e-07,
+      "rate_deg_s": 5.570099669472432e-07
+    },
+    "gate_entry_s": 40.0,
+    "gate_hold_s": 4.020000000000002,
+    "minimum_allocated_fraction": 1.0,
+    "peak_actual_fraction": 0.9999999999999999,
+    "peak_net_force_N": 0.026011625797750258,
+    "peak_offaxis_torque_Nm": 2615.2792566160097,
+    "peak_angular_accel_rad_s2": 0.011336395902606888,
+    "peak_rate_deg_s": 8.4375083483888,
+    "total_scalar_impulse_Ns": 2756388.232567925,
+    "residual_velocity_m_s": [
+      1.1675779168803515e-18,
+      8.026182680406348e-09,
+      1.008317282453107e-16
+    ],
+    "displacement_m": [
+      1.6092482309611687e-16,
+      7.995170159819922e-08,
+      2.146614163305831e-15
+    ],
+    "pass_at_target": true,
+    "mass_model": "frozen rev7 mass/inertia; propellant not qualified; Isp/tank distribution missing"
+  },
+  {
+    "label": "fixed200_10s",
+    "state": "S1",
+    "axis": 1,
+    "coarse_N": 200000,
+    "failed_cluster": null,
+    "duration_s": 10,
+    "dt_s": 0.02,
+    "actuator_tau_s": 0.05,
+    "command_slew_fullscale_s": 10,
+    "slew_policy": "common interpolation fraction preserves force balance for fixed directions; changing gimbals need separate residual check",
+    "at_target_time": {
+      "attitude_error_deg": 48.48815864124777,
+      "rate_deg_s": 13.655640227722508
+    },
+    "at_end": {
+      "attitude_error_deg": 44.28096106765103,
+      "rate_deg_s": 15.75924106643138
+    },
+    "gate_entry_s": null,
+    "gate_hold_s": 0.0,
+    "minimum_allocated_fraction": 0.013010612195522025,
+    "peak_actual_fraction": 1.0000000000005858,
+    "peak_net_force_N": 2.8860646670107296e-10,
+    "peak_offaxis_torque_Nm": 347361.4634849667,
+    "peak_angular_accel_rad_s2": 0.12845678905905475,
+    "peak_rate_deg_s": 41.72802517482608,
+    "total_scalar_impulse_Ns": 17421351.61115855,
+    "residual_velocity_m_s": [
+      -7.393518415426325e-17,
+      2.82759308262122e-16,
+      5.58699177388289e-17
+    ],
+    "displacement_m": [
+      -1.1220662955429903e-15,
+      1.8974256042199283e-15,
+      1.2481833199828272e-16
+    ],
+    "pass_at_target": false,
+    "mass_model": "frozen rev7 mass/inertia; propellant not qualified; Isp/tank distribution missing"
+  },
+  {
+    "label": "fixed300_pitch",
+    "state": "S1",
+    "axis": 1,
+    "coarse_N": 300000.0,
+    "failed_cluster": null,
+    "duration_s": 10,
+    "dt_s": 0.02,
+    "actuator_tau_s": 0.05,
+    "command_slew_fullscale_s": 10,
+    "slew_policy": "common interpolation fraction preserves force balance for fixed directions; changing gimbals need separate residual check",
+    "at_target_time": {
+      "attitude_error_deg": 0.046294278032436416,
+      "rate_deg_s": 0.03762379950862621
+    },
+    "at_end": {
+      "attitude_error_deg": 1.3027061298192983e-05,
+      "rate_deg_s": 2.8734457022733463e-05
+    },
+    "gate_entry_s": 10.620000000000001,
+    "gate_hold_s": 3.4000000000000026,
+    "minimum_allocated_fraction": 1.0,
+    "peak_actual_fraction": 0.9999999999999999,
+    "peak_net_force_N": 0.07434539135928887,
+    "peak_offaxis_torque_Nm": 41863.79913453102,
+    "peak_angular_accel_rad_s2": 0.18151910079149028,
+    "peak_rate_deg_s": 33.75582149152095,
+    "total_scalar_impulse_Ns": 11065546.787539097,
+    "residual_velocity_m_s": [
+      -4.1108827968944004e-17,
+      3.267703035763498e-08,
+      2.068338215617556e-16
+    ],
+    "displacement_m": [
+      -1.9541479504501332e-16,
+      5.679617790441318e-08,
+      1.6121318542015344e-15
+    ],
+    "pass_at_target": true,
+    "mass_model": "frozen rev7 mass/inertia; propellant not qualified; Isp/tank distribution missing"
+  },
+  {
+    "label": "fixed300_yaw",
+    "state": "S1",
+    "axis": 2,
+    "coarse_N": 300000.0,
+    "failed_cluster": null,
+    "duration_s": 10,
+    "dt_s": 0.02,
+    "actuator_tau_s": 0.05,
+    "command_slew_fullscale_s": 10,
+    "slew_policy": "common interpolation fraction preserves force balance for fixed directions; changing gimbals need separate residual check",
+    "at_target_time": {
+      "attitude_error_deg": 0.04627557081792956,
+      "rate_deg_s": 0.037665171365196065
+    },
+    "at_end": {
+      "attitude_error_deg": 1.3024252490452407e-05,
+      "rate_deg_s": 2.872840071593593e-05
+    },
+    "gate_entry_s": 10.620000000000001,
+    "gate_hold_s": 3.4000000000000026,
+    "minimum_allocated_fraction": 1.0,
+    "peak_actual_fraction": 0.9999999999999999,
+    "peak_net_force_N": 0.06520552693274684,
+    "peak_offaxis_torque_Nm": 454844.493202457,
+    "peak_angular_accel_rad_s2": 0.181524900510683,
+    "peak_rate_deg_s": 33.755833877585324,
+    "total_scalar_impulse_Ns": 11194877.569041355,
+    "residual_velocity_m_s": [
+      -3.3739553656780567e-17,
+      1.047797586673042e-17,
+      2.93690644053254e-08
+    ],
+    "displacement_m": [
+      -1.7923228830422694e-16,
+      1.9069860868881856e-16,
+      2.9122520999563998e-08
+    ],
+    "pass_at_target": true,
+    "mass_model": "frozen rev7 mass/inertia; propellant not qualified; Isp/tank distribution missing"
+  },
+  {
+    "label": "fixed300_loaded",
+    "state": "S2",
+    "axis": 1,
+    "coarse_N": 300000.0,
+    "failed_cluster": null,
+    "duration_s": 10,
+    "dt_s": 0.02,
+    "actuator_tau_s": 0.05,
+    "command_slew_fullscale_s": 10,
+    "slew_policy": "common interpolation fraction preserves force balance for fixed directions; changing gimbals need separate residual check",
+    "at_target_time": {
+      "attitude_error_deg": 0.04631171924815605,
+      "rate_deg_s": 0.03758515706408811
+    },
+    "at_end": {
+      "attitude_error_deg": 1.3029616105097932e-05,
+      "rate_deg_s": 2.8740106223298863e-05
+    },
+    "gate_entry_s": 10.620000000000001,
+    "gate_hold_s": 3.4000000000000026,
+    "minimum_allocated_fraction": 1.0,
+    "peak_actual_fraction": 0.9999999999999999,
+    "peak_net_force_N": 0.0829104569930077,
+    "peak_offaxis_torque_Nm": 38138.45845674535,
+    "peak_angular_accel_rad_s2": 0.18152796783059236,
+    "peak_rate_deg_s": 33.75581004575057,
+    "total_scalar_impulse_Ns": 11292322.810582029,
+    "residual_velocity_m_s": [
+      4.71262861572614e-17,
+      3.649689346888323e-08,
+      -6.773946282536243e-17
+    ],
+    "displacement_m": [
+      4.019844609312051e-16,
+      6.510877227882977e-08,
+      -3.566775211034802e-16
+    ],
+    "pass_at_target": true,
+    "mass_model": "frozen rev7 mass/inertia; propellant not qualified; Isp/tank distribution missing"
+  },
+  {
+    "label": "fixed300_clusterout",
+    "state": "S1",
+    "axis": 1,
+    "coarse_N": 300000.0,
+    "failed_cluster": "F+Z",
+    "duration_s": 10,
+    "dt_s": 0.02,
+    "actuator_tau_s": 0.05,
+    "command_slew_fullscale_s": 10,
+    "slew_policy": "common interpolation fraction preserves force balance for fixed directions; changing gimbals need separate residual check",
+    "at_target_time": {
+      "attitude_error_deg": 10.400296549676924,
+      "rate_deg_s": 2.1569728617460284
+    },
+    "at_end": {
+      "attitude_error_deg": 0.013760362617626802,
+      "rate_deg_s": 0.030352609843843657
+    },
+    "gate_entry_s": 13.780000000000001,
+    "gate_hold_s": 0.23999999999999996,
+    "minimum_allocated_fraction": 0.0660327030191789,
+    "peak_actual_fraction": 1.0000000000001088,
+    "peak_net_force_N": 5.569619713854003e-09,
+    "peak_offaxis_torque_Nm": 41863.80309311221,
+    "peak_angular_accel_rad_s2": 0.19259715014124895,
+    "peak_rate_deg_s": 33.755822178251215,
+    "total_scalar_impulse_Ns": 14378167.169482488,
+    "residual_velocity_m_s": [
+      1.9683533527674137e-17,
+      -4.548850564723764e-16,
+      -2.511815440657546e-16
+    ],
+    "displacement_m": [
+      4.738054778290291e-16,
+      1.2777816368206481e-15,
+      5.254322225581599e-16
+    ],
+    "pass_at_target": false,
+    "mass_model": "frozen rev7 mass/inertia; propellant not qualified; Isp/tank distribution missing"
+  },
+  {
+    "label": "fixed300_slowactuator",
+    "state": "S1",
+    "axis": 1,
+    "coarse_N": 300000.0,
+    "failed_cluster": null,
+    "duration_s": 10,
+    "dt_s": 0.02,
+    "actuator_tau_s": 0.2,
+    "command_slew_fullscale_s": 10,
+    "slew_policy": "common interpolation fraction preserves force balance for fixed directions; changing gimbals need separate residual check",
+    "at_target_time": {
+      "attitude_error_deg": 0.16235356657296274,
+      "rate_deg_s": 0.1318651640531239
+    },
+    "at_end": {
+      "attitude_error_deg": 9.171018193161537e-06,
+      "rate_deg_s": 0.0014560587319793808
+    },
+    "gate_entry_s": 11.02,
+    "gate_hold_s": 3.000000000000002,
+    "minimum_allocated_fraction": 1.0,
+    "peak_actual_fraction": 0.9999995052632574,
+    "peak_net_force_N": 0.03867915230397573,
+    "peak_offaxis_torque_Nm": 41906.41664243835,
+    "peak_angular_accel_rad_s2": 0.18323555313194764,
+    "peak_rate_deg_s": 33.76994330740539,
+    "total_scalar_impulse_Ns": 11364579.336656865,
+    "residual_velocity_m_s": [
+      -8.38697163496349e-17,
+      9.62231878304253e-09,
+      1.420409545163476e-16
+    ],
+    "displacement_m": [
+      -6.316736132001626e-16,
+      4.004080374347127e-09,
+      1.410258553490733e-15
+    ],
+    "pass_at_target": false,
+    "mass_model": "frozen rev7 mass/inertia; propellant not qualified; Isp/tank distribution missing"
+  },
+  {
+    "label": "fixed300_halfstep",
+    "state": "S1",
+    "axis": 1,
+    "coarse_N": 300000.0,
+    "failed_cluster": null,
+    "duration_s": 10,
+    "dt_s": 0.01,
+    "actuator_tau_s": 0.05,
+    "command_slew_fullscale_s": 10,
+    "slew_policy": "common interpolation fraction preserves force balance for fixed directions; changing gimbals need separate residual check",
+    "at_target_time": {
+      "attitude_error_deg": 0.04244015231086933,
+      "rate_deg_s": 0.03423094298917595
+    },
+    "at_end": {
+      "attitude_error_deg": 1.1516569329500471e-05,
+      "rate_deg_s": 2.563016876333586e-05
+    },
+    "gate_entry_s": 10.56,
+    "gate_hold_s": 3.4499999999999704,
+    "minimum_allocated_fraction": 1.0,
+    "peak_actual_fraction": 0.9999999999999998,
+    "peak_net_force_N": 0.07717815546776546,
+    "peak_offaxis_torque_Nm": 41862.37113488951,
+    "peak_angular_accel_rad_s2": 0.18150529677588778,
+    "peak_rate_deg_s": 33.75525046109127,
+    "total_scalar_impulse_Ns": 11062041.09419009,
+    "residual_velocity_m_s": [
+      -4.490639469279308e-17,
+      3.718910608610572e-08,
+      2.083294216639106e-16
+    ],
+    "displacement_m": [
+      -2.0662229693987146e-16,
+      6.662908723689973e-08,
+      1.50823546241981e-15
+    ],
+    "pass_at_target": true,
+    "mass_model": "frozen rev7 mass/inertia; propellant not qualified; Isp/tank distribution missing"
+  }
+]

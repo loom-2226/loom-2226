@@ -1,0 +1,15 @@
+{
+  "label": "fixed300_pitch",
+  "n_samples_42": 701,
+  "n_samples_python": 701,
+  "dt42_s": 0.005,
+  "documented_command_pipeline_delay_s": 0.005,
+  "max_time_alignment_error_s": 1.7763568394002505e-15,
+  "max_attitude_difference_deg": 6.993345404008322e-06,
+  "final_attitude_difference_deg": 9.065266755416304e-10,
+  "max_angular_velocity_difference_rad_s": 4.999857194933803e-08,
+  "final_attitude_error_deg": 1.3026154777479812e-05,
+  "final_rate_deg_s": 2.873445975580409e-05,
+  "scope": "42 actual thruster force/torque and full Euler dynamics; same realized thrust replay, not independent controller/hardware",
+  "inertia_product_sign": "42 input products negated to preserve actual LOOM off-diagonal tensor entries"
+}

@@ -1,0 +1,150 @@
+{
+  "torch": {
+    "mode": "CRUISE",
+    "T_s": 600.0,
+    "F_N": 11361000.0,
+    "ve_m_s": 2000000.0,
+    "mdot_kg_s": 5.6805,
+    "initial_mass_kg": 1167681.453466738,
+    "final_mass_kg": 1164273.153466738,
+    "propellant_used_kg": 3408.3000000000466,
+    "acceleration_initial_m_s2": 9.729537080742563,
+    "acceleration_final_m_s2": 9.758019384172437,
+    "analytic_dv_m_s": 5846.258613731319,
+    "numeric_dv_m_s": 5846.258613731289,
+    "analytic_position_m": 1753023.1157393246,
+    "numeric_position_m": 1753023.1157466066,
+    "jet_power_W": 11361000000000.0,
+    "heliocentric_initial_SI": [
+      149597870700.0,
+      0.0,
+      0.0,
+      0.0,
+      29784.691831696804,
+      0.0,
+      1167681.453466738
+    ],
+    "heliocentric_final_SI": [
+      149597869632.585,
+      19623838.170176677,
+      0.0,
+      -3.5580500990304023,
+      35630.95021901286,
+      0.0,
+      1164273.1534667383
+    ],
+    "sun_mu_m3_s2": 1.32712440018e+20,
+    "rk4_vs_dop853": {
+      "10.0": {
+        "position_error_m": 3.0517578352373675e-05,
+        "velocity_error_m_s": 2.1827876908308046e-11,
+        "mass_error_kg": 3.725290298461914e-09
+      },
+      "5.0": {
+        "position_error_m": 3.051758176297859e-05,
+        "velocity_error_m_s": 1.4551923061725438e-11,
+        "mass_error_kg": -1.0244548320770264e-08
+      },
+      "1.0": {
+        "position_error_m": 3.051758017136301e-05,
+        "velocity_error_m_s": 2.1827879027019293e-11,
+        "mass_error_kg": -1.0244548320770264e-08
+      }
+    }
+  },
+  "coast_before_turn_s": 60.0,
+  "turn": {
+    "label": "combined_settled_turn",
+    "state": "S1",
+    "axis": 1,
+    "coarse_N": 25000,
+    "failed_cluster": null,
+    "duration_s": 40,
+    "dt_s": 0.02,
+    "actuator_tau_s": 0.05,
+    "command_slew_fullscale_s": 10,
+    "slew_policy": "common interpolation fraction preserves force balance for fixed directions; changing gimbals need separate residual check",
+    "at_target_time": {
+      "attitude_error_deg": 0.001013287698545943,
+      "rate_deg_s": 0.00016827657803481354
+    },
+    "at_end": {
+      "attitude_error_deg": 2.6193036294178693e-07,
+      "rate_deg_s": 5.570112547260531e-07
+    },
+    "gate_entry_s": 40.0,
+    "gate_hold_s": 4.020000000000002,
+    "minimum_allocated_fraction": 1.0,
+    "peak_actual_fraction": 0.9999999999999999,
+    "peak_net_force_N": 0.04258847911996872,
+    "peak_offaxis_torque_Nm": 2614.410427464863,
+    "peak_angular_accel_rad_s2": 0.011336395902582033,
+    "peak_rate_deg_s": 8.437508348388548,
+    "total_scalar_impulse_Ns": 2755528.067683364,
+    "residual_velocity_m_s": [
+      -4.353416802159725e-18,
+      6.446000586441246e-09,
+      6.3100412716069524e-18
+    ],
+    "displacement_m": [
+      -2.0357963873230014e-16,
+      1.556995588732558e-08,
+      -4.4075564146686845e-16
+    ],
+    "pass_at_target": true,
+    "mass_model": "frozen rev7 mass/inertia; propellant not qualified; Isp/tank distribution missing"
+  },
+  "cg_at_turn_m": [
+    24.403957859443526,
+    0.024827245771426483,
+    -0.35394356457054604
+  ],
+  "inertia_at_turn_kg_m2": [
+    [
+      12407706.810789766,
+      120486.35519781441,
+      1314281.7059564497
+    ],
+    [
+      120486.35519781441,
+      191608730.18991658,
+      4106.409282989633
+    ],
+    [
+      1314281.7059564497,
+      4106.409282989633,
+      192421505.9463294
+    ]
+  ],
+  "mass_kg_at_turn": 1164273.153466738,
+  "position_end_m": [
+    2361034.0115746604,
+    1.556995588732558e-08,
+    4.4075564146686845e-16
+  ],
+  "velocity_end_m_s": [
+    5846.258613731289,
+    6.446000586441246e-09,
+    -6.3100412716069524e-18
+  ],
+  "initial_body_to_inertial_q": [
+    0,
+    0,
+    1,
+    0
+  ],
+  "torch_force_body_axis": "minus x",
+  "boundary_position_velocity_mass_jumps": [
+    0,
+    0,
+    0
+  ],
+  "postburn_mass_properties_source": "build_v05.build/state_parts/mass_props; actual rev7 protected water split and thrust offset retained",
+  "limitations": [
+    "60 s cooling/folding coast assumed, not thermally qualified",
+    "zero spin during fin folding; no flexible/deployment dynamics",
+    "water remains in builder settled-aft distribution during RCS; no slosh model",
+    "RCS propellant not integrated: ve and feed/tank hardware absent",
+    "ideal torch TVC, perfect state estimate, no environmental forces in this combined case"
+  ]
+}

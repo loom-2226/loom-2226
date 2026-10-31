@@ -1,0 +1,47 @@
+[
+  {
+    "duration_s": 10,
+    "simulated_terminal_status": "fail",
+    "system_status": "fail",
+    "error_deg": 39.457224472503064,
+    "rate_deg_s": 9.530241735878443,
+    "gate_entry_s": null,
+    "delta_error_deg": -1.7272583363592275e-10,
+    "delta_rate_deg_s": 5.1869619710487314e-11,
+    "delta_peak_net_force_N": -8.385541150346398e-10,
+    "delta_peak_offaxis_torque_Nm": -0.00011214497499167919,
+    "peak_gimbal_rate_deg_s": 29.999999999999996,
+    "residual_velocity_m_s": 0.003521506223651704,
+    "agreement": true
+  },
+  {
+    "duration_s": 12,
+    "simulated_terminal_status": "pass",
+    "system_status": "indeterminate",
+    "error_deg": 0.028993430157378857,
+    "rate_deg_s": 0.01869325888314345,
+    "gate_entry_s": 12.0,
+    "delta_error_deg": 2.6156229959717336e-12,
+    "delta_rate_deg_s": -5.75177058759202e-12,
+    "delta_peak_net_force_N": -2.2952008293941617e-08,
+    "delta_peak_offaxis_torque_Nm": 4.934408934786916e-07,
+    "peak_gimbal_rate_deg_s": 29.999999999999996,
+    "residual_velocity_m_s": 0.003044672773649513,
+    "agreement": true
+  },
+  {
+    "duration_s": 14,
+    "simulated_terminal_status": "pass",
+    "system_status": "indeterminate",
+    "error_deg": 0.019298217189471865,
+    "rate_deg_s": 0.010284999848606972,
+    "gate_entry_s": 14.0,
+    "delta_error_deg": 8.130857098720412e-13,
+    "delta_rate_deg_s": -1.7811550845348023e-12,
+    "delta_peak_net_force_N": -4.723005986306816e-09,
+    "delta_peak_offaxis_torque_Nm": 3.4093682188540697e-07,
+    "peak_gimbal_rate_deg_s": 29.999999999999996,
+    "residual_velocity_m_s": 0.0018479848470356846,
+    "agreement": true
+  }
+]

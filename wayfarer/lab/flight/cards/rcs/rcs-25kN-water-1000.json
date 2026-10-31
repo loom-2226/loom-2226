@@ -1,0 +1,20 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "kind": "rcs",
+ "id": "rcs-25kN-water-1000",
+ "status": "NON-GOVERNING lab card; kT 2026-10-31: water from remass tank, exhaust velocity is a variable",
+ "fields": {
+  "max_N": 25000.0,
+  "lag_s": 0.05,
+  "command_slew_fullscale_s": 10.0,
+  "ve_m_s": 1000.0
+ },
+ "declared": {
+  "working_fluid": "water (from ship remass tank)",
+  "concept": "warm-gas water thruster (low power)",
+  "power_source": "OPEN",
+  "jet_power_per_thruster_MW": 12.5,
+  "mass_flow_kg_s": 25.0
+ },
+ "provenance": "Sol PR #435 screening ~1.96 km/s (200 s); 1.0 km/s lower bound chosen by Claude 2026-10-31 as a no-heater case. Not a qualified thruster."
+}
