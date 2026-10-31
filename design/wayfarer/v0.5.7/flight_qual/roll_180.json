@@ -1,0 +1,22 @@
+{
+  "name": "roll_180_40s_geometry929",
+  "phases": [
+    {
+      "kind": "rcs_turn",
+      "duration_s": 40,
+      "post_hold_s": 4.0,
+      "axis": "roll",
+      "angle_deg": 180.0,
+      "gate_attitude_deg": 0.25,
+      "gate_rate_deg_s": 0.05
+    }
+  ],
+  "checks": {
+    "attitude_error_deg": {
+      "max": 0.25
+    },
+    "rate_deg_s": {
+      "max": 0.05
+    }
+  }
+}
