@@ -1,6 +1,6 @@
 {
   "status": "kT ACCEPTED policy, NON-GOVERNING; PR436 draft cards NOT ADOPTED",
-  "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
+  "geometry_sha256": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
   "RCS_propellant": "5t ring-fenced inside existing 250t unprotected remass tank",
   "torch_lower_remass_limit_kg": 5000,
   "protected_buffer_kg": 50000,
@@ -14,20 +14,23 @@
   "jet_J_kg": "0.5*ve_m_s^2",
   "option_B": "Charged hot-water store only; non-baseline",
   "open": "Bus MW, heater response, valve ramp, concurrent load, waste heat, failure detection and nozzle mechanism",
-  "peak_simultaneous_firing_from_existing_FQ_traces": {
-    "status": "NOT_MEASURABLE_FROM_PERSISTED_FQ_EVIDENCE",
-    "peak_observed_active_thruster_count": null,
-    "peak_observed_plant_power_MW": null,
-    "reason": "Existing current-hash FQ machine outputs store per-experiment metrics, fuel and actuator endpoints, not the time-indexed rcs_trace.engine_samples. Earlier archived trace files belong to a different ship geometry / lab scenario and cannot establish the current FQ peak. User explicitly prohibited new runs.",
-    "power_rate_formula_MW": "active_thruster_count * 57.663265306122454 at 25 kN and ve 1.96 km/s; no duty/partial throttle scaling",
-    "source_geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
-    "no_new_runs": true
-  },
   "installed_theoretical_all_nozzles": {
     "count": 32,
     "nominal_force_each_N": 25000,
     "minimum_full_power_if_all_32_fire_MW": 1845.2244897959185,
-    "classification": "CEILING, NOT OBSERVED FQ PEAK, physical installed plant not verified",
-    "source": "32 nozzle configuration in water RCS scenario; no current-hash per-step firing trace"
+    "classification": "CEILING, not observed demand; delivery not qualified",
+    "source": "Nozzle install ceiling only, not 40s flip peak; compare 9 observed vs 32 installed."
+  },
+  "observed_40s_2026_11_01": {
+    "source": "one new 40-second 180deg pitch flip diagnostic, per-step per-nozzle trace at 0.1s, src RCS_40S_PEAK_TRACE_2026_11_01.json and gzipped samples",
+    "geometry_sha256": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+    "peak_observed_simultaneous_firing_thrusters": 9,
+    "peak_at_t_s": 20.000000000000014,
+    "declared_per_firing_nozzle_minimum_MW": 57.663265306122454,
+    "peak_nameplate_concurrency_allowance_MW": 518.969387755102,
+    "peak_thrust_weighted_ideal_min_MW": 244.45568490737895,
+    "qualification_verdict": "pass",
+    "count_definition": "actual propulsive thrust >1 N for a nozzle in a simulation step, even if below rated 25kN; counts discrete firing nozzles",
+    "limits": "Count \u00d7 57.66MW uses full-rated per nozzle even partially commanded. This is a design-concurrency allowance, not measured plant electrical MW. Heater dispatch/thermal loads remain OPEN."
   }
 }

@@ -226,7 +226,7 @@ def deck_svg(dk, W=1200, Hh=1320, s=112, small=False):
     line = f'Net habitable volume on this deck {nhv:.0f} m³'
     occ = sum(r.get("occupancy", 0) for r in rooms if r["kind"] == "cabin")
     if people and occ:
-        line += f'; {people} cabins with {occ} berths ({sum(len(r.get("bunks", [])) for r in rooms)} bunk footprints, 5 g restraints); 8 cm water ring'
+        line += f'; {people} cabins with {occ} berths ({sum(len(r.get("bunks", [])) for r in rooms)} bunk footprints, 4 g crew restraints (structure 5 g)); 8 cm water ring'
     elif people:
         line += f'; {people} private cabins, each with a couch-bunk and a window'
     elif couches:

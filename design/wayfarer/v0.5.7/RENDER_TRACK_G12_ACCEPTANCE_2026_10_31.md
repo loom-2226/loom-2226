@@ -1,3 +1,5 @@
+> **HISTORICAL SHA ea1fcb59. SUPERSEDED for current render/G7/RCS evidence** by [2026-11-01 render review repair](RENDER_REVIEW_REPAIR_2026_11_01.md) on geometry SHA 5d73cdd1. Original 2026-10-31 results remain audit history.
+
 # Wayfarer render track and G12 acceptance / declared assumptions
 
 ALL bodies. ALL sponsors. 2026-2226.

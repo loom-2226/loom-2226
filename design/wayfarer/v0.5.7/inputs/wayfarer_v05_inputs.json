@@ -609,11 +609,11 @@
        "role": "Mission operations",
        "base": "floor",
        "head_yz_m": [
-        1.9041,
+        2.1041,
         -0.9675
        ],
        "feet_yz_m": [
-        2.4959,
+        2.6959,
         -2.4325
        ]
       }
@@ -809,23 +809,23 @@
         "role": "Mission operations",
         "base_x": 2.95,
         "head": [
-         1.9041,
+         2.1041,
          -0.9675
         ],
         "feet": [
-         2.4959,
+         2.6959,
          -2.4325
         ],
         "eye": [
          2.86,
-         1.979,
+         2.179,
          -1.153
         ],
         "L": 1.58,
         "width": 0.7,
         "heading_deg": 22,
         "center_yz": [
-         2.2,
+         2.4,
          -1.7
         ],
         "source_viewer_base_x": 3.31,
@@ -834,6 +834,12 @@
          "delta_y_m": -0.25,
          "delta_z_m": 0.3,
          "reason": "kT 2026-10-31 S4 entirely on source annulus with 0.8m walkway"
+        },
+        "placement_render_review": {
+         "date": "2026-11-01",
+         "delta_y_m": 0.2,
+         "delta_z_m": 0,
+         "reason": "clear S4 floor couch AABB from terrace slab, maintain source annulus; no terrace chamfer"
         }
        }
       ],
@@ -2610,5 +2616,19 @@
   ],
   "couch_vs_berth": true,
   "terrace_crawl_access_min_m": 1.2
+ },
+ "render_review_2026_11_01": {
+  "decision": "S4 outboard +0.20m in +Y, terrace unchanged; add 3D AABB clash rule to G7",
+  "S4_earlier_yz_m": [
+   2.2,
+   -1.7
+  ],
+  "S4_new_yz_m": [
+   2.4,
+   -1.7
+  ],
+  "couch_vs_terrace_3D": "explicit bound must clear; shell envelope, restraints/4g still open",
+  "crew_operating_cap_g": 4.0,
+  "structure_design_g": 5.0
  }
 }

@@ -2,8 +2,8 @@
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
  "status": "NON-GOVERNING SANDBOX certification run",
  "basis": "CERTIFICATION_BASIS.md v0.2 (agreed by Claude and Sol; PROPOSED to kT)",
- "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
- "inputs_sha256": "3e56410f46e370a819904e9f548da9f8ab5f5976910c1ca52298602b30cbf7f1",
+ "geometry_sha256": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+ "inputs_sha256": "1349be9092b83c50b13786b9b5f860e947507d7551e366bbafcd5b49095a6820",
  "criteria_sha256": "5bf7777930bb8dc1e72460daf3b1e5a6776b7b9f266e68269f0e7d847823d980",
  "summary": {
   "G1": "PASS",
@@ -122,12 +122,12 @@
       0.025,
       -0.357
      ],
-     "Ixx": 12447905.924661128,
+     "Ixx": 12447954.111657089,
      "Iyy": 191624374.30637255,
-     "Izz": 192446862.40512243,
-     "Ixy": 115522.9383318862,
+     "Izz": 192446910.59211847,
+     "Ixy": 115750.06685606332,
      "Ixz": 1291109.0340141507,
-     "Iyz": 4159.741000656548
+     "Iyz": 4173.95987371145
     },
     {
      "state": "S2",
@@ -138,12 +138,12 @@
       0.024,
       -0.342
      ],
-     "Ixx": 13016825.73947237,
+     "Ixx": 13016873.94782512,
      "Iyy": 195569118.62182716,
-     "Izz": 196742870.27306494,
-     "Ixy": 104875.8526162965,
+     "Izz": 196742918.48141795,
+     "Ixy": 105099.1113756334,
      "Ixz": 1443278.3244973863,
-     "Iyz": 3968.6129402180813
+     "Iyz": 3982.9870912081824
     },
     {
      "state": "S3",
@@ -154,12 +154,12 @@
       0.027,
       -0.279
      ],
-     "Ixx": 11329981.196513774,
+     "Ixx": 11330029.335151331,
      "Iyy": 190022950.4794874,
-     "Izz": 190533748.9659627,
-     "Ixy": 112792.55599992641,
+     "Izz": 190533797.10460037,
+     "Ixy": 113020.15379199915,
      "Ixz": 1334605.82338459,
-     "Iyz": 4795.946611771826
+     "Iyz": 4810.997950259738
     },
     {
      "state": "S4",
@@ -170,12 +170,12 @@
       0.031,
       -0.128
      ],
-     "Ixx": 9621577.834035465,
+     "Ixx": 9621625.880374331,
      "Iyy": 186781215.4644255,
-     "Izz": 186855942.69125187,
-     "Ixy": 100397.67835156759,
+     "Izz": 186855990.73759106,
+     "Ixy": 100621.63114789133,
      "Ixz": 997642.8789249965,
-     "Iyz": 6664.712732735806
+     "Iyz": 6681.352946823822
     },
     {
      "state": "S5",
@@ -186,12 +186,12 @@
       0.032,
       -0.133
      ],
-     "Ixx": 9567721.524915487,
+     "Ixx": 9567769.549275255,
      "Iyy": 186314290.6282476,
-     "Izz": 186389730.350346,
-     "Ixy": 99129.54397906012,
+     "Izz": 186389778.37470567,
+     "Ixy": 99353.12716156158,
      "Ixz": 999004.8559828069,
-     "Iyz": 6733.334370932201
+     "Iyz": 6749.929339753492
     },
     {
      "state": "S6",
@@ -202,12 +202,12 @@
       0.025,
       -0.366
      ],
-     "Ixx": 12390698.939463662,
+     "Ixx": 12390747.112959323,
      "Iyy": 191170678.00504196,
-     "Izz": 191997252.1381226,
-     "Ixy": 114696.3121031312,
+     "Izz": 191997300.31161833,
+     "Ixy": 114923.23463187797,
      "Ixz": 1296468.941918749,
-     "Iyz": 4084.889882397212
+     "Iyz": 4099.0105994923
     },
     {
      "state": "S7",
@@ -218,12 +218,12 @@
       0.163,
       -0.31
      ],
-     "Ixx": 11720686.137865912,
+     "Ixx": 11720731.389322244,
      "Iyy": 190889878.8140895,
-     "Izz": 191487896.50335032,
-     "Ixy": 483662.28514293756,
+     "Izz": 191487941.75480676,
+     "Ixy": 483890.77287706727,
      "Ixz": 1416853.0804148975,
-     "Iyz": 46720.76533349689
+     "Iyz": 46735.485643437954
     }
    ]
   },
@@ -1231,8 +1231,8 @@
     },
     {
      "name": "I4 human-factors source geometry hash",
-     "value": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
-     "limit": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
+     "value": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+     "limit": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
      "unit": "",
      "pass": true,
      "note": ""
@@ -1294,6 +1294,14 @@
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
+     "name": "I4 human factors: floor_couches_vs_terrace_3D_AABB_nonintersection",
+     "value": true,
+     "limit": true,
+     "unit": "",
+     "pass": true,
+     "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
+    },
+    {
      "name": "berth viewports: one per berth (v0.5.7)",
      "value": 10,
      "limit": 10,
@@ -1305,7 +1313,7 @@
    "declared": [
     {
      "key": "i4_human_factors",
-     "text": "I4 source-frame check rerun against current geometry. Scene seat length 1.58m <2.10m source crew envelope; 2D seat/ladder/walkways and bare dome clearances NOT physical 3D access or 4g qualification. Crown sightlines are optimistic upper bounds only. Optional 0.5m terrace-corner chamfer is NOT BUILT.",
+     "text": "I4 source-frame check rerun against current geometry. Scene seat length 1.58m <2.10m source crew envelope; 2D seat/ladder/walkways and bare dome clearances NOT physical 3D access or 4g qualification. Crown sightlines are optimistic upper bounds only. All three annulus-floor couches now clear the rectangular terrace in a conservative 3D axis-aligned box test; S4 is moved +0.20m outboard with 0.0541m clearance. This is not occupant-swept collision testing. Optional terrace chamfer NOT BUILT.",
      "kT": "AWAITING",
      "as": "",
      "date": null
@@ -1575,8 +1583,8 @@
    "checks": [
     {
      "name": "C: card names the geometry it was made from",
-     "value": "ea1fcb59f1e0",
-     "limit": "ea1fcb59f1e0",
+     "value": "5d73cdd1d789",
+     "limit": "5d73cdd1d789",
      "pass": true,
      "unit": "",
      "note": ""
@@ -1903,8 +1911,8 @@
    "checks": [
     {
      "name": "render manifest matches locked geometry",
-     "value": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
-     "limit": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
+     "value": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+     "limit": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
      "unit": "",
      "pass": true,
      "note": ""
@@ -2060,7 +2068,7 @@
   },
   {
    "key": "i4_human_factors",
-   "text": "I4 source-frame check rerun against current geometry. Scene seat length 1.58m <2.10m source crew envelope; 2D seat/ladder/walkways and bare dome clearances NOT physical 3D access or 4g qualification. Crown sightlines are optimistic upper bounds only. Optional 0.5m terrace-corner chamfer is NOT BUILT.",
+   "text": "I4 source-frame check rerun against current geometry. Scene seat length 1.58m <2.10m source crew envelope; 2D seat/ladder/walkways and bare dome clearances NOT physical 3D access or 4g qualification. Crown sightlines are optimistic upper bounds only. All three annulus-floor couches now clear the rectangular terrace in a conservative 3D axis-aligned box test; S4 is moved +0.20m outboard with 0.0541m clearance. This is not occupant-swept collision testing. Optional terrace chamfer NOT BUILT.",
    "kT": "AWAITING",
    "as": "",
    "date": null

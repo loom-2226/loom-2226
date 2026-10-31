@@ -1,6 +1,6 @@
 {
   "header": "ALL bodies. ALL sponsors. 2026-2226.",
-  "status": "NON-GOVERNING render configurations of geometry ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266; Metric labeled as visual state only, no Metric simulation",
+  "status": "NON-GOVERNING current-geometry views 5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256 2026-11-01; crew max 4g, structure 5g; no Metric physics development",
   "size": [
     1600,
     900
@@ -127,7 +127,7 @@
       "id": "ext_burn",
       "kind": "exterior",
       "title": "Torch burn, hot fins out",
-      "caption": "Four hot fins unfold aft of the shield on the strake lines and glow at 1,750 K, carrying 1.4 GW of torch heat; the strakes open just 4 m for the magnet coils' cooling. Up to 5 g; everyone is in a couch.",
+      "caption": "Four hot fins unfold aft of the shield on the strake lines and glow at 1,750 K, carrying 1.4 GW of torch heat; the strakes open just 4 m for the magnet coils' cooling. Up to 4 g; everyone is in a couch.",
       "eye": [
         92,
         -58,
@@ -1000,7 +1000,7 @@
       "id": "cmd_cutaway",
       "kind": "command",
       "title": "L1 command deck, I4 layout",
-      "caption": "Cut away on the port side, bow up. Under thrust everyone lies on their back facing the bow, so up to 5 g presses them into the couch. S2 and S3 sit on the cut-away side. I4 six couch positions on Rev7 annulus; crew envelopes not physically qualified.",
+      "caption": "I4 six 1.58 m contoured couches: PILOT and CAPTAIN/S1 on lowered command terrace (0.59 m above L1 floor), NAV separate; S4 shifted 0.20 m outboard to clear slab. Crew manoeuvres capped at 4 g, structure screens at 5 g. Physical suited fit HOLD.",
       "eye": [
         -1.0,
         -7.6,
@@ -1062,11 +1062,11 @@
       "exposure": 1.0,
       "labels": [
         {
-          "t": "PILOT and NAV",
+          "t": "PILOT and CAPTAIN (S1); NAV separate",
           "at": [
-            0.85,
-            -0.45,
-            0.3
+            2.15,
+            -0.5,
+            -1.6
           ],
           "off": [
             -150,
@@ -1074,11 +1074,11 @@
           ]
         },
         {
-          "t": "Flight deck, 1.78 m above the floor",
+          "t": "Command terrace, 0.59 m above L1 floor",
           "at": [
-            1.275,
-            -0.85,
-            -0.9
+            2.46,
+            -1,
+            -1.5
           ],
           "off": [
             -200,
@@ -1110,11 +1110,11 @@
           ]
         },
         {
-          "t": "Support couch S1",
+          "t": "CAPTAIN / S1",
           "at": [
-            2.65,
-            1.4,
-            3.0
+            2.4,
+            0.98,
+            -2
           ],
           "off": [
             60,
@@ -1122,11 +1122,11 @@
           ]
         },
         {
-          "t": "Support couch S4",
+          "t": "S4 outboard +0.20 m",
           "at": [
-            2.65,
-            3.0,
-            -1.6
+            2.75,
+            2.4,
+            -1.7
           ],
           "off": [
             -60,
@@ -1146,7 +1146,7 @@
           ]
         },
         {
-          "t": "Columns carry the deck at 5 g",
+          "t": "Columns: 5 g structure; 4 g crew",
           "at": [
             2.2,
             -0.8,
@@ -1158,7 +1158,7 @@
           ]
         },
         {
-          "t": "Ladder up to the flight deck",
+          "t": "Access ladder to raised terrace",
           "at": [
             2.6,
             0.0,
@@ -1189,7 +1189,7 @@
       "id": "cmd_pov",
       "kind": "command",
       "title": "The pilot's view",
-      "caption": "From PILOT's eye looking at the bow through the crown dome (v0.5.7). Rings: the 60 and 90 deg cones the study scored; the Osteon blades sit edge-on, outside the central cone. Displays now ride on arms from the flight deck. I4 six couch positions on Rev7 annulus; crew envelopes not physically qualified.",
+      "caption": "From PILOT's eye looking at the bow through the crown dome (v0.5.7). Rings: the 60 and 90 deg cones the study scored; the Osteon blades sit edge-on, outside the central cone. Displays now ride on arms from the command terrace. I4 six couch positions on Rev7 annulus; crew envelopes not physically qualified.",
       "eye": [
         0.775,
         0.45,

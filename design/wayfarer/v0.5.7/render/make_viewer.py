@@ -123,7 +123,7 @@ footer{color:var(--steel);font-size:11px;letter-spacing:.03em;line-height:1.6;bo
   <span class="eyebrow">LOOM 2226 · Reference courier · Visual reference</span>
   <h1 id="vtitle">Wayfarer v__VER__</h1>
   <p class="sub">Drag to turn the ship, pinch or scroll to zoom. Built from geometry SHA256 __SHA__. Interior I4 station views are representational; occupant swept clearance remains HOLD.</p>
-  <p class="sub"><a href="wayfarer_I4_in_out_ea1fcb59.glb" download style="color:#00D1FF">One GLB: exterior + interior I4 (two scenes)</a></p>
+  <p class="sub"><a href="wayfarer_I4_in_out_5d73cdd1.glb" download style="color:#00D1FF">One GLB: exterior + interior I4 (two scenes)</a></p>
 </header>
 <div class="stage" id="stage">
   <canvas id="cv" aria-label="3D model of Wayfarer v0.5"></canvas>
@@ -211,11 +211,11 @@ panels();
 const MODES = {
   cruise: {strakeSpan: 0, note: "Coasting: radiator strakes stowed in their grooves, bay doors shut."},
   metric: {strakeSpan: 2, hot: 0.35, note: "Metric HARD: one 2 m pleat of each strake out, enough for 34.9 MW. Field geometry radius 6.5 m."},
-  burn: {strakeSpan: 4, finSpan: 28, hot: 1.0, plume: true, note: "Torch burn: four hot fins unfolded aft at 1,750 K carry the torch's 1.4 GW; the strakes open 4 m for the magnet coils' cooling. Up to 5 g, everyone in a couch."},
+  burn: {strakeSpan: 4, finSpan: 28, hot: 1.0, plume: true, note: "Torch burn: four hot fins unfolded aft at 1,750 K carry the torch's 1.4 GW; the strakes open 4 m for the magnet coils' cooling. Up to 4 g crew limit (structure screened at 5 g), everyone in a couch."},
   shuttle: {strakeSpan: 0, doorsOpen: true, shuttleLift: 8.5, note: "Shuttle out: doors stand up at the slot edges and the 12.8 m rover-drop shuttle rises straight out."},
   hab: {strakeSpan: 0, hab: true, cmd: true, note: "Habitat decks: cut along the axis, bow up, walls left out so rooms show as coloured floors. Ten 2.10 m berths, one per person; a casualty moves at 0 g down the port ladder shaft into the medical bay (yellow litter). Every berth has a 0.5 m shuttered viewport at its outer end."},
   structure: {strakeSpan: 0, structure: true, note: "Structure: skin, tanks and machinery hidden. Longerons in amber, ring frames and the thrust cone in grey. Four 0.40 m CFRP tubes in an X, the upper pair edging the bay slot."},
-  cmd: {strakeSpan: 0, cmd: true, note: "Command deck, I4: six 1.58 m contoured couches on the Rev7 annulus; Pilot and Captain share the lowered command terrace, Navigator on a separate platform. Crew body models disabled until physical anthropometric fit and egress are qualified."},
+  cmd: {strakeSpan: 0, cmd: true, note: "Command deck, I4: S4 outboard by 0.20m, terrace height 0.59m; six 1.58 m contoured couches on the Rev7 annulus; Pilot and Captain share the lowered command terrace, Navigator on a separate platform. Crew body models disabled until physical anthropometric fit and egress are qualified."},
 };
 const CMD_CLIP = [0, -1, 0, -1.0];
 const HAB_CLIP = [0, 0.174, 0.985, 0];

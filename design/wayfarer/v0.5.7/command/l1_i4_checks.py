@@ -1,5 +1,5 @@
 """Wayfarer I4 source-frame human-factors screening, non-governing Step 1b.
-Reads existing hashed 9290... geometry, does NOT alter geometry, render or production.
+Reads the exact current hashed geometry; does not mutate it.
 Conservative 0.8m floor clearance, upper-bound crown sightlines; dimensional caveats explicit."""
 import hashlib,json,math
 from collections import deque
@@ -96,6 +96,24 @@ ladder_holes=[{'y_m':math.cos(math.radians(x['theta_deg']))*x['r_m'],
                'diameter_m':x['size_m']} for x in I['habitat']['ladderways']]
 landings={'none_overlapped_by_terrace_or_nav':all(not inside_rect(x['y_m'],x['z_m'],b) for x in ladder_holes for b in i4['platforms'].values()),
           'both_ladders_in_same_connected_walk_region':all(x in seen for x in start)}
+# Real 3-axis overlap test of command-terrace slab against all source-annulus
+# floor couch bounding envelopes. Intentionally conservative axis-aligned (AABB),
+# NOT a 3D body envelope or 4g suited occupant swept-volume certificate.
+def couch_aabb(st):
+    hy,hz=st['head'];fy,fz=st['feet']
+    return {'x_m':[st['base_x']-.45,st['base_x']],
+            'y_m':[min(hy,fy)-.35,max(hy,fy)+.35],
+            'z_m':[min(hz,fz)-.35,max(hz,fz)+.35]}
+def aabb_overlap(a,b):
+    axis={k:max(0,min(a[k][1],b[k][1])-max(a[k][0],b[k][0])) for k in ('x_m','y_m','z_m')}
+    return axis,all(x>1e-9 for x in axis.values())
+floor_clashes={}
+for st in seats:
+    if st['base_x']<=deck['x_m'][0] or st['id'] not in ('S2','S3','S4'):continue
+    a=couch_aabb(st);ov,hit=aabb_overlap(a,deck)
+    floor_clashes[st['id']]={'couch_aabb':a,'terrace_aabb':deck,'overlap_m_by_axis':ov,
+       'solid_intersection':hit,'min_y_separation_m':round(max(0,a['y_m'][0]-deck['y_m'][1],deck['y_m'][0]-a['y_m'][1]),4),
+       'minimum_clearance_m':round(max(max(0,a[k][0]-deck[k][1],deck[k][0]-a[k][1]) for k in ('x_m','y_m','z_m')),4)}
 checks={
 'six_role_seats_present':len(seats)==6 and len(set(s['id'] for s in seats))==6,
 'contoured_couch_nominal_length_1p58m':all(x['contoured_couch_length_1p58m'] for x in couch),
@@ -104,6 +122,7 @@ checks={
 '0p8m_walkway_to_floor_seats':all(reach[k]['reachable_with_0p8m_route_to_seat_edge'] for k in ('S2','S3','S4')),
 'both_ladders_landings_clear':landings['none_overlapped_by_terrace_or_nav'] and landings['both_ladders_in_same_connected_walk_region'],
 'terrace_worst_corner_1p2m_crawl_clearance':raw>=1.2,
+'floor_couches_vs_terrace_3D_AABB_nonintersection':len(floor_clashes)==3 and not any(v['solid_intersection'] for v in floor_clashes.values()),
 }
 out={'geometry_sha256':H,'status':'kT 2026-10-31 bounded I4 couch+crawl 1.2m rule; does NOT qualify physical occupant fit/egress',
 'couches':couch,'walkways':{'grid_step_m':step,'path_half_width_m':.4,'walkable_cells':len(walkable),'connected_cells':len(seen),'to_seats':reach},
@@ -111,7 +130,7 @@ out={'geometry_sha256':H,'status':'kT 2026-10-31 bounded I4 couch+crawl 1.2m rul
 'headroom':{'terrace_center_m':round(front-dome(1.96),3),'worst_corner_m':round(raw,3),
            'chamfer_OPTION_not_geometry':{'cut_m':cut,'worst_corner_m':round(ch,3),'gain_m':round(ch-raw,3),
                                         'note':'trim two symmetric outer-forward plan corners; theoretical shell envelope only; reduces usable deck area, no recomputed mass/CG/inertia'}},
-'checks':checks,'known_HOLD':['1.58m I4 contoured seat accepted as couch for plan screen, but knees-up occupant clearance and 4g hard-point fit HOLD',
+'couch_terrace_3D_AABB':floor_clashes,'checks':checks,'known_HOLD':['1.58m I4 contoured seat accepted as couch for plan screen, but knees-up occupant clearance and 4g hard-point fit HOLD',
  'sightlines optimistic: Osteon ribs/sensors/pane shutter and other obstacles unmodelled',
  'walkway 2D floor only, not raised-terrrace egress and ladder handholds',
  'bare shell clearance against 1.2m crawl threshold is an optimistic upper bound, not certified access','platform loads beyond isolated 4-column beam check unqualified']}

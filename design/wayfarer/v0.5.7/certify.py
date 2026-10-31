@@ -875,7 +875,7 @@ def g7(I, C, G):
             decl.append(("i4_human_factors",
                          "I4 source-frame check rerun against current geometry. Scene seat length 1.58m <2.10m source crew envelope; "
                          "2D seat/ladder/walkways and bare dome clearances NOT physical 3D access or 4g qualification. "
-                         "Crown sightlines are optimistic upper bounds only. Optional 0.5m terrace-corner chamfer is NOT BUILT."))
+                         "Crown sightlines are optimistic upper bounds only. All three annulus-floor couches now clear the rectangular terrace in a conservative 3D axis-aligned box test; S4 is moved +0.20m outboard with 0.0541m clearance. This is not occupant-swept collision testing. Optional terrace chamfer NOT BUILT."))
         else:
             cs.append(chk("I4 human-factors check exists for new geometry","missing",G.get("_sha"),False))
     else:
@@ -1140,7 +1140,7 @@ def g12(I, C, G):
         n=sum(1 for f in files if f["kind"]==kind and f.get("geometry_sha256")==srcsha and (HERE/"render"/"out"/f["file"]).exists())
         cs.append(chk(f"{kind} current-geometry artifacts",n,need,n>=need))
     import struct
-    glb=HERE/"render"/"out"/"wayfarer_I4_in_out_ea1fcb59.glb"
+    glb=HERE/"render"/"out"/f"wayfarer_I4_in_out_{srcsha[:8]}.glb"
     glb_valid=False
     if glb.exists():
         raw=glb.read_bytes()
