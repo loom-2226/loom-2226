@@ -408,14 +408,17 @@ def g4(I, C, G):
         leak = md["cold_running"]["emissivity"] * SIGMA * hr["temperature_k"] ** 4 * a_sk / 1000
         q_in = q_hab_kw * (1 + C["G4"]["hab_heat_margin"])
         e_buf = I["canon"]["protected_water_t"] * 1000 * CR["water_cp_kj_kg_k"] * CR["buffer_dT_k"]
-        hrs = e_buf / max(q_in - leak, 1e-9) / 3600
+        ideal_hrs = e_buf / max(q_in - leak, 1e-9) / 3600
+        p_standby = CR.get("plant_standby_kw",0.0)
+        cryo_standby = CR.get("cryo_standby_kw",0.0)
+        hrs = e_buf / max(q_in + p_standby + cryo_standby - leak, 1e-9) / 3600
         ratio = md["cold_running"]["emissivity"] / md["normal"]["emissivity"]
         decl.append(("cold_running", f"Cold running (rev 7, F5 provisional item F5-TE-01): the tunable flanks drop from emissivity {md['normal']['emissivity']} to "
                      f"{md['cold_running']['emissivity']}, so at the same skin temperature they radiate {ratio * 100:.0f}% as much. Heat is held, not removed: habitat heat "
-                     f"{q_in:.1f} kW (x1.25) less {leak:.1f} kW still leaking through {a_sk:.0f} m2 of low-e skin at {hr['temperature_k']} K warms the "
-                     f"{I['canon']['protected_water_t']:.0f} t of protected water by {CR['buffer_dT_k']:.0f} K in about {hrs:.0f} h. Then the ship must open the strakes "
+                     f"{q_in:.1f} kW (x1.25), plus plant standby {p_standby:.1f} kW and cryo standby {cryo_standby:.1f} kW, less {leak:.1f} kW still leaking through {a_sk:.0f} m2 of low-e skin at {hr['temperature_k']} K warms the "
+                     f"{I['canon']['protected_water_t']:.0f} t of protected water by {CR['buffer_dT_k']:.0f} K in about {hrs:.1f} h (ideal no-standby ceiling {ideal_hrs:.1f} h). {CR.get('standby_prov','')}. Then the ship must open the strakes "
                      f"or switch the flanks back to normal. {CR['not_modelled']}. The metallic look in the viewer is a proposed optical property."))
-        r_cold = {"hours": hrs, "leak_kw": leak, "in_kw": q_in, "area_m2": a_sk}
+        r_cold = {"hours": hrs, "ideal_no_standby_hours": ideal_hrs, "leak_kw": leak, "habitat_kw": q_in, "plant_standby_kw":p_standby, "cryo_standby_kw":cryo_standby, "in_kw":q_in+p_standby+cryo_standby,"area_m2": a_sk,"provenance":CR.get("standby_prov")}
     else:
         r_cold = None
     notes.append(f"Habitat heat {q_hab_kw:.1f} kW for {n} people; heat pump to {T} K needs {w_hp:.0f} kW (Carnot fraction {C['G4']['heat_pump_carnot_fraction']}).")
@@ -441,7 +444,7 @@ def g5(I, C, G):
     lo = I["longerons"]
     Llon = lo["x_m"][1] - lo["x_m"][0]
     lparts = [p for p in G["parts"] if "longeron" in p["tags"]]
-    cs, notes = [], []
+    cs, notes, decl = [], [], []
     worst_state = max(states(I), key=lambda s: G["states"][s]["mass_t"])
     parts = {p["id"]: p for p in G["parts"]}
     st = G["states"][worst_state]
@@ -551,6 +554,14 @@ def g5(I, C, G):
                   f"{fc['columns']} aluminium tubes carry {fc['carried_t']} t; axial {fc['axial_kn']} kN each ({fc['stress_mpa']} MPa)"))
     cs.append(chk("flight-deck columns: buckling margin", fc["buckling_margin"], C["G5"]["buckling_factor"], fc["ok_buckling"], "x",
                   f"Euler, pinned ends (conservative), {fc['length_m']} m"))
+    if I["habitat"]["decks"][0].get("command_layout",{}).get("i4_lock"):
+        cs.append(chk("I4 terrace columns: nominal assembly mass inside reserved allowance",
+                      round(fc["required_column_mass_t"],5),round(fc["allowed_mass_t"],5),fc["mass_ok"],"t",
+                      "Member mass only; structural mounts/footprints still HOLD"))
+        decl.append(("i4_terrace_mounts",
+                     "I4 terrace 4 columns sized as 7075-T6 76mm OD x 3mm at 0.49m. "
+                     "5g x1.5 ultimate +0.5g lateral member screen, no joint, deck bearing, vibration, fatigue, "
+                     "swept-body or 3D egress qualification. HOLLOW: closed only for column members, not system."))
     stn = CR["stations"]
     cs.append(chk("upper berth posts: buckling margin at 5 g x 1.5", stn["berth_post_margin"], C["G5"]["buckling_factor"], stn["ok"], "x",
                   f"{stn['berth_post_kn']} kN per post; couch and berth hard points {stn['hard_point_kn']} kN each ({stn['requirement']})"))
@@ -584,7 +595,7 @@ def g5(I, C, G):
     notes.append(f"Worst state {worst_state}: {fwd:.0f} t ahead of the thrust cone, {F / 1e6:.1f} MN at {M5['design_g'] * M5['ultimate_factor']:.1f} g ultimate, shared by {n} longerons.")
     notes.append("Bay doors are not counted as structure. Materials: 2026 high-modulus CFRP as a conservative floor (400 MPa, 150 GPa, 1.6 t/m3).")
     notes.append("Method: closed-form plate theory (Navier series for simply supported panels, which is conservative against clamped edges) plus closed-cell equilibrium with tie-webs. A finite-element shell model is the next level of fidelity; the basis does not require it.")
-    r = gate("G5", "Structure and loads", cs + [one_out], notes=notes)
+    r = gate("G5", "Structure and loads", cs + [one_out], declared=decl, notes=notes)
     r["one_longeron_out"] = one_out
     return r
 
@@ -786,6 +797,7 @@ def g7(I, C, G):
     hab = I["habitat"]
     n_c, n_g = I["decisions"]["people"]["crew"], I["decisions"]["people"]["guests"]
     n = n_c + n_g
+    decl = []
     rooms = G["rooms"]
     nhv = sum(r["nhv_m3"] for r in rooms)
     cs = [chk("people aboard", n, f"{n_c} crew + {n_g} guests", True),
@@ -851,12 +863,28 @@ def g7(I, C, G):
     dw = CR["docking_and_windows"]
     cs.append(chk("docking view: cameras at the collar and a vestibule window", f"{dw['cameras']} cameras, window {'yes' if dw['vestibule_window'] else 'no'}",
                   ">= 2 cameras and a window", dw["cameras"] >= 2 and dw["vestibule_window"]))
-    l1p = HERE / "command/l1_study_results.json"
-    if l1p.exists():
-        L1R = json.loads(l1p.read_text())
-        okl = L1R.get("geometry_sha256") == G.get("_sha") and all(L1R["checks"].values())
-        cs.append(chk("L1 command deck (layout D, adopted): human-factors checks", f"{sum(L1R['checks'].values())}/{len(L1R['checks'])}",
-                      "all, on this geometry", okl, "", "command/l1_study.py: couches, views through the armour bores, walkways, displays, sensors"))
+    if hab["decks"][0].get("command_layout",{}).get("i4_lock"):
+        l1p = HERE / "command/l1_i4_results.json"
+        if l1p.exists():
+            L1R=json.loads(l1p.read_text())
+            fresh=L1R.get("geometry_sha256")==G.get("_sha")
+            cs.append(chk("I4 human-factors source geometry hash", L1R.get("geometry_sha256"),G.get("_sha"), fresh))
+            for name,ok in L1R.get("checks",{}).items():
+                cs.append(chk("I4 human factors: "+name, ok,True, fresh and ok, "",
+                              "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"))
+            decl.append(("i4_human_factors",
+                         "I4 source-frame check rerun against current geometry. Scene seat length 1.58m <2.10m source crew envelope; "
+                         "2D seat/ladder/walkways and bare dome clearances NOT physical 3D access or 4g qualification. "
+                         "Crown sightlines are optimistic upper bounds only. All three annulus-floor couches now clear the rectangular terrace in a conservative 3D axis-aligned box test; S4 is moved +0.20m outboard with 0.0541m clearance. This is not occupant-swept collision testing. Optional terrace chamfer NOT BUILT."))
+        else:
+            cs.append(chk("I4 human-factors check exists for new geometry","missing",G.get("_sha"),False))
+    else:
+        l1p = HERE / "command/l1_study_results.json"
+        if l1p.exists():
+            L1R = json.loads(l1p.read_text())
+            okl = L1R.get("geometry_sha256") == G.get("_sha") and all(L1R["checks"].values())
+            cs.append(chk("L1 command deck (layout D, adopted): human-factors checks", f"{sum(L1R['checks'].values())}/{len(L1R['checks'])}",
+                          "all, on this geometry", okl, "", "command/l1_study.py: couches, views through the armour bores, walkways, displays, sensors"))
     per_deck = {}
     for r in rooms:
         per_deck.setdefault(r["deck"], 0.0)
@@ -878,7 +906,7 @@ def g7(I, C, G):
              "Decks are perpendicular to the thrust axis; under thrust, aft is down. Above ~1.5 g everyone rides in a couch."]
     if g7_occ_note:
         notes.append(g7_occ_note)
-    r = gate("G7", "Compartments and crew space", cs, notes=notes)
+    r = gate("G7", "Compartments and crew space", cs, declared=decl, notes=notes)
     r["nhv_m3"] = nhv
     r["nhv_by_deck_m3"] = per_deck
     return r
@@ -1103,12 +1131,28 @@ def g12(I, C, G):
     if not man.exists():
         return gate("G12", "Images", [chk("images generated from the hashed geometry", "not yet", "all four sets", False)], force=OPEN)
     M = json.loads(man.read_text())
-    cs = [chk("images stamped with this geometry's hash", M.get("geometry_sha256", "")[:12], G["_sha"][:12], M.get("geometry_sha256") == G["_sha"])]
-    note = ["The script checks provenance (made from this geometry, every set present). Whether the images look right is a human judgement: kT's visual acceptance is the second half of this gate."]
-    for kind, need in (("exterior", 4), ("cutaway", 2), ("deckplan", len(I["habitat"]["decks"])), ("viewer", 1)):
-        n = len([f for f in M["files"] if f["kind"] == kind and (HERE / "render" / "out" / f["file"]).exists()])
-        cs.append(chk(f"{kind} images", n, need, n >= need))
-    return gate("G12", "Images", cs, notes=note)
+    srcsha=G["_sha"]
+    files=M.get("files",[])
+    cs=[chk("render manifest matches locked geometry",M.get("geometry_sha256"),srcsha,M.get("geometry_sha256")==srcsha)]
+    mismatch=[e["file"] for e in files if e.get("geometry_sha256")!=srcsha or not (HERE/"render"/"out"/e["file"]).is_file()]
+    cs.append(chk("all indexed images and viewer have current hash and exist",len(mismatch),0,not mismatch))
+    for kind, need in (("exterior",4),("cutaway",2),("deckplan",len(I["habitat"]["decks"])),("viewer",1)):
+        n=sum(1 for f in files if f["kind"]==kind and f.get("geometry_sha256")==srcsha and (HERE/"render"/"out"/f["file"]).exists())
+        cs.append(chk(f"{kind} current-geometry artifacts",n,need,n>=need))
+    import struct
+    glb=HERE/"render"/"out"/f"wayfarer_I4_in_out_{srcsha[:8]}.glb"
+    glb_valid=False
+    if glb.exists():
+        raw=glb.read_bytes()
+        if len(raw)>=20 and raw[:4]==b"glTF":
+            jlen,jtyp=struct.unpack_from("<II",raw,12)
+            if jtyp==0x4e4f534a and 20+jlen<=len(raw):
+                desc=json.loads(raw[20:20+jlen])
+                glb_valid=(desc.get("extras",{}).get("geometry_sha256")==srcsha and len(desc.get("scenes",[]))>=2)
+    cs.append(chk("one GLB with exterior and I4 interior scenes stamped with current hash",glb_valid,True,glb_valid))
+    note=["Manifest hash + current files + 2-scene GLB verified; full 64-character SHA stamped by source render templates.",
+          "G12 visuals remain NON-GOVERNING pending kT aesthetic/geometry interpretation review; screenshot existence does not qualify hardware, pressure crown or humans."]
+    return gate("G12","Images",cs,declared=[("kT_visual_acceptance","Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only")],notes=note)
 
 
 # ---------------------------------------------------------------- report

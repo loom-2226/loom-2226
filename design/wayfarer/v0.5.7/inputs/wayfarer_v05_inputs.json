@@ -1,8 +1,8 @@
 {
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
  "status": "NON-GOVERNING SANDBOX. Wayfarer v0.5.7 rev 7 inputs, certified against CERTIFICATION_BASIS.md (v0.2). Previous revisions are in git history (rev 6: commit 55b19c8; rev 5: ef1b871).",
- "version": "0.5.7",
- "date": "2026-10-26",
+ "version": "0.5.7-step1-I4-lock",
+ "date": "2026-10-31",
  "provenance_classes": [
   "CANON",
   "PUBLISHED_PHYSICS",
@@ -498,13 +498,13 @@
        0.0,
        4.15
       ],
-      "mass_t": 2.6,
+      "mass_t": 2.1,
       "couches": 6,
       "windows": 4
      }
     ],
     "command_layout": {
-     "prov": "ADOPTED by kT 2026-10-25 (\"Adopt layout D\"): option D of command/l1_options.py, scored against NASA-STD-3001 Vol 2 derived criteria (command/L1_OPTIONS_v0.5.5.md); v0.5.6 adds the window frame, flight-deck columns, access and casualty lowering",
+     "prov": "KT_LOCK_2026-10-31: I4 source-annulus plan centres, paired command terrace lower 0.50m; prospective Rev7 design candidate; no full 3D headroom claim",
      "couch": {
       "length_m": 2.1,
       "width_m": 0.7,
@@ -514,73 +514,6 @@
       "orientation": "supine, facing the bow: thrust loads the occupant eyeballs-in (+Gx), the best-tolerated axis",
       "prov": "NASA-STD-3001 Vol 2 [V2 4102] accommodation of 1st-percentile female to 99th-percentile male: male stature mean 178.6 cm, SD 6.8 cm (NTRS 20080010652) gives 99th percentile ~194 cm, plus 3% spinal elongation (Appendix E) ~200 cm; couch 2.10 m",
       "intended_shape": "kT 2026-10-25, noted not modelled: knees-up contour like the Soyuz Kazbek seat, liner moulded to each person (back flat, hips and knees bent, legs raised; suits [V2 6113], whose limit assumes feet raised). The checks keep the flat 2.10 x 0.70 m envelope; a knees-up couch is ~1.5 m long but its knees stand ~0.6 m above the couch back, so dome clearance must be checked before adoption"
-     },
-     "flight_deck": {
-      "x_m": [
-       1.225,
-       1.325
-      ],
-      "y_m": [
-       -0.85,
-       0.85
-      ],
-      "z_m": [
-       -1.55,
-       0.75
-      ],
-      "mass_t": 0.4,
-      "eye_to_window_m": 0.55,
-      "prov": "ENGINEERING_ASSUMPTION: mezzanine deck carrying the pilot and navigator 1.77 m above the L1 floor, eyes 0.55 m below their nose windows; reached by a short ladder at its -Z end; mass from the L1 room outfitting (3.0 to 2.6 t)",
-      "columns": {
-       "positions_yz_m": [
-        [
-         0.8,
-         -1.5
-        ],
-        [
-         -0.8,
-         -1.5
-        ],
-        [
-         0.8,
-         0.7
-        ],
-        [
-         -0.8,
-         0.7
-        ]
-       ],
-       "od_m": 0.076,
-       "wall_m": 0.003,
-       "material": "aluminium 7075-T6",
-       "e_gpa": 71.7,
-       "yield_mpa": 503,
-       "density_t_m3": 2.81,
-       "fittings_factor": 1.3,
-       "base": "fixed (bolted to floor hard points)",
-       "prov": "CLAUDE_DESIGN v0.5.6: four tubular columns at the deck corners carry the flight deck to the L1 floor in compression under thrust; all four sit inside the deck footprint, which the walkway check already treats as blocked, and outside the trunk opening (r 0.9 m)"
-      },
-      "loads": {
-       "couch_t": 0.05,
-       "occupant_t": 0.1,
-       "displays_t": 0.02,
-       "lateral_g": 0.5,
-       "prov": "ENGINEERING_ASSUMPTION: couch 50 kg, occupant with IVA suit 100 kg, two displays 20 kg; lateral case 0.5 g (RCS and docking, a generous upper bound)"
-      },
-      "access": {
-       "ladder": {
-        "z_m": -1.63,
-        "y_m": [
-         -0.25,
-         0.25
-        ],
-        "rung_pitch_m": 0.3,
-        "handholds_above_deck_m": 1.0
-       },
-       "egress": "unstrap, slide off the couch's foot end onto the ladder head, climb down 1.78 m (6 rungs)",
-       "prov": "CLAUDE_DESIGN v0.5.6",
-       "casualty": "treated in the couch under thrust; moved at 0 g (habitat.crew_systems.casualty_doctrine)"
-      }
      },
      "sensor_ring": {
       "x_aft_m": 2.0,
@@ -608,85 +541,81 @@
      "stations": [
       {
        "id": "PILOT",
-       "role": "Pilot / flight control",
-       "base": "flight_deck",
+       "role": "Flight",
+       "base": "i4_terrace",
        "head_yz_m": [
-        0.45,
-        0.65
+        -0.9111,
+        -1.213
        ],
        "feet_yz_m": [
-        0.45,
-        -1.45
+        -1.0489,
+        -2.787
        ]
       },
       {
        "id": "NAV",
-       "role": "Navigation / command",
-       "base": "flight_deck",
+       "role": "Navigation / Loom",
+       "base": "i4_navigator",
        "head_yz_m": [
-        -0.45,
-        0.65
+        0.0,
+        3.29
        ],
        "feet_yz_m": [
-        -0.45,
-        -1.45
+        0.0,
+        1.71
        ]
       },
       {
        "id": "S1",
-       "role": "Support station",
-       "base": "floor",
+       "role": "Captain / command",
+       "base": "i4_terrace",
        "head_yz_m": [
-        2.4395,
-        2.4395
+        0.9111,
+        -1.213
        ],
        "feet_yz_m": [
-        0.5731,
-        3.4021
-       ],
-       "window_deg": 45
+        1.0489,
+        -2.787
+       ]
       },
       {
        "id": "S2",
-       "role": "Support station",
+       "role": "Engineering",
        "base": "floor",
        "head_yz_m": [
-        -2.4395,
-        2.4395
+        -2.4791,
+        -0.0025
        ],
        "feet_yz_m": [
-        -3.4021,
-        0.5731
-       ],
-       "window_deg": 135
+        -3.2209,
+        -1.3975
+       ]
       },
       {
        "id": "S3",
-       "role": "Support station",
+       "role": "Sensors / EW",
        "base": "floor",
        "head_yz_m": [
-        -2.4395,
-        -2.4395
+        2.4791,
+        -0.0025
        ],
        "feet_yz_m": [
-        -0.5731,
-        -3.4021
-       ],
-       "window_deg": 225
+        3.2209,
+        -1.3975
+       ]
       },
       {
        "id": "S4",
-       "role": "Support station",
+       "role": "Mission operations",
        "base": "floor",
        "head_yz_m": [
-        2.4395,
-        -2.4395
+        2.1041,
+        -0.9675
        ],
        "feet_yz_m": [
-        3.4021,
-        -0.5731
-       ],
-       "window_deg": 315
+        2.6959,
+        -2.4325
+       ]
       }
      ],
      "displays": "pilot and navigator: panels 0.55 m from the eye, 45 deg toward the feet; support: 0.5 m from the eye, 30 deg inboard; all outside the central 60 deg view (FAA HFDS 5.1.2.13: >= 0.33 m)",
@@ -733,6 +662,265 @@
       "doctrine": "open only at low speed or with the bow facing away from the dust flow (braking and tail-first coasting); closed for solar particle events, radiation belts, torch burns and Loom formation and translation. Stuck closed is safe; stuck open: turn the bow out of the dust flow.",
       "views": "pilots 76% of the forward sky (v0.5.6 nose windows 22%); standing crew at 1 g 89% of the overhead cone; support couches ~8% (sensor ring)",
       "displays": "pilot displays on arms from the flight deck (they no longer hang from the nose)"
+     },
+     "i4_lock": {
+      "status": "CANDIDATE_LOCK_STEP1_NON_GOVERNING",
+      "source": "LOOM main f07354f engineering/wayfarer/candidates/l1_i4_20261029/scene.json",
+      "source_rev7_sha": "3485830a56dfead79b2ef8bba031a595b536fbb5",
+      "source_candidate_sha": "f07354f57244d62e7c1932cacddd0f996d45e941",
+      "coordinates": "true source ship frame X bow-negative; not unconstrained viewer H=4-X",
+      "terrace_lowered_m": 0.5,
+      "nose_extension_m": 0.0,
+      "stations": [
+       {
+        "id": "PILOT",
+        "role": "Flight",
+        "base_x": 2.41,
+        "head": [
+         -0.9111,
+         -1.213
+        ],
+        "feet": [
+         -1.0489,
+         -2.787
+        ],
+        "eye": [
+         1.46,
+         -0.9286,
+         -1.4122
+        ],
+        "L": 1.58,
+        "width": 0.7,
+        "heading_deg": -5,
+        "center_yz": [
+         -0.98,
+         -2.0
+        ],
+        "source_coordinates": "X ship axial; Y,Z transverse; bow -X"
+       },
+       {
+        "id": "NAV",
+        "role": "Navigation / Loom",
+        "base_x": 2.76,
+        "head": [
+         0.0,
+         3.29
+        ],
+        "feet": [
+         0.0,
+         1.71
+        ],
+        "eye": [
+         2.31,
+         0.0,
+         3.09
+        ],
+        "L": 1.58,
+        "width": 0.7,
+        "heading_deg": 0,
+        "center_yz": [
+         0,
+         2.5
+        ],
+        "source_coordinates": "X ship axial; Y,Z transverse; bow -X"
+       },
+       {
+        "id": "S1",
+        "role": "Captain / command",
+        "base_x": 2.41,
+        "head": [
+         0.9111,
+         -1.213
+        ],
+        "feet": [
+         1.0489,
+         -2.787
+        ],
+        "eye": [
+         1.46,
+         0.9286,
+         -1.4122
+        ],
+        "L": 1.58,
+        "width": 0.7,
+        "heading_deg": 5,
+        "center_yz": [
+         0.98,
+         -2.0
+        ],
+        "source_coordinates": "X ship axial; Y,Z transverse; bow -X"
+       },
+       {
+        "id": "S2",
+        "role": "Engineering",
+        "base_x": 2.95,
+        "head": [
+         -2.4791,
+         -0.0025
+        ],
+        "feet": [
+         -3.2209,
+         -1.3975
+        ],
+        "eye": [
+         2.86,
+         -2.573,
+         -0.1791
+        ],
+        "L": 1.58,
+        "width": 0.7,
+        "heading_deg": -28,
+        "center_yz": [
+         -2.85,
+         -0.7
+        ],
+        "source_viewer_base_x": 3.31,
+        "source_coordinates": "X ship axial; Y,Z transverse; bow -X"
+       },
+       {
+        "id": "S3",
+        "role": "Sensors / EW",
+        "base_x": 2.95,
+        "head": [
+         2.4791,
+         -0.0025
+        ],
+        "feet": [
+         3.2209,
+         -1.3975
+        ],
+        "eye": [
+         2.86,
+         2.573,
+         -0.1791
+        ],
+        "L": 1.58,
+        "width": 0.7,
+        "heading_deg": 28,
+        "center_yz": [
+         2.85,
+         -0.7
+        ],
+        "source_viewer_base_x": 3.31,
+        "source_coordinates": "X ship axial; Y,Z transverse; bow -X"
+       },
+       {
+        "id": "S4",
+        "role": "Mission operations",
+        "base_x": 2.95,
+        "head": [
+         2.1041,
+         -0.9675
+        ],
+        "feet": [
+         2.6959,
+         -2.4325
+        ],
+        "eye": [
+         2.86,
+         2.179,
+         -1.153
+        ],
+        "L": 1.58,
+        "width": 0.7,
+        "heading_deg": 22,
+        "center_yz": [
+         2.4,
+         -1.7
+        ],
+        "source_viewer_base_x": 3.31,
+        "source_coordinates": "X ship axial; Y,Z transverse; bow -X",
+        "placement_step1c": {
+         "delta_y_m": -0.25,
+         "delta_z_m": 0.3,
+         "reason": "kT 2026-10-31 S4 entirely on source annulus with 0.8m walkway"
+        },
+        "placement_render_review": {
+         "date": "2026-11-01",
+         "delta_y_m": 0.2,
+         "delta_z_m": 0,
+         "reason": "clear S4 floor couch AABB from terrace slab, maintain source annulus; no terrace chamfer"
+        }
+       }
+      ],
+      "platforms": {
+       "command_terrace": {
+        "x_m": [
+         2.41,
+         2.51
+        ],
+        "y_m": [
+         -1.7,
+         1.7
+        ],
+        "z_m": [
+         -3.01,
+         -0.91
+        ],
+        "mass_t": 0.3,
+        "prov": "ENGINEERING_ASSUMPTION: allocated from original 0.4 t flight deck, not additional ship mass"
+       },
+       "navigator_platform": {
+        "x_m": [
+         2.76,
+         2.86
+        ],
+        "y_m": [
+         -1.325,
+         1.325
+        ],
+        "z_m": [
+         1.45,
+         3.65
+        ],
+        "mass_t": 0.1,
+        "prov": "ENGINEERING_ASSUMPTION: allocated from original 0.4 t flight deck, mounts HOLD"
+       }
+      },
+      "seating_hardware_t_each": 0.05,
+      "shared_table_t": 0.08,
+      "workbench_t": 0.08,
+      "other_cabinetry_t": 0.04,
+      "room_outfit_redistributed_t": 0.5,
+      "stations_fit": "plan-only bounded candidate: 3D body/egress/4g/pressure-skin OPEN",
+      "station_surrogate_note": "mass-proxy boxes only; no claim of finished seats or anthropometric envelope",
+      "source_floor": "L1 annulus YZ radius 0.9-4.15 m; two 0.8 m source ladder shafts kept as clearance references",
+      "crown": "Use the source Rev7 2.8m ceramic/Osteon crown and closing 16 armour-equivalent Strata gores. No 37-pane research replacement.",
+      "nav_platform_mount": "HOLD, unqualified load path",
+      "terrace_columns": {
+       "x_m_end": 2.51,
+       "positions_yz_m": [
+        [
+         -1.65,
+         -2.9
+        ],
+        [
+         1.65,
+         -2.9
+        ],
+        [
+         -1.65,
+         -1.0
+        ],
+        [
+         1.65,
+         -1.0
+        ]
+       ],
+       "od_m": 0.076,
+       "mass_total_t": 0.016839083963936765,
+       "prov": "Original Rev7 hardware allowance conserved; column size/loading must be requalified for revised height"
+      },
+      "i4_couch_acceptance": {
+       "decision": "kT: couch, not berth; nominal 1.58m contoured seats; hard point and 4g shape unknown",
+       "length_target_m": 1.58,
+       "status": "provisional I4 seat-shape screen only; physical occupant fit HOLD"
+      },
+      "terrace_access": {
+       "rule": "crawl, not standing",
+       "minimum_clearance_m": 1.2,
+       "status": "kT accepted for design check; hands/feet/transfer/egress physical verification HOLD"
+      }
      }
     }
    },
@@ -2004,7 +2192,7 @@
   },
   "armour_face": {
    "material": "Strata laminate (Builder-derived, MHL-22) over the whole habitat armour, x 0-14",
-   "status": "DECLARED: density, physical properties and appearance OPEN; naming the material implies no new shielding performance (the armour keeps its 105 t ledger line and the ray screens are unchanged)"
+   "status": "KT_ACCEPTED 2026-10-31 as visible armour face; materials constitutive/physical performance remain OPEN; no changed shielding/mass claim"
   },
   "bow": {
    "x_m": [
@@ -2039,7 +2227,17 @@
    "phase_deg": 11.25,
    "note": "panels 2 m x 22.5 deg; node faces (every 22.5 deg) sit mid-panel"
   },
-  "viewer_placeholder": "Strata appearance is Claude's placeholder (dark bronze-grey, fine layered grain) until kT sets it"
+  "viewer_placeholder": "Strata appearance is Claude's placeholder (dark bronze-grey, fine layered grain) until kT sets it",
+  "drone_deployed_crown_armour": {
+   "status": "OPTION_NOT_BASELINE",
+   "deployed_by": "drones",
+   "material": "Strata",
+   "purpose": "additional armoured over-crown protection",
+   "baseline_gore_doctrine": "unchanged; 16 closing armour-equivalent Strata gores",
+   "drone_bay": "HOLD",
+   "mass_t": null,
+   "engineering": "NOT MODELED; no actual deployment load path, attachment, clearance or navigation"
+  }
  },
  "node_faces": {
   "prov": "KT_DECISION 2026-10-26 (Sol: AGREE 1-6 with qualifications); layout from the rev 5 longeron study (commit ef1b871, structure/longeron_study.py): stations 53.3*(k+0.5)/13 m, 16 per ring at 22.5 deg",
@@ -2050,7 +2248,7 @@
   "face_d_m": 0.35,
   "face": "flush or recessed visible face; materials, protective cover, seal and mount interface OPEN",
   "mass": "not allocated (node modules belong to the relational plant line; face covers OPEN)",
-  "status": "HOLD: placement against PR #184 OPEN; faces not qualified as armour penetrations"
+  "status": "KT_ACCEPTED_2026-10-31 armour-equivalent g/cm2 rule; exact placement HOLD (PR #184 remains open)"
  },
  "external_equipment": {
   "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26)",
@@ -2391,7 +2589,11 @@
     "status": "NOT YET",
     "note": "add only where inspection or repair access proves it"
    }
-  ]
+  ],
+  "status": "KT_ACCEPTED_VISIBLE_ALLOWANCE_EDITABLE_2026-10-31; not fixed hardware mass",
+  "zero_new_mass_comparison": "0 t option returns 1.4208 t to reserve; no external-hardware portion built, existing-ledger located items preserved; dry ship budget remains fixed",
+  "zero_new_mass_scenario_t": 0.0,
+  "baseline_new_from_reserve_t": 1.4208
  },
  "cold_running": {
   "prov": "ENGINEERING_ASSUMPTION rev 7 (Sol qualification 2: retained heat must be accounted)",
@@ -2400,6 +2602,33 @@
   "water_cp_kj_kg_k": 4.186,
   "radiators": "strakes stowed, hot fins folded; the habitat heat pump stops rejecting",
   "skin_area_rule": "the habitat skin-radiator area (habitat_heat.radiator: midship x 18-30.5, half the skin) at 290 K",
-  "not_modelled": "relational-plant and cryoplant standby heat in a coast (OPEN); counting it shortens the endurance"
+  "not_modelled": "Detailed load-cycle variation, cryo plant duty, tank thermal coupling, and reserve storage remain open",
+  "plant_standby_kw": 10.0,
+  "cryo_standby_kw": 10.0,
+  "standby_prov": "ENGINEERING_ASSUMPTION (screening placeholders 10+10 kW, NOT sourced or qualified); editable, replace with measured/engineering budget"
+ },
+ "step1_lock_record": "KT 2026-10-31 constrained I4; Rev7 crown retained; no 1.2m nose extension",
+ "step1b_kT_update": {
+  "date": "2026-10-31",
+  "S4_shift_yz_m": [
+   -0.25,
+   0.3
+  ],
+  "couch_vs_berth": true,
+  "terrace_crawl_access_min_m": 1.2
+ },
+ "render_review_2026_11_01": {
+  "decision": "S4 outboard +0.20m in +Y, terrace unchanged; add 3D AABB clash rule to G7",
+  "S4_earlier_yz_m": [
+   2.2,
+   -1.7
+  ],
+  "S4_new_yz_m": [
+   2.4,
+   -1.7
+  ],
+  "couch_vs_terrace_3D": "explicit bound must clear; shell envelope, restraints/4g still open",
+  "crew_operating_cap_g": 4.0,
+  "structure_design_g": 5.0
  }
 }

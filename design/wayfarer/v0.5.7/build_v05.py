@@ -520,6 +520,22 @@ def build(I, dy=0.0, dz=0.0):
         pl = CL["platform"]
         add("command_platform", "Command platform (raised forward couches)", "habitat",
             Box(pl["x_m"][0], pl["x_m"][1], pl["y_m"][0], pl["y_m"][1], pl["z_m"][0], pl["z_m"][1]), pl["mass_t"], pl["prov"], "equipment")
+    I4 = CL.get("i4_lock")
+    if I4:
+        for name, pl in I4["platforms"].items():
+            add(name, name.replace("_", " "), "habitat",
+                Box(pl["x_m"][0], pl["x_m"][1], pl["y_m"][0], pl["y_m"][1], pl["z_m"][0], pl["z_m"][1]),
+                pl["mass_t"], pl["prov"], "equipment")
+        for st in I4["stations"]:
+            x, (y,z) = st["base_x"], st["center_yz"]
+            add("i4_seat_"+st["id"], "I4 station hardware surrogate "+st["id"], "habitat",
+                Box(x-0.10,x+0.10,y-0.35,y+0.35,z-0.35,z+0.35),
+                I4["seating_hardware_t_each"], "ENGINEERING_ASSUMPTION: redistributed existing L1 room outfitting; nonqualified seat proxy", "equipment",tags=("no_render",))
+        for name, mass, y,z in (("mission_table",I4["shared_table_t"],0.40,-3.45),
+                                  ("workbench",I4["workbench_t"],-2.45,-2.18),
+                                  ("cabinetry",I4["other_cabinetry_t"],-3.45,1.10)):
+            add("i4_"+name,name,"habitat",Box(2.86,2.98,y-0.20,y+0.20,z-0.20,z+0.20),
+                mass,"ENGINEERING_ASSUMPTION: redistributed L1 room outfitting; low-g visual mass proxy","equipment",tags=("no_render",))
     if CL.get("flight_deck"):
         fd = CL["flight_deck"]
         add("flight_deck", "Flight deck (mezzanine carrying the pilot and navigator couches)", "habitat",
@@ -592,6 +608,12 @@ def build(I, dy=0.0, dz=0.0):
             for k, (y, z) in enumerate(fdc["positions_yz_m"]):
                 add(f"flight_deck_column_{k}", "Flight-deck column", "habitat", Tube((fd["x_m"][1], y, z), (d1["x_m"][1], y, z), fdc["od_m"] / 2),
                     m1, fdc["prov"], "frame", tags=rt)
+        if I4 and I4.get("terrace_columns"):
+            tc = I4["terrace_columns"]
+            for k,(y,z) in enumerate(tc["positions_yz_m"]):
+                add(f"i4_terrace_column_{k}", "I4 terrace column (nominal; load path HOLD)",
+                    "habitat",Tube((tc["x_m_end"],y,z),(d1["x_m"][1],y,z),tc["od_m"]/2),
+                    tc["mass_total_t"]/len(tc["positions_yz_m"]),tc["prov"],"frame",tags=("from_reserve",))
         iso = CS.get("l4_l5_isolation")
         if iso:
             d4 = next(d for d in decks if d["id"] == "L4")
@@ -1201,6 +1223,7 @@ def main():
         "header": "ALL bodies. ALL sponsors. 2026-2226.",
         "status": f"NON-GOVERNING SANDBOX. Wayfarer v{I['version']} geometry and mass properties.",
         "features": features(I, rooms),
+        "l1_i4_lock": I.get("habitat",{}).get("decks",[{}])[0].get("command_layout",{}).get("i4_lock"),
         "window_bore": I["features"].get("window_bore"),
         "bands": ([{"x": sg["x_m"], "a": sg["theta_deg"], "mullion_deg": I["habitat"]["crew_systems"]["viewport_band"]["mullion_spacing_deg"]}
                    for sg in I["habitat"]["crew_systems"]["viewport_band"]["segments"]] if I["habitat"].get("crew_systems", {}).get("viewport_band") else []),

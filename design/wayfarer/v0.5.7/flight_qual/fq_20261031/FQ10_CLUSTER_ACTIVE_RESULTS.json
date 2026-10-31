@@ -1,0 +1,21 @@
+{
+  "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
+  "cluster": "A+Z",
+  "commanded_pre_fault_impulse_Ns_20_to_30s": 58252.31402360916,
+  "baseline_status": "pass",
+  "baseline_final_att_error_deg": 5.517125052169429e-08,
+  "baseline_final_rate_deg_s": 6.916283143233212e-08,
+  "failed_cluster_status": "pass",
+  "fault_att_error_deg": 5.346243650381407e-08,
+  "fault_rate_deg_s": 7.300662314899702e-08,
+  "fault_consumption_kg": 468.55136269136625,
+  "fault_events": [
+    {
+      "t_s": 25.0,
+      "event": "fault_injected",
+      "kind": "cluster_out"
+    }
+  ],
+  "baseline_runtime_s": 22.6,
+  "fault_runtime_s": 19.2
+}

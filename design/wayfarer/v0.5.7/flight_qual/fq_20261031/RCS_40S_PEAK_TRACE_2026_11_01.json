@@ -1,0 +1,43 @@
+{
+  "authority": "non-governing 40s diagnostic requested 2026-11-01, not an FQ pass",
+  "geometry_sha256": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+  "scenario": {
+    "name": "RCS TRACE ONLY 40s 180deg PITCH, not flight qualification",
+    "phases": [
+      {
+        "kind": "rcs_turn",
+        "duration_s": 40.0,
+        "axis": "pitch",
+        "angle_deg": 180.0,
+        "post_hold_s": 0
+      }
+    ],
+    "checks": {}
+  },
+  "integration_dt_s": 0.1,
+  "rcs_ve_m_s": 1960,
+  "water_conditioning_J_kg": 2600000,
+  "per_nominal_25kN_thruster_min_MW": 57.663265306122454,
+  "firing_definition": "actual propulsive thrust >1 N for a nozzle in a simulation step, even if below rated 25kN; counts discrete firing nozzles",
+  "peak_observed_simultaneous_firing_thrusters": 9,
+  "peak_at_t_s": 20.000000000000014,
+  "peak_plant_power_count_times_per_nozzle_MW": 518.969387755102,
+  "peak_firing_ids": [
+    "F+Y_tan+",
+    "F+Z_inward",
+    "F-Y_inward",
+    "F-Y_tan-",
+    "F-Z_inward",
+    "F-Z_tan+",
+    "A+Y_inward",
+    "A+Z_inward",
+    "A-Z_inward"
+  ],
+  "installed_ceiling_32_nozzles_MW": 1845.2244897959185,
+  "actual_ideal_power_sum_thrust_weighted_peak_MW": 244.45568490737895,
+  "trace_steps": 400,
+  "total_rcs_water_used_kg": 1405.6080320440233,
+  "final_attitude_error_deg": 0.0016145105797705267,
+  "qualification_verdict": "pass",
+  "caveat": "40s flip is diagnostic only; discrete count x nominal nozzle rating is installed firing upper proxy, not actual plant electrical demand or transient power."
+}

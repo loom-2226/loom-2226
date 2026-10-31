@@ -2,7 +2,7 @@
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
  "status": "kT's decisions on the declared assumptions of CERTIFICATION_BASIS.md (rule 5). Read by certify.py only; the geometry does not depend on them.",
  "decided_by": "kT",
- "date": "2026-10-26",
+ "date": "2026-10-31",
  "decisions": {
   "torch_heat": {
    "decision": "ACCEPTED",
@@ -59,6 +59,26 @@
    "date": "2026-10-26",
    "kT": "agree 1-4",
    "as": "Declare 1 deg of torch thrust-vector authority (decision 2), on the assumed 0.5 deg thrust error."
+  },
+  "cold_running": {
+   "decision": "ACCEPTED",
+   "date": "2026-10-31",
+   "as": "Provisional ~17.09h ideal cap before plant and cryo standby; 10+10 kW editable illustrative loads yield a shorter window; physical heat budget OPEN"
+  },
+  "strata_armour": {
+   "decision": "ACCEPTED",
+   "date": "2026-10-31",
+   "as": "Strata as armour face; constitutive performance OPEN; drone-deployed over-crown armour is OPTION ONLY and drone bay HOLD"
+  },
+  "node_faces": {
+   "decision": "ACCEPTED",
+   "date": "2026-10-31",
+   "as": "armour-equivalent g/cm2 per node face; placement HOLD pending PR #184"
+  },
+  "external_equipment": {
+   "decision": "ACCEPTED",
+   "date": "2026-10-31",
+   "as": "editable 1.4208t new allowance within dry reserve (2026 analogue guess), 0t sensitivity case required; item positions not frozen"
   }
  },
  "design_decisions_2026_10_26": {
@@ -76,5 +96,57 @@
   "4": "the habitat armour face is Strata",
   "sol": "AGREE 1-6 with qualifications: cold running accounts for retained heat (no heat sink, no multiplier; mirror look is a proposed optical property); node faces are not qualified penetrations and stations are not moved for the look (PR #184 OPEN); inventory is a draft requirement",
   "note": "design choices only; the rev 7 declared items (strata_armour, node_faces, cold_running, external_equipment) still await kT's acceptance of their wording"
+ },
+ "design_decisions_2026_10_31": {
+  "L1": "I4 six stations in Rev7 source annulus; raised Captain+Pilot terrace lowered 0.5m; headroom must be reported; all 3D and 4g qualifications HOLD",
+  "crown": "Rev7 transparent ceramic panes, existing 16 closing Strata armour-equivalent gores; no 1.2m nose extension",
+  "cold_running": "ACCEPT ~17h theoretical limit, explicitly count relational plant and cryo standby heat in screen; loads illustrative until qualified",
+  "strata_face": "ACCEPT",
+  "drone_armour_option": "OPTION only, not baseline; gores remain baseline, drone bay HOLD",
+  "node_faces": "ACCEPT armour-equivalent rule; placement HOLD PR #184",
+  "external_equipment": "ACCEPT visible allowance 1.4208t editable; compare 0t without claiming fixed design",
+  "RCS": {
+   "decision": "ACCEPT 2026-10-31",
+   "fuel_source": "unprotected remass tank only, initial 250t; same physical tank as torch",
+   "torch_min_unprotected_remass_kg": 5000,
+   "rcs_ring_fenced_reserve_kg": 5000,
+   "protected_water_buffer_kg": 50000,
+   "remass_budget": "Torch initial usable 245t. RCS has priority over torch on shared water inventory; RCS can draw the remaining 5t until exhausted.",
+   "exhaust_velocity": "VARIABLE; 1.96 km/s FQ scenario, 1.00 km/s prior sensitivity. No absolute nozzle exhaust law certified.",
+   "hardware": "Original Rev7 32x25kN RCS nozzle/geometry unmodified. No extra tank/pressure/bus mass allocated.",
+   "qualification": "Numerical remass accounting only, hardware feed and power remain unqualified"
+  },
+  "repo": "Design candidate step1 lock only; separate config/lab/results, no render or runtime changes",
+  "L1_human_factors_step1c": "Couches assessed as 1.58m nominal contoured couches (NOT 2.10m flat berths); terrace clearance >=1.20m crawl; S4 shift Y-0.25m Z+0.30m, new geometry build required. Unverified 4g crew body/couch mount and actual obstruction sightline remain HOLD.",
+  "RCS_power": {
+   "decision": "A: ship plant heats on demand ACCEPTED as architecture choice, NOT power closure",
+   "status": "DECLARED / POWER DELIVERY AND WASTE HEAT OPEN",
+   "option_B": "Precharged hot-water store between manoeuvres, OPTION only, not baseline",
+   "conditioning_J_per_kg": 2600000,
+   "ideal_jet_kinetic_J_per_kg": "0.5*ve_m_s^2",
+   "at_F_25000N": {
+    "ve_1000_m_s": {
+     "flow_kg_s": 25.0,
+     "total_minimum_MW": 77.5
+    },
+    "ve_1960_m_s": {
+     "flow_kg_s": 12.755102040816327,
+     "total_minimum_MW": 57.663265306122454
+    }
+   },
+   "power_model_limits": "minimum first-law sensible/latent heat proxy and jet kinetic. No actual installed heaters, converter efficiency, recharge, plume, power bus, waste-heat or concurrent duty closure.",
+   "PR436": "optional card data concept, not adopted/modified as part of PR435"
+  },
+  "FQ10_safing": {
+   "decision": "Throttle torch until RCS can hold, cut if RCS remains saturated or attitude/rate thresholds exceeded. kT accepted 2026-10-31",
+   "torque_authority": "Compute bounded achievable zero-net-force RCS torque allocation at current mass/CG, rather than fixed throttle",
+   "reserve_fraction_of_rcs_authority": 0.9,
+   "cap_reference": "0.56 CRUISE and 0.14 HARD are upper screening estimates, not commands overriding authority",
+   "fault_detection_delay_s": 0.2,
+   "cut_angle_deg": 0.75,
+   "cut_rate_deg_s": 0.5,
+   "max_saturation_s": 0.4,
+   "qualification": "Modelled ideal event detector and instantaneous torch throttle/cut; sensor, controller, actuator slew, safing power and hardware qualification remain HOLD"
+  }
  }
 }

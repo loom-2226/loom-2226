@@ -24,7 +24,7 @@ const sha = q.get("sha") || "";
 const [W, H] = V.size;
 const cv = document.getElementById("c"); const dpr = window.devicePixelRatio || 1;
 cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + "px"; cv.style.height = H + "px";
-const ship = new Ship(cv, geo, {shadowSize: 4096});
+const ship = new Ship(cv, geo, {shadowSize: 1024});
 const hideExt = new Set(["room", "outfit", "floor", "core", "avionics", "pressure_hull", "bulkhead", "plant", "equipment", "manifold", "frame", "longeron", "tunnel", "drone", "water", "cargo"]);
 const show = {
   exterior: p => !(p.tags || []).includes("room") && !hideExt.has(p.mat) && !p.mat.startsWith("room_"),
@@ -45,7 +45,7 @@ const tris = ship.build({show: view.interior ? (p => p.mat !== "outfit" && p.id 
 ship.draw(view);
 document.getElementById("title").textContent = view.title;
 document.getElementById("cap").textContent = view.caption;
-document.getElementById("stamp").innerHTML = `VISUAL REFERENCE - Wayfarer v${geo.version} (NON-GOVERNING) - generated from wayfarer_v05_geometry.json${cmd ? " and the scored L1 scene (l1_scene.json)" : ""}${hab ? " and the habitat scene (hab_scene.json)" : ""}<br>sha256 ${sha.slice(0, 16)}... - ALL bodies. ALL sponsors. 2026-2226.`;
+document.getElementById("stamp").innerHTML = `VISUAL REFERENCE - Wayfarer v${geo.version} (NON-GOVERNING) - generated from wayfarer_v05_geometry.json${cmd ? " and the scored L1 scene (l1_scene.json)" : ""}${hab ? " and the habitat scene (hab_scene.json)" : ""}<br>sha256 ${sha} - ALL bodies. ALL sponsors. 2026-2226.`;
 const wrap = document.getElementById("wrap");
 const svg = document.getElementById("lines"); svg.setAttribute("width", W); svg.setAttribute("height", H);
 if (view.route && hab) {    // dashed path through projected 3D points
