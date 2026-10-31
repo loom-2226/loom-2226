@@ -1,0 +1,46 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "kind": "torch",
+ "id": "torch-e1-working-card",
+ "status": "NON-GOVERNING lab card",
+ "fields": {
+  "modes": {
+   "ECON": {
+    "max_N": 3408301.2075,
+    "ve_m_s": 3000000.0,
+    "working_card_mdot_kg_s": 1.1361004025
+   },
+   "CRUISE": {
+    "max_N": 11361004.025,
+    "ve_m_s": 2000000.0,
+    "working_card_mdot_kg_s": 5.6805020125
+   },
+   "EXPEDITE": {
+    "max_N": 22722008.05,
+    "ve_m_s": 1000000.0,
+    "working_card_mdot_kg_s": 22.72200805
+   },
+   "FAST": {
+    "max_N": 34083012.075,
+    "ve_m_s": 700000.0,
+    "working_card_mdot_kg_s": 48.69001725
+   },
+   "HARD": {
+    "max_N": 56805020.125,
+    "ve_m_s": 450000.0,
+    "working_card_mdot_kg_s": 126.23337805555556
+   },
+   "LIMIT": {
+    "max_N": 85207530.1875,
+    "ve_m_s": 300000.0,
+    "working_card_mdot_kg_s": 284.025100625
+   }
+  },
+  "gimbal_limit_deg": 1.0
+ },
+ "declared": {
+  "gimbal_limit_deg": "1.0 deg TVC declared by kT 2026-10-26, not a qualified nozzle capability",
+  "note": "Engine capability only. Heat-rejection ceiling and crew g cap are ship installation/crew limits and live on the ship entry."
+ },
+ "provenance": "src/wayfarer_torch_mode_cards.py via Rev 7 card (PR #432)"
+}
