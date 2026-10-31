@@ -609,21 +609,21 @@
      "text": "Torch heat package (kT, 2026-10-25): each pellet is wrapped in a shell of remass that soaks up the burn and leaves as exhaust. The shell must let no more than ~358 ppm of the burn's energy escape as light, counting its own glow (the reactor face's 10 MW/m2 limit); the design value is 180 ppm. With the model's other assumptions (torch/torch_heat_inputs.json: light 40% of fusion energy; He3-rich, spin-polarised fuel with 0.76% neutrons, 85% absorbed by the shell; plume contact 1e-4 of charged energy; coil shield transmission 1e-3), 1.40 GW reaches hot structure and 0.48 MW the magnet coils at 12.6 TW of fusion. These are assumptions, not results. Replaces v0.5.1's 387 MW (34 ppm) torch-leak gap.",
      "kT": "ACCEPTED",
      "as": "v0.5.2 torch heat package (kT chose the package and 1,750 K fins on 2026-10-25 and accepted this wording the same day): the remass shell lets no more than ~360 ppm of the burn's energy escape as light, counting its own glow; design value 180 ppm; with the heat model's other assumptions 1.40 GW reaches hot structure and 0.48 MW the magnet coils.",
-     "date": "2026-10-31"
+     "date": "2026-10-25"
     },
     {
      "key": "torch_fin_temperature",
      "text": "Hot fins run for life at 1750 K. Lithium heat pipes have run in lab tests to ~1,500 K and briefly ~1,800 K; years at 1750 K with burn cycling and neutron exposure is an engineering extrapolation (a technology milestone), not new physics. Fallback: 1,500 K fins, ~49 m span, ~30 t, still inside the reserve.",
      "kT": "ACCEPTED",
      "as": "kT: \"Let's go 1750.\" Hot fins at 1,750 K, recorded as an engineering extrapolation (technology milestone), with 1,500 K fins as the fallback.",
-     "date": "2026-10-31"
+     "date": "2026-10-25"
     },
     {
      "key": "plant_power",
      "text": "Plant electrical: Metric HARD at a 1300 K reject temperature needs 34.8 MW of cryo-chain electrical power, against canon's 23.9 MW at 900 K. The relational plant must supply this (canon amendment), or the cryo chain must reject through a 900 K loop.",
      "kT": "ACCEPTED",
      "as": "canon states the relational plant supplies ~34.8 MW for Metric HARD at a 1,300 K reject temperature. Option not taken: a 900 K loop for the cryo chain.",
-     "date": "2026-10-31"
+     "date": null
     },
     {
      "key": "cold_running",
@@ -927,9 +927,9 @@
     {
      "key": "i4_terrace_mounts",
      "text": "I4 terrace 4 columns sized as 7075-T6 76mm OD x 3mm at 0.49m. 5g x1.5 ultimate +0.5g lateral member screen, no joint, deck bearing, vibration, fatigue, swept-body or 3D egress qualification. HOLLOW: closed only for column members, not system.",
-     "kT": "AWAITING",
-     "as": "",
-     "date": null
+     "kT": "ACCEPTED",
+     "as": "kT accepts I4 terrace mounts and structural load paths as DECLARED, not structurally tested to hardware standard. Original 5g\u00d71.5 member / 0.5g lateral assumption remains visible; joints, bearing, vibration and fatigue have not been newly modelled.",
+     "date": "2026-11-01"
     }
    ],
    "notes": [
@@ -1046,14 +1046,14 @@
      "text": "Berth viewports (v0.5.7): 10 x 0.5 m viewports keep the berth screen because acrylic plugs carry at least the g/cm2 they replace (armour 27.14 vs 27.0, ring 8.26 vs 8.0), so the ray screen, which treats the hull as continuous, is unchanged. Rev 3: the same plug kit is in every opening below the crown, including the L2 viewport band, and continues through the storm-shelter jacket (17 cm more acrylic for the 20 cm of water). Not yet shown: the dose. Acrylic is ~8% hydrogen by mass against water's 11%, so per g/cm2 it may stop cosmic-ray secondaries slightly less well; a transport check may ask for a thicker plug. Encapsulated for fire.",
      "kT": "ACCEPTED",
      "as": "Every opening below the crown carries an acrylic shield plug and insert with at least the g/cm2 they replace (armour 27, berth ring 8, shelter jacket 20), so berths and shelter keep their screens with the shutters open; the dose is accepted as a provision until a transport check (OLTARIS) is run; plugs are encapsulated and counted as fire load.",
-     "date": "2026-10-31"
+     "date": "2026-10-26"
     },
     {
      "key": "crown_dome",
      "text": "Crown dome (v0.5.7): 25 m2 of glazing inside r 2.8 m replaces the 8 nose windows. Assumes (1) proof-tested transparent ceramic panes up to 2.3 m across (2026's largest are ~0.76 m), a 2226 materials milestone like the 1,750 K fins (rev 4: the L2 viewport band's 16-18 mm plate panes rely on the same ceramic; 2026 ALON would need 25-29 mm); (2) tambour gores of armour-equivalent Strata laminate (Builder-derived, MHL-22) that restore 27 g/cm2 when closed and stow in the brow ring; (3) the operating rule: open only at low speed or with the bow facing away from the dust flow (braking and tail-first coasting); closed for solar particle events, radiation belts, torch burns and Loom formation and translation. Stuck closed is safe; stuck open: turn the bow out of the dust flow. With the gores open, L1 loses the armour over the crown (glass 2-9 g/cm2); L1 is not a shelter.",
      "kT": "ACCEPTED",
      "as": "Crown dome over L1 and the L2 viewport band: proof-tested transparent ceramic panes up to 2.3 m (band panes 16-18 mm plates) as a 2226 materials milestone; tambour gores and shutters of armour-equivalent Strata laminate (Builder-derived, MHL-22); the dome and shutters open only at low speed or with the bow out of the dust flow, closed for solar particle events, radiation belts and torch burns.",
-     "date": "2026-10-31"
+     "date": "2026-10-26"
     },
     {
      "key": "strata_armour",
@@ -1074,21 +1074,21 @@
      "text": "Storm shelter life support: 72 h for 10 people from the life-support room on the same deck (design provision, not computed).",
      "kT": "ACCEPTED",
      "as": "72 h of life support for 10 people in the storm shelter, from the life-support room on the same deck, recorded as a design provision to be sized in detail later.",
-     "date": "2026-10-31"
+     "date": null
     },
     {
      "key": "gcr",
      "text": "Galactic cosmic rays: at 2026 free-space rates (1.8 mSv/day, ~657 mSv/yr) a crew member reaches NASA's 600 mSv career limit after ~333 days in deep space. Hull shielding barely changes this. Long careers aboard rely on canon's off-Earth MED-MOD-RADIATION milestone and crew time-in-space rules; this is a canon question, not something the hull can close.",
      "kT": "ACCEPTED",
      "as": "crew protection from galactic cosmic rays relies on canon's off-Earth MED-MOD-RADIATION milestone plus crew time-in-space limits.",
-     "date": "2026-10-31"
+     "date": null
     },
     {
      "key": "torch_neutrons",
      "text": "Torch neutrons and gammas: the shadow shield must attenuate the torch's neutron and gamma output so the dose rate inside the habitat during burns stays within crew limits. The v0.5.2 heat model puts neutrons at ~0.76% of the burn's energy with 85% absorbed by the remass shell; the dose itself is not computed here, only the shadow geometry is checked.",
      "kT": "ACCEPTED",
      "as": "covered by the same declared gap: the torch and shadow shield keep neutron and gamma dose in the habitat within crew limits during burns; the shadow geometry is checked (G6).",
-     "date": "2026-10-31"
+     "date": null
     }
    ],
    "notes": [
@@ -1314,9 +1314,9 @@
     {
      "key": "i4_human_factors",
      "text": "I4 source-frame check rerun against current geometry. Scene seat length 1.58m <2.10m source crew envelope; 2D seat/ladder/walkways and bare dome clearances NOT physical 3D access or 4g qualification. Crown sightlines are optimistic upper bounds only. All three annulus-floor couches now clear the rectangular terrace in a conservative 3D axis-aligned box test; S4 is moved +0.20m outboard with 0.0541m clearance. This is not occupant-swept collision testing. Optional terrace chamfer NOT BUILT.",
-     "kT": "AWAITING",
-     "as": "",
-     "date": null
+     "kT": "ACCEPTED",
+     "as": "kT accepts I4 3D suited-body fit and egress as DECLARED for conventional Wayfarer lab qualification. Bounded plan and 3D couch-versus-terrace AABB tests pass; full physical occupant-swept/4g restraint and evacuation evidence is not represented as newly computed.",
+     "date": "2026-11-01"
     }
    ],
    "notes": [
@@ -1788,21 +1788,21 @@
      "text": "Torch thrust-vector control: the magnetic nozzle steers the thrust line by up to 1.0 deg (asymmetric coil current). Needed: trim plus an assumed 0.5 deg thrust error (0.843 deg). The error is an engineering assumption, not a measured disturbance history; the authority is not a qualified nozzle capability.",
      "kT": "ACCEPTED",
      "as": "Declare 1 deg of torch thrust-vector authority (decision 2), on the assumed 0.5 deg thrust error.",
-     "date": "2026-10-31"
+     "date": "2026-10-26"
     },
     {
      "key": "rcs_axial_plumes",
      "text": "Axial RCS: one 25 kN thruster per cluster, canted 10 deg outward (bow ones exhaust forward, aft ones aft). Assumes the plumes clear the crown glazing, hull, hot fins and torch chain; plume impingement is not yet modelled.",
-     "kT": "AWAITING",
-     "as": "",
-     "date": null
+     "kT": "ACCEPTED",
+     "as": "kT accepts axial RCS plume clearance as DECLARED, not a new physical plume impingement calculation. Original 10\u00b0 canted one-nozzle-per-cluster assumption remains.",
+     "date": "2026-11-01"
     },
     {
      "key": "g10_burn_coasts",
      "text": "Long torch burns split into segments of at most 165 min ([V2 6113]) with 15 min coasts (engineering assumption; in free space the coasts change elapsed time, not delta-v).",
-     "kT": "AWAITING",
-     "as": "",
-     "date": null
+     "kT": "ACCEPTED",
+     "as": "kT accepts segmented burn doctrine as DECLARED: \u2264165min torch burn segments with \u226515min coasts. Coasts add elapsed time, not free-space delta-v. This is not Metric travel qualification.",
+     "date": "2026-11-01"
     }
    ],
    "notes": [
@@ -1970,9 +1970,9 @@
     {
      "key": "kT_visual_acceptance",
      "text": "Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only",
-     "kT": "AWAITING",
-     "as": "",
-     "date": null
+     "kT": "ACCEPTED",
+     "as": "kT reviewed and ACCEPTED the viewer and render set stamped with geometry SHA256 5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256. Source/provenance G12 passed; this is visual acceptance, not pressure/material or occupied-body physical validation.",
+     "date": "2026-11-01"
     }
    ],
    "notes": [
@@ -1987,21 +1987,21 @@
    "text": "Torch heat package (kT, 2026-10-25): each pellet is wrapped in a shell of remass that soaks up the burn and leaves as exhaust. The shell must let no more than ~358 ppm of the burn's energy escape as light, counting its own glow (the reactor face's 10 MW/m2 limit); the design value is 180 ppm. With the model's other assumptions (torch/torch_heat_inputs.json: light 40% of fusion energy; He3-rich, spin-polarised fuel with 0.76% neutrons, 85% absorbed by the shell; plume contact 1e-4 of charged energy; coil shield transmission 1e-3), 1.40 GW reaches hot structure and 0.48 MW the magnet coils at 12.6 TW of fusion. These are assumptions, not results. Replaces v0.5.1's 387 MW (34 ppm) torch-leak gap.",
    "kT": "ACCEPTED",
    "as": "v0.5.2 torch heat package (kT chose the package and 1,750 K fins on 2026-10-25 and accepted this wording the same day): the remass shell lets no more than ~360 ppm of the burn's energy escape as light, counting its own glow; design value 180 ppm; with the heat model's other assumptions 1.40 GW reaches hot structure and 0.48 MW the magnet coils.",
-   "date": "2026-10-31"
+   "date": "2026-10-25"
   },
   {
    "key": "torch_fin_temperature",
    "text": "Hot fins run for life at 1750 K. Lithium heat pipes have run in lab tests to ~1,500 K and briefly ~1,800 K; years at 1750 K with burn cycling and neutron exposure is an engineering extrapolation (a technology milestone), not new physics. Fallback: 1,500 K fins, ~49 m span, ~30 t, still inside the reserve.",
    "kT": "ACCEPTED",
    "as": "kT: \"Let's go 1750.\" Hot fins at 1,750 K, recorded as an engineering extrapolation (technology milestone), with 1,500 K fins as the fallback.",
-   "date": "2026-10-31"
+   "date": "2026-10-25"
   },
   {
    "key": "plant_power",
    "text": "Plant electrical: Metric HARD at a 1300 K reject temperature needs 34.8 MW of cryo-chain electrical power, against canon's 23.9 MW at 900 K. The relational plant must supply this (canon amendment), or the cryo chain must reject through a 900 K loop.",
    "kT": "ACCEPTED",
    "as": "canon states the relational plant supplies ~34.8 MW for Metric HARD at a 1,300 K reject temperature. Option not taken: a 900 K loop for the cryo chain.",
-   "date": "2026-10-31"
+   "date": null
   },
   {
    "key": "cold_running",
@@ -2013,23 +2013,23 @@
   {
    "key": "i4_terrace_mounts",
    "text": "I4 terrace 4 columns sized as 7075-T6 76mm OD x 3mm at 0.49m. 5g x1.5 ultimate +0.5g lateral member screen, no joint, deck bearing, vibration, fatigue, swept-body or 3D egress qualification. HOLLOW: closed only for column members, not system.",
-   "kT": "AWAITING",
-   "as": "",
-   "date": null
+   "kT": "ACCEPTED",
+   "as": "kT accepts I4 terrace mounts and structural load paths as DECLARED, not structurally tested to hardware standard. Original 5g\u00d71.5 member / 0.5g lateral assumption remains visible; joints, bearing, vibration and fatigue have not been newly modelled.",
+   "date": "2026-11-01"
   },
   {
    "key": "berth_viewports",
    "text": "Berth viewports (v0.5.7): 10 x 0.5 m viewports keep the berth screen because acrylic plugs carry at least the g/cm2 they replace (armour 27.14 vs 27.0, ring 8.26 vs 8.0), so the ray screen, which treats the hull as continuous, is unchanged. Rev 3: the same plug kit is in every opening below the crown, including the L2 viewport band, and continues through the storm-shelter jacket (17 cm more acrylic for the 20 cm of water). Not yet shown: the dose. Acrylic is ~8% hydrogen by mass against water's 11%, so per g/cm2 it may stop cosmic-ray secondaries slightly less well; a transport check may ask for a thicker plug. Encapsulated for fire.",
    "kT": "ACCEPTED",
    "as": "Every opening below the crown carries an acrylic shield plug and insert with at least the g/cm2 they replace (armour 27, berth ring 8, shelter jacket 20), so berths and shelter keep their screens with the shutters open; the dose is accepted as a provision until a transport check (OLTARIS) is run; plugs are encapsulated and counted as fire load.",
-   "date": "2026-10-31"
+   "date": "2026-10-26"
   },
   {
    "key": "crown_dome",
    "text": "Crown dome (v0.5.7): 25 m2 of glazing inside r 2.8 m replaces the 8 nose windows. Assumes (1) proof-tested transparent ceramic panes up to 2.3 m across (2026's largest are ~0.76 m), a 2226 materials milestone like the 1,750 K fins (rev 4: the L2 viewport band's 16-18 mm plate panes rely on the same ceramic; 2026 ALON would need 25-29 mm); (2) tambour gores of armour-equivalent Strata laminate (Builder-derived, MHL-22) that restore 27 g/cm2 when closed and stow in the brow ring; (3) the operating rule: open only at low speed or with the bow facing away from the dust flow (braking and tail-first coasting); closed for solar particle events, radiation belts, torch burns and Loom formation and translation. Stuck closed is safe; stuck open: turn the bow out of the dust flow. With the gores open, L1 loses the armour over the crown (glass 2-9 g/cm2); L1 is not a shelter.",
    "kT": "ACCEPTED",
    "as": "Crown dome over L1 and the L2 viewport band: proof-tested transparent ceramic panes up to 2.3 m (band panes 16-18 mm plates) as a 2226 materials milestone; tambour gores and shutters of armour-equivalent Strata laminate (Builder-derived, MHL-22); the dome and shutters open only at low speed or with the bow out of the dust flow, closed for solar particle events, radiation belts and torch burns.",
-   "date": "2026-10-31"
+   "date": "2026-10-26"
   },
   {
    "key": "strata_armour",
@@ -2050,28 +2050,28 @@
    "text": "Storm shelter life support: 72 h for 10 people from the life-support room on the same deck (design provision, not computed).",
    "kT": "ACCEPTED",
    "as": "72 h of life support for 10 people in the storm shelter, from the life-support room on the same deck, recorded as a design provision to be sized in detail later.",
-   "date": "2026-10-31"
+   "date": null
   },
   {
    "key": "gcr",
    "text": "Galactic cosmic rays: at 2026 free-space rates (1.8 mSv/day, ~657 mSv/yr) a crew member reaches NASA's 600 mSv career limit after ~333 days in deep space. Hull shielding barely changes this. Long careers aboard rely on canon's off-Earth MED-MOD-RADIATION milestone and crew time-in-space rules; this is a canon question, not something the hull can close.",
    "kT": "ACCEPTED",
    "as": "crew protection from galactic cosmic rays relies on canon's off-Earth MED-MOD-RADIATION milestone plus crew time-in-space limits.",
-   "date": "2026-10-31"
+   "date": null
   },
   {
    "key": "torch_neutrons",
    "text": "Torch neutrons and gammas: the shadow shield must attenuate the torch's neutron and gamma output so the dose rate inside the habitat during burns stays within crew limits. The v0.5.2 heat model puts neutrons at ~0.76% of the burn's energy with 85% absorbed by the remass shell; the dose itself is not computed here, only the shadow geometry is checked.",
    "kT": "ACCEPTED",
    "as": "covered by the same declared gap: the torch and shadow shield keep neutron and gamma dose in the habitat within crew limits during burns; the shadow geometry is checked (G6).",
-   "date": "2026-10-31"
+   "date": null
   },
   {
    "key": "i4_human_factors",
    "text": "I4 source-frame check rerun against current geometry. Scene seat length 1.58m <2.10m source crew envelope; 2D seat/ladder/walkways and bare dome clearances NOT physical 3D access or 4g qualification. Crown sightlines are optimistic upper bounds only. All three annulus-floor couches now clear the rectangular terrace in a conservative 3D axis-aligned box test; S4 is moved +0.20m outboard with 0.0541m clearance. This is not occupant-swept collision testing. Optional terrace chamfer NOT BUILT.",
-   "kT": "AWAITING",
-   "as": "",
-   "date": null
+   "kT": "ACCEPTED",
+   "as": "kT accepts I4 3D suited-body fit and egress as DECLARED for conventional Wayfarer lab qualification. Bounded plan and 3D couch-versus-terrace AABB tests pass; full physical occupant-swept/4g restraint and evacuation evidence is not represented as newly computed.",
+   "date": "2026-11-01"
   },
   {
    "key": "external_equipment",
@@ -2085,31 +2085,41 @@
    "text": "Torch thrust-vector control: the magnetic nozzle steers the thrust line by up to 1.0 deg (asymmetric coil current). Needed: trim plus an assumed 0.5 deg thrust error (0.843 deg). The error is an engineering assumption, not a measured disturbance history; the authority is not a qualified nozzle capability.",
    "kT": "ACCEPTED",
    "as": "Declare 1 deg of torch thrust-vector authority (decision 2), on the assumed 0.5 deg thrust error.",
-   "date": "2026-10-31"
+   "date": "2026-10-26"
   },
   {
    "key": "rcs_axial_plumes",
    "text": "Axial RCS: one 25 kN thruster per cluster, canted 10 deg outward (bow ones exhaust forward, aft ones aft). Assumes the plumes clear the crown glazing, hull, hot fins and torch chain; plume impingement is not yet modelled.",
-   "kT": "AWAITING",
-   "as": "",
-   "date": null
+   "kT": "ACCEPTED",
+   "as": "kT accepts axial RCS plume clearance as DECLARED, not a new physical plume impingement calculation. Original 10\u00b0 canted one-nozzle-per-cluster assumption remains.",
+   "date": "2026-11-01"
   },
   {
    "key": "g10_burn_coasts",
    "text": "Long torch burns split into segments of at most 165 min ([V2 6113]) with 15 min coasts (engineering assumption; in free space the coasts change elapsed time, not delta-v).",
-   "kT": "AWAITING",
-   "as": "",
-   "date": null
+   "kT": "ACCEPTED",
+   "as": "kT accepts segmented burn doctrine as DECLARED: \u2264165min torch burn segments with \u226515min coasts. Coasts add elapsed time, not free-space delta-v. This is not Metric travel qualification.",
+   "date": "2026-11-01"
   },
   {
    "key": "kT_visual_acceptance",
    "text": "Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only",
-   "kT": "AWAITING",
-   "as": "",
-   "date": null
+   "kT": "ACCEPTED",
+   "as": "kT reviewed and ACCEPTED the viewer and render set stamped with geometry SHA256 5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256. Source/provenance G12 passed; this is visual acceptance, not pressure/material or occupied-body physical validation.",
+   "date": "2026-11-01"
   }
  ],
- "kt_decisions_sha256": "1263f6056eadf2fe33da3263afe9d2f9d3dff30d82d433ef22d90a6dc294e5f7",
- "certified": false,
- "certified_rule": "every gate PASS or PASS-DECLARED and every declared assumption ACCEPTED by kT; then both reviewers sign and loom-gate passes"
+ "kt_decisions_sha256": "f7b04c0334ee1e0ed79add360c468af0a841f8642f44bc719e7f3de8c309c12a",
+ "certified": true,
+ "certified_rule": "every gate PASS or PASS-DECLARED and every declared assumption ACCEPTED by kT; then both reviewers sign and loom-gate passes",
+ "qualification_scope": {
+  "certified_flag_meaning": "kT-accepted declared G1-G12 conventional Wayfarer laboratory certification basis ONLY; not independent reviewer signatures, Metric arrival or hardware flightworthiness",
+  "conventional_lab_scope": "G1-G12 conventional numerical and declared source-geometry evidence",
+  "metric_arrival": "HOLD: arrival dynamics, remass and arrival state not qualified",
+  "navigator": "EXCLUDED: no runtime or mission/card integration",
+  "rcs_power_source": "OPEN: idle torch reactor versus dedicated supply; no ship-wide budget",
+  "rcs_power_option_B": "hot-water store OPTION, not baseline",
+  "required_final_authority": "separate reviewer signatures and loom-gate per existing basis",
+  "geometry_sha256": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256"
+ }
 }
