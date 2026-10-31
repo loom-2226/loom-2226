@@ -54,7 +54,7 @@ def version_pack(geo_p, rep_p, cmd_p, hab_p, inp_p, check_scene=True):
 
 NEW = version_pack(ROOT / "out/wayfarer_v05_geometry.json", ROOT / "out/certification_report.json", HERE / "out/l1_scene.json", HERE / "out/hab_scene.json", ROOT / "inputs/wayfarer_v05_inputs.json")
 VERS = {NEW["ver"]: NEW}
-if BASE.exists():
+if False and BASE.exists():
     OLD = version_pack(BASE / "wayfarer_v05_geometry.json", BASE / "certification_report.json", BASE / "l1_scene.json", BASE / "hab_scene.json", BASE / "wayfarer_v05_inputs.json")
     VERS = {OLD["ver"]: OLD, NEW["ver"]: NEW}
 SHA = NEW["sha"]
@@ -122,7 +122,8 @@ footer{color:var(--steel);font-size:11px;letter-spacing:.03em;line-height:1.6;bo
 <header>
   <span class="eyebrow">LOOM 2226 · Reference courier · Visual reference</span>
   <h1 id="vtitle">Wayfarer v__VER__</h1>
-  <p class="sub">Drag to turn the ship, pinch or scroll to zoom, two fingers to pan. Every shape is built from the same geometry file the certification checks run on.</p>
+  <p class="sub">Drag to turn the ship, pinch or scroll to zoom. Built from geometry SHA256 __SHA__. Interior I4 station views are representational; occupant swept clearance remains HOLD.</p>
+  <p class="sub"><a href="wayfarer_I4_in_out_5d73cdd1.glb" download style="color:#00D1FF">One GLB: exterior + interior I4 (two scenes)</a></p>
 </header>
 <div class="stage" id="stage">
   <canvas id="cv" aria-label="3D model of Wayfarer v0.5"></canvas>
@@ -146,7 +147,9 @@ footer{color:var(--steel);font-size:11px;letter-spacing:.03em;line-height:1.6;bo
     <button class="chip" type="button" data-look="PILOT" aria-pressed="false">Pilot</button>
     <button class="chip" type="button" data-look="NAV" aria-pressed="false">Navigator</button>
     <button class="chip" type="button" data-look="S1" aria-pressed="false">Support 1</button>
+    <button class="chip" type="button" data-look="S2" aria-pressed="false">Support 2</button>
     <button class="chip" type="button" data-look="S3" aria-pressed="false">Support 3</button>
+    <button class="chip" type="button" data-look="S4" aria-pressed="false">Support 4</button>
     <button class="chip" type="button" data-look="STAND" aria-pressed="false">Standing (1 g)</button>
   </div>
   <div class="row" role="group" aria-label="Crown dome" id="petrow">
@@ -208,18 +211,17 @@ panels();
 const MODES = {
   cruise: {strakeSpan: 0, note: "Coasting: radiator strakes stowed in their grooves, bay doors shut."},
   metric: {strakeSpan: 2, hot: 0.35, note: "Metric HARD: one 2 m pleat of each strake out, enough for 34.9 MW. Field geometry radius 6.5 m."},
-  burn: {strakeSpan: 4, finSpan: 28, hot: 1.0, plume: true, note: "Torch burn: four hot fins unfolded aft at 1,750 K carry the torch's 1.4 GW; the strakes open 4 m for the magnet coils' cooling. Up to 5 g, everyone in a couch."},
+  burn: {strakeSpan: 4, finSpan: 28, hot: 1.0, plume: true, note: "Torch burn: four hot fins unfolded aft at 1,750 K carry the torch's 1.4 GW; the strakes open 4 m for the magnet coils' cooling. Up to 4 g crew limit (structure screened at 5 g), everyone in a couch."},
   shuttle: {strakeSpan: 0, doorsOpen: true, shuttleLift: 8.5, note: "Shuttle out: doors stand up at the slot edges and the 12.8 m rover-drop shuttle rises straight out."},
   hab: {strakeSpan: 0, hab: true, cmd: true, note: "Habitat decks: cut along the axis, bow up, walls left out so rooms show as coloured floors. Ten 2.10 m berths, one per person; a casualty moves at 0 g down the port ladder shaft into the medical bay (yellow litter). Every berth has a 0.5 m shuttered viewport at its outer end."},
   structure: {strakeSpan: 0, structure: true, note: "Structure: skin, tanks and machinery hidden. Longerons in amber, ring frames and the thrust cone in grey. Four 0.40 m CFRP tubes in an X, the upper pair edging the bay slot."},
-  cmd: {strakeSpan: 0, cmd: true, note: "Command deck, layout D: bow up, port side cut away. PILOT and NAV lie on a flight deck 1.78 m up, eyes 0.55 m below their nose windows; four support couches lie along the rim. Everyone faces the bow, so thrust presses them into the couch."},
+  cmd: {strakeSpan: 0, cmd: true, note: "Command deck, I4: S4 outboard by 0.20m, terrace height 0.59m; six 1.58 m contoured couches on the Rev7 annulus; Pilot and Captain share the lowered command terrace, Navigator on a separate platform. Crew body models disabled until physical anthropometric fit and egress are qualified."},
 };
 const CMD_CLIP = [0, -1, 0, -1.0];
 const HAB_CLIP = [0, 0.174, 0.985, 0];
 const HAB_LABELS = [["Berths", [7.6, -1.2, -3.4]], ["Berth viewport", [7.55, -1.16, -4.35]], ["Port shaft", [5.2, -1.4, 0]], ["Medical bay", [10.2, -3.0, 0]], ["L4/L5 hatch", [10.8, -1.4, -0.3]], ["Trunk", [9.0, 0, 0]]];
 const habHome = {az: 1.396, el: 0.45, dist: 15, tx: 9.0, ty: -1.6, tz: -0.6};
-const CMD_LABELS = [["PILOT", [0.8, 0.45, 0.2]], ["NAV", [0.8, -0.45, 0.2]], ["Flight deck", [1.3, 0, -1.4]], ["Nose windows", [0.1, 0, 0.9]], ["Sensors", [1.5, 0, 3.45]],
-                    ["S1", [2.55, 1.4, 2.9]], ["S4", [2.55, 2.9, -1.4]], ["Ladder to L2", [2.4, 1.4, 0]]];
+const CMD_LABELS = []; // I4 stations rendered from current source scene; old layout-D labels not valid
 const cmdHome = {az: -2.875, el: 0.30, dist: 8.5, tx: 1.2, ty: 0.25, tz: 0.15};
 function cmdFit() {   // keep the deck's width in frame on a tall phone screen
   const r = cv.getBoundingClientRect(), a = r.width / Math.max(r.height, 1);
@@ -246,7 +248,7 @@ function rebuild() {
     const inside = look.id !== "orbit";
     ship.build({show: p => p.mat !== "outfit" && p.id !== "room_L1-command" && p.id !== "core_racks" && (st.rooms || !p.mat.startsWith("room_")), strakeSpan: 0, fluids: [],
                 features: false, windowFrames: true, bore: {wall_m: 0.23, armour_m: 0.2, splay_deg: 12}, cmd: CMD, cmdClip: inside ? null : CMD_CLIP,
-                cmdHideCrew: inside ? [look.id] : [], crown: crownOf(st.petals), shuttersClosed: !st.petals});
+                cmdHideCrew: CMD.couches.map(c => c.id), crown: crownOf(st.petals), shuttersClosed: !st.petals});
     document.getElementById("note").textContent = (GEO.crown ? m.note.replace("eyes 0.55 m below their nose windows", "under the crown dome") : m.note) + (GEO.crown ? " v0.5.7: the crown dome replaces the 8 nose windows; pilot displays ride on flight-deck arms. Dome open / closed below." : "");
     dirty = true; return;
   }

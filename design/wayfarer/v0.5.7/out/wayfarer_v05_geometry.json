@@ -1,6 +1,6 @@
 {
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
- "status": "NON-GOVERNING SANDBOX. Wayfarer v0.5.7 geometry and mass properties.",
+ "status": "NON-GOVERNING SANDBOX. Wayfarer v0.5.7-step1-I4-lock geometry and mass properties.",
  "features": [
   {
    "kind": "window",
@@ -4234,6 +4234,265 @@
    ]
   }
  ],
+ "l1_i4_lock": {
+  "status": "CANDIDATE_LOCK_STEP1_NON_GOVERNING",
+  "source": "LOOM main f07354f engineering/wayfarer/candidates/l1_i4_20261029/scene.json",
+  "source_rev7_sha": "3485830a56dfead79b2ef8bba031a595b536fbb5",
+  "source_candidate_sha": "f07354f57244d62e7c1932cacddd0f996d45e941",
+  "coordinates": "true source ship frame X bow-negative; not unconstrained viewer H=4-X",
+  "terrace_lowered_m": 0.5,
+  "nose_extension_m": 0.0,
+  "stations": [
+   {
+    "id": "PILOT",
+    "role": "Flight",
+    "base_x": 2.41,
+    "head": [
+     -0.9111,
+     -1.213
+    ],
+    "feet": [
+     -1.0489,
+     -2.787
+    ],
+    "eye": [
+     1.46,
+     -0.9286,
+     -1.4122
+    ],
+    "L": 1.58,
+    "width": 0.7,
+    "heading_deg": -5,
+    "center_yz": [
+     -0.98,
+     -2.0
+    ],
+    "source_coordinates": "X ship axial; Y,Z transverse; bow -X"
+   },
+   {
+    "id": "NAV",
+    "role": "Navigation / Loom",
+    "base_x": 2.76,
+    "head": [
+     0.0,
+     3.29
+    ],
+    "feet": [
+     0.0,
+     1.71
+    ],
+    "eye": [
+     2.31,
+     0.0,
+     3.09
+    ],
+    "L": 1.58,
+    "width": 0.7,
+    "heading_deg": 0,
+    "center_yz": [
+     0,
+     2.5
+    ],
+    "source_coordinates": "X ship axial; Y,Z transverse; bow -X"
+   },
+   {
+    "id": "S1",
+    "role": "Captain / command",
+    "base_x": 2.41,
+    "head": [
+     0.9111,
+     -1.213
+    ],
+    "feet": [
+     1.0489,
+     -2.787
+    ],
+    "eye": [
+     1.46,
+     0.9286,
+     -1.4122
+    ],
+    "L": 1.58,
+    "width": 0.7,
+    "heading_deg": 5,
+    "center_yz": [
+     0.98,
+     -2.0
+    ],
+    "source_coordinates": "X ship axial; Y,Z transverse; bow -X"
+   },
+   {
+    "id": "S2",
+    "role": "Engineering",
+    "base_x": 2.95,
+    "head": [
+     -2.4791,
+     -0.0025
+    ],
+    "feet": [
+     -3.2209,
+     -1.3975
+    ],
+    "eye": [
+     2.86,
+     -2.573,
+     -0.1791
+    ],
+    "L": 1.58,
+    "width": 0.7,
+    "heading_deg": -28,
+    "center_yz": [
+     -2.85,
+     -0.7
+    ],
+    "source_viewer_base_x": 3.31,
+    "source_coordinates": "X ship axial; Y,Z transverse; bow -X"
+   },
+   {
+    "id": "S3",
+    "role": "Sensors / EW",
+    "base_x": 2.95,
+    "head": [
+     2.4791,
+     -0.0025
+    ],
+    "feet": [
+     3.2209,
+     -1.3975
+    ],
+    "eye": [
+     2.86,
+     2.573,
+     -0.1791
+    ],
+    "L": 1.58,
+    "width": 0.7,
+    "heading_deg": 28,
+    "center_yz": [
+     2.85,
+     -0.7
+    ],
+    "source_viewer_base_x": 3.31,
+    "source_coordinates": "X ship axial; Y,Z transverse; bow -X"
+   },
+   {
+    "id": "S4",
+    "role": "Mission operations",
+    "base_x": 2.95,
+    "head": [
+     2.1041,
+     -0.9675
+    ],
+    "feet": [
+     2.6959,
+     -2.4325
+    ],
+    "eye": [
+     2.86,
+     2.179,
+     -1.153
+    ],
+    "L": 1.58,
+    "width": 0.7,
+    "heading_deg": 22,
+    "center_yz": [
+     2.4,
+     -1.7
+    ],
+    "source_viewer_base_x": 3.31,
+    "source_coordinates": "X ship axial; Y,Z transverse; bow -X",
+    "placement_step1c": {
+     "delta_y_m": -0.25,
+     "delta_z_m": 0.3,
+     "reason": "kT 2026-10-31 S4 entirely on source annulus with 0.8m walkway"
+    },
+    "placement_render_review": {
+     "date": "2026-11-01",
+     "delta_y_m": 0.2,
+     "delta_z_m": 0,
+     "reason": "clear S4 floor couch AABB from terrace slab, maintain source annulus; no terrace chamfer"
+    }
+   }
+  ],
+  "platforms": {
+   "command_terrace": {
+    "x_m": [
+     2.41,
+     2.51
+    ],
+    "y_m": [
+     -1.7,
+     1.7
+    ],
+    "z_m": [
+     -3.01,
+     -0.91
+    ],
+    "mass_t": 0.3,
+    "prov": "ENGINEERING_ASSUMPTION: allocated from original 0.4 t flight deck, not additional ship mass"
+   },
+   "navigator_platform": {
+    "x_m": [
+     2.76,
+     2.86
+    ],
+    "y_m": [
+     -1.325,
+     1.325
+    ],
+    "z_m": [
+     1.45,
+     3.65
+    ],
+    "mass_t": 0.1,
+    "prov": "ENGINEERING_ASSUMPTION: allocated from original 0.4 t flight deck, mounts HOLD"
+   }
+  },
+  "seating_hardware_t_each": 0.05,
+  "shared_table_t": 0.08,
+  "workbench_t": 0.08,
+  "other_cabinetry_t": 0.04,
+  "room_outfit_redistributed_t": 0.5,
+  "stations_fit": "plan-only bounded candidate: 3D body/egress/4g/pressure-skin OPEN",
+  "station_surrogate_note": "mass-proxy boxes only; no claim of finished seats or anthropometric envelope",
+  "source_floor": "L1 annulus YZ radius 0.9-4.15 m; two 0.8 m source ladder shafts kept as clearance references",
+  "crown": "Use the source Rev7 2.8m ceramic/Osteon crown and closing 16 armour-equivalent Strata gores. No 37-pane research replacement.",
+  "nav_platform_mount": "HOLD, unqualified load path",
+  "terrace_columns": {
+   "x_m_end": 2.51,
+   "positions_yz_m": [
+    [
+     -1.65,
+     -2.9
+    ],
+    [
+     1.65,
+     -2.9
+    ],
+    [
+     -1.65,
+     -1.0
+    ],
+    [
+     1.65,
+     -1.0
+    ]
+   ],
+   "od_m": 0.076,
+   "mass_total_t": 0.016839083963936765,
+   "prov": "Original Rev7 hardware allowance conserved; column size/loading must be requalified for revised height"
+  },
+  "i4_couch_acceptance": {
+   "decision": "kT: couch, not berth; nominal 1.58m contoured seats; hard point and 4g shape unknown",
+   "length_target_m": 1.58,
+   "status": "provisional I4 seat-shape screen only; physical occupant fit HOLD"
+  },
+  "terrace_access": {
+   "rule": "crawl, not standing",
+   "minimum_clearance_m": 1.2,
+   "status": "kT accepted for design check; hands/feet/transfer/egress physical verification HOLD"
+  }
+ },
  "window_bore": {
   "armour_m": 0.2,
   "wall_m": 0.23,
@@ -4292,12 +4551,12 @@
   "center": 1.15,
   "fork": 2.0
  },
- "version": "0.5.7",
- "inputs_sha256": "f8882b86e959358c45fb8a5c8fed61335847092ccf59ed6e13abe09482fa5816",
+ "version": "0.5.7-step1-I4-lock",
+ "inputs_sha256": "1349be9092b83c50b13786b9b5f860e947507d7551e366bbafcd5b49095a6820",
  "length_m": 53.3,
  "dry_t": 867.681453466738,
  "dry_by_system_t": {
-  "habitat": 181.77461633830262,
+  "habitat": 181.77461633830268,
   "structure": 134.09067826135725,
   "avionics": 20.499340886146946,
   "service": 13.68905010095345,
@@ -4318,7 +4577,7 @@
   "service_tank_t": 27.81,
   "c_tank_t": 0.002759082860201545,
   "service_tank_capacity_t": 32.51548396465435,
-  "chosen_to_minimise_worst_trim_deg": 0.34126094578719657
+  "chosen_to_minimise_worst_trim_deg": 0.34285360138251325
  },
  "thrust_line_offset_m": {
   "y": 0.03999999999999998,
@@ -4690,35 +4949,303 @@
    ]
   },
   {
-   "id": "flight_deck",
-   "name": "Flight deck (mezzanine carrying the pilot and navigator couches)",
+   "id": "command_terrace",
+   "name": "command terrace",
    "system": "habitat",
-   "mass_t": 0.4235401009534493,
-   "prov": "ENGINEERING_ASSUMPTION: mezzanine deck carrying the pilot and navigator 1.77 m above the L1 floor, eyes 0.55 m below their nose windows; reached by a short ladder at its -Z end; mass from the L1 room outfitting (3.0 to 2.6 t)",
+   "mass_t": 0.31765507571508694,
+   "prov": "ENGINEERING_ASSUMPTION: allocated from original 0.4 t flight deck, not additional ship mass",
    "mat": "equipment",
    "dry": true,
    "tags": [],
    "shape": {
     "k": "box",
-    "x0": 1.225,
-    "x1": 1.325,
-    "y0": -0.85,
-    "y1": 0.85,
-    "z0": -1.55,
-    "z1": 0.75
+    "x0": 2.41,
+    "x1": 2.51,
+    "y0": -1.7,
+    "y1": 1.7,
+    "z0": -3.01,
+    "z1": -0.91
    },
-   "volume_m3": 0.3909999999999994,
+   "volume_m3": 0.7139999999999974,
    "centroid_m": [
-    1.275,
+    2.46,
     0.0,
-    -0.4
+    -1.96
+   ]
+  },
+  {
+   "id": "navigator_platform",
+   "name": "navigator platform",
+   "system": "habitat",
+   "mass_t": 0.10588502523836232,
+   "prov": "ENGINEERING_ASSUMPTION: allocated from original 0.4 t flight deck, mounts HOLD",
+   "mat": "equipment",
+   "dry": true,
+   "tags": [],
+   "shape": {
+    "k": "box",
+    "x0": 2.76,
+    "x1": 2.86,
+    "y0": -1.325,
+    "y1": 1.325,
+    "z0": 1.45,
+    "z1": 3.65
+   },
+   "volume_m3": 0.5830000000000005,
+   "centroid_m": [
+    2.8099999999999996,
+    0.0,
+    2.55
+   ]
+  },
+  {
+   "id": "i4_seat_PILOT",
+   "name": "I4 station hardware surrogate PILOT",
+   "system": "habitat",
+   "mass_t": 0.05294251261918116,
+   "prov": "ENGINEERING_ASSUMPTION: redistributed existing L1 room outfitting; nonqualified seat proxy",
+   "mat": "equipment",
+   "dry": true,
+   "tags": [
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 2.31,
+    "x1": 2.5100000000000002,
+    "y0": -1.33,
+    "y1": -0.63,
+    "z0": -2.35,
+    "z1": -1.65
+   },
+   "volume_m3": 0.09800000000000011,
+   "centroid_m": [
+    2.41,
+    -0.98,
+    -2.0
+   ]
+  },
+  {
+   "id": "i4_seat_NAV",
+   "name": "I4 station hardware surrogate NAV",
+   "system": "habitat",
+   "mass_t": 0.05294251261918116,
+   "prov": "ENGINEERING_ASSUMPTION: redistributed existing L1 room outfitting; nonqualified seat proxy",
+   "mat": "equipment",
+   "dry": true,
+   "tags": [
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 2.6599999999999997,
+    "x1": 2.86,
+    "y0": -0.35,
+    "y1": 0.35,
+    "z0": 2.15,
+    "z1": 2.85
+   },
+   "volume_m3": 0.09800000000000011,
+   "centroid_m": [
+    2.76,
+    0.0,
+    2.5
+   ]
+  },
+  {
+   "id": "i4_seat_S1",
+   "name": "I4 station hardware surrogate S1",
+   "system": "habitat",
+   "mass_t": 0.05294251261918116,
+   "prov": "ENGINEERING_ASSUMPTION: redistributed existing L1 room outfitting; nonqualified seat proxy",
+   "mat": "equipment",
+   "dry": true,
+   "tags": [
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 2.31,
+    "x1": 2.5100000000000002,
+    "y0": 0.63,
+    "y1": 1.33,
+    "z0": -2.35,
+    "z1": -1.65
+   },
+   "volume_m3": 0.09800000000000011,
+   "centroid_m": [
+    2.41,
+    0.98,
+    -2.0
+   ]
+  },
+  {
+   "id": "i4_seat_S2",
+   "name": "I4 station hardware surrogate S2",
+   "system": "habitat",
+   "mass_t": 0.05294251261918116,
+   "prov": "ENGINEERING_ASSUMPTION: redistributed existing L1 room outfitting; nonqualified seat proxy",
+   "mat": "equipment",
+   "dry": true,
+   "tags": [
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 2.85,
+    "x1": 3.0500000000000003,
+    "y0": -3.2,
+    "y1": -2.5,
+    "z0": -1.0499999999999998,
+    "z1": -0.35
+   },
+   "volume_m3": 0.09800000000000009,
+   "centroid_m": [
+    2.95,
+    -2.85,
+    -0.7
+   ]
+  },
+  {
+   "id": "i4_seat_S3",
+   "name": "I4 station hardware surrogate S3",
+   "system": "habitat",
+   "mass_t": 0.05294251261918116,
+   "prov": "ENGINEERING_ASSUMPTION: redistributed existing L1 room outfitting; nonqualified seat proxy",
+   "mat": "equipment",
+   "dry": true,
+   "tags": [
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 2.85,
+    "x1": 3.0500000000000003,
+    "y0": 2.5,
+    "y1": 3.2,
+    "z0": -1.0499999999999998,
+    "z1": -0.35
+   },
+   "volume_m3": 0.09800000000000009,
+   "centroid_m": [
+    2.95,
+    2.85,
+    -0.7
+   ]
+  },
+  {
+   "id": "i4_seat_S4",
+   "name": "I4 station hardware surrogate S4",
+   "system": "habitat",
+   "mass_t": 0.05294251261918116,
+   "prov": "ENGINEERING_ASSUMPTION: redistributed existing L1 room outfitting; nonqualified seat proxy",
+   "mat": "equipment",
+   "dry": true,
+   "tags": [
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 2.85,
+    "x1": 3.0500000000000003,
+    "y0": 2.05,
+    "y1": 2.75,
+    "z0": -2.05,
+    "z1": -1.35
+   },
+   "volume_m3": 0.09800000000000007,
+   "centroid_m": [
+    2.95,
+    2.4,
+    -1.7
+   ]
+  },
+  {
+   "id": "i4_mission_table",
+   "name": "mission_table",
+   "system": "habitat",
+   "mass_t": 0.08470802019068986,
+   "prov": "ENGINEERING_ASSUMPTION: redistributed L1 room outfitting; low-g visual mass proxy",
+   "mat": "equipment",
+   "dry": true,
+   "tags": [
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 2.86,
+    "x1": 2.98,
+    "y0": 0.2,
+    "y1": 0.6000000000000001,
+    "z0": -3.6500000000000004,
+    "z1": -3.25
+   },
+   "volume_m3": 0.019200000000000036,
+   "centroid_m": [
+    2.92,
+    0.4,
+    -3.45
+   ]
+  },
+  {
+   "id": "i4_workbench",
+   "name": "workbench",
+   "system": "habitat",
+   "mass_t": 0.08470802019068986,
+   "prov": "ENGINEERING_ASSUMPTION: redistributed L1 room outfitting; low-g visual mass proxy",
+   "mat": "equipment",
+   "dry": true,
+   "tags": [
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 2.86,
+    "x1": 2.98,
+    "y0": -2.6500000000000004,
+    "y1": -2.25,
+    "z0": -2.3800000000000003,
+    "z1": -1.9800000000000002
+   },
+   "volume_m3": 0.01920000000000004,
+   "centroid_m": [
+    2.92,
+    -2.45,
+    -2.18
+   ]
+  },
+  {
+   "id": "i4_cabinetry",
+   "name": "cabinetry",
+   "system": "habitat",
+   "mass_t": 0.04235401009534493,
+   "prov": "ENGINEERING_ASSUMPTION: redistributed L1 room outfitting; low-g visual mass proxy",
+   "mat": "equipment",
+   "dry": true,
+   "tags": [
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 2.86,
+    "x1": 2.98,
+    "y0": -3.6500000000000004,
+    "y1": -3.25,
+    "z0": 0.9000000000000001,
+    "z1": 1.3
+   },
+   "volume_m3": 0.01920000000000003,
+   "centroid_m": [
+    2.92,
+    -3.45,
+    1.1
    ]
   },
   {
    "id": "room_L1-command",
    "name": "Command and navigation",
    "system": "habitat",
-   "mass_t": 2.7530106561974206,
+   "mass_t": 2.2235855300056087,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_command",
    "dry": true,
@@ -5952,11 +6479,11 @@
    ]
   },
   {
-   "id": "flight_deck_column_0",
-   "name": "Flight-deck column",
+   "id": "i4_terrace_column_0",
+   "name": "I4 terrace column (nominal; load path HOLD)",
    "system": "habitat",
    "mass_t": 0.004209770990984191,
-   "prov": "CLAUDE_DESIGN v0.5.6: four tubular columns at the deck corners carry the flight deck to the L1 floor in compression under thrust; all four sit inside the deck footprint, which the walkway check already treats as blocked, and outside the trunk opening (r 0.9 m)",
+   "prov": "Original Rev7 hardware allowance conserved; column size/loading must be requalified for revised height",
    "mat": "frame",
    "dry": true,
    "tags": [
@@ -5965,30 +6492,30 @@
    "shape": {
     "k": "tube",
     "p0": [
-     1.325,
-     0.8,
-     -1.5
+     2.51,
+     -1.65,
+     -2.9
     ],
     "p1": [
      3.0,
-     0.8,
-     -1.5
+     -1.65,
+     -2.9
     ],
     "r": 0.038
    },
-   "volume_m3": 0.0075985701512376325,
+   "volume_m3": 0.002222865297973995,
    "centroid_m": [
-    2.1625,
-    0.8,
-    -1.5
+    2.755,
+    -1.65,
+    -2.9
    ]
   },
   {
-   "id": "flight_deck_column_1",
-   "name": "Flight-deck column",
+   "id": "i4_terrace_column_1",
+   "name": "I4 terrace column (nominal; load path HOLD)",
    "system": "habitat",
    "mass_t": 0.004209770990984191,
-   "prov": "CLAUDE_DESIGN v0.5.6: four tubular columns at the deck corners carry the flight deck to the L1 floor in compression under thrust; all four sit inside the deck footprint, which the walkway check already treats as blocked, and outside the trunk opening (r 0.9 m)",
+   "prov": "Original Rev7 hardware allowance conserved; column size/loading must be requalified for revised height",
    "mat": "frame",
    "dry": true,
    "tags": [
@@ -5997,30 +6524,30 @@
    "shape": {
     "k": "tube",
     "p0": [
-     1.325,
-     -0.8,
-     -1.5
+     2.51,
+     1.65,
+     -2.9
     ],
     "p1": [
      3.0,
-     -0.8,
-     -1.5
+     1.65,
+     -2.9
     ],
     "r": 0.038
    },
-   "volume_m3": 0.0075985701512376325,
+   "volume_m3": 0.002222865297973995,
    "centroid_m": [
-    2.1625,
-    -0.8,
-    -1.5
+    2.755,
+    1.65,
+    -2.9
    ]
   },
   {
-   "id": "flight_deck_column_2",
-   "name": "Flight-deck column",
+   "id": "i4_terrace_column_2",
+   "name": "I4 terrace column (nominal; load path HOLD)",
    "system": "habitat",
    "mass_t": 0.004209770990984191,
-   "prov": "CLAUDE_DESIGN v0.5.6: four tubular columns at the deck corners carry the flight deck to the L1 floor in compression under thrust; all four sit inside the deck footprint, which the walkway check already treats as blocked, and outside the trunk opening (r 0.9 m)",
+   "prov": "Original Rev7 hardware allowance conserved; column size/loading must be requalified for revised height",
    "mat": "frame",
    "dry": true,
    "tags": [
@@ -6029,30 +6556,30 @@
    "shape": {
     "k": "tube",
     "p0": [
-     1.325,
-     0.8,
-     0.7
+     2.51,
+     -1.65,
+     -1.0
     ],
     "p1": [
      3.0,
-     0.8,
-     0.7
+     -1.65,
+     -1.0
     ],
     "r": 0.038
    },
-   "volume_m3": 0.0075985701512376325,
+   "volume_m3": 0.002222865297973995,
    "centroid_m": [
-    2.1625,
-    0.8,
-    0.7
+    2.755,
+    -1.65,
+    -1.0
    ]
   },
   {
-   "id": "flight_deck_column_3",
-   "name": "Flight-deck column",
+   "id": "i4_terrace_column_3",
+   "name": "I4 terrace column (nominal; load path HOLD)",
    "system": "habitat",
    "mass_t": 0.004209770990984191,
-   "prov": "CLAUDE_DESIGN v0.5.6: four tubular columns at the deck corners carry the flight deck to the L1 floor in compression under thrust; all four sit inside the deck footprint, which the walkway check already treats as blocked, and outside the trunk opening (r 0.9 m)",
+   "prov": "Original Rev7 hardware allowance conserved; column size/loading must be requalified for revised height",
    "mat": "frame",
    "dry": true,
    "tags": [
@@ -6061,22 +6588,22 @@
    "shape": {
     "k": "tube",
     "p0": [
-     1.325,
-     -0.8,
-     0.7
+     2.51,
+     1.65,
+     -1.0
     ],
     "p1": [
      3.0,
-     -0.8,
-     0.7
+     1.65,
+     -1.0
     ],
     "r": 0.038
    },
-   "volume_m3": 0.0075985701512376325,
+   "volume_m3": 0.002222865297973995,
    "centroid_m": [
-    2.1625,
-    -0.8,
-    0.7
+    2.755,
+    1.65,
+    -1.0
    ]
   },
   {
@@ -14527,51 +15054,51 @@
    "payload_t": 0,
    "mass_t": 1167.681453466738,
    "cg_m": [
-    24.39960789186934,
-    0.02475530253113339,
-    -0.3564030123128854
+    24.400485908248697,
+    0.024564931284559256,
+    -0.3571403252830638
    ],
    "inertia_kg_m2": [
     [
-     12445595.224512419,
-     120527.35252285143,
-     1310015.518664771
+     12447954.111657089,
+     115750.06685606332,
+     1291109.0340141507
     ],
     [
-     120527.35252285143,
-     191668540.8980292,
-     4090.419007734148
+     115750.06685606332,
+     191624374.30637255,
+     4173.95987371145
     ],
     [
-     1310015.518664771,
-     4090.419007734148,
-     192492153.48551634
+     1291109.0340141507,
+     4173.95987371145,
+     192446910.59211847
     ]
    ],
    "principal_kg_m2": [
-    12435983.073781997,
-    191668592.2877715,
-    192501714.2465045
+    12438618.90192255,
+    191624418.93014508,
+    192456201.1780804
    ],
    "principal_axes": [
     [
-     0.9999733080569649,
-     -0.0006722793983259082,
-     -0.007275384114990449
+     0.9999740702194557,
+     -0.000645794130796787,
+     -0.0071722966109833974
     ],
     [
-     0.0006288719727466507,
-     0.999981999641182,
-     -0.005966985307935387
+     0.000602616114364602,
+     0.9999816942025833,
+     -0.006020640626201179
     ],
     [
-     0.007279264636758478,
-     0.005962250752342573,
-     0.999955730956283
+     0.007176053410754661,
+     0.006016162370796224,
+     0.999956154062654
     ]
    ],
-   "trim_deg": 0.32270531630983124,
-   "lateral_offset_m": 0.15714421103388387,
+   "trim_deg": 0.3242604793532811,
+   "lateral_offset_m": 0.1578965584688832,
    "usable_remass_t": 250.0,
    "water_t": 300.0,
    "parts": [
@@ -14585,7 +15112,17 @@
     "core_trunk",
     "core_racks",
     "bow_sensors",
-    "flight_deck",
+    "command_terrace",
+    "navigator_platform",
+    "i4_seat_PILOT",
+    "i4_seat_NAV",
+    "i4_seat_S1",
+    "i4_seat_S2",
+    "i4_seat_S3",
+    "i4_seat_S4",
+    "i4_mission_table",
+    "i4_workbench",
+    "i4_cabinetry",
     "room_L1-command",
     "room_L2-galley",
     "room_L2-wardroom",
@@ -14631,10 +15168,10 @@
     "window_L3-CB_19",
     "window_L3-CB_20",
     "window_L3-CB_21",
-    "flight_deck_column_0",
-    "flight_deck_column_1",
-    "flight_deck_column_2",
-    "flight_deck_column_3",
+    "i4_terrace_column_0",
+    "i4_terrace_column_1",
+    "i4_terrace_column_2",
+    "i4_terrace_column_3",
     "hatch_L4L5_0",
     "hatch_L4L5_180",
     "trunk_plug_L4L5",
@@ -14800,50 +15337,50 @@
    ],
    "fins_deployed": {
     "cg_m": [
-     24.39960789186934,
-     0.02475530253113338,
-     -0.3564030123128854
+     24.400485908248697,
+     0.024564931284559242,
+     -0.3571403252830638
     ],
     "inertia_kg_m2": [
      [
-      18972997.619330302,
-      122966.96158785617,
-      1306114.1939705114
+      18975356.506474968,
+      118189.67592106725,
+      1287207.7093198907
      ],
      [
-      122966.96158785617,
-      194369623.63552862,
-      6958.829313545619
+      118189.67592106725,
+      194325457.04387197,
+      7042.370179523066
      ],
      [
-      1306114.1939705114,
-      6958.829313545619,
-      196326947.86422506
+      1287207.7093198907,
+      7042.370179523066,
+      196281704.97082716
      ]
     ],
     "principal_kg_m2": [
-     18963293.200719085,
-     194369678.32086465,
-     196336597.5975003
+     18965932.55011815,
+     194325504.87563527,
+     196291081.09542066
     ],
     "principal_axes": [
      [
-      0.9999726412109781,
-      -0.0007007291668109146,
-      -0.007363817500148254
+      0.9999734248130059,
+      -0.0006736753652824489,
+      -0.007259189297019135
      ],
      [
-      0.0006712622628553283,
-      0.9999917615047019,
-      -0.004003289859325653
+      0.000644475414088958,
+      0.9999916957226734,
+      -0.0040240697226434485
      ],
      [
-      0.007366562055340032,
-      0.003998237281364595,
-      0.9999648733141215
+      0.00726183993133837,
+      0.004019284413209945,
+      0.999965554923577
      ]
     ],
-    "trim_deg": 0.32270531630983124
+    "trim_deg": 0.3242604793532811
    }
   },
   "S2": {
@@ -14853,51 +15390,51 @@
    "payload_t": 50,
    "mass_t": 1217.681453466738,
    "cg_m": [
-    24.03417537803199,
-    0.023738809159215182,
-    -0.3417685193879005
+    24.035017341617046,
+    0.02355625486862868,
+    -0.3424755570768024
    ],
    "inertia_kg_m2": [
     [
-     13014490.285759868,
-     109796.19810104254,
-     1461855.1562807735
+     13016873.94782512,
+     105099.1113756334,
+     1443278.3244973863
     ],
     [
-     109796.19810104254,
-     195612510.6368424,
-     3901.8309535725784
+     105099.1113756334,
+     195569118.62182716,
+     3982.9870912081824
     ],
     [
-     1461855.1562807735,
-     3901.8309535725784,
-     196787412.4734573
+     1443278.3244973863,
+     3982.9870912081824,
+     196742918.48141795
     ]
    ],
    "principal_kg_m2": [
-    13002796.453848967,
-    195612557.3944564,
-    196799059.5477542
+    13005476.365912154,
+    195569159.57644203,
+    196754275.10871592
    ],
    "principal_axes": [
     [
-     0.9999681865073984,
-     -0.000601072397645735,
-     -0.00795391004963258
+     0.9999689845350167,
+     -0.0005754955004152436,
+     -0.007854856646454375
     ],
     [
-     0.0005690381446461491,
-     0.9999917210978329,
-     -0.004029135314686587
+     0.000543603004450425,
+     0.9999916032751784,
+     -0.00406175761359267
     ],
     [
-     0.007956266002013471,
-     0.004024481055602737,
-     0.999960249901734
+     0.007857128214615003,
+     0.004057361712619095,
+     0.9999609009117066
     ]
    ],
-   "trim_deg": 0.28925134340463504,
-   "lateral_offset_m": 0.14269807082437352,
+   "trim_deg": 0.2907260591401774,
+   "lateral_offset_m": 0.14342134122330139,
    "usable_remass_t": 250.0,
    "water_t": 300.0,
    "parts": [
@@ -14911,7 +15448,17 @@
     "core_trunk",
     "core_racks",
     "bow_sensors",
-    "flight_deck",
+    "command_terrace",
+    "navigator_platform",
+    "i4_seat_PILOT",
+    "i4_seat_NAV",
+    "i4_seat_S1",
+    "i4_seat_S2",
+    "i4_seat_S3",
+    "i4_seat_S4",
+    "i4_mission_table",
+    "i4_workbench",
+    "i4_cabinetry",
     "room_L1-command",
     "room_L2-galley",
     "room_L2-wardroom",
@@ -14957,10 +15504,10 @@
     "window_L3-CB_19",
     "window_L3-CB_20",
     "window_L3-CB_21",
-    "flight_deck_column_0",
-    "flight_deck_column_1",
-    "flight_deck_column_2",
-    "flight_deck_column_3",
+    "i4_terrace_column_0",
+    "i4_terrace_column_1",
+    "i4_terrace_column_2",
+    "i4_terrace_column_3",
     "hatch_L4L5_0",
     "hatch_L4L5_180",
     "trunk_plug_L4L5",
@@ -15128,50 +15675,50 @@
    ],
    "fins_deployed": {
     "cg_m": [
-     24.03417537803199,
-     0.023738809159215172,
-     -0.3417685193879005
+     24.035017341617046,
+     0.023556254868628668,
+     -0.3424755570768024
     ],
     "inertia_kg_m2": [
      [
-      19541892.680577755,
-      112235.8071660474,
-      1457953.831586514
+      19544276.34264301,
+      107538.72044063779,
+      1439376.9998031266
      ],
      [
-      112235.8071660474,
-      198313593.3743418,
-      6770.241259384107
+      107538.72044063779,
+      198270201.35932654,
+      6851.397397019347
      ],
      [
-      1457953.831586514,
-      6770.241259384107,
-      200622206.85216603
+      1439376.9998031266,
+      6851.397397019347,
+      200577712.86012667
      ]
     ],
     "principal_kg_m2": [
-     19530084.455596905,
-     198313638.38250983,
-     200633970.0689789
+     19532768.105489925,
+     198270240.38250566,
+     200589182.07410067
     ],
     "principal_axes": [
      [
-      0.9999673964614684,
-      -0.000627449522973774,
-      -0.008050609987374575
+      0.9999682165735098,
+      -0.0006013335638561604,
+      -0.007950109479702722
      ],
      [
-      0.0006008013611161226,
-      0.9999943345942275,
-      -0.003312071432307034
+      0.0005748919025295985,
+      0.9999942975525712,
+      -0.003327816347132882
      ],
      [
-      0.008052642535042535,
-      0.003307126629620241,
-      0.9999621082129355
+      0.00795206527228524,
+      0.0033231401241625353,
+      0.9999628600091208
      ]
     ],
-    "trim_deg": 0.28925134340463504
+    "trim_deg": 0.2907260591401774
    }
   },
   "S3": {
@@ -15181,51 +15728,51 @@
    "payload_t": 0,
    "mass_t": 1067.681453466738,
    "cg_m": [
-    24.443844283230803,
-    0.027057090758036452,
-    -0.2777142038169381
+    24.444804535409663,
+    0.026848889170216245,
+    -0.2785205741794487
    ],
    "inertia_kg_m2": [
     [
-     11327533.994345289,
-     117804.93128493399,
-     1353469.788825285
+     11330029.335151331,
+     113020.15379199915,
+     1334605.82338459
     ],
     [
-     117804.93128493399,
-     190067072.4273134,
-     4746.915419495992
+     113020.15379199915,
+     190022950.4794874,
+     4810.997950259738
     ],
     [
-     1353469.788825285,
-     4746.915419495992,
-     190579129.7690711
+     1334605.82338459,
+     4810.997950259738,
+     190533797.10460037
     ]
    ],
    "principal_kg_m2": [
-    11317237.384535694,
-    190067089.1891091,
-    190589409.61708507
+    11320019.085529732,
+    190022960.55716154,
+    190543797.27654785
    ],
    "principal_axes": [
     [
-     0.9999712812882013,
-     -0.0006588295242730299,
-     -0.007550002813971374
+     0.9999720724900653,
+     -0.0006322287570415955,
+     -0.007446779620900933
     ],
     [
-     0.0005772977203735467,
-     0.9999415547800701,
-     -0.010796006268906158
+     0.0005513512998127381,
+     0.9999409005722034,
+     -0.010857779450468095
     ],
     [
-     0.007556674280070632,
-     0.010791337622100224,
-     0.9999132180875253
+     0.007453204120892611,
+     0.010853370428101222,
+     0.9999133232929155
     ]
    ],
-   "trim_deg": 0.16204727730268736,
-   "lateral_offset_m": 0.07878462016501885,
+   "trim_deg": 0.16375937307347083,
+   "lateral_offset_m": 0.07961427187086213,
    "usable_remass_t": 150.0,
    "water_t": 200.0,
    "parts": [
@@ -15239,7 +15786,17 @@
     "core_trunk",
     "core_racks",
     "bow_sensors",
-    "flight_deck",
+    "command_terrace",
+    "navigator_platform",
+    "i4_seat_PILOT",
+    "i4_seat_NAV",
+    "i4_seat_S1",
+    "i4_seat_S2",
+    "i4_seat_S3",
+    "i4_seat_S4",
+    "i4_mission_table",
+    "i4_workbench",
+    "i4_cabinetry",
     "room_L1-command",
     "room_L2-galley",
     "room_L2-wardroom",
@@ -15285,10 +15842,10 @@
     "window_L3-CB_19",
     "window_L3-CB_20",
     "window_L3-CB_21",
-    "flight_deck_column_0",
-    "flight_deck_column_1",
-    "flight_deck_column_2",
-    "flight_deck_column_3",
+    "i4_terrace_column_0",
+    "i4_terrace_column_1",
+    "i4_terrace_column_2",
+    "i4_terrace_column_3",
     "hatch_L4L5_0",
     "hatch_L4L5_180",
     "trunk_plug_L4L5",
@@ -15454,50 +16011,50 @@
    ],
    "fins_deployed": {
     "cg_m": [
-     24.443844283230803,
-     0.027057090758036438,
-     -0.2777142038169381
+     24.444804535409663,
+     0.02684888917021623,
+     -0.2785205741794487
     ],
     "inertia_kg_m2": [
      [
-      17854936.389163177,
-      120244.54034993827,
-      1349568.4641310256
+      17857431.729969222,
+      115459.76285700337,
+      1330704.4986903295
      ],
      [
-      120244.54034993827,
-      192768155.16481277,
-      7615.325725307732
+      115459.76285700337,
+      192724033.2169868,
+      7679.408256071034
      ],
      [
-      1349568.4641310256,
-      7615.325725307732,
-      194413924.14777982
+      1330704.4986903295,
+      7679.408256071034,
+      194368591.4833091
      ]
     ],
     "principal_kg_m2": [
-     17844538.688038096,
-     192768193.7583266,
-     194424283.255391
+     17847324.068037286,
+     192724065.18892002,
+     194378667.1733078
     ],
     "principal_axes": [
      [
-      0.999970555657918,
-      -0.000687058545555142,
-      -0.007643020852357483
+      0.999971369264197,
+      -0.0006598851229224994,
+      -0.007538249366488443
      ],
      [
-      0.0006476429155523595,
-      0.9999864858751291,
-      -0.00515835494746767
+      0.0006209058619428864,
+      0.9999864321761824,
+      -0.00517203436377946
      ],
      [
-      0.007646461655466957,
-      0.005153253114791569,
-      0.9999574868995614
+      0.007541560037381047,
+      0.005167205741409588,
+      0.9999582115553771
      ]
     ],
-    "trim_deg": 0.16204727730268736
+    "trim_deg": 0.16375937307347083
    }
   },
   "S4": {
@@ -15507,51 +16064,51 @@
    "payload_t": 0,
    "mass_t": 917.681453466738,
    "cg_m": [
-    24.099446414424502,
-    0.031450372455420456,
-    -0.12752571205489358
+    24.100563625018815,
+    0.031208139191297918,
+    -0.12846388801717915
    ],
    "inertia_kg_m2": [
     [
-     9618870.098852668,
-     105325.38212186877,
-     1016056.4915302914
+     9621625.880374331,
+     100621.63114789133,
+     997642.8789249965
     ],
     [
-     105325.38212186877,
-     186824372.8947699,
-     6654.409344374992
+     100621.63114789133,
+     186781215.4644255,
+     6681.352946823822
     ],
     [
-     1016056.4915302914,
-     6654.409344374992,
-     186900615.4340432
+     997642.8789249965,
+     6681.352946823822,
+     186855990.73759106
     ]
    ],
    "principal_kg_m2": [
-    9612984.403605899,
-    186823798.01919815,
-    186907076.00486174
+    9615953.275334688,
+    186780623.93411413,
+    186862254.8729421
    ],
    "principal_axes": [
     [
-     0.9999834011818358,
-     -0.0005941237654744202,
-     -0.005731001462116503
+     0.9999839978303995,
+     -0.0005677321428946879,
+     -0.005628655554014239
     ],
     [
-     9.043959480314847e-05,
-     0.9961653615129688,
-     -0.08749036714070893
+     6.372478814665955e-05,
+     0.9960189478328045,
+     -0.08914174946221437
     ],
     [
-     0.005761005249709016,
-     0.08748839659456357,
-     0.9961488800775842
+     0.005656856219066099,
+     0.08913996431593825,
+     0.9960030455472866
     ]
    ],
-   "trim_deg": 0.14826855579237597,
-   "lateral_offset_m": 0.07297683566928098,
+   "trim_deg": 0.14644076927949745,
+   "lateral_offset_m": 0.07207435143029929,
    "usable_remass_t": 0.0,
    "water_t": 50.0,
    "parts": [
@@ -15565,7 +16122,17 @@
     "core_trunk",
     "core_racks",
     "bow_sensors",
-    "flight_deck",
+    "command_terrace",
+    "navigator_platform",
+    "i4_seat_PILOT",
+    "i4_seat_NAV",
+    "i4_seat_S1",
+    "i4_seat_S2",
+    "i4_seat_S3",
+    "i4_seat_S4",
+    "i4_mission_table",
+    "i4_workbench",
+    "i4_cabinetry",
     "room_L1-command",
     "room_L2-galley",
     "room_L2-wardroom",
@@ -15611,10 +16178,10 @@
     "window_L3-CB_19",
     "window_L3-CB_20",
     "window_L3-CB_21",
-    "flight_deck_column_0",
-    "flight_deck_column_1",
-    "flight_deck_column_2",
-    "flight_deck_column_3",
+    "i4_terrace_column_0",
+    "i4_terrace_column_1",
+    "i4_terrace_column_2",
+    "i4_terrace_column_3",
     "hatch_L4L5_0",
     "hatch_L4L5_180",
     "trunk_plug_L4L5",
@@ -15780,50 +16347,50 @@
    ],
    "fins_deployed": {
     "cg_m": [
-     24.099446414424502,
-     0.03145037245542044,
-     -0.12752571205489358
+     24.100563625018815,
+     0.031208139191297904,
+     -0.12846388801717915
     ],
     "inertia_kg_m2": [
      [
-      16146272.493670555,
-      107764.99118687326,
-      1012155.1668360316
+      16149028.275192216,
+      103061.24021289575,
+      993741.5542307367
      ],
      [
-      107764.99118687326,
-      189525455.63226932,
-      9522.819650186339
+      103061.24021289575,
+      189482298.20192492,
+      9549.763252635348
      ],
      [
-      1012155.1668360316,
-      9522.819650186339,
-      190735409.81275195
+      993741.5542307367,
+      9549.763252635348,
+      190690785.11629972
      ]
     ],
     "principal_kg_m2": [
-     16140337.95938963,
-     189525437.851315,
-     190741362.12798727
+     16143309.449055456,
+     189482274.78965062,
+     190696527.3547108
     ],
     "principal_axes": [
      [
-      0.9999830041558463,
-      -0.0006212061591145445,
-      -0.00579702530240735
+      0.9999836175010304,
+      -0.0005942409975359538,
+      -0.005693119284716936
      ],
      [
-      0.000572793880816091,
-      0.9999649811505705,
-      -0.008349154430796433
+      0.0005466839152390981,
+      0.9999649774393256,
+      -0.008351349080595696
      ],
      [
-      0.005802008843406956,
-      0.008345692029248758,
-      0.9999483417246783
+      0.005697882611109784,
+      0.008348099927887495,
+      0.999948920376108
      ]
     ],
-    "trim_deg": 0.14826855579237597
+    "trim_deg": 0.14644076927949748
    }
   },
   "S5": {
@@ -15833,51 +16400,51 @@
    "payload_t": 0,
    "mass_t": 888.139531425235,
    "cg_m": [
-    24.064502161829765,
-    0.032496496874365406,
-    -0.13176756202385867
+    24.065656533869003,
+    0.03224620627696205,
+    -0.1327369442551576
    ],
    "inertia_kg_m2": [
     [
-     9565020.6353327,
-     104048.04600223669,
-     1017392.7643727075
+     9567769.549275255,
+     99353.12716156158,
+     999004.8559828069
     ],
     [
-     104048.04600223669,
-     186357383.77484006,
-     6722.93652427195
+     99353.12716156158,
+     186314290.6282476,
+     6749.929339753492
     ],
     [
-     1017392.7643727075,
-     6722.93652427195,
-     186434330.99322486
+     999004.8559828069,
+     6749.929339753492,
+     186389778.37470567
     ]
    ],
    "principal_kg_m2": [
-    9559107.366792312,
-    186356802.11070615,
-    186440825.9258991
+    9562069.772975668,
+    186313692.41753986,
+    186396076.361713
    ],
    "principal_axes": [
     [
-     0.9999832845401209,
-     -0.000588284224959627,
-     -0.005751918116784973
+     0.9999838836923947,
+     -0.0005618791767984557,
+     -0.005649482035185603
     ],
     [
-     8.290571136801193e-05,
-     0.9961670778667612,
-     -0.08747083000087026
+     5.6273390510502077e-05,
+     0.9960226356685534,
+     -0.0891005391070877
     ],
     [
-     0.005781329171960208,
-     0.08746889101885758,
-     0.9961504752480603
+     0.0056770757244134955,
+     0.08909878521988294,
+     0.9960066150802215
     ]
    ],
-   "trim_deg": 0.1392924254000978,
-   "lateral_offset_m": 0.06864377722215169,
+   "trim_deg": 0.1374001643640333,
+   "lateral_offset_m": 0.06770849271127814,
    "usable_remass_t": 0.0,
    "water_t": 50.0,
    "parts": [
@@ -15891,7 +16458,17 @@
     "core_trunk",
     "core_racks",
     "bow_sensors",
-    "flight_deck",
+    "command_terrace",
+    "navigator_platform",
+    "i4_seat_PILOT",
+    "i4_seat_NAV",
+    "i4_seat_S1",
+    "i4_seat_S2",
+    "i4_seat_S3",
+    "i4_seat_S4",
+    "i4_mission_table",
+    "i4_workbench",
+    "i4_cabinetry",
     "room_L1-command",
     "room_L2-galley",
     "room_L2-wardroom",
@@ -15937,10 +16514,10 @@
     "window_L3-CB_19",
     "window_L3-CB_20",
     "window_L3-CB_21",
-    "flight_deck_column_0",
-    "flight_deck_column_1",
-    "flight_deck_column_2",
-    "flight_deck_column_3",
+    "i4_terrace_column_0",
+    "i4_terrace_column_1",
+    "i4_terrace_column_2",
+    "i4_terrace_column_3",
     "hatch_L4L5_0",
     "hatch_L4L5_180",
     "trunk_plug_L4L5",
@@ -16105,50 +16682,50 @@
    ],
    "fins_deployed": {
     "cg_m": [
-     24.064502161829765,
-     0.03249649687436539,
-     -0.13176756202385867
+     24.065656533869003,
+     0.03224620627696203,
+     -0.1327369442551576
     ],
     "inertia_kg_m2": [
      [
-      16092423.030150587,
-      106487.65506724153,
-      1013491.4396784479
+      16095171.944093138,
+      101792.73622656577,
+      995103.5312885471
      ],
      [
-      106487.65506724153,
-      189058466.51233947,
-      9591.346830083512
+      101792.73622656577,
+      189015373.365747,
+      9618.339645564847
      ],
      [
-      1013491.4396784479,
-      9591.346830083512,
-      190269125.37193358
+      995103.5312885471,
+      9618.339645564847,
+      190224572.7534144
      ]
     ],
     "principal_kg_m2": [
-     16086460.48547492,
-     189058446.29948083,
-     190275108.1294679
+     16089425.52238907,
+     189015347.58563846,
+     190230344.95522696
     ],
     "principal_axes": [
      [
-      0.999982883540069,
-      -0.0006153017218952394,
-      -0.005818421665691969
+      0.9999834995020401,
+      -0.000588321441928024,
+      -0.005714420489806327
      ],
      [
-      0.0005664370796760721,
-      0.9999645909781566,
-      -0.008396185974744784
+      0.0005403169948206933,
+      0.9999645860485796,
+      -0.008398494283969635
      ],
      [
-      0.005823381828759728,
-      0.008392746491987334,
-      0.9999478236540132
+      0.0057191591338638745,
+      0.008395268106125644,
+      0.999948404015041
      ]
     ],
-    "trim_deg": 0.1392924254000978
+    "trim_deg": 0.1374001643640333
    }
   },
   "S6": {
@@ -16158,51 +16735,51 @@
    "payload_t": 0,
    "mass_t": 1138.139531425235,
    "cg_m": [
-    24.380130468805763,
-    0.025397859262795964,
-    -0.3656539255044512
+    24.381031275265524,
+    0.025202546677862203,
+    -0.36641037641130936
    ],
    "inertia_kg_m2": [
     [
-     12388403.886804137,
-     119695.53689336893,
-     1315368.16160576
+     12390747.112959323,
+     114923.23463187797,
+     1296468.941918749
     ],
     [
-     119695.53689336893,
-     191214820.6274258,
-     4013.962273366902
+     114923.23463187797,
+     191170678.00504196,
+     4099.0105994923
     ],
     [
-     1315368.16160576,
-     4013.962273366902,
-     192042503.00560763
+     1296468.941918749,
+     4099.0105994923,
+     191997300.31161833
     ]
    ],
    "principal_kg_m2": [
-    12378693.641489249,
-    191214872.13465565,
-    192052161.74369264
+    12381315.361658556,
+    191170722.7779712,
+    192006687.28998983
    ],
    "principal_axes": [
     [
-     0.9999729767976807,
-     -0.0006691203772706673,
-     -0.007321062238905495
+     0.9999737448669745,
+     -0.0006426031789501385,
+     -0.007217800071571112
     ],
     [
-     0.000626331940398568,
-     0.9999827199429381,
-     -0.005845299292926234
+     0.0006000222500800104,
+     0.9999824145364136,
+     -0.005900050103500377
     ],
     [
-     0.0073248469394003955,
-     0.005840555919102952,
-     0.9999561162990456
+     0.007221464534163254,
+     0.005895564356260482,
+     0.9999565454413022
     ]
    ],
-   "trim_deg": 0.34126094578719657,
-   "lateral_offset_m": 0.16629625837385326,
+   "trim_deg": 0.34285360138251325,
+   "lateral_offset_m": 0.16706698657177751,
    "usable_remass_t": 250.0,
    "water_t": 300.0,
    "parts": [
@@ -16216,7 +16793,17 @@
     "core_trunk",
     "core_racks",
     "bow_sensors",
-    "flight_deck",
+    "command_terrace",
+    "navigator_platform",
+    "i4_seat_PILOT",
+    "i4_seat_NAV",
+    "i4_seat_S1",
+    "i4_seat_S2",
+    "i4_seat_S3",
+    "i4_seat_S4",
+    "i4_mission_table",
+    "i4_workbench",
+    "i4_cabinetry",
     "room_L1-command",
     "room_L2-galley",
     "room_L2-wardroom",
@@ -16262,10 +16849,10 @@
     "window_L3-CB_19",
     "window_L3-CB_20",
     "window_L3-CB_21",
-    "flight_deck_column_0",
-    "flight_deck_column_1",
-    "flight_deck_column_2",
-    "flight_deck_column_3",
+    "i4_terrace_column_0",
+    "i4_terrace_column_1",
+    "i4_terrace_column_2",
+    "i4_terrace_column_3",
     "hatch_L4L5_0",
     "hatch_L4L5_180",
     "trunk_plug_L4L5",
@@ -16430,50 +17017,50 @@
    ],
    "fins_deployed": {
     "cg_m": [
-     24.380130468805763,
-     0.02539785926279595,
-     -0.3656539255044512
+     24.381031275265524,
+     0.02520254667786219,
+     -0.36641037641130936
     ],
     "inertia_kg_m2": [
      [
-      18915806.28162202,
-      122135.14595837344,
-      1311466.8369115004
+      18918149.507777207,
+      117362.84369688225,
+      1292567.6172244898
      ],
      [
-      122135.14595837344,
-      193915903.3649252,
-      6882.372579178329
+      117362.84369688225,
+      193871760.74254137,
+      6967.420905303683
      ],
      [
-      1311466.8369115004,
-      6882.372579178329,
-      195877297.38431635
+      1292567.6172244898,
+      6967.420905303683,
+      195832094.69032705
      ]
     ],
     "principal_kg_m2": [
-     18906002.33662617,
-     193915957.7583474,
-     195887046.93589005
+     18908627.609079376,
+     193871808.3124929,
+     195841569.0190734
     ],
     "principal_axes": [
      [
-      0.9999722994034977,
-      -0.0006975647636076605,
-      -0.007410386567656168
+      0.9999730891343344,
+      -0.0006704770392731116,
+      -0.007305577846858287
      ],
      [
-      0.000668263444657675,
-      0.999991952391036,
-      -0.003955828248626757
+      0.0006414330816129579,
+      0.9999918851703588,
+      -0.003977204675902507
      ],
      [
-      0.0074130863781599245,
-      0.003950766579370663,
-      0.9999647181744891
+      0.007308185187754312,
+      0.003972411606570476,
+      0.9999654045892236
      ]
     ],
-    "trim_deg": 0.34126094578719657
+    "trim_deg": 0.34285360138251325
    }
   },
   "S7": {
@@ -16485,51 +17072,51 @@
    "payload_t": 0,
    "mass_t": 1105.180763696023,
    "cg_m": [
-    24.527924826942527,
-    0.16338553054979055,
-    -0.3090045825150416
+    24.52885249730714,
+    0.16318439334110937,
+    -0.30978359234669894
    ],
    "inertia_kg_m2": [
     [
-     11718229.29237662,
-     488554.46380254463,
-     1435821.4869249645
+     11720731.389322244,
+     483890.77287706727,
+     1416853.0804148975
     ],
     [
-     488554.46380254463,
-     190934226.98970294,
-     46781.82508111345
+     483890.77287706727,
+     190889878.8140895,
+     46735.485643437954
     ],
     [
-     1435821.4869249645,
-     46781.82508111345,
-     191533386.18064633
+     1416853.0804148975,
+     46735.485643437954,
+     191487941.75480676
     ]
    ],
    "principal_kg_m2": [
-    11705435.393101284,
-    190931369.75676066,
-    191549037.312864
+    11708260.308317678,
+    190887009.30520487,
+    191503282.34469602
    ],
    "principal_axes": [
     [
-     0.9999644225859323,
-     -0.0027236896413268324,
-     -0.007983425149704005
+     0.999965310875944,
+     -0.0026984113209493127,
+     -0.00788007748184125
     ],
     [
-     0.002057066053490049,
-     0.9966012988742066,
-     -0.08235058932087816
+     0.002040639427887141,
+     0.9966039564522874,
+     -0.08231883001095633
     ],
     [
-     0.008180589320750453,
-     0.08233123706699712,
-     0.9965714451866375
+     0.008075446458382434,
+     0.08229989404604568,
+     0.9965748916185414
     ]
    ],
-   "trim_deg": 0.3396579897354437,
-   "lateral_offset_m": 0.16463896306261103,
+   "trim_deg": 0.34042563154243755,
+   "lateral_offset_m": 0.1650055511531758,
    "usable_remass_t": 187.5,
    "water_t": 237.49931022928496,
    "parts": [
@@ -16543,7 +17130,17 @@
     "core_trunk",
     "core_racks",
     "bow_sensors",
-    "flight_deck",
+    "command_terrace",
+    "navigator_platform",
+    "i4_seat_PILOT",
+    "i4_seat_NAV",
+    "i4_seat_S1",
+    "i4_seat_S2",
+    "i4_seat_S3",
+    "i4_seat_S4",
+    "i4_mission_table",
+    "i4_workbench",
+    "i4_cabinetry",
     "room_L1-command",
     "room_L2-galley",
     "room_L2-wardroom",
@@ -16589,10 +17186,10 @@
     "window_L3-CB_19",
     "window_L3-CB_20",
     "window_L3-CB_21",
-    "flight_deck_column_0",
-    "flight_deck_column_1",
-    "flight_deck_column_2",
-    "flight_deck_column_3",
+    "i4_terrace_column_0",
+    "i4_terrace_column_1",
+    "i4_terrace_column_2",
+    "i4_terrace_column_3",
     "hatch_L4L5_0",
     "hatch_L4L5_180",
     "trunk_plug_L4L5",
@@ -16757,50 +17354,50 @@
    ],
    "fins_deployed": {
     "cg_m": [
-     24.527924826942527,
-     0.16338553054979055,
-     -0.3090045825150416
+     24.52885249730714,
+     0.16318439334110935,
+     -0.30978359234669894
     ],
     "inertia_kg_m2": [
      [
-      18245631.687194504,
-      490994.07286754914,
-      1431920.1622307044
+      18248133.78414013,
+      486330.3819420721,
+      1412951.7557206375
      ],
      [
-      490994.07286754914,
-      193635309.72720233,
-      49650.23538692489
+      486330.3819420721,
+      193590961.55158892,
+      49603.89594924947
      ],
      [
-      1431920.1622307044,
-      49650.23538692489,
-      195368180.55935505
+      1412951.7557206375,
+      49603.89594924947,
+      195322736.13351548
      ]
     ],
     "principal_kg_m2": [
-     18232684.229396854,
-     193635034.07578465,
-     195381403.6685704
+     18235513.465855923,
+     193590667.32338107,
+     195335650.68000755
     ],
     "principal_axes": [
      [
-      0.999963423316387,
-      -0.0027968498518590305,
-      -0.008082676554108272
+      0.9999643374949505,
+      -0.002771041984924579,
+      -0.007977785695439834
      ],
      [
-      0.0025471647281514014,
-      0.9995242217312944,
-      -0.030738284342130818
+      0.0025250219135688817,
+      0.9995259225400107,
+      -0.030684758999809908
      ],
      [
-      0.008164801358259541,
-      0.03071657212900195,
-      0.9994947864873653
+      0.008059032362546768,
+      0.030663520620734394,
+      0.9994972738834865
      ]
     ],
-    "trim_deg": 0.3396579897354437
+    "trim_deg": 0.3404256315424375
    }
   }
  },
@@ -16811,7 +17408,7 @@
   },
   "armour_face": {
    "material": "Strata laminate (Builder-derived, MHL-22) over the whole habitat armour, x 0-14",
-   "status": "DECLARED: density, physical properties and appearance OPEN; naming the material implies no new shielding performance (the armour keeps its 105 t ledger line and the ray screens are unchanged)"
+   "status": "KT_ACCEPTED 2026-10-31 as visible armour face; materials constitutive/physical performance remain OPEN; no changed shielding/mass claim"
   },
   "bow": {
    "x_m": [
@@ -16846,7 +17443,17 @@
    "phase_deg": 11.25,
    "note": "panels 2 m x 22.5 deg; node faces (every 22.5 deg) sit mid-panel"
   },
-  "viewer_placeholder": "Strata appearance is Claude's placeholder (dark bronze-grey, fine layered grain) until kT sets it"
+  "viewer_placeholder": "Strata appearance is Claude's placeholder (dark bronze-grey, fine layered grain) until kT sets it",
+  "drone_deployed_crown_armour": {
+   "status": "OPTION_NOT_BASELINE",
+   "deployed_by": "drones",
+   "material": "Strata",
+   "purpose": "additional armoured over-crown protection",
+   "baseline_gore_doctrine": "unchanged; 16 closing armour-equivalent Strata gores",
+   "drone_bay": "HOLD",
+   "mass_t": null,
+   "engineering": "NOT MODELED; no actual deployment load path, attachment, clearance or navigation"
+  }
  },
  "node_faces": {
   "count": 208,
@@ -16860,7 +17467,7 @@
    "on_bay_door": 12,
    "on_torch_chain": 80
   },
-  "status": "HOLD: placement against PR #184 OPEN; faces not qualified as armour penetrations"
+  "status": "KT_ACCEPTED_2026-10-31 armour-equivalent g/cm2 rule; exact placement HOLD (PR #184 remains open)"
  },
  "external_equipment": {
   "parts": 55,

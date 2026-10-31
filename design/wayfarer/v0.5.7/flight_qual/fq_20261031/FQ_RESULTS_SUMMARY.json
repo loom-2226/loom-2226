@@ -1,0 +1,233 @@
+{
+  "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
+  "source_lock": "PR435 successor revised S4 geometry, not original 929... hash",
+  "required_water_rcs_v_e_m_s": 1960,
+  "power_source": "OPEN (kT A vs B pending)",
+  "full_half_empty_initial_remass_kg": {
+    "full": 250000,
+    "half": 125000,
+    "empty": 0
+  },
+  "FQ6_dt_s": [
+    0.4,
+    0.2
+  ],
+  "FQ6_parity": {
+    "full": {
+      "paired_cases": 39,
+      "verdict_changes": [],
+      "coarse_status_counts": {
+        "PASS": 39,
+        "FAIL": 0,
+        "ERROR": 0
+      },
+      "fine_status_counts": {
+        "PASS": 39,
+        "FAIL": 0,
+        "ERROR": 0
+      }
+    },
+    "half": {
+      "paired_cases": 39,
+      "verdict_changes": [],
+      "coarse_status_counts": {
+        "PASS": 39,
+        "FAIL": 0,
+        "ERROR": 0
+      },
+      "fine_status_counts": {
+        "PASS": 39,
+        "FAIL": 0,
+        "ERROR": 0
+      }
+    },
+    "empty": {
+      "paired_cases": 15,
+      "verdict_changes": [],
+      "coarse_status_counts": {
+        "PASS": 0,
+        "FAIL": 15,
+        "ERROR": 0
+      },
+      "fine_status_counts": {
+        "PASS": 0,
+        "FAIL": 15,
+        "ERROR": 0
+      }
+    }
+  },
+  "FQ8": {
+    "fq": "FQ8",
+    "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
+    "duration_s": 44010.1595686214,
+    "cruise_mdot_kg_s": 5.6805020125,
+    "mass_start_kg": 1167681.453466738,
+    "mass_end_kg": 917681.7420371777,
+    "consumed_kg": 249999.71142956044,
+    "remass_left_kg": 0.2885704396780824,
+    "protected_water_t": 50,
+    "protected_water_consumed_kg": 0,
+    "depletion_steps": 0,
+    "peak_accel_g": 1.2624197872700955,
+    "tvc_trim_deg": 0.3242623002465906,
+    "qualification": "pass",
+    "runtime_s": 19.190422551240772,
+    "thermal": "HOLD unqualified long-duration torch 2226 heat closure"
+  },
+  "FQ9": {
+    "fq": "FQ9",
+    "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
+    "phases": [
+      {
+        "index": 0,
+        "kind": "torch",
+        "mass_start": 1167681.453466738,
+        "mass_end": 1167340.623466737,
+        "propellant_kg": 340.83000000000396,
+        "t_start_s": 0.0,
+        "t_end_s": 60.00000000000058,
+        "attitude_error_deg": null,
+        "rate_deg_s": null,
+        "min_allocated_fraction": 1.0,
+        "depletion_steps": 0
+      },
+      {
+        "index": 1,
+        "kind": "coast",
+        "mass_start": 1167340.623466737,
+        "mass_end": 1167340.623466737,
+        "propellant_kg": 0.0,
+        "t_start_s": 60.00000000000058,
+        "t_end_s": 65.00000000000058,
+        "attitude_error_deg": null,
+        "rate_deg_s": null,
+        "min_allocated_fraction": 1.0,
+        "depletion_steps": 0
+      },
+      {
+        "index": 2,
+        "kind": "rcs_turn",
+        "mass_start": 1167340.623466737,
+        "mass_end": 1166872.081264401,
+        "propellant_kg": 468.5422023357072,
+        "t_start_s": 65.00000000000058,
+        "t_end_s": 188.99999999999355,
+        "attitude_error_deg": 6.387905582130731e-05,
+        "rate_deg_s": 8.47178758664663e-06,
+        "min_allocated_fraction": 1.0,
+        "depletion_steps": 0
+      },
+      {
+        "index": 3,
+        "kind": "torch",
+        "mass_start": 1166872.081264401,
+        "mass_end": 1166531.2512619598,
+        "propellant_kg": 340.8300024403261,
+        "t_start_s": 188.99999999999355,
+        "t_end_s": 248.99999999999014,
+        "attitude_error_deg": null,
+        "rate_deg_s": null,
+        "min_allocated_fraction": 1.0,
+        "depletion_steps": 0
+      }
+    ],
+    "mass_delta_kg": 1150.2022047783248,
+    "fuel_sum_kg": 1150.2022047760372,
+    "ledger_error_kg": 2.2876065486343578e-09,
+    "final_speed_m_s": 0.7626573714580483,
+    "final_state": {
+      "mass_kg": 1166531.2512619598,
+      "tanks_kg": {
+        "remass": 248849.79779522185
+      }
+    },
+    "qualification": "pass",
+    "warnings": [],
+    "runtime_s": 22.75344908516854
+  },
+  "FQ10": {
+    "geometry_sha256": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
+    "status": "FQ10 non-governing timed fault injection, not physical hardware failure qualification",
+    "reference_lab_sha256": "137d13fe182578d227b444ad27ca5d55ac85475028e5e7909f53e2916a761bb2",
+    "power": "OPEN, no RCS heater/power closure",
+    "cases": {
+      "baseline": {
+        "status": "pass",
+        "attitude_drift_deg": 2.7116947230511035e-14,
+        "final_angular_rate_deg_s": 7.513909974783218e-16,
+        "peak_torque_residual_Nm": 8.275844300633111e-07,
+        "peak_force_residual_N": 0.0,
+        "rcs_prop_used_kg": 3.751665644813329e-12,
+        "total_prop_used_kg": 681.6600000000037,
+        "depletion_steps": 0,
+        "faults": [],
+        "runtime_s": 6.0,
+        "warnings": [],
+        "bounded_attitude_gate": true
+      },
+      "cluster_out": {
+        "status": "pass",
+        "attitude_drift_deg": 2.7116947230511035e-14,
+        "final_angular_rate_deg_s": 7.513909974783218e-16,
+        "peak_torque_residual_Nm": 8.275844300633111e-07,
+        "peak_force_residual_N": 0.0,
+        "rcs_prop_used_kg": 3.751665644813329e-12,
+        "total_prop_used_kg": 681.6600000000037,
+        "depletion_steps": 0,
+        "faults": [
+          {
+            "kind": "cluster_out",
+            "when_s": 60,
+            "cluster": "F+Y",
+            "_applied": true
+          }
+        ],
+        "runtime_s": 6.73,
+        "warnings": [],
+        "bounded_attitude_gate": true
+      },
+      "stuck_thruster": {
+        "status": "pass",
+        "attitude_drift_deg": 0.06113144043067242,
+        "final_angular_rate_deg_s": 1.7764663838772523e-06,
+        "peak_torque_residual_Nm": 699655.4534228939,
+        "peak_force_residual_N": 25000.000000038224,
+        "rcs_prop_used_kg": 1703.6642781219557,
+        "total_prop_used_kg": 2385.3242781219556,
+        "depletion_steps": 0,
+        "faults": [
+          {
+            "kind": "stuck_thruster",
+            "when_s": 60,
+            "nozzle": "F+Y_tan+",
+            "stuck_fraction": 1.0,
+            "_applied": true
+          }
+        ],
+        "runtime_s": 16.07,
+        "warnings": [],
+        "bounded_attitude_gate": true
+      },
+      "stuck_tvc": {
+        "status": "pass",
+        "attitude_drift_deg": 22.011026826265727,
+        "final_angular_rate_deg_s": 81.4157450185271,
+        "peak_torque_residual_Nm": 6877648774.300649,
+        "peak_force_residual_N": 5.972204161460413e-09,
+        "rcs_prop_used_kg": 8095.889876015302,
+        "total_prop_used_kg": 8777.549876015302,
+        "depletion_steps": 0,
+        "faults": [
+          {
+            "kind": "stuck_tvc",
+            "when_s": 60,
+            "_applied": true
+          }
+        ],
+        "runtime_s": 19.45,
+        "warnings": [],
+        "bounded_attitude_gate": false
+      }
+    }
+  }
+}
