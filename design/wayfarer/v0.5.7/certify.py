@@ -444,7 +444,7 @@ def g5(I, C, G):
     lo = I["longerons"]
     Llon = lo["x_m"][1] - lo["x_m"][0]
     lparts = [p for p in G["parts"] if "longeron" in p["tags"]]
-    cs, notes = [], []
+    cs, notes, decl = [], [], []
     worst_state = max(states(I), key=lambda s: G["states"][s]["mass_t"])
     parts = {p["id"]: p for p in G["parts"]}
     st = G["states"][worst_state]
@@ -554,6 +554,14 @@ def g5(I, C, G):
                   f"{fc['columns']} aluminium tubes carry {fc['carried_t']} t; axial {fc['axial_kn']} kN each ({fc['stress_mpa']} MPa)"))
     cs.append(chk("flight-deck columns: buckling margin", fc["buckling_margin"], C["G5"]["buckling_factor"], fc["ok_buckling"], "x",
                   f"Euler, pinned ends (conservative), {fc['length_m']} m"))
+    if I["habitat"]["decks"][0].get("command_layout",{}).get("i4_lock"):
+        cs.append(chk("I4 terrace columns: nominal assembly mass inside reserved allowance",
+                      round(fc["required_column_mass_t"],5),round(fc["allowed_mass_t"],5),fc["mass_ok"],"t",
+                      "Member mass only; structural mounts/footprints still HOLD"))
+        decl.append(("i4_terrace_mounts",
+                     "I4 terrace 4 columns sized as 7075-T6 76mm OD x 3mm at 0.49m. "
+                     "5g x1.5 ultimate +0.5g lateral member screen, no joint, deck bearing, vibration, fatigue, "
+                     "swept-body or 3D egress qualification. HOLLOW: closed only for column members, not system."))
     stn = CR["stations"]
     cs.append(chk("upper berth posts: buckling margin at 5 g x 1.5", stn["berth_post_margin"], C["G5"]["buckling_factor"], stn["ok"], "x",
                   f"{stn['berth_post_kn']} kN per post; couch and berth hard points {stn['hard_point_kn']} kN each ({stn['requirement']})"))
@@ -587,7 +595,7 @@ def g5(I, C, G):
     notes.append(f"Worst state {worst_state}: {fwd:.0f} t ahead of the thrust cone, {F / 1e6:.1f} MN at {M5['design_g'] * M5['ultimate_factor']:.1f} g ultimate, shared by {n} longerons.")
     notes.append("Bay doors are not counted as structure. Materials: 2026 high-modulus CFRP as a conservative floor (400 MPa, 150 GPa, 1.6 t/m3).")
     notes.append("Method: closed-form plate theory (Navier series for simply supported panels, which is conservative against clamped edges) plus closed-cell equilibrium with tie-webs. A finite-element shell model is the next level of fidelity; the basis does not require it.")
-    r = gate("G5", "Structure and loads", cs + [one_out], notes=notes)
+    r = gate("G5", "Structure and loads", cs + [one_out], declared=decl, notes=notes)
     r["one_longeron_out"] = one_out
     return r
 
@@ -789,6 +797,7 @@ def g7(I, C, G):
     hab = I["habitat"]
     n_c, n_g = I["decisions"]["people"]["crew"], I["decisions"]["people"]["guests"]
     n = n_c + n_g
+    decl = []
     rooms = G["rooms"]
     nhv = sum(r["nhv_m3"] for r in rooms)
     cs = [chk("people aboard", n, f"{n_c} crew + {n_g} guests", True),
@@ -854,12 +863,28 @@ def g7(I, C, G):
     dw = CR["docking_and_windows"]
     cs.append(chk("docking view: cameras at the collar and a vestibule window", f"{dw['cameras']} cameras, window {'yes' if dw['vestibule_window'] else 'no'}",
                   ">= 2 cameras and a window", dw["cameras"] >= 2 and dw["vestibule_window"]))
-    l1p = HERE / "command/l1_study_results.json"
-    if l1p.exists():
-        L1R = json.loads(l1p.read_text())
-        okl = L1R.get("geometry_sha256") == G.get("_sha") and all(L1R["checks"].values())
-        cs.append(chk("L1 command deck (layout D, adopted): human-factors checks", f"{sum(L1R['checks'].values())}/{len(L1R['checks'])}",
-                      "all, on this geometry", okl, "", "command/l1_study.py: couches, views through the armour bores, walkways, displays, sensors"))
+    if hab["decks"][0].get("command_layout",{}).get("i4_lock"):
+        l1p = HERE / "command/l1_i4_results.json"
+        if l1p.exists():
+            L1R=json.loads(l1p.read_text())
+            fresh=L1R.get("geometry_sha256")==G.get("_sha")
+            cs.append(chk("I4 human-factors source geometry hash", L1R.get("geometry_sha256"),G.get("_sha"), fresh))
+            for name,ok in L1R.get("checks",{}).items():
+                cs.append(chk("I4 human factors: "+name, ok,True, fresh and ok, "",
+                              "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"))
+            decl.append(("i4_human_factors",
+                         "I4 source-frame check rerun against current geometry. Scene seat length 1.58m <2.10m source crew envelope; "
+                         "2D seat/ladder/walkways and bare dome clearances NOT physical 3D access or 4g qualification. "
+                         "Crown sightlines are optimistic upper bounds only. Optional 0.5m terrace-corner chamfer is NOT BUILT."))
+        else:
+            cs.append(chk("I4 human-factors check exists for new geometry","missing",G.get("_sha"),False))
+    else:
+        l1p = HERE / "command/l1_study_results.json"
+        if l1p.exists():
+            L1R = json.loads(l1p.read_text())
+            okl = L1R.get("geometry_sha256") == G.get("_sha") and all(L1R["checks"].values())
+            cs.append(chk("L1 command deck (layout D, adopted): human-factors checks", f"{sum(L1R['checks'].values())}/{len(L1R['checks'])}",
+                          "all, on this geometry", okl, "", "command/l1_study.py: couches, views through the armour bores, walkways, displays, sensors"))
     per_deck = {}
     for r in rooms:
         per_deck.setdefault(r["deck"], 0.0)
@@ -881,7 +906,7 @@ def g7(I, C, G):
              "Decks are perpendicular to the thrust axis; under thrust, aft is down. Above ~1.5 g everyone rides in a couch."]
     if g7_occ_note:
         notes.append(g7_occ_note)
-    r = gate("G7", "Compartments and crew space", cs, notes=notes)
+    r = gate("G7", "Compartments and crew space", cs, declared=decl, notes=notes)
     r["nhv_m3"] = nhv
     r["nhv_by_deck_m3"] = per_deck
     return r

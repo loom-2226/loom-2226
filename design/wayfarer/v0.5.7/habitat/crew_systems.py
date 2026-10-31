@@ -36,16 +36,40 @@ def tube(od, wall):
 def columns(I, C, G):
     CL = I["habitat"]["decks"][0]["command_layout"]
     if CL.get("i4_lock"):
-        # Step1: structure is rearranged but its loads/column mounts are NOT qualified.
-        # Never substitute the obsolete Rev7 flight-deck column PASS for a relocated I4 terrace.
-        tc = CL["i4_lock"]["terrace_columns"]
-        return {"carried_t": "HOLD", "columns": len(tc["positions_yz_m"]),
-                "length_m": round(I["habitat"]["decks"][0]["x_m"][1] - tc["x_m_end"], 3),
-                "ultimate_g": C["G5"]["design_g"] * C["G5"]["ultimate_factor"],
-                "axial_kn":"HOLD", "stress_mpa":"HOLD", "buckling_kn":"HOLD",
-                "buckling_margin":0.0,"side_load_combined_mpa":"HOLD",
-                "yield_mpa":"HOLD", "ok_stress":False,"ok_buckling":False,
-                "disposition":"REQUALIFICATION_REQUIRED: 3D loads, mounts, acceleration furniture and hull/headroom"}
+        # Step 1b: member sizing only, Rev7 5g x1.5 and 0.5g lateral.
+        # No approval of mounts, hardpoint bearing, human occupancy or local deck structure.
+        i4 = CL["i4_lock"]
+        tc = i4["terrace_columns"]
+        n = len(tc["positions_yz_m"])
+        old = I["habitat"]["crew_systems"]["station_loads"]
+        c0 = I["habitat"]["decks"][0]["command_layout"]["couch"]
+        # Two installed 50kg seat surrogates, two 100kg suited occupants, 20kg displays.
+        W_t = i4["platforms"]["command_terrace"]["mass_t"] + 2*(old["couch_t"]+old["occupant_t"]) + 0.02
+        ult = C["G5"]["design_g"]*C["G5"]["ultimate_factor"]
+        L = I["habitat"]["decks"][0]["x_m"][1] - tc["x_m_end"]
+        # Original 7075-T6 76mm x 3mm tube preserved, with reduced unsupported length.
+        old_column=I["habitat"]["decks"][0]["command_layout"].get("flight_deck")
+        mat={"wall_m":0.003,"e_gpa":71.7,"yield_mpa":503.0,"density_t_m3":2.81}
+        od=tc["od_m"]
+        area, Im, S=tube(od,mat["wall_m"])
+        Pax=W_t*1e3*G0*ult/n
+        Pcr=math.pi**2*mat["e_gpa"]*1e9*Im/L**2
+        V=W_t*1e3*G0*0.5*C["G5"]["ultimate_factor"]/n
+        M=V*L/2
+        sig_ax=Pax/area
+        sig_comb=sig_ax+M/S
+        mass_each=area*L*mat["density_t_m3"]*1.3
+        return {"carried_t":round(W_t,3),"columns":n,"length_m":round(L,3),"ultimate_g":ult,
+                "axial_kn":round(Pax/1000,2),"stress_mpa":round(sig_ax/1e6,2),
+                "buckling_kn":round(Pcr/1000,2),"buckling_margin":round(Pcr/Pax,2),
+                "side_load_combined_mpa":round(sig_comb/1e6,2),"yield_mpa":mat["yield_mpa"],
+                "ok_stress":sig_comb<=mat["yield_mpa"]*1e6,
+                "ok_buckling":Pcr/Pax>=C["G5"]["buckling_factor"],
+                "required_column_mass_t":mass_each*n,
+                "allowed_mass_t":tc["mass_total_t"],
+                "mass_ok":mass_each*n<=tc["mass_total_t"],
+                "lateral_g":0.5,
+                "disposition":"MEMBER_ONLY; end joints, local bearing, 3D fit, redundant load paths HOLD"}
     fd, c, ld = CL["flight_deck"], CL["flight_deck"]["columns"], CL["flight_deck"]["loads"]
     P = {p["id"]: p for p in G["parts"]}
     W_t = P["flight_deck"]["mass_t"] + 2 * (ld["couch_t"] + ld["occupant_t"]) + ld["displays_t"]

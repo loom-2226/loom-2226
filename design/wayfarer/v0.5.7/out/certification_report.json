@@ -10,8 +10,8 @@
   "G2": "PASS",
   "G3": "PASS",
   "G4": "PASS-DECLARED",
-  "G5": "FAIL",
-  "G6": "FAIL",
+  "G5": "PASS-DECLARED",
+  "G6": "PASS-DECLARED",
   "G7": "FAIL",
   "G8": "PASS",
   "G9": "PASS-DECLARED",
@@ -680,7 +680,7 @@
   {
    "gate": "G5",
    "title": "Structure and loads",
-   "verdict": "FAIL",
+   "verdict": "PASS-DECLARED",
    "checks": [
     {
      "name": "longeron upper starboard: stress at 5.0 g x 1.5",
@@ -796,19 +796,27 @@
     },
     {
      "name": "flight-deck columns: stress at 5 g x 1.5 plus a 0.5 g side load",
-     "value": "HOLD",
-     "limit": "HOLD",
+     "value": 39.69,
+     "limit": 503.0,
      "unit": "MPa",
-     "pass": false,
-     "note": "4 aluminium tubes carry HOLD t; axial HOLD kN each (HOLD MPa)"
+     "pass": true,
+     "note": "4 aluminium tubes carry 0.62 t; axial 11.4 kN each (16.57 MPa)"
     },
     {
      "name": "flight-deck columns: buckling margin",
-     "value": 0.0,
+     "value": 118.68,
      "limit": 1.5,
      "unit": "x",
-     "pass": false,
+     "pass": true,
      "note": "Euler, pinned ends (conservative), 0.49 m"
+    },
+    {
+     "name": "I4 terrace columns: nominal assembly mass inside reserved allowance",
+     "value": 0.00493,
+     "limit": 0.01684,
+     "unit": "t",
+     "pass": true,
+     "note": "Member mass only; structural mounts/footprints still HOLD"
     },
     {
      "name": "upper berth posts: buckling margin at 5 g x 1.5",
@@ -915,7 +923,15 @@
      "note": ""
     }
    ],
-   "declared": [],
+   "declared": [
+    {
+     "key": "i4_terrace_mounts",
+     "text": "I4 terrace 4 columns sized as 7075-T6 76mm OD x 3mm at 0.49m. 5g x1.5 ultimate +0.5g lateral member screen, no joint, deck bearing, vibration, fatigue, swept-body or 3D egress qualification. HOLLOW: closed only for column members, not system.",
+     "kT": "AWAITING",
+     "as": "",
+     "date": null
+    }
+   ],
    "notes": [
     "Tank outer wall: 13.2 mm, 7.41 t, displaces 0.00 m3 (panels 0.4 x 1.0 m between tie-webs and baffles)",
     "Tank inner wall: 7.9 mm, 1.48 t, displaces 0.00 m3 (panels 0.23 x 1.0 m)",
@@ -941,7 +957,7 @@
   {
    "gate": "G6",
    "title": "Radiation",
-   "verdict": "FAIL",
+   "verdict": "PASS-DECLARED",
    "checks": [
     {
      "name": "inside the shield's shadow: habitat (pressure vessel, armour, rooms)",
@@ -1017,10 +1033,10 @@
     },
     {
      "name": "berth screen with node faces armour-equivalent (design case)",
-     "value": "not run",
+     "value": 40.38,
      "limit": 40.0,
      "unit": "g/cm2",
-     "pass": false,
+     "pass": true,
      "note": "habitat/hab_overlay_checks.py, 600 directions, 2 cm steps, state S5, includes the rev 7 equipment"
     }
    ],
@@ -1048,7 +1064,7 @@
     },
     {
      "key": "node_faces",
-     "text": "Metric node faces (rev 7, kT 2026-10-26; Sol: AGREE, placement HOLD): 208 visible flush or recessed faces, 13 rings x 16 at 22.5 deg (rev 5 longeron-study layout). 76 are clear; the rest are flagged: 16 faces dust flow bow first, 12 on bay door, 80 on torch chain, 1 overlaps camera, 2 overlaps hold door, 1 overlaps window, 20 under stowed strake. The design case assumes every face carries at least the armour's g/cm2 it replaces, like the berth-viewport plugs. Sensitivity, faces as open bores through the armour: berth screen not run g/cm2 (? of ? berth points below 40) and storm shelter 36.3 g/cm2. So a face must be armour-equivalent: materials, cover, seal and mount stay OPEN, and no dust check exists in the basis yet (faces flagged 'faces dust flow' meet the flow when coasting bow-first). Node stations are not moved for the look; PR #184 stays OPEN.",
+     "text": "Metric node faces (rev 7, kT 2026-10-26; Sol: AGREE, placement HOLD): 208 visible flush or recessed faces, 13 rings x 16 at 22.5 deg (rev 5 longeron-study layout). 76 are clear; the rest are flagged: 16 faces dust flow bow first, 12 on bay door, 80 on torch chain, 1 overlaps camera, 2 overlaps hold door, 1 overlaps window, 20 under stowed strake. The design case assumes every face carries at least the armour's g/cm2 it replaces, like the berth-viewport plugs. Sensitivity, faces as open bores through the armour: berth screen 14.78 g/cm2 (30 of 36 berth points below 40) and storm shelter 36.3 g/cm2. So a face must be armour-equivalent: materials, cover, seal and mount stay OPEN, and no dust check exists in the basis yet (faces flagged 'faces dust flow' meet the flow when coasting bow-first). Node stations are not moved for the look; PR #184 stays OPEN.",
      "kT": "ACCEPTED",
      "as": "armour-equivalent g/cm2 per node face; placement HOLD pending PR #184",
      "date": "2026-10-31"
@@ -1214,12 +1230,68 @@
      "note": ""
     },
     {
-     "name": "L1 command deck (layout D, adopted): human-factors checks",
-     "value": "12/12",
-     "limit": "all, on this geometry",
+     "name": "I4 human-factors source geometry hash",
+     "value": "92905754eec2cae2ea50083803b419c830de7849ef69194e3a863c8a8efa03f1",
+     "limit": "92905754eec2cae2ea50083803b419c830de7849ef69194e3a863c8a8efa03f1",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "I4 human factors: six_role_seats_present",
+     "value": true,
+     "limit": true,
+     "unit": "",
+     "pass": true,
+     "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
+    },
+    {
+     "name": "I4 human factors: 2p10m_99pct_couch_envelope",
+     "value": false,
+     "limit": true,
      "unit": "",
      "pass": false,
-     "note": "command/l1_study.py: couches, views through the armour bores, walkways, displays, sensors"
+     "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
+    },
+    {
+     "name": "I4 human factors: plan_seat_envelope_inside_annulus",
+     "value": false,
+     "limit": true,
+     "unit": "",
+     "pass": false,
+     "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
+    },
+    {
+     "name": "I4 human factors: pilot_captain_crown_60deg_upper_bound_ge_0p90",
+     "value": true,
+     "limit": true,
+     "unit": "",
+     "pass": true,
+     "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
+    },
+    {
+     "name": "I4 human factors: 0p8m_walkway_to_floor_seats",
+     "value": false,
+     "limit": true,
+     "unit": "",
+     "pass": false,
+     "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
+    },
+    {
+     "name": "I4 human factors: both_ladders_landings_clear",
+     "value": true,
+     "limit": true,
+     "unit": "",
+     "pass": true,
+     "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
+    },
+    {
+     "name": "I4 human factors: terrace_worst_corner_2p10m_standing_headroom",
+     "value": false,
+     "limit": true,
+     "unit": "",
+     "pass": false,
+     "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
      "name": "berth viewports: one per berth (v0.5.7)",
@@ -1230,7 +1302,15 @@
      "note": "0.35 m, at the outer end of each berth; acrylic shield plug and insert keep the berth screen (G6 declared item berth_viewports)"
     }
    ],
-   "declared": [],
+   "declared": [
+    {
+     "key": "i4_human_factors",
+     "text": "I4 source-frame check rerun against current geometry. Scene seat length 1.58m <2.10m source crew envelope; 2D seat/ladder/walkways and bare dome clearances NOT physical 3D access or 4g qualification. Crown sightlines are optimistic upper bounds only. Optional 0.5m terrace-corner chamfer is NOT BUILT.",
+     "kT": "AWAITING",
+     "as": "",
+     "date": null
+    }
+   ],
    "notes": [
     "Target 370 m3 (45 per crew, 25 per guest): reached 87%. A sixth deck (+2.6 m of habitat) would reach the target.",
     "Net habitable volume by deck: L1 51 m3, L2 81 m3, L3 77 m3, L4 57 m3, L5 57 m3",
@@ -1898,6 +1978,13 @@
    "date": "2026-10-31"
   },
   {
+   "key": "i4_terrace_mounts",
+   "text": "I4 terrace 4 columns sized as 7075-T6 76mm OD x 3mm at 0.49m. 5g x1.5 ultimate +0.5g lateral member screen, no joint, deck bearing, vibration, fatigue, swept-body or 3D egress qualification. HOLLOW: closed only for column members, not system.",
+   "kT": "AWAITING",
+   "as": "",
+   "date": null
+  },
+  {
    "key": "berth_viewports",
    "text": "Berth viewports (v0.5.7): 10 x 0.5 m viewports keep the berth screen because acrylic plugs carry at least the g/cm2 they replace (armour 27.14 vs 27.0, ring 8.26 vs 8.0), so the ray screen, which treats the hull as continuous, is unchanged. Rev 3: the same plug kit is in every opening below the crown, including the L2 viewport band, and continues through the storm-shelter jacket (17 cm more acrylic for the 20 cm of water). Not yet shown: the dose. Acrylic is ~8% hydrogen by mass against water's 11%, so per g/cm2 it may stop cosmic-ray secondaries slightly less well; a transport check may ask for a thicker plug. Encapsulated for fire.",
    "kT": "ACCEPTED",
@@ -1920,7 +2007,7 @@
   },
   {
    "key": "node_faces",
-   "text": "Metric node faces (rev 7, kT 2026-10-26; Sol: AGREE, placement HOLD): 208 visible flush or recessed faces, 13 rings x 16 at 22.5 deg (rev 5 longeron-study layout). 76 are clear; the rest are flagged: 16 faces dust flow bow first, 12 on bay door, 80 on torch chain, 1 overlaps camera, 2 overlaps hold door, 1 overlaps window, 20 under stowed strake. The design case assumes every face carries at least the armour's g/cm2 it replaces, like the berth-viewport plugs. Sensitivity, faces as open bores through the armour: berth screen not run g/cm2 (? of ? berth points below 40) and storm shelter 36.3 g/cm2. So a face must be armour-equivalent: materials, cover, seal and mount stay OPEN, and no dust check exists in the basis yet (faces flagged 'faces dust flow' meet the flow when coasting bow-first). Node stations are not moved for the look; PR #184 stays OPEN.",
+   "text": "Metric node faces (rev 7, kT 2026-10-26; Sol: AGREE, placement HOLD): 208 visible flush or recessed faces, 13 rings x 16 at 22.5 deg (rev 5 longeron-study layout). 76 are clear; the rest are flagged: 16 faces dust flow bow first, 12 on bay door, 80 on torch chain, 1 overlaps camera, 2 overlaps hold door, 1 overlaps window, 20 under stowed strake. The design case assumes every face carries at least the armour's g/cm2 it replaces, like the berth-viewport plugs. Sensitivity, faces as open bores through the armour: berth screen 14.78 g/cm2 (30 of 36 berth points below 40) and storm shelter 36.3 g/cm2. So a face must be armour-equivalent: materials, cover, seal and mount stay OPEN, and no dust check exists in the basis yet (faces flagged 'faces dust flow' meet the flow when coasting bow-first). Node stations are not moved for the look; PR #184 stays OPEN.",
    "kT": "ACCEPTED",
    "as": "armour-equivalent g/cm2 per node face; placement HOLD pending PR #184",
    "date": "2026-10-31"
@@ -1945,6 +2032,13 @@
    "kT": "ACCEPTED",
    "as": "covered by the same declared gap: the torch and shadow shield keep neutron and gamma dose in the habitat within crew limits during burns; the shadow geometry is checked (G6).",
    "date": "2026-10-31"
+  },
+  {
+   "key": "i4_human_factors",
+   "text": "I4 source-frame check rerun against current geometry. Scene seat length 1.58m <2.10m source crew envelope; 2D seat/ladder/walkways and bare dome clearances NOT physical 3D access or 4g qualification. Crown sightlines are optimistic upper bounds only. Optional 0.5m terrace-corner chamfer is NOT BUILT.",
+   "kT": "AWAITING",
+   "as": "",
+   "date": null
   },
   {
    "key": "external_equipment",
