@@ -1,0 +1,32 @@
+{
+  "geometry_sha256": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+  "fq": "FQ9",
+  "status": "pass",
+  "delta_kg": 1150.2028743312694,
+  "spent_kg": 1150.202874328917,
+  "error_kg": 2.352408046135679e-09,
+  "final_speed_m_s": 0.7623358064656222,
+  "phases": [
+    {
+      "kind": "torch",
+      "propellant_kg": 340.83000000000396,
+      "depletion_steps": 0
+    },
+    {
+      "kind": "coast",
+      "propellant_kg": 0.0,
+      "depletion_steps": 0
+    },
+    {
+      "kind": "rcs_turn",
+      "propellant_kg": 468.542871888587,
+      "depletion_steps": 0
+    },
+    {
+      "kind": "torch",
+      "propellant_kg": 340.8300024403261,
+      "depletion_steps": 0
+    }
+  ],
+  "runtime_s": 43.53738434007391
+}

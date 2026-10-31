@@ -1,0 +1,39 @@
+--- flightlab.py@PR433
++++ FQ10_fault_injection_only.py
+@@ -484,6 +484,23 @@
+         phasefuel=0.;unresolved=canonical is not None;phase_rcs_unresolved=False
+         gate_entry=None;gate_hold=0.;at_target=None
+         for j,(t,h) in enumerate(steps):
++            # FQ10 non-governing fault injector; one persistent spacecraft state.
++            for fault in experiment.get('faults',[]):
++                if state['t'] < fault['when_s'] or fault.get('_applied'):continue
++                fault['_applied']=True
++                if fault['kind']=='cluster_out':
++                    affected=[e for e in ship['rcs'] if e['id'].startswith(fault['cluster']+'_')]
++                    assert len(affected)==4
++                    for e in affected:e['enabled']=False
++                elif fault['kind']=='stuck_tvc':
++                    # Freeze the torch nozzle at a declared 1-degree deflection
++                    # to expose attitude/control response, not a real TVC failure law.
++                    engine=ship['torch'][0]
++                    engine['auto_trim']=False
++                    engine['direction']=[-math.cos(math.radians(1)),math.sin(math.radians(1)),0.0]
++                elif fault['kind']=='stuck_thruster':
++                    assert any(e['id']==fault['nozzle'] for e in ship['rcs'])
++                else:raise ValueError('unsupported fault '+str(fault['kind']))
+             mass,cg,I=mass_properties(ship,state['tanks'])
+             y=state['y'];q=y[:4];w=y[4:7]
+             F=np.zeros(3);torque=np.zeros(3)
+@@ -607,6 +624,12 @@
+                             olddir=state['gdir'][e['id']]
+                             state['gdir'][e['id']]=gimbal_update(e,olddir,h)
+                             peak_gimbal_rate=max(peak_gimbal_rate,math.degrees(math.acos(float(np.clip(olddir@state['gdir'][e['id']],-1,1))))/h)
++                    for k,e in enumerate(engines):
++                        for fault in experiment.get('faults',[]):
++                            if (fault['kind']=='stuck_thruster' and fault.get('_applied')
++                                    and e['id']==fault['nozzle']):
++                                avg[k]=fault.get('stuck_fraction',1.)
++                                state['act'][e['id']]=avg[k]; state['cmd'][e['id']]=avg[k]
+                     peak_throttle=max(peak_throttle,float(np.max(avg)))
+                     thrust_limits+=int(np.any(avg>=1.-1e-9))
+                     # Recalculate actual wrench after gimbals physically move.

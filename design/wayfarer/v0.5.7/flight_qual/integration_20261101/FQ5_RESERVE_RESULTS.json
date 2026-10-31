@@ -1,0 +1,101 @@
+{
+  "torch_at_5t_floor": {
+    "status": "pass",
+    "physical": "fail",
+    "fuel_used_kg": 0.0,
+    "tank_left_kg": 5000.0,
+    "depletion_steps": 150,
+    "phases": [
+      {
+        "kind": "torch",
+        "fuel_kg": 0.0,
+        "attitude_error_deg": null,
+        "rate_deg_s": null
+      }
+    ],
+    "warnings": [
+      "Torch held at RCS reserve floor"
+    ],
+    "runtime_s": 0.86
+  },
+  "floor_flip_pitch": {
+    "status": "pass",
+    "physical": "pass",
+    "fuel_used_kg": 456.9264081735705,
+    "tank_left_kg": 4543.07359182643,
+    "depletion_steps": 0,
+    "phases": [
+      {
+        "kind": "rcs_turn",
+        "fuel_kg": 456.9264081735705,
+        "attitude_error_deg": 6.387906415718311e-05,
+        "rate_deg_s": 8.471829326747046e-06
+      }
+    ],
+    "warnings": [],
+    "runtime_s": 23.74
+  },
+  "floor_flip_roll": {
+    "status": "pass",
+    "physical": "pass",
+    "fuel_used_kg": 106.57527804075508,
+    "tank_left_kg": 4893.42472195923,
+    "depletion_steps": 0,
+    "phases": [
+      {
+        "kind": "rcs_turn",
+        "fuel_kg": 106.57527804075508,
+        "attitude_error_deg": 6.38789929579734e-05,
+        "rate_deg_s": 8.470675664874912e-06
+      }
+    ],
+    "warnings": [],
+    "runtime_s": 43.05
+  },
+  "floor_flip_yaw": {
+    "status": "pass",
+    "physical": "pass",
+    "fuel_used_kg": 459.78268951883297,
+    "tank_left_kg": 4540.217310481161,
+    "depletion_steps": 0,
+    "phases": [
+      {
+        "kind": "rcs_turn",
+        "fuel_kg": 459.78268951883297,
+        "attitude_error_deg": 6.387907376800992e-05,
+        "rate_deg_s": 8.472343270882552e-06
+      }
+    ],
+    "warnings": [],
+    "runtime_s": 39.35
+  },
+  "floor_three_flips_one_state": {
+    "status": "pass",
+    "physical": "pass",
+    "fuel_used_kg": 1023.1924096920035,
+    "tank_left_kg": 3976.807590308005,
+    "depletion_steps": 0,
+    "phases": [
+      {
+        "kind": "rcs_turn",
+        "fuel_kg": 456.9264081735705,
+        "attitude_error_deg": 6.387906415718311e-05,
+        "rate_deg_s": 8.471829326747046e-06
+      },
+      {
+        "kind": "rcs_turn",
+        "fuel_kg": 106.51708646035068,
+        "attitude_error_deg": 6.387899298736856e-05,
+        "rate_deg_s": 8.470676241127767e-06
+      },
+      {
+        "kind": "rcs_turn",
+        "fuel_kg": 459.7489150580848,
+        "attitude_error_deg": 6.387907380660784e-05,
+        "rate_deg_s": 8.472343643186535e-06
+      }
+    ],
+    "warnings": [],
+    "runtime_s": 77.93
+  }
+}

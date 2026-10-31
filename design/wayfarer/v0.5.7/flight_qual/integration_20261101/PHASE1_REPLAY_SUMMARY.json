@@ -1,0 +1,44 @@
+{
+  "geometry_sha256": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+  "authority": "Phase1 non-governing conventional flight numerical replay; no Metric arrival/Navigator or actual heater supply",
+  "lab_PR433_source_sha256": "137d13fe182578d227b444ad27ca5d55ac85475028e5e7909f53e2916a761bb2",
+  "fault_safing_model_source_sha256": "458207907b7799b1ad30212aa8635a55be7e28b501c6c948f49a95fa67978c26",
+  "FQ6_matrix_parity": {
+    "full": {
+      "paired_cases": 39,
+      "verdict_differences": 0,
+      "coarse_pass": 39,
+      "fine_pass": 39,
+      "expected_empty_inhibit": false
+    },
+    "half": {
+      "paired_cases": 39,
+      "verdict_differences": 0,
+      "coarse_pass": 39,
+      "fine_pass": 39,
+      "expected_empty_inhibit": false
+    },
+    "empty": {
+      "paired_cases": 15,
+      "verdict_differences": 0,
+      "coarse_pass": 0,
+      "fine_pass": 0,
+      "expected_empty_inhibit": true
+    }
+  },
+  "FQ6_total_paired": 93,
+  "FQ6_reserve_pairs": 8,
+  "FQ5_three_consecutive_flips_fuel_kg": 1023.1924096920035,
+  "FQ5_remaining_rcs_water_kg": 3976.807590308005,
+  "FQ8_torch_consumed_kg": 244999.99999999988,
+  "FQ8_remass_floor_kg": 5000.0,
+  "FQ9_mass_ledger_error_kg": 2.352408046135679e-09,
+  "FQ10_CRUISE_mitigated_peak_error_deg": 0.1074992963594601,
+  "FQ10_HARD_mitigated_peak_error_deg": 0.6048997409507977,
+  "FQ10_active_cluster_out": "PASS",
+  "FQ10_stuck_on_thruster": "PASS bounded attitude",
+  "FQ10_TVC_caveat": "PASS conditional 0.20s detection and instantaneous throttle/cut laboratory assumptions",
+  "not_run": "Metric arrival, Navigator, end-to-end physical plant/heat or physical FDIR",
+  "archived_full_FQ_matrix_SHA": "ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266",
+  "old_matrix_status": "Historical only, new six matrices anchored to 5d73"
+}

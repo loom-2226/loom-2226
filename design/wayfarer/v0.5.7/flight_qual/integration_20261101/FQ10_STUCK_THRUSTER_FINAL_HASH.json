@@ -1,0 +1,19 @@
+{
+  "geometry_sha256": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+  "fq": "FQ10 stuck-on single nozzle",
+  "fault": {
+    "kind": "stuck_thruster",
+    "when_s": 60,
+    "nozzle": "F+Y_tan+",
+    "stuck_fraction": 1.0,
+    "_applied": true
+  },
+  "peak_attitude_error_deg": 0.06113078166432005,
+  "peak_angular_rate_deg_s": 0.09576038204876908,
+  "final_attitude_error_deg": 0.06113078166432005,
+  "final_rate_deg_s": 1.7764343684245238e-06,
+  "total_remass_kg": 2385.322767719175,
+  "numerical_attitude_gate_pass": true,
+  "limits": "No 3D plume impingement, no isolated thruster energy source, no emergency trajectory/docking approach validation; attitude response is bounded only.",
+  "runtime_s": 30.256464864127338
+}

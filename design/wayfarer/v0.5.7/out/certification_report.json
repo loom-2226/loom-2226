@@ -1,0 +1,2125 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-GOVERNING SANDBOX certification run",
+ "basis": "CERTIFICATION_BASIS.md v0.2 (agreed by Claude and Sol; PROPOSED to kT)",
+ "geometry_sha256": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+ "inputs_sha256": "1349be9092b83c50b13786b9b5f860e947507d7551e366bbafcd5b49095a6820",
+ "criteria_sha256": "5bf7777930bb8dc1e72460daf3b1e5a6776b7b9f266e68269f0e7d847823d980",
+ "summary": {
+  "G1": "PASS",
+  "G2": "PASS",
+  "G3": "PASS",
+  "G4": "PASS-DECLARED",
+  "G5": "PASS-DECLARED",
+  "G6": "PASS-DECLARED",
+  "G7": "PASS-DECLARED",
+  "G8": "PASS",
+  "G9": "PASS-DECLARED",
+  "G10": "PASS-DECLARED",
+  "G11": "PASS",
+  "G12": "PASS-DECLARED"
+ },
+ "gates": [
+  {
+   "gate": "G1",
+   "title": "Mass and fluids ledger",
+   "verdict": "PASS",
+   "checks": [
+    {
+     "name": "parts sum to the ledger",
+     "value": 867.68,
+     "limit": 867.67,
+     "unit": "t",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "S1 mass = dry + fluids + payload",
+     "value": 1167.68,
+     "limit": 1167.68,
+     "unit": "t",
+     "pass": true,
+     "note": "reference departure"
+    },
+    {
+     "name": "S2 mass = dry + fluids + payload",
+     "value": 1217.68,
+     "limit": 1217.68,
+     "unit": "t",
+     "pass": true,
+     "note": "loaded departure"
+    },
+    {
+     "name": "S3 mass = dry + fluids + payload",
+     "value": 1067.68,
+     "limit": 1067.68,
+     "unit": "t",
+     "pass": true,
+     "note": "normal dispatch"
+    },
+    {
+     "name": "S4 mass = dry + fluids + payload",
+     "value": 917.68,
+     "limit": 917.68,
+     "unit": "t",
+     "pass": true,
+     "note": "burnt out, shuttle home"
+    },
+    {
+     "name": "S5 mass = dry + fluids + payload",
+     "value": 888.14,
+     "limit": 888.14,
+     "unit": "t",
+     "pass": true,
+     "note": "burnt out, shuttle away"
+    },
+    {
+     "name": "S6 mass = dry + fluids + payload",
+     "value": 1138.14,
+     "limit": 1138.14,
+     "unit": "t",
+     "pass": true,
+     "note": "full, shuttle away"
+    },
+    {
+     "name": "S7 mass = dry + fluids + payload",
+     "value": 1105.18,
+     "limit": 1105.18,
+     "unit": "t",
+     "pass": true,
+     "note": "one tank cell breached and vented"
+    },
+    {
+     "name": "S1 water aboard",
+     "value": 300.0,
+     "limit": 300,
+     "unit": "t",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "tank volume",
+     "value": 321.6,
+     "limit": 315.0,
+     "unit": "m3",
+     "pass": true,
+     "note": "four cells, net of walls, grooves and the longeron tubes that pass through the tank"
+    }
+   ],
+   "declared": [],
+   "notes": [
+    "dry 867.7 t vs canon 858.5 t (+9.2 t); S1 wet 1167.7 t vs canon 1158.5 t",
+    "dry by system: habitat 181.8, propulsion 169.4, structure 134.1, thermal 125.6, plant 93.2, electrical 58.2, shuttle 29.5, avionics 20.5, mission 20.1, rcs 16.9, service 13.7, external 3.3, drones 1.3",
+    "protected water: 16.5 t in the storm-shelter jacket, 5.70 t in the L3 berth shield ring, 27.8 t in the service tank, 0.0 t in the main tank cells"
+   ],
+   "mass_states": [
+    {
+     "state": "S1",
+     "name": "reference departure",
+     "mass_t": 1167.7,
+     "cg_m": [
+      24.4,
+      0.025,
+      -0.357
+     ],
+     "Ixx": 12447954.111657089,
+     "Iyy": 191624374.30637255,
+     "Izz": 192446910.59211847,
+     "Ixy": 115750.06685606332,
+     "Ixz": 1291109.0340141507,
+     "Iyz": 4173.95987371145
+    },
+    {
+     "state": "S2",
+     "name": "loaded departure",
+     "mass_t": 1217.7,
+     "cg_m": [
+      24.035,
+      0.024,
+      -0.342
+     ],
+     "Ixx": 13016873.94782512,
+     "Iyy": 195569118.62182716,
+     "Izz": 196742918.48141795,
+     "Ixy": 105099.1113756334,
+     "Ixz": 1443278.3244973863,
+     "Iyz": 3982.9870912081824
+    },
+    {
+     "state": "S3",
+     "name": "normal dispatch",
+     "mass_t": 1067.7,
+     "cg_m": [
+      24.445,
+      0.027,
+      -0.279
+     ],
+     "Ixx": 11330029.335151331,
+     "Iyy": 190022950.4794874,
+     "Izz": 190533797.10460037,
+     "Ixy": 113020.15379199915,
+     "Ixz": 1334605.82338459,
+     "Iyz": 4810.997950259738
+    },
+    {
+     "state": "S4",
+     "name": "burnt out, shuttle home",
+     "mass_t": 917.7,
+     "cg_m": [
+      24.101,
+      0.031,
+      -0.128
+     ],
+     "Ixx": 9621625.880374331,
+     "Iyy": 186781215.4644255,
+     "Izz": 186855990.73759106,
+     "Ixy": 100621.63114789133,
+     "Ixz": 997642.8789249965,
+     "Iyz": 6681.352946823822
+    },
+    {
+     "state": "S5",
+     "name": "burnt out, shuttle away",
+     "mass_t": 888.1,
+     "cg_m": [
+      24.066,
+      0.032,
+      -0.133
+     ],
+     "Ixx": 9567769.549275255,
+     "Iyy": 186314290.6282476,
+     "Izz": 186389778.37470567,
+     "Ixy": 99353.12716156158,
+     "Ixz": 999004.8559828069,
+     "Iyz": 6749.929339753492
+    },
+    {
+     "state": "S6",
+     "name": "full, shuttle away",
+     "mass_t": 1138.1,
+     "cg_m": [
+      24.381,
+      0.025,
+      -0.366
+     ],
+     "Ixx": 12390747.112959323,
+     "Iyy": 191170678.00504196,
+     "Izz": 191997300.31161833,
+     "Ixy": 114923.23463187797,
+     "Ixz": 1296468.941918749,
+     "Iyz": 4099.0105994923
+    },
+    {
+     "state": "S7",
+     "name": "one tank cell breached and vented",
+     "mass_t": 1105.2,
+     "cg_m": [
+      24.529,
+      0.163,
+      -0.31
+     ],
+     "Ixx": 11720731.389322244,
+     "Iyy": 190889878.8140895,
+     "Izz": 191487941.75480676,
+     "Ixy": 483890.77287706727,
+     "Ixz": 1416853.0804148975,
+     "Iyz": 46735.485643437954
+    }
+   ]
+  },
+  {
+   "gate": "G2",
+   "title": "Torch and reach",
+   "verdict": "PASS",
+   "checks": [
+    {
+     "name": "ECON full-remass delta-v at S1",
+     "value": 722.8,
+     "limit": 692.5,
+     "unit": "km/s",
+     "pass": true,
+     "note": "95% of the canon card"
+    },
+    {
+     "name": "acceleration at cruise thrust, S1",
+     "value": 0.992,
+     "limit": 0.95,
+     "unit": "g",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "torch card unchanged",
+     "value": "CANON II \u00a714",
+     "limit": "CANON II \u00a714",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    }
+   ],
+   "declared": [],
+   "notes": [
+    "S2 (50 t payload): ECON delta-v 689.4 km/s",
+    "Thrust from the working card (main src/wayfarer_torch_mode_cards.py, kT 2026-10-26): F = mdot ve, held to the 11.361 TW jet-power ceiling the heat rejection is sized for: CRUISE 11.36 -> 11.36 MN; EXPEDITE 22.72 -> 22.72 MN; FAST 34.08 -> 32.46 MN; HARD 56.81 -> 50.49 MN; LIMIT 85.21 -> 75.74 MN.",
+    "Throttled to the 5 g structural limit (doctrine): HARD in S4 (5.6 g at full jet power), HARD in S5 (5.8 g at full jet power), LIMIT in S1 (6.6 g at full jet power), LIMIT in S2 (6.3 g at full jet power), LIMIT in S3 (7.2 g at full jet power), LIMIT in S4 (8.4 g at full jet power), LIMIT in S5 (8.7 g at full jet power), LIMIT in S6 (6.8 g at full jet power), LIMIT in S7 (7.0 g at full jet power)",
+    "Crew doctrine (v0.5.6): sustained thrust capped at 4 g with people aboard (NASA OCHMO: +Gx 4 g tolerable up to at least 60 min); 5 g stays the structural rating, for emergencies. The cap changes burn times, not delta-v."
+   ],
+   "modes": {
+    "ECON": {
+     "thrust_mn": 3.4083,
+     "card_thrust_mn": 3.4083,
+     "card_jet_power_tw": 5.11245,
+     "dv_full_remass_S1_km_s": 722.7752045214783,
+     "accel_g": {
+      "S1": 0.298,
+      "S2": 0.285,
+      "S3": 0.326,
+      "S4": 0.379,
+      "S5": 0.391,
+      "S6": 0.305,
+      "S7": 0.314
+     }
+    },
+    "CRUISE": {
+     "thrust_mn": 11.361,
+     "card_thrust_mn": 11.361003999999998,
+     "card_jet_power_tw": 11.361003999999998,
+     "dv_full_remass_S1_km_s": 481.85013634765215,
+     "accel_g": {
+      "S1": 0.992,
+      "S2": 0.951,
+      "S3": 1.085,
+      "S4": 1.262,
+      "S5": 1.304,
+      "S6": 1.018,
+      "S7": 1.048
+     }
+    },
+    "EXPEDITE": {
+     "thrust_mn": 22.722,
+     "card_thrust_mn": 22.722007999999995,
+     "card_jet_power_tw": 11.361003999999998,
+     "dv_full_remass_S1_km_s": 240.92506817382608,
+     "accel_g": {
+      "S1": 1.984,
+      "S2": 1.903,
+      "S3": 2.17,
+      "S4": 2.525,
+      "S5": 2.609,
+      "S6": 2.036,
+      "S7": 2.096
+     }
+    },
+    "FAST": {
+     "thrust_mn": 32.46,
+     "card_thrust_mn": 34.083011899999995,
+     "card_jet_power_tw": 11.929054165,
+     "dv_full_remass_S1_km_s": 168.64754772167825,
+     "accel_g": {
+      "S1": 2.835,
+      "S2": 2.718,
+      "S3": 3.1,
+      "S4": 3.607,
+      "S5": 3.727,
+      "S6": 2.908,
+      "S7": 2.995
+     }
+    },
+    "HARD": {
+     "thrust_mn": 50.49333333333333,
+     "card_thrust_mn": 56.8050201,
+     "card_jet_power_tw": 12.7811295225,
+     "dv_full_remass_S1_km_s": 108.41628067822174,
+     "accel_g": {
+      "S1": 4.409,
+      "S2": 4.228,
+      "S3": 4.822,
+      "S4": 5.0,
+      "S5": 5.0,
+      "S6": 4.524,
+      "S7": 4.659
+     }
+    },
+    "LIMIT": {
+     "thrust_mn": 75.74,
+     "card_thrust_mn": 85.2075303,
+     "card_jet_power_tw": 12.781129545,
+     "dv_full_remass_S1_km_s": 72.27752045214783,
+     "accel_g": {
+      "S1": 5.0,
+      "S2": 5.0,
+      "S3": 5.0,
+      "S4": 5.0,
+      "S5": 5.0,
+      "S6": 5.0,
+      "S7": 5.0
+     }
+    }
+   }
+  },
+  {
+   "gate": "G3",
+   "title": "Balance and attitude",
+   "verdict": "PASS",
+   "checks": [
+    {
+     "name": "thrust trim S1",
+     "value": 0.324,
+     "limit": 0.5,
+     "unit": "deg",
+     "pass": true,
+     "note": "lateral offset 0.158 m from the thrust line"
+    },
+    {
+     "name": "thrust trim S2",
+     "value": 0.291,
+     "limit": 0.5,
+     "unit": "deg",
+     "pass": true,
+     "note": "lateral offset 0.143 m from the thrust line"
+    },
+    {
+     "name": "thrust trim S3",
+     "value": 0.164,
+     "limit": 0.5,
+     "unit": "deg",
+     "pass": true,
+     "note": "lateral offset 0.080 m from the thrust line"
+    },
+    {
+     "name": "thrust trim S4",
+     "value": 0.146,
+     "limit": 0.5,
+     "unit": "deg",
+     "pass": true,
+     "note": "lateral offset 0.072 m from the thrust line"
+    },
+    {
+     "name": "thrust trim S5",
+     "value": 0.137,
+     "limit": 0.5,
+     "unit": "deg",
+     "pass": true,
+     "note": "lateral offset 0.068 m from the thrust line"
+    },
+    {
+     "name": "thrust trim S6",
+     "value": 0.343,
+     "limit": 0.5,
+     "unit": "deg",
+     "pass": true,
+     "note": "lateral offset 0.167 m from the thrust line"
+    },
+    {
+     "name": "thrust trim S7",
+     "value": 0.34,
+     "limit": 0.5,
+     "unit": "deg",
+     "pass": true,
+     "note": "lateral offset 0.165 m from the thrust line"
+    },
+    {
+     "name": "180 deg slew, pitch (about y) +",
+     "value": 34.6,
+     "limit": 120.0,
+     "unit": "s",
+     "pass": true,
+     "note": "2 x 25 kN couples, 2.05 MN m, worst state S2"
+    },
+    {
+     "name": "180 deg slew, pitch (about y) -",
+     "value": 34.6,
+     "limit": 120.0,
+     "unit": "s",
+     "pass": true,
+     "note": "2 x 25 kN couples, 2.05 MN m, worst state S2"
+    },
+    {
+     "name": "180 deg slew, yaw (about z) +",
+     "value": 34.7,
+     "limit": 120.0,
+     "unit": "s",
+     "pass": true,
+     "note": "2 x 25 kN couples, 2.05 MN m, worst state S2"
+    },
+    {
+     "name": "180 deg slew, yaw (about z) -",
+     "value": 34.7,
+     "limit": 120.0,
+     "unit": "s",
+     "pass": true,
+     "note": "2 x 25 kN couples, 2.05 MN m, worst state S2"
+    },
+    {
+     "name": "three-axis control with cluster F+Y out",
+     "value": "yes",
+     "limit": "yes",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "three-axis control with cluster F+Z out",
+     "value": "yes",
+     "limit": "yes",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "three-axis control with cluster F-Y out",
+     "value": "yes",
+     "limit": "yes",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "three-axis control with cluster F-Z out",
+     "value": "yes",
+     "limit": "yes",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "three-axis control with cluster A+Y out",
+     "value": "yes",
+     "limit": "yes",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "three-axis control with cluster A+Z out",
+     "value": "yes",
+     "limit": "yes",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "three-axis control with cluster A-Y out",
+     "value": "yes",
+     "limit": "yes",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "three-axis control with cluster A-Z out",
+     "value": "yes",
+     "limit": "yes",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    }
+   ],
+   "declared": [],
+   "notes": [
+    "Thrust line offset from the hull axis: y +0.04 m, z -0.20 m (torch chain 178 t), chosen to centre the centre-of-mass range",
+    "roll +: 180 deg in 19 s (2 couples, 0.46 MN m, worst state S2); roll is rate-limited by doctrine, not gated",
+    "roll -: 180 deg in 19 s (2 couples, 0.46 MN m, worst state S2); roll is rate-limited by doctrine, not gated",
+    "With any one cluster out, the slowest 180 deg pitch/yaw slew is 49 s (one couple, S2).",
+    "Shuttle undocking: S1 trim 0.324 deg, S6 (shuttle away) 0.343 deg; both inside the limit.",
+    "Inertia is from intrinsic component shapes (sampled volumes), not centroid-only point masses."
+   ]
+  },
+  {
+   "gate": "G4",
+   "title": "Power and heat",
+   "verdict": "PASS-DECLARED",
+   "checks": [
+    {
+     "name": "Metric NORMAL heat + habitat rejected",
+     "value": 2.0,
+     "limit": "<= 24.0 m span",
+     "unit": "m span",
+     "pass": true,
+     "note": "5.1 MW Metric + 0.37 MW habitat via heat pump (x1.25); field geometry radius 6.5 m"
+    },
+    {
+     "name": "Metric FAST heat + habitat rejected",
+     "value": 2.0,
+     "limit": "<= 24.0 m span",
+     "unit": "m span",
+     "pass": true,
+     "note": "9.8 MW Metric + 0.37 MW habitat via heat pump (x1.25); field geometry radius 6.5 m"
+    },
+    {
+     "name": "Metric EXPEDITE heat + habitat rejected",
+     "value": 2.0,
+     "limit": "<= 24.0 m span",
+     "unit": "m span",
+     "pass": true,
+     "note": "16.4 MW Metric + 0.37 MW habitat via heat pump (x1.25); field geometry radius 6.5 m"
+    },
+    {
+     "name": "Metric HARD heat + habitat rejected",
+     "value": 2.0,
+     "limit": "<= 24.0 m span",
+     "unit": "m span",
+     "pass": true,
+     "note": "34.9 MW Metric + 0.37 MW habitat via heat pump (x1.25); field geometry radius 6.5 m"
+    },
+    {
+     "name": "torch burn: heat on hot structure rejected by the hot fins at 1750 K",
+     "value": 1.49,
+     "limit": 1.4,
+     "unit": "GW",
+     "pass": true,
+     "note": "4 fins 28 m x 19 m on the strake lines, view factor to space 0.73 (torch chain taken as a 4.75 m cylinder, conservative); heat = light 0.09 + neutrons 0.56 + plume contact 0.75 GW"
+    },
+    {
+     "name": "torch burn: magnet-coil cryo heat + habitat rejected by the strakes",
+     "value": 4.0,
+     "limit": "<= 4.0 m span",
+     "unit": "m span",
+     "pass": true,
+     "note": "0.48 MW of neutron heating in the coils -> 48 MW at 1300 K, + 0.37 MW habitat (x1.25)"
+    },
+    {
+     "name": "torch burn: light on the reactor's aft face",
+     "value": 5.03,
+     "limit": 10.0,
+     "unit": "MW/m2",
+     "pass": true,
+     "note": "burn 6 m aft of the face; ITER divertor class"
+    },
+    {
+     "name": "habitat heat on passive skin radiators (backup, heat pump failed)",
+     "value": 57.1,
+     "limit": 46.5,
+     "unit": "kW",
+     "pass": true,
+     "note": "264 m2 of habitat skin at 290 K, Venus-orbit sun"
+    },
+    {
+     "name": "major torch burn and high Metric never required together",
+     "value": "doctrine",
+     "limit": "CANON II \u00a714",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    }
+   ],
+   "declared": [
+    {
+     "key": "torch_heat",
+     "text": "Torch heat package (kT, 2026-10-25): each pellet is wrapped in a shell of remass that soaks up the burn and leaves as exhaust. The shell must let no more than ~358 ppm of the burn's energy escape as light, counting its own glow (the reactor face's 10 MW/m2 limit); the design value is 180 ppm. With the model's other assumptions (torch/torch_heat_inputs.json: light 40% of fusion energy; He3-rich, spin-polarised fuel with 0.76% neutrons, 85% absorbed by the shell; plume contact 1e-4 of charged energy; coil shield transmission 1e-3), 1.40 GW reaches hot structure and 0.48 MW the magnet coils at 12.6 TW of fusion. These are assumptions, not results. Replaces v0.5.1's 387 MW (34 ppm) torch-leak gap.",
+     "kT": "ACCEPTED",
+     "as": "v0.5.2 torch heat package (kT chose the package and 1,750 K fins on 2026-10-25 and accepted this wording the same day): the remass shell lets no more than ~360 ppm of the burn's energy escape as light, counting its own glow; design value 180 ppm; with the heat model's other assumptions 1.40 GW reaches hot structure and 0.48 MW the magnet coils.",
+     "date": "2026-10-25"
+    },
+    {
+     "key": "torch_fin_temperature",
+     "text": "Hot fins run for life at 1750 K. Lithium heat pipes have run in lab tests to ~1,500 K and briefly ~1,800 K; years at 1750 K with burn cycling and neutron exposure is an engineering extrapolation (a technology milestone), not new physics. Fallback: 1,500 K fins, ~49 m span, ~30 t, still inside the reserve.",
+     "kT": "ACCEPTED",
+     "as": "kT: \"Let's go 1750.\" Hot fins at 1,750 K, recorded as an engineering extrapolation (technology milestone), with 1,500 K fins as the fallback.",
+     "date": "2026-10-25"
+    },
+    {
+     "key": "plant_power",
+     "text": "Plant electrical: Metric HARD at a 1300 K reject temperature needs 34.8 MW of cryo-chain electrical power, against canon's 23.9 MW at 900 K. The relational plant must supply this (canon amendment), or the cryo chain must reject through a 900 K loop.",
+     "kT": "ACCEPTED",
+     "as": "canon states the relational plant supplies ~34.8 MW for Metric HARD at a 1,300 K reject temperature. Option not taken: a 900 K loop for the cryo chain.",
+     "date": null
+    },
+    {
+     "key": "cold_running",
+     "text": "Cold running (rev 7, F5 provisional item F5-TE-01): the tunable flanks drop from emissivity 0.85 to 0.1, so at the same skin temperature they radiate 12% as much. Heat is held, not removed: habitat heat 58.1 kW (x1.25), plus plant standby 10.0 kW and cryo standby 10.0 kW, less 7.1 kW still leaking through 177 m2 of low-e skin at 290 K warms the 50 t of protected water by 15 K in about 12.3 h (ideal no-standby ceiling 17.1 h). ENGINEERING_ASSUMPTION (screening placeholders 10+10 kW, NOT sourced or qualified); editable, replace with measured/engineering budget. Then the ship must open the strakes or switch the flanks back to normal. Detailed load-cycle variation, cryo plant duty, tank thermal coupling, and reserve storage remain open. The metallic look in the viewer is a proposed optical property.",
+     "kT": "ACCEPTED",
+     "as": "Provisional ~17.09h ideal cap before plant and cryo standby; 10+10 kW editable illustrative loads yield a shorter window; physical heat budget OPEN",
+     "date": "2026-10-31"
+    }
+   ],
+   "notes": [
+    "Habitat heat 46.5 kW for 10 people; heat pump to 1300 K needs 324 kW (Carnot fraction 0.5).",
+    "Torch burns: strakes open to 4.0 m (73 MW); full 24 m span (387 MW) is no longer needed for the torch. At 4.0 m they shine 1.46 MW onto the hull coating.",
+    "Torch heat model (torch/, non-governing): same 11.36 TW jet from 12.6 TW of fusion, pulsed at about 1-10 Hz (0.3-3 kt per pulse). Light escape the face can take: ~358 ppm; model 180 ppm. Hot-fin capacity is computed here with certify's own 2D view factor; torch/fin_layout.py (numpy, 3.0 m body) gives a slightly higher figure."
+   ],
+   "spans_m": {
+    "NORMAL": 2.0,
+    "FAST": 2.0,
+    "EXPEDITE": 2.0,
+    "HARD": 2.0
+   },
+   "cold_running": {
+    "hours": 12.276332060135852,
+    "ideal_no_standby_hours": 17.087016575793427,
+    "leak_kw": 7.087223483250846,
+    "habitat_kw": 58.125,
+    "plant_standby_kw": 10.0,
+    "cryo_standby_kw": 10.0,
+    "in_kw": 78.125,
+    "area_m2": 176.71458676442586,
+    "provenance": "ENGINEERING_ASSUMPTION (screening placeholders 10+10 kW, NOT sourced or qualified); editable, replace with measured/engineering budget"
+   },
+   "torch_strake_capacity_mw": 73.01945448681384,
+   "hot_fin_capacity_gw": 1.489716518902526,
+   "torch_budget": {
+    "id": "S4",
+    "name": "+ Burn further aft",
+    "what": "burn 6 m aft of the reactor face, still inside the 53.3 m envelope",
+    "fusion_tw": 12.640766441867108,
+    "light_escaping_gw": 2.273795786030172,
+    "neutrons_escaping_gw": 14.410473743728502,
+    "ship_heat_gw": 1.3995255156767956,
+    "parts_gw": {
+     "light": 0.08867803565517669,
+     "neutrons": 0.5620084760054116,
+     "plume contact": 0.7488390040162073
+    },
+    "coil_heat_mw": 0.4755456335430406,
+    "cryo_reject_mw": 47.55456335430406,
+    "wall_flux_mw_m2": 5.026192207336437,
+    "light_ppm_of_fusion": 179.87800000000001,
+    "burn_to_face_m": 6.0
+   }
+  },
+  {
+   "gate": "G5",
+   "title": "Structure and loads",
+   "verdict": "PASS-DECLARED",
+   "checks": [
+    {
+     "name": "longeron upper starboard: stress at 5.0 g x 1.5",
+     "value": 221.9,
+     "limit": 400,
+     "unit": "MPa",
+     "pass": true,
+     "note": "area 0.083 m2; buckling between frames 22x the load"
+    },
+    {
+     "name": "longeron upper starboard: buckling margin",
+     "value": 22.3,
+     "limit": 1.5,
+     "unit": "x",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "longeron upper port: stress at 5.0 g x 1.5",
+     "value": 221.9,
+     "limit": 400,
+     "unit": "MPa",
+     "pass": true,
+     "note": "area 0.083 m2; buckling between frames 22x the load"
+    },
+    {
+     "name": "longeron upper port: buckling margin",
+     "value": 22.3,
+     "limit": 1.5,
+     "unit": "x",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "longeron lower starboard: stress at 5.0 g x 1.5",
+     "value": 221.9,
+     "limit": 400,
+     "unit": "MPa",
+     "pass": true,
+     "note": "area 0.083 m2; buckling between frames 22x the load"
+    },
+    {
+     "name": "longeron lower starboard: buckling margin",
+     "value": 22.3,
+     "limit": 1.5,
+     "unit": "x",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "longeron lower port: stress at 5.0 g x 1.5",
+     "value": 221.9,
+     "limit": 400,
+     "unit": "MPa",
+     "pass": true,
+     "note": "area 0.083 m2; buckling between frames 22x the load"
+    },
+    {
+     "name": "longeron lower port: buckling margin",
+     "value": 22.3,
+     "limit": 1.5,
+     "unit": "x",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "longerons: axial + bending at 5 g x 1.5 (thrust-line offset and 0.5 deg thrust error), real material area",
+     "value": 247.9,
+     "limit": 250.0,
+     "unit": "MPa",
+     "pass": true,
+     "note": "22.4 MN m; area 0.0830 m2 from the structure line (part mass includes the spread reserve); limit = the 250 MPa design stress (400 MPa floor x 0.62)"
+    },
+    {
+     "name": "first bending mode (longerons only, free-free)",
+     "value": 4.81,
+     "limit": 1.0,
+     "unit": "Hz",
+     "pass": true,
+     "note": "EI from longerons alone: Iy 2.24, Iz 2.51 m4; skin, tank walls and the habitat shell add stiffness"
+    },
+    {
+     "name": "first torsion mode (closed tank cell)",
+     "value": 3.76,
+     "limit": 1.0,
+     "unit": "Hz",
+     "pass": true,
+     "note": "J 1.965 m4 with the allocated 33.9 mm tank wall; the open slot is bridged by the tank's slot walls"
+    },
+    {
+     "name": "tank structure mass needed at 5 g x 1.5 + ullage",
+     "value": 18.3,
+     "limit": 33.9,
+     "unit": "t",
+     "pass": true,
+     "note": "ultimate pressure 0.65 MPa; allocated = tank shell share of structure + 8 t non-round penalty"
+    },
+    {
+     "name": "tank walls: axial stress carrying the water's inertia",
+     "value": 25.8,
+     "limit": 400,
+     "unit": "MPa",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "tank wall panels: buckling margin in axial compression",
+     "value": 8.2,
+     "limit": 1.5,
+     "unit": "x",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "flight-deck columns: stress at 5 g x 1.5 plus a 0.5 g side load",
+     "value": 39.69,
+     "limit": 503.0,
+     "unit": "MPa",
+     "pass": true,
+     "note": "4 aluminium tubes carry 0.62 t; axial 11.4 kN each (16.57 MPa)"
+    },
+    {
+     "name": "flight-deck columns: buckling margin",
+     "value": 118.68,
+     "limit": 1.5,
+     "unit": "x",
+     "pass": true,
+     "note": "Euler, pinned ends (conservative), 0.49 m"
+    },
+    {
+     "name": "I4 terrace columns: nominal assembly mass inside reserved allowance",
+     "value": 0.00493,
+     "limit": 0.01684,
+     "unit": "t",
+     "pass": true,
+     "note": "Member mass only; structural mounts/footprints still HOLD"
+    },
+    {
+     "name": "upper berth posts: buckling margin at 5 g x 1.5",
+     "value": 10.2,
+     "limit": 1.5,
+     "unit": "x",
+     "pass": true,
+     "note": "2.57 kN per post; couch and berth hard points 2.76 kN each (each couch or berth hard point rated >= 3 kN ultimate)"
+    },
+    {
+     "name": "floor L1: carries its deck at 5 g x 1.5",
+     "value": 0.78,
+     "limit": 1.588,
+     "unit": "t needed vs allotted",
+     "pass": true,
+     "note": "9.57 t on the floor (14.0 kPa); CFRP faces 0.17 mm; core shear 0.082 MPa"
+    },
+    {
+     "name": "floor L2: carries its deck at 5 g x 1.5",
+     "value": 0.79,
+     "limit": 1.588,
+     "unit": "t needed vs allotted",
+     "pass": true,
+     "note": "13.13 t on the floor (19.2 kPa); CFRP faces 0.23 mm; core shear 0.112 MPa"
+    },
+    {
+     "name": "floor L3: carries its deck at 5 g x 1.5",
+     "value": 0.79,
+     "limit": 1.588,
+     "unit": "t needed vs allotted",
+     "pass": true,
+     "note": "12.63 t on the floor (18.5 kPa); CFRP faces 0.22 mm; core shear 0.108 MPa"
+    },
+    {
+     "name": "floor L4: carries its deck at 5 g x 1.5",
+     "value": 0.86,
+     "limit": 1.588,
+     "unit": "t needed vs allotted",
+     "pass": true,
+     "note": "36.89 t on the floor (54.0 kPa); CFRP faces 0.64 mm; core shear 0.314 MPa"
+    },
+    {
+     "name": "floor L4 as a pressure bulkhead (L5 at vacuum), factor 2.0",
+     "value": 1.14,
+     "limit": 1.588,
+     "unit": "t needed vs allotted",
+     "pass": true,
+     "note": "CFRP faces 2.4 mm; core shear 1.18 MPa (allowable 1.5); 2 ladderway hatches and a trunk plug"
+    },
+    {
+     "name": "L2 viewport band: Osteon mullions carry the axial load across the band",
+     "value": 48.4,
+     "limit": 600.0,
+     "unit": "MPa",
+     "pass": true,
+     "note": "23 titanium mullions 5 x 20 cm; worst of 5 g x 1.5 on 66.3 t ahead (4.88 MN) and 2 x the pressure end load (11.12 MN); buckling margin 4.3"
+    },
+    {
+     "name": "L2 band edge rings: hoop across the band + beam between mullions",
+     "value": 476.6,
+     "limit": 600.0,
+     "unit": "MPa",
+     "pass": true,
+     "note": "Ti 14 x 4 cm sill and head rings, full circle; 46.0 kN m between mullions"
+    },
+    {
+     "name": "L2 band: pressure shell next to the rings (discontinuity bending + axial)",
+     "value": 67.3,
+     "limit": 250.0,
+     "unit": "MPa",
+     "pass": true,
+     "note": "rigid-ring bound; dies out within 0.878 m"
+    },
+    {
+     "name": "L2 band: mullion root joints",
+     "value": 1.8,
+     "limit": 1.5,
+     "unit": "x",
+     "pass": true,
+     "note": "490.5 kN each; 4 x M16 Ti bolts in double shear"
+    },
+    {
+     "name": "L2 band rings: Ti/CFRP thermal mismatch taken by flexure fingers (fatigue)",
+     "value": 116.3,
+     "limit": 200.0,
+     "unit": "MPa",
+     "pass": true,
+     "note": "1.74 mm radial over 50.0 K; fingers 80 x 40 x 2.5 mm at 50 mm; plus 217.8 MPa static from the shear flow (allow 600)"
+    },
+    {
+     "name": "L2 band panes as plates (2226 ceramic), lounge with its transom",
+     "value": 17.2,
+     "limit": 18,
+     "unit": "mm needed vs specified",
+     "pass": true,
+     "note": "general band 14.6 mm needed, 16 specified; the glass is not trusted to pass hoop tension through its edges"
+    },
+    {
+     "name": "one longeron lost: the others at 1 g limit load",
+     "value": 39.4,
+     "limit": 400,
+     "unit": "MPa",
+     "pass": true,
+     "note": ""
+    }
+   ],
+   "declared": [
+    {
+     "key": "i4_terrace_mounts",
+     "text": "I4 terrace 4 columns sized as 7075-T6 76mm OD x 3mm at 0.49m. 5g x1.5 ultimate +0.5g lateral member screen, no joint, deck bearing, vibration, fatigue, swept-body or 3D egress qualification. HOLLOW: closed only for column members, not system.",
+     "kT": "ACCEPTED",
+     "as": "kT accepts I4 terrace mounts and structural load paths as DECLARED, not structurally tested to hardware standard. Original 5g\u00d71.5 member / 0.5g lateral assumption remains visible; joints, bearing, vibration and fatigue have not been newly modelled.",
+     "date": "2026-11-01"
+    }
+   ],
+   "notes": [
+    "Tank outer wall: 13.2 mm, 7.41 t, displaces 0.00 m3 (panels 0.4 x 1.0 m between tie-webs and baffles)",
+    "Tank inner wall: 7.9 mm, 1.48 t, displaces 0.00 m3 (panels 0.23 x 1.0 m)",
+    "Tank slot walls (2): 31.9 mm, 4.23 t, displaces 2.65 m3 (supported at the inner corner, the sill longeron and the outer corner; panels 1.0 x 2.11 m)",
+    "Tank solid bulkheads (fore, mid, aft): 13.9 mm, 1.62 t, displaces 1.01 m3 (panels 0.4 x 1.85 m between tie-webs)",
+    "Tank keel cell wall: 30.6 mm, 1.22 t, displaces 0.76 m3 (port/starboard cell split; panels 1.0 x 1.85 m)",
+    "Tank radial tie-webs (54, perforated): 1.5 mm, 1.62 t, displaces 1.01 m3 (tension 0.26 MN/m each)",
+    "Tank ring baffles (12, perforated): 3.0 mm, 0.70 t, displaces 0.44 m3",
+    "Crew stations and floors (v0.5.6): closed-form strip and column checks in habitat/crew_systems.py; floors are 0.3 m sandwich panels spanning trunk to hull.",
+    "Worst state S2: 1002 t ahead of the thrust cone, 73.7 MN at 7.5 g ultimate, shared by 4 longerons.",
+    "Bay doors are not counted as structure. Materials: 2026 high-modulus CFRP as a conservative floor (400 MPa, 150 GPa, 1.6 t/m3).",
+    "Method: closed-form plate theory (Navier series for simply supported panels, which is conservative against clamped edges) plus closed-cell equilibrium with tie-webs. A finite-element shell model is the next level of fidelity; the basis does not require it."
+   ],
+   "one_longeron_out": {
+    "name": "one longeron lost: the others at 1 g limit load",
+    "value": 39.4,
+    "limit": 400,
+    "unit": "MPa",
+    "pass": true,
+    "note": ""
+   }
+  },
+  {
+   "gate": "G6",
+   "title": "Radiation",
+   "verdict": "PASS-DECLARED",
+   "checks": [
+    {
+     "name": "inside the shield's shadow: habitat (pressure vessel, armour, rooms)",
+     "value": 0.79,
+     "limit": 0.5,
+     "unit": "m margin",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "inside the shield's shadow: Docking collar",
+     "value": 0.55,
+     "limit": 0.5,
+     "unit": "m margin",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "inside the shield's shadow: Pressure tunnel: habitat to collar node",
+     "value": 1.78,
+     "limit": 0.5,
+     "unit": "m margin",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "inside the shield's shadow: Pressure tunnel: collar node to bay axis",
+     "value": 2.11,
+     "limit": 0.5,
+     "unit": "m margin",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "inside the shield's shadow: Pressure tunnel: docking adapter to shuttle nose",
+     "value": 4.04,
+     "limit": 0.5,
+     "unit": "m margin",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "inside the shield's shadow: Bay liner and cradle",
+     "value": 0.58,
+     "limit": 0.5,
+     "unit": "m margin",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "inside the shield's shadow: Rover-drop shuttle (docked, tanks empty)",
+     "value": 1.11,
+     "limit": 0.5,
+     "unit": "m margin",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "storm shelter volume per person",
+     "value": 2.64,
+     "limit": 2.0,
+     "unit": "m3",
+     "pass": true,
+     "note": "26.4 m3 for 10 people"
+    },
+    {
+     "name": "storm shelter shielding, every direction",
+     "value": 55.3,
+     "limit": 40.0,
+     "unit": "g/cm2",
+     "pass": true,
+     "note": "600 rays from 3 points, state S5 (tanks empty, shuttle away); thinnest ray from (9.0, 0.0, 3.65) toward (0.11, 0.18, 0.98)"
+    },
+    {
+     "name": "berth screen with node faces armour-equivalent (design case)",
+     "value": 40.38,
+     "limit": 40.0,
+     "unit": "g/cm2",
+     "pass": true,
+     "note": "habitat/hab_overlay_checks.py, 600 directions, 2 cm steps, state S5, includes the rev 7 equipment"
+    }
+   ],
+   "declared": [
+    {
+     "key": "berth_viewports",
+     "text": "Berth viewports (v0.5.7): 10 x 0.5 m viewports keep the berth screen because acrylic plugs carry at least the g/cm2 they replace (armour 27.14 vs 27.0, ring 8.26 vs 8.0), so the ray screen, which treats the hull as continuous, is unchanged. Rev 3: the same plug kit is in every opening below the crown, including the L2 viewport band, and continues through the storm-shelter jacket (17 cm more acrylic for the 20 cm of water). Not yet shown: the dose. Acrylic is ~8% hydrogen by mass against water's 11%, so per g/cm2 it may stop cosmic-ray secondaries slightly less well; a transport check may ask for a thicker plug. Encapsulated for fire.",
+     "kT": "ACCEPTED",
+     "as": "Every opening below the crown carries an acrylic shield plug and insert with at least the g/cm2 they replace (armour 27, berth ring 8, shelter jacket 20), so berths and shelter keep their screens with the shutters open; the dose is accepted as a provision until a transport check (OLTARIS) is run; plugs are encapsulated and counted as fire load.",
+     "date": "2026-10-26"
+    },
+    {
+     "key": "crown_dome",
+     "text": "Crown dome (v0.5.7): 25 m2 of glazing inside r 2.8 m replaces the 8 nose windows. Assumes (1) proof-tested transparent ceramic panes up to 2.3 m across (2026's largest are ~0.76 m), a 2226 materials milestone like the 1,750 K fins (rev 4: the L2 viewport band's 16-18 mm plate panes rely on the same ceramic; 2026 ALON would need 25-29 mm); (2) tambour gores of armour-equivalent Strata laminate (Builder-derived, MHL-22) that restore 27 g/cm2 when closed and stow in the brow ring; (3) the operating rule: open only at low speed or with the bow facing away from the dust flow (braking and tail-first coasting); closed for solar particle events, radiation belts, torch burns and Loom formation and translation. Stuck closed is safe; stuck open: turn the bow out of the dust flow. With the gores open, L1 loses the armour over the crown (glass 2-9 g/cm2); L1 is not a shelter.",
+     "kT": "ACCEPTED",
+     "as": "Crown dome over L1 and the L2 viewport band: proof-tested transparent ceramic panes up to 2.3 m (band panes 16-18 mm plates) as a 2226 materials milestone; tambour gores and shutters of armour-equivalent Strata laminate (Builder-derived, MHL-22); the dome and shutters open only at low speed or with the bow out of the dust flow, closed for solar particle events, radiation belts and torch burns.",
+     "date": "2026-10-26"
+    },
+    {
+     "key": "strata_armour",
+     "text": "Habitat armour face (rev 7, kT 2026-10-26): Strata laminate (Builder-derived, MHL-22) over the whole habitat armour, x 0-14. KT_ACCEPTED 2026-10-31 as visible armour face; materials constitutive/physical performance remain OPEN; no changed shielding/mass claim. Bow x 0.0-2.6 m: bare Strata: the erosion face meets the dust flow.",
+     "kT": "ACCEPTED",
+     "as": "Strata as armour face; constitutive performance OPEN; drone-deployed over-crown armour is OPTION ONLY and drone bay HOLD",
+     "date": "2026-10-31"
+    },
+    {
+     "key": "node_faces",
+     "text": "Metric node faces (rev 7, kT 2026-10-26; Sol: AGREE, placement HOLD): 208 visible flush or recessed faces, 13 rings x 16 at 22.5 deg (rev 5 longeron-study layout). 76 are clear; the rest are flagged: 16 faces dust flow bow first, 12 on bay door, 80 on torch chain, 1 overlaps camera, 2 overlaps hold door, 1 overlaps window, 20 under stowed strake. The design case assumes every face carries at least the armour's g/cm2 it replaces, like the berth-viewport plugs. Sensitivity, faces as open bores through the armour: berth screen 14.78 g/cm2 (30 of 36 berth points below 40) and storm shelter 36.3 g/cm2. So a face must be armour-equivalent: materials, cover, seal and mount stay OPEN, and no dust check exists in the basis yet (faces flagged 'faces dust flow' meet the flow when coasting bow-first). Node stations are not moved for the look; PR #184 stays OPEN.",
+     "kT": "ACCEPTED",
+     "as": "armour-equivalent g/cm2 per node face; placement HOLD pending PR #184",
+     "date": "2026-10-31"
+    },
+    {
+     "key": "shelter_life_support",
+     "text": "Storm shelter life support: 72 h for 10 people from the life-support room on the same deck (design provision, not computed).",
+     "kT": "ACCEPTED",
+     "as": "72 h of life support for 10 people in the storm shelter, from the life-support room on the same deck, recorded as a design provision to be sized in detail later.",
+     "date": null
+    },
+    {
+     "key": "gcr",
+     "text": "Galactic cosmic rays: at 2026 free-space rates (1.8 mSv/day, ~657 mSv/yr) a crew member reaches NASA's 600 mSv career limit after ~333 days in deep space. Hull shielding barely changes this. Long careers aboard rely on canon's off-Earth MED-MOD-RADIATION milestone and crew time-in-space rules; this is a canon question, not something the hull can close.",
+     "kT": "ACCEPTED",
+     "as": "crew protection from galactic cosmic rays relies on canon's off-Earth MED-MOD-RADIATION milestone plus crew time-in-space limits.",
+     "date": null
+    },
+    {
+     "key": "torch_neutrons",
+     "text": "Torch neutrons and gammas: the shadow shield must attenuate the torch's neutron and gamma output so the dose rate inside the habitat during burns stays within crew limits. The v0.5.2 heat model puts neutrons at ~0.76% of the burn's energy with 85% absorbed by the remass shell; the dose itself is not computed here, only the shadow geometry is checked.",
+     "kT": "ACCEPTED",
+     "as": "covered by the same declared gap: the torch and shadow shield keep neutron and gamma dose in the habitat within crew limits during burns; the shadow geometry is checked (G6).",
+     "date": null
+    }
+   ],
+   "notes": [
+    "Shadow cone: shield front face x 34.3 m, radius 2.75 m; neutron source: the pellet burn, 0.3 m across, anywhere in x 52.0-52.6 m (worst case used). Radiator strakes and the hot fins sit outside the cone (the fins edge-on to the burn), take neutron heating and are out of bounds for EVA during burns."
+   ],
+   "shelter_min_g_cm2": 55.2583435159817
+  },
+  {
+   "gate": "G7",
+   "title": "Compartments and crew space",
+   "verdict": "PASS-DECLARED",
+   "checks": [
+    {
+     "name": "people aboard",
+     "value": 10,
+     "limit": "6 crew + 4 guests",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "net habitable volume per person",
+     "value": 32.2,
+     "limit": 25.0,
+     "unit": "m3",
+     "pass": true,
+     "note": "322 m3 total"
+    },
+    {
+     "name": "a cabin berth for every person (kT 2026-10-25: shared cabins)",
+     "value": "6 crew + 4 guest",
+     "limit": "6 + 4",
+     "unit": "",
+     "pass": true,
+     "note": "4 cabins; berths 2.10 x 0.70 m on 5 g hard points (G5)"
+    },
+    {
+     "name": "smallest cabin volume per occupant",
+     "value": 5.85,
+     "limit": 2.1,
+     "unit": "m3",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "acceleration couches",
+     "value": 16,
+     "limit": 10,
+     "unit": "",
+     "pass": true,
+     "note": "a 5 g berth for every person in the cabins plus 6 station couches on the command deck"
+    },
+    {
+     "name": "deck clear height",
+     "value": 2.3,
+     "limit": 2.1,
+     "unit": "m",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "two independent ways off every deck",
+     "value": "2 ladderways, 2.8 m apart",
+     "limit": ">= 2.0 m",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "required rooms present",
+     "value": "all",
+     "limit": "all",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "docking port and pressure tunnel to the shuttle",
+     "value": "yes",
+     "limit": "yes",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "casualty route at 0 g: litter along the ship's axis through every door",
+     "value": "2.05 x 0.8 m",
+     "limit": ">= 2.05 x 0.7 m",
+     "unit": "",
+     "pass": true,
+     "note": "4 doors; deck clear height 2.3 m"
+    },
+    {
+     "name": "casualty route: litter down the port ladder shaft",
+     "value": "0.8 x 0.6 m clear",
+     "limit": ">= 0.70 x 0.45 m",
+     "unit": "",
+     "pass": true,
+     "note": "rungs on the inboard face (r 1.0 m side), so the outboard side of the shaft stays clear for a litter"
+    },
+    {
+     "name": "casualty route: out of the shaft straight into the medical bay",
+     "value": 0.24,
+     "limit": 0.1,
+     "unit": "m clear of the opening's edge",
+     "pass": true,
+     "note": "opening 165.8-238.2 deg; litter crosses 173.2-186.8 deg"
+    },
+    {
+     "name": "sustained acceleration within the +Gx evidence (4 g cap)",
+     "value": "FAST: 89.9 min at up to 3.61 g",
+     "limit": "<= 112 min",
+     "unit": "",
+     "pass": true,
+     "note": "worst mode shown; Full usable remass (S1) in one burn at the working card's mass flow (held to the 11.361 TW heat ceiling), throttled to the crew cap. OCHMO allowed time interpolated log-linearly between its two +Gx evidence points (2 g >= 24 h, 4 g >= 60 min) at the burn's peak acceleration."
+    },
+    {
+     "name": "time on the back per couch period ([V2 6113] 3 h 15 min, nominal 2 h 45 min)",
+     "value": 165,
+     "limit": 165,
+     "unit": "min",
+     "pass": true,
+     "note": "burns over 2 h 45 min are split by a 30 min coast break: EXPEDITE full-remass burn 183.4 min"
+    },
+    {
+     "name": "storm shelter: 72 h stored backup for 10 people",
+     "value": 0.216,
+     "limit": 0.3,
+     "unit": "t",
+     "pass": true,
+     "note": "O2 25.2 kg, LiOH 43.6 kg for 30.0 kg CO2, food 18.6 kg, battery 72.0 kg (24 h); drinking water 48.6 kg from the shelter jacket (0.3%); 2.0 kW of heat"
+    },
+    {
+     "name": "docking view: cameras at the collar and a vestibule window",
+     "value": "2 cameras, window yes",
+     "limit": ">= 2 cameras and a window",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "I4 human-factors source geometry hash",
+     "value": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+     "limit": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "I4 human factors: six_role_seats_present",
+     "value": true,
+     "limit": true,
+     "unit": "",
+     "pass": true,
+     "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
+    },
+    {
+     "name": "I4 human factors: contoured_couch_nominal_length_1p58m",
+     "value": true,
+     "limit": true,
+     "unit": "",
+     "pass": true,
+     "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
+    },
+    {
+     "name": "I4 human factors: plan_seat_envelope_inside_annulus",
+     "value": true,
+     "limit": true,
+     "unit": "",
+     "pass": true,
+     "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
+    },
+    {
+     "name": "I4 human factors: pilot_captain_crown_60deg_upper_bound_ge_0p90",
+     "value": true,
+     "limit": true,
+     "unit": "",
+     "pass": true,
+     "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
+    },
+    {
+     "name": "I4 human factors: 0p8m_walkway_to_floor_seats",
+     "value": true,
+     "limit": true,
+     "unit": "",
+     "pass": true,
+     "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
+    },
+    {
+     "name": "I4 human factors: both_ladders_landings_clear",
+     "value": true,
+     "limit": true,
+     "unit": "",
+     "pass": true,
+     "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
+    },
+    {
+     "name": "I4 human factors: terrace_worst_corner_1p2m_crawl_clearance",
+     "value": true,
+     "limit": true,
+     "unit": "",
+     "pass": true,
+     "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
+    },
+    {
+     "name": "I4 human factors: floor_couches_vs_terrace_3D_AABB_nonintersection",
+     "value": true,
+     "limit": true,
+     "unit": "",
+     "pass": true,
+     "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
+    },
+    {
+     "name": "berth viewports: one per berth (v0.5.7)",
+     "value": 10,
+     "limit": 10,
+     "unit": "",
+     "pass": true,
+     "note": "0.35 m, at the outer end of each berth; acrylic shield plug and insert keep the berth screen (G6 declared item berth_viewports)"
+    }
+   ],
+   "declared": [
+    {
+     "key": "i4_human_factors",
+     "text": "I4 source-frame check rerun against current geometry. Scene seat length 1.58m <2.10m source crew envelope; 2D seat/ladder/walkways and bare dome clearances NOT physical 3D access or 4g qualification. Crown sightlines are optimistic upper bounds only. All three annulus-floor couches now clear the rectangular terrace in a conservative 3D axis-aligned box test; S4 is moved +0.20m outboard with 0.0541m clearance. This is not occupant-swept collision testing. Optional terrace chamfer NOT BUILT.",
+     "kT": "ACCEPTED",
+     "as": "kT accepts I4 3D suited-body fit and egress as DECLARED for conventional Wayfarer lab qualification. Bounded plan and 3D couch-versus-terrace AABB tests pass; full physical occupant-swept/4g restraint and evacuation evidence is not represented as newly computed.",
+     "date": "2026-11-01"
+    }
+   ],
+   "notes": [
+    "Target 370 m3 (45 per crew, 25 per guest): reached 87%. A sixth deck (+2.6 m of habitat) would reach the target.",
+    "Net habitable volume by deck: L1 51 m3, L2 81 m3, L3 77 m3, L4 57 m3, L5 57 m3",
+    "Windows: the crown dome over L1 (25 m2), a panoramic viewport band round L2 (19.4 m2, 1.6 m tall in the lounge), 12 round viewports (4 shoulder on L1; L4 medical 2, storm shelter 2; L5 suits 1, workshop 2, vestibule 1) and 10 berth viewports (0.5 m) on L3. With every shutter open about 2.03 kW radiates through the low-e glazing; shutters close for night. The canon candidate suggests 10-16 windows; amendment v2.4f proposes more (kT's call). Below the crown every window has four panes, a dust shutter, a 12 deg armour splay and an acrylic shield plug",
+    "Casualties move at 0 g (coast on the captain's order); under thrust they are treated in their couch or berth.",
+    "Decks are perpendicular to the thrust axis; under thrust, aft is down. Above ~1.5 g everyone rides in a couch.",
+    "Cabins by occupancy (v0.5.3, Sol's candidate): Captain's cabin 1 (15.6 m3 each), Crew cabin A 2 (7.8 m3 each), Guest cabin 4 (5.9 m3 each), Crew cabin B 3 (7.8 m3 each); 10 berths in 4 cabins. Private cabins removed by kT on 2026-10-25 (basis change, Sol to agree)."
+   ],
+   "nhv_m3": 321.51304142738036,
+   "nhv_by_deck_m3": {
+    "L1": 50.72444950917208,
+    "L2": 80.50291904915674,
+    "L3": 76.71351035544264,
+    "L4": 56.566196668354436,
+    "L5": 57.005965845254465
+   }
+  },
+  {
+   "gate": "G8",
+   "title": "Shuttle, drones and bay exit",
+   "verdict": "PASS",
+   "checks": [
+    {
+     "name": "radial clearance in the bore",
+     "value": 0.5,
+     "limit": 0.25,
+     "unit": "m",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "axial clearance, forward",
+     "value": 0.5,
+     "limit": 0.5,
+     "unit": "m",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "axial clearance, aft",
+     "value": 0.5,
+     "limit": 0.5,
+     "unit": "m",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "exit path clear of slot edge",
+     "value": 0.5,
+     "limit": 0.5,
+     "unit": "m",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "exit path clear of open doors (vertical at the slot edges)",
+     "value": 0.5,
+     "limit": 0.5,
+     "unit": "m",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "exit path clear of sill longeron (upper starboard)",
+     "value": 0.65,
+     "limit": 0.5,
+     "unit": "m",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "exit path clear of sill longeron (upper port)",
+     "value": 0.65,
+     "limit": 0.5,
+     "unit": "m",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "exit path clear of strake 40 deg (stowed or deployed)",
+     "value": 0.52,
+     "limit": 0.5,
+     "unit": "m",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "exit path clear of strake 140 deg (stowed or deployed)",
+     "value": 0.52,
+     "limit": 0.5,
+     "unit": "m",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "hot fins clear the shuttle corridor (carried aft of the bay on +Z)",
+     "value": 1.05,
+     "limit": 1.0,
+     "unit": "m from the slot edge line",
+     "pass": true,
+     "note": "fins at x 34.3-53.3 m, 2.25 m aft of the bay; a shuttle that drifts aft on leaving or arriving still meets no fin"
+    },
+    {
+     "name": "pressure-tight transfer from habitat to shuttle nose",
+     "value": "habitat - collar node - bay axis - nose port",
+     "limit": "continuous",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "drones carried",
+     "value": 4,
+     "limit": 4,
+     "unit": "",
+     "pass": true,
+     "note": "2 Mars + 2 dense-air in pods; berths for up to 8 + 16"
+    },
+    {
+     "name": "hold volume left for 50 t payload and the Venus kit",
+     "value": 56.1,
+     "limit": "> 50",
+     "unit": "m3",
+     "pass": true,
+     "note": "two holds 68 m3, drones 12.2 m3"
+    }
+   ],
+   "declared": [],
+   "notes": [
+    "Filling the shuttle's water (23.1 t, an Earth trip) from remass costs Wayfarer 75 km/s of ECON reach unless refilled at a port.",
+    "The shuttle backs 0.5 m off the forward port, then rises +Z through the slot. Strakes may stay deployed; doors open to vertical.",
+    "Bay x 18.25-32.05 m vs canon reservation x 16-28 m (G11)."
+   ]
+  },
+  {
+   "gate": "G9",
+   "title": "Failures and reserves",
+   "verdict": "PASS-DECLARED",
+   "checks": [
+    {
+     "name": "strake 40 deg lost: Metric HARD still rejected",
+     "value": 4.0,
+     "limit": "<= 24.0 m",
+     "unit": "m span",
+     "pass": true,
+     "note": "torch-burn capacity falls to 318 MW"
+    },
+    {
+     "name": "strake 140 deg lost: Metric HARD still rejected",
+     "value": 4.0,
+     "limit": "<= 24.0 m",
+     "unit": "m span",
+     "pass": true,
+     "note": "torch-burn capacity falls to 318 MW"
+    },
+    {
+     "name": "strake 220 deg lost: Metric HARD still rejected",
+     "value": 4.0,
+     "limit": "<= 24.0 m",
+     "unit": "m span",
+     "pass": true,
+     "note": "torch-burn capacity falls to 318 MW"
+    },
+    {
+     "name": "strake 320 deg lost: Metric HARD still rejected",
+     "value": 4.0,
+     "limit": "<= 24.0 m",
+     "unit": "m span",
+     "pass": true,
+     "note": "torch-burn capacity falls to 318 MW"
+    },
+    {
+     "name": "one hot fin lost: torch still runs",
+     "value": "88% jet power",
+     "limit": ">= 50%",
+     "unit": "",
+     "pass": true,
+     "note": "the torch throttles so its heat matches three fins; CRUISE at canon mass then gives about 0.88 g"
+    },
+    {
+     "name": "tank cell vented (S7): thrust trim",
+     "value": 0.34,
+     "limit": 0.5,
+     "unit": "deg",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "tank cell vented (S7): remass lost",
+     "value": "25.0%",
+     "limit": "about 25% (Q7)",
+     "unit": "",
+     "pass": true,
+     "note": "187.5 t left, ECON delta-v 558 km/s"
+    },
+    {
+     "name": "any one RCS cluster lost: three-axis control",
+     "value": "yes",
+     "limit": "yes",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "one longeron lost: the others at 1 g limit load",
+     "value": 39.4,
+     "limit": 400,
+     "unit": "MPa",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "protected water kept out of routine propulsion",
+     "value": "by accounting",
+     "limit": "always",
+     "unit": "",
+     "pass": true,
+     "note": "jacket and service tank water are separate from the tank cells' remass; the 0.0 t in the cells is never counted as remass"
+    },
+    {
+     "name": "L5 depressurised: the rest of the habitat stays pressurised",
+     "value": "isolated",
+     "limit": "isolated",
+     "unit": "",
+     "pass": true,
+     "note": "floor L4 is a bulkhead; two ladderway hatches close on a pressure drop; a plug seals the trunk"
+    },
+    {
+     "name": "engineering reserve after the rev 7 equipment",
+     "value": 46.17,
+     "limit": "> 0",
+     "unit": "t",
+     "pass": true,
+     "note": "1.42 t of new hardware drawn; 1.88 t located inside existing ledger lines (no new mass)"
+    },
+    {
+     "name": "external equipment clear of node faces, windows, hatches and doors",
+     "value": 0,
+     "limit": 0,
+     "unit": "overlaps",
+     "pass": true,
+     "note": ""
+    }
+   ],
+   "declared": [
+    {
+     "key": "external_equipment",
+     "text": "External equipment (rev 7, ENGINEERING_ASSUMPTION): 55 parts from the inventory's 13 item types. Items with a ledger line are located inside it (sensor turrets in mission systems, RF arrays, laser terminals and aft trackers in the avionics racks, forward trackers in the bow sensor ring, service ports in the service arm, vents in life support, the docking target in the collar): 1.88 t, no new mass. New hardware (crawler docks and points, grapple fixtures, EVA rails): 1.42 t from the reserve. Not built: drone_bay HOLD; nav_lights OPTIONAL; crawler_rails NOT YET. Masses are 2026-analogue allowances to be sized.",
+     "kT": "ACCEPTED",
+     "as": "editable 1.4208t new allowance within dry reserve (2026 analogue guess), 0t sensitivity case required; item positions not frozen",
+     "date": "2026-10-31"
+    }
+   ],
+   "notes": [
+    "Torch failure after departure is a Q6/Q7 degraded-mission case (survival possible, completion not assumed)."
+   ]
+  },
+  {
+   "gate": "G10",
+   "title": "Flight dynamics: RCS, torch, Metric, Loom",
+   "verdict": "PASS-DECLARED",
+   "checks": [
+    {
+     "name": "C: card names the geometry it was made from",
+     "value": "5d73cdd1d789",
+     "limit": "5d73cdd1d789",
+     "pass": true,
+     "unit": "",
+     "note": ""
+    },
+    {
+     "name": "C: card mass, CG and inertia match the geometry in every state",
+     "value": 0.001453,
+     "limit": 0.01,
+     "pass": true,
+     "unit": "max abs / rel",
+     "note": ""
+    },
+    {
+     "name": "C: torch exhaust velocities match the working card (src/wayfarer_torch_mode_cards.py)",
+     "value": "all",
+     "limit": "all",
+     "pass": true,
+     "unit": "",
+     "note": ""
+    },
+    {
+     "name": "C: torch thrust by mode: ship card carries the working card (kT 2026-10-26: the working card governs)",
+     "value": 0.009,
+     "limit": 1.0,
+     "pass": true,
+     "unit": "% worst",
+     "note": ""
+    },
+    {
+     "name": "C: torch: the ship runs no mode above its heat-rejection ceiling",
+     "value": 0,
+     "limit": 0,
+     "pass": true,
+     "unit": "modes over",
+     "note": "ceiling 11.361 TW; held below the working card: FAST, HARD, LIMIT"
+    },
+    {
+     "name": "R: RCS 180 deg roll slew settles (main controller gates, 240 s budget), worst state",
+     "value": 55.9,
+     "limit": 240.0,
+     "pass": true,
+     "unit": "s",
+     "note": "worst S1"
+    },
+    {
+     "name": "R: RCS 180 deg pitch slew settles (main controller gates, 240 s budget), worst state",
+     "value": 61.6,
+     "limit": 240.0,
+     "pass": true,
+     "unit": "s",
+     "note": "worst S2"
+    },
+    {
+     "name": "R: RCS 180 deg yaw slew settles (main controller gates, 240 s budget), worst state",
+     "value": 61.7,
+     "limit": 240.0,
+     "pass": true,
+     "unit": "s",
+     "note": "worst S2"
+    },
+    {
+     "name": "R: RCS 180 deg slews on all axes with any one cluster out (S2)",
+     "value": 0,
+     "limit": 0,
+     "pass": true,
+     "unit": "failures",
+     "note": ""
+    },
+    {
+     "name": "R: attitude held against torch thrust error: torch TVC first, RCS takes the rest (all RCS couples)",
+     "value": 0.0,
+     "limit": 3.08,
+     "pass": true,
+     "unit": "MN m",
+     "note": "left for the RCS after 1.0 deg TVC; without TVC the worst is 18.63 MN m (S2 HARD), beyond the RCS alone"
+    },
+    {
+     "name": "R: torch thrust-vector authority covers trim + an ASSUMED 0.5 deg error",
+     "value": 1.0,
+     "limit": 0.843,
+     "pass": true,
+     "unit": "deg",
+     "note": "requirement conditional on the 0.5 deg assumption; the 1.0 deg authority is declared (kT 2026-10-26), not a qualified nozzle capability"
+    },
+    {
+     "name": "R: RCS translation on all three axes meets main's response law and test velocities",
+     "value": 0,
+     "limit": 0,
+     "pass": true,
+     "unit": "axes short",
+     "note": ""
+    },
+    {
+     "name": "T: torch: integrated delta-v agrees with the rocket equation (all modes, full usable remass)",
+     "value": 0.007,
+     "limit": 0.1,
+     "pass": true,
+     "unit": "% worst",
+     "note": ""
+    },
+    {
+     "name": "T: torch: peak acceleration within the 4 g crew cap and the 5 g structural rating",
+     "value": 4.0,
+     "limit": 4.0,
+     "pass": true,
+     "unit": "g",
+     "note": ""
+    },
+    {
+     "name": "T: torch: trim stays within the G3 limit as the tanks drain",
+     "value": 0.324,
+     "limit": 0.5,
+     "pass": true,
+     "unit": "deg",
+     "note": "CG interpolated between S1 (full) and S4 (burnt out)"
+    },
+    {
+     "name": "T: torch: interrupted burns simulated, no segment over 165 min ([V2 6113]); delta-v unchanged by the coasts",
+     "value": 165.0,
+     "limit": 165.0,
+     "pass": true,
+     "unit": "min",
+     "note": "coast 15 min each (ASSUMPTION). ECON 3667.5 min burning in 23 segments, 3997.5 min elapsed; CRUISE 733.5 min burning in 5 segments, 793.5 min elapsed; EXPEDITE 183.4 min burning in 2 segments, 198.4 min elapsed"
+    },
+    {
+     "name": "M: Metric: nominal sequence (prep, ramp, transport, collapse, relaxation) is valid",
+     "value": "valid",
+     "limit": "valid",
+     "pass": true,
+     "unit": "",
+     "note": ""
+    },
+    {
+     "name": "M: Metric: torch to Metric ramp without a coast is refused (torch and high Metric exclusive)",
+     "value": "refused",
+     "limit": "refused",
+     "pass": true,
+     "unit": "",
+     "note": ""
+    },
+    {
+     "name": "M: Metric: cold load within the cryoplant class in every mode",
+     "value": 136.0,
+     "limit": 150.0,
+     "pass": true,
+     "unit": "kW",
+     "note": ""
+    },
+    {
+     "name": "M: Metric: heat of every mode rejected (G4)",
+     "value": 4,
+     "limit": 4,
+     "pass": true,
+     "unit": "modes",
+     "note": ""
+    },
+    {
+     "name": "M: Metric: ramps within canon's 10-30 s",
+     "value": "10-30",
+     "limit": "10-30",
+     "pass": true,
+     "unit": "s",
+     "note": ""
+    },
+    {
+     "name": "L: Loom: metric collapse -> NRE relaxation -> Loom formation sequence is valid",
+     "value": "valid",
+     "limit": "valid",
+     "pass": true,
+     "unit": "",
+     "note": ""
+    },
+    {
+     "name": "L: Loom: direct mid-field Metric -> Loom is refused (not crew-rated)",
+     "value": "refused",
+     "limit": "refused",
+     "pass": true,
+     "unit": "",
+     "note": ""
+    },
+    {
+     "name": "L: Loom: E1 configuration lock (DOCKED / FREE / STOWED) is declared in the card",
+     "value": 5,
+     "limit": 5,
+     "pass": true,
+     "unit": "items",
+     "note": "all declared"
+    },
+    {
+     "name": "L: Loom: torch delta-v available at arrival above the 50 t reserve (normal dispatch, ECON)",
+     "value": 295.0,
+     "limit": "reported",
+     "pass": true,
+     "unit": "km/s",
+     "note": "CRUISE 196.7, EXPEDITE 98.3 km/s; the arrival mismatch itself comes from the natural transport map (not computed)"
+    }
+   ],
+   "declared": [
+    {
+     "key": "torch_tvc",
+     "text": "Torch thrust-vector control: the magnetic nozzle steers the thrust line by up to 1.0 deg (asymmetric coil current). Needed: trim plus an assumed 0.5 deg thrust error (0.843 deg). The error is an engineering assumption, not a measured disturbance history; the authority is not a qualified nozzle capability.",
+     "kT": "ACCEPTED",
+     "as": "Declare 1 deg of torch thrust-vector authority (decision 2), on the assumed 0.5 deg thrust error.",
+     "date": "2026-10-26"
+    },
+    {
+     "key": "rcs_axial_plumes",
+     "text": "Axial RCS: one 25 kN thruster per cluster, canted 10 deg outward (bow ones exhaust forward, aft ones aft). Assumes the plumes clear the crown glazing, hull, hot fins and torch chain; plume impingement is not yet modelled.",
+     "kT": "ACCEPTED",
+     "as": "kT accepts axial RCS plume clearance as DECLARED, not a new physical plume impingement calculation. Original 10\u00b0 canted one-nozzle-per-cluster assumption remains.",
+     "date": "2026-11-01"
+    },
+    {
+     "key": "g10_burn_coasts",
+     "text": "Long torch burns split into segments of at most 165 min ([V2 6113]) with 15 min coasts (engineering assumption; in free space the coasts change elapsed time, not delta-v).",
+     "kT": "ACCEPTED",
+     "as": "kT accepts segmented burn doctrine as DECLARED: \u2264165min torch burn segments with \u226515min coasts. Coasts add elapsed time, not free-space delta-v. This is not Metric travel qualification.",
+     "date": "2026-11-01"
+    }
+   ],
+   "notes": [
+    "25/25 checks pass. Sources: main 19377b85; see g10/G10_SOURCE_MAP.md.",
+    "Basis v0.2, agreed by Sol 2026-10-26. Not computed by design: Metric delta-v and remass (CANON II s20); Loom domain fit (PR #356).",
+    "Follow-up validation, not gating: E1, FR-01B-R and MV-01 flown in Navigator: no executable fixtures, no ship-card import, and canon II s20 bars exact remass/delta-v outputs until U^M_gamma and a terminal solver exist; Loom translation-domain fit: PR #356",
+    "Screening only (ideal rocket equation at CRUISE from the S1 mass): 50 km/s: 28.8 t (within 150 t dispatch less the 50 t reserve); 100 km/s: 56.9 t (within 150 t dispatch less the 50 t reserve); 200 km/s: 111.1 t (beyond 150 t dispatch less the 50 t reserve); 300 km/s: 162.6 t (beyond 150 t dispatch less the 50 t reserve)."
+   ]
+  },
+  {
+   "gate": "G11",
+   "title": "Canon fit",
+   "verdict": "PASS",
+   "checks": [
+    {
+     "name": "every departure listed with its reason",
+     "value": 14,
+     "limit": "complete",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    }
+   ],
+   "declared": [],
+   "notes": [
+    "Kept from canon: torch card and remass/water figures, Metric card and 719 m2-equivalent HARD requirement, integrated, unpressurized launch bay with lateral departure, pressure-tight transfer and DOCKED/ABSENT mass state, docking collar at x = 16 m on -Z, habitat x 0-14 m, decks perpendicular to thrust, no spin ring, wings or landing gear, torch/Metric exclusivity, four radiator assemblies.",
+    "Listing is complete; adoption is kT's decision as a canon amendment."
+   ],
+   "departures": [
+    {
+     "item": "Tanks",
+     "canon": "4 major working-fluid tanks in quadrature (CANON II \u00a713.2)",
+     "v0.5": "one C-shaped wrap-around tank in 4 isolatable cells around an on-axis bay"
+    },
+    {
+     "item": "Longerons",
+     "canon": "4 axial longerons",
+     "v0.5": "4 CFRP tubes in an X (v0.5.7): the upper pair edge the bay slot, the lower pair in the tank's lower cells; matches canon"
+    },
+    {
+     "item": "Length",
+     "canon": "~57 m main body",
+     "v0.5": "53.3 m"
+    },
+    {
+     "item": "Dry mass",
+     "canon": "~858.5 t",
+     "v0.5": "867.7 t (includes 6 t for 4 guest berths)"
+    },
+    {
+     "item": "Wet mass",
+     "canon": "~1158.5 t",
+     "v0.5": "1167.7 t"
+    },
+    {
+     "item": "Launch bay",
+     "canon": "semi-recessed, reservation x 16-28 m",
+     "v0.5": "on-axis bore inside the tank, x 18.25-32.05 m, lateral exit through a 4.8 m slot on +Z"
+    },
+    {
+     "item": "Radiators",
+     "canon": "4 assemblies in quadrature, 900 K equivalent card",
+     "v0.5": "4 accordion strakes at [40, 140, 220, 320] deg (mirror-symmetric, not exactly 90 deg apart), 1300 K"
+    },
+    {
+     "item": "Metric HARD electrical",
+     "canon": "~23.9 MW at 900 K",
+     "v0.5": "34.8 MW at 1300 K"
+    },
+    {
+     "item": "Torch axis",
+     "canon": "1 axial torch",
+     "v0.5": "axial, with its thrust line offset 0.20 m from the hull centreline to pass through the centre of mass"
+    },
+    {
+     "item": "People",
+     "canon": "6 normal crew",
+     "v0.5": "6 crew (unchanged) + 4 guest berths"
+    },
+    {
+     "item": "Protected water",
+     "canon": "50 t in the tanks",
+     "v0.5": "16.5 t storm-shelter jacket, 5.70 t L3 berth shield ring, 27.8 t service tank, 0.0 t in the tank cells"
+    },
+    {
+     "item": "Shuttle",
+     "canon": "candidate 30-35 t launch, ~10.5 m (not canon)",
+     "v0.5": "rover-drop shuttle 27.9 t empty, 12.8 m"
+    },
+    {
+     "item": "Torch internals",
+     "canon": "axial fusion torch / magnetic nozzle; internals not stated",
+     "v0.5": "pulsed: each He3-rich, spin-polarised D-He3 pellet is wrapped in a shell of remass that becomes the exhaust; burn 6 m aft of the reactor face (x 52.3 m)"
+    },
+    {
+     "item": "Hot fins",
+     "canon": "none",
+     "v0.5": "4 hot fins at 1750 K aft of the shield on the strake lines, 28 m, 21.0 t paid from the engineering reserve"
+    }
+   ]
+  },
+  {
+   "gate": "G12",
+   "title": "Images",
+   "verdict": "PASS-DECLARED",
+   "checks": [
+    {
+     "name": "render manifest matches locked geometry",
+     "value": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+     "limit": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "all indexed images and viewer have current hash and exist",
+     "value": 0,
+     "limit": 0,
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "exterior current-geometry artifacts",
+     "value": 4,
+     "limit": 4,
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "cutaway current-geometry artifacts",
+     "value": 2,
+     "limit": 2,
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "deckplan current-geometry artifacts",
+     "value": 6,
+     "limit": 5,
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "viewer current-geometry artifacts",
+     "value": 1,
+     "limit": 1,
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "one GLB with exterior and I4 interior scenes stamped with current hash",
+     "value": true,
+     "limit": true,
+     "unit": "",
+     "pass": true,
+     "note": ""
+    }
+   ],
+   "declared": [
+    {
+     "key": "kT_visual_acceptance",
+     "text": "Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only",
+     "kT": "ACCEPTED",
+     "as": "kT reviewed and ACCEPTED the viewer and render set stamped with geometry SHA256 5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256. Source/provenance G12 passed; this is visual acceptance, not pressure/material or occupied-body physical validation.",
+     "date": "2026-11-01"
+    }
+   ],
+   "notes": [
+    "Manifest hash + current files + 2-scene GLB verified; full 64-character SHA stamped by source render templates.",
+    "G12 visuals remain NON-GOVERNING pending kT aesthetic/geometry interpretation review; screenshot existence does not qualify hardware, pressure crown or humans."
+   ]
+  }
+ ],
+ "declared_for_kT": [
+  {
+   "key": "torch_heat",
+   "text": "Torch heat package (kT, 2026-10-25): each pellet is wrapped in a shell of remass that soaks up the burn and leaves as exhaust. The shell must let no more than ~358 ppm of the burn's energy escape as light, counting its own glow (the reactor face's 10 MW/m2 limit); the design value is 180 ppm. With the model's other assumptions (torch/torch_heat_inputs.json: light 40% of fusion energy; He3-rich, spin-polarised fuel with 0.76% neutrons, 85% absorbed by the shell; plume contact 1e-4 of charged energy; coil shield transmission 1e-3), 1.40 GW reaches hot structure and 0.48 MW the magnet coils at 12.6 TW of fusion. These are assumptions, not results. Replaces v0.5.1's 387 MW (34 ppm) torch-leak gap.",
+   "kT": "ACCEPTED",
+   "as": "v0.5.2 torch heat package (kT chose the package and 1,750 K fins on 2026-10-25 and accepted this wording the same day): the remass shell lets no more than ~360 ppm of the burn's energy escape as light, counting its own glow; design value 180 ppm; with the heat model's other assumptions 1.40 GW reaches hot structure and 0.48 MW the magnet coils.",
+   "date": "2026-10-25"
+  },
+  {
+   "key": "torch_fin_temperature",
+   "text": "Hot fins run for life at 1750 K. Lithium heat pipes have run in lab tests to ~1,500 K and briefly ~1,800 K; years at 1750 K with burn cycling and neutron exposure is an engineering extrapolation (a technology milestone), not new physics. Fallback: 1,500 K fins, ~49 m span, ~30 t, still inside the reserve.",
+   "kT": "ACCEPTED",
+   "as": "kT: \"Let's go 1750.\" Hot fins at 1,750 K, recorded as an engineering extrapolation (technology milestone), with 1,500 K fins as the fallback.",
+   "date": "2026-10-25"
+  },
+  {
+   "key": "plant_power",
+   "text": "Plant electrical: Metric HARD at a 1300 K reject temperature needs 34.8 MW of cryo-chain electrical power, against canon's 23.9 MW at 900 K. The relational plant must supply this (canon amendment), or the cryo chain must reject through a 900 K loop.",
+   "kT": "ACCEPTED",
+   "as": "canon states the relational plant supplies ~34.8 MW for Metric HARD at a 1,300 K reject temperature. Option not taken: a 900 K loop for the cryo chain.",
+   "date": null
+  },
+  {
+   "key": "cold_running",
+   "text": "Cold running (rev 7, F5 provisional item F5-TE-01): the tunable flanks drop from emissivity 0.85 to 0.1, so at the same skin temperature they radiate 12% as much. Heat is held, not removed: habitat heat 58.1 kW (x1.25), plus plant standby 10.0 kW and cryo standby 10.0 kW, less 7.1 kW still leaking through 177 m2 of low-e skin at 290 K warms the 50 t of protected water by 15 K in about 12.3 h (ideal no-standby ceiling 17.1 h). ENGINEERING_ASSUMPTION (screening placeholders 10+10 kW, NOT sourced or qualified); editable, replace with measured/engineering budget. Then the ship must open the strakes or switch the flanks back to normal. Detailed load-cycle variation, cryo plant duty, tank thermal coupling, and reserve storage remain open. The metallic look in the viewer is a proposed optical property.",
+   "kT": "ACCEPTED",
+   "as": "Provisional ~17.09h ideal cap before plant and cryo standby; 10+10 kW editable illustrative loads yield a shorter window; physical heat budget OPEN",
+   "date": "2026-10-31"
+  },
+  {
+   "key": "i4_terrace_mounts",
+   "text": "I4 terrace 4 columns sized as 7075-T6 76mm OD x 3mm at 0.49m. 5g x1.5 ultimate +0.5g lateral member screen, no joint, deck bearing, vibration, fatigue, swept-body or 3D egress qualification. HOLLOW: closed only for column members, not system.",
+   "kT": "ACCEPTED",
+   "as": "kT accepts I4 terrace mounts and structural load paths as DECLARED, not structurally tested to hardware standard. Original 5g\u00d71.5 member / 0.5g lateral assumption remains visible; joints, bearing, vibration and fatigue have not been newly modelled.",
+   "date": "2026-11-01"
+  },
+  {
+   "key": "berth_viewports",
+   "text": "Berth viewports (v0.5.7): 10 x 0.5 m viewports keep the berth screen because acrylic plugs carry at least the g/cm2 they replace (armour 27.14 vs 27.0, ring 8.26 vs 8.0), so the ray screen, which treats the hull as continuous, is unchanged. Rev 3: the same plug kit is in every opening below the crown, including the L2 viewport band, and continues through the storm-shelter jacket (17 cm more acrylic for the 20 cm of water). Not yet shown: the dose. Acrylic is ~8% hydrogen by mass against water's 11%, so per g/cm2 it may stop cosmic-ray secondaries slightly less well; a transport check may ask for a thicker plug. Encapsulated for fire.",
+   "kT": "ACCEPTED",
+   "as": "Every opening below the crown carries an acrylic shield plug and insert with at least the g/cm2 they replace (armour 27, berth ring 8, shelter jacket 20), so berths and shelter keep their screens with the shutters open; the dose is accepted as a provision until a transport check (OLTARIS) is run; plugs are encapsulated and counted as fire load.",
+   "date": "2026-10-26"
+  },
+  {
+   "key": "crown_dome",
+   "text": "Crown dome (v0.5.7): 25 m2 of glazing inside r 2.8 m replaces the 8 nose windows. Assumes (1) proof-tested transparent ceramic panes up to 2.3 m across (2026's largest are ~0.76 m), a 2226 materials milestone like the 1,750 K fins (rev 4: the L2 viewport band's 16-18 mm plate panes rely on the same ceramic; 2026 ALON would need 25-29 mm); (2) tambour gores of armour-equivalent Strata laminate (Builder-derived, MHL-22) that restore 27 g/cm2 when closed and stow in the brow ring; (3) the operating rule: open only at low speed or with the bow facing away from the dust flow (braking and tail-first coasting); closed for solar particle events, radiation belts, torch burns and Loom formation and translation. Stuck closed is safe; stuck open: turn the bow out of the dust flow. With the gores open, L1 loses the armour over the crown (glass 2-9 g/cm2); L1 is not a shelter.",
+   "kT": "ACCEPTED",
+   "as": "Crown dome over L1 and the L2 viewport band: proof-tested transparent ceramic panes up to 2.3 m (band panes 16-18 mm plates) as a 2226 materials milestone; tambour gores and shutters of armour-equivalent Strata laminate (Builder-derived, MHL-22); the dome and shutters open only at low speed or with the bow out of the dust flow, closed for solar particle events, radiation belts and torch burns.",
+   "date": "2026-10-26"
+  },
+  {
+   "key": "strata_armour",
+   "text": "Habitat armour face (rev 7, kT 2026-10-26): Strata laminate (Builder-derived, MHL-22) over the whole habitat armour, x 0-14. KT_ACCEPTED 2026-10-31 as visible armour face; materials constitutive/physical performance remain OPEN; no changed shielding/mass claim. Bow x 0.0-2.6 m: bare Strata: the erosion face meets the dust flow.",
+   "kT": "ACCEPTED",
+   "as": "Strata as armour face; constitutive performance OPEN; drone-deployed over-crown armour is OPTION ONLY and drone bay HOLD",
+   "date": "2026-10-31"
+  },
+  {
+   "key": "node_faces",
+   "text": "Metric node faces (rev 7, kT 2026-10-26; Sol: AGREE, placement HOLD): 208 visible flush or recessed faces, 13 rings x 16 at 22.5 deg (rev 5 longeron-study layout). 76 are clear; the rest are flagged: 16 faces dust flow bow first, 12 on bay door, 80 on torch chain, 1 overlaps camera, 2 overlaps hold door, 1 overlaps window, 20 under stowed strake. The design case assumes every face carries at least the armour's g/cm2 it replaces, like the berth-viewport plugs. Sensitivity, faces as open bores through the armour: berth screen 14.78 g/cm2 (30 of 36 berth points below 40) and storm shelter 36.3 g/cm2. So a face must be armour-equivalent: materials, cover, seal and mount stay OPEN, and no dust check exists in the basis yet (faces flagged 'faces dust flow' meet the flow when coasting bow-first). Node stations are not moved for the look; PR #184 stays OPEN.",
+   "kT": "ACCEPTED",
+   "as": "armour-equivalent g/cm2 per node face; placement HOLD pending PR #184",
+   "date": "2026-10-31"
+  },
+  {
+   "key": "shelter_life_support",
+   "text": "Storm shelter life support: 72 h for 10 people from the life-support room on the same deck (design provision, not computed).",
+   "kT": "ACCEPTED",
+   "as": "72 h of life support for 10 people in the storm shelter, from the life-support room on the same deck, recorded as a design provision to be sized in detail later.",
+   "date": null
+  },
+  {
+   "key": "gcr",
+   "text": "Galactic cosmic rays: at 2026 free-space rates (1.8 mSv/day, ~657 mSv/yr) a crew member reaches NASA's 600 mSv career limit after ~333 days in deep space. Hull shielding barely changes this. Long careers aboard rely on canon's off-Earth MED-MOD-RADIATION milestone and crew time-in-space rules; this is a canon question, not something the hull can close.",
+   "kT": "ACCEPTED",
+   "as": "crew protection from galactic cosmic rays relies on canon's off-Earth MED-MOD-RADIATION milestone plus crew time-in-space limits.",
+   "date": null
+  },
+  {
+   "key": "torch_neutrons",
+   "text": "Torch neutrons and gammas: the shadow shield must attenuate the torch's neutron and gamma output so the dose rate inside the habitat during burns stays within crew limits. The v0.5.2 heat model puts neutrons at ~0.76% of the burn's energy with 85% absorbed by the remass shell; the dose itself is not computed here, only the shadow geometry is checked.",
+   "kT": "ACCEPTED",
+   "as": "covered by the same declared gap: the torch and shadow shield keep neutron and gamma dose in the habitat within crew limits during burns; the shadow geometry is checked (G6).",
+   "date": null
+  },
+  {
+   "key": "i4_human_factors",
+   "text": "I4 source-frame check rerun against current geometry. Scene seat length 1.58m <2.10m source crew envelope; 2D seat/ladder/walkways and bare dome clearances NOT physical 3D access or 4g qualification. Crown sightlines are optimistic upper bounds only. All three annulus-floor couches now clear the rectangular terrace in a conservative 3D axis-aligned box test; S4 is moved +0.20m outboard with 0.0541m clearance. This is not occupant-swept collision testing. Optional terrace chamfer NOT BUILT.",
+   "kT": "ACCEPTED",
+   "as": "kT accepts I4 3D suited-body fit and egress as DECLARED for conventional Wayfarer lab qualification. Bounded plan and 3D couch-versus-terrace AABB tests pass; full physical occupant-swept/4g restraint and evacuation evidence is not represented as newly computed.",
+   "date": "2026-11-01"
+  },
+  {
+   "key": "external_equipment",
+   "text": "External equipment (rev 7, ENGINEERING_ASSUMPTION): 55 parts from the inventory's 13 item types. Items with a ledger line are located inside it (sensor turrets in mission systems, RF arrays, laser terminals and aft trackers in the avionics racks, forward trackers in the bow sensor ring, service ports in the service arm, vents in life support, the docking target in the collar): 1.88 t, no new mass. New hardware (crawler docks and points, grapple fixtures, EVA rails): 1.42 t from the reserve. Not built: drone_bay HOLD; nav_lights OPTIONAL; crawler_rails NOT YET. Masses are 2026-analogue allowances to be sized.",
+   "kT": "ACCEPTED",
+   "as": "editable 1.4208t new allowance within dry reserve (2026 analogue guess), 0t sensitivity case required; item positions not frozen",
+   "date": "2026-10-31"
+  },
+  {
+   "key": "torch_tvc",
+   "text": "Torch thrust-vector control: the magnetic nozzle steers the thrust line by up to 1.0 deg (asymmetric coil current). Needed: trim plus an assumed 0.5 deg thrust error (0.843 deg). The error is an engineering assumption, not a measured disturbance history; the authority is not a qualified nozzle capability.",
+   "kT": "ACCEPTED",
+   "as": "Declare 1 deg of torch thrust-vector authority (decision 2), on the assumed 0.5 deg thrust error.",
+   "date": "2026-10-26"
+  },
+  {
+   "key": "rcs_axial_plumes",
+   "text": "Axial RCS: one 25 kN thruster per cluster, canted 10 deg outward (bow ones exhaust forward, aft ones aft). Assumes the plumes clear the crown glazing, hull, hot fins and torch chain; plume impingement is not yet modelled.",
+   "kT": "ACCEPTED",
+   "as": "kT accepts axial RCS plume clearance as DECLARED, not a new physical plume impingement calculation. Original 10\u00b0 canted one-nozzle-per-cluster assumption remains.",
+   "date": "2026-11-01"
+  },
+  {
+   "key": "g10_burn_coasts",
+   "text": "Long torch burns split into segments of at most 165 min ([V2 6113]) with 15 min coasts (engineering assumption; in free space the coasts change elapsed time, not delta-v).",
+   "kT": "ACCEPTED",
+   "as": "kT accepts segmented burn doctrine as DECLARED: \u2264165min torch burn segments with \u226515min coasts. Coasts add elapsed time, not free-space delta-v. This is not Metric travel qualification.",
+   "date": "2026-11-01"
+  },
+  {
+   "key": "kT_visual_acceptance",
+   "text": "Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only",
+   "kT": "ACCEPTED",
+   "as": "kT reviewed and ACCEPTED the viewer and render set stamped with geometry SHA256 5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256. Source/provenance G12 passed; this is visual acceptance, not pressure/material or occupied-body physical validation.",
+   "date": "2026-11-01"
+  }
+ ],
+ "kt_decisions_sha256": "f7b04c0334ee1e0ed79add360c468af0a841f8642f44bc719e7f3de8c309c12a",
+ "certified": true,
+ "certified_rule": "every gate PASS or PASS-DECLARED and every declared assumption ACCEPTED by kT; then both reviewers sign and loom-gate passes",
+ "qualification_scope": {
+  "certified_flag_meaning": "kT-accepted declared G1-G12 conventional Wayfarer laboratory certification basis ONLY; not independent reviewer signatures, Metric arrival or hardware flightworthiness",
+  "conventional_lab_scope": "G1-G12 conventional numerical and declared source-geometry evidence",
+  "metric_arrival": "HOLD: arrival dynamics, remass and arrival state not qualified",
+  "navigator": "EXCLUDED: no runtime or mission/card integration",
+  "rcs_power_source": "OPEN: idle torch reactor versus dedicated supply; no ship-wide budget",
+  "rcs_power_option_B": "hot-water store OPTION, not baseline",
+  "required_final_authority": "separate reviewer signatures and loom-gate per existing basis",
+  "geometry_sha256": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256"
+ }
+}

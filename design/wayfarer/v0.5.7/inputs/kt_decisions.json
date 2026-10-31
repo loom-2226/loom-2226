@@ -1,0 +1,229 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "kT declared acceptance register for conventional Wayfarer laboratory qualification; NOT evidence of hardware/Metric arrival qualification. Read by certify.py; geometry not derived from this file.",
+ "decided_by": "kT",
+ "date": "2026-11-01",
+ "decisions": {
+  "torch_heat": {
+   "decision": "ACCEPTED",
+   "date": "2026-10-25",
+   "kT": "Accept the torch-heat wording.",
+   "as": "v0.5.2 torch heat package (kT chose the package and 1,750 K fins on 2026-10-25 and accepted this wording the same day): the remass shell lets no more than ~360 ppm of the burn's energy escape as light, counting its own glow; design value 180 ppm; with the heat model's other assumptions 1.40 GW reaches hot structure and 0.48 MW the magnet coils.",
+   "superseded": {
+    "decision": "ACCEPTED",
+    "date": "2026-10-25",
+    "as": "v0.5.1: declared gap in canon: torch heat isolation; at most ~387 MW (34 ppm of jet power) reaches the ship during burns."
+   }
+  },
+  "torch_fin_temperature": {
+   "decision": "ACCEPTED",
+   "date": "2026-10-25",
+   "as": "kT: \"Let's go 1750.\" Hot fins at 1,750 K, recorded as an engineering extrapolation (technology milestone), with 1,500 K fins as the fallback."
+  },
+  "torch_neutrons": {
+   "decision": "ACCEPTED",
+   "as": "covered by the same declared gap: the torch and shadow shield keep neutron and gamma dose in the habitat within crew limits during burns; the shadow geometry is checked (G6)."
+  },
+  "plant_power": {
+   "decision": "ACCEPTED",
+   "as": "canon states the relational plant supplies ~34.8 MW for Metric HARD at a 1,300 K reject temperature. Option not taken: a 900 K loop for the cryo chain."
+  },
+  "gcr": {
+   "decision": "ACCEPTED",
+   "as": "crew protection from galactic cosmic rays relies on canon's off-Earth MED-MOD-RADIATION milestone plus crew time-in-space limits."
+  },
+  "shelter_life_support": {
+   "decision": "ACCEPTED",
+   "as": "72 h of life support for 10 people in the storm shelter, from the life-support room on the same deck, recorded as a design provision to be sized in detail later."
+  },
+  "crown_dome": {
+   "decision": "ACCEPTED",
+   "date": "2026-10-26",
+   "kT": "Agree to 1-3 (1: the crown dome assumption).",
+   "as": "Crown dome over L1 and the L2 viewport band: proof-tested transparent ceramic panes up to 2.3 m (band panes 16-18 mm plates) as a 2226 materials milestone; tambour gores and shutters of armour-equivalent Strata laminate (Builder-derived, MHL-22); the dome and shutters open only at low speed or with the bow out of the dust flow, closed for solar particle events, radiation belts and torch burns."
+  },
+  "berth_viewports": {
+   "decision": "ACCEPTED",
+   "date": "2026-10-26",
+   "kT": "Agree to 1-3 (2: the shielded viewport assumption).",
+   "as": "Every opening below the crown carries an acrylic shield plug and insert with at least the g/cm2 they replace (armour 27, berth ring 8, shelter jacket 20), so berths and shelter keep their screens with the shutters open; the dose is accepted as a provision until a transport check (OLTARIS) is run; plugs are encapsulated and counted as fire load."
+  },
+  "habitat_changes_v057": {
+   "decision": "APPROVED",
+   "date": "2026-10-26",
+   "kT": "Agree to 1-3 (3: the habitat changes).",
+   "as": "kT approves, as design owner: berths 2.10 x 0.70 m with a 4 cm partition; medical opening at 202 deg; the L3 floor-edge water collar; one berth per person (G7); viewports in the berth ring; the service-section shield band. Sol remains second reviewer."
+  },
+  "torch_tvc": {
+   "decision": "ACCEPTED",
+   "date": "2026-10-26",
+   "kT": "agree 1-4",
+   "as": "Declare 1 deg of torch thrust-vector authority (decision 2), on the assumed 0.5 deg thrust error."
+  },
+  "cold_running": {
+   "decision": "ACCEPTED",
+   "date": "2026-10-31",
+   "as": "Provisional ~17.09h ideal cap before plant and cryo standby; 10+10 kW editable illustrative loads yield a shorter window; physical heat budget OPEN"
+  },
+  "strata_armour": {
+   "decision": "ACCEPTED",
+   "date": "2026-10-31",
+   "as": "Strata as armour face; constitutive performance OPEN; drone-deployed over-crown armour is OPTION ONLY and drone bay HOLD"
+  },
+  "node_faces": {
+   "decision": "ACCEPTED",
+   "date": "2026-10-31",
+   "as": "armour-equivalent g/cm2 per node face; placement HOLD pending PR #184"
+  },
+  "external_equipment": {
+   "decision": "ACCEPTED",
+   "date": "2026-10-31",
+   "as": "editable 1.4208t new allowance within dry reserve (2026 analogue guess), 0t sensitivity case required; item positions not frozen"
+  },
+  "i4_terrace_mounts": {
+   "decision": "ACCEPTED",
+   "date": "2026-11-01",
+   "kT": "ALL bodies. ALL sponsors. 2026-2226. kT acceptance of declared conventional lab qualification.",
+   "gate": "G5",
+   "geometry_sha256": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+   "as": "kT accepts I4 terrace mounts and structural load paths as DECLARED, not structurally tested to hardware standard. Original 5g\u00d71.5 member / 0.5g lateral assumption remains visible; joints, bearing, vibration and fatigue have not been newly modelled."
+  },
+  "i4_human_factors": {
+   "decision": "ACCEPTED",
+   "date": "2026-11-01",
+   "kT": "ALL bodies. ALL sponsors. 2026-2226. kT acceptance of declared conventional lab qualification.",
+   "gate": "G7",
+   "geometry_sha256": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+   "as": "kT accepts I4 3D suited-body fit and egress as DECLARED for conventional Wayfarer lab qualification. Bounded plan and 3D couch-versus-terrace AABB tests pass; full physical occupant-swept/4g restraint and evacuation evidence is not represented as newly computed."
+  },
+  "rcs_axial_plumes": {
+   "decision": "ACCEPTED",
+   "date": "2026-11-01",
+   "kT": "ALL bodies. ALL sponsors. 2026-2226. kT acceptance of declared conventional lab qualification.",
+   "gate": "G10",
+   "geometry_sha256": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+   "as": "kT accepts axial RCS plume clearance as DECLARED, not a new physical plume impingement calculation. Original 10\u00b0 canted one-nozzle-per-cluster assumption remains."
+  },
+  "g10_burn_coasts": {
+   "decision": "ACCEPTED",
+   "date": "2026-11-01",
+   "kT": "ALL bodies. ALL sponsors. 2026-2226. kT acceptance of declared conventional lab qualification.",
+   "gate": "G10",
+   "geometry_sha256": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+   "as": "kT accepts segmented burn doctrine as DECLARED: \u2264165min torch burn segments with \u226515min coasts. Coasts add elapsed time, not free-space delta-v. This is not Metric travel qualification."
+  },
+  "kT_visual_acceptance": {
+   "decision": "ACCEPTED",
+   "date": "2026-11-01",
+   "kT": "ALL bodies. ALL sponsors. 2026-2226. kT acceptance of declared conventional lab qualification.",
+   "gate": "G12",
+   "geometry_sha256": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+   "as": "kT reviewed and ACCEPTED the viewer and render set stamped with geometry SHA256 5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256. Source/provenance G12 passed; this is visual acceptance, not pressure/material or occupied-body physical validation."
+  }
+ },
+ "design_decisions_2026_10_26": {
+  "kT": "agree 1-4, and keep only current files (old revisions live in git history)",
+  "1": "main's torch working card (src/wayfarer_torch_mode_cards.py) governs; the ship holds jet power to its 11.361 TW heat-rejection ceiling",
+  "2": "1 deg torch thrust-vector authority (declared item torch_tvc)",
+  "3": "axial RCS thrusters, one per cluster (rev 6)",
+  "4": "Loom configuration declared: strakes stowed, crown gores closed, docking collar free"
+ },
+ "design_decisions_2026_10_26_skin": {
+  "kT": "YES / YES / Option 3 / YES; 'I want sol to agree with the design choices. I want you to handle making it'",
+  "1": "low signature is a skin criterion",
+  "2": "open an F5 Frontier item for tunable emissivity (F5-TE-01, provisional)",
+  "3": "metric nodes show on the hull (option 3: all 208)",
+  "4": "the habitat armour face is Strata",
+  "sol": "AGREE 1-6 with qualifications: cold running accounts for retained heat (no heat sink, no multiplier; mirror look is a proposed optical property); node faces are not qualified penetrations and stations are not moved for the look (PR #184 OPEN); inventory is a draft requirement",
+  "note": "design choices only; the rev 7 declared items (strata_armour, node_faces, cold_running, external_equipment) still await kT's acceptance of their wording"
+ },
+ "design_decisions_2026_10_31": {
+  "L1": "I4 six stations in Rev7 source annulus; raised Captain+Pilot terrace lowered 0.5m; headroom must be reported; all 3D and 4g qualifications HOLD",
+  "crown": "Rev7 transparent ceramic panes, existing 16 closing Strata armour-equivalent gores; no 1.2m nose extension",
+  "cold_running": "ACCEPT ~17h theoretical limit, explicitly count relational plant and cryo standby heat in screen; loads illustrative until qualified",
+  "strata_face": "ACCEPT",
+  "drone_armour_option": "OPTION only, not baseline; gores remain baseline, drone bay HOLD",
+  "node_faces": "ACCEPT armour-equivalent rule; placement HOLD PR #184",
+  "external_equipment": "ACCEPT visible allowance 1.4208t editable; compare 0t without claiming fixed design",
+  "RCS": {
+   "decision": "ACCEPT 2026-10-31",
+   "fuel_source": "unprotected remass tank only, initial 250t; same physical tank as torch",
+   "torch_min_unprotected_remass_kg": 5000,
+   "rcs_ring_fenced_reserve_kg": 5000,
+   "protected_water_buffer_kg": 50000,
+   "remass_budget": "Torch initial usable 245t. RCS has priority over torch on shared water inventory; RCS can draw the remaining 5t until exhausted.",
+   "exhaust_velocity": "VARIABLE; 1.96 km/s FQ scenario, 1.00 km/s prior sensitivity. No absolute nozzle exhaust law certified.",
+   "hardware": "Original Rev7 32x25kN RCS nozzle/geometry unmodified. No extra tank/pressure/bus mass allocated.",
+   "qualification": "Numerical remass accounting only, hardware feed and power remain unqualified"
+  },
+  "repo": "Design candidate step1 lock only; separate config/lab/results, no render or runtime changes",
+  "L1_human_factors_step1c": "Couches assessed as 1.58m nominal contoured couches (NOT 2.10m flat berths); terrace clearance >=1.20m crawl; S4 shift Y-0.25m Z+0.30m, new geometry build required. Unverified 4g crew body/couch mount and actual obstruction sightline remain HOLD.",
+  "RCS_power": {
+   "decision": "A: ship plant heats on demand ACCEPTED as architecture choice, NOT power closure",
+   "status": "DECLARED / POWER DELIVERY AND WASTE HEAT OPEN",
+   "option_B": "Precharged hot-water store between manoeuvres, OPTION only, not baseline",
+   "conditioning_J_per_kg": 2600000,
+   "ideal_jet_kinetic_J_per_kg": "0.5*ve_m_s^2",
+   "at_F_25000N": {
+    "ve_1000_m_s": {
+     "flow_kg_s": 25.0,
+     "total_minimum_MW": 77.5
+    },
+    "ve_1960_m_s": {
+     "flow_kg_s": 12.755102040816327,
+     "total_minimum_MW": 57.663265306122454
+    }
+   },
+   "power_model_limits": "minimum first-law sensible/latent heat proxy and jet kinetic. No actual installed heaters, converter efficiency, recharge, plume, power bus, waste-heat or concurrent duty closure.",
+   "PR436": "optional card data concept, not adopted/modified as part of PR435"
+  },
+  "FQ10_safing": {
+   "decision": "Throttle torch until RCS can hold, cut if RCS remains saturated or attitude/rate thresholds exceeded. kT accepted 2026-10-31",
+   "torque_authority": "Compute bounded achievable zero-net-force RCS torque allocation at current mass/CG, rather than fixed throttle",
+   "reserve_fraction_of_rcs_authority": 0.9,
+   "cap_reference": "0.56 CRUISE and 0.14 HARD are upper screening estimates, not commands overriding authority",
+   "fault_detection_delay_s": 0.2,
+   "cut_angle_deg": 0.75,
+   "cut_rate_deg_s": 0.5,
+   "max_saturation_s": 0.4,
+   "qualification": "Modelled ideal event detector and instantaneous torch throttle/cut; sensor, controller, actuator slew, safing power and hardware qualification remain HOLD"
+  }
+ },
+ "design_decisions_2026_11_01": {
+  "geometry_sha256": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
+  "scope": "Conventional Wayfarer lab-qualified upon scripted check and declared acceptance; kT visual acceptance; PR #435 DRAFT/HOLD",
+  "metric_arrival": {
+   "status": "HOLD",
+   "reason": "No Metric arrival state/energy/remass flight qualification; prior G10 uses declared model boundaries, not arrival dynamics"
+  },
+  "navigator": {
+   "status": "EXCLUDED",
+   "reason": "No Navigator mission/runtime/card integration as part of this conventional qualification"
+  },
+  "rcs_power": {
+   "decision": "ACCEPTED AS DECLARED; source of power OPEN",
+   "observed_40s_flip_peak_nozzles": 9,
+   "trace_ideal_peak_MW_approx": 244.45568490737895,
+   "nameplate_peak_9_nozzles_MW_approx": 518.969387755102,
+   "power_source_status": "OPEN",
+   "possible_sources": [
+    "torch reactor at idle",
+    "dedicated RCS supply"
+   ],
+   "availability_and_budget": "OPEN; no complete ship electrical or thermal operating budget",
+   "doctrine": {
+    "routine_flips_s": 120,
+    "fast_flips": "EMERGENCY ONLY"
+   },
+   "option_B": "charged hot-water store as OPTION, not adopted baseline",
+   "note": "Observed count\u00d7nominal is conservative concurrency allowance, not measured MW; thrust-weighted estimate is ideal minimum; no plant transient/heat closure"
+  },
+  "ship_level_signature": {
+   "kT": "ACCEPTED as declared",
+   "Sol": "qualification evidence compilation only",
+   "reviewers": "separate signoff / loom-gate if prescribed by existing workflow"
+  },
+  "geometry_modifications_authorised": false,
+  "merge_or_reorganisation_authorised": false
+ }
+}
