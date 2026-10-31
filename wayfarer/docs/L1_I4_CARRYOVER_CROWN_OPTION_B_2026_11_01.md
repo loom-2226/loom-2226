@@ -1,3 +1,5 @@
+> SUPERSEDED by kT Option A AOI-2226. Read AOI_2226_CROWN_OPTION_A_2026_11_01.md for current twin dome, AOI and source SHA. Historical single-dome report only.
+
 # Wayfarer I4 carry-over and crown Option B — 2026-11-01
 
 ALL bodies. ALL sponsors. 2026-2226.

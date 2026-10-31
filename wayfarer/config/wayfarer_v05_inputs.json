@@ -628,7 +628,7 @@
      },
      "crown_dome": {
       "adopted": true,
-      "prov": "KT_2026_11_01 OPTION B: 37-pane nonpressure outer, ONE monolithic ~7m pressure inner; 16 Rev7 armour gores unchanged; new materials milestone awaiting kT",
+      "prov": "kT OPTION A 2026-11-01: 37 outer nonpressure panes + TWO INDEPENDENT seamless ~7m ceramic pressure domes, AOI-2226 interlayer, 16 Rev7 armour gores; mechanical independence and gel impact response not qualified",
       "r_m": 3.35,
       "glazed_area_m2": 37.516,
       "roots": 12,
@@ -636,7 +636,7 @@
       "fork_r_m": 2.0,
       "centre_ring_r_m": 1.15,
       "central_pane_m": 1.5,
-      "frame": "37-pane segmented outer protection frame + continuous single inner dome; NO additional dome; 16 Strata gores close over both",
+      "frame": "37 outer nonpressure panes; TWO independent pressure domes with 3.023m3 AOI interlayer; 16 Strata gores close over stack; no visible pressure mullions",
       "panes": {
        "material": "2226 flaw-controlled transparent ceramic (not ALON fabrication claim)",
        "outer_layer": "37 independent segmented debris/dust/thermal panes, distribution 1+12+12+12, NOT pressure-rated",
@@ -651,13 +651,13 @@
        "maximum_outer_circumferential_edge_m": 1.7341,
        "outer_thickness_m": 0.01,
        "outer_density_kg_m3": 3750,
-       "inner_layer": "ONE continuous ~7m monolithic transparent ceramic PRIMARY PRESSURE DOME, NO backup, NO optogel",
+       "inner_layer": "TWO separately pressure-capable seamless ~7m monolithic transparent ceramic domes, 0.12m axial backup offset; AOI-2226 in ~3.023m3 interspace",
        "inner_radius_m": 3.5,
        "inner_area_m2": 41.3833,
        "inner_thickness_m": 0.028,
        "inner_density_kg_m3": 3750,
        "inner_shape": "X(r)=2.35-2.15*sqrt(1-(r/4.3)^2), 0<=r<=3.50",
-       "pressure_milestone": "AWAITING_KT_ACCEPTANCE: monolithic transparent ceramic 7m pressure dome vs accepted max 2.3m panes"
+       "pressure_milestone": "PENDING: two independent full-scale ~7m monolithic ceramic pressure enclosures and no shock/crack coupling through AOI; earlier one-dome approval does not carry"
       },
       "brow_ring": {
        "height_m": 0.22,
@@ -677,7 +677,7 @@
        "gore_tracks_and_drives": 0.5
       },
       "doctrine": "open only at low speed or with the bow facing away from the dust flow (braking and tail-first coasting); closed for solar particle events, radiation belts, torch burns and Loom formation and translation. Stuck closed is safe; stuck open: turn the bow out of the dust flow.",
-      "views": "37 pane protective crown over transparent monolithic pressure dome; visual acceptance and human optics require review",
+      "views": "37-pane segmented protective outer, pair of optically continuous pressure domes, switchable AOI gel interspace; optogel NOT a pressure seal or proven shield",
       "displays": "pilot displays on arms from the flight deck (they no longer hang from the nose)",
       "i4_crown_option_B": {
        "outer_count": 37,
@@ -687,16 +687,68 @@
         12,
         12
        ],
-       "pressure_dome_count": 1,
+       "pressure_dome_count": 2,
        "inner_diameter_m": 7.0,
        "inner_areal_g_cm2": 10.5,
        "outer_areal_g_cm2": 3.75,
        "closed_gore_g_cm2": 27,
        "replaced_pressure_hull_comparator_g_cm2": 8.0,
        "replaced_armor_g_cm2": 27.0,
-       "material_milestone_awaiting_kT": true
+       "material_milestone_awaiting_kT": true,
+       "primary_dome_areal_g_cm2": 10.5,
+       "backup_dome_areal_g_cm2": 10.5,
+       "optogel_areal_mass_g_cm2_nominal": 7.249,
+       "interspace_min_free_normal_m": 0.05973,
+       "impact_damping_credit": 0.0
       },
-      "mass_allocation_note": "Physical ceramic inner dome mass is split across existing pressure_vessel shell 8g/cm2 mass PLUS incremental crown pane mass. The old metal shell section is REPLACED materially, not a second hidden pressure dome. Inner ceramic physical mass=4.345t, outer=1.407t; credit existing pressure shell~3.311t; delta from reserve only."
+      "mass_allocation_note": "Physical ceramic inner dome mass is split across existing pressure_vessel shell 8g/cm2 mass PLUS incremental crown pane mass. The old metal shell section is REPLACED materially, not a second hidden pressure dome. Inner ceramic physical mass=4.345t, outer=1.407t; credit existing pressure shell~3.311t; delta from reserve only. Backup separately pressure-capable dome adds 4.345246t, AOI 3.000t, both charged to engineering reserve, not the electrical allowance.",
+      "adaptive_optogel": {
+       "name": "Adaptive Optogel Interlayer (AOI-2226)",
+       "research_ref": "7240dc21:design/wayfarer/v0.5.7/command/NOSE_2226_ADAPTIVE_OPTOGEL_CANOPY_RESEARCH_CLOSED_20261029.md",
+       "status": "kT 2026-11-01 OPTION A CONFIRMED; FUNCTIONS DECLARED, NOT PHYSICALLY QUALIFIED",
+       "location": "BETWEEN separately pressure-capable primary and backup monolithic transparent-ceramic domes; outside cabin, inside 37 outer nonpressure protective panes",
+       "volume_m3": 3.023,
+       "min_local_free_normal_thickness_m": 0.05973,
+       "backup_dome_forward_axial_offset_m": 0.12,
+       "density_kg_m3": 992.391664,
+       "mass_t": 3.0,
+       "backup_pressure_dome_mass_t": 4.345246,
+       "backup_dome_thickness_m": 0.028,
+       "primary_dome_thickness_m": 0.028,
+       "backup_dome_independently_pressure_capable": true,
+       "pressure_boundary": false,
+       "pressure_seal": false,
+       "declared_function": [
+        "refractive-index matching",
+        "electrochromic clear/glare/dark",
+        "separate visible and NIR modulation",
+        "reversible gel/locked mechanical modes"
+       ],
+       "impact_damping": "ASPIRATION ONLY; ZERO protection/impulse reduction credited in G6/G7",
+       "survival_rule": "EACH pressure dome must independently withstand full cabin differential following loss of the other with gel present, no shock/crack/pressure-pulse coupling through AOI; DECLARED NOT DEMONSTRATED",
+       "failure_mechanics": "No measured high-rate stress response; 56 L thermovolumetric compliance illustrative at +20 K; full-shell shock transfer and independent failure unqualified",
+       "nominal_cavity_pressure_kpa": 50,
+       "cavity_pressure_assumption": "EXAMPLE only, not a pressure-control design; each dome must withstand worst case 101.3 kPa independently",
+       "optical_modes": [
+        "clear",
+        "glare",
+        "dark"
+       ],
+       "mechanical_modes": [
+        "gel",
+        "locked"
+       ],
+       "ir_heat_reduction_fraction_credited": 0.0,
+       "additional_from_engineering_reserve_t": 7.345246,
+       "outer_panes": [
+        1,
+        12,
+        12,
+        12
+       ],
+       "kT_acceptance_required": "Independent full-differential failure under filled gel, no coupling, thermal swelling accommodation, pressure qualification and optical/thermal measurement",
+       "shelter_margin_recovery": "0.5t of engineering reserve into EXISTING aft pressure bulkhead, where aft-directed L3-CB worst ray exits. 1.5t bow-armour trial REJECTED (worsened same ray). Exact 36x600 overlay required; no gel radiation/impact credit."
+      }
      },
      "i4_lock": {
       "status": "CANDIDATE_LOCK_STEP1_NON_GOVERNING",
@@ -1786,7 +1838,7 @@
    "prov": "ENGINEERING_ASSUMPTION"
   },
   "mission_courier_systems_t": 20.0,
-  "engineering_reserve_t": 25.667781,
+  "engineering_reserve_t": 17.822535,
   "engineering_reserve_rule": "spread over dry parts in proportion to their mass (growth margin), not lumped at one point",
   "c_tank_penalty_t": 8.0,
   "radiator_panels_t": 8.784,
@@ -1833,7 +1885,9 @@
    "total_t": 1.4208,
    "prov": "rev 7 external equipment that is new hardware (external_equipment draw_from: reserve); everything else is located inside its existing ledger line"
   },
-  "i4_carryover_t": 0.839419
+  "i4_carryover_t": 0.839419,
+  "aoi_crown_t": 7.345246,
+  "aoi_aft_bulkhead_reinforcement_t": 0.5
  },
  "longerons": {
   "prov": "CLAUDE_DESIGN v0.5.7 (structure/longeron_study.py, kT 2026-10-25 'consolidate'): four CFRP tubes in an X, matching canon's 4 axial longerons. The upper pair stay where the v0.5.6 slot sills were (edging the bay slot); the lower pair mirror them in the tank's lower cells. Sized at 5 g x 1.5 to a 250 MPa design stress (400 MPa floor x 0.62 for impact, joints, environment). v0.5.6 had 3 planks + 2 sills (36.9 t) running at 65 MPa. NON-GOVERNING; SOL TO REVIEW REV 5 (structure review 2026-10-26): wall 72 -> 84 mm (area 0.0830 m2, 1% margin) so axial + bending (thrust-line offset 13.5 MN m + 0.5 deg thrust error 9.1 MN m) stays within the 250 MPa design stress",
@@ -2953,6 +3007,10 @@
   "mounts": "rail, lighting, transfers and low-g station accepted for geometry screen; load/egress qualification separate",
   "sum_new_from_reserve_t": 0.528,
   "crown_increment_from_reserve_t": 0.311419,
-  "pressure_shell_replacement_credit_t": 3.310664
+  "pressure_shell_replacement_credit_t": 3.310664,
+  "crown": "kT Option A 2026-11-01 replaces prior Option B: TWO independently sealed ~7m pressure domes with AOI in their 3.023m3 gap, 37 protective outer panes, 16 closed Strata gores",
+  "gel_from_reserve_t": 3.0,
+  "backup_dome_from_reserve_t": 4.345246,
+  "total_from_reserve_with_AOI_t": 8.184665
  }
 }

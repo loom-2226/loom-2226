@@ -493,7 +493,7 @@ def build(I, dy=0.0, dz=0.0):
         DomeCyl(px0, px0 + H["pressure_head_depth_m"], px1 - ft, Rp, 0.03), SS["pressure_vessel_and_bulkheads"] * 0.75,
         "ENGINEERING_ASSUMPTION", "pressure_hull")
     add("aft_bulkhead", "Aft pressure bulkhead (L5 floor)", "structure", Sector(px1 - ft, px1, 0.0, Rp),
-        SS["pressure_vessel_and_bulkheads"] * 0.25, "ENGINEERING_ASSUMPTION", "bulkhead")
+        SS["pressure_vessel_and_bulkheads"] * 0.25 + L.get("aoi_aft_bulkhead_reinforcement_t",0.), "ENGINEERING_ASSUMPTION: aft pressure bulkhead reserve-funded shielding margin; test G6", "bulkhead")
     decks = hab["decks"]
     floors = [d for d in decks[:-1]]
     for d in floors:
@@ -620,6 +620,21 @@ def build(I, dy=0.0, dz=0.0):
             if CD.get("adopted"):   # v0.5.7: crown dome assembly (panes, Osteon frame, brow ring, gore tracks and drives); the gores carry the armour the opening removes
                 add("crown_dome", "Crown dome: ceramic panes, Osteon frame, brow ring, tambour gore tracks and drives", "habitat",
                     Box(0.0, 0.6, -CD["r_m"], CD["r_m"], -CD["r_m"], CD["r_m"]), sum(CD["mass_t"].values()), CD["prov"], "frame", tags=nr)
+            # kT Option A (2026-11-01): second independent transparent ceramic pressure
+            # dome and AOI fill are PHYSICAL MASS from reserve, never a pressure seal.
+            AOI = CD.get("adaptive_optogel")
+            if AOI:
+                rr = CD["i4_crown_option_B"]["inner_diameter_m"] / 2
+                # Coarse spatial mass surrogate, preserving separate independent components.
+                add("crown_backup_pressure_dome", "Independent monolithic ceramic backup pressure dome",
+                    "habitat", Box(-0.12,0.48,-rr,rr,-rr,rr),
+                    AOI["backup_pressure_dome_mass_t"],
+                    "kT Option A: 7m independently pressure-capable backup +0.12m forward; proof OPEN", "frame",
+                    tags=("from_reserve","no_render"))
+                add("crown_adaptive_optogel", "AOI-2226 optical gel interspace (not pressure boundary)",
+                    "habitat", Box(-0.06,0.54,-rr,rr,-rr,rr),
+                    AOI["mass_t"], AOI["research_ref"]+"; optical modes declared; impact credit zero",
+                    "window", tags=("from_reserve","no_render"))
             for k, f in enumerate(fw):
                 hb = 0.15 if not f.get("berth") else 0.09   # v0.5.7 berth viewports: smaller box, kept outside the berth water ring
                 c = [f["pos"][i] - (hb + 0.01) * f["normal"][i] for i in range(3)]
@@ -1255,7 +1270,8 @@ def main():
         "crown": ({"r": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["r_m"], "mer": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["roots"],
                    "center": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["centre_ring_r_m"], "fork": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["fork_r_m"],
                    "innerR": I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("i4_crown_option_B",{}).get("inner_diameter_m",0)/2,
-                   "outerPaneRings": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["panes"].get("ring_boundaries_m")}
+                   "outerPaneRings": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["panes"].get("ring_boundaries_m"),
+                   "aoi": I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("adaptive_optogel")}
                   if I["habitat"]["decks"][0].get("command_layout", {}).get("crown_dome", {}).get("adopted") else None),
         "version": I["version"], "inputs_sha256": hashlib.sha256(raw).hexdigest(),
         "length_m": I["hull"]["length_m"], "dry_t": dry,

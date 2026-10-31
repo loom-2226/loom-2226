@@ -2,7 +2,7 @@ import fs from 'node:fs';import crypto from 'node:crypto';
 import {shapeMesh,commandMeshes,crownMeshes,MATS,MB} from './loomgl_export.mjs';
 const R='../results/out/wayfarer_v05_geometry.json', B=fs.readFileSync(R),G=JSON.parse(B),sc=JSON.parse(fs.readFileSync('out/l1_scene.json'));
 const sha=crypto.createHash('sha256').update(B).digest('hex');
-if(sha!=='9d6f0059c8e6a4ff314b3d58e9c9b52ff7c9100d624c5c1d06d975531c3573c1')throw Error('geometry mismatch');
+if(sha!=='faf75e0da8a58c850c72d3e6941f5af94cadb06dcf8dfbaa510fac56b77327af')throw Error('geometry mismatch');
 let data=[],len=0,acc=[],bv=[],mt=[],meshes=[],nodes=[],scenes=[];
 const MID=new Map();
 function mat(s){if(MID.has(s))return MID.get(s);let c=MATS[s]?.c||[.5,.5,.5];let j=mt.length;mt.push({name:s,doubleSided:true,pbrMetallicRoughness:{baseColorFactor:[...c,1],metallicFactor:.1,roughnessFactor:.65}});MID.set(s,j);return j}
@@ -26,5 +26,5 @@ function pad(b,f){return Buffer.concat([b,Buffer.alloc((4-b.length%4)%4,f)])}
 let j=pad(Buffer.from(JSON.stringify(doc)),32),b=pad(bin,0),head=Buffer.alloc(12),jh=Buffer.alloc(8),bh=Buffer.alloc(8);
 head.writeUInt32LE(0x46546c67,0);head.writeUInt32LE(2,4);head.writeUInt32LE(28+j.length+b.length,8);
 jh.writeUInt32LE(j.length,0);jh.writeUInt32LE(0x4e4f534a,4);bh.writeUInt32LE(b.length,0);bh.writeUInt32LE(0x004e4942,4);
-fs.writeFileSync('out/wayfarer_I4_in_out_9d6f0059.glb',Buffer.concat([head,jh,j,bh,b]));
+fs.writeFileSync('out/wayfarer_I4_in_out_faf75e0d.glb',Buffer.concat([head,jh,j,bh,b]));
 console.log('GLB export',sha,e,n,meshes.length,((28+j.length+b.length)/1048576).toFixed(2),'MiB');

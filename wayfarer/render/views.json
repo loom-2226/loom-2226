@@ -1,6 +1,6 @@
 {
   "header": "ALL bodies. ALL sponsors. 2026-2226.",
-  "status": "New I4 carryover and Option B crown geometry 9d6f0059c8e6a4ff314b3d58e9c9b52ff7c9100d624c5c1d06d975531c3573c1; new 7m monolithic pressure ceramic kT milestone awaiting acceptance",
+  "status": "kT Option A: outer 37 segments and two independent monolithic pressure domes, AOI interlayer; no damping credit, failure independence not proven; new SHA faf75e0da8a58c850c72d3e6941f5af94cadb06dcf8dfbaa510fac56b77327af",
   "size": [
     1600,
     900
@@ -1189,7 +1189,7 @@
       "id": "cmd_pov",
       "kind": "command",
       "title": "The pilot's view",
-      "caption": "From PILOT's eye looking at the bow through the crown dome (v0.5.7). Rings: the 60 and 90 deg cones the study scored; the Protective 37-pane seams surround the single smooth pressure dome; occluded sightline test pending. Displays now ride on arms from the command terrace. I4 six source-annulus couches plus low-g workstations, transfer handrails, NAV platform; full suited-body clearance is declared, not hardware-qualified.",
+      "caption": "From PILOT's eye looking at the bow through the crown dome (v0.5.7). Rings: the 60 and 90 deg cones the study scored; the Protective 37-pane seams surround the independent dual ceramic pressure domes with 3.023m3 AOI; occluded sightline test pending. Displays now ride on arms from the command terrace. I4 six source-annulus couches plus low-g workstations, transfer handrails, NAV platform; full suited-body clearance is declared, not hardware-qualified.",
       "eye": [
         0.775,
         0.45,
@@ -1280,7 +1280,7 @@
       "id": "ext_nose",
       "kind": "command",
       "title": "The nose: crown dome (v0.5.7)",
-      "caption": "37 separate outer protective ceramic panes [1,12,12,12], maximum hoop chord 1.73m, over ONE seamless 7m monolithic transparent ceramic primary pressure dome; 16 Strata armour gores close over both. Open here; the gores stow inside the brow ring. I4 six source-annulus couches plus low-g workstations, transfer handrails, NAV platform; full suited-body clearance is declared, not hardware-qualified.",
+      "caption": "37 separate outer protective ceramic panes [1,12,12,12], maximum hoop chord 1.73m, over TWO independently pressure-capable ~7m seamless transparent ceramic domes with AOI-2226 interlayer; 16 Strata armour gores close over both. Open here; the gores stow inside the brow ring. I4 six source-annulus couches plus low-g workstations, transfer handrails, NAV platform; full suited-body clearance is declared, not hardware-qualified.",
       "eye": [
         -12.5,
         -8.0,
@@ -1605,7 +1605,7 @@
       "id": "crown_open",
       "kind": "command",
       "title": "Crown dome, open",
-      "caption": "v0.5.7 main design. 37-pane outer debris/thermal layer [1,12,12,12] over one continuous 7m ceramic pressure dome; 16 Strata gores still close above both. Open, the Strata tambour gores sit retracted inside the brow ring. I4 six source-annulus couches plus low-g workstations, transfer handrails, NAV platform; full suited-body clearance is declared, not hardware-qualified.",
+      "caption": "v0.5.7 main design. 37-pane outer debris/thermal layer [1,12,12,12] over two independent 7m ceramic pressure domes with an AOI gel cavity; 16 Strata gores still close above both. Open, the Strata tambour gores sit retracted inside the brow ring. I4 six source-annulus couches plus low-g workstations, transfer handrails, NAV platform; full suited-body clearance is declared, not hardware-qualified.",
       "eye": [
         -11.0,
         -7.0,

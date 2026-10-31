@@ -80,9 +80,21 @@ def g1(I, C, G):
               + L["mission_courier_systems_t"] + L["engineering_reserve_t"] + L["c_tank_penalty_t"]
               + I["shuttle"]["dry_t"] + L["drones_pods_t"] + L.get("torch_hot_fins_t", 0.0) + L.get("crew_systems_v056_t", 0.0) + L.get("crew_systems_v057_t", 0.0)
               + L.get("rcs_axial_t", 0.0) + L.get("reserve_draws_rev7", {}).get("total_t", 0.0)
-              + L.get("i4_carryover_t", 0.0))
+              + L.get("i4_carryover_t", 0.0) + L.get("aoi_crown_t",0.0) + L.get("aoi_aft_bulkhead_reinforcement_t",0.0))
+    AOI = I["habitat"]["decks"][0].get("command_layout",{}).get("crown_dome",{}).get("adaptive_optogel")
     dry = G["dry_t"]
     cs = [chk("parts sum to the ledger", round(dry, 2), round(expect, 2), abs(dry - expect) <= C["G1"]["ledger_tolerance_t"], "t")]
+    if AOI:
+        two = {p["id"]:p["mass_t"] for p in G["parts"] if p["id"] in ("crown_backup_pressure_dome","crown_adaptive_optogel")}
+        cs.append(chk("AOI filled interspace has explicit 3.000t physical mass",
+                      round(two.get("crown_adaptive_optogel",0),6),AOI["mass_t"],
+                      abs(two.get("crown_adaptive_optogel",0)-AOI["mass_t"])<1e-8,"t"))
+        cs.append(chk("independent backup pressure dome separately charged to reserve",
+                      round(two.get("crown_backup_pressure_dome",0),6),AOI["backup_pressure_dome_mass_t"],
+                      abs(two.get("crown_backup_pressure_dome",0)-AOI["backup_pressure_dome_mass_t"])<1e-8,"t"))
+        cs.append(chk("AOI and backup dome entirely drawn from positive existing reserve",
+                      round(L["engineering_reserve_t"],3),0.,L["engineering_reserve_t"]>=0.,"t",
+                      "adds no dry mass outside original ship engineering ledger"))
     shuttle = next(p["mass_t"] for p in G["parts"] if p["id"] == "shuttle")
     for s in states(I):
         st = G["states"][s]
@@ -350,10 +362,39 @@ def g4(I, C, G):
     azs = R["azimuths_deg"]
     cs, notes, decl = [], [], []
     q_hab_kw, n = hab_heat(I)
+    q_hab_base_kw = q_hab_kw
     hh = I["habitat_heat"]["radiator"]
+    aoi = I["habitat"]["decks"][0].get("command_layout",{}).get("crown_dome",{}).get("adaptive_optogel")
+    glazing = None
+    if aoi:
+        r = I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["i4_crown_option_B"]["inner_diameter_m"]/2
+        area = math.pi * r*r
+        # Zero benefit claimed from unmeasured electrochromic/NIR switching.
+        # Worst-case all incident light entering the aperture becomes heat.
+        solar_kw = hh["worst_sun_w_m2"] * area / 1000.
+        inner_area = I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["panes"]["inner_area_m2"]
+        longwave_kw = SIGMA * hh["temperature_k"]**4 * inner_area / 1000.
+        glazing={"open_projected_area_m2":area,"worst_case_solar_kw":solar_kw,
+                 "uncredited_blackbody_longwave_kw":longwave_kw,
+                 "ir_control_benefit_credited_kw":0.,
+                 "gores_closed_solar_direct_kw":0.,
+                 "absorbed_solar_heat_path":"habitat strakes while open; outer-skin re-radiation not claimed",
+                 "emissivity_opaque_gore_note":"normal full shielding when gores closed; no optogel impact/thermal proof"}
+        q_hab_kw += solar_kw
+
     tc = hh["temperature_k"]
     w_hp = q_hab_kw * (T / tc - 1) / C["G4"]["heat_pump_carnot_fraction"]
     q_hab_main = (q_hab_kw + w_hp) / 1000.0
+    if glazing:
+        cs.append(chk("AOI open crown worst-case sunlight explicitly enters G4 heat balance",
+           round(glazing["worst_case_solar_kw"],3),round(hh["worst_sun_w_m2"]*glazing["open_projected_area_m2"]/1000,3),
+           glazing["worst_case_solar_kw"]>0., "kW",
+           "no optical IR credit; the solar load is passed to the habitat heat pump and strakes"))
+        cs.append(chk("AOI IR/glare switching does not invent cooling or a pressure seal",
+           glazing["ir_control_benefit_credited_kw"],0.,glazing["ir_control_benefit_credited_kw"]==0.,
+           "kW",f"blackbody longwave outward envelope {glazing['uncredited_blackbody_longwave_kw']:.2f}kW not relied upon for cold-running cooling"))
+        decl.append(("aoi_optical_ir",
+            "kT declares AOI-2226 refractive-index matching and independently switchable clear/glare/dark plus visible/NIR modulation. NOT demonstrated at full scale. Zero numeric optical/IR cooling performance credited; worst Venus solar aperture heat explicitly included. Transparent dome and AOI thermal expansion/differential heat flux remain OPEN."))
     spans = {}
     for m in ("NORMAL", "FAST", "EXPEDITE", "HARD"):
         q = metric_heat(I, m, T) + q_hab_main * (1 + C["G4"]["hab_heat_margin"])
@@ -398,8 +439,14 @@ def g4(I, C, G):
     net = hh["emissivity"] * SIGMA * tc ** 4 - sun
     area = 2 * math.pi * I["hull"]["outer_r_m"] * (I["hull"]["habitat_shell_x_m"][1] - I["hull"]["bow_cap_depth_m"]) * 0.8
     backup = net * area / 1000
-    cs.append(chk("habitat heat on passive skin radiators (backup, heat pump failed)", round(backup, 1), round(q_hab_kw, 1), backup >= q_hab_kw, "kW",
-                  f"{area:.0f} m2 of habitat skin at {tc} K, Venus-orbit sun"))
+    # Passive-backup is viable only with the Strata crown gores CLOSED:
+    # 100 kW open-aperture sunlight would overwhelm the 57 kW skin radiator.
+    emergency_hab_kw = q_hab_base_kw if glazing else q_hab_kw
+    cs.append(chk("habitat passive skin backup with crown GORES CLOSED (heat pump failed)",
+                  round(backup, 1), round(emergency_hab_kw, 1), backup >= emergency_hab_kw, "kW",
+                  f"{area:.0f} m2 of skin at {tc} K. AOI optical control receives zero thermal credit; with open gores +{glazing['worst_case_solar_kw']:.1f} kW at worst sun, passive backup is NOT sufficient" if glazing else f"{area:.0f} m2 of habitat skin at {tc} K, Venus-orbit sun"))
+    if glazing:
+        decl.append(("aoi_gore_thermal_doctrine", "At worst-case sunlight, the open crown adds ~100 kW of solar heating to habitat. In heat-pump-failed or cold-running passive backup the 16 Strata gores MUST CLOSE; clear/glare/dark AOI states may not be credited as heat rejection or solar exclusion. Solar absorption/IR-band partition and AOI switching performance are not physically qualified."))
     cs.append(chk("major torch burn and high Metric never required together", "doctrine", "CANON II §14", True))
     CR, SK = I.get("cold_running"), I.get("skin")
     if CR and SK:   # rev 7 (Sol qualification 2): cold running holds heat in; it does not remove it
@@ -407,7 +454,7 @@ def g4(I, C, G):
         hr = I["habitat_heat"]["radiator"]
         a_sk = 2 * math.pi * I["hull"]["outer_r_m"] * (hr["x_m"][1] - hr["x_m"][0]) * hr["share_of_skin"]
         leak = md["cold_running"]["emissivity"] * SIGMA * hr["temperature_k"] ** 4 * a_sk / 1000
-        q_in = q_hab_kw * (1 + C["G4"]["hab_heat_margin"])
+        q_in = (q_hab_kw - (glazing["worst_case_solar_kw"] if glazing else 0.)) * (1 + C["G4"]["hab_heat_margin"])
         e_buf = I["canon"]["protected_water_t"] * 1000 * CR["water_cp_kj_kg_k"] * CR["buffer_dT_k"]
         ideal_hrs = e_buf / max(q_in - leak, 1e-9) / 3600
         p_standby = CR.get("plant_standby_kw",0.0)
@@ -427,6 +474,8 @@ def g4(I, C, G):
     notes.append(f"Torch heat model (torch/, non-governing): same 11.36 TW jet from {tb['fusion_tw']:.1f} TW of fusion, pulsed at about 1-10 Hz (0.3-3 kt per pulse). Light escape the face can take: ~{lim_ppm:.0f} ppm; model {tb['light_ppm_of_fusion']:.0f} ppm. Hot-fin capacity is computed here with certify's own 2D view factor; torch/fin_layout.py (numpy, 3.0 m body) gives a slightly higher figure.")
     r = gate("G4", "Power and heat", cs, declared=decl, notes=notes)
     r["spans_m"] = spans
+    if glazing:
+        r["aoi_glazing_heat_kw"] = glazing
     r["cold_running"] = r_cold
     r["torch_strake_capacity_mw"] = cap
     r["hot_fin_capacity_gw"] = fcap
@@ -758,12 +807,25 @@ def g6(I, C, G):
         B2=CD["i4_crown_option_B"]
         pressure=B2["inner_areal_g_cm2"]
         outer=B2["outer_areal_g_cm2"]
-        protected=pressure+outer+B2["closed_gore_g_cm2"]
+        aoi=CD.get("adaptive_optogel")
+        backup=(B2.get("backup_dome_areal_g_cm2",0.) if aoi else 0.)
+        protected=pressure+backup+outer+B2["closed_gore_g_cm2"]
         prior=B2["replaced_pressure_hull_comparator_g_cm2"]+B2["replaced_armor_g_cm2"]
         cs.append(chk("I4 monolithic inner pressure dome exceeds replaced shell areal mass",
             round(pressure,3),B2["replaced_pressure_hull_comparator_g_cm2"],pressure>=B2["replaced_pressure_hull_comparator_g_cm2"],"g/cm2",
             "material areal equivalent, NOT pressure-buckling or high-energy radiation proof"))
-        cs.append(chk("I4 closed Strata gores plus two ceramic layers restore former areal mass",
+        if aoi:
+            cs.append(chk("AOI backup pressure shell individually meets old shell areal mass",
+                round(backup,3),B2["replaced_pressure_hull_comparator_g_cm2"],
+                backup>=B2["replaced_pressure_hull_comparator_g_cm2"],"g/cm2",
+                "thickness proxy only, not independent differential/impulse/failure survival"))
+            cs.append(chk("AOI 3.023 m3 interlayer mass logged, no impact credit",
+                aoi["volume_m3"],3.023,abs(aoi["volume_m3"]-3.023)<1e-7,"m3",
+                "near-water-density gel, optically switchable; no shock-fracture reduction credited"))
+            cs.append(chk("AOI cannot be counted as a structural pressure boundary",
+                aoi["pressure_boundary"],False,not aoi["pressure_boundary"] and not aoi["pressure_seal"],
+                note="both 7m shells independently pressure capable; actual failure independence remains untested"))
+        cs.append(chk("I4 closed Strata gores plus dome pair and outer ceramic restore old areal mass",
             round(protected,3),prior,protected>=prior,"g/cm2",
             "27 g/cm2 Rev7 gores, separate from 37 outer panes; shelter transport not re-qualified by simple areal sum"))
         cs.append(chk("I4 outer protection 37 separate panes [1,12,12,12]",
@@ -774,7 +836,10 @@ def g6(I, C, G):
             "maximum hoop chord, not longest corner-to-corner diagonal"))
         decl.append(("crown_dome","Rev7 16 closing Strata gores and opening doctrine are retained; their original acceptance applied only to the earlier segmented 2.3m pressure panes, not the new 7m seamless dome."))
         decl.append(("crown_monolith_7m",
-            "NEW kT ACCEPTANCE REQUIRED: ONE ~7m monolithic transparent ceramic primary pressure dome, X(r)=2.35-2.15sqrt(1-(r/4.3)^2), 28mm nominal thickness, ~10.5g/cm2, full-scale proof and flaw control UNSHOWN. 37 independent outer 10mm nonpressure dust/thermal panes at ~3.75g/cm2, 16 Rev7 closing Strata gores restore ~42.25g/cm2 when closed. No secondary pressure dome, no optogel. This is a speculative 2226 materials breakthrough, not a qualified physical pressure enclosure or dose transport."))
+            "kT Option A 2026-11-01: TWO independent full-pressure ~7m transparent ceramic domes, each 28mm/10.5g/cm2, shaped X(r)=2.35-2.15sqrt(1-(r/4.3)^2), backup shifted 0.12m forward. Both must survive loss of the other; 37 outer segmented nonpressure panes +16 closure gores unchanged. 7m monolithic materials fabrication/pressure/impact and optical radiation behaviour UNSHOWN."))
+        if aoi:
+            decl.append(("aoi_failure_independence",
+                "AOI-2226 ~3.023m3 (~3t) gel between two separately sealed pressure domes, gap min normal 5.973cm with backup axial offset ~12cm. Neither pressure-bearing nor a pressure seal. Each independent dome MUST withstand full 101.3kPa after other's failure while optogel is present, WITHOUT shock, fracture, crack bridging or fast pressure-pulse coupling. The research has NO measured high-rate response or independent-shell survival test; do not credit impact damping. Rim slip/contact interfaces and >=56L illustrative thermal-expansion compliance still require engineering."))
     elif CD.get("adopted"):
         decl.append(("crown_dome", f"Crown dome (v0.5.7): {CD['glazed_area_m2']:.0f} m2 of glazing inside r {CD['r_m']} m replaces the 8 nose windows. Assumes (1) proof-tested transparent ceramic panes up to "
                      f"{CD['central_pane_m']} m across (2026's largest are ~0.76 m), a 2226 materials milestone like the 1,750 K fins (rev 4: the L2 viewport band's 16-18 mm plate panes rely on the same ceramic; 2026 ALON would need 25-29 mm); (2) tambour gores of armour-equivalent Strata laminate (Builder-derived, MHL-22) that restore "

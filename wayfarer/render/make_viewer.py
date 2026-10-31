@@ -123,7 +123,7 @@ footer{color:var(--steel);font-size:11px;letter-spacing:.03em;line-height:1.6;bo
   <span class="eyebrow">LOOM 2226 · Reference courier · Visual reference</span>
   <h1 id="vtitle">Wayfarer v__VER__</h1>
   <p class="sub">Drag to turn the ship, pinch or scroll to zoom. Built from geometry SHA256 __SHA__. Interior I4 station views are representational; occupant swept clearance remains HOLD.</p>
-  <p class="sub"><a href="wayfarer_I4_in_out_9d6f0059.glb" download style="color:#00D1FF">One GLB: exterior + interior I4 (two scenes)</a></p>
+  <p class="sub"><a href="wayfarer_I4_in_out_faf75e0d.glb" download style="color:#00D1FF">One GLB: exterior + interior I4 (two scenes)</a></p>
 </header>
 <div class="stage" id="stage">
   <canvas id="cv" aria-label="3D model of Wayfarer v0.5"></canvas>

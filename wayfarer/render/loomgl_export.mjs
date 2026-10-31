@@ -55,6 +55,7 @@ export const MATS = {
   room_vestibule:{c: [0.72, 0.74, 0.76], m: 0, r: 0.8},
   plume:        {c: [0.75, 0.62, 1.0], m: 0, r: 1, kind: 9},
   window:       {c: [0.02, 0.03, 0.045], m: 0.9, r: 0.05, em: [0.035, 0.03, 0.022]},
+  aoi:          {c: [0.08, 0.24, 0.29], m: 0.1, r: 0.11, em: [0.012, 0.028, 0.035]},
   hatch:        {c: [0.72, 0.72, 0.70], m: 0.3, r: 0.4},
   // L1 command scene (render-only items placed from render/out/l1_scene.json, the scene the ray tests score)
   couch:        {c: [0.20, 0.24, 0.29], m: 0.15, r: 0.55},
@@ -356,6 +357,15 @@ export function crownMeshes(cw, xc) {
     const innerProfile=[];
     for(let j=0;j<=84;j++){const r=inner*j/84;const nn=NN(r,0);innerProfile.push([X(r),r,nn[0],nn[1]]);}
     lathe(mb("window"),innerProfile,96);
+    if (cw.aoi) {
+      // AOI is a filled NON-PRESSURE interlayer with an independent backup
+      // ceramic dome offset 0.12 m forward. Renderer surfaces do not imply
+      // proven fragment shock absorption or pressure-seal function.
+      const backup=innerProfile.map(row=>[row[0]-.12,row[1],row[2],row[3]]);
+      const gel=innerProfile.map(row=>[row[0]-.06,row[1],row[2],row[3]]);
+      lathe(mb("window"),backup,96);
+      lathe(mb("aoi"),gel,96);
+    }
     // 1 centre pane and 12 trapezoids in each of three concentric bands.
     const B=mb("window"), seam=mb("frame");
     for(let ring=0;ring<4;ring++){

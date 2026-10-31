@@ -1,10 +1,14 @@
+# Wayfarer current AOI-2226 Option A review
+
+NEW geometry SHA256: faf75e0da8a58c850c72d3e6941f5af94cadb06dcf8dfbaa510fac56b77327af. 37 protective outer panes, TWO independently pressure-capable ~7m ceramic domes, 3.023m3 optogel between; failure independence and current visual evidence remain kT HOLD. See [Option A report](AOI_2226_CROWN_OPTION_A_2026_11_01.md).
+
 # Wayfarer engineering source: 2026-11-01 I4 carry-over under review
 
 ALL bodies. ALL sponsors. 2026-2226.
 
 **Engineering source, not canon, hardware flightworthiness or runtime deployment.**
 
-**NEW I4/crown geometry SHA256:** 9d6f0059c8e6a4ff314b3d58e9c9b52ff7c9100d624c5c1d06d975531c3573c1
+**NEW I4/crown geometry SHA256:** faf75e0da8a58c850c72d3e6941f5af94cadb06dcf8dfbaa510fac56b77327af
 
 **Certification on this NEW geometry:** G1-G12 PASS/PASS-DECLARED, but certified=false until kT accepts the new 7m ceramic pressure-dome milestone and visually reviews new-hash images. The old certified=true record applies only to archived 5d73 geometry.
 
