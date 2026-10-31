@@ -2,11 +2,13 @@
 import argparse,csv,json
 from pathlib import Path
 from flightlab import run
+from cards import resolve
 ROOT=Path(__file__).resolve().parent
 def load(path):return json.loads(Path(path).read_text())
 def save_run(shipfile,expfile,dest,dt,sample_s):
-    ship=load(shipfile);exp=load(expfile)
+    ship,cards_used=resolve(load(shipfile));exp=load(expfile)
     result=run(ship,exp,dt=dt,sample_s=sample_s)
+    result['cards']=cards_used
     dest=Path(dest);dest.mkdir(parents=True,exist_ok=True)
     tag=Path(shipfile).stem+'__'+Path(expfile).stem
     hist=result.pop('history')

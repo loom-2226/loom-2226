@@ -1,0 +1,35 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "kind": "metric",
+ "id": "metric-rev7-envelope",
+ "status": "NON-GOVERNING lab card",
+ "fields": {
+  "modes": {
+   "NORMAL": {
+    "beta": 0.268,
+    "ramp_s": 10.0,
+    "cold_load_W": 20000.0
+   },
+   "FAST": {
+    "beta": 0.437,
+    "ramp_s": 12.0,
+    "cold_load_W": 38100.0
+   },
+   "EXPEDITE": {
+    "beta": 0.519,
+    "ramp_s": 15.0,
+    "cold_load_W": 63500.0
+   },
+   "HARD": {
+    "beta": 0.595,
+    "ramp_s": 30.0,
+    "cold_load_W": 136000.0
+   }
+  }
+ },
+ "declared": {
+  "scope": "operating envelope only (engage/hold); no arrival propagation",
+  "arrival_rule": "HOLD (variable for later: ENERGY | IDENTITY)"
+ },
+ "provenance": "Rev 7 G10 Metric envelope as used in configs/wayfarer.json"
+}

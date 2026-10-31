@@ -1,0 +1,17 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "kind": "rcs",
+ "id": "rcs-25kN-rev7",
+ "status": "NON-GOVERNING lab card",
+ "fields": {
+  "max_N": 25000.0,
+  "lag_s": 0.05,
+  "command_slew_fullscale_s": 10.0,
+  "ve_m_s": null
+ },
+ "declared": {
+  "working_fluid": "UNSELECTED",
+  "propellant": "UNRESOLVED (lab reports consumption unknown, not zero)"
+ },
+ "provenance": "Rev 7 32 fixed thrusters as reconstructed in configs/wayfarer.json (PR #433)"
+}
