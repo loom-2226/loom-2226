@@ -190,9 +190,11 @@ route_ok=(len(floor_start)==2 and len(floor_reach)>0 and
           I['habitat']['crew_systems']['casualty_doctrine'][0].find('0 g')>=0)
 hatch_spec=OC.get('l1_l2_hatches',{})
 hatch_closable=(hatch_spec.get('count')==2 and hatch_spec.get('mass_t_each')==.15 and
-                 hatch_spec.get('mode','').startswith('pressure-rated') and .92>=.8)
+                 hatch_spec.get('mode','').startswith('pressure-rated passive normally-open') and .92>=.8)
 checks={
 'l1_l2_hatches_represent_real_closable_pressure_isolation':hatch_closable,
+'l1_l2_passive_L1_outflow_seat_direction_declared':hatch_spec.get('closure','').startswith('Passive gas-flow torque from L2 to L1') and all(hatch_clear.values()),
+'l1_l2_closure_requires_zero_power_and_sensors':'no sensor, actuator or power' in hatch_spec.get('closure',''),
 'l1_l2_0g_litter_egress_via_either_open_hatch':route_ok,
 'l1_l2_parked_hatch_leaves_clear_of_seats_and_ladders':len(hatch_clear)==2 and all(hatch_clear.values()),
 'l1_l2_physical_pressure_hatch_mass_in_geometry':all(
@@ -213,7 +215,8 @@ checks={
 out={'geometry_sha256':H,'status':'kT 2026-11-01 Option C bounded I4 + real 0.15t hatch/0g casualty route; pressure proof/4g egress NOT qualified',
 'couches':couch,'l1_l2_hatch_clear':hatch_clear,
 'l1_l2_pressure_and_casualty':{'leaf_side_m':.92,'hole_diameter_m':.8,
- 'declared_pressure_isolation':'closed: seal the 0.8m pressure opening; open: leaf parks clear, pressure isolation lost',
+ 'declared_pressure_isolation':'normally open; L2-to-L1 outflow (-x) passively presses aft-hinged leaves into their L2 seats; reverse flow not automatically contained',
+ 'flow_closure_physics':'NOT TESTED: torque, latch, seal and pressure transient',
  'litter_length_axial_m':lm['length_m'],'litter_width_m':lm['width_m'],'litter_depth_m':lm['depth_m'],
  'margin_each_side_m':lm['margin_m'],'shaft_clear_m':shaft['clear_m'],
  'end_first_at_zero_g_only':True,'casualty_route_bounded_pass':route_ok,

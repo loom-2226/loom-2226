@@ -351,7 +351,9 @@ export function crownMeshes(cw, xc) {
   // 16 Strata gores close over all; transparent shader is REPRESENTATION not optics qualification.
   if (cw.outerPaneRings && cw.innerR) {
     const bounds=cw.outerPaneRings, outer=bounds[bounds.length-1], inner=cw.innerR;
-    const X=r=>2.35-2.15*Math.sqrt(Math.max(0,1-(r/4.3)**2)); // TWO unchanged inner pressure domes
+    const dp=cw.shellOptionC?.deep_pressure_domes;
+    const hh=dp?.parent_depth_m??2.15, bb=dp?.parent_base_x_m??2.35, pr=dp?.parent_radius_m??4.3;
+    const X=r=>bb-hh*Math.sqrt(Math.max(0,1-(r/pr)**2)); // kT deeper twin pressure domes
     const oC=cw.shellOptionC;
     // Option C external crown: +1.2m forward, flat centre r<=2m, 50deg slope
     // then smooth fair into shoulder at r=4.5m. r=2m coincides with source I4 pane seam.
@@ -365,8 +367,8 @@ export function crownMeshes(cw, xc) {
       return cone+(2.35-cone)*(t*t*(3-2*t));
     };
     const PP=(r,a,offset=0)=>[XO(r)-offset,r*Math.cos(a),r*Math.sin(a)];
-    const INNER=(r,a)=>{const u=Math.sqrt(Math.max(.0001,1-(r/4.3)**2));
-       const v=2.15*r/(4.3*4.3*u),q=Math.hypot(1,v);
+    const INNER=(r,a)=>{const u=Math.sqrt(Math.max(.0001,1-(r/pr)**2));
+       const v=hh*r/(pr*pr*u),q=Math.hypot(1,v);
        return [-1/q,v*Math.cos(a)/q,v*Math.sin(a)/q];};
     const NN=(r,a)=>{const dr=.0001,v=(XO(r+dr)-XO(Math.max(0,r-dr)))/(2*dr),q=Math.hypot(1,v);
        return [-1/q,v*Math.cos(a)/q,v*Math.sin(a)/q];};

@@ -28,6 +28,9 @@ assert abs(m-src['mass_t']*1000)<1e-4
 assert max(abs(cg[k]-src['cg_m'][k]) for k in range(3))<.03,('CG mismatch',cg,src['cg_m'])
 out=HERE/'fq_current_option_c_20261101'
 out.mkdir(exist_ok=True)
+# A failed worker must never be masked by a previous passing results JSON.
+for st in ('full','half'):
+    (out/f'fq_matrix_{st}_0p2_all.json').unlink(missing_ok=True)
 fixture=out/'current_fq1_fq4_fixture.json';fixture.write_text(json.dumps(ship,indent=1)+'\n')
 print('FQ1-FQ4 INPUT',sha,'S4 base mass',ship['base']['mass_kg'],'S1 cg diff',max(abs(cg[k]-src['cg_m'][k]) for k in range(3)),flush=True)
 runner=HERE/'fq_20261031/run_fq_matrix.py'
@@ -40,7 +43,11 @@ for st in ['full','half']:
 rows=[]
 for st,job,fp in jobs:
     rc=job.wait();fp.close()
+    if rc:
+        raise RuntimeError(f'FQ {st} worker failed ({rc}); see {st}.stdout.txt; no stale evidence accepted')
     data=json.loads((out/f'fq_matrix_{st}_0p2_all.json').read_text())
+    assert data['geometry_sha256']==sha and data['state']==st and data['dt']==.2, 'FQ result has stale/wrong source state'
+    assert len(data['results'])==39, 'Incomplete FQ case matrix'
     rows.extend(data['results'])
     print(st,'EXIT',rc,'CASES',len(data['results']),'PASS',sum(x['status']=='PASS' for x in data['results']),flush=True)
 summary={'geometry_sha256':sha,'source_state':'S4 no-remass mass/CG/inertia + unchanged tank','dt_s':.2,

@@ -2,8 +2,8 @@
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
  "status": "NON-GOVERNING SANDBOX certification run",
  "basis": "CERTIFICATION_BASIS.md v0.2 (agreed by Claude and Sol; PROPOSED to kT)",
- "geometry_sha256": "447c05ccb7a3031823e0713ee6010eaa200dbb4c1635b8a5c747b7cd98dae6a6",
- "inputs_sha256": "1a0031a2ad5faffa3d615458564fbe9eff7dbd1b1fcc9d3f06a40fb277260249",
+ "geometry_sha256": "7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7",
+ "inputs_sha256": "de485aa5d856bbe9eed2146494cc36580b35095bafc40376b8ecf38046f56d0d",
  "criteria_sha256": "5bf7777930bb8dc1e72460daf3b1e5a6776b7b9f266e68269f0e7d847823d980",
  "summary": {
   "G1": "PASS",
@@ -43,15 +43,15 @@
     },
     {
      "name": "independent backup pressure dome separately charged to reserve",
-     "value": 4.345246,
-     "limit": 4.345246,
+     "value": 4.728898,
+     "limit": 4.728898,
      "unit": "t",
      "pass": true,
      "note": ""
     },
     {
      "name": "AOI and backup dome entirely drawn from positive existing reserve",
-     "value": 11.951,
+     "value": 11.784,
      "limit": 0.0,
      "unit": "t",
      "pass": true,
@@ -90,12 +90,12 @@
      "note": ""
     },
     {
-     "name": "Option C six-line reserve draw reconciles exactly",
-     "value": 5.834795,
-     "limit": 5.834795,
+     "name": "Option C explicit reserve draw reconciles (including dome change)",
+     "value": 6.002099,
+     "limit": 6.002099,
      "unit": "t",
      "pass": true,
-     "note": "4.694670t separate Option-C hardware +0.540125t pane area via I4 ledger +0.600000t L3 liner"
+     "note": "4.694670t Option-C hardware +0.540125t pane area + dome deepening + physical L3 liner (if justified)"
     },
     {
      "name": "Option C pane incremental mass booked under existing I4 carryover",
@@ -107,24 +107,24 @@
     },
     {
      "name": "Option C subledger equals physical reserve draws",
-     "value": 5.834795,
-     "limit": 5.834795,
+     "value": 6.002099,
+     "limit": 6.002099,
      "unit": "t",
      "pass": true,
      "note": ""
     },
     {
-     "name": "Option C total reserve remains positive",
-     "value": 11.951421,
+     "name": "Option C engineering growth floor preserved",
+     "value": 11.784117,
+     "limit": 5.0,
+     "unit": "t",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "Option C physically charged L3 liner agrees with active zero-or-positive reserve allocation",
+     "value": 0.0,
      "limit": 0,
-     "unit": "t",
-     "pass": true,
-     "note": ""
-    },
-    {
-     "name": "Option C L3 dry liner physically charged 0.6t from reserve",
-     "value": 0.6,
-     "limit": 0.6,
      "unit": "t",
      "pass": true,
      "note": ""
@@ -213,8 +213,8 @@
    "declared": [],
    "notes": [
     "dry 867.7 t vs canon 858.5 t (+9.2 t); S1 wet 1167.7 t vs canon 1158.5 t",
-    "dry by system: habitat 192.5, propulsion 166.4, structure 132.3, thermal 123.8, plant 91.5, electrical 57.2, shuttle 29.0, avionics 20.1, mission 19.8, rcs 16.6, service 13.8, external 3.3, drones 1.2",
-    "protected water: 16.5 t in the storm-shelter jacket, 5.70 t in the L3 berth shield ring, 27.8 t in the service tank, 0.0 t in the main tank cells"
+    "dry by system: habitat 192.6, propulsion 166.4, structure 132.2, thermal 123.8, plant 91.5, electrical 57.2, shuttle 29.0, avionics 20.1, mission 19.8, rcs 16.6, service 13.8, external 3.3, drones 1.2",
+    "protected water: 16.5 t in the storm-shelter jacket, 8.53 t in the L3 berth shield ring, 24.8 t in the service tank, 0.0 t in the main tank cells"
    ],
    "mass_states": [
     {
@@ -222,112 +222,112 @@
      "name": "reference departure",
      "mass_t": 1167.7,
      "cg_m": [
-      24.11,
-      0.023,
-      -0.353
+      24.079,
+      0.021,
+      -0.362
      ],
-     "Ixx": 12447537.484837428,
-     "Iyy": 196642482.87251863,
-     "Izz": 197464340.1248743,
-     "Ixy": 87557.74689118634,
-     "Ixz": 1372978.4964240754,
-     "Iyz": 3316.438685554327
+     "Ixx": 12442943.130465081,
+     "Iyy": 197762973.87733072,
+     "Izz": 198620303.98295277,
+     "Ixy": 65959.51430213766,
+     "Ixz": 1320304.7681312736,
+     "Iyz": 4119.15999931471
     },
     {
      "state": "S2",
      "name": "loaded departure",
      "mass_t": 1217.7,
      "cg_m": [
-      23.757,
-      0.022,
-      -0.338
+      23.726,
+      0.021,
+      -0.347
      ],
-     "Ixx": 13016295.77637185,
-     "Iyy": 200343546.39166525,
-     "Izz": 201516820.87660736,
-     "Ixy": 77964.7487113158,
-     "Ixz": 1518268.8202306584,
-     "Iyz": 3090.68392610057
+     "Ixx": 13012031.546522874,
+     "Iyy": 201438049.5966105,
+     "Izz": 202646460.8679222,
+     "Ixy": 56977.35842836404,
+     "Ixz": 1469053.228166827,
+     "Iyz": 3879.7280683587414
     },
     {
      "state": "S3",
      "name": "normal dispatch",
      "mass_t": 1067.7,
      "cg_m": [
-      24.128,
-      0.025,
-      -0.273
+      24.093,
+      0.023,
+      -0.284
      ],
-     "Ixx": 11328768.849429268,
-     "Iyy": 195061025.53769618,
-     "Izz": 195572054.8396256,
-     "Ixy": 84019.54130374087,
-     "Ixz": 1389940.7859036843,
-     "Iyz": 3805.661627118119
+     "Ixx": 11325965.362580849,
+     "Iyy": 196184467.59542406,
+     "Izz": 196729192.32758215,
+     "Ixy": 62319.081688216305,
+     "Ixz": 1334160.6215462168,
+     "Iyz": 4456.54994260292
     },
     {
      "state": "S4",
      "name": "burnt out, shuttle home",
      "mass_t": 917.7,
      "cg_m": [
-      23.731,
-      0.029,
-      -0.123
+      23.691,
+      0.027,
+      -0.135
      ],
-     "Ixx": 9618754.773037422,
-     "Iyy": 191566923.9996673,
-     "Izz": 191643526.64295134,
-     "Ixy": 70947.11807829939,
-     "Ixz": 1000013.7273835444,
-     "Iyz": 5393.890961758398
+     "Ixx": 9619369.404946988,
+     "Iyy": 192664040.63127652,
+     "Izz": 192770946.24669588,
+     "Ixy": 49752.639276213886,
+     "Ixz": 943171.6072231411,
+     "Iyz": 5754.984966634215
     },
     {
      "state": "S5",
      "name": "burnt out, shuttle away",
      "mass_t": 888.7,
      "cg_m": [
-      23.685,
-      0.03,
-      -0.127
+      23.643,
+      0.028,
+      -0.139
      ],
-     "Ixx": 9565892.08001005,
-     "Iyy": 191080957.1799962,
-     "Izz": 191158219.16391686,
-     "Ixy": 69450.10296653115,
-     "Ixz": 1002519.8724787928,
-     "Iyz": 5474.957540491507
+     "Ixx": 9566425.112596285,
+     "Iyy": 192174574.86419255,
+     "Izz": 192282238.11723387,
+     "Ixy": 48298.525897922635,
+     "Ixz": 946367.1923725456,
+     "Iyz": 5832.491532160296
     },
     {
      "state": "S6",
      "name": "full, shuttle away",
      "mass_t": 1138.7,
      "cg_m": [
-      24.084,
-      0.023,
-      -0.361
+      24.051,
+      0.022,
+      -0.371
      ],
-     "Ixx": 12391436.301362742,
-     "Iyy": 196181409.88888338,
-     "Izz": 197007184.36013663,
-     "Ixy": 86587.29418705916,
-     "Ixz": 1381180.5381716,
-     "Iyz": 3264.514582513817
+     "Ixx": 12386648.576064847,
+     "Iyy": 197299782.5756463,
+     "Izz": 198161237.6501927,
+     "Ixy": 65012.21005315392,
+     "Ixz": 1329149.9937499228,
+     "Iyz": 4075.7361896297625
     },
     {
      "state": "S7",
      "name": "one tank cell breached and vented",
      "mass_t": 1105.2,
      "cg_m": [
-      24.222,
-      0.161,
-      -0.305
+      24.189,
+      0.16,
+      -0.315
      ],
-     "Ixx": 11720362.589488829,
-     "Iyy": 195988869.75688988,
-     "Izz": 196587328.8502835,
-     "Ixy": 408523.3813201619,
-     "Ixz": 1483289.1255471318,
-     "Iyz": 46531.21641744428
+     "Ixx": 11717292.02693808,
+     "Iyy": 197118710.80435288,
+     "Izz": 197752019.67254972,
+     "Ixy": 381583.0486095767,
+     "Ixz": 1427590.609078798,
+     "Iyz": 45685.04378174099
     }
    ]
   },
@@ -476,7 +476,7 @@
     },
     {
      "name": "thrust trim S2",
-     "value": 0.299,
+     "value": 0.298,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
@@ -484,27 +484,27 @@
     },
     {
      "name": "thrust trim S3",
-     "value": 0.172,
+     "value": 0.174,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.085 m from the thrust line"
+     "note": "lateral offset 0.086 m from the thrust line"
     },
     {
      "name": "thrust trim S4",
-     "value": 0.137,
+     "value": 0.133,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.068 m from the thrust line"
+     "note": "lateral offset 0.066 m from the thrust line"
     },
     {
      "name": "thrust trim S5",
-     "value": 0.129,
+     "value": 0.124,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.064 m from the thrust line"
+     "note": "lateral offset 0.062 m from the thrust line"
     },
     {
      "name": "thrust trim S6",
@@ -516,15 +516,15 @@
     },
     {
      "name": "thrust trim S7",
-     "value": 0.341,
+     "value": 0.339,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.167 m from the thrust line"
+     "note": "lateral offset 0.166 m from the thrust line"
     },
     {
      "name": "180 deg slew, pitch (about y) +",
-     "value": 35.0,
+     "value": 35.1,
      "limit": 120.0,
      "unit": "s",
      "pass": true,
@@ -532,7 +532,7 @@
     },
     {
      "name": "180 deg slew, pitch (about y) -",
-     "value": 35.0,
+     "value": 35.1,
      "limit": 120.0,
      "unit": "s",
      "pass": true,
@@ -540,7 +540,7 @@
     },
     {
      "name": "180 deg slew, yaw (about z) +",
-     "value": 35.1,
+     "value": 35.2,
      "limit": 120.0,
      "unit": "s",
      "pass": true,
@@ -548,7 +548,7 @@
     },
     {
      "name": "180 deg slew, yaw (about z) -",
-     "value": 35.1,
+     "value": 35.2,
      "limit": 120.0,
      "unit": "s",
      "pass": true,
@@ -621,7 +621,7 @@
    ],
    "declared": [],
    "notes": [
-    "Thrust line offset from the hull axis: y +0.04 m, z -0.19 m (torch chain 175 t), chosen to centre the centre-of-mass range",
+    "Thrust line offset from the hull axis: y +0.04 m, z -0.20 m (torch chain 175 t), chosen to centre the centre-of-mass range",
     "roll +: 180 deg in 19 s (2 couples, 0.46 MN m, worst state S2); roll is rate-limited by doctrine, not gated",
     "roll -: 180 deg in 19 s (2 couples, 0.46 MN m, worst state S2); roll is rate-limited by doctrine, not gated",
     "With any one cluster out, the slowest 180 deg pitch/yaw slew is 50 s (one couple, S2).",
@@ -648,7 +648,7 @@
      "limit": 0.0,
      "unit": "kW",
      "pass": true,
-     "note": "blackbody longwave outward envelope 16.60kW not relied upon for cold-running cooling"
+     "note": "blackbody longwave outward envelope 18.06kW not relied upon for cold-running cooling"
     },
     {
      "name": "Metric NORMAL heat + habitat rejected",
@@ -781,7 +781,7 @@
    "aoi_glazing_heat_kw": {
     "open_projected_area_m2": 38.48451000647496,
     "worst_case_solar_kw": 100.09821052684137,
-    "uncredited_blackbody_longwave_kw": 16.596971474991847,
+    "uncredited_blackbody_longwave_kw": 18.062355562283393,
     "ir_control_benefit_credited_kw": 0.0,
     "gores_closed_solar_direct_kw": 0.0,
     "absorbed_solar_heat_path": "habitat strakes while open; outer-skin re-radiation not claimed",
@@ -983,7 +983,7 @@
      "limit": 1.56,
      "unit": "t needed vs allotted",
      "pass": true,
-     "note": "13.89 t on the floor (20.3 kPa); CFRP faces 0.24 mm; core shear 0.118 MPa"
+     "note": "11.27 t on the floor (16.5 kPa); CFRP faces 0.2 mm; core shear 0.096 MPa"
     },
     {
      "name": "floor L2: carries its deck at 5 g x 1.5",
@@ -995,11 +995,11 @@
     },
     {
      "name": "floor L3: carries its deck at 5 g x 1.5",
-     "value": 0.79,
+     "value": 0.8,
      "limit": 1.56,
      "unit": "t needed vs allotted",
      "pass": true,
-     "note": "13.11 t on the floor (19.2 kPa); CFRP faces 0.23 mm; core shear 0.112 MPa"
+     "note": "15.34 t on the floor (22.4 kPa); CFRP faces 0.27 mm; core shear 0.131 MPa"
     },
     {
      "name": "floor L4: carries its deck at 5 g x 1.5",
@@ -1007,7 +1007,7 @@
      "limit": 1.56,
      "unit": "t needed vs allotted",
      "pass": true,
-     "note": "36.54 t on the floor (53.4 kPa); CFRP faces 0.63 mm; core shear 0.311 MPa"
+     "note": "36.53 t on the floor (53.4 kPa); CFRP faces 0.63 mm; core shear 0.311 MPa"
     },
     {
      "name": "floor L4 as a pressure bulkhead (L5 at vacuum), factor 2.0",
@@ -1023,7 +1023,7 @@
      "limit": 600.0,
      "unit": "MPa",
      "pass": true,
-     "note": "23 titanium mullions 5 x 20 cm; worst of 5 g x 1.5 on 78.3 t ahead (5.76 MN) and 2 x the pressure end load (11.0 MN); buckling margin 3.7"
+     "note": "23 titanium mullions 5 x 20 cm; worst of 5 g x 1.5 on 79.0 t ahead (5.81 MN) and 2 x the pressure end load (11.0 MN); buckling margin 3.6"
     },
     {
      "name": "L2 band edge rings: hoop across the band + beam between mullions",
@@ -1091,9 +1091,9 @@
     },
     {
      "key": "l1_l2_pressure_hatches",
-     "text": "Two new 0.15t pressure hatches at existing L1/L2 0.8m ladder wells: mass and parked clearance checked, seal under full differential, latch actuation and 4g crew passage NOT demonstrated.",
+     "text": "Two 0.15t pressure hatches normally OPEN aft of L1/L2 ladder plane x=3m; L2-to-L1 (-x) pressure outflow passively pushes each leaf toward an L2-side seat, differential pressure reinforces closure. No sensor/power/actuation needed; seal proof, hinge moments, reverse-flow isolation and 4g crew passage NOT demonstrated.",
      "kT": "AWAITING",
-     "as": "HELD: revise to passive normally-open pressure-assisted closure against L1-bound outflow, same two 0.15t leaves; demonstrate G7 and explicitly bound reverse-flow behavior.",
+     "as": "Passive L2\u2192L1 pressure-driven closure in the design, 0.15t each; physical hinge torque, one-way seal proof, reverse flow isolation and 0g casualty test must be reported, no hardware qualification.",
      "date": "2026-11-01"
     }
    ],
@@ -1126,7 +1126,7 @@
    "checks": [
     {
      "name": "inside the shield's shadow: habitat (pressure vessel, armour, rooms)",
-     "value": 0.8,
+     "value": 0.79,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -1134,7 +1134,7 @@
     },
     {
      "name": "inside the shield's shadow: Docking collar",
-     "value": 0.54,
+     "value": 0.55,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -1142,7 +1142,7 @@
     },
     {
      "name": "inside the shield's shadow: Pressure tunnel: habitat to collar node",
-     "value": 1.77,
+     "value": 1.78,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -1150,7 +1150,7 @@
     },
     {
      "name": "inside the shield's shadow: Pressure tunnel: collar node to bay axis",
-     "value": 2.1,
+     "value": 2.11,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -1158,7 +1158,7 @@
     },
     {
      "name": "inside the shield's shadow: Pressure tunnel: docking adapter to shuttle nose",
-     "value": 4.05,
+     "value": 4.04,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -1174,7 +1174,7 @@
     },
     {
      "name": "inside the shield's shadow: Rover-drop shuttle (docked, tanks empty)",
-     "value": 1.12,
+     "value": 1.11,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -1190,7 +1190,7 @@
     },
     {
      "name": "storm shelter shielding, every direction",
-     "value": 54.7,
+     "value": 53.4,
      "limit": 40.0,
      "unit": "g/cm2",
      "pass": true,
@@ -1312,7 +1312,7 @@
     },
     {
      "name": "berth screen with node faces armour-equivalent (design case)",
-     "value": 40.45,
+     "value": 42.59,
      "limit": 40.0,
      "unit": "g/cm2",
      "pass": true,
@@ -1335,13 +1335,6 @@
      "date": "2026-11-01"
     },
     {
-     "key": "l3_shield_liner_material",
-     "text": "Observed G6 two rays at 39.86g/cm2 corrected by reserve-funded 0.6t continuous L3 dry foamed high-hydrogen liner (x5.9-8.2,r4.18-4.25). No water moved and no gel radiation credited. g/cm2 mass/geometry screen only: polymer composition, actual charged-particle transport, structural attachment, fire and dose remain UNSHOWN.",
-     "kT": "AWAITING",
-     "as": "HELD: 0.6t liner is not accepted. G6 has counted engineering-reserve spread as shielding; correct actual-material accounting and rerun 36x600 S5 before deciding what physical shielding is needed.",
-     "date": "2026-11-01"
-    },
-    {
      "key": "crown_option_c_tiles",
      "text": "37 independent ceramic 1cm sacrificial tiles, outward-removable retainers while L1 pressure stays sealed. Four types, seven spares in hold. Cupola precedent establishes separable outer debris panes, NOT service tool loads or 2226 particle impact protection.",
      "kT": "ACCEPTED",
@@ -1357,7 +1350,7 @@
     },
     {
      "key": "crown_monolith_7m",
-     "text": "kT Option A 2026-11-01: TWO independent full-pressure ~7m transparent ceramic domes, each 28mm/10.5g/cm2, shaped X(r)=2.35-2.15sqrt(1-(r/4.3)^2), backup shifted 0.12m forward. Both must survive loss of the other; 37 outer segmented nonpressure panes +16 closure gores unchanged. 7m monolithic materials fabrication/pressure/impact and optical radiation behaviour UNSHOWN.",
+     "text": "kT adopted deeper pair: TWO independent full-pressure ~7m transparent ceramic domes, each 28mm nominal, primary apex X=-0.30m, backup X=-0.42m, at unchanged rim. Meridional shape X(r)=3.043118-3.343118*sqrt(1-(r/4.3)^2), 0<=r<=3.50. Ideal apex thin-shell stress 10.00MPa vs 15.56MPa prior; not real pressure test. Both must survive loss of the other; 37 outer nonpressure panes +16 closure gores unchanged. Monolith production, boundary loads, fracture/gel pulse and optics UNSHOWN.",
      "kT": "ACCEPTED",
      "as": "kT accepts two separately pressure-capable 7m, 28mm ceramic domes as declared; production, fracture and pressure proof remain OPEN. The proposed 0.5m deeper candidate is analysis only, NOT adopted by this acceptance.",
      "date": "2026-11-01"
@@ -1378,7 +1371,7 @@
     },
     {
      "key": "node_faces",
-     "text": "Metric node faces (rev 7, kT 2026-10-26; Sol: AGREE, placement HOLD): 208 visible flush or recessed faces, 13 rings x 16 at 22.5 deg (rev 5 longeron-study layout). 76 are clear; the rest are flagged: 16 faces dust flow bow first, 12 on bay door, 80 on torch chain, 1 overlaps camera, 2 overlaps hold door, 1 overlaps window, 20 under stowed strake. The design case assumes every face carries at least the armour's g/cm2 it replaces, like the berth-viewport plugs. Sensitivity, faces as open bores through the armour: berth screen 15.79 g/cm2 (30 of 36 berth points below 40) and storm shelter 36.0 g/cm2. So a face must be armour-equivalent: materials, cover, seal and mount stay OPEN, and no dust check exists in the basis yet (faces flagged 'faces dust flow' meet the flow when coasting bow-first). Node stations are not moved for the look; PR #184 stays OPEN.",
+     "text": "Metric node faces (rev 7, kT 2026-10-26; Sol: AGREE, placement HOLD): 208 visible flush or recessed faces, 13 rings x 16 at 22.5 deg (rev 5 longeron-study layout). 76 are clear; the rest are flagged: 16 faces dust flow bow first, 12 on bay door, 80 on torch chain, 1 overlaps camera, 2 overlaps hold door, 1 overlaps window, 20 under stowed strake. The design case assumes every face carries at least the armour's g/cm2 it replaces, like the berth-viewport plugs. Sensitivity, faces as open bores through the armour: berth screen 19.96 g/cm2 (27 of 36 berth points below 40) and storm shelter 35.4 g/cm2. So a face must be armour-equivalent: materials, cover, seal and mount stay OPEN, and no dust check exists in the basis yet (faces flagged 'faces dust flow' meet the flow when coasting bow-first). Node stations are not moved for the look; PR #184 stays OPEN.",
      "kT": "ACCEPTED",
      "as": "armour-equivalent g/cm2 per node face; placement HOLD pending PR #184",
      "date": "2026-10-31"
@@ -1406,9 +1399,10 @@
     }
    ],
    "notes": [
-    "Shadow cone: shield front face x 34.3 m, radius 2.75 m; neutron source: the pellet burn, 0.3 m across, anywhere in x 52.0-52.6 m (worst case used). Radiator strakes and the hot fins sit outside the cone (the fins edge-on to the burn), take neutron heating and are out of bounds for EVA during burns."
+    "Shadow cone: shield front face x 34.3 m, radius 2.75 m; neutron source: the pellet burn, 0.3 m across, anywhere in x 52.0-52.6 m (worst case used). Radiator strakes and the hot fins sit outside the cone (the fins edge-on to the burn), take neutron heating and are out of bounds for EVA during burns.",
+    "Shielding credits committed material only; uncommitted distributed growth allowance is zero radiation mass, AOI gel zero radiation credit (fraction 0.961485 on spread dry parts)."
    ],
-   "shelter_min_g_cm2": 54.674766928046175
+   "shelter_min_g_cm2": 53.39034860482293
   },
   {
    "gate": "G7",
@@ -1425,11 +1419,11 @@
     },
     {
      "name": "net habitable volume per person",
-     "value": 32.2,
+     "value": 32.4,
      "limit": 25.0,
      "unit": "m3",
      "pass": true,
-     "note": "322 m3 total"
+     "note": "324 m3 total"
     },
     {
      "name": "a cabin berth for every person (kT 2026-10-25: shared cabins)",
@@ -1545,14 +1539,30 @@
     },
     {
      "name": "I4 human-factors source geometry hash",
-     "value": "447c05ccb7a3031823e0713ee6010eaa200dbb4c1635b8a5c747b7cd98dae6a6",
-     "limit": "447c05ccb7a3031823e0713ee6010eaa200dbb4c1635b8a5c747b7cd98dae6a6",
+     "value": "7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7",
+     "limit": "7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7",
      "unit": "",
      "pass": true,
      "note": ""
     },
     {
      "name": "I4 human factors: l1_l2_hatches_represent_real_closable_pressure_isolation",
+     "value": true,
+     "limit": true,
+     "unit": "",
+     "pass": true,
+     "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
+    },
+    {
+     "name": "I4 human factors: l1_l2_passive_L1_outflow_seat_direction_declared",
+     "value": true,
+     "limit": true,
+     "unit": "",
+     "pass": true,
+     "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
+    },
+    {
+     "name": "I4 human factors: l1_l2_closure_requires_zero_power_and_sensors",
      "value": true,
      "limit": true,
      "unit": "",
@@ -1675,9 +1685,9 @@
    "declared": [
     {
      "key": "crown_option_c_open_limit",
-     "text": "Option C crown-open limit surfaced in 3D viewer as proposed max speed and/or bow-to-flow angle; BOTH numeric thresholds default UNQUALIFIED. Existing doctrine remains governing (low speed OR bow out of dust flow; closed for torch, radiation, Metric). Sensor accuracy, failure-mode logic and numeric dynamic threshold still OPEN.",
+     "text": "Crown uses Whipple-like stand-off, not physically impact-qualified: 37 removable 10mm ceramic bumper tiles, vacuum gap that varies approximately 0.39\u20131.16m axially to backup shell on the adopted deeper dome, then two independent full-pressure ceramic domes. No hypervelocity shielding strength claimed; AOI shielding credit zero. Crown-open speed and bow/flow-angle controls remain visibly UNQUALIFIED. Governing doctrine still low speed OR bow away from dust flow; closed for torch, radiation and Metric. Actual safe numeric thresholds and sensor/failure logic OPEN.",
      "kT": "AWAITING",
-     "as": "HELD: open-limit speed/flow-angle values remain visible and UNQUALIFIED; no automatic crown-open permission may derive from unset numeric thresholds.",
+     "as": "Whipple-like bumper+vacuum stand-off+two pressure shells, but OPEN only under declared low-speed/bow-away-flow doctrine; both numeric thresholds remain UNQUALIFIED and visible.",
      "date": "2026-11-01"
     },
     {
@@ -1689,16 +1699,16 @@
     }
    ],
    "notes": [
-    "Target 370 m3 (45 per crew, 25 per guest): reached 87%. A sixth deck (+2.6 m of habitat) would reach the target.",
-    "Net habitable volume by deck: L1 51 m3, L2 81 m3, L3 77 m3, L4 57 m3, L5 57 m3",
+    "Target 370 m3 (45 per crew, 25 per guest): reached 88%. A sixth deck (+2.6 m of habitat) would reach the target.",
+    "Net habitable volume by deck: L1 53 m3, L2 81 m3, L3 77 m3, L4 57 m3, L5 57 m3",
     "Windows: the crown dome over L1 (25 m2), a panoramic viewport band round L2 (19.4 m2, 1.6 m tall in the lounge), 12 round viewports (4 shoulder on L1; L4 medical 2, storm shelter 2; L5 suits 1, workshop 2, vestibule 1) and 10 berth viewports (0.5 m) on L3. With every shutter open about 2.59 kW radiates through the low-e glazing; shutters close for night. The canon candidate suggests 10-16 windows; amendment v2.4f proposes more (kT's call). Below the crown every window has four panes, a dust shutter, a 12 deg armour splay and an acrylic shield plug",
     "Casualties move at 0 g (coast on the captain's order); under thrust they are treated in their couch or berth.",
     "Decks are perpendicular to the thrust axis; under thrust, aft is down. Above ~1.5 g everyone rides in a couch.",
     "Cabins by occupancy (v0.5.3, Sol's candidate): Captain's cabin 1 (15.6 m3 each), Crew cabin A 2 (7.8 m3 each), Guest cabin 4 (5.9 m3 each), Crew cabin B 3 (7.8 m3 each); 10 berths in 4 cabins. Private cabins removed by kT on 2026-10-25 (basis change, Sol to agree)."
    ],
-   "nhv_m3": 321.51304142738036,
+   "nhv_m3": 324.0037254890511,
    "nhv_by_deck_m3": {
-    "L1": 50.72444950917208,
+    "L1": 53.215133570842795,
     "L2": 80.50291904915674,
     "L3": 76.71351035544264,
     "L4": 56.566196668354436,
@@ -1869,7 +1879,7 @@
     },
     {
      "name": "tank cell vented (S7): thrust trim",
-     "value": 0.341,
+     "value": 0.339,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
@@ -1917,7 +1927,7 @@
     },
     {
      "name": "engineering reserve after the rev 7 equipment",
-     "value": 31.61,
+     "value": 31.45,
      "limit": "> 0",
      "unit": "t",
      "pass": true,
@@ -1952,15 +1962,15 @@
    "checks": [
     {
      "name": "C: card names the geometry it was made from",
-     "value": "447c05ccb7a3",
-     "limit": "447c05ccb7a3",
+     "value": "7f620c53ca58",
+     "limit": "7f620c53ca58",
      "pass": true,
      "unit": "",
      "note": ""
     },
     {
      "name": "C: card mass, CG and inertia match the geometry in every state",
-     "value": 0.002103,
+     "value": 0.003843,
      "limit": 0.01,
      "pass": true,
      "unit": "max abs / rel",
@@ -2000,7 +2010,7 @@
     },
     {
      "name": "R: RCS 180 deg pitch slew settles (main controller gates, 240 s budget), worst state",
-     "value": 61.8,
+     "value": 61.9,
      "limit": 240.0,
      "pass": true,
      "unit": "s",
@@ -2028,7 +2038,7 @@
      "limit": 3.08,
      "pass": true,
      "unit": "MN m",
-     "note": "left for the RCS after 1.0 deg TVC; without TVC the worst is 19.02 MN m (S2 HARD), beyond the RCS alone"
+     "note": "left for the RCS after 1.0 deg TVC; without TVC the worst is 19.01 MN m (S2 HARD), beyond the RCS alone"
     },
     {
      "name": "R: torch thrust-vector authority covers trim + an ASSUMED 0.5 deg error",
@@ -2064,7 +2074,7 @@
     },
     {
      "name": "T: torch: trim stays within the G3 limit as the tanks drain",
-     "value": 0.332,
+     "value": 0.331,
      "limit": 0.5,
      "pass": true,
      "unit": "deg",
@@ -2251,7 +2261,7 @@
     {
      "item": "Torch axis",
      "canon": "1 axial torch",
-     "v0.5": "axial, with its thrust line offset 0.19 m from the hull centreline to pass through the centre of mass"
+     "v0.5": "axial, with its thrust line offset 0.20 m from the hull centreline to pass through the centre of mass"
     },
     {
      "item": "People",
@@ -2261,7 +2271,7 @@
     {
      "item": "Protected water",
      "canon": "50 t in the tanks",
-     "v0.5": "16.5 t storm-shelter jacket, 5.70 t L3 berth shield ring, 27.8 t service tank, 0.0 t in the tank cells"
+     "v0.5": "16.5 t storm-shelter jacket, 8.53 t L3 berth shield ring, 24.8 t service tank, 0.0 t in the tank cells"
     },
     {
      "item": "Shuttle",
@@ -2287,8 +2297,8 @@
    "checks": [
     {
      "name": "render manifest matches locked geometry",
-     "value": "447c05ccb7a3031823e0713ee6010eaa200dbb4c1635b8a5c747b7cd98dae6a6",
-     "limit": "447c05ccb7a3031823e0713ee6010eaa200dbb4c1635b8a5c747b7cd98dae6a6",
+     "value": "7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7",
+     "limit": "7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7",
      "unit": "",
      "pass": true,
      "note": ""
@@ -2376,8 +2386,8 @@
     {
      "key": "kT_visual_acceptance",
      "text": "Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only",
-     "kT": "ACCEPTED",
-     "as": "kT accepts the existing Option C imagery on geometry SHA256 447c05ccb7a3031823e0713ee6010eaa200dbb4c1635b8a5c747b7cd98dae6a6 as a design representation; optical/physical proof and any proposed deeper-dome visuals are separate.",
+     "kT": "AWAITING",
+     "as": "Render new section/viewer after geometry and water corrections. Source/hash consistency does not imply acceptance of changed visual.",
      "date": "2026-11-01"
     }
    ],
@@ -2446,9 +2456,9 @@
   },
   {
    "key": "l1_l2_pressure_hatches",
-   "text": "Two new 0.15t pressure hatches at existing L1/L2 0.8m ladder wells: mass and parked clearance checked, seal under full differential, latch actuation and 4g crew passage NOT demonstrated.",
+   "text": "Two 0.15t pressure hatches normally OPEN aft of L1/L2 ladder plane x=3m; L2-to-L1 (-x) pressure outflow passively pushes each leaf toward an L2-side seat, differential pressure reinforces closure. No sensor/power/actuation needed; seal proof, hinge moments, reverse-flow isolation and 4g crew passage NOT demonstrated.",
    "kT": "AWAITING",
-   "as": "HELD: revise to passive normally-open pressure-assisted closure against L1-bound outflow, same two 0.15t leaves; demonstrate G7 and explicitly bound reverse-flow behavior.",
+   "as": "Passive L2\u2192L1 pressure-driven closure in the design, 0.15t each; physical hinge torque, one-way seal proof, reverse flow isolation and 0g casualty test must be reported, no hardware qualification.",
    "date": "2026-11-01"
   },
   {
@@ -2463,13 +2473,6 @@
    "text": "16 Strata tambour gores cover the full r<=3.5m faceted external 50deg profile at 27g/cm2 when closed; 2m flat/slope hinge transition and shoulder fairing have no measured shock/seam/drive failure qualification.",
    "kT": "ACCEPTED",
    "as": "kT accepts the 16-gore 50-degree fairing architecture as declared. Hinge transitions, dust seams, actuation and fatigue remain unproven hardware.",
-   "date": "2026-11-01"
-  },
-  {
-   "key": "l3_shield_liner_material",
-   "text": "Observed G6 two rays at 39.86g/cm2 corrected by reserve-funded 0.6t continuous L3 dry foamed high-hydrogen liner (x5.9-8.2,r4.18-4.25). No water moved and no gel radiation credited. g/cm2 mass/geometry screen only: polymer composition, actual charged-particle transport, structural attachment, fire and dose remain UNSHOWN.",
-   "kT": "AWAITING",
-   "as": "HELD: 0.6t liner is not accepted. G6 has counted engineering-reserve spread as shielding; correct actual-material accounting and rerun 36x600 S5 before deciding what physical shielding is needed.",
    "date": "2026-11-01"
   },
   {
@@ -2488,7 +2491,7 @@
   },
   {
    "key": "crown_monolith_7m",
-   "text": "kT Option A 2026-11-01: TWO independent full-pressure ~7m transparent ceramic domes, each 28mm/10.5g/cm2, shaped X(r)=2.35-2.15sqrt(1-(r/4.3)^2), backup shifted 0.12m forward. Both must survive loss of the other; 37 outer segmented nonpressure panes +16 closure gores unchanged. 7m monolithic materials fabrication/pressure/impact and optical radiation behaviour UNSHOWN.",
+   "text": "kT adopted deeper pair: TWO independent full-pressure ~7m transparent ceramic domes, each 28mm nominal, primary apex X=-0.30m, backup X=-0.42m, at unchanged rim. Meridional shape X(r)=3.043118-3.343118*sqrt(1-(r/4.3)^2), 0<=r<=3.50. Ideal apex thin-shell stress 10.00MPa vs 15.56MPa prior; not real pressure test. Both must survive loss of the other; 37 outer nonpressure panes +16 closure gores unchanged. Monolith production, boundary loads, fracture/gel pulse and optics UNSHOWN.",
    "kT": "ACCEPTED",
    "as": "kT accepts two separately pressure-capable 7m, 28mm ceramic domes as declared; production, fracture and pressure proof remain OPEN. The proposed 0.5m deeper candidate is analysis only, NOT adopted by this acceptance.",
    "date": "2026-11-01"
@@ -2509,7 +2512,7 @@
   },
   {
    "key": "node_faces",
-   "text": "Metric node faces (rev 7, kT 2026-10-26; Sol: AGREE, placement HOLD): 208 visible flush or recessed faces, 13 rings x 16 at 22.5 deg (rev 5 longeron-study layout). 76 are clear; the rest are flagged: 16 faces dust flow bow first, 12 on bay door, 80 on torch chain, 1 overlaps camera, 2 overlaps hold door, 1 overlaps window, 20 under stowed strake. The design case assumes every face carries at least the armour's g/cm2 it replaces, like the berth-viewport plugs. Sensitivity, faces as open bores through the armour: berth screen 15.79 g/cm2 (30 of 36 berth points below 40) and storm shelter 36.0 g/cm2. So a face must be armour-equivalent: materials, cover, seal and mount stay OPEN, and no dust check exists in the basis yet (faces flagged 'faces dust flow' meet the flow when coasting bow-first). Node stations are not moved for the look; PR #184 stays OPEN.",
+   "text": "Metric node faces (rev 7, kT 2026-10-26; Sol: AGREE, placement HOLD): 208 visible flush or recessed faces, 13 rings x 16 at 22.5 deg (rev 5 longeron-study layout). 76 are clear; the rest are flagged: 16 faces dust flow bow first, 12 on bay door, 80 on torch chain, 1 overlaps camera, 2 overlaps hold door, 1 overlaps window, 20 under stowed strake. The design case assumes every face carries at least the armour's g/cm2 it replaces, like the berth-viewport plugs. Sensitivity, faces as open bores through the armour: berth screen 19.96 g/cm2 (27 of 36 berth points below 40) and storm shelter 35.4 g/cm2. So a face must be armour-equivalent: materials, cover, seal and mount stay OPEN, and no dust check exists in the basis yet (faces flagged 'faces dust flow' meet the flow when coasting bow-first). Node stations are not moved for the look; PR #184 stays OPEN.",
    "kT": "ACCEPTED",
    "as": "armour-equivalent g/cm2 per node face; placement HOLD pending PR #184",
    "date": "2026-10-31"
@@ -2537,9 +2540,9 @@
   },
   {
    "key": "crown_option_c_open_limit",
-   "text": "Option C crown-open limit surfaced in 3D viewer as proposed max speed and/or bow-to-flow angle; BOTH numeric thresholds default UNQUALIFIED. Existing doctrine remains governing (low speed OR bow out of dust flow; closed for torch, radiation, Metric). Sensor accuracy, failure-mode logic and numeric dynamic threshold still OPEN.",
+   "text": "Crown uses Whipple-like stand-off, not physically impact-qualified: 37 removable 10mm ceramic bumper tiles, vacuum gap that varies approximately 0.39\u20131.16m axially to backup shell on the adopted deeper dome, then two independent full-pressure ceramic domes. No hypervelocity shielding strength claimed; AOI shielding credit zero. Crown-open speed and bow/flow-angle controls remain visibly UNQUALIFIED. Governing doctrine still low speed OR bow away from dust flow; closed for torch, radiation and Metric. Actual safe numeric thresholds and sensor/failure logic OPEN.",
    "kT": "AWAITING",
-   "as": "HELD: open-limit speed/flow-angle values remain visible and UNQUALIFIED; no automatic crown-open permission may derive from unset numeric thresholds.",
+   "as": "Whipple-like bumper+vacuum stand-off+two pressure shells, but OPEN only under declared low-speed/bow-away-flow doctrine; both numeric thresholds remain UNQUALIFIED and visible.",
    "date": "2026-11-01"
   },
   {
@@ -2587,12 +2590,12 @@
   {
    "key": "kT_visual_acceptance",
    "text": "Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only",
-   "kT": "ACCEPTED",
-   "as": "kT accepts the existing Option C imagery on geometry SHA256 447c05ccb7a3031823e0713ee6010eaa200dbb4c1635b8a5c747b7cd98dae6a6 as a design representation; optical/physical proof and any proposed deeper-dome visuals are separate.",
+   "kT": "AWAITING",
+   "as": "Render new section/viewer after geometry and water corrections. Source/hash consistency does not imply acceptance of changed visual.",
    "date": "2026-11-01"
   }
  ],
- "kt_decisions_sha256": "3c72fa08d61d814d9852f622a1ae16681303b43e48e85edb254908e6fd0609ad",
+ "kt_decisions_sha256": "6a00aa38f944f9cf3f02579e8cc513f008723cda207131f72a785e5bc1eabfb2",
  "certified": false,
  "certified_rule": "every gate PASS or PASS-DECLARED and every declared assumption ACCEPTED by kT; then both reviewers sign and loom-gate passes",
  "qualification_scope": {
@@ -2603,6 +2606,6 @@
   "rcs_power_source": "OPEN: idle torch reactor versus dedicated supply; no ship-wide budget",
   "rcs_power_option_B": "hot-water store OPTION, not baseline",
   "required_final_authority": "separate reviewer signatures and loom-gate per existing basis",
-  "geometry_sha256": "447c05ccb7a3031823e0713ee6010eaa200dbb4c1635b8a5c747b7cd98dae6a6"
+  "geometry_sha256": "7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7"
  }
 }

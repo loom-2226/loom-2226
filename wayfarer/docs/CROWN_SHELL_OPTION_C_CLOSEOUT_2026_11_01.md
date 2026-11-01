@@ -1,94 +1,72 @@
-# Wayfarer Option C close-out, 2026-11-01
+# Wayfarer Option C — kT deeper domes, committed-mass G6, protected-water redistribution
 
 ALL bodies. ALL sponsors. 2026–2226.
+**ENGINEERING DRAFT / PR #439 / NOT MERGED.** Metric arrival HOLD; Navigator EXCLUDED; independent ship electrical/thermal power budget OPEN.
 
-Status: ENGINEERING / draft PR #439 / NOT MERGED. Selected Option C outer shell, pressure dome and AOI independent-failure physical proof still OPEN.
+## Current geometry and authority
 
+- Current geometry SHA256: `7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7`.
+- kT ADOPTED: original Option C outer surface (+1.2m bow extension, flat r≤2m, 50° faceted annulus r2–3.5m), 37 replaceable 10mm ceramic bumper panes, 16 Strata gore closures, and two independent ~7m 28mm transparent-ceramic pressure domes with the primary apex **X −0.30m**, backup apex **X −0.42m**.
+- kT also DECIDED: hatches normally open/passively L1-outflow seated, and water redistributed from the existing protected inventory. Unqualified design choices are not physical proof.
+- Dome meridian preserving the original r=3.5m joining circle: `X(r) = 3.043118226826 − 3.343118226826 sqrt(1−(r/4.3)^2)`, primary; backup translated −0.12m axially. New area 45.037m² each vs 41.383m² prior.
+- Idealised apex pressure membrane stress, 101.3kPa and 28mm ceramic: **15.56 → 10.00MPa**. This is a thin-shell apex comparison only; edge stresses, differential pressure testing, monolith fabrication and gel-mediated failure remain unqualified.
+- Axial central stand-off from exterior protective surface to primary dome becomes **0.90m** (prior 1.40m); to backup dome **0.78m** (prior 1.28m). Near the glazed rim r=3.5m, exterior-to-backup stand-off remains about 0.39m. The Pilot/Captain optimistically unoccluded 60° field remains unchanged in the source sightline screen.
+- Charged additional physical ceramic across both domes: **0.767304t** (0.383652t per shell) deducted from the engineering reserve. AOI remains a separately charged 3.000t optical interlayer with **zero** shielding/impact/thermal attenuation credit; cavity fill and fast-fracture mechanics remain physical holds.
 
-### Sol independent review, 2026-11-01: accepted declarations and explicit holds
+## Why the old G6 pass was not valid
 
-kT now ACCEPTS AS DECLARED eight keys: `crown_option_c_load_paths`, `crown_option_c_gore_fairing`, `crown_option_c_tiles` (outer retainers), `crown_dome` (architecture), `crown_monolith_7m`, `aoi_failure_independence` (failure *requirement*, not proof), `crown_option_c_axial_rcs_plumes`, and `kT_visual_acceptance` (existing 447c05cc geometry only). Total certification declarations: **26 ACCEPTED, 3 AWAITING**, machine `certified=false`. Physical caveats in the catalogue below remain even where kT accepts the declaration.
+`build_v05.py` distributed all unused growth reserve across existing dry components as virtual mass for CG/inertia. The G6 shelter and berth ray routines then treated those augmented part masses as shielding material. Consuming reserve for forward Option C hardware thus lowered computed L3 shielding without changing the real L3 hull. This defect also applies to the prior main geometry `5d73cdd1`; **this branch fixes the common G6 code path but does not mutate main**.
 
-**Three held keys:** `l3_shield_liner_material`, `l1_l2_pressure_hatches`, `crown_option_c_open_limit`. Main/PR merge remains HOLD.
+G6 now uses a single `committed_shield_fraction` / `committed_shield_mass` rule shared with the supplemental 36×600 berth-ray screen: ordinary dry part mass is stripped of the distributed, uncommitted growth allowance; physically charged reserve-funded equipment and actual protected water keep full mass; AOI gel gets zero credit. The ship's mass/CG ledger continues carrying the uncommitted reserve separately. No threshold waiver or a physically invented shielding material.
 
-**L3 root cause:** `build_v05.py` spreads unused engineering-reserve mass into all existing dry parts, while `habitat/hab_overlay_checks.py` and G6 count those augmented part masses as actual areal shielding. Spending reserve on bow hardware therefore lowers a *computed* L3 ray without changing L3 hardware. Single-ray diagnostic at the stored worst direction (rounded direction cosines) gives ~40.31g/cm2 in current material accounting and ~38.75g/cm2 if the unallocated spread is excluded; the 0.6t liner does not intersect that particular ray. The published 40.45g/cm2 is the complete previous 36×600 screen, not the corrected physical-mass result. **The liner is disputed, NOT accepted; do not delete it or credit a G6 PASS until the physically accounted 36×600 screen is rerun.** Neither bookkeeping mass nor AOI is qualified shielding.
+The 0.600t non-physical L3 liner provision was removed. A full corrected baseline rerun, **36 sample points ×600 directions = 21,600 S5 rays at 0.02m step**, without newly redistributed water, returned **38.59g/cm² minimum / 13 sample points below 40g/cm²**. Weak paths included:
+- L3-CAPT@15, x6.45/r3.85: 38.59, direction (−0.145,+0.985,+0.089).
+- L3-CAPT@15, x6.45/r2.25: 38.86, direction (−0.268,+0.580,+0.769), crossing forward of the old berth ring.
+- L3-CB@311, x7.55/r2.25: 39.30, direction (+0.785,−0.584,+0.207), leaving through the service section.
 
-**Hatches next change:** two existing 0.15t hinged leaves, normally OPEN for zero-g passage. Specify passive geometry/preload so an L1-bound pressure outflow from L2 pushes each leaf toward its L2-side seat, without actuator, sensor, or power. Once seated, L2-to-L1 differential assists the seal; reverse outflow is NOT automatically stopped unless separately demonstrated. Retain the 0.92m square leaf covering the 0.8m opening and the existing egress envelope. Existing 14/14 G7 only proves the current closable-hatch clearance and litter path, not passive closure dynamics; recheck after source change.
+## Real water closes those paths
 
-**Whipple-like standoff:** outer 10mm sacrificial independent ceramic panes are the bumper, the intervening vacuum/gap is a debris-cloud expansion region, and the two independent pressure domes are rear walls. On the present shape, outer-to-backup axial clearance varies ~0.39m at r=3.5m, ~1.53m at r=2m, and ~1.28m centrally. Define the open-limit speed and flow angle visibly as UNQUALIFIED variables; no quantified hypervelocity protection or threshold is earned by this analogy.
+Only **3.058770t of already protected water** moves from the service reservoir; no extra water and no dry liner:
 
-**Deeper domes, OPTION ONLY:** keep the primary outer-glazing rim at r=3.5m and move both dome apices forward 0.50m (primary X +0.20→-0.30m; backup +0.08→-0.42m), retaining 0.12m axial separation. The ellipsoidal parent meridian must then change from x=2.35-2.15sqrt(1-(r/4.3)^2) to x≈3.043118-3.343118sqrt(1-(r/4.3)^2). Area each 41.383→45.037m2; idealised apex membrane stress p*R²/(2*h*t) at 101.3kPa falls 15.56→10.00MPa; two-dome ceramic delta ≈+0.767t, pending attachment/thickness/gel-cavity reconciliation. Central outer-to-primary 1.40→0.90m, outer-to-backup 1.28→0.78m, outer-to-backup rim stays ≈0.39m axial. Existing source-model ray sightline fractions on six I4 stations are unchanged in an exploratory dome-only trace (PILOT 1.0; NAV 0.853; S1-S4 1.0); optics/obstructions remain unqualified. Not yet adopted or rendered into geometry.
-
-**Power/reserve:** currently 11.951421t engineering reserve; purely illustrative dome deepening leaves 11.184t and **6.184t above a strict 5t growth floor**. If the disputed 0.6t liner is ultimately removed after valid radiation accounting, 11.784t remains and **6.784t above the floor**. This is a mass ceiling for the combined house-reactor/fuel-tank *dry equipment*, not evidence that a ~5t D-He3 tank or its contents and a complete power/thermal budget can be accommodated. Ship power budget remains OPEN.
-
-
-## Geometry and source
-
-New geometry SHA256 447c05ccb7a3031823e0713ee6010eaa200dbb4c1635b8a5c747b7cd98dae6a6. External tip 1.2m forward of Rev7, flat r<=2m, 50 degree slope r2–3.5m, fairing into shoulder at 4.5m; ship overall ~54.5m. Existing two independent 7m ceramic pressure domes and 3.023m3 AOI unchanged.
-37 independent outer 10mm sacrificial ceramic panes, 37.5kg/m2 (3.75g/cm2), original rings [0,.75,2,2.75,3.5], outer band pi/12 stagger. Four types, 7 reserve-funded hold spares [1,2,2,2]; outward removable retainers from external side while L1 stays pressurised, mechanics unqualified.
-16 Strata gores cover 52.887838m2 true faceted face with 27g/cm2 closed; gross 14.279716t, previous projected armour allocation 10.390818t; incremental +3.888898t from reserve. Hinged/tambour transition over r2 and 50-degree seam unqualified. Crown-open quantitative speed and angle thresholds not specified; the older low-speed / bow-away-from-flow doctrine governs.
-
-## Exact G1 reserve reconciliation
-
-| Reserve item | Tonnes | Ledger bucket |
+| Tank | Physical volume = water t | Source geometry |
 |---|---:|---|
-| Extra Strata gore faceted area | 3.888898 | crown_option_c_additions_t |
-| Outward removable retainers | 0.120000 | crown_option_c_additions_t |
-| Seven spare 1cm outer panes | 0.385772 | crown_option_c_additions_t |
-| Two pressure hatches at 0.15t each | 0.300000 | crown_option_c_additions_t |
-| Recorded Option C explicit | 4.694670 | crown_option_c_additions_t |
-| True-slope extra outer ceramic | 0.540125 | i4_carryover_t delta |
-| L3 dry radiation liner (observed G6 correction) | 0.600000 | l3_berth_shield_liner_t |
-| TOTAL reserve consumed | 5.834795 | three ledger buckets |
+| Berth-wall extended, continuous utility gap | 2.829695 | X 5.5–8.2m; r4.15–4.19m, full 360° |
+| Small aft service-wall return | 0.229074 | X 14.5–16.5m; r4.36–4.39m, θ150°–200° |
 
-Previous reserve 17.786216t; remaining reserve 11.951421t. No mass discrepancy: 1.140125t gap is panes 0.540125t + liner 0.600000t, both elsewhere in ledger. G1 tests actual mass, three-bucket sum and previous reserve separately.
-Total dry ship mass 867.681453t; S1 departure 1167.681453t. CG and inertia recomputed with hatch and all other source components.
+The forward extension intercepts the captain's bow-oblique ray, while the narrow service-wall return intercepts the aft-oblique crew-cabin ray. The latter would not be protected merely by thickening the L3 circumferential wall. Source-geometry envelopes and quantitative ray intersections were checked; full plumbing, tank retention, puncture and equipment clearances remain mechanical design assumptions.
 
-## L1/L2 real pressure hatches and bounded egress
+The final source-integrated S5 screen, on hash `7f620c53…`, returns **42.59g/cm² minimum, 0 of 36 points below 40**, at 21,600 actual computed rays; the worst is L3-CAPT@15 x6.45/r3.85, direction (−0.145,+0.985,+0.089). The node-faces-open hostile sensitivity returns **19.96g/cm², 27 of 36 points below 40**: metric node faces must remain armour equivalent, not open bores.
 
-Two distinct 0.15t pressure hatch parts include nominal hinges, seals, frame and latch. Each has a 0.92m full square leaf, and its CLOSED state covers a 0.8m ladder opening for L1/L2 pressure isolation. OPEN leaves swing upright next to shafts to avoid seated crew and ladder obstruction; no extra dry mass or phantom equipment.
-G7 checks both accessible shafts, connected floor region and the existing 2.0m x 0.60m x 0.35m litter end-first down an open 0.8m x 0.6m shaft at zero g only (0.05m margin). Two-way seal proof, actuator fault behaviour and physical casualty retrieval NOT qualified. Under thrust, treat in couch; transfer only after commanded coast.
-G7 14/14 PASS source-layout screening.
+The protected water remains **50t total**, allocated approximately: 16.483t storm-shelter jacket, 8.534t L3 berth-wall/ring/collar, 0.229t service return, 24.750t service protected tank, and 0.004t protected C-tank. These are still protected drinking/storm-reserve water by model intent; piping and emergency draw accessibility are not independently hardware-qualified.
 
-## Qualification and images
+G6's separate three-point shelter screen uses 600 directions per point in S5 and reports **53.4g/cm² minimum** (threshold 40). Weakest shelter path starts at (9.0,0.0,3.65), toward (+0.11,+0.18,+0.98). This is a mass-column screen, not particle transport or a biologically validated dose estimate.
 
-G6 complete 36×600-ray S5 screen min 40.45g/cm2 with 0 rays below 40.0; open-node-face sensitivity 15.79 unsafe. AOI impact and shielding credit remains zero.
-G12 31 source-hash-stamped exterior/interior/deck/section/viewer entries; to-scale crown PNG and SVG, plus source-hash-stamped exterior/interior GLB. Render claims do not establish transparent ceramic optics.
-FQ1–FQ4 78/78 fresh conventional numerical manoeuvres PASS at dt=0.2s on revised CG and inertia; full and half propellant. FQ5–FQ10 not rerun on this geometry, Metric arrival HOLD, Navigator EXCLUDED.
+## Hatches, views and standoff
 
-| Gate | Result |
-|---|---|
-| G1 | PASS |
-| G2 | PASS |
-| G3 | PASS |
-| G4 | PASS-DECLARED |
-| G5 | PASS-DECLARED |
-| G6 | PASS-DECLARED |
-| G7 | PASS-DECLARED |
-| G8 | PASS |
-| G9 | PASS-DECLARED |
-| G10 | PASS-DECLARED |
-| G11 | PASS |
-| G12 | PASS-DECLARED |
+- Two existing **0.15t each** L1/L2 hatch leaves remain normally OPEN and upright beside the 0.8m ladder wells. The passive hinge opens aft (+X) but must close toward the L2-side seat at X3.0m under **L2→L1 gas outflow (−X)**. Differential pressure then assists seating; no sensor, electrical motor or controller. The same hardware/mass allocation remains.
+- Reverse L1→L2 outflow is **not automatically isolated** by this check-valve-like arrangement. Hinge torque, impact stops, leak tightness, chatter and high-pressure time response remain unqualified; no claim of bidirectional full-differential seal has been earned.
+- Source G7 checks the two parked hatch envelopes, 0g rigid-litter end-first shaft access, walkway, couches and optimistic eye rays. Six I4 sightline fractions after dome deepening: PILOT 1.000, NAV 0.853, S1–S4 1.000 (unoccluded upper-bound ray screen). Actual glazing refractive properties and blocked sightlines remain OPEN.
+- The shell is **Whipple-like standoff**, NOT a tested Whipple shield: 10mm replaceable outer ceramic bumper tiles; an exterior vacuum stand-off region varying approximately 0.39–1.16m axially to the backup dome (not a uniform gap); two independent ceramic rear pressure shells. No calculated hypervelocity penetration limit or AOI impact credit.
+- Crown-open speed and bow-to-flow angle remain *visible variables set to null/UNQUALIFIED*. The governing operating doctrine remains low-speed **OR** bow-away-from-dust-flow, otherwise gores closed; closed for torch, particle event, radiation belts and Metric. Unqualified values do not authorise opening.
 
-Machine certified=false; 18/29 declared kT ACCEPTED; 11 pending. kT approved Option C exterior choice, not physical pressure/damage qualification.
+## Mass, qualification, stopping condition
 
-## Declaration catalogue: accepted as declared versus held (see above)
-- crown_option_c_load_paths: Full faceted nose 1.2m ahead of old bow and gore hinges at 50deg break; actual retaining loads, impact, thermal cycling, 5g attachment paths and shutter transition mechanics UNSHOWN.
-- l1_l2_pressure_hatches: Two new 0.15t pressure hatches at existing L1/L2 0.8m ladder wells: mass and parked clearance checked, seal under full differential, latch actuation and 4g crew passage NOT demonstrated.
-- crown_option_c_gore_fairing: 16 Strata tambour gores cover the full r<=3.5m faceted external 50deg profile at 27g/cm2 when closed; 2m flat/slope hinge transition and shoulder fairing have no measured shock/seam/drive failure qualification.
-- l3_shield_liner_material: Observed G6 two rays at 39.86g/cm2 corrected by reserve-funded 0.6t continuous L3 dry foamed high-hydrogen liner (x5.9-8.2,r4.18-4.25). No water moved and no gel radiation credited. g/cm2 mass/geometry screen only: polymer composition, actual charged-particle transport, structural attachment, fire and dose remain UNSHOWN.
-- crown_option_c_tiles: 37 independent ceramic 1cm sacrificial tiles, outward-removable retainers while L1 pressure stays sealed. Four types, seven spares in hold. Cupola precedent establishes separable outer debris panes, NOT service tool loads or 2226 particle impact protection.
-- crown_dome: Rev7 16 closing Strata gores and opening doctrine are retained; their original acceptance applied only to the earlier segmented 2.3m pressure panes, not the new 7m seamless dome.
-- crown_monolith_7m: kT Option A 2026-11-01: TWO independent full-pressure ~7m transparent ceramic domes, each 28mm/10.5g/cm2, shaped X(r)=2.35-2.15sqrt(1-(r/4.3)^2), backup shifted 0.12m forward. Both must survive loss of the other; 37 outer segmented nonpressure panes +16 closure gores unchanged. 7m monolithic materials fabrication/pressure/impact and optical radiation behaviour UNSHOWN.
-- aoi_failure_independence: AOI-2226 ~3.023m3 (~3t) gel between two separately sealed pressure domes, gap min normal 5.973cm with backup axial offset ~12cm. Neither pressure-bearing nor a pressure seal. Each independent dome MUST withstand full 101.3kPa after other's failure while optogel is present, WITHOUT shock, fracture, crack bridging or fast pressure-pulse coupling. The research has NO measured high-rate response or independent-shell survival test; do not credit impact damping. Rim slip/contact interfaces and >=56L illustrative thermal-expansion compliance still require engineering.
-- crown_option_c_open_limit: Option C crown-open limit surfaced in 3D viewer as proposed max speed and/or bow-to-flow angle; BOTH numeric thresholds default UNQUALIFIED. Existing doctrine remains governing (low speed OR bow out of dust flow; closed for torch, radiation, Metric). Sensor accuracy, failure-mode logic and numeric dynamic threshold still OPEN.
-- crown_option_c_axial_rcs_plumes: External nose shifted 1.2m forward with flat 2m crown and 50deg face. Old accepted G10 axial RCS plume direction/impingement declaration predates the extended nose; no new plume clearance proof performed. The existing RCS nozzle geometry is unchanged, but plume impingement on Option C gores/ceramic/retainers remains HOLD.
-- kT_visual_acceptance: Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only
+- Final dry ship mass approximately **867.681t**; S1 departure approximately **1167.681t**. RCS and torch protected remass inventories unchanged.
+- Engineering reserve after dome addition and liner removal: **11.784117t**, with **6.784117t available above a mandatory 5t growth floor**. The house reactor / proposed ~5t D–He3 tank may be examined against this *dry-mass* ceiling, not declared a closed power/propellant/thermal design. Neither helium-3 fuel contents nor launch plumbing have been sized here.
+- G1/G6/G7 results are source-backed after the rebuilt geometry. Other declared gates retain their existing scope. **This report does not itself certify the design, accept the held declarations, or authorise a merge.**
 
-## Current images
-- render/out/deck_crown_option_c_section.png
-- render/out/ext_hero.png
-- render/out/crown_open.png
+Remaining qualification closure items: passive hatch physical closure/sealing, quantitative crown-open environmental limits, kT current-hash visual acceptance, independent reviewer/loom-gate as prescribed by existing workflow. Materials, AOI shock independence and radiation dose remain declared technology/failure requirements, not demonstrated.
 
-DO NOT MERGE before kT acceptance and GitHub loom-gate pass.
+## Fresh FQ1–FQ4, same current hash
+
+The initial attempt with system Python lacked `scipy`, exited 1 and revealed the qualification wrapper could read pre-existing output JSON as though it were fresh. The wrapper now *deletes* old run files and insists on (a) worker exit 0, (b) the exact current SHA, (c) correct remass state and dt, and (d) 39 actual rows per worker; no output is accepted from a failed worker.
+
+A genuine rerun using an existing isolated SciPy-capable flight-lab interpreter on `7f620c53…`, `dt=0.2s`, returned **full 39/39 and half 39/39 (78/78 total)**, both worker exits **0**. By gate: FQ1 6/6, FQ2 48/48, FQ3 12/12, FQ4 12/12. Read `lab/flight_qual/fq_current_option_c_20261101/FQ1_FQ4_CURRENT_SUMMARY.json` and the two underlying per-state source-hash-stamped matrices. These tests are conventional numerical only, not FQ5–FQ10, Navigator or Metric arrival.
+
+## Final source-hash certificate and G12 visuals
+
+After the full source render and two-scene GLB export, the certification script was rerun on final geometry `7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7`. **G1, G2, G3, G8, G11 PASS; G4, G5, G6, G7, G9, G10, G12 PASS-DECLARED**. The renderer's manifest contains **31/31 current-hash files** (no stale/missing entries), including full exterior/cutaway/deck sets, equal-scale crown section PNG/SVG, phone 3D viewer and source-hash-stamped two-scene `wayfarer_I4_in_out_7f620c53.glb`.
+
+The machine correctly remains **`certified=false`**: active declaration keys `l1_l2_pressure_hatches`, `crown_option_c_open_limit`, and `kT_visual_acceptance` remain **AWAITING**. Unproven hinge/seal physics, quantitative environmental limits, and aesthetic/source-interpretation acceptance are not turned into PASS by an image. Do not merge.
+
+The conventional FQ1–FQ4 78/78 and this final G1–G12 certificate both use the same immutable geometry SHA. Main `5d73cdd1` is known to share the reserve-as-shielding defect but is **not modified by this PR**; only this branch's shared shielding logic has been fixed and tested.

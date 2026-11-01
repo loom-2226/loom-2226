@@ -1,6 +1,6 @@
 {
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
- "status": "kT 2026-11-01 Option C: 8 additional declarations ACCEPTED AS DECLARED; L3 liner, L1/L2 pressure-assisted hatches and crown-open numeric limits remain HELD; PR #439 DRAFT/UNMERGED.",
+ "status": "kT 2026-11-01 adopted deeper independent pressure domes; 3 pending: passive pressure-assisted hatch closure, crown-open quantitative limit, and new geometry visual acceptance. L3 liner rejected; physical G6 screen pending.",
  "decided_by": "kT",
  "date": "2026-11-01",
  "decisions": {
@@ -113,12 +113,10 @@
    "as": "kT accepts segmented burn doctrine as DECLARED: ≤165min torch burn segments with ≥15min coasts. Coasts add elapsed time, not free-space delta-v. This is not Metric travel qualification."
   },
   "kT_visual_acceptance": {
-   "decision": "ACCEPTED",
+   "decision": "AWAITING",
    "date": "2026-11-01",
-   "kT": "ALL bodies. ALL sponsors. 2026-2226. kT accepts eight Option C declarations; three remain HELD.",
-   "gate": "G12",
-   "geometry_sha256": "447c05ccb7a3031823e0713ee6010eaa200dbb4c1635b8a5c747b7cd98dae6a6",
-   "as": "kT accepts the existing Option C imagery on geometry SHA256 447c05ccb7a3031823e0713ee6010eaa200dbb4c1635b8a5c747b7cd98dae6a6 as a design representation; optical/physical proof and any proposed deeper-dome visuals are separate."
+   "kT": "Prior visual approval applies to 447c05cc geometry only; new deeper crown images require current-hash review.",
+   "as": "Render new section/viewer after geometry and water corrections. Source/hash consistency does not imply acceptance of changed visual."
   },
   "crown_outer_37_panes": {
    "decision": "ACCEPTED",
@@ -177,20 +175,26 @@
   "l1_l2_pressure_hatches": {
    "decision": "AWAITING",
    "date": "2026-11-01",
-   "kT": "kT HOLD 2026-11-01",
-   "as": "HELD: revise to passive normally-open pressure-assisted closure against L1-bound outflow, same two 0.15t leaves; demonstrate G7 and explicitly bound reverse-flow behavior."
+   "kT": "Specify passive normally-open leaves, L1-bound outflow closes, no power/sensors, no extra mass.",
+   "as": "Passive L2→L1 pressure-driven closure in the design, 0.15t each; physical hinge torque, one-way seal proof, reverse flow isolation and 0g casualty test must be reported, no hardware qualification."
   },
   "l3_shield_liner_material": {
-   "decision": "AWAITING",
+   "decision": "SUPERSEDED",
    "date": "2026-11-01",
-   "kT": "kT HOLD 2026-11-01",
-   "as": "HELD: 0.6t liner is not accepted. G6 has counted engineering-reserve spread as shielding; correct actual-material accounting and rerun 36x600 S5 before deciding what physical shielding is needed."
+   "kT": "Remove 0.6t liner unless actual committed-mass G6 radiation screen requires physical liner.",
+   "as": "No 0.6t liner now. G6 physical shielding requires 36×600 rerun after water redistribution; never credit uncommitted reserve or AOI gel."
   },
   "crown_option_c_open_limit": {
    "decision": "AWAITING",
    "date": "2026-11-01",
    "kT": "kT HOLD 2026-11-01",
-   "as": "HELD: open-limit speed/flow-angle values remain visible and UNQUALIFIED; no automatic crown-open permission may derive from unset numeric thresholds."
+   "as": "Whipple-like bumper+vacuum stand-off+two pressure shells, but OPEN only under declared low-speed/bow-away-flow doctrine; both numeric thresholds remain UNQUALIFIED and visible."
+  },
+  "deep_pressure_domes": {
+   "decision": "ADOPTED",
+   "date": "2026-11-01",
+   "kT": "Primary apex X -0.30m, backup -0.42m, additional ~0.77t",
+   "as": "kT adopts twin dome rim-preserving 0.5m deepening; ideal apex pressure membrane stress approx 15.56→10.00MPa, not physical pressure-shell test; AOI independence remains a declared requirement."
   }
  },
  "design_decisions_2026_10_26": {

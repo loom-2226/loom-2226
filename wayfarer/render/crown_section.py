@@ -1,5 +1,5 @@
 """Metric scale Option C axial/radial section; SVG coordinates x and r use identical px/metre.
-The inner pair geometry is unchanged; AOI illustrated between them with a 12cm axial offset.
+The deeper accepted dome pair retains its rim; AOI illustrated at 12cm axial separation.
 Gore depth is shown as an approximate 0.10m equivalent at 2,700kg/m3, NOT a structural proof.
 """
 from pathlib import Path
@@ -22,7 +22,8 @@ def outer(r):
  if r<=3.5:return -1.2+(r-2)*math.tan(math.radians(50))
  t=min(1,(r-3.5));e=-1.2+1.5*math.tan(math.radians(50))
  return e+(2.35-e)*t*t*(3-2*t)
-def inner(r):return 2.35-2.15*math.sqrt(max(0,1-(r/4.3)**2))
+DP=A["deep_pressure_domes"]
+def inner(r):return DP["parent_base_x_m"]-DP["parent_depth_m"]*math.sqrt(max(0,1-(r/DP["parent_radius_m"])**2))
 def rev(r):return 2.35-2.35*math.sqrt(max(0,1-(r/4.5)**2))
 r0=[i*4.5/180 for i in range(181)]
 r1=[i*3.5/140 for i in range(141)]

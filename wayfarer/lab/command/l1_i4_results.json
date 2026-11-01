@@ -1,5 +1,5 @@
 {
-  "geometry_sha256": "447c05ccb7a3031823e0713ee6010eaa200dbb4c1635b8a5c747b7cd98dae6a6",
+  "geometry_sha256": "7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7",
   "status": "kT 2026-11-01 Option C bounded I4 + real 0.15t hatch/0g casualty route; pressure proof/4g egress NOT qualified",
   "couches": [
     {
@@ -94,7 +94,8 @@
   "l1_l2_pressure_and_casualty": {
     "leaf_side_m": 0.92,
     "hole_diameter_m": 0.8,
-    "declared_pressure_isolation": "closed: seal the 0.8m pressure opening; open: leaf parks clear, pressure isolation lost",
+    "declared_pressure_isolation": "normally open; L2-to-L1 outflow (-x) passively presses aft-hinged leaves into their L2 seats; reverse flow not automatically contained",
+    "flow_closure_physics": "NOT TESTED: torque, latch, seal and pressure transient",
     "litter_length_axial_m": 2.0,
     "litter_width_m": 0.6,
     "litter_depth_m": 0.35,
@@ -164,12 +165,12 @@
     }
   },
   "headroom": {
-    "terrace_center_m": 1.974,
-    "worst_corner_m": 1.339,
+    "terrace_center_m": 2.343,
+    "worst_corner_m": 1.355,
     "chamfer_OPTION_not_geometry": {
       "cut_m": 0.5,
-      "worst_corner_m": 1.473,
-      "gain_m": 0.135,
+      "worst_corner_m": 1.565,
+      "gain_m": 0.209,
       "note": "trim two symmetric outer-forward plan corners; theoretical shell envelope only; reduces usable deck area, no recomputed mass/CG/inertia"
     }
   },
@@ -406,6 +407,8 @@
   },
   "checks": {
     "l1_l2_hatches_represent_real_closable_pressure_isolation": true,
+    "l1_l2_passive_L1_outflow_seat_direction_declared": true,
+    "l1_l2_closure_requires_zero_power_and_sensors": true,
     "l1_l2_0g_litter_egress_via_either_open_hatch": true,
     "l1_l2_parked_hatch_leaves_clear_of_seats_and_ladders": true,
     "l1_l2_physical_pressure_hatch_mass_in_geometry": true,

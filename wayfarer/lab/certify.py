@@ -111,21 +111,21 @@ def g1(I, C, G):
         prior_reserve=17.786216  # frozen immediately prior to Option C, PR #439 / 25bae1ce
         expected_draw=m["reserve_draw_total_t"]
         actual_draw=prior_reserve-L["engineering_reserve_t"]
-        pane_delta=I["i4_carryover"]["crown_increment_from_reserve_t"]-.347738
-        cs.append(chk("Option C six-line reserve draw reconciles exactly",
+        pane_delta=I["i4_carryover"]["crown_increment_from_reserve_t"]-.347738-m.get("dome_primary_delta_t",0.0)
+        cs.append(chk("Option C explicit reserve draw reconciles (including dome change)",
             round(actual_draw,6),round(expected_draw,6),
             abs(actual_draw-expected_draw)<1e-6,"t",
-            "4.694670t separate Option-C hardware +0.540125t pane area via I4 ledger +0.600000t L3 liner"))
+            "4.694670t Option-C hardware +0.540125t pane area + dome deepening + physical L3 liner (if justified)"))
         cs.append(chk("Option C pane incremental mass booked under existing I4 carryover",
             round(pane_delta,6),round(m["pane_delta_t"],6),
             abs(pane_delta-m["pane_delta_t"])<1e-6,"t"))
         cs.append(chk("Option C subledger equals physical reserve draws",
-            round(m["gore_extra_t"]+m["retain_t"]+m["spares_t"]+m["hatches_t"]+m["pane_delta_t"]+L["l3_berth_shield_liner_t"],6),
+            round(m["gore_extra_t"]+m["retain_t"]+m["spares_t"]+m["hatches_t"]+m["pane_delta_t"]+m.get("dome_deepening_t",0.0)+L["l3_berth_shield_liner_t"],6),
             round(actual_draw,6),
-            abs(m["gore_extra_t"]+m["retain_t"]+m["spares_t"]+m["hatches_t"]+m["pane_delta_t"]+L["l3_berth_shield_liner_t"]-actual_draw)<1e-6,"t"))
-        cs.append(chk("Option C total reserve remains positive",L["engineering_reserve_t"],0,L["engineering_reserve_t"]>0,"t"))
+            abs(m["gore_extra_t"]+m["retain_t"]+m["spares_t"]+m["hatches_t"]+m["pane_delta_t"]+m.get("dome_deepening_t",0.0)+L["l3_berth_shield_liner_t"]-actual_draw)<1e-6,"t"))
+        cs.append(chk("Option C engineering growth floor preserved",round(L["engineering_reserve_t"],6),5.0,L["engineering_reserve_t"]>=5.0,"t"))
         li=next((x["mass_t"] for x in G["parts"] if x["id"]=="l3_berth_dry_shield_liner"),0.)
-        cs.append(chk("Option C L3 dry liner physically charged 0.6t from reserve",
+        cs.append(chk("Option C physically charged L3 liner agrees with active zero-or-positive reserve allocation",
                       round(li,6),L.get("l3_berth_shield_liner_t",0),
                       abs(li-L.get("l3_berth_shield_liner_t",0))<1e-7,"t"))
         cs.append(chk("Option C gross 27g/cm2 coverage accounts extra faceted area",
@@ -654,7 +654,7 @@ def g5(I, C, G):
         cs.append(chk("Option C gross overall ship envelope 54.5m",OC["overall_ship_length_m"],54.5,
                       abs(OC["overall_ship_length_m"]-54.5)<.001,"m"))
         decl.append(("crown_option_c_load_paths","Full faceted nose 1.2m ahead of old bow and gore hinges at 50deg break; actual retaining loads, impact, thermal cycling, 5g attachment paths and shutter transition mechanics UNSHOWN."))
-        decl.append(("l1_l2_pressure_hatches","Two new 0.15t pressure hatches at existing L1/L2 0.8m ladder wells: mass and parked clearance checked, seal under full differential, latch actuation and 4g crew passage NOT demonstrated."))
+        decl.append(("l1_l2_pressure_hatches","Two 0.15t pressure hatches normally OPEN aft of L1/L2 ladder plane x=3m; L2-to-L1 (-x) pressure outflow passively pushes each leaf toward an L2-side seat, differential pressure reinforces closure. No sensor/power/actuation needed; seal proof, hinge moments, reverse-flow isolation and 4g crew passage NOT demonstrated."))
     stn = CR["stations"]
     cs.append(chk("upper berth posts: buckling margin at 5 g x 1.5", stn["berth_post_margin"], C["G5"]["buckling_factor"], stn["ok"], "x",
                   f"{stn['berth_post_kn']} kN per post; couch and berth hard points {stn['hard_point_kn']} kN each ({stn['requirement']})"))
@@ -702,6 +702,24 @@ def shadow_allowed(x, x_f, R, a, xs_range):
         k = (xs - x_f) / (xs - x)
         best = min(best, (R - a) / k + a)
     return best
+
+
+def committed_shield_fraction(I, G):
+    """Fraction of each spread dry part actually committed to hardware, not growth reserve.
+    The mass/CG inventory still carries the growth allowance; radiation never gets its credit.
+    """
+    spread=[p for p in G["parts"] if p["dry"] and "from_reserve" not in p["tags"]]
+    gross=sum(p["mass_t"] for p in spread)
+    uncommitted=I["ledger"]["engineering_reserve_t"]+I["ledger"]["structure_split"].get("released_to_reserve",0.0)
+    assert 0 < uncommitted < gross
+    return (gross-uncommitted)/gross
+
+
+def committed_shield_mass(p, spread_fraction):
+    # Gel function is optical, not qualified for shielding; do not invent mass attenuation.
+    if p["id"] == "crown_adaptive_optogel":
+        return 0.0
+    return p["mass_t"]*spread_fraction if p["dry"] and "from_reserve" not in p["tags"] else p["mass_t"]
 
 
 def ray_density(origin, d, items, step, tmax):
@@ -801,17 +819,17 @@ def g6(I, C, G):
                   shelter["volume_m3"] / n >= c6["shelter_m3_per_person_min"], "m3", f"{shelter['volume_m3']:.1f} m3 for {n} people"))
     s_state = c6["shelter_state"]
     items = []
-    for p in G["parts"]:
+    spread_fraction = committed_shield_fraction(I,G)
+    for p in G["parts"] + G["fluids_by_state"][s_state]:
         if "shuttle" in p["tags"] and I["states"][s_state]["shuttle"] == "absent":
             continue
         if p["volume_m3"] <= 0:
             continue
-        sh = B.shape_from_spec(p["shape"])
-        items.append((sh, p["mass_t"] / p["volume_m3"], sh.bbox()))
-    for p in G["fluids_by_state"][s_state]:
-        sh = B.shape_from_spec(p["shape"])
-        v = p["volume_m3"]
-        items.append((sh, p["mass_t"] / v, sh.bbox()))
+        m=committed_shield_mass(p,spread_fraction)
+        if m <= 0: continue
+        sh=B.shape_from_spec(p["shape"])
+        items.append((sh, m/p["volume_m3"], sh.bbox()))
+    notes.append(f"Shielding credits committed material only; uncommitted distributed growth allowance is zero radiation mass, AOI gel zero radiation credit (fraction {spread_fraction:.6f} on spread dry parts).")
     s = shelter["shape"]
     rm = (s["r0"] + s["r1"]) / 2
     am = math.radians((s["a0"] + s["a1"]) / 2)
@@ -904,8 +922,9 @@ def g6(I, C, G):
             CD["panes"]["maximum_outer_circumferential_edge_m"]<=1.9,"m",
             "maximum hoop chord, not longest corner-to-corner diagonal"))
         decl.append(("crown_dome","Rev7 16 closing Strata gores and opening doctrine are retained; their original acceptance applied only to the earlier segmented 2.3m pressure panes, not the new 7m seamless dome."))
+        DP=CD.get("shell_option_c",{}).get("deep_pressure_domes",{})
         decl.append(("crown_monolith_7m",
-            "kT Option A 2026-11-01: TWO independent full-pressure ~7m transparent ceramic domes, each 28mm/10.5g/cm2, shaped X(r)=2.35-2.15sqrt(1-(r/4.3)^2), backup shifted 0.12m forward. Both must survive loss of the other; 37 outer segmented nonpressure panes +16 closure gores unchanged. 7m monolithic materials fabrication/pressure/impact and optical radiation behaviour UNSHOWN."))
+            f"kT adopted deeper pair: TWO independent full-pressure ~7m transparent ceramic domes, each 28mm nominal, primary apex X={DP.get('primary_apex_x_m',.2):.2f}m, backup X={DP.get('backup_apex_x_m',.08):.2f}m, at unchanged rim. Meridional shape {CD['panes']['inner_shape']}. Ideal apex thin-shell stress {DP.get('stress_after_apex_ideal_mpa',0):.2f}MPa vs {DP.get('stress_before_mpa',0):.2f}MPa prior; not real pressure test. Both must survive loss of the other; 37 outer nonpressure panes +16 closure gores unchanged. Monolith production, boundary loads, fracture/gel pulse and optics UNSHOWN."))
         if aoi:
             decl.append(("aoi_failure_independence",
                 "AOI-2226 ~3.023m3 (~3t) gel between two separately sealed pressure domes, gap min normal 5.973cm with backup axial offset ~12cm. Neither pressure-bearing nor a pressure seal. Each independent dome MUST withstand full 101.3kPa after other's failure while optogel is present, WITHOUT shock, fracture, crack bridging or fast pressure-pulse coupling. The research has NO measured high-rate response or independent-shell survival test; do not credit impact damping. Rim slip/contact interfaces and >=56L illustrative thermal-expansion compliance still require engineering."))
@@ -957,7 +976,7 @@ def g7(I, C, G):
     OC=I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("shell_option_c")
     if OC:
         limit=OC["visible_open_policy"]
-        decl.append(("crown_option_c_open_limit", "Option C crown-open limit surfaced in 3D viewer as proposed max speed and/or bow-to-flow angle; BOTH numeric thresholds default UNQUALIFIED. Existing doctrine remains governing (low speed OR bow out of dust flow; closed for torch, radiation, Metric). Sensor accuracy, failure-mode logic and numeric dynamic threshold still OPEN."))
+        decl.append(("crown_option_c_open_limit", "Crown uses Whipple-like stand-off, not physically impact-qualified: 37 removable 10mm ceramic bumper tiles, vacuum gap that varies approximately 0.39–1.16m axially to backup shell on the adopted deeper dome, then two independent full-pressure ceramic domes. No hypervelocity shielding strength claimed; AOI shielding credit zero. Crown-open speed and bow/flow-angle controls remain visibly UNQUALIFIED. Governing doctrine still low speed OR bow away from dust flow; closed for torch, radiation and Metric. Actual safe numeric thresholds and sensor/failure logic OPEN."))
     rooms = G["rooms"]
     nhv = sum(r["nhv_m3"] for r in rooms)
     cs = [chk("people aboard", n, f"{n_c} crew + {n_g} guests", True),
