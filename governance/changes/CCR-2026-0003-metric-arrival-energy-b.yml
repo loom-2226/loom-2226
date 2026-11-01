@@ -104,8 +104,17 @@ validation:
   required_external_verification: []
 assurance:
   walter_required: true
-  status: NOT_RUN
-  finding_ids: []
+  status: PASS
+  finding_ids:
+    - WALTER-CCR-2026-0003-SCOPED-CANON-AND-LEGACY-PARITY
+  evidence: >-
+    Bounded read-only #LOOMSAFE assurance: 75 checks PASS, including CCR approval
+    and registry parity, Canon II scope and unverified physical claims,
+    canonical HOLD/unchanged Navigator, new-lab default call site and focused
+    test, ten baseline SHA-256 entries, manifest blob, 61/61 flight lab,
+    39/39 full and 39/39 half exact parity, and 56 untouched legacy FQ files.
+    The staged IMPLEMENTED record takes effect only on authoritative merge;
+    final GitHub merge SHA is unavailable until then.
   concerns:
     - No real full time-dependent N-body work/solar torque closure.
     - Default selection is only for NEW lab Metric experiments; no Navigator or legacy FQ changes.

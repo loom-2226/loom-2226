@@ -83,13 +83,18 @@ unchanged; new lab Metric experiments select ENERGY-B, no Navigator changes.
   canonical Metric HOLD. The general physics execution seam remains open.
 - PASS — all ten listed SHA-256 baseline file hashes and the compatibility
   manifest Git blob hash resolve to the working implementation draft.
-- PENDING — WALTER required assurance and GitHub merge. CCR-2026-0003
+- PASS — WALTER bounded #LOOMSAFE assurance: **75 checks**, covering
+  provenance, scope, unchanged Navigator/HOLD, new-lab default execution,
+  FQ parity and legacy byte hashes, plus all ten baseline hashes.
+- PENDING — GitHub merge. CCR-2026-0003
   carries the **approved post-merge** `IMPLEMENTED` registry value in this
   implementation PR; authority remains inactive until the exact head merges
   to main, at which point the actual merge SHA can be recorded in evidence.
 
 These records are **draft implementation evidence** until the approved CCR
-change lands on authoritative main. WALTER assurance must be completed before merge.
+change lands on authoritative main. WALTER assurance passed on the reviewed
+implementation branch; the final GitHub merge SHA must be recorded as actual
+post-merge evidence, not predicted or fabricated in a draft PR.
 
 
 PASS:
