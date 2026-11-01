@@ -102,7 +102,8 @@ class CompletionTests(unittest.TestCase):
                     'sequence_constraints':{'metric_entry_max_throttle':1e-6}}
         with self.assertRaisesRegex(ValueError,'idle propulsion'):run(ship,experiment)
     def test_target_time_exact_with_fractional_timestep(self):
-        experiment={'phases':[{'kind':'rcs_turn','duration_s':1.,'post_hold_s':.4,'angle_deg':10.}]}
+        experiment={'phases':[{'kind':'rcs_turn','duration_s':1.,'post_hold_s':.4,'angle_deg':10.}],
+                    'allow_coarse_rcs_dt_for_sensitivity_study':True}
         j=run(cfg('scout'),experiment,dt=.3)
         self.assertAlmostEqual(j['phases'][0]['at_target_time']['t_s'],1.,places=12)
         self.assertAlmostEqual(j['final_state']['time_s'],1.4,places=12)

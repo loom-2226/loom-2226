@@ -17,7 +17,8 @@ def qmul(q,p): return np.r_[q[0]*p[0]-q[1:]@p[1:],q[0]*p[1:]+p[0]*q[1:]+np.cross
 def rotation(q): return Rotation.from_quat(np.r_[q[1:],q[0]])
 def qerror(q,target): return (rotation(q).inv()*rotation(target)).as_rotvec()
 def qaxis(axis,angle):
-    a=np.eye(3)[axis];return np.r_[math.cos(angle/2),a*math.sin(angle/2)]
+    a=np.eye(3)[axis] if isinstance(axis,(int,np.integer)) else unit(vec(axis))
+    return np.r_[math.cos(angle/2),a*math.sin(angle/2)]
 def unit(v):
     n=np.linalg.norm(v)
     if n<1e-15: raise ValueError("zero direction vector")
@@ -112,7 +113,8 @@ def reference(t,T,axis,angle_rad=math.pi):
     theta=angle_rad*(10*u**3-15*u**4+6*u**5)
     w=angle_rad/T*(30*u*u-60*u**3+30*u**4)
     a=angle_rad/T**2*(60*u-180*u*u+120*u**3)
-    return qaxis(axis,theta),np.eye(3)[axis]*w,np.eye(3)[axis]*a
+    direction=np.eye(3)[axis] if isinstance(axis,(int,np.integer)) else unit(vec(axis))
+    return qaxis(axis,theta),direction*w,direction*a
 
 def initial_state(ship,experiment):
     levels=validate(ship)
@@ -428,6 +430,10 @@ def run(ship,experiment,dt=.1,sample_s=1.):
     nextsample=0.0
     for phase in experiment['phases']:
         kind=phase['kind'];T=float(phase.get('duration_s',0))
+        if (kind in ('rcs_turn','rcs_translate') and dt>0.2+1e-12 and
+                not experiment.get('allow_coarse_rcs_dt_for_sensitivity_study',False)):
+            raise ValueError('RCS control requires >= 5 Hz (dt <= 0.2 s); '
+                             'coarse dt allowed only for explicit sensitivity studies')
         if T<=0:raise ValueError('positive phase duration required')
         if state['metric_unresolved']:raise ValueError('canonical metric arrival unresolved: cannot resume ordinary flight or another metric law')
         post_hold=float(phase.get('post_hold_s',0.)) if kind=='rcs_turn' else 0.
@@ -472,6 +478,9 @@ def run(ship,experiment,dt=.1,sample_s=1.):
                         'omega_rad_s','mass_kg','cg_m','propellant_kg','inertia_kg_m2','force_body_N','torque_body_Nm')},
                     'gimbal_angles_deg':None,'metric_path_m':state['metric_path_m']})
         axis={'roll':0,'pitch':1,'yaw':2}.get(phase.get('axis','pitch'),1)
+        if kind=='rcs_turn' and 'axis_vector_body' in phase:
+            # FQ11-only direct pointing: unchanged controller/nozzles/limits.
+            axis=unit(vec(phase['axis_vector_body']))
         if kind=='rcs_turn':
             angle=float(phase.get('angle_deg',180))
             if not -360<=angle<=360: raise ValueError('single turn requires -360..360 degrees')
@@ -686,7 +695,8 @@ def run(ship,experiment,dt=.1,sample_s=1.):
                                       'force_body_N':F.tolist(),'torque_body_Nm':torque.tolist(),
                                       'engine_ids':[e['id'] for e in engines]})
                 maxforce=max(maxforce,float(np.linalg.norm(F)))
-                maxother=max(maxother,float(np.linalg.norm(np.delete(torque,axis))))
+                other_torque=np.delete(torque,axis) if isinstance(axis,(int,np.integer)) else torque-np.dot(torque,axis)*axis
+                maxother=max(maxother,float(np.linalg.norm(other_torque)))
                 midmass=mass-.5*sum(mdots.values())*h
                 gravity=float(experiment.get('gravity_mu_m3_s2',0))
                 state['y']=integrate(y,F,torque,midmass,I,h,gravity)

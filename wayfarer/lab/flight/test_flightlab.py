@@ -122,7 +122,7 @@ class LabTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'arrival unresolved'):
             run(self.w,j,dt=1.)
     def test_combined_persistent_mass(self):
-        j=run(self.w,ex('combined'),dt=.4,sample_s=1.)
+        j=run(self.w,ex('combined'),dt=.2,sample_s=1.)
         self.assertEqual(j['qualification']['status'],'pass')
         self.assertLess(j['final_state']['mass_kg'],1167680.)
         self.assertEqual(len(j['phases']),4)
