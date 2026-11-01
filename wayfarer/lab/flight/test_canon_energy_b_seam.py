@@ -47,6 +47,28 @@ class CanonArrivalSeamTests(unittest.TestCase):
                     self.assertEqual(canonical_metric_operation(phase,self.pre(),{})['execution_status'],'HOLD')
                 else:
                     self.assertEqual(canonical_metric_operation(phase,self.pre(),{})['execution_status'],'HOLD')
+    def test_scoped_implicit_default_parity_without_legacy_promotion(self):
+        explicit=self.phase()
+        implicit=copy.deepcopy(explicit);implicit.pop('arrival_rule')
+        pre=self.pre()
+        a=canonical_metric_operation(explicit,pre,{})
+        b=canonical_metric_operation(implicit,pre,{})
+        self.assertEqual(b['execution_status'],'ARRIVAL_VELOCITY_RESOLVED')
+        self.assertEqual(b['terminal_state']['velocity_m_s'],a['terminal_state']['velocity_m_s'])
+        self.assertEqual(b['arrival_velocity_resolution']['arrival_rule'],'ENERGY_ORBIT_RELATIVE_B')
+        self.assertIsNone(b['terminal_state']['position_m'])
+        self.assertEqual(b['physical_status'],'INDETERMINATE')
+        self.assertTrue(all(g['status']=='HOLD' for g in b['gates'].values()))
+        for change in ('no_regime','other_regime','explicit_none'):
+            legacy=copy.deepcopy(implicit)
+            if change=='no_regime':legacy.pop('canon_arrival')
+            if change=='other_regime':legacy['canon_arrival']['regime']='OTHER'
+            if change=='explicit_none':legacy['arrival_rule']=None
+            with self.subTest(change=change):
+                result=canonical_metric_operation(legacy,pre,{})
+                self.assertEqual(result['execution_status'],'HOLD')
+                self.assertIsNone(result['arrival_velocity_resolution'])
+
     def test_flightlab_dispatch_resolves_only_velocity(self):
         from test_flightlab import cfg
         ship=cfg('wayfarer')
