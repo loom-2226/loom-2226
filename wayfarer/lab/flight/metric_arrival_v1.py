@@ -1,5 +1,6 @@
-"""Opt-in, NON-CANON single-leg Metric Arrival Law v1 (ENERGY + orbit-frame B).
-Only used when a flight experiment explicitly sets enable_metric_arrival_law_v1.
+"""LAB-only inverse calculator for Metric Arrival Law v1 (ENERGY + B).
+The FQ11-CALC preview remains explicit opt-in; new experiment selection has a
+separate ENERGY-B default below. Neither activates canonical HOLD or Navigator.
 Frozen endpoint potential is an assumption, NOT a time-dependent Killing law.
 The Metric miracle is the declared E/p/L exchange; no local coupler is claimed.
 """
