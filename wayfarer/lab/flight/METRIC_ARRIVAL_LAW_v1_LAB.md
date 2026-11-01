@@ -50,9 +50,12 @@ For fixed ship mass `m` during the hop, `p_s=m v_depart`, `p_a=m v_arr`, and ref
 
 ### Lab default after CCR-2026-0003
 
-For **NEW** Wayfarer LAB Metric experiments, use `new_lab_metric_arrival_rule()`
-from `metric_arrival_v1.py` to select `ENERGY_ORBIT_RELATIVE_B` when no
-explicit law is supplied. An explicit lab rule remains selectable for
+For **NEW** `lab_energy_v1` Wayfarer LAB Metric phases, the existing
+`calculate_fq11()` consumer now calls `new_lab_metric_arrival_rule()`
+from `metric_arrival_v1.py` and resolves `ENERGY_ORBIT_RELATIVE_B` when
+`arrival_rule` is omitted. Its focused test checks implicit/explicit parity.
+This is a law-selection default inside the CALC laboratory consumer, **not**
+a new physical Metric execution path in `flightlab.run()`. An explicit lab rule remains selectable for
 controlled sensitivity studies. **No automatic legacy replay is modified:**
 FQ1–FQ10 remain pinned, and the canonical Metric HOLD and Navigator are
 untouched. This is a new-lab experiment selection convention, not

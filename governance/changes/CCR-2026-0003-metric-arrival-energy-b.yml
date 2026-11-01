@@ -2,7 +2,7 @@ schema_version: '1.0'
 record_type: CANON_CHANGE_REQUEST
 id: CCR-2026-0003
 title: Scoped ENERGY-B Solar System Metric arrival-velocity rule
-status: APPROVED_FOR_IMPLEMENTATION
+status: IMPLEMENTED
 proposal_revision: 1
 created_date: '2026-11-02'
 updated_date: '2026-11-02'
@@ -112,8 +112,9 @@ assurance:
 implementation:
   implementation_pr: 446
   target_branch: main
-  merged_commit: null
-  implemented_date: null
+  merged_commit: null # actual merge SHA does not exist in the draft; post-merge audit obligation
+  implemented_date: '2026-11-02'
+  main_merge_required_for_effect: true
   changed_governing_sources:
     - canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
     - governance/current/LOOM_2226_Canon_Baseline_Manifest_v2.4.md
@@ -132,7 +133,7 @@ decision:
     Approve a scoped ENERGY-B operational arrival law with its declared Sun
     momentum/torque books, frozen-potential assumptions and known physical
     limits; retain the general U^M_gamma and park Navigator.
-  disposition: APPROVED_FOR_IMPLEMENTATION
+  disposition: IMPLEMENTED
 supersession:
   supersedes: []
   superseded_by: null
@@ -144,3 +145,14 @@ history:
     note: >-
       kT explicitly approved Canon II §7.1-7.3 scoped rule and new lab default,
       subject to review of draft implementation PR before merge.
+  - date: '2026-11-02'
+    event: IMPLEMENTATION_ACCEPTED_CONDITIONAL_ON_MERGE
+    status: IMPLEMENTED
+    actor: Kevin
+    note: >-
+      kT approved #446 for merge provided wired new-lab default, WALTER,
+      61-test lab regression, FQ1-FQ4 exact parity and hash register all PASS.
+      The registry's IMPLEMENTED value is the approved post-merge state;
+      authority does not take effect while this PR is only a branch.
+      Actual main merge SHA is unavailable until merge and must be recorded
+      in post-merge evidence without inventing a hash in the draft.

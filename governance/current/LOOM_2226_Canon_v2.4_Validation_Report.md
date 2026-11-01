@@ -75,16 +75,21 @@ unchanged; new lab Metric experiments select ENERGY-B, no Navigator changes.
 - PASS — FQ5–FQ10 accepted report remains PASS; all **56** files across the
   accepted FQ runner/case/fixture and retained evidence directories are
   **byte-identical** to authoritative base main.
-- PASS — new-lab selection defaults to ENERGY-B; explicit controlled
-  alternative remains possible. Existing qualification inputs and the
-  canonical Metric HOLD do not change.
+- PASS — one new focused FQ11-CALC test removes the arrival_rule from
+  a new `lab_energy_v1` Metric phase: the actual calculator resolves
+  ENERGY-B, produces an identical result to explicit B, preserves the source
+  fixture and rejects an explicit unsupported alternative. This wires the
+  scoped lab default without changing historical qualification inputs or
+  canonical Metric HOLD. The general physics execution seam remains open.
 - PASS — all ten listed SHA-256 baseline file hashes and the compatibility
   manifest Git blob hash resolve to the working implementation draft.
-- PENDING — WALTER required assurance and kT final review prior to merging;
-  no `IMPLEMENTED` CCR status before authoritative main merge.
+- PENDING — WALTER required assurance and GitHub merge. CCR-2026-0003
+  carries the **approved post-merge** `IMPLEMENTED` registry value in this
+  implementation PR; authority remains inactive until the exact head merges
+  to main, at which point the actual merge SHA can be recorded in evidence.
 
 These records are **draft implementation evidence** until the approved CCR
-change lands on authoritative main. WALTER assurance remains pending review.
+change lands on authoritative main. WALTER assurance must be completed before merge.
 
 
 PASS:

@@ -72,8 +72,12 @@ def calculate_fq11(ship,experiment):
         raise ValueError("FQ11 requires torch, metric, arrival_match in order")
     if phase[0].get("mode")!="CRUISE" or phase[1].get("mode")!="NORMAL":
         raise ValueError("FQ11 only validates CRUISE/NORMAL")
-    if phase[1].get("model")!="lab_energy_v1" or phase[1].get("arrival_rule")!="ENERGY_ORBIT_RELATIVE_B":
-        raise ValueError("FQ11 must explicitly select the ENERGY B lab card")
+    # A NEW lab_energy_v1 Metric phase defaults to B when no rule is supplied.
+    # Explicit alternatives are never silently overwritten; the specialized
+    # FQ11-CALC calculator itself supports B only.
+    resolved_rule=new_lab_metric_arrival_rule(phase[1])
+    if phase[1].get("model")!="lab_energy_v1" or resolved_rule!="ENERGY_ORBIT_RELATIVE_B":
+        raise ValueError("FQ11-CALC requires the ENERGY B lab card")
     card=ship["metric"].get("lab_energy_v1")
     if not card or card["law"]!="energy_orbit_relative_v1" or card.get("enabled_by_default") is not False:
         raise ValueError("FQ11 requires a separate default-off lab Metric card")
