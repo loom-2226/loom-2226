@@ -399,9 +399,23 @@ def canonical_metric_operation(phase, pre_state, torch_outputs):
                       'metric_path_m':beta*C*(duration-ramp),
                       'scope':'CONDITIONAL experiment-declared linear profile; no physical trajectory or finite energy accounting',
                       'energy_j':None}
+    # Canon II §§7.1a/b resolves only the *velocity* component when the
+    # phase EXPLICITLY declares ENERGY-B and a scoped Solar System snapshot.
+    # The remaining environmental/collapse/capture gates retain HOLD and a
+    # physical terminal position cannot be fabricated from a half-Hill proxy.
+    arrival=None
+    if (phase.get('arrival_rule')=='ENERGY_ORBIT_RELATIVE_B' and
+            (phase.get('canon_arrival') or {}).get('regime')=='ORDINARY_SOLAR_SYSTEM'):
+        from metric_arrival_v1 import canonical_energy_b_arrival
+        arrival=canonical_energy_b_arrival(phase,pre_state,closure['modes'][mode])
+        terminal['velocity_m_s']=arrival['arrival_velocity_m_s']
+        terminal['matching_delta_v_m_s']=arrival['relative_mismatch_m_s']
     return {'sequence_status':'VALID' if sequence and not input_holds else 'INDETERMINATE',
-            'execution_status':'HOLD','physical_status':'INDETERMINATE','last_accepted_state':current,
-            'held_request':'METRIC_RAMP' if current=='RELATIONAL_READY' else 'RELATIONAL_READY',
+            'execution_status':'ARRIVAL_VELOCITY_RESOLVED' if arrival else 'HOLD',
+            'arrival_velocity_resolution':arrival,
+            'physical_status':'INDETERMINATE','last_accepted_state':current,
+            'held_request':('METRIC_COLLAPSE_CERTIFICATION_AND_CAPTURE' if arrival else
+                            ('METRIC_RAMP' if current=='RELATIONAL_READY' else 'RELATIONAL_READY')),
             'phase_trace':trace,'input_holds':input_holds,'gates':gates,'declared_load_checks':limits,
             'pre_metric_state':copy.deepcopy(pre_state),'terminal_state':terminal,
             'mode':mode,'mode_requirements':requirements,'requirements_class':'SOURCE_DERIVED_REQUIREMENTS; not measured loads',
@@ -418,7 +432,8 @@ def canonical_metric_operation(phase, pre_state, torch_outputs):
             'unknown':{key:'UNKNOWN' for key in ('environmental_correction','duty_profile','rset','wake',
                        'finite_conservation_ledgers','bank_abort_profile','terminal_state','total_energy_accounting')},
             'illustrative_profile':illustrative,
-            'time_basis':'requested experiment schedule only; no physical flight time advanced on HOLD',
+            'time_basis':('natural arrival velocity evaluated at moving destination epoch; physical collapse/time progression HOLD'
+                          if arrival else 'requested experiment schedule only; no physical flight time advanced on HOLD'),
             'authority_boundary':'in-world crew-rated operation exists; open numerical laws do not revoke it'}
 
 def run(ship,experiment,dt=.1,sample_s=1.):
@@ -473,7 +488,8 @@ def run(ship,experiment,dt=.1,sample_s=1.):
                 profile=canonical['illustrative_profile']
                 state['metric_path_m']=None if profile is None else profile['metric_path_m']
                 steps=[]
-                hist.append({'time_s':t0,'phase':'metric','operating_state':'HOLD',
+                hist.append({'time_s':t0,'phase':'metric',
+                    'operating_state':'VELOCITY_RESOLVED_PHYSICAL_HOLD' if canonical['arrival_velocity_resolution'] else 'HOLD',
                     **{key:None for key in ('position_m','velocity_m_s','q_body_to_inertial',
                         'omega_rad_s','mass_kg','cg_m','propellant_kg','inertia_kg_m2','force_body_N','torque_body_Nm')},
                     'gimbal_angles_deg':None,'metric_path_m':state['metric_path_m']})

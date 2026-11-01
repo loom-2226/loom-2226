@@ -1,0 +1,185 @@
+{
+  "classification": "DRAFT_LAB_PARITY_NONCANON",
+  "main_base": "092206902bce2f6a94bb8466ac1497782d068a33",
+  "comparison": "New seam replay against exact merged FQ evidence; no historical evidence mutation",
+  "relative_tolerance": 1e-09,
+  "absolute_tolerance": 1e-06,
+  "comparisons": {
+    "FQ11": {
+      "status": "PASS",
+      "measured_cases": [
+        {
+          "case": "NOMINAL",
+          "status": "PARITY_PASS",
+          "seam_status": "ARRIVAL_VELOCITY_RESOLVED",
+          "collapse_certification": "HOLD",
+          "measures": {
+            "forward_arrival_mismatch_m_s": {
+              "accepted": 19.431327988573468,
+              "canonical_seam": 19.431327988573468,
+              "difference": 0.0
+            },
+            "trim_post_velocity_error_m_s": {
+              "accepted": 0.12078189514614451,
+              "canonical_seam": 0.12078189514614451,
+              "difference": 0.0
+            },
+            "total_remass_kg": {
+              "accepted": 2982.7995775299205,
+              "canonical_seam": 2982.7995775299205,
+              "difference": 0.0
+            },
+            "metric_timing_s": {
+              "accepted": 4897.394247801274,
+              "canonical_seam": 4897.394247801274,
+              "difference": 0.0
+            },
+            "preburn_actual_duration_s": {
+              "accepted": 497.7347647916989,
+              "canonical_seam": 497.7347647916989,
+              "difference": 0.0
+            }
+          }
+        },
+        {
+          "case": "UNDERBURN_1_PERCENT",
+          "status": "PARITY_PASS",
+          "seam_status": "ARRIVAL_VELOCITY_RESOLVED",
+          "collapse_certification": "HOLD",
+          "measures": {
+            "forward_arrival_mismatch_m_s": {
+              "accepted": 77.73989962331052,
+              "canonical_seam": 77.73989962331052,
+              "difference": 0.0
+            },
+            "trim_post_velocity_error_m_s": {
+              "accepted": 0.48099161806831114,
+              "canonical_seam": 0.48099161806831114,
+              "difference": 0.0
+            },
+            "total_remass_kg": {
+              "accepted": 3171.7029461154307,
+              "canonical_seam": 3171.7029461154307,
+              "difference": 0.0
+            },
+            "metric_timing_s": {
+              "accepted": 4897.393816489929,
+              "canonical_seam": 4897.393816489929,
+              "difference": 0.0
+            },
+            "preburn_actual_duration_s": {
+              "accepted": 492.75741714378194,
+              "canonical_seam": 492.75741714378194,
+              "difference": 0.0
+            }
+          }
+        }
+      ],
+      "historical_json_path": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json"
+    },
+    "FQ12": {
+      "status": "PASS",
+      "measured_cases": [
+        {
+          "case": "NOMINAL",
+          "status": "PARITY_PASS",
+          "seam_status": "ARRIVAL_VELOCITY_RESOLVED",
+          "collapse_certification": "HOLD",
+          "measures": {
+            "brake_pretrim_error_m_s": {
+              "accepted": 0.8213630436977429,
+              "canonical_seam": 0.8213630437590144,
+              "difference": 6.127143237222299e-11
+            },
+            "final_earth_velocity_error_m_s": {
+              "accepted": 0.8213630436977429,
+              "canonical_seam": 0.8213630437590144,
+              "difference": 6.127143237222299e-11
+            },
+            "total_remass_consumed_kg": {
+              "accepted": 6175.054501797684,
+              "canonical_seam": 6175.0545017978,
+              "difference": 1.1641532182693481e-10
+            },
+            "brake_duration_s": {
+              "accepted": 1069.743972785163,
+              "canonical_seam": 1069.743972785162,
+              "difference": -9.094947017729282e-13
+            },
+            "trim_duration_s": {
+              "accepted": 0.0,
+              "canonical_seam": 0.0,
+              "difference": 0.0
+            },
+            "rcs_turn_remass_kg": {
+              "accepted": 98.37386442121284,
+              "canonical_seam": 98.37386442121972,
+              "difference": 6.87805368215777e-12
+            }
+          }
+        },
+        {
+          "case": "UNDERBRAKE_1_PERCENT",
+          "status": "PARITY_PASS",
+          "seam_status": "ARRIVAL_VELOCITY_RESOLVED",
+          "collapse_certification": "HOLD",
+          "measures": {
+            "brake_pretrim_error_m_s": {
+              "accepted": 104.20175744470139,
+              "canonical_seam": 104.20175744467453,
+              "difference": -2.6858515411731787e-11
+            },
+            "final_earth_velocity_error_m_s": {
+              "accepted": 0.8212440401783132,
+              "canonical_seam": 0.8212440402193615,
+              "difference": 4.104827588946591e-11
+            },
+            "total_remass_consumed_kg": {
+              "accepted": 6175.063378145365,
+              "canonical_seam": 6175.063378145482,
+              "difference": 1.1641532182693481e-10
+            },
+            "brake_duration_s": {
+              "accepted": 1059.0465330573113,
+              "canonical_seam": 1059.0465330573104,
+              "difference": -9.094947017729282e-13
+            },
+            "trim_duration_s": {
+              "accepted": 10.69900232565659,
+              "canonical_seam": 10.6990023256538,
+              "difference": -2.7906565946977935e-12
+            },
+            "rcs_turn_remass_kg": {
+              "accepted": 98.37386442121284,
+              "canonical_seam": 98.37386442121972,
+              "difference": 6.87805368215777e-12
+            }
+          }
+        }
+      ],
+      "historical_json_path": "wayfarer/lab/flight_qual/fq12_inbound_metric_energy_b_20261101/FQ12_RESULT.json"
+    }
+  },
+  "legacy_regression": {
+    "flightlab": {
+      "passed": 61,
+      "total": 61
+    },
+    "fq1_fq4": {
+      "full": {
+        "cases": 39,
+        "passed": 39,
+        "numerical_differences": 0,
+        "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331"
+      },
+      "half": {
+        "cases": 39,
+        "passed": 39,
+        "numerical_differences": 0,
+        "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331"
+      }
+    },
+    "fq5_fq10_source_accepted_evidence_byte_identical": 56,
+    "accepted_fq11_fq12_result_files_byte_identical": true
+  }
+}
