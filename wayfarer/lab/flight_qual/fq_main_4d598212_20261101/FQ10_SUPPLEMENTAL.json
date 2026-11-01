@@ -1,0 +1,47 @@
+{
+  "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+  "cases": {
+    "baseline_pitch": {
+      "attitude_error_deg": 6.387904919652312e-05,
+      "final_rate_deg_s": 8.471777783082667e-06,
+      "remass_used_kg": 483.5288244935013,
+      "events": [],
+      "runtime_s": 13.336227420251817,
+      "pass": true
+    },
+    "cluster_A+Z_pitch": {
+      "attitude_error_deg": 6.387904782749087e-05,
+      "final_rate_deg_s": 8.471860446905906e-06,
+      "remass_used_kg": 483.5244330737108,
+      "events": [
+        {
+          "t_s": 25.0,
+          "event": "fault_injected",
+          "kind": "cluster_out"
+        }
+      ],
+      "runtime_s": 13.122840330936015,
+      "pass": true
+    },
+    "stuck_on_F+Y_tan+": {
+      "peak_attitude_error_deg": 0.060822355726377605,
+      "peak_rate_deg_s": 0.09527719752934648,
+      "final_attitude_deg": 0.060822355726377605,
+      "final_rate_deg_s": 1.7643579466298066e-06,
+      "remass_used_kg": 2383.6484122434463,
+      "events": [
+        {
+          "t_s": 60.0,
+          "event": "fault_injected",
+          "kind": "stuck_thruster"
+        }
+      ],
+      "runtime_s": 7.512517145834863,
+      "pass": true
+    }
+  },
+  "scope": "source-consistent conventional faultlab, no actual FDIR/thermal/power hardware proof",
+  "pass": true,
+  "replay_baseline_main_commit": "2d9e7a18e49b4cf409448d06e22de10e1af602b4",
+  "replay_geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331"
+}

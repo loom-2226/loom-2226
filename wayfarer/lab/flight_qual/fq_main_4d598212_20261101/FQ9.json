@@ -1,0 +1,31 @@
+{
+  "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+  "source_tree": "main merge 2d9e7a18 == 82643eb7 tree",
+  "engine": "existing faultlab_safing/flightlab; read-only replay",
+  "source_source": "existing 4d598212 mass CG inertia from FQ1-FQ4 current fixture",
+  "initial_mass_kg": 1172681.453466738,
+  "final_mass_kg": 1171516.2810348475,
+  "phase_fuel_kg": [
+    340.83000000000396,
+    0.0,
+    483.5124316010455,
+    340.83000028727474
+  ],
+  "sum_fuel_kg": 1165.1724318883241,
+  "mass_delta_kg": 1165.17243189062,
+  "ledger_residual_kg": 2.295792000950314e-09,
+  "tank_remaining_kg": 248834.82756810953,
+  "phase_kinds": [
+    "torch",
+    "coast",
+    "rcs_turn",
+    "torch"
+  ],
+  "flip_attitude_error_deg": 6.387904919690244e-05,
+  "qualification": "pass",
+  "warnings": [],
+  "runtime_s": 22.8597155790776,
+  "pass": true,
+  "replay_baseline_main_commit": "2d9e7a18e49b4cf409448d06e22de10e1af602b4",
+  "replay_geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331"
+}
