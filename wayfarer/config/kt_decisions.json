@@ -26,7 +26,7 @@
   },
   "plant_power": {
    "decision": "ACCEPTED",
-   "as": "kT supersedes earlier relational-plant electrical generation. 80MW net at 40kW/kg, 75% electric direct conversion are speculative declared 2226 quantities. Metric HARD 34.8MW cryo electric; additional field power explicitly UNQUANTIFIED. The Metric bank does not generate energy.",
+   "as": "kT ACCEPTS dedicated TWIN D-He3 house reactors: 2×50MW net with declared 40kW/kg and 10% minimum each, 75% direct conversion. Relational plant is a consumer ONLY and Metric bank is not a source. The 900K canon cryo card scales to existing 1300K design; EXTRA Metric field/control electrical loads 1/2/3/5MW by mode are declared NON-CANON engineering screening, not proof of environmental correction. Reactor failure fallback staged. No whole-ship certification on new hash.",
    "date": "2026-11-01",
    "kT": "Dedicated D-He3 house reactor (direct conversion) supplies Metric and ordinary loads; relational plant is consumer only"
   },
@@ -65,7 +65,7 @@
   "cold_running": {
    "decision": "ACCEPTED",
    "date": "2026-10-31",
-   "as": "Cold running heat buffer re-screened ~9.41h with dedicated house reactor conversion losses added to prior 10+10kW declared standby. 2226 deep throttling and tank thermal coupling remain unqualified; no heat sink."
+   "as": "kT 2026-11-01: both reactors OFF in quiet/cold running; flywheel powers ~65kW essentials until thermal-buffer bound, not sub-10% reactor idle. Recalculate passive leak, flywheel discharge heat and existing 50t×15K buffer. No 2226 material/thermal coupling proof."
   },
   "strata_armour": {
    "decision": "ACCEPTED",
@@ -341,11 +341,17 @@
  "ship_power_2026_11_01": {
   "authority": "kT design decisions, not physical hardware qualification",
   "reactor": "D-He3 dedicated 80MW net 40kW/kg and 75% direct conversion, 2t from existing 55t electrical line",
-  "peak_store": "Flywheel 6.5MWh, 10kWh/kg 800kW/kg, 0.65t existing electrical; discharge ~519MW for 40s, charge time explicit",
+  "peak_store": "7MWh, 0.7t in existing electrical budget, 90% round trip",
   "ordinary_rcs": "120s flip from house, assumed 1/t^2 throttled power; not traced",
   "torch": "PULSED in all modes; torch-house power emergency only",
   "fuel": "5t D-He3 wet/consumable mass; 0.5t fuel tank dry from reserve; consumption by mode",
   "battery_density": "4.0 kWh/kg declared 2226",
-  "holds": "Transient electrical/thermal hardware, fuel tank physical packaging, advanced specific power/storage, Metric field electrical draw, deep throttling"
+  "holds": "Transient electrical/thermal hardware, fuel tank physical packaging, advanced specific power/storage, Metric field electrical draw, deep throttling",
+  "revision": "two 50MW independent net reactors @40kW/kg, total 2.5t in 55t electrical allowance",
+  "minimum_reactor_output": "10% = 5MW each; fill flywheel with surplus; cycle or stop when full",
+  "quiet_cold": "both house reactors OFF, flywheel supplies 65kW; passive heating limits cold duration before storage duration",
+  "failure_order": "one reactor -> flywheel -> pulsed torch emergency ONLY -> 0.6kW 24h battery",
+  "metric_field_power": "no canon separate field watts found; DECLARED engineering NORMAL 1 FAST 2 EXPEDITE 3 HARD 5MW delivered, plus canon cryo and E1 PMAD; environment correction still HOLD",
+  "no_merge": true
  }
 }

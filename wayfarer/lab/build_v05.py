@@ -848,7 +848,7 @@ def build(I, dy=0.0, dz=0.0):
         Sector(er["x_m"][0], er["x_m"][1], er["r_m"][0], er["r_m"][1], er["theta_deg"][0], er["theta_deg"][1]), es["service_ring"]-house_electric, es["prov"], "equipment")
     if HP:
         ring=Sector(er["x_m"][0], er["x_m"][1], er["r_m"][0], er["r_m"][1], er["theta_deg"][0], er["theta_deg"][1])
-        add("house_reactor","Dedicated D-He3 house reactor and direct converter (55t electrical line reallocation)",
+        add("house_reactor","Two independent D-He3 house reactors and converters (55t electrical reallocation)",
             "electrical",ring,HP["reactor_dry_t"],"kT house-power declaration; electrical ring reallocation, not new mass","equipment")
         add("house_peak_store","High-power flywheel + containment (55t electrical line reallocation)",
             "electrical",ring,HP["peak_store_dry_t"],"kT 2226 store-density declaration; not experimentally qualified","equipment")

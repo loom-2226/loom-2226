@@ -483,9 +483,10 @@ def g4(I, C, G):
     fullcap = rad_net_mw(I, C, R["max_span_m"], azs)[0]
     e_hard = I["canon"]["metric_cryo_electrical_mw_at_900K"]["HARD"] * (T - 20) / 880
     if I.get("ship_power"):
+        HP=I["ship_power"]
         decl.append(("plant_power",
-            f"Dedicated D-He3 house reactor supplies Metric HARD cryo chain {e_hard:.1f}MW at {T}K; relational plant is electrical CONSUMER ONLY, and Metric bank is not a generator. "
-            "House reactor 80MW nameplate, 40kW/kg net specific output and 75% direct-conversion efficiency are kT accepted 2226 ENGINEERING ASSUMPTIONS; unknown Metric field watts remain a NAMED DEFICIT."))
+            f"TWO D-He3 house reactors each {HP['reactor_net_electric_mw']:.0f}MW net, {HP['reactor_minimum_fraction']*100:.0f}% minimum on line, {HP['reactor_net_specific_kw_kg']:.0f}kW/kg net and 75% direct conversion; 2226 engineering declarations, not tested physical hardware. "
+            f"One surviving unit supports known Metric HARD cryo {e_hard:.1f}MW at {T}K plus separately declared, explicitly NON-CANON 5MW field/control, E1 0.98×0.96 PMAD losses, and ordinary loads. Relational plant is consumer ONLY, Metric bank never a source. Environmental correction power remains OPEN."))
     else:
         decl.append(("plant_power", f"Plant electrical: Metric HARD at a {T} K reject temperature needs {e_hard:.1f} MW of cryo-chain electrical power, against canon's "
                     f"23.9 MW at 900 K. The relational plant must supply this (canon amendment), or the cryo chain must reject through a 900 K loop."))
@@ -518,15 +519,18 @@ def g4(I, C, G):
         # rejection is intentionally stowed in cold-running mode.
         HP=I.get("ship_power")
         e_cold_kw=I["habitat_heat"]["avionics_kw"]+I["habitat_heat"]["eclss_galley_kw"]+I["habitat_heat"]["lighting_misc_kw"]+p_standby+cryo_standby
-        house_waste_kw=e_cold_kw*(1/HP["direct_conversion_electric_efficiency"]-1) if HP else 0.
-        hrs = e_buf / max(q_in + p_standby + cryo_standby + house_waste_kw - leak, 1e-9) / 3600
+        # kT power update: BOTH house reactors OFF in quiet/cold running.
+        # Flywheel, not a fictitious deeply throttled reactor, supplies 65kW.
+        house_waste_kw=0.0
+        flywheel_loss_kw=e_cold_kw * (1 / math.sqrt(HP["peak_store_round_trip_efficiency"])-1) if HP else 0.
+        hrs = e_buf / max(q_in + p_standby + cryo_standby + flywheel_loss_kw - leak, 1e-9) / 3600
         ratio = md["cold_running"]["emissivity"] / md["normal"]["emissivity"]
         decl.append(("cold_running", f"Cold running (rev 7, F5 provisional item F5-TE-01): the tunable flanks drop from emissivity {md['normal']['emissivity']} to "
                      f"{md['cold_running']['emissivity']}, so at the same skin temperature they radiate {ratio * 100:.0f}% as much. Heat is held, not removed: habitat heat "
                      f"{q_in:.1f} kW (x1.25), plus plant standby {p_standby:.1f} kW and cryo standby {cryo_standby:.1f} kW, less {leak:.1f} kW still leaking through {a_sk:.0f} m2 of low-e skin at {hr['temperature_k']} K warms the "
-                     f"{I['canon']['protected_water_t']:.0f} t of protected water by {CR['buffer_dT_k']:.0f} K in about {hrs:.1f} h (ideal no-standby ceiling {ideal_hrs:.1f} h). House reactor waste {house_waste_kw:.1f} kW included. {CR.get('standby_prov','')}. Then the ship must open the strakes "
+                     f"{I['canon']['protected_water_t']:.0f} t of protected water by {CR['buffer_dT_k']:.0f} K in about {hrs:.1f} h (ideal no-standby ceiling {ideal_hrs:.1f} h). House reactors OFF; flywheel inefficiency {flywheel_loss_kw:.1f} kW included. {CR.get('standby_prov','')}. Then the ship must open the strakes "
                      f"or switch the flanks back to normal. {CR['not_modelled']}. The metallic look in the viewer is a proposed optical property."))
-        r_cold = {"hours": hrs, "ideal_no_standby_hours": ideal_hrs, "leak_kw": leak, "habitat_kw": q_in, "plant_standby_kw":p_standby, "cryo_standby_kw":cryo_standby,  "house_reactor_waste_kw":house_waste_kw,"in_kw":q_in+p_standby+cryo_standby+house_waste_kw,"area_m2": a_sk,"provenance":CR.get("standby_prov")}
+        r_cold = {"hours": hrs, "ideal_no_standby_hours": ideal_hrs, "leak_kw": leak, "habitat_kw": q_in, "plant_standby_kw":p_standby, "cryo_standby_kw":cryo_standby,   "house_reactor_waste_kw":0.0,"flywheel_loss_kw":flywheel_loss_kw,"in_kw":q_in+p_standby+cryo_standby+flywheel_loss_kw,"area_m2": a_sk,"provenance":CR.get("standby_prov")}
     else:
         r_cold = None
     notes.append(f"Habitat heat {q_hab_kw:.1f} kW for {n} people; heat pump to {T} K needs {w_hp:.0f} kW (Carnot fraction {C['G4']['heat_pump_carnot_fraction']}).")
@@ -548,7 +552,7 @@ def g4(I, C, G):
         for row in ship["states"]:
             nm=row["state"]
             r["checks"].append(chk("ship power "+nm+": known source/load accounting",
-                row["electrical_balance_mw"],0.,True,"MW",
+                row["electric_accounting_mw"],0.,abs(row["electric_accounting_mw"])<1e-6,"MW",
                 "NAMED DEFICIT: "+"; ".join(row["deficits"]) if row["deficits"] else "source and modeled loads close"))
             if row["radiator_capacity_mw"] is not None:
                 r["checks"].append(chk("ship power "+nm+": rejection capacity",

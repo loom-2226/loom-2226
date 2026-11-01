@@ -2062,8 +2062,8 @@
   "crown_option_c_additions_t": 4.69467,
   "l3_berth_shield_liner_t": 0,
   "house_fuel_tank_t": 0.5,
-  "house_reactor_electrical_reallocation_t": 2.0,
-  "house_peak_store_electrical_reallocation_t": 0.65
+  "house_reactor_electrical_reallocation_t": 2.5,
+  "house_peak_store_electrical_reallocation_t": 0.7
  },
  "longerons": {
   "prov": "CLAUDE_DESIGN v0.5.7 (structure/longeron_study.py, kT 2026-10-25 'consolidate'): four CFRP tubes in an X, matching canon's 4 axial longerons. The upper pair stay where the v0.5.6 slot sills were (edging the bay slot); the lower pair mirror them in the tank's lower cells. Sized at 5 g x 1.5 to a 250 MPa design stress (400 MPa floor x 0.62 for impact, joints, environment). v0.5.6 had 3 planks + 2 sills (36.9 t) running at 65 MPa. NON-GOVERNING; SOL TO REVIEW REV 5 (structure review 2026-10-26): wall 72 -> 84 mm (area 0.0830 m2, 1% margin) so axial + bending (thrust-line offset 13.5 MN m + 0.5 deg thrust error 9.1 MN m) stays within the 250 MPa design stress",
@@ -3192,18 +3192,18 @@
   "total_from_reserve_with_AOI_t": 8.184665
  },
  "ship_power": {
-  "status": "kT accepted 2026-11-01 architecture; declared engineering figures (NOT demonstrated 2226 hardware)",
-  "source": "dedicated D-He3 house fusion reactor, direct conversion; relational plant and Metric consume electrical power, no energy generation from relational plant or Metric bank",
-  "reactor_net_electric_mw": 80.0,
+  "status": "kT 2026-11-01 two-reactor revision; explicitly declared 2226 densities and Metric field-power allowances, not physical proof",
+  "source": "TWO independent dedicated D-He3 direct-conversion house reactors, 50MW net each; relational plant and Metric consume power, bank is not a source",
+  "reactor_net_electric_mw": 50.0,
   "reactor_net_specific_kw_kg": 40.0,
-  "reactor_dry_t": 2.0,
+  "reactor_dry_t": 2.5,
   "direct_conversion_electric_efficiency": 0.75,
   "peak_store": "flywheel",
-  "peak_store_nominal_mwh": 6.5,
+  "peak_store_nominal_mwh": 7.0,
   "peak_store_round_trip_efficiency": 0.9,
   "peak_store_specific_kwh_kg": 10.0,
   "peak_store_specific_kw_kg_min": 800.0,
-  "peak_store_dry_t": 0.65,
+  "peak_store_dry_t": 0.7,
   "peak_store_discharge_mw": 520.0,
   "peak_store_discharge_seconds": 40.0,
   "fuel": "D-He3",
@@ -3242,11 +3242,30 @@
    "emergency_shelter_essential": 0.6
   },
   "qualification_limits": [
-   "routine 120s nozzle throttling/duty is a declared 1/t^2 equal-angle comparison, NOT observed FQ trace",
-   "flywheel ~10kWh/kg and 800kW/kg plus reactor 40kW/kg are speculative 2226 properties, containment and conversion losses unqualified",
-   "Metric field generation electrical demand beyond mapped 34.8MW cryo-chain remains UNQUANTIFIED",
-   "house failure backup 24h 0.6kW only, not indefinite",
-   "torch pulsed, always; no free background torch electrical supply; torch-house operation emergency-only"
-  ]
+   "two 50MW house reactor units (total 100MW, 2.5t at declared 40kW/kg): 10% MIN each; they cannot operate steadily at 0.389MW hotel load with full store; cycle reactor on/off or declare spill",
+   "flywheel 7MWh at 10kWh/kg and 800kW/kg is speculative 2226 hardware, not independently qualified; 90% round trip",
+   "quiet/cold running reactors OFF, flywheel essential load 65kW (about 102h discharge until energy depleted; cold thermal buffer expires first)",
+   "Metric field power NORMAL 1 FAST 2 EXPEDITE 3 HARD 5MW delivered is explicitly NON-CANON declared, environment correction power still HOLD",
+   "routine 120s flip 1/9 scaling of old 40s impulse scenario is NOT verified thruster throttle trace",
+   "failed-house fallback order: surviving reactor, store (~17h normal load), pulsed torch emergency only (power/time UNQUALIFIED), shelter battery 0.6kW for 24h"
+  ],
+  "reactor_count": 2,
+  "reactor_minimum_fraction": 0.1,
+  "metric_field_control_electric_mw_by_mode": {
+   "NORMAL": 1.0,
+   "FAST": 2.0,
+   "EXPEDITE": 3.0,
+   "HARD": 5.0
+  },
+  "metric_field_prov": "DECLARED 2226 non-canon engineering field/control electrical allowance; canon E1 only provides cryo card + PMAD, leaves environment correction power OPEN",
+  "metric_delivered_pm_ad_fraction": 0.9408,
+  "reactor_failure_order": [
+   "one reactor online",
+   "charged flywheel if both reactors offline",
+   "pulsed torch emergency house mode, source output UNQUALIFIED",
+   "0.6kW 24h shelter battery"
+  ],
+  "quiet_reactors_on": 0,
+  "cold_running_reactors_on": 0
  }
 }
