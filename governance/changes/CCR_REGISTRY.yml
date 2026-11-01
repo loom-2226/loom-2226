@@ -44,9 +44,9 @@ records:
 
   - id: CCR-2026-0003
     path: governance/changes/CCR-2026-0003-metric-arrival-energy-b.yml
-    status: APPROVED_FOR_IMPLEMENTATION
+    status: IMPLEMENTED
     title: Scope ENERGY-B Metric arrival velocity within Canon II sections 7.1–7.3
     originating_issue: kT ruling, 2026-11-02, following draft intake PR #445
     approved_pr: 445
-    implemented_pr: null
+    implemented_pr: 446
     supersedes: []

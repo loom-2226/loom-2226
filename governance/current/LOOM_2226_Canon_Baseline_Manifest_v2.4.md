@@ -4,7 +4,7 @@
 **Institutional amendment integrated:** 24 August 2026  
 **Earth biosynthetic amendment registered:** 25 September 2026  
 **Synthetic personhood horizons amendment registered:** 1 October 2026  
-**Metric arrival velocity in-place CCR-2026-0003 addition:** 2 November 2026 (effective on authoritative implementation merge)
+**Metric arrival velocity in-place CCR-2026-0003 addition:** IMPLEMENTED 2 November 2026 by merged PR #446 (58f2f136ac207e56207c0afd597c9379d0637319)
 **Status:** AUTHORITATIVE CONSOLIDATED BASELINE WITH REGISTERED SCOPED AMENDMENTS
 **Scope:** CANON I–III v2.4, Solar Atlas v3.2, Core Mechanics v0.5, Wayfarer amendment v2.4a, Earth biosynthetic amendment v2.4b, Synthetic Personhood Historical Horizons amendment v2.4c, plus unchanged campaign-character and presentation companions.
 
@@ -111,7 +111,7 @@ v2.4 does **not** alter:
 # 4. Active governing volumes
 
 1. `LOOM_2226_CANON_I_World_History_Frontier_v2.4.md` — world/history/frontier + embedded Solar/world/institution/xeno source corpus.
-2. `LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md` — engineering/ships/operations + post-MV + metric-cert architecture; CCR-2026-0003 adds scoped ENERGY-B arrival velocity in §§7.1–7.3 when its implementation merges.
+2. `LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md` — engineering/ships/operations + post-MV + metric-cert architecture; CCR-2026-0003 scoped ENERGY-B arrival velocity in §§7.1–7.3 implemented by merged PR #446.
 3. `LOOM_2226_CANON_III_Authority_Continuity_GM_Model_v2.4.md` — authority, truth-state, hidden graph, model registry, LLM numerical protocol.
 4. `LOOM_2226_Earth_Solar_System_Canon_Atlas_v3.2.md` — fast reader/LLM Solar narrative geography and future-modeling interface.
 5. `LOOM_2226_Core_Mechanics_v0.5.md` — table/LLM resolution and runtime procedure.

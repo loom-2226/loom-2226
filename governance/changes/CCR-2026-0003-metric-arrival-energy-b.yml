@@ -2,7 +2,7 @@ schema_version: '1.0'
 record_type: CANON_CHANGE_REQUEST
 id: CCR-2026-0003
 title: Scoped ENERGY-B Solar System Metric arrival-velocity rule
-status: APPROVED_FOR_IMPLEMENTATION
+status: IMPLEMENTED
 proposal_revision: 1
 created_date: '2026-11-02'
 updated_date: '2026-11-02'
@@ -113,19 +113,20 @@ assurance:
     canonical HOLD/unchanged Navigator, new-lab default call site and focused
     test, ten baseline SHA-256 entries, manifest blob, 61/61 flight lab,
     39/39 full and 39/39 half exact parity, and 56 untouched legacy FQ files.
-    The bounded 75-check verification passed. CCR remains
-    APPROVED_FOR_IMPLEMENTATION for the canon implementation merge;
-    the actual authoritative main merge and post-merge IMPLEMENTED
-    transition are separate, governed events.
+    Bounded verification passed, enforced GitHub loom-gate passed,
+    and PR #446 merged to authoritative main at
+    58f2f136ac207e56207c0afd597c9379d0637319.
+    This follow-up records the separate IMPLEMENTED transition.
   concerns:
     - No real full time-dependent N-body work/solar torque closure.
     - Default selection is only for NEW lab Metric experiments; no Navigator or legacy FQ changes.
 implementation:
-  implementation_pr: null
+  implementation_pr: 446
   target_branch: main
-  merged_commit: null # actual merge SHA does not exist in the draft; post-merge audit obligation
-  implemented_date: null
+  merged_commit: 58f2f136ac207e56207c0afd597c9379d0637319
+  implemented_date: '2026-11-02'
   main_merge_required_for_effect: true
+  main_merge_verified: true
   changed_governing_sources:
     - canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
     - governance/current/LOOM_2226_Canon_Baseline_Manifest_v2.4.md
@@ -144,7 +145,7 @@ decision:
     Approve a scoped ENERGY-B operational arrival law with its declared Sun
     momentum/torque books, frozen-potential assumptions and known physical
     limits; retain the general U^M_gamma and park Navigator.
-  disposition: APPROVED_FOR_IMPLEMENTATION
+  disposition: IMPLEMENTED
 supersession:
   supersedes: []
   superseded_by: null
@@ -167,3 +168,12 @@ history:
       APPROVED_FOR_IMPLEMENTATION with implemented_pr null for #446.
       A separate follow-up PR will mark IMPLEMENTED, set implemented_pr
       446, and record the actual #446 merge SHA.
+  - date: '2026-11-02'
+    event: IMPLEMENTED_ON_AUTHORITATIVE_MAIN
+    status: IMPLEMENTED
+    actor: Kevin
+    note: >-
+      Implementation PR #446 merged into authoritative main at
+      58f2f136ac207e56207c0afd597c9379d0637319.
+      Separate follow-up records the status transition, retaining LG006
+      compliance and kT's approved two-stage process.

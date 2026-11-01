@@ -86,17 +86,17 @@ unchanged; new lab Metric experiments select ENERGY-B, no Navigator changes.
 - PASS — WALTER bounded read-only technical/provenance review: **75 checks**, covering
   provenance, scope, unchanged Navigator/HOLD, new-lab default execution,
   FQ parity and legacy byte hashes, plus all ten baseline hashes.
-- PASS — LG006 lifecycle correction: CCR-2026-0003 remains
-  `APPROVED_FOR_IMPLEMENTATION` in both its record and registry, with
-  `implemented_pr: null`. kT explicitly authorised the two-stage
-  transition. The post-merge follow-up must set `IMPLEMENTED`,
-  `implemented_pr: 446`, and the actual #446 merge SHA.
-- PENDING — exact-head GitHub loom-gate and authoritative merge.
+- PASS — LG006 governed two-stage lifecycle: canon implementation PR #446
+  merged to authoritative main at 58f2f136ac207e56207c0afd597c9379d0637319
+  while CCR-2026-0003 was APPROVED_FOR_IMPLEMENTATION. This follow-up
+  sets CCR file and registry to IMPLEMENTED, implemented_pr 446 and the
+  actual verified main merge SHA. kT approval dated 2 November 2026.
+- PASS — No further canon text, flightlab, FQ1–FQ10, geometry or
+  Navigator changes occur in this post-merge status transition.
 
-These records are **draft implementation evidence** until the approved CCR
-change lands on authoritative main. WALTER's bounded branch checks passed;
-LG006 premerge CCR status is restored and requires a fresh GitHub gate
-before merge. The separate status-transition PR must use the real merge SHA.
+**Authority record:** The follow-up confirms the completed merge, not a new
+canon promotion or independent scientific qualification. Its separate
+exact-head GitHub loom-gate must pass before the status PR merges.
 
 
 PASS:
