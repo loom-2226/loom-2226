@@ -1,0 +1,146 @@
+{
+  "fq": "FQ11-CALC",
+  "name": "Earth -> Mars inverse-map preview; NOT a flight qualification",
+  "classification": "LAB_ONLY_NON_CANON_NOT_NAVIGATOR",
+  "enabled": true,
+  "status": "CALC_IDENTITY_PREVIEW",
+  "qualified": false,
+  "measurements": {
+    "remass_budget": true
+  },
+  "identities_by_construction": {
+    "arrival_matches": true,
+    "energy_ledger_closes": true,
+    "momentum_ledger_closes": true,
+    "angular_ledger_closes": true
+  },
+  "thresholds": {
+    "remass_residual_kg": 1e-06,
+    "arrival_error_m_s": 1.0,
+    "energy_residual_J": 0.0001,
+    "momentum_residual_N_s": 0.001,
+    "angular_residual_N_m_s": 10000000.0
+  },
+  "provenance": {
+    "main_commit": "32a4a45a4f55007bbc5162d19438cd2ffd8300fe",
+    "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+    "epoch": "2226-08-29T05:00:00Z",
+    "ephemeris_source": "main data/LOOM_2226.sqlite3 ephemeris_states JPL_HORIZONS_DIRECT at 2226-08-29T05:00:00Z; AU/AU-day, Sun center J2000"
+  },
+  "phases": [
+    {
+      "kind": "torch",
+      "card": "CRUISE",
+      "impulsive_dv_km_s": 4.827904939028071,
+      "nominal_burn_duration_s": 497.7347647916989,
+      "remass_used_kg": 2827.38333309046,
+      "mass_before_kg": 1172681.453466738,
+      "mass_after_kg": 1169854.0701336476
+    },
+    {
+      "kind": "metric",
+      "mode": "NORMAL",
+      "arrival_rule": "ENERGY_ORBIT_RELATIVE_B",
+      "duration_s": 4897.352101506106,
+      "pre_velocity_km_s": [
+        14.946202840172164,
+        30.83251471788441,
+        -0.01513656433640738
+      ],
+      "post_velocity_km_s": [
+        -1.633850997871424,
+        -22.013735918999014,
+        -0.42321979297072687
+      ]
+    },
+    {
+      "kind": "arrival_match",
+      "target": "Mars",
+      "dv_km_s": 2.6645352591003757e-15,
+      "velocity_error_m_s": 2.6645352591003757e-12
+    }
+  ],
+  "state": {
+    "final_remass_kg": 247172.61666690966,
+    "reserve_margin_kg": 242172.61666690966,
+    "target_velocity_km_s": [
+      -1.6338509978714213,
+      -22.013735918999014,
+      -0.42321979297072687
+    ],
+    "arrival_velocity_km_s": [
+      -1.633850997871424,
+      -22.013735918999014,
+      -0.42321979297072687
+    ]
+  },
+  "ledger": {
+    "torch": {
+      "remass_used_kg": 2827.38333309046,
+      "mass_residual_kg": 0.0,
+      "exhaust_momentum_N_s": [
+        -1854229999.932017,
+        -5247333028.117061,
+        2080992.8303896703
+      ],
+      "momentum_residual_N_s": 0.0,
+      "angular_residual_N_m_s": 0.0,
+      "declared_fusion_source_energy_J": 5654766666180866.0,
+      "energy_residual_J": 0.0
+    },
+    "metric": {
+      "frozen_phi_depart_km2_s2": -878.1400096608297,
+      "frozen_phi_arrive_km2_s2": -534.8500001128926,
+      "ship_energy_change_J": 0.0,
+      "sun_recoil_energy_J": 1.0557308996697385e-09,
+      "sun_field_energy_work_J": -1.0557308996697385e-09,
+      "energy_residual_J": 0.0,
+      "ship_impulse_N_s": [
+        -19396243465.4703,
+        -61822401398.86095,
+        -477397825.9711386
+      ],
+      "sun_impulse_N_s": [
+        19396243465.4703,
+        61822401398.86095,
+        477397825.9711386
+      ],
+      "momentum_residual_N_s": 0.0,
+      "sun_recoil_m_s": [
+        9.754650562074666e-21,
+        3.109137723641078e-20,
+        2.4009025148260465e-22
+      ],
+      "sun_recoil_magnitude_m_s": 3.2586570690605706e-20,
+      "sun_spin_dL_N_m_s": [
+        -3.5247188774745825e+19,
+        -6.340939058856858e+19,
+        9.643495638060004e+21
+      ],
+      "sun_orbit_dL_N_m_s": [
+        -1.187950101770241e+20,
+        2.008435129958461e+20,
+        -9.988244360081506e+21
+      ],
+      "sun_total_dL_N_m_s": [
+        -1.5404219895176993e+20,
+        1.3743412240727753e+20,
+        -3.4474872202150176e+20
+      ],
+      "sun_spin_dL_magnitude_N_m_s": 9.643768518396407e+21,
+      "sun_orbit_dL_magnitude_N_m_s": 9.99096971108688e+21,
+      "sun_total_dL_magnitude_N_m_s": 4.018318284994531e+20,
+      "angular_residual_N_m_s": 1048703.9921884534
+    }
+  },
+  "limitations": [
+    "FROZEN POTENTIAL, NOT AN EXACT KILLING ENERGY in a moving Sun/planet system. Sun-only moving ephemerides; approximate Sun-barycentric counting frame. Lab accounting is not a qualified physical momentum/torque coupler.",
+    "Sun's E/p/L transfer is bookkeeping for the Metric miracle, not a local coupling mechanism.",
+    "Transport term is required when source and destination position differ.",
+    "Pre-jump vector burn is ideal impulsive; duration informational only; full fusion/plume hardware not qualified.",
+    "0.5 Hill is a diagnostic boundary, not Metric admissibility policy.",
+    "Planetary propagation Sun-only; no N-body gravitational work ledger or orbital capture."
+  ],
+  "flag_negative_test": "IDENTITY: CALC refuses missing opt-in flag",
+  "existing_qualifications": "FQ1\u2013FQ10 source and qualification outputs unchanged; no default metric or Navigator changes"
+}

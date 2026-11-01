@@ -1,0 +1,20 @@
+{
+  "classification": "LAB_ONLY_NONCANON_PROPOSED_METRIC_ARRIVAL_LAW_V1",
+  "main_commit": "32a4a45a4f55007bbc5162d19438cd2ffd8300fe",
+  "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+  "ephemeris_source": "main data/LOOM_2226.sqlite3 ephemeris_states JPL_HORIZONS_DIRECT at 2226-08-29T05:00:00Z; AU/AU-day, Sun center J2000",
+  "epoch_utc": "2226-08-29T05:00:00Z",
+  "sun_gm_km3_s2": 132712440018.0,
+  "sun_mass_kg": 1.988409870967742e30,
+  "solar_reflex_approx_km_s": [0.010104756091468306, -0.004486310158674777, -0.00014771269154045875],
+  "bodies": {
+    "EA": {"gm_km3_s2":398600.4355,"position_au":[0.8957281555639751,-0.4684784037933336,0.0001934951154240447],"velocity_au_day":[0.007692293423119071,0.01518260065952969,-0.000007610814858562652]},
+    "MA": {"gm_km3_s2":42828.375214,"position_au":[-1.649273562503365,0.1730555993016856,0.04336238764120317],"velocity_au_day":[-0.0009555237518132225,-0.01271077078131316,-0.0002441852757826117]}
+  },
+  "half_hill_boundary": true,
+  "metric_mode": "NORMAL",
+  "torch_mode": "CRUISE",
+  "rcs_reserve_kg": 5000.0,
+  "arrival_match_tolerance_m_s": 1.0,
+  "frozen_potential_caveat": "Not exact Killing-energy conservation in moving Sun-planets gravity. Sun-only propagated ephemeris; frozen endpoint Sun plus half-Hill body potential; Sun-barycentric velocities approximate."
+}

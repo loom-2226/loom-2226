@@ -1,0 +1,9 @@
+{
+  "id": "lab_energy_v1",
+  "law": "energy_orbit_relative_v1",
+  "enabled_by_default": false,
+  "inherit_modes_from": "canonical",
+  "allowed_modes": ["NORMAL"],
+  "classification": "LAB_ONLY_NONCANON",
+  "note": "Opt-in FQ11 Earth-Mars only; original canonical Metric card remains HOLD and untouched."
+}
