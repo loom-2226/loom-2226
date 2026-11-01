@@ -2691,6 +2691,82 @@
    "exposure": 0.85,
    "finish": 1,
    "cold": 1
+  },
+  {
+   "id": "cut_power",
+   "kind": "cutaway",
+   "title": "Wayfarer | Independent power bays",
+   "caption": "Source-geometry systems cutaway. Reactor A and pulse rotor aft; reactor B and battery forward. Colours are render-only identifiers; physical isolation, containment and interfaces remain unqualified.",
+   "eye": [
+    24,
+    -29,
+    23
+   ],
+   "target": [
+    24,
+    0,
+    0
+   ],
+   "fov": 35,
+   "sun": [
+    -0.4,
+    0.6,
+    0.65
+   ],
+   "show": "power",
+   "powerVisual": true,
+   "crownOpen": 0,
+   "labels": [
+    {
+     "t": "REACTOR B  |  50 MW  |  SERVICE BAY",
+     "at": [
+      17.5,
+      3.3,
+      0.5
+     ],
+     "off": [
+      -125,
+      -100
+     ]
+    },
+    {
+     "t": "BATTERY  |  3 MWh  |  SERVICE BAY",
+     "at": [
+      17.5,
+      -1.6,
+      2.8
+     ],
+     "off": [
+      -145,
+      105
+     ]
+    },
+    {
+     "t": "REACTOR A  |  50 MW  |  AFT C-RING",
+     "at": [
+      31.9,
+      -3.3,
+      0.3
+     ],
+     "off": [
+      145,
+      -90
+     ]
+    },
+    {
+     "t": "FLYWHEEL  |  1.8 MWh  |  AFT C-RING",
+     "at": [
+      31.9,
+      1.0,
+      -3.2
+     ],
+     "off": [
+      135,
+      110
+     ]
+    }
+   ],
+   "exposure": 1.12
   }
  ]
 }

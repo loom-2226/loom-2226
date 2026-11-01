@@ -150,11 +150,19 @@ def g1(I, C, G):
         for ss in states(I):
             mono=sum(p["mass_t"] for p in G["fluids_by_state"][ss] if "c_lite_wet" in p["tags"])
             cs.append(chk(f"{ss} C-lite monoprop wet consumable accounted",round(mono,6),hp.get("c_lite_wet_propellant_t",0),abs(mono-hp.get("c_lite_wet_propellant_t",0))<1e-8,"t"))
+        ap=next(p for p in G["parts"] if p["id"]=="house_reactor_A")
+        bp=next(p for p in G["parts"] if p["id"]=="house_reactor_B")
+        separated=(ap["shape"]["x0"]>=30 and bp["shape"]["x1"]<=19
+            and ap["shape"]["x0"]-bp["shape"]["x1"]>=10)
+        cs.append(chk("two reactor mass envelopes occupy separate aft C-ring and forward service ring bays",
+            [round(ap["shape"]["x0"],2),round(bp["shape"]["x0"],2)],
+            ["aft >=30m","service <=19m"],separated,"m",
+            "Source placement only; independent protection, fault isolation and vessel packaging remain OPEN"))
         byid={p["id"]:p["mass_t"] for p in G["parts"]}
         # Source build distributes growth reserve across each dry part. Undo
         # that common factor for allocation checks, rather than double-book it.
-        grow=byid["house_reactor"]/hp["reactor_dry_t"]
-        ids=("house_reactor","house_peak_store","house_energy_battery","c_lite_dry","electrical_fwd","electrical")
+        grow=(byid["house_reactor_A"]+byid["house_reactor_B"])/hp["reactor_dry_t"]
+        ids=("house_reactor_A","house_reactor_B","house_peak_store","house_energy_battery","c_lite_dry","electrical_fwd","electrical")
         allocated=sum(byid[k] for k in ids)/grow
         provisioned=allocated+hp.get("c_lite_wet_propellant_t",0)
         cs.append(chk("electrical dry + independent monoprop wet = 55t gross allocation",
@@ -1391,6 +1399,18 @@ def g12(I, C, G):
         n_views=len(list(viewers.glob("*.html")))
         cs.append(chk("Original NOSE research and viewer assets preserved under wayfarer/",
                       [n_docs,n_views],[21,28],n_docs>=21 and n_views>=28))
+    power_cut=[f for f in files if f["file"]=="cut_power.png" and f.get("kind")=="cutaway"
+               and f.get("geometry_sha256")==srcsha and (HERE.parent/"render/out/cut_power.png").is_file()]
+    views=json.loads((HERE.parent/"render/views.json").read_text())["views"]
+    power_view=next((v for v in views if v.get("id")=="cut_power"),None)
+    labels=" ".join(l["t"] for l in power_view.get("labels",[])) if power_view else ""
+    source_ids={p["id"] for p in G["parts"]}
+    names=("house_reactor_A","house_reactor_B","house_peak_store","house_energy_battery")
+    cut_verified=bool(power_cut and power_view and all(k in source_ids for k in names)
+                     and all(term in labels for term in ("REACTOR A","REACTOR B","FLYWHEEL","BATTERY")))
+    cs.append(chk("source-hashed system cutaway shows independently labelled reactors, flywheel and battery",
+                  cut_verified,True,cut_verified,
+                  "G12 source-based visual identification, NOT physical equipment packing qualification"))
     import struct
     glb=HERE.parent/"render"/"out"/f"wayfarer_I4_in_out_{srcsha[:8]}.glb"
     glb_valid=False
@@ -1456,6 +1476,15 @@ def main():
         scr.append(f"{dv} km/s: {used:.1f} t ({'within' if 150 - used >= 50 else 'beyond'} 150 t dispatch less the 50 t reserve)")
     r10 = g10(r4, scr)
     r11, r12 = g11(I, C, G, r4), g12(I, C, G)
+    # The new external shore rating, burn-only thermal-electric tap, and
+    # current-hash visual interpretation have NOT been separately accepted.
+    # Preserve old design signoffs without letting them approve new figures.
+    r4["declared"].append(("ship_power_shore_interface_2mw_20261101",
+        "NEW kT acceptance requested: docked ship uses shore electric only, reactors OFF; 2MW input rating is a new engineering declaration, not an established physical connector capability."))
+    r4["declared"].append(("torch_burn_only_tap_75_percent_20261101",
+        "NEW kT acceptance requested: pulsed main torch ONLY while burning converts 63.36MW raw torch energy to 47.52MW magnet/cryocooling electric at declared 75%, rejecting 15.84MW conversion heat. Tap, pulse conditioning and corresponding torch performance debit remain unqualified. No torch emergency house generator."))
+    r12["declared"].append(("kT_visual_acceptance_storage_20261101",
+        "NEW source-specific kT visual acceptance required for new aft reactor/rotor and forward reactor/battery cutaway, even if G12 image source-hash checks pass. Prior source-hash visual acceptance does not transfer."))
     gates = [r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12]
     kd_path = HERE.parent / "config/kt_decisions.json"
     KD = json.loads(kd_path.read_text()) if kd_path.exists() else {"decisions": {}}

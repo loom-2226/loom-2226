@@ -2,8 +2,8 @@
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
  "status": "NON-GOVERNING SANDBOX certification run",
  "basis": "CERTIFICATION_BASIS.md v0.2 (agreed by Claude and Sol; PROPOSED to kT)",
- "geometry_sha256": "f7dc6b8c69cf56f48a55eeaa1a5daa7779fce3e06474157c960ef2f08cac95f7",
- "inputs_sha256": "4de42530c208de4bfb0c62fad5d988d734adbede6abc1017197c0e672d71eb84",
+ "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+ "inputs_sha256": "a630d35ab64e7f413fab832001c0b2aded82d0b82c164ccf58c989f71b4ced48",
  "criteria_sha256": "5bf7777930bb8dc1e72460daf3b1e5a6776b7b9f266e68269f0e7d847823d980",
  "summary": {
   "G1": "PASS",
@@ -17,7 +17,7 @@
   "G9": "PASS-DECLARED",
   "G10": "PASS-DECLARED",
   "G11": "PASS",
-  "G12": "FAIL"
+  "G12": "PASS-DECLARED"
  },
  "gates": [
   {
@@ -266,6 +266,20 @@
      "note": ""
     },
     {
+     "name": "two reactor mass envelopes occupy separate aft C-ring and forward service ring bays",
+     "value": [
+      31.5,
+      17.0
+     ],
+     "limit": [
+      "aft >=30m",
+      "service <=19m"
+     ],
+     "unit": "m",
+     "pass": true,
+     "note": "Source placement only; independent protection, fault isolation and vessel packaging remain OPEN"
+    },
+    {
      "name": "electrical dry + independent monoprop wet = 55t gross allocation",
      "value": 55.0,
      "limit": 55.0,
@@ -359,15 +373,15 @@
      "mass_t": 1172.7,
      "cg_m": [
       24.083,
-      0.02,
+      0.019,
       -0.376
      ],
-     "Ixx": 12481882.7621479,
-     "Iyy": 197731109.17428654,
-     "Izz": 198568822.2254168,
-     "Ixy": 97961.76528449412,
-     "Ixz": 1396946.671370767,
-     "Iyz": 4104.114528604685
+     "Ixx": 12480785.590795945,
+     "Iyy": 197736126.71806812,
+     "Izz": 198562742.49064603,
+     "Ixy": 127456.04394156975,
+     "Ixz": 1421102.8321721067,
+     "Iyz": 11423.161690461076
     },
     {
      "state": "S2",
@@ -375,15 +389,15 @@
      "mass_t": 1222.7,
      "cg_m": [
       23.732,
-      0.019,
+      0.018,
       -0.361
      ],
-     "Ixx": 13051470.071567541,
-     "Iyy": 201410696.3347118,
-     "Izz": 202598985.34300533,
-     "Ixy": 89631.42473522236,
-     "Ixz": 1551613.8999580727,
-     "Iyz": 3850.4449856036445
+     "Ixx": 13050372.673021778,
+     "Iyy": 201415716.4853517,
+     "Izz": 202592904.62689632,
+     "Ixy": 119549.49773102463,
+     "Ixz": 1575789.2406206343,
+     "Iyz": 11150.949529506272
     },
     {
      "state": "S3",
@@ -391,15 +405,15 @@
      "mass_t": 1072.7,
      "cg_m": [
       24.097,
-      0.022,
+      0.021,
       -0.3
      ],
-     "Ixx": 11367500.68165875,
-     "Iyy": 196155054.297137,
-     "Izz": 196677580.61548916,
-     "Ixy": 94303.63286222717,
-     "Ixz": 1410932.7153984818,
-     "Iyz": 4264.616367840029
+     "Ixx": 11366416.166439181,
+     "Iyy": 196160080.15032563,
+     "Izz": 196671505.15099722,
+     "Ixy": 123780.4273581445,
+     "Ixz": 1435088.1865456044,
+     "Iyz": 11491.244358079615
     },
     {
      "state": "S4",
@@ -407,15 +421,15 @@
      "mass_t": 922.7,
      "cg_m": [
       23.698,
-      0.025,
+      0.024,
       -0.154
      ],
-     "Ixx": 9666021.89443308,
-     "Iyy": 192644336.03632528,
-     "Izz": 192723953.6016525,
-     "Ixy": 82514.12244048297,
-     "Ixz": 1027719.8394766647,
-     "Iyz": 5221.533907365369
+     "Ixx": 9664961.507169541,
+     "Iyy": 192649378.85647744,
+     "Izz": 192717887.40383273,
+     "Ixy": 112472.58087992383,
+     "Ixz": 1051897.278534493,
+     "Iyz": 12271.97175946074
     },
     {
      "state": "S5",
@@ -423,15 +437,15 @@
      "mass_t": 893.7,
      "cg_m": [
       23.651,
-      0.026,
+      0.025,
       -0.159
      ],
-     "Ixx": 9612946.741163308,
-     "Iyy": 192155652.44332695,
-     "Izz": 192236196.5639204,
-     "Ixy": 81156.73459959138,
-     "Ixz": 1031717.5784211311,
-     "Iyz": 5292.87892168269
+     "Ixx": 9611887.727830559,
+     "Iyy": 192160694.84160277,
+     "Izz": 192230132.41059476,
+     "Ixy": 111172.07940190462,
+     "Ixz": 1055897.5826292732,
+     "Iyz": 12349.314363165786
     },
     {
      "state": "S6",
@@ -439,15 +453,15 @@
      "mass_t": 1143.7,
      "cg_m": [
       24.056,
-      0.02,
+      0.019,
       -0.386
      ],
-     "Ixx": 12425314.099313311,
-     "Iyy": 197268154.37415445,
-     "Izz": 198110301.9971286,
-     "Ixy": 97068.45497353737,
-     "Ixz": 1406189.6145339203,
-     "Iyz": 4069.614273084349
+     "Ixx": 12424217.068836242,
+     "Iyy": 197273170.94735157,
+     "Izz": 198104223.51668796,
+     "Ixy": 126595.41497642975,
+     "Ixz": 1430347.240215789,
+     "Iyz": 11400.159057986793
     },
     {
      "state": "S7",
@@ -455,15 +469,15 @@
      "mass_t": 1110.2,
      "cg_m": [
       24.193,
-      0.158,
+      0.156,
       -0.33
      ],
-     "Ixx": 11758395.453376327,
-     "Iyy": 197087397.55831674,
-     "Izz": 197700148.9248093,
-     "Ixy": 413969.5349167672,
-     "Ixz": 1502610.4970481128,
-     "Iyz": 43265.46297994018
+     "Ixx": 11757635.851484016,
+     "Iyy": 197092419.8407904,
+     "Izz": 197694401.44069812,
+     "Ixy": 443331.29971370654,
+     "Ixz": 1526760.7195421185,
+     "Iyz": 50521.37703640296
     }
    ]
   },
@@ -616,15 +630,15 @@
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.141 m from the thrust line"
+     "note": "lateral offset 0.142 m from the thrust line"
     },
     {
      "name": "thrust trim S3",
-     "value": 0.163,
+     "value": 0.164,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.080 m from the thrust line"
+     "note": "lateral offset 0.081 m from the thrust line"
     },
     {
      "name": "thrust trim S4",
@@ -652,11 +666,11 @@
     },
     {
      "name": "thrust trim S7",
-     "value": 0.344,
+     "value": 0.342,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.169 m from the thrust line"
+     "note": "lateral offset 0.168 m from the thrust line"
     },
     {
      "name": "180 deg slew, pitch (about y) +",
@@ -859,16 +873,16 @@
      "note": ""
     },
     {
-     "name": "ship power docked_one_online_min: known source/load accounting",
+     "name": "ship power docked_shore_power: known source/load accounting",
      "value": 0.0,
      "limit": 0.0,
      "unit": "MW",
      "pass": true,
-     "note": "NAMED DEFICIT: FULL_PULSE_STORE_REQUIRES_REACTOR_OFF_OR_BATTERY_CHARGE"
+     "note": "NAMED DEFICIT: SHORE_PLUG_AND_SUPPLY_INTERFACE_UNQUALIFIED"
     },
     {
-     "name": "ship power docked_one_online_min: rejection capacity",
-     "value": 2.293177,
+     "name": "ship power docked_shore_power: rejection capacity",
+     "value": 0.390397,
      "limit": 387.212,
      "unit": "MW",
      "pass": true,
@@ -880,11 +894,11 @@
      "limit": 0.0,
      "unit": "MW",
      "pass": true,
-     "note": "NAMED DEFICIT: AOI_OPTICAL_ATTENUATION_UNCREDITED; FULL_PULSE_STORE_REACTOR_OFF_OR_BATTERY_CHARGE"
+     "note": "NAMED DEFICIT: AOI_OPTICAL_ATTENUATION_UNCREDITED; SHORE_PLUG_AND_SUPPLY_INTERFACE_UNQUALIFIED"
     },
     {
      "name": "ship power docked_crown_open_worst_sun: rejection capacity",
-     "value": 3.054731,
+     "value": 1.187731,
      "limit": 387.212,
      "unit": "MW",
      "pass": true,
@@ -948,7 +962,7 @@
     },
     {
      "name": "ship power fast_40s_flip: rejection capacity",
-     "value": 53.240912,
+     "value": 53.245523,
      "limit": 387.212,
      "unit": "MW",
      "pass": true,
@@ -960,11 +974,11 @@
      "limit": 0.0,
      "unit": "MW",
      "pass": true,
-     "note": "NAMED DEFICIT: PULSED_TORCH_NOT_CONTINUOUS_HOUSE_GENERATOR"
+     "note": "NAMED DEFICIT: TORCH_BURN_ONLY_POWER_TAP_UNQUALIFIED; TORCH_TAP_NOT_DEBITED_FROM_FLIGHT_THRUST"
     },
     {
      "name": "ship power pulsed_torch_burn: rejection capacity",
-     "value": 64.360029,
+     "value": 66.13369,
      "limit": 73.019,
      "unit": "MW",
      "pass": true,
@@ -1072,12 +1086,28 @@
      "limit": 0.0,
      "unit": "MW",
      "pass": true,
-     "note": "NAMED DEFICIT: FAILED_REACTOR_ISOLATION_UNQUALIFIED"
+     "note": "NAMED DEFICIT: FAILED_REACTOR_ISOLATION_UNQUALIFIED; TORCH_BURN_ONLY_POWER_TAP_UNQUALIFIED; TORCH_TAP_NOT_DEBITED_FROM_FLIGHT_THRUST"
     },
     {
      "name": "ship power one_unit_failed_torch_magnets: rejection capacity",
-     "value": 64.360029,
+     "value": 66.13369,
      "limit": 73.019,
+     "unit": "MW",
+     "pass": true,
+     "note": "Thermal screening, not qualified reactor coolant loops"
+    },
+    {
+     "name": "ship power degraded_60s_flip: known source/load accounting",
+     "value": 0.0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: DEGRADED_FLIP_REAL_BUS_AND_HEAT_UNQUALIFIED"
+    },
+    {
+     "name": "ship power degraded_60s_flip: rejection capacity",
+     "value": 31.650144,
+     "limit": 387.212,
      "unit": "MW",
      "pass": true,
      "note": "Thermal screening, not qualified reactor coolant loops"
@@ -1121,14 +1151,6 @@
      "unit": "MW",
      "pass": true,
      "note": "NAMED DEFICIT: CHEMICAL_THRUSTER_GEOMETRY_AND_TORQUE_UNQUALIFIED"
-    },
-    {
-     "name": "ship power torch_emergency_house_unqualified: known source/load accounting",
-     "value": 0.0,
-     "limit": 0.0,
-     "unit": "MW",
-     "pass": true,
-     "note": "NAMED DEFICIT: TORCH_HOUSE_OUTPUT_UNSIZED; CONTINUOUS_GENERATION_NOT_AUTHORIZED; UNSERVED_LOAD"
     },
     {
      "name": "ship power shelter_battery_only: known source/load accounting",
@@ -1181,6 +1203,20 @@
      "kT": "ACCEPTED",
      "as": "kT 2026-11-01: both reactors OFF in quiet/cold running; flywheel powers ~65kW essentials until thermal-buffer bound, not sub-10% reactor idle. Recalculate passive leak, flywheel discharge heat and existing 50t\u00d715K buffer. No 2226 material/thermal coupling proof.",
      "date": "2026-10-31"
+    },
+    {
+     "key": "ship_power_shore_interface_2mw_20261101",
+     "text": "NEW kT acceptance requested: docked ship uses shore electric only, reactors OFF; 2MW input rating is a new engineering declaration, not an established physical connector capability.",
+     "kT": "AWAITING",
+     "as": "",
+     "date": null
+    },
+    {
+     "key": "torch_burn_only_tap_75_percent_20261101",
+     "text": "NEW kT acceptance requested: pulsed main torch ONLY while burning converts 63.36MW raw torch energy to 47.52MW magnet/cryocooling electric at declared 75%, rejecting 15.84MW conversion heat. Tap, pulse conditioning and corresponding torch performance debit remain unqualified. No torch emergency house generator.",
+     "kT": "AWAITING",
+     "as": "",
+     "date": null
     }
    ],
    "notes": [
@@ -1240,9 +1276,10 @@
    },
    "ship_power": {
     "status": "NON-CANON ENGINEERING SCREEN; NO PHYSICAL QUALIFICATION",
-    "geometry_sha256": "f7dc6b8c69cf56f48a55eeaa1a5daa7779fce3e06474157c960ef2f08cac95f7",
-    "input_sha256": "4de42530c208de4bfb0c62fad5d988d734adbede6abc1017197c0e672d71eb84",
-    "rcs_trace_sha256": "4e53d93684edab5a07320b3116e4f3873c26589dec513de6263b74932cdc6014",
+    "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+    "input_sha256": "a630d35ab64e7f413fab832001c0b2aded82d0b82c164ccf58c989f71b4ced48",
+    "rcs_trace_sha256": "66a773203d774d3b325c25cd8d09e0d66264036d0e02d8f324d14ff91c2822d3",
+    "rcs_trace_60s_sha256": "9efe22b9b1093e85e3d3ea0d57e379eb0c6e9b62d30cc688cacda6c6383e4453",
     "reactor": {
      "count": 2,
      "per_unit_net_mw": 50.0,
@@ -1260,16 +1297,18 @@
      "one_hour_normal_then_essential_hours": 37.802
     },
     "flywheel": {
-     "nominal_mwh": 1.5,
-     "deliverable_mwh": 1.423025,
-     "mass_t": 1.5,
+     "nominal_mwh": 1.8,
+     "deliverable_mwh": 1.70763,
+     "mass_t": 1.8,
      "specific_kwh_kg": 1.0,
      "specific_kw_kg": 150.0,
-     "peak_mw": 225.0,
+     "peak_mw": 270.0,
      "counter_rotating_pairs": true,
      "burst_containment": "DECLARED included in mass; unqualified",
-     "fast_flip_store_mwh": 1.301566,
-     "fast_flip_store_peak_mw": 202.623277,
+     "fast_flip_store_mwh": 1.301889,
+     "fast_flip_store_peak_mw": 202.6532,
+     "degraded_60s_store_mwh": 0.497488,
+     "degraded_60s_store_peak_mw": 62.507696,
      "recharge_minutes_from_one_reactor": 1.749
     },
     "c_lite": {
@@ -1283,32 +1322,32 @@
     },
     "rcs_trace": {
      "status": "CURRENT GEOMETRY NUMERICAL TRACE ONLY; NOT HARDWARE QUALIFICATION",
-     "geometry_sha256": "f7dc6b8c69cf56f48a55eeaa1a5daa7779fce3e06474157c960ef2f08cac95f7",
+     "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
      "dt_s": 0.1,
      "scenario": "CURRENT GEOMETRY 40s pitch 180 diagnostic",
      "duration_s": 40,
-     "water_consumed_kg": 1450.2063638683437,
-     "trace_ideal_energy_gj": 6.556092929775999,
-     "trace_ideal_peak_mw": 252.23438033710465,
-     "firing_nozzle_max": 9,
-     "nameplate_peak_proxy_mw": 518.969387755102,
-     "attitude_error_deg": 0.0016145106079499137,
-     "reconstruction_water_error_kg": -0.003691397207603586,
+     "water_consumed_kg": 1450.5109325246574,
+     "trace_ideal_energy_gj": 6.55746982375747,
+     "trace_ideal_peak_mw": 252.26430362127223,
+     "firing_nozzle_max": 11,
+     "nameplate_peak_proxy_mw": 634.295918367347,
+     "attitude_error_deg": 0.0016145106096477548,
+     "reconstruction_water_error_kg": -0.002790756959484497,
      "reactor_assist_cases": {
       "0": {
-       "storage_ideal_gj": 6.571648791844964,
-       "storage_peak_mw": 252.6232768888288,
+       "storage_ideal_gj": 6.573025685826436,
+       "storage_peak_mw": 252.65320017299638,
        "possible_reactor_surplus_gj": 0.0
       },
       "50": {
-       "storage_ideal_gj": 4.685639313319164,
-       "storage_peak_mw": 202.6232768888288,
-       "possible_reactor_surplus_gj": 0.11399052147419882
+       "storage_ideal_gj": 4.686799364299324,
+       "storage_peak_mw": 202.65320017299638,
+       "possible_reactor_surplus_gj": 0.11377367847288843
       },
       "100": {
-       "storage_ideal_gj": 3.04176840643177,
-       "storage_peak_mw": 152.6232768888288,
-       "possible_reactor_surplus_gj": 0.47011961458680573
+       "storage_ideal_gj": 3.0426975178947484,
+       "storage_peak_mw": 152.65320017299638,
+       "possible_reactor_surplus_gj": 0.46967183206831326
       }
      },
      "holds": [
@@ -1316,6 +1355,57 @@
       "no guaranteed per-nozzle heat/acceleration coupling",
       "50MW reactor dispatch at 40s time resolution not physically qualified"
      ]
+    },
+    "rcs_60s_degraded_trace": {
+     "status": "CURRENT GEOMETRY NUMERICAL TRACE ONLY; NOT HARDWARE QUALIFICATION",
+     "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+     "dt_s": 0.1,
+     "scenario": "CURRENT GEOMETRY 60s pitch 180 diagnostic",
+     "duration_s": 60,
+     "water_consumed_kg": 967.0011525652885,
+     "trace_ideal_energy_gj": 4.371618810517159,
+     "trace_ideal_peak_mw": 112.11879952416959,
+     "firing_nozzle_max": 9,
+     "nameplate_peak_proxy_mw": 518.969387755102,
+     "attitude_error_deg": 0.0004945642658528206,
+     "reconstruction_water_error_kg": -0.006757346515883,
+     "reactor_assist_cases": {
+      "0": {
+       "storage_ideal_gj": 4.394952603620607,
+       "storage_peak_mw": 112.50769607589373,
+       "possible_reactor_surplus_gj": 0.0
+      },
+      "50": {
+       "storage_ideal_gj": 1.7909552804391797,
+       "storage_peak_mw": 62.50769607589373,
+       "possible_reactor_surplus_gj": 0.39600267681857293
+      },
+      "100": {
+       "storage_ideal_gj": 0.1580583151730532,
+       "storage_peak_mw": 12.507696075893733,
+       "possible_reactor_surplus_gj": 1.7631057115524467
+      }
+     },
+     "holds": [
+      "conditioning/exhaust is ideal minimum, not actual plant electric load",
+      "no guaranteed per-nozzle heat/acceleration coupling",
+      "50MW reactor dispatch at 60s time resolution not physically qualified"
+     ]
+    },
+    "supply_doctrine": {
+     "docked": "shore power, reactors OFF",
+     "failure_chain": [
+      "reactor B",
+      "battery",
+      "C-lite slow attitude only"
+     ],
+     "reactor_bays": [
+      "A aft C-ring",
+      "B service ring"
+     ],
+     "torch_burn_only_magnet_electric_mw": 47.52,
+     "torch_raw_extraction_mw": 63.36000000000001,
+     "torch_house_power_continuous": false
     },
     "thermal": {
      "full_strake_capacity_mw": 387.212,
@@ -1338,31 +1428,34 @@
     },
     "states": [
      {
-      "state": "docked_one_online_min",
+      "state": "docked_shore_power",
       "loads_mw": {
        "ordinary_ship_services": 0.3888965517241379,
        "docking_control": 0.01
       },
       "known_load_mw": 0.398897,
-      "reactors_online": 1,
-      "house_reactor_mw": 5.0,
+      "reactors_online": 0,
+      "house_reactor_mw": 0,
       "flywheel_discharge_mw": 0,
-      "flywheel_charge_mw": 4.601103,
+      "flywheel_charge_mw": 0,
       "battery_mw": 0,
+      "shore_mw": 0.398897,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
-      "house_reactor_waste_heat_mw": 1.666667,
-      "heat_rejected_mw": 2.293177,
+      "house_reactor_waste_heat_mw": 0,
+      "heat_rejected_mw": 0.390397,
       "heat_scope": "active_radiator",
       "heat_retained_mw": 0,
       "passive_skin_rejection_mw": null,
       "radiator_capacity_mw": 387.212,
-      "house_fuel_g_hr": 0.067989,
+      "house_fuel_g_hr": 0.0,
       "duration_s": null,
       "flywheel_event_delivered_mwh": null,
       "chemical_propellant_kg": null,
       "deficits": [
-       "FULL_PULSE_STORE_REQUIRES_REACTOR_OFF_OR_BATTERY_CHARGE"
+       "SHORE_PLUG_AND_SUPPLY_INTERFACE_UNQUALIFIED"
       ],
       "note": ""
      },
@@ -1375,26 +1468,29 @@
        "docking": 0.01
       },
       "known_load_mw": 1.096132,
-      "reactors_online": 1,
-      "house_reactor_mw": 5.0,
+      "reactors_online": 0,
+      "house_reactor_mw": 0,
       "flywheel_discharge_mw": 0,
-      "flywheel_charge_mw": 3.903868,
+      "flywheel_charge_mw": 0,
       "battery_mw": 0,
+      "shore_mw": 1.096132,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
-      "house_reactor_waste_heat_mw": 1.666667,
-      "heat_rejected_mw": 3.054731,
+      "house_reactor_waste_heat_mw": 0,
+      "heat_rejected_mw": 1.187731,
       "heat_scope": "active_radiator",
       "heat_retained_mw": 0,
       "passive_skin_rejection_mw": null,
       "radiator_capacity_mw": 387.212,
-      "house_fuel_g_hr": 0.067989,
+      "house_fuel_g_hr": 0.0,
       "duration_s": null,
       "flywheel_event_delivered_mwh": null,
       "chemical_propellant_kg": null,
       "deficits": [
        "AOI_OPTICAL_ATTENUATION_UNCREDITED",
-       "FULL_PULSE_STORE_REACTOR_OFF_OR_BATTERY_CHARGE"
+       "SHORE_PLUG_AND_SUPPLY_INTERFACE_UNQUALIFIED"
       ],
       "note": ""
      },
@@ -1409,6 +1505,9 @@
       "flywheel_discharge_mw": 0,
       "flywheel_charge_mw": 4.611103,
       "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
       "house_reactor_waste_heat_mw": 1.666667,
@@ -1437,6 +1536,9 @@
       "flywheel_discharge_mw": 0,
       "flywheel_charge_mw": 49.611103,
       "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
       "house_reactor_waste_heat_mw": 16.666667,
@@ -1466,6 +1568,9 @@
       "flywheel_discharge_mw": 8.052163,
       "flywheel_charge_mw": 0,
       "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
       "house_reactor_waste_heat_mw": 16.666667,
@@ -1487,30 +1592,33 @@
       "state": "fast_40s_flip",
       "loads_mw": {
        "ordinary_ship_services": 0.3888965517241379,
-       "RCS_40s_TRACE_PEAK": 252.23438033710465
+       "RCS_40s_TRACE_PEAK": 252.26430362127223
       },
-      "known_load_mw": 252.623277,
+      "known_load_mw": 252.6532,
       "reactors_online": 1,
       "house_reactor_mw": 50.0,
-      "flywheel_discharge_mw": 202.623277,
+      "flywheel_discharge_mw": 202.6532,
       "flywheel_charge_mw": 0,
       "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
       "house_reactor_waste_heat_mw": 16.666667,
-      "heat_rejected_mw": 53.240912,
+      "heat_rejected_mw": 53.245523,
       "heat_scope": "active_radiator",
       "heat_retained_mw": 0,
       "passive_skin_rejection_mw": null,
       "radiator_capacity_mw": 387.212,
       "house_fuel_g_hr": 0.679887,
       "duration_s": 40,
-      "flywheel_event_delivered_mwh": 1.301566,
+      "flywheel_event_delivered_mwh": 1.301889,
       "chemical_propellant_kg": null,
       "deficits": [
        "FAST_FLIP_REACTOR_DISPATCH_BUS_HEAT_HARDWARE_UNQUALIFIED"
       ],
-      "note": "peak 252.234MW, integrated 6.556GJ, supplemental 4.686GJ"
+      "note": "peak 252.264MW, integrated 6.557GJ, supplemental 4.687GJ"
      },
      {
       "state": "pulsed_torch_burn",
@@ -1520,26 +1628,30 @@
       },
       "known_load_mw": 47.908897,
       "reactors_online": 1,
-      "house_reactor_mw": 47.908897,
+      "house_reactor_mw": 5.0,
       "flywheel_discharge_mw": 0,
-      "flywheel_charge_mw": 0,
+      "flywheel_charge_mw": 4.611103,
       "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 47.52,
+      "torch_raw_extraction_mw": 63.36,
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
-      "house_reactor_waste_heat_mw": 15.969632,
-      "heat_rejected_mw": 64.360029,
+      "house_reactor_waste_heat_mw": 1.666667,
+      "heat_rejected_mw": 66.13369,
       "heat_scope": "active_radiator",
       "heat_retained_mw": 0,
       "passive_skin_rejection_mw": null,
       "radiator_capacity_mw": 73.019,
-      "house_fuel_g_hr": 0.651452,
+      "house_fuel_g_hr": 0.067989,
       "duration_s": null,
       "flywheel_event_delivered_mwh": null,
       "chemical_propellant_kg": null,
       "deficits": [
-       "PULSED_TORCH_NOT_CONTINUOUS_HOUSE_GENERATOR"
+       "TORCH_BURN_ONLY_POWER_TAP_UNQUALIFIED",
+       "TORCH_TAP_NOT_DEBITED_FROM_FLIGHT_THRUST"
       ],
-      "note": "",
+      "note": "magnet electric is burn-only torch tap; one house reactor charges store",
       "torch_hot_fins_rejected_mw": 1399.526
      },
      {
@@ -1556,6 +1668,9 @@
       "flywheel_discharge_mw": 0,
       "flywheel_charge_mw": 0,
       "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
       "house_reactor_waste_heat_mw": 2.287692,
@@ -1588,6 +1703,9 @@
       "flywheel_discharge_mw": 0,
       "flywheel_charge_mw": 0,
       "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
       "house_reactor_waste_heat_mw": 4.291145,
@@ -1620,6 +1738,9 @@
       "flywheel_discharge_mw": 0,
       "flywheel_charge_mw": 0,
       "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
       "house_reactor_waste_heat_mw": 6.964563,
@@ -1652,6 +1773,9 @@
       "flywheel_discharge_mw": 0,
       "flywheel_charge_mw": 0,
       "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
       "house_reactor_waste_heat_mw": 14.218222,
@@ -1681,6 +1805,9 @@
       "flywheel_discharge_mw": 0,
       "flywheel_charge_mw": 0,
       "battery_mw": 0.065,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
       "house_reactor_waste_heat_mw": 0,
@@ -1710,6 +1837,9 @@
       "flywheel_discharge_mw": 0,
       "flywheel_charge_mw": 0,
       "battery_mw": 0.065,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
       "house_reactor_waste_heat_mw": 0,
@@ -1742,6 +1872,9 @@
       "flywheel_discharge_mw": 0,
       "flywheel_charge_mw": 0,
       "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
       "house_reactor_waste_heat_mw": 14.218222,
@@ -1768,27 +1901,64 @@
       },
       "known_load_mw": 47.908897,
       "reactors_online": 1,
-      "house_reactor_mw": 47.908897,
+      "house_reactor_mw": 5.0,
       "flywheel_discharge_mw": 0,
-      "flywheel_charge_mw": 0,
+      "flywheel_charge_mw": 4.611103,
       "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 47.52,
+      "torch_raw_extraction_mw": 63.36,
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
-      "house_reactor_waste_heat_mw": 15.969632,
-      "heat_rejected_mw": 64.360029,
+      "house_reactor_waste_heat_mw": 1.666667,
+      "heat_rejected_mw": 66.13369,
       "heat_scope": "active_radiator",
       "heat_retained_mw": 0,
       "passive_skin_rejection_mw": null,
       "radiator_capacity_mw": 73.019,
-      "house_fuel_g_hr": 0.651452,
+      "house_fuel_g_hr": 0.067989,
       "duration_s": null,
       "flywheel_event_delivered_mwh": null,
       "chemical_propellant_kg": null,
       "deficits": [
-       "FAILED_REACTOR_ISOLATION_UNQUALIFIED"
+       "FAILED_REACTOR_ISOLATION_UNQUALIFIED",
+       "TORCH_BURN_ONLY_POWER_TAP_UNQUALIFIED",
+       "TORCH_TAP_NOT_DEBITED_FROM_FLIGHT_THRUST"
       ],
       "note": "",
       "torch_hot_fins_rejected_mw": 1399.526
+     },
+     {
+      "state": "degraded_60s_flip",
+      "loads_mw": {
+       "ordinary_ship_services": 0.3888965517241379,
+       "RCS_60s_trace_peak": 112.11879952416959
+      },
+      "known_load_mw": 112.507696,
+      "reactors_online": 1,
+      "house_reactor_mw": 50.0,
+      "flywheel_discharge_mw": 62.507696,
+      "flywheel_charge_mw": 0,
+      "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0.0,
+      "house_reactor_waste_heat_mw": 16.666667,
+      "heat_rejected_mw": 31.650144,
+      "heat_scope": "active_radiator",
+      "heat_retained_mw": 0,
+      "passive_skin_rejection_mw": null,
+      "radiator_capacity_mw": 387.212,
+      "house_fuel_g_hr": 0.679887,
+      "duration_s": 60,
+      "flywheel_event_delivered_mwh": 0.497488,
+      "chemical_propellant_kg": null,
+      "deficits": [
+       "DEGRADED_FLIP_REAL_BUS_AND_HEAT_UNQUALIFIED"
+      ],
+      "note": "60s supplemental event 0.4975MWh peak 62.51MW"
      },
      {
       "state": "both_house_reactors_failed_hour1",
@@ -1801,6 +1971,9 @@
       "flywheel_discharge_mw": 0,
       "flywheel_charge_mw": 0,
       "battery_mw": 0.388897,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
       "house_reactor_waste_heat_mw": 0,
@@ -1829,6 +2002,9 @@
       "flywheel_discharge_mw": 0,
       "flywheel_charge_mw": 0,
       "battery_mw": 0.065,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
       "house_reactor_waste_heat_mw": 0,
@@ -1856,6 +2032,9 @@
       "flywheel_discharge_mw": 0,
       "flywheel_charge_mw": 0,
       "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
       "unserved_mw": 0,
       "electric_accounting_mw": 0,
       "house_reactor_waste_heat_mw": 0,
@@ -1874,36 +2053,6 @@
       "note": "~75kg/600s is an idealized scaling hypothesis, not a simulated turn"
      },
      {
-      "state": "torch_emergency_house_unqualified",
-      "loads_mw": {
-       "ordinary_ship_services": 0.3888965517241379
-      },
-      "known_load_mw": 0.388897,
-      "reactors_online": 0,
-      "house_reactor_mw": 0,
-      "flywheel_discharge_mw": 0,
-      "flywheel_charge_mw": 0,
-      "battery_mw": 0,
-      "unserved_mw": 0.388897,
-      "electric_accounting_mw": 0.0,
-      "house_reactor_waste_heat_mw": 0,
-      "heat_rejected_mw": 0.0,
-      "heat_scope": "active_radiator",
-      "heat_retained_mw": 0,
-      "passive_skin_rejection_mw": null,
-      "radiator_capacity_mw": null,
-      "house_fuel_g_hr": 0.0,
-      "duration_s": null,
-      "flywheel_event_delivered_mwh": null,
-      "chemical_propellant_kg": null,
-      "deficits": [
-       "TORCH_HOUSE_OUTPUT_UNSIZED",
-       "CONTINUOUS_GENERATION_NOT_AUTHORIZED",
-       "UNSERVED_LOAD"
-      ],
-      "note": ""
-     },
-     {
       "state": "shelter_battery_only",
       "loads_mw": {
        "shelter_essential": 0.0006
@@ -1914,6 +2063,9 @@
       "flywheel_discharge_mw": 0,
       "flywheel_charge_mw": 0,
       "battery_mw": 0.0006,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
       "house_reactor_waste_heat_mw": 0,
@@ -1939,14 +2091,16 @@
      "flywheel_specific_energy_kwh_kg": 0.5,
      "flywheel_specific_power_kw_kg": 75.0,
      "battery_deliverable_mwh": 1.423025,
-     "flywheel_deliverable_mwh": 0.711512,
-     "flywheel_peak_mw": 112.5,
-     "fast_flip_stored_need_mwh": 1.301566,
-     "fast_flip_peak_store_mw": 202.623277,
+     "flywheel_deliverable_mwh": 0.853815,
+     "flywheel_peak_mw": 135.0,
+     "fast_flip_stored_need_mwh": 1.301889,
+     "fast_flip_peak_store_mw": 202.6532,
+     "degraded_60s_store_need_mwh": 0.497488,
+     "degraded_60s_peak_store_mw": 62.507696,
      "one_hour_normal_then_essential_hours": 15.91,
      "rows": [
       {
-       "state": "docked_one_online_min",
+       "state": "docked_shore_power",
        "half_performance_energy_and_power_close": true,
        "basis": "electric ledger unchanged; named hardware/physics holds retained"
       },
@@ -2021,6 +2175,11 @@
        "basis": "electric ledger unchanged; named hardware/physics holds retained"
       },
       {
+       "state": "degraded_60s_flip",
+       "half_performance_energy_and_power_close": true,
+       "basis": "60s source-recomputed half-performance, one 50MW reactor"
+      },
+      {
        "state": "both_house_reactors_failed_hour1",
        "half_performance_energy_and_power_close": true,
        "basis": "one hour ordinary services on half-energy battery"
@@ -2033,11 +2192,6 @@
       {
        "state": "c_lite_slow_attitude_recovery",
        "half_performance_energy_and_power_close": true,
-       "basis": "electric ledger unchanged; named hardware/physics holds retained"
-      },
-      {
-       "state": "torch_emergency_house_unqualified",
-       "half_performance_energy_and_power_close": false,
        "basis": "electric ledger unchanged; named hardware/physics holds retained"
       },
       {
@@ -2775,8 +2929,8 @@
     },
     {
      "name": "I4 human-factors source geometry hash",
-     "value": "f7dc6b8c69cf56f48a55eeaa1a5daa7779fce3e06474157c960ef2f08cac95f7",
-     "limit": "f7dc6b8c69cf56f48a55eeaa1a5daa7779fce3e06474157c960ef2f08cac95f7",
+     "value": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+     "limit": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
      "unit": "",
      "pass": true,
      "note": ""
@@ -3115,7 +3269,7 @@
     },
     {
      "name": "tank cell vented (S7): thrust trim",
-     "value": 0.344,
+     "value": 0.342,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
@@ -3198,8 +3352,8 @@
    "checks": [
     {
      "name": "C: card names the geometry it was made from",
-     "value": "f7dc6b8c69cf",
-     "limit": "f7dc6b8c69cf",
+     "value": "4d598212aeb4",
+     "limit": "4d598212aeb4",
      "pass": true,
      "unit": "",
      "note": ""
@@ -3279,7 +3433,7 @@
     {
      "name": "R: torch thrust-vector authority covers trim + an ASSUMED 0.5 deg error",
      "value": 1.0,
-     "limit": 0.844,
+     "limit": 0.842,
      "pass": true,
      "unit": "deg",
      "note": "requirement conditional on the 0.5 deg assumption; the 1.0 deg authority is declared (kT 2026-10-26), not a qualified nozzle capability"
@@ -3400,7 +3554,7 @@
    "declared": [
     {
      "key": "torch_tvc",
-     "text": "Torch thrust-vector control: the magnetic nozzle steers the thrust line by up to 1.0 deg (asymmetric coil current). Needed: trim plus an assumed 0.5 deg thrust error (0.844 deg). The error is an engineering assumption, not a measured disturbance history; the authority is not a qualified nozzle capability.",
+     "text": "Torch thrust-vector control: the magnetic nozzle steers the thrust line by up to 1.0 deg (asymmetric coil current). Needed: trim plus an assumed 0.5 deg thrust error (0.842 deg). The error is an engineering assumption, not a measured disturbance history; the authority is not a qualified nozzle capability.",
      "kT": "ACCEPTED",
      "as": "Declare 1 deg of torch thrust-vector authority (decision 2), on the assumed 0.5 deg thrust error.",
      "date": "2026-10-26"
@@ -3529,62 +3683,62 @@
   {
    "gate": "G12",
    "title": "Images",
-   "verdict": "FAIL",
+   "verdict": "PASS-DECLARED",
    "checks": [
     {
      "name": "render manifest matches locked geometry",
-     "value": "7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7",
-     "limit": "f7dc6b8c69cf56f48a55eeaa1a5daa7779fce3e06474157c960ef2f08cac95f7",
+     "value": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+     "limit": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
      "name": "all indexed images and viewer have current hash and exist",
-     "value": 31,
+     "value": 0,
      "limit": 0,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
      "name": "exterior current-geometry artifacts",
-     "value": 0,
+     "value": 13,
      "limit": 4,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
      "name": "cutaway current-geometry artifacts",
-     "value": 0,
+     "value": 4,
      "limit": 2,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
      "name": "deckplan current-geometry artifacts",
-     "value": 0,
+     "value": 7,
      "limit": 5,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
      "name": "viewer current-geometry artifacts",
-     "value": 0,
+     "value": 1,
      "limit": 1,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
      "name": "Option C 1:1 metric crown section current-hash PNG plus source SVG",
-     "value": false,
+     "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
@@ -3610,11 +3764,19 @@
      "note": ""
     },
     {
+     "name": "source-hashed system cutaway shows independently labelled reactors, flywheel and battery",
+     "value": true,
+     "limit": true,
+     "unit": "G12 source-based visual identification, NOT physical equipment packing qualification",
+     "pass": true,
+     "note": ""
+    },
+    {
      "name": "one GLB with exterior and I4 interior scenes stamped with current hash",
-     "value": false,
+     "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     }
    ],
@@ -3625,6 +3787,13 @@
      "kT": "ACCEPTED",
      "as": "Acceptance of visual architecture for new-hash equal-scale section, viewer, render set and two-scene GLB; no optical or real hardware qualification implied.",
      "date": "2026-11-01"
+    },
+    {
+     "key": "kT_visual_acceptance_storage_20261101",
+     "text": "NEW source-specific kT visual acceptance required for new aft reactor/rotor and forward reactor/battery cutaway, even if G12 image source-hash checks pass. Prior source-hash visual acceptance does not transfer.",
+     "kT": "AWAITING",
+     "as": "",
+     "date": null
     }
    ],
    "notes": [
@@ -3675,6 +3844,20 @@
    "kT": "ACCEPTED",
    "as": "kT 2026-11-01: both reactors OFF in quiet/cold running; flywheel powers ~65kW essentials until thermal-buffer bound, not sub-10% reactor idle. Recalculate passive leak, flywheel discharge heat and existing 50t\u00d715K buffer. No 2226 material/thermal coupling proof.",
    "date": "2026-10-31"
+  },
+  {
+   "key": "ship_power_shore_interface_2mw_20261101",
+   "text": "NEW kT acceptance requested: docked ship uses shore electric only, reactors OFF; 2MW input rating is a new engineering declaration, not an established physical connector capability.",
+   "kT": "AWAITING",
+   "as": "",
+   "date": null
+  },
+  {
+   "key": "torch_burn_only_tap_75_percent_20261101",
+   "text": "NEW kT acceptance requested: pulsed main torch ONLY while burning converts 63.36MW raw torch energy to 47.52MW magnet/cryocooling electric at declared 75%, rejecting 15.84MW conversion heat. Tap, pulse conditioning and corresponding torch performance debit remain unqualified. No torch emergency house generator.",
+   "kT": "AWAITING",
+   "as": "",
+   "date": null
   },
   {
    "key": "i4_terrace_mounts",
@@ -3804,7 +3987,7 @@
   },
   {
    "key": "torch_tvc",
-   "text": "Torch thrust-vector control: the magnetic nozzle steers the thrust line by up to 1.0 deg (asymmetric coil current). Needed: trim plus an assumed 0.5 deg thrust error (0.844 deg). The error is an engineering assumption, not a measured disturbance history; the authority is not a qualified nozzle capability.",
+   "text": "Torch thrust-vector control: the magnetic nozzle steers the thrust line by up to 1.0 deg (asymmetric coil current). Needed: trim plus an assumed 0.5 deg thrust error (0.842 deg). The error is an engineering assumption, not a measured disturbance history; the authority is not a qualified nozzle capability.",
    "kT": "ACCEPTED",
    "as": "Declare 1 deg of torch thrust-vector authority (decision 2), on the assumed 0.5 deg thrust error.",
    "date": "2026-10-26"
@@ -3836,9 +4019,16 @@
    "kT": "ACCEPTED",
    "as": "Acceptance of visual architecture for new-hash equal-scale section, viewer, render set and two-scene GLB; no optical or real hardware qualification implied.",
    "date": "2026-11-01"
+  },
+  {
+   "key": "kT_visual_acceptance_storage_20261101",
+   "text": "NEW source-specific kT visual acceptance required for new aft reactor/rotor and forward reactor/battery cutaway, even if G12 image source-hash checks pass. Prior source-hash visual acceptance does not transfer.",
+   "kT": "AWAITING",
+   "as": "",
+   "date": null
   }
  ],
- "kt_decisions_sha256": "7f3ae45567587e1d04202a39060be29c40ad0b430831b66a4dcb46ef83906749",
+ "kt_decisions_sha256": "0deb3ece1487b2f25f8ba726f3c1d5f099df6a5094b298277aa12aa801c83e4e",
  "certified": false,
  "certified_rule": "every gate PASS or PASS-DECLARED and every declared assumption ACCEPTED by kT; then both reviewers sign and loom-gate passes",
  "qualification_scope": {
@@ -3849,6 +4039,6 @@
   "rcs_power_source": "OPEN: idle torch reactor versus dedicated supply; no ship-wide budget",
   "rcs_power_option_B": "hot-water store OPTION, not baseline",
   "required_final_authority": "separate reviewer signatures and loom-gate per existing basis",
-  "geometry_sha256": "f7dc6b8c69cf56f48a55eeaa1a5daa7779fce3e06474157c960ef2f08cac95f7"
+  "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331"
  }
 }

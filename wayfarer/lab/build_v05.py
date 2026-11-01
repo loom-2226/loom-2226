@@ -841,22 +841,25 @@ def build(I, dy=0.0, dz=0.0):
     es = L["electrical_split"]
     HP=I.get("ship_power")
     add("electrical", "Electrical conversion and distribution (aft C-ring)", "electrical",
-        CSlot(tx1, mx1, T["r_in_m"], T["r_out_m"], T["slot_half_width_m"]), es["aft_c_ring"]-(HP["peak_store_dry_t"] if HP else 0.0), es["prov"], "equipment")
+        CSlot(tx1, mx1, T["r_in_m"], T["r_out_m"], T["slot_half_width_m"]), es["aft_c_ring"]-(HP["peak_store_dry_t"]+HP["reactor_dry_t"]/2 if HP else 0.0), es["prov"], "equipment")
     er = I["service"]["electrical_ring"]
     HP=I.get("ship_power")
-    house_electric=(HP["reactor_dry_t"]+HP.get("battery_energy_dry_t",0)+HP.get("c_lite_dry_t",0)) if HP else 0.0
+    house_electric=(HP["reactor_dry_t"]/2+HP.get("battery_energy_dry_t",0)+HP.get("c_lite_dry_t",0)) if HP else 0.0
     c_lite_wet=HP.get("c_lite_wet_propellant_t",0) if HP else 0.0
     add("electrical_fwd", "Electrical conversion and distribution (service ring)", "electrical",
         Sector(er["x_m"][0], er["x_m"][1], er["r_m"][0], er["r_m"][1], er["theta_deg"][0], er["theta_deg"][1]), es["service_ring"]-house_electric-c_lite_wet, es["prov"], "equipment")
     if HP:
         ring=Sector(er["x_m"][0], er["x_m"][1], er["r_m"][0], er["r_m"][1], er["theta_deg"][0], er["theta_deg"][1])
-        add("house_reactor","Two independent D-He3 house reactors and converters (55t electrical reallocation)",
-            "electrical",ring,HP["reactor_dry_t"],"kT house-power declaration; electrical ring reallocation, not new mass","equipment")
-        add("house_peak_store","Counter-rotating pulse flywheel pairs with burst containment (aft C-ring allocation)",
-            "electrical",CSlot(tx1, mx1, T["r_in_m"], T["r_out_m"], T["slot_half_width_m"]),HP["peak_store_dry_t"],
+        add("house_reactor_A","D-He3 house reactor A, aft C-ring independent envelope",
+            "electrical",Sector(tx1, mx1, T["r_in_m"], T["r_out_m"], 130, 220),
+            HP["reactor_dry_t"]/2,"kT independent aft C-ring reactor mass placement; electrical isolation/physical vessel UNQUALIFIED","equipment")
+        add("house_reactor_B","D-He3 house reactor B, forward service-ring independent envelope",
+            "electrical",Sector(er["x_m"][0], er["x_m"][1], er["r_m"][0], er["r_m"][1], -40, 58),HP["reactor_dry_t"]/2,"kT independent forward service-ring reactor mass placement; electrical isolation/physical vessel UNQUALIFIED","equipment")
+        add("house_peak_store","Counter-rotating pulse flywheel pairs with burst containment (aft C-ring, 1.8t)",
+            "electrical",Sector(tx1, mx1, T["r_in_m"], T["r_out_m"], 230, 340),HP["peak_store_dry_t"],
             "kT declared 2226 1kWh/kg including containment; 150kW/kg, physical rotor pairing/packing unqualified","equipment")
         add("house_energy_battery","Rechargeable endurance battery (electrical ring reallocation)",
-            "electrical",ring,HP["battery_energy_dry_t"],"kT declared 2226 2kWh/kg including module packaging; unqualified","equipment")
+            "electrical",Sector(er["x_m"][0], er["x_m"][1], er["r_m"][0], er["r_m"][1], 72, 170),HP["battery_energy_dry_t"],"kT declared 2226 2kWh/kg including module packaging; unqualified","equipment")
         add("c_lite_dry","Independent slow attitude chemical control, dry tanks/valves/nozzles",
             "electrical",ring,HP["c_lite_dry_t"],"kT declared separate dry hardware; nozzle/control packaging OPEN","equipment")
         fc=HP["fuel_container_proxy"]

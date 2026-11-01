@@ -2063,7 +2063,7 @@
   "l3_berth_shield_liner_t": 0,
   "house_fuel_tank_t": 0.5,
   "house_reactor_electrical_reallocation_t": 2.5,
-  "house_peak_store_electrical_reallocation_t": 1.5,
+  "house_peak_store_electrical_reallocation_t": 1.8,
   "electrical_fueled_wet_t": 0.15,
   "electrical_dry_t": 54.85,
   "house_energy_battery_electrical_reallocation_t": 1.5,
@@ -3204,13 +3204,13 @@
   "reactor_dry_t": 2.5,
   "direct_conversion_electric_efficiency": 0.75,
   "peak_store": "counter_rotating_flywheel_pairs",
-  "peak_store_nominal_mwh": 1.5,
+  "peak_store_nominal_mwh": 1.8,
   "peak_store_round_trip_efficiency": 0.9,
   "peak_store_specific_kwh_kg": 1.0,
   "peak_store_specific_kw_kg_min": 150.0,
-  "peak_store_dry_t": 1.5,
-  "peak_store_discharge_mw": 225.0,
-  "peak_store_discharge_seconds": 40.0,
+  "peak_store_dry_t": 1.8,
+  "peak_store_discharge_mw": 270.0,
+  "peak_store_discharge_seconds": 40,
   "fuel": "D-He3",
   "fuel_t": 5.0,
   "fuel_specific_fusion_j_kg": 353000000000000.0,
@@ -3247,14 +3247,16 @@
    "emergency_shelter_essential": 0.6
   },
   "qualification_limits": [
-   "2x50MW net D-He3 house reactors; minimum output 5MW per online unit, cycle OFF at full store",
-   "2226 battery 2kWh/kg at 1.5t = 3MWh nominal, 90% round trip declared; essential load after 1h normal with both reactors failed",
-   "2226 1kWh/kg 1.5t flywheel 1.5MWh nominal, 150kW/kg 225MW peak, 90% round trip: two counter-rotating rotors + burst containment declared within mass, not qualified",
-   "40s fast flip 6.354GJ ideal trace peak 244.46MW, one 50MW house + flywheel 4.474GJ ideal > electrical distribution and fluid-conditioning hardware OPEN",
-   "C-lite 0.10t dry plus 0.15t wet monoprop total 0.25t; up to two ~600s ~75kg maneuvers screening, independent nozzle/control unqualified",
-   "No reactor in quiet/cold, 65kW battery; Metric field CONTROL separate noncanon declarations; environmental correction HOLD",
-   "all 0.15t wet C-lite fuel counted as consumable, 54.85t electrical dry + 0.15t fuel = 55t installed loaded, reserve unaffected",
-   "RCS 120s throttle scaling remains an untraced proxy; fast trace on current geometry required"
+   "2 x 50MW D-He3 reactor 1.25t each in separate aft C-ring / service bays; power switching and physical isolation unqualified",
+   "flywheel 1.8MWh at 1kWh/kg 1.8t; 150kW/kg 270MW; 90% round trip; counter-rotation and rotor containment within mass unqualified",
+   "battery 3MWh 1.5t 2kWh/kg and 90% roundtrip for quiet and both-reactors-failed endurance",
+   "degraded half performance 60s RCS doctrine must rerun on current mass tensor, one reactor 50MW always on",
+   "docked uses declared shore power max 2MW, house reactors OFF; shore connector/thermal limits unqualified",
+   "during pulsed torch ONLY magnet cryo receives net 47.52MW from internal pulsed torch tap; declared 75% conversion; no continuous house generator",
+   "failure chain surviving reactor B -> battery -> C-lite independent attitude only; no torch house fallback",
+   "C-lite 0.10t dry+0.15t wet for 2 x ~75kg slow turns; actual chemical thruster geometry and torque unqualified",
+   "54.85t electrical dry + .15t C-lite wet = 55t loaded electrical; reserve unchanged, no growth draw",
+   "Metric field/control watts NONCANON declaration, environmental correction power OPEN"
   ],
   "reactor_count": 2,
   "reactor_minimum_fraction": 0.1,
@@ -3267,10 +3269,9 @@
   "metric_field_prov": "DECLARED 2226 non-canon engineering field/control electrical allowance; canon E1 only provides cryo card + PMAD, leaves environment correction power OPEN",
   "metric_delivered_pm_ad_fraction": 0.9408,
   "reactor_failure_order": [
-   "one reactor online",
-   "both reactors failed: battery one hour ordinary then 65kW essentials",
-   "pulsed torch emergency house UNQUALIFIED",
-   "shelter 0.6kW x 24h; C-lite independent slow attitude recovery"
+   "surviving 50MW reactor B (A may be failed)",
+   "battery: 1h ordinary then essentials",
+   "C-lite independent ~600s slow chemical attitude recovery (NOT an electrical source)"
   ],
   "quiet_reactors_on": 0,
   "cold_running_reactors_on": 0,
@@ -3288,6 +3289,17 @@
   "rcs_40s_ideal_energy_j": 6354457223.667402,
   "rcs_40s_ideal_peak_mw": 244.45568490737895,
   "rcs_40s_assumed_one_reactor_mw": 50.0,
-  "rcs_40s_ideal_one_reactor_store_j": 4473800000.0
+  "rcs_40s_ideal_one_reactor_store_j": 4473800000.0,
+  "reactor_separate_bays": {
+   "A": "aft C-ring (x=31.5-32.3m), 1.25t net",
+   "B": "service ring (x=17-18m), 1.25t net",
+   "isolation": "distinct geometric envelopes; shared distribution/actual electrical isolation UNQUALIFIED"
+  },
+  "torch_magnet_burn_only_self_power_mw": 47.52,
+  "torch_self_power_conversion_efficiency_declared": 0.75,
+  "torch_self_power_source": "PULSED TORCH BURN ONLY: 47.52MW net magnet/cryocooler from tapping pulsed torch energy; not standalone electrical generation; deduct raw input from jet budget (63.36MW assuming .75 efficiency) and reject 15.84MW conversion heat. Actual tap/conditioning hardware UNQUALIFIED.",
+  "docked_shore_power_limit_mw_declared": 2.0,
+  "docked_power_source": "external dock shore electrical feed when connected, house reactors OFF; 2MW DECLARED interface ceiling, connector/ground thermal interface UNQUALIFIED",
+  "degraded_rcs_60s_doctrine": "When energy and peak performance both halve, stretch emergency pitch turn 40s to 60s with ONE 50MW surviving reactor; separately source-rerun. If both reactors dead, not credited."
  }
 }

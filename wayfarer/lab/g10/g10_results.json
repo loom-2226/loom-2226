@@ -1,7 +1,7 @@
 {
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
  "status": "NON-GOVERNING G10 v0.2 flight-dynamics tests (engineering); not mission results, not canon outputs",
- "geometry_sha256": "f7dc6b8c69cf56f48a55eeaa1a5daa7779fce3e06474157c960ef2f08cac95f7",
+ "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
  "sources": {
   "main_commit": "19377b854c529e74afc61202d9eb2e780c5b4884",
   "rcs_controller": "src/wayfarer_rcs_closed_loop_gnc.py:_torque_command, gains and gates",
@@ -14,8 +14,8 @@
   "C_card": [
    {
     "name": "card names the geometry it was made from",
-    "value": "f7dc6b8c69cf",
-    "limit": "f7dc6b8c69cf",
+    "value": "4d598212aeb4",
+    "limit": "4d598212aeb4",
     "pass": true,
     "unit": "",
     "note": ""
@@ -97,7 +97,7 @@
    {
     "name": "torch thrust-vector authority covers trim + an ASSUMED 0.5 deg error",
     "value": 1.0,
-    "limit": 0.844,
+    "limit": 0.842,
     "pass": true,
     "unit": "deg",
     "note": "requirement conditional on the 0.5 deg assumption; the 1.0 deg authority is declared (kT 2026-10-26), not a qualified nozzle capability"
@@ -512,7 +512,7 @@
      "state": "S2",
      "mode": "FAST",
      "thrust_mn": 32.46,
-     "disturbance_mnm": 12.68,
+     "disturbance_mnm": 12.69,
      "after_tvc_mnm": 0.0
     },
     {
@@ -603,14 +603,14 @@
      "state": "S4",
      "mode": "HARD",
      "thrust_mn": 36.19,
-     "disturbance_mnm": 11.42,
+     "disturbance_mnm": 11.43,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S4",
      "mode": "LIMIT",
      "thrust_mn": 36.19,
-     "disturbance_mnm": 11.42,
+     "disturbance_mnm": 11.43,
      "after_tvc_mnm": 0.0
     },
     {
@@ -680,21 +680,21 @@
      "state": "S6",
      "mode": "FAST",
      "thrust_mn": 32.46,
-     "disturbance_mnm": 13.39,
+     "disturbance_mnm": 13.4,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S6",
      "mode": "HARD",
      "thrust_mn": 44.86,
-     "disturbance_mnm": 18.51,
+     "disturbance_mnm": 18.52,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S6",
      "mode": "LIMIT",
      "thrust_mn": 44.86,
-     "disturbance_mnm": 18.51,
+     "disturbance_mnm": 18.52,
      "after_tvc_mnm": 0.0
     },
     {
@@ -708,35 +708,35 @@
      "state": "S7",
      "mode": "CRUISE",
      "thrust_mn": 11.36,
-     "disturbance_mnm": 4.7,
+     "disturbance_mnm": 4.69,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S7",
      "mode": "EXPEDITE",
      "thrust_mn": 22.72,
-     "disturbance_mnm": 9.41,
+     "disturbance_mnm": 9.39,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S7",
      "mode": "FAST",
      "thrust_mn": 32.46,
-     "disturbance_mnm": 13.44,
+     "disturbance_mnm": 13.41,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S7",
      "mode": "HARD",
      "thrust_mn": 43.55,
-     "disturbance_mnm": 18.03,
+     "disturbance_mnm": 17.99,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S7",
      "mode": "LIMIT",
      "thrust_mn": 43.55,
-     "disturbance_mnm": 18.03,
+     "disturbance_mnm": 17.99,
      "after_tvc_mnm": 0.0
     }
    ],
@@ -790,7 +790,7 @@
      "ok": true
     }
    ],
-   "tvc_needed_deg": 0.844,
+   "tvc_needed_deg": 0.842,
    "rcs_full_pitch_mnm": 3.08
   },
   "burns": [

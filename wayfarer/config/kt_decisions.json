@@ -341,7 +341,7 @@
  "ship_power_2026_11_01": {
   "authority": "kT design decisions, not physical hardware qualification",
   "reactor": "D-He3 dedicated 80MW net 40kW/kg and 75% direct conversion, 2t from existing 55t electrical line",
-  "peak_store": "1.5MWh 1.5t counter-rotating flywheel with declared 150kW/kg, 90% roundtrip",
+  "peak_store": "1.8MWh / 1.8t contained counter-rotating pulse rotor, 270MW peak declared",
   "ordinary_rcs": "120s flip from house, assumed 1/t^2 throttled power; not traced",
   "torch": "PULSED in all modes; torch-house power emergency only",
   "fuel": "5t D-He3 wet/consumable mass; 0.5t fuel tank dry from reserve; consumption by mode",
@@ -350,9 +350,12 @@
   "revision": "two 50MW independent net reactors @40kW/kg, total 2.5t in 55t electrical allowance",
   "minimum_reactor_output": "10% = 5MW each; fill flywheel with surplus; cycle or stop when full",
   "quiet_cold": "both reactors OFF battery essentials 65kW",
-  "failure_order": "one reactor -> battery one hour ordinary then essentials -> unqualified pulsed torch -> shelter; independent C-lite for attitude",
+  "failure_order": "reactor B -> battery -> C-lite independent chemical attitude only; shelter refuge battery separately retained, not an electrical powerplant",
   "metric_field_power": "no canon separate field watts found; DECLARED engineering NORMAL 1 FAST 2 EXPEDITE 3 HARD 5MW delivered, plus canon cryo and E1 PMAD; environment correction still HOLD",
   "no_merge": true,
-  "storage_revision": "kT: 3MWh 1.5t battery, 1.5MWh 1.5t flywheel 1kWh/kg with counter rotation and containment, 0.10t dry +0.15t wet C-lite two slow recoveries; all 55t provisioned electrical allowance; reserve invariant; performance screening and sensitivity only"
+  "storage_revision": "kT 2026-11-01: 1.8MWh 1.8t flywheel 1kWh/kg, 150kW/kg; declared ~30% fast energy margin; 60s degraded maneuver to be rerun at half performance. Two separate reactor bays aft C-ring and service ring. Dock shore-only. Torch self-powers its own magnets while burning; no torch house fallback. Reactor B -> battery -> independent slow C-lite; no merge.",
+  "two_reactor_bays": "A aft C-ring, B forward service ring; independent isolation unqualified",
+  "torch_magnets": "burn-only self powered 47.52MW from pulsed torch energy, 75% efficiency assumed; no independent electric generator",
+  "docked": "shore power, houses off, 2MW nominal interface declared"
  }
 }
