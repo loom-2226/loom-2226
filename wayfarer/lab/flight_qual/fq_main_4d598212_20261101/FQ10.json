@@ -1,0 +1,112 @@
+{
+  "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+  "source_tree": "main merge 2d9e7a18 == 82643eb7 tree",
+  "engine": "existing faultlab_safing/flightlab; read-only replay",
+  "source_source": "existing 4d598212 mass CG inertia from FQ1-FQ4 current fixture",
+  "cases": {
+    "CRUISE_unmitigated": {
+      "qualification": "pass",
+      "peak_attitude_deg": 179.90243061972998,
+      "peak_rate_deg_s": 81.36029164514282,
+      "final_attitude_deg": 28.596791429886267,
+      "final_rate_deg_s": 81.36029164514282,
+      "fuel_kg": 8954.343243413587,
+      "events": [
+        {
+          "t_s": 60.05,
+          "event": "fault_injected",
+          "kind": "stuck_tvc"
+        }
+      ],
+      "throttle_then_cut": false,
+      "pass": true
+    },
+    "CRUISE_mitigated": {
+      "qualification": "pass",
+      "peak_attitude_deg": 0.10954991427390534,
+      "peak_rate_deg_s": 0.19627865401949093,
+      "final_attitude_deg": 5.0993501759842965e-08,
+      "final_rate_deg_s": 2.671824536697774e-08,
+      "fuel_kg": 451.5695034415401,
+      "events": [
+        {
+          "t_s": 60.05,
+          "event": "fault_injected",
+          "kind": "stuck_tvc"
+        },
+        {
+          "t_s": 60.2,
+          "event": "detected_then_throttled",
+          "mode": "CRUISE",
+          "torque_unmitigated_Nm": 6169356.141170577,
+          "calculated_allocation_fraction": 0.5269325918082723,
+          "torch_cap_fraction": 0.4742393326274451
+        },
+        {
+          "t_s": 60.65,
+          "event": "torch_cut_due_to_loss_of_control",
+          "angle_deg": 0.09667723195533011,
+          "rate_deg_s": 0.157615926505182,
+          "saturation_s": 0.44999999999999996
+        }
+      ],
+      "throttle_then_cut": true,
+      "pass": true
+    },
+    "HARD_unmitigated": {
+      "qualification": "pass",
+      "peak_attitude_deg": 179.86843981638134,
+      "peak_rate_deg_s": 363.9036795270073,
+      "final_attitude_deg": 63.220996986882206,
+      "final_rate_deg_s": 363.9036795270073,
+      "fuel_kg": 18860.12331302197,
+      "events": [
+        {
+          "t_s": 60.05,
+          "event": "fault_injected",
+          "kind": "stuck_tvc"
+        }
+      ],
+      "throttle_then_cut": false,
+      "pass": true
+    },
+    "HARD_mitigated": {
+      "qualification": "pass",
+      "peak_attitude_deg": 0.6259788615148362,
+      "peak_rate_deg_s": 1.019400608817327,
+      "final_attitude_deg": 5.242458144092488e-08,
+      "final_rate_deg_s": 1.457597017470883e-08,
+      "fuel_kg": 6452.009764576268,
+      "events": [
+        {
+          "t_s": 60.05,
+          "event": "fault_injected",
+          "kind": "stuck_tvc"
+        },
+        {
+          "t_s": 60.2,
+          "event": "detected_then_throttled",
+          "mode": "HARD",
+          "torque_unmitigated_Nm": 24790044.932744075,
+          "calculated_allocation_fraction": 0.13081789332983976,
+          "torch_cap_fraction": 0.11773610399685579
+        },
+        {
+          "t_s": 60.2,
+          "event": "torch_cut_due_to_loss_of_control",
+          "angle_deg": 0.07802476611148562,
+          "rate_deg_s": 1.019400608817327,
+          "saturation_s": 0.0
+        }
+      ],
+      "throttle_then_cut": true,
+      "pass": true
+    }
+  },
+  "assumptions": "0.20s ideal detection; throttle then cut, actuator delays OPEN",
+  "pass": true,
+  "runtime_s": 109.62805001018569,
+  "verdict_definition": "Mitigated: throttle_then_cut AND peak error <0.75deg; negative control: unmitigated peak error >0.75deg. Never require safe events in intentionally unmitigated case.",
+  "replay_baseline_main_commit": "2d9e7a18e49b4cf409448d06e22de10e1af602b4",
+  "replay_geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331"
+}

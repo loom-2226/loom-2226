@@ -1,0 +1,312 @@
+{
+  "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+  "state": "empty",
+  "dt": 0.4,
+  "results": [
+    {
+      "fq": "FQ1",
+      "case": "pitch_180",
+      "state": "empty",
+      "dt": 0.4,
+      "cluster_out": null,
+      "status": "FAIL",
+      "numerical_model_status": "pass",
+      "fuel_used_kg": 0,
+      "mass_end_kg": 922681.453466738,
+      "depletion_steps": 149,
+      "attitude_error_deg": 180.0,
+      "rate_deg_s": 0.0,
+      "translation_error_m_s": null,
+      "warnings": [
+        "propellant depleted within step: thrust curtailed"
+      ],
+      "elapsed_s": 2.03
+    },
+    {
+      "fq": "FQ1",
+      "case": "roll_180",
+      "state": "empty",
+      "dt": 0.4,
+      "cluster_out": null,
+      "status": "FAIL",
+      "numerical_model_status": "pass",
+      "fuel_used_kg": 0,
+      "mass_end_kg": 922681.453466738,
+      "depletion_steps": 149,
+      "attitude_error_deg": 180.0,
+      "rate_deg_s": 0.0,
+      "translation_error_m_s": null,
+      "warnings": [
+        "propellant depleted within step: thrust curtailed"
+      ],
+      "elapsed_s": 2.44
+    },
+    {
+      "fq": "FQ1",
+      "case": "yaw_180",
+      "state": "empty",
+      "dt": 0.4,
+      "cluster_out": null,
+      "status": "FAIL",
+      "numerical_model_status": "pass",
+      "fuel_used_kg": 0,
+      "mass_end_kg": 922681.453466738,
+      "depletion_steps": 299,
+      "attitude_error_deg": 180.0,
+      "rate_deg_s": 0.0,
+      "translation_error_m_s": null,
+      "warnings": [
+        "propellant depleted within step: thrust curtailed"
+      ],
+      "elapsed_s": 4.12
+    },
+    {
+      "fq": "FQ3",
+      "case": "translate_x_minus",
+      "state": "empty",
+      "dt": 0.4,
+      "cluster_out": null,
+      "status": "FAIL",
+      "numerical_model_status": "pass",
+      "fuel_used_kg": 0,
+      "mass_end_kg": 922681.453466738,
+      "depletion_steps": 49,
+      "attitude_error_deg": null,
+      "rate_deg_s": null,
+      "translation_error_m_s": 0.5,
+      "warnings": [
+        "propellant depleted within step: thrust curtailed"
+      ],
+      "elapsed_s": 0.65
+    },
+    {
+      "fq": "FQ3",
+      "case": "translate_x_plus",
+      "state": "empty",
+      "dt": 0.4,
+      "cluster_out": null,
+      "status": "FAIL",
+      "numerical_model_status": "pass",
+      "fuel_used_kg": 0,
+      "mass_end_kg": 922681.453466738,
+      "depletion_steps": 49,
+      "attitude_error_deg": null,
+      "rate_deg_s": null,
+      "translation_error_m_s": 0.5,
+      "warnings": [
+        "propellant depleted within step: thrust curtailed"
+      ],
+      "elapsed_s": 0.66
+    },
+    {
+      "fq": "FQ3",
+      "case": "translate_y_minus",
+      "state": "empty",
+      "dt": 0.4,
+      "cluster_out": null,
+      "status": "FAIL",
+      "numerical_model_status": "pass",
+      "fuel_used_kg": 0,
+      "mass_end_kg": 922681.453466738,
+      "depletion_steps": 49,
+      "attitude_error_deg": null,
+      "rate_deg_s": null,
+      "translation_error_m_s": 0.5,
+      "warnings": [
+        "propellant depleted within step: thrust curtailed"
+      ],
+      "elapsed_s": 0.66
+    },
+    {
+      "fq": "FQ3",
+      "case": "translate_y_plus",
+      "state": "empty",
+      "dt": 0.4,
+      "cluster_out": null,
+      "status": "FAIL",
+      "numerical_model_status": "pass",
+      "fuel_used_kg": 0,
+      "mass_end_kg": 922681.453466738,
+      "depletion_steps": 49,
+      "attitude_error_deg": null,
+      "rate_deg_s": null,
+      "translation_error_m_s": 0.5,
+      "warnings": [
+        "propellant depleted within step: thrust curtailed"
+      ],
+      "elapsed_s": 0.65
+    },
+    {
+      "fq": "FQ3",
+      "case": "translate_z_minus",
+      "state": "empty",
+      "dt": 0.4,
+      "cluster_out": null,
+      "status": "FAIL",
+      "numerical_model_status": "pass",
+      "fuel_used_kg": 0,
+      "mass_end_kg": 922681.453466738,
+      "depletion_steps": 49,
+      "attitude_error_deg": null,
+      "rate_deg_s": null,
+      "translation_error_m_s": 0.5,
+      "warnings": [
+        "propellant depleted within step: thrust curtailed"
+      ],
+      "elapsed_s": 0.65
+    },
+    {
+      "fq": "FQ3",
+      "case": "translate_z_plus",
+      "state": "empty",
+      "dt": 0.4,
+      "cluster_out": null,
+      "status": "FAIL",
+      "numerical_model_status": "pass",
+      "fuel_used_kg": 0,
+      "mass_end_kg": 922681.453466738,
+      "depletion_steps": 49,
+      "attitude_error_deg": null,
+      "rate_deg_s": null,
+      "translation_error_m_s": 0.5,
+      "warnings": [
+        "propellant depleted within step: thrust curtailed"
+      ],
+      "elapsed_s": 0.64
+    },
+    {
+      "fq": "FQ4",
+      "case": "torch_ECON",
+      "state": "empty",
+      "dt": 0.4,
+      "cluster_out": null,
+      "accel_g": 0.0,
+      "tvc_trim_deg": 0.09727780756136699,
+      "min_allocated_fraction": 1.0,
+      "status": "FAIL",
+      "numerical_model_status": "pass",
+      "fuel_used_kg": 0,
+      "mass_end_kg": 922681.453466738,
+      "depletion_steps": 25,
+      "attitude_error_deg": null,
+      "rate_deg_s": null,
+      "translation_error_m_s": null,
+      "warnings": [
+        "propellant depleted within step: thrust curtailed"
+      ],
+      "elapsed_s": 0.1
+    },
+    {
+      "fq": "FQ4",
+      "case": "torch_CRUISE",
+      "state": "empty",
+      "dt": 0.4,
+      "cluster_out": null,
+      "accel_g": 0.0,
+      "tvc_trim_deg": 0.09727780756136699,
+      "min_allocated_fraction": 1.0,
+      "status": "FAIL",
+      "numerical_model_status": "pass",
+      "fuel_used_kg": 0,
+      "mass_end_kg": 922681.453466738,
+      "depletion_steps": 25,
+      "attitude_error_deg": null,
+      "rate_deg_s": null,
+      "translation_error_m_s": null,
+      "warnings": [
+        "propellant depleted within step: thrust curtailed"
+      ],
+      "elapsed_s": 0.14
+    },
+    {
+      "fq": "FQ4",
+      "case": "torch_EXPEDITE",
+      "state": "empty",
+      "dt": 0.4,
+      "cluster_out": null,
+      "accel_g": 0.0,
+      "tvc_trim_deg": 0.09727780756136699,
+      "min_allocated_fraction": 1.0,
+      "status": "FAIL",
+      "numerical_model_status": "pass",
+      "fuel_used_kg": 0,
+      "mass_end_kg": 922681.453466738,
+      "depletion_steps": 25,
+      "attitude_error_deg": null,
+      "rate_deg_s": null,
+      "translation_error_m_s": null,
+      "warnings": [
+        "propellant depleted within step: thrust curtailed"
+      ],
+      "elapsed_s": 0.1
+    },
+    {
+      "fq": "FQ4",
+      "case": "torch_FAST",
+      "state": "empty",
+      "dt": 0.4,
+      "cluster_out": null,
+      "accel_g": 0.0,
+      "tvc_trim_deg": 0.09727780756136699,
+      "min_allocated_fraction": 1.0,
+      "status": "FAIL",
+      "numerical_model_status": "pass",
+      "fuel_used_kg": 0,
+      "mass_end_kg": 922681.453466738,
+      "depletion_steps": 25,
+      "attitude_error_deg": null,
+      "rate_deg_s": null,
+      "translation_error_m_s": null,
+      "warnings": [
+        "propellant depleted within step: thrust curtailed"
+      ],
+      "elapsed_s": 0.1
+    },
+    {
+      "fq": "FQ4",
+      "case": "torch_HARD",
+      "state": "empty",
+      "dt": 0.4,
+      "cluster_out": null,
+      "accel_g": 0.0,
+      "tvc_trim_deg": 0.09727780756136699,
+      "min_allocated_fraction": 1.0,
+      "status": "FAIL",
+      "numerical_model_status": "pass",
+      "fuel_used_kg": 0,
+      "mass_end_kg": 922681.453466738,
+      "depletion_steps": 25,
+      "attitude_error_deg": null,
+      "rate_deg_s": null,
+      "translation_error_m_s": null,
+      "warnings": [
+        "propellant depleted within step: thrust curtailed"
+      ],
+      "elapsed_s": 0.11
+    },
+    {
+      "fq": "FQ4",
+      "case": "torch_LIMIT",
+      "state": "empty",
+      "dt": 0.4,
+      "cluster_out": null,
+      "accel_g": 0.0,
+      "tvc_trim_deg": 0.09727780756136699,
+      "min_allocated_fraction": 1.0,
+      "status": "FAIL",
+      "numerical_model_status": "pass",
+      "fuel_used_kg": 0,
+      "mass_end_kg": 922681.453466738,
+      "depletion_steps": 25,
+      "attitude_error_deg": null,
+      "rate_deg_s": null,
+      "translation_error_m_s": null,
+      "warnings": [
+        "propellant depleted within step: thrust curtailed"
+      ],
+      "elapsed_s": 0.11
+    }
+  ],
+  "replay_baseline_main_commit": "2d9e7a18e49b4cf409448d06e22de10e1af602b4",
+  "replay_geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331"
+}

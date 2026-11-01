@@ -1,0 +1,33 @@
+{
+  "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+  "source": "existing current 0.2s FQ1-4 replay + fresh 0.4s full/half + fresh empty both timesteps",
+  "states": {
+    "full": {
+      "paired_cases": 39,
+      "0p2_pass": 39,
+      "0p4_pass": 39,
+      "verdict_changes": 0,
+      "differences": [],
+      "empty_expected_inhibit": false
+    },
+    "half": {
+      "paired_cases": 39,
+      "0p2_pass": 39,
+      "0p4_pass": 39,
+      "verdict_changes": 0,
+      "differences": [],
+      "empty_expected_inhibit": false
+    },
+    "empty": {
+      "paired_cases": 15,
+      "0p2_pass": 0,
+      "0p4_pass": 0,
+      "verdict_changes": 0,
+      "differences": [],
+      "empty_expected_inhibit": true
+    }
+  },
+  "pass": true,
+  "replay_baseline_main_commit": "2d9e7a18e49b4cf409448d06e22de10e1af602b4",
+  "replay_geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331"
+}

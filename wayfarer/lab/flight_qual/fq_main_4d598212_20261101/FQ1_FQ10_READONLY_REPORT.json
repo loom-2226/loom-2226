@@ -1,0 +1,408 @@
+{
+  "main_sha": "2d9e7a18e49b4cf409448d06e22de10e1af602b4",
+  "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+  "all_fq_numerical_pass": true,
+  "source": "current main same tree as previously merged 82643eb7, read-only flight models",
+  "FQ1_FQ4": {
+    "FQ1": {
+      "total": 6,
+      "passed": 6
+    },
+    "FQ2": {
+      "total": 48,
+      "passed": 48
+    },
+    "FQ3": {
+      "total": 12,
+      "passed": 12
+    },
+    "FQ4": {
+      "total": 12,
+      "passed": 12
+    }
+  },
+  "FQ5": {
+    "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+    "source_tree": "main merge 2d9e7a18 == 82643eb7 tree",
+    "engine": "existing faultlab_safing/flightlab; read-only replay",
+    "source_source": "existing 4d598212 mass CG inertia from FQ1-FQ4 current fixture",
+    "cases": {
+      "torch_at_floor": {
+        "fuel_kg": 0.0,
+        "remaining_kg": 5000.0,
+        "warnings": [
+          "Torch held at RCS reserve floor"
+        ],
+        "pass": true
+      },
+      "pitch": {
+        "fuel_kg": 471.31626773692966,
+        "left_kg": 4528.683732263077,
+        "attitude_error_deg": 6.38790572729781e-05,
+        "rate_deg_s": 8.471813963500692e-06,
+        "pass": true
+      },
+      "roll": {
+        "fuel_kg": 107.11465945839535,
+        "left_kg": 4892.885340541602,
+        "attitude_error_deg": 6.387899310464994e-05,
+        "rate_deg_s": 8.47067824960896e-06,
+        "pass": true
+      },
+      "yaw": {
+        "fuel_kg": 474.2852285601722,
+        "left_kg": 4525.714771439828,
+        "attitude_error_deg": 6.387907350288268e-05,
+        "rate_deg_s": 8.47234246635638e-06,
+        "pass": true
+      },
+      "three_flips": {
+        "fuel_kg": 1052.619078663879,
+        "remaining_kg": 3947.380921336129,
+        "phase_errors_deg": [
+          6.38790572729781e-05,
+          6.387899314255532e-05,
+          6.387907350961342e-05
+        ],
+        "pass": true
+      }
+    },
+    "pass": true,
+    "runtime_s": 112.1469167387113
+  },
+  "FQ6": {
+    "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+    "source": "existing current 0.2s FQ1-4 replay + fresh 0.4s full/half + fresh empty both timesteps",
+    "states": {
+      "full": {
+        "paired_cases": 39,
+        "0p2_pass": 39,
+        "0p4_pass": 39,
+        "verdict_changes": 0,
+        "differences": [],
+        "empty_expected_inhibit": false
+      },
+      "half": {
+        "paired_cases": 39,
+        "0p2_pass": 39,
+        "0p4_pass": 39,
+        "verdict_changes": 0,
+        "differences": [],
+        "empty_expected_inhibit": false
+      },
+      "empty": {
+        "paired_cases": 15,
+        "0p2_pass": 0,
+        "0p4_pass": 0,
+        "verdict_changes": 0,
+        "differences": [],
+        "empty_expected_inhibit": true
+      }
+    },
+    "pass": true
+  },
+  "FQ6_reserve": {
+    "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+    "cases": {
+      "pitch_0.4": {
+        "pass": true,
+        "water_used_kg": 471.5439579838195,
+        "remaining_kg": 4528.45604201618
+      },
+      "roll_0.4": {
+        "pass": true,
+        "water_used_kg": 107.16489420836567,
+        "remaining_kg": 4892.835105791623
+      },
+      "yaw_0.4": {
+        "pass": true,
+        "water_used_kg": 474.513029299946,
+        "remaining_kg": 4525.486970700051
+      },
+      "torch_0.4": {
+        "pass": true,
+        "water_used_kg": 0.0,
+        "remaining_kg": 5000.0
+      },
+      "pitch_0.2": {
+        "pass": true,
+        "water_used_kg": 471.33727192119267,
+        "remaining_kg": 4528.662728078825
+      },
+      "roll_0.2": {
+        "pass": true,
+        "water_used_kg": 107.11931921037946,
+        "remaining_kg": 4892.880680789628
+      },
+      "yaw_0.2": {
+        "pass": true,
+        "water_used_kg": 474.30621271428464,
+        "remaining_kg": 4525.693787285718
+      },
+      "torch_0.2": {
+        "pass": true,
+        "water_used_kg": 0.0,
+        "remaining_kg": 5000.0
+      }
+    },
+    "pass": true,
+    "note": "8 reserve-policy checks: 3-axis 180 degree RCS with 5t water and torch inhibit, at 0.4 and 0.2s."
+  },
+  "FQ7": {
+    "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+    "source_basis": "5t RCS reserve, 50t protected water distinct",
+    "tested_turns": {
+      "pitch": {
+        "fuel_kg": 471.31626773692966,
+        "left_kg": 4528.683732263077,
+        "attitude_error_deg": 6.38790572729781e-05,
+        "rate_deg_s": 8.471813963500692e-06,
+        "pass": true
+      },
+      "roll": {
+        "fuel_kg": 107.11465945839535,
+        "left_kg": 4892.885340541602,
+        "attitude_error_deg": 6.387899310464994e-05,
+        "rate_deg_s": 8.47067824960896e-06,
+        "pass": true
+      },
+      "yaw": {
+        "fuel_kg": 474.2852285601722,
+        "left_kg": 4525.714771439828,
+        "attitude_error_deg": 6.387907350288268e-05,
+        "rate_deg_s": 8.47234246635638e-06,
+        "pass": true
+      },
+      "three_flips": {
+        "fuel_kg": 1052.619078663879,
+        "remaining_kg": 3947.380921336129,
+        "phase_errors_deg": [
+          6.38790572729781e-05,
+          6.387899314255532e-05,
+          6.387907350961342e-05
+        ],
+        "pass": true
+      }
+    },
+    "no_protected_water_draw_kg": 0.0,
+    "five_tonne_floor_RCS_consumption_kg": 1052.619078663879,
+    "remaining_RCS_water_kg": 3947.380921336129,
+    "mass_error_kg": -8.185452315956354e-12,
+    "pass": true,
+    "holds": [
+      "RCS heater/pulse electric and fluid conversion not physically qualified"
+    ]
+  },
+  "FQ8": {
+    "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+    "source_tree": "main merge 2d9e7a18 == 82643eb7 tree",
+    "engine": "existing faultlab_safing/flightlab; read-only replay",
+    "source_source": "existing 4d598212 mass CG inertia from FQ1-FQ4 current fixture",
+    "duration_s": 43249.990881241676,
+    "cruise_mdot_kg_s": 5.6805020125,
+    "water_initial_kg": 250000,
+    "water_torch_spent_kg": 244999.99999999977,
+    "water_remain_kg": 5000.0,
+    "independent_protected_water_kg": 50000.0,
+    "rcs_floor_kg": 5000.0,
+    "depletion_steps": 12,
+    "warnings": [
+      "Torch held at RCS reserve floor"
+    ],
+    "runtime_s": 13.116495241876692,
+    "pass": true
+  },
+  "FQ9": {
+    "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+    "source_tree": "main merge 2d9e7a18 == 82643eb7 tree",
+    "engine": "existing faultlab_safing/flightlab; read-only replay",
+    "source_source": "existing 4d598212 mass CG inertia from FQ1-FQ4 current fixture",
+    "initial_mass_kg": 1172681.453466738,
+    "final_mass_kg": 1171516.2810348475,
+    "phase_fuel_kg": [
+      340.83000000000396,
+      0.0,
+      483.5124316010455,
+      340.83000028727474
+    ],
+    "sum_fuel_kg": 1165.1724318883241,
+    "mass_delta_kg": 1165.17243189062,
+    "ledger_residual_kg": 2.295792000950314e-09,
+    "tank_remaining_kg": 248834.82756810953,
+    "phase_kinds": [
+      "torch",
+      "coast",
+      "rcs_turn",
+      "torch"
+    ],
+    "flip_attitude_error_deg": 6.387904919690244e-05,
+    "qualification": "pass",
+    "warnings": [],
+    "runtime_s": 22.8597155790776,
+    "pass": true
+  },
+  "FQ10": {
+    "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+    "source_tree": "main merge 2d9e7a18 == 82643eb7 tree",
+    "engine": "existing faultlab_safing/flightlab; read-only replay",
+    "source_source": "existing 4d598212 mass CG inertia from FQ1-FQ4 current fixture",
+    "cases": {
+      "CRUISE_unmitigated": {
+        "qualification": "pass",
+        "peak_attitude_deg": 179.90243061972998,
+        "peak_rate_deg_s": 81.36029164514282,
+        "final_attitude_deg": 28.596791429886267,
+        "final_rate_deg_s": 81.36029164514282,
+        "fuel_kg": 8954.343243413587,
+        "events": [
+          {
+            "t_s": 60.05,
+            "event": "fault_injected",
+            "kind": "stuck_tvc"
+          }
+        ],
+        "throttle_then_cut": false,
+        "pass": true
+      },
+      "CRUISE_mitigated": {
+        "qualification": "pass",
+        "peak_attitude_deg": 0.10954991427390534,
+        "peak_rate_deg_s": 0.19627865401949093,
+        "final_attitude_deg": 5.0993501759842965e-08,
+        "final_rate_deg_s": 2.671824536697774e-08,
+        "fuel_kg": 451.5695034415401,
+        "events": [
+          {
+            "t_s": 60.05,
+            "event": "fault_injected",
+            "kind": "stuck_tvc"
+          },
+          {
+            "t_s": 60.2,
+            "event": "detected_then_throttled",
+            "mode": "CRUISE",
+            "torque_unmitigated_Nm": 6169356.141170577,
+            "calculated_allocation_fraction": 0.5269325918082723,
+            "torch_cap_fraction": 0.4742393326274451
+          },
+          {
+            "t_s": 60.65,
+            "event": "torch_cut_due_to_loss_of_control",
+            "angle_deg": 0.09667723195533011,
+            "rate_deg_s": 0.157615926505182,
+            "saturation_s": 0.44999999999999996
+          }
+        ],
+        "throttle_then_cut": true,
+        "pass": true
+      },
+      "HARD_unmitigated": {
+        "qualification": "pass",
+        "peak_attitude_deg": 179.86843981638134,
+        "peak_rate_deg_s": 363.9036795270073,
+        "final_attitude_deg": 63.220996986882206,
+        "final_rate_deg_s": 363.9036795270073,
+        "fuel_kg": 18860.12331302197,
+        "events": [
+          {
+            "t_s": 60.05,
+            "event": "fault_injected",
+            "kind": "stuck_tvc"
+          }
+        ],
+        "throttle_then_cut": false,
+        "pass": true
+      },
+      "HARD_mitigated": {
+        "qualification": "pass",
+        "peak_attitude_deg": 0.6259788615148362,
+        "peak_rate_deg_s": 1.019400608817327,
+        "final_attitude_deg": 5.242458144092488e-08,
+        "final_rate_deg_s": 1.457597017470883e-08,
+        "fuel_kg": 6452.009764576268,
+        "events": [
+          {
+            "t_s": 60.05,
+            "event": "fault_injected",
+            "kind": "stuck_tvc"
+          },
+          {
+            "t_s": 60.2,
+            "event": "detected_then_throttled",
+            "mode": "HARD",
+            "torque_unmitigated_Nm": 24790044.932744075,
+            "calculated_allocation_fraction": 0.13081789332983976,
+            "torch_cap_fraction": 0.11773610399685579
+          },
+          {
+            "t_s": 60.2,
+            "event": "torch_cut_due_to_loss_of_control",
+            "angle_deg": 0.07802476611148562,
+            "rate_deg_s": 1.019400608817327,
+            "saturation_s": 0.0
+          }
+        ],
+        "throttle_then_cut": true,
+        "pass": true
+      }
+    },
+    "assumptions": "0.20s ideal detection; throttle then cut, actuator delays OPEN",
+    "pass": true,
+    "runtime_s": 109.62805001018569,
+    "verdict_definition": "Mitigated: throttle_then_cut AND peak error <0.75deg; negative control: unmitigated peak error >0.75deg. Never require safe events in intentionally unmitigated case."
+  },
+  "FQ10_supplemental": {
+    "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+    "cases": {
+      "baseline_pitch": {
+        "attitude_error_deg": 6.387904919652312e-05,
+        "final_rate_deg_s": 8.471777783082667e-06,
+        "remass_used_kg": 483.5288244935013,
+        "events": [],
+        "runtime_s": 13.336227420251817,
+        "pass": true
+      },
+      "cluster_A+Z_pitch": {
+        "attitude_error_deg": 6.387904782749087e-05,
+        "final_rate_deg_s": 8.471860446905906e-06,
+        "remass_used_kg": 483.5244330737108,
+        "events": [
+          {
+            "t_s": 25.0,
+            "event": "fault_injected",
+            "kind": "cluster_out"
+          }
+        ],
+        "runtime_s": 13.122840330936015,
+        "pass": true
+      },
+      "stuck_on_F+Y_tan+": {
+        "peak_attitude_error_deg": 0.060822355726377605,
+        "peak_rate_deg_s": 0.09527719752934648,
+        "final_attitude_deg": 0.060822355726377605,
+        "final_rate_deg_s": 1.7643579466298066e-06,
+        "remass_used_kg": 2383.6484122434463,
+        "events": [
+          {
+            "t_s": 60.0,
+            "event": "fault_injected",
+            "kind": "stuck_thruster"
+          }
+        ],
+        "runtime_s": 7.512517145834863,
+        "pass": true
+      }
+    },
+    "scope": "source-consistent conventional faultlab, no actual FDIR/thermal/power hardware proof",
+    "pass": true
+  },
+  "limitations": [
+    "non-governing numerical replay",
+    "temperature/power/hardware fault mitigation not flight-qualified",
+    "no Metric arrival",
+    "Navigator excluded",
+    "no Git changes"
+  ],
+  "replay_baseline_main_commit": "2d9e7a18e49b4cf409448d06e22de10e1af602b4",
+  "replay_geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331"
+}
