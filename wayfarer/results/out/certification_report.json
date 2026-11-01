@@ -1085,16 +1085,16 @@
     {
      "key": "crown_option_c_load_paths",
      "text": "Full faceted nose 1.2m ahead of old bow and gore hinges at 50deg break; actual retaining loads, impact, thermal cycling, 5g attachment paths and shutter transition mechanics UNSHOWN.",
-     "kT": "AWAITING",
-     "as": "",
-     "date": null
+     "kT": "ACCEPTED",
+     "as": "kT accepts the Option C load-path declaration as an engineering assumption. Faceted-nose retaining loads, 5g attachments, impact and thermal cycling are NOT physically qualified.",
+     "date": "2026-11-01"
     },
     {
      "key": "l1_l2_pressure_hatches",
      "text": "Two new 0.15t pressure hatches at existing L1/L2 0.8m ladder wells: mass and parked clearance checked, seal under full differential, latch actuation and 4g crew passage NOT demonstrated.",
      "kT": "AWAITING",
-     "as": "",
-     "date": null
+     "as": "HELD: revise to passive normally-open pressure-assisted closure against L1-bound outflow, same two 0.15t leaves; demonstrate G7 and explicitly bound reverse-flow behavior.",
+     "date": "2026-11-01"
     }
    ],
    "notes": [
@@ -1330,43 +1330,43 @@
     {
      "key": "crown_option_c_gore_fairing",
      "text": "16 Strata tambour gores cover the full r<=3.5m faceted external 50deg profile at 27g/cm2 when closed; 2m flat/slope hinge transition and shoulder fairing have no measured shock/seam/drive failure qualification.",
-     "kT": "AWAITING",
-     "as": "",
-     "date": null
+     "kT": "ACCEPTED",
+     "as": "kT accepts the 16-gore 50-degree fairing architecture as declared. Hinge transitions, dust seams, actuation and fatigue remain unproven hardware.",
+     "date": "2026-11-01"
     },
     {
      "key": "l3_shield_liner_material",
      "text": "Observed G6 two rays at 39.86g/cm2 corrected by reserve-funded 0.6t continuous L3 dry foamed high-hydrogen liner (x5.9-8.2,r4.18-4.25). No water moved and no gel radiation credited. g/cm2 mass/geometry screen only: polymer composition, actual charged-particle transport, structural attachment, fire and dose remain UNSHOWN.",
      "kT": "AWAITING",
-     "as": "",
-     "date": null
+     "as": "HELD: 0.6t liner is not accepted. G6 has counted engineering-reserve spread as shielding; correct actual-material accounting and rerun 36x600 S5 before deciding what physical shielding is needed.",
+     "date": "2026-11-01"
     },
     {
      "key": "crown_option_c_tiles",
      "text": "37 independent ceramic 1cm sacrificial tiles, outward-removable retainers while L1 pressure stays sealed. Four types, seven spares in hold. Cupola precedent establishes separable outer debris panes, NOT service tool loads or 2226 particle impact protection.",
-     "kT": "AWAITING",
-     "as": "",
-     "date": null
+     "kT": "ACCEPTED",
+     "as": "kT accepts the outward-removable 37 protective panes and retainers as declared, including seven hold spares. Attachment and impact performance remain OPEN.",
+     "date": "2026-11-01"
     },
     {
      "key": "crown_dome",
      "text": "Rev7 16 closing Strata gores and opening doctrine are retained; their original acceptance applied only to the earlier segmented 2.3m pressure panes, not the new 7m seamless dome.",
-     "kT": "AWAITING",
-     "as": "kT selected TWO independently pressure-capable ~7m ceramic domes with AOI; independent failure mechanism / proof remains open.",
-     "date": "2026-10-26"
+     "kT": "ACCEPTED",
+     "as": "kT accepts the Option C two-pressure-dome crown architecture and retained 16 Strata closure gores as declared. This does not requalify hardware.",
+     "date": "2026-11-01"
     },
     {
      "key": "crown_monolith_7m",
      "text": "kT Option A 2026-11-01: TWO independent full-pressure ~7m transparent ceramic domes, each 28mm/10.5g/cm2, shaped X(r)=2.35-2.15sqrt(1-(r/4.3)^2), backup shifted 0.12m forward. Both must survive loss of the other; 37 outer segmented nonpressure panes +16 closure gores unchanged. 7m monolithic materials fabrication/pressure/impact and optical radiation behaviour UNSHOWN.",
-     "kT": "AWAITING",
-     "as": "",
-     "date": null
+     "kT": "ACCEPTED",
+     "as": "kT accepts two separately pressure-capable 7m, 28mm ceramic domes as declared; production, fracture and pressure proof remain OPEN. The proposed 0.5m deeper candidate is analysis only, NOT adopted by this acceptance.",
+     "date": "2026-11-01"
     },
     {
      "key": "aoi_failure_independence",
      "text": "AOI-2226 ~3.023m3 (~3t) gel between two separately sealed pressure domes, gap min normal 5.973cm with backup axial offset ~12cm. Neither pressure-bearing nor a pressure seal. Each independent dome MUST withstand full 101.3kPa after other's failure while optogel is present, WITHOUT shock, fracture, crack bridging or fast pressure-pulse coupling. The research has NO measured high-rate response or independent-shell survival test; do not credit impact damping. Rim slip/contact interfaces and >=56L illustrative thermal-expansion compliance still require engineering.",
-     "kT": "AWAITING",
-     "as": "Both pressure domes must withstand full differential and each others failure with gel in gap, without crack coupling, shock, destructive pressure pulse; physical validation still necessary.",
+     "kT": "ACCEPTED",
+     "as": "kT accepts the REQUIREMENT that either dome survive full differential and the other's failure without destructive coupling through AOI. This is an accepted declaration, NOT evidence that this behaviour has been physically demonstrated.",
      "date": "2026-11-01"
     },
     {
@@ -1677,8 +1677,8 @@
      "key": "crown_option_c_open_limit",
      "text": "Option C crown-open limit surfaced in 3D viewer as proposed max speed and/or bow-to-flow angle; BOTH numeric thresholds default UNQUALIFIED. Existing doctrine remains governing (low speed OR bow out of dust flow; closed for torch, radiation, Metric). Sensor accuracy, failure-mode logic and numeric dynamic threshold still OPEN.",
      "kT": "AWAITING",
-     "as": "",
-     "date": null
+     "as": "HELD: open-limit speed/flow-angle values remain visible and UNQUALIFIED; no automatic crown-open permission may derive from unset numeric thresholds.",
+     "date": "2026-11-01"
     },
     {
      "key": "i4_human_factors",
@@ -2176,9 +2176,9 @@
     {
      "key": "crown_option_c_axial_rcs_plumes",
      "text": "External nose shifted 1.2m forward with flat 2m crown and 50deg face. Old accepted G10 axial RCS plume direction/impingement declaration predates the extended nose; no new plume clearance proof performed. The existing RCS nozzle geometry is unchanged, but plume impingement on Option C gores/ceramic/retainers remains HOLD.",
-     "kT": "AWAITING",
-     "as": "",
-     "date": null
+     "kT": "ACCEPTED",
+     "as": "kT accepts RCS plume-clearance assumptions for Option C as declared, without an impingement/erosion simulation or hardware proof.",
+     "date": "2026-11-01"
     }
    ],
    "notes": [
@@ -2376,8 +2376,8 @@
     {
      "key": "kT_visual_acceptance",
      "text": "Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only",
-     "kT": "AWAITING",
-     "as": "New twin-dome + gel viewer/stills require current-hash visual review; prior single-dome review does not transfer.",
+     "kT": "ACCEPTED",
+     "as": "kT accepts the existing Option C imagery on geometry SHA256 447c05ccb7a3031823e0713ee6010eaa200dbb4c1635b8a5c747b7cd98dae6a6 as a design representation; optical/physical proof and any proposed deeper-dome visuals are separate.",
      "date": "2026-11-01"
     }
    ],
@@ -2440,16 +2440,16 @@
   {
    "key": "crown_option_c_load_paths",
    "text": "Full faceted nose 1.2m ahead of old bow and gore hinges at 50deg break; actual retaining loads, impact, thermal cycling, 5g attachment paths and shutter transition mechanics UNSHOWN.",
-   "kT": "AWAITING",
-   "as": "",
-   "date": null
+   "kT": "ACCEPTED",
+   "as": "kT accepts the Option C load-path declaration as an engineering assumption. Faceted-nose retaining loads, 5g attachments, impact and thermal cycling are NOT physically qualified.",
+   "date": "2026-11-01"
   },
   {
    "key": "l1_l2_pressure_hatches",
    "text": "Two new 0.15t pressure hatches at existing L1/L2 0.8m ladder wells: mass and parked clearance checked, seal under full differential, latch actuation and 4g crew passage NOT demonstrated.",
    "kT": "AWAITING",
-   "as": "",
-   "date": null
+   "as": "HELD: revise to passive normally-open pressure-assisted closure against L1-bound outflow, same two 0.15t leaves; demonstrate G7 and explicitly bound reverse-flow behavior.",
+   "date": "2026-11-01"
   },
   {
    "key": "berth_viewports",
@@ -2461,43 +2461,43 @@
   {
    "key": "crown_option_c_gore_fairing",
    "text": "16 Strata tambour gores cover the full r<=3.5m faceted external 50deg profile at 27g/cm2 when closed; 2m flat/slope hinge transition and shoulder fairing have no measured shock/seam/drive failure qualification.",
-   "kT": "AWAITING",
-   "as": "",
-   "date": null
+   "kT": "ACCEPTED",
+   "as": "kT accepts the 16-gore 50-degree fairing architecture as declared. Hinge transitions, dust seams, actuation and fatigue remain unproven hardware.",
+   "date": "2026-11-01"
   },
   {
    "key": "l3_shield_liner_material",
    "text": "Observed G6 two rays at 39.86g/cm2 corrected by reserve-funded 0.6t continuous L3 dry foamed high-hydrogen liner (x5.9-8.2,r4.18-4.25). No water moved and no gel radiation credited. g/cm2 mass/geometry screen only: polymer composition, actual charged-particle transport, structural attachment, fire and dose remain UNSHOWN.",
    "kT": "AWAITING",
-   "as": "",
-   "date": null
+   "as": "HELD: 0.6t liner is not accepted. G6 has counted engineering-reserve spread as shielding; correct actual-material accounting and rerun 36x600 S5 before deciding what physical shielding is needed.",
+   "date": "2026-11-01"
   },
   {
    "key": "crown_option_c_tiles",
    "text": "37 independent ceramic 1cm sacrificial tiles, outward-removable retainers while L1 pressure stays sealed. Four types, seven spares in hold. Cupola precedent establishes separable outer debris panes, NOT service tool loads or 2226 particle impact protection.",
-   "kT": "AWAITING",
-   "as": "",
-   "date": null
+   "kT": "ACCEPTED",
+   "as": "kT accepts the outward-removable 37 protective panes and retainers as declared, including seven hold spares. Attachment and impact performance remain OPEN.",
+   "date": "2026-11-01"
   },
   {
    "key": "crown_dome",
    "text": "Rev7 16 closing Strata gores and opening doctrine are retained; their original acceptance applied only to the earlier segmented 2.3m pressure panes, not the new 7m seamless dome.",
-   "kT": "AWAITING",
-   "as": "kT selected TWO independently pressure-capable ~7m ceramic domes with AOI; independent failure mechanism / proof remains open.",
-   "date": "2026-10-26"
+   "kT": "ACCEPTED",
+   "as": "kT accepts the Option C two-pressure-dome crown architecture and retained 16 Strata closure gores as declared. This does not requalify hardware.",
+   "date": "2026-11-01"
   },
   {
    "key": "crown_monolith_7m",
    "text": "kT Option A 2026-11-01: TWO independent full-pressure ~7m transparent ceramic domes, each 28mm/10.5g/cm2, shaped X(r)=2.35-2.15sqrt(1-(r/4.3)^2), backup shifted 0.12m forward. Both must survive loss of the other; 37 outer segmented nonpressure panes +16 closure gores unchanged. 7m monolithic materials fabrication/pressure/impact and optical radiation behaviour UNSHOWN.",
-   "kT": "AWAITING",
-   "as": "",
-   "date": null
+   "kT": "ACCEPTED",
+   "as": "kT accepts two separately pressure-capable 7m, 28mm ceramic domes as declared; production, fracture and pressure proof remain OPEN. The proposed 0.5m deeper candidate is analysis only, NOT adopted by this acceptance.",
+   "date": "2026-11-01"
   },
   {
    "key": "aoi_failure_independence",
    "text": "AOI-2226 ~3.023m3 (~3t) gel between two separately sealed pressure domes, gap min normal 5.973cm with backup axial offset ~12cm. Neither pressure-bearing nor a pressure seal. Each independent dome MUST withstand full 101.3kPa after other's failure while optogel is present, WITHOUT shock, fracture, crack bridging or fast pressure-pulse coupling. The research has NO measured high-rate response or independent-shell survival test; do not credit impact damping. Rim slip/contact interfaces and >=56L illustrative thermal-expansion compliance still require engineering.",
-   "kT": "AWAITING",
-   "as": "Both pressure domes must withstand full differential and each others failure with gel in gap, without crack coupling, shock, destructive pressure pulse; physical validation still necessary.",
+   "kT": "ACCEPTED",
+   "as": "kT accepts the REQUIREMENT that either dome survive full differential and the other's failure without destructive coupling through AOI. This is an accepted declaration, NOT evidence that this behaviour has been physically demonstrated.",
    "date": "2026-11-01"
   },
   {
@@ -2539,8 +2539,8 @@
    "key": "crown_option_c_open_limit",
    "text": "Option C crown-open limit surfaced in 3D viewer as proposed max speed and/or bow-to-flow angle; BOTH numeric thresholds default UNQUALIFIED. Existing doctrine remains governing (low speed OR bow out of dust flow; closed for torch, radiation, Metric). Sensor accuracy, failure-mode logic and numeric dynamic threshold still OPEN.",
    "kT": "AWAITING",
-   "as": "",
-   "date": null
+   "as": "HELD: open-limit speed/flow-angle values remain visible and UNQUALIFIED; no automatic crown-open permission may derive from unset numeric thresholds.",
+   "date": "2026-11-01"
   },
   {
    "key": "i4_human_factors",
@@ -2580,19 +2580,19 @@
   {
    "key": "crown_option_c_axial_rcs_plumes",
    "text": "External nose shifted 1.2m forward with flat 2m crown and 50deg face. Old accepted G10 axial RCS plume direction/impingement declaration predates the extended nose; no new plume clearance proof performed. The existing RCS nozzle geometry is unchanged, but plume impingement on Option C gores/ceramic/retainers remains HOLD.",
-   "kT": "AWAITING",
-   "as": "",
-   "date": null
+   "kT": "ACCEPTED",
+   "as": "kT accepts RCS plume-clearance assumptions for Option C as declared, without an impingement/erosion simulation or hardware proof.",
+   "date": "2026-11-01"
   },
   {
    "key": "kT_visual_acceptance",
    "text": "Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only",
-   "kT": "AWAITING",
-   "as": "New twin-dome + gel viewer/stills require current-hash visual review; prior single-dome review does not transfer.",
+   "kT": "ACCEPTED",
+   "as": "kT accepts the existing Option C imagery on geometry SHA256 447c05ccb7a3031823e0713ee6010eaa200dbb4c1635b8a5c747b7cd98dae6a6 as a design representation; optical/physical proof and any proposed deeper-dome visuals are separate.",
    "date": "2026-11-01"
   }
  ],
- "kt_decisions_sha256": "a27adda8bf3c42a9a9d1a070ccf4fc6ea3db787e92a826fab132eab7e8406d32",
+ "kt_decisions_sha256": "3c72fa08d61d814d9852f622a1ae16681303b43e48e85edb254908e6fd0609ad",
  "certified": false,
  "certified_rule": "every gate PASS or PASS-DECLARED and every declared assumption ACCEPTED by kT; then both reviewers sign and loom-gate passes",
  "qualification_scope": {
