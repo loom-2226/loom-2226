@@ -1,27 +1,27 @@
-# Metric collapse position: Earth and Mars options (kT scoping note)
+# Metric collapse position: Earth and Mars options for kT
 
-**Class:** ENGINEERING OPTIONS / NON-CANON / NON-RUNTIME / NO NUMERICAL ADOPTION  
-**Scope:** Earth and Mars only; ALL bodies/ALL sponsors/2026–2226 preserved outside this narrow investigation. Navigator remains parked.  
-**Decision:** Which *position-selection family* should be investigated next, not which radius is now certified?
+**ENGINEERING SCOPING ONLY · NON-CANON · NON-RUNTIME · NO POSITION CODE**  
+ALL bodies / ALL sponsors / 2026–2226 unchanged. Navigator parked.  
+**Decision sought:** Which position-selection family should Earth/Mars laboratory scenarios explore?
 
-## Existing authority, correctly separated
+## What LOOM already establishes
 
-1. **Canon II §7.1a** establishes ENERGY speed and Sun-orbit-relative heading B for *natural arrival velocity* in ordinary calibrated Solar System Metric. It expressly determines **no collapse position, route phase, environment gate, or capture orbit**. Desired arrival state is separate and ordinary propulsion pays the mismatch. The Sun + local-body potential evaluated at **0.5 instantaneous Hill radius is diagnostic**, not a mandated physical collapse shell.
-2. **Experience One's Neptune precedent** is a **Neptune-centred collapse distance of 26,085.768742 km** (about **1,463.768742 km altitude** above the 24,622 km mean-radius reference). It is an earned NAV-V1-A operational handoff, **not Neptune's planetary radius**, not Canon II collapse policy, and not directly transferable to Earth/Mars.
-3. **E1 admissibility lineage** rejects Hill / Laplace-SOI radius as direct Metric-collapse policy for its local-flight closure. A separate E1 domain-size finding binds the certified translation domain to vessel configuration, **not** to a celestial exclusion sphere. No numerical Earth/Mars admissibility threshold has been earned.
+- **Canon II §7.1a:** ENERGY-B fixes **natural arrival velocity**, not collapse position, path, environmental admissibility, or orbital capture. Ordinary propulsion pays any mismatch. The **0.5 instantaneous Hill radius** in the frozen-potential calculation is a **diagnostic**, not a physical collapse shell.
+- **Neptune precedent:** Experience One earned an operational collapse at **26,085.768742 km from Neptune's centre**, or **1,463.768742 km above its 24,622 km mean-radius reference**. This is **not Neptune's physical radius**, nor a universal governing distance.
+- **Admissibility lineage:** Hill/SOI-based physical collapse policy was rejected for E1's local-flight closure. A certified translation domain is bound to **vessel configuration**, not a planetary exclusion sphere. No Earth/Mars numerical admissibility boundary is established.
 
-## Three options
+## Options
 
-| Option | Position declared at the moving planet's arrival epoch | Continuous ordinary flight and capture consequences |
-| --- | --- | --- |
-| **A. Fixed body-specific shell** | Declare one planet-centred distance/altitude for Earth and one for Mars, plus *direction*, frame and epoch. No universal 26,086 km transfer. | Short, deterministic handoff may simplify an ordinary-flight lab run, but close approaches can be inside atmosphere/traffic or require demanding steering; arbitrary shells have **no earned admissibility authority**. Orbital insertion needs real local gravity and paid burns. |
-| **B. Hill fraction** | Choose a fixed fraction of each body's instantaneous Hill radius, with arrival direction/epoch. **0.5 Hill** only as a diagnostic comparison. | Very distant handoffs generate much longer ordinary approach, moving-body encounters and potentially expensive capture. Earth additionally raises lunar third-body effects. Existing E1 forced-radius work warns against adopting this as a physical collapse boundary. |
-| **C. Pilot-chosen within certified limits** | Pilot selects a feasible point in an *already validated* Earth/Mars endpoint envelope, recording radius, direction, frame, epoch and selection. | Best prospective operational flexibility for capture geometry, traffic and risk, but a valid envelope **does not yet exist**. Pilot choice cannot manufacture physical admissibility. A capture trajectory and burn must still be solved and flown. |
+| Position selection | Continuous flight and capture implication |
+| --- | --- |
+| **A. Fixed body-specific shell:** explicit Earth radius and Mars radius, each with direction, reference frame and arrival epoch. | Simplest deterministic lab handoff. A near-planet shell can shorten conventional flight but may impose atmosphere, traffic, tidal and high-burn demands. A convenient radius is **not** proof of Metric admissibility. |
+| **B. Hill fraction:** body-specific fraction of instantaneous Hill radius; 0.5 Hill only as comparison. | Farther collapse means substantial ordinary approach and moving-body encounters. Earth may require lunar three-body treatment. Prior E1 work already rejects promoting Hill/SOI directly to collapse law. |
+| **C. Pilot-selected within certified bounds:** select a point from an independently qualified Earth/Mars admissible envelope. | Best eventual operational flexibility for encounter and capture geometry, but **no such envelope is currently earned**. Pilot discretion cannot replace physics or certification. |
 
-## Narrow recommendation and stop condition
+## Recommendation
 
-**For the next *lab-only comparison*, choose A as a declared test coordinate, not a law.** Use one explicit Earth point and one Mars point, each with a body-centred position vector at arrival epoch. Compare post-collapse ordinary-flight workload, environment/traffic assumptions and capture-burn demand. Keep B as a counterexample; keep C as the *potential eventual operating concept* only after real admissibility limits are earned. Do **not** add position-resolution runtime code or Navigator integration in this scoping step.
+**Use A for one Earth and one Mars *lab-only* geometry comparison**, with explicitly declared endpoint vectors. Compare ordinary-flight distance, forces, arrival mismatch, and paid capture-burn requirements. B is a diagnostic counterexample; C is the future operational candidate **only after** a real admissibility envelope exists. Do not adopt a radius, rewrite Canon, or connect Navigator.
 
-A radius alone cannot seed continuous flight: need an absolute **position vector**, epoch, orientation/frame, **ENERGY-B natural velocity**, carried vehicle state and ordinary-force integration. The current seam correctly HOLDS physical position and continuation. Velocity match is **not orbital capture**, even at near-zero planet-relative speed. Current ENERGY-B frozen local-body potential is evaluated at the **diagnostic half-Hill radius**; a different physical handoff radius cannot simply inherit that potential and claim independent E/p/L closure. Position/potential consistency must be addressed in any later executable experiment.
+A body-centred **radius alone is not a physical state**. Continuous ordinary flight requires a complete position vector, epoch/frame, ENERGY-B velocity, carried ship state, and local gravity integration. **Velocity match does not equal capture.** The current canonical seam properly HOLDS physical position and continuation. Its ENERGY-B local potential is evaluated at diagnostic half-Hill; selecting another physical radius requires reassessing that assumption and the E/p/L ledger, not pretending they are independently closed.
 
-**Sources in this repository:** `canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md` §7.1a–b; `engineering/experience_one/E1_METRIC_ADMISSIBILITY_LINEAGE_v0.1.md`; `engineering/experience_one/E1_LOCAL_CURVATURE_TIDAL_SHEAR_v0.1.md`; `engineering/experience_one/E1_COMPOUND_GA_DOMAIN_SIZE_BINDING_v0.1.md`.
+**Repo authority:** Canon II §§7.1a–b; `E1_METRIC_ADMISSIBILITY_LINEAGE_v0.1.md`; `E1_LOCAL_CURVATURE_TIDAL_SHEAR_v0.1.md`; `E1_COMPOUND_GA_DOMAIN_SIZE_BINDING_v0.1.md`.
