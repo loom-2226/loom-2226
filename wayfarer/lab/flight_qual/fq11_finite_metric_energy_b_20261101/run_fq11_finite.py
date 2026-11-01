@@ -38,7 +38,6 @@ def ephe_velocity(body,t):
     return (planetary_state(body,MU,t)[1]+REF)*1000.
 def stage(ship,initial,phases,dt=1.):
     ex={'name':'FQ11 finite ordinary phase', 'gravity_mu_m3_s2':MU*1e9,
-        'require_rcs_control_min_hz':True,
         'initial':{k:np.asarray(initial[k]).tolist() for k in ('position_m','velocity_m_s','q_body_to_inertial','omega_rad_s')},
         'phases':phases}
     return run(copy.deepcopy(ship),ex,dt=dt,sample_s=1e6)
@@ -246,7 +245,7 @@ if __name__=='__main__':
     outputs=[simulate(1.,calc),simulate(.99,calc)]
     neg=forbidden_ej()
     assert neg['pass']
-    guard_case={'name':'FQ11 RCS control cadence negative','require_rcs_control_min_hz':True,
+    guard_case={'name':'FQ11 RCS control cadence negative',
                 'phases':[{'kind':'rcs_turn','duration_s':1.,
                            'angle_deg':10.,'axis':'pitch'}]}
     try:
@@ -256,6 +255,13 @@ if __name__=='__main__':
         guard={'dt_s':.4,'status':'PASS_REJECTED','reason':str(exc)}
     else:
         raise AssertionError('FQ11 RCS dt guard failed open')
+    # Explicitly scoped sensitivity override is available to an investigator,
+    # not used by FQ11's qualification replay.
+    coarse_study={**guard_case,
+                   'allow_coarse_rcs_dt_for_sensitivity_study':True}
+    coarse_output=run(BASE,coarse_study,dt=.4,sample_s=2.)
+    assert coarse_output['phases'][0]['kind']=='rcs_turn'
+    guard['deliberate_sensitivity_override']='PASS: explicit study override runs'
     assert outputs[1]['forward_arrival_mismatch_m_s']>outputs[0]['forward_arrival_mismatch_m_s']>1.
     assert all(x['checks']['remass_floor_5t'] and x['checks']['remass_ledger'] for x in outputs)
     status='PASS' if all(x['status']=='PASS' for x in outputs) else 'HOLD'

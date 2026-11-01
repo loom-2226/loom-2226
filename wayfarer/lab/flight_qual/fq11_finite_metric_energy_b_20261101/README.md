@@ -19,7 +19,7 @@ The **nominal uncapped CRUISE card** computes 11.361004025 TW against a rounded 
 
 ### Derived controller requirement and convergence
 
-[**Wayfarer WF-RCS-FQ11-01**](../../../docs/RCS_CONTROL_LOOP_DERIVED_REQUIREMENT_2026_11_01.md) is **DERIVED LAB**, `>=5 Hz` for RCS feedback/actuator update, **not** hardware canon. [Five-point convergence evidence](RCS_TIMESTEP_CONVERGENCE.md) covers dt 0.1/0.2/0.4/0.5/1.0 s. FQ11 uses dt **0.2 s** for every RCS stage and sets `require_rcs_control_min_hz=True`; `flightlab.run` rejects a 0.4 s FQ11 RCS phase (negative test). The optional guard preserves older exploratory experiments using 0.4 s (including a legacy combined flightlab test) without modifying FQ1–FQ10.
+[**Wayfarer WF-RCS-FQ11-01**](../../../docs/RCS_CONTROL_LOOP_DERIVED_REQUIREMENT_2026_11_01.md) is **DERIVED LAB**, `>=5 Hz` for RCS feedback/actuator update, **not** hardware canon. [Five-point convergence evidence](RCS_TIMESTEP_CONVERGENCE.md) covers dt 0.1/0.2/0.4/0.5/1.0 s. FQ11 uses dt **0.2 s** for every RCS stage; `flightlab.run` rejects **all RCS turns and translations at dt >0.2 s by default** (negative test at dt 0.4 s). Only deliberate sensitivity studies may set `allow_coarse_rcs_dt_for_sensitivity_study=True`; FQ11 does not use it for qualification. The legacy combined flightlab test now runs at 0.2 s, with FQ1–FQ10 unchanged.
 
 **Measured with 0.2 s:** nominal/1% under-burn RCS turns use **144.053/327.135 kg**; total remass **2.983/3.172 t**; final Mars-relative velocity error **0.121/0.481 m/s**. No final RCS translation needed. This contrasts with coarse-step controller chatter and 30.933/60.647 t water use; those are retained in the convergence evidence, not overwritten in earlier FQ records.
 

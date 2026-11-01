@@ -430,9 +430,10 @@ def run(ship,experiment,dt=.1,sample_s=1.):
     nextsample=0.0
     for phase in experiment['phases']:
         kind=phase['kind'];T=float(phase.get('duration_s',0))
-        if (kind in ('rcs_turn','rcs_translate') and
-                experiment.get('require_rcs_control_min_hz',False) and dt>0.2+1e-12):
-            raise ValueError('FQ11 RCS control requires >= 5 Hz (dt <= 0.2 s)')
+        if (kind in ('rcs_turn','rcs_translate') and dt>0.2+1e-12 and
+                not experiment.get('allow_coarse_rcs_dt_for_sensitivity_study',False)):
+            raise ValueError('RCS control requires >= 5 Hz (dt <= 0.2 s); '
+                             'coarse dt allowed only for explicit sensitivity studies')
         if T<=0:raise ValueError('positive phase duration required')
         if state['metric_unresolved']:raise ValueError('canonical metric arrival unresolved: cannot resume ordinary flight or another metric law')
         post_hold=float(phase.get('post_hold_s',0.)) if kind=='rcs_turn' else 0.

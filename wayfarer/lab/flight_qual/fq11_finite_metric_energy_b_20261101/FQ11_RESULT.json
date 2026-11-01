@@ -332,7 +332,8 @@
   "rcs_guard_negative_test": {
     "dt_s": 0.4,
     "status": "PASS_REJECTED",
-    "reason": "FQ11 RCS control requires >= 5 Hz (dt <= 0.2 s)"
+    "reason": "RCS control requires >= 5 Hz (dt <= 0.2 s); coarse dt allowed only for explicit sensitivity studies",
+    "deliberate_sensitivity_override": "PASS: explicit study override runs"
   },
   "note": "FQ11 is HOLD unless nominal and 1% underburn both recover within 1m/s; closed solar E/p/L balances are identities, not pass evidence."
 }
