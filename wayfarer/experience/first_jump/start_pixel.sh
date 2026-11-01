@@ -4,9 +4,11 @@ set -euo pipefail
 BRANCH="experience/first-jump-fq11-pixel-v01"
 ROOT="${FIRST_JUMP_DIR:-$HOME/.local/share/loom-first-jump-v01}"
 PORT="${FIRST_JUMP_PORT:-8878}"
+PYTHON_BIN="$(command -v python || command -v python3 || true)"
+[[ -n "$PYTHON_BIN" ]] || { echo "Python required (Termux: pkg install python git)"; exit 2; }
 if [[ ! -d "$ROOT/.git" ]]; then
   command -v git >/dev/null || { echo "Git is required (Termux: pkg install git python)"; exit 2; }
-  command -v python >/dev/null || { echo "Python is required (Termux: pkg install python git)"; exit 2; }
+  # Python interpreter selected above (python on Termux, python3 elsewhere).
   mkdir -p "$(dirname "$ROOT")"
   git clone -q --depth 1 --filter=blob:none --no-checkout --branch "$BRANCH" \
     https://github.com/loom-2226/loom-2226.git "$ROOT"
@@ -33,7 +35,7 @@ fi
 echo "FIRST JUMP / $(git rev-parse --short HEAD)"
 echo "FQ11 playback; local URL http://127.0.0.1:$PORT"
 echo "Session log under $HOME/.local/state/loom/first_jump/"
-python wayfarer/experience/first_jump/server.py --port "$PORT" &
+"$PYTHON_BIN" wayfarer/experience/first_jump/server.py --port "$PORT" &
 PID=$!
 trap 'kill "$PID" 2>/dev/null || true' EXIT INT TERM
 sleep 1
