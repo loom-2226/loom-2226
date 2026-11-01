@@ -1,0 +1,29 @@
+{
+  "classification": "LAB_ONLY_NON_CANON_INBOUND_METRIC_ENERGY_B",
+  "replay_base_main_sha": "79c86eaba4ba651f81ddbee85a3a928a14eda21e",
+  "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+  "source": "main data/LOOM_2226.sqlite3 ephemeris_states JPL_HORIZONS_DIRECT: Sun-centered J2000 AU and AU/day",
+  "epoch_utc": "2226-08-29T05:00:00Z",
+  "sun_gm_km3_s2": 132712440018,
+  "sun_mass_kg": 1.988409870967742e30,
+  "solar_reflex_approx_km_s": [0.010104756091468306, -0.004486310158674777, -0.00014771269154045875],
+  "jupiter": {
+    "gm_km3_s2": 126686534,
+    "position_au": [1.100291605909785, 4.957284726653116, -0.04578916808622459],
+    "velocity_au_day": [-0.007466990047133519, 0.001986358853434159, 0.0001576742027777811]
+  },
+  "earth": {
+    "gm_km3_s2": 398600.4355,
+    "position_au": [0.8957281555639751, -0.4684784037933336, 0.0001934951154240447],
+    "velocity_au_day": [0.007692293423119071, 0.01518260065952969, -0.000007610814858562652]
+  },
+  "metric_mode": "NORMAL",
+  "half_hill_diagnostic_boundary": true,
+  "torch_mode": "CRUISE",
+  "rcs_dt_s": 0.2,
+  "initial_brake_scale_negative": 0.99,
+  "earth_velocity_match_tolerance_m_s": 1.0,
+  "remass_reserved_kg": 5000,
+  "crew_limit_g": 4.0,
+  "frozen_potential_caveat": "FROZEN SUN+ENDPOINT POTENTIAL; planets move under Sun-only ephemeris; no exact global Killing energy. Approximate Sun-barycentric speed accounting; nonlocal Sun E/p/L exchange is declared Metric miracle and remains unverified."
+}

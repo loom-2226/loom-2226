@@ -1,0 +1,166 @@
+{
+  "fq": "FQ12",
+  "status": "PASS",
+  "classification": "DRAFT_LAB_ONLY_NONCANON_NONNAVIGATOR",
+  "replay_base_main_sha": "79c86eaba4ba651f81ddbee85a3a928a14eda21e",
+  "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+  "ephemeris_epoch_utc": "2226-08-29T05:00:00Z",
+  "frozen_potential_caveat": "FROZEN SUN+ENDPOINT POTENTIAL; planets move under Sun-only ephemeris; no exact global Killing energy. Approximate Sun-barycentric speed accounting; nonlocal Sun E/p/L exchange is declared Metric miracle and remains unverified.",
+  "source": "main JPL_HORIZONS_DIRECT; Sun-only propagated",
+  "no_preburn_kg": 0,
+  "metric": {
+    "metric_time_s": 10116.71173698614,
+    "source_position_km": [
+      164601281.39318734,
+      741599239.5609376,
+      -6849962.046823592
+    ],
+    "arrival_body_center_position_km": [
+      134133504.74291104,
+      -69817285.90814337,
+      28813.08451635234
+    ],
+    "arrival_ship_velocity_km_s": [
+      19.765638872493366,
+      34.42740304312065,
+      -0.01717074300870977
+    ],
+    "earth_velocity_km_s": [
+      13.276923899172312,
+      26.310691530300005,
+      -0.013336723472800054
+    ],
+    "initial_match_delta_v_m_s": 10391.556307265135,
+    "solar_recoil_m_s": 2.6564599538320076e-20,
+    "solar_dL_magnitude_N_m_s": 4.871704814249558e+21,
+    "solar_spin_term_magnitude_N_m_s": 2.2442831412053026e+22,
+    "solar_transport_term_magnitude_N_m_s": 1.7580263919575567e+22,
+    "metric_EpL_IDENTITIES_BY_CONSTRUCTION": {
+      "E_residual_J": 0.0,
+      "p_residual_N_s": 0.0,
+      "L_residual_N_m_s": 66046.01547406171
+    },
+    "canonical_metric_seam_status": "HOLD"
+  },
+  "measured_cases": [
+    {
+      "case": "NOMINAL",
+      "status": "PASS",
+      "checks": {
+        "actual_turn_5hz": true,
+        "source_remass_floor": true,
+        "remass_ledger": true,
+        "crew_4g": true,
+        "actual_capped_jet_power_within_ceiling": true,
+        "earth_velocity_match_within_1m_s": true,
+        "negative_underbrake_mismatch": true
+      },
+      "brake_duration_s": 1069.743972785163,
+      "brake_nominal_duration_s": 1069.743972785163,
+      "brake_initial_aim_delta_v_m_s": 10391.558804579112,
+      "brake_pretrim_error_m_s": 0.8213630436977429,
+      "brake_actual_remass_kg": 6076.68063740591,
+      "rcs_turn_angle_deg": 66.20773750036234,
+      "rcs_turn_dt_s": 0.2,
+      "rcs_turn_end_error_deg": 5.297721153029362e-06,
+      "rcs_turn_end_rate_deg_s": 1.3934208204187394e-06,
+      "rcs_turn_remass_kg": 98.37386442121284,
+      "source_torch_gimbal_deg": 0.36079138072268657,
+      "trim_projected_dv_m_s": 0.015370858416503482,
+      "trim_duration_s": 0.0,
+      "trim_executed": false,
+      "trim_actual_remass_kg": 0.0,
+      "final_earth_velocity_error_m_s": 0.8213630436977429,
+      "final_earth_target_velocity_m_s": [
+        13270.232078303603,
+        26314.173585808687,
+        -13.338160416200914
+      ],
+      "final_ship_velocity_m_s": [
+        13270.292073068342,
+        26314.145852531175,
+        -12.519460994511343
+      ],
+      "final_remass_kg": 243824.94549820243,
+      "total_remass_consumed_kg": 6175.054501797684,
+      "remass_ledger_residual_kg": -2.943852450698614e-08,
+      "peak_crew_g": 0.993136077600757,
+      "actual_capped_jet_power_W": 11361000000000.0,
+      "actual_over_ceiling_W": 0.0,
+      "nominal_card_rounding_difference_W": 4025000.0,
+      "raw_power_float_roundoff_W": 0.001953125,
+      "limitations": [
+        "FROZEN SUN+ENDPOINT potential is not exact time-dependent Killing energy.",
+        "Solar E/p/L transfers are imposed identities by construction; not proof.",
+        "The canonical Metric HOLD seam is not bypassed by the ordinary flightlab.",
+        "Sun-only gravity in real RCS/torch phases, not Earth local and full N-body gravity.",
+        "Each flightlab finite stage carries physical state but resets actuator internal state.",
+        "0.5 Hill is diagnostic, not certified collapse; no orbital capture.",
+        "Declared jet-power/4g only; transient fin thermal and actual RCS power remain OPEN."
+      ]
+    },
+    {
+      "case": "UNDERBRAKE_1_PERCENT",
+      "status": "PASS",
+      "checks": {
+        "actual_turn_5hz": true,
+        "source_remass_floor": true,
+        "remass_ledger": true,
+        "crew_4g": true,
+        "actual_capped_jet_power_within_ceiling": true,
+        "earth_velocity_match_within_1m_s": true,
+        "negative_underbrake_mismatch": true
+      },
+      "brake_duration_s": 1059.0465330573113,
+      "brake_nominal_duration_s": 1069.743972785163,
+      "brake_initial_aim_delta_v_m_s": 10391.558804579112,
+      "brake_pretrim_error_m_s": 104.20175744470139,
+      "brake_actual_remass_kg": 6015.9138310317085,
+      "rcs_turn_angle_deg": 66.20773750036234,
+      "rcs_turn_dt_s": 0.2,
+      "rcs_turn_end_error_deg": 5.297721153029362e-06,
+      "rcs_turn_end_rate_deg_s": 1.3934208204187394e-06,
+      "rcs_turn_remass_kg": 98.37386442121284,
+      "source_torch_gimbal_deg": 0.36079138072268657,
+      "trim_projected_dv_m_s": 104.19852233855933,
+      "trim_duration_s": 10.69900232565659,
+      "trim_executed": true,
+      "trim_actual_remass_kg": 60.775682710892475,
+      "final_earth_velocity_error_m_s": 0.8212440401783132,
+      "final_earth_target_velocity_m_s": [
+        13270.20632562783,
+        26314.186981924573,
+        -13.338165944097996
+      ],
+      "final_ship_velocity_m_s": [
+        13270.257073357885,
+        26314.147226775225,
+        -12.519456001857733
+      ],
+      "final_remass_kg": 243824.93662185475,
+      "total_remass_consumed_kg": 6175.063378145365,
+      "remass_ledger_residual_kg": -1.8448190530762076e-08,
+      "peak_crew_g": 0.9931360851578703,
+      "actual_capped_jet_power_W": 11361000000000.0,
+      "actual_over_ceiling_W": 0.0,
+      "nominal_card_rounding_difference_W": 4025000.0,
+      "raw_power_float_roundoff_W": 0.001953125,
+      "limitations": [
+        "FROZEN SUN+ENDPOINT potential is not exact time-dependent Killing energy.",
+        "Solar E/p/L transfers are imposed identities by construction; not proof.",
+        "The canonical Metric HOLD seam is not bypassed by the ordinary flightlab.",
+        "Sun-only gravity in real RCS/torch phases, not Earth local and full N-body gravity.",
+        "Each flightlab finite stage carries physical state but resets actuator internal state.",
+        "0.5 Hill is diagnostic, not certified collapse; no orbital capture.",
+        "Declared jet-power/4g only; transient fin thermal and actual RCS power remain OPEN."
+      ]
+    }
+  ],
+  "negative_test": {
+    "case": "UNDERBRAKE_1_PERCENT",
+    "larger_error_emerges": true,
+    "real_torch_trim_recovers": true,
+    "status": "PASS"
+  },
+  "note": "Canonical Metric HOLD persists; lab-only forward law B with E/p/L identities by construction."
+}
