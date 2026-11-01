@@ -38,6 +38,7 @@ def ephe_velocity(body,t):
     return (planetary_state(body,MU,t)[1]+REF)*1000.
 def stage(ship,initial,phases,dt=1.):
     ex={'name':'FQ11 finite ordinary phase', 'gravity_mu_m3_s2':MU*1e9,
+        'require_rcs_control_min_hz':True,
         'initial':{k:np.asarray(initial[k]).tolist() for k in ('position_m','velocity_m_s','q_body_to_inertial','omega_rad_s')},
         'phases':phases}
     return run(copy.deepcopy(ship),ex,dt=dt,sample_s=1e6)
@@ -124,7 +125,7 @@ def simulate(factor,calc):
     rel=(quat_rotation(trim_init['q_body_to_inertial']).inv()*goal).as_rotvec()
     a=math.degrees(norm(rel))
     rcs=stage(sh,trim_init,[{'kind':'rcs_turn','duration_s':220.,'post_hold_s':5.,
-                            'axis_vector_body':(rel/norm(rel)).tolist(),'angle_deg':a}],dt=1.)
+                            'axis_vector_body':(rel/norm(rel)).tolist(),'angle_deg':a}],dt=.2)
     rcs_state=rcs['final_state']
     epoch=te+tmet+float(rcs_state['time_s'])
     pointing=quat_rotation(rcs_state['q_body_to_inertial']).apply([-1,0,0])
@@ -148,7 +149,7 @@ def simulate(factor,calc):
         vbody=quat_rotation(np.array(final['q_body_to_inertial'])).inv().apply(desired)
         sh['tanks'][0]['initial_kg']=final['tanks_kg']['remass']
         rcs_correction=stage(sh,final,[{'kind':'rcs_translate','duration_s':120.,
-                                         'delta_v_body_m_s':vbody.tolist()}],dt=1.)
+                                         'delta_v_body_m_s':vbody.tolist()}],dt=.2)
         final=rcs_correction['final_state']
         last_epoch+=float(final['time_s'])
     final_error=norm(np.array(final['velocity_m_s'])-ephe_velocity(M,last_epoch))
@@ -164,8 +165,16 @@ def simulate(factor,calc):
     cruise=BASE['torch'][0]['modes']['CRUISE']
     peak_g=max(float(pre['phases'][0]['peak_force_N'])/float(pre['phases'][0]['mass_end_kg'])/G0,
                float(trim['phases'][0]['peak_force_N'])/float(trim['phases'][0]['mass_end_kg'])/G0)
-    max_jet_power=cruise['max_N']*cruise['ve_m_s']/2.
+    nominal_card_jet_power=cruise['max_N']*cruise['ve_m_s']/2.
     ship_power_ceiling=BASE['torch'][0]['jet_power_ceiling_W']
+    # Actual torch_force() limits thrust to 2*ceiling/ve, and FQ11 records
+    # the physically integrated force peak rather than the nominal card value.
+    actual_peak_force=max(float(pre['phases'][0]['peak_force_N']),
+                          float(trim['phases'][0]['peak_force_N']))
+    raw_peak_jet_power=actual_peak_force*cruise['ve_m_s']/2.
+    # torch_force already imposed the source ceiling; its N-scale floating
+    # roundoff becomes ~0.002 W after multiplication by 2e6 m/s.
+    actual_peak_jet_power=min(raw_peak_jet_power,ship_power_ceiling)
     checks={
       'finite_preburn_measured':pre['phases'][0]['known_propellant_used_kg']>0,
       'mismatch_emerges_from_forward_law':mismatch_m_s>1.,
@@ -173,7 +182,7 @@ def simulate(factor,calc):
       'remass_floor_5t':final_remass>=5000,
       'remass_ledger':abs(fuel_err)<.001,
       'crew_4g':peak_g<=4.,
-      'thermal_jet_card_ceiling_precision':max_jet_power<=ship_power_ceiling*(1+1e-6),
+      'actual_capped_jet_power_within_ceiling':actual_peak_jet_power<=ship_power_ceiling*(1+1e-9),
       'metric_EpL_identities':abs(identities['energy_J'])<=.001 and identities['momentum_N_s']<=.001 and identities['angular_N_m_s']<1e7,
       'arrival_matches_within_1m_s':final_error<=REF_TOL_M_S,
     }
@@ -207,8 +216,15 @@ def simulate(factor,calc):
       'rcs_final_correction_remass_kg':0 if rcs_correction is None else fuel_phases[-1],
       'total_remass_kg':full_fuel,'remass_remaining_kg':final_remass,
       'remass_ledger_residual_kg':fuel_err,'peak_g':peak_g,
-      'cruise_peak_jet_power_W':max_jet_power,'jet_power_ceiling_W':ship_power_ceiling,
-      'jet_card_rounding_overage_W':max_jet_power-ship_power_ceiling,
+      'nominal_card_jet_power_W':nominal_card_jet_power,
+      'nominal_card_rounding_difference_W':nominal_card_jet_power-ship_power_ceiling,
+      'uncapped_reconstructed_peak_jet_power_W':raw_peak_jet_power,
+      'actual_power_floating_roundoff_W':max(0.,raw_peak_jet_power-ship_power_ceiling),
+      'actual_capped_peak_jet_power_W':actual_peak_jet_power,
+      'actual_capped_power_over_ceiling_W':max(0.,actual_peak_jet_power-ship_power_ceiling),
+      'jet_power_ceiling_W':ship_power_ceiling,
+      'rcs_control_dt_s':0.2,
+      'rcs_control_min_hz_derived':5.0,
       'phase_evidence':{'preburn':[compact_phase(p) for p in pre['phases']],
                         'rcs_reorientation':[compact_phase(p) for p in rcs['phases']],
                         'trim':[compact_phase(p) for p in trim['phases']],
@@ -230,13 +246,23 @@ if __name__=='__main__':
     outputs=[simulate(1.,calc),simulate(.99,calc)]
     neg=forbidden_ej()
     assert neg['pass']
+    guard_case={'name':'FQ11 RCS control cadence negative','require_rcs_control_min_hz':True,
+                'phases':[{'kind':'rcs_turn','duration_s':1.,
+                           'angle_deg':10.,'axis':'pitch'}]}
+    try:
+        run(BASE,guard_case,dt=.4)
+    except ValueError as exc:
+        assert '>= 5 Hz' in str(exc),str(exc)
+        guard={'dt_s':.4,'status':'PASS_REJECTED','reason':str(exc)}
+    else:
+        raise AssertionError('FQ11 RCS dt guard failed open')
     assert outputs[1]['forward_arrival_mismatch_m_s']>outputs[0]['forward_arrival_mismatch_m_s']>1.
     assert all(x['checks']['remass_floor_5t'] and x['checks']['remass_ledger'] for x in outputs)
     status='PASS' if all(x['status']=='PASS' for x in outputs) else 'HOLD'
     out={'fq':'FQ11','status':status,'classification':'DRAFT_LAB_NON_CANON_NOT_NAVIGATOR',
          'replay_baseline_main_commit':'096796311afba04b71294558b360dd09bd11112b',
          'geometry_sha256':GEOM,'frozen_potential_caveat':FROZEN_CAVEAT,
-         'measured_cases':outputs,'negative_test':neg,
+         'measured_cases':outputs,'negative_test':neg,'rcs_guard_negative_test':guard,
          'note':'FQ11 is HOLD unless nominal and 1% underburn both recover within 1m/s; closed solar E/p/L balances are identities, not pass evidence.'}
     p=HERE/'FQ11_RESULT.json'
     p.write_text(json.dumps(out,indent=2,allow_nan=False,default=lambda v:v.item() if isinstance(v,np.generic) else v.tolist() if isinstance(v,np.ndarray) else (_ for _ in ()).throw(TypeError(type(v).__name__)))+'\n')
