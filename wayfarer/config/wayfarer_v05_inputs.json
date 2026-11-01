@@ -1778,7 +1778,7 @@
     "food_packaging_factor": 1.5,
     "battery_hours": 24,
     "essential_load_kw": 0.6,
-    "battery_kwh_per_kg": 0.2,
+    "battery_kwh_per_kg": 4.0,
     "fans_sensors_t": 0.02,
     "heat_per_person_kw": 0.14,
     "mass_t": 0.3,
@@ -2009,7 +2009,7 @@
    "prov": "ENGINEERING_ASSUMPTION"
   },
   "mission_courier_systems_t": 20.0,
-  "engineering_reserve_t": 11.784117,
+  "engineering_reserve_t": 11.284117,
   "engineering_reserve_rule": "spread over dry parts in proportion to their mass (growth margin), not lumped at one point",
   "c_tank_penalty_t": 8.0,
   "radiator_panels_t": 8.784,
@@ -2060,7 +2060,10 @@
   "aoi_crown_t": 7.728898,
   "aoi_aft_bulkhead_reinforcement_t": 0.5,
   "crown_option_c_additions_t": 4.69467,
-  "l3_berth_shield_liner_t": 0
+  "l3_berth_shield_liner_t": 0,
+  "house_fuel_tank_t": 0.5,
+  "house_reactor_electrical_reallocation_t": 2.0,
+  "house_peak_store_electrical_reallocation_t": 0.65
  },
  "longerons": {
   "prov": "CLAUDE_DESIGN v0.5.7 (structure/longeron_study.py, kT 2026-10-25 'consolidate'): four CFRP tubes in an X, matching canon's 4 axial longerons. The upper pair stay where the v0.5.6 slot sills were (edging the bay slot); the lower pair mirror them in the tank's lower cells. Sized at 5 g x 1.5 to a 250 MPa design stress (400 MPa floor x 0.62 for impact, joints, environment). v0.5.6 had 3 planks + 2 sills (36.9 t) running at 65 MPa. NON-GOVERNING; SOL TO REVIEW REV 5 (structure review 2026-10-26): wall 72 -> 84 mm (area 0.0830 m2, 1% margin) so axial + bending (thrust-line offset 13.5 MN m + 0.5 deg thrust error 9.1 MN m) stays within the 250 MPa design stress",
@@ -3187,5 +3190,63 @@
   "gel_from_reserve_t": 3.0,
   "backup_dome_from_reserve_t": 4.345246,
   "total_from_reserve_with_AOI_t": 8.184665
+ },
+ "ship_power": {
+  "status": "kT accepted 2026-11-01 architecture; declared engineering figures (NOT demonstrated 2226 hardware)",
+  "source": "dedicated D-He3 house fusion reactor, direct conversion; relational plant and Metric consume electrical power, no energy generation from relational plant or Metric bank",
+  "reactor_net_electric_mw": 80.0,
+  "reactor_net_specific_kw_kg": 40.0,
+  "reactor_dry_t": 2.0,
+  "direct_conversion_electric_efficiency": 0.75,
+  "peak_store": "flywheel",
+  "peak_store_nominal_mwh": 6.5,
+  "peak_store_round_trip_efficiency": 0.9,
+  "peak_store_specific_kwh_kg": 10.0,
+  "peak_store_specific_kw_kg_min": 800.0,
+  "peak_store_dry_t": 0.65,
+  "peak_store_discharge_mw": 520.0,
+  "peak_store_discharge_seconds": 40.0,
+  "fuel": "D-He3",
+  "fuel_t": 5.0,
+  "fuel_specific_fusion_j_kg": 353000000000000.0,
+  "fuel_tank_dry_t": 0.5,
+  "fuel_container_proxy": {
+   "x_m": [
+    21.0,
+    29.0
+   ],
+   "r_m": [
+    2.0,
+    4.0
+   ],
+   "theta_deg": [
+    220.0,
+    320.0
+   ],
+   "note": "Mass/CG proxy with ~84m3 volume; actual containment, cryogenic shielding, bay/utility-clearance and plumbing are NOT physically verified"
+  },
+  "routine_flip_seconds": 120.0,
+  "fast_flip_seconds": 40.0,
+  "rcs_nominal_40s_nameplate_mw": 518.9694,
+  "rcs_routine_scale_from_40s": 0.1111111111111111,
+  "rcs_nozzle_ship_heat_fraction": 0.1,
+  "battery_specific_kwh_kg": 4.0,
+  "standard_loads_kw": {
+   "avionics": 20.0,
+   "eclss_galley": 15.0,
+   "lighting_misc": 10.0,
+   "crew_metabolic_heat_only": 1.5,
+   "plant_standby": 10.0,
+   "cryo_standby": 10.0,
+   "docked_umbilical_control": 10.0,
+   "emergency_shelter_essential": 0.6
+  },
+  "qualification_limits": [
+   "routine 120s nozzle throttling/duty is a declared 1/t^2 equal-angle comparison, NOT observed FQ trace",
+   "flywheel ~10kWh/kg and 800kW/kg plus reactor 40kW/kg are speculative 2226 properties, containment and conversion losses unqualified",
+   "Metric field generation electrical demand beyond mapped 34.8MW cryo-chain remains UNQUANTIFIED",
+   "house failure backup 24h 0.6kW only, not indefinite",
+   "torch pulsed, always; no free background torch electrical supply; torch-house operation emergency-only"
+  ]
  }
 }

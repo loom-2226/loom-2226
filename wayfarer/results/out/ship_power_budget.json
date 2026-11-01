@@ -1,0 +1,280 @@
+{
+ "geometry_sha256": "49cc20e70f5ad2b39280fa460cec07874a1053ca2a6fed48dda38ca4527d7c6b",
+ "input_sha256": "40890d7c0664b79897aabc0497203329693676c4360cd5bab689adf0e480ed23",
+ "status": "ENGINEERING SCREEN / NOT FLIGHT QUALIFICATION",
+ "reactor": {
+  "rated_net_electric_mw": 80.0,
+  "net_specific_kw_kg": 40.0,
+  "dry_mass_t_within_existing_55t_electrical": 2.0,
+  "direct_conversion_efficiency": 0.75
+ },
+ "store": {
+  "type": "flywheel",
+  "nominal_energy_mwh": 6.5,
+  "deliverable_energy_mwh": 6.1664,
+  "40s_requirement_mwh": 5.7663,
+  "mass_t_within_existing_55t_electrical": 0.65,
+  "energy_density_kwh_kg": 10.0,
+  "discharge_density_kw_kg": 800.0,
+  "recharge_min_at_coast_house_rating": 5.164,
+  "fast_flips_per_hour_at_steady_coast": 11.62,
+  "charge_and_discharge_eff_each": 0.948683
+ },
+ "fuel": {
+  "initial_wet_t": 5.0,
+  "tank_dry_t_from_reserve": 0.5,
+  "fusion_energy_j_per_kg": 353000000000000.0,
+  "house_consumption_only": true
+ },
+ "thermal": {
+  "radiator_span_full_capacity_mw": 387.212,
+  "radiator_span_torch_capacity_mw": 73.019,
+  "habitat_heat_pump_electric_mw": 0.3239,
+  "cold_running_thermal_buffer_kwh": 872.08,
+  "cold_running_retained_kw": 92.7,
+  "cold_running_hours": 9.41
+ },
+ "mass": {
+  "S1_wet_t": 1172.681453,
+  "dry_t": 867.681453,
+  "reserve_t": 11.284117,
+  "remaining_above_5t_floor_t": 6.284117,
+  "electrical_original_55t_reallocation_t": 2.65
+ },
+ "states": [
+  {
+   "state": "docked",
+   "loads_mw": {
+    "avionics_ECLSS_lighting": 0.045,
+    "habitat_heat_pump": 0.3238965517241379,
+    "plant_and_cryo_standby": 0.02,
+    "docking_control": 0.01
+   },
+   "total_load_mw": 0.398897,
+   "house_reactor_mw": 0.398897,
+   "charged_store_mw": 0,
+   "battery_mw": 0,
+   "house_reactor_waste_heat_mw": 0.132966,
+   "other_heat_to_reject_mw": 0.390397,
+   "heat_rejected_mw": 0.523362,
+   "radiator_capacity_mw": 387.212,
+   "heat_scope": "radiator",
+   "house_fuel_g_hr": 0.005424,
+   "house_fuel_g_event": null,
+   "duration_s": null,
+   "deficits": [],
+   "electrical_balance_mw": 0.0
+  },
+  {
+   "state": "coast",
+   "loads_mw": {
+    "avionics_ECLSS_lighting": 0.045,
+    "habitat_heat_pump": 0.3238965517241379,
+    "plant_and_cryo_standby": 0.02
+   },
+   "total_load_mw": 0.388897,
+   "house_reactor_mw": 0.388897,
+   "charged_store_mw": 0,
+   "battery_mw": 0,
+   "house_reactor_waste_heat_mw": 0.129632,
+   "other_heat_to_reject_mw": 0.390397,
+   "heat_rejected_mw": 0.520029,
+   "radiator_capacity_mw": 387.212,
+   "heat_scope": "radiator",
+   "house_fuel_g_hr": 0.005288,
+   "house_fuel_g_event": null,
+   "duration_s": null,
+   "deficits": [],
+   "electrical_balance_mw": 0.0
+  },
+  {
+   "state": "coast_recharging_store",
+   "loads_mw": {
+    "ordinary_ship_services": 0.3888965517241379,
+    "flywheel_charger_DC": 79.61110344827586
+   },
+   "total_load_mw": 80.0,
+   "house_reactor_mw": 80.0,
+   "charged_store_mw": 0,
+   "battery_mw": 0,
+   "house_reactor_waste_heat_mw": 26.666667,
+   "other_heat_to_reject_mw": 4.475776,
+   "heat_rejected_mw": 31.142442,
+   "radiator_capacity_mw": 387.212,
+   "heat_scope": "radiator",
+   "house_fuel_g_hr": 1.087819,
+   "house_fuel_g_event": null,
+   "duration_s": null,
+   "deficits": [
+    "CHARGER_ELECTRONICS_NOT_PHYSICALLY_QUALIFIED"
+   ],
+   "electrical_balance_mw": 0.0
+  },
+  {
+   "state": "routine_120s_flip",
+   "loads_mw": {
+    "ordinary_ship_services": 0.3888965517241379,
+    "RCS_120s_throttled_proxy": 57.66326666666666
+   },
+   "total_load_mw": 58.052163,
+   "house_reactor_mw": 58.052163,
+   "charged_store_mw": 0,
+   "battery_mw": 0,
+   "house_reactor_waste_heat_mw": 19.350721,
+   "other_heat_to_reject_mw": 6.156723,
+   "heat_rejected_mw": 25.507444,
+   "radiator_capacity_mw": 387.212,
+   "heat_scope": "radiator",
+   "house_fuel_g_hr": 0.789378,
+   "house_fuel_g_event": 0.026313,
+   "duration_s": 120,
+   "deficits": [
+    "RCS_120S_THROTTLING_LAW_DECLARED_NOT_TRACED"
+   ],
+   "electrical_balance_mw": 0.0
+  },
+  {
+   "state": "fast_40s_flip",
+   "loads_mw": {
+    "ordinary_ship_services": 0.3888965517241379,
+    "RCS_40s_emergency": 518.9694
+   },
+   "total_load_mw": 519.358297,
+   "house_reactor_mw": 0.388897,
+   "charged_store_mw": 518.9694,
+   "battery_mw": 0,
+   "house_reactor_waste_heat_mw": 0.129632,
+   "other_heat_to_reject_mw": 80.359717,
+   "heat_rejected_mw": 80.489349,
+   "radiator_capacity_mw": 387.212,
+   "heat_scope": "radiator",
+   "house_fuel_g_hr": 0.005288,
+   "house_fuel_g_event": 5.9e-05,
+   "duration_s": 40,
+   "deficits": [
+    "FAST_FLIP_TRANSIENT_POWER_BUS_AND_WASTE_HEAT_UNQUALIFIED"
+   ],
+   "electrical_balance_mw": 0.0
+  },
+  {
+   "state": "pulsed_torch_burn",
+   "loads_mw": {
+    "ordinary_ship_services": 0.3888965517241379,
+    "magnet_cryocooling_electric": 47.52
+   },
+   "total_load_mw": 47.908897,
+   "house_reactor_mw": 47.908897,
+   "charged_store_mw": 0,
+   "battery_mw": 0,
+   "house_reactor_waste_heat_mw": 15.969632,
+   "other_heat_to_reject_mw": 48.390397,
+   "heat_rejected_mw": 64.360029,
+   "radiator_capacity_mw": 73.019,
+   "heat_scope": "radiator",
+   "house_fuel_g_hr": 0.651452,
+   "house_fuel_g_event": null,
+   "duration_s": null,
+   "deficits": [
+    "TORCH_1_TO_10_HZ_PULSES_NOT_HOUSE_POWER_SOURCE"
+   ],
+   "electrical_balance_mw": 0.0,
+   "torch_hot_fins_rejected_mw": 1399.526
+  },
+  {
+   "state": "Metric_HARD",
+   "loads_mw": {
+    "ordinary_ship_services": 0.3888965517241379,
+    "Metric_cryo_chain_at_1300K": 34.763636363636365
+   },
+   "total_load_mw": 35.152533,
+   "house_reactor_mw": 35.152533,
+   "charged_store_mw": 0,
+   "battery_mw": 0,
+   "house_reactor_waste_heat_mw": 11.717511,
+   "other_heat_to_reject_mw": 35.290033,
+   "heat_rejected_mw": 47.007544,
+   "radiator_capacity_mw": 387.212,
+   "heat_scope": "radiator",
+   "house_fuel_g_hr": 0.477995,
+   "house_fuel_g_event": null,
+   "duration_s": null,
+   "deficits": [
+    "METRIC_FIELD_DRIVE_ELECTRIC_DRAW_UNQUANTIFIED"
+   ],
+   "electrical_balance_mw": 0.0
+  },
+  {
+   "state": "cold_running",
+   "loads_mw": {
+    "basic_habitat_electrical": 0.045,
+    "plant_and_cryo_standby": 0.02
+   },
+   "total_load_mw": 0.065,
+   "house_reactor_mw": 0.065,
+   "charged_store_mw": 0,
+   "battery_mw": 0,
+   "house_reactor_waste_heat_mw": 0.021667,
+   "other_heat_to_reject_mw": 0,
+   "heat_rejected_mw": 0.007087,
+   "radiator_capacity_mw": null,
+   "heat_scope": "passive_skin_and_water_heat_buffer",
+   "house_fuel_g_hr": 0.000884,
+   "house_fuel_g_event": null,
+   "duration_s": null,
+   "deficits": [
+    "BUFFER_FULL_AFTER_9.41_H",
+    "REACTOR_DEEP_THROTTLE_UNQUALIFIED"
+   ],
+   "electrical_balance_mw": 0.0,
+   "heat_retained_in_shield_water_mw": 0.092704
+  },
+  {
+   "state": "shelter_emergency",
+   "loads_mw": {
+    "minimal_shelter_24h_backup": 0.0006,
+    "plant_cryo_and_safety_watch": 0.02
+   },
+   "total_load_mw": 0.0206,
+   "house_reactor_mw": 0.0206,
+   "charged_store_mw": 0,
+   "battery_mw": 0,
+   "house_reactor_waste_heat_mw": 0.006867,
+   "other_heat_to_reject_mw": 0.022,
+   "heat_rejected_mw": 0.028867,
+   "radiator_capacity_mw": 387.212,
+   "heat_scope": "radiator",
+   "house_fuel_g_hr": 0.00028,
+   "house_fuel_g_event": null,
+   "duration_s": null,
+   "deficits": [
+    "SHELTER_72H_LIFE_SUPPORT_DECLARED_BUT_ONLY_24H_BATTERY_IF_HOUSE_LOST"
+   ],
+   "electrical_balance_mw": 0.0
+  },
+  {
+   "state": "house_reactor_failed",
+   "loads_mw": {
+    "essential_shelter": 0.0006,
+    "ordinary_ship_services_unavailable": 0.3882965517241379
+   },
+   "total_load_mw": 0.388897,
+   "house_reactor_mw": 0.0,
+   "charged_store_mw": 0.0,
+   "battery_mw": 0.0006,
+   "house_reactor_waste_heat_mw": 0.0,
+   "other_heat_to_reject_mw": 0.0,
+   "heat_rejected_mw": 0.0,
+   "radiator_capacity_mw": null,
+   "heat_scope": "passive_crown_closed_skin",
+   "house_fuel_g_hr": 0.0,
+   "house_fuel_g_event": null,
+   "duration_s": 86400,
+   "electrical_balance_mw": -0.388297,
+   "deficits": [
+    "NORMAL_LOADS_UNPOWERED_0.388_MW",
+    "ESSENTIAL_BATTERY_EXHAUSTED_AFTER_24_H",
+    "PULSED_TORCH_HOUSE_MODE_EMERGENCY_ONLY_NOT_CREDITED"
+   ]
+  }
+ ]
+}

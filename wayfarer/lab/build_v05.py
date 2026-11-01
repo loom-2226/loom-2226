@@ -842,8 +842,20 @@ def build(I, dy=0.0, dz=0.0):
     add("electrical", "Electrical conversion and distribution (aft C-ring)", "electrical",
         CSlot(tx1, mx1, T["r_in_m"], T["r_out_m"], T["slot_half_width_m"]), es["aft_c_ring"], es["prov"], "equipment")
     er = I["service"]["electrical_ring"]
+    HP=I.get("ship_power")
+    house_electric=(HP["reactor_dry_t"]+HP["peak_store_dry_t"]) if HP else 0.0
     add("electrical_fwd", "Electrical conversion and distribution (service ring)", "electrical",
-        Sector(er["x_m"][0], er["x_m"][1], er["r_m"][0], er["r_m"][1], er["theta_deg"][0], er["theta_deg"][1]), es["service_ring"], es["prov"], "equipment")
+        Sector(er["x_m"][0], er["x_m"][1], er["r_m"][0], er["r_m"][1], er["theta_deg"][0], er["theta_deg"][1]), es["service_ring"]-house_electric, es["prov"], "equipment")
+    if HP:
+        ring=Sector(er["x_m"][0], er["x_m"][1], er["r_m"][0], er["r_m"][1], er["theta_deg"][0], er["theta_deg"][1])
+        add("house_reactor","Dedicated D-He3 house reactor and direct converter (55t electrical line reallocation)",
+            "electrical",ring,HP["reactor_dry_t"],"kT house-power declaration; electrical ring reallocation, not new mass","equipment")
+        add("house_peak_store","High-power flywheel + containment (55t electrical line reallocation)",
+            "electrical",ring,HP["peak_store_dry_t"],"kT 2226 store-density declaration; not experimentally qualified","equipment")
+        fc=HP["fuel_container_proxy"]
+        add("house_fuel_tank","D-He3 fuel tank, dry containment proxy","electrical",
+            Sector(*fc["x_m"],*fc["r_m"],*fc["theta_deg"]),HP["fuel_tank_dry_t"],
+            "kT house-power declaration: explicit engineering reserve draw; packaging not qualified","equipment",tags=("from_reserve","house_fuel_tank"))
     add("plant_aft", "Relational plant, aft block", "plant", Sector(mx1, H["manifold_x_m"][1], 0.0, pf["r_m"]),
         I["ledger"]["relational_plant_t"] - pf["mass_t"], "DERIVED", "plant")
     add("manifold", "Radiator manifold, pumps and heat exchangers", "thermal",
@@ -970,6 +982,16 @@ def fluids(I, sec, jacket_parts, jacket_t, w_service, state):
         f = w / vol[n]
         out.append(Part(f"water_{n}", f"Water, tank cell {n.replace('_', ' ')}" + (" (isolated)" if n == iso else ""), "water",
                         SettledWater(c, f), w, "DERIVED", "water", dry=False, tags=("water",) + (("isolated",) if n == iso else ())))
+    # House D-He3 is a separate wet consumable, never dry reserve or water remass.
+    HP=I.get("ship_power")
+    if HP:
+        fc=HP["fuel_container_proxy"]
+        hm=st.get("house_fuel_t",HP["fuel_t"])
+        if hm>0:
+            out.append(Part("house_fuel","D-He3 consumable house-reactor fuel","house_fuel",
+                Sector(*fc["x_m"],*fc["r_m"],*fc["theta_deg"]),hm,
+                "ENGINEERING_ASSUMPTION wet consumable, full reference S1–S7 inventory","dhe3",
+                dry=False,tags=("house_fuel","no_shield_credit")))
     usable = remass * (1 - (vol[iso] / tot if iso else 0.0))
     return out, cells, usable, w_ctank_protected
 

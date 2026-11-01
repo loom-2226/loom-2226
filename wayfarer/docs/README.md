@@ -1,3 +1,15 @@
+# CURRENT research/engineering branch: Wayfarer ship-power budget (2026-11-01)
+
+**Base protected main:** `ce9ee081`; previously accepted full Option C geometry `7f620c53` (PR #439 merged). This new **unmerged engineering candidate** moves 5t of D–He3 HOUSE fuel into **wet consumable mass**, plus 0.5t of DRY containment charged to reserve, and therefore has a NEW source geometry: `49cc20e70f5ad2b39280fa460cec07874a1053ca2a6fed48dda38ca4527d7c6b`.
+
+[**Current source-backed 10-state power and heat ledger**](SHIP_POWER_BUDGET_2026_11_01.md) is the active new document for this power task. Dedicated 80MW net D–He3 house reactor; relational plant and Metric bank are **not generators**. Main torch is **PULSED** (all operating modes) and emergency house-power use of the pulsed torch is **not** a continuous standby source. Emergency ~519MW×40s RCS belongs to a charged flywheel; routine 120s from the house reactor is currently a declared throttling-law approximation, not an observed nozzle trace.
+
+**New geometry evidence:** targeted G1/G3/G4 PASS/PASS/PASS-DECLARED, 78/78 actual fresh FQ1–FQ4 (new folder `lab/flight_qual/fq_house_power_20261101/`). The earlier 7f620c53 G6/G12 source-stamped evidence and `certified=true` acceptance **DO NOT TRANSFER TO THIS HASH**. Physical reactor, flywheel, tank containment, coolant loops, crew radiation at new source hash and visual state remain unqualified. Metric arrival HOLD; Navigator EXCLUDED; no new simulator.
+
+The remaining pages below include superseded historic source-hash and branch-status narratives. Keep them as evidence only; do not mistake them for the latest branch state.
+
+---
+
 # CURRENT Option C, 2026-11-01 source 447c05ccb7a3031823e0713ee6010eaa200dbb4c1635b8a5c747b7cd98dae6a6
 
 **Option C chosen by kT; geometry checks and FQ1–FQ4 pass; mechanical/pressure/damage qualifications remain kT HOLD.** [Current close-out, mass table, acceptance](CROWN_SHELL_OPTION_C_CLOSEOUT_2026_11_01.md). Earlier snapshots below are historical, not current.
