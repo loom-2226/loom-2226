@@ -6,7 +6,7 @@
 
 | File | SHA-256 |
 |---|---|
-| `LOOM_2226_Canon_Baseline_Manifest_v2.4.md` | `14319436861a18c87f69b166be3c06d2890c758f959b9ce336774b8b8a60c219` |
+| `LOOM_2226_Canon_Baseline_Manifest_v2.4.md` | `af6351c30c95d244ff24280746ccafad85112f6ebe08b33bf98caec36054649b` |
 | `LOOM_2226_CANON_I_World_History_Frontier_v2.4.md` | `98a83f50b68b68931ad24cfec97c347cc506901973d0e0787c09f2baa27cd3a6` |
 | `LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md` | `d35a7433f93ef4f98ea7e7b29ea76d8af0a520552e56ca4158f103a0492ac742` |
 | `LOOM_2226_CANON_III_Authority_Continuity_GM_Model_v2.4.md` | `0bda6bd0e0ad5a800c60fb5973c406a61c41356f11a128c18692ff87308c11e5` |
@@ -15,7 +15,7 @@
 | `LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md` | `1141edc0e4efc5b81339274825139d60ccbff2cf1dcc5408d417c2dfbfec1996` |
 | `LOOM_2226_Earth_Biosynthetic_Canon_Amendment_v2.4b.md` | `33a9302e8aabedc7214510bbe493a6770e8a4887dfb6913c582d585d6c18a47c` |
 | `LOOM_2226_Synthetic_Personhood_Horizons_Canon_Amendment_v2.4c.md` | `9c559065d6d3c85606dfcfc8e439f4ae716ecdde2caa1bc7484a8ee76b8ff995` |
-| `LOOM_2226_Canon_v2.4_Validation_Report.md` | `b2e31f196dcf00e95d8660a9834a039744bf1d8b122632aaaf0ad4e8cb030967` |
+| `LOOM_2226_Canon_v2.4_Validation_Report.md` | `eca5d8ada8f12b19c21af3fe1dda45c23c40c4b44b34386171729bb40154156a` |
 
 ## 2 November 2026 CCR-2026-0003 Canon II in-place arrival rule
 
