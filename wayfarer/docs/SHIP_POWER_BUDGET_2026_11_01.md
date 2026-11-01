@@ -1,42 +1,73 @@
-# Wayfarer two-reactor ship power ledger | 2026-11-01
+# Wayfarer house power, storage and independent slow recovery | 2026-11-01
 
-**ENGINEERING CANDIDATE, NON-CANON, NO HARDWARE CERTIFICATION.** kT decisions on PR #440. No Navigator, Metric arrival or main merge. Previous 7f620c53 G6/G12 certification does not apply to a new geometry source hash.
+**ENGINEERING CANDIDATE, NON-CANON. NO HARDWARE QUALIFICATION. PR #440 DRAFT, NO MERGE.**
 
-New physical source hash: `9544a893d711fb9f9c91b145edeb5137728429315e0c852e1e8beab60da46661`.
+Geometry SHA256: `f7dc6b8c69cf56f48a55eeaa1a5daa7779fce3e06474157c960ef2f08cac95f7`; exact current 40s RCS trace: `4e53d93684edab5a07320b3116e4f3873c26589dec513de6263b74932cdc6014`. Historic FQ/acceptance does not transfer between hashes.
 
-**House source:** **2×50MW** D–He3 direct-conversion reactors, **5MW minimum per live unit (10%)**, declared 2226 40kW/kg net, 75% conversion. **2.50t** for both inside existing 55t electrical allocation. One unit can independently carry coast/Metric/torch magnet load; 120s RCS uses one unit + flywheel. Surplus from a live reactor charges the store, but **once full it must shut off/cycle**. Never claim 0.389MW continuous plant idle.
+**Reactors:** 2×50MW net D–He3, each 5MW minimum online, 2.50t dry declared at 40kW/kg and 75% net conversion. Must cycle off or store/spill surplus; never throttle to sub-MW.
 
-**Storage:** 7.00MWh flywheel (deliverable 6.64MWh), 0.70t in existing electrical allocation, declared 2226 10kWh/kg and 800kW/kg, 90% roundtrip. Emergency fast flip 5.771MWh, **7.75 minutes** to refill that used energy from one 50MW reactor. **7.74 theoretical electric recharge cycles/hour**, NOT permission for that manoeuvre rate or unlimited RCS remass.
+**Battery:** 3.0MWh nominal / 2.846MWh discharge, 1.50t at declared 2.0kWh/kg; quiet 65kW energy-only 43.8h. Both reactors failed: first 1h normal, then 37.80h 65kW essential energy-only.
 
-**Quiet and cold:** BOTH house reactors OFF. Flywheel supplies 0.065MW essentials, 102.2 h energy-only endurance, but existing 50t×15K thermal buffer fills after **11.70h** at ~74.6kW retained. No 200×–4000× speculative reactor throttling.
+**Pulse flywheel:** counter-rotating pairs with burst containment, 1.5MWh nominal / 1.423MWh delivered, 1.5t at 1.0kWh/kg and 150.0kW/kg. Declared 225.0MW maximum. The full 40s current-geometry trace requires 1.302MWh and 202.6MW peak after one steady 50MW reactor. Actual heater/power-switching implementation is OPEN.
 
-**Metric authority distinction:** E1 canon supplies cryogenic load and PMAD efficiency, not standalone Metric field-power watts. The extra delivered control/field power is **declared NON-CANON** NORMAL 1MW / FAST 2MW / EXPEDITE 3MW / HARD 5MW. Apply E1 0.98×0.96 PMAD efficiency to cryo + field delivery, and count distribution losses as heat. Environmental-correction load remains explicitly OPEN, not hidden in the 5MW.
+**C-lite:** 0.25t provisioned (dry 0.10t + **wet** 0.15t), ~75kg for a 600s recovery, 2 nominal turns. No current dynamics/propulsion qualification.
 
-| Operating state | House MW | Flywheel MW out/in | Battery MW | Loads (MW, components) | Rejected MW | Deficit or closure | House fuel g/h |
-|---|---:|---:|---:|---|---:|---|---:|
-| docked_one_online_min | 5.000 | 0.000 / 4.601 | 0.0000 | avionics_ECLSS_lighting 0.045, heat_pump 0.324, plant_and_cryo_standby 0.020, docking_control 0.010 | 2.293 | NAMED: FULL_STORE_REQUIRES_REACTOR_CYCLE_OFF | 0.0680 |
-| docked_crown_open_worst_sun | 5.000 | 0.000 / 3.904 | 0.0000 | avionics_ECLSS_lighting 0.045, solar_aperture_heat_pump 1.021, standby 0.020, docking_control 0.010 | 3.055 | NAMED: FULL_STORE_REQUIRES_REACTOR_CYCLE_OFF; AOI_OPTICAL_ATTENUATION_NOT_CREDITED | 0.0680 |
-| coast_one_online_min | 5.000 | 0.000 / 4.611 | 0.0000 | ordinary_ship_services 0.389 | 2.294 | NAMED: FULL_STORE_REQUIRES_REACTOR_CYCLE_OFF | 0.0680 |
-| coast_recharging_fast_flip | 50.000 | 0.000 / 49.611 | 0.0000 | ordinary_ship_services 0.389 | 19.603 | NAMED: CHARGER_BULK_POWER_HARDWARE_UNQUALIFIED | 0.6799 |
-| routine_120s_flip | 50.000 | 8.052 / 0.000 | 0.0000 | ordinary_ship_services 0.389, RCS_120s_throttled_proxy 57.663 | 23.259 | NAMED: RCS_THROTTLING_1_OVER_T_SQUARED_NOT_TRACED | 0.6799 |
-| fast_40s_flip | 0.000 | 519.358 / 0.000 | 0.0000 | ordinary_ship_services 0.389, RCS_40s_emergency 518.969 | 80.381 | NAMED: FAST_FLIP_BUS_AND_THERMAL_TRANSIENT_UNQUALIFIED | 0.0000 |
-| pulsed_torch_burn | 47.909 | 0.000 / 0.000 | 0.0000 | ordinary_ship_services 0.389, magnet_cryocooling_electric 47.520 | 64.360 + 1400 hot-fin | NAMED: PULSED_MAIN_TORCH_NOT_A_HOUSE_GENERATOR | 0.6515 |
-| Metric_NORMAL | 6.863 | 0.000 / 0.000 | 0.0000 | ordinary_ship_services 0.389, canon_cryo_scaled_1300K_delivered 5.091, declared_field_and_control_delivered 1.000, E1_PMAD_distribution_losses 0.383 | 9.172 | NAMED: FIELD_CONTROL_NORMAL_NONCANON_DECLARATION; ENVIRONMENTAL_CORRECTION_POWER_STILL_OPEN | 0.0933 |
-| Metric_FAST | 12.873 | 0.000 / 0.000 | 0.0000 | ordinary_ship_services 0.389, canon_cryo_scaled_1300K_delivered 9.745, declared_field_and_control_delivered 2.000, E1_PMAD_distribution_losses 0.739 | 17.204 | NAMED: FIELD_CONTROL_FAST_NONCANON_DECLARATION; ENVIRONMENTAL_CORRECTION_POWER_STILL_OPEN | 0.1751 |
-| Metric_EXPEDITE | 20.894 | 0.000 / 0.000 | 0.0000 | ordinary_ship_services 0.389, canon_cryo_scaled_1300K_delivered 16.291, declared_field_and_control_delivered 3.000, E1_PMAD_distribution_losses 1.214 | 27.923 | NAMED: FIELD_CONTROL_EXPEDITE_NONCANON_DECLARATION; ENVIRONMENTAL_CORRECTION_POWER_STILL_OPEN | 0.2841 |
-| Metric_HARD | 42.655 | 0.000 / 0.000 | 0.0000 | ordinary_ship_services 0.389, canon_cryo_scaled_1300K_delivered 34.764, declared_field_and_control_delivered 5.000, E1_PMAD_distribution_losses 2.502 | 57.010 | NAMED: FIELD_CONTROL_HARD_NONCANON_DECLARATION; ENVIRONMENTAL_CORRECTION_POWER_STILL_OPEN | 0.5800 |
-| quiet_reactors_off | 0.000 | 0.065 / 0.000 | 0.0000 | essential_habitat 0.065 | 0.007 passive, 0.075 retained | NAMED: COLD_BUFFER_EXHAUSTED_BEFORE_FLYWHEEL; QUIET_SKIN_EMISSIVITY_DECLARED | 0.0000 |
-| cold_running_reactors_off | 0.000 | 0.065 / 0.000 | 0.0000 | essential_habitat 0.065 | 0.007 passive, 0.075 retained | NAMED: COLD_BUFFER_EXHAUSTED_BEFORE_FLYWHEEL; FLYWHEEL_THERMAL_COUPLING_UNQUALIFIED | 0.0000 |
-| one_unit_failed_Metric_HARD | 42.655 | 0.000 / 0.000 | 0.0000 | ordinary_ship_services 0.389, canon_cryo_scaled_1300K_delivered 34.764, declared_field_control 5.000, PMAD_loss 2.502 | 57.010 | NAMED: FAILED_REACTOR_ISOLATION_UNQUALIFIED; ENVIRONMENTAL_CORRECTION_POWER_STILL_OPEN | 0.5800 |
-| one_unit_failed_torch_magnets | 47.909 | 0.000 / 0.000 | 0.0000 | ordinary_ship_services 0.389, magnet_cryocooling_electric 47.520 | 64.360 + 1400 hot-fin | NAMED: FAILED_REACTOR_ISOLATION_UNQUALIFIED | 0.6515 |
-| both_house_reactors_failed_flywheel | 0.000 | 0.389 / 0.000 | 0.0000 | ordinary_ship_services 0.389 | 0.411 | NAMED: FLYWHEEL_EXHAUSTS_AFTER_17.08_H; FAILED_PLANT_ACTIVE_RADIATORS_UNQUALIFIED | 0.0000 |
-| torch_emergency_house_unqualified | 0.000 | 0.000 / 0.000 | 0.0000 | ordinary_ship_services 0.389 | 0.000 | NAMED: TORCH_EMERGENCY_HOUSE_OUTPUT_NOT_SIZED; CONTINUOUS_SUPPLY_NOT_AUTHORISED; UNSERVED_ELECTRIC_LOAD | 0.0000 |
-| shelter_battery_only | 0.000 | 0.000 / 0.000 | 0.0006 | essential_shelter 0.001 | 0.000 | NAMED: 24_H_BATTERY_EXHAUSTION; NORMAL_SHIP_SERVICES_SHED; 72_H_SHELTER_STORE_NOT_72_H_ELECTRIC_SOURCE | 0.0000 |
+**Mass:** dry 867.531453t, loaded S1 1172.681453t. Loaded electrical line 55t = 54.85t dry + 0.15t C-lite wet propellant. Engineering reserve **11.284117t unchanged**; 6.284t above hard floor. C-lite fuel is a consumable, NOT dry ballast.
 
-**Failure sequence:** one reactor fails → surviving 50MW unit carries known steady loads, HARD Metric and torch magnet electrical, with the flywheel required for routine flips → both house units lost: flywheel supports ordinary ~0.389MW services for **17.08h** energy-only → attempt pulsed main torch **emergency house mode** (UNKNOWN electric output, NOT a certified source) → shed to 0.6kW ×24h shelter battery. Failed-source fallback does not provide an invented continuous torch generator. Full physical power switching, battery isolation, flywheel containment, coolant loops and thermal transfer remain OPEN.
+**Cold-running thermal bound:** 11.70h for the accepted 50t×15K protected-water buffer. Battery energy-only endurance is not a thermal qualification.
 
-**House fuel inventory:** 5t D–He3 wet consumable, distinct from 250t water remass and 50t protected water; consumption for each reactor-on state is shown in g/h. Main pulsed torch pellet energy is separate. Tank dry 0.5t is paid from engineering reserve. **Dry 867.681t, departure S1 1172.681t, reserve 11.284t (hard floor 5t; headroom 6.284t). Reactor+flywheel 3.20t reallocated WITHIN the 55t electrical line, with no additional dry reserve debit.**
+**Metric:** E1 cryo and PMAD numbers preserved; separately declared field/control NORMAL 1 / FAST 2 / EXPEDITE 3 / HARD 5MW; environmental correction remains OPEN. 2GJ reversible field bank is not a house source.
 
-**Engineering gaps:** 2226 reactor 40kW/kg and flywheel 10kWh/kg/800kW/kg unverified; 10% reliable minimum and independent fault isolation untested; RCS 120s throttling is a declared 1/t² assumption, not an FQ trace; electrical bus peaks and radiator integration unqualified; reported thermal rejection is a heat-budget screen; unmodelled environmental Metric correction power remains an explicit named deficit.
+| Operating state | House MW | Flywheel out / charge MW | Battery MW | Loads MW | Heat rejected MW | State deficits |
+|---|---:|---:|---:|---|---:|---|
+| docked_one_online_min | 5.000 | 0.000 / 4.601 | 0.000 | ordinary_ship_services 0.389, docking_control 0.010 | 2.293 | FULL_PULSE_STORE_REQUIRES_REACTOR_OFF_OR_BATTERY_CHARGE |
+| docked_crown_open_worst_sun | 5.000 | 0.000 / 3.904 | 0.000 | avionics_ECLSS 0.045, standby 0.020, heat_pump 1.021, docking 0.010 | 3.055 | AOI_OPTICAL_ATTENUATION_UNCREDITED; FULL_PULSE_STORE_REACTOR_OFF_OR_BATTERY_CHARGE |
+| coast_one_online_min | 5.000 | 0.000 / 4.611 | 0.000 | ordinary_ship_services 0.389 | 2.294 | FULL_PULSE_STORE_REACTOR_OFF_OR_BATTERY_CHARGE |
+| coast_recharging_fast_flip | 50.000 | 0.000 / 49.611 | 0.000 | ordinary_ship_services 0.389 | 19.603 | CHARGER_BULK_POWER_UNQUALIFIED |
+| routine_120s_flip | 50.000 | 8.052 / 0.000 | 0.000 | ordinary_ship_services 0.389, RCS_120s_UNTRACED_proxy 57.663 | 23.259 | RCS_ROUTINE_THROTTLE_PROXY_UNTRACED |
+| fast_40s_flip | 50.000 | 202.623 / 0.000 | 0.000 | ordinary_ship_services 0.389, RCS_40s_TRACE_PEAK 252.234 | 53.241 | FAST_FLIP_REACTOR_DISPATCH_BUS_HEAT_HARDWARE_UNQUALIFIED |
+| pulsed_torch_burn | 47.909 | 0.000 / 0.000 | 0.000 | ordinary_ship_services 0.389, magnet_cryocooling 47.520 | 64.360 | PULSED_TORCH_NOT_CONTINUOUS_HOUSE_GENERATOR |
+| Metric_NORMAL | 6.863 | 0.000 / 0.000 | 0.000 | ordinary 0.389, scaled_cryo 5.091, declared_field 1.000, PMAD_loss 0.383 | 9.172 | FIELD_POWER_NONCANON_DECLARED; ENVIRONMENTAL_CORRECTION_POWER_OPEN |
+| Metric_FAST | 12.873 | 0.000 / 0.000 | 0.000 | ordinary 0.389, scaled_cryo 9.745, declared_field 2.000, PMAD_loss 0.739 | 17.204 | FIELD_POWER_NONCANON_DECLARED; ENVIRONMENTAL_CORRECTION_POWER_OPEN |
+| Metric_EXPEDITE | 20.894 | 0.000 / 0.000 | 0.000 | ordinary 0.389, scaled_cryo 16.291, declared_field 3.000, PMAD_loss 1.214 | 27.923 | FIELD_POWER_NONCANON_DECLARED; ENVIRONMENTAL_CORRECTION_POWER_OPEN |
+| Metric_HARD | 42.655 | 0.000 / 0.000 | 0.000 | ordinary 0.389, scaled_cryo 34.764, declared_field 5.000, PMAD_loss 2.502 | 57.010 | FIELD_POWER_NONCANON_DECLARED; ENVIRONMENTAL_CORRECTION_POWER_OPEN |
+| quiet_reactors_off | 0.000 | 0.000 / 0.000 | 0.065 | essential_habitat 0.065 | 0.075 retained | THERMAL_BUFFER_LIMIT; BATTERY_THERMAL_COUPLING_UNQUALIFIED |
+| cold_running_reactors_off | 0.000 | 0.000 / 0.000 | 0.065 | essential_habitat 0.065 | 0.075 retained | THERMAL_BUFFER_LIMIT; BATTERY_THERMAL_COUPLING_UNQUALIFIED |
+| one_unit_failed_Metric_HARD | 42.655 | 0.000 / 0.000 | 0.000 | ordinary 0.389, cryo 34.764, field 5.000, PMAD_loss 2.502 | 57.010 | FAILED_REACTOR_ISOLATION_UNQUALIFIED; METRIC_ENVIRONMENTAL_CORRECTION_OPEN |
+| one_unit_failed_torch_magnets | 47.909 | 0.000 / 0.000 | 0.000 | ordinary 0.389, magnet_cryocooling 47.520 | 64.360 | FAILED_REACTOR_ISOLATION_UNQUALIFIED |
+| both_house_reactors_failed_hour1 | 0.000 | 0.000 / 0.000 | 0.389 | ordinary_services 0.389 | 0.411 | FAILED_REACTORS_ACTIVE_COOLING_UNQUALIFIED |
+| both_house_reactors_failed_essentials | 0.000 | 0.000 / 0.000 | 0.065 | essential_services 0.065 | 0.394 | NONESSENTIAL_LOADS_SHED; BOTH_FAILED_COOLING_UNQUALIFIED |
+| c_lite_slow_attitude_recovery | 0.000 | 0.000 / 0.000 | 0.000 |  | 0.000 retained | CHEMICAL_THRUSTER_GEOMETRY_AND_TORQUE_UNQUALIFIED |
+| torch_emergency_house_unqualified | 0.000 | 0.000 / 0.000 | 0.000 | ordinary_ship_services 0.389 | 0.000 | TORCH_HOUSE_OUTPUT_UNSIZED; CONTINUOUS_GENERATION_NOT_AUTHORIZED; UNSERVED_LOAD |
+| shelter_battery_only | 0.000 | 0.000 / 0.000 | 0.001 | shelter_essential 0.001 | 0.000 | DEDICATED_SHELTER_BATTERY_ONLY; 24H_ENDURANCE_LIMIT |
 
-**Qualification:** targeted G1/G4 required; G3 inspected for mass movement. New geometry SHA does not automatically inherit G6, G12 or whole-ship certified=true. FQ1–FQ4 only required if physical mass/CG/inertia actually changes; if unchanged, prove parity and retain previous source-stamped FQ (without copying old PASS to the new hash).
+### Half battery and flywheel performance at unchanged installation mass
+
+Battery delivers 1.423MWh; flywheel delivers 0.712MWh and at most 112.5MW. Reactor/chemical states unchanged. Half-energy battery still carries 1h ordinary followed by 15.91h of 65kW essentials (energy-only); cold thermal limit still bounds.
+
+| State | Half-performance electrical envelope | Basis |
+|---|---|---|
+| docked_one_online_min | CLOSES | electric ledger unchanged; named hardware/physics holds retained |
+| docked_crown_open_worst_sun | CLOSES | electric ledger unchanged; named hardware/physics holds retained |
+| coast_one_online_min | CLOSES | electric ledger unchanged; named hardware/physics holds retained |
+| coast_recharging_fast_flip | CLOSES | electric ledger unchanged; named hardware/physics holds retained |
+| routine_120s_flip | CLOSES | routine untraced throttle proxy, energy and power only |
+| fast_40s_flip | FAILS | fast trace supplemental energy and peak power |
+| pulsed_torch_burn | CLOSES | electric ledger unchanged; named hardware/physics holds retained |
+| Metric_NORMAL | CLOSES | electric ledger unchanged; named hardware/physics holds retained |
+| Metric_FAST | CLOSES | electric ledger unchanged; named hardware/physics holds retained |
+| Metric_EXPEDITE | CLOSES | electric ledger unchanged; named hardware/physics holds retained |
+| Metric_HARD | CLOSES | electric ledger unchanged; named hardware/physics holds retained |
+| quiet_reactors_off | CLOSES | battery covers existing cold thermal-buffer limit |
+| cold_running_reactors_off | CLOSES | battery covers existing cold thermal-buffer limit |
+| one_unit_failed_Metric_HARD | CLOSES | electric ledger unchanged; named hardware/physics holds retained |
+| one_unit_failed_torch_magnets | CLOSES | electric ledger unchanged; named hardware/physics holds retained |
+| both_house_reactors_failed_hour1 | CLOSES | one hour ordinary services on half-energy battery |
+| both_house_reactors_failed_essentials | CLOSES | >=1 hour essentials after 1 hour ordinary; full nominal-hours are reduced |
+| c_lite_slow_attitude_recovery | CLOSES | electric ledger unchanged; named hardware/physics holds retained |
+| torch_emergency_house_unqualified | FAILS | electric ledger unchanged; named hardware/physics holds retained |
+| shelter_battery_only | CLOSES | electric ledger unchanged; named hardware/physics holds retained |
+
+**Qualification holds:** flywheel strength, discharge electronics, containment and counter-rotation; battery thermal/isolation; chemical wet containment/nozzle placement and torque; trace-derived ideal RCS power not demonstrated supply; one-reactor 50MW dynamic dispatch; metric correction; full electrical isolation/heat flow. A closed ledger is not a physical flight certificate.
+
+**Do not merge; preserve full certify verdicts, not inherited historical passes.**

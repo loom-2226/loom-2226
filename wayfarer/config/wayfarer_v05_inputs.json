@@ -43,7 +43,7 @@
  },
  "canon": {
   "prov": "CANON",
-  "source": "CANON II v2.4 §5, §13, §14; Schematic Amendment v2.4a",
+  "source": "CANON II v2.4 \u00a75, \u00a713, \u00a714; Schematic Amendment v2.4a",
   "main_body_m": [
    57,
    9
@@ -660,7 +660,7 @@
        "inner_shape": "X(r)=3.043118-3.343118*sqrt(1-(r/4.3)^2), 0<=r<=3.50",
        "pressure_milestone": "PENDING: two independent full-scale ~7m monolithic ceramic pressure enclosures and no shock/crack coupling through AOI; earlier one-dome approval does not carry",
        "outermost_band_stagger_rad": 0.261799387799,
-       "outer_pattern_provenance": "RESTORED f07354f: 37 modules [1,12,12,12], radii [0,.75,2,2.75,3.5], final band π/12 stagger. Maximum hoop chord 1.812m; within existing 1.9m check. Additional outer ceramic mass from reserve.",
+       "outer_pattern_provenance": "RESTORED f07354f: 37 modules [1,12,12,12], radii [0,.75,2,2.75,3.5], final band \u03c0/12 stagger. Maximum hoop chord 1.812m; within existing 1.9m check. Additional outer ceramic mass from reserve.",
        "outer_areal_kg_m2": 37.5,
        "true_conical_surface_area_m2": 52.887838,
        "outer_profile": "OPTION C: X(r)=-1.2 for r<=2.0; -1.2+(r-2)*tan(50deg) to r3.5; faired to shoulder at r4.5; I4 pane rings unchanged"
@@ -817,7 +817,7 @@
          0.071594
         ],
         "total_mass_t": 0.385772,
-        "storage_note": "Position x14.9-16.1, y -3.35..-2.65, z +/-0.5 m is inside courier SERVICE HOLD PORT x14..17 and θ135..225, r2..4.3. Not in midship remass tanks. Seven individually packed spare 1cm outer panes from reserve; no payload double-count."
+        "storage_note": "Position x14.9-16.1, y -3.35..-2.65, z +/-0.5 m is inside courier SERVICE HOLD PORT x14..17 and \u03b8135..225, r2..4.3. Not in midship remass tanks. Seven individually packed spare 1cm outer panes from reserve; no payload double-count."
        },
        "gores": {
         "count": 16,
@@ -2063,7 +2063,12 @@
   "l3_berth_shield_liner_t": 0,
   "house_fuel_tank_t": 0.5,
   "house_reactor_electrical_reallocation_t": 2.5,
-  "house_peak_store_electrical_reallocation_t": 0.7
+  "house_peak_store_electrical_reallocation_t": 1.5,
+  "electrical_fueled_wet_t": 0.15,
+  "electrical_dry_t": 54.85,
+  "house_energy_battery_electrical_reallocation_t": 1.5,
+  "c_lite_dry_electrical_reallocation_t": 0.1,
+  "c_lite_wet_electrical_reallocation_t": 0.15
  },
  "longerons": {
   "prov": "CLAUDE_DESIGN v0.5.7 (structure/longeron_study.py, kT 2026-10-25 'consolidate'): four CFRP tubes in an X, matching canon's 4 axial longerons. The upper pair stay where the v0.5.6 slot sills were (edging the bay slot); the lower pair mirror them in the tank's lower cells. Sized at 5 g x 1.5 to a 250 MPa design stress (400 MPa floor x 0.62 for impact, joints, environment). v0.5.6 had 3 planks + 2 sills (36.9 t) running at 65 MPa. NON-GOVERNING; SOL TO REVIEW REV 5 (structure review 2026-10-26): wall 72 -> 84 mm (area 0.0830 m2, 1% margin) so axial + bending (thrust-line offset 13.5 MN m + 0.5 deg thrust error 9.1 MN m) stays within the 250 MPa design stress",
@@ -2306,7 +2311,7 @@
   }
  },
  "states": {
-  "prov": "CERTIFICATION_BASIS_v0.1 §5",
+  "prov": "CERTIFICATION_BASIS_v0.1 \u00a75",
   "S1": {
    "name": "reference departure",
    "remass_t": 250,
@@ -3192,19 +3197,19 @@
   "total_from_reserve_with_AOI_t": 8.184665
  },
  "ship_power": {
-  "status": "kT 2026-11-01 two-reactor revision; explicitly declared 2226 densities and Metric field-power allowances, not physical proof",
+  "status": "kT 2026-11-01: twin 50MW; 3MWh battery + 1.5MWh pulse flywheel + chemical slow attitude backup, declared 2226",
   "source": "TWO independent dedicated D-He3 direct-conversion house reactors, 50MW net each; relational plant and Metric consume power, bank is not a source",
   "reactor_net_electric_mw": 50.0,
   "reactor_net_specific_kw_kg": 40.0,
   "reactor_dry_t": 2.5,
   "direct_conversion_electric_efficiency": 0.75,
-  "peak_store": "flywheel",
-  "peak_store_nominal_mwh": 7.0,
+  "peak_store": "counter_rotating_flywheel_pairs",
+  "peak_store_nominal_mwh": 1.5,
   "peak_store_round_trip_efficiency": 0.9,
-  "peak_store_specific_kwh_kg": 10.0,
-  "peak_store_specific_kw_kg_min": 800.0,
-  "peak_store_dry_t": 0.7,
-  "peak_store_discharge_mw": 520.0,
+  "peak_store_specific_kwh_kg": 1.0,
+  "peak_store_specific_kw_kg_min": 150.0,
+  "peak_store_dry_t": 1.5,
+  "peak_store_discharge_mw": 225.0,
   "peak_store_discharge_seconds": 40.0,
   "fuel": "D-He3",
   "fuel_t": 5.0,
@@ -3242,12 +3247,14 @@
    "emergency_shelter_essential": 0.6
   },
   "qualification_limits": [
-   "two 50MW house reactor units (total 100MW, 2.5t at declared 40kW/kg): 10% MIN each; they cannot operate steadily at 0.389MW hotel load with full store; cycle reactor on/off or declare spill",
-   "flywheel 7MWh at 10kWh/kg and 800kW/kg is speculative 2226 hardware, not independently qualified; 90% round trip",
-   "quiet/cold running reactors OFF, flywheel essential load 65kW (about 102h discharge until energy depleted; cold thermal buffer expires first)",
-   "Metric field power NORMAL 1 FAST 2 EXPEDITE 3 HARD 5MW delivered is explicitly NON-CANON declared, environment correction power still HOLD",
-   "routine 120s flip 1/9 scaling of old 40s impulse scenario is NOT verified thruster throttle trace",
-   "failed-house fallback order: surviving reactor, store (~17h normal load), pulsed torch emergency only (power/time UNQUALIFIED), shelter battery 0.6kW for 24h"
+   "2x50MW net D-He3 house reactors; minimum output 5MW per online unit, cycle OFF at full store",
+   "2226 battery 2kWh/kg at 1.5t = 3MWh nominal, 90% round trip declared; essential load after 1h normal with both reactors failed",
+   "2226 1kWh/kg 1.5t flywheel 1.5MWh nominal, 150kW/kg 225MW peak, 90% round trip: two counter-rotating rotors + burst containment declared within mass, not qualified",
+   "40s fast flip 6.354GJ ideal trace peak 244.46MW, one 50MW house + flywheel 4.474GJ ideal > electrical distribution and fluid-conditioning hardware OPEN",
+   "C-lite 0.10t dry plus 0.15t wet monoprop total 0.25t; up to two ~600s ~75kg maneuvers screening, independent nozzle/control unqualified",
+   "No reactor in quiet/cold, 65kW battery; Metric field CONTROL separate noncanon declarations; environmental correction HOLD",
+   "all 0.15t wet C-lite fuel counted as consumable, 54.85t electrical dry + 0.15t fuel = 55t installed loaded, reserve unaffected",
+   "RCS 120s throttle scaling remains an untraced proxy; fast trace on current geometry required"
   ],
   "reactor_count": 2,
   "reactor_minimum_fraction": 0.1,
@@ -3261,11 +3268,26 @@
   "metric_delivered_pm_ad_fraction": 0.9408,
   "reactor_failure_order": [
    "one reactor online",
-   "charged flywheel if both reactors offline",
-   "pulsed torch emergency house mode, source output UNQUALIFIED",
-   "0.6kW 24h shelter battery"
+   "both reactors failed: battery one hour ordinary then 65kW essentials",
+   "pulsed torch emergency house UNQUALIFIED",
+   "shelter 0.6kW x 24h; C-lite independent slow attitude recovery"
   ],
   "quiet_reactors_on": 0,
-  "cold_running_reactors_on": 0
+  "cold_running_reactors_on": 0,
+  "battery_energy_nominal_mwh": 3.0,
+  "battery_energy_specific_kwh_kg": 2.0,
+  "battery_energy_dry_t": 1.5,
+  "battery_energy_round_trip_efficiency": 0.9,
+  "c_lite_total_nominal_t": 0.25,
+  "c_lite_dry_t": 0.1,
+  "c_lite_wet_propellant_t": 0.15,
+  "c_lite_propellant_per_slow_turn_kg": 75.0,
+  "c_lite_turn_s": 600,
+  "c_lite_specific_impulse_s": 250.0,
+  "rcs_40s_trace_source": "wayfarer/lab/flight_qual/fq_house_power_20261101/RCS_40S_CURRENT_TRACE.json",
+  "rcs_40s_ideal_energy_j": 6354457223.667402,
+  "rcs_40s_ideal_peak_mw": 244.45568490737895,
+  "rcs_40s_assumed_one_reactor_mw": 50.0,
+  "rcs_40s_ideal_one_reactor_store_j": 4473800000.0
  }
 }

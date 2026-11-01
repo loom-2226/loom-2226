@@ -82,7 +82,7 @@ def g1(I, C, G):
               + L.get("rcs_axial_t", 0.0) + L.get("reserve_draws_rev7", {}).get("total_t", 0.0)
               + L.get("i4_carryover_t", 0.0) + L.get("aoi_crown_t",0.0) + L.get("aoi_aft_bulkhead_reinforcement_t",0.0)
                + L.get("crown_option_c_additions_t",0.0) + L.get("l3_berth_shield_liner_t",0.0)
-              + L.get("house_fuel_tank_t",0.0))
+              + L.get("house_fuel_tank_t",0.0) - L.get("electrical_fueled_wet_t",0.0))
     AOI = I["habitat"]["decks"][0].get("command_layout",{}).get("crown_dome",{}).get("adaptive_optogel")
     dry = G["dry_t"]
     cs = [chk("parts sum to the ledger", round(dry, 2), round(expect, 2), abs(dry - expect) <= C["G1"]["ledger_tolerance_t"], "t")]
@@ -144,9 +144,23 @@ def g1(I, C, G):
         hp=I["ship_power"]
         cs.append(chk("house fuel tank dry mass debited from growth reserve",
             round(next(p["mass_t"] for p in G["parts"] if p["id"]=="house_fuel_tank"),6),
-            hp["fuel_tank_dry_t"],True,"t","reactor and flywheel reallocated from existing 55t electrical line"))
+            hp["fuel_tank_dry_t"],True,"t","reactors, battery, flywheel, and C-lite provisioned inside 55t electrical line"))
         cs.append(chk("reserve after house fuel tank remains >=5t",
             L["engineering_reserve_t"],5.,L["engineering_reserve_t"]>=5.,"t"))
+        for ss in states(I):
+            mono=sum(p["mass_t"] for p in G["fluids_by_state"][ss] if "c_lite_wet" in p["tags"])
+            cs.append(chk(f"{ss} C-lite monoprop wet consumable accounted",round(mono,6),hp.get("c_lite_wet_propellant_t",0),abs(mono-hp.get("c_lite_wet_propellant_t",0))<1e-8,"t"))
+        byid={p["id"]:p["mass_t"] for p in G["parts"]}
+        # Source build distributes growth reserve across each dry part. Undo
+        # that common factor for allocation checks, rather than double-book it.
+        grow=byid["house_reactor"]/hp["reactor_dry_t"]
+        ids=("house_reactor","house_peak_store","house_energy_battery","c_lite_dry","electrical_fwd","electrical")
+        allocated=sum(byid[k] for k in ids)/grow
+        provisioned=allocated+hp.get("c_lite_wet_propellant_t",0)
+        cs.append(chk("electrical dry + independent monoprop wet = 55t gross allocation",
+            round(provisioned,6),I["ledger"]["electrical_t"],
+            abs(provisioned-I["ledger"]["electrical_t"])<1e-7,"t",
+            "Source dry parts include distributed growth-reserve mass; compare pre-spread allocations"))
         for ss in states(I):
             hm=sum(p["mass_t"] for p in G["fluids_by_state"][ss] if "house_fuel" in p["tags"])
             cs.append(chk(f"{ss} D-He3 fuel booked as wet consumable",
@@ -522,15 +536,15 @@ def g4(I, C, G):
         # kT power update: BOTH house reactors OFF in quiet/cold running.
         # Flywheel, not a fictitious deeply throttled reactor, supplies 65kW.
         house_waste_kw=0.0
-        flywheel_loss_kw=e_cold_kw * (1 / math.sqrt(HP["peak_store_round_trip_efficiency"])-1) if HP else 0.
+        flywheel_loss_kw=e_cold_kw * (1 / math.sqrt(HP.get("battery_energy_round_trip_efficiency",HP["peak_store_round_trip_efficiency"]))-1) if HP else 0.
         hrs = e_buf / max(q_in + p_standby + cryo_standby + flywheel_loss_kw - leak, 1e-9) / 3600
         ratio = md["cold_running"]["emissivity"] / md["normal"]["emissivity"]
         decl.append(("cold_running", f"Cold running (rev 7, F5 provisional item F5-TE-01): the tunable flanks drop from emissivity {md['normal']['emissivity']} to "
                      f"{md['cold_running']['emissivity']}, so at the same skin temperature they radiate {ratio * 100:.0f}% as much. Heat is held, not removed: habitat heat "
                      f"{q_in:.1f} kW (x1.25), plus plant standby {p_standby:.1f} kW and cryo standby {cryo_standby:.1f} kW, less {leak:.1f} kW still leaking through {a_sk:.0f} m2 of low-e skin at {hr['temperature_k']} K warms the "
-                     f"{I['canon']['protected_water_t']:.0f} t of protected water by {CR['buffer_dT_k']:.0f} K in about {hrs:.1f} h (ideal no-standby ceiling {ideal_hrs:.1f} h). House reactors OFF; flywheel inefficiency {flywheel_loss_kw:.1f} kW included. {CR.get('standby_prov','')}. Then the ship must open the strakes "
+                     f"{I['canon']['protected_water_t']:.0f} t of protected water by {CR['buffer_dT_k']:.0f} K in about {hrs:.1f} h (ideal no-standby ceiling {ideal_hrs:.1f} h). House reactors OFF; battery inefficiency {flywheel_loss_kw:.1f} kW included. {CR.get('standby_prov','')}. Then the ship must open the strakes "
                      f"or switch the flanks back to normal. {CR['not_modelled']}. The metallic look in the viewer is a proposed optical property."))
-        r_cold = {"hours": hrs, "ideal_no_standby_hours": ideal_hrs, "leak_kw": leak, "habitat_kw": q_in, "plant_standby_kw":p_standby, "cryo_standby_kw":cryo_standby,   "house_reactor_waste_kw":0.0,"flywheel_loss_kw":flywheel_loss_kw,"in_kw":q_in+p_standby+cryo_standby+flywheel_loss_kw,"area_m2": a_sk,"provenance":CR.get("standby_prov")}
+        r_cold = {"hours": hrs, "ideal_no_standby_hours": ideal_hrs, "leak_kw": leak, "habitat_kw": q_in, "plant_standby_kw":p_standby, "cryo_standby_kw":cryo_standby,   "house_reactor_waste_kw":0.0,"battery_loss_kw":flywheel_loss_kw,"in_kw":q_in+p_standby+cryo_standby+flywheel_loss_kw,"area_m2": a_sk,"provenance":CR.get("standby_prov")}
     else:
         r_cold = None
     notes.append(f"Habitat heat {q_hab_kw:.1f} kW for {n} people; heat pump to {T} K needs {w_hp:.0f} kW (Carnot fraction {C['G4']['heat_pump_carnot_fraction']}).")

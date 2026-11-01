@@ -839,19 +839,26 @@ def build(I, dy=0.0, dz=0.0):
         "ENGINEERING_ASSUMPTION", "thrust_cone")
     # --- midship equipment
     es = L["electrical_split"]
+    HP=I.get("ship_power")
     add("electrical", "Electrical conversion and distribution (aft C-ring)", "electrical",
-        CSlot(tx1, mx1, T["r_in_m"], T["r_out_m"], T["slot_half_width_m"]), es["aft_c_ring"], es["prov"], "equipment")
+        CSlot(tx1, mx1, T["r_in_m"], T["r_out_m"], T["slot_half_width_m"]), es["aft_c_ring"]-(HP["peak_store_dry_t"] if HP else 0.0), es["prov"], "equipment")
     er = I["service"]["electrical_ring"]
     HP=I.get("ship_power")
-    house_electric=(HP["reactor_dry_t"]+HP["peak_store_dry_t"]) if HP else 0.0
+    house_electric=(HP["reactor_dry_t"]+HP.get("battery_energy_dry_t",0)+HP.get("c_lite_dry_t",0)) if HP else 0.0
+    c_lite_wet=HP.get("c_lite_wet_propellant_t",0) if HP else 0.0
     add("electrical_fwd", "Electrical conversion and distribution (service ring)", "electrical",
-        Sector(er["x_m"][0], er["x_m"][1], er["r_m"][0], er["r_m"][1], er["theta_deg"][0], er["theta_deg"][1]), es["service_ring"]-house_electric, es["prov"], "equipment")
+        Sector(er["x_m"][0], er["x_m"][1], er["r_m"][0], er["r_m"][1], er["theta_deg"][0], er["theta_deg"][1]), es["service_ring"]-house_electric-c_lite_wet, es["prov"], "equipment")
     if HP:
         ring=Sector(er["x_m"][0], er["x_m"][1], er["r_m"][0], er["r_m"][1], er["theta_deg"][0], er["theta_deg"][1])
         add("house_reactor","Two independent D-He3 house reactors and converters (55t electrical reallocation)",
             "electrical",ring,HP["reactor_dry_t"],"kT house-power declaration; electrical ring reallocation, not new mass","equipment")
-        add("house_peak_store","High-power flywheel + containment (55t electrical line reallocation)",
-            "electrical",ring,HP["peak_store_dry_t"],"kT 2226 store-density declaration; not experimentally qualified","equipment")
+        add("house_peak_store","Counter-rotating pulse flywheel pairs with burst containment (aft C-ring allocation)",
+            "electrical",CSlot(tx1, mx1, T["r_in_m"], T["r_out_m"], T["slot_half_width_m"]),HP["peak_store_dry_t"],
+            "kT declared 2226 1kWh/kg including containment; 150kW/kg, physical rotor pairing/packing unqualified","equipment")
+        add("house_energy_battery","Rechargeable endurance battery (electrical ring reallocation)",
+            "electrical",ring,HP["battery_energy_dry_t"],"kT declared 2226 2kWh/kg including module packaging; unqualified","equipment")
+        add("c_lite_dry","Independent slow attitude chemical control, dry tanks/valves/nozzles",
+            "electrical",ring,HP["c_lite_dry_t"],"kT declared separate dry hardware; nozzle/control packaging OPEN","equipment")
         fc=HP["fuel_container_proxy"]
         add("house_fuel_tank","D-He3 fuel tank, dry containment proxy","electrical",
             Sector(*fc["x_m"],*fc["r_m"],*fc["theta_deg"]),HP["fuel_tank_dry_t"],
@@ -992,6 +999,13 @@ def fluids(I, sec, jacket_parts, jacket_t, w_service, state):
                 Sector(*fc["x_m"],*fc["r_m"],*fc["theta_deg"]),hm,
                 "ENGINEERING_ASSUMPTION wet consumable, full reference S1–S7 inventory","dhe3",
                 dry=False,tags=("house_fuel","no_shield_credit")))
+    # Independent C-lite propellant is wet; do not hide its fuel in the 55t dry line.
+    if HP and HP.get("c_lite_wet_propellant_t",0)>0:
+        ring=I["service"]["electrical_ring"]
+        out.append(Part("c_lite_monoprop","C-lite independent green monopropellant","monoprop",
+            Sector(*ring["x_m"],*ring["r_m"],*ring["theta_deg"]),
+            HP["c_lite_wet_propellant_t"],"kT wet consumable: zero shielding credit, separate from water RCS",
+            "monoprop",dry=False,tags=("c_lite_wet","no_shield_credit")))
     usable = remass * (1 - (vol[iso] / tot if iso else 0.0))
     return out, cells, usable, w_ctank_protected
 

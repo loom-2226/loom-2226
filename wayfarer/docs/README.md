@@ -1,10 +1,10 @@
-# CURRENT PR #440: two-reactor Wayfarer power budget (2026-11-01)
+# CURRENT PR #440: twin reactors and battery/flywheel/C-lite (2026-11-01)
 
-**Authority:** protected main `ce9ee081`; predecessor PR #440 `42ac3f52`. This is an **unmerged engineering revision** on new source geometry SHA `9544a893d711fb9f9c91b145edeb5137728429315e0c852e1e8beab60da46661`.
+Authority: protected main ce9ee081; this is a DRAFT, UNMERGED engineering candidate. Current source geometry SHA f7dc6b8c69cf56f48a55eeaa1a5daa7779fce3e06474157c960ef2f08cac95f7.
 
-[**Current single-table house-power ledger**](SHIP_POWER_BUDGET_2026_11_01.md) supersedes the 80MW/6.5MWh model. kT directs **two independent 50MW D–He3 house reactors, 10% minimum operating power each**, and a **7MWh flywheel**. One reactor carries ordinary loads, all declared Metric states and pulsed torch magnet cooling; 120s routine flips use one reactor plus flywheel, emergency ~520MW ×40s uses charged flywheel. Quiet/cold: both reactors OFF, 65kW supplied by store. The Metric field watt figures are explicitly NON-CANON engineering declarations, not verified environmental correction power. The relational plant and bank are NOT generators; the main torch is always pulsed and emergency house mode remains UNQUALIFIED.
+Current single-table source: SHIP_POWER_BUDGET_2026_11_01.md. Twin 50MW net D-He3 house reactors with 5MW minimum each; 3MWh / 1.5t endurance battery; 1.5MWh / 1.5t counter-rotating, contained pulse flywheel in aft electrical C-ring; C-lite 0.10t dry hardware + 0.15t wet independent monopropellant (two nominal slow recovery turns of 600s and 75kg each, not physically qualified). All 2226 densities, peak electrical power and independent control are DECLARED, not certified. Exact current 40s RCS trace and half-performance sensitivity are source stamped.
 
-**Current mass:** dry 867.681t, S1 wet 1172.681t (including 5t wet D–He3 fuel), engineering reserve 11.284t >5t floor. Reactor and store 3.2t reallocated from existing 55t electrical line, with NO new dry reserve debit. G1/G3/G4 targeted evidence and new source FQ1–FQ4 tracked separately. **Earlier full G6/G12 and `certified=true` DO NOT transfer** to this new SHA. No Navigator, Metric arrival, full-system recertification or merge.
+Mass: 867.531t dry; 1172.681t loaded S1 including 5t wet D-He3 and 0.15t C-lite monoprop. 55t loaded electrical allowance = 54.85t dry equipment + 0.15t monoprop. Reserve invariant at 11.284t (>5t hard floor). No new growth reserve draw. Historic full G6/G12 and certified=true do not carry forward. Metric environmental correction, reactor isolation, thermal/fluid bus, chemical nozzle torque and emergency torch-house power remain OPEN. No Navigator, Metric arrival or merge.
 
 The remaining pages below include superseded historic source-hash and branch-status narratives. Keep them as evidence only; do not mistake them for the latest branch state.
 
