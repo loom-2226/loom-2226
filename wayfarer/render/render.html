@@ -24,11 +24,19 @@ const sha = q.get("sha") || "";
 const [W, H] = V.size;
 const cv = document.getElementById("c"); const dpr = window.devicePixelRatio || 1;
 cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + "px"; cv.style.height = H + "px";
+// Cut-power view colors only. Component position, dimensions and source SHA
+// come unchanged from the exact Wayfarer geometry; not a material declaration.
+if (view.powerVisual) {
+ const renderMaterial={house_reactor_A:'nozzle',house_reactor_B:'reactor',house_peak_store:'plant',house_energy_battery:'room_command',house_fuel_tank:'aoi',c_lite_dry:'aoi'};
+ geo.parts=geo.parts.map(p => renderMaterial[p.id] ? {...p, mat:renderMaterial[p.id]} : p);
+}
 const ship = new Ship(cv, geo, {shadowSize: 1024});
 const hideExt = new Set(["room", "outfit", "floor", "core", "avionics", "pressure_hull", "bulkhead", "plant", "equipment", "manifold", "frame", "longeron", "tunnel", "drone", "water", "cargo"]);
 const show = {
   exterior: p => !(p.tags || []).includes("room") && !hideExt.has(p.mat) && !p.mat.startsWith("room_"),
   cutaway: p => p.mat !== "outfit",
+  power: p => new Set(['house_reactor_A','house_reactor_B','house_peak_store','house_energy_battery','house_fuel_tank','c_lite_dry']).has(p.id) ||
+              ['longeron','frame'].includes(p.mat),
   command: p => p.mat !== "outfit" && p.id !== "room_L1-command" && p.id !== "core_racks",
   structure: p => ["longeron", "frame", "thrust_cone", "shield"].includes(p.mat) || p.id === "docking_collar",
   habitat: p => p.mat !== "outfit" && p.id !== "core_racks" && !p.id.startsWith("room_L1"),   // racks share the trunk's top face (z-fighting at the trunk opening)

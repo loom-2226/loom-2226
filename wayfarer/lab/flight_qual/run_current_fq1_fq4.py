@@ -18,7 +18,7 @@ assert base['remass_t']==0,'S4 must be remass-empty base'
 ship['base']={'mass_kg':base['mass_t']*1000,'cg_m':base['cg_m'],'inertia_kg_m2':base['inertia_kg_m2']}
 ship['provenance']={'authority':'NON-GOVERNING current geometry numerical FQ1–FQ4 only',
     'geometry_sha256':sha,'engine_fixture':'fq_20261031/wayfarer_fq_water_rcs_1960.json',
-    'body_source':'S4: no remass rigid-body inertia + S1 fuel tank at unchanged location',
+    'body_source':'S4: remass-empty rigid body including any separate D-He3 wet fuel + S1 water-remass tank',
     'scope':'FQ1–FQ4, full/half remass, no Metric, no Navigator, no hardware qualification'}
 # Full state mass and cg must agree to source geometry at fixed-volume fuel tank.
 m=ship['base']['mass_kg']+ship['tanks'][0]['initial_kg']
@@ -26,7 +26,10 @@ cg=[(ship['base']['mass_kg']*ship['base']['cg_m'][k]+ship['tanks'][0]['initial_k
 src=G['states']['S1']
 assert abs(m-src['mass_t']*1000)<1e-4
 assert max(abs(cg[k]-src['cg_m'][k]) for k in range(3))<.03,('CG mismatch',cg,src['cg_m'])
-out=HERE/'fq_current_option_c_20261101'
+# Keep the historical 7f620c53 accepted FQ matrices unchanged in this branch.
+# House fuel changes the geometry and requires independent source-hash evidence.
+is_house=any('house_fuel' in p['tags'] for p in G['fluids_by_state']['S1'])
+out=HERE/('fq_house_power_20261101' if is_house else 'fq_current_option_c_20261101')
 out.mkdir(exist_ok=True)
 # A failed worker must never be masked by a previous passing results JSON.
 for st in ('full','half'):
@@ -50,7 +53,7 @@ for st,job,fp in jobs:
     assert len(data['results'])==39, 'Incomplete FQ case matrix'
     rows.extend(data['results'])
     print(st,'EXIT',rc,'CASES',len(data['results']),'PASS',sum(x['status']=='PASS' for x in data['results']),flush=True)
-summary={'geometry_sha256':sha,'source_state':'S4 no-remass mass/CG/inertia + unchanged tank','dt_s':.2,
+summary={'geometry_sha256':sha,'source_state':'S4 no-water-remass mass/CG/inertia including house fuel + unchanged water-remass tank','dt_s':.2,
   'total':len(rows),'passed':sum(x['status']=='PASS' for x in rows),
   'by_gate':{fq:{'total':sum(x['fq']==fq for x in rows),'passed':sum(x['fq']==fq and x['status']=='PASS' for x in rows)} for fq in ['FQ1','FQ2','FQ3','FQ4']},
   'status':'PASS_NUMERICAL' if len(rows)==78 and all(x['status']=='PASS' for x in rows) else 'HOLD',

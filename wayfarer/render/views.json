@@ -2691,6 +2691,150 @@
    "exposure": 0.85,
    "finish": 1,
    "cold": 1
+  },
+  {
+   "id": "cut_power",
+   "kind": "cutaway",
+   "title": "Wayfarer | Independent power bays",
+   "caption": "Source-geometry power and consumable placement proxies; dry and wet masses and centroids shown. Reactor bays are separate; tank envelope overlap and actual containment/pipe fit are NOT qualified.",
+   "eye": [
+    24,
+    -29,
+    23
+   ],
+   "target": [
+    24,
+    0,
+    0
+   ],
+   "fov": 35,
+   "sun": [
+    -0.4,
+    0.6,
+    0.65
+   ],
+   "show": "power",
+   "powerVisual": true,
+   "crownOpen": 0,
+   "labels": [
+    {
+     "t": "REACTOR B  |  50 MW  |  SERVICE BAY",
+     "at": [
+      17.5,
+      3.3,
+      0.5
+     ],
+     "off": [
+      -125,
+      -100
+     ]
+    },
+    {
+     "t": "BATTERY  |  3 MWh  |  SERVICE BAY",
+     "at": [
+      17.5,
+      -1.6,
+      2.8
+     ],
+     "off": [
+      -145,
+      105
+     ]
+    },
+    {
+     "t": "REACTOR A  |  50 MW  |  AFT C-RING",
+     "at": [
+      31.9,
+      -3.3,
+      0.3
+     ],
+     "off": [
+      145,
+      -90
+     ]
+    },
+    {
+     "t": "FLYWHEEL  |  1.8 MWh  |  AFT C-RING",
+     "at": [
+      31.9,
+      1.0,
+      -3.2
+     ],
+     "off": [
+      135,
+      110
+     ]
+    },
+    {
+     "t": "D-HE3 TANK | 0.50t dry + 5.00t fuel | CG (25.00, -0.00, -2.73)m",
+     "at": [
+      25.0,
+      -0.0,
+      -2.731003
+     ],
+     "off": [
+      -65,
+      -95
+     ],
+     "tank_source_id": "house_fuel_tank",
+     "tank_fluid_id": "house_fuel"
+    },
+    {
+     "t": "C-LITE TANK/ACS | 0.10t nominal dry + 0.15t fuel | CG (17.50, +0.00, +0.99)m",
+     "at": [
+      17.5,
+      0.0,
+      0.987331
+     ],
+     "off": [
+      -235,
+      155
+     ],
+     "tank_source_id": "c_lite_dry",
+     "tank_fluid_id": "c_lite_monoprop"
+    }
+   ],
+   "exposure": 1.12,
+   "placement_envelopes": {
+    "house_fuel_tank": {
+     "shape": {
+      "k": "sector",
+      "x0": 21.0,
+      "x1": 29.0,
+      "r0": 2.0,
+      "r1": 4.0,
+      "a0": 220.0,
+      "a1": 320.0
+     },
+     "centroid_m": [
+      25.0,
+      -5.016770422648976e-16,
+      -2.7310026184103844
+     ],
+     "dry_mass_t_nominal": 0.5,
+     "wet_mass_t": 5.0,
+     "scope": "mass/CG proxy only; NOT independent tank packaging or separation"
+    },
+    "c_lite_dry": {
+     "shape": {
+      "k": "sector",
+      "x0": 17.0,
+      "x1": 18.0,
+      "r0": 2.0,
+      "r1": 4.3,
+      "a0": -45,
+      "a1": 225
+     },
+     "centroid_m": [
+      17.5,
+      6.04565883481344e-17,
+      0.9873310147909852
+     ],
+     "dry_mass_t_nominal": 0.1,
+     "wet_mass_t": 0.15,
+     "scope": "mass/CG proxy only; NOT independent tank packaging or separation"
+    }
+   }
   }
  ]
 }

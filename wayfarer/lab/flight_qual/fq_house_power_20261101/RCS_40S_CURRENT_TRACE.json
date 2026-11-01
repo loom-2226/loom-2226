@@ -1,0 +1,2838 @@
+{
+ "status": "CURRENT GEOMETRY NUMERICAL TRACE ONLY; NOT HARDWARE QUALIFICATION",
+ "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+ "dt_s": 0.1,
+ "scenario": "CURRENT GEOMETRY 40s pitch 180 diagnostic",
+ "duration_s": 40,
+ "water_consumed_kg": 1450.5109325246574,
+ "trace_ideal_energy_gj": 6.55746982375747,
+ "trace_ideal_peak_mw": 252.26430362127223,
+ "firing_nozzle_max": 11,
+ "nameplate_peak_proxy_mw": 634.295918367347,
+ "attitude_error_deg": 0.0016145106096477548,
+ "reconstruction_water_error_kg": -0.002790756959484497,
+ "reactor_assist_cases": {
+  "0": {
+   "storage_ideal_gj": 6.573025685826436,
+   "storage_peak_mw": 252.65320017299638,
+   "possible_reactor_surplus_gj": 0.0
+  },
+  "50": {
+   "storage_ideal_gj": 4.686799364299324,
+   "storage_peak_mw": 202.65320017299638,
+   "possible_reactor_surplus_gj": 0.11377367847288843
+  },
+  "100": {
+   "storage_ideal_gj": 3.0426975178947484,
+   "storage_peak_mw": 152.65320017299638,
+   "possible_reactor_surplus_gj": 0.46967183206831326
+  }
+ },
+ "trace": [
+  {
+   "t_s": 0.0,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 0.0,
+   "water_used_kg": 0,
+   "firing_nozzles": 0
+  },
+  {
+   "t_s": 0.1,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 4.857759208229509,
+   "water_used_kg": 0.10745353053064743,
+   "firing_nozzles": 3
+  },
+  {
+   "t_s": 0.2,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 13.610587050188913,
+   "water_used_kg": 0.3010658965269182,
+   "firing_nozzles": 4
+  },
+  {
+   "t_s": 0.30000000000000004,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 22.57085420757143,
+   "water_used_kg": 0.4992668157753369,
+   "firing_nozzles": 4
+  },
+  {
+   "t_s": 0.4,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 30.28386665971461,
+   "water_used_kg": 0.6698784874295394,
+   "firing_nozzles": 4
+  },
+  {
+   "t_s": 0.5,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 36.714164305691014,
+   "water_used_kg": 0.8121165348100118,
+   "firing_nozzles": 4
+  },
+  {
+   "t_s": 0.6,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 42.360403382102014,
+   "water_used_kg": 0.9370112232813222,
+   "firing_nozzles": 3
+  },
+  {
+   "t_s": 0.7,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 47.71131535279902,
+   "water_used_kg": 1.0553732824455633,
+   "firing_nozzles": 3
+  },
+  {
+   "t_s": 0.7999999999999999,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 53.044237608533415,
+   "water_used_kg": 1.1733374094968458,
+   "firing_nozzles": 3
+  },
+  {
+   "t_s": 0.8999999999999999,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 58.44357192035576,
+   "water_used_kg": 1.2927705698185226,
+   "firing_nozzles": 3
+  },
+  {
+   "t_s": 0.9999999999999999,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 63.884627874442124,
+   "water_used_kg": 1.4131266119811123,
+   "firing_nozzles": 3
+  },
+  {
+   "t_s": 1.0999999999999999,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 69.31091701645057,
+   "water_used_kg": 1.5331560125741146,
+   "firing_nozzles": 3
+  },
+  {
+   "t_s": 1.2,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 74.67613810004427,
+   "water_used_kg": 1.6518345890117736,
+   "firing_nozzles": 3
+  },
+  {
+   "t_s": 1.3,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 79.95579662109292,
+   "water_used_kg": 1.768620523382873,
+   "firing_nozzles": 3
+  },
+  {
+   "t_s": 1.4000000000000001,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 85.14755945359433,
+   "water_used_kg": 1.8834622069897877,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 1.5000000000000002,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 90.24368581227618,
+   "water_used_kg": 1.9961884138266721,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 1.6000000000000003,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 95.25243242891995,
+   "water_used_kg": 2.106981782625198,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 1.7000000000000004,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 100.1764344665275,
+   "water_used_kg": 2.215900603135009,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 1.8000000000000005,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 105.01660457222837,
+   "water_used_kg": 2.322965063091231,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 1.9000000000000006,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 109.77269002914076,
+   "water_used_kg": 2.428169572401804,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 2.0000000000000004,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 114.44402593042818,
+   "water_used_kg": 2.531499423341625,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 2.1000000000000005,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 119.03003796216825,
+   "water_used_kg": 2.6329419120989264,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 2.2000000000000006,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 123.53043513625902,
+   "water_used_kg": 2.732490602023072,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 2.3000000000000007,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 127.94520006928462,
+   "water_used_kg": 2.8301451085932716,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 2.400000000000001,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 132.274501604806,
+   "water_used_kg": 2.925909166625509,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 2.500000000000001,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 136.51860923003747,
+   "water_used_kg": 3.0197887371712415,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 2.600000000000001,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 140.67783898268885,
+   "water_used_kg": 3.1117908109778987,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 2.700000000000001,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 144.75252970129915,
+   "water_used_kg": 3.20192288314677,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 2.800000000000001,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 148.74303737274892,
+   "water_used_kg": 3.2901928281000914,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 2.9000000000000012,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 152.6497361400547,
+   "water_used_kg": 3.376608921873445,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 3.0000000000000013,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 156.47301944094147,
+   "water_used_kg": 3.4611798673009537,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 3.1000000000000014,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 160.2132991694745,
+   "water_used_kg": 3.543914775470592,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 3.2000000000000015,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 163.8710031892608,
+   "water_used_kg": 3.6248231107162625,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 3.3000000000000016,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 167.44657223745742,
+   "water_used_kg": 3.7039146221345214,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 3.4000000000000017,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 170.94045704859505,
+   "water_used_kg": 3.7811992799636136,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 3.5000000000000018,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 174.35311607135154,
+   "water_used_kg": 3.8566872250785598,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 3.600000000000002,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 177.68501379934636,
+   "water_used_kg": 3.930388732068359,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 3.700000000000002,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 180.93661957397512,
+   "water_used_kg": 4.002314182754715,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 3.800000000000002,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 184.1084066960205,
+   "water_used_kg": 4.072474046540889,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 3.900000000000002,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 187.2008517262763,
+   "water_used_kg": 4.140878864941522,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 4.000000000000002,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 190.2144339080886,
+   "water_used_kg": 4.207539238809251,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 4.100000000000001,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 193.1496346814145,
+   "water_used_kg": 4.272465817585704,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 4.200000000000001,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 196.00693727567213,
+   "water_used_kg": 4.335669290295349,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 4.300000000000001,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 198.78236072110158,
+   "water_used_kg": 4.397061597971633,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 4.4,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 201.48574885964518,
+   "water_used_kg": 4.456860486189285,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 4.5,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 204.11273204451822,
+   "water_used_kg": 4.514969298454218,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 4.6,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 206.6637985467572,
+   "water_used_kg": 4.5713988353113875,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 4.699999999999999,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 209.13943725477313,
+   "water_used_kg": 4.626159910962068,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 4.799999999999999,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 211.54013755855854,
+   "water_used_kg": 4.679263350702499,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 4.899999999999999,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 213.86638925572615,
+   "water_used_kg": 4.7307199888454745,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 4.999999999999998,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 216.11868247512615,
+   "water_used_kg": 4.78054066703075,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 5.099999999999998,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 218.2975076147316,
+   "water_used_kg": 4.828736232851079,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 5.1999999999999975,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 220.40335529100014,
+   "water_used_kg": 4.875317538732086,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 5.299999999999997,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 222.43671629777725,
+   "water_used_kg": 4.92029544102321,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 5.399999999999997,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 224.39808157317864,
+   "water_used_kg": 4.963680799265145,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 5.4999999999999964,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 226.2879421727348,
+   "water_used_kg": 5.0054844755957975,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 5.599999999999996,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 228.10678924746165,
+   "water_used_kg": 5.045717334265211,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 5.699999999999996,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 229.86010314159378,
+   "water_used_kg": 5.084500600371479,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 5.799999999999995,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 231.53937721720072,
+   "water_used_kg": 5.121646107264218,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 5.899999999999995,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 233.14915448808938,
+   "water_used_kg": 5.1572543463123655,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 5.999999999999995,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 234.68992662794392,
+   "water_used_kg": 5.191336193327374,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 6.099999999999994,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 236.16218531295976,
+   "water_used_kg": 5.223902524176247,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 6.199999999999994,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 237.5664222159794,
+   "water_used_kg": 5.254964214651818,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 6.299999999999994,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 238.90312900123396,
+   "water_used_kg": 5.284532140356441,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 6.399999999999993,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 240.17279731990794,
+   "water_used_kg": 5.312617176603874,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 6.499999999999993,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 241.37591880655492,
+   "water_used_kg": 5.339230198340005,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 6.5999999999999925,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 242.51298507616121,
+   "water_used_kg": 5.364382080077889,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 6.699999999999992,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 243.58448772168444,
+   "water_used_kg": 5.388083695843312,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 6.799999999999992,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 244.59091831210387,
+   "water_used_kg": 5.410345919131656,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 6.8999999999999915,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 245.5327683908308,
+   "water_used_kg": 5.431179622872739,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 6.999999999999991,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 246.4105294743888,
+   "water_used_kg": 5.450595679401629,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 7.099999999999991,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 247.22469305139415,
+   "water_used_kg": 5.468604960436077,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 7.19999999999999,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 247.97575058166709,
+   "water_used_kg": 5.485218337056873,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 7.29999999999999,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 248.66419349560735,
+   "water_used_kg": 5.500446679694023,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 7.39999999999999,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 249.29051319362807,
+   "water_used_kg": 5.51430085811423,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 7.499999999999989,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 249.8552010458115,
+   "water_used_kg": 5.5267917414132794,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 7.599999999999989,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 250.35874839157785,
+   "water_used_kg": 5.537930198008712,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 7.699999999999989,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 250.80164653945448,
+   "water_used_kg": 5.547727095634722,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 7.799999999999988,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 251.18438676697915,
+   "water_used_kg": 5.55619330134001,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 7.899999999999988,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 251.50746032066655,
+   "water_used_kg": 5.56333968148705,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 7.999999999999988,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 251.77135841595393,
+   "water_used_kg": 5.569177101750884,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 8.099999999999987,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 251.976572237263,
+   "water_used_kg": 5.573716427120488,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 8.199999999999987,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 252.1235929381145,
+   "water_used_kg": 5.576968521901313,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 8.299999999999986,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 252.21291164125054,
+   "water_used_kg": 5.578944249717983,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 8.399999999999986,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 252.24501943876803,
+   "water_used_kg": 5.579654473517254,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 8.499999999999986,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 252.22040739237522,
+   "water_used_kg": 5.579110055573687,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 8.599999999999985,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 252.13956653363596,
+   "water_used_kg": 5.577321857495044,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 8.699999999999985,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 252.00298786421268,
+   "water_used_kg": 5.574300740227675,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 8.799999999999985,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 251.81116235609898,
+   "water_used_kg": 5.570057564061648,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 8.899999999999984,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 251.5645809520007,
+   "water_used_kg": 5.564603188639195,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 8.999999999999984,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 251.26373456570627,
+   "water_used_kg": 5.55794847296289,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 9.099999999999984,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 250.90911408239157,
+   "water_used_kg": 5.550104275402397,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 9.199999999999983,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 250.50121035902393,
+   "water_used_kg": 5.5410814537034145,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 9.299999999999983,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 250.0405142247151,
+   "water_used_kg": 5.5308908649954684,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 9.399999999999983,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 249.52751648121057,
+   "water_used_kg": 5.519543365802747,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 9.499999999999982,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 248.9627079032709,
+   "water_used_kg": 5.507049812052533,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 9.599999999999982,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 248.34657923921512,
+   "water_used_kg": 5.493421059087222,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 9.699999999999982,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 247.6796212112476,
+   "water_used_kg": 5.478667961671554,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 9.799999999999981,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 246.96232451605297,
+   "water_used_kg": 5.462801374005773,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 9.89999999999998,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 246.1951798252629,
+   "water_used_kg": 5.445832149735953,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 9.99999999999998,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 245.37867778602939,
+   "water_used_kg": 5.427771141966674,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 10.09999999999998,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 244.51330902148592,
+   "water_used_kg": 5.408629203271234,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 10.19999999999998,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 243.59956413118135,
+   "water_used_kg": 5.388417185701234,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 10.29999999999998,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 242.63793369183477,
+   "water_used_kg": 5.367145940803283,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 10.399999999999979,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 241.62890825791453,
+   "water_used_kg": 5.344826319631803,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 10.499999999999979,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 240.5729783620206,
+   "water_used_kg": 5.32146917275749,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 10.599999999999978,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 239.4706345155389,
+   "water_used_kg": 5.297085350281784,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 10.699999999999978,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 238.32236720933057,
+   "water_used_kg": 5.271685701852118,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 10.799999999999978,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 237.1286669142792,
+   "water_used_kg": 5.245281076674022,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 10.899999999999977,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 235.89002408186664,
+   "water_used_kg": 5.2178823235238605,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 10.999999999999977,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 234.60692914487967,
+   "water_used_kg": 5.189500290764459,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 11.099999999999977,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 233.2798725179814,
+   "water_used_kg": 5.1601458263577555,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 11.199999999999976,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 231.9093445983873,
+   "water_used_kg": 5.129829777879741,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 11.299999999999976,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 230.4958357665286,
+   "water_used_kg": 5.09856299253514,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 11.399999999999975,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 229.03983638660299,
+   "water_used_kg": 5.0663563171695944,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 11.499999999999975,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 227.5418368073389,
+   "water_used_kg": 5.0332205982865625,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 11.599999999999975,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 226.00197378867594,
+   "water_used_kg": 4.999158861013005,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 11.699999999999974,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 224.42175052131847,
+   "water_used_kg": 4.964204355895383,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 11.799999999999974,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 222.8007336667219,
+   "water_used_kg": 4.928347497494292,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 11.899999999999974,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 221.13964209061982,
+   "water_used_kg": 4.891604187104491,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 11.999999999999973,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 219.43899700831074,
+   "water_used_kg": 4.853985953997317,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 12.099999999999973,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 217.69929287633514,
+   "water_used_kg": 4.815503735540948,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 12.199999999999973,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 215.9210205203252,
+   "water_used_kg": 4.77616838878794,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 12.299999999999972,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 214.10467026610294,
+   "water_used_kg": 4.735990759735068,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 12.399999999999972,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 212.25073236409494,
+   "water_used_kg": 4.694981692711355,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 12.499999999999972,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 210.35969704693613,
+   "water_used_kg": 4.653152031652278,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 12.599999999999971,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 208.43205453816998,
+   "water_used_kg": 4.610512620292205,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 12.69999999999997,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 206.46829505386378,
+   "water_used_kg": 4.567074302200138,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 12.79999999999997,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 204.46890880368224,
+   "water_used_kg": 4.522847920803447,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 12.89999999999997,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 202.43438599143914,
+   "water_used_kg": 4.477844319400087,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 12.99999999999997,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 200.36521681582656,
+   "water_used_kg": 4.432074341174717,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 13.09999999999997,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 198.26189147125655,
+   "water_used_kg": 4.385548829217319,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 13.199999999999969,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 196.12490014830266,
+   "water_used_kg": 4.338278626532973,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 13.299999999999969,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 193.95473303459013,
+   "water_used_kg": 4.290274576061541,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 13.399999999999968,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 191.75188031550027,
+   "water_used_kg": 4.241547520693246,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 13.499999999999968,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 189.51683217482898,
+   "water_used_kg": 4.192108303283246,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 13.599999999999968,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 187.25007879553374,
+   "water_used_kg": 4.1419677666681505,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 13.699999999999967,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 184.95039478473237,
+   "water_used_kg": 4.091098805183428,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 13.799999999999967,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 182.62318487493494,
+   "water_used_kg": 4.039620971397429,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 13.899999999999967,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 180.26445763525635,
+   "water_used_kg": 3.9874459749437343,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 13.999999999999966,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 177.8758123071252,
+   "water_used_kg": 3.9346091910087857,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 14.099999999999966,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 175.45788917396212,
+   "water_used_kg": 3.881124782648251,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 14.199999999999966,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 173.0111987410696,
+   "water_used_kg": 3.827004042228579,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 14.299999999999965,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 170.53623395363752,
+   "water_used_kg": 3.772257873686903,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 14.399999999999965,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 168.0334853844863,
+   "water_used_kg": 3.7168971284835943,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 14.499999999999964,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 165.50344329015599,
+   "water_used_kg": 3.660932651082905,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 14.599999999999964,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 162.94659788955542,
+   "water_used_kg": 3.604375285116692,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 14.699999999999964,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 160.36343940222417,
+   "water_used_kg": 3.5472358742307604,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 14.799999999999963,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 157.75445805412645,
+   "water_used_kg": 3.4895252622130255,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 14.899999999999963,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 155.12014407924607,
+   "water_used_kg": 3.4312542930288026,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 14.999999999999963,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 152.46098771993638,
+   "water_used_kg": 3.3724338108285346,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 15.099999999999962,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 149.77747922783385,
+   "water_used_kg": 3.313074659968011,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 15.199999999999962,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 147.07010886424254,
+   "water_used_kg": 3.2531876850168677,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 15.299999999999962,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 144.33936690087322,
+   "water_used_kg": 3.192783730774934,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 15.399999999999961,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 141.58574362070522,
+   "water_used_kg": 3.131873642291303,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 15.499999999999961,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 138.8097293182199,
+   "water_used_kg": 3.0704682648694903,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 15.59999999999996,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 136.0118143000867,
+   "water_used_kg": 3.0085784440826115,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 15.69999999999996,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 133.19248888583473,
+   "water_used_kg": 2.94621502578824,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 15.79999999999996,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 130.35224340851852,
+   "water_used_kg": 2.883388856143128,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 15.89999999999996,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 127.49156821498748,
+   "water_used_kg": 2.820110781609173,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 15.99999999999996,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 124.61095366672258,
+   "water_used_kg": 2.756391648971921,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 16.09999999999996,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 121.71089014034837,
+   "water_used_kg": 2.692242305351893,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 16.19999999999996,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 118.79186802801406,
+   "water_used_kg": 2.627673598213017,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 16.29999999999996,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 115.85437773819957,
+   "water_used_kg": 2.5626963753804546,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 16.399999999999963,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 112.89890969600354,
+   "water_used_kg": 2.4973214850469727,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 16.499999999999964,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 109.92595434383176,
+   "water_used_kg": 2.431559775788174,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 16.599999999999966,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 106.93482488023366,
+   "water_used_kg": 2.3653960555705553,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 16.699999999999967,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 103.9293842424349,
+   "water_used_kg": 2.2989157724835185,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 16.79999999999997,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 100.90704755631523,
+   "water_used_kg": 2.2320617491664136,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 16.89999999999997,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 97.86906639313611,
+   "water_used_kg": 2.1648616703489676,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 16.99999999999997,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 94.8160342861347,
+   "water_used_kg": 2.097328664973781,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 17.099999999999973,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 91.74845573040093,
+   "water_used_kg": 2.029473892461532,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 17.199999999999974,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 88.66682318891692,
+   "water_used_kg": 1.9613082460829263,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 17.299999999999976,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 85.57162751448276,
+   "water_used_kg": 1.8928425834914784,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 17.399999999999977,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 82.46335936043899,
+   "water_used_kg": 1.824087757928663,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 17.49999999999998,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 79.3425093718405,
+   "water_used_kg": 1.7550546224526744,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 17.59999999999998,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 76.2095682122722,
+   "water_used_kg": 1.6857540305315915,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 17.69999999999998,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 73.06502656718561,
+   "water_used_kg": 1.616196836117183,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 17.799999999999983,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 69.9093751449583,
+   "water_used_kg": 1.54639389366834,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 17.899999999999984,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 66.74310467720967,
+   "water_used_kg": 1.4763560581580624,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 17.999999999999986,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 63.56670591909883,
+   "water_used_kg": 1.4060941850800486,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 18.099999999999987,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 60.380669649889576,
+   "water_used_kg": 1.3356191304611924,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 18.19999999999999,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 57.18548667320139,
+   "water_used_kg": 1.2649417508671341,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 18.29999999999999,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 53.98164781733837,
+   "water_used_kg": 1.1940729034095376,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 18.39999999999999,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 50.769643935420326,
+   "water_used_kg": 1.1230234457489898,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 18.499999999999993,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 47.54996590567822,
+   "water_used_kg": 1.0518042361015356,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 18.599999999999994,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 44.32310463181767,
+   "water_used_kg": 0.980426133246719,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 18.699999999999996,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 41.089551043476,
+   "water_used_kg": 0.9088999965376924,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 18.799999999999997,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 37.849796096206624,
+   "water_used_kg": 0.8372366859008722,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 18.9,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 34.60433077169434,
+   "water_used_kg": 0.7654470618406994,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 19.0,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 31.35364607788141,
+   "water_used_kg": 0.6935419854424308,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 19.1,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 28.098233049731213,
+   "water_used_kg": 0.6215323183890289,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 19.200000000000003,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 24.838582749005752,
+   "water_used_kg": 0.5494289229562412,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 19.300000000000004,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 21.57518626396662,
+   "water_used_kg": 0.47724266200598614,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 19.400000000000006,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 18.308534710409386,
+   "water_used_kg": 0.4049843990092326,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 19.500000000000007,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 15.03911923143214,
+   "water_used_kg": 0.33266499804088084,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 19.60000000000001,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 11.767430997652882,
+   "water_used_kg": 0.26029532378457093,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 19.70000000000001,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 8.493961207175472,
+   "water_used_kg": 0.1878862415319296,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 19.80000000000001,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 5.21920108562878,
+   "water_used_kg": 0.11544861718343612,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 19.900000000000013,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 1.9453445900183186,
+   "water_used_kg": 0.043030981021463424,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 20.000000000000014,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 2.396793664195548,
+   "water_used_kg": 0.05301702495566158,
+   "firing_nozzles": 11
+  },
+  {
+   "t_s": 20.100000000000016,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 5.287446683343824,
+   "water_used_kg": 0.11695820835568536,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 20.200000000000017,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 8.509247372899322,
+   "water_used_kg": 0.18822437119313667,
+   "firing_nozzles": 9
+  },
+  {
+   "t_s": 20.30000000000002,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 11.778929206962852,
+   "water_used_kg": 0.2605496639303409,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 20.40000000000002,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 15.049342538210421,
+   "water_used_kg": 0.33289113736972265,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 20.50000000000002,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 18.32073230131082,
+   "water_used_kg": 0.4052542094609542,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 20.600000000000023,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 21.587535693561062,
+   "water_used_kg": 0.47751583112637286,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 20.700000000000024,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 24.851714157451358,
+   "water_used_kg": 0.5497193894322102,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 20.800000000000026,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 28.111791404335914,
+   "water_used_kg": 0.6218322289049707,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 20.900000000000027,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 31.367581828486994,
+   "water_used_kg": 0.6938502439498982,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 21.00000000000003,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 34.61863554554609,
+   "water_used_kg": 0.7657634831345358,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 21.10000000000003,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 37.86446692782213,
+   "water_used_kg": 0.8375612043846693,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 21.20000000000003,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 41.104585534084826,
+   "water_used_kg": 0.9092325591506996,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 21.300000000000033,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 44.33850029525958,
+   "water_used_kg": 0.9807666849951244,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 21.400000000000034,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 47.56572008082367,
+   "water_used_kg": 1.0521527181212103,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 21.500000000000036,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 50.78575377618943,
+   "water_used_kg": 1.1233797950847069,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 21.600000000000037,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 53.99811029223438,
+   "water_used_kg": 1.1944370530046535,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 21.70000000000004,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 57.20229856680398,
+   "water_used_kg": 1.2653136295966199,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 21.80000000000004,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 60.397827564786766,
+   "water_used_kg": 1.3359986631743668,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 21.90000000000004,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 63.58420627706099,
+   "water_used_kg": 1.4064812926265484,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 22.000000000000043,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 66.76094372159248,
+   "water_used_kg": 1.4767506574409948,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 22.100000000000044,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 69.92754894296672,
+   "water_used_kg": 1.5467958976943625,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 22.200000000000045,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 73.08353101134118,
+   "water_used_kg": 1.6166061540289591,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 22.300000000000047,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 76.22839902297372,
+   "water_used_kg": 1.6861705676644339,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 22.40000000000005,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 79.3616621000165,
+   "water_used_kg": 1.7554782803932159,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 22.50000000000005,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 82.48282938942651,
+   "water_used_kg": 1.8245184345564174,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 22.60000000000005,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 85.59141006361634,
+   "water_used_kg": 1.8932801730582272,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 22.700000000000053,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 88.68691331996041,
+   "water_used_kg": 1.9617526393549907,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 22.800000000000054,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 91.76884838027543,
+   "water_used_kg": 2.029924977443714,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 22.900000000000055,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 94.83672449020706,
+   "water_used_kg": 2.0977863318485017,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 23.000000000000057,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 97.89005091941829,
+   "water_used_kg": 2.165325847624719,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 23.10000000000006,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 100.9283369616766,
+   "water_used_kg": 2.232532670360923,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 23.20000000000006,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 103.95109193330407,
+   "water_used_kg": 2.299395946144578,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 23.30000000000006,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 106.95782517350615,
+   "water_used_kg": 2.3659048215693272,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 23.400000000000063,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 109.94804604404769,
+   "water_used_kg": 2.4320484437278287,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 23.500000000000064,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 112.9212639287762,
+   "water_used_kg": 2.497815960201208,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 23.600000000000065,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 115.87698823290373,
+   "water_used_kg": 2.563196519043172,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 23.700000000000067,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 118.81472838336707,
+   "water_used_kg": 2.6281792687879815,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 23.800000000000068,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 121.73399382783165,
+   "water_used_kg": 2.6927533584284125,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 23.90000000000007,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 124.63429403366916,
+   "water_used_kg": 2.756907937393142,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 24.00000000000007,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 127.51513848871546,
+   "water_used_kg": 2.8206321555635174,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 24.100000000000072,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 130.3760367000982,
+   "water_used_kg": 2.8839151632476154,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 24.200000000000074,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 133.21649819409146,
+   "water_used_kg": 2.946746111177037,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 24.300000000000075,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 136.03603251607026,
+   "water_used_kg": 3.0091141505058907,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 24.400000000000077,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 138.8341492284013,
+   "water_used_kg": 3.071008432764141,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 24.500000000000078,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 141.61035791115359,
+   "water_used_kg": 3.132418109873332,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 24.60000000000008,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 144.36416816182373,
+   "water_used_kg": 3.1933323341405,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 24.70000000000008,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 147.09508959374688,
+   "water_used_kg": 3.253740258223033,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 24.800000000000082,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 149.80263183665554,
+   "water_used_kg": 3.3136310351410265,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 24.900000000000084,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 152.48630453626694,
+   "water_used_kg": 3.37299381826816,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 25.000000000000085,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 155.14561735263095,
+   "water_used_kg": 3.431817761295146,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 25.100000000000087,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 157.78007995966365,
+   "water_used_kg": 3.4900920182194226,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 25.200000000000088,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 160.3892020457583,
+   "water_used_kg": 3.5478057433586603,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 25.30000000000009,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 162.97249331199657,
+   "water_used_kg": 3.604948091311197,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 25.40000000000009,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 165.5294634717318,
+   "water_used_kg": 3.661508216946819,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 25.500000000000092,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 168.05962225134684,
+   "water_used_kg": 3.717475275423528,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 25.600000000000094,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 170.56247938754743,
+   "water_used_kg": 3.7728384221276645,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 25.700000000000095,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 173.03754462901725,
+   "water_used_kg": 3.8275868127105217,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 25.800000000000097,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 175.48432773343276,
+   "water_used_kg": 3.881709603022314,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 25.900000000000098,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 177.90233846809053,
+   "water_used_kg": 3.9351959491260518,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 26.0000000000001,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 180.2910866100079,
+   "water_used_kg": 3.9880350072997683,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 26.1000000000001,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 182.65008194330397,
+   "water_used_kg": 4.040215933978588,
+   "firing_nozzles": 9
+  },
+  {
+   "t_s": 26.200000000000102,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 184.97883426108075,
+   "water_used_kg": 4.091727885796336,
+   "firing_nozzles": 9
+  },
+  {
+   "t_s": 26.300000000000104,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 187.27597739373206,
+   "water_used_kg": 4.142540643110336,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 26.400000000000105,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 189.54169803910509,
+   "water_used_kg": 4.192658335673003,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 26.500000000000107,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 191.77846710411657,
+   "water_used_kg": 4.2421356198928635,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 26.600000000000108,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 193.98157371964285,
+   "water_used_kg": 4.290868291444941,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 26.70000000000011,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 196.15178896419053,
+   "water_used_kg": 4.338873406569425,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 26.80000000000011,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 198.28879335430966,
+   "water_used_kg": 4.386143898299188,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 26.900000000000112,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 200.39211981784416,
+   "water_used_kg": 4.432669435008055,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 27.000000000000114,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 202.46128131104217,
+   "water_used_kg": 4.478439243298579,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 27.100000000000115,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 204.4957880877115,
+   "water_used_kg": 4.5234424899953884,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 27.200000000000117,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 206.4951500375513,
+   "water_used_kg": 4.567668333869034,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 27.300000000000118,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 208.45887699991067,
+   "water_used_kg": 4.611105932576329,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 27.40000000000012,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 210.38647880752893,
+   "water_used_kg": 4.6537444436278745,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 27.50000000000012,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 212.2774652916329,
+   "water_used_kg": 4.695573024500816,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 27.600000000000122,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 214.1313462805642,
+   "water_used_kg": 4.736580832608481,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 27.700000000000124,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 215.9476316005352,
+   "water_used_kg": 4.776757025317095,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 27.800000000000125,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 217.72583107420746,
+   "water_used_kg": 4.816090759914339,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 27.900000000000126,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 219.46545451976826,
+   "water_used_kg": 4.854571193588929,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 28.000000000000128,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 221.16601175117444,
+   "water_used_kg": 4.892187483435995,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 28.10000000000013,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 222.82701257676203,
+   "water_used_kg": 4.928928786426341,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 28.20000000000013,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 224.44796679920876,
+   "water_used_kg": 4.96478425940561,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 28.300000000000132,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 226.028384213834,
+   "water_used_kg": 4.999743059056672,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 28.400000000000134,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 227.56777460863938,
+   "water_used_kg": 5.033794341900535,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 28.500000000000135,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 229.06564776368884,
+   "water_used_kg": 5.066927264282623,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 28.600000000000136,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 230.52151344908785,
+   "water_used_kg": 5.099130982328081,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 28.700000000000138,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 231.9348814258293,
+   "water_used_kg": 5.130394651960478,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 28.80000000000014,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 233.3052614444921,
+   "water_used_kg": 5.160707428873034,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 28.90000000000014,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 234.63216324530683,
+   "water_used_kg": 5.190058468530058,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 29.000000000000142,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 235.9150965554289,
+   "water_used_kg": 5.218436926106638,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 29.100000000000144,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 237.15357109013016,
+   "water_used_kg": 5.245831956515001,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 29.200000000000145,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 238.34709655199305,
+   "water_used_kg": 5.27223271438668,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 29.300000000000146,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 239.49518263008335,
+   "water_used_kg": 5.297628354054225,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 29.400000000000148,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 240.59733899711395,
+   "water_used_kg": 5.322008029488452,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 29.50000000000015,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 241.65307531219423,
+   "water_used_kg": 5.3453608943592785,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 29.60000000000015,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 242.66190121886828,
+   "water_used_kg": 5.367676101992309,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 29.700000000000152,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 243.62332634295635,
+   "water_used_kg": 5.3889428053211015,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 29.800000000000153,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 244.53686029352588,
+   "water_used_kg": 5.409150156908642,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 29.900000000000155,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 245.4020126627388,
+   "water_used_kg": 5.4282873089439665,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 30.000000000000156,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 246.21829302347996,
+   "water_used_kg": 5.446343413189701,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 30.100000000000158,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 246.98521092958546,
+   "water_used_kg": 5.4633076209871145,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 30.20000000000016,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 247.70227591514427,
+   "water_used_kg": 5.479169083240672,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 30.30000000000016,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 248.36899749432115,
+   "water_used_kg": 5.493916950414111,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 30.400000000000162,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 248.9848851607119,
+   "water_used_kg": 5.50754037251619,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 30.500000000000163,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 249.549448386166,
+   "water_used_kg": 5.520028499074633,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 30.600000000000165,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 250.06219661969666,
+   "water_used_kg": 5.531370479112031,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 30.700000000000166,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 250.52263928781568,
+   "water_used_kg": 5.541555461153241,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 30.800000000000168,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 250.93028579481484,
+   "water_used_kg": 5.550572593231615,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 30.90000000000017,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 251.28464552065992,
+   "water_used_kg": 5.5584110228424155,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 31.00000000000017,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 251.58522782074672,
+   "water_used_kg": 5.5650598969374165,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 31.100000000000172,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 251.83154202614668,
+   "water_used_kg": 5.5705083619303375,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 31.200000000000173,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 252.02309744295871,
+   "water_used_kg": 5.574745563682506,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 31.300000000000175,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 252.15940334955843,
+   "water_used_kg": 5.577760647442012,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 31.400000000000176,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 252.2399690001908,
+   "water_used_kg": 5.579542757923173,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 31.500000000000178,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 252.26430362127223,
+   "water_used_kg": 5.580081039224745,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 31.60000000000018,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 252.2319164119663,
+   "water_used_kg": 5.579364634842646,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 31.70000000000018,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 252.14231654466022,
+   "water_used_kg": 5.577382687680504,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 31.800000000000182,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 251.99501316233048,
+   "water_used_kg": 5.574124339991384,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 31.900000000000183,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 251.78951538010872,
+   "water_used_kg": 5.569578733412421,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 32.000000000000185,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 251.5253322846967,
+   "water_used_kg": 5.563735008951882,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 32.100000000000186,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 251.20197293314718,
+   "water_used_kg": 5.556582306962201,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 32.20000000000019,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 250.81894635203705,
+   "water_used_kg": 5.548109767121684,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 32.30000000000019,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 250.3757615394541,
+   "water_used_kg": 5.538306528478458,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 32.40000000000019,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 249.87192746286726,
+   "water_used_kg": 5.527161729403364,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 32.50000000000019,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 249.3069530591332,
+   "water_used_kg": 5.5146645075900995,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 32.60000000000019,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 248.6803472340356,
+   "water_used_kg": 5.500804000045028,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 32.700000000000195,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 247.99161886205493,
+   "water_used_kg": 5.485569343082086,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 32.800000000000196,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 247.24027678767538,
+   "water_used_kg": 5.468949672351695,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 32.9000000000002,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 246.42582982262599,
+   "water_used_kg": 5.45093412277973,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 33.0000000000002,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 245.5477867470597,
+   "water_used_kg": 5.431511828593606,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 33.1000000000002,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 244.60565631209863,
+   "water_used_kg": 5.410671923378575,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 33.2000000000002,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 243.59894723305138,
+   "water_used_kg": 5.388403539927699,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 33.3000000000002,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 242.5271681950583,
+   "water_used_kg": 5.364695810366713,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 33.400000000000205,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 241.38982785099353,
+   "water_used_kg": 5.339537866107626,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 33.500000000000206,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 240.18643482145097,
+   "water_used_kg": 5.312918837848412,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 33.60000000000021,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 238.9164976948521,
+   "water_used_kg": 5.284827855575387,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 33.70000000000021,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 237.57952502838256,
+   "water_used_kg": 5.255254048583937,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 33.80000000000021,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 236.17502534578668,
+   "water_used_kg": 5.224186545429719,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 33.90000000000021,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 234.70250714027787,
+   "water_used_kg": 5.191614473993051,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 34.00000000000021,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 233.16147887063354,
+   "water_used_kg": 5.157526961392532,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 34.100000000000215,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 231.55144896604168,
+   "water_used_kg": 5.1219131340922335,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 34.200000000000216,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 229.8719258244229,
+   "water_used_kg": 5.084762117864601,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 34.30000000000022,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 228.1224178091192,
+   "water_used_kg": 5.046063037717201,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 34.40000000000022,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 226.30122604063018,
+   "water_used_kg": 5.005778314471558,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 34.50000000000022,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 224.41131708597985,
+   "water_used_kg": 4.963973568527249,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 34.60000000000022,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 222.44904560019964,
+   "water_used_kg": 4.9205681649309785,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 34.70000000000022,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 220.41470024346452,
+   "water_used_kg": 4.875568488839686,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 34.800000000000225,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 218.3078948443133,
+   "water_used_kg": 4.828965998148853,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 34.900000000000226,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 216.12815187958935,
+   "water_used_kg": 4.780750130056392,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 35.00000000000023,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 213.87498143722425,
+   "water_used_kg": 4.730910047717755,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 35.10000000000023,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 211.54789190184624,
+   "water_used_kg": 4.679434876611357,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 35.20000000000023,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 209.1463914054602,
+   "water_used_kg": 4.626313736627592,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 35.30000000000023,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 206.66998801957888,
+   "water_used_kg": 4.5715357463187685,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 35.40000000000023,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 204.1181897864809,
+   "water_used_kg": 4.515090023590536,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 35.500000000000234,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 201.4905047190881,
+   "water_used_kg": 4.456965685699171,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 35.600000000000236,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 198.7864408070232,
+   "water_used_kg": 4.397151849385578,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 35.70000000000024,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 196.00550601389955,
+   "water_used_kg": 4.335637630815333,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 35.80000000000024,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 193.14720827657987,
+   "water_used_kg": 4.272412145562288,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 35.90000000000024,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 190.2110555106774,
+   "water_used_kg": 4.207464508730256,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 36.00000000000024,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 187.1965556084406,
+   "water_used_kg": 4.140783834906225,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 36.10000000000024,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 184.10321644021457,
+   "water_used_kg": 4.072359238192678,
+   "firing_nozzles": 9
+  },
+  {
+   "t_s": 36.200000000000244,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 180.93008972133475,
+   "water_used_kg": 4.002169742552972,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 36.300000000000246,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 177.67798995074494,
+   "water_used_kg": 3.9302333646864485,
+   "firing_nozzles": 8
+  },
+  {
+   "t_s": 36.40000000000025,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 174.34444693491702,
+   "water_used_kg": 3.856495463964719,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 36.50000000000025,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 170.93151622747462,
+   "water_used_kg": 3.78100150919029,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 36.60000000000025,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 167.43669108437726,
+   "water_used_kg": 3.703696051238216,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 36.70000000000025,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 163.85999307073644,
+   "water_used_kg": 3.6245795671283063,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 36.80000000000025,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 160.2009994673685,
+   "water_used_kg": 3.543642706321193,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 36.900000000000254,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 156.45922741535458,
+   "water_used_kg": 3.460874787987847,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 37.000000000000256,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 152.6341859072866,
+   "water_used_kg": 3.3762649510548264,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 37.10000000000026,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 148.72538282566092,
+   "water_used_kg": 3.289802309893402,
+   "firing_nozzles": 7
+  },
+  {
+   "t_s": 37.20000000000026,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 144.73149380883777,
+   "water_used_kg": 3.201457569652225,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 37.30000000000026,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 140.65441019943157,
+   "water_used_kg": 3.111272566789762,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 37.40000000000026,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 136.49146601509023,
+   "water_used_kg": 3.019188329833,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 37.50000000000026,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 132.24270685164345,
+   "water_used_kg": 2.925205867360721,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 37.600000000000264,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 127.90771318536954,
+   "water_used_kg": 2.8293158995171113,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 37.700000000000266,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 123.48600254588455,
+   "water_used_kg": 2.7315077540675223,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 37.80000000000027,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 118.97708394444875,
+   "water_used_kg": 2.631770570351459,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 37.90000000000027,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 114.38046524152587,
+   "water_used_kg": 2.530093462252829,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 38.00000000000027,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 109.69565414619318,
+   "water_used_kg": 2.4264655403068747,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 38.10000000000027,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 104.92215835052298,
+   "water_used_kg": 2.32087591467269,
+   "firing_nozzles": 6
+  },
+  {
+   "t_s": 38.20000000000027,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 100.0583687816757,
+   "water_used_kg": 2.2132889926932333,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 38.300000000000274,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 95.106992325272,
+   "water_used_kg": 2.1037646506209526,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 38.400000000000276,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 90.06461935107612,
+   "water_used_kg": 1.9922274675074347,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 38.50000000000028,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 84.93147954409936,
+   "water_used_kg": 1.878682523980255,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 38.60000000000028,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 79.70717836030269,
+   "water_used_kg": 1.7631210927336463,
+   "firing_nozzles": 5
+  },
+  {
+   "t_s": 38.70000000000028,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 74.38686460760576,
+   "water_used_kg": 1.6454358655018084,
+   "firing_nozzles": 3
+  },
+  {
+   "t_s": 38.80000000000028,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 68.9791232333535,
+   "water_used_kg": 1.5258167411377082,
+   "firing_nozzles": 3
+  },
+  {
+   "t_s": 38.90000000000028,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 63.478760451351484,
+   "water_used_kg": 1.404148833201015,
+   "firing_nozzles": 3
+  },
+  {
+   "t_s": 39.000000000000284,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 57.88528477827966,
+   "water_used_kg": 1.2804212700911268,
+   "firing_nozzles": 3
+  },
+  {
+   "t_s": 39.100000000000286,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 52.19820469169882,
+   "water_used_kg": 1.1546231793421255,
+   "firing_nozzles": 3
+  },
+  {
+   "t_s": 39.20000000000029,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 46.41702865481473,
+   "water_used_kg": 1.0267436881705612,
+   "firing_nozzles": 3
+  },
+  {
+   "t_s": 39.30000000000029,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 40.54126511881085,
+   "water_used_kg": 0.8967719235270495,
+   "firing_nozzles": 3
+  },
+  {
+   "t_s": 39.40000000000029,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 34.5704225230848,
+   "water_used_kg": 0.7646970121015042,
+   "firing_nozzles": 3
+  },
+  {
+   "t_s": 39.50000000000029,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 28.504009295532,
+   "water_used_kg": 0.6305080803294107,
+   "firing_nozzles": 3
+  },
+  {
+   "t_s": 39.60000000000029,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 22.341533848534244,
+   "water_used_kg": 0.4941942543030934,
+   "firing_nozzles": 3
+  },
+  {
+   "t_s": 39.700000000000294,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 16.082504585352268,
+   "water_used_kg": 0.3557446599131187,
+   "firing_nozzles": 3
+  },
+  {
+   "t_s": 39.800000000000296,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 9.726429896686684,
+   "water_used_kg": 0.21514842277222357,
+   "firing_nozzles": 4
+  },
+  {
+   "t_s": 39.9000000000003,
+   "dt_s": 0.1,
+   "ideal_RCS_mw": 3.27281815662425,
+   "water_used_kg": 0.07239466812564702,
+   "firing_nozzles": 4
+  }
+ ],
+ "holds": [
+  "conditioning/exhaust is ideal minimum, not actual plant electric load",
+  "no guaranteed per-nozzle heat/acceleration coupling",
+  "50MW reactor dispatch at 40s time resolution not physically qualified"
+ ]
+}

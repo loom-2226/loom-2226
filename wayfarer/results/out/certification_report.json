@@ -2,8 +2,8 @@
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
  "status": "NON-GOVERNING SANDBOX certification run",
  "basis": "CERTIFICATION_BASIS.md v0.2 (agreed by Claude and Sol; PROPOSED to kT)",
- "geometry_sha256": "7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7",
- "inputs_sha256": "de485aa5d856bbe9eed2146494cc36580b35095bafc40376b8ecf38046f56d0d",
+ "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+ "inputs_sha256": "a630d35ab64e7f413fab832001c0b2aded82d0b82c164ccf58c989f71b4ced48",
  "criteria_sha256": "5bf7777930bb8dc1e72460daf3b1e5a6776b7b9f266e68269f0e7d847823d980",
  "summary": {
   "G1": "PASS",
@@ -27,8 +27,8 @@
    "checks": [
     {
      "name": "parts sum to the ledger",
-     "value": 867.68,
-     "limit": 867.67,
+     "value": 867.53,
+     "limit": 867.52,
      "unit": "t",
      "pass": true,
      "note": ""
@@ -51,7 +51,7 @@
     },
     {
      "name": "AOI and backup dome entirely drawn from positive existing reserve",
-     "value": 11.784,
+     "value": 11.284,
      "limit": 0.0,
      "unit": "t",
      "pass": true,
@@ -115,7 +115,7 @@
     },
     {
      "name": "Option C engineering growth floor preserved",
-     "value": 11.784117,
+     "value": 11.284117,
      "limit": 5.0,
      "unit": "t",
      "pass": true,
@@ -139,59 +139,209 @@
     },
     {
      "name": "S1 mass = dry + fluids + payload",
-     "value": 1167.68,
-     "limit": 1167.68,
+     "value": 1172.68,
+     "limit": 1172.68,
      "unit": "t",
      "pass": true,
      "note": "reference departure"
     },
     {
      "name": "S2 mass = dry + fluids + payload",
-     "value": 1217.68,
-     "limit": 1217.68,
+     "value": 1222.68,
+     "limit": 1222.68,
      "unit": "t",
      "pass": true,
      "note": "loaded departure"
     },
     {
      "name": "S3 mass = dry + fluids + payload",
-     "value": 1067.68,
-     "limit": 1067.68,
+     "value": 1072.68,
+     "limit": 1072.68,
      "unit": "t",
      "pass": true,
      "note": "normal dispatch"
     },
     {
      "name": "S4 mass = dry + fluids + payload",
-     "value": 917.68,
-     "limit": 917.68,
+     "value": 922.68,
+     "limit": 922.68,
      "unit": "t",
      "pass": true,
      "note": "burnt out, shuttle home"
     },
     {
      "name": "S5 mass = dry + fluids + payload",
-     "value": 888.66,
-     "limit": 888.66,
+     "value": 893.68,
+     "limit": 893.68,
      "unit": "t",
      "pass": true,
      "note": "burnt out, shuttle away"
     },
     {
      "name": "S6 mass = dry + fluids + payload",
-     "value": 1138.66,
-     "limit": 1138.66,
+     "value": 1143.68,
+     "limit": 1143.68,
      "unit": "t",
      "pass": true,
      "note": "full, shuttle away"
     },
     {
      "name": "S7 mass = dry + fluids + payload",
-     "value": 1105.18,
-     "limit": 1105.18,
+     "value": 1110.18,
+     "limit": 1110.18,
      "unit": "t",
      "pass": true,
      "note": "one tank cell breached and vented"
+    },
+    {
+     "name": "house fuel tank dry mass debited from growth reserve",
+     "value": 0.5,
+     "limit": 0.5,
+     "unit": "t",
+     "pass": true,
+     "note": "reactors, battery, flywheel, and C-lite provisioned inside 55t electrical line"
+    },
+    {
+     "name": "reserve after house fuel tank remains >=5t",
+     "value": 11.284117,
+     "limit": 5.0,
+     "unit": "t",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "S1 C-lite monoprop wet consumable accounted",
+     "value": 0.15,
+     "limit": 0.15,
+     "unit": "t",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "S2 C-lite monoprop wet consumable accounted",
+     "value": 0.15,
+     "limit": 0.15,
+     "unit": "t",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "S3 C-lite monoprop wet consumable accounted",
+     "value": 0.15,
+     "limit": 0.15,
+     "unit": "t",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "S4 C-lite monoprop wet consumable accounted",
+     "value": 0.15,
+     "limit": 0.15,
+     "unit": "t",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "S5 C-lite monoprop wet consumable accounted",
+     "value": 0.15,
+     "limit": 0.15,
+     "unit": "t",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "S6 C-lite monoprop wet consumable accounted",
+     "value": 0.15,
+     "limit": 0.15,
+     "unit": "t",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "S7 C-lite monoprop wet consumable accounted",
+     "value": 0.15,
+     "limit": 0.15,
+     "unit": "t",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "two reactor mass envelopes occupy separate aft C-ring and forward service ring bays",
+     "value": [
+      31.5,
+      17.0
+     ],
+     "limit": [
+      "aft >=30m",
+      "service <=19m"
+     ],
+     "unit": "m",
+     "pass": true,
+     "note": "Source placement only; independent protection, fault isolation and vessel packaging remain OPEN"
+    },
+    {
+     "name": "electrical dry + independent monoprop wet = 55t gross allocation",
+     "value": 55.0,
+     "limit": 55.0,
+     "unit": "t",
+     "pass": true,
+     "note": "Source dry parts include distributed growth-reserve mass; compare pre-spread allocations"
+    },
+    {
+     "name": "S1 D-He3 fuel booked as wet consumable",
+     "value": 5.0,
+     "limit": 5.0,
+     "unit": "t",
+     "pass": true,
+     "note": "separate from remass, protected water and dry engineering reserve"
+    },
+    {
+     "name": "S2 D-He3 fuel booked as wet consumable",
+     "value": 5.0,
+     "limit": 5.0,
+     "unit": "t",
+     "pass": true,
+     "note": "separate from remass, protected water and dry engineering reserve"
+    },
+    {
+     "name": "S3 D-He3 fuel booked as wet consumable",
+     "value": 5.0,
+     "limit": 5.0,
+     "unit": "t",
+     "pass": true,
+     "note": "separate from remass, protected water and dry engineering reserve"
+    },
+    {
+     "name": "S4 D-He3 fuel booked as wet consumable",
+     "value": 5.0,
+     "limit": 5.0,
+     "unit": "t",
+     "pass": true,
+     "note": "separate from remass, protected water and dry engineering reserve"
+    },
+    {
+     "name": "S5 D-He3 fuel booked as wet consumable",
+     "value": 5.0,
+     "limit": 5.0,
+     "unit": "t",
+     "pass": true,
+     "note": "separate from remass, protected water and dry engineering reserve"
+    },
+    {
+     "name": "S6 D-He3 fuel booked as wet consumable",
+     "value": 5.0,
+     "limit": 5.0,
+     "unit": "t",
+     "pass": true,
+     "note": "separate from remass, protected water and dry engineering reserve"
+    },
+    {
+     "name": "S7 D-He3 fuel booked as wet consumable",
+     "value": 5.0,
+     "limit": 5.0,
+     "unit": "t",
+     "pass": true,
+     "note": "separate from remass, protected water and dry engineering reserve"
     },
     {
      "name": "S1 water aboard",
@@ -212,122 +362,122 @@
    ],
    "declared": [],
    "notes": [
-    "dry 867.7 t vs canon 858.5 t (+9.2 t); S1 wet 1167.7 t vs canon 1158.5 t",
-    "dry by system: habitat 192.6, propulsion 166.4, structure 132.2, thermal 123.8, plant 91.5, electrical 57.2, shuttle 29.0, avionics 20.1, mission 19.8, rcs 16.6, service 13.8, external 3.3, drones 1.2",
+    "dry 867.5 t vs canon 858.5 t (+9.0 t); S1 wet 1172.7 t vs canon 1158.5 t",
+    "dry by system: habitat 192.5, propulsion 166.3, structure 132.2, thermal 123.7, plant 91.5, electrical 57.5, shuttle 29.0, avionics 20.1, mission 19.7, rcs 16.6, service 13.8, external 3.3, drones 1.2",
     "protected water: 16.5 t in the storm-shelter jacket, 8.53 t in the L3 berth shield ring, 24.8 t in the service tank, 0.0 t in the main tank cells"
    ],
    "mass_states": [
     {
      "state": "S1",
      "name": "reference departure",
-     "mass_t": 1167.7,
+     "mass_t": 1172.7,
      "cg_m": [
-      24.079,
-      0.021,
-      -0.362
+      24.083,
+      0.019,
+      -0.376
      ],
-     "Ixx": 12442943.130465081,
-     "Iyy": 197762973.87733072,
-     "Izz": 198620303.98295277,
-     "Ixy": 65959.51430213766,
-     "Ixz": 1320304.7681312736,
-     "Iyz": 4119.15999931471
+     "Ixx": 12480785.590795945,
+     "Iyy": 197736126.71806812,
+     "Izz": 198562742.49064603,
+     "Ixy": 127456.04394156975,
+     "Ixz": 1421102.8321721067,
+     "Iyz": 11423.161690461076
     },
     {
      "state": "S2",
      "name": "loaded departure",
-     "mass_t": 1217.7,
+     "mass_t": 1222.7,
      "cg_m": [
-      23.726,
-      0.021,
-      -0.347
+      23.732,
+      0.018,
+      -0.361
      ],
-     "Ixx": 13012031.546522874,
-     "Iyy": 201438049.5966105,
-     "Izz": 202646460.8679222,
-     "Ixy": 56977.35842836404,
-     "Ixz": 1469053.228166827,
-     "Iyz": 3879.7280683587414
+     "Ixx": 13050372.673021778,
+     "Iyy": 201415716.4853517,
+     "Izz": 202592904.62689632,
+     "Ixy": 119549.49773102463,
+     "Ixz": 1575789.2406206343,
+     "Iyz": 11150.949529506272
     },
     {
      "state": "S3",
      "name": "normal dispatch",
-     "mass_t": 1067.7,
+     "mass_t": 1072.7,
      "cg_m": [
-      24.093,
-      0.023,
-      -0.284
+      24.097,
+      0.021,
+      -0.3
      ],
-     "Ixx": 11325965.362580849,
-     "Iyy": 196184467.59542406,
-     "Izz": 196729192.32758215,
-     "Ixy": 62319.081688216305,
-     "Ixz": 1334160.6215462168,
-     "Iyz": 4456.54994260292
+     "Ixx": 11366416.166439181,
+     "Iyy": 196160080.15032563,
+     "Izz": 196671505.15099722,
+     "Ixy": 123780.4273581445,
+     "Ixz": 1435088.1865456044,
+     "Iyz": 11491.244358079615
     },
     {
      "state": "S4",
      "name": "burnt out, shuttle home",
-     "mass_t": 917.7,
+     "mass_t": 922.7,
      "cg_m": [
-      23.691,
-      0.027,
-      -0.135
+      23.698,
+      0.024,
+      -0.154
      ],
-     "Ixx": 9619369.404946988,
-     "Iyy": 192664040.63127652,
-     "Izz": 192770946.24669588,
-     "Ixy": 49752.639276213886,
-     "Ixz": 943171.6072231411,
-     "Iyz": 5754.984966634215
+     "Ixx": 9664961.507169541,
+     "Iyy": 192649378.85647744,
+     "Izz": 192717887.40383273,
+     "Ixy": 112472.58087992383,
+     "Ixz": 1051897.278534493,
+     "Iyz": 12271.97175946074
     },
     {
      "state": "S5",
      "name": "burnt out, shuttle away",
-     "mass_t": 888.7,
+     "mass_t": 893.7,
      "cg_m": [
-      23.643,
-      0.028,
-      -0.139
+      23.651,
+      0.025,
+      -0.159
      ],
-     "Ixx": 9566425.112596285,
-     "Iyy": 192174574.86419255,
-     "Izz": 192282238.11723387,
-     "Ixy": 48298.525897922635,
-     "Ixz": 946367.1923725456,
-     "Iyz": 5832.491532160296
+     "Ixx": 9611887.727830559,
+     "Iyy": 192160694.84160277,
+     "Izz": 192230132.41059476,
+     "Ixy": 111172.07940190462,
+     "Ixz": 1055897.5826292732,
+     "Iyz": 12349.314363165786
     },
     {
      "state": "S6",
      "name": "full, shuttle away",
-     "mass_t": 1138.7,
+     "mass_t": 1143.7,
      "cg_m": [
-      24.051,
-      0.022,
-      -0.371
+      24.056,
+      0.019,
+      -0.386
      ],
-     "Ixx": 12386648.576064847,
-     "Iyy": 197299782.5756463,
-     "Izz": 198161237.6501927,
-     "Ixy": 65012.21005315392,
-     "Ixz": 1329149.9937499228,
-     "Iyz": 4075.7361896297625
+     "Ixx": 12424217.068836242,
+     "Iyy": 197273170.94735157,
+     "Izz": 198104223.51668796,
+     "Ixy": 126595.41497642975,
+     "Ixz": 1430347.240215789,
+     "Iyz": 11400.159057986793
     },
     {
      "state": "S7",
      "name": "one tank cell breached and vented",
-     "mass_t": 1105.2,
+     "mass_t": 1110.2,
      "cg_m": [
-      24.189,
-      0.16,
-      -0.315
+      24.193,
+      0.156,
+      -0.33
      ],
-     "Ixx": 11717292.02693808,
-     "Iyy": 197118710.80435288,
-     "Izz": 197752019.67254972,
-     "Ixy": 381583.0486095767,
-     "Ixz": 1427590.609078798,
-     "Iyz": 45685.04378174099
+     "Ixx": 11757635.851484016,
+     "Iyy": 197092419.8407904,
+     "Izz": 197694401.44069812,
+     "Ixy": 443331.29971370654,
+     "Ixz": 1526760.7195421185,
+     "Iyz": 50521.37703640296
     }
    ]
   },
@@ -338,7 +488,7 @@
    "checks": [
     {
      "name": "ECON full-remass delta-v at S1",
-     "value": 722.8,
+     "value": 719.3,
      "limit": 692.5,
      "unit": "km/s",
      "pass": true,
@@ -346,7 +496,7 @@
     },
     {
      "name": "acceleration at cruise thrust, S1",
-     "value": 0.992,
+     "value": 0.988,
      "limit": 0.95,
      "unit": "g",
      "pass": true,
@@ -363,9 +513,9 @@
    ],
    "declared": [],
    "notes": [
-    "S2 (50 t payload): ECON delta-v 689.4 km/s",
+    "S2 (50 t payload): ECON delta-v 686.2 km/s",
     "Thrust from the working card (main src/wayfarer_torch_mode_cards.py, kT 2026-10-26): F = mdot ve, held to the 11.361 TW jet-power ceiling the heat rejection is sized for: CRUISE 11.36 -> 11.36 MN; EXPEDITE 22.72 -> 22.72 MN; FAST 34.08 -> 32.46 MN; HARD 56.81 -> 50.49 MN; LIMIT 85.21 -> 75.74 MN.",
-    "Throttled to the 5 g structural limit (doctrine): HARD in S4 (5.6 g at full jet power), HARD in S5 (5.8 g at full jet power), LIMIT in S1 (6.6 g at full jet power), LIMIT in S2 (6.3 g at full jet power), LIMIT in S3 (7.2 g at full jet power), LIMIT in S4 (8.4 g at full jet power), LIMIT in S5 (8.7 g at full jet power), LIMIT in S6 (6.8 g at full jet power), LIMIT in S7 (7.0 g at full jet power)",
+    "Throttled to the 5 g structural limit (doctrine): HARD in S4 (5.6 g at full jet power), HARD in S5 (5.8 g at full jet power), LIMIT in S1 (6.6 g at full jet power), LIMIT in S2 (6.3 g at full jet power), LIMIT in S3 (7.2 g at full jet power), LIMIT in S4 (8.4 g at full jet power), LIMIT in S5 (8.6 g at full jet power), LIMIT in S6 (6.8 g at full jet power), LIMIT in S7 (7.0 g at full jet power)",
     "Crew doctrine (v0.5.6): sustained thrust capped at 4 g with people aboard (NASA OCHMO: +Gx 4 g tolerable up to at least 60 min); 5 g stays the structural rating, for emergencies. The cap changes burn times, not delta-v."
    ],
    "modes": {
@@ -373,82 +523,82 @@
      "thrust_mn": 3.4083,
      "card_thrust_mn": 3.4083,
      "card_jet_power_tw": 5.11245,
-     "dv_full_remass_S1_km_s": 722.7752045214783,
+     "dv_full_remass_S1_km_s": 719.2925760109692,
      "accel_g": {
-      "S1": 0.298,
-      "S2": 0.285,
-      "S3": 0.326,
-      "S4": 0.379,
-      "S5": 0.391,
-      "S6": 0.305,
-      "S7": 0.314
+      "S1": 0.296,
+      "S2": 0.284,
+      "S3": 0.324,
+      "S4": 0.377,
+      "S5": 0.389,
+      "S6": 0.304,
+      "S7": 0.313
      }
     },
     "CRUISE": {
      "thrust_mn": 11.361,
      "card_thrust_mn": 11.361003999999998,
      "card_jet_power_tw": 11.361003999999998,
-     "dv_full_remass_S1_km_s": 481.85013634765215,
+     "dv_full_remass_S1_km_s": 479.52838400731287,
      "accel_g": {
-      "S1": 0.992,
-      "S2": 0.951,
-      "S3": 1.085,
-      "S4": 1.262,
-      "S5": 1.304,
-      "S6": 1.017,
-      "S7": 1.048
+      "S1": 0.988,
+      "S2": 0.948,
+      "S3": 1.08,
+      "S4": 1.256,
+      "S5": 1.296,
+      "S6": 1.013,
+      "S7": 1.044
      }
     },
     "EXPEDITE": {
      "thrust_mn": 22.722,
      "card_thrust_mn": 22.722007999999995,
      "card_jet_power_tw": 11.361003999999998,
-     "dv_full_remass_S1_km_s": 240.92506817382608,
+     "dv_full_remass_S1_km_s": 239.76419200365643,
      "accel_g": {
-      "S1": 1.984,
-      "S2": 1.903,
-      "S3": 2.17,
-      "S4": 2.525,
-      "S5": 2.607,
-      "S6": 2.035,
-      "S7": 2.096
+      "S1": 1.976,
+      "S2": 1.895,
+      "S3": 2.16,
+      "S4": 2.511,
+      "S5": 2.593,
+      "S6": 2.026,
+      "S7": 2.087
      }
     },
     "FAST": {
      "thrust_mn": 32.46,
      "card_thrust_mn": 34.083011899999995,
      "card_jet_power_tw": 11.929054165,
-     "dv_full_remass_S1_km_s": 168.64754772167825,
+     "dv_full_remass_S1_km_s": 167.8349344025595,
      "accel_g": {
-      "S1": 2.835,
-      "S2": 2.718,
-      "S3": 3.1,
-      "S4": 3.607,
-      "S5": 3.725,
-      "S6": 2.907,
-      "S7": 2.995
+      "S1": 2.823,
+      "S2": 2.707,
+      "S3": 3.086,
+      "S4": 3.587,
+      "S5": 3.704,
+      "S6": 2.894,
+      "S7": 2.981
      }
     },
     "HARD": {
      "thrust_mn": 50.49333333333333,
      "card_thrust_mn": 56.8050201,
      "card_jet_power_tw": 12.7811295225,
-     "dv_full_remass_S1_km_s": 108.41628067822174,
+     "dv_full_remass_S1_km_s": 107.89388640164539,
      "accel_g": {
-      "S1": 4.409,
-      "S2": 4.228,
-      "S3": 4.822,
+      "S1": 4.391,
+      "S2": 4.211,
+      "S3": 4.8,
       "S4": 5.0,
       "S5": 5.0,
-      "S6": 4.522,
-      "S7": 4.659
+      "S6": 4.502,
+      "S7": 4.638
      }
     },
     "LIMIT": {
      "thrust_mn": 75.74,
      "card_thrust_mn": 85.2075303,
      "card_jet_power_tw": 12.781129545,
-     "dv_full_remass_S1_km_s": 72.27752045214783,
+     "dv_full_remass_S1_km_s": 71.92925760109692,
      "accel_g": {
       "S1": 5.0,
       "S2": 5.0,
@@ -468,31 +618,31 @@
    "checks": [
     {
      "name": "thrust trim S1",
-     "value": 0.332,
+     "value": 0.318,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.163 m from the thrust line"
+     "note": "lateral offset 0.157 m from the thrust line"
     },
     {
      "name": "thrust trim S2",
-     "value": 0.298,
+     "value": 0.284,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.149 m from the thrust line"
+     "note": "lateral offset 0.142 m from the thrust line"
     },
     {
      "name": "thrust trim S3",
-     "value": 0.174,
+     "value": 0.164,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.086 m from the thrust line"
+     "note": "lateral offset 0.081 m from the thrust line"
     },
     {
      "name": "thrust trim S4",
-     "value": 0.133,
+     "value": 0.132,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
@@ -500,27 +650,27 @@
     },
     {
      "name": "thrust trim S5",
-     "value": 0.124,
+     "value": 0.122,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.062 m from the thrust line"
+     "note": "lateral offset 0.061 m from the thrust line"
     },
     {
      "name": "thrust trim S6",
-     "value": 0.35,
-     "limit": 0.5,
-     "unit": "deg",
-     "pass": true,
-     "note": "lateral offset 0.172 m from the thrust line"
-    },
-    {
-     "name": "thrust trim S7",
-     "value": 0.339,
+     "value": 0.337,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
      "note": "lateral offset 0.166 m from the thrust line"
+    },
+    {
+     "name": "thrust trim S7",
+     "value": 0.342,
+     "limit": 0.5,
+     "unit": "deg",
+     "pass": true,
+     "note": "lateral offset 0.168 m from the thrust line"
     },
     {
      "name": "180 deg slew, pitch (about y) +",
@@ -621,11 +771,11 @@
    ],
    "declared": [],
    "notes": [
-    "Thrust line offset from the hull axis: y +0.04 m, z -0.20 m (torch chain 175 t), chosen to centre the centre-of-mass range",
+    "Thrust line offset from the hull axis: y +0.03 m, z -0.22 m (torch chain 175 t), chosen to centre the centre-of-mass range",
     "roll +: 180 deg in 19 s (2 couples, 0.46 MN m, worst state S2); roll is rate-limited by doctrine, not gated",
     "roll -: 180 deg in 19 s (2 couples, 0.46 MN m, worst state S2); roll is rate-limited by doctrine, not gated",
     "With any one cluster out, the slowest 180 deg pitch/yaw slew is 50 s (one couple, S2).",
-    "Shuttle undocking: S1 trim 0.332 deg, S6 (shuttle away) 0.350 deg; both inside the limit.",
+    "Shuttle undocking: S1 trim 0.318 deg, S6 (shuttle away) 0.337 deg; both inside the limit.",
     "Inertia is from intrinsic component shapes (sampled volumes), not centroid-only point masses."
    ]
   },
@@ -721,6 +871,294 @@
      "unit": "",
      "pass": true,
      "note": ""
+    },
+    {
+     "name": "ship power docked_shore_power: known source/load accounting",
+     "value": 0.0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: SHORE_PLUG_AND_SUPPLY_INTERFACE_UNQUALIFIED"
+    },
+    {
+     "name": "ship power docked_shore_power: rejection capacity",
+     "value": 0.390397,
+     "limit": 387.212,
+     "unit": "MW",
+     "pass": true,
+     "note": "Thermal screening, not qualified reactor coolant loops"
+    },
+    {
+     "name": "ship power docked_crown_open_worst_sun: known source/load accounting",
+     "value": 0.0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: AOI_OPTICAL_ATTENUATION_UNCREDITED; SHORE_PLUG_AND_SUPPLY_INTERFACE_UNQUALIFIED"
+    },
+    {
+     "name": "ship power docked_crown_open_worst_sun: rejection capacity",
+     "value": 1.187731,
+     "limit": 387.212,
+     "unit": "MW",
+     "pass": true,
+     "note": "Thermal screening, not qualified reactor coolant loops"
+    },
+    {
+     "name": "ship power coast_one_online_min: known source/load accounting",
+     "value": 0.0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: FULL_PULSE_STORE_REACTOR_OFF_OR_BATTERY_CHARGE"
+    },
+    {
+     "name": "ship power coast_one_online_min: rejection capacity",
+     "value": 2.29369,
+     "limit": 387.212,
+     "unit": "MW",
+     "pass": true,
+     "note": "Thermal screening, not qualified reactor coolant loops"
+    },
+    {
+     "name": "ship power coast_recharging_fast_flip: known source/load accounting",
+     "value": 0.0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: CHARGER_BULK_POWER_UNQUALIFIED"
+    },
+    {
+     "name": "ship power coast_recharging_fast_flip: rejection capacity",
+     "value": 19.602941,
+     "limit": 387.212,
+     "unit": "MW",
+     "pass": true,
+     "note": "Thermal screening, not qualified reactor coolant loops"
+    },
+    {
+     "name": "ship power routine_120s_flip: known source/load accounting",
+     "value": 0.0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: RCS_ROUTINE_THROTTLE_PROXY_UNTRACED"
+    },
+    {
+     "name": "ship power routine_120s_flip: rejection capacity",
+     "value": 23.258952,
+     "limit": 387.212,
+     "unit": "MW",
+     "pass": true,
+     "note": "Thermal screening, not qualified reactor coolant loops"
+    },
+    {
+     "name": "ship power fast_40s_flip: known source/load accounting",
+     "value": 0.0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: FAST_FLIP_REACTOR_DISPATCH_BUS_HEAT_HARDWARE_UNQUALIFIED"
+    },
+    {
+     "name": "ship power fast_40s_flip: rejection capacity",
+     "value": 53.245523,
+     "limit": 387.212,
+     "unit": "MW",
+     "pass": true,
+     "note": "Thermal screening, not qualified reactor coolant loops"
+    },
+    {
+     "name": "ship power pulsed_torch_burn: known source/load accounting",
+     "value": 0.0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: TORCH_BURN_ONLY_POWER_TAP_UNQUALIFIED; TORCH_TAP_NOT_DEBITED_FROM_FLIGHT_THRUST"
+    },
+    {
+     "name": "ship power pulsed_torch_burn: rejection capacity",
+     "value": 66.13369,
+     "limit": 73.019,
+     "unit": "MW",
+     "pass": true,
+     "note": "Thermal screening, not qualified reactor coolant loops"
+    },
+    {
+     "name": "ship power Metric_NORMAL: known source/load accounting",
+     "value": 0.0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: FIELD_POWER_NONCANON_DECLARED; ENVIRONMENTAL_CORRECTION_POWER_OPEN"
+    },
+    {
+     "name": "ship power Metric_NORMAL: rejection capacity",
+     "value": 9.17227,
+     "limit": 387.212,
+     "unit": "MW",
+     "pass": true,
+     "note": "Thermal screening, not qualified reactor coolant loops"
+    },
+    {
+     "name": "ship power Metric_FAST: known source/load accounting",
+     "value": 0.0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: FIELD_POWER_NONCANON_DECLARED; ENVIRONMENTAL_CORRECTION_POWER_OPEN"
+    },
+    {
+     "name": "ship power Metric_FAST: rejection capacity",
+     "value": 17.204181,
+     "limit": 387.212,
+     "unit": "MW",
+     "pass": true,
+     "note": "Thermal screening, not qualified reactor coolant loops"
+    },
+    {
+     "name": "ship power Metric_EXPEDITE: known source/load accounting",
+     "value": 0.0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: FIELD_POWER_NONCANON_DECLARED; ENVIRONMENTAL_CORRECTION_POWER_OPEN"
+    },
+    {
+     "name": "ship power Metric_EXPEDITE: rejection capacity",
+     "value": 27.923253,
+     "limit": 387.212,
+     "unit": "MW",
+     "pass": true,
+     "note": "Thermal screening, not qualified reactor coolant loops"
+    },
+    {
+     "name": "ship power Metric_HARD: known source/load accounting",
+     "value": 0.0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: FIELD_POWER_NONCANON_DECLARED; ENVIRONMENTAL_CORRECTION_POWER_OPEN"
+    },
+    {
+     "name": "ship power Metric_HARD: rejection capacity",
+     "value": 57.010389,
+     "limit": 387.212,
+     "unit": "MW",
+     "pass": true,
+     "note": "Thermal screening, not qualified reactor coolant loops"
+    },
+    {
+     "name": "ship power quiet_reactors_off: known source/load accounting",
+     "value": 0.0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: THERMAL_BUFFER_LIMIT; BATTERY_THERMAL_COUPLING_UNQUALIFIED"
+    },
+    {
+     "name": "ship power cold_running_reactors_off: known source/load accounting",
+     "value": 0.0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: THERMAL_BUFFER_LIMIT; BATTERY_THERMAL_COUPLING_UNQUALIFIED"
+    },
+    {
+     "name": "ship power one_unit_failed_Metric_HARD: known source/load accounting",
+     "value": 0.0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: FAILED_REACTOR_ISOLATION_UNQUALIFIED; METRIC_ENVIRONMENTAL_CORRECTION_OPEN"
+    },
+    {
+     "name": "ship power one_unit_failed_Metric_HARD: rejection capacity",
+     "value": 57.010389,
+     "limit": 387.212,
+     "unit": "MW",
+     "pass": true,
+     "note": "Thermal screening, not qualified reactor coolant loops"
+    },
+    {
+     "name": "ship power one_unit_failed_torch_magnets: known source/load accounting",
+     "value": 0.0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: FAILED_REACTOR_ISOLATION_UNQUALIFIED; TORCH_BURN_ONLY_POWER_TAP_UNQUALIFIED; TORCH_TAP_NOT_DEBITED_FROM_FLIGHT_THRUST"
+    },
+    {
+     "name": "ship power one_unit_failed_torch_magnets: rejection capacity",
+     "value": 66.13369,
+     "limit": 73.019,
+     "unit": "MW",
+     "pass": true,
+     "note": "Thermal screening, not qualified reactor coolant loops"
+    },
+    {
+     "name": "ship power degraded_60s_flip: known source/load accounting",
+     "value": 0.0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: DEGRADED_FLIP_REAL_BUS_AND_HEAT_UNQUALIFIED"
+    },
+    {
+     "name": "ship power degraded_60s_flip: rejection capacity",
+     "value": 31.650144,
+     "limit": 387.212,
+     "unit": "MW",
+     "pass": true,
+     "note": "Thermal screening, not qualified reactor coolant loops"
+    },
+    {
+     "name": "ship power both_house_reactors_failed_hour1: known source/load accounting",
+     "value": 0.0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: FAILED_REACTORS_ACTIVE_COOLING_UNQUALIFIED"
+    },
+    {
+     "name": "ship power both_house_reactors_failed_hour1: rejection capacity",
+     "value": 0.411433,
+     "limit": 387.212,
+     "unit": "MW",
+     "pass": true,
+     "note": "Thermal screening, not qualified reactor coolant loops"
+    },
+    {
+     "name": "ship power both_house_reactors_failed_essentials: known source/load accounting",
+     "value": 0.0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: NONESSENTIAL_LOADS_SHED; BOTH_FAILED_COOLING_UNQUALIFIED"
+    },
+    {
+     "name": "ship power both_house_reactors_failed_essentials: rejection capacity",
+     "value": 0.393913,
+     "limit": 387.212,
+     "unit": "MW",
+     "pass": true,
+     "note": "Thermal screening, not qualified reactor coolant loops"
+    },
+    {
+     "name": "ship power c_lite_slow_attitude_recovery: known source/load accounting",
+     "value": 0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: CHEMICAL_THRUSTER_GEOMETRY_AND_TORQUE_UNQUALIFIED"
+    },
+    {
+     "name": "ship power shelter_battery_only: known source/load accounting",
+     "value": 0.0,
+     "limit": 0.0,
+     "unit": "MW",
+     "pass": true,
+     "note": "NAMED DEFICIT: DEDICATED_SHELTER_BATTERY_ONLY; 24H_ENDURANCE_LIMIT"
     }
    ],
    "declared": [
@@ -747,10 +1185,10 @@
     },
     {
      "key": "plant_power",
-     "text": "Plant electrical: Metric HARD at a 1300 K reject temperature needs 34.8 MW of cryo-chain electrical power, against canon's 23.9 MW at 900 K. The relational plant must supply this (canon amendment), or the cryo chain must reject through a 900 K loop.",
+     "text": "TWO D-He3 house reactors each 50MW net, 10% minimum on line, 40kW/kg net and 75% direct conversion; 2226 engineering declarations, not tested physical hardware. One surviving unit supports known Metric HARD cryo 34.8MW at 1300K plus separately declared, explicitly NON-CANON 5MW field/control, E1 0.98\u00d70.96 PMAD losses, and ordinary loads. Relational plant is consumer ONLY, Metric bank never a source. Environmental correction power remains OPEN.",
      "kT": "ACCEPTED",
-     "as": "canon states the relational plant supplies ~34.8 MW for Metric HARD at a 1,300 K reject temperature. Option not taken: a 900 K loop for the cryo chain.",
-     "date": null
+     "as": "kT ACCEPTS dedicated TWIN D-He3 house reactors: 2\u00d750MW net with declared 40kW/kg and 10% minimum each, 75% direct conversion. Relational plant is a consumer ONLY and Metric bank is not a source. The 900K canon cryo card scales to existing 1300K design; EXTRA Metric field/control electrical loads 1/2/3/5MW by mode are declared NON-CANON engineering screening, not proof of environmental correction. Reactor failure fallback staged. No whole-ship certification on new hash.",
+     "date": "2026-11-01"
     },
     {
      "key": "aoi_gore_thermal_doctrine",
@@ -761,16 +1199,31 @@
     },
     {
      "key": "cold_running",
-     "text": "Cold running (rev 7, F5 provisional item F5-TE-01): the tunable flanks drop from emissivity 0.85 to 0.1, so at the same skin temperature they radiate 12% as much. Heat is held, not removed: habitat heat 58.1 kW (x1.25), plus plant standby 10.0 kW and cryo standby 10.0 kW, less 7.1 kW still leaking through 177 m2 of low-e skin at 290 K warms the 50 t of protected water by 15 K in about 12.3 h (ideal no-standby ceiling 17.1 h). ENGINEERING_ASSUMPTION (screening placeholders 10+10 kW, NOT sourced or qualified); editable, replace with measured/engineering budget. Then the ship must open the strakes or switch the flanks back to normal. Detailed load-cycle variation, cryo plant duty, tank thermal coupling, and reserve storage remain open. The metallic look in the viewer is a proposed optical property.",
+     "text": "Cold running (rev 7, F5 provisional item F5-TE-01): the tunable flanks drop from emissivity 0.85 to 0.1, so at the same skin temperature they radiate 12% as much. Heat is held, not removed: habitat heat 58.1 kW (x1.25), plus plant standby 10.0 kW and cryo standby 10.0 kW, less 7.1 kW still leaking through 177 m2 of low-e skin at 290 K warms the 50 t of protected water by 15 K in about 11.7 h (ideal no-standby ceiling 17.1 h). House reactors OFF; battery inefficiency 3.5 kW included. ENGINEERING_ASSUMPTION (screening placeholders 10+10 kW, NOT sourced or qualified); editable, replace with measured/engineering budget. Then the ship must open the strakes or switch the flanks back to normal. Detailed load-cycle variation, cryo plant duty, tank thermal coupling, and reserve storage remain open. The metallic look in the viewer is a proposed optical property.",
      "kT": "ACCEPTED",
-     "as": "Provisional ~17.09h ideal cap before plant and cryo standby; 10+10 kW editable illustrative loads yield a shorter window; physical heat budget OPEN",
+     "as": "kT 2026-11-01: both reactors OFF in quiet/cold running; flywheel powers ~65kW essentials until thermal-buffer bound, not sub-10% reactor idle. Recalculate passive leak, flywheel discharge heat and existing 50t\u00d715K buffer. No 2226 material/thermal coupling proof.",
      "date": "2026-10-31"
+    },
+    {
+     "key": "ship_power_shore_interface_2mw_20261101",
+     "text": "NEW kT acceptance requested: docked ship uses shore electric only, reactors OFF; 2MW input rating is a new engineering declaration, not an established physical connector capability.",
+     "kT": "ACCEPTED",
+     "as": "kT ACCEPTS 2MW external dock shore-power connection with both house reactors OFF; electrical connector physics unqualified.",
+     "date": "2026-11-01"
+    },
+    {
+     "key": "torch_burn_only_tap_75_percent_20261101",
+     "text": "NEW kT acceptance requested: pulsed main torch ONLY while burning converts 63.36MW raw torch energy to 47.52MW magnet/cryocooling electric at declared 75%, rejecting 15.84MW conversion heat. Tap, pulse conditioning and corresponding torch performance debit remain unqualified. No torch emergency house generator.",
+     "kT": "ACCEPTED",
+     "as": "kT ACCEPTS main torch burn-only internal magnet/cryocooler supply: 63.36MW raw torch energy at 75% ->47.52MW net electrical plus 15.84MW conversion heat. Physical tap and propulsion-energy debit remain OPEN.",
+     "date": "2026-11-01"
     }
    ],
    "notes": [
     "Habitat heat 146.6 kW for 10 people; heat pump to 1300 K needs 1021 kW (Carnot fraction 0.5).",
     "Torch burns: strakes open to 4.0 m (73 MW); full 24 m span (387 MW) is no longer needed for the torch. At 4.0 m they shine 1.46 MW onto the hull coating.",
-    "Torch heat model (torch/, non-governing): same 11.36 TW jet from 12.6 TW of fusion, pulsed at about 1-10 Hz (0.3-3 kt per pulse). Light escape the face can take: ~358 ppm; model 180 ppm. Hot-fin capacity is computed here with certify's own 2D view factor; torch/fin_layout.py (numpy, 3.0 m body) gives a slightly higher figure."
+    "Torch heat model (torch/, non-governing): same 11.36 TW jet from 12.6 TW of fusion, pulsed at about 1-10 Hz (0.3-3 kt per pulse). Light escape the face can take: ~358 ppm; model 180 ppm. Hot-fin capacity is computed here with certify's own 2D view factor; torch/fin_layout.py (numpy, 3.0 m body) gives a slightly higher figure.",
+    "Dedicated D-He3 house power modeled separately. Metric bank and relational plant generate no power. See single table ship_power_budget.json; listed deficits are not retired by PASS-DECLARED."
    ],
    "spans_m": {
     "NORMAL": 2.0,
@@ -788,13 +1241,15 @@
     "emissivity_opaque_gore_note": "normal full shielding when gores closed; no optogel impact/thermal proof"
    },
    "cold_running": {
-    "hours": 12.276332060135852,
+    "hours": 11.69737050579486,
     "ideal_no_standby_hours": 17.087016575793427,
     "leak_kw": 7.087223483250846,
     "habitat_kw": 58.125,
     "plant_standby_kw": 10.0,
     "cryo_standby_kw": 10.0,
-    "in_kw": 78.125,
+    "house_reactor_waste_kw": 0.0,
+    "battery_loss_kw": 3.5160159703148897,
+    "in_kw": 81.6410159703149,
     "area_m2": 176.71458676442586,
     "provenance": "ENGINEERING_ASSUMPTION (screening placeholders 10+10 kW, NOT sourced or qualified); editable, replace with measured/engineering budget"
    },
@@ -818,6 +1273,934 @@
     "wall_flux_mw_m2": 5.026192207336437,
     "light_ppm_of_fusion": 179.87800000000001,
     "burn_to_face_m": 6.0
+   },
+   "ship_power": {
+    "status": "NON-CANON ENGINEERING SCREEN; NO PHYSICAL QUALIFICATION",
+    "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+    "input_sha256": "a630d35ab64e7f413fab832001c0b2aded82d0b82c164ccf58c989f71b4ced48",
+    "rcs_trace_sha256": "66a773203d774d3b325c25cd8d09e0d66264036d0e02d8f324d14ff91c2822d3",
+    "rcs_trace_60s_sha256": "9efe22b9b1093e85e3d3ea0d57e379eb0c6e9b62d30cc688cacda6c6383e4453",
+    "reactor": {
+     "count": 2,
+     "per_unit_net_mw": 50.0,
+     "minimum_net_mw": 5.0,
+     "dry_t": 2.5,
+     "net_specific_kw_kg": 40.0,
+     "conversion_efficiency": 0.75
+    },
+    "battery": {
+     "nominal_mwh": 3.0,
+     "deliverable_mwh": 2.84605,
+     "mass_t": 1.5,
+     "specific_kwh_kg": 2.0,
+     "quiet_essential_hours_energy_only": 43.785,
+     "one_hour_normal_then_essential_hours": 37.802
+    },
+    "flywheel": {
+     "nominal_mwh": 1.8,
+     "deliverable_mwh": 1.70763,
+     "mass_t": 1.8,
+     "specific_kwh_kg": 1.0,
+     "specific_kw_kg": 150.0,
+     "peak_mw": 270.0,
+     "counter_rotating_pairs": true,
+     "burst_containment": "DECLARED included in mass; unqualified",
+     "fast_flip_store_mwh": 1.301889,
+     "fast_flip_store_peak_mw": 202.6532,
+     "degraded_60s_store_mwh": 0.497488,
+     "degraded_60s_store_peak_mw": 62.507696,
+     "recharge_minutes_from_one_reactor": 1.749
+    },
+    "c_lite": {
+     "mass_total_t": 0.25,
+     "dry_t": 0.1,
+     "wet_propellant_t": 0.15,
+     "per_slow_turn_kg": 75.0,
+     "nominal_turn_count": 2,
+     "turn_duration_s": 600,
+     "status": "DECLARED SCREEN, no chemical thruster torque qualification"
+    },
+    "rcs_trace": {
+     "status": "CURRENT GEOMETRY NUMERICAL TRACE ONLY; NOT HARDWARE QUALIFICATION",
+     "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+     "dt_s": 0.1,
+     "scenario": "CURRENT GEOMETRY 40s pitch 180 diagnostic",
+     "duration_s": 40,
+     "water_consumed_kg": 1450.5109325246574,
+     "trace_ideal_energy_gj": 6.55746982375747,
+     "trace_ideal_peak_mw": 252.26430362127223,
+     "firing_nozzle_max": 11,
+     "nameplate_peak_proxy_mw": 634.295918367347,
+     "attitude_error_deg": 0.0016145106096477548,
+     "reconstruction_water_error_kg": -0.002790756959484497,
+     "reactor_assist_cases": {
+      "0": {
+       "storage_ideal_gj": 6.573025685826436,
+       "storage_peak_mw": 252.65320017299638,
+       "possible_reactor_surplus_gj": 0.0
+      },
+      "50": {
+       "storage_ideal_gj": 4.686799364299324,
+       "storage_peak_mw": 202.65320017299638,
+       "possible_reactor_surplus_gj": 0.11377367847288843
+      },
+      "100": {
+       "storage_ideal_gj": 3.0426975178947484,
+       "storage_peak_mw": 152.65320017299638,
+       "possible_reactor_surplus_gj": 0.46967183206831326
+      }
+     },
+     "holds": [
+      "conditioning/exhaust is ideal minimum, not actual plant electric load",
+      "no guaranteed per-nozzle heat/acceleration coupling",
+      "50MW reactor dispatch at 40s time resolution not physically qualified"
+     ]
+    },
+    "rcs_60s_degraded_trace": {
+     "status": "CURRENT GEOMETRY NUMERICAL TRACE ONLY; NOT HARDWARE QUALIFICATION",
+     "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+     "dt_s": 0.1,
+     "scenario": "CURRENT GEOMETRY 60s pitch 180 diagnostic",
+     "duration_s": 60,
+     "water_consumed_kg": 967.0011525652885,
+     "trace_ideal_energy_gj": 4.371618810517159,
+     "trace_ideal_peak_mw": 112.11879952416959,
+     "firing_nozzle_max": 9,
+     "nameplate_peak_proxy_mw": 518.969387755102,
+     "attitude_error_deg": 0.0004945642658528206,
+     "reconstruction_water_error_kg": -0.006757346515883,
+     "reactor_assist_cases": {
+      "0": {
+       "storage_ideal_gj": 4.394952603620607,
+       "storage_peak_mw": 112.50769607589373,
+       "possible_reactor_surplus_gj": 0.0
+      },
+      "50": {
+       "storage_ideal_gj": 1.7909552804391797,
+       "storage_peak_mw": 62.50769607589373,
+       "possible_reactor_surplus_gj": 0.39600267681857293
+      },
+      "100": {
+       "storage_ideal_gj": 0.1580583151730532,
+       "storage_peak_mw": 12.507696075893733,
+       "possible_reactor_surplus_gj": 1.7631057115524467
+      }
+     },
+     "holds": [
+      "conditioning/exhaust is ideal minimum, not actual plant electric load",
+      "no guaranteed per-nozzle heat/acceleration coupling",
+      "50MW reactor dispatch at 60s time resolution not physically qualified"
+     ]
+    },
+    "supply_doctrine": {
+     "docked": "shore power, reactors OFF",
+     "failure_chain": [
+      "reactor B",
+      "battery",
+      "C-lite slow attitude only"
+     ],
+     "reactor_bays": [
+      "A aft C-ring",
+      "B service ring"
+     ],
+     "torch_burn_only_magnet_electric_mw": 47.52,
+     "torch_raw_extraction_mw": 63.36000000000001,
+     "torch_house_power_continuous": false
+    },
+    "thermal": {
+     "full_strake_capacity_mw": 387.212,
+     "torch_strake_capacity_mw": 73.019,
+     "cold_buffer_kwh": 872.083,
+     "cold_retained_kw": 74.554,
+     "cold_thermal_limit_hours": 11.697
+    },
+    "metric": {
+     "field_power_status": "NONCANON DECLARED; environmental correction OPEN"
+    },
+    "mass": {
+     "dry_t": 867.531453,
+     "S1_wet_t": 1172.681453,
+     "electrical_loaded_t": 55.0,
+     "electrical_dry_t": 54.85,
+     "monoprop_wet_inside_loaded_electrical_t": 0.15,
+     "growth_reserve_t": 11.284117,
+     "reserve_headroom_over_5t_t": 6.284117
+    },
+    "states": [
+     {
+      "state": "docked_shore_power",
+      "loads_mw": {
+       "ordinary_ship_services": 0.3888965517241379,
+       "docking_control": 0.01
+      },
+      "known_load_mw": 0.398897,
+      "reactors_online": 0,
+      "house_reactor_mw": 0,
+      "flywheel_discharge_mw": 0,
+      "flywheel_charge_mw": 0,
+      "battery_mw": 0,
+      "shore_mw": 0.398897,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0.0,
+      "house_reactor_waste_heat_mw": 0,
+      "heat_rejected_mw": 0.390397,
+      "heat_scope": "active_radiator",
+      "heat_retained_mw": 0,
+      "passive_skin_rejection_mw": null,
+      "radiator_capacity_mw": 387.212,
+      "house_fuel_g_hr": 0.0,
+      "duration_s": null,
+      "flywheel_event_delivered_mwh": null,
+      "chemical_propellant_kg": null,
+      "deficits": [
+       "SHORE_PLUG_AND_SUPPLY_INTERFACE_UNQUALIFIED"
+      ],
+      "note": ""
+     },
+     {
+      "state": "docked_crown_open_worst_sun",
+      "loads_mw": {
+       "avionics_ECLSS": 0.045,
+       "standby": 0.02,
+       "heat_pump": 1.0211323629800673,
+       "docking": 0.01
+      },
+      "known_load_mw": 1.096132,
+      "reactors_online": 0,
+      "house_reactor_mw": 0,
+      "flywheel_discharge_mw": 0,
+      "flywheel_charge_mw": 0,
+      "battery_mw": 0,
+      "shore_mw": 1.096132,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0.0,
+      "house_reactor_waste_heat_mw": 0,
+      "heat_rejected_mw": 1.187731,
+      "heat_scope": "active_radiator",
+      "heat_retained_mw": 0,
+      "passive_skin_rejection_mw": null,
+      "radiator_capacity_mw": 387.212,
+      "house_fuel_g_hr": 0.0,
+      "duration_s": null,
+      "flywheel_event_delivered_mwh": null,
+      "chemical_propellant_kg": null,
+      "deficits": [
+       "AOI_OPTICAL_ATTENUATION_UNCREDITED",
+       "SHORE_PLUG_AND_SUPPLY_INTERFACE_UNQUALIFIED"
+      ],
+      "note": ""
+     },
+     {
+      "state": "coast_one_online_min",
+      "loads_mw": {
+       "ordinary_ship_services": 0.3888965517241379
+      },
+      "known_load_mw": 0.388897,
+      "reactors_online": 1,
+      "house_reactor_mw": 5.0,
+      "flywheel_discharge_mw": 0,
+      "flywheel_charge_mw": 4.611103,
+      "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0.0,
+      "house_reactor_waste_heat_mw": 1.666667,
+      "heat_rejected_mw": 2.29369,
+      "heat_scope": "active_radiator",
+      "heat_retained_mw": 0,
+      "passive_skin_rejection_mw": null,
+      "radiator_capacity_mw": 387.212,
+      "house_fuel_g_hr": 0.067989,
+      "duration_s": null,
+      "flywheel_event_delivered_mwh": null,
+      "chemical_propellant_kg": null,
+      "deficits": [
+       "FULL_PULSE_STORE_REACTOR_OFF_OR_BATTERY_CHARGE"
+      ],
+      "note": ""
+     },
+     {
+      "state": "coast_recharging_fast_flip",
+      "loads_mw": {
+       "ordinary_ship_services": 0.3888965517241379
+      },
+      "known_load_mw": 0.388897,
+      "reactors_online": 1,
+      "house_reactor_mw": 50.0,
+      "flywheel_discharge_mw": 0,
+      "flywheel_charge_mw": 49.611103,
+      "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0.0,
+      "house_reactor_waste_heat_mw": 16.666667,
+      "heat_rejected_mw": 19.602941,
+      "heat_scope": "active_radiator",
+      "heat_retained_mw": 0,
+      "passive_skin_rejection_mw": null,
+      "radiator_capacity_mw": 387.212,
+      "house_fuel_g_hr": 0.679887,
+      "duration_s": null,
+      "flywheel_event_delivered_mwh": null,
+      "chemical_propellant_kg": null,
+      "deficits": [
+       "CHARGER_BULK_POWER_UNQUALIFIED"
+      ],
+      "note": ""
+     },
+     {
+      "state": "routine_120s_flip",
+      "loads_mw": {
+       "ordinary_ship_services": 0.3888965517241379,
+       "RCS_120s_UNTRACED_proxy": 57.66326666666666
+      },
+      "known_load_mw": 58.052163,
+      "reactors_online": 1,
+      "house_reactor_mw": 50.0,
+      "flywheel_discharge_mw": 8.052163,
+      "flywheel_charge_mw": 0,
+      "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0.0,
+      "house_reactor_waste_heat_mw": 16.666667,
+      "heat_rejected_mw": 23.258952,
+      "heat_scope": "active_radiator",
+      "heat_retained_mw": 0,
+      "passive_skin_rejection_mw": null,
+      "radiator_capacity_mw": 387.212,
+      "house_fuel_g_hr": 0.679887,
+      "duration_s": 120,
+      "flywheel_event_delivered_mwh": 0.268405,
+      "chemical_propellant_kg": null,
+      "deficits": [
+       "RCS_ROUTINE_THROTTLE_PROXY_UNTRACED"
+      ],
+      "note": ""
+     },
+     {
+      "state": "fast_40s_flip",
+      "loads_mw": {
+       "ordinary_ship_services": 0.3888965517241379,
+       "RCS_40s_TRACE_PEAK": 252.26430362127223
+      },
+      "known_load_mw": 252.6532,
+      "reactors_online": 1,
+      "house_reactor_mw": 50.0,
+      "flywheel_discharge_mw": 202.6532,
+      "flywheel_charge_mw": 0,
+      "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0.0,
+      "house_reactor_waste_heat_mw": 16.666667,
+      "heat_rejected_mw": 53.245523,
+      "heat_scope": "active_radiator",
+      "heat_retained_mw": 0,
+      "passive_skin_rejection_mw": null,
+      "radiator_capacity_mw": 387.212,
+      "house_fuel_g_hr": 0.679887,
+      "duration_s": 40,
+      "flywheel_event_delivered_mwh": 1.301889,
+      "chemical_propellant_kg": null,
+      "deficits": [
+       "FAST_FLIP_REACTOR_DISPATCH_BUS_HEAT_HARDWARE_UNQUALIFIED"
+      ],
+      "note": "peak 252.264MW, integrated 6.557GJ, supplemental 4.687GJ"
+     },
+     {
+      "state": "pulsed_torch_burn",
+      "loads_mw": {
+       "ordinary_ship_services": 0.3888965517241379,
+       "magnet_cryocooling": 47.52
+      },
+      "known_load_mw": 47.908897,
+      "reactors_online": 1,
+      "house_reactor_mw": 5.0,
+      "flywheel_discharge_mw": 0,
+      "flywheel_charge_mw": 4.611103,
+      "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 47.52,
+      "torch_raw_extraction_mw": 63.36,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0.0,
+      "house_reactor_waste_heat_mw": 1.666667,
+      "heat_rejected_mw": 66.13369,
+      "heat_scope": "active_radiator",
+      "heat_retained_mw": 0,
+      "passive_skin_rejection_mw": null,
+      "radiator_capacity_mw": 73.019,
+      "house_fuel_g_hr": 0.067989,
+      "duration_s": null,
+      "flywheel_event_delivered_mwh": null,
+      "chemical_propellant_kg": null,
+      "deficits": [
+       "TORCH_BURN_ONLY_POWER_TAP_UNQUALIFIED",
+       "TORCH_TAP_NOT_DEBITED_FROM_FLIGHT_THRUST"
+      ],
+      "note": "magnet electric is burn-only torch tap; one house reactor charges store",
+      "torch_hot_fins_rejected_mw": 1399.526
+     },
+     {
+      "state": "Metric_NORMAL",
+      "loads_mw": {
+       "ordinary": 0.3888965517241379,
+       "scaled_cryo": 5.090909090909091,
+       "declared_field": 1.0,
+       "PMAD_loss": 0.38327149041434794
+      },
+      "known_load_mw": 6.863077,
+      "reactors_online": 1,
+      "house_reactor_mw": 6.863077,
+      "flywheel_discharge_mw": 0,
+      "flywheel_charge_mw": 0,
+      "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0.0,
+      "house_reactor_waste_heat_mw": 2.287692,
+      "heat_rejected_mw": 9.17227,
+      "heat_scope": "active_radiator",
+      "heat_retained_mw": 0,
+      "passive_skin_rejection_mw": null,
+      "radiator_capacity_mw": 387.212,
+      "house_fuel_g_hr": 0.093322,
+      "duration_s": null,
+      "flywheel_event_delivered_mwh": null,
+      "chemical_propellant_kg": null,
+      "deficits": [
+       "FIELD_POWER_NONCANON_DECLARED",
+       "ENVIRONMENTAL_CORRECTION_POWER_OPEN"
+      ],
+      "note": ""
+     },
+     {
+      "state": "Metric_FAST",
+      "loads_mw": {
+       "ordinary": 0.3888965517241379,
+       "scaled_cryo": 9.745454545454546,
+       "declared_field": 2.0,
+       "PMAD_loss": 0.7390847247990102
+      },
+      "known_load_mw": 12.873436,
+      "reactors_online": 1,
+      "house_reactor_mw": 12.873436,
+      "flywheel_discharge_mw": 0,
+      "flywheel_charge_mw": 0,
+      "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0.0,
+      "house_reactor_waste_heat_mw": 4.291145,
+      "heat_rejected_mw": 17.204181,
+      "heat_scope": "active_radiator",
+      "heat_retained_mw": 0,
+      "passive_skin_rejection_mw": null,
+      "radiator_capacity_mw": 387.212,
+      "house_fuel_g_hr": 0.17505,
+      "duration_s": null,
+      "flywheel_event_delivered_mwh": null,
+      "chemical_propellant_kg": null,
+      "deficits": [
+       "FIELD_POWER_NONCANON_DECLARED",
+       "ENVIRONMENTAL_CORRECTION_POWER_OPEN"
+      ],
+      "note": ""
+     },
+     {
+      "state": "Metric_EXPEDITE",
+      "loads_mw": {
+       "ordinary": 0.3888965517241379,
+       "scaled_cryo": 16.29090909090909,
+       "declared_field": 3.0,
+       "PMAD_loss": 1.213883735312308
+      },
+      "known_load_mw": 20.893689,
+      "reactors_online": 1,
+      "house_reactor_mw": 20.893689,
+      "flywheel_discharge_mw": 0,
+      "flywheel_charge_mw": 0,
+      "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0.0,
+      "house_reactor_waste_heat_mw": 6.964563,
+      "heat_rejected_mw": 27.923253,
+      "heat_scope": "active_radiator",
+      "heat_retained_mw": 0,
+      "passive_skin_rejection_mw": null,
+      "radiator_capacity_mw": 387.212,
+      "house_fuel_g_hr": 0.284107,
+      "duration_s": null,
+      "flywheel_event_delivered_mwh": null,
+      "chemical_propellant_kg": null,
+      "deficits": [
+       "FIELD_POWER_NONCANON_DECLARED",
+       "ENVIRONMENTAL_CORRECTION_POWER_OPEN"
+      ],
+      "note": ""
+     },
+     {
+      "state": "Metric_HARD",
+      "loads_mw": {
+       "ordinary": 0.3888965517241379,
+       "scaled_cryo": 34.763636363636365,
+       "declared_field": 5.0,
+       "PMAD_loss": 2.5021335807050136
+      },
+      "known_load_mw": 42.654666,
+      "reactors_online": 1,
+      "house_reactor_mw": 42.654666,
+      "flywheel_discharge_mw": 0,
+      "flywheel_charge_mw": 0,
+      "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0.0,
+      "house_reactor_waste_heat_mw": 14.218222,
+      "heat_rejected_mw": 57.010389,
+      "heat_scope": "active_radiator",
+      "heat_retained_mw": 0,
+      "passive_skin_rejection_mw": null,
+      "radiator_capacity_mw": 387.212,
+      "house_fuel_g_hr": 0.580007,
+      "duration_s": null,
+      "flywheel_event_delivered_mwh": null,
+      "chemical_propellant_kg": null,
+      "deficits": [
+       "FIELD_POWER_NONCANON_DECLARED",
+       "ENVIRONMENTAL_CORRECTION_POWER_OPEN"
+      ],
+      "note": ""
+     },
+     {
+      "state": "quiet_reactors_off",
+      "loads_mw": {
+       "essential_habitat": 0.065
+      },
+      "known_load_mw": 0.065,
+      "reactors_online": 0,
+      "house_reactor_mw": 0,
+      "flywheel_discharge_mw": 0,
+      "flywheel_charge_mw": 0,
+      "battery_mw": 0.065,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0.0,
+      "house_reactor_waste_heat_mw": 0,
+      "heat_rejected_mw": 0,
+      "heat_scope": "cold_buffer",
+      "heat_retained_mw": 0.074554,
+      "passive_skin_rejection_mw": 0.007087,
+      "radiator_capacity_mw": null,
+      "house_fuel_g_hr": 0.0,
+      "duration_s": null,
+      "flywheel_event_delivered_mwh": null,
+      "chemical_propellant_kg": null,
+      "deficits": [
+       "THERMAL_BUFFER_LIMIT",
+       "BATTERY_THERMAL_COUPLING_UNQUALIFIED"
+      ],
+      "note": "battery energy-only 43.79h; thermal-buffer 11.70h"
+     },
+     {
+      "state": "cold_running_reactors_off",
+      "loads_mw": {
+       "essential_habitat": 0.065
+      },
+      "known_load_mw": 0.065,
+      "reactors_online": 0,
+      "house_reactor_mw": 0,
+      "flywheel_discharge_mw": 0,
+      "flywheel_charge_mw": 0,
+      "battery_mw": 0.065,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0.0,
+      "house_reactor_waste_heat_mw": 0,
+      "heat_rejected_mw": 0,
+      "heat_scope": "cold_buffer",
+      "heat_retained_mw": 0.074554,
+      "passive_skin_rejection_mw": 0.007087,
+      "radiator_capacity_mw": null,
+      "house_fuel_g_hr": 0.0,
+      "duration_s": null,
+      "flywheel_event_delivered_mwh": null,
+      "chemical_propellant_kg": null,
+      "deficits": [
+       "THERMAL_BUFFER_LIMIT",
+       "BATTERY_THERMAL_COUPLING_UNQUALIFIED"
+      ],
+      "note": "battery energy-only 43.79h; thermal-buffer 11.70h"
+     },
+     {
+      "state": "one_unit_failed_Metric_HARD",
+      "loads_mw": {
+       "ordinary": 0.3888965517241379,
+       "cryo": 34.763636363636365,
+       "field": 5.0,
+       "PMAD_loss": 2.5021335807050136
+      },
+      "known_load_mw": 42.654666,
+      "reactors_online": 1,
+      "house_reactor_mw": 42.654666,
+      "flywheel_discharge_mw": 0,
+      "flywheel_charge_mw": 0,
+      "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0.0,
+      "house_reactor_waste_heat_mw": 14.218222,
+      "heat_rejected_mw": 57.010389,
+      "heat_scope": "active_radiator",
+      "heat_retained_mw": 0,
+      "passive_skin_rejection_mw": null,
+      "radiator_capacity_mw": 387.212,
+      "house_fuel_g_hr": 0.580007,
+      "duration_s": null,
+      "flywheel_event_delivered_mwh": null,
+      "chemical_propellant_kg": null,
+      "deficits": [
+       "FAILED_REACTOR_ISOLATION_UNQUALIFIED",
+       "METRIC_ENVIRONMENTAL_CORRECTION_OPEN"
+      ],
+      "note": ""
+     },
+     {
+      "state": "one_unit_failed_torch_magnets",
+      "loads_mw": {
+       "ordinary": 0.3888965517241379,
+       "magnet_cryocooling": 47.52
+      },
+      "known_load_mw": 47.908897,
+      "reactors_online": 1,
+      "house_reactor_mw": 5.0,
+      "flywheel_discharge_mw": 0,
+      "flywheel_charge_mw": 4.611103,
+      "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 47.52,
+      "torch_raw_extraction_mw": 63.36,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0.0,
+      "house_reactor_waste_heat_mw": 1.666667,
+      "heat_rejected_mw": 66.13369,
+      "heat_scope": "active_radiator",
+      "heat_retained_mw": 0,
+      "passive_skin_rejection_mw": null,
+      "radiator_capacity_mw": 73.019,
+      "house_fuel_g_hr": 0.067989,
+      "duration_s": null,
+      "flywheel_event_delivered_mwh": null,
+      "chemical_propellant_kg": null,
+      "deficits": [
+       "FAILED_REACTOR_ISOLATION_UNQUALIFIED",
+       "TORCH_BURN_ONLY_POWER_TAP_UNQUALIFIED",
+       "TORCH_TAP_NOT_DEBITED_FROM_FLIGHT_THRUST"
+      ],
+      "note": "",
+      "torch_hot_fins_rejected_mw": 1399.526
+     },
+     {
+      "state": "degraded_60s_flip",
+      "loads_mw": {
+       "ordinary_ship_services": 0.3888965517241379,
+       "RCS_60s_trace_peak": 112.11879952416959
+      },
+      "known_load_mw": 112.507696,
+      "reactors_online": 1,
+      "house_reactor_mw": 50.0,
+      "flywheel_discharge_mw": 62.507696,
+      "flywheel_charge_mw": 0,
+      "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0.0,
+      "house_reactor_waste_heat_mw": 16.666667,
+      "heat_rejected_mw": 31.650144,
+      "heat_scope": "active_radiator",
+      "heat_retained_mw": 0,
+      "passive_skin_rejection_mw": null,
+      "radiator_capacity_mw": 387.212,
+      "house_fuel_g_hr": 0.679887,
+      "duration_s": 60,
+      "flywheel_event_delivered_mwh": 0.497488,
+      "chemical_propellant_kg": null,
+      "deficits": [
+       "DEGRADED_FLIP_REAL_BUS_AND_HEAT_UNQUALIFIED"
+      ],
+      "note": "60s supplemental event 0.4975MWh peak 62.51MW"
+     },
+     {
+      "state": "both_house_reactors_failed_hour1",
+      "loads_mw": {
+       "ordinary_services": 0.3888965517241379
+      },
+      "known_load_mw": 0.388897,
+      "reactors_online": 0,
+      "house_reactor_mw": 0,
+      "flywheel_discharge_mw": 0,
+      "flywheel_charge_mw": 0,
+      "battery_mw": 0.388897,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0.0,
+      "house_reactor_waste_heat_mw": 0,
+      "heat_rejected_mw": 0.411433,
+      "heat_scope": "active_radiator",
+      "heat_retained_mw": 0,
+      "passive_skin_rejection_mw": null,
+      "radiator_capacity_mw": 387.212,
+      "house_fuel_g_hr": 0.0,
+      "duration_s": 3600,
+      "flywheel_event_delivered_mwh": null,
+      "chemical_propellant_kg": null,
+      "deficits": [
+       "FAILED_REACTORS_ACTIVE_COOLING_UNQUALIFIED"
+      ],
+      "note": ""
+     },
+     {
+      "state": "both_house_reactors_failed_essentials",
+      "loads_mw": {
+       "essential_services": 0.065
+      },
+      "known_load_mw": 0.065,
+      "reactors_online": 0,
+      "house_reactor_mw": 0,
+      "flywheel_discharge_mw": 0,
+      "flywheel_charge_mw": 0,
+      "battery_mw": 0.065,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0.0,
+      "house_reactor_waste_heat_mw": 0,
+      "heat_rejected_mw": 0.393913,
+      "heat_scope": "active_radiator",
+      "heat_retained_mw": 0,
+      "passive_skin_rejection_mw": null,
+      "radiator_capacity_mw": 387.212,
+      "house_fuel_g_hr": 0.0,
+      "duration_s": 3600,
+      "flywheel_event_delivered_mwh": null,
+      "chemical_propellant_kg": null,
+      "deficits": [
+       "NONESSENTIAL_LOADS_SHED",
+       "BOTH_FAILED_COOLING_UNQUALIFIED"
+      ],
+      "note": "37.80h essentials following 1h ordinary, battery energy-only"
+     },
+     {
+      "state": "c_lite_slow_attitude_recovery",
+      "loads_mw": {},
+      "known_load_mw": 0,
+      "reactors_online": 0,
+      "house_reactor_mw": 0,
+      "flywheel_discharge_mw": 0,
+      "flywheel_charge_mw": 0,
+      "battery_mw": 0,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0,
+      "house_reactor_waste_heat_mw": 0,
+      "heat_rejected_mw": 0,
+      "heat_scope": "chemical_only",
+      "heat_retained_mw": 0,
+      "passive_skin_rejection_mw": null,
+      "radiator_capacity_mw": null,
+      "house_fuel_g_hr": 0.0,
+      "duration_s": 600,
+      "flywheel_event_delivered_mwh": null,
+      "chemical_propellant_kg": 75.0,
+      "deficits": [
+       "CHEMICAL_THRUSTER_GEOMETRY_AND_TORQUE_UNQUALIFIED"
+      ],
+      "note": "~75kg/600s is an idealized scaling hypothesis, not a simulated turn"
+     },
+     {
+      "state": "shelter_battery_only",
+      "loads_mw": {
+       "shelter_essential": 0.0006
+      },
+      "known_load_mw": 0.0006,
+      "reactors_online": 0,
+      "house_reactor_mw": 0,
+      "flywheel_discharge_mw": 0,
+      "flywheel_charge_mw": 0,
+      "battery_mw": 0.0006,
+      "shore_mw": 0,
+      "torch_self_mw": 0,
+      "torch_raw_extraction_mw": 0,
+      "unserved_mw": 0,
+      "electric_accounting_mw": 0.0,
+      "house_reactor_waste_heat_mw": 0,
+      "heat_rejected_mw": 3.2e-05,
+      "heat_scope": "active_radiator",
+      "heat_retained_mw": 0,
+      "passive_skin_rejection_mw": null,
+      "radiator_capacity_mw": null,
+      "house_fuel_g_hr": 0.0,
+      "duration_s": 86400,
+      "flywheel_event_delivered_mwh": null,
+      "chemical_propellant_kg": null,
+      "deficits": [
+       "DEDICATED_SHELTER_BATTERY_ONLY",
+       "24H_ENDURANCE_LIMIT"
+      ],
+      "note": ""
+     }
+    ],
+    "half_performance_sensitivity": {
+     "same_installed_mass": true,
+     "battery_specific_energy_kwh_kg": 1.0,
+     "flywheel_specific_energy_kwh_kg": 0.5,
+     "flywheel_specific_power_kw_kg": 75.0,
+     "battery_deliverable_mwh": 1.423025,
+     "flywheel_deliverable_mwh": 0.853815,
+     "flywheel_peak_mw": 135.0,
+     "fast_flip_stored_need_mwh": 1.301889,
+     "fast_flip_peak_store_mw": 202.6532,
+     "degraded_60s_store_need_mwh": 0.497488,
+     "degraded_60s_peak_store_mw": 62.507696,
+     "one_hour_normal_then_essential_hours": 15.91,
+     "rows": [
+      {
+       "state": "docked_shore_power",
+       "half_performance_energy_and_power_close": true,
+       "basis": "electric ledger unchanged; named hardware/physics holds retained"
+      },
+      {
+       "state": "docked_crown_open_worst_sun",
+       "half_performance_energy_and_power_close": true,
+       "basis": "electric ledger unchanged; named hardware/physics holds retained"
+      },
+      {
+       "state": "coast_one_online_min",
+       "half_performance_energy_and_power_close": true,
+       "basis": "electric ledger unchanged; named hardware/physics holds retained"
+      },
+      {
+       "state": "coast_recharging_fast_flip",
+       "half_performance_energy_and_power_close": true,
+       "basis": "electric ledger unchanged; named hardware/physics holds retained"
+      },
+      {
+       "state": "routine_120s_flip",
+       "half_performance_energy_and_power_close": true,
+       "basis": "routine untraced throttle proxy, energy and power only"
+      },
+      {
+       "state": "fast_40s_flip",
+       "half_performance_energy_and_power_close": false,
+       "basis": "fast trace supplemental energy and peak power"
+      },
+      {
+       "state": "pulsed_torch_burn",
+       "half_performance_energy_and_power_close": true,
+       "basis": "electric ledger unchanged; named hardware/physics holds retained"
+      },
+      {
+       "state": "Metric_NORMAL",
+       "half_performance_energy_and_power_close": true,
+       "basis": "electric ledger unchanged; named hardware/physics holds retained"
+      },
+      {
+       "state": "Metric_FAST",
+       "half_performance_energy_and_power_close": true,
+       "basis": "electric ledger unchanged; named hardware/physics holds retained"
+      },
+      {
+       "state": "Metric_EXPEDITE",
+       "half_performance_energy_and_power_close": true,
+       "basis": "electric ledger unchanged; named hardware/physics holds retained"
+      },
+      {
+       "state": "Metric_HARD",
+       "half_performance_energy_and_power_close": true,
+       "basis": "electric ledger unchanged; named hardware/physics holds retained"
+      },
+      {
+       "state": "quiet_reactors_off",
+       "half_performance_energy_and_power_close": true,
+       "basis": "battery covers existing cold thermal-buffer limit"
+      },
+      {
+       "state": "cold_running_reactors_off",
+       "half_performance_energy_and_power_close": true,
+       "basis": "battery covers existing cold thermal-buffer limit"
+      },
+      {
+       "state": "one_unit_failed_Metric_HARD",
+       "half_performance_energy_and_power_close": true,
+       "basis": "electric ledger unchanged; named hardware/physics holds retained"
+      },
+      {
+       "state": "one_unit_failed_torch_magnets",
+       "half_performance_energy_and_power_close": true,
+       "basis": "electric ledger unchanged; named hardware/physics holds retained"
+      },
+      {
+       "state": "degraded_60s_flip",
+       "half_performance_energy_and_power_close": true,
+       "basis": "60s source-recomputed half-performance, one 50MW reactor"
+      },
+      {
+       "state": "both_house_reactors_failed_hour1",
+       "half_performance_energy_and_power_close": true,
+       "basis": "one hour ordinary services on half-energy battery"
+      },
+      {
+       "state": "both_house_reactors_failed_essentials",
+       "half_performance_energy_and_power_close": true,
+       "basis": ">=1 hour essentials after 1 hour ordinary; full nominal-hours are reduced"
+      },
+      {
+       "state": "c_lite_slow_attitude_recovery",
+       "half_performance_energy_and_power_close": true,
+       "basis": "electric ledger unchanged; named hardware/physics holds retained"
+      },
+      {
+       "state": "shelter_battery_only",
+       "half_performance_energy_and_power_close": true,
+       "basis": "electric ledger unchanged; named hardware/physics holds retained"
+      }
+     ]
+    }
    }
   },
   {
@@ -827,7 +2210,7 @@
    "checks": [
     {
      "name": "longeron upper starboard: stress at 5.0 g x 1.5",
-     "value": 222.6,
+     "value": 223.8,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
@@ -835,7 +2218,7 @@
     },
     {
      "name": "longeron upper starboard: buckling margin",
-     "value": 22.3,
+     "value": 22.2,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -843,7 +2226,7 @@
     },
     {
      "name": "longeron upper port: stress at 5.0 g x 1.5",
-     "value": 222.6,
+     "value": 223.8,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
@@ -851,7 +2234,7 @@
     },
     {
      "name": "longeron upper port: buckling margin",
-     "value": 22.3,
+     "value": 22.2,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -859,7 +2242,7 @@
     },
     {
      "name": "longeron lower starboard: stress at 5.0 g x 1.5",
-     "value": 222.6,
+     "value": 223.8,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
@@ -867,7 +2250,7 @@
     },
     {
      "name": "longeron lower starboard: buckling margin",
-     "value": 22.3,
+     "value": 22.2,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -875,7 +2258,7 @@
     },
     {
      "name": "longeron lower port: stress at 5.0 g x 1.5",
-     "value": 222.6,
+     "value": 223.8,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
@@ -883,7 +2266,7 @@
     },
     {
      "name": "longeron lower port: buckling margin",
-     "value": 22.3,
+     "value": 22.2,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -891,15 +2274,15 @@
     },
     {
      "name": "longerons: axial + bending at 5 g x 1.5 (thrust-line offset and 0.5 deg thrust error), real material area",
-     "value": 249.4,
+     "value": 250.0,
      "limit": 250.0,
      "unit": "MPa",
      "pass": true,
-     "note": "23.1 MN m; area 0.0830 m2 from the structure line (part mass includes the spread reserve); limit = the 250 MPa design stress (400 MPa floor x 0.62)"
+     "note": "22.6 MN m; area 0.0830 m2 from the structure line (part mass includes the spread reserve); limit = the 250 MPa design stress (400 MPa floor x 0.62)"
     },
     {
      "name": "first bending mode (longerons only, free-free)",
-     "value": 4.81,
+     "value": 4.8,
      "limit": 1.0,
      "unit": "Hz",
      "pass": true,
@@ -907,11 +2290,11 @@
     },
     {
      "name": "first torsion mode (closed tank cell)",
-     "value": 3.73,
+     "value": 3.72,
      "limit": 1.0,
      "unit": "Hz",
      "pass": true,
-     "note": "J 1.930 m4 with the allocated 33.3 mm tank wall; the open slot is bridged by the tank's slot walls"
+     "note": "J 1.929 m4 with the allocated 33.3 mm tank wall; the open slot is bridged by the tank's slot walls"
     },
     {
      "name": "tank structure mass needed at 5 g x 1.5 + ullage",
@@ -980,7 +2363,7 @@
     {
      "name": "floor L1: carries its deck at 5 g x 1.5",
      "value": 0.79,
-     "limit": 1.56,
+     "limit": 1.559,
      "unit": "t needed vs allotted",
      "pass": true,
      "note": "11.27 t on the floor (16.5 kPa); CFRP faces 0.2 mm; core shear 0.096 MPa"
@@ -988,15 +2371,15 @@
     {
      "name": "floor L2: carries its deck at 5 g x 1.5",
      "value": 0.79,
-     "limit": 1.56,
+     "limit": 1.559,
      "unit": "t needed vs allotted",
      "pass": true,
-     "note": "13.01 t on the floor (19.0 kPa); CFRP faces 0.23 mm; core shear 0.111 MPa"
+     "note": "13.0 t on the floor (19.0 kPa); CFRP faces 0.23 mm; core shear 0.111 MPa"
     },
     {
      "name": "floor L3: carries its deck at 5 g x 1.5",
      "value": 0.8,
-     "limit": 1.56,
+     "limit": 1.559,
      "unit": "t needed vs allotted",
      "pass": true,
      "note": "15.34 t on the floor (22.4 kPa); CFRP faces 0.27 mm; core shear 0.131 MPa"
@@ -1004,15 +2387,15 @@
     {
      "name": "floor L4: carries its deck at 5 g x 1.5",
      "value": 0.86,
-     "limit": 1.56,
+     "limit": 1.559,
      "unit": "t needed vs allotted",
      "pass": true,
-     "note": "36.53 t on the floor (53.4 kPa); CFRP faces 0.63 mm; core shear 0.311 MPa"
+     "note": "36.52 t on the floor (53.4 kPa); CFRP faces 0.63 mm; core shear 0.311 MPa"
     },
     {
      "name": "floor L4 as a pressure bulkhead (L5 at vacuum), factor 2.0",
      "value": 1.14,
-     "limit": 1.56,
+     "limit": 1.559,
      "unit": "t needed vs allotted",
      "pass": true,
      "note": "CFRP faces 2.4 mm; core shear 1.18 MPa (allowable 1.5); 2 ladderway hatches and a trunk plug"
@@ -1067,7 +2450,7 @@
     },
     {
      "name": "one longeron lost: the others at 1 g limit load",
-     "value": 39.6,
+     "value": 39.8,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
@@ -1106,13 +2489,13 @@
     "Tank radial tie-webs (54, perforated): 1.5 mm, 1.62 t, displaces 1.01 m3 (tension 0.26 MN/m each)",
     "Tank ring baffles (12, perforated): 3.0 mm, 0.70 t, displaces 0.44 m3",
     "Crew stations and floors (v0.5.6): closed-form strip and column checks in habitat/crew_systems.py; floors are 0.3 m sandwich panels spanning trunk to hull.",
-    "Worst state S2: 1005 t ahead of the thrust cone, 73.9 MN at 7.5 g ultimate, shared by 4 longerons.",
+    "Worst state S2: 1010 t ahead of the thrust cone, 74.3 MN at 7.5 g ultimate, shared by 4 longerons.",
     "Bay doors are not counted as structure. Materials: 2026 high-modulus CFRP as a conservative floor (400 MPa, 150 GPa, 1.6 t/m3).",
     "Method: closed-form plate theory (Navier series for simply supported panels, which is conservative against clamped edges) plus closed-cell equilibrium with tie-webs. A finite-element shell model is the next level of fidelity; the basis does not require it."
    ],
    "one_longeron_out": {
     "name": "one longeron lost: the others at 1 g limit load",
-    "value": 39.6,
+    "value": 39.8,
     "limit": 400,
     "unit": "MPa",
     "pass": true,
@@ -1126,7 +2509,7 @@
    "checks": [
     {
      "name": "inside the shield's shadow: habitat (pressure vessel, armour, rooms)",
-     "value": 0.79,
+     "value": 0.77,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -1134,7 +2517,7 @@
     },
     {
      "name": "inside the shield's shadow: Docking collar",
-     "value": 0.55,
+     "value": 0.57,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -1142,7 +2525,7 @@
     },
     {
      "name": "inside the shield's shadow: Pressure tunnel: habitat to collar node",
-     "value": 1.78,
+     "value": 1.8,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -1150,7 +2533,7 @@
     },
     {
      "name": "inside the shield's shadow: Pressure tunnel: collar node to bay axis",
-     "value": 2.11,
+     "value": 2.13,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -1158,7 +2541,7 @@
     },
     {
      "name": "inside the shield's shadow: Pressure tunnel: docking adapter to shuttle nose",
-     "value": 4.04,
+     "value": 4.02,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -1174,7 +2557,7 @@
     },
     {
      "name": "inside the shield's shadow: Rover-drop shuttle (docked, tanks empty)",
-     "value": 1.11,
+     "value": 1.1,
      "limit": 0.5,
      "unit": "m margin",
      "pass": true,
@@ -1407,7 +2790,7 @@
    ],
    "notes": [
     "Shadow cone: shield front face x 34.3 m, radius 2.75 m; neutron source: the pellet burn, 0.3 m across, anywhere in x 52.0-52.6 m (worst case used). Radiator strakes and the hot fins sit outside the cone (the fins edge-on to the burn), take neutron heating and are out of bounds for EVA during burns.",
-    "Shielding credits committed material only; uncommitted distributed growth allowance is zero radiation mass, AOI gel zero radiation credit (fraction 0.961485 on spread dry parts)."
+    "Shielding credits committed material only; uncommitted distributed growth allowance is zero radiation mass, AOI gel zero radiation credit (fraction 0.962067 on spread dry parts)."
    ],
    "shelter_min_g_cm2": 53.39034860482293
   },
@@ -1514,8 +2897,8 @@
     },
     {
      "name": "sustained acceleration within the +Gx evidence (4 g cap)",
-     "value": "FAST: 89.9 min at up to 3.61 g",
-     "limit": "<= 112 min",
+     "value": "FAST: 89.9 min at up to 3.59 g",
+     "limit": "<= 116 min",
      "unit": "",
      "pass": true,
      "note": "worst mode shown; Full usable remass (S1) in one burn at the working card's mass flow (held to the 11.361 TW heat ceiling), throttled to the crew cap. OCHMO allowed time interpolated log-linearly between its two +Gx evidence points (2 g >= 24 h, 4 g >= 60 min) at the burn's peak acceleration."
@@ -1530,11 +2913,11 @@
     },
     {
      "name": "storm shelter: 72 h stored backup for 10 people",
-     "value": 0.216,
+     "value": 0.148,
      "limit": 0.3,
      "unit": "t",
      "pass": true,
-     "note": "O2 25.2 kg, LiOH 43.6 kg for 30.0 kg CO2, food 18.6 kg, battery 72.0 kg (24 h); drinking water 48.6 kg from the shelter jacket (0.3%); 2.0 kW of heat"
+     "note": "O2 25.2 kg, LiOH 43.6 kg for 30.0 kg CO2, food 18.6 kg, battery 3.6 kg (24 h); drinking water 48.6 kg from the shelter jacket (0.3%); 2.0 kW of heat"
     },
     {
      "name": "docking view: cameras at the collar and a vestibule window",
@@ -1546,8 +2929,8 @@
     },
     {
      "name": "I4 human-factors source geometry hash",
-     "value": "7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7",
-     "limit": "7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7",
+     "value": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+     "limit": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
      "unit": "",
      "pass": true,
      "note": ""
@@ -1834,7 +3217,7 @@
    ],
    "declared": [],
    "notes": [
-    "Filling the shuttle's water (23.1 t, an Earth trip) from remass costs Wayfarer 75 km/s of ECON reach unless refilled at a port.",
+    "Filling the shuttle's water (23.1 t, an Earth trip) from remass costs Wayfarer 74 km/s of ECON reach unless refilled at a port.",
     "The shuttle backs 0.5 m off the forward port, then rises +Z through the slot. Strakes may stay deployed; doors open to vertical.",
     "Bay x 18.25-32.05 m vs canon reservation x 16-28 m (G11)."
    ]
@@ -1886,7 +3269,7 @@
     },
     {
      "name": "tank cell vented (S7): thrust trim",
-     "value": 0.339,
+     "value": 0.342,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
@@ -1898,7 +3281,7 @@
      "limit": "about 25% (Q7)",
      "unit": "",
      "pass": true,
-     "note": "187.5 t left, ECON delta-v 558 km/s"
+     "note": "187.5 t left, ECON delta-v 555 km/s"
     },
     {
      "name": "any one RCS cluster lost: three-axis control",
@@ -1910,7 +3293,7 @@
     },
     {
      "name": "one longeron lost: the others at 1 g limit load",
-     "value": 39.6,
+     "value": 39.8,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
@@ -1934,7 +3317,7 @@
     },
     {
      "name": "engineering reserve after the rev 7 equipment",
-     "value": 31.45,
+     "value": 30.95,
      "limit": "> 0",
      "unit": "t",
      "pass": true,
@@ -1969,15 +3352,15 @@
    "checks": [
     {
      "name": "C: card names the geometry it was made from",
-     "value": "7f620c53ca58",
-     "limit": "7f620c53ca58",
+     "value": "4d598212aeb4",
+     "limit": "4d598212aeb4",
      "pass": true,
      "unit": "",
      "note": ""
     },
     {
      "name": "C: card mass, CG and inertia match the geometry in every state",
-     "value": 0.003843,
+     "value": 0.001453,
      "limit": 0.01,
      "pass": true,
      "unit": "max abs / rel",
@@ -2045,12 +3428,12 @@
      "limit": 3.08,
      "pass": true,
      "unit": "MN m",
-     "note": "left for the RCS after 1.0 deg TVC; without TVC the worst is 19.01 MN m (S2 HARD), beyond the RCS alone"
+     "note": "left for the RCS after 1.0 deg TVC; without TVC the worst is 18.74 MN m (S2 HARD), beyond the RCS alone"
     },
     {
      "name": "R: torch thrust-vector authority covers trim + an ASSUMED 0.5 deg error",
      "value": 1.0,
-     "limit": 0.85,
+     "limit": 0.842,
      "pass": true,
      "unit": "deg",
      "note": "requirement conditional on the 0.5 deg assumption; the 1.0 deg authority is declared (kT 2026-10-26), not a qualified nozzle capability"
@@ -2081,7 +3464,7 @@
     },
     {
      "name": "T: torch: trim stays within the G3 limit as the tanks drain",
-     "value": 0.331,
+     "value": 0.318,
      "limit": 0.5,
      "pass": true,
      "unit": "deg",
@@ -2161,17 +3544,17 @@
     },
     {
      "name": "L: Loom: torch delta-v available at arrival above the 50 t reserve (normal dispatch, ECON)",
-     "value": 295.0,
+     "value": 293.6,
      "limit": "reported",
      "pass": true,
      "unit": "km/s",
-     "note": "CRUISE 196.7, EXPEDITE 98.3 km/s; the arrival mismatch itself comes from the natural transport map (not computed)"
+     "note": "CRUISE 195.7, EXPEDITE 97.9 km/s; the arrival mismatch itself comes from the natural transport map (not computed)"
     }
    ],
    "declared": [
     {
      "key": "torch_tvc",
-     "text": "Torch thrust-vector control: the magnetic nozzle steers the thrust line by up to 1.0 deg (asymmetric coil current). Needed: trim plus an assumed 0.5 deg thrust error (0.85 deg). The error is an engineering assumption, not a measured disturbance history; the authority is not a qualified nozzle capability.",
+     "text": "Torch thrust-vector control: the magnetic nozzle steers the thrust line by up to 1.0 deg (asymmetric coil current). Needed: trim plus an assumed 0.5 deg thrust error (0.842 deg). The error is an engineering assumption, not a measured disturbance history; the authority is not a qualified nozzle capability.",
      "kT": "ACCEPTED",
      "as": "Declare 1 deg of torch thrust-vector authority (decision 2), on the assumed 0.5 deg thrust error.",
      "date": "2026-10-26"
@@ -2202,7 +3585,7 @@
     "25/25 checks pass. Sources: main 19377b85; see g10/G10_SOURCE_MAP.md.",
     "Basis v0.2, agreed by Sol 2026-10-26. Not computed by design: Metric delta-v and remass (CANON II s20); Loom domain fit (PR #356).",
     "Follow-up validation, not gating: E1, FR-01B-R and MV-01 flown in Navigator: no executable fixtures, no ship-card import, and canon II s20 bars exact remass/delta-v outputs until U^M_gamma and a terminal solver exist; Loom translation-domain fit: PR #356",
-    "Screening only (ideal rocket equation at CRUISE from the S1 mass): 50 km/s: 28.8 t (within 150 t dispatch less the 50 t reserve); 100 km/s: 56.9 t (within 150 t dispatch less the 50 t reserve); 200 km/s: 111.1 t (beyond 150 t dispatch less the 50 t reserve); 300 km/s: 162.6 t (beyond 150 t dispatch less the 50 t reserve)."
+    "Screening only (ideal rocket equation at CRUISE from the S1 mass): 50 km/s: 29.0 t (within 150 t dispatch less the 50 t reserve); 100 km/s: 57.2 t (within 150 t dispatch less the 50 t reserve); 200 km/s: 111.6 t (beyond 150 t dispatch less the 50 t reserve); 300 km/s: 163.3 t (beyond 150 t dispatch less the 50 t reserve)."
    ]
   },
   {
@@ -2243,12 +3626,12 @@
     {
      "item": "Dry mass",
      "canon": "~858.5 t",
-     "v0.5": "867.7 t (includes 6 t for 4 guest berths)"
+     "v0.5": "867.5 t (includes 6 t for 4 guest berths)"
     },
     {
      "item": "Wet mass",
      "canon": "~1158.5 t",
-     "v0.5": "1167.7 t"
+     "v0.5": "1172.7 t"
     },
     {
      "item": "Launch bay",
@@ -2268,7 +3651,7 @@
     {
      "item": "Torch axis",
      "canon": "1 axial torch",
-     "v0.5": "axial, with its thrust line offset 0.20 m from the hull centreline to pass through the centre of mass"
+     "v0.5": "axial, with its thrust line offset 0.22 m from the hull centreline to pass through the centre of mass"
     },
     {
      "item": "People",
@@ -2304,8 +3687,8 @@
    "checks": [
     {
      "name": "render manifest matches locked geometry",
-     "value": "7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7",
-     "limit": "7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7",
+     "value": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+     "limit": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
      "unit": "",
      "pass": true,
      "note": ""
@@ -2328,7 +3711,7 @@
     },
     {
      "name": "cutaway current-geometry artifacts",
-     "value": 3,
+     "value": 4,
      "limit": 2,
      "unit": "",
      "pass": true,
@@ -2381,6 +3764,22 @@
      "note": ""
     },
     {
+     "name": "D-He3 and C-lite wet/dry tank envelopes have placed mass and source-checked CG cutaway labels",
+     "value": true,
+     "limit": true,
+     "unit": "Bounding envelopes and wet/dry CG only; tank packaging, overlap and plumbing UNQUALIFIED",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "source-hashed system cutaway shows independently labelled reactors, flywheel and battery",
+     "value": true,
+     "limit": true,
+     "unit": "G12 source-based visual identification, NOT physical equipment packing qualification",
+     "pass": true,
+     "note": ""
+    },
+    {
      "name": "one GLB with exterior and I4 interior scenes stamped with current hash",
      "value": true,
      "limit": true,
@@ -2395,6 +3794,13 @@
      "text": "Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only",
      "kT": "ACCEPTED",
      "as": "Acceptance of visual architecture for new-hash equal-scale section, viewer, render set and two-scene GLB; no optical or real hardware qualification implied.",
+     "date": "2026-11-01"
+    },
+    {
+     "key": "kT_visual_acceptance_storage_20261101",
+     "text": "NEW source-specific kT visual acceptance required for new aft reactor/rotor and forward reactor/battery cutaway, even if G12 image source-hash checks pass. Prior source-hash visual acceptance does not transfer.",
+     "kT": "ACCEPTED",
+     "as": "kT ACCEPTS reactor A aft C-ring, reactor B forward service ring, flywheel aft, battery forward visual layout specifically on source geometry SHA 4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331. Updated fuel-envelope labels are source-derived schematic overlays; no tank packing acceptance implied.",
      "date": "2026-11-01"
     }
    ],
@@ -2428,10 +3834,10 @@
   },
   {
    "key": "plant_power",
-   "text": "Plant electrical: Metric HARD at a 1300 K reject temperature needs 34.8 MW of cryo-chain electrical power, against canon's 23.9 MW at 900 K. The relational plant must supply this (canon amendment), or the cryo chain must reject through a 900 K loop.",
+   "text": "TWO D-He3 house reactors each 50MW net, 10% minimum on line, 40kW/kg net and 75% direct conversion; 2226 engineering declarations, not tested physical hardware. One surviving unit supports known Metric HARD cryo 34.8MW at 1300K plus separately declared, explicitly NON-CANON 5MW field/control, E1 0.98\u00d70.96 PMAD losses, and ordinary loads. Relational plant is consumer ONLY, Metric bank never a source. Environmental correction power remains OPEN.",
    "kT": "ACCEPTED",
-   "as": "canon states the relational plant supplies ~34.8 MW for Metric HARD at a 1,300 K reject temperature. Option not taken: a 900 K loop for the cryo chain.",
-   "date": null
+   "as": "kT ACCEPTS dedicated TWIN D-He3 house reactors: 2\u00d750MW net with declared 40kW/kg and 10% minimum each, 75% direct conversion. Relational plant is a consumer ONLY and Metric bank is not a source. The 900K canon cryo card scales to existing 1300K design; EXTRA Metric field/control electrical loads 1/2/3/5MW by mode are declared NON-CANON engineering screening, not proof of environmental correction. Reactor failure fallback staged. No whole-ship certification on new hash.",
+   "date": "2026-11-01"
   },
   {
    "key": "aoi_gore_thermal_doctrine",
@@ -2442,10 +3848,24 @@
   },
   {
    "key": "cold_running",
-   "text": "Cold running (rev 7, F5 provisional item F5-TE-01): the tunable flanks drop from emissivity 0.85 to 0.1, so at the same skin temperature they radiate 12% as much. Heat is held, not removed: habitat heat 58.1 kW (x1.25), plus plant standby 10.0 kW and cryo standby 10.0 kW, less 7.1 kW still leaking through 177 m2 of low-e skin at 290 K warms the 50 t of protected water by 15 K in about 12.3 h (ideal no-standby ceiling 17.1 h). ENGINEERING_ASSUMPTION (screening placeholders 10+10 kW, NOT sourced or qualified); editable, replace with measured/engineering budget. Then the ship must open the strakes or switch the flanks back to normal. Detailed load-cycle variation, cryo plant duty, tank thermal coupling, and reserve storage remain open. The metallic look in the viewer is a proposed optical property.",
+   "text": "Cold running (rev 7, F5 provisional item F5-TE-01): the tunable flanks drop from emissivity 0.85 to 0.1, so at the same skin temperature they radiate 12% as much. Heat is held, not removed: habitat heat 58.1 kW (x1.25), plus plant standby 10.0 kW and cryo standby 10.0 kW, less 7.1 kW still leaking through 177 m2 of low-e skin at 290 K warms the 50 t of protected water by 15 K in about 11.7 h (ideal no-standby ceiling 17.1 h). House reactors OFF; battery inefficiency 3.5 kW included. ENGINEERING_ASSUMPTION (screening placeholders 10+10 kW, NOT sourced or qualified); editable, replace with measured/engineering budget. Then the ship must open the strakes or switch the flanks back to normal. Detailed load-cycle variation, cryo plant duty, tank thermal coupling, and reserve storage remain open. The metallic look in the viewer is a proposed optical property.",
    "kT": "ACCEPTED",
-   "as": "Provisional ~17.09h ideal cap before plant and cryo standby; 10+10 kW editable illustrative loads yield a shorter window; physical heat budget OPEN",
+   "as": "kT 2026-11-01: both reactors OFF in quiet/cold running; flywheel powers ~65kW essentials until thermal-buffer bound, not sub-10% reactor idle. Recalculate passive leak, flywheel discharge heat and existing 50t\u00d715K buffer. No 2226 material/thermal coupling proof.",
    "date": "2026-10-31"
+  },
+  {
+   "key": "ship_power_shore_interface_2mw_20261101",
+   "text": "NEW kT acceptance requested: docked ship uses shore electric only, reactors OFF; 2MW input rating is a new engineering declaration, not an established physical connector capability.",
+   "kT": "ACCEPTED",
+   "as": "kT ACCEPTS 2MW external dock shore-power connection with both house reactors OFF; electrical connector physics unqualified.",
+   "date": "2026-11-01"
+  },
+  {
+   "key": "torch_burn_only_tap_75_percent_20261101",
+   "text": "NEW kT acceptance requested: pulsed main torch ONLY while burning converts 63.36MW raw torch energy to 47.52MW magnet/cryocooling electric at declared 75%, rejecting 15.84MW conversion heat. Tap, pulse conditioning and corresponding torch performance debit remain unqualified. No torch emergency house generator.",
+   "kT": "ACCEPTED",
+   "as": "kT ACCEPTS main torch burn-only internal magnet/cryocooler supply: 63.36MW raw torch energy at 75% ->47.52MW net electrical plus 15.84MW conversion heat. Physical tap and propulsion-energy debit remain OPEN.",
+   "date": "2026-11-01"
   },
   {
    "key": "i4_terrace_mounts",
@@ -2575,7 +3995,7 @@
   },
   {
    "key": "torch_tvc",
-   "text": "Torch thrust-vector control: the magnetic nozzle steers the thrust line by up to 1.0 deg (asymmetric coil current). Needed: trim plus an assumed 0.5 deg thrust error (0.85 deg). The error is an engineering assumption, not a measured disturbance history; the authority is not a qualified nozzle capability.",
+   "text": "Torch thrust-vector control: the magnetic nozzle steers the thrust line by up to 1.0 deg (asymmetric coil current). Needed: trim plus an assumed 0.5 deg thrust error (0.842 deg). The error is an engineering assumption, not a measured disturbance history; the authority is not a qualified nozzle capability.",
    "kT": "ACCEPTED",
    "as": "Declare 1 deg of torch thrust-vector authority (decision 2), on the assumed 0.5 deg thrust error.",
    "date": "2026-10-26"
@@ -2607,9 +4027,16 @@
    "kT": "ACCEPTED",
    "as": "Acceptance of visual architecture for new-hash equal-scale section, viewer, render set and two-scene GLB; no optical or real hardware qualification implied.",
    "date": "2026-11-01"
+  },
+  {
+   "key": "kT_visual_acceptance_storage_20261101",
+   "text": "NEW source-specific kT visual acceptance required for new aft reactor/rotor and forward reactor/battery cutaway, even if G12 image source-hash checks pass. Prior source-hash visual acceptance does not transfer.",
+   "kT": "ACCEPTED",
+   "as": "kT ACCEPTS reactor A aft C-ring, reactor B forward service ring, flywheel aft, battery forward visual layout specifically on source geometry SHA 4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331. Updated fuel-envelope labels are source-derived schematic overlays; no tank packing acceptance implied.",
+   "date": "2026-11-01"
   }
  ],
- "kt_decisions_sha256": "9493bb42e6892475f365124ef276c35a6321892fdc40a13d28c620d26488ec1a",
+ "kt_decisions_sha256": "6e42c2e97fe2d5ea3a43e3ab6ece0531531206355642ccc15e2b6beef1cd255a",
  "certified": true,
  "certified_rule": "every gate PASS or PASS-DECLARED and every declared assumption ACCEPTED by kT; then both reviewers sign and loom-gate passes",
  "qualification_scope": {
@@ -2620,6 +4047,6 @@
   "rcs_power_source": "OPEN: idle torch reactor versus dedicated supply; no ship-wide budget",
   "rcs_power_option_B": "hot-water store OPTION, not baseline",
   "required_final_authority": "separate reviewer signatures and loom-gate per existing basis",
-  "geometry_sha256": "7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7"
+  "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331"
  }
 }

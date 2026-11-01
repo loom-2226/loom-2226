@@ -81,7 +81,8 @@ def g1(I, C, G):
               + I["shuttle"]["dry_t"] + L["drones_pods_t"] + L.get("torch_hot_fins_t", 0.0) + L.get("crew_systems_v056_t", 0.0) + L.get("crew_systems_v057_t", 0.0)
               + L.get("rcs_axial_t", 0.0) + L.get("reserve_draws_rev7", {}).get("total_t", 0.0)
               + L.get("i4_carryover_t", 0.0) + L.get("aoi_crown_t",0.0) + L.get("aoi_aft_bulkhead_reinforcement_t",0.0)
-               + L.get("crown_option_c_additions_t",0.0) + L.get("l3_berth_shield_liner_t",0.0))
+               + L.get("crown_option_c_additions_t",0.0) + L.get("l3_berth_shield_liner_t",0.0)
+              + L.get("house_fuel_tank_t",0.0) - L.get("electrical_fueled_wet_t",0.0))
     AOI = I["habitat"]["decks"][0].get("command_layout",{}).get("crown_dome",{}).get("adaptive_optogel")
     dry = G["dry_t"]
     cs = [chk("parts sum to the ledger", round(dry, 2), round(expect, 2), abs(dry - expect) <= C["G1"]["ledger_tolerance_t"], "t")]
@@ -110,7 +111,7 @@ def g1(I, C, G):
         # must reconcile, including 0.540125t panes booked to I4 and 0.6t liner.
         prior_reserve=17.786216  # frozen immediately prior to Option C, PR #439 / 25bae1ce
         expected_draw=m["reserve_draw_total_t"]
-        actual_draw=prior_reserve-L["engineering_reserve_t"]
+        actual_draw=prior_reserve-L["engineering_reserve_t"]-L.get("house_fuel_tank_t",0.0)
         pane_delta=I["i4_carryover"]["crown_increment_from_reserve_t"]-.347738-m.get("dome_primary_delta_t",0.0)
         cs.append(chk("Option C explicit reserve draw reconciles (including dome change)",
             round(actual_draw,6),round(expected_draw,6),
@@ -139,6 +140,40 @@ def g1(I, C, G):
         exp = dry - (shuttle if st["shuttle"] == "absent" else 0) + fl
         cs.append(chk(f"{s} mass = dry + fluids + payload", round(st["mass_t"], 2), round(exp, 2), abs(st["mass_t"] - exp) < 0.05, "t",
                       st["name"]))
+    if "ship_power" in I:
+        hp=I["ship_power"]
+        cs.append(chk("house fuel tank dry mass debited from growth reserve",
+            round(next(p["mass_t"] for p in G["parts"] if p["id"]=="house_fuel_tank"),6),
+            hp["fuel_tank_dry_t"],True,"t","reactors, battery, flywheel, and C-lite provisioned inside 55t electrical line"))
+        cs.append(chk("reserve after house fuel tank remains >=5t",
+            L["engineering_reserve_t"],5.,L["engineering_reserve_t"]>=5.,"t"))
+        for ss in states(I):
+            mono=sum(p["mass_t"] for p in G["fluids_by_state"][ss] if "c_lite_wet" in p["tags"])
+            cs.append(chk(f"{ss} C-lite monoprop wet consumable accounted",round(mono,6),hp.get("c_lite_wet_propellant_t",0),abs(mono-hp.get("c_lite_wet_propellant_t",0))<1e-8,"t"))
+        ap=next(p for p in G["parts"] if p["id"]=="house_reactor_A")
+        bp=next(p for p in G["parts"] if p["id"]=="house_reactor_B")
+        separated=(ap["shape"]["x0"]>=30 and bp["shape"]["x1"]<=19
+            and ap["shape"]["x0"]-bp["shape"]["x1"]>=10)
+        cs.append(chk("two reactor mass envelopes occupy separate aft C-ring and forward service ring bays",
+            [round(ap["shape"]["x0"],2),round(bp["shape"]["x0"],2)],
+            ["aft >=30m","service <=19m"],separated,"m",
+            "Source placement only; independent protection, fault isolation and vessel packaging remain OPEN"))
+        byid={p["id"]:p["mass_t"] for p in G["parts"]}
+        # Source build distributes growth reserve across each dry part. Undo
+        # that common factor for allocation checks, rather than double-book it.
+        grow=(byid["house_reactor_A"]+byid["house_reactor_B"])/hp["reactor_dry_t"]
+        ids=("house_reactor_A","house_reactor_B","house_peak_store","house_energy_battery","c_lite_dry","electrical_fwd","electrical")
+        allocated=sum(byid[k] for k in ids)/grow
+        provisioned=allocated+hp.get("c_lite_wet_propellant_t",0)
+        cs.append(chk("electrical dry + independent monoprop wet = 55t gross allocation",
+            round(provisioned,6),I["ledger"]["electrical_t"],
+            abs(provisioned-I["ledger"]["electrical_t"])<1e-7,"t",
+            "Source dry parts include distributed growth-reserve mass; compare pre-spread allocations"))
+        for ss in states(I):
+            hm=sum(p["mass_t"] for p in G["fluids_by_state"][ss] if "house_fuel" in p["tags"])
+            cs.append(chk(f"{ss} D-He3 fuel booked as wet consumable",
+                round(hm,5),hp["fuel_t"],abs(hm-hp["fuel_t"])<1e-8,"t",
+                "separate from remass, protected water and dry engineering reserve"))
     water = sum(p["mass_t"] for p in G["fluids_by_state"]["S1"] if "water" in p["tags"])
     cs.append(chk("S1 water aboard", round(water, 2), I["canon"]["water_t"], abs(water - I["canon"]["water_t"]) < 0.05, "t"))
     cs.append(chk("tank volume", round(G["tank_volume_m3"], 1), C["G1"]["tank_volume_min_m3"], G["tank_volume_m3"] >= C["G1"]["tank_volume_min_m3"], "m3",
@@ -469,8 +504,14 @@ def g4(I, C, G):
     cap, hull_hit = rad_net_mw(I, C, R["torch_span_m"], azs)
     fullcap = rad_net_mw(I, C, R["max_span_m"], azs)[0]
     e_hard = I["canon"]["metric_cryo_electrical_mw_at_900K"]["HARD"] * (T - 20) / 880
-    decl.append(("plant_power", f"Plant electrical: Metric HARD at a {T} K reject temperature needs {e_hard:.1f} MW of cryo-chain electrical power, against canon's "
-                f"23.9 MW at 900 K. The relational plant must supply this (canon amendment), or the cryo chain must reject through a 900 K loop."))
+    if I.get("ship_power"):
+        HP=I["ship_power"]
+        decl.append(("plant_power",
+            f"TWO D-He3 house reactors each {HP['reactor_net_electric_mw']:.0f}MW net, {HP['reactor_minimum_fraction']*100:.0f}% minimum on line, {HP['reactor_net_specific_kw_kg']:.0f}kW/kg net and 75% direct conversion; 2226 engineering declarations, not tested physical hardware. "
+            f"One surviving unit supports known Metric HARD cryo {e_hard:.1f}MW at {T}K plus separately declared, explicitly NON-CANON 5MW field/control, E1 0.98×0.96 PMAD losses, and ordinary loads. Relational plant is consumer ONLY, Metric bank never a source. Environmental correction power remains OPEN."))
+    else:
+        decl.append(("plant_power", f"Plant electrical: Metric HARD at a {T} K reject temperature needs {e_hard:.1f} MW of cryo-chain electrical power, against canon's "
+                    f"23.9 MW at 900 K. The relational plant must supply this (canon amendment), or the cryo chain must reject through a 900 K loop."))
     # passive habitat skin radiators as backup
     sun = hh["worst_sun_w_m2"] * hh["absorptivity"] / math.pi
     net = hh["emissivity"] * SIGMA * tc ** 4 - sun
@@ -496,14 +537,22 @@ def g4(I, C, G):
         ideal_hrs = e_buf / max(q_in - leak, 1e-9) / 3600
         p_standby = CR.get("plant_standby_kw",0.0)
         cryo_standby = CR.get("cryo_standby_kw",0.0)
-        hrs = e_buf / max(q_in + p_standby + cryo_standby - leak, 1e-9) / 3600
+        # Include the house reactor's conversion waste while all radiator
+        # rejection is intentionally stowed in cold-running mode.
+        HP=I.get("ship_power")
+        e_cold_kw=I["habitat_heat"]["avionics_kw"]+I["habitat_heat"]["eclss_galley_kw"]+I["habitat_heat"]["lighting_misc_kw"]+p_standby+cryo_standby
+        # kT power update: BOTH house reactors OFF in quiet/cold running.
+        # Flywheel, not a fictitious deeply throttled reactor, supplies 65kW.
+        house_waste_kw=0.0
+        flywheel_loss_kw=e_cold_kw * (1 / math.sqrt(HP.get("battery_energy_round_trip_efficiency",HP["peak_store_round_trip_efficiency"]))-1) if HP else 0.
+        hrs = e_buf / max(q_in + p_standby + cryo_standby + flywheel_loss_kw - leak, 1e-9) / 3600
         ratio = md["cold_running"]["emissivity"] / md["normal"]["emissivity"]
         decl.append(("cold_running", f"Cold running (rev 7, F5 provisional item F5-TE-01): the tunable flanks drop from emissivity {md['normal']['emissivity']} to "
                      f"{md['cold_running']['emissivity']}, so at the same skin temperature they radiate {ratio * 100:.0f}% as much. Heat is held, not removed: habitat heat "
                      f"{q_in:.1f} kW (x1.25), plus plant standby {p_standby:.1f} kW and cryo standby {cryo_standby:.1f} kW, less {leak:.1f} kW still leaking through {a_sk:.0f} m2 of low-e skin at {hr['temperature_k']} K warms the "
-                     f"{I['canon']['protected_water_t']:.0f} t of protected water by {CR['buffer_dT_k']:.0f} K in about {hrs:.1f} h (ideal no-standby ceiling {ideal_hrs:.1f} h). {CR.get('standby_prov','')}. Then the ship must open the strakes "
+                     f"{I['canon']['protected_water_t']:.0f} t of protected water by {CR['buffer_dT_k']:.0f} K in about {hrs:.1f} h (ideal no-standby ceiling {ideal_hrs:.1f} h). House reactors OFF; battery inefficiency {flywheel_loss_kw:.1f} kW included. {CR.get('standby_prov','')}. Then the ship must open the strakes "
                      f"or switch the flanks back to normal. {CR['not_modelled']}. The metallic look in the viewer is a proposed optical property."))
-        r_cold = {"hours": hrs, "ideal_no_standby_hours": ideal_hrs, "leak_kw": leak, "habitat_kw": q_in, "plant_standby_kw":p_standby, "cryo_standby_kw":cryo_standby, "in_kw":q_in+p_standby+cryo_standby,"area_m2": a_sk,"provenance":CR.get("standby_prov")}
+        r_cold = {"hours": hrs, "ideal_no_standby_hours": ideal_hrs, "leak_kw": leak, "habitat_kw": q_in, "plant_standby_kw":p_standby, "cryo_standby_kw":cryo_standby,   "house_reactor_waste_kw":0.0,"battery_loss_kw":flywheel_loss_kw,"in_kw":q_in+p_standby+cryo_standby+flywheel_loss_kw,"area_m2": a_sk,"provenance":CR.get("standby_prov")}
     else:
         r_cold = None
     notes.append(f"Habitat heat {q_hab_kw:.1f} kW for {n} people; heat pump to {T} K needs {w_hp:.0f} kW (Carnot fraction {C['G4']['heat_pump_carnot_fraction']}).")
@@ -517,6 +566,24 @@ def g4(I, C, G):
     r["torch_strake_capacity_mw"] = cap
     r["hot_fin_capacity_gw"] = fcap
     r["torch_budget"] = tb
+    if I.get("ship_power"):
+        import ship_power_budget as SP
+        ship=SP.evaluate()
+        SP.save(ship)
+        r["ship_power"]=ship
+        for row in ship["states"]:
+            nm=row["state"]
+            r["checks"].append(chk("ship power "+nm+": known source/load accounting",
+                row["electric_accounting_mw"],0.,abs(row["electric_accounting_mw"])<1e-6,"MW",
+                "NAMED DEFICIT: "+"; ".join(row["deficits"]) if row["deficits"] else "source and modeled loads close"))
+            if row["radiator_capacity_mw"] is not None:
+                r["checks"].append(chk("ship power "+nm+": rejection capacity",
+                    row["heat_rejected_mw"],row["radiator_capacity_mw"],
+                    row["heat_rejected_mw"]<=row["radiator_capacity_mw"],"MW",
+                    "Thermal screening, not qualified reactor coolant loops"))
+        r["notes"].append("Dedicated D-He3 house power modeled separately. Metric bank and relational plant generate no power. "
+                          "See single table ship_power_budget.json; listed deficits are not retired by PASS-DECLARED.")
+        r["verdict"]=gate("G4",r["title"],r["checks"],declared=r["declared"],notes=r["notes"])["verdict"]
     return r
 
 
@@ -717,7 +784,7 @@ def committed_shield_fraction(I, G):
 
 def committed_shield_mass(p, spread_fraction):
     # Gel function is optical, not qualified for shielding; do not invent mass attenuation.
-    if p["id"] == "crown_adaptive_optogel":
+    if p["id"] == "crown_adaptive_optogel" or "no_shield_credit" in p["tags"]:
         return 0.0
     return p["mass_t"]*spread_fraction if p["dry"] and "from_reserve" not in p["tags"] else p["mass_t"]
 
@@ -1332,6 +1399,37 @@ def g12(I, C, G):
         n_views=len(list(viewers.glob("*.html")))
         cs.append(chk("Original NOSE research and viewer assets preserved under wayfarer/",
                       [n_docs,n_views],[21,28],n_docs>=21 and n_views>=28))
+    power_cut=[f for f in files if f["file"]=="cut_power.png" and f.get("kind")=="cutaway"
+               and f.get("geometry_sha256")==srcsha and (HERE.parent/"render/out/cut_power.png").is_file()]
+    views=json.loads((HERE.parent/"render/views.json").read_text())["views"]
+    power_view=next((v for v in views if v.get("id")=="cut_power"),None)
+    labels=" ".join(l["t"] for l in power_view.get("labels",[])) if power_view else ""
+    source_ids={p["id"] for p in G["parts"]}
+    names=("house_reactor_A","house_reactor_B","house_peak_store","house_energy_battery")
+    dry_by_id={p["id"]:p for p in G["parts"]}
+    wet_by_id={p["id"]:p for p in G["fluids_by_state"]["S1"]}
+    expected_tanks=(("house_fuel_tank","house_fuel","D-HE3 TANK"),
+                    ("c_lite_dry","c_lite_monoprop","C-LITE TANK"))
+    tank_labels=power_view.get("labels",[]) if power_view else []
+    # The render's source-derived markers must match the source body's centroid,
+    # and the wet and dry mass/cg proxies must occupy the same envelope.
+    tank_verified=all(
+        d in dry_by_id and w in wet_by_id and
+        dry_by_id[d]["shape"]==wet_by_id[w]["shape"] and
+        dry_by_id[d]["centroid_m"]==wet_by_id[w]["centroid_m"] and
+        any(l.get("tank_source_id")==d and l.get("tank_fluid_id")==w
+            and all(abs(l["at"][j]-dry_by_id[d]["centroid_m"][j])<1e-5 for j in range(3))
+            and label in l["t"] and "dry" in l["t"] and "fuel" in l["t"]
+            for l in tank_labels)
+        for d,w,label in expected_tanks)
+    cs.append(chk("D-He3 and C-lite wet/dry tank envelopes have placed mass and source-checked CG cutaway labels",
+                  tank_verified,True,tank_verified,
+                  "Bounding envelopes and wet/dry CG only; tank packaging, overlap and plumbing UNQUALIFIED"))
+    cut_verified=bool(power_cut and power_view and all(k in source_ids for k in names)
+                     and all(term in labels for term in ("REACTOR A","REACTOR B","FLYWHEEL","BATTERY")))
+    cs.append(chk("source-hashed system cutaway shows independently labelled reactors, flywheel and battery",
+                  cut_verified,True,cut_verified,
+                  "G12 source-based visual identification, NOT physical equipment packing qualification"))
     import struct
     glb=HERE.parent/"render"/"out"/f"wayfarer_I4_in_out_{srcsha[:8]}.glb"
     glb_valid=False
@@ -1397,6 +1495,15 @@ def main():
         scr.append(f"{dv} km/s: {used:.1f} t ({'within' if 150 - used >= 50 else 'beyond'} 150 t dispatch less the 50 t reserve)")
     r10 = g10(r4, scr)
     r11, r12 = g11(I, C, G, r4), g12(I, C, G)
+    # The new external shore rating, burn-only thermal-electric tap, and
+    # current-hash visual interpretation have NOT been separately accepted.
+    # Preserve old design signoffs without letting them approve new figures.
+    r4["declared"].append(("ship_power_shore_interface_2mw_20261101",
+        "NEW kT acceptance requested: docked ship uses shore electric only, reactors OFF; 2MW input rating is a new engineering declaration, not an established physical connector capability."))
+    r4["declared"].append(("torch_burn_only_tap_75_percent_20261101",
+        "NEW kT acceptance requested: pulsed main torch ONLY while burning converts 63.36MW raw torch energy to 47.52MW magnet/cryocooling electric at declared 75%, rejecting 15.84MW conversion heat. Tap, pulse conditioning and corresponding torch performance debit remain unqualified. No torch emergency house generator."))
+    r12["declared"].append(("kT_visual_acceptance_storage_20261101",
+        "NEW source-specific kT visual acceptance required for new aft reactor/rotor and forward reactor/battery cutaway, even if G12 image source-hash checks pass. Prior source-hash visual acceptance does not transfer."))
     gates = [r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12]
     kd_path = HERE.parent / "config/kt_decisions.json"
     KD = json.loads(kd_path.read_text()) if kd_path.exists() else {"decisions": {}}
