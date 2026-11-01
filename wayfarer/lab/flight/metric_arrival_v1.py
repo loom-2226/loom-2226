@@ -4,6 +4,17 @@ Frozen endpoint potential is an assumption, NOT a time-dependent Killing law.
 The Metric miracle is the declared E/p/L exchange; no local coupler is claimed.
 """
 import math
+# CCR-2026-0003: default selection for NEW lab Metric experiments only.
+# Existing source-pinned qualifications and canonical HOLD remain untouched.
+NEW_LAB_METRIC_ARRIVAL_DEFAULT = "ENERGY_ORBIT_RELATIVE_B"
+
+def new_lab_metric_arrival_rule(experiment=None):
+    """Resolve a NEW lab experiment's explicit rule or the scoped ENERGY-B default.
+
+    Deliberately not used to reinterpret old FQ1-FQ10 fixtures or Navigator.
+    """
+    return (experiment or {}).get("arrival_rule", NEW_LAB_METRIC_ARRIVAL_DEFAULT)
+
 import numpy as np
 from scipy.integrate import solve_ivp
 

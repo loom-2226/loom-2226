@@ -17,13 +17,19 @@ source_state:
 canon:
   baseline_id: v2.4
   baseline_manifest: governance/current/LOOM_2226_Canon_Baseline_Manifest_v2.4.md
-  baseline_manifest_blob_sha: add56afd9d879fe7c5954b7f88f8812ac718f4ae
+  baseline_manifest_blob_sha: ab283a4ad9d11ab4a614a7184c5d2717571d0cd3
   authority_index: governance/AUTHORITY.md
   active_sources:
+    # CCR-2026-0003 is an in-place Canon II scoped velocity-rule amendment.
+    # Governing only after approved implementation PR is merged to main.
     - path: canon/current/LOOM_2226_CANON_I_World_History_Frontier_v2.4.md
       version: v2.4
     - path: canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
       version: v2.4
+      metric_arrival_scope: CALIBRATED_SOLAR_ENERGY_B
+      metric_arrival_ccr: CCR-2026-0003
+      metric_general_propagator: U^M_gamma
+      metric_arrival_runtime_default: NO_NAVIGATOR_CHANGE
     - path: canon/current/LOOM_2226_CANON_III_Authority_Continuity_GM_Model_v2.4.md
       version: v2.4
     - path: canon/current/LOOM_2226_Earth_Solar_System_Canon_Atlas_v3.2.md

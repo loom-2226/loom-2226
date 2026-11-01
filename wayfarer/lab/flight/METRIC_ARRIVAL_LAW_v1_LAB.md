@@ -46,3 +46,14 @@ For fixed ship mass `m` during the hop, `p_s=m v_depart`, `p_a=m v_arr`, and ref
 **Step 1:** IDENTITY energy creation, Jupiter surface→Pluto ~1.958 GJ/kg and Sun photosphere→Pluto ~190.732 GJ/kg, motivates ENERGY. **Step 2:** outward forbidden states require paid speed. **Step 3:** optimised orbit-relative B: Earth→Mars ~4.828 and Earth→Jupiter ~10.392 km/s; circular comparators ~4.794 and ~10.227. **Step 4:** E→J→E and E→M→J→E need paid seed, N→E→N initially traversable; frozen cycle work residual is phase-dependent; Sun recoil ~10⁻²⁰ m/s per hop, E/p/L mechanism still a declared miracle.
 
 **kT decision:** approve this version for **Wayfarer LAB use only**. The current module is a **standalone, explicitly opt-in FQ11-CALC inverse-map tool** and does NOT hook `flightlab.run`. The actual finite-burn FQ11 is separate future work. All ordinary lab experiments and canonical Metric HOLD default off. The FQ11 report includes source epoch, ship mass, CRUISE Δv/remass, matched Mars velocity, Sun recoil, **absolute Sun angular-momentum transfer magnitude**, spin/orbit split and numerical E/p/L closure. FQ11-CALC is **not a qualification**: inverse arrival matching and the E/p/L balancing ledger are IDENTITIES by construction; only the conditional remass budget is calculated. **No canon or Navigator adoption.**
+
+
+### Lab default after CCR-2026-0003
+
+For **NEW** Wayfarer LAB Metric experiments, use `new_lab_metric_arrival_rule()`
+from `metric_arrival_v1.py` to select `ENERGY_ORBIT_RELATIVE_B` when no
+explicit law is supplied. An explicit lab rule remains selectable for
+controlled sensitivity studies. **No automatic legacy replay is modified:**
+FQ1–FQ10 remain pinned, and the canonical Metric HOLD and Navigator are
+untouched. This is a new-lab experiment selection convention, not
+production/runtime activation or independently qualified physics.

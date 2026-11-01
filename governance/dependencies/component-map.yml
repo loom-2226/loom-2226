@@ -52,6 +52,10 @@ components:
     paths:
       - canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
     authority: GOVERNING
+    metric_arrival_authorization: CCR-2026-0003
+    metric_arrival_scope: CALIBRATED_SOLAR_ARRIVAL_VELOCITY_ONLY
+    metric_general_propagator: U^M_gamma
+    navigator_impact: BLOCKED_PENDING_UPSTREAM
 
   canon_ii_wayfarer_amendment:
     tier: CANON

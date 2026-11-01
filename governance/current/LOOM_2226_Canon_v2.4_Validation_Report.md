@@ -45,6 +45,48 @@ PASS — Earth–Moon and Mars–Phobos short-haul full-NORMAL exclusion is limi
 
 # 4. Metric/Loom state-map separation
 
+**CCR-2026-0003 scoped in-place arrival-velocity validation, 2 November 2026:**
+
+PASS — ENERGY arrival speed and local Sun-orbit-relative heading B are specified
+for ordinary calibrated Solar System Metric only. Circular/prograde scalar rule
+is explicitly a special case; the zero-speed heading boundary is unqualified.
+
+PASS — Canon II §7.1 general empirical `U^M_gamma` remains path/environment
+dependent. Destination matching still requires paid ordinary propulsion.
+
+PASS — the Sun receives declared nonlocal E/p/L including separate
+position-transport angular momentum. These ledgers are **identities by
+construction**, not independent physical tests.
+
+PASS — frozen endpoint potential, approximate Sun-barycentric counting,
+no full moving N-body work/torque closure, no orbital capture and thermal/RSET
+hard gates remain explicit. Step 4 phase residual is MONITOR, not dismissed.
+
+PASS — lab FQ11/FQ12 are cited only as finite conventional propulsion tests;
+no canon inference from lab algebra. Source FQ1–FQ10 remain pinned and
+unchanged; new lab Metric experiments select ENERGY-B, no Navigator changes.
+
+**Actual implementation-branch verification (pre-merge):**
+
+- PASS — existing Wayfarer flight-lab suite **61/61**.
+- PASS — current-geometry FQ1–FQ4 matrix **39/39 full + 39/39 half** at
+  `dt=0.2 s`; all recorded numerical fields match the accepted
+  source-geometry evidence exactly (excluding wall-clock runtime).
+- PASS — FQ5–FQ10 accepted report remains PASS; all **56** files across the
+  accepted FQ runner/case/fixture and retained evidence directories are
+  **byte-identical** to authoritative base main.
+- PASS — new-lab selection defaults to ENERGY-B; explicit controlled
+  alternative remains possible. Existing qualification inputs and the
+  canonical Metric HOLD do not change.
+- PASS — all ten listed SHA-256 baseline file hashes and the compatibility
+  manifest Git blob hash resolve to the working implementation draft.
+- PENDING — WALTER required assurance and kT final review prior to merging;
+  no `IMPLEMENTED` CCR status before authoritative main merge.
+
+These records are **draft implementation evidence** until the approved CCR
+change lands on authoritative main. WALTER assurance remains pending review.
+
+
 PASS:
 
 ```text
@@ -155,7 +197,7 @@ PASS — Manifest defines the parent runtime set and requires scoped amendments 
 The following remain intentionally open and do not block v2.4:
 
 - exact metric environmental coefficients and surfaces;
-- exact `U^M_gamma`;
+- general path-dependent `U^M_gamma` beyond the scoped ENERGY-B arrival-velocity rule;
 - full 4D finite RSET benchmark;
 - independent optimal-control terminal solver;
 - exact commercial relational fleet registry;
