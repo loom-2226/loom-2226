@@ -86,20 +86,17 @@ unchanged; new lab Metric experiments select ENERGY-B, no Navigator changes.
 - PASS — WALTER bounded read-only technical/provenance review: **75 checks**, covering
   provenance, scope, unchanged Navigator/HOLD, new-lab default execution,
   FQ parity and legacy byte hashes, plus all ten baseline hashes.
-- **HOLD (LG006)** — enforced GitHub loom-gate rejects `IMPLEMENTED`
-  CCR state before a canon implementation merges. Both checks on exact PR
-  head `84cbd0a4` failed; local assurance PASS does not override the gate.
-  No merge or authority promotion is permitted until the CCR transition is
-  made consistent with existing governance.
-- PENDING — GitHub merge. CCR-2026-0003
-  carries the **approved post-merge** `IMPLEMENTED` registry value in this
-  implementation PR; authority remains inactive until the exact head merges
-  to main, at which point the actual merge SHA can be recorded in evidence.
+- PASS — LG006 lifecycle correction: CCR-2026-0003 remains
+  `APPROVED_FOR_IMPLEMENTATION` in both its record and registry, with
+  `implemented_pr: null`. kT explicitly authorised the two-stage
+  transition. The post-merge follow-up must set `IMPLEMENTED`,
+  `implemented_pr: 446`, and the actual #446 merge SHA.
+- PENDING — exact-head GitHub loom-gate and authoritative merge.
 
 These records are **draft implementation evidence** until the approved CCR
-change lands on authoritative main. The bounded branch review passed but the
-full WALTER/loom-gate result is HOLD due to LG006. The actual final merge SHA
-must be recorded as post-merge evidence, not fabricated in the draft.
+change lands on authoritative main. WALTER's bounded branch checks passed;
+LG006 premerge CCR status is restored and requires a fresh GitHub gate
+before merge. The separate status-transition PR must use the real merge SHA.
 
 
 PASS:

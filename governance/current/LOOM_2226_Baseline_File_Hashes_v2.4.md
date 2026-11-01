@@ -15,7 +15,7 @@
 | `LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md` | `1141edc0e4efc5b81339274825139d60ccbff2cf1dcc5408d417c2dfbfec1996` |
 | `LOOM_2226_Earth_Biosynthetic_Canon_Amendment_v2.4b.md` | `33a9302e8aabedc7214510bbe493a6770e8a4887dfb6913c582d585d6c18a47c` |
 | `LOOM_2226_Synthetic_Personhood_Horizons_Canon_Amendment_v2.4c.md` | `9c559065d6d3c85606dfcfc8e439f4ae716ecdde2caa1bc7484a8ee76b8ff995` |
-| `LOOM_2226_Canon_v2.4_Validation_Report.md` | `68910191a09f9dc1cbb3ab457fffeaf38a01f800ed46c804806de7a61491ec7d` |
+| `LOOM_2226_Canon_v2.4_Validation_Report.md` | `b2e31f196dcf00e95d8660a9834a039744bf1d8b122632aaaf0ad4e8cb030967` |
 
 ## 2 November 2026 CCR-2026-0003 Canon II in-place arrival rule
 

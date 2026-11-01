@@ -2,7 +2,7 @@ schema_version: '1.0'
 record_type: CANON_CHANGE_REQUEST
 id: CCR-2026-0003
 title: Scoped ENERGY-B Solar System Metric arrival-velocity rule
-status: IMPLEMENTED
+status: APPROVED_FOR_IMPLEMENTATION
 proposal_revision: 1
 created_date: '2026-11-02'
 updated_date: '2026-11-02'
@@ -104,28 +104,27 @@ validation:
   required_external_verification: []
 assurance:
   walter_required: true
-  status: HOLD
+  status: PASS
   finding_ids:
     - WALTER-CCR-2026-0003-SCOPED-CANON-AND-LEGACY-PARITY
-    - LG006-CCR-IMPLEMENTED-BEFORE-MERGE
   evidence: >-
     Bounded read-only #LOOMSAFE assurance: 75 checks PASS, including CCR approval
     and registry parity, Canon II scope and unverified physical claims,
     canonical HOLD/unchanged Navigator, new-lab default call site and focused
     test, ten baseline SHA-256 entries, manifest blob, 61/61 flight lab,
     39/39 full and 39/39 half exact parity, and 56 untouched legacy FQ files.
-    The bounded 75-check verification passed; GitHub's enforced loom-gate
-    LG006 rejects IMPLEMENTED before merge and BLOCKS implementation.
-    A final GitHub merge SHA cannot exist until the authorized merge.
-    No authority promotion has occurred.
+    The bounded 75-check verification passed. CCR remains
+    APPROVED_FOR_IMPLEMENTATION for the canon implementation merge;
+    the actual authoritative main merge and post-merge IMPLEMENTED
+    transition are separate, governed events.
   concerns:
     - No real full time-dependent N-body work/solar torque closure.
     - Default selection is only for NEW lab Metric experiments; no Navigator or legacy FQ changes.
 implementation:
-  implementation_pr: 446
+  implementation_pr: null
   target_branch: main
   merged_commit: null # actual merge SHA does not exist in the draft; post-merge audit obligation
-  implemented_date: '2026-11-02'
+  implemented_date: null
   main_merge_required_for_effect: true
   changed_governing_sources:
     - canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
@@ -145,7 +144,7 @@ decision:
     Approve a scoped ENERGY-B operational arrival law with its declared Sun
     momentum/torque books, frozen-potential assumptions and known physical
     limits; retain the general U^M_gamma and park Navigator.
-  disposition: IMPLEMENTED
+  disposition: APPROVED_FOR_IMPLEMENTATION
 supersession:
   supersedes: []
   superseded_by: null
@@ -158,13 +157,13 @@ history:
       kT explicitly approved Canon II §7.1-7.3 scoped rule and new lab default,
       subject to review of draft implementation PR before merge.
   - date: '2026-11-02'
-    event: IMPLEMENTATION_ACCEPTED_CONDITIONAL_ON_MERGE
-    status: IMPLEMENTED
+    event: MERGE_AUTHORIZED_WITH_TWO_STAGE_CCR_TRANSITION
+    status: APPROVED_FOR_IMPLEMENTATION
     actor: Kevin
     note: >-
       kT approved #446 for merge provided wired new-lab default, WALTER,
       61-test lab regression, FQ1-FQ4 exact parity and hash register all PASS.
-      The registry's IMPLEMENTED value is the approved post-merge state;
-      authority does not take effect while this PR is only a branch.
-      Actual main merge SHA is unavailable until merge and must be recorded
-      in post-merge evidence without inventing a hash in the draft.
+      kT accepted the enforced LG006 authority rule; CCR remains
+      APPROVED_FOR_IMPLEMENTATION with implemented_pr null for #446.
+      A separate follow-up PR will mark IMPLEMENTED, set implemented_pr
+      446, and record the actual #446 merge SHA.
