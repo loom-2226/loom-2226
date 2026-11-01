@@ -48,10 +48,10 @@ def metric_elapsed(p0,dst,mu,mode):
         if abs(new-t)<1e-9:break
         t=new
     return t
-def run_fq11(ship,experiment):
-    """Single E->M lab test via existing flightlab.run opt-in seam.
-    Impulsive paid torch preburn; Metric NORMAL moves endpoint in time. No
-    ordinary Euclidean travel path inferred from the metric segment.
+def calculate_fq11(ship,experiment):
+    """CALC ONLY: inverse-arrival analytic preview, not a flightlab qualification.
+    Impulsive paid torch preburn; Metric NORMAL moves endpoint in time.
+    Matching arrival and balancing E/p/L are algebraic identities by construction.
     """
     if not experiment.get("enable_metric_arrival_law_v1",False):
         raise ValueError("FQ11 may not execute without explicit opt-in")
@@ -154,11 +154,14 @@ def run_fq11(ship,experiment):
            "energy_ledger_closes":abs(E_error)<=limits["energy_residual_J"] and abs(torch_energy_residual)<=limits["energy_residual_J"],
            "momentum_ledger_closes":p_error<=limits["momentum_residual_N_s"] and torch_p_error<=limits["momentum_residual_N_s"],
            "angular_ledger_closes":L_error<=limits["angular_residual_N_m_s"] and torch_L_error<=limits["angular_residual_N_m_s"]}
-    # Runtime ordinary solver remains unmodified for default-off qualifiers.
+    # Preview only: do not claim algebraically forced closure is a measured pass.
+    identities={k:tests[k] for k in ("arrival_matches","energy_ledger_closes","momentum_ledger_closes","angular_ledger_closes")}
+    measurements={"remass_budget":tests["remass_closes"]}
     return {
-        "fq":"FQ11","name":"Earth -> Mars Metric Arrival Law v1 conditional lab",
+        "fq":"FQ11-CALC","name":"Earth -> Mars inverse-map preview; NOT a flight qualification",
         "classification":"LAB_ONLY_NON_CANON_NOT_NAVIGATOR",
-        "enabled":True,"passed":all(tests.values()),"checks":tests,"thresholds":limits,
+        "enabled":True,"status":"CALC_IDENTITY_PREVIEW","qualified":False,
+        "measurements":measurements,"identities_by_construction":identities,"thresholds":limits,
         "provenance":{"main_commit":src["main_commit"],"geometry_sha256":src["geometry_sha256"],
                       "epoch":src["epoch_utc"],"ephemeris_source":src["ephemeris_source"]},
         "phases":[{"kind":"torch","card":"CRUISE","impulsive_dv_km_s":dv_out,"nominal_burn_duration_s":burn_s,

@@ -1,11 +1,14 @@
 {
-  "fq": "FQ11",
-  "name": "Earth -> Mars Metric Arrival Law v1 conditional lab",
+  "fq": "FQ11-CALC",
+  "name": "Earth -> Mars inverse-map preview; NOT a flight qualification",
   "classification": "LAB_ONLY_NON_CANON_NOT_NAVIGATOR",
   "enabled": true,
-  "passed": true,
-  "checks": {
-    "remass_closes": true,
+  "status": "CALC_IDENTITY_PREVIEW",
+  "qualified": false,
+  "measurements": {
+    "remass_budget": true
+  },
+  "identities_by_construction": {
     "arrival_matches": true,
     "energy_ledger_closes": true,
     "momentum_ledger_closes": true,
@@ -138,6 +141,6 @@
     "0.5 Hill is a diagnostic boundary, not Metric admissibility policy.",
     "Planetary propagation Sun-only; no N-body gravitational work ledger or orbital capture."
   ],
-  "flag_negative_test": "PASS: FQ11 law cannot execute without explicit true flag",
+  "flag_negative_test": "IDENTITY: CALC refuses missing opt-in flag",
   "existing_qualifications": "FQ1\u2013FQ10 source and qualification outputs unchanged; no default metric or Navigator changes"
 }
