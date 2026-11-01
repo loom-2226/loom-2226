@@ -399,17 +399,19 @@ def canonical_metric_operation(phase, pre_state, torch_outputs):
                       'metric_path_m':beta*C*(duration-ramp),
                       'scope':'CONDITIONAL experiment-declared linear profile; no physical trajectory or finite energy accounting',
                       'energy_j':None}
-    # Canon II §§7.1a/b resolves only the *velocity* component when the
-    # phase EXPLICITLY declares ENERGY-B and a scoped Solar System snapshot.
-    # The remaining environmental/collapse/capture gates retain HOLD and a
-    # physical terminal position cannot be fabricated from a half-Hill proxy.
+    # Only an explicitly scoped ordinary Solar System phase gets the
+    # Canon II §7.1a new-lab ENERGY-B default. Legacy FQ1-FQ10 never
+    # declare this regime, so their canonical HOLD stays pinned.
+    # Position, environmental certification and capture remain HOLD.
     arrival=None
-    if (phase.get('arrival_rule')=='ENERGY_ORBIT_RELATIVE_B' and
-            (phase.get('canon_arrival') or {}).get('regime')=='ORDINARY_SOLAR_SYSTEM'):
-        from metric_arrival_v1 import canonical_energy_b_arrival
-        arrival=canonical_energy_b_arrival(phase,pre_state,closure['modes'][mode])
-        terminal['velocity_m_s']=arrival['arrival_velocity_m_s']
-        terminal['matching_delta_v_m_s']=arrival['relative_mismatch_m_s']
+    if (phase.get('canon_arrival') or {}).get('regime')=='ORDINARY_SOLAR_SYSTEM':
+        from metric_arrival_v1 import canonical_energy_b_arrival,new_lab_metric_arrival_rule
+        rule=new_lab_metric_arrival_rule(phase)
+        if rule=='ENERGY_ORBIT_RELATIVE_B':
+            scoped_phase={**phase,'arrival_rule':rule}
+            arrival=canonical_energy_b_arrival(scoped_phase,pre_state,closure['modes'][mode])
+            terminal['velocity_m_s']=arrival['arrival_velocity_m_s']
+            terminal['matching_delta_v_m_s']=arrival['relative_mismatch_m_s']
     return {'sequence_status':'VALID' if sequence and not input_holds else 'INDETERMINATE',
             'execution_status':'ARRIVAL_VELOCITY_RESOLVED' if arrival else 'HOLD',
             'arrival_velocity_resolution':arrival,
