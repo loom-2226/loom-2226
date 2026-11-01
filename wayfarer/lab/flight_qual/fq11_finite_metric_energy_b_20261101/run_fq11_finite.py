@@ -74,28 +74,32 @@ def simulate(factor,calc):
     pre_remass=float(pre_state['tanks_kg']['remass'])
     torch_end=float(pre['phases'][-1]['actuators_end']['torch_act']['torch_centerline'])
     if abs(torch_end)>1e-10:raise ValueError('torch did not shutdown before metric')
-    # Source seam remains HOLD; this is an explicit lab-only override, not canonical execution.
-    canonical=canonical_metric_operation({'kind':'metric','mode':'NORMAL',
-                    'duration_s':4900.,'support_scenario':'MVP_2226'},
-                    {'time_s':pre_state['time_s'],'position_m':pre_state['position_m'],
-                     'velocity_m_s':pre_state['velocity_m_s'],'mass_kg':pre_m,
-                     'tanks_kg':pre_state['tanks_kg'],
-                     'q_body_to_inertial':pre_state['q_body_to_inertial']},
-                    {'torch_centerline':torch_end})
-    assert canonical['execution_status']=='HOLD' and canonical['terminal_state']['velocity_m_s'] is None
-    vp=np.array(pre_state['velocity_m_s'])/1000.
-    pp=np.array(pre_state['position_m'])/1000.
+    # Canon II §§7.1a/b resolves only natural arrival VELOCITY. No endpoint
+    # position, environmental certification or orbital capture is inferred.
     te=float(pre_state['time_s'])
-    tmet=metric_elapsed(pp,M,MU,sh['metric']['canonical']['modes']['NORMAL'])
-    pm,vm=planetary_state(M,MU,te+tmet)
-    Vt=vm+REF
-    Fsrc=frame(pp,planetary_state(E,MU,te)[1])
-    Fdst=frame(pm,vm)
-    energy_v2=norm(vp)**2+2*(phi(pp,E['gm_km3_s2'],MU)-phi(pm,M['gm_km3_s2'],MU))
-    if energy_v2<=0:raise ValueError('FQ11 actual preburn still ENERGY forbidden')
-    # ***FORWARD law B from measured burn-end velocity, not inverse construction***
-    va=math.sqrt(energy_v2)*(Fdst@(Fsrc.T@unit(vp)))
-    mismatch_m_s=norm((va-Vt)*1000.)
+    pp=np.asarray(pre_state['position_m'],float)/1000.
+    vp=np.asarray(pre_state['velocity_m_s'],float)/1000.
+    canonical=canonical_metric_operation({
+        'kind':'metric','mode':'NORMAL','support_scenario':'MVP_2226',
+        'arrival_rule':'ENERGY_ORBIT_RELATIVE_B',
+        'canon_arrival':{'regime':'ORDINARY_SOLAR_SYSTEM',
+            'source_body':E,'destination_body':M,
+            'sun_gm_km3_s2':MU,'sun_mass_kg':SUN_MASS,
+            'solar_reflex_approx_km_s':REF.tolist()}},
+        {'time_s':te,'position_m':pre_state['position_m'],
+         'velocity_m_s':pre_state['velocity_m_s'],'mass_kg':pre_m,
+         'tanks_kg':pre_state['tanks_kg'],
+         'q_body_to_inertial':pre_state['q_body_to_inertial']},
+        {'torch_centerline':torch_end})
+    assert canonical['execution_status']=='ARRIVAL_VELOCITY_RESOLVED'
+    assert canonical['terminal_state']['position_m'] is None
+    assert all(x['status']=='HOLD' for x in canonical['gates'].values())
+    arrival=canonical['arrival_velocity_resolution']
+    tmet=arrival['elapsed_s']
+    pm=np.array(arrival['destination_center_m'])/1000.
+    Vt=np.array(arrival['destination_velocity_m_s'])/1000.
+    va=np.array(canonical['terminal_state']['velocity_m_s'])/1000.
+    mismatch_m_s=arrival['relative_mismatch_m_s']
     # Metric E/p/L is declared balancing bookkeeping, not an independent test.
     dp=pre_m*(va-vp)*1000.
     sun_dp=-dp
@@ -192,6 +196,7 @@ def simulate(factor,calc):
       'preburn_measured_remass_kg':fuel_phases[0],
       'preburn_peak_g':float(pre['phases'][0]['peak_force_N'])/float(pre['phases'][0]['mass_end_kg'])/G0,
       'metric_canonical_seam_execution_status':canonical['execution_status'],
+      'metric_collapse_certification_status':'HOLD',
       'metric_seam_hand_off_velocity_km_s':vp.tolist(),
       'metric_timing_s':tmet,
       'forward_B_arrival_velocity_km_s':va.tolist(),
@@ -228,7 +233,7 @@ def simulate(factor,calc):
                         'rcs_reorientation':[compact_phase(p) for p in rcs['phases']],
                         'trim':[compact_phase(p) for p in trim['phases']],
                         'rcs_final_correction':[] if rcs_correction is None else [compact_phase(p) for p in rcs_correction['phases']]},
-      'limitations':[FROZEN_CAVEAT,'Canonical_metric_operation remains HOLD; separate LAB override runs forward B from actual end state.',
+      'limitations':[FROZEN_CAVEAT,'Canonical seam resolves natural ENERGY-B velocity only; collapse/capture/environment remain HOLD.',
          'Stages use flightlab.run with exact carried position/velocity/quaternion/angular rate/tank but actuator internal states reset at staging boundaries.',
          'Crew 4g and jet card power bound only; actual fin transient thermal closure OPEN.',
          'Diagnostic half-Hill positional placement; orbital capture and moving N-body gravity OPEN.']

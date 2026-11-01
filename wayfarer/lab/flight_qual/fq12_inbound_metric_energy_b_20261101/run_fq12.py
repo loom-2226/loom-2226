@@ -54,21 +54,25 @@ def inbound_base():
     # No torch prior to canonical Metric HOLD: Jupiter source state matches planet.
     q0,_=Rotation.align_vectors([unit(vsrc)],[[-1.,0.,0.]])
     state0=simple_state(p0,vsrc,scalar_quat(q0))
-    seam=canonical_metric_operation({'kind':'metric','mode':'NORMAL',
-        'duration_s':t,'support_scenario':'MVP_2226'},
+    seam=canonical_metric_operation({
+        'kind':'metric','mode':'NORMAL','support_scenario':'MVP_2226',
+        'arrival_rule':'ENERGY_ORBIT_RELATIVE_B',
+        'canon_arrival':{'regime':'ORDINARY_SOLAR_SYSTEM',
+            'source_body':J,'destination_body':E,
+            'sun_gm_km3_s2':MU,'sun_mass_kg':SUN_MASS,
+            'solar_reflex_approx_km_s':REF.tolist()}},
         {'time_s':0.,'position_m':state0['position_m'],
          'velocity_m_s':state0['velocity_m_s'],
          'mass_kg':SHIP['base']['mass_kg']+SHIP['tanks'][0]['initial_kg'],
          'tanks_kg':{'remass':SHIP['tanks'][0]['initial_kg']},
          'q_body_to_inertial':state0['q_body_to_inertial']},
         {'torch_centerline':0.})
-    assert seam['execution_status']=='HOLD'
-    assert seam['terminal_state']['velocity_m_s'] is None
-    v2=norm(vsrc)**2+2*(phi(p0,J['gm_km3_s2'],MU)-phi(pE,E['gm_km3_s2'],MU))
-    if v2<=0:raise ValueError('ENERGY inbound Jupiter->Earth forbidden')
-    F0=frame(p0,vs_h);Fd=frame(pE,vEh)
-    # Forward map only: never solve backwards for a constructed arrival match.
-    va=math.sqrt(v2)*Fd@(F0.T@unit(vsrc))
+    assert seam['execution_status']=='ARRIVAL_VELOCITY_RESOLVED'
+    assert seam['terminal_state']['position_m'] is None
+    assert all(x['status']=='HOLD' for x in seam['gates'].values())
+    arrival=seam['arrival_velocity_resolution']
+    assert abs(arrival['elapsed_s']-t)<1e-6
+    va=np.array(seam['terminal_state']['velocity_m_s'])/1000.
     # L and p transferred to Sun: identities by construction, not pass evidence
     m0=SHIP['base']['mass_kg']+SHIP['tanks'][0]['initial_kg']
     dp=m0*(va-vsrc)*1000.
@@ -95,7 +99,8 @@ def inbound_base():
        'solar_spin_term_magnitude_N_m_s':norm(spin),
        'solar_transport_term_magnitude_N_m_s':norm(transport),
        'metric_EpL_IDENTITIES_BY_CONSTRUCTION':identities,
-       'canonical_metric_seam_status':seam['execution_status']}
+       'canonical_metric_seam_status':seam['execution_status'],
+       'collapse_certification_status':'HOLD'}
 
 def simulate(scale,base):
     ship=copy.deepcopy(SHIP)
@@ -199,7 +204,7 @@ def simulate(scale,base):
       'raw_power_float_roundoff_W':max(0.,raw_power-power_ceiling),
       'limitations':['FROZEN SUN+ENDPOINT potential is not exact time-dependent Killing energy.',
                      'Solar E/p/L transfers are imposed identities by construction; not proof.',
-                     'The canonical Metric HOLD seam is not bypassed by the ordinary flightlab.',
+                     'Canonical seam resolves only velocity; certification/collapse remain HOLD in ordinary flightlab.',
                      'Sun-only gravity in real RCS/torch phases, not Earth local and full N-body gravity.',
                      'Each flightlab finite stage carries physical state but resets actuator internal state.',
                      '0.5 Hill is diagnostic, not certified collapse; no orbital capture.',
@@ -221,7 +226,7 @@ def main():
            'larger_error_emerges':cases[1]['brake_pretrim_error_m_s']>cases[0]['brake_pretrim_error_m_s']+50.,
            'real_torch_trim_recovers':cases[1]['final_earth_velocity_error_m_s']<=1.,
            'status':'PASS' if cases[1]['status']=='PASS' else 'HOLD'},
-        'note':'Canonical Metric HOLD persists; lab-only forward law B with E/p/L identities by construction.'}
+        'note':'Canonical seam supplies forward B natural velocity; collapse/capture HOLD and E/p/L identities by construction.'}
     outp=HERE/'FQ12_RESULT.json'
     outp.write_text(json.dumps(out,indent=2,allow_nan=False,default=lambda q:q.item() if isinstance(q,np.generic) else q.tolist() if isinstance(q,np.ndarray) else (_ for _ in ()).throw(TypeError(type(q).__name__)))+'\n')
     for c in cases:

@@ -60,6 +60,72 @@ def metric_elapsed(p0,dst,mu,mode):
         if abs(new-t)<1e-9:break
         t=new
     return t
+def canonical_energy_b_arrival(phase, pre_state, mode):
+    """Only the scoped Canon II §§7.1a/b *velocity* map, not certified collapse.
+
+    All inputs are explicit snapshot/provenance declarations. Return a natural
+    inertial velocity, never a fabricated ship position or capture solution.
+    Sun E/p/L balancing is algebraic bookkeeping, not measured physics.
+    """
+    scope=phase["canon_arrival"]
+    if scope.get("regime")!="ORDINARY_SOLAR_SYSTEM":
+        raise ValueError("ENERGY-B requires ordinary Solar System regime")
+    if phase.get("arrival_rule")!="ENERGY_ORBIT_RELATIVE_B":
+        raise ValueError("canonical arrival rule must be explicitly ENERGY-B")
+    src=scope["source_body"]; dst=scope["destination_body"]
+    mu=float(scope["sun_gm_km3_s2"])
+    sun_mass=float(scope["sun_mass_kg"])
+    ref=np.asarray(scope["solar_reflex_approx_km_s"],float)
+    departure_time=float(pre_state["time_s"])
+    pp=np.asarray(pre_state["position_m"],float)/1000.
+    vp=np.asarray(pre_state["velocity_m_s"],float)/1000.
+    mass=float(pre_state["mass_kg"])
+    if not all(math.isfinite(x) for x in (mu,sun_mass,departure_time,mass)) or min(mu,sun_mass,mass)<=0:
+        raise ValueError("invalid canonical Metric mass/epoch/gravity")
+    if not all(np.all(np.isfinite(x)) for x in (pp,vp,ref)):
+        raise ValueError("invalid canonical Metric input vectors")
+    tmet=metric_elapsed(pp,dst,mu,mode)
+    pm,vm=planetary_state(dst,mu,departure_time+tmet)
+    _,src_orbit_vel=planetary_state(src,mu,departure_time)
+    v2=norm(vp)**2+2*(phi(pp,src["gm_km3_s2"],mu)-phi(pm,dst["gm_km3_s2"],mu))
+    if v2<=0:
+        raise ValueError("ENERGY-FORBIDDEN: paid pre-jump burn required")
+    va=math.sqrt(v2)*(frame(pm,vm)@(frame(pp,src_orbit_vel).T@unit(vp)))
+    vt=vm+ref
+    dp=mass*(va-vp)*1000.
+    rs=pp*1000.;ra=pm*1000.
+    spin=-np.cross(rs,dp)
+    transport=-np.cross(ra-rs,mass*va*1000.)
+    dLship=np.cross(ra,mass*va*1000.)-np.cross(rs,mass*vp*1000.)
+    sun_dL=spin+transport
+    ship_dE=mass*(.5*(norm(va*1000.)**2-norm(vp*1000.)**2)+
+                   1e6*(phi(pm,dst["gm_km3_s2"],mu)-phi(pp,src["gm_km3_s2"],mu)))
+    recoil_E=norm(dp)**2/(2*sun_mass)
+    field_E=-ship_dE-recoil_E
+    return {
+        "status":"ARRIVAL_VELOCITY_RESOLVED",
+        "scope":"ORDINARY_SOLAR_SYSTEM; velocity component only",
+        "arrival_rule":"ENERGY_ORBIT_RELATIVE_B",
+        "elapsed_s":tmet,
+        "arrival_velocity_m_s":(va*1000.).tolist(),
+        "destination_velocity_m_s":(vt*1000.).tolist(),
+        "destination_center_m":(pm*1000.).tolist(),
+        "relative_mismatch_m_s":norm((va-vt)*1000.),
+        "solar_spin_impulse_N_m_s":norm(spin),
+        "solar_position_transport_N_m_s":norm(transport),
+        "solar_angular_transfer_N_m_s":norm(sun_dL),
+        "solar_recoil_m_s":norm(dp)/sun_mass,
+        "E_p_L_IDENTITIES_BY_CONSTRUCTION":{
+            "energy_residual_J":ship_dE+recoil_E+field_E,
+            "momentum_residual_N_s":norm(dp-dp),
+            "angular_residual_N_m_s":norm(dLship+sun_dL)},
+        "frozen_potential_caveat":FROZEN_CAVEAT,
+        "position_certified":False,
+        "capture_certified":False,
+        "environment_certified":False
+    }
+
+
 def calculate_fq11(ship,experiment):
     """CALC ONLY: inverse-arrival analytic preview, not a flightlab qualification.
     Impulsive paid torch preburn; Metric NORMAL moves endpoint in time.
