@@ -1,0 +1,336 @@
+{
+  "fq": "FQ11",
+  "status": "PASS",
+  "classification": "DRAFT_LAB_NON_CANON_NOT_NAVIGATOR",
+  "replay_baseline_main_commit": "096796311afba04b71294558b360dd09bd11112b",
+  "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+  "frozen_potential_caveat": "FROZEN POTENTIAL, NOT AN EXACT KILLING ENERGY in a moving Sun/planet system. Sun-only moving ephemerides; approximate Sun-barycentric counting frame. Lab accounting is not a qualified physical momentum/torque coupler.",
+  "measured_cases": [
+    {
+      "case": "NOMINAL",
+      "status": "PASS",
+      "checks": {
+        "finite_preburn_measured": true,
+        "mismatch_emerges_from_forward_law": true,
+        "trim_within_source_remass_dv_budget": true,
+        "remass_floor_5t": true,
+        "remass_ledger": true,
+        "crew_4g": true,
+        "thermal_jet_card_ceiling_precision": true,
+        "metric_EpL_identities": true,
+        "arrival_matches_within_1m_s": true
+      },
+      "preburn_scale": 1.0,
+      "preburn_actual_duration_s": 497.7347647916989,
+      "preburn_measured_remass_kg": 2827.3823313992516,
+      "preburn_peak_g": 0.9902941043235413,
+      "metric_canonical_seam_execution_status": "HOLD",
+      "metric_seam_hand_off_velocity_km_s": [
+        14.94018291995725,
+        30.834973556359664,
+        -0.0451520233627142
+      ],
+      "metric_timing_s": 4897.394247801274,
+      "forward_B_arrival_velocity_km_s": [
+        -1.631443685732864,
+        -22.012869986060927,
+        -0.44260914725961026
+      ],
+      "mars_target_velocity_km_s": [
+        -1.6327737759519034,
+        -22.013848451528332,
+        -0.4232481046033422
+      ],
+      "forward_arrival_mismatch_m_s": 19.431327988573468,
+      "solar_angular_transfer_N_m_s": 4.041273833727355e+20,
+      "solar_spin_impulse_term_N_m_s": 9.643474358307568e+21,
+      "solar_orbit_transport_term_N_m_s": 9.990621461161565e+21,
+      "solar_recoil_m_s": 3.258593563472651e-20,
+      "metric_ledger_IDENTITIES_BY_CONSTRUCTION": {
+        "energy_J": 0.0,
+        "momentum_N_s": 0.0,
+        "angular_N_m_s": 1049599.500487686
+      },
+      "RCS_point_turn_deg": 94.0570040899681,
+      "RCS_turn_attitude_error_deg": 4.293962863652552,
+      "RCS_turn_peak_rate_deg_s": 4.160266043843413,
+      "trim_requested_dv_m_s": 19.40548165081463,
+      "source_derived_available_trim_dv_m_s": 415274.26074587007,
+      "trim_actual_torch_duration_s": 1.9502044361714732,
+      "trim_measured_remass_kg": 11.078136299672046,
+      "RCS_turn_measured_remass_kg": 28094.833408958733,
+      "trim_torch_only_velocity_error_m_s": 0.8842192684179714,
+      "trim_post_velocity_error_m_s": 0.8842192684179714,
+      "rcs_final_correction_used": false,
+      "rcs_final_correction_remass_kg": 0,
+      "total_remass_kg": 30933.293876652402,
+      "remass_remaining_kg": 219066.7061233477,
+      "remass_ledger_residual_kg": -5.2532413974404335e-09,
+      "peak_g": 1.0146717381004169,
+      "cruise_peak_jet_power_W": 11361004025000.0,
+      "jet_power_ceiling_W": 11361000000000.0,
+      "jet_card_rounding_overage_W": 4025000.0,
+      "phase_evidence": {
+        "preburn": [
+          {
+            "kind": "torch",
+            "duration_s": 497.7347647916989,
+            "known_propellant_used_kg": 2827.3823313992516,
+            "max_ideal_tvc_trim_deg": 0.36079138072268657,
+            "peak_force_N": 11361000.000000002,
+            "peak_angular_rate_deg_s": 3.6429088530759865e-15,
+            "attitude_error_deg": null,
+            "rate_deg_s": null,
+            "allocation_limit_steps": 0,
+            "gimbal_limit_steps": 0,
+            "thrust_limit_steps": 498,
+            "throttle_clamp_steps": 0
+          },
+          {
+            "kind": "coast",
+            "duration_s": 5.0,
+            "known_propellant_used_kg": 0.0,
+            "max_ideal_tvc_trim_deg": 0.35674146114027677,
+            "peak_force_N": 0.0,
+            "peak_angular_rate_deg_s": 3.6429088530759865e-15,
+            "attitude_error_deg": null,
+            "rate_deg_s": null,
+            "allocation_limit_steps": 0,
+            "gimbal_limit_steps": 0,
+            "thrust_limit_steps": 0,
+            "throttle_clamp_steps": 0
+          }
+        ],
+        "rcs_reorientation": [
+          {
+            "kind": "rcs_turn",
+            "duration_s": 220.0,
+            "known_propellant_used_kg": 28094.833408958733,
+            "max_ideal_tvc_trim_deg": 0.35674146114027677,
+            "peak_force_N": 4.2088077792448076e-11,
+            "peak_angular_rate_deg_s": 4.160266043843413,
+            "attitude_error_deg": 4.293962863652552,
+            "rate_deg_s": 0.7670251808869178,
+            "allocation_limit_steps": 215,
+            "gimbal_limit_steps": 0,
+            "thrust_limit_steps": 156,
+            "throttle_clamp_steps": 0
+          }
+        ],
+        "trim": [
+          {
+            "kind": "torch",
+            "duration_s": 1.9502044361714732,
+            "known_propellant_used_kg": 11.078136299672046,
+            "max_ideal_tvc_trim_deg": 0.3154924842526103,
+            "peak_force_N": 11361000.000000002,
+            "peak_angular_rate_deg_s": 0.026336666264631565,
+            "attitude_error_deg": null,
+            "rate_deg_s": null,
+            "allocation_limit_steps": 0,
+            "gimbal_limit_steps": 0,
+            "thrust_limit_steps": 40,
+            "throttle_clamp_steps": 0
+          },
+          {
+            "kind": "coast",
+            "duration_s": 5.0,
+            "known_propellant_used_kg": 0.0,
+            "max_ideal_tvc_trim_deg": 0.3154758511233034,
+            "peak_force_N": 0.0,
+            "peak_angular_rate_deg_s": 0.026336666100293938,
+            "attitude_error_deg": null,
+            "rate_deg_s": null,
+            "allocation_limit_steps": 0,
+            "gimbal_limit_steps": 0,
+            "thrust_limit_steps": 0,
+            "throttle_clamp_steps": 0
+          }
+        ],
+        "rcs_final_correction": []
+      },
+      "limitations": [
+        "FROZEN POTENTIAL, NOT AN EXACT KILLING ENERGY in a moving Sun/planet system. Sun-only moving ephemerides; approximate Sun-barycentric counting frame. Lab accounting is not a qualified physical momentum/torque coupler.",
+        "Canonical_metric_operation remains HOLD; separate LAB override runs forward B from actual end state.",
+        "Stages use flightlab.run with exact carried position/velocity/quaternion/angular rate/tank but actuator internal states reset at staging boundaries.",
+        "Crew 4g and jet card power bound only; actual fin transient thermal closure OPEN.",
+        "Diagnostic half-Hill positional placement; orbital capture and moving N-body gravity OPEN."
+      ]
+    },
+    {
+      "case": "UNDERBURN_1_PERCENT",
+      "status": "PASS",
+      "checks": {
+        "finite_preburn_measured": true,
+        "mismatch_emerges_from_forward_law": true,
+        "trim_within_source_remass_dv_budget": true,
+        "remass_floor_5t": true,
+        "remass_ledger": true,
+        "crew_4g": true,
+        "thermal_jet_card_ceiling_precision": true,
+        "metric_EpL_identities": true,
+        "arrival_matches_within_1m_s": true
+      },
+      "preburn_scale": 0.99,
+      "preburn_actual_duration_s": 492.75741714378194,
+      "preburn_measured_remass_kg": 2799.1085080852504,
+      "preburn_peak_g": 0.990270170805227,
+      "metric_canonical_seam_execution_status": "HOLD",
+      "metric_seam_hand_off_velocity_km_s": [
+        14.924051282942015,
+        30.78940486107985,
+        -0.04483507692176884
+      ],
+      "metric_timing_s": 4897.393816489929,
+      "forward_B_arrival_velocity_km_s": [
+        -1.6293411103683055,
+        -21.938207774039753,
+        -0.4408629282595154
+      ],
+      "mars_target_velocity_km_s": [
+        -1.6327844411039307,
+        -22.0138473376265,
+        -0.42324782430598046
+      ],
+      "forward_arrival_mismatch_m_s": 77.73989962331052,
+      "solar_angular_transfer_N_m_s": 3.925858495816904e+20,
+      "solar_spin_impulse_term_N_m_s": 9.623361024421871e+21,
+      "solar_orbit_transport_term_N_m_s": 9.957357901841141e+21,
+      "solar_recoil_m_s": 3.251601358481816e-20,
+      "metric_ledger_IDENTITIES_BY_CONSTRUCTION": {
+        "energy_J": 0.0,
+        "momentum_N_s": 0.0,
+        "angular_N_m_s": 3146069.314816824
+      },
+      "RCS_point_turn_deg": 158.7002155014463,
+      "RCS_turn_attitude_error_deg": 5.143588711795248,
+      "RCS_turn_peak_rate_deg_s": 8.088158936089169,
+      "trim_requested_dv_m_s": 77.5838947841554,
+      "source_derived_available_trim_dv_m_s": 399651.7774791308,
+      "trim_actual_torch_duration_s": 7.7362161510415905,
+      "trim_measured_remass_kg": 43.945575845991904,
+      "RCS_turn_measured_remass_kg": 37006.92254046,
+      "trim_torch_only_velocity_error_m_s": 3.090348386671217,
+      "trim_post_velocity_error_m_s": 0.2552374502549603,
+      "rcs_final_correction_used": true,
+      "rcs_final_correction_remass_kg": 20797.480568598603,
+      "total_remass_kg": 60647.457192991074,
+      "remass_remaining_kg": 189352.54280700904,
+      "remass_ledger_residual_kg": 1.229636836796999e-09,
+      "peak_g": 1.0226583682097414,
+      "cruise_peak_jet_power_W": 11361004025000.0,
+      "jet_power_ceiling_W": 11361000000000.0,
+      "jet_card_rounding_overage_W": 4025000.0,
+      "phase_evidence": {
+        "preburn": [
+          {
+            "kind": "torch",
+            "duration_s": 492.75741714378194,
+            "known_propellant_used_kg": 2799.1085080852504,
+            "max_ideal_tvc_trim_deg": 0.36079138072268657,
+            "peak_force_N": 11361000.000000002,
+            "peak_angular_rate_deg_s": 4.225205455781255e-15,
+            "attitude_error_deg": null,
+            "rate_deg_s": null,
+            "allocation_limit_steps": 0,
+            "gimbal_limit_steps": 0,
+            "thrust_limit_steps": 493,
+            "throttle_clamp_steps": 0
+          },
+          {
+            "kind": "coast",
+            "duration_s": 5.0,
+            "known_propellant_used_kg": 0.0,
+            "max_ideal_tvc_trim_deg": 0.3567820502388341,
+            "peak_force_N": 0.0,
+            "peak_angular_rate_deg_s": 4.021343359396415e-15,
+            "attitude_error_deg": null,
+            "rate_deg_s": null,
+            "allocation_limit_steps": 0,
+            "gimbal_limit_steps": 0,
+            "thrust_limit_steps": 0,
+            "throttle_clamp_steps": 0
+          }
+        ],
+        "rcs_reorientation": [
+          {
+            "kind": "rcs_turn",
+            "duration_s": 220.0,
+            "known_propellant_used_kg": 37006.92254046,
+            "max_ideal_tvc_trim_deg": 0.3567820502388341,
+            "peak_force_N": 3.046625907790599e-08,
+            "peak_angular_rate_deg_s": 8.088158936089169,
+            "attitude_error_deg": 5.143588711795248,
+            "rate_deg_s": 1.500980681690958,
+            "allocation_limit_steps": 214,
+            "gimbal_limit_steps": 0,
+            "thrust_limit_steps": 153,
+            "throttle_clamp_steps": 0
+          }
+        ],
+        "trim": [
+          {
+            "kind": "torch",
+            "duration_s": 7.7362161510415905,
+            "known_propellant_used_kg": 43.945575845991904,
+            "max_ideal_tvc_trim_deg": 0.3020585511006042,
+            "peak_force_N": 11361000.000000002,
+            "peak_angular_rate_deg_s": 0.7065703383347076,
+            "attitude_error_deg": null,
+            "rate_deg_s": null,
+            "allocation_limit_steps": 0,
+            "gimbal_limit_steps": 0,
+            "thrust_limit_steps": 155,
+            "throttle_clamp_steps": 0
+          },
+          {
+            "kind": "coast",
+            "duration_s": 5.0,
+            "known_propellant_used_kg": 0.0,
+            "max_ideal_tvc_trim_deg": 0.301991619819435,
+            "peak_force_N": 0.0,
+            "peak_angular_rate_deg_s": 0.70627027270051,
+            "attitude_error_deg": null,
+            "rate_deg_s": null,
+            "allocation_limit_steps": 0,
+            "gimbal_limit_steps": 0,
+            "thrust_limit_steps": 0,
+            "throttle_clamp_steps": 0
+          }
+        ],
+        "rcs_final_correction": [
+          {
+            "kind": "rcs_translate",
+            "duration_s": 120.0,
+            "known_propellant_used_kg": 20797.480568598603,
+            "max_ideal_tvc_trim_deg": 0.301991619819435,
+            "peak_force_N": 161120.6702075432,
+            "peak_angular_rate_deg_s": 5.186423051947008,
+            "attitude_error_deg": null,
+            "rate_deg_s": null,
+            "allocation_limit_steps": 117,
+            "gimbal_limit_steps": 0,
+            "thrust_limit_steps": 104,
+            "throttle_clamp_steps": 0
+          }
+        ]
+      },
+      "limitations": [
+        "FROZEN POTENTIAL, NOT AN EXACT KILLING ENERGY in a moving Sun/planet system. Sun-only moving ephemerides; approximate Sun-barycentric counting frame. Lab accounting is not a qualified physical momentum/torque coupler.",
+        "Canonical_metric_operation remains HOLD; separate LAB override runs forward B from actual end state.",
+        "Stages use flightlab.run with exact carried position/velocity/quaternion/angular rate/tank but actuator internal states reset at staging boundaries.",
+        "Crew 4g and jet card power bound only; actual fin transient thermal closure OPEN.",
+        "Diagnostic half-Hill positional placement; orbital capture and moving N-body gravity OPEN."
+      ]
+    }
+  ],
+  "negative_test": {
+    "case": "EARTH_TO_JUPITER_NO_PREBURN",
+    "v_arrival_squared_km2_s2": -528.6318613929018,
+    "expected": "ENERGY_FORBIDDEN",
+    "actual": "ENERGY_FORBIDDEN",
+    "pass": true,
+    "frozen_potential_caveat": "FROZEN POTENTIAL, NOT AN EXACT KILLING ENERGY in a moving Sun/planet system. Sun-only moving ephemerides; approximate Sun-barycentric counting frame. Lab accounting is not a qualified physical momentum/torque coupler."
+  },
+  "note": "FQ11 is HOLD unless nominal and 1% underburn both recover within 1m/s; closed solar E/p/L balances are identities, not pass evidence."
+}
