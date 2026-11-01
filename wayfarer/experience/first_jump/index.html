@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LOOM | Wayfarer: First Jump</title>
+<style>
+:root{color-scheme:dark;--bg:#090f17;--panel:#111d29;--edge:#315066;--text:#e8eff4;--soft:#afbfcc;--blue:#6cd6ee;--gold:#ecc68e;--red:#f4a5a5;--green:#9de7bd}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#224052 0,transparent 58%),var(--bg);color:var(--text);font:15px system-ui,-apple-system,sans-serif}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;border-bottom:1px solid var(--edge);background:#07131de0}
+h1{font-size:18px;letter-spacing:.14em;text-transform:uppercase;margin:0}h1 small{display:block;font:11px/1.5 ui-monospace,monospace;color:var(--soft);letter-spacing:.12em}
+header .tag{font:11px ui-monospace,monospace;border:1px solid var(--edge);border-radius:40px;padding:7px;color:var(--blue)}
+main{max-width:1100px;margin:auto;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(310px,1fr);gap:14px;padding:14px}
+.panel{border:1px solid var(--edge);border-radius:12px;background:linear-gradient(160deg,#152331,#101922);overflow:hidden;box-shadow:0 7px 24px #0006}
+.visual{position:relative;background:#101b25;aspect-ratio:16 / 10}
+.visual img{display:block;width:100%;height:100%;object-fit:contain}
+.visual .grain{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 45%,#050b14b9)}
+.visual .sticker{position:absolute;bottom:14px;left:14px;color:white;text-shadow:0 1px 5px black;font:12px ui-monospace,monospace;letter-spacing:.14em}
+.section{padding:15px}
+.kicker{font:11px ui-monospace,monospace;letter-spacing:.15em;color:var(--blue)}
+h2{font-size:24px;line-height:1.12;margin:8px 0 6px}p{color:var(--soft);line-height:1.46;margin:8px 0 12px}
+.meta{display:flex;gap:8px;flex-wrap:wrap;font:11px ui-monospace,monospace;color:var(--soft)}
+.meta span{padding:5px 8px;border:1px solid var(--edge);border-radius:5px}
+.bar{height:7px;border:1px solid #36566b;border-radius:10px;margin:16px 0 9px;overflow:hidden;background:#07111b}
+.fill{height:100%;width:0;background:linear-gradient(90deg,#3995bd,#90e5f5);transition:width .6s}
+.controls{display:flex;gap:8px;margin-top:13px}
+button{cursor:pointer;border:1px solid var(--edge);border-radius:9px;background:#182a39;color:var(--text);padding:12px 14px;font:700 13px ui-monospace,monospace;touch-action:manipulation}
+button:active{transform:translateY(1px)}button:disabled{opacity:.35;cursor:default}button.primary{background:#8adeec;color:#08131c;border-color:#b9f5ff;flex:2}
+button.warn{background:#30241e;color:var(--gold);border-color:#8a6345;flex:1}
+button.quit{flex:1}button:focus-visible,textarea:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.hudtop{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.hudtitle{font:bold 13px ui-monospace,monospace;letter-spacing:.12em;color:var(--blue)}
+.hudmode{font:11px ui-monospace,monospace;color:var(--gold)}
+.fact{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid #284051;font:13px ui-monospace,monospace;align-items:baseline}
+.fact:last-child{border:0}.fact .key{color:#aac0d0}.fact .value{color:#f2f9fe;text-align:right;font-weight:600}
+.fact button{background:none;border:0;padding:0;font:inherit;text-align:right;color:inherit;font-weight:600}
+.fact button:hover{text-decoration:underline;text-decoration-style:dotted}
+.phasehint{min-height:26px;color:var(--gold);font:12px/1.5 ui-monospace,monospace}
+.speaker{border-top:1px solid var(--edge);padding:14px}
+.speaker h3{font:700 12px ui-monospace,monospace;letter-spacing:.12em;color:var(--gold);margin:0}
+.speaker blockquote{margin:10px 0 12px;padding:0 0 0 12px;border-left:2px solid var(--gold);line-height:1.5;color:#d6e6ee}
+.ask{display:flex;gap:8px}.ask textarea{width:100%;resize:vertical;min-height:52px;max-height:130px;background:#09121b;color:var(--text);border:1px solid var(--edge);border-radius:8px;padding:10px;font:14px system-ui}.ask button{flex:0 0 auto;align-self:stretch}
+.source{font:11px/1.4 ui-monospace,monospace;color:#87a1b4;overflow-wrap:anywhere}
+footer{text-align:center;padding:6px 16px 22px;font:11px ui-monospace,monospace;color:#8299a8}
+@media(max-width:740px){main{grid-template-columns:1fr;padding:9px;gap:9px}.visual{aspect-ratio:16 / 9}.section,.speaker{padding:12px}h2{font-size:21px}.fact{font-size:12px;padding:9px 0}button{padding:13px 9px}.controls{position:sticky;bottom:env(safe-area-inset-bottom);z-index:2;background:#111e29c9;padding:7px 0}}
+@media(prefers-reduced-motion:reduce){.fill{transition:none}}
+</style></head><body>
+<header><h1>WAYFARER <small>FIRST JUMP / FQ11 / PLAYBACK v0.1</small></h1><span class="tag" id="badge">LAB · NO NAVIGATOR</span></header>
+<main>
+<section class="panel"><div class="visual"><img id="scene" src="/art/cmd_pov.png" alt="Existing Wayfarer command-deck rendering"><div class="grain"></div><div class="sticker" id="frame">L1 COMMAND / HUMAN REVIEW</div></div>
+<div class="section">
+<div class="kicker" id="gate">CAPTAIN / BRIEFING</div>
+<h2 id="title">Earth to Mars</h2>
+<p id="story">Strap into the command deck. The dome frames the departure. Pilot and captain take their stations; the crew checks the couch restraints. Your decision begins the replay.</p>
+<div class="meta"><span id="variant">CASE SEALED</span><span id="clock">VIEWING TIME —</span><span id="seed">SEED —</span></div>
+<div class="bar" aria-label="Stage presentation progress"><div id="progress" class="fill"></div></div>
+<div class="phasehint" id="hint">AWAITING CAPTAIN GO · THIS IS RECORDED FQ11, NOT A LIVE PHYSICS RUN</div>
+<div class="controls">
+<button class="primary" id="go">GO / AUTHORISE</button>
+<button class="warn" id="hold">HOLD</button>
+<button class="quit" id="quit">QUIT</button>
+</div></div></section>
+<section class="panel">
+<div class="section">
+<div class="hudtop"><span class="hudtitle">FLIGHT / OWN · EVIDENCE</span><span class="hudmode" id="mode">FQ11 ONLY</span></div>
+<div id="facts" aria-live="polite"></div>
+<p class="source" id="source">Tap a reading to inspect its exact FQ11 evidence path.</p>
+</div>
+<div class="speaker"><h3>MARA / FLIGHT COMPUTER · PLAYTEST ROLE</h3><blockquote id="reply">Captain, I can read the accepted FQ11 record. I cannot create a flight state, calculate an orbit, or certify a collapse.</blockquote>
+<div class="ask"><textarea id="question" maxlength="500" placeholder="Ask Mara about the burn, energy rule, miss, or recovery..."></textarea><button id="ask">ASK</button></div>
+<p class="source" id="narrator">Mara replies are sourced. No unsupported number is passed through.</p></div>
+</section>
+</main>
+<footer>LOOM 2226 · ALL BODIES / ALL SPONSORS · EARTH → MARS ONLY · MARS APPROACH SHELL: NO DISTANCE CERTIFIED</footer>
+<script>
+"use strict";
+// Display and captain intent only. No client-side flight calculations.
+const $=id=>document.getElementById(id);
+const text=(id,s)=>{$(id).textContent=s};
+const STORY={
+ briefing:["Earth to Mars","Strap into the command deck. Under the crown dome, the pilot, captain and crew take their stations. The FQ11 playback is ready. Captain: GO or HOLD.","L1 COMMAND / CREW"],
+ preburn:["Pre-jump burn","Hot fins deploy. The torch climbs to its measured FQ11 acceleration. The presentation clock is compressed; the flight readings come unchanged from the accepted record.","WAYFARER / TORCH"],
+ metric:["Metric transit","The ship enters its relational leg. There is no ordinary-space trajectory to inspect. Ask Mara about the natural arrival rule or the Sun ledger, then authorise continuation.","METRIC / ENERGY-B"],
+ turn:["Mars approach shell","Natural arrival is not matched arrival. The captain must authorise a measured, finite RCS turn and recovery, not a free capture orbit.","MARS / APPROACH"],
+ trim:["Finite trim","The measured torch trim is under way. A shortened preburn requires a stronger finite recovery. Watch the final recorded mismatch.","WAYFARER / RECOVERY"],
+ debrief:["Replay complete","FQ11's recorded Mars-relative velocity match is complete. There is no certified collapse coordinate or orbital capture. Review the evidence and the session log.","ARRIVAL / LAB LIMIT"]
+};
+let previousPhase="",last={};
+async function api(path,body){
+ const opt=body===undefined?{}:{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)};
+ const r=await fetch(path,opt);const d=await r.json();if(!r.ok)throw Error(d.error||"Request failed");return d;
+}
+function render(s){
+ last=s;const [title,story,frame]=STORY[s.phase];
+ text("title",title);text("story",story);text("frame",frame);
+ text("gate","CAPTAIN / "+s.phase.toUpperCase()+" / "+s.mode.toUpperCase());
+ text("variant",s.case_revealed ? "FQ11 CASE "+s.variant.replaceAll("_"," ") : "CASE SEALED");
+ text("clock","VIEWING "+s.viewing_phase_s+" s");
+ text("seed","SEED "+s.seed);
+ text("hint",s.mode==="awaiting"?"AWAITING CAPTAIN GO":s.mode==="held"?"CAPTAIN HOLD / TIME PAUSED":s.mode==="active"?"PLAYBACK ACTIVE / SERVER CLOCK":s.mode==="complete"?"FQ11 RECORD ENDED / NO CAPTURE CLAIM":"SESSION ENDED");
+ $("progress").style.width=s.progress_percent+"%";
+ $("scene").src="/art/"+s.scene;
+ $("scene").alt="Existing Wayfarer render: "+s.phase;
+ $("go").disabled=!(s.mode==="awaiting"||s.mode==="held");
+ text("go",s.mode==="held"?"RESUME / GO":s.phase==="briefing"?"BEGIN / GO":s.phase==="turn"?"AUTHORISE TURN":"GO / AUTHORISE");
+ $("hold").disabled=s.mode!=="active";
+ $("quit").disabled=false;
+ text("quit",s.mode==="complete"||s.mode==="quit"?"REPLAY / NEW SEED":"QUIT");
+ text("mode",s.mara_mode+" · FQ11");
+ if(previousPhase!==s.phase){
+   const lines={
+    metric:"Mara: ENERGY-B resolves a natural arrival velocity, not a certified collapse position. [Canon II §7.1a]",
+    turn:"Mara: Our Mars-relative mismatch is measured. I need your GO for the finite RCS recovery. [FQ11]",
+    trim:"Mara: Trimming on the accepted FQ11 case. I cannot manufacture a capture. [FQ11]",
+    debrief:"Mara: Recorded arrival mismatch corrected. No orbital capture is certified. [FQ11; Canon II §7.1a]"
+   };
+   if(lines[s.phase])text("reply",lines[s.phase]);
+ }
+ previousPhase=s.phase;
+ const box=$("facts");box.replaceChildren();
+ for(const f of s.facts){
+  const row=document.createElement("div");row.className="fact";
+  const k=document.createElement("span");k.className="key";k.textContent=f.label;
+  const v=document.createElement("button");v.className="value";v.textContent=f.value;v.title=f.source;
+  v.addEventListener("click",()=>text("source",f.source));
+  row.append(k,v);box.append(row);
+ }
+}
+let busy=false;
+async function refresh(){if(busy)return;try{render(await api("/api/state"))}catch(e){text("hint","LOCAL SERVER DISCONNECTED: "+e.message)}}
+async function cmd(action){
+ if(busy)return;busy=true;
+ try{render(await api("/api/command",{action}))}catch(e){text("hint",e.message)}finally{busy=false}
+}
+$("go").addEventListener("click",()=>cmd("go"));
+$("hold").addEventListener("click",()=>cmd("hold"));
+$("quit").addEventListener("click",async()=>{
+ if(last.mode==="complete"||last.mode==="quit"){
+  try{render(await api("/api/new",{}));text("reply","Mara: Fresh sealed FQ11 case. Captain, begin when ready.")}catch(e){text("hint",e.message)}
+  return;
+ }
+ if(!confirm("End this session? Quit point will be logged."))return;
+ await cmd("quit");
+});
+$("ask").addEventListener("click",async()=>{
+ const q=$("question").value.trim();if(!q)return;
+ $("ask").disabled=true;text("reply","Mara is checking accepted evidence...");
+ try{const a=await api("/api/ask",{question:q});text("reply",a.reply);text("narrator","REPLY MODE: "+a.mode+" · SOURCES: "+a.source);$("question").value=""}
+ catch(e){text("reply","Mara: Unable to answer. "+e.message)}
+ finally{$("ask").disabled=false}
+});
+$("question").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();$("ask").click()}});
+refresh();setInterval(refresh,850);
+</script>
+</body></html>
