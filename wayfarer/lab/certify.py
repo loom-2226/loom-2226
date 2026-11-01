@@ -80,7 +80,8 @@ def g1(I, C, G):
               + L["mission_courier_systems_t"] + L["engineering_reserve_t"] + L["c_tank_penalty_t"]
               + I["shuttle"]["dry_t"] + L["drones_pods_t"] + L.get("torch_hot_fins_t", 0.0) + L.get("crew_systems_v056_t", 0.0) + L.get("crew_systems_v057_t", 0.0)
               + L.get("rcs_axial_t", 0.0) + L.get("reserve_draws_rev7", {}).get("total_t", 0.0)
-              + L.get("i4_carryover_t", 0.0) + L.get("aoi_crown_t",0.0) + L.get("aoi_aft_bulkhead_reinforcement_t",0.0))
+              + L.get("i4_carryover_t", 0.0) + L.get("aoi_crown_t",0.0) + L.get("aoi_aft_bulkhead_reinforcement_t",0.0)
+               + L.get("crown_option_c_additions_t",0.0) + L.get("l3_berth_shield_liner_t",0.0))
     AOI = I["habitat"]["decks"][0].get("command_layout",{}).get("crown_dome",{}).get("adaptive_optogel")
     dry = G["dry_t"]
     cs = [chk("parts sum to the ledger", round(dry, 2), round(expect, 2), abs(dry - expect) <= C["G1"]["ledger_tolerance_t"], "t")]
@@ -95,6 +96,42 @@ def g1(I, C, G):
         cs.append(chk("AOI and backup dome entirely drawn from positive existing reserve",
                       round(L["engineering_reserve_t"],3),0.,L["engineering_reserve_t"]>=0.,"t",
                       "adds no dry mass outside original ship engineering ledger"))
+    OC=I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("shell_option_c")
+    if OC:
+        m=OC["mass_ledger"];byid={x["id"]:x["mass_t"] for x in G["parts"]}
+        for name,pid,expect in [("added 50-degree gore area","crown_c_additional_strata_gore",m["gore_extra_t"]),
+          ("independent outward retainers","crown_c_outward_retainers",m["retain_t"]),
+          ("one centre and six annular spare panes","crown_c_seven_spare_panes",m["spares_t"])]:
+            cs.append(chk("Option C actual physical "+name,round(byid.get(pid,0),6),expect,
+                          abs(byid.get(pid,0)-expect)<1e-7,"t"))
+        hs=sum(byid.get("hatch_L1L2_"+str(j),0) for j in range(2))
+        cs.append(chk("two L1/L2 real pressure hatch masses each 0.15t",round(hs,6),.3,abs(hs-.3)<1e-7,"t"))
+        # Option C was charged through three ledger buckets. All 5.834795t
+        # must reconcile, including 0.540125t panes booked to I4 and 0.6t liner.
+        prior_reserve=17.786216  # frozen immediately prior to Option C, PR #439 / 25bae1ce
+        expected_draw=m["reserve_draw_total_t"]
+        actual_draw=prior_reserve-L["engineering_reserve_t"]
+        pane_delta=I["i4_carryover"]["crown_increment_from_reserve_t"]-.347738
+        cs.append(chk("Option C six-line reserve draw reconciles exactly",
+            round(actual_draw,6),round(expected_draw,6),
+            abs(actual_draw-expected_draw)<1e-6,"t",
+            "4.694670t separate Option-C hardware +0.540125t pane area via I4 ledger +0.600000t L3 liner"))
+        cs.append(chk("Option C pane incremental mass booked under existing I4 carryover",
+            round(pane_delta,6),round(m["pane_delta_t"],6),
+            abs(pane_delta-m["pane_delta_t"])<1e-6,"t"))
+        cs.append(chk("Option C subledger equals physical reserve draws",
+            round(m["gore_extra_t"]+m["retain_t"]+m["spares_t"]+m["hatches_t"]+m["pane_delta_t"]+L["l3_berth_shield_liner_t"],6),
+            round(actual_draw,6),
+            abs(m["gore_extra_t"]+m["retain_t"]+m["spares_t"]+m["hatches_t"]+m["pane_delta_t"]+L["l3_berth_shield_liner_t"]-actual_draw)<1e-6,"t"))
+        cs.append(chk("Option C total reserve remains positive",L["engineering_reserve_t"],0,L["engineering_reserve_t"]>0,"t"))
+        li=next((x["mass_t"] for x in G["parts"] if x["id"]=="l3_berth_dry_shield_liner"),0.)
+        cs.append(chk("Option C L3 dry liner physically charged 0.6t from reserve",
+                      round(li,6),L.get("l3_berth_shield_liner_t",0),
+                      abs(li-L.get("l3_berth_shield_liner_t",0))<1e-7,"t"))
+        cs.append(chk("Option C gross 27g/cm2 coverage accounts extra faceted area",
+           round(OC["gores"]["gross_full_coverage_t"],6),
+           round(OC["gores"]["existing_projected_coverage_t"]+m["gore_extra_t"],6),
+           abs(OC["gores"]["gross_full_coverage_t"]-OC["gores"]["existing_projected_coverage_t"]-m["gore_extra_t"])<1e-6,"t"))
     shuttle = next(p["mass_t"] for p in G["parts"] if p["id"] == "shuttle")
     for s in states(I):
         st = G["states"][s]
@@ -612,6 +649,12 @@ def g5(I, C, G):
                      "I4 terrace 4 columns sized as 7075-T6 76mm OD x 3mm at 0.49m. "
                      "5g x1.5 ultimate +0.5g lateral member screen, no joint, deck bearing, vibration, fatigue, "
                      "swept-body or 3D egress qualification. HOLLOW: closed only for column members, not system."))
+    OC=I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("shell_option_c")
+    if OC:
+        cs.append(chk("Option C gross overall ship envelope 54.5m",OC["overall_ship_length_m"],54.5,
+                      abs(OC["overall_ship_length_m"]-54.5)<.001,"m"))
+        decl.append(("crown_option_c_load_paths","Full faceted nose 1.2m ahead of old bow and gore hinges at 50deg break; actual retaining loads, impact, thermal cycling, 5g attachment paths and shutter transition mechanics UNSHOWN."))
+        decl.append(("l1_l2_pressure_hatches","Two new 0.15t pressure hatches at existing L1/L2 0.8m ladder wells: mass and parked clearance checked, seal under full differential, latch actuation and 4g crew passage NOT demonstrated."))
     stn = CR["stations"]
     cs.append(chk("upper berth posts: buckling margin at 5 g x 1.5", stn["berth_post_margin"], C["G5"]["buckling_factor"], stn["ok"], "x",
                   f"{stn['berth_post_kn']} kN per post; couch and berth hard points {stn['hard_point_kn']} kN each ({stn['requirement']})"))
@@ -828,6 +871,26 @@ def g6(I, C, G):
         cs.append(chk("I4 closed Strata gores plus dome pair and outer ceramic restore old areal mass",
             round(protected,3),prior,protected>=prior,"g/cm2",
             "27 g/cm2 Rev7 gores, separate from 37 outer panes; shelter transport not re-qualified by simple areal sum"))
+        OC=CD.get("shell_option_c")
+        if OC:
+            shell=OC["outer_tile_layer"]
+            cs.append(chk("Option C nose flat to 2m, then 50-degree slope",
+                   [OC["flat_to_r_m"],OC["slope_deg"]],[2.,50.],
+                   OC["flat_to_r_m"]==2 and OC["slope_deg"]==50))
+            cs.append(chk("Option C 1 cm ceramic outer areal mass 3.75 g/cm2",
+                   shell["areal_mass_kg_m2"],37.5,
+                   abs(shell["areal_mass_kg_m2"]-37.5)<.001,"kg/m2"))
+            cs.append(chk("Option C gross closed gore coverage 27g/cm2 over entire faceted surface",
+                round(OC["gores"]["gross_full_coverage_t"],4),
+                round(OC["outer_area_m2"]*.27,4),
+                abs(OC["gores"]["gross_full_coverage_t"]-OC["outer_area_m2"]*.27)<1e-5,"t"))
+            decl.append(("crown_option_c_gore_fairing",
+               "16 Strata tambour gores cover the full r<=3.5m faceted external 50deg profile at 27g/cm2 when closed; 2m flat/slope hinge transition and shoulder fairing have no measured shock/seam/drive failure qualification."))
+            if I["ledger"].get("l3_berth_shield_liner_t",0):
+                decl.append(("l3_shield_liner_material",
+                   "Observed G6 two rays at 39.86g/cm2 corrected by reserve-funded 0.6t continuous L3 dry foamed high-hydrogen liner (x5.9-8.2,r4.18-4.25). No water moved and no gel radiation credited. g/cm2 mass/geometry screen only: polymer composition, actual charged-particle transport, structural attachment, fire and dose remain UNSHOWN."))
+            decl.append(("crown_option_c_tiles",
+                "37 independent ceramic 1cm sacrificial tiles, outward-removable retainers while L1 pressure stays sealed. Four types, seven spares in hold. Cupola precedent establishes separable outer debris panes, NOT service tool loads or 2226 particle impact protection."))
         cs.append(chk("I4 source 37-pane radial boundaries preserved exactly",
             CD["panes"]["ring_boundaries_m"],[0,.75,2.,2.75,3.5],
             CD["panes"]["ring_boundaries_m"]==[0,.75,2.,2.75,3.5]))
@@ -891,6 +954,10 @@ def g7(I, C, G):
     n_c, n_g = I["decisions"]["people"]["crew"], I["decisions"]["people"]["guests"]
     n = n_c + n_g
     decl = []
+    OC=I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("shell_option_c")
+    if OC:
+        limit=OC["visible_open_policy"]
+        decl.append(("crown_option_c_open_limit", "Option C crown-open limit surfaced in 3D viewer as proposed max speed and/or bow-to-flow angle; BOTH numeric thresholds default UNQUALIFIED. Existing doctrine remains governing (low speed OR bow out of dust flow; closed for torch, radiation, Metric). Sensor accuracy, failure-mode logic and numeric dynamic threshold still OPEN."))
     rooms = G["rooms"]
     nhv = sum(r["nhv_m3"] for r in rooms)
     cs = [chk("people aboard", n, f"{n_c} crew + {n_g} guests", True),
@@ -1232,6 +1299,20 @@ def g12(I, C, G):
     for kind, need in (("exterior",4),("cutaway",2),("deckplan",len(I["habitat"]["decks"])),("viewer",1)):
         n=sum(1 for f in files if f["kind"]==kind and f.get("geometry_sha256")==srcsha and (HERE.parent/"render"/"out"/f["file"]).exists())
         cs.append(chk(f"{kind} current-geometry artifacts",n,need,n>=need))
+    OC=I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("shell_option_c")
+    if OC:
+        section=[f for f in files if f["file"]=="deck_crown_option_c_section.png" and f["geometry_sha256"]==srcsha]
+        svg=HERE.parent/"render/out/deck_crown_option_c_section.svg"
+        cs.append(chk("Option C 1:1 metric crown section current-hash PNG plus source SVG",
+                      bool(section) and svg.exists(),True,bool(section) and svg.exists()))
+        n_exteriors=sum(f["kind"]=="exterior" for f in files)
+        cs.append(chk("Option C all previously dropped exterior views rerendered",n_exteriors,10,n_exteriors>=10))
+        viewers=HERE.parent/"render/research"
+        docs=HERE.parent/"docs/nose_research"
+        n_docs=len(list(docs.glob("NOSE_*.md")))
+        n_views=len(list(viewers.glob("*.html")))
+        cs.append(chk("Original NOSE research and viewer assets preserved under wayfarer/",
+                      [n_docs,n_views],[21,28],n_docs>=21 and n_views>=28))
     import struct
     glb=HERE.parent/"render"/"out"/f"wayfarer_I4_in_out_{srcsha[:8]}.glb"
     glb_valid=False
@@ -1269,6 +1350,9 @@ def g10(r4, scr):
                           f"Needed: trim plus an assumed {FD.MISALIGN_DEG} deg thrust error ({r['detail']['rcs']['tvc_needed_deg']} deg). The error is an engineering assumption, not a measured disturbance history; the authority is not a qualified nozzle capability."),
             ("rcs_axial_plumes", "Axial RCS: one 25 kN thruster per cluster, canted 10 deg outward (bow ones exhaust forward, aft ones aft). Assumes the plumes clear the crown glazing, hull, hot fins and torch chain; plume impingement is not yet modelled."),
             ("g10_burn_coasts", f"Long torch burns split into segments of at most {FD.SEGMENT_MAX_MIN:.0f} min ([V2 6113]) with {FD.COAST_MIN:.0f} min coasts (engineering assumption; in free space the coasts change elapsed time, not delta-v).")]
+    if I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("shell_option_c"):
+        decl.append(("crown_option_c_axial_rcs_plumes",
+             "External nose shifted 1.2m forward with flat 2m crown and 50deg face. Old accepted G10 axial RCS plume direction/impingement declaration predates the extended nose; no new plume clearance proof performed. The existing RCS nozzle geometry is unchanged, but plume impingement on Option C gores/ceramic/retainers remains HOLD."))
     return gate("G10", "Flight dynamics: RCS, torch, Metric, Loom", checks, declared=decl,
                 notes=[f"{r['passed']}/{r['total']} checks pass. Sources: main {r['sources']['main_commit'][:8]}; see g10/G10_SOURCE_MAP.md.",
                        "Basis v0.2, agreed by Sol 2026-10-26. Not computed by design: Metric delta-v and remass (CANON II s20); Loom domain fit (PR #356).",

@@ -351,13 +351,27 @@ export function crownMeshes(cw, xc) {
   // 16 Strata gores close over all; transparent shader is REPRESENTATION not optics qualification.
   if (cw.outerPaneRings && cw.innerR) {
     const bounds=cw.outerPaneRings, outer=bounds[bounds.length-1], inner=cw.innerR;
-    const X=r=>2.35-2.15*Math.sqrt(Math.max(0,1-(r/4.3)**2));
-    const PP=(r,a,offset=0)=>[X(r)-offset,r*Math.cos(a),r*Math.sin(a)];
-    const NN=(r,a)=>{const u=Math.sqrt(Math.max(.0001,1-(r/4.3)**2));
+    const X=r=>2.35-2.15*Math.sqrt(Math.max(0,1-(r/4.3)**2)); // TWO unchanged inner pressure domes
+    const oC=cw.shellOptionC;
+    // Option C external crown: +1.2m forward, flat centre r<=2m, 50deg slope
+    // then smooth fair into shoulder at r=4.5m. r=2m coincides with source I4 pane seam.
+    const XO=r=>{
+      if(!oC)return X(r);
+      const flat=-oC.nose_extension_forward_m,edge=oC.flat_to_r_m;
+      const cone=flat+(Math.min(r,oC.slope_to_r_m)-edge)*Math.tan(oC.slope_deg*Math.PI/180);
+      if(r<=edge)return flat;
+      if(r<=oC.slope_to_r_m)return cone;
+      const t=Math.max(0,Math.min(1,(r-oC.slope_to_r_m)/(oC.fair_to_hull_at_r_m-oC.slope_to_r_m)));
+      return cone+(2.35-cone)*(t*t*(3-2*t));
+    };
+    const PP=(r,a,offset=0)=>[XO(r)-offset,r*Math.cos(a),r*Math.sin(a)];
+    const INNER=(r,a)=>{const u=Math.sqrt(Math.max(.0001,1-(r/4.3)**2));
        const v=2.15*r/(4.3*4.3*u),q=Math.hypot(1,v);
        return [-1/q,v*Math.cos(a)/q,v*Math.sin(a)/q];};
+    const NN=(r,a)=>{const dr=.0001,v=(XO(r+dr)-XO(Math.max(0,r-dr)))/(2*dr),q=Math.hypot(1,v);
+       return [-1/q,v*Math.cos(a)/q,v*Math.sin(a)/q];};
     const innerProfile=[];
-    for(let j=0;j<=84;j++){const r=inner*j/84;const nn=NN(r,0);innerProfile.push([X(r),r,nn[0],nn[1]]);}
+    for(let j=0;j<=84;j++){const r=inner*j/84;const nn=INNER(r,0);innerProfile.push([X(r),r,nn[0],nn[1]]);}
     lathe(mb("crown_glass"),innerProfile,96);
     if (cw.aoi) {
       // AOI is a filled NON-PRESSURE interlayer with an independent backup
@@ -390,10 +404,10 @@ export function crownMeshes(cw, xc) {
     }
     // Existing 16 Strata gore operating rule, with protective closed mantle.
     const brow=[];
-    for(let j=0;j<=24;j++){const r=outer-.10+j*.35/24,n=NN(r,0);brow.push([X(r)-.03,r,n[0],n[1]]);}
+    for(let j=0;j<=24;j++){const r=outer-.10+j*.35/24,n=NN(r,0);brow.push([XO(r)-.03,r,n[0],n[1]]);}
     lathe(mb("brow"),brow,96);
     if((cw.open??1)<.5){
-      const cap=[];for(let j=0;j<=60;j++){const r=outer*j/60,n=NN(r,0);cap.push([X(r)-.085,r,n[0],n[1]]);}
+      const cap=[];for(let j=0;j<=60;j++){const r=outer*j/60,n=NN(r,0);cap.push([XO(r)-.085,r,n[0],n[1]]);}
       lathe(mb("tambour"),cap,96);
       for(let i=0;i<16;i++){
         const a=2*Math.PI*i/16;
@@ -594,9 +608,9 @@ export function commandMeshes(sc, opt = {}) {
   // L1/L2 transfer hatch leaves: parked clear of both 0.8 m ladder holes.
   // These are visual uses of the existing floor/door outfitting mass, not a pressure seal proof.
   for(const h of sc.l1_l2_hatches||[]) {
-    const yPark=h.y+(h.y>=0?1:-1)*(h.size_m*.9), z=h.z, w=h.size_m;
-    meshOBox(mb("hatch"),[sc.floor_x-.025,yPark,z],[[1,0,0],[0,1,0],[0,0,1]],
-      [.022,w*.36,w*.42]);
+    const yPark=h.y+(h.y>=0?1:-1)*.46, z=h.z, w=.92;
+    meshOBox(mb("hatch"),[sc.floor_x+w/2,yPark,z],[[1,0,0],[0,1,0],[0,0,1]],
+      [w/2,.03,w/2]);
     meshTube(mb("rail"),{p0:[sc.floor_x-.06,h.y-w/2,h.z-w/2],
       p1:[sc.floor_x-.06,h.y+w/2,h.z-w/2],r:.018},8);
   }

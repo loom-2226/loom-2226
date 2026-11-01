@@ -15,8 +15,10 @@ s['command_terrace']={k:C['i4_lock']['platforms']['command_terrace'][k] for k in
 s['carryover']=I['i4_carryover']['items']
 s['l1_l2_hatches']=[
  {'id':'l1_l2_hatch_'+str(i),'y':q['y'],'z':q['z'],'size_m':q['size'],
-  'state':'OPEN/PARKED, crew-clear; closed position is a potential future operation',
-  'mass_basis':'existing L1/L2 outfitting; no new reserve draw; not a pressure seal'}
+  'state':'OPEN/PARKED normally; physically CLOSABLE to isolate L1/L2 upon depressurisation',
+  'closed_state':'0.92m sealed leaf covers 0.8m ladder opening; full-differential seal proof is HOLD',
+  'pressure_isolating_intent':True,'mass_t':.15,
+  'mass_basis':'0.15t per hatch DRAWN from Option C engineering reserve, includes frame, leaf, latch, seal and hinge; NOT existing no-mass outfitting'}
  for i,q in enumerate(s['ladders'])]
 s['operating_phases']=[
   'coast+standing collaboration',

@@ -1,6 +1,6 @@
 {
-  "geometry_sha256": "702cca4ef985f754b066e4289f3cc63a4d13c87608b40a75fc9520cf67d0cfb3",
-  "status": "kT 2026-10-31 bounded I4 couch+crawl 1.2m rule; does NOT qualify physical occupant fit/egress",
+  "geometry_sha256": "447c05ccb7a3031823e0713ee6010eaa200dbb4c1635b8a5c747b7cd98dae6a6",
+  "status": "kT 2026-11-01 Option C bounded I4 + real 0.15t hatch/0g casualty route; pressure proof/4g egress NOT qualified",
   "couches": [
     {
       "id": "PILOT",
@@ -90,6 +90,22 @@
   "l1_l2_hatch_clear": {
     "l1_l2_hatch_0": true,
     "l1_l2_hatch_1": true
+  },
+  "l1_l2_pressure_and_casualty": {
+    "leaf_side_m": 0.92,
+    "hole_diameter_m": 0.8,
+    "declared_pressure_isolation": "closed: seal the 0.8m pressure opening; open: leaf parks clear, pressure isolation lost",
+    "litter_length_axial_m": 2.0,
+    "litter_width_m": 0.6,
+    "litter_depth_m": 0.35,
+    "margin_each_side_m": 0.05,
+    "shaft_clear_m": [
+      0.8,
+      0.6
+    ],
+    "end_first_at_zero_g_only": true,
+    "casualty_route_bounded_pass": true,
+    "pressure_seal_and_actuation_proof": "OPEN, not flight qualified"
   },
   "walkways": {
     "grid_step_m": 0.1,
@@ -389,7 +405,10 @@
     "transfer_1": true
   },
   "checks": {
+    "l1_l2_hatches_represent_real_closable_pressure_isolation": true,
+    "l1_l2_0g_litter_egress_via_either_open_hatch": true,
     "l1_l2_parked_hatch_leaves_clear_of_seats_and_ladders": true,
+    "l1_l2_physical_pressure_hatch_mass_in_geometry": true,
     "six_role_seats_present": true,
     "contoured_couch_nominal_length_1p58m": true,
     "plan_seat_envelope_inside_annulus": true,

@@ -56,6 +56,30 @@ class I4Completeness(unittest.TestCase):
         a=c['panes'];g=get('results/out/wayfarer_v05_geometry.json')['crown']
         self.assertEqual(a['ring_boundaries_m'],[0,.75,2.,2.75,3.5])
         self.assertEqual(g['outerPaneRings'],a['ring_boundaries_m'])
+        opt=I['habitat']['decks'][0]['command_layout']['crown_dome']['shell_option_c']
+        self.assertEqual(opt['outer_tile_layer']['type_counts'],[1,12,12,12])
+        self.assertEqual(opt['spares']['one_centre_and_two_of_each_annular_type'],[1,2,2,2])
+        self.assertEqual(opt['l1_l2_hatches']['count'],2)
+        self.assertIsNone(opt['visible_open_policy']['max_bow_dust_relative_speed_km_s'])
+        self.assertIsNone(opt['visible_open_policy']['min_bow_to_flow_deg'])
+        viewer_source=(R/'render/make_viewer.py').read_text()
+        self.assertIn('crownSpeed',viewer_source)
+        self.assertIn('crownFlow',viewer_source)
+        views=get('render/views.json')['views']
+        crown={v['id']:v for v in views if v['id'] in ('crown_open','crown_closed')}
+        self.assertEqual(crown['crown_open']['crown']['open'],1)
+        self.assertEqual(crown['crown_closed']['crown']['open'],0,
+           'closed Strata gore render MUST NOT silently present the OPEN crown')
+        geo=get('results/out/wayfarer_v05_geometry.json')
+        sp=next(q for q in geo['parts'] if q['id']=='crown_c_seven_spare_panes')
+        x,y,z=sp['centroid_m']
+        self.assertTrue(14<=x<=17 and -4.3<=y<=-2 and abs(z)<=.8,
+          'seven source spares must reside in hold_port, NEVER remass tanks')
+        self.assertAlmostEqual(sp['mass_t'],opt['spares']['total_mass_t'],places=6)
+        self.assertAlmostEqual(opt['nose_extension_forward_m'],1.2)
+        self.assertAlmostEqual(opt['slope_deg'],50.)
+        self.assertEqual(g['shellOptionC']['nose_tip_x_m'],-1.2)
+        self.assertTrue(52<opt['outer_area_m2']<54)
         self.assertAlmostEqual(g['outerBandStaggerRad'],math.pi/12,places=9)
         self.assertLessEqual(a['maximum_outer_circumferential_edge_m'],1.9)
         self.assertEqual(c['i4_crown_option_B']['outer_count'],37)

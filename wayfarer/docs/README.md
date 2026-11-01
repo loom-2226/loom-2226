@@ -1,3 +1,7 @@
+# CURRENT Option C, 2026-11-01 source 447c05ccb7a3031823e0713ee6010eaa200dbb4c1635b8a5c747b7cd98dae6a6
+
+**Option C chosen by kT; geometry checks and FQ1–FQ4 pass; mechanical/pressure/damage qualifications remain kT HOLD.** [Current close-out, mass table, acceptance](CROWN_SHELL_OPTION_C_CLOSEOUT_2026_11_01.md). Earlier snapshots below are historical, not current.
+
 # I4 completeness repair, final source 702cca4ef985f754b066e4289f3cc63a4d13c87608b40a75fc9520cf67d0cfb3
 
 See [I4 completeness recovery](I4_COMPLETENESS_RECOVERY_2026_11_01.md) for f07354f item mapping, restored 37 panes, NAV platform, hatches, optical viewer, G7/G6 and FQ1-FQ4 latest new geometry. **certified=false**, draft PR #439; previous docs retain historical evidence.

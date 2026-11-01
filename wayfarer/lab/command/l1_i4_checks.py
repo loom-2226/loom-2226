@@ -173,11 +173,30 @@ for q in I.get('i4_carryover',{}).get('items',[]):
 # Rendered from existing outfitting allowance, no new pressure-seal qualification.
 hatch_clear={}
 for j,y in enumerate((-1.4,1.4)):
-    yc=y+(1 if y>0 else -1)*(.8*.9)
-    b=[[3.0-.047,3.0-.003],[yc-.8*.36,yc+.8*.36],[-.8*.42,.8*.42]]
+    yc=y+(1 if y>0 else -1)*.46
+    b=[[3.0,3.92],[yc-.03,yc+.03],[-.46,.46]]
     hatch_clear['l1_l2_hatch_'+str(j)]=not any(overlap_volume(b,v)>1e-9 for v in seat_boxes.values()) and not any(overlap_volume(b,v)>1e-9 for v in ladder_boxes)
+# End-first 2.0 m litter transfer at 0g uses existing 0.8 by 0.6 m
+# accessible shaft; never claim a horizontal 2 m rigid litter fits across the aperture.
+# With the hatch closed, its 0.92 m square pressure leaf covers the 0.8 m hole.
+OC=I['habitat']['decks'][0]['command_layout']['crown_dome'].get('shell_option_c',{})
+lm=I['habitat']['crew_systems']['litter']
+shaft=I['habitat']['crew_systems']['ladder_shafts']
+clear_lit=(lm['width_m']+2*lm['margin_m']<=shaft['clear_m'][0] and
+           lm['depth_m']+2*lm['margin_m']<=shaft['clear_m'][1])
+route_ok=(len(floor_start)==2 and len(floor_reach)>0 and
+          landings['both_ladders_in_same_connected_walk_region'] and
+          all(hatch_clear.values()) and clear_lit and
+          I['habitat']['crew_systems']['casualty_doctrine'][0].find('0 g')>=0)
+hatch_spec=OC.get('l1_l2_hatches',{})
+hatch_closable=(hatch_spec.get('count')==2 and hatch_spec.get('mass_t_each')==.15 and
+                 hatch_spec.get('mode','').startswith('pressure-rated') and .92>=.8)
 checks={
+'l1_l2_hatches_represent_real_closable_pressure_isolation':hatch_closable,
+'l1_l2_0g_litter_egress_via_either_open_hatch':route_ok,
 'l1_l2_parked_hatch_leaves_clear_of_seats_and_ladders':len(hatch_clear)==2 and all(hatch_clear.values()),
+'l1_l2_physical_pressure_hatch_mass_in_geometry':all(
+ abs(next((q['mass_t'] for q in G['parts'] if q['id']=='hatch_L1L2_'+str(i)),0)-0.15)<1e-7 for i in range(2)),
 'six_role_seats_present':len(seats)==6 and len(set(s['id'] for s in seats))==6,
 'contoured_couch_nominal_length_1p58m':all(x['contoured_couch_length_1p58m'] for x in couch),
 'plan_seat_envelope_inside_annulus':all(x['within_4p15m_plan'] for x in couch),
@@ -191,8 +210,15 @@ checks={
 
 
 }
-out={'geometry_sha256':H,'status':'kT 2026-10-31 bounded I4 couch+crawl 1.2m rule; does NOT qualify physical occupant fit/egress',
-'couches':couch,'l1_l2_hatch_clear':hatch_clear,'walkways':{'grid_step_m':step,'path_half_width_m':.4,'walkable_cells':len(walkable),'connected_cells':len(seen),'to_seats':reach},
+out={'geometry_sha256':H,'status':'kT 2026-11-01 Option C bounded I4 + real 0.15t hatch/0g casualty route; pressure proof/4g egress NOT qualified',
+'couches':couch,'l1_l2_hatch_clear':hatch_clear,
+'l1_l2_pressure_and_casualty':{'leaf_side_m':.92,'hole_diameter_m':.8,
+ 'declared_pressure_isolation':'closed: seal the 0.8m pressure opening; open: leaf parks clear, pressure isolation lost',
+ 'litter_length_axial_m':lm['length_m'],'litter_width_m':lm['width_m'],'litter_depth_m':lm['depth_m'],
+ 'margin_each_side_m':lm['margin_m'],'shaft_clear_m':shaft['clear_m'],
+ 'end_first_at_zero_g_only':True,'casualty_route_bounded_pass':route_ok,
+ 'pressure_seal_and_actuation_proof':'OPEN, not flight qualified'},
+ 'walkways':{'grid_step_m':step,'path_half_width_m':.4,'walkable_cells':len(walkable),'connected_cells':len(seen),'to_seats':reach},
 'ladders':{'holes':ladder_holes,'checks':landings},
 'headroom':{'terrace_center_m':round(front-dome(1.96),3),'worst_corner_m':round(raw,3),
            'chamfer_OPTION_not_geometry':{'cut_m':cut,'worst_corner_m':round(ch,3),'gain_m':round(ch-raw,3),

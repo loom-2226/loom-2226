@@ -1,7 +1,7 @@
 {
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
- "status": "kT integrated I4; 37 [1,12,12,12] with original rings and stagger; NAV platform and parked L1/L2 hatch leaves; 4g seated doctrine, twin dome and AOI optical research, source 702cca4ef985f754b066e4289f3cc63a4d13c87608b40a75fc9520cf67d0cfb3",
- "geometry_sha256": "702cca4ef985f754b066e4289f3cc63a4d13c87608b40a75fc9520cf67d0cfb3",
+ "status": "kT integrated I4; 37 [1,12,12,12] with original rings and stagger; NAV platform and parked L1/L2 hatch leaves; 4g seated doctrine, twin dome and AOI optical research, source 447c05ccb7a3031823e0713ee6010eaa200dbb4c1635b8a5c747b7cd98dae6a6",
+ "geometry_sha256": "447c05ccb7a3031823e0713ee6010eaa200dbb4c1635b8a5c747b7cd98dae6a6",
  "dome": {
   "xa": 0.2,
   "xb": 2.35,
@@ -657,16 +657,22 @@
    "y": 1.4,
    "z": 0,
    "size_m": 0.8,
-   "state": "OPEN/PARKED, crew-clear; closed position is a potential future operation",
-   "mass_basis": "existing L1/L2 outfitting; no new reserve draw; not a pressure seal"
+   "state": "OPEN/PARKED normally; physically CLOSABLE to isolate L1/L2 upon depressurisation",
+   "closed_state": "0.92m sealed leaf covers 0.8m ladder opening; full-differential seal proof is HOLD",
+   "pressure_isolating_intent": true,
+   "mass_t": 0.15,
+   "mass_basis": "0.15t per hatch DRAWN from Option C engineering reserve, includes frame, leaf, latch, seal and hinge; NOT existing no-mass outfitting"
   },
   {
    "id": "l1_l2_hatch_1",
    "y": -1.4,
    "z": 0,
    "size_m": 0.8,
-   "state": "OPEN/PARKED, crew-clear; closed position is a potential future operation",
-   "mass_basis": "existing L1/L2 outfitting; no new reserve draw; not a pressure seal"
+   "state": "OPEN/PARKED normally; physically CLOSABLE to isolate L1/L2 upon depressurisation",
+   "closed_state": "0.92m sealed leaf covers 0.8m ladder opening; full-differential seal proof is HOLD",
+   "pressure_isolating_intent": true,
+   "mass_t": 0.15,
+   "mass_basis": "0.15t per hatch DRAWN from Option C engineering reserve, includes frame, leaf, latch, seal and hinge; NOT existing no-mass outfitting"
   }
  ],
  "operating_phases": [

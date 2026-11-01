@@ -211,7 +211,8 @@
   "nozzle_r_m": [
    2.125,
    3.0
-  ]
+  ],
+  "overall_length_m": 54.5
  },
  "tanks": {
   "prov": "DERIVED",
@@ -628,7 +629,7 @@
      },
      "crown_dome": {
       "adopted": true,
-      "prov": "kT OPTION A 2026-11-01: 37 outer nonpressure panes + TWO INDEPENDENT seamless ~7m ceramic pressure domes, AOI-2226 interlayer, 16 Rev7 armour gores; mechanical independence and gel impact response not qualified; original I4 radii/stagger restored 2026-11-01; +0.036319t from engineering reserve",
+      "prov": "kT OPTION A 2026-11-01: 37 outer nonpressure panes + TWO INDEPENDENT seamless ~7m ceramic pressure domes, AOI-2226 interlayer, 16 Rev7 armour gores; mechanical independence and gel impact response not qualified; original I4 radii/stagger restored 2026-11-01; +0.036319t from engineering reserve; kT Option C surface extension +1.2m and 50deg flat/slope at r2, G1 incremental groove/gore/spares/hatches reserve draw 5.234795t",
       "r_m": 3.5,
       "glazed_area_m2": 38.48451,
       "roots": 12,
@@ -659,7 +660,10 @@
        "inner_shape": "X(r)=2.35-2.15*sqrt(1-(r/4.3)^2), 0<=r<=3.50",
        "pressure_milestone": "PENDING: two independent full-scale ~7m monolithic ceramic pressure enclosures and no shock/crack coupling through AOI; earlier one-dome approval does not carry",
        "outermost_band_stagger_rad": 0.261799387799,
-       "outer_pattern_provenance": "RESTORED f07354f: 37 modules [1,12,12,12], radii [0,.75,2,2.75,3.5], final band \u03c0/12 stagger. Maximum hoop chord 1.812m; within existing 1.9m check. Additional outer ceramic mass from reserve."
+       "outer_pattern_provenance": "RESTORED f07354f: 37 modules [1,12,12,12], radii [0,.75,2,2.75,3.5], final band \u03c0/12 stagger. Maximum hoop chord 1.812m; within existing 1.9m check. Additional outer ceramic mass from reserve.",
+       "outer_areal_kg_m2": 37.5,
+       "true_conical_surface_area_m2": 52.887838,
+       "outer_profile": "OPTION C: X(r)=-1.2 for r<=2.0; -1.2+(r-2)*tan(50deg) to r3.5; faired to shoulder at r4.5; I4 pane rings unchanged"
       },
       "brow_ring": {
        "height_m": 0.22,
@@ -670,10 +674,10 @@
        "count": 16,
        "kind": "tambour: armour-equivalent Strata laminate slats on meridian tracks (Builder-derived MHL-22)",
        "closed_restores_g_cm2": 27,
-       "mass_note": "the gores carry the armour the opening removes (already in the armour part), so they are not new mass"
+       "mass_note": "Option C gross full faceted closed coverage 14.279716t (52.89m2*270kg/m2), existing 10.391t projected coverage credited in old 105t armor ledger; incremental faceted-area 3.888898t from reserve; no double count."
       },
       "mass_t": {
-       "panes": 2.477738,
+       "panes": 3.017863,
        "frame": 1.8,
        "brow_ring": 0.5,
        "gore_tracks_and_drives": 0.5
@@ -750,6 +754,116 @@
        ],
        "kT_acceptance_required": "Independent full-differential failure under filled gel, no coupling, thermal swelling accommodation, pressure qualification and optical/thermal measurement",
        "shelter_margin_recovery": "0.5t of engineering reserve into EXISTING aft pressure bulkhead, where aft-directed L3-CB worst ray exits. 1.5t bow-armour trial REJECTED (worsened same ray). Exact 36x600 overlay required; no gel radiation/impact credit."
+      },
+      "shell_option_c": {
+       "adopted": "kT 2026-11-01 OPTION C / DRAFT HULL",
+       "reference": "7240dc21:command/NOSE_REPLACEABLE_TRANSPARENT_OUTER_PANELS_20261029.md",
+       "nose_extension_forward_m": 1.2,
+       "nose_tip_x_m": -1.2,
+       "flat_to_r_m": 2.0,
+       "slope_deg": 50.0,
+       "slope_to_r_m": 3.5,
+       "outer_area_m2": 52.887838,
+       "flat_area_m2": 12.566371,
+       "slope_area_m2": 40.321467,
+       "fair_to_hull_at_r_m": 4.5,
+       "aft_ship_coordinate_m": 53.3,
+       "overall_ship_length_m": 54.5,
+       "outer_tile_layer": {
+        "count": 37,
+        "types": 4,
+        "type_counts": [
+         1,
+         12,
+         12,
+         12
+        ],
+        "radii_m": [
+         0,
+         0.75,
+         2,
+         2.75,
+         3.5
+        ],
+        "stagger_last_band_rad": 0.261799387799,
+        "thickness_m": 0.01,
+        "density_kg_m3": 3750.0,
+        "areal_mass_kg_m2": 37.5,
+        "gross_surface_mass_t": 1.983294,
+        "previous_projected_mass_basis_t": 1.443169,
+        "additional_mass_from_reserve_t": 0.540125,
+        "ring_type_surface_area_m2": [
+         1.767146,
+         0.899935,
+         1.450962,
+         1.90916
+        ],
+        "exterior_retainer_access": "outward-disengage, one tile independently from outside, cabin pressurised, no pressure seal disturbed; mechanically DECLARED not qualified",
+        "retainer_allowance_t": 0.12,
+        "retainer_load_strength": "OPEN; independent removable mounts and EVA/robotic release not demonstrated"
+       },
+       "spares": {
+        "hold": "courier hold",
+        "one_centre_and_two_of_each_annular_type": [
+         1,
+         2,
+         2,
+         2
+        ],
+        "unit_mass_t_by_type": [
+         0.066268,
+         0.033748,
+         0.054411,
+         0.071594
+        ],
+        "total_mass_t": 0.385772,
+        "storage_note": "Position x14.9-16.1, y -3.35..-2.65, z +/-0.5 m is inside courier SERVICE HOLD PORT x14..17 and \u03b8135..225, r2..4.3. Not in midship remass tanks. Seven individually packed spare 1cm outer panes from reserve; no payload double-count."
+       },
+       "gores": {
+        "count": 16,
+        "equivalent_areal_g_cm2": 27.0,
+        "full_closed_outer_area_m2": 52.887838,
+        "gross_full_coverage_t": 14.279716,
+        "existing_projected_coverage_t": 10.390818,
+        "extra_area_mass_from_reserve_t": 3.888898,
+        "provenance": "Existing 27g/cm2 projected 38.485m2 coverage credited in 105t armor allocation. Only Option C sloped extra coverage paid as additional armour from reserve. No double charge of existing gores. Mount/transition dynamics unqualified.",
+        "joint": "segmented Strata tambour travels over r=2m flat/slope break; hinge sealing, bending fatigue and dust seam survival OPEN"
+       },
+       "l1_l2_hatches": {
+        "count": 2,
+        "mass_t_each": 0.15,
+        "total_t": 0.3,
+        "mode": "pressure-rated operating intention; actual isolation/strength/seals and actuation NOT qualified",
+        "location": "two existing 0.8m ladder holes y +/-1.4m at L1/L2 x3.0m"
+       },
+       "visible_open_policy": {
+        "max_bow_dust_relative_speed_km_s": null,
+        "min_bow_to_flow_deg": null,
+        "default_rule": "open only at low speed or with the bow facing away from the dust flow (braking and tail-first coasting); closed for solar particle events, radiation belts, torch burns and Loom formation and translation. Stuck closed is safe; stuck open: turn the bow out of the dust flow.",
+        "variable_control": "visible in current viewer; no numeric speed/sensor qualification, opening not permitted just because value undefined"
+       },
+       "mass_ledger": {
+        "pane_delta_t": 0.540125,
+        "gore_extra_t": 3.888898,
+        "retain_t": 0.12,
+        "spares_t": 0.385772,
+        "hatches_t": 0.3,
+        "reserve_draw_total_t": 5.834795,
+        "reserve_remaining_t": 11.951421,
+        "g6_l3_berth_liner_t": 0.6
+       },
+       "open_issues": [
+        "Option C external protection/fairing load paths",
+        "Gore hinge over 50deg ring break",
+        "Retainer outward extraction/impulse",
+        "Hatch two-way seal and 4g rated closure",
+        "Twin 7m pressure dome/gel failure independence unchanged"
+       ],
+       "g6_recovery": {
+        "reason": "Observed Option C G6 2 of 21600 L3 berth rays below 40 (39.86 minimum) after 5.235t reserve draw redistributed diffuse margin. DO NOT relax screen or credit AOI.",
+        "liner": "0.6t dry hydrogen-rich foamed shielding, entire L3 circumference x5.9-8.2m radial r4.18-4.25m, replaces corresponding engineering reserve mass, no water inventory change",
+        "limitation": "One mass-distributed g/cm2 screen, not particle transport, fastening/fatigue/proton/neutron dose or human radiation qualification."
+       }
       }
      },
      "i4_lock": {
@@ -1840,7 +1954,7 @@
    "prov": "ENGINEERING_ASSUMPTION"
   },
   "mission_courier_systems_t": 20.0,
-  "engineering_reserve_t": 17.786216,
+  "engineering_reserve_t": 11.951421,
   "engineering_reserve_rule": "spread over dry parts in proportion to their mass (growth margin), not lumped at one point",
   "c_tank_penalty_t": 8.0,
   "radiator_panels_t": 8.784,
@@ -1887,9 +2001,11 @@
    "total_t": 1.4208,
    "prov": "rev 7 external equipment that is new hardware (external_equipment draw_from: reserve); everything else is located inside its existing ledger line"
   },
-  "i4_carryover_t": 0.875738,
+  "i4_carryover_t": 1.415863,
   "aoi_crown_t": 7.345246,
-  "aoi_aft_bulkhead_reinforcement_t": 0.5
+  "aoi_aft_bulkhead_reinforcement_t": 0.5,
+  "crown_option_c_additions_t": 4.69467,
+  "l3_berth_shield_liner_t": 0.6
  },
  "longerons": {
   "prov": "CLAUDE_DESIGN v0.5.7 (structure/longeron_study.py, kT 2026-10-25 'consolidate'): four CFRP tubes in an X, matching canon's 4 axial longerons. The upper pair stay where the v0.5.6 slot sills were (edging the bay slot); the lower pair mirror them in the tank's lower cells. Sized at 5 g x 1.5 to a 250 MPa design stress (400 MPa floor x 0.62 for impact, joints, environment). v0.5.6 had 3 planks + 2 sills (36.9 t) running at 65 MPa. NON-GOVERNING; SOL TO REVIEW REV 5 (structure review 2026-10-26): wall 72 -> 84 mm (area 0.0830 m2, 1% margin) so axial + bending (thrust-line offset 13.5 MN m + 0.5 deg thrust error 9.1 MN m) stays within the 250 MPa design stress",
@@ -3008,7 +3124,7 @@
   "NAV_platform": "Existing i4_lock.platforms.navigator_platform, retain without duplication",
   "mounts": "rail, lighting, transfers and low-g station accepted for geometry screen; load/egress qualification separate",
   "sum_new_from_reserve_t": 0.528,
-  "crown_increment_from_reserve_t": 0.347738,
+  "crown_increment_from_reserve_t": 0.887863,
   "pressure_shell_replacement_credit_t": 3.310664,
   "crown": "kT Option A 2026-11-01 replaces prior Option B: TWO independently sealed ~7m pressure domes with AOI in their 3.023m3 gap, 37 protective outer panes, 16 closed Strata gores",
   "gel_from_reserve_t": 3.0,

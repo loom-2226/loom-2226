@@ -152,6 +152,15 @@ footer{color:var(--steel);font-size:11px;letter-spacing:.03em;line-height:1.6;bo
     <button class="chip" type="button" data-look="S4" aria-pressed="false">Support 4</button>
     <button class="chip" type="button" data-look="STAND" aria-pressed="false">Standing (1 g)</button>
   </div>
+  <div class="row" role="group" aria-label="Option C crown operating limits" id="crownlimitrow">
+   <label>OPEN LIMIT (declared only): max bow dust-relative speed km/s
+    <input id="crownSpeed" type="number" min="0" step="1" placeholder="not qualified" style="width:9em;max-width:100%;background:#12253b;color:#fff;border:1px solid #5e778b;border-radius:6px;padding:4px">
+   </label>
+   <label>Minimum bow-to-flow angle deg
+    <input id="crownFlow" type="number" min="0" max="180" step="5" placeholder="not qualified" style="width:9em;max-width:100%;background:#12253b;color:#fff;border:1px solid #5e778b;border-radius:6px;padding:4px">
+   </label>
+   <span id="crownLimitNote">Default: low speed or bow out of dust flow; closed for torch, radiation and Metric operations. No numeric threshold is qualified.</span>
+  </div>
   <div class="row" role="group" aria-label="Crown dome" id="petrow">
     <button class="chip" type="button" data-pet="1" aria-pressed="false">Dome + shutters open</button>
     <button class="chip" type="button" data-pet="0" aria-pressed="true">All closed</button>
@@ -412,6 +421,13 @@ document.getElementById("expand").addEventListener("click", e => {
 });
 new ResizeObserver(resize).observe(cv);
 resize(); rebuild(); requestAnimationFrame(frame);
+for(const id of ["crownSpeed","crownFlow"])document.getElementById(id)?.addEventListener("input",()=>{
+ const speed=document.getElementById("crownSpeed").value,angle=document.getElementById("crownFlow").value;
+ document.getElementById("crownLimitNote").textContent=
+  "Illustrative proposed threshold: "+(speed?speed+" km/s":"speed UNQUALIFIED")+
+  " / "+(angle?angle+" deg bow-to-flow":"angle UNQUALIFIED")+
+  ". Governing default remains low-speed or bow-out-of-flow; these values do NOT authorise opening.";
+});
 window.__viewerReady = !!ship;
 </script>
 """
