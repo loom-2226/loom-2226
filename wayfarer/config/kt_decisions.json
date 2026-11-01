@@ -1,6 +1,6 @@
 {
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
- "status": "kT 2026-11-01 adopted deeper independent pressure domes; 3 pending: passive pressure-assisted hatch closure, crown-open quantitative limit, and new geometry visual acceptance. L3 liner rejected; physical G6 screen pending.",
+ "status": "kT accepted all declared G1-G12 conventional lab assumptions on new 7f620c53 geometry, including three former holds; physical hatch seals and numerical crown-open limits remain unqualified. Protected-water conservation and shielding-first refill are accepted operating doctrine. Independent review and loom-gate remain external.",
  "decided_by": "kT",
  "date": "2026-11-01",
  "decisions": {
@@ -113,10 +113,11 @@
    "as": "kT accepts segmented burn doctrine as DECLARED: ≤165min torch burn segments with ≥15min coasts. Coasts add elapsed time, not free-space delta-v. This is not Metric travel qualification."
   },
   "kT_visual_acceptance": {
-   "decision": "AWAITING",
+   "decision": "ACCEPTED",
    "date": "2026-11-01",
-   "kT": "Prior visual approval applies to 447c05cc geometry only; new deeper crown images require current-hash review.",
-   "as": "Render new section/viewer after geometry and water corrections. Source/hash consistency does not imply acceptance of changed visual."
+   "geometry_sha256": "7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7",
+   "kT": "kT ACCEPTS 7f620c53 deeper-dome geometry visuals.",
+   "as": "Acceptance of visual architecture for new-hash equal-scale section, viewer, render set and two-scene GLB; no optical or real hardware qualification implied."
   },
   "crown_outer_37_panes": {
    "decision": "ACCEPTED",
@@ -163,7 +164,7 @@
   "crown_monolith_7m": {
    "decision": "ACCEPTED",
    "date": "2026-11-01",
-   "as": "kT accepts two separately pressure-capable 7m, 28mm ceramic domes as declared; production, fracture and pressure proof remain OPEN. The proposed 0.5m deeper candidate is analysis only, NOT adopted by this acceptance.",
+   "as": "kT accepted twin independent ~7m, 28mm nominal ceramic pressure domes as declared, AND separately adopted the deeper geometry on 7f620c53: primary apex -0.30m, backup -0.42m. Manufacturing, fracture and pressure proof remain OPEN.",
    "kT": "ALL bodies. ALL sponsors. 2026-2226. kT accepts eight Option C declarations; three remain HELD."
   },
   "crown_option_c_axial_rcs_plumes": {
@@ -173,10 +174,11 @@
    "kT": "ALL bodies. ALL sponsors. 2026-2226. kT accepts eight Option C declarations; three remain HELD."
   },
   "l1_l2_pressure_hatches": {
-   "decision": "AWAITING",
+   "decision": "ACCEPTED",
    "date": "2026-11-01",
-   "kT": "Specify passive normally-open leaves, L1-bound outflow closes, no power/sensors, no extra mass.",
-   "as": "Passive L2→L1 pressure-driven closure in the design, 0.15t each; physical hinge torque, one-way seal proof, reverse flow isolation and 0g casualty test must be reported, no hardware qualification."
+   "geometry_sha256": "7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7",
+   "kT": "kT ACCEPTS pressure-assisted normally-open L1/L2 hatches.",
+   "as": "Accepted AS DECLARED: 0.15t leaves, L2-to-L1 gas outflow passively seats leaf, pressure-assisted gasket, no power/sensors. It is NOT new evidence of actuation, hinge torque, reverse-flow isolation or leak-tightness."
   },
   "l3_shield_liner_material": {
    "decision": "SUPERSEDED",
@@ -185,16 +187,48 @@
    "as": "No 0.6t liner now. G6 physical shielding requires 36×600 rerun after water redistribution; never credit uncommitted reserve or AOI gel."
   },
   "crown_option_c_open_limit": {
-   "decision": "AWAITING",
+   "decision": "ACCEPTED",
    "date": "2026-11-01",
-   "kT": "kT HOLD 2026-11-01",
-   "as": "Whipple-like bumper+vacuum stand-off+two pressure shells, but OPEN only under declared low-speed/bow-away-flow doctrine; both numeric thresholds remain UNQUALIFIED and visible."
+   "geometry_sha256": "7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7",
+   "kT": "kT ACCEPTS default crown-open doctrine, Whipple-like rationale and visibly unqualified numeric variables.",
+   "as": "Low-speed OR bow-away-from-dust-flow; gores closed for torch, radiation/particle risk and Metric. Speed/angle thresholds stay null/UNQUALIFIED, not invented or safety-certified. 10mm bumper pane, vacuum standoff, twin dome concept does NOT certify hypervelocity resistance."
   },
   "deep_pressure_domes": {
    "decision": "ADOPTED",
    "date": "2026-11-01",
    "kT": "Primary apex X -0.30m, backup -0.42m, additional ~0.77t",
    "as": "kT adopts twin dome rim-preserving 0.5m deepening; ideal apex pressure membrane stress approx 15.56→10.00MPa, not physical pressure-shell test; AOI independence remains a declared requirement."
+  },
+  "protected_water_draw_order": {
+   "decision": "ACCEPTED",
+   "date": "2026-11-01",
+   "geometry_sha256": "7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7",
+   "kT": "Protected-water draw order: service tank first; L3 berth shielding and shelter jacket last, refilled first.",
+   "as": "Operating water-management doctrine only, not an implemented water-pump controller. Normal protected consumption draws service tank first (24.75t at S5). Emergency-only after service exhaustion may consume other protected stores; maintain armour/berth and storm shielding by drawing L3 water ring/extended wall, 0.229t service return, and shelter jacket last. Refill shield-critical water before general service tank. Beyond service-tank withdrawal, prior G6 minimum is not guaranteed without a new ray screen. 50t protected inventory not changed.",
+   "normal_draw_order": [
+    "service_tank"
+   ],
+   "last_resort_draw": [
+    "c_tank_protected_remainder",
+    "service_return_wall",
+    "l3_berth_shield",
+    "shelter_jacket"
+   ],
+   "refill_priority": [
+    "shelter_jacket",
+    "l3_berth_shield",
+    "service_return_wall",
+    "c_tank_protected_remainder",
+    "service_tank"
+   ],
+   "critical_shield_last": [
+    "service_return_wall",
+    "l3_berth_shield",
+    "shelter_jacket"
+   ],
+   "note": "Protect shield zones as long as practicable. Actual crew water routing and any dose consequences are not qualified.",
+   "draw_sensitivity": "Full 36×600 S5: 0t withdrawn→42.59g/cm2, 12.375t withdrawn→42.59, 19.750t withdrawn (5t service left)→42.59, 24.750t withdrawn (empty service)→39.04; 1/36 berth points below 40 at empty service. Never claim every intermediate state safe.",
+   "normal_draw_caution": "The service tank provides material shielding on some paths: a complete 24.75t service draw fails one berth ray even with L3/shelter tanks full. Holding 5t service passes the sampled G6 screen, but intermediate levels are not globally qualified. Protect ~5t service as provisional conservative operating minimum until a full withdrawal envelope is verified; reserve is physical water, not a new allocation."
   }
  },
  "design_decisions_2026_10_26": {

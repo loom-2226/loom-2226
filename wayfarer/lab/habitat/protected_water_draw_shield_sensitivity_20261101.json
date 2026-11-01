@@ -1,0 +1,45 @@
+{
+ "geometry_sha256": "7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7",
+ "basis": "S5 36x600 rays, 2cm, settled-water volume/mass for service-reservoir draw; no water drawn from shelter or L3 shielding. Not dose/real water plumbing qualification",
+ "rows": [
+  {
+   "withdrawn_t": 0.0,
+   "remaining_service_t": 24.75,
+   "berth_min_g_cm2": 42.59,
+   "sample_points_below_40": 0,
+   "note": "baseline full source integrated 21,600 rays (see habitat overlay)"
+  },
+  {
+   "withdrawn_t": 12.375,
+   "remaining_service_t": 12.375,
+   "berth_min_g_cm2": 42.59,
+   "sample_points_below_40": 0,
+   "worst_path": [
+    "L3-CAPT@15:x6.45:r3.85",
+    42.59,
+    [
+     -0.145,
+     0.985,
+     0.089
+    ]
+   ],
+   "seconds": 47.9
+  },
+  {
+   "withdrawn_t": 24.75,
+   "remaining_service_t": 0.0,
+   "berth_min_g_cm2": 39.04,
+   "sample_points_below_40": 1,
+   "worst_path": [
+    "L3-CB@311:x6.45:r2.25",
+    39.04,
+    [
+     0.865,
+     -0.09,
+     0.494
+    ]
+   ],
+   "seconds": 48.2
+  }
+ ]
+}

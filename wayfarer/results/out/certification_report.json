@@ -1092,8 +1092,8 @@
     {
      "key": "l1_l2_pressure_hatches",
      "text": "Two 0.15t pressure hatches normally OPEN aft of L1/L2 ladder plane x=3m; L2-to-L1 (-x) pressure outflow passively pushes each leaf toward an L2-side seat, differential pressure reinforces closure. No sensor/power/actuation needed; seal proof, hinge moments, reverse-flow isolation and 4g crew passage NOT demonstrated.",
-     "kT": "AWAITING",
-     "as": "Passive L2\u2192L1 pressure-driven closure in the design, 0.15t each; physical hinge torque, one-way seal proof, reverse flow isolation and 0g casualty test must be reported, no hardware qualification.",
+     "kT": "ACCEPTED",
+     "as": "Accepted AS DECLARED: 0.15t leaves, L2-to-L1 gas outflow passively seats leaf, pressure-assisted gasket, no power/sensors. It is NOT new evidence of actuation, hinge torque, reverse-flow isolation or leak-tightness.",
      "date": "2026-11-01"
     }
    ],
@@ -1352,7 +1352,7 @@
      "key": "crown_monolith_7m",
      "text": "kT adopted deeper pair: TWO independent full-pressure ~7m transparent ceramic domes, each 28mm nominal, primary apex X=-0.30m, backup X=-0.42m, at unchanged rim. Meridional shape X(r)=3.043118-3.343118*sqrt(1-(r/4.3)^2), 0<=r<=3.50. Ideal apex thin-shell stress 10.00MPa vs 15.56MPa prior; not real pressure test. Both must survive loss of the other; 37 outer nonpressure panes +16 closure gores unchanged. Monolith production, boundary loads, fracture/gel pulse and optics UNSHOWN.",
      "kT": "ACCEPTED",
-     "as": "kT accepts two separately pressure-capable 7m, 28mm ceramic domes as declared; production, fracture and pressure proof remain OPEN. The proposed 0.5m deeper candidate is analysis only, NOT adopted by this acceptance.",
+     "as": "kT accepted twin independent ~7m, 28mm nominal ceramic pressure domes as declared, AND separately adopted the deeper geometry on 7f620c53: primary apex -0.30m, backup -0.42m. Manufacturing, fracture and pressure proof remain OPEN.",
      "date": "2026-11-01"
     },
     {
@@ -1396,6 +1396,13 @@
      "kT": "ACCEPTED",
      "as": "covered by the same declared gap: the torch and shadow shield keep neutron and gamma dose in the habitat within crew limits during burns; the shadow geometry is checked (G6).",
      "date": null
+    },
+    {
+     "key": "protected_water_draw_order",
+     "text": "Protected 50t water draw order: service reservoir FIRST (24.750t); the L3 berth ring and extended-wall tanks (8.534t), aft service-wall shield return (0.229t) and storm shelter jacket (16.483t) LAST and REFILLED FIRST. Do not infer 40g/cm2 shielding after critical water is drawn: repeat G6. Protected water remains reserved from routine propulsion. This declares withdrawal/refill priorities; no pump plumbing or autonomous draw implementation is qualified.",
+     "kT": "ACCEPTED",
+     "as": "Operating water-management doctrine only, not an implemented water-pump controller. Normal protected consumption draws service tank first (24.75t at S5). Emergency-only after service exhaustion may consume other protected stores; maintain armour/berth and storm shielding by drawing L3 water ring/extended wall, 0.229t service return, and shelter jacket last. Refill shield-critical water before general service tank. Beyond service-tank withdrawal, prior G6 minimum is not guaranteed without a new ray screen. 50t protected inventory not changed.",
+     "date": "2026-11-01"
     }
    ],
    "notes": [
@@ -1686,8 +1693,8 @@
     {
      "key": "crown_option_c_open_limit",
      "text": "Crown uses Whipple-like stand-off, not physically impact-qualified: 37 removable 10mm ceramic bumper tiles, vacuum gap that varies approximately 0.39\u20131.16m axially to backup shell on the adopted deeper dome, then two independent full-pressure ceramic domes. No hypervelocity shielding strength claimed; AOI shielding credit zero. Crown-open speed and bow/flow-angle controls remain visibly UNQUALIFIED. Governing doctrine still low speed OR bow away from dust flow; closed for torch, radiation and Metric. Actual safe numeric thresholds and sensor/failure logic OPEN.",
-     "kT": "AWAITING",
-     "as": "Whipple-like bumper+vacuum stand-off+two pressure shells, but OPEN only under declared low-speed/bow-away-flow doctrine; both numeric thresholds remain UNQUALIFIED and visible.",
+     "kT": "ACCEPTED",
+     "as": "Low-speed OR bow-away-from-dust-flow; gores closed for torch, radiation/particle risk and Metric. Speed/angle thresholds stay null/UNQUALIFIED, not invented or safety-certified. 10mm bumper pane, vacuum standoff, twin dome concept does NOT certify hypervelocity resistance.",
      "date": "2026-11-01"
     },
     {
@@ -2386,8 +2393,8 @@
     {
      "key": "kT_visual_acceptance",
      "text": "Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only",
-     "kT": "AWAITING",
-     "as": "Render new section/viewer after geometry and water corrections. Source/hash consistency does not imply acceptance of changed visual.",
+     "kT": "ACCEPTED",
+     "as": "Acceptance of visual architecture for new-hash equal-scale section, viewer, render set and two-scene GLB; no optical or real hardware qualification implied.",
      "date": "2026-11-01"
     }
    ],
@@ -2457,8 +2464,8 @@
   {
    "key": "l1_l2_pressure_hatches",
    "text": "Two 0.15t pressure hatches normally OPEN aft of L1/L2 ladder plane x=3m; L2-to-L1 (-x) pressure outflow passively pushes each leaf toward an L2-side seat, differential pressure reinforces closure. No sensor/power/actuation needed; seal proof, hinge moments, reverse-flow isolation and 4g crew passage NOT demonstrated.",
-   "kT": "AWAITING",
-   "as": "Passive L2\u2192L1 pressure-driven closure in the design, 0.15t each; physical hinge torque, one-way seal proof, reverse flow isolation and 0g casualty test must be reported, no hardware qualification.",
+   "kT": "ACCEPTED",
+   "as": "Accepted AS DECLARED: 0.15t leaves, L2-to-L1 gas outflow passively seats leaf, pressure-assisted gasket, no power/sensors. It is NOT new evidence of actuation, hinge torque, reverse-flow isolation or leak-tightness.",
    "date": "2026-11-01"
   },
   {
@@ -2493,7 +2500,7 @@
    "key": "crown_monolith_7m",
    "text": "kT adopted deeper pair: TWO independent full-pressure ~7m transparent ceramic domes, each 28mm nominal, primary apex X=-0.30m, backup X=-0.42m, at unchanged rim. Meridional shape X(r)=3.043118-3.343118*sqrt(1-(r/4.3)^2), 0<=r<=3.50. Ideal apex thin-shell stress 10.00MPa vs 15.56MPa prior; not real pressure test. Both must survive loss of the other; 37 outer nonpressure panes +16 closure gores unchanged. Monolith production, boundary loads, fracture/gel pulse and optics UNSHOWN.",
    "kT": "ACCEPTED",
-   "as": "kT accepts two separately pressure-capable 7m, 28mm ceramic domes as declared; production, fracture and pressure proof remain OPEN. The proposed 0.5m deeper candidate is analysis only, NOT adopted by this acceptance.",
+   "as": "kT accepted twin independent ~7m, 28mm nominal ceramic pressure domes as declared, AND separately adopted the deeper geometry on 7f620c53: primary apex -0.30m, backup -0.42m. Manufacturing, fracture and pressure proof remain OPEN.",
    "date": "2026-11-01"
   },
   {
@@ -2539,10 +2546,17 @@
    "date": null
   },
   {
+   "key": "protected_water_draw_order",
+   "text": "Protected 50t water draw order: service reservoir FIRST (24.750t); the L3 berth ring and extended-wall tanks (8.534t), aft service-wall shield return (0.229t) and storm shelter jacket (16.483t) LAST and REFILLED FIRST. Do not infer 40g/cm2 shielding after critical water is drawn: repeat G6. Protected water remains reserved from routine propulsion. This declares withdrawal/refill priorities; no pump plumbing or autonomous draw implementation is qualified.",
+   "kT": "ACCEPTED",
+   "as": "Operating water-management doctrine only, not an implemented water-pump controller. Normal protected consumption draws service tank first (24.75t at S5). Emergency-only after service exhaustion may consume other protected stores; maintain armour/berth and storm shielding by drawing L3 water ring/extended wall, 0.229t service return, and shelter jacket last. Refill shield-critical water before general service tank. Beyond service-tank withdrawal, prior G6 minimum is not guaranteed without a new ray screen. 50t protected inventory not changed.",
+   "date": "2026-11-01"
+  },
+  {
    "key": "crown_option_c_open_limit",
    "text": "Crown uses Whipple-like stand-off, not physically impact-qualified: 37 removable 10mm ceramic bumper tiles, vacuum gap that varies approximately 0.39\u20131.16m axially to backup shell on the adopted deeper dome, then two independent full-pressure ceramic domes. No hypervelocity shielding strength claimed; AOI shielding credit zero. Crown-open speed and bow/flow-angle controls remain visibly UNQUALIFIED. Governing doctrine still low speed OR bow away from dust flow; closed for torch, radiation and Metric. Actual safe numeric thresholds and sensor/failure logic OPEN.",
-   "kT": "AWAITING",
-   "as": "Whipple-like bumper+vacuum stand-off+two pressure shells, but OPEN only under declared low-speed/bow-away-flow doctrine; both numeric thresholds remain UNQUALIFIED and visible.",
+   "kT": "ACCEPTED",
+   "as": "Low-speed OR bow-away-from-dust-flow; gores closed for torch, radiation/particle risk and Metric. Speed/angle thresholds stay null/UNQUALIFIED, not invented or safety-certified. 10mm bumper pane, vacuum standoff, twin dome concept does NOT certify hypervelocity resistance.",
    "date": "2026-11-01"
   },
   {
@@ -2590,13 +2604,13 @@
   {
    "key": "kT_visual_acceptance",
    "text": "Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only",
-   "kT": "AWAITING",
-   "as": "Render new section/viewer after geometry and water corrections. Source/hash consistency does not imply acceptance of changed visual.",
+   "kT": "ACCEPTED",
+   "as": "Acceptance of visual architecture for new-hash equal-scale section, viewer, render set and two-scene GLB; no optical or real hardware qualification implied.",
    "date": "2026-11-01"
   }
  ],
- "kt_decisions_sha256": "6a00aa38f944f9cf3f02579e8cc513f008723cda207131f72a785e5bc1eabfb2",
- "certified": false,
+ "kt_decisions_sha256": "9493bb42e6892475f365124ef276c35a6321892fdc40a13d28c620d26488ec1a",
+ "certified": true,
  "certified_rule": "every gate PASS or PASS-DECLARED and every declared assumption ACCEPTED by kT; then both reviewers sign and loom-gate passes",
  "qualification_scope": {
   "certified_flag_meaning": "kT-accepted declared G1-G12 conventional Wayfarer laboratory certification basis ONLY; not independent reviewer signatures, Metric arrival or hardware flightworthiness",

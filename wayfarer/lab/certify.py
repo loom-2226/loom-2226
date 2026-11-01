@@ -1400,6 +1400,17 @@ def main():
     gates = [r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12]
     kd_path = HERE.parent / "config/kt_decisions.json"
     KD = json.loads(kd_path.read_text()) if kd_path.exists() else {"decisions": {}}
+    # Water priority is kT operating doctrine, not a mass reallocation, pump
+    # simulation or a claim that shielding survives consumption of shield water.
+    w=G["protected_water"]
+    r6["declared"].append(("protected_water_draw_order",
+        f"Protected 50t water draw order: service reservoir FIRST ({w['service_tank_t']:.3f}t); "
+        f"the L3 berth ring and extended-wall tanks ({w['berth_shield_t']:.3f}t), "
+        f"aft service-wall shield return ({w.get('service_return_wall_t',0):.3f}t) and "
+        f"storm shelter jacket ({w['shelter_jacket_t']:.3f}t) LAST and REFILLED FIRST. "
+        "Do not infer 40g/cm2 shielding after critical water is drawn: repeat G6. "
+        "Protected water remains reserved from routine propulsion. "
+        "This declares withdrawal/refill priorities; no pump plumbing or autonomous draw implementation is qualified."))
     for g in gates:
         g["declared"] = [{"key": k, "text": txt, "kT": KD["decisions"].get(k, {"decision": "AWAITING"}).get("decision"),
                           "as": KD["decisions"].get(k, {}).get("as", ""), "date": KD["decisions"].get(k, {}).get("date")}

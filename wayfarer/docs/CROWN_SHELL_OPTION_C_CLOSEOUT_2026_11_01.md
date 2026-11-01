@@ -1,7 +1,7 @@
 # Wayfarer Option C — kT deeper domes, committed-mass G6, protected-water redistribution
 
 ALL bodies. ALL sponsors. 2026–2226.
-**ENGINEERING DRAFT / PR #439 / NOT MERGED.** Metric arrival HOLD; Navigator EXCLUDED; independent ship electrical/thermal power budget OPEN.
+**kT ACCEPTED CONVENTIONAL LAB BASIS / PR #439.** Geometry unchanged; `certified=true` in source certificate after all 29 assumptions accepted. Independent GitHub loom-gate and main promotion are separately required. Metric arrival HOLD; Navigator EXCLUDED; ship power budget OPEN.
 
 ## Current geometry and authority
 
@@ -15,7 +15,7 @@ ALL bodies. ALL sponsors. 2026–2226.
 
 ## Why the old G6 pass was not valid
 
-`build_v05.py` distributed all unused growth reserve across existing dry components as virtual mass for CG/inertia. The G6 shelter and berth ray routines then treated those augmented part masses as shielding material. Consuming reserve for forward Option C hardware thus lowered computed L3 shielding without changing the real L3 hull. This defect also applies to the prior main geometry `5d73cdd1`; **this branch fixes the common G6 code path but does not mutate main**.
+`build_v05.py` distributed all unused growth reserve across existing dry components as virtual mass for CG/inertia. The G6 shelter and berth ray routines then treated those augmented part masses as shielding material. Consuming reserve for forward Option C hardware thus lowered computed L3 shielding without changing the real L3 hull. This defect also applies to the prior main geometry `5d73cdd1`; **this PR fixes the common G6 code path; main only changes when PR #439 is merged**.
 
 G6 now uses a single `committed_shield_fraction` / `committed_shield_mass` rule shared with the supplemental 36×600 berth-ray screen: ordinary dry part mass is stripped of the distributed, uncommitted growth allowance; physically charged reserve-funded equipment and actual protected water keep full mass; AOI gel gets zero credit. The ship's mass/CG ledger continues carrying the uncommitted reserve separately. No threshold waiver or a physically invented shielding material.
 
@@ -53,9 +53,9 @@ G6's separate three-point shelter screen uses 600 directions per point in S5 and
 
 - Final dry ship mass approximately **867.681t**; S1 departure approximately **1167.681t**. RCS and torch protected remass inventories unchanged.
 - Engineering reserve after dome addition and liner removal: **11.784117t**, with **6.784117t available above a mandatory 5t growth floor**. The house reactor / proposed ~5t D–He3 tank may be examined against this *dry-mass* ceiling, not declared a closed power/propellant/thermal design. Neither helium-3 fuel contents nor launch plumbing have been sized here.
-- G1/G6/G7 results are source-backed after the rebuilt geometry. Other declared gates retain their existing scope. **This report does not itself certify the design, accept the held declarations, or authorise a merge.**
+- G1/G6/G7 results are source-backed after the rebuilt geometry. Other declared gates retain their existing scope. **The source numerical basis was subsequently certified with kT's acceptance of 29 declared assumptions.** See the acceptance appendix; external loom-gate is a separate promotion requirement.
 
-Remaining qualification closure items: passive hatch physical closure/sealing, quantitative crown-open environmental limits, kT current-hash visual acceptance, independent reviewer/loom-gate as prescribed by existing workflow. Materials, AOI shock independence and radiation dose remain declared technology/failure requirements, not demonstrated.
+Remaining physical evidence gaps (NOT kT acceptance blockers): passive hatch dynamic closure/sealing, quantified crown-open environmental thresholds, material / optical performance, and reviewer/loom-gate promotion authority. Materials, AOI shock independence and radiation dose remain declared technology/failure requirements, not demonstrated.
 
 ## Fresh FQ1–FQ4, same current hash
 
@@ -67,6 +67,33 @@ A genuine rerun using an existing isolated SciPy-capable flight-lab interpreter 
 
 After the full source render and two-scene GLB export, the certification script was rerun on final geometry `7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7`. **G1, G2, G3, G8, G11 PASS; G4, G5, G6, G7, G9, G10, G12 PASS-DECLARED**. The renderer's manifest contains **31/31 current-hash files** (no stale/missing entries), including full exterior/cutaway/deck sets, equal-scale crown section PNG/SVG, phone 3D viewer and source-hash-stamped two-scene `wayfarer_I4_in_out_7f620c53.glb`.
 
-The machine correctly remains **`certified=false`**: active declaration keys `l1_l2_pressure_hatches`, `crown_option_c_open_limit`, and `kT_visual_acceptance` remain **AWAITING**. Unproven hinge/seal physics, quantitative environmental limits, and aesthetic/source-interpretation acceptance are not turned into PASS by an image. Do not merge.
+At the earlier independent review stage, `certified=false` reflected three kT holds. **kT subsequently accepted all three**, with no new claims of physical hinge/seal proof or quantitative environmental safety. Current certificate on unchanged geometry is now **`certified=true`** for the conventional lab basis. Promotion to main still requires loom-gate.
 
-The conventional FQ1–FQ4 78/78 and this final G1–G12 certificate both use the same immutable geometry SHA. Main `5d73cdd1` is known to share the reserve-as-shielding defect but is **not modified by this PR**; only this branch's shared shielding logic has been fixed and tested.
+The conventional FQ1–FQ4 78/78 and this final G1–G12 certificate both use the same immutable geometry SHA. The older main geometry `5d73cdd1` shares the reserve-as-shielding defect. The fix is in the common G6 laboratory code path; merge of PR #439 promotes that correction into main without altering historical pinned geometry data.
+
+
+## kT acceptance and protected-water conservation / draw order (2026-11-01)
+
+kT explicitly **ACCEPTED**: pressure-assisted normally-open L1/L2 hatches (physics still untested), default-doctrine crown-open controls with Whipple-like rationale and *visible, unqualified numeric limits*, and visual acceptance of this exact `7f620c53` geometry. These three are marked ACCEPTED in `config/kt_decisions.json`.
+
+The **29th declared item**, `protected_water_draw_order`, is also accepted. The intact **50t protected-water inventory** is not remassed or otherwise changed by this doctrine:
+
+1. **Routine supply:** draw the **24.750t service tank first in draw order**, but keep a provisional **5t service buffer**: 21,600-ray S5 sensitivity is PASS with 5t remaining and FAIL if service is drained completely. This is a measured screening point, not a mathematically certified minimum or guaranteed intermediate envelope. The tiny 0.004t protected C-tank remainder is not an ordinary consumption plan.
+2. **Only in emergency:** if service water is exhausted, remaining protected water may be released under explicit risk acceptance, but the **L3 berth shield water (8.534t), service-wall shield return (0.229t), and shelter jacket (16.483t) are last-resort stores**, not ordinary supply. Every litre withdrawn from critical geometry forfeits its full-water G6 proof.
+3. **On replenishment:** fill shelter jacket and L3 berth shielding first, plus the service-wall return, before replenishing the general service reservoir. Actual plumbing/manifolds remain unqualified.
+
+This is an **operating inventory rule and an explicit shielding consequence**, not a new fluid automation subsystem, a physical plumbing design, or a claim that every intermediate water state passes the 40g/cm² criterion. Shield-vs-draw sensitivity, when present, is stored in `lab/habitat/protected_water_draw_shield_sensitivity_20261101.json` and uses the identical 21,600-ray S5 screen with service water settled toward the aft of its tank.
+
+Latest run of `certify.py`: **G1–G12 PASS/PASS-DECLARED, 29/29 declared items ACCEPTED, `certified=true`**, geometry hash unchanged. FQ1–FQ4 remain 78/78 on that hash; G12 remains 31/31 current-hash artifacts. Nothing extends Metric arrival, Navigator, power or hardware qualifications.
+
+
+### Source-derived service-water draw sensitivity (S5 36×600, 2cm)
+
+| Existing protected service water consumed | Remaining in service | Minimum berth shielding, g/cm² | Points below 40 |
+|---:|---:|---:|---:|
+| 0.000 t | 24.750 t | 42.59 | 0/36 |
+| 12.375 t | 12.375 t | 42.59 | 0/36 |
+| 19.750 t | 5.000 t | 42.59 | 0/36 |
+| 24.750 t | 0.000 t | **39.04** | **1/36** |
+
+The fully empty service tank loses some physical shielding on an aft-oblique crew-berth ray despite intact dedicated L3 and shelter water. **A 5t service hold passes the tested S5 ray screen, but is provisional**: no exhaustive proof was performed across every intermediate fill geometry, all flight states or material transport physics. The normal fully-protected 50t G6 certificate is unchanged; drinking-water withdrawal cannot be assumed to preserve shielding automatically. See `lab/habitat/protected_water_draw_shield_sensitivity_20261101.json` and `lab/habitat/protected_water_floor5_screen_20261101.json`.
