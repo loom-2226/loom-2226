@@ -2,7 +2,7 @@
 
 **ENGINEERING SCOPING ONLY · NON-CANON · NON-RUNTIME · NO POSITION CODE**  
 ALL bodies / ALL sponsors / 2026–2226 unchanged. Navigator parked.  
-**Decision sought:** Which position-selection family should Earth/Mars laboratory scenarios explore?
+**kT decision (2026-11-02): OPTION A SELECTED as PLACEHOLDER LAB GEOMETRY for Earth and Mars only.** This is a declared per-planet shell concept, **not** a physical Metric-collapse law, certified radius, capture solution or authority for any other body. No Earth/Mars numerical shell radii have been chosen.
 
 ## What LOOM already establishes
 
@@ -18,9 +18,11 @@ ALL bodies / ALL sponsors / 2026–2226 unchanged. Navigator parked.
 | **B. Hill fraction:** body-specific fraction of instantaneous Hill radius; 0.5 Hill only as comparison. | Farther collapse means substantial ordinary approach and moving-body encounters. Earth may require lunar three-body treatment. Prior E1 work already rejects promoting Hill/SOI directly to collapse law. |
 | **C. Pilot-selected within certified bounds:** select a point from an independently qualified Earth/Mars admissible envelope. | Best eventual operational flexibility for encounter and capture geometry, but **no such envelope is currently earned**. Pilot discretion cannot replace physics or certification. |
 
-## Recommendation
+## Recorded disposition: parked
 
-**Use A for one Earth and one Mars *lab-only* geometry comparison**, with explicitly declared endpoint vectors. Compare ordinary-flight distance, forces, arrival mismatch, and paid capture-burn requirements. B is a diagnostic counterexample; C is the future operational candidate **only after** a real admissibility envelope exists. Do not adopt a radius, rewrite Canon, or connect Navigator.
+**Selected: A, declared per-planet shell, PLACEHOLDER LAB GEOMETRY only.** If this lane resumes, a future scoped lab scenario may declare a separate Earth shell and Mars shell with body-centred position vectors, epoch and frame. No numerical radius, position, capture path, certified admissibility envelope, or runtime behavior is authorized now. B remains a diagnostic comparison; C remains a possible future operating concept only after admissibility is earned.
+
+**Metric workstream PAUSED at this clean edge.** No collapse-position code, Canon amendment, scenario execution, or Navigator integration. Navigator stays parked. Resume only on kT's next direction.
 
 A body-centred **radius alone is not a physical state**. Continuous ordinary flight requires a complete position vector, epoch/frame, ENERGY-B velocity, carried ship state, and local gravity integration. **Velocity match does not equal capture.** The current canonical seam properly HOLDS physical position and continuation. Its ENERGY-B local potential is evaluated at diagnostic half-Hill; selecting another physical radius requires reassessing that assumption and the E/p/L ledger, not pretending they are independently closed.
 
