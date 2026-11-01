@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wayfarer Rev 7 | L1 nose experimental 3D viewer</title>
+<style>body{margin:0;font:14px system-ui,Segoe UI,sans-serif;background:#0b1320;color:#e8edf6}
+header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1px solid #334155;background:#121f32;gap:10px}
+main{display:grid;grid-template-columns:minmax(0,1fr) 285px;height:calc(100dvh - 76px)}
+canvas{width:100%;height:100%;touch-action:none;cursor:grab;background:radial-gradient(circle at center,#1b2f46,#0b1320 65%)}
+aside{padding:16px;background:#121d2c;overflow:auto;border-left:1px solid #334155}
+select,button{background:#24374d;color:#eef5ff;border:1px solid #718096;border-radius:6px;padding:6px;font:inherit}
+label{display:block;margin:12px 0 6px}.muted{color:#98aabe}h3{font-size:14px;margin:20px 0 8px}
+.key{display:flex;align-items:center;gap:9px;margin:9px 0}.sw{display:inline-block;width:16px;height:12px;border:1px solid #7689a5}
+.stat{padding:9px;border-bottom:1px solid #2c3a4d}
+footer{color:#93a4b9;font-size:12px} @media(max-width:750px){main{grid-template-columns:1fr;grid-template-rows:minmax(340px,68dvh) 1fr;height:auto}aside{border-left:none;border-top:1px solid #334155;max-height:42dvh}}
+</style></head><body>
+<header><div><b>WAYFARER / L1 + NOSE</b><div class="muted">Scaled 3D geometry experiment · 28 Oct 2026 · NON-GOVERNING</div></div><div><label for="model">Candidate <select id="model"></select></label></div></header>
+<main><canvas id="c"></canvas><aside><div id="meta"></div>
+<h3>Display</h3>
+<label><input id="outer" type="checkbox" checked> Exterior faceted armour / windows</label>
+<label><input id="pressure" type="checkbox" checked> Existing pressure-head location</label>
+<label><input id="crew" type="checkbox" checked> Six real Rev 7 crew stations</label>
+<label><input id="sensor" type="checkbox" checked> Existing sensor ring extent</label>
+<label><input id="axes" type="checkbox" checked> Coordinate axes / scale</label>
+<button id="reset">Reset camera</button>
+<h3>Geometry legend</h3>
+<div class="key"><span class="sw" style="background:#67c0f5"></span>Glazed patch, pressure head</div>
+<div class="key"><span class="sw" style="background:#2d718d"></span>Glazed exterior panel</div>
+<div class="key"><span class="sw" style="background:#5e788c"></span>Armoured exterior</div>
+<div class="key"><span class="sw" style="background:#a88dd7"></span>Sensor-ring placeholder</div>
+<div class="key"><span class="sw" style="background:#f5b963"></span>Couch / station eye</div>
+<h3>Important limitations</h3>
+<p class="muted">Vertices use metric metres and Rev 7 source positions. The faceted exterior is a triangulated concept mesh, not CAD manufacturing geometry; tessellation is visual only. Transparent patches are proposed pressure-bearing openings, not a qualified pane design. Shutter storage, interlayer support and sensor relocation remain unverified.</p>
+<footer id="prov"></footer>
+</aside></main>
+<script>const DATA={"options":[{"name":"Rev 7 reference | 53.3 m","baseline":true,"extension":0,"shape":null,"crown":2.8,"windows":"current","sensors":"ring","metrics":{"PILOT":{"integrated":0.6914},"NAV":{"integrated":0.7344},"S1":{"integrated":0.0703},"S2":{"integrated":0.0781},"S3":{"integrated":0.0547},"S4":{"integrated":0.0664}}},{"name":"radial | crown 3.5 m | +0.8 m | 35\u00b0","shape":[0.8,1.2,35],"extension":0.8,"crown":3.5,"windows":"radial","sensors":"ring","metrics":{"PILOT":{"forward_integrated":0.7656,"cone60_integrated":1.0,"forward_dual":0.7305,"cone60_dual":0.9152},"NAV":{"forward_integrated":0.8125,"cone60_integrated":1.0,"forward_dual":0.75,"cone60_dual":0.933},"S1":{"forward_integrated":0.1328,"forward_dual":0.1172},"S2":{"forward_integrated":0.1367,"forward_dual":0.1289},"S3":{"forward_integrated":0.1094,"forward_dual":0.1055},"S4":{"forward_integrated":0.1133,"forward_dual":0.1094}},"area":41.38,"outer_area":45.98,"shutter":12.41,"paths":true,"qual":"NOT DEMONSTRATED"},{"name":"radial | crown 3.2 m | +0.8 m | 35\u00b0","shape":[0.8,1.2,35],"extension":0.8,"crown":3.2,"windows":"radial","sensors":"ring","metrics":{"PILOT":{"forward_integrated":0.7266,"cone60_integrated":1.0,"forward_dual":0.6797,"cone60_dual":0.9152},"NAV":{"forward_integrated":0.7695,"cone60_integrated":1.0,"forward_dual":0.7031,"cone60_dual":0.933},"S1":{"forward_integrated":0.1055,"forward_dual":0.0977},"S2":{"forward_integrated":0.1094,"forward_dual":0.0977},"S3":{"forward_integrated":0.0898,"forward_dual":0.0859},"S4":{"forward_integrated":0.0781,"forward_dual":0.0742}},"area":33.93,"outer_area":38.27,"shutter":10.33,"paths":true,"qual":"NOT DEMONSTRATED"},{"name":"targeted | crown 3.5 m | +0.8 m | 35\u00b0","shape":[0.8,1.2,35],"extension":0.8,"crown":3.5,"windows":"targeted","sensors":"ring","metrics":{"PILOT":{"forward_integrated":0.6445,"cone60_integrated":1.0,"forward_dual":0.6172,"cone60_dual":1.0},"NAV":{"forward_integrated":0.6641,"cone60_integrated":1.0,"forward_dual":0.6328,"cone60_dual":1.0},"S1":{"forward_integrated":0.0938,"forward_dual":0.082},"S2":{"forward_integrated":0.0977,"forward_dual":0.0977},"S3":{"forward_integrated":0.0781,"forward_dual":0.0781},"S4":{"forward_integrated":0.0781,"forward_dual":0.0742}},"area":28.04,"outer_area":31.21,"shutter":8.43,"paths":true,"qual":"NOT DEMONSTRATED"},{"name":"radial | crown 3.0 m | +0.8 m | 35\u00b0","shape":[0.8,1.2,35],"extension":0.8,"crown":3,"windows":"radial","sensors":"ring","metrics":{"PILOT":{"forward_integrated":0.6836,"cone60_integrated":1.0,"forward_dual":0.6367,"cone60_dual":0.9152},"NAV":{"forward_integrated":0.7344,"cone60_integrated":1.0,"forward_dual":0.6641,"cone60_dual":0.933},"S1":{"forward_integrated":0.0781,"forward_dual":0.0703},"S2":{"forward_integrated":0.0977,"forward_dual":0.082},"S3":{"forward_integrated":0.0625,"forward_dual":0.0586},"S4":{"forward_integrated":0.0703,"forward_dual":0.0664}},"area":29.54,"outer_area":33.52,"shutter":9.05,"paths":true,"qual":"NOT DEMONSTRATED"},{"name":"current | crown 2.8 m | +0.8 m | 35\u00b0","shape":[0.8,1.2,35],"extension":0.8,"crown":2.8,"windows":"current","sensors":"ring","metrics":{"PILOT":{"forward_integrated":0.6367,"cone60_integrated":1.0,"forward_dual":0.5977,"cone60_dual":0.9152},"NAV":{"forward_integrated":0.6797,"cone60_integrated":1.0,"forward_dual":0.6133,"cone60_dual":0.933},"S1":{"forward_integrated":0.0664,"forward_dual":0.0547},"S2":{"forward_integrated":0.0703,"forward_dual":0.0625},"S3":{"forward_integrated":0.0547,"forward_dual":0.0508},"S4":{"forward_integrated":0.0625,"forward_dual":0.0547}},"area":25.53,"outer_area":29.07,"shutter":7.85,"paths":true,"qual":"NOT DEMONSTRATED"},{"name":"current | crown 3.0 m | +0.8 m | 35\u00b0","shape":[0.8,1.2,35],"extension":0.8,"crown":3,"windows":"current","sensors":"ring","metrics":{"PILOT":{"forward_integrated":0.6367,"cone60_integrated":1.0,"forward_dual":0.5977,"cone60_dual":0.9152},"NAV":{"forward_integrated":0.6797,"cone60_integrated":1.0,"forward_dual":0.6133,"cone60_dual":0.933},"S1":{"forward_integrated":0.0664,"forward_dual":0.0547},"S2":{"forward_integrated":0.0703,"forward_dual":0.0625},"S3":{"forward_integrated":0.0547,"forward_dual":0.0508},"S4":{"forward_integrated":0.0625,"forward_dual":0.0547}},"area":25.53,"outer_area":29.07,"shutter":7.85,"paths":true,"qual":"NOT DEMONSTRATED"},{"name":"current | crown 3.2 m | +0.8 m | 35\u00b0","shape":[0.8,1.2,35],"extension":0.8,"crown":3.2,"windows":"current","sensors":"ring","metrics":{"PILOT":{"forward_integrated":0.6367,"cone60_integrated":1.0,"forward_dual":0.5977,"cone60_dual":0.9152},"NAV":{"forward_integrated":0.6797,"cone60_integrated":1.0,"forward_dual":0.6133,"cone60_dual":0.933},"S1":{"forward_integrated":0.0664,"forward_dual":0.0547},"S2":{"forward_integrated":0.0703,"forward_dual":0.0625},"S3":{"forward_integrated":0.0547,"forward_dual":0.0508},"S4":{"forward_integrated":0.0625,"forward_dual":0.0547}},"area":25.53,"outer_area":29.07,"shutter":7.85,"paths":true,"qual":"NOT DEMONSTRATED"}],"scene":{"header":"ALL bodies. ALL sponsors. 2026-2226.","status":"VISUAL REFERENCE input: the L1 scene scored by command/l1_study.py (NON-GOVERNING)","geometry_sha256":"74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271","dome":{"xa":0.2,"xb":2.35,"R":4.15},"floor_x":3.0,"couch":{"width_m":0.7,"back_above_base_m":0.25,"eye_above_back_m":0.2},"couches":[{"id":"PILOT","role":"Pilot / flight control","base_x":1.225,"head":[0.45,0.65],"feet":[0.45,-1.45],"L":2.1,"eye":[0.775,0.45,0.45],"envelope":[[0.575,1.225],[0.1,0.8],[-1.45,0.65]]},{"id":"NAV","role":"Navigation / command","base_x":1.225,"head":[-0.45,0.65],"feet":[-0.45,-1.45],"L":2.1,"eye":[0.775,-0.45,0.45],"envelope":[[0.575,1.225],[-0.8,-0.1],[-1.45,0.65]]},{"id":"S1","role":"Support station","base_x":3.0,"head":[2.4395,2.4395],"feet":[0.5731,3.4021],"L":2.1,"eye":[2.55,2.2617,2.5312],"envelope":[[2.35,3.0],[0.4127,2.5999],[2.1284,3.7132]]},{"id":"S2","role":"Support station","base_x":3.0,"head":[-2.4395,2.4395],"feet":[-3.4021,0.5731],"L":2.1,"eye":[2.55,-2.5312,2.2617],"envelope":[[2.35,3.0],[-3.7132,-2.1284],[0.4127,2.5999]]},{"id":"S3","role":"Support station","base_x":3.0,"head":[-2.4395,-2.4395],"feet":[-0.5731,-3.4021],"L":2.1,"eye":[2.55,-2.2617,-2.5312],"envelope":[[2.35,3.0],[-2.5999,-0.4127],[-3.7132,-2.1284]]},{"id":"S4","role":"Support station","base_x":3.0,"head":[2.4395,-2.4395],"feet":[3.4021,-0.5731],"L":2.1,"eye":[2.55,2.5312,-2.2617],"envelope":[[2.35,3.0],[2.1284,3.7132],[-2.5999,-0.4127]]}],"displays":[{"for":"PILOT","box":[[0.2761,0.4961],[0.225,0.675],[-0.0489,0.1711]]},{"for":"NAV","box":[[0.2761,0.4961],[-0.675,-0.225],[-0.0489,0.1711]]},{"for":"S1","box":[[2.017,2.217],[1.8952,2.2952],[2.2448,2.4448]]},{"for":"S2","box":[[2.017,2.217],[-2.5448,-2.1448],[1.9952,2.1952]]},{"for":"S3","box":[[2.017,2.217],[-2.2952,-1.8952],[-2.4448,-2.2448]]},{"for":"S4","box":[[2.017,2.217],[2.1448,2.5448],[-2.1952,-1.9952]]}],"ladders":[{"y":1.4,"z":0.0,"size":0.8},{"y":-1.4,"z":0.0,"size":0.8}],"flight_deck":{"x":[1.225,1.325],"y":[-0.85,0.85],"z":[-1.55,0.75]},"flight_deck_ladder":{"z":-1.63,"y":[-0.25,0.25],"x":[1.225,3.0],"note":"indicative: inputs say 'reached by a short ladder at its -Z end'; not sized"}},"source":"3485830a56dfead79b2ef8bba031a595b536fbb5","geometry_sha":"74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"};
+const canvas=document.getElementById('c'),cx=canvas.getContext('2d'),selector=document.getElementById('model');
+DATA.options.forEach((o,i)=>{const opt=document.createElement('option');opt.value=i;opt.textContent=o.name;selector.appendChild(opt)});
+let yaw=-.62,pitch=.34,zoom=50,panX=0,panY=0,drag=false,last=null;
+function reset(){yaw=-.62;pitch=.34;zoom=50;panX=0;panY=0;draw()}
+document.getElementById('reset').onclick=reset;
+for(const id of ['model','outer','pressure','crew','sensor','axes'])document.getElementById(id).onchange=()=>draw();
+canvas.addEventListener('pointerdown',e=>{drag=true;last=[e.clientX,e.clientY];canvas.setPointerCapture(e.pointerId)});
+canvas.addEventListener('pointerup',()=>drag=false);canvas.addEventListener('pointercancel',()=>drag=false);
+canvas.addEventListener('pointermove',e=>{if(!drag)return;yaw+=(e.clientX-last[0])*.008;pitch=Math.max(-1.52,Math.min(1.52,pitch+(e.clientY-last[1])*.008));last=[e.clientX,e.clientY];draw()});
+canvas.addEventListener('wheel',e=>{e.preventDefault();zoom*=Math.exp(-e.deltaY*.0008);zoom=Math.max(10,Math.min(180,zoom));draw()},{passive:false});
+function vec(x,r,a){return [x,r*Math.cos(a),r*Math.sin(a)]}
+function oldX(r){return 2.35*(1-Math.sqrt(Math.max(0,1-(r/4.5)**2)))}
+function pressureX(r){return 2.35-2.15*Math.sqrt(Math.max(0,1-(r/4.3)**2))}
+function facetX(r,o){let [ext,face,ang]=o.shape;return -ext+Math.max(0,r-face)*Math.tan(ang*Math.PI/180)}
+function isGlass(r,a,o){if(r>o.crown&&o.windows!=='current')return false;
+if(o.windows==='current')return r<=2.8;
+if(o.windows==='radial')return r<=o.crown;
+const ph=(a*180/Math.PI+360)%360;
+const nearest=(centers)=>Math.min(...centers.map(v=>Math.abs(((ph-v+540)%360)-180)));
+if(o.windows==='segmented')return r<=1.15||r<=o.crown&&nearest([0,45,90,135,180,225,270,315])<=14;
+return r<=2||r<=o.crown&&nearest([45,135,225,315])<=24}
+function faces(o){
+const out=[];
+function tri(a,b,c,col,alpha){out.push({v:[a,b,c],col,alpha})}
+const N=48;function surf(radial,fn,type){
+for(let i=0;i<radial.length-1;i++)for(let j=0;j<N;j++){
+const a=j*2*Math.PI/N,b=(j+1)*2*Math.PI/N;
+const r0=radial[i],r1=radial[i+1],rc=(r0+r1)/2,ac=(a+b)/2;
+const glass=isGlass(rc,ac,o);
+const col=type==='pressure'?(glass?'#67c0f5':'#3b5066'):(glass?'#2d718d':'#5e788c');
+const al=type==='pressure'?(glass?.55:.12):(glass?.40:.66);
+const A=vec(fn(r0),r0,a),B=vec(fn(r0),r0,b),C=vec(fn(r1),r1,a),D=vec(fn(r1),r1,b);
+tri(A,B,C,col,al);tri(B,C,D,col,al);
+}}
+if(document.getElementById('outer').checked){
+const grid=o.baseline?Array.from({length:27},(_,i)=>4.5*i/26):
+ Array.from(new Set([0,.4,.8,1.2,o.shape[1],2,2.8,o.crown,3.5,4,4.5].filter(r=>r>=0&&r<=4.5))).sort((a,b)=>a-b);
+surf(grid,r=>o.baseline?oldX(r):facetX(r,o),'outer');
+if(!o.baseline){
+for(let i=0;i<N;i++){const a=i*2*Math.PI/N,b=(i+1)*2*Math.PI/N;let x=facetX(4.5,o);
+tri(vec(x,4.5,a),vec(x,4.5,b),vec(2.35,4.5,a),'#667484',.78);
+tri(vec(x,4.5,b),vec(2.35,4.5,a),vec(2.35,4.5,b),'#667484',.78);
+}}
+}
+if(document.getElementById('pressure').checked){const rr=Array.from({length:33},(_,i)=>4.3*i/32);surf(rr,pressureX,'pressure')}
+if(document.getElementById('sensor').checked){
+for(let j=0;j<48;j++){let a=j*2*Math.PI/48,b=(j+1)*2*Math.PI/48;
+let mid=(a+b)/2*180/Math.PI,ok=[45,135,225,315].every(t=>Math.abs(((mid-t+540)%360)-180)>14);
+if(!ok)continue;
+tri(vec(1.8,2.9,a),vec(1.8,4.15,a),vec(1.8,2.9,b),'#9c83d8',.4);
+tri(vec(1.8,4.15,a),vec(1.8,4.15,b),vec(1.8,2.9,b),'#9c83d8',.4);
+}}
+return out
+}
+function transform(p){let [x,y,z]=p;const cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch);let u=x*cy-y*sy,depth=x*sy+y*cy;return [u, z*cp-depth*sp,depth*cp+z*sp]}
+function canvasDims(){let w=canvas.clientWidth,h=canvas.clientHeight;if(canvas.width!==Math.round(w*devicePixelRatio)||canvas.height!==Math.round(h*devicePixelRatio)){canvas.width=w*devicePixelRatio;canvas.height=h*devicePixelRatio}cx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);return [w,h]}
+function drawLine(P,Q,col,width=1){const a=project(P),b=project(Q);cx.strokeStyle=col;cx.lineWidth=width;cx.beginPath();cx.moveTo(...a);cx.lineTo(...b);cx.stroke()}
+let W,H,CENTRE=2;
+function project(p){const [x,y]=transform(p);return [W/2+(x-CENTRE)*zoom+panX,H/2-y*zoom+panY]}
+function dot(p,color,size=4){const q=project(p);cx.fillStyle=color;cx.beginPath();cx.arc(...q,size,0,2*Math.PI);cx.fill()}
+function draw(){
+[W,H]=canvasDims();cx.clearRect(0,0,W,H);const o=DATA.options[+selector.value||0];CENTRE=1.5-o.extension*.30;
+const sorted=faces(o).map(f=>({...f,depth:f.v.map(v=>transform(v)[2]).reduce((a,b)=>a+b,0)/3})).sort((a,b)=>a.depth-b.depth);
+for(const f of sorted){const v=f.v.map(project);cx.globalAlpha=f.alpha;cx.fillStyle=f.col;cx.beginPath();cx.moveTo(...v[0]);cx.lineTo(...v[1]);cx.lineTo(...v[2]);cx.closePath();cx.fill()}
+cx.globalAlpha=1;
+if(document.getElementById('crew').checked){
+const sc=DATA.scene;
+for(const st of sc.couches){let head=st.head,feet=st.feet,x=st.base_x-.25;
+drawLine([x,...head],[x,...feet],'#f1b86a',4);dot(st.eye,'#ffe7a5',4);
+const q=project(st.eye);cx.font='11px system-ui';cx.fillStyle='#f6daab';cx.fillText(st.id,q[0]+5,q[1]-7)}
+const fd=sc.flight_deck;
+for(const y of fd.y)for(const z of fd.z)drawLine([fd.x[0],y,z],[fd.x[1],y,z],'#8d9ca9',1);
+for(const y of fd.y)drawLine([fd.x[0],y,fd.z[0]],[fd.x[0],y,fd.z[1]],'#8d9ca9',2);
+}
+if(document.getElementById('axes').checked){
+drawLine([-o.extension,0,0],[2.35,0,0],'#fff',1);
+for(let i=0;i<=5;i++){drawLine([i,0,0],[i,0,.10],'#b2c3d7',1)}
+drawLine([3.2,0,0],[4.2,0,0],'#fff',3);
+const [sx,sy]=project([3.2,0,0]);cx.fillStyle='#fff';cx.font='12px system-ui';cx.fillText('1 m',sx,sy+19);
+}
+cx.fillStyle='#d5e3f4';cx.font='13px system-ui';cx.fillText('Bow (−x)    |    +x aft   |   all coordinates metres',16,25);
+const pilot=(Math.min(...['PILOT','NAV'].map(k=>o.metrics[k].forward_integrated))||0).toFixed(3);
+const sup=(Math.min(...['S1','S2','S3','S4'].map(k=>o.metrics[k].forward_integrated))||0).toFixed(3);
+document.getElementById('meta').innerHTML='<div class="stat"><b>Length envelope:</b> '+(53.3+o.extension).toFixed(1)+' m</div>'+
+'<div class="stat"><b>Pressure shell:</b> Rev 7 original, r 4.30 m</div>'+
+'<div class="stat"><b>Crown:</b> '+o.crown.toFixed(1)+' m · '+o.windows+'</div>'+
+'<div class="stat"><b>Pilot score:</b> '+pilot+'</div>'+
+'<div class="stat"><b>Worst support score:</b> '+sup+'</div>'+
+'<div class="stat"><b>Pane area (estimate):</b> '+(o.area===undefined?'Rev 7 declared 25 m²':o.area+' m²')+'</div>'+
+'<div class="stat"><b>Outer shutter area:</b> '+(o.outer_area===undefined?'Unresolved':o.outer_area+' m²')+'</div>'+
+'<div class="stat"><b>Shutter material (27 g/cm²):</b> '+(o.shutter===undefined?'Unresolved':o.shutter+' t · storage UNVERIFIED')+'</div>';
+}
+document.getElementById('prov').textContent='PR #432: '+DATA.source.slice(0,12)+' · source geometry SHA-256: '+DATA.geometry_sha.slice(0,16);
+addEventListener('resize',draw);draw();
+</script></body></html>

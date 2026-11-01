@@ -108,3 +108,15 @@ kT: "I want sol to agree with the design choices. I want you to handle making it
 - Every gate PASS or PASS-DECLARED; G10 25/25. Declared items awaiting kT: `rcs_axial_plumes`, `g10_burn_coasts`, `strata_armour`, `node_faces`, `cold_running`, `external_equipment`.
 - No dust check exists in the basis yet; the node-face dust flag is reported, not gated.
 - `certified` stays false.
+
+## Option C G6 defect closure and kT declared acceptance (2026-11-01)
+
+**Source:** PR #439, expected merged head after protected-water declaration. **Geometry:** `7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7`.
+
+**Claude review:** reported by kT as verified on PR head `4752913f`; **not** represented here as an independently retrieved GitHub APPROVED review event. **Sol independent numerical review:** corrected G6 excludes virtual growth reserve; full 21,600-ray berth and 1,800-ray shelter source screen passes with 3.058770t of pre-existing protected water shifted to actual shield walls, 0t liner; design-case berth min 42.59g/cm² and shelter min 53.4g/cm², open-node-face sensitivity fails (19.96g/cm²) as intended. Conventional FQ1–FQ4 78/78 fresh/exit-zero; G1–G12 PASS or PASS-DECLARED and G12 31/31 source-stamped assets.
+
+**kT decision:** accepts passive L1/L2 hatches *as declared*, default crown-open policy and Whipple-like standoff with numerical speed/angle variables UNQUALIFIED, visual acceptance on `7f620c53`, and new water reserve doctrine: service tank drawn first, critical L3/shelter shield water last and refilled first. `certify.py` now returns `certified=true` for 29/29 declared items, conventional laboratory basis only.
+
+**Release boundary:** loom-gate exact-head GREEN required before protected-main promotion. No hardware pressure/fragment certification; Metric arrival HOLD, Navigator excluded, independent ship-power closure OPEN.
+
+**Water draw sensitivity qualification:** on unchanged `7f620c53` geometry, 21,600-ray G6 berth min is 42.59g/cm² at service draw 0, 12.375t and 19.750t (5t retained); after all 24.750t service drawn it falls to **39.04g/cm²** with 1/36 berth sample points below the 40g/cm² requirement. **Provisional service hold 5t** pending continuous-fill validation; no claim that service water is radiologically inert or that all intermediate states are qualified.

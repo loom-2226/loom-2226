@@ -2,10 +2,10 @@ import fs from 'node:fs';import crypto from 'node:crypto';
 import {shapeMesh,commandMeshes,crownMeshes,MATS,MB} from './loomgl_export.mjs';
 const R='../results/out/wayfarer_v05_geometry.json', B=fs.readFileSync(R),G=JSON.parse(B),sc=JSON.parse(fs.readFileSync('out/l1_scene.json'));
 const sha=crypto.createHash('sha256').update(B).digest('hex');
-if(sha!=='5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256')throw Error('geometry mismatch');
+if(sha!==sc.geometry_sha256)throw Error('command scene does not match source geometry');
 let data=[],len=0,acc=[],bv=[],mt=[],meshes=[],nodes=[],scenes=[];
 const MID=new Map();
-function mat(s){if(MID.has(s))return MID.get(s);let c=MATS[s]?.c||[.5,.5,.5];let j=mt.length;mt.push({name:s,doubleSided:true,pbrMetallicRoughness:{baseColorFactor:[...c,1],metallicFactor:.1,roughnessFactor:.65}});MID.set(s,j);return j}
+function mat(s){if(MID.has(s))return MID.get(s);let c=MATS[s]?.c||[.5,.5,.5];let j=mt.length;mt.push({name:s,doubleSided:true,...(MATS[s]?.alpha?{alphaMode:"BLEND"}:{}),pbrMetallicRoughness:{baseColorFactor:[...c,MATS[s]?.alpha??1],metallicFactor:.1,roughnessFactor:.65}});MID.set(s,j);return j}
 function add(b,target){let k=(4-len%4)%4;data.push(Buffer.alloc(k),b);len+=k+b.length;let j=bv.length;bv.push({buffer:0,byteOffset:len-b.length,byteLength:b.length,target});return j}
 function mesh(s,m,b){if(!b.i.length)return null;let p=new Float32Array(b.p),n=new Float32Array(b.n),i=new Uint32Array(b.i);
  let v=add(Buffer.from(p.buffer),34962),nv=add(Buffer.from(n.buffer),34962),iv=add(Buffer.from(i.buffer),34963);
@@ -26,5 +26,5 @@ function pad(b,f){return Buffer.concat([b,Buffer.alloc((4-b.length%4)%4,f)])}
 let j=pad(Buffer.from(JSON.stringify(doc)),32),b=pad(bin,0),head=Buffer.alloc(12),jh=Buffer.alloc(8),bh=Buffer.alloc(8);
 head.writeUInt32LE(0x46546c67,0);head.writeUInt32LE(2,4);head.writeUInt32LE(28+j.length+b.length,8);
 jh.writeUInt32LE(j.length,0);jh.writeUInt32LE(0x4e4f534a,4);bh.writeUInt32LE(b.length,0);bh.writeUInt32LE(0x004e4942,4);
-fs.writeFileSync('out/wayfarer_I4_in_out_5d73cdd1.glb',Buffer.concat([head,jh,j,bh,b]));
+fs.writeFileSync(`out/wayfarer_I4_in_out_${sha.slice(0,8)}.glb`,Buffer.concat([head,jh,j,bh,b]));
 console.log('GLB export',sha,e,n,meshes.length,((28+j.length+b.length)/1048576).toFixed(2),'MiB');

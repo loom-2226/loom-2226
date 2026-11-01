@@ -123,7 +123,7 @@ footer{color:var(--steel);font-size:11px;letter-spacing:.03em;line-height:1.6;bo
   <span class="eyebrow">LOOM 2226 · Reference courier · Visual reference</span>
   <h1 id="vtitle">Wayfarer v__VER__</h1>
   <p class="sub">Drag to turn the ship, pinch or scroll to zoom. Built from geometry SHA256 __SHA__. Interior I4 station views are representational; occupant swept clearance remains HOLD.</p>
-  <p class="sub"><a href="wayfarer_I4_in_out_5d73cdd1.glb" download style="color:#00D1FF">One GLB: exterior + interior I4 (two scenes)</a></p>
+  <p class="sub"><a href="wayfarer_I4_in_out_702cca4e.glb" download style="color:#00D1FF">One GLB: exterior + interior I4 (two scenes)</a></p>
 </header>
 <div class="stage" id="stage">
   <canvas id="cv" aria-label="3D model of Wayfarer v0.5"></canvas>
@@ -151,6 +151,15 @@ footer{color:var(--steel);font-size:11px;letter-spacing:.03em;line-height:1.6;bo
     <button class="chip" type="button" data-look="S3" aria-pressed="false">Support 3</button>
     <button class="chip" type="button" data-look="S4" aria-pressed="false">Support 4</button>
     <button class="chip" type="button" data-look="STAND" aria-pressed="false">Standing (1 g)</button>
+  </div>
+  <div class="row" role="group" aria-label="Option C crown operating limits" id="crownlimitrow">
+   <label>OPEN LIMIT (declared only): max bow dust-relative speed km/s
+    <input id="crownSpeed" type="number" min="0" step="1" placeholder="not qualified" style="width:9em;max-width:100%;background:#12253b;color:#fff;border:1px solid #5e778b;border-radius:6px;padding:4px">
+   </label>
+   <label>Minimum bow-to-flow angle deg
+    <input id="crownFlow" type="number" min="0" max="180" step="5" placeholder="not qualified" style="width:9em;max-width:100%;background:#12253b;color:#fff;border:1px solid #5e778b;border-radius:6px;padding:4px">
+   </label>
+   <span id="crownLimitNote">Default: low speed or bow out of dust flow; closed for torch, radiation and Metric operations. No numeric threshold is qualified.</span>
   </div>
   <div class="row" role="group" aria-label="Crown dome" id="petrow">
     <button class="chip" type="button" data-pet="1" aria-pressed="false">Dome + shutters open</button>
@@ -181,7 +190,7 @@ footer{color:var(--steel);font-size:11px;letter-spacing:.03em;line-height:1.6;bo
   <li><b>Four longerons, sized.</b> Five members (3 planks, 2 sills; 36.9 t at 65 MPa against 400) become four 0.40 m CFRP tubes in an X, matching canon. 21.2 t goes back to the engineering reserve. Tap <i>Structure</i>, then switch versions.</li>
   <li><b>Joints counted.</b> 8 titanium end fittings, a node-mount and hatch allowance (location open: the longeron lines sit under the stowed strakes), 4 bay-corner doublers: 3.3 t.</li>
   <li><b>Berth viewports.</b> One 0.35 m viewport at the outer end of every berth (10). Acrylic plugs carry the armour's and the ring's g/cm², so the berths stay storm-shelter grade with the shutter open. Tap <i>Habitat decks</i>.</li>
-  <li><b>Crown dome replaces the 8 nose windows.</b> 25 m² of ceramic glazing inside r 2.8 m on an Osteon frame (8 roots forking into 16 edge-on blades round a clear 2.3 m centre pane); 16 tambour gores close it flush and stow in the brow ring. Pilots see 75% of the forward sky (was 22%). Use <i>Dome open / closed</i>; in <i>Command deck</i> try View from: Pilot or Standing.</li>
+  <li><b>Option C crown, current geometry.</b> 37 independently removable 10 mm ceramic outer bumper panes within r 3.5 m, vacuum standoff, TWO separate ~7 m 28 mm ceramic pressure domes (primary apex X -0.30 m, backup -0.42 m), and AOI optical gel with ZERO impact/shielding credit. Sixteen Strata gores close over the crown. Pilot's optimistic 60° cone upper-bound is 100%; real obscurations and optical performance remain unqualified. Crown opening is limited by the low-speed / bow-away-from-dust-flow doctrine; the displayed numerical limits are UNQUALIFIED.</li>
   <li><b>Rev 4: the band's load path closed</b> (after Sol's review): 14 x 4 cm titanium edge rings all the way round, a mid transom in the 1.6 m lounge, bolted mullion roots, and plate-sized 2226-ceramic panes (16 mm, 18 mm in the lounge). Band 5.9 t. New G5 checks.</li>
   <li><b>Viewports everywhere (rev 3).</b> A panoramic band round the L2 common deck (19 m², 1.6 m tall in the lounge) on Osteon titanium mullions; berth viewports up to 0.5 m; medical 2, storm shelter 2 (the plug continues through the water jacket), suit room 1, workshop 2. Every opening below the crown has an acrylic shield plug and a Strata shutter. ~48 m² of glazing in all. Tap <i>Dome + shutters open</i>.</li>
   <li><b>Concepts, not in the build:</b> external spines and visor sketches, Osteon longeron joints.</li>
@@ -412,6 +421,13 @@ document.getElementById("expand").addEventListener("click", e => {
 });
 new ResizeObserver(resize).observe(cv);
 resize(); rebuild(); requestAnimationFrame(frame);
+for(const id of ["crownSpeed","crownFlow"])document.getElementById(id)?.addEventListener("input",()=>{
+ const speed=document.getElementById("crownSpeed").value,angle=document.getElementById("crownFlow").value;
+ document.getElementById("crownLimitNote").textContent=
+  "Illustrative proposed threshold: "+(speed?speed+" km/s":"speed UNQUALIFIED")+
+  " / "+(angle?angle+" deg bow-to-flow":"angle UNQUALIFIED")+
+  ". Governing default remains low-speed or bow-out-of-flow; these values do NOT authorise opening.";
+});
 window.__viewerReady = !!ship;
 </script>
 """

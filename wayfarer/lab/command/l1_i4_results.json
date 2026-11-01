@@ -1,6 +1,6 @@
 {
-  "geometry_sha256": "5d73cdd1d7893b75637fc3b2e8bf2d9b786b792fede277e759561643f4ee0256",
-  "status": "kT 2026-10-31 bounded I4 couch+crawl 1.2m rule; does NOT qualify physical occupant fit/egress",
+  "geometry_sha256": "7f620c53ca58fb3bc7b421baf15ce3979e4347bef675f2e5be3b57699b633fa7",
+  "status": "kT 2026-11-01 Option C bounded I4 + real 0.15t hatch/0g casualty route; pressure proof/4g egress NOT qualified",
   "couches": [
     {
       "id": "PILOT",
@@ -25,7 +25,7 @@
       "within_4p15m_plan": true,
       "eye_x_m": 2.31,
       "sightline": {
-        "visible_upper_bound": 0.269,
+        "visible_upper_bound": 0.853,
         "eye_inside_shell": true,
         "model": "upper bound ONLY; panes open, no Osteon/sensor/other occupant blocking"
       }
@@ -53,7 +53,7 @@
       "within_4p15m_plan": true,
       "eye_x_m": 2.5,
       "sightline": {
-        "visible_upper_bound": 0.614,
+        "visible_upper_bound": 1.0,
         "eye_inside_shell": true,
         "model": "upper bound ONLY; panes open, no Osteon/sensor/other occupant blocking"
       }
@@ -67,7 +67,7 @@
       "within_4p15m_plan": true,
       "eye_x_m": 2.5,
       "sightline": {
-        "visible_upper_bound": 0.6,
+        "visible_upper_bound": 1.0,
         "eye_inside_shell": true,
         "model": "upper bound ONLY; panes open, no Osteon/sensor/other occupant blocking"
       }
@@ -81,12 +81,33 @@
       "within_4p15m_plan": true,
       "eye_x_m": 2.5,
       "sightline": {
-        "visible_upper_bound": 0.681,
+        "visible_upper_bound": 1.0,
         "eye_inside_shell": true,
         "model": "upper bound ONLY; panes open, no Osteon/sensor/other occupant blocking"
       }
     }
   ],
+  "l1_l2_hatch_clear": {
+    "l1_l2_hatch_0": true,
+    "l1_l2_hatch_1": true
+  },
+  "l1_l2_pressure_and_casualty": {
+    "leaf_side_m": 0.92,
+    "hole_diameter_m": 0.8,
+    "declared_pressure_isolation": "normally open; L2-to-L1 outflow (-x) passively presses aft-hinged leaves into their L2 seats; reverse flow not automatically contained",
+    "flow_closure_physics": "NOT TESTED: torque, latch, seal and pressure transient",
+    "litter_length_axial_m": 2.0,
+    "litter_width_m": 0.6,
+    "litter_depth_m": 0.35,
+    "margin_each_side_m": 0.05,
+    "shaft_clear_m": [
+      0.8,
+      0.6
+    ],
+    "end_first_at_zero_g_only": true,
+    "casualty_route_bounded_pass": true,
+    "pressure_seal_and_actuation_proof": "OPEN, not flight qualified"
+  },
   "walkways": {
     "grid_step_m": 0.1,
     "path_half_width_m": 0.4,
@@ -144,12 +165,12 @@
     }
   },
   "headroom": {
-    "terrace_center_m": 1.974,
-    "worst_corner_m": 1.339,
+    "terrace_center_m": 2.343,
+    "worst_corner_m": 1.355,
     "chamfer_OPTION_not_geometry": {
       "cut_m": 0.5,
-      "worst_corner_m": 1.473,
-      "gain_m": 0.135,
+      "worst_corner_m": 1.565,
+      "gain_m": 0.209,
       "note": "trim two symmetric outer-forward plan corners; theoretical shell envelope only; reduces usable deck area, no recomputed mass/CG/inertia"
     }
   },
@@ -275,7 +296,122 @@
       "minimum_clearance_m": 0.0541
     }
   },
+  "i4_carryover_objects_3D": {
+    "engineering_cabinet": {
+      "boxes_3D": 1,
+      "couch_intersections": [],
+      "ladder_intersections": [],
+      "clear": true
+    },
+    "sensors_cabinet": {
+      "boxes_3D": 1,
+      "couch_intersections": [],
+      "ladder_intersections": [],
+      "clear": true
+    },
+    "shared_map_table": {
+      "boxes_3D": 1,
+      "couch_intersections": [],
+      "ladder_intersections": [],
+      "clear": true
+    },
+    "equipment_workbench": {
+      "boxes_3D": 1,
+      "couch_intersections": [],
+      "ladder_intersections": [],
+      "clear": true
+    },
+    "workbench_display": {
+      "boxes_3D": 1,
+      "couch_intersections": [],
+      "ladder_intersections": [],
+      "clear": true
+    },
+    "rails_0": {
+      "boxes_3D": 1,
+      "couch_intersections": [],
+      "ladder_intersections": [],
+      "clear": true
+    },
+    "rails_1": {
+      "boxes_3D": 1,
+      "couch_intersections": [],
+      "ladder_intersections": [],
+      "clear": true
+    },
+    "rails_2": {
+      "boxes_3D": 1,
+      "couch_intersections": [],
+      "ladder_intersections": [],
+      "clear": true
+    },
+    "rails_3": {
+      "boxes_3D": 1,
+      "couch_intersections": [],
+      "ladder_intersections": [],
+      "clear": true
+    },
+    "lights_0": {
+      "boxes_3D": 1,
+      "couch_intersections": [],
+      "ladder_intersections": [],
+      "clear": true
+    },
+    "lights_1": {
+      "boxes_3D": 1,
+      "couch_intersections": [],
+      "ladder_intersections": [],
+      "clear": true
+    },
+    "transfer_0": {
+      "boxes_3D": 1,
+      "couch_intersections": [],
+      "ladder_intersections": [],
+      "clear": true
+    },
+    "transfer_1": {
+      "boxes_3D": 1,
+      "couch_intersections": [],
+      "ladder_intersections": [],
+      "clear": true
+    },
+    "observation_rail": {
+      "boxes_3D": 18,
+      "couch_intersections": [],
+      "ladder_intersections": [],
+      "clear": true
+    },
+    "low_g_command_point": {
+      "boxes_3D": 1,
+      "couch_intersections": [],
+      "ladder_intersections": [],
+      "clear": true
+    },
+    "map_console": {
+      "boxes_3D": 1,
+      "couch_intersections": [],
+      "ladder_intersections": [],
+      "clear": true
+    }
+  },
+  "walkway_cells_blocked_by_carryover": 221,
+  "walkway_connected_after_carryover": 715,
+  "floor_seat_reach_after_carryover": {
+    "S2": true,
+    "S3": true,
+    "S4": true
+  },
+  "floor_transfer_reach_after_carryover": {
+    "transfer_0": true,
+    "transfer_1": true
+  },
   "checks": {
+    "l1_l2_hatches_represent_real_closable_pressure_isolation": true,
+    "l1_l2_passive_L1_outflow_seat_direction_declared": true,
+    "l1_l2_closure_requires_zero_power_and_sensors": true,
+    "l1_l2_0g_litter_egress_via_either_open_hatch": true,
+    "l1_l2_parked_hatch_leaves_clear_of_seats_and_ladders": true,
+    "l1_l2_physical_pressure_hatch_mass_in_geometry": true,
     "six_role_seats_present": true,
     "contoured_couch_nominal_length_1p58m": true,
     "plan_seat_envelope_inside_annulus": true,
@@ -283,7 +419,9 @@
     "0p8m_walkway_to_floor_seats": true,
     "both_ladders_landings_clear": true,
     "terrace_worst_corner_1p2m_crawl_clearance": true,
-    "floor_couches_vs_terrace_3D_AABB_nonintersection": true
+    "floor_couches_vs_terrace_3D_AABB_nonintersection": true,
+    "i4_carryover_all_items_3D_no_couch_or_ladder_collision": true,
+    "i4_carryover_floor_walkway_not_severed": true
   },
   "known_HOLD": [
     "1.58m I4 contoured seat accepted as couch for plan screen, but knees-up occupant clearance and 4g hard-point fit HOLD",

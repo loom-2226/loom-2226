@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wayfarer dual seamless domes · failure and separation</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0a1827;color:#ebf2f8;font:14px system-ui,Arial}
+header{padding:14px 16px;background:#162a3e;border-bottom:1px solid #415970}
+h1{font-size:18px;margin:0 0 4px}
+small,.note{color:#b5c8d7;line-height:1.5}main{display:grid;grid-template-columns:minmax(0,1fr) 350px}
+article{padding:14px}aside{padding:16px;background:#142638;border-left:1px solid #3e5971}
+canvas{width:100%;height:430px;max-width:780px;background:#102539;border:1px solid #3c5469;border-radius:8px}
+label{display:block;margin:14px 0 6px;color:#bbd1df}
+select{color:#f2f8ff;background:#263e54;border:1px solid #7692a7;padding:10px;width:100%;border-radius:7px}
+.stat{padding:10px 0;border-bottom:1px solid #385269;display:flex;justify-content:space-between;gap:12px}
+.stat b{text-align:right;font-variant-numeric:tabular-nums}
+.good{color:#7ee3ce}.warn{color:#f0c187}
+h2{font-size:16px}
+.key{display:inline-block;padding-right:14px;font-size:12px}
+.key:before{content:'';display:inline-block;background:var(--color);width:10px;height:10px;border-radius:50%;margin-right:5px}
+@media(max-width:780px){main{display:block}aside{border:0;border-top:1px solid #3e5971}canvas{height:310px}}
+</style></head><body>
+<header><h1>WAYFARER · TWO SEAMLESS PRESSURE DOMES</h1>
+<small>37 separately replaceable outer protective panels remain HELD · static redundancy experiment · non-canon</small>
+</header><main><article><h2>Cross-section through the existing nose</h2>
+<canvas id="section"></canvas><div>
+<span class="key" style="--color:#64d5d9">37-panel protective skin (projected)</span>
+<span class="key" style="--color:#a7e2c5">Outer backup pressure dome</span>
+<span class="key" style="--color:#f6cd81">Inner primary pressure dome</span></div>
+<p class="note">The two pressure domes use identical curved ellipsoid profiles, with separate axial mounting positions. The 37 protective tiles are shown as one outline in axial section, not as one monolithic piece. The heavy dots at both rims represent hypothetical separate pressure load-bearing attachments.</p>
+<h2>Static failover logic</h2>
+<p class="note">During normal operation the inter-pane gap is evacuated and isolated. If the inner primary fails, cavity air pressure rises and the intact outer pressure dome becomes the backup. This graphic shows stable end states only. Actual rupture, shock loading and glass debris are not simulated.</p>
+</article><aside>
+<label for="space">Axial offset between pressure-shell centre surfaces</label>
+<select id="space">
+<option value="0.06">6 cm, tight</option>
+<option value="0.08">8 cm</option>
+<option value="0.10">10 cm</option>
+<option value="0.12" selected>12 cm, reference</option>
+<option value="0.15">15 cm</option>
+<option value="0.20">20 cm</option>
+<option value="0.25">25 cm, largest tested</option>
+</select>
+<label for="failure">Pressure state</label><select id="failure">
+<option value="normal">Normal: inner holds pressure</option>
+<option value="inner_primary_fails_stable">Inner fails: outer backup holds</option>
+<option value="outer_backup_fails_stable">Outer fails: inner still holds</option>
+<option value="both_fail">Both fail: no containment</option></select>
+<div id="stats"></div>
+<h2>Real engineering unknowns</h2>
+<p class="note">Each pressure shell's own rim must accept the entire ~3.90 MN axial pressure resultant upon failure of the other. The unloaded backup in normal operations is **not** an unused decorative pane; its flange and seal are critical.</p>
+<p class="note">This model assumes full-pressure-capable shells based on a previous *ideal membrane* analysis, not actual failure-tested glass. The transient after primary fracture could impact or fracture the backup; the seal response, shock and crack fragmentation are not modeled.</p>
+<p class="note">The interspace must stay isolated from an open-to-vacuum vent. Otherwise inner-pane failure could leak cabin air through that vent rather than pressurising the backup cavity. Periodic evacuation with a closed isolation path is one possible operating concept, but no valve is designed here.</p>
+<p class="note">Outer protective tiles and inner pressure shells use independent attachment systems and the baseline material density allocations. No change to source PR432, crew stations, shielding, or canon.</p>
+</aside></main>
+<script>
+const D={"spaces":[{"axial_center_separation_m":0.06,"min_free_gap_between_pressure_shells_axial_m":0.012929,"min_free_gap_between_pressure_shells_normal_approx_m":0.010589,"min_shield_to_outer_pressure_shell_gap_axial_m":0.315381,"critical_r_between_pressure_m":3.5,"critical_r_outer_shield_m":3.5,"inter_pressure_void_volume_m3":0.71366,"gas_to_fill_cavity_at_cabin_p_and_293K_kg":0.8591,"positive_gross_axial_gaps":true},{"axial_center_separation_m":0.08,"min_free_gap_between_pressure_shells_axial_m":0.032929,"min_free_gap_between_pressure_shells_normal_approx_m":0.026969,"min_shield_to_outer_pressure_shell_gap_axial_m":0.295381,"critical_r_between_pressure_m":3.5,"critical_r_outer_shield_m":3.5,"inter_pressure_void_volume_m3":1.48335,"gas_to_fill_cavity_at_cabin_p_and_293K_kg":1.7857,"positive_gross_axial_gaps":true},{"axial_center_separation_m":0.1,"min_free_gap_between_pressure_shells_axial_m":0.052929,"min_free_gap_between_pressure_shells_normal_approx_m":0.04335,"min_shield_to_outer_pressure_shell_gap_axial_m":0.275381,"critical_r_between_pressure_m":3.5,"critical_r_outer_shield_m":3.5,"inter_pressure_void_volume_m3":2.253041,"gas_to_fill_cavity_at_cabin_p_and_293K_kg":2.7123,"positive_gross_axial_gaps":true},{"axial_center_separation_m":0.12,"min_free_gap_between_pressure_shells_axial_m":0.072929,"min_free_gap_between_pressure_shells_normal_approx_m":0.05973,"min_shield_to_outer_pressure_shell_gap_axial_m":0.255381,"critical_r_between_pressure_m":3.5,"critical_r_outer_shield_m":3.5,"inter_pressure_void_volume_m3":3.022731,"gas_to_fill_cavity_at_cabin_p_and_293K_kg":3.6388,"positive_gross_axial_gaps":true},{"axial_center_separation_m":0.15,"min_free_gap_between_pressure_shells_axial_m":0.102929,"min_free_gap_between_pressure_shells_normal_approx_m":0.0843,"min_shield_to_outer_pressure_shell_gap_axial_m":0.225381,"critical_r_between_pressure_m":3.5,"critical_r_outer_shield_m":3.5,"inter_pressure_void_volume_m3":4.177266,"gas_to_fill_cavity_at_cabin_p_and_293K_kg":5.0287,"positive_gross_axial_gaps":true},{"axial_center_separation_m":0.2,"min_free_gap_between_pressure_shells_axial_m":0.152929,"min_free_gap_between_pressure_shells_normal_approx_m":0.125251,"min_shield_to_outer_pressure_shell_gap_axial_m":0.175381,"critical_r_between_pressure_m":3.5,"critical_r_outer_shield_m":3.5,"inter_pressure_void_volume_m3":6.101492,"gas_to_fill_cavity_at_cabin_p_and_293K_kg":7.3451,"positive_gross_axial_gaps":true},{"axial_center_separation_m":0.25,"min_free_gap_between_pressure_shells_axial_m":0.202929,"min_free_gap_between_pressure_shells_normal_approx_m":0.166202,"min_shield_to_outer_pressure_shell_gap_axial_m":0.125381,"critical_r_between_pressure_m":3.5,"critical_r_outer_shield_m":3.5,"inter_pressure_void_volume_m3":8.025717,"gas_to_fill_cavity_at_cabin_p_and_293K_kg":9.6615,"positive_gross_axial_gaps":true}],"states":[{"event":"normal","cabin_kPa":101.3,"cavity_kPa":0.0,"space_kPa":0.0,"inner_diff_kPa":101.3,"outer_backup_diff_kPa":0.0,"inner_axial_force_MN":3.898480863655914,"outer_axial_force_MN":0.0,"narrative":"Inner primary bears pressure; cavity evacuated and ISOLATED; backup stands unloaded."},{"event":"inner_primary_fails_stable","cabin_kPa":101.3,"cavity_kPa":101.3,"space_kPa":0.0,"inner_diff_kPa":0.0,"outer_backup_diff_kPa":101.3,"inner_axial_force_MN":0.0,"outer_axial_force_MN":3.898480863655914,"narrative":"If backup and both perimeter seals remain sound, cavity fills from cabin and backup takes full pressure; NOT an impact-transient prediction."},{"event":"outer_backup_fails_stable","cabin_kPa":101.3,"cavity_kPa":0.0,"space_kPa":0.0,"inner_diff_kPa":101.3,"outer_backup_diff_kPa":0.0,"inner_axial_force_MN":3.898480863655914,"outer_axial_force_MN":0.0,"narrative":"Inner primary still bears full pressure; exposed cavity is vacuum through failed backup."},{"event":"both_fail","cabin_kPa":null,"cavity_kPa":null,"space_kPa":0.0,"inner_diff_kPa":null,"outer_backup_diff_kPa":null,"inner_axial_force_MN":null,"outer_axial_force_MN":null,"narrative":"Lost pressure containment; no maintained cabin pressure is claimed."}],"properties":{"inner_shell_normal_thickness_m":0.03855203619909502,"outer_backup_shell_normal_thickness_m":0.03855203619909502,"outer_shield_normal_thickness_m":0.07356948228882834,"nominal_reference_pressure_Pa":101300.0,"pressure_material":"Fused silica material-density benchmark only, not 2226 specification","outer_protective_material":"ALON density benchmark only, not ballistic qualification","cabin_temp_for_cavity_gas_K":293.15,"cavity_initial_kPa":0.0,"cavity_must_be_isolated_from_space_during_normal_operation":true},"forces_MN":3.898480863655914,"mass_t":7.051714149887936,"outer_allocation_t":14.27976},E=id=>document.getElementById(id);
+function cfg(){return D.spaces.find(x=>Math.abs(x.axial_center_separation_m-Number(E('space').value))<1e-8)}
+function mode(){return D.states.find(x=>x.event===E('failure').value)}
+function sketch(){
+ let can=E('section'),w=can.clientWidth,h=can.clientHeight,d=window.devicePixelRatio||1;
+ can.width=w*d;can.height=h*d;let ctx=can.getContext('2d');ctx.setTransform(d,0,0,d,0,0);
+ const X=x=>22+(x+1.75)/5.4*(w-44),Y=r=>h/2-r/4.55*(h/2-18);
+ const slope=r=>2.35-2.15*Math.sqrt(Math.max(0,1-r*r/(4.3*4.3)));
+ const shield=r=>-1.2+Math.max(0,r-2)*Math.tan(50*Math.PI/180);
+ function trace(fn,a,b,col,stroke,broken=false){
+  ctx.lineWidth=stroke;ctx.strokeStyle=col;ctx.setLineDash(broken?[7,7]:[]);
+  for(let sg of [-1,1]){
+   ctx.beginPath();for(let i=0;i<=200;i++){
+    let r=a+(b-a)*i/200,x=X(fn(r)),y=Y(sg*r);
+    if(!i)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+   }ctx.stroke();
+  }ctx.setLineDash([]);
+ }
+ let space=cfg(),sta=mode(),dx=space.axial_center_separation_m;
+ ctx.clearRect(0,0,w,h);
+ trace(slope,0,4.3,'#44647c',2,true);
+ trace(shield,0,3.5,'#64d5d9',5);
+ trace(shield,3.5,4.3,'#cfae7c',5);
+ let isBroken=sta.event==='inner_primary_fails_stable'||sta.event==='both_fail';
+ let osBroken=sta.event==='outer_backup_fails_stable'||sta.event==='both_fail';
+ trace(r=>slope(r)-dx,0,3.5,'#a7e2c5',5,osBroken);
+ trace(slope,0,3.5,'#f6cd81',5,isBroken);
+ for(let r of [-3.5,3.5]){
+   for(let x of [slope(3.5),slope(3.5)-dx]){
+    ctx.fillStyle='#ecb6a0';ctx.beginPath();ctx.arc(X(x),Y(r),5,0,2*Math.PI);ctx.fill();
+   }
+ }
+ let center=sta.cavity_kPa===null?'#e8a9a9':sta.cavity_kPa>1?'#67778a':'#23435c';
+ ctx.fillStyle=center;ctx.font='12px system-ui';ctx.fillText('CAVITY: '+(sta.cavity_kPa===null?'FAILED':sta.cavity_kPa.toFixed(1)+' kPa'),12,h-20);
+ ctx.fillStyle='#ecf7fe';ctx.font='12px system-ui';ctx.fillText('SPACE ←',12,20);ctx.textAlign='right';ctx.fillText('CABIN →',w-12,20);
+}
+function stats(){
+ const s=cfg(),st=mode(),n=D.mass_t;
+ const pairs=[
+ ['Inner load, axial',st.inner_axial_force_MN===null?'unknown':st.inner_axial_force_MN.toFixed(2)+' MN'],
+ ['Outer backup load, axial',st.outer_axial_force_MN===null?'unknown':st.outer_axial_force_MN.toFixed(2)+' MN'],
+ ['Approx. free normal gap', (100*s.min_free_gap_between_pressure_shells_normal_approx_m).toFixed(1)+' cm'],
+ ['Gross outer-shield clearance', (100*s.min_shield_to_outer_pressure_shell_gap_axial_m).toFixed(1)+' cm'],
+ ['Evacuated cavity volume',s.inter_pressure_void_volume_m3.toFixed(2)+' m³'],
+ ['Gas in cavity when filled at 101.3kPa',s.gas_to_fill_cavity_at_cabin_p_and_293K_kg.toFixed(2)+' kg'],
+ ['Pressure glass material, both shells',D.mass_t.toFixed(2)+' t'],
+ ['Outer 37-panel shield material allocation',D.outer_allocation_t.toFixed(2)+' t']
+ ];
+ E('stats').innerHTML=pairs.map(([a,b])=>'<div class="stat"><span>'+a+'</span><b>'+b+'</b></div>').join('')+
+ '<p class="note">'+st.narrative+'</p>';
+}
+function run(){sketch();stats()}E('space').addEventListener('change',run);
+E('failure').addEventListener('change',run);window.addEventListener('resize',run);run();
+</script></body></html>

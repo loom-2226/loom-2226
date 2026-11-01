@@ -79,9 +79,59 @@ def g1(I, C, G):
               + L["propulsion_t"] + L["electrical_t"] + L["avionics_sensors_comms_t"] + L["rcs_docking_service_t"]
               + L["mission_courier_systems_t"] + L["engineering_reserve_t"] + L["c_tank_penalty_t"]
               + I["shuttle"]["dry_t"] + L["drones_pods_t"] + L.get("torch_hot_fins_t", 0.0) + L.get("crew_systems_v056_t", 0.0) + L.get("crew_systems_v057_t", 0.0)
-              + L.get("rcs_axial_t", 0.0) + L.get("reserve_draws_rev7", {}).get("total_t", 0.0))
+              + L.get("rcs_axial_t", 0.0) + L.get("reserve_draws_rev7", {}).get("total_t", 0.0)
+              + L.get("i4_carryover_t", 0.0) + L.get("aoi_crown_t",0.0) + L.get("aoi_aft_bulkhead_reinforcement_t",0.0)
+               + L.get("crown_option_c_additions_t",0.0) + L.get("l3_berth_shield_liner_t",0.0))
+    AOI = I["habitat"]["decks"][0].get("command_layout",{}).get("crown_dome",{}).get("adaptive_optogel")
     dry = G["dry_t"]
     cs = [chk("parts sum to the ledger", round(dry, 2), round(expect, 2), abs(dry - expect) <= C["G1"]["ledger_tolerance_t"], "t")]
+    if AOI:
+        two = {p["id"]:p["mass_t"] for p in G["parts"] if p["id"] in ("crown_backup_pressure_dome","crown_adaptive_optogel")}
+        cs.append(chk("AOI filled interspace has explicit 3.000t physical mass",
+                      round(two.get("crown_adaptive_optogel",0),6),AOI["mass_t"],
+                      abs(two.get("crown_adaptive_optogel",0)-AOI["mass_t"])<1e-8,"t"))
+        cs.append(chk("independent backup pressure dome separately charged to reserve",
+                      round(two.get("crown_backup_pressure_dome",0),6),AOI["backup_pressure_dome_mass_t"],
+                      abs(two.get("crown_backup_pressure_dome",0)-AOI["backup_pressure_dome_mass_t"])<1e-8,"t"))
+        cs.append(chk("AOI and backup dome entirely drawn from positive existing reserve",
+                      round(L["engineering_reserve_t"],3),0.,L["engineering_reserve_t"]>=0.,"t",
+                      "adds no dry mass outside original ship engineering ledger"))
+    OC=I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("shell_option_c")
+    if OC:
+        m=OC["mass_ledger"];byid={x["id"]:x["mass_t"] for x in G["parts"]}
+        for name,pid,expect in [("added 50-degree gore area","crown_c_additional_strata_gore",m["gore_extra_t"]),
+          ("independent outward retainers","crown_c_outward_retainers",m["retain_t"]),
+          ("one centre and six annular spare panes","crown_c_seven_spare_panes",m["spares_t"])]:
+            cs.append(chk("Option C actual physical "+name,round(byid.get(pid,0),6),expect,
+                          abs(byid.get(pid,0)-expect)<1e-7,"t"))
+        hs=sum(byid.get("hatch_L1L2_"+str(j),0) for j in range(2))
+        cs.append(chk("two L1/L2 real pressure hatch masses each 0.15t",round(hs,6),.3,abs(hs-.3)<1e-7,"t"))
+        # Option C was charged through three ledger buckets. All 5.834795t
+        # must reconcile, including 0.540125t panes booked to I4 and 0.6t liner.
+        prior_reserve=17.786216  # frozen immediately prior to Option C, PR #439 / 25bae1ce
+        expected_draw=m["reserve_draw_total_t"]
+        actual_draw=prior_reserve-L["engineering_reserve_t"]
+        pane_delta=I["i4_carryover"]["crown_increment_from_reserve_t"]-.347738-m.get("dome_primary_delta_t",0.0)
+        cs.append(chk("Option C explicit reserve draw reconciles (including dome change)",
+            round(actual_draw,6),round(expected_draw,6),
+            abs(actual_draw-expected_draw)<1e-6,"t",
+            "4.694670t Option-C hardware +0.540125t pane area + dome deepening + physical L3 liner (if justified)"))
+        cs.append(chk("Option C pane incremental mass booked under existing I4 carryover",
+            round(pane_delta,6),round(m["pane_delta_t"],6),
+            abs(pane_delta-m["pane_delta_t"])<1e-6,"t"))
+        cs.append(chk("Option C subledger equals physical reserve draws",
+            round(m["gore_extra_t"]+m["retain_t"]+m["spares_t"]+m["hatches_t"]+m["pane_delta_t"]+m.get("dome_deepening_t",0.0)+L["l3_berth_shield_liner_t"],6),
+            round(actual_draw,6),
+            abs(m["gore_extra_t"]+m["retain_t"]+m["spares_t"]+m["hatches_t"]+m["pane_delta_t"]+m.get("dome_deepening_t",0.0)+L["l3_berth_shield_liner_t"]-actual_draw)<1e-6,"t"))
+        cs.append(chk("Option C engineering growth floor preserved",round(L["engineering_reserve_t"],6),5.0,L["engineering_reserve_t"]>=5.0,"t"))
+        li=next((x["mass_t"] for x in G["parts"] if x["id"]=="l3_berth_dry_shield_liner"),0.)
+        cs.append(chk("Option C physically charged L3 liner agrees with active zero-or-positive reserve allocation",
+                      round(li,6),L.get("l3_berth_shield_liner_t",0),
+                      abs(li-L.get("l3_berth_shield_liner_t",0))<1e-7,"t"))
+        cs.append(chk("Option C gross 27g/cm2 coverage accounts extra faceted area",
+           round(OC["gores"]["gross_full_coverage_t"],6),
+           round(OC["gores"]["existing_projected_coverage_t"]+m["gore_extra_t"],6),
+           abs(OC["gores"]["gross_full_coverage_t"]-OC["gores"]["existing_projected_coverage_t"]-m["gore_extra_t"])<1e-6,"t"))
     shuttle = next(p["mass_t"] for p in G["parts"] if p["id"] == "shuttle")
     for s in states(I):
         st = G["states"][s]
@@ -349,10 +399,39 @@ def g4(I, C, G):
     azs = R["azimuths_deg"]
     cs, notes, decl = [], [], []
     q_hab_kw, n = hab_heat(I)
+    q_hab_base_kw = q_hab_kw
     hh = I["habitat_heat"]["radiator"]
+    aoi = I["habitat"]["decks"][0].get("command_layout",{}).get("crown_dome",{}).get("adaptive_optogel")
+    glazing = None
+    if aoi:
+        r = I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["i4_crown_option_B"]["inner_diameter_m"]/2
+        area = math.pi * r*r
+        # Zero benefit claimed from unmeasured electrochromic/NIR switching.
+        # Worst-case all incident light entering the aperture becomes heat.
+        solar_kw = hh["worst_sun_w_m2"] * area / 1000.
+        inner_area = I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["panes"]["inner_area_m2"]
+        longwave_kw = SIGMA * hh["temperature_k"]**4 * inner_area / 1000.
+        glazing={"open_projected_area_m2":area,"worst_case_solar_kw":solar_kw,
+                 "uncredited_blackbody_longwave_kw":longwave_kw,
+                 "ir_control_benefit_credited_kw":0.,
+                 "gores_closed_solar_direct_kw":0.,
+                 "absorbed_solar_heat_path":"habitat strakes while open; outer-skin re-radiation not claimed",
+                 "emissivity_opaque_gore_note":"normal full shielding when gores closed; no optogel impact/thermal proof"}
+        q_hab_kw += solar_kw
+
     tc = hh["temperature_k"]
     w_hp = q_hab_kw * (T / tc - 1) / C["G4"]["heat_pump_carnot_fraction"]
     q_hab_main = (q_hab_kw + w_hp) / 1000.0
+    if glazing:
+        cs.append(chk("AOI open crown worst-case sunlight explicitly enters G4 heat balance",
+           round(glazing["worst_case_solar_kw"],3),round(hh["worst_sun_w_m2"]*glazing["open_projected_area_m2"]/1000,3),
+           glazing["worst_case_solar_kw"]>0., "kW",
+           "no optical IR credit; the solar load is passed to the habitat heat pump and strakes"))
+        cs.append(chk("AOI IR/glare switching does not invent cooling or a pressure seal",
+           glazing["ir_control_benefit_credited_kw"],0.,glazing["ir_control_benefit_credited_kw"]==0.,
+           "kW",f"blackbody longwave outward envelope {glazing['uncredited_blackbody_longwave_kw']:.2f}kW not relied upon for cold-running cooling"))
+        decl.append(("aoi_optical_ir",
+            "kT declares AOI-2226 refractive-index matching and independently switchable clear/glare/dark plus visible/NIR modulation. NOT demonstrated at full scale. Zero numeric optical/IR cooling performance credited; worst Venus solar aperture heat explicitly included. Transparent dome and AOI thermal expansion/differential heat flux remain OPEN."))
     spans = {}
     for m in ("NORMAL", "FAST", "EXPEDITE", "HARD"):
         q = metric_heat(I, m, T) + q_hab_main * (1 + C["G4"]["hab_heat_margin"])
@@ -397,8 +476,14 @@ def g4(I, C, G):
     net = hh["emissivity"] * SIGMA * tc ** 4 - sun
     area = 2 * math.pi * I["hull"]["outer_r_m"] * (I["hull"]["habitat_shell_x_m"][1] - I["hull"]["bow_cap_depth_m"]) * 0.8
     backup = net * area / 1000
-    cs.append(chk("habitat heat on passive skin radiators (backup, heat pump failed)", round(backup, 1), round(q_hab_kw, 1), backup >= q_hab_kw, "kW",
-                  f"{area:.0f} m2 of habitat skin at {tc} K, Venus-orbit sun"))
+    # Passive-backup is viable only with the Strata crown gores CLOSED:
+    # 100 kW open-aperture sunlight would overwhelm the 57 kW skin radiator.
+    emergency_hab_kw = q_hab_base_kw if glazing else q_hab_kw
+    cs.append(chk("habitat passive skin backup with crown GORES CLOSED (heat pump failed)",
+                  round(backup, 1), round(emergency_hab_kw, 1), backup >= emergency_hab_kw, "kW",
+                  f"{area:.0f} m2 of skin at {tc} K. AOI optical control receives zero thermal credit; with open gores +{glazing['worst_case_solar_kw']:.1f} kW at worst sun, passive backup is NOT sufficient" if glazing else f"{area:.0f} m2 of habitat skin at {tc} K, Venus-orbit sun"))
+    if glazing:
+        decl.append(("aoi_gore_thermal_doctrine", "At worst-case sunlight, the open crown adds ~100 kW of solar heating to habitat. In heat-pump-failed or cold-running passive backup the 16 Strata gores MUST CLOSE; clear/glare/dark AOI states may not be credited as heat rejection or solar exclusion. Solar absorption/IR-band partition and AOI switching performance are not physically qualified."))
     cs.append(chk("major torch burn and high Metric never required together", "doctrine", "CANON II §14", True))
     CR, SK = I.get("cold_running"), I.get("skin")
     if CR and SK:   # rev 7 (Sol qualification 2): cold running holds heat in; it does not remove it
@@ -406,7 +491,7 @@ def g4(I, C, G):
         hr = I["habitat_heat"]["radiator"]
         a_sk = 2 * math.pi * I["hull"]["outer_r_m"] * (hr["x_m"][1] - hr["x_m"][0]) * hr["share_of_skin"]
         leak = md["cold_running"]["emissivity"] * SIGMA * hr["temperature_k"] ** 4 * a_sk / 1000
-        q_in = q_hab_kw * (1 + C["G4"]["hab_heat_margin"])
+        q_in = (q_hab_kw - (glazing["worst_case_solar_kw"] if glazing else 0.)) * (1 + C["G4"]["hab_heat_margin"])
         e_buf = I["canon"]["protected_water_t"] * 1000 * CR["water_cp_kj_kg_k"] * CR["buffer_dT_k"]
         ideal_hrs = e_buf / max(q_in - leak, 1e-9) / 3600
         p_standby = CR.get("plant_standby_kw",0.0)
@@ -426,6 +511,8 @@ def g4(I, C, G):
     notes.append(f"Torch heat model (torch/, non-governing): same 11.36 TW jet from {tb['fusion_tw']:.1f} TW of fusion, pulsed at about 1-10 Hz (0.3-3 kt per pulse). Light escape the face can take: ~{lim_ppm:.0f} ppm; model {tb['light_ppm_of_fusion']:.0f} ppm. Hot-fin capacity is computed here with certify's own 2D view factor; torch/fin_layout.py (numpy, 3.0 m body) gives a slightly higher figure.")
     r = gate("G4", "Power and heat", cs, declared=decl, notes=notes)
     r["spans_m"] = spans
+    if glazing:
+        r["aoi_glazing_heat_kw"] = glazing
     r["cold_running"] = r_cold
     r["torch_strake_capacity_mw"] = cap
     r["hot_fin_capacity_gw"] = fcap
@@ -562,6 +649,12 @@ def g5(I, C, G):
                      "I4 terrace 4 columns sized as 7075-T6 76mm OD x 3mm at 0.49m. "
                      "5g x1.5 ultimate +0.5g lateral member screen, no joint, deck bearing, vibration, fatigue, "
                      "swept-body or 3D egress qualification. HOLLOW: closed only for column members, not system."))
+    OC=I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("shell_option_c")
+    if OC:
+        cs.append(chk("Option C gross overall ship envelope 54.5m",OC["overall_ship_length_m"],54.5,
+                      abs(OC["overall_ship_length_m"]-54.5)<.001,"m"))
+        decl.append(("crown_option_c_load_paths","Full faceted nose 1.2m ahead of old bow and gore hinges at 50deg break; actual retaining loads, impact, thermal cycling, 5g attachment paths and shutter transition mechanics UNSHOWN."))
+        decl.append(("l1_l2_pressure_hatches","Two 0.15t pressure hatches normally OPEN aft of L1/L2 ladder plane x=3m; L2-to-L1 (-x) pressure outflow passively pushes each leaf toward an L2-side seat, differential pressure reinforces closure. No sensor/power/actuation needed; seal proof, hinge moments, reverse-flow isolation and 4g crew passage NOT demonstrated."))
     stn = CR["stations"]
     cs.append(chk("upper berth posts: buckling margin at 5 g x 1.5", stn["berth_post_margin"], C["G5"]["buckling_factor"], stn["ok"], "x",
                   f"{stn['berth_post_kn']} kN per post; couch and berth hard points {stn['hard_point_kn']} kN each ({stn['requirement']})"))
@@ -609,6 +702,24 @@ def shadow_allowed(x, x_f, R, a, xs_range):
         k = (xs - x_f) / (xs - x)
         best = min(best, (R - a) / k + a)
     return best
+
+
+def committed_shield_fraction(I, G):
+    """Fraction of each spread dry part actually committed to hardware, not growth reserve.
+    The mass/CG inventory still carries the growth allowance; radiation never gets its credit.
+    """
+    spread=[p for p in G["parts"] if p["dry"] and "from_reserve" not in p["tags"]]
+    gross=sum(p["mass_t"] for p in spread)
+    uncommitted=I["ledger"]["engineering_reserve_t"]+I["ledger"]["structure_split"].get("released_to_reserve",0.0)
+    assert 0 < uncommitted < gross
+    return (gross-uncommitted)/gross
+
+
+def committed_shield_mass(p, spread_fraction):
+    # Gel function is optical, not qualified for shielding; do not invent mass attenuation.
+    if p["id"] == "crown_adaptive_optogel":
+        return 0.0
+    return p["mass_t"]*spread_fraction if p["dry"] and "from_reserve" not in p["tags"] else p["mass_t"]
 
 
 def ray_density(origin, d, items, step, tmax):
@@ -708,17 +819,17 @@ def g6(I, C, G):
                   shelter["volume_m3"] / n >= c6["shelter_m3_per_person_min"], "m3", f"{shelter['volume_m3']:.1f} m3 for {n} people"))
     s_state = c6["shelter_state"]
     items = []
-    for p in G["parts"]:
+    spread_fraction = committed_shield_fraction(I,G)
+    for p in G["parts"] + G["fluids_by_state"][s_state]:
         if "shuttle" in p["tags"] and I["states"][s_state]["shuttle"] == "absent":
             continue
         if p["volume_m3"] <= 0:
             continue
-        sh = B.shape_from_spec(p["shape"])
-        items.append((sh, p["mass_t"] / p["volume_m3"], sh.bbox()))
-    for p in G["fluids_by_state"][s_state]:
-        sh = B.shape_from_spec(p["shape"])
-        v = p["volume_m3"]
-        items.append((sh, p["mass_t"] / v, sh.bbox()))
+        m=committed_shield_mass(p,spread_fraction)
+        if m <= 0: continue
+        sh=B.shape_from_spec(p["shape"])
+        items.append((sh, m/p["volume_m3"], sh.bbox()))
+    notes.append(f"Shielding credits committed material only; uncommitted distributed growth allowance is zero radiation mass, AOI gel zero radiation credit (fraction {spread_fraction:.6f} on spread dry parts).")
     s = shelter["shape"]
     rm = (s["r0"] + s["r1"]) / 2
     am = math.radians((s["a0"] + s["a1"]) / 2)
@@ -753,7 +864,71 @@ def g6(I, C, G):
                      f"(armour {BV['plug']['g_cm2']} vs 27.0, ring {BV['insert']['g_cm2']} vs 8.0), so the ray screen, which treats the hull as continuous, is unchanged. "
                      "Rev 3: the same plug kit is in every opening below the crown, including the L2 viewport band, and continues through the storm-shelter jacket (17 cm more acrylic for the 20 cm of water). Not yet shown: the dose. Acrylic is ~8% hydrogen by mass against water's 11%, so per g/cm2 it may stop cosmic-ray secondaries slightly less well; a transport check may ask for a thicker plug. Encapsulated for fire."))
     CD = I["habitat"]["decks"][0].get("command_layout", {}).get("crown_dome", {})
-    if CD.get("adopted"):
+    if CD.get("adopted") and CD.get("i4_crown_option_B"):
+        B2=CD["i4_crown_option_B"]
+        pressure=B2["inner_areal_g_cm2"]
+        outer=B2["outer_areal_g_cm2"]
+        aoi=CD.get("adaptive_optogel")
+        backup=(B2.get("backup_dome_areal_g_cm2",0.) if aoi else 0.)
+        protected=pressure+backup+outer+B2["closed_gore_g_cm2"]
+        prior=B2["replaced_pressure_hull_comparator_g_cm2"]+B2["replaced_armor_g_cm2"]
+        cs.append(chk("I4 monolithic inner pressure dome exceeds replaced shell areal mass",
+            round(pressure,3),B2["replaced_pressure_hull_comparator_g_cm2"],pressure>=B2["replaced_pressure_hull_comparator_g_cm2"],"g/cm2",
+            "material areal equivalent, NOT pressure-buckling or high-energy radiation proof"))
+        if aoi:
+            cs.append(chk("AOI backup pressure shell individually meets old shell areal mass",
+                round(backup,3),B2["replaced_pressure_hull_comparator_g_cm2"],
+                backup>=B2["replaced_pressure_hull_comparator_g_cm2"],"g/cm2",
+                "thickness proxy only, not independent differential/impulse/failure survival"))
+            cs.append(chk("AOI 3.023 m3 interlayer mass logged, no impact credit",
+                aoi["volume_m3"],3.023,abs(aoi["volume_m3"]-3.023)<1e-7,"m3",
+                "near-water-density gel, optically switchable; no shock-fracture reduction credited"))
+            cs.append(chk("AOI cannot be counted as a structural pressure boundary",
+                aoi["pressure_boundary"],False,not aoi["pressure_boundary"] and not aoi["pressure_seal"],
+                note="both 7m shells independently pressure capable; actual failure independence remains untested"))
+        cs.append(chk("I4 closed Strata gores plus dome pair and outer ceramic restore old areal mass",
+            round(protected,3),prior,protected>=prior,"g/cm2",
+            "27 g/cm2 Rev7 gores, separate from 37 outer panes; shelter transport not re-qualified by simple areal sum"))
+        OC=CD.get("shell_option_c")
+        if OC:
+            shell=OC["outer_tile_layer"]
+            cs.append(chk("Option C nose flat to 2m, then 50-degree slope",
+                   [OC["flat_to_r_m"],OC["slope_deg"]],[2.,50.],
+                   OC["flat_to_r_m"]==2 and OC["slope_deg"]==50))
+            cs.append(chk("Option C 1 cm ceramic outer areal mass 3.75 g/cm2",
+                   shell["areal_mass_kg_m2"],37.5,
+                   abs(shell["areal_mass_kg_m2"]-37.5)<.001,"kg/m2"))
+            cs.append(chk("Option C gross closed gore coverage 27g/cm2 over entire faceted surface",
+                round(OC["gores"]["gross_full_coverage_t"],4),
+                round(OC["outer_area_m2"]*.27,4),
+                abs(OC["gores"]["gross_full_coverage_t"]-OC["outer_area_m2"]*.27)<1e-5,"t"))
+            decl.append(("crown_option_c_gore_fairing",
+               "16 Strata tambour gores cover the full r<=3.5m faceted external 50deg profile at 27g/cm2 when closed; 2m flat/slope hinge transition and shoulder fairing have no measured shock/seam/drive failure qualification."))
+            if I["ledger"].get("l3_berth_shield_liner_t",0):
+                decl.append(("l3_shield_liner_material",
+                   "Observed G6 two rays at 39.86g/cm2 corrected by reserve-funded 0.6t continuous L3 dry foamed high-hydrogen liner (x5.9-8.2,r4.18-4.25). No water moved and no gel radiation credited. g/cm2 mass/geometry screen only: polymer composition, actual charged-particle transport, structural attachment, fire and dose remain UNSHOWN."))
+            decl.append(("crown_option_c_tiles",
+                "37 independent ceramic 1cm sacrificial tiles, outward-removable retainers while L1 pressure stays sealed. Four types, seven spares in hold. Cupola precedent establishes separable outer debris panes, NOT service tool loads or 2226 particle impact protection."))
+        cs.append(chk("I4 source 37-pane radial boundaries preserved exactly",
+            CD["panes"]["ring_boundaries_m"],[0,.75,2.,2.75,3.5],
+            CD["panes"]["ring_boundaries_m"]==[0,.75,2.,2.75,3.5]))
+        cs.append(chk("I4 outermost ring stagger pi/12 preserved",
+            round(CD["panes"].get("outermost_band_stagger_rad",0),6),round(math.pi/12,6),
+            abs(CD["panes"].get("outermost_band_stagger_rad",0)-math.pi/12)<1e-8))
+        cs.append(chk("I4 outer protection 37 separate panes [1,12,12,12]",
+            B2["outer_count"],37,B2["outer_count"]==37))
+        cs.append(chk("I4 segmented pane outer chord max 1.9m",
+            round(CD["panes"]["maximum_outer_circumferential_edge_m"],3),1.9,
+            CD["panes"]["maximum_outer_circumferential_edge_m"]<=1.9,"m",
+            "maximum hoop chord, not longest corner-to-corner diagonal"))
+        decl.append(("crown_dome","Rev7 16 closing Strata gores and opening doctrine are retained; their original acceptance applied only to the earlier segmented 2.3m pressure panes, not the new 7m seamless dome."))
+        DP=CD.get("shell_option_c",{}).get("deep_pressure_domes",{})
+        decl.append(("crown_monolith_7m",
+            f"kT adopted deeper pair: TWO independent full-pressure ~7m transparent ceramic domes, each 28mm nominal, primary apex X={DP.get('primary_apex_x_m',.2):.2f}m, backup X={DP.get('backup_apex_x_m',.08):.2f}m, at unchanged rim. Meridional shape {CD['panes']['inner_shape']}. Ideal apex thin-shell stress {DP.get('stress_after_apex_ideal_mpa',0):.2f}MPa vs {DP.get('stress_before_mpa',0):.2f}MPa prior; not real pressure test. Both must survive loss of the other; 37 outer nonpressure panes +16 closure gores unchanged. Monolith production, boundary loads, fracture/gel pulse and optics UNSHOWN."))
+        if aoi:
+            decl.append(("aoi_failure_independence",
+                "AOI-2226 ~3.023m3 (~3t) gel between two separately sealed pressure domes, gap min normal 5.973cm with backup axial offset ~12cm. Neither pressure-bearing nor a pressure seal. Each independent dome MUST withstand full 101.3kPa after other's failure while optogel is present, WITHOUT shock, fracture, crack bridging or fast pressure-pulse coupling. The research has NO measured high-rate response or independent-shell survival test; do not credit impact damping. Rim slip/contact interfaces and >=56L illustrative thermal-expansion compliance still require engineering."))
+    elif CD.get("adopted"):
         decl.append(("crown_dome", f"Crown dome (v0.5.7): {CD['glazed_area_m2']:.0f} m2 of glazing inside r {CD['r_m']} m replaces the 8 nose windows. Assumes (1) proof-tested transparent ceramic panes up to "
                      f"{CD['central_pane_m']} m across (2026's largest are ~0.76 m), a 2226 materials milestone like the 1,750 K fins (rev 4: the L2 viewport band's 16-18 mm plate panes rely on the same ceramic; 2026 ALON would need 25-29 mm); (2) tambour gores of armour-equivalent Strata laminate (Builder-derived, MHL-22) that restore "
                      f"{CD['gores']['closed_restores_g_cm2']} g/cm2 when closed and stow in the brow ring; (3) the operating rule: {CD['doctrine']} With the gores open, L1 loses the armour over the crown (glass 2-9 g/cm2); L1 is not a shelter."))
@@ -798,6 +973,10 @@ def g7(I, C, G):
     n_c, n_g = I["decisions"]["people"]["crew"], I["decisions"]["people"]["guests"]
     n = n_c + n_g
     decl = []
+    OC=I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("shell_option_c")
+    if OC:
+        limit=OC["visible_open_policy"]
+        decl.append(("crown_option_c_open_limit", "Crown uses Whipple-like stand-off, not physically impact-qualified: 37 removable 10mm ceramic bumper tiles, vacuum gap that varies approximately 0.39–1.16m axially to backup shell on the adopted deeper dome, then two independent full-pressure ceramic domes. No hypervelocity shielding strength claimed; AOI shielding credit zero. Crown-open speed and bow/flow-angle controls remain visibly UNQUALIFIED. Governing doctrine still low speed OR bow away from dust flow; closed for torch, radiation and Metric. Actual safe numeric thresholds and sensor/failure logic OPEN."))
     rooms = G["rooms"]
     nhv = sum(r["nhv_m3"] for r in rooms)
     cs = [chk("people aboard", n, f"{n_c} crew + {n_g} guests", True),
@@ -1139,6 +1318,20 @@ def g12(I, C, G):
     for kind, need in (("exterior",4),("cutaway",2),("deckplan",len(I["habitat"]["decks"])),("viewer",1)):
         n=sum(1 for f in files if f["kind"]==kind and f.get("geometry_sha256")==srcsha and (HERE.parent/"render"/"out"/f["file"]).exists())
         cs.append(chk(f"{kind} current-geometry artifacts",n,need,n>=need))
+    OC=I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("shell_option_c")
+    if OC:
+        section=[f for f in files if f["file"]=="deck_crown_option_c_section.png" and f["geometry_sha256"]==srcsha]
+        svg=HERE.parent/"render/out/deck_crown_option_c_section.svg"
+        cs.append(chk("Option C 1:1 metric crown section current-hash PNG plus source SVG",
+                      bool(section) and svg.exists(),True,bool(section) and svg.exists()))
+        n_exteriors=sum(f["kind"]=="exterior" for f in files)
+        cs.append(chk("Option C all previously dropped exterior views rerendered",n_exteriors,10,n_exteriors>=10))
+        viewers=HERE.parent/"render/research"
+        docs=HERE.parent/"docs/nose_research"
+        n_docs=len(list(docs.glob("NOSE_*.md")))
+        n_views=len(list(viewers.glob("*.html")))
+        cs.append(chk("Original NOSE research and viewer assets preserved under wayfarer/",
+                      [n_docs,n_views],[21,28],n_docs>=21 and n_views>=28))
     import struct
     glb=HERE.parent/"render"/"out"/f"wayfarer_I4_in_out_{srcsha[:8]}.glb"
     glb_valid=False
@@ -1176,6 +1369,9 @@ def g10(r4, scr):
                           f"Needed: trim plus an assumed {FD.MISALIGN_DEG} deg thrust error ({r['detail']['rcs']['tvc_needed_deg']} deg). The error is an engineering assumption, not a measured disturbance history; the authority is not a qualified nozzle capability."),
             ("rcs_axial_plumes", "Axial RCS: one 25 kN thruster per cluster, canted 10 deg outward (bow ones exhaust forward, aft ones aft). Assumes the plumes clear the crown glazing, hull, hot fins and torch chain; plume impingement is not yet modelled."),
             ("g10_burn_coasts", f"Long torch burns split into segments of at most {FD.SEGMENT_MAX_MIN:.0f} min ([V2 6113]) with {FD.COAST_MIN:.0f} min coasts (engineering assumption; in free space the coasts change elapsed time, not delta-v).")]
+    if I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("shell_option_c"):
+        decl.append(("crown_option_c_axial_rcs_plumes",
+             "External nose shifted 1.2m forward with flat 2m crown and 50deg face. Old accepted G10 axial RCS plume direction/impingement declaration predates the extended nose; no new plume clearance proof performed. The existing RCS nozzle geometry is unchanged, but plume impingement on Option C gores/ceramic/retainers remains HOLD."))
     return gate("G10", "Flight dynamics: RCS, torch, Metric, Loom", checks, declared=decl,
                 notes=[f"{r['passed']}/{r['total']} checks pass. Sources: main {r['sources']['main_commit'][:8]}; see g10/G10_SOURCE_MAP.md.",
                        "Basis v0.2, agreed by Sol 2026-10-26. Not computed by design: Metric delta-v and remass (CANON II s20); Loom domain fit (PR #356).",
@@ -1204,6 +1400,17 @@ def main():
     gates = [r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12]
     kd_path = HERE.parent / "config/kt_decisions.json"
     KD = json.loads(kd_path.read_text()) if kd_path.exists() else {"decisions": {}}
+    # Water priority is kT operating doctrine, not a mass reallocation, pump
+    # simulation or a claim that shielding survives consumption of shield water.
+    w=G["protected_water"]
+    r6["declared"].append(("protected_water_draw_order",
+        f"Protected 50t water draw order: service reservoir FIRST ({w['service_tank_t']:.3f}t); "
+        f"the L3 berth ring and extended-wall tanks ({w['berth_shield_t']:.3f}t), "
+        f"aft service-wall shield return ({w.get('service_return_wall_t',0):.3f}t) and "
+        f"storm shelter jacket ({w['shelter_jacket_t']:.3f}t) LAST and REFILLED FIRST. "
+        "Do not infer 40g/cm2 shielding after critical water is drawn: repeat G6. "
+        "Protected water remains reserved from routine propulsion. "
+        "This declares withdrawal/refill priorities; no pump plumbing or autonomous draw implementation is qualified."))
     for g in gates:
         g["declared"] = [{"key": k, "text": txt, "kT": KD["decisions"].get(k, {"decision": "AWAITING"}).get("decision"),
                           "as": KD["decisions"].get(k, {}).get("as", ""), "date": KD["decisions"].get(k, {}).get("date")}

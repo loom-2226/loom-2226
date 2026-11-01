@@ -493,13 +493,20 @@ def build(I, dy=0.0, dz=0.0):
         DomeCyl(px0, px0 + H["pressure_head_depth_m"], px1 - ft, Rp, 0.03), SS["pressure_vessel_and_bulkheads"] * 0.75,
         "ENGINEERING_ASSUMPTION", "pressure_hull")
     add("aft_bulkhead", "Aft pressure bulkhead (L5 floor)", "structure", Sector(px1 - ft, px1, 0.0, Rp),
-        SS["pressure_vessel_and_bulkheads"] * 0.25, "ENGINEERING_ASSUMPTION", "bulkhead")
+        SS["pressure_vessel_and_bulkheads"] * 0.25 + L.get("aoi_aft_bulkhead_reinforcement_t",0.), "ENGINEERING_ASSUMPTION: aft pressure bulkhead reserve-funded shielding margin; test G6", "bulkhead")
     decks = hab["decks"]
     floors = [d for d in decks[:-1]]
     for d in floors:
         f0 = d["x_m"][1]
         add(f"floor_{d['id']}", f"{d['id']} floor", "structure", Sector(f0, f0 + ft, hab["core_r_m"], hab["usable_r_m"]),
             SS["decks_and_core"] * 0.75 / len(floors), "ENGINEERING_ASSUMPTION", "floor")
+    # Observed Option C G6 minimum 39.86g/cm2 at two L3 rays; reserve-funded,
+    # continuous nonstructural dry liner, no invented fluid/gel radiation credit.
+    if L.get("l3_berth_shield_liner_t",0)>0:
+        add("l3_berth_dry_shield_liner", "L3 continuous hydrogen-rich dry shield liner for observed G6 rays",
+            "habitat", Sector(5.9,8.2,4.18,4.25),L["l3_berth_shield_liner_t"],
+            "Observed Option C G6 recovery: 0.6t from reserve, dry foamed liner; radiation transport proof OPEN",
+            "water",tags=("from_reserve","no_render"))
     core_x0 = decks[1]["x_m"][0]
     add("core_trunk", "Central trunk (utilities, avionics racks, goods lift)", "habitat",
         Sector(core_x0, decks[-1]["x_m"][1], 0.0, hab["core_r_m"]), SS["decks_and_core"] * 0.25, "ENGINEERING_ASSUMPTION", "core")
@@ -536,6 +543,31 @@ def build(I, dy=0.0, dz=0.0):
                                   ("cabinetry",I4["other_cabinetry_t"],-3.45,1.10)):
             add("i4_"+name,name,"habitat",Box(2.86,2.98,y-0.20,y+0.20,z-0.20,z+0.20),
                 mass,"ENGINEERING_ASSUMPTION: redistributed L1 room outfitting; low-g visual mass proxy","equipment",tags=("no_render",))
+    # 2026-11-01 I4 candidate carry-over: reserve-funded interior pieces only.
+    # Existing I4 NAV/terrace structural platforms are NOT duplicated.
+    for obj in I.get("i4_carryover",{}).get("items",[]):
+        tag=obj["id"]
+        if obj["kind"]=="box":
+            x,y,z=obj["xyz"];sx,sy,sz=obj["size"]
+            shape=Box(x-sx/2,x+sx/2,y-sy/2,y+sy/2,z-sz/2,z+sz/2)
+        elif obj["kind"]=="tube":
+            shape=Tube(tuple(obj["a"]),tuple(obj["b"]),obj["radius_m"])
+        elif obj["kind"]=="arc":
+            # Deterministic ring-rail approximation with fixed 18 angular segments.
+            for k in range(18):
+                a=obj["angles_rad"][0]+(obj["angles_rad"][1]-obj["angles_rad"][0])*k/18
+                b=obj["angles_rad"][0]+(obj["angles_rad"][1]-obj["angles_rad"][0])*(k+1)/18
+                y,z=obj["radius_m"]*math.cos(a),obj["radius_m"]*math.sin(a)
+                yy,zz=obj["radius_m"]*math.cos(b),obj["radius_m"]*math.sin(b)
+                add("i4_"+tag+"_"+str(k),tag,"habitat",
+                    Tube((obj["x_m"],y,z),(obj["x_m"],yy,zz),obj["tube_radius_m"]),
+                    obj["mass_t"]/18,"I4_CARRYOVER: "+obj["source"],"rail",
+                    tags=("from_reserve","no_render"))
+            continue
+        else:
+            raise ValueError("unknown I4 item kind "+obj["kind"])
+        add("i4_"+tag,tag,"habitat",shape,obj["mass_t"],
+            "I4_CARRYOVER: "+obj["source"],"equipment",tags=("from_reserve","no_render"))
     if CL.get("flight_deck"):
         fd = CL["flight_deck"]
         add("flight_deck", "Flight deck (mezzanine carrying the pilot and navigator couches)", "habitat",
@@ -595,6 +627,45 @@ def build(I, dy=0.0, dz=0.0):
             if CD.get("adopted"):   # v0.5.7: crown dome assembly (panes, Osteon frame, brow ring, gore tracks and drives); the gores carry the armour the opening removes
                 add("crown_dome", "Crown dome: ceramic panes, Osteon frame, brow ring, tambour gore tracks and drives", "habitat",
                     Box(0.0, 0.6, -CD["r_m"], CD["r_m"], -CD["r_m"], CD["r_m"]), sum(CD["mass_t"].values()), CD["prov"], "frame", tags=nr)
+            # kT Option C: physical reserve draw for additional 50deg armour surface,
+            # independent external tile retainers/spare seven tiles, two REAL pressure hatches.
+            OC = CD.get("shell_option_c")
+            if OC:
+                m=OC["mass_ledger"]; rr=CD["r_m"]
+                add("crown_c_additional_strata_gore", "Strata gore extension across full 50deg faceted crown",
+                    "habitat", Box(-1.21,0.59,-rr,rr,-rr,rr),m["gore_extra_t"],
+                    "Existing flat 38.485m2 gore allocation remains in 105t armour; this is only extra sloped area mass",
+                    "hull_armor",tags=("from_reserve","no_render"))
+                add("crown_c_outward_retainers", "37 independent outward-removable exterior pane retainers",
+                    "habitat", Box(-1.2,0.59,-rr,rr,-rr,rr),m["retain_t"],
+                    "Cupola service precedent, mechanical release/impact strength declaration HOLD",
+                    "frame",tags=("from_reserve","no_render"))
+                add("crown_c_seven_spare_panes", "Seven pane spares: one centre + two each annular type in courier hold",
+                    "service", Box(14.9,16.1,-3.35,-2.65,-0.5,0.5),m["spares_t"],
+                    "Spares mass from reserve; cargo hold storage and mounting require fit check",
+                    "equipment",tags=("from_reserve","no_render"))
+                for j,yy in enumerate((-1.4,1.4)):
+                    side=-1 if yy<0 else 1
+                    add(f"hatch_L1L2_{j}", "L1/L2 real pressure hatch with hinge, closure and seal allowance",
+                        "habitat", Box(3.0,3.92,yy+side*.46-.03,yy+side*.46+.03,-.46,.46),
+                        OC["l1_l2_hatches"]["mass_t_each"],
+                        "kT mass 0.15t each; real pressure hatch INTENT, pressure/actuation unqualified",
+                        "hatch",tags=("from_reserve","no_render"))
+            # kT Option A (2026-11-01): second independent transparent ceramic pressure
+            # dome and AOI fill are PHYSICAL MASS from reserve, never a pressure seal.
+            AOI = CD.get("adaptive_optogel")
+            if AOI:
+                rr = CD["i4_crown_option_B"]["inner_diameter_m"] / 2
+                # Coarse spatial mass surrogate, preserving separate independent components.
+                add("crown_backup_pressure_dome", "Independent monolithic ceramic backup pressure dome",
+                    "habitat", Box(-0.62,-0.02,-rr,rr,-rr,rr),
+                    AOI["backup_pressure_dome_mass_t"],
+                    "kT deeper dome: 7m independently pressure-capable backup apex -0.42m; 0.12m ahead of primary, proof OPEN", "frame",
+                    tags=("from_reserve","no_render"))
+                add("crown_adaptive_optogel", "AOI-2226 optical gel interspace (not pressure boundary)",
+                    "habitat", Box(-0.56,0.04,-rr,rr,-rr,rr),
+                    AOI["mass_t"], AOI["research_ref"]+"; optical modes declared; impact credit zero",
+                    "window", tags=("from_reserve","no_render"))
             for k, f in enumerate(fw):
                 hb = 0.15 if not f.get("berth") else 0.09   # v0.5.7 berth viewports: smaller box, kept outside the berth water ring
                 c = [f["pos"][i] - (hb + 0.01) * f["normal"][i] for i in range(3)]
@@ -665,6 +736,9 @@ def build(I, dy=0.0, dz=0.0):
         jacket_parts.append(("berth_ring", Sector(bs["x_m"][0], bs["x_m"][1], bs["r_m"][0], bs["r_m"][1], bs["theta_deg"][0], bs["theta_deg"][1])))
         for k, cl in enumerate(bs.get("floor_collars", [])):
             jacket_parts.append(("berth_ring", Sector(cl["x_m"][0], cl["x_m"][1], cl["r_m"][0], cl["r_m"][1], cl["theta_deg"][0], cl["theta_deg"][1])))
+        for wt in bs.get("redistributed_water_tanks", []):
+            # Protected water moved from service storage; dedicated wall geometry, no new water.
+            jacket_parts.append((wt["id"], Sector(wt["x_m"][0], wt["x_m"][1], wt["r_m"][0], wt["r_m"][1], wt["theta_deg"][0], wt["theta_deg"][1])))
     jacket_vol = sum(sh.volume() for _, sh in jacket_parts)
     # --- service region
     sv = I["service"]
@@ -871,9 +945,9 @@ def fluids(I, sec, jacket_parts, jacket_t, w_service, state):
     out = []
     jv = sum(sh.volume() for _, sh in jacket_parts)
     for nm, sh in jacket_parts:
-        label = ("L3 berth shield ring (8 cm water)" if sh.r1 - sh.r0 < 0.1 else "L3 berth shield collar at the floor edge (12 cm water)") if nm == "berth_ring" else f"Storm-shelter water jacket ({nm})"
+        label = ("L3 berth shield ring (8 cm water)" if sh.r1 - sh.r0 < 0.1 else "L3 berth shield collar at the floor edge (12 cm water)") if nm == "berth_ring" else (f"Protected water tank: {nm}" if nm in ("berth_wall_extended","service_return_wall") else f"Storm-shelter water jacket ({nm})")
         out.append(Part(f"jacket_{nm}", label, "water", sh, jacket_t * sh.volume() / jv,
-                        "DERIVED (protected water)", "water", dry=False, tags=("water", "protected") + (("berth_shield",) if nm == "berth_ring" else ())))
+                        "DERIVED (protected water)", "water", dry=False, tags=("water", "protected") + (("berth_shield",) if nm.startswith("berth_") or nm=="service_return_wall" else ())))
     tank = sec["protected_water_tank"]
     if w_service > 0:
         f = w_service / (tank.volume() / (1 + I["protected_water"]["service_tank_ullage_fraction"]))
@@ -1228,13 +1302,21 @@ def main():
         "bands": ([{"x": sg["x_m"], "a": sg["theta_deg"], "mullion_deg": I["habitat"]["crew_systems"]["viewport_band"]["mullion_spacing_deg"]}
                    for sg in I["habitat"]["crew_systems"]["viewport_band"]["segments"]] if I["habitat"].get("crew_systems", {}).get("viewport_band") else []),
         "crown": ({"r": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["r_m"], "mer": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["roots"],
-                   "center": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["centre_ring_r_m"], "fork": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["fork_r_m"]}
+                   "center": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["centre_ring_r_m"], "fork": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["fork_r_m"],
+                   "innerR": I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("i4_crown_option_B",{}).get("inner_diameter_m",0)/2,
+                   "outerPaneRings": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["panes"].get("ring_boundaries_m"),
+                   "outerBandStaggerRad": I["habitat"]["decks"][0]["command_layout"]["crown_dome"]["panes"].get("outermost_band_stagger_rad",0.0),
+                   "shellOptionC": I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("shell_option_c"),
+                   "aoi": I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("adaptive_optogel")}
                   if I["habitat"]["decks"][0].get("command_layout", {}).get("crown_dome", {}).get("adopted") else None),
+        "overall_length_m": I["hull"].get("overall_length_m",I["hull"]["length_m"]),
+        "crown_option_c": I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("shell_option_c"),
         "version": I["version"], "inputs_sha256": hashlib.sha256(raw).hexdigest(),
         "length_m": I["hull"]["length_m"], "dry_t": dry,
         "dry_by_system_t": by_system,
-        "protected_water": {"jacket_t": jacket_t, "berth_shield_t": sum(sh.volume() for nm, sh in jacket_parts if nm == "berth_ring"),
-                            "shelter_jacket_t": sum(sh.volume() for nm, sh in jacket_parts if nm != "berth_ring"), "service_tank_t": w_service, "c_tank_t": I["canon"]["protected_water_t"] - jacket_t - w_service,
+        "protected_water": {"jacket_t": jacket_t, "berth_shield_t": sum(sh.volume() for nm, sh in jacket_parts if nm.startswith("berth_")),
+                            "service_return_wall_t": sum(sh.volume() for nm,sh in jacket_parts if nm=="service_return_wall"),
+                            "shelter_jacket_t": sum(sh.volume() for nm, sh in jacket_parts if not nm.startswith("berth_") and nm!="service_return_wall"), "service_tank_t": w_service, "c_tank_t": I["canon"]["protected_water_t"] - jacket_t - w_service,
                             "service_tank_capacity_t": tank_cap, "chosen_to_minimise_worst_trim_deg": best[1]},
         "thrust_line_offset_m": {"y": DY, "z": DZ, "torch_chain_t": m_chain},
         "hot_fins": fins_out,

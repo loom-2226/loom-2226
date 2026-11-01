@@ -7,15 +7,23 @@ from flightlab import run
 BASE=Path(__file__).resolve().parent
 parser=argparse.ArgumentParser();parser.add_argument('--state',choices=['full','half','empty'],required=True);parser.add_argument('--dt',type=float,required=True)
 parser.add_argument('--subset',choices=['all','quick'],default='all')
+parser.add_argument('--fixture',type=Path,default=BASE/'wayfarer_fq_water_rcs_1960.json')
+parser.add_argument('--out-dir',type=Path,default=BASE)
+
 a=parser.parse_args()
-ship=json.loads((BASE/'wayfarer_fq_water_rcs_1960.json').read_text())
-assert ship['provenance']['geometry_sha256']=='ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266'
+ship=json.loads(a.fixture.read_text())
+if a.fixture.resolve()==(BASE/'wayfarer_fq_water_rcs_1960.json').resolve():
+    assert ship['provenance']['geometry_sha256']=='ea1fcb59f1e0a127cd48dc4e0321e7d42247e3f2e445cf89893bdefadb793266'
+else:
+    src=Path(__file__).resolve().parents[3]/'results/out/wayfarer_v05_geometry.json'
+    assert ship['provenance']['geometry_sha256']==hashlib.sha256(src.read_bytes()).hexdigest(), 'current fixture stale'
 ship['tanks'][0]['initial_kg']={'full':250000,'half':125000,'empty':0}[a.state]
 clusters=sorted(set(e['id'].split('_')[0] for e in ship['rcs']))
 assert len(clusters)==8
 modes=list(ship['torch'][0]['modes'])
 results=[]
-log=BASE/f'fq_matrix_{a.state}_{str(a.dt).replace(".","p")}_{a.subset}.json'
+a.out_dir.mkdir(parents=True,exist_ok=True)
+log=a.out_dir/f'fq_matrix_{a.state}_{str(a.dt).replace(".","p")}_{a.subset}.json'
 def case(gate,tag,kind,spec,cluster=None):
     sim=copy.deepcopy(ship)
     if cluster:sim['rcs']=[e for e in sim['rcs'] if not e['id'].startswith(cluster+'_')]

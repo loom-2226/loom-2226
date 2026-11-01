@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 import build_v05 as B
-from certify import ray_density
+from certify import ray_density,committed_shield_fraction,committed_shield_mass
 
 G = json.loads((ROOT.parent / "results/out/wayfarer_v05_geometry.json").read_text())
 I = json.loads((ROOT.parent / "config/wayfarer_v05_inputs.json").read_text())
@@ -35,7 +35,9 @@ def ring_overlap(n=20000):
         if k:
             hits[p["id"]] = k
     water = [w for w in G["fluids_by_state"]["S1"] if "berth_shield" in w["tags"]]
-    return {"ring_volume_m3": round(ring.volume(), 4), "samples": len(pts), "overlap_samples": hits, "ring_water_t_S1": round(sum(w["mass_t"] for w in water), 4),
+    return {"ring_volume_m3": round(ring.volume(), 4),
+            "redistributed_protected_water_t": {q["id"]: round(B.Sector(*q["x_m"],*q["r_m"],*q["theta_deg"]).volume(),6) for q in bs.get("redistributed_water_tanks",[])},
+            "samples": len(pts), "overlap_samples": hits, "ring_water_t_S1": round(sum(w["mass_t"] for w in water), 4),
             "in_every_state": all(any("berth_shield" in w["tags"] for w in G["fluids_by_state"][s]) for s in G["fluids_by_state"]),
             "protected_water": G["protected_water"]}
 
@@ -114,13 +116,16 @@ def _init(open_bores=False):
     global ITEMS, DIRS
     ITEMS = []
     faces = [f for f in G["features"] if f["kind"] == "node_face" and f["pos"][0] <= I["hull"]["habitat_shell_x_m"][1]]
+    spread_fraction=committed_shield_fraction(I,G)
     for p in G["parts"] + G["fluids_by_state"]["S5"]:
         if "shuttle" in p.get("tags", []) or p["volume_m3"] <= 0:
             continue
+        m=committed_shield_mass(p,spread_fraction)
+        if m <= 0: continue
         sh = B.shape_from_spec(p["shape"])
         if open_bores and p["id"] == "armor":
             sh = OpenBores(sh, faces, I["hull"]["outer_r_m"] - I["hull"]["pressure_r_m"])
-        ITEMS.append((sh, p["mass_t"] / p["volume_m3"], sh.bbox()))
+        ITEMS.append((sh, m / p["volume_m3"], sh.bbox()))
     N = 600
     DIRS = []
     for i in range(N):
@@ -148,7 +153,7 @@ def radiation_screen(step=0.02, open_bores=False):
     with Pool(2, initializer=_init, initargs=(open_bores,)) as pool:
         res = pool.map(_screen, pts)
     res.sort(key=lambda t: t[1])
-    return {"state": "S5", "points": len(res), "directions": 600, "step_m": step, "minimum_g_cm2": round(res[0][1], 2),
+    return {"state": "S5", "radiation_mass_basis":"committed physical material, no uncommitted growth mass, no AOI gel", "points": len(res), "directions": 600, "step_m": step, "minimum_g_cm2": round(res[0][1], 2),
             "below_40": sum(1 for _, m, _ in res if m < 40), "worst": [(lab, round(m, 2), [round(c, 3) for c in d]) for lab, m, d in res[:6]],
             "by_point": {lab: round(m, 2) for lab, m, _ in res}}
 
