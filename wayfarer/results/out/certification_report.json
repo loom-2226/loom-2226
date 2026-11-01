@@ -1207,16 +1207,16 @@
     {
      "key": "ship_power_shore_interface_2mw_20261101",
      "text": "NEW kT acceptance requested: docked ship uses shore electric only, reactors OFF; 2MW input rating is a new engineering declaration, not an established physical connector capability.",
-     "kT": "AWAITING",
-     "as": "",
-     "date": null
+     "kT": "ACCEPTED",
+     "as": "kT ACCEPTS 2MW external dock shore-power connection with both house reactors OFF; electrical connector physics unqualified.",
+     "date": "2026-11-01"
     },
     {
      "key": "torch_burn_only_tap_75_percent_20261101",
      "text": "NEW kT acceptance requested: pulsed main torch ONLY while burning converts 63.36MW raw torch energy to 47.52MW magnet/cryocooling electric at declared 75%, rejecting 15.84MW conversion heat. Tap, pulse conditioning and corresponding torch performance debit remain unqualified. No torch emergency house generator.",
-     "kT": "AWAITING",
-     "as": "",
-     "date": null
+     "kT": "ACCEPTED",
+     "as": "kT ACCEPTS main torch burn-only internal magnet/cryocooler supply: 63.36MW raw torch energy at 75% ->47.52MW net electrical plus 15.84MW conversion heat. Physical tap and propulsion-energy debit remain OPEN.",
+     "date": "2026-11-01"
     }
    ],
    "notes": [
@@ -3764,6 +3764,14 @@
      "note": ""
     },
     {
+     "name": "D-He3 and C-lite wet/dry tank envelopes have placed mass and source-checked CG cutaway labels",
+     "value": true,
+     "limit": true,
+     "unit": "Bounding envelopes and wet/dry CG only; tank packaging, overlap and plumbing UNQUALIFIED",
+     "pass": true,
+     "note": ""
+    },
+    {
      "name": "source-hashed system cutaway shows independently labelled reactors, flywheel and battery",
      "value": true,
      "limit": true,
@@ -3791,9 +3799,9 @@
     {
      "key": "kT_visual_acceptance_storage_20261101",
      "text": "NEW source-specific kT visual acceptance required for new aft reactor/rotor and forward reactor/battery cutaway, even if G12 image source-hash checks pass. Prior source-hash visual acceptance does not transfer.",
-     "kT": "AWAITING",
-     "as": "",
-     "date": null
+     "kT": "ACCEPTED",
+     "as": "kT ACCEPTS reactor A aft C-ring, reactor B forward service ring, flywheel aft, battery forward visual layout specifically on source geometry SHA 4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331. Updated fuel-envelope labels are source-derived schematic overlays; no tank packing acceptance implied.",
+     "date": "2026-11-01"
     }
    ],
    "notes": [
@@ -3848,16 +3856,16 @@
   {
    "key": "ship_power_shore_interface_2mw_20261101",
    "text": "NEW kT acceptance requested: docked ship uses shore electric only, reactors OFF; 2MW input rating is a new engineering declaration, not an established physical connector capability.",
-   "kT": "AWAITING",
-   "as": "",
-   "date": null
+   "kT": "ACCEPTED",
+   "as": "kT ACCEPTS 2MW external dock shore-power connection with both house reactors OFF; electrical connector physics unqualified.",
+   "date": "2026-11-01"
   },
   {
    "key": "torch_burn_only_tap_75_percent_20261101",
    "text": "NEW kT acceptance requested: pulsed main torch ONLY while burning converts 63.36MW raw torch energy to 47.52MW magnet/cryocooling electric at declared 75%, rejecting 15.84MW conversion heat. Tap, pulse conditioning and corresponding torch performance debit remain unqualified. No torch emergency house generator.",
-   "kT": "AWAITING",
-   "as": "",
-   "date": null
+   "kT": "ACCEPTED",
+   "as": "kT ACCEPTS main torch burn-only internal magnet/cryocooler supply: 63.36MW raw torch energy at 75% ->47.52MW net electrical plus 15.84MW conversion heat. Physical tap and propulsion-energy debit remain OPEN.",
+   "date": "2026-11-01"
   },
   {
    "key": "i4_terrace_mounts",
@@ -4023,13 +4031,13 @@
   {
    "key": "kT_visual_acceptance_storage_20261101",
    "text": "NEW source-specific kT visual acceptance required for new aft reactor/rotor and forward reactor/battery cutaway, even if G12 image source-hash checks pass. Prior source-hash visual acceptance does not transfer.",
-   "kT": "AWAITING",
-   "as": "",
-   "date": null
+   "kT": "ACCEPTED",
+   "as": "kT ACCEPTS reactor A aft C-ring, reactor B forward service ring, flywheel aft, battery forward visual layout specifically on source geometry SHA 4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331. Updated fuel-envelope labels are source-derived schematic overlays; no tank packing acceptance implied.",
+   "date": "2026-11-01"
   }
  ],
- "kt_decisions_sha256": "0deb3ece1487b2f25f8ba726f3c1d5f099df6a5094b298277aa12aa801c83e4e",
- "certified": false,
+ "kt_decisions_sha256": "6e42c2e97fe2d5ea3a43e3ab6ece0531531206355642ccc15e2b6beef1cd255a",
+ "certified": true,
  "certified_rule": "every gate PASS or PASS-DECLARED and every declared assumption ACCEPTED by kT; then both reviewers sign and loom-gate passes",
  "qualification_scope": {
   "certified_flag_meaning": "kT-accepted declared G1-G12 conventional Wayfarer laboratory certification basis ONLY; not independent reviewer signatures, Metric arrival or hardware flightworthiness",

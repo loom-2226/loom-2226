@@ -1406,6 +1406,25 @@ def g12(I, C, G):
     labels=" ".join(l["t"] for l in power_view.get("labels",[])) if power_view else ""
     source_ids={p["id"] for p in G["parts"]}
     names=("house_reactor_A","house_reactor_B","house_peak_store","house_energy_battery")
+    dry_by_id={p["id"]:p for p in G["parts"]}
+    wet_by_id={p["id"]:p for p in G["fluids_by_state"]["S1"]}
+    expected_tanks=(("house_fuel_tank","house_fuel","D-HE3 TANK"),
+                    ("c_lite_dry","c_lite_monoprop","C-LITE TANK"))
+    tank_labels=power_view.get("labels",[]) if power_view else []
+    # The render's source-derived markers must match the source body's centroid,
+    # and the wet and dry mass/cg proxies must occupy the same envelope.
+    tank_verified=all(
+        d in dry_by_id and w in wet_by_id and
+        dry_by_id[d]["shape"]==wet_by_id[w]["shape"] and
+        dry_by_id[d]["centroid_m"]==wet_by_id[w]["centroid_m"] and
+        any(l.get("tank_source_id")==d and l.get("tank_fluid_id")==w
+            and all(abs(l["at"][j]-dry_by_id[d]["centroid_m"][j])<1e-5 for j in range(3))
+            and label in l["t"] and "dry" in l["t"] and "fuel" in l["t"]
+            for l in tank_labels)
+        for d,w,label in expected_tanks)
+    cs.append(chk("D-He3 and C-lite wet/dry tank envelopes have placed mass and source-checked CG cutaway labels",
+                  tank_verified,True,tank_verified,
+                  "Bounding envelopes and wet/dry CG only; tank packaging, overlap and plumbing UNQUALIFIED"))
     cut_verified=bool(power_cut and power_view and all(k in source_ids for k in names)
                      and all(term in labels for term in ("REACTOR A","REACTOR B","FLYWHEEL","BATTERY")))
     cs.append(chk("source-hashed system cutaway shows independently labelled reactors, flywheel and battery",

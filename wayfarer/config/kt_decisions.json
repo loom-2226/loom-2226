@@ -231,6 +231,27 @@
    "note": "Protect shield zones as long as practicable. Actual crew water routing and any dose consequences are not qualified.",
    "draw_sensitivity": "Full 36\u00d7600 S5: 0t withdrawn\u219242.59g/cm2, 12.375t withdrawn\u219242.59, 19.750t withdrawn (5t service left)\u219242.59, 24.750t withdrawn (empty service)\u219239.04; 1/36 berth points below 40 at empty service. Never claim every intermediate state safe.",
    "normal_draw_caution": "The service tank provides material shielding on some paths: a complete 24.75t service draw fails one berth ray even with L3/shelter tanks full. Holding 5t service passes the sampled G6 screen, but intermediate levels are not globally qualified. Protect ~5t service as provisional conservative operating minimum until a full withdrawal envelope is verified; reserve is physical water, not a new allocation."
+  },
+  "ship_power_shore_interface_2mw_20261101": {
+   "decision": "ACCEPTED",
+   "date": "2026-11-01",
+   "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+   "kT": "ALL bodies. ALL sponsors. 2026\u20132226. kT ACCEPTS these three declarations for PR #440.",
+   "as": "kT ACCEPTS 2MW external dock shore-power connection with both house reactors OFF; electrical connector physics unqualified."
+  },
+  "torch_burn_only_tap_75_percent_20261101": {
+   "decision": "ACCEPTED",
+   "date": "2026-11-01",
+   "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+   "kT": "ALL bodies. ALL sponsors. 2026\u20132226. kT ACCEPTS these three declarations for PR #440.",
+   "as": "kT ACCEPTS main torch burn-only internal magnet/cryocooler supply: 63.36MW raw torch energy at 75% ->47.52MW net electrical plus 15.84MW conversion heat. Physical tap and propulsion-energy debit remain OPEN."
+  },
+  "kT_visual_acceptance_storage_20261101": {
+   "decision": "ACCEPTED",
+   "date": "2026-11-01",
+   "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331",
+   "kT": "ALL bodies. ALL sponsors. 2026\u20132226. kT ACCEPTS these three declarations for PR #440.",
+   "as": "kT ACCEPTS reactor A aft C-ring, reactor B forward service ring, flywheel aft, battery forward visual layout specifically on source geometry SHA 4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331. Updated fuel-envelope labels are source-derived schematic overlays; no tank packing acceptance implied."
   }
  },
  "design_decisions_2026_10_26": {
