@@ -421,6 +421,10 @@ def canonical_metric_operation(phase, pre_state, torch_outputs):
 
 def run(ship,experiment,dt=.1,sample_s=1.):
     """Single mutable physical spacecraft state across conventional phases and explicit metric transitions."""
+    if experiment.get("enable_metric_arrival_law_v1",False):
+        # LAB-ONLY, opt-in FQ11. Existing canonical HOLD / FQ1–FQ10 unchanged.
+        from metric_arrival_v1 import run_fq11
+        return run_fq11(ship,experiment)
     sequence_check(experiment)
     ship=copy.deepcopy(ship);state=initial_state(ship,experiment)
     if dt<=0 or sample_s<=0:raise ValueError('positive timestep and sample interval required')
