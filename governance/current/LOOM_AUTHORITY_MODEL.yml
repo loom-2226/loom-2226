@@ -84,6 +84,15 @@ change_classes:
   - class:governance
 
 canon_amendments:
+  canon_ii_metric_arrival_v1_in_place:
+    source: canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
+    scope: sections 7.1-7.3, calibrated ordinary Solar System Metric arrival velocity only
+    authorization: CCR-2026-0003
+    effective_on_authorized_main_merge: true
+    governing_when_merged: ENERGY_SPEED_ORBIT_RELATIVE_B
+    general_propagator: U^M_gamma_GENERAL_PATH_DEPENDENT
+    older_velocity_open_interpretation: SUPERSEDED_ONLY_WITHIN_SCOPE
+    navigator: PARKED_NO_CHANGE
   scoped_amendment_rule:
     parent_required: true
     explicit_scope_required: true

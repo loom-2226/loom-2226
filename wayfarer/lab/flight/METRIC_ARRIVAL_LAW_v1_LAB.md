@@ -1,6 +1,6 @@
-# LOOM Metric Arrival Law v1 | kT-approved for LAB only
+# LOOM Metric Arrival Law v1 | lab provenance and new-lab default
 
-**ALL bodies. ALL sponsors. 2026–2226.** 2026-11-01. **LAB EXPERIMENT — NOT CANON, NOT NAVIGATOR, NOT A DEFAULT.** Authority at lab adoption: `main` `32a4a45a4f55007bbc5162d19438cd2ffd8300fe`, ship geometry `4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331`. The existing canonical Metric envelope/HOLD and FQ1–FQ10 remain unchanged unless the new lab flag is explicitly enabled.
+**ALL bodies. ALL sponsors. 2026–2226.** 2026-11-01. **Historical 2026-11-01 LAB scope: non-canon and opt-in at that time.** CCR-2026-0003 proposes scoped canon adoption; this document and its calculation code remain lab-only, not Navigator. Authority at lab adoption: `main` `32a4a45a4f55007bbc5162d19438cd2ffd8300fe`, ship geometry `4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331`. The existing canonical Metric envelope/HOLD and FQ1–FQ10 remain unchanged unless the new lab flag is explicitly enabled.
 
 ## Rule: ENERGY with local Sun-orbit heading B
 
@@ -45,4 +45,18 @@ For fixed ship mass `m` during the hop, `p_s=m v_depart`, `p_a=m v_arr`, and ref
 
 **Step 1:** IDENTITY energy creation, Jupiter surface→Pluto ~1.958 GJ/kg and Sun photosphere→Pluto ~190.732 GJ/kg, motivates ENERGY. **Step 2:** outward forbidden states require paid speed. **Step 3:** optimised orbit-relative B: Earth→Mars ~4.828 and Earth→Jupiter ~10.392 km/s; circular comparators ~4.794 and ~10.227. **Step 4:** E→J→E and E→M→J→E need paid seed, N→E→N initially traversable; frozen cycle work residual is phase-dependent; Sun recoil ~10⁻²⁰ m/s per hop, E/p/L mechanism still a declared miracle.
 
-**kT decision:** approve this version for **Wayfarer LAB use only**. The current module is a **standalone, explicitly opt-in FQ11-CALC inverse-map tool** and does NOT hook `flightlab.run`. The actual finite-burn FQ11 is separate future work. All ordinary lab experiments and canonical Metric HOLD default off. The FQ11 report includes source epoch, ship mass, CRUISE Δv/remass, matched Mars velocity, Sun recoil, **absolute Sun angular-momentum transfer magnitude**, spin/orbit split and numerical E/p/L closure. FQ11-CALC is **not a qualification**: inverse arrival matching and the E/p/L balancing ledger are IDENTITIES by construction; only the conditional remass budget is calculated. **No canon or Navigator adoption.**
+**kT decision:** approve this version for **Wayfarer LAB use only**. The current module is a **standalone, explicitly opt-in FQ11-CALC inverse-map tool** and does NOT hook `flightlab.run`. The later real finite FQ11 and FQ12 are merged lab evidence (#443 and #444). Historical qualifications and the canonical Metric HOLD remain source-pinned. The FQ11 report includes source epoch, ship mass, CRUISE Δv/remass, matched Mars velocity, Sun recoil, **absolute Sun angular-momentum transfer magnitude**, spin/orbit split and numerical E/p/L closure. FQ11-CALC is **not a qualification**: inverse arrival matching and the E/p/L balancing ledger are IDENTITIES by construction; only the conditional remass budget is calculated. **As originally recorded, no canon or Navigator adoption. CCR-2026-0003 would promote only the scoped arrival-velocity claim after merge, not this lab solver or Navigator.**
+
+
+### Lab default after CCR-2026-0003
+
+For **NEW** `lab_energy_v1` Wayfarer LAB Metric phases, the existing
+`calculate_fq11()` consumer now calls `new_lab_metric_arrival_rule()`
+from `metric_arrival_v1.py` and resolves `ENERGY_ORBIT_RELATIVE_B` when
+`arrival_rule` is omitted. Its focused test checks implicit/explicit parity.
+This is a law-selection default inside the CALC laboratory consumer, **not**
+a new physical Metric execution path in `flightlab.run()`. An explicit lab rule remains selectable for
+controlled sensitivity studies. **No automatic legacy replay is modified:**
+FQ1–FQ10 remain pinned, and the canonical Metric HOLD and Navigator are
+untouched. This is a new-lab experiment selection convention, not
+production/runtime activation or independently qualified physics.

@@ -4,6 +4,7 @@
 **Institutional amendment integrated:** 24 August 2026  
 **Earth biosynthetic amendment registered:** 25 September 2026  
 **Synthetic personhood horizons amendment registered:** 1 October 2026  
+**Metric arrival velocity in-place CCR-2026-0003 addition:** 2 November 2026 (effective on authoritative implementation merge)
 **Status:** AUTHORITATIVE CONSOLIDATED BASELINE WITH REGISTERED SCOPED AMENDMENTS
 **Scope:** CANON I–III v2.4, Solar Atlas v3.2, Core Mechanics v0.5, Wayfarer amendment v2.4a, Earth biosynthetic amendment v2.4b, Synthetic Personhood Historical Horizons amendment v2.4c, plus unchanged campaign-character and presentation companions.
 
@@ -47,6 +48,7 @@ Promoted into CANON II v2.4:
 - body-independent 3× clearance is retired as physical law;
 - `LOOM: T_AB` and `METRIC: U^M_gamma` are strictly distinct;
 - metric cannot silently supply arrival-state matching;
+- **CCR-2026-0003 in-place scoped arrival rule:** ENERGY speed and Sun-orbit-relative B heading for ordinary calibrated Solar System Metric arrival velocity, with explicit frozen-potential/Sun E/p/L assumptions; `U^M_gamma` remains general, matching still paid and Navigator parked;
 - local conservation firewall `∇_μ T_total^{μν}=0`;
 - certification-coefficient records require version/validity/provenance/revocation metadata;
 - Earth–Moon and Mars–Phobos cannot fit a full NORMAL two-ramp cycle from ramp geometry alone;
@@ -109,7 +111,7 @@ v2.4 does **not** alter:
 # 4. Active governing volumes
 
 1. `LOOM_2226_CANON_I_World_History_Frontier_v2.4.md` — world/history/frontier + embedded Solar/world/institution/xeno source corpus.
-2. `LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md` — engineering/ships/operations + post-MV + metric-cert architecture.
+2. `LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md` — engineering/ships/operations + post-MV + metric-cert architecture; CCR-2026-0003 adds scoped ENERGY-B arrival velocity in §§7.1–7.3 when its implementation merges.
 3. `LOOM_2226_CANON_III_Authority_Continuity_GM_Model_v2.4.md` — authority, truth-state, hidden graph, model registry, LLM numerical protocol.
 4. `LOOM_2226_Earth_Solar_System_Canon_Atlas_v3.2.md` — fast reader/LLM Solar narrative geography and future-modeling interface.
 5. `LOOM_2226_Core_Mechanics_v0.5.md` — table/LLM resolution and runtime procedure.
@@ -216,6 +218,17 @@ The old 3× ramp-distance clearance table remains provenance only. It is not the
 ## Metric state
 
 Unqualified `V/LOCAL preserved` is retired. Use frame-labeled ordinary state and the metric propagator seam `U^M_gamma`.
+
+**CCR-2026-0003 scoped in-place arrival-law succession:** Canon II §7.1–7.3
+adds ENERGY arrival speed and orbit-relative B direction for calibrated ordinary
+Solar System Metric transit. This narrows the previously open arrival-velocity
+interpretation **only within that scope**; the empirical path-dependent
+`U^M_gamma` remains the general propagator. Any old blanket assumption that
+arrival velocity remains wholly unspecified for that scoped transit is superseded.
+The frozen-potential/Sun-barycentric assumptions and declared Sun E/p/L partner
+do not supply a closed physical N-body work ledger, orbital capture or thermal
+qualification. The new-lab ENERGY-B default does not retrofit FQ1–FQ10 or
+enable Navigator. Provenance: intake PR #445, merged lab PRs #442–#444.
 
 ## Flight times
 

@@ -272,6 +272,45 @@ For a zero-torch / zero-external-assist metric route, the natural metric output 
 Z_B^{nat,M}=\pi_Z\,\mathcal U^M_\gamma(Z_A,R_A,\mathcal E_\gamma).
 \]
 
+### 7.1a Scoped Solar System Metric arrival-velocity rule (CCR-2026-0003)
+
+For **ordinary calibrated Solar System Metric transit**, the natural arrival-velocity component of the general empirical, path-dependent `U^M_gamma` is governed by **ENERGY speed plus Sun-orbit-relative heading B**. This is a declared in-universe operating rule, **not** a derivation of the general constitutive propagator. It determines no collapse position, route phase, transport trajectory, environmental certification boundary or capture orbit.
+
+Use the **declared approximate Sun-barycentric kinetic counting frame** and local orthonormal frames `F_s`, `F_a` (Sun-radial, orbital prograde/tangential, orbit-normal). For the ship's post-burn departure velocity and frozen departure/arrival gravitational potentials:
+
+```text
+v_a^2      = |v_s|^2 + 2 (Phi_s - Phi_a)
+v_a_vector = sqrt(v_a^2) * F_a * F_s^T * (v_s / |v_s|)
+```
+
+If `v_a^2 < 0`, the hop is **ENERGY-FORBIDDEN** until an ordinary paid pre-jump burn provides sufficient departure speed. Exact zero-velocity states have undefined heading and are not qualified. For **circular, tangential, aligned prograde endpoints only**, the required scalar pre-jump increment for a velocity-matched arrival is:
+
+```text
+dv_pre = sqrt(v_target^2 + 2(Phi_a - Phi_s)) - v_source
+```
+
+when positive. This is **not a general eccentric/inclined vector optimisation**; ordinary vector steering and destination-relative matching must be paid through torch, RCS, tugs or another explicit exchange. The lab's Sun-plus-local-body potential at 0.5 instantaneous Hill radius is **diagnostic**, not a universal governing Metric collapse radius.
+
+### 7.1b Declared Sun momentum and angular-momentum partner
+
+The **Metric miracle** couples nonlocally to the Sun as the exchange partner for energy, linear momentum and angular momentum. A local coupler is **not** required by this declared fictional interaction. With ship mass `m` fixed across the Metric transit, `p_s=m v_s` and `p_a=m v_a`:
+
+```text
+Delta_p_ship = p_a - p_s
+Delta_p_sun  = -Delta_p_ship
+Delta_L_ship = r_a x p_a - r_s x p_s
+Delta_L_sun  = -Delta_L_ship
+             = -r_s x Delta_p_ship - (r_a-r_s) x p_a
+Delta_K_sun  = |Delta_p_sun|^2/(2 M_sun)
+Delta_E_field = -(Delta_K_ship + m(Phi_a-Phi_s) + Delta_K_sun)
+```
+
+**Both** solar impulse/spin and position-transport/orbital angular terms are booked. The solar recoil is negligible. These field and Sun balancing terms are **identities by construction**, not an independent physical verification of E/p/L coupling; the conservation and no-free-work firewall in §7.3 remains binding.
+
+**Explicit limits:** The Sun-barycentric frame and **frozen endpoint potential** are declared assumptions. A moving Sun and planets do not supply an exact global Killing energy, and there is **no closed N-body time-dependent work or physical solar torque ledger**. The broader path/environment dependence of `U^M_gamma` remains open outside this scoped arrival-velocity rule. Metric arrival does **not** imply orbital capture. The §8 RSET/environmental hard gate, actual finite-burn planetary gravity, and thermal/fin hardware closure remain open. The seeded Step 4 phase-dependent cycle residual (~44.86 kJ/kg; ~1.5 m/s equivalent at 30 km/s after ~264 MJ/kg paid seed) is **MONITOR**, not independently qualified conservation.
+
+**Evidence/authority:** Steps 1–4 and lab FQ11 (#443) and FQ12 (#444) underpin this declared operational rule, **not a laboratory proof of the miracle**. `CCR-2026-0003` authorizes this scoped canon claim only. For **new Wayfarer LAB Metric experiments**, ENERGY-B is the default arrival-law choice; historical FQ1–FQ10 remain pinned to their accepted configurations. The lab card stays available. **Navigator remains parked and is not changed or implicitly authorized by this canon rule.**
+
 Desired arrival state remains separate:
 
 \[

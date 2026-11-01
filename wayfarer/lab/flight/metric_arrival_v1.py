@@ -1,9 +1,21 @@
-"""Opt-in, NON-CANON single-leg Metric Arrival Law v1 (ENERGY + orbit-frame B).
-Only used when a flight experiment explicitly sets enable_metric_arrival_law_v1.
+"""LAB-only inverse calculator for Metric Arrival Law v1 (ENERGY + B).
+The FQ11-CALC preview remains explicit opt-in; new experiment selection has a
+separate ENERGY-B default below. Neither activates canonical HOLD or Navigator.
 Frozen endpoint potential is an assumption, NOT a time-dependent Killing law.
 The Metric miracle is the declared E/p/L exchange; no local coupler is claimed.
 """
 import math
+# CCR-2026-0003: default selection for NEW lab Metric experiments only.
+# Existing source-pinned qualifications and canonical HOLD remain untouched.
+NEW_LAB_METRIC_ARRIVAL_DEFAULT = "ENERGY_ORBIT_RELATIVE_B"
+
+def new_lab_metric_arrival_rule(experiment=None):
+    """Resolve a NEW lab experiment's explicit rule or the scoped ENERGY-B default.
+
+    Deliberately not used to reinterpret old FQ1-FQ10 fixtures or Navigator.
+    """
+    return (experiment or {}).get("arrival_rule", NEW_LAB_METRIC_ARRIVAL_DEFAULT)
+
 import numpy as np
 from scipy.integrate import solve_ivp
 
@@ -60,8 +72,12 @@ def calculate_fq11(ship,experiment):
         raise ValueError("FQ11 requires torch, metric, arrival_match in order")
     if phase[0].get("mode")!="CRUISE" or phase[1].get("mode")!="NORMAL":
         raise ValueError("FQ11 only validates CRUISE/NORMAL")
-    if phase[1].get("model")!="lab_energy_v1" or phase[1].get("arrival_rule")!="ENERGY_ORBIT_RELATIVE_B":
-        raise ValueError("FQ11 must explicitly select the ENERGY B lab card")
+    # A NEW lab_energy_v1 Metric phase defaults to B when no rule is supplied.
+    # Explicit alternatives are never silently overwritten; the specialized
+    # FQ11-CALC calculator itself supports B only.
+    resolved_rule=new_lab_metric_arrival_rule(phase[1])
+    if phase[1].get("model")!="lab_energy_v1" or resolved_rule!="ENERGY_ORBIT_RELATIVE_B":
+        raise ValueError("FQ11-CALC requires the ENERGY B lab card")
     card=ship["metric"].get("lab_energy_v1")
     if not card or card["law"]!="energy_orbit_relative_v1" or card.get("enabled_by_default") is not False:
         raise ValueError("FQ11 requires a separate default-off lab Metric card")

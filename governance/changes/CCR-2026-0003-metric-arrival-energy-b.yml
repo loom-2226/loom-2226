@@ -1,0 +1,169 @@
+schema_version: '1.0'
+record_type: CANON_CHANGE_REQUEST
+id: CCR-2026-0003
+title: Scoped ENERGY-B Solar System Metric arrival-velocity rule
+status: APPROVED_FOR_IMPLEMENTATION
+proposal_revision: 1
+created_date: '2026-11-02'
+updated_date: '2026-11-02'
+origin:
+  issue: 'kT ruling 2026-11-02 on draft intake PR #445'
+  source_type: MIXED
+  source_references:
+    - 'https://github.com/loom-2226/loom-2226/pull/445'
+    - 'https://github.com/loom-2226/loom-2226/pull/442'
+    - 'https://github.com/loom-2226/loom-2226/pull/443'
+    - 'https://github.com/loom-2226/loom-2226/pull/444'
+    - canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
+  evidentiary_status: MIXED_EXPLAINED
+  summary: >-
+    kT approves a fictional operational ENERGY-B arrival-velocity closure in
+    ordinary calibrated Solar System Metric transit. Step 1-4 calculations and
+    FQ11/FQ12 finite lab demonstrations inform this design choice but do NOT
+    independently prove the physical Sun coupling or time-dependent E/p/L.
+proposal:
+  reason: >-
+    Make a specific, conservatively scoped Metric arrival-velocity rule usable
+    in the simulated world while retaining the general path-dependent
+    U^M_gamma propagator and unresolved physics boundaries.
+  claims_added:
+    - ENERGY speed and Sun-orbit-relative B heading govern natural arrival velocity in scoped operational regime.
+    - Paid ordinary departure/arrival torch or RCS is required for forbidden starts or velocity mismatch.
+    - Sun is the declared nonlocal E/p/L partner including position-transport angular momentum.
+    - New Wayfarer LAB Metric experiments default to ENERGY-B without changing source-pinned FQ1-FQ10.
+  claims_modified:
+    - General U^M_gamma remains empirical and path-dependent, now with a scoped governing arrival-velocity rule.
+  claims_retired:
+    - The interpretation that standard Solar Metric arrival velocity is wholly unspecified in this scoped regime.
+  affected_governing_sources:
+    - canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
+    - governance/current/LOOM_2226_Canon_Baseline_Manifest_v2.4.md
+    - governance/current/LOOM_2226_Baseline_File_Hashes_v2.4.md
+    - governance/current/LOOM_2226_Canon_v2.4_Validation_Report.md
+    - governance/current/LOOM_AUTHORITY_MODEL.yml
+    - governance/dependencies/component-map.yml
+    - manifests/current/LOOM_COMPATIBILITY.yml
+  proposed_authority_relationship:
+    type: IN_PLACE_NEW_VERSION_SUPERSEDING_PRIOR
+    parent_source: canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
+    scope: >-
+      Canon II sections 7.1-7.3, solely calibrated ordinary Solar System Metric
+      arrival velocity, conservation bookkeeping and explicit limits.
+  explicit_non_scope:
+    - Navigator remains parked and untouched.
+    - No general U^M_gamma constitutive solution, local coupling mechanism or N-body work closure.
+    - No universal half-Hill collapse boundary, orbital capture or thermal hardware promotion.
+    - No change to existing FQ1-FQ10 qualified fixtures, cards, results or execution.
+    - No automatic change to legacy lab Metric or canonical operation HOLD.
+frozen_research:
+  involved: false
+  sources: []
+  qualification_state: NOT_APPLICABLE
+  rule: Scientific frozen PR #19/#16 not used as evidence or modified.
+downstream_impact:
+  component_map_reviewed: true
+  components:
+    - component_id: canon_ii_engineering_ships
+      state: REVALIDATION_REQUIRED
+      rationale: In-place addition to the governing scoped arrival-velocity statement.
+    - component_id: canon_baseline_v2_4
+      state: REVALIDATION_REQUIRED
+      rationale: Update authority, hashes, validation and supersession records.
+    - component_id: wayfarer_engineering
+      state: REVIEW_REQUIRED
+      rationale: New lab Metric experiments use ENERGY-B by default; existing FQ remain pinned.
+    - component_id: navigator
+      state: BLOCKED_PENDING_UPSTREAM
+      rationale: Navigator change explicitly parked by kT.
+    - component_id: world_db
+      state: UNCHANGED_COMPATIBLE
+      rationale: No data/schema change.
+    - component_id: solar_gis
+      state: UNCHANGED_COMPATIBLE
+      rationale: No map/data change.
+baseline_obligations:
+  authority_registry_update_required: true
+  canon_baseline_manifest_update_required: true
+  file_hash_manifest_update_required: true
+  validation_report_update_required: true
+  compatibility_manifest_update_required: true
+  archive_or_supersession_update_required: true
+  notes: >-
+    In-place Canon II §7.1-7.3 supersession of the prior scoped velocity-open
+    interpretation only, with U^M_gamma remaining general. Prior version is in
+    Git history; no new canon volume or archive copy is required.
+validation:
+  required_tests:
+    - Canon II arrival law/circular special case/formula and explicit boundary review.
+    - Baseline SHA256 and authority/CCR registry consistency verification.
+    - Whole Wayfarer lab 61-test regression and FQ1-FQ4 full/half fresh exact parity.
+    - FQ5-FQ10 unchanged-source/fixture/results hash comparison with accepted main.
+  required_qualification:
+    - FQ11 and FQ12 previously merged lab evidence remains provenance, not proof of the miracle.
+    - Sun E/p/L ledger identities are not reported as independent tests.
+  required_external_verification: []
+assurance:
+  walter_required: true
+  status: PASS
+  finding_ids:
+    - WALTER-CCR-2026-0003-SCOPED-CANON-AND-LEGACY-PARITY
+  evidence: >-
+    Bounded read-only #LOOMSAFE assurance: 75 checks PASS, including CCR approval
+    and registry parity, Canon II scope and unverified physical claims,
+    canonical HOLD/unchanged Navigator, new-lab default call site and focused
+    test, ten baseline SHA-256 entries, manifest blob, 61/61 flight lab,
+    39/39 full and 39/39 half exact parity, and 56 untouched legacy FQ files.
+    The bounded 75-check verification passed. CCR remains
+    APPROVED_FOR_IMPLEMENTATION for the canon implementation merge;
+    the actual authoritative main merge and post-merge IMPLEMENTED
+    transition are separate, governed events.
+  concerns:
+    - No real full time-dependent N-body work/solar torque closure.
+    - Default selection is only for NEW lab Metric experiments; no Navigator or legacy FQ changes.
+implementation:
+  implementation_pr: null
+  target_branch: main
+  merged_commit: null # actual merge SHA does not exist in the draft; post-merge audit obligation
+  implemented_date: null
+  main_merge_required_for_effect: true
+  changed_governing_sources:
+    - canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
+    - governance/current/LOOM_2226_Canon_Baseline_Manifest_v2.4.md
+    - governance/current/LOOM_2226_Baseline_File_Hashes_v2.4.md
+    - governance/current/LOOM_2226_Canon_v2.4_Validation_Report.md
+    - governance/current/LOOM_AUTHORITY_MODEL.yml
+    - governance/dependencies/component-map.yml
+    - manifests/current/LOOM_COMPATIBILITY.yml
+  downstream_followup_issues:
+    - Navigator implementation parked under separate future authority.
+    - Optional FQ12 ~0.82 m/s transverse RCS cleanup is later non-canon flight procedure.
+decision:
+  decision_authority: Kevin
+  decision_date: '2026-11-02'
+  rationale: >-
+    Approve a scoped ENERGY-B operational arrival law with its declared Sun
+    momentum/torque books, frozen-potential assumptions and known physical
+    limits; retain the general U^M_gamma and park Navigator.
+  disposition: APPROVED_FOR_IMPLEMENTATION
+supersession:
+  supersedes: []
+  superseded_by: null
+history:
+  - date: '2026-11-02'
+    event: CREATED_APPROVED_FOR_IMPLEMENTATION
+    status: APPROVED_FOR_IMPLEMENTATION
+    actor: Kevin
+    note: >-
+      kT explicitly approved Canon II §7.1-7.3 scoped rule and new lab default,
+      subject to review of draft implementation PR before merge.
+  - date: '2026-11-02'
+    event: MERGE_AUTHORIZED_WITH_TWO_STAGE_CCR_TRANSITION
+    status: APPROVED_FOR_IMPLEMENTATION
+    actor: Kevin
+    note: >-
+      kT approved #446 for merge provided wired new-lab default, WALTER,
+      61-test lab regression, FQ1-FQ4 exact parity and hash register all PASS.
+      kT accepted the enforced LG006 authority rule; CCR remains
+      APPROVED_FOR_IMPLEMENTATION with implemented_pr null for #446.
+      A separate follow-up PR will mark IMPLEMENTED, set implemented_pr
+      446, and record the actual #446 merge SHA.

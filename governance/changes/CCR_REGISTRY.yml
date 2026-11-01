@@ -4,7 +4,7 @@ id_format: CCR-YYYY-NNNN
 
 allocation:
   current_year: 2026
-  next_sequence: 3
+  next_sequence: 4
   ids_are_never_reused: true
 
 allowed_statuses:
@@ -40,4 +40,13 @@ records:
     originating_issue: Kevin canonization directive, 2026-10-01
     approved_pr: 345
     implemented_pr: 346
+    supersedes: []
+
+  - id: CCR-2026-0003
+    path: governance/changes/CCR-2026-0003-metric-arrival-energy-b.yml
+    status: APPROVED_FOR_IMPLEMENTATION
+    title: Scope ENERGY-B Metric arrival velocity within Canon II sections 7.1–7.3
+    originating_issue: kT ruling, 2026-11-02, following draft intake PR #445
+    approved_pr: 445
+    implemented_pr: null
     supersedes: []
