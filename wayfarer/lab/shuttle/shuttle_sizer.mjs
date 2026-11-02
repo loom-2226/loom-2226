@@ -16,9 +16,9 @@ function sampleDirections(count,digits,levels){
  const directions=[];
  for(let x=1;directions.length<count && x<levels**digits;x++){
   let q=x,v=[];for(let j=0;j<digits;j++){v.push(q%levels);q=Math.floor(q/levels);}
-  const first=v.find(z=>z!==0);if(first===1)directions.push(v);
+  if(v.some(z=>z!==0))directions.push(v);
  }
- if(directions.length<count)throw Error("Not enough distinct pairwise-balanced directions");
+ if(directions.length<count)throw Error("Not enough distinct coordinate-balanced directions");
  return directions;
 }
 function samples(d,stage,limit){
@@ -307,7 +307,7 @@ function report(d,stage,hash,a,graphics){
   "**Run:** \`node wayfarer/lab/shuttle/shuttle_sizer.mjs --stage "+stage+"\`.",
   "**Graphics:** "+graphics.map(x=>"\`"+x+"\`").join(", ")+".","",
   "## Computed gates: per-sample status and sample PASS fractions",
-  "Design: "+a.design.rows+" balanced, pairwise-stratified min/mid/max samples over "+a.design.fields.length+
+  "Design: "+a.design.rows+" balanced, coordinate-stratified min/mid/max samples over "+a.design.fields.length+
    " independent swept inputs. This is **not** full Cartesian probability; PASS fractions are empirical design fractions, not calibrated probabilities.",
   "| Gate | PASS | FAIL | OPEN | PASS / resolved | Missing required inputs |",
   "|---|---:|---:|---:|---:|---|"];
