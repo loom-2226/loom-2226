@@ -649,15 +649,15 @@
       "unit": "m2/t_wet",
       "classification": "DERIVED_CONDITIONAL",
       "range": {
-        "min": 0.11,
-        "max": 0.87
+        "min": 0.114,
+        "max": 0.607
       },
       "confidence": "LOW",
       "sources": [
         "https://nssdc.gsfc.nasa.gov/planetary/factsheet/venusfact.html"
       ],
       "relation_to_v1": "LEAVES_WET_MASS_AND_ROLLING_CONCEPT_OPEN",
-      "detail": "Historical 23.1t water explicitly retained as v1 assumed tank. At 35.4t dry plus full 23.1t, 58.5t is conditional wet sensitivity; wing-only fallback."
+      "detail": "S/mwet = g/(0.5 rho V² CL); Venus g8.87, rho65, V30-40, CL0.5-1.5. Value is 0.114-0.607m²/t; at 60t yields 6.8-36.4m². Wing fallback only."
     },
     {
       "id": "titan_air_density_vs_earth_sea_level",
