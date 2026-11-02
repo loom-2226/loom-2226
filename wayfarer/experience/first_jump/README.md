@@ -1,46 +1,53 @@
-# Wayfarer: First Jump v0.2
+# Wayfarer First Jump v0.3 · Earth → Mars
 
-ALL bodies. ALL sponsors. 2026–2226.
+**ALL bodies. ALL sponsors. 2026–2226.**
+**DRAFT PLAYTEST, NON-CANON, NON-RUNTIME FLIGHT, NO NAVIGATOR.**
 
-**DRAFT / EARTH → MARS PLAYTEST ONLY.** FQ11-derived flight figures. No Navigator, new physics, invented collapse radius, orbital capture, new rendered assets, or canon changes.
+## Run on the Pixel
 
-## Pixel: one command (Termux)
+In Termux with Git, Python and curl installed:
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/loom-2226/loom-2226/experience/first-jump-v02-story-evidence-pixel/wayfarer/experience/first_jump/start_pixel.sh | bash
+```sh
+curl -fsSL https://raw.githubusercontent.com/loom-2226/loom-2226/experience/first-jump-v03-animated-solar-display/wayfarer/experience/first_jump/start_pixel.sh | bash
 ```
 
-Requires Git, Python and curl installed in Termux. The launcher makes its **own** sparse checkout in `~/.local/share/loom-first-jump-v02`, opens **http://127.0.0.1:8879**, and does not modify any existing LOOM checkout. Stop with Ctrl-C. Do not use the older v0.1 localhost port 8878 for testing this draft.
+This uses a separate lightweight `~/.local/share/loom-first-jump-v03` checkout and opens **http://127.0.0.1:8880**. It leaves v0.1/v0.2 and existing LOOM repositories untouched. Ctrl-C in Termux stops the local server.
 
-## Mara's live channel
+On first start, the launcher uses existing private Termux API key configuration, or offers a hidden key prompt. If no API key is provided, Mara has in-world scripted comms. If configured, each question sends the **selected accepted FQ11 case** and **Canon II §§7.1a/b excerpts** to the live model. In-character responses are screened against their cited FQ11 numbers, with provider outcomes and unsupported claims in the local JSONL session log.
 
-The earlier Pixel screenshot clearly showed `OFFLINE EVIDENCE` and an `evidence_fallback` response. In v0.1, that exact status means the running server saw **no `OPENAI_API_KEY`**. That is why there was no live LLM call. This cannot be fixed by rewriting dialogue alone.
+## Playable controls
 
-v0.2 checks, in order: environment `OPENAI_API_KEY`; existing Pixel `~/.config/loom/openai.env`; and dedicated `~/.config/loom/first_jump.env`. If absent it **prompts once in Termux** for an OpenAI API key (input hidden). If supplied, saves it only on that device in the dedicated file (mode 600) and passes it to the server process; it is never returned to the browser. Press Enter instead to play scripted comms. The terminal prints `LIVE MODEL CONFIGURED` or `SCRIPTED / MISSING KEY`; the evidence drawer includes channel configuration. A configured key is **not proof the API responded**: each question's `live_llm` success or specific API/fallback reason is stored in the session JSONL. External model connectivity was not exercised by automated tests.
+- Captain's **GO/HOLD** at each decision; first session always nominal. Under-burn is on replay or explicitly selected in the ship's record.
+- **NAV/DECK** swaps an animated solar map and existing `cmd_pov` / Wayfarer art. Earth and Mars occupy precisely precompiled display positions; the ship is **at Earth**, then **at Mars**, never drawn along a transit trajectory.
+- During the Metric interval the source-time planet context advances; the ship stays at Earth until the arrival effect at Mars. **No connecting line** or ordinary-space occupancy. Animated pulses are theatrical, not sampled Metric physics.
+- At arrival a separate **stylised Mars close view** contains a Wayfarer approach marker but **no radius, range, scale bar, physical XYZ coordinate or capture orbit**.
+- Use **PAUSE/RESUME**, **SCRUB** within the current authorised phase (the command automatically holds playback), **+/- zoom**, **rotate buttons**, or drag and pinch the map on the Pixel.
+- Numbers stay grounded in accepted FQ11 `timeline.json`. Tap an **earned** reading to open the actual FQ11 JSON pointer in the closed-by-default evidence panel. Mara's speaking text stays free of citations and audit language. End scene is: “Holding at Mars approach shell. Mars Traffic has us from here.” Only **Replay** remains at completion.
 
-At each free-text question the Python server sends *only* the selected accepted FQ11 case, Canon II §§7.1a/b excerpts, and the player's question to the live Responses API. The model is instructed to return in-world lines and internal support keys; the server validates the referenced keys and screens every spoken number against the specifically cited current-case timeline values, rejecting bad lines into the log and using an in-character fallback. No browser-side model or physics calculation. Screened numeric provenance is the narrow earned guard, not independent validation of every possible qualitative claim.
+## Display data and authority
 
-## Two layers, one ship
+`map_display.json` is a **read-only presentation product** generated once by `build_map_display.py`, not by the Pixel. Its sole planetary source is **the existing FQ11 input snapshot**:
+`wayfarer/lab/flight_qual/fq11_calc_metric_energy_b_20261101/FQ11_INPUT.json` at **2226-08-29T05:00:00Z** (original Solar-system `ephemeris_states` source). It uses the **same FQ11 `metric_arrival_v1.planetary_state`** Sun-only ephemeris propagation already used by FQ11 to compile 189 Earth/Mars display samples and contextual orbit lines, projected once into fixed Sun-centered map coordinates. These are **planetary display context, not flight values**. Generation runs offline with numpy/scipy; the Pixel requires neither. At server startup, the input/source epoch hash, accepted FQ11 result hash, display role and all phase durations are validated. No Navigator core or solver is imported or run.
 
-**STORY**: In-character command deck, torch, weave, Mars approach, trim, and Mars Traffic handoff. Mara/crew speech has no footnotes, lab qualification language or audit status. Existing `cmd_pov.png` and exterior Wayfarer images are cropped in CSS as immersive scene backdrops. Mars grows as a **purely theatrical CSS approach cue**, *not* range or trajectory rendering. No new image assets.
+**Important visual limitation:** Earth and Mars move physically only a tiny fraction of a map pixel across a short Metric leg. The source-clock advance is real within the FQ11 ephemeris model; bright jump pulses, camera controls and the final Mars view communicate the discontinuous transfer. It would be scientifically dishonest to animate rapid orbital motion or a continuous ship path just to make the picture dramatic.
 
-**EVIDENCE**: Ship's record panel, closed by default. Numeric HUD readings have an **earned** mark. Tap a figure and the server fetches the exact FQ11 JSON pointer, then logs the inspection. The drawer also holds an optional replay-case selector and diagnostic status, out of the story view.
+FQ11 finite preburn, Metric duration, RCS and trim remain the only source for flight measurements. No exact ordinary-flight sample history is available in accepted results, so **no interpolated burn/recovery trajectory is presented**. That remains a separate later PR. The preburn delta-v is not shown because it is not a source FQ11 field.
 
-First play is **NOMINAL** unconditionally. Replay is seeded and may choose under-burn; optional replay setting selects nominal/under-burn explicitly. Captain GO/HOLD remains at actionable phases; end/quit screens show only **Replay**. Final on-screen line: “Holding at Mars approach shell. Mars Traffic has us from here.”
+The server alone owns **viewing-time phase progression**. Scrub and pause change the presentation cursor, not authoritative campaign time or ship state. JavaScript only draws precompiled screen coordinates and manipulates camera zoom/rotation. No browser-side physics, ephemeris propagation, or ship position calculation.
 
-### Flight evidence is unchanged
+**No new renders.** The solar map is lightweight SVG in the existing UI; original art remains. No Navigator integration, no capture, no certified collapse position, no new physics, no canon mutation. This PR includes v0.2 story/evidence changes from draft #451 as well as v0.3; it is reviewable against main as a single unmerged change.
 
-Source: `wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json` on merged main. `timeline.json` contains copied values with individual source pointers and SHA256, verified at startup. Neither server nor browser simulates a trajectory, calculates physical quantities, or changes flight state. No 4.83 km/s preburn Δv appears, because FQ11 does not directly report that field. No numerical Earth/Mars shell is assigned. The existing FQ11 frozen-potential and E/p/L identity limitations remain intact behind the presentation.
+## Test
 
-Session logs: `~/.local/state/loom/first_jump/<session>.jsonl`. They preserve questions, live/scripted replies, references, rejected unsupported numerical claims, GO/HOLD, viewing time per phase, replay seed/case, and quit point. The user may inspect logs locally; **the browser shows only the relevant number's provenance on request**.
-
-## Checks
-
-```bash
+```sh
 python3 -m unittest discover -s wayfarer/experience/first_jump -p 'test_*.py' -v
 bash -n wayfarer/experience/first_jump/start_pixel.sh
 ```
 
-Local tests cover source integrity, in-world JSON model protocol with mocked Responses API, numeric guard, first-nominal branch, replay variant, HTTP/evidence path and logging. Actual live LLM reply and Pixel visual acceptance require a configured key and on-device playtest; do not claim either from a local mock.
+The display compiler can be rerun **only in an offline engineering checkout with NumPy/SciPy**:
 
-Stop at draft. No merge.
+```sh
+python3 wayfarer/experience/first_jump/build_map_display.py
+```
+
+Stop at draft PR. Keep Navigator parked.

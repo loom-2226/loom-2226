@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # One-command Pixel entry: isolated sparse checkout, existing art, accepted FQ11.
 set -euo pipefail
-BRANCH="experience/first-jump-v02-story-evidence-pixel"
-ROOT="${FIRST_JUMP_DIR:-$HOME/.local/share/loom-first-jump-v02}"
-PORT="${FIRST_JUMP_PORT:-8879}"
+BRANCH="experience/first-jump-v03-animated-solar-display"
+ROOT="${FIRST_JUMP_DIR:-$HOME/.local/share/loom-first-jump-v03}"
+PORT="${FIRST_JUMP_PORT:-8880}"
 PYTHON_BIN="$(command -v python || command -v python3 || true)"
 [[ -n "$PYTHON_BIN" ]] || { echo "Python required (Termux: pkg install python git)"; exit 2; }
 if [[ ! -d "$ROOT/.git" ]]; then
@@ -17,6 +17,7 @@ if [[ ! -d "$ROOT/.git" ]]; then
   git sparse-checkout set --no-cone \
     '/wayfarer/experience/first_jump/*' \
     '/wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json' \
+    '/wayfarer/lab/flight_qual/fq11_calc_metric_energy_b_20261101/FQ11_INPUT.json' \
     '/canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md' \
     '/wayfarer/render/out/cmd_pov.png' '/wayfarer/render/out/cmd_cutaway.png' \
     '/wayfarer/render/out/ext_burn.png' '/wayfarer/render/out/ext_metric.png' \

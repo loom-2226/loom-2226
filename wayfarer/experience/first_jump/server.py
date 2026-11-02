@@ -5,6 +5,8 @@ No Navigator or mutable simulation state.
 """
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+import hashlib
+import bisect
 from urllib.request import Request, urlopen
 from urllib.error import URLError
 from threading import RLock
@@ -34,6 +36,37 @@ ART = {
 ART_DIR = ROOT / "wayfarer/render/out"
 LOG_DIR = Path(os.getenv("FIRST_JUMP_LOG_DIR", str(Path.home() / ".local/state/loom/first_jump")))
 CANON_PATH = ROOT / "canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md"
+MAP_PATH = HERE / "map_display.json"
+FQ11_INPUT = ROOT / "wayfarer/lab/flight_qual/fq11_calc_metric_energy_b_20261101/FQ11_INPUT.json"
+FQ11_RESULT = ROOT / "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json"
+
+def load_map(timeline):
+    """Only an already compiled, source-bound ephemeris display. No Navigator."""
+    mapdata = json.loads(MAP_PATH.read_text(encoding="utf-8"))
+    if mapdata.get("schema") != "FIRST_JUMP_SOLAR_DISPLAY_v0.3":
+        raise ValueError("Invalid map display schema")
+    if mapdata.get("metric_path") is not None or mapdata.get("mars_approach_range") is not None:
+        raise ValueError("Map must not invent a Metric path or collapse radius")
+    if mapdata["source_input_sha256"] != hashlib.sha256(FQ11_INPUT.read_bytes()).hexdigest():
+        raise ValueError("FQ11 ephemeris source changed")
+    if mapdata["source_fq11_result_sha256"] != timeline["source_sha256"]:
+        raise ValueError("Map frame set does not match accepted FQ11")
+    if mapdata["epoch_utc"] != json.loads(FQ11_INPUT.read_text())["epoch_utc"]:
+        raise ValueError("Map source epoch mismatch")
+    for case, evidence in mapdata["cases"].items():
+        q=timeline["cases"][case]
+        expected = {"preburn": q["preburn_s"]["value"] +
+                        sum(p["duration_s"] for p in json.loads(FQ11_RESULT.read_text())["measured_cases"][
+                        0 if case=="NOMINAL" else 1]["phase_evidence"]["preburn"] if p["kind"]=="coast"),
+                    "metric":q["metric_s"]["value"],
+                    "turn":q["turn_s"]["value"],"trim":q["trim_s"]["value"]}
+        if any(abs(evidence["phase_durations_s"][k] - v)>1e-7 for k,v in expected.items()):
+            raise ValueError("Map phase times are not accepted FQ11")
+    samples=mapdata["samples"]
+    if not samples or not all(samples[i]["elapsed_s"] < samples[i+1]["elapsed_s"] for i in range(len(samples)-1)):
+        raise ValueError("Invalid map time axis")
+    return mapdata
+
 # Verbatim bounded canonical excerpts, not independent physical claims.
 def canon_excerpt():
     text = CANON_PATH.read_text(encoding="utf-8")
@@ -226,6 +259,21 @@ class Session:
         self.mode = "complete" if self.phase == "debrief" else "awaiting"
         self.log("complete" if self.mode == "complete" else "gate_open")
 
+    def scrub(self, progress):
+        """Captain-controlled viewing cursor, never physical flight execution."""
+        if self.phase not in PRESENTATION_S or self.mode not in ("active", "held"):
+            raise ValueError("No active phase to scrub")
+        if not isinstance(progress, (int,float)) or isinstance(progress, bool) or not 0 <= progress <= 99.9:
+            raise ValueError("Viewing percent must be 0..99.9")
+        self.tick()
+        if self.mode not in ("active", "held"):
+            raise ValueError("Phase ended while seeking")
+        self.spent = PRESENTATION_S[self.phase] * float(progress)/100.
+        self.since = None
+        self.mode = "held"
+        self.log("captain_scrub", viewing_progress_percent=progress,
+                 viewing_s=round(self.spent,3))
+
     def command(self, action):
         self.tick()
         if action == "quit":
@@ -248,7 +296,7 @@ class Session:
         else:
             raise ValueError("Command not available in current phase")
 
-    def view(self):
+    def view(self, mapdata=None):
         self.tick()
         phase = self.phase
         display_phase = phase
@@ -258,7 +306,23 @@ class Session:
             progress = 0
         else:
             progress = round(100 * self.spent / PRESENTATION_S[phase], 1)
+        # Presentation time from accepted FQ11 phase durations. Map frames are
+        # precomputed by FQ11's source-epoch ephemeris, not the browser.
+        map_elapsed=0.0
+        map_index=0
+        if mapdata is not None:
+            phase_times=mapdata["cases"][self.case]["phase_durations_s"]
+            if phase == "debrief":
+                map_elapsed=sum(phase_times.values())
+            elif phase in phase_times:
+                order=("preburn","metric","turn","trim")
+                map_elapsed=sum(phase_times[k] for k in order[:order.index(phase)])
+                map_elapsed+=phase_times[phase]*self.spent/PRESENTATION_S[phase]
+            map_index=max(0,bisect.bisect_right(
+                [row["elapsed_s"] for row in mapdata["samples"]],map_elapsed)-1)
+            map_index=min(map_index,len(mapdata["samples"])-1)
         return {
+            "map_index": map_index, "map_epoch_elapsed_s":round(map_elapsed,4),
             "id": self.id, "seed": self.seed, "phase": phase,
             "mode": self.mode, "progress_percent": progress,
             "scene": ART[display_phase], "case_revealed": self.i >= 2,
@@ -278,6 +342,7 @@ class Server(ThreadingHTTPServer):
         if recorded != self.timeline:
             raise ValueError("Timeline differs from authoritative FQ11; regenerate & review")
         self.excerpts = canon_excerpt()
+        self.mapdata = load_map(self.timeline)
         self.lock = RLock()
         self.session = Session(self.timeline, first=True)
         super().__init__(address, handler)
@@ -310,9 +375,11 @@ class Handler(BaseHTTPRequestHandler):
             return self.page(ART_DIR / path.rsplit("/", 1)[1], "image/png")
         if path == "/api/state":
             with self.server.lock:
-                return self.send(self.server.session.view())
+                return self.send(self.server.session.view(self.server.mapdata))
         if path == "/api/timeline":
             return self.send(self.server.timeline)
+        if path == "/api/map":
+            return self.send(self.server.mapdata)
         if path == "/api/diagnostics":
             with self.server.lock:
                 return self.send({"narration": "live_available" if os.getenv("OPENAI_API_KEY", "").strip() else "missing_api_key",
@@ -341,12 +408,16 @@ class Handler(BaseHTTPRequestHandler):
                         s.tick()
                         s.log("quit", quit_point=s.phase, reason="restart")
                     self.server.session = Session(self.server.timeline, seed, requested_case=body.get("case"))
-                    return self.send(self.server.session.view())
+                    return self.send(self.server.session.view(self.server.mapdata))
                 if self.path == "/api/command":
-                    if body.get("action") not in ("go", "hold", "quit"):
+                    action=body.get("action")
+                    if action == "scrub":
+                        s.scrub(body.get("percent"))
+                    elif action in ("go", "hold", "quit"):
+                        s.command(action)
+                    else:
                         raise ValueError("Unknown command")
-                    s.command(body["action"])
-                    return self.send(s.view())
+                    return self.send(s.view(self.server.mapdata))
                 if self.path == "/api/evidence":
                     field = body.get("field")
                     fact = s.t["cases"][s.case].get(field) if isinstance(field, str) else None
