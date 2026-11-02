@@ -46,6 +46,27 @@
       "provenance": "ONLINE",
       "source": "SI unit definition",
       "description": "Unit conversion"
+    },
+    "W_per_GW": {
+      "value": 1000000000,
+      "unit": "W/GW",
+      "provenance": "ONLINE",
+      "source": "SI unit prefix definitions (not physical efficiency assumptions)",
+      "description": "Explicit unit conversion; never use unrelated kg/t to convert power."
+    },
+    "W_per_MW": {
+      "value": 1000000,
+      "unit": "W/MW",
+      "provenance": "ONLINE",
+      "source": "SI unit prefix definitions (not physical efficiency assumptions)",
+      "description": "Explicit unit conversion; never use unrelated kg/t to convert power."
+    },
+    "W_per_kW": {
+      "value": 1000,
+      "unit": "W/kW",
+      "provenance": "ONLINE",
+      "source": "SI unit prefix definitions (not physical efficiency assumptions)",
+      "description": "Explicit unit conversion; never use unrelated kg/t to convert power."
     }
   },
   "geometry": {
