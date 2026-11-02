@@ -610,7 +610,7 @@ function report(d,stage,hash,a,graphics){
  "|---:|---:|---:|---:|---:|---:|");
  const be=evaluate(d,stage,first.inputs,a.geometry);
  for(const caseCount of d.thermal.crew_cases){const crew=number(caseCount),t=be.venus.thermal[crew];add("| "+crew+" | "+f(t.coolerElectricalKW)+" | "+f(t.batteryOnlyCompressorKW)+" | "+f(t.batteryOnlyEnergyKWh)+" | "+f(t.batteryOnlyMassLowT)+" | "+f(t.batteryOnlyMassHighT)+" |");}
- "### Representative reactor and cooling power","| Crew | Load W | cooler electric kW | installed cooler bus kW | reactor run MW | ground vent MW | capacity MW | compressor electric MW | D-shuttle | D-pod hours |",
+ add("","### Representative reactor and cooling power","| Crew | Load W | cooler electric kW | installed cooler bus kW | reactor run MW | ground vent MW | capacity MW | compressor electric MW | D-shuttle | D-pod hours |",
  "|---:|---:|---:|---:|---:|---:|---:|---:|---|---:|");
  const ev=evaluate(d,stage,first.inputs,a.geometry);
  for(const q of d.thermal.crew_cases){const crew=number(q),t=ev.venus.thermal[crew];add("| "+crew+" | "+f(t.loadW)+" | "+f(t.coolerElectricalKW)+" | "+f(t.reactorBusLimitKW)+" | "+f(t.reactorRunKW/number(d.si.kW_per_MW))+" | "+f(t.rejectKW/number(d.si.kW_per_MW))+" | "+f(t.rejectLimitKW/number(d.si.kW_per_MW))+" | "+f(t.compressorKW/number(d.si.kW_per_MW))+" | "+t.status+" | "+f(t.podHours)+" |");}
