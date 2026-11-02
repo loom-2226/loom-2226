@@ -580,7 +580,7 @@ function report(d,stage,hash,a,graphics){
  f(d.power.kit_house_reactor_thermal_MW.min*number(d.power.kit_house_reactor_min_stable_fraction))+"–"+
  f(d.power.kit_house_reactor_thermal_MW.max*number(d.power.kit_house_reactor_min_stable_fraction))+"MW exceeds the currently assumed "+
  f(d.thermal.hot_side_rejection_capacity_kW.min)+"–"+f(d.thermal.hot_side_rejection_capacity_kW.max)+"kW hot-loop rejection capacity. Physical independent heat dump, charge storage or short duty cycling is OPEN and NOT fabricated.",
- "### Representative reactor and cooling power",,"| Crew | Load W | cooler electric kW | aux bus allowance kW | hot-loop reject kW | available reject kW | D-shuttle | D-pod hours |",
+ "### Representative reactor and cooling power","| Crew | Load W | cooler electric kW | aux bus allowance kW | hot-loop reject kW | available reject kW | D-shuttle | D-pod hours |",
  "|---:|---:|---:|---:|---:|---:|---|---:|");
  const ev=evaluate(d,stage,first.inputs,a.geometry);
  for(const q of d.thermal.crew_cases){const crew=number(q),t=ev.venus.thermal[crew];add("| "+crew+" | "+f(t.loadW)+" | "+f(t.coolerElectricalKW)+" | "+f(t.reactorBusLimitKW)+" | "+f(t.rejectKW)+" | "+f(t.rejectLimitKW)+" | "+t.status+" | "+f(t.podHours)+" |");}
