@@ -136,14 +136,16 @@ function stage2(d,s,dryResult){
   if(q.status==="OPEN"){modes[mode]={status:"OPEN",missing:q.missing,waterAtOrbit:null,delta_v_orbit:null};continue;}
   const afterEntry=reactionStart-entryT;
   const massStart=dryT+thermalT+cargoT+afterEntry;
-  const waterUse=massStart*(1-Math.exp(-requiredDV/ve));
-  const waterEnd=afterEntry-waterUse;
+  const waterDemand=massStart*(1-Math.exp(-requiredDV/ve));
+  const waterPass=afterEntry>=0&&waterDemand<=afterEntry+Number.EPSILON*massStart;
+  const actualWaterUsed=Math.max(0,Math.min(Math.max(0,afterEntry),waterDemand));
+  const waterEnd=Math.max(0,afterEntry-actualWaterUsed);
+  const waterShortfall=Math.max(0,waterDemand-afterEntry);
   const P=jetGW*(kg**3),vel=ve*km,thrustN=2*P/vel,mdot=thrustN/vel;
-  const burnSeconds=waterUse*kg/mdot;
+  const burnSeconds=actualWaterUsed*kg/mdot;
   const theoreticalDV=ve*Math.log(massStart/(dryT+thermalT+cargoT));
-  const waterPass=afterEntry>=0&&waterEnd>=-Number.EPSILON*massStart;
   const status=rotorGate.status==="OPEN"?"OPEN":waterPass&&rotorGate.status==="PASS"?"PASS":"FAIL";
-  modes[mode]={status,waterPass,waterAtOrbit:waterEnd,waterUsedTorchT:waterUse,
+  modes[mode]={status,waterPass,waterAtOrbit:waterEnd,waterDemandT:waterDemand,waterShortfallT:waterShortfall,waterUsedTorchT:actualWaterUsed,
     delta_v_orbit:waterPass?requiredDV:Math.max(0,theoreticalDV),
     delta_v_required:requiredDV,thrustN,mdot,burnSeconds,
     timeH:burnSeconds/seconds,missing:rotorGate.missing,
@@ -171,21 +173,31 @@ function stage2(d,s,dryResult){
   modes.low.status==="OPEN"||modes.high.status==="OPEN"?"OPEN":"FAIL";
  const waterOpen=[...new Set([...rotorGate.missing,...(modes.low.missing||[]),...(modes.high.missing||[])])];
  return {rotor:rotorGate,gateC,waterMissing:waterOpen,handover,flightTimeH,baseMass,mode:modes,thermal,
-  phaseLedger:phaseLedger(d,s,entryT,rotorGate,modes,thermalT),altProfile};
+  phaseLedger:phaseLedger(d,s,entryT,rotorGate,modes,thermalT,thermal),altProfile};
 }
-function phaseLedger(d,s,entry,rotor,modes,thermalT) {
+function phaseLedger(d,s,entry,rotor,modes,thermalT,thermal) {
  const initial=val(d,"water.reaction_water_initial_t",s),stages=["entry","rotor deploy","rotor descent","touchdown","surface stay","rotor climb","rotor-to-torch handover","torch ascent to orbit"];
  const active=Object.fromEntries(["low","high"].map(mode=>{
   let reaction=initial;
+  const coldState=Object.fromEntries(d.thermal.crew_cases.map(q=>{const crew=number(q);return [crew,thermal[crew]?.capacityJ??null]}));
   const rows=stages.map(phase=>{
    const before=reaction;let debit=null;
    if(phase==="entry")debit=entry;
    else if(["rotor deploy","rotor descent","touchdown","surface stay","rotor climb","rotor-to-torch handover"].includes(phase))
        debit=val(d,"water.reaction_water_rotor_debit_t",s);
    else if(phase==="torch ascent to orbit")debit=modes[mode]?.waterUsedTorchT??null;
-   if(debit!==null&&reaction!==null)reaction-=debit;else reaction=null;
+   if(debit!==null&&reaction!==null)reaction=Math.max(0,reaction-debit);else reaction=null;
+   const cold={};for(const q of d.thermal.crew_cases){const crew=number(q),stored=coldState[crew];
+      const request=phase==="surface stay"&&stored!==null?thermal[crew].loadW*number(d.thermal.stay_requested_h)*number(d.si.seconds_per_hour):0;
+      const removed=stored===null?null:Math.min(stored,request);
+      cold[crew]={energy_before_J:stored,energy_removed_J:removed,energy_shortfall_J:stored===null?null:Math.max(0,request-stored),energy_after_J:stored===null?null:stored-removed};
+      coldState[crew]=cold[crew].energy_after_J;
+   }
    return {phase,water_before_t:before,water_debit_t:debit,water_after_t:reaction,
-       thermal_water_mass_t:thermalT,custody:"ONBOARD",energy_change:"cold-water sensible capacity debited at surface stay; liquid water mass unchanged"};
+       thermal_water_mass_t:thermalT,thermal_energy_by_crew:cold,
+       torch_jet_power_GW:phase==="torch ascent to orbit"?val(d,"power.torch_jet_power_GW",s):null,
+       reactor_waste_heat_MW:null,reactor_waste_heat_missing:"power.reactor_waste_heat_MW",
+       custody:"ONBOARD",custody_content_t:val(d,"capsule.content_mass_t",s)};
   });return [mode,rows];
  }));return active;
 }
@@ -297,13 +309,13 @@ function report(d,stage,hash,a,graphics){
  const ex=a.examples[0],e=evaluate(d,stage,ex.inputs,a.geometry);
  for(const m of ["low","high"]){
  lines.push("**First sampled "+m+" exhaust mode: reaction-water phases**");
- lines.push("| Phase | before t | debit t | after t | Thermal water t | Custody |","|---|---:|---:|---:|---:|---|");
- for(const row of e.venus.phaseLedger[m])lines.push("| "+row.phase+" | "+f(row.water_before_t)+" | "+f(row.water_debit_t)+" | "+f(row.water_after_t)+" | "+f(row.thermal_water_mass_t)+" | "+row.custody+" |");
+ lines.push("| Phase | before t | debit t | after t | Cold water t | Cold energy 2/4 crew remaining kWh | Jet GW | Custody |","|---|---:|---:|---:|---:|---|---:|---|");
+ for(const row of e.venus.phaseLedger[m])lines.push("| "+row.phase+" | "+f(row.water_before_t)+" | "+f(row.water_debit_t)+" | "+f(row.water_after_t)+" | "+f(row.thermal_water_mass_t)+" | "+d.thermal.crew_cases.map(q=>f(row.thermal_energy_by_crew[number(q)].energy_after_J/number(d.si.joules_per_kWh))).join(" / ")+" | "+f(row.torch_jet_power_GW)+" | "+row.custody+" |");
  lines.push("Torch "+m+" at first sample: thrust "+f(e.venus.mode[m].thrustN)+"N, delta-v deliverable "+f(e.venus.mode[m].delta_v_orbit)+"km/s, orbit water "+f(e.venus.mode[m].waterAtOrbit)+"t, torch firing "+f(e.venus.mode[m].timeH)+"h.");
  }
  lines.push("**Nominal v1 comparator** (NOT a new debit): 0.84t former belly touchdown already included in its 1.6t post-all-burn remaining figure; new rotor architecture never double subtracts it.");
  lines.push("**Thermal output first sample:** 2 crew max "+f(e.venus.thermal[2].maxHours)+"h, 4 crew max "+f(e.venus.thermal[4].maxHours)+"h; ambient table valid at surface; thermal bridge/radiation, active cooler, and heat-rejector design not qualified.");
- lines.push("**Required-but-OPEN physical interfaces**: "+["venus.torch_atmosphere_viability","venus.entry_vehicle_thermal_qualification","thermal.active_cooler_power_available_kW","thermal.hot_side_rejection_capacity_kW"].join(", ")+".");
+ lines.push("**Reactor waste heat remains explicitly OPEN in every phase: `power.reactor_waste_heat_MW`; missing conversion and heat-rejection closure are not assigned zero. Required-but-OPEN physical interfaces**: "+["venus.torch_atmosphere_viability","venus.entry_vehicle_thermal_qualification","thermal.active_cooler_power_available_kW","thermal.hot_side_rejection_capacity_kW"].join(", ")+".");
  }
  lines.push("## Representative sample outcomes");
  lines.push("| # | Dry t | A | B | "+(stage===2?"Rotor | C | C low | C high | D2 | D4":"") +" |");
