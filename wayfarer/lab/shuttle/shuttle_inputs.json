@@ -72,6 +72,27 @@
       "provenance": "ONLINE",
       "source": "SI unit prefix definitions (not physical efficiency assumptions)",
       "description": "Explicit unit conversion; never use unrelated kg/t to convert power."
+    },
+    "Pa_per_bar": {
+      "value": 100000,
+      "unit": "Pa/bar",
+      "provenance": "ONLINE",
+      "source": "SI unit conversion",
+      "description": "Used to check external pressure hull analytic stress/buckling bounds"
+    },
+    "Pa_per_GPa": {
+      "value": 1000000000,
+      "unit": "Pa/GPa",
+      "provenance": "ONLINE",
+      "source": "SI unit conversion",
+      "description": "Used in conditional shell check"
+    },
+    "Pa_per_MPa": {
+      "value": 1000000,
+      "unit": "Pa/MPa",
+      "provenance": "ONLINE",
+      "source": "SI unit conversion",
+      "description": "Used in conditional shell check"
     }
   },
   "geometry": {
@@ -887,7 +908,30 @@
       "provenance": "OPEN",
       "source": "No entry aerothermal test supplied",
       "description": "Physical entry qualification OPEN but reaction water Gate C still conditional."
-    }
+    },
+    "rotor_extension_levels_km": [
+      {
+        "value": 30,
+        "unit": "km",
+        "provenance": "ASSUMPTION",
+        "source": "kT 2026-11-03 requested rotor power beyond 25km handover to 30–50km",
+        "description": "Output sampling at a VIRA-profile altitude, NOT a new handover approval"
+      },
+      {
+        "value": 40,
+        "unit": "km",
+        "provenance": "ASSUMPTION",
+        "source": "kT 2026-11-03 requested rotor power beyond 25km handover to 30–50km",
+        "description": "Output sampling at a VIRA-profile altitude, NOT a new handover approval"
+      },
+      {
+        "value": 50,
+        "unit": "km",
+        "provenance": "ASSUMPTION",
+        "source": "kT 2026-11-03 requested rotor power beyond 25km handover to 30–50km",
+        "description": "Output sampling at a VIRA-profile altitude, NOT a new handover approval"
+      }
+    ]
   },
   "capsule": {
     "dry_mass_t": {
