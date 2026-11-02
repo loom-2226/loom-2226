@@ -346,9 +346,9 @@ function report(d,stage,hash,a,graphics){
  add("","### A vs A2 dry mass (kit separated from shuttle)",
  "Original fully-equipped dry min / mid / max: **"+a.sums.map(f).join(" / ")+" t**.",
  "Detachable Venus/Titan kit min / mid / max: **"+a.kitSums.map(f).join(" / ")+" t**.",
- "D ocked shuttle core dry WITHOUT Venus kit min / mid / max: **"+a.sums.map((x,i)=>f(x-a.kitSums[i])).join(" / ")+" t**. A2 applies the "+f(number(d.mass.max_docked_dry_t))+"t G8 docked dry limit to CORE only. A applies the same bound to the fully equipped vehicle as a comparator.",
+ "Docked shuttle core dry WITHOUT Venus kit min / mid / max: **"+a.sums.map((x,i)=>f(x-a.kitSums[i])).join(" / ")+" t**. A2 applies the "+f(number(d.mass.max_docked_dry_t))+"t G8 docked dry limit to CORE only. A applies the same bound to the fully equipped vehicle as a comparator.",
  "Historical lost-sizer dry "+f(number(d.mass.historical_lost_sizer_dry_t))+"t (not a fit target), current mid minus history "+f(a.sums[1]-number(d.mass.historical_lost_sizer_dry_t))+"t. Earlier v1 comparison "+f(number(d.mass.v1_comparison_dry_t))+"t.");
- rows[rows.length-3]=rows[rows.length-3].replace("D ocked","Docked");
+ 
  add("| Dry component | min t | mid t | max t | Kit? | provenance |","|---|---:|---:|---:|---|---|");
  for(const part of a.partRows)add("| "+part.name+" | "+part.values.map(f).join(" | ")+" | "+(d.kit.mass_component_keys.includes(part.name)?"VENUS/TITAN payload":"CORE")+
      " | "+part.provenance+" |");
@@ -411,6 +411,18 @@ function report(d,stage,hash,a,graphics){
  "**D-pod:** detached pod, cold-water sensible storage only; **maximum passive hours are OUTPUT** without an invented survival-duration target. No D-pod PASS/FAIL criterion. Passive pod heat load includes electronics and actual crew count.",
  "| Crew | minimum detached pod hours | maximum detached pod hours |","|---:|---:|---:|");
  for(const q of d.thermal.crew_cases){const count=number(q),b=a.podRanges[count];add("| "+count+" | "+f(b.min)+" | "+f(b.max)+" |");}
+ add("","**Independent best/worst parameter corners (not contained in every balanced sample):**");
+ for(const q of d.thermal.crew_cases){
+   const crew=number(q),r=number(d.geometry.crew_pod_outer_diameter_m)/2,area=4*Math.PI*r*r;
+   const hot=d.thermal.venus_external_surface_K,cold=number(d.thermal.cabin_target_K),K=d.thermal.insulation_k_W_per_mK,T=d.thermal.insulation_thickness_m;
+   const el=d.thermal.cabin_electronics_kW,heat=d.thermal.crew_heat_W_each;
+   const water=d.water.crew_water_cold_mass_t,window=d.water.crew_water_heating_delta_T_K,cp=number(d.water.crew_water_heat_capacity_J_per_kg_K);
+   const bestLoad=K.min*area*(hot.min-cold)/T.max+el.min*number(d.si.W_per_kW)+crew*heat.min;
+   const worstLoad=K.max*area*(hot.max-cold)/T.min+el.max*number(d.si.W_per_kW)+crew*heat.max;
+   const best=water.max*number(d.si.kg_per_t)*cp*window.max/bestLoad/number(d.si.seconds_per_hour);
+   const worst=water.min*number(d.si.kg_per_t)*cp*window.min/worstLoad/number(d.si.seconds_per_hour);
+   add("- "+crew+" crew passive pod: mathematical parameter corner **"+f(worst)+"–"+f(best)+" hours**. Balanced-sample observed maximum "+f(a.podRanges[crew].max)+" hours. No minimum required stay time.");
+ }
  add("","### Representative first-sample reactor/thermal ledger","| Crew | Load W | cooler electric kW | aux bus allowance kW | hot-loop reject kW | available reject kW | D-shuttle | D-pod hours |",
  "|---:|---:|---:|---:|---:|---:|---|---:|");
  const ev=evaluate(d,stage,first.inputs,a.geometry);
