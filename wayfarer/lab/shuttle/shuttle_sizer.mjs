@@ -1,216 +1,365 @@
 #!/usr/bin/env node
 /**
- * LOOM shuttle sizer v1. One input JSON, one report, two SVGs; no runtime or canon edits.
- * Geometry and physical inputs are read from JSON. Numeric literals below are
- * mathematical identities (0, 1, 2, pi), not hardcoded vehicle data.
- * Run: node wayfarer/lab/shuttle/shuttle_sizer.mjs --stage 1
- *      node wayfarer/lab/shuttle/shuttle_sizer.mjs --stage 2
+ * LOOM shuttle sizing v1. Stage-selected input JSON is the sole engineering parameter authority.
+ * Numerical physical inputs, screen thresholds and sampling counts are sourced from JSON.
+ * Formulas use only mathematical identities. Never promotes an assumption into certification.
  */
-function val(o) { return o && typeof o.value === "number" ? o.value : null; }
-function band(o) { return o && typeof o.min === "number" && typeof o.max === "number" ? [o.min,o.max] : null; }
-function endpoints(o) { const b=band(o); return b?[b[0],(b[0]+b[1])/2,b[1]]:null; }
-function formatted(n,p) { return n===null||!Number.isFinite(n)?"OPEN":n.toFixed(p); }
-function get(obj,path) { return path.split(".").reduce((a,k)=>a&&a[k],obj); }
-function xml(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
-function hover(massT,density,g,diameter,fm,thermalEfficiency,kgPerT) {
-  const area=Math.PI*(diameter/2)**2;
-  const force=massT*kgPerT*g;
-  const ideal=force*Math.sqrt(force/(2*density*area));
-  return {disk:area,force,idealMW:ideal/(kgPerT*kgPerT),rotorMW:ideal/fm/(kgPerT*kgPerT),sourceMW:ideal/fm/thermalEfficiency/(kgPerT*kgPerT)};
+function number(o){return typeof o?.value==="number"?o.value:null;}
+function bounds(o){return typeof o?.min==="number"&&typeof o?.max==="number"?[o.min,o.max]:null;}
+function readPath(d,k){return k.split(".").reduce((o,part)=>o?.[part],d);}
+function val(d,k,s){const row=readPath(d,k);return s&&Object.prototype.hasOwnProperty.call(s,k)?s[k]:(number(row)??(bounds(row)?.[0]===bounds(row)?.[1]?bounds(row)?.[0]:null));}
+function vals(d,k,s){const v=val(d,k,s),b=bounds(readPath(d,k));return v!==null?v:(b?(b[0]+b[1])/2:null);}
+function fmt(v,p){return v===null||v===undefined||!Number.isFinite(v)?"OPEN":v.toFixed(p);}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function fkeys(d,path){return Object.keys(readPath(d,path)||{}).filter(k=>bounds(readPath(d,path+"."+k)));}
+function sampleDirections(count,digits,levels){
+ const directions=[];
+ for(let x=1;directions.length<count && x<levels**digits;x++){
+  let q=x,v=[];for(let j=0;j<digits;j++){v.push(q%levels);q=Math.floor(q/levels);}
+  const first=v.find(z=>z!==0);if(first===1)directions.push(v);
+ }
+ if(directions.length<count)throw Error("Not enough distinct pairwise-balanced directions");
+ return directions;
 }
-function limits(d) {
-  const g=d.geometry, si=d.si, m=d.mass, rotorDiameter=val(g.rotor_diameter_m);
-  const length=val(g.bay_x_end_m)-val(g.bay_x_start_m);
-  const vesselLength=val(g.hull_length_m), vesselDiameter=val(g.hull_diameter_m);
-  const allowableLength=length-2*val(g.g8_min_axial_clearance_m);
-  const allowableDiameter=2*(val(g.bay_bore_radius_m)-val(g.g8_min_radial_clearance_m));
-  const fwd=val(g.rotor_blades_fwd),aft=val(g.rotor_blades_aft),count=val(g.rotor_blades);
-  const foldedSpan=rotorDiameter/2+rotorDiameter/2;
-  const shell=band(m.pressure_pod_titanium_shell_t);
-  const dryMax=val(m.max_docked_dry_t);
-  const components=Object.entries(m).filter(([k])=>k!=="max_docked_dry_t"&&k!=="v1_comparison_dry_t");
-  const unresolved=components.filter(([,q])=>val(q)===null&&!band(q)).map(([k])=>k);
-  const tolerance=Number.EPSILON*Math.max(allowableLength,vesselLength)*2;
-  const fittedDimensional=(vesselLength<=allowableLength+tolerance && vesselDiameter<=allowableDiameter+tolerance && foldedSpan<=vesselLength+tolerance && fwd+aft===count);
-  return {length,allowableLength,allowableDiameter,vesselLength,vesselDiameter,
-   foldedSpan,remainingRotorSpan:vesselLength-foldedSpan,
-   radialMargin:Math.abs(allowableDiameter-vesselDiameter)<=tolerance?0:allowableDiameter-vesselDiameter,axialMargin:Math.abs(allowableLength-vesselLength)<=tolerance?0:allowableLength-vesselLength,
-   shell,shellMid:(shell[0]+shell[1])/2,dryMax,
-   massOtherBudget:[dryMax-shell[1],dryMax-shell[0]],unresolved,
-   dimensionalNecessaryGate:fittedDimensional?"PASS_NECESSARY_ONLY":"FAIL",
-   gateA:"OPEN", gateB:fittedDimensional?"OPEN":"FAIL",
-   packOpen:["mast_stowed_extra_diameter_m","hub_axial_length_m","mast_retracted_height_m","rotor_mast_x_m","crew_pod_x_m"].filter(k=>val(g[k])===null),
-   constraints:{
-     mass:"sum(all unique dry components) <= max_docked_dry_t",
-     fit:"outer stowed hardware <= allowable diameter and length including hub, blade roots, mast, ramp, doors; no overlap"
-   }};
+function samples(d,stage,limit){
+ const fields=fkeys(d,"mass").filter(k=>!["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"].includes(k)).map(k=>"mass."+k);
+ if(stage===2)fields.push(...[
+  ...fkeys(d,"power").filter(k=>["rotor_figure_of_merit","tipjet_thermal_to_useful_rotor","rotor_usable_input_heat_limit_MW","rotor_safe_tip_speed_mps","rotor_hot_duty_limit_h","rotor_climb_rate_mps","torch_low_ve_kmps","torch_high_ve_kmps","torch_jet_power_GW"].includes(k)).map(k=>"power."+k),
+  ...fkeys(d,"water").filter(k=>["reaction_water_entry_debit_t","crew_water_cold_mass_t","crew_water_heating_delta_T_K"].includes(k)).map(k=>"water."+k),
+  ...fkeys(d,"thermal").filter(k=>["insulation_k_W_per_mK","insulation_thickness_m","crew_heat_W_each","cabin_electronics_kW","venus_external_surface_K"].includes(k)).map(k=>"thermal."+k),
+  ...fkeys(d,"venus").filter(k=>["handover_altitude_km","torch_ascent_dv_kmps"].includes(k)).map(k=>"venus."+k),
+  ...fkeys(d,"capsule").filter(k=>k==="content_mass_t").map(k=>"capsule."+k)
+ ]);
+ const N=limit,levels=number(d.sweep.sample_levels),digits=Math.round(Math.log(N)/Math.log(levels));
+ if(levels**digits!==N)throw Error("sample count must be exact power of sample levels");
+ const directions=sampleDirections(fields.length,digits,levels);
+ const levelsFor=i=>{let n=i,r=[];for(let j=0;j<digits;j++){r.push(n%levels);n=Math.floor(n/levels)}return r};
+ const get=(i)=>{let out={},code=levelsFor(i);for(let j=0;j<fields.length;j++){
+   const k=fields[j],line=readPath(d,k),ds=directions[j];
+   const level=code.reduce((sum,bit,idx)=>sum+bit*ds[idx],0)%levels;
+   out[k]=line.min+(line.max-line.min)*level/(levels-1);
+ }return out};
+ return {fields,rows:N,get};
 }
-function stage2(d) {
-  const si=d.si, g=d.geometry, v=d.venus, p=d.power, t=d.thermal, w=d.water;
-  const kgPerT=val(si.kg_per_t),points=[];
-  const masses=endpoints(v.rotor_mass_screen_t),fms=endpoints(p.rotor_figure_of_merit),etas=endpoints(p.tipjet_thermal_to_useful_rotor);
-  const combos=[];
-  for(const m of masses) for(const fm of fms) for(const e of etas) combos.push({mass_t:m,figure_of_merit:fm,tip_eff:e});
-  const lowVe=endpoints(p.torch_low_ve_kmps), highVe=endpoints(p.torch_high_ve_kmps);
-  const torchCombos=[];
-  for(const low of lowVe) for(const high of highVe)torchCombos.push({low_ve_kmps:low,high_ve_kmps:high,delta_v_orbit:"OPEN",water_remaining:"OPEN"});
-  const atSurface=combos.map(c=>({...c,...hover(c.mass_t,v.atmosphere_profile[0].density_kg_m3,val(v.gravity_mps2),val(g.rotor_diameter_m),c.figure_of_merit,c.tip_eff,kgPerT)}));
-  for(const a of v.atmosphere_profile) {
-    const q=combos.map(s=>({...s,...hover(s.mass_t,a.density_kg_m3,val(v.gravity_mps2),val(g.rotor_diameter_m),s.figure_of_merit,s.tip_eff,kgPerT)}));
-    const min=k=>Math.min(...q.map(x=>x[k])),max=k=>Math.max(...q.map(x=>x[k]));
-    points.push({altitude_km:a.altitude_km,temperature_K:a.temperature_K,pressure_bar:a.pressure_bar,density_kg_m3:a.density_kg_m3,
-       rotor_MW:[min("rotorMW"),max("rotorMW")],tipjet_thermal_MW:[min("sourceMW"),max("sourceMW")]});
+function gate(needed,test){
+ const missing=needed.filter(([k,v])=>v===null||v===undefined||!Number.isFinite(v)).map(([k])=>k);
+ return missing.length?{status:"OPEN",missing}: {status:test()?"PASS":"FAIL",missing:[]};
+}
+function geometry(d){
+ const g=d.geometry,p=d.sweep,availD=2*(number(g.bay_bore_radius_m)-number(g.g8_min_radial_clearance_m)),
+ availL=number(g.bay_x_end_m)-number(g.bay_x_start_m)-2*number(g.g8_min_axial_clearance_m),
+ hullD=number(g.hull_diameter_m),hullL=number(g.hull_length_m),rotorD=number(g.rotor_diameter_m);
+ const eps=Number.EPSILON*Math.max(availD,availL,hullD,hullL)*2;
+ const necessary=hullD<=availD+eps && hullL<=availL+eps && rotorD<=hullL+eps &&
+   number(g.rotor_blades_fwd)+number(g.rotor_blades_aft)===number(g.rotor_blades);
+ const req=["mast_stowed_extra_diameter_m","hub_axial_length_m","mast_retracted_height_m","crew_pod_x_m","rotor_mast_x_m","rotor_retracted_cg_m","pod_door_ramp_external_excursion_m"];
+ const gB= !necessary?{status:"FAIL",missing:[]}:
+ gate(req.map(k=>["geometry."+k,number(g[k])]),()=> {
+    // Necessary but not sufficient simple extents, positions and CG alignment.
+    const extra=number(g.mast_stowed_extra_diameter_m);
+    const hub=number(g.hub_axial_length_m);
+    const mast=number(g.mast_retracted_height_m);
+    const px=number(g.crew_pod_x_m),cx=number(g.rotor_mast_x_m),cg=number(g.rotor_retracted_cg_m);
+    return extra<=availD-hullD+eps && mast<=hullD+eps &&
+      rotorD+hub<=hullL+eps && px>=0&&px<=hullL&&cx>=0&&cx<=hullL&&cg>=0&&cg<=hullL&&
+      number(g.pod_door_ramp_external_excursion_m)<=availD-hullD+eps;
+ });
+ return {availD,availL,hullD,hullL,rotorD,necessary,gateB:gB,
+   radialClearance:Math.abs(availD-hullD)<=eps?0:availD-hullD,
+   axialClearance:Math.abs(availL-hullL)<=eps?0:availL-hullL,
+   nominalFoldSpan:rotorD,freeLength:hullL-rotorD};
+}
+function dry(d,s){
+ const excluded=new Set(["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"]);
+ const keys=Object.keys(d.mass).filter(x=>!excluded.has(x));
+ const parts=keys.map(k=>({key:k,value:val(d,"mass."+k,s)}));
+ const g=gate(parts.map(x=>["mass."+x.key,x.value]),()=>parts.reduce((sum,x)=>sum+x.value,0)<=number(d.mass.max_docked_dry_t));
+ const sum=parts.every(x=>x.value!==null)?parts.reduce((a,b)=>a+b.value,0):null;
+ return {status:g.status,missing:g.missing,sum,margin:sum===null?null:number(d.mass.max_docked_dry_t)-sum,parts};
+}
+function atmosphere(d,h){
+ const rows=d.venus.atmosphere_profile;
+ if(h<rows[0].altitude_km||h>rows[rows.length-1].altitude_km)return null;
+ for(let i=1;i<rows.length;i++)if(h<=rows[i].altitude_km){
+  const a=rows[i-1],b=rows[i],w=(h-a.altitude_km)/(b.altitude_km-a.altitude_km);
+  // VIRA table: density and pressure interpolated log-linearly; temperature linearly.
+  return {rho:Math.exp(Math.log(a.density_kg_m3)*(1-w)+Math.log(b.density_kg_m3)*w),
+    temperature:a.temperature_K+(b.temperature_K-a.temperature_K)*w,
+    pressure:Math.exp(Math.log(a.pressure_bar)*(1-w)+Math.log(b.pressure_bar)*w)};
+ }
+ return null;
+}
+function rotorAt(d,s,mass,h){
+ const a=atmosphere(d,h);if(!a)return null;
+ const g=number(d.venus.gravity_mps2),m=mass*number(d.si.kg_per_t),
+ area=Math.PI*(number(d.geometry.rotor_diameter_m)/2)**2,force=m*g;
+ const induced=Math.sqrt(force/(2*a.rho*area));
+ const powerMW=force*induced/(number(d.si.W_per_MW)*val(d,"power.rotor_figure_of_merit",s));
+ const sourceMW=powerMW/val(d,"power.tipjet_thermal_to_useful_rotor",s);
+ return {alt:h,air:a,induced,shaftMW:powerMW,sourceMW};
+}
+function stage2(d,s,dryResult){
+ const missing=[];const requirePath=k=>{const v=val(d,k,s);if(v===null)missing.push(k);return v};
+ const dryT=dryResult.sum; if(dryT===null)missing.push(...dryResult.missing);
+ const reactionStart=requirePath("water.reaction_water_initial_t"),thermalT=requirePath("water.crew_water_cold_mass_t"),
+ cargoT=requirePath("capsule.content_mass_t"),entryT=requirePath("water.reaction_water_entry_debit_t");
+ const km=requirePath("si.m_per_km"),kg=requirePath("si.kg_per_t"),seconds=requirePath("si.seconds_per_hour");
+ const altitudeLimit=requirePath("venus.handover_altitude_km"),minimumAltitude=d.venus.handover_altitude_km.min;
+ const climb=requirePath("power.rotor_climb_rate_mps"),maxHotH=requirePath("power.rotor_hot_duty_limit_h"),
+ maxTip=requirePath("power.rotor_safe_tip_speed_mps"),heatMax=requirePath("power.rotor_usable_input_heat_limit_MW");
+ const step=requirePath("sweep.handover_step_km"),requiredDV=requirePath("venus.torch_ascent_dv_kmps");
+ const jetGW=requirePath("power.torch_jet_power_GW");
+ let rotorGate={status:"OPEN",missing:[...new Set(missing)]},handover=null,altProfile=[],flightTimeH=null;
+ const baseMass=dryT===null||reactionStart===null||thermalT===null||cargoT===null?null:dryT+reactionStart+thermalT+cargoT;
+ if(!rotorGate.missing.length){
+   // Sampled rotor climb boundary, not an aerodynamic/structural rotor qualification.
+   let accepted=null;
+   for(let h=0;h<=altitudeLimit+Number.EPSILON;h+=step){
+     const x=rotorAt(d,s,baseMass,h);
+     if(!x||x.sourceMW>heatMax||x.induced>maxTip||h*km/climb/seconds>maxHotH)break;
+     accepted=x;altProfile.push(x);
+   }
+   handover=accepted?.alt??null; flightTimeH=handover===null?null:handover*km/climb/seconds;
+   rotorGate={status:handover!==null&&handover>=minimumAltitude?"PASS":"FAIL",missing:[]};
+ }
+ const modes={};
+ for(const mode of ["low","high"]){
+  const ve=requirePath("power.torch_"+mode+"_ve_kmps");
+  const required=[["mass.dry_total_t",dryT],["water.reaction_water_initial_t",reactionStart],
+   ["water.crew_water_cold_mass_t",thermalT],["capsule.content_mass_t",cargoT],
+   ["water.reaction_water_entry_debit_t",entryT],
+   ["venus.torch_ascent_dv_kmps",requiredDV],["power.torch_"+mode+"_ve_kmps",ve],
+   ["power.torch_jet_power_GW",jetGW],["power.rotor_usable_input_heat_limit_MW",heatMax],
+   ["venus.handover_altitude_km",altitudeLimit],["power.rotor_climb_rate_mps",climb],
+   ["power.rotor_hot_duty_limit_h",maxHotH],["power.rotor_safe_tip_speed_mps",maxTip]];
+  const q=gate(required,()=>true);
+  if(q.status==="OPEN"){modes[mode]={status:"OPEN",missing:q.missing,waterAtOrbit:null,delta_v_orbit:null};continue;}
+  const afterEntry=reactionStart-entryT;
+  const massStart=dryT+thermalT+cargoT+afterEntry;
+  const waterDemand=massStart*(1-Math.exp(-requiredDV/ve));
+  const waterPass=afterEntry>=0&&waterDemand<=afterEntry+Number.EPSILON*massStart;
+  const actualWaterUsed=Math.max(0,Math.min(Math.max(0,afterEntry),waterDemand));
+  const waterEnd=Math.max(0,afterEntry-actualWaterUsed);
+  const waterShortfall=Math.max(0,waterDemand-afterEntry);
+  const P=jetGW*number(d.si.W_per_GW),vel=ve*km,thrustN=2*P/vel,mdot=thrustN/vel;
+  const burnSeconds=actualWaterUsed*kg/mdot;
+  const theoreticalDV=ve*Math.log(massStart/(dryT+thermalT+cargoT));
+  const status=rotorGate.status==="OPEN"?"OPEN":waterPass&&rotorGate.status==="PASS"?"PASS":"FAIL";
+  modes[mode]={status,waterPass,waterAtOrbit:waterEnd,waterDemandT:waterDemand,waterShortfallT:waterShortfall,waterUsedTorchT:actualWaterUsed,
+    delta_v_orbit:waterPass?requiredDV:Math.max(0,theoreticalDV),
+    delta_v_required:requiredDV,thrustN,mdot,burnSeconds,
+    timeH:burnSeconds/seconds,missing:rotorGate.missing,
+    afterEntryWaterT:afterEntry,initialMassT:massStart};
+ }
+ const thermal={};
+ const qneeded=["water.crew_water_cold_mass_t","water.crew_water_heating_delta_T_K","water.crew_water_heat_capacity_J_per_kg_K",
+  "thermal.insulation_k_W_per_mK","thermal.insulation_thickness_m","thermal.crew_heat_W_each","thermal.cabin_electronics_kW",
+  "geometry.crew_pod_outer_diameter_m","thermal.cabin_target_K","thermal.stay_requested_h"];
+ const tq=gate(qneeded.map(k=>[k,val(d,k,s)]),()=>true);
+ for(const crewCount of d.thermal.crew_cases.map(number)){
+   if(tq.status==="OPEN"){thermal[crewCount]={status:"OPEN",missing:tq.missing};continue;}
+   const r=val(d,"geometry.crew_pod_outer_diameter_m")/2,area=4*Math.PI*r*r;
+   const outside=val(d,"thermal.venus_external_surface_K",s);
+   const leak=val(d,"thermal.insulation_k_W_per_mK",s)*area*(outside-val(d,"thermal.cabin_target_K"))/val(d,"thermal.insulation_thickness_m",s);
+   const electronics=val(d,"thermal.cabin_electronics_kW",s)*number(d.si.W_per_kW);
+   const load=leak+electronics+crewCount*val(d,"thermal.crew_heat_W_each",s);
+   const stored=thermalT*kg*val(d,"water.crew_water_heat_capacity_J_per_kg_K")*val(d,"water.crew_water_heating_delta_T_K",s);
+   const maxHours=stored/load/seconds;
+   thermal[crewCount]={status:maxHours>=val(d,"thermal.stay_requested_h")?"PASS":"FAIL",
+     maxHours,loadW:load,leakW:leak,capacityJ:stored,missing:[]};
+ }
+ const gateC=rotorGate.status==="OPEN"?"OPEN":
+  modes.low.status==="PASS"||modes.high.status==="PASS"?"PASS":
+  modes.low.status==="OPEN"||modes.high.status==="OPEN"?"OPEN":"FAIL";
+ const waterOpen=[...new Set([...rotorGate.missing,...(modes.low.missing||[]),...(modes.high.missing||[])])];
+ return {rotor:rotorGate,gateC,waterMissing:waterOpen,handover,flightTimeH,baseMass,mode:modes,thermal,
+  phaseLedger:phaseLedger(d,s,entryT,rotorGate,modes,thermalT,thermal),altProfile};
+}
+function phaseLedger(d,s,entry,rotor,modes,thermalT,thermal) {
+ const initial=val(d,"water.reaction_water_initial_t",s),stages=["entry","rotor deploy","rotor descent","touchdown","surface stay","rotor climb","rotor-to-torch handover","torch ascent to orbit"];
+ const active=Object.fromEntries(["low","high"].map(mode=>{
+  let reaction=initial;
+  const coldState=Object.fromEntries(d.thermal.crew_cases.map(q=>{const crew=number(q);return [crew,thermal[crew]?.capacityJ??null]}));
+  const rows=stages.map(phase=>{
+   const before=reaction;let debit=null;
+   if(phase==="entry")debit=entry;
+   else if(["rotor deploy","rotor descent","touchdown","surface stay","rotor climb","rotor-to-torch handover"].includes(phase))
+       debit=val(d,"water.reaction_water_rotor_debit_t",s);
+   else if(phase==="torch ascent to orbit")debit=modes[mode]?.waterUsedTorchT??null;
+   if(debit!==null&&reaction!==null)reaction=Math.max(0,reaction-debit);else reaction=null;
+   const cold={};for(const q of d.thermal.crew_cases){const crew=number(q),stored=coldState[crew];
+      const request=phase==="surface stay"&&stored!==null?thermal[crew].loadW*number(d.thermal.stay_requested_h)*number(d.si.seconds_per_hour):0;
+      const removed=stored===null?null:Math.min(stored,request);
+      cold[crew]={energy_before_J:stored,energy_removed_J:removed,energy_shortfall_J:stored===null?null:Math.max(0,request-stored),energy_after_J:stored===null?null:stored-removed};
+      coldState[crew]=cold[crew].energy_after_J;
+   }
+   return {phase,water_before_t:before,water_debit_t:debit,water_after_t:reaction,
+       thermal_water_mass_t:thermalT,thermal_energy_by_crew:cold,
+       torch_jet_power_GW:phase==="torch ascent to orbit"?val(d,"power.torch_jet_power_GW",s):null,
+       reactor_waste_heat_MW:null,reactor_waste_heat_missing:"power.reactor_waste_heat_MW",
+       custody:"ONBOARD",custody_content_t:val(d,"capsule.content_mass_t",s)};
+  });return [mode,rows];
+ }));return active;
+}
+function census(rows,key){
+ const counts={PASS:0,FAIL:0,OPEN:0};for(const x of rows)counts[x[key]]++;
+ const resolved=counts.PASS+counts.FAIL;
+ return {...counts,resolved,pass_fraction:resolved?counts.PASS/resolved:null,total:rows.length};
+}
+function evaluate(d,stage,s,geo){
+ const dryResult=dry(d,s);const v=stage===2?stage2(d,s,dryResult):null;
+ return {A:dryResult.status,B:geo.gateB.status,R:v?.rotor.status??null,
+   C:v?.gateC??null,C_low:v?.mode.low.status??null,C_high:v?.mode.high.status??null,
+   D2:v?.thermal[2].status??null,D4:v?.thermal[4].status??null,
+   dry:dryResult,venus:v};
+}
+function sensitivity(d,stage,design,geo,gateKey){
+ const chosen=design.fields;
+ const N=number(d.sweep.sensitivity_count),picks=number(d.sweep.report_top_inputs),baseDesign=samples(d,stage,N),out=[];
+ for(const field of chosen){
+  const x=readPath(d,field);
+  const level=[x.min,(x.min+x.max)/2,x.max],pass=[],margins=[];
+  for(const v of level){
+   let ok=0,n=0,marginTotal=0;
+   for(let i=0;i<baseDesign.rows;i++){
+    const base=baseDesign.get(i);base[field]=v;
+    const e=evaluate(d,stage,base,geo),state=e[gateKey];
+    if(state==="PASS")ok++;
+    if(state!=="OPEN")n++;
+    let margin=null;
+    if(gateKey==="A")margin=e.dry.margin;
+    else if(gateKey==="D2"||gateKey==="D4")margin=e.venus?.thermal[gateKey==="D2"?2:4]?.maxHours-number(d.thermal.stay_requested_h);
+    else if(gateKey==="C")margin=Math.max(e.venus?.mode.low.waterAtOrbit??-Infinity,e.venus?.mode.high.waterAtOrbit??-Infinity);
+    else if(gateKey==="R")margin=(e.venus?.handover??0)-d.venus.handover_altitude_km.min;
+    if(margin!==null&&Number.isFinite(margin))marginTotal+=margin;
+   }
+   pass.push(n?ok/n:null);margins.push(marginTotal/baseDesign.rows);
   }
-  const podR=val(g.crew_pod_outer_diameter_m)/2;
-  const hot=band(t.venus_external_surface_K),k=band(t.insulation_k_W_per_mK),th=band(t.insulation_thickness_m);
-  const cold=val(t.cabin_target_K),A=4*Math.PI*podR*podR;
-  const leakMin=k[0]*A*(hot[0]-cold)/th[1],leakMax=k[1]*A*(hot[1]-cold)/th[0];
-  const secs=val(si.seconds_per_hour), target=val(t.stay_requested_h);
-  const kWhFactor=val(si.joules_per_kWh);
-  const energyKWh=[leakMin,leakMax].map(z=>z*target*secs/kWhFactor);
-  const phaseNames=["entry","rotor deploy","rotor descent","touchdown","surface stay","rotor climb","rotor-to-torch handover","torch ascent to orbit"];
-  const phases=phaseNames.map(name=>({phase:name,water_start:"OPEN",water_reaction_delta:"OPEN",thermal_water_delta:"OPEN",reactor_heat:"OPEN",capsule:"ONBOARD/OPEN",post_state:"OPEN"}));
-  // Conditional claim ONLY: ambient-gas lift may avoid tank-water use in rotor phase;
-  // ZERO from the #453 PROJECTION is not upgraded to physical qualification.
-  for (const ph of phases) if(["rotor descent","rotor climb"].includes(ph.phase))
-    ph.water_reaction_delta="0 CONDITIONAL tipjet ambient CO2; source/engine not closed";
-  return {combinations:combos.length,atSurface,torchCombos,profile:points,phases,leak_W:[leakMin,leakMax],leak_energy_kWh:energyKWh,
-    entry:"OPEN",handover_altitude_km:null,handover_reason:"rotor thermal power limit, safe blade tip speed and climb performance are OPEN",
-    torch:"OPEN: engine thrust, ascent trajectory, burn time and actual remass manifest",
-    gateC:"OPEN", gateD2:"OPEN",gateD4:"OPEN",
-    reasonC:"No phase-complete propellant accounting, thermal powerplant, altitude handover, aero forces or delta-v trajectory.",
-    reasonD:"Cold-water mass, temperature span, heat capacity, crew heat, cooling power and hot-side sink OPEN.",
-    historicalV1TouchdownDebit_t:val(w.v1_venus_touchdown_belly_debit_t),
-    historicalV1PostBurnRemaining_t:val(w.v1_after_all_burns_remaining_t)};
-}
-function sideSVG(d,r) {
- const px=val(d.sweep.svg_pixels_per_meter),pad=val(d.sweep.svg_margin_px),
-  len=r.vesselLength, dia=r.vesselDiameter,barH=dia*px,w=len*px+pad*2,h=barH+pad*3,
-  x=pad,y=pad+barH/2,rot=val(d.geometry.rotor_diameter_m),hub=x+len*px/2,top=y-dia*px/2;
- return '<svg xmlns="http://www.w3.org/2000/svg" width="'+Math.ceil(w)+'" height="'+Math.ceil(h)+'" viewBox="0 0 '+Math.ceil(w)+' '+Math.ceil(h)+'">'+
- '<rect width="100%" height="100%" fill="#111927"/><text x="'+pad+'" y="27" font-size="15" fill="#f8fafc">SHUTTLE · SCALE SIDE ENVELOPE · NOT A PACKAGING CERTIFICATE</text>'+
- '<rect x="'+x+'" y="'+top+'" width="'+(len*px)+'" height="'+barH+'" rx="'+(dia*px/3)+'" fill="#25364a" stroke="#9fd5ff" stroke-width="2"/>'+
- '<line x1="'+(hub-rot*px/2)+'" y1="'+y+'" x2="'+(hub+rot*px/2)+'" y2="'+y+'" stroke="#ffc875" stroke-width="5"/>'+
- '<circle cx="'+hub+'" cy="'+y+'" r="8" fill="#ffc875"/>'+
- '<text x="'+(hub+14)+'" y="'+(y-12)+'" fill="#ffc875" font-size="12">12m folded blade span; hub at CG OPEN</text>'+
- '<line x1="'+x+'" y1="'+(top+barH+24)+'" x2="'+(x+len*px)+'" y2="'+(top+barH+24)+'" stroke="#b8dfeb"/>'+
- '<text x="'+hub+'" y="'+(top+barH+44)+'" text-anchor="middle" fill="#f8fafc" font-size="14">'+xml(len+'m hull / G8 allowable '+r.allowableLength+'m')+'</text>'+
- '<line x1="'+(x-20)+'" y1="'+top+'" x2="'+(x-20)+'" y2="'+(top+barH)+'" stroke="#b8dfeb"/>'+
- '<text x="'+(x+10)+'" y="'+(top+17)+'" fill="#f8fafc" font-size="13">'+xml(dia+'m OD / G8 allowable '+r.allowableDiameter+'m')+'</text>'+
- '<text x="'+pad+'" y="'+(h-20)+'" fill="#ffce85" font-size="12">Pod 2.8m OD; exact longitudinal location, mast recess, hub and CG remain OPEN</text></svg>';
-}
-function waterfallSVG(d,r) {
- const dry=r.dryMax,lo=r.shell[0],hi=r.shell[1],p=val(d.sweep.round_decimals),W=900,H=330,pad=56,
-   sx=x=>pad+x/dry*(W-2*pad), y0=110,y1=190;
- return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">'+
- '<rect width="100%" height="100%" fill="#111927"/>'+
- '<text x="50" y="34" fill="#f8fafc" font-size="18">DRY-MASS WATERFALL · KNOWN Ti SHELL ONLY</text>'+
- '<text x="50" y="60" fill="#b8cfdf" font-size="13">All other component masses OPEN: no total, no Gate A pass</text>'+
- '<rect x="'+pad+'" y="'+y0+'" width="'+(sx(dry)-pad)+'" height="25" fill="#334454"/>'+
- '<rect x="'+pad+'" y="'+y0+'" width="'+(sx(lo)-pad)+'" height="25" fill="#56a89f"/>'+
- '<rect x="'+sx(lo)+'" y="'+y0+'" width="'+(sx(hi)-sx(lo))+'" height="25" fill="#e8b85b"/>'+
- '<text x="'+pad+'" y="'+(y0-12)+'" fill="#f8fafc" font-size="14">Ti geometric shell: '+formatted(lo,p)+'–'+formatted(hi,p)+' t (PROJECTION)</text>'+
- '<rect x="'+pad+'" y="'+y1+'" width="'+(sx(dry)-pad)+'" height="25" fill="#324353"/>'+
- '<rect x="'+pad+'" y="'+y1+'" width="'+(sx(dry-hi)-pad)+'" height="25" fill="#447ac4"/>'+
- '<text x="'+pad+'" y="'+(y1-12)+'" fill="#f8fafc" font-size="14">Budget for all OTHER dry parts: '+formatted(dry-hi,p)+'–'+formatted(dry-lo,p)+' t</text>'+
- '<line x1="'+sx(dry)+'" y1="80" x2="'+sx(dry)+'" y2="254" stroke="#ef8e8e" stroke-width="2" stroke-dasharray="5 4"/>'+
- '<text x="'+sx(dry)+'" y="271" fill="#ef8e8e" font-size="14" text-anchor="end">Gate A max '+dry+' t</text>'+
- '<text x="50" y="300" fill="#b8cfdf" font-size="12">Not a component-mass total. Missing rover, torch, rotor, reactor, custody and structure.</text></svg>';
-}
-function report(d,stage,hash,r,v,svgNames) {
- const p=val(d.sweep.round_decimals),format=x=>formatted(x,p),lines=[];
- lines.push("# LOOM shuttle sizer v1 — Stage "+stage+" result");
- lines.push("ALL bodies. ALL sponsors. 2026-2226.");
- lines.push("");
- lines.push("**Status:** NON-CANON / NON-RUNTIME / UNQUALIFIED ENGINEERING SENSITIVITY. No machine constants promoted.");
- lines.push("**Input hash / run identity (Git blob SHA-1; includes JSON run_stage):** \`"+hash+"\`. Raw UTF-8 input identity is SHA-1 of \`blob <byte-length>\\\\0\` plus JSON bytes.");
- lines.push("**Single source input:** \`wayfarer/lab/shuttle/shuttle_inputs.json\` (all inputs printed at end).");
- lines.push("**Files generated:** \`"+svgNames[0]+"\`, \`"+svgNames[1]+"\`.");
- lines.push("");
- lines.push("## Gate summary");
- lines.push("| Gate | Verdict | Finding |");
- lines.push("|---|---|---|");
- lines.push("| A docked dry ≤ "+format(r.dryMax)+" t | **"+r.gateA+"** | Only Ti geometric shell range "+r.shell.map(format).join("–")+" t; "+r.unresolved.length+" other dry mass entries OPEN; no admissible total. |");
- lines.push("| B G8 bay fully fitted | **"+r.gateB+"** | Necessary hull length "+format(r.vesselLength)+" / available "+format(r.allowableLength)+"m, diameter "+format(r.vesselDiameter)+" / available "+format(r.allowableDiameter)+"m, folded span "+format(r.foldedSpan)+"m; mast/hub/hinge and actual positioning OPEN. |");
- if(stage===2) {
- lines.push("| C water ≥ 0 at Venus orbit | **"+v.gateC+"** | Reaction/thermal water and ascent trajectory incomplete. Historical v1 1.6t after burns must not be counted as newly earned. |");
- lines.push("| D 2-crew surface stay | **"+v.gateD2+"** | Thermal reservoir, crew heat and cooling hardware OPEN. |");
- lines.push("| D 4-crew surface stay | **"+v.gateD4+"** | Same omissions plus distinct 4-crew metabolism/embodiment. |");
+  const valid=pass.filter(v=>v!==null);const spread=valid.length?Math.max(...valid)-Math.min(...valid):null;
+  const marginShift=Math.max(...margins)-Math.min(...margins);
+  out.push({field,passRates:pass,flipSpread:spread,marginShift});
  }
- lines.push("");
- lines.push("## Stage 1 — mass and fit");
- lines.push("**Necessary geometry:** G8 bay inner length "+format(r.length)+"m, axial clearance each end "+format(val(d.geometry.g8_min_axial_clearance_m))+"m; bore radius "+format(val(d.geometry.bay_bore_radius_m))+"m, radial clearance "+format(val(d.geometry.g8_min_radial_clearance_m))+"m. Remaining *allowable* diameter and length margins are exactly "+format(r.radialMargin)+"m and "+format(r.axialMargin)+"m. Any mast or hub exterior to the existing hull is a fit FAILURE.");
- lines.push("**Folded rotor:** four blades on one "+format(val(d.geometry.rotor_diameter_m))+"m tip-jet rotor; two fold forward and two aft. The ideal collinear span is "+format(r.foldedSpan)+"m, leaving "+format(r.remainingRotorSpan)+"m for true hinge/root/end geometry. Rotor mount over CG and crew pod station are OPEN; the side view locates neither as engineering authority.");
- lines.push("**Dry-mass components (independently conserved):**");
- lines.push("| Component | Range / value (t) | Provenance |");
- lines.push("|---|---:|---|");
- for(const [k,x] of Object.entries(d.mass)) {if(k==="max_docked_dry_t"||k==="v1_comparison_dry_t")continue;lines.push("| "+k+" | "+(band(x)?band(x).map(format).join("–"):x.value===null?"OPEN":format(val(x)))+" | "+x.provenance+" |");}
- lines.push("");
- lines.push("**Feasibility map:** 3 shell-projection samples; other masses cannot be assigned without evidence.");
- lines.push("| Ti shell assumed (t) | Remaining total budget for ALL other dry components (t) | Gate A | Gate B |");
- lines.push("|---:|---:|---|---|");
- for(const x of endpoints(d.mass.pressure_pod_titanium_shell_t))lines.push("| "+format(x)+" | "+format(r.dryMax-x)+" | OPEN | "+r.gateB+" |");
- lines.push("");
- lines.push("Necessary but insufficient condition: **sum(other component dry masses) ≤ remaining budget**; this is not an earned PASS. Capsule has ONE dry-mass row and may not be counted a second time in the custody ledger.");
- if(stage===2) {
- lines.push("");
- lines.push("## Stage 2 — Venus atmospheric and phase screen");
- lines.push("**Atmosphere:** VIRA-derived IPPW-6 table (source in JSON), tabulated rather than made-up atmosphere fit. Table points are not a continuous flight-dynamics model. **Single rotor** deployed diameter "+format(val(d.geometry.rotor_diameter_m))+"m, area "+format(Math.PI*(val(d.geometry.rotor_diameter_m)/2)**2)+"m². Values below are momentum-theory hover plus assumed rotor FM and tip-jet thermal effectiveness at representative **"+band(d.venus.rotor_mass_screen_t).map(format).join("–")+" t**; they do NOT establish max available thermal power.");
- lines.push("| Alt km | rho kg/m³ | Temperature K | Rotor useful power MW | Tip-jet reactor heat MW |");
- lines.push("|---:|---:|---:|---:|---:|");
- for(const x of v.profile)lines.push("| "+x.altitude_km+" | "+format(x.density_kg_m3)+" | "+format(x.temperature_K)+" | "+x.rotor_MW.map(format).join("–")+" | "+x.tipjet_thermal_MW.map(format).join("–")+" |");
- lines.push("");
- lines.push("**Feasibility surface:** "+v.atSurface.length+" sampled full-mass / FM / tip-jet-efficiency combinations at surface, all with C=OPEN and D=OPEN because heat availability and trajectory are not given.");
- lines.push("| Wet mass t | Rotor FM | Tip-jet effectiveness | Required rotor MW | Required source heat MW | Orbit water C | Stay D |");
- lines.push("|---:|---:|---:|---:|---:|---|---|");
- for(const sc of v.atSurface)lines.push("| "+format(sc.mass_t)+" | "+format(sc.figure_of_merit)+" | "+format(sc.tip_eff)+" | "+format(sc.rotorMW)+" | "+format(sc.sourceMW)+" | OPEN | OPEN |");
- lines.push("");
- lines.push("**OPEN torch mode sweep:** "+v.torchCombos.length+" low/high exhaust-velocity pairings from the #453 PROJECTION intervals. None is a recovered engine parameter. Thrust, handover and required actual orbit Δv missing.");
- lines.push("| Low ve km/s | High ve km/s | Water at orbit |");
- lines.push("|---:|---:|---|");
- for(const tc of v.torchCombos)lines.push("| "+format(tc.low_ve_kmps)+" | "+format(tc.high_ve_kmps)+" | OPEN |");
- lines.push("");
- lines.push("**Handover altitude = OPEN output**. A physically defensible handover requires available delivered hot-gas power, tip-jet compression/nozzle model, allowed blade rpm/Mach, bearing lifetime and net climb performance. Those inputs are OPEN, so none can be manufactured by selecting a cloud height. Even unlimited near-surface hover does NOT reach orbit.");
- lines.push("");
- lines.push("**Conserved phase ledger:**");
- lines.push("| Phase | Reaction water | Crew thermal water | Reactor heat/power | Custody capsule |");
- lines.push("|---|---|---|---|---|");
- for(const x of v.phases)lines.push("| "+x.phase+" | "+x.water_reaction_delta+" | "+x.thermal_water_delta+" | "+x.reactor_heat+" | "+x.capsule+" |");
- lines.push("");
- lines.push("The v1 pre-rotor sortie debited **"+format(v.historicalV1TouchdownDebit_t)+"t belly touchdown** and reported **"+format(v.historicalV1PostBurnRemaining_t)+"t AFTER all its planned burns**. These are assumed *historical scenario comparators*, not independent debits or a credited stage-2 water result. Atmospheric tipjets may use **zero onboard reaction water for rotor phases** only conditionally; heat/compressor power and reactor supply remain OPEN.");
- lines.push("");
- lines.push("**Thermal lower-bound envelope:** ideal spherical 2.8m shell conduction without joints, doors, penetration or convection: "+v.leak_W.map(x=>format(x/val(d.si.kW_per_MW))).join("–")+" kW at 300K interior; for 18h "+v.leak_energy_kWh.map(format).join("–")+" kWh **before any crew/equipment heat**. This alone cannot give 2-crew or 4-crew survival duration: cold thermal mass, ΔT, actual heat capacity, compressor/power/rejection hardware, and crew waste heat all OPEN.");
- lines.push("");
- lines.push("**Feasibility map:** "+v.combinations+" sampled mass/FM/tipjet-efficiency combinations × "+v.torchCombos.length+" low/high-ve combinations × "+v.profile.length+" atmospheric levels. Power **DEMAND** is bounded in the table; **no configuration earns C or D PASS** because supply ceiling, ascent physics, and crew thermal-water ledger are OPEN. C=OPEN, D2=OPEN, D4=OPEN for every sample; no silent failures and no invented positive reserve.");
+ out.sort((a,b)=>(b.flipSpread??-1)-(a.flipSpread??-1)||b.marginShift-a.marginShift||a.field.localeCompare(b.field));
+ return out.slice(0,picks);
+}
+function analyze(d,stage){
+ const geo=geometry(d),limit=number(d.sweep.sample_count),design=samples(d,stage,limit),rows=[];
+ const exemplars=[];
+ for(let i=0;i<design.rows;i++){
+  const s=design.get(i),e=evaluate(d,stage,s,geo);
+  rows.push({A:e.A,B:e.B,R:e.R,C:e.C,C_low:e.C_low,C_high:e.C_high,D2:e.D2,D4:e.D4});
+  if(i<number(d.sweep.report_preview_samples))exemplars.push({sample:i,inputs:s,gates:rows.at(-1),dry:e.dry.sum,venus:stage===2?{
+    handover:e.venus.handover,lowWater:e.venus.mode.low.waterAtOrbit,highWater:e.venus.mode.high.waterAtOrbit,
+    lowThrust:e.venus.mode.low.thrustN,highThrust:e.venus.mode.high.thrustN,
+    lowDV:e.venus.mode.low.delta_v_orbit,highDV:e.venus.mode.high.delta_v_orbit,
+    twoCrewStay:e.venus.thermal[2].maxHours,fourCrewStay:e.venus.thermal[4].maxHours}:null});
  }
+ const gates=Object.fromEntries(["A","B",...(stage===2?["R","C","C_low","C_high","D2","D4"]:[])].map(k=>[k,census(rows,k)]));
+ const scores=Object.fromEntries(["A",...(stage===2?["R","C","D2","D4"]:[])].map(k=>[k,sensitivity(d,stage,design,geo,k)]));
+ const components=Object.keys(d.mass).filter(x=>!["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"].includes(x));
+ const sums=[0,0,0];const partRows=components.map(k=>{
+  const x=d.mass[k],levels=bounds(x)??[number(x),number(x)];
+  const triplet=[levels[0],(levels[0]+levels[1])/2,levels[1]];
+  triplet.forEach((v,i)=>sums[i]+=v);
+  return {name:k,values:triplet,provenance:x.provenance};
+ });
+ return {geometry:geo,gates,scores,examples:exemplars,partRows,sums,design:{rows:design.rows,fields:design.fields}};
+}
+function report(d,stage,hash,a,graphics){
+ const p=number(d.sweep.round_decimals),f=x=>fmt(x,p);
+ const lines=["# LOOM Shuttle Sizer v1 — Stage "+stage,"ALL bodies. ALL sponsors. 2026–2226.","",
+  "**CLASS: Engineering sensitivity / ASSUMPTION / NON-CANON / NOT QUALIFICATION.**",
+  "**Run identity:** Git blob SHA-1 of full UTF-8 input JSON incl. stage: \`"+hash+"\`.",
+  "**Run:** \`node wayfarer/lab/shuttle/shuttle_sizer.mjs --stage "+stage+"\`.",
+  "**Graphics:** "+graphics.map(x=>"\`"+x+"\`").join(", ")+".","",
+  "## Computed gates: per-sample status and sample PASS fractions",
+  "Design: "+a.design.rows+" balanced, pairwise-stratified min/mid/max samples over "+a.design.fields.length+
+   " independent swept inputs. This is **not** full Cartesian probability; PASS fractions are empirical design fractions, not calibrated probabilities.",
+  "| Gate | PASS | FAIL | OPEN | PASS / resolved | Missing required inputs |",
+  "|---|---:|---:|---:|---:|---|"];
+ const requiredB=a.geometry.gateB.missing.length?a.geometry.gateB.missing.join(", "):"none";
+ for(const [k,g] of Object.entries(a.gates))lines.push("| "+k+" | "+g.PASS+" | "+g.FAIL+" | "+g.OPEN+" | "+(g.pass_fraction===null?"n/a":(g.pass_fraction*100).toFixed(2)+"%")+" | "+(k==="B"?requiredB:"none in numeric screen; physical qualification holds separate")+" |");
  lines.push("");
- lines.push("## Inputs driving the result and provenance boundaries");
- lines.push("- A: Ti shell is the only interval-backed dry mass. Single 12m rotor mass is OPEN; #453's 1–10t *four 6m rotor* assumption is **not transferred**.");
- lines.push("- B: no dimensional clearance beyond the stated hull; hub thickness, CG, wing/mast stowage geometry unresolved.");
- if(stage===2)lines.push("- C/D: heat supply and rotor operating ceiling; rotor-to-torch handover; ascent vehicle aerodynamics, Δv, torch thrust and reaction-water load; cold-water partition; hot bearing and thermal lifetime.");
- lines.push("- Light-body access and Titan are Stage 3, not evaluated here. No modification to canon/Wayfarer geometry/Navigator.");
+ lines.push("### Gate A mass envelope and historical comparison");
+ lines.push("Component sums min / midpoint / max: **"+a.sums.map(f).join(" / ")+" t**. Gate A limit "+f(number(d.mass.max_docked_dry_t))+" t.");
+ lines.push("Historical LOST-sizer empty mass "+f(number(d.mass.v1_comparison_dry_t))+" t is the **v1 comparison** while LOST historical output is **"+f(number(d.mass.historical_lost_sizer_dry_t))+"t** in PR #453; neither is an equality target or an input mass offset.");
+ lines.push("Actual midpoint versus **27.9t** historical output: **"+f(a.sums[1]-number(d.mass.historical_lost_sizer_dry_t))+" t** difference ("+f(number(d.mass.historical_lost_sizer_dry_t))+"t historical anchored in #453 and should not be mistaken for a constraint).");
+ lines.push("| Distinct dry component | min | mid | max | provenance |","|---|---:|---:|---:|---|");
+ for(const row of a.partRows)lines.push("| "+row.name+" | "+row.values.map(f).join(" | ")+" | "+row.provenance+" |");
  lines.push("");
- lines.push("## Full hashed input JSON (verbatim)");
- lines.push("\`\`\`json");
- lines.push(JSON.stringify(d,null,2));
- lines.push("\`\`\`");
+ lines.push("### Gate B G8 stowed fit");
+ lines.push("Necessary-dimensional result: **"+(a.geometry.necessary?"PASS":"FAIL")+"**. G8 allowable L "+f(a.geometry.availL)+" m, diameter "+f(a.geometry.availD)+" m; hull "+f(a.geometry.hullL)+" × "+f(a.geometry.hullD)+" m, folded theoretical blade span "+f(a.geometry.nominalFoldSpan)+"m. Real margins: L "+f(a.geometry.axialClearance)+"m, D "+f(a.geometry.radialClearance)+"m.");
+ lines.push("Full fit verdict "+a.geometry.gateB.status+"; explicit REQUIRED nulls: "+requiredB+". No arbitrary hub or mast geometry credited.");
+ lines.push("");
+ lines.push("## Three most influential inputs per gate (one-at-a-time)");
+ lines.push("Each factor is set to **min / mid / max** while "+number(d.sweep.sensitivity_count)+" balanced baselines hold all other inputs. Rank by change in PASS fraction; if no boundary crosses, rank by change in physical margin.");
+ for(const [k,v] of Object.entries(a.scores)){
+   lines.push("**Gate "+k+"**");
+   lines.push("| Input | PASS % at min/mid/max | Δ PASS | Δ margin if no flip |","|---|---|---:|---:|");
+   for(const x of v)lines.push("| "+x.field+" | "+x.passRates.map(y=>y===null?"OPEN":(y*100).toFixed(1)).join(" / ")+" | "+(x.flipSpread===null?"OPEN":(100*x.flipSpread).toFixed(1)+" pp")+" | "+f(x.marginShift)+" |");
+   lines.push("");
+ }
+ if(stage===2){
+ lines.push("## Stage 2: Venus rotor-to-torch, reaction water and thermal ledger");
+ lines.push("The single 12m rotor uses VIRA tabulation, log-linear density interpolation, momentum theory and assumed FM & hot-gas effectiveness. **Handover altitude is computed for each sample**, limited by delivered tipjet heat, hot duty, tip-speed necessary bound and editable requested upper handover altitude. Required low bound "+f(d.venus.handover_altitude_km.min)+"km. No propulsive effect of rotor exhaust is credited to orbital speed.");
+ lines.push("**Rotor Gate R:** hover/climb heat/duty arithmetic only, **not** structural rotor/blade-stall qualification. **C:** water-to-orbit from required post-handover Δv using independent low-only and high-only modes and \`thrust=2Pjet/ve\`, \`mdot=2Pjet/ve²\`. C passes if at least one mode returns nonnegative reaction water AND R passes. Crew thermal water and custody payload remain onboard mass, not reaction water.");
+ lines.push("**Venus physical mission remains OPEN even where conditional C PASS:** at 5–25km Venus atmosphere is still dense; missing torch atmosphere/plume viability, complete entry aerothermal qualification, and detailed ascent path are explicit nulls in input, not silently certified.");
+ lines.push("**Thermal Gate D2/D4:** PASS if passive separate cold-water sensible-energy store lasts at least "+f(number(d.thermal.stay_requested_h))+"h after conduction through ideal spherical insulation, cabin electronics and 2/4 crew heat; no active cooling or hot-side power credited. Physical life-support and seals remain separate OPEN.");
+ lines.push("**Phase ledger:** sampled for every scenario; representative detailed case below. Reaction water starts with "+f(vals(d,"water.reaction_water_initial_t"))+"t. Crew cold-water mass is a **different inventory**. Custody dry is counted ONCE; custody contents add wet mass ONCE.");
+ const ex=a.examples[0],e=evaluate(d,stage,ex.inputs,a.geometry);
+ for(const m of ["low","high"]){
+ lines.push("**First sampled "+m+" exhaust mode: reaction-water phases**");
+ lines.push("| Phase | before t | debit t | after t | Cold water t | Cold energy 2/4 crew remaining kWh | Jet GW | Custody |","|---|---:|---:|---:|---:|---|---:|---|");
+ for(const row of e.venus.phaseLedger[m])lines.push("| "+row.phase+" | "+f(row.water_before_t)+" | "+f(row.water_debit_t)+" | "+f(row.water_after_t)+" | "+f(row.thermal_water_mass_t)+" | "+d.thermal.crew_cases.map(q=>f(row.thermal_energy_by_crew[number(q)].energy_after_J/number(d.si.joules_per_kWh))).join(" / ")+" | "+f(row.torch_jet_power_GW)+" | "+row.custody+" |");
+ lines.push("Torch "+m+" at first sample: thrust "+f(e.venus.mode[m].thrustN)+"N, delta-v deliverable "+f(e.venus.mode[m].delta_v_orbit)+"km/s, orbit water "+f(e.venus.mode[m].waterAtOrbit)+"t, torch firing "+f(e.venus.mode[m].timeH)+"h.");
+ }
+ lines.push("**Nominal v1 comparator** (NOT a new debit): 0.84t former belly touchdown already included in its 1.6t post-all-burn remaining figure; new rotor architecture never double subtracts it.");
+ lines.push("**Thermal output first sample:** 2 crew max "+f(e.venus.thermal[2].maxHours)+"h, 4 crew max "+f(e.venus.thermal[4].maxHours)+"h; ambient table valid at surface; thermal bridge/radiation, active cooler, and heat-rejector design not qualified.");
+ lines.push("**Reactor waste heat remains explicitly OPEN in every phase: `power.reactor_waste_heat_MW`; missing conversion and heat-rejection closure are not assigned zero. Required-but-OPEN physical interfaces**: "+["venus.torch_atmosphere_viability","venus.entry_vehicle_thermal_qualification","thermal.active_cooler_power_available_kW","thermal.hot_side_rejection_capacity_kW"].join(", ")+".");
+ }
+ lines.push("## Representative sample outcomes");
+ lines.push("| # | Dry t | A | B | "+(stage===2?"Rotor | C | C low | C high | D2 | D4":"") +" |");
+ lines.push("|---:|---:|---|---|"+(stage===2?"---|---|---|---|---|---|":"")+"|");
+ for(const row of a.examples)lines.push("| "+row.sample+" | "+f(row.dry)+" | "+row.gates.A+" | "+row.gates.B+" | "+(stage===2?[row.gates.R,row.gates.C,row.gates.C_low,row.gates.C_high,row.gates.D2,row.gates.D4].join(" | ")+" | ":"")+"");
+ lines.push("");
+ lines.push("## Full input JSON: exact bytes determine run identity");
+ lines.push("\`\`\`json",JSON.stringify(d,null,2),"\`\`\`");
  return lines.join("\n")+"\n";
 }
-// CLI
+function sideSVG(d,a){
+ const g=a.geometry,p=number(d.sweep.svg_pixels_per_meter),pad=number(d.sweep.svg_margin_px),W=Math.ceil(g.hullL*p+2*pad),H=Math.ceil(g.hullD*p+3*pad),
+ mid=pad+g.hullL*p/2,y=pad+g.hullD*p/2;
+ return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'"><rect width="100%" height="100%" fill="#121b29"/>'+
+ '<text x="'+pad+'" y="25" fill="#fff" font-size="16">SHUTTLE STOWED SCALE ENVELOPE — G8 FIT '+esc(a.geometry.gateB.status)+'</text>'+
+ '<rect x="'+pad+'" y="'+(y-g.hullD*p/2)+'" width="'+(g.hullL*p)+'" height="'+(g.hullD*p)+'" rx="'+(g.hullD*p/4)+'" fill="#324b64" stroke="#80c7ee" stroke-width="2"/>'+
+ '<line x1="'+(mid-g.rotorD*p/2)+'" y1="'+y+'" x2="'+(mid+g.rotorD*p/2)+'" y2="'+y+'" stroke="#ffcb83" stroke-width="5"/>'+
+ '<circle cx="'+mid+'" cy="'+y+'" r="7" fill="#ffd18a"/>'+
+ '<text x="'+pad+'" y="'+(H-50)+'" fill="#fff" font-size="13">'+esc(g.hullL+'m hull / '+g.availL.toFixed(2)+'m allowable bay; rotor '+g.rotorD+'m folded theoretical span')+'</text>'+
+ '<text x="'+pad+'" y="'+(H-29)+'" fill="#ffcb83" font-size="13">Actual mast/hub/CG positions OPEN; this line is NOT a fit proof</text></svg>';
+}
+function waterfallSVG(d,a){
+ const parts=a.partRows,limit=number(d.mass.max_docked_dry_t),W=1000,H=90+parts.length*27,scale=(W-350)/a.sums[2],barX=300;
+ const rects=parts.map((r,i)=>{const x=barX+parts.slice(0,i).reduce((sum,v)=>sum+v.values[1],0)*scale,w=r.values[1]*scale,y=65+i*27;
+ return '<text x="20" y="'+(y+13)+'" fill="#cde6ff" font-size="12">'+esc(r.name)+'</text>'+
+ '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="19" fill="'+(i%2?"#ffcb82":"#70c9c4")+'"/>';
+ }).join("");
+ return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'"><rect width="100%" height="100%" fill="#121b29"/>'+
+ '<text x="20" y="25" fill="#fff" font-size="18">DRY-MASS WATERFALL: MIDPOINT STACK (t)</text>'+
+ '<text x="20" y="44" fill="#cde6ff" font-size="13">min '+a.sums[0].toFixed(2)+' | midpoint '+a.sums[1].toFixed(2)+' | max '+a.sums[2].toFixed(2)+' | GATE A '+esc(a.gates.A.pass_fraction===null?"OPEN":(100*a.gates.A.pass_fraction).toFixed(1)+"% PASS")+'</text>'+
+ rects+'<line x1="'+(barX+limit*scale)+'" x2="'+(barX+limit*scale)+'" y1="48" y2="'+(H-22)+'" stroke="#ff6b76" stroke-dasharray="5 4" stroke-width="2"/>'+
+ '<text x="'+(barX+limit*scale+5)+'" y="'+(H-10)+'" fill="#ff9fa5" font-size="12">'+limit+'t dry limit</text></svg>';
+}
+
 import {readFileSync,writeFileSync} from "node:fs";
 import {createHash} from "node:crypto";
-const path=new URL("./shuttle_inputs.json",import.meta.url);
-const raw=readFileSync(path,"utf8"),data=JSON.parse(raw);
-const stageArg=process.argv.indexOf("--stage");
-const stage=val(data.run_stage);
-if(![1,2].includes(stage))throw Error("JSON run_stage must be 1 or 2; stage 3 requires kT review");
-if(stageArg>=0 && Number(process.argv[stageArg+1])!==stage)throw Error("CLI --stage differs from hashed JSON run_stage");
-const gitBlobId=createHash("sha1").update("blob "+Buffer.byteLength(raw)+"\0"+raw).digest("hex");
-const geometry=limits(data),ven=stage===2?stage2(data):null;
-const pReport=new URL("./SHUTTLE_SIZER_REPORT.md",import.meta.url),
- pSide=new URL("./SHUTTLE_SIDE_VIEW.svg",import.meta.url),
- pFall=new URL("./SHUTTLE_MASS_WATERFALL.svg",import.meta.url);
-writeFileSync(pReport,report(data,stage,gitBlobId,geometry,ven,["SHUTTLE_SIDE_VIEW.svg","SHUTTLE_MASS_WATERFALL.svg"]));
-writeFileSync(pSide,sideSVG(data,geometry));
-writeFileSync(pFall,waterfallSVG(data,geometry));
-process.stdout.write(JSON.stringify({run_id:gitBlobId,stage,gates:{A:geometry.gateA,B:geometry.gateB,C:ven?.gateC||"NOT_RUN",D2:ven?.gateD2||"NOT_RUN",D4:ven?.gateD4||"NOT_RUN"},report:"SHUTTLE_SIZER_REPORT.md"},null,2)+"\n");
+const url=new URL("./shuttle_inputs.json",import.meta.url),raw=readFileSync(url,"utf8"),input=JSON.parse(raw);
+const stage=number(input.run_stage),arg=process.argv.indexOf("--stage");
+if(![1,2].includes(stage))throw Error("run_stage must be 1 or 2; Stage 3 held");
+if(arg>=0&&Number(process.argv[arg+1])!==stage)throw Error("CLI stage mismatches JSON run_stage");
+const identity=createHash("sha1").update("blob "+Buffer.byteLength(raw)+"\0"+raw).digest("hex");
+const output=analyze(input,stage),fileRoot=new URL("./",import.meta.url);
+for(const [name,content] of Object.entries({
+ "SHUTTLE_SIZER_REPORT.md":report(input,stage,identity,output,["SHUTTLE_SIDE_VIEW.svg","SHUTTLE_MASS_WATERFALL.svg"]),
+ "SHUTTLE_SIDE_VIEW.svg":sideSVG(input,output),
+ "SHUTTLE_MASS_WATERFALL.svg":waterfallSVG(input,output)}))writeFileSync(new URL(name,fileRoot),content);
+process.stdout.write(JSON.stringify({run_id:identity,stage,gates:output.gates},null,2)+"\n");
