@@ -119,7 +119,7 @@ function report(d,stage,hash,r,v,svgNames) {
  lines.push("ALL bodies. ALL sponsors. 2026-2226.");
  lines.push("");
  lines.push("**Status:** NON-CANON / NON-RUNTIME / UNQUALIFIED ENGINEERING SENSITIVITY. No machine constants promoted.");
- lines.push("**Input hash / run identity (Git blob SHA-1):** \`"+hash+"\`. Raw UTF-8 input identity is SHA-1 of \`blob <byte-length>\\\\0\` plus JSON bytes.");
+ lines.push("**Input hash / run identity (Git blob SHA-1; includes JSON run_stage):** \`"+hash+"\`. Raw UTF-8 input identity is SHA-1 of \`blob <byte-length>\\\\0\` plus JSON bytes.");
  lines.push("**Single source input:** \`wayfarer/lab/shuttle/shuttle_inputs.json\` (all inputs printed at end).");
  lines.push("**Files generated:** \`"+svgNames[0]+"\`, \`"+svgNames[1]+"\`.");
  lines.push("");
@@ -188,8 +188,9 @@ import {createHash} from "node:crypto";
 const path=new URL("./shuttle_inputs.json",import.meta.url);
 const raw=readFileSync(path,"utf8"),data=JSON.parse(raw);
 const stageArg=process.argv.indexOf("--stage");
-const stage=stageArg<0?1:Number(process.argv[stageArg+1]);
-if(![1,2].includes(stage))throw Error("--stage must be 1 or 2 (stage 3 requires kT review)");
+const stage=val(data.run_stage);
+if(![1,2].includes(stage))throw Error("JSON run_stage must be 1 or 2; stage 3 requires kT review");
+if(stageArg>=0 && Number(process.argv[stageArg+1])!==stage)throw Error("CLI --stage differs from hashed JSON run_stage");
 const gitBlobId=createHash("sha1").update("blob "+Buffer.byteLength(raw)+"\0"+raw).digest("hex");
 const geometry=limits(data),ven=stage===2?stage2(data):null;
 const pReport=new URL("./SHUTTLE_SIZER_REPORT.md",import.meta.url),
