@@ -338,6 +338,13 @@
       "provenance": "ASSUMPTION",
       "source": "kT/Claude 2026-11-02",
       "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "historical_lost_sizer_dry_t": {
+      "value": 27.9,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "Historical derived output from lost sizer preserved in PR #453 / current wayfarer_v05_inputs.json",
+      "description": "Historical comparison only, excluded from new component sum and gates."
     }
   },
   "water": {
