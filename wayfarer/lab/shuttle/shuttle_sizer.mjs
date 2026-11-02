@@ -94,7 +94,7 @@ function rotorAt(d,s,mass,h){
  const g=number(d.venus.gravity_mps2),m=mass*number(d.si.kg_per_t),
  area=Math.PI*(number(d.geometry.rotor_diameter_m)/2)**2,force=m*g;
  const induced=Math.sqrt(force/(2*a.rho*area));
- const powerMW=force*induced/(number(d.si.kg_per_t)**2*val(d,"power.rotor_figure_of_merit",s));
+ const powerMW=force*induced/(number(d.si.W_per_MW)*val(d,"power.rotor_figure_of_merit",s));
  const sourceMW=powerMW/val(d,"power.tipjet_thermal_to_useful_rotor",s);
  return {alt:h,air:a,induced,shaftMW:powerMW,sourceMW};
 }
@@ -141,7 +141,7 @@ function stage2(d,s,dryResult){
   const actualWaterUsed=Math.max(0,Math.min(Math.max(0,afterEntry),waterDemand));
   const waterEnd=Math.max(0,afterEntry-actualWaterUsed);
   const waterShortfall=Math.max(0,waterDemand-afterEntry);
-  const P=jetGW*(kg**3),vel=ve*km,thrustN=2*P/vel,mdot=thrustN/vel;
+  const P=jetGW*number(d.si.W_per_GW),vel=ve*km,thrustN=2*P/vel,mdot=thrustN/vel;
   const burnSeconds=actualWaterUsed*kg/mdot;
   const theoreticalDV=ve*Math.log(massStart/(dryT+thermalT+cargoT));
   const status=rotorGate.status==="OPEN"?"OPEN":waterPass&&rotorGate.status==="PASS"?"PASS":"FAIL";
@@ -161,7 +161,7 @@ function stage2(d,s,dryResult){
    const r=val(d,"geometry.crew_pod_outer_diameter_m")/2,area=4*Math.PI*r*r;
    const outside=val(d,"thermal.venus_external_surface_K",s);
    const leak=val(d,"thermal.insulation_k_W_per_mK",s)*area*(outside-val(d,"thermal.cabin_target_K"))/val(d,"thermal.insulation_thickness_m",s);
-   const electronics=val(d,"thermal.cabin_electronics_kW",s)*kg;
+   const electronics=val(d,"thermal.cabin_electronics_kW",s)*number(d.si.W_per_kW);
    const load=leak+electronics+crewCount*val(d,"thermal.crew_heat_W_each",s);
    const stored=thermalT*kg*val(d,"water.crew_water_heat_capacity_J_per_kg_K")*val(d,"water.crew_water_heating_delta_T_K",s);
    const maxHours=stored/load/seconds;
