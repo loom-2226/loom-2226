@@ -2,7 +2,7 @@
 ALL bodies. ALL sponsors. 2026–2226.
 
 **Authority:** NON-CANON engineering screen, all ranges/provenance from the attached input JSON; numerical PASS is not hardware certification.
-**Run identity:** Git-blob SHA-1 of exact input JSON (includes stage): `98f957153633120b3e0d4ed32e26508ba0b24537`.
+**Run identity:** Git-blob SHA-1 of exact input JSON (includes stage): `d02928231ba5843c5612c3e419cbd8f24fdfa57a`.
 **Reproduce:** `node wayfarer/lab/shuttle/shuttle_sizer.mjs --stage 2`.
 **CLI validation record:** CLOSED for previous round-2 Stage 2 commit, confirmed by Claude as reported by kT; this round-3 executable was independently evaluated in the model but not claimed to have a new Node CLI validation.
 **Graphics:** SHUTTLE_SIDE_VIEW.svg, SHUTTLE_MASS_WATERFALL.svg.
@@ -45,7 +45,7 @@ Historical lost-sizer dry 27.900t (not a fit target), current mid minus history 
 | folding_rover_chassis_t | 0.600 | 0.900 | 1.200 | CORE | ASSUMPTION |
 | single_12m_rotor_blades_hub_mast_t | 0.800 | 1.400 | 2.000 | VENUS/TITAN payload | ASSUMPTION |
 | tipjet_ducts_compressors_t | 0.300 | 0.650 | 1.000 | VENUS/TITAN payload | ASSUMPTION |
-| torch_low_high_engine_t | 4.000 | 7.000 | 10.000 | CORE | ASSUMPTION |
+| torch_low_high_engine_t | 4.000 | 7.000 | 10.000 | CORE | DECLARED_2226 |
 | small_belly_thrusters_t | 0.200 | 0.400 | 0.600 | CORE | ASSUMPTION |
 | reactor_power_distribution_t | 0.300 | 0.650 | 1.000 | CORE | ASSUMPTION |
 | crew_habitat_thermal_package_t | 1.000 | 1.500 | 2.000 | CORE | ASSUMPTION |
@@ -121,9 +121,10 @@ B and full KF have no honest min/mid/max influence ranking until required indivi
 | thermal.insulation_k_W_per_mK | 34.568 / 13.580 / 13.580 | 20.988 | 75.063 |
 
 ## Three mass-driver research checks (not automatic certification)
-### Torch 7.7 GW-class source
-Repo [torch energy partition / specific power](https://github.com/loom-2226/loom-2226/blob/main/src/wayfarer_torch_energy_partition_mass_feasibility.py) explicitly holds source specific power and directed fraction OPEN. Literature [Razin DFD 2014](https://doi.org/10.1016/j.actaastro.2014.08.008) and [Princeton DFD Mars](https://psatellite.com/going-to-mars-with-direct-fusion-drive/) address **MW class**, not compact GW engines.
-At 7.700 GW ideal jet power, even optimistic study source specific power 25–100 kW/kg implies **77.000–308.000 t** SOURCE-ONLY, before power partition and shielding. Consequently 4.000–10.000t torch engine stays ASSUMPTION and cannot be narrowed honestly by current evidence. Reactor power distribution is separately itemized, but source realization is still a major feasibility hold.
+### Torch 7.7 GW-class source and approved 2226 lineage
+**KT DECISION — DECLARED_2226:** Shuttle 4–10 t engine minimum-size floor is unchanged. Wayfarer working ledger total 160.000 t = 85.000 reactor + 45.000 shield + 30.000 nozzle, for 11.361 TW jet. The derived specific jet-power per aggregate propulsion kilogram is 71006.250 kW/kg, so a 7.700 GW-class ideal proportional engine would be 0.108 t. This is **not** physical miniaturization proof; kT declares a larger 4–10t minimum-size floor. No canon changed.
+**RESEARCH NOTE — 2026 DFD gap is real and applies equally to Wayfarer.** Repo [torch energy partition / specific power](https://github.com/loom-2226/loom-2226/blob/main/src/wayfarer_torch_energy_partition_mass_feasibility.py) leaves directed fraction and source specific power OPEN. [Jain and Kakade 2023](https://doi.org/10.1016/j.actaastro.2023.02.011) and [Princeton DFD](https://psatellite.com/technology/fusion/) discuss MW-class conceptual systems, not compact GW hardware. The 2026 research bands below diagnose the 200-year technological extrapolation, not an override of DECLARED_2226.
+At 7.700 GW ideal jet power, even optimistic study source specific power 25–100 kW/kg implies **77.000–308.000 t** SOURCE-ONLY, before power partition and shielding. Consequently 4.000–10.000t torch engine remains DECLARED_2226 at the approved 4–10 t floor. The `>=77t` 2026 research comparison is a technology-gap diagnostic, not a constraint on the fictional 2226 assumption; 2026 scaling limitations apply to Wayfarer as well.
 ### Biconic hull and thermal structure
 NASA [Venus aeroshell](https://science.nasa.gov/wp-content/uploads/2023/10/advents-venus-orbiter-aerobot-and-dropsonde.pdf) models 3.200m expendable entry body, 0.300t Ti-composite structure and 0.373t HEEET, excluding the 4.300m × 12.800m reusable shuttle with hot rotor mount, keel and rover loads. The 9.000–14.000t kT range cannot be credibly narrowed from that analog. It stays ASSUMPTION.
 ### 2.8m OD titanium pressure sphere
@@ -135,6 +136,40 @@ Analytic perfect-sphere elastic buckling with independent **assumed knockdown an
 | 5.400 | 51.436 | 111.269 | 91.000 | PASS ANALYTIC ONLY |
 | 7.600 | 73.561 | 245.205 | 91.000 | PASS ANALYTIC ONLY |
 Knockdown 0.200–0.500, SF 1.500–2.000, modulus 80.000–115.000GPa, allowable compressive stress 180.000–350.000MPa are all ASSUMPTION; hatch/penetration stress concentrations and Venus hot material strength OPEN. Do not narrow the shell mass until these are resolved.
+
+## Round 4 research sensitivity: torch IDLE, heated CO2 tip jets (NEVER credited to gates)
+**kT hypothesis:** reactor no-thrust idle at 0.500–3.000% of 7.700GW working jet reference = 38.500–231.000MW numerical comparison. The independently **ASSUMED delivered** thermal budgets 40.000/135.000/230.000MW are **NOT** a derived heat-transfer efficiency, guaranteed fusion output, or actual reactor availability. No physical model maps 7.7GW jet to idle thermal power; that mapping is OPEN.
+**Wayfarer authority is NOT idle:** raw 63.360MW × 0.750 during the BURN ONLY gives 47.520MWe magnet supply and 15.840MW conversion waste. A burn-only energy tap does not establish a stationary reactor heater.
+**Minimum stable fusion / turndown:** [PSS Starfire/PFRC](https://psatellite.com/technology/fusion/) projects MW-scale steady-power capability; [PPPL PFRC](https://www.pppl.gov/Princeton-Field-Reversed-Configuration) studies RF-driven FRCs; [Jain & Kakade](https://doi.org/10.1016/j.actaastro.2023.02.011) identify RF recirculation and sustained-plasma challenges; [Nature FRC demonstration](https://www.nature.com/articles/s41467-025-58849-5) validates limited experimental FRC formation, not a GW fusion powerplant. **No published qualified minimum stable fusion power, 0.5–3% turndown, or exhaustless operation for this reactor lineage was found.** These are OPEN, not failed gate inputs.
+**Heat path:** a 2226 source-to-hot-loop exchanger → high-temperature duct manifold → retracted mast/rotating union → four hollow rotor blades → CO₂ tip jets. The source must transfer charged-particle/radiative energy without a main plume, hold the FRC operating point, avoid net reaction exhaust, and dissipate unrecovered thermal power. [NASA exchanger material-interface research](https://ntrs.nasa.gov/citations/20230005988) and [NEP heat-pipe sizing](https://ntrs.nasa.gov/citations/20220013111) establish substantial temperature, fatigue, duct-pressure and exchanger-mass concerns but no validated GW-specific 2226 mass range. Exchanger mass, flow, insulation, rotating union and hot-mast heat leak remain OPEN; no credits or new dry-mass guesses.
+**Conditional rotor demand at 30/40/50 km**, using original VIRA table and min/mid/max total wet mass, figure of merit and tip-jet efficiency. The *mass and aerodynamic assumptions are the sizer's existing ranges*, not invented reactor performance.
+| Rotor case | Wet t | FM | source→rotor | altitude km | ambient bar | shaft MW | required hot-gas input MW |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| OPTIMISTIC | 49.310 | 0.800 | 0.350 | 30.000 | 9.581 | 7.546 | 21.560 |
+| OPTIMISTIC | 49.310 | 0.800 | 0.350 | 40.000 | 3.501 | 11.456 | 32.731 |
+| OPTIMISTIC | 49.310 | 0.800 | 0.350 | 50.000 | 1.066 | 19.042 | 54.406 |
+| MIDPOINT | 63.630 | 0.700 | 0.225 | 30.000 | 9.581 | 12.642 | 56.185 |
+| MIDPOINT | 63.630 | 0.700 | 0.225 | 40.000 | 3.501 | 19.192 | 85.297 |
+| MIDPOINT | 63.630 | 0.700 | 0.225 | 50.000 | 1.066 | 31.900 | 141.779 |
+| PESSIMISTIC | 77.950 | 0.600 | 0.100 | 30.000 | 9.581 | 19.998 | 199.979 |
+| PESSIMISTIC | 77.950 | 0.600 | 0.100 | 40.000 | 3.501 | 30.359 | 303.594 |
+| PESSIMISTIC | 77.950 | 0.600 | 0.100 | 50.000 | 1.066 | 50.463 | 504.630 |
+
+**Heat-only ceiling, VIRA profile, no atmospheric/nozzle qualification.** At each independently assumed delivered heat level, climb only while required tip-jet input is no larger than budget. This ignores rotor safe-tip-speed, hot duty, mast/exchanger loss and reactor start/restart, so reported ceilings are optimistic *heat-only* bounds, NOT Gate R or C.
+| Rotor case | hypothetical delivered heat MW | thermal rotor ceiling km | cloud-base reached? | **above cloud TOP?** |
+|---|---:|---:|---|---|
+| OPTIMISTIC | 40.000 | 44.000 | no | no |
+| OPTIMISTIC | 135.000 | 63.000 | yes | no |
+| OPTIMISTIC | 230.000 | 69.000 | yes | yes |
+| MIDPOINT | 40.000 | 20.000 | no | no |
+| MIDPOINT | 135.000 | 49.000 | yes | no |
+| MIDPOINT | 230.000 | 58.000 | yes | no |
+| PESSIMISTIC | 40.000 | OPEN | no | no |
+| PESSIMISTIC | 135.000 | 18.000 | no | no |
+| PESSIMISTIC | 230.000 | 33.000 | no | no |
+
+Cloud-base 48.000km; cloud-top 65.000km, screen references only. **Entering the clouds is NOT lighting the torch above the clouds.** An ABOVE-CLOUD-TOP result would still not certify magnetic-nozzle plume operation at local density or guarantee reactor idle mode. Jet-power throttling and thermal routing are not demonstrated.
+**STOP / HOLDS:** idle fusion power stability, extraction efficiency, exhaust-free containment, rotating joint, heat exchanger/duct mass, and heat transfer to tipjets are all OPEN. Existing A/A2/B/C/D and existing statistical sensitivity ranking are not altered by this isolated calculation.
 
 ## Stage 2: Venus rotor and torch, D-shuttle vs D-pod
 **Rotor:** one 12.000m disk, VIRA atmosphere, min/mid/max sampled real FM and hot-gas conversion, heat-cap input ceiling, speed and life bound. Computed handover must reach at least 5.000km in this declared screen; physical lift and tip-Mach not certified.
@@ -225,7 +260,8 @@ The following declared required physics is still OPEN: venus.torch_atmosphere_vi
       "status": "CLOSED",
       "basis": "Claude locally ran Stage 2 Node CLI and reproduced run hash 772ccd9ef0cfc82ea7c03ae0c5f3c936d310a0c4; reported by kT 2026-11-03",
       "note": "Prior CLI test closed for round-2 executable; round-3 output requires fresh execution when possible."
-    }
+    },
+    "round_4": "kT approved 2026-11-03; same draft branches; all gate inputs frozen; idle heat research only"
   },
   "si": {
     "kg_per_t": {
@@ -311,6 +347,20 @@ The following declared required physics is still OPEN: venus.torch_atmosphere_vi
       "provenance": "ONLINE",
       "source": "SI conversion",
       "description": "Thin-shell thickness report only"
+    },
+    "W_per_TW": {
+      "value": 1000000000000,
+      "unit": "W/TW",
+      "provenance": "ONLINE",
+      "source": "SI decimal prefixes",
+      "description": "Unit conversion only; nominal jet W from TW"
+    },
+    "MW_per_GW": {
+      "value": 1000,
+      "unit": "MW/GW",
+      "provenance": "ONLINE",
+      "source": "SI decimal prefixes",
+      "description": "Convert rated gigawatt jet-power reference into megawatt sensitivity"
     }
   },
   "geometry": {
@@ -536,9 +586,9 @@ The following declared required physics is still OPEN: venus.torch_atmosphere_vi
       "min": 4,
       "max": 10,
       "unit": "t",
-      "provenance": "ASSUMPTION",
-      "source": "kT/Claude 2026-11-02",
-      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+      "provenance": "DECLARED_2226",
+      "source": "kT APPROVED 2026-11-03; Wayfarer ledger https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
+      "description": "Minimum-size floor for shuttle torch in same hypothetical 2226 lineage as Wayfarer. Wayfarer propulsion allocation: 160t = reactor85t + shadow shield45t + nozzle30t. Working jet ceiling 11.361TW gives ~71,006 kW/kg of total propulsion subsystem; at same linear rate 7.7GW corresponds ~0.108t, below a practical minimum-size floor. Keep editable 4–10t; mass/safety/geometry and scaling are an explicit 2226 declaration, NOT evidence of a physically demonstrated 2026 device. Do NOT alter range. This row counts whole 4–10t torch ENGINE floor, and its split is not separately added to another dry-mass row."
     },
     "small_belly_thrusters_t": {
       "min": 0.2,
@@ -1375,8 +1425,54 @@ The following declared required physics is still OPEN: venus.torch_atmosphere_vi
         "source": "wayfarer/config/wayfarer_v05_inputs.json",
         "description": "Historical approximate torch class; 5–8 GW swept active, this constant is comparison only"
       },
-      "torch_mass_decision": "NOT_NARROWED: 4–10t engine remains ASSUMPTION; literature-implied GW source masses exceed it by orders of magnitude, and engine/source partition OPEN",
-      "no_double_charge": "Component torch mass includes engine-only assumed; separate source mass must be conserved and qualified; do not double count engine into reactor mass."
+      "torch_mass_decision": "KT_DECLARED_2226: retain 4–10t minimum-size torch engine mass; 2026 DFD figures 0.3–1.5 kW/kg and optimistic 25–100kW/kg (>=77t for 7.7GW) are RESEARCH NOTES contrasting 2026 and assumed 2226 technology, not sizer mass constraints or rejections of the 2226 declaration.",
+      "no_double_charge": "Component torch mass includes engine-only assumed; separate source mass must be conserved and qualified; do not double count engine into reactor mass.",
+      "lineage_mass_basis": {
+        "wayfarer_jet_power_TW": {
+          "value": 11.361,
+          "unit": "TW",
+          "provenance": "CANON",
+          "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
+          "description": "Declared current working torch jet ceiling, not measured reactor thermal power"
+        },
+        "wayfarer_propulsion_allocation_t": {
+          "value": 160,
+          "unit": "t",
+          "provenance": "CANON",
+          "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
+          "description": "Engineering-assumption propulsion ledger total; not hardware validation"
+        },
+        "wayfarer_reactor_t": {
+          "value": 85,
+          "unit": "t",
+          "provenance": "CANON",
+          "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
+          "description": "Share of propulsion total"
+        },
+        "wayfarer_shadow_shield_t": {
+          "value": 45,
+          "unit": "t",
+          "provenance": "CANON",
+          "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
+          "description": "Share of propulsion total"
+        },
+        "wayfarer_magnetic_nozzle_t": {
+          "value": 30,
+          "unit": "t",
+          "provenance": "CANON",
+          "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
+          "description": "Share of propulsion total"
+        },
+        "shuttle_jet_power_class_GW": {
+          "value": 7.7,
+          "unit": "GW",
+          "provenance": "DECLARED_2226",
+          "source": "kT 2026-11-03",
+          "description": "Comparison class only; active sensitivity range retains 5–8GW"
+        },
+        "torch_lineage_classification": "DECLARED_2226_MINIMUM_SIZE_FLOOR",
+        "note": "11.361 TW / 160 t -> 71,006 kW/kg derived scaling; 7.7 GW / 71,006 kW/kg -> 0.108t. This does not validate miniaturization, fusion confinement, or idle mode. 4–10t stays unchanged."
+      }
     },
     "hull": {
       "nasa_entry_study": "https://science.nasa.gov/wp-content/uploads/2023/10/advents-venus-orbiter-aerobot-and-dropsonde.pdf",
@@ -1504,6 +1600,120 @@ The following declared required physics is still OPEN: venus.torch_atmosphere_vi
       "plume_base_heating": "https://ntrs.nasa.gov/citations/20010116591",
       "plume_recirc": "https://link.springer.com/article/10.1007/s12567-020-00306-8",
       "conclusion": "NO published GW fusion magnetic-nozzle proof at 1–70 bar CO2. Magnetic nozzle vacuum PIC/neutrals cannot be extrapolated to dense neutral CO2; collisional momentum/ionization, entrainment, pressure separation, base recirculation, radiation, coil/nozzle heat, bearing and hull heating OPEN. Raising rotor handover to 30–50km increases rotor tipjet heat substantially."
+    },
+    "idle_tipjet_heat": {
+      "classification": "RESEARCH_ONLY_NON_GATE_SENSITIVITY",
+      "idle_fraction_of_nominal_jet": {
+        "min": 0.005,
+        "max": 0.03,
+        "unit": "fraction",
+        "provenance": "ASSUMPTION",
+        "source": "kT 2026-11-03 proposed idle-heat hypothesis",
+        "description": "Equivalent to 0.5–3% of 7.7GW jet-power numerical reference, NOT evidence of stable reactor turndown or thermal heat availability"
+      },
+      "hypothetical_delivered_tipjet_heat_MW": {
+        "min": 40,
+        "max": 230,
+        "unit": "MW",
+        "provenance": "ASSUMPTION",
+        "source": "kT 2026-11-03 proposed delivered-heat comparison",
+        "description": "Independent idealized delivered heat budgets 40/135/230MW, roughly the 0.5–3% nominal comparison. Heat delivery NOT demonstrated; no efficiency debit inferred."
+      },
+      "heat_transfer_efficiency": {
+        "value": null,
+        "unit": "fraction",
+        "provenance": "OPEN",
+        "source": "No neutron/charged-particle-to-CO2 source thermal partition supplied",
+        "description": "No lower/upper numerical bound; do not claim 40–230 MW deliverable"
+      },
+      "minimum_stable_fusion_fraction": {
+        "value": null,
+        "unit": "fraction",
+        "provenance": "OPEN",
+        "source": "PFRC/DFD literature through 2026 lacks measured stable GW reactor fractional turndown",
+        "description": "Do not infer turndown from PFRC 1–10MW design scale"
+      },
+      "no_reaction_exhaust_mode_qualified": {
+        "value": null,
+        "unit": "bool",
+        "provenance": "OPEN",
+        "source": "DFD magnetic nozzle/exhaust design requires energetic particle confinement or dumping strategy",
+        "description": "Zero tank reaction water for tipjets does not prove zero charged-fusion-product reaction exhaust"
+      },
+      "mast_duct_hotgas_mass_t": {
+        "value": null,
+        "unit": "t",
+        "provenance": "OPEN",
+        "source": "NASA NTRS 20230005988 and 20220013111 show challenging hot exchanger and duct structure, no transfer mass mapping",
+        "description": "The existing tipjet_ducts_compressors_t remains independently assumed; do not add or subtract unvalidated hardware."
+      },
+      "allowable_heat_to_mast_MW": {
+        "value": null,
+        "unit": "MW",
+        "provenance": "OPEN",
+        "source": "Interface through mast at Venus thermal environment not qualified",
+        "description": "Structural thermal, insulation, rotating hot-gas joints, duct pressure drops and bearing/seals OPEN."
+      },
+      "thermal_rejection_MW": {
+        "value": null,
+        "unit": "MW",
+        "provenance": "OPEN",
+        "source": "Reactor heat balance at idle and start/restart transition not qualified",
+        "description": "No cooling 'free heat' credit"
+      },
+      "wayfarer_torch_tap_raw_MW": {
+        "value": 63.36,
+        "unit": "MW",
+        "provenance": "CANON",
+        "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
+        "description": "Burn-only source raw extraction, not an idle source"
+      },
+      "wayfarer_torch_tap_conversion": {
+        "value": 0.75,
+        "unit": "fraction",
+        "provenance": "CANON",
+        "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
+        "description": "Burn-only conversion, raw thermal/electromagnetic energy to electrical magnets"
+      },
+      "wayfarer_torch_tap_net_MWe": {
+        "value": 47.52,
+        "unit": "MWe",
+        "provenance": "CANON",
+        "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
+        "description": "Burn-only magnets/cryocooler net, physical tap OPEN"
+      },
+      "wayfarer_torch_tap_waste_MW": {
+        "value": 15.84,
+        "unit": "MW",
+        "provenance": "CANON",
+        "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
+        "description": "Burn-only conversion waste, not an idle rotor heat allocation"
+      },
+      "case_scope": "Heat-only rotor-disk momentum demand sweep at mass/FM/thermal-to-rotor corners; no safe tip-speed, duty, ascent acceleration, reactor electrical load, 735K mast heat loss, or transport physics certified. DO NOT FEED INTO ANY GATE.",
+      "sources": {
+        "pss_star_fire": "https://psatellite.com/technology/fusion/",
+        "pppl_pfrc": "https://www.pppl.gov/Princeton-Field-Reversed-Configuration",
+        "dfd_2023_engineering": "https://doi.org/10.1016/j.actaastro.2023.02.011",
+        "field_reversed_fusion_stability": "https://www.nature.com/articles/s41467-025-58849-5",
+        "nasa_hot_exchanger": "https://ntrs.nasa.gov/citations/20230005988",
+        "nasa_heatpipe_exchanger": "https://ntrs.nasa.gov/citations/20220013111",
+        "nasa_heated_gas_interfaces": "https://ntrs.nasa.gov/citations/20210026680"
+      },
+      "evidence": "PSS/PFRC is conceptual 1–10MW and related 2023 analysis cites RF-recirculation losses and no inherent plasma self-heating. No 0.5–3% GW-class stable off-nominal power or exhaust-free rotor gas heating demonstration. Heat-pipe/NTP exchangers establish real temperature, material, pressure-drop and fatigue constraints, not the ~MW/kg mass of a 2226 hot mast.",
+      "venus_cloud_base_km": {
+        "value": 48,
+        "unit": "km",
+        "provenance": "PROJECTION",
+        "source": "Venus main cloud deck approximate lower boundary, based on LOOM #453 Venus atmosphere research; no physical torch qualification",
+        "description": "Screening dividing line, NOT proven uniform Venus atmosphere transition; cloud base differs with dynamics"
+      },
+      "venus_cloud_top_km": {
+        "value": 65,
+        "unit": "km",
+        "provenance": "PROJECTION",
+        "source": "LOOM #453 approximate Venus cloud layer 48–65km",
+        "description": "Chosen upper cloud boundary for altitude screen only; real cloud top estimates vary and extend higher at some locations"
+      }
     }
   }
 }
