@@ -325,6 +325,50 @@ function analyze(d,stage){
  const kitSums=[0,1,2].map(i=>kitRows.reduce((z,x)=>z+x.values[i],0));
  return {geometry:geo,gates,joint,scores,examples:exemplars,partRows,sums,kitRows,kitSums,podRanges,extensions,design:{rows:design.rows,fields:design.fields}};
 }
+function idleTipjetSensitivity(d,a){
+ // RESEARCH ONLY: never invoked by evaluate(), samples(), dry(), gate(), or sensitivity().
+ // All numeric boundaries are sourced from non-gate JSON and current VIRA altitude table.
+ const spec=d.research.idle_tipjet_heat;
+ const levels=number(d.sweep.sample_levels),heightStep=number(d.sweep.handover_step_km);
+ const heat=Array.from({length:levels},(_,i)=>spec.hypothetical_delivered_tipjet_heat_MW.min+
+    (spec.hypothetical_delivered_tipjet_heat_MW.max-spec.hypothetical_delivered_tipjet_heat_MW.min)*i/(levels-1));
+ const modes=["OPTIMISTIC","MIDPOINT","PESSIMISTIC"];
+ const massT=[
+  a.sums[0]+val(d,"water.reaction_water_initial_t")+d.water.crew_water_cold_mass_t.min+d.capsule.content_mass_t.min,
+  a.sums[1]+val(d,"water.reaction_water_initial_t")+
+     (d.water.crew_water_cold_mass_t.min+d.water.crew_water_cold_mass_t.max)/2+
+     (d.capsule.content_mass_t.min+d.capsule.content_mass_t.max)/2,
+  a.sums[2]+val(d,"water.reaction_water_initial_t")+d.water.crew_water_cold_mass_t.max+d.capsule.content_mass_t.max
+ ];
+ const fms=[d.power.rotor_figure_of_merit.max,
+    (d.power.rotor_figure_of_merit.min+d.power.rotor_figure_of_merit.max)/2,d.power.rotor_figure_of_merit.min];
+ const effs=[d.power.tipjet_thermal_to_useful_rotor.max,
+    (d.power.tipjet_thermal_to_useful_rotor.min+d.power.tipjet_thermal_to_useful_rotor.max)/2,d.power.tipjet_thermal_to_useful_rotor.min];
+ const top=d.venus.atmosphere_profile[d.venus.atmosphere_profile.length-1].altitude_km;
+ const demands=[],ceilings=[];
+ for(let k=0;k<modes.length;k++){
+  const sample={"power.rotor_figure_of_merit":fms[k],"power.tipjet_thermal_to_useful_rotor":effs[k]};
+  const rows=d.venus.rotor_extension_levels_km.map(o=>{
+   const z=rotorAt(d,sample,massT[k],number(o));
+   return {case:modes[k],massT:massT[k],fm:fms[k],efficiency:effs[k],alt_km:number(o),
+     pressure_bar:z.air.pressure,shaftMW:z.shaftMW,required_tipjet_MW:z.sourceMW};
+  });
+  demands.push(...rows);
+  for(const budget of heat){
+   let ceiling=null;
+   for(let h=0;h<=top;h+=heightStep){
+     const v=rotorAt(d,sample,massT[k],h);
+     if(!v||v.sourceMW>budget)break;
+     ceiling=h;
+   }
+   ceilings.push({case:modes[k],budgetMW:budget,ceiling_km:ceiling,
+     reaches_cloud_base:ceiling!==null&&ceiling>=d.research.idle_tipjet_heat.venus_cloud_base_km.value,
+     above_cloud_top:ceiling!==null&&ceiling>=d.research.idle_tipjet_heat.venus_cloud_top_km.value,
+     upper_profile_limit:top});
+  }
+ }
+ return {modes,heat,demands,ceilings,scope:spec.case_scope};
+}
 function report(d,stage,hash,a,graphics){
  const p=number(d.sweep.round_decimals),f=x=>fmt(x,p),v=(path)=>vals(d,path),first=a.examples[0],rows=[];
  const add=(...line)=>rows.push(...line);
@@ -373,12 +417,25 @@ function report(d,stage,hash,a,graphics){
   add("");
  }
  add("## Three mass-driver research checks (not automatic certification)",
- "### Torch 7.7 GW-class source",
- "Repo [torch energy partition / specific power](https://github.com/loom-2226/loom-2226/blob/main/src/wayfarer_torch_energy_partition_mass_feasibility.py) explicitly holds source specific power and directed fraction OPEN. Literature [Razin DFD 2014](https://doi.org/10.1016/j.actaastro.2014.08.008) and [Princeton DFD Mars](https://psatellite.com/going-to-mars-with-direct-fusion-drive/) address **MW class**, not compact GW engines.",
+ "### Torch 7.7 GW-class source and approved 2226 lineage",
+ "**KT DECISION — DECLARED_2226:** Shuttle 4–10 t engine minimum-size floor is unchanged. Wayfarer working ledger total "+
+ f(number(d.research.torch_source.lineage_mass_basis.wayfarer_propulsion_allocation_t))+" t = "+
+ f(number(d.research.torch_source.lineage_mass_basis.wayfarer_reactor_t))+" reactor + "+
+ f(number(d.research.torch_source.lineage_mass_basis.wayfarer_shadow_shield_t))+" shield + "+
+ f(number(d.research.torch_source.lineage_mass_basis.wayfarer_magnetic_nozzle_t))+" nozzle, for "+
+ f(number(d.research.torch_source.lineage_mass_basis.wayfarer_jet_power_TW))+" TW jet. The derived specific jet-power per aggregate propulsion kilogram is "+
+ f(number(d.research.torch_source.lineage_mass_basis.wayfarer_jet_power_TW)*number(d.si.W_per_TW)/
+ (number(d.research.torch_source.lineage_mass_basis.wayfarer_propulsion_allocation_t)*number(d.si.kg_per_t)*number(d.si.W_per_kW)))+
+ " kW/kg, so a "+f(number(d.research.torch_source.lineage_mass_basis.shuttle_jet_power_class_GW))+" GW-class ideal proportional engine would be "+
+ f(number(d.research.torch_source.lineage_mass_basis.shuttle_jet_power_class_GW)*number(d.si.W_per_GW)/
+ (number(d.research.torch_source.lineage_mass_basis.wayfarer_jet_power_TW)*number(d.si.W_per_TW)/
+ number(d.research.torch_source.lineage_mass_basis.wayfarer_propulsion_allocation_t)))+
+ " t. This is **not** physical miniaturization proof; kT declares a larger 4–10t minimum-size floor. No canon changed.",
+ "**RESEARCH NOTE — 2026 DFD gap is real and applies equally to Wayfarer.** Repo [torch energy partition / specific power](https://github.com/loom-2226/loom-2226/blob/main/src/wayfarer_torch_energy_partition_mass_feasibility.py) leaves directed fraction and source specific power OPEN. [Jain and Kakade 2023](https://doi.org/10.1016/j.actaastro.2023.02.011) and [Princeton DFD](https://psatellite.com/technology/fusion/) discuss MW-class conceptual systems, not compact GW hardware. The 2026 research bands below diagnose the 200-year technological extrapolation, not an override of DECLARED_2226.",
  "At "+f(number(d.research.torch_source.targeted_shuttle_torch_jet_power_GW))+" GW ideal jet power, even optimistic study source specific power "+
  d.research.torch_source.dfd_ambitious_specific_power_kW_per_kg.min+"–"+d.research.torch_source.dfd_ambitious_specific_power_kW_per_kg.max+" kW/kg implies **"+
  f(number(d.research.torch_source.targeted_shuttle_torch_jet_power_GW)*number(d.si.W_per_GW)/(d.research.torch_source.dfd_ambitious_specific_power_kW_per_kg.max*number(d.si.W_per_kW)*number(d.si.kg_per_t)))+"–"+
- f(number(d.research.torch_source.targeted_shuttle_torch_jet_power_GW)*number(d.si.W_per_GW)/(d.research.torch_source.dfd_ambitious_specific_power_kW_per_kg.min*number(d.si.W_per_kW)*number(d.si.kg_per_t)))+" t** SOURCE-ONLY, before power partition and shielding. Consequently "+f(d.mass.torch_low_high_engine_t.min)+"–"+f(d.mass.torch_low_high_engine_t.max)+"t torch engine stays ASSUMPTION and cannot be narrowed honestly by current evidence. Reactor power distribution is separately itemized, but source realization is still a major feasibility hold.",
+ f(number(d.research.torch_source.targeted_shuttle_torch_jet_power_GW)*number(d.si.W_per_GW)/(d.research.torch_source.dfd_ambitious_specific_power_kW_per_kg.min*number(d.si.W_per_kW)*number(d.si.kg_per_t)))+" t** SOURCE-ONLY, before power partition and shielding. Consequently "+f(d.mass.torch_low_high_engine_t.min)+"–"+f(d.mass.torch_low_high_engine_t.max)+"t torch engine remains DECLARED_2226 at the approved 4–10 t floor. The `>=77t` 2026 research comparison is a technology-gap diagnostic, not a constraint on the fictional 2226 assumption; 2026 scaling limitations apply to Wayfarer as well.",
  "### Biconic hull and thermal structure",
  "NASA [Venus aeroshell](https://science.nasa.gov/wp-content/uploads/2023/10/advents-venus-orbiter-aerobot-and-dropsonde.pdf) models "+f(number(d.research.hull.venus_aeroshell_reference_diameter_m))+"m expendable entry body, "+f(number(d.research.hull.venus_aeroshell_reference_structure_t))+"t Ti-composite structure and "+f(number(d.research.hull.venus_aeroshell_reference_TPS_t))+"t HEEET, excluding the "+f(number(d.geometry.hull_diameter_m))+"m × "+f(number(d.geometry.hull_length_m))+"m reusable shuttle with hot rotor mount, keel and rover loads. The "+f(d.mass.hull_thermal_structure_t.min)+"–"+f(d.mass.hull_thermal_structure_t.max)+"t kT range cannot be credibly narrowed from that analog. It stays ASSUMPTION.",
  "### 2.8m OD titanium pressure sphere",
@@ -403,6 +460,35 @@ function report(d,stage,hash,a,graphics){
  add("Knockdown "+f(sphere.knockdown.min)+"–"+f(sphere.knockdown.max)+", SF "+f(sphere.safety_factor.min)+"–"+f(sphere.safety_factor.max)+
  ", modulus "+f(sphere.titanium_hot_modulus_GPa.min)+"–"+f(sphere.titanium_hot_modulus_GPa.max)+"GPa, allowable compressive stress "+
  f(sphere.titanium_allowable_stress_MPa.min)+"–"+f(sphere.titanium_allowable_stress_MPa.max)+"MPa are all ASSUMPTION; hatch/penetration stress concentrations and Venus hot material strength OPEN. Do not narrow the shell mass until these are resolved.");
+ // Round-4 idle heat research sensitivity, always non-gate (both stages).
+ const idle=idleTipjetSensitivity(d,a),ref=d.research.idle_tipjet_heat;
+ add("","## Round 4 research sensitivity: torch IDLE, heated CO2 tip jets (NEVER credited to gates)",
+ "**kT hypothesis:** reactor no-thrust idle at "+f(100*ref.idle_fraction_of_nominal_jet.min)+"–"+f(100*ref.idle_fraction_of_nominal_jet.max)+
+ "% of "+f(number(d.research.torch_source.lineage_mass_basis.shuttle_jet_power_class_GW))+"GW working jet reference = "+
+ f(ref.idle_fraction_of_nominal_jet.min*number(d.research.torch_source.lineage_mass_basis.shuttle_jet_power_class_GW)*number(d.si.MW_per_GW))+
+ "–"+f(ref.idle_fraction_of_nominal_jet.max*number(d.research.torch_source.lineage_mass_basis.shuttle_jet_power_class_GW)*number(d.si.MW_per_GW))+
+ "MW numerical comparison. The independently **ASSUMED delivered** thermal budgets "+idle.heat.map(f).join("/")+
+ "MW are **NOT** a derived heat-transfer efficiency, guaranteed fusion output, or actual reactor availability. No physical model maps 7.7GW jet to idle thermal power; that mapping is "+ref.heat_transfer_efficiency.provenance+".",
+ "**Wayfarer authority is NOT idle:** raw "+f(number(ref.wayfarer_torch_tap_raw_MW))+"MW × "+
+ f(number(ref.wayfarer_torch_tap_conversion))+" during the BURN ONLY gives "+
+ f(number(ref.wayfarer_torch_tap_net_MWe))+"MWe magnet supply and "+
+ f(number(ref.wayfarer_torch_tap_waste_MW))+"MW conversion waste. A burn-only energy tap does not establish a stationary reactor heater.",
+ "**Minimum stable fusion / turndown:** [PSS Starfire/PFRC](https://psatellite.com/technology/fusion/) projects MW-scale steady-power capability; [PPPL PFRC](https://www.pppl.gov/Princeton-Field-Reversed-Configuration) studies RF-driven FRCs; [Jain & Kakade](https://doi.org/10.1016/j.actaastro.2023.02.011) identify RF recirculation and sustained-plasma challenges; [Nature FRC demonstration](https://www.nature.com/articles/s41467-025-58849-5) validates limited experimental FRC formation, not a GW fusion powerplant. **No published qualified minimum stable fusion power, 0.5–3% turndown, or exhaustless operation for this reactor lineage was found.** These are OPEN, not failed gate inputs.",
+ "**Heat path:** a 2226 source-to-hot-loop exchanger → high-temperature duct manifold → retracted mast/rotating union → four hollow rotor blades → CO₂ tip jets. The source must transfer charged-particle/radiative energy without a main plume, hold the FRC operating point, avoid net reaction exhaust, and dissipate unrecovered thermal power. [NASA exchanger material-interface research](https://ntrs.nasa.gov/citations/20230005988) and [NEP heat-pipe sizing](https://ntrs.nasa.gov/citations/20220013111) establish substantial temperature, fatigue, duct-pressure and exchanger-mass concerns but no validated GW-specific 2226 mass range. Exchanger mass, flow, insulation, rotating union and hot-mast heat leak remain OPEN; no credits or new dry-mass guesses.",
+ "**Conditional rotor demand at 30/40/50 km**, using original VIRA table and min/mid/max total wet mass, figure of merit and tip-jet efficiency. The *mass and aerodynamic assumptions are the sizer's existing ranges*, not invented reactor performance.",
+ "| Rotor case | Wet t | FM | source→rotor | altitude km | ambient bar | shaft MW | required hot-gas input MW |",
+ "|---|---:|---:|---:|---:|---:|---:|---:|");
+ for(const z of idle.demands)add("| "+z.case+" | "+f(z.massT)+" | "+f(z.fm)+" | "+f(z.efficiency)+" | "+f(z.alt_km)+" | "+
+ f(z.pressure_bar)+" | "+f(z.shaftMW)+" | "+f(z.required_tipjet_MW)+" |");
+ add("","**Heat-only ceiling, VIRA profile, no atmospheric/nozzle qualification.** At each independently assumed delivered heat level, climb only while required tip-jet input is no larger than budget. This ignores rotor safe-tip-speed, hot duty, mast/exchanger loss and reactor start/restart, so reported ceilings are optimistic *heat-only* bounds, NOT Gate R or C.",
+ "| Rotor case | hypothetical delivered heat MW | thermal rotor ceiling km | cloud-base reached? | **above cloud TOP?** |",
+ "|---|---:|---:|---|---|");
+ for(const z of idle.ceilings)add("| "+z.case+" | "+f(z.budgetMW)+" | "+f(z.ceiling_km)+" | "+
+ (z.reaches_cloud_base?"yes":"no")+" | "+(z.above_cloud_top?"yes":"no")+" |");
+ add("","Cloud-base "+f(number(ref.venus_cloud_base_km))+"km; cloud-top "+f(number(ref.venus_cloud_top_km))+
+ "km, screen references only. **Entering the clouds is NOT lighting the torch above the clouds.** An ABOVE-CLOUD-TOP result would still not certify magnetic-nozzle plume operation at local density or guarantee reactor idle mode. Jet-power throttling and thermal routing are not demonstrated.",
+ "**STOP / HOLDS:** idle fusion power stability, extraction efficiency, exhaust-free containment, rotating joint, heat exchanger/duct mass, and heat transfer to tipjets are all OPEN. Existing A/A2/B/C/D and existing statistical sensitivity ranking are not altered by this isolated calculation.");
+
  if(stage===2){
  add("","## Stage 2: Venus rotor and torch, D-shuttle vs D-pod",
  "**Rotor:** one "+f(number(d.geometry.rotor_diameter_m))+"m disk, VIRA atmosphere, min/mid/max sampled real FM and hot-gas conversion, heat-cap input ceiling, speed and life bound. Computed handover must reach at least "+f(d.venus.handover_altitude_km.min)+"km in this declared screen; physical lift and tip-Mach not certified.",
