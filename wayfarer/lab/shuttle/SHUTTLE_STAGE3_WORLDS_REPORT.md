@@ -16,7 +16,7 @@ Deterministic 3-level 3^8 scenario design, 6561 per world, 29 swept fields. PASS
 | Titan | ORBIT_FULL | 0 | 0 | 6561 | 0 | n/a |
 | Titan | SURFACE_THERMAL | 0 | 0 | 6561 | 0 | n/a |
 | Titan | BAY_FULL | 0 | 0 | 6561 | 0 | n/a |
-| Titan | FLIGHT_TOTAL | 0 | 4860 | 1701 | 0 | 0.000% |
+| Titan | FLIGHT_TOTAL | 0 | 3402 | 3159 | 0 | 0.000% |
 | Moon | A2 | 4374 | 2187 | 0 | 0 | 66.667% |
 | Moon | KIT_VOLUME | 0 | 0 | 0 | 6561 | n/a |
 | Moon | LIFT_SCREEN | 6561 | 0 | 0 | 0 | 100.000% |
