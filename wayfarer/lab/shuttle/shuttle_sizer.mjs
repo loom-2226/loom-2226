@@ -51,6 +51,10 @@ function stage2(d) {
   const masses=endpoints(v.rotor_mass_screen_t),fms=endpoints(p.rotor_figure_of_merit),etas=endpoints(p.tipjet_thermal_to_useful_rotor);
   const combos=[];
   for(const m of masses) for(const fm of fms) for(const e of etas) combos.push({mass_t:m,figure_of_merit:fm,tip_eff:e});
+  const lowVe=endpoints(p.torch_low_ve_kmps), highVe=endpoints(p.torch_high_ve_kmps);
+  const torchCombos=[];
+  for(const low of lowVe) for(const high of highVe)torchCombos.push({low_ve_kmps:low,high_ve_kmps:high,delta_v_orbit:"OPEN",water_remaining:"OPEN"});
+  const atSurface=combos.map(c=>({...c,...hover(c.mass_t,v.atmosphere_profile[0].density_kg_m3,val(v.gravity_mps2),val(g.rotor_diameter_m),c.figure_of_merit,c.tip_eff,kgPerT)}));
   for(const a of v.atmosphere_profile) {
     const q=combos.map(s=>({...s,...hover(s.mass_t,a.density_kg_m3,val(v.gravity_mps2),val(g.rotor_diameter_m),s.figure_of_merit,s.tip_eff,kgPerT)}));
     const min=k=>Math.min(...q.map(x=>x[k])),max=k=>Math.max(...q.map(x=>x[k]));
@@ -70,7 +74,7 @@ function stage2(d) {
   // ZERO from the #453 PROJECTION is not upgraded to physical qualification.
   for (const ph of phases) if(["rotor descent","rotor climb"].includes(ph.phase))
     ph.water_reaction_delta="0 CONDITIONAL tipjet ambient CO2; source/engine not closed";
-  return {combinations:combos.length,profile:points,phases,leak_W:[leakMin,leakMax],leak_energy_kWh:energyKWh,
+  return {combinations:combos.length,atSurface,torchCombos,profile:points,phases,leak_W:[leakMin,leakMax],leak_energy_kWh:energyKWh,
     entry:"OPEN",handover_altitude_km:null,handover_reason:"rotor thermal power limit, safe blade tip speed and climb performance are OPEN",
     torch:"OPEN: engine thrust, ascent trajectory, burn time and actual remass manifest",
     gateC:"OPEN", gateD2:"OPEN",gateD4:"OPEN",
@@ -156,6 +160,16 @@ function report(d,stage,hash,r,v,svgNames) {
  lines.push("|---:|---:|---:|---:|---:|");
  for(const x of v.profile)lines.push("| "+x.altitude_km+" | "+format(x.density_kg_m3)+" | "+format(x.temperature_K)+" | "+x.rotor_MW.map(format).join("–")+" | "+x.tipjet_thermal_MW.map(format).join("–")+" |");
  lines.push("");
+ lines.push("**Feasibility surface:** "+v.atSurface.length+" sampled full-mass / FM / tip-jet-efficiency combinations at surface, all with C=OPEN and D=OPEN because heat availability and trajectory are not given.");
+ lines.push("| Wet mass t | Rotor FM | Tip-jet effectiveness | Required rotor MW | Required source heat MW | Orbit water C | Stay D |");
+ lines.push("|---:|---:|---:|---:|---:|---|---|");
+ for(const sc of v.atSurface)lines.push("| "+format(sc.mass_t)+" | "+format(sc.figure_of_merit)+" | "+format(sc.tip_eff)+" | "+format(sc.rotorMW)+" | "+format(sc.sourceMW)+" | OPEN | OPEN |");
+ lines.push("");
+ lines.push("**OPEN torch mode sweep:** "+v.torchCombos.length+" low/high exhaust-velocity pairings from the #453 PROJECTION intervals. None is a recovered engine parameter. Thrust, handover and required actual orbit Δv missing.");
+ lines.push("| Low ve km/s | High ve km/s | Water at orbit |");
+ lines.push("|---:|---:|---|");
+ for(const tc of v.torchCombos)lines.push("| "+format(tc.low_ve_kmps)+" | "+format(tc.high_ve_kmps)+" | OPEN |");
+ lines.push("");
  lines.push("**Handover altitude = OPEN output**. A physically defensible handover requires available delivered hot-gas power, tip-jet compression/nozzle model, allowed blade rpm/Mach, bearing lifetime and net climb performance. Those inputs are OPEN, so none can be manufactured by selecting a cloud height. Even unlimited near-surface hover does NOT reach orbit.");
  lines.push("");
  lines.push("**Conserved phase ledger:**");
@@ -167,7 +181,7 @@ function report(d,stage,hash,r,v,svgNames) {
  lines.push("");
  lines.push("**Thermal lower-bound envelope:** ideal spherical 2.8m shell conduction without joints, doors, penetration or convection: "+v.leak_W.map(x=>format(x/val(d.si.kW_per_MW))).join("–")+" kW at 300K interior; for 18h "+v.leak_energy_kWh.map(format).join("–")+" kWh **before any crew/equipment heat**. This alone cannot give 2-crew or 4-crew survival duration: cold thermal mass, ΔT, actual heat capacity, compressor/power/rejection hardware, and crew waste heat all OPEN.");
  lines.push("");
- lines.push("**Feasibility map:** "+v.combinations+" sampled mass/FM/tipjet-efficiency combinations × "+v.profile.length+" atmospheric levels. Power **DEMAND** is bounded in the table; **no configuration earns C or D PASS** because supply ceiling, ascent physics, and crew thermal-water ledger are OPEN. C=OPEN, D2=OPEN, D4=OPEN for every sample; no silent failures and no invented positive reserve.");
+ lines.push("**Feasibility map:** "+v.combinations+" sampled mass/FM/tipjet-efficiency combinations × "+v.torchCombos.length+" low/high-ve combinations × "+v.profile.length+" atmospheric levels. Power **DEMAND** is bounded in the table; **no configuration earns C or D PASS** because supply ceiling, ascent physics, and crew thermal-water ledger are OPEN. C=OPEN, D2=OPEN, D4=OPEN for every sample; no silent failures and no invented positive reserve.");
  }
  lines.push("");
  lines.push("## Inputs driving the result and provenance boundaries");
