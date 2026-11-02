@@ -9,7 +9,7 @@
 function num(x){return typeof x?.value==="number"?x.value:null;}
 function range(x){return typeof x?.min==="number"&&typeof x?.max==="number"?[x.min,x.max]:null;}
 function path(o,k){return k.split(".").reduce((z,q)=>z?.[q],o);}
-function get(b,w,k,s){const row=k.startsWith("world.")?path(w,k.slice(6)):path(b,k);return s&&Object.hasOwn(s,k)?s[k]:num(row);}
+function get(b,w,k,s){const row=k.startsWith("world.")?path(w,k.slice(6)):path(b,k);return s&&Object.hasOwn(s,k)?s[k]:(num(row)??(range(row)?.[0]===range(row)?.[1]?range(row)?.[0]:null));}
 function f(v){return v===null||v===undefined||!Number.isFinite(v)?"OPEN":v.toFixed(3);}
 function directions(n){const out=[];for(let i=1;out.length<n&&i<6561;i++){let x=i,d=[];for(let j=0;j<8;j++){d.push(x%3);x=Math.floor(x/3);}out.push(d);}if(out.length<n)throw Error("too many dimensions");return out;}
 function design(b,w){
@@ -42,7 +42,7 @@ function rotor(b,world,s,mass,h){
 function assess(b,w,name,s){
  const world=w.worlds[name],m=dry(b,s),titan=world.mode==="ROTOR_KIT_HOUSE_REACTOR";
  const installedDry=titan?m.total:m.core;
- const stored=num(b.water.reaction_water_initial_t),cold=get(b,null,"water.crew_water_cold_mass_t",s),cargo=get(b,null,"capsule.content_mass_t",s);
+ const stored=get(b,w,"water.reaction_water_initial_t",s),cold=get(b,w,"water.crew_water_cold_mass_t",s),cargo=get(b,w,"capsule.content_mass_t",s);
  const launchMass=installedDry+stored+cold+cargo;
  const g=num(world.surface_gravity_mps2),R=num(world.mean_radius_km)*num(b.si.m_per_km);
  const idealOrbitKmps=Math.sqrt(g*R)/num(b.si.m_per_km);
@@ -68,7 +68,7 @@ function assess(b,w,name,s){
    tipOrBelly={rawHoverMW:z.rawMW,shaftHoverMW:z.shaftMW,induced:z.induced,reactorMW:budget,
       observedEnvelopeKm:modelTop,envelopeLimitKm:horizon};
  }else{
-   const peakN=num(w.belly.peak_thrust_kN)*num(b.si.kW_per_MW); // kN→N factor 1000
+   const peakN=num(w.belly.peak_thrust_kN)*num(w.si.N_per_kN); // explicit force unit conversion, not power conversion
    const tw=peakN/(launchMass*num(b.si.kg_per_t)*g);
    liftMargin=tw-1;
    tipOrBelly={peakThrustN:peakN,peakTW:tw,
@@ -131,7 +131,7 @@ function analyze(b,w){
    }
    const keys=["A2","KIT_VOLUME","LIFT_SCREEN","ROTOR_MODEL_TOP","WATER_IDEAL_FLOOR","ORBIT_FULL","SURFACE_THERMAL","BAY_FULL","FLIGHT_TOTAL"];
    const gates=Object.fromEntries(keys.map(k=>[k,counts(rows,k)]));
-   const ranking=Object.fromEntries(keys.filter(k=>gates[k].PASS+gates[k].FAIL>0&&gates[k]["N/A"]===0).map(k=>[k,topDrivers(b,w,name,k,sampling.keys)]));
+   const ranking=Object.fromEntries(keys.filter(k=>k!=="FLIGHT_TOTAL"&&gates[k].PASS+gates[k].FAIL>0&&gates[k]["N/A"]===0).map(k=>[k,topDrivers(b,w,name,k,sampling.keys)]));
    worlds[name]={gates,ranking,example:rows[0],altitude:{min:topFound?minTop:null,max:topFound?maxTop:null,censoredAtModelCeiling:num(w.worlds[name].atmosphere_model_ceiling_km)},sampled:sampling.count};
  }
  return {sampling:{rows:sampling.count,fields:sampling.keys},worlds};
@@ -170,7 +170,7 @@ function report(b,w,baseSha,worldSha,a){
      "| Phase | Reaction water remaining t | phase debit t | cold crew water t | custody content t |",
      "|---|---:|---:|---:|---:|");
    for(const ph of e.waterPhases)add("| "+ph.phase+" | "+p(ph.reactionWaterT)+" | "+p(ph.chargedRemassT)+" | "+p(ph.coldCrewWaterT)+" | "+p(ph.custodyT)+" |");
-   add("Initial reaction water "+p(num(b.water.reaction_water_initial_t))+"t; ideal circular floor torch water "+p(e.idealBurnT)+"t, remaining "+p(e.afterBurn)+"t; REQUIRED full orbit Δv OPEN; separate belly liftoff burn OPEN.",
+   add("Initial reaction water "+p(get(b,w,"water.reaction_water_initial_t"))+"t; ideal circular floor torch water "+p(e.idealBurnT)+"t, remaining "+p(e.afterBurn)+"t; REQUIRED full orbit Δv OPEN; separate belly liftoff burn OPEN.",
      "**Top three one-at-a-time sensitivity drivers per computed gate (including margin ranking if no PASS flips):**");
    for(const [key,items]of Object.entries(z.ranking)){
      add("**"+key+"**","| Input | PASS % min / mid / max | Δ PASS points | Δ physical margin |","|---|---|---:|---:|");
