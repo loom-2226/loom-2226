@@ -1,4 +1,4 @@
-# Wayfarer First Jump v0.3 · Earth → Mars
+# Wayfarer First Jump v0.4 · Earth → Mars
 
 **ALL bodies. ALL sponsors. 2026–2226.**
 **DRAFT PLAYTEST, NON-CANON, NON-RUNTIME FLIGHT, NO NAVIGATOR.**
@@ -8,12 +8,20 @@
 In Termux with Git, Python and curl installed:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/loom-2226/loom-2226/experience/first-jump-v03-animated-solar-display/wayfarer/experience/first_jump/start_pixel.sh | bash
+curl -fsSL https://raw.githubusercontent.com/loom-2226/loom-2226/experience/first-jump-v04-continuous-playback/wayfarer/experience/first_jump/start_pixel.sh | bash
 ```
 
-This uses a separate lightweight `~/.local/share/loom-first-jump-v03` checkout and opens **http://127.0.0.1:8880**. It leaves v0.1/v0.2 and existing LOOM repositories untouched. Ctrl-C in Termux stops the local server.
+This uses a separate lightweight `~/.local/share/loom-first-jump-v04` checkout and opens **http://127.0.0.1:8881**. It leaves v0.1/v0.2 and existing LOOM repositories untouched. Ctrl-C in Termux stops the local server.
 
 On first start, the launcher uses existing private Termux API key configuration, or offers a hidden key prompt. If no API key is provided, Mara has in-world scripted comms. If configured, each question sends the **selected accepted FQ11 case** and **Canon II §§7.1a/b excerpts** to the live model. In-character responses are screened against their cited FQ11 numbers, with provider outcomes and unsupported claims in the local JSONL session log.
+
+## Continuous playback v0.4
+
+A **single FQ11-elapsed mission clock**, smoothly advanced by browser `requestAnimationFrame`, controls narrative scene/caption, map frame/camera, timer and display interpolations. The server synchronises the clock and persists player actions; the browser never solves physics. **204 seconds** of active presentation (~3:24 plus decision time): 29 s burn, 151 s Metric, 18 s RCS turn, 6 s trim. The ship remains fixed at Earth during preburn and Metric, appears at Mars only at the Metric boundary, and never traverses an invented line. Three required decisions only: **authorise burn, authorise jump, authorise trim**. Metric runs directly into the 220 s source-time RCS turn with no extra gate. Manual pause and mission-wide scrub are visual controls, with seeking capped by already-authorised decisions.
+
+Burn plume + FQ11-interpolated water remass (0 to the accepted 2.827 t nominal), camera Earth close → solar pull-back → Mars close, pulse/shimmer, FQ11 94.057° nominal attitude turn, and source-endpoint arrival mismatch animation (19.431 to 0.121 m/s). All intermediate values are explicitly **linear presentation interpolation**, not additional calculated physics. Every earned numeric endpoint remains in FQ11 with evidence drawer inspection and session log.
+
+**Open numerical item:** the requested 4.83 km/s preburn Δv is absent as an accepted scalar in FQ11_RESULT.json. It is **not claimed or displayed** in this build. A speed counter requires a separately accepted measurement with a traceable scalar endpoint. This is the only requested animation datum intentionally deferred to preserve the FQ11-only authority rule.
 
 ## Playable controls
 
@@ -33,7 +41,7 @@ On first start, the launcher uses existing private Termux API key configuration,
 
 FQ11 finite preburn, Metric duration, RCS and trim remain the only source for flight measurements. No exact ordinary-flight sample history is available in accepted results, so **no interpolated burn/recovery trajectory is presented**. That remains a separate later PR. The preburn delta-v is not shown because it is not a source FQ11 field.
 
-The server alone owns **viewing-time phase progression**. Scrub and pause change the presentation cursor, not authoritative campaign time or ship state. JavaScript only draws precompiled screen coordinates and manipulates camera zoom/rotation. No browser-side physics, ephemeris propagation, or ship position calculation.
+The server alone owns **viewing-time phase progression**. Scrub and pause change the single mission presentation cursor, not authoritative campaign time or ship state. JavaScript only draws precompiled screen coordinates and manipulates camera zoom/rotation. No browser-side physics, ephemeris propagation, or ship position calculation.
 
 **No new renders.** The solar map is lightweight SVG in the existing UI; original art remains. No Navigator integration, no capture, no certified collapse position, no new physics, no canon mutation. This PR includes v0.2 story/evidence changes from draft #451 as well as v0.3; it is reviewable against main as a single unmerged change.
 
@@ -51,3 +59,5 @@ python3 wayfarer/experience/first_jump/build_map_display.py
 ```
 
 Stop at draft PR. Keep Navigator parked.
+
+Additional narrow browser clock check: `node wayfarer/experience/first_jump/test_clock.js` (engineering host only).

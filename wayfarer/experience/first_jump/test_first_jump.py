@@ -42,29 +42,47 @@ class FirstJumpTests(unittest.TestCase):
 
     def test_first_nominal_replay_variant_and_go_hold(self):
         with TemporaryDirectory() as d, patch.object(game, "LOG_DIR", Path(d)):
-            timeline = source.build()
-            first = game.Session(timeline, seed=42, first=True)
-            self.assertEqual(first.case, "NOMINAL")
-            other = game.Session(timeline, seed=42, requested_case="UNDERBURN_1_PERCENT")
-            self.assertEqual(other.case, "UNDERBURN_1_PERCENT")
-            self.assertEqual(game.Session(timeline, seed=42).case, game.Session(timeline, seed=42).case)
+            t = source.build()
+            m = game.load_map(t)
+            first = game.Session(t,m,seed=42,first=True)
+            self.assertEqual(first.case,"NOMINAL")
+            other = game.Session(t,m,seed=42,requested_case="UNDERBURN_1_PERCENT")
+            self.assertEqual(other.case,"UNDERBURN_1_PERCENT")
+            self.assertEqual(first.phase,"briefing")
+            self.assertEqual(first.view()["next_gate"],"burn")
             first.command("go")
-            self.assertEqual(first.phase, "preburn")
+            self.assertEqual(first.phase,"preburn")
+            self.assertEqual(first.mode,"active")
+            # Complete burn via stage pacing, gate JUMP only.
+            first.since = time.monotonic()-game.PRESENTATION_S["preburn"]-1
+            first.tick()
+            self.assertEqual(first.mode,"awaiting")
+            self.assertEqual(first.view()["next_gate"],"jump")
+            first.command("go")
+            self.assertEqual(first.phase,"metric")
+            # Metric automatically advances into the turn, with no gate.
+            first.since = time.monotonic()-game.PRESENTATION_S["metric"]-5
+            first.tick()
+            self.assertEqual(first.mode,"active")
+            self.assertEqual(first.phase,"turn")
             first.command("hold")
-            self.assertEqual(first.mode, "held")
+            self.assertEqual(first.mode,"held")
             first.command("go")
-            for phase in ("preburn", "metric", "turn", "trim"):
-                self.assertEqual(first.phase, phase)
-                first.since = time.monotonic()-game.PRESENTATION_S[phase]-1
-                first.tick()
-                if phase != "trim":
-                    first.command("go")
-            self.assertEqual(first.mode, "complete")
-            logs = [json.loads(l) for l in first.logs.read_text().splitlines()]
-            self.assertEqual(sum(x["event"] == "phase_end" for x in logs), 4)
-            self.assertTrue(any(x["event"] == "captain_hold" for x in logs))
+            first.since = time.monotonic()-game.PRESENTATION_S["turn"]-1
+            first.tick()
+            self.assertEqual(first.mode,"awaiting")
+            self.assertEqual(first.view()["next_gate"],"trim")
+            first.command("go")
+            self.assertEqual(first.phase,"trim")
+            first.since=time.monotonic()-game.PRESENTATION_S["trim"]-1
+            first.tick()
+            self.assertEqual(first.mode,"complete")
+            self.assertEqual(first.phase,"debrief")
+            events=[json.loads(x) for x in first.logs.read_text().splitlines()]
+            self.assertEqual([x["gate"] for x in events if x["event"]=="captain_authorise"],["burn","jump","trim"])
+            self.assertEqual(sum(x["event"]=="phase_end" for x in events),4)
             other.command("quit")
-            self.assertTrue(any(json.loads(x)["event"] == "quit" for x in other.logs.read_text().splitlines()))
+            self.assertTrue(any(json.loads(x)["event"]=="quit" for x in other.logs.read_text().splitlines()))
 
     def test_numerical_claims_and_model_in_world(self):
         timeline=source.build()
@@ -127,8 +145,12 @@ class FirstJumpTests(unittest.TestCase):
                 self.assertEqual(get("/api/diagnostics")["source_sha256"],source.build()["source_sha256"])
                 with urlopen(base+"/",timeout=5) as response:
                     html=response.read().decode()
-                self.assertIn("Holding at Mars approach shell. Mars Traffic has us from here.",html)
-                self.assertIn("earned",html)
+                self.assertIn('/clock.js',html)
+                with urlopen(base+"/clock.js",timeout=5) as r:
+                    script=r.read().decode()
+                self.assertIn("Holding at Mars approach shell. Mars Traffic has us from here.",script)
+                self.assertIn("requestAnimationFrame",script)
+                self.assertIn("earned",script)
                 with urlopen(base+"/art/cmd_pov.png",timeout=5) as response:
                     self.assertEqual(response.headers["Content-Type"],"image/png")
             finally:

@@ -24,7 +24,6 @@ from build_timeline import HERE, build
 ROOT = HERE.parents[2]
 PHASES = ("briefing", "preburn", "metric", "turn", "trim", "debrief")
 # Human viewing time only. None of these values are physics inputs or outputs.
-PRESENTATION_S = {"preburn": 115, "metric": 565, "turn": 42, "trim": 12}
 ART = {
     "briefing": "cmd_pov.png",
     "preburn": "ext_burn.png",
@@ -214,124 +213,168 @@ def allowed_numbers_for_fields(t, selected_case, fields):
         nums.update(f"{v:,.{n}f}" for n in range(5))
     return nums
 
+# Deliberately separate: these are display pacing seconds, not flight physics.
+# The single mission clock advances in FQ11 elapsed seconds.
+PRESENTATION_S = {"preburn": 29.0, "metric": 151.0, "turn": 18.0, "trim": 6.0}
+ACTIVE_PHASES = ("preburn", "metric", "turn", "trim")
+
 class Session:
-    def __init__(self, timeline, seed=None, first=False, requested_case=None):
+    def __init__(self, timeline, mapdata, seed=None, first=False, requested_case=None):
         self.t = timeline
+        self.mapdata = mapdata
         self.seed = int(seed) if seed is not None else secrets.randbelow(2**31)
         if requested_case is not None and requested_case not in ("NOMINAL", "UNDERBURN_1_PERCENT"):
             raise ValueError("Unknown scenario")
         self.case = requested_case or ("NOMINAL" if first else random.Random(self.seed).choice(["NOMINAL", "UNDERBURN_1_PERCENT"]))
         self.id = secrets.token_hex(6)
-        self.i = 0
+        self.duration = mapdata["cases"][self.case]["phase_durations_s"]
+        self.ends = []
+        total = 0.0
+        for name in ACTIVE_PHASES:
+            total += self.duration[name]
+            self.ends.append(total)
+        self.clock_s = 0.0
+        self.segment = -1  # briefing, then preburn, metric, turn, trim, debrief
+        self.unlocked = -1
         self.mode = "awaiting"
-        self.spent = 0.0
         self.since = None
         self.questions = 0
         self.logs = LOG_DIR / f"{self.id}.jsonl"
-        self.log("start", seed=self.seed, case=self.case, source_sha256=timeline["source_sha256"])
+        self.log("start", seed=self.seed, case=self.case, source_sha256=timeline["source_sha256"],
+                 presentation_duration_s=sum(PRESENTATION_S.values()))
 
     @property
     def phase(self):
-        return PHASES[self.i]
+        return "briefing" if self.segment < 0 else ("debrief" if self.segment > 3 else ACTIVE_PHASES[self.segment])
+
+    @property
+    def authorised_until_s(self):
+        if self.unlocked < 0: return 0.0
+        if self.unlocked == 0: return self.ends[0]
+        if self.unlocked in (1,2): return self.ends[2]
+        return self.ends[-1]
 
     def log(self, event, **extras):
         LOG_DIR.mkdir(parents=True, exist_ok=True)
-        row = {"utc": stamp(), "session": self.id, "phase": self.phase, "event": event, **extras}
-        with self.logs.open("a", encoding="utf-8") as f:
-            f.write(json.dumps(row, ensure_ascii=False) + "\n")
+        record = {"utc": stamp(), "session": self.id, "phase": self.phase,
+                  "mission_clock_s": round(self.clock_s,4), "event": event, **extras}
+        with self.logs.open("a", encoding="utf-8") as out:
+            out.write(json.dumps(record, ensure_ascii=False) + "\n")
 
     def tick(self):
-        if self.mode != "active":
-            return
-        now = time.monotonic()
-        self.spent += now - self.since
-        self.since = now
-        if self.spent >= PRESENTATION_S[self.phase]:
-            self.spent = float(PRESENTATION_S[self.phase])
-            self.finish()
+        if self.mode != "active":return
+        now=time.monotonic()
+        dt=max(0.0,now-self.since)
+        self.since=now
+        while dt > 0 and self.mode=="active":
+            if self.segment > 3:break
+            phase=ACTIVE_PHASES[self.segment]
+            stop=self.ends[self.segment]
+            physical_remaining=max(0.0,stop-self.clock_s)
+            rate=self.duration[phase]/PRESENTATION_S[phase]
+            wall_to_end=physical_remaining/rate
+            if dt < wall_to_end:
+                self.clock_s+=dt*rate
+                break
+            self.clock_s=stop
+            dt-=wall_to_end
+            self.log("phase_end", phase_name=phase,
+                     source_physical_s=self.duration[phase], viewing_budget_s=PRESENTATION_S[phase])
+            if self.segment==0 and self.unlocked<1:
+                self.mode="awaiting";self.since=None
+                self.log("gate_open", required="authorise_jump")
+            elif self.segment==2 and self.unlocked<3:
+                self.mode="awaiting";self.since=None
+                self.log("gate_open", required="authorise_trim")
+            elif self.segment==3:
+                self.segment=4
+                self.mode="complete";self.since=None
+                self.log("complete")
+            else:
+                self.segment+=1
 
-    def finish(self):
-        self.log("phase_end", wall_viewing_s=round(self.spent, 3),
-                 source_physical_s=(self.t["cases"][self.case].get(self.phase + "_s") or {}).get("value"))
-        self.i += 1
-        self.spent = 0
-        self.since = None
-        self.mode = "complete" if self.phase == "debrief" else "awaiting"
-        self.log("complete" if self.mode == "complete" else "gate_open")
-
-    def scrub(self, progress):
-        """Captain-controlled viewing cursor, never physical flight execution."""
-        if self.phase not in PRESENTATION_S or self.mode not in ("active", "held"):
-            raise ValueError("No active phase to scrub")
-        if not isinstance(progress, (int,float)) or isinstance(progress, bool) or not 0 <= progress <= 99.9:
-            raise ValueError("Viewing percent must be 0..99.9")
+    def scrub(self, position):
+        if not isinstance(position,(float,int)) or isinstance(position,bool):
+            raise ValueError("Numeric mission clock required")
         self.tick()
-        if self.mode not in ("active", "held"):
-            raise ValueError("Phase ended while seeking")
-        self.spent = PRESENTATION_S[self.phase] * float(progress)/100.
-        self.since = None
-        self.mode = "held"
-        self.log("captain_scrub", viewing_progress_percent=progress,
-                 viewing_s=round(self.spent,3))
+        if self.mode not in ("active","held","awaiting"):
+            raise ValueError("Playback not seekable")
+        if self.unlocked < 0: raise ValueError("Authorise burn first")
+        if not 0 <= position < self.ends[-1]:
+            raise ValueError("Mission clock outside FQ11 interval")
+        if position > self.authorised_until_s:
+            raise ValueError("Cannot scrub past an unauthorised gate")
+        self.clock_s=min(float(position),self.authorised_until_s-1e-5)
+        # A replay seek may move backwards across completed stages, but it
+        # does not erase already granted authorisations.
+        self.segment=next(i for i,e in enumerate(self.ends) if self.clock_s < e)
+        self.mode="held"
+        self.since=None
+        self.log("captain_scrub", viewing_clock_s=round(self.clock_s,4))
 
     def command(self, action):
         self.tick()
-        if action == "quit":
-            self.log("quit", quit_point=self.phase, phase_viewing_s=round(self.spent, 3))
-            self.mode = "quit"
-        elif action == "hold" and self.mode == "active":
-            self.mode = "held"
-            self.since = None
-            self.log("captain_hold", phase_viewing_s=round(self.spent, 3))
-        elif action == "go" and self.mode in ("awaiting", "held"):
-            if self.phase == "briefing":
-                self.log("captain_go", phase_viewing_s=round(self.spent, 3))
-                self.i = 1
-                self.spent = 0
+        if action=="quit":
+            self.log("quit", quit_point=self.phase)
+            self.mode="quit";self.since=None
+            return
+        if action=="hold" and self.mode=="active":
+            self.mode="held";self.since=None
+            self.log("captain_pause")
+            return
+        if action!="go" or self.mode not in ("awaiting","held"):
+            raise ValueError("Command not available")
+        if self.mode=="awaiting":
+            if self.segment==-1:
+                self.segment=0
+                self.unlocked=max(self.unlocked,0)
+                self.log("captain_authorise", gate="burn")
+            elif self.segment==0:
+                self.segment=1
+                self.unlocked=max(self.unlocked,1)
+                self.log("captain_authorise", gate="jump")
+            elif self.segment==2:
+                self.segment=3
+                self.unlocked=max(self.unlocked,3)
+                self.log("captain_authorise", gate="trim")
             else:
-                self.log("captain_go" if self.mode == "awaiting" else "captain_resume",
-                         phase_viewing_s=round(self.spent, 3))
-            self.mode = "active"
-            self.since = time.monotonic()
+                raise ValueError("No captain decision at this time")
         else:
-            raise ValueError("Command not available in current phase")
+            self.log("captain_resume")
+        self.mode="active"
+        self.since=time.monotonic()
 
     def view(self, mapdata=None):
         self.tick()
-        phase = self.phase
-        display_phase = phase
-        if phase == "debrief":
-            progress = 100
-        elif phase == "briefing":
-            progress = 0
+        phase=self.phase
+        boundary=[0.0]+self.ends
+        if self.segment < 0: progress=0.0
+        elif self.segment >= 4: progress=100.0
         else:
-            progress = round(100 * self.spent / PRESENTATION_S[phase], 1)
-        # Presentation time from accepted FQ11 phase durations. Map frames are
-        # precomputed by FQ11's source-epoch ephemeris, not the browser.
-        map_elapsed=0.0
-        map_index=0
-        if mapdata is not None:
-            phase_times=mapdata["cases"][self.case]["phase_durations_s"]
-            if phase == "debrief":
-                map_elapsed=sum(phase_times.values())
-            elif phase in phase_times:
-                order=("preburn","metric","turn","trim")
-                map_elapsed=sum(phase_times[k] for k in order[:order.index(phase)])
-                map_elapsed+=phase_times[phase]*self.spent/PRESENTATION_S[phase]
-            map_index=max(0,bisect.bisect_right(
-                [row["elapsed_s"] for row in mapdata["samples"]],map_elapsed)-1)
-            map_index=min(map_index,len(mapdata["samples"])-1)
+            lo=boundary[self.segment]
+            progress=100*(self.clock_s-lo)/self.duration[phase]
+        samples=(mapdata or self.mapdata)["samples"]
+        i=max(0,bisect.bisect_right([r["elapsed_s"] for r in samples],self.clock_s)-1)
         return {
-            "map_index": map_index, "map_epoch_elapsed_s":round(map_elapsed,4),
-            "id": self.id, "seed": self.seed, "phase": phase,
-            "mode": self.mode, "progress_percent": progress,
-            "scene": ART[display_phase], "case_revealed": self.i >= 2,
-            "variant": self.case if self.i >= 2 else "SEALED",
-            "facts": evidence_lines(self.t, self.case, phase),
-            "physical_phase_s": (self.t["cases"][self.case].get(phase + "_s") or {}).get("value"),
-            "viewing_phase_s": round(self.spent, 1),
-            "question_count": self.questions,
-            "log_file": str(self.logs)
+            "id":self.id,"seed":self.seed,"phase":phase,"mode":self.mode,"source_case":self.case,
+            "scene":ART[phase],
+            "mission_clock_s":round(self.clock_s,6),
+            "mission_end_s":round(self.ends[-1],6),
+            "phase_bounds_s":{name:[round(self.ends[j-1],6) if j else 0.0,
+                                     round(self.ends[j],6)]
+                              for j,name in enumerate(ACTIVE_PHASES)},
+            "presentation_s":PRESENTATION_S,
+            "authorised_until_s":self.authorised_until_s,
+            "next_gate":("burn" if self.segment<0 else
+                         "jump" if self.mode=="awaiting" and self.segment==0 else
+                         "trim" if self.mode=="awaiting" and self.segment==2 else None),
+            "progress_percent":round(progress,3),
+            "map_index":min(i,len(samples)-1),
+            "case_revealed":self.unlocked>=1,
+            "variant":self.case if self.unlocked>=1 else "SEALED",
+            "facts":evidence_lines(self.t,self.case,phase),
+            "question_count":self.questions,
+            "log_file":str(self.logs)
         }
 
 class Server(ThreadingHTTPServer):
@@ -344,7 +387,7 @@ class Server(ThreadingHTTPServer):
         self.excerpts = canon_excerpt()
         self.mapdata = load_map(self.timeline)
         self.lock = RLock()
-        self.session = Session(self.timeline, first=True)
+        self.session = Session(self.timeline, self.mapdata, first=True)
         super().__init__(address, handler)
 
 class Handler(BaseHTTPRequestHandler):
@@ -371,6 +414,8 @@ class Handler(BaseHTTPRequestHandler):
         path = urlsplit(self.path).path
         if path == "/":
             return self.page(HERE / "index.html", "text/html; charset=utf-8")
+        if path == "/clock.js":
+            return self.page(HERE / "clock.js", "application/javascript; charset=utf-8")
         if path.startswith("/art/") and path.split("/")[-1] in ART.values() and path.count("/") == 2:
             return self.page(ART_DIR / path.rsplit("/", 1)[1], "image/png")
         if path == "/api/state":
@@ -407,12 +452,12 @@ class Handler(BaseHTTPRequestHandler):
                     if s.mode not in ("quit", "complete"):
                         s.tick()
                         s.log("quit", quit_point=s.phase, reason="restart")
-                    self.server.session = Session(self.server.timeline, seed, requested_case=body.get("case"))
+                    self.server.session = Session(self.server.timeline, self.server.mapdata, seed, requested_case=body.get("case"))
                     return self.send(self.server.session.view(self.server.mapdata))
                 if self.path == "/api/command":
                     action=body.get("action")
                     if action == "scrub":
-                        s.scrub(body.get("percent"))
+                        s.scrub(body.get("clock_s"))
                     elif action in ("go", "hold", "quit"):
                         s.command(action)
                     else:

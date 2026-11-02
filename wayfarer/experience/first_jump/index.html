@@ -66,17 +66,17 @@ footer{padding:8px 12px 18px;text-align:center;font:11px ui-monospace,monospace;
 <g id="solarScene"><g id="orbitPaths"></g><circle cx="0" cy="0" r="11" class="sun"/><text x="-12" y="28" class="body-name">SOL</text>
 <g id="earthMarker"><circle r="8" class="earth"/><text x="12" y="-11" class="body-name">EARTH</text></g>
 <g id="marsMarker"><circle r="7" class="mars"/><text x="12" y="-11" class="body-name">MARS</text></g>
-<g id="shipMarker"><path d="M0 -11 L7 9 L0 5 L-7 9 Z" class="ship"/></g>
+<g id="shipMarker"><path d="M0 -11 L7 9 L0 5 L-7 9 Z" class="ship"/><path id="burnPlume" d="M-3 7 L0 27 L3 7 Z" fill="#75dffe" opacity="0"/></g>
 <circle id="departurePulse" r="14" class="pulse"/><circle id="arrivalPulse" r="14" class="pulse"/></g>
 <g id="closeMars"><circle cx="95" cy="42" r="188" class="planet-close"/>
-<path d="M-155 47 L-145 25 L-134 47 L-145 42 Z" class="ship"/>
+<g id="closeShip"><path d="M-155 47 L-145 25 L-134 47 L-145 42 Z" class="ship"/><path id="trimFlare" d="M-149 46 L-145 88 L-141 46 Z" fill="#b2eaff" opacity="0"/></g>
 <circle cx="-145" cy="37" r="28" stroke="#9bddea" stroke-dasharray="4 8" fill="none" opacity=".7"/>
 <text x="-210" y="91" class="body-name">WAYFARER</text><text x="0" y="-173" class="body-name">MARS</text></g>
 </svg></div>
 <div class="tools" id="tools" hidden><span>NAV / READ-ONLY</span><button id="view" aria-label="Switch deck and map">MAP</button><button id="out" aria-label="Zoom out">−</button><button id="in" aria-label="Zoom in">+</button><button id="left" aria-label="Rotate left">↶</button><button id="right" aria-label="Rotate right">↷</button><button id="pause" aria-label="Pause or resume playback">PAUSE</button></div>
-<div class="seekrow" id="seekrow" hidden><label for="seek">SCRUB</label><input type="range" id="seek" min="0" max="99.9" step=".1" value="0"><output id="seekPct">0%</output></div>
+<div class="seekrow" id="seekrow" hidden><label for="seek">MISSION</label><input type="range" id="seek" min="0" max="100" step=".1" value="0"><output id="seekPct">00:00</output></div>
 <div class="scene"><div class="eyebrow" id="chapter">COMMAND DECK</div><h1 id="heading">Departure</h1><p id="story">Couches lock against the thrust axis. The pilot waits for your word.</p>
-<div class="progress"><div id="bar"></div></div><div class="gate" id="gate">Awaiting your order</div>
+<div class="progress"><div id="bar"></div></div><div id="missionTime" class="gate">MISSION 00:00</div><div class="gate" id="gate">Awaiting your order</div>
 <div class="controls"><button id="go" class="primary">Begin departure</button><button id="hold">Hold</button><button id="quit">Leave bridge</button><button id="replay" class="primary" hidden>Replay</button></div></div>
 </section>
 <section class="panel">
@@ -85,92 +85,4 @@ footer{padding:8px 12px 18px;text-align:center;font:11px ui-monospace,monospace;
 <div id="evidence" hidden><h2>SHIP'S RECORD</h2><p>Tap a flight number to inspect its source.</p><div id="trace"><p>Select a reading.</p></div><p id="diagnostic">Mara channel: checking…</p><p>Next replay:</p>
 <select id="scenario"><option value="">Surprise me</option><option value="NOMINAL">Nominal</option><option value="UNDERBURN_1_PERCENT">Under-burn</option></select><button id="closeEvidence" class="secondary">Close record</button></div>
 </section></main><footer>WAYFARER / FIRST JUMP</footer>
-<script>
-"use strict";
-const $=id=>document.getElementById(id),put=(id,x)=>{$(id).textContent=x};
-const STORY={
- briefing:["Command deck","Departure","Couches lock against the thrust axis. The pilot rests a hand above the torch controls, waiting for your word.","Captain, we're ready when you are."],
- preburn:["Departure","Torch burn","Hot fins unfold. The ship presses firmly into the couches as Earth recedes behind.","Burn's clean, Captain. Keep an eye on the mass line."],
- metric:["The weave","Between worlds","The torch falls quiet. Earth slips away as the weave takes hold. Mars waits at the far end.","We have the weave. Our natural arrival velocity is not a promise of a perfect match."],
- turn:["Mars approach","The handoff","Mars fills the approach display. The pilot prepares the attitude change.","Mars is on the board. I have the turn loaded. Your order."],
- trim:["Mars approach","Correcting the line","The ship steadies and fires its brief final correction.","Trim is running, Captain."],
- debrief:["Mars approach","Handoff complete","Holding at Mars approach shell. Mars Traffic has us from here.","Mars Traffic has the approach. Nice work, Captain."]
-};
-let last={},current="",busy=false,display=null,preference="auto",camera={zoom:1,angle:0},fingers=new Map(),pinch=0;
-async function api(path,data){const opt=data===undefined?{}:{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)};const r=await fetch(path,opt),x=await r.json();if(!r.ok)throw Error(x.error||"Link unavailable");return x}
-async function loadMap(){
- try{
-  const d=await api("/api/map");if(d.schema!=="FIRST_JUMP_SOLAR_DISPLAY_v0.3"||d.metric_path!==null||d.mars_approach_range!==null)throw Error("Invalid display frames");
-  display=d;const paths=$("orbitPaths");paths.replaceChildren();
-  for(const key of ["EA","MA"]){const path=document.createElementNS("http://www.w3.org/2000/svg","path");path.setAttribute("class","orbit");path.setAttribute("d",d.orbit_context[key].map((p,i)=>(i?"L":"M")+p[0]+","+p[1]).join(" "));paths.append(path)}
-  $("tools").hidden=false;cameraApply();if(last.phase)drawMap(last);
- }catch(e){display=null;put("gate","Map unavailable: "+e.message)}
-}
-function cameraApply(){$("solarScene").setAttribute("transform","rotate("+camera.angle+") scale("+camera.zoom+")")}
-function drawMap(s){
- const has=Boolean(display),active=["preburn","metric","turn","trim"].includes(s.phase);
- const showMap=has&&(preference==="map"||(preference==="auto"&&s.phase!=="briefing"));
- $("deck").hidden=showMap;$("map").hidden=!showMap;
- $("tools").hidden=!has;$("seekrow").hidden=!has||!active||!["active","held"].includes(s.mode);
- $("pause").hidden=!active||!["active","held"].includes(s.mode);
- put("view",showMap?"DECK":"MAP");put("pause",s.mode==="held"?"RESUME":"PAUSE");
- if(document.activeElement!==$("seek")){$("seek").value=s.progress_percent;put("seekPct",Math.round(s.progress_percent)+"%")}
- if(!showMap)return;
- const close=["turn","trim","debrief"].includes(s.phase);
- $("map").classList.toggle("close",close);$("map").classList.toggle("metric",s.phase==="metric");$("map").classList.toggle("paused",s.mode==="held");
- put("maplabel",close?"MARS / APPROACH":s.phase==="metric"?"SOLAR / METRIC":"SOLAR / DEPARTURE");
- const frame=display.samples[s.map_index]||display.samples[0],ea=frame.EA,ma=frame.MA;
- for(const [id,p] of [["earthMarker",ea],["marsMarker",ma]])$(id).setAttribute("transform","translate("+p[0]+" "+p[1]+")");
- for(const [id,p] of [["departurePulse",ea],["arrivalPulse",ma]]){$(id).setAttribute("cx",p[0]);$(id).setAttribute("cy",p[1])}
- const atMars=close||(s.phase==="metric"&&s.progress_percent>=99.5),sp=atMars?ma:ea;
- $("shipMarker").setAttribute("transform","translate("+sp[0]+" "+(sp[1]-18)+")");
- $("departurePulse").classList.toggle("active",s.phase==="metric"&&s.progress_percent<99.5);
- $("arrivalPulse").classList.toggle("active",s.phase==="metric"&&s.progress_percent>=99.5);
-}
-function show(s){
- last=s;const [part,title,description,voice]=STORY[s.phase];put("chapter",part);put("heading",title);put("story",description);
- $("deck").dataset.phase=s.phase;$("art").src="/art/"+s.scene;
- $("bar").style.width=s.progress_percent+"%";
- put("gate",s.mode==="awaiting"?"Awaiting your order":s.mode==="held"?"On your hold":s.mode==="active"?"Under way":s.mode==="complete"?"Mars Traffic standing by":"Bridge session ended");
- if(current!==s.phase){put("mara",s.phase==="turn"&&s.variant==="UNDERBURN_1_PERCENT"?"The departure burn fell short, Captain. Recovery is ready on your command.":voice);current=s.phase}
- const end=["complete","quit"].includes(s.mode);
- $("go").hidden=end||!["awaiting","held"].includes(s.mode);$("hold").hidden=end||s.mode!=="active";$("quit").hidden=end;$("replay").hidden=!end;
- put("go",s.mode==="held"?"Resume":s.phase==="turn"?"Authorise turn":s.phase==="trim"?"Authorise trim":s.phase==="briefing"?"Begin departure":"Proceed");
- const box=$("readings");box.replaceChildren();
- for(const f of s.facts){const row=document.createElement("div");row.className="reading";const label=document.createElement("span"),value=document.createElement("button");label.textContent=f.label;value.textContent=f.value;
-  if(f.earned){const mark=document.createElement("small");mark.className="earned";mark.textContent="earned";value.append(mark);value.onclick=()=>evidence(f.field)}else value.disabled=true;
-  row.append(label,value);box.append(row)}
- drawMap(s);
-}
-async function command(action,extras={}){if(busy)return;busy=true;try{show(await api("/api/command",{action,...extras}))}catch(e){put("mara","The bridge link is down. "+e.message)}finally{busy=false}}
-async function evidence(field){
- try{const e=await api("/api/evidence",{field});$("evidence").hidden=false;const box=$("trace");box.replaceChildren();
- for(const [k,v] of [["Reading",e.field],["Value",String(e.value)],["FQ11",e.source]]){const p=document.createElement("p");p.textContent=k+": "+v;box.append(p)}
- await diagnostics()}catch(e){put("mara","Ship's record isn't available.")}
-}
-async function diagnostics(){try{const d=await api("/api/diagnostics");put("diagnostic",d.narration==="live_available"?"Live Mara model configured. Status of each reply is in the local log.":"Mara is using scripted comms. Supply the API key in Termux and relaunch.")}catch(e){put("diagnostic","Comms status unavailable")}}
-$("showEvidence").onclick=async()=>{$("evidence").hidden=!$("evidence").hidden;if(!$("evidence").hidden)await diagnostics()};
-$("closeEvidence").onclick=()=>{$("evidence").hidden=true};
-$("go").onclick=()=>command("go");$("hold").onclick=()=>command("hold");$("quit").onclick=()=>{if(confirm("Leave the bridge?"))command("quit")};
-$("replay").onclick=async()=>{const selected=$("scenario").value;try{show(await api("/api/new",selected?{case:selected}:{}))}catch(e){put("mara","The bridge link is down.")}};
-$("view").onclick=()=>{preference=$("map").hidden?"map":"deck";drawMap(last)};
-$("in").onclick=()=>{camera.zoom=Math.min(4,camera.zoom*1.25);cameraApply()};
-$("out").onclick=()=>{camera.zoom=Math.max(.6,camera.zoom/1.25);cameraApply()};
-$("left").onclick=()=>{camera.angle-=15;cameraApply()};
-$("right").onclick=()=>{camera.angle+=15;cameraApply()};
-$("pause").onclick=()=>command(last.mode==="held"?"go":"hold");
-$("seek").addEventListener("input",()=>put("seekPct",Math.round(Number($("seek").value))+"%"));
-$("seek").addEventListener("change",()=>command("scrub",{percent:Number($("seek").value)}));
-const svg=$("svg");
-svg.addEventListener("pointerdown",e=>{svg.setPointerCapture(e.pointerId);fingers.set(e.pointerId,[e.clientX,e.clientY]);if(fingers.size===2){const a=[...fingers.values()];pinch=Math.hypot(a[0][0]-a[1][0],a[0][1]-a[1][1])}});
-svg.addEventListener("pointermove",e=>{if(!fingers.has(e.pointerId))return;const old=fingers.get(e.pointerId),now=[e.clientX,e.clientY];fingers.set(e.pointerId,now);
- if(fingers.size===1){camera.angle+=(now[0]-old[0])*.28;cameraApply()}
- if(fingers.size===2){const a=[...fingers.values()],d=Math.hypot(a[0][0]-a[1][0],a[0][1]-a[1][1]);if(pinch>0){camera.zoom=Math.max(.6,Math.min(4,camera.zoom*d/pinch));cameraApply()}pinch=d}
-});
-for(const evt of ["pointerup","pointercancel","lostpointercapture"])svg.addEventListener(evt,e=>{fingers.delete(e.pointerId);if(fingers.size<2)pinch=0});
-$("ask").onclick=async()=>{const q=$("question").value.trim();if(!q||busy)return;busy=true;$("ask").disabled=true;put("mara","Let me check the board, Captain…");
- try{const a=await api("/api/ask",{question:q});put("mara",a.reply);$("question").value=""}catch(e){put("mara","Can't reach the ship's channel right now.")}finally{busy=false;$("ask").disabled=false}};
-$("question").onkeydown=e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();$("ask").click()}};
-async function tick(){if(busy)return;try{show(await api("/api/state"))}catch(e){put("gate","Connection interrupted")}}
-loadMap();tick();setInterval(tick,900);
-</script></body></html>
+<script src="/clock.js"></script></body></html>

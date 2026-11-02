@@ -31,15 +31,15 @@ class MapDisplayTests(unittest.TestCase):
         with TemporaryDirectory() as d, patch.object(game,"LOG_DIR",Path(d)):
             t=build_timeline.build()
             m=game.load_map(t)
-            s=game.Session(t,seed=42,first=True)
+            s=game.Session(t,m,seed=42,first=True)
             s.command("go")
             self.assertEqual(s.phase,"preburn")
-            s.scrub(75.0)
+            s.scrub(s.ends[0]*.75)
             self.assertEqual(s.mode,"held")
             view=s.view(m)
-            self.assertAlmostEqual(view["progress_percent"],75)
+            self.assertAlmostEqual(view["progress_percent"],75,places=1)
             self.assertGreater(view["map_index"],0)
-            before=view["map_epoch_elapsed_s"]
+            before=view["mission_clock_s"]
             self.assertGreater(before,0)
             s.command("go")
             self.assertEqual(s.mode,"active")
@@ -63,7 +63,7 @@ class MapDisplayTests(unittest.TestCase):
                 self.assertIsNone(m["metric_path"])
                 a=post("/api/command",{"action":"go"})
                 self.assertEqual(a["phase"],"preburn")
-                a=post("/api/command",{"action":"scrub","percent":50})
+                a=post("/api/command",{"action":"scrub","clock_s":srv.session.ends[0]*.5})
                 self.assertEqual(a["mode"],"held")
                 self.assertGreater(a["map_index"],0)
                 self.assertEqual(post("/api/command",{"action":"go"})["mode"],"active")
