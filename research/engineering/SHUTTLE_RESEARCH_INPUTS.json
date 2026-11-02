@@ -124,7 +124,7 @@
     "pod_material": "Ti (unqualified)",
     "pod_outside_bar": 92,
     "pod_inside_bar": 1,
-    "water_capacity_t": 23.1,
+    "water_capacity_t": null,
     "belly_thrust_kN": 760,
     "belly_water_ve_km_s": 9,
     "belly_supply_GW_claimed": 3.4,
@@ -140,7 +140,8 @@
     "uncrewed_truck": true,
     "pod_is_rover": true,
     "ejectable_custody_capsule": true,
-    "unsupported_endurance_note": "Neither 18h nor 3-6h has a demonstrated heat leak, cooling model, or water-temperature window"
+    "unsupported_endurance_note": "Neither 18h nor 3-6h has a demonstrated heat leak, cooling model, or water-temperature window",
+    "water_capacity_status": "OPEN; 23.1t belongs exclusively to lost sizer historical output"
   },
   "parameter_ranges": [
     {
@@ -606,19 +607,19 @@
       "detail": "Not measured on proposed geometry."
     },
     {
-      "id": "venus_wing_or_lifting_area_at_v1_58p5t",
-      "unit": "m2",
+      "id": "venus_lifting_area_per_tonne_of_actual_wet_mass",
+      "unit": "m2/t_wet",
       "classification": "DERIVED_CONDITIONAL",
       "range": {
-        "min": 7,
-        "max": 51
+        "min": 0.11,
+        "max": 0.87
       },
       "confidence": "LOW",
       "sources": [
         "https://nssdc.gsfc.nasa.gov/planetary/factsheet/venusfact.html"
       ],
-      "relation_to_v1": "LEAVES_BAY_AND_ROLLING_CONCEPT_OPEN",
-      "detail": "W/(0.5rhoV2CL); assumes 65kg/m3 and 58.5t; deployable surfaces open."
+      "relation_to_v1": "LEAVES_WET_MASS_AND_ROLLING_CONCEPT_OPEN",
+      "detail": "Derived W/(0.5rhoV2CL) normalized by 1t wet mass using 65kg/m3, 25-40m/s and CL 0.5-1.5. Never combine historical 23.1t capacity with new v1 35.4t dry."
     },
     {
       "id": "titan_air_density_vs_earth_sea_level",
@@ -812,15 +813,15 @@
       "cooler_COP_carnot = cold_K / (hot_K - cold_K)",
       "lift_N = 0.5 * rho_kg_per_m3 * speed_m_per_s^2 * Cl * area_m2"
     ],
-    "state_assumption": "mass 35.4t dry + 23.1t water and 58.5t initial are from unqualified v1",
-    "ideal_delta_v_if_all_23p1t_water_spent_km_s": {
-      "ve_9km_s": 4.53,
-      "ve_14p5km_s": 7.29,
-      "ve_40km_s": 20.1
-    },
-    "water_reserve_and_descent_debit": "NOT_INCLUDED_MAKES_ALL_VALUES_OPTIMISTIC",
+    "state_assumption": "v1 dry 35.4t supplied; water capacity, wet mass and mass ratio remain OPEN. Historical 23.1t is not v1.",
+    "water_reserve_and_descent_debit": "OPEN; cannot form capacity ledger with historical tank size",
     "high_ve_40km_s_at_760kN_ideal_jet_power_GW": 15.2,
-    "disclaimer": "No ascent drag, gravity, atmospheric lift, engine schedule, duty cycle or terminal orbit closure computed."
+    "disclaimer": "No ascent drag, gravity, atmospheric lift, engine schedule, duty cycle or terminal orbit closure computed.",
+    "v1_total_water_capacity_t": null,
+    "v1_initial_wet_mass_t": null,
+    "v1_ideal_delta_v_km_s": null,
+    "venus_orbit_speed_km_s_approx": 7.3,
+    "venus_ascent_budget": "OPEN; orbital speed not the ascent delta-v"
   },
   "ranked_uncertainty_removal": [
     {
