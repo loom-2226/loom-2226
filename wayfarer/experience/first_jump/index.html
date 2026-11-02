@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wayfarer · First Jump</title>
+<style>
+:root{color-scheme:dark;--dark:#071019;--panel:#11202c;--line:#294657;--text:#edf4f5;--soft:#9eb5c2;--ice:#84dce9;--warm:#e9bf93}
+*{box-sizing:border-box}html{background:var(--dark)}body{margin:0;color:var(--text);background:radial-gradient(ellipse at 50% -30%,#1f394b,transparent 70%),var(--dark);font:15px/1.5 system-ui,-apple-system,sans-serif}
+header{padding:15px 17px;display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid var(--line)}
+.brand{font-size:16px;font-weight:800;letter-spacing:.21em}.brand small{display:block;font:11px/1.6 ui-monospace,monospace;letter-spacing:.15em;color:var(--soft)}
+.route{color:var(--ice);font:12px ui-monospace,monospace;white-space:nowrap}
+main{max-width:1050px;margin:auto;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:13px;padding:13px}
+.panel{background:linear-gradient(155deg,#142634,#0d1823);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.window{position:relative;aspect-ratio:16/10;overflow:hidden;background:#02070e;isolation:isolate}
+.window img{position:absolute;inset:-12%;width:124%;height:124%;object-fit:cover;object-position:center 54%;filter:saturate(.85) contrast(1.09);transform:scale(1.18)}
+.window:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,#07101baa 0%,transparent 30%,transparent 65%,#07101bdc 100%)}
+.window[data-phase="briefing"] img,.window[data-phase="debrief"] img{transform:scale(1.45);object-position:54% 57%}
+.window[data-phase="metric"] img{transform:scale(1.24);filter:saturate(.65) contrast(1.12) brightness(.8)}
+.window[data-phase="turn"] img,.window[data-phase="trim"] img{transform:scale(1.55);object-position:54% 58%;filter:brightness(.56)}
+.mars{position:absolute;z-index:1;top:14%;right:14%;width:31%;aspect-ratio:1;border-radius:50%;
+background:radial-gradient(ellipse at 31% 28%,#dba181 0%,#b97655 23%,#8b4f3f 49%,#432d32 73%,#171722 98%);box-shadow:-13px -17px 47px #db79502b,8px 8px 28px #0009;opacity:0;transform:scale(.45);transition:transform 1.6s ease,opacity 1.1s ease}
+.window[data-phase="turn"] .mars{opacity:.95;transform:scale(1)}
+.window[data-phase="trim"] .mars{opacity:.96;transform:scale(1.22)}
+.window[data-phase="debrief"] .mars{opacity:.98;transform:scale(1.5)}
+.scene{padding:15px}
+.eyebrow{color:var(--ice);font:12px ui-monospace,monospace;letter-spacing:.17em;text-transform:uppercase}
+h1{font-size:26px;line-height:1.2;margin:8px 0 11px}
+.scene p{font-size:16px;line-height:1.5;color:#c2d2dc;min-height:74px;margin:0 0 15px}
+.progress{height:5px;border-radius:4px;overflow:hidden;background:#263d49;margin:14px 0 9px}.progress div{height:100%;width:0;background:var(--ice);transition:width .5s}
+.gate{color:#b9d6e3;font:11px ui-monospace,monospace;letter-spacing:.07em;min-height:20px}
+.controls{display:flex;gap:10px;margin-top:12px}.controls button{flex:1}
+button{border:1px solid #3a596a;background:#1b3242;color:var(--text);border-radius:9px;padding:13px 16px;cursor:pointer;font:700 13px ui-monospace,monospace}
+button.primary{background:#84dce9;color:#06151e;border-color:#a6f3fa}button:disabled{opacity:.4}button:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
+.quiet{padding:15px}.paneltitle{font:12px ui-monospace,monospace;letter-spacing:.17em;color:var(--ice);margin:0 0 10px}
+.reading{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #29404e;padding:11px 0;font:13px ui-monospace,monospace}
+.reading:last-child{border:0}.reading span{color:#a9c0cd}.reading button{padding:0;border:0;background:transparent;font:700 13px ui-monospace,monospace;text-align:right;color:#eef9fc}
+.reading button:disabled{opacity:1;cursor:default}.earned{font:9px ui-monospace,monospace;letter-spacing:.04em;color:#88d6c1;margin-left:6px}
+.comm{padding:15px;border-top:1px solid var(--line)}.commhead{color:var(--warm);font:700 12px ui-monospace,monospace;letter-spacing:.15em}
+blockquote{border-left:2px solid var(--warm);padding-left:13px;margin:11px 0 15px;color:#e5e9eb;min-height:55px;font-size:16px}
+.ask{display:flex;gap:8px}.ask textarea{resize:vertical;flex:1;min-height:55px;max-height:140px;padding:10px;background:#07131d;color:var(--text);border:1px solid var(--line);border-radius:8px;font:14px system-ui}
+.ask button{align-self:stretch}.secondary{width:100%;margin-top:16px;background:none;color:var(--soft);padding:7px;font-weight:500;border-color:#314958}
+#evidence{display:none;border-top:1px solid var(--line);background:#0a1420;padding:15px}
+#evidence.open{display:block}#evidence h3{font-size:13px;margin:0 0 8px;color:var(--ice)}
+#evidence p{font:12px/1.6 ui-monospace,monospace;color:var(--soft);overflow-wrap:anywhere}
+#evidence .sourceline{border:1px solid var(--line);border-radius:7px;padding:9px}
+select{padding:9px;background:#172938;color:var(--text);border-radius:6px;border:1px solid var(--line);width:100%}
+footer{font:11px ui-monospace,monospace;color:#7893a2;text-align:center;padding:6px 15px 22px}
+@media(max-width:720px){main{display:block;padding:8px}.panel{margin-bottom:9px}.window{aspect-ratio:16/9}.scene,.comm,.quiet{padding:13px}h1{font-size:23px}.scene p{min-height:0}}
+@media(prefers-reduced-motion:reduce){.progress div,.mars{transition:none}}
+</style></head><body>
+<header><div class="brand">WAYFARER<small>FIRST JUMP</small></div><div class="route">EARTH / MARS</div></header>
+<main>
+<section class="panel">
+<div class="window" id="window" data-phase="briefing" aria-label="Wayfarer flight-deck view"><img id="art" src="/art/cmd_pov.png" alt="Wayfarer view"><div class="mars" aria-hidden="true"></div></div>
+<div class="scene"><div class="eyebrow" id="chapter">COMMAND DECK</div><h1 id="heading">Departure</h1>
+<p id="story">The crew settles into the acceleration couches. Beyond the dome, Earth hangs in the black. The pilot waits for your word.</p>
+<div class="progress" aria-label="Scene playback progress"><div id="bar"></div></div>
+<div class="gate" id="gate">Awaiting your order</div>
+<div class="controls"><button id="go" class="primary">Begin departure</button><button id="hold">Hold</button><button id="quit">Leave bridge</button></div>
+</div></section>
+<section class="panel"><div class="quiet"><div class="paneltitle">FLIGHT / OWN</div><div id="readings"></div>
+<button class="secondary" id="showEvidence" aria-expanded="false" aria-controls="evidence">Ship's record · inspect</button>
+</div>
+<div class="comm"><div class="commhead">MARA / SHIP COMMS</div>
+<blockquote id="mara">Captain, everyone's strapped in. We can take her out whenever you're ready.</blockquote>
+<div class="ask"><textarea id="question" maxlength="500" placeholder="Ask Mara…"></textarea><button id="ask">Send</button></div>
+</div>
+<div id="evidence" aria-live="polite">
+<h3>SHIP'S RECORD</h3>
+<p>Numbers displayed on the bridge come from the accepted flight record. Tap a reading to see its source.</p>
+<div id="trace" class="sourceline"><p>Select a reading.</p></div>
+<p id="diagnostic">Mara channel: checking…</p>
+<p>Scenario for next replay:</p>
+<select id="scenario"><option value="">Surprise me</option><option value="NOMINAL">Nominal</option><option value="UNDERBURN_1_PERCENT">Under-burn</option></select>
+<button class="secondary" id="closeEvidence">Close record</button>
+</div></section>
+</main>
+<footer>WAYFARER / FIRST JUMP</footer>
+<script>
+"use strict";
+// STORY is authored fiction. Flight numbers are server-sourced FQ11 readings.
+const $=id=>document.getElementById(id);
+const put=(id,v)=>{$(id).textContent=v};
+const STORY={
+ briefing:["Command deck","Departure","Couches lock against the thrust axis. The pilot rests a hand above the torch controls, waiting for your word.",
+ "Captain, the crew is settled. The fins are ready. Whenever you are."],
+ preburn:["Departure","Torch burn","The fins unfold. The ship pushes hard and steadily. The dome's stars seem to tighten around the bow.",
+ "Burn's clean, Captain. Keep your eye on the mass line."],
+ metric:["The weave","Between worlds","Torch quiet. The stars give way to the dim architecture of the weave. Mars is waiting on the far side.",
+ "We have the weave. The ship will arrive with whatever velocity the crossing gives us."],
+ turn:["Mars approach","The handoff","Mars swells beyond the forward dome. The approach solution calls for a measured attitude turn before the trim.",
+ "Mars is on the board. I have the turn loaded. Your order."],
+ trim:["Mars approach","Correcting the line","The ship turns, steadies, and fires a final brief correction. The crew waits on the relative-velocity readout.",
+ "Trim is running. We are bringing the mismatch down."],
+ debrief:["Mars approach","Handoff complete","Holding at Mars approach shell. Mars Traffic has us from here.",
+ "Nice work, Captain. Mars Traffic has the approach. Shall we go round again?"]
+};
+let last={},current="",busy=false;
+async function api(path,data){
+ const init=data===undefined?{}:{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)};
+ const r=await fetch(path,init);const v=await r.json();if(!r.ok)throw Error(v.error||"Ship link unavailable");return v;
+}
+function show(s){
+ last=s;
+ const [chapter,title,description,voice]=STORY[s.phase];put("chapter",chapter);put("heading",title);put("story",description);
+ $("window").dataset.phase=s.phase;
+ $("art").src="/art/"+s.scene;
+ $("art").alt="Wayfarer "+s.phase+" scene";
+ $("bar").style.width=s.progress_percent+"%";
+ put("gate", s.mode==="awaiting"?"Awaiting your order":s.mode==="held"?"On your hold":s.mode==="active"?"Under way":s.mode==="complete"?"Mars Traffic standing by":"Bridge session ended");
+ if(current!==s.phase){put("mara",s.phase==="turn"&&s.variant==="UNDERBURN_1_PERCENT"?"The departure burn fell short, Captain. The longer recovery is ready on your command.":voice);current=s.phase}
+ const finished=s.mode==="complete"||s.mode==="quit";
+ $("go").hidden=finished||!(s.mode==="awaiting"||s.mode==="held");
+ $("hold").hidden=finished||s.mode!=="active";
+ $("quit").hidden=finished;
+ put("go",s.mode==="held"?"Resume":s.phase==="turn"?"Authorise turn":s.phase==="trim"?"Authorise trim":s.phase==="briefing"?"Begin departure":"Proceed");
+ let replay=$("replay");
+ if(finished&&!replay){
+  replay=document.createElement("button");replay.id="replay";replay.className="primary";
+  replay.textContent="Replay";
+  replay.onclick=async()=>{let body={},scenario=$("scenario").value;if(scenario)body.case=scenario;try{show(await api("/api/new",body));put("mara",STORY.briefing[3])}catch(e){put("mara","The bridge link is down. "+e.message)}};
+  $("go").parentNode.append(replay);
+ }
+ if(replay)replay.hidden=!finished;
+ const readings=$("readings");readings.replaceChildren();
+ for(const f of s.facts){
+   const line=document.createElement("div");line.className="reading";
+   const label=document.createElement("span");label.textContent=f.label;
+   const val=document.createElement("button");val.textContent=f.value;
+   if(f.earned){
+     const mark=document.createElement("small");mark.className="earned";mark.textContent="earned";val.append(mark);
+     val.addEventListener("click",()=>evidence(f.field));
+   }else{val.disabled=true}
+   line.append(label,val);readings.append(line);
+ }
+}
+async function evidence(field){
+ try{
+  const e=await api("/api/evidence",{field});
+  $("evidence").classList.add("open");$("showEvidence").setAttribute("aria-expanded","true");
+  const trace=$("trace");trace.replaceChildren();
+  for(const [label,value] of [["Reading",e.field],["Value",String(e.value)],["FQ11 path",e.source]]){
+    const p=document.createElement("p");p.textContent=label+": "+value;trace.append(p);
+  }
+  await diagnostics();
+ }catch(err){put("mara","Ship's record is unavailable. "+err.message)}
+}
+async function diagnostics(){
+ try{
+  const d=await api("/api/diagnostics");
+  put("diagnostic",d.narration==="live_available"?"Mara channel: live model configured; connection tested on question.":"Mara channel: no API key in server; scripted comms. Configure it in Termux and relaunch.");
+ }catch(e){put("diagnostic","Mara channel: status unavailable")}
+}
+$("showEvidence").onclick=async()=>{
+ const open=$("evidence").classList.toggle("open");$("showEvidence").setAttribute("aria-expanded",String(open));if(open)await diagnostics();
+};
+$("closeEvidence").onclick=()=>{$("evidence").classList.remove("open");$("showEvidence").setAttribute("aria-expanded","false")};
+async function command(action){if(busy)return;busy=true;try{show(await api("/api/command",{action}))}catch(e){put("mara","The bridge link is down. "+e.message)}finally{busy=false}}
+$("go").onclick=()=>command("go");
+$("hold").onclick=()=>command("hold");
+$("quit").onclick=()=>{if(confirm("Leave the bridge?"))command("quit")};
+$("ask").onclick=async()=>{
+ const q=$("question").value.trim();if(!q||busy)return;
+ busy=true;$("ask").disabled=true;put("mara","Let me check the board, Captain…");
+ try{let a=await api("/api/ask",{question:q});put("mara",a.reply);$("question").value=""}
+ catch(e){put("mara","Can't reach the ship's channel right now, Captain.")}
+ finally{busy=false;$("ask").disabled=false}
+};
+$("question").onkeydown=e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();$("ask").click()}};
+async function tick(){if(busy)return;try{show(await api("/api/state"))}catch(e){put("gate","Connection interrupted")}}
+tick();setInterval(tick,900);
+</script></body></html>
