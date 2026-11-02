@@ -1,138 +1,134 @@
-# LOOM shuttle sizer v1 — Stage 2 result
-ALL bodies. ALL sponsors. 2026-2226.
+# LOOM Shuttle Sizer v1 — Stage 2
+ALL bodies. ALL sponsors. 2026–2226.
 
-**Status:** NON-CANON / NON-RUNTIME / UNQUALIFIED ENGINEERING SENSITIVITY. No machine constants promoted.
-**Input hash / run identity (Git blob SHA-1; includes JSON run_stage):** `83f7056706fbf14f69683a7b19bc70e0b1419c80`. Raw UTF-8 input identity is SHA-1 of `blob <byte-length>\\0` plus JSON bytes.
-**Single source input:** `wayfarer/lab/shuttle/shuttle_inputs.json` (all inputs printed at end).
-**Files generated:** `SHUTTLE_SIDE_VIEW.svg`, `SHUTTLE_MASS_WATERFALL.svg`.
+**CLASS: Engineering sensitivity / ASSUMPTION / NON-CANON / NOT QUALIFICATION.**
+**Run identity:** Git blob SHA-1 of full UTF-8 input JSON incl. stage: `772ccd9ef0cfc82ea7c03ae0c5f3c936d310a0c4`.
+**Run:** `node wayfarer/lab/shuttle/shuttle_sizer.mjs --stage 2`.
+**Graphics:** `SHUTTLE_SIDE_VIEW.svg`, `SHUTTLE_MASS_WATERFALL.svg`.
 
-## Gate summary
-| Gate | Verdict | Finding |
-|---|---|---|
-| A docked dry ≤ 34.200 t | **OPEN** | Only Ti geometric shell range 3.200–7.600 t; 11 other dry mass entries OPEN; no admissible total. |
-| B G8 bay fully fitted | **OPEN** | Necessary hull length 12.800 / available 12.800m, diameter 4.300 / available 4.300m, folded span 12.000m; mast/hub/hinge and actual positioning OPEN. |
-| C water ≥ 0 at Venus orbit | **OPEN** | Reaction/thermal water and ascent trajectory incomplete. Historical v1 1.6t after burns must not be counted as newly earned. |
-| D 2-crew surface stay | **OPEN** | Thermal reservoir, crew heat and cooling hardware OPEN. |
-| D 4-crew surface stay | **OPEN** | Same omissions plus distinct 4-crew metabolism/embodiment. |
+## Computed gates: per-sample status and sample PASS fractions
+Design: 6561 balanced, pairwise-stratified min/mid/max samples over 35 independent swept inputs. This is **not** full Cartesian probability; PASS fractions are empirical design fractions, not calibrated probabilities.
+| Gate | PASS | FAIL | OPEN | PASS / resolved | Missing required inputs |
+|---|---:|---:|---:|---:|---|
+| A | 810 | 5751 | 0 | 12.35% | none in numeric screen; physical qualification holds separate |
+| B | 0 | 0 | 6561 | n/a | geometry.mast_stowed_extra_diameter_m, geometry.hub_axial_length_m, geometry.mast_retracted_height_m, geometry.crew_pod_x_m, geometry.rotor_mast_x_m, geometry.rotor_retracted_cg_m, geometry.pod_door_ramp_external_excursion_m |
+| R | 5589 | 972 | 0 | 85.19% | none in numeric screen; physical qualification holds separate |
+| C | 4941 | 1620 | 0 | 75.31% | none in numeric screen; physical qualification holds separate |
+| C_low | 1215 | 5346 | 0 | 18.52% | none in numeric screen; physical qualification holds separate |
+| C_high | 4941 | 1620 | 0 | 75.31% | none in numeric screen; physical qualification holds separate |
+| D2 | 0 | 6561 | 0 | 0.00% | none in numeric screen; physical qualification holds separate |
+| D4 | 0 | 6561 | 0 | 0.00% | none in numeric screen; physical qualification holds separate |
 
-## Stage 1 — mass and fit
-**Necessary geometry:** G8 bay inner length 13.800m, axial clearance each end 0.500m; bore radius 2.400m, radial clearance 0.250m. Remaining *allowable* diameter and length margins are exactly 0.000m and 0.000m. Any mast or hub exterior to the existing hull is a fit FAILURE.
-**Folded rotor:** four blades on one 12.000m tip-jet rotor; two fold forward and two aft. The ideal collinear span is 12.000m, leaving 0.800m for true hinge/root/end geometry. Rotor mount over CG and crew pod station are OPEN; the side view locates neither as engineering authority.
-**Dry-mass components (independently conserved):**
-| Component | Range / value (t) | Provenance |
-|---|---:|---|
-| pressure_pod_titanium_shell_t | 3.200–7.600 | PROJECTION |
-| hull_thermal_structure_t | OPEN | OPEN |
-| pressure_pod_fittings_seals_t | OPEN | OPEN |
-| folding_rover_chassis_t | OPEN | OPEN |
-| single_12m_rotor_blades_hub_mast_t | OPEN | OPEN |
-| tipjet_ducts_compressors_t | OPEN | OPEN |
-| torch_low_high_engine_t | OPEN | OPEN |
-| small_belly_thrusters_t | OPEN | OPEN |
-| reactor_power_distribution_t | OPEN | OPEN |
-| crew_habitat_thermal_package_t | OPEN | OPEN |
-| custody_capsule_dry_t | OPEN | OPEN |
-| avionics_controls_yaw_t | OPEN | OPEN |
+### Gate A mass envelope and historical comparison
+Component sums min / midpoint / max: **25.250 / 38.375 / 51.500 t**. Gate A limit 34.200 t.
+Historical LOST-sizer empty mass 35.400 t is the **v1 comparison** while LOST historical output is **27.900t** in PR #453; neither is an equality target or an input mass offset.
+Actual midpoint versus **27.9t** historical output: **10.475 t** difference (27.900t historical anchored in #453 and should not be mistaken for a constraint).
+| Distinct dry component | min | mid | max | provenance |
+|---|---:|---:|---:|---|
+| pressure_pod_titanium_shell_t | 3.200 | 5.400 | 7.600 | PROJECTION |
+| hull_thermal_structure_t | 9.000 | 11.500 | 14.000 | ASSUMPTION |
+| pressure_pod_fittings_seals_t | 0.500 | 0.850 | 1.200 | ASSUMPTION |
+| folding_rover_chassis_t | 0.600 | 0.900 | 1.200 | ASSUMPTION |
+| single_12m_rotor_blades_hub_mast_t | 0.800 | 1.400 | 2.000 | ASSUMPTION |
+| tipjet_ducts_compressors_t | 0.300 | 0.650 | 1.000 | ASSUMPTION |
+| torch_low_high_engine_t | 4.000 | 7.000 | 10.000 | ASSUMPTION |
+| small_belly_thrusters_t | 0.200 | 0.400 | 0.600 | ASSUMPTION |
+| reactor_power_distribution_t | 0.300 | 0.650 | 1.000 | ASSUMPTION |
+| crew_habitat_thermal_package_t | 1.000 | 1.500 | 2.000 | ASSUMPTION |
+| custody_capsule_dry_t | 0.050 | 0.125 | 0.200 | ASSUMPTION |
+| avionics_controls_yaw_t | 0.500 | 0.850 | 1.200 | ASSUMPTION |
+| entry_tps_t | 3.000 | 4.500 | 6.000 | ASSUMPTION |
+| landing_gear_door_ramp_t | 0.800 | 1.150 | 1.500 | ASSUMPTION |
+| water_tank_insulated_t | 1.000 | 1.500 | 2.000 | ASSUMPTION |
 
-**Feasibility map:** 3 shell-projection samples; other masses cannot be assigned without evidence.
-| Ti shell assumed (t) | Remaining total budget for ALL other dry components (t) | Gate A | Gate B |
-|---:|---:|---|---|
-| 3.200 | 31.000 | OPEN | OPEN |
-| 5.400 | 28.800 | OPEN | OPEN |
-| 7.600 | 26.600 | OPEN | OPEN |
+### Gate B G8 stowed fit
+Necessary-dimensional result: **PASS**. G8 allowable L 12.800 m, diameter 4.300 m; hull 12.800 × 4.300 m, folded theoretical blade span 12.000m. Real margins: L 0.000m, D 0.000m.
+Full fit verdict OPEN; explicit REQUIRED nulls: geometry.mast_stowed_extra_diameter_m, geometry.hub_axial_length_m, geometry.mast_retracted_height_m, geometry.crew_pod_x_m, geometry.rotor_mast_x_m, geometry.rotor_retracted_cg_m, geometry.pod_door_ramp_external_excursion_m. No arbitrary hub or mast geometry credited.
 
-Necessary but insufficient condition: **sum(other component dry masses) ≤ remaining budget**; this is not an earned PASS. Capsule has ONE dry-mass row and may not be counted a second time in the custody ledger.
+## Three most influential inputs per gate (one-at-a-time)
+Each factor is set to **min / mid / max** while 81 balanced baselines hold all other inputs. Rank by change in PASS fraction; if no boundary crosses, rank by change in physical margin.
+**Gate A**
+| Input | PASS % at min/mid/max | Δ PASS | Δ margin if no flip |
+|---|---|---:|---:|
+| mass.torch_low_high_engine_t | 33.3 / 6.2 / 3.7 | 29.6 pp | 6.000 |
+| mass.hull_thermal_structure_t | 25.9 / 11.1 / 3.7 | 22.2 pp | 5.000 |
+| mass.pressure_pod_titanium_shell_t | 27.2 / 8.6 / 4.9 | 22.2 pp | 4.400 |
 
-## Stage 2 — Venus atmospheric and phase screen
-**Atmosphere:** VIRA-derived IPPW-6 table (source in JSON), tabulated rather than made-up atmosphere fit. Table points are not a continuous flight-dynamics model. **Single rotor** deployed diameter 12.000m, area 113.097m². Values below are momentum-theory hover plus assumed rotor FM and tip-jet thermal effectiveness at representative **58.500–60.000 t**; they do NOT establish max available thermal power.
-| Alt km | rho kg/m³ | Temperature K | Rotor useful power MW | Tip-jet reactor heat MW |
-|---:|---:|---:|---:|---:|
-| 0 | 64.790 | 735.300 | 3.860–5.345 | 11.027–53.452 |
-| 5 | 49.870 | 696.800 | 4.399–6.093 | 12.569–60.926 |
-| 10 | 37.720 | 658.200 | 5.058–7.005 | 14.452–70.054 |
-| 15 | 27.950 | 620.800 | 5.876–8.138 | 16.789–81.382 |
-| 20 | 20.390 | 580.700 | 6.880–9.528 | 19.657–95.282 |
-| 25 | 14.570 | 539.200 | 8.139–11.272 | 23.254–112.717 |
-| 30 | 10.150 | 496.900 | 9.751–13.505 | 27.860–135.048 |
-| 35 | 6.831 | 455.300 | 11.886–16.462 | 33.961–164.618 |
-| 40 | 4.404 | 417.600 | 14.803–20.502 | 42.296–205.020 |
-| 45 | 2.693 | 385.400 | 18.931–26.218 | 54.088–262.181 |
-| 50 | 1.594 | 350.500 | 24.606–34.078 | 70.303–340.781 |
-| 55 | 0.921 | 302.300 | 32.376–44.840 | 92.504–448.395 |
-| 60 | 0.469 | 262.800 | 45.344–62.798 | 129.553–627.984 |
-| 70 | 0.084 | 229.800 | 107.233–148.512 | 306.381–1485.119 |
+**Gate R**
+| Input | PASS % at min/mid/max | Δ PASS | Δ margin if no flip |
+|---|---|---:|---:|
+| power.tipjet_thermal_to_useful_rotor | 60.5 / 96.3 / 100.0 | 39.5 pp | 7.173 |
+| power.rotor_usable_input_heat_limit_MW | 61.7 / 96.3 / 100.0 | 38.3 pp | 6.617 |
+| power.rotor_figure_of_merit | 74.1 / 88.9 / 88.9 | 14.8 pp | 2.049 |
 
-**Feasibility surface:** 27 sampled full-mass / FM / tip-jet-efficiency combinations at surface, all with C=OPEN and D=OPEN because heat availability and trajectory are not given.
-| Wet mass t | Rotor FM | Tip-jet effectiveness | Required rotor MW | Required source heat MW | Orbit water C | Stay D |
-|---:|---:|---:|---:|---:|---|---|
-| 58.500 | 0.600 | 0.100 | 5.146 | 51.460 | OPEN | OPEN |
-| 58.500 | 0.600 | 0.225 | 5.146 | 22.871 | OPEN | OPEN |
-| 58.500 | 0.600 | 0.350 | 5.146 | 14.703 | OPEN | OPEN |
-| 58.500 | 0.700 | 0.100 | 4.411 | 44.109 | OPEN | OPEN |
-| 58.500 | 0.700 | 0.225 | 4.411 | 19.604 | OPEN | OPEN |
-| 58.500 | 0.700 | 0.350 | 4.411 | 12.603 | OPEN | OPEN |
-| 58.500 | 0.800 | 0.100 | 3.860 | 38.595 | OPEN | OPEN |
-| 58.500 | 0.800 | 0.225 | 3.860 | 17.153 | OPEN | OPEN |
-| 58.500 | 0.800 | 0.350 | 3.860 | 11.027 | OPEN | OPEN |
-| 59.250 | 0.600 | 0.100 | 5.245 | 52.453 | OPEN | OPEN |
-| 59.250 | 0.600 | 0.225 | 5.245 | 23.313 | OPEN | OPEN |
-| 59.250 | 0.600 | 0.350 | 5.245 | 14.987 | OPEN | OPEN |
-| 59.250 | 0.700 | 0.100 | 4.496 | 44.960 | OPEN | OPEN |
-| 59.250 | 0.700 | 0.225 | 4.496 | 19.982 | OPEN | OPEN |
-| 59.250 | 0.700 | 0.350 | 4.496 | 12.846 | OPEN | OPEN |
-| 59.250 | 0.800 | 0.100 | 3.934 | 39.340 | OPEN | OPEN |
-| 59.250 | 0.800 | 0.225 | 3.934 | 17.484 | OPEN | OPEN |
-| 59.250 | 0.800 | 0.350 | 3.934 | 11.240 | OPEN | OPEN |
-| 60.000 | 0.600 | 0.100 | 5.345 | 53.452 | OPEN | OPEN |
-| 60.000 | 0.600 | 0.225 | 5.345 | 23.757 | OPEN | OPEN |
-| 60.000 | 0.600 | 0.350 | 5.345 | 15.272 | OPEN | OPEN |
-| 60.000 | 0.700 | 0.100 | 4.582 | 45.816 | OPEN | OPEN |
-| 60.000 | 0.700 | 0.225 | 4.582 | 20.363 | OPEN | OPEN |
-| 60.000 | 0.700 | 0.350 | 4.582 | 13.090 | OPEN | OPEN |
-| 60.000 | 0.800 | 0.100 | 4.009 | 40.089 | OPEN | OPEN |
-| 60.000 | 0.800 | 0.225 | 4.009 | 17.817 | OPEN | OPEN |
-| 60.000 | 0.800 | 0.350 | 4.009 | 11.454 | OPEN | OPEN |
+**Gate C**
+| Input | PASS % at min/mid/max | Δ PASS | Δ margin if no flip |
+|---|---|---:|---:|
+| power.rotor_usable_input_heat_limit_MW | 55.6 / 85.2 / 88.9 | 33.3 pp | 0.000 |
+| power.tipjet_thermal_to_useful_rotor | 56.8 / 85.2 / 88.9 | 32.1 pp | 0.000 |
+| power.torch_high_ve_kmps | 59.3 / 85.2 / 85.2 | 25.9 pp | 14.967 |
 
-**OPEN torch mode sweep:** 9 low/high exhaust-velocity pairings from the #453 PROJECTION intervals. None is a recovered engine parameter. Thrust, handover and required actual orbit Δv missing.
-| Low ve km/s | High ve km/s | Water at orbit |
-|---:|---:|---|
-| 10.000 | 25.000 | OPEN |
-| 10.000 | 62.500 | OPEN |
-| 10.000 | 100.000 | OPEN |
-| 17.500 | 25.000 | OPEN |
-| 17.500 | 62.500 | OPEN |
-| 17.500 | 100.000 | OPEN |
-| 25.000 | 25.000 | OPEN |
-| 25.000 | 62.500 | OPEN |
-| 25.000 | 100.000 | OPEN |
+**Gate D2**
+| Input | PASS % at min/mid/max | Δ PASS | Δ margin if no flip |
+|---|---|---:|---:|
+| thermal.insulation_k_W_per_mK | 0.0 / 0.0 / 0.0 | 0.0 pp | 2.567 |
+| water.crew_water_cold_mass_t | 0.0 / 0.0 / 0.0 | 0.0 pp | 2.420 |
+| thermal.insulation_thickness_m | 0.0 / 0.0 / 0.0 | 0.0 pp | 1.615 |
 
-**Handover altitude = OPEN output**. A physically defensible handover requires available delivered hot-gas power, tip-jet compression/nozzle model, allowed blade rpm/Mach, bearing lifetime and net climb performance. Those inputs are OPEN, so none can be manufactured by selecting a cloud height. Even unlimited near-surface hover does NOT reach orbit.
+**Gate D4**
+| Input | PASS % at min/mid/max | Δ PASS | Δ margin if no flip |
+|---|---|---:|---:|
+| thermal.insulation_k_W_per_mK | 0.0 / 0.0 / 0.0 | 0.0 pp | 2.358 |
+| water.crew_water_cold_mass_t | 0.0 / 0.0 / 0.0 | 0.0 pp | 2.306 |
+| thermal.insulation_thickness_m | 0.0 / 0.0 / 0.0 | 0.0 pp | 1.487 |
 
-**Conserved phase ledger:**
-| Phase | Reaction water | Crew thermal water | Reactor heat/power | Custody capsule |
-|---|---|---|---|---|
-| entry | OPEN | OPEN | OPEN | ONBOARD/OPEN |
-| rotor deploy | OPEN | OPEN | OPEN | ONBOARD/OPEN |
-| rotor descent | 0 CONDITIONAL tipjet ambient CO2; source/engine not closed | OPEN | OPEN | ONBOARD/OPEN |
-| touchdown | OPEN | OPEN | OPEN | ONBOARD/OPEN |
-| surface stay | OPEN | OPEN | OPEN | ONBOARD/OPEN |
-| rotor climb | 0 CONDITIONAL tipjet ambient CO2; source/engine not closed | OPEN | OPEN | ONBOARD/OPEN |
-| rotor-to-torch handover | OPEN | OPEN | OPEN | ONBOARD/OPEN |
-| torch ascent to orbit | OPEN | OPEN | OPEN | ONBOARD/OPEN |
+## Stage 2: Venus rotor-to-torch, reaction water and thermal ledger
+The single 12m rotor uses VIRA tabulation, log-linear density interpolation, momentum theory and assumed FM & hot-gas effectiveness. **Handover altitude is computed for each sample**, limited by delivered tipjet heat, hot duty, tip-speed necessary bound and editable requested upper handover altitude. Required low bound 5.000km. No propulsive effect of rotor exhaust is credited to orbital speed.
+**Rotor Gate R:** hover/climb heat/duty arithmetic only, **not** structural rotor/blade-stall qualification. **C:** water-to-orbit from required post-handover Δv using independent low-only and high-only modes and `thrust=2Pjet/ve`, `mdot=2Pjet/ve²`. C passes if at least one mode returns nonnegative reaction water AND R passes. Crew thermal water and custody payload remain onboard mass, not reaction water.
+**Venus physical mission remains OPEN even where conditional C PASS:** at 5–25km Venus atmosphere is still dense; missing torch atmosphere/plume viability, complete entry aerothermal qualification, and detailed ascent path are explicit nulls in input, not silently certified.
+**Thermal Gate D2/D4:** PASS if passive separate cold-water sensible-energy store lasts at least 18.000h after conduction through ideal spherical insulation, cabin electronics and 2/4 crew heat; no active cooling or hot-side power credited. Physical life-support and seals remain separate OPEN.
+**Phase ledger:** sampled for every scenario; representative detailed case below. Reaction water starts with 23.100t. Crew cold-water mass is a **different inventory**. Custody dry is counted ONCE; custody contents add wet mass ONCE.
+**First sampled low exhaust mode: reaction-water phases**
+| Phase | before t | debit t | after t | Cold water t | Cold energy 2/4 crew remaining kWh | Jet GW | Custody |
+|---|---:|---:|---:|---:|---|---:|---|
+| entry | 23.100 | 0.000 | 23.100 | 0.300 | 5.232 / 5.232 | OPEN | ONBOARD |
+| rotor deploy | 23.100 | 0.000 | 23.100 | 0.300 | 5.232 / 5.232 | OPEN | ONBOARD |
+| rotor descent | 23.100 | 0.000 | 23.100 | 0.300 | 5.232 / 5.232 | OPEN | ONBOARD |
+| touchdown | 23.100 | 0.000 | 23.100 | 0.300 | 5.232 / 5.232 | OPEN | ONBOARD |
+| surface stay | 23.100 | 0.000 | 23.100 | 0.300 | 0.000 / 0.000 | OPEN | ONBOARD |
+| rotor climb | 23.100 | 0.000 | 23.100 | 0.300 | 0.000 / 0.000 | OPEN | ONBOARD |
+| rotor-to-torch handover | 23.100 | 0.000 | 23.100 | 0.300 | 0.000 / 0.000 | OPEN | ONBOARD |
+| torch ascent to orbit | 23.100 | 23.100 | 0.000 | 0.300 | 0.000 / 0.000 | 5.000 | ONBOARD |
+Torch low at first sample: thrust 1000000.000N, delta-v deliverable 6.438km/s, orbit water 0.000t, torch firing 0.064h.
+**First sampled high exhaust mode: reaction-water phases**
+| Phase | before t | debit t | after t | Cold water t | Cold energy 2/4 crew remaining kWh | Jet GW | Custody |
+|---|---:|---:|---:|---:|---|---:|---|
+| entry | 23.100 | 0.000 | 23.100 | 0.300 | 5.232 / 5.232 | OPEN | ONBOARD |
+| rotor deploy | 23.100 | 0.000 | 23.100 | 0.300 | 5.232 / 5.232 | OPEN | ONBOARD |
+| rotor descent | 23.100 | 0.000 | 23.100 | 0.300 | 5.232 / 5.232 | OPEN | ONBOARD |
+| touchdown | 23.100 | 0.000 | 23.100 | 0.300 | 5.232 / 5.232 | OPEN | ONBOARD |
+| surface stay | 23.100 | 0.000 | 23.100 | 0.300 | 0.000 / 0.000 | OPEN | ONBOARD |
+| rotor climb | 23.100 | 0.000 | 23.100 | 0.300 | 0.000 / 0.000 | OPEN | ONBOARD |
+| rotor-to-torch handover | 23.100 | 0.000 | 23.100 | 0.300 | 0.000 / 0.000 | OPEN | ONBOARD |
+| torch ascent to orbit | 23.100 | 15.383 | 7.717 | 0.300 | 0.000 / 0.000 | 5.000 | ONBOARD |
+Torch high at first sample: thrust 400000.000N, delta-v deliverable 9.500km/s, orbit water 7.717t, torch firing 0.267h.
+**Nominal v1 comparator** (NOT a new debit): 0.84t former belly touchdown already included in its 1.6t post-all-burn remaining figure; new rotor architecture never double subtracts it.
+**Thermal output first sample:** 2 crew max 0.954h, 4 crew max 0.920h; ambient table valid at surface; thermal bridge/radiation, active cooler, and heat-rejector design not qualified.
+**Reactor waste heat remains explicitly OPEN in every phase: `power.reactor_waste_heat_MW`; missing conversion and heat-rejection closure are not assigned zero. Required-but-OPEN physical interfaces**: venus.torch_atmosphere_viability, venus.entry_vehicle_thermal_qualification, thermal.active_cooler_power_available_kW, thermal.hot_side_rejection_capacity_kW.
+## Representative sample outcomes
+| # | Dry t | A | B | Rotor | C | C low | C high | D2 | D4 |
+|---:|---:|---|---|---|---|---|---|---|---||
+| 0 | 25.250 | PASS | OPEN | FAIL | FAIL | FAIL | FAIL | FAIL | FAIL | 
+| 1 | 31.850 | PASS | OPEN | PASS | PASS | FAIL | PASS | FAIL | FAIL | 
+| 2 | 38.450 | FAIL | OPEN | PASS | PASS | FAIL | PASS | FAIL | FAIL | 
+| 3 | 36.025 | FAIL | OPEN | PASS | PASS | FAIL | PASS | FAIL | FAIL | 
+| 4 | 36.175 | FAIL | OPEN | PASS | PASS | FAIL | PASS | FAIL | FAIL | 
+| 5 | 40.075 | FAIL | OPEN | PASS | PASS | FAIL | PASS | FAIL | FAIL | 
+| 6 | 40.350 | FAIL | OPEN | PASS | PASS | FAIL | PASS | FAIL | FAIL | 
+| 7 | 44.250 | FAIL | OPEN | PASS | FAIL | FAIL | FAIL | FAIL | FAIL | 
+| 8 | 44.400 | FAIL | OPEN | PASS | PASS | FAIL | PASS | FAIL | FAIL | 
 
-The v1 pre-rotor sortie debited **0.840t belly touchdown** and reported **1.600t AFTER all its planned burns**. These are assumed *historical scenario comparators*, not independent debits or a credited stage-2 water result. Atmospheric tipjets may use **zero onboard reaction water for rotor phases** only conditionally; heat/compressor power and reactor supply remain OPEN.
-
-**Thermal lower-bound envelope:** ideal spherical 2.8m shell conduction without joints, doors, penetration or convection: 1.429–21.527 kW at 300K interior; for 18h 25.714–387.481 kWh **before any crew/equipment heat**. This alone cannot give 2-crew or 4-crew survival duration: cold thermal mass, ΔT, actual heat capacity, compressor/power/rejection hardware, and crew waste heat all OPEN.
-
-**Feasibility map:** 27 sampled mass/FM/tipjet-efficiency combinations × 9 low/high-ve combinations × 14 atmospheric levels. Power **DEMAND** is bounded in the table; **no configuration earns C or D PASS** because supply ceiling, ascent physics, and crew thermal-water ledger are OPEN. C=OPEN, D2=OPEN, D4=OPEN for every sample; no silent failures and no invented positive reserve.
-
-## Inputs driving the result and provenance boundaries
-- A: Ti shell is the only interval-backed dry mass. Single 12m rotor mass is OPEN; #453's 1–10t *four 6m rotor* assumption is **not transferred**.
-- B: no dimensional clearance beyond the stated hull; hub thickness, CG, wing/mast stowage geometry unresolved.
-- C/D: heat supply and rotor operating ceiling; rotor-to-torch handover; ascent vehicle aerodynamics, Δv, torch thrust and reaction-water load; cold-water partition; hot bearing and thermal lifetime.
-- Light-body access and Titan are Stage 3, not evaluated here. No modification to canon/Wayfarer geometry/Navigator.
-
-## Full hashed input JSON (verbatim)
+## Full input JSON: exact bytes determine run identity
 ```json
 {
   "header": "ALL bodies. ALL sponsors. 2026-2226.",
@@ -144,7 +140,8 @@ The v1 pre-rotor sortie debited **0.840t belly touchdown** and reported **1.600t
     "bay": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
     "qualification": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/CERTIFICATION_BASIS.md",
     "atmosphere": "https://repository.gatech.edu/server/api/core/bitstreams/681dac66-9414-4c40-8f27-9bd92f6a385f/content",
-    "atmosphere_reference": "Seiff et al. VIRA (1985), IPPW-6 (2008) JPL/T. Balint adaptation"
+    "atmosphere_reference": "Seiff et al. VIRA (1985), IPPW-6 (2008) JPL/T. Balint adaptation",
+    "declared_assumptions": "kT/Claude 2026-11-02; kT-approved explicit model sensitivities, all labeled ASSUMPTION"
   },
   "si": {
     "kg_per_t": {
@@ -181,6 +178,27 @@ The v1 pre-rotor sortie debited **0.840t belly touchdown** and reported **1.600t
       "provenance": "ONLINE",
       "source": "SI unit definition",
       "description": "Unit conversion"
+    },
+    "W_per_GW": {
+      "value": 1000000000,
+      "unit": "W/GW",
+      "provenance": "ONLINE",
+      "source": "SI unit prefix definitions (not physical efficiency assumptions)",
+      "description": "Explicit unit conversion; never use unrelated kg/t to convert power."
+    },
+    "W_per_MW": {
+      "value": 1000000,
+      "unit": "W/MW",
+      "provenance": "ONLINE",
+      "source": "SI unit prefix definitions (not physical efficiency assumptions)",
+      "description": "Explicit unit conversion; never use unrelated kg/t to convert power."
+    },
+    "W_per_kW": {
+      "value": 1000,
+      "unit": "W/kW",
+      "provenance": "ONLINE",
+      "source": "SI unit prefix definitions (not physical efficiency assumptions)",
+      "description": "Explicit unit conversion; never use unrelated kg/t to convert power."
     }
   },
   "geometry": {
@@ -363,81 +381,123 @@ The v1 pre-rotor sortie debited **0.840t belly touchdown** and reported **1.600t
       "description": "Geometric Ti shell research range; NOT buckling/rated, excludes all windows, doors and fittings"
     },
     "hull_thermal_structure_t": {
-      "value": null,
+      "min": 9,
+      "max": 14,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "No qualified structural sizing"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
     },
     "pressure_pod_fittings_seals_t": {
-      "value": null,
+      "min": 0.5,
+      "max": 1.2,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "No rated door/windows/pressure shell fit-out"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
     },
     "folding_rover_chassis_t": {
-      "value": null,
+      "min": 0.6,
+      "max": 1.2,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "Wheeled kneeling chassis mass OPEN"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
     },
     "single_12m_rotor_blades_hub_mast_t": {
-      "value": null,
+      "min": 0.8,
+      "max": 2,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "#453 four 6m rotor 1-10t assumption cannot be transferred to one 12m rotor"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
     },
     "tipjet_ducts_compressors_t": {
-      "value": null,
+      "min": 0.3,
+      "max": 1,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "Hot CO2 tip-jet mass"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
     },
     "torch_low_high_engine_t": {
-      "value": null,
+      "min": 4,
+      "max": 10,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "LOST sizer, no replacement engine mass"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
     },
     "small_belly_thrusters_t": {
-      "value": null,
+      "min": 0.2,
+      "max": 0.6,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "kT baseline",
-      "description": "Moon Mars Mercury thrusters"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
     },
     "reactor_power_distribution_t": {
-      "value": null,
+      "min": 0.3,
+      "max": 1,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "No credible compact source mass for rotor/torch"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
     },
     "crew_habitat_thermal_package_t": {
-      "value": null,
+      "min": 1,
+      "max": 2,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "Cooling, insulation, crew thermal mass"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
     },
     "custody_capsule_dry_t": {
-      "value": null,
+      "min": 0.05,
+      "max": 0.2,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "kT baseline",
-      "description": "Ejectable secure packet capsule, unique dry ledger"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
     },
     "avionics_controls_yaw_t": {
-      "value": null,
+      "min": 0.5,
+      "max": 1.2,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "kT baseline",
-      "description": "Yaw control, avionics, electronics"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "entry_tps_t": {
+      "min": 3,
+      "max": 6,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "landing_gear_door_ramp_t": {
+      "min": 0.8,
+      "max": 1.5,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "water_tank_insulated_t": {
+      "min": 1,
+      "max": 2,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "historical_lost_sizer_dry_t": {
+      "value": 27.9,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "Historical derived output from lost sizer preserved in PR #453 / current wayfarer_v05_inputs.json",
+      "description": "Historical comparison only, excluded from new component sum and gates."
     }
   },
   "water": {
@@ -463,25 +523,27 @@ The v1 pre-rotor sortie debited **0.840t belly touchdown** and reported **1.600t
       "description": "Original v1 after all burns including 0.84t touchdown; NO extra subtraction"
     },
     "reaction_water_initial_t": {
-      "value": null,
+      "min": 23.1,
+      "max": 23.1,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "phase-specific actual mission manifest not yet selected",
-      "description": "Conserved ledger, cannot assume entire 23.1t usable"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Separate reaction water store, full initial per kT."
     },
     "crew_thermal_water_initial_t": {
       "value": null,
       "unit": "t",
       "provenance": "OPEN",
-      "source": "separate tank or marked inventory needed",
-      "description": "Separate from reaction water, no double use"
+      "source": "DERIVED from each sampled water.crew_water_cold_mass_t",
+      "description": "Computed from crew_water_cold_mass_t in every sample; no second independent unknown."
     },
     "reaction_water_entry_debit_t": {
-      "value": null,
+      "min": 0,
+      "max": 0.3,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "entry physics missing",
-      "description": "Cannot infer entry delta-v"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Only entry reaction debit; never double charge rotor."
     },
     "reaction_water_rotor_debit_t": {
       "value": 0,
@@ -494,29 +556,31 @@ The v1 pre-rotor sortie debited **0.840t belly touchdown** and reported **1.600t
       "value": null,
       "unit": "t",
       "provenance": "OPEN",
-      "source": "trajectory and torch model missing",
-      "description": "Mission total not predicted"
+      "source": "DERIVED rocket equation in each sampled low/high mode",
+      "description": "Computed as stage-specific propellant consumption, not an independent assumption."
     },
     "crew_water_heating_delta_T_K": {
-      "value": null,
+      "min": 15,
+      "max": 25,
       "unit": "K",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "Without cold-water reservoir window, cannot compute usable stored cold"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Usable cold-store sensible temperature window."
     },
     "crew_water_cold_mass_t": {
-      "value": null,
+      "min": 0.3,
+      "max": 1,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "May be subset of crew thermal inventory; no double use"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Separate cold thermal water inventory, NOT part of reaction 23.1t."
     },
     "crew_water_heat_capacity_J_per_kg_K": {
-      "value": null,
+      "value": 4186,
       "unit": "J/(kg K)",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "Real water heat capacity vs state and high-temperature system boundary OPEN"
+      "provenance": "ONLINE",
+      "source": "https://openstax.org/books/college-physics-ap-courses/pages/14-2-temperature-change-and-heat-capacity",
+      "description": "4186 J/kg/K for liquid water at approximately 15 degrees C, OpenStax specific heat table; ONLINE, not constant across every state."
     },
     "crew_water_life_support_consumption_t": {
       "value": null,
@@ -551,32 +615,35 @@ The v1 pre-rotor sortie debited **0.840t belly touchdown** and reported **1.600t
       "description": "#453 tipjet conversion sensitivity; no demonstrated 735K device"
     },
     "rotor_usable_input_heat_limit_MW": {
-      "value": null,
+      "min": 30,
+      "max": 100,
       "unit": "MW",
-      "provenance": "OPEN",
-      "source": "hot source-to-blade heat delivery not demonstrated",
-      "description": "Necessary to choose physical handover altitude"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Delivered tipjet thermal limit for phase screen."
     },
     "rotor_safe_tip_speed_mps": {
-      "value": null,
+      "min": 180,
+      "max": 250,
       "unit": "m/s",
-      "provenance": "OPEN",
-      "source": "material/blade Mach not qualified",
-      "description": "Blade stress and compressibility ceiling"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Necessary tip-speed screen only; actual aero tip Mach/solidity/torque unqualified."
     },
     "rotor_hot_duty_limit_s": {
       "value": null,
       "unit": "s",
       "provenance": "OPEN",
-      "source": "bearings and seals life unknown",
-      "description": "Altitude duty and surface hold"
+      "source": "DERIVED from sampled rotor_hot_duty_limit_h × SI seconds_per_hour",
+      "description": "One derived representation; do not sample separately."
     },
     "rotor_climb_rate_mps": {
-      "value": null,
+      "min": 5,
+      "max": 15,
       "unit": "m/s",
-      "provenance": "OPEN",
-      "source": "net climb from available excess power unknown",
-      "description": "Cannot integrate phase time"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Assumed net rotor altitude rate, not derived excess power or free of rotor downwash."
     },
     "torch_low_ve_kmps": {
       "min": 10,
@@ -628,6 +695,22 @@ The v1 pre-rotor sortie debited **0.840t belly touchdown** and reported **1.600t
       "provenance": "OPEN",
       "source": "source and conversion not selected",
       "description": "No unbounded heat sink"
+    },
+    "torch_jet_power_GW": {
+      "min": 5,
+      "max": 8,
+      "unit": "GW",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Jet kinetic power, not electrical production. Thrust 2P/ve each low/high mode."
+    },
+    "rotor_hot_duty_limit_h": {
+      "min": 1,
+      "max": 4,
+      "unit": "h",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Powered rotor lifetime, compare ascent climb exposure; not 18h surface dwell."
     }
   },
   "thermal": {
@@ -686,11 +769,12 @@ The v1 pre-rotor sortie debited **0.840t belly touchdown** and reported **1.600t
       }
     ],
     "crew_heat_W_each": {
-      "value": null,
+      "min": 100,
+      "max": 150,
       "unit": "W",
-      "provenance": "OPEN",
-      "source": "metabolic/embodiment power requirements unqualified",
-      "description": "Separate human/synthetic capabilities; no arbitrary heat constant"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Crew heat per crew member; biological/synthetic specifics remain scenario uncertainty."
     },
     "cooler_coefficient_of_performance": {
       "min": 0.07,
@@ -713,6 +797,21 @@ The v1 pre-rotor sortie debited **0.840t belly touchdown** and reported **1.600t
       "provenance": "OPEN",
       "source": "thermal bridges and cabin geometry",
       "description": "Ideal full sphere surface used only as optimistic bound"
+    },
+    "cabin_electronics_kW": {
+      "min": 1,
+      "max": 2,
+      "unit": "kW",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Cabin electronics continuous heat into cold compartment."
+    },
+    "active_cooler_power_available_kW": {
+      "value": null,
+      "unit": "kW",
+      "provenance": "OPEN",
+      "source": "No kT declared installed cooler and hot-side sink available",
+      "description": "Passive sensible cold-water Gate D computed. Additional active cooling not credited."
     }
   },
   "venus": {
@@ -835,11 +934,12 @@ The v1 pre-rotor sortie debited **0.840t belly touchdown** and reported **1.600t
       "description": "Need rotor downwash, gear, surface mechanics"
     },
     "handover_altitude_km": {
-      "value": null,
+      "min": 5,
+      "max": 25,
       "unit": "km",
-      "provenance": "OPEN",
-      "source": "OUTPUT_UNRESOLVED_UNTIL_ROTOR_LIMITS_AVAILABLE",
-      "description": "Never select arbitrary cloud altitude"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Planning envelope; actual rotor ceiling derived from heat/duty/disk constraints."
     },
     "orbit_injection_delta_v_kmps": {
       "value": null,
@@ -854,6 +954,29 @@ The v1 pre-rotor sortie debited **0.840t belly touchdown** and reported **1.600t
       "provenance": "OPEN",
       "source": "mode sequencing/open",
       "description": "No invented switch height"
+    },
+    "torch_ascent_dv_kmps": {
+      "min": 9.5,
+      "max": 12,
+      "unit": "km/s",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Post rotor handover idealized total demanded delta-v including assumed losses, NOT integrated trajectory."
+    },
+    "atmosphere_interpolation": "log_density_linear_altitude_between_tabulated_VIRA_points",
+    "torch_atmosphere_viability": {
+      "value": null,
+      "unit": "qualified ability",
+      "provenance": "OPEN",
+      "source": "No physical magnetic nozzle / 5–25km Venus atmospheric operation evidence",
+      "description": "Required for physical orbit mission but NOT required for conditional Gate C rocket-equation water balance. Physical closure remains OPEN."
+    },
+    "entry_vehicle_thermal_qualification": {
+      "value": null,
+      "unit": "qualified TPS",
+      "provenance": "OPEN",
+      "source": "No entry aerothermal test supplied",
+      "description": "Physical entry qualification OPEN but reaction water Gate C still conditional."
     }
   },
   "capsule": {
@@ -861,15 +984,16 @@ The v1 pre-rotor sortie debited **0.840t belly touchdown** and reported **1.600t
       "value": null,
       "unit": "t",
       "provenance": "OPEN",
-      "source": "kT",
-      "description": "Also mass.custody_capsule_dry_t; same physical inventory, not double counted"
+      "source": "DERIVED alias to sampled mass.custody_capsule_dry_t",
+      "description": "One unique dry-mass entry only; no duplicate addition."
     },
     "content_mass_t": {
-      "value": null,
+      "min": 0.01,
+      "max": 0.05,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "kT",
-      "description": "Unknown secure data carrier contents"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Onboard custody payload; separate from capsule dry mass."
     },
     "ejection_consumable_water_t": {
       "value": null,
@@ -909,6 +1033,48 @@ The v1 pre-rotor sortie debited **0.840t belly touchdown** and reported **1.600t
       "provenance": "ASSUMPTION",
       "source": "Presentation only",
       "description": "Canvas padding"
+    },
+    "sample_count": {
+      "value": 6561,
+      "unit": "deterministic orthogonal samples",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02 sampling method choice",
+      "description": "3^8 balanced design; each variable visits min/mid/max, not full Cartesian enumeration; report exact sample coverage."
+    },
+    "sensitivity_count": {
+      "value": 81,
+      "unit": "one-at-a-time baselines",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "3^4 pairwise-balanced OAT baseline points, per factor min/mid/max; keeps computation bounded and ranking reproducible."
+    },
+    "report_top_inputs": {
+      "value": 3,
+      "unit": "top inputs",
+      "provenance": "ASSUMPTION",
+      "source": "kT",
+      "description": "Only report most decisive 3 each gate"
+    },
+    "report_preview_samples": {
+      "value": 9,
+      "unit": "samples",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Representative min/mid/max output rows"
+    },
+    "handover_step_km": {
+      "value": 1,
+      "unit": "km",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Grid resolution for altitude screening, density log-interpolated within VIRA tabulation"
+    },
+    "sample_levels": {
+      "value": 3,
+      "unit": "levels",
+      "provenance": "ASSUMPTION",
+      "source": "kT",
+      "description": "min/mid/max each uncertain input"
     }
   },
   "run_stage": {
