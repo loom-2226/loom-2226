@@ -27,7 +27,7 @@ ART = {
     "briefing": "cmd_pov.png",
     "preburn": "ext_burn.png",
     "metric": "ext_metric.png",
-    "turn": "cmd_cutaway.png",
+    "turn": "cmd_pov.png",
     "trim": "ext_departure.png",
     "debrief": "cmd_pov.png",
 }
@@ -57,10 +57,9 @@ def evidence_lines(t, case, phase):
     src = lambda k: q[k]["source"]
     if phase == "briefing":
         return [
-            {"label": "FLIGHT", "value": "Earth → Mars", "source": t["source"]},
-            {"label": "RECORD", "value": "Accepted FQ11 replay; captain GO/HOLD", "source": t["source"]},
-            {"label": "COLLAPSE", "value": "Mars approach shell / placeholder", "source": "Earth/Mars Option A decision; no distance"},
-            {"label": "PREBURN ΔV", "value": "NOT REPORTED IN FQ11", "source": t["source"]},
+            {"label": "DESTINATION", "value": "Mars", "source": None, "earned": False},
+            {"label": "FLIGHT PLAN", "value": "Loaded", "source": None, "earned": False},
+            {"label": "CREW", "value": "At stations", "source": None, "earned": False},
         ]
     names = {
         "preburn": [("BURN DURATION", "preburn_s", "s", 1), ("PEAK ACCEL", "preburn_peak_g", "g", 3), ("REMASS USED", "preburn_kg", "kg", 1)],
@@ -69,13 +68,12 @@ def evidence_lines(t, case, phase):
         "trim": [("TRIM BURN", "trim_s", "s", 3), ("TRIM REMASS", "trim_kg", "kg", 2), ("FINAL MISS", "final_mismatch_m_s", "m/s", 3)],
         "debrief": [("FINAL MISS", "final_mismatch_m_s", "m/s", 3), ("TOTAL REMASS", "total_remass_kg", "kg", 1), ("REMAINING", "remass_remaining_kg", "kg", 1)],
     }
-    return [{"label": label, "value": rounded(v(key), precision) + " " + unit, "source": src(key)}
+    return [{"label": label, "value": rounded(v(key), precision) + " " + unit, "source": src(key), "earned": True, "field": key}
             for label, key, unit, precision in names[phase]]
 
-def allowed_numbers(t):
+def allowed_numbers(t, selected_case):
     nums = set()
-    for case in t["cases"].values():
-        for evidence in case.values():
+    for evidence in t["cases"][selected_case].values():
             val = evidence["value"]
             nums.add(str(val))
             nums.update(f"{val:.{n}f}" for n in range(5))
@@ -93,66 +91,103 @@ def unsupported_numbers(answer, permitted):
     unsupported.update(w.lower() for w in re.findall(words, clean, flags=re.I))
     return sorted(unsupported)
 
-def local_answer(q, t, case):
-    e = values_for(t, case)
-    low = q.lower()
-    ref = lambda k: e[k]["source"]
+def local_answer(question, timeline, selected_case):
+    """Source-backed, in-world dialogue when a live channel is unavailable."""
+    low = question.lower()
     if any(w in low for w in ("mismatch", "miss", "arrival", "recovery", "trim")):
-        k = "arrival_mismatch_m_s"
-        return f"Natural Mars-relative mismatch: {rounded(e[k]['value'], 2)} m/s. The accepted FQ11 finite trim closes to {rounded(e['final_mismatch_m_s']['value'],3)} m/s. [{ref(k)}; {ref('final_mismatch_m_s')}]"
-    if any(w in low for w in ("burn", "fuel", "remass", "accel")):
-        k = "preburn_kg"
-        return f"Measured preburn remass is {rounded(e[k]['value'],1)} kg; peak acceleration {rounded(e['preburn_peak_g']['value'],3)} g. FQ11 does not report a standalone preburn delta-v. [{ref(k)}; {ref('preburn_peak_g')}]"
-    if any(w in low for w in ("physics", "energy", "sun", "canon", "velocity", "how")):
-        return "Canon II §7.1a specifies the scoped natural arrival-velocity rule; §7.1b declares solar momentum and angular-momentum exchange as identities by construction, not independent physical proof. [Canon II §7.1a/b]"
+        return "The mismatch is on your board, Captain. The attitude change and trim are loaded. Give the order when you're ready.", ["arrival_mismatch_m_s", "final_mismatch_m_s"]
+    if any(w in low for w in ("burn", "fuel", "remass", "accel", "delta")):
+        return "The pre-jump burn is on the record. Fins are deployed; the mass and acceleration readings are on your board. Anything beyond those, I won't guess.", ["preburn_s", "preburn_kg", "preburn_peak_g"]
+    if any(w in low for w in ("physics", "energy", "sun", "velocity", "canon", "how")):
+        return "We carry our departure into the weave and meet Mars with the velocity it gives us. Any correction after that comes from our own engines.", []
     if any(w in low for w in ("shell", "distance", "capture", "orbit", "position")):
-        return "Mars approach shell is only declared placeholder geometry. FQ11 does not certify collapse position or orbital capture. [FQ11 limitations; Canon II §7.1a]"
-    return "I have FQ11's accepted flight evidence and Canon II §7.1a/b, not an independent physics engine. Ask about the burn, mismatch, trim, or arrival limits. [FQ11; Canon II §7.1a/b]"
+        return "Mars approach shell, Captain. Traffic has the handoff. We'll take the next leg one clearance at a time.", []
+    return "I'm here, Captain. Ask what the burn, the weave, or the approach needs from us.", []
 
-def llm_answer(question, t, case, excerpts):
-    key = os.getenv("OPENAI_API_KEY")
+def llm_answer(question, timeline, selected_case, excerpts):
+    """Return an in-character JSON answer; provider diagnostics stay in logs."""
+    key = os.getenv("OPENAI_API_KEY", "").strip()
     if not key:
-        return None, "offline"
+        return None, [], "missing_api_key"
     payload = {
         "model": os.getenv("FIRST_JUMP_MODEL", "gpt-4.1-mini"),
         "instructions": (
-            "You narrate Wayfarer First Jump as MARA, a NON-CANON playable flight-computer role, "
-            "not the canonical captain. You have NO physics, calculation or command authority. "
-            "Answer only from the supplied accepted FQ11 case evidence and Canon II excerpts. "
-            "Every quantitative flight statement MUST cite its exact FQ11 JSON pointer. "
-            "Canon claims cite Canon II §7.1a or §7.1b. "
-            "No new numbers, inferred distances, speeds, velocities, positions or capture claims. "
-            "If evidence is missing, say it is not in FQ11. Speak in under 90 words."
+            "You voice MARA aboard Wayfarer during the Earth to Mars First Jump. "
+            "The player holds captain authority in this non-canon playtest. "
+            "Stay entirely IN CHARACTER: short natural spoken lines, warmth, tension, judgment. "
+            "Never mention FQ11, lab, evidence, data, tests, canon, source paths, limitations, caveats or audit, "
+            "and NEVER include citations or footnotes in spoken words. "
+            "You must not invent physical events, numerical quantities, distances, speeds, "
+            "positions, orbital capture, traffic details or outcomes. "
+            "Use ONLY the accepted selected FQ11 numbers supplied, with Canon II §§7.1a/b as "
+            "your world-physics constraints. Never calculate new physics or issue commands. "
+            "If the captain asks something unrecorded, answer naturally without numbers. "
+            "Output a JSON object ONLY: "
+            "{\"line\":\"spoken line, at most 65 words\","
+            "\"facts\":[\"keys of numeric_evidence actually used in the line\"],"
+            "\"canon\":[\"7.1a\" or \"7.1b\" if used]}. "
+            "Do not include numbers unless each appears unchanged or conventionally rounded "
+            "from one of those declared evidence keys."
         ),
         "input": json.dumps({
-            "captain_question": question,
-            "phase": "First Jump Earth to Mars",
-            "selected_case": case,
-            "numeric_evidence": t["cases"][case],
-            "canonical_excerpts": excerpts,
-            "unavailable": t["unavailable"],
+            "player_question": question,
+            "phase": "Earth to Mars First Jump",
+            "selected_case": selected_case,
+            "numeric_evidence": timeline["cases"][selected_case],
+            "canon_7_1a_7_1b": excerpts,
+            "unknown_flight_values": timeline["unavailable"],
         }, ensure_ascii=False),
         "max_output_tokens": 260
     }
-    request = Request("https://api.openai.com/v1/responses",
-                      data=json.dumps(payload).encode(), method="POST",
-                      headers={"Authorization": "Bearer " + key, "Content-Type": "application/json"})
+    req = Request("https://api.openai.com/v1/responses",
+                  data=json.dumps(payload).encode(), method="POST",
+                  headers={"Authorization": "Bearer " + key, "Content-Type": "application/json"})
     try:
-        with urlopen(request, timeout=18) as response:
-            out = json.load(response)
+        with urlopen(req, timeout=22) as resp:
+            output = json.load(resp)
         chunks = [part.get("text", "")
-                  for output in out.get("output", [])
-                  for part in output.get("content", [])
+                  for item in output.get("output", [])
+                  for part in item.get("content", [])
                   if part.get("type") == "output_text"]
-        return " ".join(chunks).strip() or None, "llm"
-    except (OSError, ValueError, URLError, KeyError):
-        return None, "llm_error"
+        raw = " ".join(chunks).strip()
+        parsed = json.loads(raw)
+        line = parsed.get("line")
+        facts = parsed.get("facts")
+        canon = parsed.get("canon")
+        if not isinstance(line, str) or not (0 < len(line.strip()) <= 600):
+            return None, [], "invalid_model_line"
+        if not isinstance(facts, list) or not all(isinstance(k, str) and k in timeline["cases"][selected_case] for k in facts):
+            return None, [], "invalid_model_supports"
+        if not isinstance(canon, list) or not all(k in ("7.1a", "7.1b") for k in canon):
+            return None, [], "invalid_model_canon_refs"
+        # No model-only numerics or naked audit references in the player voice.
+        rejects = unsupported_numbers(line, allowed_numbers_for_fields(timeline, selected_case, facts))
+        if rejects:
+            return None, facts, "unsupported_numbers:" + ",".join(rejects) + " | rejected_line=" + line
+        if re.search(r"FQ11|Canon II|JSON|evidence|lab(?:oratory)?|source path|certif|\btest\b", line, re.I):
+            return None, facts, "audit_tone_rejected"
+        return line.strip(), facts, "live_llm"
+    except Exception as e:
+        # Log only exception type and HTTP status, never token/headers/content.
+        status = getattr(e, "code", None)
+        return None, [], f"api_{type(e).__name__}" + (f"_{status}" if status is not None else "")
+
+def allowed_numbers_for_fields(t, selected_case, fields):
+    nums = set()
+    for field in fields:
+        v = t["cases"][selected_case][field]["value"]
+        nums.add(str(v))
+        nums.update(f"{v:.{n}f}" for n in range(5))
+        nums.update(f"{v:,.{n}f}" for n in range(5))
+    return nums
 
 class Session:
-    def __init__(self, timeline, seed=None):
+    def __init__(self, timeline, seed=None, first=False, requested_case=None):
         self.t = timeline
         self.seed = int(seed) if seed is not None else secrets.randbelow(2**31)
-        self.case = random.Random(self.seed).choice(["NOMINAL", "UNDERBURN_1_PERCENT"])
+        if requested_case is not None and requested_case not in ("NOMINAL", "UNDERBURN_1_PERCENT"):
+            raise ValueError("Unknown scenario")
+        self.case = requested_case or ("NOMINAL" if first else random.Random(self.seed).choice(["NOMINAL", "UNDERBURN_1_PERCENT"]))
         self.id = secrets.token_hex(6)
         self.i = 0
         self.mode = "awaiting"
@@ -231,7 +266,6 @@ class Session:
             "facts": evidence_lines(self.t, self.case, phase),
             "physical_phase_s": (self.t["cases"][self.case].get(phase + "_s") or {}).get("value"),
             "viewing_phase_s": round(self.spent, 1),
-            "mara_mode": "LLM" if os.getenv("OPENAI_API_KEY") else "OFFLINE EVIDENCE",
             "question_count": self.questions,
             "log_file": str(self.logs)
         }
@@ -245,7 +279,7 @@ class Server(ThreadingHTTPServer):
             raise ValueError("Timeline differs from authoritative FQ11; regenerate & review")
         self.excerpts = canon_excerpt()
         self.lock = RLock()
-        self.session = Session(self.timeline)
+        self.session = Session(self.timeline, first=True)
         super().__init__(address, handler)
 
 class Handler(BaseHTTPRequestHandler):
@@ -279,10 +313,16 @@ class Handler(BaseHTTPRequestHandler):
                 return self.send(self.server.session.view())
         if path == "/api/timeline":
             return self.send(self.server.timeline)
+        if path == "/api/diagnostics":
+            with self.server.lock:
+                return self.send({"narration": "live_available" if os.getenv("OPENAI_API_KEY", "").strip() else "missing_api_key",
+                                  "last_question_channel": "see session JSONL",
+                                  "source_sha256": self.server.timeline["source_sha256"],
+                                  "log_file": str(self.server.session.logs)})
         return self.send({"error": "Not found"}, 404)
 
     def do_POST(self):
-        if self.path not in ("/api/command", "/api/ask", "/api/new"):
+        if self.path not in ("/api/command", "/api/ask", "/api/new", "/api/evidence"):
             return self.send({"error": "Not found"}, 404)
         try:
             size = int(self.headers.get("Content-Length", "0"))
@@ -300,29 +340,36 @@ class Handler(BaseHTTPRequestHandler):
                     if s.mode not in ("quit", "complete"):
                         s.tick()
                         s.log("quit", quit_point=s.phase, reason="restart")
-                    self.server.session = Session(self.server.timeline, seed)
+                    self.server.session = Session(self.server.timeline, seed, requested_case=body.get("case"))
                     return self.send(self.server.session.view())
                 if self.path == "/api/command":
                     if body.get("action") not in ("go", "hold", "quit"):
                         raise ValueError("Unknown command")
                     s.command(body["action"])
                     return self.send(s.view())
+                if self.path == "/api/evidence":
+                    field = body.get("field")
+                    fact = s.t["cases"][s.case].get(field) if isinstance(field, str) else None
+                    if fact is None:
+                        raise ValueError("Unknown evidence field")
+                    s.log("evidence_open", field=field, source=fact["source"])
+                    return self.send({"field": field, "value": fact["value"], "source": fact["source"], "earned": True})
                 question = body.get("question")
                 if not isinstance(question, str) or not 0 < len(question.strip()) <= 500:
                     raise ValueError("Question required, max 500 characters")
                 s.tick()
                 s.questions += 1
                 s.log("captain_question", question=question.strip())
-                reply, provider = llm_answer(question.strip(), s.t, s.case, self.server.excerpts)
-                bad = unsupported_numbers(reply, allowed_numbers(s.t)) if reply else []
-                if bad:
-                    s.log("unsupported_claim", offending_numbers=bad, rejected_reply=reply, provider=provider)
-                    reply = None
-                if not reply:
-                    reply = local_answer(question, s.t, s.case)
-                    provider = "evidence_fallback"
-                s.log("mara_reply", provider=provider, reply=reply)
-                return self.send({"reply": reply, "mode": provider, "source": "FQ11 + Canon II"})
+                line, facts, channel = llm_answer(question.strip(), s.t, s.case, self.server.excerpts)
+                if not line:
+                    s.log("narration_fallback", reason=channel, requested_live=True)
+                    if channel.startswith("unsupported_numbers:"):
+                        s.log("unsupported_claim", reason=channel)
+                    line, facts = local_answer(question, s.t, s.case)
+                    channel = "scripted"
+                supports = [s.t["cases"][s.case][k]["source"] for k in facts]
+                s.log("mara_reply", channel=channel, reply=line, fact_keys=facts, evidence_paths=supports)
+                return self.send({"reply": line})
         except (ValueError, KeyError, TypeError) as exc:
             return self.send({"error": str(exc)}, 400)
 
@@ -337,7 +384,7 @@ def main():
     server = Server(("127.0.0.1", opts.port), Handler)
     print(f"FIRST JUMP | FQ11 {server.timeline['source_sha256'][:12]} | http://127.0.0.1:{opts.port}", flush=True)
     print(f"SESSION LOG: {server.session.logs}", flush=True)
-    print("Narration: LLM when OPENAI_API_KEY is present; cited deterministic fallback otherwise", flush=True)
+    print("Mara channel: " + ("LIVE MODEL READY" if os.getenv("OPENAI_API_KEY", "").strip() else "MISSING_API_KEY / SCRIPTED BACKUP"), flush=True)
     server.serve_forever()
 
 if __name__ == "__main__":

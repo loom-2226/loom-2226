@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # One-command Pixel entry: isolated sparse checkout, existing art, accepted FQ11.
 set -euo pipefail
-BRANCH="experience/first-jump-fq11-pixel-v01"
-ROOT="${FIRST_JUMP_DIR:-$HOME/.local/share/loom-first-jump-v01}"
-PORT="${FIRST_JUMP_PORT:-8878}"
+BRANCH="experience/first-jump-v02-story-evidence-pixel"
+ROOT="${FIRST_JUMP_DIR:-$HOME/.local/share/loom-first-jump-v02}"
+PORT="${FIRST_JUMP_PORT:-8879}"
 PYTHON_BIN="$(command -v python || command -v python3 || true)"
 [[ -n "$PYTHON_BIN" ]] || { echo "Python required (Termux: pkg install python git)"; exit 2; }
 if [[ ! -d "$ROOT/.git" ]]; then
@@ -28,10 +28,31 @@ else
   git fetch -q --depth 1 origin "$BRANCH"
   git checkout --detach -q FETCH_HEAD
 fi
-if [[ -z "${OPENAI_API_KEY:-}" && -f "$HOME/.config/loom/openai.env" ]]; then
-  # Existing Pixel key convention; never transmit this file to the browser.
+if [[ -z "${OPENAI_API_KEY:-}" && -r "$HOME/.config/loom/openai.env" ]]; then
   source "$HOME/.config/loom/openai.env"
 fi
+if [[ -z "${OPENAI_API_KEY:-}" && -r "$HOME/.config/loom/first_jump.env" ]]; then
+  source "$HOME/.config/loom/first_jump.env"
+fi
+if [[ -z "${OPENAI_API_KEY:-}" ]]; then
+  echo "Mara live model: no API key found in this Termux process."
+  echo "Paste an OpenAI API key for live dialogue, or press Enter for scripted ship comms."
+  if [[ -t 2 && -r /dev/tty ]]; then
+    printf 'API key (hidden): ' > /dev/tty
+    KEY=""
+    IFS= read -r -s KEY </dev/tty || true
+    printf '\n' >/dev/tty
+    if [[ -n "$KEY" ]]; then
+      umask 077
+      mkdir -p "$HOME/.config/loom"
+      printf 'export OPENAI_API_KEY=%q\n' "$KEY" > "$HOME/.config/loom/first_jump.env"
+      chmod 600 "$HOME/.config/loom/first_jump.env"
+      export OPENAI_API_KEY="$KEY"
+    fi
+    unset KEY
+  fi
+fi
+echo "Mara channel: $(if [[ -n "${OPENAI_API_KEY:-}" ]]; then echo 'LIVE MODEL CONFIGURED'; else echo 'SCRIPTED / MISSING KEY'; fi)"
 echo "FIRST JUMP / $(git rev-parse --short HEAD)"
 echo "FQ11 playback; local URL http://127.0.0.1:$PORT"
 echo "Session log under $HOME/.local/state/loom/first_jump/"
