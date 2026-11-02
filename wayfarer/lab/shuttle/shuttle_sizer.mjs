@@ -28,7 +28,7 @@ function samples(d,stage,limit){
  if(stage===2)fields.push(...[
   ...fkeys(d,"power").filter(k=>["rotor_figure_of_merit","tipjet_thermal_to_useful_rotor","rotor_safe_tip_speed_mps","rotor_hot_duty_limit_h","rotor_climb_rate_mps","torch_low_ve_kmps","torch_high_ve_kmps","torch_jet_power_GW"].includes(k)).map(k=>"power."+k),
   ...fkeys(d,"water").filter(k=>["reaction_water_entry_debit_t","crew_water_cold_mass_t","crew_water_heating_delta_T_K"].includes(k)).map(k=>"water."+k),
-  ...fkeys(d,"thermal").filter(k=>["insulation_k_W_per_mK","insulation_thickness_m","crew_heat_W_each","cabin_electronics_kW","venus_external_surface_K","active_cooler_power_available_kW","reactor_aux_electric_power_available_kW","hot_side_rejection_capacity_kW","hot_loop_reject_temperature_K","cooler_coefficient_of_performance"].includes(k)).map(k=>"thermal."+k),
+  ...fkeys(d,"thermal").filter(k=>["insulation_k_W_per_mK","insulation_thickness_m","crew_heat_W_each","cabin_electronics_kW","venus_external_surface_K","active_cooler_power_available_kW","reactor_aux_electric_power_available_kW","hot_side_rejection_capacity_kW","hot_loop_reject_temperature_K","cooler_coefficient_of_performance","ground_vent_derate","ground_vent_compressor_fraction"].includes(k)).map(k=>"thermal."+k),
   ...fkeys(d,"venus").filter(k=>["torch_ascent_dv_kmps"].includes(k)).map(k=>"venus."+k),
   ...fkeys(d,"capsule").filter(k=>k==="content_mass_t").map(k=>"capsule."+k)
  ]);
@@ -219,7 +219,7 @@ function stage2(d,s,dryResult){
  const needed=["thermal.venus_external_surface_K","thermal.insulation_k_W_per_mK","thermal.insulation_thickness_m",
   "thermal.crew_heat_W_each","thermal.cabin_electronics_kW","thermal.cooler_coefficient_of_performance",
   "thermal.active_cooler_power_available_kW","thermal.reactor_aux_electric_power_available_kW",
-  "thermal.hot_side_rejection_capacity_kW","thermal.hot_loop_reject_temperature_K",
+  "thermal.ground_vent_derate","thermal.ground_vent_compressor_fraction","thermal.hot_loop_reject_temperature_K",
   "water.crew_water_cold_mass_t","water.crew_water_heating_delta_T_K",
   "water.crew_water_heat_capacity_J_per_kg_K","geometry.crew_pod_outer_diameter_m",
   "thermal.cabin_target_K","thermal.stay_requested_h"];
@@ -236,28 +236,49 @@ function stage2(d,s,dryResult){
       val(d,"water.crew_water_heating_delta_T_K",s);
    const podHours=sensibleJ/coldLoadW/seconds;
    const coolerKW=coldLoadW/number(d.si.W_per_kW)/val(d,"thermal.cooler_coefficient_of_performance",s);
-   const rejectKW=coldLoadW/number(d.si.W_per_kW)+coolerKW;
+   const coldKW=coldLoadW/number(d.si.W_per_kW);
    const rawHouseKW=rawThermal*number(d.si.kW_per_MW);
    const directEfficiency=number(d.power.kit_house_reactor_direct_conversion_efficiency);
-   const houseNetKW=rawHouseKW*directEfficiency;
-   const electricalMax=Math.min(houseNetKW,val(d,"thermal.active_cooler_power_available_kW",s),
-      val(d,"thermal.reactor_aux_electric_power_available_kW",s));
    const minStableRawKW=rawHouseKW*number(d.power.kit_house_reactor_min_stable_fraction);
-   const allocatedRawKW=coolerKW/directEfficiency;
-   // Surface rotor OFF: 10% minimum house-reactor gross thermal output must go somewhere.
-   // No unqualified exterior torch exhaust, flywheel, dump-to-cloud heat sink or stored heat credited.
-   const minimumWasteKW=Math.max(0,minStableRawKW-allocatedRawKW);
-   const netRejectionKW=coldLoadW/number(d.si.W_per_kW)+allocatedRawKW+minimumWasteKW;
-   const rejectMax=val(d,"thermal.hot_side_rejection_capacity_kW",s);
+   const derate=val(d,"thermal.ground_vent_derate",s);
+   const compressorFraction=val(d,"thermal.ground_vent_compressor_fraction",s);
+   const ventLimitKW=rawHouseKW*derate;
+   // House raw output Qrun. Vent carries Qrun plus Qcold removed from the cabin.
+   // Same house reactor feeds cooler and vent compressor: eta*Qrun >= Pcool+f*(Qrun+Qcold).
+   // No double counting electricity as an extra heat stream: extracted power returns to CO2 vent.
+   const requiredRawKW=(coolerKW+compressorFraction*coldKW)/(directEfficiency-compressorFraction);
+   const reactorRunKW=Math.max(minStableRawKW,requiredRawKW);
+   const ventKW=reactorRunKW+coldKW;
+   const compressorKW=compressorFraction*ventKW;
+   const electricalKW=coolerKW+compressorKW;
+   const reactorNetKW=reactorRunKW*directEfficiency;
+   // Already-existing drive and aux electrical interface caps apply to the cooler only.
+   // Existing tipjet compressor is powered separately by the same reactor net supply.
+   const coolerBusMaxKW=Math.min(val(d,"thermal.active_cooler_power_available_kW",s),
+     val(d,"thermal.reactor_aux_electric_power_available_kW",s));
+   const powerOK=reactorRunKW<=rawHouseKW&&electricalKW<=reactorNetKW&&coolerKW<=coolerBusMaxKW;
+   const ventOK=ventKW<=ventLimitKW;
    const temperatureOK=val(d,"thermal.hot_loop_reject_temperature_K",s)>surface;
    const massOK=dryResult.a2==="PASS" && dryResult.kitT<=number(d.kit.payload_allowance_t);
-   const activeOK=temperatureOK&&massOK&&coolerKW<=electricalMax&&netRejectionKW<=rejectMax;
+   const activeOK=powerOK&&ventOK&&massOK&&temperatureOK;
+   // Comparison only: reactor OFF, battery powers both cabin cooler and existing vent compressor.
+   // Qvent=Qcold+Pcool+f*Qvent. No reactor, and no credit for battery heat handling hardware.
+   const batteryVentKW=(coldKW+coolerKW)/(1-compressorFraction);
+   const batteryCompressorKW=compressorFraction*batteryVentKW;
+   const batteryPowerKW=coolerKW+batteryCompressorKW;
+   const batteryEnergyKWh=batteryPowerKW*number(d.thermal.stay_requested_h);
    thermal[crewCount]={status:activeOK?"PASS":"FAIL",missing:[],podHours,
      maxHours:null,loadW:coldLoadW,leakW:leak,capacityJ:sensibleJ,
-     coolerElectricalKW:coolerKW,reactorBusLimitKW:electricalMax,
-     rejectKW:netRejectionKW,rejectLimitKW:rejectMax,minimumReactorWasteKW:minimumWasteKW,reactorMinStableRawKW:minStableRawKW,
-     reactorThermalMW:rawThermal,rotorHeatBudgetMW:heatMax,
-     temperatureOK,massOK,coldWaterPreservedForPod:true};
+     coolerElectricalKW:coolerKW,reactorBusLimitKW:coolerBusMaxKW,
+     rejectKW:ventKW,rejectLimitKW:ventLimitKW,minimumReactorWasteKW:Math.max(0,reactorRunKW-requiredRawKW),
+     reactorMinStableRawKW:minStableRawKW,reactorThermalMW:rawThermal,rotorHeatBudgetMW:heatMax,
+     reactorRunKW,reactorNetKW,reactorElectricalUseKW:electricalKW,
+     compressorKW,groundVentDerate:derate,groundVentFraction:compressorFraction,
+     ventOK,powerOK,temperatureOK,massOK,coldWaterPreservedForPod:true,
+     batteryOnlyEnergyKWh:batteryEnergyKWh,batteryOnlyCompressorKW:batteryCompressorKW,
+     batteryOnlyMassLowT:batteryEnergyKWh/d.thermal.reactor_off_18h_battery_specific_energy_kWh_kg.max/number(d.si.kg_per_t),
+     batteryOnlyMassHighT:batteryEnergyKWh/d.thermal.reactor_off_18h_battery_specific_energy_kWh_kg.min/number(d.si.kg_per_t)};
+
  }
  const gateC=rotorGate.status==="OPEN"?"OPEN":
   modes.low.status==="PASS"||modes.high.status==="PASS"?"PASS":
@@ -287,11 +308,12 @@ function phaseLedger(d,s,entry,rotor,modes,thermalT,thermal) {
    return {phase,water_before_t:before,water_debit_t:debit,water_after_t:reaction,
        thermal_water_mass_t:thermalT,thermal_energy_by_crew:cold,
        torch_jet_power_GW:phase==="torch ascent to orbit"?val(d,"power.torch_jet_power_GW",s):null,
-       reactor_waste_heat_MW:phase==="surface stay"&&thermal[2]?.minimumReactorWasteKW!==undefined?thermal[2].minimumReactorWasteKW/number(d.si.kW_per_MW):null,
+       reactor_waste_heat_MW:phase==="surface stay"&&thermal[2]?.reactorRunKW!==undefined?thermal[2].reactorRunKW/number(d.si.kW_per_MW):null,
         reactor_waste_heat_missing:"power.reactor_waste_heat_MW (main torch waste still OPEN; kit-house minimum surplus computed for surface)",
         kit_house_reactor_thermal_MW:val(d,"power.kit_house_reactor_thermal_MW",s),
         cooler_electric_by_crew_kW:phase==="surface stay"?Object.fromEntries(d.thermal.crew_cases.map(q=>[number(q),thermal[number(q)]?.coolerElectricalKW??null])):null,
         hot_loop_rejection_by_crew_kW:phase==="surface stay"?Object.fromEntries(d.thermal.crew_cases.map(q=>[number(q),thermal[number(q)]?.rejectKW??null])):null,
+        ground_vent_compressor_by_crew_kW:phase==="surface stay"?Object.fromEntries(d.thermal.crew_cases.map(q=>[number(q),thermal[number(q)]?.compressorKW??null])):null,
        custody:"ONBOARD",custody_content_t:val(d,"capsule.content_mass_t",s)};
   });return [mode,rows];
  }));return active;
@@ -325,7 +347,7 @@ function sensitivity(d,stage,design,geo,gateKey){
     if(gateKey==="A")margin=e.dry.margin;
     else if(gateKey==="A2")margin=e.dry.a2Margin;
     else if(gateKey==="KV")margin=e.kit.freeVolume_m3-e.kit.packedVolume_m3;
-    else if(gateKey==="DS2"||gateKey==="DS4"){const z=e.venus?.thermal[gateKey==="DS2"?2:4];margin=z?Math.min(z.reactorBusLimitKW-z.coolerElectricalKW,z.rejectLimitKW-z.rejectKW,e.dry.a2Margin):null;}
+    else if(gateKey==="DS2"||gateKey==="DS4"){const z=e.venus?.thermal[gateKey==="DS2"?2:4];margin=z?Math.min((z.reactorBusLimitKW-z.coolerElectricalKW)/Math.max(1,z.reactorBusLimitKW),(z.rejectLimitKW-z.rejectKW)/Math.max(1,z.rejectLimitKW),e.dry.a2Margin/number(d.mass.max_docked_dry_t)):null;}
     else if(gateKey==="C")margin=Math.max(e.venus?.mode.low.waterAtOrbit??-Infinity,e.venus?.mode.high.waterAtOrbit??-Infinity);
     else if(gateKey==="R")margin=(e.venus?.handover??0)-number(d.venus.minimum_rotor_handover_screen_km);
     if(margin!==null&&Number.isFinite(margin))marginTotal+=margin;
