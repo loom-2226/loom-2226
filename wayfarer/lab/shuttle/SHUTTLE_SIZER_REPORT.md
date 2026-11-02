@@ -2,7 +2,7 @@
 ALL bodies. ALL sponsors. 2026–2226.
 
 **Authority:** NON-CANON engineering screen, all ranges/provenance from the attached input JSON; numerical PASS is not hardware certification.
-**Run identity:** Git-blob SHA-1 of exact input JSON (includes stage): `9bb6ee9507462d8a06150a3f159927e9c31f5abd`.
+**Run identity:** Git-blob SHA-1 of exact input JSON (includes stage): `b6e9b2ae85e24cbb1855db91918025fc2a28d114`.
 **Reproduce:** `node wayfarer/lab/shuttle/shuttle_sizer.mjs --stage 1`.
 **CLI validation record:** CLOSED for previous round-2 Stage 2 commit, confirmed by Claude as reported by kT; this round-3 executable was independently evaluated in the model but not claimed to have a new Node CLI validation.
 **Graphics:** SHUTTLE_SIDE_VIEW.svg, SHUTTLE_MASS_WATERFALL.svg.
@@ -1330,37 +1330,37 @@ Cloud-base 48.000km; cloud-top 65.000km, screen references only. **Entering the 
         "wayfarer_jet_power_TW": {
           "value": 11.361,
           "unit": "TW",
-          "provenance": "CANON",
+          "provenance": "DECLARED_2226",
           "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
-          "description": "Declared current working torch jet ceiling, not measured reactor thermal power"
+          "description": "Declared current working torch jet ceiling, not measured reactor thermal power Source ledger labels this engineering-assumption or derived, not experimentally qualified."
         },
         "wayfarer_propulsion_allocation_t": {
           "value": 160,
           "unit": "t",
-          "provenance": "CANON",
+          "provenance": "DECLARED_2226",
           "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
-          "description": "Engineering-assumption propulsion ledger total; not hardware validation"
+          "description": "Engineering-assumption propulsion ledger total; not hardware validation Source ledger labels this engineering-assumption or derived, not experimentally qualified."
         },
         "wayfarer_reactor_t": {
           "value": 85,
           "unit": "t",
-          "provenance": "CANON",
+          "provenance": "DECLARED_2226",
           "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
-          "description": "Share of propulsion total"
+          "description": "Share of propulsion total Source ledger labels this engineering-assumption or derived, not experimentally qualified."
         },
         "wayfarer_shadow_shield_t": {
           "value": 45,
           "unit": "t",
-          "provenance": "CANON",
+          "provenance": "DECLARED_2226",
           "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
-          "description": "Share of propulsion total"
+          "description": "Share of propulsion total Source ledger labels this engineering-assumption or derived, not experimentally qualified."
         },
         "wayfarer_magnetic_nozzle_t": {
           "value": 30,
           "unit": "t",
-          "provenance": "CANON",
+          "provenance": "DECLARED_2226",
           "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
-          "description": "Share of propulsion total"
+          "description": "Share of propulsion total Source ledger labels this engineering-assumption or derived, not experimentally qualified."
         },
         "shuttle_jet_power_class_GW": {
           "value": 7.7,
@@ -1563,30 +1563,30 @@ Cloud-base 48.000km; cloud-top 65.000km, screen references only. **Entering the 
       "wayfarer_torch_tap_raw_MW": {
         "value": 63.36,
         "unit": "MW",
-        "provenance": "CANON",
+        "provenance": "DECLARED_2226",
         "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
-        "description": "Burn-only source raw extraction, not an idle source"
+        "description": "Burn-only source raw extraction, not an idle source kT accepted Wayfarer engineering declaration; tap hardware remains unqualified."
       },
       "wayfarer_torch_tap_conversion": {
         "value": 0.75,
         "unit": "fraction",
-        "provenance": "CANON",
+        "provenance": "DECLARED_2226",
         "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
-        "description": "Burn-only conversion, raw thermal/electromagnetic energy to electrical magnets"
+        "description": "Burn-only conversion, raw thermal/electromagnetic energy to electrical magnets kT accepted Wayfarer engineering declaration; tap hardware remains unqualified."
       },
       "wayfarer_torch_tap_net_MWe": {
         "value": 47.52,
         "unit": "MWe",
-        "provenance": "CANON",
+        "provenance": "DECLARED_2226",
         "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
-        "description": "Burn-only magnets/cryocooler net, physical tap OPEN"
+        "description": "Burn-only magnets/cryocooler net, physical tap OPEN kT accepted Wayfarer engineering declaration; tap hardware remains unqualified."
       },
       "wayfarer_torch_tap_waste_MW": {
         "value": 15.84,
         "unit": "MW",
-        "provenance": "CANON",
+        "provenance": "DECLARED_2226",
         "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
-        "description": "Burn-only conversion waste, not an idle rotor heat allocation"
+        "description": "Burn-only conversion waste, not an idle rotor heat allocation kT accepted Wayfarer engineering declaration; tap hardware remains unqualified."
       },
       "case_scope": "Heat-only rotor-disk momentum demand sweep at mass/FM/thermal-to-rotor corners; no safe tip-speed, duty, ascent acceleration, reactor electrical load, 735K mast heat loss, or transport physics certified. DO NOT FEED INTO ANY GATE.",
       "sources": {
