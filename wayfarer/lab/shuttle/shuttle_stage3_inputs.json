@@ -1,0 +1,251 @@
+{
+  "schema": "LOOM_SHUTTLE_STAGE3_NONCANON_2026_11_03",
+  "classification": "RESEARCH/NON_CANON/NON_QUALIFICATION/NON_RUNTIME",
+  "authority": "kT APPROVED Stage3, ALL bodies ALL sponsors 2026–2226",
+  "baseline": "wayfarer/lab/shuttle/shuttle_inputs.json (MERGED Stage2 research baseline), physical ranges/provenance reused unchanged",
+  "worlds": {
+    "Titan": {
+      "mode": "ROTOR_KIT_HOUSE_REACTOR",
+      "surface_gravity_mps2": {
+        "value": 1.352,
+        "unit": "m/s2",
+        "provenance": "ONLINE",
+        "source": "https://ntrs.nasa.gov/citations/20220016292",
+        "description": "Titan surface gravity"
+      },
+      "mean_radius_km": {
+        "value": 2575,
+        "unit": "km",
+        "provenance": "ONLINE",
+        "source": "https://ntrs.nasa.gov/citations/20220016292",
+        "description": "Titan approximate radius"
+      },
+      "surface_density_kg_m3": {
+        "value": 5.43,
+        "unit": "kg/m3",
+        "provenance": "ONLINE",
+        "source": "https://ntrs.nasa.gov/citations/20220016292",
+        "description": "Near-surface N2 atmosphere"
+      },
+      "surface_temperature_K": {
+        "value": 94,
+        "unit": "K",
+        "provenance": "ONLINE",
+        "source": "https://ntrs.nasa.gov/citations/20220016292",
+        "description": "Approximate surface temperature; heating, cold duty OPEN"
+      },
+      "density_scale_height_km": {
+        "value": 22,
+        "unit": "km",
+        "provenance": "PROJECTION",
+        "source": "https://ntrs.nasa.gov/citations/20220016292",
+        "description": "Approximate lower-atmosphere scale height, applied as exponential proxy over 0–60km for sensitivity, NOT validated Huygens upper-atmosphere profile"
+      },
+      "atmosphere_model_ceiling_km": {
+        "value": 60,
+        "unit": "km",
+        "provenance": "ASSUMPTION",
+        "source": "kT Stage 3 limited demonstration screen 2026-11-03",
+        "description": "Numerical stopping boundary for an explicitly provisional exponential atmosphere model. NOT a mission handover target."
+      },
+      "real_handover_altitude_km": {
+        "value": null,
+        "unit": "km",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Real Titan torch ignition/handover altitude and dense N2/CH4 plume effects unqualified"
+      },
+      "required_ascent_dv_kmps": {
+        "value": null,
+        "unit": "km/s",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "No site-specific ascent losses, atmospheric drag, hover/surface trajectory or actual target orbit supplied"
+      },
+      "surface_thermal_qualification": {
+        "value": null,
+        "unit": "status",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Cold Titan habitat heater and methane/nitrogen operations unqualified"
+      }
+    },
+    "Moon": {
+      "mode": "BELLY_NO_KIT",
+      "surface_gravity_mps2": {
+        "value": 1.62,
+        "unit": "m/s2",
+        "provenance": "ONLINE",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html",
+        "description": "Moon surface gravity"
+      },
+      "mean_radius_km": {
+        "value": 1737.4,
+        "unit": "km",
+        "provenance": "ONLINE",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html",
+        "description": "Mean Moon radius"
+      },
+      "required_ascent_dv_kmps": {
+        "value": null,
+        "unit": "km/s",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Ideal circular speed is a LOWER bound; full Δv including gravity/steering losses and target orbit unspecified"
+      },
+      "belly_sustained_burn_and_ramp": {
+        "value": null,
+        "unit": "status",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Peak touchdown belly array not qualified for continuous ascent or lunar pad blast"
+      },
+      "surface_thermal_qualification": {
+        "value": null,
+        "unit": "status",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Solar illumination, regolith plume/dust and night survival depend on site/epoch"
+      }
+    },
+    "Mars": {
+      "mode": "BELLY_NO_KIT",
+      "surface_gravity_mps2": {
+        "value": 3.73,
+        "unit": "m/s2",
+        "provenance": "ONLINE",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html",
+        "description": "Mean Mars surface gravity"
+      },
+      "mean_radius_km": {
+        "value": 3389.5,
+        "unit": "km",
+        "provenance": "ONLINE",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html",
+        "description": "Mean Mars radius"
+      },
+      "required_ascent_dv_kmps": {
+        "value": null,
+        "unit": "km/s",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Mars atmospheric drag, trajectory and orbital insertion losses not supplied"
+      },
+      "belly_sustained_burn_and_ramp": {
+        "value": null,
+        "unit": "status",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Peak belly thrust has no continuous Mars ascent qualification"
+      },
+      "surface_thermal_qualification": {
+        "value": null,
+        "unit": "status",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Mars thermal/dust/reentry TPS depends on site and use case"
+      }
+    },
+    "Mercury": {
+      "mode": "BELLY_NO_KIT",
+      "surface_gravity_mps2": {
+        "value": 3.7,
+        "unit": "m/s2",
+        "provenance": "ONLINE",
+        "source": "https://ssd.jpl.nasa.gov/planets/phys_par.html",
+        "description": "Mercury gravity"
+      },
+      "mean_radius_km": {
+        "value": 2439.4,
+        "unit": "km",
+        "provenance": "ONLINE",
+        "source": "https://ssd.jpl.nasa.gov/planets/phys_par.html",
+        "description": "Mean Mercury radius"
+      },
+      "required_ascent_dv_kmps": {
+        "value": null,
+        "unit": "km/s",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Target orbit, ascent control and loss budget not supplied"
+      },
+      "belly_sustained_burn_and_ramp": {
+        "value": null,
+        "unit": "status",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Hot/cold surface, thruster sustained burn and plume/ground hazard not qualified"
+      },
+      "surface_thermal_qualification": {
+        "value": null,
+        "unit": "status",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Terminator/site illumination and vacuum thermal protection unknown"
+      }
+    }
+  },
+  "belly": {
+    "peak_thrust_kN": {
+      "value": 760,
+      "unit": "kN",
+      "provenance": "ASSUMPTION",
+      "source": "https://github.com/loom-2226/loom-2226/blob/main/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "#453 UNQUALIFIED Venus v1 belly-array peak **analogue only**. Not evidence of identical 'small belly thrusters' on Moon/Mars/Mercury. Only necessary peak T/W screen; true installed small-thruster rating remains OPEN."
+    },
+    "exhaust_velocity_kmps": {
+      "value": 9,
+      "unit": "km/s",
+      "provenance": "ASSUMPTION",
+      "source": "https://github.com/loom-2226/loom-2226/blob/main/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "#453 Venus v1 belly thruster exhaust-speed hypothesis. Not transferred as qualified hardware."
+    },
+    "touchdown_water_debit_t": {
+      "min": 0,
+      "max": 0.84,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT 2026-11-03 Stage3 screen inspired by #453 already-accounted 0.84t Venus touchdown, NOT actual per-world landing burn",
+      "description": "Illustrative single touchdown debit sensitivity 0–0.84t. Separate liftoff small-thruster water demand and duration remain OPEN."
+    },
+    "liftoff_water_debit_t": {
+      "value": null,
+      "unit": "t",
+      "provenance": "OPEN",
+      "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+      "description": "No actual belly liftoff impulse/schedule specified; ideal torch lower bound omits it and cannot certify an ascent."
+    }
+  },
+  "pilot": {
+    "sweep_count": {
+      "value": 6561,
+      "unit": "scenarios",
+      "provenance": "ASSUMPTION",
+      "source": "Reuse Stage 2 3^8 sample design",
+      "description": "Deterministic balanced min/mid/max coverage, not probability"
+    },
+    "oat_count": {
+      "value": 81,
+      "unit": "baseline scenarios",
+      "provenance": "ASSUMPTION",
+      "source": "Reuse Stage2 one-at-a-time sensitivity count",
+      "description": "3^4 baselines per input"
+    },
+    "top": {
+      "value": 3,
+      "unit": "drivers",
+      "provenance": "ASSUMPTION",
+      "source": "kT Stage 3",
+      "description": "Three strongest variation/margins per computed gate"
+    }
+  },
+  "cautions": [
+    "A2 core excludes detachable Titan/Venus kit in Wayfarer dock; Titan installed mass includes kit in wet and thrust analysis.",
+    "No kit on Moon/Mars/Mercury; crew cold water, reaction water and custody capsule remain distinct.",
+    "Necessary ideal-circular-orbit water floor is not full orbital ascent Δv. C_FULL stays OPEN for each world.",
+    "Peak belly thrust uses old 760kN Venus v1 unqualified analogue only; cannot count as qualified small-thruster sustained ascent.",
+    "Titan atmosphere beyond near surface represented only by explicitly projected scale height; altitude at 60km is model-boundary censoring, not handover proof.",
+    "Titan ambient N2 heat feed from reactor is an assumed 2226 thermal conversion; real methane/nitrogen reactivity, exchanger/cold rotor materials and Torch dense atmosphere stay OPEN.",
+    "Plume design and surface survival are not certified; G8 B full fit remains OPEN."
+  ]
+}
