@@ -178,21 +178,37 @@ function stage2(d,s,dryResult){
     afterEntryWaterT:afterEntry,initialMassT:massStart};
  }
  const thermal={};
- const qneeded=["water.crew_water_cold_mass_t","water.crew_water_heating_delta_T_K","water.crew_water_heat_capacity_J_per_kg_K",
-  "thermal.insulation_k_W_per_mK","thermal.insulation_thickness_m","thermal.crew_heat_W_each","thermal.cabin_electronics_kW",
-  "geometry.crew_pod_outer_diameter_m","thermal.cabin_target_K","thermal.stay_requested_h"];
- const tq=gate(qneeded.map(k=>[k,val(d,k,s)]),()=>true);
+ const needed=["thermal.venus_external_surface_K","thermal.insulation_k_W_per_mK","thermal.insulation_thickness_m",
+  "thermal.crew_heat_W_each","thermal.cabin_electronics_kW","thermal.cooler_coefficient_of_performance",
+  "thermal.active_cooler_power_available_kW","thermal.reactor_aux_electric_power_available_kW",
+  "thermal.hot_side_rejection_capacity_kW","thermal.hot_loop_reject_temperature_K",
+  "water.crew_water_cold_mass_t","water.crew_water_heating_delta_T_K",
+  "water.crew_water_heat_capacity_J_per_kg_K","geometry.crew_pod_outer_diameter_m",
+  "thermal.cabin_target_K","thermal.stay_requested_h"];
+ const q=gate(needed.map(k=>[k,val(d,k,s)]),()=>true);
  for(const crewCount of d.thermal.crew_cases.map(number)){
-   if(tq.status==="OPEN"){thermal[crewCount]={status:"OPEN",missing:tq.missing};continue;}
+   if(q.status==="OPEN"){thermal[crewCount]={status:"OPEN",missing:q.missing,podHours:null};continue;}
    const r=val(d,"geometry.crew_pod_outer_diameter_m")/2,area=4*Math.PI*r*r;
-   const outside=val(d,"thermal.venus_external_surface_K",s);
-   const leak=val(d,"thermal.insulation_k_W_per_mK",s)*area*(outside-val(d,"thermal.cabin_target_K"))/val(d,"thermal.insulation_thickness_m",s);
+   const surface=val(d,"thermal.venus_external_surface_K",s);
+   const leak=val(d,"thermal.insulation_k_W_per_mK",s)*area*
+      (surface-val(d,"thermal.cabin_target_K"))/val(d,"thermal.insulation_thickness_m",s);
    const electronics=val(d,"thermal.cabin_electronics_kW",s)*number(d.si.W_per_kW);
-   const load=leak+electronics+crewCount*val(d,"thermal.crew_heat_W_each",s);
-   const stored=thermalT*kg*val(d,"water.crew_water_heat_capacity_J_per_kg_K")*val(d,"water.crew_water_heating_delta_T_K",s);
-   const maxHours=stored/load/seconds;
-   thermal[crewCount]={status:maxHours>=val(d,"thermal.stay_requested_h")?"PASS":"FAIL",
-     maxHours,loadW:load,leakW:leak,capacityJ:stored,missing:[]};
+   const coldLoadW=leak+electronics+crewCount*val(d,"thermal.crew_heat_W_each",s);
+   const sensibleJ=thermalT*kg*val(d,"water.crew_water_heat_capacity_J_per_kg_K")*
+      val(d,"water.crew_water_heating_delta_T_K",s);
+   const podHours=sensibleJ/coldLoadW/seconds;
+   const coolerKW=coldLoadW/number(d.si.W_per_kW)/val(d,"thermal.cooler_coefficient_of_performance",s);
+   const rejectKW=coldLoadW/number(d.si.W_per_kW)+coolerKW;
+   const electricalMax=Math.min(val(d,"thermal.active_cooler_power_available_kW",s),
+      val(d,"thermal.reactor_aux_electric_power_available_kW",s));
+   const rejectMax=val(d,"thermal.hot_side_rejection_capacity_kW",s);
+   const temperatureOK=val(d,"thermal.hot_loop_reject_temperature_K",s)>surface;
+   const massOK=dryResult.a2==="PASS" && dryResult.kitT<=number(d.kit.payload_allowance_t);
+   const activeOK=temperatureOK&&massOK&&coolerKW<=electricalMax&&rejectKW<=rejectMax;
+   thermal[crewCount]={status:activeOK?"PASS":"FAIL",missing:[],podHours,
+     maxHours:null,loadW:coldLoadW,leakW:leak,capacityJ:sensibleJ,
+     coolerElectricalKW:coolerKW,reactorBusLimitKW:electricalMax,
+     rejectKW,rejectLimitKW:rejectMax,temperatureOK,massOK,coldWaterPreservedForPod:true};
  }
  const gateC=rotorGate.status==="OPEN"?"OPEN":
   modes.low.status==="PASS"||modes.high.status==="PASS"?"PASS":
@@ -214,7 +230,7 @@ function phaseLedger(d,s,entry,rotor,modes,thermalT,thermal) {
    else if(phase==="torch ascent to orbit")debit=modes[mode]?.waterUsedTorchT??null;
    if(debit!==null&&reaction!==null)reaction=Math.max(0,reaction-debit);else reaction=null;
    const cold={};for(const q of d.thermal.crew_cases){const crew=number(q),stored=coldState[crew];
-      const request=phase==="surface stay"&&stored!==null?thermal[crew].loadW*number(d.thermal.stay_requested_h)*number(d.si.seconds_per_hour):0;
+      const request=phase==="surface stay"&&stored!==null?0 /* powered shuttle cooler, no cold-water heat debit */:0;
       const removed=stored===null?null:Math.min(stored,request);
       cold[crew]={energy_before_J:stored,energy_removed_J:removed,energy_shortfall_J:stored===null?null:Math.max(0,request-stored),energy_after_J:stored===null?null:stored-removed};
       coldState[crew]=cold[crew].energy_after_J;
@@ -223,6 +239,8 @@ function phaseLedger(d,s,entry,rotor,modes,thermalT,thermal) {
        thermal_water_mass_t:thermalT,thermal_energy_by_crew:cold,
        torch_jet_power_GW:phase==="torch ascent to orbit"?val(d,"power.torch_jet_power_GW",s):null,
        reactor_waste_heat_MW:null,reactor_waste_heat_missing:"power.reactor_waste_heat_MW",
+        cooler_electric_by_crew_kW:phase==="surface stay"?Object.fromEntries(d.thermal.crew_cases.map(q=>[number(q),thermal[number(q)]?.coolerElectricalKW??null])):null,
+        hot_loop_rejection_by_crew_kW:phase==="surface stay"?Object.fromEntries(d.thermal.crew_cases.map(q=>[number(q),thermal[number(q)]?.rejectKW??null])):null,
        custody:"ONBOARD",custody_content_t:val(d,"capsule.content_mass_t",s)};
   });return [mode,rows];
  }));return active;
@@ -236,7 +254,7 @@ function evaluate(d,stage,s,geo){
  const dryResult=dry(d,s),kit=kitFit(d,s,dryResult);const v=stage===2?stage2(d,s,dryResult):null;
  return {A:dryResult.status,A2:dryResult.a2,KV:kit.volumeGate,KF:kit.fit,B:geo.gateB.status,R:v?.rotor.status??null,
    C:v?.gateC??null,C_low:v?.mode.low.status??null,C_high:v?.mode.high.status??null,
-   D2:v?.thermal[2].status??null,D4:v?.thermal[4].status??null,
+   DS2:v?.thermal[2].status??null,DS4:v?.thermal[4].status??null,
    dry:dryResult,kit,venus:v};
 }
 function sensitivity(d,stage,design,geo,gateKey){
@@ -256,7 +274,7 @@ function sensitivity(d,stage,design,geo,gateKey){
     if(gateKey==="A")margin=e.dry.margin;
     else if(gateKey==="A2")margin=e.dry.a2Margin;
     else if(gateKey==="KV")margin=e.kit.freeVolume_m3-e.kit.packedVolume_m3;
-    else if(gateKey==="D2"||gateKey==="D4")margin=e.venus?.thermal[gateKey==="D2"?2:4]?.maxHours-number(d.thermal.stay_requested_h);
+    else if(gateKey==="DS2"||gateKey==="DS4"){const z=e.venus?.thermal[gateKey==="DS2"?2:4];margin=z?Math.min(z.reactorBusLimitKW-z.coolerElectricalKW,z.rejectLimitKW-z.rejectKW,e.dry.a2Margin):null;}
     else if(gateKey==="C")margin=Math.max(e.venus?.mode.low.waterAtOrbit??-Infinity,e.venus?.mode.high.waterAtOrbit??-Infinity);
     else if(gateKey==="R")margin=(e.venus?.handover??0)-d.venus.handover_altitude_km.min;
     if(margin!==null&&Number.isFinite(margin))marginTotal+=margin;
@@ -275,19 +293,20 @@ function analyze(d,stage){
  const exemplars=[];
  for(let i=0;i<design.rows;i++){
   const s=design.get(i),e=evaluate(d,stage,s,geo);
-  rows.push({A:e.A,A2:e.A2,KV:e.KV,KF:e.KF,B:e.B,R:e.R,C:e.C,C_low:e.C_low,C_high:e.C_high,D2:e.D2,D4:e.D4});
+  rows.push({A:e.A,A2:e.A2,KV:e.KV,KF:e.KF,B:e.B,R:e.R,C:e.C,C_low:e.C_low,C_high:e.C_high,DS2:e.DS2,DS4:e.DS4});
   if(i<number(d.sweep.report_preview_samples))exemplars.push({sample:i,inputs:s,gates:rows.at(-1),dry:e.dry.sum,coreDry:e.dry.coreT,kit:e.kit,venus:stage===2?{
     handover:e.venus.handover,lowWater:e.venus.mode.low.waterAtOrbit,highWater:e.venus.mode.high.waterAtOrbit,
     lowThrust:e.venus.mode.low.thrustN,highThrust:e.venus.mode.high.thrustN,
     lowDV:e.venus.mode.low.delta_v_orbit,highDV:e.venus.mode.high.delta_v_orbit,
-    twoCrewStay:e.venus.thermal[2].maxHours,fourCrewStay:e.venus.thermal[4].maxHours}:null});
+    twoCrewPodHours:e.venus.thermal[2].podHours,fourCrewPodHours:e.venus.thermal[4].podHours,
+    twoCrewCoolingKW:e.venus.thermal[2].coolerElectricalKW,fourCrewCoolingKW:e.venus.thermal[4].coolerElectricalKW}:null});
  }
- const gates=Object.fromEntries(["A","A2","KV","KF","B",...(stage===2?["R","C","C_low","C_high","D2","D4"]:[])].map(k=>[k,census(rows,k)]));
+ const gates=Object.fromEntries(["A","A2","KV","KF","B",...(stage===2?["R","C","C_low","C_high","DS2","DS4"]:[])].map(k=>[k,census(rows,k)]));
  const jointStatus=states=>states.includes("FAIL")?"FAIL":states.includes("OPEN")?"OPEN":"PASS";
  const joint=stage===2?Object.fromEntries([
-  ["A2_and_C",["A2","C"]],["A2_C_D2",["A2","C","D2"]],["A2_C_D4",["A2","C","D4"]],["A2_KF_C_D2",["A2","KF","C","D2"]],["A2_KF_C_D4",["A2","KF","C","D4"]]
+  ["A2_and_C",["A2","C"]],["A2_C_DS2",["A2","C","DS2"]],["A2_C_DS4",["A2","C","DS4"]],["A2_KF_C_DS2",["A2","KF","C","DS2"]],["A2_KF_C_DS4",["A2","KF","C","DS4"]]
  ].map(([k,ks])=>[k,census(rows.map(r=>({[k]:jointStatus(ks.map(x=>r[x]))})),k)])):{};
- const scores=Object.fromEntries(["A","A2","KV",...(stage===2?["R","C","D2","D4"]:[])].map(k=>[k,sensitivity(d,stage,design,geo,k)]));
+ const scores=Object.fromEntries(["A","A2","KV",...(stage===2?["R","C","DS2","DS4"]:[])].map(k=>[k,sensitivity(d,stage,design,geo,k)]));
  const components=Object.keys(d.mass).filter(x=>!["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"].includes(x));
  const sums=[0,0,0];const partRows=components.map(k=>{
   const x=d.mass[k],levels=bounds(x)??[number(x),number(x)];
