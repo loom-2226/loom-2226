@@ -416,6 +416,8 @@ class Handler(BaseHTTPRequestHandler):
             return self.page(HERE / "index.html", "text/html; charset=utf-8")
         if path == "/clock.js":
             return self.page(HERE / "clock.js", "application/javascript; charset=utf-8")
+        if path == "/weave_visuals.js":
+            return self.page(HERE / "weave_visuals.js", "application/javascript; charset=utf-8")
         if path.startswith("/art/") and path.split("/")[-1] in ART.values() and path.count("/") == 2:
             return self.page(ART_DIR / path.rsplit("/", 1)[1], "image/png")
         if path == "/api/state":

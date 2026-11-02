@@ -54,11 +54,29 @@ select{width:100%;background:#112738;color:var(--text);padding:10px;border:1px s
 footer{padding:8px 12px 18px;text-align:center;font:11px ui-monospace,monospace;color:#799aaa}
 @media(max-width:750px){main{display:block;padding:8px}.panel{margin-bottom:9px}.deck,.map{aspect-ratio:16/9}.scene p{min-height:0}.tools span{width:100%}.tools button{flex:1}.scene,.instruments,.comms{padding:12px}}
 @media(prefers-reduced-motion:reduce){.pulse{animation:none!important}.progress div{transition:none}}
+
+/* Crown-dome visual overlay. Screen-only art direction, no physical star positions. */
+.deck #weaveStars{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;z-index:2}
+.deck[data-phase="metric"] #weaveStars{opacity:1}
+.deck[data-phase="metric"] img{transform:scale(1.50);filter:brightness(.52) saturate(.7) contrast(1.16)}
+.deck #weaveLegend{position:absolute;z-index:3;left:12px;top:11px;pointer-events:none;
+font:10px ui-monospace,monospace;letter-spacing:.12em;color:#d6e5ef;
+text-shadow:0 1px 3px #050c15}
+.deck #weaveStyle{position:absolute;z-index:3;bottom:12px;right:12px;padding:8px 10px;
+font:10px ui-monospace,monospace;letter-spacing:.05em;border-color:#5e7d8c;background:#0b1e2bba}
+#expectedArrival{pointer-events:none}
+#expectedArc{stroke-linecap:round}
+@media(prefers-reduced-motion:reduce){.deck #weaveStars{opacity:.65}}
 </style></head>
 <body><header><div class="brand">WAYFARER<small>FIRST JUMP</small></div><div class="route">EARTH / MARS</div></header>
 <main>
 <section class="panel">
-<div id="deck" class="deck" data-phase="briefing"><img id="art" src="/art/cmd_pov.png" alt="Wayfarer command deck"></div>
+<div id="deck" class="deck" data-phase="briefing">
+<img id="art" src="/art/cmd_pov.png" alt="Wayfarer command deck">
+<canvas id="weaveStars" aria-hidden="true"></canvas>
+<div id="weaveLegend" hidden>ILLUSTRATIVE · NOT CANON</div>
+<button id="weaveStyle" type="button" hidden aria-label="Switch illustrative weave effect">A / ABERRATION</button>
+</div>
 <div id="map" class="map" hidden>
 <div id="maplabel" class="maplabel">SOLAR / DEPARTURE</div>
 <svg id="svg" viewBox="-360 -260 720 520" aria-label="Earth and Mars map, read-only orbital context">
@@ -67,7 +85,14 @@ footer{padding:8px 12px 18px;text-align:center;font:11px ui-monospace,monospace;
 <g id="earthMarker"><circle r="8" class="earth"/><text x="12" y="-11" class="body-name">EARTH</text></g>
 <g id="marsMarker"><circle r="7" class="mars"/><text x="12" y="-11" class="body-name">MARS</text></g>
 <g id="shipMarker"><path d="M0 -11 L7 9 L0 5 L-7 9 Z" class="ship"/><path id="burnPlume" d="M-3 7 L0 27 L3 7 Z" fill="#75dffe" opacity="0"/></g>
-<circle id="departurePulse" r="14" class="pulse"/><circle id="arrivalPulse" r="14" class="pulse"/></g>
+<circle id="departurePulse" r="14" class="pulse"/><circle id="arrivalPulse" r="14" class="pulse"/>
+<g id="expectedArrival" style="display:none">
+<circle r="22" fill="none" stroke="#7ea8bf" stroke-width="2" opacity=".22"/>
+<circle id="expectedArc" r="22" fill="none" stroke="#9ee8ef" stroke-width="2.8" opacity=".68"
+ stroke-dasharray="138.2301" stroke-dashoffset="138.2301" transform="rotate(-90)"/>
+<text class="body-name" x="27" y="7" font-size="10" opacity=".75">EXPECTED ARRIVAL</text>
+</g>
+</g>
 <g id="closeMars"><circle cx="95" cy="42" r="188" class="planet-close"/>
 <g id="closeShip"><path d="M-155 47 L-145 25 L-134 47 L-145 42 Z" class="ship"/><path id="trimFlare" d="M-149 46 L-145 88 L-141 46 Z" fill="#b2eaff" opacity="0"/></g>
 <circle cx="-145" cy="37" r="28" stroke="#9bddea" stroke-dasharray="4 8" fill="none" opacity=".7"/>
@@ -85,4 +110,4 @@ footer{padding:8px 12px 18px;text-align:center;font:11px ui-monospace,monospace;
 <div id="evidence" hidden><h2>SHIP'S RECORD</h2><p>Tap a flight number to inspect its source.</p><div id="trace"><p>Select a reading.</p></div><p id="diagnostic">Mara channel: checking…</p><p>Next replay:</p>
 <select id="scenario"><option value="">Surprise me</option><option value="NOMINAL">Nominal</option><option value="UNDERBURN_1_PERCENT">Under-burn</option></select><button id="closeEvidence" class="secondary">Close record</button></div>
 </section></main><footer>WAYFARER / FIRST JUMP</footer>
-<script src="/clock.js"></script></body></html>
+<script src="/weave_visuals.js"></script><script src="/clock.js"></script></body></html>

@@ -151,6 +151,10 @@ class FirstJumpTests(unittest.TestCase):
                 self.assertIn("Holding at Mars approach shell. Mars Traffic has us from here.",script)
                 self.assertIn("requestAnimationFrame",script)
                 self.assertIn("earned",script)
+                with urlopen(base+"/weave_visuals.js",timeout=5) as r:
+                    visual=r.read().decode()
+                self.assertIn("function metricShipState",visual)
+                self.assertIn("ILLUSTRATIVE",visual)
                 with urlopen(base+"/art/cmd_pov.png",timeout=5) as response:
                     self.assertEqual(response.headers["Content-Type"],"image/png")
             finally:

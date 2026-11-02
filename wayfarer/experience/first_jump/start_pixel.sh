@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # One-command Pixel entry: isolated sparse checkout, existing art, accepted FQ11.
 set -euo pipefail
-BRANCH="experience/first-jump-v04-continuous-playback"
-ROOT="${FIRST_JUMP_DIR:-$HOME/.local/share/loom-first-jump-v04}"
-PORT="${FIRST_JUMP_PORT:-8881}"
+BRANCH="experience/first-jump-v05-weave-visuals"
+ROOT="${FIRST_JUMP_DIR:-$HOME/.local/share/loom-first-jump-v05}"
+PORT="${FIRST_JUMP_PORT:-8882}"
 PYTHON_BIN="$(command -v python || command -v python3 || true)"
 [[ -n "$PYTHON_BIN" ]] || { echo "Python required (Termux: pkg install python git)"; exit 2; }
 if [[ ! -d "$ROOT/.git" ]]; then

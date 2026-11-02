@@ -3,7 +3,7 @@
 // not physical spacecraft dynamics or a Metric trajectory.
 const $=id=>document.getElementById(id), put=(id,v)=>{$(id).textContent=v};
 const PHASES=["preburn","metric","turn","trim"];
-const ART={briefing:"cmd_pov.png",preburn:"ext_burn.png",metric:"ext_metric.png",turn:"cmd_pov.png",trim:"ext_departure.png",debrief:"cmd_pov.png"};
+const ART={briefing:"cmd_pov.png",preburn:"ext_burn.png",metric:"cmd_pov.png",turn:"cmd_pov.png",trim:"ext_departure.png",debrief:"cmd_pov.png"};
 const STORY={
 briefing:["Command deck","Departure","Couches lock against the thrust axis. The pilot waits for your word.","Captain, we're ready when you are."],
 preburn:["Departure","Torch burn","Hot fins unfold. The ship presses firmly into the couches as Earth recedes behind.","Burn's clean, Captain. Keep an eye on the mass line."],
@@ -88,7 +88,7 @@ function sampleAt(t){
 }
 function drawMap(phase,t,s){
  if(!display)return;
- const show=viewChoice==="map"||(viewChoice==="auto"&&phase!=="briefing");
+ const show=viewChoice==="map"||(viewChoice==="auto"&&phase!=="briefing"&&phase!=="metric");
  $("deck").hidden=show;$("map").hidden=!show;$("tools").hidden=false;
  $("seekrow").hidden=s.authorised_until_s===0||["complete","quit"].includes(s.mode);
  $("pause").hidden=!["active","held"].includes(s.mode);
@@ -101,18 +101,31 @@ function drawMap(phase,t,s){
  const xy=sampleAt(t),earth=xy.EA,mars=xy.MA;
  for(const [id,point] of [["earthMarker",earth],["marsMarker",mars]])$(id).setAttribute("transform","translate("+point[0]+" "+point[1]+")");
  for(const [id,point] of [["departurePulse",earth],["arrivalPulse",mars]]){$(id).setAttribute("cx",point[0]);$(id).setAttribute("cy",point[1])}
- const destination=close||(phase==="metric"&&p>=.9999),ship=destination?mars:earth;
- $("shipMarker").setAttribute("transform","translate("+ship[0]+" "+(ship[1]-18)+")");
+ // Critical discontinuity: ship is never drawn at any map-space position
+ // during the weave. Earth fade is brief, Mars only at arrival boundary.
+ const shipState=metricShipState(phase,p);
+ $("shipMarker").style.display=shipState.body?"":"none";
+ $("shipMarker").style.opacity=String(shipState.opacity);
+ if(shipState.body){
+  const ship=shipState.body==="MA"?mars:earth;
+  $("shipMarker").setAttribute("transform","translate("+ship[0]+" "+(ship[1]-18)+")");
+ }
+ // Cosmetic expected-arrival progress, not a Metric path or a range.
+ $("expectedArrival").style.display=phase==="metric"?"":"none";
+ if(phase==="metric"){
+  $("expectedArrival").setAttribute("transform","translate("+mars[0]+" "+mars[1]+")");
+  $("expectedArc").setAttribute("stroke-dashoffset",String(138.2301*(1-p)));
+ }
  $("burnPlume").setAttribute("opacity",phase==="preburn"&&p<.98?".9":"0");
  $("trimFlare").setAttribute("opacity",phase==="trim"&&p<.99?".9":"0");
  const angle=timeline.cases[s.source_case].turn_deg.value;
  $("closeShip").setAttribute("transform","rotate("+(phase==="turn"?lerp(0,angle,p):close?angle:0)+" -145 37)");
- $("departurePulse").classList.toggle("active",phase==="metric"&&p<.985);
- $("arrivalPulse").classList.toggle("active",phase==="metric"&&p>=.985);
+ $("departurePulse").classList.toggle("active",phase==="metric"&&p<.05);
+ $("arrivalPulse").classList.toggle("active",phase==="metric"&&p>=.96);
  let zoom=1,center=[0,0];
  if(phase==="briefing"){zoom=2.8;center=earth}
  if(phase==="preburn"){zoom=lerp(2.8,.85,p);center=[lerp(earth[0],0,p),lerp(earth[1],0,p)]}
- if(phase==="metric"){zoom=lerp(.85,1.12,p)}
+ if(phase==="metric"){zoom=lerp(.85,1.12,p);center=[lerp(0,mars[0]*.08,p),lerp(0,mars[1]*.08,p)]}
  if(close){zoom=2.8;center=mars}
  $("solarScene").setAttribute("transform","rotate("+camera.angle+") scale("+(zoom*camera.zoom)+") translate("+(-center[0])+" "+(-center[1])+")");
 }
@@ -134,6 +147,7 @@ function frame(now){
  put("go",s.mode==="held"?"RESUME":s.next_gate==="burn"?"AUTHORISE BURN":s.next_gate==="jump"?"AUTHORISE JUMP":"AUTHORISE TRIM");
  if(now-lastShown>125||spokenPhase!==phase){readings(phase,t,s);lastShown=now}
  drawMap(phase,t,s);
+ drawWeaveCanvas(phase,phaseFrac(t,phase,s),!$("deck").hidden);
  requestAnimationFrame(frame);
 }
 function accept(s){snapshot=s;atWall=performance.now();if(!started){started=true;requestAnimationFrame(frame)}}
@@ -170,6 +184,7 @@ $("go").onclick=()=>command("go");$("pause").onclick=()=>command(snapshot.mode==
 $("quit").onclick=()=>{if(confirm("Leave bridge?"))command("quit")};
 $("replay").onclick=async()=>{const choice=$("scenario").value;try{spokenPhase="";accept(await api("/api/new",choice?{case:choice}:{}))}catch(e){put("mara","Bridge unavailable.")}};
 $("view").onclick=()=>{viewChoice=$("map").hidden?"map":"deck"};
+$("weaveStyle").onclick=()=>setWeaveMode(weaveMode==="A"?"B":"A");
 $("in").onclick=()=>{camera.zoom=Math.min(5,camera.zoom*1.25)};$("out").onclick=()=>{camera.zoom=Math.max(.4,camera.zoom/1.25)};
 $("left").onclick=()=>{camera.angle-=15};$("right").onclick=()=>{camera.angle+=15};
 $("seek").oninput=()=>put("seekPct",mmss(Number($("seek").value)));

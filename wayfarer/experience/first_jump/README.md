@@ -1,4 +1,4 @@
-# Wayfarer First Jump v0.4 · Earth → Mars
+# Wayfarer First Jump v0.5 · Earth → Mars
 
 **ALL bodies. ALL sponsors. 2026–2226.**
 **DRAFT PLAYTEST, NON-CANON, NON-RUNTIME FLIGHT, NO NAVIGATOR.**
@@ -8,14 +8,22 @@
 In Termux with Git, Python and curl installed:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/loom-2226/loom-2226/experience/first-jump-v04-continuous-playback/wayfarer/experience/first_jump/start_pixel.sh | bash
+curl -fsSL https://raw.githubusercontent.com/loom-2226/loom-2226/experience/first-jump-v05-weave-visuals/wayfarer/experience/first_jump/start_pixel.sh | bash
 ```
 
-This uses a separate lightweight `~/.local/share/loom-first-jump-v04` checkout and opens **http://127.0.0.1:8881**. It leaves v0.1/v0.2 and existing LOOM repositories untouched. Ctrl-C in Termux stops the local server.
+This uses a separate lightweight `~/.local/share/loom-first-jump-v05` checkout and opens **http://127.0.0.1:8882**. It leaves v0.1/v0.2 and existing LOOM repositories untouched. Ctrl-C in Termux stops the local server.
 
 On first start, the launcher uses existing private Termux API key configuration, or offers a hidden key prompt. If no API key is provided, Mara has in-world scripted comms. If configured, each question sends the **selected accepted FQ11 case** and **Canon II §§7.1a/b excerpts** to the live model. In-character responses are screened against their cited FQ11 numbers, with provider outcomes and unsupported claims in the local JSONL session log.
 
-## Continuous playback v0.4
+## Metric scene v0.5 (illustrative only)
+
+- **Ship marker**: fades while anchored to Earth during the first 1.6% of Metric, then disappears entirely. Reappears at Mars at completed arrival, never between planets. Rewinding obeys that rule.
+- Solar MAP: faint EXPECTED ARRIVAL ring around Mars fills with the FQ11 Metric elapsed fraction; subtle camera drift. Not distance, collapse radius or a route.
+- Metric default: existing cmd_pov crown-dome image, overlaid by a lightweight canvas starfield. Default A / ABERRATION simulates only a **visual look**: bowward drift and blue-forward/red-outer grading, themed to the 0.268c art reference. Labelled ILLUSTRATIVE / NOT CANON. No computed relativistic aberration, Doppler shift or ship speed.
+- Tap A / ABERRATION to select B / SHIMMER, an abstract weave visual. Both effects follow the existing mission clock, including pause and scrub. No new renders.
+- MAP switches to the ring; DECK returns to the dome. All FQ11 flight figures, captain gates, live Mara and evidence separation remain unchanged.
+
+## Continuous playback (v0.4 baseline, unchanged)
 
 A **single FQ11-elapsed mission clock**, smoothly advanced by browser `requestAnimationFrame`, controls narrative scene/caption, map frame/camera, timer and display interpolations. The server synchronises the clock and persists player actions; the browser never solves physics. **204 seconds** of active presentation (~3:24 plus decision time): 29 s burn, 151 s Metric, 18 s RCS turn, 6 s trim. The ship remains fixed at Earth during preburn and Metric, appears at Mars only at the Metric boundary, and never traverses an invented line. Three required decisions only: **authorise burn, authorise jump, authorise trim**. Metric runs directly into the 220 s source-time RCS turn with no extra gate. Manual pause and mission-wide scrub are visual controls, with seeking capped by already-authorised decisions.
 
@@ -61,3 +69,5 @@ python3 wayfarer/experience/first_jump/build_map_display.py
 Stop at draft PR. Keep Navigator parked.
 
 Additional narrow browser clock check: `node wayfarer/experience/first_jump/test_clock.js` (engineering host only).
+
+Metric scene tests: node wayfarer/experience/first_jump/test_weave_visuals.js (engineering host only).
