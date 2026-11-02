@@ -23,10 +23,11 @@ function sampleDirections(count,digits,levels){
 }
 function samples(d,stage,limit){
  const fields=fkeys(d,"mass").filter(k=>!["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"].includes(k)).map(k=>"mass."+k);
+ fields.push("kit.packed_effective_density_t_per_m3");
  if(stage===2)fields.push(...[
   ...fkeys(d,"power").filter(k=>["rotor_figure_of_merit","tipjet_thermal_to_useful_rotor","rotor_usable_input_heat_limit_MW","rotor_safe_tip_speed_mps","rotor_hot_duty_limit_h","rotor_climb_rate_mps","torch_low_ve_kmps","torch_high_ve_kmps","torch_jet_power_GW"].includes(k)).map(k=>"power."+k),
   ...fkeys(d,"water").filter(k=>["reaction_water_entry_debit_t","crew_water_cold_mass_t","crew_water_heating_delta_T_K"].includes(k)).map(k=>"water."+k),
-  ...fkeys(d,"thermal").filter(k=>["insulation_k_W_per_mK","insulation_thickness_m","crew_heat_W_each","cabin_electronics_kW","venus_external_surface_K"].includes(k)).map(k=>"thermal."+k),
+  ...fkeys(d,"thermal").filter(k=>["insulation_k_W_per_mK","insulation_thickness_m","crew_heat_W_each","cabin_electronics_kW","venus_external_surface_K","active_cooler_power_available_kW","reactor_aux_electric_power_available_kW","hot_side_rejection_capacity_kW","hot_loop_reject_temperature_K","cooler_coefficient_of_performance"].includes(k)).map(k=>"thermal."+k),
   ...fkeys(d,"venus").filter(k=>["handover_altitude_km","torch_ascent_dv_kmps"].includes(k)).map(k=>"venus."+k),
   ...fkeys(d,"capsule").filter(k=>k==="content_mass_t").map(k=>"capsule."+k)
  ]);
@@ -73,9 +74,34 @@ function dry(d,s){
  const excluded=new Set(["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"]);
  const keys=Object.keys(d.mass).filter(x=>!excluded.has(x));
  const parts=keys.map(k=>({key:k,value:val(d,"mass."+k,s)}));
- const g=gate(parts.map(x=>["mass."+x.key,x.value]),()=>parts.reduce((sum,x)=>sum+x.value,0)<=number(d.mass.max_docked_dry_t));
- const sum=parts.every(x=>x.value!==null)?parts.reduce((a,b)=>a+b.value,0):null;
- return {status:g.status,missing:g.missing,sum,margin:sum===null?null:number(d.mass.max_docked_dry_t)-sum,parts};
+ const missing=parts.filter(x=>x.value===null).map(x=>"mass."+x.key);
+ const sum=missing.length?null:parts.reduce((a,b)=>a+b.value,0);
+ const kitKeys=d.kit.mass_component_keys;
+ const kitMissing=kitKeys.filter(k=>val(d,"mass."+k,s)===null).map(k=>"mass."+k);
+ const kitT=kitMissing.length?null:kitKeys.reduce((x,k)=>x+val(d,"mass."+k,s),0);
+ const coreT=sum===null||kitT===null?null:sum-kitT;
+ const limit=number(d.mass.max_docked_dry_t);
+ const a=gate(parts.map(x=>["mass."+x.key,x.value]),()=>sum<=limit);
+ const a2=gate([["mass.dry_without_venus_kit",coreT]],()=>coreT<=limit);
+ return {status:a.status,missing:a.missing,sum,margin:sum===null?null:limit-sum,
+   a2:a2.status,a2Missing:a2.missing,a2Margin:coreT===null?null:limit-coreT,coreT,kitT,parts};
+}
+function kitFit(d,s,dryResult){
+ const mass=dryResult.kitT,density=val(d,"kit.packed_effective_density_t_per_m3",s);
+ const free=number(d.kit.holds_free_m3),payload=number(d.kit.payload_allowance_t);
+ const bladeM=number(d.geometry.rotor_diameter_m)/2;
+ const segmentLength=bladeM/number(d.kit.rotor_blade_segments_per_blade);
+ const serviceLength=number(d.kit.service_x_end_m)-number(d.kit.service_x_start_m);
+ const volume=mass===null||density===null?null:mass/density;
+ const volumeGate=gate([["mass.venus_kit_t",mass],["kit.packed_effective_density_t_per_m3",density]],
+    ()=>volume<=free && mass<=payload && segmentLength<=serviceLength);
+ const required=["kit.individual_hold_aperture_m","kit.individual_hold_cross_section_m2",
+   "kit.rotor_blade_joint_qualified","kit.hot_shuttle_kit_fit_qualified"];
+ const g=volumeGate.status==="FAIL"?{status:"FAIL",missing:[]}:
+    gate(required.map(k=>[k,number(readPath(d,k))]),()=>volumeGate.status==="PASS" && required.every(k=>number(readPath(d,k))>0));
+ return {mass_t:mass,density,packedVolume_m3:volume,payloadLimit_t:payload,freeVolume_m3:free,
+     segmentLength_m:segmentLength,holdLength_m:serviceLength,volumeGate:volumeGate.status,
+     volumeMissing:volumeGate.missing,fit:g.status,fitMissing:g.missing};
 }
 function atmosphere(d,h){
  const rows=d.venus.atmosphere_profile;
@@ -207,11 +233,11 @@ function census(rows,key){
  return {...counts,resolved,pass_fraction:resolved?counts.PASS/resolved:null,total:rows.length};
 }
 function evaluate(d,stage,s,geo){
- const dryResult=dry(d,s);const v=stage===2?stage2(d,s,dryResult):null;
- return {A:dryResult.status,B:geo.gateB.status,R:v?.rotor.status??null,
+ const dryResult=dry(d,s),kit=kitFit(d,s,dryResult);const v=stage===2?stage2(d,s,dryResult):null;
+ return {A:dryResult.status,A2:dryResult.a2,KV:kit.volumeGate,KF:kit.fit,B:geo.gateB.status,R:v?.rotor.status??null,
    C:v?.gateC??null,C_low:v?.mode.low.status??null,C_high:v?.mode.high.status??null,
    D2:v?.thermal[2].status??null,D4:v?.thermal[4].status??null,
-   dry:dryResult,venus:v};
+   dry:dryResult,kit,venus:v};
 }
 function sensitivity(d,stage,design,geo,gateKey){
  const chosen=design.fields;
@@ -228,6 +254,8 @@ function sensitivity(d,stage,design,geo,gateKey){
     if(state!=="OPEN")n++;
     let margin=null;
     if(gateKey==="A")margin=e.dry.margin;
+    else if(gateKey==="A2")margin=e.dry.a2Margin;
+    else if(gateKey==="KV")margin=e.kit.freeVolume_m3-e.kit.packedVolume_m3;
     else if(gateKey==="D2"||gateKey==="D4")margin=e.venus?.thermal[gateKey==="D2"?2:4]?.maxHours-number(d.thermal.stay_requested_h);
     else if(gateKey==="C")margin=Math.max(e.venus?.mode.low.waterAtOrbit??-Infinity,e.venus?.mode.high.waterAtOrbit??-Infinity);
     else if(gateKey==="R")margin=(e.venus?.handover??0)-d.venus.handover_altitude_km.min;
@@ -247,19 +275,19 @@ function analyze(d,stage){
  const exemplars=[];
  for(let i=0;i<design.rows;i++){
   const s=design.get(i),e=evaluate(d,stage,s,geo);
-  rows.push({A:e.A,B:e.B,R:e.R,C:e.C,C_low:e.C_low,C_high:e.C_high,D2:e.D2,D4:e.D4});
-  if(i<number(d.sweep.report_preview_samples))exemplars.push({sample:i,inputs:s,gates:rows.at(-1),dry:e.dry.sum,venus:stage===2?{
+  rows.push({A:e.A,A2:e.A2,KV:e.KV,KF:e.KF,B:e.B,R:e.R,C:e.C,C_low:e.C_low,C_high:e.C_high,D2:e.D2,D4:e.D4});
+  if(i<number(d.sweep.report_preview_samples))exemplars.push({sample:i,inputs:s,gates:rows.at(-1),dry:e.dry.sum,coreDry:e.dry.coreT,kit:e.kit,venus:stage===2?{
     handover:e.venus.handover,lowWater:e.venus.mode.low.waterAtOrbit,highWater:e.venus.mode.high.waterAtOrbit,
     lowThrust:e.venus.mode.low.thrustN,highThrust:e.venus.mode.high.thrustN,
     lowDV:e.venus.mode.low.delta_v_orbit,highDV:e.venus.mode.high.delta_v_orbit,
     twoCrewStay:e.venus.thermal[2].maxHours,fourCrewStay:e.venus.thermal[4].maxHours}:null});
  }
- const gates=Object.fromEntries(["A","B",...(stage===2?["R","C","C_low","C_high","D2","D4"]:[])].map(k=>[k,census(rows,k)]));
+ const gates=Object.fromEntries(["A","A2","KV","KF","B",...(stage===2?["R","C","C_low","C_high","D2","D4"]:[])].map(k=>[k,census(rows,k)]));
  const jointStatus=states=>states.includes("FAIL")?"FAIL":states.includes("OPEN")?"OPEN":"PASS";
  const joint=stage===2?Object.fromEntries([
-  ["A_and_C",["A","C"]],["A_C_D2",["A","C","D2"]],["A_C_D4",["A","C","D4"]],["A_B_C_D2",["A","B","C","D2"]],["A_B_C_D4",["A","B","C","D4"]]
+  ["A2_and_C",["A2","C"]],["A2_C_D2",["A2","C","D2"]],["A2_C_D4",["A2","C","D4"]],["A2_KF_C_D2",["A2","KF","C","D2"]],["A2_KF_C_D4",["A2","KF","C","D4"]]
  ].map(([k,ks])=>[k,census(rows.map(r=>({[k]:jointStatus(ks.map(x=>r[x]))})),k)])):{};
- const scores=Object.fromEntries(["A",...(stage===2?["R","C","D2","D4"]:[])].map(k=>[k,sensitivity(d,stage,design,geo,k)]));
+ const scores=Object.fromEntries(["A","A2","KV",...(stage===2?["R","C","D2","D4"]:[])].map(k=>[k,sensitivity(d,stage,design,geo,k)]));
  const components=Object.keys(d.mass).filter(x=>!["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"].includes(x));
  const sums=[0,0,0];const partRows=components.map(k=>{
   const x=d.mass[k],levels=bounds(x)??[number(x),number(x)];
@@ -267,7 +295,9 @@ function analyze(d,stage){
   triplet.forEach((v,i)=>sums[i]+=v);
   return {name:k,values:triplet,provenance:x.provenance};
  });
- return {geometry:geo,gates,joint,scores,examples:exemplars,partRows,sums,design:{rows:design.rows,fields:design.fields}};
+ const kitRows=partRows.filter(x=>d.kit.mass_component_keys.includes(x.name));
+ const kitSums=[0,1,2].map(i=>kitRows.reduce((z,x)=>z+x.values[i],0));
+ return {geometry:geo,gates,joint,scores,examples:exemplars,partRows,sums,kitRows,kitSums,design:{rows:design.rows,fields:design.fields}};
 }
 function report(d,stage,hash,a,graphics){
  const p=number(d.sweep.round_decimals),f=x=>fmt(x,p);
