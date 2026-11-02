@@ -255,6 +255,10 @@ function analyze(d,stage){
     twoCrewStay:e.venus.thermal[2].maxHours,fourCrewStay:e.venus.thermal[4].maxHours}:null});
  }
  const gates=Object.fromEntries(["A","B",...(stage===2?["R","C","C_low","C_high","D2","D4"]:[])].map(k=>[k,census(rows,k)]));
+ const jointStatus=states=>states.includes("FAIL")?"FAIL":states.includes("OPEN")?"OPEN":"PASS";
+ const joint=stage===2?Object.fromEntries([
+  ["A_and_C",["A","C"]],["A_C_D2",["A","C","D2"]],["A_C_D4",["A","C","D4"]],["A_B_C_D2",["A","B","C","D2"]],["A_B_C_D4",["A","B","C","D4"]]
+ ].map(([k,ks])=>[k,census(rows.map(r=>({[k]:jointStatus(ks.map(x=>r[x]))})),k)])):{};
  const scores=Object.fromEntries(["A",...(stage===2?["R","C","D2","D4"]:[])].map(k=>[k,sensitivity(d,stage,design,geo,k)]));
  const components=Object.keys(d.mass).filter(x=>!["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"].includes(x));
  const sums=[0,0,0];const partRows=components.map(k=>{
@@ -263,7 +267,7 @@ function analyze(d,stage){
   triplet.forEach((v,i)=>sums[i]+=v);
   return {name:k,values:triplet,provenance:x.provenance};
  });
- return {geometry:geo,gates,scores,examples:exemplars,partRows,sums,design:{rows:design.rows,fields:design.fields}};
+ return {geometry:geo,gates,joint,scores,examples:exemplars,partRows,sums,design:{rows:design.rows,fields:design.fields}};
 }
 function report(d,stage,hash,a,graphics){
  const p=number(d.sweep.round_decimals),f=x=>fmt(x,p);
@@ -280,6 +284,7 @@ function report(d,stage,hash,a,graphics){
  const requiredB=a.geometry.gateB.missing.length?a.geometry.gateB.missing.join(", "):"none";
  for(const [k,g] of Object.entries(a.gates))lines.push("| "+k+" | "+g.PASS+" | "+g.FAIL+" | "+g.OPEN+" | "+(g.pass_fraction===null?"n/a":(g.pass_fraction*100).toFixed(2)+"%")+" | "+(k==="B"?requiredB:"none in numeric screen; physical qualification holds separate")+" |");
  lines.push("");
+ if(stage===2){lines.push("### Joint closure (same sampled configurations)","| Combined gates | PASS | FAIL | OPEN | PASS / resolved |","|---|---:|---:|---:|---:|");for(const [k,g] of Object.entries(a.joint))lines.push("| "+k+" | "+g.PASS+" | "+g.FAIL+" | "+g.OPEN+" | "+(g.pass_fraction===null?"n/a":(100*g.pass_fraction).toFixed(2)+"%")+" |");lines.push("A conditional water PASS is not an overall mission PASS: Bay fit still has required nulls, and passive 18h thermal survival must also pass.","");}
  lines.push("### Gate A mass envelope and historical comparison");
  lines.push("Component sums min / midpoint / max: **"+a.sums.map(f).join(" / ")+" t**. Gate A limit "+f(number(d.mass.max_docked_dry_t))+" t.");
  lines.push("Historical LOST-sizer empty mass "+f(number(d.mass.v1_comparison_dry_t))+" t is the **v1 comparison** while LOST historical output is **"+f(number(d.mass.historical_lost_sizer_dry_t))+"t** in PR #453; neither is an equality target or an input mass offset.");
