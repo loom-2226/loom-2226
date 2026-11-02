@@ -93,6 +93,13 @@
       "provenance": "ONLINE",
       "source": "SI unit conversion",
       "description": "Used in conditional shell check"
+    },
+    "millimeters_per_meter": {
+      "value": 1000,
+      "unit": "mm/m",
+      "provenance": "ONLINE",
+      "source": "SI conversion",
+      "description": "Thin-shell thickness report only"
     }
   },
   "geometry": {
