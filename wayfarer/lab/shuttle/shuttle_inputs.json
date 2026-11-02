@@ -15,7 +15,8 @@
       "basis": "Claude locally ran Stage 2 Node CLI and reproduced run hash 772ccd9ef0cfc82ea7c03ae0c5f3c936d310a0c4; reported by kT 2026-11-03",
       "note": "Prior CLI test closed for round-2 executable; round-3 output requires fresh execution when possible."
     },
-    "round_4": "kT approved 2026-11-03; same draft branches; all gate inputs frozen; idle heat research only"
+    "round_4": "kT approved 2026-11-03; same draft branches; all gate inputs frozen; idle heat research only",
+    "round_5": "kT APPROVED 2026-11-03; HOUSE REACTOR kit, bounded 100–230MW heat and derived kit mass; review before merge; stage 3 after merge; torch idle unchanged research only"
   },
   "si": {
     "kg_per_t": {
@@ -430,6 +431,22 @@
       "provenance": "ASSUMPTION",
       "source": "Analyst screening proposal 2026-11-03, NON-CANON; not independently qualified",
       "description": "Detachable Venus hot-environment active heat pump; full system mass remains hypothesis."
+    },
+    "kit_house_reactor_t": {
+      "min": 1.875,
+      "max": 4.3125,
+      "unit": "t",
+      "provenance": "DECLARED_2226",
+      "source": "DERIVED from power.kit_house_reactor_thermal_MW, power.kit_house_reactor_net_specific_kW_per_kg and conversion efficiency; kT 2026-11-03",
+      "description": "DEPENDENT, NEVER independently sampled: thermal MW × 0.75×1000kW/MW ÷40kW/kg ÷1000kg/t = 1.875–4.3125t; excluded from independent sample fields; included exactly once in dry and kit payload ledgers."
+    },
+    "kit_house_exchanger_ducts_t": {
+      "min": 0.3,
+      "max": 1,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT 2026-11-03 additional kit house-reactor heat exchanger / high-temperature transfer duct sensitivity",
+      "description": "Additional dedicated kit house-reactor heat exchanger/duct mass above existing tipjet_ducts_compressors_t and venus_hot_loop_thermal_kit_t. Disjoint machinery ledger; actual gas-mast thermal/pressure qualification OPEN."
     }
   },
   "water": {
@@ -547,12 +564,11 @@
       "description": "#453 tipjet conversion sensitivity; no demonstrated 735K device"
     },
     "rotor_usable_input_heat_limit_MW": {
-      "min": 30,
-      "max": 100,
-      "unit": "MW",
-      "provenance": "ASSUMPTION",
-      "source": "kT/Claude 2026-11-02",
-      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Delivered tipjet thermal limit for phase screen."
+      "value": null,
+      "unit": "MW thermal",
+      "provenance": "OPEN",
+      "source": "DERIVED OUTPUT: kit house-reactor thermal raw output minus concurrent four-crew cooler electric divided by direct conversion efficiency. Not independent input or missing parameter.",
+      "description": "Derived per sample, not sampled/credited from torch idle. Actual exchanger transfer efficacy to heated CO2 remains unqualified."
     },
     "rotor_safe_tip_speed_mps": {
       "min": 180,
@@ -643,6 +659,42 @@
       "provenance": "ASSUMPTION",
       "source": "kT/Claude 2026-11-02",
       "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Powered rotor lifetime, compare ascent climb exposure; not 18h surface dwell."
+    },
+    "kit_house_reactor_thermal_MW": {
+      "min": 100,
+      "max": 230,
+      "unit": "MW thermal (raw)",
+      "provenance": "DECLARED_2226",
+      "source": "kT 2026-11-03; https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
+      "description": "Independent dedicated Venus/Titan kit house-reactor thermal power interval. NOT torch idle heat. Switched between thermal-to-tipjet and 75% direct conversion to cooler electric, with raw thermal allocation conserved. Unqualified direct gas exchanger and radiator geometry."
+    },
+    "kit_house_reactor_net_specific_kW_per_kg": {
+      "value": 40,
+      "unit": "kW/kg net electric",
+      "provenance": "DECLARED_2226",
+      "source": "kT 2026-11-03 Round 5, same Wayfarer house-reactor lineage; https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json ; https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
+      "description": "Same Wayfarer twin D-He3 house units: 2×50 MW net each, 1.25t each at 40kW/kg NET."
+    },
+    "kit_house_reactor_direct_conversion_efficiency": {
+      "value": 0.75,
+      "unit": "fraction",
+      "provenance": "DECLARED_2226",
+      "source": "kT 2026-11-03 Round 5, same Wayfarer house-reactor lineage; https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json ; https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
+      "description": "75% direct converter electrical efficiency; thermal raw drawn for cooler electricity = cooler electrical/0.75."
+    },
+    "kit_house_reactor_min_stable_fraction": {
+      "value": 0.1,
+      "unit": "fraction",
+      "provenance": "DECLARED_2226",
+      "source": "kT 2026-11-03 Round 5, same Wayfarer house-reactor lineage; https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json ; https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
+      "description": "10% minimum online output each from Wayfarer house-reactor declarations; NOT main torch idle."
+    },
+    "kit_house_reactor_source_net_MW_at_100thermal": {
+      "value": 75,
+      "unit": "MW electric",
+      "provenance": "DECLARED_2226",
+      "source": "kT 2026-11-03 Round 5, same Wayfarer house-reactor lineage; https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json ; https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
+      "description": "Derived 100MW thermal *75% for comparison, electrical distribution may be lower."
     }
   },
   "thermal": {
@@ -745,7 +797,7 @@
       "unit": "kW",
       "provenance": "ASSUMPTION",
       "source": "Analyst screening proposal 2026-11-03, NON-CANON; not independently qualified",
-      "description": "Maximum cooler electrical input; not a guaranteed power bus."
+      "description": "Installed cooler drive/power handling limit, separate from house reactor net output and electrical interface cap."
     },
     "reactor_aux_electric_power_available_kW": {
       "min": 25,
@@ -753,7 +805,7 @@
       "unit": "kW",
       "provenance": "ASSUMPTION",
       "source": "Analyst screening proposal 2026-11-03, NON-CANON; not independently qualified",
-      "description": "Aux bus available while torch OFF; independent from 5–8 GW jet energy."
+      "description": "Installed cooler auxiliary electrical interface/bus limit only (25–200kW), NOT separate reactor source. House reactor electrical available = thermal MW×0.75×1000; take min of bus, cooler input limit and reactor output."
     },
     "hot_loop_reject_temperature_K": {
       "min": 780,
@@ -887,12 +939,11 @@
       "description": "Need rotor downwash, gear, surface mechanics"
     },
     "handover_altitude_km": {
-      "min": 5,
-      "max": 25,
+      "value": null,
       "unit": "km",
-      "provenance": "ASSUMPTION",
-      "source": "kT/Claude 2026-11-02",
-      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Planning envelope; actual rotor ceiling derived from heat/duty/disk constraints."
+      "provenance": "OPEN",
+      "source": "PER-SAMPLE DERIVED OUTPUT",
+      "description": "Computed from climb until rotor heat, available reactor power after simultaneous cooling, tip speed, hot duty or VIRA model ceiling; no arbitrary 5–25km cap. Torch-in-dense-CO2 physical feasibility remains OPEN below computed altitude."
     },
     "orbit_injection_delta_v_kmps": {
       "value": null,
@@ -922,7 +973,7 @@
       "unit": "qualified ability",
       "provenance": "OPEN",
       "source": "No physical magnetic nozzle / 5–25km Venus atmospheric operation evidence",
-      "description": "Magnetic nozzle/plume amid dense 1–70bar CO2 OPEN; per-mode rocket equations do NOT prove burn is physically feasible after rotor handover."
+      "description": "Full torch ignition in CO2 remains physically OPEN independent of rotor's newly computed handover altitude, even above cloud top; magnetic nozzle/reentry plume not qualified."
     },
     "entry_vehicle_thermal_qualification": {
       "value": null,
@@ -953,7 +1004,14 @@
         "source": "kT 2026-11-03 requested rotor power beyond 25km handover to 30–50km",
         "description": "Output sampling at a VIRA-profile altitude, NOT a new handover approval"
       }
-    ]
+    ],
+    "minimum_rotor_handover_screen_km": {
+      "value": 5,
+      "unit": "km",
+      "provenance": "ASSUMPTION",
+      "source": "Carry forward original kT 5–25km handover screen LOWER bound; upper input cap deleted for Round 5",
+      "description": "Necessary minimum ascent height for rotor screen, NOT a fixed or desired handover altitude. Handover is computed per sample."
+    }
   },
   "capsule": {
     "dry_mass_t": {
@@ -1067,7 +1125,9 @@
       "tipjet_ducts_compressors_t",
       "entry_tps_t",
       "venus_hot_loop_thermal_kit_t",
-      "venus_cooler_t"
+      "venus_cooler_t",
+      "kit_house_reactor_t",
+      "kit_house_exchanger_ducts_t"
     ],
     "mass_rule": "ONE physical part counted ONCE; Gate A full dry includes it, Gate A2 removes it from docked dry and carries it as 50t payload",
     "note": "TPS here is designated Venus/Titan specialized detachable entry TPS as a v1 model assumption; independent Moon/Mars/Mercury heat protection is NOT qualified by its removal.",
@@ -1148,7 +1208,10 @@
       "provenance": "OPEN",
       "source": "Unqualified geometry or physics; user did not supply numeric value",
       "description": "Moving 5 removable items through hold openings, attachment points and deployment clearance not qualified."
-    }
+    },
+    "house_reactor_power_source": "power.kit_house_reactor_thermal_MW",
+    "house_reactor_mass_ledger": "mass.kit_house_reactor_t (DERIVED, includes converter at net specific power), mass.kit_house_exchanger_ducts_t (added) both in payload",
+    "house_reactor_thermal_partition": "Rotor phase: tipjet raw heat ≤ reactor thermal output - 4-crew cabin cooler electric/(direct conversion). Surface phase: rotor OFF, cooler supplied via reactor direct electrical conversion; never count both full outputs simultaneously."
   },
   "research": {
     "authority": "RESEARCH / NON-CANON / never automatically upgrades dry mass assumption to ONLINE",
@@ -1443,7 +1506,7 @@
         "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
         "description": "Burn-only conversion waste, not an idle rotor heat allocation kT accepted Wayfarer engineering declaration; tap hardware remains unqualified."
       },
-      "case_scope": "Heat-only rotor-disk momentum demand sweep at mass/FM/thermal-to-rotor corners; no safe tip-speed, duty, ascent acceleration, reactor electrical load, 735K mast heat loss, or transport physics certified. DO NOT FEED INTO ANY GATE.",
+      "case_scope": "Heat-only rotor-disk momentum demand sweep at mass/FM/thermal-to-rotor corners; no safe tip-speed, duty, ascent acceleration, reactor electrical load, 735K mast heat loss, or transport physics certified. DO NOT FEED INTO ANY GATE. Round 5 explicitly sources rotor heat from a SEPARATE Venus-kit 100–230MW D–He3 house reactor, NOT from this idle torch hypothesis; do not credit this sensitivity in gates.",
       "sources": {
         "pss_star_fire": "https://psatellite.com/technology/fusion/",
         "pppl_pfrc": "https://www.pppl.gov/Princeton-Field-Reversed-Configuration",
