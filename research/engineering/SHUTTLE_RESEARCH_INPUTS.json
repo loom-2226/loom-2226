@@ -1,0 +1,1435 @@
+{
+  "schema": "LOOM.SHUTTLE_RESEARCH_INPUTS",
+  "schema_version": "0.1",
+  "header": "ALL bodies. ALL sponsors. 2026-2226.",
+  "date": "2026-11-02",
+  "classification": "RESEARCH_NON_CANON_NON_RUNTIME_NON_QUALIFICATION_NOT_SIZING_AUTHORITY",
+  "authority_note": "GitHub main outranks chat. Original sizer LOST. Historical 23.1 t water output retained separately; v1 explicitly ASSUMES unchanged tank capacity. All ONLINE studies and PROJECTION/ASSUMPTION sensitivity intervals non-qualified. null means OPEN, not zero.",
+  "report_path": "research/engineering/SHUTTLE_TECH_OPPORTUNITIES.md",
+  "source_catalog": {
+    "canonII": "https://github.com/loom-2226/loom-2226/blob/main/canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md",
+    "atlas": "https://github.com/loom-2226/loom-2226/blob/main/canon/current/LOOM_2226_Earth_Solar_System_Canon_Atlas_v3.2.md",
+    "bay": "https://github.com/loom-2226/loom-2226/blob/main/canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md",
+    "historical": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
+    "power": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
+    "torch": "https://github.com/loom-2226/loom-2226/blob/main/engineering/experience_one/WAYFARER_E1_PRIMARY_PROPULSION_SPECIFICATION.md",
+    "plume": "https://github.com/loom-2226/loom-2226/blob/main/engineering/wayfarer_e1_torch_structural_plume_ops_t4.md",
+    "venus": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/venusfact.html",
+    "llisse": "https://science.nasa.gov/science-research/science-enabling-technology/technology-highlights/integrated-circuits-to-enable-exploration-of-the-harshest-environments-in-solar-system/",
+    "hottech": "https://science.nasa.gov/planetary-science/programs/pesto/hottech/",
+    "gear": "https://techport.nasa.gov/projects/8984",
+    "gan": "https://doi.org/10.1063/5.0186976",
+    "alvin": "https://www.whoi.edu/what-we-do/explore/underwater-vehicles/hov-alvin/faqs/",
+    "alive": "https://ntrs.nasa.gov/citations/20160011272",
+    "dfd": "https://techport.nasa.gov/projects/93994",
+    "mpd": "https://doi.org/10.1088/1674-1056/ad9910",
+    "dragonfly": "https://science.nasa.gov/solar-system/why-is-nasa-sending-dragonfly-to-titan-here-are-five-reasons/",
+    "pathfinder": "https://science.nasa.gov/planetary-science/programs/mars-exploration/mission-timeline/how-we-land-on-mars/",
+    "havoc": "https://www.nasa.gov/general/havoc/",
+    "jupiter": "https://www.jpl.nasa.gov/press-kits/europa-clipper/mission/spacecraft/",
+    "sagan": "https://ntrs.nasa.gov/citations/19770038871",
+    "watercloud": "https://www.nasa.gov/centers-and-facilities/goddard/how-a-nasa-scientist-looks-in-the-depths-of-the-great-red-spot-to-find-water-on-jupiter/",
+    "galileo": "https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/Galileo/galileo.html",
+    "noble": "https://www.jpl.nasa.gov/news/galileo-probe-results-suggest-jupiter-had-an-ancient-chilly-past/",
+    "diamond": "https://baas.aas.org/pub/2024n8i310p02/release/1",
+    "mine": "https://ntrs.nasa.gov/citations/20150006664",
+    "balloon": "https://ntrs.nasa.gov/citations/20240004989",
+    "vega": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6839549/",
+    "mi26": "https://rosguard.gov.ru/page/index/mi26-tyazhlyj-transportnyj-vertolt",
+    "dragonfly_spec": "https://science.nasa.gov/mission/dragonfly/spacecraft-and-instruments/",
+    "ingenuity": "https://science.nasa.gov/mission/mars-2020-perseverance/ingenuity-mars-helicopter/",
+    "rotor_nasa": "https://ntrs.nasa.gov/citations/19970005490",
+    "venus_cyclorotor": "https://ntrs.nasa.gov/citations/20160012563",
+    "venus_aerial_2026": "https://ntrs.nasa.gov/citations/20260000467",
+    "folding": "https://www.nasa.gov/reference/openvsp-propellers/",
+    "rotodyne": "https://legacy.vtol.org/vstol/VSTOLWheel/FaireyRotodyne.htm",
+    "rotodyne_nasa": "https://ntrs.nasa.gov/citations/19930008694",
+    "motor_nasa": "https://techport.nasa.gov/projects/92290",
+    "hot_actuator_nasa": "https://techport.nasa.gov/projects/116074",
+    "smco": "https://www.duramag.com/samarium-cobalt-magnets-smco/available-samarium-cobalt-magnet-grades/",
+    "wing_venus": "https://doi.org/10.1016/j.actaastro.2020.11.055",
+    "dragonfly_aiaa": "https://doi.org/10.2514/6.2026-2534",
+    "hotgan": "https://doi.org/10.1063/5.0186976",
+    "mpd2025": "https://doi.org/10.1088/1674-1056/ad9910"
+  },
+  "mission_constraints": {
+    "owner": "kT",
+    "classification": "ASSUMPTION_USER_DIRECTED_MISSION",
+    "destination_scope": "Nearly any Solar System environment via shuttle landing, drone, rover or custody capsule drop; gas-giant depth and radiation do not imply crewed access",
+    "min_crew": 2,
+    "crew_species_allowed": [
+      "human",
+      "recognized_synthetic"
+    ],
+    "optional_more_crew": true,
+    "venus_surface_landing_and_orbit_return_required": true,
+    "belly_landing": false,
+    "venus_and_titan_rolling_takeoff_candidate": true,
+    "wayfarer_habitat_loss_allowed": false,
+    "wayfarer_performance_loss_allowed": false,
+    "shuttle_drives_bay": true,
+    "shuttle_envelope_diameter_max_m": 4.3,
+    "shuttle_envelope_length_m": 12.8,
+    "docked_dry_limit_t": 34.2,
+    "engineering_reserve_t": 11.3,
+    "engineering_reserve_floor_t": 5,
+    "constraint_provenance": "kT brief, not canon amendment",
+    "venus_titan_primary_atmospheric_lift": "DEPLOYABLE_ROTORS",
+    "small_belly_thruster_body_access": [
+      "Moon",
+      "Mars",
+      "Mercury"
+    ],
+    "earth_departure_access": "SPACEPORT_INFRASTRUCTURE_NO_INDEPENDENT_EARTH_LIFTOFF",
+    "venus_titan_rolling_takeoff_candidate": false,
+    "previous_v1_option_3": "SUPERSEDED_AS_PRIMARY_VENUS_TITAN_LIFT",
+    "folding_wings": "FALLBACK_ONLY_IF_ROTOR_PATH_FAILS",
+    "rotor_to_torch_atmospheric_transition": "OPEN_ALTITUDE_AND_PHASE"
+  },
+  "lost_sizer": {
+    "disposition": "LOST_STOP_SEARCH_UNLESS_KT_SUPPLIES_ORIGINALS",
+    "files": [
+      "ship_sizer/shuttle_alternatives.json",
+      "ship_sizer/wayfarer_v4_1.py"
+    ],
+    "historical_selection_key": "TORCH150|BICONIC|VENUS|DROP_CITY|e1.0",
+    "unassigned_open_inputs": [
+      {
+        "id": "torch150_meaning",
+        "value": null,
+        "unit": null,
+        "status": "OPEN"
+      },
+      {
+        "id": "shuttle_torch_ve",
+        "value": null,
+        "unit": "km/s",
+        "status": "OPEN"
+      },
+      {
+        "id": "shuttle_torch_thrust",
+        "value": null,
+        "unit": "kN",
+        "status": "OPEN"
+      },
+      {
+        "id": "shuttle_cabin_mass",
+        "value": null,
+        "unit": "t",
+        "status": "OPEN"
+      },
+      {
+        "id": "shuttle_torch_length",
+        "value": null,
+        "unit": "m",
+        "status": "OPEN"
+      },
+      {
+        "id": "shuttle_structure_mass",
+        "value": null,
+        "unit": "t",
+        "status": "OPEN"
+      }
+    ],
+    "historical_outputs_only": {
+      "classification": "HISTORICAL_OUTPUT_NOT_SOURCE_INPUT",
+      "dry_t": 27.9,
+      "length_m": 12.8,
+      "diameter_m": 3.8,
+      "water_capacity_t": 23.1,
+      "torch_power_entry_GW": 7.7,
+      "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json"
+    },
+    "research_rule": "Do not search absent kT supply; new v1 scenario assumptions do NOT assign values to six lost-sizer inputs."
+  },
+  "v1_unqualified_hypotheses": {
+    "classification": "ASSUMPTION",
+    "source": "kT-provided Claude v1 research brief, not canon or qualified engineering",
+    "dry_mass_t": 35.4,
+    "over_limit_t": 1.2,
+    "pod_crew_places": 4,
+    "pod_od_m": 2.8,
+    "pod_material": "Ti (unqualified)",
+    "pod_outside_bar": 92,
+    "pod_inside_bar": 1,
+    "water_capacity_t": 23.1,
+    "belly_thrust_kN": 760,
+    "belly_water_ve_km_s": 9,
+    "torch_low_ve_km_s": 14.5,
+    "torch_high_ve_km_s": 40,
+    "venus_cold_water_stay_h": 18,
+    "pod_icepack_stay_h_range": [
+      3,
+      6
+    ],
+    "venus_spare_water_t": 1.6,
+    "venushot_kit_swappable": true,
+    "uncrewed_truck": true,
+    "pod_is_rover": true,
+    "ejectable_custody_capsule": true,
+    "unsupported_endurance_note": "Neither 18h nor 3-6h has a demonstrated heat leak, cooling model, or water-temperature window",
+    "water_capacity_status": "ASSUMPTION_V1_RETAINED_UNCHANGED_FROM_HISTORICAL_LOST_SIZER_OUTPUT",
+    "belly_ideal_jet_power_GW": 3.4,
+    "belly_ideal_power_meaning": "F*ve/2; 3.42 GW calculated at 760 kN and 9 km/s. NOT electric/generator input.",
+    "venus_touchdown_belly_water_t": 0.84,
+    "venus_spare_water_disposition": "ASSUMED_AFTER_ALL_V1_PLANNED_BURNS_INCLUDING_0P84T_TOUCHDOWN",
+    "torch_high_thrust_kN": 385,
+    "torch_high_mode_environment": "ABOVE_CLOUDS",
+    "torch_high_thrust_status": "V1_ASSUMPTION_APPROXIMATE_NOT_LOST_SIZER_RECOVERY",
+    "venus_titan_primary_lift": "ROTOR",
+    "venus_titan_wings": "FALLBACK",
+    "light_world_access": "SMALL_BELLY_THRUSTERS",
+    "earth_liftoff_requirement": false
+  },
+  "parameter_ranges": [
+    {
+      "id": "venus_surface_temperature",
+      "unit": "K",
+      "classification": "ONLINE",
+      "range": {
+        "min": 735,
+        "max": 737
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://nssdc.gsfc.nasa.gov/planetary/factsheet/venusfact.html",
+        "https://ntrs.nasa.gov/citations/20160011272"
+      ],
+      "relation_to_v1": "SUPPORTS_ENVIRONMENT_NOT_ENDURANCE",
+      "detail": "Atmospheric model and Venus observations; not a thermal interface test."
+    },
+    {
+      "id": "venus_surface_pressure",
+      "unit": "bar",
+      "classification": "ONLINE",
+      "range": {
+        "min": 89,
+        "max": 94
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://nssdc.gsfc.nasa.gov/planetary/factsheet/venusfact.html",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6839549/",
+        "https://doi.org/10.1063/5.0186976"
+      ],
+      "relation_to_v1": "SUPPORTS_92BAR_DESIGN_ENVIRONMENT",
+      "detail": "Measured/experiment-approximate pressures; account for location and pressure differential."
+    },
+    {
+      "id": "venus_surface_density",
+      "unit": "kg/m3",
+      "classification": "ONLINE",
+      "range": {
+        "min": 60,
+        "max": 70
+      },
+      "confidence": "MEDIUM",
+      "sources": [
+        "https://nssdc.gsfc.nasa.gov/planetary/factsheet/venusfact.html"
+      ],
+      "relation_to_v1": "INFORMS_LIFT",
+      "detail": "Approximate ~65 kg/m3; 60-70 is screening range rather than observed spatial distribution."
+    },
+    {
+      "id": "historical_venus_lander_surface_hours",
+      "unit": "h",
+      "classification": "ONLINE",
+      "range": {
+        "min": 0.95,
+        "max": 2.12
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6839549/"
+      ],
+      "relation_to_v1": "LEAVES_18H_OPEN",
+      "detail": "Venera/VeGa heritage 57-127 minutes; not active cooled reusable craft."
+    },
+    {
+      "id": "sic_hot_electronics_test_hours",
+      "unit": "h",
+      "classification": "ONLINE",
+      "range": {
+        "min": 521,
+        "max": 1440
+      },
+      "confidence": "MEDIUM",
+      "sources": [
+        "https://science.nasa.gov/science-research/science-enabling-technology/technology-highlights/integrated-circuits-to-enable-exploration-of-the-harshest-environments-in-solar-system/"
+      ],
+      "relation_to_v1": "SUPPORTS_SOME_HOT_OUTBOARD_CONTROLS",
+      "detail": "Different GEER-era demonstrations, not full computer or vehicle integration."
+    },
+    {
+      "id": "gan_venus_simulated_test_days",
+      "unit": "days",
+      "classification": "ONLINE",
+      "range": {
+        "min": 11,
+        "max": 11
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://doi.org/10.1063/5.0186976"
+      ],
+      "relation_to_v1": "SUPPORTS_HOT_DEVICE_RESEARCH_ONLY",
+      "detail": "Research test on particular transistor technology."
+    },
+    {
+      "id": "hot_gear_test_temperature",
+      "unit": "degC",
+      "classification": "ONLINE",
+      "range": {
+        "min": 486,
+        "max": 486
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://techport.nasa.gov/projects/8984"
+      ],
+      "relation_to_v1": "SUPPORTS_ACTUATOR_FAMILY_NOT_WHEEL_OR_SEAL_LIFETIME",
+      "detail": "Gearhead materials and lubrication trials."
+    },
+    {
+      "id": "alvin_sphere_id",
+      "unit": "m",
+      "classification": "ONLINE",
+      "range": {
+        "min": 2.1,
+        "max": 2.1
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://www.whoi.edu/what-we-do/explore/underwater-vehicles/hov-alvin/faqs/"
+      ],
+      "relation_to_v1": "SUPPORTS_SPHERICAL_PRESSURE_GEOMETRY",
+      "detail": "Different external pressure and water environment."
+    },
+    {
+      "id": "alvin_sphere_thickness",
+      "unit": "m",
+      "classification": "ONLINE",
+      "range": {
+        "min": 0.074,
+        "max": 0.074
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://www.whoi.edu/what-we-do/explore/underwater-vehicles/hov-alvin/faqs/"
+      ],
+      "relation_to_v1": "INFORMS_SHELL_COMPARISON_ONLY",
+      "detail": "Must not scale directly without buckling and fatigue."
+    },
+    {
+      "id": "alvin_occupiable_volume",
+      "unit": "m3",
+      "classification": "ONLINE",
+      "range": {
+        "min": 4.8,
+        "max": 4.8
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://www.whoi.edu/what-we-do/explore/underwater-vehicles/hov-alvin/faqs/"
+      ],
+      "relation_to_v1": "SUPPORTS_CREW_VOLUME_COMPARISON",
+      "detail": "3 person human sphere; does not establish 4-person egress."
+    },
+    {
+      "id": "candidate_2p8m_ti_shell_thickness",
+      "unit": "m",
+      "classification": "PROJECTION",
+      "range": {
+        "min": 0.03,
+        "max": 0.07
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://www.whoi.edu/what-we-do/explore/underwater-vehicles/hov-alvin/faqs/"
+      ],
+      "relation_to_v1": "LEAVES_CABIN_MASS_OPEN",
+      "detail": "Non-certified screening interval, NOT solved against pressure buckling, openings, creep or safety factors."
+    },
+    {
+      "id": "candidate_2p8m_ti_geometric_shell_mass",
+      "unit": "t",
+      "classification": "PROJECTION",
+      "range": {
+        "min": 3.2,
+        "max": 7.6
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://www.whoi.edu/what-we-do/explore/underwater-vehicles/hov-alvin/faqs/"
+      ],
+      "relation_to_v1": "LEAVES_CABIN_MASS_OPEN",
+      "detail": "Geometric shell only with Ti rho 4430 kg/m3; no penetrations, insulation, floor, hatches or rover loads."
+    },
+    {
+      "id": "internal_insulation_effective_k",
+      "unit": "W/m/K",
+      "classification": "ASSUMPTION",
+      "range": {
+        "min": 0.02,
+        "max": 0.1
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://ntrs.nasa.gov/citations/20160011272"
+      ],
+      "relation_to_v1": "LEAVES_STAY_TIME_OPEN",
+      "detail": "Sensitivity only. NASA supports aerogel inside 1bar enclosure but does not supply a certified Venus k(T,p) for this geometry."
+    },
+    {
+      "id": "internal_insulation_thickness",
+      "unit": "m",
+      "classification": "ASSUMPTION",
+      "range": {
+        "min": 0.05,
+        "max": 0.15
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://ntrs.nasa.gov/citations/20160011272"
+      ],
+      "relation_to_v1": "LEAVES_STAY_TIME_OPEN",
+      "detail": "Sensitivity only, before thickness packaging and thermal bridges."
+    },
+    {
+      "id": "sphere_ideal_insulation_heat_leak",
+      "unit": "kW",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 1.4,
+        "max": 20.9
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://ntrs.nasa.gov/citations/20160011272"
+      ],
+      "relation_to_v1": "CHALLENGES_COLD_WATER_STAY",
+      "detail": "Q=k*A*dT/t using 2.8m OD ~24.6m2, 435K; excludes penetrations and convective hot-side resistance."
+    },
+    {
+      "id": "venus_cooler_fraction_of_carnot",
+      "unit": "fraction",
+      "classification": "ASSUMPTION",
+      "range": {
+        "min": 0.1,
+        "max": 0.35
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://ntrs.nasa.gov/citations/20160011272"
+      ],
+      "relation_to_v1": "INFORMS_COOLING_POWER",
+      "detail": "Upper end was a NASA ALIVE assumed concept efficiency; lower end sensitivity only."
+    },
+    {
+      "id": "venus_cooling_real_COP",
+      "unit": "unitless",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 0.07,
+        "max": 0.24
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://ntrs.nasa.gov/citations/20160011272"
+      ],
+      "relation_to_v1": "CHALLENGES_COLD_WATER_STAY",
+      "detail": "300K cold, 735K hot; Carnot COP 0.6897."
+    },
+    {
+      "id": "venus_cooler_input_power_per_1kw_lifted",
+      "unit": "kWe/kWth",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 4.1,
+        "max": 14.5
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://ntrs.nasa.gov/citations/20160011272"
+      ],
+      "relation_to_v1": "CHALLENGES_18H_WATER_CLAIM",
+      "detail": "Engineering actual needs measured heat load, efficiency and heat rejection."
+    },
+    {
+      "id": "dfd_study_isp",
+      "unit": "s",
+      "classification": "ONLINE",
+      "range": {
+        "min": 10000,
+        "max": 10000
+      },
+      "confidence": "MEDIUM",
+      "sources": [
+        "https://techport.nasa.gov/projects/93994"
+      ],
+      "relation_to_v1": "DOES_NOT_CONFIRM_SHUTTLE_VE",
+      "detail": "NIAC concept/model, not flight-qualified source."
+    },
+    {
+      "id": "dfd_study_thrust_per_MW",
+      "unit": "N/MW",
+      "classification": "ONLINE",
+      "range": {
+        "min": 2.5,
+        "max": 5
+      },
+      "confidence": "MEDIUM",
+      "sources": [
+        "https://techport.nasa.gov/projects/93994"
+      ],
+      "relation_to_v1": "CONTRADICTS_DIRECT_SCALING_TO_760KN",
+      "detail": "MW research family only; no GW module mass/thermal proof."
+    },
+    {
+      "id": "shuttle_augmented_low_ve_sensitivity",
+      "unit": "km/s",
+      "classification": "PROJECTION",
+      "range": {
+        "min": 10,
+        "max": 25
+      },
+      "confidence": "VERY_LOW",
+      "sources": [
+        "https://techport.nasa.gov/projects/93994",
+        "https://github.com/loom-2226/loom-2226/blob/main/engineering/experience_one/WAYFARER_E1_PRIMARY_PROPULSION_SPECIFICATION.md"
+      ],
+      "relation_to_v1": "V1_14P5_INSIDE_UNEARNED_RANGE",
+      "detail": "Not measured, not a replacement for missing sizer input."
+    },
+    {
+      "id": "shuttle_augmented_high_ve_sensitivity",
+      "unit": "km/s",
+      "classification": "PROJECTION",
+      "range": {
+        "min": 25,
+        "max": 100
+      },
+      "confidence": "VERY_LOW",
+      "sources": [
+        "https://techport.nasa.gov/projects/93994",
+        "https://github.com/loom-2226/loom-2226/blob/main/engineering/experience_one/WAYFARER_E1_PRIMARY_PROPULSION_SPECIFICATION.md"
+      ],
+      "relation_to_v1": "V1_40_INSIDE_UNEARNED_RANGE",
+      "detail": "Not measured, simultaneous high thrust would raise kinetic power."
+    },
+    {
+      "id": "mpd_lab_test_power",
+      "unit": "kW",
+      "classification": "ONLINE",
+      "range": {
+        "min": 100,
+        "max": 100
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://doi.org/10.1088/1674-1056/ad9910"
+      ],
+      "relation_to_v1": "DOES_NOT_ESTABLISH_GW_REUSE",
+      "detail": "2025 AF-MPD published test."
+    },
+    {
+      "id": "mpd_lab_max_reported_efficiency",
+      "unit": "fraction",
+      "classification": "ONLINE",
+      "range": {
+        "min": 0.71,
+        "max": 0.71
+      },
+      "confidence": "MEDIUM",
+      "sources": [
+        "https://doi.org/10.1088/1674-1056/ad9910"
+      ],
+      "relation_to_v1": "INFORMS_ELECTRIC_JET_EFFICIENCY_NOT_TRANSFERABLE",
+      "detail": "Operating-point laboratory result, not water GW system."
+    },
+    {
+      "id": "water_thruster_electric_to_jet_eff_sensitivity",
+      "unit": "fraction",
+      "classification": "ASSUMPTION",
+      "range": {
+        "min": 0.3,
+        "max": 0.7
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://doi.org/10.1088/1674-1056/ad9910"
+      ],
+      "relation_to_v1": "CONTRADICTS_3P4GW_INPUT",
+      "detail": "Separate from measured MPD efficiency and gas-dependent losses."
+    },
+    {
+      "id": "v1_belly_thruster_ideal_jet_power",
+      "unit": "GW",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 3.42,
+        "max": 3.42
+      },
+      "confidence": "HIGH",
+      "sources": [],
+      "relation_to_v1": "CONTRADICTS_3P4GW_INPUT_AT_ANY_LOSS",
+      "detail": "F*ve/2: 760kN x 9km/s /2."
+    },
+    {
+      "id": "v1_belly_thruster_water_flow",
+      "unit": "kg/s",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 84.44,
+        "max": 84.44
+      },
+      "confidence": "HIGH",
+      "sources": [],
+      "relation_to_v1": "LEAVES_SPARE_WATER_CLAIM_OPEN",
+      "detail": "F/ve."
+    },
+    {
+      "id": "v1_belly_thruster_electric_input_sensitivity",
+      "unit": "GW",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 4.89,
+        "max": 11.4
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://doi.org/10.1088/1674-1056/ad9910"
+      ],
+      "relation_to_v1": "VALIDATES_3P4_GW_AS_IDEAL_JET_NOT_ELECTRIC_INPUT",
+      "detail": "3.42 GW ideal jet divided by assumed 0.3-0.7 electrical-to-jet efficiency yields 4.89-11.4 GW electric input. Historical 7.7 GW is unqualified output, not proved available power."
+    },
+    {
+      "id": "v1_spare_water_unplanned_extra_belly_burn_equivalent",
+      "unit": "s",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 18.95,
+        "max": 18.95
+      },
+      "confidence": "HIGH",
+      "sources": [],
+      "relation_to_v1": "CONTINGENCY_COMPARISON_ONLY_NOT_AN_UNDEBITED_PLANNED_BURN",
+      "detail": "1.6t assumed left AFTER all v1 planned burns including already debited 0.84t Venus touchdown. At 760kN/9km/s an extra unplanned contingency burn would use 1.6t in ~18.95s. NOT a statement that nominal water only lasted 19s."
+    },
+    {
+      "id": "venus_roll_liftoff_speed",
+      "unit": "m/s",
+      "classification": "ASSUMPTION",
+      "range": {
+        "min": 25,
+        "max": 40
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://nssdc.gsfc.nasa.gov/planetary/factsheet/venusfact.html"
+      ],
+      "relation_to_v1": "LEAVES_ROLLING_TAKEOFF_OPEN",
+      "detail": "Requires runway, lift slope and drag calculation."
+    },
+    {
+      "id": "venus_effective_lift_coefficient",
+      "unit": "unitless",
+      "classification": "ASSUMPTION",
+      "range": {
+        "min": 0.5,
+        "max": 1.5
+      },
+      "confidence": "LOW",
+      "sources": [],
+      "relation_to_v1": "LEAVES_BICONIC_LIFT_OPEN",
+      "detail": "Not measured on proposed geometry."
+    },
+    {
+      "id": "venus_lifting_area_per_tonne_of_actual_wet_mass",
+      "unit": "m2/t_wet",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 0.114,
+        "max": 0.607
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://nssdc.gsfc.nasa.gov/planetary/factsheet/venusfact.html"
+      ],
+      "relation_to_v1": "LEAVES_WET_MASS_AND_ROLLING_CONCEPT_OPEN",
+      "detail": "S/mwet = g/(0.5 rho V² CL); Venus g8.87, rho65, V30-40, CL0.5-1.5. Value is 0.114-0.607m²/t; at 60t yields 6.8-36.4m². Wing fallback only."
+    },
+    {
+      "id": "titan_air_density_vs_earth_sea_level",
+      "unit": "ratio",
+      "classification": "ONLINE",
+      "range": {
+        "min": 4,
+        "max": 4
+      },
+      "confidence": "MEDIUM",
+      "sources": [
+        "https://science.nasa.gov/solar-system/why-is-nasa-sending-dragonfly-to-titan-here-are-five-reasons/"
+      ],
+      "relation_to_v1": "SUPPORTS_AERODYNAMIC_TITAN_ACCESS_NOT_GEAR",
+      "detail": "NASA approximate environmental comparison."
+    },
+    {
+      "id": "titan_surface_gravity_g_earth",
+      "unit": "fraction",
+      "classification": "ONLINE",
+      "range": {
+        "min": 0.14,
+        "max": 0.14
+      },
+      "confidence": "MEDIUM",
+      "sources": [
+        "https://science.nasa.gov/solar-system/why-is-nasa-sending-dragonfly-to-titan-here-are-five-reasons/"
+      ],
+      "relation_to_v1": "SUPPORTS_AERODYNAMIC_TITAN_ACCESS_NOT_GEAR",
+      "detail": "~1/7 Earth, approximate."
+    },
+    {
+      "id": "landing_residual_vertical_speed",
+      "unit": "m/s",
+      "classification": "ASSUMPTION",
+      "range": {
+        "min": 3,
+        "max": 6
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://science.nasa.gov/planetary-science/programs/mars-exploration/mission-timeline/how-we-land-on-mars/"
+      ],
+      "relation_to_v1": "LEAVES_REUSABLE_GEAR_OPEN",
+      "detail": "Not landing certification for Venus."
+    },
+    {
+      "id": "landing_stroke",
+      "unit": "m",
+      "classification": "ASSUMPTION",
+      "range": {
+        "min": 0.3,
+        "max": 1
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://science.nasa.gov/planetary-science/programs/mars-exploration/mission-timeline/how-we-land-on-mars/"
+      ],
+      "relation_to_v1": "LEAVES_REUSABLE_GEAR_OPEN",
+      "detail": "Not sized."
+    },
+    {
+      "id": "venus_balloon_53km_density",
+      "unit": "kg/m3",
+      "classification": "ONLINE",
+      "range": {
+        "min": 1.2,
+        "max": 1.2
+      },
+      "confidence": "MEDIUM",
+      "sources": [
+        "https://ntrs.nasa.gov/citations/20240004989"
+      ],
+      "relation_to_v1": "SUPPORTS_CLOUD_LAYER_STUDY_ONLY",
+      "detail": "Near 53 km reference atmosphere."
+    },
+    {
+      "id": "venus_balloon_lift_margin_per_volume",
+      "unit": "kg/m3",
+      "classification": "PROJECTION",
+      "range": {
+        "min": 1,
+        "max": 1.2
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://ntrs.nasa.gov/citations/20240004989"
+      ],
+      "relation_to_v1": "LEAVES_LIFEBOAT_OPEN",
+      "detail": "Optimistic He/H2 at cloud altitude before packaging/acid exposure."
+    },
+    {
+      "id": "venus_6t_balloon_min_volume",
+      "unit": "m3",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 5000,
+        "max": 6000
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://ntrs.nasa.gov/citations/20240004989"
+      ],
+      "relation_to_v1": "CHALLENGES_POD_ORBIT_BACKUP",
+      "detail": "Mass 6t is a screening assumption, actual pod mass OPEN; no material mass."
+    },
+    {
+      "id": "galileo_probe_sensed_pressure",
+      "unit": "bar",
+      "classification": "ONLINE",
+      "range": {
+        "min": 0.5,
+        "max": 24
+      },
+      "confidence": "MEDIUM",
+      "sources": [
+        "https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/Galileo/galileo.html"
+      ],
+      "relation_to_v1": "SUPPORTS_GAS_GIANT_CAPSULE_PROBING",
+      "detail": "Varied instruments reached distinct depths."
+    },
+    {
+      "id": "jupiter_water_cloud_indicative",
+      "unit": "bar",
+      "classification": "ONLINE",
+      "range": {
+        "min": 5,
+        "max": 5
+      },
+      "confidence": "MEDIUM",
+      "sources": [
+        "https://www.nasa.gov/centers-and-facilities/goddard/how-a-nasa-scientist-looks-in-the-depths-of-the-great-red-spot-to-find-water-on-jupiter/"
+      ],
+      "relation_to_v1": "SUPPORTS_WATER_LAYER_RESEARCH_NOT_ECONOMICS",
+      "detail": "Model/observational indicative depth, not universal."
+    },
+    {
+      "id": "crew_io_europa_dose",
+      "unit": "Sv/h",
+      "classification": "OPEN",
+      "range": {
+        "min": null,
+        "max": null
+      },
+      "confidence": "OPEN",
+      "sources": [
+        "https://www.jpl.nasa.gov/press-kits/europa-clipper/mission/spacecraft/"
+      ],
+      "relation_to_v1": "LEAVES_CREWED_ACCESS_OPEN",
+      "detail": "Do not convert spacecraft rad per flyby to human dose."
+    },
+    {
+      "id": "gas_giant_3He_profit",
+      "unit": "arbitrary economic value",
+      "classification": "OPEN",
+      "range": {
+        "min": null,
+        "max": null
+      },
+      "confidence": "OPEN",
+      "sources": [
+        "https://github.com/loom-2226/loom-2226/blob/main/canon/current/LOOM_2226_Earth_Solar_System_Canon_Atlas_v3.2.md",
+        "https://ntrs.nasa.gov/citations/20150006664"
+      ],
+      "relation_to_v1": "KEEPS_ECONOMICS_CANON_OPEN",
+      "detail": "No assumed mining unit cost, output, market price, viability."
+    },
+    {
+      "id": "gas_giant_diamond_collectable_flux",
+      "unit": "t/year",
+      "classification": "OPEN",
+      "range": {
+        "min": null,
+        "max": null
+      },
+      "confidence": "OPEN",
+      "sources": [
+        "https://baas.aas.org/pub/2024n8i310p02/release/1"
+      ],
+      "relation_to_v1": "LEAVES_MINING_VALUE_OPEN",
+      "detail": "Hypothesis not actual mineral resource production."
+    },
+    {
+      "id": "venus_60t_4rotor_disk_total_area",
+      "unit": "m2",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 113.1,
+        "max": 113.1
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://ntrs.nasa.gov/citations/19970005490"
+      ],
+      "relation_to_v1": "INFORMS_PRIMARY_VENUS_ROTOR",
+      "detail": "Four non-overlapping diameter-6m disks (4*pi*3²), not necessarily geometrically packable."
+    },
+    {
+      "id": "rotor_disk_diameter_each",
+      "unit": "m",
+      "classification": "ASSUMPTION",
+      "range": {
+        "min": 6,
+        "max": 6
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://ntrs.nasa.gov/citations/20260000467"
+      ],
+      "relation_to_v1": "SCALES_V1_ROTOR_SCREEN",
+      "detail": "Claude 4x6m rotor screen; NOT measured Venus shuttle rotor."
+    },
+    {
+      "id": "rotor_count",
+      "unit": "count",
+      "classification": "ASSUMPTION",
+      "range": {
+        "min": 4,
+        "max": 4
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://ntrs.nasa.gov/citations/20260000467"
+      ],
+      "relation_to_v1": "SCALES_V1_ROTOR_SCREEN",
+      "detail": "Claude screen only."
+    },
+    {
+      "id": "rotor_screen_vehicle_wet_mass",
+      "unit": "t",
+      "classification": "ASSUMPTION",
+      "range": {
+        "min": 60,
+        "max": 60
+      },
+      "confidence": "LOW",
+      "sources": [],
+      "relation_to_v1": "SCALES_V1_ROTOR_SCREEN",
+      "detail": "~60 t separate rotor screening point, not exact v1 58.5 t assumed full tank."
+    },
+    {
+      "id": "rotor_hover_figure_of_merit",
+      "unit": "fraction",
+      "classification": "ASSUMPTION",
+      "range": {
+        "min": 0.6,
+        "max": 0.8
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://ntrs.nasa.gov/citations/19970005490"
+      ],
+      "relation_to_v1": "CONTROLS_HOVER_POWER",
+      "detail": "Illustrative real-rotor FM sensitivity not measured in hot CO2/Titan."
+    },
+    {
+      "id": "venus_60t_rotor_ideal_hover_power",
+      "unit": "MW",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 3.202,
+        "max": 3.202
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://ntrs.nasa.gov/citations/19970005490"
+      ],
+      "relation_to_v1": "SUPPORTS_MW_ROTORS",
+      "detail": "P_i=W sqrt(W/(2 rho A)), rho65 g8.87 A113.097."
+    },
+    {
+      "id": "venus_60t_rotor_hover_aero_shaft_power",
+      "unit": "MW",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 4,
+        "max": 5.34
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://ntrs.nasa.gov/citations/19970005490"
+      ],
+      "relation_to_v1": "CONSISTENT_WITH_CLAUDE_4P6MW",
+      "detail": "Pideal / FM 0.6-0.8; no electric or thermal drive efficiencies included."
+    },
+    {
+      "id": "titan_60t_rotor_ideal_hover_power",
+      "unit": "MW",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 0.667,
+        "max": 0.667
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://science.nasa.gov/mission/dragonfly/spacecraft-and-instruments/",
+        "https://doi.org/10.2514/6.2026-2534"
+      ],
+      "relation_to_v1": "CONTRADICTS_CLAUDE_0P5MW_SCREEN",
+      "detail": "rho~5.3 kg/m³ g1.352 4x6m; claimed 0.5MW < ideal 0.667MW."
+    },
+    {
+      "id": "titan_60t_rotor_hover_aero_shaft_power",
+      "unit": "MW",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 0.834,
+        "max": 1.112
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://science.nasa.gov/mission/dragonfly/spacecraft-and-instruments/",
+        "https://doi.org/10.2514/6.2026-2534"
+      ],
+      "relation_to_v1": "REPLACES_CLAUDE_TITAN_0P5MW",
+      "detail": "Actual FM 0.6-0.8 assumed; includes no bus/motor inefficiency."
+    },
+    {
+      "id": "earth_60t_rotor_ideal_hover_power",
+      "unit": "MW",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 27.13,
+        "max": 27.13
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://ntrs.nasa.gov/citations/19970005490"
+      ],
+      "relation_to_v1": "CONSISTENT_SCREEN_ONLY_NOT_LIFTOFF_REQUIREMENT",
+      "detail": "1.225kg/m3, g9.81; actual blade stall/thrust coefficient may invalidate rotor."
+    },
+    {
+      "id": "earth_60t_rotor_hover_aero_shaft_power",
+      "unit": "MW",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 33.91,
+        "max": 45.21
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://ntrs.nasa.gov/citations/19970005490"
+      ],
+      "relation_to_v1": "CONSISTENT_WITH_CLAUDE_39MW",
+      "detail": "FM 0.6-0.8 theoretical sensitivity; Earth independent ascent waived."
+    },
+    {
+      "id": "mi26_main_rotor_diameter",
+      "unit": "m",
+      "classification": "ONLINE",
+      "range": {
+        "min": 32,
+        "max": 32
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://rosguard.gov.ru/page/index/mi26-tyazhlyj-transportnyj-vertolt"
+      ],
+      "relation_to_v1": "ANALOGY_ONLY",
+      "detail": "Mi-26 main rotor diameter, not transferable blade strength."
+    },
+    {
+      "id": "mi26_max_tow",
+      "unit": "t",
+      "classification": "ONLINE",
+      "range": {
+        "min": 56,
+        "max": 56
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://rosguard.gov.ru/page/index/mi26-tyazhlyj-transportnyj-vertolt"
+      ],
+      "relation_to_v1": "ANALOGY_ONLY",
+      "detail": "Total max takeoff weight; NOT rotor component mass."
+    },
+    {
+      "id": "dragonfly_titan_design_mass",
+      "unit": "kg",
+      "classification": "ONLINE",
+      "range": {
+        "min": 875,
+        "max": 875
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://science.nasa.gov/mission/dragonfly/spacecraft-and-instruments/"
+      ],
+      "relation_to_v1": "ANALOGY_ONLY",
+      "detail": "NASA ~875kg Titan rotorcraft lander; not heavy transport."
+    },
+    {
+      "id": "dragonfly_rotor_diameter_each",
+      "unit": "m",
+      "classification": "ONLINE",
+      "range": {
+        "min": 1.35,
+        "max": 1.35
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://science.nasa.gov/mission/dragonfly/spacecraft-and-instruments/"
+      ],
+      "relation_to_v1": "ANALOGY_ONLY",
+      "detail": "NASA eight sets of 1.35m coaxial blades."
+    },
+    {
+      "id": "ingenuity_mars_rotor_diameter",
+      "unit": "m",
+      "classification": "ONLINE",
+      "range": {
+        "min": 1.2,
+        "max": 1.2
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://science.nasa.gov/mission/mars-2020-perseverance/ingenuity-mars-helicopter/"
+      ],
+      "relation_to_v1": "ANALOGY_ONLY",
+      "detail": "Mars 1.8kg coaxial rotorcraft."
+    },
+    {
+      "id": "folding_4rotor_blade_boom_mass_screen",
+      "unit": "t",
+      "classification": "ASSUMPTION",
+      "range": {
+        "min": 1,
+        "max": 10
+      },
+      "confidence": "VERY_LOW",
+      "sources": [
+        "https://www.nasa.gov/reference/openvsp-propellers/",
+        "https://rosguard.gov.ru/page/index/mi26-tyazhlyj-transportnyj-vertolt"
+      ],
+      "relation_to_v1": "OPEN_WITHIN_V1_DRY_MASS",
+      "detail": "Intentionally broad and unearned sensitivity, blades+root+hub+folding+booms; no evidence-backed installed mass. v1 inclusion/exclusion OPEN; do not add blindly."
+    },
+    {
+      "id": "venus_tipjet_thermal_to_rotor_effectiveness",
+      "unit": "fraction",
+      "classification": "ASSUMPTION",
+      "range": {
+        "min": 0.1,
+        "max": 0.35
+      },
+      "confidence": "VERY_LOW",
+      "sources": [
+        "https://legacy.vtol.org/vstol/VSTOLWheel/FaireyRotodyne.htm"
+      ],
+      "relation_to_v1": "FEASIBILITY_TRADE_NOT_SOURCE_QUALIFICATION",
+      "detail": "Thermal plant input-to-useful-rotor power sensitivity; NOT measured Rotodyne value."
+    },
+    {
+      "id": "venus_tipjet_source_heat_screen",
+      "unit": "MWth",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 11.4,
+        "max": 53.4
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://legacy.vtol.org/vstol/VSTOLWheel/FaireyRotodyne.htm",
+        "https://ntrs.nasa.gov/citations/19970005490"
+      ],
+      "relation_to_v1": "TESTS_WATERLESS_AMBIENT_CO2_LIFT",
+      "detail": "Rotor aerodynamic power 4.00-5.34MW divided by assumed 0.10-0.35 thermal effectiveness; compressor and extra auxiliaries may raise it."
+    },
+    {
+      "id": "venus_tipjet_tank_water_consumption_for_lift",
+      "unit": "t/h",
+      "classification": "PROJECTION",
+      "range": {
+        "min": 0,
+        "max": 0
+      },
+      "confidence": "VERY_LOW",
+      "sources": [
+        "https://legacy.vtol.org/vstol/VSTOLWheel/FaireyRotodyne.htm"
+      ],
+      "relation_to_v1": "CONDITIONAL_ZERO_ONLY_IF_EXTERNAL_CO2_SUFFICES",
+      "detail": "Potentially no *tank* water for rotor phase: must ingest ambient CO2 and supply thermal power; does not imply zero reactor or stage consumables; not demonstrated."
+    },
+    {
+      "id": "venus_tipjet_compressor_work",
+      "unit": "MW",
+      "classification": "OPEN",
+      "range": {
+        "min": null,
+        "max": null
+      },
+      "confidence": "OPEN",
+      "sources": [
+        "https://legacy.vtol.org/vstol/VSTOLWheel/FaireyRotodyne.htm"
+      ],
+      "relation_to_v1": "MAJOR_OPEN_INTERFACE",
+      "detail": "Thermal compressor/turbocompressor and tip nozzle pressure/flow unsized."
+    },
+    {
+      "id": "venus_hot_motor_small_prototype_temperature",
+      "unit": "degC",
+      "classification": "ONLINE",
+      "range": {
+        "min": 460,
+        "max": 460
+      },
+      "confidence": "MEDIUM",
+      "sources": [
+        "https://techport.nasa.gov/projects/92290"
+      ],
+      "relation_to_v1": "DOES_NOT_QUALIFY_MW_ROTOR",
+      "detail": "Small Venus motor actuator project, not megawatt rotor continuous duty."
+    },
+    {
+      "id": "smco_motor_magnet_qualified_operating_temperature",
+      "unit": "degC",
+      "classification": "ONLINE",
+      "range": {
+        "min": 300,
+        "max": 350
+      },
+      "confidence": "MEDIUM",
+      "sources": [
+        "https://www.duramag.com/samarium-cobalt-magnets-smco/available-samarium-cobalt-magnet-grades/"
+      ],
+      "relation_to_v1": "CHALLENGES_UNCOOLED_PM_MOTORS_AT_VENUS",
+      "detail": "Grade max operating ratings; Curie temp alone does not qualify motor operation."
+    },
+    {
+      "id": "venus_electric_to_rotor_eff_sensitivity",
+      "unit": "fraction",
+      "classification": "ASSUMPTION",
+      "range": {
+        "min": 0.85,
+        "max": 0.96
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://techport.nasa.gov/projects/92290"
+      ],
+      "relation_to_v1": "ELECTRIC_MOTOR_ALTERNATIVE_ONLY",
+      "detail": "Not demonstrated for MW motors and high-temp seals."
+    },
+    {
+      "id": "venus_rotor_electric_input_screen",
+      "unit": "MWe",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 4.17,
+        "max": 6.28
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://techport.nasa.gov/projects/92290",
+        "https://ntrs.nasa.gov/citations/19970005490"
+      ],
+      "relation_to_v1": "ALTERNATIVE_TO_TIPJETS",
+      "detail": "4.00-5.34MW aeromech rotor at assumed 0.85-0.96 electric-to-rotor efficiency."
+    },
+    {
+      "id": "venus_rotor_motor_conversion_heat_screen",
+      "unit": "MWth",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 0.17,
+        "max": 0.94
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://techport.nasa.gov/projects/92290"
+      ],
+      "relation_to_v1": "CHALLENGES_MOTOR_THERMAL_ENVELOPE",
+      "detail": "Mechanical drive/inverter heat; destination hot vs cooled location OPEN."
+    },
+    {
+      "id": "venus_wing_fallback_area_for_60t",
+      "unit": "m2",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 6.8,
+        "max": 36.4
+      },
+      "confidence": "HIGH",
+      "sources": [
+        "https://doi.org/10.1016/j.actaastro.2020.11.055",
+        "https://nssdc.gsfc.nasa.gov/planetary/factsheet/venusfact.html"
+      ],
+      "relation_to_v1": "CLAUDE_7TO12_ONLY_PARTIAL_SUBSET",
+      "detail": "S=W/(0.5rhoV²CL), 60t, rho65, Venus g8.87, 30-40m/s and CL0.5-1.5 assumed."
+    },
+    {
+      "id": "venus_wing_takeoff_net_acceleration",
+      "unit": "m/s2",
+      "classification": "ASSUMPTION",
+      "range": {
+        "min": 2,
+        "max": 6
+      },
+      "confidence": "VERY_LOW",
+      "sources": [
+        "https://doi.org/10.1016/j.actaastro.2020.11.055"
+      ],
+      "relation_to_v1": "FALLBACK_ONLY_NOT_RUNWAY_QUALIFICATION",
+      "detail": "Net acceleration after drag/rolling assumed, not solved from thrust."
+    },
+    {
+      "id": "venus_wing_runway_acceleration_length",
+      "unit": "m",
+      "classification": "DERIVED_CONDITIONAL",
+      "range": {
+        "min": 75,
+        "max": 400
+      },
+      "confidence": "LOW",
+      "sources": [
+        "https://doi.org/10.1016/j.actaastro.2020.11.055"
+      ],
+      "relation_to_v1": "FALLBACK_ONLY",
+      "detail": "v²/2a: 30-40m/s, net a 2-6; excludes abort, rotation, braking and terrain."
+    },
+    {
+      "id": "venus_wing_folded_mass",
+      "unit": "t",
+      "classification": "OPEN",
+      "range": {
+        "min": null,
+        "max": null
+      },
+      "confidence": "OPEN",
+      "sources": [
+        "https://doi.org/10.1016/j.actaastro.2020.11.055",
+        "https://www.nasa.gov/reference/openvsp-propellers/"
+      ],
+      "relation_to_v1": "NO_CREDITED_MASS_OR_WATER",
+      "detail": "Full structural/actuator/folding hot wing hardware unqualified."
+    }
+  ],
+  "conditional_checks": {
+    "classification": "DERIVED_CONDITIONAL_NOT_FLIGHT_QUALIFICATION",
+    "formulae": [
+      "Pjet_W = thrust_N * exhaust_velocity_m_per_s / 2",
+      "mdot_kg_per_s = thrust_N / exhaust_velocity_m_per_s",
+      "delta_v_m_per_s = exhaust_velocity_m_per_s * ln(initial_mass_kg/final_mass_kg)",
+      "heat_leak_W = effective_k * sphere_area_m2 * deltaT_K / thickness_m",
+      "cooler_COP_carnot = cold_K / (hot_K - cold_K)",
+      "lift_N = 0.5 * rho_kg_per_m3 * speed_m_per_s^2 * Cl * area_m2"
+    ],
+    "state_assumption": "v1 explicitly assumes unchanged 23.1 t tank from lost sizer, independently from 35.4 t v1 dry; neither is qualified. Rocket-equation one-mode numbers are sensitivities, not the rotor+torch flight mission.",
+    "water_reserve_and_descent_debit": "0.84 t Venus belly touchdown water already charged in v1; 1.6 t is remaining AFTER every planned Venus burn. No additional debit without a contingency.",
+    "disclaimer": "No ascent drag, gravity, atmospheric lift, engine schedule, duty cycle or terminal orbit closure computed.",
+    "v1_total_water_capacity_t": 23.1,
+    "v1_initial_wet_mass_t": 58.5,
+    "v1_ideal_delta_v_km_s": null,
+    "venus_orbit_speed_km_s_approx": 7.3,
+    "venus_ascent_budget": "OPEN; orbital speed not the ascent delta-v",
+    "ideal_one_mode_all_tank_propellant_sensitivity_km_s": {
+      "ve_9": 4.53,
+      "ve_14p5": 7.29,
+      "ve_40": 20.1
+    },
+    "ideal_one_mode_note": "Separate one-ve full-tank thought experiments; do NOT subtract from modeled 1.6 t post-all-burn v1 reserve; actual mixed-VE stage sequence OPEN.",
+    "v1_spare_water_after_all_planned_burns_t": 1.6,
+    "v1_already_debited_touchdown_belly_water_t": 0.84,
+    "v1_torch_high_mode_thrust_kN_approx": 385,
+    "torch_high_mode_ideal_jet_power_GW_at_assumed_385kN_40km_s": 7.7,
+    "torch_high_mode_note": "Separate above-cloud torch scenario; never apply 760 kN belly thrust to 40 km/s torch mode.",
+    "rotor_hover_method": "A=4*pi*(D/2)^2; P_ideal = m*g*sqrt((m*g)/(2*rho*A)); P_rotor = P_ideal/FM",
+    "rotor_mass_screen_t": 60,
+    "rotor_hover_venus_MW_FM_0p6_to_0p8": [
+      4,
+      5.34
+    ],
+    "rotor_hover_titan_MW_FM_0p6_to_0p8": [
+      0.834,
+      1.112
+    ],
+    "rotor_hover_earth_MW_FM_0p6_to_0p8": [
+      33.91,
+      45.21
+    ],
+    "rotor_to_torch_transition": "OPEN; cannot extrapolate near-ground hover to orbital ascent.",
+    "tipjet_waterless_note": "External ambient CO2 reaction mass if viable, ZERO tank water for aerodynamic lift conditional; reactor heat, compression and rotating gas hardware not free.",
+    "wing_range_note": "7-12m² is only a subcase of 6.8-36.4m² under given 60t/30-40m/s/CL. Wing only fallback."
+  },
+  "ranked_uncertainty_removal": [
+    {
+      "rank": 1,
+      "topic": "Rotor-to-torch phase schedule, ascent delta-v and conserved v1 23.1t/0.84t/1.6t water ledger",
+      "status": "OPEN"
+    },
+    {
+      "rank": 2,
+      "topic": "Four-rotor feasibility: disk loading, real FM, folding within bay and hot bearing/blade lifetime",
+      "status": "OPEN"
+    },
+    {
+      "rank": 3,
+      "topic": "Tip-jet reactor-heated CO2 versus hot/cooled motor, compressor work and heat rejection",
+      "status": "OPEN"
+    },
+    {
+      "rank": 4,
+      "topic": "Surface 18h cooling, structure and reserve after all planned burns",
+      "status": "OPEN"
+    },
+    {
+      "rank": 5,
+      "topic": "Fallback folded wings, 7-36m² lift area, runway and terrain risk",
+      "status": "OPEN"
+    }
+  ],
+  "excluded_changes": [
+    "CANON",
+    "WAYFARER_GEOMETRY",
+    "WAYFARER_PERFORMANCE",
+    "RUNTIME",
+    "SIZER_CODE",
+    "COMPONENT_QUALIFICATION"
+  ],
+  "next_task_requires_separate_kt_approval": "fresh documented shuttle sizing script driven by this JSON; not authorized here",
+  "atmospheric_lift_ranking": [
+    {
+      "rank": 1,
+      "approach": "rotor_disk_and_folding",
+      "uncertainty_reduced": "Near-surface heavy lift and bay fit; MW rather than GW aerodynamic power",
+      "not_resolved": "Hot life and orbital ascent"
+    },
+    {
+      "rank": 2,
+      "approach": "reactor_heated_external_CO2_tip_jet",
+      "uncertainty_reduced": "Whether atmospheric lift can avoid onboard water and electric rotor motors",
+      "not_resolved": "Thermal source/compressor/hot rotors"
+    },
+    {
+      "rank": 3,
+      "approach": "hot_or_cooled_electric_rotor_motor",
+      "uncertainty_reduced": "Alternative power/thermal/mass cost and magnet constraints",
+      "not_resolved": "MW hot motor qualification"
+    },
+    {
+      "rank": 4,
+      "approach": "folding_fixed_wing_fallback",
+      "uncertainty_reduced": "Runway length/area trade only if rotor path fails",
+      "not_resolved": "Terrain and certified hot-wing mass"
+    }
+  ],
+  "gas_giant_hydrogen_skimming": "WAYFARER_PARKED_OPEN_FRONTIER_ITEM_NOT_SHUTTLE",
+  "doi_check": [
+    {
+      "doi": "10.1063/5.0186976",
+      "status": "PASS",
+      "claim": "GaN Venus 11 days 460degC 94bar",
+      "url": "https://doi.org/10.1063/5.0186976"
+    },
+    {
+      "doi": "10.2514/6.2026-2534",
+      "status": "PASS",
+      "claim": "AIAA 2026 Dragonfly Titan flight model",
+      "url": "https://doi.org/10.2514/6.2026-2534"
+    },
+    {
+      "doi": "10.1088/1674-1056/ad9910",
+      "status": "PASS",
+      "claim": "2025 100kW MPD, measured 71% at particular operating point",
+      "url": "https://doi.org/10.1088/1674-1056/ad9910"
+    },
+    {
+      "doi": "10.1016/j.actaastro.2020.11.055",
+      "status": "PASS",
+      "claim": "Venus fixed-wing drone research, not 60t shuttle",
+      "url": "https://doi.org/10.1016/j.actaastro.2020.11.055"
+    }
+  ]
+}
