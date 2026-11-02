@@ -19,6 +19,16 @@ Design: 6561 balanced, pairwise-stratified min/mid/max samples over 35 independe
 | D2 | 0 | 6561 | 0 | 0.00% | none in numeric screen; physical qualification holds separate |
 | D4 | 0 | 6561 | 0 | 0.00% | none in numeric screen; physical qualification holds separate |
 
+### Joint closure (same sampled configurations)
+| Combined gates | PASS | FAIL | OPEN | PASS / resolved |
+|---|---:|---:|---:|---:|
+| A_and_C | 648 | 5913 | 0 | 9.88% |
+| A_C_D2 | 0 | 6561 | 0 | 0.00% |
+| A_C_D4 | 0 | 6561 | 0 | 0.00% |
+| A_B_C_D2 | 0 | 6561 | 0 | 0.00% |
+| A_B_C_D4 | 0 | 6561 | 0 | 0.00% |
+A conditional water PASS is not an overall mission PASS: Bay fit still has required nulls, and passive 18h thermal survival must also pass.
+
 ### Gate A mass envelope and historical comparison
 Component sums min / midpoint / max: **25.250 / 38.375 / 51.500 t**. Gate A limit 34.200 t.
 Historical LOST-sizer empty mass 35.400 t is the **v1 comparison** while LOST historical output is **27.900t** in PR #453; neither is an equality target or an input mass offset.
