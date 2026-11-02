@@ -342,12 +342,14 @@ function sensitivity(d,stage,design,geo,gateKey){
 function analyze(d,stage){
  const geo=geometry(d),limit=number(d.sweep.sample_count),design=samples(d,stage,limit),rows=[];
  const exemplars=[];
+ const handovers=[];
  const podRanges=Object.fromEntries(d.thermal.crew_cases.map(q=>[number(q),{min:Infinity,max:-Infinity}]));
  const extensions=stage===2?Object.fromEntries(d.venus.rotor_extension_levels_km.map(q=>[number(q),{rotorMin:Infinity,rotorMax:-Infinity,heatMin:Infinity,heatMax:-Infinity,pressure_bar:null}])):{};
  for(let i=0;i<design.rows;i++){
   const s=design.get(i),e=evaluate(d,stage,s,geo);
   rows.push({A:e.A,A2:e.A2,KV:e.KV,KF:e.KF,B:e.B,R:e.R,C:e.C,C_low:e.C_low,C_high:e.C_high,DS2:e.DS2,DS4:e.DS4});
-  if(stage===2){for(const q of d.thermal.crew_cases){const crew=number(q),hours=e.venus.thermal[crew]?.podHours; if(Number.isFinite(hours)){podRanges[crew].min=Math.min(podRanges[crew].min,hours);podRanges[crew].max=Math.max(podRanges[crew].max,hours);}}
+  if(stage===2){if(e.venus.handover!==null)handovers.push(e.venus.handover);
+   for(const q of d.thermal.crew_cases){const crew=number(q),hours=e.venus.thermal[crew]?.podHours; if(Number.isFinite(hours)){podRanges[crew].min=Math.min(podRanges[crew].min,hours);podRanges[crew].max=Math.max(podRanges[crew].max,hours);}}
    for(const q of d.venus.rotor_extension_levels_km){const alt=number(q),p=extensions[alt],rot=rotorAt(d,s,e.venus.baseMass,alt);
      if(rot){p.rotorMin=Math.min(p.rotorMin,rot.shaftMW);p.rotorMax=Math.max(p.rotorMax,rot.shaftMW);
        p.heatMin=Math.min(p.heatMin,rot.sourceMW);p.heatMax=Math.max(p.heatMax,rot.sourceMW);p.pressure_bar=rot.air.pressure;}}
@@ -373,9 +375,16 @@ function analyze(d,stage){
   triplet.forEach((v,i)=>sums[i]+=v);
   return {name:k,values:triplet,provenance:x.provenance};
  });
+ const sortedHandovers=handovers.sort((x,y)=>x-y);
+ const clouds=d.research.idle_tipjet_heat;
+ const handoverStats={resolved:sortedHandovers.length,failed:stage===2?design.rows-sortedHandovers.length:null,
+  min:sortedHandovers[0]??null,max:sortedHandovers.at(-1)??null,
+  median:sortedHandovers.length?sortedHandovers[Math.floor((sortedHandovers.length-1)/2)]:null,
+  atCloudBase:sortedHandovers.filter(v=>v>=number(clouds.venus_cloud_base_km)).length,
+  aboveCloudTop:sortedHandovers.filter(v=>v>=number(clouds.venus_cloud_top_km)).length};
  const kitRows=partRows.filter(x=>d.kit.mass_component_keys.includes(x.name));
  const kitSums=[0,1,2].map(i=>kitRows.reduce((z,x)=>z+x.values[i],0));
- return {geometry:geo,gates,joint,scores,examples:exemplars,partRows,sums,kitRows,kitSums,podRanges,extensions,design:{rows:design.rows,fields:design.fields}};
+ return {geometry:geo,gates,joint,scores,examples:exemplars,partRows,sums,kitRows,kitSums,podRanges,extensions,handoverStats,design:{rows:design.rows,fields:design.fields}};
 }
 function idleTipjetSensitivity(d,a){
  // RESEARCH ONLY: never invoked by evaluate(), samples(), dry(), gate(), or sensitivity().
@@ -424,11 +433,11 @@ function idleTipjetSensitivity(d,a){
 function report(d,stage,hash,a,graphics){
  const p=number(d.sweep.round_decimals),f=x=>fmt(x,p),v=(path)=>vals(d,path),first=a.examples[0],rows=[];
  const add=(...line)=>rows.push(...line);
- add("# LOOM Shuttle Sizer v1 — Stage "+stage+" (round 3)","ALL bodies. ALL sponsors. 2026–2226.","",
+ add("# LOOM Shuttle Sizer v1 — Stage "+stage+" (round 5)","ALL bodies. ALL sponsors. 2026–2226.","",
  "**Authority:** NON-CANON engineering screen, all ranges/provenance from the attached input JSON; numerical PASS is not hardware certification.",
  "**Run identity:** Git-blob SHA-1 of exact input JSON (includes stage): \`"+hash+"\`.",
  "**Reproduce:** \`node wayfarer/lab/shuttle/shuttle_sizer.mjs --stage "+stage+"\`.",
- "**CLI validation record:** "+d.origin.cli_validation.status+" for previous round-2 Stage 2 commit, confirmed by Claude as reported by kT; this round-3 executable was independently evaluated in the model but not claimed to have a new Node CLI validation.",
+ "**CLI validation record:** "+d.origin.cli_validation.status+" for previous round-2 Stage 2 commit, confirmed by Claude as reported by kT; this round-5 executable was evaluated in JS against hashed inputs; a new independent Node CLI execution is not claimed.",
  "**Graphics:** "+graphics.join(", ")+".","",
  "## Computed gates, same scenario samples",
  "Deterministic coordinate-balanced min/mid/max design: "+a.design.rows+" samples, "+a.design.fields.length+" independent swept inputs. PASS fraction is a **design fraction**, NOT a probability of a flight-ready vehicle.",
@@ -543,9 +552,9 @@ function report(d,stage,hash,a,graphics){
 
  if(stage===2){
  add("","## Stage 2: Venus rotor and torch, D-shuttle vs D-pod",
- "**Rotor:** one "+f(number(d.geometry.rotor_diameter_m))+"m disk, VIRA atmosphere, min/mid/max sampled real FM and hot-gas conversion, heat-cap input ceiling, speed and life bound. Computed handover must reach at least "+f(d.venus.handover_altitude_km.min)+"km in this declared screen; physical lift and tip-Mach not certified.",
+ "**Rotor:** one "+f(number(d.geometry.rotor_diameter_m))+"m disk, VIRA atmosphere, sampled rotor FM and hot-gas conversion, kT-approved 100–230MW independent kit house reactor plus active cabin electrical debits and rotor hot-duty/tip-speed screens. Handover is an OUTPUT (no imposed 25km ceiling) with "+f(number(d.venus.minimum_rotor_handover_screen_km))+"km necessary minimum screening height; actual aerodynamic climb not certified.",
  "**Torch:** thrust per mode = 2 × Pjet / ve and propellant rate = 2 × Pjet / ve². Required Δv and resulting water-at-orbit are calculated per sample, with separate reaction/crew water and custody payload; never negative reaction-water stock. C is conditional on the rotor arithmetic gate, not dense-CO₂ plume viability.",
- "**D-shuttle:** "+f(number(d.thermal.stay_requested_h))+"h on Venus with pod docked and cold-water heat store PRESERVED. Powered heat-pump input = cabin thermal load / COP, hot-loop reject = cabin load + cooler electrical input. PASS if dedicated cooler and reactor auxiliary bus input each meet required kW, hot-side rejector handles total kW at >ambient temperature, and A2/kit payload mass close. Cooler and rejector installation still unqualified.",
+ "**D-shuttle:** "+f(number(d.thermal.stay_requested_h))+"h on Venus with pod docked and cold-water store preserved. The kit D–He3 house reactor (NOT the torch) provides electrical source. Cooler draws cabin load/COP, converted at "+f(number(d.power.kit_house_reactor_direct_conversion_efficiency))+" fraction; the reactor must also run above "+f(number(d.power.kit_house_reactor_min_stable_fraction))+" of rated gross thermal power. Minimum unconsumed thermal power is **charged to the hot-side rejection ledger**, not deleted. PASS needs cooler, bus, reactor net, hot-loop sink and A2/kit payload mass to close. Cycling, batteries, hot-gas purge and reactor shutdown are NOT credited without named inputs.",
  "**D-pod:** detached pod, cold-water sensible storage only; **maximum passive hours are OUTPUT** without an invented survival-duration target. No D-pod PASS/FAIL criterion. Passive pod heat load includes electronics and actual crew count.",
  "| Crew | minimum detached pod hours | maximum detached pod hours |","|---:|---:|---:|");
  for(const q of d.thermal.crew_cases){const count=number(q),b=a.podRanges[count];add("| "+count+" | "+f(b.min)+" | "+f(b.max)+" |");}
@@ -561,7 +570,17 @@ function report(d,stage,hash,a,graphics){
    const worst=water.min*number(d.si.kg_per_t)*cp*window.min/worstLoad/number(d.si.seconds_per_hour);
    add("- "+crew+" crew passive pod: mathematical parameter corner **"+f(worst)+"–"+f(best)+" hours**. Balanced-sample observed maximum "+f(a.podRanges[crew].max)+" hours. No minimum required stay time.");
  }
- add("","### Representative first-sample reactor/thermal ledger","| Crew | Load W | cooler electric kW | aux bus allowance kW | hot-loop reject kW | available reject kW | D-shuttle | D-pod hours |",
+ add("","### Kit house-reactor power and computed handover",
+ "Wayfarer-lineage kit reactor thermal output "+f(d.power.kit_house_reactor_thermal_MW.min)+"–"+f(d.power.kit_house_reactor_thermal_MW.max)+" MW; derived net specific power "+f(number(d.power.kit_house_reactor_net_specific_kW_per_kg))+"kW/kg @ "+f(100*number(d.power.kit_house_reactor_direct_conversion_efficiency))+"% conversion, reactor mass "+f(d.mass.kit_house_reactor_t.min)+"–"+f(d.mass.kit_house_reactor_t.max)+"t plus "+
+ f(d.mass.kit_house_exchanger_ducts_t.min)+"–"+f(d.mass.kit_house_exchanger_ducts_t.max)+"t additional exchanger/ducts. BOTH included once in kit payload and wet-ascent mass, never A2 core mass.",
+ "Simultaneous rotor+cooler budget per scenario: **rotor raw heat max = reactor gross thermal − (four-crew cooler electrical / 0.75)**. This is a raw heat upper bound with a DECLARED_2226 perfect heat-transfer interface, NOT independently qualified CO2 exchanger or mast. At 18h surface stay, rotor OFF; 10% min-stable thermal reactor power must be transferred/rejected, producing large heat-disposal demand.",
+ "Computed rotor handover (not supplied input): **min "+f(a.handoverStats.min)+"km / median "+f(a.handoverStats.median)+"km / max "+f(a.handoverStats.max)+"km** across "+a.handoverStats.resolved+" resolved samples. Reach approximate cloud base "+
+ f(number(d.research.idle_tipjet_heat.venus_cloud_base_km))+"km: "+a.handoverStats.atCloudBase+"; reach approximate cloud top "+f(number(d.research.idle_tipjet_heat.venus_cloud_top_km))+"km: "+a.handoverStats.aboveCloudTop+". These are the *joint hot-duty + induced-speed + heat* screens, not the earlier torch-idle research-only heat ceilings.",
+ "**Conditional D-shuttle surface cooling can fail all samples because the 10% minimum reactor thermal output "+
+ f(d.power.kit_house_reactor_thermal_MW.min*number(d.power.kit_house_reactor_min_stable_fraction))+"–"+
+ f(d.power.kit_house_reactor_thermal_MW.max*number(d.power.kit_house_reactor_min_stable_fraction))+"MW exceeds the currently assumed "+
+ f(d.thermal.hot_side_rejection_capacity_kW.min)+"–"+f(d.thermal.hot_side_rejection_capacity_kW.max)+"kW hot-loop rejection capacity. Physical independent heat dump, charge storage or short duty cycling is OPEN and NOT fabricated.",
+ "### Representative reactor and cooling power",,"| Crew | Load W | cooler electric kW | aux bus allowance kW | hot-loop reject kW | available reject kW | D-shuttle | D-pod hours |",
  "|---:|---:|---:|---:|---:|---:|---|---:|");
  const ev=evaluate(d,stage,first.inputs,a.geometry);
  for(const q of d.thermal.crew_cases){const crew=number(q),t=ev.venus.thermal[crew];add("| "+crew+" | "+f(t.loadW)+" | "+f(t.coolerElectricalKW)+" | "+f(t.reactorBusLimitKW)+" | "+f(t.rejectKW)+" | "+f(t.rejectLimitKW)+" | "+t.status+" | "+f(t.podHours)+" |");}
@@ -577,11 +596,10 @@ function report(d,stage,hash,a,graphics){
  }
  add("","### Dense-CO₂ torch light-up research and rotor extension",
  "A [magnetic nozzle PIC study](https://www.frontiersin.org/journals/physics/articles/10.3389/fphy.2022.876684/full) operates under near-vacuum backgrounds, not Venus 1–70bar CO₂. [NASA rocket base heating](https://ntrs.nasa.gov/citations/20010116591) and [plume recirculation work](https://link.springer.com/article/10.1007/s12567-020-00306-8) show atmosphere/exhaust shear, entrainment and structural heating matter even for conventional jets. There is **no source** validating a multi-GW magnetically driven plume at Venus pressure; plasma neutralization, CO₂ ingestion, magnetic field confinement, base recirculation, induced hot-loop/hull loads, nozzle erosion and restart remain OPEN.",
- "At the kT 5–25km handover assumption, VIRA pressure falls from "+f(atmosphere(d,d.venus.handover_altitude_km.min).pressure)+" to "+
- f(atmosphere(d,d.venus.handover_altitude_km.max).pressure)+" bar. Rotor-only flight to 30–50km increases MW demand; these are **demand** bounds, not a new heat-source or safe-blade approval.",
+ "The **5–25km prescribed handover interval has been removed**. For each sample the sizer computes the highest feasible altitude within the VIRA table and declared rotor duty/thermal/speed bounds. Rotor-only flight to 30–50km increases MW demand; these values are **demand**, not reactor-specific output or blade certification.",
  "| Altitude km | ambient bar | rotor shaft MW min–max | tip-jet heat MW min–max |","|---:|---:|---:|---:|");
  for(const [alt,x]of Object.entries(a.extensions))add("| "+f(Number(alt))+" | "+f(x.pressure_bar)+" | "+f(x.rotorMin)+"–"+f(x.rotorMax)+" | "+f(x.heatMin)+"–"+f(x.heatMax)+" |");
- add("At 30–50km, rotor delivered-heat ceilings need to rise markedly above the 30–100MW assumptions, or a different climb strategy is needed. Moving handover upward helps ambient backpressure but does NOT certify a fusion plasma nozzle at 1–10bar. Torch dense-atmosphere viability remains "+d.venus.torch_atmosphere_viability.provenance+".",
+ add("At 30–50km the new reactor 100–230MW raw thermal is drawn from the kit. Its actual gas-side delivered heat is a DECLARED_2226 model assumption; exchanger efficiency, ducting, rotor life, and light-up physics remain unqualified. Moving handover upward helps ambient backpressure but does NOT certify a fusion plasma nozzle even near 1bar. Torch dense-atmosphere viability remains "+d.venus.torch_atmosphere_viability.provenance+".",
  "### Physical holds after conditional gate results",
  "The following declared required physics is still OPEN: venus.torch_atmosphere_viability, venus.entry_vehicle_thermal_qualification, kit individual hold geometry and hot blade joints, research.sphere hot pressurization and actual hatch/seal, power.reactor_waste_heat_MW. No PASS from this sizer overrides those holds.");
  }
