@@ -455,11 +455,11 @@ function idleTipjetSensitivity(d,a){
 function report(d,stage,hash,a,graphics){
  const p=number(d.sweep.round_decimals),f=x=>fmt(x,p),v=(path)=>vals(d,path),first=a.examples[0],rows=[];
  const add=(...line)=>rows.push(...line);
- add("# LOOM Shuttle Sizer v1 — Stage "+stage+" (round 5)","ALL bodies. ALL sponsors. 2026–2226.","",
+ add("# LOOM Shuttle Sizer v1 — Stage "+stage+" (round 5a)","ALL bodies. ALL sponsors. 2026–2226.","",
  "**Authority:** NON-CANON engineering screen, all ranges/provenance from the attached input JSON; numerical PASS is not hardware certification.",
  "**Run identity:** Git-blob SHA-1 of exact input JSON (includes stage): \`"+hash+"\`.",
  "**Reproduce:** \`node wayfarer/lab/shuttle/shuttle_sizer.mjs --stage "+stage+"\`.",
- "**CLI validation record:** "+d.origin.cli_validation.status+" for previous round-2 Stage 2 commit, confirmed by Claude as reported by kT; this round-5 executable was evaluated in JS against hashed inputs; a new independent Node CLI execution is not claimed.",
+ "**CLI validation record:** "+d.origin.cli_validation.status+" for previous round-2 Stage 2 commit, confirmed by Claude as reported by kT; this round-5a executable was evaluated in JS against hashed inputs; a new independent Node CLI execution is not claimed.",
  "**Graphics:** "+graphics.join(", ")+".","",
  "## Computed gates, same scenario samples",
  "Deterministic coordinate-balanced min/mid/max design: "+a.design.rows+" samples, "+a.design.fields.length+" independent swept inputs. PASS fraction is a **design fraction**, NOT a probability of a flight-ready vehicle.",
@@ -576,7 +576,10 @@ function report(d,stage,hash,a,graphics){
  add("","## Stage 2: Venus rotor and torch, D-shuttle vs D-pod",
  "**Rotor:** one "+f(number(d.geometry.rotor_diameter_m))+"m disk, VIRA atmosphere, sampled rotor FM and hot-gas conversion, kT-approved 100–230MW independent kit house reactor plus active cabin electrical debits and rotor hot-duty/tip-speed screens. Handover is an OUTPUT (no imposed 25km ceiling) with "+f(number(d.venus.minimum_rotor_handover_screen_km))+"km necessary minimum screening height; actual aerodynamic climb not certified.",
  "**Torch:** thrust per mode = 2 × Pjet / ve and propellant rate = 2 × Pjet / ve². Required Δv and resulting water-at-orbit are calculated per sample, with separate reaction/crew water and custody payload; never negative reaction-water stock. C is conditional on the rotor arithmetic gate, not dense-CO₂ plume viability.",
- "**D-shuttle:** "+f(number(d.thermal.stay_requested_h))+"h on Venus with pod docked and cold-water store preserved. The kit D–He3 house reactor (NOT the torch) provides electrical source. Cooler draws cabin load/COP, converted at "+f(number(d.power.kit_house_reactor_direct_conversion_efficiency))+" fraction; the reactor must also run above "+f(number(d.power.kit_house_reactor_min_stable_fraction))+" of rated gross thermal power. Minimum unconsumed thermal power is **charged to the hot-side rejection ledger**, not deleted. PASS needs cooler, bus, reactor net, hot-loop sink and A2/kit payload mass to close. Cycling, batteries, hot-gas purge and reactor shutdown are NOT credited without named inputs.",
+ "**D-shuttle Round 5a:** "+f(number(d.thermal.stay_requested_h))+"h on Venus, pod docked and rotor parked. Existing kit tip-jet CO2 exchanger runs in GROUND-VENT mode (compressor-fed atmosphere, hot gas exits hub). No additional hardware or mass. Capacity = existing kit thermal rating × "+
+ f(d.thermal.ground_vent_derate.min)+"–"+f(d.thermal.ground_vent_derate.max)+" ground factor; compressor electric draw = "+
+ f(100*d.thermal.ground_vent_compressor_fraction.min)+"–"+f(100*d.thermal.ground_vent_compressor_fraction.max)+"% of rejected heat. The SAME house reactor pays cooler+compressor. With Qcold cabin load, Pcool=Qcold/COP and f=compressor fraction, solve Qreactor=max(10% rated, (Pcool+f×Qcold)/(0.75−f)). Qvent=Qreactor+Qcold. Check Qvent≤derate×rated, reactor ≤rating, Pcool+fQvent≤0.75×Qreactor, cooler installed drive/bus, and A2+kit mass. The old 25–300kW hot-loop rejector is NOT the only heat sink. No fictitious mass or second reactor credited; unqualified CO2 flow, heat transfer, compressor and plume physics remain OPEN.",
+
  "**D-pod:** detached pod, cold-water sensible storage only; **maximum passive hours are OUTPUT** without an invented survival-duration target. No D-pod PASS/FAIL criterion. Passive pod heat load includes electronics and actual crew count.",
  "| Crew | minimum detached pod hours | maximum detached pod hours |","|---:|---:|---:|");
  for(const q of d.thermal.crew_cases){const count=number(q),b=a.podRanges[count];add("| "+count+" | "+f(b.min)+" | "+f(b.max)+" |");}
@@ -598,17 +601,22 @@ function report(d,stage,hash,a,graphics){
  "Simultaneous rotor+cooler budget per scenario: **rotor raw heat max = reactor gross thermal − (four-crew cooler electrical / 0.75)**. This is a raw heat upper bound with a DECLARED_2226 perfect heat-transfer interface, NOT independently qualified CO2 exchanger or mast. At 18h surface stay, rotor OFF; 10% min-stable thermal reactor power must be transferred/rejected, producing large heat-disposal demand.",
  "Computed rotor handover (not supplied input): **min "+f(a.handoverStats.min)+"km / median "+f(a.handoverStats.median)+"km / max "+f(a.handoverStats.max)+"km** across "+a.handoverStats.resolved+" resolved samples. Reach approximate cloud base "+
  f(number(d.research.idle_tipjet_heat.venus_cloud_base_km))+"km: "+a.handoverStats.atCloudBase+"; reach approximate cloud top "+f(number(d.research.idle_tipjet_heat.venus_cloud_top_km))+"km: "+a.handoverStats.aboveCloudTop+". These are the *joint hot-duty + induced-speed + heat* screens, not the earlier torch-idle research-only heat ceilings.",
- "**Conditional D-shuttle surface cooling can fail all samples because the 10% minimum reactor thermal output "+
- f(d.power.kit_house_reactor_thermal_MW.min*number(d.power.kit_house_reactor_min_stable_fraction))+"–"+
- f(d.power.kit_house_reactor_thermal_MW.max*number(d.power.kit_house_reactor_min_stable_fraction))+"MW exceeds the currently assumed "+
- f(d.thermal.hot_side_rejection_capacity_kW.min)+"–"+f(d.thermal.hot_side_rejection_capacity_kW.max)+"kW hot-loop rejection capacity. Physical independent heat dump, charge storage or short duty cycling is OPEN and NOT fabricated.",
- "### Representative reactor and cooling power","| Crew | Load W | cooler electric kW | aux bus allowance kW | hot-loop reject kW | available reject kW | D-shuttle | D-pod hours |",
- "|---:|---:|---:|---:|---:|---:|---|---:|");
+ "**Ground-vent heat dump uses EXISTING KIT tipjet exchanger:** rotor parked, ambient CO2 drawn through compressor and heated via the source hot exchanger, vented through hub. kT ground derate "+f(d.thermal.ground_vent_derate.min)+"–"+f(d.thermal.ground_vent_derate.max)+" and compressor-power fraction "+f(100*d.thermal.ground_vent_compressor_fraction.min)+"–"+f(100*d.thermal.ground_vent_compressor_fraction.max)+"% are ASSUMPTION. Reactor cannot go below 10% rated while ON. Heat/energy are conserved in the raw reactor-to-gas and cabin-to-gas ledger. No extra mass.",
+ "**Design rule only, NOT gate:** plume points UP, away from pod, door, and ramp. Plume impingement and CO2 hot-gas materials remain physically OPEN.",
+ "### Reactor-OFF and 18h battery comparison, NOT gate",
+ "Battery energy must power cabin cooler AND the ground vent compressor when the reactor is OFF. Battery density "+
+ f(d.thermal.reactor_off_18h_battery_specific_energy_kWh_kg.min)+"–"+f(d.thermal.reactor_off_18h_battery_specific_energy_kWh_kg.max)+" kWh/kg ASSUMPTION, cooler draw over 18h; no battery conversion loss, container, cooling or life credit.",
+ "| Crew | cooler kW | ground compressor kW | battery energy kWh | battery mass at high kWh/kg t | battery mass at low kWh/kg t |",
+ "|---:|---:|---:|---:|---:|---:|");
+ const be=evaluate(d,stage,first.inputs,a.geometry);
+ for(const caseCount of d.thermal.crew_cases){const crew=number(caseCount),t=be.venus.thermal[crew];add("| "+crew+" | "+f(t.coolerElectricalKW)+" | "+f(t.batteryOnlyCompressorKW)+" | "+f(t.batteryOnlyEnergyKWh)+" | "+f(t.batteryOnlyMassLowT)+" | "+f(t.batteryOnlyMassHighT)+" |");}
+ "### Representative reactor and cooling power","| Crew | Load W | cooler electric kW | installed cooler bus kW | reactor run MW | ground vent MW | capacity MW | compressor electric MW | D-shuttle | D-pod hours |",
+ "|---:|---:|---:|---:|---:|---:|---:|---:|---|---:|");
  const ev=evaluate(d,stage,first.inputs,a.geometry);
- for(const q of d.thermal.crew_cases){const crew=number(q),t=ev.venus.thermal[crew];add("| "+crew+" | "+f(t.loadW)+" | "+f(t.coolerElectricalKW)+" | "+f(t.reactorBusLimitKW)+" | "+f(t.rejectKW)+" | "+f(t.rejectLimitKW)+" | "+t.status+" | "+f(t.podHours)+" |");}
+ for(const q of d.thermal.crew_cases){const crew=number(q),t=ev.venus.thermal[crew];add("| "+crew+" | "+f(t.loadW)+" | "+f(t.coolerElectricalKW)+" | "+f(t.reactorBusLimitKW)+" | "+f(t.reactorRunKW/number(d.si.kW_per_MW))+" | "+f(t.rejectKW/number(d.si.kW_per_MW))+" | "+f(t.rejectLimitKW/number(d.si.kW_per_MW))+" | "+f(t.compressorKW/number(d.si.kW_per_MW))+" | "+t.status+" | "+f(t.podHours)+" |");}
  add("","### Phase-by-phase conserved inventories (first scenario, mode comparisons)");
  for(const mode of ["low","high"]){
-  add("**Mode "+mode+"**","| Phase | reaction water before → after t | reaction debit t | reserved pod water t | pod cold energy 2/4 crew kWh | cooler input 2/4 crew kW | hot-loop rejection 2/4 crew kW | custody |",
+  add("**Mode "+mode+"**","| Phase | reaction water before → after t | reaction debit t | reserved pod water t | pod cold energy 2/4 crew kWh | cooler input 2/4 crew kW | ground-vent rejection 2/4 crew kW | custody |",
  "|---|---|---:|---:|---|---|---|---|");
   for(const ph of ev.venus.phaseLedger[mode])add("| "+ph.phase+" | "+f(ph.water_before_t)+" → "+f(ph.water_after_t)+" | "+f(ph.water_debit_t)+" | "+f(ph.thermal_water_mass_t)+" | "+
    d.thermal.crew_cases.map(q=>f(ph.thermal_energy_by_crew[number(q)].energy_after_J/number(d.si.joules_per_kWh))).join("/")+" | "+
