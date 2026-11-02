@@ -465,18 +465,26 @@ function sideSVG(d,a){
  '<text x="'+pad+'" y="'+(H-29)+'" fill="#ffcb83" font-size="13">Actual mast/hub/CG positions OPEN; this line is NOT a fit proof</text></svg>';
 }
 function waterfallSVG(d,a){
- const parts=a.partRows,limit=number(d.mass.max_docked_dry_t),W=1000,H=90+parts.length*27,scale=(W-350)/a.sums[2],barX=300;
- const rects=parts.map((r,i)=>{const x=barX+parts.slice(0,i).reduce((sum,v)=>sum+v.values[1],0)*scale,w=r.values[1]*scale,y=65+i*27;
- return '<text x="20" y="'+(y+13)+'" fill="#cde6ff" font-size="12">'+esc(r.name)+'</text>'+
- '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="19" fill="'+(i%2?"#ffcb82":"#70c9c4")+'"/>';
+ const parts=[...a.partRows.filter(x=>!d.kit.mass_component_keys.includes(x.name)),
+              ...a.partRows.filter(x=>d.kit.mass_component_keys.includes(x.name))];
+ const limit=number(d.mass.max_docked_dry_t),W=1100,H=115+parts.length*27,scale=(W-350)/a.sums[2],barX=300;
+ const coreMid=a.sums[1]-a.kitSums[1],kitMid=a.kitSums[1];
+ const rects=parts.map((r,i)=>{
+   const x=barX+parts.slice(0,i).reduce((sum,v)=>sum+v.values[1],0)*scale;
+   const w=r.values[1]*scale,y=85+i*27,kit=d.kit.mass_component_keys.includes(r.name);
+   return '<text x="20" y="'+(y+13)+'" fill="#cde6ff" font-size="12">'+esc(r.name)+'</text>'+
+     '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="19" fill="'+(kit?"#ffbc76":"#70c9c4")+'"/>';
  }).join("");
- return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'"><rect width="100%" height="100%" fill="#121b29"/>'+
- '<text x="20" y="25" fill="#fff" font-size="18">DRY-MASS WATERFALL: MIDPOINT STACK (t)</text>'+
- '<text x="20" y="44" fill="#cde6ff" font-size="13">min '+a.sums[0].toFixed(2)+' | midpoint '+a.sums[1].toFixed(2)+' | max '+a.sums[2].toFixed(2)+' | GATE A '+esc(a.gates.A.pass_fraction===null?"OPEN":(100*a.gates.A.pass_fraction).toFixed(1)+"% PASS")+'</text>'+
- rects+'<line x1="'+(barX+limit*scale)+'" x2="'+(barX+limit*scale)+'" y1="48" y2="'+(H-22)+'" stroke="#ff6b76" stroke-dasharray="5 4" stroke-width="2"/>'+
- '<text x="'+(barX+limit*scale+5)+'" y="'+(H-10)+'" fill="#ff9fa5" font-size="12">'+limit+'t dry limit</text></svg>';
+ return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">'+
+ '<rect width="100%" height="100%" fill="#121b29"/>'+
+ '<text x="20" y="25" fill="#fff" font-size="18">SHUTTLE DRY-MASS WATERFALL — MIDPOINT STACK (t)</text>'+
+ '<text x="20" y="44" fill="#cde6ff" font-size="13">Core '+coreMid.toFixed(2)+'t (cyan), detachable Venus kit '+kitMid.toFixed(2)+'t (amber), full '+a.sums[1].toFixed(2)+'t</text>'+
+ '<text x="20" y="63" fill="#cde6ff" font-size="13">A2 core PASS '+(100*a.gates.A2.pass_fraction).toFixed(1)+'%; A full PASS '+(100*a.gates.A.pass_fraction).toFixed(1)+'%; assumed payload capacity '+number(d.kit.payload_allowance_t)+'t</text>'+
+ rects+
+ '<line x1="'+(barX+coreMid*scale)+'" x2="'+(barX+coreMid*scale)+'" y1="65" y2="'+(H-25)+'" stroke="#83e0c8" stroke-dasharray="3 3" stroke-width="2"/>'+
+ '<line x1="'+(barX+limit*scale)+'" x2="'+(barX+limit*scale)+'" y1="65" y2="'+(H-25)+'" stroke="#ff6b76" stroke-dasharray="6 4" stroke-width="2"/>'+
+ '<text x="'+(barX+limit*scale+8)+'" y="'+(H-10)+'" fill="#ff9fa5" font-size="12">'+limit+'t docked limit</text></svg>';
 }
-
 import {readFileSync,writeFileSync} from "node:fs";
 import {createHash} from "node:crypto";
 const url=new URL("./shuttle_inputs.json",import.meta.url),raw=readFileSync(url,"utf8"),input=JSON.parse(raw);
