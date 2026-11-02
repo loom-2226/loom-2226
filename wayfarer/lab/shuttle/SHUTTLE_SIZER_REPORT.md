@@ -2,7 +2,7 @@
 ALL bodies. ALL sponsors. 2026–2226.
 
 **Authority:** NON-CANON engineering screen, all ranges/provenance from the attached input JSON; numerical PASS is not hardware certification.
-**Run identity:** Git-blob SHA-1 of exact input JSON (includes stage): `58596b74e42f4590b57adb3395a1f28a6dd2bcef`.
+**Run identity:** Git-blob SHA-1 of exact input JSON (includes stage): `2ef33a1b6acebd534b41492897a5d64f423648c7`.
 **Reproduce:** `node wayfarer/lab/shuttle/shuttle_sizer.mjs --stage 1`.
 **CLI validation record:** CLOSED for previous round-2 Stage 2 commit, confirmed by Claude as reported by kT; this round-3 executable was independently evaluated in the model but not claimed to have a new Node CLI validation.
 **Graphics:** SHUTTLE_SIDE_VIEW.svg, SHUTTLE_MASS_WATERFALL.svg.
@@ -80,11 +80,11 @@ B and full KF have no honest min/mid/max influence ranking until required indivi
 ## Three mass-driver research checks (not automatic certification)
 ### Torch 7.7 GW-class source
 Repo [torch energy partition / specific power](https://github.com/loom-2226/loom-2226/blob/main/src/wayfarer_torch_energy_partition_mass_feasibility.py) explicitly holds source specific power and directed fraction OPEN. Literature [Razin DFD 2014](https://doi.org/10.1016/j.actaastro.2014.08.008) and [Princeton DFD Mars](https://psatellite.com/going-to-mars-with-direct-fusion-drive/) address **MW class**, not compact GW engines.
-At 7.700 GW ideal jet power, even optimistic study source specific power 25–100 kW/kg implies **77.000–308.000 t **SOURCE-ONLY**, before power partition and shielding. Consequently 4–10t torch engine stays ASSUMPTION and cannot be narrowed honestly by current evidence. Reactor power distribution is separately itemized, but source realization is still a major feasibility hold.
+At 7.700 GW ideal jet power, even optimistic study source specific power 25–100 kW/kg implies **77.000–308.000 t** SOURCE-ONLY, before power partition and shielding. Consequently 4.000–10.000t torch engine stays ASSUMPTION and cannot be narrowed honestly by current evidence. Reactor power distribution is separately itemized, but source realization is still a major feasibility hold.
 ### Biconic hull and thermal structure
-NASA [3.2m Venus aeroshell](https://science.nasa.gov/wp-content/uploads/2023/10/advents-venus-orbiter-aerobot-and-dropsonde.pdf) models ~300kg one-use Ti-composite aeroshell structure and 373kg HEEET, excluding the 4.3m × 12.8m shuttle, multiple flights, hot rotor mount, keel and rover loads. The 9–14t kT range cannot be physically narrowed from this analog. It remains editable ASSUMPTION.
+NASA [Venus aeroshell](https://science.nasa.gov/wp-content/uploads/2023/10/advents-venus-orbiter-aerobot-and-dropsonde.pdf) models 3.200m expendable entry body, 0.300t Ti-composite structure and 0.373t HEEET, excluding the 4.300m × 12.800m reusable shuttle with hot rotor mount, keel and rover loads. The 9.000–14.000t kT range cannot be credibly narrowed from that analog. It stays ASSUMPTION.
 ### 2.8m OD titanium pressure sphere
-[Alvin classification comparison](https://www.jstage.jst.go.jp/article/jintransnavi/6/1/6_31/_pdf/-char/en): ~51mm wall for 4500m ocean depth; [Limiting Factor manufacturer](https://caladanoceanic.com/home/technology/sub/): ~90mm at 11km, different smaller 1.5m inner diameter. [Elastic-plastic shell paper](https://doi.org/10.1016/j.marstruc.2017.09.007) identifies imperfection sensitivity. Neither proves a hot four-person Venus hull.
+[Alvin classification comparison](https://www.jstage.jst.go.jp/article/jintransnavi/6/1/6_31/_pdf/-char/en): 51.000mm wall for 4500.000m ocean depth; [Limiting Factor](https://caladanoceanic.com/home/technology/sub/): 90.000mm at 11000.000m, smaller 1.500m inside diameter. [Elastic-plastic buckling](https://doi.org/10.1016/j.marstruc.2017.09.007) flags shape imperfections. Neither qualifies a hot 4-crew Venus vessel; hatch reinforcement remains OPEN.
 Analytic perfect-sphere elastic buckling with independent **assumed knockdown and safety factor**, plus simple membrane compression, against 91.000 bar differential. This is a screen, **not** real-hatch, penetration or thermal-cycle buckling qualification.
 | Shell mass t | Nominal wall thickness mm | allowable differential pressure bar | required bar | screen |
 |---:|---:|---:|---:|---|
@@ -1280,7 +1280,28 @@ Knockdown 0.200–0.500, SF 1.500–2.000, modulus 80.000–115.000GPa, allowabl
     "hull": {
       "nasa_entry_study": "https://science.nasa.gov/wp-content/uploads/2023/10/advents-venus-orbiter-aerobot-and-dropsonde.pdf",
       "comparator": "3.2m single-use aeroshell ~300kg titanium composite structure plus ~373kg HEEET TPS; NOT comparable to reusable 4.3m x12.8m pressurized hot shuttle with rotor and rover.",
-      "hull_mass_decision": "NOT_NARROWED: 9–14t still kT ASSUMPTION; 3.2m expendable entry shell provides no credible bound on 12.8m reusable structural pressure paths."
+      "hull_mass_decision": "NOT_NARROWED: 9–14t still kT ASSUMPTION; 3.2m expendable entry shell provides no credible bound on 12.8m reusable structural pressure paths.",
+      "venus_aeroshell_reference_diameter_m": {
+        "value": 3.2,
+        "unit": "m",
+        "provenance": "ONLINE",
+        "source": "https://science.nasa.gov/wp-content/uploads/2023/10/advents-venus-orbiter-aerobot-and-dropsonde.pdf",
+        "description": "Aeroshell project diameter (not shuttle)"
+      },
+      "venus_aeroshell_reference_structure_t": {
+        "value": 0.3,
+        "unit": "t",
+        "provenance": "ONLINE",
+        "source": "https://science.nasa.gov/wp-content/uploads/2023/10/advents-venus-orbiter-aerobot-and-dropsonde.pdf",
+        "description": "Titanium/composite expendable aeroshell structural mass study"
+      },
+      "venus_aeroshell_reference_TPS_t": {
+        "value": 0.373,
+        "unit": "t",
+        "provenance": "ONLINE",
+        "source": "https://science.nasa.gov/wp-content/uploads/2023/10/advents-venus-orbiter-aerobot-and-dropsonde.pdf",
+        "description": "Expendable HEEET TPS study"
+      }
     },
     "sphere": {
       "material_density_kg_per_m3": {
@@ -1332,7 +1353,49 @@ Knockdown 0.200–0.500, SF 1.500–2.000, modulus 80.000–115.000GPa, allowabl
         "source": "https://mtsociety.memberclicks.net/assets/docs/Journals/JournalMTS2014%20%281%29.pdf",
         "description": "Ti-6Al-4V representative"
       },
-      "sphere_mass_decision": "NOT_NARROWED until imperfect hot sphere + penetrations + hatch code proof; 3.2–7.6t remains geometric PROJECTION only."
+      "sphere_mass_decision": "NOT_NARROWED until imperfect hot sphere + penetrations + hatch code proof; 3.2–7.6t remains geometric PROJECTION only.",
+      "alvin_wall_mm": {
+        "value": 51,
+        "unit": "mm",
+        "provenance": "ONLINE",
+        "source": "https://www.jstage.jst.go.jp/article/jintransnavi/6/1/6_31/_pdf/-char/en",
+        "description": "Alvin nominal sphere wall, different diameter and rating"
+      },
+      "alvin_reference_depth_m": {
+        "value": 4500,
+        "unit": "m",
+        "provenance": "ONLINE",
+        "source": "https://www.jstage.jst.go.jp/article/jintransnavi/6/1/6_31/_pdf/-char/en",
+        "description": "Deep submersible external-pressure reference"
+      },
+      "limiting_factor_wall_mm": {
+        "value": 90,
+        "unit": "mm",
+        "provenance": "ONLINE",
+        "source": "https://caladanoceanic.com/home/technology/sub/",
+        "description": "Full-ocean-depth Ti wall reference"
+      },
+      "limiting_factor_depth_m": {
+        "value": 11000,
+        "unit": "m",
+        "provenance": "ONLINE",
+        "source": "https://caladanoceanic.com/home/technology/sub/",
+        "description": "Manufacturer rated depth"
+      },
+      "limiting_factor_pressure_hull_inner_diameter_m": {
+        "value": 1.5,
+        "unit": "m",
+        "provenance": "ONLINE",
+        "source": "https://caladanoceanic.com/home/technology/sub/",
+        "description": "Manufacturer pressure sphere ID"
+      },
+      "hatch_penetration_reinforcement_mass_t": {
+        "value": null,
+        "unit": "t",
+        "provenance": "OPEN",
+        "source": "No quantified hatch/stress concentration thermal-seal validation",
+        "description": "Not silently credited within geometric Ti-shell mass or fittings"
+      }
     },
     "torch_dense_co2": {
       "context": "At 5–25km 14.9–66.65 bar from VIRA table; 30km 9.581 bar; 40km 3.501 bar; 50km 1.066 bar.",
