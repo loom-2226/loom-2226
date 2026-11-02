@@ -87,7 +87,7 @@ def unsupported_numbers(answer, permitted):
     clean = re.sub(r"Canon\s+II\s+§?7\.1[ab]?(?:/b)?", "CANONREF", answer, flags=re.I)
     unsupported = {m.group() for m in re.finditer(r"(?<![\w])\d+(?:[,.]\d+)*(?!\w)", clean)
                    if m.group().replace(",", "") not in permitted}
-    words = r"\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|hundred|thousand|million|billion)\b"
+    words = r"\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred|thousand|million|billion|trillion|half|quarter|third|dozen)\b"
     unsupported.update(w.lower() for w in re.findall(words, clean, flags=re.I))
     return sorted(unsupported)
 
