@@ -101,6 +101,20 @@
       "provenance": "ONLINE",
       "source": "SI conversion",
       "description": "Thin-shell thickness report only"
+    },
+    "W_per_TW": {
+      "value": 1000000000000,
+      "unit": "W/TW",
+      "provenance": "ONLINE",
+      "source": "SI decimal prefixes",
+      "description": "Unit conversion only; nominal jet W from TW"
+    },
+    "MW_per_GW": {
+      "value": 1000,
+      "unit": "MW/GW",
+      "provenance": "ONLINE",
+      "source": "SI decimal prefixes",
+      "description": "Convert rated gigawatt jet-power reference into megawatt sensitivity"
     }
   },
   "geometry": {
@@ -1439,7 +1453,21 @@
         "nasa_heatpipe_exchanger": "https://ntrs.nasa.gov/citations/20220013111",
         "nasa_heated_gas_interfaces": "https://ntrs.nasa.gov/citations/20210026680"
       },
-      "evidence": "PSS/PFRC is conceptual 1–10MW and related 2023 analysis cites RF-recirculation losses and no inherent plasma self-heating. No 0.5–3% GW-class stable off-nominal power or exhaust-free rotor gas heating demonstration. Heat-pipe/NTP exchangers establish real temperature, material, pressure-drop and fatigue constraints, not the ~MW/kg mass of a 2226 hot mast."
+      "evidence": "PSS/PFRC is conceptual 1–10MW and related 2023 analysis cites RF-recirculation losses and no inherent plasma self-heating. No 0.5–3% GW-class stable off-nominal power or exhaust-free rotor gas heating demonstration. Heat-pipe/NTP exchangers establish real temperature, material, pressure-drop and fatigue constraints, not the ~MW/kg mass of a 2226 hot mast.",
+      "venus_cloud_base_km": {
+        "value": 48,
+        "unit": "km",
+        "provenance": "PROJECTION",
+        "source": "Venus main cloud deck approximate lower boundary, based on LOOM #453 Venus atmosphere research; no physical torch qualification",
+        "description": "Screening dividing line, NOT proven uniform Venus atmosphere transition; cloud base differs with dynamics"
+      },
+      "venus_cloud_top_km": {
+        "value": 65,
+        "unit": "km",
+        "provenance": "PROJECTION",
+        "source": "LOOM #453 approximate Venus cloud layer 48–65km",
+        "description": "Chosen upper cloud boundary for altitude screen only; real cloud top estimates vary and extend higher at some locations"
+      }
     }
   }
 }
