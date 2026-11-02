@@ -1,0 +1,130 @@
+{
+  "schema": "LOOM_FIRST_JUMP_FQ11_TIMELINE_v0.1",
+  "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json",
+  "source_sha256": "60b2a89fd4291d0b6e3824e2c43430019b3fe1cddcfa64ed39bb8bc8c6975861",
+  "scope": "FQ11 accepted finite lab result; playback, not flight execution",
+  "geometry": "Mars approach shell (Option A placeholder; no position/distance)",
+  "unavailable": [
+    "preburn_delta_v_km_s",
+    "certified_collapse_position",
+    "orbital_capture"
+  ],
+  "cases": {
+    "NOMINAL": {
+      "preburn_s": {
+        "value": 497.7347647916989,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/0/preburn_actual_duration_s"
+      },
+      "preburn_kg": {
+        "value": 2827.3823313992516,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/0/preburn_measured_remass_kg"
+      },
+      "preburn_peak_g": {
+        "value": 0.9902941043235413,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/0/preburn_peak_g"
+      },
+      "metric_s": {
+        "value": 4897.394247801274,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/0/metric_timing_s"
+      },
+      "arrival_mismatch_m_s": {
+        "value": 19.431327988573468,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/0/forward_arrival_mismatch_m_s"
+      },
+      "turn_s": {
+        "value": 220.0,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/0/phase_evidence/rcs_reorientation/0/duration_s"
+      },
+      "turn_deg": {
+        "value": 94.0570040899681,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/0/RCS_point_turn_deg"
+      },
+      "turn_hz": {
+        "value": 5.0,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/0/rcs_control_min_hz_derived"
+      },
+      "turn_remass_kg": {
+        "value": 144.0529152842876,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/0/RCS_turn_measured_remass_kg"
+      },
+      "trim_s": {
+        "value": 2.000586366051908,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/0/trim_actual_torch_duration_s"
+      },
+      "trim_kg": {
+        "value": 11.364330852357858,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/0/trim_measured_remass_kg"
+      },
+      "final_mismatch_m_s": {
+        "value": 0.12078189514614451,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/0/trim_post_velocity_error_m_s"
+      },
+      "total_remass_kg": {
+        "value": 2982.7995775299205,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/0/total_remass_kg"
+      },
+      "remass_remaining_kg": {
+        "value": 247017.2004224702,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/0/remass_remaining_kg"
+      }
+    },
+    "UNDERBURN_1_PERCENT": {
+      "preburn_s": {
+        "value": 492.75741714378194,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/1/preburn_actual_duration_s"
+      },
+      "preburn_kg": {
+        "value": 2799.1085080852504,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/1/preburn_measured_remass_kg"
+      },
+      "preburn_peak_g": {
+        "value": 0.990270170805227,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/1/preburn_peak_g"
+      },
+      "metric_s": {
+        "value": 4897.393816489929,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/1/metric_timing_s"
+      },
+      "arrival_mismatch_m_s": {
+        "value": 77.73989962331052,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/1/forward_arrival_mismatch_m_s"
+      },
+      "turn_s": {
+        "value": 220.0,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/1/phase_evidence/rcs_reorientation/0/duration_s"
+      },
+      "turn_deg": {
+        "value": 158.7002155014463,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/1/RCS_point_turn_deg"
+      },
+      "turn_hz": {
+        "value": 5.0,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/1/rcs_control_min_hz_derived"
+      },
+      "turn_remass_kg": {
+        "value": 327.13471672315626,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/1/RCS_turn_measured_remass_kg"
+      },
+      "trim_s": {
+        "value": 8.002767591948611,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/1/trim_actual_torch_duration_s"
+      },
+      "trim_kg": {
+        "value": 45.45972130606408,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/1/trim_measured_remass_kg"
+      },
+      "final_mismatch_m_s": {
+        "value": 0.48099161806831114,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/1/trim_post_velocity_error_m_s"
+      },
+      "total_remass_kg": {
+        "value": 3171.7029461154307,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/1/total_remass_kg"
+      },
+      "remass_remaining_kg": {
+        "value": 246828.2970538847,
+        "source": "wayfarer/lab/flight_qual/fq11_finite_metric_energy_b_20261101/FQ11_RESULT.json#/measured_cases/1/remass_remaining_kg"
+      }
+    }
+  }
+}
