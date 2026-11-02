@@ -1,0 +1,1718 @@
+# LOOM Shuttle Sizer v1 — Stage 1 (round 5a)
+ALL bodies. ALL sponsors. 2026–2226.
+
+**Authority:** NON-CANON engineering screen, all ranges/provenance from the attached input JSON; numerical PASS is not hardware certification.
+**Run identity:** Git-blob SHA-1 of exact input JSON (includes stage): `bccfa7aa74d4f59bac88495499072c647c2568d7`.
+**Reproduce:** `node wayfarer/lab/shuttle/shuttle_sizer.mjs --stage 1`.
+**CLI validation record:** CLOSED for previous round-2 Stage 2 commit, confirmed by Claude as reported by kT; this round-5a executable was evaluated in JS against hashed inputs; a new independent Node CLI execution is not claimed.
+**Graphics:** SHUTTLE_SIDE_VIEW.svg, SHUTTLE_MASS_WATERFALL.svg.
+
+## Computed gates, same scenario samples
+Deterministic coordinate-balanced min/mid/max design: 6561 samples, 20 independent swept inputs. PASS fraction is a **design fraction**, NOT a probability of a flight-ready vehicle.
+| Gate | PASS | FAIL | OPEN | PASS / resolved |
+|---|---:|---:|---:|---:|
+| A | 243 | 6318 | 0 | 3.704% |
+| A2 | 4374 | 2187 | 0 | 66.667% |
+| KV | 4860 | 1701 | 0 | 74.074% |
+| KF | 0 | 1701 | 4860 | 0.000% |
+| B | 0 | 0 | 6561 | n/a |
+
+### A vs A2 dry mass (kit separated from shuttle)
+Original fully-equipped dry min / mid / max: **28.075 / 43.594 / 59.113 t**.
+Detachable Venus/Titan kit min / mid / max: **6.925 / 11.769 / 16.613 t**.
+Docked shuttle core dry WITHOUT Venus kit min / mid / max: **21.150 / 31.825 / 42.500 t**. A2 applies the 34.200t G8 docked dry limit to CORE only. A applies the same bound to the fully equipped vehicle as a comparator.
+Historical lost-sizer dry 27.900t (not a fit target), current mid minus history 15.694t. Earlier v1 comparison 35.400t.
+| Dry component | min t | mid t | max t | Kit? | provenance |
+|---|---:|---:|---:|---|---|
+| pressure_pod_titanium_shell_t | 3.200 | 5.400 | 7.600 | CORE | PROJECTION |
+| hull_thermal_structure_t | 9.000 | 11.500 | 14.000 | CORE | ASSUMPTION |
+| pressure_pod_fittings_seals_t | 0.500 | 0.850 | 1.200 | CORE | ASSUMPTION |
+| folding_rover_chassis_t | 0.600 | 0.900 | 1.200 | CORE | ASSUMPTION |
+| single_12m_rotor_blades_hub_mast_t | 0.800 | 1.400 | 2.000 | VENUS/TITAN payload | ASSUMPTION |
+| tipjet_ducts_compressors_t | 0.300 | 0.650 | 1.000 | VENUS/TITAN payload | ASSUMPTION |
+| torch_low_high_engine_t | 4.000 | 7.000 | 10.000 | CORE | DECLARED_2226 |
+| small_belly_thrusters_t | 0.200 | 0.400 | 0.600 | CORE | ASSUMPTION |
+| reactor_power_distribution_t | 0.300 | 0.650 | 1.000 | CORE | ASSUMPTION |
+| crew_habitat_thermal_package_t | 1.000 | 1.500 | 2.000 | CORE | ASSUMPTION |
+| custody_capsule_dry_t | 0.050 | 0.125 | 0.200 | CORE | ASSUMPTION |
+| avionics_controls_yaw_t | 0.500 | 0.850 | 1.200 | CORE | ASSUMPTION |
+| entry_tps_t | 3.000 | 4.500 | 6.000 | VENUS/TITAN payload | ASSUMPTION |
+| landing_gear_door_ramp_t | 0.800 | 1.150 | 1.500 | CORE | ASSUMPTION |
+| water_tank_insulated_t | 1.000 | 1.500 | 2.000 | CORE | ASSUMPTION |
+| venus_hot_loop_thermal_kit_t | 0.500 | 1.000 | 1.500 | VENUS/TITAN payload | ASSUMPTION |
+| venus_cooler_t | 0.150 | 0.475 | 0.800 | VENUS/TITAN payload | ASSUMPTION |
+| kit_house_reactor_t | 1.875 | 3.094 | 4.313 | VENUS/TITAN payload | DECLARED_2226 |
+| kit_house_exchanger_ducts_t | 0.300 | 0.650 | 1.000 | VENUS/TITAN payload | ASSUMPTION |
+
+### B stowed shuttle and Wayfarer G8 clearance
+Necessary hull fit PASS. Hull length 12.800m vs allowed 12.800m, hull diameter 4.300m vs allowed 4.300m. Remaining allocated axial and radial margins: 0.000m / 0.000m. Ideal folded span 12.000m.
+Full B remains OPEN owing to explicit nulls: geometry.mast_stowed_extra_diameter_m, geometry.hub_axial_length_m, geometry.mast_retracted_height_m, geometry.crew_pod_x_m, geometry.rotor_mast_x_m, geometry.rotor_retracted_cg_m, geometry.pod_door_ramp_external_excursion_m.
+### Detachable kit and service holds
+Kit components: single_12m_rotor_blades_hub_mast_t, tipjet_ducts_compressors_t, entry_tps_t, venus_hot_loop_thermal_kit_t, venus_cooler_t, kit_house_reactor_t, kit_house_exchanger_ducts_t. Thermal pod core insulation/habitat remains in shuttle; detachable hot-loop and active cooler are kit mass and must not be added again.
+Kit mass min/mid/max 6.925 / 11.769 / 16.613 t against total Wayfarer payload allowance 50.000t. Thus remaining allowance for other cargo at those three cases: 43.075 / 38.231 / 33.388 t.
+G8 certified hold inventory: two service holds 68.000m³ gross; 56.100m³ free after drones. Service x 14.000–18.000m. Packed effective density 0.18–0.45 t/m³ is ASSUMPTION, not a container design.
+Four 6.000m blades hypothetically split into 2.000 segments per blade; segment length 3.000m versus 4.000m service length, necessary-only PASS. Full blade connector integrity and stow/reassemble geometry still OPEN.
+Kit packed-volume gate KV is computed PASS/FAIL per sample. Full kit physical fit KF is OPEN if total volume passes but **kit.individual_hold_aperture_m, kit.individual_hold_cross_section_m2, kit.rotor_blade_joint_qualified, kit.hot_shuttle_kit_fit_qualified** remain null; a sample exceeding total volume is a determinate FAIL. Free volume does not prove two separate holds can accept the pieces.
+First sample: kit mass 6.925t, estimated packed volume 38.472m³, KV=PASS, KF=OPEN.
+
+## Three strongest input sensitivities per computable gate
+Each input is set to min / mid / max across 81 deterministic OAT baselines; rank by change in PASS fraction, then physical margin if PASS never changes.
+B and full KF have no honest min/mid/max influence ranking until required individual geometry/qualification inputs exist.
+**A**
+| Input | PASS % min / mid / max | Δ PASS percentage points | Δ margin when no flip |
+|---|---|---:|---:|
+| mass.entry_tps_t | 7.407 / 3.704 / 3.704 | 3.704 | 3.000 |
+| power.kit_house_reactor_thermal_MW | 7.407 / 3.704 / 3.704 | 3.704 | 2.438 |
+| mass.torch_low_high_engine_t | 3.704 / 3.704 / 3.704 | 0.000 | 6.000 |
+
+**A2**
+| Input | PASS % min / mid / max | Δ PASS percentage points | Δ margin when no flip |
+|---|---|---:|---:|
+| mass.torch_low_high_engine_t | 100.000 / 55.556 / 33.333 | 66.667 | 6.000 |
+| mass.hull_thermal_structure_t | 92.593 / 77.778 / 44.444 | 48.148 | 5.000 |
+| mass.pressure_pod_titanium_shell_t | 92.593 / 74.074 / 51.852 | 40.741 | 4.400 |
+
+**KV**
+| Input | PASS % min / mid / max | Δ PASS percentage points | Δ margin when no flip |
+|---|---|---:|---:|
+| kit.packed_effective_density_t_per_m3 | 22.222 / 100.000 / 100.000 | 77.778 | 39.229 |
+| mass.entry_tps_t | 85.185 / 70.370 / 70.370 | 14.815 | 10.952 |
+| power.kit_house_reactor_thermal_MW | 77.778 / 77.778 / 70.370 | 7.407 | 8.899 |
+
+## Three mass-driver research checks (not automatic certification)
+### Torch 7.7 GW-class source and approved 2226 lineage
+**KT DECISION — DECLARED_2226:** Shuttle 4–10 t engine minimum-size floor is unchanged. Wayfarer working ledger total 160.000 t = 85.000 reactor + 45.000 shield + 30.000 nozzle, for 11.361 TW jet. The derived specific jet-power per aggregate propulsion kilogram is 71006.250 kW/kg, so a 7.700 GW-class ideal proportional engine would be 0.108 t. This is **not** physical miniaturization proof; kT declares a larger 4–10t minimum-size floor. No canon changed.
+**RESEARCH NOTE — 2026 DFD gap is real and applies equally to Wayfarer.** Repo [torch energy partition / specific power](https://github.com/loom-2226/loom-2226/blob/main/src/wayfarer_torch_energy_partition_mass_feasibility.py) leaves directed fraction and source specific power OPEN. [Jain and Kakade 2023](https://doi.org/10.1016/j.actaastro.2023.02.011) and [Princeton DFD](https://psatellite.com/technology/fusion/) discuss MW-class conceptual systems, not compact GW hardware. The 2026 research bands below diagnose the 200-year technological extrapolation, not an override of DECLARED_2226.
+At 7.700 GW ideal jet power, even optimistic study source specific power 25–100 kW/kg implies **77.000–308.000 t** SOURCE-ONLY, before power partition and shielding. Consequently 4.000–10.000t torch engine remains DECLARED_2226 at the approved 4–10 t floor. The `>=77t` 2026 research comparison is a technology-gap diagnostic, not a constraint on the fictional 2226 assumption; 2026 scaling limitations apply to Wayfarer as well.
+### Biconic hull and thermal structure
+NASA [Venus aeroshell](https://science.nasa.gov/wp-content/uploads/2023/10/advents-venus-orbiter-aerobot-and-dropsonde.pdf) models 3.200m expendable entry body, 0.300t Ti-composite structure and 0.373t HEEET, excluding the 4.300m × 12.800m reusable shuttle with hot rotor mount, keel and rover loads. The 9.000–14.000t kT range cannot be credibly narrowed from that analog. It stays ASSUMPTION.
+### 2.8m OD titanium pressure sphere
+[Alvin classification comparison](https://www.jstage.jst.go.jp/article/jintransnavi/6/1/6_31/_pdf/-char/en): 51.000mm wall for 4500.000m ocean depth; [Limiting Factor](https://caladanoceanic.com/home/technology/sub/): 90.000mm at 11000.000m, smaller 1.500m inside diameter. [Elastic-plastic buckling](https://doi.org/10.1016/j.marstruc.2017.09.007) flags shape imperfections. Neither qualifies a hot 4-crew Venus vessel; hatch reinforcement remains OPEN.
+Analytic perfect-sphere elastic buckling with independent **assumed knockdown and safety factor**, plus simple membrane compression, against 91.000 bar differential. This is a screen, **not** real-hatch, penetration or thermal-cycle buckling qualification.
+| Shell mass t | Nominal wall thickness mm | allowable differential pressure bar | required bar | screen |
+|---:|---:|---:|---:|---|
+| 3.200 | 30.013 | 38.588 | 91.000 | FAIL ANALYTIC |
+| 5.400 | 51.436 | 111.269 | 91.000 | PASS ANALYTIC ONLY |
+| 7.600 | 73.561 | 245.205 | 91.000 | PASS ANALYTIC ONLY |
+Knockdown 0.200–0.500, SF 1.500–2.000, modulus 80.000–115.000GPa, allowable compressive stress 180.000–350.000MPa are all ASSUMPTION; hatch/penetration stress concentrations and Venus hot material strength OPEN. Do not narrow the shell mass until these are resolved.
+
+## Round 4 research sensitivity: torch IDLE, heated CO2 tip jets (NEVER credited to gates)
+**kT hypothesis:** reactor no-thrust idle at 0.500–3.000% of 7.700GW working jet reference = 38.500–231.000MW numerical comparison. The independently **ASSUMED delivered** thermal budgets 40.000/135.000/230.000MW are **NOT** a derived heat-transfer efficiency, guaranteed fusion output, or actual reactor availability. No physical model maps 7.7GW jet to idle thermal power; that mapping is OPEN.
+**Wayfarer authority is NOT idle:** raw 63.360MW × 0.750 during the BURN ONLY gives 47.520MWe magnet supply and 15.840MW conversion waste. A burn-only energy tap does not establish a stationary reactor heater.
+**Minimum stable fusion / turndown:** [PSS Starfire/PFRC](https://psatellite.com/technology/fusion/) projects MW-scale steady-power capability; [PPPL PFRC](https://www.pppl.gov/Princeton-Field-Reversed-Configuration) studies RF-driven FRCs; [Jain & Kakade](https://doi.org/10.1016/j.actaastro.2023.02.011) identify RF recirculation and sustained-plasma challenges; [Nature FRC demonstration](https://www.nature.com/articles/s41467-025-58849-5) validates limited experimental FRC formation, not a GW fusion powerplant. **No published qualified minimum stable fusion power, 0.5–3% turndown, or exhaustless operation for this reactor lineage was found.** These are OPEN, not failed gate inputs.
+**Heat path:** a 2226 source-to-hot-loop exchanger → high-temperature duct manifold → retracted mast/rotating union → four hollow rotor blades → CO₂ tip jets. The source must transfer charged-particle/radiative energy without a main plume, hold the FRC operating point, avoid net reaction exhaust, and dissipate unrecovered thermal power. [NASA exchanger material-interface research](https://ntrs.nasa.gov/citations/20230005988) and [NEP heat-pipe sizing](https://ntrs.nasa.gov/citations/20220013111) establish substantial temperature, fatigue, duct-pressure and exchanger-mass concerns but no validated GW-specific 2226 mass range. Exchanger mass, flow, insulation, rotating union and hot-mast heat leak remain OPEN; no credits or new dry-mass guesses.
+**Conditional rotor demand at 30/40/50 km**, using original VIRA table and min/mid/max total wet mass, figure of merit and tip-jet efficiency. The *mass and aerodynamic assumptions are the sizer's existing ranges*, not invented reactor performance.
+| Rotor case | Wet t | FM | source→rotor | altitude km | ambient bar | shaft MW | required hot-gas input MW |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| OPTIMISTIC | 51.485 | 0.800 | 0.350 | 30.000 | 9.581 | 8.051 | 23.002 |
+| OPTIMISTIC | 51.485 | 0.800 | 0.350 | 40.000 | 3.501 | 12.222 | 34.921 |
+| OPTIMISTIC | 51.485 | 0.800 | 0.350 | 50.000 | 1.066 | 20.316 | 58.045 |
+| MIDPOINT | 67.374 | 0.700 | 0.225 | 30.000 | 9.581 | 13.774 | 61.216 |
+| MIDPOINT | 67.374 | 0.700 | 0.225 | 40.000 | 3.501 | 20.910 | 92.934 |
+| MIDPOINT | 67.374 | 0.700 | 0.225 | 50.000 | 1.066 | 34.757 | 154.474 |
+| PESSIMISTIC | 83.263 | 0.600 | 0.100 | 30.000 | 9.581 | 22.077 | 220.767 |
+| PESSIMISTIC | 83.263 | 0.600 | 0.100 | 40.000 | 3.501 | 33.515 | 335.153 |
+| PESSIMISTIC | 83.263 | 0.600 | 0.100 | 50.000 | 1.066 | 55.709 | 557.087 |
+
+**Heat-only ceiling, VIRA profile, no atmospheric/nozzle qualification.** At each independently assumed delivered heat level, climb only while required tip-jet input is no larger than budget. This ignores rotor safe-tip-speed, hot duty, mast/exchanger loss and reactor start/restart, so reported ceilings are optimistic *heat-only* bounds, NOT Gate R or C.
+| Rotor case | hypothetical delivered heat MW | thermal rotor ceiling km | cloud-base reached? | **above cloud TOP?** |
+|---|---:|---:|---|---|
+| OPTIMISTIC | 40.000 | 42.000 | no | no |
+| OPTIMISTIC | 135.000 | 62.000 | yes | no |
+| OPTIMISTIC | 230.000 | 68.000 | yes | yes |
+| MIDPOINT | 40.000 | 17.000 | no | no |
+| MIDPOINT | 135.000 | 47.000 | no | no |
+| MIDPOINT | 230.000 | 56.000 | yes | no |
+| PESSIMISTIC | 40.000 | OPEN | no | no |
+| PESSIMISTIC | 135.000 | 15.000 | no | no |
+| PESSIMISTIC | 230.000 | 31.000 | no | no |
+
+Cloud-base 48.000km; cloud-top 65.000km, screen references only. **Entering the clouds is NOT lighting the torch above the clouds.** An ABOVE-CLOUD-TOP result would still not certify magnetic-nozzle plume operation at local density or guarantee reactor idle mode. Jet-power throttling and thermal routing are not demonstrated.
+**STOP / HOLDS:** idle fusion power stability, extraction efficiency, exhaust-free containment, rotating joint, heat exchanger/duct mass, and heat transfer to tipjets are all OPEN. Existing A/A2/B/C/D and existing statistical sensitivity ranking are not altered by this isolated calculation.
+
+## Representative sampled outcomes
+| Sample | Dry with kit t | A | Docked core t | A2 | packed kit m³ | KV | KF | B |  |
+|---:|---:|---|---:|---|---:|---|---|---||
+| 0 | 28.075 | PASS | 21.150 | PASS | 38.472 | PASS | OPEN | OPEN | 
+| 1 | 45.394 | FAIL | 33.400 | PASS | 26.653 | PASS | OPEN | OPEN | 
+| 2 | 50.562 | FAIL | 36.275 | FAIL | 45.357 | PASS | OPEN | OPEN | 
+| 3 | 41.275 | FAIL | 29.900 | PASS | 63.194 | FAIL | FAIL | OPEN | 
+| 4 | 43.669 | FAIL | 31.500 | PASS | 27.042 | PASS | OPEN | OPEN | 
+| 5 | 46.288 | FAIL | 34.525 | FAIL | 37.341 | PASS | OPEN | OPEN | 
+| 6 | 39.850 | FAIL | 27.550 | PASS | 68.333 | FAIL | FAIL | OPEN | 
+| 7 | 47.344 | FAIL | 37.250 | FAIL | 22.431 | PASS | OPEN | OPEN | 
+| 8 | 43.587 | FAIL | 31.725 | PASS | 37.659 | PASS | OPEN | OPEN | 
+
+## Full hashed input JSON (verbatim fields and provenance)
+```json
+{
+  "header": "ALL bodies. ALL sponsors. 2026-2226.",
+  "schema": "LOOM.SHUTTLE_SIZER_INPUTS_V1",
+  "status": "NON_CANON_ENGINEERING_SENSITIVITY_ROUND_3",
+  "authority": "kT approved fresh sizer; no edits to canon, Wayfarer, Navigator or historical research",
+  "origin": {
+    "source_453": "https://github.com/loom-2226/loom-2226/pull/453",
+    "bay": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
+    "qualification": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/CERTIFICATION_BASIS.md",
+    "atmosphere": "https://repository.gatech.edu/server/api/core/bitstreams/681dac66-9414-4c40-8f27-9bd92f6a385f/content",
+    "atmosphere_reference": "Seiff et al. VIRA (1985), IPPW-6 (2008) JPL/T. Balint adaptation",
+    "declared_assumptions": "kT/Claude 2026-11-02; kT-approved explicit model sensitivities, all labeled ASSUMPTION",
+    "cli_validation": {
+      "status": "CLOSED",
+      "basis": "Claude locally ran Stage 2 Node CLI and reproduced run hash 772ccd9ef0cfc82ea7c03ae0c5f3c936d310a0c4; reported by kT 2026-11-03",
+      "note": "Prior CLI test closed for round-2 executable; round-3 output requires fresh execution when possible."
+    },
+    "round_4": "kT approved 2026-11-03; same draft branches; all gate inputs frozen; idle heat research only",
+    "round_5": "kT APPROVED 2026-11-03; HOUSE REACTOR kit, bounded 100–230MW heat and derived kit mass; review before merge; stage 3 after merge; torch idle unchanged research only",
+    "round_5a": "kT APPROVED 2026-11-03: existing kit tipjet heat exchanger runs ground-vent mode, rotor parked; merge after report per user's direct approval. Stage 3 afterwards."
+  },
+  "si": {
+    "kg_per_t": {
+      "value": 1000,
+      "unit": "kg/t",
+      "provenance": "ONLINE",
+      "source": "SI unit definition",
+      "description": "Unit conversion"
+    },
+    "m_per_km": {
+      "value": 1000,
+      "unit": "m/km",
+      "provenance": "ONLINE",
+      "source": "SI unit definition",
+      "description": "Unit conversion"
+    },
+    "seconds_per_hour": {
+      "value": 3600,
+      "unit": "s/h",
+      "provenance": "ONLINE",
+      "source": "SI unit definition",
+      "description": "Unit conversion"
+    },
+    "joules_per_kWh": {
+      "value": 3600000,
+      "unit": "J/kWh",
+      "provenance": "ONLINE",
+      "source": "SI unit definition",
+      "description": "Unit conversion"
+    },
+    "kW_per_MW": {
+      "value": 1000,
+      "unit": "kW/MW",
+      "provenance": "ONLINE",
+      "source": "SI unit definition",
+      "description": "Unit conversion"
+    },
+    "W_per_GW": {
+      "value": 1000000000,
+      "unit": "W/GW",
+      "provenance": "ONLINE",
+      "source": "SI unit prefix definitions (not physical efficiency assumptions)",
+      "description": "Explicit unit conversion; never use unrelated kg/t to convert power."
+    },
+    "W_per_MW": {
+      "value": 1000000,
+      "unit": "W/MW",
+      "provenance": "ONLINE",
+      "source": "SI unit prefix definitions (not physical efficiency assumptions)",
+      "description": "Explicit unit conversion; never use unrelated kg/t to convert power."
+    },
+    "W_per_kW": {
+      "value": 1000,
+      "unit": "W/kW",
+      "provenance": "ONLINE",
+      "source": "SI unit prefix definitions (not physical efficiency assumptions)",
+      "description": "Explicit unit conversion; never use unrelated kg/t to convert power."
+    },
+    "Pa_per_bar": {
+      "value": 100000,
+      "unit": "Pa/bar",
+      "provenance": "ONLINE",
+      "source": "SI unit conversion",
+      "description": "Used to check external pressure hull analytic stress/buckling bounds"
+    },
+    "Pa_per_GPa": {
+      "value": 1000000000,
+      "unit": "Pa/GPa",
+      "provenance": "ONLINE",
+      "source": "SI unit conversion",
+      "description": "Used in conditional shell check"
+    },
+    "Pa_per_MPa": {
+      "value": 1000000,
+      "unit": "Pa/MPa",
+      "provenance": "ONLINE",
+      "source": "SI unit conversion",
+      "description": "Used in conditional shell check"
+    },
+    "millimeters_per_meter": {
+      "value": 1000,
+      "unit": "mm/m",
+      "provenance": "ONLINE",
+      "source": "SI conversion",
+      "description": "Thin-shell thickness report only"
+    },
+    "W_per_TW": {
+      "value": 1000000000000,
+      "unit": "W/TW",
+      "provenance": "ONLINE",
+      "source": "SI decimal prefixes",
+      "description": "Unit conversion only; nominal jet W from TW"
+    },
+    "MW_per_GW": {
+      "value": 1000,
+      "unit": "MW/GW",
+      "provenance": "ONLINE",
+      "source": "SI decimal prefixes",
+      "description": "Convert rated gigawatt jet-power reference into megawatt sensitivity"
+    }
+  },
+  "geometry": {
+    "hull_length_m": {
+      "value": 12.8,
+      "unit": "m",
+      "provenance": "ASSUMPTION",
+      "source": "kT shuttle baseline",
+      "description": "Stowed length limit"
+    },
+    "hull_diameter_m": {
+      "value": 4.3,
+      "unit": "m",
+      "provenance": "ASSUMPTION",
+      "source": "kT shuttle baseline",
+      "description": "Stowed outer hull diameter"
+    },
+    "crew_pod_outer_diameter_m": {
+      "value": 2.8,
+      "unit": "m",
+      "provenance": "ASSUMPTION",
+      "source": "kT shuttle baseline",
+      "description": "Ti sphere OD"
+    },
+    "crew_pod_pressure_ext_bar": {
+      "value": 92,
+      "unit": "bar",
+      "provenance": "ASSUMPTION",
+      "source": "kT shuttle baseline",
+      "description": "Venus external rating target"
+    },
+    "crew_pod_pressure_int_bar": {
+      "value": 1,
+      "unit": "bar",
+      "provenance": "ASSUMPTION",
+      "source": "kT shuttle baseline",
+      "description": "Human-crew internal rating target"
+    },
+    "crew_pod_seats": {
+      "value": 4,
+      "unit": "crew",
+      "provenance": "ASSUMPTION",
+      "source": "kT shuttle baseline",
+      "description": "Optional crew 2 or 4"
+    },
+    "bay_x_start_m": {
+      "value": 18.25,
+      "unit": "m",
+      "provenance": "CANON",
+      "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
+      "description": "Active derived Wayfarer v0.5.7 bay start, no edits"
+    },
+    "bay_x_end_m": {
+      "value": 32.05,
+      "unit": "m",
+      "provenance": "CANON",
+      "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
+      "description": "Active derived Wayfarer v0.5.7 bay end"
+    },
+    "bay_bore_radius_m": {
+      "value": 2.4,
+      "unit": "m",
+      "provenance": "CANON",
+      "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
+      "description": "Derived internal bore radius"
+    },
+    "g8_min_radial_clearance_m": {
+      "value": 0.25,
+      "unit": "m",
+      "provenance": "CANON",
+      "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/CERTIFICATION_BASIS.md",
+      "description": "G8 radial clearance"
+    },
+    "g8_min_axial_clearance_m": {
+      "value": 0.5,
+      "unit": "m",
+      "provenance": "CANON",
+      "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/CERTIFICATION_BASIS.md",
+      "description": "G8 axial clearance PER END"
+    },
+    "rotor_diameter_m": {
+      "value": 12,
+      "unit": "m",
+      "provenance": "ASSUMPTION",
+      "source": "kT new baseline",
+      "description": "Single deployable tip-jet rotor"
+    },
+    "rotor_blades": {
+      "value": 4,
+      "unit": "blades",
+      "provenance": "ASSUMPTION",
+      "source": "kT new baseline",
+      "description": "Two fold forward; two fold aft"
+    },
+    "rotor_blades_fwd": {
+      "value": 2,
+      "unit": "blades",
+      "provenance": "ASSUMPTION",
+      "source": "kT new baseline",
+      "description": "Fold along spine"
+    },
+    "rotor_blades_aft": {
+      "value": 2,
+      "unit": "blades",
+      "provenance": "ASSUMPTION",
+      "source": "kT new baseline",
+      "description": "Fold along spine"
+    },
+    "mast_stowed_extra_diameter_m": {
+      "value": null,
+      "unit": "m",
+      "provenance": "OPEN",
+      "source": "kT baseline; geometry not designed",
+      "description": "Additional thickness beyond the 4.3m stowed hull envelope"
+    },
+    "hub_axial_length_m": {
+      "value": null,
+      "unit": "m",
+      "provenance": "OPEN",
+      "source": "kT baseline; hinge geometry not specified",
+      "description": "Actual hub/hinge/rotor roots consume nonzero length"
+    },
+    "mast_retracted_height_m": {
+      "value": null,
+      "unit": "m",
+      "provenance": "OPEN",
+      "source": "kT baseline; geometry not designed",
+      "description": "Height and recess under 4.3m outer envelope"
+    },
+    "crew_pod_x_m": {
+      "value": null,
+      "unit": "m",
+      "provenance": "OPEN",
+      "source": "kT baseline; mass CG not yet established",
+      "description": "Do not place pod within hull by guessing position"
+    },
+    "rotor_mast_x_m": {
+      "value": null,
+      "unit": "m",
+      "provenance": "OPEN",
+      "source": "kT baseline: over CG; CG unknown",
+      "description": "No invented CG"
+    },
+    "rotor_retracted_cg_m": {
+      "value": null,
+      "unit": "m",
+      "provenance": "OPEN",
+      "source": "kT baseline; CG unknown",
+      "description": "Rotor and boom integration"
+    },
+    "pod_door_ramp_external_excursion_m": {
+      "value": null,
+      "unit": "m",
+      "provenance": "OPEN",
+      "source": "kT baseline",
+      "description": "Door/ramp fits while docked? configuration OPEN"
+    }
+  },
+  "mass": {
+    "max_docked_dry_t": {
+      "value": 34.2,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT approved envelope",
+      "description": "Gate A"
+    },
+    "v1_comparison_dry_t": {
+      "value": 35.4,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude v1 hypothesis",
+      "description": "Reference only, NOT replacement ledger"
+    },
+    "pressure_pod_titanium_shell_t": {
+      "min": 3.2,
+      "max": 7.6,
+      "unit": "t",
+      "provenance": "PROJECTION",
+      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "Geometric Ti shell research range; NOT buckling/rated, excludes all windows, doors and fittings"
+    },
+    "hull_thermal_structure_t": {
+      "min": 9,
+      "max": 14,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "pressure_pod_fittings_seals_t": {
+      "min": 0.5,
+      "max": 1.2,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "folding_rover_chassis_t": {
+      "min": 0.6,
+      "max": 1.2,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "single_12m_rotor_blades_hub_mast_t": {
+      "min": 0.8,
+      "max": 2,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "tipjet_ducts_compressors_t": {
+      "min": 0.3,
+      "max": 1,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "torch_low_high_engine_t": {
+      "min": 4,
+      "max": 10,
+      "unit": "t",
+      "provenance": "DECLARED_2226",
+      "source": "kT APPROVED 2026-11-03; Wayfarer ledger https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
+      "description": "Minimum-size floor for shuttle torch in same hypothetical 2226 lineage as Wayfarer. Wayfarer propulsion allocation: 160t = reactor85t + shadow shield45t + nozzle30t. Working jet ceiling 11.361TW gives ~71,006 kW/kg of total propulsion subsystem; at same linear rate 7.7GW corresponds ~0.108t, below a practical minimum-size floor. Keep editable 4–10t; mass/safety/geometry and scaling are an explicit 2226 declaration, NOT evidence of a physically demonstrated 2026 device. Do NOT alter range. This row counts whole 4–10t torch ENGINE floor, and its split is not separately added to another dry-mass row."
+    },
+    "small_belly_thrusters_t": {
+      "min": 0.2,
+      "max": 0.6,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "reactor_power_distribution_t": {
+      "min": 0.3,
+      "max": 1,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "crew_habitat_thermal_package_t": {
+      "min": 1,
+      "max": 2,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "custody_capsule_dry_t": {
+      "min": 0.05,
+      "max": 0.2,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "avionics_controls_yaw_t": {
+      "min": 0.5,
+      "max": 1.2,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "entry_tps_t": {
+      "min": 3,
+      "max": 6,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "landing_gear_door_ramp_t": {
+      "min": 0.8,
+      "max": 1.5,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "water_tank_insulated_t": {
+      "min": 1,
+      "max": 2,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "historical_lost_sizer_dry_t": {
+      "value": 27.9,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "Historical derived output from lost sizer preserved in PR #453 / current wayfarer_v05_inputs.json",
+      "description": "Historical comparison only, excluded from new component sum and gates."
+    },
+    "venus_hot_loop_thermal_kit_t": {
+      "min": 0.5,
+      "max": 1.5,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "Analyst screening proposal 2026-11-03, NON-CANON; not independently qualified",
+      "description": "Detachable hot-side rejector/heat pipes/hot shroud; not crew pressure pod generic insulation."
+    },
+    "venus_cooler_t": {
+      "min": 0.15,
+      "max": 0.8,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "Analyst screening proposal 2026-11-03, NON-CANON; not independently qualified",
+      "description": "Detachable Venus hot-environment active heat pump; full system mass remains hypothesis."
+    },
+    "kit_house_reactor_t": {
+      "min": 1.875,
+      "max": 4.3125,
+      "unit": "t",
+      "provenance": "DECLARED_2226",
+      "source": "DERIVED from power.kit_house_reactor_thermal_MW, power.kit_house_reactor_net_specific_kW_per_kg and conversion efficiency; kT 2026-11-03",
+      "description": "DEPENDENT, NEVER independently sampled: thermal MW × 0.75×1000kW/MW ÷40kW/kg ÷1000kg/t = 1.875–4.3125t; excluded from independent sample fields; included exactly once in dry and kit payload ledgers."
+    },
+    "kit_house_exchanger_ducts_t": {
+      "min": 0.3,
+      "max": 1,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT 2026-11-03 additional kit house-reactor heat exchanger / high-temperature transfer duct sensitivity",
+      "description": "Additional dedicated kit house-reactor heat exchanger/duct mass above existing tipjet_ducts_compressors_t and venus_hot_loop_thermal_kit_t. Disjoint machinery ledger; actual gas-mast thermal/pressure qualification OPEN."
+    }
+  },
+  "water": {
+    "v1_retained_capacity_t": {
+      "value": 23.1,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "Explicit v1 assumption copied from historical LOST-sizer 23.1t; not new validation"
+    },
+    "v1_venus_touchdown_belly_debit_t": {
+      "value": 0.84,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "Original v1 belly touchdown charged already; NOT automatically charged in rotor-only revised mission"
+    },
+    "v1_after_all_burns_remaining_t": {
+      "value": 1.6,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "Original v1 after all burns including 0.84t touchdown; NO extra subtraction"
+    },
+    "reaction_water_initial_t": {
+      "min": 23.1,
+      "max": 23.1,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Separate reaction water store, full initial per kT."
+    },
+    "crew_thermal_water_initial_t": {
+      "value": null,
+      "unit": "t",
+      "provenance": "OPEN",
+      "source": "DERIVED from each sampled water.crew_water_cold_mass_t",
+      "description": "Computed from crew_water_cold_mass_t in every sample; no second independent unknown."
+    },
+    "reaction_water_entry_debit_t": {
+      "min": 0,
+      "max": 0.3,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Only entry reaction debit; never double charge rotor."
+    },
+    "reaction_water_rotor_debit_t": {
+      "value": 0,
+      "unit": "t",
+      "provenance": "PROJECTION",
+      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "Conditional only if tipjet uses ambient CO2 without vehicle water; reactor fuel budget still open"
+    },
+    "reaction_water_torch_ascent_t": {
+      "value": null,
+      "unit": "t",
+      "provenance": "OPEN",
+      "source": "DERIVED rocket equation in each sampled low/high mode",
+      "description": "Computed as stage-specific propellant consumption, not an independent assumption."
+    },
+    "crew_water_heating_delta_T_K": {
+      "min": 15,
+      "max": 25,
+      "unit": "K",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Usable cold-store sensible temperature window."
+    },
+    "crew_water_cold_mass_t": {
+      "min": 0.3,
+      "max": 1,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Separate cold thermal water inventory, NOT part of reaction 23.1t."
+    },
+    "crew_water_heat_capacity_J_per_kg_K": {
+      "value": 4186,
+      "unit": "J/(kg K)",
+      "provenance": "ONLINE",
+      "source": "https://openstax.org/books/college-physics-ap-courses/pages/14-2-temperature-change-and-heat-capacity",
+      "description": "4186 J/kg/K for liquid water at approximately 15 degrees C, OpenStax specific heat table; ONLINE, not constant across every state."
+    },
+    "crew_water_life_support_consumption_t": {
+      "value": null,
+      "unit": "t",
+      "provenance": "OPEN",
+      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "No fixed per-crew life support water consumption"
+    },
+    "water_to_space_t": {
+      "value": null,
+      "unit": "t",
+      "provenance": "OPEN",
+      "source": "expenditure ledger",
+      "description": "No hidden losses"
+    }
+  },
+  "power": {
+    "rotor_figure_of_merit": {
+      "min": 0.6,
+      "max": 0.8,
+      "unit": "fraction",
+      "provenance": "ASSUMPTION",
+      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "#453 real rotor screening band; single 12m disk has equal area to 4x6m but NOT equal structure or FM qualification"
+    },
+    "tipjet_thermal_to_useful_rotor": {
+      "min": 0.1,
+      "max": 0.35,
+      "unit": "fraction",
+      "provenance": "ASSUMPTION",
+      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "#453 tipjet conversion sensitivity; no demonstrated 735K device"
+    },
+    "rotor_usable_input_heat_limit_MW": {
+      "value": null,
+      "unit": "MW thermal",
+      "provenance": "OPEN",
+      "source": "DERIVED OUTPUT: kit house-reactor thermal raw output minus concurrent four-crew cooler electric divided by direct conversion efficiency. Not independent input or missing parameter.",
+      "description": "Derived per sample, not sampled/credited from torch idle. Actual exchanger transfer efficacy to heated CO2 remains unqualified."
+    },
+    "rotor_safe_tip_speed_mps": {
+      "min": 180,
+      "max": 250,
+      "unit": "m/s",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Necessary tip-speed screen only; actual aero tip Mach/solidity/torque unqualified."
+    },
+    "rotor_hot_duty_limit_s": {
+      "value": null,
+      "unit": "s",
+      "provenance": "OPEN",
+      "source": "DERIVED from sampled rotor_hot_duty_limit_h × SI seconds_per_hour",
+      "description": "One derived representation; do not sample separately."
+    },
+    "rotor_climb_rate_mps": {
+      "min": 5,
+      "max": 15,
+      "unit": "m/s",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Assumed net rotor altitude rate, not derived excess power or free of rotor downwash."
+    },
+    "torch_low_ve_kmps": {
+      "min": 10,
+      "max": 25,
+      "unit": "km/s",
+      "provenance": "PROJECTION",
+      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "#453 unearned sensitivity not recovered sizer engine spec"
+    },
+    "torch_high_ve_kmps": {
+      "min": 25,
+      "max": 100,
+      "unit": "km/s",
+      "provenance": "PROJECTION",
+      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "#453 unearned sensitivity"
+    },
+    "torch_low_thrust_kN": {
+      "value": null,
+      "unit": "kN",
+      "provenance": "OPEN",
+      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "No recovered value"
+    },
+    "torch_high_thrust_kN": {
+      "value": null,
+      "unit": "kN",
+      "provenance": "OPEN",
+      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "Lost sizer definition remains OPEN; v1 385kN was unqualified illustrative case"
+    },
+    "torch_power_source_available_GW": {
+      "value": null,
+      "unit": "GW",
+      "provenance": "OPEN",
+      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "7.7GW historical output not certified and not assumed reactor availability"
+    },
+    "rotor_coupling_efficiency": {
+      "value": null,
+      "unit": "fraction",
+      "provenance": "OPEN",
+      "source": "tipjet compressor bleed and nozzle energy partition",
+      "description": "Source-to-rotor conversion band does not supply compressor mass or power model"
+    },
+    "reactor_waste_heat_MW": {
+      "value": null,
+      "unit": "MW",
+      "provenance": "OPEN",
+      "source": "source and conversion not selected",
+      "description": "No unbounded heat sink"
+    },
+    "torch_jet_power_GW": {
+      "min": 5,
+      "max": 8,
+      "unit": "GW",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Jet kinetic power, not electrical production. Thrust 2P/ve each low/high mode."
+    },
+    "rotor_hot_duty_limit_h": {
+      "min": 1,
+      "max": 4,
+      "unit": "h",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Powered rotor lifetime, compare ascent climb exposure; not 18h surface dwell."
+    },
+    "kit_house_reactor_thermal_MW": {
+      "min": 100,
+      "max": 230,
+      "unit": "MW thermal (raw)",
+      "provenance": "DECLARED_2226",
+      "source": "kT 2026-11-03; https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
+      "description": "Independent dedicated Venus/Titan kit house-reactor thermal power interval. NOT torch idle heat. Switched between thermal-to-tipjet and 75% direct conversion to cooler electric, with raw thermal allocation conserved. Unqualified direct gas exchanger and radiator geometry."
+    },
+    "kit_house_reactor_net_specific_kW_per_kg": {
+      "value": 40,
+      "unit": "kW/kg net electric",
+      "provenance": "DECLARED_2226",
+      "source": "kT 2026-11-03 Round 5, same Wayfarer house-reactor lineage; https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json ; https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
+      "description": "Same Wayfarer twin D-He3 house units: 2×50 MW net each, 1.25t each at 40kW/kg NET."
+    },
+    "kit_house_reactor_direct_conversion_efficiency": {
+      "value": 0.75,
+      "unit": "fraction",
+      "provenance": "DECLARED_2226",
+      "source": "kT 2026-11-03 Round 5, same Wayfarer house-reactor lineage; https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json ; https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
+      "description": "75% direct converter electrical efficiency; thermal raw drawn for cooler electricity = cooler electrical/0.75."
+    },
+    "kit_house_reactor_min_stable_fraction": {
+      "value": 0.1,
+      "unit": "fraction",
+      "provenance": "DECLARED_2226",
+      "source": "kT 2026-11-03 Round 5, same Wayfarer house-reactor lineage; https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json ; https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
+      "description": "10% minimum online output each from Wayfarer house-reactor declarations; NOT main torch idle."
+    },
+    "kit_house_reactor_source_net_MW_at_100thermal": {
+      "value": 75,
+      "unit": "MW electric",
+      "provenance": "DECLARED_2226",
+      "source": "kT 2026-11-03 Round 5, same Wayfarer house-reactor lineage; https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json ; https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
+      "description": "Derived 100MW thermal *75% for comparison, electrical distribution may be lower."
+    }
+  },
+  "thermal": {
+    "venus_external_surface_K": {
+      "min": 735,
+      "max": 737,
+      "unit": "K",
+      "provenance": "ONLINE",
+      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "Venus ~735K from VIRA and NASA environment"
+    },
+    "cabin_target_K": {
+      "value": 300,
+      "unit": "K",
+      "provenance": "ASSUMPTION",
+      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "NASA ALIVE screening interior target"
+    },
+    "insulation_k_W_per_mK": {
+      "min": 0.02,
+      "max": 0.1,
+      "unit": "W/(m K)",
+      "provenance": "ASSUMPTION",
+      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "Unqualified effective insulating screen"
+    },
+    "insulation_thickness_m": {
+      "min": 0.05,
+      "max": 0.15,
+      "unit": "m",
+      "provenance": "ASSUMPTION",
+      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "Unqualified thickness, not fitted inside pod"
+    },
+    "stay_requested_h": {
+      "value": 18,
+      "unit": "h",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude v1",
+      "description": "Target surface stay, not achieved result"
+    },
+    "crew_cases": [
+      {
+        "value": 2,
+        "unit": "crew",
+        "provenance": "ASSUMPTION",
+        "source": "kT",
+        "description": "Two crew case"
+      },
+      {
+        "value": 4,
+        "unit": "crew",
+        "provenance": "ASSUMPTION",
+        "source": "kT",
+        "description": "Four crew case"
+      }
+    ],
+    "crew_heat_W_each": {
+      "min": 100,
+      "max": 150,
+      "unit": "W",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Crew heat per crew member; biological/synthetic specifics remain scenario uncertainty."
+    },
+    "cooler_coefficient_of_performance": {
+      "min": 0.07,
+      "max": 0.24,
+      "unit": "ratio",
+      "provenance": "PROJECTION",
+      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "#453 broad Venus cooler COP sensitivity not qualified; no rejection hardware"
+    },
+    "hot_side_rejection_capacity_kW": {
+      "min": 25,
+      "max": 300,
+      "unit": "kW",
+      "provenance": "ASSUMPTION",
+      "source": "Analyst screening proposal 2026-11-03, NON-CANON; not independently qualified",
+      "description": "Heat dissipated into hot loop at >Venus ambient; rate only, geometry not certified. Round 5a ground-vent rejects main reactor surplus via existing KIT heat exchanger, not this old coolant-only cap; retained as historical comparison and ignored by D-shuttle gate."
+    },
+    "surface_effective_internal_area_m2": {
+      "value": null,
+      "unit": "m2",
+      "provenance": "OPEN",
+      "source": "thermal bridges and cabin geometry",
+      "description": "Ideal full sphere surface used only as optimistic bound"
+    },
+    "cabin_electronics_kW": {
+      "min": 1,
+      "max": 2,
+      "unit": "kW",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Cabin electronics continuous heat into cold compartment."
+    },
+    "active_cooler_power_available_kW": {
+      "min": 25,
+      "max": 200,
+      "unit": "kW",
+      "provenance": "ASSUMPTION",
+      "source": "Analyst screening proposal 2026-11-03, NON-CANON; not independently qualified",
+      "description": "Installed cooler drive/power handling limit, separate from house reactor net output and electrical interface cap."
+    },
+    "reactor_aux_electric_power_available_kW": {
+      "min": 25,
+      "max": 200,
+      "unit": "kW",
+      "provenance": "ASSUMPTION",
+      "source": "Analyst screening proposal 2026-11-03, NON-CANON; not independently qualified",
+      "description": "Installed cooler auxiliary electrical interface/bus limit only (25–200kW), NOT separate reactor source. House reactor electrical available = thermal MW×0.75×1000; take min of bus, cooler input limit and reactor output."
+    },
+    "hot_loop_reject_temperature_K": {
+      "min": 780,
+      "max": 900,
+      "unit": "K",
+      "provenance": "ASSUMPTION",
+      "source": "Analyst screening proposal 2026-11-03, NON-CANON; not independently qualified",
+      "description": "Hot-loop rejection temperature above Venus ambient, unqualified heat exchanger."
+    },
+    "active_cooler_mass_key": "mass.venus_cooler_t",
+    "active_dock_surface_target_h": "thermal.stay_requested_h",
+    "passive_pod_target_h": null,
+    "ground_vent_derate": {
+      "min": 0.3,
+      "max": 1,
+      "unit": "fraction",
+      "provenance": "ASSUMPTION",
+      "source": "kT APPROVED 2026-11-03 Round 5a (non-canon)",
+      "description": "No ram air; compressor-fed ground CO2 mass flow. Actual hub vent physics not qualified. No new exchanger hardware or mass."
+    },
+    "ground_vent_compressor_fraction": {
+      "min": 0.01,
+      "max": 0.05,
+      "unit": "fraction of vented heat",
+      "provenance": "ASSUMPTION",
+      "source": "kT APPROVED 2026-11-03 Round 5a (non-canon)",
+      "description": "Ground CO2 compressor electric load relative to total hot-gas vent heat; powered by SAME house reactor net output, allocated from thermal budget. No invented extra compressor mass (existing tipjet ducts/compressors)."
+    },
+    "ground_vent_plume_orientation": {
+      "value": null,
+      "unit": "design only",
+      "provenance": "OPEN",
+      "source": "kT 2026-11-03 Round 5a design rule, NON-GATE",
+      "description": "Plume must point UP, away from pod, door and ramp; actual directional clearance and thermochemistry not demonstrated; not scored as gate."
+    },
+    "reactor_off_18h_battery_specific_energy_kWh_kg": {
+      "min": 0.3,
+      "max": 1,
+      "unit": "kWh/kg",
+      "provenance": "ASSUMPTION",
+      "source": "kT APPROVED 2026-11-03 Round 5a (non-canon)",
+      "description": "Reactor-OFF and 18h battery-only electric COOLER, plus 18h cold storage not credited. Comparison output only, no gate; ignores cooling battery self-heat and actual physical packaging."
+    },
+    "ground_vent_accounting": "Thermal reactor >=10% rated; house raw thermal Q; ventilated heat equals Q + cabin cold heat; compressor electricity = f*Qvent, cooler electric = Qcold/COP, raw reactor required for both electric draws >=(Pcool+Pcomp)/0.75; run power Qrun=max(10%*Prated,(Pcool+f*Qcold)/(.75-f)), Qrun<=Prated; vent capacity=derate*Prated; no double count of compressor/cooler electricity in Qvent because extracted from Qrun and returned as heat. No external separate 25–300kW sink required in ground-vent mode. Existing installed cooler electric and aux bus caps still apply ONLY to cooler electrical draw, compressor is a separate already-existing tipjet compressor bus; new compressor power tap geometry remains unqualified."
+  },
+  "venus": {
+    "gravity_mps2": {
+      "value": 8.87,
+      "unit": "m/s2",
+      "provenance": "ONLINE",
+      "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/venusfact.html",
+      "description": "Near-surface gravity"
+    },
+    "rotor_mass_screen_t": {
+      "min": 58.5,
+      "max": 60,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
+      "description": "58.5 v1 dry35.4 + full water23.1, 60t Claude rotor screen; NOT validated dry mass"
+    },
+    "atmosphere_profile": [
+      {
+        "altitude_km": 0,
+        "temperature_K": 735.3,
+        "pressure_bar": 92.1,
+        "density_kg_m3": 64.79
+      },
+      {
+        "altitude_km": 5,
+        "temperature_K": 696.8,
+        "pressure_bar": 66.65,
+        "density_kg_m3": 49.87
+      },
+      {
+        "altitude_km": 10,
+        "temperature_K": 658.2,
+        "pressure_bar": 47.39,
+        "density_kg_m3": 37.72
+      },
+      {
+        "altitude_km": 15,
+        "temperature_K": 620.8,
+        "pressure_bar": 33.04,
+        "density_kg_m3": 27.95
+      },
+      {
+        "altitude_km": 20,
+        "temperature_K": 580.7,
+        "pressure_bar": 22.52,
+        "density_kg_m3": 20.39
+      },
+      {
+        "altitude_km": 25,
+        "temperature_K": 539.2,
+        "pressure_bar": 14.93,
+        "density_kg_m3": 14.57
+      },
+      {
+        "altitude_km": 30,
+        "temperature_K": 496.9,
+        "pressure_bar": 9.581,
+        "density_kg_m3": 10.15
+      },
+      {
+        "altitude_km": 35,
+        "temperature_K": 455.3,
+        "pressure_bar": 5.917,
+        "density_kg_m3": 6.831
+      },
+      {
+        "altitude_km": 40,
+        "temperature_K": 417.6,
+        "pressure_bar": 3.501,
+        "density_kg_m3": 4.404
+      },
+      {
+        "altitude_km": 45,
+        "temperature_K": 385.4,
+        "pressure_bar": 1.979,
+        "density_kg_m3": 2.693
+      },
+      {
+        "altitude_km": 50,
+        "temperature_K": 350.5,
+        "pressure_bar": 1.066,
+        "density_kg_m3": 1.594
+      },
+      {
+        "altitude_km": 55,
+        "temperature_K": 302.3,
+        "pressure_bar": 0.5314,
+        "density_kg_m3": 0.9207
+      },
+      {
+        "altitude_km": 60,
+        "temperature_K": 262.8,
+        "pressure_bar": 0.2357,
+        "density_kg_m3": 0.4694
+      },
+      {
+        "altitude_km": 70,
+        "temperature_K": 229.8,
+        "pressure_bar": 0.0369,
+        "density_kg_m3": 0.08393
+      }
+    ],
+    "atmosphere_source": "https://repository.gatech.edu/server/api/core/bitstreams/681dac66-9414-4c40-8f27-9bd92f6a385f/content",
+    "atmosphere_provenance": "ONLINE",
+    "atmosphere_status": "VIRA-based 2008 IPPW short-course table, representative no latitude/diurnal wind uncertainty",
+    "entry_heat_shield_energy_J": {
+      "value": null,
+      "unit": "J",
+      "provenance": "OPEN",
+      "source": "entry velocity and shape OPEN",
+      "description": "Cannot give safe entry proof"
+    },
+    "touchdown_mechanics": {
+      "value": null,
+      "unit": "physical model",
+      "provenance": "OPEN",
+      "source": "reusable 735K surface hardware OPEN",
+      "description": "Need rotor downwash, gear, surface mechanics"
+    },
+    "handover_altitude_km": {
+      "value": null,
+      "unit": "km",
+      "provenance": "OPEN",
+      "source": "PER-SAMPLE DERIVED OUTPUT",
+      "description": "Computed from climb until rotor heat, available reactor power after simultaneous cooling, tip speed, hot duty or VIRA model ceiling; no arbitrary 5–25km cap. Torch-in-dense-CO2 physical feasibility remains OPEN below computed altitude."
+    },
+    "orbit_injection_delta_v_kmps": {
+      "value": null,
+      "unit": "km/s",
+      "provenance": "OPEN",
+      "source": "trajectory/mode transition/aero/gravity losses OPEN",
+      "description": "Cannot subtract orbital speed as required delta-v"
+    },
+    "torch_mode_switch_altitude_km": {
+      "value": null,
+      "unit": "km",
+      "provenance": "OPEN",
+      "source": "mode sequencing/open",
+      "description": "No invented switch height"
+    },
+    "torch_ascent_dv_kmps": {
+      "min": 9.5,
+      "max": 12,
+      "unit": "km/s",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Post rotor handover idealized total demanded delta-v including assumed losses, NOT integrated trajectory."
+    },
+    "atmosphere_interpolation": "log_density_linear_altitude_between_tabulated_VIRA_points",
+    "torch_atmosphere_viability": {
+      "value": null,
+      "unit": "qualified ability",
+      "provenance": "OPEN",
+      "source": "No physical magnetic nozzle / 5–25km Venus atmospheric operation evidence",
+      "description": "Full torch ignition in CO2 remains physically OPEN independent of rotor's newly computed handover altitude, even above cloud top; magnetic nozzle/reentry plume not qualified."
+    },
+    "entry_vehicle_thermal_qualification": {
+      "value": null,
+      "unit": "qualified TPS",
+      "provenance": "OPEN",
+      "source": "No entry aerothermal test supplied",
+      "description": "Physical entry qualification OPEN but reaction water Gate C still conditional."
+    },
+    "rotor_extension_levels_km": [
+      {
+        "value": 30,
+        "unit": "km",
+        "provenance": "ASSUMPTION",
+        "source": "kT 2026-11-03 requested rotor power beyond 25km handover to 30–50km",
+        "description": "Output sampling at a VIRA-profile altitude, NOT a new handover approval"
+      },
+      {
+        "value": 40,
+        "unit": "km",
+        "provenance": "ASSUMPTION",
+        "source": "kT 2026-11-03 requested rotor power beyond 25km handover to 30–50km",
+        "description": "Output sampling at a VIRA-profile altitude, NOT a new handover approval"
+      },
+      {
+        "value": 50,
+        "unit": "km",
+        "provenance": "ASSUMPTION",
+        "source": "kT 2026-11-03 requested rotor power beyond 25km handover to 30–50km",
+        "description": "Output sampling at a VIRA-profile altitude, NOT a new handover approval"
+      }
+    ],
+    "minimum_rotor_handover_screen_km": {
+      "value": 5,
+      "unit": "km",
+      "provenance": "ASSUMPTION",
+      "source": "Carry forward original kT 5–25km handover screen LOWER bound; upper input cap deleted for Round 5",
+      "description": "Necessary minimum ascent height for rotor screen, NOT a fixed or desired handover altitude. Handover is computed per sample."
+    }
+  },
+  "capsule": {
+    "dry_mass_t": {
+      "value": null,
+      "unit": "t",
+      "provenance": "OPEN",
+      "source": "DERIVED alias to sampled mass.custody_capsule_dry_t",
+      "description": "One unique dry-mass entry only; no duplicate addition."
+    },
+    "content_mass_t": {
+      "min": 0.01,
+      "max": 0.05,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Onboard custody payload; separate from capsule dry mass."
+    },
+    "ejection_consumable_water_t": {
+      "value": null,
+      "unit": "t",
+      "provenance": "OPEN",
+      "source": "kT",
+      "description": "Not silently charged to main water"
+    },
+    "custody_state": "ONBOARD_UNTIL_EJECTED",
+    "counterpart_mass_key": "mass.custody_capsule_dry_t"
+  },
+  "sweep": {
+    "values_per_interval": {
+      "value": 3,
+      "unit": "sample points",
+      "provenance": "ASSUMPTION",
+      "source": "kT research-style sweep sampling",
+      "description": "Endpoints and midpoint, not invented engineering point value"
+    },
+    "round_decimals": {
+      "value": 3,
+      "unit": "decimal places",
+      "provenance": "ASSUMPTION",
+      "source": "Report display only",
+      "description": "Precision of display, not scientific"
+    },
+    "svg_pixels_per_meter": {
+      "value": 64,
+      "unit": "px/m",
+      "provenance": "ASSUMPTION",
+      "source": "Presentation only",
+      "description": "Scale graphic, not vehicle dimension"
+    },
+    "svg_margin_px": {
+      "value": 75,
+      "unit": "px",
+      "provenance": "ASSUMPTION",
+      "source": "Presentation only",
+      "description": "Canvas padding"
+    },
+    "sample_count": {
+      "value": 6561,
+      "unit": "deterministic orthogonal samples",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02 sampling method choice",
+      "description": "3^8 balanced design; each variable visits min/mid/max, not full Cartesian enumeration; report exact sample coverage."
+    },
+    "sensitivity_count": {
+      "value": 81,
+      "unit": "one-at-a-time baselines",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "3^4 pairwise-balanced OAT baseline points, per factor min/mid/max; keeps computation bounded and ranking reproducible."
+    },
+    "report_top_inputs": {
+      "value": 3,
+      "unit": "top inputs",
+      "provenance": "ASSUMPTION",
+      "source": "kT",
+      "description": "Only report most decisive 3 each gate"
+    },
+    "report_preview_samples": {
+      "value": 9,
+      "unit": "samples",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Representative min/mid/max output rows"
+    },
+    "handover_step_km": {
+      "value": 1,
+      "unit": "km",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Grid resolution for altitude screening, density log-interpolated within VIRA tabulation"
+    },
+    "sample_levels": {
+      "value": 3,
+      "unit": "levels",
+      "provenance": "ASSUMPTION",
+      "source": "kT",
+      "description": "min/mid/max each uncertain input"
+    }
+  },
+  "run_stage": {
+    "value": 1,
+    "unit": "stage",
+    "provenance": "ASSUMPTION",
+    "source": "kT stage 1 approved mass and fit workflow",
+    "description": "Hashed input state. Stage 2 uses its own JSON revision; CLI stage must agree."
+  },
+  "kit": {
+    "use": "VENUS_TITAN_DETACHABLE_SPECIAL_ENVIRONMENT_KIT",
+    "mass_component_keys": [
+      "single_12m_rotor_blades_hub_mast_t",
+      "tipjet_ducts_compressors_t",
+      "entry_tps_t",
+      "venus_hot_loop_thermal_kit_t",
+      "venus_cooler_t",
+      "kit_house_reactor_t",
+      "kit_house_exchanger_ducts_t"
+    ],
+    "mass_rule": "ONE physical part counted ONCE; Gate A full dry includes it, Gate A2 removes it from docked dry and carries it as 50t payload",
+    "note": "TPS here is designated Venus/Titan specialized detachable entry TPS as a v1 model assumption; independent Moon/Mars/Mercury heat protection is NOT qualified by its removal.",
+    "holds_total_m3": {
+      "value": 68,
+      "unit": "m3",
+      "provenance": "ASSUMPTION",
+      "source": "wayfarer/results/out/CERTIFICATION_REPORT_v0.5.md; current main",
+      "description": "Two Wayfarer service holds before existing drones"
+    },
+    "holds_free_m3": {
+      "value": 56.1,
+      "unit": "m3",
+      "provenance": "ASSUMPTION",
+      "source": "wayfarer/results/out/CERTIFICATION_REPORT_v0.5.md; current main",
+      "description": "Current G8 reported free volume after drones, not reserved for kit alone"
+    },
+    "payload_allowance_t": {
+      "value": 50,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "wayfarer/docs/SPEC.md; current main",
+      "description": "Wayfarer nominal total payload allocation; kit competes with 50t missions"
+    },
+    "service_x_start_m": {
+      "value": 14,
+      "unit": "m",
+      "provenance": "ASSUMPTION",
+      "source": "wayfarer/docs/SPEC.md; current main",
+      "description": "Wayfarer service region x14–18"
+    },
+    "service_x_end_m": {
+      "value": 18,
+      "unit": "m",
+      "provenance": "ASSUMPTION",
+      "source": "wayfarer/docs/SPEC.md; current main",
+      "description": "Wayfarer service region x14–18"
+    },
+    "packed_effective_density_t_per_m3": {
+      "min": 0.18,
+      "max": 0.45,
+      "unit": "t/m3",
+      "provenance": "ASSUMPTION",
+      "source": "Analyst screening proposal 2026-11-03, NON-CANON; not independently qualified",
+      "description": "Screening packed payload mass divided by usable volume. Enclosures, cradles and service clearance unqualified."
+    },
+    "rotor_blade_segments_per_blade": {
+      "value": 2,
+      "unit": "segments/blade",
+      "provenance": "ASSUMPTION",
+      "source": "Analyst proposed 2026-11-03",
+      "description": "Proposed 6m blade split into two 3m modules; fold alone is insufficient for 4m hold"
+    },
+    "individual_hold_aperture_m": {
+      "value": null,
+      "unit": "m",
+      "provenance": "OPEN",
+      "source": "Unqualified geometry or physics; user did not supply numeric value",
+      "description": "Need door/opening width and turning clearance; overall 56.1 m3 alone cannot prove individual storage."
+    },
+    "individual_hold_cross_section_m2": {
+      "value": null,
+      "unit": "m2",
+      "provenance": "OPEN",
+      "source": "Unqualified geometry or physics; user did not supply numeric value",
+      "description": "Need clearance geometry and actual hold allocation."
+    },
+    "rotor_blade_joint_qualified": {
+      "value": null,
+      "unit": "bool",
+      "provenance": "OPEN",
+      "source": "Unqualified geometry or physics; user did not supply numeric value",
+      "description": "Retrievable high-cycle, hot gas ducted joint/coupling not qualified."
+    },
+    "hot_shuttle_kit_fit_qualified": {
+      "value": null,
+      "unit": "bool",
+      "provenance": "OPEN",
+      "source": "Unqualified geometry or physics; user did not supply numeric value",
+      "description": "Moving 5 removable items through hold openings, attachment points and deployment clearance not qualified."
+    },
+    "house_reactor_power_source": "power.kit_house_reactor_thermal_MW",
+    "house_reactor_mass_ledger": "mass.kit_house_reactor_t (DERIVED, includes converter at net specific power), mass.kit_house_exchanger_ducts_t (added) both in payload",
+    "house_reactor_thermal_partition": "Rotor phase: tipjet raw heat ≤ reactor thermal output - 4-crew cabin cooler electric/(direct conversion). Surface phase: rotor OFF, cooler supplied via reactor direct electrical conversion; never count both full outputs simultaneously.",
+    "ground_vent_reuse": "existing tipjet heat exchanger and compressor reused while rotor parked; no new dry-part mass, no duplication. All ventilation occurs while on surface; rotor-gas thermodynamics and plume impingement remain OPEN."
+  },
+  "research": {
+    "authority": "RESEARCH / NON-CANON / never automatically upgrades dry mass assumption to ONLINE",
+    "torch_source": {
+      "wayfarer_repo": "https://github.com/loom-2226/loom-2226/blob/main/src/wayfarer_torch_energy_partition_mass_feasibility.py",
+      "dfd_princeton": "https://collaborate.princeton.edu/en/publications/a-direct-fusion-drive-for-rocket-propulsion/",
+      "dfd_mars": "https://psatellite.com/going-to-mars-with-direct-fusion-drive/",
+      "dfd_present_specific_power_kW_per_kg": {
+        "min": 0.3,
+        "max": 1.5,
+        "unit": "kW/kg",
+        "provenance": "ASSUMPTION",
+        "source": "LOOM source energy partition mass feasibility file current main; DFD literature",
+        "description": "Repo external DFD research analog only, original ONLINE literature; not a shuttle qualification."
+      },
+      "dfd_ambitious_specific_power_kW_per_kg": {
+        "min": 25,
+        "max": 100,
+        "unit": "kW/kg",
+        "provenance": "ASSUMPTION",
+        "source": "LOOM source energy partition mass feasibility file current main",
+        "description": "Repo's ambitious study, projected diagnostic not hardware engineering guarantee."
+      },
+      "targeted_shuttle_torch_jet_power_GW": {
+        "value": 7.7,
+        "unit": "GW",
+        "provenance": "ASSUMPTION",
+        "source": "wayfarer/config/wayfarer_v05_inputs.json",
+        "description": "Historical approximate torch class; 5–8 GW swept active, this constant is comparison only"
+      },
+      "torch_mass_decision": "KT_DECLARED_2226: retain 4–10t minimum-size torch engine mass; 2026 DFD figures 0.3–1.5 kW/kg and optimistic 25–100kW/kg (>=77t for 7.7GW) are RESEARCH NOTES contrasting 2026 and assumed 2226 technology, not sizer mass constraints or rejections of the 2226 declaration.",
+      "no_double_charge": "Component torch mass includes engine-only assumed; separate source mass must be conserved and qualified; do not double count engine into reactor mass.",
+      "lineage_mass_basis": {
+        "wayfarer_jet_power_TW": {
+          "value": 11.361,
+          "unit": "TW",
+          "provenance": "DECLARED_2226",
+          "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
+          "description": "Declared current working torch jet ceiling, not measured reactor thermal power Source ledger labels this engineering-assumption or derived, not experimentally qualified."
+        },
+        "wayfarer_propulsion_allocation_t": {
+          "value": 160,
+          "unit": "t",
+          "provenance": "DECLARED_2226",
+          "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
+          "description": "Engineering-assumption propulsion ledger total; not hardware validation Source ledger labels this engineering-assumption or derived, not experimentally qualified."
+        },
+        "wayfarer_reactor_t": {
+          "value": 85,
+          "unit": "t",
+          "provenance": "DECLARED_2226",
+          "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
+          "description": "Share of propulsion total Source ledger labels this engineering-assumption or derived, not experimentally qualified."
+        },
+        "wayfarer_shadow_shield_t": {
+          "value": 45,
+          "unit": "t",
+          "provenance": "DECLARED_2226",
+          "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
+          "description": "Share of propulsion total Source ledger labels this engineering-assumption or derived, not experimentally qualified."
+        },
+        "wayfarer_magnetic_nozzle_t": {
+          "value": 30,
+          "unit": "t",
+          "provenance": "DECLARED_2226",
+          "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
+          "description": "Share of propulsion total Source ledger labels this engineering-assumption or derived, not experimentally qualified."
+        },
+        "shuttle_jet_power_class_GW": {
+          "value": 7.7,
+          "unit": "GW",
+          "provenance": "DECLARED_2226",
+          "source": "kT 2026-11-03",
+          "description": "Comparison class only; active sensitivity range retains 5–8GW"
+        },
+        "torch_lineage_classification": "DECLARED_2226_MINIMUM_SIZE_FLOOR",
+        "note": "11.361 TW / 160 t -> 71,006 kW/kg derived scaling; 7.7 GW / 71,006 kW/kg -> 0.108t. This does not validate miniaturization, fusion confinement, or idle mode. 4–10t stays unchanged."
+      }
+    },
+    "hull": {
+      "nasa_entry_study": "https://science.nasa.gov/wp-content/uploads/2023/10/advents-venus-orbiter-aerobot-and-dropsonde.pdf",
+      "comparator": "3.2m single-use aeroshell ~300kg titanium composite structure plus ~373kg HEEET TPS; NOT comparable to reusable 4.3m x12.8m pressurized hot shuttle with rotor and rover.",
+      "hull_mass_decision": "NOT_NARROWED: 9–14t still kT ASSUMPTION; 3.2m expendable entry shell provides no credible bound on 12.8m reusable structural pressure paths.",
+      "venus_aeroshell_reference_diameter_m": {
+        "value": 3.2,
+        "unit": "m",
+        "provenance": "ONLINE",
+        "source": "https://science.nasa.gov/wp-content/uploads/2023/10/advents-venus-orbiter-aerobot-and-dropsonde.pdf",
+        "description": "Aeroshell project diameter (not shuttle)"
+      },
+      "venus_aeroshell_reference_structure_t": {
+        "value": 0.3,
+        "unit": "t",
+        "provenance": "ONLINE",
+        "source": "https://science.nasa.gov/wp-content/uploads/2023/10/advents-venus-orbiter-aerobot-and-dropsonde.pdf",
+        "description": "Titanium/composite expendable aeroshell structural mass study"
+      },
+      "venus_aeroshell_reference_TPS_t": {
+        "value": 0.373,
+        "unit": "t",
+        "provenance": "ONLINE",
+        "source": "https://science.nasa.gov/wp-content/uploads/2023/10/advents-venus-orbiter-aerobot-and-dropsonde.pdf",
+        "description": "Expendable HEEET TPS study"
+      }
+    },
+    "sphere": {
+      "material_density_kg_per_m3": {
+        "value": 4423,
+        "unit": "kg/m3",
+        "provenance": "ASSUMPTION",
+        "source": "https://mtsociety.memberclicks.net/assets/docs/Journals/JournalMTS2014%20%281%29.pdf",
+        "description": "Ti-6Al-4V density representative; alloy/temperature details unresolved"
+      },
+      "alvin": "https://www.jstage.jst.go.jp/article/jintransnavi/6/1/6_31/_pdf/-char/en",
+      "limiting_factor": "https://caladanoceanic.com/home/technology/sub/",
+      "buckling": "https://www.sciencedirect.com/science/article/abs/pii/S0951833917300643",
+      "knockdown": {
+        "min": 0.2,
+        "max": 0.5,
+        "unit": "ratio",
+        "provenance": "ASSUMPTION",
+        "source": "Analyst screening proposal 2026-11-03, NON-CANON; not independently qualified",
+        "description": "Plausible imperfection knockdown sensitivity ONLY; not code-calibrated or proven at 735K."
+      },
+      "safety_factor": {
+        "min": 1.5,
+        "max": 2,
+        "unit": "ratio",
+        "provenance": "ASSUMPTION",
+        "source": "Analyst screening proposal 2026-11-03, NON-CANON; not independently qualified",
+        "description": "Design safety factor sensitivity, not third-party pressure qualification."
+      },
+      "titanium_hot_modulus_GPa": {
+        "min": 80,
+        "max": 115,
+        "unit": "GPa",
+        "provenance": "ASSUMPTION",
+        "source": "Analyst screening proposal 2026-11-03, NON-CANON; not independently qualified",
+        "description": "Sensitivity for hot/cold Ti shell stiffness; hot strength/corrosion/rate unresolved."
+      },
+      "titanium_allowable_stress_MPa": {
+        "min": 180,
+        "max": 350,
+        "unit": "MPa",
+        "provenance": "ASSUMPTION",
+        "source": "Analyst screening proposal 2026-11-03, NON-CANON; not independently qualified",
+        "description": "Simplified allowable compression including hot strength derating, joints excluded."
+      },
+      "poisson_ratio": {
+        "value": 0.3,
+        "unit": "ratio",
+        "provenance": "ASSUMPTION",
+        "source": "https://mtsociety.memberclicks.net/assets/docs/Journals/JournalMTS2014%20%281%29.pdf",
+        "description": "Ti-6Al-4V representative"
+      },
+      "sphere_mass_decision": "NOT_NARROWED until imperfect hot sphere + penetrations + hatch code proof; 3.2–7.6t remains geometric PROJECTION only.",
+      "alvin_wall_mm": {
+        "value": 51,
+        "unit": "mm",
+        "provenance": "ONLINE",
+        "source": "https://www.jstage.jst.go.jp/article/jintransnavi/6/1/6_31/_pdf/-char/en",
+        "description": "Alvin nominal sphere wall, different diameter and rating"
+      },
+      "alvin_reference_depth_m": {
+        "value": 4500,
+        "unit": "m",
+        "provenance": "ONLINE",
+        "source": "https://www.jstage.jst.go.jp/article/jintransnavi/6/1/6_31/_pdf/-char/en",
+        "description": "Deep submersible external-pressure reference"
+      },
+      "limiting_factor_wall_mm": {
+        "value": 90,
+        "unit": "mm",
+        "provenance": "ONLINE",
+        "source": "https://caladanoceanic.com/home/technology/sub/",
+        "description": "Full-ocean-depth Ti wall reference"
+      },
+      "limiting_factor_depth_m": {
+        "value": 11000,
+        "unit": "m",
+        "provenance": "ONLINE",
+        "source": "https://caladanoceanic.com/home/technology/sub/",
+        "description": "Manufacturer rated depth"
+      },
+      "limiting_factor_pressure_hull_inner_diameter_m": {
+        "value": 1.5,
+        "unit": "m",
+        "provenance": "ONLINE",
+        "source": "https://caladanoceanic.com/home/technology/sub/",
+        "description": "Manufacturer pressure sphere ID"
+      },
+      "hatch_penetration_reinforcement_mass_t": {
+        "value": null,
+        "unit": "t",
+        "provenance": "OPEN",
+        "source": "No quantified hatch/stress concentration thermal-seal validation",
+        "description": "Not silently credited within geometric Ti-shell mass or fittings"
+      }
+    },
+    "torch_dense_co2": {
+      "context": "At 5–25km 14.9–66.65 bar from VIRA table; 30km 9.581 bar; 40km 3.501 bar; 50km 1.066 bar.",
+      "magnetic_nozzle_low_density": "https://www.frontiersin.org/journals/physics/articles/10.3389/fphy.2022.876684/full",
+      "plume_base_heating": "https://ntrs.nasa.gov/citations/20010116591",
+      "plume_recirc": "https://link.springer.com/article/10.1007/s12567-020-00306-8",
+      "conclusion": "NO published GW fusion magnetic-nozzle proof at 1–70 bar CO2. Magnetic nozzle vacuum PIC/neutrals cannot be extrapolated to dense neutral CO2; collisional momentum/ionization, entrainment, pressure separation, base recirculation, radiation, coil/nozzle heat, bearing and hull heating OPEN. Raising rotor handover to 30–50km increases rotor tipjet heat substantially."
+    },
+    "idle_tipjet_heat": {
+      "classification": "RESEARCH_ONLY_NON_GATE_SENSITIVITY",
+      "idle_fraction_of_nominal_jet": {
+        "min": 0.005,
+        "max": 0.03,
+        "unit": "fraction",
+        "provenance": "ASSUMPTION",
+        "source": "kT 2026-11-03 proposed idle-heat hypothesis",
+        "description": "Equivalent to 0.5–3% of 7.7GW jet-power numerical reference, NOT evidence of stable reactor turndown or thermal heat availability"
+      },
+      "hypothetical_delivered_tipjet_heat_MW": {
+        "min": 40,
+        "max": 230,
+        "unit": "MW",
+        "provenance": "ASSUMPTION",
+        "source": "kT 2026-11-03 proposed delivered-heat comparison",
+        "description": "Independent idealized delivered heat budgets 40/135/230MW, roughly the 0.5–3% nominal comparison. Heat delivery NOT demonstrated; no efficiency debit inferred."
+      },
+      "heat_transfer_efficiency": {
+        "value": null,
+        "unit": "fraction",
+        "provenance": "OPEN",
+        "source": "No neutron/charged-particle-to-CO2 source thermal partition supplied",
+        "description": "No lower/upper numerical bound; do not claim 40–230 MW deliverable"
+      },
+      "minimum_stable_fusion_fraction": {
+        "value": null,
+        "unit": "fraction",
+        "provenance": "OPEN",
+        "source": "PFRC/DFD literature through 2026 lacks measured stable GW reactor fractional turndown",
+        "description": "Do not infer turndown from PFRC 1–10MW design scale"
+      },
+      "no_reaction_exhaust_mode_qualified": {
+        "value": null,
+        "unit": "bool",
+        "provenance": "OPEN",
+        "source": "DFD magnetic nozzle/exhaust design requires energetic particle confinement or dumping strategy",
+        "description": "Zero tank reaction water for tipjets does not prove zero charged-fusion-product reaction exhaust"
+      },
+      "mast_duct_hotgas_mass_t": {
+        "value": null,
+        "unit": "t",
+        "provenance": "OPEN",
+        "source": "NASA NTRS 20230005988 and 20220013111 show challenging hot exchanger and duct structure, no transfer mass mapping",
+        "description": "The existing tipjet_ducts_compressors_t remains independently assumed; do not add or subtract unvalidated hardware."
+      },
+      "allowable_heat_to_mast_MW": {
+        "value": null,
+        "unit": "MW",
+        "provenance": "OPEN",
+        "source": "Interface through mast at Venus thermal environment not qualified",
+        "description": "Structural thermal, insulation, rotating hot-gas joints, duct pressure drops and bearing/seals OPEN."
+      },
+      "thermal_rejection_MW": {
+        "value": null,
+        "unit": "MW",
+        "provenance": "OPEN",
+        "source": "Reactor heat balance at idle and start/restart transition not qualified",
+        "description": "No cooling 'free heat' credit"
+      },
+      "wayfarer_torch_tap_raw_MW": {
+        "value": 63.36,
+        "unit": "MW",
+        "provenance": "DECLARED_2226",
+        "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
+        "description": "Burn-only source raw extraction, not an idle source kT accepted Wayfarer engineering declaration; tap hardware remains unqualified."
+      },
+      "wayfarer_torch_tap_conversion": {
+        "value": 0.75,
+        "unit": "fraction",
+        "provenance": "DECLARED_2226",
+        "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
+        "description": "Burn-only conversion, raw thermal/electromagnetic energy to electrical magnets kT accepted Wayfarer engineering declaration; tap hardware remains unqualified."
+      },
+      "wayfarer_torch_tap_net_MWe": {
+        "value": 47.52,
+        "unit": "MWe",
+        "provenance": "DECLARED_2226",
+        "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
+        "description": "Burn-only magnets/cryocooler net, physical tap OPEN kT accepted Wayfarer engineering declaration; tap hardware remains unqualified."
+      },
+      "wayfarer_torch_tap_waste_MW": {
+        "value": 15.84,
+        "unit": "MW",
+        "provenance": "DECLARED_2226",
+        "source": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md",
+        "description": "Burn-only conversion waste, not an idle rotor heat allocation kT accepted Wayfarer engineering declaration; tap hardware remains unqualified."
+      },
+      "case_scope": "Heat-only rotor-disk momentum demand sweep at mass/FM/thermal-to-rotor corners; no safe tip-speed, duty, ascent acceleration, reactor electrical load, 735K mast heat loss, or transport physics certified. DO NOT FEED INTO ANY GATE. Round 5 explicitly sources rotor heat from a SEPARATE Venus-kit 100–230MW D–He3 house reactor, NOT from this idle torch hypothesis; do not credit this sensitivity in gates.",
+      "sources": {
+        "pss_star_fire": "https://psatellite.com/technology/fusion/",
+        "pppl_pfrc": "https://www.pppl.gov/Princeton-Field-Reversed-Configuration",
+        "dfd_2023_engineering": "https://doi.org/10.1016/j.actaastro.2023.02.011",
+        "field_reversed_fusion_stability": "https://www.nature.com/articles/s41467-025-58849-5",
+        "nasa_hot_exchanger": "https://ntrs.nasa.gov/citations/20230005988",
+        "nasa_heatpipe_exchanger": "https://ntrs.nasa.gov/citations/20220013111",
+        "nasa_heated_gas_interfaces": "https://ntrs.nasa.gov/citations/20210026680"
+      },
+      "evidence": "PSS/PFRC is conceptual 1–10MW and related 2023 analysis cites RF-recirculation losses and no inherent plasma self-heating. No 0.5–3% GW-class stable off-nominal power or exhaust-free rotor gas heating demonstration. Heat-pipe/NTP exchangers establish real temperature, material, pressure-drop and fatigue constraints, not the ~MW/kg mass of a 2226 hot mast.",
+      "venus_cloud_base_km": {
+        "value": 48,
+        "unit": "km",
+        "provenance": "PROJECTION",
+        "source": "Venus main cloud deck approximate lower boundary, based on LOOM #453 Venus atmosphere research; no physical torch qualification",
+        "description": "Screening dividing line, NOT proven uniform Venus atmosphere transition; cloud base differs with dynamics"
+      },
+      "venus_cloud_top_km": {
+        "value": 65,
+        "unit": "km",
+        "provenance": "PROJECTION",
+        "source": "LOOM #453 approximate Venus cloud layer 48–65km",
+        "description": "Chosen upper cloud boundary for altitude screen only; real cloud top estimates vary and extend higher at some locations"
+      }
+    }
+  }
+}
+```
