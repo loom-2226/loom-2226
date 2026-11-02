@@ -30,10 +30,11 @@ function limits(d) {
   const dryMax=val(m.max_docked_dry_t);
   const components=Object.entries(m).filter(([k])=>k!=="max_docked_dry_t"&&k!=="v1_comparison_dry_t");
   const unresolved=components.filter(([,q])=>val(q)===null&&!band(q)).map(([k])=>k);
-  const fittedDimensional=(vesselLength<=allowableLength && vesselDiameter<=allowableDiameter && foldedSpan<=vesselLength && fwd+aft===count);
+  const tolerance=Number.EPSILON*Math.max(allowableLength,vesselLength)*2;
+  const fittedDimensional=(vesselLength<=allowableLength+tolerance && vesselDiameter<=allowableDiameter+tolerance && foldedSpan<=vesselLength+tolerance && fwd+aft===count);
   return {length,allowableLength,allowableDiameter,vesselLength,vesselDiameter,
    foldedSpan,remainingRotorSpan:vesselLength-foldedSpan,
-   radialMargin:allowableDiameter-vesselDiameter,axialMargin:allowableLength-vesselLength,
+   radialMargin:Math.abs(allowableDiameter-vesselDiameter)<=tolerance?0:allowableDiameter-vesselDiameter,axialMargin:Math.abs(allowableLength-vesselLength)<=tolerance?0:allowableLength-vesselLength,
    shell,shellMid:(shell[0]+shell[1])/2,dryMax,
    massOtherBudget:[dryMax-shell[1],dryMax-shell[0]],unresolved,
    dimensionalNecessaryGate:fittedDimensional?"PASS_NECESSARY_ONLY":"FAIL",
