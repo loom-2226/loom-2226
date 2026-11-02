@@ -16,17 +16,18 @@ function sampleDirections(count,digits,levels){
  const directions=[];
  for(let x=1;directions.length<count && x<levels**digits;x++){
   let q=x,v=[];for(let j=0;j<digits;j++){v.push(q%levels);q=Math.floor(q/levels);}
-  const first=v.find(z=>z!==0);if(first===1)directions.push(v);
+  if(v.some(z=>z!==0))directions.push(v);
  }
- if(directions.length<count)throw Error("Not enough distinct pairwise-balanced directions");
+ if(directions.length<count)throw Error("Not enough distinct coordinate-balanced directions");
  return directions;
 }
 function samples(d,stage,limit){
  const fields=fkeys(d,"mass").filter(k=>!["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"].includes(k)).map(k=>"mass."+k);
+ fields.push("kit.packed_effective_density_t_per_m3");
  if(stage===2)fields.push(...[
   ...fkeys(d,"power").filter(k=>["rotor_figure_of_merit","tipjet_thermal_to_useful_rotor","rotor_usable_input_heat_limit_MW","rotor_safe_tip_speed_mps","rotor_hot_duty_limit_h","rotor_climb_rate_mps","torch_low_ve_kmps","torch_high_ve_kmps","torch_jet_power_GW"].includes(k)).map(k=>"power."+k),
   ...fkeys(d,"water").filter(k=>["reaction_water_entry_debit_t","crew_water_cold_mass_t","crew_water_heating_delta_T_K"].includes(k)).map(k=>"water."+k),
-  ...fkeys(d,"thermal").filter(k=>["insulation_k_W_per_mK","insulation_thickness_m","crew_heat_W_each","cabin_electronics_kW","venus_external_surface_K"].includes(k)).map(k=>"thermal."+k),
+  ...fkeys(d,"thermal").filter(k=>["insulation_k_W_per_mK","insulation_thickness_m","crew_heat_W_each","cabin_electronics_kW","venus_external_surface_K","active_cooler_power_available_kW","reactor_aux_electric_power_available_kW","hot_side_rejection_capacity_kW","hot_loop_reject_temperature_K","cooler_coefficient_of_performance"].includes(k)).map(k=>"thermal."+k),
   ...fkeys(d,"venus").filter(k=>["handover_altitude_km","torch_ascent_dv_kmps"].includes(k)).map(k=>"venus."+k),
   ...fkeys(d,"capsule").filter(k=>k==="content_mass_t").map(k=>"capsule."+k)
  ]);
@@ -73,9 +74,34 @@ function dry(d,s){
  const excluded=new Set(["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"]);
  const keys=Object.keys(d.mass).filter(x=>!excluded.has(x));
  const parts=keys.map(k=>({key:k,value:val(d,"mass."+k,s)}));
- const g=gate(parts.map(x=>["mass."+x.key,x.value]),()=>parts.reduce((sum,x)=>sum+x.value,0)<=number(d.mass.max_docked_dry_t));
- const sum=parts.every(x=>x.value!==null)?parts.reduce((a,b)=>a+b.value,0):null;
- return {status:g.status,missing:g.missing,sum,margin:sum===null?null:number(d.mass.max_docked_dry_t)-sum,parts};
+ const missing=parts.filter(x=>x.value===null).map(x=>"mass."+x.key);
+ const sum=missing.length?null:parts.reduce((a,b)=>a+b.value,0);
+ const kitKeys=d.kit.mass_component_keys;
+ const kitMissing=kitKeys.filter(k=>val(d,"mass."+k,s)===null).map(k=>"mass."+k);
+ const kitT=kitMissing.length?null:kitKeys.reduce((x,k)=>x+val(d,"mass."+k,s),0);
+ const coreT=sum===null||kitT===null?null:sum-kitT;
+ const limit=number(d.mass.max_docked_dry_t);
+ const a=gate(parts.map(x=>["mass."+x.key,x.value]),()=>sum<=limit);
+ const a2=gate([["mass.dry_without_venus_kit",coreT]],()=>coreT<=limit);
+ return {status:a.status,missing:a.missing,sum,margin:sum===null?null:limit-sum,
+   a2:a2.status,a2Missing:a2.missing,a2Margin:coreT===null?null:limit-coreT,coreT,kitT,parts};
+}
+function kitFit(d,s,dryResult){
+ const mass=dryResult.kitT,density=val(d,"kit.packed_effective_density_t_per_m3",s);
+ const free=number(d.kit.holds_free_m3),payload=number(d.kit.payload_allowance_t);
+ const bladeM=number(d.geometry.rotor_diameter_m)/2;
+ const segmentLength=bladeM/number(d.kit.rotor_blade_segments_per_blade);
+ const serviceLength=number(d.kit.service_x_end_m)-number(d.kit.service_x_start_m);
+ const volume=mass===null||density===null?null:mass/density;
+ const volumeGate=gate([["mass.venus_kit_t",mass],["kit.packed_effective_density_t_per_m3",density]],
+    ()=>volume<=free && mass<=payload && segmentLength<=serviceLength);
+ const required=["kit.individual_hold_aperture_m","kit.individual_hold_cross_section_m2",
+   "kit.rotor_blade_joint_qualified","kit.hot_shuttle_kit_fit_qualified"];
+ const g=volumeGate.status==="FAIL"?{status:"FAIL",missing:[]}:
+    gate(required.map(k=>[k,number(readPath(d,k))]),()=>volumeGate.status==="PASS" && required.every(k=>number(readPath(d,k))>0));
+ return {mass_t:mass,density,packedVolume_m3:volume,payloadLimit_t:payload,freeVolume_m3:free,
+     segmentLength_m:segmentLength,holdLength_m:serviceLength,volumeGate:volumeGate.status,
+     volumeMissing:volumeGate.missing,fit:g.status,fitMissing:g.missing};
 }
 function atmosphere(d,h){
  const rows=d.venus.atmosphere_profile;
@@ -152,21 +178,37 @@ function stage2(d,s,dryResult){
     afterEntryWaterT:afterEntry,initialMassT:massStart};
  }
  const thermal={};
- const qneeded=["water.crew_water_cold_mass_t","water.crew_water_heating_delta_T_K","water.crew_water_heat_capacity_J_per_kg_K",
-  "thermal.insulation_k_W_per_mK","thermal.insulation_thickness_m","thermal.crew_heat_W_each","thermal.cabin_electronics_kW",
-  "geometry.crew_pod_outer_diameter_m","thermal.cabin_target_K","thermal.stay_requested_h"];
- const tq=gate(qneeded.map(k=>[k,val(d,k,s)]),()=>true);
+ const needed=["thermal.venus_external_surface_K","thermal.insulation_k_W_per_mK","thermal.insulation_thickness_m",
+  "thermal.crew_heat_W_each","thermal.cabin_electronics_kW","thermal.cooler_coefficient_of_performance",
+  "thermal.active_cooler_power_available_kW","thermal.reactor_aux_electric_power_available_kW",
+  "thermal.hot_side_rejection_capacity_kW","thermal.hot_loop_reject_temperature_K",
+  "water.crew_water_cold_mass_t","water.crew_water_heating_delta_T_K",
+  "water.crew_water_heat_capacity_J_per_kg_K","geometry.crew_pod_outer_diameter_m",
+  "thermal.cabin_target_K","thermal.stay_requested_h"];
+ const q=gate(needed.map(k=>[k,val(d,k,s)]),()=>true);
  for(const crewCount of d.thermal.crew_cases.map(number)){
-   if(tq.status==="OPEN"){thermal[crewCount]={status:"OPEN",missing:tq.missing};continue;}
+   if(q.status==="OPEN"){thermal[crewCount]={status:"OPEN",missing:q.missing,podHours:null};continue;}
    const r=val(d,"geometry.crew_pod_outer_diameter_m")/2,area=4*Math.PI*r*r;
-   const outside=val(d,"thermal.venus_external_surface_K",s);
-   const leak=val(d,"thermal.insulation_k_W_per_mK",s)*area*(outside-val(d,"thermal.cabin_target_K"))/val(d,"thermal.insulation_thickness_m",s);
+   const surface=val(d,"thermal.venus_external_surface_K",s);
+   const leak=val(d,"thermal.insulation_k_W_per_mK",s)*area*
+      (surface-val(d,"thermal.cabin_target_K"))/val(d,"thermal.insulation_thickness_m",s);
    const electronics=val(d,"thermal.cabin_electronics_kW",s)*number(d.si.W_per_kW);
-   const load=leak+electronics+crewCount*val(d,"thermal.crew_heat_W_each",s);
-   const stored=thermalT*kg*val(d,"water.crew_water_heat_capacity_J_per_kg_K")*val(d,"water.crew_water_heating_delta_T_K",s);
-   const maxHours=stored/load/seconds;
-   thermal[crewCount]={status:maxHours>=val(d,"thermal.stay_requested_h")?"PASS":"FAIL",
-     maxHours,loadW:load,leakW:leak,capacityJ:stored,missing:[]};
+   const coldLoadW=leak+electronics+crewCount*val(d,"thermal.crew_heat_W_each",s);
+   const sensibleJ=thermalT*kg*val(d,"water.crew_water_heat_capacity_J_per_kg_K")*
+      val(d,"water.crew_water_heating_delta_T_K",s);
+   const podHours=sensibleJ/coldLoadW/seconds;
+   const coolerKW=coldLoadW/number(d.si.W_per_kW)/val(d,"thermal.cooler_coefficient_of_performance",s);
+   const rejectKW=coldLoadW/number(d.si.W_per_kW)+coolerKW;
+   const electricalMax=Math.min(val(d,"thermal.active_cooler_power_available_kW",s),
+      val(d,"thermal.reactor_aux_electric_power_available_kW",s));
+   const rejectMax=val(d,"thermal.hot_side_rejection_capacity_kW",s);
+   const temperatureOK=val(d,"thermal.hot_loop_reject_temperature_K",s)>surface;
+   const massOK=dryResult.a2==="PASS" && dryResult.kitT<=number(d.kit.payload_allowance_t);
+   const activeOK=temperatureOK&&massOK&&coolerKW<=electricalMax&&rejectKW<=rejectMax;
+   thermal[crewCount]={status:activeOK?"PASS":"FAIL",missing:[],podHours,
+     maxHours:null,loadW:coldLoadW,leakW:leak,capacityJ:sensibleJ,
+     coolerElectricalKW:coolerKW,reactorBusLimitKW:electricalMax,
+     rejectKW,rejectLimitKW:rejectMax,temperatureOK,massOK,coldWaterPreservedForPod:true};
  }
  const gateC=rotorGate.status==="OPEN"?"OPEN":
   modes.low.status==="PASS"||modes.high.status==="PASS"?"PASS":
@@ -188,7 +230,7 @@ function phaseLedger(d,s,entry,rotor,modes,thermalT,thermal) {
    else if(phase==="torch ascent to orbit")debit=modes[mode]?.waterUsedTorchT??null;
    if(debit!==null&&reaction!==null)reaction=Math.max(0,reaction-debit);else reaction=null;
    const cold={};for(const q of d.thermal.crew_cases){const crew=number(q),stored=coldState[crew];
-      const request=phase==="surface stay"&&stored!==null?thermal[crew].loadW*number(d.thermal.stay_requested_h)*number(d.si.seconds_per_hour):0;
+      const request=phase==="surface stay"&&stored!==null?0 /* powered shuttle cooler, no cold-water heat debit */:0;
       const removed=stored===null?null:Math.min(stored,request);
       cold[crew]={energy_before_J:stored,energy_removed_J:removed,energy_shortfall_J:stored===null?null:Math.max(0,request-stored),energy_after_J:stored===null?null:stored-removed};
       coldState[crew]=cold[crew].energy_after_J;
@@ -197,6 +239,8 @@ function phaseLedger(d,s,entry,rotor,modes,thermalT,thermal) {
        thermal_water_mass_t:thermalT,thermal_energy_by_crew:cold,
        torch_jet_power_GW:phase==="torch ascent to orbit"?val(d,"power.torch_jet_power_GW",s):null,
        reactor_waste_heat_MW:null,reactor_waste_heat_missing:"power.reactor_waste_heat_MW",
+        cooler_electric_by_crew_kW:phase==="surface stay"?Object.fromEntries(d.thermal.crew_cases.map(q=>[number(q),thermal[number(q)]?.coolerElectricalKW??null])):null,
+        hot_loop_rejection_by_crew_kW:phase==="surface stay"?Object.fromEntries(d.thermal.crew_cases.map(q=>[number(q),thermal[number(q)]?.rejectKW??null])):null,
        custody:"ONBOARD",custody_content_t:val(d,"capsule.content_mass_t",s)};
   });return [mode,rows];
  }));return active;
@@ -207,11 +251,11 @@ function census(rows,key){
  return {...counts,resolved,pass_fraction:resolved?counts.PASS/resolved:null,total:rows.length};
 }
 function evaluate(d,stage,s,geo){
- const dryResult=dry(d,s);const v=stage===2?stage2(d,s,dryResult):null;
- return {A:dryResult.status,B:geo.gateB.status,R:v?.rotor.status??null,
+ const dryResult=dry(d,s),kit=kitFit(d,s,dryResult);const v=stage===2?stage2(d,s,dryResult):null;
+ return {A:dryResult.status,A2:dryResult.a2,KV:kit.volumeGate,KF:kit.fit,B:geo.gateB.status,R:v?.rotor.status??null,
    C:v?.gateC??null,C_low:v?.mode.low.status??null,C_high:v?.mode.high.status??null,
-   D2:v?.thermal[2].status??null,D4:v?.thermal[4].status??null,
-   dry:dryResult,venus:v};
+   DS2:v?.thermal[2].status??null,DS4:v?.thermal[4].status??null,
+   dry:dryResult,kit,venus:v};
 }
 function sensitivity(d,stage,design,geo,gateKey){
  const chosen=design.fields;
@@ -228,7 +272,9 @@ function sensitivity(d,stage,design,geo,gateKey){
     if(state!=="OPEN")n++;
     let margin=null;
     if(gateKey==="A")margin=e.dry.margin;
-    else if(gateKey==="D2"||gateKey==="D4")margin=e.venus?.thermal[gateKey==="D2"?2:4]?.maxHours-number(d.thermal.stay_requested_h);
+    else if(gateKey==="A2")margin=e.dry.a2Margin;
+    else if(gateKey==="KV")margin=e.kit.freeVolume_m3-e.kit.packedVolume_m3;
+    else if(gateKey==="DS2"||gateKey==="DS4"){const z=e.venus?.thermal[gateKey==="DS2"?2:4];margin=z?Math.min(z.reactorBusLimitKW-z.coolerElectricalKW,z.rejectLimitKW-z.rejectKW,e.dry.a2Margin):null;}
     else if(gateKey==="C")margin=Math.max(e.venus?.mode.low.waterAtOrbit??-Infinity,e.venus?.mode.high.waterAtOrbit??-Infinity);
     else if(gateKey==="R")margin=(e.venus?.handover??0)-d.venus.handover_altitude_km.min;
     if(margin!==null&&Number.isFinite(margin))marginTotal+=margin;
@@ -245,21 +291,29 @@ function sensitivity(d,stage,design,geo,gateKey){
 function analyze(d,stage){
  const geo=geometry(d),limit=number(d.sweep.sample_count),design=samples(d,stage,limit),rows=[];
  const exemplars=[];
+ const podRanges=Object.fromEntries(d.thermal.crew_cases.map(q=>[number(q),{min:Infinity,max:-Infinity}]));
+ const extensions=stage===2?Object.fromEntries(d.venus.rotor_extension_levels_km.map(q=>[number(q),{rotorMin:Infinity,rotorMax:-Infinity,heatMin:Infinity,heatMax:-Infinity,pressure_bar:null}])):{};
  for(let i=0;i<design.rows;i++){
   const s=design.get(i),e=evaluate(d,stage,s,geo);
-  rows.push({A:e.A,B:e.B,R:e.R,C:e.C,C_low:e.C_low,C_high:e.C_high,D2:e.D2,D4:e.D4});
-  if(i<number(d.sweep.report_preview_samples))exemplars.push({sample:i,inputs:s,gates:rows.at(-1),dry:e.dry.sum,venus:stage===2?{
+  rows.push({A:e.A,A2:e.A2,KV:e.KV,KF:e.KF,B:e.B,R:e.R,C:e.C,C_low:e.C_low,C_high:e.C_high,DS2:e.DS2,DS4:e.DS4});
+  if(stage===2){for(const q of d.thermal.crew_cases){const crew=number(q),hours=e.venus.thermal[crew]?.podHours; if(Number.isFinite(hours)){podRanges[crew].min=Math.min(podRanges[crew].min,hours);podRanges[crew].max=Math.max(podRanges[crew].max,hours);}}
+   for(const q of d.venus.rotor_extension_levels_km){const alt=number(q),p=extensions[alt],rot=rotorAt(d,s,e.venus.baseMass,alt);
+     if(rot){p.rotorMin=Math.min(p.rotorMin,rot.shaftMW);p.rotorMax=Math.max(p.rotorMax,rot.shaftMW);
+       p.heatMin=Math.min(p.heatMin,rot.sourceMW);p.heatMax=Math.max(p.heatMax,rot.sourceMW);p.pressure_bar=rot.air.pressure;}}
+  }
+  if(i<number(d.sweep.report_preview_samples))exemplars.push({sample:i,inputs:s,gates:rows.at(-1),dry:e.dry.sum,coreDry:e.dry.coreT,kit:e.kit,venus:stage===2?{
     handover:e.venus.handover,lowWater:e.venus.mode.low.waterAtOrbit,highWater:e.venus.mode.high.waterAtOrbit,
     lowThrust:e.venus.mode.low.thrustN,highThrust:e.venus.mode.high.thrustN,
     lowDV:e.venus.mode.low.delta_v_orbit,highDV:e.venus.mode.high.delta_v_orbit,
-    twoCrewStay:e.venus.thermal[2].maxHours,fourCrewStay:e.venus.thermal[4].maxHours}:null});
+    twoCrewPodHours:e.venus.thermal[2].podHours,fourCrewPodHours:e.venus.thermal[4].podHours,
+    twoCrewCoolingKW:e.venus.thermal[2].coolerElectricalKW,fourCrewCoolingKW:e.venus.thermal[4].coolerElectricalKW}:null});
  }
- const gates=Object.fromEntries(["A","B",...(stage===2?["R","C","C_low","C_high","D2","D4"]:[])].map(k=>[k,census(rows,k)]));
+ const gates=Object.fromEntries(["A","A2","KV","KF","B",...(stage===2?["R","C","C_low","C_high","DS2","DS4"]:[])].map(k=>[k,census(rows,k)]));
  const jointStatus=states=>states.includes("FAIL")?"FAIL":states.includes("OPEN")?"OPEN":"PASS";
  const joint=stage===2?Object.fromEntries([
-  ["A_and_C",["A","C"]],["A_C_D2",["A","C","D2"]],["A_C_D4",["A","C","D4"]],["A_B_C_D2",["A","B","C","D2"]],["A_B_C_D4",["A","B","C","D4"]]
+  ["A2_and_C",["A2","C"]],["A2_C_DS2",["A2","C","DS2"]],["A2_C_DS4",["A2","C","DS4"]],["A2_KF_C_DS2",["A2","KF","C","DS2"]],["A2_KF_C_DS4",["A2","KF","C","DS4"]]
  ].map(([k,ks])=>[k,census(rows.map(r=>({[k]:jointStatus(ks.map(x=>r[x]))})),k)])):{};
- const scores=Object.fromEntries(["A",...(stage===2?["R","C","D2","D4"]:[])].map(k=>[k,sensitivity(d,stage,design,geo,k)]));
+ const scores=Object.fromEntries(["A","A2","KV",...(stage===2?["R","C","DS2","DS4"]:[])].map(k=>[k,sensitivity(d,stage,design,geo,k)]));
  const components=Object.keys(d.mass).filter(x=>!["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"].includes(x));
  const sums=[0,0,0];const partRows=components.map(k=>{
   const x=d.mass[k],levels=bounds(x)??[number(x),number(x)];
@@ -267,69 +321,137 @@ function analyze(d,stage){
   triplet.forEach((v,i)=>sums[i]+=v);
   return {name:k,values:triplet,provenance:x.provenance};
  });
- return {geometry:geo,gates,joint,scores,examples:exemplars,partRows,sums,design:{rows:design.rows,fields:design.fields}};
+ const kitRows=partRows.filter(x=>d.kit.mass_component_keys.includes(x.name));
+ const kitSums=[0,1,2].map(i=>kitRows.reduce((z,x)=>z+x.values[i],0));
+ return {geometry:geo,gates,joint,scores,examples:exemplars,partRows,sums,kitRows,kitSums,podRanges,extensions,design:{rows:design.rows,fields:design.fields}};
 }
 function report(d,stage,hash,a,graphics){
- const p=number(d.sweep.round_decimals),f=x=>fmt(x,p);
- const lines=["# LOOM Shuttle Sizer v1 — Stage "+stage,"ALL bodies. ALL sponsors. 2026–2226.","",
-  "**CLASS: Engineering sensitivity / ASSUMPTION / NON-CANON / NOT QUALIFICATION.**",
-  "**Run identity:** Git blob SHA-1 of full UTF-8 input JSON incl. stage: \`"+hash+"\`.",
-  "**Run:** \`node wayfarer/lab/shuttle/shuttle_sizer.mjs --stage "+stage+"\`.",
-  "**Graphics:** "+graphics.map(x=>"\`"+x+"\`").join(", ")+".","",
-  "## Computed gates: per-sample status and sample PASS fractions",
-  "Design: "+a.design.rows+" balanced, pairwise-stratified min/mid/max samples over "+a.design.fields.length+
-   " independent swept inputs. This is **not** full Cartesian probability; PASS fractions are empirical design fractions, not calibrated probabilities.",
-  "| Gate | PASS | FAIL | OPEN | PASS / resolved | Missing required inputs |",
-  "|---|---:|---:|---:|---:|---|"];
- const requiredB=a.geometry.gateB.missing.length?a.geometry.gateB.missing.join(", "):"none";
- for(const [k,g] of Object.entries(a.gates))lines.push("| "+k+" | "+g.PASS+" | "+g.FAIL+" | "+g.OPEN+" | "+(g.pass_fraction===null?"n/a":(g.pass_fraction*100).toFixed(2)+"%")+" | "+(k==="B"?requiredB:"none in numeric screen; physical qualification holds separate")+" |");
- lines.push("");
- if(stage===2){lines.push("### Joint closure (same sampled configurations)","| Combined gates | PASS | FAIL | OPEN | PASS / resolved |","|---|---:|---:|---:|---:|");for(const [k,g] of Object.entries(a.joint))lines.push("| "+k+" | "+g.PASS+" | "+g.FAIL+" | "+g.OPEN+" | "+(g.pass_fraction===null?"n/a":(100*g.pass_fraction).toFixed(2)+"%")+" |");lines.push("A conditional water PASS is not an overall mission PASS: Bay fit still has required nulls, and passive 18h thermal survival must also pass.","");}
- lines.push("### Gate A mass envelope and historical comparison");
- lines.push("Component sums min / midpoint / max: **"+a.sums.map(f).join(" / ")+" t**. Gate A limit "+f(number(d.mass.max_docked_dry_t))+" t.");
- lines.push("Historical LOST-sizer empty mass "+f(number(d.mass.v1_comparison_dry_t))+" t is the **v1 comparison** while LOST historical output is **"+f(number(d.mass.historical_lost_sizer_dry_t))+"t** in PR #453; neither is an equality target or an input mass offset.");
- lines.push("Actual midpoint versus **"+f(number(d.mass.historical_lost_sizer_dry_t))+"t** historical output: **"+f(a.sums[1]-number(d.mass.historical_lost_sizer_dry_t))+" t** difference ("+f(number(d.mass.historical_lost_sizer_dry_t))+"t historical anchored in #453 and should not be mistaken for a constraint).");
- lines.push("| Distinct dry component | min | mid | max | provenance |","|---|---:|---:|---:|---|");
- for(const row of a.partRows)lines.push("| "+row.name+" | "+row.values.map(f).join(" | ")+" | "+row.provenance+" |");
- lines.push("");
- lines.push("### Gate B G8 stowed fit");
- lines.push("Necessary-dimensional result: **"+(a.geometry.necessary?"PASS":"FAIL")+"**. G8 allowable L "+f(a.geometry.availL)+" m, diameter "+f(a.geometry.availD)+" m; hull "+f(a.geometry.hullL)+" × "+f(a.geometry.hullD)+" m, folded theoretical blade span "+f(a.geometry.nominalFoldSpan)+"m. Real margins: L "+f(a.geometry.axialClearance)+"m, D "+f(a.geometry.radialClearance)+"m.");
- lines.push("Full fit verdict "+a.geometry.gateB.status+"; explicit REQUIRED nulls: "+requiredB+". No arbitrary hub or mast geometry credited.");
- lines.push("");
- lines.push("## Three most influential inputs per gate (one-at-a-time)");
- lines.push("Each factor is set to **min / mid / max** while "+number(d.sweep.sensitivity_count)+" balanced baselines hold all other inputs. Rank by change in PASS fraction; if no boundary crosses, rank by change in physical margin.");
- for(const [k,v] of Object.entries(a.scores)){
-   lines.push("**Gate "+k+"**");
-   lines.push("| Input | PASS % at min/mid/max | Δ PASS | Δ margin if no flip |","|---|---|---:|---:|");
-   for(const x of v)lines.push("| "+x.field+" | "+x.passRates.map(y=>y===null?"OPEN":(y*100).toFixed(1)).join(" / ")+" | "+(x.flipSpread===null?"OPEN":(100*x.flipSpread).toFixed(1)+" pp")+" | "+f(x.marginShift)+" |");
-   lines.push("");
- }
+ const p=number(d.sweep.round_decimals),f=x=>fmt(x,p),v=(path)=>vals(d,path),first=a.examples[0],rows=[];
+ const add=(...line)=>rows.push(...line);
+ add("# LOOM Shuttle Sizer v1 — Stage "+stage+" (round 3)","ALL bodies. ALL sponsors. 2026–2226.","",
+ "**Authority:** NON-CANON engineering screen, all ranges/provenance from the attached input JSON; numerical PASS is not hardware certification.",
+ "**Run identity:** Git-blob SHA-1 of exact input JSON (includes stage): \`"+hash+"\`.",
+ "**Reproduce:** \`node wayfarer/lab/shuttle/shuttle_sizer.mjs --stage "+stage+"\`.",
+ "**CLI validation record:** "+d.origin.cli_validation.status+" for previous round-2 Stage 2 commit, confirmed by Claude as reported by kT; this round-3 executable was independently evaluated in the model but not claimed to have a new Node CLI validation.",
+ "**Graphics:** "+graphics.join(", ")+".","",
+ "## Computed gates, same scenario samples",
+ "Deterministic coordinate-balanced min/mid/max design: "+a.design.rows+" samples, "+a.design.fields.length+" independent swept inputs. PASS fraction is a **design fraction**, NOT a probability of a flight-ready vehicle.",
+ "| Gate | PASS | FAIL | OPEN | PASS / resolved |",
+ "|---|---:|---:|---:|---:|");
+ for(const [name,g] of Object.entries(a.gates))add("| "+name+" | "+g.PASS+" | "+g.FAIL+" | "+g.OPEN+" | "+(g.pass_fraction===null?"n/a":f(100*g.pass_fraction)+"%")+" |");
  if(stage===2){
- lines.push("## Stage 2: Venus rotor-to-torch, reaction water and thermal ledger");
- lines.push("The single "+f(number(d.geometry.rotor_diameter_m))+"m rotor uses VIRA tabulation, log-linear density interpolation, momentum theory and assumed FM & hot-gas effectiveness. **Handover altitude is computed for each sample**, limited by delivered tipjet heat, hot duty, tip-speed necessary bound and editable requested upper handover altitude. Required low bound "+f(d.venus.handover_altitude_km.min)+"km. No propulsive effect of rotor exhaust is credited to orbital speed.");
- lines.push("**Rotor Gate R:** hover/climb heat/duty arithmetic only, **not** structural rotor/blade-stall qualification. **C:** water-to-orbit from required post-handover Δv using independent low-only and high-only modes and \`thrust=2Pjet/ve\`, \`mdot=2Pjet/ve²\`. C passes if at least one mode returns nonnegative reaction water AND R passes. Crew thermal water and custody payload remain onboard mass, not reaction water.");
- lines.push("**Venus physical mission remains OPEN even where conditional C PASS:** at "+f(d.venus.handover_altitude_km.min)+"–"+f(d.venus.handover_altitude_km.max)+"km Venus atmosphere is still dense; missing torch atmosphere/plume viability, complete entry aerothermal qualification, and detailed ascent path are explicit nulls in input, not silently certified.");
- lines.push("**Thermal Gate D2/D4:** PASS if passive separate cold-water sensible-energy store lasts at least "+f(number(d.thermal.stay_requested_h))+"h after conduction through ideal spherical insulation, cabin electronics and 2/4 crew heat; no active cooling or hot-side power credited. Physical life-support and seals remain separate OPEN.");
- lines.push("**Phase ledger:** sampled for every scenario; representative detailed case below. Reaction water starts with "+f(vals(d,"water.reaction_water_initial_t"))+"t. Crew cold-water mass is a **different inventory**. Custody dry is counted ONCE; custody contents add wet mass ONCE.");
- const ex=a.examples[0],e=evaluate(d,stage,ex.inputs,a.geometry);
- for(const m of ["low","high"]){
- lines.push("**First sampled "+m+" exhaust mode: reaction-water phases**");
- lines.push("| Phase | before t | debit t | after t | Cold water t | Cold energy 2/4 crew remaining kWh | Jet GW | Custody |","|---|---:|---:|---:|---:|---|---:|---|");
- for(const row of e.venus.phaseLedger[m])lines.push("| "+row.phase+" | "+f(row.water_before_t)+" | "+f(row.water_debit_t)+" | "+f(row.water_after_t)+" | "+f(row.thermal_water_mass_t)+" | "+d.thermal.crew_cases.map(q=>f(row.thermal_energy_by_crew[number(q)].energy_after_J/number(d.si.joules_per_kWh))).join(" / ")+" | "+f(row.torch_jet_power_GW)+" | "+row.custody+" |");
- lines.push("Torch "+m+" at first sample: thrust "+f(e.venus.mode[m].thrustN)+"N, delta-v deliverable "+f(e.venus.mode[m].delta_v_orbit)+"km/s, orbit water "+f(e.venus.mode[m].waterAtOrbit)+"t, torch firing "+f(e.venus.mode[m].timeH)+"h.");
+  add("","### Joint closure, same samples","| Combined gates | PASS | FAIL | OPEN | PASS / resolved |","|---|---:|---:|---:|---:|");
+  for(const [name,g] of Object.entries(a.joint))add("| "+name+" | "+g.PASS+" | "+g.FAIL+" | "+g.OPEN+" | "+(g.pass_fraction===null?"n/a":f(100*g.pass_fraction)+"%")+" |");
  }
- lines.push("**Nominal v1 comparator** (NOT a new debit): "+f(number(d.water.v1_venus_touchdown_belly_debit_t))+"t former belly touchdown already included in its "+f(number(d.water.v1_after_all_burns_remaining_t))+"t post-all-burn remaining figure; new rotor architecture never double subtracts it.");
- lines.push("**Thermal output first sample:** 2 crew max "+f(e.venus.thermal[2].maxHours)+"h, 4 crew max "+f(e.venus.thermal[4].maxHours)+"h; ambient table valid at surface; thermal bridge/radiation, active cooler, and heat-rejector design not qualified.");
- lines.push("**Reactor waste heat remains explicitly OPEN in every phase: `power.reactor_waste_heat_MW`; missing conversion and heat-rejection closure are not assigned zero. Required-but-OPEN physical interfaces**: "+["venus.torch_atmosphere_viability","venus.entry_vehicle_thermal_qualification","thermal.active_cooler_power_available_kW","thermal.hot_side_rejection_capacity_kW"].join(", ")+".");
+ add("","### A vs A2 dry mass (kit separated from shuttle)",
+ "Original fully-equipped dry min / mid / max: **"+a.sums.map(f).join(" / ")+" t**.",
+ "Detachable Venus/Titan kit min / mid / max: **"+a.kitSums.map(f).join(" / ")+" t**.",
+ "Docked shuttle core dry WITHOUT Venus kit min / mid / max: **"+a.sums.map((x,i)=>f(x-a.kitSums[i])).join(" / ")+" t**. A2 applies the "+f(number(d.mass.max_docked_dry_t))+"t G8 docked dry limit to CORE only. A applies the same bound to the fully equipped vehicle as a comparator.",
+ "Historical lost-sizer dry "+f(number(d.mass.historical_lost_sizer_dry_t))+"t (not a fit target), current mid minus history "+f(a.sums[1]-number(d.mass.historical_lost_sizer_dry_t))+"t. Earlier v1 comparison "+f(number(d.mass.v1_comparison_dry_t))+"t.");
+ 
+ add("| Dry component | min t | mid t | max t | Kit? | provenance |","|---|---:|---:|---:|---|---|");
+ for(const part of a.partRows)add("| "+part.name+" | "+part.values.map(f).join(" | ")+" | "+(d.kit.mass_component_keys.includes(part.name)?"VENUS/TITAN payload":"CORE")+
+     " | "+part.provenance+" |");
+ add("","### B stowed shuttle and Wayfarer G8 clearance",
+ "Necessary hull fit "+(a.geometry.necessary?"PASS":"FAIL")+". Hull length "+f(a.geometry.hullL)+"m vs allowed "+f(a.geometry.availL)+"m, hull diameter "+f(a.geometry.hullD)+"m vs allowed "+f(a.geometry.availD)+"m. Remaining allocated axial and radial margins: "+f(a.geometry.axialClearance)+"m / "+f(a.geometry.radialClearance)+"m. Ideal folded span "+f(a.geometry.nominalFoldSpan)+"m.",
+ "Full B remains "+a.geometry.gateB.status+" owing to explicit nulls: "+a.geometry.gateB.missing.join(", ")+".",
+ "### Detachable kit and service holds",
+ "Kit components: "+d.kit.mass_component_keys.join(", ")+". Thermal pod core insulation/habitat remains in shuttle; detachable hot-loop and active cooler are kit mass and must not be added again.",
+ "Kit mass min/mid/max "+a.kitSums.map(f).join(" / ")+" t against total Wayfarer payload allowance "+f(number(d.kit.payload_allowance_t))+"t. Thus remaining allowance for other cargo at those three cases: "+a.kitSums.map(x=>f(number(d.kit.payload_allowance_t)-x)).join(" / ")+" t.",
+ "G8 certified hold inventory: two service holds "+f(number(d.kit.holds_total_m3))+"m³ gross; "+f(number(d.kit.holds_free_m3))+"m³ free after drones. Service x "+f(number(d.kit.service_x_start_m))+"–"+f(number(d.kit.service_x_end_m))+"m. Packed effective density "+d.kit.packed_effective_density_t_per_m3.min+"–"+d.kit.packed_effective_density_t_per_m3.max+" t/m³ is ASSUMPTION, not a container design.",
+ "Four "+f(number(d.geometry.rotor_diameter_m)/2)+"m blades hypothetically split into "+f(number(d.kit.rotor_blade_segments_per_blade))+" segments per blade; segment length "+
+ f((number(d.geometry.rotor_diameter_m)/2)/number(d.kit.rotor_blade_segments_per_blade))+"m versus "+f(number(d.kit.service_x_end_m)-number(d.kit.service_x_start_m))+"m service length, necessary-only PASS. Full blade connector integrity and stow/reassemble geometry still OPEN.",
+ "Kit packed-volume gate KV is computed PASS/FAIL per sample. Full kit physical fit KF is OPEN if total volume passes but **kit.individual_hold_aperture_m, kit.individual_hold_cross_section_m2, kit.rotor_blade_joint_qualified, kit.hot_shuttle_kit_fit_qualified** remain null; a sample exceeding total volume is a determinate FAIL. Free volume does not prove two separate holds can accept the pieces.",
+ "First sample: kit mass "+f(first.kit.mass_t)+"t, estimated packed volume "+f(first.kit.packedVolume_m3)+"m³, KV="+first.kit.volumeGate+", KF="+first.kit.fit+".",
+ "","## Three strongest input sensitivities per computable gate",
+ "Each input is set to min / mid / max across "+number(d.sweep.sensitivity_count)+" deterministic OAT baselines; rank by change in PASS fraction, then physical margin if PASS never changes.",
+ "B and full KF have no honest min/mid/max influence ranking until required individual geometry/qualification inputs exist.");
+ for(const [k,list]of Object.entries(a.scores)){
+  add("**"+k+"**","| Input | PASS % min / mid / max | Δ PASS percentage points | Δ margin when no flip |","|---|---|---:|---:|");
+  for(const item of list)add("| "+item.field+" | "+item.passRates.map(x=>x===null?"OPEN":f(100*x)).join(" / ")+" | "+
+   (item.flipSpread===null?"OPEN":f(100*item.flipSpread))+" | "+f(item.marginShift)+" |");
+  add("");
  }
- lines.push("## Representative sample outcomes");
- lines.push("| # | Dry t | A | B | "+(stage===2?"Rotor | C | C low | C high | D2 | D4":"") +" |");
- lines.push("|---:|---:|---|---|"+(stage===2?"---|---|---|---|---|---|":"")+"|");
- for(const row of a.examples)lines.push("| "+row.sample+" | "+f(row.dry)+" | "+row.gates.A+" | "+row.gates.B+" | "+(stage===2?[row.gates.R,row.gates.C,row.gates.C_low,row.gates.C_high,row.gates.D2,row.gates.D4].join(" | ")+" | ":"")+"");
- lines.push("");
- lines.push("## Full input JSON: exact bytes determine run identity");
- lines.push("\`\`\`json",JSON.stringify(d,null,2),"\`\`\`");
- return lines.join("\n")+"\n";
+ add("## Three mass-driver research checks (not automatic certification)",
+ "### Torch 7.7 GW-class source",
+ "Repo [torch energy partition / specific power](https://github.com/loom-2226/loom-2226/blob/main/src/wayfarer_torch_energy_partition_mass_feasibility.py) explicitly holds source specific power and directed fraction OPEN. Literature [Razin DFD 2014](https://doi.org/10.1016/j.actaastro.2014.08.008) and [Princeton DFD Mars](https://psatellite.com/going-to-mars-with-direct-fusion-drive/) address **MW class**, not compact GW engines.",
+ "At "+f(number(d.research.torch_source.targeted_shuttle_torch_jet_power_GW))+" GW ideal jet power, even optimistic study source specific power "+
+ d.research.torch_source.dfd_ambitious_specific_power_kW_per_kg.min+"–"+d.research.torch_source.dfd_ambitious_specific_power_kW_per_kg.max+" kW/kg implies **"+
+ f(number(d.research.torch_source.targeted_shuttle_torch_jet_power_GW)*number(d.si.W_per_GW)/(d.research.torch_source.dfd_ambitious_specific_power_kW_per_kg.max*number(d.si.W_per_kW)*number(d.si.kg_per_t)))+"–"+
+ f(number(d.research.torch_source.targeted_shuttle_torch_jet_power_GW)*number(d.si.W_per_GW)/(d.research.torch_source.dfd_ambitious_specific_power_kW_per_kg.min*number(d.si.W_per_kW)*number(d.si.kg_per_t)))+" t **SOURCE-ONLY**, before power partition and shielding. Consequently 4–10t torch engine stays ASSUMPTION and cannot be narrowed honestly by current evidence. Reactor power distribution is separately itemized, but source realization is still a major feasibility hold.",
+ "### Biconic hull and thermal structure",
+ "NASA [3.2m Venus aeroshell](https://science.nasa.gov/wp-content/uploads/2023/10/advents-venus-orbiter-aerobot-and-dropsonde.pdf) models ~300kg one-use Ti-composite aeroshell structure and 373kg HEEET, excluding the 4.3m × 12.8m shuttle, multiple flights, hot rotor mount, keel and rover loads. The 9–14t kT range cannot be physically narrowed from this analog. It remains editable ASSUMPTION.",
+ "### 2.8m OD titanium pressure sphere",
+ "[Alvin classification comparison](https://www.jstage.jst.go.jp/article/jintransnavi/6/1/6_31/_pdf/-char/en): ~51mm wall for 4500m ocean depth; [Limiting Factor manufacturer](https://caladanoceanic.com/home/technology/sub/): ~90mm at 11km, different smaller 1.5m inner diameter. [Elastic-plastic shell paper](https://doi.org/10.1016/j.marstruc.2017.09.007) identifies imperfection sensitivity. Neither proves a hot four-person Venus hull.");
+ const sphere=d.research.sphere,r=number(d.geometry.crew_pod_outer_diameter_m)/2,rho=number(sphere.material_density_kg_per_m3),
+   po=(number(d.geometry.crew_pod_pressure_ext_bar)-number(d.geometry.crew_pod_pressure_int_bar))*number(d.si.Pa_per_bar),
+   sample=[0,1,2].map(i=>{
+      const shell=a.partRows.find(x=>x.name==="pressure_pod_titanium_shell_t").values[i],
+       innerR=Math.cbrt(r*r*r-3*shell*number(d.si.kg_per_t)/(4*Math.PI*rho)),
+       thickness=r-innerR;
+      const e=[sphere.titanium_hot_modulus_GPa.min,(sphere.titanium_hot_modulus_GPa.min+sphere.titanium_hot_modulus_GPa.max)/2,sphere.titanium_hot_modulus_GPa.max][i]*number(d.si.Pa_per_GPa),
+       kd=[sphere.knockdown.min,(sphere.knockdown.min+sphere.knockdown.max)/2,sphere.knockdown.max][i],
+       sf=[sphere.safety_factor.max,(sphere.safety_factor.min+sphere.safety_factor.max)/2,sphere.safety_factor.min][i],
+       allow=[sphere.titanium_allowable_stress_MPa.min,(sphere.titanium_allowable_stress_MPa.min+sphere.titanium_allowable_stress_MPa.max)/2,sphere.titanium_allowable_stress_MPa.max][i]*number(d.si.Pa_per_MPa);
+      const pcr=2*e/Math.sqrt(3*(1-number(sphere.poisson_ratio)**2))*(thickness/r)**2;
+      const stress=2*allow*thickness/r;
+      return {shell,thickness_mm:thickness*number(d.si.millimeters_per_meter),p_allow_bar:Math.min(pcr*kd,stress)/sf/number(d.si.Pa_per_bar),p_req_bar:po/number(d.si.Pa_per_bar)};
+   });
+ add("Analytic perfect-sphere elastic buckling with independent **assumed knockdown and safety factor**, plus simple membrane compression, against "+f(po/number(d.si.Pa_per_bar))+" bar differential. This is a screen, **not** real-hatch, penetration or thermal-cycle buckling qualification.",
+ "| Shell mass t | Nominal wall thickness mm | allowable differential pressure bar | required bar | screen |","|---:|---:|---:|---:|---|");
+ for(const q of sample)add("| "+f(q.shell)+" | "+f(q.thickness_mm)+" | "+f(q.p_allow_bar)+" | "+f(q.p_req_bar)+" | "+(q.p_allow_bar>=q.p_req_bar?"PASS ANALYTIC ONLY":"FAIL ANALYTIC")+" |");
+ add("Knockdown "+f(sphere.knockdown.min)+"–"+f(sphere.knockdown.max)+", SF "+f(sphere.safety_factor.min)+"–"+f(sphere.safety_factor.max)+
+ ", modulus "+f(sphere.titanium_hot_modulus_GPa.min)+"–"+f(sphere.titanium_hot_modulus_GPa.max)+"GPa, allowable compressive stress "+
+ f(sphere.titanium_allowable_stress_MPa.min)+"–"+f(sphere.titanium_allowable_stress_MPa.max)+"MPa are all ASSUMPTION; hatch/penetration stress concentrations and Venus hot material strength OPEN. Do not narrow the shell mass until these are resolved.");
+ if(stage===2){
+ add("","## Stage 2: Venus rotor and torch, D-shuttle vs D-pod",
+ "**Rotor:** one "+f(number(d.geometry.rotor_diameter_m))+"m disk, VIRA atmosphere, min/mid/max sampled real FM and hot-gas conversion, heat-cap input ceiling, speed and life bound. Computed handover must reach at least "+f(d.venus.handover_altitude_km.min)+"km in this declared screen; physical lift and tip-Mach not certified.",
+ "**Torch:** thrust per mode = 2 × Pjet / ve and propellant rate = 2 × Pjet / ve². Required Δv and resulting water-at-orbit are calculated per sample, with separate reaction/crew water and custody payload; never negative reaction-water stock. C is conditional on the rotor arithmetic gate, not dense-CO₂ plume viability.",
+ "**D-shuttle:** 18h on Venus with pod docked and cold-water heat store PRESERVED. Powered heat-pump input = cabin thermal load / COP, hot-loop reject = cabin load + cooler electrical input. PASS if dedicated cooler and reactor auxiliary bus input each meet required kW, hot-side rejector handles total kW at >ambient temperature, and A2/kit payload mass close. Cooler and rejector installation still unqualified.",
+ "**D-pod:** detached pod, cold-water sensible storage only; **maximum passive hours are OUTPUT** without an invented survival-duration target. No D-pod PASS/FAIL criterion. Passive pod heat load includes electronics and actual crew count.",
+ "| Crew | minimum detached pod hours | maximum detached pod hours |","|---:|---:|---:|");
+ for(const q of d.thermal.crew_cases){const count=number(q),b=a.podRanges[count];add("| "+count+" | "+f(b.min)+" | "+f(b.max)+" |");}
+ add("","**Independent best/worst parameter corners (not contained in every balanced sample):**");
+ for(const q of d.thermal.crew_cases){
+   const crew=number(q),r=number(d.geometry.crew_pod_outer_diameter_m)/2,area=4*Math.PI*r*r;
+   const hot=d.thermal.venus_external_surface_K,cold=number(d.thermal.cabin_target_K),K=d.thermal.insulation_k_W_per_mK,T=d.thermal.insulation_thickness_m;
+   const el=d.thermal.cabin_electronics_kW,heat=d.thermal.crew_heat_W_each;
+   const water=d.water.crew_water_cold_mass_t,window=d.water.crew_water_heating_delta_T_K,cp=number(d.water.crew_water_heat_capacity_J_per_kg_K);
+   const bestLoad=K.min*area*(hot.min-cold)/T.max+el.min*number(d.si.W_per_kW)+crew*heat.min;
+   const worstLoad=K.max*area*(hot.max-cold)/T.min+el.max*number(d.si.W_per_kW)+crew*heat.max;
+   const best=water.max*number(d.si.kg_per_t)*cp*window.max/bestLoad/number(d.si.seconds_per_hour);
+   const worst=water.min*number(d.si.kg_per_t)*cp*window.min/worstLoad/number(d.si.seconds_per_hour);
+   add("- "+crew+" crew passive pod: mathematical parameter corner **"+f(worst)+"–"+f(best)+" hours**. Balanced-sample observed maximum "+f(a.podRanges[crew].max)+" hours. No minimum required stay time.");
+ }
+ add("","### Representative first-sample reactor/thermal ledger","| Crew | Load W | cooler electric kW | aux bus allowance kW | hot-loop reject kW | available reject kW | D-shuttle | D-pod hours |",
+ "|---:|---:|---:|---:|---:|---:|---|---:|");
+ const ev=evaluate(d,stage,first.inputs,a.geometry);
+ for(const q of d.thermal.crew_cases){const crew=number(q),t=ev.venus.thermal[crew];add("| "+crew+" | "+f(t.loadW)+" | "+f(t.coolerElectricalKW)+" | "+f(t.reactorBusLimitKW)+" | "+f(t.rejectKW)+" | "+f(t.rejectLimitKW)+" | "+t.status+" | "+f(t.podHours)+" |");}
+ add("","### Phase-by-phase conserved inventories (first scenario, mode comparisons)");
+ for(const mode of ["low","high"]){
+  add("**Mode "+mode+"**","| Phase | reaction water before → after t | reaction debit t | reserved pod water t | pod cold energy 2/4 crew kWh | cooler input 2/4 crew kW | hot-loop rejection 2/4 crew kW | custody |",
+ "|---|---|---:|---:|---|---|---|---|");
+  for(const ph of ev.venus.phaseLedger[mode])add("| "+ph.phase+" | "+f(ph.water_before_t)+" → "+f(ph.water_after_t)+" | "+f(ph.water_debit_t)+" | "+f(ph.thermal_water_mass_t)+" | "+
+   d.thermal.crew_cases.map(q=>f(ph.thermal_energy_by_crew[number(q)].energy_after_J/number(d.si.joules_per_kWh))).join("/")+" | "+
+   (ph.cooler_electric_by_crew_kW?d.thermal.crew_cases.map(q=>f(ph.cooler_electric_by_crew_kW[number(q)])).join("/"):"—")+" | "+
+   (ph.hot_loop_rejection_by_crew_kW?d.thermal.crew_cases.map(q=>f(ph.hot_loop_rejection_by_crew_kW[number(q)])).join("/"):"—")+" | "+ph.custody+" |");
+  add("Water to orbit "+f(ev.venus.mode[mode].waterAtOrbit)+"t; unmet demand "+f(ev.venus.mode[mode].waterShortfallT)+"t; achievable ideal Δv "+f(ev.venus.mode[mode].delta_v_orbit)+"km/s; thrust "+f(ev.venus.mode[mode].thrustN)+"N.");
+ }
+ add("","### Dense-CO₂ torch light-up research and rotor extension",
+ "A [magnetic nozzle PIC study](https://www.frontiersin.org/journals/physics/articles/10.3389/fphy.2022.876684/full) operates under near-vacuum backgrounds, not Venus 1–70bar CO₂. [NASA rocket base heating](https://ntrs.nasa.gov/citations/20010116591) and [plume recirculation work](https://link.springer.com/article/10.1007/s12567-020-00306-8) show atmosphere/exhaust shear, entrainment and structural heating matter even for conventional jets. There is **no source** validating a multi-GW magnetically driven plume at Venus pressure; plasma neutralization, CO₂ ingestion, magnetic field confinement, base recirculation, induced hot-loop/hull loads, nozzle erosion and restart remain OPEN.",
+ "At the kT 5–25km handover assumption, VIRA pressure falls from "+f(atmosphere(d,d.venus.handover_altitude_km.min).pressure)+" to "+
+ f(atmosphere(d,d.venus.handover_altitude_km.max).pressure)+" bar. Rotor-only flight to 30–50km increases MW demand; these are **demand** bounds, not a new heat-source or safe-blade approval.",
+ "| Altitude km | ambient bar | rotor shaft MW min–max | tip-jet heat MW min–max |","|---:|---:|---:|---:|");
+ for(const [alt,x]of Object.entries(a.extensions))add("| "+f(Number(alt))+" | "+f(x.pressure_bar)+" | "+f(x.rotorMin)+"–"+f(x.rotorMax)+" | "+f(x.heatMin)+"–"+f(x.heatMax)+" |");
+ add("At 30–50km, rotor delivered-heat ceilings need to rise markedly above the 30–100MW assumptions, or a different climb strategy is needed. Moving handover upward helps ambient backpressure but does NOT certify a fusion plasma nozzle at 1–10bar. Torch dense-atmosphere viability remains "+d.venus.torch_atmosphere_viability.provenance+".",
+ "### Physical holds after conditional gate results",
+ "The following declared required physics is still OPEN: venus.torch_atmosphere_viability, venus.entry_vehicle_thermal_qualification, kit individual hold geometry and hot blade joints, research.sphere hot pressurization and actual hatch/seal, power.reactor_waste_heat_MW. No PASS from this sizer overrides those holds.");
+ }
+ add("","## Representative sampled outcomes","| Sample | Dry with kit t | A | Docked core t | A2 | packed kit m³ | KV | KF | B | "+(stage===2?"Rotor | Water C | D-shuttle 2 | D-shuttle 4":"")+" |",
+ "|---:|---:|---|---:|---|---:|---|---|---|"+(stage===2?"---|---|---|---|":"")+"|");
+ for(const e of a.examples)add("| "+e.sample+" | "+f(e.dry)+" | "+e.gates.A+" | "+f(e.coreDry)+" | "+e.gates.A2+" | "+f(e.kit.packedVolume_m3)+" | "+e.gates.KV+" | "+e.gates.KF+" | "+e.gates.B+" | "+(stage===2?[e.gates.R,e.gates.C,e.gates.DS2,e.gates.DS4].join(" | ")+" | ":""));
+ add("","## Full hashed input JSON (verbatim fields and provenance)","\`\`\`json",JSON.stringify(d,null,2),"\`\`\`");
+ return rows.join("\n")+"\n";
 }
 function sideSVG(d,a){
  const g=a.geometry,p=number(d.sweep.svg_pixels_per_meter),pad=number(d.sweep.svg_margin_px),W=Math.ceil(g.hullL*p+2*pad),H=Math.ceil(g.hullD*p+3*pad),
@@ -343,18 +465,26 @@ function sideSVG(d,a){
  '<text x="'+pad+'" y="'+(H-29)+'" fill="#ffcb83" font-size="13">Actual mast/hub/CG positions OPEN; this line is NOT a fit proof</text></svg>';
 }
 function waterfallSVG(d,a){
- const parts=a.partRows,limit=number(d.mass.max_docked_dry_t),W=1000,H=90+parts.length*27,scale=(W-350)/a.sums[2],barX=300;
- const rects=parts.map((r,i)=>{const x=barX+parts.slice(0,i).reduce((sum,v)=>sum+v.values[1],0)*scale,w=r.values[1]*scale,y=65+i*27;
- return '<text x="20" y="'+(y+13)+'" fill="#cde6ff" font-size="12">'+esc(r.name)+'</text>'+
- '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="19" fill="'+(i%2?"#ffcb82":"#70c9c4")+'"/>';
+ const parts=[...a.partRows.filter(x=>!d.kit.mass_component_keys.includes(x.name)),
+              ...a.partRows.filter(x=>d.kit.mass_component_keys.includes(x.name))];
+ const limit=number(d.mass.max_docked_dry_t),W=1100,H=115+parts.length*27,scale=(W-350)/a.sums[2],barX=300;
+ const coreMid=a.sums[1]-a.kitSums[1],kitMid=a.kitSums[1];
+ const rects=parts.map((r,i)=>{
+   const x=barX+parts.slice(0,i).reduce((sum,v)=>sum+v.values[1],0)*scale;
+   const w=r.values[1]*scale,y=85+i*27,kit=d.kit.mass_component_keys.includes(r.name);
+   return '<text x="20" y="'+(y+13)+'" fill="#cde6ff" font-size="12">'+esc(r.name)+'</text>'+
+     '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="19" fill="'+(kit?"#ffbc76":"#70c9c4")+'"/>';
  }).join("");
- return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'"><rect width="100%" height="100%" fill="#121b29"/>'+
- '<text x="20" y="25" fill="#fff" font-size="18">DRY-MASS WATERFALL: MIDPOINT STACK (t)</text>'+
- '<text x="20" y="44" fill="#cde6ff" font-size="13">min '+a.sums[0].toFixed(2)+' | midpoint '+a.sums[1].toFixed(2)+' | max '+a.sums[2].toFixed(2)+' | GATE A '+esc(a.gates.A.pass_fraction===null?"OPEN":(100*a.gates.A.pass_fraction).toFixed(1)+"% PASS")+'</text>'+
- rects+'<line x1="'+(barX+limit*scale)+'" x2="'+(barX+limit*scale)+'" y1="48" y2="'+(H-22)+'" stroke="#ff6b76" stroke-dasharray="5 4" stroke-width="2"/>'+
- '<text x="'+(barX+limit*scale+5)+'" y="'+(H-10)+'" fill="#ff9fa5" font-size="12">'+limit+'t dry limit</text></svg>';
+ return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">'+
+ '<rect width="100%" height="100%" fill="#121b29"/>'+
+ '<text x="20" y="25" fill="#fff" font-size="18">SHUTTLE DRY-MASS WATERFALL — MIDPOINT STACK (t)</text>'+
+ '<text x="20" y="44" fill="#cde6ff" font-size="13">Core '+coreMid.toFixed(2)+'t (cyan), detachable Venus kit '+kitMid.toFixed(2)+'t (amber), full '+a.sums[1].toFixed(2)+'t</text>'+
+ '<text x="20" y="63" fill="#cde6ff" font-size="13">A2 core PASS '+(100*a.gates.A2.pass_fraction).toFixed(1)+'%; A full PASS '+(100*a.gates.A.pass_fraction).toFixed(1)+'%; assumed payload capacity '+number(d.kit.payload_allowance_t)+'t</text>'+
+ rects+
+ '<line x1="'+(barX+coreMid*scale)+'" x2="'+(barX+coreMid*scale)+'" y1="65" y2="'+(H-25)+'" stroke="#83e0c8" stroke-dasharray="3 3" stroke-width="2"/>'+
+ '<line x1="'+(barX+limit*scale)+'" x2="'+(barX+limit*scale)+'" y1="65" y2="'+(H-25)+'" stroke="#ff6b76" stroke-dasharray="6 4" stroke-width="2"/>'+
+ '<text x="'+(barX+limit*scale+8)+'" y="'+(H-10)+'" fill="#ff9fa5" font-size="12">'+limit+'t docked limit</text></svg>';
 }
-
 import {readFileSync,writeFileSync} from "node:fs";
 import {createHash} from "node:crypto";
 const url=new URL("./shuttle_inputs.json",import.meta.url),raw=readFileSync(url,"utf8"),input=JSON.parse(raw);
