@@ -774,5 +774,12 @@
       "source": "Presentation only",
       "description": "Canvas padding"
     }
+  },
+  "run_stage": {
+    "value": 1,
+    "unit": "stage",
+    "provenance": "ASSUMPTION",
+    "source": "kT stage 1 approved mass and fit workflow",
+    "description": "Hashed input state. Stage 2 uses its own JSON revision; CLI stage must agree."
   }
 }
