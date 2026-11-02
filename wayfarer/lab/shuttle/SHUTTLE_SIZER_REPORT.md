@@ -22,7 +22,7 @@ Design: 6561 balanced, pairwise-stratified min/mid/max samples over 35 independe
 ### Gate A mass envelope and historical comparison
 Component sums min / midpoint / max: **25.250 / 38.375 / 51.500 t**. Gate A limit 34.200 t.
 Historical LOST-sizer empty mass 35.400 t is the **v1 comparison** while LOST historical output is **27.900t** in PR #453; neither is an equality target or an input mass offset.
-Actual midpoint versus **27.9t** historical output: **10.475 t** difference (27.900t historical anchored in #453 and should not be mistaken for a constraint).
+Actual midpoint versus **27.900t** historical output: **10.475 t** difference (27.900t historical anchored in #453 and should not be mistaken for a constraint).
 | Distinct dry component | min | mid | max | provenance |
 |---|---:|---:|---:|---|
 | pressure_pod_titanium_shell_t | 3.200 | 5.400 | 7.600 | PROJECTION |
@@ -83,9 +83,9 @@ Each factor is set to **min / mid / max** while 81 balanced baselines hold all o
 | thermal.insulation_thickness_m | 0.0 / 0.0 / 0.0 | 0.0 pp | 1.487 |
 
 ## Stage 2: Venus rotor-to-torch, reaction water and thermal ledger
-The single 12m rotor uses VIRA tabulation, log-linear density interpolation, momentum theory and assumed FM & hot-gas effectiveness. **Handover altitude is computed for each sample**, limited by delivered tipjet heat, hot duty, tip-speed necessary bound and editable requested upper handover altitude. Required low bound 5.000km. No propulsive effect of rotor exhaust is credited to orbital speed.
+The single 12.000m rotor uses VIRA tabulation, log-linear density interpolation, momentum theory and assumed FM & hot-gas effectiveness. **Handover altitude is computed for each sample**, limited by delivered tipjet heat, hot duty, tip-speed necessary bound and editable requested upper handover altitude. Required low bound 5.000km. No propulsive effect of rotor exhaust is credited to orbital speed.
 **Rotor Gate R:** hover/climb heat/duty arithmetic only, **not** structural rotor/blade-stall qualification. **C:** water-to-orbit from required post-handover Δv using independent low-only and high-only modes and `thrust=2Pjet/ve`, `mdot=2Pjet/ve²`. C passes if at least one mode returns nonnegative reaction water AND R passes. Crew thermal water and custody payload remain onboard mass, not reaction water.
-**Venus physical mission remains OPEN even where conditional C PASS:** at 5–25km Venus atmosphere is still dense; missing torch atmosphere/plume viability, complete entry aerothermal qualification, and detailed ascent path are explicit nulls in input, not silently certified.
+**Venus physical mission remains OPEN even where conditional C PASS:** at 5.000–25.000km Venus atmosphere is still dense; missing torch atmosphere/plume viability, complete entry aerothermal qualification, and detailed ascent path are explicit nulls in input, not silently certified.
 **Thermal Gate D2/D4:** PASS if passive separate cold-water sensible-energy store lasts at least 18.000h after conduction through ideal spherical insulation, cabin electronics and 2/4 crew heat; no active cooling or hot-side power credited. Physical life-support and seals remain separate OPEN.
 **Phase ledger:** sampled for every scenario; representative detailed case below. Reaction water starts with 23.100t. Crew cold-water mass is a **different inventory**. Custody dry is counted ONCE; custody contents add wet mass ONCE.
 **First sampled low exhaust mode: reaction-water phases**
@@ -112,7 +112,7 @@ Torch low at first sample: thrust 1000000.000N, delta-v deliverable 6.438km/s, o
 | rotor-to-torch handover | 23.100 | 0.000 | 23.100 | 0.300 | 0.000 / 0.000 | OPEN | ONBOARD |
 | torch ascent to orbit | 23.100 | 15.383 | 7.717 | 0.300 | 0.000 / 0.000 | 5.000 | ONBOARD |
 Torch high at first sample: thrust 400000.000N, delta-v deliverable 9.500km/s, orbit water 7.717t, torch firing 0.267h.
-**Nominal v1 comparator** (NOT a new debit): 0.84t former belly touchdown already included in its 1.6t post-all-burn remaining figure; new rotor architecture never double subtracts it.
+**Nominal v1 comparator** (NOT a new debit): 0.840t former belly touchdown already included in its 1.600t post-all-burn remaining figure; new rotor architecture never double subtracts it.
 **Thermal output first sample:** 2 crew max 0.954h, 4 crew max 0.920h; ambient table valid at surface; thermal bridge/radiation, active cooler, and heat-rejector design not qualified.
 **Reactor waste heat remains explicitly OPEN in every phase: `power.reactor_waste_heat_MW`; missing conversion and heat-rejection closure are not assigned zero. Required-but-OPEN physical interfaces**: venus.torch_atmosphere_viability, venus.entry_vehicle_thermal_qualification, thermal.active_cooler_power_available_kW, thermal.hot_side_rejection_capacity_kW.
 ## Representative sample outcomes
