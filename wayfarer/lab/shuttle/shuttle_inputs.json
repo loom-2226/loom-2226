@@ -1145,11 +1145,11 @@
     }
   },
   "run_stage": {
-    "value": 1,
+    "value": 2,
     "unit": "stage",
     "provenance": "ASSUMPTION",
-    "source": "kT stage 1 approved mass and fit workflow",
-    "description": "Hashed input state. Stage 2 uses its own JSON revision; CLI stage must agree."
+    "source": "kT stage 2 Venus round trip screening approval; stacked on Stage 1",
+    "description": "Stage 2 hashed input; stage 3 not authorized."
   },
   "kit": {
     "use": "VENUS_TITAN_DETACHABLE_SPECIAL_ENVIRONMENT_KIT",
