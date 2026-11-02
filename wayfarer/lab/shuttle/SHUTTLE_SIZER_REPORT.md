@@ -1,51 +1,67 @@
-# LOOM shuttle sizer v1 — Stage 1 result
-ALL bodies. ALL sponsors. 2026-2226.
+# LOOM Shuttle Sizer v1 — Stage 1
+ALL bodies. ALL sponsors. 2026–2226.
 
-**Status:** NON-CANON / NON-RUNTIME / UNQUALIFIED ENGINEERING SENSITIVITY. No machine constants promoted.
-**Input hash / run identity (Git blob SHA-1; includes JSON run_stage):** `16116180773e33524b855fbbb01fdcd6bb589109`. Raw UTF-8 input identity is SHA-1 of `blob <byte-length>\\0` plus JSON bytes.
-**Single source input:** `wayfarer/lab/shuttle/shuttle_inputs.json` (all inputs printed at end).
-**Files generated:** `SHUTTLE_SIDE_VIEW.svg`, `SHUTTLE_MASS_WATERFALL.svg`.
+**CLASS: Engineering sensitivity / ASSUMPTION / NON-CANON / NOT QUALIFICATION.**
+**Run identity:** Git blob SHA-1 of full UTF-8 input JSON incl. stage: `b0ca9cfa68c643c9f28257b0b5e207b00993f262`.
+**Run:** `node wayfarer/lab/shuttle/shuttle_sizer.mjs --stage 1`.
+**Graphics:** `SHUTTLE_SIDE_VIEW.svg`, `SHUTTLE_MASS_WATERFALL.svg`.
 
-## Gate summary
-| Gate | Verdict | Finding |
-|---|---|---|
-| A docked dry ≤ 34.200 t | **OPEN** | Only Ti geometric shell range 3.200–7.600 t; 11 other dry mass entries OPEN; no admissible total. |
-| B G8 bay fully fitted | **OPEN** | Necessary hull length 12.800 / available 12.800m, diameter 4.300 / available 4.300m, folded span 12.000m; mast/hub/hinge and actual positioning OPEN. |
+## Computed gates: per-sample status and sample PASS fractions
+Design: 6561 balanced, pairwise-stratified min/mid/max samples over 15 independent swept inputs. This is **not** full Cartesian probability; PASS fractions are empirical design fractions, not calibrated probabilities.
+| Gate | PASS | FAIL | OPEN | PASS / resolved | Missing required inputs |
+|---|---:|---:|---:|---:|---|
+| A | 810 | 5751 | 0 | 12.35% | none in numeric screen; physical qualification holds separate |
+| B | 0 | 0 | 6561 | n/a | geometry.mast_stowed_extra_diameter_m, geometry.hub_axial_length_m, geometry.mast_retracted_height_m, geometry.crew_pod_x_m, geometry.rotor_mast_x_m, geometry.rotor_retracted_cg_m, geometry.pod_door_ramp_external_excursion_m |
 
-## Stage 1 — mass and fit
-**Necessary geometry:** G8 bay inner length 13.800m, axial clearance each end 0.500m; bore radius 2.400m, radial clearance 0.250m. Remaining *allowable* diameter and length margins are exactly 0.000m and 0.000m. Any mast or hub exterior to the existing hull is a fit FAILURE.
-**Folded rotor:** four blades on one 12.000m tip-jet rotor; two fold forward and two aft. The ideal collinear span is 12.000m, leaving 0.800m for true hinge/root/end geometry. Rotor mount over CG and crew pod station are OPEN; the side view locates neither as engineering authority.
-**Dry-mass components (independently conserved):**
-| Component | Range / value (t) | Provenance |
-|---|---:|---|
-| pressure_pod_titanium_shell_t | 3.200–7.600 | PROJECTION |
-| hull_thermal_structure_t | OPEN | OPEN |
-| pressure_pod_fittings_seals_t | OPEN | OPEN |
-| folding_rover_chassis_t | OPEN | OPEN |
-| single_12m_rotor_blades_hub_mast_t | OPEN | OPEN |
-| tipjet_ducts_compressors_t | OPEN | OPEN |
-| torch_low_high_engine_t | OPEN | OPEN |
-| small_belly_thrusters_t | OPEN | OPEN |
-| reactor_power_distribution_t | OPEN | OPEN |
-| crew_habitat_thermal_package_t | OPEN | OPEN |
-| custody_capsule_dry_t | OPEN | OPEN |
-| avionics_controls_yaw_t | OPEN | OPEN |
+### Gate A mass envelope and historical comparison
+Component sums min / midpoint / max: **25.250 / 38.375 / 51.500 t**. Gate A limit 34.200 t.
+Historical LOST-sizer empty mass 35.400 t is the **v1 comparison** while LOST historical output is **27.900t** in PR #453; neither is an equality target or an input mass offset.
+Actual midpoint versus **27.9t** historical output: **10.475 t** difference (27.900t historical anchored in #453 and should not be mistaken for a constraint).
+| Distinct dry component | min | mid | max | provenance |
+|---|---:|---:|---:|---|
+| pressure_pod_titanium_shell_t | 3.200 | 5.400 | 7.600 | PROJECTION |
+| hull_thermal_structure_t | 9.000 | 11.500 | 14.000 | ASSUMPTION |
+| pressure_pod_fittings_seals_t | 0.500 | 0.850 | 1.200 | ASSUMPTION |
+| folding_rover_chassis_t | 0.600 | 0.900 | 1.200 | ASSUMPTION |
+| single_12m_rotor_blades_hub_mast_t | 0.800 | 1.400 | 2.000 | ASSUMPTION |
+| tipjet_ducts_compressors_t | 0.300 | 0.650 | 1.000 | ASSUMPTION |
+| torch_low_high_engine_t | 4.000 | 7.000 | 10.000 | ASSUMPTION |
+| small_belly_thrusters_t | 0.200 | 0.400 | 0.600 | ASSUMPTION |
+| reactor_power_distribution_t | 0.300 | 0.650 | 1.000 | ASSUMPTION |
+| crew_habitat_thermal_package_t | 1.000 | 1.500 | 2.000 | ASSUMPTION |
+| custody_capsule_dry_t | 0.050 | 0.125 | 0.200 | ASSUMPTION |
+| avionics_controls_yaw_t | 0.500 | 0.850 | 1.200 | ASSUMPTION |
+| entry_tps_t | 3.000 | 4.500 | 6.000 | ASSUMPTION |
+| landing_gear_door_ramp_t | 0.800 | 1.150 | 1.500 | ASSUMPTION |
+| water_tank_insulated_t | 1.000 | 1.500 | 2.000 | ASSUMPTION |
 
-**Feasibility map:** 3 shell-projection samples; other masses cannot be assigned without evidence.
-| Ti shell assumed (t) | Remaining total budget for ALL other dry components (t) | Gate A | Gate B |
-|---:|---:|---|---|
-| 3.200 | 31.000 | OPEN | OPEN |
-| 5.400 | 28.800 | OPEN | OPEN |
-| 7.600 | 26.600 | OPEN | OPEN |
+### Gate B G8 stowed fit
+Necessary-dimensional result: **PASS**. G8 allowable L 12.800 m, diameter 4.300 m; hull 12.800 × 4.300 m, folded theoretical blade span 12.000m. Real margins: L 0.000m, D 0.000m.
+Full fit verdict OPEN; explicit REQUIRED nulls: geometry.mast_stowed_extra_diameter_m, geometry.hub_axial_length_m, geometry.mast_retracted_height_m, geometry.crew_pod_x_m, geometry.rotor_mast_x_m, geometry.rotor_retracted_cg_m, geometry.pod_door_ramp_external_excursion_m. No arbitrary hub or mast geometry credited.
 
-Necessary but insufficient condition: **sum(other component dry masses) ≤ remaining budget**; this is not an earned PASS. Capsule has ONE dry-mass row and may not be counted a second time in the custody ledger.
+## Three most influential inputs per gate (one-at-a-time)
+Each factor is set to **min / mid / max** while 81 balanced baselines hold all other inputs. Rank by change in PASS fraction; if no boundary crosses, rank by change in physical margin.
+**Gate A**
+| Input | PASS % at min/mid/max | Δ PASS | Δ margin if no flip |
+|---|---|---:|---:|
+| mass.torch_low_high_engine_t | 33.3 / 6.2 / 3.7 | 29.6 pp | 6.000 |
+| mass.hull_thermal_structure_t | 25.9 / 11.1 / 3.7 | 22.2 pp | 5.000 |
+| mass.pressure_pod_titanium_shell_t | 27.2 / 8.6 / 4.9 | 22.2 pp | 4.400 |
 
-## Inputs driving the result and provenance boundaries
-- A: Ti shell is the only interval-backed dry mass. Single 12m rotor mass is OPEN; #453's 1–10t *four 6m rotor* assumption is **not transferred**.
-- B: no dimensional clearance beyond the stated hull; hub thickness, CG, wing/mast stowage geometry unresolved.
-- Light-body access and Titan are Stage 3, not evaluated here. No modification to canon/Wayfarer geometry/Navigator.
+## Representative sample outcomes
+| # | Dry t | A | B |  |
+|---:|---:|---|---||
+| 0 | 25.250 | PASS | OPEN | 
+| 1 | 31.850 | PASS | OPEN | 
+| 2 | 38.450 | FAIL | OPEN | 
+| 3 | 36.025 | FAIL | OPEN | 
+| 4 | 36.175 | FAIL | OPEN | 
+| 5 | 40.075 | FAIL | OPEN | 
+| 6 | 40.350 | FAIL | OPEN | 
+| 7 | 44.250 | FAIL | OPEN | 
+| 8 | 44.400 | FAIL | OPEN | 
 
-## Full hashed input JSON (verbatim)
+## Full input JSON: exact bytes determine run identity
 ```json
 {
   "header": "ALL bodies. ALL sponsors. 2026-2226.",
@@ -57,7 +73,8 @@ Necessary but insufficient condition: **sum(other component dry masses) ≤ rema
     "bay": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/config/wayfarer_v05_inputs.json",
     "qualification": "https://github.com/loom-2226/loom-2226/blob/main/wayfarer/docs/CERTIFICATION_BASIS.md",
     "atmosphere": "https://repository.gatech.edu/server/api/core/bitstreams/681dac66-9414-4c40-8f27-9bd92f6a385f/content",
-    "atmosphere_reference": "Seiff et al. VIRA (1985), IPPW-6 (2008) JPL/T. Balint adaptation"
+    "atmosphere_reference": "Seiff et al. VIRA (1985), IPPW-6 (2008) JPL/T. Balint adaptation",
+    "declared_assumptions": "kT/Claude 2026-11-02; kT-approved explicit model sensitivities, all labeled ASSUMPTION"
   },
   "si": {
     "kg_per_t": {
@@ -94,6 +111,27 @@ Necessary but insufficient condition: **sum(other component dry masses) ≤ rema
       "provenance": "ONLINE",
       "source": "SI unit definition",
       "description": "Unit conversion"
+    },
+    "W_per_GW": {
+      "value": 1000000000,
+      "unit": "W/GW",
+      "provenance": "ONLINE",
+      "source": "SI unit prefix definitions (not physical efficiency assumptions)",
+      "description": "Explicit unit conversion; never use unrelated kg/t to convert power."
+    },
+    "W_per_MW": {
+      "value": 1000000,
+      "unit": "W/MW",
+      "provenance": "ONLINE",
+      "source": "SI unit prefix definitions (not physical efficiency assumptions)",
+      "description": "Explicit unit conversion; never use unrelated kg/t to convert power."
+    },
+    "W_per_kW": {
+      "value": 1000,
+      "unit": "W/kW",
+      "provenance": "ONLINE",
+      "source": "SI unit prefix definitions (not physical efficiency assumptions)",
+      "description": "Explicit unit conversion; never use unrelated kg/t to convert power."
     }
   },
   "geometry": {
@@ -276,81 +314,123 @@ Necessary but insufficient condition: **sum(other component dry masses) ≤ rema
       "description": "Geometric Ti shell research range; NOT buckling/rated, excludes all windows, doors and fittings"
     },
     "hull_thermal_structure_t": {
-      "value": null,
+      "min": 9,
+      "max": 14,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "No qualified structural sizing"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
     },
     "pressure_pod_fittings_seals_t": {
-      "value": null,
+      "min": 0.5,
+      "max": 1.2,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "No rated door/windows/pressure shell fit-out"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
     },
     "folding_rover_chassis_t": {
-      "value": null,
+      "min": 0.6,
+      "max": 1.2,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "Wheeled kneeling chassis mass OPEN"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
     },
     "single_12m_rotor_blades_hub_mast_t": {
-      "value": null,
+      "min": 0.8,
+      "max": 2,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "#453 four 6m rotor 1-10t assumption cannot be transferred to one 12m rotor"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
     },
     "tipjet_ducts_compressors_t": {
-      "value": null,
+      "min": 0.3,
+      "max": 1,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "Hot CO2 tip-jet mass"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
     },
     "torch_low_high_engine_t": {
-      "value": null,
+      "min": 4,
+      "max": 10,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "LOST sizer, no replacement engine mass"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
     },
     "small_belly_thrusters_t": {
-      "value": null,
+      "min": 0.2,
+      "max": 0.6,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "kT baseline",
-      "description": "Moon Mars Mercury thrusters"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
     },
     "reactor_power_distribution_t": {
-      "value": null,
+      "min": 0.3,
+      "max": 1,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "No credible compact source mass for rotor/torch"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
     },
     "crew_habitat_thermal_package_t": {
-      "value": null,
+      "min": 1,
+      "max": 2,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "Cooling, insulation, crew thermal mass"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
     },
     "custody_capsule_dry_t": {
-      "value": null,
+      "min": 0.05,
+      "max": 0.2,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "kT baseline",
-      "description": "Ejectable secure packet capsule, unique dry ledger"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
     },
     "avionics_controls_yaw_t": {
-      "value": null,
+      "min": 0.5,
+      "max": 1.2,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "kT baseline",
-      "description": "Yaw control, avionics, electronics"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "entry_tps_t": {
+      "min": 3,
+      "max": 6,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "landing_gear_door_ramp_t": {
+      "min": 0.8,
+      "max": 1.5,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "water_tank_insulated_t": {
+      "min": 1,
+      "max": 2,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+    },
+    "historical_lost_sizer_dry_t": {
+      "value": 27.9,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "Historical derived output from lost sizer preserved in PR #453 / current wayfarer_v05_inputs.json",
+      "description": "Historical comparison only, excluded from new component sum and gates."
     }
   },
   "water": {
@@ -376,25 +456,27 @@ Necessary but insufficient condition: **sum(other component dry masses) ≤ rema
       "description": "Original v1 after all burns including 0.84t touchdown; NO extra subtraction"
     },
     "reaction_water_initial_t": {
-      "value": null,
+      "min": 23.1,
+      "max": 23.1,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "phase-specific actual mission manifest not yet selected",
-      "description": "Conserved ledger, cannot assume entire 23.1t usable"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Separate reaction water store, full initial per kT."
     },
     "crew_thermal_water_initial_t": {
       "value": null,
       "unit": "t",
       "provenance": "OPEN",
-      "source": "separate tank or marked inventory needed",
-      "description": "Separate from reaction water, no double use"
+      "source": "DERIVED from each sampled water.crew_water_cold_mass_t",
+      "description": "Computed from crew_water_cold_mass_t in every sample; no second independent unknown."
     },
     "reaction_water_entry_debit_t": {
-      "value": null,
+      "min": 0,
+      "max": 0.3,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "entry physics missing",
-      "description": "Cannot infer entry delta-v"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Only entry reaction debit; never double charge rotor."
     },
     "reaction_water_rotor_debit_t": {
       "value": 0,
@@ -407,29 +489,31 @@ Necessary but insufficient condition: **sum(other component dry masses) ≤ rema
       "value": null,
       "unit": "t",
       "provenance": "OPEN",
-      "source": "trajectory and torch model missing",
-      "description": "Mission total not predicted"
+      "source": "DERIVED rocket equation in each sampled low/high mode",
+      "description": "Computed as stage-specific propellant consumption, not an independent assumption."
     },
     "crew_water_heating_delta_T_K": {
-      "value": null,
+      "min": 15,
+      "max": 25,
       "unit": "K",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "Without cold-water reservoir window, cannot compute usable stored cold"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Usable cold-store sensible temperature window."
     },
     "crew_water_cold_mass_t": {
-      "value": null,
+      "min": 0.3,
+      "max": 1,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "May be subset of crew thermal inventory; no double use"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Separate cold thermal water inventory, NOT part of reaction 23.1t."
     },
     "crew_water_heat_capacity_J_per_kg_K": {
-      "value": null,
+      "value": 4186,
       "unit": "J/(kg K)",
-      "provenance": "OPEN",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "Real water heat capacity vs state and high-temperature system boundary OPEN"
+      "provenance": "ONLINE",
+      "source": "https://openstax.org/books/college-physics-ap-courses/pages/14-2-temperature-change-and-heat-capacity",
+      "description": "4186 J/kg/K for liquid water at approximately 15 degrees C, OpenStax specific heat table; ONLINE, not constant across every state."
     },
     "crew_water_life_support_consumption_t": {
       "value": null,
@@ -464,32 +548,35 @@ Necessary but insufficient condition: **sum(other component dry masses) ≤ rema
       "description": "#453 tipjet conversion sensitivity; no demonstrated 735K device"
     },
     "rotor_usable_input_heat_limit_MW": {
-      "value": null,
+      "min": 30,
+      "max": 100,
       "unit": "MW",
-      "provenance": "OPEN",
-      "source": "hot source-to-blade heat delivery not demonstrated",
-      "description": "Necessary to choose physical handover altitude"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Delivered tipjet thermal limit for phase screen."
     },
     "rotor_safe_tip_speed_mps": {
-      "value": null,
+      "min": 180,
+      "max": 250,
       "unit": "m/s",
-      "provenance": "OPEN",
-      "source": "material/blade Mach not qualified",
-      "description": "Blade stress and compressibility ceiling"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Necessary tip-speed screen only; actual aero tip Mach/solidity/torque unqualified."
     },
     "rotor_hot_duty_limit_s": {
       "value": null,
       "unit": "s",
       "provenance": "OPEN",
-      "source": "bearings and seals life unknown",
-      "description": "Altitude duty and surface hold"
+      "source": "DERIVED from sampled rotor_hot_duty_limit_h × SI seconds_per_hour",
+      "description": "One derived representation; do not sample separately."
     },
     "rotor_climb_rate_mps": {
-      "value": null,
+      "min": 5,
+      "max": 15,
       "unit": "m/s",
-      "provenance": "OPEN",
-      "source": "net climb from available excess power unknown",
-      "description": "Cannot integrate phase time"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Assumed net rotor altitude rate, not derived excess power or free of rotor downwash."
     },
     "torch_low_ve_kmps": {
       "min": 10,
@@ -541,6 +628,22 @@ Necessary but insufficient condition: **sum(other component dry masses) ≤ rema
       "provenance": "OPEN",
       "source": "source and conversion not selected",
       "description": "No unbounded heat sink"
+    },
+    "torch_jet_power_GW": {
+      "min": 5,
+      "max": 8,
+      "unit": "GW",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Jet kinetic power, not electrical production. Thrust 2P/ve each low/high mode."
+    },
+    "rotor_hot_duty_limit_h": {
+      "min": 1,
+      "max": 4,
+      "unit": "h",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Powered rotor lifetime, compare ascent climb exposure; not 18h surface dwell."
     }
   },
   "thermal": {
@@ -599,11 +702,12 @@ Necessary but insufficient condition: **sum(other component dry masses) ≤ rema
       }
     ],
     "crew_heat_W_each": {
-      "value": null,
+      "min": 100,
+      "max": 150,
       "unit": "W",
-      "provenance": "OPEN",
-      "source": "metabolic/embodiment power requirements unqualified",
-      "description": "Separate human/synthetic capabilities; no arbitrary heat constant"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Crew heat per crew member; biological/synthetic specifics remain scenario uncertainty."
     },
     "cooler_coefficient_of_performance": {
       "min": 0.07,
@@ -626,6 +730,21 @@ Necessary but insufficient condition: **sum(other component dry masses) ≤ rema
       "provenance": "OPEN",
       "source": "thermal bridges and cabin geometry",
       "description": "Ideal full sphere surface used only as optimistic bound"
+    },
+    "cabin_electronics_kW": {
+      "min": 1,
+      "max": 2,
+      "unit": "kW",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Cabin electronics continuous heat into cold compartment."
+    },
+    "active_cooler_power_available_kW": {
+      "value": null,
+      "unit": "kW",
+      "provenance": "OPEN",
+      "source": "No kT declared installed cooler and hot-side sink available",
+      "description": "Passive sensible cold-water Gate D computed. Additional active cooling not credited."
     }
   },
   "venus": {
@@ -748,11 +867,12 @@ Necessary but insufficient condition: **sum(other component dry masses) ≤ rema
       "description": "Need rotor downwash, gear, surface mechanics"
     },
     "handover_altitude_km": {
-      "value": null,
+      "min": 5,
+      "max": 25,
       "unit": "km",
-      "provenance": "OPEN",
-      "source": "OUTPUT_UNRESOLVED_UNTIL_ROTOR_LIMITS_AVAILABLE",
-      "description": "Never select arbitrary cloud altitude"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Planning envelope; actual rotor ceiling derived from heat/duty/disk constraints."
     },
     "orbit_injection_delta_v_kmps": {
       "value": null,
@@ -767,6 +887,29 @@ Necessary but insufficient condition: **sum(other component dry masses) ≤ rema
       "provenance": "OPEN",
       "source": "mode sequencing/open",
       "description": "No invented switch height"
+    },
+    "torch_ascent_dv_kmps": {
+      "min": 9.5,
+      "max": 12,
+      "unit": "km/s",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Post rotor handover idealized total demanded delta-v including assumed losses, NOT integrated trajectory."
+    },
+    "atmosphere_interpolation": "log_density_linear_altitude_between_tabulated_VIRA_points",
+    "torch_atmosphere_viability": {
+      "value": null,
+      "unit": "qualified ability",
+      "provenance": "OPEN",
+      "source": "No physical magnetic nozzle / 5–25km Venus atmospheric operation evidence",
+      "description": "Required for physical orbit mission but NOT required for conditional Gate C rocket-equation water balance. Physical closure remains OPEN."
+    },
+    "entry_vehicle_thermal_qualification": {
+      "value": null,
+      "unit": "qualified TPS",
+      "provenance": "OPEN",
+      "source": "No entry aerothermal test supplied",
+      "description": "Physical entry qualification OPEN but reaction water Gate C still conditional."
     }
   },
   "capsule": {
@@ -774,15 +917,16 @@ Necessary but insufficient condition: **sum(other component dry masses) ≤ rema
       "value": null,
       "unit": "t",
       "provenance": "OPEN",
-      "source": "kT",
-      "description": "Also mass.custody_capsule_dry_t; same physical inventory, not double counted"
+      "source": "DERIVED alias to sampled mass.custody_capsule_dry_t",
+      "description": "One unique dry-mass entry only; no duplicate addition."
     },
     "content_mass_t": {
-      "value": null,
+      "min": 0.01,
+      "max": 0.05,
       "unit": "t",
-      "provenance": "OPEN",
-      "source": "kT",
-      "description": "Unknown secure data carrier contents"
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. Onboard custody payload; separate from capsule dry mass."
     },
     "ejection_consumable_water_t": {
       "value": null,
@@ -822,6 +966,48 @@ Necessary but insufficient condition: **sum(other component dry masses) ≤ rema
       "provenance": "ASSUMPTION",
       "source": "Presentation only",
       "description": "Canvas padding"
+    },
+    "sample_count": {
+      "value": 6561,
+      "unit": "deterministic orthogonal samples",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02 sampling method choice",
+      "description": "3^8 balanced design; each variable visits min/mid/max, not full Cartesian enumeration; report exact sample coverage."
+    },
+    "sensitivity_count": {
+      "value": 81,
+      "unit": "one-at-a-time baselines",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "3^4 pairwise-balanced OAT baseline points, per factor min/mid/max; keeps computation bounded and ranking reproducible."
+    },
+    "report_top_inputs": {
+      "value": 3,
+      "unit": "top inputs",
+      "provenance": "ASSUMPTION",
+      "source": "kT",
+      "description": "Only report most decisive 3 each gate"
+    },
+    "report_preview_samples": {
+      "value": 9,
+      "unit": "samples",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Representative min/mid/max output rows"
+    },
+    "handover_step_km": {
+      "value": 1,
+      "unit": "km",
+      "provenance": "ASSUMPTION",
+      "source": "kT/Claude 2026-11-02",
+      "description": "Grid resolution for altitude screening, density log-interpolated within VIRA tabulation"
+    },
+    "sample_levels": {
+      "value": 3,
+      "unit": "levels",
+      "provenance": "ASSUMPTION",
+      "source": "kT",
+      "description": "min/mid/max each uncertain input"
     }
   },
   "run_stage": {
