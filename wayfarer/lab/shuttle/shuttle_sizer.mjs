@@ -22,13 +22,14 @@ function sampleDirections(count,digits,levels){
  return directions;
 }
 function samples(d,stage,limit){
- const fields=fkeys(d,"mass").filter(k=>!["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"].includes(k)).map(k=>"mass."+k);
+ const fields=fkeys(d,"mass").filter(k=>!["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t","kit_house_reactor_t"].includes(k)).map(k=>"mass."+k);
+ fields.push("power.kit_house_reactor_thermal_MW");
  fields.push("kit.packed_effective_density_t_per_m3");
  if(stage===2)fields.push(...[
-  ...fkeys(d,"power").filter(k=>["rotor_figure_of_merit","tipjet_thermal_to_useful_rotor","rotor_usable_input_heat_limit_MW","rotor_safe_tip_speed_mps","rotor_hot_duty_limit_h","rotor_climb_rate_mps","torch_low_ve_kmps","torch_high_ve_kmps","torch_jet_power_GW"].includes(k)).map(k=>"power."+k),
+  ...fkeys(d,"power").filter(k=>["rotor_figure_of_merit","tipjet_thermal_to_useful_rotor","rotor_safe_tip_speed_mps","rotor_hot_duty_limit_h","rotor_climb_rate_mps","torch_low_ve_kmps","torch_high_ve_kmps","torch_jet_power_GW"].includes(k)).map(k=>"power."+k),
   ...fkeys(d,"water").filter(k=>["reaction_water_entry_debit_t","crew_water_cold_mass_t","crew_water_heating_delta_T_K"].includes(k)).map(k=>"water."+k),
   ...fkeys(d,"thermal").filter(k=>["insulation_k_W_per_mK","insulation_thickness_m","crew_heat_W_each","cabin_electronics_kW","venus_external_surface_K","active_cooler_power_available_kW","reactor_aux_electric_power_available_kW","hot_side_rejection_capacity_kW","hot_loop_reject_temperature_K","cooler_coefficient_of_performance"].includes(k)).map(k=>"thermal."+k),
-  ...fkeys(d,"venus").filter(k=>["handover_altitude_km","torch_ascent_dv_kmps"].includes(k)).map(k=>"venus."+k),
+  ...fkeys(d,"venus").filter(k=>["torch_ascent_dv_kmps"].includes(k)).map(k=>"venus."+k),
   ...fkeys(d,"capsule").filter(k=>k==="content_mass_t").map(k=>"capsule."+k)
  ]);
  const N=limit,levels=number(d.sweep.sample_levels),digits=Math.round(Math.log(N)/Math.log(levels));
@@ -70,15 +71,44 @@ function geometry(d){
    axialClearance:Math.abs(availL-hullL)<=eps?0:availL-hullL,
    nominalFoldSpan:rotorD,freeLength:hullL-rotorD};
 }
+function reactorMass(d,s){
+ const power=val(d,"power.kit_house_reactor_thermal_MW",s),
+  specific=number(d.power.kit_house_reactor_net_specific_kW_per_kg),
+  eta=number(d.power.kit_house_reactor_direct_conversion_efficiency),
+  units=number(d.si.kW_per_MW);
+ if([power,specific,eta,units].some(x=>x===null))return null;
+ // kg = raw thermal MW * 1000 kW/MW / (net specific power / electrical fraction)
+ return power*units/(specific/eta)/number(d.si.kg_per_t);
+}
+function componentMass(d,k,s){
+ return k==="kit_house_reactor_t"?reactorMass(d,s):val(d,"mass."+k,s);
+}
+function surfaceCooling(d,s,crewCount){
+ const needed=["thermal.venus_external_surface_K","thermal.insulation_k_W_per_mK",
+  "thermal.insulation_thickness_m","thermal.cabin_electronics_kW","thermal.crew_heat_W_each",
+  "geometry.crew_pod_outer_diameter_m","thermal.cabin_target_K","thermal.cooler_coefficient_of_performance"];
+ const miss=needed.filter(k=>val(d,k,s)===null);
+ if(miss.length)return {missing:miss};
+ const r=val(d,"geometry.crew_pod_outer_diameter_m")/2,area=4*Math.PI*r*r;
+ const leak=val(d,"thermal.insulation_k_W_per_mK",s)*area*
+  (val(d,"thermal.venus_external_surface_K",s)-val(d,"thermal.cabin_target_K"))/
+   val(d,"thermal.insulation_thickness_m",s);
+ const loadW=leak+val(d,"thermal.cabin_electronics_kW",s)*number(d.si.W_per_kW)+
+   crewCount*val(d,"thermal.crew_heat_W_each",s);
+ const electricKW=loadW/number(d.si.W_per_kW)/val(d,"thermal.cooler_coefficient_of_performance",s);
+ const conversion=number(d.power.kit_house_reactor_direct_conversion_efficiency);
+ const thermalKW=electricKW/conversion;
+ return {missing:[],loadW,leakW:leak,electricKW,thermalKW};
+}
 function dry(d,s){
  const excluded=new Set(["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"]);
  const keys=Object.keys(d.mass).filter(x=>!excluded.has(x));
- const parts=keys.map(k=>({key:k,value:val(d,"mass."+k,s)}));
+ const parts=keys.map(k=>({key:k,value:componentMass(d,k,s)}));
  const missing=parts.filter(x=>x.value===null).map(x=>"mass."+x.key);
  const sum=missing.length?null:parts.reduce((a,b)=>a+b.value,0);
  const kitKeys=d.kit.mass_component_keys;
- const kitMissing=kitKeys.filter(k=>val(d,"mass."+k,s)===null).map(k=>"mass."+k);
- const kitT=kitMissing.length?null:kitKeys.reduce((x,k)=>x+val(d,"mass."+k,s),0);
+ const kitMissing=kitKeys.filter(k=>componentMass(d,k,s)===null).map(k=>"mass."+k);
+ const kitT=kitMissing.length?null:kitKeys.reduce((x,k)=>x+componentMass(d,k,s),0);
  const coreT=sum===null||kitT===null?null:sum-kitT;
  const limit=number(d.mass.max_docked_dry_t);
  const a=gate(parts.map(x=>["mass."+x.key,x.value]),()=>sum<=limit);
