@@ -7,7 +7,7 @@
 function number(o){return typeof o?.value==="number"?o.value:null;}
 function bounds(o){return typeof o?.min==="number"&&typeof o?.max==="number"?[o.min,o.max]:null;}
 function readPath(d,k){return k.split(".").reduce((o,part)=>o?.[part],d);}
-function val(d,k,s){const row=readPath(d,k);return s&&Object.prototype.hasOwnProperty.call(s,k)?s[k]:(number(row)??null);}
+function val(d,k,s){const row=readPath(d,k);return s&&Object.prototype.hasOwnProperty.call(s,k)?s[k]:(number(row)??(bounds(row)?.[0]===bounds(row)?.[1]?bounds(row)?.[0]:null));}
 function vals(d,k,s){const v=val(d,k,s),b=bounds(readPath(d,k));return v!==null?v:(b?(b[0]+b[1])/2:null);}
 function fmt(v,p){return v===null||v===undefined||!Number.isFinite(v)?"OPEN":v.toFixed(p);}
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
@@ -22,11 +22,11 @@ function sampleDirections(count,digits,levels){
  return directions;
 }
 function samples(d,stage,limit){
- const fields=fkeys(d,"mass").filter(k=>!["max_docked_dry_t","v1_comparison_dry_t"].includes(k)).map(k=>"mass."+k);
+ const fields=fkeys(d,"mass").filter(k=>!["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"].includes(k)).map(k=>"mass."+k);
  if(stage===2)fields.push(...[
   ...fkeys(d,"power").filter(k=>["rotor_figure_of_merit","tipjet_thermal_to_useful_rotor","rotor_usable_input_heat_limit_MW","rotor_safe_tip_speed_mps","rotor_hot_duty_limit_h","rotor_climb_rate_mps","torch_low_ve_kmps","torch_high_ve_kmps","torch_jet_power_GW"].includes(k)).map(k=>"power."+k),
   ...fkeys(d,"water").filter(k=>["reaction_water_entry_debit_t","crew_water_cold_mass_t","crew_water_heating_delta_T_K"].includes(k)).map(k=>"water."+k),
-  ...fkeys(d,"thermal").filter(k=>["insulation_k_W_per_mK","insulation_thickness_m","crew_heat_W_each","cabin_electronics_kW"].includes(k)).map(k=>"thermal."+k),
+  ...fkeys(d,"thermal").filter(k=>["insulation_k_W_per_mK","insulation_thickness_m","crew_heat_W_each","cabin_electronics_kW","venus_external_surface_K"].includes(k)).map(k=>"thermal."+k),
   ...fkeys(d,"venus").filter(k=>["handover_altitude_km","torch_ascent_dv_kmps"].includes(k)).map(k=>"venus."+k),
   ...fkeys(d,"capsule").filter(k=>k==="content_mass_t").map(k=>"capsule."+k)
  ]);
@@ -70,7 +70,7 @@ function geometry(d){
    nominalFoldSpan:rotorD,freeLength:hullL-rotorD};
 }
 function dry(d,s){
- const excluded=new Set(["max_docked_dry_t","v1_comparison_dry_t"]);
+ const excluded=new Set(["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"]);
  const keys=Object.keys(d.mass).filter(x=>!excluded.has(x));
  const parts=keys.map(k=>({key:k,value:val(d,"mass."+k,s)}));
  const g=gate(parts.map(x=>["mass."+x.key,x.value]),()=>parts.reduce((sum,x)=>sum+x.value,0)<=number(d.mass.max_docked_dry_t));
@@ -244,7 +244,7 @@ function analyze(d,stage){
  }
  const gates=Object.fromEntries(["A","B",...(stage===2?["R","C","C_low","C_high","D2","D4"]:[])].map(k=>[k,census(rows,k)]));
  const scores=Object.fromEntries(["A",...(stage===2?["R","C","D2","D4"]:[])].map(k=>[k,sensitivity(d,stage,design,geo,k)]));
- const components=Object.keys(d.mass).filter(x=>!["max_docked_dry_t","v1_comparison_dry_t"].includes(x));
+ const components=Object.keys(d.mass).filter(x=>!["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"].includes(x));
  const sums=[0,0,0];const partRows=components.map(k=>{
   const x=d.mass[k],levels=bounds(x)??[number(x),number(x)];
   const triplet=[levels[0],(levels[0]+levels[1])/2,levels[1]];
@@ -270,8 +270,8 @@ function report(d,stage,hash,a,graphics){
  lines.push("");
  lines.push("### Gate A mass envelope and historical comparison");
  lines.push("Component sums min / midpoint / max: **"+a.sums.map(f).join(" / ")+" t**. Gate A limit "+f(number(d.mass.max_docked_dry_t))+" t.");
- lines.push("Historical LOST-sizer empty mass "+f(number(d.mass.v1_comparison_dry_t))+" t is the **v1 comparison** (35.4t), while LOST historical output is **27.9t** in PR #453; neither is an equality target or an input mass offset.");
- lines.push("Actual midpoint versus **27.9t** historical output: **"+f(a.sums[1]-27.9)+" t** difference (27.9t historical anchored in #453 and should not be mistaken for a constraint).");
+ lines.push("Historical LOST-sizer empty mass "+f(number(d.mass.v1_comparison_dry_t))+" t is the **v1 comparison** while LOST historical output is **"+f(number(d.mass.historical_lost_sizer_dry_t))+"t** in PR #453; neither is an equality target or an input mass offset.");
+ lines.push("Actual midpoint versus **27.9t** historical output: **"+f(a.sums[1]-number(d.mass.historical_lost_sizer_dry_t))+" t** difference ("+f(number(d.mass.historical_lost_sizer_dry_t))+"t historical anchored in #453 and should not be mistaken for a constraint).");
  lines.push("| Distinct dry component | min | mid | max | provenance |","|---|---:|---:|---:|---|");
  for(const row of a.partRows)lines.push("| "+row.name+" | "+row.values.map(f).join(" | ")+" | "+row.provenance+" |");
  lines.push("");
@@ -335,7 +335,7 @@ function waterfallSVG(d,a){
  '<text x="20" y="25" fill="#fff" font-size="18">DRY-MASS WATERFALL: MIDPOINT STACK (t)</text>'+
  '<text x="20" y="44" fill="#cde6ff" font-size="13">min '+a.sums[0].toFixed(2)+' | midpoint '+a.sums[1].toFixed(2)+' | max '+a.sums[2].toFixed(2)+' | GATE A '+esc(a.gates.A.pass_fraction===null?"OPEN":(100*a.gates.A.pass_fraction).toFixed(1)+"% PASS")+'</text>'+
  rects+'<line x1="'+(barX+limit*scale)+'" x2="'+(barX+limit*scale)+'" y1="48" y2="'+(H-22)+'" stroke="#ff6b76" stroke-dasharray="5 4" stroke-width="2"/>'+
- '<text x="'+(barX+limit*scale+5)+'" y="'+(H-10)+'" fill="#ff9fa5" font-size="12">34.2t dry limit</text></svg>';
+ '<text x="'+(barX+limit*scale+5)+'" y="'+(H-10)+'" fill="#ff9fa5" font-size="12">'+limit+'t dry limit</text></svg>';
 }
 
 import {readFileSync,writeFileSync} from "node:fs";
