@@ -426,8 +426,8 @@
       "value": 4186,
       "unit": "J/(kg K)",
       "provenance": "ONLINE",
-      "source": "NIST Chemistry WebBook / standard liquid water near ambient temperatures; https://webbook.nist.gov/cgi/fluid.cgi?ID=C7732185&Action=Page",
-      "description": "Approximate liquid-water cp, not constant over every pressure/temperature."
+      "source": "https://openstax.org/books/college-physics-ap-courses/pages/14-2-temperature-change-and-heat-capacity",
+      "description": "4186 J/kg/K for liquid water at approximately 15 degrees C, OpenStax specific heat table; ONLINE, not constant across every state."
     },
     "crew_water_life_support_consumption_t": {
       "value": null,
@@ -889,11 +889,11 @@
       "description": "3^8 balanced design; each variable visits min/mid/max, not full Cartesian enumeration; report exact sample coverage."
     },
     "sensitivity_count": {
-      "value": 729,
+      "value": 81,
       "unit": "one-at-a-time baselines",
       "provenance": "ASSUMPTION",
       "source": "kT/Claude 2026-11-02",
-      "description": "3^6 deterministic OAT baselines; rank by PASS-fraction spread; if all fail report nearest-margin effect."
+      "description": "3^4 pairwise-balanced OAT baseline points, per factor min/mid/max; keeps computation bounded and ranking reproducible."
     },
     "report_top_inputs": {
       "value": 3,
