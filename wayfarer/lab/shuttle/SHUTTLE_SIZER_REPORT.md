@@ -1,8 +1,8 @@
-# LOOM shuttle sizer v1 — Stage 1 result
+# LOOM shuttle sizer v1 — Stage 2 result
 ALL bodies. ALL sponsors. 2026-2226.
 
 **Status:** NON-CANON / NON-RUNTIME / UNQUALIFIED ENGINEERING SENSITIVITY. No machine constants promoted.
-**Input hash / run identity (Git blob SHA-1; includes JSON run_stage):** `16116180773e33524b855fbbb01fdcd6bb589109`. Raw UTF-8 input identity is SHA-1 of `blob <byte-length>\\0` plus JSON bytes.
+**Input hash / run identity (Git blob SHA-1; includes JSON run_stage):** `83f7056706fbf14f69683a7b19bc70e0b1419c80`. Raw UTF-8 input identity is SHA-1 of `blob <byte-length>\\0` plus JSON bytes.
 **Single source input:** `wayfarer/lab/shuttle/shuttle_inputs.json` (all inputs printed at end).
 **Files generated:** `SHUTTLE_SIDE_VIEW.svg`, `SHUTTLE_MASS_WATERFALL.svg`.
 
@@ -11,6 +11,9 @@ ALL bodies. ALL sponsors. 2026-2226.
 |---|---|---|
 | A docked dry ≤ 34.200 t | **OPEN** | Only Ti geometric shell range 3.200–7.600 t; 11 other dry mass entries OPEN; no admissible total. |
 | B G8 bay fully fitted | **OPEN** | Necessary hull length 12.800 / available 12.800m, diameter 4.300 / available 4.300m, folded span 12.000m; mast/hub/hinge and actual positioning OPEN. |
+| C water ≥ 0 at Venus orbit | **OPEN** | Reaction/thermal water and ascent trajectory incomplete. Historical v1 1.6t after burns must not be counted as newly earned. |
+| D 2-crew surface stay | **OPEN** | Thermal reservoir, crew heat and cooling hardware OPEN. |
+| D 4-crew surface stay | **OPEN** | Same omissions plus distinct 4-crew metabolism/embodiment. |
 
 ## Stage 1 — mass and fit
 **Necessary geometry:** G8 bay inner length 13.800m, axial clearance each end 0.500m; bore radius 2.400m, radial clearance 0.250m. Remaining *allowable* diameter and length margins are exactly 0.000m and 0.000m. Any mast or hub exterior to the existing hull is a fit FAILURE.
@@ -40,9 +43,93 @@ ALL bodies. ALL sponsors. 2026-2226.
 
 Necessary but insufficient condition: **sum(other component dry masses) ≤ remaining budget**; this is not an earned PASS. Capsule has ONE dry-mass row and may not be counted a second time in the custody ledger.
 
+## Stage 2 — Venus atmospheric and phase screen
+**Atmosphere:** VIRA-derived IPPW-6 table (source in JSON), tabulated rather than made-up atmosphere fit. Table points are not a continuous flight-dynamics model. **Single rotor** deployed diameter 12.000m, area 113.097m². Values below are momentum-theory hover plus assumed rotor FM and tip-jet thermal effectiveness at representative **58.500–60.000 t**; they do NOT establish max available thermal power.
+| Alt km | rho kg/m³ | Temperature K | Rotor useful power MW | Tip-jet reactor heat MW |
+|---:|---:|---:|---:|---:|
+| 0 | 64.790 | 735.300 | 3.860–5.345 | 11.027–53.452 |
+| 5 | 49.870 | 696.800 | 4.399–6.093 | 12.569–60.926 |
+| 10 | 37.720 | 658.200 | 5.058–7.005 | 14.452–70.054 |
+| 15 | 27.950 | 620.800 | 5.876–8.138 | 16.789–81.382 |
+| 20 | 20.390 | 580.700 | 6.880–9.528 | 19.657–95.282 |
+| 25 | 14.570 | 539.200 | 8.139–11.272 | 23.254–112.717 |
+| 30 | 10.150 | 496.900 | 9.751–13.505 | 27.860–135.048 |
+| 35 | 6.831 | 455.300 | 11.886–16.462 | 33.961–164.618 |
+| 40 | 4.404 | 417.600 | 14.803–20.502 | 42.296–205.020 |
+| 45 | 2.693 | 385.400 | 18.931–26.218 | 54.088–262.181 |
+| 50 | 1.594 | 350.500 | 24.606–34.078 | 70.303–340.781 |
+| 55 | 0.921 | 302.300 | 32.376–44.840 | 92.504–448.395 |
+| 60 | 0.469 | 262.800 | 45.344–62.798 | 129.553–627.984 |
+| 70 | 0.084 | 229.800 | 107.233–148.512 | 306.381–1485.119 |
+
+**Feasibility surface:** 27 sampled full-mass / FM / tip-jet-efficiency combinations at surface, all with C=OPEN and D=OPEN because heat availability and trajectory are not given.
+| Wet mass t | Rotor FM | Tip-jet effectiveness | Required rotor MW | Required source heat MW | Orbit water C | Stay D |
+|---:|---:|---:|---:|---:|---|---|
+| 58.500 | 0.600 | 0.100 | 5.146 | 51.460 | OPEN | OPEN |
+| 58.500 | 0.600 | 0.225 | 5.146 | 22.871 | OPEN | OPEN |
+| 58.500 | 0.600 | 0.350 | 5.146 | 14.703 | OPEN | OPEN |
+| 58.500 | 0.700 | 0.100 | 4.411 | 44.109 | OPEN | OPEN |
+| 58.500 | 0.700 | 0.225 | 4.411 | 19.604 | OPEN | OPEN |
+| 58.500 | 0.700 | 0.350 | 4.411 | 12.603 | OPEN | OPEN |
+| 58.500 | 0.800 | 0.100 | 3.860 | 38.595 | OPEN | OPEN |
+| 58.500 | 0.800 | 0.225 | 3.860 | 17.153 | OPEN | OPEN |
+| 58.500 | 0.800 | 0.350 | 3.860 | 11.027 | OPEN | OPEN |
+| 59.250 | 0.600 | 0.100 | 5.245 | 52.453 | OPEN | OPEN |
+| 59.250 | 0.600 | 0.225 | 5.245 | 23.313 | OPEN | OPEN |
+| 59.250 | 0.600 | 0.350 | 5.245 | 14.987 | OPEN | OPEN |
+| 59.250 | 0.700 | 0.100 | 4.496 | 44.960 | OPEN | OPEN |
+| 59.250 | 0.700 | 0.225 | 4.496 | 19.982 | OPEN | OPEN |
+| 59.250 | 0.700 | 0.350 | 4.496 | 12.846 | OPEN | OPEN |
+| 59.250 | 0.800 | 0.100 | 3.934 | 39.340 | OPEN | OPEN |
+| 59.250 | 0.800 | 0.225 | 3.934 | 17.484 | OPEN | OPEN |
+| 59.250 | 0.800 | 0.350 | 3.934 | 11.240 | OPEN | OPEN |
+| 60.000 | 0.600 | 0.100 | 5.345 | 53.452 | OPEN | OPEN |
+| 60.000 | 0.600 | 0.225 | 5.345 | 23.757 | OPEN | OPEN |
+| 60.000 | 0.600 | 0.350 | 5.345 | 15.272 | OPEN | OPEN |
+| 60.000 | 0.700 | 0.100 | 4.582 | 45.816 | OPEN | OPEN |
+| 60.000 | 0.700 | 0.225 | 4.582 | 20.363 | OPEN | OPEN |
+| 60.000 | 0.700 | 0.350 | 4.582 | 13.090 | OPEN | OPEN |
+| 60.000 | 0.800 | 0.100 | 4.009 | 40.089 | OPEN | OPEN |
+| 60.000 | 0.800 | 0.225 | 4.009 | 17.817 | OPEN | OPEN |
+| 60.000 | 0.800 | 0.350 | 4.009 | 11.454 | OPEN | OPEN |
+
+**OPEN torch mode sweep:** 9 low/high exhaust-velocity pairings from the #453 PROJECTION intervals. None is a recovered engine parameter. Thrust, handover and required actual orbit Δv missing.
+| Low ve km/s | High ve km/s | Water at orbit |
+|---:|---:|---|
+| 10.000 | 25.000 | OPEN |
+| 10.000 | 62.500 | OPEN |
+| 10.000 | 100.000 | OPEN |
+| 17.500 | 25.000 | OPEN |
+| 17.500 | 62.500 | OPEN |
+| 17.500 | 100.000 | OPEN |
+| 25.000 | 25.000 | OPEN |
+| 25.000 | 62.500 | OPEN |
+| 25.000 | 100.000 | OPEN |
+
+**Handover altitude = OPEN output**. A physically defensible handover requires available delivered hot-gas power, tip-jet compression/nozzle model, allowed blade rpm/Mach, bearing lifetime and net climb performance. Those inputs are OPEN, so none can be manufactured by selecting a cloud height. Even unlimited near-surface hover does NOT reach orbit.
+
+**Conserved phase ledger:**
+| Phase | Reaction water | Crew thermal water | Reactor heat/power | Custody capsule |
+|---|---|---|---|---|
+| entry | OPEN | OPEN | OPEN | ONBOARD/OPEN |
+| rotor deploy | OPEN | OPEN | OPEN | ONBOARD/OPEN |
+| rotor descent | 0 CONDITIONAL tipjet ambient CO2; source/engine not closed | OPEN | OPEN | ONBOARD/OPEN |
+| touchdown | OPEN | OPEN | OPEN | ONBOARD/OPEN |
+| surface stay | OPEN | OPEN | OPEN | ONBOARD/OPEN |
+| rotor climb | 0 CONDITIONAL tipjet ambient CO2; source/engine not closed | OPEN | OPEN | ONBOARD/OPEN |
+| rotor-to-torch handover | OPEN | OPEN | OPEN | ONBOARD/OPEN |
+| torch ascent to orbit | OPEN | OPEN | OPEN | ONBOARD/OPEN |
+
+The v1 pre-rotor sortie debited **0.840t belly touchdown** and reported **1.600t AFTER all its planned burns**. These are assumed *historical scenario comparators*, not independent debits or a credited stage-2 water result. Atmospheric tipjets may use **zero onboard reaction water for rotor phases** only conditionally; heat/compressor power and reactor supply remain OPEN.
+
+**Thermal lower-bound envelope:** ideal spherical 2.8m shell conduction without joints, doors, penetration or convection: 1.429–21.527 kW at 300K interior; for 18h 25.714–387.481 kWh **before any crew/equipment heat**. This alone cannot give 2-crew or 4-crew survival duration: cold thermal mass, ΔT, actual heat capacity, compressor/power/rejection hardware, and crew waste heat all OPEN.
+
+**Feasibility map:** 27 sampled mass/FM/tipjet-efficiency combinations × 9 low/high-ve combinations × 14 atmospheric levels. Power **DEMAND** is bounded in the table; **no configuration earns C or D PASS** because supply ceiling, ascent physics, and crew thermal-water ledger are OPEN. C=OPEN, D2=OPEN, D4=OPEN for every sample; no silent failures and no invented positive reserve.
+
 ## Inputs driving the result and provenance boundaries
 - A: Ti shell is the only interval-backed dry mass. Single 12m rotor mass is OPEN; #453's 1–10t *four 6m rotor* assumption is **not transferred**.
 - B: no dimensional clearance beyond the stated hull; hub thickness, CG, wing/mast stowage geometry unresolved.
+- C/D: heat supply and rotor operating ceiling; rotor-to-torch handover; ascent vehicle aerodynamics, Δv, torch thrust and reaction-water load; cold-water partition; hot bearing and thermal lifetime.
 - Light-body access and Titan are Stage 3, not evaluated here. No modification to canon/Wayfarer geometry/Navigator.
 
 ## Full hashed input JSON (verbatim)
@@ -825,11 +912,11 @@ Necessary but insufficient condition: **sum(other component dry masses) ≤ rema
     }
   },
   "run_stage": {
-    "value": 1,
+    "value": 2,
     "unit": "stage",
     "provenance": "ASSUMPTION",
-    "source": "kT stage 1 approved mass and fit workflow",
-    "description": "Hashed input state. Stage 2 uses its own JSON revision; CLI stage must agree."
+    "source": "kT stage 2 Venus round trip screening approval; stacked on Stage 1",
+    "description": "Stage 2 hashed input; stage 3 not authorized."
   }
 }
 ```
