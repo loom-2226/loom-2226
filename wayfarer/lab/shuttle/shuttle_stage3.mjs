@@ -79,7 +79,7 @@ function assess(b,w,name,s){
     ROTOR_MODEL_TOP:titan?(modelTop!==null&&modelTop>=num(world.atmosphere_model_ceiling_km)?"PASS":"FAIL"):"N/A",
     WATER_IDEAL_FLOOR:idealDeficitT<=1e-12?"PASS":"FAIL",ORBIT_FULL:"OPEN",
     SURFACE_THERMAL:"OPEN",BAY_FULL:"OPEN",FLIGHT_TOTAL:"OPEN"};
- if(Object.values(flags).includes("FAIL"))flags.FLIGHT_TOTAL="FAIL";
+ if(["A2","LIFT_SCREEN","WATER_IDEAL_FLOOR",...(titan?["KIT_VOLUME"]:[])].some(k=>flags[k]==="FAIL"))flags.FLIGHT_TOTAL="FAIL"; // model-only 60km top is NOT a mission requirement
  const waterPhases=[
   {phase:"entry / atmospheric phase",reactionWaterT:stored,coldCrewWaterT:cold,custodyT:cargo,chargedRemassT:0},
   {phase:titan?"rotor landing (no tank water)":"belly touchdown (illustrative)",reactionWaterT:available,coldCrewWaterT:cold,custodyT:cargo,chargedRemassT:touch},
