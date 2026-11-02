@@ -160,9 +160,16 @@ function stage2(d,s,dryResult){
  const reactionStart=requirePath("water.reaction_water_initial_t"),thermalT=requirePath("water.crew_water_cold_mass_t"),
  cargoT=requirePath("capsule.content_mass_t"),entryT=requirePath("water.reaction_water_entry_debit_t");
  const km=requirePath("si.m_per_km"),kg=requirePath("si.kg_per_t"),seconds=requirePath("si.seconds_per_hour");
- const altitudeLimit=requirePath("venus.handover_altitude_km"),minimumAltitude=d.venus.handover_altitude_km.min;
+ const minimumAltitude=requirePath("venus.minimum_rotor_handover_screen_km");
  const climb=requirePath("power.rotor_climb_rate_mps"),maxHotH=requirePath("power.rotor_hot_duty_limit_h"),
- maxTip=requirePath("power.rotor_safe_tip_speed_mps"),heatMax=requirePath("power.rotor_usable_input_heat_limit_MW");
+ maxTip=requirePath("power.rotor_safe_tip_speed_mps");
+ const rawThermal=requirePath("power.kit_house_reactor_thermal_MW");
+ const cooling4=surfaceCooling(d,s,number(d.geometry.crew_pod_seats));
+ missing.push(...cooling4.missing);
+ const heatMax=rawThermal===null||cooling4.thermalKW===undefined?null:
+   Math.max(0,rawThermal-cooling4.thermalKW/number(d.si.kW_per_MW));
+ if(heatMax===null)missing.push("power.rotor_usable_input_heat_limit_MW");
+ const rotorUpper=d.venus.atmosphere_profile[d.venus.atmosphere_profile.length-1].altitude_km;
  const step=requirePath("sweep.handover_step_km"),requiredDV=requirePath("venus.torch_ascent_dv_kmps");
  const jetGW=requirePath("power.torch_jet_power_GW");
  let rotorGate={status:"OPEN",missing:[...new Set(missing)]},handover=null,altProfile=[],flightTimeH=null;
@@ -170,7 +177,7 @@ function stage2(d,s,dryResult){
  if(!rotorGate.missing.length){
    // Sampled rotor climb boundary, not an aerodynamic/structural rotor qualification.
    let accepted=null;
-   for(let h=0;h<=altitudeLimit+Number.EPSILON;h+=step){
+   for(let h=0;h<=rotorUpper+Number.EPSILON;h+=step){
      const x=rotorAt(d,s,baseMass,h);
      if(!x||x.sourceMW>heatMax||x.induced>maxTip||h*km/climb/seconds>maxHotH)break;
      accepted=x;altProfile.push(x);
@@ -185,8 +192,9 @@ function stage2(d,s,dryResult){
    ["water.crew_water_cold_mass_t",thermalT],["capsule.content_mass_t",cargoT],
    ["water.reaction_water_entry_debit_t",entryT],
    ["venus.torch_ascent_dv_kmps",requiredDV],["power.torch_"+mode+"_ve_kmps",ve],
-   ["power.torch_jet_power_GW",jetGW],["power.rotor_usable_input_heat_limit_MW",heatMax],
-   ["venus.handover_altitude_km",altitudeLimit],["power.rotor_climb_rate_mps",climb],
+   ["power.torch_jet_power_GW",jetGW],["power.kit_house_reactor_thermal_MW",rawThermal],
+   ["power.rotor_usable_input_heat_limit_MW",heatMax],
+   ["venus.minimum_rotor_handover_screen_km",minimumAltitude],["power.rotor_climb_rate_mps",climb],
    ["power.rotor_hot_duty_limit_h",maxHotH],["power.rotor_safe_tip_speed_mps",maxTip]];
   const q=gate(required,()=>true);
   if(q.status==="OPEN"){modes[mode]={status:"OPEN",missing:q.missing,waterAtOrbit:null,delta_v_orbit:null};continue;}
@@ -229,22 +237,33 @@ function stage2(d,s,dryResult){
    const podHours=sensibleJ/coldLoadW/seconds;
    const coolerKW=coldLoadW/number(d.si.W_per_kW)/val(d,"thermal.cooler_coefficient_of_performance",s);
    const rejectKW=coldLoadW/number(d.si.W_per_kW)+coolerKW;
-   const electricalMax=Math.min(val(d,"thermal.active_cooler_power_available_kW",s),
+   const rawHouseKW=rawThermal*number(d.si.kW_per_MW);
+   const directEfficiency=number(d.power.kit_house_reactor_direct_conversion_efficiency);
+   const houseNetKW=rawHouseKW*directEfficiency;
+   const electricalMax=Math.min(houseNetKW,val(d,"thermal.active_cooler_power_available_kW",s),
       val(d,"thermal.reactor_aux_electric_power_available_kW",s));
+   const minStableRawKW=rawHouseKW*number(d.power.kit_house_reactor_min_stable_fraction);
+   const allocatedRawKW=coolerKW/directEfficiency;
+   // Surface rotor OFF: 10% minimum house-reactor gross thermal output must go somewhere.
+   // No unqualified exterior torch exhaust, flywheel, dump-to-cloud heat sink or stored heat credited.
+   const minimumWasteKW=Math.max(0,minStableRawKW-allocatedRawKW);
+   const netRejectionKW=coldLoadW/number(d.si.W_per_kW)+allocatedRawKW+minimumWasteKW;
    const rejectMax=val(d,"thermal.hot_side_rejection_capacity_kW",s);
    const temperatureOK=val(d,"thermal.hot_loop_reject_temperature_K",s)>surface;
    const massOK=dryResult.a2==="PASS" && dryResult.kitT<=number(d.kit.payload_allowance_t);
-   const activeOK=temperatureOK&&massOK&&coolerKW<=electricalMax&&rejectKW<=rejectMax;
+   const activeOK=temperatureOK&&massOK&&coolerKW<=electricalMax&&netRejectionKW<=rejectMax;
    thermal[crewCount]={status:activeOK?"PASS":"FAIL",missing:[],podHours,
      maxHours:null,loadW:coldLoadW,leakW:leak,capacityJ:sensibleJ,
      coolerElectricalKW:coolerKW,reactorBusLimitKW:electricalMax,
-     rejectKW,rejectLimitKW:rejectMax,temperatureOK,massOK,coldWaterPreservedForPod:true};
+     rejectKW:netRejectionKW,rejectLimitKW:rejectMax,minimumReactorWasteKW:minimumWasteKW,reactorMinStableRawKW:minStableRawKW,
+     reactorThermalMW:rawThermal,rotorHeatBudgetMW:heatMax,
+     temperatureOK,massOK,coldWaterPreservedForPod:true};
  }
  const gateC=rotorGate.status==="OPEN"?"OPEN":
   modes.low.status==="PASS"||modes.high.status==="PASS"?"PASS":
   modes.low.status==="OPEN"||modes.high.status==="OPEN"?"OPEN":"FAIL";
  const waterOpen=[...new Set([...rotorGate.missing,...(modes.low.missing||[]),...(modes.high.missing||[])])];
- return {rotor:rotorGate,gateC,waterMissing:waterOpen,handover,flightTimeH,baseMass,mode:modes,thermal,
+ return {rotor:rotorGate,gateC,waterMissing:waterOpen,handover,flightTimeH,baseMass,mode:modes,thermal,reactorThermalMW:rawThermal,rotorHeatBudgetMW:heatMax,reactorCoolerRawKW:cooling4.thermalKW,
   phaseLedger:phaseLedger(d,s,entryT,rotorGate,modes,thermalT,thermal),altProfile};
 }
 function phaseLedger(d,s,entry,rotor,modes,thermalT,thermal) {
@@ -268,7 +287,9 @@ function phaseLedger(d,s,entry,rotor,modes,thermalT,thermal) {
    return {phase,water_before_t:before,water_debit_t:debit,water_after_t:reaction,
        thermal_water_mass_t:thermalT,thermal_energy_by_crew:cold,
        torch_jet_power_GW:phase==="torch ascent to orbit"?val(d,"power.torch_jet_power_GW",s):null,
-       reactor_waste_heat_MW:null,reactor_waste_heat_missing:"power.reactor_waste_heat_MW",
+       reactor_waste_heat_MW:phase==="surface stay"&&thermal[2]?.minimumReactorWasteKW!==undefined?thermal[2].minimumReactorWasteKW/number(d.si.kW_per_MW):null,
+        reactor_waste_heat_missing:"power.reactor_waste_heat_MW (main torch waste still OPEN; kit-house minimum surplus computed for surface)",
+        kit_house_reactor_thermal_MW:val(d,"power.kit_house_reactor_thermal_MW",s),
         cooler_electric_by_crew_kW:phase==="surface stay"?Object.fromEntries(d.thermal.crew_cases.map(q=>[number(q),thermal[number(q)]?.coolerElectricalKW??null])):null,
         hot_loop_rejection_by_crew_kW:phase==="surface stay"?Object.fromEntries(d.thermal.crew_cases.map(q=>[number(q),thermal[number(q)]?.rejectKW??null])):null,
        custody:"ONBOARD",custody_content_t:val(d,"capsule.content_mass_t",s)};
@@ -306,7 +327,7 @@ function sensitivity(d,stage,design,geo,gateKey){
     else if(gateKey==="KV")margin=e.kit.freeVolume_m3-e.kit.packedVolume_m3;
     else if(gateKey==="DS2"||gateKey==="DS4"){const z=e.venus?.thermal[gateKey==="DS2"?2:4];margin=z?Math.min(z.reactorBusLimitKW-z.coolerElectricalKW,z.rejectLimitKW-z.rejectKW,e.dry.a2Margin):null;}
     else if(gateKey==="C")margin=Math.max(e.venus?.mode.low.waterAtOrbit??-Infinity,e.venus?.mode.high.waterAtOrbit??-Infinity);
-    else if(gateKey==="R")margin=(e.venus?.handover??0)-d.venus.handover_altitude_km.min;
+    else if(gateKey==="R")margin=(e.venus?.handover??0)-number(d.venus.minimum_rotor_handover_screen_km);
     if(margin!==null&&Number.isFinite(margin))marginTotal+=margin;
    }
    pass.push(n?ok/n:null);margins.push(marginTotal/baseDesign.rows);
@@ -332,7 +353,8 @@ function analyze(d,stage){
        p.heatMin=Math.min(p.heatMin,rot.sourceMW);p.heatMax=Math.max(p.heatMax,rot.sourceMW);p.pressure_bar=rot.air.pressure;}}
   }
   if(i<number(d.sweep.report_preview_samples))exemplars.push({sample:i,inputs:s,gates:rows.at(-1),dry:e.dry.sum,coreDry:e.dry.coreT,kit:e.kit,venus:stage===2?{
-    handover:e.venus.handover,lowWater:e.venus.mode.low.waterAtOrbit,highWater:e.venus.mode.high.waterAtOrbit,
+    handover:e.venus.handover,reactorThermal:e.venus.reactorThermalMW,rotorHeatBudget:e.venus.rotorHeatBudgetMW,
+    lowWater:e.venus.mode.low.waterAtOrbit,highWater:e.venus.mode.high.waterAtOrbit,
     lowThrust:e.venus.mode.low.thrustN,highThrust:e.venus.mode.high.thrustN,
     lowDV:e.venus.mode.low.delta_v_orbit,highDV:e.venus.mode.high.delta_v_orbit,
     twoCrewPodHours:e.venus.thermal[2].podHours,fourCrewPodHours:e.venus.thermal[4].podHours,
