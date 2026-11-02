@@ -16,7 +16,8 @@
       "note": "Prior CLI test closed for round-2 executable; round-3 output requires fresh execution when possible."
     },
     "round_4": "kT approved 2026-11-03; same draft branches; all gate inputs frozen; idle heat research only",
-    "round_5": "kT APPROVED 2026-11-03; HOUSE REACTOR kit, bounded 100–230MW heat and derived kit mass; review before merge; stage 3 after merge; torch idle unchanged research only"
+    "round_5": "kT APPROVED 2026-11-03; HOUSE REACTOR kit, bounded 100–230MW heat and derived kit mass; review before merge; stage 3 after merge; torch idle unchanged research only",
+    "round_5a": "kT APPROVED 2026-11-03: existing kit tipjet heat exchanger runs ground-vent mode, rotor parked; merge after report per user's direct approval. Stage 3 afterwards."
   },
   "si": {
     "kg_per_t": {
@@ -774,7 +775,7 @@
       "unit": "kW",
       "provenance": "ASSUMPTION",
       "source": "Analyst screening proposal 2026-11-03, NON-CANON; not independently qualified",
-      "description": "Heat dissipated into hot loop at >Venus ambient; rate only, geometry not certified."
+      "description": "Heat dissipated into hot loop at >Venus ambient; rate only, geometry not certified. Round 5a ground-vent rejects main reactor surplus via existing KIT heat exchanger, not this old coolant-only cap; retained as historical comparison and ignored by D-shuttle gate."
     },
     "surface_effective_internal_area_m2": {
       "value": null,
@@ -817,7 +818,39 @@
     },
     "active_cooler_mass_key": "mass.venus_cooler_t",
     "active_dock_surface_target_h": "thermal.stay_requested_h",
-    "passive_pod_target_h": null
+    "passive_pod_target_h": null,
+    "ground_vent_derate": {
+      "min": 0.3,
+      "max": 1,
+      "unit": "fraction",
+      "provenance": "ASSUMPTION",
+      "source": "kT APPROVED 2026-11-03 Round 5a (non-canon)",
+      "description": "No ram air; compressor-fed ground CO2 mass flow. Actual hub vent physics not qualified. No new exchanger hardware or mass."
+    },
+    "ground_vent_compressor_fraction": {
+      "min": 0.01,
+      "max": 0.05,
+      "unit": "fraction of vented heat",
+      "provenance": "ASSUMPTION",
+      "source": "kT APPROVED 2026-11-03 Round 5a (non-canon)",
+      "description": "Ground CO2 compressor electric load relative to total hot-gas vent heat; powered by SAME house reactor net output, allocated from thermal budget. No invented extra compressor mass (existing tipjet ducts/compressors)."
+    },
+    "ground_vent_plume_orientation": {
+      "value": null,
+      "unit": "design only",
+      "provenance": "OPEN",
+      "source": "kT 2026-11-03 Round 5a design rule, NON-GATE",
+      "description": "Plume must point UP, away from pod, door and ramp; actual directional clearance and thermochemistry not demonstrated; not scored as gate."
+    },
+    "reactor_off_18h_battery_specific_energy_kWh_kg": {
+      "min": 0.3,
+      "max": 1,
+      "unit": "kWh/kg",
+      "provenance": "ASSUMPTION",
+      "source": "kT APPROVED 2026-11-03 Round 5a (non-canon)",
+      "description": "Reactor-OFF and 18h battery-only electric COOLER, plus 18h cold storage not credited. Comparison output only, no gate; ignores cooling battery self-heat and actual physical packaging."
+    },
+    "ground_vent_accounting": "Thermal reactor >=10% rated; house raw thermal Q; ventilated heat equals Q + cabin cold heat; compressor electricity = f*Qvent, cooler electric = Qcold/COP, raw reactor required for both electric draws >=(Pcool+Pcomp)/0.75; run power Qrun=max(10%*Prated,(Pcool+f*Qcold)/(.75-f)), Qrun<=Prated; vent capacity=derate*Prated; no double count of compressor/cooler electricity in Qvent because extracted from Qrun and returned as heat. No external separate 25–300kW sink required in ground-vent mode. Existing installed cooler electric and aux bus caps still apply ONLY to cooler electrical draw, compressor is a separate already-existing tipjet compressor bus; new compressor power tap geometry remains unqualified."
   },
   "venus": {
     "gravity_mps2": {
@@ -1211,7 +1244,8 @@
     },
     "house_reactor_power_source": "power.kit_house_reactor_thermal_MW",
     "house_reactor_mass_ledger": "mass.kit_house_reactor_t (DERIVED, includes converter at net specific power), mass.kit_house_exchanger_ducts_t (added) both in payload",
-    "house_reactor_thermal_partition": "Rotor phase: tipjet raw heat ≤ reactor thermal output - 4-crew cabin cooler electric/(direct conversion). Surface phase: rotor OFF, cooler supplied via reactor direct electrical conversion; never count both full outputs simultaneously."
+    "house_reactor_thermal_partition": "Rotor phase: tipjet raw heat ≤ reactor thermal output - 4-crew cabin cooler electric/(direct conversion). Surface phase: rotor OFF, cooler supplied via reactor direct electrical conversion; never count both full outputs simultaneously.",
+    "ground_vent_reuse": "existing tipjet heat exchanger and compressor reused while rotor parked; no new dry-part mass, no duplication. All ventilation occurs while on surface; rotor-gas thermodynamics and plume impingement remain OPEN."
   },
   "research": {
     "authority": "RESEARCH / NON-CANON / never automatically upgrades dry mass assumption to ONLINE",
