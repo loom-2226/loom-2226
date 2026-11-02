@@ -16,7 +16,7 @@ Design: 6561 balanced, pairwise-stratified min/mid/max samples over 15 independe
 ### Gate A mass envelope and historical comparison
 Component sums min / midpoint / max: **25.250 / 38.375 / 51.500 t**. Gate A limit 34.200 t.
 Historical LOST-sizer empty mass 35.400 t is the **v1 comparison** while LOST historical output is **27.900t** in PR #453; neither is an equality target or an input mass offset.
-Actual midpoint versus **27.9t** historical output: **10.475 t** difference (27.900t historical anchored in #453 and should not be mistaken for a constraint).
+Actual midpoint versus **27.900t** historical output: **10.475 t** difference (27.900t historical anchored in #453 and should not be mistaken for a constraint).
 | Distinct dry component | min | mid | max | provenance |
 |---|---:|---:|---:|---|
 | pressure_pod_titanium_shell_t | 3.200 | 5.400 | 7.600 | PROJECTION |
