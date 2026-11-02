@@ -291,9 +291,16 @@ function sensitivity(d,stage,design,geo,gateKey){
 function analyze(d,stage){
  const geo=geometry(d),limit=number(d.sweep.sample_count),design=samples(d,stage,limit),rows=[];
  const exemplars=[];
+ const podRanges=Object.fromEntries(d.thermal.crew_cases.map(q=>[number(q),{min:Infinity,max:-Infinity}]));
+ const extensions=stage===2?Object.fromEntries(d.venus.rotor_extension_levels_km.map(q=>[number(q),{rotorMin:Infinity,rotorMax:-Infinity,heatMin:Infinity,heatMax:-Infinity,pressure_bar:null}])):{};
  for(let i=0;i<design.rows;i++){
   const s=design.get(i),e=evaluate(d,stage,s,geo);
   rows.push({A:e.A,A2:e.A2,KV:e.KV,KF:e.KF,B:e.B,R:e.R,C:e.C,C_low:e.C_low,C_high:e.C_high,DS2:e.DS2,DS4:e.DS4});
+  if(stage===2){for(const q of d.thermal.crew_cases){const crew=number(q),hours=e.venus.thermal[crew]?.podHours; if(Number.isFinite(hours)){podRanges[crew].min=Math.min(podRanges[crew].min,hours);podRanges[crew].max=Math.max(podRanges[crew].max,hours);}}
+   for(const q of d.venus.rotor_extension_levels_km){const alt=number(q),p=extensions[alt],rot=rotorAt(d,s,e.venus.baseMass,alt);
+     if(rot){p.rotorMin=Math.min(p.rotorMin,rot.shaftMW);p.rotorMax=Math.max(p.rotorMax,rot.shaftMW);
+       p.heatMin=Math.min(p.heatMin,rot.sourceMW);p.heatMax=Math.max(p.heatMax,rot.sourceMW);p.pressure_bar=rot.air.pressure;}}
+  }
   if(i<number(d.sweep.report_preview_samples))exemplars.push({sample:i,inputs:s,gates:rows.at(-1),dry:e.dry.sum,coreDry:e.dry.coreT,kit:e.kit,venus:stage===2?{
     handover:e.venus.handover,lowWater:e.venus.mode.low.waterAtOrbit,highWater:e.venus.mode.high.waterAtOrbit,
     lowThrust:e.venus.mode.low.thrustN,highThrust:e.venus.mode.high.thrustN,
@@ -316,7 +323,7 @@ function analyze(d,stage){
  });
  const kitRows=partRows.filter(x=>d.kit.mass_component_keys.includes(x.name));
  const kitSums=[0,1,2].map(i=>kitRows.reduce((z,x)=>z+x.values[i],0));
- return {geometry:geo,gates,joint,scores,examples:exemplars,partRows,sums,kitRows,kitSums,design:{rows:design.rows,fields:design.fields}};
+ return {geometry:geo,gates,joint,scores,examples:exemplars,partRows,sums,kitRows,kitSums,podRanges,extensions,design:{rows:design.rows,fields:design.fields}};
 }
 function report(d,stage,hash,a,graphics){
  const p=number(d.sweep.round_decimals),f=x=>fmt(x,p);
