@@ -2,7 +2,7 @@
 ALL bodies. ALL sponsors. 2026-2226.
 
 **Status:** NON-CANON / NON-RUNTIME / UNQUALIFIED ENGINEERING SENSITIVITY. No machine constants promoted.
-**Input hash / run identity (Git blob SHA-1):** `61d63f2b425be6e261c3180ebc57fe1d0bb22bea`. Raw UTF-8 input identity is SHA-1 of `blob <byte-length>\\0` plus JSON bytes.
+**Input hash / run identity (Git blob SHA-1; includes JSON run_stage):** `16116180773e33524b855fbbb01fdcd6bb589109`. Raw UTF-8 input identity is SHA-1 of `blob <byte-length>\\0` plus JSON bytes.
 **Single source input:** `wayfarer/lab/shuttle/shuttle_inputs.json` (all inputs printed at end).
 **Files generated:** `SHUTTLE_SIDE_VIEW.svg`, `SHUTTLE_MASS_WATERFALL.svg`.
 
@@ -823,6 +823,13 @@ Necessary but insufficient condition: **sum(other component dry masses) ≤ rema
       "source": "Presentation only",
       "description": "Canvas padding"
     }
+  },
+  "run_stage": {
+    "value": 1,
+    "unit": "stage",
+    "provenance": "ASSUMPTION",
+    "source": "kT stage 1 approved mass and fit workflow",
+    "description": "Hashed input state. Stage 2 uses its own JSON revision; CLI stage must agree."
   }
 }
 ```
