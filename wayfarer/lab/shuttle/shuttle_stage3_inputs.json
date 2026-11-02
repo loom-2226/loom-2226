@@ -247,5 +247,14 @@
     "Titan atmosphere beyond near surface represented only by explicitly projected scale height; altitude at 60km is model-boundary censoring, not handover proof.",
     "Titan ambient N2 heat feed from reactor is an assumed 2226 thermal conversion; real methane/nitrogen reactivity, exchanger/cold rotor materials and Torch dense atmosphere stay OPEN.",
     "Plume design and surface survival are not certified; G8 B full fit remains OPEN."
-  ]
+  ],
+  "si": {
+    "N_per_kN": {
+      "value": 1000,
+      "unit": "N/kN",
+      "provenance": "ONLINE",
+      "source": "SI decimal prefixes",
+      "description": "Explicit mechanical force unit conversion"
+    }
+  }
 }
