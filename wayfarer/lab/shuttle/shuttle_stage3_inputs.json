@@ -106,7 +106,9 @@
         "provenance": "OPEN",
         "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
         "description": "Solar illumination, regolith plume/dust and night survival depend on site/epoch"
-      }
+      },
+      "baseline_belly_architecture": "CHEMICAL_H2_O2",
+      "research_alternative_belly_architecture": "ELECTRIC_THERMAL_WATER"
     },
     "Mars": {
       "mode": "BELLY_NO_KIT",
@@ -144,7 +146,9 @@
         "provenance": "OPEN",
         "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
         "description": "Mars thermal/dust/reentry TPS depends on site and use case"
-      }
+      },
+      "baseline_belly_architecture": "CHEMICAL_H2_O2",
+      "research_alternative_belly_architecture": "ELECTRIC_THERMAL_WATER"
     },
     "Mercury": {
       "mode": "BELLY_NO_KIT",
@@ -216,7 +220,9 @@
           "description": "Report as unqualified sensitivity row, no fabricated mass or gate change."
         },
         "note": "High insolation and hot surface may impose dayside thermal structure, radiator and shelter loads; this comparison never changes polar gate fractions."
-      }
+      },
+      "baseline_belly_architecture": "CHEMICAL_H2_O2",
+      "research_alternative_belly_architecture": "ELECTRIC_THERMAL_WATER"
     }
   },
   "belly": {
@@ -302,12 +308,12 @@
         "description": "Explicit illustrative zero-to-one-day interval because user gave a per-day loss but no actual transport/storage time; change if itinerary known. Charged to initial water, never ignored."
       },
       "electrolysis_kWh_per_kg_water": {
-        "min": 13,
-        "max": 16,
+        "min": 5,
+        "max": 6.2,
         "unit": "kWh/kg H2O",
-        "provenance": "ASSUMPTION",
-        "source": "kT APPROVED Stage3 PR #458 correction 2026-11-03, NONCANON",
-        "description": "kT requested conservative electrolysis manufacturing budget. Current sources 45–55 kWh/kg H2 -> ~5–6.1 kWh/kg stoichiometric H2O, so NOT verified ONLINE; 13–16 may include cryogenic liquefaction/handling/provision margin, not decomposed."
+        "provenance": "ONLINE",
+        "source": "US DOE Hydrogen Program Record 24005 representative PEM 55.2kWh/kg H2: https://www.hydrogen.energy.gov/docs/hydrogenprogramlibraries/pdfs/24005-clean-hydrogen-production-cost-pem-electrolyzer.pdf ; DOE alkaline system 48–55 kWh/kg H2: https://www.energy.gov/cmei/fuels/technical-targets-liquid-alkaline-electrolysis ; stoichiometric H2 fraction in H2O=2.016/18.015≈0.1119",
+        "description": "Equivalent electrolysis-only electricity per kg stoichiometric WATER converted to H2+O2, ~45–55kWh/kg H2 ×0.112 =5.04–6.16 kWh/kg H2O; bounded to 5.0–6.2 for source-backed sensitivity. ONLINE DERIVED from published H2-unit efficiency and chemical stoichiometry; not a measured per-kg-water system metric. NOT a claim to include cryogenic liquefaction, cooling, plant construction, or handling; those remain OPEN."
       },
       "molecular_water_to_stoich_h2o2": {
         "value": 1,
@@ -338,7 +344,10 @@
         "description": "Boiloff and 0.3–0.8t tank declared but actual cold-line valves, oxygen compatibility, landing pad duty and vehicle packaging OPEN"
       }
     },
-    "orbit_torch_basis": "same high-ve torch and ideal circular-speed lower bound as Stage3 first draft; actual full ascent delta-v remains OPEN"
+    "orbit_torch_basis": "same high-ve torch and ideal circular-speed lower bound as Stage3 first draft; actual full ascent delta-v remains OPEN",
+    "baseline_architecture": "chemical",
+    "research_alternative_architecture": "electric",
+    "selection_authority": "kT APPROVED 2026-11-03: chemical H2/O2 belly BASELINE on Moon, Mars, Mercury polar; electric/thermal water research alternative only. Does not certify full flight."
   },
   "pilot": {
     "sweep_count": {
@@ -373,8 +382,9 @@
     "Removed abandoned Venus fixed-peak belly-array analogue; World-specific F=T/W×wetmass×gravity at sampled 1.2–1.5 T/W.",
     "Electric water belly requires GW source tap from torch reactor: OPEN; Wayfarer 63.36MW torch tap is burn-only and no GW feeder proved.",
     "H2/O2 uses shared water by electrolysis aboard Wayfarer, with 100MW net declared house-power, cryogenic tank and time-swept boiloff. Plant/liquefier and fill logistics OPEN.",
-    "13–16kWh/kg water is conservative kT sizing ASSUMPTION, not a supported ONLINE electrolysis consumption figure.",
-    "Mercury polar settlement default supported by Atlas polar water niche; dayside surface thermal only separate uncredited sensitivity."
+    "Electrolysis electricity is ONLINE-derived ~5.0–6.2kWh per kg stoichiometric water, based on published ~45–55kWh/kg hydrogen and 0.112 mass fraction; cryogenic liquefaction extra power and plant remain OPEN.",
+    "Mercury polar settlement default supported by Atlas polar water niche; dayside surface thermal only separate uncredited sensitivity.",
+    "Moon, Mars, Mercury polar: chemical H2/O2 belly is the baseline; electric/thermal water is a research alternative (GW electrical power tap OPEN); full orbital ascent remains OPEN."
   ],
   "si": {
     "N_per_kN": {
