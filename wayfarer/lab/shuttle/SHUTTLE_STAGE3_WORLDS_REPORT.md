@@ -2,7 +2,7 @@
 ALL bodies. ALL sponsors. 2026–2226.
 
 **Authority: RESEARCH / NON-CANON / NON-RUNTIME / NON-QUALIFICATION.**
-Merged Stage2 baseline JSON blob: 32cca54304d8092b57b378fc4e63b0fd12ebb540. Stage3 editable source JSON blob: a9adb14810ccdac84569d1c1a8609ebcab7c794d.
+Merged Stage2 baseline JSON blob: 32cca54304d8092b57b378fc4e63b0fd12ebb540. Stage3 editable source JSON blob: c75ce80f29dc0113775a122f4c9ede8ac21430f7.
 6,561 deterministic min/mid/max coordinate-balanced combinations per world; 37 individually varied input fields. **Design fractions, not engineering reliability probabilities.**
 Independent CLI reproduction of earlier Stage3 version reported by Claude through kT. This revision uses reevaluated computational functions; NEW Node CLI reproduction not claimed.
 
@@ -36,7 +36,7 @@ Independent CLI reproduction of earlier Stage3 version reported by Claude throug
 | Moon | ORBIT_FULL | 0 | 0 | 6561 | 0 | n/a |
 | Moon | SURFACE_THERMAL | 0 | 0 | 6561 | 0 | n/a |
 | Moon | BAY_FULL | 0 | 0 | 6561 | 0 | n/a |
-| Moon | FLIGHT_TOTAL | 0 | 2187 | 4374 | 0 | 0.000% |
+| Moon | FLIGHT_TOTAL | 0 | 2268 | 4293 | 0 | 0.000% |
 | Mars | A2 | 4374 | 2187 | 0 | 0 | 66.667% |
 | Mars | A2_CHEM | 4293 | 2268 | 0 | 0 | 65.432% |
 | Mars | KIT_VOLUME | 0 | 0 | 0 | 6561 | n/a |
@@ -55,7 +55,7 @@ Independent CLI reproduction of earlier Stage3 version reported by Claude throug
 | Mars | ORBIT_FULL | 0 | 0 | 6561 | 0 | n/a |
 | Mars | SURFACE_THERMAL | 0 | 0 | 6561 | 0 | n/a |
 | Mars | BAY_FULL | 0 | 0 | 6561 | 0 | n/a |
-| Mars | FLIGHT_TOTAL | 0 | 2187 | 4374 | 0 | 0.000% |
+| Mars | FLIGHT_TOTAL | 0 | 2268 | 4293 | 0 | 0.000% |
 | Mercury | A2 | 4374 | 2187 | 0 | 0 | 66.667% |
 | Mercury | A2_CHEM | 4293 | 2268 | 0 | 0 | 65.432% |
 | Mercury | KIT_VOLUME | 0 | 0 | 0 | 6561 | n/a |
@@ -74,17 +74,18 @@ Independent CLI reproduction of earlier Stage3 version reported by Claude throug
 | Mercury | ORBIT_FULL | 0 | 0 | 6561 | 0 | n/a |
 | Mercury | SURFACE_THERMAL | 0 | 0 | 6561 | 0 | n/a |
 | Mercury | BAY_FULL | 0 | 0 | 6561 | 0 | n/a |
-| Mercury | FLIGHT_TOTAL | 0 | 2187 | 4374 | 0 | 0.000% |
+| Mercury | FLIGHT_TOTAL | 0 | 2268 | 4293 | 0 | 0.000% |
 
 ## Interpretation and accounting
+**BASELINE SELECTED (kT):** chemical H2/O2 belly is authoritative for Moon, Mars and Mercury polar noncanon screening; electric/thermal water is RESEARCH ALTERNATIVE only. FLIGHT_TOTAL for those worlds mirrors FLIGHT_C (baseline), not the union of architectures. Titan remains rotor + house kit.
 **A2:** The original 34.2t G8 docked-core dry cap. Electric/core uses the existing small-belly-thruster dry part. Chemical also charges its **additional cryo tank 0.3–0.8t**; no Venus/Titan kit on Moon, Mars or Mercury.
 **BELLY_TW_E / BELLY_TW_C:** chosen thrust-to-weight target 1.2–1.5 at each world's local g, applied to the initial sampled wet mass, not the abandoned Venus fixed-thrust array. Because thrust is being **sized** by this formula, these gates mechanically PASS by construction. They do NOT certify installed thrust, combustion, motor mass, duty, exhaust plume or structure.
 **BELLY_WATER_E / BELLY_WATER_C:** finite 23.1t reaction-water stock charged once for belly sortie Δv 0.3–0.6km/s (touchdown + hover + lift to torch pitch-up) **AND** main torch ideal circular-speed lower bound at world g/radius, with cryo boil-off also debited for chemical. PASS means this lower-bound water ledger closes. Actual required orbit Δv and thrust/duty remain OPEN.
-**Electric/thermal architecture (a):** water exhaust 6–12km/s, directed jet power P=F×ve/2, reactor input=P/(0.30–0.70 efficiency). The GW tap from the shuttle's torch reactor is OPEN. Wayfarer only declares a 63.36MW RAW **burn-only** torch tap, not a GW supply. Water-gate PASS does not imply a viable input power system.
-**Chemical architecture (b):** H2/O2 exhaust 4.0–4.4km/s from conventional high-performance engine analogues, whole propellant from water electrolysed **on Wayfarer before sortie**, 2×50MW net house reactors (DECLARED_2226), then shipped in a **0.3–0.8t** cryogenic tank. LOX+LH2 and water are mutually exclusive accounting forms; never double-count propellant mass. Boil-off 0.5–2%/day; an explicit **0–1day ASSUMPTION** is swept because no actual hold-time was supplied. The plant/liquefier, tanks, engine packaging and oxygen/hydrogen interfaces remain OPEN.
-**Electrolysis evidence:** requested **13–16 kWh per kg of WATER** is retained as a conservative **ASSUMPTION**, NOT mislabelled ONLINE. Conventional published figures of ~45–55kWh/kg H2 correspond to ~5–6kWh/kg stoichiometric water. The user's larger budget might allow unallocated processing, liquefaction, handling and margin, but no published exact 13–16 figure for water was verified.
+**Electric/thermal architecture (a), RESEARCH ALTERNATIVE:** water exhaust 6–12km/s, directed jet power P=F×ve/2, reactor input=P/(0.30–0.70 efficiency). The GW tap from the shuttle's torch reactor is OPEN. Wayfarer only declares a 63.36MW RAW **burn-only** torch tap, not a GW supply. Water-gate PASS does not imply a viable input power system.
+**Chemical architecture (b), kT BASELINE for Moon/Mars/Mercury:** H2/O2 exhaust 4.0–4.4km/s from conventional high-performance engine analogues, whole propellant from water electrolysed **on Wayfarer before sortie**, 2×50MW net house reactors (DECLARED_2226), then shipped in a **0.3–0.8t** cryogenic tank. LOX+LH2 and water are mutually exclusive accounting forms; never double-count propellant mass. Boil-off 0.5–2%/day; an explicit **0–1day ASSUMPTION** is swept because no actual hold-time was supplied. The plant/liquefier, tanks, engine packaging and oxygen/hydrogen interfaces remain OPEN.
+**Electrolysis evidence:** source-backed electrolysis input **5.000–6.200 kWh per kg of stoichiometric WATER**, tagged ONLINE (DERIVED from US DOE reported hydrogen-electricity figures and H₂/H₂O mass ratio 0.112). This is **electrolysis only**; Wayfarer oxygen/hydrogen liquefaction, delivery, insulation, plant hardware and additional energy remain OPEN, not silently included.
 **Titan:** rotor + previously defined detachable reactor kit, no belly architecture. The 60km upper atmosphere model boundary is NOT a needed handover height; the rocket plume and actual Titan upper atmosphere remain OPEN.
-**Full orbit and thermal gates:** remain OPEN, including cryogenic hardware integration, GW tap, Mercury polar-site thermal environment and G8 hold clearance. No convenient numerical lower-bound PASS promotes these to mission certification.
+**Full orbit and thermal gates:** remain OPEN even for selected chemical baseline, including cryogenic hardware integration, Mercury polar-site thermal environment and G8 hold clearance; GW electrical tap remains an alternative-only OPEN. No convenient numerical lower-bound PASS promotes these to mission certification.
 
 ## Planetary outputs and sensitivity
 ### Titan
@@ -133,8 +134,8 @@ Each variable is varied min/mid/max over 81 baseline configurations. For T/W-siz
 ### Moon
 **Mode:** BELLY_NO_KIT. g=1.620 m/s², mean radius=1737.400km, ideal circular-speed lower bound=1.678km/s.
 Core docked dry first sample 21.150t; removable kit first sample 6.925t. No kit is carried on Moon/Mars/Mercury, and chemical cryo tank is counted in A2_CHEM.
-**World-specific belly requirements, min / mean / max over 6,561 samples:**
-| Quantity | (a) Electric/thermal water | (b) Wayfarer H2/O2 |
+**World-specific belly requirements, min / mean / max over 6,561 samples. H2/O2 is the kT BASELINE, electric water a RESEARCH ALTERNATIVE:**
+| Quantity | (a) Electric/thermal water (RESEARCH) | (b) Wayfarer H2/O2 (BASELINE) |
 |---|---:|---:|
 | Initial wet mass | 44.560 / 55.605 / 62.210 t | 44.860 / 56.155 / 62.760 t |
 | Target thrust-to-weight | OPEN | OPEN |
@@ -150,12 +151,20 @@ Core docked dry first sample 21.150t; removable kit first sample 6.925t. No kit 
 | Water remaining after belly | 17.245 / 20.172 / 21.741 t | 14.784 / 17.376 / 19.859 t |
 | Ideal remaining torch water requirement | 0.739 / 1.897 / 3.836 t | 0.700 / 1.816 / 3.718 t |
 | Water remaining after belly + ideal torch | 13.762 / 18.275 / 20.830 t | 11.457 / 15.560 / 18.972 t |
-| Wayfarer electrolysis + cryo preparation budget | OPEN | 42138.554 / 82994.938 / 133048.712 kWh |
-| Production hours @ 100MW net | OPEN | 0.421 / 0.830 / 1.330 h |
+| Wayfarer electrolysis + cryo preparation budget | OPEN | 16207.136 / 32053.193 / 51556.376 kWh |
+| Production hours @ 100MW net | OPEN | 0.162 / 0.321 / 0.516 h |
 Both architectures calculate **thrust required** from sampled T/W and the respective actual wet vehicle mass. A1/A2 engine actuator specific thrust and installed hardware capability are still OPEN; the chemical dry tank is included once.
 The full water debit includes belly touchdown, hover and liftoff to pitch-up **once per sortie**, followed by the ideal circular-speed torch lower-bound. In chemical mode, the generated 1kg of combined H2/O2 *replaces* 1kg water; loaded propellant and reaction water are not additional to the 23.1t initial stock.
 #### First sampled phase ledgers
-**(a) Electric/thermal water**
+**(b) Wayfarer-manufactured H2/O2 — BASELINE**
+Required 87.208 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 2.701t.
+| Phase | remaining reaction-water equivalent t | charged to phase t | cryo subset on board after phase t | cold cabin water t | custody t |
+|---|---:|---:|---:|---:|---:|
+| Wayfarer load before sortie | 23.100 | 0.000 | 3.241 | 0.300 | 0.010 |
+| Cryogenic boil-off and belly burn | 19.859 | 3.241 | 0.000 | 0.300 | 0.010 |
+| Main torch ideal-circular-speed floor (NOT full ascent) | 17.157 | 2.701 | 0.000 | 0.300 | 0.010 |
+On Wayfarer: water converted to cryo 3.241t (including expected 0.000t boil-off); electrolysis/handling energy 16207.136kWh requiring 0.162h at both declared house reactors' full 100MW output. Plant, processing and full charging schedule remain OPEN.
+**(a) Electric/thermal water — research alternative**
 Required 86.625 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 2.751t.
 | Phase | remaining reaction-water equivalent t | charged to phase t | cryo subset on board after phase t | cold cabin water t | custody t |
 |---|---:|---:|---:|---:|---:|
@@ -163,14 +172,6 @@ Required 86.625 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch
 | Thermal/electric water belly burn | 20.927 | 2.173 | OPEN | 0.300 | 0.010 |
 | Main torch ideal-circular-speed floor (NOT full ascent) | 18.176 | 2.751 | 0.000 | 0.300 | 0.010 |
 Jet 0.260GW; required conversion input 0.866GW; torch reactor high-power feed **OPEN**.
-**(b) Wayfarer-manufactured H2/O2**
-Required 87.208 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 2.701t.
-| Phase | remaining reaction-water equivalent t | charged to phase t | cryo subset on board after phase t | cold cabin water t | custody t |
-|---|---:|---:|---:|---:|---:|
-| Wayfarer load before sortie | 23.100 | 0.000 | 3.241 | 0.300 | 0.010 |
-| Cryogenic boil-off and belly burn | 19.859 | 3.241 | 0.000 | 0.300 | 0.010 |
-| Main torch ideal-circular-speed floor (NOT full ascent) | 17.157 | 2.701 | 0.000 | 0.300 | 0.010 |
-On Wayfarer: water converted to cryo 3.241t (including expected 0.000t boil-off); electrolysis/handling energy 42138.554kWh requiring 0.421h at both declared house reactors' full 100MW output. Plant, processing and full charging schedule remain OPEN.
 #### Three strongest one-at-a-time drivers per computable gate
 Each variable is varied min/mid/max over 81 baseline configurations. For T/W-sizing gates that pass by construction, the physical *required thrust* variation ranks drivers, rather than fabricating certification sensitivity.
 **A2**
@@ -214,8 +215,8 @@ Each variable is varied min/mid/max over 81 baseline configurations. For T/W-siz
 ### Mars
 **Mode:** BELLY_NO_KIT. g=3.730 m/s², mean radius=3389.500km, ideal circular-speed lower bound=3.556km/s.
 Core docked dry first sample 21.150t; removable kit first sample 6.925t. No kit is carried on Moon/Mars/Mercury, and chemical cryo tank is counted in A2_CHEM.
-**World-specific belly requirements, min / mean / max over 6,561 samples:**
-| Quantity | (a) Electric/thermal water | (b) Wayfarer H2/O2 |
+**World-specific belly requirements, min / mean / max over 6,561 samples. H2/O2 is the kT BASELINE, electric water a RESEARCH ALTERNATIVE:**
+| Quantity | (a) Electric/thermal water (RESEARCH) | (b) Wayfarer H2/O2 (BASELINE) |
 |---|---:|---:|
 | Initial wet mass | 44.560 / 55.605 / 62.210 t | 44.860 / 56.155 / 62.760 t |
 | Target thrust-to-weight | OPEN | OPEN |
@@ -231,12 +232,20 @@ Core docked dry first sample 21.150t; removable kit first sample 6.925t. No kit 
 | Water remaining after belly | 17.245 / 20.172 / 21.741 t | 14.784 / 17.376 / 19.859 t |
 | Ideal remaining torch water requirement | 1.551 / 3.912 / 7.835 t | 1.470 / 3.745 / 7.594 t |
 | Water remaining after belly + ideal torch | 10.046 / 16.260 / 19.840 t | 7.850 / 13.631 / 18.175 t |
-| Wayfarer electrolysis + cryo preparation budget | OPEN | 42138.554 / 82994.938 / 133048.712 kWh |
-| Production hours @ 100MW net | OPEN | 0.421 / 0.830 / 1.330 h |
+| Wayfarer electrolysis + cryo preparation budget | OPEN | 16207.136 / 32053.193 / 51556.376 kWh |
+| Production hours @ 100MW net | OPEN | 0.162 / 0.321 / 0.516 h |
 Both architectures calculate **thrust required** from sampled T/W and the respective actual wet vehicle mass. A1/A2 engine actuator specific thrust and installed hardware capability are still OPEN; the chemical dry tank is included once.
 The full water debit includes belly touchdown, hover and liftoff to pitch-up **once per sortie**, followed by the ideal circular-speed torch lower-bound. In chemical mode, the generated 1kg of combined H2/O2 *replaces* 1kg water; loaded propellant and reaction water are not additional to the 23.1t initial stock.
 #### First sampled phase ledgers
-**(a) Electric/thermal water**
+**(b) Wayfarer-manufactured H2/O2 — BASELINE**
+Required 200.793 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 5.518t.
+| Phase | remaining reaction-water equivalent t | charged to phase t | cryo subset on board after phase t | cold cabin water t | custody t |
+|---|---:|---:|---:|---:|---:|
+| Wayfarer load before sortie | 23.100 | 0.000 | 3.241 | 0.300 | 0.010 |
+| Cryogenic boil-off and belly burn | 19.859 | 3.241 | 0.000 | 0.300 | 0.010 |
+| Main torch ideal-circular-speed floor (NOT full ascent) | 14.341 | 5.518 | 0.000 | 0.300 | 0.010 |
+On Wayfarer: water converted to cryo 3.241t (including expected 0.000t boil-off); electrolysis/handling energy 16207.136kWh requiring 0.162h at both declared house reactors' full 100MW output. Plant, processing and full charging schedule remain OPEN.
+**(a) Electric/thermal water — research alternative**
 Required 199.451 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 5.619t.
 | Phase | remaining reaction-water equivalent t | charged to phase t | cryo subset on board after phase t | cold cabin water t | custody t |
 |---|---:|---:|---:|---:|---:|
@@ -244,14 +253,6 @@ Required 199.451 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torc
 | Thermal/electric water belly burn | 20.927 | 2.173 | OPEN | 0.300 | 0.010 |
 | Main torch ideal-circular-speed floor (NOT full ascent) | 15.307 | 5.619 | 0.000 | 0.300 | 0.010 |
 Jet 0.598GW; required conversion input 1.995GW; torch reactor high-power feed **OPEN**.
-**(b) Wayfarer-manufactured H2/O2**
-Required 200.793 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 5.518t.
-| Phase | remaining reaction-water equivalent t | charged to phase t | cryo subset on board after phase t | cold cabin water t | custody t |
-|---|---:|---:|---:|---:|---:|
-| Wayfarer load before sortie | 23.100 | 0.000 | 3.241 | 0.300 | 0.010 |
-| Cryogenic boil-off and belly burn | 19.859 | 3.241 | 0.000 | 0.300 | 0.010 |
-| Main torch ideal-circular-speed floor (NOT full ascent) | 14.341 | 5.518 | 0.000 | 0.300 | 0.010 |
-On Wayfarer: water converted to cryo 3.241t (including expected 0.000t boil-off); electrolysis/handling energy 42138.554kWh requiring 0.421h at both declared house reactors' full 100MW output. Plant, processing and full charging schedule remain OPEN.
 #### Three strongest one-at-a-time drivers per computable gate
 Each variable is varied min/mid/max over 81 baseline configurations. For T/W-sizing gates that pass by construction, the physical *required thrust* variation ranks drivers, rather than fabricating certification sensitivity.
 **A2**
@@ -295,8 +296,8 @@ Each variable is varied min/mid/max over 81 baseline configurations. For T/W-siz
 ### Mercury
 **Mode:** BELLY_NO_KIT. g=3.700 m/s², mean radius=2439.400km, ideal circular-speed lower bound=3.004km/s.
 Core docked dry first sample 21.150t; removable kit first sample 6.925t. No kit is carried on Moon/Mars/Mercury, and chemical cryo tank is counted in A2_CHEM.
-**World-specific belly requirements, min / mean / max over 6,561 samples:**
-| Quantity | (a) Electric/thermal water | (b) Wayfarer H2/O2 |
+**World-specific belly requirements, min / mean / max over 6,561 samples. H2/O2 is the kT BASELINE, electric water a RESEARCH ALTERNATIVE:**
+| Quantity | (a) Electric/thermal water (RESEARCH) | (b) Wayfarer H2/O2 (BASELINE) |
 |---|---:|---:|
 | Initial wet mass | 44.560 / 55.605 / 62.210 t | 44.860 / 56.155 / 62.760 t |
 | Target thrust-to-weight | OPEN | OPEN |
@@ -312,12 +313,20 @@ Core docked dry first sample 21.150t; removable kit first sample 6.925t. No kit 
 | Water remaining after belly | 17.245 / 20.172 / 21.741 t | 14.784 / 17.376 / 19.859 t |
 | Ideal remaining torch water requirement | 1.314 / 3.332 / 6.692 t | 1.245 / 3.190 / 6.486 t |
 | Water remaining after belly + ideal torch | 11.108 / 16.840 / 20.128 t | 8.881 / 14.186 / 18.407 t |
-| Wayfarer electrolysis + cryo preparation budget | OPEN | 42138.554 / 82994.938 / 133048.712 kWh |
-| Production hours @ 100MW net | OPEN | 0.421 / 0.830 / 1.330 h |
+| Wayfarer electrolysis + cryo preparation budget | OPEN | 16207.136 / 32053.193 / 51556.376 kWh |
+| Production hours @ 100MW net | OPEN | 0.162 / 0.321 / 0.516 h |
 Both architectures calculate **thrust required** from sampled T/W and the respective actual wet vehicle mass. A1/A2 engine actuator specific thrust and installed hardware capability are still OPEN; the chemical dry tank is included once.
 The full water debit includes belly touchdown, hover and liftoff to pitch-up **once per sortie**, followed by the ideal circular-speed torch lower-bound. In chemical mode, the generated 1kg of combined H2/O2 *replaces* 1kg water; loaded propellant and reaction water are not additional to the 23.1t initial stock.
 #### First sampled phase ledgers
-**(a) Electric/thermal water**
+**(b) Wayfarer-manufactured H2/O2 — BASELINE**
+Required 199.178 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 4.713t.
+| Phase | remaining reaction-water equivalent t | charged to phase t | cryo subset on board after phase t | cold cabin water t | custody t |
+|---|---:|---:|---:|---:|---:|
+| Wayfarer load before sortie | 23.100 | 0.000 | 3.241 | 0.300 | 0.010 |
+| Cryogenic boil-off and belly burn | 19.859 | 3.241 | 0.000 | 0.300 | 0.010 |
+| Main torch ideal-circular-speed floor (NOT full ascent) | 15.146 | 4.713 | 0.000 | 0.300 | 0.010 |
+On Wayfarer: water converted to cryo 3.241t (including expected 0.000t boil-off); electrolysis/handling energy 16207.136kWh requiring 0.162h at both declared house reactors' full 100MW output. Plant, processing and full charging schedule remain OPEN.
+**(a) Electric/thermal water — research alternative**
 Required 197.846 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 4.800t.
 | Phase | remaining reaction-water equivalent t | charged to phase t | cryo subset on board after phase t | cold cabin water t | custody t |
 |---|---:|---:|---:|---:|---:|
@@ -325,14 +334,6 @@ Required 197.846 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torc
 | Thermal/electric water belly burn | 20.927 | 2.173 | OPEN | 0.300 | 0.010 |
 | Main torch ideal-circular-speed floor (NOT full ascent) | 16.127 | 4.800 | 0.000 | 0.300 | 0.010 |
 Jet 0.594GW; required conversion input 1.978GW; torch reactor high-power feed **OPEN**.
-**(b) Wayfarer-manufactured H2/O2**
-Required 199.178 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 4.713t.
-| Phase | remaining reaction-water equivalent t | charged to phase t | cryo subset on board after phase t | cold cabin water t | custody t |
-|---|---:|---:|---:|---:|---:|
-| Wayfarer load before sortie | 23.100 | 0.000 | 3.241 | 0.300 | 0.010 |
-| Cryogenic boil-off and belly burn | 19.859 | 3.241 | 0.000 | 0.300 | 0.010 |
-| Main torch ideal-circular-speed floor (NOT full ascent) | 15.146 | 4.713 | 0.000 | 0.300 | 0.010 |
-On Wayfarer: water converted to cryo 3.241t (including expected 0.000t boil-off); electrolysis/handling energy 42138.554kWh requiring 0.421h at both declared house reactors' full 100MW output. Plant, processing and full charging schedule remain OPEN.
 #### Mercury locality sensitivity (NOT a gate)
 | Scenario | Site/thermal setting | Thermal extra mass | Effect on gate fractions |
 |---|---|---|---|
@@ -494,7 +495,9 @@ No changes to canon, Wayfarer geometry or the merged Stage2 input ledger. Resear
         "provenance": "OPEN",
         "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
         "description": "Solar illumination, regolith plume/dust and night survival depend on site/epoch"
-      }
+      },
+      "baseline_belly_architecture": "CHEMICAL_H2_O2",
+      "research_alternative_belly_architecture": "ELECTRIC_THERMAL_WATER"
     },
     "Mars": {
       "mode": "BELLY_NO_KIT",
@@ -532,7 +535,9 @@ No changes to canon, Wayfarer geometry or the merged Stage2 input ledger. Resear
         "provenance": "OPEN",
         "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
         "description": "Mars thermal/dust/reentry TPS depends on site and use case"
-      }
+      },
+      "baseline_belly_architecture": "CHEMICAL_H2_O2",
+      "research_alternative_belly_architecture": "ELECTRIC_THERMAL_WATER"
     },
     "Mercury": {
       "mode": "BELLY_NO_KIT",
@@ -604,7 +609,9 @@ No changes to canon, Wayfarer geometry or the merged Stage2 input ledger. Resear
           "description": "Report as unqualified sensitivity row, no fabricated mass or gate change."
         },
         "note": "High insolation and hot surface may impose dayside thermal structure, radiator and shelter loads; this comparison never changes polar gate fractions."
-      }
+      },
+      "baseline_belly_architecture": "CHEMICAL_H2_O2",
+      "research_alternative_belly_architecture": "ELECTRIC_THERMAL_WATER"
     }
   },
   "belly": {
@@ -690,12 +697,12 @@ No changes to canon, Wayfarer geometry or the merged Stage2 input ledger. Resear
         "description": "Explicit illustrative zero-to-one-day interval because user gave a per-day loss but no actual transport/storage time; change if itinerary known. Charged to initial water, never ignored."
       },
       "electrolysis_kWh_per_kg_water": {
-        "min": 13,
-        "max": 16,
+        "min": 5,
+        "max": 6.2,
         "unit": "kWh/kg H2O",
-        "provenance": "ASSUMPTION",
-        "source": "kT APPROVED Stage3 PR #458 correction 2026-11-03, NONCANON",
-        "description": "kT requested conservative electrolysis manufacturing budget. Current sources 45–55 kWh/kg H2 -> ~5–6.1 kWh/kg stoichiometric H2O, so NOT verified ONLINE; 13–16 may include cryogenic liquefaction/handling/provision margin, not decomposed."
+        "provenance": "ONLINE",
+        "source": "US DOE Hydrogen Program Record 24005 representative PEM 55.2kWh/kg H2: https://www.hydrogen.energy.gov/docs/hydrogenprogramlibraries/pdfs/24005-clean-hydrogen-production-cost-pem-electrolyzer.pdf ; DOE alkaline system 48–55 kWh/kg H2: https://www.energy.gov/cmei/fuels/technical-targets-liquid-alkaline-electrolysis ; stoichiometric H2 fraction in H2O=2.016/18.015≈0.1119",
+        "description": "Equivalent electrolysis-only electricity per kg stoichiometric WATER converted to H2+O2, ~45–55kWh/kg H2 ×0.112 =5.04–6.16 kWh/kg H2O; bounded to 5.0–6.2 for source-backed sensitivity. ONLINE DERIVED from published H2-unit efficiency and chemical stoichiometry; not a measured per-kg-water system metric. NOT a claim to include cryogenic liquefaction, cooling, plant construction, or handling; those remain OPEN."
       },
       "molecular_water_to_stoich_h2o2": {
         "value": 1,
@@ -726,7 +733,10 @@ No changes to canon, Wayfarer geometry or the merged Stage2 input ledger. Resear
         "description": "Boiloff and 0.3–0.8t tank declared but actual cold-line valves, oxygen compatibility, landing pad duty and vehicle packaging OPEN"
       }
     },
-    "orbit_torch_basis": "same high-ve torch and ideal circular-speed lower bound as Stage3 first draft; actual full ascent delta-v remains OPEN"
+    "orbit_torch_basis": "same high-ve torch and ideal circular-speed lower bound as Stage3 first draft; actual full ascent delta-v remains OPEN",
+    "baseline_architecture": "chemical",
+    "research_alternative_architecture": "electric",
+    "selection_authority": "kT APPROVED 2026-11-03: chemical H2/O2 belly BASELINE on Moon, Mars, Mercury polar; electric/thermal water research alternative only. Does not certify full flight."
   },
   "pilot": {
     "sweep_count": {
@@ -761,8 +771,9 @@ No changes to canon, Wayfarer geometry or the merged Stage2 input ledger. Resear
     "Removed abandoned Venus fixed-peak belly-array analogue; World-specific F=T/W×wetmass×gravity at sampled 1.2–1.5 T/W.",
     "Electric water belly requires GW source tap from torch reactor: OPEN; Wayfarer 63.36MW torch tap is burn-only and no GW feeder proved.",
     "H2/O2 uses shared water by electrolysis aboard Wayfarer, with 100MW net declared house-power, cryogenic tank and time-swept boiloff. Plant/liquefier and fill logistics OPEN.",
-    "13–16kWh/kg water is conservative kT sizing ASSUMPTION, not a supported ONLINE electrolysis consumption figure.",
-    "Mercury polar settlement default supported by Atlas polar water niche; dayside surface thermal only separate uncredited sensitivity."
+    "Electrolysis electricity is ONLINE-derived ~5.0–6.2kWh per kg stoichiometric water, based on published ~45–55kWh/kg hydrogen and 0.112 mass fraction; cryogenic liquefaction extra power and plant remain OPEN.",
+    "Mercury polar settlement default supported by Atlas polar water niche; dayside surface thermal only separate uncredited sensitivity.",
+    "Moon, Mars, Mercury polar: chemical H2/O2 belly is the baseline; electric/thermal water is a research alternative (GW electrical power tap OPEN); full orbital ascent remains OPEN."
   ],
   "si": {
     "N_per_kN": {
