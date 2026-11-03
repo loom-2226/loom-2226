@@ -709,8 +709,8 @@
       },
       "mass_allocation_note": "Physical ceramic inner dome mass is split across existing pressure_vessel shell 8g/cm2 mass PLUS incremental crown pane mass. The old metal shell section is REPLACED materially, not a second hidden pressure dome. Inner ceramic physical mass=4.345t, outer=1.407t; credit existing pressure shell~3.311t; delta from reserve only. Backup separately pressure-capable dome adds 4.345246t, AOI 3.000t, both charged to engineering reserve, not the electrical allowance.",
       "adaptive_optogel": {
-       "name": "Adaptive Optogel Interlayer (AOI-2226)",
-       "research_ref": "7240dc21:design/wayfarer/v0.5.7/command/NOSE_2226_ADAPTIVE_OPTOGEL_CANOPY_RESEARCH_CLOSED_20261029.md",
+       "name": "OG-3 HYDRA organogel bulk + AOI-2226 2mm control skin (mass-preserving replacement; research)",
+       "research_ref": "wayfarer/config/og3_hydra.json (current proposal; separate prior AOI material retained as reference)",
        "status": "kT 2026-11-01 OPTION A CONFIRMED; FUNCTIONS DECLARED, NOT PHYSICALLY QUALIFIED",
        "location": "BETWEEN separately pressure-capable primary and backup monolithic transparent-ceramic domes; outside cabin, inside 37 outer nonpressure protective panes",
        "volume_m3": 3.023,
@@ -3339,7 +3339,7 @@
   "optical_thermal_credit": 0,
   "shutter_closed_restores_local_armor_g_cm2": 27,
   "pressure_panes_independently_hold_full_cabin_pressure": "DECLARED / UNQUALIFIED",
-  "doctrine": "CLOSE for torch burn, Metric/LOOM, radiation, dust over crown open limit, heat-pump failure. Dark/clear/glare and NIR are unqualified; 0 thermal credit.",
+  "doctrine": "OG-3 HYDRA / WWS-1: clear/glare/dark via 2mm AOI skin over hydrogenous organogel; OPEN only quiet sun, CLOSE on SPE alert, torch, Metric/LOOM, high dust, heat-pump failure. No AOI optical cooling or OG-3 dose benefit credited.",
   "port_count": 21,
   "berth_count": 10,
   "shelter_window_count": 0,
@@ -3588,13 +3588,14 @@
   "uncommitted_after_t": 18.697170406,
   "heat_sun_reference_w_m2": 2601,
   "metrick_node_layout": "PR #184 placement HOLD; faces unchanged; 208 counted; no window moved onto faces",
-  "mass_model_warning": "The existing 5.867t L2 band and per-port older frame allocations remain as baseline physical hardware. Only replacement uplift above these retained assemblies is booked to released reserve. Crown armour/hull credit is local areal-equivalence; detailed cutout mass and mounting loads remain OPEN.",
+  "mass_model_warning": "The existing 5.867t L2 band and per-port older frame allocations remain as baseline physical hardware. Only replacement uplift above these retained assemblies is booked to released reserve. Crown armour/hull credit is local areal-equivalence; detailed cutout mass and mounting loads remain OPEN. OG-3 swaps already-booked AOI mass only. Added depth ZERO. Optical/radiation dose data OPEN.",
   "wws1_longeron_reinforcement_from_released_t": 0.06,
   "wws1_longeron_reason": "Observed G5 new-window build stress 250.9MPa > 250MPa; +0.060t already-allocated released longeron material; no criteria relaxation. Re-run exactly.",
   "medical_port_relocation_note": "2026-11-03 G9 actual hull-crawler point #6 at x8.94–9.06, theta190.49–192.01 overlapped 0.75m medical window at x9.10. Move the window to x9.55 with ≥0.075m clearance beyond nearest principal-frame plane and no remaining equipment collisions under existing G9 footprint criteria; node faces unchanged.",
   "new_draw_cap_t": 12.0,
   "installed_mass_cap_t": null,
-  "round2_reference": "windows_wws1_round2: corrected NEW-draw cap, NO installed-mass cap"
+  "round2_reference": "windows_wws1_round2: corrected NEW-draw cap, NO installed-mass cap",
+  "og3_mass_replacement_note": "Exactly 66.611712004 kg/m2 AOI column swapped for 2mm AOI skin + hydrogenous bulk organogel at same areal mass; no extra mass, no deep gel; 1.04t uncommitted remains inside original reserve, not a new credit."
  },
  "windows_wws1_round2": {
   "authority": "kT APPROVED 2026-11-03 / DRAFT / NON-CANON / NO MERGE",
@@ -3873,5 +3874,10 @@
   "unspent_reason": "only galley/exercise bounded sector envelopes and three medical port positions expanded; no fictitious new windows placed to consume a mass allowance; residual remains uncommitted",
   "legacy_berth_acrylic_plug_proposal": "RETIRED from active inputs; no acrylic plug, radiation credit, or storm-shelter window in WWS-1.",
   "g5_pane_spec_sync": "2026-11-03 pre-cert diagnosed the widened 2.2m L2 bay needs 19.1mm per loaded ceramic plate, but stale legacy G5 input specified 18mm. Sync pane_mm general/loung to the pre-existing WWS-1 28mm independent ceramic primary/backup; no additional mass or criterion change."
+ },
+ "og3_hydra": {
+  "path": "og3_hydra.json",
+  "sha256": "acb537a2cec2f15683c3eb156cdefade96e55a48e3f26112ffad49ad1d558e0a",
+  "status": "DRAFT kT merger decision; OG3 same AOI mass, no deep gel, zero dose credit"
  }
 }

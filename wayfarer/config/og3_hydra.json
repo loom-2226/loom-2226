@@ -1,0 +1,97 @@
+{
+  "id": "OG-3 HYDRA",
+  "status": "DRAFT/NON-CANON/UNQUALIFIED; kT decides merge",
+  "date": "2026-11-04",
+  "scope": "WWS-1 outer hull round ports, L2 panoramic band and crown's AOI interspace; no new opening or hull geometry",
+  "source": "WWS-1 R2, crown equivalent 3000 kg/45.037125 m2",
+  "areal_budget_kg_m2": 66.611712004,
+  "skin": {
+    "material": "AOI-2226 electro-optical control skin",
+    "thickness_m": 0.002,
+    "assumed_density_kg_m3": 1200,
+    "mass_kg_m2": 2.4,
+    "functions": [
+      "clear",
+      "glare",
+      "dark",
+      "NIR modulation"
+    ],
+    "optical_heat_credit": 0,
+    "structural_pressure_credit": 0
+  },
+  "bulk": {
+    "material": "hydrogenous sealed alkane organogel",
+    "mass_kg_m2": 64.211712004,
+    "assumed_density_kg_m3": 1000,
+    "equivalent_thickness_m": 0.064211712004,
+    "fractions_by_mass": {
+      "alkane_organogel_carrier": 0.985,
+      "hydrogen_functionalized_bnnt_fibre_network": 0.005,
+      "enriched_10B_carborane": 0.01
+    },
+    "nanofibre_requirement": "BNNT-H <1% by mass; optically index-matched, long-term dispersion UNPROVEN",
+    "alkane_hydrogen_mass_fraction_example": 0.14,
+    "notes": [
+      "0.005 BNNT-H mass fraction and 0.01 10B-carborane are unqualified modeling assumptions, not demonstrated transparent recipe",
+      "10B captures some thermal neutrons but produces capture reaction secondaries; ZERO radiation-dose benefit credited",
+      "Effective density 1000 kg/m3 is a speculative fit constraint; real alkane organogels are often less dense, so available cavity thickness may force a redesign"
+    ],
+    "nanofibre_max_mass_fraction": 0.01
+  },
+  "crown_fit": {
+    "crown_interspace_volume_m3": 3.023,
+    "crown_reference_projection_area_m2": 45.037125,
+    "minimum_local_gap_m": 0.05973,
+    "bulk_plus_skin_equivalent_column_m": 0.066211712004,
+    "cavity_fit": "Average-column only, local 59.73mm minimum means exact conformal cavity fill/thermal compliance OPEN. Do not assert local clearance.",
+    "deep_gel_added_t": 0,
+    "unspent_deep_gel_option_t": 1.04,
+    "unspent_class": "Already uncommitted; NO new reserve credit, NO physical addition"
+  },
+  "shield_areal": {
+    "outer_bumper_kg_m2": 37.5,
+    "primary_pressure_pane_kg_m2": 105,
+    "backup_pressure_pane_kg_m2": 105,
+    "open_og3_kg_m2": 66.611712004,
+    "shutter_closed_kg_m2": 270,
+    "replaced_armour_plus_hull_kg_m2": 350,
+    "nominal_open_column_g_cm2": 31.4111712004,
+    "nominal_closed_column_g_cm2": 58.4111712004,
+    "areal_kg_m2_per_g_cm2": 10,
+    "dose_credit_fraction": 0,
+    "GCR_dose_equivalent_mSv_y": null,
+    "SPE_dose_equivalent_mSv_event": null,
+    "physical_ray_mission_qualification": "PENDING actual composition-and-geometry particle transport; not certified by column sum"
+  },
+  "operating_rule": {
+    "open": "quiet sun only; radiation forecast and monitoring available, heat pump operational, low dust",
+    "close": [
+      "SPE alert",
+      "torch ignition or burn",
+      "Metric/LOOM",
+      "high dust / crown threshold exceeded",
+      "heat pump failure"
+    ],
+    "SPE_min_ray_loomscreen_g_cm2": 40,
+    "SPE_min_ray_class": "LOOM local ray design criterion; NOT asserted to be NASA's general SPE prescription"
+  },
+  "research": {
+    "source_urls": [
+      "https://ntrs.nasa.gov/citations/20170005580",
+      "https://ntrs.nasa.gov/api/citations/20170005580/downloads/20170005580.pdf"
+    ],
+    "literature_claim": "NASA Norman et al (2017) observed modeled aluminium minimum near 20-30 g/cm2 and hydrogen-rich polyethylene dose-equivalent curve flattening at higher areal depth; no universal 20 g/cm2 threshold or OG-3 dose computed"
+  },
+  "open": [
+    "sealed-organic flammability and pyrolysis (no atmospheric oxygen assumed, not zero fire risk)",
+    "radiolysis and gas evolution",
+    "outgassing / contamination of ceramics",
+    "freeze/boil viscosity and expansion operating range",
+    "BNNT-H dispersion lifetime, optical scattering and refractive matching",
+    "ceramic darkening and UV damage",
+    "10B capture secondary radiation and biological dose",
+    "fully filled pressure dome independent fracture/pulse",
+    "local 59.73mm minimum gap vs assumed 66.21mm equivalent column",
+    "long-life service and shutter-seam transport"
+  ]
+}
