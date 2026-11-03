@@ -1,105 +1,82 @@
-# Shuttle v1 × Wayfarer — integration preflight / STOP record
+# Wayfarer shuttle v1 integration: kT R1–R5 supersede widening preflight
 
 ALL bodies. ALL sponsors. 2026–2226.
 
-**Class: engineering-integration research / DRAFT / NON-CANON. kT APPROVED investigation 2026-11-03.**
-**Disposition: STOP before modifying governing Wayfarer geometry/config or claiming certification.**
-**Why:** the 4.3 m shuttle fails three *existing* G8 exit-path obstacles after merely widening the slot. The base Mars shield mass is not split from the Venus TPS in the merged sizer, and the 5 t reserve floor cannot be demonstrated with the required changes. No criterion may be weakened. No habitat, performance or canon mutation permitted.
+**DRAFT / NON-CANON / UNMERGED / RECERTIFICATION PENDING.**
+**2026-11-03:** This record **supersedes the prior slot-widening STOP** in this PR. R1 keeps all certified Wayfarer structure, slot, tank, longerons, strakes and hot fins unchanged. R2 restores the shuttle to 3.8m diameter; R3 resizes the pod to 2.5m OD and 3 crew; R4 conserves total 3–6t entry TPS via assumed 1–2t core Mars shield plus derived extra Venus kit TPS; R5 uses the exact resized core midpoint.
 
-## Live authority and fixed decisions
+## Exact new source and arithmetic
 
-- Base: `loom-2226/loom-2226` current `main` at branch creation. Source `wayfarer/config/wayfarer_v05_inputs.json`, `wayfarer/config/cert_criteria.json`, `wayfarer/lab/{build_v05.py,certify.py}`, merged `wayfarer/lab/shuttle/{shuttle_inputs.json,SHUTTLE_SIZER_REPORT.md,SHUTTLE_STAGE3_WORLDS_REPORT.md,OPEN_ITEMS.md}`. Shuttle baseline was merged through #458 at `7c6b9b42`; v1 *research*, not mission qualification.
-- D1 widen the lateral exit slot so `path_clearance_min_m=0.50` for 4.30 m shuttle. Do **not** alter that 0.50 m criterion or the 0.25 m bore radial criterion.
-- D2 exact **31.825 t** as the already-merged sizer's pre-reclassification midpoint A2 core, replacing **27.900 t** existing Wayfarer input; delta **+3.925 t**. The new core **cannot** remain 31.825 t after shifting additional TPS from kit unless an equal amount of existing core mass is demonstrably removed.
-- D3 assign the base Mars entry-TPS portion to core, only extra Venus protection to detachable Venus/Titan kit. **STOP:** the merged sizer has only *one combined* `entry_tps_t` range **3.0–6.0 t** (mid **4.5 t**) wholly tagged KIT. There is **no accepted base-versus-extra split**. Do not invent one or count a shield twice.
-- D4 Wayfarer electrolysis+LH2/LOX plant **1–4 t ASSUMPTION**, removable mission module counted in **PAYLOAD**, not dry; uses declared twin 50 MW net house reactors. Plant hardware, processing duty, storage and transfer remain unqualified. Payload-accounting intent only, no invisible extra 1–4 t of dry mass.
+- Sizer draft: `research/shuttle-v1-resize-20261103` (separate unmerged PR). New input JSON Git blob `a1a8db40fb53ab889fa9bafbe52c299b7a5e529d`. Resized core **30.020646738t** = midpoint of each independent bound, not median of 6561 scenarios. Base TPS **1.5t** included in core; extra Venus TPS **3t** midpoint included in kit, total **4.5t** conserved.
+- Current Wayfarer core **27.900000000t** → new **30.020646738t**; **+2.120646738t**.
+- Reserve ledger: **11.284117000t** initial → **9.163470262t** after single core debit. Margin over **5t floor = 4.163470262t**. No new tank/slot/structure debit. The existing 19.662t of released longeron allocation is already distributed; not a second pool.
+- Existing `ledger.venus_kit_t=1.7` is an obsolete non-booked annotation: builder and G1 do not use this field. **No 1.7t reserve credit** is taken. Kit actual midpoint **10.268750t** is PAYLOAD, not dry.
+- Removable electrolysis+H₂/O₂ liquefaction plant **1–4t ASSUMPTION** booked to PAYLOAD, not dry. Combined kit+plant midpoint **11.26875–14.26875t**, leaving **35.73125–38.73125t** of rated 50t free payload, before any other cargo.
+- `certify.py` G1 Option C historical reconciliation excludes the separately declared **2.120646738t** new shuttle debit; the frozen Option C amount and the >=5t floor are **not relaxed**. No other certification criterion is changed.
+- Existing Wayfarer `shuttle.water_cap_t=23.1`, `max_trip_t=51.1`, `torch_gw=7.7` retained as pre-existing assumptions, **not proven consistent** with the resized sizer's water/propulsion envelopes. A successful full G1–G12 execution must catch any incompatible invariants.
 
-## Step 1: necessary shuttle geometry, no false B/KF closure
+## G8() static clearance, unchanged geometry and criteria
 
-The G8 full-envelope gate **B remains OPEN**. Sizer inputs intentionally leave `mast_stowed_extra_diameter_m`, `hub_axial_length_m`, `crew_pod_x_m`, `rotor_mast_x_m`, `rotor_retracted_cg_m` and `pod_door_ramp_external_excursion_m` null. A notional viewer in draft #459 is *not* accepted 3D engineering geometry. Needed: actual mast/hub hinge length/diameter, folded 12 m rotor roots, four blade paths and spine groove, full pod/chassis/nozzle envelope, pod x and all-phase CG, door/ramp collision envelope and nose/pressure-transfer clearances.
+Source `wayfarer/lab/certify.py:g8`; shuttle radius **1.9m**; slot half-width **2.4m**, bore radius **2.4m**, shuttle length **12.8m**, bay x=18.25–32.05m, shuttle x=18.75–31.55m.
 
-The core **4.30 m** nominal cylinder inside the **4.80 m** bay bore yields **0.250 m** radial gap, exactly the certification minimum; not an allowance for any protruding mast, blades, belly nozzles or landing gear. Axial 12.80 m shuttle in 13.80 m bay has exactly 0.500 m per end in the present dock location. The unqualified mass/CG and geometries preclude B PASS.
-
-The **KF physical kit-fit gate remains OPEN/FAIL conditional on volume**. The separately charged Venus/Titan kit ranges **6.925–16.6125 t** in the merged sizer, charged to up-to-50 t mission payload, not docked shuttle dry. The current holds occupy x=14–17 m; outer hatch features are **2.4×1.8 m**; 3 m blade segments and finite-width hot-gas joints are not proven to pass aperture, clearance, bend routing, pack volume or reassembly. Existing numerical KV aggregate-volume PASS is not KF physical PASS.
-
-## Step 2: G8 clearance, tank and reserve feasibility
-
-### D1: static G8 exit-path equations at the proposed 2.65 m slot half-width
-
-Using exact `wayfarer/lab/certify.py:g8` source geometry with shuttle radius 2.15 m:
-
-| Obstacle | Available (m) | G8 required (m) | Result |
+| Check | Actual m | Criterion m | Static outcome |
 |---|---:|---:|---|
-| 4.8 m bore radial | 0.250 | 0.250 | PASS, **nominal hull only** |
-| +Z slot edge and door at y=2.65 | 0.500 | 0.500 | PASS, **nominal hull only** |
-| Sill longerons at |y|=2.75 with 0.4 m tube | 0.400 | 0.500 | **FAIL by 0.100** |
-| Two upper strake envelopes, 40°/140° | 0.271390 | 0.500 | **FAIL by 0.228610** |
-| Hot-fin fold corridor after widened slot | 0.795875 | 1.000 | **FAIL by 0.204125** |
+| Bore radial | 0.500000 | >=0.250 | PASS |
+| Forward axial | 0.500000 | >=0.500 | PASS |
+| Aft axial | 0.500000 | >=0.500 | PASS |
+| Slot edge and opened doors | 0.500000 | >=0.500 | PASS |
+| Upper sill longerons | 0.650000 | >=0.500 | PASS |
+| Upper radiator strakes (40/140 deg) | 0.521390 | >=0.500 | PASS |
+| Folded hot fins relative to slot edge | 1.045875 | >=1.000 | PASS |
 
-**STOP**: changing `tanks.slot_half_width_m` and `bay.slot_half_width_m` to 2.65 m alone cannot certify G8. Proposed mitigations would move/reshape upper longerons, strake grooves/roots and fin root/stack, and require structural, heat and G10 performance recertification. No such redesign has been chosen or booked.
+**All listed nominal G8 static clearance equations PASS on paper.** This is NOT an executed `g8()` certification run or a fully qualified stowed envelope: the strake margin is only **0.02139m**, and the unchanged slot's exact 0.5m exit clearance leaves no allowance for rotor/hub, wheels, pod ramp, belly nozzles, door seals, or any hull protrusion. B stays OPEN until actual stowed geometry is known. KF stays OPEN until actual individual hold apertures, 3m hot-blade joints, and packed assemblies are demonstrated. G8 itself also includes hold free volume and transfer tunnel checks.
 
-### Tank volumetry, reproduced from the active 300×1440 deterministic CSlot polar-midpoint algorithm and plate-sizing equations
+## Resized sizer deterministic gate fractions (6561 samples, min/mid/max; NOT probabilities)
 
-| Quantity | Current hw=2.40, L=13.500 | Candidate hw=2.65, L=13.500 | Candidate hw=2.65, L=14.012791 |
-|---|---:|---:|---:|
-| Cross-section gross m² | 24.258575 | 22.938035 | 22.938035 |
-| Gross tank m³ | 327.490764 | 309.663469 | ~321.425 |
-| Structural displacement m³ | 5.870097 | 6.172303 | 6.425883 |
-| **Net tank m³** | **321.620667** | **303.491167 FAIL** | **315.000000 (calculated boundary)** |
-| Tank structural panel mass required t | 18.288662 | 18.426124 | 19.285156 |
+| Gate | Old 4.3m | New 3.8m | Status |
+|---|---:|---:|---|
+| A full dry | 243/6561 = 3.704% | 486/6561 = 7.407% | Screen |
+| A2 core dry | 4374/6561 = 66.667% | 5103/6561 = 77.778% | Screen |
+| KV kit aggregate volume | 4860/6561 = 74.074% | 5103/6561 = 77.778% | Screen |
+| KF physical kit fit | 0 PASS, 4860 OPEN | 0 PASS, 5103 OPEN | **OPEN/FAIL** |
+| B physical bay/stow | 6561 OPEN | 6561 OPEN | **OPEN** |
+| R rotor screen | 6561 PASS | 6561 PASS | Conditional |
+| C ideal torch ascent water | 5589/6561 = 85.185% | 5670/6561 = 86.420% | Conditional |
+| DS3 three-crew Venus surface | Not run | 2835/6561 = 43.210% | Conditional screen; **not qualified** |
 
-Widening alone costs **17.827295 m³ gross / 18.129501 m³ net**. A **+0.512791 m** tank extension restores *exactly* 315 m³ under this analytical geometry and pressure-panel model, before full-build clearance/CG verification. The tank panel requirement increases **0.996494 t**; whether the current 32 t tank-shell/C-tank penalty allocation can absorb this must be verified without double-counting. If the entire ship's midship is lengthened at active **2.632 t/m**, the separate ship structure *line* implies about **1.349665 t**. The rear electrical ring, bulkheads, nozzle, fins, door, radiator and hull stations must be relocated consistently. Do **not** simply extend tanks from x=31.5 into the pre-existing x=31.5–32.3 aft electrical C-ring: it houses existing declared hardware and is not an empty volume.
+**New kit** min/mid/max (independent bounds): 5.925 / 10.26875 / 14.6125t; 3–6t old TOTAL entry TPS conserved through 1–2t CORE base and correlated 1–5t EXTRA. Pod shell, fittings, hull, chassis, door and gear mass rescaled with documented simple geometric ASSUMPTIONS, not certified designs. WHOI Alvin supports *three humans in 2.1m internal-diameter sphere* as precedent, not proof this 2.5m OD LOOM pressure sphere meets 92bar Venus external pressure, hot knockdown or required hatch/windows.
 
-Exactly 315 m³ is **not** a design margin. The full builder and G1 must show >=315 with geometry actually adopted.
+## Stage 3 worlds
 
-### Reserve ledger: cannot declare a compliant integration without D3 split and structural accounting
+All worlds share new A2 **5103/6561 PASS** (77.778%). Titan KIT_VOLUME **5103/6561**, ROTOR_MODEL_TOP **3645/6561** (55.556%); its FLIGHT_TOTAL remains OPEN/FAIL. Moon/Mars/Mercury A2_CHEM **5103/6561** each, but FLIGHT_TOTAL remains OPEN/FAIL due to electrolysis, cryo, physical and flight holds. Do not promote screens to certification.
 
-The live ledger field `ledger.engineering_reserve_t` is **11.284117 t** (kT's ~11.3 t). The separately reported builder `ledger_reserve_t=30.946117 t` also includes **19.662 t of old structure reallocation already distributed into dry parts**, NOT a second pool of unassigned reserve. The builder inflates every dry part by the reserve spread factor; e.g., existing input shuttle 27.900 t becomes a **29.00005 t** geometry part. Account for this when rebalancing, do not silently equate the two physical values.
+## New Wayfarer G1–G12 certification status
 
-| Debit / milestone | Engineering reserve t | Status |
-|---|---:|---|
-| Live starting unallocated reserve | **11.284117** | Above 5.0 |
-| D2 declare pre-TPS core 31.825 vs 27.900, nominal delta 3.925 | **7.359117** | Provisional accounting, before builder spread |
-| Proposed +0.512791 m × 2.632 t/m structure line, if spent from reserve | **~6.009451** | Provisional; cannot certify geometry or performance |
-| If 0.996494 t extra tank panel is **also** a separate reserve debit | **~5.012957** | Barely above floor; **do not double-count if absorbed by allocated tank-shell line** |
-| D3 move full 4.500 t midpoint TPS allowance to core, **illustration only** | **~1.509451** without extra tank-panel debit, or **~0.512957** with it | **FAIL <5.0** |
-| D3 move 3.000 t of existing TPS to core, **illustration only, NOT kT split** | **~3.009451** without extra tank-panel debit, or **~2.012957** with it | **FAIL <5.0** |
-| D4 removable electrolysis+liquefaction module 1–4 t to payload | **No direct engineering reserve debit** | Payload volume, attachment, power/cryogenic safety and remaining cargo checks OPEN |
+**NOT EXECUTED.** GitHub content API can edit and verify branch source but does not execute the Python builder or produce the mandatory new deterministic geometry hash, `results/out` artifacts, renders and G1–G12 reports. Old main report/hash cannot be reused for changed shuttle mass and CG.
 
-To retain the 5.0 t floor after D2 + midship structural line, *every additional reserve debit* (base heat shield **plus** added door/fins/longerons/tank panel if not already covered) must total **<=1.009451 t**. If tank-panel increment must also be separately paid, only **~0.012957 t** remains. Because the base TPS split and geometry-obstacle redesign masses are undefined, **neither the floor nor unchanged performance can be certified**. No extra mass may be hidden in existing 55 t electrical or 50 t payload line without an identified tradeoff.
-
-Full TPS reclassification in the *current sizer* would make the midpoint docked core **36.325 t**, over G8's 34.2 t nominal sizer limit, and change resolved A2 fraction from 4374/6561 (66.667%) to **1701/6561 (25.926%)**. Moving an illustrative fixed 3 t to core gives **34.825 t midpoint** and **2187/6561 (33.333%)** A2 PASS. Neither split is accepted: these are non-authoritative *sensitivity checks* that prove a need for D3 mass clarity and A2 rerun.
-
-The detachable Venus/Titan kit **6.925–16.613 t** plus a **1–4 t** Wayfarer-owned mission plant would use **7.925–20.613 t** of the 50 t rated payload in missions loading both, leaving **29.387–42.075 t** of other free cargo by mass. Rated total cargo is unchanged; **unrestricted 50 t extra free cargo** is NOT preserved. This does not imply a dry-mass debit for the plant.
-
-## Step 3: required G1–G12, *not* falsely rerun
-
-The old `main` report's G1–G12 PASS/PASS-DECLARED applies to the **old** inputs and frozen geometry hash `4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331`, **not** to proposed integration. No governing config, criteria or geometry artifact was changed after identifying necessary G8 and reserve blockers. Therefore there is **no new geometry hash, no new G1–G12 certificate**.
-
-| Gate | Existing main | Integration status / why cannot claim PASS |
+| Gate | Status | Required proof |
 |---|---|---|
-| G1 mass/fluid ledger | PASS | NOT RUN; reserve floor and base TPS transfer unresolved, tank must stay >=315 m³ |
-| G2 torch/reach | PASS | NOT RUN; no total wet mass or performance change allowed |
-| G3 balance/attitude | PASS | NOT RUN; pod, reactor, mission payload and extended midship shift CG |
-| G4 power/heat | PASS-DECLARED | NOT RUN; Wayfarer 2×50 MW electrolysis, peak load and source availability; no extra credited power |
-| G5 structure/loads | PASS-DECLARED | NOT RUN; sill longerons, tanks, shell/door and fin mounts require relocation/resizing |
-| G6 radiation | PASS-DECLARED | NOT RUN; no protected-water/habitat loss or unapproved shield mutation |
-| G7 crew/habitat | PASS-DECLARED | NOT RUN; must demonstrate **zero habitat volume or access loss** |
-| G8 shuttle/bay/exit/holds | PASS | **STATIC PREFLIGHT FAIL** at longerons, strakes, fins; KF and complete shuttle stowage OPEN |
-| G9 failures/reserves | PASS-DECLARED | NOT RUN; unallocated engineering reserve >=5 t unproven after D3 and repairs |
-| G10 dynamics | PASS-DECLARED | NOT RUN; new geometry/CG/inertia and lost-strake/fin cases required |
-| G11 canon fit | PASS | NOT RUN; existing §3 and §6 proposed canon refer to old rover-drop shuttle |
-| G12 renders | PASS-DECLARED | NOT RUN; existing render outputs and SHA belong to old design |
+| G1 mass/fluid | PENDING RUN | Dry sum constant with reserve transfer; wet inventory; G1 historical Option C debit separation |
+| G2 torch/performance | PENDING RUN | No reduction in full/empty mission delta-v, remass or 50t gross payload |
+| G3 balance | PENDING RUN | Recompute seven state CG, inertia, torch thrust offset |
+| G4 thermal/electrical | PENDING RUN | Unchanged ship heat; electrolysis draws house power only when scheduled |
+| G5 structure | PENDING RUN | Unchanged geometry; resized shuttle restraint loads |
+| G6 radiation | PENDING RUN | Unchanged protected water/shield |
+| G7 habitat | PENDING RUN | Zero habitat volume loss |
+| G8 shuttle exit | **NOMINAL STATIC PASS; FULL G8 PENDING RUN** | Unchanged criteria, tunnel/holds; full stowed B/KF remain OPEN |
+| G9 failures/reserve | PENDING RUN | Reserve **9.163470262 >=5t**; all failure cases |
+| G10 flight dynamics | PENDING RUN | New mass distribution/CG/inertia, one-cluster failure |
+| G11 canon fit | PENDING RUN | Proposal-only amendment |
+| G12 renders | PENDING RUN | New geometry hash and render checks |
 
-**No acceptance criterion has been relaxed. No full recertification result is implied.**
+**No new geometry hash or certificate claimed.** No habitat, slot, tank, longeron, strake, fin or performance criterion has been modified. Physical invariants are unqualified until executed and reviewed.
 
-## Step 4 / STOP decision needed
+## Remaining blockers and explicit holds
 
-- **D3 TPS split:** How much of the merged 3.0–6.0 t entry TPS is reusable Mars CORE protection? Exactly how much additional Venus/Titan TPS remains PAYLOAD? Re-run A2 and G8 34.2t after that split, preserving mass once.
-- **D1 actual obstruction layout:** Authorize a specific minimal longerson/strake/fin geometry that maintains 0.50 m G8 exit path, 1.00 m fin corridor and original heat/structure/flight performance. A 2.65 m slot is a *candidate*, not an adequate solution on its own.
-- **Reserve and structure:** Decide how the 0.996 t extra tank-panel requirement is paid and whether new aft-ship structural length draws 1.350 t from reserve. Demonstrate >=5 t after **all** new hardware, including doors and longeron work, without using the already-distributed 19.662 t twice.
-- **D4 plant:** Confirm whether reduced **free mission cargo** when carrying the removable 1–4 t plant is acceptable within the rated 50 t payload, and where its real envelope/power/cryogenic interfaces fit.
+1. Execute existing Wayfarer builder and `certify.py` on this branch, regenerate and inspect all artifacts, record actual G1–G12, CG/inertia, new hash, 50t payload and performance. **Do not merge until this exists.**
+2. Produce physical 3.8m stowed-envelope/rover geometry: 2.5m sphere, chassis+wheels, mast/hub, folded blades, nozzle/gear, ramp, actual CG. G8's narrow strake clearance and 0.5m slot leave no protrusion margin.
+3. Physically qualify KF apertures and blade joints; actual Venus kit mass/volume and cryogenic 1–4t electrolysis plant placement in payload.
+4. BASE TPS 1–2t is an **ASSUMPTION** informed by NASA reference aeroshell fractions, **not** a NASA-specified shuttle design. Determine entry trajectories, aerothermal load, shell mass and whether 1–2t is credible.
+5. KEEP OPEN: dense CO₂ torch, ascent trajectories, pressure-sphere buckling, world-specific surface thermal, Titan, electric belly alternative.
 
-**Explicit preserved holds:** Venus dense CO₂ torch ignition/handover, full ascent Δv and trajectories, 2.8 m pressure sphere and buckling, world-specific surface thermal, Titan rotor/atmosphere, and electric-water belly GW tap. All remain OPEN.
-
-**STOPPING CONDITION ACTIVATED (pre-integration feasibility):** existing D1 candidate fails strict G8; an illustrative physically meaningful D3 base-shield transfer breaches the 5 t reserve floor. The missing D3 split forbids picking a compliant mass out of thin air. Stop before implementing a knowingly failing design. Provide this report and draft proposal for kT; do not merge, rebaseline, or promote to canon.
+**No merge, no canon promotion.**
