@@ -164,7 +164,7 @@ function assess(b,w,name,s){
  if(!titan){
    flags.FLIGHT_E=flags.A2==="FAIL"||flags.BELLY_WATER_E==="FAIL"?"FAIL":"OPEN";
    flags.FLIGHT_C=flags.A2_CHEM==="FAIL"||flags.BELLY_WATER_C==="FAIL"?"FAIL":"OPEN";
-   flags.FLIGHT_TOTAL=flags.FLIGHT_E==="FAIL"&&flags.FLIGHT_C==="FAIL"?"FAIL":"OPEN";
+   flags.FLIGHT_TOTAL=flags.FLIGHT_C; // kT baseline chemical; electric remains a separate research alternative
  }
  const waterPhases=titan?[
   {phase:"entry/rotor (no reaction-water debit)",reactionWaterT:stored,coldCrewWaterT:cold,custodyT:cargo,chargedRemassT:0},
@@ -259,14 +259,15 @@ function report(b,w,baseSha,worldSha,a){
  for(const [name,z] of Object.entries(a.worlds))for(const [key,x]of Object.entries(z.gates))
   add("| "+name+" | "+key+" | "+x.PASS+" | "+x.FAIL+" | "+x.OPEN+" | "+x["N/A"]+" | "+showGate(x)+" |");
  add("","## Interpretation and accounting",
+ "**BASELINE SELECTED (kT):** chemical H2/O2 belly is authoritative for Moon, Mars and Mercury polar noncanon screening; electric/thermal water is RESEARCH ALTERNATIVE only. FLIGHT_TOTAL for those worlds mirrors FLIGHT_C (baseline), not the union of architectures. Titan remains rotor + house kit.",
  "**A2:** The original 34.2t G8 docked-core dry cap. Electric/core uses the existing small-belly-thruster dry part. Chemical also charges its **additional cryo tank 0.3–0.8t**; no Venus/Titan kit on Moon, Mars or Mercury.",
  "**BELLY_TW_E / BELLY_TW_C:** chosen thrust-to-weight target 1.2–1.5 at each world's local g, applied to the initial sampled wet mass, not the abandoned Venus fixed-thrust array. Because thrust is being **sized** by this formula, these gates mechanically PASS by construction. They do NOT certify installed thrust, combustion, motor mass, duty, exhaust plume or structure.",
  "**BELLY_WATER_E / BELLY_WATER_C:** finite 23.1t reaction-water stock charged once for belly sortie Δv 0.3–0.6km/s (touchdown + hover + lift to torch pitch-up) **AND** main torch ideal circular-speed lower bound at world g/radius, with cryo boil-off also debited for chemical. PASS means this lower-bound water ledger closes. Actual required orbit Δv and thrust/duty remain OPEN.",
- "**Electric/thermal architecture (a):** water exhaust 6–12km/s, directed jet power P=F×ve/2, reactor input=P/(0.30–0.70 efficiency). The GW tap from the shuttle's torch reactor is OPEN. Wayfarer only declares a 63.36MW RAW **burn-only** torch tap, not a GW supply. Water-gate PASS does not imply a viable input power system.",
- "**Chemical architecture (b):** H2/O2 exhaust 4.0–4.4km/s from conventional high-performance engine analogues, whole propellant from water electrolysed **on Wayfarer before sortie**, 2×50MW net house reactors (DECLARED_2226), then shipped in a **0.3–0.8t** cryogenic tank. LOX+LH2 and water are mutually exclusive accounting forms; never double-count propellant mass. Boil-off 0.5–2%/day; an explicit **0–1day ASSUMPTION** is swept because no actual hold-time was supplied. The plant/liquefier, tanks, engine packaging and oxygen/hydrogen interfaces remain OPEN.",
- "**Electrolysis evidence:** requested **13–16 kWh per kg of WATER** is retained as a conservative **ASSUMPTION**, NOT mislabelled ONLINE. Conventional published figures of ~45–55kWh/kg H2 correspond to ~5–6kWh/kg stoichiometric water. The user's larger budget might allow unallocated processing, liquefaction, handling and margin, but no published exact 13–16 figure for water was verified.",
+ "**Electric/thermal architecture (a), RESEARCH ALTERNATIVE:** water exhaust 6–12km/s, directed jet power P=F×ve/2, reactor input=P/(0.30–0.70 efficiency). The GW tap from the shuttle's torch reactor is OPEN. Wayfarer only declares a 63.36MW RAW **burn-only** torch tap, not a GW supply. Water-gate PASS does not imply a viable input power system.",
+ "**Chemical architecture (b), kT BASELINE for Moon/Mars/Mercury:** H2/O2 exhaust 4.0–4.4km/s from conventional high-performance engine analogues, whole propellant from water electrolysed **on Wayfarer before sortie**, 2×50MW net house reactors (DECLARED_2226), then shipped in a **0.3–0.8t** cryogenic tank. LOX+LH2 and water are mutually exclusive accounting forms; never double-count propellant mass. Boil-off 0.5–2%/day; an explicit **0–1day ASSUMPTION** is swept because no actual hold-time was supplied. The plant/liquefier, tanks, engine packaging and oxygen/hydrogen interfaces remain OPEN.",
+ "**Electrolysis evidence:** source-backed electrolysis input **"+p(w.belly.chemical.electrolysis_kWh_per_kg_water.min)+"–"+p(w.belly.chemical.electrolysis_kWh_per_kg_water.max)+" kWh per kg of stoichiometric WATER**, tagged ONLINE (DERIVED from US DOE reported hydrogen-electricity figures and H₂/H₂O mass ratio 0.112). This is **electrolysis only**; Wayfarer oxygen/hydrogen liquefaction, delivery, insulation, plant hardware and additional energy remain OPEN, not silently included.",
  "**Titan:** rotor + previously defined detachable reactor kit, no belly architecture. The 60km upper atmosphere model boundary is NOT a needed handover height; the rocket plume and actual Titan upper atmosphere remain OPEN.",
- "**Full orbit and thermal gates:** remain OPEN, including cryogenic hardware integration, GW tap, Mercury polar-site thermal environment and G8 hold clearance. No convenient numerical lower-bound PASS promotes these to mission certification.",
+ "**Full orbit and thermal gates:** remain OPEN even for selected chemical baseline, including cryogenic hardware integration, Mercury polar-site thermal environment and G8 hold clearance; GW electrical tap remains an alternative-only OPEN. No convenient numerical lower-bound PASS promotes these to mission certification.",
  "",
  "## Planetary outputs and sensitivity");
  for(const [name,z]of Object.entries(a.worlds)){
@@ -286,8 +287,8 @@ function report(b,w,baseSha,worldSha,a){
     for(const row of e.waterPhases)add("| "+row.phase+" | "+p(row.reactionWaterT)+
      " | "+p(row.chargedRemassT)+" | "+p(row.coldCrewWaterT)+" | "+p(row.custodyT)+" |");
   }else{
-    add("**World-specific belly requirements, min / mean / max over 6,561 samples:**",
-     "| Quantity | (a) Electric/thermal water | (b) Wayfarer H2/O2 |",
+    add("**World-specific belly requirements, min / mean / max over 6,561 samples. H2/O2 is the kT BASELINE, electric water a RESEARCH ALTERNATIVE:**",
+     "| Quantity | (a) Electric/thermal water (RESEARCH) | (b) Wayfarer H2/O2 (BASELINE) |",
      "|---|---:|---:|");
     for(const [label,k,unit]of [
      ["Initial wet mass","initialWetT"," t"],
@@ -310,8 +311,8 @@ function report(b,w,baseSha,worldSha,a){
     add("Both architectures calculate **thrust required** from sampled T/W and the respective actual wet vehicle mass. A1/A2 engine actuator specific thrust and installed hardware capability are still OPEN; the chemical dry tank is included once.",
      "The full water debit includes belly touchdown, hover and liftoff to pitch-up **once per sortie**, followed by the ideal circular-speed torch lower-bound. In chemical mode, the generated 1kg of combined H2/O2 *replaces* 1kg water; loaded propellant and reaction water are not additional to the 23.1t initial stock.",
      "#### First sampled phase ledgers");
-    for(const kind of ["electric","chemical"]){
-     const c=e.architectures[kind];add("**"+(kind==="electric"?"(a) Electric/thermal water":"(b) Wayfarer-manufactured H2/O2")+"**",
+    for(const kind of ["chemical","electric"]){
+     const c=e.architectures[kind];add("**"+(kind==="electric"?"(a) Electric/thermal water — research alternative":"(b) Wayfarer-manufactured H2/O2 — BASELINE")+"**",
       "Required "+p(c.thrustkN)+" kN at T/W "+p(c.tw)+
       ", belly Δv "+p(c.bellyDvKmps)+"km/s; ideal circular-speed torch floor "+
       p(c.torchWaterNeedT)+"t.",
