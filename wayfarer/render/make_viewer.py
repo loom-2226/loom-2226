@@ -33,7 +33,7 @@ def version_pack(geo_p, rep_p, cmd_p, hab_p, inp_p, check_scene=True):
     cmd = json.loads(cmd_p.read_text())
     hab = json.loads(hab_p.read_text())
     if check_scene:
-        assert cmd["geometry_sha256"] == sha, "l1_scene.json is stale: run command/l1_study.py"
+        assert cmd["geometry_sha256"] == sha, "l1_scene.json is stale: run render/sync_i4_scene.py"
     S1 = G["states"]["S1"]
     gates = [{"g": g["gate"], "t": g["title"], "v": g["verdict"]} for g in R["gates"]]
     g2 = next(g for g in R["gates"] if g["gate"] == "G2")
