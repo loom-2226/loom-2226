@@ -1,7 +1,7 @@
 {
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
  "status": "NON-GOVERNING G10 v0.2 flight-dynamics tests (engineering); not mission results, not canon outputs",
- "geometry_sha256": "293a4e90389acdc1450a888cbabb095d19803c5e9d4c100eb76162c4f4cfed38",
+ "geometry_sha256": "bd0b779c57782d8647c15459f4848245c1dd8cc083e6399f7d413c8dd9d7a187",
  "sources": {
   "main_commit": "19377b854c529e74afc61202d9eb2e780c5b4884",
   "rcs_controller": "src/wayfarer_rcs_closed_loop_gnc.py:_torque_command, gains and gates",
@@ -14,8 +14,8 @@
   "C_card": [
    {
     "name": "card names the geometry it was made from",
-    "value": "293a4e90389a",
-    "limit": "293a4e90389a",
+    "value": "bd0b779c5778",
+    "limit": "bd0b779c5778",
     "pass": true,
     "unit": "",
     "note": ""

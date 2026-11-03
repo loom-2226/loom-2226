@@ -2,7 +2,7 @@
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
  "status": "NON-GOVERNING SANDBOX certification run",
  "basis": "CERTIFICATION_BASIS.md v0.2 (agreed by Claude and Sol; PROPOSED to kT)",
- "geometry_sha256": "293a4e90389acdc1450a888cbabb095d19803c5e9d4c100eb76162c4f4cfed38",
+ "geometry_sha256": "bd0b779c57782d8647c15459f4848245c1dd8cc083e6399f7d413c8dd9d7a187",
  "inputs_sha256": "9e9d754055cc2947e694182f83721ebfc7fa3341c58d861ca0322c1cedfbc0c2",
  "criteria_sha256": "5bf7777930bb8dc1e72460daf3b1e5a6776b7b9f266e68269f0e7d847823d980",
  "summary": {
@@ -1276,10 +1276,10 @@
    },
    "ship_power": {
     "status": "NON-CANON ENGINEERING SCREEN; NO PHYSICAL QUALIFICATION",
-    "geometry_sha256": "293a4e90389acdc1450a888cbabb095d19803c5e9d4c100eb76162c4f4cfed38",
+    "geometry_sha256": "bd0b779c57782d8647c15459f4848245c1dd8cc083e6399f7d413c8dd9d7a187",
     "input_sha256": "9e9d754055cc2947e694182f83721ebfc7fa3341c58d861ca0322c1cedfbc0c2",
-    "rcs_trace_sha256": "be176fc58438097e16cfbcc054355f9efdb2a4bb9a1a5ee1688e7de294585feb",
-    "rcs_trace_60s_sha256": "554e70889628b0077325e327dd9305354aaca376aa5844cae5b483070eecae6b",
+    "rcs_trace_sha256": "1de4f4e34409b875bd7b0b669bc84b6619dc1d243ae957fd8583899b79150aa7",
+    "rcs_trace_60s_sha256": "3511020847f493ae8fc9ca399c1bca3a638d90d429edda9702d365c5018577e9",
     "reactor": {
      "count": 2,
      "per_unit_net_mw": 50,
@@ -1322,7 +1322,7 @@
     },
     "rcs_trace": {
      "status": "CURRENT GEOMETRY NUMERICAL TRACE ONLY; NOT HARDWARE QUALIFICATION",
-     "geometry_sha256": "293a4e90389acdc1450a888cbabb095d19803c5e9d4c100eb76162c4f4cfed38",
+     "geometry_sha256": "bd0b779c57782d8647c15459f4848245c1dd8cc083e6399f7d413c8dd9d7a187",
      "dt_s": 0.1,
      "scenario": "CURRENT GEOMETRY 40s pitch 180 diagnostic",
      "duration_s": 40,
@@ -1358,7 +1358,7 @@
     },
     "rcs_60s_degraded_trace": {
      "status": "CURRENT GEOMETRY NUMERICAL TRACE ONLY; NOT HARDWARE QUALIFICATION",
-     "geometry_sha256": "293a4e90389acdc1450a888cbabb095d19803c5e9d4c100eb76162c4f4cfed38",
+     "geometry_sha256": "bd0b779c57782d8647c15459f4848245c1dd8cc083e6399f7d413c8dd9d7a187",
      "dt_s": 0.1,
      "scenario": "CURRENT GEOMETRY 60s pitch 180 diagnostic",
      "duration_s": 60,
@@ -2556,7 +2556,7 @@
      "note": ""
     },
     {
-     "name": "inside the shield's shadow: Rover-drop shuttle (docked, tanks empty)",
+     "name": "inside the shield's shadow: Shuttle v1, 3.8 m, 3-crew pod (docked, tanks empty)",
      "value": 1.1,
      "limit": 0.5,
      "unit": "m margin",
@@ -2929,8 +2929,8 @@
     },
     {
      "name": "I4 human-factors source geometry hash",
-     "value": "293a4e90389acdc1450a888cbabb095d19803c5e9d4c100eb76162c4f4cfed38",
-     "limit": "293a4e90389acdc1450a888cbabb095d19803c5e9d4c100eb76162c4f4cfed38",
+     "value": "bd0b779c57782d8647c15459f4848245c1dd8cc083e6399f7d413c8dd9d7a187",
+     "limit": "bd0b779c57782d8647c15459f4848245c1dd8cc083e6399f7d413c8dd9d7a187",
      "unit": "",
      "pass": true,
      "note": ""
@@ -3352,8 +3352,8 @@
    "checks": [
     {
      "name": "C: card names the geometry it was made from",
-     "value": "293a4e90389a",
-     "limit": "293a4e90389a",
+     "value": "bd0b779c5778",
+     "limit": "bd0b779c5778",
      "pass": true,
      "unit": "",
      "note": ""
@@ -3666,7 +3666,7 @@
     {
      "item": "Shuttle",
      "canon": "candidate 30-35 t launch, ~10.5 m (not canon)",
-     "v0.5": "rover-drop shuttle 30.020646738 t empty, 12.8 m"
+     "v0.5": "shuttle v1 30.021 t empty, 12.8 x 3.8 m"
     },
     {
      "item": "Torch internals",
@@ -3687,8 +3687,8 @@
    "checks": [
     {
      "name": "render manifest matches locked geometry",
-     "value": "293a4e90389acdc1450a888cbabb095d19803c5e9d4c100eb76162c4f4cfed38",
-     "limit": "293a4e90389acdc1450a888cbabb095d19803c5e9d4c100eb76162c4f4cfed38",
+     "value": "bd0b779c57782d8647c15459f4848245c1dd8cc083e6399f7d413c8dd9d7a187",
+     "limit": "bd0b779c57782d8647c15459f4848245c1dd8cc083e6399f7d413c8dd9d7a187",
      "unit": "",
      "pass": true,
      "note": ""
@@ -4047,6 +4047,6 @@
   "rcs_power_source": "OPEN: idle torch reactor versus dedicated supply; no ship-wide budget",
   "rcs_power_option_B": "hot-water store OPTION, not baseline",
   "required_final_authority": "separate reviewer signatures and loom-gate per existing basis",
-  "geometry_sha256": "293a4e90389acdc1450a888cbabb095d19803c5e9d4c100eb76162c4f4cfed38"
+  "geometry_sha256": "bd0b779c57782d8647c15459f4848245c1dd8cc083e6399f7d413c8dd9d7a187"
  }
 }
