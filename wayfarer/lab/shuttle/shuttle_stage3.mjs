@@ -31,7 +31,7 @@ function dry(b,s){
  const exclude=new Set(["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"]);
  const raw=get(b,null,"power.kit_house_reactor_thermal_MW",s);
  const house=raw*num(b.power.kit_house_reactor_direct_conversion_efficiency)/num(b.power.kit_house_reactor_net_specific_kW_per_kg);
- const parts=Object.entries(b.mass).filter(([k])=>!exclude.has(k)).map(([k,x])=>[k,k==="kit_house_reactor_t"?house:(range(x)?get(b,null,"mass."+k,s):num(x))]);
+ const parts=Object.entries(b.mass).filter(([k])=>!exclude.has(k)&&k!=="entry_tps_t").map(([k,x])=>[k,k==="kit_house_reactor_t"?house:k==="extra_venus_entry_tps_t"?get(b,null,"mass.entry_tps_t",s)-get(b,null,"mass.base_entry_tps_core_t",s):(range(x)?get(b,null,"mass."+k,s):num(x))]);
  if(parts.some(([,v])=>v===null||!Number.isFinite(v)))throw Error("non-numeric dry mass");
  const total=parts.reduce((a,[,v])=>a+v,0),kit=parts.filter(([k])=>b.kit.mass_component_keys.includes(k)).reduce((a,[,v])=>a+v,0);
  return {total,kit,core:total-kit,house,parts};
