@@ -39,7 +39,7 @@ Reason: the C-tank lets the launch sit on the thrust axis inside the tank instea
 ## 3. Launch bay (would amend v2.4a §1-2)
 
 - Round bore 4.8 m across, x ~18.25-32.05, on the ship's axis inside the tank. Replaces the x 16-28 reservation.
-- Lateral departure through a 4.8 m slot on +Z; two doors that open to vertical. Unchanged in principle: unpressurized, substantially enclosed, lateral departure.
+- **SHUTTLE V1 INTEGRATION PROPOSAL ONLY (kT 2026-11-03):** nominal round bore remains 4.8 m; proposed +Z slot increases from 4.8 m to at least 5.3 m to allow 0.50 m nominal 4.3 m shuttle exit-path clearance. **NOT ACCEPTED GEOMETRY:** live G8 still FAILS at the upper sill longerons (0.40 m available), upper strake envelope (0.271 m), and folded hot-fin corridor (0.796 m vs 1.00 m required). Final slot, doors, longerons, strakes and hot fins require engineered clearance without loss of thermal, habitat or flight performance. Two bay doors still open to vertical; bay stays unpressurized and substantially enclosed. See `wayfarer/lab/shuttle/WAYFARER_INTEGRATION_PREFLIGHT_2026_11_03.md`.
 - Pressure-tight crew transfer by tunnel: habitat L5 vestibule, collar node, bay axis, shuttle nose port.
 - DOCKED / ABSENT mass state is unchanged and is carried in every mass state.
 
@@ -71,7 +71,15 @@ Low signature is a skin criterion: an operational constraint, not a promise of i
 
 ## 6. Planetary launch
 
-Rover-drop shuttle: 27.9 t empty, 12.8 x 3.8 m. The Venus surface is reached by a hardened rover dropped from a cloud city. This replaces the candidate 30-35 t, ~10.5 m launch (candidate, not canon).
+**SHUTTLE V1 REPLACEMENT TEXT — PROPOSAL ONLY, NOT CANON OR INTEGRATED G8 AUTHORITY (kT decision 2026-11-03):**
+
+Replace the historical 27.9 t, 12.8×3.8 m rover-drop shuttle with the modular **12.8×4.3 m Wayfarer planetary shuttle**. The merged non-canon sizer's **pre-entry-TPS-reclassification** docked core midpoint is exactly **31.825 t**, provisionally DECLARED in place of 27.900 t. A separate **2.8 m outer-diameter, four-person titanium pressure pod** detaches as a wheeled crew rover. A compact high/low-mode water torch is installed aft. Core includes the normal landing systems and **Mars base entry thermal protection**; the existing sizer's total `entry_tps_t` range **3–6 t** is not yet split between base core shield and additional Venus/Titan kit, so the **final docked core dry mass and G8 fit are unresolved**. Do not insert a fictitious split to preserve the old dry-mass figure.
+
+Venus and Titan employ a detachable payload kit with **12 m, four-blade folding tip-jet rotor** plus a dedicated **100–230 MW raw-thermal** house-reactor/heating architecture. Current research kit mass **6.925–16.6125 t** includes the *unsplit* entry TPS and will need a new payload/core reconciliation. Venus also needs ground-vent surface heat rejection while rotor is parked, and retained unqualified dense-CO₂ torch handover. Titan's cryogenic atmosphere and rotor remain unqualified.
+
+Moon, Mars and **Mercury polar settlements** use independently sized **H₂/O₂ belly thrusters** as the selected baseline, with propellant manufactured from shuttle water aboard Wayfarer. The necessary Wayfarer electrolysis and H₂/O₂ liquefaction plant is a **1–4 t ASSUMED removable mission payload module**, not permanent dry structure. Its actual package, safety, filling, heat and power availability require proof. Electric/thermal-water belly thrusters remain a research-only alternative with a GW power tap OPEN. Earth is handled by spaceport-access doctrine; no Earth entry certification is implied.
+
+**Adoption condition:** full current-head G1–G12 recertification on a new deterministic geometry hash, including 0.5 m G8 lateral exit path (longerons, strakes, hot-fin corridor), physically qualified mast and hub stow, KF individual hold apertures and 3 m blade segmentation, G9 unallocated engineering reserve floor **5.0 t**, undiminished habitat and performance, G10 all flight/CG/inertia cases, and explicit kT acceptance of remaining declarations. The 2026-11-03 preflight already fails the slot-only G8 proposal and identifies a potential floor breach on core shield transfer; **STOP.** Do not promote any of this paragraph to `canon/current/` until an integration actually closes those gates.
 
 ## 7. Declared assumptions (kT's acceptances recorded in `inputs/kt_decisions.json`)
 
