@@ -227,9 +227,9 @@ for(const s of [2.8,10.6])for(const z of [-1.2,1.2]){
 const bellyG=new THREE.Group();ship.add(bellyG);
 const plumeM=new THREE.MeshBasicMaterial({color:0xbfe9ff,transparent:true,opacity:0,depthWrite:false,blending:THREE.AdditiveBlending});
 const plumes=[];
-for(const s of [3.4,10.0])for(const z of [-.55,.55]){
-  const n=new THREE.Mesh(new THREE.CylinderGeometry(.14,.24,.12,14),M(0x4b5560,{metalness:.8}));n.position.set(X(s),-1.96,z);bellyG.add(n);
-  const pl=new THREE.Mesh(new THREE.ConeGeometry(.45,2.4,16,1,true),plumeM);pl.position.set(X(s),-3.22,z);bellyG.add(pl);plumes.push(pl);
+for(const s of [3.4,10.0])for(const z of [-.45,.45]){
+  const n=new THREE.Mesh(new THREE.CylinderGeometry(.1,.16,.1,14),M(0x4b5560,{metalness:.8}));n.position.set(X(s),-1.94,z);bellyG.add(n);
+  const pl=new THREE.Mesh(new THREE.ConeGeometry(.4,2.4,16,1,true),plumeM);pl.position.set(X(s),-3.19,z);bellyG.add(pl);plumes.push(pl);
 }
 
 // --- bay envelope (Wayfarer bore 4.8 m x 13.8 m)
@@ -267,7 +267,7 @@ anchor(kit,v(X(2.95),.7,0),'Kit house reactor','100–230 MW heat','#FF8703',()=
 anchor(rotor,v(0,.4,0),'Tip-jet rotor','12 m · 4 blades','#FF8703',()=>st.kit);
 anchor(ship,v(X(5.45),.2,2.2),'Side door','gull-wing + ramp','#C7D3DF',()=>!st.cut&&(mode==='vent'||mode==='docked'));
 anchor(ship,v(X(1.2),-.6,0),'Belly heat shield','','#8A97A6',()=>!st.cut&&mode==='docked');
-anchor(bellyG,v(X(3.4),-2.1,.55),'Belly thrusters','H₂/O₂','#BFE9FF',()=>mode==='light');
+anchor(bellyG,v(X(3.4),-2.05,.45),'Belly thrusters','H₂/O₂','#BFE9FF',()=>mode==='light');
 anchor(ship,v(X(10.6),-2.3,1.2),'Kneeling gear','','#8A97A6',()=>cur.gear>.5&&mode!=='light');
 anchor(scene,v(X(-0.5),2.4,0),'Bay envelope','4.8 × 13.8 m bore · G8 needs 0.25 m','#00D1FF',()=>cur.bay>.5);
 anchor(fig,v(0,1.9,0),'1.8 m','','#FFFFFF',()=>fig.visible);
@@ -293,7 +293,7 @@ const MODES={
  light:{kit:false,rotor:0,spin:0,gear:1,lift:2.4,door:0,pod:0,vent:0,belly:1,bay:0,env:'airless',tgt:[0,1.5,0],
   title:"Moon, Mars and polar Mercury",
   text:"The Venus kit stays aboard Wayfarer. The shuttle sets down on hydrogen-oxygen belly thrusters, with the propellant split from its own water by Wayfarer's house reactors before departure. The torch lights only once the shuttle is well clear of the ground.",
-  facts:[["Belly thrust, Moon","87–151 kN","sizer"],["Belly thrust, Mars","201–349 kN","sizer"],["Belly thrust, Mercury","199–346 kN","sizer"],["H₂/O₂ per sortie","3.2–8.3 t","sizer"],["Electrolysis on Wayfarer","16–52 MWh","ONLINE"]]}
+  facts:[["Belly thrust, Moon","87–151 kN","sizer"],["Belly thrust, Mars","201–349 kN","sizer"],["Belly thrust, Mercury","199–346 kN","sizer"],["H₂/O₂ per sortie","3.2–8.3 t","sizer"],["Electrolysis on Wayfarer","16–52 MWh","derived"]]}
 };
 const ENV={
  space:{bg:0x05070b,fog:null,ground:false,stars:true},
