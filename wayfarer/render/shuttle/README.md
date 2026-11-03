@@ -13,18 +13,19 @@ States: docked in the bay, Venus rotor flight, Venus landed with ground vent,
 pod rover out, and Moon/Mars/polar Mercury on belly thrusters. View toggles:
 cutaway, Venus kit fitted, labels, 1.8 m scale figure.
 
-Dimensions used (metres): hull 12.8 x 4.3 biconic; Wayfarer bay bore 13.8 x
-4.8; crew pod 2.8 OD; tip-jet rotor 12 diameter, four blades folding two
+Dimensions used (metres): hull 12.8 x 3.8 biconic (resized v1, kT 2026-11-03,
+the certified shuttle outline); Wayfarer bay bore 13.8 x 4.8; crew pod 2.5 OD,
+3 crew; tip-jet rotor 12 diameter, four blades folding two
 forward and two aft along the spine; water tank 23.1 t. Readout figures quote
-the merged Stage 1-3 sizer reports.
+the resized sizer reports (research/shuttle-v1-resize-20261103, PR #463) and
+the PR #460 integration run (Wayfarer geometry 293a4e90).
 
 Dependency: three.js r128 from cdnjs (MIT). Unlike `../loomgl.js`, it is not
 vendored; porting to the in-repo renderer is a later option.
 
-Stowed radial extent as drawn: every stowed part stays inside the 2.15 m hull
-line (outer edges: hub ~2.11 m, folded blades ~2.04 m, belly nozzles ~2.08 m,
-intake ~2.12 m), so the
-drawing keeps the G8 0.25 m bay clearance. That holds only because the hub
+Stowed radial extent as drawn: every stowed part stays inside the 1.9 m hull
+line (outer edges: intake ~1.88 m, hub ~1.87 m, belly nozzles ~1.85 m, folded
+blades ~1.82 m, wheels ~1.81 m), so the drawing keeps the G8 0.5 m bay clearance. That holds only because the hub
 and blades are drawn recessed in a spine groove with assumed sizes; real mast
 and hub dimensions are unknown and G8 full fit stays OPEN.
 
