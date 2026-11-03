@@ -1921,7 +1921,7 @@
     "glazed_area_m2": 37.374481,
     "mullion_spacing_deg": 15,
     "mullions": "Osteon titanium mullions every 15 deg (1.13 m), forking into the sill and head beams; they carry the deck's axial load (5 g x 1.5 of everything ahead, plus the pressure end load) across the band",
-    "panes": "flat plates between frame members (the glass is not trusted to pass hoop tension through its edges); two pressure panes each carrying full load, plus 8 mm debris and 3 mm scratch panes; flaw-controlled 2226 ceramic (the crown dome's milestone): 16 mm in the 0.6 m band, 18 mm in the lounge",
+    "panes": "WWS-1 adopted: TWO independent 28mm full-pressure transparent-ceramic panes, AOI-2226 between, replaceable 10mm outer tile, closed Strata armour-equivalent shutter. 28mm per pressure pane is ALREADY physically mass-booked by WWS-1 crown derived areal values. G5 pane bending screen now evaluates the actual declared 28mm, NOT obsolete legacy 16/18mm plate spec. Pane manufacturing and fracture independence remain unqualified.",
     "shutter": "Strata tambour band: slats run round the hull in a track and stow in the head beam; closed flush with the armour at cruise speed, in solar storms and in burns, and for night",
     "kg_per_m2": {
      "panes_general": 158.7,
@@ -1960,8 +1960,8 @@
     "mullion_t": 0.8,
     "mullion_roots": "4 x M16 Ti bolts in double shear per root (or an integral Osteon fork)",
     "pane_mm": {
-     "general": 16,
-     "lounge": 18
+     "general": 28,
+     "lounge": 28
     },
     "mass_t": 5.867
    }
@@ -3871,6 +3871,7 @@
   "l2_new_area_m2": 37.374480602,
   "radiation_doctrine": "all shutters CLOSED, zero AOI shielding or optical/thermal credit; unchanged G6 criteria",
   "unspent_reason": "only galley/exercise bounded sector envelopes and three medical port positions expanded; no fictitious new windows placed to consume a mass allowance; residual remains uncommitted",
-  "legacy_berth_acrylic_plug_proposal": "RETIRED from active inputs; no acrylic plug, radiation credit, or storm-shelter window in WWS-1."
+  "legacy_berth_acrylic_plug_proposal": "RETIRED from active inputs; no acrylic plug, radiation credit, or storm-shelter window in WWS-1.",
+  "g5_pane_spec_sync": "2026-11-03 pre-cert diagnosed the widened 2.2m L2 bay needs 19.1mm per loaded ceramic plate, but stale legacy G5 input specified 18mm. Sync pane_mm general/loung to the pre-existing WWS-1 28mm independent ceramic primary/backup; no additional mass or criterion change."
  }
 }

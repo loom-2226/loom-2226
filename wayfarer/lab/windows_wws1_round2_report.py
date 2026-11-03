@@ -72,6 +72,7 @@ for old,seg in zip(R['round1_band_segments'],I['habitat']['crew_systems']['viewp
 line()
 line('Total L2 glazing **%.6f → %.6f m²**; extended galley/exercise segments to x3.35–5.55, maintaining 0.05m room-end allowance. Other sectors and opaque washroom unchanged. Added local partial edge rings **%.6f t** and two transoms **%.6f t** to the existing frame model, plus scaled mullions and shutters. This is declared design mass, not local FEA pressure/vibration qualification.'%(
  R['round1_band_area_m2'],R['l2_new_area_m2'],R['l2_local_edge_return_t'],R['l2_extra_transoms_t']))
+line('G5 correction: the enlarged 2.2m ceramic plate span requires 19.1mm under the UNCHANGED source load/plate criterion. The old L2 study was still comparing an 18mm legacy plate; WWS-1 already physically books TWO independent 28mm pressure ceramics. The source pane_mm has been synchronised to 28/28mm, with zero added mass and no criterion relaxation. Independent failure and rim pressure qualification remain OPEN.')
 line()
 line('## Window/node/external-equipment clearances')
 line()

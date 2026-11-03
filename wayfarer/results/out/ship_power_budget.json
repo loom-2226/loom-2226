@@ -1,9 +1,9 @@
 {
  "status": "NON-CANON ENGINEERING SCREEN; NO PHYSICAL QUALIFICATION",
- "geometry_sha256": "8b43d87dcb5fd8fe9e06e427e957db26dcc8671cbcb2aa28791e77c728384145",
- "input_sha256": "db080fd8f3ebebdc445112e139a36cd73f1a6163191ada974616908707bc70c8",
- "rcs_trace_sha256": "a326c50bc5330e04a0484d8f381fe1bea1d12209f5c1da9a724e9acee4d38761",
- "rcs_trace_60s_sha256": "4250a684a078a9c9076d0ea56abc4b13130f98d0d38af0b4b9dea75e93e4feb6",
+ "geometry_sha256": "818f83de02e282aaad92dd9a326226eb3185ae69ab623ad8cb9d865fcf46c85a",
+ "input_sha256": "2f2d19e73243f1d29149125212278e681e826e70cfbdf4850df37ced4c39b726",
+ "rcs_trace_sha256": "b365191ace59f4edab6b02ad9040105aa53a682dc5d093b601c1a96fd1908843",
+ "rcs_trace_60s_sha256": "574fec99658cb3eb7d333e1bddc4c59def177be354ce39ab456ec680a8ece290",
  "reactor": {
   "count": 2,
   "per_unit_net_mw": 50,
@@ -29,11 +29,11 @@
   "peak_mw": 270,
   "counter_rotating_pairs": true,
   "burst_containment": "DECLARED included in mass; unqualified",
-  "fast_flip_store_mwh": 1.307415,
-  "fast_flip_store_peak_mw": 203.391535,
-  "degraded_60s_store_mwh": 0.500828,
-  "degraded_60s_store_peak_mw": 62.835854,
-  "recharge_minutes_from_one_reactor": 1.757
+  "fast_flip_store_mwh": 1.313173,
+  "fast_flip_store_peak_mw": 204.196665,
+  "degraded_60s_store_mwh": 0.504335,
+  "degraded_60s_store_peak_mw": 63.193895,
+  "recharge_minutes_from_one_reactor": 1.765
  },
  "c_lite": {
   "mass_total_t": 0.25,
@@ -46,32 +46,32 @@
  },
  "rcs_trace": {
   "status": "CURRENT GEOMETRY NUMERICAL TRACE ONLY; NOT HARDWARE QUALIFICATION",
-  "geometry_sha256": "8b43d87dcb5fd8fe9e06e427e957db26dcc8671cbcb2aa28791e77c728384145",
+  "geometry_sha256": "818f83de02e282aaad92dd9a326226eb3185ae69ab623ad8cb9d865fcf46c85a",
   "dt_s": 0.1,
   "scenario": "CURRENT GEOMETRY 40s pitch 180 diagnostic",
   "duration_s": 40,
-  "water_consumed_kg": 1455.0516938349817,
-  "trace_ideal_energy_gj": 6.57799769748918,
-  "trace_ideal_peak_mw": 253.00263818963722,
+  "water_consumed_kg": 1459.7521361783406,
+  "trace_ideal_energy_gj": 6.599247457235043,
+  "trace_ideal_peak_mw": 253.80776837528563,
   "firing_nozzle_max": 10,
   "nameplate_peak_proxy_mw": 576.6326530612245,
-  "attitude_error_deg": 0.001614510617917143,
-  "reconstruction_water_error_kg": -0.0030880396066095273,
+  "attitude_error_deg": 0.0016145106242890022,
+  "reconstruction_water_error_kg": -0.0031852835179506656,
   "reactor_assist_cases": {
    "0": {
-    "storage_ideal_gj": 6.593553559558146,
-    "storage_peak_mw": 253.39153474136137,
+    "storage_ideal_gj": 6.614803319304008,
+    "storage_peak_mw": 254.19666492700978,
     "possible_reactor_surplus_gj": 0.0
    },
    "50": {
-    "storage_ideal_gj": 4.706692877518193,
-    "storage_peak_mw": 203.39153474136137,
-    "possible_reactor_surplus_gj": 0.1131393179600466
+    "storage_ideal_gj": 4.727423279309029,
+    "storage_peak_mw": 204.19666492700978,
+    "possible_reactor_surplus_gj": 0.1126199600050211
    },
    "100": {
-    "storage_ideal_gj": 3.061212136766225,
-    "storage_peak_mw": 153.39153474136137,
-    "possible_reactor_surplus_gj": 0.46765857720807963
+    "storage_ideal_gj": 3.080620436377721,
+    "storage_peak_mw": 154.19666492700978,
+    "possible_reactor_surplus_gj": 0.4658171170737128
    }
   },
   "holds": [
@@ -82,32 +82,32 @@
  },
  "rcs_60s_degraded_trace": {
   "status": "CURRENT GEOMETRY NUMERICAL TRACE ONLY; NOT HARDWARE QUALIFICATION",
-  "geometry_sha256": "8b43d87dcb5fd8fe9e06e427e957db26dcc8671cbcb2aa28791e77c728384145",
+  "geometry_sha256": "818f83de02e282aaad92dd9a326226eb3185ae69ab623ad8cb9d865fcf46c85a",
   "dt_s": 0.1,
   "scenario": "CURRENT GEOMETRY 60s pitch 180 diagnostic",
   "duration_s": 60,
-  "water_consumed_kg": 970.0316341193092,
-  "trace_ideal_energy_gj": 4.385319011526574,
-  "trace_ideal_peak_mw": 112.44695697691945,
+  "water_consumed_kg": 973.1655245809089,
+  "trace_ideal_energy_gj": 4.399486703525377,
+  "trace_ideal_peak_mw": 112.80499833397032,
   "firing_nozzle_max": 8,
   "nameplate_peak_proxy_mw": 461.30612244897964,
-  "attitude_error_deg": 0.0004945642661741446,
-  "reconstruction_water_error_kg": -0.0039623859253197224,
+  "attitude_error_deg": 0.000494564270163544,
+  "reconstruction_water_error_kg": -0.004025003315291542,
   "reactor_assist_cases": {
    "0": {
-    "storage_ideal_gj": 4.408652804630023,
-    "storage_peak_mw": 112.8358535286436,
+    "storage_ideal_gj": 4.422820496628826,
+    "storage_peak_mw": 113.19389488569446,
     "possible_reactor_surplus_gj": 0.0
    },
    "50": {
-    "storage_ideal_gj": 1.8029797553475584,
-    "storage_peak_mw": 62.8358535286436,
-    "possible_reactor_surplus_gj": 0.3943269507175355
+    "storage_ideal_gj": 1.8156061828681214,
+    "storage_peak_mw": 63.19389488569446,
+    "possible_reactor_surplus_gj": 0.3927856862392955
    },
    "100": {
-    "storage_ideal_gj": 0.1642269786144147,
-    "storage_peak_mw": 12.835853528643597,
-    "possible_reactor_surplus_gj": 1.755574173984392
+    "storage_ideal_gj": 0.17079448382162774,
+    "storage_peak_mw": 13.193894885694462,
+    "possible_reactor_surplus_gj": 1.747973987192802
    }
   },
   "holds": [
@@ -316,12 +316,12 @@
    "state": "fast_40s_flip",
    "loads_mw": {
     "ordinary_ship_services": 0.3888965517241379,
-    "RCS_40s_TRACE_PEAK": 253.00263818963722
+    "RCS_40s_TRACE_PEAK": 253.80776837528563
    },
-   "known_load_mw": 253.391535,
+   "known_load_mw": 254.196665,
    "reactors_online": 1,
    "house_reactor_mw": 50,
-   "flywheel_discharge_mw": 203.391535,
+   "flywheel_discharge_mw": 204.196665,
    "flywheel_charge_mw": 0,
    "battery_mw": 0,
    "shore_mw": 0,
@@ -330,19 +330,19 @@
    "unserved_mw": 0,
    "electric_accounting_mw": 0.0,
    "house_reactor_waste_heat_mw": 16.666667,
-   "heat_rejected_mw": 53.359294,
+   "heat_rejected_mw": 53.483359,
    "heat_scope": "active_radiator",
    "heat_retained_mw": 0,
    "passive_skin_rejection_mw": null,
    "radiator_capacity_mw": 387.212,
    "house_fuel_g_hr": 0.679887,
    "duration_s": 40,
-   "flywheel_event_delivered_mwh": 1.307415,
+   "flywheel_event_delivered_mwh": 1.313173,
    "chemical_propellant_kg": null,
    "deficits": [
     "FAST_FLIP_REACTOR_DISPATCH_BUS_HEAT_HARDWARE_UNQUALIFIED"
    ],
-   "note": "peak 253.003MW, integrated 6.578GJ, supplemental 4.707GJ"
+   "note": "peak 253.808MW, integrated 6.599GJ, supplemental 4.727GJ"
   },
   {
    "state": "pulsed_torch_burn",
@@ -656,12 +656,12 @@
    "state": "degraded_60s_flip",
    "loads_mw": {
     "ordinary_ship_services": 0.3888965517241379,
-    "RCS_60s_trace_peak": 112.44695697691945
+    "RCS_60s_trace_peak": 112.80499833397032
    },
-   "known_load_mw": 112.835854,
+   "known_load_mw": 113.193895,
    "reactors_online": 1,
    "house_reactor_mw": 50,
-   "flywheel_discharge_mw": 62.835854,
+   "flywheel_discharge_mw": 63.193895,
    "flywheel_charge_mw": 0,
    "battery_mw": 0,
    "shore_mw": 0,
@@ -670,19 +670,19 @@
    "unserved_mw": 0,
    "electric_accounting_mw": 0.0,
    "house_reactor_waste_heat_mw": 16.666667,
-   "heat_rejected_mw": 31.700711,
+   "heat_rejected_mw": 31.755882,
    "heat_scope": "active_radiator",
    "heat_retained_mw": 0,
    "passive_skin_rejection_mw": null,
    "radiator_capacity_mw": 387.212,
    "house_fuel_g_hr": 0.679887,
    "duration_s": 60,
-   "flywheel_event_delivered_mwh": 0.500828,
+   "flywheel_event_delivered_mwh": 0.504335,
    "chemical_propellant_kg": null,
    "deficits": [
     "DEGRADED_FLIP_REAL_BUS_AND_HEAT_UNQUALIFIED"
    ],
-   "note": "60s supplemental event 0.5008MWh peak 62.84MW"
+   "note": "60s supplemental event 0.5043MWh peak 63.19MW"
   },
   {
    "state": "both_house_reactors_failed_hour1",
@@ -817,10 +817,10 @@
   "battery_deliverable_mwh": 1.423025,
   "flywheel_deliverable_mwh": 0.853815,
   "flywheel_peak_mw": 135.0,
-  "fast_flip_stored_need_mwh": 1.307415,
-  "fast_flip_peak_store_mw": 203.391535,
-  "degraded_60s_store_need_mwh": 0.500828,
-  "degraded_60s_peak_store_mw": 62.835854,
+  "fast_flip_stored_need_mwh": 1.313173,
+  "fast_flip_peak_store_mw": 204.196665,
+  "degraded_60s_store_need_mwh": 0.504335,
+  "degraded_60s_peak_store_mw": 63.193895,
   "one_hour_normal_then_essential_hours": 15.91,
   "rows": [
    {

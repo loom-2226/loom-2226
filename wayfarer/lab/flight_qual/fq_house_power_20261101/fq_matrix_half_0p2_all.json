@@ -1,5 +1,5 @@
 {
-  "geometry_sha256": "8b43d87dcb5fd8fe9e06e427e957db26dcc8671cbcb2aa28791e77c728384145",
+  "geometry_sha256": "818f83de02e282aaad92dd9a326226eb3185ae69ab623ad8cb9d865fcf46c85a",
   "state": "half",
   "dt": 0.2,
   "results": [
@@ -11,14 +11,14 @@
       "cluster_out": null,
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 957.6618176872754,
-      "mass_end_kg": 1046723.7916462768,
+      "fuel_used_kg": 960.6505451952722,
+      "mass_end_kg": 1046720.8029187685,
       "depletion_steps": 0,
-      "attitude_error_deg": 0.0006779431731059693,
-      "rate_deg_s": 0.00023738614722039676,
+      "attitude_error_deg": 0.0006779431775053194,
+      "rate_deg_s": 0.00023738614683049445,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 4.0
+      "elapsed_s": 3.85
     },
     {
       "fq": "FQ1",
@@ -28,14 +28,14 @@
       "cluster_out": null,
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 244.65564346781798,
-      "mass_end_kg": 1047436.797820496,
+      "fuel_used_kg": 245.2774082740622,
+      "mass_end_kg": 1047436.1760556898,
       "depletion_steps": 0,
-      "attitude_error_deg": 0.0006779432824673885,
-      "rate_deg_s": 0.0002373859327429762,
+      "attitude_error_deg": 0.0006779432821560269,
+      "rate_deg_s": 0.00023738593335098518,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 3.96
+      "elapsed_s": 4.23
     },
     {
       "fq": "FQ1",
@@ -45,14 +45,14 @@
       "cluster_out": null,
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 482.78026053043027,
-      "mass_end_kg": 1047198.6732034333,
+      "fuel_used_kg": 484.01172886462143,
+      "mass_end_kg": 1047197.4417350992,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.74874607210097e-05,
-      "rate_deg_s": 2.5300289703950047e-05,
+      "attitude_error_deg": 8.748747438954102e-05,
+      "rate_deg_s": 2.530030370116214e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 8.81
+      "elapsed_s": 9.0
     },
     {
       "fq": "FQ2",
@@ -62,14 +62,14 @@
       "cluster_out": "A+Y",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 478.8253053011315,
-      "mass_end_kg": 1047202.6281586628,
+      "fuel_used_kg": 480.31980342248653,
+      "mass_end_kg": 1047201.1336605416,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.748746114147194e-05,
-      "rate_deg_s": 2.530036560229966e-05,
+      "attitude_error_deg": 8.748746199224485e-05,
+      "rate_deg_s": 2.5300272451914604e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 10.1
+      "elapsed_s": 14.02
     },
     {
       "fq": "FQ2",
@@ -79,14 +79,14 @@
       "cluster_out": "A+Y",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 122.7395130557778,
-      "mass_end_kg": 1047558.7139509082,
+      "fuel_used_kg": 123.01328422733401,
+      "mass_end_kg": 1047558.4401797366,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.74874624765089e-05,
-      "rate_deg_s": 2.5300260609304893e-05,
+      "attitude_error_deg": 8.748746247128486e-05,
+      "rate_deg_s": 2.530026061967218e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 11.42
+      "elapsed_s": 13.18
     },
     {
       "fq": "FQ2",
@@ -96,14 +96,14 @@
       "cluster_out": "A+Y",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 482.78026053043027,
-      "mass_end_kg": 1047198.6732034333,
+      "fuel_used_kg": 484.0117288646213,
+      "mass_end_kg": 1047197.4417350992,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.74874607210097e-05,
-      "rate_deg_s": 2.5300289703949952e-05,
+      "attitude_error_deg": 8.748747438954102e-05,
+      "rate_deg_s": 2.5300303701162192e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 11.56
+      "elapsed_s": 13.1
     },
     {
       "fq": "FQ2",
@@ -113,14 +113,14 @@
       "cluster_out": "A+Z",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 478.8253053011315,
-      "mass_end_kg": 1047202.6281586628,
+      "fuel_used_kg": 480.3198034224865,
+      "mass_end_kg": 1047201.1336605416,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.748746114147193e-05,
-      "rate_deg_s": 2.5300365602299755e-05,
+      "attitude_error_deg": 8.748746199224485e-05,
+      "rate_deg_s": 2.5300272451914604e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 11.49
+      "elapsed_s": 13.46
     },
     {
       "fq": "FQ2",
@@ -130,14 +130,14 @@
       "cluster_out": "A+Z",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 122.33749836793938,
-      "mass_end_kg": 1047559.1159655959,
+      "fuel_used_kg": 122.65152741691992,
+      "mass_end_kg": 1047558.8019365472,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.748746247650872e-05,
-      "rate_deg_s": 2.5300260609305232e-05,
+      "attitude_error_deg": 8.748746247128475e-05,
+      "rate_deg_s": 2.5300260619672322e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 11.97
+      "elapsed_s": 13.74
     },
     {
       "fq": "FQ2",
@@ -147,14 +147,14 @@
       "cluster_out": "A+Z",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 482.78026053043027,
-      "mass_end_kg": 1047198.6732034333,
+      "fuel_used_kg": 484.01172886462143,
+      "mass_end_kg": 1047197.4417350992,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.748746072100975e-05,
-      "rate_deg_s": 2.530028970395e-05,
+      "attitude_error_deg": 8.748747438954102e-05,
+      "rate_deg_s": 2.5300303701162192e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 12.34
+      "elapsed_s": 13.94
     },
     {
       "fq": "FQ2",
@@ -164,14 +164,14 @@
       "cluster_out": "A-Y",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 478.8253053011315,
-      "mass_end_kg": 1047202.6281586628,
+      "fuel_used_kg": 480.3198034224866,
+      "mass_end_kg": 1047201.1336605416,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.748746114147196e-05,
-      "rate_deg_s": 2.530036560229961e-05,
+      "attitude_error_deg": 8.748746199224485e-05,
+      "rate_deg_s": 2.5300272451914628e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 11.55
+      "elapsed_s": 13.13
     },
     {
       "fq": "FQ2",
@@ -181,14 +181,14 @@
       "cluster_out": "A-Y",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 122.85197111362476,
-      "mass_end_kg": 1047558.6014928502,
+      "fuel_used_kg": 123.1413852199339,
+      "mass_end_kg": 1047558.3120787439,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.748746247934963e-05,
-      "rate_deg_s": 2.5300260603662776e-05,
+      "attitude_error_deg": 8.748746247452093e-05,
+      "rate_deg_s": 2.5300260613244823e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 10.74
+      "elapsed_s": 13.89
     },
     {
       "fq": "FQ2",
@@ -198,14 +198,14 @@
       "cluster_out": "A-Y",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 482.78026053043027,
-      "mass_end_kg": 1047198.6732034333,
+      "fuel_used_kg": 484.01172886462143,
+      "mass_end_kg": 1047197.4417350992,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.748746072100972e-05,
-      "rate_deg_s": 2.5300289703950074e-05,
+      "attitude_error_deg": 8.7487474389541e-05,
+      "rate_deg_s": 2.530030370116214e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 11.4
+      "elapsed_s": 13.19
     },
     {
       "fq": "FQ2",
@@ -215,14 +215,14 @@
       "cluster_out": "A-Z",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 478.8253053011315,
-      "mass_end_kg": 1047202.6281586628,
+      "fuel_used_kg": 480.31980342248653,
+      "mass_end_kg": 1047201.1336605416,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.748746114147185e-05,
-      "rate_deg_s": 2.53003656022999e-05,
+      "attitude_error_deg": 8.748746199224485e-05,
+      "rate_deg_s": 2.530027245191451e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 11.56
+      "elapsed_s": 13.85
     },
     {
       "fq": "FQ2",
@@ -232,14 +232,14 @@
       "cluster_out": "A-Z",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 123.12251102704536,
-      "mass_end_kg": 1047558.3309529368,
+      "fuel_used_kg": 123.38014616271391,
+      "mass_end_kg": 1047558.0733178015,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.748746249649104e-05,
-      "rate_deg_s": 2.5300260569617625e-05,
+      "attitude_error_deg": 8.74874624897407e-05,
+      "rate_deg_s": 2.5300260583016426e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 11.75
+      "elapsed_s": 13.4
     },
     {
       "fq": "FQ2",
@@ -249,14 +249,14 @@
       "cluster_out": "A-Z",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 482.78026053043027,
-      "mass_end_kg": 1047198.6732034333,
+      "fuel_used_kg": 484.01172886462143,
+      "mass_end_kg": 1047197.4417350992,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.748746072100965e-05,
-      "rate_deg_s": 2.5300289703950172e-05,
+      "attitude_error_deg": 8.748747438954102e-05,
+      "rate_deg_s": 2.5300303701162192e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 11.75
+      "elapsed_s": 12.9
     },
     {
       "fq": "FQ2",
@@ -266,14 +266,14 @@
       "cluster_out": "F+Y",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 478.8253053011315,
-      "mass_end_kg": 1047202.6281586628,
+      "fuel_used_kg": 480.31980342248653,
+      "mass_end_kg": 1047201.1336605416,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.748746114147189e-05,
-      "rate_deg_s": 2.530036560229995e-05,
+      "attitude_error_deg": 8.748746199224483e-05,
+      "rate_deg_s": 2.530027245191458e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 11.84
+      "elapsed_s": 13.68
     },
     {
       "fq": "FQ2",
@@ -283,14 +283,14 @@
       "cluster_out": "F+Y",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 123.25618047761054,
-      "mass_end_kg": 1047558.1972834864,
+      "fuel_used_kg": 123.52858874072612,
+      "mass_end_kg": 1047557.9248752233,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.748746248153501e-05,
-      "rate_deg_s": 2.5300260599322393e-05,
+      "attitude_error_deg": 8.748746247701033e-05,
+      "rate_deg_s": 2.530026060830054e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 11.49
+      "elapsed_s": 13.36
     },
     {
       "fq": "FQ2",
@@ -300,14 +300,14 @@
       "cluster_out": "F+Y",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 482.7802605304302,
-      "mass_end_kg": 1047198.6732034333,
+      "fuel_used_kg": 484.01172886462126,
+      "mass_end_kg": 1047197.4417350992,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.74874607210097e-05,
-      "rate_deg_s": 2.5300289703950023e-05,
+      "attitude_error_deg": 8.7487474389541e-05,
+      "rate_deg_s": 2.5300303701162168e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 11.56
+      "elapsed_s": 13.19
     },
     {
       "fq": "FQ2",
@@ -317,14 +317,14 @@
       "cluster_out": "F+Z",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 478.8253053011315,
-      "mass_end_kg": 1047202.6281586628,
+      "fuel_used_kg": 480.31980342248653,
+      "mass_end_kg": 1047201.1336605416,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.748746114147196e-05,
-      "rate_deg_s": 2.530036560229961e-05,
+      "attitude_error_deg": 8.748746199224486e-05,
+      "rate_deg_s": 2.5300272451914533e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 11.59
+      "elapsed_s": 14.0
     },
     {
       "fq": "FQ2",
@@ -334,14 +334,14 @@
       "cluster_out": "F+Z",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 123.7312052922744,
-      "mass_end_kg": 1047557.7222586715,
+      "fuel_used_kg": 123.94803883323598,
+      "mass_end_kg": 1047557.5054251307,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.7487462511862e-05,
-      "rate_deg_s": 2.5300260539088796e-05,
+      "attitude_error_deg": 8.748746250393769e-05,
+      "rate_deg_s": 2.530026055481914e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 11.4
+      "elapsed_s": 13.75
     },
     {
       "fq": "FQ2",
@@ -351,14 +351,14 @@
       "cluster_out": "F+Z",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 482.78026053043027,
-      "mass_end_kg": 1047198.6732034333,
+      "fuel_used_kg": 484.0117288646214,
+      "mass_end_kg": 1047197.4417350992,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.74874607210097e-05,
-      "rate_deg_s": 2.5300289703950074e-05,
+      "attitude_error_deg": 8.748747438954095e-05,
+      "rate_deg_s": 2.5300303701162338e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 11.4
+      "elapsed_s": 13.91
     },
     {
       "fq": "FQ2",
@@ -368,14 +368,14 @@
       "cluster_out": "F-Y",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 478.8253053011315,
-      "mass_end_kg": 1047202.6281586628,
+      "fuel_used_kg": 480.31980342248653,
+      "mass_end_kg": 1047201.1336605416,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.748746114147196e-05,
-      "rate_deg_s": 2.530036560229961e-05,
+      "attitude_error_deg": 8.748746199224486e-05,
+      "rate_deg_s": 2.5300272451914533e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 11.39
+      "elapsed_s": 14.43
     },
     {
       "fq": "FQ2",
@@ -385,14 +385,14 @@
       "cluster_out": "F-Y",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 123.0576620488909,
-      "mass_end_kg": 1047558.395801915,
+      "fuel_used_kg": 123.30191717903175,
+      "mass_end_kg": 1047558.1515467848,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.748751945989758e-05,
-      "rate_deg_s": 2.5300859976016947e-05,
+      "attitude_error_deg": 8.748753668078511e-05,
+      "rate_deg_s": 2.530104113112619e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 12.66
+      "elapsed_s": 13.72
     },
     {
       "fq": "FQ2",
@@ -402,14 +402,14 @@
       "cluster_out": "F-Y",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 482.78026053043027,
-      "mass_end_kg": 1047198.6732034333,
+      "fuel_used_kg": 484.01172886462143,
+      "mass_end_kg": 1047197.4417350992,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.74874607210097e-05,
-      "rate_deg_s": 2.5300289703950074e-05,
+      "attitude_error_deg": 8.748747438954102e-05,
+      "rate_deg_s": 2.5300303701162192e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 11.83
+      "elapsed_s": 14.08
     },
     {
       "fq": "FQ2",
@@ -419,14 +419,14 @@
       "cluster_out": "F-Z",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 478.8253053011315,
-      "mass_end_kg": 1047202.6281586628,
+      "fuel_used_kg": 480.31980342248653,
+      "mass_end_kg": 1047201.1336605416,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.748746114147197e-05,
-      "rate_deg_s": 2.530036560229966e-05,
+      "attitude_error_deg": 8.748746199224483e-05,
+      "rate_deg_s": 2.530027245191458e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 11.42
+      "elapsed_s": 14.19
     },
     {
       "fq": "FQ2",
@@ -436,14 +436,14 @@
       "cluster_out": "F-Z",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 122.34228473161303,
-      "mass_end_kg": 1047559.1111792321,
+      "fuel_used_kg": 122.65860530196159,
+      "mass_end_kg": 1047558.7948586621,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.748746247650883e-05,
-      "rate_deg_s": 2.5300260609304893e-05,
+      "attitude_error_deg": 8.748746247128482e-05,
+      "rate_deg_s": 2.5300260619672224e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 11.17
+      "elapsed_s": 14.49
     },
     {
       "fq": "FQ2",
@@ -453,14 +453,14 @@
       "cluster_out": "F-Z",
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 482.78026053043027,
-      "mass_end_kg": 1047198.6732034333,
+      "fuel_used_kg": 484.01172886462143,
+      "mass_end_kg": 1047197.4417350992,
       "depletion_steps": 0,
-      "attitude_error_deg": 8.74874607210097e-05,
-      "rate_deg_s": 2.5300289703949952e-05,
+      "attitude_error_deg": 8.748747438954105e-05,
+      "rate_deg_s": 2.5300303701162094e-05,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 12.15
+      "elapsed_s": 13.75
     },
     {
       "fq": "FQ3",
@@ -470,14 +470,14 @@
       "cluster_out": null,
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 272.4748349687707,
-      "mass_end_kg": 1047408.9786289951,
+      "fuel_used_kg": 272.58577469259956,
+      "mass_end_kg": 1047408.8676892715,
       "depletion_steps": 0,
       "attitude_error_deg": null,
       "rate_deg_s": null,
-      "translation_error_m_s": 0.00011171684876887245,
+      "translation_error_m_s": 0.00011171684877853139,
       "warnings": [],
-      "elapsed_s": 1.74
+      "elapsed_s": 2.03
     },
     {
       "fq": "FQ3",
@@ -487,14 +487,14 @@
       "cluster_out": null,
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 274.6552838981921,
-      "mass_end_kg": 1047406.7981800657,
+      "fuel_used_kg": 274.7048361989451,
+      "mass_end_kg": 1047406.7486277649,
       "depletion_steps": 0,
       "attitude_error_deg": null,
       "rate_deg_s": null,
-      "translation_error_m_s": 0.00011171684896560397,
+      "translation_error_m_s": 0.00011171684896971179,
       "warnings": [],
-      "elapsed_s": 1.59
+      "elapsed_s": 2.49
     },
     {
       "fq": "FQ3",
@@ -509,9 +509,9 @@
       "depletion_steps": 0,
       "attitude_error_deg": null,
       "rate_deg_s": null,
-      "translation_error_m_s": 0.0001117168483326837,
+      "translation_error_m_s": 0.00011171684833268086,
       "warnings": [],
-      "elapsed_s": 2.0
+      "elapsed_s": 2.06
     },
     {
       "fq": "FQ3",
@@ -526,9 +526,9 @@
       "depletion_steps": 0,
       "attitude_error_deg": null,
       "rate_deg_s": null,
-      "translation_error_m_s": 0.0001117168483326837,
+      "translation_error_m_s": 0.00011171684833268086,
       "warnings": [],
-      "elapsed_s": 2.23
+      "elapsed_s": 2.16
     },
     {
       "fq": "FQ3",
@@ -543,9 +543,9 @@
       "depletion_steps": 0,
       "attitude_error_deg": null,
       "rate_deg_s": null,
-      "translation_error_m_s": 0.00011171684833255633,
+      "translation_error_m_s": 0.00011171684833255644,
       "warnings": [],
-      "elapsed_s": 2.08
+      "elapsed_s": 2.24
     },
     {
       "fq": "FQ3",
@@ -555,14 +555,14 @@
       "cluster_out": null,
       "status": "PASS",
       "numerical_model_status": "pass",
-      "fuel_used_kg": 267.3560832057975,
+      "fuel_used_kg": 267.35608320579746,
       "mass_end_kg": 1047414.097380758,
       "depletion_steps": 0,
       "attitude_error_deg": null,
       "rate_deg_s": null,
-      "translation_error_m_s": 0.00011171684833255633,
+      "translation_error_m_s": 0.00011171684833255644,
       "warnings": [],
-      "elapsed_s": 1.82
+      "elapsed_s": 2.15
     },
     {
       "fq": "FQ4",
@@ -571,7 +571,7 @@
       "dt": 0.2,
       "cluster_out": null,
       "accel_g": 0.3317360370637866,
-      "tvc_trim_deg": 0.17106753699529847,
+      "tvc_trim_deg": 0.18716174673665215,
       "min_allocated_fraction": 1.0,
       "status": "PASS",
       "numerical_model_status": "pass",
@@ -582,7 +582,7 @@
       "rate_deg_s": null,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 0.3
+      "elapsed_s": 0.31
     },
     {
       "fq": "FQ4",
@@ -591,7 +591,7 @@
       "dt": 0.2,
       "cluster_out": null,
       "accel_g": 1.1058334060061417,
-      "tvc_trim_deg": 0.17106753699529847,
+      "tvc_trim_deg": 0.18716174673665215,
       "min_allocated_fraction": 1.0,
       "status": "PASS",
       "numerical_model_status": "pass",
@@ -602,7 +602,7 @@
       "rate_deg_s": null,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 0.36
+      "elapsed_s": 0.35
     },
     {
       "fq": "FQ4",
@@ -611,7 +611,7 @@
       "dt": 0.2,
       "cluster_out": null,
       "accel_g": 2.212019439899489,
-      "tvc_trim_deg": 0.17106753699529847,
+      "tvc_trim_deg": 0.18716174673665215,
       "min_allocated_fraction": 1.0,
       "status": "PASS",
       "numerical_model_status": "pass",
@@ -622,7 +622,7 @@
       "rate_deg_s": null,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 0.3
+      "elapsed_s": 0.31
     },
     {
       "fq": "FQ4",
@@ -631,7 +631,7 @@
       "dt": 0.2,
       "cluster_out": null,
       "accel_g": 3.1607271248453674,
-      "tvc_trim_deg": 0.17106753699529847,
+      "tvc_trim_deg": 0.18716174673665215,
       "min_allocated_fraction": 1.0,
       "status": "PASS",
       "numerical_model_status": "pass",
@@ -642,7 +642,7 @@
       "rate_deg_s": null,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 0.24
+      "elapsed_s": 0.32
     },
     {
       "fq": "FQ4",
@@ -651,7 +651,7 @@
       "dt": 0.2,
       "cluster_out": null,
       "accel_g": 4.000000000000001,
-      "tvc_trim_deg": 0.17106753699529847,
+      "tvc_trim_deg": 0.18716174673665215,
       "min_allocated_fraction": 1.0,
       "status": "PASS",
       "numerical_model_status": "pass",
@@ -662,7 +662,7 @@
       "rate_deg_s": null,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 0.28
+      "elapsed_s": 0.47
     },
     {
       "fq": "FQ4",
@@ -671,7 +671,7 @@
       "dt": 0.2,
       "cluster_out": null,
       "accel_g": 4.000000000000001,
-      "tvc_trim_deg": 0.17106753699529847,
+      "tvc_trim_deg": 0.18716174673665215,
       "min_allocated_fraction": 1.0,
       "status": "PASS",
       "numerical_model_status": "pass",
@@ -682,7 +682,7 @@
       "rate_deg_s": null,
       "translation_error_m_s": null,
       "warnings": [],
-      "elapsed_s": 0.27
+      "elapsed_s": 0.61
     }
   ]
 }

@@ -4,7 +4,7 @@ ALL bodies. ALL sponsors. 2026–2226.
 
 **DRAFT / NON-CANON / NOT FOR MERGE.** kT approved 2026-11-03; same branch/PR #465 based on PR #460.
 Round-one baseline source SHA: 8b43d87dcb5fd8fe9e06e427e957db26dcc8671cbcb2aa28791e77c728384145
-Round-two source SHA: 9c52e0783311ad99e4a58f8466bd297d7cdfca14d508d571c029d31eb647567c
+Round-two source SHA: 818f83de02e282aaad92dd9a326226eb3185ae69ab623ad8cb9d865fcf46c85a
 
 ## Corrected budget authority
 
@@ -62,6 +62,7 @@ Medical: two existing 0.75m ports replaced with 1.55m ports and a **third 1.55m 
 | Exercise | 3.60–5.20 | 3.35–5.55 | 210–270 | 9.906 |
 
 Total L2 glazing **30.620056 → 37.374481 m²**; extended galley/exercise segments to x3.35–5.55, maintaining 0.05m room-end allowance. Other sectors and opaque washroom unchanged. Added local partial edge rings **0.558333 t** and two transoms **0.128000 t** to the existing frame model, plus scaled mullions and shutters. This is declared design mass, not local FEA pressure/vibration qualification.
+G5 correction: the enlarged 2.2m ceramic plate span requires 19.1mm under the UNCHANGED source load/plate criterion. The old L2 study was still comparing an 18mm legacy plate; WWS-1 already physically books TWO independent 28mm pressure ceramics. The source pane_mm has been synchronised to 28/28mm, with zero added mass and no criterion relaxation. Independent failure and rim pressure qualification remain OPEN.
 
 ## Window/node/external-equipment clearances
 
@@ -71,11 +72,25 @@ Total L2 glazing **30.620056 → 37.374481 m²**; extended galley/exercise segme
 
 ## G1–G12 exact-geometry certification
 
-**PENDING: certificate hash does not match round-two geometry.** Never use stale pass evidence.
+| Gate | Result | Failed source checks |
+|---|---|---|
+| G1 | PASS | None |
+| G2 | PASS | None |
+| G3 | PASS | None |
+| G4 | PASS-DECLARED | None |
+| G5 | PASS-DECLARED | None |
+| G6 | PASS-DECLARED | None |
+| G7 | PASS-DECLARED | None |
+| G8 | PASS | None |
+| G9 | PASS-DECLARED | None |
+| G10 | PASS-DECLARED | None |
+| G11 | PASS | None |
+| G12 | PASS-DECLARED | None |
+**G1–G12 PASS/PASS-DECLARED; no criteria relaxed.** PASS-DECLARED is a design screen, not hardware qualification.
 
-**FQ1–FQ4 PENDING:** source summary not current geometry hash.
-- RCS_40S_CURRENT_TRACE.json: STALE / HOLD
-- RCS_60S_DEGRADED_TRACE.json: STALE / HOLD
+**FQ1–FQ4 current-geometry matrix:** PASS_NUMERICAL. Check the source case counts in the linked FQ file.
+- RCS_40S_CURRENT_TRACE.json: hash MATCH
+- RCS_60S_DEGRADED_TRACE.json: hash MATCH
 
 ## Five occupant viewpoints
 
@@ -83,11 +98,11 @@ Each uses the same camera both rounds, source 3D geometry, shutters OPEN, and so
 
 | Occupant view | Round 1 BEFORE | Round 2 AFTER |
 |---|---|---|
-| berth | [Rendered](../render/wws1_round2/before_pov_berth.png) | PENDING |
-| lounge | [Rendered](../render/wws1_round2/before_pov_lounge.png) | PENDING |
-| galley | [Rendered](../render/wws1_round2/before_pov_galley.png) | PENDING |
-| exercise | [Rendered](../render/wws1_round2/before_pov_exercise.png) | PENDING |
-| medical | [Rendered](../render/wws1_round2/before_pov_medical.png) | PENDING |
+| berth | [Rendered](../render/wws1_round2/before_pov_berth.png) | [Rendered](../render/wws1_round2/after_pov_berth.png) |
+| lounge | [Rendered](../render/wws1_round2/before_pov_lounge.png) | [Rendered](../render/wws1_round2/after_pov_lounge.png) |
+| galley | [Rendered](../render/wws1_round2/before_pov_galley.png) | [Rendered](../render/wws1_round2/after_pov_galley.png) |
+| exercise | [Rendered](../render/wws1_round2/before_pov_exercise.png) | [Rendered](../render/wws1_round2/after_pov_exercise.png) |
+| medical | [Rendered](../render/wws1_round2/before_pov_medical.png) | [Rendered](../render/wws1_round2/after_pov_medical.png) |
 
 ### What remains unqualified
 
