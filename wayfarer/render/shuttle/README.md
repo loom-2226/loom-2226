@@ -31,7 +31,7 @@ and hub dimensions are unknown and G8 full fit stays OPEN.
 
 Open items this model makes visible (see `wayfarer/lab/shuttle/OPEN_ITEMS.md`):
 bay fit with mast and hub; forward blades lying over the tapered nose cone,
-outside its surface though inside the 4.3 m cylinder line, with groove and
+outside its surface though inside the 3.8 m cylinder line, with groove and
 support not established; continuous blades drawn, while hold stowage assumes segmented
 blades with hot-gas joints; mast drawn at mid-length, not at a computed CG;
 door and ramp swept volume not checked; whether the belly heat shield is core
