@@ -755,11 +755,25 @@
     },
     "crew_cases": [
       {
+        "value": 2,
+        "unit": "crew",
+        "provenance": "ASSUMPTION",
+        "source": "legacy sensitivity only; resized pod rated for 3 not 4",
+        "description": "Comparison only; not new pod crew capacity"
+      },
+      {
         "value": 3,
         "unit": "crew",
         "provenance": "KT_DECISION",
         "source": "R3 2026-11-03",
-        "description": "Three-crew pod"
+        "description": "Authoritative three-crew case"
+      },
+      {
+        "value": 4,
+        "unit": "crew",
+        "provenance": "ASSUMPTION",
+        "source": "legacy sensitivity only; resized pod rated for 3 not 4",
+        "description": "Comparison only; not new pod crew capacity"
       }
     ],
     "crew_heat_W_each": {
