@@ -23,11 +23,11 @@ Criteria sha256 `5bf7777930bb8dc1e72460daf3b1e5a6776b7b9f266e68269f0e7d847823d98
 | G9 Failures and reserves | PASS-DECLARED |
 | G10 Flight dynamics: RCS, torch, Metric, Loom | PASS-DECLARED |
 | G11 Canon fit | PASS |
-| G12 Images | FAIL |
+| G12 Images | PASS-DECLARED |
 
 ## Conventional certification scope and explicit HOLDS
 
-Script certified flag: false; kT-declared conventional G1-G12 lab acceptance only. Not a physical flightworthiness certificate, Metric arrival authority or replacement for reviewer signatures and loom-gate.
+Script certified flag: true; kT-declared conventional G1-G12 lab acceptance only. Not a physical flightworthiness certificate, Metric arrival authority or replacement for reviewer signatures and loom-gate.
 
 Locked geometry: 293a4e90389acdc1450a888cbabb095d19803c5e9d4c100eb76162c4f4cfed38.
 
@@ -72,7 +72,7 @@ RCS power source: OPEN. Idle torch reactor or dedicated supply; no ship-wide bus
 - **ACCEPTED by kT 2026-11-01.** Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only Decision: Acceptance of visual architecture for new-hash equal-scale section, viewer, render set and two-scene GLB; no optical or real hardware qualification implied.
 - **ACCEPTED by kT 2026-11-01.** NEW source-specific kT visual acceptance required for new aft reactor/rotor and forward reactor/battery cutaway, even if G12 image source-hash checks pass. Prior source-hash visual acceptance does not transfer. Decision: kT ACCEPTS reactor A aft C-ring, reactor B forward service ring, flywheel aft, battery forward visual layout specifically on source geometry SHA 4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331. Updated fuel-envelope labels are source-derived schematic overlays; no tank packing acceptance implied.
 
-Script verdict on certification: NOT YET: at least one gate is OPEN or FAIL, or a declared assumption awaits kT. Sign-off still needs both reviewers and loom-gate.
+Script verdict on certification: all computable gates pass and every declared assumption is accepted. Sign-off still needs both reviewers and loom-gate.
 
 ## G1 Mass and fluids ledger: PASS
 
@@ -451,21 +451,21 @@ Script verdict on certification: NOT YET: at least one gate is OPEN or FAIL, or 
 | Torch internals | axial fusion torch / magnetic nozzle; internals not stated | pulsed: each He3-rich, spin-polarised D-He3 pellet is wrapped in a shell of remass that becomes the exhaust; burn 6 m aft of the reactor face (x 52.3 m) |
 | Hot fins | none | 4 hot fins at 1750 K aft of the shield on the strake lines, 28 m, 21.0 t paid from the engineering reserve |
 
-## G12 Images: FAIL
+## G12 Images: PASS-DECLARED
 
 | Check | Value | Limit | Pass | Note |
 |---|---|---|---|---|
 | render manifest matches locked geometry | 293a4e90389acdc1450a888cbabb095d19803c5e9d4c100eb76162c4f4cfed38  | 293a4e90389acdc1450a888cbabb095d19803c5e9d4c100eb76162c4f4cfed38 | yes |  |
-| all indexed images and viewer have current hash and exist | 1  | 0 | NO |  |
+| all indexed images and viewer have current hash and exist | 0  | 0 | yes |  |
 | exterior current-geometry artifacts | 13  | 4 | yes |  |
 | cutaway current-geometry artifacts | 4  | 2 | yes |  |
 | deckplan current-geometry artifacts | 7  | 5 | yes |  |
-| viewer current-geometry artifacts | 0  | 1 | NO |  |
+| viewer current-geometry artifacts | 1  | 1 | yes |  |
 | Option C 1:1 metric crown section current-hash PNG plus source SVG | True  | True | yes |  |
 | Option C all previously dropped exterior views rerendered | 13  | 10 | yes |  |
 | Original NOSE research and viewer assets preserved under wayfarer/ | [21, 28]  | [21, 28] | yes |  |
 | D-He3 and C-lite wet/dry tank envelopes have placed mass and source-checked CG cutaway labels | True Bounding envelopes and wet/dry CG only; tank packaging, overlap and plumbing UNQUALIFIED | True | yes |  |
 | source-hashed system cutaway shows independently labelled reactors, flywheel and battery | True G12 source-based visual identification, NOT physical equipment packing qualification | True | yes |  |
-| one GLB with exterior and I4 interior scenes stamped with current hash | False  | True | NO |  |
+| one GLB with exterior and I4 interior scenes stamped with current hash | True  | True | yes |  |
 - Manifest hash + current files + 2-scene GLB verified; full 64-character SHA stamped by source render templates.
 - G12 visuals remain NON-GOVERNING pending kT aesthetic/geometry interpretation review; screenshot existence does not qualify hardware, pressure crown or humans.

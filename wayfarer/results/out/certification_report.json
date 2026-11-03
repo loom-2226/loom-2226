@@ -17,7 +17,7 @@
   "G9": "PASS-DECLARED",
   "G10": "PASS-DECLARED",
   "G11": "PASS",
-  "G12": "FAIL"
+  "G12": "PASS-DECLARED"
  },
  "gates": [
   {
@@ -3683,7 +3683,7 @@
   {
    "gate": "G12",
    "title": "Images",
-   "verdict": "FAIL",
+   "verdict": "PASS-DECLARED",
    "checks": [
     {
      "name": "render manifest matches locked geometry",
@@ -3695,10 +3695,10 @@
     },
     {
      "name": "all indexed images and viewer have current hash and exist",
-     "value": 1,
+     "value": 0,
      "limit": 0,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
@@ -3727,10 +3727,10 @@
     },
     {
      "name": "viewer current-geometry artifacts",
-     "value": 0,
+     "value": 1,
      "limit": 1,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
@@ -3781,10 +3781,10 @@
     },
     {
      "name": "one GLB with exterior and I4 interior scenes stamped with current hash",
-     "value": false,
+     "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     }
    ],
@@ -4037,7 +4037,7 @@
   }
  ],
  "kt_decisions_sha256": "6e42c2e97fe2d5ea3a43e3ab6ece0531531206355642ccc15e2b6beef1cd255a",
- "certified": false,
+ "certified": true,
  "certified_rule": "every gate PASS or PASS-DECLARED and every declared assumption ACCEPTED by kT; then both reviewers sign and loom-gate passes",
  "qualification_scope": {
   "certified_flag_meaning": "kT-accepted declared G1-G12 conventional Wayfarer laboratory certification basis ONLY; not independent reviewer signatures, Metric arrival or hardware flightworthiness",

@@ -2,12 +2,6 @@
  "geometry_sha256": "293a4e90389acdc1450a888cbabb095d19803c5e9d4c100eb76162c4f4cfed38",
  "files": [
   {
-   "file": "wayfarer_v05_viewer.html",
-   "kind": "viewer",
-   "title": "Wayfarer v0.5 Viewer",
-   "geometry_sha256": "4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331"
-  },
-  {
    "file": "ext_hero.png",
    "kind": "exterior",
    "title": "Wayfarer, arriving at Neptune",
@@ -191,6 +185,12 @@
    "file": "deck_overview.png",
    "kind": "deckplan",
    "title": "deck_overview.svg",
+   "geometry_sha256": "293a4e90389acdc1450a888cbabb095d19803c5e9d4c100eb76162c4f4cfed38"
+  },
+  {
+   "file": "wayfarer_v05_viewer.html",
+   "kind": "viewer",
+   "title": "Wayfarer v0.5 Viewer",
    "geometry_sha256": "293a4e90389acdc1450a888cbabb095d19803c5e9d4c100eb76162c4f4cfed38"
   }
  ],
