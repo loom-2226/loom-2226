@@ -100,7 +100,7 @@ function bellyCase(b,w,world,m,s,kind){
    waterPhases:[
     {phase:"Wayfarer load before sortie",waterT:water,chargedT:0,cryoT:chem?loadedT:null,coldT:cold,custodyT:custody},
     {phase:chem?"Cryogenic boil-off and belly burn":"Thermal/electric water belly burn",waterT:afterBellyWater,
-     chargedT:loadedT,cryoT:chem?bellyBurnT:null,boiloffT,coldT:cold,custodyT:custody},
+     chargedT:loadedT,cryoT:chem?0:null,boiloffT,coldT:cold,custodyT:custody},
     {phase:"Main torch ideal-circular-speed floor (NOT full ascent)",waterT:afterTorchWater,
      chargedT:Math.min(Math.max(0,afterBellyWater),torchWaterNeed),cryoT:0,coldT:cold,custodyT:custody}
    ]};
@@ -260,7 +260,7 @@ function report(b,w,baseSha,worldSha,a){
   add("| "+name+" | "+key+" | "+x.PASS+" | "+x.FAIL+" | "+x.OPEN+" | "+x["N/A"]+" | "+showGate(x)+" |");
  add("","## Interpretation and accounting",
  "**A2:** The original 34.2t G8 docked-core dry cap. Electric/core uses the existing small-belly-thruster dry part. Chemical also charges its **additional cryo tank 0.3–0.8t**; no Venus/Titan kit on Moon, Mars or Mercury.",
- "**BELLY_TW_E / BELLY_TW_C:** chosen thrust-to-weight target 1.2–1.5 at each world's local g, applied to the initial sampled wet mass, not the abandoned Venus 760kN array. Because thrust is being **sized** by this formula, these gates mechanically PASS by construction. They do NOT certify installed thrust, combustion, motor mass, duty, exhaust plume or structure.",
+ "**BELLY_TW_E / BELLY_TW_C:** chosen thrust-to-weight target 1.2–1.5 at each world's local g, applied to the initial sampled wet mass, not the abandoned Venus fixed-thrust array. Because thrust is being **sized** by this formula, these gates mechanically PASS by construction. They do NOT certify installed thrust, combustion, motor mass, duty, exhaust plume or structure.",
  "**BELLY_WATER_E / BELLY_WATER_C:** finite 23.1t reaction-water stock charged once for belly sortie Δv 0.3–0.6km/s (touchdown + hover + lift to torch pitch-up) **AND** main torch ideal circular-speed lower bound at world g/radius, with cryo boil-off also debited for chemical. PASS means this lower-bound water ledger closes. Actual required orbit Δv and thrust/duty remain OPEN.",
  "**Electric/thermal architecture (a):** water exhaust 6–12km/s, directed jet power P=F×ve/2, reactor input=P/(0.30–0.70 efficiency). The GW tap from the shuttle's torch reactor is OPEN. Wayfarer only declares a 63.36MW RAW **burn-only** torch tap, not a GW supply. Water-gate PASS does not imply a viable input power system.",
  "**Chemical architecture (b):** H2/O2 exhaust 4.0–4.4km/s from conventional high-performance engine analogues, whole propellant from water electrolysed **on Wayfarer before sortie**, 2×50MW net house reactors (DECLARED_2226), then shipped in a **0.3–0.8t** cryogenic tank. LOX+LH2 and water are mutually exclusive accounting forms; never double-count propellant mass. Boil-off 0.5–2%/day; an explicit **0–1day ASSUMPTION** is swept because no actual hold-time was supplied. The plant/liquefier, tanks, engine packaging and oxygen/hydrogen interfaces remain OPEN.",
@@ -315,7 +315,7 @@ function report(b,w,baseSha,worldSha,a){
       "Required "+p(c.thrustkN)+" kN at T/W "+p(c.tw)+
       ", belly Δv "+p(c.bellyDvKmps)+"km/s; ideal circular-speed torch floor "+
       p(c.torchWaterNeedT)+"t.",
-      "| Phase | remaining reaction-water equivalent t | charged to phase t | water stored as cryo t | cold cabin water t | custody t |",
+      "| Phase | remaining reaction-water equivalent t | charged to phase t | cryo subset on board after phase t | cold cabin water t | custody t |",
       "|---|---:|---:|---:|---:|---:|");
      for(const row of c.waterPhases)add("| "+row.phase+" | "+p(row.waterT)+
       " | "+p(row.chargedT)+" | "+p(row.cryoT)+" | "+p(row.coldT)+" | "+p(row.custodyT)+" |");
