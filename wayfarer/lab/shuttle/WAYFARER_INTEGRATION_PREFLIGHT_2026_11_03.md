@@ -44,7 +44,7 @@ Source `wayfarer/lab/certify.py:g8`; shuttle radius **1.9m**; slot half-width **
 | C ideal torch ascent water | 5589/6561 = 85.185% | 5670/6561 = 86.420% | Conditional |
 | DS3 three-crew Venus surface | Not run | 2835/6561 = 43.210% | Conditional screen; **not qualified** |
 
-**New kit** min/mid/max (independent bounds): 5.925 / 10.26875 / 14.6125t; 3–6t old TOTAL entry TPS conserved through 1–2t CORE base and correlated 1–5t EXTRA. Pod shell, fittings, hull, chassis, door and gear mass rescaled with documented simple geometric ASSUMPTIONS, not certified designs. WHOI Alvin supports *three humans in 2.1m internal-diameter sphere* as precedent, not proof this 2.5m OD LOOM pressure sphere meets 92bar Venus external pressure, hot knockdown or required hatch/windows.
+**New kit** independent-component envelope min/mid/max: 4.925 / 10.26875 / 15.6125t (the sampled design observed 5.925–14.2625t); 3–6t old TOTAL entry TPS conserved through 1–2t CORE base and correlated 1–5t EXTRA. Pod shell, fittings, hull, chassis, door and gear mass rescaled with documented simple geometric ASSUMPTIONS, not certified designs. WHOI Alvin supports *three humans in 2.1m internal-diameter sphere* as precedent, not proof this 2.5m OD LOOM pressure sphere meets 92bar Venus external pressure, hot knockdown or required hatch/windows.
 
 ## Stage 3 worlds
 
