@@ -2,8 +2,8 @@
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
  "status": "NON-GOVERNING SANDBOX certification run",
  "basis": "CERTIFICATION_BASIS.md v0.2 (agreed by Claude and Sol; PROPOSED to kT)",
- "geometry_sha256": "818f83de02e282aaad92dd9a326226eb3185ae69ab623ad8cb9d865fcf46c85a",
- "inputs_sha256": "2f2d19e73243f1d29149125212278e681e826e70cfbdf4850df37ced4c39b726",
+ "geometry_sha256": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7",
+ "inputs_sha256": "7dad4d7f4a64c5b2c36aae4d8b94e70dce9ffe7491f9724bbad06dd58adcfab4",
  "criteria_sha256": "5bf7777930bb8dc1e72460daf3b1e5a6776b7b9f266e68269f0e7d847823d980",
  "summary": {
   "G1": "PASS",
@@ -390,6 +390,22 @@
      "unit": "t",
      "pass": true,
      "note": ""
+    },
+    {
+     "name": "OG-3 swaps same physically booked WWS AOI column (zero new dry mass)",
+     "value": 66.611712004,
+     "limit": 66.611712004,
+     "unit": "kg/m2",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "OG-3 deep gel remains uncommitted in existing reserve, no new credit",
+     "value": 0,
+     "limit": 0,
+     "unit": "t",
+     "pass": true,
+     "note": "1.04t option unspent; reserve and dry mass not increased"
     }
    ],
    "declared": [],
@@ -1323,10 +1339,10 @@
    },
    "ship_power": {
     "status": "NON-CANON ENGINEERING SCREEN; NO PHYSICAL QUALIFICATION",
-    "geometry_sha256": "818f83de02e282aaad92dd9a326226eb3185ae69ab623ad8cb9d865fcf46c85a",
-    "input_sha256": "2f2d19e73243f1d29149125212278e681e826e70cfbdf4850df37ced4c39b726",
-    "rcs_trace_sha256": "b365191ace59f4edab6b02ad9040105aa53a682dc5d093b601c1a96fd1908843",
-    "rcs_trace_60s_sha256": "574fec99658cb3eb7d333e1bddc4c59def177be354ce39ab456ec680a8ece290",
+    "geometry_sha256": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7",
+    "input_sha256": "7dad4d7f4a64c5b2c36aae4d8b94e70dce9ffe7491f9724bbad06dd58adcfab4",
+    "rcs_trace_sha256": "544cc8208bfccae388af724ffad9afe7b562186e4a982b22ca7a9babfcb395b8",
+    "rcs_trace_60s_sha256": "c7254cd01d8e642cc279f898e73739220a265cacb95d139299f41e8efab50954",
     "reactor": {
      "count": 2,
      "per_unit_net_mw": 50,
@@ -1369,7 +1385,7 @@
     },
     "rcs_trace": {
      "status": "CURRENT GEOMETRY NUMERICAL TRACE ONLY; NOT HARDWARE QUALIFICATION",
-     "geometry_sha256": "818f83de02e282aaad92dd9a326226eb3185ae69ab623ad8cb9d865fcf46c85a",
+     "geometry_sha256": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7",
      "dt_s": 0.1,
      "scenario": "CURRENT GEOMETRY 40s pitch 180 diagnostic",
      "duration_s": 40,
@@ -1405,7 +1421,7 @@
     },
     "rcs_60s_degraded_trace": {
      "status": "CURRENT GEOMETRY NUMERICAL TRACE ONLY; NOT HARDWARE QUALIFICATION",
-     "geometry_sha256": "818f83de02e282aaad92dd9a326226eb3185ae69ab623ad8cb9d865fcf46c85a",
+     "geometry_sha256": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7",
      "dt_s": 0.1,
      "scenario": "CURRENT GEOMETRY 60s pitch 180 diagnostic",
      "duration_s": 60,
@@ -2689,6 +2705,48 @@
      "note": "600 rays from 3 points, state S5 (tanks empty, shuttle away); thinnest ray from (9.0, 0.0, 3.65) toward (0.11, 0.18, 0.98)"
     },
     {
+     "name": "OG-3 HYDRA OPEN: physical areal column only (NOT GCR or SPE dose)",
+     "value": 31.411171,
+     "limit": 31.411171,
+     "unit": "g/cm2",
+     "pass": true,
+     "note": "Quiet sun; below LOOM 40g/cm2 SPE ray screen; no dose reduction inferred"
+    },
+    {
+     "name": "OG-3 HYDRA CLOSED: local areal mass meets unchanged SPE ray rule",
+     "value": 58.411171,
+     "limit": 40,
+     "unit": "g/cm2",
+     "pass": true,
+     "note": "Shutter physically closed, plus ceramic panes and hydrogenous OG-3, not a transport result"
+    },
+    {
+     "name": "OG-3 nano-fibre below 1% by mass; composition declared only",
+     "value": 0.005,
+     "limit": "BNNT-H <1% by mass; optically index-matched, long-term dispersion UNPROVEN",
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "OG-3 has ZERO quantified radiation-dose and optical heat credit",
+     "value": [
+      null,
+      null,
+      0,
+      0
+     ],
+     "limit": [
+      null,
+      null,
+      0,
+      0
+     ],
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
      "name": "WWS-1 ALL shutters CLOSED: every opening restores local armour+pressure shell areal mass",
      "value": 51.75,
      "limit": 35.0,
@@ -2837,8 +2895,15 @@
    ],
    "declared": [
     {
+     "key": "og3_hydra",
+     "text": "OG-3 HYDRA physical areal mass now credited for OPEN and CLOSED shutter state. GCR and SPE DOSE remain NOT COMPUTED. 20170005580 addresses aluminium modelled local dose minimum near 20-30g/cm2 and flattening polyethylene at greater depths, not universal hydrogenous 20g/cm2 limit. OG3 shell/cavity fit, BNNT dispersion, 10B reaction secondaries, radiolysis, outgassing and fire remain OPEN.",
+     "kT": "AWAITING",
+     "as": "",
+     "date": null
+    },
+    {
      "key": "wws1_shield",
-     "text": "All side shutters CLOSED for torch/Metric/radiation/dust/heat-pump failure. Local areal mass is no worse than prior continuous hull, AOI ZERO radiation credit. No particle/dose transport or per-aperture sealing qualification.",
+     "text": "All side shutters CLOSED for SPE alert/torch/Metric/LOOM/high dust/heat pump failure; open only quiet sun. OG-3 (when selected) has measured-by-model AREAL MASS credit, but ZERO radiation DOSE benefit assigned; old material mass is not double credited. No particle/dose transport or aperture seal qualification.",
      "kT": "AWAITING",
      "as": "",
      "date": null
@@ -2908,7 +2973,7 @@
     },
     {
      "key": "gcr",
-     "text": "Galactic cosmic rays: at 2026 free-space rates (1.8 mSv/day, ~657 mSv/yr) a crew member reaches NASA's 600 mSv career limit after ~333 days in deep space. Hull shielding barely changes this. Long careers aboard rely on canon's off-Earth MED-MOD-RADIATION milestone and crew time-in-space rules; this is a canon question, not something the hull can close.",
+     "text": "Galactic cosmic rays: illustrative 2026 unshielded free-space rates (1.8mSv/day, ~657mSv/year) are NOT a post-hull or OG-3 crew dose prediction. Hydrogen-rich material attenuates with diminishing returns; NTRS 20170005580 compares aluminium and polyethylene and cannot justify a universal hard shielding cutoff. Any long-term dose claim requires HZETRN/OLTARIS or Geant4 with full spectrum, secondary neutrons, material composition, actual aperture/shutter geometry and inhabited locations. The MED-MOD-RADIATION canon milestone stays an unresolved independent assumption.",
      "kT": "ACCEPTED",
      "as": "crew protection from galactic cosmic rays relies on canon's off-Earth MED-MOD-RADIATION milestone plus crew time-in-space limits.",
      "date": null
@@ -2930,7 +2995,7 @@
    ],
    "notes": [
     "Shadow cone: shield front face x 34.3 m, radius 2.75 m; neutron source: the pellet burn, 0.3 m across, anywhere in x 52-52.6 m (worst case used). Radiator strakes and the hot fins sit outside the cone (the fins edge-on to the burn), take neutron heating and are out of bounds for EVA during burns.",
-    "Shielding credits committed material only; uncommitted distributed growth allowance is zero radiation mass, AOI gel zero radiation credit (fraction 0.976795 on spread dry parts)."
+    "Continuous-hull ray screen credits committed physical armour/water only; OG3 organic mass is credited separately as per-aperture areal column, NOT double-booked into path transport. No dose output from OG3. Uncommitted growth mass zero credit (fraction 0.976795)."
    ],
    "shelter_min_g_cm2": 53.39034860482293
   },
@@ -3069,8 +3134,8 @@
     },
     {
      "name": "I4 human-factors source geometry hash",
-     "value": "818f83de02e282aaad92dd9a326226eb3185ae69ab623ad8cb9d865fcf46c85a",
-     "limit": "818f83de02e282aaad92dd9a326226eb3185ae69ab623ad8cb9d865fcf46c85a",
+     "value": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7",
+     "limit": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7",
      "unit": "",
      "pass": true,
      "note": ""
@@ -3534,8 +3599,8 @@
    "checks": [
     {
      "name": "C: card names the geometry it was made from",
-     "value": "818f83de02e2",
-     "limit": "818f83de02e2",
+     "value": "e9717b871804",
+     "limit": "e9717b871804",
      "pass": true,
      "unit": "",
      "note": ""
@@ -3869,8 +3934,8 @@
    "checks": [
     {
      "name": "render manifest matches locked geometry",
-     "value": "818f83de02e282aaad92dd9a326226eb3185ae69ab623ad8cb9d865fcf46c85a",
-     "limit": "818f83de02e282aaad92dd9a326226eb3185ae69ab623ad8cb9d865fcf46c85a",
+     "value": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7",
+     "limit": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7",
      "unit": "",
      "pass": true,
      "note": ""
@@ -4092,8 +4157,15 @@
    "date": null
   },
   {
+   "key": "og3_hydra",
+   "text": "OG-3 HYDRA physical areal mass now credited for OPEN and CLOSED shutter state. GCR and SPE DOSE remain NOT COMPUTED. 20170005580 addresses aluminium modelled local dose minimum near 20-30g/cm2 and flattening polyethylene at greater depths, not universal hydrogenous 20g/cm2 limit. OG3 shell/cavity fit, BNNT dispersion, 10B reaction secondaries, radiolysis, outgassing and fire remain OPEN.",
+   "kT": "AWAITING",
+   "as": "",
+   "date": null
+  },
+  {
    "key": "wws1_shield",
-   "text": "All side shutters CLOSED for torch/Metric/radiation/dust/heat-pump failure. Local areal mass is no worse than prior continuous hull, AOI ZERO radiation credit. No particle/dose transport or per-aperture sealing qualification.",
+   "text": "All side shutters CLOSED for SPE alert/torch/Metric/LOOM/high dust/heat pump failure; open only quiet sun. OG-3 (when selected) has measured-by-model AREAL MASS credit, but ZERO radiation DOSE benefit assigned; old material mass is not double credited. No particle/dose transport or aperture seal qualification.",
    "kT": "AWAITING",
    "as": "",
    "date": null
@@ -4163,7 +4235,7 @@
   },
   {
    "key": "gcr",
-   "text": "Galactic cosmic rays: at 2026 free-space rates (1.8 mSv/day, ~657 mSv/yr) a crew member reaches NASA's 600 mSv career limit after ~333 days in deep space. Hull shielding barely changes this. Long careers aboard rely on canon's off-Earth MED-MOD-RADIATION milestone and crew time-in-space rules; this is a canon question, not something the hull can close.",
+   "text": "Galactic cosmic rays: illustrative 2026 unshielded free-space rates (1.8mSv/day, ~657mSv/year) are NOT a post-hull or OG-3 crew dose prediction. Hydrogen-rich material attenuates with diminishing returns; NTRS 20170005580 compares aluminium and polyethylene and cannot justify a universal hard shielding cutoff. Any long-term dose claim requires HZETRN/OLTARIS or Geant4 with full spectrum, secondary neutrons, material composition, actual aperture/shutter geometry and inhabited locations. The MED-MOD-RADIATION canon milestone stays an unresolved independent assumption.",
    "kT": "ACCEPTED",
    "as": "crew protection from galactic cosmic rays relies on canon's off-Earth MED-MOD-RADIATION milestone plus crew time-in-space limits.",
    "date": null
@@ -4257,6 +4329,6 @@
   "rcs_power_source": "OPEN: idle torch reactor versus dedicated supply; no ship-wide budget",
   "rcs_power_option_B": "hot-water store OPTION, not baseline",
   "required_final_authority": "separate reviewer signatures and loom-gate per existing basis",
-  "geometry_sha256": "818f83de02e282aaad92dd9a326226eb3185ae69ab623ad8cb9d865fcf46c85a"
+  "geometry_sha256": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7"
  }
 }

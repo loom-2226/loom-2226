@@ -1,9 +1,9 @@
 {
  "status": "NON-CANON ENGINEERING SCREEN; NO PHYSICAL QUALIFICATION",
- "geometry_sha256": "818f83de02e282aaad92dd9a326226eb3185ae69ab623ad8cb9d865fcf46c85a",
- "input_sha256": "2f2d19e73243f1d29149125212278e681e826e70cfbdf4850df37ced4c39b726",
- "rcs_trace_sha256": "b365191ace59f4edab6b02ad9040105aa53a682dc5d093b601c1a96fd1908843",
- "rcs_trace_60s_sha256": "574fec99658cb3eb7d333e1bddc4c59def177be354ce39ab456ec680a8ece290",
+ "geometry_sha256": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7",
+ "input_sha256": "7dad4d7f4a64c5b2c36aae4d8b94e70dce9ffe7491f9724bbad06dd58adcfab4",
+ "rcs_trace_sha256": "544cc8208bfccae388af724ffad9afe7b562186e4a982b22ca7a9babfcb395b8",
+ "rcs_trace_60s_sha256": "c7254cd01d8e642cc279f898e73739220a265cacb95d139299f41e8efab50954",
  "reactor": {
   "count": 2,
   "per_unit_net_mw": 50,
@@ -46,7 +46,7 @@
  },
  "rcs_trace": {
   "status": "CURRENT GEOMETRY NUMERICAL TRACE ONLY; NOT HARDWARE QUALIFICATION",
-  "geometry_sha256": "818f83de02e282aaad92dd9a326226eb3185ae69ab623ad8cb9d865fcf46c85a",
+  "geometry_sha256": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7",
   "dt_s": 0.1,
   "scenario": "CURRENT GEOMETRY 40s pitch 180 diagnostic",
   "duration_s": 40,
@@ -82,7 +82,7 @@
  },
  "rcs_60s_degraded_trace": {
   "status": "CURRENT GEOMETRY NUMERICAL TRACE ONLY; NOT HARDWARE QUALIFICATION",
-  "geometry_sha256": "818f83de02e282aaad92dd9a326226eb3185ae69ab623ad8cb9d865fcf46c85a",
+  "geometry_sha256": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7",
   "dt_s": 0.1,
   "scenario": "CURRENT GEOMETRY 60s pitch 180 diagnostic",
   "duration_s": 60,

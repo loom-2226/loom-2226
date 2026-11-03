@@ -4684,8 +4684,8 @@
    }
   },
   "aoi": {
-   "name": "Adaptive Optogel Interlayer (AOI-2226)",
-   "research_ref": "7240dc21:design/wayfarer/v0.5.7/command/NOSE_2226_ADAPTIVE_OPTOGEL_CANOPY_RESEARCH_CLOSED_20261029.md",
+   "name": "OG-3 HYDRA organogel bulk + AOI-2226 2mm control skin (mass-preserving replacement; research)",
+   "research_ref": "wayfarer/config/og3_hydra.json (current proposal; separate prior AOI material retained as reference)",
    "status": "kT 2026-11-01 OPTION A CONFIRMED; FUNCTIONS DECLARED, NOT PHYSICALLY QUALIFIED",
    "location": "BETWEEN separately pressure-capable primary and backup monolithic transparent-ceramic domes; outside cabin, inside 37 outer nonpressure protective panes",
    "volume_m3": 3.023,
@@ -4863,7 +4863,7 @@
   }
  },
  "version": "0.5.7-step1-I4-lock",
- "inputs_sha256": "2f2d19e73243f1d29149125212278e681e826e70cfbdf4850df37ced4c39b726",
+ "inputs_sha256": "7dad4d7f4a64c5b2c36aae4d8b94e70dce9ffe7491f9724bbad06dd58adcfab4",
  "length_m": 53.3,
  "dry_t": 867.531453463964,
  "dry_by_system_t": {
@@ -7401,7 +7401,7 @@
    "name": "AOI-2226 optical gel interspace (not pressure boundary)",
    "system": "habitat",
    "mass_t": 3,
-   "prov": "7240dc21:design/wayfarer/v0.5.7/command/NOSE_2226_ADAPTIVE_OPTOGEL_CANOPY_RESEARCH_CLOSED_20261029.md; optical modes declared; impact credit zero",
+   "prov": "wayfarer/config/og3_hydra.json (current proposal; separate prior AOI material retained as reference); optical modes declared; impact credit zero",
    "mat": "window",
    "dry": true,
    "tags": [

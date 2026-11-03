@@ -1039,7 +1039,8 @@ def g6(I, C, G):
               "Quiet sun; below LOOM 40g/cm2 SPE ray screen; no dose reduction inferred"))
             cs.append(chk("OG-3 HYDRA CLOSED: local areal mass meets unchanged SPE ray rule",
               round(closed_column,6),OG["operating_rule"]["SPE_min_ray_loomscreen_g_cm2"],
-              closed_column>=OG["operating_rule"]["SPE_min_ray_loomscreen_g_cm2"] and
+              closed_column>=c6["shelter_min_g_cm2"] and
+              OG["operating_rule"]["SPE_min_ray_loomscreen_g_cm2"]==c6["shelter_min_g_cm2"] and
               abs(closed_column-stack["nominal_closed_column_g_cm2"])<1e-7,"g/cm2",
               "Shutter physically closed, plus ceramic panes and hydrogenous OG-3, not a transport result"))
             cs.append(chk("OG-3 nano-fibre below 1% by mass; composition declared only",

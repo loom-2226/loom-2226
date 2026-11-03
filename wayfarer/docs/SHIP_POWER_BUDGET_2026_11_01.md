@@ -2,7 +2,7 @@
 
 **ENGINEERING CANDIDATE, NON-CANON. NO HARDWARE QUALIFICATION. PR #440 DRAFT, NO MERGE.**
 
-Geometry SHA256: `818f83de02e282aaad92dd9a326226eb3185ae69ab623ad8cb9d865fcf46c85a`; exact current 40s RCS trace: `b365191ace59f4edab6b02ad9040105aa53a682dc5d093b601c1a96fd1908843`. Historic FQ/acceptance does not transfer between hashes.
+Geometry SHA256: `e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7`; exact current 40s RCS trace: `544cc8208bfccae388af724ffad9afe7b562186e4a982b22ca7a9babfcb395b8`. Historic FQ/acceptance does not transfer between hashes.
 
 **Reactors:** 2×50MW net D–He3, each 5MW minimum online, 2.50t dry, A aft C-ring/B forward service ring; 40kW/kg and 75% net conversion declared. Must cycle off or store/spill surplus; never throttle to sub-MW.
 
