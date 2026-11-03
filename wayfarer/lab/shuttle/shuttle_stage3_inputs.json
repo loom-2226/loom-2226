@@ -1,0 +1,398 @@
+{
+  "schema": "LOOM_SHUTTLE_STAGE3_NONCANON_2026_11_03",
+  "classification": "RESEARCH/NON_CANON/NON_QUALIFICATION/NON_RUNTIME",
+  "authority": "kT APPROVED Stage3, ALL bodies ALL sponsors 2026–2226",
+  "baseline": "wayfarer/lab/shuttle/shuttle_inputs.json (MERGED Stage2 research baseline), physical ranges/provenance reused unchanged",
+  "worlds": {
+    "Titan": {
+      "mode": "ROTOR_KIT_HOUSE_REACTOR",
+      "surface_gravity_mps2": {
+        "value": 1.352,
+        "unit": "m/s2",
+        "provenance": "ONLINE",
+        "source": "https://ntrs.nasa.gov/citations/20220016292",
+        "description": "Titan surface gravity"
+      },
+      "mean_radius_km": {
+        "value": 2575,
+        "unit": "km",
+        "provenance": "ONLINE",
+        "source": "https://ntrs.nasa.gov/citations/20220016292",
+        "description": "Titan approximate radius"
+      },
+      "surface_density_kg_m3": {
+        "value": 5.43,
+        "unit": "kg/m3",
+        "provenance": "ONLINE",
+        "source": "https://ntrs.nasa.gov/citations/20220016292",
+        "description": "Near-surface N2 atmosphere"
+      },
+      "surface_temperature_K": {
+        "value": 94,
+        "unit": "K",
+        "provenance": "ONLINE",
+        "source": "https://ntrs.nasa.gov/citations/20220016292",
+        "description": "Approximate surface temperature; heating, cold duty OPEN"
+      },
+      "density_scale_height_km": {
+        "value": 22,
+        "unit": "km",
+        "provenance": "PROJECTION",
+        "source": "https://ntrs.nasa.gov/citations/20220016292",
+        "description": "Approximate lower-atmosphere scale height, applied as exponential proxy over 0–60km for sensitivity, NOT validated Huygens upper-atmosphere profile"
+      },
+      "atmosphere_model_ceiling_km": {
+        "value": 60,
+        "unit": "km",
+        "provenance": "ASSUMPTION",
+        "source": "kT Stage 3 limited demonstration screen 2026-11-03",
+        "description": "Numerical stopping boundary for an explicitly provisional exponential atmosphere model. NOT a mission handover target."
+      },
+      "real_handover_altitude_km": {
+        "value": null,
+        "unit": "km",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Real Titan torch ignition/handover altitude and dense N2/CH4 plume effects unqualified"
+      },
+      "required_ascent_dv_kmps": {
+        "value": null,
+        "unit": "km/s",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "No site-specific ascent losses, atmospheric drag, hover/surface trajectory or actual target orbit supplied"
+      },
+      "surface_thermal_qualification": {
+        "value": null,
+        "unit": "status",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Cold Titan habitat heater and methane/nitrogen operations unqualified"
+      }
+    },
+    "Moon": {
+      "mode": "BELLY_NO_KIT",
+      "surface_gravity_mps2": {
+        "value": 1.62,
+        "unit": "m/s2",
+        "provenance": "ONLINE",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html",
+        "description": "Moon surface gravity"
+      },
+      "mean_radius_km": {
+        "value": 1737.4,
+        "unit": "km",
+        "provenance": "ONLINE",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/moonfact.html",
+        "description": "Mean Moon radius"
+      },
+      "required_ascent_dv_kmps": {
+        "value": null,
+        "unit": "km/s",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Ideal circular speed is a LOWER bound; full Δv including gravity/steering losses and target orbit unspecified"
+      },
+      "belly_sustained_burn_and_ramp": {
+        "value": null,
+        "unit": "status",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Sized thrust = 1.2–1.5× local weight, using actual sampled vehicle mass. Two electric/thermal-water and chemical H2/O2 alternatives each separately screened; delivered-engine mass, sustained torque, plume impingement and hardware qualification OPEN."
+      },
+      "surface_thermal_qualification": {
+        "value": null,
+        "unit": "status",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Solar illumination, regolith plume/dust and night survival depend on site/epoch"
+      },
+      "baseline_belly_architecture": "CHEMICAL_H2_O2",
+      "research_alternative_belly_architecture": "ELECTRIC_THERMAL_WATER"
+    },
+    "Mars": {
+      "mode": "BELLY_NO_KIT",
+      "surface_gravity_mps2": {
+        "value": 3.73,
+        "unit": "m/s2",
+        "provenance": "ONLINE",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html",
+        "description": "Mean Mars surface gravity"
+      },
+      "mean_radius_km": {
+        "value": 3389.5,
+        "unit": "km",
+        "provenance": "ONLINE",
+        "source": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/marsfact.html",
+        "description": "Mean Mars radius"
+      },
+      "required_ascent_dv_kmps": {
+        "value": null,
+        "unit": "km/s",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Mars atmospheric drag, trajectory and orbital insertion losses not supplied"
+      },
+      "belly_sustained_burn_and_ramp": {
+        "value": null,
+        "unit": "status",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Sized thrust = 1.2–1.5× local weight, using actual sampled vehicle mass. Two electric/thermal-water and chemical H2/O2 alternatives each separately screened; delivered-engine mass, sustained torque, plume impingement and hardware qualification OPEN."
+      },
+      "surface_thermal_qualification": {
+        "value": null,
+        "unit": "status",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Mars thermal/dust/reentry TPS depends on site and use case"
+      },
+      "baseline_belly_architecture": "CHEMICAL_H2_O2",
+      "research_alternative_belly_architecture": "ELECTRIC_THERMAL_WATER"
+    },
+    "Mercury": {
+      "mode": "BELLY_NO_KIT",
+      "surface_gravity_mps2": {
+        "value": 3.7,
+        "unit": "m/s2",
+        "provenance": "ONLINE",
+        "source": "https://ssd.jpl.nasa.gov/planets/phys_par.html",
+        "description": "Mercury gravity"
+      },
+      "mean_radius_km": {
+        "value": 2439.4,
+        "unit": "km",
+        "provenance": "ONLINE",
+        "source": "https://ssd.jpl.nasa.gov/planets/phys_par.html",
+        "description": "Mean Mercury radius"
+      },
+      "required_ascent_dv_kmps": {
+        "value": null,
+        "unit": "km/s",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Target orbit, ascent control and loss budget not supplied"
+      },
+      "belly_sustained_burn_and_ramp": {
+        "value": null,
+        "unit": "status",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Sized thrust = 1.2–1.5× local weight, using actual sampled vehicle mass. Two electric/thermal-water and chemical H2/O2 alternatives each separately screened; delivered-engine mass, sustained torque, plume impingement and hardware qualification OPEN."
+      },
+      "surface_thermal_qualification": {
+        "value": null,
+        "unit": "status",
+        "provenance": "OPEN",
+        "source": "No mission-specific physical envelope supplied in kT Stage 3 brief or #453 research",
+        "description": "Terminator/site illumination and vacuum thermal protection unknown"
+      },
+      "default_sortie": "POLAR_SETTLEMENT",
+      "default_polar_canon": {
+        "value": "POLAR_SETTLEMENT",
+        "unit": "sortie scenario",
+        "provenance": "CANON_REFERENCE",
+        "source": "canon/current/LOOM_2226_Earth_Solar_System_Canon_Atlas_v3.2.md (Mercury polar water industrial niche)",
+        "description": "Canonical Mercury includes polar water niche; default landing/access sortie is a polar settlement per kT. NOT a claim every settlement is permanently shadowed."
+      },
+      "default_polar_thermal_load": {
+        "value": null,
+        "unit": "W",
+        "provenance": "OPEN",
+        "source": "Local landing-site shadow, surface radiation and actual polar infrastructure unprovided",
+        "description": "Do not impose dayside thermal kit or ungrounded polar temperature on default."
+      },
+      "dayside_sensitivity": {
+        "classification": "RESEARCH_ONLY / NON_GATE / NOT DEFAULT",
+        "surface_temperature_K": {
+          "min": 650,
+          "max": 705,
+          "unit": "K",
+          "provenance": "PROJECTION",
+          "source": "https://www.esa.int/content/view/full/487435 ; NASA Mercury upper day ~430°C",
+          "description": "Illustrative 650–705K insolation sensitivity bracket derived from ESA's maximum ~430°C upper bound; source does not establish uniform lower 650K threshold. Non-gate."
+        },
+        "thermal_kit_mass_t": {
+          "value": null,
+          "unit": "t",
+          "provenance": "OPEN",
+          "source": "No Mercury dayside entry/habitat thermal kit accepted",
+          "description": "Report as unqualified sensitivity row, no fabricated mass or gate change."
+        },
+        "note": "High insolation and hot surface may impose dayside thermal structure, radiator and shelter loads; this comparison never changes polar gate fractions."
+      },
+      "baseline_belly_architecture": "CHEMICAL_H2_O2",
+      "research_alternative_belly_architecture": "ELECTRIC_THERMAL_WATER"
+    }
+  },
+  "belly": {
+    "thrust_to_weight": {
+      "min": 1.2,
+      "max": 1.5,
+      "unit": "ratio",
+      "provenance": "ASSUMPTION",
+      "source": "kT APPROVED Stage3 PR #458 correction 2026-11-03, NONCANON",
+      "description": "Required world-specific peak belly thrust = T/W × initial loaded landing/ascent mass × local surface gravity; mechanical sizing result, NOT installed thrust qualification."
+    },
+    "sortie_dv_kmps": {
+      "min": 0.3,
+      "max": 0.6,
+      "unit": "km/s",
+      "provenance": "ASSUMPTION",
+      "source": "kT APPROVED Stage3 PR #458 correction 2026-11-03, NONCANON",
+      "description": "Total combined belly touchdown + hover + lift to torch pitch-up, once per sortie. Do not apply same debit multiple times."
+    },
+    "electric": {
+      "ve_kmps": {
+        "min": 6,
+        "max": 12,
+        "unit": "km/s",
+        "provenance": "ASSUMPTION",
+        "source": "kT APPROVED Stage3 PR #458 correction 2026-11-03, NONCANON",
+        "description": "High exhaust speed for thermal/electric water belly; separate from 2226 high-mode main torch."
+      },
+      "jet_efficiency": {
+        "min": 0.3,
+        "max": 0.7,
+        "unit": "fraction",
+        "provenance": "ASSUMPTION",
+        "source": "kT APPROVED Stage3 PR #458 correction 2026-11-03, NONCANON",
+        "description": "Electric-to-directed-water-jet efficiency: Pjet=F×ve/2, Pinput=Pjet/eta. Does not establish reactor-to-belly GW tap."
+      },
+      "torch_reactor_GW_tap": {
+        "value": null,
+        "unit": "GW",
+        "provenance": "OPEN",
+        "source": "Wayfarer: only 63.36 MW raw burn-only torch tap, 75% conversion; no GW feeder declared",
+        "description": "GW-class on-shuttle belly energy from torch-lineage reactor remains unqualified; user explicitly forbids crediting source feasibility in numerical water gate."
+      },
+      "peak_GW_tap_qualified": {
+        "value": null,
+        "unit": "status",
+        "provenance": "OPEN",
+        "source": "kT APPROVED Stage3 PR #458 correction 2026-11-03, NONCANON",
+        "description": "Physical high-power feeder, direct nozzle conversion and 18h duty architecture missing"
+      }
+    },
+    "chemical": {
+      "ve_kmps": {
+        "min": 4,
+        "max": 4.4,
+        "unit": "km/s",
+        "provenance": "ONLINE",
+        "source": "NASA rocket propulsion H2/O2 Isp ~410–450s; https://www.nasa.gov/wp-content/uploads/2023/09/nasa-sl-2024-arw-propulsion-systems-508.pdf ; https://www.l3harris.com/en-au/all-capabilities/rs-25-engine",
+        "description": "Conventional H2/O2 effective exhaust speed bracket, compatible with typical high-performance vacuum LOX/LH2; pressure/altitude dependence not modeled."
+      },
+      "cryo_tank_t": {
+        "min": 0.3,
+        "max": 0.8,
+        "unit": "t",
+        "provenance": "ASSUMPTION",
+        "source": "kT APPROVED Stage3 PR #458 correction 2026-11-03, NONCANON",
+        "description": "Additional onboard LOX/LH2 cryogenic tank + plumbing dry mass, added ONCE to nonkit shuttle core for chemical architecture and docked A2; vessel dry qualifications OPEN."
+      },
+      "boiloff_fraction_per_day": {
+        "min": 0.005,
+        "max": 0.02,
+        "unit": "per day",
+        "provenance": "ASSUMPTION",
+        "source": "kT APPROVED Stage3 PR #458 correction 2026-11-03, NONCANON",
+        "description": "Loss of combined stoichiometric H2+O2 propellant water-equivalent per elapsed day; user provided range; high, not a NASA-qualified mission loss rate."
+      },
+      "storage_days": {
+        "min": 0,
+        "max": 1,
+        "unit": "days",
+        "provenance": "ASSUMPTION",
+        "source": "Analyst Stage3 bounded sensitivity 2026-11-03, NON-CANON",
+        "description": "Explicit illustrative zero-to-one-day interval because user gave a per-day loss but no actual transport/storage time; change if itinerary known. Charged to initial water, never ignored."
+      },
+      "electrolysis_kWh_per_kg_water": {
+        "min": 5,
+        "max": 6.2,
+        "unit": "kWh/kg H2O",
+        "provenance": "ONLINE",
+        "source": "US DOE Hydrogen Program Record 24005 representative PEM 55.2kWh/kg H2: https://www.hydrogen.energy.gov/docs/hydrogenprogramlibraries/pdfs/24005-clean-hydrogen-production-cost-pem-electrolyzer.pdf ; DOE alkaline system 48–55 kWh/kg H2: https://www.energy.gov/cmei/fuels/technical-targets-liquid-alkaline-electrolysis ; stoichiometric H2 fraction in H2O=2.016/18.015≈0.1119",
+        "description": "Equivalent electrolysis-only electricity per kg stoichiometric WATER converted to H2+O2, ~45–55kWh/kg H2 ×0.112 =5.04–6.16 kWh/kg H2O; bounded to 5.0–6.2 for source-backed sensitivity. ONLINE DERIVED from published H2-unit efficiency and chemical stoichiometry; not a measured per-kg-water system metric. NOT a claim to include cryogenic liquefaction, cooling, plant construction, or handling; those remain OPEN."
+      },
+      "molecular_water_to_stoich_h2o2": {
+        "value": 1,
+        "unit": "kg combined H2/O2 per kg water",
+        "provenance": "ONLINE",
+        "source": "H2O → H2 + 1/2 O2, conserved mass; https://www.arei.info/docs/rub83/Introduction_to_GREEN_HYDROGEN___AREI_CD___Dr_Maged_Mahmoud_July_2022_Finalcalb115236.pdf",
+        "description": "The available water mass is converted into H2+O2 mass, no duplicated reaction water and propellant inventories."
+      },
+      "house_reactors_net_MW": {
+        "value": 100,
+        "unit": "MW net electric",
+        "provenance": "DECLARED_2226",
+        "source": "wayfarer/docs/SHIP_POWER_BUDGET_2026_11_01.md (merged main), kT accepted 2026-11-01",
+        "description": "2×50 MW net onboard Wayfarer, consumed to prepare electrolysis propellant before shuttle departure. No shuttle GW belly tap."
+      },
+      "electrolysis_plant_and_liquefaction_qualified": {
+        "value": null,
+        "unit": "status",
+        "provenance": "OPEN",
+        "source": "kT APPROVED Stage3 PR #458 correction 2026-11-03, NONCANON",
+        "description": "Available electrical generation does not prove that a high-throughput electrolysis plant/LOX-LH2 liquefier exists; no plant mass charged to shuttle; Wayfarer capacity and storage remain OPEN."
+      },
+      "cryo_joint_storage_qualified": {
+        "value": null,
+        "unit": "status",
+        "provenance": "OPEN",
+        "source": "kT APPROVED Stage3 PR #458 correction 2026-11-03, NONCANON",
+        "description": "Boiloff and 0.3–0.8t tank declared but actual cold-line valves, oxygen compatibility, landing pad duty and vehicle packaging OPEN"
+      }
+    },
+    "orbit_torch_basis": "same high-ve torch and ideal circular-speed lower bound as Stage3 first draft; actual full ascent delta-v remains OPEN",
+    "baseline_architecture": "chemical",
+    "research_alternative_architecture": "electric",
+    "selection_authority": "kT APPROVED 2026-11-03: chemical H2/O2 belly BASELINE on Moon, Mars, Mercury polar; electric/thermal water research alternative only. Does not certify full flight."
+  },
+  "pilot": {
+    "sweep_count": {
+      "value": 6561,
+      "unit": "scenarios",
+      "provenance": "ASSUMPTION",
+      "source": "Reuse Stage 2 3^8 sample design",
+      "description": "Deterministic balanced min/mid/max coverage, not probability"
+    },
+    "oat_count": {
+      "value": 81,
+      "unit": "baseline scenarios",
+      "provenance": "ASSUMPTION",
+      "source": "Reuse Stage2 one-at-a-time sensitivity count",
+      "description": "3^4 baselines per input"
+    },
+    "top": {
+      "value": 3,
+      "unit": "drivers",
+      "provenance": "ASSUMPTION",
+      "source": "kT Stage 3",
+      "description": "Three strongest variation/margins per computed gate"
+    }
+  },
+  "cautions": [
+    "A2 core excludes detachable Titan/Venus kit in Wayfarer dock; Titan installed mass includes kit in wet and thrust analysis.",
+    "No kit on Moon/Mars/Mercury; crew cold water, reaction water and custody capsule remain distinct.",
+    "Necessary ideal-circular-orbit water floor is not full orbital ascent Δv. C_FULL stays OPEN for each world.",
+    "Titan atmosphere beyond near surface represented only by explicitly projected scale height; altitude at 60km is model-boundary censoring, not handover proof.",
+    "Titan ambient N2 heat feed from reactor is an assumed 2226 thermal conversion; real methane/nitrogen reactivity, exchanger/cold rotor materials and Torch dense atmosphere stay OPEN.",
+    "Plume design and surface survival are not certified; G8 B full fit remains OPEN.",
+    "Removed abandoned Venus fixed-peak belly-array analogue; World-specific F=T/W×wetmass×gravity at sampled 1.2–1.5 T/W.",
+    "Electric water belly requires GW source tap from torch reactor: OPEN; Wayfarer 63.36MW torch tap is burn-only and no GW feeder proved.",
+    "H2/O2 uses shared water by electrolysis aboard Wayfarer, with 100MW net declared house-power, cryogenic tank and time-swept boiloff. Plant/liquefier and fill logistics OPEN.",
+    "Electrolysis electricity is ONLINE-derived ~5.0–6.2kWh per kg stoichiometric water, based on published ~45–55kWh/kg hydrogen and 0.112 mass fraction; cryogenic liquefaction extra power and plant remain OPEN.",
+    "Mercury polar settlement default supported by Atlas polar water niche; dayside surface thermal only separate uncredited sensitivity.",
+    "Moon, Mars, Mercury polar: chemical H2/O2 belly is the baseline; electric/thermal water is a research alternative (GW electrical power tap OPEN); full orbital ascent remains OPEN."
+  ],
+  "si": {
+    "N_per_kN": {
+      "value": 1000,
+      "unit": "N/kN",
+      "provenance": "ONLINE",
+      "source": "SI decimal prefixes",
+      "description": "Explicit mechanical force unit conversion"
+    }
+  }
+}
