@@ -2,33 +2,33 @@
  "name": "Wayfarer Step1 water RCS ve=1.96km/s conditional",
  "provenance": {
   "authority": "NON-GOVERNING current geometry numerical FQ1\u2013FQ4 only",
-  "geometry_sha256": "bd0b779c57782d8647c15459f4848245c1dd8cc083e6399f7d413c8dd9d7a187",
+  "geometry_sha256": "8b43d87dcb5fd8fe9e06e427e957db26dcc8671cbcb2aa28791e77c728384145",
   "engine_fixture": "fq_20261031/wayfarer_fq_water_rcs_1960.json",
   "body_source": "S4: remass-empty rigid body including any separate D-He3 wet fuel + S1 water-remass tank",
   "scope": "FQ1\u2013FQ4, full/half remass, no Metric, no Navigator, no hardware qualification"
  },
  "base": {
-  "mass_kg": 922681.453466738,
+  "mass_kg": 922681.4534639639,
   "cg_m": [
-   23.699469548937977,
-   0.02375897661750407,
-   -0.15350437586370266
+   23.583137358160727,
+   0.029620827704181996,
+   -0.16027563474966186
   ],
   "inertia_kg_m2": [
    [
-    9647500.50915753,
-    111748.52562627288,
-    1052142.7572159318
+    9691573.30587684,
+    152014.6550466119,
+    919322.4181212434
    ],
    [
-    111748.52562627288,
-    192250661.07873443,
-    12220.50748996932
+    152014.6550466119,
+    193137958.53131297,
+    6349.413051867885
    ],
    [
-    1052142.7572159318,
-    12220.50748996932,
-    192318667.94828194
+    919322.4181212434,
+    6349.413051867885,
+    193221769.6482452
    ]
   ]
  },
