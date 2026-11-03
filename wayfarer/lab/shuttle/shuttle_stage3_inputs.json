@@ -204,9 +204,9 @@
           "min": 650,
           "max": 705,
           "unit": "K",
-          "provenance": "ONLINE",
+          "provenance": "PROJECTION",
           "source": "https://www.esa.int/content/view/full/487435 ; NASA Mercury upper day ~430°C",
-          "description": "Indicative insolated Mercury dayside 650–705K, strongly location/local time dependent; not applied to default polar sortie."
+          "description": "Illustrative 650–705K insolation sensitivity bracket derived from ESA's maximum ~430°C upper bound; source does not establish uniform lower 650K threshold. Non-gate."
         },
         "thermal_kit_mass_t": {
           "value": null,
@@ -370,7 +370,7 @@
     "Titan atmosphere beyond near surface represented only by explicitly projected scale height; altitude at 60km is model-boundary censoring, not handover proof.",
     "Titan ambient N2 heat feed from reactor is an assumed 2226 thermal conversion; real methane/nitrogen reactivity, exchanger/cold rotor materials and Torch dense atmosphere stay OPEN.",
     "Plume design and surface survival are not certified; G8 B full fit remains OPEN.",
-    "Removed abandoned Venus 760kN belly array; World-specific F=T/W×wetmass×gravity at sampled 1.2–1.5 T/W.",
+    "Removed abandoned Venus fixed-peak belly-array analogue; World-specific F=T/W×wetmass×gravity at sampled 1.2–1.5 T/W.",
     "Electric water belly requires GW source tap from torch reactor: OPEN; Wayfarer 63.36MW torch tap is burn-only and no GW feeder proved.",
     "H2/O2 uses shared water by electrolysis aboard Wayfarer, with 100MW net declared house-power, cryogenic tank and time-swept boiloff. Plant/liquefier and fill logistics OPEN.",
     "13–16kWh/kg water is conservative kT sizing ASSUMPTION, not a supported ONLINE electrolysis consumption figure.",
