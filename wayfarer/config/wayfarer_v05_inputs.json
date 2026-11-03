@@ -1973,13 +1973,13 @@
    "pressure_vessel_and_bulkheads": 20,
    "decks_and_core": 8,
    "outer_skin_midship": 14,
-   "longerons": 11.862,
+   "longerons": 11.867,
    "ring_frames": 17,
    "tank_shells": 24,
    "bay_liner": 6,
    "thrust_cone": 16.3,
    "longeron_joints": 3.476,
-   "released_to_reserve": 19.662
+   "released_to_reserve": 19.657
   },
   "armor_fixed_shield_t": 105,
   "habitation_life_support_t": 45,
@@ -2082,7 +2082,9 @@
     1,
     4
    ],
-   "note": "No slot, tank, longeron, strake, hot fin, habitat or propulsion change; payload modules not charged to dry. Only pre-qualification bookkeeping; new G1-G12 recertification required."
+   "longeron_material_added_t": 0.005,
+   "longeron_note": "2026-11-03 recert: +2.1 t shuttle raised longeron axial+bending to 250.04 MPa against the 250 MPa design stress; 0.005 t moved from structure_split.released_to_reserve to structure_split.longerons (line total unchanged) gives ~249.94 MPa.",
+   "note": "No slot, tank, strake, hot fin, habitat or propulsion change; longerons +0.005 t from released reserve (see longeron_note); payload modules not charged to dry. Only pre-qualification bookkeeping; new G1-G12 recertification required."
   }
  },
  "longerons": {
