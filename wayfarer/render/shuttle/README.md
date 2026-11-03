@@ -15,8 +15,8 @@ cutaway, Venus kit fitted, labels, 1.8 m scale figure.
 
 Dimensions used (metres): hull 12.8 x 3.8 biconic (resized v1, kT 2026-11-03,
 the certified shuttle outline); Wayfarer bay bore 13.8 x 4.8; crew pod 2.5 OD,
-3 crew; tip-jet rotor 12 diameter, four blades folding two
-forward and two aft along the spine; water tank 23.1 t. Readout figures quote
+3 crew; tip-jet rotor 12 diameter, hub 6.8 aft of the nose, four blades folding aft into
+a recessed spine groove (two side by side, two deep) and ending at the tail; water tank 23.1 t. Readout figures quote
 the resized sizer reports (research/shuttle-v1-resize-20261103, PR #463) and
 the PR #460 integration run (Wayfarer geometry 293a4e90).
 
@@ -30,10 +30,9 @@ and blades are drawn recessed in a spine groove with assumed sizes; real mast
 and hub dimensions are unknown and G8 full fit stays OPEN.
 
 Open items this model makes visible (see `wayfarer/lab/shuttle/OPEN_ITEMS.md`):
-bay fit with mast and hub; forward blades lying over the tapered nose cone,
-outside its surface though inside the 3.8 m cylinder line, with groove and
-support not established; continuous blades drawn, while hold stowage assumes segmented
-blades with hot-gas joints; mast drawn at mid-length, not at a computed CG;
+bay fit with mast and hub; the recessed spine groove and its support; continuous blades drawn, while hold stowage assumes segmented
+blades with hot-gas joints; mast drawn 6.8 m aft of the nose, not at a computed CG; folded blade tips
+meet the boattail at the very tail;
 door and ramp swept volume not checked; whether the belly heat shield is core
 or part of the detachable kit; aft-face plume heating from the flush magnetic
 nozzle.

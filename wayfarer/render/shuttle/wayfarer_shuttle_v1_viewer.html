@@ -179,19 +179,20 @@ ring.rotation.y=Math.PI/2;ring.position.x=X(12.72);ship.add(ring);
 
 // --- Venus kit: reactor, exchanger, duct, intake, mast, rotor
 const kit=new THREE.Group();ship.add(kit);
+const HUBX=X(6.8); // rotor hub 6.8 m aft of the nose; folded blades end at the 12.8 m tail
 const amb=M(0xff8703,{roughness:.5,metalness:.35});
 const kr=new THREE.Mesh(new THREE.BoxGeometry(1.5,1.05,1.1),amb);kr.position.set(X(2.95),0.15,0);kit.add(kr);
 const kx=new THREE.Mesh(new THREE.BoxGeometry(1.15,.38,.8),M(0xd96f00,{roughness:.5}));kx.position.set(X(3.05),1.0,0);kit.add(kx);
-const duct=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([new THREE.Vector3(X(3.6),1.1,0),new THREE.Vector3(X(4.6),1.52,0),new THREE.Vector3(X(5.9),1.6,0),new THREE.Vector3(0,1.6,0)]),24,.1,10,false),amb);
+const duct=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([new THREE.Vector3(X(3.6),1.1,0),new THREE.Vector3(X(4.6),1.52,0),new THREE.Vector3(X(5.9),1.6,0),new THREE.Vector3(X(6.8),1.6,0)]),24,.1,10,false),amb);
 kit.add(duct);
-const intake=new THREE.Mesh(new THREE.BoxGeometry(.8,.12,.55),M(0x7a4410));intake.position.set(X(7.4),1.8,0);kit.add(intake);
+const intake=new THREE.Mesh(new THREE.BoxGeometry(.8,.12,.55),M(0x7a4410));intake.position.set(X(6.05),1.8,0);kit.add(intake);
 const mast=new THREE.Mesh(new THREE.CylinderGeometry(.16,.18,1,16),amb);kit.add(mast);
 const rotor=new THREE.Group();kit.add(rotor);
 const hub=new THREE.Mesh(new THREE.CylinderGeometry(.3,.3,.26,24),M(0xe07a00,{metalness:.5}));rotor.add(hub);
 const bladeM=M(0xffa040,{roughness:.45,metalness:.3});
 const tipM=new THREE.MeshBasicMaterial({color:0xffc070,transparent:true,opacity:0});
 const blades=[],tips=[];
-const STOW=[{yaw:0,z:.27},{yaw:0,z:-.27},{yaw:Math.PI,z:.27},{yaw:Math.PI,z:-.27}];
+const STOW=[{yaw:Math.PI,z:.23,y:0},{yaw:Math.PI,z:-.23,y:0},{yaw:Math.PI,z:.23,y:-.09},{yaw:Math.PI,z:-.23,y:-.09}]; // all four fold aft into the spine groove, two wide, two deep
 const DEP=[0,Math.PI/2,Math.PI,Math.PI*1.5];
 for(let i=0;i<4;i++){
   const p=new THREE.Group();
@@ -276,7 +277,7 @@ anchor(fig,v(0,1.9,0),'1.8 m','','#FFFFFF',()=>fig.visible);
 const MODES={
  docked:{kit:null,rotor:0,spin:0,gear:0,lift:0,door:0,pod:0,vent:0,belly:0,bay:1,env:'space',tgt:[0,0,0],
   title:"Docked in Wayfarer's bay",
-  text:"The shuttle sits on Wayfarer's axis inside the water tank, in the same 3.8 m outline as the certified shuttle, so the bay keeps its 0.5 m clearance. With the Venus kit fitted, the rotor folds flat along the spine, two blades forward and two aft, with the hub and blades recessed in a groove. Real mast and hub sizes are not known yet.",
+  text:"The shuttle sits on Wayfarer's axis inside the water tank, in the same 3.8 m outline as the certified shuttle, so the bay keeps its 0.5 m clearance. With the Venus kit fitted, the hub sits 6.8 m aft of the nose and all four blades fold aft into a recessed spine groove, two side by side and two deep, ending at the tail. Real mast and hub sizes are not known yet.",
   facts:[["Hull","12.8 × 3.8 m","sizer"],["Core dry (midpoint)","30.0 t","sizer"],["Wayfarer reserve left","9.16 t (floor 5 t)","ledger"],["Wayfarer G1–G12 with this shuttle","PASS, draft #460","certify"]]},
  descent:{kit:true,rotor:1,spin:5.2,gear:1,lift:8,door:0,pod:0,vent:0,belly:0,bay:0,env:'venus',tgt:[0,5,0],
   title:"Venus: rotor flight",
@@ -363,14 +364,14 @@ function frame(now){
   ship.position.y=cur.lift;
   kit.visible=st.kit;
   const hubY=1.72+1.62*cur.rotor;
-  mast.scale.y=Math.max(.001,hubY-1.6);mast.position.y=(1.6+hubY)/2;
+  mast.scale.y=Math.max(.001,hubY-1.6);mast.position.set(HUBX,(1.6+hubY)/2,0);
   tips.forEach(x=>x.visible=cur.spin>.2);
-  rotor.position.y=hubY;
+  rotor.position.set(HUBX,hubY,0);
   cur.yaw+=cur.spin*dt;
   const f=cur.rotor<.999?cur.rotor:1;
-  blades.forEach((p,i)=>{p.rotation.y=lerp(STOW[i].yaw,DEP[i]+cur.yaw,f);p.position.z=lerp(STOW[i].z,0,f);});
+  blades.forEach((p,i)=>{p.rotation.y=lerp(STOW[i].yaw,DEP[i]+cur.yaw,f);p.position.z=lerp(STOW[i].z,0,f);p.position.y=lerp(STOW[i].y,0,f);});
   tipM.opacity=Math.min(1,cur.spin/3)*(.65+.35*Math.sin(t*30));
-  vent.position.set(0,hubY+3.6,0);ventM.opacity=.28*cur.vent*(.85+.15*Math.sin(t*9));vent.scale.set(1+.05*Math.sin(t*7),1,1+.05*Math.sin(t*7));vent.visible=cur.vent>.02;
+  vent.position.set(HUBX,hubY+3.6,0);ventM.opacity=.28*cur.vent*(.85+.15*Math.sin(t*9));vent.scale.set(1+.05*Math.sin(t*7),1,1+.05*Math.sin(t*7));vent.visible=cur.vent>.02;
   doorPivot.rotation.x=-1.7*cur.door;
   ramp.visible=cur.door>.6;ramp.scale.z=Math.max(.01,(cur.door-.6)/.4);ramp.position.z=1.39+1.36*ramp.scale.z;ramp.position.y=-1.3-.45*ramp.scale.z;
   // pod path: out along +z, then down to the ground
