@@ -2,7 +2,7 @@
 
 **ENGINEERING CANDIDATE, NON-CANON. NO HARDWARE QUALIFICATION. PR #440 DRAFT, NO MERGE.**
 
-Geometry SHA256: `e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7`; exact current 40s RCS trace: `544cc8208bfccae388af724ffad9afe7b562186e4a982b22ca7a9babfcb395b8`. Historic FQ/acceptance does not transfer between hashes.
+Geometry SHA256: `274e94fb43cfe549a3d2087abbdff4d65499ce6f5055ad2d7ade790414fbaaf9`; exact current 40s RCS trace: `99388307444c7a2e405befcd83e2d10ef45c040fcfb71354230cd247863d87de`. Historic FQ/acceptance does not transfer between hashes.
 
 **Reactors:** 2×50MW net D–He3, each 5MW minimum online, 2.50t dry, A aft C-ring/B forward service ring; 40kW/kg and 75% net conversion declared. Must cycle off or store/spill surplus; never throttle to sub-MW.
 
@@ -14,7 +14,7 @@ Geometry SHA256: `e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dd
 
 **C-lite:** 0.25t provisioned (dry 0.10t + wet 0.15t), ~75kg for a 600s recovery, 2 nominal turns. Dynamics still UNQUALIFIED.
 
-**Mass:** dry 867.531453t, loaded S1 1172.681453t. Loaded electrical line 55t = 54.85t dry + 0.15t C-lite wet propellant. Engineering reserve **9.163470t unchanged**; 4.163t above hard floor. C-lite fuel is a consumable, NOT dry ballast.
+**Mass:** dry 867.531453t, loaded S1 1172.681453t. Loaded electrical line 55t = 54.85t dry + 0.15t C-lite wet propellant. Engineering reserve **9.122455t unchanged**; 4.122t above hard floor. C-lite fuel is a consumable, NOT dry ballast.
 
 **Cold-running thermal bound:** 11.70h for the accepted 50t×15K protected-water buffer. Battery energy-only endurance is not a thermal qualification.
 
@@ -27,7 +27,7 @@ Geometry SHA256: `e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dd
 | coast_one_online_min | 5.000 | 0.000 | 0.000 | 0.000 / 4.611 | 0.000 | ordinary_ship_services 0.389 | 2.294 | FULL_PULSE_STORE_REACTOR_OFF_OR_BATTERY_CHARGE |
 | coast_recharging_fast_flip | 50.000 | 0.000 | 0.000 | 0.000 / 49.611 | 0.000 | ordinary_ship_services 0.389 | 19.603 | CHARGER_BULK_POWER_UNQUALIFIED |
 | routine_120s_flip | 50.000 | 0.000 | 0.000 | 8.052 / 0.000 | 0.000 | ordinary_ship_services 0.389, RCS_120s_UNTRACED_proxy 57.663 | 23.259 | RCS_ROUTINE_THROTTLE_PROXY_UNTRACED |
-| fast_40s_flip | 50.000 | 0.000 | 0.000 | 204.197 / 0.000 | 0.000 | ordinary_ship_services 0.389, RCS_40s_TRACE_PEAK 253.808 | 53.483 | FAST_FLIP_REACTOR_DISPATCH_BUS_HEAT_HARDWARE_UNQUALIFIED |
+| fast_40s_flip | 50.000 | 0.000 | 0.000 | 204.217 / 0.000 | 0.000 | ordinary_ship_services 0.389, RCS_40s_TRACE_PEAK 253.828 | 53.487 | FAST_FLIP_REACTOR_DISPATCH_BUS_HEAT_HARDWARE_UNQUALIFIED |
 | pulsed_torch_burn | 5.000 | 0.000 | 47.520 | 0.000 / 4.611 | 0.000 | ordinary_ship_services 0.389, magnet_cryocooling 47.520 | 66.134 | TORCH_BURN_ONLY_POWER_TAP_UNQUALIFIED; TORCH_TAP_NOT_DEBITED_FROM_FLIGHT_THRUST |
 | Metric_NORMAL | 6.863 | 0.000 | 0.000 | 0.000 / 0.000 | 0.000 | ordinary 0.389, scaled_cryo 5.091, declared_field 1.000, PMAD_loss 0.383 | 9.172 | FIELD_POWER_NONCANON_DECLARED; ENVIRONMENTAL_CORRECTION_POWER_OPEN |
 | Metric_FAST | 12.873 | 0.000 | 0.000 | 0.000 / 0.000 | 0.000 | ordinary 0.389, scaled_cryo 9.745, declared_field 2.000, PMAD_loss 0.739 | 17.204 | FIELD_POWER_NONCANON_DECLARED; ENVIRONMENTAL_CORRECTION_POWER_OPEN |
@@ -37,7 +37,7 @@ Geometry SHA256: `e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dd
 | cold_running_reactors_off | 0.000 | 0.000 | 0.000 | 0.000 / 0.000 | 0.065 | essential_habitat 0.065 | 0.075 retained | THERMAL_BUFFER_LIMIT; BATTERY_THERMAL_COUPLING_UNQUALIFIED |
 | one_unit_failed_Metric_HARD | 42.655 | 0.000 | 0.000 | 0.000 / 0.000 | 0.000 | ordinary 0.389, cryo 34.764, field 5.000, PMAD_loss 2.502 | 57.010 | FAILED_REACTOR_ISOLATION_UNQUALIFIED; METRIC_ENVIRONMENTAL_CORRECTION_OPEN |
 | one_unit_failed_torch_magnets | 5.000 | 0.000 | 47.520 | 0.000 / 4.611 | 0.000 | ordinary 0.389, magnet_cryocooling 47.520 | 66.134 | FAILED_REACTOR_ISOLATION_UNQUALIFIED; TORCH_BURN_ONLY_POWER_TAP_UNQUALIFIED; TORCH_TAP_NOT_DEBITED_FROM_FLIGHT_THRUST |
-| degraded_60s_flip | 50.000 | 0.000 | 0.000 | 63.194 / 0.000 | 0.000 | ordinary_ship_services 0.389, RCS_60s_trace_peak 112.805 | 31.756 | DEGRADED_FLIP_REAL_BUS_AND_HEAT_UNQUALIFIED |
+| degraded_60s_flip | 50.000 | 0.000 | 0.000 | 63.203 / 0.000 | 0.000 | ordinary_ship_services 0.389, RCS_60s_trace_peak 112.814 | 31.757 | DEGRADED_FLIP_REAL_BUS_AND_HEAT_UNQUALIFIED |
 | both_house_reactors_failed_hour1 | 0.000 | 0.000 | 0.000 | 0.000 / 0.000 | 0.389 | ordinary_services 0.389 | 0.411 | FAILED_REACTORS_ACTIVE_COOLING_UNQUALIFIED |
 | both_house_reactors_failed_essentials | 0.000 | 0.000 | 0.000 | 0.000 / 0.000 | 0.065 | essential_services 0.065 | 0.394 | NONESSENTIAL_LOADS_SHED; BOTH_FAILED_COOLING_UNQUALIFIED |
 | c_lite_slow_attitude_recovery | 0.000 | 0.000 | 0.000 | 0.000 / 0.000 | 0.000 |  | 0.000 retained | CHEMICAL_THRUSTER_GEOMETRY_AND_TORQUE_UNQUALIFIED |

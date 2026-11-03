@@ -2,8 +2,8 @@
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
  "status": "NON-GOVERNING SANDBOX certification run",
  "basis": "CERTIFICATION_BASIS.md v0.2 (agreed by Claude and Sol; PROPOSED to kT)",
- "geometry_sha256": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7",
- "inputs_sha256": "7dad4d7f4a64c5b2c36aae4d8b94e70dce9ffe7491f9724bbad06dd58adcfab4",
+ "geometry_sha256": "274e94fb43cfe549a3d2087abbdff4d65499ce6f5055ad2d7ade790414fbaaf9",
+ "inputs_sha256": "38997b0047c92733f2644a5cac6bf5e36fd44419339b8b63baf322ea0b2f19d8",
  "criteria_sha256": "5bf7777930bb8dc1e72460daf3b1e5a6776b7b9f266e68269f0e7d847823d980",
  "summary": {
   "G1": "PASS",
@@ -34,9 +34,9 @@
      "note": ""
     },
     {
-     "name": "AOI filled interspace has explicit 3.000t physical mass",
-     "value": 3,
-     "limit": 3,
+     "name": "OG-3 crown conformal interspace explicit physical mass",
+     "value": 3.041015,
+     "limit": 3.04101485,
      "unit": "t",
      "pass": true,
      "note": ""
@@ -51,7 +51,7 @@
     },
     {
      "name": "AOI and backup dome entirely drawn from positive existing reserve",
-     "value": 9.163,
+     "value": 9.122,
      "limit": 0.0,
      "unit": "t",
      "pass": true,
@@ -115,7 +115,7 @@
     },
     {
      "name": "Option C engineering growth floor preserved",
-     "value": 9.16347,
+     "value": 9.122455,
      "limit": 5.0,
      "unit": "t",
      "pass": true,
@@ -203,7 +203,7 @@
     },
     {
      "name": "reserve after house fuel tank remains >=5t",
-     "value": 9.163470262,
+     "value": 9.122455412,
      "limit": 5.0,
      "unit": "t",
      "pass": true,
@@ -369,7 +369,7 @@
     },
     {
      "name": "WWS-1 R2 engineering reserve floor unchanged",
-     "value": 9.16347,
+     "value": 9.122455,
      "limit": 5.0,
      "unit": "t",
      "pass": true,
@@ -377,7 +377,7 @@
     },
     {
      "name": "WWS-1 R2 total uncommitted mass floor",
-     "value": 18.69717,
+     "value": 18.656156,
      "limit": 16.8,
      "unit": "t",
      "pass": true,
@@ -390,6 +390,22 @@
      "unit": "t",
      "pass": true,
      "note": ""
+    },
+    {
+     "name": "OG-3 crown ring-specific full skin+bulk masses agree physical builder and ledger",
+     "value": 3.041015,
+     "limit": 3.041015,
+     "unit": "t",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "OG-3 conformal crown draw debited from engineering reserve without using protected deep-gel option",
+     "value": 9.122455,
+     "limit": 9.122455,
+     "unit": "t",
+     "pass": true,
+     "note": "OG-3 gel mass replaces distributed reserve; total dry mass invariant; 1.04t stays protected unspent"
     },
     {
      "name": "OG-3 swaps same physically booked WWS AOI column (zero new dry mass)",
@@ -411,7 +427,7 @@
    "declared": [],
    "notes": [
     "dry 867.5 t vs canon 858.5 t (+9.0 t); S1 wet 1172.7 t vs canon 1158.5 t",
-    "dry by system: habitat 200.1, propulsion 163.8, structure 130.2, thermal 122.2, plant 90.1, electrical 56.7, shuttle 30.7, avionics 19.8, mission 19.5, rcs 16.4, service 13.6, external 3.2, drones 1.2",
+    "dry by system: habitat 200.2, propulsion 163.8, structure 130.2, thermal 122.1, plant 90.1, electrical 56.7, shuttle 30.7, avionics 19.8, mission 19.5, rcs 16.4, service 13.6, external 3.2, drones 1.2",
     "protected water: 16.5 t in the storm-shelter jacket, 8.53 t in the L3 berth shield ring, 24.8 t in the service tank, 0.0 t in the main tank cells"
    ],
    "mass_states": [
@@ -420,112 +436,112 @@
      "name": "reference departure",
      "mass_t": 1172.7,
      "cg_m": [
-      23.919,
+      23.918,
       0.021,
       -0.388
      ],
-     "Ixx": 12539913.741249291,
-     "Iyy": 198920302.5009824,
-     "Izz": 199784800.8369132,
-     "Ixy": 192722.5515961348,
-     "Ixz": 1234603.0709448687,
-     "Iyz": -5182.5128401190295
+     "Ixx": 12539852.997413523,
+     "Iyy": 198936377.22346175,
+     "Izz": 199800860.67732304,
+     "Ixy": 192686.8778204401,
+     "Ixz": 1235004.284813569,
+     "Iyz": -5186.580194617021
     },
     {
      "state": "S2",
      "name": "loaded departure",
      "mass_t": 1222.7,
      "cg_m": [
-      23.575,
+      23.574,
       0.02,
       -0.372
      ],
-     "Ixx": 13109937.112889122,
-     "Iyy": 202466869.46196768,
-     "Izz": 203681510.81718165,
-     "Ixy": 184222.89767084643,
-     "Ixz": 1391100.2300555485,
-     "Iyz": -5409.926313832722
+     "Ixx": 13109875.983147271,
+     "Iyy": 202482241.17011204,
+     "Izz": 203696868.02400848,
+     "Ixy": 184188.61073647148,
+     "Ixz": 1391481.0868643494,
+     "Iyz": -5414.0280972772525
     },
     {
      "state": "S3",
      "name": "normal dispatch",
      "mass_t": 1072.7,
      "cg_m": [
-      23.918,
+      23.917,
       0.023,
       -0.313
      ],
-     "Ixx": 11427637.831885396,
-     "Iyy": 197348987.84189168,
-     "Izz": 197896186.21464184,
-     "Ixy": 188712.01608508025,
-     "Ixz": 1233923.3228650985,
-     "Iyz": -4976.3381604518545
+     "Ixx": 11427575.274339853,
+     "Iyy": 197365059.0749576,
+     "Izz": 197912244.39099547,
+     "Ixy": 188674.39743024818,
+     "Ixz": 1234247.6270966805,
+     "Iyz": -4980.4975536710945
     },
     {
      "state": "S4",
      "name": "burnt out, shuttle home",
      "mass_t": 922.7,
      "cg_m": [
-      23.49,
+      23.489,
       0.026,
       -0.169
      ],
-     "Ixx": 9730174.300098775,
-     "Iyy": 193683570.92464006,
-     "Izz": 193783831.8309499,
-     "Ixy": 175848.0751070112,
-     "Ixz": 828678.1210414353,
-     "Iyz": -3932.3488161853156
+     "Ixx": 9730108.28485318,
+     "Iyy": 193698765.0224301,
+     "Izz": 193799016.3519329,
+     "Ixy": 175807.39992474305,
+     "Ixz": 828850.6537373376,
+     "Iyz": -3936.683674243048
     },
     {
      "state": "S5",
      "name": "burnt out, shuttle away",
      "mass_t": 891.9,
      "cg_m": [
-      23.433,
+      23.432,
       0.027,
       -0.175
      ],
-     "Ixx": 9673768.055971095,
-     "Iyy": 193144804.85932818,
-     "Izz": 193246202.3011118,
-     "Ixy": 174186.9087559101,
-     "Ixz": 834742.9578978906,
-     "Iyz": -3874.526964507854
+     "Ixx": 9673705.057099517,
+     "Iyy": 193159909.91662496,
+     "Izz": 193261297.58418113,
+     "Ixy": 174145.48742898635,
+     "Ixz": 834920.4247469738,
+     "Iyz": -3878.8447274835366
     },
     {
      "state": "S6",
      "name": "full, shuttle away",
      "mass_t": 1141.9,
      "cg_m": [
-      23.886,
+      23.885,
       0.021,
       -0.399
      ],
-     "Ixx": 12479669.349534895,
-     "Iyy": 198417448.93399402,
-     "Izz": 199286938.65102476,
-     "Ixy": 191641.09387774422,
-     "Ixz": 1246822.5959972641,
-     "Iyz": -5236.712790576006
+     "Ixx": 12479611.932789389,
+     "Iyy": 198433481.9351889,
+     "Izz": 199302956.25900596,
+     "Ixy": 191604.96011355118,
+     "Ixz": 1247233.4287993158,
+     "Iyz": -5240.754382136353
     },
     {
      "state": "S7",
      "name": "one tank cell breached and vented",
      "mass_t": 1110.2,
      "cg_m": [
-      24.02,
+      24.019,
       0.158,
       -0.343
      ],
-     "Ixx": 11817437.264456175,
-     "Iyy": 198318281.54617217,
-     "Izz": 198956287.23979285,
-     "Ixy": 482388.17676199524,
-     "Ixz": 1330026.393466521,
-     "Iyz": 32107.74055700153
+     "Ixx": 11817375.845283974,
+     "Iyy": 198334560.6061969,
+     "Izz": 198972552.93456477,
+     "Ixy": 482211.75254628656,
+     "Ixz": 1330382.498554117,
+     "Iyz": 32105.267227032153
     }
    ]
   },
@@ -1018,7 +1034,7 @@
     },
     {
      "name": "ship power fast_40s_flip: rejection capacity",
-     "value": 53.483359,
+     "value": 53.486516,
      "limit": 387.212,
      "unit": "MW",
      "pass": true,
@@ -1162,7 +1178,7 @@
     },
     {
      "name": "ship power degraded_60s_flip: rejection capacity",
-     "value": 31.755882,
+     "value": 31.757285,
      "limit": 387.212,
      "unit": "MW",
      "pass": true,
@@ -1339,10 +1355,10 @@
    },
    "ship_power": {
     "status": "NON-CANON ENGINEERING SCREEN; NO PHYSICAL QUALIFICATION",
-    "geometry_sha256": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7",
-    "input_sha256": "7dad4d7f4a64c5b2c36aae4d8b94e70dce9ffe7491f9724bbad06dd58adcfab4",
-    "rcs_trace_sha256": "544cc8208bfccae388af724ffad9afe7b562186e4a982b22ca7a9babfcb395b8",
-    "rcs_trace_60s_sha256": "c7254cd01d8e642cc279f898e73739220a265cacb95d139299f41e8efab50954",
+    "geometry_sha256": "274e94fb43cfe549a3d2087abbdff4d65499ce6f5055ad2d7ade790414fbaaf9",
+    "input_sha256": "38997b0047c92733f2644a5cac6bf5e36fd44419339b8b63baf322ea0b2f19d8",
+    "rcs_trace_sha256": "99388307444c7a2e405befcd83e2d10ef45c040fcfb71354230cd247863d87de",
+    "rcs_trace_60s_sha256": "7f400c0fc3747a5eaed5a48a49b0175f5709da9dc84e060fc8c72d58a71c20b3",
     "reactor": {
      "count": 2,
      "per_unit_net_mw": 50,
@@ -1368,10 +1384,10 @@
      "peak_mw": 270,
      "counter_rotating_pairs": true,
      "burst_containment": "DECLARED included in mass; unqualified",
-     "fast_flip_store_mwh": 1.313173,
-     "fast_flip_store_peak_mw": 204.196665,
-     "degraded_60s_store_mwh": 0.504335,
-     "degraded_60s_store_peak_mw": 63.193895,
+     "fast_flip_store_mwh": 1.313318,
+     "fast_flip_store_peak_mw": 204.217154,
+     "degraded_60s_store_mwh": 0.504424,
+     "degraded_60s_store_peak_mw": 63.203001,
      "recharge_minutes_from_one_reactor": 1.765
     },
     "c_lite": {
@@ -1385,32 +1401,32 @@
     },
     "rcs_trace": {
      "status": "CURRENT GEOMETRY NUMERICAL TRACE ONLY; NOT HARDWARE QUALIFICATION",
-     "geometry_sha256": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7",
+     "geometry_sha256": "274e94fb43cfe549a3d2087abbdff4d65499ce6f5055ad2d7ade790414fbaaf9",
      "dt_s": 0.1,
      "scenario": "CURRENT GEOMETRY 40s pitch 180 diagnostic",
      "duration_s": 40,
-     "water_consumed_kg": 1459.7521361783406,
-     "trace_ideal_energy_gj": 6.599247457235043,
-     "trace_ideal_peak_mw": 253.80776837528563,
+     "water_consumed_kg": 1459.8696346739798,
+     "trace_ideal_energy_gj": 6.599778644434124,
+     "trace_ideal_peak_mw": 253.82825739876697,
      "firing_nozzle_max": 10,
      "nameplate_peak_proxy_mw": 576.6326530612245,
-     "attitude_error_deg": 0.0016145106242890022,
-     "reconstruction_water_error_kg": -0.0031852835179506656,
+     "attitude_error_deg": 0.0016145106243908344,
+     "reconstruction_water_error_kg": -0.0031881040576990927,
      "reactor_assist_cases": {
       "0": {
-       "storage_ideal_gj": 6.614803319304008,
-       "storage_peak_mw": 254.19666492700978,
+       "storage_ideal_gj": 6.61533450650309,
+       "storage_peak_mw": 254.2171539504911,
        "possible_reactor_surplus_gj": 0.0
       },
       "50": {
-       "storage_ideal_gj": 4.727423279309029,
-       "storage_peak_mw": 204.19666492700978,
-       "possible_reactor_surplus_gj": 0.1126199600050211
+       "storage_ideal_gj": 4.7279454990414695,
+       "storage_peak_mw": 204.2171539504911,
+       "possible_reactor_surplus_gj": 0.11261099253837913
       },
       "100": {
-       "storage_ideal_gj": 3.080620436377721,
-       "storage_peak_mw": 154.19666492700978,
-       "possible_reactor_surplus_gj": 0.4658171170737128
+       "storage_ideal_gj": 3.0811127464325643,
+       "storage_peak_mw": 154.2171539504911,
+       "possible_reactor_surplus_gj": 0.4657782399294741
       }
      },
      "holds": [
@@ -1421,32 +1437,32 @@
     },
     "rcs_60s_degraded_trace": {
      "status": "CURRENT GEOMETRY NUMERICAL TRACE ONLY; NOT HARDWARE QUALIFICATION",
-     "geometry_sha256": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7",
+     "geometry_sha256": "274e94fb43cfe549a3d2087abbdff4d65499ce6f5055ad2d7ade790414fbaaf9",
      "dt_s": 0.1,
      "scenario": "CURRENT GEOMETRY 60s pitch 180 diagnostic",
      "duration_s": 60,
-     "water_consumed_kg": 973.1655245809089,
-     "trace_ideal_energy_gj": 4.399486703525377,
-     "trace_ideal_peak_mw": 112.80499833397032,
+     "water_consumed_kg": 973.2438459495582,
+     "trace_ideal_energy_gj": 4.399840778768764,
+     "trace_ideal_peak_mw": 112.81410492389189,
      "firing_nozzle_max": 8,
      "nameplate_peak_proxy_mw": 461.30612244897964,
-     "attitude_error_deg": 0.000494564270163544,
-     "reconstruction_water_error_kg": -0.004025003315291542,
+     "attitude_error_deg": 0.0004945642701750855,
+     "reconstruction_water_error_kg": -0.004041244342374739,
      "reactor_assist_cases": {
       "0": {
-       "storage_ideal_gj": 4.422820496628826,
-       "storage_peak_mw": 113.19389488569446,
+       "storage_ideal_gj": 4.423174571872213,
+       "storage_peak_mw": 113.20300147561603,
        "possible_reactor_surplus_gj": 0.0
       },
       "50": {
-       "storage_ideal_gj": 1.8156061828681214,
-       "storage_peak_mw": 63.19389488569446,
-       "possible_reactor_surplus_gj": 0.3927856862392955
+       "storage_ideal_gj": 1.8159268774229411,
+       "storage_peak_mw": 63.203001475616034,
+       "possible_reactor_surplus_gj": 0.3927523055507278
       },
       "100": {
-       "storage_ideal_gj": 0.17079448382162774,
-       "storage_peak_mw": 13.193894885694462,
-       "possible_reactor_surplus_gj": 1.747973987192802
+       "storage_ideal_gj": 0.1709650219243709,
+       "storage_peak_mw": 13.203001475616034,
+       "possible_reactor_surplus_gj": 1.747790450052158
       }
      },
      "holds": [
@@ -1486,8 +1502,8 @@
      "electrical_loaded_t": 55,
      "electrical_dry_t": 54.85,
      "monoprop_wet_inside_loaded_electrical_t": 0.15,
-     "growth_reserve_t": 9.163470262,
-     "reserve_headroom_over_5t_t": 4.16347
+     "growth_reserve_t": 9.122455412,
+     "reserve_headroom_over_5t_t": 4.122455
     },
     "states": [
      {
@@ -1655,12 +1671,12 @@
       "state": "fast_40s_flip",
       "loads_mw": {
        "ordinary_ship_services": 0.3888965517241379,
-       "RCS_40s_TRACE_PEAK": 253.80776837528563
+       "RCS_40s_TRACE_PEAK": 253.82825739876697
       },
-      "known_load_mw": 254.196665,
+      "known_load_mw": 254.217154,
       "reactors_online": 1,
       "house_reactor_mw": 50,
-      "flywheel_discharge_mw": 204.196665,
+      "flywheel_discharge_mw": 204.217154,
       "flywheel_charge_mw": 0,
       "battery_mw": 0,
       "shore_mw": 0,
@@ -1669,19 +1685,19 @@
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
       "house_reactor_waste_heat_mw": 16.666667,
-      "heat_rejected_mw": 53.483359,
+      "heat_rejected_mw": 53.486516,
       "heat_scope": "active_radiator",
       "heat_retained_mw": 0,
       "passive_skin_rejection_mw": null,
       "radiator_capacity_mw": 387.212,
       "house_fuel_g_hr": 0.679887,
       "duration_s": 40,
-      "flywheel_event_delivered_mwh": 1.313173,
+      "flywheel_event_delivered_mwh": 1.313318,
       "chemical_propellant_kg": null,
       "deficits": [
        "FAST_FLIP_REACTOR_DISPATCH_BUS_HEAT_HARDWARE_UNQUALIFIED"
       ],
-      "note": "peak 253.808MW, integrated 6.599GJ, supplemental 4.727GJ"
+      "note": "peak 253.828MW, integrated 6.600GJ, supplemental 4.728GJ"
      },
      {
       "state": "pulsed_torch_burn",
@@ -1995,12 +2011,12 @@
       "state": "degraded_60s_flip",
       "loads_mw": {
        "ordinary_ship_services": 0.3888965517241379,
-       "RCS_60s_trace_peak": 112.80499833397032
+       "RCS_60s_trace_peak": 112.81410492389189
       },
-      "known_load_mw": 113.193895,
+      "known_load_mw": 113.203001,
       "reactors_online": 1,
       "house_reactor_mw": 50,
-      "flywheel_discharge_mw": 63.193895,
+      "flywheel_discharge_mw": 63.203001,
       "flywheel_charge_mw": 0,
       "battery_mw": 0,
       "shore_mw": 0,
@@ -2009,19 +2025,19 @@
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
       "house_reactor_waste_heat_mw": 16.666667,
-      "heat_rejected_mw": 31.755882,
+      "heat_rejected_mw": 31.757285,
       "heat_scope": "active_radiator",
       "heat_retained_mw": 0,
       "passive_skin_rejection_mw": null,
       "radiator_capacity_mw": 387.212,
       "house_fuel_g_hr": 0.679887,
       "duration_s": 60,
-      "flywheel_event_delivered_mwh": 0.504335,
+      "flywheel_event_delivered_mwh": 0.504424,
       "chemical_propellant_kg": null,
       "deficits": [
        "DEGRADED_FLIP_REAL_BUS_AND_HEAT_UNQUALIFIED"
       ],
-      "note": "60s supplemental event 0.5043MWh peak 63.19MW"
+      "note": "60s supplemental event 0.5044MWh peak 63.20MW"
      },
      {
       "state": "both_house_reactors_failed_hour1",
@@ -2156,10 +2172,10 @@
      "battery_deliverable_mwh": 1.423025,
      "flywheel_deliverable_mwh": 0.853815,
      "flywheel_peak_mw": 135.0,
-     "fast_flip_stored_need_mwh": 1.313173,
-     "fast_flip_peak_store_mw": 204.196665,
-     "degraded_60s_store_need_mwh": 0.504335,
-     "degraded_60s_peak_store_mw": 63.193895,
+     "fast_flip_stored_need_mwh": 1.313318,
+     "fast_flip_peak_store_mw": 204.217154,
+     "degraded_60s_store_need_mwh": 0.504424,
+     "degraded_60s_peak_store_mw": 63.203001,
      "one_hour_normal_then_essential_hours": 15.91,
      "rows": [
       {
@@ -2437,7 +2453,7 @@
      "limit": 1.536,
      "unit": "t needed vs allotted",
      "pass": true,
-     "note": "20.48 t on the floor (30.0 kPa); CFRP faces 0.35 mm; core shear 0.174 MPa"
+     "note": "20.47 t on the floor (29.9 kPa); CFRP faces 0.35 mm; core shear 0.174 MPa"
     },
     {
      "name": "floor L3: carries its deck at 5 g x 1.5",
@@ -2747,6 +2763,22 @@
      "note": ""
     },
     {
+     "name": "OG-3 conformal annulus interpolation preserves physical declared minimum local crown gap",
+     "value": 0.05973,
+     "limit": 0.05973,
+     "unit": "m",
+     "pass": true,
+     "note": "Source-constrained interpolation only; actual backup surface is unspecified; no physical fit qualified"
+    },
+    {
+     "name": "OG-3 crown annulus open/closed areal extremes preserve 40g screen only WHEN shutter closed",
+     "value": 58.05404,
+     "limit": 40.0,
+     "unit": "g/cm2",
+     "pass": true,
+     "note": "Crown zones are DIFFERENT from WWS side-port uniform 66.61kg/m\u00b2; dose remains uncomputed"
+    },
+    {
      "name": "WWS-1 ALL shutters CLOSED: every opening restores local armour+pressure shell areal mass",
      "value": 51.75,
      "limit": 35.0,
@@ -2895,6 +2927,13 @@
    ],
    "declared": [
     {
+     "key": "og3_crown_conformal",
+     "text": "OG-3 crown zonal material areal densities [75.543, 72.943, 68.423, 63.04] kg/m\u00b2, from an interpolated normal-gap field fitting the source 3.023m\u00b3 cavity and 59.73mm minimum, NOT a surveyed backup-dome surface. Physical +0.041015t draws only from preexisting engineering reserve; no deep gel added. Side windows retain uniform OG3/WWS AOI areal budget. GCR/SPE dose NOT computed.",
+     "kT": "AWAITING",
+     "as": "",
+     "date": null
+    },
+    {
      "key": "og3_hydra",
      "text": "OG-3 HYDRA physical areal mass now credited for OPEN and CLOSED shutter state. GCR and SPE DOSE remain NOT COMPUTED. 20170005580 addresses aluminium modelled local dose minimum near 20-30g/cm2 and flattening polyethylene at greater depths, not universal hydrogenous 20g/cm2 limit. OG3 shell/cavity fit, BNNT dispersion, 10B reaction secondaries, radiolysis, outgassing and fire remain OPEN.",
      "kT": "AWAITING",
@@ -2995,7 +3034,7 @@
    ],
    "notes": [
     "Shadow cone: shield front face x 34.3 m, radius 2.75 m; neutron source: the pellet burn, 0.3 m across, anywhere in x 52-52.6 m (worst case used). Radiator strakes and the hot fins sit outside the cone (the fins edge-on to the burn), take neutron heating and are out of bounds for EVA during burns.",
-    "Continuous-hull ray screen credits committed physical armour/water only; OG3 organic mass is credited separately as per-aperture areal column, NOT double-booked into path transport. No dose output from OG3. Uncommitted growth mass zero credit (fraction 0.976795)."
+    "Continuous-hull ray screen credits committed physical armour/water only; OG3 organic mass is credited separately as per-aperture areal column, NOT double-booked into path transport. No dose output from OG3. Uncommitted growth mass zero credit (fraction 0.976845)."
    ],
    "shelter_min_g_cm2": 53.39034860482293
   },
@@ -3134,8 +3173,8 @@
     },
     {
      "name": "I4 human-factors source geometry hash",
-     "value": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7",
-     "limit": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7",
+     "value": "274e94fb43cfe549a3d2087abbdff4d65499ce6f5055ad2d7ade790414fbaaf9",
+     "limit": "274e94fb43cfe549a3d2087abbdff4d65499ce6f5055ad2d7ade790414fbaaf9",
      "unit": "",
      "pass": true,
      "note": ""
@@ -3564,7 +3603,7 @@
     },
     {
      "name": "engineering reserve after the rev 7 equipment",
-     "value": 18.7,
+     "value": 18.66,
      "limit": "> 0",
      "unit": "t",
      "pass": true,
@@ -3599,15 +3638,15 @@
    "checks": [
     {
      "name": "C: card names the geometry it was made from",
-     "value": "e9717b871804",
-     "limit": "e9717b871804",
+     "value": "274e94fb43cf",
+     "limit": "274e94fb43cf",
      "pass": true,
      "unit": "",
      "note": ""
     },
     {
      "name": "C: card mass, CG and inertia match the geometry in every state",
-     "value": 0.002359,
+     "value": 0.001453,
      "limit": 0.01,
      "pass": true,
      "unit": "max abs / rel",
@@ -3934,8 +3973,8 @@
    "checks": [
     {
      "name": "render manifest matches locked geometry",
-     "value": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7",
-     "limit": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7",
+     "value": "274e94fb43cfe549a3d2087abbdff4d65499ce6f5055ad2d7ade790414fbaaf9",
+     "limit": "274e94fb43cfe549a3d2087abbdff4d65499ce6f5055ad2d7ade790414fbaaf9",
      "unit": "",
      "pass": true,
      "note": ""
@@ -4157,6 +4196,13 @@
    "date": null
   },
   {
+   "key": "og3_crown_conformal",
+   "text": "OG-3 crown zonal material areal densities [75.543, 72.943, 68.423, 63.04] kg/m\u00b2, from an interpolated normal-gap field fitting the source 3.023m\u00b3 cavity and 59.73mm minimum, NOT a surveyed backup-dome surface. Physical +0.041015t draws only from preexisting engineering reserve; no deep gel added. Side windows retain uniform OG3/WWS AOI areal budget. GCR/SPE dose NOT computed.",
+   "kT": "AWAITING",
+   "as": "",
+   "date": null
+  },
+  {
    "key": "og3_hydra",
    "text": "OG-3 HYDRA physical areal mass now credited for OPEN and CLOSED shutter state. GCR and SPE DOSE remain NOT COMPUTED. 20170005580 addresses aluminium modelled local dose minimum near 20-30g/cm2 and flattening polyethylene at greater depths, not universal hydrogenous 20g/cm2 limit. OG3 shell/cavity fit, BNNT dispersion, 10B reaction secondaries, radiolysis, outgassing and fire remain OPEN.",
    "kT": "AWAITING",
@@ -4329,6 +4375,6 @@
   "rcs_power_source": "OPEN: idle torch reactor versus dedicated supply; no ship-wide budget",
   "rcs_power_option_B": "hot-water store OPTION, not baseline",
   "required_final_authority": "separate reviewer signatures and loom-gate per existing basis",
-  "geometry_sha256": "e9717b871804dc4bf1802ef4441165feb36426eb2c11cf2245f4a1b89722dde7"
+  "geometry_sha256": "274e94fb43cfe549a3d2087abbdff4d65499ce6f5055ad2d7ade790414fbaaf9"
  }
 }
