@@ -1465,8 +1465,8 @@
       ],
       "mass_t": 1,
       "jacket": true,
-      "windows": 2,
-      "windows_prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports ... for livability; they can be shuttered'): acrylic shield plug kit, Strata dust shutter"
+      "windows": 0,
+      "windows_prov": "KT_DECISION 2026-11-03 WWS-1: ZERO shelter windows; removed and restored continuous pressure hull/armour."
      },
      {
       "id": "L4-medical",
@@ -1500,7 +1500,8 @@
        "change_prov": "CLAUDE change v0.5.6: centre moved 210 -> 202 deg (still inside the medical wall: 165.8-238.2 deg) so a litter coming out of the port ladder shaft clears the opening's edge by 0.3 m instead of 0.03 m; SOL TO AGREE"
       },
       "windows": 2,
-      "windows_prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports ... for livability; they can be shuttered'): acrylic shield plug kit, Strata dust shutter"
+      "windows_prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports ... for livability; they can be shuttered'): acrylic shield plug kit, Strata dust shutter",
+      "window_x_override_m": 9.1
      },
      {
       "id": "L4-eclss",
@@ -1846,7 +1847,7 @@
     "per": "one per berth, at its outer end just above the mattress",
     "x_m_by_tier": {
      "lower": 7.55,
-     "upper": 6.45
+     "upper": 6.7
     },
     "plug": {
      "material": "acrylic (PMMA), encapsulated between glass panes",
@@ -1872,13 +1873,13 @@
     "shelter_plug": "storm-shelter viewports: the plug continues through the 20 cm water jacket as 17 cm more acrylic (20.1 g/cm2), so the shelter keeps its screen and people sheltering for 72 h can still see out"
    },
    "viewport_band": {
-    "prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports'): a continuous panoramic band round the L2 common deck at standing and seated eye height, taller (1.6 m) in the observation lounge; skips the washroom (270-300 deg). NON-GOVERNING; SOL TO AGREE; rev 4 (kT 2026-10-26, after Sol's review of the rev 3.1 study): titanium edge rings, a mid transom in the lounge, plate-sized panes on the crown's 2226 ceramic milestone",
+    "prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports'): a continuous panoramic band round the L2 common deck at standing and seated eye height, taller (1.6 m) in the observation lounge; skips the washroom (270-300 deg). NON-GOVERNING; SOL TO AGREE; rev 4 (kT 2026-10-26, after Sol's review of the rev 3.1 study): titanium edge rings, a mid transom in the lounge, plate-sized panes on the crown's 2226 ceramic milestone; WWS-1 2026-11-03: galley and exercise full-height extensions are DRAFT; new structural spans require G5 rerun.",
     "deck": "L2",
     "segments": [
      {
       "x_m": [
-       3.9,
-       4.5
+       3.6,
+       5.2
       ],
       "theta_deg": [
        300,
@@ -1887,11 +1888,21 @@
      },
      {
       "x_m": [
+       3.6,
+       5.2
+      ],
+      "theta_deg": [
+       0,
+       30
+      ]
+     },
+     {
+      "x_m": [
        3.9,
        4.5
       ],
       "theta_deg": [
-       0,
+       30,
        150
       ]
      },
@@ -1907,8 +1918,8 @@
      },
      {
       "x_m": [
-       3.9,
-       4.5
+       3.6,
+       5.2
       ],
       "theta_deg": [
        210,
@@ -1916,7 +1927,7 @@
       ]
      }
     ],
-    "glazed_area_m2": 19.36,
+    "glazed_area_m2": 30.620056,
     "mullion_spacing_deg": 15,
     "mullions": "Osteon titanium mullions every 15 deg (1.13 m), forking into the sill and head beams; they carry the deck's axial load (5 g x 1.5 of everything ahead, plus the pressure end load) across the band",
     "panes": "flat plates between frame members (the glass is not trusted to pass hoop tension through its edges); two pressure panes each carrying full load, plus 8 mm debris and 3 mm scratch panes; flaw-controlled 2226 ceramic (the crown dome's milestone): 16 mm in the 0.6 m band, 18 mm in the lounge",
@@ -1979,7 +1990,7 @@
    "bay_liner": 6,
    "thrust_cone": 16.3,
    "longeron_joints": 3.476,
-   "released_to_reserve": 19.657
+   "released_to_reserve": 14.224783687
   },
   "armor_fixed_shield_t": 105,
   "habitation_life_support_t": 45,
@@ -2014,7 +2025,7 @@
   "c_tank_penalty_t": 8,
   "radiator_panels_t": 8.784,
   "drones_pods_t": 1.198,
-  "venus_kit_t": 1.7,
+  "venus_kit_t": 0,
   "electrical_split": {
    "aft_c_ring": 30,
    "service_ring": 25,
@@ -2085,7 +2096,8 @@
    "longeron_material_added_t": 0.005,
    "longeron_note": "2026-11-03 recert: +2.1 t shuttle raised longeron axial+bending to 250.04 MPa against the 250 MPa design stress; 0.005 t moved from structure_split.released_to_reserve to structure_split.longerons (line total unchanged) gives ~249.94 MPa.",
    "note": "No slot, tank, strake, hot fin, habitat or propulsion change; longerons +0.005 t from released reserve (see longeron_note); payload modules not charged to dry. Only pre-qualification bookkeeping; new G1-G12 recertification required."
-  }
+  },
+  "venus_kit_note": "RETIRED WWS-1 2026-11-03: obsolete 1.7t rover-drop annotation, never physically booked by builder/G1; NO credit to available mass. Current 10.26875t v1 kit is mission PAYLOAD."
  },
  "longerons": {
   "prov": "CLAUDE_DESIGN v0.5.7 (structure/longeron_study.py, kT 2026-10-25 'consolidate'): four CFRP tubes in an X, matching canon's 4 axial longerons. The upper pair stay where the v0.5.6 slot sills were (edging the bay slot); the lower pair mirror them in the tank's lower cells. Sized at 5 g x 1.5 to a 250 MPa design stress (400 MPa floor x 0.62 for impact, joints, environment). v0.5.6 had 3 planks + 2 sills (36.9 t) running at 65 MPa. NON-GOVERNING; SOL TO REVIEW REV 5 (structure review 2026-10-26): wall 72 -> 84 mm (area 0.0830 m2, 1% margin) so axial + bending (thrust-line offset 13.5 MN m + 0.5 deg thrust error 9.1 MN m) stays within the 250 MPa design stress",
@@ -2409,7 +2421,7 @@
    "wardroom": 0.45,
    "galley": 0.45,
    "exercise": 0.45,
-   "medical": 0.5,
+   "medical": 0.75,
    "workshop": 0.45,
    "shelter": 0.35,
    "suits": 0.45
@@ -3318,5 +3330,221 @@
   "docked_shore_power_limit_mw_declared": 2,
   "docked_power_source": "external dock shore electrical feed when connected, house reactors OFF; 2MW DECLARED interface ceiling, connector/ground thermal interface UNQUALIFIED",
   "degraded_rcs_60s_doctrine": "When energy and peak performance both halve, stretch emergency pitch turn 40s to 60s with ONE 50MW surviving reactor; separately source-rerun. If both reactors dead, not credited."
+ },
+ "windows_wws1": {
+  "authority": "DRAFT / kT APPROVED 2026-11-03 / NON-CANON / PRESSURE & RADIATION TRANSPORT UNQUALIFIED",
+  "standard": "WWS-1",
+  "crown_source": "habitat.decks[0].command_layout.crown_dome; numbers derived, no Claude estimate",
+  "areal_kg_m2": {
+   "outer_bumper": 37.5,
+   "primary": 105.0,
+   "aoi": 66.611712004,
+   "backup": 105.0,
+   "closed_shutter": 270,
+   "gross": 584.111712004,
+   "removed_armor_and_hull": 350,
+   "net": 234.111712004
+  },
+  "optical_thermal_credit": 0,
+  "shutter_closed_restores_local_armor_g_cm2": 27,
+  "pressure_panes_independently_hold_full_cabin_pressure": "DECLARED / UNQUALIFIED",
+  "doctrine": "CLOSE for torch burn, Metric/LOOM, radiation, dust over crown open limit, heat-pump failure. Dark/clear/glare and NIR are unqualified; 0 thermal credit.",
+  "port_count": 20,
+  "berth_count": 10,
+  "shelter_window_count": 0,
+  "port_list": [
+   {
+    "room": "L1-command",
+    "diameter_m": 0.5,
+    "area_m2": 0.196349541,
+    "baseline_t": 0.105459272,
+    "wws_net_plus_frame_t": 0.125967727,
+    "incremental_t": 0.020508455
+   },
+   {
+    "room": "L1-command",
+    "diameter_m": 0.5,
+    "area_m2": 0.196349541,
+    "baseline_t": 0.105459272,
+    "wws_net_plus_frame_t": 0.125967727,
+    "incremental_t": 0.020508455
+   },
+   {
+    "room": "L1-command",
+    "diameter_m": 0.5,
+    "area_m2": 0.196349541,
+    "baseline_t": 0.105459272,
+    "wws_net_plus_frame_t": 0.125967727,
+    "incremental_t": 0.020508455
+   },
+   {
+    "room": "L1-command",
+    "diameter_m": 0.5,
+    "area_m2": 0.196349541,
+    "baseline_t": 0.105459272,
+    "wws_net_plus_frame_t": 0.125967727,
+    "incremental_t": 0.020508455
+   },
+   {
+    "room": "L4-medical",
+    "diameter_m": 0.75,
+    "area_m2": 0.441786467,
+    "baseline_t": 0.105459272,
+    "wws_net_plus_frame_t": 0.183427386,
+    "incremental_t": 0.077968114
+   },
+   {
+    "room": "L4-medical",
+    "diameter_m": 0.75,
+    "area_m2": 0.441786467,
+    "baseline_t": 0.105459272,
+    "wws_net_plus_frame_t": 0.183427386,
+    "incremental_t": 0.077968114
+   },
+   {
+    "room": "L5-suits",
+    "diameter_m": 0.45,
+    "area_m2": 0.159043128,
+    "baseline_t": 0.08542201,
+    "wws_net_plus_frame_t": 0.117233859,
+    "incremental_t": 0.031811849
+   },
+   {
+    "room": "L5-workshop",
+    "diameter_m": 0.45,
+    "area_m2": 0.159043128,
+    "baseline_t": 0.08542201,
+    "wws_net_plus_frame_t": 0.117233859,
+    "incremental_t": 0.031811849
+   },
+   {
+    "room": "L5-workshop",
+    "diameter_m": 0.45,
+    "area_m2": 0.159043128,
+    "baseline_t": 0.08542201,
+    "wws_net_plus_frame_t": 0.117233859,
+    "incremental_t": 0.031811849
+   },
+   {
+    "room": "L5-vestibule",
+    "diameter_m": 0.4,
+    "area_m2": 0.125663706,
+    "baseline_t": 0.08,
+    "wws_net_plus_frame_t": 0.109419345,
+    "incremental_t": 0.029419345
+   },
+   {
+    "room": "L3-CAPT",
+    "tier": "lower",
+    "diameter_m": 0.5,
+    "area_m2": 0.196349541,
+    "baseline_t": 0.105459272,
+    "wws_net_plus_frame_t": 0.125967727,
+    "incremental_t": 0.020508455
+   },
+   {
+    "room": "L3-CA",
+    "tier": "lower",
+    "diameter_m": 0.5,
+    "area_m2": 0.196349541,
+    "baseline_t": 0.105459272,
+    "wws_net_plus_frame_t": 0.125967727,
+    "incremental_t": 0.020508455
+   },
+   {
+    "room": "L3-CA",
+    "tier": "upper",
+    "diameter_m": 0.5,
+    "area_m2": 0.196349541,
+    "baseline_t": 0.105459272,
+    "wws_net_plus_frame_t": 0.125967727,
+    "incremental_t": 0.020508455
+   },
+   {
+    "room": "L3-GUEST",
+    "tier": "lower",
+    "diameter_m": 0.5,
+    "area_m2": 0.196349541,
+    "baseline_t": 0.105459272,
+    "wws_net_plus_frame_t": 0.125967727,
+    "incremental_t": 0.020508455
+   },
+   {
+    "room": "L3-GUEST",
+    "tier": "upper",
+    "diameter_m": 0.5,
+    "area_m2": 0.196349541,
+    "baseline_t": 0.105459272,
+    "wws_net_plus_frame_t": 0.125967727,
+    "incremental_t": 0.020508455
+   },
+   {
+    "room": "L3-GUEST",
+    "tier": "lower",
+    "diameter_m": 0.5,
+    "area_m2": 0.196349541,
+    "baseline_t": 0.105459272,
+    "wws_net_plus_frame_t": 0.125967727,
+    "incremental_t": 0.020508455
+   },
+   {
+    "room": "L3-GUEST",
+    "tier": "upper",
+    "diameter_m": 0.5,
+    "area_m2": 0.196349541,
+    "baseline_t": 0.105459272,
+    "wws_net_plus_frame_t": 0.125967727,
+    "incremental_t": 0.020508455
+   },
+   {
+    "room": "L3-CB",
+    "tier": "lower",
+    "diameter_m": 0.5,
+    "area_m2": 0.196349541,
+    "baseline_t": 0.105459272,
+    "wws_net_plus_frame_t": 0.125967727,
+    "incremental_t": 0.020508455
+   },
+   {
+    "room": "L3-CB",
+    "tier": "upper",
+    "diameter_m": 0.5,
+    "area_m2": 0.196349541,
+    "baseline_t": 0.105459272,
+    "wws_net_plus_frame_t": 0.125967727,
+    "incremental_t": 0.020508455
+   },
+   {
+    "room": "L3-CB",
+    "tier": "lower",
+    "diameter_m": 0.5,
+    "area_m2": 0.196349541,
+    "baseline_t": 0.105459272,
+    "wws_net_plus_frame_t": 0.125967727,
+    "incremental_t": 0.020508455
+   }
+  ],
+  "band": {
+   "original_area_m2": 19.36,
+   "new_area_m2": 30.620056397,
+   "prior_mass_t": 5.867,
+   "retained_and_extended_framing_t": 3.562792997,
+   "new_net_assembly_t": 10.731306821,
+   "incremental_t": 4.864306821,
+   "structural_frame_load_path": "Existing G5 band + new transoms/mullions to be checked; no cuts on node faces"
+  },
+  "prior_shelter_assembly_repurposed_to_closure_t": 0.16,
+  "window_budget_draw_t": 5.432216313,
+  "window_budget_cap_t": 13.7,
+  "released_draw_cap_t": 12.0,
+  "initial_engineering_t": 9.163470262,
+  "engineering_after_t": 9.163470262,
+  "initial_released_t": 19.657,
+  "released_after_t": 14.224783687,
+  "uncommitted_before_t": 28.820470262,
+  "uncommitted_after_t": 23.388253949,
+  "heat_sun_reference_w_m2": 2601,
+  "metrick_node_layout": "PR #184 placement HOLD; faces unchanged; 208 counted; no window moved onto faces",
+  "mass_model_warning": "The existing 5.867t L2 band and per-port older frame allocations remain as baseline physical hardware. Only replacement uplift above these retained assemblies is booked to released reserve. Crown armour/hull credit is local areal-equivalence; detailed cutout mass and mounting loads remain OPEN."
  }
 }

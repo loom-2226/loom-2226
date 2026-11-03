@@ -81,7 +81,7 @@ export const MATS = {
   port:         {c: [0.40, 0.41, 0.43], m: 0.7, r: 0.35},
   dock:         {c: [0.30, 0.31, 0.33], m: 0.6, r: 0.4},
   rail_ext:     {c: [0.70, 0.62, 0.20], m: 0.3, r: 0.45},
-  node_face:    {c: [0.035, 0.04, 0.05], m: 0.25, r: 0.15, kind: 6},
+  node_face:    {c: [0.60, 0.60, 0.585], m: 0.05, r: 0.72, kind: 6},
 };
 // rev 7 skin (kT 2026-10-26): which materials take the Strata / tunable-flank finish (1 = full detail, 2 = colour only)
 export const SKINMAT = {hull_armor: 1, hull_skin: 1, door: 1, shutter: 1, brow: 2, tambour: 2};
@@ -943,9 +943,9 @@ export class Ship {
       if (f.kind === "node_face") {   // rev 7: visible flush face (materials, cover and seal OPEN)
         (groups["node_face|feature"] ||= {mat: "node_face", system: "feature", mb: new MB(this.xc), ids: []});
         const n = f.normal, p = f.pos, r = f.d_m / 2;
-        meshTube(groups["node_face|feature"].mb, {p0: p.map((v, i) => v - n[i] * 0.02), p1: p.map((v, i) => v + n[i] * 0.012), r}, 28);
-        (groups["port|nodering"] ||= {mat: "port", system: "feature", mb: new MB(this.xc), ids: []});
-        meshTube(groups["port|nodering"].mb, {p0: p.map((v, i) => v - n[i] * 0.02), p1: p.map((v, i) => v + n[i] * 0.008), r: r + 0.035}, 28);
+        meshTube(groups["node_face|feature"].mb, {p0: p.map((v, i) => v - n[i] * 0.008), p1: p.map((v, i) => v + n[i] * 0.004), r}, 28);
+        (groups["node_face|nodering"] ||= {mat: "node_face", system: "feature", mb: new MB(this.xc), ids: []});
+        meshTube(groups["node_face|nodering"].mb, {p0: p.map((v, i) => v - n[i] * 0.008), p1: p.map((v, i) => v + n[i] * 0.003), r: r + 0.015}, 28);
         continue;
       }
       const mat = f.kind === "hold_door" ? "hold_door" : f.kind;
