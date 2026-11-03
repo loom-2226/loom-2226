@@ -102,7 +102,7 @@ dd .src{font-size:10px;color:var(--steel);margin-left:6px}
       <h2>Colour key</h2>
       <div class="legend">
         <div><span class="sw" style="background:#9AA6B4"></span>Core shuttle: hull, torch, structure</div>
-        <div><span class="sw" style="background:#3A3330"></span>Belly heat shield</div>
+        <div><span class="sw" style="background:#3A3330"></span>Belly heat shield (core or kit split is open)</div>
         <div><span class="sw" style="background:var(--amber)"></span>Venus kit: rotor, mast, reactor, exchanger</div>
         <div><span class="sw" style="background:var(--crew)"></span>Crew pod, chassis and custody capsule</div>
         <div><span class="sw" style="background:var(--water)"></span>Water tank, 23.1 t</div>
@@ -155,16 +155,16 @@ const tail=new THREE.Mesh(axial(new THREE.LatheGeometry(V2([[2.15,12.4],[1.95,12
 tail.geometry.translate(6.4,0,0);ship.add(tail);
 
 // belly heat shield, bottom arc only
-const tpsM=clipM(M(0x3a3330,{roughness:.9,metalness:.05}));
-const tps=new THREE.Mesh(axial(new THREE.LatheGeometry(V2([[0.001,0],[.36,.05],[.61,.28],[1.27,1.5],[2.18,4.0],[2.18,12.4]]),48,Math.PI*1.5-0.75,1.5)),tpsM);
+const tpsM=clipM(M(0x3a3330,{roughness:.9,metalness:.05,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2}));
+const tps=new THREE.Mesh(axial(new THREE.LatheGeometry(V2([[0.001,0],[.35,.05],[.6,.28],[1.25,1.5],[2.15,4.0],[2.15,12.4]]),48,Math.PI*1.5-0.75,1.5)),tpsM);
 tps.geometry.translate(6.4,0,0);ship.add(tps);
 
 // side door, gull-wing, hinged on its top edge
 const doorPivot=new THREE.Group();
-const hingeY=2.165*Math.sin(DT0+DTL),hingeZ=2.165*Math.cos(DT0+DTL);
+const hingeY=2.15*Math.sin(DT0+DTL),hingeZ=2.15*Math.cos(DT0+DTL);
 doorPivot.position.set(X(5.45),hingeY,hingeZ);ship.add(doorPivot);
-const doorG=axial(new THREE.CylinderGeometry(2.165,2.165,2.9,24,1,true,DT0,DTL));doorG.translate(0,-hingeY,-hingeZ);
-const doorM=clipM(M(0xb4bec9,{roughness:.5,metalness:.4}));
+const doorG=axial(new THREE.CylinderGeometry(2.15,2.15,2.9,24,1,true,DT0,DTL));doorG.translate(0,-hingeY,-hingeZ);
+const doorM=clipM(M(0xb4bec9,{roughness:.5,metalness:.4,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2}));
 doorPivot.add(new THREE.Mesh(doorG,doorM));
 const ramp=new THREE.Mesh(new THREE.BoxGeometry(2.6,.08,3.0),M(0x8a97a6,{metalness:.5}));
 ramp.position.set(X(5.45),-1.975,2.98);ramp.rotation.x=0.323;ship.add(ramp);
@@ -182,21 +182,21 @@ const kit=new THREE.Group();ship.add(kit);
 const amb=M(0xff8703,{roughness:.5,metalness:.35});
 const kr=new THREE.Mesh(new THREE.BoxGeometry(1.5,1.05,1.1),amb);kr.position.set(X(2.95),0.15,0);kit.add(kr);
 const kx=new THREE.Mesh(new THREE.BoxGeometry(1.15,.38,.8),M(0xd96f00,{roughness:.5}));kx.position.set(X(3.05),1.0,0);kit.add(kx);
-const duct=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([new THREE.Vector3(X(3.6),1.15,0),new THREE.Vector3(X(4.6),1.82,0),new THREE.Vector3(X(5.9),2.0,0),new THREE.Vector3(0,2.08,0)]),24,.11,10,false),amb);
+const duct=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([new THREE.Vector3(X(3.6),1.15,0),new THREE.Vector3(X(4.6),1.8,0),new THREE.Vector3(X(5.9),1.9,0),new THREE.Vector3(0,1.88,0)]),24,.11,10,false),amb);
 kit.add(duct);
-const intake=new THREE.Mesh(new THREE.BoxGeometry(.8,.12,.55),M(0x7a4410));intake.position.set(X(7.4),2.12,0);kit.add(intake);
+const intake=new THREE.Mesh(new THREE.BoxGeometry(.8,.12,.55),M(0x7a4410));intake.position.set(X(7.4),2.04,0);kit.add(intake);
 const mast=new THREE.Mesh(new THREE.CylinderGeometry(.16,.18,1,16),amb);kit.add(mast);
 const rotor=new THREE.Group();kit.add(rotor);
 const hub=new THREE.Mesh(new THREE.CylinderGeometry(.36,.36,.26,24),M(0xe07a00,{metalness:.5}));rotor.add(hub);
 const bladeM=M(0xffa040,{roughness:.45,metalness:.3});
 const tipM=new THREE.MeshBasicMaterial({color:0xffc070,transparent:true,opacity:0});
-const blades=[];
+const blades=[],tips=[];
 const STOW=[{yaw:0,z:.27},{yaw:0,z:-.27},{yaw:Math.PI,z:.27},{yaw:Math.PI,z:-.27}];
 const DEP=[0,Math.PI/2,Math.PI,Math.PI*1.5];
 for(let i=0;i<4;i++){
   const p=new THREE.Group();
   const b=new THREE.Mesh(new THREE.BoxGeometry(5.6,.07,.42),bladeM);b.position.x=3.2;p.add(b);
-  const tip=new THREE.Mesh(new THREE.SphereGeometry(.16,12,8),tipM);tip.position.x=6.0;p.add(tip);
+  const tip=new THREE.Mesh(new THREE.SphereGeometry(.16,12,8),tipM);tip.position.x=5.84;p.add(tip);tips.push(tip);
   rotor.add(p);blades.push(p);
 }
 const ventM=new THREE.MeshBasicMaterial({color:0xff9a3c,transparent:true,opacity:0,depthWrite:false,blending:THREE.AdditiveBlending});
@@ -227,9 +227,9 @@ for(const s of [2.8,10.6])for(const z of [-1.2,1.2]){
 const bellyG=new THREE.Group();ship.add(bellyG);
 const plumeM=new THREE.MeshBasicMaterial({color:0xbfe9ff,transparent:true,opacity:0,depthWrite:false,blending:THREE.AdditiveBlending});
 const plumes=[];
-for(const s of [3.4,10.0])for(const z of [-.75,.75]){
-  const n=new THREE.Mesh(new THREE.CylinderGeometry(.14,.26,.3,14),M(0x4b5560,{metalness:.8}));n.position.set(X(s),-2.12,z);bellyG.add(n);
-  const pl=new THREE.Mesh(new THREE.ConeGeometry(.45,2.4,16,1,true),plumeM);pl.position.set(X(s),-3.47,z);bellyG.add(pl);plumes.push(pl);
+for(const s of [3.4,10.0])for(const z of [-.55,.55]){
+  const n=new THREE.Mesh(new THREE.CylinderGeometry(.14,.24,.12,14),M(0x4b5560,{metalness:.8}));n.position.set(X(s),-1.96,z);bellyG.add(n);
+  const pl=new THREE.Mesh(new THREE.ConeGeometry(.45,2.4,16,1,true),plumeM);pl.position.set(X(s),-3.22,z);bellyG.add(pl);plumes.push(pl);
 }
 
 // --- bay envelope (Wayfarer bore 4.8 m x 13.8 m)
@@ -267,21 +267,21 @@ anchor(kit,v(X(2.95),.7,0),'Kit house reactor','100–230 MW heat','#FF8703',()=
 anchor(rotor,v(0,.4,0),'Tip-jet rotor','12 m · 4 blades','#FF8703',()=>st.kit);
 anchor(ship,v(X(5.45),.2,2.2),'Side door','gull-wing + ramp','#C7D3DF',()=>!st.cut&&(mode==='vent'||mode==='docked'));
 anchor(ship,v(X(1.2),-.6,0),'Belly heat shield','','#8A97A6',()=>!st.cut&&mode==='docked');
-anchor(bellyG,v(X(3.4),-2.2,.75),'Belly thrusters','H₂/O₂','#BFE9FF',()=>mode==='light');
+anchor(bellyG,v(X(3.4),-2.1,.55),'Belly thrusters','H₂/O₂','#BFE9FF',()=>mode==='light');
 anchor(ship,v(X(10.6),-2.3,1.2),'Kneeling gear','','#8A97A6',()=>cur.gear>.5&&mode!=='light');
-anchor(scene,v(X(-0.5),2.4,0),'Bay envelope','4.8 × 13.8 m · 0.25 m clear','#00D1FF',()=>cur.bay>.5);
+anchor(scene,v(X(-0.5),2.4,0),'Bay envelope','4.8 × 13.8 m bore · G8 needs 0.25 m','#00D1FF',()=>cur.bay>.5);
 anchor(fig,v(0,1.9,0),'1.8 m','','#FFFFFF',()=>fig.visible);
 
 // --- modes
 const MODES={
  docked:{kit:null,rotor:0,spin:0,gear:0,lift:0,door:0,pod:0,vent:0,belly:0,bay:1,env:'space',tgt:[0,0,0],
   title:"Docked in Wayfarer's bay",
-  text:"The shuttle sits on Wayfarer's axis inside the water tank. With the Venus kit fitted, the rotor folds flat along the spine, two blades forward and two aft. The 4.3 m hull leaves exactly the 0.25 m minimum radial clearance in the 4.8 m bore.",
+  text:"The shuttle sits on Wayfarer's axis inside the water tank. With the Venus kit fitted, the rotor folds flat along the spine, two blades forward and two aft. As drawn, the hub and folded blades sit in a groove along the spine, so nothing passes the 4.3 m hull line and the 0.25 m bay clearance holds. The forward blades lie over the nose cone, inside that line. Real mast and hub sizes are not known, so bay fit stays open.",
   facts:[["Hull","12.8 × 4.3 m","sizer"],["Bay bore","13.8 × 4.8 m","G8"],["Core dry ≤ 34.2 t","66.7% of samples","sizer"],["Bay fit with mast and hub","OPEN","open"]]},
  descent:{kit:true,rotor:1,spin:5.2,gear:1,lift:8,door:0,pod:0,vent:0,belly:0,bay:0,env:'venus',tgt:[0,5,0],
   title:"Venus: rotor flight",
   text:"After entry the rotor unfolds and spins on tip jets of reactor-heated CO₂. There is no motor and no tail rotor. Going up, the rotor climbs as far as its heat allows, then hands over to the torch.",
-  facts:[["Hover power at the surface","3.9–5.4 MW","sizer"],["Tip-jet source heat","11–53 MW","sizer"],["Handover altitude, median","42 km (17–66)","sizer"],["Torch light-up in dense CO₂","OPEN","open"]]},
+  facts:[["Hover power at the surface","3.9–7.5 MW","sizer"],["Tip-jet source heat","11–66 MW","sizer"],["Handover altitude, median","42 km (17–66)","sizer"],["Torch light-up in dense CO₂","OPEN","open"]]},
  vent:{kit:true,rotor:1,spin:0,gear:1,lift:0,door:0,pod:0,vent:1,belly:0,bay:0,env:'venus',tgt:[0,0,0],
   title:"Venus: landed, ground vent",
   text:"The shuttle kneels on its belly gear with the rotor parked. The kit reactor cannot run below 10% power, so that heat goes up through the hub as a hot CO₂ plume, away from the pod and ramp. The same reactor runs the cooler for a long stay.",
@@ -289,11 +289,11 @@ const MODES={
  podout:{kit:true,rotor:1,spin:0,gear:1,lift:0,door:1,pod:1,vent:1,belly:0,bay:0,env:'venus',tgt:[0,-.5,3],
   title:"Pod rover out",
   text:"The lee-side door swings up and the ramp drops. The pod drives out on its folding chassis carrying the custody capsule, and the crew hand-deliver while the uncrewed shuttle waits. On Venus the pod runs on its own cold-water store.",
-  facts:[["Pod","2.8 m OD · 4 seats","sizer"],["Pressure","92 bar outside · 1 bar inside","sizer"],["Pod alone on Venus, passive","~7–11 h","sizer"],["Pod mass","3.2–7.6 t shell","PROJECTION"]]},
+  facts:[["Pod","2.8 m OD · 4 seats","sizer"],["Pressure","92 bar outside · 1 bar inside","sizer"],["Pod alone on Venus, passive","0.4–7 h sampled · no target","sizer"],["Pod mass","3.2–7.6 t shell","PROJECTION"]]},
  light:{kit:false,rotor:0,spin:0,gear:1,lift:2.4,door:0,pod:0,vent:0,belly:1,bay:0,env:'airless',tgt:[0,1.5,0],
   title:"Moon, Mars and polar Mercury",
   text:"The Venus kit stays aboard Wayfarer. The shuttle sets down on hydrogen-oxygen belly thrusters, with the propellant split from its own water by Wayfarer's house reactors before departure. The torch lights only once the shuttle is well clear of the ground.",
-  facts:[["Belly thrust, Moon","87–150 kN","sizer"],["Belly thrust, Mars or Mercury","199–349 kN","sizer"],["H₂/O₂ per sortie","3.2–8.3 t","sizer"],["Electrolysis on Wayfarer","16–52 MWh","ONLINE"]]}
+  facts:[["Belly thrust, Moon","87–151 kN","sizer"],["Belly thrust, Mars","201–349 kN","sizer"],["Belly thrust, Mercury","199–346 kN","sizer"],["H₂/O₂ per sortie","3.2–8.3 t","sizer"],["Electrolysis on Wayfarer","16–52 MWh","ONLINE"]]}
 };
 const ENV={
  space:{bg:0x05070b,fog:null,ground:false,stars:true},
@@ -362,8 +362,9 @@ function frame(now){
 
   ship.position.y=cur.lift;
   kit.visible=st.kit;
-  const hubY=2.12+1.45*cur.rotor;
-  mast.scale.y=Math.max(.001,hubY-2.05);mast.position.y=(2.05+hubY)/2;
+  const hubY=1.95+1.62*cur.rotor;
+  mast.scale.y=Math.max(.001,hubY-1.85);mast.position.y=(1.85+hubY)/2;
+  tips.forEach(x=>x.visible=cur.spin>.2);
   rotor.position.y=hubY;
   cur.yaw+=cur.spin*dt;
   const f=cur.rotor<.999?cur.rotor:1;
@@ -377,7 +378,7 @@ function frame(now){
   pod.position.set(POD0.x,lerp(POD0.y,POD1.y-cur.lift,Math.min(1,Math.max(0,(cur.pod-.25)/.75))),lerp(POD0.z,POD1.z,pz));
   wheels.forEach(w=>w.rotation.x+=dt*cur.pod*(1-cur.pod)*12);
   gear.forEach(g=>{g.scale.y=Math.max(.001,cur.gear);g.visible=cur.gear>.02;});
-  bellyG.visible=cur.belly>.02||mode==='light';
+  plumes.forEach(p=>p.visible=cur.belly>.02);
   plumeM.opacity=.45*cur.belly*(.8+.2*Math.sin(t*25));plumes.forEach(p=>p.scale.y=.85+.15*Math.sin(t*19+p.position.x));
   bayGrp.visible=cur.bay>.05;bay.material.opacity=.5*cur.bay;bayW.material.opacity=.12*cur.bay;
   // camera
