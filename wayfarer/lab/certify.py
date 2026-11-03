@@ -94,11 +94,12 @@ def g1(I, C, G):
                + L.get("crown_option_c_additions_t",0.0) + L.get("l3_berth_shield_liner_t",0.0)
               + L.get("house_fuel_tank_t",0.0) - L.get("electrical_fueled_wet_t",0.0))
     AOI = I["habitat"]["decks"][0].get("command_layout",{}).get("crown_dome",{}).get("adaptive_optogel")
+    crown_delta = I["ledger"].get("og3_crown_conformal_bookkeeping",{}).get("physical_mass_delta_t",0.)
     dry = G["dry_t"]
     cs = [chk("parts sum to the ledger", round(dry, 2), round(expect, 2), abs(dry - expect) <= C["G1"]["ledger_tolerance_t"], "t")]
     if AOI:
         two = {p["id"]:p["mass_t"] for p in G["parts"] if p["id"] in ("crown_backup_pressure_dome","crown_adaptive_optogel")}
-        cs.append(chk("AOI filled interspace has explicit 3.000t physical mass",
+        cs.append(chk("OG-3 crown conformal interspace explicit physical mass",
                       round(two.get("crown_adaptive_optogel",0),6),AOI["mass_t"],
                       abs(two.get("crown_adaptive_optogel",0)-AOI["mass_t"])<1e-8,"t"))
         cs.append(chk("independent backup pressure dome separately charged to reserve",
@@ -121,7 +122,7 @@ def g1(I, C, G):
         # must reconcile, including 0.540125t panes booked to I4 and 0.6t liner.
         prior_reserve=17.786216  # frozen immediately prior to Option C, PR #439 / 25bae1ce
         expected_draw=m["reserve_draw_total_t"]
-        actual_draw=prior_reserve-L["engineering_reserve_t"]-L.get("house_fuel_tank_t",0.0)-L.get("shuttle_v1_resize_20261103",{}).get("delta_t",0.0)  # approved shuttle debit is NOT an Option-C draw
+        actual_draw=prior_reserve-L["engineering_reserve_t"]-L.get("house_fuel_tank_t",0.0)-L.get("shuttle_v1_resize_20261103",{}).get("delta_t",0.0)-crown_delta  # approved shuttle debit is NOT an Option-C draw
         pane_delta=I["i4_carryover"]["crown_increment_from_reserve_t"]-.347738-m.get("dome_primary_delta_t",0.0)
         cs.append(chk("Option C explicit reserve draw reconciles (including dome change)",
             round(actual_draw,6),round(expected_draw,6),
@@ -216,10 +217,28 @@ def g1(I, C, G):
            round(released,6),round(W2["released_after_t"],6),
            abs(released-W2["released_after_t"])<1e-7 and
            abs(draws-W2["total_new_draw_t"])<1e-7 and
-           abs(actual_combined-W2["combined_after_t"])<1e-7,"t"))
+           abs(actual_combined-(W2["combined_after_t"]-crown_delta))<1e-7,"t"))
     if I.get("og3_hydra"):
         OG=load_og3(I)
         a=OG["areal_budget_kg_m2"]
+        CF=OG.get("crown_conformal")
+        if CF and CF.get("zones"):
+            zones=CF["zones"]
+            new_mass=sum(z["total_hydra_mass_t"] for z in zones)
+            LOG=L.get("og3_crown_conformal_bookkeeping",{})
+            cs.append(chk("OG-3 crown ring-specific full skin+bulk masses agree physical builder and ledger",
+              round(new_mass,6),round(AOI["mass_t"],6),
+              abs(new_mass-AOI["mass_t"])<1e-7 and
+              abs(AOI["mass_t"]-CF["conformal_total_mass_t"])<1e-7 and
+              abs(LOG.get("physical_mass_delta_t",0)-crown_delta)<1e-8,"t"))
+            cs.append(chk("OG-3 conformal crown draw debited from engineering reserve without using protected deep-gel option",
+              round(L["engineering_reserve_t"],6),
+              round(LOG["engineering_reserve_before_t"]-crown_delta,6),
+              abs(L["engineering_reserve_t"]-(LOG["engineering_reserve_before_t"]-crown_delta))<1e-8 and
+              L["engineering_reserve_t"]>=5 and
+              L["engineering_reserve_t"]+L["structure_split"]["released_to_reserve"]>=16.8 and
+              CF["uncommitted_1p04t_option_preserved"],"t",
+              "OG-3 gel mass replaces distributed reserve; total dry mass invariant; 1.04t stays protected unspent"))
         W=I["windows_wws1"]["areal_kg_m2"]
         skin=OG["skin"]
         bulk=OG["bulk"]
@@ -1053,6 +1072,21 @@ def g6(I, C, G):
                [None,None,0,0],
                stack["GCR_dose_equivalent_mSv_y"] is None and stack["SPE_dose_equivalent_mSv_event"] is None and
                stack["dose_credit_fraction"]==0 and skin["optical_heat_credit"]==0))
+            CF=OG.get("crown_conformal")
+            if CF and CF.get("zones"):
+                z=CF["zones"]
+                min_gap=min(t["normal_gap_min_m"] for t in z)
+                cs.append(chk("OG-3 conformal annulus interpolation preserves physical declared minimum local crown gap",
+                  round(min_gap,6),CF["min_normal_gap_m"],
+                  min_gap>=CF["min_normal_gap_m"]-1e-8 and
+                  all(t["normal_gap_min_m"]>=skin["thickness_m"] for t in z),"m",
+                  "Source-constrained interpolation only; actual backup surface is unspecified; no physical fit qualified"))
+                cs.append(chk("OG-3 crown annulus open/closed areal extremes preserve 40g screen only WHEN shutter closed",
+                  round(min(t["closed_total_wws_g_cm2"] for t in z),6),c6["shelter_min_g_cm2"],
+                  min(t["closed_total_wws_g_cm2"] for t in z)>=c6["shelter_min_g_cm2"],"g/cm2",
+                  "Crown zones are DIFFERENT from WWS side-port uniform 66.61kg/m²; dose remains uncomputed"))
+                decl.append(("og3_crown_conformal",
+                  f"OG-3 crown zonal material areal densities {[round(t['hydra_areal_kg_m2'],3) for t in z]} kg/m², from an interpolated normal-gap field fitting the source 3.023m³ cavity and 59.73mm minimum, NOT a surveyed backup-dome surface. Physical +{CF['crown_mass_delta_t']:.6f}t draws only from preexisting engineering reserve; no deep gel added. Side windows retain uniform OG3/WWS AOI areal budget. GCR/SPE dose NOT computed."))
             decl.append(("og3_hydra","OG-3 HYDRA physical areal mass now credited for OPEN and CLOSED shutter state. GCR and SPE DOSE remain NOT COMPUTED. 20170005580 addresses aluminium modelled local dose minimum near 20-30g/cm2 and flattening polyethylene at greater depths, not universal hydrogenous 20g/cm2 limit. OG3 shell/cavity fit, BNNT dispersion, 10B reaction secondaries, radiolysis, outgassing and fire remain OPEN."))
         closed_without_aoi=(ar["outer_bumper"]+ar["primary"]+ar["backup"]+ar["closed_shutter"])/10
         need=(ar["removed_armor_and_hull"])/10

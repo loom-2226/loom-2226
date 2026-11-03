@@ -716,8 +716,8 @@
        "volume_m3": 3.023,
        "min_local_free_normal_thickness_m": 0.05973,
        "backup_dome_forward_axial_offset_m": 0.12,
-       "density_kg_m3": 992.391664,
-       "mass_t": 3,
+       "density_kg_m3": 1005.959262322,
+       "mass_t": 3.04101485,
        "backup_pressure_dome_mass_t": 4.728898,
        "backup_dome_thickness_m": 0.028,
        "primary_dome_thickness_m": 0.028,
@@ -753,7 +753,9 @@
         12
        ],
        "kT_acceptance_required": "Independent full-differential failure under filled gel, no coupling, thermal swelling accommodation, pressure qualification and optical/thermal measurement",
-       "shelter_margin_recovery": "0.5t of engineering reserve into EXISTING aft pressure bulkhead, where aft-directed L3-CB worst ray exits. 1.5t bow-armour trial REJECTED (worsened same ray). Exact 36x600 overlay required; no gel radiation/impact credit."
+       "shelter_margin_recovery": "0.5t of engineering reserve into EXISTING aft pressure bulkhead, where aft-directed L3-CB worst ray exits. 1.5t bow-armour trial REJECTED (worsened same ray). Exact 36x600 overlay required; no gel radiation/impact credit.",
+       "density_note": "EFFECTIVE total of OG3 bulk + 2mm skin divided by source cavity volume. True bulk density remains in og3_hydra.json",
+       "conformal_profile_note": "Source-pinned og3_hydra.json, zones; 120mm axial offset versus observed min and volume underconstrained: profile is declared design interpolation, not measured surface."
       },
       "shell_option_c": {
        "adopted": "kT 2026-11-01 OPTION C / DRAFT HULL",
@@ -2011,7 +2013,7 @@
    "prov": "ENGINEERING_ASSUMPTION"
   },
   "mission_courier_systems_t": 20,
-  "engineering_reserve_t": 9.163470262,
+  "engineering_reserve_t": 9.122455412,
   "engineering_reserve_rule": "spread over dry parts in proportion to their mass (growth margin), not lumped at one point",
   "c_tank_penalty_t": 8,
   "radiator_panels_t": 8.784,
@@ -2059,7 +2061,7 @@
    "prov": "rev 7 external equipment that is new hardware (external_equipment draw_from: reserve); everything else is located inside its existing ledger line"
   },
   "i4_carryover_t": 1.799515,
-  "aoi_crown_t": 7.728898,
+  "aoi_crown_t": 7.76991285,
   "aoi_aft_bulkhead_reinforcement_t": 0.5,
   "crown_option_c_additions_t": 4.69467,
   "l3_berth_shield_liner_t": 0,
@@ -2088,7 +2090,19 @@
    "longeron_note": "2026-11-03 recert: +2.1 t shuttle raised longeron axial+bending to 250.04 MPa against the 250 MPa design stress; 0.005 t moved from structure_split.released_to_reserve to structure_split.longerons (line total unchanged) gives ~249.94 MPa.",
    "note": "No slot, tank, strake, hot fin, habitat or propulsion change; longerons +0.005 t from released reserve (see longeron_note); payload modules not charged to dry. Only pre-qualification bookkeeping; new G1-G12 recertification required."
   },
-  "venus_kit_note": "RETIRED WWS-1 2026-11-03: obsolete 1.7t rover-drop annotation, never physically booked by builder/G1; NO credit to available mass. Current 10.26875t v1 kit is mission PAYLOAD."
+  "venus_kit_note": "RETIRED WWS-1 2026-11-03: obsolete 1.7t rover-drop annotation, never physically booked by builder/G1; NO credit to available mass. Current 10.26875t v1 kit is mission PAYLOAD.",
+  "og3_crown_conformal_bookkeeping": {
+   "old_booked_interlayer_mass_t": 3.0,
+   "new_booked_interlayer_mass_t": 3.04101485,
+   "physical_mass_delta_t": 0.04101485,
+   "engineering_reserve_before_t": 9.163470262,
+   "engineering_reserve_after_t": 9.122455412,
+   "released_structure_after_t": 9.533700144,
+   "combined_uncommitted_after_t": 18.656155556,
+   "protected_uncommitted_deep_gel_option_t": 1.04,
+   "no_deep_gel": true,
+   "mass_total_invariant": "new physical gel mass displaces exact same amount of preexisting engineering reserve; dry mass unchanged"
+  }
  },
  "longerons": {
   "prov": "CLAUDE_DESIGN v0.5.7 (structure/longeron_study.py, kT 2026-10-25 'consolidate'): four CFRP tubes in an X, matching canon's 4 axial longerons. The upper pair stay where the v0.5.6 slot sills were (edging the bay slot); the lower pair mirror them in the tank's lower cells. Sized at 5 g x 1.5 to a 250 MPa design stress (400 MPa floor x 0.62 for impact, joints, environment). v0.5.6 had 3 planks + 2 sills (36.9 t) running at 65 MPa. NON-GOVERNING; SOL TO REVIEW REV 5 (structure review 2026-10-26): wall 72 -> 84 mm (area 0.0830 m2, 1% margin) so axial + bending (thrust-line offset 13.5 MN m + 0.5 deg thrust error 9.1 MN m) stays within the 250 MPa design stress",
@@ -3877,7 +3891,7 @@
  },
  "og3_hydra": {
   "path": "og3_hydra.json",
-  "sha256": "acb537a2cec2f15683c3eb156cdefade96e55a48e3f26112ffad49ad1d558e0a",
+  "sha256": "2870bfb3cf26f97e7c5f78291459d4e66180ab759a96a1658b938365436e0f73",
   "status": "DRAFT kT merger decision; OG3 same AOI mass, no deep gel, zero dose credit"
  }
 }
