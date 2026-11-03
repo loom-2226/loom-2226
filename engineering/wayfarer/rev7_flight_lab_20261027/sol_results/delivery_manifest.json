@@ -1,0 +1,77 @@
+{
+  "scope": "Scratch-only implementation and generated evidence; no canonical mutation",
+  "modified_project_files": {
+    "flightlab.py": {
+      "current_sha256": "3be5c95dc0020868824452dc0a0a80349b2cd3f1fd581cdfb35aa7fe9ee31e16",
+      "pre_completion_sha256": "97e18eed254015c6586c286cab73566e9f2eca9ad3819246de859459a2c4be55"
+    },
+    "lab.py": {
+      "current_sha256": "c5bdbfaf5c48dd62c33b5b7f4c1dd6ac40df1b54a6e05116ede0479e73aafd30",
+      "pre_completion_sha256": "7eca85ee69cc6444febab1a8c391a41f40981b1dee31a3e110be0f65233c1acc"
+    },
+    "lab42.py": {
+      "current_sha256": "a7ab6d985f0401d6c536a574d7dc10bbf0962fd09162f71fb36cda39a2ea432a",
+      "pre_completion_sha256": "38d6198326224766f9af3d4a4d6551d33bd1aef89b67900cef49321c7ba3083c"
+    },
+    "FLIGHT_LAB_README.md": {
+      "current_sha256": "42987acdaaab91fa270d85f10d8cd2cdccccd714784f516402a7f37d1723a22a",
+      "pre_completion_sha256": "0d9c2fa83ca00573c6c35fbb7c965a1a756a35bf190e50a8b2a48edbe9cec187"
+    },
+    "FLIGHT_LAB_RESULTS.md": {
+      "current_sha256": "ffdc10a2176f0bde9f10f8bb02f3f7329e6e5ecd346dc16bc5093a493d963659",
+      "pre_completion_sha256": "aa3f4dfb743ff427c216d5ecf3d3c9b03a3e152b1ceb84616d22eb787d90db93"
+    },
+    "RCS_300KN_REPRODUCTION.md": {
+      "current_sha256": "e6374ef2f0f83472431d697be5d232843e72b1645d989af6184f9f44a2882371",
+      "pre_completion_sha256": "0b5a7ed5c6f45d1b38827a96c84438b0a6ffdbdbcaac47e170648149aef47cd4"
+    }
+  },
+  "new_project_files": {
+    "make_completion_examples.py": "af0a6056bb82a7205f2ebbee52026bdbab0f8f54217156fe0180b3c956fe5f6d",
+    "completion_evidence.py": "5f0472d24b3fc55f801154282a94c7416c3ce48cb320ddab3af89f21eaff32f5",
+    "test_completion.py": "978e00097e349e45a6fb91ce02b0c644ba8e22dd5e3f135a0eaffd92b0e68185",
+    "completion_manifest.json": "adc15139bb790bd92807705894fd20883950b7a68d3182c8a95245a88b8c0587",
+    "CODEX_SOL_HIGH_RESULTS.md": "e670c1cf324601791be0e32bcd9293a6b074b9a5a083650444c2d5d7e9fbe47d",
+    "configs/wayfarer_gimbal_reference.json": "02f2db596aee2297416c63174dd9c0b8c4e55303d22f2610eec7719cd5948811",
+    "configs/wayfarer_gimbal_cold.json": "07ad939c9d6c437ca2ac0af7058654f092bdf3a8dca97742e31a4213ad702e09",
+    "configs/scout_gimbal.json": "070894a7092f33b07f04fe55ee13d5cb443ae8d9689a2f9629217d122a2a5f17",
+    "configs/scout_offset_torch.json": "8476fa11763e0fc02cb46a0bb659df5337bc5776d134928569d9be5f7753cc30",
+    "configs/scout_twin_torch.json": "14cb66624aa8cbc1b8b3ff5f7a0e7fb1957f6ced7da699bfb025515b030ee68d",
+    "configs/scout_twin_empty.json": "fea177dd1ca289a6e4808ae4e41a45c01d6ce54e07e821f5ac272378dc536b84",
+    "configs/scout_metric_models.json": "17d6fa370a15fed4bf38365957781a31c7d3905b9bcb32d8dafbe9aecf5ecd06",
+    "configs/scout_offset_metric.json": "e233f8264e34e427cad8a95fd77d6feea5bc7d9c7b00ef301e2b845aec533c0f",
+    "experiments/gimbal10.json": "b9108efe0dc0410d7279caa367ab4804eb908fa044656cdbb043aec5d55116af",
+    "experiments/gimbal12.json": "a9c72299a43e662e1da69a3a7d47f7fd8958430f5d16380643457de3d7b08f5a",
+    "experiments/gimbal14.json": "789f49f5ff498a165f6a8e80602c2090a98bc4b240664ccc0345ce71211a1f82",
+    "experiments/gimbal_constraints.json": "74a199da0f035403a0c271ba5a82a51f4d23932d3f712771d18a074cb4c16920",
+    "experiments/scout_gimbal_turn.json": "9afe3a2e0b08bf10474a7d0c1e8a221c90965f68e81d457c55ef0b1b44fde976",
+    "experiments/offset_free.json": "2431a35762a87f371737d3234ab031cd6f566e7cbd493a370320a021283a3bf0",
+    "experiments/offset_hold.json": "b25d8b9022a5eaa5aabdca93afa7bc4eb379b80914af94d3d9a5fc70b53db493",
+    "experiments/twin_burn.json": "c483369b928c8939248c18d3f9554935c0cf33007feb323d6afc85b4bd6faa35",
+    "experiments/metric_shift_compare.json": "3fb992018d8a73e58d84da5e5d7d09c6659130d5ee7e76e904148dac309c2d66",
+    "experiments/metric_rotation_compare.json": "6996e4c1a0b407fa4ba272063e854ca5ca1dd92950b92f6e51da9cb16ad1217a",
+    "experiments/metric_canonical_compare.json": "8e6b989666958e427e578f845f5c96b6f4163850c1dd024ffb5abf75d3b62a17",
+    "experiments/continuous.json": "e6a62ea250595c3b4af90c683072233a587a5786dc10a983b0e166b3f84e31c5"
+  },
+  "new_configuration_count": 8,
+  "new_experiment_count": 12,
+  "generated_output_directories": [
+    "sol_results",
+    "sol_baseline_results",
+    "sol_timestep_results"
+  ],
+  "refreshed_checks": [
+    "lab_results/rcs_reference_summary.json",
+    "lab_results/reference_fixed300_pitch__reference_fixed300_pitch_42.json",
+    "lab_results/gmat_vs_flightlab.json"
+  ],
+  "test_counts": {
+    "retained": 19,
+    "new": 16,
+    "total": 35
+  },
+  "reference_agreements": {
+    "historical_fixed_rcs": 9,
+    "historical_dynamic_gimbal": 3
+  }
+}

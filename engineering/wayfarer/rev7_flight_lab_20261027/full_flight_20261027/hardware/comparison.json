@@ -1,0 +1,126 @@
+[
+  {
+    "case": "baseline25",
+    "hardware": "HOLD",
+    "counts": {
+      "PASS": 6,
+      "HOLD": 56
+    },
+    "target": {
+      "t_s": 40.00000000000001,
+      "attitude_error_deg": 0.001013287698546106,
+      "rate_deg_s": 0.0001682765780040625
+    },
+    "gate_entry_s": 40.00000000000001,
+    "peak_mount_N": 25000.05919157058,
+    "propellant_kg": null,
+    "peak_resultant_N": 0.026011625797686573,
+    "assessment": "full_flight_20261027/hardware/reference_baseline25_40s__reference_baseline25_40s.assessment.json"
+  },
+  {
+    "case": "baseline25_10s",
+    "hardware": "HOLD",
+    "counts": {
+      "FAIL": 2,
+      "PASS": 4,
+      "HOLD": 56
+    },
+    "target": {
+      "t_s": 10.0,
+      "attitude_error_deg": 135.07271142167318,
+      "rate_deg_s": 9.117067960819039
+    },
+    "gate_entry_s": null,
+    "peak_mount_N": 38306.485441553465,
+    "propellant_kg": null,
+    "peak_resultant_N": 2.2642279446746206e-11,
+    "assessment": "full_flight_20261027/hardware/reference_baseline25_10s__reference_baseline25_10s.assessment.json"
+  },
+  {
+    "case": "fixed300",
+    "hardware": "HOLD",
+    "counts": {
+      "PASS": 6,
+      "HOLD": 56
+    },
+    "target": {
+      "t_s": 10.0,
+      "attitude_error_deg": 0.046294278042471014,
+      "rate_deg_s": 0.037623799486588734
+    },
+    "gate_entry_s": 10.62,
+    "peak_mount_N": 300001.4342346342,
+    "propellant_kg": null,
+    "peak_resultant_N": 0.07434539139156054,
+    "assessment": "full_flight_20261027/hardware/reference_fixed300_pitch__reference_fixed300_pitch.assessment.json"
+  },
+  {
+    "case": "gimbals_prepositioned",
+    "hardware": "HOLD",
+    "counts": {
+      "PASS": 22,
+      "HOLD": 64
+    },
+    "target": {
+      "t_s": 12.0,
+      "attitude_error_deg": 0.028993430157378857,
+      "rate_deg_s": 0.01869325888314345
+    },
+    "gate_entry_s": 12.0,
+    "peak_mount_N": 324631.6630662068,
+    "propellant_kg": null,
+    "peak_resultant_N": 7066.948852720504,
+    "assessment": "full_flight_20261027/hardware/wayfarer_gimbal_reference__gimbal12.assessment.json"
+  },
+  {
+    "case": "gimbals_cold",
+    "hardware": "HOLD",
+    "counts": {
+      "PASS": 22,
+      "HOLD": 64
+    },
+    "target": {
+      "t_s": 12.0,
+      "attitude_error_deg": 0.028993430157345484,
+      "rate_deg_s": 0.01869325888321707
+    },
+    "gate_entry_s": 12.0,
+    "peak_mount_N": 324631.6630662067,
+    "propellant_kg": null,
+    "peak_resultant_N": 7066.949097796374,
+    "assessment": "full_flight_20261027/hardware/wayfarer_gimbal_cold__gimbal12.assessment.json"
+  },
+  {
+    "case": "scout_hypothetical",
+    "hardware": "HOLD",
+    "counts": {
+      "PASS": 76,
+      "HOLD": 6,
+      "FAIL": 3
+    },
+    "target": {
+      "t_s": 20.0,
+      "attitude_error_deg": 0.007286577095932392,
+      "rate_deg_s": 0.0025512582140685214
+    },
+    "gate_entry_s": 20.0,
+    "peak_mount_N": 6654.090569541917,
+    "propellant_kg": 5.945432372555055,
+    "peak_resultant_N": 37.987266567420576,
+    "assessment": "full_flight_20261027/hardware/scout_hardware__scout_gimbal_turn.assessment.json"
+  },
+  {
+    "case": "torch_CRUISE",
+    "hardware": "HOLD",
+    "counts": {
+      "PASS": 13,
+      "HOLD": 56
+    },
+    "target": null,
+    "gate_entry_s": null,
+    "peak_mount_N": 11361000.000000002,
+    "propellant_kg": 681.6599999999692,
+    "peak_resultant_N": 11361000.000000002,
+    "assessment": "full_flight_20261027/hardware/wayfarer__burn120.assessment.json"
+  }
+]

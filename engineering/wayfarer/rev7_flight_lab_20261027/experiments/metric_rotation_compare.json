@@ -1,0 +1,33 @@
+{
+  "name": "metric_rotation_compare",
+  "phases": [
+    {
+      "kind": "metric",
+      "duration_s": 80,
+      "model": "experimental_rotation",
+      "mode": "NORMAL"
+    }
+  ],
+  "checks": {
+    "metric_path_m": {
+      "min": 1
+    }
+  },
+  "initial": {
+    "position_m": [
+      1000,
+      0,
+      0
+    ],
+    "velocity_m_s": [
+      10,
+      0,
+      0
+    ],
+    "omega_rad_s": [
+      0,
+      0,
+      0.001
+    ]
+  }
+}

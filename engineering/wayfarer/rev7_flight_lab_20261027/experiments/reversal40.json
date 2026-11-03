@@ -1,0 +1,19 @@
+{
+  "name": "reversal40",
+  "phases": [
+    {
+      "kind": "rcs_turn",
+      "duration_s": 40,
+      "axis": "pitch",
+      "angle_deg": 180
+    }
+  ],
+  "checks": {
+    "attitude_error_deg": {
+      "max": 0.25
+    },
+    "rate_deg_s": {
+      "max": 0.05
+    }
+  }
+}

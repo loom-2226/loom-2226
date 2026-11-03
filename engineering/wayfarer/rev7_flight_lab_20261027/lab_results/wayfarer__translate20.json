@@ -1,0 +1,152 @@
+{
+  "ship": "Wayfarer Rev7 S1 reconstructed from S4 and tank",
+  "experiment": "translate20",
+  "ship_sha256": "7d8e6c6358536a10a9e3dedc486d6b0231e3ab3e01fc46bba85abf2242c56d9d",
+  "experiment_sha256": "386b7f9b65f9f4055ce5dbb343915466fff81eeaac73c3556389371122995aef",
+  "dt_s": 0.1,
+  "phases": [
+    {
+      "kind": "rcs_translate",
+      "duration_s": 20.0,
+      "t_end_s": 20.000000000000014,
+      "mass_end_kg": 1167680.0,
+      "cg_end_m": [
+        24.3996,
+        0.0248,
+        -0.3564
+      ],
+      "inertia_end_kg_m2": [
+        [
+          12445594.999999989,
+          120526.99999999991,
+          1310016.0000000019
+        ],
+        [
+          120526.99999999991,
+          191668541.00000018,
+          4090.000000000001
+        ],
+        [
+          1310016.0000000019,
+          4090.000000000001,
+          192492153.0000001
+        ]
+      ],
+      "propellant_used_kg": null,
+      "known_propellant_used_kg": 0.0,
+      "rcs_propellant_unresolved": true,
+      "peak_force_N": 54839.757042405974,
+      "peak_offaxis_torque_Nm": 0.9827691033352965,
+      "minimum_allocated_fraction": 1.0,
+      "max_ideal_tvc_trim_deg": 0.0,
+      "peak_angular_rate_deg_s": 2.98383585701258e-07,
+      "phase_attitude_drift_deg": 6.633101247372694e-08,
+      "metric_unresolved": false,
+      "translation_delta_v_achieved_m_s": [
+        0.5000774697092929,
+        1.3910922590152962e-14,
+        1.8738075124108015e-17
+      ],
+      "translation_velocity_error_m_s": 7.746970929289887e-05,
+      "attitude_hold_error_deg": 6.633101247372694e-08
+    }
+  ],
+  "metrics": {
+    "translation_velocity_error_m_s": 7.746970929289887e-05,
+    "attitude_hold_error_deg": 6.633101247372694e-08,
+    "mass_end_kg": 1167680.0,
+    "known_propellant_used_kg": 0.0,
+    "total_propellant_used_kg": null,
+    "metric_path_m": 0.0,
+    "final_speed_m_s": 0.5000774697092929,
+    "final_angular_rate_deg_s": 2.5076413663731178e-08
+  },
+  "qualification": {
+    "status": "pass",
+    "checks": [
+      {
+        "metric": "translation_velocity_error_m_s",
+        "measured": 7.746970929289887e-05,
+        "criterion": {
+          "max": 0.02
+        },
+        "status": "pass"
+      },
+      {
+        "metric": "attitude_hold_error_deg",
+        "measured": 6.633101247372694e-08,
+        "criterion": {
+          "max": 0.1
+        },
+        "status": "pass"
+      }
+    ]
+  },
+  "final_state": {
+    "time_s": 20.000000000000014,
+    "position_m": [
+      4.999969229727841,
+      3.079018300626804e-13,
+      2.5620918256579802e-18
+    ],
+    "velocity_m_s": [
+      0.5000774697092929,
+      1.3910922590152962e-14,
+      1.8738075124108015e-17
+    ],
+    "q_body_to_inertial": [
+      1.0,
+      -5.73270678907929e-10,
+      3.5877939266134395e-13,
+      8.015469900493215e-11
+    ],
+    "omega_rad_s": [
+      3.3517408081890774e-10,
+      -2.167738454442526e-13,
+      2.814423586684179e-10
+    ],
+    "mass_kg": 1167680.0,
+    "cg_m": [
+      24.3996,
+      0.0248,
+      -0.3564
+    ],
+    "inertia_kg_m2": [
+      [
+        12445594.999999989,
+        120526.99999999991,
+        1310016.0000000019
+      ],
+      [
+        120526.99999999991,
+        191668541.00000018,
+        4090.000000000001
+      ],
+      [
+        1310016.0000000019,
+        4090.000000000001,
+        192492153.0000001
+      ]
+    ],
+    "tanks_kg": {
+      "remass": 250000.0
+    },
+    "metric_path_m": 0.0,
+    "metric_unresolved": false
+  },
+  "rcs_impulse_Ns": 601546.3544070523,
+  "torch_impulse_Ns": 0.0,
+  "warnings": [
+    "RCS propellant model unspecified"
+  ],
+  "rcs_propellant_unresolved": true,
+  "evidence_class": "non-governing numerical experiment; experimental metric laws not physical validation",
+  "model_limits": [
+    "canonical metric arrival mass, position, velocity, attitude, and remass ledger unresolved",
+    "rigid body; fuel centroids and intrinsic inertia scale linearly with fill",
+    "no slosh, plume, thermal, flex, sensor, valve, or tank feed network",
+    "ideal instantaneous torch auto-trim; no finite TVC dynamics",
+    "no full variable-inertia angular-momentum flux law",
+    "metric canonical envelope does not establish physical arrival state"
+  ]
+}

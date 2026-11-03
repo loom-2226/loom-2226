@@ -1,0 +1,66 @@
+{
+  "ship": "Wayfarer Rev7 S1 reconstructed from S4 and tank",
+  "experiment": "metric_canonical",
+  "ship_sha256": "7d8e6c6358536a10a9e3dedc486d6b0231e3ab3e01fc46bba85abf2242c56d9d",
+  "experiment_sha256": "28f5e05a53d0dfaa61469ec57767dd4893133c85930d51223e56ad9708ef73a0",
+  "dt_s": 0.1,
+  "phases": [
+    {
+      "kind": "metric",
+      "duration_s": 80.0,
+      "t_end_s": 79.99999999999973,
+      "mass_end_kg": null,
+      "cg_end_m": null,
+      "inertia_end_kg_m2": null,
+      "propellant_used_kg": null,
+      "known_propellant_used_kg": 0.0,
+      "rcs_propellant_unresolved": false,
+      "peak_force_N": 0.0,
+      "peak_offaxis_torque_Nm": 0.0,
+      "minimum_allocated_fraction": 1.0,
+      "max_ideal_tvc_trim_deg": 0.0,
+      "peak_angular_rate_deg_s": 0.0,
+      "phase_attitude_drift_deg": 0.0,
+      "metric_unresolved": true
+    }
+  ],
+  "metrics": {
+    "mass_end_kg": null,
+    "known_propellant_used_kg": 0,
+    "total_propellant_used_kg": 0,
+    "metric_path_m": 5624106512.080041,
+    "final_speed_m_s": 0.0,
+    "final_angular_rate_deg_s": 0.0
+  },
+  "qualification": {
+    "status": "indeterminate",
+    "checks": [],
+    "reason": "metric physical arrival state unresolved"
+  },
+  "final_state": {
+    "time_s": 79.99999999999973,
+    "position_m": null,
+    "velocity_m_s": null,
+    "q_body_to_inertial": null,
+    "omega_rad_s": null,
+    "mass_kg": null,
+    "cg_m": null,
+    "inertia_kg_m2": null,
+    "tanks_kg": null,
+    "metric_path_m": 5624106512.080041,
+    "metric_unresolved": true
+  },
+  "rcs_impulse_Ns": 0.0,
+  "torch_impulse_Ns": 0.0,
+  "warnings": [],
+  "rcs_propellant_unresolved": false,
+  "evidence_class": "non-governing numerical experiment; experimental metric laws not physical validation",
+  "model_limits": [
+    "canonical metric arrival mass, position, velocity, attitude, and remass ledger unresolved",
+    "rigid body; fuel centroids and intrinsic inertia scale linearly with fill",
+    "no slosh, plume, thermal, flex, sensor, valve, or tank feed network",
+    "ideal instantaneous torch auto-trim; no finite TVC dynamics",
+    "no full variable-inertia angular-momentum flux law",
+    "metric canonical envelope does not establish physical arrival state"
+  ]
+}

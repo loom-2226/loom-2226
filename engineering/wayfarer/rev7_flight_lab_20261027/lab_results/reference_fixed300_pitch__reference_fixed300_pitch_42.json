@@ -1,0 +1,12 @@
+{
+  "ship": "reference_fixed300_pitch",
+  "experiment": "reference_fixed300_pitch",
+  "samples": 700,
+  "step_s": 0.02,
+  "max_time_error_s": 2.0961010704922955e-13,
+  "max_attitude_difference_deg": 6.993355899838714e-06,
+  "last_attitude_difference_deg": 4.1773267197950485e-12,
+  "max_angular_velocity_difference_rad_s": 4.999950475870404e-08,
+  "independent_solver": "NASA 42 compiled in scratch workspace",
+  "scope": "constant mass and fixed nozzles: replay of realized commands, not independent GNC verification"
+}

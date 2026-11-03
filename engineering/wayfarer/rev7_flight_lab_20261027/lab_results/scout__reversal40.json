@@ -1,0 +1,158 @@
+{
+  "ship": "Scout example cylinder; non-canon",
+  "experiment": "reversal40",
+  "ship_sha256": "b229f375175c6acf8ae02f56b44dc86e419261c958c6af9470ee3cb2c0d6653e",
+  "experiment_sha256": "a58739706f5526985b008eea7e514733aef7b2f3d78fbb7f595341f546a6ceab",
+  "dt_s": 0.1,
+  "phases": [
+    {
+      "kind": "rcs_turn",
+      "duration_s": 40.0,
+      "t_end_s": 40.0000000000003,
+      "mass_end_kg": 99996.95888928244,
+      "cg_end_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "inertia_end_kg_m2": [
+        [
+          199993.91777856488,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1269969.5888928242,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1269969.5888928242
+        ]
+      ],
+      "propellant_used_kg": 3.041110717543604,
+      "known_propellant_used_kg": 3.041110717543604,
+      "rcs_propellant_unresolved": false,
+      "peak_force_N": 6.898501110101135e-13,
+      "peak_offaxis_torque_Nm": 1.7728210508452365e-12,
+      "minimum_allocated_fraction": 1.0,
+      "max_ideal_tvc_trim_deg": 0.0,
+      "peak_angular_rate_deg_s": 8.437579615783166,
+      "phase_attitude_drift_deg": 179.99838570369607,
+      "metric_unresolved": false,
+      "at_target_time": {
+        "t_s": 40.0,
+        "attitude_error_deg": 0.0016142963039677428,
+        "rate_deg_s": 0.00039498960427670636
+      },
+      "attitude_error_deg": 0.0016142963039677428,
+      "rate_deg_s": 0.00039498960427670636,
+      "gate_entry_s": 40.0,
+      "gate_hold_s": 0.1,
+      "post_hold_s": 0.0,
+      "at_end": {
+        "attitude_error_deg": 0.0016142963039677428,
+        "rate_deg_s": 0.00039498960427670636
+      }
+    }
+  ],
+  "metrics": {
+    "attitude_error_deg": 0.0016142963039677428,
+    "rate_deg_s": 0.00039498960427670636,
+    "gate_entry_s": 40.0,
+    "mass_end_kg": 99996.95888928244,
+    "known_propellant_used_kg": 3.041110717543604,
+    "total_propellant_used_kg": 3.041110717543604,
+    "metric_path_m": 0.0,
+    "final_speed_m_s": 5.993458549838613e-17,
+    "final_angular_rate_deg_s": 0.00039498960427670636
+  },
+  "qualification": {
+    "status": "pass",
+    "checks": [
+      {
+        "metric": "attitude_error_deg",
+        "measured": 0.0016142963039677428,
+        "criterion": {
+          "max": 0.25
+        },
+        "status": "pass"
+      },
+      {
+        "metric": "rate_deg_s",
+        "measured": 0.00039498960427670636,
+        "criterion": {
+          "max": 0.05
+        },
+        "status": "pass"
+      }
+    ]
+  },
+  "final_state": {
+    "time_s": 40.0000000000003,
+    "position_m": [
+      -7.227538656073092e-17,
+      1.1072475909152487e-15,
+      -4.1312251374180584e-16
+    ],
+    "velocity_m_s": [
+      -3.6302740344555795e-19,
+      5.5622267267849e-17,
+      -2.2320083645714186e-17
+    ],
+    "q_body_to_inertial": [
+      1.4087392803101438e-05,
+      -1.1611120922975017e-18,
+      0.9999999999007728,
+      -1.2195688594262805e-16
+    ],
+    "omega_rad_s": [
+      -2.3716551642878266e-19,
+      -6.893869105778002e-06,
+      -2.0438026950300595e-19
+    ],
+    "mass_kg": 99996.95888928244,
+    "cg_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "inertia_kg_m2": [
+      [
+        199993.91777856488,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1269969.5888928242,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1269969.5888928242
+      ]
+    ],
+    "tanks_kg": {
+      "prop": 9996.958889282436
+    },
+    "metric_path_m": 0.0,
+    "metric_unresolved": false
+  },
+  "rcs_impulse_Ns": 91233.32152630811,
+  "torch_impulse_Ns": 0.0,
+  "warnings": [],
+  "rcs_propellant_unresolved": false,
+  "evidence_class": "non-governing numerical experiment; experimental metric laws not physical validation",
+  "model_limits": [
+    "canonical metric arrival mass, position, velocity, attitude, and remass ledger unresolved",
+    "rigid body; fuel centroids and intrinsic inertia scale linearly with fill",
+    "no slosh, plume, thermal, flex, sensor, valve, or tank feed network",
+    "ideal instantaneous torch auto-trim; no finite TVC dynamics",
+    "no full variable-inertia angular-momentum flux law",
+    "metric canonical envelope does not establish physical arrival state"
+  ]
+}

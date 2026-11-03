@@ -1,0 +1,20 @@
+{
+  "name": "gimbal10",
+  "phases": [
+    {
+      "kind": "rcs_turn",
+      "duration_s": 10,
+      "post_hold_s": 4.0,
+      "axis": "pitch",
+      "angle_deg": 180.0
+    }
+  ],
+  "checks": {
+    "attitude_error_deg": {
+      "max": 0.25
+    },
+    "rate_deg_s": {
+      "max": 0.05
+    }
+  }
+}

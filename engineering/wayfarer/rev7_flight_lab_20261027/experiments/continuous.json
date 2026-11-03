@@ -1,0 +1,92 @@
+{
+  "name": "continuous",
+  "phases": [
+    {
+      "kind": "torch",
+      "duration_s": 12.0,
+      "hold_attitude": true,
+      "checks": {
+        "phase_attitude_drift_deg": {
+          "max": 1.0
+        },
+        "propellant_available": {
+          "min": 1
+        }
+      }
+    },
+    {
+      "kind": "coast",
+      "duration_s": 2.0,
+      "hold_attitude": true
+    },
+    {
+      "kind": "rcs_turn",
+      "duration_s": 20.0,
+      "post_hold_s": 4.0,
+      "axis": "pitch",
+      "checks": {
+        "attitude_error_deg": {
+          "max": 0.25
+        },
+        "rate_deg_s": {
+          "max": 0.05
+        },
+        "gate_hold_s": {
+          "min": 3.0
+        }
+      }
+    },
+    {
+      "kind": "coast",
+      "duration_s": 2.0
+    },
+    {
+      "kind": "metric",
+      "duration_s": 80.0,
+      "model": "experimental_rotation",
+      "mode": "NORMAL"
+    },
+    {
+      "kind": "coast",
+      "duration_s": 2.0
+    },
+    {
+      "kind": "torch",
+      "duration_s": 2.0,
+      "hold_attitude": true
+    }
+  ],
+  "checks": {
+    "propellant_available": {
+      "min": 1
+    },
+    "total_propellant_used_kg": {
+      "min": 1
+    },
+    "metric_path_m": {
+      "min": 1
+    }
+  },
+  "sequence_constraints": {
+    "metric_entry_max_throttle": 1e-06,
+    "coast_before_s": {
+      "metric": 2.0
+    },
+    "allowed_next": {
+      "torch": [
+        "coast"
+      ],
+      "coast": [
+        "rcs_turn",
+        "metric",
+        "torch"
+      ],
+      "rcs_turn": [
+        "coast"
+      ],
+      "metric": [
+        "coast"
+      ]
+    }
+  }
+}
