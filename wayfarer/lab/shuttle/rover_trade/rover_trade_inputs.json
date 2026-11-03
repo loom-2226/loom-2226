@@ -1,0 +1,36 @@
+{
+  "header": "ALL bodies. ALL sponsors. 2026-2226.",
+  "status": "NON-CANON research trade. Inputs declared by Claude for kT, 2026-11-03. Every value is an ASSUMPTION unless tagged otherwise.",
+  "core_mass_source": "../shuttle_inputs.json mass ranges (merged main 7c6b9b4)",
+  "core_components": ["pressure_pod_titanium_shell_t","hull_thermal_structure_t","pressure_pod_fittings_seals_t","folding_rover_chassis_t","torch_low_high_engine_t","small_belly_thrusters_t","reactor_power_distribution_t","crew_habitat_thermal_package_t","custody_capsule_dry_t","avionics_controls_yaw_t","landing_gear_door_ramp_t","water_tank_insulated_t"],
+  "reserve": {"start_t": 11.284117, "floor_t": 5.0, "replaced_shuttle_t": 27.9, "provenance": "wayfarer_v05_inputs.json ledger; G9 floor; current shuttle entry"},
+  "samples": 200000,
+  "seed": 2026,
+  "reference_pod_od_m": 2.8,
+  "reference_hull_d_m": 4.3,
+  "scaling": {
+    "pod_shell_exponent": 3.0,
+    "pod_fittings_exponent": 2.0,
+    "chassis_exponent": 1.5,
+    "hull_structure_exponent_on_diameter": 1.0,
+    "base_tps_exponent_on_diameter": 1.0,
+    "crew_thermal_fixed_fraction": 0.6,
+    "crew_thermal_per_crew_fraction_of_4": 0.4,
+    "note": "Buckling-governed sphere: wall ~R so shell mass ~R^3. Hull skin and TPS scale with diameter at fixed 12.8 m length."
+  },
+  "base_tps_core_t": {"min": 2.0, "max": 3.5, "note": "Mars-class base entry TPS moved into the core shuttle (kT R4)."},
+  "gear_door_ramp_shares": {"door": 0.30, "ramp": 0.18, "main_gear": 0.40, "kneel": 0.12},
+  "integration": {
+    "inside": {"keep_shares": ["door","ramp","main_gear","kneel"], "adds_t": {}},
+    "plug":   {"keep_shares": ["main_gear","kneel"], "adds_t": {"frames_around_hull_cut": [0.5,1.0], "latches": [0.2,0.45]}},
+    "belly":  {"keep_shares": ["kneel"], "adds_t": {"fore_aft_legs": [0.15,0.30], "chassis_landing_loads": [0.3,0.8], "wheel_doors_in_tps": [0.2,0.4], "tps_seam": [0.15,0.4], "latches": [0.2,0.45]}}
+  },
+  "options": [
+    {"name": "A 4.3 m inside, 4 crew",       "hull_d_m": 4.3, "pod_od_m": 2.8, "crew": 4, "integration": "inside", "g8_exit": "FAIL", "fits": true,  "note": "PR #460 preflight: longerons, strakes and hot fins fail the 0.5 m exit path"},
+    {"name": "A 3.8 m inside, 3 crew",       "hull_d_m": 3.8, "pod_od_m": 2.5, "crew": 3, "integration": "inside", "g8_exit": "PASS", "fits": true,  "note": "certified 0.5 m clearances unchanged"},
+    {"name": "A 3.8 m inside, 4 crew",       "hull_d_m": 3.8, "pod_od_m": 2.8, "crew": 4, "integration": "inside", "g8_exit": "PASS", "fits": false, "note": "pod + chassis + wheels ~3.62 m stack exceeds ~3.6 m inside"},
+    {"name": "B 3.8 m side plug, 4 crew",    "hull_d_m": 3.8, "pod_od_m": 2.8, "crew": 4, "integration": "plug",   "g8_exit": "PASS", "fits": true,  "note": "wheels stow at the hull line"},
+    {"name": "C 3.8 m belly rover, 4 crew",  "hull_d_m": 3.8, "pod_od_m": 2.8, "crew": 4, "integration": "belly",  "g8_exit": "PASS", "fits": true,  "note": "rover wheels are main gear; wheels stow at the belly line"},
+    {"name": "C 3.8 m belly rover, 3 crew",  "hull_d_m": 3.8, "pod_od_m": 2.5, "crew": 3, "integration": "belly",  "g8_exit": "PASS", "fits": true,  "note": ""}
+  ]
+}
