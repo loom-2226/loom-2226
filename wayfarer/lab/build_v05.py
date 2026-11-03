@@ -906,7 +906,7 @@ def build(I, dy=0.0, dz=0.0):
     add("nozzle", "Magnetic nozzle", "propulsion", Offset(Frustum(*H["nozzle_x_m"], *H["nozzle_r_m"], 0.15), dy, dz), P["nozzle"], P["prov"], "nozzle", tags=tc)
     # --- shuttle and drones (state-dependent)
     S = I["shuttle"]
-    add("shuttle", "Rover-drop shuttle (docked, tanks empty)", "shuttle", Tube((S["x_m"][0], 0, 0), (S["x_m"][1], 0, 0), S["diameter_m"] / 2),
+    add("shuttle", "Shuttle v1, 3.8 m, 3-crew pod (docked, tanks empty)", "shuttle", Tube((S["x_m"][0], 0, 0), (S["x_m"][1], 0, 0), S["diameter_m"] / 2),
         S["dry_t"], S["prov"], "shuttle", tags=("shuttle", "inhabited_when_docked"))
     hold_s, hold_p = sec["hold_starboard"], sec["hold_port"]
     k = 0

@@ -32,55 +32,55 @@
  "floors": [
   {
    "deck": "L1",
-   "carried_t": 11.27,
+   "carried_t": 11.26,
    "people_t": 0.6,
    "pressure_kpa": 16.5,
-   "face_mm": 0.2,
+   "face_mm": 0.19,
    "needed_t": 0.79,
-   "floor_t": 1.559,
+   "floor_t": 1.555,
    "core_shear_mpa": 0.096,
    "ok": true
   },
   {
    "deck": "L2",
-   "carried_t": 13.0,
+   "carried_t": 12.98,
    "people_t": 0.0,
    "pressure_kpa": 19.0,
-   "face_mm": 0.23,
+   "face_mm": 0.22,
    "needed_t": 0.79,
-   "floor_t": 1.559,
+   "floor_t": 1.555,
    "core_shear_mpa": 0.111,
    "ok": true
   },
   {
    "deck": "L3",
-   "carried_t": 15.34,
+   "carried_t": 15.32,
    "people_t": 1.0,
    "pressure_kpa": 22.4,
    "face_mm": 0.27,
    "needed_t": 0.8,
-   "floor_t": 1.559,
+   "floor_t": 1.555,
    "core_shear_mpa": 0.131,
    "ok": true
   },
   {
    "deck": "L4",
-   "carried_t": 36.52,
+   "carried_t": 36.47,
    "people_t": 0.0,
-   "pressure_kpa": 53.4,
+   "pressure_kpa": 53.3,
    "face_mm": 0.63,
    "needed_t": 0.86,
-   "floor_t": 1.559,
+   "floor_t": 1.555,
    "core_shear_mpa": 0.311,
    "ok": true
   }
  ],
  "l4_l5_bulkhead": {
   "pressure_kpa": 101.3,
-  "factor": 2.0,
+  "factor": 2,
   "face_mm": 2.4,
   "needed_t": 1.14,
-  "floor_t": 1.559,
+  "floor_t": 1.555,
   "core_shear_mpa": 1.18,
   "core_shear_allow_mpa": 1.5,
   "hatches": 2,
@@ -141,7 +141,7 @@
   "ok": true
  },
  "acceleration": {
-  "cap_g": 4.0,
+  "cap_g": 4,
   "rows": [
    {
     "mode": "ECON",
@@ -242,13 +242,13 @@
  },
  "viewport_band": {
   "glazed_area_m2": 19.36,
-  "mass_ahead_t": 79.0,
+  "mass_ahead_t": 78.8,
   "mullions": 23,
   "mullion_section_m": [
    0.05,
    0.2
   ],
-  "axial_load_thrust_mn": 5.81,
+  "axial_load_thrust_mn": 5.79,
   "axial_load_pressure_mn": 11.0,
   "mullion_stress_mpa": 47.8,
   "allow_mpa": 600.0,

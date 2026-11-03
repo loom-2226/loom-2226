@@ -20,7 +20,7 @@
   "prov": "KT_DECISION",
   "date": "2026-10-24",
   "layout": "keep v0.4 layout (C-shaped wrap-around tanks, five longerons, on-axis bay with a lateral slot); departures go to kT as a canon amendment",
-  "shuttle": "rover-drop shuttle, TORCH150|BICONIC|VENUS|DROP_CITY|e1.0",
+  "shuttle": "Shuttle v1 resized 3.8m hull, 2.5m pod, 3 crew; research sizer 30.020646738t midpoint (includes 1.5t assumed Mars base TPS); Venus kit and Wayfarer electrolysis plant removable payload; NONCANON until certification",
   "people": {
    "crew": 6,
    "guests": 4
@@ -37,13 +37,13 @@
   "from": "ship_sizer/wayfarer_v4_1.py, row 'Rover drop from a cloud city' (CWRAP_G|SPLIT|STRAKE_QUAD|ACCORDION|1300K|ext0|centre)",
   "length_m": 53.3,
   "dry_t": 861.7,
-  "dv_km_s": 727.0,
+  "dv_km_s": 727,
   "accel_g": 0.997,
   "torch_capacity_mw": 387.7
  },
  "canon": {
   "prov": "CANON",
-  "source": "CANON II v2.4 \u00a75, \u00a713, \u00a714; Schematic Amendment v2.4a",
+  "source": "CANON II v2.4 §5, §13, §14; Schematic Amendment v2.4a",
   "main_body_m": [
    57,
    9
@@ -74,10 +74,10 @@
   "launch_bay": "semi-recessed, unpressurized, lateral departure, pressure-tight crew transfer, DOCKED/ABSENT mass state",
   "torch_metric_exclusive": true,
   "metric_cold_load_kw": {
-   "NORMAL": 20.0,
+   "NORMAL": 20,
    "FAST": 38.1,
    "EXPEDITE": 63.5,
-   "HARD": 136.0
+   "HARD": 136
   },
   "metric_cryo_electrical_mw_at_900K": {
    "NORMAL": 3.5,
@@ -98,7 +98,7 @@
   "cruise_thrust_mn": 11.361,
   "thrust_point_x_m": 52.3,
   "neutron_source_x_m": [
-   52.0,
+   52,
    52.6
   ],
   "neutron_source_radius_m": 0.3,
@@ -136,34 +136,34 @@
    "modes": {
     "ECON": {
      "mdot_kg_s": 1.1361,
-     "ve_km_s": 3000.0
+     "ve_km_s": 3000
     },
     "CRUISE": {
      "mdot_kg_s": 5.680502,
-     "ve_km_s": 2000.0
+     "ve_km_s": 2000
     },
     "EXPEDITE": {
      "mdot_kg_s": 22.722008,
-     "ve_km_s": 1000.0
+     "ve_km_s": 1000
     },
     "FAST": {
      "mdot_kg_s": 48.690017,
-     "ve_km_s": 700.0
+     "ve_km_s": 700
     },
     "HARD": {
      "mdot_kg_s": 126.233378,
-     "ve_km_s": 450.0
+     "ve_km_s": 450
     },
     "LIMIT": {
      "mdot_kg_s": 284.025101,
-     "ve_km_s": 300.0
+     "ve_km_s": 300
     }
    }
   },
   "jet_power_ceiling_tw": 11.361,
   "jet_power_ceiling_prov": "DERIVED: the hot fins (G4) and strake cryo span are sized at 11.361 TW (CRUISE card power); a higher ceiling needs larger fins",
   "tvc": {
-   "authority_deg": 1.0,
+   "authority_deg": 1,
    "prov": "KT_DECISION 2026-10-26 (agree 2): the magnetic nozzle steers the thrust line by up to 1 deg (asymmetric coil current), enough to hold the thrust line through the CG with trim plus an assumed 0.5 deg error (0.85 deg). ENGINEERING_ASSUMPTION: no qualified nozzle capability yet; declared in G10"
   }
  },
@@ -179,15 +179,15 @@
    13.7
   ],
   "habitat_shell_x_m": [
-   0.0,
-   14.0
+   0,
+   14
   ],
   "service_x_m": [
-   14.0,
-   18.0
+   14,
+   18
   ],
   "midship_x_m": [
-   18.0,
+   18,
    32.3
   ],
   "manifold_x_m": [
@@ -210,7 +210,7 @@
   ],
   "nozzle_r_m": [
    2.125,
-   3.0
+   3
   ],
   "overall_length_m": 54.5
  },
@@ -218,7 +218,7 @@
   "prov": "DERIVED",
   "kind": "C-shaped wrap-around, four strake grooves (v0.4 CWRAP_G)",
   "x_m": [
-   18.0,
+   18,
    31.5
   ],
   "r_in_m": 2.45,
@@ -231,7 +231,7 @@
     220,
     320
    ],
-   "width_m": 2.0,
+   "width_m": 2,
    "depth_m": 0.5
   },
   "section_area_m2": 25.85,
@@ -259,15 +259,15 @@
   "doors": {
    "kind": "two clamshell doors hinged at the slot edges, opening to vertical",
    "prov": "ENGINEERING_ASSUMPTION",
-   "mass_t": 2.0,
+   "mass_t": 2,
    "note": "door mass is inside the 6 t bay_liner share of structure"
   }
  },
  "shuttle": {
-  "prov": "DERIVED",
-  "source": "ship_sizer/shuttle_alternatives.json, 'Rover drop from a cloud city'",
-  "key": "TORCH150|BICONIC|VENUS|DROP_CITY|e1.0",
-  "dry_t": 27.9,
+  "prov": "KT_DECISION / ASSUMPTION-SIZER",
+  "source": "2026-11-03 R2-R5 resized shuttle midpoint from research/shuttle-v1-resize-20261103; NON-CANON, not hardware-qualified; includes assumed 1.5t Mars base TPS, excludes Venus kit",
+  "key": "SHUTTLE_V1_RESIZED_3P8_POD_2P5_CREW3",
+  "dry_t": 30.020646738,
   "length_m": 12.8,
   "diameter_m": 3.8,
   "x_m": [
@@ -277,9 +277,9 @@
   "water_cap_t": 23.1,
   "max_trip_t": 51.1,
   "torch_gw": 7.7,
-  "venus_kit_t": 1.7,
-  "crew_seats": 6,
-  "venus_surface_crew": 2,
+  "venus_kit_t": 10.26875,
+  "crew_seats": 3,
+  "venus_surface_crew": 3,
   "nose_port_x_m": 18.75
  },
  "drones": {
@@ -317,11 +317,11 @@
   "prov": "ENGINEERING_ASSUMPTION",
   "plant_fore": {
    "x_m": [
-    14.0,
-    17.0
+    14,
+    17
    ],
-   "r_m": 2.0,
-   "mass_t": 44.0,
+   "r_m": 2,
+   "mass_t": 44,
    "prov": "DERIVED: SPLIT plant, half of 88 t; shortened 1 m vs v0.4 to leave room for the transfer tunnel (density 1.17 t/m3, inside the 1.0-1.5 t/m3 range)"
   },
   "sectors": {
@@ -331,11 +331,11 @@
      135
     ],
     "x_m": [
-     14.0,
-     17.0
+     14,
+     17
     ],
     "r_m": [
-     2.0,
+     2,
      4.3
     ]
    },
@@ -345,11 +345,11 @@
      45
     ],
     "x_m": [
-     14.0,
-     17.0
+     14,
+     17
     ],
     "r_m": [
-     2.0,
+     2,
      4.3
     ]
    },
@@ -359,11 +359,11 @@
      225
     ],
     "x_m": [
-     14.0,
-     17.0
+     14,
+     17
     ],
     "r_m": [
-     2.0,
+     2,
      4.3
     ]
    },
@@ -373,20 +373,20 @@
      315
     ],
     "x_m": [
-     14.0,
-     17.0
+     14,
+     17
     ],
     "r_m": [
-     2.0,
+     2,
      4.3
     ]
    }
   },
   "docking_collar": {
-   "x_m": 16.0,
+   "x_m": 16,
    "theta_deg": 270,
    "port_d_m": 1.6,
-   "mass_t": 4.0,
+   "mass_t": 4,
    "prov": "CANON position (x = 16, -Z), mass ENGINEERING_ASSUMPTION",
    "loom_state": "FREE: nothing attached at the collar for Loom formation and translation (E1 lock); the shuttle stays DOCKED in its bay (KT_DECISION 2026-10-26, agree 4)"
   },
@@ -398,50 +398,50 @@
      "name": "habitat to collar node",
      "from": [
       13.7,
-      0.0,
-      -3.0
+      0,
+      -3
      ],
      "to": [
       16.6,
-      0.0,
-      -3.0
+      0,
+      -3
      ]
     },
     {
      "name": "collar node to bay axis",
      "from": [
       17.6,
-      0.0,
-      -3.0
+      0,
+      -3
      ],
      "to": [
       17.6,
-      0.0,
-      0.0
+      0,
+      0
      ]
     },
     {
      "name": "docking adapter to shuttle nose",
      "from": [
       17.6,
-      0.0,
-      0.0
+      0,
+      0
      ],
      "to": [
       18.75,
-      0.0,
-      0.0
+      0,
+      0
      ]
     }
    ]
   },
   "electrical_ring": {
    "x_m": [
-    17.0,
-    18.0
+    17,
+    18
    ],
    "r_m": [
-    2.0,
+    2,
     4.3
    ],
    "theta_deg": [
@@ -483,7 +483,7 @@
     "name": "Command",
     "x_m": [
      0.2,
-     3.0
+     3
     ],
     "dome": true,
     "rooms": [
@@ -496,7 +496,7 @@
        360
       ],
       "r_m": [
-       0.0,
+       0,
        4.15
       ],
       "mass_t": 2.1,
@@ -517,7 +517,7 @@
       "intended_shape": "kT 2026-10-25, noted not modelled: knees-up contour like the Soyuz Kazbek seat, liner moulded to each person (back flat, hips and knees bent, legs raised; suits [V2 6113], whose limit assumes feet raised). The checks keep the flat 2.10 x 0.70 m envelope; a knees-up couch is ~1.5 m long but its knees stand ~0.6 m above the couch back, so dome clearance must be checked before adoption"
      },
      "sensor_ring": {
-      "x_aft_m": 2.0,
+      "x_aft_m": 2,
       "r_in_m": 2.9,
       "gaps_deg": [
        [
@@ -558,11 +558,11 @@
        "role": "Navigation / Loom",
        "base": "i4_navigator",
        "head_yz_m": [
-        0.0,
+        0,
         3.29
        ],
        "feet_yz_m": [
-        0.0,
+        0,
         1.71
        ]
       },
@@ -634,7 +634,7 @@
       "glazed_area_m2": 38.48451,
       "roots": 12,
       "blades": 16,
-      "fork_r_m": 2.0,
+      "fork_r_m": 2,
       "centre_ring_r_m": 1.15,
       "central_pane_m": 1.5,
       "frame": "37 outer nonpressure panes; TWO independent pressure domes with 3.023m3 AOI interlayer; 16 Strata gores close over stack; no visible pressure mullions",
@@ -645,7 +645,7 @@
        "ring_boundaries_m": [
         0,
         0.75,
-        2.0,
+        2,
         2.75,
         3.5
        ],
@@ -660,14 +660,14 @@
        "inner_shape": "X(r)=3.043118-3.343118*sqrt(1-(r/4.3)^2), 0<=r<=3.50",
        "pressure_milestone": "PENDING: two independent full-scale ~7m monolithic ceramic pressure enclosures and no shock/crack coupling through AOI; earlier one-dome approval does not carry",
        "outermost_band_stagger_rad": 0.261799387799,
-       "outer_pattern_provenance": "RESTORED f07354f: 37 modules [1,12,12,12], radii [0,.75,2,2.75,3.5], final band \u03c0/12 stagger. Maximum hoop chord 1.812m; within existing 1.9m check. Additional outer ceramic mass from reserve.",
+       "outer_pattern_provenance": "RESTORED f07354f: 37 modules [1,12,12,12], radii [0,.75,2,2.75,3.5], final band π/12 stagger. Maximum hoop chord 1.812m; within existing 1.9m check. Additional outer ceramic mass from reserve.",
        "outer_areal_kg_m2": 37.5,
        "true_conical_surface_area_m2": 52.887838,
        "outer_profile": "OPTION C: X(r)=-1.2 for r<=2.0; -1.2+(r-2)*tan(50deg) to r3.5; faired to shoulder at r4.5; I4 pane rings unchanged"
       },
       "brow_ring": {
        "height_m": 0.22,
-       "width_m": 1.0,
+       "width_m": 1,
        "houses": "16 retracted gores and their drives"
       },
       "gores": {
@@ -694,18 +694,18 @@
         12
        ],
        "pressure_dome_count": 2,
-       "inner_diameter_m": 7.0,
+       "inner_diameter_m": 7,
        "inner_areal_g_cm2": 10.5,
        "outer_areal_g_cm2": 3.75,
        "closed_gore_g_cm2": 27,
-       "replaced_pressure_hull_comparator_g_cm2": 8.0,
-       "replaced_armor_g_cm2": 27.0,
+       "replaced_pressure_hull_comparator_g_cm2": 8,
+       "replaced_armor_g_cm2": 27,
        "material_milestone_awaiting_kT": true,
        "primary_dome_areal_g_cm2": 10.5,
        "backup_dome_areal_g_cm2": 10.5,
        "optogel_areal_mass_g_cm2_nominal": 7.249,
        "interspace_min_free_normal_m": 0.05973,
-       "impact_damping_credit": 0.0
+       "impact_damping_credit": 0
       },
       "mass_allocation_note": "Physical ceramic inner dome mass is split across existing pressure_vessel shell 8g/cm2 mass PLUS incremental crown pane mass. The old metal shell section is REPLACED materially, not a second hidden pressure dome. Inner ceramic physical mass=4.345t, outer=1.407t; credit existing pressure shell~3.311t; delta from reserve only. Backup separately pressure-capable dome adds 4.345246t, AOI 3.000t, both charged to engineering reserve, not the electrical allowance.",
       "adaptive_optogel": {
@@ -717,7 +717,7 @@
        "min_local_free_normal_thickness_m": 0.05973,
        "backup_dome_forward_axial_offset_m": 0.12,
        "density_kg_m3": 992.391664,
-       "mass_t": 3.0,
+       "mass_t": 3,
        "backup_pressure_dome_mass_t": 4.728898,
        "backup_dome_thickness_m": 0.028,
        "primary_dome_thickness_m": 0.028,
@@ -744,7 +744,7 @@
         "gel",
         "locked"
        ],
-       "ir_heat_reduction_fraction_credited": 0.0,
+       "ir_heat_reduction_fraction_credited": 0,
        "additional_from_engineering_reserve_t": 7.345246,
        "outer_panes": [
         1,
@@ -760,8 +760,8 @@
        "reference": "7240dc21:command/NOSE_REPLACEABLE_TRANSPARENT_OUTER_PANELS_20261029.md",
        "nose_extension_forward_m": 1.2,
        "nose_tip_x_m": -1.2,
-       "flat_to_r_m": 2.0,
-       "slope_deg": 50.0,
+       "flat_to_r_m": 2,
+       "slope_deg": 50,
        "slope_to_r_m": 3.5,
        "outer_area_m2": 52.887838,
        "flat_area_m2": 12.566371,
@@ -787,7 +787,7 @@
         ],
         "stagger_last_band_rad": 0.261799387799,
         "thickness_m": 0.01,
-        "density_kg_m3": 3750.0,
+        "density_kg_m3": 3750,
         "areal_mass_kg_m2": 37.5,
         "gross_surface_mass_t": 1.983294,
         "previous_projected_mass_basis_t": 1.443169,
@@ -817,11 +817,11 @@
          0.071594
         ],
         "total_mass_t": 0.385772,
-        "storage_note": "Position x14.9-16.1, y -3.35..-2.65, z +/-0.5 m is inside courier SERVICE HOLD PORT x14..17 and \u03b8135..225, r2..4.3. Not in midship remass tanks. Seven individually packed spare 1cm outer panes from reserve; no payload double-count."
+        "storage_note": "Position x14.9-16.1, y -3.35..-2.65, z +/-0.5 m is inside courier SERVICE HOLD PORT x14..17 and θ135..225, r2..4.3. Not in midship remass tanks. Seven individually packed spare 1cm outer panes from reserve; no payload double-count."
        },
        "gores": {
         "count": 16,
-        "equivalent_areal_g_cm2": 27.0,
+        "equivalent_areal_g_cm2": 27,
         "full_closed_outer_area_m2": 52.887838,
         "gross_full_coverage_t": 14.279716,
         "existing_projected_coverage_t": 10.390818,
@@ -893,7 +893,7 @@
       "source_candidate_sha": "f07354f57244d62e7c1932cacddd0f996d45e941",
       "coordinates": "true source ship frame X bow-negative; not unconstrained viewer H=4-X",
       "terrace_lowered_m": 0.5,
-      "nose_extension_m": 0.0,
+      "nose_extension_m": 0,
       "stations": [
        {
         "id": "PILOT",
@@ -917,7 +917,7 @@
         "heading_deg": -5,
         "center_yz": [
          -0.98,
-         -2.0
+         -2
         ],
         "source_coordinates": "X ship axial; Y,Z transverse; bow -X"
        },
@@ -926,16 +926,16 @@
         "role": "Navigation / Loom",
         "base_x": 2.76,
         "head": [
-         0.0,
+         0,
          3.29
         ],
         "feet": [
-         0.0,
+         0,
          1.71
         ],
         "eye": [
          2.31,
-         0.0,
+         0,
          3.09
         ],
         "L": 1.58,
@@ -969,7 +969,7 @@
         "heading_deg": 5,
         "center_yz": [
          0.98,
-         -2.0
+         -2
         ],
         "source_coordinates": "X ship axial; Y,Z transverse; bow -X"
        },
@@ -1123,11 +1123,11 @@
         ],
         [
          -1.65,
-         -1.0
+         -1
         ],
         [
          1.65,
-         -1.0
+         -1
         ]
        ],
        "od_m": 0.076,
@@ -1163,7 +1163,7 @@
        -60,
        30
       ],
-      "mass_t": 2.0,
+      "mass_t": 2,
       "windows": 0,
       "windows_prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports ... for livability; they can be shuttered'): acrylic shield plug kit, Strata dust shutter; on L2 the round windows give way to the viewport band"
      },
@@ -1463,7 +1463,7 @@
        15,
        165
       ],
-      "mass_t": 1.0,
+      "mass_t": 1,
       "jacket": true,
       "windows": 2,
       "windows_prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports ... for livability; they can be shuttered'): acrylic shield plug kit, Strata dust shutter"
@@ -1476,7 +1476,7 @@
        165,
        255
       ],
-      "mass_t": 3.0,
+      "mass_t": 3,
       "entrance": {
        "center_deg": 202,
        "clear_width_m": 2.4,
@@ -1510,7 +1510,7 @@
        255,
        375
       ],
-      "mass_t": 14.0
+      "mass_t": 14
      }
     ]
    },
@@ -1530,7 +1530,7 @@
        -20,
        20
       ],
-      "mass_t": 3.0
+      "mass_t": 3
      },
      {
       "id": "L5-suits",
@@ -1552,7 +1552,7 @@
        80,
        170
       ],
-      "mass_t": 3.0,
+      "mass_t": 3,
       "windows": 2,
       "windows_prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports ... for livability; they can be shuttered'): acrylic shield plug kit, Strata dust shutter"
      },
@@ -1574,7 +1574,7 @@
        200,
        250
       ],
-      "mass_t": 3.0
+      "mass_t": 3
      },
      {
       "id": "L5-vestibule",
@@ -1595,12 +1595,12 @@
        290,
        340
       ],
-      "mass_t": 3.0
+      "mass_t": 3
      }
     ]
    }
   ],
-  "distributed_outfitting_t": 4.0,
+  "distributed_outfitting_t": 4,
   "free_fraction": {
    "prov": "ENGINEERING_ASSUMPTION: share of each room's volume left free for people after equipment and stowage (NASA net habitable volume sense)",
    "command": 0.45,
@@ -1678,8 +1678,8 @@
    "collar_prov": "CLAUDE addition v0.5.6: a 12 cm water collar in the utility gap (r 4.15-4.27, behind the edge of floor L3, x 8.2-8.5). The v0.5.6 reserve draws lower the reserve spread over the dry parts by 0.45%, and the bunk screen's 0.1 g/cm2 margin went to 39.91 g/cm2; the weakest ray leaves the captain's bunk aft and outward and passes under the ring's aft edge through the floor junction. The collar (0.95 t, moved from the service tank; protected water total unchanged) closes that gap. The 8 cm ring itself is unchanged. SOL TO AGREE",
    "service_band": {
     "x_m": [
-     14.0,
-     17.0
+     14,
+     17
     ],
     "r_m": [
      4.3,
@@ -1728,7 +1728,7 @@
   "crew_systems": {
    "prov": "CLAUDE_DESIGN v0.5.6 (habitat and L1 close-out); checked by habitat/crew_systems.py",
    "litter": {
-    "length_m": 2.0,
+    "length_m": 2,
     "width_m": 0.6,
     "depth_m": 0.35,
     "margin_m": 0.05,
@@ -1761,14 +1761,14 @@
     "hatch_t": 0.15,
     "trunk_plug_t": 0.15,
     "pressure_kpa": 101.3,
-    "burst_factor": 2.0,
+    "burst_factor": 2,
     "prov": "CLAUDE_DESIGN v0.5.6: floor L4 becomes a pressure bulkhead so a depressurised L5 (airlock, docking tunnel) cannot take the rest of the habitat. Two hinged pressure hatches (rounded-square, ISS CBM-hatch style) close the ladderways; a pressure plug with a lift hatch and feedthroughs seals the trunk at the same plane. Hatches stand open in normal operations and close automatically on a pressure drop"
    },
    "shelter_backup": {
     "people": 10,
     "hours": 72,
     "o2_kg_per_person_day": 0.84,
-    "co2_kg_per_person_day": 1.0,
+    "co2_kg_per_person_day": 1,
     "drink_kg_per_person_day": 1.62,
     "food_kg_per_person_day": 0.62,
     "lioh_kg_per_kg_co2": 1.09,
@@ -1778,7 +1778,7 @@
     "food_packaging_factor": 1.5,
     "battery_hours": 24,
     "essential_load_kw": 0.6,
-    "battery_kwh_per_kg": 4.0,
+    "battery_kwh_per_kg": 4,
     "fans_sensors_t": 0.02,
     "heat_per_person_kw": 0.14,
     "mass_t": 0.3,
@@ -1786,7 +1786,7 @@
    },
    "accel_doctrine": {
     "couch_above_g": 1.5,
-    "sustained_cap_g": 4.0,
+    "sustained_cap_g": 4,
     "cap_evidence": "NASA OCHMO acceleration brief: +Gx 4 g tolerable up to at least 60 min; 2 g at least 24 h",
     "on_back_limit_min": 195,
     "on_back_nominal_min": 165,
@@ -1798,7 +1798,7 @@
      {
       "name": "collar camera with lights, beside the port looking out along its axis",
       "pos_m": [
-       16.0,
+       16,
        0.95,
        -4.5
       ]
@@ -1807,7 +1807,7 @@
       "name": "wide hull camera with lights",
       "pos_m": [
        14.2,
-       0.0,
+       0,
        -4.6
       ]
      }
@@ -1970,54 +1970,54 @@
   "structure_t_per_m": 2.632,
   "structure_split": {
    "prov": "ENGINEERING_ASSUMPTION: shares of the 2.632 t/m structure line; v0.5.7: longerons 35 -> 10.56 t (four sized tubes, incl. 10% splices) + 3.276 t joints; the remaining 21.164 t is released to the engineering reserve and spread like it (structure line unchanged); rev 5: longerons 11.862 t, joints 3.476 t, released 19.662 t (the three still sum to the 35 t share, so dry mass and the ledger are unchanged)",
-   "pressure_vessel_and_bulkheads": 20.0,
-   "decks_and_core": 8.0,
-   "outer_skin_midship": 14.0,
-   "longerons": 11.862,
-   "ring_frames": 17.0,
-   "tank_shells": 24.0,
-   "bay_liner": 6.0,
+   "pressure_vessel_and_bulkheads": 20,
+   "decks_and_core": 8,
+   "outer_skin_midship": 14,
+   "longerons": 11.867,
+   "ring_frames": 17,
+   "tank_shells": 24,
+   "bay_liner": 6,
    "thrust_cone": 16.3,
    "longeron_joints": 3.476,
-   "released_to_reserve": 19.662
+   "released_to_reserve": 19.657
   },
-  "armor_fixed_shield_t": 105.0,
-  "habitation_life_support_t": 45.0,
-  "guest_outfitting_t": 6.0,
-  "relational_plant_t": 88.0,
-  "thermal_radiators_t": 90.0,
-  "propulsion_t": 160.0,
+  "armor_fixed_shield_t": 105,
+  "habitation_life_support_t": 45,
+  "guest_outfitting_t": 6,
+  "relational_plant_t": 88,
+  "thermal_radiators_t": 90,
+  "propulsion_t": 160,
   "propulsion_split": {
-   "shield": 45.0,
-   "reactor": 85.0,
-   "nozzle": 30.0,
+   "shield": 45,
+   "reactor": 85,
+   "nozzle": 30,
    "prov": "ENGINEERING_ASSUMPTION"
   },
-  "electrical_t": 55.0,
-  "avionics_sensors_comms_t": 20.0,
+  "electrical_t": 55,
+  "avionics_sensors_comms_t": 20,
   "avionics_split": {
-   "bow_sensors": 8.0,
-   "core_racks": 12.0,
+   "bow_sensors": 8,
+   "core_racks": 12,
    "prov": "ENGINEERING_ASSUMPTION"
   },
-  "rcs_docking_service_t": 25.0,
+  "rcs_docking_service_t": 25,
   "rcs_split": {
-   "rcs_clusters": 12.0,
-   "docking_collar": 4.0,
+   "rcs_clusters": 12,
+   "docking_collar": 4,
    "service_arm_and_umbilicals": 7.5,
    "transfer_tunnel": 1.5,
    "prov": "ENGINEERING_ASSUMPTION"
   },
-  "mission_courier_systems_t": 20.0,
-  "engineering_reserve_t": 11.284117,
+  "mission_courier_systems_t": 20,
+  "engineering_reserve_t": 9.163470262,
   "engineering_reserve_rule": "spread over dry parts in proportion to their mass (growth margin), not lumped at one point",
-  "c_tank_penalty_t": 8.0,
+  "c_tank_penalty_t": 8,
   "radiator_panels_t": 8.784,
   "drones_pods_t": 1.198,
   "venus_kit_t": 1.7,
   "electrical_split": {
-   "aft_c_ring": 30.0,
-   "service_ring": 25.0,
+   "aft_c_ring": 30,
+   "service_ring": 25,
    "prov": "ENGINEERING_ASSUMPTION: the aft C-ring (x 31.5-32.3) is too small for all 55 t; 25 t moves to the free ring at x 17.0-18.0 ahead of the bay (theta -45 to 225 deg, clear of the tunnel elbow on -Z)"
   },
   "torch_hot_fins_t": 21.024,
@@ -2046,7 +2046,7 @@
    "viewport_band_t": 5.867
   },
   "crew_systems_v057_t": 10.688,
-  "rcs_axial_t": 4.0,
+  "rcs_axial_t": 4,
   "rcs_axial_prov": "ENGINEERING_ASSUMPTION: 8 thrusters at the 0.5 t per thruster of the existing clusters (12 t / 24), paid from the engineering reserve (dry mass unchanged)",
   "reserve_draws_rev7": {
    "crawler_docks_t": 0.6,
@@ -2068,12 +2068,29 @@
   "electrical_dry_t": 54.85,
   "house_energy_battery_electrical_reallocation_t": 1.5,
   "c_lite_dry_electrical_reallocation_t": 0.1,
-  "c_lite_wet_electrical_reallocation_t": 0.15
+  "c_lite_wet_electrical_reallocation_t": 0.15,
+  "shuttle_v1_resize_20261103": {
+   "prov": "KT_DECISION / ASSUMPTION",
+   "starting_engineering_reserve_t": 11.284117,
+   "old_docked_core_t": 27.9,
+   "new_docked_core_t": 30.020646738,
+   "delta_t": 2.1206467380000014,
+   "reserve_after_t": 9.163470262,
+   "reserve_floor_t": 5,
+   "kit_payload_midpoint_t": 10.26875,
+   "electrolysis_payload_t_range": [
+    1,
+    4
+   ],
+   "longeron_material_added_t": 0.005,
+   "longeron_note": "2026-11-03 recert: +2.1 t shuttle raised longeron axial+bending to 250.04 MPa against the 250 MPa design stress; 0.005 t moved from structure_split.released_to_reserve to structure_split.longerons (line total unchanged) gives ~249.94 MPa.",
+   "note": "No slot, tank, strake, hot fin, habitat or propulsion change; longerons +0.005 t from released reserve (see longeron_note); payload modules not charged to dry. Only pre-qualification bookkeeping; new G1-G12 recertification required."
+  }
  },
  "longerons": {
   "prov": "CLAUDE_DESIGN v0.5.7 (structure/longeron_study.py, kT 2026-10-25 'consolidate'): four CFRP tubes in an X, matching canon's 4 axial longerons. The upper pair stay where the v0.5.6 slot sills were (edging the bay slot); the lower pair mirror them in the tank's lower cells. Sized at 5 g x 1.5 to a 250 MPa design stress (400 MPa floor x 0.62 for impact, joints, environment). v0.5.6 had 3 planks + 2 sills (36.9 t) running at 65 MPa. NON-GOVERNING; SOL TO REVIEW REV 5 (structure review 2026-10-26): wall 72 -> 84 mm (area 0.0830 m2, 1% margin) so axial + bending (thrust-line offset 13.5 MN m + 0.5 deg thrust error 9.1 MN m) stays within the 250 MPa design stress",
   "x_m": [
-   14.0,
+   14,
    34.3
   ],
   "items": [
@@ -2116,7 +2133,7 @@
     "count": 8,
     "each_t": 0.237,
     "x_m": [
-     14.0,
+     14,
      34.3
     ],
     "note": "titanium, 18.5 MN each at ultimate, into the habitat ring frame (x 14) and the thrust cone (x 34.3)"
@@ -2130,7 +2147,7 @@
     "count": 4,
     "each_t": 0.12,
     "x_m": [
-     18.0,
+     18,
      32.3
     ],
     "note": "doublers at the four corners of the bay slot"
@@ -2138,7 +2155,7 @@
   }
  },
  "frames": {
-  "spacing_m": 2.0,
+  "spacing_m": 2,
   "r_m_midship": [
    4.3,
    4.48
@@ -2158,23 +2175,23 @@
    320
   ],
   "x_m": [
-   14.0,
+   14,
    32.3
   ],
   "root_r_m": 4.5,
-  "pleat_m": 2.0,
+  "pleat_m": 2,
   "max_pleats": 12,
-  "max_span_m": 24.0,
+  "max_span_m": 24,
   "temperature_k": 1300,
   "emissivity": 0.9,
-  "areal_kg_m2": 5.0,
+  "areal_kg_m2": 5,
   "torch_g_limit": 7.5,
   "span_by_mode_m": {
-   "NORMAL": 2.0,
-   "FAST": 2.0,
-   "EXPEDITE": 2.0,
-   "HARD": 2.0,
-   "LOOM": 0.0
+   "NORMAL": 2,
+   "FAST": 2,
+   "EXPEDITE": 2,
+   "HARD": 2,
+   "LOOM": 0
   },
   "torch_capacity_mw": 387.7,
   "hull_heat_hard_mw": 1.02,
@@ -2184,100 +2201,100 @@
    "prov": "ENGINEERING_ASSUMPTION (v0.3 radiators_v3.json)"
   },
   "azimuth_note": "ENGINEERING_ASSUMPTION (v0.5): v0.4 put the strakes on the 45 deg diagonals, but a 2 m groove there breaks 0.28 m into the 4.8 m slot. 40/140/220/320 keeps the stowed stack outside the slot and stays mirror-symmetric.",
-  "torch_span_m": 4.0,
+  "torch_span_m": 4,
   "torch_span_prov": "DERIVED (v0.5.2): during torch burns the strakes carry only the magnet coils' cryo heat (about 48 MW) plus habitat heat, which two 2 m pleats reject",
   "span_by_mode_prov_loom": "KT_DECISION 2026-10-26 (agree 4): strakes fully stowed for Loom formation and translation (E1 lock: STOWED)"
  },
  "rcs": {
   "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
-  "thruster_kn": 25.0,
+  "thruster_kn": 25,
   "clusters": [
    {
     "id": "F+Y",
-    "x_m": 3.0,
+    "x_m": 3,
     "theta_deg": 0,
     "r_m": 4.6,
     "thrusters": 3,
     "axial": {
      "sign": 1,
-     "cant_out_deg": 10.0
+     "cant_out_deg": 10
     }
    },
    {
     "id": "F+Z",
-    "x_m": 3.0,
+    "x_m": 3,
     "theta_deg": 90,
     "r_m": 4.6,
     "thrusters": 3,
     "axial": {
      "sign": 1,
-     "cant_out_deg": 10.0
+     "cant_out_deg": 10
     }
    },
    {
     "id": "F-Y",
-    "x_m": 3.0,
+    "x_m": 3,
     "theta_deg": 180,
     "r_m": 4.6,
     "thrusters": 3,
     "axial": {
      "sign": 1,
-     "cant_out_deg": 10.0
+     "cant_out_deg": 10
     }
    },
    {
     "id": "F-Z",
-    "x_m": 3.0,
+    "x_m": 3,
     "theta_deg": 270,
     "r_m": 4.6,
     "thrusters": 3,
     "axial": {
      "sign": 1,
-     "cant_out_deg": 10.0
+     "cant_out_deg": 10
     }
    },
    {
     "id": "A+Y",
-    "x_m": 44.0,
+    "x_m": 44,
     "theta_deg": 0,
     "r_m": 2.6,
     "thrusters": 3,
     "axial": {
      "sign": -1,
-     "cant_out_deg": 10.0
+     "cant_out_deg": 10
     }
    },
    {
     "id": "A+Z",
-    "x_m": 44.0,
+    "x_m": 44,
     "theta_deg": 90,
     "r_m": 2.6,
     "thrusters": 3,
     "axial": {
      "sign": -1,
-     "cant_out_deg": 10.0
+     "cant_out_deg": 10
     }
    },
    {
     "id": "A-Y",
-    "x_m": 44.0,
+    "x_m": 44,
     "theta_deg": 180,
     "r_m": 2.6,
     "thrusters": 3,
     "axial": {
      "sign": -1,
-     "cant_out_deg": 10.0
+     "cant_out_deg": 10
     }
    },
    {
     "id": "A-Z",
-    "x_m": 44.0,
+    "x_m": 44,
     "theta_deg": 270,
     "r_m": 2.6,
     "thrusters": 3,
     "axial": {
      "sign": -1,
-     "cant_out_deg": 10.0
+     "cant_out_deg": 10
     }
    }
   ],
@@ -2302,7 +2319,7 @@
    "emissivity": 0.85,
    "absorptivity": 0.15,
    "x_m": [
-    18.0,
+    18,
     30.5
    ],
    "share_of_skin": 0.5,
@@ -2311,7 +2328,7 @@
   }
  },
  "states": {
-  "prov": "CERTIFICATION_BASIS_v0.1 \u00a75",
+  "prov": "CERTIFICATION_BASIS_v0.1 §5",
   "S1": {
    "name": "reference departure",
    "remass_t": 250,
@@ -2379,7 +2396,7 @@
  "metric_heat_rule": {
   "prov": "DERIVED (ship_sizer/radiators.json)",
   "rule": "heat rejected = cold load + cryo electrical; cryo electrical scales with (T_reject - 20 K) at the same fraction of ideal efficiency as canon's 900 K figures",
-  "cold_temperature_k": 20.0
+  "cold_temperature_k": 20
  },
  "features": {
   "prov": "ENGINEERING_ASSUMPTION: visual hull features; from v0.5.6 every window assembly also carries its own mass from the engineering reserve (features.window_mass)",
@@ -2418,14 +2435,14 @@
  "tank_structure": {
   "prov": "ENGINEERING_ASSUMPTION (structural concept). Plate bending: Navier series for simply supported plates (Timoshenko and Woinowsky-Krieger, Theory of Plates and Shells), matching Roark Table 11.4 case 1a to 3 decimals; nu 0.3",
   "concept": "Radial tie-webs join the inner and outer walls so the C-shaped cell does not try to open under pressure; perforated ring baffles every 1 m also stop slosh; the flat slot walls are supported by the inner corner, the sill longeron and the outer corner; solid bulkheads at both ends and mid-length; a solid radial wall at the keel separates port and starboard cells.",
-  "design_g": 5.0,
+  "design_g": 5,
   "ultimate_factor": 1.5,
   "ullage_mpa": 0.1,
   "web_spacing_outer_m": 0.4,
-  "baffle_spacing_m": 1.0,
+  "baffle_spacing_m": 1,
   "min_gauge_mm": 1.5,
   "perforated_open_fraction": 0.5,
-  "intermediate_baffle_mm": 3.0,
+  "intermediate_baffle_mm": 3,
   "nu": 0.3,
   "model_wall_allowance_m": 0.02
  },
@@ -2445,13 +2462,13 @@
   "root_prov": "DERIVED: 0.25 m outside the hull line on short standoffs, so the folded 0.6 m stacks of the two slot-side fins stay more than 1.0 m outside the slot edge lines (shuttle corridor)",
   "temperature_k": 1750,
   "temperature_prov": "KT_DECISION 2026-10-25. Engineering extrapolation: lithium heat pipes have run in lab tests to ~1,500 K and briefly ~1,800 K; long life at 1,750 K is not yet demonstrated (declared in G4)",
-  "pleat_m": 2.0,
+  "pleat_m": 2,
   "pleats": 14,
   "stowed_stack_thickness_m": 0.6,
   "emissivity": 0.9,
-  "kg_per_m2_face": 4.0,
+  "kg_per_m2_face": 4,
   "kg_prov": "ENGINEERING_ASSUMPTION: refractory heat pipes in carbon fins, per radiating face",
-  "allowance_t": 4.0,
+  "allowance_t": 4,
   "allowance_prov": "ENGINEERING_ASSUMPTION: fold-out mechanism, root trusses and the hot loop from the reactor face and coil shield (~25% of fin mass)",
   "deployed": "torch burns only; folded in their 0.6 m stacks otherwise (and before big slews)",
   "pleats_prov": "DERIVED: 14 pleats of 2 m (28 m) so the conservative standard-library view factor in certify.py (torch chain treated as a 4.5 m cylinder) clears 1.40 GW; the numpy model in torch/fin_layout.py needs 25.7 m"
@@ -2469,7 +2486,7 @@
   },
   "bow": {
    "x_m": [
-    0.0,
+    0,
     2.6
    ],
    "finish": "bare Strata: the erosion face meets the dust flow"
@@ -2517,7 +2534,7 @@
   "rings": 13,
   "per_ring": 16,
   "azimuth_step_deg": 22.5,
-  "azimuth_phase_deg": 0.0,
+  "azimuth_phase_deg": 0,
   "face_d_m": 0.35,
   "face": "flush or recessed visible face; materials, protective cover, seal and mount interface OPEN",
   "mass": "not allocated (node modules belong to the relational plant line; face covers OPEN)",
@@ -2536,15 +2553,15 @@
     "at": [
      [
       24.6,
-      0.0
+      0
      ],
      [
       24.6,
-      180.0
+      180
      ]
     ],
     "size_m": [
-     1.0,
+     1,
      0.9,
      0.18
     ],
@@ -2560,24 +2577,24 @@
     "at": [
      [
       28.7,
-      0.0
+      0
      ],
      [
       28.7,
-      180.0
+      180
      ],
      [
       28.7,
-      270.0
+      270
      ],
      [
       20.5,
-      270.0
+      270
      ]
     ],
     "size_m": [
      1.4,
-     1.0,
+     1,
      0.03
     ],
     "mat": "antenna",
@@ -2616,11 +2633,11 @@
     "at": [
      [
       3.2,
-      45.0
+      45
      ],
      [
       3.2,
-      225.0
+      225
      ],
      [
       33.6,
@@ -2648,15 +2665,15 @@
     "at": [
      [
       31.2,
-      255.0
+      255
      ],
      [
       31.2,
-      285.0
+      285
      ],
      [
       31.2,
-      270.0
+      270
      ]
     ],
     "size_m": [
@@ -2676,18 +2693,18 @@
     "at": [
      [
       11.5,
-      135.0
+      135
      ],
      [
       11.5,
-      225.0
+      225
      ],
      [
-      33.0,
+      33,
       157.5
      ],
      [
-      33.0,
+      33,
       202.5
      ]
     ],
@@ -2708,7 +2725,7 @@
     "at": [
      [
       17.3,
-      270.0
+      270
      ]
     ],
     "size_m": [
@@ -2736,7 +2753,7 @@
      ],
      [
       33.8,
-      0.0
+      0
      ]
     ],
     "size_m": [
@@ -2755,12 +2772,12 @@
     "draw_from": "reserve",
     "grid": {
      "x_m": [
-      5.0,
-      9.0,
-      13.0,
+      5,
+      9,
+      13,
       17.5,
-      20.0,
-      24.0
+      20,
+      24
      ],
      "theta_deg": [
       11.25,
@@ -2786,15 +2803,15 @@
     "at": [
      [
       13.6,
-      90.0
+      90
      ],
      [
       13.6,
-      180.0
+      180
      ],
      [
       13.6,
-      270.0
+      270
      ],
      [
       13.6,
@@ -2819,26 +2836,26 @@
      [
       12.8,
       17.6,
-      14.0
+      14
      ],
      [
-      19.0,
-      24.0,
-      14.0
+      19,
+      24,
+      14
      ],
      [
       12.8,
       15.4,
-      346.0
+      346
      ],
      [
       25.2,
-      30.0,
-      352.0
+      30,
+      352
      ]
     ],
     "size_m": [
-     0.0,
+     0,
      0.04,
      0.03
     ],
@@ -2865,19 +2882,19 @@
   ],
   "status": "KT_ACCEPTED_VISIBLE_ALLOWANCE_EDITABLE_2026-10-31; not fixed hardware mass",
   "zero_new_mass_comparison": "0 t option returns 1.4208 t to reserve; no external-hardware portion built, existing-ledger located items preserved; dry ship budget remains fixed",
-  "zero_new_mass_scenario_t": 0.0,
+  "zero_new_mass_scenario_t": 0,
   "baseline_new_from_reserve_t": 1.4208
  },
  "cold_running": {
   "prov": "ENGINEERING_ASSUMPTION rev 7 (Sol qualification 2: retained heat must be accounted)",
   "buffer": "protected water (canon 50 t) warmed from 293 K to 308 K; remass is not counted",
-  "buffer_dT_k": 15.0,
+  "buffer_dT_k": 15,
   "water_cp_kj_kg_k": 4.186,
   "radiators": "strakes stowed, hot fins folded; the habitat heat pump stops rejecting",
   "skin_area_rule": "the habitat skin-radiator area (habitat_heat.radiator: midship x 18-30.5, half the skin) at 290 K",
   "not_modelled": "Detailed load-cycle variation, cryo plant duty, tank thermal coupling, and reserve storage remain open",
-  "plant_standby_kw": 10.0,
-  "cryo_standby_kw": 10.0,
+  "plant_standby_kw": 10,
+  "cryo_standby_kw": 10,
   "standby_prov": "ENGINEERING_ASSUMPTION (screening placeholders 10+10 kW, NOT sourced or qualified); editable, replace with measured/engineering budget"
  },
  "step1_lock_record": "KT 2026-10-31 constrained I4; Rev7 crown retained; no 1.2m nose extension",
@@ -2901,8 +2918,8 @@
    -1.7
   ],
   "couch_vs_terrace_3D": "explicit bound must clear; shell envelope, restraints/4g still open",
-  "crew_operating_cap_g": 4.0,
-  "structure_design_g": 5.0
+  "crew_operating_cap_g": 4,
+  "structure_design_g": 5
  },
  "i4_carryover": {
   "source": "engineering/wayfarer/candidates/l1_i4_20261029/scene.json @main f07354f; after acceptance delete candidate",
@@ -3192,58 +3209,58 @@
   "crown_increment_from_reserve_t": 1.271515,
   "pressure_shell_replacement_credit_t": 3.310664,
   "crown": "kT Option A 2026-11-01 replaces prior Option B: TWO independently sealed ~7m pressure domes with AOI in their 3.023m3 gap, 37 protective outer panes, 16 closed Strata gores",
-  "gel_from_reserve_t": 3.0,
+  "gel_from_reserve_t": 3,
   "backup_dome_from_reserve_t": 4.345246,
   "total_from_reserve_with_AOI_t": 8.184665
  },
  "ship_power": {
   "status": "kT 2026-11-01: twin 50MW; 3MWh battery + 1.5MWh pulse flywheel + chemical slow attitude backup, declared 2226",
   "source": "TWO independent dedicated D-He3 direct-conversion house reactors, 50MW net each; relational plant and Metric consume power, bank is not a source",
-  "reactor_net_electric_mw": 50.0,
-  "reactor_net_specific_kw_kg": 40.0,
+  "reactor_net_electric_mw": 50,
+  "reactor_net_specific_kw_kg": 40,
   "reactor_dry_t": 2.5,
   "direct_conversion_electric_efficiency": 0.75,
   "peak_store": "counter_rotating_flywheel_pairs",
   "peak_store_nominal_mwh": 1.8,
   "peak_store_round_trip_efficiency": 0.9,
-  "peak_store_specific_kwh_kg": 1.0,
-  "peak_store_specific_kw_kg_min": 150.0,
+  "peak_store_specific_kwh_kg": 1,
+  "peak_store_specific_kw_kg_min": 150,
   "peak_store_dry_t": 1.8,
-  "peak_store_discharge_mw": 270.0,
+  "peak_store_discharge_mw": 270,
   "peak_store_discharge_seconds": 40,
   "fuel": "D-He3",
-  "fuel_t": 5.0,
-  "fuel_specific_fusion_j_kg": 353000000000000.0,
+  "fuel_t": 5,
+  "fuel_specific_fusion_j_kg": 353000000000000,
   "fuel_tank_dry_t": 0.5,
   "fuel_container_proxy": {
    "x_m": [
-    21.0,
-    29.0
+    21,
+    29
    ],
    "r_m": [
-    2.0,
-    4.0
+    2,
+    4
    ],
    "theta_deg": [
-    220.0,
-    320.0
+    220,
+    320
    ],
    "note": "Mass/CG proxy with ~84m3 volume; actual containment, cryogenic shielding, bay/utility-clearance and plumbing are NOT physically verified"
   },
-  "routine_flip_seconds": 120.0,
-  "fast_flip_seconds": 40.0,
+  "routine_flip_seconds": 120,
+  "fast_flip_seconds": 40,
   "rcs_nominal_40s_nameplate_mw": 518.9694,
   "rcs_routine_scale_from_40s": 0.1111111111111111,
   "rcs_nozzle_ship_heat_fraction": 0.1,
-  "battery_specific_kwh_kg": 4.0,
+  "battery_specific_kwh_kg": 4,
   "standard_loads_kw": {
-   "avionics": 20.0,
-   "eclss_galley": 15.0,
-   "lighting_misc": 10.0,
+   "avionics": 20,
+   "eclss_galley": 15,
+   "lighting_misc": 10,
    "crew_metabolic_heat_only": 1.5,
-   "plant_standby": 10.0,
-   "cryo_standby": 10.0,
-   "docked_umbilical_control": 10.0,
+   "plant_standby": 10,
+   "cryo_standby": 10,
+   "docked_umbilical_control": 10,
    "emergency_shelter_essential": 0.6
   },
   "qualification_limits": [
@@ -3261,10 +3278,10 @@
   "reactor_count": 2,
   "reactor_minimum_fraction": 0.1,
   "metric_field_control_electric_mw_by_mode": {
-   "NORMAL": 1.0,
-   "FAST": 2.0,
-   "EXPEDITE": 3.0,
-   "HARD": 5.0
+   "NORMAL": 1,
+   "FAST": 2,
+   "EXPEDITE": 3,
+   "HARD": 5
   },
   "metric_field_prov": "DECLARED 2226 non-canon engineering field/control electrical allowance; canon E1 only provides cryo card + PMAD, leaves environment correction power OPEN",
   "metric_delivered_pm_ad_fraction": 0.9408,
@@ -3275,21 +3292,21 @@
   ],
   "quiet_reactors_on": 0,
   "cold_running_reactors_on": 0,
-  "battery_energy_nominal_mwh": 3.0,
-  "battery_energy_specific_kwh_kg": 2.0,
+  "battery_energy_nominal_mwh": 3,
+  "battery_energy_specific_kwh_kg": 2,
   "battery_energy_dry_t": 1.5,
   "battery_energy_round_trip_efficiency": 0.9,
   "c_lite_total_nominal_t": 0.25,
   "c_lite_dry_t": 0.1,
   "c_lite_wet_propellant_t": 0.15,
-  "c_lite_propellant_per_slow_turn_kg": 75.0,
+  "c_lite_propellant_per_slow_turn_kg": 75,
   "c_lite_turn_s": 600,
-  "c_lite_specific_impulse_s": 250.0,
+  "c_lite_specific_impulse_s": 250,
   "rcs_40s_trace_source": "wayfarer/lab/flight_qual/fq_house_power_20261101/RCS_40S_CURRENT_TRACE.json",
   "rcs_40s_ideal_energy_j": 6354457223.667402,
   "rcs_40s_ideal_peak_mw": 244.45568490737895,
-  "rcs_40s_assumed_one_reactor_mw": 50.0,
-  "rcs_40s_ideal_one_reactor_store_j": 4473800000.0,
+  "rcs_40s_assumed_one_reactor_mw": 50,
+  "rcs_40s_ideal_one_reactor_store_j": 4473800000,
   "reactor_separate_bays": {
    "A": "aft C-ring (x=31.5-32.3m), 1.25t net",
    "B": "service ring (x=17-18m), 1.25t net",
@@ -3298,7 +3315,7 @@
   "torch_magnet_burn_only_self_power_mw": 47.52,
   "torch_self_power_conversion_efficiency_declared": 0.75,
   "torch_self_power_source": "PULSED TORCH BURN ONLY: 47.52MW net magnet/cryocooler from tapping pulsed torch energy; not standalone electrical generation; deduct raw input from jet budget (63.36MW assuming .75 efficiency) and reject 15.84MW conversion heat. Actual tap/conditioning hardware UNQUALIFIED.",
-  "docked_shore_power_limit_mw_declared": 2.0,
+  "docked_shore_power_limit_mw_declared": 2,
   "docked_power_source": "external dock shore electrical feed when connected, house reactors OFF; 2MW DECLARED interface ceiling, connector/ground thermal interface UNQUALIFIED",
   "degraded_rcs_60s_doctrine": "When energy and peak performance both halve, stretch emergency pitch turn 40s to 60s with ONE 50MW surviving reactor; separately source-rerun. If both reactors dead, not credited."
  }

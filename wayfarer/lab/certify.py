@@ -111,7 +111,7 @@ def g1(I, C, G):
         # must reconcile, including 0.540125t panes booked to I4 and 0.6t liner.
         prior_reserve=17.786216  # frozen immediately prior to Option C, PR #439 / 25bae1ce
         expected_draw=m["reserve_draw_total_t"]
-        actual_draw=prior_reserve-L["engineering_reserve_t"]-L.get("house_fuel_tank_t",0.0)
+        actual_draw=prior_reserve-L["engineering_reserve_t"]-L.get("house_fuel_tank_t",0.0)-L.get("shuttle_v1_resize_20261103",{}).get("delta_t",0.0)  # approved shuttle debit is NOT an Option-C draw
         pane_delta=I["i4_carryover"]["crown_increment_from_reserve_t"]-.347738-m.get("dome_primary_delta_t",0.0)
         cs.append(chk("Option C explicit reserve draw reconciles (including dome change)",
             round(actual_draw,6),round(expected_draw,6),
@@ -1357,7 +1357,7 @@ def g11(I, C, G, r4):
         ("Torch axis", "1 axial torch", f"axial, with its thrust line offset {math.hypot(G['thrust_line_offset_m']['y'], G['thrust_line_offset_m']['z']):.2f} m from the hull centreline to pass through the centre of mass"),
         ("People", "6 normal crew", "6 crew (unchanged) + 4 guest berths"),
         ("Protected water", "50 t in the tanks", f"{G['protected_water'].get('shelter_jacket_t', G['protected_water']['jacket_t']):.1f} t storm-shelter jacket, {G['protected_water'].get('berth_shield_t', 0):.2f} t L3 berth shield ring, {G['protected_water']['service_tank_t']:.1f} t service tank, {G['protected_water']['c_tank_t']:.1f} t in the tank cells"),
-        ("Shuttle", "candidate 30-35 t launch, ~10.5 m (not canon)", f"rover-drop shuttle {I['shuttle']['dry_t']} t empty, {I['shuttle']['length_m']} m"),
+        ("Shuttle", "candidate 30-35 t launch, ~10.5 m (not canon)", f"shuttle v1 {I['shuttle']['dry_t']:.3f} t empty, {I['shuttle']['length_m']} x {I['shuttle']['diameter_m']} m"),
         ("Torch internals", "axial fusion torch / magnetic nozzle; internals not stated", "pulsed: each He3-rich, spin-polarised D-He3 pellet is wrapped in a shell of remass that becomes the exhaust; burn 6 m aft of the reactor face (x 52.3 m)"),
         ("Hot fins", "none", f"4 hot fins at {I['hot_fins']['temperature_k']} K aft of the shield on the strake lines, {I['hot_fins']['pleat_m'] * I['hot_fins']['pleats']:.0f} m, {I['ledger']['torch_hot_fins_t']:.1f} t paid from the engineering reserve"),
     ]

@@ -625,7 +625,8 @@ export function commandMeshes(sc, opt = {}) {
 
 function meshShuttle(mb, s, lift = 0) {
   const x0 = s.p0[0], L = s.p1[0] - s.p0[0], R = s.r;
-  const pts = [[0, 0.0], [0.15, 0.32], [0.6, 0.62], [3.0, 1.25], [6.2, R], [L - 1.2, R], [L - 0.2, R * 0.86], [L, R * 0.78]];
+  // shuttle v1 biconic (kT 2026-11-03): nose cone to s 1.5 m, second cone to s 4.0 m, cylinder, short boattail
+  const pts = [[0, 0.0], [0.05, R * 0.174], [0.28, R * 0.289], [1.5, R * 0.589], [4.0, R], [L - 0.4, R], [L, R * 0.905]];
   const prof = [];
   for (let i = 0; i < pts.length; i++) {
     const [a, r] = pts[i], [b, rb] = pts[Math.min(i + 1, pts.length - 1)], [pa, pr] = pts[Math.max(i - 1, 0)];
@@ -634,7 +635,7 @@ function meshShuttle(mb, s, lift = 0) {
   }
   const before = mb.p.length / 3;
   lathe(mb, prof, 48);
-  lathe(mb, [[x0 + L, 0, 1, 0], [x0 + L, R * 0.78, 1, 0]], 48);
+  lathe(mb, [[x0 + L, 0, 1, 0], [x0 + L, R * 0.905, 1, 0]], 48);
   if (lift) for (let k = before; k < mb.p.length / 3; k++) mb.p[k * 3 + 1] += lift;
 }
 
@@ -971,11 +972,43 @@ export class Ship {
     }
     if (cfg.shuttleDetail !== false && parts.some(p => p.id === "shuttle" && (!cfg.show || cfg.show(p)))) {
       const s = this.geo.parts.find(p => p.id === "shuttle").shape, lift = cfg.shuttleLift || 0;
-      const mb = new MB(this.xc); const L = s.p1[0] - s.p0[0];
-      meshFrustum(mb, {x0: s.p1[0] - 0.05, x1: s.p1[0] + 0.9, r0: 0.75, r1: 1.15, t: 0.05}, lift, 0);
-      for (const a of [62, 82, 98, 118]) { const th = a * D2R, x = s.p0[0] + 2.2, r = 1.08;
-        meshTube(mb, {p0: [x, (r - 0.04) * Math.cos(th), (r - 0.04) * Math.sin(th) + lift], p1: [x + 0.02, (r + 0.06) * Math.cos(th), (r + 0.06) * Math.sin(th) + lift], r: 0.17}); }
-      groups["engine_bell|shuttle"] = {mat: "engine_bell", system: "shuttle", mb, ids: ["shuttle_detail"]};
+      // shuttle v1 (kT 2026-11-03, non-canon concept): belly heat shield, starboard gull-wing door, flush magnetic
+      // nozzle ring, belly thrusters, and the Venus kit's folded 12 m tip-jet rotor and intake on the spine (slot side).
+      const L = s.p1[0] - s.p0[0], R = s.r, x0 = s.p0[0];
+      const shift = mb => { for (let k = 0; k < mb.p.length / 3; k++) mb.p[k * 3 + 1] += lift; return mb; };
+      const prof = (a, b, dr) => [[x0 + a, R + dr, 0, 1], [x0 + b, R + dr, 0, 1]];
+      const cone = [[0.28, R * 0.289], [1.5, R * 0.589], [4.0, R]].map(([a, r]) => [x0 + a, r + 0.01, 0, 1]);
+      const tps = new MB(this.xc); latheArc(tps, [...cone, [x0 + L - 0.4, R + 0.01, 0, 1]], -133, -47);
+      groups["shield|shuttle"] = {mat: "shield", system: "shuttle", mb: shift(tps), ids: ["shuttle_detail"]};
+      const door = new MB(this.xc); latheArc(door, prof(4.0, 6.9, 0.012), -43, 50);
+      groups["door|shuttle"] = {mat: "door", system: "shuttle", mb: shift(door), ids: ["shuttle_detail"]};
+      const eng = new MB(this.xc);
+      meshRing(eng, [x0 + L - 0.04, 0, 0], [x0 + L + 0.06, 0, 0], 0.68, 0.88);
+      for (const xb of [x0 + 3.4, x0 + 10.0]) for (const yb of [-0.45, 0.45]) meshTube(eng, {p0: [xb, yb, -1.70], p1: [xb, yb, -1.86], r: 0.14}, 14);
+      groups["engine_bell|shuttle"] = {mat: "engine_bell", system: "shuttle", mb: shift(eng), ids: ["shuttle_detail"]};
+      // Venus kit stowed: hub 6.8 m aft of the nose; all four blades fold aft into a recessed spine groove
+      // (two side by side, two layers) and end at the tail. Drawn as the flush hub cap and blade pack in the groove.
+      const kit = new MB(this.xc), xh = x0 + 6.8;
+      meshTube(kit, {p0: [xh, 0, R - 0.06], p1: [xh, 0, R + 0.006], r: 0.30}, 24);
+      latheArc(kit, prof(7.1, L - 0.4, 0.004), 77, 103);
+      groups["drone|shuttle"] = {mat: "drone", system: "shuttle", mb: shift(kit), ids: ["shuttle_detail"]};
+      // shuttle v1 interior (notional layout, non-canon) so cutaways show it: 3-crew pod on its rover chassis with the
+      // custody capsule, 23.1 t water tank, torch, and the Venus kit's house reactor, exchanger, duct, mast and folded blades.
+      const box = (m, s0, s1, y0, y1, z0, z1) => meshBox(m, [x0 + s0, x0 + s1, y0, y1, z0, z1]);
+      const ins = {room_command: new MB(this.xc), frame: new MB(this.xc), longeron: new MB(this.xc), avionics: new MB(this.xc),
+                   water: new MB(this.xc), reactor: new MB(this.xc), drone: new MB(this.xc)};
+      meshSphere(ins.room_command, [x0 + 5.45, 0, 0.08], 1.25, 20);
+      box(ins.frame, 4.65, 6.25, -1.2, 1.2, -1.33, -1.17);
+      for (const ds of [-0.7, 0.7]) for (const yb of [-0.6, 0.6]) meshTube(ins.longeron, {p0: [x0 + 5.45 + ds - 0.12, yb, -1.45], p1: [x0 + 5.45 + ds + 0.12, yb, -1.45], r: 0.26}, 16);
+      box(ins.avionics, 5.26, 5.64, 0.78, 1.22, -1.16, -0.84);
+      meshTube(ins.water, {p0: [x0 + 7.1, 0, 0], p1: [x0 + 10.2, 0, 0], r: 1.55}, 40);
+      meshTube(ins.reactor, {p0: [x0 + 10.3, 0, 0], p1: [x0 + L - 0.35, 0, 0], r: 1.0}, 32);
+      box(ins.drone, 2.2, 3.7, -0.55, 0.55, -0.375, 0.675);
+      box(ins.drone, 2.475, 3.625, -0.4, 0.4, 0.81, 1.19);
+      meshTube(ins.drone, {p0: [x0 + 3.6, 0, 1.1], p1: [x0 + 6.8, 0, 1.6], r: 0.1}, 12);
+      meshTube(ins.drone, {p0: [x0 + 6.8, 0, 1.55], p1: [x0 + 6.8, 0, 1.85], r: 0.17}, 16);
+      for (const zb of [1.72, 1.63]) for (const yb of [-0.23, 0.23]) meshOBox(ins.drone, [x0 + 10.0, yb, zb], [[1, 0, 0], [0, 1, 0], [0, 0, 1]], [2.8, 0.21, 0.035]);
+      for (const [mat, m] of Object.entries(ins)) groups[mat + "|shuttle_in"] = {mat, system: "shuttle", mb: shift(m), ids: ["shuttle_detail"]};
     }
     if (cfg.plume) {
       const off = this.geo.thrust_line_offset_m;
