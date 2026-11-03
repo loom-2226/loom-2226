@@ -16,12 +16,16 @@ function design(b,w){
  const keys=Object.entries(b.mass).filter(([k,x])=>range(x)&&!["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t","kit_house_reactor_t"].includes(k)).map(([k])=>"mass."+k);
  keys.push("power.kit_house_reactor_thermal_MW","kit.packed_effective_density_t_per_m3");
  for(const k of ["rotor_figure_of_merit","tipjet_thermal_to_useful_rotor","rotor_safe_tip_speed_mps","rotor_hot_duty_limit_h","rotor_climb_rate_mps","torch_high_ve_kmps"])keys.push("power."+k);
- keys.push("water.crew_water_cold_mass_t","capsule.content_mass_t","world.belly.touchdown_water_debit_t");
- const dirs=directions(keys.length);
+ keys.push("water.crew_water_cold_mass_t","capsule.content_mass_t");
+ for(const k of ["thrust_to_weight","sortie_dv_kmps"])keys.push("world.belly."+k);
+ for(const k of ["ve_kmps","jet_efficiency"])keys.push("world.belly.electric."+k);
+ for(const k of ["ve_kmps","cryo_tank_t","boiloff_fraction_per_day","storage_days","electrolysis_kWh_per_kg_water"])keys.push("world.belly.chemical."+k);
+ const dirs=directions(keys.length),max=3**8;
  const sample=i=>{let q=i,c=[];for(let j=0;j<8;j++){c.push(q%3);q=Math.floor(q/3);}const s={};
   for(let j=0;j<keys.length;j++){const k=keys[j],p=k.startsWith("world.")?path(w,k.slice(6)):path(b,k),v=range(p);if(!v)throw Error("unswept "+k);
    const lev=c.reduce((acc,t,z)=>acc+t*dirs[j][z],0)%3;s[k]=v[0]+(v[1]-v[0])*lev/2;}return s;};
- return {keys,count:num(w.pilot.sweep_count),sample};
+ const n=num(w.pilot.sweep_count);if(n!==max)throw Error("Stage3 expects 3^8 deterministic samples");
+ return {keys,count:n,sample};
 }
 function dry(b,s){
  const exclude=new Set(["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"]);
@@ -39,23 +43,88 @@ function rotor(b,world,s,mass,h){
  const shaftMW=force*induced/(num(b.si.W_per_MW)*get(b,null,"power.rotor_figure_of_merit",s));
  return {induced,shaftMW,rawMW:shaftMW/get(b,null,"power.tipjet_thermal_to_useful_rotor",s),density:rho};
 }
+function bellyCase(b,w,world,m,s,kind){
+ // Same water is either stored as liquid reaction mass or converted aboard Wayfarer to H2+O2.
+ // The cryogenic tank is extra dry mass once (chemical only), with boil-off charged before burn.
+ const chem=kind==="chemical",source=w.belly[kind],tank=chem?get(b,w,"world.belly.chemical.cryo_tank_t",s):0;
+ const water=get(b,w,"water.reaction_water_initial_t",s);
+ const cold=get(b,w,"water.crew_water_cold_mass_t",s),custody=get(b,w,"capsule.content_mass_t",s);
+ const initialWet=m.core+tank+water+cold+custody,g=num(world.surface_gravity_mps2);
+ const tw=get(b,w,"world.belly.thrust_to_weight",s);
+ const thrustN=tw*initialWet*num(b.si.kg_per_t)*g;
+ const dv=get(b,w,"world.belly.sortie_dv_kmps",s);
+ const ve=get(b,w,"world.belly."+kind+".ve_kmps",s);
+ const alpha=1-Math.exp(-dv/ve);
+ let loadedT,boiloffT,bellyBurnT,reactorEnergyKWh=null,productionHours=null,jetGW=null,inputGW=null,retention=1;
+ if(chem){
+   const perDay=get(b,w,"world.belly.chemical.boiloff_fraction_per_day",s);
+   const days=get(b,w,"world.belly.chemical.storage_days",s);
+   retention=(1-perDay)**days;
+   const fLost=1-retention;
+   // M0 at initial loaded inventory includes the cryo propellant and stowed ordinary water;
+   // prior storage loss changes launch mass. Solve cryo load and loss consistently:
+   // L=(M0 - f*L)*alpha/(1-f) -> L = alpha*M0 / (1-f*(1-alpha)).
+   loadedT=initialWet*alpha/(1-fLost*(1-alpha));
+   boiloffT=loadedT*fLost;
+   bellyBurnT=loadedT-boiloffT;
+   const kWhKg=get(b,w,"world.belly.chemical.electrolysis_kWh_per_kg_water",s);
+   reactorEnergyKWh=loadedT*num(b.si.kg_per_t)*kWhKg;
+   productionHours=reactorEnergyKWh/(num(w.belly.chemical.house_reactors_net_MW)*num(b.si.kW_per_MW));
+ }else{
+   loadedT=initialWet*alpha;boiloffT=0;bellyBurnT=loadedT;
+   const eta=get(b,w,"world.belly.electric.jet_efficiency",s);
+   jetGW=thrustN*(ve*num(b.si.m_per_km))/2/num(b.si.W_per_GW);
+   inputGW=jetGW/eta;
+ }
+ // Water consumed for belly is loaded cryogenic H2+O2 in chemical mode and
+ // direct mass-flow water in electric mode; no double water stock.
+ const afterBellyWater=water-loadedT;
+ const finalBellyMass=initialWet-loadedT;
+ const idealOrbitKmps=Math.sqrt(g*num(world.mean_radius_km)*num(b.si.m_per_km))/num(b.si.m_per_km);
+ const torchVe=get(b,w,"power.torch_high_ve_kmps",s);
+ const torchWaterNeed=finalBellyMass*(1-Math.exp(-idealOrbitKmps/torchVe));
+ const margin=afterBellyWater-torchWaterNeed;
+ const afterTorchWater=Math.max(0,afterBellyWater-Math.min(afterBellyWater,torchWaterNeed));
+ const coreMargin=num(b.mass.max_docked_dry_t)-(m.core+tank);
+ const flags={
+   dockedDry:coreMargin>=0?"PASS":"FAIL",
+   thrustSizing:tw>=get(b,w,"world.belly.thrust_to_weight",s)?"PASS":"FAIL",
+   water:margin>=-1e-10?"PASS":"FAIL",
+   physicalSource:chem?"OPEN":"OPEN"
+ };
+ return {kind,cryoTankT:tank,initialWetT:initialWet,tw,thrustN,thrustkN:thrustN/num(w.si.N_per_kN),
+   bellyDvKmps:dv,veKmps:ve,jetGW,inputGW,loadedT,boiloffT,bellyBurnT,
+   storedWaterT:water,afterBellyWaterT:afterBellyWater,torchWaterNeedT:torchWaterNeed,
+   afterTorchWaterT:afterTorchWater,idealOrbitKmps,margin,coreMargin,flags,
+   productionEnergyKWh:reactorEnergyKWh,productionHours,retention,
+   waterPhases:[
+    {phase:"Wayfarer load before sortie",waterT:water,chargedT:0,cryoT:chem?loadedT:null,coldT:cold,custodyT:custody},
+    {phase:chem?"Cryogenic boil-off and belly burn":"Thermal/electric water belly burn",waterT:afterBellyWater,
+     chargedT:loadedT,cryoT:chem?bellyBurnT:null,boiloffT,coldT:cold,custodyT:custody},
+    {phase:"Main torch ideal-circular-speed floor (NOT full ascent)",waterT:afterTorchWater,
+     chargedT:Math.min(Math.max(0,afterBellyWater),torchWaterNeed),cryoT:0,coldT:cold,custodyT:custody}
+   ]};
+}
 function assess(b,w,name,s){
  const world=w.worlds[name],m=dry(b,s),titan=world.mode==="ROTOR_KIT_HOUSE_REACTOR";
- const installedDry=titan?m.total:m.core;
  const stored=get(b,w,"water.reaction_water_initial_t",s),cold=get(b,w,"water.crew_water_cold_mass_t",s),cargo=get(b,w,"capsule.content_mass_t",s);
- const launchMass=installedDry+stored+cold+cargo;
+ const launchMass=(titan?m.total:m.core)+stored+cold+cargo;
  const g=num(world.surface_gravity_mps2),R=num(world.mean_radius_km)*num(b.si.m_per_km);
  const idealOrbitKmps=Math.sqrt(g*R)/num(b.si.m_per_km);
- const touch=titan?0:get(b,w,"world.belly.touchdown_water_debit_t",s),available=Math.max(0,stored-touch);
  const ve=get(b,null,"power.torch_high_ve_kmps",s);
- const massAfterTouch=launchMass-touch;
- const idealBurnT=massAfterTouch*(1-Math.exp(-idealOrbitKmps/ve));
- const idealDeficitT=Math.max(0,idealBurnT-available);
- const afterBurn=Math.max(0,available-Math.min(available,idealBurnT));
+ const idealBurnT=launchMass*(1-Math.exp(-idealOrbitKmps/ve));
+ const afterBurn=Math.max(0,stored-Math.min(stored,idealBurnT));
  const coreMargin=num(b.mass.max_docked_dry_t)-m.core;
  const kitVolume=m.kit/get(b,null,"kit.packed_effective_density_t_per_m3",s);
  const kitMargin=num(b.kit.holds_free_m3)-kitVolume;
- let liftMargin,modelTop=null,tipOrBelly;
+ const flags={A2:coreMargin>=0?"PASS":"FAIL",
+  KIT_VOLUME:titan?(kitMargin>=0&&m.kit<=num(b.kit.payload_allowance_t)?"PASS":"FAIL"):"N/A",
+  LIFT_SCREEN:titan?"PASS":"N/A",ROTOR_MODEL_TOP:titan?"FAIL":"N/A",
+  WATER_IDEAL_FLOOR:titan?(stored>=idealBurnT?"PASS":"FAIL"):"N/A",
+  ORBIT_FULL:"OPEN",SURFACE_THERMAL:"OPEN",BAY_FULL:"OPEN",FLIGHT_TOTAL:"OPEN"};
+ const margins={A2:coreMargin,KIT_VOLUME:kitMargin,LIFT_SCREEN:0,
+  ROTOR_MODEL_TOP:0,WATER_IDEAL_FLOOR:stored-idealBurnT};
+ let modelTop=null,tipOrBelly=null,architectures=null;
  if(titan){
    const budget=get(b,null,"power.kit_house_reactor_thermal_MW",s);
    const horizon=num(world.atmosphere_model_ceiling_km),step=num(b.sweep.handover_step_km);
@@ -64,37 +133,51 @@ function assess(b,w,name,s){
        h*num(b.si.m_per_km)/get(b,null,"power.rotor_climb_rate_mps",s)/num(b.si.seconds_per_hour)>get(b,null,"power.rotor_hot_duty_limit_h",s))break;
      modelTop=h;}
    const z=rotor(b,world,s,launchMass,0);
-   liftMargin=budget-z.rawMW;
+   margins.LIFT_SCREEN=budget-z.rawMW;
+   flags.LIFT_SCREEN=margins.LIFT_SCREEN>=0?"PASS":"FAIL";
+   margins.ROTOR_MODEL_TOP=modelTop===null?-horizon:modelTop-horizon;
+   flags.ROTOR_MODEL_TOP=modelTop!==null&&modelTop>=horizon?"PASS":"FAIL";
    tipOrBelly={rawHoverMW:z.rawMW,shaftHoverMW:z.shaftMW,induced:z.induced,reactorMW:budget,
-      observedEnvelopeKm:modelTop,envelopeLimitKm:horizon};
+     observedEnvelopeKm:modelTop,envelopeLimitKm:horizon};
  }else{
-   const peakN=num(w.belly.peak_thrust_kN)*num(w.si.N_per_kN); // explicit force unit conversion, not power conversion
-   const tw=peakN/(launchMass*num(b.si.kg_per_t)*g);
-   liftMargin=tw-1;
-   tipOrBelly={peakThrustN:peakN,peakTW:tw,
-     waterVe_kmps:num(w.belly.exhaust_velocity_kmps)};
+   const electric=bellyCase(b,w,world,m,s,"electric");
+   const chemical=bellyCase(b,w,world,m,s,"chemical");
+   architectures={electric,chemical};
+   flags.A2_CHEM=chemical.flags.dockedDry;
+   flags.BELLY_TW_E=electric.flags.thrustSizing;
+   flags.BELLY_TW_C=chemical.flags.thrustSizing;
+   flags.BELLY_WATER_E=electric.flags.water;
+   flags.BELLY_WATER_C=chemical.flags.water;
+   flags.GW_TAP_E="OPEN"; // explicit no physical feeder
+   flags.WAYFARER_ELECTROLYSIS="OPEN"; // 100MW source declared but production plant unqualified
+   flags.CRYO_PHYSICAL="OPEN";
+   flags.LIFT_SCREEN="N/A";
+   flags.WATER_IDEAL_FLOOR="N/A";
+   margins.A2_CHEM=chemical.coreMargin;
+   margins.BELLY_TW_E=electric.tw-1;
+   margins.BELLY_TW_C=chemical.tw-1;
+   margins.BELLY_WATER_E=electric.margin;
+   margins.BELLY_WATER_C=chemical.margin;
+   tipOrBelly={worldSized:true,thrustElectrickN:electric.thrustkN,thrustChemicalkN:chemical.thrustkN};
  }
- const flags={A2:coreMargin>=0?"PASS":"FAIL",KIT_VOLUME:titan?(kitMargin>=0&&m.kit<=num(b.kit.payload_allowance_t)?"PASS":"FAIL"):"N/A",
-    LIFT_SCREEN:liftMargin>=0?"PASS":"FAIL",
-    ROTOR_MODEL_TOP:titan?(modelTop!==null&&modelTop>=num(world.atmosphere_model_ceiling_km)?"PASS":"FAIL"):"N/A",
-    WATER_IDEAL_FLOOR:idealDeficitT<=1e-12?"PASS":"FAIL",ORBIT_FULL:"OPEN",
-    SURFACE_THERMAL:"OPEN",BAY_FULL:"OPEN",FLIGHT_TOTAL:"OPEN"};
- if(["A2","LIFT_SCREEN","WATER_IDEAL_FLOOR",...(titan?["KIT_VOLUME"]:[])].some(k=>flags[k]==="FAIL"))flags.FLIGHT_TOTAL="FAIL"; // model-only 60km top is NOT a mission requirement
- const waterPhases=[
-  {phase:"entry / atmospheric phase",reactionWaterT:stored,coldCrewWaterT:cold,custodyT:cargo,chargedRemassT:0},
-  {phase:titan?"rotor landing (no tank water)":"belly touchdown (illustrative)",reactionWaterT:available,coldCrewWaterT:cold,custodyT:cargo,chargedRemassT:touch},
-  {phase:"ideal circular-speed torch floor only",reactionWaterT:afterBurn,coldCrewWaterT:cold,custodyT:cargo,
-   chargedRemassT:Math.min(available,idealBurnT),unmetWaterT:idealDeficitT}
- ];
- const margins={A2:coreMargin,KIT_VOLUME:kitMargin,LIFT_SCREEN:liftMargin,
-   ROTOR_MODEL_TOP:modelTop===null?-num(world.atmosphere_model_ceiling_km):modelTop-num(world.atmosphere_model_ceiling_km),
-   WATER_IDEAL_FLOOR:available-idealBurnT};
- return {name,flags,margins,mass:m,launchMass,idealOrbitKmps,idealBurnT,afterBurn,touch,waterPhases,lift:tipOrBelly,
-  physicalHolds:["worlds."+name+".required_ascent_dv_kmps",
-    "worlds."+name+".surface_thermal_qualification",
-    ...(titan?["worlds.Titan.real_handover_altitude_km","Titan upper-atmosphere model, hot N2/CH4 rotor, torch plume"] :
-    ["worlds."+name+".belly_sustained_burn_and_ramp","belly.liftoff_water_debit_t"]),
-    "G8 stowed geometry"]};
+ if(["A2",...(titan?["KIT_VOLUME","LIFT_SCREEN","WATER_IDEAL_FLOOR"]:[])].some(k=>flags[k]==="FAIL"))flags.FLIGHT_TOTAL="FAIL";
+ if(!titan){
+   flags.FLIGHT_E=flags.A2==="FAIL"||flags.BELLY_WATER_E==="FAIL"?"FAIL":"OPEN";
+   flags.FLIGHT_C=flags.A2_CHEM==="FAIL"||flags.BELLY_WATER_C==="FAIL"?"FAIL":"OPEN";
+   flags.FLIGHT_TOTAL=flags.FLIGHT_E==="FAIL"&&flags.FLIGHT_C==="FAIL"?"FAIL":"OPEN";
+ }
+ const waterPhases=titan?[
+  {phase:"entry/rotor (no reaction-water debit)",reactionWaterT:stored,coldCrewWaterT:cold,custodyT:cargo,chargedRemassT:0},
+  {phase:"ideal circular-speed torch floor",reactionWaterT:afterBurn,coldCrewWaterT:cold,custodyT:cargo,
+   chargedRemassT:Math.min(stored,idealBurnT)}
+ ]:[];
+ return {name,flags,margins,mass:m,launchMass,idealOrbitKmps,idealBurnT,afterBurn,waterPhases,lift:tipOrBelly,
+  architectures,physicalHolds:[
+   "worlds."+name+".required_ascent_dv_kmps","worlds."+name+".surface_thermal_qualification",
+   ...(titan?["worlds.Titan.real_handover_altitude_km","Titan upper-atmosphere model, hot N2/CH4 rotor, torch plume"]:[
+    "belly.electric.torch_reactor_GW_tap","belly.chemical.electrolysis_plant_and_liquefaction_qualified",
+    "belly.chemical.cryo_joint_storage_qualified","worlds."+name+".belly_sustained_burn_and_ramp"]),
+   "G8 stowed geometry"]};
 }
 function counts(rows,key){
  const x={PASS:0,FAIL:0,OPEN:0,"N/A":0};for(const r of rows)x[r.flags[key]]++;
