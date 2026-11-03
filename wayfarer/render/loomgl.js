@@ -994,6 +994,23 @@ export class Ship {
       meshTube(kit, {p0: [xh, 0, R - 0.06], p1: [xh, 0, R + 0.006], r: 0.30}, 24);
       latheArc(kit, prof(7.1, L - 0.4, 0.004), 77, 103);
       groups["drone|shuttle"] = {mat: "drone", system: "shuttle", mb: shift(kit), ids: ["shuttle_detail"]};
+      // shuttle v1 interior (notional layout, non-canon) so cutaways show it: 3-crew pod on its rover chassis with the
+      // custody capsule, 23.1 t water tank, torch, and the Venus kit's house reactor, exchanger, duct, mast and folded blades.
+      const box = (m, s0, s1, y0, y1, z0, z1) => meshBox(m, [x0 + s0, x0 + s1, y0, y1, z0, z1]);
+      const ins = {room_command: new MB(this.xc), frame: new MB(this.xc), longeron: new MB(this.xc), avionics: new MB(this.xc),
+                   water: new MB(this.xc), reactor: new MB(this.xc), drone: new MB(this.xc)};
+      meshSphere(ins.room_command, [x0 + 5.45, 0, 0.08], 1.25, 20);
+      box(ins.frame, 4.65, 6.25, -1.2, 1.2, -1.33, -1.17);
+      for (const ds of [-0.7, 0.7]) for (const yb of [-0.6, 0.6]) meshTube(ins.longeron, {p0: [x0 + 5.45 + ds - 0.12, yb, -1.45], p1: [x0 + 5.45 + ds + 0.12, yb, -1.45], r: 0.26}, 16);
+      box(ins.avionics, 5.26, 5.64, 0.78, 1.22, -1.16, -0.84);
+      meshTube(ins.water, {p0: [x0 + 7.1, 0, 0], p1: [x0 + 10.2, 0, 0], r: 1.55}, 40);
+      meshTube(ins.reactor, {p0: [x0 + 10.3, 0, 0], p1: [x0 + L - 0.35, 0, 0], r: 1.0}, 32);
+      box(ins.drone, 2.2, 3.7, -0.55, 0.55, -0.375, 0.675);
+      box(ins.drone, 2.475, 3.625, -0.4, 0.4, 0.81, 1.19);
+      meshTube(ins.drone, {p0: [x0 + 3.6, 0, 1.1], p1: [x0 + 6.8, 0, 1.6], r: 0.1}, 12);
+      meshTube(ins.drone, {p0: [x0 + 6.8, 0, 1.55], p1: [x0 + 6.8, 0, 1.85], r: 0.17}, 16);
+      for (const zb of [1.72, 1.63]) for (const yb of [-0.23, 0.23]) meshOBox(ins.drone, [x0 + 10.0, yb, zb], [[1, 0, 0], [0, 1, 0], [0, 0, 1]], [2.8, 0.21, 0.035]);
+      for (const [mat, m] of Object.entries(ins)) groups[mat + "|shuttle_in"] = {mat, system: "shuttle", mb: shift(m), ids: ["shuttle_detail"]};
     }
     if (cfg.plume) {
       const off = this.geo.thrust_line_offset_m;
