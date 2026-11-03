@@ -13,7 +13,7 @@ function get(b,w,k,s){const row=k.startsWith("world.")?path(w,k.slice(6)):path(b
 function f(v){return v===null||v===undefined||!Number.isFinite(v)?"OPEN":v.toFixed(3);}
 function directions(n){const out=[];for(let i=1;out.length<n&&i<6561;i++){let x=i,d=[];for(let j=0;j<8;j++){d.push(x%3);x=Math.floor(x/3);}out.push(d);}if(out.length<n)throw Error("too many dimensions");return out;}
 function design(b,w){
- const keys=Object.entries(b.mass).filter(([k,x])=>range(x)&&!["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t","kit_house_reactor_t"].includes(k)).map(([k])=>"mass."+k);
+ const keys=Object.entries(b.mass).filter(([k,x])=>range(x)&&!["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t","kit_house_reactor_t","base_entry_tps_t","venus_extra_entry_tps_t"].includes(k)).map(([k])=>"mass."+k);
  keys.push("power.kit_house_reactor_thermal_MW","kit.packed_effective_density_t_per_m3");
  for(const k of ["rotor_figure_of_merit","tipjet_thermal_to_useful_rotor","rotor_safe_tip_speed_mps","rotor_hot_duty_limit_h","rotor_climb_rate_mps","torch_high_ve_kmps"])keys.push("power."+k);
  keys.push("water.crew_water_cold_mass_t","capsule.content_mass_t");
@@ -28,10 +28,10 @@ function design(b,w){
  return {keys,count:n,sample};
 }
 function dry(b,s){
- const exclude=new Set(["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"]);
+ const exclude=new Set(["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t","entry_tps_t"]);
  const raw=get(b,null,"power.kit_house_reactor_thermal_MW",s);
  const house=raw*num(b.power.kit_house_reactor_direct_conversion_efficiency)/num(b.power.kit_house_reactor_net_specific_kW_per_kg);
- const parts=Object.entries(b.mass).filter(([k])=>!exclude.has(k)).map(([k,x])=>[k,k==="kit_house_reactor_t"?house:(range(x)?get(b,null,"mass."+k,s):num(x))]);
+ const parts=Object.entries(b.mass).filter(([k])=>!exclude.has(k)).map(([k,x])=>[k,k==="kit_house_reactor_t"?house:(k==="base_entry_tps_t"?get(b,null,"mass.entry_tps_t",s)*num(b.tps_split.base_fraction):k==="venus_extra_entry_tps_t"?get(b,null,"mass.entry_tps_t",s)*num(b.tps_split.venus_extra_fraction):(range(x)?get(b,null,"mass."+k,s):num(x)))]);
  if(parts.some(([,v])=>v===null||!Number.isFinite(v)))throw Error("non-numeric dry mass");
  const total=parts.reduce((a,[,v])=>a+v,0),kit=parts.filter(([k])=>b.kit.mass_component_keys.includes(k)).reduce((a,[,v])=>a+v,0);
  return {total,kit,core:total-kit,house,parts};
@@ -244,14 +244,14 @@ function report(b,w,baseSha,worldSha,a){
  const showGate=g=>(g.pass_fraction===null?"n/a":p(100*g.pass_fraction)+"%");
  const rangeText=(z,k,unit="")=>{const x=z.outputRanges[k];
    return x?p(x.min)+" / "+p(x.mean)+" / "+p(x.max)+unit:"OPEN";};
- add("# LOOM Shuttle Stage 3: World-sized belly propulsion (PR #458 correction)",
+ add("# LOOM Shuttle Stage 3 R2: resized world shuttle 3.8m / 3 crew",
  "ALL bodies. ALL sponsors. 2026–2226.",
  "",
  "**Authority: RESEARCH / NON-CANON / NON-RUNTIME / NON-QUALIFICATION.**",
  "Merged Stage2 baseline JSON blob: "+baseSha+". Stage3 editable source JSON blob: "+worldSha+".",
  "6,561 deterministic min/mid/max coordinate-balanced combinations per world; "+a.sampling.fields.length+
  " individually varied input fields. **Design fractions, not engineering reliability probabilities.**",
- "Independent CLI reproduction of earlier Stage3 version reported by Claude through kT. This revision uses reevaluated computational functions; NEW Node CLI reproduction not claimed.",
+ "R2 CLI was executed with Node using the matching R2 source and inputs. Numerical closure is NOT mission qualification.",
  "",
  "## World gate fractions",
  "| World | Gate | PASS | FAIL | OPEN | N/A | PASS among resolved |",

@@ -2,7 +2,7 @@
   "schema": "LOOM_SHUTTLE_STAGE3_NONCANON_2026_11_03",
   "classification": "RESEARCH/NON_CANON/NON_QUALIFICATION/NON_RUNTIME",
   "authority": "kT APPROVED Stage3, ALL bodies ALL sponsors 2026–2226",
-  "baseline": "wayfarer/lab/shuttle/shuttle_inputs.json (MERGED Stage2 research baseline), physical ranges/provenance reused unchanged",
+  "baseline": "Current branch wayfarer/lab/shuttle/shuttle_inputs.json: resized 3.8m hull, 2.5m/3-crew sphere, split TPS.",
   "worlds": {
     "Titan": {
       "mode": "ROTOR_KIT_HOUSE_REACTOR",
@@ -394,5 +394,6 @@
       "source": "SI decimal prefixes",
       "description": "Explicit mechanical force unit conversion"
     }
-  }
+  },
+  "resize_authority": "kT R1-R5 2026-11-03, 3.8m shuttle, 2.5m 3-crew pod, non-canon research"
 }

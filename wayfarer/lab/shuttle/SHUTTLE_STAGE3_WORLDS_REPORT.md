@@ -1,25 +1,25 @@
-# LOOM Shuttle Stage 3: World-sized belly propulsion (PR #458 correction)
+# LOOM Shuttle Stage 3 R2: resized world shuttle 3.8m / 3 crew
 ALL bodies. ALL sponsors. 2026–2226.
 
 **Authority: RESEARCH / NON-CANON / NON-RUNTIME / NON-QUALIFICATION.**
-Merged Stage2 baseline JSON blob: 32cca54304d8092b57b378fc4e63b0fd12ebb540. Stage3 editable source JSON blob: c75ce80f29dc0113775a122f4c9ede8ac21430f7.
+Merged Stage2 baseline JSON blob: adcf292c5a6a296cdfd33eb6127afc258dbef801. Stage3 editable source JSON blob: 2d6517b66b11932f568b0d05626f1988f8993271.
 6,561 deterministic min/mid/max coordinate-balanced combinations per world; 37 individually varied input fields. **Design fractions, not engineering reliability probabilities.**
-Independent CLI reproduction of earlier Stage3 version reported by Claude through kT. This revision uses reevaluated computational functions; NEW Node CLI reproduction not claimed.
+R2 CLI was executed with Node using the matching R2 source and inputs. Numerical closure is NOT mission qualification.
 
 ## World gate fractions
 | World | Gate | PASS | FAIL | OPEN | N/A | PASS among resolved |
 |---|---|---:|---:|---:|---:|---:|
-| Titan | A2 | 4374 | 2187 | 0 | 0 | 66.667% |
-| Titan | KIT_VOLUME | 4860 | 1701 | 0 | 0 | 74.074% |
+| Titan | A2 | 5103 | 1458 | 0 | 0 | 77.778% |
+| Titan | KIT_VOLUME | 5103 | 1458 | 0 | 0 | 77.778% |
 | Titan | LIFT_SCREEN | 6561 | 0 | 0 | 0 | 100.000% |
 | Titan | ROTOR_MODEL_TOP | 3645 | 2916 | 0 | 0 | 55.556% |
 | Titan | WATER_IDEAL_FLOOR | 6561 | 0 | 0 | 0 | 100.000% |
 | Titan | ORBIT_FULL | 0 | 0 | 6561 | 0 | n/a |
 | Titan | SURFACE_THERMAL | 0 | 0 | 6561 | 0 | n/a |
 | Titan | BAY_FULL | 0 | 0 | 6561 | 0 | n/a |
-| Titan | FLIGHT_TOTAL | 0 | 3402 | 3159 | 0 | 0.000% |
-| Moon | A2 | 4374 | 2187 | 0 | 0 | 66.667% |
-| Moon | A2_CHEM | 4293 | 2268 | 0 | 0 | 65.432% |
+| Titan | FLIGHT_TOTAL | 0 | 2673 | 3888 | 0 | 0.000% |
+| Moon | A2 | 5103 | 1458 | 0 | 0 | 77.778% |
+| Moon | A2_CHEM | 5103 | 1458 | 0 | 0 | 77.778% |
 | Moon | KIT_VOLUME | 0 | 0 | 0 | 6561 | n/a |
 | Moon | LIFT_SCREEN | 0 | 0 | 0 | 6561 | n/a |
 | Moon | ROTOR_MODEL_TOP | 0 | 0 | 0 | 6561 | n/a |
@@ -31,14 +31,14 @@ Independent CLI reproduction of earlier Stage3 version reported by Claude throug
 | Moon | GW_TAP_E | 0 | 0 | 6561 | 0 | n/a |
 | Moon | WAYFARER_ELECTROLYSIS | 0 | 0 | 6561 | 0 | n/a |
 | Moon | CRYO_PHYSICAL | 0 | 0 | 6561 | 0 | n/a |
-| Moon | FLIGHT_E | 0 | 2187 | 4374 | 0 | 0.000% |
-| Moon | FLIGHT_C | 0 | 2268 | 4293 | 0 | 0.000% |
+| Moon | FLIGHT_E | 0 | 1458 | 5103 | 0 | 0.000% |
+| Moon | FLIGHT_C | 0 | 1458 | 5103 | 0 | 0.000% |
 | Moon | ORBIT_FULL | 0 | 0 | 6561 | 0 | n/a |
 | Moon | SURFACE_THERMAL | 0 | 0 | 6561 | 0 | n/a |
 | Moon | BAY_FULL | 0 | 0 | 6561 | 0 | n/a |
-| Moon | FLIGHT_TOTAL | 0 | 2268 | 4293 | 0 | 0.000% |
-| Mars | A2 | 4374 | 2187 | 0 | 0 | 66.667% |
-| Mars | A2_CHEM | 4293 | 2268 | 0 | 0 | 65.432% |
+| Moon | FLIGHT_TOTAL | 0 | 1458 | 5103 | 0 | 0.000% |
+| Mars | A2 | 5103 | 1458 | 0 | 0 | 77.778% |
+| Mars | A2_CHEM | 5103 | 1458 | 0 | 0 | 77.778% |
 | Mars | KIT_VOLUME | 0 | 0 | 0 | 6561 | n/a |
 | Mars | LIFT_SCREEN | 0 | 0 | 0 | 6561 | n/a |
 | Mars | ROTOR_MODEL_TOP | 0 | 0 | 0 | 6561 | n/a |
@@ -50,14 +50,14 @@ Independent CLI reproduction of earlier Stage3 version reported by Claude throug
 | Mars | GW_TAP_E | 0 | 0 | 6561 | 0 | n/a |
 | Mars | WAYFARER_ELECTROLYSIS | 0 | 0 | 6561 | 0 | n/a |
 | Mars | CRYO_PHYSICAL | 0 | 0 | 6561 | 0 | n/a |
-| Mars | FLIGHT_E | 0 | 2187 | 4374 | 0 | 0.000% |
-| Mars | FLIGHT_C | 0 | 2268 | 4293 | 0 | 0.000% |
+| Mars | FLIGHT_E | 0 | 1458 | 5103 | 0 | 0.000% |
+| Mars | FLIGHT_C | 0 | 1458 | 5103 | 0 | 0.000% |
 | Mars | ORBIT_FULL | 0 | 0 | 6561 | 0 | n/a |
 | Mars | SURFACE_THERMAL | 0 | 0 | 6561 | 0 | n/a |
 | Mars | BAY_FULL | 0 | 0 | 6561 | 0 | n/a |
-| Mars | FLIGHT_TOTAL | 0 | 2268 | 4293 | 0 | 0.000% |
-| Mercury | A2 | 4374 | 2187 | 0 | 0 | 66.667% |
-| Mercury | A2_CHEM | 4293 | 2268 | 0 | 0 | 65.432% |
+| Mars | FLIGHT_TOTAL | 0 | 1458 | 5103 | 0 | 0.000% |
+| Mercury | A2 | 5103 | 1458 | 0 | 0 | 77.778% |
+| Mercury | A2_CHEM | 5103 | 1458 | 0 | 0 | 77.778% |
 | Mercury | KIT_VOLUME | 0 | 0 | 0 | 6561 | n/a |
 | Mercury | LIFT_SCREEN | 0 | 0 | 0 | 6561 | n/a |
 | Mercury | ROTOR_MODEL_TOP | 0 | 0 | 0 | 6561 | n/a |
@@ -69,12 +69,12 @@ Independent CLI reproduction of earlier Stage3 version reported by Claude throug
 | Mercury | GW_TAP_E | 0 | 0 | 6561 | 0 | n/a |
 | Mercury | WAYFARER_ELECTROLYSIS | 0 | 0 | 6561 | 0 | n/a |
 | Mercury | CRYO_PHYSICAL | 0 | 0 | 6561 | 0 | n/a |
-| Mercury | FLIGHT_E | 0 | 2187 | 4374 | 0 | 0.000% |
-| Mercury | FLIGHT_C | 0 | 2268 | 4293 | 0 | 0.000% |
+| Mercury | FLIGHT_E | 0 | 1458 | 5103 | 0 | 0.000% |
+| Mercury | FLIGHT_C | 0 | 1458 | 5103 | 0 | 0.000% |
 | Mercury | ORBIT_FULL | 0 | 0 | 6561 | 0 | n/a |
 | Mercury | SURFACE_THERMAL | 0 | 0 | 6561 | 0 | n/a |
 | Mercury | BAY_FULL | 0 | 0 | 6561 | 0 | n/a |
-| Mercury | FLIGHT_TOTAL | 0 | 2268 | 4293 | 0 | 0.000% |
+| Mercury | FLIGHT_TOTAL | 0 | 1458 | 5103 | 0 | 0.000% |
 
 ## Interpretation and accounting
 **BASELINE SELECTED (kT):** chemical H2/O2 belly is authoritative for Moon, Mars and Mercury polar noncanon screening; electric/thermal water is RESEARCH ALTERNATIVE only. FLIGHT_TOTAL for those worlds mirrors FLIGHT_C (baseline), not the union of architectures. Titan remains rotor + house kit.
@@ -90,33 +90,33 @@ Independent CLI reproduction of earlier Stage3 version reported by Claude throug
 ## Planetary outputs and sensitivity
 ### Titan
 **Mode:** ROTOR_KIT_HOUSE_REACTOR. g=1.352 m/s², mean radius=2575.000km, ideal circular-speed lower bound=1.866km/s.
-Core docked dry first sample 21.150t; removable kit first sample 6.925t. No kit is carried on Moon/Mars/Mercury, and chemical cryo tank is counted in A2_CHEM.
+Core docked dry first sample 20.155t; removable kit first sample 5.925t. No kit is carried on Moon/Mars/Mercury, and chemical cryo tank is counted in A2_CHEM.
 Kit reactor, rotor and existing water accounting unchanged from earlier Stage3, apart from joint sampling. Rotor altitude model 18.000–60.000km, with 60.000km a **domain boundary only**, not a flight requirement.
-First scenario ideal torch water floor 3.703t, remaining 19.397t from separate reaction-water stock. Pod cold water and custody payload are not propellant.
+First scenario ideal torch water floor 3.559t, remaining 19.541t from separate reaction-water stock. Pod cold water and custody payload are not propellant.
 | Titan phase | reaction water t | phase debit t | cold cabin water t | custody payload t |
 |---|---:|---:|---:|---:|
 | entry/rotor (no reaction-water debit) | 23.100 | 0.000 | 0.300 | 0.010 |
-| ideal circular-speed torch floor | 19.397 | 3.703 | 0.300 | 0.010 |
+| ideal circular-speed torch floor | 19.541 | 3.559 | 0.300 | 0.010 |
 #### Three strongest one-at-a-time drivers per computable gate
 Each variable is varied min/mid/max over 81 baseline configurations. For T/W-sizing gates that pass by construction, the physical *required thrust* variation ranks drivers, rather than fabricating certification sensitivity.
 **A2**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| mass.torch_low_high_engine_t | 100.000 / 55.556 / 33.333 | 66.667 | 6.000 |
-| mass.hull_thermal_structure_t | 92.593 / 77.778 / 44.444 | 48.148 | 5.000 |
-| mass.pressure_pod_titanium_shell_t | 92.593 / 74.074 / 51.852 | 40.741 | 4.400 |
+| mass.torch_low_high_engine_t | 100.000 / 100.000 / 37.037 | 62.963 | 6.000 |
+| mass.hull_thermal_structure_t | 100.000 / 88.889 / 74.074 | 25.926 | 4.535 |
+| mass.pressure_pod_titanium_shell_t | 96.296 / 88.889 / 70.370 | 25.926 | 3.132 |
 **KIT_VOLUME**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| kit.packed_effective_density_t_per_m3 | 22.222 / 100.000 / 100.000 | 77.778 | 39.229 |
-| mass.entry_tps_t | 85.185 / 70.370 / 70.370 | 14.815 | 10.952 |
-| power.kit_house_reactor_thermal_MW | 77.778 / 77.778 / 70.370 | 7.407 | 8.899 |
+| kit.packed_effective_density_t_per_m3 | 37.037 / 100.000 / 100.000 | 62.963 | 34.229 |
+| power.kit_house_reactor_thermal_MW | 88.889 / 77.778 / 70.370 | 18.519 | 8.899 |
+| mass.entry_tps_t | 85.185 / 85.185 / 70.370 | 14.815 | 7.302 |
 **LIFT_SCREEN**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| power.kit_house_reactor_thermal_MW | 100.000 / 100.000 / 100.000 | 0.000 | 129.645 |
-| power.tipjet_thermal_to_useful_rotor | 100.000 / 100.000 / 100.000 | 0.000 | 8.127 |
-| power.rotor_figure_of_merit | 100.000 / 100.000 / 100.000 | 0.000 | 1.885 |
+| power.kit_house_reactor_thermal_MW | 100.000 / 100.000 / 100.000 | 0.000 | 129.653 |
+| power.tipjet_thermal_to_useful_rotor | 100.000 / 100.000 / 100.000 | 0.000 | 7.590 |
+| power.rotor_figure_of_merit | 100.000 / 100.000 / 100.000 | 0.000 | 1.760 |
 **ROTOR_MODEL_TOP**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
@@ -126,214 +126,214 @@ Each variable is varied min/mid/max over 81 baseline configurations. For T/W-siz
 **WATER_IDEAL_FLOOR**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| power.torch_high_ve_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 3.600 |
+| power.torch_high_ve_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 3.440 |
 | mass.torch_low_high_engine_t | 100.000 / 100.000 / 100.000 | 0.000 | 0.240 |
-| mass.hull_thermal_structure_t | 100.000 / 100.000 / 100.000 | 0.000 | 0.200 |
+| mass.hull_thermal_structure_t | 100.000 / 100.000 / 100.000 | 0.000 | 0.181 |
 **Required physical OPENs:** worlds.Titan.required_ascent_dv_kmps; worlds.Titan.surface_thermal_qualification; worlds.Titan.real_handover_altitude_km; Titan upper-atmosphere model, hot N2/CH4 rotor, torch plume; G8 stowed geometry.
 
 ### Moon
 **Mode:** BELLY_NO_KIT. g=1.620 m/s², mean radius=1737.400km, ideal circular-speed lower bound=1.678km/s.
-Core docked dry first sample 21.150t; removable kit first sample 6.925t. No kit is carried on Moon/Mars/Mercury, and chemical cryo tank is counted in A2_CHEM.
+Core docked dry first sample 20.155t; removable kit first sample 5.925t. No kit is carried on Moon/Mars/Mercury, and chemical cryo tank is counted in A2_CHEM.
 **World-specific belly requirements, min / mean / max over 6,561 samples. H2/O2 is the kT BASELINE, electric water a RESEARCH ALTERNATIVE:**
 | Quantity | (a) Electric/thermal water (RESEARCH) | (b) Wayfarer H2/O2 (BASELINE) |
 |---|---:|---:|
-| Initial wet mass | 44.560 / 55.605 / 62.210 t | 44.860 / 56.155 / 62.760 t |
+| Initial wet mass | 43.565 / 54.110 / 60.413 t | 43.865 / 54.660 / 60.963 t |
 | Target thrust-to-weight | OPEN | OPEN |
-| Required thrust | 86.625 / 121.608 / 149.518 kN | 87.208 / 122.811 / 151.462 kN |
+| Required thrust | 84.690 / 118.338 / 145.151 kN | 85.274 / 119.541 / 147.095 kN |
 | Belly sortie Δv | 0.300 / 0.450 / 0.600 km/s | 0.300 / 0.450 / 0.600 km/s |
 | Belly exhaust velocity | 6.000 / 9.000 / 12.000 km/s | 4.000 / 4.200 / 4.400 km/s |
-| Directed jet power | 0.260 / 0.547 / 0.816 GW | OPEN |
-| Required onboard electric power | 0.462 / 1.238 / 2.721 GW | OPEN |
-| Water committed/cryogenic loaded | 1.359 / 2.928 / 5.855 t | 3.241 / 5.724 / 8.316 t |
-| Belly fuel actually consumed | 1.359 / 2.928 / 5.855 t | 3.241 / 5.688 / 8.295 t |
-| Cryogenic boil-off | 0.000 / 0.000 / 0.000 t | 0.000 / 0.036 / 0.159 t |
+| Directed jet power | 0.254 / 0.532 / 0.793 GW | OPEN |
+| Required onboard electric power | 0.442 / 1.204 / 2.642 GW | OPEN |
+| Water committed/cryogenic loaded | 1.302 / 2.848 / 5.684 t | 3.170 / 5.571 / 8.076 t |
+| Belly fuel actually consumed | 1.302 / 2.848 / 5.684 t | 3.170 / 5.537 / 8.056 t |
+| Cryogenic boil-off | 0.000 / 0.000 / 0.000 t | 0.000 / 0.035 / 0.153 t |
 | Cryo tank dry mass | 0.000 / 0.000 / 0.000 t | 0.300 / 0.550 / 0.800 t |
-| Water remaining after belly | 17.245 / 20.172 / 21.741 t | 14.784 / 17.376 / 19.859 t |
-| Ideal remaining torch water requirement | 0.739 / 1.897 / 3.836 t | 0.700 / 1.816 / 3.718 t |
-| Water remaining after belly + ideal torch | 13.762 / 18.275 / 20.830 t | 11.457 / 15.560 / 18.972 t |
-| Wayfarer electrolysis + cryo preparation budget | OPEN | 16207.136 / 32053.193 / 51556.376 kWh |
-| Production hours @ 100MW net | OPEN | 0.162 / 0.321 / 0.516 h |
+| Water remaining after belly | 17.416 / 20.252 / 21.798 t | 15.024 / 17.529 / 19.930 t |
+| Ideal remaining torch water requirement | 0.730 / 1.840 / 3.694 t | 0.692 / 1.762 / 3.581 t |
+| Water remaining after belly + ideal torch | 14.111 / 18.412 / 20.919 t | 11.886 / 15.767 / 19.018 t |
+| Wayfarer electrolysis + cryo preparation budget | OPEN | 15847.671 / 31199.735 / 50069.836 kWh |
+| Production hours @ 100MW net | OPEN | 0.158 / 0.312 / 0.501 h |
 Both architectures calculate **thrust required** from sampled T/W and the respective actual wet vehicle mass. A1/A2 engine actuator specific thrust and installed hardware capability are still OPEN; the chemical dry tank is included once.
 The full water debit includes belly touchdown, hover and liftoff to pitch-up **once per sortie**, followed by the ideal circular-speed torch lower-bound. In chemical mode, the generated 1kg of combined H2/O2 *replaces* 1kg water; loaded propellant and reaction water are not additional to the 23.1t initial stock.
 #### First sampled phase ledgers
 **(b) Wayfarer-manufactured H2/O2 — BASELINE**
-Required 87.208 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 2.701t.
+Required 85.274 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 2.641t.
 | Phase | remaining reaction-water equivalent t | charged to phase t | cryo subset on board after phase t | cold cabin water t | custody t |
 |---|---:|---:|---:|---:|---:|
-| Wayfarer load before sortie | 23.100 | 0.000 | 3.241 | 0.300 | 0.010 |
-| Cryogenic boil-off and belly burn | 19.859 | 3.241 | 0.000 | 0.300 | 0.010 |
-| Main torch ideal-circular-speed floor (NOT full ascent) | 17.157 | 2.701 | 0.000 | 0.300 | 0.010 |
-On Wayfarer: water converted to cryo 3.241t (including expected 0.000t boil-off); electrolysis/handling energy 16207.136kWh requiring 0.162h at both declared house reactors' full 100MW output. Plant, processing and full charging schedule remain OPEN.
+| Wayfarer load before sortie | 23.100 | 0.000 | 3.170 | 0.300 | 0.010 |
+| Cryogenic boil-off and belly burn | 19.930 | 3.170 | 0.000 | 0.300 | 0.010 |
+| Main torch ideal-circular-speed floor (NOT full ascent) | 17.289 | 2.641 | 0.000 | 0.300 | 0.010 |
+On Wayfarer: water converted to cryo 3.170t (including expected 0.000t boil-off); electrolysis/handling energy 15847.671kWh requiring 0.158h at both declared house reactors' full 100MW output. Plant, processing and full charging schedule remain OPEN.
 **(a) Electric/thermal water — research alternative**
-Required 86.625 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 2.751t.
+Required 84.690 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 2.690t.
 | Phase | remaining reaction-water equivalent t | charged to phase t | cryo subset on board after phase t | cold cabin water t | custody t |
 |---|---:|---:|---:|---:|---:|
 | Wayfarer load before sortie | 23.100 | 0.000 | OPEN | 0.300 | 0.010 |
-| Thermal/electric water belly burn | 20.927 | 2.173 | OPEN | 0.300 | 0.010 |
-| Main torch ideal-circular-speed floor (NOT full ascent) | 18.176 | 2.751 | 0.000 | 0.300 | 0.010 |
-Jet 0.260GW; required conversion input 0.866GW; torch reactor high-power feed **OPEN**.
+| Thermal/electric water belly burn | 20.975 | 2.125 | OPEN | 0.300 | 0.010 |
+| Main torch ideal-circular-speed floor (NOT full ascent) | 18.286 | 2.690 | 0.000 | 0.300 | 0.010 |
+Jet 0.254GW; required conversion input 0.847GW; torch reactor high-power feed **OPEN**.
 #### Three strongest one-at-a-time drivers per computable gate
 Each variable is varied min/mid/max over 81 baseline configurations. For T/W-sizing gates that pass by construction, the physical *required thrust* variation ranks drivers, rather than fabricating certification sensitivity.
 **A2**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| mass.torch_low_high_engine_t | 100.000 / 55.556 / 33.333 | 66.667 | 6.000 |
-| mass.hull_thermal_structure_t | 92.593 / 77.778 / 44.444 | 48.148 | 5.000 |
-| mass.pressure_pod_titanium_shell_t | 92.593 / 74.074 / 51.852 | 40.741 | 4.400 |
+| mass.torch_low_high_engine_t | 100.000 / 100.000 / 37.037 | 62.963 | 6.000 |
+| mass.hull_thermal_structure_t | 100.000 / 88.889 / 74.074 | 25.926 | 4.535 |
+| mass.pressure_pod_titanium_shell_t | 96.296 / 88.889 / 70.370 | 25.926 | 3.132 |
 **A2_CHEM**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| mass.torch_low_high_engine_t | 100.000 / 51.852 / 33.333 | 66.667 | 6.000 |
-| mass.hull_thermal_structure_t | 90.123 / 74.074 / 38.272 | 51.852 | 5.000 |
-| mass.pressure_pod_titanium_shell_t | 88.889 / 70.370 / 41.975 | 46.914 | 4.400 |
+| mass.torch_low_high_engine_t | 100.000 / 100.000 / 35.802 | 64.198 | 6.000 |
+| mass.hull_thermal_structure_t | 98.765 / 85.185 / 60.494 | 38.272 | 4.535 |
+| mass.pressure_pod_titanium_shell_t | 95.062 / 85.185 / 69.136 | 25.926 | 3.132 |
 **BELLY_TW_E**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| world.belly.thrust_to_weight | 100.000 / 100.000 / 100.000 | 0.000 | 27.024 |
+| world.belly.thrust_to_weight | 100.000 / 100.000 / 100.000 | 0.000 | 26.297 |
 | mass.torch_low_high_engine_t | 100.000 / 100.000 / 100.000 | 0.000 | 13.122 |
-| mass.hull_thermal_structure_t | 100.000 / 100.000 / 100.000 | 0.000 | 10.935 |
+| mass.hull_thermal_structure_t | 100.000 / 100.000 / 100.000 | 0.000 | 9.918 |
 **BELLY_TW_C**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| world.belly.thrust_to_weight | 100.000 / 100.000 / 100.000 | 0.000 | 27.291 |
+| world.belly.thrust_to_weight | 100.000 / 100.000 / 100.000 | 0.000 | 26.565 |
 | mass.torch_low_high_engine_t | 100.000 / 100.000 / 100.000 | 0.000 | 13.122 |
-| mass.hull_thermal_structure_t | 100.000 / 100.000 / 100.000 | 0.000 | 10.935 |
+| mass.hull_thermal_structure_t | 100.000 / 100.000 / 100.000 | 0.000 | 9.918 |
 **BELLY_WATER_E**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| power.torch_high_ve_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 2.543 |
-| world.belly.electric.ve_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 1.893 |
-| world.belly.sortie_dv_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 1.826 |
+| power.torch_high_ve_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 2.474 |
+| world.belly.electric.ve_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 1.842 |
+| world.belly.sortie_dv_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 1.777 |
 **BELLY_WATER_C**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| world.belly.sortie_dv_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 3.496 |
-| power.torch_high_ve_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 2.434 |
+| world.belly.sortie_dv_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 3.403 |
+| power.torch_high_ve_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 2.369 |
 | mass.torch_low_high_engine_t | 100.000 / 100.000 / 100.000 | 0.000 | 0.806 |
 **Required physical OPENs:** worlds.Moon.required_ascent_dv_kmps; worlds.Moon.surface_thermal_qualification; belly.electric.torch_reactor_GW_tap; belly.chemical.electrolysis_plant_and_liquefaction_qualified; belly.chemical.cryo_joint_storage_qualified; worlds.Moon.belly_sustained_burn_and_ramp; G8 stowed geometry.
 
 ### Mars
 **Mode:** BELLY_NO_KIT. g=3.730 m/s², mean radius=3389.500km, ideal circular-speed lower bound=3.556km/s.
-Core docked dry first sample 21.150t; removable kit first sample 6.925t. No kit is carried on Moon/Mars/Mercury, and chemical cryo tank is counted in A2_CHEM.
+Core docked dry first sample 20.155t; removable kit first sample 5.925t. No kit is carried on Moon/Mars/Mercury, and chemical cryo tank is counted in A2_CHEM.
 **World-specific belly requirements, min / mean / max over 6,561 samples. H2/O2 is the kT BASELINE, electric water a RESEARCH ALTERNATIVE:**
 | Quantity | (a) Electric/thermal water (RESEARCH) | (b) Wayfarer H2/O2 (BASELINE) |
 |---|---:|---:|
-| Initial wet mass | 44.560 / 55.605 / 62.210 t | 44.860 / 56.155 / 62.760 t |
+| Initial wet mass | 43.565 / 54.110 / 60.413 t | 43.865 / 54.660 / 60.963 t |
 | Target thrust-to-weight | OPEN | OPEN |
-| Required thrust | 199.451 / 279.999 / 344.260 kN | 200.793 / 282.769 / 348.736 kN |
+| Required thrust | 194.997 / 272.470 / 334.205 kN | 196.340 / 275.239 / 338.681 kN |
 | Belly sortie Δv | 0.300 / 0.450 / 0.600 km/s | 0.300 / 0.450 / 0.600 km/s |
 | Belly exhaust velocity | 6.000 / 9.000 / 12.000 km/s | 4.000 / 4.200 / 4.400 km/s |
-| Directed jet power | 0.598 / 1.259 / 1.880 GW | OPEN |
-| Required onboard electric power | 1.063 / 2.850 / 6.265 GW | OPEN |
-| Water committed/cryogenic loaded | 1.359 / 2.928 / 5.855 t | 3.241 / 5.724 / 8.316 t |
-| Belly fuel actually consumed | 1.359 / 2.928 / 5.855 t | 3.241 / 5.688 / 8.295 t |
-| Cryogenic boil-off | 0.000 / 0.000 / 0.000 t | 0.000 / 0.036 / 0.159 t |
+| Directed jet power | 0.585 / 1.225 / 1.825 GW | OPEN |
+| Required onboard electric power | 1.019 / 2.771 / 6.084 GW | OPEN |
+| Water committed/cryogenic loaded | 1.302 / 2.848 / 5.684 t | 3.170 / 5.571 / 8.076 t |
+| Belly fuel actually consumed | 1.302 / 2.848 / 5.684 t | 3.170 / 5.537 / 8.056 t |
+| Cryogenic boil-off | 0.000 / 0.000 / 0.000 t | 0.000 / 0.035 / 0.153 t |
 | Cryo tank dry mass | 0.000 / 0.000 / 0.000 t | 0.300 / 0.550 / 0.800 t |
-| Water remaining after belly | 17.245 / 20.172 / 21.741 t | 14.784 / 17.376 / 19.859 t |
-| Ideal remaining torch water requirement | 1.551 / 3.912 / 7.835 t | 1.470 / 3.745 / 7.594 t |
-| Water remaining after belly + ideal torch | 10.046 / 16.260 / 19.840 t | 7.850 / 13.631 / 18.175 t |
-| Wayfarer electrolysis + cryo preparation budget | OPEN | 16207.136 / 32053.193 / 51556.376 kWh |
-| Production hours @ 100MW net | OPEN | 0.162 / 0.321 / 0.516 h |
+| Water remaining after belly | 17.416 / 20.252 / 21.798 t | 15.024 / 17.529 / 19.930 t |
+| Ideal remaining torch water requirement | 1.534 / 3.795 / 7.546 t | 1.454 / 3.634 / 7.314 t |
+| Water remaining after belly + ideal torch | 10.534 / 16.457 / 19.967 t | 8.412 / 13.895 / 18.230 t |
+| Wayfarer electrolysis + cryo preparation budget | OPEN | 15847.671 / 31199.735 / 50069.836 kWh |
+| Production hours @ 100MW net | OPEN | 0.158 / 0.312 / 0.501 h |
 Both architectures calculate **thrust required** from sampled T/W and the respective actual wet vehicle mass. A1/A2 engine actuator specific thrust and installed hardware capability are still OPEN; the chemical dry tank is included once.
 The full water debit includes belly touchdown, hover and liftoff to pitch-up **once per sortie**, followed by the ideal circular-speed torch lower-bound. In chemical mode, the generated 1kg of combined H2/O2 *replaces* 1kg water; loaded propellant and reaction water are not additional to the 23.1t initial stock.
 #### First sampled phase ledgers
 **(b) Wayfarer-manufactured H2/O2 — BASELINE**
-Required 200.793 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 5.518t.
+Required 196.340 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 5.395t.
 | Phase | remaining reaction-water equivalent t | charged to phase t | cryo subset on board after phase t | cold cabin water t | custody t |
 |---|---:|---:|---:|---:|---:|
-| Wayfarer load before sortie | 23.100 | 0.000 | 3.241 | 0.300 | 0.010 |
-| Cryogenic boil-off and belly burn | 19.859 | 3.241 | 0.000 | 0.300 | 0.010 |
-| Main torch ideal-circular-speed floor (NOT full ascent) | 14.341 | 5.518 | 0.000 | 0.300 | 0.010 |
-On Wayfarer: water converted to cryo 3.241t (including expected 0.000t boil-off); electrolysis/handling energy 16207.136kWh requiring 0.162h at both declared house reactors' full 100MW output. Plant, processing and full charging schedule remain OPEN.
+| Wayfarer load before sortie | 23.100 | 0.000 | 3.170 | 0.300 | 0.010 |
+| Cryogenic boil-off and belly burn | 19.930 | 3.170 | 0.000 | 0.300 | 0.010 |
+| Main torch ideal-circular-speed floor (NOT full ascent) | 14.535 | 5.395 | 0.000 | 0.300 | 0.010 |
+On Wayfarer: water converted to cryo 3.170t (including expected 0.000t boil-off); electrolysis/handling energy 15847.671kWh requiring 0.158h at both declared house reactors' full 100MW output. Plant, processing and full charging schedule remain OPEN.
 **(a) Electric/thermal water — research alternative**
-Required 199.451 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 5.619t.
+Required 194.997 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 5.494t.
 | Phase | remaining reaction-water equivalent t | charged to phase t | cryo subset on board after phase t | cold cabin water t | custody t |
 |---|---:|---:|---:|---:|---:|
 | Wayfarer load before sortie | 23.100 | 0.000 | OPEN | 0.300 | 0.010 |
-| Thermal/electric water belly burn | 20.927 | 2.173 | OPEN | 0.300 | 0.010 |
-| Main torch ideal-circular-speed floor (NOT full ascent) | 15.307 | 5.619 | 0.000 | 0.300 | 0.010 |
-Jet 0.598GW; required conversion input 1.995GW; torch reactor high-power feed **OPEN**.
+| Thermal/electric water belly burn | 20.975 | 2.125 | OPEN | 0.300 | 0.010 |
+| Main torch ideal-circular-speed floor (NOT full ascent) | 15.481 | 5.494 | 0.000 | 0.300 | 0.010 |
+Jet 0.585GW; required conversion input 1.950GW; torch reactor high-power feed **OPEN**.
 #### Three strongest one-at-a-time drivers per computable gate
 Each variable is varied min/mid/max over 81 baseline configurations. For T/W-sizing gates that pass by construction, the physical *required thrust* variation ranks drivers, rather than fabricating certification sensitivity.
 **A2**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| mass.torch_low_high_engine_t | 100.000 / 55.556 / 33.333 | 66.667 | 6.000 |
-| mass.hull_thermal_structure_t | 92.593 / 77.778 / 44.444 | 48.148 | 5.000 |
-| mass.pressure_pod_titanium_shell_t | 92.593 / 74.074 / 51.852 | 40.741 | 4.400 |
+| mass.torch_low_high_engine_t | 100.000 / 100.000 / 37.037 | 62.963 | 6.000 |
+| mass.hull_thermal_structure_t | 100.000 / 88.889 / 74.074 | 25.926 | 4.535 |
+| mass.pressure_pod_titanium_shell_t | 96.296 / 88.889 / 70.370 | 25.926 | 3.132 |
 **A2_CHEM**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| mass.torch_low_high_engine_t | 100.000 / 51.852 / 33.333 | 66.667 | 6.000 |
-| mass.hull_thermal_structure_t | 90.123 / 74.074 / 38.272 | 51.852 | 5.000 |
-| mass.pressure_pod_titanium_shell_t | 88.889 / 70.370 / 41.975 | 46.914 | 4.400 |
+| mass.torch_low_high_engine_t | 100.000 / 100.000 / 35.802 | 64.198 | 6.000 |
+| mass.hull_thermal_structure_t | 98.765 / 85.185 / 60.494 | 38.272 | 4.535 |
+| mass.pressure_pod_titanium_shell_t | 95.062 / 85.185 / 69.136 | 25.926 | 3.132 |
 **BELLY_TW_E**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| world.belly.thrust_to_weight | 100.000 / 100.000 / 100.000 | 0.000 | 62.222 |
+| world.belly.thrust_to_weight | 100.000 / 100.000 / 100.000 | 0.000 | 60.549 |
 | mass.torch_low_high_engine_t | 100.000 / 100.000 / 100.000 | 0.000 | 30.213 |
-| mass.hull_thermal_structure_t | 100.000 / 100.000 / 100.000 | 0.000 | 25.178 |
+| mass.hull_thermal_structure_t | 100.000 / 100.000 / 100.000 | 0.000 | 22.835 |
 **BELLY_TW_C**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| world.belly.thrust_to_weight | 100.000 / 100.000 / 100.000 | 0.000 | 62.837 |
+| world.belly.thrust_to_weight | 100.000 / 100.000 / 100.000 | 0.000 | 61.164 |
 | mass.torch_low_high_engine_t | 100.000 / 100.000 / 100.000 | 0.000 | 30.213 |
-| mass.hull_thermal_structure_t | 100.000 / 100.000 / 100.000 | 0.000 | 25.177 |
+| mass.hull_thermal_structure_t | 100.000 / 100.000 / 100.000 | 0.000 | 22.835 |
 **BELLY_WATER_E**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| power.torch_high_ve_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 5.144 |
-| world.belly.electric.ve_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 1.817 |
-| world.belly.sortie_dv_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 1.753 |
+| power.torch_high_ve_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 5.005 |
+| world.belly.electric.ve_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 1.769 |
+| world.belly.sortie_dv_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 1.707 |
 **BELLY_WATER_C**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| power.torch_high_ve_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 4.924 |
-| world.belly.sortie_dv_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 3.357 |
+| power.torch_high_ve_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 4.793 |
+| world.belly.sortie_dv_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 3.269 |
 | mass.torch_low_high_engine_t | 100.000 / 100.000 / 100.000 | 0.000 | 1.012 |
 **Required physical OPENs:** worlds.Mars.required_ascent_dv_kmps; worlds.Mars.surface_thermal_qualification; belly.electric.torch_reactor_GW_tap; belly.chemical.electrolysis_plant_and_liquefaction_qualified; belly.chemical.cryo_joint_storage_qualified; worlds.Mars.belly_sustained_burn_and_ramp; G8 stowed geometry.
 
 ### Mercury
 **Mode:** BELLY_NO_KIT. g=3.700 m/s², mean radius=2439.400km, ideal circular-speed lower bound=3.004km/s.
-Core docked dry first sample 21.150t; removable kit first sample 6.925t. No kit is carried on Moon/Mars/Mercury, and chemical cryo tank is counted in A2_CHEM.
+Core docked dry first sample 20.155t; removable kit first sample 5.925t. No kit is carried on Moon/Mars/Mercury, and chemical cryo tank is counted in A2_CHEM.
 **World-specific belly requirements, min / mean / max over 6,561 samples. H2/O2 is the kT BASELINE, electric water a RESEARCH ALTERNATIVE:**
 | Quantity | (a) Electric/thermal water (RESEARCH) | (b) Wayfarer H2/O2 (BASELINE) |
 |---|---:|---:|
-| Initial wet mass | 44.560 / 55.605 / 62.210 t | 44.860 / 56.155 / 62.760 t |
+| Initial wet mass | 43.565 / 54.110 / 60.413 t | 43.865 / 54.660 / 60.963 t |
 | Target thrust-to-weight | OPEN | OPEN |
-| Required thrust | 197.846 / 277.747 / 341.491 kN | 199.178 / 280.494 / 345.932 kN |
+| Required thrust | 193.429 / 270.278 / 331.517 kN | 194.761 / 273.025 / 335.957 kN |
 | Belly sortie Δv | 0.300 / 0.450 / 0.600 km/s | 0.300 / 0.450 / 0.600 km/s |
 | Belly exhaust velocity | 6.000 / 9.000 / 12.000 km/s | 4.000 / 4.200 / 4.400 km/s |
-| Directed jet power | 0.594 / 1.249 / 1.864 GW | OPEN |
-| Required onboard electric power | 1.055 / 2.827 / 6.215 GW | OPEN |
-| Water committed/cryogenic loaded | 1.359 / 2.928 / 5.855 t | 3.241 / 5.724 / 8.316 t |
-| Belly fuel actually consumed | 1.359 / 2.928 / 5.855 t | 3.241 / 5.688 / 8.295 t |
-| Cryogenic boil-off | 0.000 / 0.000 / 0.000 t | 0.000 / 0.036 / 0.159 t |
+| Directed jet power | 0.580 / 1.215 / 1.811 GW | OPEN |
+| Required onboard electric power | 1.010 / 2.749 / 6.035 GW | OPEN |
+| Water committed/cryogenic loaded | 1.302 / 2.848 / 5.684 t | 3.170 / 5.571 / 8.076 t |
+| Belly fuel actually consumed | 1.302 / 2.848 / 5.684 t | 3.170 / 5.537 / 8.056 t |
+| Cryogenic boil-off | 0.000 / 0.000 / 0.000 t | 0.000 / 0.035 / 0.153 t |
 | Cryo tank dry mass | 0.000 / 0.000 / 0.000 t | 0.300 / 0.550 / 0.800 t |
-| Water remaining after belly | 17.245 / 20.172 / 21.741 t | 14.784 / 17.376 / 19.859 t |
-| Ideal remaining torch water requirement | 1.314 / 3.332 / 6.692 t | 1.245 / 3.190 / 6.486 t |
-| Water remaining after belly + ideal torch | 11.108 / 16.840 / 20.128 t | 8.881 / 14.186 / 18.407 t |
-| Wayfarer electrolysis + cryo preparation budget | OPEN | 16207.136 / 32053.193 / 51556.376 kWh |
-| Production hours @ 100MW net | OPEN | 0.162 / 0.321 / 0.516 h |
+| Water remaining after belly | 17.416 / 20.252 / 21.798 t | 15.024 / 17.529 / 19.930 t |
+| Ideal remaining torch water requirement | 1.300 / 3.232 / 6.445 t | 1.232 / 3.095 / 6.247 t |
+| Water remaining after belly + ideal torch | 11.556 / 17.020 / 20.245 t | 9.405 / 14.434 / 18.460 t |
+| Wayfarer electrolysis + cryo preparation budget | OPEN | 15847.671 / 31199.735 / 50069.836 kWh |
+| Production hours @ 100MW net | OPEN | 0.158 / 0.312 / 0.501 h |
 Both architectures calculate **thrust required** from sampled T/W and the respective actual wet vehicle mass. A1/A2 engine actuator specific thrust and installed hardware capability are still OPEN; the chemical dry tank is included once.
 The full water debit includes belly touchdown, hover and liftoff to pitch-up **once per sortie**, followed by the ideal circular-speed torch lower-bound. In chemical mode, the generated 1kg of combined H2/O2 *replaces* 1kg water; loaded propellant and reaction water are not additional to the 23.1t initial stock.
 #### First sampled phase ledgers
 **(b) Wayfarer-manufactured H2/O2 — BASELINE**
-Required 199.178 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 4.713t.
+Required 194.761 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 4.608t.
 | Phase | remaining reaction-water equivalent t | charged to phase t | cryo subset on board after phase t | cold cabin water t | custody t |
 |---|---:|---:|---:|---:|---:|
-| Wayfarer load before sortie | 23.100 | 0.000 | 3.241 | 0.300 | 0.010 |
-| Cryogenic boil-off and belly burn | 19.859 | 3.241 | 0.000 | 0.300 | 0.010 |
-| Main torch ideal-circular-speed floor (NOT full ascent) | 15.146 | 4.713 | 0.000 | 0.300 | 0.010 |
-On Wayfarer: water converted to cryo 3.241t (including expected 0.000t boil-off); electrolysis/handling energy 16207.136kWh requiring 0.162h at both declared house reactors' full 100MW output. Plant, processing and full charging schedule remain OPEN.
+| Wayfarer load before sortie | 23.100 | 0.000 | 3.170 | 0.300 | 0.010 |
+| Cryogenic boil-off and belly burn | 19.930 | 3.170 | 0.000 | 0.300 | 0.010 |
+| Main torch ideal-circular-speed floor (NOT full ascent) | 15.322 | 4.608 | 0.000 | 0.300 | 0.010 |
+On Wayfarer: water converted to cryo 3.170t (including expected 0.000t boil-off); electrolysis/handling energy 15847.671kWh requiring 0.158h at both declared house reactors' full 100MW output. Plant, processing and full charging schedule remain OPEN.
 **(a) Electric/thermal water — research alternative**
-Required 197.846 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 4.800t.
+Required 193.429 kN at T/W 1.200, belly Δv 0.300km/s; ideal circular-speed torch floor 4.692t.
 | Phase | remaining reaction-water equivalent t | charged to phase t | cryo subset on board after phase t | cold cabin water t | custody t |
 |---|---:|---:|---:|---:|---:|
 | Wayfarer load before sortie | 23.100 | 0.000 | OPEN | 0.300 | 0.010 |
-| Thermal/electric water belly burn | 20.927 | 2.173 | OPEN | 0.300 | 0.010 |
-| Main torch ideal-circular-speed floor (NOT full ascent) | 16.127 | 4.800 | 0.000 | 0.300 | 0.010 |
-Jet 0.594GW; required conversion input 1.978GW; torch reactor high-power feed **OPEN**.
+| Thermal/electric water belly burn | 20.975 | 2.125 | OPEN | 0.300 | 0.010 |
+| Main torch ideal-circular-speed floor (NOT full ascent) | 16.283 | 4.692 | 0.000 | 0.300 | 0.010 |
+Jet 0.580GW; required conversion input 1.934GW; torch reactor high-power feed **OPEN**.
 #### Mercury locality sensitivity (NOT a gate)
 | Scenario | Site/thermal setting | Thermal extra mass | Effect on gate fractions |
 |---|---|---|---|
@@ -345,38 +345,38 @@ Each variable is varied min/mid/max over 81 baseline configurations. For T/W-siz
 **A2**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| mass.torch_low_high_engine_t | 100.000 / 55.556 / 33.333 | 66.667 | 6.000 |
-| mass.hull_thermal_structure_t | 92.593 / 77.778 / 44.444 | 48.148 | 5.000 |
-| mass.pressure_pod_titanium_shell_t | 92.593 / 74.074 / 51.852 | 40.741 | 4.400 |
+| mass.torch_low_high_engine_t | 100.000 / 100.000 / 37.037 | 62.963 | 6.000 |
+| mass.hull_thermal_structure_t | 100.000 / 88.889 / 74.074 | 25.926 | 4.535 |
+| mass.pressure_pod_titanium_shell_t | 96.296 / 88.889 / 70.370 | 25.926 | 3.132 |
 **A2_CHEM**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| mass.torch_low_high_engine_t | 100.000 / 51.852 / 33.333 | 66.667 | 6.000 |
-| mass.hull_thermal_structure_t | 90.123 / 74.074 / 38.272 | 51.852 | 5.000 |
-| mass.pressure_pod_titanium_shell_t | 88.889 / 70.370 / 41.975 | 46.914 | 4.400 |
+| mass.torch_low_high_engine_t | 100.000 / 100.000 / 35.802 | 64.198 | 6.000 |
+| mass.hull_thermal_structure_t | 98.765 / 85.185 / 60.494 | 38.272 | 4.535 |
+| mass.pressure_pod_titanium_shell_t | 95.062 / 85.185 / 69.136 | 25.926 | 3.132 |
 **BELLY_TW_E**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| world.belly.thrust_to_weight | 100.000 / 100.000 / 100.000 | 0.000 | 61.722 |
+| world.belly.thrust_to_weight | 100.000 / 100.000 / 100.000 | 0.000 | 60.062 |
 | mass.torch_low_high_engine_t | 100.000 / 100.000 / 100.000 | 0.000 | 29.970 |
-| mass.hull_thermal_structure_t | 100.000 / 100.000 / 100.000 | 0.000 | 24.975 |
+| mass.hull_thermal_structure_t | 100.000 / 100.000 / 100.000 | 0.000 | 22.652 |
 **BELLY_TW_C**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| world.belly.thrust_to_weight | 100.000 / 100.000 / 100.000 | 0.000 | 62.332 |
+| world.belly.thrust_to_weight | 100.000 / 100.000 / 100.000 | 0.000 | 60.672 |
 | mass.torch_low_high_engine_t | 100.000 / 100.000 / 100.000 | 0.000 | 29.970 |
-| mass.hull_thermal_structure_t | 100.000 / 100.000 / 100.000 | 0.000 | 24.975 |
+| mass.hull_thermal_structure_t | 100.000 / 100.000 / 100.000 | 0.000 | 22.652 |
 **BELLY_WATER_E**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| power.torch_high_ve_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 4.406 |
-| world.belly.electric.ve_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 1.839 |
-| world.belly.sortie_dv_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 1.774 |
+| power.torch_high_ve_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 4.287 |
+| world.belly.electric.ve_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 1.790 |
+| world.belly.sortie_dv_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 1.727 |
 **BELLY_WATER_C**
 | Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |
 |---|---|---:|---:|
-| power.torch_high_ve_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 4.218 |
-| world.belly.sortie_dv_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 3.397 |
+| power.torch_high_ve_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 4.106 |
+| world.belly.sortie_dv_kmps | 100.000 / 100.000 / 100.000 | 0.000 | 3.307 |
 | mass.torch_low_high_engine_t | 100.000 / 100.000 / 100.000 | 0.000 | 0.952 |
 **Required physical OPENs:** worlds.Mercury.required_ascent_dv_kmps; worlds.Mercury.surface_thermal_qualification; belly.electric.torch_reactor_GW_tap; belly.chemical.electrolysis_plant_and_liquefaction_qualified; belly.chemical.cryo_joint_storage_qualified; worlds.Mercury.belly_sustained_burn_and_ramp; G8 stowed geometry.
 
@@ -391,7 +391,7 @@ No changes to canon, Wayfarer geometry or the merged Stage2 input ledger. Resear
   "schema": "LOOM_SHUTTLE_STAGE3_NONCANON_2026_11_03",
   "classification": "RESEARCH/NON_CANON/NON_QUALIFICATION/NON_RUNTIME",
   "authority": "kT APPROVED Stage3, ALL bodies ALL sponsors 2026–2226",
-  "baseline": "wayfarer/lab/shuttle/shuttle_inputs.json (MERGED Stage2 research baseline), physical ranges/provenance reused unchanged",
+  "baseline": "Current branch wayfarer/lab/shuttle/shuttle_inputs.json: resized 3.8m hull, 2.5m/3-crew sphere, split TPS.",
   "worlds": {
     "Titan": {
       "mode": "ROTOR_KIT_HOUSE_REACTOR",
@@ -783,6 +783,7 @@ No changes to canon, Wayfarer geometry or the merged Stage2 input ledger. Resear
       "source": "SI decimal prefixes",
       "description": "Explicit mechanical force unit conversion"
     }
-  }
+  },
+  "resize_authority": "kT R1-R5 2026-11-03, 3.8m shuttle, 2.5m 3-crew pod, non-canon research"
 }
 ~~~
