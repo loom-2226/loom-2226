@@ -241,51 +241,117 @@ function analyze(b,w){
 }
 function report(b,w,baseSha,worldSha,a){
  const rows=[],add=(...x)=>rows.push(...x),p=n=>f(n);
- add("# LOOM Shuttle v1 Stage 3 — Titan, Moon, Mars, Mercury",
+ const showGate=g=>(g.pass_fraction===null?"n/a":p(100*g.pass_fraction)+"%");
+ const rangeText=(z,k,unit="")=>{const x=z.outputRanges[k];
+   return x?p(x.min)+" / "+p(x.mean)+" / "+p(x.max)+unit:"OPEN";};
+ add("# LOOM Shuttle Stage 3: World-sized belly propulsion (PR #458 correction)",
  "ALL bodies. ALL sponsors. 2026–2226.",
  "",
- "**Status: RESEARCH / NON-CANON / NON-QUALIFICATION.** This is a deliberately small next-world experiment, not certified flight closure.",
- "Upstream: merged noncanon Stage 2 shuttle JSON, Git blob "+baseSha+". Stage 3 source inputs Git blob "+worldSha+".",
- "Deterministic 3-level 3^8 scenario design, "+a.sampling.rows+" per world, "+a.sampling.fields.length+" swept fields. PASS fractions are balanced-design fractions, NOT probabilities.",
+ "**Authority: RESEARCH / NON-CANON / NON-RUNTIME / NON-QUALIFICATION.**",
+ "Merged Stage2 baseline JSON blob: "+baseSha+". Stage3 editable source JSON blob: "+worldSha+".",
+ "6,561 deterministic min/mid/max coordinate-balanced combinations per world; "+a.sampling.fields.length+
+ " individually varied input fields. **Design fractions, not engineering reliability probabilities.**",
+ "Independent CLI reproduction of earlier Stage3 version reported by Claude through kT. This revision uses reevaluated computational functions; NEW Node CLI reproduction not claimed.",
  "",
- "## World gate counts",
+ "## World gate fractions",
  "| World | Gate | PASS | FAIL | OPEN | N/A | PASS among resolved |",
  "|---|---|---:|---:|---:|---:|---:|");
- for(const [name,z] of Object.entries(a.worlds))for(const [key,v]of Object.entries(z.gates))
-  add("| "+name+" | "+key+" | "+v.PASS+" | "+v.FAIL+" | "+v.OPEN+" | "+v["N/A"]+" | "+(v.pass_fraction===null?"n/a":p(100*v.pass_fraction)+"%")+" |");
- add("","## Physical meaning of the gates",
- "**A2:** Same 34.2t docked core dry without detachable kit. Installed Titan mass includes the entire kit; Moon/Mars/Mercury do not carry it.",
- "**KIT_VOLUME:** Titan-only 56.1m3 aggregate hold and 50t total payload necessary check; individual hold openings and hot blade joints remain OPEN.",
- "**LIFT_SCREEN:** Titan conditional near-surface rotor thermal/induced-velocity screen; light worlds peak T/W of #453 Venus belly 760kN array ANALOGUE only, NOT approved small-thruster hardware or sustained lift.",
- "**ROTOR_MODEL_TOP:** Titan-only threshold of reaching the stated 60km ANALYTICAL ATMOSPHERE DOMAIN EDGE. An artificial model-boundary screen, NOT kT required handover altitude. Model altitude censored at 60km.",
- "**WATER_IDEAL_FLOOR:** high-ve torch and finite 23.1t reaction water compared to ideal circular velocity sqrt(g*radius) using rocket equation, with 0–0.84t unqualified belly touchdown debit on light worlds; actual torch burn, gravity losses, guidance, atmospheric drag and continuous thrust NOT credited.",
- "**ORBIT_FULL:** OPEN for ALL because required site/trajectory Δv is not known. A PASS lower-bound is NOT orbital approval.",
- "**SURFACE_THERMAL:** OPEN for all, including Titan heater/cold operations, Mercury day-night, lunar cycles and Mars entry/dust.",
- "**BAY_FULL:** OPEN from G8 stowed geometry. **FLIGHT_TOTAL:** FAIL on demonstrated necessary-gate failure; otherwise OPEN; no certified PASS.",
+ for(const [name,z] of Object.entries(a.worlds))for(const [key,x]of Object.entries(z.gates))
+  add("| "+name+" | "+key+" | "+x.PASS+" | "+x.FAIL+" | "+x.OPEN+" | "+x["N/A"]+" | "+showGate(x)+" |");
+ add("","## Interpretation and accounting",
+ "**A2:** The original 34.2t G8 docked-core dry cap. Electric/core uses the existing small-belly-thruster dry part. Chemical also charges its **additional cryo tank 0.3–0.8t**; no Venus/Titan kit on Moon, Mars or Mercury.",
+ "**BELLY_TW_E / BELLY_TW_C:** chosen thrust-to-weight target 1.2–1.5 at each world's local g, applied to the initial sampled wet mass, not the abandoned Venus 760kN array. Because thrust is being **sized** by this formula, these gates mechanically PASS by construction. They do NOT certify installed thrust, combustion, motor mass, duty, exhaust plume or structure.",
+ "**BELLY_WATER_E / BELLY_WATER_C:** finite 23.1t reaction-water stock charged once for belly sortie Δv 0.3–0.6km/s (touchdown + hover + lift to torch pitch-up) **AND** main torch ideal circular-speed lower bound at world g/radius, with cryo boil-off also debited for chemical. PASS means this lower-bound water ledger closes. Actual required orbit Δv and thrust/duty remain OPEN.",
+ "**Electric/thermal architecture (a):** water exhaust 6–12km/s, directed jet power P=F×ve/2, reactor input=P/(0.30–0.70 efficiency). The GW tap from the shuttle's torch reactor is OPEN. Wayfarer only declares a 63.36MW RAW **burn-only** torch tap, not a GW supply. Water-gate PASS does not imply a viable input power system.",
+ "**Chemical architecture (b):** H2/O2 exhaust 4.0–4.4km/s from conventional high-performance engine analogues, whole propellant from water electrolysed **on Wayfarer before sortie**, 2×50MW net house reactors (DECLARED_2226), then shipped in a **0.3–0.8t** cryogenic tank. LOX+LH2 and water are mutually exclusive accounting forms; never double-count propellant mass. Boil-off 0.5–2%/day; an explicit **0–1day ASSUMPTION** is swept because no actual hold-time was supplied. The plant/liquefier, tanks, engine packaging and oxygen/hydrogen interfaces remain OPEN.",
+ "**Electrolysis evidence:** requested **13–16 kWh per kg of WATER** is retained as a conservative **ASSUMPTION**, NOT mislabelled ONLINE. Conventional published figures of ~45–55kWh/kg H2 correspond to ~5–6kWh/kg stoichiometric water. The user's larger budget might allow unallocated processing, liquefaction, handling and margin, but no published exact 13–16 figure for water was verified.",
+ "**Titan:** rotor + previously defined detachable reactor kit, no belly architecture. The 60km upper atmosphere model boundary is NOT a needed handover height; the rocket plume and actual Titan upper atmosphere remain OPEN.",
+ "**Full orbit and thermal gates:** remain OPEN, including cryogenic hardware integration, GW tap, Mercury polar-site thermal environment and G8 hold clearance. No convenient numerical lower-bound PASS promotes these to mission certification.",
  "",
- "## Per-world vehicle and water comparisons");
+ "## Planetary outputs and sensitivity");
  for(const [name,z]of Object.entries(a.worlds)){
-   const e=z.example,wd=w.worlds[name];add("### "+name,
-     "Mode "+wd.mode+", gravity "+p(num(wd.surface_gravity_mps2))+"m/s², mean radius "+p(num(wd.mean_radius_km))+"km, necessary ideal orbital speed "+p(e.idealOrbitKmps)+"km/s.",
-     "First sampled vehicle core "+p(e.mass.core)+"t, installed dry "+p(e.mass.total-(wd.mode==="BELLY_NO_KIT"?e.mass.kit:0))+"t, Titan/Venus kit "+p(e.mass.kit)+"t (carried on Wayfarer payload only when deployed). First sampled wet lift mass "+p(e.launchMass)+"t.",
-     name==="Titan"?"Projected Titan atmosphere: rho0 "+p(num(wd.surface_density_kg_m3))+" kg/m³ × exp(-h/"+p(num(wd.density_scale_height_km))+"km), only to "+p(num(wd.atmosphere_model_ceiling_km))+"km. Observed rotor computed range "+p(z.altitude.min)+"–"+p(z.altitude.max)+"km; 60km results are CENSORED at model edge, NOT true handover.":"Unqualified 760kN #453 belly array used as hypothetical upper-bound peak; sustained duty and real small belly-nozzle installation OPEN.",
-     "Reaction water, cabin cold-water and custody inventories are disjoint. Sampled ledger:",
-     "| Phase | Reaction water remaining t | phase debit t | cold crew water t | custody content t |",
+  const world=w.worlds[name],e=z.example;add("### "+name,
+   "**Mode:** "+world.mode+". g="+p(num(world.surface_gravity_mps2))+
+   " m/s², mean radius="+p(num(world.mean_radius_km))+
+   "km, ideal circular-speed lower bound="+p(e.idealOrbitKmps)+"km/s.",
+   "Core docked dry first sample "+p(e.mass.core)+"t; removable kit first sample "+
+    p(e.mass.kit)+"t. No kit is carried on Moon/Mars/Mercury, and chemical cryo tank is counted in A2_CHEM.");
+  if(name==="Titan"){
+    add("Kit reactor, rotor and existing water accounting unchanged from earlier Stage3, apart from joint sampling. Rotor altitude model "+
+     p(z.altitude.min)+"–"+p(z.altitude.max)+"km, with "+
+     p(z.altitude.censoredAtModelCeiling)+"km a **domain boundary only**, not a flight requirement.",
+     "First scenario ideal torch water floor "+p(e.idealBurnT)+"t, remaining "+p(e.afterBurn)+"t from separate reaction-water stock. Pod cold water and custody payload are not propellant.",
+     "| Titan phase | reaction water t | phase debit t | cold cabin water t | custody payload t |",
      "|---|---:|---:|---:|---:|");
-   for(const ph of e.waterPhases)add("| "+ph.phase+" | "+p(ph.reactionWaterT)+" | "+p(ph.chargedRemassT)+" | "+p(ph.coldCrewWaterT)+" | "+p(ph.custodyT)+" |");
-   add("Initial reaction water "+p(get(b,w,"water.reaction_water_initial_t"))+"t; ideal circular floor torch water "+p(e.idealBurnT)+"t, remaining "+p(e.afterBurn)+"t; REQUIRED full orbit Δv OPEN; separate belly liftoff burn OPEN.",
-     "**Top three one-at-a-time sensitivity drivers per computed gate (including margin ranking if no PASS flips):**");
-   for(const [key,items]of Object.entries(z.ranking)){
-     add("**"+key+"**","| Input | PASS % min / mid / max | Δ PASS points | Δ physical margin |","|---|---|---:|---:|");
-     for(const x of items)add("| "+x.field+" | "+x.passRates.map(v=>v===null?"OPEN":p(100*v)).join(" / ")+" | "+p(100*x.flipFraction)+" | "+p(x.marginShift)+" |");}
-   add("All OPEN blockers: "+e.physicalHolds.join("; ")+".","");
+    for(const row of e.waterPhases)add("| "+row.phase+" | "+p(row.reactionWaterT)+
+     " | "+p(row.chargedRemassT)+" | "+p(row.coldCrewWaterT)+" | "+p(row.custodyT)+" |");
+  }else{
+    add("**World-specific belly requirements, min / mean / max over 6,561 samples:**",
+     "| Quantity | (a) Electric/thermal water | (b) Wayfarer H2/O2 |",
+     "|---|---:|---:|");
+    for(const [label,k,unit]of [
+     ["Initial wet mass","initialWetT"," t"],
+     ["Target thrust-to-weight","tw",""],
+     ["Required thrust","thrustkN"," kN"],
+     ["Belly sortie Δv","bellyDvKmps"," km/s"],
+     ["Belly exhaust velocity","veKmps"," km/s"],
+     ["Directed jet power","jetGW"," GW"],
+     ["Required onboard electric power","inputGW"," GW"],
+     ["Water committed/cryogenic loaded","loadedT"," t"],
+     ["Belly fuel actually consumed","bellyBurnT"," t"],
+     ["Cryogenic boil-off","boiloffT"," t"],
+     ["Cryo tank dry mass","cryoTankT"," t"],
+     ["Water remaining after belly","afterBellyWaterT"," t"],
+     ["Ideal remaining torch water requirement","torchWaterNeedT"," t"],
+     ["Water remaining after belly + ideal torch","afterTorchWaterT"," t"],
+     ["Wayfarer electrolysis + cryo preparation budget","productionEnergyKWh"," kWh"],
+     ["Production hours @ 100MW net","productionHours"," h"]
+    ])add("| "+label+" | "+rangeText(z,"electric."+k,unit)+" | "+rangeText(z,"chemical."+k,unit)+" |");
+    add("Both architectures calculate **thrust required** from sampled T/W and the respective actual wet vehicle mass. A1/A2 engine actuator specific thrust and installed hardware capability are still OPEN; the chemical dry tank is included once.",
+     "The full water debit includes belly touchdown, hover and liftoff to pitch-up **once per sortie**, followed by the ideal circular-speed torch lower-bound. In chemical mode, the generated 1kg of combined H2/O2 *replaces* 1kg water; loaded propellant and reaction water are not additional to the 23.1t initial stock.",
+     "#### First sampled phase ledgers");
+    for(const kind of ["electric","chemical"]){
+     const c=e.architectures[kind];add("**"+(kind==="electric"?"(a) Electric/thermal water":"(b) Wayfarer-manufactured H2/O2")+"**",
+      "Required "+p(c.thrustkN)+" kN at T/W "+p(c.tw)+
+      ", belly Δv "+p(c.bellyDvKmps)+"km/s; ideal circular-speed torch floor "+
+      p(c.torchWaterNeedT)+"t.",
+      "| Phase | remaining reaction-water equivalent t | charged to phase t | water stored as cryo t | cold cabin water t | custody t |",
+      "|---|---:|---:|---:|---:|---:|");
+     for(const row of c.waterPhases)add("| "+row.phase+" | "+p(row.waterT)+
+      " | "+p(row.chargedT)+" | "+p(row.cryoT)+" | "+p(row.coldT)+" | "+p(row.custodyT)+" |");
+     if(kind==="electric")add("Jet "+p(c.jetGW)+"GW; required conversion input "+p(c.inputGW)+"GW; torch reactor high-power feed **OPEN**.");
+     else add("On Wayfarer: water converted to cryo "+p(c.loadedT)+"t (including expected "+
+      p(c.boiloffT)+"t boil-off); electrolysis/handling energy "+
+      p(c.productionEnergyKWh)+"kWh requiring "+p(c.productionHours)+
+      "h at both declared house reactors' full 100MW output. Plant, processing and full charging schedule remain OPEN.");
+    }
+    if(name==="Mercury"){
+     const day=world.dayside_sensitivity;
+     add("#### Mercury locality sensitivity (NOT a gate)",
+      "| Scenario | Site/thermal setting | Thermal extra mass | Effect on gate fractions |",
+      "|---|---|---|---|",
+      "| **DEFAULT: POLAR settlement** | Atlas polar water industrial niche; site heat load OPEN | **No dayside kit** | Default fractions above |",
+      "| **Separate dayside comparison** | Surface "+p(day.surface_temperature_K.min)+"–"+p(day.surface_temperature_K.max)+
+      "K representative day-exposed range | **OPEN**, no qualified package | **NOT credited / unchanged** |",
+      "Canon Atlas supports Mercury's polar water/industrial niche; it does **not** identify a unique shade, launch pad thermal boundary, or imply every polar city is permanently shadowed.");
+    }
+  }
+  add("#### Three strongest one-at-a-time drivers per computable gate",
+   "Each variable is varied min/mid/max over 81 baseline configurations. For T/W-sizing gates that pass by construction, the physical *required thrust* variation ranks drivers, rather than fabricating certification sensitivity.");
+  for(const [gate,items]of Object.entries(z.ranking)){
+   add("**"+gate+"**","| Input | PASS % at min / mid / max | Δ PASS points | Δ margin or sized requirement |",
+    "|---|---|---:|---:|");
+   for(const it of items)add("| "+it.field+" | "+it.passRates.map(t=>t===null?"OPEN":p(t*100)).join(" / ")+
+     " | "+p(it.flipFraction*100)+" | "+p(it.marginShift)+" |");
+  }
+  add("**Required physical OPENs:** "+e.physicalHolds.join("; ")+".","");
  }
- add("## Research notes and explicit non-transfer",
- "Source facts: NASA Planetary Fact Sheets, JPL planetary physical parameters, NASA Titan thermal/environment and the merged #453 shuttle research. Each data field retains a URL and ONLINE/PROJECTION/ASSUMPTION/OPEN status in the attached JSON.",
- "Do not apply Venus atmospheric temperature, Venus entry TPS performance, Venus ascent Δv, reactor-to-rotor coupling qualification or any Torch dense atmosphere ignition assumption to Titan or the light worlds. No new propellant is created or shared between thermal water and reaction water.",
- "The 2226 kT lineage declarations, unresolved M1/M2/M3, physical validity and all canon remain untouched.",
+ add("## Provenance and limits",
+ "Physics identities: T/W thrust from loaded mass and local gravity, Pjet=F×ve/2, Tsiolkovsky rocket equation, mass conservation H2O→H2+½O2, ideal circular speed sqrt(g×R). Nothing about a numerical PASS proves continuous real-world thrust, orbital Δv, pressure vessel, heat rejection or plasma operation.",
+ "Sources for stage 3: merged Stage 2 repository, current Atlas Mercury polar niche, NASA 2024 propulsion H2/O2 performance, NASA/JPL planetary facts, Wayfarer 2026-11-01 house reactor declaration, and published electrolyser energy per kg H2. All claims tagged in source input JSON.",
+ "No changes to canon, Wayfarer geometry or the merged Stage2 input ledger. Research conclusions do not mutate authority.",
  "",
- "## Full Stage 3 input JSON (source and provenance)", "~~~json",JSON.stringify(w,null,2),"~~~");
+ "## Full editable Stage 3 input JSON and provenance","~~~json",JSON.stringify(w,null,2),"~~~");
  return rows.join("\n")+"\n";
 }
 // CLI only; preceding functions are independently evaluable without filesystem effects.
