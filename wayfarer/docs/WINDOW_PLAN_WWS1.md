@@ -2,14 +2,14 @@
 
 ALL bodies. ALL sponsors. 2026–2226.
 
-**Basis:** stacked on PR #460, Wayfarer geometry 2f29d3dabc0014050b0a385417974457987f9b607e04a8d68087c5cadd09e6fe. NON-CANON / NON-QUALIFICATION.
+**Basis:** stacked on PR #460, Wayfarer geometry 8b43d87dcb5fd8fe9e06e427e957db26dcc8671cbcb2aa28791e77c728384145. NON-CANON / NON-QUALIFICATION.
 
 ## Ordered plan
 
 1. Upgrade the original 22 viewports and the existing L2 band to WWS-1, except close both L4 storm-shelter openings: 20 round windows remain.
 2. Preserve **one per berth** (10). Upper tier shifts from x6.45 to x6.70 to clear an existing Metric face, no node moved.
 3. Enlarge galley and exercise windows as **full-height (1.6m) segments of the existing L2 panoramic band**, retaining the 1.6m observation section and 0.6m wardroom section. Galley/exercise already had the narrow band; no gratuitous second holes.
-4. Enlarge the two medical ports to **0.75m** and move to x9.10m clear of the x10 principal frame and provisional x10.25 node ring. L4 shelter windows are **zero**.
+4. Enlarge the two medical ports to **0.75m** and move to x9.55m clear of the x10 principal frame and provisional x10.25 node ring. L4 shelter windows are **zero**.
 
 ## Every round port (20 total)
 
@@ -19,8 +19,8 @@ ALL bodies. ALL sponsors. 2026–2226.
 | L1-command | 1.25 | 135.0 | 0.50 | 0.1963 | 0.1260 | 0.0205 | 0.500 |
 | L1-command | 1.25 | 225.0 | 0.50 | 0.1963 | 0.1260 | 0.0205 | 0.500 |
 | L1-command | 1.25 | 315.0 | 0.50 | 0.1963 | 0.1260 | 0.0205 | 0.500 |
-| L4-medical | 9.85 | 187.5 | 0.75 | 0.4418 | 0.1834 | 0.0780 | -0.225 |
-| L4-medical | 9.85 | 232.5 | 0.75 | 0.4418 | 0.1834 | 0.0780 | -0.225 |
+| L4-medical | 9.55 | 187.5 | 0.75 | 0.4418 | 0.1834 | 0.0780 | 0.075 |
+| L4-medical | 9.55 | 232.5 | 0.75 | 0.4418 | 0.1834 | 0.0780 | 0.075 |
 | L5-suits | 12.45 | 50.0 | 0.45 | 0.1590 | 0.1172 | 0.0318 | 0.225 |
 | L5-workshop | 12.45 | 102.5 | 0.45 | 0.1590 | 0.1172 | 0.0318 | 0.225 |
 | L5-workshop | 12.45 | 147.5 | 0.45 | 0.1590 | 0.1172 | 0.0318 | 0.225 |
@@ -56,11 +56,14 @@ L2 band crosses original x4m hull frame; G5 existing Osteon load-path is retaine
 | Ledger | Before | Draw | After |
 |---|---:|---:|---:|
 | Engineering reserve | 9.163470 | 0.000000 | 9.163470 |
-| Released structural allocation, zero radiation credit | 19.657000 | 5.432216 | 14.224784 |
-| **Combined uncommitted** | **28.820470** | **5.432216** | **23.388254** |
+| Released structural allocation, zero radiation credit | 19.657000 | 5.492216 | 14.164784 |
+| **Combined uncommitted** | **28.820470** | **5.492216** | **23.328254** |
 
 Window retrofit draw: 4.864307 t L2 band + 0.567909 t round ports = **5.432216 t**, versus **12.0 t** released draw limit and **13.7 t** total ceiling.
-Engineering reserve **9.163470 >= 5.0 t** and combined uncommitted **23.388254 >= 15.0 t**. Retired old ledger.venus_kit_t=1.7t was an unbooked annotation, giving **ZERO reclaimed mass**. v1 Venus kit remains 50t payload.
+Additional **0.060000 t longeron material** is charged separately to the same released allocation to repair an observed 250.9 MPa G5 stress over the unchanged 250 MPa cap. Total new programme allocation 5.492216 t; this reinforces the physical structure, not the window stack.
+**Total nominal installed WWS-1 window assembly mass:** L2 band 10.731307 t + 20 round ports 2.591524 t = **13.322831 t**, below the **13.700000 t** total programme ceiling by 0.377169 t. This is a design estimate, not fitted hardware.
+Nominal full WWS-1 window programme **including 0.060t longeron reinforcement**: **13.382831 t**, under 13.7t ceiling by **0.317169 t**.
+Engineering reserve **9.163470 >= 5.0 t** and combined uncommitted **23.328254 >= 15.0 t**. Retired old ledger.venus_kit_t=1.7t was an unbooked annotation, giving **ZERO reclaimed mass**. v1 Venus kit remains 50t payload.
 
 ## Metric node and hull frame conflicts
 
@@ -72,6 +75,7 @@ The original PR #460 geometry had one window collision: node ring 1, theta 225°
 - Unchanged node-face hold (not a window conflict): overlaps_camera, 1 faces
 - Unchanged node-face hold (not a window conflict): overlaps_hold_door, 2 faces
 - Unchanged node-face hold (not a window conflict): under_stowed_strake, 20 faces
+G9 hull-crawler attachment #6 conflict was found at x9.10 and removed by shifting the medical ports to x9.55 (same diameter, no node moved); all current external-equipment footprints must still pass certifier G9.
 Round port axial-frame clearances are shown individually above; expanded L2 intentionally bridges x4m frame plane. No window cutout moves a fixed Metric face.
 
 ## Shuttle-specific minimal viewports

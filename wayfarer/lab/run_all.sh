@@ -5,6 +5,7 @@
 set -e
 cd "$(dirname "$0")"
 python3 build_v05.py
+python3 command/l1_i4_checks.py > /dev/null
 (cd ../render && python3 sync_i4_scene.py > /dev/null)
 python3 habitat/hab_overlay_checks.py > /dev/null
 python3 certify.py > /dev/null

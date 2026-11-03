@@ -1501,7 +1501,7 @@
       },
       "windows": 2,
       "windows_prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports ... for livability; they can be shuttered'): acrylic shield plug kit, Strata dust shutter",
-      "window_x_override_m": 9.1
+      "window_x_override_m": 9.55
      },
      {
       "id": "L4-eclss",
@@ -1984,13 +1984,13 @@
    "pressure_vessel_and_bulkheads": 20,
    "decks_and_core": 8,
    "outer_skin_midship": 14,
-   "longerons": 11.867,
+   "longerons": 11.927,
    "ring_frames": 17,
    "tank_shells": 24,
    "bay_liner": 6,
    "thrust_cone": 16.3,
    "longeron_joints": 3.476,
-   "released_to_reserve": 14.224783687
+   "released_to_reserve": 14.164783687
   },
   "armor_fixed_shield_t": 105,
   "habitation_life_support_t": 45,
@@ -3540,11 +3540,14 @@
   "initial_engineering_t": 9.163470262,
   "engineering_after_t": 9.163470262,
   "initial_released_t": 19.657,
-  "released_after_t": 14.224783687,
+  "released_after_t": 14.164783687,
   "uncommitted_before_t": 28.820470262,
-  "uncommitted_after_t": 23.388253949,
+  "uncommitted_after_t": 23.328253949,
   "heat_sun_reference_w_m2": 2601,
   "metrick_node_layout": "PR #184 placement HOLD; faces unchanged; 208 counted; no window moved onto faces",
-  "mass_model_warning": "The existing 5.867t L2 band and per-port older frame allocations remain as baseline physical hardware. Only replacement uplift above these retained assemblies is booked to released reserve. Crown armour/hull credit is local areal-equivalence; detailed cutout mass and mounting loads remain OPEN."
+  "mass_model_warning": "The existing 5.867t L2 band and per-port older frame allocations remain as baseline physical hardware. Only replacement uplift above these retained assemblies is booked to released reserve. Crown armour/hull credit is local areal-equivalence; detailed cutout mass and mounting loads remain OPEN.",
+  "wws1_longeron_reinforcement_from_released_t": 0.06,
+  "wws1_longeron_reason": "Observed G5 new-window build stress 250.9MPa > 250MPa; +0.060t already-allocated released longeron material; no criteria relaxation. Re-run exactly.",
+  "medical_port_relocation_note": "2026-11-03 G9 actual hull-crawler point #6 at x8.94–9.06, theta190.49–192.01 overlapped 0.75m medical window at x9.10. Move the window to x9.55 with ≥0.075m clearance beyond nearest principal-frame plane and no remaining equipment collisions under existing G9 footprint criteria; node faces unchanged."
  }
 }

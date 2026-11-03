@@ -23,7 +23,7 @@ line()
 line('1. Upgrade the original 22 viewports and the existing L2 band to WWS-1, except close both L4 storm-shelter openings: 20 round windows remain.')
 line('2. Preserve **one per berth** (10). Upper tier shifts from x6.45 to x6.70 to clear an existing Metric face, no node moved.')
 line('3. Enlarge galley and exercise windows as **full-height (1.6m) segments of the existing L2 panoramic band**, retaining the 1.6m observation section and 0.6m wardroom section. Galley/exercise already had the narrow band; no gratuitous second holes.')
-line('4. Enlarge the two medical ports to **0.75m** and move to x9.10m clear of the x10 principal frame and provisional x10.25 node ring. L4 shelter windows are **zero**.')
+line('4. Enlarge the two medical ports to **0.75m** and move to x9.55m clear of the x10 principal frame and provisional x10.25 node ring. L4 shelter windows are **zero**.')
 line()
 line('## Every round port (20 total)')
 line()
@@ -63,12 +63,18 @@ line('| Ledger | Before | Draw | After |')
 line('|---|---:|---:|---:|')
 line('| Engineering reserve | %.6f | 0.000000 | %.6f |'%(W['initial_engineering_t'],W['engineering_after_t']))
 line('| Released structural allocation, zero radiation credit | %.6f | %.6f | %.6f |'%(
-    W['initial_released_t'],W['window_budget_draw_t'],W['released_after_t']))
+    W['initial_released_t'],W['window_budget_draw_t']+W.get('wws1_longeron_reinforcement_from_released_t',0),W['released_after_t']))
 line('| **Combined uncommitted** | **%.6f** | **%.6f** | **%.6f** |'%(
-    W['uncommitted_before_t'],W['window_budget_draw_t'],W['uncommitted_after_t']))
+    W['uncommitted_before_t'],W['window_budget_draw_t']+W.get('wws1_longeron_reinforcement_from_released_t',0),W['uncommitted_after_t']))
 line()
 line('Window retrofit draw: %.6f t L2 band + %.6f t round ports = **%.6f t**, versus **12.0 t** released draw limit and **13.7 t** total ceiling.'%(
    B['incremental_t'],sum(p['incremental_t'] for p in W['port_list']),W['window_budget_draw_t']))
+line('Additional **%.6f t longeron material** is charged separately to the same released allocation to repair an observed 250.9 MPa G5 stress over the unchanged 250 MPa cap. Total new programme allocation %.6f t; this reinforces the physical structure, not the window stack.'%(W.get('wws1_longeron_reinforcement_from_released_t',0),W['window_budget_draw_t']+W.get('wws1_longeron_reinforcement_from_released_t',0)))
+line('**Total nominal installed WWS-1 window assembly mass:** L2 band %.6f t + 20 round ports %.6f t = **%.6f t**, below the **13.700000 t** total programme ceiling by %.6f t. This is a design estimate, not fitted hardware.'%(
+    B['new_net_assembly_t'],sum(p['wws_net_plus_frame_t'] for p in W['port_list']),
+    B['new_net_assembly_t']+sum(p['wws_net_plus_frame_t'] for p in W['port_list']),
+    13.7-B['new_net_assembly_t']-sum(p['wws_net_plus_frame_t'] for p in W['port_list'])))
+line('Nominal full WWS-1 window programme **including 0.060t longeron reinforcement**: **%.6f t**, under 13.7t ceiling by **%.6f t**.'%(B['new_net_assembly_t']+sum(p['wws_net_plus_frame_t'] for p in W['port_list'])+W.get('wws1_longeron_reinforcement_from_released_t',0),13.7-B['new_net_assembly_t']-sum(p['wws_net_plus_frame_t'] for p in W['port_list'])-W.get('wws1_longeron_reinforcement_from_released_t',0)))
 line('Engineering reserve **%.6f >= 5.0 t** and combined uncommitted **%.6f >= 15.0 t**. Retired old ledger.venus_kit_t=1.7t was an unbooked annotation, giving **ZERO reclaimed mass**. v1 Venus kit remains 50t payload.'%(
      W['engineering_after_t'],W['uncommitted_after_t']))
 line()
@@ -81,6 +87,7 @@ line('The original PR #460 geometry had one window collision: node ring 1, theta
 for flag in sorted(set(f for n in nodes for f in n['flags'])-{'overlaps_window'}):
     cnt=sum(flag in n['flags'] for n in nodes)
     line('- Unchanged node-face hold (not a window conflict): %s, %d faces'%(flag,cnt))
+line('G9 hull-crawler attachment #6 conflict was found at x9.10 and removed by shifting the medical ports to x9.55 (same diameter, no node moved); all current external-equipment footprints must still pass certifier G9.')
 line('Round port axial-frame clearances are shown individually above; expanded L2 intentionally bridges x4m frame plane. No window cutout moves a fixed Metric face.')
 line()
 line('## Shuttle-specific minimal viewports')

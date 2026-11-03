@@ -604,7 +604,7 @@ def build(I, dy=0.0, dz=0.0):
             rooms.append({"id": rm["id"], "deck": d["id"], "name": rm["name"], "kind": rm["kind"], "who": rm.get("who"),
                           "theta_deg": [a0, a1], "x_m": [x0, x1], "volume_m3": vol,
                           "nhv_m3": vol * ff[rm["kind"]], "couches": rm.get("couches", 0), "windows": rm.get("windows", 0),
-                          "shape": interior.spec(), **{k: rm[k] for k in ("occupancy", "bunks", "door", "entrance", "berth_viewports") if k in rm}})
+                          "shape": interior.spec(), **{k: rm[k] for k in ("occupancy", "bunks", "door", "entrance", "berth_viewports", "window_x_override_m") if k in rm}})
             add(f"room_{rm['id']}", rm["name"], "habitat", interior, rm["mass_t"], "ENGINEERING_ASSUMPTION", f"room_{rm['kind']}",
                 tags=("room",))
         if not d.get("dome"):
