@@ -1,7 +1,7 @@
 {
   "header": "ALL bodies. ALL sponsors. 2026-2226.",
   "schema": "LOOM.SHUTTLE_SIZER_INPUTS_V1",
-  "status": "NON_CANON_ENGINEERING_SENSITIVITY_ROUND_3",
+  "status": "NON_CANON_ENGINEERING_SENSITIVITY_RESIZE_R1_R5_20261103",
   "authority": "kT approved fresh sizer; no edits to canon, Wayfarer, Navigator or historical research",
   "origin": {
     "source_453": "https://github.com/loom-2226/loom-2226/pull/453",
@@ -17,7 +17,8 @@
     },
     "round_4": "kT approved 2026-11-03; same draft branches; all gate inputs frozen; idle heat research only",
     "round_5": "kT APPROVED 2026-11-03; HOUSE REACTOR kit, bounded 100–230MW heat and derived kit mass; review before merge; stage 3 after merge; torch idle unchanged research only",
-    "round_5a": "kT APPROVED 2026-11-03: existing kit tipjet heat exchanger runs ground-vent mode, rotor parked; merge after report per user's direct approval. Stage 3 afterwards."
+    "round_5a": "kT APPROVED 2026-11-03: existing kit tipjet heat exchanger runs ground-vent mode, rotor parked; merge after report per user's direct approval. Stage 3 afterwards.",
+    "resize": "kT APPROVED 2026-11-03 R1-R5; 3.8m hull, 2.5m/3crew pod, TPS 1-2t base ASSUMPTION, original total conserved"
   },
   "si": {
     "kg_per_t": {
@@ -128,18 +129,18 @@
       "description": "Stowed length limit"
     },
     "hull_diameter_m": {
-      "value": 4.3,
+      "value": 3.8,
       "unit": "m",
       "provenance": "ASSUMPTION",
-      "source": "kT shuttle baseline",
-      "description": "Stowed outer hull diameter"
+      "source": "kT APPROVED R2/R3 2026-11-03",
+      "description": "Stowed outer hull diameter; revised shuttle 3.8m/2.5m/3crew"
     },
     "crew_pod_outer_diameter_m": {
-      "value": 2.8,
+      "value": 2.5,
       "unit": "m",
       "provenance": "ASSUMPTION",
-      "source": "kT shuttle baseline",
-      "description": "Ti sphere OD"
+      "source": "kT APPROVED R2/R3 2026-11-03",
+      "description": "Ti sphere OD; revised shuttle 3.8m/2.5m/3crew"
     },
     "crew_pod_pressure_ext_bar": {
       "value": 92,
@@ -156,11 +157,11 @@
       "description": "Human-crew internal rating target"
     },
     "crew_pod_seats": {
-      "value": 4,
+      "value": 3,
       "unit": "crew",
       "provenance": "ASSUMPTION",
-      "source": "kT shuttle baseline",
-      "description": "Optional crew 2 or 4"
+      "source": "kT APPROVED R2/R3 2026-11-03",
+      "description": "Optional crew 2 or 4; revised shuttle 3.8m/2.5m/3crew"
     },
     "bay_x_start_m": {
       "value": 18.25,
@@ -291,36 +292,36 @@
       "description": "Reference only, NOT replacement ledger"
     },
     "pressure_pod_titanium_shell_t": {
-      "min": 3.2,
-      "max": 7.6,
+      "min": 2.277696793,
+      "max": 5.409529883,
       "unit": "t",
-      "provenance": "PROJECTION",
-      "source": "https://github.com/loom-2226/loom-2226/blob/research/shuttle-tech-opportunities-20261102/research/engineering/SHUTTLE_RESEARCH_INPUTS.json",
-      "description": "Geometric Ti shell research range; NOT buckling/rated, excludes all windows, doors and fittings"
+      "provenance": "ASSUMPTION",
+      "source": "R2/R3 2026-11-03; scaled original bounds by 0.711780248; constant relative wall thickness, R^3 geometric mass only; buckling NOT qualified",
+      "description": "constant relative wall thickness, R^3 geometric mass only; buckling NOT qualified"
     },
     "hull_thermal_structure_t": {
-      "min": 9,
-      "max": 14,
+      "min": 7.953488372,
+      "max": 12.372093023,
       "unit": "t",
       "provenance": "ASSUMPTION",
-      "source": "kT/Claude 2026-11-02",
-      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+      "source": "R2/R3 2026-11-03; scaled original bounds by 0.883720930; constant hull length, lateral skin-area proxy; internal structure NOT qualified",
+      "description": "constant hull length, lateral skin-area proxy; internal structure NOT qualified"
     },
     "pressure_pod_fittings_seals_t": {
-      "min": 0.5,
-      "max": 1.2,
+      "min": 0.398596939,
+      "max": 0.956632653,
       "unit": "t",
       "provenance": "ASSUMPTION",
-      "source": "kT/Claude 2026-11-02",
-      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+      "source": "R2/R3 2026-11-03; scaled original bounds by 0.797193878; pod surface-area proxy, not qualified hatch/seal load",
+      "description": "pod surface-area proxy, not qualified hatch/seal load"
     },
     "folding_rover_chassis_t": {
-      "min": 0.6,
-      "max": 1.2,
+      "min": 0.530232558,
+      "max": 1.060465116,
       "unit": "t",
       "provenance": "ASSUMPTION",
-      "source": "kT/Claude 2026-11-02",
-      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+      "source": "R2/R3 2026-11-03; scaled original bounds by 0.883720930; available transverse packaging proxy; suspension/track NOT qualified",
+      "description": "available transverse packaging proxy; suspension/track NOT qualified"
     },
     "single_12m_rotor_blades_hub_mast_t": {
       "min": 0.8,
@@ -392,15 +393,15 @@
       "unit": "t",
       "provenance": "ASSUMPTION",
       "source": "kT/Claude 2026-11-02",
-      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+      "description": "TOTAL existing entry TPS 3-6t; dynamically split into core base_entry_tps_core_t and kit-only extra, with mass conservation; never double-count."
     },
     "landing_gear_door_ramp_t": {
-      "min": 0.8,
-      "max": 1.5,
+      "min": 0.706976744,
+      "max": 1.325581395,
       "unit": "t",
       "provenance": "ASSUMPTION",
-      "source": "kT/Claude 2026-11-02",
-      "description": "Editable three-level min/mid/max sizing sensitivity. Not qualified hardware. "
+      "source": "R2/R3 2026-11-03; scaled original bounds by 0.883720930; door/ramp width proxy; actual hinges/loads NOT qualified",
+      "description": "door/ramp width proxy; actual hinges/loads NOT qualified"
     },
     "water_tank_insulated_t": {
       "min": 1,
@@ -448,6 +449,21 @@
       "provenance": "ASSUMPTION",
       "source": "kT 2026-11-03 additional kit house-reactor heat exchanger / high-temperature transfer duct sensitivity",
       "description": "Additional dedicated kit house-reactor heat exchanger/duct mass above existing tipjet_ducts_compressors_t and venus_hot_loop_thermal_kit_t. Disjoint machinery ledger; actual gas-mast thermal/pressure qualification OPEN."
+    },
+    "base_entry_tps_core_t": {
+      "min": 1,
+      "max": 2,
+      "unit": "t",
+      "provenance": "ASSUMPTION",
+      "source": "2026-11-03 sensitivity hypothesis; NASA 1997 Mars reference mission uses 15% entry aeroshell mass as coarse reference, NOT a vehicle-specific TPS design; NASA PICA heritage; https://nss.org/wp-content/uploads/1997-NASA-Human-Exploration-Of-Mars-Reference-Mission.pdf ; https://science.nasa.gov/science-research/science-enabling-technology/technology-highlights/protecting-future-planetary-missions-from-extreme-heat/",
+      "description": "Base Mars TPS assumed 1-2t inside CORE; existing 3-6t total entry TPS is conserved; extra Venus kit TPS = total minus this value. Range is deliberately tentative, NOT NASA-derived or qualified."
+    },
+    "extra_venus_entry_tps_t": {
+      "value": null,
+      "unit": "t",
+      "provenance": "DERIVED",
+      "source": "mass.entry_tps_t - mass.base_entry_tps_core_t",
+      "description": "Derived kit TPS only; total entry_tps_t is not independently included in dry mass."
     }
   },
   "water": {
@@ -739,18 +755,11 @@
     },
     "crew_cases": [
       {
-        "value": 2,
+        "value": 3,
         "unit": "crew",
-        "provenance": "ASSUMPTION",
-        "source": "kT",
-        "description": "Two crew case"
-      },
-      {
-        "value": 4,
-        "unit": "crew",
-        "provenance": "ASSUMPTION",
-        "source": "kT",
-        "description": "Four crew case"
+        "provenance": "KT_DECISION",
+        "source": "R3 2026-11-03",
+        "description": "Three-crew pod"
       }
     ],
     "crew_heat_W_each": {
@@ -1156,7 +1165,7 @@
     "mass_component_keys": [
       "single_12m_rotor_blades_hub_mast_t",
       "tipjet_ducts_compressors_t",
-      "entry_tps_t",
+      "extra_venus_entry_tps_t",
       "venus_hot_loop_thermal_kit_t",
       "venus_cooler_t",
       "kit_house_reactor_t",
