@@ -47,3 +47,7 @@ The 208 Metric faces must be shown as flush armour-colour covered discs, never d
 2226 ceramic manufacturing, local cutout frames, pressure pane failure independence, gel crack/shock coupling, seals, thermal cycles and fatigue, per-aperture g/cm² and dose transport, retractable Strata closure behaviour, and genuine worst-sun surface temperatures remain OPEN. This habitat pressure/vacuum standard is **not** a 92-bar shuttle-pod port qualification.
 
 See 'wayfarer/docs/WINDOW_PLAN_WWS1.md' for placement, mass ledger, node-face conflicts and certification evidence. No criterion relaxed.
+
+## kT round-two budget correction (2026-11-03)
+
+**The earlier claimed 13.7t installed-mass cap was a misread and is NOT authoritative.** The controlling ceiling is **12.0t of TOTAL NEW draw from released structural allocation**, beginning with 5.492216t already committed in round one. Engineering reserve must remain >=5t, and combined engineering plus uncommitted released structure >=16.8t. See [round-two plan](WINDOW_PLAN_WWS1_ROUND2.md).

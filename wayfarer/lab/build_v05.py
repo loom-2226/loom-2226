@@ -604,7 +604,7 @@ def build(I, dy=0.0, dz=0.0):
             rooms.append({"id": rm["id"], "deck": d["id"], "name": rm["name"], "kind": rm["kind"], "who": rm.get("who"),
                           "theta_deg": [a0, a1], "x_m": [x0, x1], "volume_m3": vol,
                           "nhv_m3": vol * ff[rm["kind"]], "couches": rm.get("couches", 0), "windows": rm.get("windows", 0),
-                          "shape": interior.spec(), **{k: rm[k] for k in ("occupancy", "bunks", "door", "entrance", "berth_viewports", "window_x_override_m") if k in rm}})
+                          "shape": interior.spec(), **{k: rm[k] for k in ("occupancy", "bunks", "door", "entrance", "berth_viewports", "window_x_override_m", "window_theta_override_deg") if k in rm}})
             add(f"room_{rm['id']}", rm["name"], "habitat", interior, rm["mass_t"], "ENGINEERING_ASSUMPTION", f"room_{rm['kind']}",
                 tags=("room",))
         if not d.get("dome"):
@@ -1150,7 +1150,8 @@ def features(I, rooms):
         if r["kind"] == "command":
             xs, ths = [1.25] * n, [45 + 90 * k for k in range(n)]
         else:
-            xs, ths = [r.get("window_x_override_m",(x0+x1)/2+0.2)]*n, [a0+(a1-a0)*(k+0.5)/n for k in range(n)]
+            xs, ths = [r.get("window_x_override_m",(x0+x1)/2+0.2)]*n, r.get("window_theta_override_deg",[a0+(a1-a0)*(k+0.5)/n for k in range(n)])
+            assert len(ths)==n
         for x, th in zip(xs, ths):
             if x < xb:
                 u = (xb - x) / (xb - xa)
@@ -1169,9 +1170,10 @@ def features(I, rooms):
             if not r.get("berth_viewports"):
                 continue
             for b in r.get("bunks", []):
-                th = math.radians(b["angle_deg"])
                 for tier in (["lower", "upper"][:b["tiers"]]):
                     x = BV["x_m_by_tier"][tier]
+                    dt=BV.get("upper_azimuth_offsets_deg_by_bunk_angle",{}).get(str(int(b["angle_deg"])),0.) if tier=="upper" else 0.
+                    th=math.radians(b["angle_deg"]+dt)
                     out.append({"kind": "window", "room": r["id"], "berth": True, "tier": tier, "pos": [x, Ro * math.cos(th), Ro * math.sin(th)],
                                 "normal": [0.0, math.cos(th), math.sin(th)], "d_m": BV["d_m"]})
     for r in rooms:

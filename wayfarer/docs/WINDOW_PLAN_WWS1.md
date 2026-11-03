@@ -1,3 +1,5 @@
+> **HISTORICAL ROUND-ONE SNAPSHOT ONLY.** kT corrected the alleged 13.7t installed-mass cap in round two. The 12.0t limit applies to TOTAL NEW released-structure draw, not installed hardware. Current plan and budget: [WWS-1 ROUND 2](WINDOW_PLAN_WWS1_ROUND2.md).
+
 # Wayfarer WWS-1 window plan, cost, node conflicts (DRAFT)
 
 ALL bodies. ALL sponsors. 2026–2226.
