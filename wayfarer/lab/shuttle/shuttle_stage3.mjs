@@ -154,8 +154,8 @@ function assess(b,w,name,s){
    flags.LIFT_SCREEN="N/A";
    flags.WATER_IDEAL_FLOOR="N/A";
    margins.A2_CHEM=chemical.coreMargin;
-   margins.BELLY_TW_E=electric.tw-1;
-   margins.BELLY_TW_C=chemical.tw-1;
+   margins.BELLY_TW_E=electric.thrustkN; // sized requirement driver ranking, not hardware pass margin
+   margins.BELLY_TW_C=chemical.thrustkN;
    margins.BELLY_WATER_E=electric.margin;
    margins.BELLY_WATER_C=chemical.margin;
    tipOrBelly={worldSized:true,thrustElectrickN:electric.thrustkN,thrustChemicalkN:chemical.thrustkN};
@@ -205,17 +205,37 @@ function topDrivers(b,w,name,k,fields){
 function analyze(b,w){
  const sampling=design(b,w),worlds={};
  for(const name of Object.keys(w.worlds)){
-   const rows=[];
+   const rows=[],ranges={};
    let minTop=Infinity,maxTop=-Infinity,topFound=0;
    for(let i=0;i<sampling.count;i++){
      const r=assess(b,w,name,sampling.sample(i));rows.push(r);
      if(r.lift.observedEnvelopeKm!==undefined&&r.lift.observedEnvelopeKm!==null){
        minTop=Math.min(minTop,r.lift.observedEnvelopeKm);maxTop=Math.max(maxTop,r.lift.observedEnvelopeKm);topFound++;}
+     if(r.architectures)for(const kind of ["electric","chemical"]){
+       for(const k of ["thrustkN","initialWetT","veKmps","bellyDvKmps","jetGW","inputGW",
+         "loadedT","bellyBurnT","boiloffT","cryoTankT","afterBellyWaterT","torchWaterNeedT",
+         "afterTorchWaterT","productionEnergyKWh","productionHours"]){
+         const v=r.architectures[kind][k];if(!Number.isFinite(v))continue;
+         const id=kind+"."+k,t=ranges[id]??(ranges[id]={min:Infinity,max:-Infinity,sum:0,count:0});
+         t.min=Math.min(t.min,v);t.max=Math.max(t.max,v);t.sum+=v;t.count++;
+       }
+     }
    }
-   const keys=["A2","KIT_VOLUME","LIFT_SCREEN","ROTOR_MODEL_TOP","WATER_IDEAL_FLOOR","ORBIT_FULL","SURFACE_THERMAL","BAY_FULL","FLIGHT_TOTAL"];
+   const keys=["A2",...(name!=="Titan"?["A2_CHEM"]:[]),
+     "KIT_VOLUME","LIFT_SCREEN","ROTOR_MODEL_TOP","WATER_IDEAL_FLOOR",
+     ...(name!=="Titan"?["BELLY_TW_E","BELLY_TW_C","BELLY_WATER_E","BELLY_WATER_C",
+       "GW_TAP_E","WAYFARER_ELECTROLYSIS","CRYO_PHYSICAL","FLIGHT_E","FLIGHT_C"]:[]),
+     "ORBIT_FULL","SURFACE_THERMAL","BAY_FULL","FLIGHT_TOTAL"];
    const gates=Object.fromEntries(keys.map(k=>[k,counts(rows,k)]));
-   const ranking=Object.fromEntries(keys.filter(k=>k!=="FLIGHT_TOTAL"&&gates[k].PASS+gates[k].FAIL>0&&gates[k]["N/A"]===0).map(k=>[k,topDrivers(b,w,name,k,sampling.keys)]));
-   worlds[name]={gates,ranking,example:rows[0],altitude:{min:topFound?minTop:null,max:topFound?maxTop:null,censoredAtModelCeiling:num(w.worlds[name].atmosphere_model_ceiling_km)},sampled:sampling.count};
+   const ranking=Object.fromEntries(keys.filter(k=>!["FLIGHT_TOTAL","FLIGHT_E","FLIGHT_C"].includes(k)
+     &&gates[k].PASS+gates[k].FAIL>0&&gates[k]["N/A"]===0)
+       .map(k=>[k,topDrivers(b,w,name,k,sampling.keys)]));
+   const outputRanges=Object.fromEntries(Object.entries(ranges).map(([k,v])=>
+       [k,{min:v.min,mean:v.sum/v.count,max:v.max}]));
+   worlds[name]={gates,ranking,outputRanges,example:rows[0],
+     altitude:{min:topFound?minTop:null,max:topFound?maxTop:null,
+       censoredAtModelCeiling:num(w.worlds[name].atmosphere_model_ceiling_km)},
+     sampled:sampling.count};
  }
  return {sampling:{rows:sampling.count,fields:sampling.keys},worlds};
 }
