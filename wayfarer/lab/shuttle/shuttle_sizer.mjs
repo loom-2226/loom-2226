@@ -81,7 +81,12 @@ function reactorMass(d,s){
  return power*units/(specific/eta)/number(d.si.kg_per_t);
 }
 function componentMass(d,k,s){
- return k==="kit_house_reactor_t"?reactorMass(d,s):val(d,"mass."+k,s);
+ if(k==="kit_house_reactor_t")return reactorMass(d,s);
+ if(k==="extra_venus_entry_tps_t"){
+   const total=val(d,"mass.entry_tps_t",s),base=val(d,"mass.base_entry_tps_core_t",s);
+   return total===null||base===null?null:total-base;
+ }
+ return val(d,"mass."+k,s);
 }
 function surfaceCooling(d,s,crewCount){
  const needed=["thermal.venus_external_surface_K","thermal.insulation_k_W_per_mK",
@@ -102,7 +107,7 @@ function surfaceCooling(d,s,crewCount){
 }
 function dry(d,s){
  const excluded=new Set(["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"]);
- const keys=Object.keys(d.mass).filter(x=>!excluded.has(x));
+ const keys=Object.keys(d.mass).filter(x=>!excluded.has(x)&&x!=="entry_tps_t");
  const parts=keys.map(k=>({key:k,value:componentMass(d,k,s)}));
  const missing=parts.filter(x=>x.value===null).map(x=>"mass."+x.key);
  const sum=missing.length?null:parts.reduce((a,b)=>a+b.value,0);
@@ -327,7 +332,7 @@ function evaluate(d,stage,s,geo){
  const dryResult=dry(d,s),kit=kitFit(d,s,dryResult);const v=stage===2?stage2(d,s,dryResult):null;
  return {A:dryResult.status,A2:dryResult.a2,KV:kit.volumeGate,KF:kit.fit,B:geo.gateB.status,R:v?.rotor.status??null,
    C:v?.gateC??null,C_low:v?.mode.low.status??null,C_high:v?.mode.high.status??null,
-   DS2:v?.thermal[2].status??null,DS4:v?.thermal[4].status??null,
+   DS2:v?.thermal[2]?.status??null,DS4:v?.thermal[4]?.status??null,DS3:v?.thermal[3]?.status??null,
    dry:dryResult,kit,venus:v};
 }
 function sensitivity(d,stage,design,geo,gateKey){
@@ -347,7 +352,7 @@ function sensitivity(d,stage,design,geo,gateKey){
     if(gateKey==="A")margin=e.dry.margin;
     else if(gateKey==="A2")margin=e.dry.a2Margin;
     else if(gateKey==="KV")margin=e.kit.freeVolume_m3-e.kit.packedVolume_m3;
-    else if(gateKey==="DS2"||gateKey==="DS4"){const z=e.venus?.thermal[gateKey==="DS2"?2:4];margin=z?Math.min((z.reactorBusLimitKW-z.coolerElectricalKW)/Math.max(1,z.reactorBusLimitKW),(z.rejectLimitKW-z.rejectKW)/Math.max(1,z.rejectLimitKW),e.dry.a2Margin/number(d.mass.max_docked_dry_t)):null;}
+    else if(gateKey==="DS2"||gateKey==="DS4"||gateKey==="DS3"){const z=e.venus?.thermal[gateKey==="DS2"?2:gateKey==="DS3"?3:4];margin=z?Math.min((z.reactorBusLimitKW-z.coolerElectricalKW)/Math.max(1,z.reactorBusLimitKW),(z.rejectLimitKW-z.rejectKW)/Math.max(1,z.rejectLimitKW),e.dry.a2Margin/number(d.mass.max_docked_dry_t)):null;}
     else if(gateKey==="C")margin=Math.max(e.venus?.mode.low.waterAtOrbit??-Infinity,e.venus?.mode.high.waterAtOrbit??-Infinity);
     else if(gateKey==="R")margin=(e.venus?.handover??0)-number(d.venus.minimum_rotor_handover_screen_km);
     if(margin!==null&&Number.isFinite(margin))marginTotal+=margin;
@@ -369,7 +374,7 @@ function analyze(d,stage){
  const extensions=stage===2?Object.fromEntries(d.venus.rotor_extension_levels_km.map(q=>[number(q),{rotorMin:Infinity,rotorMax:-Infinity,heatMin:Infinity,heatMax:-Infinity,pressure_bar:null}])):{};
  for(let i=0;i<design.rows;i++){
   const s=design.get(i),e=evaluate(d,stage,s,geo);
-  rows.push({A:e.A,A2:e.A2,KV:e.KV,KF:e.KF,B:e.B,R:e.R,C:e.C,C_low:e.C_low,C_high:e.C_high,DS2:e.DS2,DS4:e.DS4});
+  rows.push({A:e.A,A2:e.A2,KV:e.KV,KF:e.KF,B:e.B,R:e.R,C:e.C,C_low:e.C_low,C_high:e.C_high,DS2:e.DS2,DS4:e.DS4,DS3:e.DS3});
   if(stage===2){if(e.venus.handover!==null)handovers.push(e.venus.handover);
    for(const q of d.thermal.crew_cases){const crew=number(q),hours=e.venus.thermal[crew]?.podHours; if(Number.isFinite(hours)){podRanges[crew].min=Math.min(podRanges[crew].min,hours);podRanges[crew].max=Math.max(podRanges[crew].max,hours);}}
    for(const q of d.venus.rotor_extension_levels_km){const alt=number(q),p=extensions[alt],rot=rotorAt(d,s,e.venus.baseMass,alt);
@@ -384,18 +389,29 @@ function analyze(d,stage){
     twoCrewPodHours:e.venus.thermal[2].podHours,fourCrewPodHours:e.venus.thermal[4].podHours,
     twoCrewCoolingKW:e.venus.thermal[2].coolerElectricalKW,fourCrewCoolingKW:e.venus.thermal[4].coolerElectricalKW}:null});
  }
- const gates=Object.fromEntries(["A","A2","KV","KF","B",...(stage===2?["R","C","C_low","C_high","DS2","DS4"]:[])].map(k=>[k,census(rows,k)]));
+ const gates=Object.fromEntries(["A","A2","KV","KF","B",...(stage===2?["R","C","C_low","C_high","DS2","DS3","DS4"]:[])].map(k=>[k,census(rows,k)]));
  const jointStatus=states=>states.includes("FAIL")?"FAIL":states.includes("OPEN")?"OPEN":"PASS";
  const joint=stage===2?Object.fromEntries([
-  ["A2_and_C",["A2","C"]],["A2_C_DS2",["A2","C","DS2"]],["A2_C_DS4",["A2","C","DS4"]],["A2_KF_C_DS2",["A2","KF","C","DS2"]],["A2_KF_C_DS4",["A2","KF","C","DS4"]]
+  ["A2_and_C",["A2","C"]],["A2_C_DS2",["A2","C","DS2"]],["A2_C_DS3",["A2","C","DS3"]],["A2_C_DS4",["A2","C","DS4"]],["A2_KF_C_DS2",["A2","KF","C","DS2"]],["A2_KF_C_DS3",["A2","KF","C","DS3"]],["A2_KF_C_DS4",["A2","KF","C","DS4"]]
  ].map(([k,ks])=>[k,census(rows.map(r=>({[k]:jointStatus(ks.map(x=>r[x]))})),k)])):{};
  const scores=Object.fromEntries(["A","A2","KV",...(stage===2?["R","C","DS2","DS4"]:[])].map(k=>[k,sensitivity(d,stage,design,geo,k)]));
- const components=Object.keys(d.mass).filter(x=>!["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"].includes(x));
+ // Reuse the executable's dry ledger for the report. The total entry TPS is
+ // split into base core TPS and derived extra Venus-kit TPS, never added twice.
+ const components=Object.keys(d.mass).filter(x=>!["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t","entry_tps_t"].includes(x));
+ const boundarySamples=[0,0.5,1].map(t=>{
+  const sample={};
+  for(const [key,row] of Object.entries(d.mass)){
+   const b=bounds(row);if(b)sample["mass."+key]=b[0]+(b[1]-b[0])*t;
+  }
+  const b=bounds(d.power.kit_house_reactor_thermal_MW);
+  sample["power.kit_house_reactor_thermal_MW"]=b[0]+(b[1]-b[0])*t;
+  return sample;
+ });
  const sums=[0,0,0];const partRows=components.map(k=>{
-  const x=d.mass[k],levels=bounds(x)??[number(x),number(x)];
-  const triplet=[levels[0],(levels[0]+levels[1])/2,levels[1]];
+  const triplet=boundarySamples.map(sample=>componentMass(d,k,sample));
+  if(triplet.some(x=>x===null||!Number.isFinite(x)))throw Error("Unresolved reported mass part: "+k);
   triplet.forEach((v,i)=>sums[i]+=v);
-  return {name:k,values:triplet,provenance:x.provenance};
+  return {name:k,values:triplet,provenance:d.mass[k].provenance};
  });
  const sortedHandovers=handovers.sort((x,y)=>x-y);
  const clouds=d.research.idle_tipjet_heat;
