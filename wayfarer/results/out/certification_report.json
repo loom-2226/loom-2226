@@ -1205,9 +1205,9 @@
     {
      "key": "wws1_sun_open",
      "text": "WWS-1 all side shutters OPEN + crown OPEN at worst Venus solar flux, no AOI/NIR/glare cooling credited. Glazing supports/temperature/fatigue still unqualified.",
-     "kT": "AWAITING",
-     "as": "",
-     "date": null
+     "kT": "ACCEPTED",
+     "as": "kT accepted 2026-11-04 as non-canon v0.5 design position only. OPEN: glazing supports, temperature, thermal cycling and fatigue; no AOI/NIR/glare cooling credit; worst Venus solar flux with all side shutters and crown OPEN remains modelled.",
+     "date": "2026-11-04"
     },
     {
      "key": "aoi_optical_ir",
@@ -2577,16 +2577,16 @@
     {
      "key": "wws1_round2_pressure_cutouts",
      "text": "G5 round port local 10cm hull web, 5cm axial frame, unchanged nodes and larger L2 mullion/ring source screens pass before any physical FEA. Medical 1.55m full-pressure ceramic glazing and berth 0.80m externally mounted pressure retainers remain UNQUALIFIED.",
-     "kT": "AWAITING",
-     "as": "",
-     "date": null
+     "kT": "ACCEPTED",
+     "as": "kT accepted 2026-11-04 as non-canon v0.5 design position only. OPEN: medical 1.55 m full-pressure ceramic glazing, berth 0.80 m outward pressure-retaining rim/retainer (explicitly OPEN), all cutout FEA, pane and pressure seal qualification; no hardware proof.",
+     "date": "2026-11-04"
     },
     {
      "key": "wws1_cutouts",
      "text": "WWS-1 round ports locally framed, 2m principal frames not severed; L2 band altered and rerun using existing load-path screen; real per-cutout FEM, pressure seal, separate pane destruction and node-face exact integration remain unqualified.",
-     "kT": "AWAITING",
-     "as": "",
-     "date": null
+     "kT": "ACCEPTED",
+     "as": "kT accepted 2026-11-04 as non-canon v0.5 design position only. OPEN: actual per-cutout FEM, frame/retainer load paths, pressure seals, independent pane failure, 5g/fatigue and exact node-face integration. Coarse source screens are not qualification.",
+     "date": "2026-11-04"
     }
    ],
    "notes": [
@@ -2839,9 +2839,9 @@
     {
      "key": "wws1_shield",
      "text": "All side shutters CLOSED for torch/Metric/radiation/dust/heat-pump failure. Local areal mass is no worse than prior continuous hull, AOI ZERO radiation credit. No particle/dose transport or per-aperture sealing qualification.",
-     "kT": "AWAITING",
-     "as": "",
-     "date": null
+     "kT": "ACCEPTED",
+     "as": "kT accepted 2026-11-04 as non-canon v0.5 design position only. OPEN: particle/dose transport and per-aperture shutter sealing/closure qualification; all side shutters CLOSED for torch/Metric/radiation/dust/heat-pump failure; zero AOI radiation or dose credit; no passive shielding removal.",
+     "date": "2026-11-04"
     },
     {
      "key": "berth_viewports",
@@ -3996,9 +3996,9 @@
   {
    "key": "wws1_sun_open",
    "text": "WWS-1 all side shutters OPEN + crown OPEN at worst Venus solar flux, no AOI/NIR/glare cooling credited. Glazing supports/temperature/fatigue still unqualified.",
-   "kT": "AWAITING",
-   "as": "",
-   "date": null
+   "kT": "ACCEPTED",
+   "as": "kT accepted 2026-11-04 as non-canon v0.5 design position only. OPEN: glazing supports, temperature, thermal cycling and fatigue; no AOI/NIR/glare cooling credit; worst Venus solar flux with all side shutters and crown OPEN remains modelled.",
+   "date": "2026-11-04"
   },
   {
    "key": "aoi_optical_ir",
@@ -4080,23 +4080,23 @@
   {
    "key": "wws1_round2_pressure_cutouts",
    "text": "G5 round port local 10cm hull web, 5cm axial frame, unchanged nodes and larger L2 mullion/ring source screens pass before any physical FEA. Medical 1.55m full-pressure ceramic glazing and berth 0.80m externally mounted pressure retainers remain UNQUALIFIED.",
-   "kT": "AWAITING",
-   "as": "",
-   "date": null
+   "kT": "ACCEPTED",
+   "as": "kT accepted 2026-11-04 as non-canon v0.5 design position only. OPEN: medical 1.55 m full-pressure ceramic glazing, berth 0.80 m outward pressure-retaining rim/retainer (explicitly OPEN), all cutout FEA, pane and pressure seal qualification; no hardware proof.",
+   "date": "2026-11-04"
   },
   {
    "key": "wws1_cutouts",
    "text": "WWS-1 round ports locally framed, 2m principal frames not severed; L2 band altered and rerun using existing load-path screen; real per-cutout FEM, pressure seal, separate pane destruction and node-face exact integration remain unqualified.",
-   "kT": "AWAITING",
-   "as": "",
-   "date": null
+   "kT": "ACCEPTED",
+   "as": "kT accepted 2026-11-04 as non-canon v0.5 design position only. OPEN: actual per-cutout FEM, frame/retainer load paths, pressure seals, independent pane failure, 5g/fatigue and exact node-face integration. Coarse source screens are not qualification.",
+   "date": "2026-11-04"
   },
   {
    "key": "wws1_shield",
    "text": "All side shutters CLOSED for torch/Metric/radiation/dust/heat-pump failure. Local areal mass is no worse than prior continuous hull, AOI ZERO radiation credit. No particle/dose transport or per-aperture sealing qualification.",
-   "kT": "AWAITING",
-   "as": "",
-   "date": null
+   "kT": "ACCEPTED",
+   "as": "kT accepted 2026-11-04 as non-canon v0.5 design position only. OPEN: particle/dose transport and per-aperture shutter sealing/closure qualification; all side shutters CLOSED for torch/Metric/radiation/dust/heat-pump failure; zero AOI radiation or dose credit; no passive shielding removal.",
+   "date": "2026-11-04"
   },
   {
    "key": "berth_viewports",
@@ -4246,8 +4246,8 @@
    "date": "2026-11-01"
   }
  ],
- "kt_decisions_sha256": "6e42c2e97fe2d5ea3a43e3ab6ece0531531206355642ccc15e2b6beef1cd255a",
- "certified": false,
+ "kt_decisions_sha256": "1dbc945ad46ba63da4bbd37699c0066efc035af093bdad56f0ad7c4d53e27648",
+ "certified": true,
  "certified_rule": "every gate PASS or PASS-DECLARED and every declared assumption ACCEPTED by kT; then both reviewers sign and loom-gate passes",
  "qualification_scope": {
   "certified_flag_meaning": "kT-accepted declared G1-G12 conventional Wayfarer laboratory certification basis ONLY; not independent reviewer signatures, Metric arrival or hardware flightworthiness",
