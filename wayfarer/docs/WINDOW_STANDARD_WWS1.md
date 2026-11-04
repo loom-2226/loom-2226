@@ -51,3 +51,7 @@ See 'wayfarer/docs/WINDOW_PLAN_WWS1.md' for placement, mass ledger, node-face co
 ## kT round-two budget correction (2026-11-03)
 
 **The earlier claimed 13.7t installed-mass cap was a misread and is NOT authoritative.** The controlling ceiling is **12.0t of TOTAL NEW draw from released structural allocation**, beginning with 5.492216t already committed in round one. Engineering reserve must remain >=5t, and combined engineering plus uncommitted released structure >=16.8t. See [round-two plan](WINDOW_PLAN_WWS1_ROUND2.md).
+
+## Proposed OG-3 HYDRA material replacement (draft, not adopted canon)
+
+The original AOI **bulk** is proposed to be replaced by a sealed alkane/BNNT-H/10B-carborane organogel under a **2mm AOI-2226 control skin**, preserving the original **66.611712 kg/m²** column for WWS-1 side windows. The crown instead uses the **interpolated conformal zonal normal gap** and physically books the resulting extra **0.041015t** against existing engineering reserve. No deep-gel reserve is used. This does not change the pressure panes or shutter thickness. G6 counts the complete OG-3 column as **physical areal mass** (nominal **31.411 g/cm² open**, **58.411 g/cm² closed**) without claiming any reduction in GCR/SPE biological dose. Source inputs and the unqualified real backup-dome surface are in [OG3_HYDRA_NANOGEL_DRAFT.md](OG3_HYDRA_NANOGEL_DRAFT.md) and `../config/og3_hydra.json`. Historical AOI and acrylic-plug research remains historical; kT decides any formal retirement or merge.

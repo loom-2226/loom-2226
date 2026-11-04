@@ -276,6 +276,18 @@
    "date": "2026-11-04",
    "kT": "kT accepted 2026-11-04",
    "as": "kT accepted 2026-11-04 as non-canon v0.5 design position only. OPEN: particle/dose transport and per-aperture shutter sealing/closure qualification; all side shutters CLOSED for torch/Metric/radiation/dust/heat-pump failure; zero AOI radiation or dose credit; no passive shielding removal."
+  },
+  "og3_crown_conformal": {
+   "decision": "ACCEPTED",
+   "date": "2026-11-04",
+   "kT": "kT accepted 2026-11-04",
+   "as": "kT accepted 2026-11-04 as non-canon v0.5 OG-3 design position ONLY. OPEN: actual surveyed backup-dome meridian, physical conformal gap, geometry contact/pressure clearance, repeatable gel placement and hold-down; source 3.023 m³ / 59.73 mm min gap reconciled only by interpolation, NOT a hardware fit proof. +0.04101485 t physically booked from the existing engineering reserve, no protected 1.04 t deep-gel credit, no dry-mass saving. Qualification OPEN."
+  },
+  "og3_hydra": {
+   "decision": "ACCEPTED",
+   "date": "2026-11-04",
+   "kT": "kT accepted 2026-11-04",
+   "as": "kT accepted 2026-11-04 as non-canon v0.5 OG-3 design position ONLY. OPEN: hydrogenous organogel formulation chemistry, lifetime ageing, radiation damage/radiolysis, flammability/pyrolysis/outgassing, freeze/boil limits, optical darkening, BNNT-H dispersion/fibre loading <1% by mass and optical homogeneity, 10B capture secondaries, ceramic fracture/seals, and transport/whole-ship GCR/SPE dose. BNNT below 1% by mass, zero biological radiation dose credit, zero optical-thermal credit; G6 areal screens only, no credited dose reduction. Qualification OPEN."
   }
  },
  "design_decisions_2026_10_26": {

@@ -43,6 +43,16 @@ def crew_results():
     return _CREW["r"]
 
 
+def load_og3(I):
+    """OG-3 all material/areal parameters live in the pinned JSON input only."""
+    if not I.get("og3_hydra"):
+        return None
+    pin=I["og3_hydra"]
+    raw=(HERE.parent/"config"/pin["path"]).read_bytes()
+    assert hashlib.sha256(raw).hexdigest()==pin["sha256"], "OG-3 source hash mismatch: rebuild Wayfarer input and geometry"
+    return json.loads(raw)
+
+
 def load():
     I = json.loads((HERE.parent / "config/wayfarer_v05_inputs.json").read_text())
     C = json.loads((HERE.parent / "config/cert_criteria.json").read_text())
@@ -84,11 +94,12 @@ def g1(I, C, G):
                + L.get("crown_option_c_additions_t",0.0) + L.get("l3_berth_shield_liner_t",0.0)
               + L.get("house_fuel_tank_t",0.0) - L.get("electrical_fueled_wet_t",0.0))
     AOI = I["habitat"]["decks"][0].get("command_layout",{}).get("crown_dome",{}).get("adaptive_optogel")
+    crown_delta = I["ledger"].get("og3_crown_conformal_bookkeeping",{}).get("physical_mass_delta_t",0.)
     dry = G["dry_t"]
     cs = [chk("parts sum to the ledger", round(dry, 2), round(expect, 2), abs(dry - expect) <= C["G1"]["ledger_tolerance_t"], "t")]
     if AOI:
         two = {p["id"]:p["mass_t"] for p in G["parts"] if p["id"] in ("crown_backup_pressure_dome","crown_adaptive_optogel")}
-        cs.append(chk("AOI filled interspace has explicit 3.000t physical mass",
+        cs.append(chk("OG-3 crown conformal interspace explicit physical mass",
                       round(two.get("crown_adaptive_optogel",0),6),AOI["mass_t"],
                       abs(two.get("crown_adaptive_optogel",0)-AOI["mass_t"])<1e-8,"t"))
         cs.append(chk("independent backup pressure dome separately charged to reserve",
@@ -111,7 +122,7 @@ def g1(I, C, G):
         # must reconcile, including 0.540125t panes booked to I4 and 0.6t liner.
         prior_reserve=17.786216  # frozen immediately prior to Option C, PR #439 / 25bae1ce
         expected_draw=m["reserve_draw_total_t"]
-        actual_draw=prior_reserve-L["engineering_reserve_t"]-L.get("house_fuel_tank_t",0.0)-L.get("shuttle_v1_resize_20261103",{}).get("delta_t",0.0)  # approved shuttle debit is NOT an Option-C draw
+        actual_draw=prior_reserve-L["engineering_reserve_t"]-L.get("house_fuel_tank_t",0.0)-L.get("shuttle_v1_resize_20261103",{}).get("delta_t",0.0)-crown_delta  # approved shuttle debit is NOT an Option-C draw
         pane_delta=I["i4_carryover"]["crown_increment_from_reserve_t"]-.347738-m.get("dome_primary_delta_t",0.0)
         cs.append(chk("Option C explicit reserve draw reconciles (including dome change)",
             round(actual_draw,6),round(expected_draw,6),
@@ -206,7 +217,39 @@ def g1(I, C, G):
            round(released,6),round(W2["released_after_t"],6),
            abs(released-W2["released_after_t"])<1e-7 and
            abs(draws-W2["total_new_draw_t"])<1e-7 and
-           abs(actual_combined-W2["combined_after_t"])<1e-7,"t"))
+           abs(actual_combined-(W2["combined_after_t"]-crown_delta))<1e-7,"t"))
+    if I.get("og3_hydra"):
+        OG=load_og3(I)
+        a=OG["areal_budget_kg_m2"]
+        CF=OG.get("crown_conformal")
+        if CF and CF.get("zones"):
+            zones=CF["zones"]
+            new_mass=sum(z["total_hydra_mass_t"] for z in zones)
+            LOG=L.get("og3_crown_conformal_bookkeeping",{})
+            cs.append(chk("OG-3 crown ring-specific full skin+bulk masses agree physical builder and ledger",
+              round(new_mass,6),round(AOI["mass_t"],6),
+              abs(new_mass-AOI["mass_t"])<1e-7 and
+              abs(AOI["mass_t"]-CF["conformal_total_mass_t"])<1e-7 and
+              abs(LOG.get("physical_mass_delta_t",0)-crown_delta)<1e-8,"t"))
+            cs.append(chk("OG-3 conformal crown draw debited from engineering reserve without using protected deep-gel option",
+              round(L["engineering_reserve_t"],6),
+              round(LOG["engineering_reserve_before_t"]-crown_delta,6),
+              abs(L["engineering_reserve_t"]-(LOG["engineering_reserve_before_t"]-crown_delta))<1e-8 and
+              L["engineering_reserve_t"]>=5 and
+              L["engineering_reserve_t"]+L["structure_split"]["released_to_reserve"]>=16.8 and
+              CF["uncommitted_1p04t_option_preserved"],"t",
+              "OG-3 gel mass replaces distributed reserve; total dry mass invariant; 1.04t stays protected unspent"))
+        W=I["windows_wws1"]["areal_kg_m2"]
+        skin=OG["skin"]
+        bulk=OG["bulk"]
+        deep=OG["crown_fit"]
+        cs.append(chk("OG-3 swaps same physically booked WWS AOI column (zero new dry mass)",
+          round(skin["mass_kg_m2"]+bulk["mass_kg_m2"],9),round(a,9),
+          abs(skin["mass_kg_m2"]+bulk["mass_kg_m2"]-a)<1e-8 and
+          abs(W["aoi"]-a)<1e-8,"kg/m2"))
+        cs.append(chk("OG-3 deep gel remains uncommitted in existing reserve, no new credit",
+          deep["deep_gel_added_t"],0,deep["deep_gel_added_t"]==0,"t",
+          f'{deep["unspent_deep_gel_option_t"]}t option unspent; reserve and dry mass not increased'))
     r = gate("G1", "Mass and fluids ledger", cs, notes=notes)
     r["mass_states"] = tab
     return r
@@ -965,7 +1008,10 @@ def g6(I, C, G):
         if m <= 0: continue
         sh=B.shape_from_spec(p["shape"])
         items.append((sh, m/p["volume_m3"], sh.bbox()))
-    notes.append(f"Shielding credits committed material only; uncommitted distributed growth allowance is zero radiation mass, AOI gel zero radiation credit (fraction {spread_fraction:.6f} on spread dry parts).")
+    if I.get("og3_hydra"):
+        notes.append(f"Continuous-hull ray screen credits committed physical armour/water only; OG3 organic mass is credited separately as per-aperture areal column, NOT double-booked into path transport. No dose output from OG3. Uncommitted growth mass zero credit (fraction {spread_fraction:.6f}).")
+    else:
+        notes.append(f"Shielding credits committed material only; uncommitted distributed growth allowance is zero radiation mass, AOI gel zero radiation credit (fraction {spread_fraction:.6f} on spread dry parts).")
     s = shelter["shape"]
     rm = (s["r0"] + s["r1"]) / 2
     am = math.radians((s["a0"] + s["a1"]) / 2)
@@ -996,6 +1042,52 @@ def g6(I, C, G):
     WWS=I.get("windows_wws1")
     if WWS:
         ar=WWS["areal_kg_m2"]
+        OG=load_og3(I)
+        if OG:
+            stack=OG["shield_areal"]; unit=stack["areal_kg_m2_per_g_cm2"]
+            skin=OG["skin"];bulk=OG["bulk"]
+            fractions=bulk["fractions_by_mass"]
+            open_column=(stack["outer_bumper_kg_m2"]+
+               stack["primary_pressure_pane_kg_m2"]+
+               stack["backup_pressure_pane_kg_m2"]+
+               skin["mass_kg_m2"]+bulk["mass_kg_m2"])/unit
+            closed_column=open_column+stack["shutter_closed_kg_m2"]/unit
+            cs.append(chk("OG-3 HYDRA OPEN: physical areal column only (NOT GCR or SPE dose)",
+              round(open_column,6),round(stack["nominal_open_column_g_cm2"],6),
+              abs(open_column-stack["nominal_open_column_g_cm2"])<1e-7,"g/cm2",
+              "Quiet sun; below LOOM 40g/cm2 SPE ray screen; no dose reduction inferred"))
+            cs.append(chk("OG-3 HYDRA CLOSED: local areal mass meets unchanged SPE ray rule",
+              round(closed_column,6),OG["operating_rule"]["SPE_min_ray_loomscreen_g_cm2"],
+              closed_column>=c6["shelter_min_g_cm2"] and
+              OG["operating_rule"]["SPE_min_ray_loomscreen_g_cm2"]==c6["shelter_min_g_cm2"] and
+              abs(closed_column-stack["nominal_closed_column_g_cm2"])<1e-7,"g/cm2",
+              "Shutter physically closed, plus ceramic panes and hydrogenous OG-3, not a transport result"))
+            cs.append(chk("OG-3 nano-fibre below 1% by mass; composition declared only",
+              fractions["hydrogen_functionalized_bnnt_fibre_network"],
+              OG["bulk"]["nanofibre_requirement"], 
+              fractions["hydrogen_functionalized_bnnt_fibre_network"]<bulk["nanofibre_max_mass_fraction"] and
+              abs(sum(fractions.values())-1)<1e-8))
+            cs.append(chk("OG-3 has ZERO quantified radiation-dose and optical heat credit",
+               [stack["GCR_dose_equivalent_mSv_y"],stack["SPE_dose_equivalent_mSv_event"],stack["dose_credit_fraction"],skin["optical_heat_credit"]],
+               [None,None,0,0],
+               stack["GCR_dose_equivalent_mSv_y"] is None and stack["SPE_dose_equivalent_mSv_event"] is None and
+               stack["dose_credit_fraction"]==0 and skin["optical_heat_credit"]==0))
+            CF=OG.get("crown_conformal")
+            if CF and CF.get("zones"):
+                z=CF["zones"]
+                min_gap=min(t["normal_gap_min_m"] for t in z)
+                cs.append(chk("OG-3 conformal annulus interpolation preserves physical declared minimum local crown gap",
+                  round(min_gap,6),CF["min_normal_gap_m"],
+                  min_gap>=CF["min_normal_gap_m"]-1e-8 and
+                  all(t["normal_gap_min_m"]>=skin["thickness_m"] for t in z),"m",
+                  "Source-constrained interpolation only; actual backup surface is unspecified; no physical fit qualified"))
+                cs.append(chk("OG-3 crown annulus open/closed areal extremes preserve 40g screen only WHEN shutter closed",
+                  round(min(t["closed_total_wws_g_cm2"] for t in z),6),c6["shelter_min_g_cm2"],
+                  min(t["closed_total_wws_g_cm2"] for t in z)>=c6["shelter_min_g_cm2"],"g/cm2",
+                  "Crown zones are DIFFERENT from WWS side-port uniform 66.61kg/m²; dose remains uncomputed"))
+                decl.append(("og3_crown_conformal",
+                  f"OG-3 crown zonal material areal densities {[round(t['hydra_areal_kg_m2'],3) for t in z]} kg/m², from an interpolated normal-gap field fitting the source 3.023m³ cavity and 59.73mm minimum, NOT a surveyed backup-dome surface. Physical +{CF['crown_mass_delta_t']:.6f}t draws only from preexisting engineering reserve; no deep gel added. Side windows retain uniform OG3/WWS AOI areal budget. GCR/SPE dose NOT computed."))
+            decl.append(("og3_hydra","OG-3 HYDRA physical areal mass now credited for OPEN and CLOSED shutter state. GCR and SPE DOSE remain NOT COMPUTED. 20170005580 addresses aluminium modelled local dose minimum near 20-30g/cm2 and flattening polyethylene at greater depths, not universal hydrogenous 20g/cm2 limit. OG3 shell/cavity fit, BNNT dispersion, 10B reaction secondaries, radiolysis, outgassing and fire remain OPEN."))
         closed_without_aoi=(ar["outer_bumper"]+ar["primary"]+ar["backup"]+ar["closed_shutter"])/10
         need=(ar["removed_armor_and_hull"])/10
         # Berth insert +8g/cm2 of water is conservatively assumed lost: check it, too.
@@ -1009,7 +1101,7 @@ def g6(I, C, G):
         ns=[f for f in G["features"] if f["kind"]=="window" and f["room"]=="L4-shelter"]
         cs.append(chk("WWS-1 storm shelter ZERO cutouts",len(ns),0,len(ns)==0,"windows",
           "Two prior ports sealed; actual armour/water-jacket restoration must be inspected"))
-        decl.append(("wws1_shield","All side shutters CLOSED for torch/Metric/radiation/dust/heat-pump failure. Local areal mass is no worse than prior continuous hull, AOI ZERO radiation credit. No particle/dose transport or per-aperture sealing qualification."))
+        decl.append(("wws1_shield","All side shutters CLOSED for SPE alert/torch/Metric/LOOM/high dust/heat pump failure; open only quiet sun. OG-3 (when selected) has measured-by-model AREAL MASS credit, but ZERO radiation DOSE benefit assigned; old material mass is not double credited. No particle/dose transport or aperture seal qualification."))
     BV = I["habitat"].get("crew_systems", {}).get("berth_viewports")
     if BV:
         nb = len([f for f in G["features"] if f.get("berth")])
@@ -1110,9 +1202,7 @@ def g6(I, C, G):
     decl.append(("shelter_life_support", f"Storm shelter life support: {c6['shelter_life_support_h']} h for {n} people from the life-support room on the same deck (design provision, not computed)."))
     yr = c6["gcr_msv_per_day_2026"] * 365
     days = c6["career_limit_msv"] / c6["gcr_msv_per_day_2026"]
-    decl.append(("gcr", f"Galactic cosmic rays: at 2026 free-space rates ({c6['gcr_msv_per_day_2026']} mSv/day, ~{yr:.0f} mSv/yr) a crew member reaches NASA's "
-                f"{c6['career_limit_msv']} mSv career limit after ~{days:.0f} days in deep space. Hull shielding barely changes this. Long careers aboard rely on canon's "
-                "off-Earth MED-MOD-RADIATION milestone and crew time-in-space rules; this is a canon question, not something the hull can close."))
+    decl.append(("gcr", f"Galactic cosmic rays: illustrative 2026 unshielded free-space rates ({c6['gcr_msv_per_day_2026']}mSv/day, ~{yr:.0f}mSv/year) are NOT a post-hull or OG-3 crew dose prediction. Hydrogen-rich material attenuates with diminishing returns; NTRS 20170005580 compares aluminium and polyethylene and cannot justify a universal hard shielding cutoff. Any long-term dose claim requires HZETRN/OLTARIS or Geant4 with full spectrum, secondary neutrons, material composition, actual aperture/shutter geometry and inhabited locations. The MED-MOD-RADIATION canon milestone stays an unresolved independent assumption."))
     decl.append(("torch_neutrons", "Torch neutrons and gammas: the shadow shield must attenuate the torch's neutron and gamma output so the dose rate inside the habitat during burns stays "
                 "within crew limits. The v0.5.2 heat model puts neutrons at ~0.76% of the burn's energy with 85% absorbed by the remass shell; the dose itself is not computed here, only the shadow geometry is checked."))
     r = gate("G6", "Radiation", cs, declared=decl, notes=notes)

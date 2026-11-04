@@ -5,6 +5,9 @@
 # Render requires Node >=20 and locked Playwright; on first run npm ci + Chromium/system deps install may need OS privileges.
 set -e
 cd "$(dirname "$0")"
+# Use the pinned Wayfarer venv when system Python lacks these packages.
+WAYFARER_PYTHON="$(python3 ../ensure_env.py)"
+export PATH="$(dirname "$WAYFARER_PYTHON"):$PATH"
 python3 build_v05.py
 (cd ../render && python3 sync_i4_scene.py > /dev/null)
 python3 habitat/hab_overlay_checks.py > /dev/null
