@@ -1655,9 +1655,9 @@ def g10(r4, scr):
         sys.path.insert(0, str(g10_dir))
         import g10_flight_dynamics as FD
         r = FD.run(r4["checks"])
-    except Exception as e:   # outside the loom-2226 repo the main src/ modules are absent
-        return gate("G10", "Flight dynamics", [chk("G10 v0.2 tests run", f"not run: {e}", "run", False)], force=OPEN,
-                    notes=["G10 v0.2 needs the loom-2226 repository root (src/ modules on main). " + "; ".join(scr)])
+    except Exception as e:  # missing test module/dependency or execution error is a failure, not an OPEN qualification gap
+        return gate("G10", "Flight dynamics", [chk("G10 v0.2 tests run", f"not run: {e}", "run", False)], force=FAIL,
+                    notes=["G10 test module import, dependency or execution failed. " + "; ".join(scr)])
     (g10_dir / "g10_results.json").write_text(json.dumps(r, indent=1))
     checks = [dict(c, name=f"{grp.split('_')[0]}: {c['name']}") for grp, cs in r["checks"].items() for c in cs]
     I = json.loads((HERE.parent / "config/wayfarer_v05_inputs.json").read_text())
