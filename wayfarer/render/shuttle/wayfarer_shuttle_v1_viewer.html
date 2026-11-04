@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wayfarer Shuttle v1</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one 3D stage on top, mode chips and a state readout below. LOOM void palette, single dark look by design. */
+:root{
+  --void:#05070B; --deep:#0B1220; --mid:#11182B; --slate:#1E2A3A; --nebula:#22364A;
+  --ion:#00D1FF; --amber:#FF8703; --ice:#C7D3DF; --steel:#8A97A6; --white:#FFFFFF; --water:#4F8FD6; --crew:#7EE7D1;
+  --hair:rgba(0,209,255,.22); --div:rgba(138,151,166,.25);
+  --font:Montserrat,"Avenir Next","Segoe UI",Roboto,system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+html,body{background:var(--void);color:var(--ice)}
+body{font-family:var(--font);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 36px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:14px}
+header{display:grid;gap:6px}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ion)}
+h1{margin:0;font-weight:200;letter-spacing:.2em;text-transform:uppercase;font-size:clamp(22px,4.4vw,34px);color:var(--white);text-wrap:balance}
+.sub{margin:0;font-weight:300;color:var(--steel);font-size:14px;max-width:70ch;line-height:1.55}
+.stage{position:relative;height:clamp(360px,62vh,720px);border:1px solid var(--hair);border-radius:4px;overflow:hidden;background:var(--deep)}
+canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+canvas:active{cursor:grabbing}
+.lbl{position:absolute;left:0;top:0;pointer-events:none;font-size:11px;font-weight:500;letter-spacing:.06em;color:var(--white);white-space:nowrap;display:flex;align-items:center;gap:6px;text-shadow:0 0 4px #000,0 0 8px #000}
+.lbl::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c,var(--ion));box-shadow:0 0 6px var(--c,var(--ion))}
+.lbl small{font-family:var(--mono);font-weight:400;font-size:10px;color:var(--ice);letter-spacing:0}
+.tag{position:absolute;top:calc(10px + 0px);left:12px;font-family:var(--mono);font-size:10px;color:var(--steel);letter-spacing:.04em;pointer-events:none}
+.hint{position:absolute;right:12px;bottom:10px;font-size:10px;color:var(--steel);letter-spacing:.06em;pointer-events:none}
+.controls{display:grid;gap:10px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.row .k{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--steel);min-width:64px}
+.chip{font:inherit;font-size:12px;font-weight:400;letter-spacing:.04em;color:var(--ice);background:var(--mid);border:1px solid var(--div);border-radius:3px;padding:8px 12px;cursor:pointer}
+.chip:hover{border-color:var(--hair);color:var(--white)}
+.chip[aria-pressed="true"]{background:var(--nebula);border-color:var(--ion);color:var(--white)}
+.chip.t[aria-pressed="true"]{border-color:var(--amber)}
+.chip:focus-visible{outline:2px solid var(--ion);outline-offset:2px}
+.panel{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px}
+@media (max-width:760px){.panel{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--deep);border:1px solid var(--div);border-radius:4px;padding:16px;display:grid;gap:10px;min-width:0}
+.card h2{margin:0;font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--white)}
+.card p{margin:0;font-size:14px;line-height:1.6;font-weight:300;color:var(--ice);max-width:65ch}
+dl{margin:0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 14px;font-size:13px}
+dt{color:var(--steel);font-weight:400}
+dd{margin:0;font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--white);text-align:right}
+dd .src{font-size:10px;color:var(--steel);margin-left:6px}
+.legend{display:grid;gap:8px;font-size:13px}
+.legend div{display:flex;gap:10px;align-items:center}
+.sw{width:12px;height:12px;border-radius:2px;flex:none}
+.foot{font-size:12px;color:var(--steel);line-height:1.6;font-weight:300;max-width:90ch}
+.open{color:var(--amber)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">LOOM 2226 · Wayfarer planetary shuttle · research baseline v1</div>
+    <h1>Wayfarer Shuttle</h1>
+    <p class="sub">An uncrewed truck shuttle carrying a three-crew pressure pod that is also the rover. On Venus and Titan a detachable kit adds a 12 m tip-jet rotor and a house reactor. On airless and thin-air worlds it lands on chemical belly thrusters.</p>
+  </header>
+
+  <div class="stage" id="stage">
+    <canvas id="c" role="img" aria-label="3D model of the Wayfarer shuttle v1 concept, rotatable"></canvas>
+    <div class="tag" id="tag">non-canon · concept geometry · resized v1, Wayfarer geometry 293a4e90 (PR #460 draft)</div>
+    <div class="hint">Drag to orbit · pinch or scroll to zoom</div>
+  </div>
+
+  <div class="controls">
+    <div class="row" role="group" aria-label="Mission state">
+      <span class="k">State</span>
+      <button class="chip" type="button" data-mode="docked" aria-pressed="true">Docked in bay</button>
+      <button class="chip" type="button" data-mode="descent" aria-pressed="false">Venus: rotor flight</button>
+      <button class="chip" type="button" data-mode="vent" aria-pressed="false">Venus: landed</button>
+      <button class="chip" type="button" data-mode="podout" aria-pressed="false">Pod rover out</button>
+      <button class="chip" type="button" data-mode="light" aria-pressed="false">Moon · Mars · Mercury</button>
+    </div>
+    <div class="row" role="group" aria-label="View options">
+      <span class="k">View</span>
+      <button class="chip t" type="button" id="tCut" aria-pressed="false">Cutaway</button>
+      <button class="chip t" type="button" id="tKit" aria-pressed="true">Venus kit fitted</button>
+      <button class="chip t" type="button" id="tLbl" aria-pressed="true">Labels</button>
+      <button class="chip t" type="button" id="tFig" aria-pressed="false">1.8 m figure</button>
+      <button class="chip" type="button" id="reset">Reset view</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <section class="card" aria-live="polite">
+      <h2 id="mTitle">Docked in Wayfarer's bay</h2>
+      <p id="mText"></p>
+      <dl id="mFacts"></dl>
+    </section>
+    <section class="card">
+      <h2>Colour key</h2>
+      <div class="legend">
+        <div><span class="sw" style="background:#9AA6B4"></span>Core shuttle: hull, torch, structure</div>
+        <div><span class="sw" style="background:#3A3330"></span>Belly heat shield (core or kit split is open)</div>
+        <div><span class="sw" style="background:var(--amber)"></span>Venus kit: rotor, mast, reactor, exchanger</div>
+        <div><span class="sw" style="background:var(--crew)"></span>Crew pod, chassis and custody capsule</div>
+        <div><span class="sw" style="background:var(--water)"></span>Water tank, 23.1 t</div>
+        <div><span class="sw" style="background:var(--ion)"></span>Wayfarer bay envelope</div>
+      </div>
+      <p class="foot">Shapes and positions are a notional layout drawn from the sizer's dimensions. They are not a qualified design. Open items include the real mast and hub sizes, kit stowage in the holds, ascent trajectory and torch light-up in dense CO₂.</p>
+    </section>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+const stage=document.getElementById('stage');
+const canvas=document.getElementById('c');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!window.THREE){document.getElementById('tag').textContent='3D library failed to load. Reload the page.';return;}
+
+const X=s=>6.4-s; // nose at +x, s = metres from nose
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+renderer.setPixelRatio(Math.min(2,window.devicePixelRatio||1));
+renderer.localClippingEnabled=true;
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(36,1,0.1,600);
+
+scene.add(new THREE.HemisphereLight(0xc7d3df,0x1e2a3a,0.8));
+const sun=new THREE.DirectionalLight(0xffffff,0.95);sun.position.set(14,20,16);scene.add(sun);
+const rim=new THREE.DirectionalLight(0x00d1ff,0.35);rim.position.set(-16,6,-12);scene.add(rim);
+const warm=new THREE.PointLight(0xff8703,0,30);warm.position.set(0,6,0);scene.add(warm);
+
+const cut=new THREE.Plane(new THREE.Vector3(0,0,-1),0);
+const clipMats=[];
+const M=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.6,metalness:.25},o));
+const clipM=m=>{m.side=THREE.DoubleSide;clipMats.push(m);return m;};
+const axial=g=>{g.rotateZ(Math.PI/2);return g;};
+const V2=a=>a.map(p=>new THREE.Vector2(p[0],p[1]));
+
+const ship=new THREE.Group();scene.add(ship);
+
+// --- hull (door gap in the cylinder at s 4.0-6.9 on the +z side)
+const hullM=clipM(M(0x9aa6b4,{roughness:.55,metalness:.35}));
+const nose=new THREE.Mesh(axial(new THREE.LatheGeometry(V2([[0,0],[.33,.05],[.55,.28],[1.12,1.5],[1.9,4.0]]),56)),hullM);
+nose.geometry.translate(6.4,0,0);ship.add(nose);
+const DT0=-0.75,DTL=1.62; // door arc (rad), y -1.30 .. +1.45
+const midG=axial(new THREE.CylinderGeometry(1.9,1.9,2.9,56,1,true,DT0+DTL,Math.PI*2-DTL));midG.translate(X(5.45),0,0);
+ship.add(new THREE.Mesh(midG,hullM));
+const aftG=axial(new THREE.CylinderGeometry(1.9,1.9,5.5,56,1,true));aftG.translate(X(9.65),0,0);
+ship.add(new THREE.Mesh(aftG,hullM));
+const tail=new THREE.Mesh(axial(new THREE.LatheGeometry(V2([[1.9,12.4],[1.72,12.8],[0,12.8]]),56)),hullM);
+tail.geometry.translate(6.4,0,0);ship.add(tail);
+
+// belly heat shield, bottom arc only
+const tpsM=clipM(M(0x3a3330,{roughness:.9,metalness:.05,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2}));
+const tps=new THREE.Mesh(axial(new THREE.LatheGeometry(V2([[0.001,0],[.33,.05],[.55,.28],[1.12,1.5],[1.9,4.0],[1.9,12.4]]),48,Math.PI*1.5-0.75,1.5)),tpsM);
+tps.geometry.translate(6.4,0,0);ship.add(tps);
+
+// side door, gull-wing, hinged on its top edge
+const doorPivot=new THREE.Group();
+const hingeY=1.9*Math.sin(DT0+DTL),hingeZ=1.9*Math.cos(DT0+DTL);
+doorPivot.position.set(X(5.45),hingeY,hingeZ);ship.add(doorPivot);
+const doorG=axial(new THREE.CylinderGeometry(1.9,1.9,2.9,24,1,true,DT0,DTL));doorG.translate(0,-hingeY,-hingeZ);
+const doorM=clipM(M(0xb4bec9,{roughness:.5,metalness:.4,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2}));
+doorPivot.add(new THREE.Mesh(doorG,doorM));
+const ramp=new THREE.Mesh(new THREE.BoxGeometry(2.6,.08,2.85),M(0x8a97a6,{metalness:.5}));
+ramp.position.set(X(5.45),-1.75,2.75);ramp.rotation.x=0.323;ship.add(ramp);
+
+// --- water tank, torch, nozzle
+const tank=new THREE.Mesh(axial(new THREE.CylinderGeometry(1.55,1.55,3.1,40)),M(0x4f8fd6,{roughness:.4,metalness:.2}));
+tank.position.x=X(8.65);ship.add(tank);
+const torch=new THREE.Mesh(axial(new THREE.CylinderGeometry(.95,1.0,2.15,40)),M(0x6f7a86,{metalness:.6,roughness:.4}));
+torch.position.x=X(11.375);ship.add(torch);
+const ring=new THREE.Mesh(new THREE.TorusGeometry(.78,.1,14,48),M(0x00d1ff,{emissive:0x00d1ff,emissiveIntensity:.35,metalness:.6}));
+ring.rotation.y=Math.PI/2;ring.position.x=X(12.72);ship.add(ring);
+
+// --- Venus kit: reactor, exchanger, duct, intake, mast, rotor
+const kit=new THREE.Group();ship.add(kit);
+const HUBX=X(6.8); // rotor hub 6.8 m aft of the nose; folded blades end at the 12.8 m tail
+const amb=M(0xff8703,{roughness:.5,metalness:.35});
+const kr=new THREE.Mesh(new THREE.BoxGeometry(1.5,1.05,1.1),amb);kr.position.set(X(2.95),0.15,0);kit.add(kr);
+const kx=new THREE.Mesh(new THREE.BoxGeometry(1.15,.38,.8),M(0xd96f00,{roughness:.5}));kx.position.set(X(3.05),1.0,0);kit.add(kx);
+const duct=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([new THREE.Vector3(X(3.6),1.1,0),new THREE.Vector3(X(4.6),1.52,0),new THREE.Vector3(X(5.9),1.6,0),new THREE.Vector3(X(6.8),1.6,0)]),24,.1,10,false),amb);
+kit.add(duct);
+const intake=new THREE.Mesh(new THREE.BoxGeometry(.8,.12,.55),M(0x7a4410));intake.position.set(X(6.05),1.8,0);kit.add(intake);
+const mast=new THREE.Mesh(new THREE.CylinderGeometry(.16,.18,1,16),amb);kit.add(mast);
+const rotor=new THREE.Group();kit.add(rotor);
+const hub=new THREE.Mesh(new THREE.CylinderGeometry(.3,.3,.26,24),M(0xe07a00,{metalness:.5}));rotor.add(hub);
+const bladeM=M(0xffa040,{roughness:.45,metalness:.3});
+const tipM=new THREE.MeshBasicMaterial({color:0xffc070,transparent:true,opacity:0});
+const blades=[],tips=[];
+const STOW=[{yaw:Math.PI,z:.23,y:0},{yaw:Math.PI,z:-.23,y:0},{yaw:Math.PI,z:.23,y:-.09},{yaw:Math.PI,z:-.23,y:-.09}]; // all four fold aft into the spine groove, two wide, two deep
+const DEP=[0,Math.PI/2,Math.PI,Math.PI*1.5];
+for(let i=0;i<4;i++){
+  const p=new THREE.Group();
+  const b=new THREE.Mesh(new THREE.BoxGeometry(5.6,.07,.42),bladeM);b.position.x=3.2;p.add(b);
+  const tip=new THREE.Mesh(new THREE.SphereGeometry(.16,12,8),tipM);tip.position.x=5.84;p.add(tip);tips.push(tip);
+  rotor.add(p);blades.push(p);
+}
+const ventM=new THREE.MeshBasicMaterial({color:0xff9a3c,transparent:true,opacity:0,depthWrite:false,blending:THREE.AdditiveBlending});
+const vent=new THREE.Mesh(new THREE.ConeGeometry(1.4,7,24,1,true),ventM);vent.rotation.x=Math.PI;kit.add(vent);
+
+// --- pod rover (sphere, chassis, wheels, custody capsule)
+const pod=new THREE.Group();ship.add(pod);
+const podM=M(0x7ee7d1,{roughness:.35,metalness:.5});
+pod.add(new THREE.Mesh(new THREE.SphereGeometry(1.25,40,28),podM));
+const win=new THREE.Mesh(new THREE.CircleGeometry(.42,28),M(0x0b1220,{emissive:0x00d1ff,emissiveIntensity:.25,metalness:.8,roughness:.1}));
+win.position.set(0,.3,1.22);win.lookAt(0,.3,5);pod.add(win);
+const hatch=new THREE.Mesh(new THREE.TorusGeometry(.48,.05,8,28),M(0x2a6f66));hatch.position.copy(win.position);hatch.lookAt(0,.3,5);pod.add(hatch);
+const chassis=new THREE.Mesh(new THREE.BoxGeometry(1.6,.16,2.4),M(0x3e6e69,{metalness:.5}));chassis.position.y=-1.33;pod.add(chassis);
+const wheelG=new THREE.CylinderGeometry(.26,.26,.24,20);wheelG.rotateZ(Math.PI/2);
+const wheels=[];
+for(const wx of [-.7,.7])for(const wz of [-.6,.6]){const w=new THREE.Mesh(wheelG,M(0x22303d,{roughness:.9}));w.position.set(wx,-1.53,wz);pod.add(w);wheels.push(w);}
+const capsule=new THREE.Mesh(new THREE.BoxGeometry(.38,.32,.44),M(0x00d1ff,{emissive:0x00d1ff,emissiveIntensity:.45}));capsule.position.set(0,-1.08,1.0);pod.add(capsule);
+const POD0=new THREE.Vector3(X(5.45),.08,0),POD1=new THREE.Vector3(X(5.45),-0.41,6.2);
+
+// --- kneeling gear and belly thrusters
+const gear=[];
+for(const s of [2.8,10.6])for(const z of [-1.0,1.0]){
+  const g=new THREE.Group();g.position.set(X(s),-1.62,z);
+  const leg=new THREE.Mesh(new THREE.CylinderGeometry(.09,.11,.58,10),M(0x5d6874,{metalness:.7}));leg.position.y=-.29;g.add(leg);
+  const pad=new THREE.Mesh(new THREE.CylinderGeometry(.3,.34,.07,18),M(0x5d6874,{metalness:.6}));pad.position.y=-.58;g.add(pad);
+  ship.add(g);gear.push(g);
+}
+const bellyG=new THREE.Group();ship.add(bellyG);
+const plumeM=new THREE.MeshBasicMaterial({color:0xbfe9ff,transparent:true,opacity:0,depthWrite:false,blending:THREE.AdditiveBlending});
+const plumes=[];
+for(const s of [3.4,10.0])for(const z of [-.45,.45]){
+  const n=new THREE.Mesh(new THREE.CylinderGeometry(.1,.16,.1,14),M(0x4b5560,{metalness:.8}));n.position.set(X(s),-1.7,z);bellyG.add(n);
+  const pl=new THREE.Mesh(new THREE.ConeGeometry(.4,2.4,16,1,true),plumeM);pl.position.set(X(s),-2.95,z);bellyG.add(pl);plumes.push(pl);
+}
+
+// --- bay envelope (Wayfarer bore 4.8 m x 13.8 m)
+const bayG=axial(new THREE.CylinderGeometry(2.4,2.4,13.8,40,6,true));
+const bay=new THREE.LineSegments(new THREE.EdgesGeometry(bayG,1),new THREE.LineBasicMaterial({color:0x00d1ff,transparent:true,opacity:.5}));
+const bayW=new THREE.LineSegments(new THREE.WireframeGeometry(axial(new THREE.CylinderGeometry(2.4,2.4,13.8,32,8,true))),new THREE.LineBasicMaterial({color:0x00d1ff,transparent:true,opacity:.12}));
+const bayGrp=new THREE.Group();bayGrp.add(bay,bayW);scene.add(bayGrp);
+
+// --- ground, stars, figure
+const groundM=new THREE.MeshStandardMaterial({color:0x3b2a1f,roughness:1});
+const ground=new THREE.Mesh(new THREE.CircleGeometry(90,64),groundM);ground.rotation.x=-Math.PI/2;ground.position.y=-2.2;scene.add(ground);
+const grid=new THREE.GridHelper(60,30,0x6b4a33,0x4a3324);grid.position.y=-2.19;grid.material.transparent=true;grid.material.opacity=.35;scene.add(grid);
+const starG=new THREE.BufferGeometry();const sp=[];
+for(let i=0;i<1400;i++){const u=Math.random()*2-1,t=Math.random()*Math.PI*2,r=220;sp.push(r*Math.sqrt(1-u*u)*Math.cos(t),r*u,r*Math.sqrt(1-u*u)*Math.sin(t));}
+starG.setAttribute('position',new THREE.Float32BufferAttribute(sp,3));
+const stars=new THREE.Points(starG,new THREE.PointsMaterial({color:0xc7d3df,size:1.6,sizeAttenuation:false,transparent:true,opacity:.8}));scene.add(stars);
+const fig=new THREE.Group();
+const figM=M(0xffffff,{roughness:.7});
+const body=new THREE.Mesh(new THREE.CylinderGeometry(.2,.2,1.25,12),figM);body.position.y=.83;fig.add(body);
+const head=new THREE.Mesh(new THREE.SphereGeometry(.17,16,12),figM);head.position.y=1.63;fig.add(head);
+fig.position.set(X(9.5),-2.2,5.4);scene.add(fig);
+
+// --- label anchors
+const anchors=[];
+function anchor(parent,pos,name,detail,color,show){const o=new THREE.Object3D();o.position.copy(pos);parent.add(o);
+  const el=document.createElement('div');el.className='lbl';el.style.setProperty('--c',color);el.innerHTML=name+(detail?' <small>'+detail+'</small>':'');stage.appendChild(el);
+  anchors.push({o,el,show});}
+const v=(x,y,z)=>new THREE.Vector3(x,y,z);
+anchor(pod,v(0,1.25,0),'Crew pod','3 crew · 2.5 m · 1 bar','#7EE7D1',()=>st.cut||cur.pod>.3);
+anchor(pod,v(.22,-1.08,1.0),'Custody capsule','ejectable','#00D1FF',()=>st.cut||cur.pod>.3);
+anchor(ship,v(X(8.65),1.55,0),'Water tank','23.1 t','#4F8FD6',()=>st.cut);
+anchor(ship,v(X(11.4),1.0,0),'Torch','7.7 GW class','#C7D3DF',()=>st.cut);
+anchor(ship,v(X(12.72),.8,0),'Magnetic nozzle','','#00D1FF',()=>!st.cut&&mode!=='podout');
+anchor(kit,v(X(2.95),.7,0),'Kit house reactor','100–230 MW heat','#FF8703',()=>st.cut&&st.kit);
+anchor(rotor,v(0,.4,0),'Tip-jet rotor','12 m · 4 blades','#FF8703',()=>st.kit);
+anchor(ship,v(X(5.45),.2,1.95),'Side door','gull-wing + ramp','#C7D3DF',()=>!st.cut&&(mode==='vent'||mode==='docked'));
+anchor(ship,v(X(1.2),-.6,0),'Belly heat shield','','#8A97A6',()=>!st.cut&&mode==='docked');
+anchor(bellyG,v(X(3.4),-1.8,.45),'Belly thrusters','H₂/O₂','#BFE9FF',()=>mode==='light');
+anchor(ship,v(X(10.6),-2.05,1.0),'Kneeling gear','','#8A97A6',()=>cur.gear>.5&&mode!=='light');
+anchor(scene,v(X(-0.5),2.4,0),'Bay envelope','4.8 × 13.8 m bore · 0.5 m clear','#00D1FF',()=>cur.bay>.5);
+anchor(fig,v(0,1.9,0),'1.8 m','','#FFFFFF',()=>fig.visible);
+
+// --- modes
+const MODES={
+ docked:{kit:null,rotor:0,spin:0,gear:0,lift:0,door:0,pod:0,vent:0,belly:0,bay:1,env:'space',tgt:[0,0,0],
+  title:"Docked in Wayfarer's bay",
+  text:"The shuttle sits on Wayfarer's axis inside the water tank, in the same 3.8 m outline as the certified shuttle, so the bay keeps its 0.5 m clearance. With the Venus kit fitted, the hub sits 6.8 m aft of the nose and all four blades fold aft into a recessed spine groove, two side by side and two deep, ending at the tail. Real mast and hub sizes are not known yet.",
+  facts:[["Hull","12.8 × 3.8 m","sizer"],["Core dry (midpoint)","30.0 t","sizer"],["Wayfarer reserve left","9.16 t (floor 5 t)","ledger"],["Wayfarer G1–G12 with this shuttle","PASS, draft #460","certify"]]},
+ descent:{kit:true,rotor:1,spin:5.2,gear:1,lift:8,door:0,pod:0,vent:0,belly:0,bay:0,env:'venus',tgt:[0,5,0],
+  title:"Venus: rotor flight",
+  text:"After entry the rotor unfolds and spins on tip jets of reactor-heated CO₂. There is no motor and no tail rotor. Going up, the rotor climbs as far as its heat allows, then hands over to the torch.",
+  facts:[["Rotor power at 30 km","9–17 MW shaft","sizer"],["Kit reactor heat","100–230 MW","DECLARED"],["Handover altitude, median","43 km (18–67)","sizer"],["Torch light-up in dense CO₂","OPEN","open"]]},
+ vent:{kit:true,rotor:1,spin:0,gear:1,lift:0,door:0,pod:0,vent:1,belly:0,bay:0,env:'venus',tgt:[0,0,0],
+  title:"Venus: landed, ground vent",
+  text:"The shuttle kneels on its belly gear with the rotor parked. The kit reactor cannot run below 10% power, so that heat goes up through the hub as a hot CO₂ plume, away from the pod and ramp. The same reactor runs the cooler for a long stay.",
+  facts:[["Outside","92 bar · 735 K","ONLINE"],["Vented heat at reactor minimum","10–23 MW","sizer"],["18 h stay, active cooling, 3 crew","43.2% pass","sizer"],["Pod alone, passive, 3 crew","up to 7.5 h sampled","sizer"]]},
+ podout:{kit:true,rotor:1,spin:0,gear:1,lift:0,door:1,pod:1,vent:1,belly:0,bay:0,env:'venus',tgt:[0,-.5,3],
+  title:"Pod rover out",
+  text:"The lee-side door swings up and the ramp drops. The pod drives out on its folding chassis carrying the custody capsule, and the crew hand-deliver while the uncrewed shuttle waits. On Venus the pod runs on its own cold-water store.",
+  facts:[["Pod","2.5 m OD · 3 seats","sizer"],["Pressure","92 bar outside · 1 bar inside","sizer"],["Pod alone on Venus, passive","0.3–7.5 h sampled · no target","sizer"],["Pod shell","2.3–5.4 t","PROJECTION"]]},
+ light:{kit:false,rotor:0,spin:0,gear:1,lift:2.4,door:0,pod:0,vent:0,belly:1,bay:0,env:'airless',tgt:[0,1.5,0],
+  title:"Moon, Mars and polar Mercury",
+  text:"The Venus kit stays aboard Wayfarer. The shuttle sets down on hydrogen-oxygen belly thrusters, with the propellant split from its own water by Wayfarer's house reactors before departure. The torch lights only once the shuttle is well clear of the ground.",
+  facts:[["Belly thrust, Moon","85–145 kN","sizer"],["Belly thrust, Mars","195–333 kN","sizer"],["Belly thrust, Mercury","194–330 kN","sizer"],["Propellant plant","removable Wayfarer module","kT"]]}
+};
+const ENV={
+ space:{bg:0x05070b,fog:null,ground:false,stars:true},
+ venus:{bg:0x4a2c14,fog:[0x6b3f1c,18,95],ground:true,stars:false,gc:0x3b2a1f,grid:[0x7a5236,0x4a3324]},
+ airless:{bg:0x05070b,fog:null,ground:true,stars:true,gc:0x34363b,grid:[0x5a5f68,0x3a3e45]}
+};
+let mode='docked';
+const st={cut:false,kit:true,lbl:true,fig:false};
+const cur={rotor:0,spin:0,gear:0,lift:0,door:0,pod:0,vent:0,belly:0,bay:1,yaw:0};
+let tgtM=MODES.docked;
+const camT=new THREE.Vector3(0,0,0);
+
+function setEnv(name){const e=ENV[name];scene.background=new THREE.Color(e.bg);
+  scene.fog=e.fog?new THREE.Fog(e.fog[0],e.fog[1],e.fog[2]):null;
+  ground.visible=e.ground;grid.visible=e.ground;stars.visible=e.stars;
+  if(e.ground){groundM.color.setHex(e.gc);grid.material.color&&grid.material.color.setHex(e.grid[1]);}
+  warm.intensity=name==='venus'?.6:0;}
+function setMode(m){mode=m;tgtM=MODES[m];
+  if(tgtM.kit!==null){st.kit=tgtM.kit;press('tKit',st.kit);}
+  setEnv(tgtM.env);
+  document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===m?'true':'false'));
+  document.getElementById('mTitle').textContent=tgtM.title;
+  document.getElementById('mText').textContent=tgtM.text;
+  document.getElementById('mFacts').innerHTML=tgtM.facts.map(f=>'<dt>'+f[0]+'</dt><dd'+(f[2]==='open'?' class="open"':'')+'>'+f[1]+(f[2]!=='open'?'<span class="src">'+f[2]+'</span>':'')+'</dd>').join('');
+  fig.visible=st.fig&&tgtM.env!=='space';
+  if(reduce)Object.assign(cur,{rotor:tgtM.rotor,gear:tgtM.gear,lift:tgtM.lift,door:tgtM.door,pod:tgtM.pod,vent:tgtM.vent,belly:tgtM.belly,bay:tgtM.bay});}
+function press(id,on){document.getElementById(id).setAttribute('aria-pressed',on?'true':'false');}
+document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+document.getElementById('tCut').addEventListener('click',()=>{st.cut=!st.cut;press('tCut',st.cut);
+  clipMats.forEach(m=>{m.clippingPlanes=st.cut?[cut]:[];m.needsUpdate=true;});});
+document.getElementById('tKit').addEventListener('click',()=>{st.kit=!st.kit;press('tKit',st.kit);});
+document.getElementById('tLbl').addEventListener('click',()=>{st.lbl=!st.lbl;press('tLbl',st.lbl);});
+document.getElementById('tFig').addEventListener('click',()=>{st.fig=!st.fig;press('tFig',st.fig);fig.visible=st.fig&&tgtM.env!=='space';});
+
+// --- orbit control
+const narrow=()=>stage.clientWidth<560;
+let az=.78,el=.3,rad=narrow()?34:27;
+function resetView(){az=.78;el=.3;rad=narrow()?34:27;}
+document.getElementById('reset').addEventListener('click',resetView);
+const pts=new Map();let pinch0=0,rad0=rad;
+canvas.addEventListener('pointerdown',e=>{canvas.setPointerCapture(e.pointerId);pts.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(pts.size===2){const a=[...pts.values()];pinch0=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);rad0=rad;}});
+canvas.addEventListener('pointermove',e=>{if(!pts.has(e.pointerId))return;const p=pts.get(e.pointerId);
+  if(pts.size===1){az-=(e.clientX-p.x)*.008;el=Math.max(-.25,Math.min(1.45,el+(e.clientY-p.y)*.006));}
+  p.x=e.clientX;p.y=e.clientY;
+  if(pts.size===2){const a=[...pts.values()];const d=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);if(pinch0>0)rad=Math.max(9,Math.min(80,rad0*pinch0/d));}});
+const up=e=>{pts.delete(e.pointerId);if(pts.size<2)pinch0=0;};
+canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',up);
+canvas.addEventListener('wheel',e=>{e.preventDefault();rad=Math.max(9,Math.min(80,rad*Math.exp(e.deltaY*.001)));},{passive:false});
+
+function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+new ResizeObserver(resize).observe(stage);resize();
+
+const lerp=(a,b,k)=>a+(b-a)*k;
+const tmp=new THREE.Vector3();
+let last=performance.now(),t=0;
+function frame(now){
+  const dt=Math.min(.05,(now-last)/1000);last=now;t+=dt;
+  const k=reduce?1:1-Math.exp(-dt*3.2);
+  for(const key of ['rotor','gear','lift','door','vent','belly','bay'])cur[key]=lerp(cur[key],tgtM[key],k);
+  cur.spin=lerp(cur.spin,reduce?Math.min(tgtM.spin,.6):tgtM.spin,1-Math.exp(-dt*1.2));
+  // pod waits for the door
+  const podT=tgtM.pod>0?(cur.door>.85?1:0):0;
+  cur.pod=lerp(cur.pod,podT,reduce?1:1-Math.exp(-dt*(podT?1.1:3.5)));
+  if(tgtM.pod===0&&cur.pod>.05)cur.door=Math.max(cur.door,.9);
+
+  ship.position.y=cur.lift;
+  kit.visible=st.kit;
+  const hubY=1.72+1.62*cur.rotor;
+  mast.scale.y=Math.max(.001,hubY-1.6);mast.position.set(HUBX,(1.6+hubY)/2,0);
+  tips.forEach(x=>x.visible=cur.spin>.2);
+  rotor.position.set(HUBX,hubY,0);
+  cur.yaw+=cur.spin*dt;
+  const f=cur.rotor<.999?cur.rotor:1;
+  blades.forEach((p,i)=>{p.rotation.y=lerp(STOW[i].yaw,DEP[i]+cur.yaw,f);p.position.z=lerp(STOW[i].z,0,f);p.position.y=lerp(STOW[i].y,0,f);});
+  tipM.opacity=Math.min(1,cur.spin/3)*(.65+.35*Math.sin(t*30));
+  vent.position.set(HUBX,hubY+3.6,0);ventM.opacity=.28*cur.vent*(.85+.15*Math.sin(t*9));vent.scale.set(1+.05*Math.sin(t*7),1,1+.05*Math.sin(t*7));vent.visible=cur.vent>.02;
+  doorPivot.rotation.x=-1.7*cur.door;
+  ramp.visible=cur.door>.6;ramp.scale.z=Math.max(.01,(cur.door-.6)/.4);ramp.position.z=1.39+1.36*ramp.scale.z;ramp.position.y=-1.3-.45*ramp.scale.z;
+  // pod path: out along +z, then down to the ground
+  const pz=Math.min(1,cur.pod*1.15);
+  pod.position.set(POD0.x,lerp(POD0.y,POD1.y-cur.lift,Math.min(1,Math.max(0,(cur.pod-.25)/.75))),lerp(POD0.z,POD1.z,pz));
+  wheels.forEach(w=>w.rotation.x+=dt*cur.pod*(1-cur.pod)*12);
+  gear.forEach(g=>{g.scale.y=Math.max(.001,cur.gear);g.visible=cur.gear>.02;});
+  plumes.forEach(p=>p.visible=cur.belly>.02);
+  plumeM.opacity=.45*cur.belly*(.8+.2*Math.sin(t*25));plumes.forEach(p=>p.scale.y=.85+.15*Math.sin(t*19+p.position.x));
+  bayGrp.visible=cur.bay>.05;bay.material.opacity=.5*cur.bay;bayW.material.opacity=.12*cur.bay;
+  // camera
+  camT.lerp(tmp.set(tgtM.tgt[0],tgtM.tgt[1],tgtM.tgt[2]),reduce?1:1-Math.exp(-dt*2.5));
+  camera.position.set(camT.x+rad*Math.cos(el)*Math.sin(az),camT.y+rad*Math.sin(el),camT.z+rad*Math.cos(el)*Math.cos(az));
+  camera.lookAt(camT);
+  renderer.render(scene,camera);
+  // labels
+  const w=stage.clientWidth,h=stage.clientHeight;
+  for(const a of anchors){
+    const vis=st.lbl&&a.show()&&(a.o.parent!==kit||st.kit)&&(a.o.parent!==rotor||st.kit);
+    if(!vis){a.el.hidden=true;continue;}
+    a.o.getWorldPosition(tmp);tmp.project(camera);
+    if(tmp.z>1||Math.abs(tmp.x)>1.05||Math.abs(tmp.y)>1.05){a.el.hidden=true;continue;}
+    a.el.hidden=false;a.el.style.transform='translate('+((tmp.x+1)/2*w+4)+'px,'+((1-tmp.y)/2*h-8)+'px)';
+  }
+  requestAnimationFrame(frame);
+}
+setMode('docked');
+requestAnimationFrame(frame);
+})();
+</script>
+
+</body>
+</html>
