@@ -29,7 +29,7 @@ GOV={
 "electrical":"house reactor peak stores, electrical allocation, G4/G9",
 "external":"clearance vs windows and arm/rails, G5/G9",
 }
-CANON_PROTECTED={"armor","pressure_vessel","shield","shuttle","crown_backup_pressure_dome","crown_adaptive_optogel","hotfin_40","hotfin_140","hotfin_220","hotfin_320"}
+CANON_PROTECTED={"armor","pressure_vessel","shield","shuttle","plant_fore","plant_aft","crown_backup_pressure_dome","crown_adaptive_optogel","hotfin_40","hotfin_140","hotfin_220","hotfin_320"}
 CANON_LEDGER={
 "armor":"ledger.armor_fixed_shield_t",
 "shield":"ledger.propulsion_split.shield",
@@ -145,8 +145,6 @@ def report(B,G,I):
  "",
  "| Suspect ledger source | Hypothetical requested saving | Fraction of present pre-spread booked allocation | What must be shown |","|---|---:|---:|---|"]
  tests=[("manifold",10.0,"G4: thermal loop/pump/coolant mass from heat transfer and pressure, not bare radiators"),
-        ("plant_fore",4.5,"G4/G10: compact Mc/metric hardware constitutive model"),
-        ("plant_aft",4.5,"G4/G10: mirrored plant physics and redundancy closure"),
         ("reactor",8.0,"G2/G4/G5: torch reactor actual mass from specific power and shield interfaces"),
         ("tank_shell_out",2.0,"G5: tank/carrying-shell pressure, 5g buckling and double-duty"),
         ("tank_shell_in",2.0,"G5/G6: internal tank shell and radiation-water preservation")]
@@ -154,9 +152,17 @@ def report(B,G,I):
   q=next(z for z in p if z["id"]==id)
   l.append(f"| `{id}` | {target:.2f}t | {target/q['physically_allocated_without_spread_reserve_t']*100:.1f}% | {note} |")
  total=sum(x[1] for x in tests)
- l+=["",f"This **{total:.2f}t counterfactual package** would cover a 20Tm Halo's ~30.7t funding gap on paper, but **ZERO t is currently verified or credited**. Even one rejected component replacement unbalances the target. It cannot become ship mass until the indicated sizing calculations and G1–G12 checks pass.",
+ l+=["",f"This **{total:.2f}t counterfactual package** falls **{B['halo_cases_Je1000'][-1]['required_verified_stripdown_t']-total:.3f}t short** of the 20Tm Halo funding gap, even on paper. **ZERO t verified or credited**. Paired relational plant sections are **88t CANON HOLD**, not a candidate for the earlier hypothetical 9t discount. No requested saving changes ship mass until actual sizing laws and G1–G12 are satisfied.",
  "",
  "The most valuable first experiment is **manifold ~90t pre-spread:** reconstruct coolant duty, pressure drop, line length/radius, pump and material mass. If it genuinely requires ~90t, eliminate its alleged 10t saving and move on. The Mc plant is not discountable merely because it is futuristic.",
+ "",
+ "## Parked Track 2 material/thermal handoff (research-lab #151; zero credit)",
+ "",
+ "- **Pressure vessel:** current 15.000t pre-spread / 15.356t geometry stays intact. Old strength-only 9.000/12.825/14.025t shell savings are inadmissible without fatigue, crack growth, leak-before-burst, puncture and pressure-life sizing. Lower/mid/upper *non-vessel* material sensitivities 20.347/35.152/44.737t are unqualified; credited saving **0t**.",
+ "- **Thermal manifold:** 90t source, ~92.133t geometry; heavy/reference/optimistic pumped-loop hypotheses 356.58/88.75/26.61t do not qualify mass credits. Compare pumped liquid circuits, heat pipes, liquid-metal options and hybrid layouts; the already-booked **4t hot-fin deployment/loop allowance** must not be counted twice. Credited saving **0t**.",
+ "- **Next sizing lines:** 5kg/m² strake radiator panel basis 8.784t and 1750K hot-fin panel/support basis 21.024t; ~46t torch shield, ~87t reactor, ~31t nozzle, ~57t electrical remain physical sizing questions. No arbitrary mass cuts.",
+ "- **Halo funding:** 10/15/20Tm at Je1000 need 14.258/22.247/30.691t of additional *verified* savings above the floor; presently **0t** qualified. Bobber v0.6 composites/Halo 15–20Tm remains a parked, non-canon paper option, not a live Wayfarer branch.",
+ "- **Relational plant:** two 44t source allocations are CANON-HOLD; **0t** plant savings eligible. No radiation-dose credit for OG-3, Halo or Lightfold.",
  "",
  "## Hard holds",
  "",

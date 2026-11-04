@@ -3147,7 +3147,7 @@
       "governing_case": "Mc constitutive, 2GJ bank, cryoplant, G4/G10; physical sizing OPEN",
       "source": "wayfarer/results/out/wayfarer_v05_geometry.json::parts[plant_fore]",
       "source_provenance": "DERIVED: SPLIT plant, half of 88 t; shortened 1 m vs v0.4 to leave room for the transfer tunnel (density 1.17 t/m3, inside the 1.0-1.5 t/m3 range)",
-      "canon_or_protected": false,
+      "canon_or_protected": true,
       "canon_line_if_mapped": "ledger.relational_plant_t/2",
       "tags": [],
       "radiation_credit": "ZERO for reserve growth, NO unmeasured GCR/SPE dose credit"
@@ -4442,7 +4442,7 @@
       "governing_case": "Mc constitutive, 2GJ bank, cryoplant, G4/G10; physical sizing OPEN",
       "source": "wayfarer/results/out/wayfarer_v05_geometry.json::parts[plant_aft]",
       "source_provenance": "DERIVED",
-      "canon_or_protected": false,
+      "canon_or_protected": true,
       "canon_line_if_mapped": "ledger.relational_plant_t/2",
       "tags": [],
       "radiation_credit": "ZERO for reserve growth, NO unmeasured GCR/SPE dose credit"
