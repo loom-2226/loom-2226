@@ -1,0 +1,224 @@
+{
+  "id": "OG-3 HYDRA",
+  "status": "DRAFT/NON-CANON/UNQUALIFIED; kT decides merge",
+  "date": "2026-11-04",
+  "scope": "WWS-1 side windows fixed nominal AOI; crown OG-3 conformal zonal mass with interpolated backup geometry; physical qualification OPEN",
+  "source": "WWS-1 R2, crown equivalent 3000 kg/45.037125 m2",
+  "areal_budget_kg_m2": 66.611712004,
+  "skin": {
+    "material": "AOI-2226 electro-optical control skin",
+    "thickness_m": 0.002,
+    "assumed_density_kg_m3": 1200,
+    "mass_kg_m2": 2.4,
+    "functions": [
+      "clear",
+      "glare",
+      "dark",
+      "NIR modulation"
+    ],
+    "optical_heat_credit": 0,
+    "structural_pressure_credit": 0
+  },
+  "bulk": {
+    "material": "hydrogenous sealed alkane organogel",
+    "mass_kg_m2": 64.211712004,
+    "assumed_density_kg_m3": 1000,
+    "equivalent_thickness_m": 0.064211712004,
+    "fractions_by_mass": {
+      "alkane_organogel_carrier": 0.985,
+      "hydrogen_functionalized_bnnt_fibre_network": 0.005,
+      "enriched_10B_carborane": 0.01
+    },
+    "nanofibre_requirement": "BNNT-H <1% by mass; optically index-matched, long-term dispersion UNPROVEN",
+    "alkane_hydrogen_mass_fraction_example": 0.14,
+    "notes": [
+      "0.005 BNNT-H mass fraction and 0.01 10B-carborane are unqualified modeling assumptions, not demonstrated transparent recipe",
+      "10B captures some thermal neutrons but produces capture reaction secondaries; ZERO radiation-dose benefit credited",
+      "Effective density 1000 kg/m3 is a speculative fit constraint; real alkane organogels are often less dense, so available cavity thickness may force a redesign"
+    ],
+    "nanofibre_max_mass_fraction": 0.01
+  },
+  "crown_fit": {
+    "crown_interspace_volume_m3": 3.023,
+    "crown_reference_projection_area_m2": 45.037125,
+    "minimum_local_gap_m": 0.05973,
+    "bulk_plus_skin_equivalent_column_m": 0.067122402,
+    "cavity_fit": "Average-column only, local 59.73mm minimum means exact conformal cavity fill/thermal compliance OPEN. Do not assert local clearance.",
+    "deep_gel_added_t": 0,
+    "unspent_deep_gel_option_t": 1.04,
+    "unspent_class": "Already uncommitted; NO new reserve credit, NO physical addition",
+    "conformal_fit_report": "crown_conformal zones: interpolated surface fitting known min and known cavity volume; actual backup shell surface not independently defined",
+    "original_uniform_column_assumption": "RETIRED for crown; side WWS panes remain nominal 66.611712004 kg/m2",
+    "material_budget_status": "mass delta source-booked to engineering reserve; no deep gel 1.04t touched"
+  },
+  "shield_areal": {
+    "outer_bumper_kg_m2": 37.5,
+    "primary_pressure_pane_kg_m2": 105,
+    "backup_pressure_pane_kg_m2": 105,
+    "open_og3_kg_m2": 66.611712004,
+    "shutter_closed_kg_m2": 270,
+    "replaced_armour_plus_hull_kg_m2": 350,
+    "nominal_open_column_g_cm2": 31.4111712004,
+    "nominal_closed_column_g_cm2": 58.4111712004,
+    "areal_kg_m2_per_g_cm2": 10,
+    "dose_credit_fraction": 0,
+    "GCR_dose_equivalent_mSv_y": null,
+    "SPE_dose_equivalent_mSv_event": null,
+    "physical_ray_mission_qualification": "PENDING actual composition-and-geometry particle transport; not certified by column sum",
+    "crown_zone_open_g_cm2": [
+      32.304280271,
+      32.044281085,
+      31.592325774,
+      31.054039602
+    ],
+    "crown_zone_closed_g_cm2": [
+      59.304280271,
+      59.044281085,
+      58.592325774,
+      58.054039602
+    ],
+    "crown_gcr_dose_credit": 0,
+    "crown_spe_dose_credit": 0
+  },
+  "operating_rule": {
+    "open": "quiet sun only; radiation forecast and monitoring available, heat pump operational, low dust",
+    "close": [
+      "SPE alert",
+      "torch ignition or burn",
+      "Metric/LOOM",
+      "high dust / crown threshold exceeded",
+      "heat pump failure"
+    ],
+    "SPE_min_ray_loomscreen_g_cm2": 40,
+    "SPE_min_ray_class": "LOOM local ray design criterion; NOT asserted to be NASA's general SPE prescription"
+  },
+  "research": {
+    "source_urls": [
+      "https://ntrs.nasa.gov/citations/20170005580",
+      "https://ntrs.nasa.gov/api/citations/20170005580/downloads/20170005580.pdf"
+    ],
+    "literature_claim": "NASA Norman et al (2017) observed modeled aluminium minimum near 20-30 g/cm2 and hydrogen-rich polyethylene dose-equivalent curve flattening at higher areal depth; no universal 20 g/cm2 threshold or OG-3 dose computed"
+  },
+  "open": [
+    "sealed-organic flammability and pyrolysis (no atmospheric oxygen assumed, not zero fire risk)",
+    "radiolysis and gas evolution",
+    "outgassing / contamination of ceramics",
+    "freeze/boil viscosity and expansion operating range",
+    "BNNT-H dispersion lifetime, optical scattering and refractive matching",
+    "ceramic darkening and UV damage",
+    "10B capture secondary radiation and biological dose",
+    "fully filled pressure dome independent fracture/pulse",
+    "local 59.73mm minimum gap vs assumed 66.21mm equivalent column",
+    "long-life service and shutter-seam transport"
+  ],
+  "crown_conformal": {
+    "basis": "SOURCE-CONSTRAINED normal-gap radial interpolation on the existing 4.3m parent spherical meridian, calibrated to existing 3.023m3 cavity and 59.73mm minimum normal gap; backup dome detailed surface NOT given; 120mm claimed constant axial offset incompatible with data",
+    "normal_gap_profile_exponent": 2,
+    "integration_steps_per_zone": 3000,
+    "original_crown_interlayer_mass_t": 3.0,
+    "original_engineering_reserve_t": 9.163470262,
+    "original_aoi_crown_ledger_t": 7.728898,
+    "mass_source": "2026 kT new physical assumption: 2mm skin density1200, organic bulk density1000; every annulus computed from source rim min and cavity volume, cannot infer true backup geometry",
+    "radial_boundaries_m": [
+      0,
+      0.75,
+      2,
+      2.75,
+      3.5
+    ],
+    "parent_radius_m": 4.3,
+    "parent_depth_m": 3.3431182268263373,
+    "radius_m": 3.5,
+    "cavity_volume_m3": 3.023,
+    "min_normal_gap_m": 0.05973,
+    "fitted_centre_gap_excess_m": 0.015775563816,
+    "fitted_centre_normal_gap_m": 0.075505563816,
+    "surface_area_model_m2": 45.037125184,
+    "skin_total_mass_t": 0.1080891,
+    "bulk_total_mass_t": 2.932925749,
+    "conformal_total_mass_t": 3.04101485,
+    "crown_mass_delta_t": 0.04101485,
+    "zones": [
+      {
+        "id": "crown_ring_0",
+        "radial_bounds_m": [
+          0,
+          0.75
+        ],
+        "surface_area_m2": 1.775412489,
+        "normal_gap_min_m": 0.074781176,
+        "normal_gap_max_m": 0.075505564,
+        "normal_gap_area_mean_m": 0.075142803,
+        "total_interspace_volume_m3": 0.13340947,
+        "gel_bulk_volume_m3": 0.129858645,
+        "aoi_skin_mass_t": 0.00426099,
+        "bulk_mass_t": 0.129858645,
+        "total_hydra_mass_t": 0.134119635,
+        "hydra_areal_kg_m2": 75.542802712,
+        "open_total_wws_g_cm2": 32.304280271,
+        "closed_total_wws_g_cm2": 59.304280271
+      },
+      {
+        "id": "crown_ring_1",
+        "radial_bounds_m": [
+          0.75,
+          2
+        ],
+        "surface_area_m2": 11.260536841,
+        "normal_gap_min_m": 0.070354359,
+        "normal_gap_max_m": 0.074781176,
+        "normal_gap_area_mean_m": 0.072542811,
+        "total_interspace_volume_m3": 0.816870994,
+        "gel_bulk_volume_m3": 0.79434992,
+        "aoi_skin_mass_t": 0.027025288,
+        "bulk_mass_t": 0.79434992,
+        "total_hydra_mass_t": 0.821375209,
+        "hydra_areal_kg_m2": 72.942810853,
+        "open_total_wws_g_cm2": 32.044281085,
+        "closed_total_wws_g_cm2": 59.044281085
+      },
+      {
+        "id": "crown_ring_2",
+        "radial_bounds_m": [
+          2,
+          2.75
+        ],
+        "surface_area_m2": 12.661147622,
+        "normal_gap_min_m": 0.065766568,
+        "normal_gap_max_m": 0.070354359,
+        "normal_gap_area_mean_m": 0.068023258,
+        "total_interspace_volume_m3": 0.861252508,
+        "gel_bulk_volume_m3": 0.835930213,
+        "aoi_skin_mass_t": 0.030386754,
+        "bulk_mass_t": 0.835930213,
+        "total_hydra_mass_t": 0.866316967,
+        "hydra_areal_kg_m2": 68.423257738,
+        "open_total_wws_g_cm2": 31.592325774,
+        "closed_total_wws_g_cm2": 58.592325774
+      },
+      {
+        "id": "crown_ring_3",
+        "radial_bounds_m": [
+          2.75,
+          3.5
+        ],
+        "surface_area_m2": 19.340028232,
+        "normal_gap_min_m": 0.05973,
+        "normal_gap_max_m": 0.065766568,
+        "normal_gap_area_mean_m": 0.062640396,
+        "total_interspace_volume_m3": 1.211467027,
+        "gel_bulk_volume_m3": 1.172786971,
+        "aoi_skin_mass_t": 0.046416068,
+        "bulk_mass_t": 1.172786971,
+        "total_hydra_mass_t": 1.219203039,
+        "hydra_areal_kg_m2": 63.040396019,
+        "open_total_wws_g_cm2": 31.054039602,
+        "closed_total_wws_g_cm2": 58.054039602
+      }
+    ],
+    "geometry_status": "INTERPOLATED CONFORMAL DESIGN APPROXIMATION, not measured backup pressure surface; canonical 120mm axial offset conflicts with declared volume and normal minimum; physical fit remains OPEN",
+    "crown_axial_offset_metadata_m": 0.12,
+    "uncommitted_1p04t_option_preserved": true,
+    "not_an_historical_full_hull_validation": true
+  }
+}

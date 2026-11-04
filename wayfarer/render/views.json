@@ -421,7 +421,7 @@
    "id": "ext_departure",
    "kind": "exterior",
    "title": "Shuttle departure",
-   "caption": "Doors stand up at the slot edges; the rover-drop shuttle backs off its nose port and rises straight out through the 4.8 m slot.",
+   "caption": "Doors stand up at the slot edges; shuttle v1 (3.8 m, Venus kit fitted: rotor folded aft into its spine) backs off its nose port and rises straight out through the 4.8 m slot.",
    "eye": [
     2,
     -27,
@@ -451,7 +451,7 @@
    "strakeSpan": 0,
    "labels": [
     {
-     "t": "Rover-drop shuttle, 12.8 m",
+     "t": "Shuttle v1, 12.8 x 3.8 m",
      "at": [
       25,
       0,
@@ -1367,7 +1367,7 @@
    "id": "hab_crew",
    "kind": "command",
    "title": "Habitat crew systems",
-   "caption": "Cut along the ship's axis, bow up, walls left out: rooms show as coloured floors. Berths 2.10 m, one per person. A casualty moves at 0 g down the port ladder shaft and straight into the medical bay. v0.5.7: a 0.35 m viewport at the outer end of every berth.",
+   "caption": "Habitat crew systems: L3's ten 0.80 m WWS-1 ceramic windows, one per berth; shutters close to restore local shielding. The L4 storm shelter has ZERO windows. A casualty travels the port ladder route at 0 g; full structural/pressure certification remains declared.",
    "eye": [
     2.2,
     1.0,
@@ -1516,7 +1516,7 @@
      ]
     },
     {
-     "t": "Berth viewport (v0.5.7)",
+     "t": "Berth WWS-1 glazed port (0.80 m)",
      "at": [
       7.55,
       -0.86,
@@ -1709,7 +1709,7 @@
        0.071594
       ],
       "total_mass_t": 0.385772,
-      "storage_note": "Position x14.9-16.1, y -3.35..-2.65, z +/-0.5 m is inside courier SERVICE HOLD PORT x14..17 and \u03b8135..225, r2..4.3. Not in midship remass tanks. Seven individually packed spare 1cm outer panes from reserve; no payload double-count."
+      "storage_note": "Position x14.9-16.1, y -3.35..-2.65, z +/-0.5 m is inside courier SERVICE HOLD PORT x14..17 and θ135..225, r2..4.3. Not in midship remass tanks. Seven individually packed spare 1cm outer panes from reserve; no payload double-count."
      },
      "gores": {
       "count": 16,
@@ -1964,7 +1964,7 @@
        0.071594
       ],
       "total_mass_t": 0.385772,
-      "storage_note": "Position x14.9-16.1, y -3.35..-2.65, z +/-0.5 m is inside courier SERVICE HOLD PORT x14..17 and \u03b8135..225, r2..4.3. Not in midship remass tanks. Seven individually packed spare 1cm outer panes from reserve; no payload double-count."
+      "storage_note": "Position x14.9-16.1, y -3.35..-2.65, z +/-0.5 m is inside courier SERVICE HOLD PORT x14..17 and θ135..225, r2..4.3. Not in midship remass tanks. Seven individually packed spare 1cm outer panes from reserve; no payload double-count."
      },
      "gores": {
       "count": 16,
@@ -2178,7 +2178,7 @@
        0.071594
       ],
       "total_mass_t": 0.385772,
-      "storage_note": "Position x14.9-16.1, y -3.35..-2.65, z +/-0.5 m is inside courier SERVICE HOLD PORT x14..17 and \u03b8135..225, r2..4.3. Not in midship remass tanks. Seven individually packed spare 1cm outer panes from reserve; no payload double-count."
+      "storage_note": "Position x14.9-16.1, y -3.35..-2.65, z +/-0.5 m is inside courier SERVICE HOLD PORT x14..17 and θ135..225, r2..4.3. Not in midship remass tanks. Seven individually packed spare 1cm outer panes from reserve; no payload double-count."
      },
      "gores": {
       "count": 16,
@@ -2437,8 +2437,8 @@
   {
    "id": "ext_hab_viewports",
    "kind": "exterior",
-   "title": "Viewports open (v0.5.7)",
-   "caption": "Shutters and dome open, as at low speed. The L2 viewport band runs round the common deck (1.6 m tall in the lounge); berth viewports on L3; medical, shelter, suit-room and workshop viewports below. Every opening below the crown carries an acrylic shield plug. I4 six source-annulus couches plus low-g workstations, transfer handrails, NAV platform; full suited-body clearance is declared, not hardware-qualified.",
+   "title": "WWS-1 habitat glazing, shutters OPEN",
+   "caption": "WWS-1 glazing with Strata shutters OPEN at low-dust viewing conditions: L2 panoramic band, one closable port per L3 berth, L4 medical windows, and suit/workshop/vestibule ports. L4 storm shelter has ZERO windows. All 208 Metric node faces remain flush armour-colour covered discs. AOI shielding and thermal credit ZERO; glazing, shutters and pressure-panes physically UNQUALIFIED.",
    "eye": [
     -6.0,
     11.0,
@@ -2835,6 +2835,221 @@
      "scope": "mass/CG proxy only; NOT independent tank packaging or separation"
     }
    }
+  },
+  {
+   "id": "pov_berth",
+   "kind": "command",
+   "title": "Berth: personal view to space",
+   "caption": "WWS-1, from an occupied interior position, shutters OPEN; same source-geometry camera for both comparison rounds. Physical pressure, radiation, fatigue and pane qualification remain DECLARED.",
+   "show": "habitat",
+   "hab": true,
+   "cmd": true,
+   "interior": true,
+   "holes": true,
+   "windowFrames": true,
+   "shutters": "open",
+   "up": [
+    -1,
+    0,
+    0
+   ],
+   "near": 0.05,
+   "exposure": 1.15,
+   "eye": [
+    7.55,
+    3.815407014,
+    1.022335228
+   ],
+   "target": [
+    7.55,
+    4.539851384,
+    1.216449512
+   ],
+   "fov": 70,
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "sun": [
+    -0.5,
+    0.6,
+    0.62
+   ]
+  },
+  {
+   "id": "pov_lounge",
+   "kind": "command",
+   "title": "L2 lounge: panoramic view",
+   "caption": "WWS-1, from an occupied interior position, shutters OPEN; same source-geometry camera for both comparison rounds. Physical pressure, radiation, fatigue and pane qualification remain DECLARED.",
+   "show": "habitat",
+   "hab": true,
+   "cmd": true,
+   "interior": true,
+   "holes": true,
+   "windowFrames": true,
+   "shutters": "open",
+   "up": [
+    -1,
+    0,
+    0
+   ],
+   "near": 0.05,
+   "exposure": 1.15,
+   "eye": [
+    4,
+    -2.0,
+    0.0
+   ],
+   "target": [
+    4.4,
+    -4.6,
+    0.0
+   ],
+   "fov": 92,
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "sun": [
+    -0.5,
+    0.6,
+    0.62
+   ]
+  },
+  {
+   "id": "pov_galley",
+   "kind": "command",
+   "title": "L2 galley: view over the table",
+   "caption": "WWS-1, from an occupied interior position, shutters OPEN; same source-geometry camera for both comparison rounds. Physical pressure, radiation, fatigue and pane qualification remain DECLARED.",
+   "show": "habitat",
+   "hab": true,
+   "cmd": true,
+   "interior": true,
+   "holes": true,
+   "windowFrames": true,
+   "shutters": "open",
+   "up": [
+    -1,
+    0,
+    0
+   ],
+   "near": 0.05,
+   "exposure": 1.15,
+   "eye": [
+    4,
+    1.931851653,
+    -0.51763809
+   ],
+   "target": [
+    4.4,
+    4.443258801,
+    -1.190567607
+   ],
+   "fov": 92,
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "sun": [
+    -0.5,
+    0.6,
+    0.62
+   ]
+  },
+  {
+   "id": "pov_exercise",
+   "kind": "command",
+   "title": "L2 exercise: view from the deck",
+   "caption": "WWS-1, from an occupied interior position, shutters OPEN; same source-geometry camera for both comparison rounds. Physical pressure, radiation, fatigue and pane qualification remain DECLARED.",
+   "show": "habitat",
+   "hab": true,
+   "cmd": true,
+   "interior": true,
+   "holes": true,
+   "windowFrames": true,
+   "shutters": "open",
+   "up": [
+    -1,
+    0,
+    0
+   ],
+   "near": 0.05,
+   "exposure": 1.15,
+   "eye": [
+    4,
+    -1.0,
+    -1.732050808
+   ],
+   "target": [
+    4.4,
+    -2.3,
+    -3.983716857
+   ],
+   "fov": 92,
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "sun": [
+    -0.5,
+    0.6,
+    0.62
+   ]
+  },
+  {
+   "id": "pov_medical",
+   "kind": "command",
+   "title": "L4 medical: view by the care station",
+   "caption": "WWS-1, from an occupied interior position, shutters OPEN; same source-geometry camera for both comparison rounds. Physical pressure, radiation, fatigue and pane qualification remain DECLARED.",
+   "show": "habitat",
+   "hab": true,
+   "cmd": true,
+   "interior": true,
+   "holes": true,
+   "windowFrames": true,
+   "shutters": "open",
+   "up": [
+    -1,
+    0,
+    0
+   ],
+   "near": 0.05,
+   "exposure": 1.15,
+   "eye": [
+    9.2,
+    -1.991858429,
+    -1.15
+   ],
+   "target": [
+    9.55,
+    -3.983716857,
+    -2.3
+   ],
+   "fov": 95,
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "sun": [
+    -0.5,
+    0.6,
+    0.62
+   ]
   }
  ]
 }

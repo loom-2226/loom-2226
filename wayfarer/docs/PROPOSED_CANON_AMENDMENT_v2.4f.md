@@ -39,7 +39,7 @@ Reason: the C-tank lets the launch sit on the thrust axis inside the tank instea
 ## 3. Launch bay (would amend v2.4a §1-2)
 
 - Round bore 4.8 m across, x ~18.25-32.05, on the ship's axis inside the tank. Replaces the x 16-28 reservation.
-- Lateral departure through a 4.8 m slot on +Z; two doors that open to vertical. Unchanged in principle: unpressurized, substantially enclosed, lateral departure.
+- **SHUTTLE V1 RESIZED PROPOSAL ONLY (kT 2026-11-03 R1/R2):** retain the **certified 4.8 m bay bore and 4.8 m lateral slot**, existing two vertical-opening doors, upper sill longerons, radiator strakes, hot fins and **321.620667 m³ net tanks unchanged**. A **3.8 m diameter** nominal shuttle has 0.50 m nominal lateral exit clearance at the slot and 0.50 m nominal radial bore clearance; the actual swept mast, folded blades, hub, belly nozzles and door/ramp still require B/KF physical clearance and full G8 recertification. No slot widening or midship extension.
 - Pressure-tight crew transfer by tunnel: habitat L5 vestibule, collar node, bay axis, shuttle nose port.
 - DOCKED / ABSENT mass state is unchanged and is carried in every mass state.
 
@@ -71,8 +71,15 @@ Low signature is a skin criterion: an operational constraint, not a promise of i
 
 ## 6. Planetary launch
 
-Rover-drop shuttle: 27.9 t empty, 12.8 x 3.8 m. The Venus surface is reached by a hardened rover dropped from a cloud city. This replaces the candidate 30-35 t, ~10.5 m launch (candidate, not canon).
+**SHUTTLE V1 RESIZED REPLACEMENT TEXT — PROPOSAL ONLY, NOT CANON (kT 2026-11-03 R1–R5):**
 
+Replace the rover-drop shuttle with a **12.8 m long × 3.8 m diameter** modular planetary shuttle in the unchanged 4.8 m bore and +Z lateral slot. Its **resized docked core midpoint is 30.020646738 t** (NON-CANON ASSUMPTION-led sizer), replacing the old 27.900 t input, with an engineering reserve debit of 2.120646738 t, leaving **9.163470262 t** against the 5 t floor. It contains a **2.5 m outer-diameter, three-person titanium pressure pod** that separates onto a folding wheeled rover chassis and retains the custody capsule. This is a packaging and mass *proposal*, not a demonstrated 92-bar qualified sphere or fitted rover.
+
+The core carries an assumed **1–2 t Mars-class base entry thermal protection** (1.5 t midpoint). The original **3–6 t total entry-TPS envelope** is conserved exactly: **extra Venus protection = total TPS − core base TPS**, producing a correlated extra kit range 1–5 t (3 t midpoint). The numerical split is **ASSUMPTION**, not an empirically qualified Mars/Venus design. The complete Venus/Titan rotor+house-reactor kit is a removable **mission PAYLOAD** (10.26875 t midpoint), not Wayfarer dry mass. The Wayfarer-owned electrolysis/H₂/O₂ liquefaction plant is also a removable **1–4 t PAYLOAD** mission module; power from existing house reactors, transfer hardware and duty cycle remain OPEN. Together at midpoint the two modules occupy **11.26875–14.26875 t** of the rated 50 t cargo allocation.
+
+Venus and Titan retain the proposed detachable 12 m four-blade tip-jet rotor and hot reactor kit; Moon, Mars and Mercury polar sites use small H₂/O₂ belly thrusters, with the electric alternative OPEN. Mars entry TPS is core-owned. Earth spaceport access is not an Earth-entry qualification. All remaining physical holds remain OPEN: dense-CO₂ torch, trajectories, sphere buckling, surface thermal, Titan, and electric belly alternative.
+
+**Acceptance condition:** G1–G12 on a new deterministic geometry hash; strict unchanged G8 clearance criteria, physically stowed rotor/hub/pod/chassis/wheels/nozzles, KF actual hold apertures and 3 m blade joints, reserve ≥5 t, and no loss of habitat, protected water, heat rejection, or ship flight performance. **No canon promotion** pending complete recertification.
 ## 7. Declared assumptions (kT's acceptances recorded in `inputs/kt_decisions.json`)
 
 1. **Torch heat, a narrowed declared gap (accepted 2026-10-25).** The remass shell lets no more than about 360 ppm of the burn's energy escape as light, counting its own glow; the design value is 180 ppm. With the heat model's other assumptions, 1.4 GW reaches hot structure and under 1 MW the magnet coils. Whether a shell this hot can glow this little is a physics unknown that nobody has shown; it replaces v0.5.1's 387 MW (34 ppm) gap, which had no mechanism. The same gap covers neutron and gamma leakage: the torch and shadow shield keep habitat dose within crew limits during burns.
