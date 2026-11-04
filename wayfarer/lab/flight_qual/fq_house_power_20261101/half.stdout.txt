@@ -1,40 +1,40 @@
-FQ1 half 0.2 pitch_180  PASS fuel 952.863 elapsed 2.06
-FQ1 half 0.2 roll_180  PASS fuel 243.988 elapsed 1.75
-FQ1 half 0.2 yaw_180  PASS fuel 480.812 elapsed 3.46
-FQ2 half 0.2 pitch_180_cluster_A+Y A+Y PASS fuel 476.426 elapsed 3.52
-FQ2 half 0.2 roll_180_cluster_A+Y A+Y PASS fuel 122.463 elapsed 3.32
-FQ2 half 0.2 yaw_180_cluster_A+Y A+Y PASS fuel 480.812 elapsed 3.19
-FQ2 half 0.2 pitch_180_cluster_A+Z A+Z PASS fuel 476.426 elapsed 3.49
-FQ2 half 0.2 roll_180_cluster_A+Z A+Z PASS fuel 121.999 elapsed 3.24
-FQ2 half 0.2 yaw_180_cluster_A+Z A+Z PASS fuel 480.812 elapsed 3.49
-FQ2 half 0.2 pitch_180_cluster_A-Y A-Y PASS fuel 476.426 elapsed 3.26
-FQ2 half 0.2 roll_180_cluster_A-Y A-Y PASS fuel 122.547 elapsed 3.16
-FQ2 half 0.2 yaw_180_cluster_A-Y A-Y PASS fuel 480.812 elapsed 3.3
-FQ2 half 0.2 pitch_180_cluster_A-Z A-Z PASS fuel 476.426 elapsed 3.31
-FQ2 half 0.2 roll_180_cluster_A-Z A-Z PASS fuel 122.868 elapsed 3.18
-FQ2 half 0.2 yaw_180_cluster_A-Z A-Z PASS fuel 480.812 elapsed 3.42
-FQ2 half 0.2 pitch_180_cluster_F+Y F+Y PASS fuel 476.426 elapsed 3.43
-FQ2 half 0.2 roll_180_cluster_F+Y F+Y PASS fuel 122.974 elapsed 3.57
-FQ2 half 0.2 yaw_180_cluster_F+Y F+Y PASS fuel 480.812 elapsed 3.34
-FQ2 half 0.2 pitch_180_cluster_F+Z F+Z PASS fuel 476.426 elapsed 3.87
-FQ2 half 0.2 roll_180_cluster_F+Z F+Z PASS fuel 123.538 elapsed 3.59
-FQ2 half 0.2 yaw_180_cluster_F+Z F+Z PASS fuel 480.812 elapsed 3.37
-FQ2 half 0.2 pitch_180_cluster_F-Y F-Y PASS fuel 476.426 elapsed 3.09
-FQ2 half 0.2 roll_180_cluster_F-Y F-Y PASS fuel 122.827 elapsed 2.97
-FQ2 half 0.2 yaw_180_cluster_F-Y F-Y PASS fuel 480.812 elapsed 3.27
-FQ2 half 0.2 pitch_180_cluster_F-Z F-Z PASS fuel 476.426 elapsed 3.21
-FQ2 half 0.2 roll_180_cluster_F-Z F-Z PASS fuel 122.001 elapsed 3.18
-FQ2 half 0.2 yaw_180_cluster_F-Z F-Z PASS fuel 480.812 elapsed 3.34
-FQ3 half 0.2 translate_x_minus  PASS fuel 272.467 elapsed 0.58
-FQ3 half 0.2 translate_x_plus  PASS fuel 274.541 elapsed 0.6
-FQ3 half 0.2 translate_y_minus  PASS fuel 267.356 elapsed 0.6
-FQ3 half 0.2 translate_y_plus  PASS fuel 267.356 elapsed 0.52
-FQ3 half 0.2 translate_z_minus  PASS fuel 267.356 elapsed 0.53
-FQ3 half 0.2 translate_z_plus  PASS fuel 267.356 elapsed 0.54
-FQ4 half 0.2 torch_ECON  PASS fuel 11.361 elapsed 0.07
-FQ4 half 0.2 torch_CRUISE  PASS fuel 56.805 elapsed 0.07
-FQ4 half 0.2 torch_EXPEDITE  PASS fuel 227.22 elapsed 0.07
-FQ4 half 0.2 torch_FAST  PASS fuel 463.714 elapsed 0.08
-FQ4 half 0.2 torch_HARD  PASS fuel 912.876 elapsed 0.07
-FQ4 half 0.2 torch_LIMIT  PASS fuel 1369.022 elapsed 0.08
+FQ1 half 0.2 pitch_180  PASS fuel 960.651 elapsed 3.85
+FQ1 half 0.2 roll_180  PASS fuel 245.277 elapsed 4.23
+FQ1 half 0.2 yaw_180  PASS fuel 484.012 elapsed 9.0
+FQ2 half 0.2 pitch_180_cluster_A+Y A+Y PASS fuel 480.32 elapsed 14.02
+FQ2 half 0.2 roll_180_cluster_A+Y A+Y PASS fuel 123.013 elapsed 13.18
+FQ2 half 0.2 yaw_180_cluster_A+Y A+Y PASS fuel 484.012 elapsed 13.1
+FQ2 half 0.2 pitch_180_cluster_A+Z A+Z PASS fuel 480.32 elapsed 13.46
+FQ2 half 0.2 roll_180_cluster_A+Z A+Z PASS fuel 122.652 elapsed 13.74
+FQ2 half 0.2 yaw_180_cluster_A+Z A+Z PASS fuel 484.012 elapsed 13.94
+FQ2 half 0.2 pitch_180_cluster_A-Y A-Y PASS fuel 480.32 elapsed 13.13
+FQ2 half 0.2 roll_180_cluster_A-Y A-Y PASS fuel 123.141 elapsed 13.89
+FQ2 half 0.2 yaw_180_cluster_A-Y A-Y PASS fuel 484.012 elapsed 13.19
+FQ2 half 0.2 pitch_180_cluster_A-Z A-Z PASS fuel 480.32 elapsed 13.85
+FQ2 half 0.2 roll_180_cluster_A-Z A-Z PASS fuel 123.38 elapsed 13.4
+FQ2 half 0.2 yaw_180_cluster_A-Z A-Z PASS fuel 484.012 elapsed 12.9
+FQ2 half 0.2 pitch_180_cluster_F+Y F+Y PASS fuel 480.32 elapsed 13.68
+FQ2 half 0.2 roll_180_cluster_F+Y F+Y PASS fuel 123.529 elapsed 13.36
+FQ2 half 0.2 yaw_180_cluster_F+Y F+Y PASS fuel 484.012 elapsed 13.19
+FQ2 half 0.2 pitch_180_cluster_F+Z F+Z PASS fuel 480.32 elapsed 14.0
+FQ2 half 0.2 roll_180_cluster_F+Z F+Z PASS fuel 123.948 elapsed 13.75
+FQ2 half 0.2 yaw_180_cluster_F+Z F+Z PASS fuel 484.012 elapsed 13.91
+FQ2 half 0.2 pitch_180_cluster_F-Y F-Y PASS fuel 480.32 elapsed 14.43
+FQ2 half 0.2 roll_180_cluster_F-Y F-Y PASS fuel 123.302 elapsed 13.72
+FQ2 half 0.2 yaw_180_cluster_F-Y F-Y PASS fuel 484.012 elapsed 14.08
+FQ2 half 0.2 pitch_180_cluster_F-Z F-Z PASS fuel 480.32 elapsed 14.19
+FQ2 half 0.2 roll_180_cluster_F-Z F-Z PASS fuel 122.659 elapsed 14.49
+FQ2 half 0.2 yaw_180_cluster_F-Z F-Z PASS fuel 484.012 elapsed 13.75
+FQ3 half 0.2 translate_x_minus  PASS fuel 272.586 elapsed 2.03
+FQ3 half 0.2 translate_x_plus  PASS fuel 274.705 elapsed 2.49
+FQ3 half 0.2 translate_y_minus  PASS fuel 267.356 elapsed 2.06
+FQ3 half 0.2 translate_y_plus  PASS fuel 267.356 elapsed 2.16
+FQ3 half 0.2 translate_z_minus  PASS fuel 267.356 elapsed 2.24
+FQ3 half 0.2 translate_z_plus  PASS fuel 267.356 elapsed 2.15
+FQ4 half 0.2 torch_ECON  PASS fuel 11.361 elapsed 0.31
+FQ4 half 0.2 torch_CRUISE  PASS fuel 56.805 elapsed 0.35
+FQ4 half 0.2 torch_EXPEDITE  PASS fuel 227.22 elapsed 0.31
+FQ4 half 0.2 torch_FAST  PASS fuel 463.714 elapsed 0.32
+FQ4 half 0.2 torch_HARD  PASS fuel 912.876 elapsed 0.47
+FQ4 half 0.2 torch_LIMIT  PASS fuel 1369.022 elapsed 0.61
 FINISHED half 0.2 all PASS 39 TOTAL 39

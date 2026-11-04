@@ -2,13 +2,13 @@
 
 **ENGINEERING CANDIDATE, NON-CANON. NO HARDWARE QUALIFICATION. PR #440 DRAFT, NO MERGE.**
 
-Geometry SHA256: `bd0b779c57782d8647c15459f4848245c1dd8cc083e6399f7d413c8dd9d7a187`; exact current 40s RCS trace: `1de4f4e34409b875bd7b0b669bc84b6619dc1d243ae957fd8583899b79150aa7`. Historic FQ/acceptance does not transfer between hashes.
+Geometry SHA256: `818f83de02e282aaad92dd9a326226eb3185ae69ab623ad8cb9d865fcf46c85a`; exact current 40s RCS trace: `b365191ace59f4edab6b02ad9040105aa53a682dc5d093b601c1a96fd1908843`. Historic FQ/acceptance does not transfer between hashes.
 
 **Reactors:** 2×50MW net D–He3, each 5MW minimum online, 2.50t dry, A aft C-ring/B forward service ring; 40kW/kg and 75% net conversion declared. Must cycle off or store/spill surplus; never throttle to sub-MW.
 
 **Battery:** 3MWh nominal / 2.846MWh discharge, 1.50t at declared 2kWh/kg; quiet 65kW energy-only 43.8h. Both reactors failed: first 1h normal, then 37.80h 65kW essential energy-only.
 
-**Pulse flywheel:** counter-rotating pairs with burst containment, 1.8MWh nominal / 1.708MWh delivered, 1.8t at 1kWh/kg and 150kW/kg. Declared 270MW maximum. The full 40s current-geometry trace requires 1.298MWh and 202.1MW peak after one steady 50MW reactor. Actual heater/power-switching implementation is OPEN.
+**Pulse flywheel:** counter-rotating pairs with burst containment, 1.8MWh nominal / 1.708MWh delivered, 1.8t at 1kWh/kg and 150kW/kg. Declared 270MW maximum. The full 40s current-geometry trace requires 1.313MWh and 204.2MW peak after one steady 50MW reactor. Actual heater/power-switching implementation is OPEN.
 
 **Dock and torch:** docked reactors OFF, external shore power 2MW declared. During pulsed torch BURN ONLY magnets get 47.52MW from internal torch power tap (gross 63.36MW at 75% conversion, heat 15.84MW). Source extraction and jet debit physically OPEN; never count it as house generator. Chain: reactor B, battery, C-lite attitude only.
 
@@ -27,7 +27,7 @@ Geometry SHA256: `bd0b779c57782d8647c15459f4848245c1dd8cc083e6399f7d413c8dd9d7a1
 | coast_one_online_min | 5.000 | 0.000 | 0.000 | 0.000 / 4.611 | 0.000 | ordinary_ship_services 0.389 | 2.294 | FULL_PULSE_STORE_REACTOR_OFF_OR_BATTERY_CHARGE |
 | coast_recharging_fast_flip | 50.000 | 0.000 | 0.000 | 0.000 / 49.611 | 0.000 | ordinary_ship_services 0.389 | 19.603 | CHARGER_BULK_POWER_UNQUALIFIED |
 | routine_120s_flip | 50.000 | 0.000 | 0.000 | 8.052 / 0.000 | 0.000 | ordinary_ship_services 0.389, RCS_120s_UNTRACED_proxy 57.663 | 23.259 | RCS_ROUTINE_THROTTLE_PROXY_UNTRACED |
-| fast_40s_flip | 50.000 | 0.000 | 0.000 | 202.143 / 0.000 | 0.000 | ordinary_ship_services 0.389, RCS_40s_TRACE_PEAK 251.755 | 53.167 | FAST_FLIP_REACTOR_DISPATCH_BUS_HEAT_HARDWARE_UNQUALIFIED |
+| fast_40s_flip | 50.000 | 0.000 | 0.000 | 204.197 / 0.000 | 0.000 | ordinary_ship_services 0.389, RCS_40s_TRACE_PEAK 253.808 | 53.483 | FAST_FLIP_REACTOR_DISPATCH_BUS_HEAT_HARDWARE_UNQUALIFIED |
 | pulsed_torch_burn | 5.000 | 0.000 | 47.520 | 0.000 / 4.611 | 0.000 | ordinary_ship_services 0.389, magnet_cryocooling 47.520 | 66.134 | TORCH_BURN_ONLY_POWER_TAP_UNQUALIFIED; TORCH_TAP_NOT_DEBITED_FROM_FLIGHT_THRUST |
 | Metric_NORMAL | 6.863 | 0.000 | 0.000 | 0.000 / 0.000 | 0.000 | ordinary 0.389, scaled_cryo 5.091, declared_field 1.000, PMAD_loss 0.383 | 9.172 | FIELD_POWER_NONCANON_DECLARED; ENVIRONMENTAL_CORRECTION_POWER_OPEN |
 | Metric_FAST | 12.873 | 0.000 | 0.000 | 0.000 / 0.000 | 0.000 | ordinary 0.389, scaled_cryo 9.745, declared_field 2.000, PMAD_loss 0.739 | 17.204 | FIELD_POWER_NONCANON_DECLARED; ENVIRONMENTAL_CORRECTION_POWER_OPEN |
@@ -37,7 +37,7 @@ Geometry SHA256: `bd0b779c57782d8647c15459f4848245c1dd8cc083e6399f7d413c8dd9d7a1
 | cold_running_reactors_off | 0.000 | 0.000 | 0.000 | 0.000 / 0.000 | 0.065 | essential_habitat 0.065 | 0.075 retained | THERMAL_BUFFER_LIMIT; BATTERY_THERMAL_COUPLING_UNQUALIFIED |
 | one_unit_failed_Metric_HARD | 42.655 | 0.000 | 0.000 | 0.000 / 0.000 | 0.000 | ordinary 0.389, cryo 34.764, field 5.000, PMAD_loss 2.502 | 57.010 | FAILED_REACTOR_ISOLATION_UNQUALIFIED; METRIC_ENVIRONMENTAL_CORRECTION_OPEN |
 | one_unit_failed_torch_magnets | 5.000 | 0.000 | 47.520 | 0.000 / 4.611 | 0.000 | ordinary 0.389, magnet_cryocooling 47.520 | 66.134 | FAILED_REACTOR_ISOLATION_UNQUALIFIED; TORCH_BURN_ONLY_POWER_TAP_UNQUALIFIED; TORCH_TAP_NOT_DEBITED_FROM_FLIGHT_THRUST |
-| degraded_60s_flip | 50.000 | 0.000 | 0.000 | 62.281 / 0.000 | 0.000 | ordinary_ship_services 0.389, RCS_60s_trace_peak 111.892 | 31.615 | DEGRADED_FLIP_REAL_BUS_AND_HEAT_UNQUALIFIED |
+| degraded_60s_flip | 50.000 | 0.000 | 0.000 | 63.194 / 0.000 | 0.000 | ordinary_ship_services 0.389, RCS_60s_trace_peak 112.805 | 31.756 | DEGRADED_FLIP_REAL_BUS_AND_HEAT_UNQUALIFIED |
 | both_house_reactors_failed_hour1 | 0.000 | 0.000 | 0.000 | 0.000 / 0.000 | 0.389 | ordinary_services 0.389 | 0.411 | FAILED_REACTORS_ACTIVE_COOLING_UNQUALIFIED |
 | both_house_reactors_failed_essentials | 0.000 | 0.000 | 0.000 | 0.000 / 0.000 | 0.065 | essential_services 0.065 | 0.394 | NONESSENTIAL_LOADS_SHED; BOTH_FAILED_COOLING_UNQUALIFIED |
 | c_lite_slow_attitude_recovery | 0.000 | 0.000 | 0.000 | 0.000 / 0.000 | 0.000 |  | 0.000 retained | CHEMICAL_THRUSTER_GEOMETRY_AND_TORQUE_UNQUALIFIED |
@@ -45,7 +45,7 @@ Geometry SHA256: `bd0b779c57782d8647c15459f4848245c1dd8cc083e6399f7d413c8dd9d7a1
 
 ### Half battery and flywheel performance at unchanged installation mass
 
-Battery delivers 1.423MWh; flywheel delivers 0.854MWh and at most 135.0MW. Reactor/chemical states unchanged. Half-energy battery carries 1h ordinary followed by 15.91h essentials energy-only; cold thermal limit remains. Actual 60s one-reactor store event 0.495MWh, peak 62.3MW.
+Battery delivers 1.423MWh; flywheel delivers 0.854MWh and at most 135.0MW. Reactor/chemical states unchanged. Half-energy battery carries 1h ordinary followed by 15.91h essentials energy-only; cold thermal limit remains. Actual 60s one-reactor store event 0.504MWh, peak 63.2MW.
 
 | State | Half-performance electrical envelope | Basis |
 |---|---|---|

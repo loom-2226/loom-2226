@@ -190,6 +190,23 @@ def g1(I, C, G):
         Ii = st["inertia_kg_m2"]
         tab.append({"state": s, "name": st["name"], "mass_t": round(st["mass_t"], 1), "cg_m": [round(v, 3) for v in st["cg_m"]],
                     "Ixx": Ii[0][0], "Iyy": Ii[1][1], "Izz": Ii[2][2], "Ixy": Ii[0][1], "Ixz": Ii[0][2], "Iyz": Ii[1][2]})
+    W2=I.get("windows_wws1_round2")
+    if W2:
+        eng=I["ledger"]["engineering_reserve_t"]
+        released=I["ledger"]["structure_split"]["released_to_reserve"]
+        actual_combined=eng+released
+        draws=W2["prior_new_draw_t"]+W2["round2_added_draw_t"]
+        cs.append(chk("WWS-1 R2 NEW structural draw under kT 12.0t cap (no installed-mass cap)",
+            round(draws,6),12.0,draws<=12.0+1e-8,"t",
+            "Round1 5.492t + Round2; all new debits against released structure only"))
+        cs.append(chk("WWS-1 R2 engineering reserve floor unchanged",round(eng,6),5.0,eng>=5.0,"t"))
+        cs.append(chk("WWS-1 R2 total uncommitted mass floor",round(actual_combined,6),16.8,
+            actual_combined>=16.8,"t"))
+        cs.append(chk("WWS-1 R2 released-structure and budget accounting agree",
+           round(released,6),round(W2["released_after_t"],6),
+           abs(released-W2["released_after_t"])<1e-7 and
+           abs(draws-W2["total_new_draw_t"])<1e-7 and
+           abs(actual_combined-W2["combined_after_t"])<1e-7,"t"))
     r = gate("G1", "Mass and fluids ledger", cs, notes=notes)
     r["mass_states"] = tab
     return r
@@ -454,6 +471,16 @@ def g4(I, C, G):
                  "emissivity_opaque_gore_note":"normal full shielding when gores closed; no optogel impact/thermal proof"}
         q_hab_kw += solar_kw
 
+    WWS=I.get("windows_wws1")
+    if WWS:
+        open_area=WWS["band"]["new_area_m2"]+sum(p["area_m2"] for p in WWS["port_list"])
+        sun_kw=open_area*hh["worst_sun_w_m2"]/1000
+        q_hab_kw+=sun_kw
+        cs.append(chk("WWS-1 all shutters OPEN: worst sun through every side aperture; zero AOI optical heat credit",
+            round(sun_kw,3),round(open_area*hh["worst_sun_w_m2"]/1000,3),
+            sun_kw>0 and WWS["optical_thermal_credit"]==0,"kW",
+            f"{open_area:.3f}m2 side-glazing x {hh['worst_sun_w_m2']} W/m2; conservative all-sun upper bound, plus crown separately"))
+        decl.append(("wws1_sun_open","WWS-1 all side shutters OPEN + crown OPEN at worst Venus solar flux, no AOI/NIR/glare cooling credited. Glazing supports/temperature/fatigue still unqualified."))
     tc = hh["temperature_k"]
     w_hp = q_hab_kw * (T / tc - 1) / C["G4"]["heat_pump_carnot_fraction"]
     q_hab_main = (q_hab_kw + w_hp) / 1000.0
@@ -751,6 +778,48 @@ def g5(I, C, G):
                               f"{th['radial_mismatch_mm']} mm radial over {th['dT_K']} K; fingers {th['finger']}; plus {th['finger_axial_mpa']} MPa static from the shear flow (allow 600)"))
             cs.append(chk("L2 band panes as plates (2226 ceramic), lounge with its transom", p2["lounge_need_mm"], p2["lounge_spec_mm"], p2["ok"], "mm needed vs specified",
                           f"general band {p2['general_need_mm']} mm needed, {p2['general_spec_mm']} specified; the glass is not trusted to pass hoop tension through its edges"))
+    WWS=I.get("windows_wws1")
+    if WWS:
+        round_port=[f for f in G["features"] if f["kind"]=="window"]
+        hits=[(f["ring"],f["theta_deg"],f["flags"]) for f in G["features"] if f["kind"]=="node_face" and any("overlaps_window"==flag for flag in f["flags"])]
+        cs.append(chk("WWS-1 zero round-window overlap with fixed Metric node faces",len(hits),0,len(hits)==0,"overlaps",
+                      f"PR #184 node placement remains HOLD: {hits[:8]}"))
+        bad=[(f["room"],f["pos"][0],f["d_m"]) for f in round_port if min(abs(f["pos"][0]-2*j) for j in range(8))<f["d_m"]/2+.05]
+        cs.append(chk("WWS-1 round cutouts clear 2m-pitch principal frame planes (5cm minimum)",
+                      len(bad),0,len(bad)==0,"conflicts",str(bad)))
+        if I.get("windows_wws1_round2"):
+            W2=I["windows_wws1_round2"]
+            # No local pane may intrude into another's pressure frame.
+            pairs=[]
+            for i,f in enumerate(round_port):
+                for h in round_port[i+1:]:
+                    sep=math.dist(f["pos"],h["pos"])-(f["d_m"]+h["d_m"])/2
+                    if sep<.10-1e-8:pairs.append((f["room"],h["room"],round(sep,3)))
+            cs.append(chk("WWS-1 R2 distinct pressure cutouts retain >=10cm hull-web separation",
+                len(pairs),0,not pairs,"conflicts",str(pairs[:8])))
+            # Local L2 extensions must remain within their own 2.3m deck shell.
+            segs=I["habitat"]["crew_systems"]["viewport_band"]["segments"]
+            bad_edges=[z for z in segs if z["theta_deg"] in ([300,360],[0,30],[210,270])
+                 and (z["x_m"][0]<3.35-1e-8 or z["x_m"][1]>5.55+1e-8)]
+            cs.append(chk("WWS-1 R2 L2 galley/exercise band stays 5cm inside deck ends",
+                len(bad_edges),0,not bad_edges,"conflicts",str(bad_edges)))
+            nf=[f for f in G["features"] if f["kind"]=="node_face"]
+            intrusion=[]
+            for seg in segs:
+                x0,x1=seg["x_m"];a0,a1=seg["theta_deg"]
+                for face in nf:
+                    x,y,z=face["pos"];ang=math.degrees(math.atan2(z,y))%360
+                    if x0-.05-face["d_m"]/2<=x<=x1+.05+face["d_m"]/2 and (
+                        (a0<=ang<=a1) or (a1==360 and ang==0)):
+                        intrusion.append((face["ring"],face["theta_deg"]))
+            cs.append(chk("WWS-1 R2 L2 continuous band clear of 208 fixed node faces",
+              len(intrusion),0,not intrusion,"conflicts",str(intrusion[:8])))
+            decl.append(("wws1_round2_pressure_cutouts","G5 round port local 10cm hull web, 5cm axial frame, unchanged nodes and larger L2 mullion/ring source screens pass before any physical FEA. Medical 1.55m full-pressure ceramic glazing and berth 0.80m externally mounted pressure retainers remain UNQUALIFIED."))
+        cs.append(chk("WWS-1 expanded L2 band structural checks still use unchanged G5",
+                      "all computed L2 band checks", "PASS", bool(vb) and
+                      all(c["pass"] for c in cs if c["name"].startswith("L2 viewport band") or c["name"].startswith("L2 band")),
+                      note="G5 coarse continuous rings/mullions/pressure-panels; new galley/exercise transoms and fatigue physical detailing DECLARED"))
+        decl.append(("wws1_cutouts","WWS-1 round ports locally framed, 2m principal frames not severed; L2 band altered and rerun using existing load-path screen; real per-cutout FEM, pressure seal, separate pane destruction and node-face exact integration remain unqualified."))
     notes.append("Crew stations and floors (v0.5.6): closed-form strip and column checks in habitat/crew_systems.py; floors are 0.3 m sandwich panels spanning trunk to hull.")
     notes.append(f"Worst state {worst_state}: {fwd:.0f} t ahead of the thrust cone, {F / 1e6:.1f} MN at {M5['design_g'] * M5['ultimate_factor']:.1f} g ultimate, shared by {n} longerons.")
     notes.append("Bay doors are not counted as structure. Materials: 2026 high-modulus CFRP as a conservative floor (400 MPa, 150 GPa, 1.6 t/m3).")
@@ -924,12 +993,30 @@ def g6(I, C, G):
     shelter_min = min(mins)
     cs.append(chk("storm shelter shielding, every direction", round(shelter_min, 1), c6["shelter_min_g_cm2"], shelter_min >= c6["shelter_min_g_cm2"], "g/cm2",
                   f"{N} rays from 3 points, state {s_state} (tanks empty, shuttle away); thinnest ray from {tuple(round(v, 2) for v in worst_dir[2])} toward {tuple(round(v, 2) for v in worst_dir[1])}"))
+    WWS=I.get("windows_wws1")
+    if WWS:
+        ar=WWS["areal_kg_m2"]
+        closed_without_aoi=(ar["outer_bumper"]+ar["primary"]+ar["backup"]+ar["closed_shutter"])/10
+        need=(ar["removed_armor_and_hull"])/10
+        # Berth insert +8g/cm2 of water is conservatively assumed lost: check it, too.
+        cs.append(chk("WWS-1 ALL shutters CLOSED: every opening restores local armour+pressure shell areal mass",
+          round(closed_without_aoi,3),round(need,3),
+          closed_without_aoi>=need and WWS["shutter_closed_restores_local_armor_g_cm2"]>=27,"g/cm2",
+          "AOI = ZERO shielding credit; this check justifies existing continuous-hull ray surrogate, NOT particle transport"))
+        cs.append(chk("WWS-1 closed berth viewport conservatively replaces local 8g/cm2 water insert",
+          round(closed_without_aoi,3),round(need+8,3),closed_without_aoi>=need+8,"g/cm2",
+          "10 berths one per berth; prior water-attenuation/dose transport not assumed equivalent"))
+        ns=[f for f in G["features"] if f["kind"]=="window" and f["room"]=="L4-shelter"]
+        cs.append(chk("WWS-1 storm shelter ZERO cutouts",len(ns),0,len(ns)==0,"windows",
+          "Two prior ports sealed; actual armour/water-jacket restoration must be inspected"))
+        decl.append(("wws1_shield","All side shutters CLOSED for torch/Metric/radiation/dust/heat-pump failure. Local areal mass is no worse than prior continuous hull, AOI ZERO radiation credit. No particle/dose transport or per-aperture sealing qualification."))
     BV = I["habitat"].get("crew_systems", {}).get("berth_viewports")
     if BV:
         nb = len([f for f in G["features"] if f.get("berth")])
-        decl.append(("berth_viewports", f"Berth viewports (v0.5.7): {nb} x {BV['d_m']} m viewports keep the berth screen because acrylic plugs carry at least the g/cm2 they replace "
-                     f"(armour {BV['plug']['g_cm2']} vs 27.0, ring {BV['insert']['g_cm2']} vs 8.0), so the ray screen, which treats the hull as continuous, is unchanged. "
-                     "Rev 3: the same plug kit is in every opening below the crown, including the L2 viewport band, and continues through the storm-shelter jacket (17 cm more acrylic for the 20 cm of water). Not yet shown: the dose. Acrylic is ~8% hydrogen by mass against water's 11%, so per g/cm2 it may stop cosmic-ray secondaries slightly less well; a transport check may ask for a thicker plug. Encapsulated for fire."))
+        if I.get("windows_wws1"):
+            decl.append(("berth_viewports", f"WWS-1: {nb} berths each have one {BV['d_m']:.2f}m two-independent-pressure-pane ceramic window, AOI-2226 (ZERO shielding/optical credit) and a 27g/cm2 external Strata shutter CLOSED in the G6 screen. Nominal stack excluding AOI 51.75g/cm2, above 43g/cm2 worst local armour+shell+ring insertion comparator. This is areal equivalence, NOT a particle/dose transport, crack failure or berth rim clearance proof. L4 storm shelter has ZERO windows."))
+        else:
+            decl.append(("berth_viewports", f"Legacy acrylic-plug viewports, {nb} at {BV['d_m']:.2f}m; NOT the WWS-1 stack."))
     CD = I["habitat"]["decks"][0].get("command_layout", {}).get("crown_dome", {})
     if CD.get("adopted") and CD.get("i4_crown_option_B"):
         B2=CD["i4_crown_option_B"]
@@ -1141,6 +1228,20 @@ def g7(I, C, G):
         nb_need = sum(r.get("occupancy", 0) for r in rooms if r.get("kind") == "cabin")
         cs.append(chk("berth viewports: one per berth (v0.5.7)", nberth, nb_need, nberth == nb_need, "",
                       "0.35 m, at the outer end of each berth; acrylic shield plug and insert keep the berth screen (G6 declared item berth_viewports)"))
+    if I.get("windows_wws1"):
+        WWS=I["windows_wws1"]
+        cs.append(chk("WWS-1 ten berths, one WWS-1 window each",nberth,WWS["berth_count"],nberth==WWS["berth_count"]))
+        if I.get("windows_wws1_round2"):
+            W2=I["windows_wws1_round2"]
+            berth=[f for f in G["features"] if f.get("berth")]
+            med=[f for f in G["features"] if f["kind"]=="window" and f["room"]=="L4-medical"]
+            cs.append(chk("WWS-1 R2 ten individual berth panes are all 0.8m",
+               sum(abs(f["d_m"]-.8)>1e-8 for f in berth),0,
+               len(berth)==10 and all(abs(f["d_m"]-.8)<1e-8 for f in berth)))
+            cs.append(chk("WWS-1 R2 medical gains third 1.55m pressure port",
+               [len(med),sorted(set(round(f["d_m"],3) for f in med))],[3,[1.55]],
+               len(med)==3 and all(abs(f["d_m"]-1.55)<1e-8 for f in med)))
+        cs.append(chk("WWS-1 L4 storm shelter has no windows",sum(f["kind"]=="window" and f["room"]=="L4-shelter" for f in G["features"]),0,not any(f["kind"]=="window" and f["room"]=="L4-shelter" for f in G["features"])))
     notes = [f"Target {target:.0f} m3 ({c7['nhv_target_m3_per_crew']:.0f} per crew, {c7['nhv_target_m3_per_guest']:.0f} per guest): reached {nhv / target * 100:.0f}%. "
              "A sixth deck (+2.6 m of habitat) would reach the target.",
              "Net habitable volume by deck: " + ", ".join(f"{k} {v:.0f} m3" for k, v in per_deck.items()),
@@ -1150,6 +1251,13 @@ def g7(I, C, G):
               if nberth else f"Windows: {windows} (canon candidate suggests 10-16): 8 nose and 4 shoulder on L1, 2 in the observation lounge, 1 in the L5 vestibule; each with four panes, a shutter and a 12 deg armour splay"),
              "Casualties move at 0 g (coast on the captain's order); under thrust they are treated in their couch or berth.",
              "Decks are perpendicular to the thrust axis; under thrust, aft is down. Above ~1.5 g everyone rides in a couch."]
+    if I.get("windows_wws1_round2"):
+        W2=I["windows_wws1_round2"]
+        notes[2]=(f"WWS-1 R2 source-hashed design: {windows-nberth} non-berth round windows, {nberth} x0.8m berth windows, "
+            f"three 1.55m medical ports, L2 panoramic glazing {W2['l2_new_area_m2']:.2f}m2 with locally extended "
+            "galley/exercise glass and shutters OPEN for viewing. Storm shelter ZERO windows. Each opening uses the "
+            "WWS-1 independent ceramic panes/AOI/closable Strata, not obsolete acrylic plugs; pressure independence, "
+            "seal/fatigue/dust and physical radiation transport remain OPEN.")
     if g7_occ_note:
         notes.append(g7_occ_note)
     r = gate("G7", "Compartments and crew space", cs, declared=decl, notes=notes)

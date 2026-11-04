@@ -64,63 +64,48 @@
   },
   {
    "kind": "window",
-   "room": "L4-shelter",
+   "room": "L4-medical",
    "pos": [
-    9.85,
-    2.739426430539243,
-    3.570090031310558
+    9.1,
+    -4.5,
+    5.51091059616309e-16
    ],
    "normal": [
     0.0,
-    0.6087614290087207,
-    0.7933533402912352
+    -1.0,
+    1.2246467991473532e-16
    ],
-   "d_m": 0.35
-  },
-  {
-   "kind": "window",
-   "room": "L4-shelter",
-   "pos": [
-    9.85,
-    -2.739426430539243,
-    3.570090031310558
-   ],
-   "normal": [
-    0.0,
-    -0.6087614290087207,
-    0.7933533402912352
-   ],
-   "d_m": 0.35
+   "d_m": 1.55
   },
   {
    "kind": "window",
    "room": "L4-medical",
    "pos": [
-    9.85,
-    -4.461501876182147,
-    -0.587367864990231
+    9.1,
+    -3.8971143170299736,
+    -2.2500000000000004
    ],
    "normal": [
     0.0,
-    -0.9914448613738105,
-    -0.13052619222005132
+    -0.8660254037844386,
+    -0.5000000000000001
    ],
-   "d_m": 0.5
+   "d_m": 1.55
   },
   {
    "kind": "window",
    "room": "L4-medical",
    "pos": [
-    9.85,
-    -2.739426430539244,
-    -3.5700900313105572
+    9.1,
+    -2.2500000000000018,
+    -3.8971143170299727
    ],
    "normal": [
     0.0,
-    -0.6087614290087209,
-    -0.7933533402912349
+    -0.5000000000000004,
+    -0.8660254037844384
    ],
-   "d_m": 0.5
+   "d_m": 1.55
   },
   {
    "kind": "window",
@@ -188,7 +173,7 @@
    "berth": true,
    "tier": "lower",
    "pos": [
-    7.55,
+    7.54,
     4.346666218300808,
     1.1646857029613433
    ],
@@ -197,7 +182,7 @@
     0.9659258262890683,
     0.25881904510252074
    ],
-   "d_m": 0.5
+   "d_m": 0.8
   },
   {
    "kind": "window",
@@ -205,7 +190,7 @@
    "berth": true,
    "tier": "lower",
    "pos": [
-    7.55,
+    7.54,
     1.1646857029613433,
     4.346666218300808
    ],
@@ -214,7 +199,7 @@
     0.25881904510252074,
     0.9659258262890683
    ],
-   "d_m": 0.5
+   "d_m": 0.8
   },
   {
    "kind": "window",
@@ -222,16 +207,16 @@
    "berth": true,
    "tier": "upper",
    "pos": [
-    6.45,
-    1.1646857029613433,
-    4.346666218300808
+    6.65,
+    0.8586404791944521,
+    4.417322325514488
    ],
    "normal": [
     0.0,
-    0.25881904510252074,
-    0.9659258262890683
+    0.19080899537654492,
+    0.981627183447664
    ],
-   "d_m": 0.5
+   "d_m": 0.8
   },
   {
    "kind": "window",
@@ -239,7 +224,7 @@
    "berth": true,
    "tier": "lower",
    "pos": [
-    7.55,
+    7.54,
     -4.417322325514488,
     0.8586404791944524
    ],
@@ -248,7 +233,7 @@
     -0.981627183447664,
     0.19080899537654497
    ],
-   "d_m": 0.5
+   "d_m": 0.8
   },
   {
    "kind": "window",
@@ -256,16 +241,16 @@
    "berth": true,
    "tier": "upper",
    "pos": [
-    6.45,
-    -4.417322325514488,
-    0.8586404791944524
+    6.65,
+    -4.466457682385949,
+    0.548412045323164
    ],
    "normal": [
     0.0,
-    -0.981627183447664,
-    0.19080899537654497
+    -0.992546151641322,
+    0.12186934340514755
    ],
-   "d_m": 0.5
+   "d_m": 0.8
   },
   {
    "kind": "window",
@@ -273,7 +258,7 @@
    "berth": true,
    "tier": "lower",
    "pos": [
-    7.55,
+    7.54,
     -3.3961931110024746,
     -2.9522656304572816
    ],
@@ -282,7 +267,7 @@
     -0.7547095802227721,
     -0.656059028990507
    ],
-   "d_m": 0.5
+   "d_m": 0.8
   },
   {
    "kind": "window",
@@ -290,16 +275,16 @@
    "berth": true,
    "tier": "upper",
    "pos": [
-    6.45,
-    -3.3961931110024746,
-    -2.9522656304572816
+    6.65,
+    -3.5938597952128175,
+    -2.7081676041842178
    ],
    "normal": [
     0.0,
-    -0.7547095802227721,
-    -0.656059028990507
+    -0.7986355100472928,
+    -0.6018150231520484
    ],
-   "d_m": 0.5
+   "d_m": 0.8
   },
   {
    "kind": "window",
@@ -307,7 +292,7 @@
    "berth": true,
    "tier": "lower",
    "pos": [
-    7.55,
+    7.54,
     -0.8586404791944507,
     -4.417322325514488
    ],
@@ -316,7 +301,7 @@
     -0.1908089953765446,
     -0.981627183447664
    ],
-   "d_m": 0.5
+   "d_m": 0.8
   },
   {
    "kind": "window",
@@ -324,16 +309,16 @@
    "berth": true,
    "tier": "upper",
    "pos": [
-    6.45,
-    -0.8586404791944507,
-    -4.417322325514488
+    6.65,
+    -0.5484120453231622,
+    -4.46645768238595
    ],
    "normal": [
     0.0,
-    -0.1908089953765446,
-    -0.981627183447664
+    -0.12186934340514717,
+    -0.9925461516413221
    ],
-   "d_m": 0.5
+   "d_m": 0.8
   },
   {
    "kind": "window",
@@ -341,7 +326,7 @@
    "berth": true,
    "tier": "lower",
    "pos": [
-    7.55,
+    7.54,
     2.9522656304572816,
     -3.396193111002475
    ],
@@ -350,7 +335,7 @@
     0.656059028990507,
     -0.7547095802227722
    ],
-   "d_m": 0.5
+   "d_m": 0.8
   },
   {
    "kind": "hatch",
@@ -922,9 +907,7 @@
     -0.7071067811865475
    ],
    "d_m": 0.35,
-   "flags": [
-    "overlaps_window"
-   ]
+   "flags": []
   },
   {
    "kind": "node_face",
@@ -4502,8 +4485,8 @@
  "bands": [
   {
    "x": [
-    3.9,
-    4.5
+    3.35,
+    5.55
    ],
    "a": [
     300,
@@ -4513,11 +4496,22 @@
   },
   {
    "x": [
+    3.35,
+    5.55
+   ],
+   "a": [
+    0,
+    30
+   ],
+   "mullion_deg": 15
+  },
+  {
+   "x": [
     3.9,
     4.5
    ],
    "a": [
-    0,
+    30,
     150
    ],
    "mullion_deg": 15
@@ -4535,8 +4529,8 @@
   },
   {
    "x": [
-    3.9,
-    4.5
+    3.35,
+    5.55
    ],
    "a": [
     210,
@@ -4869,23 +4863,23 @@
   }
  },
  "version": "0.5.7-step1-I4-lock",
- "inputs_sha256": "9e9d754055cc2947e694182f83721ebfc7fa3341c58d861ca0322c1cedfbc0c2",
+ "inputs_sha256": "2f2d19e73243f1d29149125212278e681e826e70cfbdf4850df37ced4c39b726",
  "length_m": 53.3,
- "dry_t": 867.531453466738,
+ "dry_t": 867.531453463964,
  "dry_by_system_t": {
-  "habitat": 192.10013051147087,
-  "structure": 131.79908808093114,
-  "avionics": 20.06898016600856,
-  "service": 13.788485508179557,
-  "plant": 91.22263711822072,
-  "mission": 19.69579665052493,
-  "electrical": 57.35865506743644,
-  "thermal": 123.42555664870812,
-  "rcs": 16.585934021494676,
-  "propulsion": 165.85934021494677,
-  "shuttle": 31.12002912994171,
-  "drones": 1.241871809859414,
-  "external": 3.2649485390149433
+  "habitat": 200.1310124030912,
+  "structure": 130.22481450194988,
+  "avionics": 19.819913121213727,
+  "service": 13.622771014171178,
+  "plant": 90.09051418733512,
+  "mission": 19.45136101772008,
+  "electrical": 56.65300799062877,
+  "thermal": 122.1546971986558,
+  "rcs": 16.38009348860638,
+  "propulsion": 163.80093488606386,
+  "shuttle": 30.733812509804142,
+  "drones": 1.226459499959403,
+  "external": 3.242061644764426
  },
  "protected_water": {
   "jacket_t": 25.246010716405454,
@@ -4895,17 +4889,17 @@
   "service_tank_t": 24.75,
   "c_tank_t": 0.003989283594545867,
   "service_tank_capacity_t": 32.51548396465435,
-  "chosen_to_minimise_worst_trim_deg": 0.34127825583033755
+  "chosen_to_minimise_worst_trim_deg": 0.3463137134921223
  },
  "thrust_line_offset_m": {
   "y": 0.03,
-  "z": -0.22000000000000008,
-  "torch_chain_t": 174.1523072256941
+  "z": -0.22999999999999998,
+  "torch_chain_t": 171.99098163036703
  },
  "hot_fins": {
   "span_m": 28,
   "panels_t": 17.024,
-  "total_t": 51.71533646673798,
+  "total_t": 61.77863631996394,
   "temperature_k": 1750,
   "azimuths_deg": [
    40,
@@ -5004,7 +4998,7 @@
    "id": "armor",
    "name": "Armour and fixed shielding shell",
    "system": "habitat",
-   "mass_t": 108.84519201605882,
+   "mass_t": 107.4943635189794,
    "prov": "CANON_MASS_DESIGN_POSITION",
    "mat": "hull_armor",
    "dry": true,
@@ -5028,7 +5022,7 @@
    "id": "pressure_vessel",
    "name": "Pressure vessel (inner hull)",
    "system": "structure",
-   "mass_t": 15.54931314515126,
+   "mass_t": 15.356337645568486,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "pressure_hull",
    "dry": true,
@@ -5052,7 +5046,7 @@
    "id": "aft_bulkhead",
    "name": "Aft pressure bulkhead (L5 floor)",
    "system": "structure",
-   "mass_t": 5.701414819888795,
+   "mass_t": 5.630657136708445,
    "prov": "ENGINEERING_ASSUMPTION: aft pressure bulkhead reserve-funded shielding margin; test G6",
    "mat": "bulkhead",
    "dry": true,
@@ -5077,7 +5071,7 @@
    "id": "floor_L1",
    "name": "L1 floor",
    "system": "structure",
-   "mass_t": 1.5549313145151258,
+   "mass_t": 1.5356337645568485,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "floor",
    "dry": true,
@@ -5102,7 +5096,7 @@
    "id": "floor_L2",
    "name": "L2 floor",
    "system": "structure",
-   "mass_t": 1.5549313145151258,
+   "mass_t": 1.5356337645568485,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "floor",
    "dry": true,
@@ -5127,7 +5121,7 @@
    "id": "floor_L3",
    "name": "L3 floor",
    "system": "structure",
-   "mass_t": 1.5549313145151258,
+   "mass_t": 1.5356337645568485,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "floor",
    "dry": true,
@@ -5152,7 +5146,7 @@
    "id": "floor_L4",
    "name": "L4 floor",
    "system": "structure",
-   "mass_t": 1.5549313145151258,
+   "mass_t": 1.5356337645568485,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "floor",
    "dry": true,
@@ -5177,7 +5171,7 @@
    "id": "core_trunk",
    "name": "Central trunk (utilities, avionics racks, goods lift)",
    "system": "habitat",
-   "mass_t": 2.0732417526868345,
+   "mass_t": 2.047511686075798,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "core",
    "dry": true,
@@ -5202,7 +5196,7 @@
    "id": "core_racks",
    "name": "Avionics racks in the trunk",
    "system": "avionics",
-   "mass_t": 11.81747799031496,
+   "mass_t": 11.67081661063205,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "avionics",
    "dry": true,
@@ -5227,7 +5221,7 @@
    "id": "bow_sensors",
    "name": "Bow sensors and command electronics (shoulder ring)",
    "system": "avionics",
-   "mass_t": 8.251502175693602,
+   "mass_t": 8.149096510581677,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "avionics",
    "dry": true,
@@ -5270,7 +5264,7 @@
    "id": "command_terrace",
    "name": "command terrace",
    "system": "habitat",
-   "mass_t": 0.31098626290302517,
+   "mass_t": 0.3071267529113697,
    "prov": "ENGINEERING_ASSUMPTION: allocated from original 0.4 t flight deck, not additional ship mass",
    "mat": "equipment",
    "dry": true,
@@ -5295,7 +5289,7 @@
    "id": "navigator_platform",
    "name": "navigator platform",
    "system": "habitat",
-   "mass_t": 0.10366208763434173,
+   "mass_t": 0.1023755843037899,
    "prov": "ENGINEERING_ASSUMPTION: allocated from original 0.4 t flight deck, mounts HOLD",
    "mat": "equipment",
    "dry": true,
@@ -5320,7 +5314,7 @@
    "id": "i4_seat_PILOT",
    "name": "I4 station hardware surrogate PILOT",
    "system": "habitat",
-   "mass_t": 0.051831043817170866,
+   "mass_t": 0.05118779215189495,
    "prov": "ENGINEERING_ASSUMPTION: redistributed existing L1 room outfitting; nonqualified seat proxy",
    "mat": "equipment",
    "dry": true,
@@ -5347,7 +5341,7 @@
    "id": "i4_seat_NAV",
    "name": "I4 station hardware surrogate NAV",
    "system": "habitat",
-   "mass_t": 0.051831043817170866,
+   "mass_t": 0.05118779215189495,
    "prov": "ENGINEERING_ASSUMPTION: redistributed existing L1 room outfitting; nonqualified seat proxy",
    "mat": "equipment",
    "dry": true,
@@ -5374,7 +5368,7 @@
    "id": "i4_seat_S1",
    "name": "I4 station hardware surrogate S1",
    "system": "habitat",
-   "mass_t": 0.051831043817170866,
+   "mass_t": 0.05118779215189495,
    "prov": "ENGINEERING_ASSUMPTION: redistributed existing L1 room outfitting; nonqualified seat proxy",
    "mat": "equipment",
    "dry": true,
@@ -5401,7 +5395,7 @@
    "id": "i4_seat_S2",
    "name": "I4 station hardware surrogate S2",
    "system": "habitat",
-   "mass_t": 0.051831043817170866,
+   "mass_t": 0.05118779215189495,
    "prov": "ENGINEERING_ASSUMPTION: redistributed existing L1 room outfitting; nonqualified seat proxy",
    "mat": "equipment",
    "dry": true,
@@ -5428,7 +5422,7 @@
    "id": "i4_seat_S3",
    "name": "I4 station hardware surrogate S3",
    "system": "habitat",
-   "mass_t": 0.051831043817170866,
+   "mass_t": 0.05118779215189495,
    "prov": "ENGINEERING_ASSUMPTION: redistributed existing L1 room outfitting; nonqualified seat proxy",
    "mat": "equipment",
    "dry": true,
@@ -5455,7 +5449,7 @@
    "id": "i4_seat_S4",
    "name": "I4 station hardware surrogate S4",
    "system": "habitat",
-   "mass_t": 0.051831043817170866,
+   "mass_t": 0.05118779215189495,
    "prov": "ENGINEERING_ASSUMPTION: redistributed existing L1 room outfitting; nonqualified seat proxy",
    "mat": "equipment",
    "dry": true,
@@ -5482,7 +5476,7 @@
    "id": "i4_mission_table",
    "name": "mission_table",
    "system": "habitat",
-   "mass_t": 0.08292967010747339,
+   "mass_t": 0.08190046744303192,
    "prov": "ENGINEERING_ASSUMPTION: redistributed L1 room outfitting; low-g visual mass proxy",
    "mat": "equipment",
    "dry": true,
@@ -5509,7 +5503,7 @@
    "id": "i4_workbench",
    "name": "workbench",
    "system": "habitat",
-   "mass_t": 0.08292967010747339,
+   "mass_t": 0.08190046744303192,
    "prov": "ENGINEERING_ASSUMPTION: redistributed L1 room outfitting; low-g visual mass proxy",
    "mat": "equipment",
    "dry": true,
@@ -5536,7 +5530,7 @@
    "id": "i4_cabinetry",
    "name": "cabinetry",
    "system": "habitat",
-   "mass_t": 0.041464835053736694,
+   "mass_t": 0.04095023372151596,
    "prov": "ENGINEERING_ASSUMPTION: redistributed L1 room outfitting; low-g visual mass proxy",
    "mat": "equipment",
    "dry": true,
@@ -6617,7 +6611,7 @@
    "id": "room_L1-command",
    "name": "Command and navigation",
    "system": "habitat",
-   "mass_t": 2.1769038403211765,
+   "mass_t": 2.149887270379588,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_command",
    "dry": true,
@@ -6643,7 +6637,7 @@
    "id": "room_L2-galley",
    "name": "Galley",
    "system": "habitat",
-   "mass_t": 2.0732417526868345,
+   "mass_t": 2.047511686075798,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_galley",
    "dry": true,
@@ -6670,7 +6664,7 @@
    "id": "room_L2-wardroom",
    "name": "Wardroom (table for 10)",
    "system": "habitat",
-   "mass_t": 1.2439450516121007,
+   "mass_t": 1.2285070116454788,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_wardroom",
    "dry": true,
@@ -6697,7 +6691,7 @@
    "id": "room_L2-observation",
    "name": "Observation",
    "system": "habitat",
-   "mass_t": 0.6219725258060503,
+   "mass_t": 0.6142535058227394,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_observation",
    "dry": true,
@@ -6724,7 +6718,7 @@
    "id": "room_L2-exercise",
    "name": "Exercise",
    "system": "habitat",
-   "mass_t": 1.6585934021494677,
+   "mass_t": 1.6380093488606384,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_exercise",
    "dry": true,
@@ -6751,7 +6745,7 @@
    "id": "room_L2-hygiene",
    "name": "Washroom",
    "system": "habitat",
-   "mass_t": 0.6219725258060503,
+   "mass_t": 0.6142535058227394,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_hygiene",
    "dry": true,
@@ -6778,7 +6772,7 @@
    "id": "room_L3-CAPT",
    "name": "Captain's cabin",
    "system": "habitat",
-   "mass_t": 0.4664793943545378,
+   "mass_t": 0.46069012936705456,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_cabin",
    "dry": true,
@@ -6805,7 +6799,7 @@
    "id": "room_L3-CA",
    "name": "Crew cabin A",
    "system": "habitat",
-   "mass_t": 0.9329587887090756,
+   "mass_t": 0.9213802587341091,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_cabin",
    "dry": true,
@@ -6832,7 +6826,7 @@
    "id": "room_L3-HG",
    "name": "Guest washroom",
    "system": "habitat",
-   "mass_t": 0.6219725258060503,
+   "mass_t": 0.6142535058227394,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_hygiene",
    "dry": true,
@@ -6859,7 +6853,7 @@
    "id": "room_L3-GUEST",
    "name": "Guest cabin",
    "system": "habitat",
-   "mass_t": 1.8659175774181511,
+   "mass_t": 1.8427605174682182,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_cabin",
    "dry": true,
@@ -6886,7 +6880,7 @@
    "id": "room_L3-CB",
    "name": "Crew cabin B",
    "system": "habitat",
-   "mass_t": 1.3994381830636133,
+   "mass_t": 1.3820703881011638,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_cabin",
    "dry": true,
@@ -6913,7 +6907,7 @@
    "id": "room_L3-HC",
    "name": "Crew washroom",
    "system": "habitat",
-   "mass_t": 0.6219725258060503,
+   "mass_t": 0.6142535058227394,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_hygiene",
    "dry": true,
@@ -6940,7 +6934,7 @@
    "id": "room_L4-shelter",
    "name": "Storm shelter",
    "system": "habitat",
-   "mass_t": 1.0366208763434173,
+   "mass_t": 1.023755843037899,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_shelter",
    "dry": true,
@@ -6967,7 +6961,7 @@
    "id": "room_L4-medical",
    "name": "Medical bay",
    "system": "habitat",
-   "mass_t": 3.1098626290302516,
+   "mass_t": 3.071267529113697,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_medical",
    "dry": true,
@@ -6994,7 +6988,7 @@
    "id": "room_L4-eclss",
    "name": "Life support",
    "system": "habitat",
-   "mass_t": 14.49195985128097,
+   "mass_t": 14.312106685669825,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_eclss",
    "dry": true,
@@ -7021,7 +7015,7 @@
    "id": "room_L5-airlock",
    "name": "Airlock",
    "system": "habitat",
-   "mass_t": 3.1098626290302516,
+   "mass_t": 3.071267529113697,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_airlock",
    "dry": true,
@@ -7048,7 +7042,7 @@
    "id": "room_L5-suits",
    "name": "Suit room",
    "system": "habitat",
-   "mass_t": 1.5549313145151258,
+   "mass_t": 1.5356337645568485,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_suits",
    "dry": true,
@@ -7075,7 +7069,7 @@
    "id": "room_L5-workshop",
    "name": "Workshop",
    "system": "habitat",
-   "mass_t": 3.1098626290302516,
+   "mass_t": 3.071267529113697,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_workshop",
    "dry": true,
@@ -7102,7 +7096,7 @@
    "id": "room_L5-custody",
    "name": "Custody locker",
    "system": "habitat",
-   "mass_t": 0.5183104381717086,
+   "mass_t": 0.5118779215189495,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_custody",
    "dry": true,
@@ -7129,7 +7123,7 @@
    "id": "room_L5-stores",
    "name": "Stores",
    "system": "habitat",
-   "mass_t": 3.1098626290302516,
+   "mass_t": 3.071267529113697,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_stores",
    "dry": true,
@@ -7156,7 +7150,7 @@
    "id": "room_L5-vestibule",
    "name": "Transfer vestibule",
    "system": "habitat",
-   "mass_t": 0.31098626290302517,
+   "mass_t": 0.3071267529113697,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_vestibule",
    "dry": true,
@@ -7183,7 +7177,7 @@
    "id": "room_L5-stores2",
    "name": "Stores",
    "system": "habitat",
-   "mass_t": 3.1098626290302516,
+   "mass_t": 3.071267529113697,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "room_stores",
    "dry": true,
@@ -7431,10 +7425,38 @@
    ]
   },
   {
+   "id": "wws1_shelter_armour_restoration",
+   "name": "Removed L4 storm-shelter window openings: material reused for continuous local shell and armour",
+   "system": "habitat",
+   "mass_t": 0.16,
+   "prov": "WWS-1: existing pair of 0.08t assemblies closed; material retained, no new reserve credit",
+   "mat": "hull_armor",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render"
+   ],
+   "shape": {
+    "k": "sector",
+    "x0": 9.5,
+    "x1": 10.2,
+    "r0": 4.25,
+    "r1": 4.48,
+    "a0": 45,
+    "a1": 135
+   },
+   "volume_m3": 1.103900680600016,
+   "centroid_m": [
+    9.85,
+    2.4069146800061725e-16,
+    3.930789974190044
+   ]
+  },
+  {
    "id": "window_L1-command_0",
    "name": "Window assembly (L1-command, 0.50 m)",
    "system": "habitat",
-   "mass_t": 0.10545927198991001,
+   "mass_t": 0.105459272,
    "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
    "mat": "frame",
    "dry": true,
@@ -7459,10 +7481,39 @@
    ]
   },
   {
+   "id": "wws1_port_uplift_0",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L1-command",
+   "system": "habitat",
+   "mass_t": 0.020508455,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 1.2139382232726719,
+    "x1": 1.5139382232726717,
+    "y0": 2.58243385807974,
+    "y1": 2.88243385807974,
+    "z0": 2.5824338580797397,
+    "z1": 2.8824338580797395
+   },
+   "volume_m3": 0.026999999999999955,
+   "centroid_m": [
+    1.3639382232726718,
+    2.73243385807974,
+    2.7324338580797396
+   ]
+  },
+  {
    "id": "window_L1-command_1",
    "name": "Window assembly (L1-command, 0.50 m)",
    "system": "habitat",
-   "mass_t": 0.10545927198991001,
+   "mass_t": 0.105459272,
    "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
    "mat": "frame",
    "dry": true,
@@ -7487,10 +7538,39 @@
    ]
   },
   {
+   "id": "wws1_port_uplift_1",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L1-command",
+   "system": "habitat",
+   "mass_t": 0.020508455,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 1.2139382232726719,
+    "x1": 1.5139382232726717,
+    "y0": -2.8824338580797395,
+    "y1": -2.5824338580797397,
+    "z0": 2.58243385807974,
+    "z1": 2.88243385807974
+   },
+   "volume_m3": 0.026999999999999955,
+   "centroid_m": [
+    1.3639382232726718,
+    -2.7324338580797396,
+    2.73243385807974
+   ]
+  },
+  {
    "id": "window_L1-command_2",
    "name": "Window assembly (L1-command, 0.50 m)",
    "system": "habitat",
-   "mass_t": 0.10545927198991001,
+   "mass_t": 0.105459272,
    "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
    "mat": "frame",
    "dry": true,
@@ -7515,10 +7595,39 @@
    ]
   },
   {
+   "id": "wws1_port_uplift_2",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L1-command",
+   "system": "habitat",
+   "mass_t": 0.020508455,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 1.2139382232726719,
+    "x1": 1.5139382232726717,
+    "y0": -2.8824338580797404,
+    "y1": -2.5824338580797406,
+    "z0": -2.8824338580797395,
+    "z1": -2.5824338580797397
+   },
+   "volume_m3": 0.026999999999999955,
+   "centroid_m": [
+    1.3639382232726718,
+    -2.7324338580797405,
+    -2.7324338580797396
+   ]
+  },
+  {
    "id": "window_L1-command_3",
    "name": "Window assembly (L1-command, 0.50 m)",
    "system": "habitat",
-   "mass_t": 0.10545927198991001,
+   "mass_t": 0.105459272,
    "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
    "mat": "frame",
    "dry": true,
@@ -7543,38 +7652,39 @@
    ]
   },
   {
-   "id": "window_L4-shelter_4",
-   "name": "Window assembly (L4-shelter, 0.35 m)",
+   "id": "wws1_port_uplift_3",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L1-command",
    "system": "habitat",
-   "mass_t": 0.08,
-   "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
+   "mass_t": 0.020508455,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
    "mat": "frame",
    "dry": true,
    "tags": [
     "from_reserve",
-    "no_render"
+    "no_render",
+    "no_shield_credit"
    ],
    "shape": {
     "k": "box",
-    "x0": 9.7,
-    "x1": 10.0,
-    "y0": 2.492024601897848,
-    "y1": 2.7920246018978476,
-    "z0": 3.2931534968639604,
-    "z1": 3.5931534968639602
+    "x0": 1.2139382232726719,
+    "x1": 1.5139382232726717,
+    "y0": 2.5824338580797392,
+    "y1": 2.882433858079739,
+    "z0": -2.8824338580797404,
+    "z1": -2.5824338580797406
    },
-   "volume_m3": 0.027000000000000034,
+   "volume_m3": 0.026999999999999955,
    "centroid_m": [
-    9.85,
-    2.6420246018978477,
-    3.4431534968639603
+    1.3639382232726718,
+    2.732433858079739,
+    -2.7324338580797405
    ]
   },
   {
-   "id": "window_L4-shelter_5",
-   "name": "Window assembly (L4-shelter, 0.35 m)",
+   "id": "window_L4-medical_4",
+   "name": "Window assembly (L4-medical, 1.55 m)",
    "system": "habitat",
-   "mass_t": 0.08,
+   "mass_t": 0.105459272,
    "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
    "mat": "frame",
    "dry": true,
@@ -7584,25 +7694,111 @@
    ],
    "shape": {
     "k": "box",
-    "x0": 9.7,
-    "x1": 10.0,
-    "y0": -2.7920246018978476,
-    "y1": -2.492024601897848,
-    "z0": 3.2931534968639604,
-    "z1": 3.5931534968639602
+    "x0": 8.95,
+    "x1": 9.25,
+    "y0": -4.49,
+    "y1": -4.1899999999999995,
+    "z0": -0.14999999999999947,
+    "z1": 0.15000000000000052
+   },
+   "volume_m3": 0.027000000000000128,
+   "centroid_m": [
+    9.1,
+    -4.34,
+    5.273559366969494e-16
+   ]
+  },
+  {
+   "id": "wws1_port_uplift_4",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L4-medical",
+   "system": "habitat",
+   "mass_t": 0.416290586,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 8.95,
+    "x1": 9.25,
+    "y0": -4.49,
+    "y1": -4.1899999999999995,
+    "z0": -0.14999999999999947,
+    "z1": 0.15000000000000052
+   },
+   "volume_m3": 0.027000000000000128,
+   "centroid_m": [
+    9.1,
+    -4.34,
+    5.273559366969494e-16
+   ]
+  },
+  {
+   "id": "window_L4-medical_5",
+   "name": "Window assembly (L4-medical, 1.55 m)",
+   "system": "habitat",
+   "mass_t": 0.105459272,
+   "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 8.95,
+    "x1": 9.25,
+    "y0": -3.908550252424463,
+    "y1": -3.6085502524244633,
+    "z0": -2.3200000000000003,
+    "z1": -2.0200000000000005
    },
    "volume_m3": 0.027000000000000034,
    "centroid_m": [
-    9.85,
-    -2.6420246018978477,
-    3.4431534968639603
+    9.1,
+    -3.758550252424463,
+    -2.1700000000000004
+   ]
+  },
+  {
+   "id": "wws1_port_uplift_5",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L4-medical",
+   "system": "habitat",
+   "mass_t": 0.416290586,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 8.95,
+    "x1": 9.25,
+    "y0": -3.908550252424463,
+    "y1": -3.6085502524244633,
+    "z0": -2.3200000000000003,
+    "z1": -2.0200000000000005
+   },
+   "volume_m3": 0.027000000000000034,
+   "centroid_m": [
+    9.1,
+    -3.758550252424463,
+    -2.1700000000000004
    ]
   },
   {
    "id": "window_L4-medical_6",
-   "name": "Window assembly (L4-medical, 0.50 m)",
+   "name": "Window assembly (L4-medical, 1.55 m)",
    "system": "habitat",
-   "mass_t": 0.10545927198991001,
+   "mass_t": 0,
    "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
    "mat": "frame",
    "dry": true,
@@ -7612,53 +7808,54 @@
    ],
    "shape": {
     "k": "box",
-    "x0": 9.7,
-    "x1": 10.0,
-    "y0": -4.4528706983623385,
-    "y1": -4.152870698362338,
-    "z0": -0.7164836742350228,
-    "z1": -0.41648367423502275
-   },
-   "volume_m3": 0.02700000000000013,
-   "centroid_m": [
-    9.85,
-    -4.302870698362338,
-    -0.5664836742350228
-   ]
-  },
-  {
-   "id": "window_L4-medical_7",
-   "name": "Window assembly (L4-medical, 0.50 m)",
-   "system": "habitat",
-   "mass_t": 0.10545927198991001,
-   "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
-   "mat": "frame",
-   "dry": true,
-   "tags": [
-    "from_reserve",
-    "no_render"
-   ],
-   "shape": {
-    "k": "box",
-    "x0": 9.7,
-    "x1": 10.0,
-    "y0": -2.792024601897849,
-    "y1": -2.492024601897849,
-    "z0": -3.5931534968639594,
-    "z1": -3.2931534968639595
+    "x0": 8.95,
+    "x1": 9.25,
+    "y0": -2.3200000000000016,
+    "y1": -2.020000000000002,
+    "z0": -3.9085502524244626,
+    "z1": -3.608550252424463
    },
    "volume_m3": 0.027000000000000034,
    "centroid_m": [
-    9.85,
-    -2.642024601897849,
-    -3.4431534968639594
+    9.1,
+    -2.1700000000000017,
+    -3.7585502524244627
    ]
   },
   {
-   "id": "window_L5-suits_8",
+   "id": "wws1_port_uplift_6",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L4-medical",
+   "system": "habitat",
+   "mass_t": 0.521749858,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 8.95,
+    "x1": 9.25,
+    "y0": -2.3200000000000016,
+    "y1": -2.020000000000002,
+    "z0": -3.9085502524244626,
+    "z1": -3.608550252424463
+   },
+   "volume_m3": 0.027000000000000034,
+   "centroid_m": [
+    9.1,
+    -2.1700000000000017,
+    -3.7585502524244627
+   ]
+  },
+  {
+   "id": "window_L5-suits_7",
    "name": "Window assembly (L5-suits, 0.45 m)",
    "system": "habitat",
-   "mass_t": 0.08542201031182711,
+   "mass_t": 0.08542201,
    "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
    "mat": "frame",
    "dry": true,
@@ -7683,10 +7880,39 @@
    ]
   },
   {
-   "id": "window_L5-workshop_9",
+   "id": "wws1_port_uplift_7",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L5-suits",
+   "system": "habitat",
+   "mass_t": 0.031811849,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 12.299999999999999,
+    "x1": 12.6,
+    "y0": 2.639698226039581,
+    "y1": 2.9396982260395808,
+    "z0": 3.1746328831363644,
+    "z1": 3.474632883136364
+   },
+   "volume_m3": 0.027000000000000034,
+   "centroid_m": [
+    12.45,
+    2.789698226039581,
+    3.3246328831363643
+   ]
+  },
+  {
+   "id": "window_L5-workshop_8",
    "name": "Window assembly (L5-workshop, 0.45 m)",
    "system": "habitat",
-   "mass_t": 0.08542201031182711,
+   "mass_t": 0.08542201,
    "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
    "mat": "frame",
    "dry": true,
@@ -7711,10 +7937,39 @@
    ]
   },
   {
-   "id": "window_L5-workshop_10",
+   "id": "wws1_port_uplift_8",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L5-workshop",
+   "system": "habitat",
+   "mass_t": 0.031811849,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 12.299999999999999,
+    "x1": 12.6,
+    "y0": -1.0893479244913662,
+    "y1": -0.7893479244913661,
+    "z0": 4.0871246709005105,
+    "z1": 4.387124670900511
+   },
+   "volume_m3": 0.027000000000000135,
+   "centroid_m": [
+    12.45,
+    -0.9393479244913662,
+    4.237124670900511
+   ]
+  },
+  {
+   "id": "window_L5-workshop_9",
    "name": "Window assembly (L5-workshop, 0.45 m)",
    "system": "habitat",
-   "mass_t": 0.08542201031182711,
+   "mass_t": 0.08542201,
    "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
    "mat": "frame",
    "dry": true,
@@ -7739,7 +7994,36 @@
    ]
   },
   {
-   "id": "window_L5-vestibule_11",
+   "id": "wws1_port_uplift_9",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L5-workshop",
+   "system": "habitat",
+   "mass_t": 0.031811849,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 12.299999999999999,
+    "x1": 12.6,
+    "y0": -3.810318874827924,
+    "y1": -3.510318874827924,
+    "z0": 2.181880300225215,
+    "z1": 2.4818803002252148
+   },
+   "volume_m3": 0.027000000000000034,
+   "centroid_m": [
+    12.45,
+    -3.660318874827924,
+    2.331880300225215
+   ]
+  },
+  {
+   "id": "window_L5-vestibule_10",
    "name": "Window assembly (L5-vestibule, 0.40 m)",
    "system": "habitat",
    "mass_t": 0.08,
@@ -7767,10 +8051,39 @@
    ]
   },
   {
-   "id": "window_L3-CAPT_12",
-   "name": "Window assembly (L3-CAPT, 0.50 m)",
+   "id": "wws1_port_uplift_10",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L5-vestibule",
    "system": "habitat",
-   "mass_t": 0.10545927198991001,
+   "mass_t": 0.029419345,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 12.299999999999999,
+    "x1": 12.6,
+    "y0": -0.1500000000000008,
+    "y1": 0.1499999999999992,
+    "z0": -4.49,
+    "z1": -4.1899999999999995
+   },
+   "volume_m3": 0.027000000000000125,
+   "centroid_m": [
+    12.45,
+    -8.049116928532385e-16,
+    -4.34
+   ]
+  },
+  {
+   "id": "window_L3-CAPT_11",
+   "name": "Window assembly (L3-CAPT, 0.80 m)",
+   "system": "habitat",
+   "mass_t": 0.105459272,
    "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
    "mat": "frame",
    "dry": true,
@@ -7780,8 +8093,8 @@
    ],
    "shape": {
     "k": "box",
-    "x0": 7.46,
-    "x1": 7.64,
+    "x0": 7.45,
+    "x1": 7.63,
     "y0": 4.160073635671901,
     "y1": 4.3400736356719,
     "z0": 1.0488037984510912,
@@ -7789,16 +8102,45 @@
    },
    "volume_m3": 0.005831999999999987,
    "centroid_m": [
-    7.55,
+    7.54,
     4.2500736356719,
     1.1388037984510913
    ]
   },
   {
-   "id": "window_L3-CA_13",
-   "name": "Window assembly (L3-CA, 0.50 m)",
+   "id": "wws1_port_uplift_11",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L3-CAPT",
    "system": "habitat",
-   "mass_t": 0.10545927198991001,
+   "mass_t": 0.09221811,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 7.45,
+    "x1": 7.63,
+    "y0": 4.160073635671901,
+    "y1": 4.3400736356719,
+    "z0": 1.0488037984510912,
+    "z1": 1.2288037984510913
+   },
+   "volume_m3": 0.005831999999999987,
+   "centroid_m": [
+    7.54,
+    4.2500736356719,
+    1.1388037984510913
+   ]
+  },
+  {
+   "id": "window_L3-CA_12",
+   "name": "Window assembly (L3-CA, 0.80 m)",
+   "system": "habitat",
+   "mass_t": 0.105459272,
    "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
    "mat": "frame",
    "dry": true,
@@ -7808,8 +8150,8 @@
    ],
    "shape": {
     "k": "box",
-    "x0": 7.46,
-    "x1": 7.64,
+    "x0": 7.45,
+    "x1": 7.63,
     "y0": 1.0488037984510912,
     "y1": 1.2288037984510913,
     "z0": 4.160073635671901,
@@ -7817,16 +8159,45 @@
    },
    "volume_m3": 0.0058319999999999865,
    "centroid_m": [
-    7.55,
+    7.54,
     1.1388037984510913,
     4.2500736356719
    ]
   },
   {
-   "id": "window_L3-CA_14",
-   "name": "Window assembly (L3-CA, 0.50 m)",
+   "id": "wws1_port_uplift_12",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L3-CA",
    "system": "habitat",
-   "mass_t": 0.10545927198991001,
+   "mass_t": 0.09221811,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 7.45,
+    "x1": 7.63,
+    "y0": 1.0488037984510912,
+    "y1": 1.2288037984510913,
+    "z0": 4.160073635671901,
+    "z1": 4.3400736356719
+   },
+   "volume_m3": 0.0058319999999999865,
+   "centroid_m": [
+    7.54,
+    1.1388037984510913,
+    4.2500736356719
+   ]
+  },
+  {
+   "id": "window_L3-CA_13",
+   "name": "Window assembly (L3-CA, 0.80 m)",
+   "system": "habitat",
+   "mass_t": 0.105459272,
    "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
    "mat": "frame",
    "dry": true,
@@ -7836,25 +8207,111 @@
    ],
    "shape": {
     "k": "box",
-    "x0": 6.36,
-    "x1": 6.54,
-    "y0": 1.0488037984510912,
-    "y1": 1.2288037984510913,
-    "z0": 4.160073635671901,
-    "z1": 4.3400736356719
+    "x0": 6.5600000000000005,
+    "x1": 6.74,
+    "y0": 0.7495595796567976,
+    "y1": 0.9295595796567976,
+    "z0": 4.229159607169722,
+    "z1": 4.409159607169721
    },
-   "volume_m3": 0.0058319999999999865,
+   "volume_m3": 0.0058319999999999796,
    "centroid_m": [
-    6.45,
-    1.1388037984510913,
-    4.2500736356719
+    6.65,
+    0.8395595796567976,
+    4.319159607169722
+   ]
+  },
+  {
+   "id": "wws1_port_uplift_13",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L3-CA",
+   "system": "habitat",
+   "mass_t": 0.09221811,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 6.5600000000000005,
+    "x1": 6.74,
+    "y0": 0.7495595796567976,
+    "y1": 0.9295595796567976,
+    "z0": 4.229159607169722,
+    "z1": 4.409159607169721
+   },
+   "volume_m3": 0.0058319999999999796,
+   "centroid_m": [
+    6.65,
+    0.8395595796567976,
+    4.319159607169722
+   ]
+  },
+  {
+   "id": "window_L3-GUEST_14",
+   "name": "Window assembly (L3-GUEST, 0.80 m)",
+   "system": "habitat",
+   "mass_t": 0.105459272,
+   "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 7.45,
+    "x1": 7.63,
+    "y0": -4.409159607169721,
+    "y1": -4.229159607169722,
+    "z0": 0.749559579656798,
+    "z1": 0.9295595796567979
+   },
+   "volume_m3": 0.00583199999999998,
+   "centroid_m": [
+    7.54,
+    -4.319159607169722,
+    0.839559579656798
+   ]
+  },
+  {
+   "id": "wws1_port_uplift_14",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L3-GUEST",
+   "system": "habitat",
+   "mass_t": 0.09221811,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 7.45,
+    "x1": 7.63,
+    "y0": -4.409159607169721,
+    "y1": -4.229159607169722,
+    "z0": 0.749559579656798,
+    "z1": 0.9295595796567979
+   },
+   "volume_m3": 0.00583199999999998,
+   "centroid_m": [
+    7.54,
+    -4.319159607169722,
+    0.839559579656798
    ]
   },
   {
    "id": "window_L3-GUEST_15",
-   "name": "Window assembly (L3-GUEST, 0.50 m)",
+   "name": "Window assembly (L3-GUEST, 0.80 m)",
    "system": "habitat",
-   "mass_t": 0.10545927198991001,
+   "mass_t": 0.105459272,
    "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
    "mat": "frame",
    "dry": true,
@@ -7864,25 +8321,54 @@
    ],
    "shape": {
     "k": "box",
-    "x0": 7.46,
-    "x1": 7.64,
-    "y0": -4.409159607169721,
-    "y1": -4.229159607169722,
-    "z0": 0.749559579656798,
-    "z1": 0.9295595796567979
+    "x0": 6.5600000000000005,
+    "x1": 6.74,
+    "y0": -4.457203067221816,
+    "y1": -4.277203067221817,
+    "z0": 0.4462251109826493,
+    "z1": 0.6262251109826492
    },
    "volume_m3": 0.00583199999999998,
    "centroid_m": [
-    7.55,
-    -4.319159607169722,
-    0.839559579656798
+    6.65,
+    -4.3672030672218165,
+    0.5362251109826492
+   ]
+  },
+  {
+   "id": "wws1_port_uplift_15",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L3-GUEST",
+   "system": "habitat",
+   "mass_t": 0.09221811,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 6.5600000000000005,
+    "x1": 6.74,
+    "y0": -4.457203067221816,
+    "y1": -4.277203067221817,
+    "z0": 0.4462251109826493,
+    "z1": 0.6262251109826492
+   },
+   "volume_m3": 0.00583199999999998,
+   "centroid_m": [
+    6.65,
+    -4.3672030672218165,
+    0.5362251109826492
    ]
   },
   {
    "id": "window_L3-GUEST_16",
-   "name": "Window assembly (L3-GUEST, 0.50 m)",
+   "name": "Window assembly (L3-GUEST, 0.80 m)",
    "system": "habitat",
-   "mass_t": 0.10545927198991001,
+   "mass_t": 0.105459272,
    "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
    "mat": "frame",
    "dry": true,
@@ -7892,25 +8378,54 @@
    ],
    "shape": {
     "k": "box",
-    "x0": 6.36,
-    "x1": 6.54,
-    "y0": -4.409159607169721,
-    "y1": -4.229159607169722,
-    "z0": 0.749559579656798,
-    "z1": 0.9295595796567979
+    "x0": 7.45,
+    "x1": 7.63,
+    "y0": -3.410722152980197,
+    "y1": -3.2307221529801975,
+    "z0": -2.9766597275582307,
+    "z1": -2.796659727558231
    },
-   "volume_m3": 0.00583199999999998,
+   "volume_m3": 0.005831999999999973,
    "centroid_m": [
-    6.45,
-    -4.319159607169722,
-    0.839559579656798
+    7.54,
+    -3.3207221529801974,
+    -2.886659727558231
+   ]
+  },
+  {
+   "id": "wws1_port_uplift_16",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L3-GUEST",
+   "system": "habitat",
+   "mass_t": 0.09221811,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 7.45,
+    "x1": 7.63,
+    "y0": -3.410722152980197,
+    "y1": -3.2307221529801975,
+    "z0": -2.9766597275582307,
+    "z1": -2.796659727558231
+   },
+   "volume_m3": 0.005831999999999973,
+   "centroid_m": [
+    7.54,
+    -3.3207221529801974,
+    -2.886659727558231
    ]
   },
   {
    "id": "window_L3-GUEST_17",
-   "name": "Window assembly (L3-GUEST, 0.50 m)",
+   "name": "Window assembly (L3-GUEST, 0.80 m)",
    "system": "habitat",
-   "mass_t": 0.10545927198991001,
+   "mass_t": 0.105459272,
    "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
    "mat": "frame",
    "dry": true,
@@ -7920,25 +8435,54 @@
    ],
    "shape": {
     "k": "box",
-    "x0": 7.46,
-    "x1": 7.64,
-    "y0": -3.410722152980197,
-    "y1": -3.2307221529801975,
-    "z0": -2.9766597275582307,
-    "z1": -2.796659727558231
+    "x0": 6.5600000000000005,
+    "x1": 6.74,
+    "y0": -3.603996244208088,
+    "y1": -3.4239962442080882,
+    "z0": -2.7379861018690126,
+    "z1": -2.557986101869013
    },
    "volume_m3": 0.005831999999999973,
    "centroid_m": [
-    7.55,
-    -3.3207221529801974,
-    -2.886659727558231
+    6.65,
+    -3.513996244208088,
+    -2.6479861018690127
    ]
   },
   {
-   "id": "window_L3-GUEST_18",
-   "name": "Window assembly (L3-GUEST, 0.50 m)",
+   "id": "wws1_port_uplift_17",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L3-GUEST",
    "system": "habitat",
-   "mass_t": 0.10545927198991001,
+   "mass_t": 0.09221811,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 6.5600000000000005,
+    "x1": 6.74,
+    "y0": -3.603996244208088,
+    "y1": -3.4239962442080882,
+    "z0": -2.7379861018690126,
+    "z1": -2.557986101869013
+   },
+   "volume_m3": 0.005831999999999973,
+   "centroid_m": [
+    6.65,
+    -3.513996244208088,
+    -2.6479861018690127
+   ]
+  },
+  {
+   "id": "window_L3-CB_18",
+   "name": "Window assembly (L3-CB, 0.80 m)",
+   "system": "habitat",
+   "mass_t": 0.105459272,
    "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
    "mat": "frame",
    "dry": true,
@@ -7948,25 +8492,54 @@
    ],
    "shape": {
     "k": "box",
-    "x0": 6.36,
-    "x1": 6.54,
-    "y0": -3.410722152980197,
-    "y1": -3.2307221529801975,
-    "z0": -2.9766597275582307,
-    "z1": -2.796659727558231
+    "x0": 7.45,
+    "x1": 7.63,
+    "y0": -0.9295595796567963,
+    "y1": -0.7495595796567963,
+    "z0": -4.409159607169721,
+    "z1": -4.229159607169722
    },
-   "volume_m3": 0.005831999999999973,
+   "volume_m3": 0.0058319999999999796,
    "centroid_m": [
-    6.45,
-    -3.3207221529801974,
-    -2.886659727558231
+    7.54,
+    -0.8395595796567963,
+    -4.319159607169722
+   ]
+  },
+  {
+   "id": "wws1_port_uplift_18",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L3-CB",
+   "system": "habitat",
+   "mass_t": 0.09221811,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 7.45,
+    "x1": 7.63,
+    "y0": -0.9295595796567963,
+    "y1": -0.7495595796567963,
+    "z0": -4.409159607169721,
+    "z1": -4.229159607169722
+   },
+   "volume_m3": 0.0058319999999999796,
+   "centroid_m": [
+    7.54,
+    -0.8395595796567963,
+    -4.319159607169722
    ]
   },
   {
    "id": "window_L3-CB_19",
-   "name": "Window assembly (L3-CB, 0.50 m)",
+   "name": "Window assembly (L3-CB, 0.80 m)",
    "system": "habitat",
-   "mass_t": 0.10545927198991001,
+   "mass_t": 0.105459272,
    "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
    "mat": "frame",
    "dry": true,
@@ -7976,25 +8549,54 @@
    ],
    "shape": {
     "k": "box",
-    "x0": 7.46,
-    "x1": 7.64,
-    "y0": -0.9295595796567963,
-    "y1": -0.7495595796567963,
-    "z0": -4.409159607169721,
-    "z1": -4.229159607169722
+    "x0": 6.5600000000000005,
+    "x1": 6.74,
+    "y0": -0.6262251109826474,
+    "y1": -0.4462251109826475,
+    "z0": -4.457203067221817,
+    "z1": -4.2772030672218175
    },
    "volume_m3": 0.0058319999999999796,
    "centroid_m": [
-    7.55,
-    -0.8395595796567963,
-    -4.319159607169722
+    6.65,
+    -0.5362251109826475,
+    -4.367203067221817
+   ]
+  },
+  {
+   "id": "wws1_port_uplift_19",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L3-CB",
+   "system": "habitat",
+   "mass_t": 0.09221811,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 6.5600000000000005,
+    "x1": 6.74,
+    "y0": -0.6262251109826474,
+    "y1": -0.4462251109826475,
+    "z0": -4.457203067221817,
+    "z1": -4.2772030672218175
+   },
+   "volume_m3": 0.0058319999999999796,
+   "centroid_m": [
+    6.65,
+    -0.5362251109826475,
+    -4.367203067221817
    ]
   },
   {
    "id": "window_L3-CB_20",
-   "name": "Window assembly (L3-CB, 0.50 m)",
+   "name": "Window assembly (L3-CB, 0.80 m)",
    "system": "habitat",
-   "mass_t": 0.10545927198991001,
+   "mass_t": 0.105459272,
    "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
    "mat": "frame",
    "dry": true,
@@ -8004,36 +8606,8 @@
    ],
    "shape": {
     "k": "box",
-    "x0": 6.36,
-    "x1": 6.54,
-    "y0": -0.9295595796567963,
-    "y1": -0.7495595796567963,
-    "z0": -4.409159607169721,
-    "z1": -4.229159607169722
-   },
-   "volume_m3": 0.0058319999999999796,
-   "centroid_m": [
-    6.45,
-    -0.8395595796567963,
-    -4.319159607169722
-   ]
-  },
-  {
-   "id": "window_L3-CB_21",
-   "name": "Window assembly (L3-CB, 0.50 m)",
-   "system": "habitat",
-   "mass_t": 0.10545927198991001,
-   "prov": "ENGINEERING_ASSUMPTION scaled from the ISS Cupola (1.88 t for 7 windows, ~0.27 t per window with its share of frame and shutters): each assembly 0.27 t x (glazed area / 0.503 m2), at least 0.08 t; plus 0.4 t for the frame that carries the 8 nose windows",
-   "mat": "frame",
-   "dry": true,
-   "tags": [
-    "from_reserve",
-    "no_render"
-   ],
-   "shape": {
-    "k": "box",
-    "x0": 7.46,
-    "x1": 7.64,
+    "x0": 7.45,
+    "x1": 7.63,
     "y0": 2.796659727558231,
     "y1": 2.9766597275582307,
     "z0": -3.4107221529801977,
@@ -8041,7 +8615,36 @@
    },
    "volume_m3": 0.005831999999999973,
    "centroid_m": [
-    7.55,
+    7.54,
+    2.886659727558231,
+    -3.320722152980198
+   ]
+  },
+  {
+   "id": "wws1_port_uplift_20",
+   "name": "WWS-1 ceramic/AOI/backup/Strata retrofit uplift: L3-CB",
+   "system": "habitat",
+   "mass_t": 0.09221811,
+   "prov": "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "box",
+    "x0": 7.45,
+    "x1": 7.63,
+    "y0": 2.796659727558231,
+    "y1": 2.9766597275582307,
+    "z0": -3.4107221529801977,
+    "z1": -3.230722152980198
+   },
+   "volume_m3": 0.005831999999999973,
+   "centroid_m": [
+    7.54,
     2.886659727558231,
     -3.320722152980198
    ]
@@ -8398,7 +9001,7 @@
    "id": "outfit_L1",
    "name": "L1 distributed outfitting",
    "system": "habitat",
-   "mass_t": 0.8292967010747339,
+   "mass_t": 0.8190046744303192,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "outfit",
    "dry": true,
@@ -8423,7 +9026,7 @@
    "id": "outfit_L2",
    "name": "L2 distributed outfitting",
    "system": "habitat",
-   "mass_t": 0.8292967010747339,
+   "mass_t": 0.8190046744303192,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "outfit",
    "dry": true,
@@ -8448,7 +9051,7 @@
    "id": "outfit_L3",
    "name": "L3 distributed outfitting",
    "system": "habitat",
-   "mass_t": 0.8292967010747339,
+   "mass_t": 0.8190046744303192,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "outfit",
    "dry": true,
@@ -8473,7 +9076,7 @@
    "id": "outfit_L4",
    "name": "L4 distributed outfitting",
    "system": "habitat",
-   "mass_t": 0.8292967010747339,
+   "mass_t": 0.8190046744303192,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "outfit",
    "dry": true,
@@ -8498,7 +9101,7 @@
    "id": "outfit_L5",
    "name": "L5 distributed outfitting",
    "system": "habitat",
-   "mass_t": 0.8292967010747339,
+   "mass_t": 0.8190046744303192,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "outfit",
    "dry": true,
@@ -8523,7 +9126,7 @@
    "id": "plant_fore",
    "name": "Relational plant, fore block",
    "system": "plant",
-   "mass_t": 45.61131855911036,
+   "mass_t": 45.04525709366756,
    "prov": "DERIVED: SPLIT plant, half of 88 t; shortened 1 m vs v0.4 to leave room for the transfer tunnel (density 1.17 t/m3, inside the 1.0-1.5 t/m3 range)",
    "mat": "plant",
    "dry": true,
@@ -8548,7 +9151,7 @@
    "id": "courier_systems",
    "name": "Mission and courier systems",
    "system": "mission",
-   "mass_t": 19.69579665052493,
+   "mass_t": 19.45136101772008,
    "prov": "CANON_MASS_DESIGN_POSITION",
    "mat": "equipment",
    "dry": true,
@@ -8573,7 +9176,7 @@
    "id": "service_arm",
    "name": "Service arm and umbilicals",
    "system": "service",
-   "mass_t": 7.67203110581763,
+   "mass_t": 7.576816994323489,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "equipment",
    "dry": true,
@@ -8598,7 +9201,7 @@
    "id": "docking_collar",
    "name": "Docking collar",
    "system": "service",
-   "mass_t": 4.125751087846801,
+   "mass_t": 4.074548255290838,
    "prov": "CANON position (x = 16, -Z), mass ENGINEERING_ASSUMPTION",
    "mat": "collar",
    "dry": true,
@@ -8628,7 +9231,7 @@
    "id": "tunnel_0",
    "name": "Pressure tunnel: habitat to collar node",
    "system": "service",
-   "mass_t": 0.6396171364672154,
+   "mass_t": 0.6316791371935977,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "tunnel",
    "dry": true,
@@ -8660,7 +9263,7 @@
    "id": "tunnel_1",
    "name": "Pressure tunnel: collar node to bay axis",
    "system": "service",
-   "mass_t": 0.6616728997936705,
+   "mass_t": 0.6534611764071695,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "tunnel",
    "dry": true,
@@ -8692,7 +9295,7 @@
    "id": "tunnel_2",
    "name": "Pressure tunnel: docking adapter to shuttle nose",
    "system": "service",
-   "mass_t": 0.25364127825424004,
+   "mass_t": 0.25049345095608133,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "tunnel",
    "dry": true,
@@ -8724,7 +9327,7 @@
    "id": "longeron_upper_starboard",
    "name": "Longeron (upper starboard)",
    "system": "structure",
-   "mass_t": 3.0753949848918336,
+   "mass_t": 3.0525839849782552,
    "prov": "CLAUDE_DESIGN v0.5.7 (structure/longeron_study.py, kT 2026-10-25 'consolidate'): four CFRP tubes in an X, matching canon's 4 axial longerons. The upper pair stay where the v0.5.6 slot sills were (edging the bay slot); the lower pair mirror them in the tank's lower cells. Sized at 5 g x 1.5 to a 250 MPa design stress (400 MPa floor x 0.62 for impact, joints, environment). v0.5.6 had 3 planks + 2 sills (36.9 t) running at 65 MPa. NON-GOVERNING; SOL TO REVIEW REV 5 (structure review 2026-10-26): wall 72 -> 84 mm (area 0.0830 m2, 1% margin) so axial + bending (thrust-line offset 13.5 MN m + 0.5 deg thrust error 9.1 MN m) stays within the 250 MPa design stress",
    "mat": "longeron",
    "dry": true,
@@ -8756,7 +9359,7 @@
    "id": "longeron_upper_port",
    "name": "Longeron (upper port)",
    "system": "structure",
-   "mass_t": 3.0753949848918336,
+   "mass_t": 3.0525839849782552,
    "prov": "CLAUDE_DESIGN v0.5.7 (structure/longeron_study.py, kT 2026-10-25 'consolidate'): four CFRP tubes in an X, matching canon's 4 axial longerons. The upper pair stay where the v0.5.6 slot sills were (edging the bay slot); the lower pair mirror them in the tank's lower cells. Sized at 5 g x 1.5 to a 250 MPa design stress (400 MPa floor x 0.62 for impact, joints, environment). v0.5.6 had 3 planks + 2 sills (36.9 t) running at 65 MPa. NON-GOVERNING; SOL TO REVIEW REV 5 (structure review 2026-10-26): wall 72 -> 84 mm (area 0.0830 m2, 1% margin) so axial + bending (thrust-line offset 13.5 MN m + 0.5 deg thrust error 9.1 MN m) stays within the 250 MPa design stress",
    "mat": "longeron",
    "dry": true,
@@ -8788,7 +9391,7 @@
    "id": "longeron_lower_starboard",
    "name": "Longeron (lower starboard)",
    "system": "structure",
-   "mass_t": 3.0753949848918336,
+   "mass_t": 3.0525839849782552,
    "prov": "CLAUDE_DESIGN v0.5.7 (structure/longeron_study.py, kT 2026-10-25 'consolidate'): four CFRP tubes in an X, matching canon's 4 axial longerons. The upper pair stay where the v0.5.6 slot sills were (edging the bay slot); the lower pair mirror them in the tank's lower cells. Sized at 5 g x 1.5 to a 250 MPa design stress (400 MPa floor x 0.62 for impact, joints, environment). v0.5.6 had 3 planks + 2 sills (36.9 t) running at 65 MPa. NON-GOVERNING; SOL TO REVIEW REV 5 (structure review 2026-10-26): wall 72 -> 84 mm (area 0.0830 m2, 1% margin) so axial + bending (thrust-line offset 13.5 MN m + 0.5 deg thrust error 9.1 MN m) stays within the 250 MPa design stress",
    "mat": "longeron",
    "dry": true,
@@ -8820,7 +9423,7 @@
    "id": "longeron_lower_port",
    "name": "Longeron (lower port)",
    "system": "structure",
-   "mass_t": 3.0753949848918336,
+   "mass_t": 3.0525839849782552,
    "prov": "CLAUDE_DESIGN v0.5.7 (structure/longeron_study.py, kT 2026-10-25 'consolidate'): four CFRP tubes in an X, matching canon's 4 axial longerons. The upper pair stay where the v0.5.6 slot sills were (edging the bay slot); the lower pair mirror them in the tank's lower cells. Sized at 5 g x 1.5 to a 250 MPa design stress (400 MPa floor x 0.62 for impact, joints, environment). v0.5.6 had 3 planks + 2 sills (36.9 t) running at 65 MPa. NON-GOVERNING; SOL TO REVIEW REV 5 (structure review 2026-10-26): wall 72 -> 84 mm (area 0.0830 m2, 1% margin) so axial + bending (thrust-line offset 13.5 MN m + 0.5 deg thrust error 9.1 MN m) stays within the 250 MPa design stress",
    "mat": "longeron",
    "dry": true,
@@ -8852,8 +9455,8 @@
    "id": "viewport_band_0",
    "name": "L2 viewport band, segment 0 (300-360 deg)",
    "system": "habitat",
-   "mass_t": 0.8186511627906976,
-   "prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports'): a continuous panoramic band round the L2 common deck at standing and seated eye height, taller (1.6 m) in the observation lounge; skips the washroom (270-300 deg). NON-GOVERNING; SOL TO AGREE; rev 4 (kT 2026-10-26, after Sol's review of the rev 3.1 study): titanium edge rings, a mid transom in the lounge, plate-sized panes on the crown's 2226 ceramic milestone",
+   "mass_t": 1.5551084337349397,
+   "prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports'): a continuous panoramic band round the L2 common deck at standing and seated eye height, taller (1.6 m) in the observation lounge; skips the washroom (270-300 deg). NON-GOVERNING; SOL TO AGREE; rev 4 (kT 2026-10-26, after Sol's review of the rev 3.1 study): titanium edge rings, a mid transom in the lounge, plate-sized panes on the crown's 2226 ceramic milestone; WWS-1 2026-11-03: galley and exercise full-height extensions are DRAFT; new structural spans require G5 rerun.; WWS-1 round2 kT 2026-11-03: galley and exercise enlarged locally to 2.2m axial, retain other sectors and whole-circumference structural ring, added local edge returns and two transoms.",
    "mat": "frame",
    "dry": true,
    "tags": [
@@ -8862,26 +9465,112 @@
    ],
    "shape": {
     "k": "sector",
-    "x0": 3.9,
-    "x1": 4.5,
+    "x0": 3.35,
+    "x1": 5.55,
     "r0": 4.25,
     "r1": 4.3,
     "a0": 300,
     "a1": 360
    },
-   "volume_m3": 0.13430308594096318,
+   "volume_m3": 0.4924446484501982,
    "centroid_m": [
-    4.2,
+    4.45,
     3.5354368437120836,
     -2.0411854134200906
    ]
   },
   {
-   "id": "viewport_band_1",
-   "name": "L2 viewport band, segment 1 (0-150 deg)",
+   "id": "wws1_band_uplift_0",
+   "name": "WWS-1 all-open L2 glazing, upgraded galley/exercise height, segment 0",
    "system": "habitat",
-   "mass_t": 2.0466279069767443,
-   "prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports'): a continuous panoramic band round the L2 common deck at standing and seated eye height, taller (1.6 m) in the observation lounge; skips the washroom (270-300 deg). NON-GOVERNING; SOL TO AGREE; rev 4 (kT 2026-10-26, after Sol's review of the rev 3.1 study): titanium edge rings, a mid transom in the lounge, plate-sized panes on the crown's 2226 ceramic milestone",
+   "mass_t": 2.00912985860241,
+   "prov": "WWS-1 net uplift from released structural allocation; no radiation shield credit beyond local restored armour",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "sector",
+    "x0": 3.35,
+    "x1": 5.55,
+    "r0": 4.245,
+    "r1": 4.3,
+    "a0": 300,
+    "a1": 360
+   },
+   "volume_m3": 0.5413723360359808,
+   "centroid_m": [
+    4.45,
+    3.5333778522707666,
+    -2.039996654157187
+   ]
+  },
+  {
+   "id": "viewport_band_1",
+   "name": "L2 viewport band, segment 1 (0-30 deg)",
+   "system": "habitat",
+   "mass_t": 0.7775542168674698,
+   "prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports'): a continuous panoramic band round the L2 common deck at standing and seated eye height, taller (1.6 m) in the observation lounge; skips the washroom (270-300 deg). NON-GOVERNING; SOL TO AGREE; rev 4 (kT 2026-10-26, after Sol's review of the rev 3.1 study): titanium edge rings, a mid transom in the lounge, plate-sized panes on the crown's 2226 ceramic milestone; WWS-1 2026-11-03: galley and exercise full-height extensions are DRAFT; new structural spans require G5 rerun.; WWS-1 round2 kT 2026-11-03: galley and exercise enlarged locally to 2.2m axial, retain other sectors and whole-circumference structural ring, added local edge returns and two transoms.",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render"
+   ],
+   "shape": {
+    "k": "sector",
+    "x0": 3.35,
+    "x1": 5.55,
+    "r0": 4.25,
+    "r1": 4.3,
+    "a0": 0,
+    "a1": 30
+   },
+   "volume_m3": 0.2462223242250991,
+   "centroid_m": [
+    4.45,
+    4.082370826840186,
+    1.0938679662562023
+   ]
+  },
+  {
+   "id": "wws1_band_uplift_1",
+   "name": "WWS-1 all-open L2 glazing, upgraded galley/exercise height, segment 1",
+   "system": "habitat",
+   "mass_t": 1.004564929301205,
+   "prov": "WWS-1 net uplift from released structural allocation; no radiation shield credit beyond local restored armour",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "sector",
+    "x0": 3.35,
+    "x1": 5.55,
+    "r0": 4.245,
+    "r1": 4.3,
+    "a0": 0,
+    "a1": 30
+   },
+   "volume_m3": 0.2706861680179904,
+   "centroid_m": [
+    4.45,
+    4.079993308314378,
+    1.093230912087222
+   ]
+  },
+  {
+   "id": "viewport_band_2",
+   "name": "L2 viewport band, segment 2 (30-150 deg)",
+   "system": "habitat",
+   "mass_t": 0.8482409638554218,
+   "prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports'): a continuous panoramic band round the L2 common deck at standing and seated eye height, taller (1.6 m) in the observation lounge; skips the washroom (270-300 deg). NON-GOVERNING; SOL TO AGREE; rev 4 (kT 2026-10-26, after Sol's review of the rev 3.1 study): titanium edge rings, a mid transom in the lounge, plate-sized panes on the crown's 2226 ceramic milestone; WWS-1 2026-11-03: galley and exercise full-height extensions are DRAFT; new structural spans require G5 rerun.; WWS-1 round2 kT 2026-11-03: galley and exercise enlarged locally to 2.2m axial, retain other sectors and whole-circumference structural ring, added local edge returns and two transoms.",
    "mat": "frame",
    "dry": true,
    "tags": [
@@ -8894,22 +9583,51 @@
     "x1": 4.5,
     "r0": 4.25,
     "r1": 4.3,
-    "a0": 0,
+    "a0": 30,
     "a1": 150
    },
-   "volume_m3": 0.33575771485240796,
+   "volume_m3": 0.26860617188192637,
    "centroid_m": [
     4.2,
-    0.8164741653680369,
-    3.0471230682209076
+    2.1648307071198124e-16,
+    3.535436843712084
    ]
   },
   {
-   "id": "viewport_band_2",
-   "name": "L2 viewport band, segment 2 (150-210 deg)",
+   "id": "wws1_band_uplift_2",
+   "name": "WWS-1 all-open L2 glazing, upgraded galley/exercise height, segment 2",
    "system": "habitat",
-   "mass_t": 2.1830697674418604,
-   "prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports'): a continuous panoramic band round the L2 common deck at standing and seated eye height, taller (1.6 m) in the observation lounge; skips the washroom (270-300 deg). NON-GOVERNING; SOL TO AGREE; rev 4 (kT 2026-10-26, after Sol's review of the rev 3.1 study): titanium edge rings, a mid transom in the lounge, plate-sized panes on the crown's 2226 ceramic milestone",
+   "mass_t": 1.0958890137831325,
+   "prov": "WWS-1 net uplift from released structural allocation; no radiation shield credit beyond local restored armour",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "sector",
+    "x0": 3.9,
+    "x1": 4.5,
+    "r0": 4.245,
+    "r1": 4.3,
+    "a0": 30,
+    "a1": 150
+   },
+   "volume_m3": 0.2952940014741714,
+   "centroid_m": [
+    4.2,
+    2.1635699384807718e-16,
+    3.5333778522707666
+   ]
+  },
+  {
+   "id": "viewport_band_3",
+   "name": "L2 viewport band, segment 3 (150-210 deg)",
+   "system": "habitat",
+   "mass_t": 1.130987951807229,
+   "prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports'): a continuous panoramic band round the L2 common deck at standing and seated eye height, taller (1.6 m) in the observation lounge; skips the washroom (270-300 deg). NON-GOVERNING; SOL TO AGREE; rev 4 (kT 2026-10-26, after Sol's review of the rev 3.1 study): titanium edge rings, a mid transom in the lounge, plate-sized panes on the crown's 2226 ceramic milestone; WWS-1 2026-11-03: galley and exercise full-height extensions are DRAFT; new structural spans require G5 rerun.; WWS-1 round2 kT 2026-11-03: galley and exercise enlarged locally to 2.2m axial, retain other sectors and whole-circumference structural ring, added local edge returns and two transoms.",
    "mat": "frame",
    "dry": true,
    "tags": [
@@ -8933,11 +9651,40 @@
    ]
   },
   {
-   "id": "viewport_band_3",
-   "name": "L2 viewport band, segment 3 (210-270 deg)",
+   "id": "wws1_band_uplift_3",
+   "name": "WWS-1 all-open L2 glazing, upgraded galley/exercise height, segment 3",
    "system": "habitat",
-   "mass_t": 0.8186511627906976,
-   "prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports'): a continuous panoramic band round the L2 common deck at standing and seated eye height, taller (1.6 m) in the observation lounge; skips the washroom (270-300 deg). NON-GOVERNING; SOL TO AGREE; rev 4 (kT 2026-10-26, after Sol's review of the rev 3.1 study): titanium edge rings, a mid transom in the lounge, plate-sized panes on the crown's 2226 ceramic milestone",
+   "mass_t": 1.4611853517108435,
+   "prov": "WWS-1 net uplift from released structural allocation; no radiation shield credit beyond local restored armour",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "sector",
+    "x0": 3.6,
+    "x1": 5.2,
+    "r0": 4.245,
+    "r1": 4.3,
+    "a0": 150,
+    "a1": 210
+   },
+   "volume_m3": 0.3937253352988952,
+   "centroid_m": [
+    4.4,
+    -4.079993308314377,
+    4.996550745569821e-16
+   ]
+  },
+  {
+   "id": "viewport_band_4",
+   "name": "L2 viewport band, segment 4 (210-270 deg)",
+   "system": "habitat",
+   "mass_t": 1.5551084337349397,
+   "prov": "CLAUDE_DESIGN v0.5.7 rev 3 (kT: 'maximize viewports'): a continuous panoramic band round the L2 common deck at standing and seated eye height, taller (1.6 m) in the observation lounge; skips the washroom (270-300 deg). NON-GOVERNING; SOL TO AGREE; rev 4 (kT 2026-10-26, after Sol's review of the rev 3.1 study): titanium edge rings, a mid transom in the lounge, plate-sized panes on the crown's 2226 ceramic milestone; WWS-1 2026-11-03: galley and exercise full-height extensions are DRAFT; new structural spans require G5 rerun.; WWS-1 round2 kT 2026-11-03: galley and exercise enlarged locally to 2.2m axial, retain other sectors and whole-circumference structural ring, added local edge returns and two transoms.",
    "mat": "frame",
    "dry": true,
    "tags": [
@@ -8946,18 +9693,47 @@
    ],
    "shape": {
     "k": "sector",
-    "x0": 3.9,
-    "x1": 4.5,
+    "x0": 3.35,
+    "x1": 5.55,
     "r0": 4.25,
     "r1": 4.3,
     "a0": 210,
     "a1": 270
    },
-   "volume_m3": 0.13430308594096318,
+   "volume_m3": 0.4924446484501982,
    "centroid_m": [
-    4.2,
+    4.45,
     -2.04118541342009,
     -3.5354368437120836
+   ]
+  },
+  {
+   "id": "wws1_band_uplift_4",
+   "name": "WWS-1 all-open L2 glazing, upgraded galley/exercise height, segment 4",
+   "system": "habitat",
+   "mass_t": 2.00912985860241,
+   "prov": "WWS-1 net uplift from released structural allocation; no radiation shield credit beyond local restored armour",
+   "mat": "frame",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit"
+   ],
+   "shape": {
+    "k": "sector",
+    "x0": 3.35,
+    "x1": 5.55,
+    "r0": 4.245,
+    "r1": 4.3,
+    "a0": 210,
+    "a1": 270
+   },
+   "volume_m3": 0.5413723360359808,
+   "centroid_m": [
+    4.45,
+    -2.0399966541571866,
+    -3.5333778522707666
    ]
   },
   {
@@ -8992,7 +9768,7 @@
    "id": "longeron_end_fitting_14_upper_starboard",
    "name": "Longeron end fitting (upper starboard, x 14)",
    "system": "structure",
-   "mass_t": 0.2456791476933899,
+   "mass_t": 0.24263013479998205,
    "prov": "CLAUDE_DESIGN v0.5.7, conventional (2026) masses from structure/longeron_study.py; Osteon (Builder OST-22) versions would save ~0.8-1.4 t more and are NOT assumed",
    "mat": "frame",
    "dry": true,
@@ -9020,7 +9796,7 @@
    "id": "longeron_end_fitting_14_upper_port",
    "name": "Longeron end fitting (upper port, x 14)",
    "system": "structure",
-   "mass_t": 0.2456791476933899,
+   "mass_t": 0.24263013479998205,
    "prov": "CLAUDE_DESIGN v0.5.7, conventional (2026) masses from structure/longeron_study.py; Osteon (Builder OST-22) versions would save ~0.8-1.4 t more and are NOT assumed",
    "mat": "frame",
    "dry": true,
@@ -9048,7 +9824,7 @@
    "id": "longeron_end_fitting_14_lower_starboard",
    "name": "Longeron end fitting (lower starboard, x 14)",
    "system": "structure",
-   "mass_t": 0.2456791476933899,
+   "mass_t": 0.24263013479998205,
    "prov": "CLAUDE_DESIGN v0.5.7, conventional (2026) masses from structure/longeron_study.py; Osteon (Builder OST-22) versions would save ~0.8-1.4 t more and are NOT assumed",
    "mat": "frame",
    "dry": true,
@@ -9076,7 +9852,7 @@
    "id": "longeron_end_fitting_14_lower_port",
    "name": "Longeron end fitting (lower port, x 14)",
    "system": "structure",
-   "mass_t": 0.2456791476933899,
+   "mass_t": 0.24263013479998205,
    "prov": "CLAUDE_DESIGN v0.5.7, conventional (2026) masses from structure/longeron_study.py; Osteon (Builder OST-22) versions would save ~0.8-1.4 t more and are NOT assumed",
    "mat": "frame",
    "dry": true,
@@ -9104,7 +9880,7 @@
    "id": "longeron_end_fitting_34.3_upper_starboard",
    "name": "Longeron end fitting (upper starboard, x 34.3)",
    "system": "structure",
-   "mass_t": 0.2456791476933899,
+   "mass_t": 0.24263013479998205,
    "prov": "CLAUDE_DESIGN v0.5.7, conventional (2026) masses from structure/longeron_study.py; Osteon (Builder OST-22) versions would save ~0.8-1.4 t more and are NOT assumed",
    "mat": "frame",
    "dry": true,
@@ -9132,7 +9908,7 @@
    "id": "longeron_end_fitting_34.3_upper_port",
    "name": "Longeron end fitting (upper port, x 34.3)",
    "system": "structure",
-   "mass_t": 0.2456791476933899,
+   "mass_t": 0.24263013479998205,
    "prov": "CLAUDE_DESIGN v0.5.7, conventional (2026) masses from structure/longeron_study.py; Osteon (Builder OST-22) versions would save ~0.8-1.4 t more and are NOT assumed",
    "mat": "frame",
    "dry": true,
@@ -9160,7 +9936,7 @@
    "id": "longeron_end_fitting_34.3_lower_starboard",
    "name": "Longeron end fitting (lower starboard, x 34.3)",
    "system": "structure",
-   "mass_t": 0.2456791476933899,
+   "mass_t": 0.24263013479998205,
    "prov": "CLAUDE_DESIGN v0.5.7, conventional (2026) masses from structure/longeron_study.py; Osteon (Builder OST-22) versions would save ~0.8-1.4 t more and are NOT assumed",
    "mat": "frame",
    "dry": true,
@@ -9188,7 +9964,7 @@
    "id": "longeron_end_fitting_34.3_lower_port",
    "name": "Longeron end fitting (lower port, x 34.3)",
    "system": "structure",
-   "mass_t": 0.2456791476933899,
+   "mass_t": 0.24263013479998205,
    "prov": "CLAUDE_DESIGN v0.5.7, conventional (2026) masses from structure/longeron_study.py; Osteon (Builder OST-22) versions would save ~0.8-1.4 t more and are NOT assumed",
    "mat": "frame",
    "dry": true,
@@ -9216,7 +9992,7 @@
    "id": "node_mount_allowance",
    "name": "Field-node mounts and access hatches (allowance; location open)",
    "system": "structure",
-   "mass_t": 1.1402829639777592,
+   "mass_t": 1.126131427341689,
    "prov": "CLAUDE_DESIGN v0.5.7, conventional (2026) masses from structure/longeron_study.py; Osteon (Builder OST-22) versions would save ~0.8-1.4 t more and are NOT assumed; allowance: mount 0.04 t + flush access hatch 0.015 t for each of the 5 node rings x 4 that fall on x 14-34.3. LOCATION OPEN: the longeron lines (43.4 deg) lie under the stowed strakes (40 deg +-12.7), so the mounts go on ring frames in the clear arcs (beam and keel) and tie to the longerons through the frames. Sol to place against PR #184.",
    "mat": "frame",
    "dry": true,
@@ -9244,7 +10020,7 @@
    "id": "bay_corner_18_p",
    "name": "Bay-slot corner doubler (x 18)",
    "system": "structure",
-   "mass_t": 0.12439450516121006,
+   "mass_t": 0.12285070116454788,
    "prov": "CLAUDE_DESIGN v0.5.7, conventional (2026) masses from structure/longeron_study.py; Osteon (Builder OST-22) versions would save ~0.8-1.4 t more and are NOT assumed",
    "mat": "frame",
    "dry": true,
@@ -9272,7 +10048,7 @@
    "id": "bay_corner_18_s",
    "name": "Bay-slot corner doubler (x 18)",
    "system": "structure",
-   "mass_t": 0.12439450516121006,
+   "mass_t": 0.12285070116454788,
    "prov": "CLAUDE_DESIGN v0.5.7, conventional (2026) masses from structure/longeron_study.py; Osteon (Builder OST-22) versions would save ~0.8-1.4 t more and are NOT assumed",
    "mat": "frame",
    "dry": true,
@@ -9300,7 +10076,7 @@
    "id": "bay_corner_32.3_p",
    "name": "Bay-slot corner doubler (x 32.3)",
    "system": "structure",
-   "mass_t": 0.12439450516121006,
+   "mass_t": 0.12285070116454788,
    "prov": "CLAUDE_DESIGN v0.5.7, conventional (2026) masses from structure/longeron_study.py; Osteon (Builder OST-22) versions would save ~0.8-1.4 t more and are NOT assumed",
    "mat": "frame",
    "dry": true,
@@ -9328,7 +10104,7 @@
    "id": "bay_corner_32.3_s",
    "name": "Bay-slot corner doubler (x 32.3)",
    "system": "structure",
-   "mass_t": 0.12439450516121006,
+   "mass_t": 0.12285070116454788,
    "prov": "CLAUDE_DESIGN v0.5.7, conventional (2026) masses from structure/longeron_study.py; Osteon (Builder OST-22) versions would save ~0.8-1.4 t more and are NOT assumed",
    "mat": "frame",
    "dry": true,
@@ -9356,7 +10132,7 @@
    "id": "skin_service",
    "name": "Outer skin, service region",
    "system": "structure",
-   "mass_t": 2.8596437968094266,
+   "mass_t": 2.8241540497597213,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "hull_skin",
    "dry": true,
@@ -9381,7 +10157,7 @@
    "id": "skin_midship",
    "name": "Outer skin, midship (C-shaped, open at the slot)",
    "system": "structure",
-   "mass_t": 10.223226573593703,
+   "mass_t": 10.096350727891005,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "hull_skin",
    "dry": true,
@@ -9410,7 +10186,7 @@
    "id": "skin_aft",
    "name": "Outer skin, manifold region",
    "system": "structure",
-   "mass_t": 1.4298218984047133,
+   "mass_t": 1.4120770248798606,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "hull_skin",
    "dry": true,
@@ -9435,7 +10211,7 @@
    "id": "frame_14",
    "name": "Ring frame x 14",
    "system": "structure",
-   "mass_t": 1.6020504452580084,
+   "mass_t": 1.5821681210585712,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -9460,7 +10236,7 @@
    "id": "frame_16",
    "name": "Ring frame x 16",
    "system": "structure",
-   "mass_t": 1.6020504452580084,
+   "mass_t": 1.5821681210585712,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -9485,7 +10261,7 @@
    "id": "frame_18",
    "name": "Ring frame x 18",
    "system": "structure",
-   "mass_t": 1.6020504452580084,
+   "mass_t": 1.5821681210585712,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -9514,7 +10290,7 @@
    "id": "frame_20",
    "name": "Ring frame x 20",
    "system": "structure",
-   "mass_t": 1.6020504452580084,
+   "mass_t": 1.5821681210585712,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -9543,7 +10319,7 @@
    "id": "frame_22",
    "name": "Ring frame x 22",
    "system": "structure",
-   "mass_t": 1.6020504452580084,
+   "mass_t": 1.5821681210585712,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -9572,7 +10348,7 @@
    "id": "frame_24",
    "name": "Ring frame x 24",
    "system": "structure",
-   "mass_t": 1.6020504452580084,
+   "mass_t": 1.5821681210585712,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -9601,7 +10377,7 @@
    "id": "frame_26",
    "name": "Ring frame x 26",
    "system": "structure",
-   "mass_t": 1.6020504452580084,
+   "mass_t": 1.5821681210585712,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -9630,7 +10406,7 @@
    "id": "frame_28",
    "name": "Ring frame x 28",
    "system": "structure",
-   "mass_t": 1.6020504452580084,
+   "mass_t": 1.5821681210585712,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -9659,7 +10435,7 @@
    "id": "frame_30",
    "name": "Ring frame x 30",
    "system": "structure",
-   "mass_t": 1.6020504452580084,
+   "mass_t": 1.5821681210585712,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -9688,7 +10464,7 @@
    "id": "frame_32",
    "name": "Ring frame x 32",
    "system": "structure",
-   "mass_t": 1.6020504452580084,
+   "mass_t": 1.5821681210585712,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -9717,7 +10493,7 @@
    "id": "frame_34",
    "name": "Ring frame x 34",
    "system": "structure",
-   "mass_t": 1.6020504452580084,
+   "mass_t": 1.5821681210585712,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "frame",
    "dry": true,
@@ -9742,7 +10518,7 @@
    "id": "tank_shell_out",
    "name": "Tank outer wall",
    "system": "structure",
-   "mass_t": 18.244527423644147,
+   "mass_t": 18.018102837467023,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "tank_shell",
    "dry": true,
@@ -9776,7 +10552,7 @@
    "id": "tank_shell_in",
    "name": "Tank inner wall",
    "system": "structure",
-   "mass_t": 14.927340619345209,
+   "mass_t": 14.742084139745746,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "tank_shell",
    "dry": true,
@@ -9805,7 +10581,7 @@
    "id": "bay_liner",
    "name": "Bay liner and cradle",
    "system": "structure",
-   "mass_t": 4.146483505373669,
+   "mass_t": 4.095023372151596,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "bay",
    "dry": true,
@@ -9834,7 +10610,7 @@
    "id": "door_starboard",
    "name": "Bay door, starboard",
    "system": "structure",
-   "mass_t": 1.0366208763434173,
+   "mass_t": 1.023755843037899,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "door",
    "dry": true,
@@ -9861,7 +10637,7 @@
    "id": "door_port",
    "name": "Bay door, port",
    "system": "structure",
-   "mass_t": 1.0366208763434173,
+   "mass_t": 1.023755843037899,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "door",
    "dry": true,
@@ -9888,7 +10664,7 @@
    "id": "thrust_cone",
    "name": "Thrust cone (longerons to reactor frame)",
    "system": "structure",
-   "mass_t": 16.8969202843977,
+   "mass_t": 16.687220241517753,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "thrust_cone",
    "dry": true,
@@ -9912,7 +10688,7 @@
    "id": "electrical",
    "name": "Electrical conversion and distribution (aft C-ring)",
    "system": "electrical",
-   "mass_t": 27.936932617455096,
+   "mass_t": 27.590219969871377,
    "prov": "ENGINEERING_ASSUMPTION: the aft C-ring (x 31.5-32.3) is too small for all 55 t; 25 t moves to the free ring at x 17.0-18.0 ahead of the bay (theta -45 to 225 deg, clear of the tunnel elbow on -Z)",
    "mat": "equipment",
    "dry": true,
@@ -9941,7 +10717,7 @@
    "id": "electrical_fwd",
    "name": "Electrical conversion and distribution (service ring)",
    "system": "electrical",
-   "mass_t": 22.80565927955518,
+   "mass_t": 22.52262854683378,
    "prov": "ENGINEERING_ASSUMPTION: the aft C-ring (x 31.5-32.3) is too small for all 55 t; 25 t moves to the free ring at x 17.0-18.0 ahead of the bay (theta -45 to 225 deg, clear of the tunnel elbow on -Z)",
    "mat": "equipment",
    "dry": true,
@@ -9966,7 +10742,7 @@
    "id": "house_reactor_A",
    "name": "D-He3 house reactor A, aft C-ring independent envelope",
    "system": "electrical",
-   "mass_t": 1.2957760954292716,
+   "mass_t": 1.2796948037973737,
    "prov": "kT independent aft C-ring reactor mass placement; electrical isolation/physical vessel UNQUALIFIED",
    "mat": "equipment",
    "dry": true,
@@ -9991,7 +10767,7 @@
    "id": "house_reactor_B",
    "name": "D-He3 house reactor B, forward service-ring independent envelope",
    "system": "electrical",
-   "mass_t": 1.2957760954292716,
+   "mass_t": 1.2796948037973737,
    "prov": "kT independent forward service-ring reactor mass placement; electrical isolation/physical vessel UNQUALIFIED",
    "mat": "equipment",
    "dry": true,
@@ -10016,7 +10792,7 @@
    "id": "house_peak_store",
    "name": "Counter-rotating pulse flywheel pairs with burst containment (aft C-ring, 1.8t)",
    "system": "electrical",
-   "mass_t": 1.8659175774181511,
+   "mass_t": 1.8427605174682182,
    "prov": "kT declared 2226 1kWh/kg including containment; 150kW/kg, physical rotor pairing/packing unqualified",
    "mat": "equipment",
    "dry": true,
@@ -10041,7 +10817,7 @@
    "id": "house_energy_battery",
    "name": "Rechargeable endurance battery (electrical ring reallocation)",
    "system": "electrical",
-   "mass_t": 1.5549313145151258,
+   "mass_t": 1.5356337645568485,
    "prov": "kT declared 2226 2kWh/kg including module packaging; unqualified",
    "mat": "equipment",
    "dry": true,
@@ -10066,7 +10842,7 @@
    "id": "c_lite_dry",
    "name": "Independent slow attitude chemical control, dry tanks/valves/nozzles",
    "system": "electrical",
-   "mass_t": 0.10366208763434173,
+   "mass_t": 0.1023755843037899,
    "prov": "kT declared separate dry hardware; nozzle/control packaging OPEN",
    "mat": "equipment",
    "dry": true,
@@ -10119,7 +10895,7 @@
    "id": "plant_aft",
    "name": "Relational plant, aft block",
    "system": "plant",
-   "mass_t": 45.61131855911036,
+   "mass_t": 45.04525709366756,
    "prov": "DERIVED",
    "mat": "plant",
    "dry": true,
@@ -10144,7 +10920,7 @@
    "id": "manifold",
    "name": "Radiator manifold, pumps and heat exchangers",
    "system": "thermal",
-   "mass_t": 93.29587887090756,
+   "mass_t": 92.13802587341091,
    "prov": "CANON_MASS_DESIGN_POSITION",
    "mat": "manifold",
    "dry": true,
@@ -10169,7 +10945,7 @@
    "id": "strake_40",
    "name": "Radiator strake 40 deg (stowed)",
    "system": "thermal",
-   "mass_t": 2.2764194444501444,
+   "mass_t": 2.2481678313112265,
    "prov": "DERIVED (v0.4 STRAKE_QUAD ACCORDION 1300K)",
    "mat": "radiator",
    "dry": true,
@@ -10196,7 +10972,7 @@
    "id": "strake_140",
    "name": "Radiator strake 140 deg (stowed)",
    "system": "thermal",
-   "mass_t": 2.2764194444501444,
+   "mass_t": 2.2481678313112265,
    "prov": "DERIVED (v0.4 STRAKE_QUAD ACCORDION 1300K)",
    "mat": "radiator",
    "dry": true,
@@ -10223,7 +10999,7 @@
    "id": "strake_220",
    "name": "Radiator strake 220 deg (stowed)",
    "system": "thermal",
-   "mass_t": 2.2764194444501444,
+   "mass_t": 2.2481678313112265,
    "prov": "DERIVED (v0.4 STRAKE_QUAD ACCORDION 1300K)",
    "mat": "radiator",
    "dry": true,
@@ -10250,7 +11026,7 @@
    "id": "strake_320",
    "name": "Radiator strake 320 deg (stowed)",
    "system": "thermal",
-   "mass_t": 2.2764194444501444,
+   "mass_t": 2.2481678313112265,
    "prov": "DERIVED (v0.4 STRAKE_QUAD ACCORDION 1300K)",
    "mat": "radiator",
    "dry": true,
@@ -10497,7 +11273,7 @@
    "id": "rcs_F+Y",
    "name": "RCS cluster F+Y (with axial thruster)",
    "system": "rcs",
-   "mass_t": 2.0732417526868345,
+   "mass_t": 2.047511686075798,
    "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
    "mat": "rcs",
    "dry": true,
@@ -10522,7 +11298,7 @@
    "id": "rcs_F+Z",
    "name": "RCS cluster F+Z (with axial thruster)",
    "system": "rcs",
-   "mass_t": 2.0732417526868345,
+   "mass_t": 2.047511686075798,
    "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
    "mat": "rcs",
    "dry": true,
@@ -10547,7 +11323,7 @@
    "id": "rcs_F-Y",
    "name": "RCS cluster F-Y (with axial thruster)",
    "system": "rcs",
-   "mass_t": 2.0732417526868345,
+   "mass_t": 2.047511686075798,
    "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
    "mat": "rcs",
    "dry": true,
@@ -10572,7 +11348,7 @@
    "id": "rcs_F-Z",
    "name": "RCS cluster F-Z (with axial thruster)",
    "system": "rcs",
-   "mass_t": 2.0732417526868345,
+   "mass_t": 2.047511686075798,
    "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
    "mat": "rcs",
    "dry": true,
@@ -10597,7 +11373,7 @@
    "id": "rcs_A+Y",
    "name": "RCS cluster A+Y (with axial thruster)",
    "system": "rcs",
-   "mass_t": 2.0732417526868345,
+   "mass_t": 2.047511686075798,
    "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
    "mat": "rcs",
    "dry": true,
@@ -10614,21 +11390,21 @@
     "z1": 0.4,
     "offset_yz": [
      0.03,
-     -0.22000000000000008
+     -0.22999999999999998
     ]
    },
    "volume_m3": 0.5119999999999981,
    "centroid_m": [
     44.0,
     2.63,
-    -0.22000000000000008
+    -0.22999999999999998
    ]
   },
   {
    "id": "rcs_A+Z",
    "name": "RCS cluster A+Z (with axial thruster)",
    "system": "rcs",
-   "mass_t": 2.0732417526868345,
+   "mass_t": 2.047511686075798,
    "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
    "mat": "rcs",
    "dry": true,
@@ -10645,21 +11421,21 @@
     "z1": 3.0,
     "offset_yz": [
      0.03,
-     -0.22000000000000008
+     -0.22999999999999998
     ]
    },
    "volume_m3": 0.5119999999999981,
    "centroid_m": [
     44.0,
     0.030000000000000165,
-    2.38
+    2.37
    ]
   },
   {
    "id": "rcs_A-Y",
    "name": "RCS cluster A-Y (with axial thruster)",
    "system": "rcs",
-   "mass_t": 2.0732417526868345,
+   "mass_t": 2.047511686075798,
    "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
    "mat": "rcs",
    "dry": true,
@@ -10676,21 +11452,21 @@
     "z1": 0.40000000000000036,
     "offset_yz": [
      0.03,
-     -0.22000000000000008
+     -0.22999999999999998
     ]
    },
    "volume_m3": 0.5119999999999981,
    "centroid_m": [
     44.0,
     -2.5700000000000003,
-    -0.21999999999999975
+    -0.22999999999999965
    ]
   },
   {
    "id": "rcs_A-Z",
    "name": "RCS cluster A-Z (with axial thruster)",
    "system": "rcs",
-   "mass_t": 2.0732417526868345,
+   "mass_t": 2.047511686075798,
    "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
    "mat": "rcs",
    "dry": true,
@@ -10707,21 +11483,21 @@
     "z1": -2.2,
     "offset_yz": [
      0.03,
-     -0.22000000000000008
+     -0.22999999999999998
     ]
    },
    "volume_m3": 0.5119999999999981,
    "centroid_m": [
     44.0,
     0.0299999999999995,
-    -2.8200000000000003
+    -2.83
    ]
   },
   {
    "id": "shield",
    "name": "Shadow shield",
    "system": "propulsion",
-   "mass_t": 46.64793943545378,
+   "mass_t": 46.069012936705455,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "shield",
    "dry": true,
@@ -10738,21 +11514,21 @@
     "a1": 360.0,
     "offset_yz": [
      0.03,
-     -0.22000000000000008
+     -0.22999999999999998
     ]
    },
    "volume_m3": 118.79147221386405,
    "centroid_m": [
     36.8,
     0.03,
-    -0.22000000000000008
+    -0.22999999999999998
    ]
   },
   {
    "id": "reactor",
    "name": "Fusion reactor and thrust frame",
    "system": "propulsion",
-   "mass_t": 88.11277448919047,
+   "mass_t": 87.01924665822142,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "reactor",
    "dry": true,
@@ -10769,21 +11545,21 @@
     "a1": 360.0,
     "offset_yz": [
      0.03,
-     -0.22000000000000008
+     -0.22999999999999998
     ]
    },
    "volume_m3": 99.30378028456487,
    "centroid_m": [
     42.8,
     0.03,
-    -0.22000000000000008
+    -0.22999999999999998
    ]
   },
   {
    "id": "nozzle",
    "name": "Magnetic nozzle",
    "system": "propulsion",
-   "mass_t": 31.09862629030252,
+   "mass_t": 30.71267529113697,
    "prov": "ENGINEERING_ASSUMPTION",
    "mat": "nozzle",
    "dry": true,
@@ -10799,21 +11575,21 @@
     "t": 0.15,
     "offset_yz": [
      0.03,
-     -0.22000000000000008
+     -0.22999999999999998
     ]
    },
    "volume_m3": 16.410894624189666,
    "centroid_m": [
     49.99600256942268,
     0.07104664226483176,
-    -0.2455176977229949
+    -0.2555176977229947
    ]
   },
   {
    "id": "shuttle",
    "name": "Shuttle v1, 3.8 m, 3-crew pod (docked, tanks empty)",
    "system": "shuttle",
-   "mass_t": 31.12002912994171,
+   "mass_t": 30.733812509804142,
    "prov": "KT_DECISION / ASSUMPTION-SIZER",
    "mat": "shuttle",
    "dry": true,
@@ -10846,7 +11622,7 @@
    "id": "drone_0",
    "name": "Mars drone pod 1",
    "system": "drones",
-   "mass_t": 0.40946524615564983,
+   "mass_t": 0.4043835579999701,
    "prov": "DERIVED",
    "mat": "drone",
    "dry": true,
@@ -10873,7 +11649,7 @@
    "id": "drone_1",
    "name": "Mars drone pod 2",
    "system": "drones",
-   "mass_t": 0.40946524615564983,
+   "mass_t": 0.4043835579999701,
    "prov": "DERIVED",
    "mat": "drone",
    "dry": true,
@@ -10900,7 +11676,7 @@
    "id": "drone_2",
    "name": "dense-air drone pod 1",
    "system": "drones",
-   "mass_t": 0.2114706587740571,
+   "mass_t": 0.2088461919797314,
    "prov": "DERIVED",
    "mat": "drone",
    "dry": true,
@@ -10927,7 +11703,7 @@
    "id": "drone_3",
    "name": "dense-air drone pod 2",
    "system": "drones",
-   "mass_t": 0.2114706587740571,
+   "mass_t": 0.2088461919797314,
    "prov": "DERIVED",
    "mat": "drone",
    "dry": true,
@@ -10954,7 +11730,7 @@
    "id": "ext_sensor_turret_0",
    "name": "Passive optical/IR sensor turret (retractable, flush when stowed)",
    "system": "external",
-   "mass_t": 0.5183104381717086,
+   "mass_t": 0.5118779215189495,
    "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26); mass moved from courier_systems",
    "mat": "sensor",
    "dry": true,
@@ -10982,7 +11758,7 @@
    "id": "ext_sensor_turret_1",
    "name": "Passive optical/IR sensor turret (retractable, flush when stowed)",
    "system": "external",
-   "mass_t": 0.5183104381717086,
+   "mass_t": 0.5118779215189495,
    "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26); mass moved from courier_systems",
    "mat": "sensor",
    "dry": true,
@@ -11010,7 +11786,7 @@
    "id": "ext_rf_array_0",
    "name": "Conformal phased-array RF panel (flush)",
    "system": "external",
-   "mass_t": 0.10366208763434173,
+   "mass_t": 0.1023755843037899,
    "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26); mass moved from core_racks",
    "mat": "antenna",
    "dry": true,
@@ -11038,7 +11814,7 @@
    "id": "ext_rf_array_1",
    "name": "Conformal phased-array RF panel (flush)",
    "system": "external",
-   "mass_t": 0.10366208763434173,
+   "mass_t": 0.1023755843037899,
    "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26); mass moved from core_racks",
    "mat": "antenna",
    "dry": true,
@@ -11066,7 +11842,7 @@
    "id": "ext_rf_array_2",
    "name": "Conformal phased-array RF panel (flush)",
    "system": "external",
-   "mass_t": 0.10366208763434173,
+   "mass_t": 0.1023755843037899,
    "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26); mass moved from core_racks",
    "mat": "antenna",
    "dry": true,
@@ -11094,7 +11870,7 @@
    "id": "ext_rf_array_3",
    "name": "Conformal phased-array RF panel (flush)",
    "system": "external",
-   "mass_t": 0.10366208763434173,
+   "mass_t": 0.1023755843037899,
    "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26); mass moved from core_racks",
    "mat": "antenna",
    "dry": true,
@@ -11122,7 +11898,7 @@
    "id": "ext_laser_terminal_0",
    "name": "Laser comms terminal (stows behind a flush cover)",
    "system": "external",
-   "mass_t": 0.10366208763434173,
+   "mass_t": 0.1023755843037899,
    "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26); mass moved from core_racks",
    "mat": "sensor",
    "dry": true,
@@ -11150,7 +11926,7 @@
    "id": "ext_laser_terminal_1",
    "name": "Laser comms terminal (stows behind a flush cover)",
    "system": "external",
-   "mass_t": 0.10366208763434173,
+   "mass_t": 0.1023755843037899,
    "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26); mass moved from core_racks",
    "mat": "sensor",
    "dry": true,
@@ -11178,7 +11954,7 @@
    "id": "ext_star_tracker_0",
    "name": "Star tracker",
    "system": "external",
-   "mass_t": 0.010366208763434174,
+   "mass_t": 0.01023755843037899,
    "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26); mass moved from bow_sensors",
    "mat": "sensor",
    "dry": true,
@@ -11206,7 +11982,7 @@
    "id": "ext_star_tracker_1",
    "name": "Star tracker",
    "system": "external",
-   "mass_t": 0.010366208763434174,
+   "mass_t": 0.01023755843037899,
    "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26); mass moved from bow_sensors",
    "mat": "sensor",
    "dry": true,
@@ -11234,7 +12010,7 @@
    "id": "ext_star_tracker_2",
    "name": "Star tracker",
    "system": "external",
-   "mass_t": 0.010366208763434174,
+   "mass_t": 0.01023755843037899,
    "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26); mass moved from bow_sensors",
    "mat": "sensor",
    "dry": true,
@@ -11262,7 +12038,7 @@
    "id": "ext_star_tracker_3",
    "name": "Star tracker",
    "system": "external",
-   "mass_t": 0.010366208763434174,
+   "mass_t": 0.01023755843037899,
    "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26); mass moved from bow_sensors",
    "mat": "sensor",
    "dry": true,
@@ -11290,7 +12066,7 @@
    "id": "ext_service_port_0",
    "name": "Service port (2 remass fill: water and CO2; 1 power/data)",
    "system": "external",
-   "mass_t": 0.03420848891933277,
+   "mass_t": 0.03378394282025067,
    "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26); mass moved from service_arm",
    "mat": "port",
    "dry": true,
@@ -11318,7 +12094,7 @@
    "id": "ext_service_port_1",
    "name": "Service port (2 remass fill: water and CO2; 1 power/data)",
    "system": "external",
-   "mass_t": 0.03420848891933277,
+   "mass_t": 0.03378394282025067,
    "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26); mass moved from service_arm",
    "mat": "port",
    "dry": true,
@@ -11346,7 +12122,7 @@
    "id": "ext_service_port_2",
    "name": "Service port (2 remass fill: water and CO2; 1 power/data)",
    "system": "external",
-   "mass_t": 0.03420848891933277,
+   "mass_t": 0.03378394282025067,
    "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26); mass moved from service_arm",
    "mat": "port",
    "dry": true,
@@ -11374,7 +12150,7 @@
    "id": "ext_vent_0",
    "name": "Vent and relief valve",
    "system": "external",
-   "mass_t": 0.005183104381717087,
+   "mass_t": 0.005118779215189495,
    "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26); mass moved from room_L4-eclss",
    "mat": "port",
    "dry": true,
@@ -11402,7 +12178,7 @@
    "id": "ext_vent_1",
    "name": "Vent and relief valve",
    "system": "external",
-   "mass_t": 0.005183104381717087,
+   "mass_t": 0.005118779215189495,
    "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26); mass moved from room_L4-eclss",
    "mat": "port",
    "dry": true,
@@ -11430,7 +12206,7 @@
    "id": "ext_vent_2",
    "name": "Vent and relief valve",
    "system": "external",
-   "mass_t": 0.005183104381717087,
+   "mass_t": 0.005118779215189495,
    "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26); mass moved from room_L4-eclss",
    "mat": "port",
    "dry": true,
@@ -11458,7 +12234,7 @@
    "id": "ext_vent_3",
    "name": "Vent and relief valve",
    "system": "external",
-   "mass_t": 0.005183104381717087,
+   "mass_t": 0.005118779215189495,
    "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26); mass moved from room_L4-eclss",
    "mat": "port",
    "dry": true,
@@ -11486,7 +12262,7 @@
    "id": "ext_docking_target_0",
    "name": "Docking target",
    "system": "external",
-   "mass_t": 0.020732417526868347,
+   "mass_t": 0.02047511686075798,
    "prov": "ENGINEERING_ASSUMPTION rev 7 (inventory review 2026-10-26); mass moved from docking_collar",
    "mat": "port",
    "dry": true,
@@ -17223,7 +17999,7 @@
    "volume_m3": 26.430801655448843,
    "nhv_m3": 21.144641324359075,
    "couches": 0,
-   "windows": 2,
+   "windows": 0,
    "shape": {
     "k": "sector",
     "x0": 8.7,
@@ -17251,7 +18027,7 @@
    "volume_m3": 24.589834748269872,
    "nhv_m3": 12.294917374134936,
    "couches": 0,
-   "windows": 2,
+   "windows": 3,
    "shape": {
     "k": "sector",
     "x0": 8.5,
@@ -17282,7 +18058,13 @@
      "note": "kept clear of fixed equipment: the litter leaves the port ladder shaft and goes straight into the bay"
     },
     "change_prov": "CLAUDE change v0.5.6: centre moved 210 -> 202 deg (still inside the medical wall: 165.8-238.2 deg) so a litter coming out of the port ladder shaft clears the opening's edge by 0.3 m instead of 0.03 m; SOL TO AGREE"
-   }
+   },
+   "window_x_override_m": 9.1,
+   "window_theta_override_deg": [
+    180.0,
+    210.0,
+    240.0
+   ]
   },
   {
    "id": "L4-eclss",
@@ -17571,53 +18353,53 @@
    "remass_t": 250,
    "shuttle": "docked",
    "payload_t": 0,
-   "mass_t": 1172.681453466738,
+   "mass_t": 1172.6814534639639,
    "cg_m": [
-    24.083615431330678,
-    0.0187321553922283,
-    -0.3758675009116157
+    23.918936958079243,
+    0.020636928519673577,
+    -0.3882216814931702
    ],
    "inertia_kg_m2": [
     [
-     12463610.825602422,
-     126694.51563094939,
-     1421337.7121053135
+     12539913.741249291,
+     192722.5515961348,
+     1234603.0709448687
     ],
     [
-     126694.51563094939,
-     197336801.4559204,
-     11386.73109376444
+     192722.5515961348,
+     198920302.5009824,
+     -5182.5128401190295
     ],
     [
-     1421337.7121053135,
-     11386.73109376444,
-     198162627.66070613
+     1234603.0709448687,
+     -5182.5128401190295,
+     199784800.8369132
     ]
    ],
    "principal_kg_m2": [
-    12452645.868863901,
-    197336705.7039995,
-    198173688.36936554
+    12531574.38039045,
+    198920484.29575872,
+    199792958.4029958
    ],
    "principal_axes": [
     [
-     0.999970478864841,
-     -0.0006847720642673603,
-     -0.007653266364138121
+     0.9999777304839327,
+     -0.001034141991506767,
+     -0.006593109019627751
     ],
     [
-     0.0005716830373412013,
-     0.9998907689153818,
-     -0.014769001872549503
+     0.00106366981265451,
+     0.9999894140227025,
+     0.004476656013352413
     ],
     [
-     0.007662543789451729,
-     0.01476419063228843,
-     0.9998616424774222
+     0.00658840972716041,
+     -0.004483569211425114,
+     0.9999682447279982
     ]
    ],
-   "trim_deg": 0.317324977442665,
-   "lateral_offset_m": 0.15627425303784812,
+   "trim_deg": 0.31997390090839434,
+   "lateral_offset_m": 0.1584984782326692,
    "usable_remass_t": 250.0,
    "water_t": 300.0,
    "parts": [
@@ -17705,28 +18487,49 @@
     "hatch_L1L2_1",
     "crown_backup_pressure_dome",
     "crown_adaptive_optogel",
+    "wws1_shelter_armour_restoration",
     "window_L1-command_0",
+    "wws1_port_uplift_0",
     "window_L1-command_1",
+    "wws1_port_uplift_1",
     "window_L1-command_2",
+    "wws1_port_uplift_2",
     "window_L1-command_3",
-    "window_L4-shelter_4",
-    "window_L4-shelter_5",
+    "wws1_port_uplift_3",
+    "window_L4-medical_4",
+    "wws1_port_uplift_4",
+    "window_L4-medical_5",
+    "wws1_port_uplift_5",
     "window_L4-medical_6",
-    "window_L4-medical_7",
-    "window_L5-suits_8",
+    "wws1_port_uplift_6",
+    "window_L5-suits_7",
+    "wws1_port_uplift_7",
+    "window_L5-workshop_8",
+    "wws1_port_uplift_8",
     "window_L5-workshop_9",
-    "window_L5-workshop_10",
-    "window_L5-vestibule_11",
-    "window_L3-CAPT_12",
+    "wws1_port_uplift_9",
+    "window_L5-vestibule_10",
+    "wws1_port_uplift_10",
+    "window_L3-CAPT_11",
+    "wws1_port_uplift_11",
+    "window_L3-CA_12",
+    "wws1_port_uplift_12",
     "window_L3-CA_13",
-    "window_L3-CA_14",
+    "wws1_port_uplift_13",
+    "window_L3-GUEST_14",
+    "wws1_port_uplift_14",
     "window_L3-GUEST_15",
+    "wws1_port_uplift_15",
     "window_L3-GUEST_16",
+    "wws1_port_uplift_16",
     "window_L3-GUEST_17",
-    "window_L3-GUEST_18",
+    "wws1_port_uplift_17",
+    "window_L3-CB_18",
+    "wws1_port_uplift_18",
     "window_L3-CB_19",
+    "wws1_port_uplift_19",
     "window_L3-CB_20",
-    "window_L3-CB_21",
+    "wws1_port_uplift_20",
     "i4_terrace_column_0",
     "i4_terrace_column_1",
     "i4_terrace_column_2",
@@ -17756,9 +18559,15 @@
     "longeron_lower_starboard",
     "longeron_lower_port",
     "viewport_band_0",
+    "wws1_band_uplift_0",
     "viewport_band_1",
+    "wws1_band_uplift_1",
     "viewport_band_2",
+    "wws1_band_uplift_2",
     "viewport_band_3",
+    "wws1_band_uplift_3",
+    "viewport_band_4",
+    "wws1_band_uplift_4",
     "service_shield_band",
     "longeron_end_fitting_14_upper_starboard",
     "longeron_end_fitting_14_upper_port",
@@ -17906,50 +18715,50 @@
    ],
    "fins_deployed": {
     "cg_m": [
-     24.083615431330678,
-     0.018732155392228285,
-     -0.3758675009116157
+     23.918936958079243,
+     0.020636928519673563,
+     -0.3882216814931702
     ],
     "inertia_kg_m2": [
      [
-      18991013.2204203,
-      129134.12469595448,
-      1417436.387411054
+      19067316.136067178,
+      195162.16066113932,
+      1230701.7462506092
      ],
      [
-      129134.12469595448,
-      200037884.1934198,
-      14255.141399575954
+      195162.16066113932,
+      201621385.23848182,
+      -2314.1025343077113
      ],
      [
-      1417436.387411054,
-      14255.141399575954,
-      201997422.03941488
+      1230701.7462506092,
+      -2314.1025343077113,
+      203619595.21562198
      ]
     ],
     "principal_kg_m2": [
-     18979943.495188538,
-     200037858.03763083,
-     202008517.92043564
+     19058900.812095504,
+     201621593.38243318,
+     203627802.39564234
     ],
     "principal_axes": [
      [
-      0.9999697568212367,
-      -0.0007125881103674982,
-      -0.0077445245859077
+      0.9999771962471005,
+      -0.001069075834791281,
+      -0.006668137869551745
      ],
      [
-      0.0006525935184178209,
-      0.9999697826370081,
-      -0.007746478851353346
+      0.0010724178374779997,
+      0.9999993011397575,
+      0.0004976343823208935
      ],
      [
-      0.007749810615523775,
-      0.0077411905466606675,
-      0.999940005402496
+      0.006667601200562595,
+      -0.0005047740643834746,
+      0.9999776438987896
      ]
     ],
-    "trim_deg": 0.317324977442665
+    "trim_deg": 0.31997390090839434
    }
   },
   "S2": {
@@ -17957,53 +18766,53 @@
    "remass_t": 250,
    "shuttle": "docked",
    "payload_t": 50,
-   "mass_t": 1222.681453466738,
+   "mass_t": 1222.6814534639639,
    "cg_m": [
-    23.7325994162029,
-    0.01796612776748941,
-    -0.36049687842258155
+    23.57465525926768,
+    0.01979300762510176,
+    -0.37234585053191266
    ],
    "inertia_kg_m2": [
     [
-     13033177.917542363,
-     118815.94929867343,
-     1575815.3875331962
+     13109937.112889122,
+     184222.89767084643,
+     1391100.2300555485
     ],
     [
-     118815.94929867343,
-     201017188.42347905,
-     11112.75806220085
+     184222.89767084643,
+     202466869.46196768,
+     -5409.926313832722
     ],
     [
-     1575815.3875331962,
-     11112.75806220085,
-     202193606.73498955
+     1391100.2300555485,
+     -5409.926313832722,
+     203681510.81718165
     ]
    ],
    "principal_kg_m2": [
-    13019976.407505307,
-    201017140.2762039,
-    202206856.3923018
+    13099603.86411585,
+    202467035.25342703,
+    203691678.27449557
    ],
    "principal_axes": [
     [
-     0.9999651083207691,
-     -0.0006314942600520242,
-     -0.008329667222163356
+     0.9999728881520857,
+     -0.0009730159892451046,
+     -0.007299054778592217
     ],
     [
-     0.0005467039395007339,
-     0.9999480567373755,
-     -0.010177668787537475
+     0.0009972136368876661,
+     0.9999940172016999,
+     0.0033122689758973757
     ],
     [
-     0.008335661691491301,
-     0.010172759809697734,
-     0.999913512110932
+     0.007295788219145466,
+     -0.003319457891126252,
+     0.9999678758208038
     ]
    ],
-   "trim_deg": 0.28281490833172596,
-   "lateral_offset_m": 0.14101130070812773,
+   "trim_deg": 0.28465070578213725,
+   "lateral_offset_m": 0.14271133051371518,
    "usable_remass_t": 250.0,
    "water_t": 300.0,
    "parts": [
@@ -18091,28 +18900,49 @@
     "hatch_L1L2_1",
     "crown_backup_pressure_dome",
     "crown_adaptive_optogel",
+    "wws1_shelter_armour_restoration",
     "window_L1-command_0",
+    "wws1_port_uplift_0",
     "window_L1-command_1",
+    "wws1_port_uplift_1",
     "window_L1-command_2",
+    "wws1_port_uplift_2",
     "window_L1-command_3",
-    "window_L4-shelter_4",
-    "window_L4-shelter_5",
+    "wws1_port_uplift_3",
+    "window_L4-medical_4",
+    "wws1_port_uplift_4",
+    "window_L4-medical_5",
+    "wws1_port_uplift_5",
     "window_L4-medical_6",
-    "window_L4-medical_7",
-    "window_L5-suits_8",
+    "wws1_port_uplift_6",
+    "window_L5-suits_7",
+    "wws1_port_uplift_7",
+    "window_L5-workshop_8",
+    "wws1_port_uplift_8",
     "window_L5-workshop_9",
-    "window_L5-workshop_10",
-    "window_L5-vestibule_11",
-    "window_L3-CAPT_12",
+    "wws1_port_uplift_9",
+    "window_L5-vestibule_10",
+    "wws1_port_uplift_10",
+    "window_L3-CAPT_11",
+    "wws1_port_uplift_11",
+    "window_L3-CA_12",
+    "wws1_port_uplift_12",
     "window_L3-CA_13",
-    "window_L3-CA_14",
+    "wws1_port_uplift_13",
+    "window_L3-GUEST_14",
+    "wws1_port_uplift_14",
     "window_L3-GUEST_15",
+    "wws1_port_uplift_15",
     "window_L3-GUEST_16",
+    "wws1_port_uplift_16",
     "window_L3-GUEST_17",
-    "window_L3-GUEST_18",
+    "wws1_port_uplift_17",
+    "window_L3-CB_18",
+    "wws1_port_uplift_18",
     "window_L3-CB_19",
+    "wws1_port_uplift_19",
     "window_L3-CB_20",
-    "window_L3-CB_21",
+    "wws1_port_uplift_20",
     "i4_terrace_column_0",
     "i4_terrace_column_1",
     "i4_terrace_column_2",
@@ -18142,9 +18972,15 @@
     "longeron_lower_starboard",
     "longeron_lower_port",
     "viewport_band_0",
+    "wws1_band_uplift_0",
     "viewport_band_1",
+    "wws1_band_uplift_1",
     "viewport_band_2",
+    "wws1_band_uplift_2",
     "viewport_band_3",
+    "wws1_band_uplift_3",
+    "viewport_band_4",
+    "wws1_band_uplift_4",
     "service_shield_band",
     "longeron_end_fitting_14_upper_starboard",
     "longeron_end_fitting_14_upper_port",
@@ -18294,50 +19130,50 @@
    ],
    "fins_deployed": {
     "cg_m": [
-     23.7325994162029,
-     0.0179661277674894,
-     -0.36049687842258155
+     23.57465525926768,
+     0.019793007625101746,
+     -0.37234585053191266
     ],
     "inertia_kg_m2": [
      [
-      19560580.31236024,
-      121255.55836367782,
-      1571914.0628389367
+      19637339.507707007,
+      186662.50673585117,
+      1387198.9053612887
      ],
      [
-      121255.55836367782,
-      203718271.16097847,
-      13981.168368012568
+      186662.50673585117,
+      205167952.1994671,
+      -2541.516008021368
      ],
      [
-      1571914.0628389367,
-      13981.168368012568,
-      206028401.11369827
+      1387198.9053612887,
+      -2541.516008021368,
+      207516305.19589037
      ]
     ],
     "principal_kg_m2": [
-     19547250.427694313,
-     203718253.95683149,
-     206041748.20251116
+     19626909.90477732,
+     205168139.44388953,
+     207526547.55439767
     ],
     "principal_axes": [
      [
-      0.9999642590839278,
-      -0.0006577218999134737,
-      -0.00842899499546823
+      0.9999722400947894,
+      -0.001006117491840152,
+      -0.007382869862161983
      ],
      [
-      0.0006032578908995945,
-      0.999978936374205,
-      -0.006462421204999766
+      0.001009731729704649,
+      0.999999372204024,
+      0.0004858326790084353
      ],
      [
-      0.008433067926224811,
-      0.006457105374402485,
-      0.9999435929868922
+      0.007382376422469534,
+      -0.000493273910295423,
+      0.9999726282249961
      ]
     ],
-    "trim_deg": 0.28281490833172596
+    "trim_deg": 0.28465070578213725
    }
   },
   "S3": {
@@ -18345,53 +19181,53 @@
    "remass_t": 150,
    "shuttle": "docked",
    "payload_t": 0,
-   "mass_t": 1072.681453466738,
+   "mass_t": 1072.6814534639639,
    "cg_m": [
-    24.098189851806747,
-    0.02046171068544795,
-    -0.29936004168276964
+    23.918159339725964,
+    0.022544054994099193,
+    -0.31286593235864313
    ],
    "inertia_kg_m2": [
     [
-     11349142.918434318,
-     123019.72082722448,
-     1435421.466196799
+     11427637.831885396,
+     188712.01608508025,
+     1233923.3228650985
     ],
     [
-     123019.72082722448,
-     195760622.30095625,
-     11449.641194626938
+     188712.01608508025,
+     197348987.84189168,
+     -4976.3381604518545
     ],
     [
-     1435421.466196799,
-     11449.641194626938,
-     196271356.78682056
+     1233923.3228650985,
+     -4976.3381604518545,
+     197896186.21464184
     ]
    ],
    "principal_kg_m2": [
-    11337919.482258229,
-    195760409.53297806,
-    196282792.99097484
+    11419281.321107253,
+    197349154.40994656,
+    197904376.15736517
    ],
    "principal_axes": [
     [
-     0.9999696565592381,
-     -0.0006665498488466763,
-     -0.0077615508823068325
+     0.9999775927732484,
+     -0.0010151185288114614,
+     -0.006616909081435956
     ],
     [
-     0.0004819897561930908,
-     0.9997176606618847,
-     -0.02375640222347601
+     0.0010594977749231703,
+     0.9999769472538079,
+     0.0067068938727191905
     ],
     [
-     0.007775194317479173,
-     0.02375194038447498,
-     0.9996876470584689
+     0.006609948251269356,
+     -0.006713754190276035,
+     0.999955616059427
     ]
    ],
-   "trim_deg": 0.16239055462325652,
-   "lateral_offset_m": 0.07993119027600565,
+   "trim_deg": 0.16796072047018556,
+   "lateral_offset_m": 0.0832006842615987,
    "usable_remass_t": 150.0,
    "water_t": 200.0,
    "parts": [
@@ -18479,28 +19315,49 @@
     "hatch_L1L2_1",
     "crown_backup_pressure_dome",
     "crown_adaptive_optogel",
+    "wws1_shelter_armour_restoration",
     "window_L1-command_0",
+    "wws1_port_uplift_0",
     "window_L1-command_1",
+    "wws1_port_uplift_1",
     "window_L1-command_2",
+    "wws1_port_uplift_2",
     "window_L1-command_3",
-    "window_L4-shelter_4",
-    "window_L4-shelter_5",
+    "wws1_port_uplift_3",
+    "window_L4-medical_4",
+    "wws1_port_uplift_4",
+    "window_L4-medical_5",
+    "wws1_port_uplift_5",
     "window_L4-medical_6",
-    "window_L4-medical_7",
-    "window_L5-suits_8",
+    "wws1_port_uplift_6",
+    "window_L5-suits_7",
+    "wws1_port_uplift_7",
+    "window_L5-workshop_8",
+    "wws1_port_uplift_8",
     "window_L5-workshop_9",
-    "window_L5-workshop_10",
-    "window_L5-vestibule_11",
-    "window_L3-CAPT_12",
+    "wws1_port_uplift_9",
+    "window_L5-vestibule_10",
+    "wws1_port_uplift_10",
+    "window_L3-CAPT_11",
+    "wws1_port_uplift_11",
+    "window_L3-CA_12",
+    "wws1_port_uplift_12",
     "window_L3-CA_13",
-    "window_L3-CA_14",
+    "wws1_port_uplift_13",
+    "window_L3-GUEST_14",
+    "wws1_port_uplift_14",
     "window_L3-GUEST_15",
+    "wws1_port_uplift_15",
     "window_L3-GUEST_16",
+    "wws1_port_uplift_16",
     "window_L3-GUEST_17",
-    "window_L3-GUEST_18",
+    "wws1_port_uplift_17",
+    "window_L3-CB_18",
+    "wws1_port_uplift_18",
     "window_L3-CB_19",
+    "wws1_port_uplift_19",
     "window_L3-CB_20",
-    "window_L3-CB_21",
+    "wws1_port_uplift_20",
     "i4_terrace_column_0",
     "i4_terrace_column_1",
     "i4_terrace_column_2",
@@ -18530,9 +19387,15 @@
     "longeron_lower_starboard",
     "longeron_lower_port",
     "viewport_band_0",
+    "wws1_band_uplift_0",
     "viewport_band_1",
+    "wws1_band_uplift_1",
     "viewport_band_2",
+    "wws1_band_uplift_2",
     "viewport_band_3",
+    "wws1_band_uplift_3",
+    "viewport_band_4",
+    "wws1_band_uplift_4",
     "service_shield_band",
     "longeron_end_fitting_14_upper_starboard",
     "longeron_end_fitting_14_upper_port",
@@ -18680,50 +19543,50 @@
    ],
    "fins_deployed": {
     "cg_m": [
-     24.098189851806747,
-     0.020461710685447936,
-     -0.29936004168276964
+     23.918159339725964,
+     0.02254405499409918,
+     -0.31286593235864313
     ],
     "inertia_kg_m2": [
      [
-      17876545.313252192,
-      125459.32989222858,
-      1431520.1415025392
+      17955040.226703286,
+      191151.6251500851,
+      1230021.9981708394
      ],
      [
-      125459.32989222858,
-      198461705.03845567,
-      14318.051500438474
+      191151.6251500851,
+      200050070.5793911,
+      -2107.9278546404707
      ],
      [
-      1431520.1415025392,
-      14318.051500438474,
-      200106151.16552928
+      1230021.9981708394,
+      -2107.9278546404707,
+      201730980.5933506
      ]
     ],
     "principal_kg_m2": [
-     17865213.584801495,
-     198461650.59555185,
-     200117537.33688378
+     17946607.32379,
+     200050270.8428913,
+     201739213.2327637
     ],
     "principal_axes": [
      [
-      0.9999689097409833,
-      -0.0006940492850446823,
-      -0.007854797707078032
+      0.9999770532868788,
+      -0.0010497403098776962,
+      -0.006692603751361849
      ],
      [
-      0.0006214040818934673,
-      0.9999570508540511,
-      -0.0092471781769229
+      0.0010530000007804095,
+      0.9999993286832257,
+      0.0004835536126576453
      ],
      [
-      0.007860878347627285,
-      0.00924200967640058,
-      0.9999263932153933
+      0.006692091652785493,
+      -0.0004905898284470238,
+      0.999977487362056
      ]
     ],
-    "trim_deg": 0.16239055462325652
+    "trim_deg": 0.1679607204701856
    }
   },
   "S4": {
@@ -18731,53 +19594,53 @@
    "remass_t": 0,
    "shuttle": "docked",
    "payload_t": 0,
-   "mass_t": 922.681453466738,
+   "mass_t": 922.681453463964,
    "cg_m": [
-    23.699469548937977,
-    0.02375897661750407,
-    -0.15350437586370266
+    23.490171539703272,
+    0.0261798469094556,
+    -0.16920591444533037
    ],
    "inertia_kg_m2": [
     [
-     9647500.50915753,
-     111748.52562627288,
-     1052142.7572159318
+     9730174.300098775,
+     175848.0751070112,
+     828678.1210414353
     ],
     [
-     111748.52562627288,
-     192250661.07873443,
-     12220.50748996932
+     175848.0751070112,
+     193683570.92464006,
+     -3932.3488161853156
     ],
     [
-     1052142.7572159318,
-     12220.50748996932,
-     192318667.94828194
+     828678.1210414353,
+     -3932.3488161853156,
+     193783831.8309499
     ]
    ],
    "principal_kg_m2": [
-    9641372.319939043,
-    192248556.8893933,
-    192326900.3268416
+    9726275.2314004,
+    193683644.1371881,
+    193787657.68710023
    ],
    "principal_axes": [
     [
-     0.9999832273234448,
-     -0.0006115585295244979,
-     -0.0057594329541133474
+     0.9999894078458186,
+     -0.0009560035419932726,
+     -0.004502249815029251
     ],
     [
-     -0.00035607517830885897,
-     0.9860371951324121,
-     -0.1665248420683025
+     0.0010915611927139004,
+     0.999543180184052,
+     0.03020330183463879
     ],
     [
-     0.005780854803171698,
-     0.16652409979210417,
-     0.9860204388886541
+     0.004471318634563591,
+     -0.030207896397786958,
+     0.9995336364049431
     ]
    ],
-   "trim_deg": 0.13379666575060775,
-   "lateral_offset_m": 0.06678786118851689,
+   "trim_deg": 0.12114301383792796,
+   "lateral_offset_m": 0.06091399189072807,
    "usable_remass_t": 0.0,
    "water_t": 50.0,
    "parts": [
@@ -18865,28 +19728,49 @@
     "hatch_L1L2_1",
     "crown_backup_pressure_dome",
     "crown_adaptive_optogel",
+    "wws1_shelter_armour_restoration",
     "window_L1-command_0",
+    "wws1_port_uplift_0",
     "window_L1-command_1",
+    "wws1_port_uplift_1",
     "window_L1-command_2",
+    "wws1_port_uplift_2",
     "window_L1-command_3",
-    "window_L4-shelter_4",
-    "window_L4-shelter_5",
+    "wws1_port_uplift_3",
+    "window_L4-medical_4",
+    "wws1_port_uplift_4",
+    "window_L4-medical_5",
+    "wws1_port_uplift_5",
     "window_L4-medical_6",
-    "window_L4-medical_7",
-    "window_L5-suits_8",
+    "wws1_port_uplift_6",
+    "window_L5-suits_7",
+    "wws1_port_uplift_7",
+    "window_L5-workshop_8",
+    "wws1_port_uplift_8",
     "window_L5-workshop_9",
-    "window_L5-workshop_10",
-    "window_L5-vestibule_11",
-    "window_L3-CAPT_12",
+    "wws1_port_uplift_9",
+    "window_L5-vestibule_10",
+    "wws1_port_uplift_10",
+    "window_L3-CAPT_11",
+    "wws1_port_uplift_11",
+    "window_L3-CA_12",
+    "wws1_port_uplift_12",
     "window_L3-CA_13",
-    "window_L3-CA_14",
+    "wws1_port_uplift_13",
+    "window_L3-GUEST_14",
+    "wws1_port_uplift_14",
     "window_L3-GUEST_15",
+    "wws1_port_uplift_15",
     "window_L3-GUEST_16",
+    "wws1_port_uplift_16",
     "window_L3-GUEST_17",
-    "window_L3-GUEST_18",
+    "wws1_port_uplift_17",
+    "window_L3-CB_18",
+    "wws1_port_uplift_18",
     "window_L3-CB_19",
+    "wws1_port_uplift_19",
     "window_L3-CB_20",
-    "window_L3-CB_21",
+    "wws1_port_uplift_20",
     "i4_terrace_column_0",
     "i4_terrace_column_1",
     "i4_terrace_column_2",
@@ -18916,9 +19800,15 @@
     "longeron_lower_starboard",
     "longeron_lower_port",
     "viewport_band_0",
+    "wws1_band_uplift_0",
     "viewport_band_1",
+    "wws1_band_uplift_1",
     "viewport_band_2",
+    "wws1_band_uplift_2",
     "viewport_band_3",
+    "wws1_band_uplift_3",
+    "viewport_band_4",
+    "wws1_band_uplift_4",
     "service_shield_band",
     "longeron_end_fitting_14_upper_starboard",
     "longeron_end_fitting_14_upper_port",
@@ -19066,50 +19956,50 @@
    ],
    "fins_deployed": {
     "cg_m": [
-     23.699469548937977,
-     0.023758976617504052,
-     -0.15350437586370266
+     23.490171539703272,
+     0.026179846909455587,
+     -0.16920591444533037
     ],
     "inertia_kg_m2": [
      [
-      16174902.903975418,
-      114188.13469127721,
-      1048241.4325216727
+      16257576.694916656,
+      178287.68417201555,
+      824776.7963471762
      ],
      [
-      114188.13469127721,
-      194951743.8162338,
-      15088.91779578076
+      178287.68417201555,
+      196384653.66213948,
+      -1063.9385103737293
      ],
      [
-      1048241.4325216727,
-      15088.91779578076,
-      196153462.32699063
+      824776.7963471762,
+      -1063.9385103737293,
+      197618626.2096586
      ]
     ],
     "principal_kg_m2": [
-     16168725.066372745,
-     194951611.1798104,
-     196159772.80101675
+     16253649.460658122,
+     196384830.0795102,
+     197622377.02654636
     ],
     "principal_axes": [
      [
-      0.9999828372788852,
-      -0.000638193538770657,
-      -0.005823903903522771
+      0.9999891699351187,
+      -0.0009897829214512946,
+      -0.00454756442954558
      ],
      [
-      0.0005621818449199912,
-      0.9999147655012066,
-      -0.013043990349587422
+      0.000990702916048441,
+      0.9999994892423928,
+      0.00020005670585628886
      ],
      [
-      0.005831732096353428,
-      0.013040492386177709,
-      0.999897963023769
+      0.004547364094131676,
+      -0.00020455982457045344,
+      0.9999896397638695
      ]
     ],
-    "trim_deg": 0.13379666575060778
+    "trim_deg": 0.12114301383792796
    }
   },
   "S5": {
@@ -19117,53 +20007,53 @@
    "remass_t": 0,
    "shuttle": "absent",
    "payload_t": 0,
-   "mass_t": 891.5614243367964,
+   "mass_t": 891.9476409541599,
    "cg_m": [
-    23.648838657270026,
-    0.024588285764638073,
-    -0.15886245946630517
+    23.43297888135101,
+    0.02708192509152227,
+    -0.17503623745010863
    ],
    "inertia_kg_m2": [
     [
-     9590552.111177215,
-     110355.44280125435,
-     1056413.6405925455
+     9673768.055971095,
+     174186.9087559101,
+     834742.9578978906
     ],
     [
-     110355.44280125435,
-     191726215.00415564,
-     12304.201330932872
+     174186.9087559101,
+     193144804.85932818,
+     -3874.526964507854
     ],
     [
-     1056413.6405925455,
-     12304.201330932872,
-     191795213.78400517
+     834742.9578978906,
+     -3874.526964507854,
+     193246202.3011118
     ]
    ],
    "principal_kg_m2": [
-    9584360.509791885,
-    191724112.2860236,
-    191803508.10352257
+    9669806.981384091,
+    193144879.86987567,
+    193250088.3651513
    ],
    "principal_axes": [
     [
-     0.9999830103904447,
-     -0.0006054744155226196,
-     -0.005797614267621976
+     0.9999892112078057,
+     -0.0009494621259806587,
+     -0.004547085842808656
     ],
     [
-     -0.00036122709791597165,
-     0.9862426866372168,
-     -0.16530345601223306
+     0.0010823242290137424,
+     0.9995698887080471,
+     0.02930641845134911
     ],
     [
-     0.005817941684798634,
-     0.165302741826434,
-     0.986225712045278
+     0.004517304755474488,
+     -0.029311023691669554,
+     0.9995601321820977
     ]
    ],
-   "trim_deg": 0.12273897078064284,
-   "lateral_offset_m": 0.0613765876656108,
+   "trim_deg": 0.10924656495986114,
+   "lateral_offset_m": 0.0550411696352133,
    "usable_remass_t": 0.0,
    "water_t": 50.0,
    "parts": [
@@ -19251,28 +20141,49 @@
     "hatch_L1L2_1",
     "crown_backup_pressure_dome",
     "crown_adaptive_optogel",
+    "wws1_shelter_armour_restoration",
     "window_L1-command_0",
+    "wws1_port_uplift_0",
     "window_L1-command_1",
+    "wws1_port_uplift_1",
     "window_L1-command_2",
+    "wws1_port_uplift_2",
     "window_L1-command_3",
-    "window_L4-shelter_4",
-    "window_L4-shelter_5",
+    "wws1_port_uplift_3",
+    "window_L4-medical_4",
+    "wws1_port_uplift_4",
+    "window_L4-medical_5",
+    "wws1_port_uplift_5",
     "window_L4-medical_6",
-    "window_L4-medical_7",
-    "window_L5-suits_8",
+    "wws1_port_uplift_6",
+    "window_L5-suits_7",
+    "wws1_port_uplift_7",
+    "window_L5-workshop_8",
+    "wws1_port_uplift_8",
     "window_L5-workshop_9",
-    "window_L5-workshop_10",
-    "window_L5-vestibule_11",
-    "window_L3-CAPT_12",
+    "wws1_port_uplift_9",
+    "window_L5-vestibule_10",
+    "wws1_port_uplift_10",
+    "window_L3-CAPT_11",
+    "wws1_port_uplift_11",
+    "window_L3-CA_12",
+    "wws1_port_uplift_12",
     "window_L3-CA_13",
-    "window_L3-CA_14",
+    "wws1_port_uplift_13",
+    "window_L3-GUEST_14",
+    "wws1_port_uplift_14",
     "window_L3-GUEST_15",
+    "wws1_port_uplift_15",
     "window_L3-GUEST_16",
+    "wws1_port_uplift_16",
     "window_L3-GUEST_17",
-    "window_L3-GUEST_18",
+    "wws1_port_uplift_17",
+    "window_L3-CB_18",
+    "wws1_port_uplift_18",
     "window_L3-CB_19",
+    "wws1_port_uplift_19",
     "window_L3-CB_20",
-    "window_L3-CB_21",
+    "wws1_port_uplift_20",
     "i4_terrace_column_0",
     "i4_terrace_column_1",
     "i4_terrace_column_2",
@@ -19302,9 +20213,15 @@
     "longeron_lower_starboard",
     "longeron_lower_port",
     "viewport_band_0",
+    "wws1_band_uplift_0",
     "viewport_band_1",
+    "wws1_band_uplift_1",
     "viewport_band_2",
+    "wws1_band_uplift_2",
     "viewport_band_3",
+    "wws1_band_uplift_3",
+    "viewport_band_4",
+    "wws1_band_uplift_4",
     "service_shield_band",
     "longeron_end_fitting_14_upper_starboard",
     "longeron_end_fitting_14_upper_port",
@@ -19451,50 +20368,50 @@
    ],
    "fins_deployed": {
     "cg_m": [
-     23.648838657270026,
-     0.02458828576463806,
-     -0.15886245946630517
+     23.43297888135101,
+     0.02708192509152225,
+     -0.17503623745010863
     ],
     "inertia_kg_m2": [
      [
-      16117954.505995099,
-      112795.0518662587,
-      1052512.3158982857
+      16201170.450788977,
+      176626.5178209144,
+      830841.6332036314
      ],
      [
-      112795.0518662587,
-      194427297.74165505,
-      15172.611636744066
+      176626.5178209144,
+      195845887.5968276,
+      -1006.1166586964151
      ],
      [
-      1052512.3158982857,
-      15172.611636744066,
-      195630008.16271392
+      830841.6332036314,
+      -1006.1166586964151,
+      197080996.67982054
      ]
     ],
     "principal_kg_m2": [
-     16111712.409545556,
-     194427161.61397043,
-     195636386.3868481
+     16197180.536774147,
+     195846061.2267795,
+     197084812.96388352
     ],
     "principal_axes": [
      [
-      0.9999826137455545,
-      -0.0006320479791997308,
-      -0.005862825424749818
+      0.9999889679205484,
+      -0.0009831921055042767,
+      -0.004593187398762825
      ],
      [
-      0.0005552081837047054,
-      0.9999140547985147,
-      -0.013098654902918904
+      0.0009839041238988828,
+      0.9999995042985406,
+      0.00015275911801224232
      ],
      [
-      0.005870600521399039,
-      0.013095172077716414,
-      0.9998970209565449
+      0.004593034930354256,
+      -0.00015727668878499855,
+      0.9999894395913248
      ]
     ],
-    "trim_deg": 0.12273897078064284
+    "trim_deg": 0.10924656495986114
    }
   },
   "S6": {
@@ -19502,53 +20419,53 @@
    "remass_t": 250,
    "shuttle": "absent",
    "payload_t": 0,
-   "mass_t": 1141.5614243367963,
+   "mass_t": 1141.9476409541599,
    "cg_m": [
-    24.05454479340159,
-    0.019242811419179637,
-    -0.3861139995476075
+    23.885804737860692,
+    0.021192340579872695,
+    -0.3986700873073654
    ],
    "inertia_kg_m2": [
     [
-     12402911.907430146,
-     125772.771168198,
-     1431251.0045568442
+     12479669.349534895,
+     191641.09387774422,
+     1246822.5959972641
     ],
     [
-     125772.771168198,
-     196840007.45947272,
-     11362.801356087148
+     191641.09387774422,
+     198417448.93399402,
+     -5236.712790576006
     ],
     [
-     1431251.0045568442,
-     11362.801356087148,
-     197670590.0199183
+     1246822.5959972641,
+     -5236.712790576006,
+     199286938.65102476
     ]
    ],
    "principal_kg_m2": [
-    12391770.065689659,
-    196839912.36607924,
-    197681826.95505232
+    12471150.379578764,
+    198417628.66115,
+    199295277.89382493
    ],
    "principal_axes": [
     [
-     0.9999699328689522,
-     -0.0006813895073150276,
-     -0.007724575483641302
+     0.9999771976594191,
+     -0.0010307903769825133,
+     -0.006673951783895781
     ],
     [
-     0.0005681192205490293,
-     0.9998924285585509,
-     -0.014656348516409972
+     0.001060852192588445,
+     0.9999893015353359,
+     0.004502377982391466
     ],
     [
-     0.007733731222016579,
-     0.014651519362255611,
-     0.9998627517723436
+     0.0066692393749606645,
+     -0.0045093553940184624,
+     0.9999675929549365
     ]
    ],
-   "trim_deg": 0.33766339423224045,
-   "lateral_offset_m": 0.16646194145168994,
+   "trim_deg": 0.3405740284571049,
+   "lateral_offset_m": 0.16889989110930545,
    "usable_remass_t": 250.0,
    "water_t": 300.0,
    "parts": [
@@ -19636,28 +20553,49 @@
     "hatch_L1L2_1",
     "crown_backup_pressure_dome",
     "crown_adaptive_optogel",
+    "wws1_shelter_armour_restoration",
     "window_L1-command_0",
+    "wws1_port_uplift_0",
     "window_L1-command_1",
+    "wws1_port_uplift_1",
     "window_L1-command_2",
+    "wws1_port_uplift_2",
     "window_L1-command_3",
-    "window_L4-shelter_4",
-    "window_L4-shelter_5",
+    "wws1_port_uplift_3",
+    "window_L4-medical_4",
+    "wws1_port_uplift_4",
+    "window_L4-medical_5",
+    "wws1_port_uplift_5",
     "window_L4-medical_6",
-    "window_L4-medical_7",
-    "window_L5-suits_8",
+    "wws1_port_uplift_6",
+    "window_L5-suits_7",
+    "wws1_port_uplift_7",
+    "window_L5-workshop_8",
+    "wws1_port_uplift_8",
     "window_L5-workshop_9",
-    "window_L5-workshop_10",
-    "window_L5-vestibule_11",
-    "window_L3-CAPT_12",
+    "wws1_port_uplift_9",
+    "window_L5-vestibule_10",
+    "wws1_port_uplift_10",
+    "window_L3-CAPT_11",
+    "wws1_port_uplift_11",
+    "window_L3-CA_12",
+    "wws1_port_uplift_12",
     "window_L3-CA_13",
-    "window_L3-CA_14",
+    "wws1_port_uplift_13",
+    "window_L3-GUEST_14",
+    "wws1_port_uplift_14",
     "window_L3-GUEST_15",
+    "wws1_port_uplift_15",
     "window_L3-GUEST_16",
+    "wws1_port_uplift_16",
     "window_L3-GUEST_17",
-    "window_L3-GUEST_18",
+    "wws1_port_uplift_17",
+    "window_L3-CB_18",
+    "wws1_port_uplift_18",
     "window_L3-CB_19",
+    "wws1_port_uplift_19",
     "window_L3-CB_20",
-    "window_L3-CB_21",
+    "wws1_port_uplift_20",
     "i4_terrace_column_0",
     "i4_terrace_column_1",
     "i4_terrace_column_2",
@@ -19687,9 +20625,15 @@
     "longeron_lower_starboard",
     "longeron_lower_port",
     "viewport_band_0",
+    "wws1_band_uplift_0",
     "viewport_band_1",
+    "wws1_band_uplift_1",
     "viewport_band_2",
+    "wws1_band_uplift_2",
     "viewport_band_3",
+    "wws1_band_uplift_3",
+    "viewport_band_4",
+    "wws1_band_uplift_4",
     "service_shield_band",
     "longeron_end_fitting_14_upper_starboard",
     "longeron_end_fitting_14_upper_port",
@@ -19836,50 +20780,50 @@
    ],
    "fins_deployed": {
     "cg_m": [
-     24.05454479340159,
-     0.019242811419179624,
-     -0.3861139995476075
+     23.885804737860692,
+     0.021192340579872685,
+     -0.3986700873073654
     ],
     "inertia_kg_m2": [
      [
-      18930314.30224802,
-      128212.38023320286,
-      1427349.6798625845
+      19007071.74435278,
+      194080.7029427486,
+      1242921.2713030044
      ],
      [
-      128212.38023320286,
-      199541090.19697213,
-      14231.211661898473
+      194080.7029427486,
+      201118531.67149344,
+      -2368.3024847645643
      ],
      [
-      1427349.6798625845,
-      14231.211661898473,
-      201505384.39862698
+      1242921.2713030044,
+      -2368.3024847645643,
+      203121733.02973348
      ]
     ],
     "principal_kg_m2": [
-     18919065.291487493,
-     199541063.58081704,
-     201516660.02554268
+     18998474.562176757,
+     201118737.96634296,
+     203130123.91706002
     ],
     "principal_axes": [
      [
-      0.9999691945127558,
-      -0.0007091997808299588,
-      -0.00781710056104087
+      0.9999766482777895,
+      -0.0010657374050984973,
+      -0.00675034094705633
      ],
      [
-      0.0006488807018192244,
-      0.9999700196550687,
-      -0.007716135358866564
+      0.0010692641561169864,
+      0.9999992937249355,
+      0.0005188678009260957
      ],
      [
-      0.00782233848317505,
-      0.007710825293858951,
-      0.9999396752774352
+      0.006749783202635093,
+      -0.0005260735820856007,
+      0.9999770815740247
      ]
     ],
-    "trim_deg": 0.33766339423224045
+    "trim_deg": 0.3405740284571049
    }
   },
   "S7": {
@@ -19889,53 +20833,53 @@
    "vented": true,
    "shuttle": "docked",
    "payload_t": 0,
-   "mass_t": 1110.1804561458393,
+   "mass_t": 1110.1804561430654,
    "cg_m": [
-    24.193566085854833,
-    0.15639965047271467,
-    -0.3297781103295467
+    24.019616535312995,
+    0.158411658617547,
+    -0.3428278072148058
    ],
    "inertia_kg_m2": [
     [
-     11740424.236450471,
-     442720.9658095068,
-     1527120.2025588646
+     11817437.264456175,
+     482388.17676199524,
+     1330026.393466521
     ],
     [
-     442720.9658095068,
-     196692779.1959837,
-     50570.04892528628
+     482388.17676199524,
+     198318281.54617217,
+     32107.74055700153
     ],
     [
-     1527120.2025588646,
-     50570.04892528628,
-     197294053.3770737
+     1330026.393466521,
+     32107.74055700153,
+     198956287.23979285
     ]
    ],
    "principal_kg_m2": [
-    11726799.17298162,
-    196689077.8091895,
-    197311379.8273369
+    11806738.634749606,
+    198317579.755546,
+    198967687.6601256
    ],
    "principal_axes": [
     [
-     0.9999632861919889,
-     -0.002391188884030607,
-     -0.008228516502931644
+     0.9999714098833364,
+     -0.0025850744492814386,
+     -0.007106110470849354
     ],
     [
-     0.0016623668139595848,
-     0.9961661168855007,
-     -0.08746601686277111
+     0.0021921276967012144,
+     0.9984971860354053,
+     -0.05475914586202695
     ],
     [
-     0.00840611709970637,
-     0.08744912683945795,
-     0.9961335188669852
+     0.00723698777763221,
+     0.054742002790079396,
+     0.9984743056976665
     ]
    ],
-   "trim_deg": 0.34127825583033755,
-   "lateral_offset_m": 0.16741596443335546,
+   "trim_deg": 0.3463137134921223,
+   "lateral_offset_m": 0.17093761478917047,
    "usable_remass_t": 187.5,
    "water_t": 237.49900267910135,
    "parts": [
@@ -20023,28 +20967,49 @@
     "hatch_L1L2_1",
     "crown_backup_pressure_dome",
     "crown_adaptive_optogel",
+    "wws1_shelter_armour_restoration",
     "window_L1-command_0",
+    "wws1_port_uplift_0",
     "window_L1-command_1",
+    "wws1_port_uplift_1",
     "window_L1-command_2",
+    "wws1_port_uplift_2",
     "window_L1-command_3",
-    "window_L4-shelter_4",
-    "window_L4-shelter_5",
+    "wws1_port_uplift_3",
+    "window_L4-medical_4",
+    "wws1_port_uplift_4",
+    "window_L4-medical_5",
+    "wws1_port_uplift_5",
     "window_L4-medical_6",
-    "window_L4-medical_7",
-    "window_L5-suits_8",
+    "wws1_port_uplift_6",
+    "window_L5-suits_7",
+    "wws1_port_uplift_7",
+    "window_L5-workshop_8",
+    "wws1_port_uplift_8",
     "window_L5-workshop_9",
-    "window_L5-workshop_10",
-    "window_L5-vestibule_11",
-    "window_L3-CAPT_12",
+    "wws1_port_uplift_9",
+    "window_L5-vestibule_10",
+    "wws1_port_uplift_10",
+    "window_L3-CAPT_11",
+    "wws1_port_uplift_11",
+    "window_L3-CA_12",
+    "wws1_port_uplift_12",
     "window_L3-CA_13",
-    "window_L3-CA_14",
+    "wws1_port_uplift_13",
+    "window_L3-GUEST_14",
+    "wws1_port_uplift_14",
     "window_L3-GUEST_15",
+    "wws1_port_uplift_15",
     "window_L3-GUEST_16",
+    "wws1_port_uplift_16",
     "window_L3-GUEST_17",
-    "window_L3-GUEST_18",
+    "wws1_port_uplift_17",
+    "window_L3-CB_18",
+    "wws1_port_uplift_18",
     "window_L3-CB_19",
+    "wws1_port_uplift_19",
     "window_L3-CB_20",
-    "window_L3-CB_21",
+    "wws1_port_uplift_20",
     "i4_terrace_column_0",
     "i4_terrace_column_1",
     "i4_terrace_column_2",
@@ -20074,9 +21039,15 @@
     "longeron_lower_starboard",
     "longeron_lower_port",
     "viewport_band_0",
+    "wws1_band_uplift_0",
     "viewport_band_1",
+    "wws1_band_uplift_1",
     "viewport_band_2",
+    "wws1_band_uplift_2",
     "viewport_band_3",
+    "wws1_band_uplift_3",
+    "viewport_band_4",
+    "wws1_band_uplift_4",
     "service_shield_band",
     "longeron_end_fitting_14_upper_starboard",
     "longeron_end_fitting_14_upper_port",
@@ -20223,50 +21194,50 @@
    ],
    "fins_deployed": {
     "cg_m": [
-     24.193566085854833,
-     0.15639965047271467,
-     -0.3297781103295467
+     24.019616535312995,
+     0.158411658617547,
+     -0.3428278072148058
     ],
     "inertia_kg_m2": [
      [
-      18267826.631268356,
-      445160.57487451134,
-      1523218.8778646041
+      18344839.65927406,
+      484827.78582699987,
+      1326125.0687722615
      ],
      [
-      445160.57487451134,
-      199393861.93348312,
-      53438.45923109768
+      484827.78582699987,
+      201019364.2836716,
+      34976.15086281306
      ],
      [
-      1523218.8778646041,
-      53438.45923109768,
-      201128847.75578246
+      1326125.0687722615,
+      34976.15086281306,
+      202791081.61850157
      ]
     ],
     "principal_kg_m2": [
-     18254047.467039958,
-     199393086.04431373,
-     201143402.80918032
+     18334020.343462385,
+     201019818.9140163,
+     202801446.30396846
     ],
     "principal_axes": [
      [
-      0.9999623057498789,
-      -0.0024550027634897245,
-      -0.00832826757596683
+      0.9999706436541714,
+      -0.002652441142972085,
+      -0.007188628926638947
      ],
      [
-      0.00218156091170188,
-      0.9994633330043238,
-      -0.03268465652071041
+      0.0024965339303000575,
+      0.9997633400525819,
+      -0.02161090477606109
      ],
      [
-      0.008404038991709705,
-      0.03266525587408649,
-      0.9994310147215297
+      0.007244249319060037,
+      0.021592323702839134,
+      0.9997406125635364
      ]
     ],
-    "trim_deg": 0.34127825583033755
+    "trim_deg": 0.3463137134921223
    }
   }
  },
@@ -20326,10 +21297,9 @@
  },
  "node_faces": {
   "count": 208,
-  "clear": 76,
+  "clear": 77,
   "flags": {
    "faces_dust_flow_bow_first": 16,
-   "overlaps_window": 1,
    "overlaps_hold_door": 2,
    "under_stowed_strake": 20,
    "overlaps_camera": 1,
@@ -20340,7 +21310,7 @@
  },
  "external_equipment": {
   "parts": 55,
-  "located_t": 1.8441485390149395,
+  "located_t": 1.8212616447644223,
   "new_from_reserve_t": 1.4208,
   "not_built": [
    {
@@ -20360,5 +21330,5 @@
    }
   ]
  },
- "ledger_reserve_t": 28.820470262
+ "ledger_reserve_t": 18.697170406
 }
