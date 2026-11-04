@@ -604,7 +604,7 @@ def build(I, dy=0.0, dz=0.0):
             rooms.append({"id": rm["id"], "deck": d["id"], "name": rm["name"], "kind": rm["kind"], "who": rm.get("who"),
                           "theta_deg": [a0, a1], "x_m": [x0, x1], "volume_m3": vol,
                           "nhv_m3": vol * ff[rm["kind"]], "couches": rm.get("couches", 0), "windows": rm.get("windows", 0),
-                          "shape": interior.spec(), **{k: rm[k] for k in ("occupancy", "bunks", "door", "entrance", "berth_viewports") if k in rm}})
+                          "shape": interior.spec(), **{k: rm[k] for k in ("occupancy", "bunks", "door", "entrance", "berth_viewports", "window_x_override_m", "window_theta_override_deg") if k in rm}})
             add(f"room_{rm['id']}", rm["name"], "habitat", interior, rm["mass_t"], "ENGINEERING_ASSUMPTION", f"room_{rm['kind']}",
                 tags=("room",))
         if not d.get("dome"):
@@ -666,11 +666,29 @@ def build(I, dy=0.0, dz=0.0):
                     "habitat", Box(-0.56,0.04,-rr,rr,-rr,rr),
                     AOI["mass_t"], AOI["research_ref"]+"; optical modes declared; impact credit zero",
                     "window", tags=("from_reserve","no_render"))
+            WWS=I.get("windows_wws1")
+            if WWS:
+                assert len(fw)==WWS["port_count"]==len(WWS["port_list"])
+                add("wws1_shelter_armour_restoration", "Removed L4 storm-shelter window openings: material reused for continuous local shell and armour",
+                    "habitat", Sector(9.50,10.20,4.25,4.48,45,135),
+                    WWS["prior_shelter_assembly_repurposed_to_closure_t"],
+                    "WWS-1: existing pair of 0.08t assemblies closed; material retained, no new reserve credit",
+                    "hull_armor", tags=("from_reserve","no_render"))
             for k, f in enumerate(fw):
                 hb = 0.15 if not f.get("berth") else 0.09   # v0.5.7 berth viewports: smaller box, kept outside the berth water ring
                 c = [f["pos"][i] - (hb + 0.01) * f["normal"][i] for i in range(3)]
+                prior_mass= WWS["port_list"][k]["baseline_t"] if WWS else wmass(f["d_m"])
                 add(f"window_{f['room']}_{k}", f"Window assembly ({f['room']}, {f['d_m']:.2f} m)", "habitat",
-                    Box(c[0] - hb, c[0] + hb, c[1] - hb, c[1] + hb, c[2] - hb, c[2] + hb), wmass(f["d_m"]), WM["prov"], "frame", tags=nr)
+                    Box(c[0] - hb, c[0] + hb, c[1] - hb, c[1] + hb, c[2] - hb, c[2] + hb), prior_mass, WM["prov"], "frame", tags=nr)
+                if WWS:
+                    pw=WWS["port_list"][k]
+                    assert pw["room"]==f["room"] and abs(pw["diameter_m"]-f["d_m"])<1e-7,(k,pw,f)
+                    m=pw["incremental_t"]
+                    if m>0:
+                        add(f"wws1_port_uplift_{k}", f"WWS-1 ceramic/AOI/backup/Strata retrofit uplift: {f['room']}",
+                            "habitat", Box(c[0]-hb,c[0]+hb,c[1]-hb,c[1]+hb,c[2]-hb,c[2]+hb),
+                            m, "WWS-1 local net mass above retained legacy frame assembly; no extra ray shield credit", "frame",
+                            tags=("from_reserve","no_render","no_shield_credit"))
         fdc = CL.get("flight_deck", {}).get("columns")
         if fdc:
             fd = CL["flight_deck"]
@@ -782,6 +800,13 @@ def build(I, dy=0.0, dz=0.0):
             add(f"viewport_band_{k}", f"L2 viewport band, segment {k} ({sg['theta_deg'][0]}-{sg['theta_deg'][1]} deg)", "habitat",
                 Sector(sg["x_m"][0], sg["x_m"][1], Rp - 0.05, Rp, sg["theta_deg"][0], sg["theta_deg"][1]),
                 (VB["mass_t"] * a_m2 / tot_m2) if "mass_t" in VB else a_m2 * sum(VB["kg_per_m2"].values()) / 1000, VB["prov"], "frame", tags=("from_reserve", "no_render"))
+            if I.get("windows_wws1"):
+                WWS=I["windows_wws1"]
+                add(f"wws1_band_uplift_{k}", f"WWS-1 all-open L2 glazing, upgraded galley/exercise height, segment {k}",
+                    "habitat", Sector(sg["x_m"][0],sg["x_m"][1],Rp-.055,Rp,sg["theta_deg"][0],sg["theta_deg"][1]),
+                    WWS["band"]["incremental_t"]*a_m2/tot_m2,
+                    "WWS-1 net uplift from released structural allocation; no radiation shield credit beyond local restored armour",
+                    "frame",tags=("from_reserve","no_render","no_shield_credit"))
     SB = I["habitat"]["berth_shield"].get("service_band")
     if SB:   # v0.5.7: polyethylene band in the service section, restores the berths' aft-outboard screen once the planks are gone
         add("service_shield_band", "Service-section shield band (polyethylene)", "habitat", Sector(SB["x_m"][0], SB["x_m"][1], SB["r_m"][0], SB["r_m"][1]),
@@ -906,7 +931,7 @@ def build(I, dy=0.0, dz=0.0):
     add("nozzle", "Magnetic nozzle", "propulsion", Offset(Frustum(*H["nozzle_x_m"], *H["nozzle_r_m"], 0.15), dy, dz), P["nozzle"], P["prov"], "nozzle", tags=tc)
     # --- shuttle and drones (state-dependent)
     S = I["shuttle"]
-    add("shuttle", "Rover-drop shuttle (docked, tanks empty)", "shuttle", Tube((S["x_m"][0], 0, 0), (S["x_m"][1], 0, 0), S["diameter_m"] / 2),
+    add("shuttle", "Shuttle v1, 3.8 m, 3-crew pod (docked, tanks empty)", "shuttle", Tube((S["x_m"][0], 0, 0), (S["x_m"][1], 0, 0), S["diameter_m"] / 2),
         S["dry_t"], S["prov"], "shuttle", tags=("shuttle", "inhabited_when_docked"))
     hold_s, hold_p = sec["hold_starboard"], sec["hold_port"]
     k = 0
@@ -1125,7 +1150,8 @@ def features(I, rooms):
         if r["kind"] == "command":
             xs, ths = [1.25] * n, [45 + 90 * k for k in range(n)]
         else:
-            xs, ths = [(x0 + x1) / 2 + 0.2] * n, [a0 + (a1 - a0) * (k + 0.5) / n for k in range(n)]
+            xs, ths = [r.get("window_x_override_m",(x0+x1)/2+0.2)]*n, r.get("window_theta_override_deg",[a0+(a1-a0)*(k+0.5)/n for k in range(n)])
+            assert len(ths)==n
         for x, th in zip(xs, ths):
             if x < xb:
                 u = (xb - x) / (xb - xa)
@@ -1144,9 +1170,10 @@ def features(I, rooms):
             if not r.get("berth_viewports"):
                 continue
             for b in r.get("bunks", []):
-                th = math.radians(b["angle_deg"])
                 for tier in (["lower", "upper"][:b["tiers"]]):
                     x = BV["x_m_by_tier"][tier]
+                    dt=BV.get("upper_azimuth_offsets_deg_by_bunk_angle",{}).get(str(int(b["angle_deg"])),0.) if tier=="upper" else 0.
+                    th=math.radians(b["angle_deg"]+dt)
                     out.append({"kind": "window", "room": r["id"], "berth": True, "tier": tier, "pos": [x, Ro * math.cos(th), Ro * math.sin(th)],
                                 "normal": [0.0, math.cos(th), math.sin(th)], "d_m": BV["d_m"]})
     for r in rooms:

@@ -1,0 +1,42 @@
+{
+  "header": "ALL bodies. ALL sponsors. 2026–2226.",
+  "status": "DRAFT / NON-CANON / ASSUMPTION / NOT PRESSURE QUALIFIED",
+  "authority": "kT approved 2026-11-03 WWS-1 Shuttle minimal window concept",
+  "compatibility": "Designed for the 3.8m × 12.8m shuttle and 2.5m OD / 3-seat rover/pod on #463; source sizer #463 remains unmerged and untouched in this stacked window PR.",
+  "hull_windows": {
+    "count": 0,
+    "visibility": "cameras only; no hull penetration; existing sensor/camera mass not changed"
+  },
+  "pod_pressure_ports": {
+    "count": 3,
+    "per_seat": 1,
+    "diameter_m": {
+      "min": 0.15,
+      "nominal": 0.18,
+      "max": 0.2
+    },
+    "outer_pressure_target_bar": 92,
+    "inner_pressure_target_bar": 1,
+    "transparent_material": "2226 flaw-controlled ceramic, thickness and buckling OPEN",
+    "closing_covers": "external three independent Strata armour-equivalent covers; closed survival mode",
+    "individual_full_pressure_capability": "REQUIRED NOT QUALIFIED",
+    "mass_assumption_t_each": {
+      "min": 0.03,
+      "nominal": 0.055,
+      "max": 0.08
+    },
+    "mass_assumption_t_total": {
+      "min": 0.09,
+      "nominal": 0.165,
+      "max": 0.24
+    },
+    "booking": "Provisional suballocation within existing 0.399–0.957t sizer pressure-pod fittings/seals allowance. NOT added again to core mass, not a validated sufficiency claim. Reopen core mass/reserve if fittings prove insufficient.",
+    "open_items": [
+      "hot Venus external-pressure buckling with ports/penetrations",
+      "thermal seal and pressure cycling",
+      "shock/impact and dual redundant closure",
+      "actual trim and external-covers swept geometry",
+      "mass of local reinforcement beyond provisional fittings allocation"
+    ]
+  }
+}
