@@ -395,12 +395,23 @@ function analyze(d,stage){
   ["A2_and_C",["A2","C"]],["A2_C_DS2",["A2","C","DS2"]],["A2_C_DS3",["A2","C","DS3"]],["A2_C_DS4",["A2","C","DS4"]],["A2_KF_C_DS2",["A2","KF","C","DS2"]],["A2_KF_C_DS3",["A2","KF","C","DS3"]],["A2_KF_C_DS4",["A2","KF","C","DS4"]]
  ].map(([k,ks])=>[k,census(rows.map(r=>({[k]:jointStatus(ks.map(x=>r[x]))})),k)])):{};
  const scores=Object.fromEntries(["A","A2","KV",...(stage===2?["R","C","DS2","DS4"]:[])].map(k=>[k,sensitivity(d,stage,design,geo,k)]));
- const components=Object.keys(d.mass).filter(x=>!["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t"].includes(x));
+ // Reuse the executable's dry ledger for the report. The total entry TPS is
+ // split into base core TPS and derived extra Venus-kit TPS, never added twice.
+ const components=Object.keys(d.mass).filter(x=>!["max_docked_dry_t","v1_comparison_dry_t","historical_lost_sizer_dry_t","entry_tps_t"].includes(x));
+ const boundarySamples=[0,0.5,1].map(t=>{
+  const sample={};
+  for(const [key,row] of Object.entries(d.mass)){
+   const b=bounds(row);if(b)sample["mass."+key]=b[0]+(b[1]-b[0])*t;
+  }
+  const b=bounds(d.power.kit_house_reactor_thermal_MW);
+  sample["power.kit_house_reactor_thermal_MW"]=b[0]+(b[1]-b[0])*t;
+  return sample;
+ });
  const sums=[0,0,0];const partRows=components.map(k=>{
-  const x=d.mass[k],levels=bounds(x)??[number(x),number(x)];
-  const triplet=[levels[0],(levels[0]+levels[1])/2,levels[1]];
+  const triplet=boundarySamples.map(sample=>componentMass(d,k,sample));
+  if(triplet.some(x=>x===null||!Number.isFinite(x)))throw Error("Unresolved reported mass part: "+k);
   triplet.forEach((v,i)=>sums[i]+=v);
-  return {name:k,values:triplet,provenance:x.provenance};
+  return {name:k,values:triplet,provenance:d.mass[k].provenance};
  });
  const sortedHandovers=handovers.sort((x,y)=>x-y);
  const clouds=d.research.idle_tipjet_heat;

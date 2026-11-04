@@ -36,10 +36,10 @@ Deterministic coordinate-balanced min/mid/max design: 6561 samples, 46 independe
 | A2_KF_C_DS4 | 0 | 4617 | 1944 | 0.000% |
 
 ### A vs A2 dry mass (kit separated from shuttle)
-Original fully-equipped dry min / mid / max: **26.842 / 41.789 / 56.737 t**.
-Detachable Venus/Titan kit min / mid / max: **3.925 / 7.269 / 10.613 t**.
-Docked shuttle core dry WITHOUT Venus kit min / mid / max: **22.917 / 34.521 / 46.124 t**. A2 applies the 34.200t G8 docked dry limit to CORE only. A applies the same bound to the fully equipped vehicle as a comparator.
-Historical lost-sizer dry 27.900t (not a fit target), current mid minus history 13.889t. Earlier v1 comparison 35.400t.
+Original fully-equipped dry min / mid / max: **25.842 / 40.289 / 54.737 t**.
+Detachable Venus/Titan kit min / mid / max: **5.925 / 10.269 / 14.613 t**.
+Docked shuttle core dry WITHOUT Venus kit min / mid / max: **19.917 / 30.021 / 40.124 t**. A2 applies the 34.200t G8 docked dry limit to CORE only. A applies the same bound to the fully equipped vehicle as a comparator.
+Historical lost-sizer dry 27.900t (not a fit target), current mid minus history 12.389t. Earlier v1 comparison 35.400t.
 | Dry component | min t | mid t | max t | Kit? | provenance |
 |---|---:|---:|---:|---|---|
 | pressure_pod_titanium_shell_t | 2.278 | 3.844 | 5.410 | CORE | ASSUMPTION |
@@ -54,7 +54,6 @@ Historical lost-sizer dry 27.900t (not a fit target), current mid minus history 
 | crew_habitat_thermal_package_t | 1.000 | 1.500 | 2.000 | CORE | ASSUMPTION |
 | custody_capsule_dry_t | 0.050 | 0.125 | 0.200 | CORE | ASSUMPTION |
 | avionics_controls_yaw_t | 0.500 | 0.850 | 1.200 | CORE | ASSUMPTION |
-| entry_tps_t | 3.000 | 4.500 | 6.000 | CORE | ASSUMPTION |
 | landing_gear_door_ramp_t | 0.707 | 1.016 | 1.326 | CORE | ASSUMPTION |
 | water_tank_insulated_t | 1.000 | 1.500 | 2.000 | CORE | ASSUMPTION |
 | venus_hot_loop_thermal_kit_t | 0.500 | 1.000 | 1.500 | VENUS/TITAN payload | ASSUMPTION |
@@ -62,14 +61,14 @@ Historical lost-sizer dry 27.900t (not a fit target), current mid minus history 
 | kit_house_reactor_t | 1.875 | 3.094 | 4.313 | VENUS/TITAN payload | DECLARED_2226 |
 | kit_house_exchanger_ducts_t | 0.300 | 0.650 | 1.000 | VENUS/TITAN payload | ASSUMPTION |
 | base_entry_tps_core_t | 1.000 | 1.500 | 2.000 | CORE | ASSUMPTION |
-| extra_venus_entry_tps_t | OPEN | 0.000 | OPEN | VENUS/TITAN payload | DERIVED |
+| extra_venus_entry_tps_t | 2.000 | 3.000 | 4.000 | VENUS/TITAN payload | DERIVED |
 
 ### B stowed shuttle and Wayfarer G8 clearance
 Necessary hull fit PASS. Hull length 12.800m vs allowed 12.800m, hull diameter 3.800m vs allowed 4.300m. Remaining allocated axial and radial margins: 0.000m / 0.500m. Ideal folded span 12.000m.
 Full B remains OPEN owing to explicit nulls: geometry.mast_stowed_extra_diameter_m, geometry.hub_axial_length_m, geometry.mast_retracted_height_m, geometry.crew_pod_x_m, geometry.rotor_mast_x_m, geometry.rotor_retracted_cg_m, geometry.pod_door_ramp_external_excursion_m.
 ### Detachable kit and service holds
 Kit components: single_12m_rotor_blades_hub_mast_t, tipjet_ducts_compressors_t, extra_venus_entry_tps_t, venus_hot_loop_thermal_kit_t, venus_cooler_t, kit_house_reactor_t, kit_house_exchanger_ducts_t. Thermal pod core insulation/habitat remains in shuttle; detachable hot-loop and active cooler are kit mass and must not be added again.
-Kit mass min/mid/max 3.925 / 7.269 / 10.613 t against total Wayfarer payload allowance 50.000t. Thus remaining allowance for other cargo at those three cases: 46.075 / 42.731 / 39.388 t.
+Kit mass min/mid/max 5.925 / 10.269 / 14.613 t against total Wayfarer payload allowance 50.000t. Thus remaining allowance for other cargo at those three cases: 44.075 / 39.731 / 35.388 t.
 G8 certified hold inventory: two service holds 68.000m³ gross; 56.100m³ free after drones. Service x 14.000–18.000m. Packed effective density 0.18–0.45 t/m³ is ASSUMPTION, not a container design.
 Four 6.000m blades hypothetically split into 2.000 segments per blade; segment length 3.000m versus 4.000m service length, necessary-only PASS. Full blade connector integrity and stow/reassemble geometry still OPEN.
 Kit packed-volume gate KV is computed PASS/FAIL per sample. Full kit physical fit KF is OPEN if total volume passes but **kit.individual_hold_aperture_m, kit.individual_hold_cross_section_m2, kit.rotor_blade_joint_qualified, kit.hot_shuttle_kit_fit_qualified** remain null; a sample exceeding total volume is a determinate FAIL. Free volume does not prove two separate holds can accept the pieces.
@@ -152,28 +151,28 @@ Knockdown 0.200–0.500, SF 1.500–2.000, modulus 80.000–115.000GPa, allowabl
 **Conditional rotor demand at 30/40/50 km**, using original VIRA table and min/mid/max total wet mass, figure of merit and tip-jet efficiency. The *mass and aerodynamic assumptions are the sizer's existing ranges*, not invented reactor performance.
 | Rotor case | Wet t | FM | source→rotor | altitude km | ambient bar | shaft MW | required hot-gas input MW |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| OPTIMISTIC | 50.252 | 0.800 | 0.350 | 30.000 | 9.581 | 7.763 | 22.181 |
-| OPTIMISTIC | 50.252 | 0.800 | 0.350 | 40.000 | 3.501 | 11.786 | 33.674 |
-| OPTIMISTIC | 50.252 | 0.800 | 0.350 | 50.000 | 1.066 | 19.590 | 55.972 |
-| MIDPOINT | 65.569 | 0.700 | 0.225 | 30.000 | 9.581 | 13.224 | 58.774 |
-| MIDPOINT | 65.569 | 0.700 | 0.225 | 40.000 | 3.501 | 20.076 | 89.226 |
-| MIDPOINT | 65.569 | 0.700 | 0.225 | 50.000 | 1.066 | 33.370 | 148.310 |
-| PESSIMISTIC | 80.887 | 0.600 | 0.100 | 30.000 | 9.581 | 21.139 | 211.386 |
-| PESSIMISTIC | 80.887 | 0.600 | 0.100 | 40.000 | 3.501 | 32.091 | 320.912 |
-| PESSIMISTIC | 80.887 | 0.600 | 0.100 | 50.000 | 1.066 | 53.342 | 533.415 |
+| OPTIMISTIC | 49.252 | 0.800 | 0.350 | 30.000 | 9.581 | 7.533 | 21.522 |
+| OPTIMISTIC | 49.252 | 0.800 | 0.350 | 40.000 | 3.501 | 11.436 | 32.674 |
+| OPTIMISTIC | 49.252 | 0.800 | 0.350 | 50.000 | 1.066 | 19.008 | 54.310 |
+| MIDPOINT | 64.069 | 0.700 | 0.225 | 30.000 | 9.581 | 12.773 | 56.768 |
+| MIDPOINT | 64.069 | 0.700 | 0.225 | 40.000 | 3.501 | 19.391 | 86.182 |
+| MIDPOINT | 64.069 | 0.700 | 0.225 | 50.000 | 1.066 | 32.231 | 143.250 |
+| PESSIMISTIC | 78.887 | 0.600 | 0.100 | 30.000 | 9.581 | 20.359 | 203.595 |
+| PESSIMISTIC | 78.887 | 0.600 | 0.100 | 40.000 | 3.501 | 30.908 | 309.084 |
+| PESSIMISTIC | 78.887 | 0.600 | 0.100 | 50.000 | 1.066 | 51.375 | 513.754 |
 
 **Heat-only ceiling, VIRA profile, no atmospheric/nozzle qualification.** At each independently assumed delivered heat level, climb only while required tip-jet input is no larger than budget. This ignores rotor safe-tip-speed, hot duty, mast/exchanger loss and reactor start/restart, so reported ceilings are optimistic *heat-only* bounds, NOT Gate R or C.
 | Rotor case | hypothetical delivered heat MW | thermal rotor ceiling km | cloud-base reached? | **above cloud TOP?** |
 |---|---:|---:|---|---|
-| OPTIMISTIC | 40.000 | 43.000 | no | no |
+| OPTIMISTIC | 40.000 | 44.000 | no | no |
 | OPTIMISTIC | 135.000 | 63.000 | yes | no |
 | OPTIMISTIC | 230.000 | 69.000 | yes | yes |
-| MIDPOINT | 40.000 | 18.000 | no | no |
+| MIDPOINT | 40.000 | 19.000 | no | no |
 | MIDPOINT | 135.000 | 48.000 | yes | no |
 | MIDPOINT | 230.000 | 57.000 | yes | no |
 | PESSIMISTIC | 40.000 | OPEN | no | no |
-| PESSIMISTIC | 135.000 | 16.000 | no | no |
-| PESSIMISTIC | 230.000 | 32.000 | no | no |
+| PESSIMISTIC | 135.000 | 18.000 | no | no |
+| PESSIMISTIC | 230.000 | 33.000 | no | no |
 
 Cloud-base 48.000km; cloud-top 65.000km, screen references only. **Entering the clouds is NOT lighting the torch above the clouds.** An ABOVE-CLOUD-TOP result would still not certify magnetic-nozzle plume operation at local density or guarantee reactor idle mode. Jet-power throttling and thermal routing are not demonstrated.
 **STOP / HOLDS:** idle fusion power stability, extraction efficiency, exhaust-free containment, rotating joint, heat exchanger/duct mass, and heat transfer to tipjets are all OPEN. Existing A/A2/B/C/D and existing statistical sensitivity ranking are not altered by this isolated calculation.
