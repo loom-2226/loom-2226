@@ -33,7 +33,7 @@ def version_pack(geo_p, rep_p, cmd_p, hab_p, inp_p, check_scene=True):
     cmd = json.loads(cmd_p.read_text())
     hab = json.loads(hab_p.read_text())
     if check_scene:
-        assert cmd["geometry_sha256"] == sha, "l1_scene.json is stale: run command/l1_study.py"
+        assert cmd["geometry_sha256"] == sha, "l1_scene.json is stale: run render/sync_i4_scene.py"
     S1 = G["states"]["S1"]
     gates = [{"g": g["gate"], "t": g["title"], "v": g["verdict"]} for g in R["gates"]]
     g2 = next(g for g in R["gates"] if g["gate"] == "G2")
@@ -221,7 +221,7 @@ const MODES = {
   cruise: {strakeSpan: 0, note: "Coasting: radiator strakes stowed in their grooves, bay doors shut."},
   metric: {strakeSpan: 2, hot: 0.35, note: "Metric HARD: one 2 m pleat of each strake out, enough for 34.9 MW. Field geometry radius 6.5 m."},
   burn: {strakeSpan: 4, finSpan: 28, hot: 1.0, plume: true, note: "Torch burn: four hot fins unfolded aft at 1,750 K carry the torch's 1.4 GW; the strakes open 4 m for the magnet coils' cooling. Up to 4 g crew limit (structure screened at 5 g), everyone in a couch."},
-  shuttle: {strakeSpan: 0, doorsOpen: true, shuttleLift: 8.5, note: "Shuttle out: doors stand up at the slot edges and the 12.8 m rover-drop shuttle rises straight out."},
+  shuttle: {strakeSpan: 0, doorsOpen: true, shuttleLift: 8.5, note: "Shuttle out: doors stand up at the slot edges and the 12.8 x 3.8 m shuttle v1 rises straight out (Venus kit fitted: rotor folded aft into its spine)."},
   hab: {strakeSpan: 0, hab: true, cmd: true, note: "Habitat decks: cut along the axis, bow up, walls left out so rooms show as coloured floors. Ten 2.10 m berths, one per person; a casualty moves at 0 g down the port ladder shaft into the medical bay (yellow litter). Every berth has a 0.5 m shuttered viewport at its outer end."},
   structure: {strakeSpan: 0, structure: true, note: "Structure: skin, tanks and machinery hidden. Longerons in amber, ring frames and the thrust cone in grey. Four 0.40 m CFRP tubes in an X, the upper pair edging the bay slot."},
   cmd: {strakeSpan: 0, cmd: true, note: "Command deck, I4: S4 outboard by 0.20m, terrace height 0.59m; six 1.58 m contoured couches on the Rev7 annulus; Pilot and Captain share the lowered command terrace, Navigator on a separate platform. Crew body models disabled until physical anthropometric fit and egress are qualified."},

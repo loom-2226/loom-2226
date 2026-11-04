@@ -2,6 +2,10 @@
 from pathlib import Path
 import sys, json, hashlib, copy
 HERE=Path(__file__).resolve().parent
+# Environment bootstrap only; no flight-law or numerical changes.
+sys.path.insert(0, str(HERE.parents[1]))
+from ensure_env import use_pinned_python
+use_pinned_python()
 ROOT=HERE.parents[1]
 sys.path.insert(0,str(HERE.parent/'flight'))
 from flightlab import run
