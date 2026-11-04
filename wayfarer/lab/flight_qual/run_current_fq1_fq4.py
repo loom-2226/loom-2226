@@ -6,6 +6,10 @@ No Navigator and no Metric simulation. Not a new flight engine.
 from pathlib import Path
 import json,hashlib,subprocess,sys,copy,math
 HERE=Path(__file__).resolve().parent
+# Environment bootstrap only; no flight-law or numerical changes.
+sys.path.insert(0, str(HERE.parents[1]))
+from ensure_env import use_pinned_python
+use_pinned_python()
 ROOT=HERE.parents[1]
 SOURCE=ROOT/'results/out/wayfarer_v05_geometry.json'
 G=json.loads(SOURCE.read_text());sha=hashlib.sha256(SOURCE.read_bytes()).hexdigest()
