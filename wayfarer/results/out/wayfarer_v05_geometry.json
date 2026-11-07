@@ -4865,12 +4865,12 @@
   }
  },
  "version": "0.5.7-step1-I4-lock",
- "inputs_sha256": "38997b0047c92733f2644a5cac6bf5e36fd44419339b8b63baf322ea0b2f19d8",
+ "inputs_sha256": "fcd4d40cf5a371ab0c7e1f07022b6fef25a78d9d5c566bc49d80109d5acddc4e",
  "length_m": 53.3,
- "dry_t": 867.531453463964,
+ "dry_t": 868.1922552640087,
  "dry_by_system_t": {
   "habitat": 200.16379463824393,
-  "structure": 130.2181857305458,
+  "structure": 130.87898753059056,
   "avionics": 19.818904237662366,
   "service": 13.622099762671946,
   "plant": 90.08592835301074,
@@ -4884,24 +4884,75 @@
   "external": 3.2419689379546197
  },
  "protected_water": {
-  "jacket_t": 25.246010716405454,
+  "jacket_t": 23.31490167945758,
   "berth_shield_t": 8.533570956799041,
   "service_return_wall_t": 0.22907446432425202,
   "shelter_jacket_t": 16.483365295282162,
-  "service_tank_t": 24.75,
+  "service_tank_t": 26.681109036947873,
   "c_tank_t": 0.003989283594545867,
   "service_tank_capacity_t": 32.51548396465435,
-  "chosen_to_minimise_worst_trim_deg": 0.3462858236942184
+  "chosen_to_minimise_worst_trim_deg": 0.3397021977580101
  },
  "thrust_line_offset_m": {
   "y": 0.03,
-  "z": -0.22999999999999998,
+  "z": -0.26,
   "torch_chain_t": 171.98222685574777
  },
  "hot_fins": {
   "span_m": 28,
+  "deployed_panel_thickness_m": 0.005,
+  "deployed_geometry": [
+   {
+    "id": "hotfin_40_deployed",
+    "shape": {
+     "k": "panel",
+     "x0": 34.3,
+     "x1": 53.3,
+     "a": 40,
+     "r0": 4.75,
+     "span": 28,
+     "t": 0.005
+    }
+   },
+   {
+    "id": "hotfin_140_deployed",
+    "shape": {
+     "k": "panel",
+     "x0": 34.3,
+     "x1": 53.3,
+     "a": 140,
+     "r0": 4.75,
+     "span": 28,
+     "t": 0.005
+    }
+   },
+   {
+    "id": "hotfin_220_deployed",
+    "shape": {
+     "k": "panel",
+     "x0": 34.3,
+     "x1": 53.3,
+     "a": 220,
+     "r0": 4.75,
+     "span": 28,
+     "t": 0.005
+    }
+   },
+   {
+    "id": "hotfin_320_deployed",
+    "shape": {
+     "k": "panel",
+     "x0": 34.3,
+     "x1": 53.3,
+     "a": 320,
+     "r0": 4.75,
+     "span": 28,
+     "t": 0.005
+    }
+   }
+  ],
   "panels_t": 17.024,
-  "total_t": 61.81965116996394,
+  "total_t": 62.48045297000869,
   "temperature_k": 1750,
   "azimuths_deg": [
    40,
@@ -4983,6 +5034,34 @@
   "panel_buckling_mpa": 211.86035802590527,
   "perimeter_m": 36.76475869497214
  },
+ "packing_phase1b": {
+  "status": "APPROVED kT geometry, draft upstream engineering integration. NOT qualified, zero performance credit",
+  "source_lab_pr": "loom-2226/loom-research-lab#157",
+  "geometry_reference_sha256": "274e94fb43cfe549a3d2087abbdff4d65499ce6f5055ad2d7ade790414fbaaf9",
+  "fuel_t": 3.8,
+  "house_reserve_t": 0.1,
+  "ullage_basis": "G1: 0.05 * liquid water volume, NOT 0.05 * tank capacity",
+  "core_remass_t": 245.39043171108221,
+  "core_water_BRep_ref_t": 245.47139123187642,
+  "reference_250t_remass_canonic_delta_t": -4.60956828891779,
+  "jacket_overlap_to_service_t": 1.9311090369478734,
+  "service_water_t": 26.681109036947873,
+  "secondary_doubler_added_t": 0.660801800044753,
+  "D8_rule": "never cut primary load paths; equipment yields; secondary doubler mass 1.5x removed, no removed-mass credit",
+  "D8_actual_doubler_placement": "OPEN; source mass allowance only",
+  "core_web_baffle_solids": "OPEN: source displaced volume 5.870097185013608m3 not spatially placed",
+  "courier_external_mount_heat_MMOD": "OPEN; forward x14-17.5, r4.6-6.1, 235-305 degrees",
+  "authority": "kT 2026-11-08. Do not rewrite canon reference 250t/300t here; any variance must be visible in G1/G11.",
+  "native_builder_vs_pinned_BRep_remass_diff_t": -0.08095952079420954,
+  "volume_basis": "Conservative: authoritative upstream analytic 321.62066731116374m3 net vs frozen exact BRep 321.7057504374434m3; D1 unchanged 3.8t/63.6696m3",
+  "four_fuel_lobes_m3": 63.66961111275304,
+  "four_fuel_caps_m3": 0.2911029017743909,
+  "normal_core_remass_t": 245.39043171108221,
+  "source_G1_required_core_headspace_m3": 12.269521585554111,
+  "source_core_available_m3": 321.62066731116374,
+  "D1_liquid_basis_water_plus_ullage_plus_fuel_plus_caps_m3": 321.62066731116374,
+  "G1_canon_departure_exposed": true
+ },
  "tank_cells_m3": {
   "starboard_fore": 81.87269112404434,
   "starboard_aft": 81.87269112404434,
@@ -4993,7 +5072,10 @@
   "protected_water_tank": 34.14125816288707,
   "hold_starboard": 34.14125816288707,
   "hold_port": 34.14125816288707,
-  "transfer_and_courier": 34.14125816288707
+  "transfer_and_courier": 34.14125816288707,
+  "courier_forward": 34.315354755773505,
+  "service_arm_separate": 39.831467856701586,
+  "c_lite_tank": 0.6702064327658224
  },
  "parts": [
   {
@@ -5196,10 +5278,10 @@
   },
   {
    "id": "core_racks",
-   "name": "Avionics racks in the trunk",
+   "name": "Avionics racks outside primary core trunk",
    "system": "avionics",
    "mass_t": 11.670222536640031,
-   "prov": "ENGINEERING_ASSUMPTION",
+   "prov": "ENGINEERING_ASSUMPTION; Phase1b D3",
    "mat": "avionics",
    "dry": true,
    "tags": [],
@@ -5207,8 +5289,8 @@
     "k": "sector",
     "x0": 3.3,
     "x1": 13.4,
-    "r0": 0.0,
-    "r1": 0.81,
+    "r0": 0.9500000000000001,
+    "r1": 1.2484390253432485,
     "a0": 0.0,
     "a1": 360.0
    },
@@ -9151,27 +9233,27 @@
   },
   {
    "id": "courier_systems",
-   "name": "Mission and courier systems",
+   "name": "Mission and courier systems (forward exterior)",
    "system": "mission",
    "mass_t": 19.450370894400045,
-   "prov": "CANON_MASS_DESIGN_POSITION",
+   "prov": "KT_PHASE1B: forward screened placement; external mounts, MMOD and 1300K strake heat OPEN",
    "mat": "equipment",
    "dry": true,
    "tags": [],
    "shape": {
     "k": "sector",
     "x0": 14,
-    "x1": 17,
-    "r0": 2,
-    "r1": 4.3,
-    "a0": 225,
-    "a1": 315
+    "x1": 17.5,
+    "r0": 4.6,
+    "r1": 6.1,
+    "a0": 235,
+    "a1": 305
    },
-   "volume_m3": 34.14125816288707,
+   "volume_m3": 34.315354755773505,
    "centroid_m": [
-    15.5,
-    -5.441092951332094e-16,
-    -2.9619930443729547
+    15.75,
+    -9.288326570215133e-16,
+    -5.056329480294252
    ]
   },
   {
@@ -9179,22 +9261,22 @@
    "name": "Service arm and umbilicals",
    "system": "service",
    "mass_t": 7.576431315234459,
-   "prov": "ENGINEERING_ASSUMPTION",
+   "prov": "KT_PHASE1B: separate uncut arm, pressure transfer path immutable",
    "mat": "equipment",
    "dry": true,
    "tags": [],
    "shape": {
     "k": "sector",
     "x0": 14,
-    "x1": 17,
+    "x1": 17.5,
     "r0": 2,
     "r1": 4.3,
     "a0": 225,
     "a1": 315
    },
-   "volume_m3": 34.14125816288707,
+   "volume_m3": 39.831467856701586,
    "centroid_m": [
-    15.5,
+    15.75,
     -5.441092951332094e-16,
     -2.9619930443729547
    ]
@@ -10845,7 +10927,7 @@
    "name": "Independent slow attitude chemical control, dry tanks/valves/nozzles",
    "system": "electrical",
    "mass_t": 0.1023703731284213,
-   "prov": "kT declared separate dry hardware; nozzle/control packaging OPEN",
+   "prov": "D4 distinct C-lite hardware; nozzle/control packaging OPEN",
    "mat": "equipment",
    "dry": true,
    "tags": [],
@@ -10854,23 +10936,23 @@
     "x0": 17,
     "x1": 18,
     "r0": 2,
-    "r1": 4.3,
-    "a0": -45,
-    "a1": 225
+    "r1": 2.8,
+    "a0": 182,
+    "a1": 202
    },
-   "volume_m3": 34.14125816288707,
+   "volume_m3": 0.6702064327658224,
    "centroid_m": [
     17.5,
-    6.04565883481344e-17,
-    0.9873310147909852
+    -2.3572803749366456,
+    -0.5010554113887533
    ]
   },
   {
-   "id": "house_fuel_tank",
-   "name": "D-He3 fuel tank, dry containment proxy",
+   "id": "house_fuel_tank_cap_starboard_fore",
+   "name": "D-He3 four-lobe tank dry closure cap (6mm source proxy)",
    "system": "electrical",
-   "mass_t": 0.5,
-   "prov": "kT house-power declaration: explicit engineering reserve draw; packaging not qualified",
+   "mass_t": 0.125,
+   "prov": "KT_PHASE1B D1: 0.5t existing reserve-funded containment mass; fitted walls/insulation OPEN",
    "mat": "equipment",
    "dry": true,
    "tags": [
@@ -10878,19 +10960,253 @@
     "house_fuel_tank"
    ],
    "shape": {
-    "k": "sector",
-    "x0": 21,
-    "x1": 29,
-    "r0": 2,
-    "r1": 4,
-    "a0": 220,
-    "a1": 320
+    "k": "cslot",
+    "x0": 19.312311434712534,
+    "x1": 19.318311434712534,
+    "r0": 2.47,
+    "r1": 4.28,
+    "hw": 2.4,
+    "grooves": [
+     40,
+     140,
+     220,
+     320
+    ],
+    "gw": 2,
+    "gd": 0.5,
+    "side": 1,
+    "holes": [
+     [
+      2.75,
+      2.6,
+      0.22
+     ],
+     [
+      -2.75,
+      2.6,
+      0.22
+     ],
+     [
+      2.75,
+      -2.6,
+      0.22
+     ],
+     [
+      -2.75,
+      -2.6,
+      0.22
+     ]
+    ]
    },
-   "volume_m3": 83.77580409572782,
+   "volume_m3": 0.07277572544359773,
    "centroid_m": [
-    25.0,
-    -5.016770422648976e-16,
-    -2.7310026184103844
+    19.315314990962968,
+    2.4232841697638743,
+    -1.210870031532137
+   ]
+  },
+  {
+   "id": "house_fuel_tank_cap_starboard_aft",
+   "name": "D-He3 four-lobe tank dry closure cap (6mm source proxy)",
+   "system": "electrical",
+   "mass_t": 0.125,
+   "prov": "KT_PHASE1B D1: 0.5t existing reserve-funded containment mass; fitted walls/insulation OPEN",
+   "mat": "equipment",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "house_fuel_tank"
+   ],
+   "shape": {
+    "k": "cslot",
+    "x0": 26.062311434712534,
+    "x1": 26.068311434712534,
+    "r0": 2.47,
+    "r1": 4.28,
+    "hw": 2.4,
+    "grooves": [
+     40,
+     140,
+     220,
+     320
+    ],
+    "gw": 2,
+    "gd": 0.5,
+    "side": 1,
+    "holes": [
+     [
+      2.75,
+      2.6,
+      0.22
+     ],
+     [
+      -2.75,
+      2.6,
+      0.22
+     ],
+     [
+      2.75,
+      -2.6,
+      0.22
+     ],
+     [
+      -2.75,
+      -2.6,
+      0.22
+     ]
+    ]
+   },
+   "volume_m3": 0.07277572544359773,
+   "centroid_m": [
+    26.065321412866318,
+    2.433878040018158,
+    -1.1817063031946644
+   ]
+  },
+  {
+   "id": "house_fuel_tank_cap_port_fore",
+   "name": "D-He3 four-lobe tank dry closure cap (6mm source proxy)",
+   "system": "electrical",
+   "mass_t": 0.125,
+   "prov": "KT_PHASE1B D1: 0.5t existing reserve-funded containment mass; fitted walls/insulation OPEN",
+   "mat": "equipment",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "house_fuel_tank"
+   ],
+   "shape": {
+    "k": "cslot",
+    "x0": 19.312311434712534,
+    "x1": 19.318311434712534,
+    "r0": 2.47,
+    "r1": 4.28,
+    "hw": 2.4,
+    "grooves": [
+     40,
+     140,
+     220,
+     320
+    ],
+    "gw": 2,
+    "gd": 0.5,
+    "side": -1,
+    "holes": [
+     [
+      2.75,
+      2.6,
+      0.22
+     ],
+     [
+      -2.75,
+      2.6,
+      0.22
+     ],
+     [
+      2.75,
+      -2.6,
+      0.22
+     ],
+     [
+      -2.75,
+      -2.6,
+      0.22
+     ]
+    ]
+   },
+   "volume_m3": 0.07277572544359773,
+   "centroid_m": [
+    19.31530831207353,
+    -2.4227520347456104,
+    -1.1948181550401586
+   ]
+  },
+  {
+   "id": "house_fuel_tank_cap_port_aft",
+   "name": "D-He3 four-lobe tank dry closure cap (6mm source proxy)",
+   "system": "electrical",
+   "mass_t": 0.125,
+   "prov": "KT_PHASE1B D1: 0.5t existing reserve-funded containment mass; fitted walls/insulation OPEN",
+   "mat": "equipment",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "house_fuel_tank"
+   ],
+   "shape": {
+    "k": "cslot",
+    "x0": 26.062311434712534,
+    "x1": 26.068311434712534,
+    "r0": 2.47,
+    "r1": 4.28,
+    "hw": 2.4,
+    "grooves": [
+     40,
+     140,
+     220,
+     320
+    ],
+    "gw": 2,
+    "gd": 0.5,
+    "side": -1,
+    "holes": [
+     [
+      2.75,
+      2.6,
+      0.22
+     ],
+     [
+      -2.75,
+      2.6,
+      0.22
+     ],
+     [
+      2.75,
+      -2.6,
+      0.22
+     ],
+     [
+      -2.75,
+      -2.6,
+      0.22
+     ]
+    ]
+   },
+   "volume_m3": 0.07277572544359773,
+   "centroid_m": [
+    26.065318794632827,
+    -2.416671239540617,
+    -1.21394900619842
+   ]
+  },
+  {
+   "id": "d8_unlocated_doubler_allowance",
+   "name": "D8 secondary reinforcements (UNLOCATED mass/CG placeholder)",
+   "system": "structure",
+   "mass_t": 0.660801800044753,
+   "prov": "KT_PHASE1B: 1.5x removed secondary mass; NO removal credit; fit/load paths OPEN",
+   "mat": "structure",
+   "dry": true,
+   "tags": [
+    "from_reserve",
+    "no_render",
+    "no_shield_credit",
+    "unlocated"
+   ],
+   "shape": {
+    "k": "sector",
+    "x0": 23.9,
+    "x1": 23.91,
+    "r0": 0.0,
+    "r1": 0.1,
+    "a0": 0.0,
+    "a1": 360.0
+   },
+   "volume_m3": 0.0003141592653590284,
+   "centroid_m": [
+    23.905,
+    -0.0,
+    0.0
    ]
   },
   {
@@ -11392,14 +11708,14 @@
     "z1": 0.4,
     "offset_yz": [
      0.03,
-     -0.22999999999999998
+     -0.26
     ]
    },
    "volume_m3": 0.5119999999999981,
    "centroid_m": [
     44.0,
     2.63,
-    -0.22999999999999998
+    -0.26
    ]
   },
   {
@@ -11423,14 +11739,14 @@
     "z1": 3.0,
     "offset_yz": [
      0.03,
-     -0.22999999999999998
+     -0.26
     ]
    },
    "volume_m3": 0.5119999999999981,
    "centroid_m": [
     44.0,
     0.030000000000000165,
-    2.37
+    2.34
    ]
   },
   {
@@ -11454,14 +11770,14 @@
     "z1": 0.40000000000000036,
     "offset_yz": [
      0.03,
-     -0.22999999999999998
+     -0.26
     ]
    },
    "volume_m3": 0.5119999999999981,
    "centroid_m": [
     44.0,
     -2.5700000000000003,
-    -0.22999999999999965
+    -0.2599999999999997
    ]
   },
   {
@@ -11485,14 +11801,14 @@
     "z1": -2.2,
     "offset_yz": [
      0.03,
-     -0.22999999999999998
+     -0.26
     ]
    },
    "volume_m3": 0.5119999999999981,
    "centroid_m": [
     44.0,
     0.0299999999999995,
-    -2.83
+    -2.8600000000000003
    ]
   },
   {
@@ -11516,14 +11832,14 @@
     "a1": 360.0,
     "offset_yz": [
      0.03,
-     -0.22999999999999998
+     -0.26
     ]
    },
    "volume_m3": 118.79147221386405,
    "centroid_m": [
     36.8,
     0.03,
-    -0.22999999999999998
+    -0.26
    ]
   },
   {
@@ -11547,14 +11863,14 @@
     "a1": 360.0,
     "offset_yz": [
      0.03,
-     -0.22999999999999998
+     -0.26
     ]
    },
    "volume_m3": 99.30378028456487,
    "centroid_m": [
     42.8,
     0.03,
-    -0.22999999999999998
+    -0.26
    ]
   },
   {
@@ -11577,14 +11893,14 @@
     "t": 0.15,
     "offset_yz": [
      0.03,
-     -0.22999999999999998
+     -0.26
     ]
    },
    "volume_m3": 16.410894624189666,
    "centroid_m": [
     49.99600256942268,
     0.07104664226483176,
-    -0.2555176977229947
+    -0.2855176977229947
    ]
   },
   {
@@ -13275,7 +13591,7 @@
     "id": "jacket_outer",
     "name": "Storm-shelter water jacket (outer)",
     "system": "water",
-    "mass_t": 4.877322594698163,
+    "mass_t": 4.5042481377261865,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -13303,7 +13619,7 @@
     "id": "jacket_inner",
     "name": "Storm-shelter water jacket (inner)",
     "system": "water",
-    "mass_t": 2.4085543677521764,
+    "mass_t": 2.2243200680129287,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -13331,7 +13647,7 @@
     "id": "jacket_radial_a",
     "name": "Storm-shelter water jacket (radial_a)",
     "system": "water",
-    "mass_t": 1.035000000000001,
+    "mass_t": 0.9558311413754481,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -13359,7 +13675,7 @@
     "id": "jacket_radial_b",
     "name": "Storm-shelter water jacket (radial_b)",
     "system": "water",
-    "mass_t": 1.035000000000001,
+    "mass_t": 0.9558311413754481,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -13387,7 +13703,7 @@
     "id": "jacket_ceiling",
     "name": "Storm-shelter water jacket (ceiling)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.2911474919375947,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -13415,7 +13731,7 @@
     "id": "jacket_floor",
     "name": "Storm-shelter water jacket (floor)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.2911474919375947,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -13443,7 +13759,7 @@
     "id": "jacket_berth_ring",
     "name": "L3 berth shield ring (8 cm water)",
     "system": "water",
-    "mass_t": 4.751596056701504,
+    "mass_t": 4.3881386301759155,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -13472,7 +13788,7 @@
     "id": "jacket_berth_ring",
     "name": "L3 berth shield collar at the floor edge (12 cm water)",
     "system": "water",
-    "mass_t": 0.9522795651561342,
+    "mass_t": 0.8794381291514032,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -13501,7 +13817,7 @@
     "id": "jacket_berth_wall_extended",
     "name": "Protected water tank: berth_wall_extended",
     "system": "water",
-    "mass_t": 2.8296953349414022,
+    "mass_t": 2.6132472673833997,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -13530,7 +13846,7 @@
     "id": "jacket_service_return_wall",
     "name": "Protected water tank: service_return_wall",
     "system": "water",
-    "mass_t": 0.22907446432425202,
+    "mass_t": 0.21155218038166082,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -13559,7 +13875,7 @@
     "id": "pw_service",
     "name": "Protected water, service tank",
     "system": "water",
-    "mass_t": 24.75,
+    "mass_t": 26.681109036947873,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -13575,20 +13891,20 @@
      "r1": 4.3,
      "a0": 45,
      "a1": 135,
-     "settled_fraction": 0.7249293474165007
+     "settled_fraction": 0.7814916752526513
     },
-    "volume_m3": 24.750000000000004,
+    "volume_m3": 26.681109036947873,
     "centroid_m": [
-     15.911622629211259,
-     -0.012017368257990093,
-     2.9650711669263865
+     15.825613197156704,
+     -0.009564876858895363,
+     2.965895263993334
     ]
    },
    {
     "id": "water_starboard_fore",
     "name": "Water, tank cell starboard fore",
     "system": "water",
-    "mass_t": 62.500997320898634,
+    "mass_t": 61.34860524866919,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -13633,11 +13949,11 @@
        0.22
       ]
      ],
-     "settled_fraction": 0.7773256344926335
+     "settled_fraction": 0.7629933208156082
     },
-    "volume_m3": 63.64174157561717,
+    "volume_m3": 62.46831648484516,
     "centroid_m": [
-     22.125010699518352,
+     22.173410196954066,
      2.4291788361439806,
      -1.20119564272688
     ]
@@ -13646,7 +13962,7 @@
     "id": "water_starboard_aft",
     "name": "Water, tank cell starboard aft",
     "system": "water",
-    "mass_t": 62.500997320898634,
+    "mass_t": 61.34860524866919,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -13691,11 +14007,11 @@
        0.22
       ]
      ],
-     "settled_fraction": 0.7773256344926335
+     "settled_fraction": 0.7629933208156082
     },
-    "volume_m3": 63.64174157561717,
+    "volume_m3": 62.46831648484516,
     "centroid_m": [
-     28.860823209831707,
+     28.90948429590345,
      2.4250098286337285,
      -1.201564492512101
     ]
@@ -13704,7 +14020,7 @@
     "id": "water_port_fore",
     "name": "Water, tank cell port fore",
     "system": "water",
-    "mass_t": 62.500997320898634,
+    "mass_t": 61.34860524866919,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -13749,11 +14065,11 @@
        0.22
       ]
      ],
-     "settled_fraction": 0.7773256344926335
+     "settled_fraction": 0.7629933208156082
     },
-    "volume_m3": 63.64174157561717,
+    "volume_m3": 62.46831648484516,
     "centroid_m": [
-     22.13060551108186,
+     22.1789018514998,
      -2.426601023856182,
      -1.1945350878810816
     ]
@@ -13762,7 +14078,7 @@
     "id": "water_port_aft",
     "name": "Water, tank cell port aft",
     "system": "water",
-    "mass_t": 62.500997320898634,
+    "mass_t": 61.34860524866919,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -13807,21 +14123,21 @@
        0.22
       ]
      ],
-     "settled_fraction": 0.7773256344926335
+     "settled_fraction": 0.7629933208156082
     },
-    "volume_m3": 63.64174157561717,
+    "volume_m3": 62.46831648484516,
     "centroid_m": [
-     28.889298258322565,
+     28.937434322049963,
      -2.426869494783892,
      -1.188900083192231
     ]
    },
    {
-    "id": "house_fuel",
-    "name": "D-He3 consumable house-reactor fuel",
+    "id": "house_fuel_lobe_starboard_fore",
+    "name": "D-He3 consumable conformal core lobe starboard_fore",
     "system": "house_fuel",
-    "mass_t": 5,
-    "prov": "ENGINEERING_ASSUMPTION wet consumable, full reference S1\u2013S7 inventory",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
     "mat": "dhe3",
     "dry": false,
     "tags": [
@@ -13829,19 +14145,223 @@
      "no_shield_credit"
     ],
     "shape": {
-     "k": "sector",
-     "x0": 21,
-     "x1": 29,
-     "r0": 2,
-     "r1": 4,
-     "a0": 220,
-     "a1": 320
+     "k": "cslot",
+     "x0": 18,
+     "x1": 19.312311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": 1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
     },
-    "volume_m3": 83.77580409572782,
+    "volume_m3": 15.91740277818826,
     "centroid_m": [
-     25.0,
-     -5.016770422648976e-16,
-     -2.7310026184103844
+     18.66122335546285,
+     2.4381251288976733,
+     -1.189049229884902
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_starboard_aft",
+    "name": "D-He3 consumable conformal core lobe starboard_aft",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 24.75,
+     "x1": 26.062311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": 1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     25.408020575486795,
+     2.430622435644119,
+     -1.1893642963112512
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_port_fore",
+    "name": "D-He3 consumable conformal core lobe port_fore",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 18,
+     "x1": 19.312311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": -1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     18.656423377513992,
+     -2.4278096918913996,
+     -1.183466134797184
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_port_aft",
+    "name": "D-He3 consumable conformal core lobe port_aft",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 24.75,
+     "x1": 26.062311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": -1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     25.409135418357526,
+     -2.4166610788322287,
+     -1.210191968260382
     ]
    },
    {
@@ -13861,15 +14381,15 @@
      "x0": 17,
      "x1": 18,
      "r0": 2,
-     "r1": 4.3,
-     "a0": -45,
-     "a1": 225
+     "r1": 2.8,
+     "a0": 182,
+     "a1": 202
     },
-    "volume_m3": 34.14125816288707,
+    "volume_m3": 0.6702064327658224,
     "centroid_m": [
      17.5,
-     6.04565883481344e-17,
-     0.9873310147909852
+     -2.3572803749366456,
+     -0.5010554113887533
     ]
    }
   ],
@@ -13878,7 +14398,7 @@
     "id": "jacket_outer",
     "name": "Storm-shelter water jacket (outer)",
     "system": "water",
-    "mass_t": 4.877322594698163,
+    "mass_t": 4.5042481377261865,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -13906,7 +14426,7 @@
     "id": "jacket_inner",
     "name": "Storm-shelter water jacket (inner)",
     "system": "water",
-    "mass_t": 2.4085543677521764,
+    "mass_t": 2.2243200680129287,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -13934,7 +14454,7 @@
     "id": "jacket_radial_a",
     "name": "Storm-shelter water jacket (radial_a)",
     "system": "water",
-    "mass_t": 1.035000000000001,
+    "mass_t": 0.9558311413754481,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -13962,7 +14482,7 @@
     "id": "jacket_radial_b",
     "name": "Storm-shelter water jacket (radial_b)",
     "system": "water",
-    "mass_t": 1.035000000000001,
+    "mass_t": 0.9558311413754481,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -13990,7 +14510,7 @@
     "id": "jacket_ceiling",
     "name": "Storm-shelter water jacket (ceiling)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.2911474919375947,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -14018,7 +14538,7 @@
     "id": "jacket_floor",
     "name": "Storm-shelter water jacket (floor)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.2911474919375947,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -14046,7 +14566,7 @@
     "id": "jacket_berth_ring",
     "name": "L3 berth shield ring (8 cm water)",
     "system": "water",
-    "mass_t": 4.751596056701504,
+    "mass_t": 4.3881386301759155,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -14075,7 +14595,7 @@
     "id": "jacket_berth_ring",
     "name": "L3 berth shield collar at the floor edge (12 cm water)",
     "system": "water",
-    "mass_t": 0.9522795651561342,
+    "mass_t": 0.8794381291514032,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -14104,7 +14624,7 @@
     "id": "jacket_berth_wall_extended",
     "name": "Protected water tank: berth_wall_extended",
     "system": "water",
-    "mass_t": 2.8296953349414022,
+    "mass_t": 2.6132472673833997,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -14133,7 +14653,7 @@
     "id": "jacket_service_return_wall",
     "name": "Protected water tank: service_return_wall",
     "system": "water",
-    "mass_t": 0.22907446432425202,
+    "mass_t": 0.21155218038166082,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -14162,7 +14682,7 @@
     "id": "pw_service",
     "name": "Protected water, service tank",
     "system": "water",
-    "mass_t": 24.75,
+    "mass_t": 26.681109036947873,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -14178,20 +14698,20 @@
      "r1": 4.3,
      "a0": 45,
      "a1": 135,
-     "settled_fraction": 0.7249293474165007
+     "settled_fraction": 0.7814916752526513
     },
-    "volume_m3": 24.750000000000004,
+    "volume_m3": 26.681109036947873,
     "centroid_m": [
-     15.911622629211259,
-     -0.012017368257990093,
-     2.9650711669263865
+     15.825613197156704,
+     -0.009564876858895363,
+     2.965895263993334
     ]
    },
    {
     "id": "water_starboard_fore",
     "name": "Water, tank cell starboard fore",
     "system": "water",
-    "mass_t": 62.500997320898634,
+    "mass_t": 61.34860524866919,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -14236,11 +14756,11 @@
        0.22
       ]
      ],
-     "settled_fraction": 0.7773256344926335
+     "settled_fraction": 0.7629933208156082
     },
-    "volume_m3": 63.64174157561717,
+    "volume_m3": 62.46831648484516,
     "centroid_m": [
-     22.125010699518352,
+     22.173410196954066,
      2.4291788361439806,
      -1.20119564272688
     ]
@@ -14249,7 +14769,7 @@
     "id": "water_starboard_aft",
     "name": "Water, tank cell starboard aft",
     "system": "water",
-    "mass_t": 62.500997320898634,
+    "mass_t": 61.34860524866919,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -14294,11 +14814,11 @@
        0.22
       ]
      ],
-     "settled_fraction": 0.7773256344926335
+     "settled_fraction": 0.7629933208156082
     },
-    "volume_m3": 63.64174157561717,
+    "volume_m3": 62.46831648484516,
     "centroid_m": [
-     28.860823209831707,
+     28.90948429590345,
      2.4250098286337285,
      -1.201564492512101
     ]
@@ -14307,7 +14827,7 @@
     "id": "water_port_fore",
     "name": "Water, tank cell port fore",
     "system": "water",
-    "mass_t": 62.500997320898634,
+    "mass_t": 61.34860524866919,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -14352,11 +14872,11 @@
        0.22
       ]
      ],
-     "settled_fraction": 0.7773256344926335
+     "settled_fraction": 0.7629933208156082
     },
-    "volume_m3": 63.64174157561717,
+    "volume_m3": 62.46831648484516,
     "centroid_m": [
-     22.13060551108186,
+     22.1789018514998,
      -2.426601023856182,
      -1.1945350878810816
     ]
@@ -14365,7 +14885,7 @@
     "id": "water_port_aft",
     "name": "Water, tank cell port aft",
     "system": "water",
-    "mass_t": 62.500997320898634,
+    "mass_t": 61.34860524866919,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -14410,21 +14930,21 @@
        0.22
       ]
      ],
-     "settled_fraction": 0.7773256344926335
+     "settled_fraction": 0.7629933208156082
     },
-    "volume_m3": 63.64174157561717,
+    "volume_m3": 62.46831648484516,
     "centroid_m": [
-     28.889298258322565,
+     28.937434322049963,
      -2.426869494783892,
      -1.188900083192231
     ]
    },
    {
-    "id": "house_fuel",
-    "name": "D-He3 consumable house-reactor fuel",
+    "id": "house_fuel_lobe_starboard_fore",
+    "name": "D-He3 consumable conformal core lobe starboard_fore",
     "system": "house_fuel",
-    "mass_t": 5,
-    "prov": "ENGINEERING_ASSUMPTION wet consumable, full reference S1\u2013S7 inventory",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
     "mat": "dhe3",
     "dry": false,
     "tags": [
@@ -14432,19 +14952,223 @@
      "no_shield_credit"
     ],
     "shape": {
-     "k": "sector",
-     "x0": 21,
-     "x1": 29,
-     "r0": 2,
-     "r1": 4,
-     "a0": 220,
-     "a1": 320
+     "k": "cslot",
+     "x0": 18,
+     "x1": 19.312311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": 1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
     },
-    "volume_m3": 83.77580409572782,
+    "volume_m3": 15.91740277818826,
     "centroid_m": [
-     25.0,
-     -5.016770422648976e-16,
-     -2.7310026184103844
+     18.66122335546285,
+     2.4381251288976733,
+     -1.189049229884902
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_starboard_aft",
+    "name": "D-He3 consumable conformal core lobe starboard_aft",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 24.75,
+     "x1": 26.062311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": 1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     25.408020575486795,
+     2.430622435644119,
+     -1.1893642963112512
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_port_fore",
+    "name": "D-He3 consumable conformal core lobe port_fore",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 18,
+     "x1": 19.312311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": -1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     18.656423377513992,
+     -2.4278096918913996,
+     -1.183466134797184
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_port_aft",
+    "name": "D-He3 consumable conformal core lobe port_aft",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 24.75,
+     "x1": 26.062311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": -1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     25.409135418357526,
+     -2.4166610788322287,
+     -1.210191968260382
     ]
    },
    {
@@ -14464,15 +15188,15 @@
      "x0": 17,
      "x1": 18,
      "r0": 2,
-     "r1": 4.3,
-     "a0": -45,
-     "a1": 225
+     "r1": 2.8,
+     "a0": 182,
+     "a1": 202
     },
-    "volume_m3": 34.14125816288707,
+    "volume_m3": 0.6702064327658224,
     "centroid_m": [
      17.5,
-     6.04565883481344e-17,
-     0.9873310147909852
+     -2.3572803749366456,
+     -0.5010554113887533
     ]
    },
    {
@@ -14535,7 +15259,7 @@
     "id": "jacket_outer",
     "name": "Storm-shelter water jacket (outer)",
     "system": "water",
-    "mass_t": 4.877322594698163,
+    "mass_t": 4.5042481377261865,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -14563,7 +15287,7 @@
     "id": "jacket_inner",
     "name": "Storm-shelter water jacket (inner)",
     "system": "water",
-    "mass_t": 2.4085543677521764,
+    "mass_t": 2.2243200680129287,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -14591,7 +15315,7 @@
     "id": "jacket_radial_a",
     "name": "Storm-shelter water jacket (radial_a)",
     "system": "water",
-    "mass_t": 1.035000000000001,
+    "mass_t": 0.9558311413754481,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -14619,7 +15343,7 @@
     "id": "jacket_radial_b",
     "name": "Storm-shelter water jacket (radial_b)",
     "system": "water",
-    "mass_t": 1.035000000000001,
+    "mass_t": 0.9558311413754481,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -14647,7 +15371,7 @@
     "id": "jacket_ceiling",
     "name": "Storm-shelter water jacket (ceiling)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.2911474919375947,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -14675,7 +15399,7 @@
     "id": "jacket_floor",
     "name": "Storm-shelter water jacket (floor)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.2911474919375947,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -14703,7 +15427,7 @@
     "id": "jacket_berth_ring",
     "name": "L3 berth shield ring (8 cm water)",
     "system": "water",
-    "mass_t": 4.751596056701504,
+    "mass_t": 4.3881386301759155,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -14732,7 +15456,7 @@
     "id": "jacket_berth_ring",
     "name": "L3 berth shield collar at the floor edge (12 cm water)",
     "system": "water",
-    "mass_t": 0.9522795651561342,
+    "mass_t": 0.8794381291514032,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -14761,7 +15485,7 @@
     "id": "jacket_berth_wall_extended",
     "name": "Protected water tank: berth_wall_extended",
     "system": "water",
-    "mass_t": 2.8296953349414022,
+    "mass_t": 2.6132472673833997,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -14790,7 +15514,7 @@
     "id": "jacket_service_return_wall",
     "name": "Protected water tank: service_return_wall",
     "system": "water",
-    "mass_t": 0.22907446432425202,
+    "mass_t": 0.21155218038166082,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -14819,7 +15543,7 @@
     "id": "pw_service",
     "name": "Protected water, service tank",
     "system": "water",
-    "mass_t": 24.75,
+    "mass_t": 26.681109036947873,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -14835,13 +15559,13 @@
      "r1": 4.3,
      "a0": 45,
      "a1": 135,
-     "settled_fraction": 0.7249293474165007
+     "settled_fraction": 0.7814916752526513
     },
-    "volume_m3": 24.750000000000004,
+    "volume_m3": 26.681109036947873,
     "centroid_m": [
-     15.911622629211259,
-     -0.012017368257990093,
-     2.9650711669263865
+     15.825613197156704,
+     -0.009564876858895363,
+     2.965895263993334
     ]
    },
    {
@@ -15077,11 +15801,11 @@
     ]
    },
    {
-    "id": "house_fuel",
-    "name": "D-He3 consumable house-reactor fuel",
+    "id": "house_fuel_lobe_starboard_fore",
+    "name": "D-He3 consumable conformal core lobe starboard_fore",
     "system": "house_fuel",
-    "mass_t": 5,
-    "prov": "ENGINEERING_ASSUMPTION wet consumable, full reference S1\u2013S7 inventory",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
     "mat": "dhe3",
     "dry": false,
     "tags": [
@@ -15089,19 +15813,223 @@
      "no_shield_credit"
     ],
     "shape": {
-     "k": "sector",
-     "x0": 21,
-     "x1": 29,
-     "r0": 2,
-     "r1": 4,
-     "a0": 220,
-     "a1": 320
+     "k": "cslot",
+     "x0": 18,
+     "x1": 19.312311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": 1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
     },
-    "volume_m3": 83.77580409572782,
+    "volume_m3": 15.91740277818826,
     "centroid_m": [
-     25.0,
-     -5.016770422648976e-16,
-     -2.7310026184103844
+     18.66122335546285,
+     2.4381251288976733,
+     -1.189049229884902
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_starboard_aft",
+    "name": "D-He3 consumable conformal core lobe starboard_aft",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 24.75,
+     "x1": 26.062311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": 1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     25.408020575486795,
+     2.430622435644119,
+     -1.1893642963112512
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_port_fore",
+    "name": "D-He3 consumable conformal core lobe port_fore",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 18,
+     "x1": 19.312311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": -1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     18.656423377513992,
+     -2.4278096918913996,
+     -1.183466134797184
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_port_aft",
+    "name": "D-He3 consumable conformal core lobe port_aft",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 24.75,
+     "x1": 26.062311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": -1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     25.409135418357526,
+     -2.4166610788322287,
+     -1.210191968260382
     ]
    },
    {
@@ -15121,15 +16049,15 @@
      "x0": 17,
      "x1": 18,
      "r0": 2,
-     "r1": 4.3,
-     "a0": -45,
-     "a1": 225
+     "r1": 2.8,
+     "a0": 182,
+     "a1": 202
     },
-    "volume_m3": 34.14125816288707,
+    "volume_m3": 0.6702064327658224,
     "centroid_m": [
      17.5,
-     6.04565883481344e-17,
-     0.9873310147909852
+     -2.3572803749366456,
+     -0.5010554113887533
     ]
    }
   ],
@@ -15138,7 +16066,7 @@
     "id": "jacket_outer",
     "name": "Storm-shelter water jacket (outer)",
     "system": "water",
-    "mass_t": 4.877322594698163,
+    "mass_t": 4.5042481377261865,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -15166,7 +16094,7 @@
     "id": "jacket_inner",
     "name": "Storm-shelter water jacket (inner)",
     "system": "water",
-    "mass_t": 2.4085543677521764,
+    "mass_t": 2.2243200680129287,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -15194,7 +16122,7 @@
     "id": "jacket_radial_a",
     "name": "Storm-shelter water jacket (radial_a)",
     "system": "water",
-    "mass_t": 1.035000000000001,
+    "mass_t": 0.9558311413754481,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -15222,7 +16150,7 @@
     "id": "jacket_radial_b",
     "name": "Storm-shelter water jacket (radial_b)",
     "system": "water",
-    "mass_t": 1.035000000000001,
+    "mass_t": 0.9558311413754481,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -15250,7 +16178,7 @@
     "id": "jacket_ceiling",
     "name": "Storm-shelter water jacket (ceiling)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.2911474919375947,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -15278,7 +16206,7 @@
     "id": "jacket_floor",
     "name": "Storm-shelter water jacket (floor)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.2911474919375947,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -15306,7 +16234,7 @@
     "id": "jacket_berth_ring",
     "name": "L3 berth shield ring (8 cm water)",
     "system": "water",
-    "mass_t": 4.751596056701504,
+    "mass_t": 4.3881386301759155,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -15335,7 +16263,7 @@
     "id": "jacket_berth_ring",
     "name": "L3 berth shield collar at the floor edge (12 cm water)",
     "system": "water",
-    "mass_t": 0.9522795651561342,
+    "mass_t": 0.8794381291514032,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -15364,7 +16292,7 @@
     "id": "jacket_berth_wall_extended",
     "name": "Protected water tank: berth_wall_extended",
     "system": "water",
-    "mass_t": 2.8296953349414022,
+    "mass_t": 2.6132472673833997,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -15393,7 +16321,7 @@
     "id": "jacket_service_return_wall",
     "name": "Protected water tank: service_return_wall",
     "system": "water",
-    "mass_t": 0.22907446432425202,
+    "mass_t": 0.21155218038166082,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -15422,7 +16350,7 @@
     "id": "pw_service",
     "name": "Protected water, service tank",
     "system": "water",
-    "mass_t": 24.75,
+    "mass_t": 26.681109036947873,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -15438,13 +16366,13 @@
      "r1": 4.3,
      "a0": 45,
      "a1": 135,
-     "settled_fraction": 0.7249293474165007
+     "settled_fraction": 0.7814916752526513
     },
-    "volume_m3": 24.750000000000004,
+    "volume_m3": 26.681109036947873,
     "centroid_m": [
-     15.911622629211259,
-     -0.012017368257990093,
-     2.9650711669263865
+     15.825613197156704,
+     -0.009564876858895363,
+     2.965895263993334
     ]
    },
    {
@@ -15680,11 +16608,11 @@
     ]
    },
    {
-    "id": "house_fuel",
-    "name": "D-He3 consumable house-reactor fuel",
+    "id": "house_fuel_lobe_starboard_fore",
+    "name": "D-He3 consumable conformal core lobe starboard_fore",
     "system": "house_fuel",
-    "mass_t": 5,
-    "prov": "ENGINEERING_ASSUMPTION wet consumable, full reference S1\u2013S7 inventory",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
     "mat": "dhe3",
     "dry": false,
     "tags": [
@@ -15692,19 +16620,223 @@
      "no_shield_credit"
     ],
     "shape": {
-     "k": "sector",
-     "x0": 21,
-     "x1": 29,
-     "r0": 2,
-     "r1": 4,
-     "a0": 220,
-     "a1": 320
+     "k": "cslot",
+     "x0": 18,
+     "x1": 19.312311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": 1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
     },
-    "volume_m3": 83.77580409572782,
+    "volume_m3": 15.91740277818826,
     "centroid_m": [
-     25.0,
-     -5.016770422648976e-16,
-     -2.7310026184103844
+     18.66122335546285,
+     2.4381251288976733,
+     -1.189049229884902
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_starboard_aft",
+    "name": "D-He3 consumable conformal core lobe starboard_aft",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 24.75,
+     "x1": 26.062311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": 1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     25.408020575486795,
+     2.430622435644119,
+     -1.1893642963112512
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_port_fore",
+    "name": "D-He3 consumable conformal core lobe port_fore",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 18,
+     "x1": 19.312311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": -1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     18.656423377513992,
+     -2.4278096918913996,
+     -1.183466134797184
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_port_aft",
+    "name": "D-He3 consumable conformal core lobe port_aft",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 24.75,
+     "x1": 26.062311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": -1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     25.409135418357526,
+     -2.4166610788322287,
+     -1.210191968260382
     ]
    },
    {
@@ -15724,15 +16856,15 @@
      "x0": 17,
      "x1": 18,
      "r0": 2,
-     "r1": 4.3,
-     "a0": -45,
-     "a1": 225
+     "r1": 2.8,
+     "a0": 182,
+     "a1": 202
     },
-    "volume_m3": 34.14125816288707,
+    "volume_m3": 0.6702064327658224,
     "centroid_m": [
      17.5,
-     6.04565883481344e-17,
-     0.9873310147909852
+     -2.3572803749366456,
+     -0.5010554113887533
     ]
    }
   ],
@@ -15741,7 +16873,7 @@
     "id": "jacket_outer",
     "name": "Storm-shelter water jacket (outer)",
     "system": "water",
-    "mass_t": 4.877322594698163,
+    "mass_t": 4.5042481377261865,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -15769,7 +16901,7 @@
     "id": "jacket_inner",
     "name": "Storm-shelter water jacket (inner)",
     "system": "water",
-    "mass_t": 2.4085543677521764,
+    "mass_t": 2.2243200680129287,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -15797,7 +16929,7 @@
     "id": "jacket_radial_a",
     "name": "Storm-shelter water jacket (radial_a)",
     "system": "water",
-    "mass_t": 1.035000000000001,
+    "mass_t": 0.9558311413754481,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -15825,7 +16957,7 @@
     "id": "jacket_radial_b",
     "name": "Storm-shelter water jacket (radial_b)",
     "system": "water",
-    "mass_t": 1.035000000000001,
+    "mass_t": 0.9558311413754481,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -15853,7 +16985,7 @@
     "id": "jacket_ceiling",
     "name": "Storm-shelter water jacket (ceiling)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.2911474919375947,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -15881,7 +17013,7 @@
     "id": "jacket_floor",
     "name": "Storm-shelter water jacket (floor)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.2911474919375947,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -15909,7 +17041,7 @@
     "id": "jacket_berth_ring",
     "name": "L3 berth shield ring (8 cm water)",
     "system": "water",
-    "mass_t": 4.751596056701504,
+    "mass_t": 4.3881386301759155,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -15938,7 +17070,7 @@
     "id": "jacket_berth_ring",
     "name": "L3 berth shield collar at the floor edge (12 cm water)",
     "system": "water",
-    "mass_t": 0.9522795651561342,
+    "mass_t": 0.8794381291514032,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -15967,7 +17099,7 @@
     "id": "jacket_berth_wall_extended",
     "name": "Protected water tank: berth_wall_extended",
     "system": "water",
-    "mass_t": 2.8296953349414022,
+    "mass_t": 2.6132472673833997,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -15996,7 +17128,7 @@
     "id": "jacket_service_return_wall",
     "name": "Protected water tank: service_return_wall",
     "system": "water",
-    "mass_t": 0.22907446432425202,
+    "mass_t": 0.21155218038166082,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -16025,7 +17157,7 @@
     "id": "pw_service",
     "name": "Protected water, service tank",
     "system": "water",
-    "mass_t": 24.75,
+    "mass_t": 26.681109036947873,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -16041,13 +17173,13 @@
      "r1": 4.3,
      "a0": 45,
      "a1": 135,
-     "settled_fraction": 0.7249293474165007
+     "settled_fraction": 0.7814916752526513
     },
-    "volume_m3": 24.750000000000004,
+    "volume_m3": 26.681109036947873,
     "centroid_m": [
-     15.911622629211259,
-     -0.012017368257990093,
-     2.9650711669263865
+     15.825613197156704,
+     -0.009564876858895363,
+     2.965895263993334
     ]
    },
    {
@@ -16283,11 +17415,11 @@
     ]
    },
    {
-    "id": "house_fuel",
-    "name": "D-He3 consumable house-reactor fuel",
+    "id": "house_fuel_lobe_starboard_fore",
+    "name": "D-He3 consumable conformal core lobe starboard_fore",
     "system": "house_fuel",
-    "mass_t": 5,
-    "prov": "ENGINEERING_ASSUMPTION wet consumable, full reference S1\u2013S7 inventory",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
     "mat": "dhe3",
     "dry": false,
     "tags": [
@@ -16295,19 +17427,223 @@
      "no_shield_credit"
     ],
     "shape": {
-     "k": "sector",
-     "x0": 21,
-     "x1": 29,
-     "r0": 2,
-     "r1": 4,
-     "a0": 220,
-     "a1": 320
+     "k": "cslot",
+     "x0": 18,
+     "x1": 19.312311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": 1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
     },
-    "volume_m3": 83.77580409572782,
+    "volume_m3": 15.91740277818826,
     "centroid_m": [
-     25.0,
-     -5.016770422648976e-16,
-     -2.7310026184103844
+     18.66122335546285,
+     2.4381251288976733,
+     -1.189049229884902
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_starboard_aft",
+    "name": "D-He3 consumable conformal core lobe starboard_aft",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 24.75,
+     "x1": 26.062311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": 1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     25.408020575486795,
+     2.430622435644119,
+     -1.1893642963112512
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_port_fore",
+    "name": "D-He3 consumable conformal core lobe port_fore",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 18,
+     "x1": 19.312311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": -1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     18.656423377513992,
+     -2.4278096918913996,
+     -1.183466134797184
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_port_aft",
+    "name": "D-He3 consumable conformal core lobe port_aft",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 24.75,
+     "x1": 26.062311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": -1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     25.409135418357526,
+     -2.4166610788322287,
+     -1.210191968260382
     ]
    },
    {
@@ -16327,15 +17663,15 @@
      "x0": 17,
      "x1": 18,
      "r0": 2,
-     "r1": 4.3,
-     "a0": -45,
-     "a1": 225
+     "r1": 2.8,
+     "a0": 182,
+     "a1": 202
     },
-    "volume_m3": 34.14125816288707,
+    "volume_m3": 0.6702064327658224,
     "centroid_m": [
      17.5,
-     6.04565883481344e-17,
-     0.9873310147909852
+     -2.3572803749366456,
+     -0.5010554113887533
     ]
    }
   ],
@@ -16344,7 +17680,7 @@
     "id": "jacket_outer",
     "name": "Storm-shelter water jacket (outer)",
     "system": "water",
-    "mass_t": 4.877322594698163,
+    "mass_t": 4.5042481377261865,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -16372,7 +17708,7 @@
     "id": "jacket_inner",
     "name": "Storm-shelter water jacket (inner)",
     "system": "water",
-    "mass_t": 2.4085543677521764,
+    "mass_t": 2.2243200680129287,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -16400,7 +17736,7 @@
     "id": "jacket_radial_a",
     "name": "Storm-shelter water jacket (radial_a)",
     "system": "water",
-    "mass_t": 1.035000000000001,
+    "mass_t": 0.9558311413754481,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -16428,7 +17764,7 @@
     "id": "jacket_radial_b",
     "name": "Storm-shelter water jacket (radial_b)",
     "system": "water",
-    "mass_t": 1.035000000000001,
+    "mass_t": 0.9558311413754481,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -16456,7 +17792,7 @@
     "id": "jacket_ceiling",
     "name": "Storm-shelter water jacket (ceiling)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.2911474919375947,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -16484,7 +17820,7 @@
     "id": "jacket_floor",
     "name": "Storm-shelter water jacket (floor)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.2911474919375947,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -16512,7 +17848,7 @@
     "id": "jacket_berth_ring",
     "name": "L3 berth shield ring (8 cm water)",
     "system": "water",
-    "mass_t": 4.751596056701504,
+    "mass_t": 4.3881386301759155,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -16541,7 +17877,7 @@
     "id": "jacket_berth_ring",
     "name": "L3 berth shield collar at the floor edge (12 cm water)",
     "system": "water",
-    "mass_t": 0.9522795651561342,
+    "mass_t": 0.8794381291514032,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -16570,7 +17906,7 @@
     "id": "jacket_berth_wall_extended",
     "name": "Protected water tank: berth_wall_extended",
     "system": "water",
-    "mass_t": 2.8296953349414022,
+    "mass_t": 2.6132472673833997,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -16599,7 +17935,7 @@
     "id": "jacket_service_return_wall",
     "name": "Protected water tank: service_return_wall",
     "system": "water",
-    "mass_t": 0.22907446432425202,
+    "mass_t": 0.21155218038166082,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -16628,7 +17964,7 @@
     "id": "pw_service",
     "name": "Protected water, service tank",
     "system": "water",
-    "mass_t": 24.75,
+    "mass_t": 26.681109036947873,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -16644,20 +17980,20 @@
      "r1": 4.3,
      "a0": 45,
      "a1": 135,
-     "settled_fraction": 0.7249293474165007
+     "settled_fraction": 0.7814916752526513
     },
-    "volume_m3": 24.750000000000004,
+    "volume_m3": 26.681109036947873,
     "centroid_m": [
-     15.911622629211259,
-     -0.012017368257990093,
-     2.9650711669263865
+     15.825613197156704,
+     -0.009564876858895363,
+     2.965895263993334
     ]
    },
    {
     "id": "water_starboard_fore",
     "name": "Water, tank cell starboard fore",
     "system": "water",
-    "mass_t": 62.500997320898634,
+    "mass_t": 61.34860524866919,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -16702,11 +18038,11 @@
        0.22
       ]
      ],
-     "settled_fraction": 0.7773256344926335
+     "settled_fraction": 0.7629933208156082
     },
-    "volume_m3": 63.64174157561717,
+    "volume_m3": 62.46831648484516,
     "centroid_m": [
-     22.125010699518352,
+     22.173410196954066,
      2.4291788361439806,
      -1.20119564272688
     ]
@@ -16715,7 +18051,7 @@
     "id": "water_starboard_aft",
     "name": "Water, tank cell starboard aft",
     "system": "water",
-    "mass_t": 62.500997320898634,
+    "mass_t": 61.34860524866919,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -16760,11 +18096,11 @@
        0.22
       ]
      ],
-     "settled_fraction": 0.7773256344926335
+     "settled_fraction": 0.7629933208156082
     },
-    "volume_m3": 63.64174157561717,
+    "volume_m3": 62.46831648484516,
     "centroid_m": [
-     28.860823209831707,
+     28.90948429590345,
      2.4250098286337285,
      -1.201564492512101
     ]
@@ -16773,7 +18109,7 @@
     "id": "water_port_fore",
     "name": "Water, tank cell port fore",
     "system": "water",
-    "mass_t": 62.500997320898634,
+    "mass_t": 61.34860524866919,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -16818,11 +18154,11 @@
        0.22
       ]
      ],
-     "settled_fraction": 0.7773256344926335
+     "settled_fraction": 0.7629933208156082
     },
-    "volume_m3": 63.64174157561717,
+    "volume_m3": 62.46831648484516,
     "centroid_m": [
-     22.13060551108186,
+     22.1789018514998,
      -2.426601023856182,
      -1.1945350878810816
     ]
@@ -16831,7 +18167,7 @@
     "id": "water_port_aft",
     "name": "Water, tank cell port aft",
     "system": "water",
-    "mass_t": 62.500997320898634,
+    "mass_t": 61.34860524866919,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -16876,21 +18212,21 @@
        0.22
       ]
      ],
-     "settled_fraction": 0.7773256344926335
+     "settled_fraction": 0.7629933208156082
     },
-    "volume_m3": 63.64174157561717,
+    "volume_m3": 62.46831648484516,
     "centroid_m": [
-     28.889298258322565,
+     28.937434322049963,
      -2.426869494783892,
      -1.188900083192231
     ]
    },
    {
-    "id": "house_fuel",
-    "name": "D-He3 consumable house-reactor fuel",
+    "id": "house_fuel_lobe_starboard_fore",
+    "name": "D-He3 consumable conformal core lobe starboard_fore",
     "system": "house_fuel",
-    "mass_t": 5,
-    "prov": "ENGINEERING_ASSUMPTION wet consumable, full reference S1\u2013S7 inventory",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
     "mat": "dhe3",
     "dry": false,
     "tags": [
@@ -16898,19 +18234,223 @@
      "no_shield_credit"
     ],
     "shape": {
-     "k": "sector",
-     "x0": 21,
-     "x1": 29,
-     "r0": 2,
-     "r1": 4,
-     "a0": 220,
-     "a1": 320
+     "k": "cslot",
+     "x0": 18,
+     "x1": 19.312311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": 1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
     },
-    "volume_m3": 83.77580409572782,
+    "volume_m3": 15.91740277818826,
     "centroid_m": [
-     25.0,
-     -5.016770422648976e-16,
-     -2.7310026184103844
+     18.66122335546285,
+     2.4381251288976733,
+     -1.189049229884902
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_starboard_aft",
+    "name": "D-He3 consumable conformal core lobe starboard_aft",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 24.75,
+     "x1": 26.062311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": 1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     25.408020575486795,
+     2.430622435644119,
+     -1.1893642963112512
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_port_fore",
+    "name": "D-He3 consumable conformal core lobe port_fore",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 18,
+     "x1": 19.312311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": -1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     18.656423377513992,
+     -2.4278096918913996,
+     -1.183466134797184
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_port_aft",
+    "name": "D-He3 consumable conformal core lobe port_aft",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 24.75,
+     "x1": 26.062311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": -1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     25.409135418357526,
+     -2.4166610788322287,
+     -1.210191968260382
     ]
    },
    {
@@ -16930,15 +18470,15 @@
      "x0": 17,
      "x1": 18,
      "r0": 2,
-     "r1": 4.3,
-     "a0": -45,
-     "a1": 225
+     "r1": 2.8,
+     "a0": 182,
+     "a1": 202
     },
-    "volume_m3": 34.14125816288707,
+    "volume_m3": 0.6702064327658224,
     "centroid_m": [
      17.5,
-     6.04565883481344e-17,
-     0.9873310147909852
+     -2.3572803749366456,
+     -0.5010554113887533
     ]
    }
   ],
@@ -16947,7 +18487,7 @@
     "id": "jacket_outer",
     "name": "Storm-shelter water jacket (outer)",
     "system": "water",
-    "mass_t": 4.877322594698163,
+    "mass_t": 4.5042481377261865,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -16975,7 +18515,7 @@
     "id": "jacket_inner",
     "name": "Storm-shelter water jacket (inner)",
     "system": "water",
-    "mass_t": 2.4085543677521764,
+    "mass_t": 2.2243200680129287,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -17003,7 +18543,7 @@
     "id": "jacket_radial_a",
     "name": "Storm-shelter water jacket (radial_a)",
     "system": "water",
-    "mass_t": 1.035000000000001,
+    "mass_t": 0.9558311413754481,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -17031,7 +18571,7 @@
     "id": "jacket_radial_b",
     "name": "Storm-shelter water jacket (radial_b)",
     "system": "water",
-    "mass_t": 1.035000000000001,
+    "mass_t": 0.9558311413754481,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -17059,7 +18599,7 @@
     "id": "jacket_ceiling",
     "name": "Storm-shelter water jacket (ceiling)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.2911474919375947,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -17087,7 +18627,7 @@
     "id": "jacket_floor",
     "name": "Storm-shelter water jacket (floor)",
     "system": "water",
-    "mass_t": 3.5637441664159097,
+    "mass_t": 3.2911474919375947,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -17115,7 +18655,7 @@
     "id": "jacket_berth_ring",
     "name": "L3 berth shield ring (8 cm water)",
     "system": "water",
-    "mass_t": 4.751596056701504,
+    "mass_t": 4.3881386301759155,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -17144,7 +18684,7 @@
     "id": "jacket_berth_ring",
     "name": "L3 berth shield collar at the floor edge (12 cm water)",
     "system": "water",
-    "mass_t": 0.9522795651561342,
+    "mass_t": 0.8794381291514032,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -17173,7 +18713,7 @@
     "id": "jacket_berth_wall_extended",
     "name": "Protected water tank: berth_wall_extended",
     "system": "water",
-    "mass_t": 2.8296953349414022,
+    "mass_t": 2.6132472673833997,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -17202,7 +18742,7 @@
     "id": "jacket_service_return_wall",
     "name": "Protected water tank: service_return_wall",
     "system": "water",
-    "mass_t": 0.22907446432425202,
+    "mass_t": 0.21155218038166082,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -17231,7 +18771,7 @@
     "id": "pw_service",
     "name": "Protected water, service tank",
     "system": "water",
-    "mass_t": 24.75,
+    "mass_t": 26.681109036947873,
     "prov": "DERIVED (protected water)",
     "mat": "water",
     "dry": false,
@@ -17247,20 +18787,20 @@
      "r1": 4.3,
      "a0": 45,
      "a1": 135,
-     "settled_fraction": 0.7249293474165007
+     "settled_fraction": 0.7814916752526513
     },
-    "volume_m3": 24.750000000000004,
+    "volume_m3": 26.681109036947873,
     "centroid_m": [
-     15.911622629211259,
-     -0.012017368257990093,
-     2.9650711669263865
+     15.825613197156704,
+     -0.009564876858895363,
+     2.965895263993334
     ]
    },
    {
     "id": "water_starboard_fore",
     "name": "Water, tank cell starboard fore",
     "system": "water",
-    "mass_t": 62.500997320898634,
+    "mass_t": 61.34860524866919,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -17305,11 +18845,11 @@
        0.22
       ]
      ],
-     "settled_fraction": 0.7773256344926335
+     "settled_fraction": 0.7629933208156082
     },
-    "volume_m3": 63.64174157561717,
+    "volume_m3": 62.46831648484516,
     "centroid_m": [
-     22.125010699518352,
+     22.173410196954066,
      2.4291788361439806,
      -1.20119564272688
     ]
@@ -17318,7 +18858,7 @@
     "id": "water_starboard_aft",
     "name": "Water, tank cell starboard aft",
     "system": "water",
-    "mass_t": 62.500997320898634,
+    "mass_t": 61.34860524866919,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -17363,11 +18903,11 @@
        0.22
       ]
      ],
-     "settled_fraction": 0.7773256344926335
+     "settled_fraction": 0.7629933208156082
     },
-    "volume_m3": 63.64174157561717,
+    "volume_m3": 62.46831648484516,
     "centroid_m": [
-     28.860823209831707,
+     28.90948429590345,
      2.4250098286337285,
      -1.201564492512101
     ]
@@ -17376,7 +18916,7 @@
     "id": "water_port_aft",
     "name": "Water, tank cell port aft",
     "system": "water",
-    "mass_t": 62.500997320898634,
+    "mass_t": 61.34860524866919,
     "prov": "DERIVED",
     "mat": "water",
     "dry": false,
@@ -17421,21 +18961,21 @@
        0.22
       ]
      ],
-     "settled_fraction": 0.7773256344926335
+     "settled_fraction": 0.7629933208156082
     },
-    "volume_m3": 63.64174157561717,
+    "volume_m3": 62.46831648484516,
     "centroid_m": [
-     28.889298258322565,
+     28.937434322049963,
      -2.426869494783892,
      -1.188900083192231
     ]
    },
    {
-    "id": "house_fuel",
-    "name": "D-He3 consumable house-reactor fuel",
+    "id": "house_fuel_lobe_starboard_fore",
+    "name": "D-He3 consumable conformal core lobe starboard_fore",
     "system": "house_fuel",
-    "mass_t": 5,
-    "prov": "ENGINEERING_ASSUMPTION wet consumable, full reference S1\u2013S7 inventory",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
     "mat": "dhe3",
     "dry": false,
     "tags": [
@@ -17443,19 +18983,223 @@
      "no_shield_credit"
     ],
     "shape": {
-     "k": "sector",
-     "x0": 21,
-     "x1": 29,
-     "r0": 2,
-     "r1": 4,
-     "a0": 220,
-     "a1": 320
+     "k": "cslot",
+     "x0": 18,
+     "x1": 19.312311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": 1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
     },
-    "volume_m3": 83.77580409572782,
+    "volume_m3": 15.91740277818826,
     "centroid_m": [
-     25.0,
-     -5.016770422648976e-16,
-     -2.7310026184103844
+     18.66122335546285,
+     2.4381251288976733,
+     -1.189049229884902
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_starboard_aft",
+    "name": "D-He3 consumable conformal core lobe starboard_aft",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 24.75,
+     "x1": 26.062311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": 1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     25.408020575486795,
+     2.430622435644119,
+     -1.1893642963112512
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_port_fore",
+    "name": "D-He3 consumable conformal core lobe port_fore",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 18,
+     "x1": 19.312311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": -1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     18.656423377513992,
+     -2.4278096918913996,
+     -1.183466134797184
+    ]
+   },
+   {
+    "id": "house_fuel_lobe_port_aft",
+    "name": "D-He3 consumable conformal core lobe port_aft",
+    "system": "house_fuel",
+    "mass_t": 0.95,
+    "prov": "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN",
+    "mat": "dhe3",
+    "dry": false,
+    "tags": [
+     "house_fuel",
+     "no_shield_credit"
+    ],
+    "shape": {
+     "k": "cslot",
+     "x0": 24.75,
+     "x1": 26.062311434712534,
+     "r0": 2.47,
+     "r1": 4.28,
+     "hw": 2.4,
+     "grooves": [
+      40,
+      140,
+      220,
+      320
+     ],
+     "gw": 2,
+     "gd": 0.5,
+     "side": -1,
+     "holes": [
+      [
+       2.75,
+       2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       2.6,
+       0.22
+      ],
+      [
+       2.75,
+       -2.6,
+       0.22
+      ],
+      [
+       -2.75,
+       -2.6,
+       0.22
+      ]
+     ]
+    },
+    "volume_m3": 15.91740277818826,
+    "centroid_m": [
+     25.409135418357526,
+     -2.4166610788322287,
+     -1.210191968260382
     ]
    },
    {
@@ -17475,15 +19219,15 @@
      "x0": 17,
      "x1": 18,
      "r0": 2,
-     "r1": 4.3,
-     "a0": -45,
-     "a1": 225
+     "r1": 2.8,
+     "a0": 182,
+     "a1": 202
     },
-    "volume_m3": 34.14125816288707,
+    "volume_m3": 0.6702064327658224,
     "centroid_m": [
      17.5,
-     6.04565883481344e-17,
-     0.9873310147909852
+     -2.3572803749366456,
+     -0.5010554113887533
     ]
    }
   ]
@@ -18352,58 +20096,58 @@
  "states": {
   "S1": {
    "name": "reference departure",
-   "remass_t": 250,
+   "remass_t": 245.39043171108221,
    "shuttle": "docked",
    "payload_t": 0,
-   "mass_t": 1172.6814534639639,
+   "mass_t": 1167.532686975091,
    "cg_m": [
-    23.918066744679017,
-    0.02063562644889446,
-    -0.38821138638592007
+    23.925719748020434,
+    0.020337553134054668,
+    -0.4138480481458185
    ],
    "inertia_kg_m2": [
     [
-     12539852.997413523,
-     192686.8778204401,
-     1235004.284813569
+     12815613.254283527,
+     189583.75625923413,
+     1005119.3798948731
     ],
     [
-     192686.8778204401,
-     198936377.22346175,
-     -5186.580194617021
+     189583.75625923413,
+     198789304.8624686,
+     -5824.217166528294
     ],
     [
-     1235004.284813569,
-     -5186.580194617021,
-     199800860.67732304
+     1005119.3798948731,
+     -5824.217166528294,
+     199395800.69494167
     ]
    ],
    "principal_kg_m2": [
-    12531509.13742942,
-    198936558.891195,
-    199809022.86957386
+    12810005.452717831,
+    198789460.47161937,
+    199401252.8873566
    ],
    "principal_axes": [
     [
-     0.9999777203910148,
-     -0.0010338612531791132,
-     -0.006594683654152548
+     0.9999849710706553,
+     -0.0010195341276106101,
+     -0.005386852790205628
     ],
     [
-     0.0010634266824208977,
-     0.9999893935172539,
-     0.004481291854545731
+     0.0010617787156352776,
+     0.9999686627610918,
+     0.00784513363512372
     ],
     [
-     0.006589980673741553,
-     -0.0044882049756754154,
-     0.9999682135802198
+     0.005378685599636104,
+     -0.007850735376801518,
+     0.9999547168223487
     ]
    ],
-   "trim_deg": 0.31994349952970697,
-   "lateral_offset_m": 0.15848827803392762,
-   "usable_remass_t": 250.0,
-   "water_t": 300.0,
+   "trim_deg": 0.3112722074799198,
+   "lateral_offset_m": 0.1541511751421808,
+   "usable_remass_t": 245.39043171108221,
+   "water_t": 295.3904317110822,
    "parts": [
     "armor",
     "pressure_vessel",
@@ -18611,7 +20355,11 @@
     "house_peak_store",
     "house_energy_battery",
     "c_lite_dry",
-    "house_fuel_tank",
+    "house_fuel_tank_cap_starboard_fore",
+    "house_fuel_tank_cap_starboard_aft",
+    "house_fuel_tank_cap_port_fore",
+    "house_fuel_tank_cap_port_aft",
+    "d8_unlocated_doubler_allowance",
     "plant_aft",
     "manifold",
     "strake_40",
@@ -18712,111 +20460,114 @@
     "water_starboard_aft",
     "water_port_fore",
     "water_port_aft",
-    "house_fuel",
+    "house_fuel_lobe_starboard_fore",
+    "house_fuel_lobe_starboard_aft",
+    "house_fuel_lobe_port_fore",
+    "house_fuel_lobe_port_aft",
     "c_lite_monoprop"
    ],
    "fins_deployed": {
     "cg_m": [
-     23.918066744679017,
-     0.02063562644889445,
-     -0.38821138638592007
+     23.925719748020434,
+     0.020337553134054654,
+     -0.4138480481458185
     ],
     "inertia_kg_m2": [
      [
-      19067255.39223141,
-      195126.4868854452,
-      1231102.960119309
+      19343010.5998066,
+      192012.2649214377,
+      1001210.4579872868
      ],
      [
-      195126.4868854452,
-      201637459.9609612,
-      -2318.1698888059145
+      192012.2649214377,
+      201490406.42632577,
+      -2954.959173326793
      ],
      [
-      1231102.960119309,
-      -2318.1698888059145,
-      203635655.05603176
+      1001210.4579872868,
+      -2954.959173326793,
+      203230571.1979979
      ]
     ],
     "principal_kg_m2": [
-     19058835.528644823,
-     201637668.00622484,
-     203643866.87435466
+     19337357.049447235,
+     201490606.77032495,
+     203236024.404358
     ],
     "principal_axes": [
      [
-      0.9999771859459557,
-      -0.0010687861017687657,
-      -0.0066697289207254045
+      0.9999846231743251,
+      -0.001054198098668986,
+      -0.005444454175724933
      ],
      [
-      0.0010721421991727459,
-      0.9999993004410997,
-      0.0004996282776021333
+      0.0010601381672892733,
+      0.9999988458975512,
+      0.0010882603695191865
      ],
      [
-      0.0066691902590980245,
-      -0.0005067677768885587,
-      0.999977632293697
+      0.005443300650254634,
+      -0.001094015509200939,
+      0.999984586685263
      ]
     ],
-    "trim_deg": 0.31994349952970697
+    "trim_deg": 0.3112722074799198
    }
   },
   "S2": {
    "name": "loaded departure",
-   "remass_t": 250,
+   "remass_t": 245.39043171108221,
    "shuttle": "docked",
    "payload_t": 50,
-   "mass_t": 1222.6814534639639,
+   "mass_t": 1217.532686975091,
    "cg_m": [
-    23.57382063213556,
-    0.01979175880084795,
-    -0.3723359764299547
+    23.579703586066138,
+    0.01950235776921471,
+    -0.3968526913651309
    ],
    "inertia_kg_m2": [
     [
-     13109875.983147271,
-     184188.61073647148,
-     1391481.0868643494
+     13386620.233067691,
+     181199.83645482047,
+     1172067.2048285378
     ],
     [
-     184188.61073647148,
-     202482241.17011204,
-     -5414.0280972772525
+     181199.83645482047,
+     202341721.24629402,
+     -6032.283740491661
     ],
     [
-     1391481.0868643494,
-     -5414.0280972772525,
-     203696868.02400848
+     1172067.2048285378,
+     -6032.283740491661,
+     203297375.30724126
     ]
    ],
    "principal_kg_m2": [
-    13099538.077049876,
-    202482406.85302514,
-    203707040.24719274
+    13379213.071432907,
+    202341869.98592633,
+    203304633.72924373
    ],
    "principal_axes": [
     [
-     0.9999728781306665,
-     -0.0009727558216413404,
-     -0.007300462258139179
+     0.999980497138073,
+     -0.0009590976936513855,
+     -0.0061713430553061496
     ],
     [
-     0.0009969827173995642,
-     0.9999940062688751,
-     0.003315637462969293
+     0.0009905657563746286,
+     0.9999865143555416,
+     0.005098027710437128
     ],
     [
-     0.007297193195486761,
-     -0.0033228259713836577,
-     0.9999678543828454
+     0.006166370324148624,
+     -0.005104041405408018,
+     0.9999679618059557
     ]
    ],
-   "trim_deg": 0.28462297022195443,
-   "lateral_offset_m": 0.14270157103076578,
-   "usable_remass_t": 250.0,
-   "water_t": 300.0,
+   "trim_deg": 0.2738153011313406,
+   "lateral_offset_m": 0.1372547253331751,
+   "usable_remass_t": 245.39043171108221,
+   "water_t": 295.3904317110822,
    "parts": [
     "armor",
     "pressure_vessel",
@@ -19024,7 +20775,11 @@
     "house_peak_store",
     "house_energy_battery",
     "c_lite_dry",
-    "house_fuel_tank",
+    "house_fuel_tank_cap_starboard_fore",
+    "house_fuel_tank_cap_starboard_aft",
+    "house_fuel_tank_cap_port_fore",
+    "house_fuel_tank_cap_port_aft",
+    "d8_unlocated_doubler_allowance",
     "plant_aft",
     "manifold",
     "strake_40",
@@ -19125,57 +20880,60 @@
     "water_starboard_aft",
     "water_port_fore",
     "water_port_aft",
-    "house_fuel",
+    "house_fuel_lobe_starboard_fore",
+    "house_fuel_lobe_starboard_aft",
+    "house_fuel_lobe_port_fore",
+    "house_fuel_lobe_port_aft",
     "c_lite_monoprop",
     "payload_hold_starboard",
     "payload_hold_port"
    ],
    "fins_deployed": {
     "cg_m": [
-     23.57382063213556,
-     0.01979175880084794,
-     -0.3723359764299547
+     23.579703586066138,
+     0.019502357769214697,
+     -0.3968526913651309
     ],
     "inertia_kg_m2": [
      [
-      19637278.377965145,
-      186628.21980147588,
-      1387579.7621700896
+      19914017.578590766,
+      183628.34511702333,
+      1168158.2829209517
      ],
      [
-      186628.21980147588,
-      205183323.90761146,
-      -2545.6177914656364
+      183628.34511702333,
+      205042822.8101511,
+      -3163.025747290394
      ],
      [
-      1387579.7621700896,
-      -2545.6177914656364,
-      207531662.40271717
+      1168158.2829209517,
+      -3163.025747290394,
+      207132145.81029746
      ]
     ],
     "principal_kg_m2": [
-     19626844.076122798,
-     205183511.06344894,
-     207541909.54872212
+     19906546.90676301,
+     205043003.03380805,
+     207139436.25846818
     ],
     "principal_axes": [
      [
-      0.9999722298740595,
-      -0.0010058491855533204,
-      -0.007384290630594542
+      0.9999800440132113,
+      -0.0009919418145549342,
+      -0.00623920081199589
      ],
      [
-      0.0010094769399280512,
-      0.9999993716160639,
-      0.0004875692619042432
+      0.000997925658275004,
+      0.9999990450730298,
+      0.0009560321170204917
      ],
      [
-      0.007383795569279943,
-      -0.0004950099931537474,
-      0.9999726168891315
+      0.006238246525781833,
+      -0.0009622392970336158,
+      0.9999800789894859
      ]
     ],
-    "trim_deg": 0.28462297022195443
+    "trim_deg": 0.2738153011313406
    }
   },
   "S3": {
@@ -19183,53 +20941,53 @@
    "remass_t": 150,
    "shuttle": "docked",
    "payload_t": 0,
-   "mass_t": 1072.6814534639639,
+   "mass_t": 1072.1422552640088,
    "cg_m": [
-    23.9172080012725,
-    0.022542631538655978,
-    -0.3128546774970114
+    23.921277223436665,
+    0.022131048256962473,
+    -0.3442097470820592
    ],
    "inertia_kg_m2": [
     [
-     11427575.274339853,
-     188674.39743024818,
-     1234247.6270966805
+     11759110.264262611,
+     185711.09383179096,
+     1001118.647059599
     ],
     [
-     188674.39743024818,
-     197365059.0749576,
-     -4980.4975536710945
+     185711.09383179096,
+     197297796.32401323,
+     -5713.052519737975
     ],
     [
-     1234247.6270966805,
-     -4980.4975536710945,
-     197912244.39099547
+     1001118.647059599,
+     -5713.052519737975,
+     197597119.4157276
     ]
    ],
    "principal_kg_m2": [
-    11419215.27036952,
-    197365225.4934018,
-    197920437.97652167
+    11753531.410266398,
+    197297909.3490652,
+    197602585.24467185
    ],
    "principal_axes": [
     [
-     0.9999775853464403,
-     -0.0010148282981476033,
-     -0.006618075870516004
+     0.9999849898243506,
+     -0.001001049580719678,
+     -0.005386838194190338
     ],
     [
-     0.0010592659965148288,
-     0.9999768961196001,
-     0.006714550063785826
+     0.0010842462333528395,
+     0.9998798413660744,
+     0.015463739517311205
     ],
     [
-     0.006611108851868556,
-     -0.00672140986220433,
-     0.9999555569570144
+     0.0053707109491115835,
+     -0.015469348062886586,
+     0.9998659183782646
     ]
    ],
-   "trim_deg": 0.1679327199867764,
-   "lateral_offset_m": 0.0831896022799846,
+   "trim_deg": 0.17075708912584478,
+   "lateral_offset_m": 0.08457660376935593,
    "usable_remass_t": 150.0,
    "water_t": 200.0,
    "parts": [
@@ -19439,7 +21197,11 @@
     "house_peak_store",
     "house_energy_battery",
     "c_lite_dry",
-    "house_fuel_tank",
+    "house_fuel_tank_cap_starboard_fore",
+    "house_fuel_tank_cap_starboard_aft",
+    "house_fuel_tank_cap_port_fore",
+    "house_fuel_tank_cap_port_aft",
+    "d8_unlocated_doubler_allowance",
     "plant_aft",
     "manifold",
     "strake_40",
@@ -19540,55 +21302,58 @@
     "water_starboard_aft",
     "water_port_fore",
     "water_port_aft",
-    "house_fuel",
+    "house_fuel_lobe_starboard_fore",
+    "house_fuel_lobe_starboard_aft",
+    "house_fuel_lobe_port_fore",
+    "house_fuel_lobe_port_aft",
     "c_lite_monoprop"
    ],
    "fins_deployed": {
     "cg_m": [
-     23.9172080012725,
-     0.022542631538655968,
-     -0.3128546774970114
+     23.921277223436665,
+     0.02213104825696246,
+     -0.3442097470820592
     ],
     "inertia_kg_m2": [
      [
-      17954977.669157736,
-      191114.00649525222,
-      1230346.3024024204
+      18286507.609785683,
+      188139.60249399435,
+      997209.7251520127
      ],
      [
-      191114.00649525222,
-      200066141.81245703,
-      -2112.0872478595516
+      188139.60249399435,
+      199998897.88787034,
+      -2843.7945265364892
      ],
      [
-      1230346.3024024204,
-      -2112.0872478595516,
-      201747038.7697042
+      997209.7251520127,
+      -2843.7945265364892,
+      201431889.91878378
      ]
     ],
     "principal_kg_m2": [
-     17946541.243954528,
-     200066341.97515357,
-     201755275.0322108
+     18280883.241310354,
+     199999090.40069872,
+     201437321.77443078
     ],
     "principal_axes": [
      [
-      0.9999770457214479,
-      -0.0010494408972623942,
-      -0.006693780994955379
+      0.9999846416152924,
+      -0.001035407493791788,
+      -0.005444673071661757
      ],
      [
-      0.0010527177717735193,
-      0.9999993277771378,
-      0.0004860355596889902
+      0.0010422789579841193,
+      0.9999986638241519,
+      0.001259366699774195
      ],
      [
-      0.0066932664296489005,
-      -0.0004930710653071161,
-      0.9999774782790992
+      0.00544336183890272,
+      -0.0012650222261116274,
+      0.9999843846434096
      ]
     ],
-    "trim_deg": 0.1679327199867764
+    "trim_deg": 0.17075708912584478
    }
   },
   "S4": {
@@ -19596,53 +21361,53 @@
    "remass_t": 0,
    "shuttle": "docked",
    "payload_t": 0,
-   "mass_t": 922.681453463964,
+   "mass_t": 922.1422552640087,
    "cg_m": [
-    23.489065542491378,
-    0.026178192043360665,
-    -0.16919282988479398
+    23.49354633855248,
+    0.025701784485116744,
+    -0.20556426023383056
    ],
    "inertia_kg_m2": [
     [
-     9730108.28485318,
-     175807.39992474305,
-     828850.6537373376
+     10071128.490081934,
+     173047.874296817,
+     610694.6914892778
     ],
     [
-     175807.39992474305,
-     193698765.0224301,
-     -3936.683674243048
+     173047.874296817,
+     193644620.50059137,
+     -4852.426205148912
     ],
     [
-     828850.6537373376,
-     -3936.683674243048,
-     193799016.3519329
+     610694.6914892778,
+     -4852.426205148912,
+     193487530.73800838
     ]
    ],
    "principal_kg_m2": [
-    9726208.063337723,
-    193698837.86874887,
-    193802843.7271296
+    10068932.019615792,
+    193489446.3368064,
+    193644901.37225944
    ],
    "principal_axes": [
     [
-     0.9999894055922178,
-     -0.0009557032609716387,
-     -0.004502814075650853
+     0.9999940127615393,
+     -0.0009427343390963948,
+     -0.0033295184396641593
     ],
     [
-     0.0010914784352650648,
-     0.9995418261462488,
-     0.03024808190692006
+     0.003354201313460283,
+     0.027518265779332942,
+     0.9996156733375315
     ],
     [
-     0.004471842813456505,
-     -0.03025267617086729,
-     0.999532279722047
+     -0.0008507494478143872,
+     -0.9996208562752499,
+     0.02752126314167214
     ]
    ],
-   "trim_deg": 0.12116453949221712,
-   "lateral_offset_m": 0.060927154483670365,
+   "trim_deg": 0.10860906311918092,
+   "lateral_offset_m": 0.05460516844129779,
    "usable_remass_t": 0.0,
    "water_t": 50.0,
    "parts": [
@@ -19852,7 +21617,11 @@
     "house_peak_store",
     "house_energy_battery",
     "c_lite_dry",
-    "house_fuel_tank",
+    "house_fuel_tank_cap_starboard_fore",
+    "house_fuel_tank_cap_starboard_aft",
+    "house_fuel_tank_cap_port_fore",
+    "house_fuel_tank_cap_port_aft",
+    "d8_unlocated_doubler_allowance",
     "plant_aft",
     "manifold",
     "strake_40",
@@ -19953,55 +21722,58 @@
     "water_starboard_aft",
     "water_port_fore",
     "water_port_aft",
-    "house_fuel",
+    "house_fuel_lobe_starboard_fore",
+    "house_fuel_lobe_starboard_aft",
+    "house_fuel_lobe_port_fore",
+    "house_fuel_lobe_port_aft",
     "c_lite_monoprop"
    ],
    "fins_deployed": {
     "cg_m": [
-     23.489065542491378,
-     0.026178192043360648,
-     -0.16919282988479398
+     23.49354633855248,
+     0.02570178448511673,
+     -0.20556426023383056
     ],
     "inertia_kg_m2": [
      [
-      16257510.679671062,
-      178247.0089897474,
-      824949.329043078
+      16598525.835605005,
+      175476.3829590202,
+      606785.7695816916
      ],
      [
-      178247.0089897474,
-      196399847.75992948,
-      -1068.2733684316365
+      175476.3829590202,
+      196345722.0644485,
+      -1983.1682119476661
      ],
      [
-      824949.329043078,
-      -1068.2733684316365,
-      197633810.73064166
+      606785.7695816916,
+      -1983.1682119476661,
+      197322301.24106458
      ]
     ],
     "principal_kg_m2": [
-     16253582.286961965,
-     196400024.08006358,
-     197637562.80321667
+     16596317.24022378,
+     196345891.39442018,
+     197324340.5064742
     ],
     "principal_axes": [
      [
-      0.9999891676544497,
-      -0.0009894733942175202,
-      -0.004548133261344422
+      0.9999938871023404,
+      -0.0009762589588070688,
+      -0.003357480662230262
      ],
      [
-      0.0009904097495167824,
-      0.999999488811712,
-      0.0002036291798442134
+      0.0009810358835566873,
+      0.9999985085684706,
+      0.0014214181051704733
      ],
      [
-      0.004547929450736224,
-      -0.00020813148958671027,
-      0.9999896364557955
+      0.003356087982618359,
+      -0.0014247032251950603,
+      0.9999933534249982
      ]
     ],
-    "trim_deg": 0.12116453949221712
+    "trim_deg": 0.10860906311918092
    }
   },
   "S5": {
@@ -20009,53 +21781,53 @@
    "remass_t": 0,
    "shuttle": "absent",
    "payload_t": 0,
-   "mass_t": 891.9492053827081,
+   "mass_t": 891.4100071827529,
    "cg_m": [
-    23.431837788391906,
-    0.027080165706591997,
-    -0.17502239505533324
+    23.43643844830162,
+    0.026587879111117103,
+    -0.2126512929025705
    ],
    "inertia_kg_m2": [
     [
-     9673705.057099517,
-     174145.48742898635,
-     834920.4247469738
+     10014292.693103924,
+     171414.75148320617,
+     618655.9182274214
     ],
     [
-     174145.48742898635,
-     193159909.91662496,
-     -3878.8447274835366
+     171414.75148320617,
+     193105802.8433527,
+     -4821.746815973378
     ],
     [
-     834920.4247469738,
-     -3878.8447274835366,
-     193261297.58418113
+     618655.9182274214,
+     -4821.746815973378,
+     192950283.55870113
     ]
    ],
    "principal_kg_m2": [
-    9669742.774238829,
-    193159984.5694864,
-    193265185.2141804
+    10012040.02694665,
+    192952258.6412678,
+    193106080.42694333
    ],
    "principal_axes": [
     [
-     0.9999892088081916,
-     -0.0009491580102966152,
-     -0.0045476770156286025
+     0.9999938434422088,
+     -0.0009362968412132204,
+     -0.0033817785120045444
     ],
     [
-     0.0010822368862941397,
-     0.9995685949191719,
-     0.029350516428749324
+     0.0034063233027114216,
+     0.027588078493548766,
+     0.9996135727802975
     ],
     [
-     0.004517856846883406,
-     -0.029355121365510127,
-     0.9995588355965481
+     -0.0008426382595910762,
+     -0.9996189380325179,
+     0.027591097975697653
     ]
    ],
-   "trim_deg": 0.10926986665751859,
-   "lateral_offset_m": 0.05505508584820123,
+   "trim_deg": 0.09423347599639646,
+   "lateral_offset_m": 0.04747149284316348,
    "usable_remass_t": 0.0,
    "water_t": 50.0,
    "parts": [
@@ -20265,7 +22037,11 @@
     "house_peak_store",
     "house_energy_battery",
     "c_lite_dry",
-    "house_fuel_tank",
+    "house_fuel_tank_cap_starboard_fore",
+    "house_fuel_tank_cap_starboard_aft",
+    "house_fuel_tank_cap_port_fore",
+    "house_fuel_tank_cap_port_aft",
+    "d8_unlocated_doubler_allowance",
     "plant_aft",
     "manifold",
     "strake_40",
@@ -20365,111 +22141,114 @@
     "water_starboard_aft",
     "water_port_fore",
     "water_port_aft",
-    "house_fuel",
+    "house_fuel_lobe_starboard_fore",
+    "house_fuel_lobe_starboard_aft",
+    "house_fuel_lobe_port_fore",
+    "house_fuel_lobe_port_aft",
     "c_lite_monoprop"
    ],
    "fins_deployed": {
     "cg_m": [
-     23.431837788391906,
-     0.02708016570659198,
-     -0.17502239505533324
+     23.43643844830162,
+     0.026587879111117086,
+     -0.2126512929025705
     ],
     "inertia_kg_m2": [
      [
-      16201107.4519174,
-      176585.09649399077,
-      831019.1000527135
+      16541690.038626995,
+      173843.26014540927,
+      614746.9963198348
      ],
      [
-      176585.09649399077,
-      195860992.65412435,
-      -1010.4344216721878
+      173843.26014540927,
+      195806904.40720984,
+      -1952.4888227717875
      ],
      [
-      831019.1000527135,
-      -1010.4344216721878,
-      197096091.96288988
+      614746.9963198348,
+      -1952.4888227717875,
+      196785054.06175736
      ]
     ],
     "principal_kg_m2": [
-     16197116.323434096,
-     195861166.1866193,
-     197099909.55887824
+     16539424.782166885,
+     195807071.11533248,
+     196787152.61009482
     ],
     "principal_axes": [
      [
-      0.9999889654905192,
-      -0.0009828786581227047,
-      -0.004593783489071512
+      0.9999937136674687,
+      -0.0009697733520553034,
+      -0.003410596016901595
      ],
      [
-      0.000983607102319713,
-      0.9999995040411951,
-      0.00015631516899861295
+      0.0009744979630203645,
+      0.9999985676064296,
+      0.0013838854031784273
      ],
      [
-      0.004593627571900593,
-      -0.00016083192220376843,
-      0.9999894363036158
+      0.0034092490763994883,
+      -0.0013872003224857537,
+      0.9999932263250589
      ]
     ],
-    "trim_deg": 0.10926986665751859
+    "trim_deg": 0.09423347599639646
    }
   },
   "S6": {
    "name": "full, shuttle away",
-   "remass_t": 250,
+   "remass_t": 245.39043171108221,
    "shuttle": "absent",
    "payload_t": 0,
-   "mass_t": 1141.9492053827082,
+   "mass_t": 1136.800438893835,
    "cg_m": [
-    23.88491283709397,
-    0.021190974434908437,
-    -0.398658968973783
+    23.892622571825264,
+    0.020887358277417972,
+    -0.4250360108245949
    ],
    "inertia_kg_m2": [
     [
-     12479611.932789389,
-     191604.96011355118,
-     1247233.4287993158
+     12754723.005303241,
+     188518.24606516352,
+     1018247.1948352726
     ],
     [
-     191604.96011355118,
-     198433481.9351889,
-     -5240.754382136353
+     188518.24606516352,
+     198286347.62473986,
+     -5891.225598442992
     ],
     [
-     1247233.4287993158,
-     -5240.754382136353,
-     199302956.25900596
+     1018247.1948352726,
+     -5891.225598442992,
+     198898484.2792947
     ]
    ],
    "principal_kg_m2": [
-    12471088.286233442,
-    198433661.53478742,
-    199311300.30596343
+    12748961.529757868,
+    198286500.98528796,
+    198904092.39429206
    ],
    "principal_axes": [
     [
-     0.9999771871084235,
-     -0.0010305070391806565,
-     -0.006675576227345332
+     0.999984523088524,
+     -0.0010162238375685446,
+     -0.0054699974889641095
     ],
     [
-     0.0010606067237192993,
-     0.9999892811686388,
-     0.004506956978541321
+     0.0010592229811297752,
+     0.9999685191755275,
+     0.007863758934434032
     ],
     [
-     0.006670860222077842,
-     -0.004513934322851854,
-     0.9999675614842846
+     0.005461833949651231,
+     -0.00786943117478017,
+     0.9999541191589202
     ]
    ],
-   "trim_deg": 0.340541094784809,
-   "lateral_offset_m": 0.16888885915508442,
-   "usable_remass_t": 250.0,
-   "water_t": 300.0,
+   "trim_deg": 0.33336986740338753,
+   "lateral_offset_m": 0.16528740154064964,
+   "usable_remass_t": 245.39043171108221,
+   "water_t": 295.3904317110822,
    "parts": [
     "armor",
     "pressure_vessel",
@@ -20677,7 +22456,11 @@
     "house_peak_store",
     "house_energy_battery",
     "c_lite_dry",
-    "house_fuel_tank",
+    "house_fuel_tank_cap_starboard_fore",
+    "house_fuel_tank_cap_starboard_aft",
+    "house_fuel_tank_cap_port_fore",
+    "house_fuel_tank_cap_port_aft",
+    "d8_unlocated_doubler_allowance",
     "plant_aft",
     "manifold",
     "strake_40",
@@ -20777,113 +22560,116 @@
     "water_starboard_aft",
     "water_port_fore",
     "water_port_aft",
-    "house_fuel",
+    "house_fuel_lobe_starboard_fore",
+    "house_fuel_lobe_starboard_aft",
+    "house_fuel_lobe_port_fore",
+    "house_fuel_lobe_port_aft",
     "c_lite_monoprop"
    ],
    "fins_deployed": {
     "cg_m": [
-     23.88491283709397,
-     0.021190974434908423,
-     -0.398658968973783
+     23.892622571825264,
+     0.02088735827741796,
+     -0.4250360108245949
     ],
     "inertia_kg_m2": [
      [
-      19007014.327607278,
-      194044.5691785558,
-      1243332.1041050565
+      19282120.350826308,
+      190946.75472736685,
+      1014338.2729276856
      ],
      [
-      194044.5691785558,
-      201134564.6726883,
-      -2372.3440763248536
+      190946.75472736685,
+      200987449.18859693,
+      -3021.9676052417753
      ],
      [
-      1243332.1041050565,
-      -2372.3440763248536,
-      203137750.63771468
+      1014338.2729276856,
+      -3021.9676052417753,
+      202733254.78235093
      ]
     ],
     "principal_kg_m2": [
-     18998412.426252004,
-     201134770.86813343,
-     203146146.34362483
+     19276311.360898368,
+     200987647.661814,
+     202738865.29906172
     ],
     "principal_axes": [
      [
-      0.9999766375069058,
-      -0.0010654450028084615,
-      -0.00675198247395349
+      0.9999841630002972,
+      -0.0010509011114719247,
+      -0.005528956090307741
      ],
      [
-      0.0010689859460377756,
-      0.9999992929955954,
-      0.0005208429287854099
+      0.0010570920483136614,
+      0.9999988175149417,
+      0.0011169266402693272
      ],
      [
-      0.006751422770776418,
-      -0.0005280485349686326,
-      0.9999770694647528
+      0.005527775772952085,
+      -0.001122753567020997,
+      0.9999840914331746
      ]
     ],
-    "trim_deg": 0.340541094784809
+    "trim_deg": 0.33336986740338753
    }
   },
   "S7": {
    "name": "one tank cell breached and vented",
-   "remass_t": 250,
+   "remass_t": 245.39043171108221,
    "isolated_cell": "port_fore",
    "vented": true,
    "shuttle": "docked",
    "payload_t": 0,
-   "mass_t": 1110.1804561430654,
+   "mass_t": 1106.1840817264217,
    "cg_m": [
-    24.0186973305933,
-    0.15841028324271914,
-    -0.3428169325130699
+    24.022597693875255,
+    0.1560439615947766,
+    -0.37055140176059626
    ],
    "inertia_kg_m2": [
     [
-     11817375.845283974,
-     482211.75254628656,
-     1330382.498554117
+     12109527.49060721,
+     467058.03949629056,
+     1093639.0800065459
     ],
     [
-     482211.75254628656,
-     198334560.6061969,
-     32105.267227032153
+     467058.03949629056,
+     198215842.23717013,
+     26601.07407278389
     ],
     [
-     1330382.498554117,
-     32105.267227032153,
-     198972552.93456477
+     1093639.0800065459,
+     26601.07407278389,
+     198597757.60057506
     ]
    ],
    "principal_kg_m2": [
-    11806673.999800289,
-    198333858.109896,
-    198983957.27634937
+    12101942.91661698,
+    198214802.74832085,
+    198606381.66341457
    ],
    "principal_axes": [
     [
-     0.9999714037972203,
-     -0.0025839019952005504,
-     -0.007107393213834791
+     0.9999796618397648,
+     -0.00250863886121481,
+     -0.005863671025350858
     ],
     [
-     0.0021909162599095936,
-     0.998497411950443,
-     -0.054755074780421374
+     0.0020609166997583427,
+     0.9971699860458753,
+     -0.07515165701184148
     ],
     [
-     0.007238195476700666,
-     0.05473793728984198,
-     0.998474519828871
+     0.00603560512179131,
+     0.07513804402786121,
+     0.9971548755386401
     ]
    ],
-   "trim_deg": 0.3462858236942185,
-   "lateral_offset_m": 0.17092940386058195,
-   "usable_remass_t": 187.5,
-   "water_t": 237.49900267910135,
+   "trim_deg": 0.33970219775801014,
+   "lateral_offset_m": 0.1676564722452977,
+   "usable_remass_t": 184.04282378331166,
+   "water_t": 234.041826462413,
    "parts": [
     "armor",
     "pressure_vessel",
@@ -21091,7 +22877,11 @@
     "house_peak_store",
     "house_energy_battery",
     "c_lite_dry",
-    "house_fuel_tank",
+    "house_fuel_tank_cap_starboard_fore",
+    "house_fuel_tank_cap_starboard_aft",
+    "house_fuel_tank_cap_port_fore",
+    "house_fuel_tank_cap_port_aft",
+    "d8_unlocated_doubler_allowance",
     "plant_aft",
     "manifold",
     "strake_40",
@@ -21191,55 +22981,58 @@
     "water_starboard_fore",
     "water_starboard_aft",
     "water_port_aft",
-    "house_fuel",
+    "house_fuel_lobe_starboard_fore",
+    "house_fuel_lobe_starboard_aft",
+    "house_fuel_lobe_port_fore",
+    "house_fuel_lobe_port_aft",
     "c_lite_monoprop"
    ],
    "fins_deployed": {
     "cg_m": [
-     24.0186973305933,
-     0.15841028324271914,
-     -0.3428169325130699
+     24.022597693875255,
+     0.15604396159477657,
+     -0.37055140176059626
     ],
     "inertia_kg_m2": [
      [
-      18344778.24010186,
-      484651.36161129165,
-      1326481.1738598573
+      18636924.83613028,
+      469486.5481584933,
+      1089730.1580989594
      ],
      [
-      484651.36161129165,
-      201035643.34369633,
-      34973.67753284365
+      469486.5481584933,
+      200916943.80102727,
+      29470.33206598538
      ],
      [
-      1326481.1738598573,
-      34973.67753284365,
-      202807347.31327352
+      1089730.1580989594,
+      29470.33206598538,
+      202432528.10363123
      ]
     ],
     "principal_kg_m2": [
-     18333955.69852917,
-     201036097.05398738,
-     202817716.1445551
+     18629255.785212483,
+     200917468.33133802,
+     202439672.62423837
     ],
     "principal_axes": [
      [
-      0.9999706375400592,
-      -0.0026512380878687333,
-      -0.007189923110068569
+      0.9999791136562826,
+      -0.0025745130674984925,
+      -0.005928248785351576
      ],
      [
-      0.0024953151676395066,
-      0.999763378851957,
-      -0.021609250536103086
+      0.002448250506141303,
+      0.9997720851890162,
+      -0.021208105673681983
      ],
      [
-      0.00724551309027954,
-      0.021590674911159156,
-      0.9997406390144091
+      0.005981498194843978,
+      0.02119314887580801,
+      0.999757506658526
      ]
     ],
-    "trim_deg": 0.3462858236942185
+    "trim_deg": 0.33970219775801014
    }
   }
  },

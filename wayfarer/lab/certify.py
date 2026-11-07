@@ -92,7 +92,8 @@ def g1(I, C, G):
               + L.get("rcs_axial_t", 0.0) + L.get("reserve_draws_rev7", {}).get("total_t", 0.0)
               + L.get("i4_carryover_t", 0.0) + L.get("aoi_crown_t",0.0) + L.get("aoi_aft_bulkhead_reinforcement_t",0.0)
                + L.get("crown_option_c_additions_t",0.0) + L.get("l3_berth_shield_liner_t",0.0)
-              + L.get("house_fuel_tank_t",0.0) - L.get("electrical_fueled_wet_t",0.0))
+              + L.get("house_fuel_tank_t",0.0) - L.get("electrical_fueled_wet_t",0.0)
+              + L.get("d8_secondary_doubler_added_t",0.0))
     AOI = I["habitat"]["decks"][0].get("command_layout",{}).get("crown_dome",{}).get("adaptive_optogel")
     crown_delta = I["ledger"].get("og3_crown_conformal_bookkeeping",{}).get("physical_mass_delta_t",0.)
     dry = G["dry_t"]
@@ -154,7 +155,8 @@ def g1(I, C, G):
     if "ship_power" in I:
         hp=I["ship_power"]
         cs.append(chk("house fuel tank dry mass debited from growth reserve",
-            round(next(p["mass_t"] for p in G["parts"] if p["id"]=="house_fuel_tank"),6),
+            round(sum(p["mass_t"] for p in G["parts"]
+                      if p["id"]=="house_fuel_tank" or p["id"].startswith("house_fuel_tank_cap_")),6),
             hp["fuel_tank_dry_t"],True,"t","reactors, battery, flywheel, and C-lite provisioned inside 55t electrical line"))
         cs.append(chk("reserve after house fuel tank remains >=5t",
             L["engineering_reserve_t"],5.,L["engineering_reserve_t"]>=5.,"t"))
