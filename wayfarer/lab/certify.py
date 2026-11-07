@@ -257,6 +257,39 @@ def g1(I, C, G):
     return r
 
 
+# ---------------------------------------------------------------- D9: live source-derived B-rep evidence
+def d9(I, C, G):
+    """D9 is a real B-rep geometric gate, not a frozen research PASS.
+
+    Run lab/d9_brep.py against this source geometry; its numerical report
+    is admissible here ONLY when its SHA matches this input geometry.
+    No automatic clash repair and no estimated clearance substitution.
+    """
+    path=HERE.parent / "results/out/D9_BREP_CLASH_REPORT.json"
+    rule=C["D9"]
+    if not path.is_file():
+        return gate("D9","Installed B-rep category-(d) clash screen",
+            [chk("current-source B-rep report available",False,True,False)],
+            notes=("No D9 source geometry run found; never inherit research #157's pass.",))
+    r=json.loads(path.read_text())
+    fresh=r.get("geometry_sha256")==G["_sha"]
+    counts=r.get("category_d_count")
+    checks=[
+        chk("D9 report geometry hash matches current source",r.get("geometry_sha256"),G["_sha"],fresh),
+        chk("real category-(d) volumetric intersections >0.01m3",
+            counts,rule["category_d_max"],fresh and isinstance(counts,int) and counts<=rule["category_d_max"]),
+        chk("all source B-rep solids converted without error",
+            len(r.get("geometry_conversion_or_boolean_errors",[])),rule["conversion_error_max"],
+            fresh and not r.get("geometry_conversion_or_boolean_errors",[])),
+        chk("every installed-solid pair classified",
+            r.get("pair_count"),r.get("expected_pairs"),
+            fresh and r.get("pair_count")==r.get("expected_pairs")),
+        chk("D9 independent source-screen result",r.get("pass"),True,fresh and r.get("pass") is True)]
+    return gate("D9","Installed B-rep category-(d) clash screen",checks,
+        notes=(f"Excluded {r.get('excluded_source_no_render_proxy_count')} source no_render/unlocated proxies; no physical clearance credit for them.",
+               "Source B-rep production is from #156 pinned OCC converter, run against new current geometry, not imported frozen #157 STEP.",
+               "Fitted secondary doublers, internal webs/baffles, cryogenic pressure/insulation and dynamic sweeps remain OPEN."))
+
 # ---------------------------------------------------------------- G2
 def g2(I, C, G):
     T, cn = I["torch"], I["canon"]
@@ -1704,7 +1737,8 @@ def main():
         "NEW kT acceptance requested: pulsed main torch ONLY while burning converts 63.36MW raw torch energy to 47.52MW magnet/cryocooling electric at declared 75%, rejecting 15.84MW conversion heat. Tap, pulse conditioning and corresponding torch performance debit remain unqualified. No torch emergency house generator."))
     r12["declared"].append(("kT_visual_acceptance_storage_20261101",
         "NEW source-specific kT visual acceptance required for new aft reactor/rotor and forward reactor/battery cutaway, even if G12 image source-hash checks pass. Prior source-hash visual acceptance does not transfer."))
-    gates = [r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12]
+    rD9 = d9(I, C, G)
+    gates = [r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, rD9]
     kd_path = HERE.parent / "config/kt_decisions.json"
     KD = json.loads(kd_path.read_text()) if kd_path.exists() else {"decisions": {}}
     # Water priority is kT operating doctrine, not a mass reallocation, pump

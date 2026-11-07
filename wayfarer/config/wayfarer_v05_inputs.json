@@ -42,7 +42,7 @@
   "torch_capacity_mw": 387.7
  },
  "canon": {
-  "prov": "CANON",
+  "prov": "CANON: kT Phase1b 2026-11-08 G1 water reference update",
   "source": "CANON II v2.4 §5, §13, §14; Schematic Amendment v2.4a",
   "main_body_m": [
    57,
@@ -50,11 +50,11 @@
   ],
   "normal_crew": 6,
   "payload_target_t": 50,
-  "water_t": 300,
-  "remass_t": 250,
+  "water_t": 295.3904317110822,
+  "remass_t": 245.39043171108221,
   "protected_water_t": 50,
   "dry_t": 858.5,
-  "wet_t": 1158.5,
+  "wet_t": 1153.8904317110823,
   "relational_plant_t": 88,
   "torch_ve_km_s": {
    "ECON": 3000,
@@ -90,6 +90,20 @@
    "FAST": 202,
    "EXPEDITE": 336,
    "HARD": 719
+  },
+  "canon_change_2026_11_08": {
+   "kT_decision": "G1 water reference updated to the physical figure (~295.4 t: core 245.39 + protected 50). Record as canon change with reason.",
+   "old_canon_water_t": 300.0,
+   "old_canon_normal_remass_t": 250.0,
+   "old_canon_wet_t": 1158.5,
+   "new_canon_water_t": 295.3904317110822,
+   "new_canon_normal_remass_t": 245.39043171108221,
+   "new_canon_wet_t": 1153.8904317110823,
+   "protected_water_unchanged_t": 50.0,
+   "reason": "Phase1b approved 3.8t D-He3 fuel lobes consume core tank volume. Source G1 requires 5pct of WATER LIQUID as ullage. Authoritative upstream builder net available core 321.620667m3 minus 63.669611m3 fuel and 0.291103m3 dry caps, divided by 1.05, equals 245.3904317t actual core remass. Previous 250t remass / 300t water reference is not physically loadable in the approved core, and cannot remain canon.",
+   "upstream_phase1b_pr": 471,
+   "kT_authorised": "2026-11-08",
+   "canon_scope": "G1 normal water, normal remass, reference wet mass; no propulsion performance tuning"
   }
  },
  "torch": {
@@ -3949,8 +3963,10 @@
   "D8_actual_doubler_placement": "OPEN; source mass allowance only",
   "core_web_baffle_solids": "OPEN: source displaced volume 5.870097185013608m3 not spatially placed",
   "courier_external_mount_heat_MMOD": "OPEN; forward x14-17.5, r4.6-6.1, 235-305 degrees",
-  "authority": "kT 2026-11-08. Do not rewrite canon reference 250t/300t here; any variance must be visible in G1/G11.",
+  "authority": "kT 2026-11-08: canon water 295.390432t, remass 245.390432t, protected water 50t; 5pct water LIQUID ullage, D-He3 3.8t, house reserve 0.1t.",
   "native_builder_vs_pinned_BRep_remass_diff_t": -0.08095952079420954,
-  "volume_basis": "Conservative: authoritative upstream analytic 321.62066731116374m3 net vs frozen exact BRep 321.7057504374434m3; D1 unchanged 3.8t/63.6696m3"
+  "volume_basis": "Conservative: authoritative upstream analytic 321.62066731116374m3 net vs frozen exact BRep 321.7057504374434m3; D1 unchanged 3.8t/63.6696m3",
+  "G1_canon_water_reference": 295.3904317110822,
+  "G1_canon_departure_resolved_by_kT": true
  }
 }

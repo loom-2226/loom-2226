@@ -115,5 +115,12 @@
   "NASA OCHMO radiation brief": "https://www.nasa.gov/wp-content/uploads/2023/03/radiation-protection-technical-brief-ochmo.pdf",
   "Curiosity RAD cruise dose": "https://www.swri.org/press-release/swri-led-team-calculates-radiation-exposure-associated-trip-mars",
   "NASA NTRS 20180002051 habitable volume": "https://ntrs.nasa.gov/api/citations/20180002051/downloads/20180002051.pdf"
+ },
+ "D9": {
+  "prov": "kT DECISION 2026-11-08 Phase 1b; exact source-derived B-rep screen",
+  "category_d_max": 0,
+  "min_intersection_m3": 0.01,
+  "conversion_error_max": 0,
+  "scope": "Represented installed parts in current S1 source geometry; no_render/unlocated proxies excluded and explicitly OPEN"
  }
 }

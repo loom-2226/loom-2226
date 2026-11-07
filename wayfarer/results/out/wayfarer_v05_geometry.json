@@ -4865,7 +4865,7 @@
   }
  },
  "version": "0.5.7-step1-I4-lock",
- "inputs_sha256": "fcd4d40cf5a371ab0c7e1f07022b6fef25a78d9d5c566bc49d80109d5acddc4e",
+ "inputs_sha256": "fba8c56976a95cc4dee43b867ddbd283840fba9228c303dae0f5bcb9d41b8bbc",
  "length_m": 53.3,
  "dry_t": 868.1922552640087,
  "dry_by_system_t": {
@@ -5051,9 +5051,11 @@
   "D8_actual_doubler_placement": "OPEN; source mass allowance only",
   "core_web_baffle_solids": "OPEN: source displaced volume 5.870097185013608m3 not spatially placed",
   "courier_external_mount_heat_MMOD": "OPEN; forward x14-17.5, r4.6-6.1, 235-305 degrees",
-  "authority": "kT 2026-11-08. Do not rewrite canon reference 250t/300t here; any variance must be visible in G1/G11.",
+  "authority": "kT 2026-11-08: canon water 295.390432t, remass 245.390432t, protected water 50t; 5pct water LIQUID ullage, D-He3 3.8t, house reserve 0.1t.",
   "native_builder_vs_pinned_BRep_remass_diff_t": -0.08095952079420954,
   "volume_basis": "Conservative: authoritative upstream analytic 321.62066731116374m3 net vs frozen exact BRep 321.7057504374434m3; D1 unchanged 3.8t/63.6696m3",
+  "G1_canon_water_reference": 295.3904317110822,
+  "G1_canon_departure_resolved_by_kT": true,
   "four_fuel_lobes_m3": 63.66961111275304,
   "four_fuel_caps_m3": 0.2911029017743909,
   "normal_core_remass_t": 245.39043171108221,

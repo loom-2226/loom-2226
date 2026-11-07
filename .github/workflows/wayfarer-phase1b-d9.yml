@@ -1,0 +1,44 @@
+name: Wayfarer D9 real B-rep clash gate
+on:
+  pull_request:
+    paths:
+      - wayfarer/config/wayfarer_v05_inputs.json
+      - wayfarer/config/cert_criteria.json
+      - wayfarer/lab/d9_brep.py
+      - wayfarer/lab/packing_phase1b/source_brep_pilot.py
+      - wayfarer/lab/packing_phase1b/source_brep_triage.py
+      - wayfarer/results/out/wayfarer_v05_geometry.json
+      - .github/workflows/wayfarer-phase1b-d9.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-brep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact CAD kernel from frozen #156 research
+        run: python -m pip install build123d==0.13.0
+      - name: D9 current source geometry, all represented installed solid pairs
+        shell: bash
+        run: |
+          set +e
+          python -u wayfarer/lab/d9_brep.py 2>&1 | tee d9-run.log
+          rc=${PIPESTATUS[0]}
+          echo "D9_EXIT=$rc" >> "$GITHUB_ENV"
+          exit 0
+      - name: Preserve full conflict data even on design FAIL
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wayfarer-phase1b-d9-current-source-report
+          path: |
+            wayfarer/results/out/D9_BREP_CLASH_REPORT.json
+            d9-run.log
+          if-no-files-found: warn
+      - name: Require zero real category-(d) intersections and no CAD errors
+        run: test "$D9_EXIT" = 0
