@@ -61,7 +61,12 @@ def run():
                 aabb_rejected+=1
                 continue
             try:
-                v=float((ash & bsh).volume)
+                common=ash & bsh
+                # OpenCascade returns None for a genuinely empty common
+                # (including AABBs whose enclosing boxes overlap).
+                # That is NO physical collision, not a CAD failure.
+                if common is None:continue
+                v=float(common.volume)
                 if v <= .01:continue
                 cat,why=T.classify({"a":an,"b":bn})
                 if cat not in ("a","b","c","d"):
