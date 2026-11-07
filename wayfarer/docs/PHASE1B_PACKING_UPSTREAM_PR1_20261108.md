@@ -1,5 +1,10 @@
 # Wayfarer Phase 1b, upstream PR 1: approved packing layout
 
+## Subsequent kT decision, current authoritative status
+
+The later kT-approved G1 physical-water canon amendment and D9 result **supersede the preliminary 250t/300t canon-divergence notes below**. Current canon water is 295.3904317110822t, remass 245.39043171108221t. **Live source D9 found 73 category-(d) conflicts** and full certify is not certified. See [Phase1b PR471 kT STOP](PHASE1B_PR471_D9_KT_STOP_2026_11_08.md). The following preliminary history is retained for provenance, not final certification.
+
+
 ALL bodies. ALL sponsors. 2026–2226.
 
 Status: DRAFT engineering integration; zero qualification/performance credit; STOP FOR kT PR REVIEW. Source main before this branch: ea50354e222e77d145a6bbbf49227506d2b560fd.
