@@ -20,6 +20,7 @@ sys.path.insert(0,str(HERE/"packing_phase1b"))
 from build123d import import_step, Compound, Color, Unit, export_step, export_gltf
 import source_brep_pilot as P
 import source_brep_triage as T
+import primary_brep_diagnostics as K
 
 GEO=ROOT/"results/out/wayfarer_v05_geometry.json"
 INPUT=ROOT/"config/wayfarer_v05_inputs.json"
@@ -181,20 +182,22 @@ def run(export=False):
             continue
         native=P.make(P.settled(rows[name]["shape"]))
         actual=candidate[name]
-        delta=abs(float(native.volume)-float(actual.volume))
-        bb_delta=max(abs(a-b) for a,b in zip(P.bounds(native),P.bounds(actual)))
-        common=native & actual
-        commonv=0. if common is None else float(common.volume)
-        sym=max(0.,float(native.volume)+float(actual.volume)-2*commonv)
-        primary_checks.append(dict(name=name,vol_native_m3=round(float(native.volume),8),
-                                   vol_approved_m3=round(float(actual.volume),8),
-                                   volume_delta_m3=round(delta,9),
-                                   bbox_delta_m=round(bb_delta,9),
-                                   symmetric_difference_m3=round(sym,9)))
-        if (delta>1e-5 or
-            bb_delta>C["D9"]["primary_brep_unchanged_bbox_tolerance_m"] or
-            sym>C["D9"]["primary_brep_symmetric_difference_limit_m3"]):
-            primary_failures.append(primary_checks[-1])
+        try:
+            check=K.audit(
+                name,native,actual,
+                volume_tolerance_m3=1e-5,
+                bbox_tolerance_m=C["D9"]["primary_brep_unchanged_bbox_tolerance_m"],
+                symmetric_tolerance_m3=C["D9"]["primary_brep_symmetric_difference_limit_m3"],
+                bounds=P.bounds,
+            )
+        except Exception as exc:
+            check=dict(name=name,pass_=False,error="protected primary diagnostic failed: "+repr(exc))
+            check["pass"]=check.pop("pass_")
+        primary_checks.append(check)
+        if name=="dry:pressure_vessel":
+            print("D9_PRESSURE_VESSEL_DIAG",json.dumps(check),flush=True)
+        if not check["pass"]:
+            primary_failures.append(check)
     # Check ALL primaries, not just the first failure. Preserve the complete
     # volume/bbox/symmetric-difference audit, including no_render primaries.
     if primary_failures:
@@ -215,6 +218,8 @@ def run(export=False):
             D8_primary_shape_unchanged=False,
             primary_invariant_failures=primary_failures,
             primary_shape_volume_checks=primary_checks,
+            OCCT_fuzzy_value_m=K.FUZZY_M,
+            protected_primary_surface_min_samples_per_direction=K.MIN_SURFACE_SAMPLES_EACH_WAY,
             geometry_conversion_or_boolean_errors=[],pass_=False,
             STOP="At least one protected source primary differs; no D9 fit credit.")
         failure["pass"]=failure.pop("pass_")
@@ -249,6 +254,11 @@ def run(export=False):
         current_G3_rebuilt_D8_notch_ops=len(rebuilt["notches"]),
         current_G3_candidate_pass=rebuilt["candidate_pass"],
         D8_primary_shape_unchanged=True,
+        protected_primary_integrity_accepted_methods=[
+            "ordinary_symmetric_difference","OCCT_fuzzy_symmetric_difference",
+            "two_way_BRep_surface_sample_distance_if_boolean_numerically_invalid"],
+        OCCT_fuzzy_value_m=K.FUZZY_M,
+        protected_primary_surface_min_samples_per_direction=K.MIN_SURFACE_SAMPLES_EACH_WAY,
         primary_invariant_failures=[],
         primary_shape_volume_checks=primary_checks,
         source_dry_count=len(G["parts"]),source_S1_fluid_count=len(G["fluids_by_state"]["S1"]),

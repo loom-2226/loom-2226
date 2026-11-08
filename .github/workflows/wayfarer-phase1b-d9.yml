@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - wayfarer/lab/d9_brep.py
+      - wayfarer/lab/packing_phase1b/primary_brep_diagnostics.py
       - wayfarer/lab/packing_phase1b/source_candidate_rebuild.py
       - wayfarer/config/cert_criteria.json
       - wayfarer/config/wayfarer_v05_inputs.json
