@@ -112,10 +112,23 @@ def run(export=False):
     kids=list(step.children)
     raw_names=[k.label for k in kids]
     assert len(kids)==315 and len(set(raw_names))==315
+    # #157 exported STEP with Unit.M. OCC importer returns numeric coordinates
+    # in MM, while source build_v05 P.make() uses metre-valued coordinates.
+    # Compare UNMOVED primary trunk longitudinal bounds and scale once.
+    # Failing to do this makes mm3 intersections appear as m3.
+    native_trunk=P.make(P.settled(rows["dry:core_trunk"]["shape"]))
+    raw_trunk=next(k for k in kids if k.label=="dry:core_trunk")
+    source_span=P.bounds(native_trunk)[1]-P.bounds(native_trunk)[0]
+    imported_span=P.bounds(raw_trunk)[1]-P.bounds(raw_trunk)[0]
+    unit_ratio=imported_span/source_span
+    if abs(unit_ratio-1000)<.01: unit_factor=.001
+    elif abs(unit_ratio-1)<.001: unit_factor=1.
+    else:raise RuntimeError(f"STEP units mismatch: source/STEP core_trunk spans ratio {unit_ratio}")
     candidate={}
     for shape in kids:
         name=RENAMES.get(shape.label,shape.label)
         assert name not in candidate,name
+        shape=shape.scale(unit_factor) if unit_factor!=1 else shape
         shape.label=name
         candidate[name]=shape
     # The only extra upstream part is D8's *unlocated* 0.660802t
@@ -183,6 +196,9 @@ def run(export=False):
         source_dry_count=len(G["parts"]),source_S1_fluid_count=len(G["fluids_by_state"]["S1"]),
         imported_reference_names=len(candidate),
         source_brep_label_remaps=RENAMES,
+        imported_step_source_numeric_unit="mm" if unit_factor==.001 else "m",
+        source_geometry_numeric_unit="m",
+        explicit_step_to_source_linear_scale=unit_factor,
         no_render_excluded=sorted(excluded_names),
         no_render_excluded_count=len(excluded_names),
         same_lab_and_upstream_installed_part_set=aligned,
