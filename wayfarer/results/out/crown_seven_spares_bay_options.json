@@ -1,0 +1,351 @@
+{
+  "source_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+  "step_sha256": "71e1d65a13872b01a7e656eccca16f6380e3074e947edb04febc4f118b97d31c",
+  "density_t_m3": 3.75,
+  "max_hoop_chord_m": 1.8117333157176452,
+  "max_meridian_span_m": 1.5,
+  "using_installed_D9_solids": 194,
+  "old_hold_bbox": {
+    "k": "box",
+    "x0": 14.9,
+    "x1": 16.1,
+    "y0": -3.35,
+    "y1": -2.65,
+    "z0": -0.5,
+    "z1": 0.5
+  },
+  "options": [
+    {
+      "label": "A: lower bay wall forward",
+      "x_m": [
+        20.0,
+        22.6
+      ],
+      "y_m": [
+        -0.95,
+        0.95
+      ],
+      "z_m": [
+        -2.16,
+        -2.03
+      ],
+      "candidate_spare_count": 7,
+      "total_physical_mass_t": 0.373367100354,
+      "retired_old_spare_allocation_t": 0.385772,
+      "net_dry_mass_delta_t": -0.012404899646,
+      "dry_cg_before_m": [
+        24.12982222122029,
+        0.02900218732884304,
+        -0.34328213685594233
+      ],
+      "dry_cg_after_spares_only_m": [
+        24.13243986001911,
+        0.030335638881234483,
+        -0.344185496093833
+      ],
+      "dry_cg_delta_spares_only_m": [
+        0.0026176387988208205,
+        0.0013334515523914445,
+        -0.0009033592378906441
+      ],
+      "zero_clashes": true,
+      "permitted_source_exemptions": [],
+      "pane_envelopes": [
+        {
+          "id": "crown_spare_01",
+          "envelope_bounds_m": [
+            20.0,
+            22.6,
+            -0.95,
+            0.95,
+            -2.16,
+            -2.1414
+          ],
+          "mass_t": 0.06328125,
+          "clashes": [],
+          "centroid_m": [
+            21.3,
+            0,
+            -2.1507
+          ]
+        },
+        {
+          "id": "crown_spare_02",
+          "envelope_bounds_m": [
+            20.0,
+            22.6,
+            -0.95,
+            0.95,
+            -2.1414,
+            -2.1228
+          ],
+          "mass_t": 0.0322265625,
+          "clashes": [],
+          "centroid_m": [
+            21.3,
+            0,
+            -2.1321
+          ]
+        },
+        {
+          "id": "crown_spare_03",
+          "envelope_bounds_m": [
+            20.0,
+            22.6,
+            -0.95,
+            0.95,
+            -2.1228000000000002,
+            -2.1042
+          ],
+          "mass_t": 0.0322265625,
+          "clashes": [],
+          "centroid_m": [
+            21.3,
+            0,
+            -2.1135
+          ]
+        },
+        {
+          "id": "crown_spare_04",
+          "envelope_bounds_m": [
+            20.0,
+            22.6,
+            -0.95,
+            0.95,
+            -2.1042,
+            -2.0856
+          ],
+          "mass_t": 0.053034338429,
+          "clashes": [],
+          "centroid_m": [
+            21.3,
+            0,
+            -2.0949
+          ]
+        },
+        {
+          "id": "crown_spare_05",
+          "envelope_bounds_m": [
+            20.0,
+            22.6,
+            -0.95,
+            0.95,
+            -2.0856000000000003,
+            -2.067
+          ],
+          "mass_t": 0.053034338429,
+          "clashes": [],
+          "centroid_m": [
+            21.3,
+            0,
+            -2.0763000000000003
+          ]
+        },
+        {
+          "id": "crown_spare_06",
+          "envelope_bounds_m": [
+            20.0,
+            22.6,
+            -0.95,
+            0.95,
+            -2.067,
+            -2.0484
+          ],
+          "mass_t": 0.069782024248,
+          "clashes": [],
+          "centroid_m": [
+            21.3,
+            0,
+            -2.0577
+          ]
+        },
+        {
+          "id": "crown_spare_07",
+          "envelope_bounds_m": [
+            20.0,
+            22.6,
+            -0.95,
+            0.95,
+            -2.0484,
+            -2.0298
+          ],
+          "mass_t": 0.069782024248,
+          "clashes": [],
+          "centroid_m": [
+            21.3,
+            0,
+            -2.0391
+          ]
+        }
+      ],
+      "packing_assumption": "Rigid panes oriented longest chord along x, meridian span tangential, plate normals radial; each separately sleeved in a 18.6mm layer. Actual attachment hardware NOT modelled."
+    },
+    {
+      "label": "B: lower bay wall aft",
+      "x_m": [
+        27.0,
+        29.6
+      ],
+      "y_m": [
+        -0.95,
+        0.95
+      ],
+      "z_m": [
+        -2.16,
+        -2.03
+      ],
+      "candidate_spare_count": 7,
+      "total_physical_mass_t": 0.373367100354,
+      "retired_old_spare_allocation_t": 0.385772,
+      "net_dry_mass_delta_t": -0.012404899646,
+      "dry_cg_before_m": [
+        24.12982222122029,
+        0.02900218732884304,
+        -0.34328213685594233
+      ],
+      "dry_cg_after_spares_only_m": [
+        24.13545026126418,
+        0.030335638881234483,
+        -0.344185496093833
+      ],
+      "dry_cg_delta_spares_only_m": [
+        0.00562804004388795,
+        0.0013334515523914445,
+        -0.0009033592378906441
+      ],
+      "zero_clashes": true,
+      "permitted_source_exemptions": [],
+      "pane_envelopes": [
+        {
+          "id": "crown_spare_01",
+          "envelope_bounds_m": [
+            27.0,
+            29.6,
+            -0.95,
+            0.95,
+            -2.16,
+            -2.1414
+          ],
+          "mass_t": 0.06328125,
+          "clashes": [],
+          "centroid_m": [
+            28.3,
+            0,
+            -2.1507
+          ]
+        },
+        {
+          "id": "crown_spare_02",
+          "envelope_bounds_m": [
+            27.0,
+            29.6,
+            -0.95,
+            0.95,
+            -2.1414,
+            -2.1228
+          ],
+          "mass_t": 0.0322265625,
+          "clashes": [],
+          "centroid_m": [
+            28.3,
+            0,
+            -2.1321
+          ]
+        },
+        {
+          "id": "crown_spare_03",
+          "envelope_bounds_m": [
+            27.0,
+            29.6,
+            -0.95,
+            0.95,
+            -2.1228000000000002,
+            -2.1042
+          ],
+          "mass_t": 0.0322265625,
+          "clashes": [],
+          "centroid_m": [
+            28.3,
+            0,
+            -2.1135
+          ]
+        },
+        {
+          "id": "crown_spare_04",
+          "envelope_bounds_m": [
+            27.0,
+            29.6,
+            -0.95,
+            0.95,
+            -2.1042,
+            -2.0856
+          ],
+          "mass_t": 0.053034338429,
+          "clashes": [],
+          "centroid_m": [
+            28.3,
+            0,
+            -2.0949
+          ]
+        },
+        {
+          "id": "crown_spare_05",
+          "envelope_bounds_m": [
+            27.0,
+            29.6,
+            -0.95,
+            0.95,
+            -2.0856000000000003,
+            -2.067
+          ],
+          "mass_t": 0.053034338429,
+          "clashes": [],
+          "centroid_m": [
+            28.3,
+            0,
+            -2.0763000000000003
+          ]
+        },
+        {
+          "id": "crown_spare_06",
+          "envelope_bounds_m": [
+            27.0,
+            29.6,
+            -0.95,
+            0.95,
+            -2.067,
+            -2.0484
+          ],
+          "mass_t": 0.069782024248,
+          "clashes": [],
+          "centroid_m": [
+            28.3,
+            0,
+            -2.0577
+          ]
+        },
+        {
+          "id": "crown_spare_07",
+          "envelope_bounds_m": [
+            27.0,
+            29.6,
+            -0.95,
+            0.95,
+            -2.0484,
+            -2.0298
+          ],
+          "mass_t": 0.069782024248,
+          "clashes": [],
+          "centroid_m": [
+            28.3,
+            0,
+            -2.0391
+          ]
+        }
+      ],
+      "packing_assumption": "Rigid panes oriented longest chord along x, meridian span tangential, plate normals radial; each separately sleeved in a 18.6mm layer. Actual attachment hardware NOT modelled."
+    }
+  ],
+  "qualification": "SCREEN_ONLY: conservative full-box clearance; print fixtures and mounts NOT modelled",
+  "all_options_zero_clash": true
+}
