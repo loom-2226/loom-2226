@@ -11,7 +11,7 @@ import math
 import struct
 import sys
 from pathlib import Path
-from build123d import Color, Compound, Solid, Wire, Unit, export_gltf, export_stl
+from build123d import Axis, Color, Compound, Face, Solid, Wire, Unit, export_gltf, export_stl
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 sys.path.insert(0, str(HERE))
@@ -49,6 +49,45 @@ def make_pane(r0, r1, theta0, theta1, thick, slope, center=False):
                         Wire.make_polygon(inner, close=True)], ruled=True)
     assert sh.is_valid and sh.volume>0
     return sh
+
+def make_crown_brow(crown):
+    """Accepted Option C render brow as a separate closed solid, NOT the Osteon mount.
+
+    Reproduce loomgl.js crownMeshes XO(r)-0.03 from r=3.40 to 3.75 m.
+    Finite-volume thickness is render geometry only; no new mass booking.
+    """
+    opt=crown["shell_option_c"]
+    outer=opt["outer_tile_layer"]["radii_m"][-1]
+    assert outer == 3.5 and opt["fair_to_hull_at_r_m"] == 4.5
+    assert opt["slope_deg"] == 50
+    slope=math.tan(math.radians(opt["slope_deg"]))
+    def xo(radius):
+        if radius <= opt["flat_to_r_m"]:
+            return -opt["nose_extension_forward_m"]
+        cone=-opt["nose_extension_forward_m"]+(
+            min(radius,opt["slope_to_r_m"])-opt["flat_to_r_m"])*slope
+        if radius <= opt["slope_to_r_m"]:
+            return cone
+        u=max(0.0,min(1.0,(radius-opt["slope_to_r_m"])/(
+             opt["fair_to_hull_at_r_m"]-opt["slope_to_r_m"])))
+        return cone+(2.35-cone)*(u*u*(3-2*u))
+    rs=[outer-.10+i*.35/24 for i in range(25)]
+    # Front face exactly reproduces the accepted render profile. The rear
+    # face extends 4mm past XO to meet pane ends and the armour shoulder.
+    front=[(xo(r)-.03,r,0.) for r in rs]
+    rear=[(xo(r)+.004,r,0.) for r in reversed(rs)]
+    solid=Solid.revolve(Face(Wire.make_polygon(front+rear,close=True)),360,Axis.X)
+    assert solid.is_valid and solid.volume>0
+    bb=P.bounds(solid)
+    assert abs(bb[3]-3.75)<.02 and abs(bb[5]-3.75)<.02
+    assert abs(xo(rs[0])-.03-.43845502963189387)<1e-7
+    assert abs(xo(rs[-1])-.03-.833000640627047)<1e-7
+    return solid,dict(radial_span_m=[rs[0],rs[-1]],
+                      front_axial_span_m=[xo(rs[0])-.03,xo(rs[-1])-.03],
+                      back_at_shoulder_x_m=xo(rs[-1])+.004,
+                      render_surface="wayfarer/render/loomgl.js:crownMeshes",
+                      geometry_only=True,mass_rebooked_t=0)
+
 
 def domes_and_aoi(c):
     opt=c["shell_option_c"]["deep_pressure_domes"]
@@ -137,7 +176,13 @@ def main():
     seat.label="dry:crown_osteon_brow_seat"
     seat.color=Color("#9EAAB5")
     bodies[seat.label]=seat
-    assert len(bodies)==41
+    # Retain the dome mount. The distinct exterior transition covers the
+    # gap between the r=3.5m panes and the r=3.75m armour shoulder.
+    brow_solid,brow_profile=make_crown_brow(crown)
+    brow_solid.label="dry:crown_brow"
+    brow_solid.color=Color("#A2A3A0")
+    bodies[brow_solid.label]=brow_solid
+    assert len(bodies)==42
     glazing, glazing_cutters, glazing_report = build_glazing(g,cfg,make_pane)
     assert len(glazing)==137 and len(glazing_cutters)==26
     # Physical crown aperture and seat rebate cut only the two permitted hull
@@ -205,13 +250,13 @@ def main():
     model.update(bodies)
     assert not set(model).intersection(glazing)
     model.update(glazing)
-    # Complete non-exempt D9 category-(d) scan for the 372 installed viewer
+    # Complete non-exempt D9 category-(d) scan for the 373 installed viewer
     # BReps, with the SAME original 0.01 m3 threshold and classifier.
     # This is the mandatory candidate screen, not a replacement of the source
     # authority's current 194-part certified D9 report.
     ordered=sorted(model)
     pairs_total=len(ordered)*(len(ordered)-1)//2
-    assert len(ordered)==372 and pairs_total==69006
+    assert len(ordered)==373 and pairs_total==69378
     full_scan=D.pair_scan(model,ordered,0,pairs_total,C["D9"]["min_intersection_m3"])
     assert full_scan["pair_count"]==pairs_total
     print("CROWN_AND_GLAZING_FULL_D9_SCAN",json.dumps(dict(
@@ -226,11 +271,12 @@ def main():
     export_gltf(Compound(children=list(model.values())),final,unit=Unit.M,
                 binary=True,linear_deflection=.05,angular_deflection=.3)
     names=glb_names(final)
-    assert len(names)==372 and len(set(names))==372 and set(names)==set(model)
+    assert len(names)==373 and len(set(names))==373 and set(names)==set(model)
     pane_out=OUT/"crown_print_tiles"
     pane_out.mkdir(parents=True,exist_ok=True)
     for name in sorted(n for n in bodies if n.startswith("dry:crown_pane_")):
         export_stl(bodies[name],pane_out/(name[4:]+".stl"))
+    export_stl(brow_solid,pane_out/"crown_brow.stl")
     glazing_stls=OUT/"glazing_print_parts"
     glazing_stls.mkdir(parents=True,exist_ok=True)
     for name,part in sorted(glazing.items()):
@@ -255,6 +301,9 @@ def main():
       note="Existing no_render mass proxies remain in source G1; physical crown solids overlay is not yet a source-qualified replacement.",
       outer_pressure_dome_apex_m=-.42,inner_pressure_dome_apex_m=-.30,
       inner_dome_is_pressure_vessel_bow_closure=True,
+      exterior_crown_brow=brow_profile,
+      exterior_crown_brow_named_solid=True,
+      osteon_dome_seat_preserved=True,
       seat_ring_source_dims=dict(r_m=r,width_m=brow["width_m"],
           height_m=brow["height_m"],x_m=[outer_rim,outer_rim+brow["height_m"]]),
       removed_mass_from_pv_and_armor=mass_removal,
@@ -272,13 +321,14 @@ def main():
       failed_boolean_count=sum("error" in q for q in contacts),
       missing_canon_dimensions=missing_dims,
       other_geometry_changed=False,
-      print_tiles_count=37,glazing_stl_count=137,
+      print_tiles_count=38,brow_stl_count=1,glazing_stl_count=137,
       glazing_glb_nodes=137,glazing=glazing_report,
       canonical_source_mass_t_before_and_after=g["dry_t"],
       delta_v_ECON_km_s_unchanged=707.845,
       engineering_credit=0)
     report_path=OUT/(PREFIX+"_report.json")
     report_path.write_text(json.dumps(report,indent=2)+"\n")
+    print("CROWN_BROW_RENDER_PROFILE",json.dumps(brow_profile),flush=True)
     print("CROWN_37_PANES_VALID",sum(n.startswith("dry:crown_pane_") for n in bodies),flush=True)
     print("CROWN_DOME_AND_GEL_VOLUME",a.volume,b.volume,cavity_m3,"target",alloc,flush=True)
     print("CROWN_BOW_CLASH_COUNT",report["prohibited_overlap_count"],"BOOLEAN_ERRORS",report["failed_boolean_count"],flush=True)
