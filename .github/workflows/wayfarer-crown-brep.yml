@@ -83,6 +83,11 @@ jobs:
         run: |
           set -euo pipefail
           python -u wayfarer/lab/crown_spares_screen.py | tee crown-spares.log
+      - name: Volume times material density crown mass and all six mode delta-v
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/crown_mass_screen.py | tee crown-mass.log
       - name: Preserve printable pane STLs and per-part GLB on draft PR branch
         shell: bash
         run: |
@@ -92,6 +97,7 @@ jobs:
           git add -- wayfarer/render/out/wayfarer_crown_parts_88ce19fc.glb \
             wayfarer/render/out/wayfarer_crown_parts_88ce19fc_report.json \
             wayfarer/results/out/crown_seven_spares_bay_options.json \
+            wayfarer/results/out/crown_solid_mass_modes_screen.json \
             wayfarer/render/out/crown_print_tiles/*.stl
           test "$(find wayfarer/render/out/crown_print_tiles -name 'crown_pane_*.stl' | wc -l)" -eq 37
           git diff --cached --name-only | tee crown-output-changes.txt
@@ -112,6 +118,8 @@ jobs:
             crown-baseline-cert.log
             crown-brep.log
             crown-spares.log
+            crown-mass.log
+            wayfarer/results/out/crown_solid_mass_modes_screen.json
             wayfarer/results/out/crown_seven_spares_bay_options.json
             crown-source-rebuild.log
             wayfarer/render/out/wayfarer_crown_parts_88ce19fc.glb
