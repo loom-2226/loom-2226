@@ -1,0 +1,34 @@
+{
+  "scope": "pure body-pitch path at S1; independent per-engine support maxima ignore force/offaxis cancellation, so are upper bounds",
+  "bounds": [
+    {
+      "sign": 1,
+      "unconstrained_sum_upper_bound_Nm": 22884377.55449409,
+      "per_engine_Nm": [
+        2715264.457581304,
+        0.0,
+        2715264.4575813035,
+        6544890.518625962,
+        2485489.0005512787,
+        5937980.1196029615,
+        2485489.000551279,
+        0.0
+      ]
+    },
+    {
+      "sign": -1,
+      "unconstrained_sum_upper_bound_Nm": 22916972.35393155,
+      "per_engine_Nm": [
+        2715264.457581304,
+        6589824.75493848,
+        2715264.4575813045,
+        0.0,
+        2485489.0005512787,
+        0.0,
+        2485489.0005512782,
+        5925640.682727903
+      ]
+    }
+  ],
+  "minimum_pure_pitch_time_s": 10.255487726464791
+}

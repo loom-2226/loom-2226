@@ -1,0 +1,20 @@
+{
+  "selected_commit": "3485830a56dfead79b2ef8bba031a595b536fbb5",
+  "main_commit": "19377b854c529e74afc61202d9eb2e780c5b4884",
+  "build": "Claude Wayfarer v0.5.7 rev 7",
+  "PR": 432,
+  "status": "open draft non-governing",
+  "source_files": {
+    "design/wayfarer/v0.5.7/README.md": "1c6bb3210fc924e5af2d9f0c1709ee3edd1b5546515f0f0147572cbdb92c62f9",
+    "design/wayfarer/v0.5.7/SPEC.md": "d2f629e86ae1966a59eb704e233266307b9648354a66c6cabbfe9b2b29b8f75b",
+    "design/wayfarer/v0.5.7/build_v05.py": "b19c1efe665a9e6170f862f9b51d25038f55bfa7f02a6019f5fe7efc4ca59aee",
+    "design/wayfarer/v0.5.7/certify.py": "49b1fe81bc44c83abf157bb014e186140b12617af4bb1a40c167d6004cb71cd6",
+    "design/wayfarer/v0.5.7/inputs/wayfarer_v05_inputs.json": "f8882b86e959358c45fb8a5c8fed61335847092ccf59ed6e13abe09482fa5816",
+    "design/wayfarer/v0.5.7/out/wayfarer_v05_geometry.json": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271",
+    "design/wayfarer/v0.5.7/out/wayfarer_v05_card.json": "74ef42e5ae0560071b188a2cc64f28ff588184a9a0f01cccd3195e5e2f61ff17",
+    "design/wayfarer/v0.5.7/g10/g10_flight_dynamics.py": "2f7eba86b8b28145a988b4edc2defdfdf6d8116022c4f28e0017814b304efe06"
+  },
+  "nasa42_commit": "df4fbdf5bf75557a06b9dd3aeb8693b98392e334",
+  "python": "3.12.3",
+  "geometry_rebuild_hash": "74e2293894af184a5dc6df0984cc89c3532e907b152daee24ec9d2afdc161271"
+}

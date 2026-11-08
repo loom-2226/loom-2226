@@ -1,0 +1,22 @@
+{
+  "GMAT_release": "R2026a",
+  "epoch_TAI_ModJulian": 21545.0,
+  "frame": "Sun-centered MJ2000Eq",
+  "gravity": "Sun point mass only; GMAT default Sun GM, reference 132712440018 km3/s2",
+  "duration_s": 600.0000000698492,
+  "gmat_end_state_SI": [
+    149597869632.5851,
+    19623840.35906196,
+    0.0,
+    -3.558050099812249,
+    35630.95750805999,
+    0.0,
+    1164271.699999242
+  ],
+  "position_difference_m": 0.004688574527189058,
+  "velocity_difference_m_s": 1.2851089754719297e-06,
+  "mass_difference_kg": -7.580965757369995e-07,
+  "sample_count": 65,
+  "binary_sha256": "eb74efe838920cda2991b8de61651329c8046155cbe51608e139e16bc2748301",
+  "archive_sha256": "3262cf77c3932855180f346705605a89306ffd6cff15d70ad8bdafdfc0b614cd"
+}

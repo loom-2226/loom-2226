@@ -1,0 +1,69 @@
+{
+  "modes": [
+    {
+      "mode": "NORMAL",
+      "ramp_s": 10.0,
+      "plateau_s": 60.0,
+      "collapse_s": 10.0,
+      "one_ramp_km": 401721.89372000005,
+      "coordinate_path_km": 5624106.51208,
+      "ordinary_arrival_velocity": null,
+      "ordinary_delta_v": null,
+      "remass": null,
+      "cold_load_W": 20000.0,
+      "scope": "kinematic metric path envelope only; symmetric collapse is an experiment assumption; U^M_gamma absent"
+    },
+    {
+      "mode": "FAST",
+      "ramp_s": 12.0,
+      "plateau_s": 60.0,
+      "collapse_s": 12.0,
+      "one_ramp_km": 786055.8248759999,
+      "coordinate_path_km": 9432669.898511998,
+      "ordinary_arrival_velocity": null,
+      "ordinary_delta_v": null,
+      "remass": null,
+      "cold_load_W": 38100.0,
+      "scope": "kinematic metric path envelope only; symmetric collapse is an experiment assumption; U^M_gamma absent"
+    },
+    {
+      "mode": "EXPEDITE",
+      "ramp_s": 15.0,
+      "plateau_s": 60.0,
+      "collapse_s": 15.0,
+      "one_ramp_km": 1166942.1427649998,
+      "coordinate_path_km": 11669421.427649999,
+      "ordinary_arrival_velocity": null,
+      "ordinary_delta_v": null,
+      "remass": null,
+      "cold_load_W": 63500.0,
+      "scope": "kinematic metric path envelope only; symmetric collapse is an experiment assumption; U^M_gamma absent"
+    },
+    {
+      "mode": "HARD",
+      "ramp_s": 30.0,
+      "plateau_s": 60.0,
+      "collapse_s": 30.0,
+      "one_ramp_km": 2675647.6876499997,
+      "coordinate_path_km": 16053886.1259,
+      "ordinary_arrival_velocity": null,
+      "ordinary_delta_v": null,
+      "remass": null,
+      "cold_load_W": 136000.0,
+      "scope": "kinematic metric path envelope only; symmetric collapse is an experiment assumption; U^M_gamma absent"
+    }
+  ],
+  "nominal_sequence": [
+    true,
+    ""
+  ],
+  "illegal_direct_torch": [
+    false,
+    "TORCH -> METRIC_RAMP"
+  ],
+  "zero_duration_relaxation_also_accepted": [
+    true,
+    ""
+  ],
+  "limitation": "sequence checker has no time, load, state, or conservation-ledger integration"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "metric_experimental",
+  "phases": [
+    {
+      "kind": "metric",
+      "duration_s": 80,
+      "model": "experimental_shift",
+      "mode": "NORMAL"
+    }
+  ],
+  "checks": {
+    "metric_path_m": {
+      "min": 1
+    }
+  }
+}

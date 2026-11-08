@@ -1,0 +1,22 @@
+{
+  "name": "translate20",
+  "phases": [
+    {
+      "kind": "rcs_translate",
+      "duration_s": 20,
+      "delta_v_body_m_s": [
+        0.5,
+        0,
+        0
+      ]
+    }
+  ],
+  "checks": {
+    "translation_velocity_error_m_s": {
+      "max": 0.02
+    },
+    "attitude_hold_error_deg": {
+      "max": 0.1
+    }
+  }
+}

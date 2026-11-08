@@ -1,0 +1,2342 @@
+{
+  "scope": "NON-CANON hardware assessment; PASS/FAIL only for each stated numerical requirement",
+  "hardware_qualified": "HOLD",
+  "hardware_certificate": false,
+  "reason": "Independent physical evidence is missing; supplied declarations and numerical passes cannot certify hardware.",
+  "ship": "Wayfarer original mounts 300 kN nonaxial, S1, lag 0.05",
+  "experiment": "fixed300_pitch_reference_replay",
+  "evidence": {
+    "config": "configs/reference_fixed300_pitch.json",
+    "experiment": "experiments/reference_fixed300_pitch.json",
+    "run": "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.json",
+    "trace": "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json",
+    "assumptions": "not supplied"
+  },
+  "input_hashes": {
+    "ship": "c2170ae68f7cf8d829bb66eee01ed8abc420214012a3e470c923e6b9f7f4305f",
+    "experiment": "406940581b44533d01c248c59504d00d5cc6bf5c77832f25feb18736ca4c187a",
+    "assumptions": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+  },
+  "counts": {
+    "PASS": 6,
+    "HOLD": 56
+  },
+  "requirements": [
+    {
+      "requirement": "turn.0.target.attitude_error_deg",
+      "category": "dynamics",
+      "status": "PASS",
+      "demand": 0.046294278042471014,
+      "capacity": 0.25,
+      "evidence": [
+        "experiments/reference_fixed300_pitch.json",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.json"
+      ],
+      "scope": "conditional numerical model",
+      "explanation": "Target-time numerical gate; later settling is recorded separately.",
+      "margin": 0.20370572195752898
+    },
+    {
+      "requirement": "turn.0.target.rate_deg_s",
+      "category": "dynamics",
+      "status": "PASS",
+      "demand": 0.037623799486588734,
+      "capacity": 0.05,
+      "evidence": [
+        "experiments/reference_fixed300_pitch.json",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.json"
+      ],
+      "scope": "conditional numerical model",
+      "explanation": "Target-time numerical gate; later settling is recorded separately.",
+      "margin": 0.012376200513411269
+    },
+    {
+      "requirement": "rcs.configured_force_limits",
+      "category": "propulsion",
+      "status": "PASS",
+      "demand": 1.0,
+      "capacity": 1.0,
+      "evidence": [
+        "configs/reference_fixed300_pitch.json",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "conditional numerical model",
+      "explanation": "Commands and realized force remain within configured ratings; these ratings do not validate engines.",
+      "margin": 0.0
+    },
+    {
+      "requirement": "engine.F+Y_inward.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 0.0,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.F+Y_tan+.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 299998.88960486295,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.F+Y_tan-.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 299999.9999999966,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.F+Y_axial.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 0.0,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.F+Z_inward.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 299999.9998550154,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.F+Z_tan+.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 7.595391111756287,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.F+Z_tan-.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 460.65775914145627,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.F+Z_axial.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 0.0,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.F-Y_inward.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 1010.7982441812302,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.F-Y_tan+.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 258776.88782375102,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.F-Y_tan-.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 299999.99186968216,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.F-Y_axial.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 0.0,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.F-Z_inward.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 299999.999999999,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.F-Z_tan+.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 1019.395981866077,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.F-Z_tan-.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 0.0,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.F-Z_axial.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 0.0,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.A+Y_inward.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 438.7841807704663,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.A+Y_tan+.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 299999.999999996,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.A+Y_tan-.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 299999.9999999995,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.A+Y_axial.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 0.0,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.A+Z_inward.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 299999.9999998701,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.A+Z_tan+.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 1019.3959818660769,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.A+Z_tan-.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 0.0,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.A+Z_axial.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 0.0,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.A-Y_inward.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 7.595391111756285,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.A-Y_tan+.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 299999.9999999928,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.A-Y_tan-.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 248580.75954442756,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.A-Y_axial.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 0.0,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.A-Z_inward.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 299999.99999999994,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.A-Z_tan+.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 0.0,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.A-Z_tan-.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 1010.1537776463937,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.A-Z_axial.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 0.0,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "engine.torch_centerline.physical_thrust_N",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": 0.0,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "An applicable independently measured thrust/duty rating is required."
+    },
+    {
+      "requirement": "gimbal.loaded_actuator_qualification",
+      "category": "propulsion",
+      "status": "HOLD",
+      "demand": null,
+      "capacity": null,
+      "evidence": [
+        "configs/reference_fixed300_pitch.json",
+        "not supplied"
+      ],
+      "scope": "conditional numerical model",
+      "explanation": "Supply loaded steering torque/rate/lag, valve dynamics, power, pointing errors and endurance test evidence."
+    },
+    {
+      "requirement": "mass.installation_model",
+      "category": "mass_propellant",
+      "status": "HOLD",
+      "demand": 33,
+      "capacity": 0,
+      "evidence": [
+        "configs/reference_fixed300_pitch.json",
+        "source/design/wayfarer/v0.5.7/out/wayfarer_v05_card.json"
+      ],
+      "scope": "declared mass model only",
+      "explanation": "Legacy aggregate RCS mass is not a per-engine/upgrade ledger; hardware centroids, tensors and attachments must be supplied.",
+      "margin": -33
+    },
+    {
+      "requirement": "mass.physical_inertia",
+      "category": "mass_propellant",
+      "status": "HOLD",
+      "demand": null,
+      "capacity": null,
+      "evidence": [
+        "source/engineering/current/LOOM_2226_Wayfarer_RCS_Torch_Metric_Geometry_Priority_v0.1.md",
+        "source/design/wayfarer/v0.5.7/out/wayfarer_v05_card.json"
+      ],
+      "scope": "conditional numerical model",
+      "explanation": "Rev7 S1/S4 tensor response is conditional; current complete-vehicle inertia is OPEN."
+    },
+    {
+      "requirement": "mass.known_ledger_closure_kg",
+      "category": "mass_propellant",
+      "status": "PASS",
+      "demand": 0.0,
+      "capacity": 1e-05,
+      "evidence": [
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.json"
+      ],
+      "scope": "conditional numerical model",
+      "explanation": "Closure checks only modeled tank loss; missing propellant and installation mass are excluded.",
+      "margin": 1e-05
+    },
+    {
+      "requirement": "feed.exhaust_and_source",
+      "category": "mass_propellant",
+      "status": "HOLD",
+      "demand": [
+        "F+Y_inward",
+        "F+Y_tan+",
+        "F+Y_tan-",
+        "F+Y_axial",
+        "F+Z_inward",
+        "F+Z_tan+",
+        "F+Z_tan-",
+        "F+Z_axial",
+        "F-Y_inward",
+        "F-Y_tan+",
+        "F-Y_tan-",
+        "F-Y_axial",
+        "F-Z_inward",
+        "F-Z_tan+",
+        "F-Z_tan-",
+        "F-Z_axial",
+        "A+Y_inward",
+        "A+Y_tan+",
+        "A+Y_tan-",
+        "A+Y_axial",
+        "A+Z_inward",
+        "A+Z_tan+",
+        "A+Z_tan-",
+        "A+Z_axial",
+        "A-Y_inward",
+        "A-Y_tan+",
+        "A-Y_tan-",
+        "A-Y_axial",
+        "A-Z_inward",
+        "A-Z_tan+",
+        "A-Z_tan-",
+        "A-Z_axial"
+      ],
+      "capacity": null,
+      "evidence": [
+        "configs/reference_fixed300_pitch.json",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json",
+        "source/engineering/current/LOOM_2226_Wayfarer_RCS_Torch_Metric_Geometry_Priority_v0.1.md"
+      ],
+      "scope": "declared fuel model only",
+      "explanation": "Supply authorized exhaust speed/Isp, per-nozzle fuel identity and inlet/feed architecture; unknown consumption is null."
+    },
+    {
+      "requirement": "tank.remass.known_demand_kg",
+      "category": "mass_propellant",
+      "status": "PASS",
+      "demand": 0.0,
+      "capacity": 250000.0,
+      "evidence": [
+        "configs/reference_fixed300_pitch.json",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "conditional numerical model",
+      "explanation": "Known assigned feed demand only; bulk storage does not select an RCS feed or prove delivered inlet state.",
+      "margin": 250000.0
+    },
+    {
+      "requirement": "feed.remass.flow_kg_s",
+      "category": "mass_propellant",
+      "status": "HOLD",
+      "demand": 0.0,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json"
+      ],
+      "scope": "physical evidence missing",
+      "explanation": "Scalar flow from declared exhaust speed; pump, pressure drop, fluid state and transient-duty integration need evidence."
+    },
+    {
+      "requirement": "protected_water.excluded",
+      "category": "mass_propellant",
+      "status": "PASS",
+      "demand": 0.0,
+      "capacity": 0.0,
+      "evidence": [
+        "configs/reference_fixed300_pitch.json",
+        "source/design/wayfarer/v0.5.7/out/wayfarer_v05_card.json"
+      ],
+      "scope": "configuration exclusion only; physical RCS consumption unresolved",
+      "explanation": "Protected 50 t cannot feed propulsion; additional tanks need explicit fuel_source provenance, and Q7 reserve is not a new tank.",
+      "margin": 0.0
+    },
+    {
+      "requirement": "mount.3,-4.6,5.63337528e-16.force_N",
+      "category": "structure",
+      "status": "HOLD",
+      "demand": 299999.99186968216,
+      "capacity": null,
+      "evidence": [
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json",
+        "not supplied"
+      ],
+      "scope": "time-step load demand; capacity unknown",
+      "explanation": "Realized force at a common application point; declared dynamic factor applied only when supplied, no bracket stress inferred."
+    },
+    {
+      "requirement": "mount.3,-8.45006291e-16,-4.6.force_N",
+      "category": "structure",
+      "status": "HOLD",
+      "demand": 299999.999999999,
+      "capacity": null,
+      "evidence": [
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json",
+        "not supplied"
+      ],
+      "scope": "time-step load demand; capacity unknown",
+      "explanation": "Realized force at a common application point; declared dynamic factor applied only when supplied, no bracket stress inferred."
+    },
+    {
+      "requirement": "mount.3,2.81668764e-16,4.6.force_N",
+      "category": "structure",
+      "status": "HOLD",
+      "demand": 300000.12879460107,
+      "capacity": null,
+      "evidence": [
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json",
+        "not supplied"
+      ],
+      "scope": "time-step load demand; capacity unknown",
+      "explanation": "Realized force at a common application point; declared dynamic factor applied only when supplied, no bracket stress inferred."
+    },
+    {
+      "requirement": "mount.3,4.6,0.force_N",
+      "category": "structure",
+      "status": "HOLD",
+      "demand": 299999.9999999966,
+      "capacity": null,
+      "evidence": [
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json",
+        "not supplied"
+      ],
+      "scope": "time-step load demand; capacity unknown",
+      "explanation": "Realized force at a common application point; declared dynamic factor applied only when supplied, no bracket stress inferred."
+    },
+    {
+      "requirement": "mount.44,-2.56,-0.2.force_N",
+      "category": "structure",
+      "status": "HOLD",
+      "demand": 299999.9999999928,
+      "capacity": null,
+      "evidence": [
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json",
+        "not supplied"
+      ],
+      "scope": "time-step load demand; capacity unknown",
+      "explanation": "Realized force at a common application point; declared dynamic factor applied only when supplied, no bracket stress inferred."
+    },
+    {
+      "requirement": "mount.44,0.04,-2.8.force_N",
+      "category": "structure",
+      "status": "HOLD",
+      "demand": 300000.3067815108,
+      "capacity": null,
+      "evidence": [
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json",
+        "not supplied"
+      ],
+      "scope": "time-step load demand; capacity unknown",
+      "explanation": "Realized force at a common application point; declared dynamic factor applied only when supplied, no bracket stress inferred."
+    },
+    {
+      "requirement": "mount.44,0.04,2.4.force_N",
+      "category": "structure",
+      "status": "HOLD",
+      "demand": 300001.4342346342,
+      "capacity": null,
+      "evidence": [
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json",
+        "not supplied"
+      ],
+      "scope": "time-step load demand; capacity unknown",
+      "explanation": "Realized force at a common application point; declared dynamic factor applied only when supplied, no bracket stress inferred."
+    },
+    {
+      "requirement": "mount.44,2.64,-0.2.force_N",
+      "category": "structure",
+      "status": "HOLD",
+      "demand": 300000.3208857555,
+      "capacity": null,
+      "evidence": [
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json",
+        "not supplied"
+      ],
+      "scope": "time-step load demand; capacity unknown",
+      "explanation": "Realized force at a common application point; declared dynamic factor applied only when supplied, no bracket stress inferred."
+    },
+    {
+      "requirement": "mount.52.3,0.04,-0.2.force_N",
+      "category": "structure",
+      "status": "HOLD",
+      "demand": 0.0,
+      "capacity": null,
+      "evidence": [
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json",
+        "not supplied"
+      ],
+      "scope": "time-step load demand; capacity unknown",
+      "explanation": "Realized force at a common application point; declared dynamic factor applied only when supplied, no bracket stress inferred."
+    },
+    {
+      "requirement": "structure.integration_and_life",
+      "category": "structure",
+      "status": "HOLD",
+      "demand": null,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "source/design/wayfarer/v0.5.7/out/certification_report.json"
+      ],
+      "scope": "conditional numerical model",
+      "explanation": "Supply bracket geometry/eccentricity, reinforcement/load path, fasteners, finite-temperature allowables, dynamic factors and fatigue duty; G5 longeron stress is inapplicable to local brackets."
+    },
+    {
+      "requirement": "plume.coarse_clearance",
+      "category": "plume",
+      "status": "HOLD",
+      "demand": null,
+      "capacity": 0.0,
+      "evidence": [
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json",
+        "source/design/wayfarer/v0.5.7/out/wayfarer_v05_geometry.json",
+        "not supplied"
+      ],
+      "scope": "coarse geometry only; demand is signed penetration in metres (negative means separation)",
+      "explanation": "No cone/deployment evidence supplied."
+    },
+    {
+      "requirement": "plume.physical_clearance",
+      "category": "plume",
+      "status": "HOLD",
+      "demand": null,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "source/design/wayfarer/v0.5.7/out/certification_report.json"
+      ],
+      "scope": "conditional numerical model",
+      "explanation": "Require nozzle exit/apex geometry, measured divergence/finite plume length, exhaust composition, all deployment/door states, impingement and thermal-clearance evidence; axial Rev7 clearance is AWAITING."
+    },
+    {
+      "requirement": "thermal.engine.temperature_K",
+      "category": "thermal",
+      "status": "HOLD",
+      "demand": null,
+      "capacity": null,
+      "evidence": [
+        "not supplied"
+      ],
+      "scope": "HYPOTHETICAL supplied thermal comparison",
+      "explanation": "Missing temperature/load/rating evidence for: F+Y_inward, F+Y_tan+, F+Y_tan-, F+Y_axial, F+Z_inward, F+Z_tan+, F+Z_tan-, F+Z_axial, F-Y_inward, F-Y_tan+, F-Y_tan-, F-Y_axial, F-Z_inward, F-Z_tan+, F-Z_tan-, F-Z_axial, A+Y_inward, A+Y_tan+, A+Y_tan-, A+Y_axial, A+Z_inward, A+Z_tan+, A+Z_tan-, A+Z_axial, A-Y_inward, A-Y_tan+, A-Y_tan-, A-Y_axial, A-Z_inward, A-Z_tan+, A-Z_tan-, A-Z_axial, torch_centerline"
+    },
+    {
+      "requirement": "thermal.engine.rejection_W",
+      "category": "thermal",
+      "status": "HOLD",
+      "demand": null,
+      "capacity": null,
+      "evidence": [
+        "not supplied"
+      ],
+      "scope": "HYPOTHETICAL supplied thermal comparison",
+      "explanation": "Missing temperature/load/rating evidence for: F+Y_inward, F+Y_tan+, F+Y_tan-, F+Y_axial, F+Z_inward, F+Z_tan+, F+Z_tan-, F+Z_axial, F-Y_inward, F-Y_tan+, F-Y_tan-, F-Y_axial, F-Z_inward, F-Z_tan+, F-Z_tan-, F-Z_axial, A+Y_inward, A+Y_tan+, A+Y_tan-, A+Y_axial, A+Z_inward, A+Z_tan+, A+Z_tan-, A+Z_axial, A-Y_inward, A-Y_tan+, A-Y_tan-, A-Y_axial, A-Z_inward, A-Z_tan+, A-Z_tan-, A-Z_axial, torch_centerline"
+    },
+    {
+      "requirement": "thermal.engine_life",
+      "category": "thermal",
+      "status": "HOLD",
+      "demand": null,
+      "capacity": null,
+      "evidence": [
+        "not supplied"
+      ],
+      "scope": "conditional numerical model",
+      "explanation": "Supply cooling integration, erosion/nozzle wall histories, thermal cycling and endurance tests for this installed engine and duty."
+    },
+    {
+      "requirement": "torch.flight_loads",
+      "category": "torch",
+      "status": "HOLD",
+      "demand": null,
+      "capacity": 11361000000000.0,
+      "evidence": [
+        "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json",
+        "source/design/wayfarer/v0.5.7/out/wayfarer_v05_card.json"
+      ],
+      "scope": "conditional numerical model",
+      "explanation": "Torch did not fire in this maneuver; run burn120 for the sourced operating-load comparison."
+    },
+    {
+      "requirement": "torch.physical_installation",
+      "category": "torch",
+      "status": "HOLD",
+      "demand": null,
+      "capacity": null,
+      "evidence": [
+        "source/design/wayfarer/v0.5.7/out/certification_report.json",
+        "source/engineering/current/LOOM_2226_Wayfarer_RCS_Torch_Metric_Geometry_Priority_v0.1.md"
+      ],
+      "scope": "conditional numerical model",
+      "explanation": "Require selected feed hardware, verified jet/heat partition, cooling/deployment and finite-temperature endurance, loaded TVC angle/rate and constituent-property evidence."
+    },
+    {
+      "requirement": "physical_evidence.acceptance",
+      "category": "evidence",
+      "status": "HOLD",
+      "demand": null,
+      "capacity": null,
+      "evidence": [
+        "not supplied",
+        "source/design/wayfarer/v0.5.7/out/certification_report.json"
+      ],
+      "scope": "conditional numerical model",
+      "explanation": "No independently validated supplier, material, assembly, acceptance or installed-duty test evidence is admitted; declarations cannot issue a hardware certificate."
+    }
+  ],
+  "installation": [
+    {
+      "id": "F+Y_inward",
+      "kind": "rcs",
+      "pos_m": [
+        3.0,
+        4.6,
+        0.0
+      ],
+      "direction": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 0.0,
+      "peak_actual_average_N": 0.0,
+      "peak_actuator_endpoint_N": 0.0,
+      "impulse_Ns": 0.0,
+      "peak_flow_kg_s": 0.0,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "F+Y_tan+",
+      "kind": "rcs",
+      "pos_m": [
+        3.0,
+        4.6,
+        0.0
+      ],
+      "direction": [
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 300000.0,
+      "peak_actual_average_N": 299998.6347006186,
+      "peak_actuator_endpoint_N": 299998.88960486295,
+      "impulse_Ns": 1077984.7354344472,
+      "peak_flow_kg_s": null,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "F+Y_tan-",
+      "kind": "rcs",
+      "pos_m": [
+        3.0,
+        4.6,
+        0.0
+      ],
+      "direction": [
+        -0.0,
+        0.0,
+        -1.0
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 300000.0,
+      "peak_actual_average_N": 299999.99999999587,
+      "peak_actuator_endpoint_N": 299999.9999999966,
+      "impulse_Ns": 1077362.0806967262,
+      "peak_flow_kg_s": null,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "F+Y_axial",
+      "kind": "rcs",
+      "pos_m": [
+        3.0,
+        4.6,
+        0.0
+      ],
+      "direction": [
+        0.984807753012208,
+        -0.1736481776669303,
+        -0.0
+      ],
+      "enabled": true,
+      "rated_thrust_N": 25000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 0.0,
+      "peak_actual_average_N": 0.0,
+      "peak_actuator_endpoint_N": 0.0,
+      "impulse_Ns": 0.0,
+      "peak_flow_kg_s": 0.0,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "F+Z_inward",
+      "kind": "rcs",
+      "pos_m": [
+        3.0,
+        2.816687638038912e-16,
+        4.6
+      ],
+      "direction": [
+        -0.0,
+        -6.123233995736766e-17,
+        -1.0
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 300000.0,
+      "peak_actual_average_N": 299999.9998217325,
+      "peak_actuator_endpoint_N": 299999.9998550154,
+      "impulse_Ns": 1151876.0807241092,
+      "peak_flow_kg_s": null,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "F+Z_tan+",
+      "kind": "rcs",
+      "pos_m": [
+        3.0,
+        2.816687638038912e-16,
+        4.6
+      ],
+      "direction": [
+        0.0,
+        -1.0,
+        6.123233995736766e-17
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 7.692172840507831,
+      "peak_actual_average_N": 7.59245657916841,
+      "peak_actuator_endpoint_N": 7.595391111756287,
+      "impulse_Ns": 4.488148506211463,
+      "peak_flow_kg_s": null,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "F+Z_tan-",
+      "kind": "rcs",
+      "pos_m": [
+        3.0,
+        2.816687638038912e-16,
+        4.6
+      ],
+      "direction": [
+        -0.0,
+        1.0,
+        -6.123233995736766e-17
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 498.90242570870055,
+      "peak_actual_average_N": 456.63300520870985,
+      "peak_actuator_endpoint_N": 460.65775914145627,
+      "impulse_Ns": 392.2911211883399,
+      "peak_flow_kg_s": null,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "F+Z_axial",
+      "kind": "rcs",
+      "pos_m": [
+        3.0,
+        2.816687638038912e-16,
+        4.6
+      ],
+      "direction": [
+        0.984807753012208,
+        -1.0632884247878856e-17,
+        -0.1736481776669303
+      ],
+      "enabled": true,
+      "rated_thrust_N": 25000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 0.0,
+      "peak_actual_average_N": 0.0,
+      "peak_actuator_endpoint_N": 0.0,
+      "impulse_Ns": 0.0,
+      "peak_flow_kg_s": 0.0,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "F-Y_inward",
+      "kind": "rcs",
+      "pos_m": [
+        3.0,
+        -4.6,
+        5.633375276077824e-16
+      ],
+      "direction": [
+        -0.0,
+        1.0,
+        -1.2246467991473532e-16
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 1021.0267809158457,
+      "peak_actual_average_N": 1010.7584504330129,
+      "peak_actuator_endpoint_N": 1010.7982441812302,
+      "impulse_Ns": 1730.020505866559,
+      "peak_flow_kg_s": null,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "F-Y_tan+",
+      "kind": "rcs",
+      "pos_m": [
+        3.0,
+        -4.6,
+        5.633375276077824e-16
+      ],
+      "direction": [
+        0.0,
+        -1.2246467991473532e-16,
+        -1.0
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 263361.81717372563,
+      "peak_actual_average_N": 258772.99668197415,
+      "peak_actuator_endpoint_N": 258776.88782375102,
+      "impulse_Ns": 535070.6122463685,
+      "peak_flow_kg_s": null,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "F-Y_tan-",
+      "kind": "rcs",
+      "pos_m": [
+        3.0,
+        -4.6,
+        5.633375276077824e-16
+      ],
+      "direction": [
+        -0.0,
+        1.2246467991473532e-16,
+        1.0
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 300000.0,
+      "peak_actual_average_N": 299999.99000327225,
+      "peak_actuator_endpoint_N": 299999.99186968216,
+      "impulse_Ns": 1115571.446752894,
+      "peak_flow_kg_s": null,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "F-Y_axial",
+      "kind": "rcs",
+      "pos_m": [
+        3.0,
+        -4.6,
+        5.633375276077824e-16
+      ],
+      "direction": [
+        0.984807753012208,
+        0.1736481776669303,
+        -2.1265768495757713e-17
+      ],
+      "enabled": true,
+      "rated_thrust_N": 25000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 0.0,
+      "peak_actual_average_N": 0.0,
+      "peak_actuator_endpoint_N": 0.0,
+      "impulse_Ns": 0.0,
+      "peak_flow_kg_s": 0.0,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "F-Z_inward",
+      "kind": "rcs",
+      "pos_m": [
+        3.0,
+        -8.450062914116736e-16,
+        -4.6
+      ],
+      "direction": [
+        -0.0,
+        1.8369701987210297e-16,
+        1.0
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 300000.0,
+      "peak_actual_average_N": 299999.99999999884,
+      "peak_actuator_endpoint_N": 299999.999999999,
+      "impulse_Ns": 570754.9354980602,
+      "peak_flow_kg_s": null,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "F-Z_tan+",
+      "kind": "rcs",
+      "pos_m": [
+        3.0,
+        -8.450062914116736e-16,
+        -4.6
+      ],
+      "direction": [
+        0.0,
+        1.0,
+        -1.8369701987210297e-16
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 1020.6826260176789,
+      "peak_actual_average_N": 1019.1006175905951,
+      "peak_actuator_endpoint_N": 1019.395981866077,
+      "impulse_Ns": 2026.7216994433475,
+      "peak_flow_kg_s": null,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "F-Z_tan-",
+      "kind": "rcs",
+      "pos_m": [
+        3.0,
+        -8.450062914116736e-16,
+        -4.6
+      ],
+      "direction": [
+        -0.0,
+        -1.0,
+        1.8369701987210297e-16
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 0.0,
+      "peak_actual_average_N": 0.0,
+      "peak_actuator_endpoint_N": 0.0,
+      "impulse_Ns": 0.0,
+      "peak_flow_kg_s": 0.0,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "F-Z_axial",
+      "kind": "rcs",
+      "pos_m": [
+        3.0,
+        -8.450062914116736e-16,
+        -4.6
+      ],
+      "direction": [
+        0.984807753012208,
+        3.1898652743636566e-17,
+        0.1736481776669303
+      ],
+      "enabled": true,
+      "rated_thrust_N": 25000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 0.0,
+      "peak_actual_average_N": 0.0,
+      "peak_actuator_endpoint_N": 0.0,
+      "impulse_Ns": 0.0,
+      "peak_flow_kg_s": 0.0,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "A+Y_inward",
+      "kind": "rcs",
+      "pos_m": [
+        44.0,
+        2.64,
+        -0.20000000000000007
+      ],
+      "direction": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 498.90242570870055,
+      "peak_actual_average_N": 435.19032620014764,
+      "peak_actuator_endpoint_N": 438.7841807704663,
+      "impulse_Ns": 361.18657889475975,
+      "peak_flow_kg_s": null,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "A+Y_tan+",
+      "kind": "rcs",
+      "pos_m": [
+        44.0,
+        2.64,
+        -0.20000000000000007
+      ],
+      "direction": [
+        0.0,
+        -0.0,
+        1.0
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 300000.0,
+      "peak_actual_average_N": 299999.99999999505,
+      "peak_actuator_endpoint_N": 299999.999999996,
+      "impulse_Ns": 1333609.2086518214,
+      "peak_flow_kg_s": null,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "A+Y_tan-",
+      "kind": "rcs",
+      "pos_m": [
+        44.0,
+        2.64,
+        -0.20000000000000007
+      ],
+      "direction": [
+        -0.0,
+        0.0,
+        -1.0
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 300000.0,
+      "peak_actual_average_N": 299999.99999999936,
+      "peak_actuator_endpoint_N": 299999.9999999995,
+      "impulse_Ns": 706290.5565086096,
+      "peak_flow_kg_s": null,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "A+Y_axial",
+      "kind": "rcs",
+      "pos_m": [
+        44.0,
+        2.64,
+        -0.20000000000000007
+      ],
+      "direction": [
+        -0.984807753012208,
+        -0.1736481776669303,
+        -0.0
+      ],
+      "enabled": true,
+      "rated_thrust_N": 25000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 0.0,
+      "peak_actual_average_N": 0.0,
+      "peak_actuator_endpoint_N": 0.0,
+      "impulse_Ns": 0.0,
+      "peak_flow_kg_s": 0.0,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "A+Z_inward",
+      "kind": "rcs",
+      "pos_m": [
+        44.0,
+        0.04000000000000014,
+        2.4
+      ],
+      "direction": [
+        -0.0,
+        -6.123233995736766e-17,
+        -1.0
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 300000.0,
+      "peak_actual_average_N": 299999.9999998403,
+      "peak_actuator_endpoint_N": 299999.9999998701,
+      "impulse_Ns": 1217998.0859839732,
+      "peak_flow_kg_s": null,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "A+Z_tan+",
+      "kind": "rcs",
+      "pos_m": [
+        44.0,
+        0.04000000000000014,
+        2.4
+      ],
+      "direction": [
+        0.0,
+        -1.0,
+        6.123233995736766e-17
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 1020.6826260176791,
+      "peak_actual_average_N": 1019.1006175905949,
+      "peak_actuator_endpoint_N": 1019.3959818660769,
+      "impulse_Ns": 1690.0278598225966,
+      "peak_flow_kg_s": null,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "A+Z_tan-",
+      "kind": "rcs",
+      "pos_m": [
+        44.0,
+        0.04000000000000014,
+        2.4
+      ],
+      "direction": [
+        -0.0,
+        1.0,
+        -6.123233995736766e-17
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 0.0,
+      "peak_actual_average_N": 0.0,
+      "peak_actuator_endpoint_N": 0.0,
+      "impulse_Ns": 0.0,
+      "peak_flow_kg_s": 0.0,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "A+Z_axial",
+      "kind": "rcs",
+      "pos_m": [
+        44.0,
+        0.04000000000000014,
+        2.4
+      ],
+      "direction": [
+        -0.984807753012208,
+        -1.0632884247878856e-17,
+        -0.1736481776669303
+      ],
+      "enabled": true,
+      "rated_thrust_N": 25000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 0.0,
+      "peak_actual_average_N": 0.0,
+      "peak_actuator_endpoint_N": 0.0,
+      "impulse_Ns": 0.0,
+      "peak_flow_kg_s": 0.0,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "A-Y_inward",
+      "kind": "rcs",
+      "pos_m": [
+        44.0,
+        -2.56,
+        -0.19999999999999976
+      ],
+      "direction": [
+        -0.0,
+        1.0,
+        -1.2246467991473532e-16
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 7.69217284050783,
+      "peak_actual_average_N": 7.592456579168408,
+      "peak_actuator_endpoint_N": 7.595391111756285,
+      "impulse_Ns": 4.488148506211462,
+      "peak_flow_kg_s": null,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "A-Y_tan+",
+      "kind": "rcs",
+      "pos_m": [
+        44.0,
+        -2.56,
+        -0.19999999999999976
+      ],
+      "direction": [
+        0.0,
+        -1.2246467991473532e-16,
+        -1.0
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 300000.0,
+      "peak_actual_average_N": 299999.9999999911,
+      "peak_actuator_endpoint_N": 299999.9999999928,
+      "impulse_Ns": 840022.4751928209,
+      "peak_flow_kg_s": null,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "A-Y_tan-",
+      "kind": "rcs",
+      "pos_m": [
+        44.0,
+        -2.56,
+        -0.19999999999999976
+      ],
+      "direction": [
+        -0.0,
+        1.2246467991473532e-16,
+        1.0
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 300000.0,
+      "peak_actual_average_N": 248573.20566877286,
+      "peak_actuator_endpoint_N": 248580.75954442756,
+      "impulse_Ns": 441356.96903285175,
+      "peak_flow_kg_s": null,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "A-Y_axial",
+      "kind": "rcs",
+      "pos_m": [
+        44.0,
+        -2.56,
+        -0.19999999999999976
+      ],
+      "direction": [
+        -0.984807753012208,
+        0.1736481776669303,
+        -2.1265768495757713e-17
+      ],
+      "enabled": true,
+      "rated_thrust_N": 25000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 0.0,
+      "peak_actual_average_N": 0.0,
+      "peak_actuator_endpoint_N": 0.0,
+      "impulse_Ns": 0.0,
+      "peak_flow_kg_s": 0.0,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "A-Z_inward",
+      "kind": "rcs",
+      "pos_m": [
+        44.0,
+        0.0399999999999995,
+        -2.8000000000000003
+      ],
+      "direction": [
+        -0.0,
+        1.8369701987210297e-16,
+        1.0
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 300000.0,
+      "peak_actual_average_N": 299999.99999999994,
+      "peak_actuator_endpoint_N": 299999.99999999994,
+      "impulse_Ns": 989342.5959825336,
+      "peak_flow_kg_s": null,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "A-Z_tan+",
+      "kind": "rcs",
+      "pos_m": [
+        44.0,
+        0.0399999999999995,
+        -2.8000000000000003
+      ],
+      "direction": [
+        0.0,
+        1.0,
+        -1.8369701987210297e-16
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 0.0,
+      "peak_actual_average_N": 0.0,
+      "peak_actuator_endpoint_N": 0.0,
+      "impulse_Ns": 0.0,
+      "peak_flow_kg_s": 0.0,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "A-Z_tan-",
+      "kind": "rcs",
+      "pos_m": [
+        44.0,
+        0.0399999999999995,
+        -2.8000000000000003
+      ],
+      "direction": [
+        -0.0,
+        -1.0,
+        1.8369701987210297e-16
+      ],
+      "enabled": true,
+      "rated_thrust_N": 300000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 1021.0267809158457,
+      "peak_actual_average_N": 1010.0577959033253,
+      "peak_actuator_endpoint_N": 1010.1537776463937,
+      "impulse_Ns": 2097.7807314662277,
+      "peak_flow_kg_s": null,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "A-Z_axial",
+      "kind": "rcs",
+      "pos_m": [
+        44.0,
+        0.0399999999999995,
+        -2.8000000000000003
+      ],
+      "direction": [
+        -0.984807753012208,
+        3.1898652743636566e-17,
+        0.1736481776669303
+      ],
+      "enabled": true,
+      "rated_thrust_N": 25000.0,
+      "modes": null,
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": null,
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 0.0,
+      "peak_actual_average_N": 0.0,
+      "peak_actuator_endpoint_N": 0.0,
+      "impulse_Ns": 0.0,
+      "peak_flow_kg_s": 0.0,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    },
+    {
+      "id": "torch_centerline",
+      "kind": "torch",
+      "pos_m": [
+        52.3,
+        0.03999999999999998,
+        -0.20000000000000007
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "enabled": true,
+      "rated_thrust_N": null,
+      "modes": {
+        "ECON": {
+          "max_N": 3408301.2075,
+          "ve_m_s": 3000000.0,
+          "working_card_mdot_kg_s": 1.1361004025
+        },
+        "CRUISE": {
+          "max_N": 11361004.025,
+          "ve_m_s": 2000000.0,
+          "working_card_mdot_kg_s": 5.6805020125
+        },
+        "EXPEDITE": {
+          "max_N": 22722008.05,
+          "ve_m_s": 1000000.0,
+          "working_card_mdot_kg_s": 22.72200805
+        },
+        "FAST": {
+          "max_N": 34083012.075,
+          "ve_m_s": 700000.0,
+          "working_card_mdot_kg_s": 48.69001725
+        },
+        "HARD": {
+          "max_N": 56805020.125,
+          "ve_m_s": 450000.0,
+          "working_card_mdot_kg_s": 126.23337805555556
+        },
+        "LIMIT": {
+          "max_N": 85207530.1875,
+          "ve_m_s": 300000.0,
+          "working_card_mdot_kg_s": 284.025100625
+        }
+      },
+      "installed_mass_kg": null,
+      "installed_inertia_kg_m2": null,
+      "tank": "remass",
+      "ve_m_s": null,
+      "gimbal": null,
+      "peak_command_N": 0.0,
+      "peak_actual_average_N": 0.0,
+      "peak_actuator_endpoint_N": 0.0,
+      "impulse_Ns": 0.0,
+      "peak_flow_kg_s": 0.0,
+      "peak_gimbal_angle_deg": 0.0,
+      "peak_gimbal_rate_deg_s": 0.0
+    }
+  ],
+  "mounts": {
+    "3,2.81668764e-16,4.6": {
+      "engine_ids": [
+        "F+Z_inward",
+        "F+Z_tan+",
+        "F+Z_tan-",
+        "F+Z_axial"
+      ],
+      "peak_force_N": 300000.12879460107,
+      "peak_force_vector_N": [
+        0.0,
+        278.143430582141,
+        -299999.9998550154
+      ],
+      "time_s": 6.999999999999939,
+      "peak_moment_about_cg_Nm": 6419884.945109601,
+      "scalar_force_bound_N": 300278.14328559756
+    },
+    "44,-2.56,-0.2": {
+      "engine_ids": [
+        "A-Y_inward",
+        "A-Y_tan+",
+        "A-Y_tan-",
+        "A-Y_axial"
+      ],
+      "peak_force_N": 299999.9999999928,
+      "peak_force_vector_N": [
+        0.0,
+        -3.6739386002535523e-11,
+        -299999.9999999928
+      ],
+      "time_s": 2.840000000000002,
+      "peak_moment_about_cg_Nm": 5931030.13042405,
+      "scalar_force_bound_N": 299999.9999999928
+    },
+    "52.3,0.04,-0.2": {
+      "engine_ids": [
+        "torch_centerline"
+      ],
+      "peak_force_N": 0.0,
+      "peak_force_vector_N": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "time_s": null,
+      "peak_moment_about_cg_Nm": 0.0,
+      "scalar_force_bound_N": 0.0
+    },
+    "3,-8.45006291e-16,-4.6": {
+      "engine_ids": [
+        "F-Z_inward",
+        "F-Z_tan+",
+        "F-Z_tan-",
+        "F-Z_axial"
+      ],
+      "peak_force_N": 299999.999999999,
+      "peak_force_vector_N": [
+        0.0,
+        5.524134561150299e-11,
+        299999.999999999
+      ],
+      "time_s": 2.900000000000002,
+      "peak_moment_about_cg_Nm": 6419884.311107147,
+      "scalar_force_bound_N": 299999.999999999
+    },
+    "3,4.6,0": {
+      "engine_ids": [
+        "F+Y_inward",
+        "F+Y_tan+",
+        "F+Y_tan-",
+        "F+Y_axial"
+      ],
+      "peak_force_N": 299999.9999999966,
+      "peak_force_vector_N": [
+        0.0,
+        0.0,
+        -299999.9999999966
+      ],
+      "time_s": 8.559999999999906,
+      "peak_moment_about_cg_Nm": 6564966.120856894,
+      "scalar_force_bound_N": 299999.9999999966
+    },
+    "3,-4.6,5.63337528e-16": {
+      "engine_ids": [
+        "F-Y_inward",
+        "F-Y_tan+",
+        "F-Y_tan-",
+        "F-Y_axial"
+      ],
+      "peak_force_N": 299999.99186968216,
+      "peak_force_vector_N": [
+        0.0,
+        3.673940297874382e-11,
+        299999.99186968216
+      ],
+      "time_s": 3.740000000000003,
+      "peak_moment_about_cg_Nm": 6568093.033213766,
+      "scalar_force_bound_N": 299999.99186968216
+    },
+    "44,2.64,-0.2": {
+      "engine_ids": [
+        "A+Y_inward",
+        "A+Y_tan+",
+        "A+Y_tan-",
+        "A+Y_axial"
+      ],
+      "peak_force_N": 300000.3208857555,
+      "peak_force_vector_N": [
+        0.0,
+        -438.7841807704663,
+        -299999.99999999825
+      ],
+      "time_s": 2.840000000000002,
+      "peak_moment_about_cg_Nm": 5932229.396103866,
+      "scalar_force_bound_N": 300438.7841807687
+    },
+    "44,0.04,2.4": {
+      "engine_ids": [
+        "A+Z_inward",
+        "A+Z_tan+",
+        "A+Z_tan-",
+        "A+Z_axial"
+      ],
+      "peak_force_N": 300001.4342346342,
+      "peak_force_vector_N": [
+        0.0,
+        -927.6545237920953,
+        -299999.9999998701
+      ],
+      "time_s": 4.2399999999999975,
+      "peak_moment_about_cg_Nm": 5880148.320925967,
+      "scalar_force_bound_N": 300927.6545236622
+    },
+    "44,0.04,-2.8": {
+      "engine_ids": [
+        "A-Z_inward",
+        "A-Z_tan+",
+        "A-Z_tan-",
+        "A-Z_axial"
+      ],
+      "peak_force_N": 300000.3067815108,
+      "peak_force_vector_N": [
+        0.0,
+        -432.1172966161162,
+        299999.9955727376
+      ],
+      "time_s": 7.179999999999935,
+      "peak_moment_about_cg_Nm": 5880127.050208765,
+      "scalar_force_bound_N": 300590.7307582336
+    }
+  },
+  "mass_response": {
+    "start_mass_kg": 1167680.0,
+    "start_cg_m": [
+      24.3996,
+      0.0248,
+      -0.3564
+    ],
+    "start_inertia_kg_m2": [
+      [
+        12445594.999999989,
+        120526.99999999991,
+        1310016.0000000019
+      ],
+      [
+        120526.99999999991,
+        191668541.00000018,
+        4090.000000000001
+      ],
+      [
+        1310016.0000000019,
+        4090.000000000001,
+        192492153.0000001
+      ]
+    ],
+    "end_mass_kg": 1167680.0,
+    "end_cg_m": [
+      24.3996,
+      0.0248,
+      -0.3564
+    ],
+    "end_inertia_kg_m2": [
+      [
+        12445594.999999989,
+        120526.99999999991,
+        1310016.0000000019
+      ],
+      [
+        120526.99999999991,
+        191668541.00000018,
+        4090.000000000001
+      ],
+      [
+        1310016.0000000019,
+        4090.000000000001,
+        192492153.0000001
+      ]
+    ],
+    "added_declared_engine_mass_kg": 0.0,
+    "engine_cg_delta_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "engine_inertia_delta_kg_m2": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "depletion_inertia_delta_kg_m2": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "missing_engine_masses": [
+      "F+Y_inward",
+      "F+Y_tan+",
+      "F+Y_tan-",
+      "F+Y_axial",
+      "F+Z_inward",
+      "F+Z_tan+",
+      "F+Z_tan-",
+      "F+Z_axial",
+      "F-Y_inward",
+      "F-Y_tan+",
+      "F-Y_tan-",
+      "F-Y_axial",
+      "F-Z_inward",
+      "F-Z_tan+",
+      "F-Z_tan-",
+      "F-Z_axial",
+      "A+Y_inward",
+      "A+Y_tan+",
+      "A+Y_tan-",
+      "A+Y_axial",
+      "A+Z_inward",
+      "A+Z_tan+",
+      "A+Z_tan-",
+      "A+Z_axial",
+      "A-Y_inward",
+      "A-Y_tan+",
+      "A-Y_tan-",
+      "A-Y_axial",
+      "A-Z_inward",
+      "A-Z_tan+",
+      "A-Z_tan-",
+      "A-Z_axial",
+      "torch_centerline"
+    ],
+    "legacy_aggregate_rcs_allocation_kg": 16941.60403813797
+  },
+  "propellant": {
+    "total_used_kg": null,
+    "known_used_kg": 0,
+    "peak_total_flow_kg_s": null,
+    "known_peak_flow_bound_kg_s": 0.0,
+    "unknown_nozzles": [
+      "A+Y_inward",
+      "A+Y_tan+",
+      "A+Y_tan-",
+      "A+Z_inward",
+      "A+Z_tan+",
+      "A-Y_inward",
+      "A-Y_tan+",
+      "A-Y_tan-",
+      "A-Z_inward",
+      "A-Z_tan-",
+      "F+Y_tan+",
+      "F+Y_tan-",
+      "F+Z_inward",
+      "F+Z_tan+",
+      "F+Z_tan-",
+      "F-Y_inward",
+      "F-Y_tan+",
+      "F-Y_tan-",
+      "F-Z_inward",
+      "F-Z_tan+"
+    ],
+    "tanks": {
+      "remass": {
+        "initial_kg": 250000.0,
+        "remaining_kg": 250000.0,
+        "known_used_kg": 0.0,
+        "requested_kg": 0.0,
+        "peak_flow_kg_s": 0.0
+      }
+    },
+    "protected_reserve": {
+      "protected_water_kg": 50000,
+      "usable_remass_kg": 250000,
+      "engineering_reserve_kg": 46169.200000000004,
+      "forbidden_engine_assignments": [],
+      "unresolved_additional_tank_sources": [],
+      "accounting": "50 t protected water remains in base; no RCS fuel authorization inferred"
+    }
+  },
+  "loads": {
+    "peak_resultant_average_N": 0.07434539139156054,
+    "peak_moment_about_cg_average_Nm": 34791509.11330731,
+    "peak_scalar_force_bound_N": 1697606.7996872321,
+    "peak_scalar_moment_bound_Nm": 35379948.84046575,
+    "scope": "time-step averages plus actuator-endpoint force envelope; no ignition shock, flex or bracket bending model"
+  },
+  "turns": [
+    {
+      "duration_s": 10.0,
+      "at_target_time": {
+        "t_s": 10.0,
+        "attitude_error_deg": 0.046294278042471014,
+        "rate_deg_s": 0.037623799486588734
+      },
+      "gate_entry_s": 10.62,
+      "post_hold_s": 4.0,
+      "at_end": {
+        "attitude_error_deg": 1.3027061299670358e-05,
+        "rate_deg_s": 2.873445702599202e-05
+      },
+      "sustained_gate_duration_s": 3.379999999999791,
+      "angle_deg": 180.0
+    }
+  ],
+  "saturation": [
+    {
+      "kind": "rcs_turn",
+      "allocation_limit_steps": 0,
+      "slew_limit_steps": 16,
+      "thrust_limit_steps": 163,
+      "gimbal_limit_steps": 0,
+      "minimum_allocated_fraction": 1.0
+    }
+  ],
+  "gimbal_initialization": {},
+  "plume_screen": {
+    "tested_firing_samples": 0,
+    "minimum_clearance_m": null,
+    "witness": null,
+    "envelope_count": 0,
+    "deployment": null,
+    "source": "source/design/wayfarer/v0.5.7/out/wayfarer_v05_geometry.json",
+    "convention": "exhaust opposite realized force, apex at configured application point; sphere exclusion envelopes"
+  },
+  "torch": {
+    "peak_jet_power_W": 0.0,
+    "jet_energy_J": 0.0,
+    "peak_accel_g": 0.0,
+    "peak_actual_tvc_deg": 0.0,
+    "fired": false,
+    "source_modes": {
+      "ve_km_s": {
+        "ECON": 3000,
+        "CRUISE": 2000,
+        "EXPEDITE": 1000,
+        "FAST": 700,
+        "HARD": 450,
+        "LIMIT": 300
+      },
+      "mode_cards": {
+        "ECON": {
+          "mdot_kg_s": 1.1361,
+          "ve_km_s": 3000.0
+        },
+        "CRUISE": {
+          "mdot_kg_s": 5.680502,
+          "ve_km_s": 2000.0
+        },
+        "EXPEDITE": {
+          "mdot_kg_s": 22.722008,
+          "ve_km_s": 1000.0
+        },
+        "FAST": {
+          "mdot_kg_s": 48.690017,
+          "ve_km_s": 700.0
+        },
+        "HARD": {
+          "mdot_kg_s": 126.233378,
+          "ve_km_s": 450.0
+        },
+        "LIMIT": {
+          "mdot_kg_s": 284.025101,
+          "ve_km_s": 300.0
+        }
+      },
+      "mode_cards_source": "KT_DECISION 2026-10-26 (agree 1): main's working card governs; src/wayfarer_torch_mode_cards.py at main 19377b85",
+      "card_thrust_mn_by_mode": {
+        "ECON": 3.408,
+        "CRUISE": 11.361,
+        "EXPEDITE": 22.722,
+        "FAST": 34.083,
+        "HARD": 56.805,
+        "LIMIT": 85.208
+      },
+      "jet_power_ceiling_tw": 11.361,
+      "thrust_mn_by_mode": {
+        "ECON": 3.408,
+        "CRUISE": 11.361,
+        "EXPEDITE": 22.722,
+        "FAST": 32.46,
+        "HARD": 50.493,
+        "LIMIT": 75.74
+      },
+      "thrust_note": "thrust_mn_by_mode is what this ship can run: the working card held to its heat-rejection ceiling; the crew cap may throttle further",
+      "tvc_authority_deg": 1.0,
+      "accel_cap_g": 4.0,
+      "accel_cap_note": "crew doctrine v0.5.6: 4 g sustained with people aboard; 5 g is the structural rating (emergencies)",
+      "thrust_line_offset_m": {
+        "y": 0.03999999999999998,
+        "z": -0.20000000000000007,
+        "torch_chain_t": 177.8868424004487
+      },
+      "thrust_point_x_m": 52.3,
+      "architecture": "pulsed remass-shell torch (v0.5.2 heat package)",
+      "slew_rule": "fold the hot fins before large slews; inertia with fins out is given per state"
+    }
+  },
+  "legacy": {
+    "certified": false,
+    "evidence": "source/design/wayfarer/v0.5.7/out/certification_report.json",
+    "gates": {
+      "G1": "PASS",
+      "G2": "PASS",
+      "G3": "PASS",
+      "G4": "PASS-DECLARED",
+      "G5": "PASS",
+      "G6": "PASS-DECLARED",
+      "G7": "PASS",
+      "G8": "PASS",
+      "G9": "PASS-DECLARED",
+      "G10": "PASS-DECLARED",
+      "G11": "PASS",
+      "G12": "PASS"
+    },
+    "awaiting": [
+      "cold_running",
+      "strata_armour",
+      "node_faces",
+      "external_equipment",
+      "rcs_axial_plumes",
+      "g10_burn_coasts"
+    ],
+    "recovered_priority": {
+      "evidence": "source/engineering/current/LOOM_2226_Wayfarer_RCS_Torch_Metric_Geometry_Priority_v0.1.md",
+      "mounting": "ENGINEERING_CANDIDATE_NON_CANON",
+      "feed": "NOT SELECTED",
+      "complete_inertia": "WAYFARER_INERTIA_OPEN_NOT_QUALIFIED",
+      "relation": "separate current priority; Rev7 conditional tensor is not current rotational authority"
+    }
+  },
+  "evidence_sha256": {
+    "configs/reference_fixed300_pitch.json": "e8d80368cb5493fe551576b582a4febfb8e941884b3f5fb32cd2a778bb0440bc",
+    "experiments/reference_fixed300_pitch.json": "991d0391c3691fff77de605654dc550c4a961595b431a407a3e9ea7c9c5ec7c2",
+    "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.json": "d6df9137056c1fd41388fa2f7ef0733fda4db70d57e9539572c17b9ea57303b6",
+    "full_flight_20261027/hardware/runs/reference_fixed300_pitch__reference_fixed300_pitch.rcs_trace.json": "5abe342d2e3dbd5d29d541f449bc503a53e73f3d7c1533655792e73cb7df2d47",
+    "hardware_assess.py": "ca48ef2249342c993e91647edfe20b2e8d1d0032d971f08dcd64fa86f69ca7b3",
+    "flightlab.py": "137d13fe182578d227b444ad27ca5d55ac85475028e5e7909f53e2916a761bb2",
+    "lab.py": "c5bdbfaf5c48dd62c33b5b7f4c1dd6ac40df1b54a6e05116ede0479e73aafd30"
+  }
+}

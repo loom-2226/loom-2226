@@ -1,0 +1,51 @@
+[
+  {
+    "run": "reference_baseline25_40s__reference_baseline25_40s",
+    "reference": "lab_results/reference_baseline25_40s__reference_baseline25_40s.json",
+    "differences": {
+      "attitude_error_deg": 0.0,
+      "rate_deg_s": 0.0,
+      "gate_entry_s": 0.0
+    },
+    "numerical_criteria_match": true
+  },
+  {
+    "run": "reference_baseline25_10s__reference_baseline25_10s",
+    "reference": "lab_results/reference_baseline25_10s__reference_baseline25_10s.json",
+    "differences": {
+      "attitude_error_deg": 0.0,
+      "rate_deg_s": 0.0
+    },
+    "numerical_criteria_match": true
+  },
+  {
+    "run": "reference_fixed300_pitch__reference_fixed300_pitch",
+    "reference": "lab_results/reference_fixed300_pitch__reference_fixed300_pitch.json",
+    "differences": {
+      "attitude_error_deg": 0.0,
+      "rate_deg_s": 0.0,
+      "gate_entry_s": 0.0
+    },
+    "numerical_criteria_match": true
+  },
+  {
+    "run": "wayfarer_gimbal_reference__gimbal12",
+    "reference": "sol_results/wayfarer_gimbal_reference__gimbal12.json",
+    "differences": {
+      "attitude_error_deg": 0.0,
+      "rate_deg_s": 0.0,
+      "gate_entry_s": 0.0
+    },
+    "numerical_criteria_match": true
+  },
+  {
+    "run": "wayfarer_gimbal_cold__gimbal12",
+    "reference": "sol_results/wayfarer_gimbal_cold__gimbal12.json",
+    "differences": {
+      "attitude_error_deg": 0.0,
+      "rate_deg_s": 0.0,
+      "gate_entry_s": 0.0
+    },
+    "numerical_criteria_match": true
+  }
+]

@@ -1,0 +1,135 @@
+{
+  "gate": "G4",
+  "title": "Power and heat",
+  "verdict": "PASS-DECLARED",
+  "checks": [
+    {
+      "name": "Metric NORMAL heat + habitat rejected",
+      "value": 2.0,
+      "limit": "<= 24.0 m span",
+      "unit": "m span",
+      "pass": true,
+      "note": "5.1 MW Metric + 0.37 MW habitat via heat pump (x1.25); field geometry radius 6.5 m"
+    },
+    {
+      "name": "Metric FAST heat + habitat rejected",
+      "value": 2.0,
+      "limit": "<= 24.0 m span",
+      "unit": "m span",
+      "pass": true,
+      "note": "9.8 MW Metric + 0.37 MW habitat via heat pump (x1.25); field geometry radius 6.5 m"
+    },
+    {
+      "name": "Metric EXPEDITE heat + habitat rejected",
+      "value": 2.0,
+      "limit": "<= 24.0 m span",
+      "unit": "m span",
+      "pass": true,
+      "note": "16.4 MW Metric + 0.37 MW habitat via heat pump (x1.25); field geometry radius 6.5 m"
+    },
+    {
+      "name": "Metric HARD heat + habitat rejected",
+      "value": 2.0,
+      "limit": "<= 24.0 m span",
+      "unit": "m span",
+      "pass": true,
+      "note": "34.9 MW Metric + 0.37 MW habitat via heat pump (x1.25); field geometry radius 6.5 m"
+    },
+    {
+      "name": "torch burn: heat on hot structure rejected by the hot fins at 1750 K",
+      "value": 1.49,
+      "limit": 1.4,
+      "unit": "GW",
+      "pass": true,
+      "note": "4 fins 28 m x 19 m on the strake lines, view factor to space 0.73 (torch chain taken as a 4.75 m cylinder, conservative); heat = light 0.09 + neutrons 0.56 + plume contact 0.75 GW"
+    },
+    {
+      "name": "torch burn: magnet-coil cryo heat + habitat rejected by the strakes",
+      "value": 4.0,
+      "limit": "<= 4.0 m span",
+      "unit": "m span",
+      "pass": true,
+      "note": "0.48 MW of neutron heating in the coils -> 48 MW at 1300 K, + 0.37 MW habitat (x1.25)"
+    },
+    {
+      "name": "torch burn: light on the reactor's aft face",
+      "value": 5.03,
+      "limit": 10.0,
+      "unit": "MW/m2",
+      "pass": true,
+      "note": "burn 6 m aft of the face; ITER divertor class"
+    },
+    {
+      "name": "habitat heat on passive skin radiators (backup, heat pump failed)",
+      "value": 57.1,
+      "limit": 46.5,
+      "unit": "kW",
+      "pass": true,
+      "note": "264 m2 of habitat skin at 290 K, Venus-orbit sun"
+    },
+    {
+      "name": "major torch burn and high Metric never required together",
+      "value": "doctrine",
+      "limit": "CANON II \u00a714",
+      "unit": "",
+      "pass": true,
+      "note": ""
+    }
+  ],
+  "declared": [
+    [
+      "torch_heat",
+      "Torch heat package (kT, 2026-10-25): each pellet is wrapped in a shell of remass that soaks up the burn and leaves as exhaust. The shell must let no more than ~358 ppm of the burn's energy escape as light, counting its own glow (the reactor face's 10 MW/m2 limit); the design value is 180 ppm. With the model's other assumptions (torch/torch_heat_inputs.json: light 40% of fusion energy; He3-rich, spin-polarised fuel with 0.76% neutrons, 85% absorbed by the shell; plume contact 1e-4 of charged energy; coil shield transmission 1e-3), 1.40 GW reaches hot structure and 0.48 MW the magnet coils at 12.6 TW of fusion. These are assumptions, not results. Replaces v0.5.1's 387 MW (34 ppm) torch-leak gap."
+    ],
+    [
+      "torch_fin_temperature",
+      "Hot fins run for life at 1750 K. Lithium heat pipes have run in lab tests to ~1,500 K and briefly ~1,800 K; years at 1750 K with burn cycling and neutron exposure is an engineering extrapolation (a technology milestone), not new physics. Fallback: 1,500 K fins, ~49 m span, ~30 t, still inside the reserve."
+    ],
+    [
+      "plant_power",
+      "Plant electrical: Metric HARD at a 1300 K reject temperature needs 34.8 MW of cryo-chain electrical power, against canon's 23.9 MW at 900 K. The relational plant must supply this (canon amendment), or the cryo chain must reject through a 900 K loop."
+    ],
+    [
+      "cold_running",
+      "Cold running (rev 7, F5 provisional item F5-TE-01): the tunable flanks drop from emissivity 0.85 to 0.1, so at the same skin temperature they radiate 12% as much. Heat is held, not removed: habitat heat 58.1 kW (x1.25) less 7.1 kW still leaking through 177 m2 of low-e skin at 290 K warms the 50 t of protected water by 15 K in about 17 h. Then the ship must open the strakes or switch the flanks back to normal. relational-plant and cryoplant standby heat in a coast (OPEN); counting it shortens the endurance. The metallic look in the viewer is a proposed optical property."
+    ]
+  ],
+  "notes": [
+    "Habitat heat 46.5 kW for 10 people; heat pump to 1300 K needs 324 kW (Carnot fraction 0.5).",
+    "Torch burns: strakes open to 4.0 m (73 MW); full 24 m span (387 MW) is no longer needed for the torch. At 4.0 m they shine 1.46 MW onto the hull coating.",
+    "Torch heat model (torch/, non-governing): same 11.36 TW jet from 12.6 TW of fusion, pulsed at about 1-10 Hz (0.3-3 kt per pulse). Light escape the face can take: ~358 ppm; model 180 ppm. Hot-fin capacity is computed here with certify's own 2D view factor; torch/fin_layout.py (numpy, 3.0 m body) gives a slightly higher figure."
+  ],
+  "spans_m": {
+    "NORMAL": 2.0,
+    "FAST": 2.0,
+    "EXPEDITE": 2.0,
+    "HARD": 2.0
+  },
+  "cold_running": {
+    "hours": 17.087016575793427,
+    "leak_kw": 7.087223483250846,
+    "in_kw": 58.125,
+    "area_m2": 176.71458676442586
+  },
+  "torch_strake_capacity_mw": 73.01945448681384,
+  "hot_fin_capacity_gw": 1.489716518902526,
+  "torch_budget": {
+    "id": "S4",
+    "name": "+ Burn further aft",
+    "what": "burn 6 m aft of the reactor face, still inside the 53.3 m envelope",
+    "fusion_tw": 12.640766441867108,
+    "light_escaping_gw": 2.273795786030172,
+    "neutrons_escaping_gw": 14.410473743728502,
+    "ship_heat_gw": 1.3995255156767956,
+    "parts_gw": {
+      "light": 0.08867803565517669,
+      "neutrons": 0.5620084760054116,
+      "plume contact": 0.7488390040162073
+    },
+    "coil_heat_mw": 0.4755456335430406,
+    "cryo_reject_mw": 47.55456335430406,
+    "wall_flux_mw_m2": 5.026192207336437,
+    "light_ppm_of_fusion": 179.87800000000001,
+    "burn_to_face_m": 6.0
+  }
+}
