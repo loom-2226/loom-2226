@@ -1,12 +1,19 @@
-# LOOM 2226 — Canon Baseline Manifest v2.4
+# LOOM 2226 — Canon Baseline Manifest v2.5
 
+**v2.5 controlled implementation candidate:** 8 November 2026, CCR-2026-0004 APPROVED_FOR_IMPLEMENTATION, PR #471 DRAFT / UNMERGED, **not governing until main merge**  
 **Frozen:** 22 August 2026  
 **Institutional amendment integrated:** 24 August 2026  
 **Earth biosynthetic amendment registered:** 25 September 2026  
 **Synthetic personhood horizons amendment registered:** 1 October 2026  
 **Metric arrival velocity in-place CCR-2026-0003 addition:** IMPLEMENTED 2 November 2026 by merged PR #446 (58f2f136ac207e56207c0afd597c9379d0637319)
-**Status:** AUTHORITATIVE CONSOLIDATED BASELINE WITH REGISTERED SCOPED AMENDMENTS
-**Scope:** CANON I–III v2.4, Solar Atlas v3.2, Core Mechanics v0.5, Wayfarer amendment v2.4a, Earth biosynthetic amendment v2.4b, Synthetic Personhood Historical Horizons amendment v2.4c, plus unchanged campaign-character and presentation companions.
+**Status:** CANON v2.5 IMPLEMENTATION CANDIDATE / NOT GOVERNING UNTIL MERGE; existing v2.4 authority remains active on main
+**Scope:** CANON I v2.4, CANON II/III v2.5, Solar Atlas v3.2, Core Mechanics v0.5, Wayfarer amendment v2.5a, Earth biosynthetic amendment v2.4b, Synthetic Personhood Historical Horizons amendment v2.4c, plus unchanged campaign-character and presentation companions.
+
+# v2.5 change log, CCR-2026-0004 (pre-merge candidate)
+
+The v2.4 world/history/Metric result remains governing in main until this controlled implementation merges. kT approves **only Wayfarer** fuel inventory 5.0→3.8 t, 0.1 t internal house reserve, normal water remass 250→245.39043171108221 t, protected water still 50 t, total water 300→295.3904317110822 t, reference wet 1,158.5→1,153.8904317110823 t and six ideal full-S1-remass torch modes. Detailed analytic builder mass is a separate S1 wet 1,167.532686975091 t, dry 868.1922552640087 t; reference dry remains 858.5 t. Core gross/net volumes are unchanged. Forward outboard mission courier is distinct from semi-recessed planetary launch. Remaining physical cryo, MMOD and D8 doubler fit are OPEN; no geometry/tolerance tuning, no Metric/Navigator authority.
+
+The v2.4 parents and schematic amendment are superseded **by history/lineage, not erased**; exact SHA256 of this v2.5 candidate set must be updated and validated before merge. This file is a *candidate* until implementation lands on authoritative main and CCR is marked IMPLEMENTED.
 
 # 1. Freeze meaning
 
@@ -95,8 +102,8 @@ v2.4 does **not** alter:
 - ~0.678c saturation not certified;
 - FTL metric BLACK;
 - current Loom kinetics/card;
-- reference courier wet mass ~1,158.5 t and normal remass 250 t;
-- torch card;
+- **reference courier CCR-2026-0004 v2.5:** 1,153.8904317110823 t reference wet, 245.39043171108221 t normal remass, 295.3904317110822 t total water, 3.8 t D-He3 with 0.1 t house reserve; detailed S1 source wet 1,167.532686975091 t;
+- **v2.5 Wayfarer torch ideal full-remass S1 Δv** ECON 707.8454550926167, CRUISE 471.89697006174447, EXPEDITE 235.94848503087223, FAST 165.16393952161056, HARD 106.1768182638925, LIMIT 70.78454550926168 km/s; exhaust velocities, Metric and Navigator unchanged;
 - Mc strategic-material baseline (~1,000 kg/y primary, ~8.7 t historical, ~1.2 t/y effective serviceable flow);
 - off-Earth census rows outside the Earth biosynthetic amendment scope;
 - 127-node major Solar infrastructure graph;
@@ -111,11 +118,11 @@ v2.4 does **not** alter:
 # 4. Active governing volumes
 
 1. `LOOM_2226_CANON_I_World_History_Frontier_v2.4.md` — world/history/frontier + embedded Solar/world/institution/xeno source corpus.
-2. `LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md` — engineering/ships/operations + post-MV + metric-cert architecture; CCR-2026-0003 scoped ENERGY-B arrival velocity in §§7.1–7.3 implemented by merged PR #446.
-3. `LOOM_2226_CANON_III_Authority_Continuity_GM_Model_v2.4.md` — authority, truth-state, hidden graph, model registry, LLM numerical protocol.
+2. `LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.5.md` — engineering/ships/operations + post-MV + metric-cert architecture; CCR-2026-0003 scoped ENERGY-B arrival velocity in §§7.1–7.3 implemented by merged PR #446.
+3. `LOOM_2226_CANON_III_Authority_Continuity_GM_Model_v2.5.md` — authority, truth-state, hidden graph, model registry, LLM numerical protocol.
 4. `LOOM_2226_Earth_Solar_System_Canon_Atlas_v3.2.md` — fast reader/LLM Solar narrative geography and future-modeling interface.
 5. `LOOM_2226_Core_Mechanics_v0.5.md` — table/LLM resolution and runtime procedure.
-6. `LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md` — scoped governing amendment for reference-courier launch packaging.
+6. `LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.5a.md` — scoped governing amendment for reference-courier launch packaging.
 7. `LOOM_2226_Earth_Biosynthetic_Canon_Amendment_v2.4b.md` — scoped governing amendment for Earth post-2100 biological demography, personhood/labor/economic modeling and dependent census arithmetic, except where narrowly superseded by v2.4c.  
 8. `LOOM_2226_Synthetic_Personhood_Horizons_Canon_Amendment_v2.4c.md` — scoped governing amendment for personhood historical horizons and exact synthetic-demographic authority.
 
@@ -126,13 +133,13 @@ v2.4 does **not** alter:
 For general LLM game operation, load:
 
 ```text
-Manifest v2.4
+Manifest v2.5
 CANON I v2.4
-CANON II v2.4
-CANON III v2.4
+CANON II v2.5
+CANON III v2.5
 Atlas v3.2
 Core Mechanics v0.5
-Wayfarer Schematic Amendment v2.4a when reference-courier packaging is relevant
+Wayfarer Schematic Amendment v2.5a when reference-courier packaging is relevant
 Earth Biosynthetic Amendment v2.4b for post-2100 Earth biological demography and unaffected labor/economic scope
 Synthetic Personhood Historical Horizons Amendment v2.4c whenever synthetic-person history, recognition chronology or exact synthetic-demographic authority is relevant
 ```

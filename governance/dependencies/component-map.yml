@@ -33,12 +33,12 @@ components:
       - LOOM_START_HERE.md
     authority: PROCESS_CONTROL
 
-  canon_baseline_v2_4:
+  canon_baseline_v2_5:
     tier: CANON_REGISTRY
     paths:
-      - governance/current/LOOM_2226_Canon_Baseline_Manifest_v2.4.md
-      - governance/current/LOOM_2226_Baseline_File_Hashes_v2.4.md
-      - governance/current/LOOM_2226_Canon_v2.4_Validation_Report.md
+      - governance/current/LOOM_2226_Canon_Baseline_Manifest_v2.5.md
+      - governance/current/LOOM_2226_Baseline_File_Hashes_v2.5.md
+      - governance/current/LOOM_2226_Canon_v2.5_Validation_Report.md
     authority: GOVERNING_CANON_BASELINE_REGISTRY
 
   canon_i_world_history:
@@ -50,7 +50,7 @@ components:
   canon_ii_engineering_ships:
     tier: CANON
     paths:
-      - canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
+      - canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.5.md
     authority: GOVERNING
     metric_arrival_authorization: CCR-2026-0003
     metric_arrival_scope: CALIBRATED_SOLAR_ARRIVAL_VELOCITY_ONLY
@@ -60,7 +60,7 @@ components:
   canon_ii_wayfarer_amendment:
     tier: CANON
     paths:
-      - canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md
+      - canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.5a.md
     authority: SCOPED_GOVERNING_AMENDMENT
     parent: canon_ii_engineering_ships
     baseline_registration_state: REGISTERED_IN_CANON_BASELINE_2026_09_25
@@ -85,7 +85,7 @@ components:
   canon_iii_authority_gm:
     tier: CANON
     paths:
-      - canon/current/LOOM_2226_CANON_III_Authority_Continuity_GM_Model_v2.4.md
+      - canon/current/LOOM_2226_CANON_III_Authority_Continuity_GM_Model_v2.5.md
     authority: GOVERNING
 
   solar_atlas:
@@ -116,12 +116,10 @@ components:
   wayfarer_engineering:
     tier: ENGINEERING
     paths:
-      - engineering/current/LOOM_2226_Wayfarer_3D_Geometry_and_Physical_Packaging_Plan_v0.1.md
-      - engineering/current/LOOM_2226_Wayfarer_Phase_3_Implementation_v0.1.md
-      - engineering/current/LOOM_2226_Wayfarer_Project_State_and_Pixel_Handoff_v0.2.md
-      - engineering/current/LOOM_2226_Wayfarer_Canon_Candidate_Specification_v0.1.md
     authority: ENGINEERING_INTERPRETATION
 
+  # CCR-2026-0004: old Wayfarer E1 handoff texts removed as superseded;
+  # current source under wayfarer/config and wayfarer/results/out drives this model.
   wayfarer_geometry_authority:
     tier: ENGINEERING_DATA
     paths:
@@ -270,23 +268,23 @@ components:
     version_registration_state: NOT_RECORDED_IN_CURRENT_WAYFARER_MANIFEST
 
 edges:
-  - from: canon_baseline_v2_4
+  - from: canon_baseline_v2_5
     to: canon_i_world_history
     type: REGISTERS
     confidence: ESTABLISHED
-  - from: canon_baseline_v2_4
+  - from: canon_baseline_v2_5
     to: canon_ii_engineering_ships
     type: REGISTERS
     confidence: ESTABLISHED
-  - from: canon_baseline_v2_4
+  - from: canon_baseline_v2_5
     to: canon_iii_authority_gm
     type: REGISTERS
     confidence: ESTABLISHED
-  - from: canon_baseline_v2_4
+  - from: canon_baseline_v2_5
     to: solar_atlas
     type: REGISTERS
     confidence: ESTABLISHED
-  - from: canon_baseline_v2_4
+  - from: canon_baseline_v2_5
     to: core_mechanics
     type: REGISTERS
     confidence: ESTABLISHED
@@ -470,12 +468,12 @@ edges:
     confidence: ESTABLISHED
 
   - from: rf_research
-    to: canon_baseline_v2_4
+    to: canon_baseline_v2_5
     type: MAY_PROPOSE_CHANGE_ONLY_VIA_CCR
     confidence: ESTABLISHED
     authority_flow: NONE_WITHOUT_PROMOTION
   - from: foundations_consequences
-    to: canon_baseline_v2_4
+    to: canon_baseline_v2_5
     type: MAY_PROPOSE_CHANGE_ONLY_VIA_CCR
     confidence: ESTABLISHED
     authority_flow: NONE_WITHOUT_PROMOTION

@@ -1,9 +1,10 @@
 # LOOM 2226 — CANON II: ENGINEERING, SHIPS & OPERATIONS
-## Corrected Consolidated Baseline v2.4
+## Governing Reference Courier Update v2.5
 
 **Status:** GOVERNING TECHNICAL / OPERATING CANON  
 **Freeze:** 22 August 2026 — post-MV mechanics + metric environmental-certification architecture freeze  
 **Institutional amendment:** 24 August 2026 — packet/interdiction/combat/auxiliary operating doctrine; no machine-constant change
+**v2.5 scoped reference courier update:** 8 November 2026, CCR-2026-0004, kT APPROVED_FOR_IMPLEMENTATION; not effective until merge to authoritative main.
 
 # 0. LLM quick authority
 
@@ -491,10 +492,12 @@ In-transition configuration change is not a momentum-exchange, braking, cargo-sh
 | Main body | ~57 m × 9 m |
 | Normal crew | 6 |
 | Payload target | 50 t |
-| Working fluid/water | 300 t |
-| Normal remass | 250 t |
-| Wet mass | **~1,158.5 t** |
-| Dry excl. working fluid/water | **~858.5 t** |
+| Working fluid/water | **295.3904317110822 t** (245.39043171108221 t normal remass + 50 t protected water) |
+| Normal remass | **245.39043171108221 t** |
+| Reference wet mass | **1,153.8904317110823 t** |
+| Reference dry excl. working fluid/water | **858.5 t** (unchanged) |
+| Detailed Wayfarer builder S1 dry / wet | **868.1922552640087 t / 1,167.532686975091 t** (separate engineering model, not reference ledger) |
+| House D–He3 fuel | **3.8 t total**, including **0.1 t house reserve** |
 | Unified relational plant | **~88 t** |
 
 ## 13.1 Persistent live mass state — CANON
@@ -529,16 +532,26 @@ The **radiator count is now locked at four for the reference courier**, but fina
 
 Schematic rule: major radiator roots shall remain mechanically legible, attached to the primary structure through a dedicated thermal-manifold / load-transfer region, and shall not be represented as solar arrays, decorative fins or additional propulsion surfaces.
 
+## 13.3 Reference core packing and water ullage — CANON v2.5 (CCR-2026-0004)
+
+The reference Wayfarer carries **3.8 t D–He3**, of which **0.1 t is reserved for house operations**. Fuel is arranged in **four conformal CSlot lobes** of 0.95 t (15.91740277818826 m³) each. The lobes occupy 63.66961111275312 m³ of the core and use four 6 mm dry closure-cap proxies totalling 0.2911029017743909 m³. The already-budgeted tank dry mass remains 0.5 t. Actual pressure walls, cryogenic insulation, plumbing and boiloff are not physically qualified; a proxy is not a fitted pressure vessel.
+
+The 5% water ullage is **5% of liquid water volume**, not tank capacity. The conservative net source core volume is **321.62066731116374 m³**. At full S1 packing, 245.39043171108221 m³ of normal water, 12.269521585554111 m³ ullage, 63.66961111275312 m³ fuel and 0.2911029017743909 m³ caps use that core. Fifty tonnes of protected water remain outside normal torch remass. The 5.870097185013608 m³ tank structural displacement is retained, not silently reclaimed.
+
+The detailed engineering model increases dry mass by **0.660801800044753 t** for an **unlocated D8 secondary doubler allowance**. This does not earn fitted-structure/load-path or shielding credit. The protected-water jacket reallocates 1.9311090369478734 t of overlap into a service reservoir without increasing the 50 t protected inventory. Courier *mission systems* move forward/outboard; the separately docked planetary launch remains governed by the Wayfarer schematic amendment. The real mounts, strake heat and MMOD exposure remain OPEN.
+
 # 14. Torch card
 
 | Mode | Exhaust velocity | Ideal full-remass Δv |
 |---|---:|---:|
-| ECON | 3,000 km/s | ~729 km/s |
-| CRUISE | 2,000 km/s | ~486 km/s |
-| EXPEDITE | 1,000 km/s | ~243 km/s |
-| FAST | 700 km/s | ~170 km/s |
-| HARD | 450 km/s | ~109 km/s |
-| LIMIT | 300 km/s | ~73 km/s |
+| ECON | 3,000 km/s | **707.8454550926167 km/s** |
+| CRUISE | 2,000 km/s | **471.89697006174447 km/s** |
+| EXPEDITE | 1,000 km/s | **235.94848503087223 km/s** |
+| FAST | 700 km/s | **165.16393952161056 km/s** |
+| HARD | 450 km/s | **106.1768182638925 km/s** |
+| LIMIT | 300 km/s | **70.78454550926168 km/s** |
+
+These ideal Δv entries are the current **S1 245.39043171108221 t full normal-remass** derivations at the detailed builder's mass, rather than the older approximate card computed from 250 t. Exhaust velocities and torch-control doctrine are unchanged; the numeric 95% G2 screening threshold, if any, is not changed by this canon text.
 
 Major torch burn and high metric operation are mutually exclusive thermal/field configurations.
 
