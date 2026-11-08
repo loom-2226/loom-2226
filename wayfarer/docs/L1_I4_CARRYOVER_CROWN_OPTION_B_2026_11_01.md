@@ -1,4 +1,4 @@
-> SUPERSEDED by kT Option A AOI-2226. Read AOI_2226_CROWN_OPTION_A_2026_11_01.md for current twin dome, AOI and source SHA. Historical single-dome report only.
+> **SUPERSEDED / HISTORICAL.** This Option B record preserves the *earlier* one-dome alternative as provenance, not the approved installed crown. kT's 2026-11-08 decision requires **37 separate outer nonpressure ceramic panes → vacuum stand-off → outer ceramic pressure dome → AOI optigel → inner/backup ceramic pressure dome**, plus Osteon frame, brow ring and tambour tracks. The v2.5 source currently labels the more-forward (X −0.42m) dome *backup* and the more-aft (X −0.30m) dome *primary*; current physical position and kT's role labels require explicit reconciliation before qualification. Nothing below overrides the later decision.
 
 # Wayfarer I4 carry-over and crown Option B — 2026-11-01
 
