@@ -23,28 +23,11 @@ jobs:
           python-version: '3.12'
       - name: Exact CAD kernel from frozen #156 research
         run: python -m pip install build123d==0.13.0
-      - name: Inspect research STEP named solid hierarchy (read only)
-        shell: bash
-        run: |
-          python - <<'PYPROBE'
-          from build123d import import_step
-          from pathlib import Path
-          import gzip
-          gz=Path('wayfarer/lab/packing_phase1b/frozen_research_3p8_forward.step.gz')
-          dest=Path('/tmp/wayfarer_3p8_probe.step')
-          with gzip.open(gz,'rb') as f,open(dest,'wb') as o:
-              import shutil
-              shutil.copyfileobj(f,o)
-          shape=import_step(str(dest))
-          print('STEP_IMPORT',type(shape).__name__,shape.label,'children',len(shape.children), 'solids',len(shape.solids()),flush=True)
-          print('FIRST 24 DIRECT',[(type(x).__name__,x.label,len(x.solids()),len(x.children)) for x in list(shape.children)[:24]],flush=True)
-          print('FIRST 24 SOLIDS',[(type(x).__name__,x.label) for x in shape.solids()[:24]],flush=True)
-          PYPROBE
       - name: D9 current source geometry, all represented installed solid pairs
         shell: bash
         run: |
           set +e
-          python -u wayfarer/lab/d9_brep.py 2>&1 | tee d9-run.log
+          python -u wayfarer/lab/d9_brep.py --export 2>&1 | tee d9-run.log
           rc=${PIPESTATUS[0]}
           echo "D9_EXIT=$rc" >> "$GITHUB_ENV"
           exit 0
@@ -56,6 +39,8 @@ jobs:
           path: |
             wayfarer/results/out/D9_BREP_CLASH_REPORT.json
             d9-run.log
+            wayfarer/lab/packing_phase1b/approved_current_3p8_installed.step.gz
+            wayfarer/lab/packing_phase1b/approved_current_3p8_installed.glb
           if-no-files-found: warn
       - name: Require zero real category-(d) intersections and no CAD errors
         run: test "$D9_EXIT" = 0

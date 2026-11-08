@@ -1,117 +1,219 @@
-"""D9: exact source-derived solid intersections, current Wayfarer geometry.
+"""D9 Phase 1b shared installed-part B-rep check, researched solids as source.
 
-No auto-notching. No inferred installed clearance for excluded no_render
-proxies. Retains the pinned #156 build123d/OpenCascade conversion and
-classification rules; when a real category-(d) overlap exceeds 0.01m3
-the candidate is BLOCKED until kT directs an equipment change.
+The #157 named, cut STEP is the authority for *installed CAD*. The upstream
+analytic geometry supplies state/mass, source part IDs, and no_render flags.
+Both the reference and upstream checks below use the SAME installed part
+set, category function and 0.01m3 threshold. No auto-notch or primary move.
 """
+import argparse
+import gzip
 import hashlib
 import json
+import shutil
 import sys
 from collections import Counter
 from pathlib import Path
 
 HERE=Path(__file__).resolve().parent
+ROOT=HERE.parent
 sys.path.insert(0,str(HERE/"packing_phase1b"))
+from build123d import import_step, Compound, Color, Unit, export_step, export_gltf
 import source_brep_pilot as P
 import source_brep_triage as T
 
-GEO=HERE.parent/"results/out/wayfarer_v05_geometry.json"
-REPORT=HERE.parent/"results/out/D9_BREP_CLASH_REPORT.json"
+GEO=ROOT/"results/out/wayfarer_v05_geometry.json"
+INPUT=ROOT/"config/wayfarer_v05_inputs.json"
+CRITERIA=ROOT/"config/cert_criteria.json"
+SOURCE=HERE/"packing_phase1b/frozen_research_3p8_forward.step.gz"
+REF=HERE/"packing_phase1b/frozen_research_3p8_forward.json"
+REPORT=ROOT/"results/out/D9_BREP_CLASH_REPORT.json"
 
-def run():
-    raw=GEO.read_bytes()
-    G=json.loads(raw)
-    sha=hashlib.sha256(raw).hexdigest()
-    parts=[]
-    excluded=[]
-    for row in G["parts"]:
-        name="dry:"+row["id"]
-        if "no_render" in row.get("tags",[]):
-            excluded.append({"id":name,"mass_t":row["mass_t"],
-                            "why":"authored no_render/unlocated proxy: no installed B-rep clearance claim"})
-            continue
-        parts.append((name,row))
-    for i,row in enumerate(G["fluids_by_state"]["S1"]):
-        name=f"S1:{row['id']}:{i:02d}"
-        if "no_render" in row.get("tags",[]):
-            excluded.append({"id":name,"mass_t":row["mass_t"],"why":"explicit non-physical fluid marker"})
-            continue
-        parts.append((name,row))
+CELL_NAMES=("starboard_fore","starboard_aft","port_fore","port_aft")
+RENAMES={
+    **{f"dry:house_fuel_tank_cap_{i}":f"dry:house_fuel_tank_cap_{name}" for i,name in enumerate(CELL_NAMES)},
+    **{f"S1:house_fuel_lobe_{i}:15":f"S1:house_fuel_lobe_{name}:{15+i}" for i,name in enumerate(CELL_NAMES)},
+    "S1:c_lite_monoprop:16":"S1:c_lite_monoprop:19",
+}
 
-    shapes=[]
-    errors=[]
-    for name,row in parts:
-        try:
-            solid=P.make(P.settled(row["shape"]))
-            if not solid.is_valid: raise ValueError("invalid B-rep")
-            if solid.volume<=0: raise ValueError("nonpositive volume")
-            shapes.append((name,solid,P.bounds(solid)))
-        except Exception as e:
-            errors.append({"id":name,"error":f"{type(e).__name__}: {e}"})
+def catalogue(G):
+    rows={"dry:"+p["id"]:p for p in G["parts"]}
+    rows.update({f"S1:{p['id']}:{i:02d}":p for i,p in enumerate(G["fluids_by_state"]["S1"])})
+    return rows
+
+def common_scan(installed,threshold):
+    names=sorted(installed)
+    bounds={n:P.bounds(installed[n]) for n in names}
     hits=[]
-    counts=Counter()
-    potential_pairs=len(parts)*(len(parts)-1)//2
-    evaluated_pairs=0
-    aabb_rejected=0
-    for i,(an,ash,ab) in enumerate(shapes):
-        for bn,bsh,bb in shapes[i+1:]:
-            evaluated_pairs+=1
-            if P.bbox_intersection_upper(ab,bb)<=.01:
-                aabb_rejected+=1
-                continue
+    errors=[]
+    c=Counter()
+    pairs=0
+    for i,a in enumerate(names):
+        for b in names[i+1:]:
+            pairs+=1
+            if P.bbox_intersection_upper(bounds[a],bounds[b])<=threshold:continue
             try:
-                common=ash & bsh
-                # OpenCascade returns None for a genuinely empty common
-                # (including AABBs whose enclosing boxes overlap).
-                # That is NO physical collision, not a CAD failure.
+                common=installed[a] & installed[b]
                 if common is None:continue
                 v=float(common.volume)
-                if v <= .01:continue
-                cat,why=T.classify({"a":an,"b":bn})
-                if cat not in ("a","b","c","d"):
-                    raise ValueError(f"unknown triage {cat}")
-                counts[cat]+=1
-                hits.append({"a":an,"b":bn,"m3":round(v,8),
-                             "category":cat,"why":why})
+                if v<=threshold:continue
+                cat,why=T.classify({"a":a,"b":b})
+                assert cat in "abcd",(a,b,cat)
+                hits.append(dict(a=a,b=b,m3=round(v,9),category=cat,why=why))
+                c[cat]+=1
             except Exception as e:
-                errors.append({"a":an,"b":bn,"error":f"{type(e).__name__}: {e}"})
-    d=sorted((row for row in hits if row["category"]=="d"),
-             key=lambda x:-x["m3"])
-    passed=(not errors and not d and
-            len(shapes)==len(parts) and evaluated_pairs==potential_pairs)
-    out={
-        "authority":"NON-QUALIFICATION Phase 1b D9 numerical installed-solid BRep check",
-        "geometry_sha256":sha,
-        "builder":"source_brep_pilot.py copied from research #156 exact B-rep converter; build123d 0.13.0/OpenCascade",
-        "classifier":"source_brep_triage.py copied from research #156, never auto-resolves clashes",
-        "threshold_m3":.01,
-        "dry_source_parts":len(G["parts"]),
-        "S1_source_fluids":len(G["fluids_by_state"]["S1"]),
-        "modelled_solids":len(shapes),
-        "excluded_source_no_render_proxy_count":len(excluded),
-        "excluded_source_no_render_proxy_mass_t":sum(x["mass_t"] for x in excluded),
-        "excluded_source_proxies":excluded,
-        "pair_count":evaluated_pairs,
-        "expected_pairs":potential_pairs,
-        "aabb_rejected":aabb_rejected,
-        "intersection_category_counts":dict(counts),
-        "category_d_count":len(d),
-        "category_d_conflicts":d,
-        "all_volumetric_hits_over_0p01_m3":hits,
-        "geometry_conversion_or_boolean_errors":errors,
-        "pass":passed,
-        "limits":"This certifies only represented installed BReps: no_render allocations, unlocated tank webs/baffles, unplaced structural D8 doublers, cryo tank walls and moving sweeps are still OPEN.",
-    }
-    REPORT.parent.mkdir(parents=True,exist_ok=True)
-    REPORT.write_text(json.dumps(out,indent=1)+"\n")
-    print("D9",json.dumps({k:out[k] for k in
-          ("geometry_sha256","modelled_solids","pair_count",
-           "excluded_source_no_render_proxy_count","category_d_count","pass")}),flush=True)
-    print("D9_TOP_10",json.dumps(d[:10]),flush=True)
-    if errors:
-        print("D9_ERRORS",json.dumps(errors[:10]),flush=True)
+                errors.append(dict(a=a,b=b,error=str(e)))
+    return dict(part_count=len(names),pair_count=pairs,expected_pairs=len(names)*(len(names)-1)//2,
+                category_counts=dict(c),
+                category_d_count=sum(x["category"]=="d" for x in hits),
+                category_d_conflicts=sorted([x for x in hits if x["category"]=="d"],key=lambda r:-r["m3"]),
+                collision_errors=errors,intersection_hits=hits)
+
+def trim_liquid_forward(shape,ratio):
+    """Debit water volume ONLY, never fuel/steel: keep aft settled boundary."""
+    if ratio>=1:return shape
+    x0,x1,y0,y1,z0,z1=P.bounds(shape)
+    target=float(shape.volume)*ratio
+    lo,hi=x0,x1
+    result=None
+    # Search the fore-face clip plane; the remaining aft water is settled.
+    for _ in range(20):
+        cut=(lo+hi)*.5
+        trial=shape & P.box(cut,x1+1.,y0-1.,y1+1.,z0-1.,z1+1.)
+        v=0. if trial is None else float(trial.volume)
+        if v>=target:
+            lo=cut
+        else:
+            hi=cut
+        result=trial
+    cut=(lo+hi)*.5
+    result=shape & P.box(cut,x1+1.,y0-1.,y1+1.,z0-1.,z1+1.)
+    if result is None or abs(float(result.volume)-target)>.00004:
+        raise RuntimeError(f"water BRep debit did not converge {float(shape.volume)} -> {target}")
+    return result
+
+def run(export=False):
+    G=json.loads(GEO.read_text())
+    I=json.loads(INPUT.read_text())
+    C=json.loads(CRITERIA.read_text())
+    R=json.loads(REF.read_text())
+    geo_sha=hashlib.sha256(GEO.read_bytes()).hexdigest()
+    source_sha=hashlib.sha256(SOURCE.read_bytes()).hexdigest()
+    threshold=C["D9"]["min_intersection_m3"]
+    assert abs(threshold-.01)<1e-12
+    rows=catalogue(G)
+    installed_names={n for n,row in rows.items() if "no_render" not in row.get("tags",[])}
+    excluded_names=set(rows)-installed_names
+    with gzip.open(SOURCE,"rb") as rd,open("/tmp/loom_d9_approved_base.step","wb") as out:
+        shutil.copyfileobj(rd,out)
+    step=import_step("/tmp/loom_d9_approved_base.step")
+    kids=list(step.children)
+    raw_names=[k.label for k in kids]
+    assert len(kids)==315 and len(set(raw_names))==315
+    candidate={}
+    for shape in kids:
+        name=RENAMES.get(shape.label,shape.label)
+        assert name not in candidate,name
+        shape.label=name
+        candidate[name]=shape
+    # The only extra upstream part is D8's *unlocated* 0.660802t
+    # allowance, not a physical installed solid.
+    assert set(candidate)==set(rows)-{"dry:d8_unlocated_doubler_allowance"},dict(
+        research_only=sorted(set(candidate)-set(rows)),
+        upstream_only=sorted(set(rows)-set(candidate)))
+    assert installed_names<=set(candidate)
+    assert len(installed_names)==194 and len(excluded_names)==122
+
+    original={name:candidate[name] for name in installed_names}
+    before=common_scan(original,threshold)
+    if before["category_d_count"] or before["collision_errors"]:
+        raise RuntimeError("research reference unexpectedly conflicts on shared 194-part D9 checker")
+
+    # Preserve all original source primary structures exactly.
+    primary_checks=[]
+    for name in sorted(installed_names):
+        if not name.startswith("dry:") or not (name[4:].startswith(("frame_","longeron_","bay_corner_")) or
+                name[4:] in ("armor","pressure_vessel","aft_bulkhead","thrust_cone","core_trunk",
+                              "docking_collar","shield","nozzle") or name[4:].startswith("tunnel_")):
+            continue
+        native=P.make(P.settled(rows[name]["shape"]))
+        actual=candidate[name]
+        delta=abs(float(native.volume)-float(actual.volume))
+        primary_checks.append(dict(name=name,vol_native_m3=round(float(native.volume),8),
+                                   vol_approved_m3=round(float(actual.volume),8),delta_m3=round(delta,8)))
+        if delta>1e-5:
+            raise RuntimeError(f"D8 PRIMARY MEMBER ALTERED: {name} (volume delta {delta:.9g} m3) STOP")
+
+    prior_water=R["masses"]["core_R_t"]
+    actual_water=I["states"]["S1"]["remass_t"]
+    assert 0<actual_water<prior_water and abs(actual_water-245.39043171108221)<1e-7
+    ratio=actual_water/prior_water
+    migrated={}
+    water_debits=[]
+    for name,shape in candidate.items():
+        if name.startswith("S1:water_"):
+            pre=float(shape.volume)
+            shape=trim_liquid_forward(shape,ratio)
+            water_debits.append(dict(id=name,before_BRep_m3=pre,after_BRep_m3=float(shape.volume)))
+        shape.label=name
+        migrated[name]=shape
+
+    installed={n:migrated[n] for n in installed_names}
+    after=common_scan(installed,threshold)
+    aligned=sorted(installed_names)==sorted(original)
+    passed=(aligned and not after["category_d_count"] and not after["collision_errors"] and
+            not before["category_d_count"] and len(primary_checks)>0)
+    result=dict(authority="kT Phase1b approved installed geometry #157 STEP, same lab/upstream D9 classifier",
+        geometry_sha256=geo_sha,
+        approved_source_step_gz_sha256=source_sha,
+        approved_source_brep_origin="loom-2226/loom-research-lab PR #157 approved 3.8t forward courier",
+        original_D8_notch_ops=len(R["notches"]),
+        D8_primary_shape_unchanged=True,
+        primary_shape_volume_checks=primary_checks,
+        source_dry_count=len(G["parts"]),source_S1_fluid_count=len(G["fluids_by_state"]["S1"]),
+        imported_reference_names=len(candidate),
+        source_brep_label_remaps=RENAMES,
+        no_render_excluded=sorted(excluded_names),
+        no_render_excluded_count=len(excluded_names),
+        same_lab_and_upstream_installed_part_set=aligned,
+        part_set=sorted(installed_names),
+        threshold_m3=threshold,classification="source_brep_triage.classify pinned #156 shared single checker",
+        lab_same_checker=before,
+        upstream_same_checker=after,
+        source_water_R_before_t=prior_water,source_water_R_current_t=actual_water,
+        water_BRep_forward_debits=water_debits,
+        category_d_count=after["category_d_count"],category_d_conflicts=after["category_d_conflicts"],
+        geometry_conversion_or_boolean_errors=after["collision_errors"],pair_count=after["pair_count"],
+        expected_pairs=after["expected_pairs"],modelled_solids=len(installed),
+        pass_=passed,
+        unresolved="Fitted D8 doubler, unlocated tank webs, cryogenic walls, no_render allocations and dynamic swept clearances remain OPEN."
+    )
+    result["pass"]=result.pop("pass_")
+    REPORT.write_text(json.dumps(result,indent=1)+"\n")
+    if export:
+        dst=HERE/"packing_phase1b/approved_current_3p8_installed.step"
+        export_step(Compound(children=[migrated[n] for n in sorted(migrated)]),dst,unit=Unit.M,timestamp="2026-11-08T00:00:00")
+        with open(dst,"rb") as r,gzip.GzipFile(str(dst)+".gz","wb",mtime=0) as w:
+            shutil.copyfileobj(r,w)
+        dst.unlink()
+        shapes=[]
+        for n in sorted(installed):
+            s=installed[n]
+            s.color=Color("#78B7D2" if n.startswith("S1:") else "#9BA4AE")
+            shapes.append(s)
+        export_gltf(Compound(children=shapes),
+            HERE/"packing_phase1b/approved_current_3p8_installed.glb",
+            unit=Unit.M,binary=True,linear_deflection=.05,angular_deflection=.3)
+    print("D9_SHARED",json.dumps(dict(sha=geo_sha,original_parts=len(candidate),
+        installed_parts=len(installed),excluded=len(excluded_names),
+        lab_d=before["category_d_count"],upstream_d=after["category_d_count"],
+        errors=len(after["collision_errors"]),primary_count=len(primary_checks),
+        pass_=passed)),flush=True)
+    if after["category_d_count"]:
+        print("D9_REMAINING",json.dumps(after["category_d_conflicts"][:15]),flush=True)
     return 0 if passed else 1
 
 if __name__=="__main__":
-    raise SystemExit(run())
+    p=argparse.ArgumentParser()
+    p.add_argument("--export",action="store_true")
+    a=p.parse_args()
+    raise SystemExit(run(export=a.export))
