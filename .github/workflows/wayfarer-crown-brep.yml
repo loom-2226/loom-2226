@@ -91,6 +91,10 @@ jobs:
           git diff --cached --name-only | tee crown-output-changes.txt
           test "$(git diff --cached --name-only | wc -l)" -ge 2
           git commit -m 'class:engineering: preserve crown BRep overlay and bow-fit evidence'
+          # Preserve unrelated documentation commits that may have advanced the
+          # PR branch while this deterministic BRep job was running.
+          git fetch origin "${{ github.head_ref }}"
+          git rebase "origin/${{ github.head_ref }}"
           git push origin "HEAD:${{ github.head_ref }}"
       - name: Retain evidence even when CAD fails
         if: always()
