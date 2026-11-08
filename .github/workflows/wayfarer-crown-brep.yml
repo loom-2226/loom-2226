@@ -100,15 +100,19 @@ jobs:
           assert v["full_D9_candidate_accepts"]
           assert v["full_D9_candidate_scan"]["category_d_count"] == 0
           assert not v["full_D9_candidate_scan"]["collision_errors"]
-          assert v["per_part_GLTF_nodes"] == 372
+          assert v["per_part_GLTF_nodes"] == 373
+          assert v["exterior_crown_brow_named_solid"] is True
+          assert v["osteon_dome_seat_preserved"] is True
+          assert v["exterior_crown_brow"]["radial_span_m"] == [3.4, 3.75]
           assert v["glazing"]["round_assemblies"] == 21
           assert v["glazing"]["viewport_band_segments"] == 5
           assert v["glazing"]["spare_true_solids"] == 7
           assert v["glazing"]["storm_shelter_windows"] == 0
           assert v["canonical_source_mass_t_before_and_after"] == 868.1922552640087
           assert v["delta_v_ECON_km_s_unchanged"] == 707.845
+          assert Path("wayfarer/render/out/crown_print_tiles/crown_brow.stl").is_file()
           assert len(list(Path("wayfarer/render/out/glazing_print_parts").glob("*.stl"))) == 137
-          print("CROWN_GLAZING_V251_CANDIDATE_D9_PASS")
+          print("CROWN_BROW_GLAZING_V251_CANDIDATE_D9_PASS")
           PY
       - name: Preserve printable pane STLs and per-part GLB on draft PR branch
         shell: bash
