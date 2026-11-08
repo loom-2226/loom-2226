@@ -6,20 +6,30 @@
 
 1. Thirty-seven separate, outward-removable 10 mm ceramic faceted nonpressure panes, [1,12,12,12] at radii [0,0.75,2,2.75,3.5] m. Option C nose x = −1.2 m (flat through r2 m), then 50° slope to r3.5 m; last ring stagger π/12.
 2. Vacuum stand-off between panes and the first pressure-bearing ceramic.
-3. **Outer** 28 mm full-pressure ceramic dome, source geometric apex X = −0.42 m.
+3. **OUTER** 28 mm independently pressure-capable ceramic dome, source geometric apex X = −0.42 m.
 4. AOI-2226 optogel between the two independent pressure-boundary solids. Current source declares fill volume 3.023 m³ and mass 3.04101485 t; actual CAD cavity volume must be compared, never overwritten to agree by fiat.
-5. **Inner/backup** 28 mm full-pressure ceramic dome, source apex X = −0.30 m.
+5. **INNER** 28 mm independently pressure-capable ceramic dome; this IS the pressure vessel bow closure, not a second copy, source apex X = −0.30 m.
 6. Osteon frame, 1 m radial × 0.22 m axial brow ring and sixteen Strata tambour gore tracks.
 
 The source meridian for either dome is `X(r)=3.043118226826−3.343118226826√(1−(r/4.3)²)`, clipped at radius 3.5 m; second surface uses the source 0.12 m axial offset. No fictional load-transfer mechanisms or new material parameters are admitted.
 
-**Role-name conflict:** Existing v2.5 configuration calls the X−0.42 m surface *backup* and X−0.30 m surface *primary*. kT's new outside→inside ordering makes the inner surface the backup. The CAD overlay preserves **both positions**, and names by the new physical order. A future source promotion must reconcile the role labels, their mass association, and actual full-pressure isolation. Geometry is not silently moved.
+**Role-name resolution (kT 2026-11-08):** Both domes are independent pressure boundaries. Only **OUTER** (X−0.42m) and **INNER** (X−0.30m) identify them. The **INNER** is the PV bow closure. The existing source's old *backup/primary* words are obsolete; no apex is moved. The outer/inner interfaces mount to the Osteon/brow seat ring, which is physically cut into the PV and armour. Full source promotion must also remove the old duplicate PV cap.
 
 ## Source authority and mass
 
 Pinned `canon-v2.5` commit: `bfa7dcfb12358b119d5e63773f30ed9d251a43fc`. Source SHA256: `88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1`.
 
-Current source G1 still books crown components as `no_render` allocation solids. **They are not qualified physical placements.** This screen replaces their visualization with independent true build123d geometry, not their governing `wayfarer_v05_geometry.json` entries or existing mass ledger. A new source SHA and D9 STEP would be necessary before those BReps become installed and full G1–G12/D9 can certify them. No mass reallocation or threshold changes are authorized.
+Current source G1 still books crown components as `no_render` allocation solids. **They are not qualified physical placements.** The interim BRep candidate cuts the crown aperture from PV and armour and replaces their nose overlap in the viewer, without changing old source G1. This screen replaces their visualization with independent true build123d geometry, not their governing `wayfarer_v05_geometry.json` entries or existing mass ledger. A new source SHA and D9 STEP would be necessary before those BReps become installed and full G1–G12/D9 can certify them. kT has authorized a measured material-removal and replacement ledger; do not change any mass without reporting the changed value, CG and ECON delta. The 3.023m3 AOI mass basis is fixed despite its 2.489m3 modelled envelope. D9 threshold remains 0.01m3.
+
+## kT aperture decision and measured source-mass disposition
+
+The BRep candidate cuts only the original `pressure_vessel` and `armor` solids at the crown aperture/seat, retains all other existing installed solid geometry, and inserts a real annular Osteon/brow seat from source 1m radial width and 0.22m longitudinal height. INNER is the pressure vessel bow closure, not an overlapping shell. The three-object bow interface scan reports **zero** volumes above the unchanged 0.01m³ D9 limit.
+
+- Original PV 11.356646m³ → 9.864411m³: **1.492235m³ removed**, equivalent to **2.017682t** at the original booked effective PV density 1.352121t/m³.
+- Original armour 81.103032m³ → 71.460479m³: **9.642552m³ removed**, equivalent to **12.779636t** at its original booked effective density 1.325338t/m³.
+- Total removed volume **11.134787m³**, corresponding to **14.797318t** on the original effective-density basis, **not yet debited to governing source G1**.
+- AOI actual cavity 2.488661m³ vs retained booked **3.023m³** (conservative). The cavity volume discrepancy is an engineering fit issue, not permission to cut booked mass.
+- Real source mass transfer and certification require updated state mass/CG/dv and a new source hash; the unchanged legacy v2.5 source certificate does not validate this work.
 
 ## Canon-dimensional details not yet provided
 
