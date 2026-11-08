@@ -1,0 +1,71 @@
+name: Wayfarer Phase1b G7-G12 current geometry rerender
+on:
+  pull_request:
+    paths:
+      - .github/workflows/wayfarer-phase1b-g12.yml
+      - wayfarer/render/views.json
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  render-current:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Source-current G7 I4 human-factors evidence
+        run: python wayfarer/lab/command/l1_i4_checks.py
+      - name: Install pinned renderer and headless Chromium
+        working-directory: wayfarer/render
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Regenerate source-current I4 scene and deck SVGs
+        run: |
+          python wayfarer/render/sync_i4_scene.py
+          python wayfarer/render/deckplans.py
+          python wayfarer/render/crown_section.py
+      - name: Generate every G12 source-hash image, deck PNG and power cutaway
+        working-directory: wayfarer/render
+        run: node render.js
+      - name: Regenerate exact-hash two-scene GLB and interactive viewer
+        working-directory: wayfarer/render
+        run: |
+          node export_glb.mjs
+          python make_viewer.py
+      - name: Validate G12 manifest is fresh and 4-lobe power labels source-matched
+        run: |
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path('wayfarer')
+          geo=root/'results/out/wayfarer_v05_geometry.json'
+          sha=hashlib.sha256(geo.read_bytes()).hexdigest()
+          man=json.loads((root/'render/out/manifest.json').read_text())
+          human=json.loads((root/'lab/command/l1_i4_results.json').read_text())
+          assert man['geometry_sha256']==sha and human['geometry_sha256']==sha
+          assert all(human['checks'].values())
+          man['files']=[r for r in man['files'] if
+              r.get('geometry_sha256')==sha and (root/'render/out'/r['file']).is_file()]
+          (root/'render/out/manifest.json').write_text(json.dumps(man,indent=1)+'\n')
+          counts={}
+          for r in man['files']:counts[r['kind']]=counts.get(r['kind'],0)+1
+          assert counts.get('exterior',0)>=10 and counts.get('cutaway',0)>=2
+          assert counts.get('deckplan',0)>=5 and counts.get('viewer',0)>=1
+          print('CURRENT HASH',sha,'I4',len(human['checks']),'G12_ASSETS',counts)
+          PY
+      - name: Always preserve rendering evidence (success or failures)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wayfarer-phase1b-G7-G12-current-hash
+          path: |
+            wayfarer/render/out/
+            wayfarer/lab/command/l1_i4_results.json
+          if-no-files-found: warn
