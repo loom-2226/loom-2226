@@ -253,6 +253,58 @@ jobs:
             echo "Search: 5.000 t / 300 t / 1,158.5 / 719.29"
             git grep -n -I -E '5\.000[[:space:]]*t|300[[:space:]]*t|1,158\.5|1158\.5|719\.29' || true
           } | tee PR471-old-value-hits.txt
+      - name: Tag every residual old-value hit, fail on unclassified
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          raw=Path("PR471-old-value-hits.txt").read_text().splitlines()
+          hits=[]
+          for line in raw:
+              m=re.match(r"^(.+?):([0-9]+):(.*)$",line)
+              if not m:
+                  continue
+              path,no,value=m.groups()
+              if path.startswith("manifests/") or path.startswith("docs/civprop/") or path.startswith("wayfarer/lab/shuttle/"):
+                  tag,reason="UNRELATED","Different numeric economic/demographic/shuttle value"
+              elif path.startswith(".github/workflows/"):
+                  tag,reason="UNRELATED","Literal CI search expression"
+              elif path.startswith("canon/current/") and "CHANGELOG" in path:
+                  tag,reason="HISTORICAL","Old-to-new canon delta"
+              elif path.startswith("governance/changes/") or path.startswith("governance/current/"):
+                  tag,reason="HISTORICAL","Superseded value explicitly recorded in change/manifest history"
+              elif path.startswith("engineering/frontiers/"):
+                  tag,reason="HISTORICAL","Dated pre-CCR engineering exercise"
+              elif path.startswith("wayfarer/config/"):
+                  tag,reason="HISTORICAL","Explicit old-canon comparison or previous reference quantity"
+              elif path.startswith("wayfarer/docs/") or path.startswith("wayfarer/lab/flight/") or path.startswith("wayfarer/lab/flight_qual/"):
+                  tag,reason="HISTORICAL","Prior design note, qualification record or frozen replay"
+              elif path.startswith("wayfarer/results/compare/") or path.startswith("wayfarer/results/out/ship_power_targeted_"):
+                  tag,reason="HISTORICAL","Older targeted/baseline result, not current certified result"
+              elif path.startswith("wayfarer/lab/packing_phase1b/source_candidate_rebuild.py"):
+                  tag,reason="HISTORICAL","Source G1 300-tonne example / earlier inventory basis"
+              elif path=="wayfarer/lab/mass_basis.py":
+                  tag,reason="HISTORICAL","Prior shell engineering option in source prose"
+              else:
+                  raise RuntimeError("UNCLASSIFIED hit: "+path+":"+no)
+              hits.append((path,int(no),tag,reason,value))
+          out=["# PR471 exact-head old-value grep, all line-level hits classified","",
+               "Complete literal matches are in companion PR471-old-value-hits.txt. This table tags EVERY observed hit.",
+               "HISTORICAL means superseded/change/replay; UNRELATED means different quantity or search syntax.","",
+               "| Path:line | Tag | Interpretation | Excerpt |","|---|---|---|---|"]
+          for path,no,tag,reason,value in hits:
+              clip=value.replace("|"," / ")
+              if len(clip)>150:
+                  clip=clip[:147]+"..."
+              out.append("| "+path+":"+str(no)+" | "+tag+" | "+reason+" | "+clip+" |")
+          out+=["","Tagged hits: "+str(len(hits))+" across "+str(len(set(x[0] for x in hits)))+" files."]
+          Path("PR471-old-value-tagged.md").write_text("\n".join(out)+"\n")
+          assert hits,"No parseable grep hits; inspect source scan"
+          print("OLD_VALUE_TAGGED",len(hits),"historical",sum(x[2]=="HISTORICAL" for x in hits),"unrelated",sum(x[2]=="UNRELATED" for x in hits))
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -260,6 +312,7 @@ jobs:
           path: |
             PR471-exact-head-certify.log
             PR471-old-value-hits.txt
+            PR471-old-value-tagged.md
             PR471-navigator-smoke.log
             PR471-z3-regression.log
             PR471-unittest-main_merge_base.log
