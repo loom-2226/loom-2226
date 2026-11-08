@@ -1,46 +1,120 @@
-name: Wayfarer D9 real B-rep clash gate
+name: Wayfarer #471 G3 CAD rebuild, D9 and full certification
 on:
   pull_request:
     paths:
-      - wayfarer/config/wayfarer_v05_inputs.json
-      - wayfarer/config/cert_criteria.json
       - wayfarer/lab/d9_brep.py
-      - wayfarer/lab/packing_phase1b/source_brep_pilot.py
-      - wayfarer/lab/packing_phase1b/source_brep_triage.py
+      - wayfarer/lab/packing_phase1b/source_candidate_rebuild.py
+      - wayfarer/config/cert_criteria.json
+      - wayfarer/config/wayfarer_v05_inputs.json
       - wayfarer/results/out/wayfarer_v05_geometry.json
       - .github/workflows/wayfarer-phase1b-d9.yml
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  source-brep:
+  g3-cad-d9-full-cert:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 70
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Exact CAD kernel from frozen #156 research
-        run: python -m pip install build123d==0.13.0
-      - name: D9 current source geometry, all represented installed solid pairs
+      - name: Pinned #156 source and CAD kernel (no quantifactus dependency)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install build123d==0.13.0
+          mkdir -p "$RUNNER_TEMP/loom156"
+          git -C "$RUNNER_TEMP/loom156" init -q
+          git -C "$RUNNER_TEMP/loom156" fetch --depth=1 -q https://github.com/loom-2226/loom-research-lab.git 2ff825093148e3e522a22f3346f783c917994de4
+          git -C "$RUNNER_TEMP/loom156" checkout --detach -q FETCH_HEAD
+          test "$(git -C "$RUNNER_TEMP/loom156" rev-parse HEAD)" = 2ff825093148e3e522a22f3346f783c917994de4
+          echo "274e94fb43cfe549a3d2087abbdff4d65499ce6f5055ad2d7ade790414fbaaf9  $RUNNER_TEMP/loom156/projects/wayfarer_brep_pilot/geometry_base.json" | sha256sum -c -
+      - name: Rebuild seven source-authoritative -0.26m offsets and original research D8 cuts
         shell: bash
         run: |
           set +e
-          python -u wayfarer/lab/d9_brep.py --export 2>&1 | tee d9-run.log
-          rc=${PIPESTATUS[0]}
+          python -u wayfarer/lab/packing_phase1b/source_candidate_rebuild.py \
+            --source "$RUNNER_TEMP/loom156/projects/wayfarer_brep_pilot" \
+            --out "$RUNNER_TEMP/g3-cad-rebuild" \
+            --courier-forward --fuel-t 3.8 --house-reserve-t .1 \
+            --g1-liquid-ullage --export > g3-rebuild.log 2>&1
+          rc=$?
+          cat g3-rebuild.log
+          echo "REBUILD_EXIT=$rc" >> "$GITHUB_ENV"
+          if test -f "$RUNNER_TEMP/g3-cad-rebuild/candidate.step"; then
+            python - <<'PY'
+          import gzip,os,shutil
+          from pathlib import Path
+          base=Path("wayfarer/lab/packing_phase1b")
+          out=Path(os.environ["RUNNER_TEMP"])/"g3-cad-rebuild"
+          with open(out/"candidate.step","rb") as raw,open(base/"current_g3_3p8_forward.step.gz","wb") as dest:
+              with gzip.GzipFile(fileobj=dest,mode="wb",filename="",mtime=0) as compressor:
+                  shutil.copyfileobj(raw,compressor)
+          shutil.copy2(out/"candidate_report.json",base/"current_g3_rebuild_report.json")
+          PY
+          fi
+          exit 0
+      - name: Import repaired STEP, audit all primaries, real source-part D9
+        if: ${{ env.REBUILD_EXIT == '0' }}
+        shell: bash
+        run: |
+          set +e
+          python -u wayfarer/lab/d9_brep.py --export > d9-run.log 2>&1
+          rc=$?
+          cat d9-run.log
           echo "D9_EXIT=$rc" >> "$GITHUB_ENV"
           exit 0
-      - name: Preserve full conflict data even on design FAIL
+      - name: Full current-source G1-G12 and D9 certification
+        if: ${{ env.REBUILD_EXIT == '0' && env.D9_EXIT != '' }}
+        shell: bash
+        run: |
+          set +e
+          python -u wayfarer/lab/certify.py > full-cert.log 2>&1
+          rc=$?
+          cat full-cert.log
+          echo "CERT_EXIT=$rc" >> "$GITHUB_ENV"
+          exit 0
+      - name: Preserve CAD, cut replay, complete D9 primary audit and certification
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: wayfarer-phase1b-d9-current-source-report
+          name: wayfarer-pr471-g3-cad-d9-full-cert
           path: |
-            wayfarer/results/out/D9_BREP_CLASH_REPORT.json
+            g3-rebuild.log
             d9-run.log
+            full-cert.log
+            wayfarer/lab/packing_phase1b/current_g3_3p8_forward.step.gz
+            wayfarer/lab/packing_phase1b/current_g3_rebuild_report.json
             wayfarer/lab/packing_phase1b/approved_current_3p8_installed.step.gz
             wayfarer/lab/packing_phase1b/approved_current_3p8_installed.glb
+            wayfarer/results/out/D9_BREP_CLASH_REPORT.json
+            wayfarer/results/out/certification_report.json
+            wayfarer/results/out/CERTIFICATION_REPORT_v0.5.md
           if-no-files-found: warn
-      - name: Require zero real category-(d) intersections and no CAD errors
-        run: test "$D9_EXIT" = 0
+      - name: Strict no-merge qualification decision
+        if: always()
+        shell: bash
+        run: |
+          test "${REBUILD_EXIT:-}" = 0
+          test "${D9_EXIT:-}" = 0
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path("wayfarer")
+          rebuilt=json.loads((root/"lab/packing_phase1b/current_g3_rebuild_report.json").read_text())
+          d9=json.loads((root/"results/out/D9_BREP_CLASH_REPORT.json").read_text())
+          report=json.loads((root/"results/out/certification_report.json").read_text())
+          sha=hashlib.sha256((root/"results/out/wayfarer_v05_geometry.json").read_bytes()).hexdigest()
+          assert d9["geometry_sha256"]==report["geometry_sha256"]==sha
+          assert rebuilt["candidate_pass"] is True
+          assert d9["D8_primary_shape_unchanged"] is True
+          assert not d9["primary_invariant_failures"]
+          assert len(d9["primary_shape_volume_checks"])>0
+          assert d9["category_d_count"]==0 and not d9["geometry_conversion_or_boolean_errors"]
+          assert d9["pass"] is True and report["certified"] is True
+          assert len(report["summary"])==13
+          print("SOURCE",sha,"PRIMARY_COUNT",len(d9["primary_shape_volume_checks"]))
+          for gate,status in report["summary"].items():print(gate,status)
+          PY

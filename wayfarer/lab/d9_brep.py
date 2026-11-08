@@ -24,7 +24,8 @@ import source_brep_triage as T
 GEO=ROOT/"results/out/wayfarer_v05_geometry.json"
 INPUT=ROOT/"config/wayfarer_v05_inputs.json"
 CRITERIA=ROOT/"config/cert_criteria.json"
-SOURCE=HERE/"packing_phase1b/frozen_research_3p8_forward.step.gz"
+SOURCE=HERE/"packing_phase1b/current_g3_3p8_forward.step.gz"
+REBUILT=HERE/"packing_phase1b/current_g3_rebuild_report.json"
 REF=HERE/"packing_phase1b/frozen_research_3p8_forward.json"
 REPORT=ROOT/"results/out/D9_BREP_CLASH_REPORT.json"
 
@@ -99,6 +100,11 @@ def run(export=False):
     I=json.loads(INPUT.read_text())
     C=json.loads(CRITERIA.read_text())
     R=json.loads(REF.read_text())
+    if not SOURCE.is_file() or not REBUILT.is_file():
+        raise RuntimeError("D9 requires freshly rebuilt current-G3 -0.26m STEP, never the stale frozen research STEP")
+    rebuilt=json.loads(REBUILT.read_text())
+    if rebuilt.get("candidate_pass") is not True:
+        raise RuntimeError("G3 candidate did not pass source research cut rules; no CAD promotion")
     geo_sha=hashlib.sha256(GEO.read_bytes()).hexdigest()
     source_sha=hashlib.sha256(SOURCE.read_bytes()).hexdigest()
     threshold=C["D9"]["min_intersection_m3"]
@@ -130,7 +136,16 @@ def run(export=False):
     for shape in kids:
         name=RENAMES.get(shape.label,shape.label)
         assert name not in candidate,name
-        shape=shape.scale(unit_factor) if unit_factor!=1 else shape
+        if unit_factor!=1:
+            # STEP shape scale may leave TopLoc_Location in millimetres.
+            # Scale BOTH body and placement to source metre coordinates once.
+            orig=shape.location.position
+            pos=(float(orig.X),float(orig.Y),float(orig.Z))
+            shape=shape.scale(unit_factor)
+            after=shape.location.position
+            delta=tuple(v*unit_factor-float(now) for v,now in zip(pos,(after.X,after.Y,after.Z)))
+            if any(abs(v)>1e-12 for v in delta):
+                shape=shape.translate(delta)
         shape.label=name
         candidate[name]=shape
     # The only extra upstream part is D8's *unlocated* 0.660802t
@@ -156,12 +171,13 @@ def run(export=False):
 
     # Preserve all original source primary structures exactly.
     primary_checks=[]
+    primary_failures=[]
     for name in sorted(candidate):
         # Include primary tagged no_render end fittings and corners in the
         # NEVER MOVE check even though no_render never earns installed fit credit.
         if not name.startswith("dry:") or not (name[4:].startswith(("frame_","longeron_","bay_corner_")) or
                 name[4:] in ("armor","pressure_vessel","aft_bulkhead","thrust_cone","core_trunk",
-                              "docking_collar","shield","nozzle") or name[4:].startswith("tunnel_")):
+                              "docking_collar","shield","reactor","nozzle") or name[4:].startswith(("tunnel_","rcs_A"))):
             continue
         native=P.make(P.settled(rows[name]["shape"]))
         actual=candidate[name]
@@ -178,35 +194,33 @@ def run(export=False):
         if (delta>1e-5 or
             bb_delta>C["D9"]["primary_brep_unchanged_bbox_tolerance_m"] or
             sym>C["D9"]["primary_brep_symmetric_difference_limit_m3"]):
-            # STOP immediately, but write a current-source machine FAIL
-            # so certify.py can NEVER inherit the prior volume-only pass.
-            failure=dict(
-                authority="kT D8 STOP: primary STEP import geometry mismatch",
-                geometry_sha256=geo_sha,
-                approved_source_step_gz_sha256=source_sha,
-                imported_step_source_numeric_unit=("mm" if unit_factor==.001 else "m"),
-                explicit_step_to_source_linear_scale=unit_factor,
-                modelled_solids=len(installed_names),
-                pair_count=before["pair_count"],
-                expected_pairs=before["expected_pairs"],
-                threshold_m3=threshold,
-                category_d_count=before["category_d_count"],
-                category_d_conflicts=before["category_d_conflicts"],
-                lab_same_checker=before,
-                same_lab_and_upstream_installed_part_set=True,
-                source_dry_count=len(G["parts"]),
-                source_S1_fluid_count=len(G["fluids_by_state"]["S1"]),
-                excluded_source_no_render_proxy_count=len(excluded_names),
-                D8_primary_shape_unchanged=False,
-                primary_invariant_failures=[primary_checks[-1]],
-                primary_shape_volume_checks=primary_checks,
-                geometry_conversion_or_boolean_errors=[],
-                pass_=False,
-                STOP="Primary nozzle or another G5 member does not match its original BRep, even though the research/reference pairwise D9 collisions count is zero. Geometry NOT promoted.")
-            failure["pass"]=failure.pop("pass_")
-            REPORT.write_text(json.dumps(failure,indent=2)+"\n")
-            print("D9_PRIMARY_STOP",json.dumps(primary_checks[-1]),flush=True)
-            return 1
+            primary_failures.append(primary_checks[-1])
+    # Check ALL primaries, not just the first failure. Preserve the complete
+    # volume/bbox/symmetric-difference audit, including no_render primaries.
+    if primary_failures:
+        failure=dict(
+            authority="kT D8 STOP: complete protected-primary BRep integrity",
+            geometry_sha256=geo_sha,
+            approved_source_step_gz_sha256=source_sha,
+            imported_step_source_numeric_unit=("mm" if unit_factor==.001 else "m"),
+            explicit_step_to_source_linear_scale=unit_factor,
+            modelled_solids=len(installed_names),
+            pair_count=before["pair_count"], expected_pairs=before["expected_pairs"],
+            threshold_m3=threshold, category_d_count=before["category_d_count"],
+            category_d_conflicts=before["category_d_conflicts"],
+            lab_same_checker=before, same_lab_and_upstream_installed_part_set=True,
+            source_dry_count=len(G["parts"]),
+            source_S1_fluid_count=len(G["fluids_by_state"]["S1"]),
+            excluded_source_no_render_proxy_count=len(excluded_names),
+            D8_primary_shape_unchanged=False,
+            primary_invariant_failures=primary_failures,
+            primary_shape_volume_checks=primary_checks,
+            geometry_conversion_or_boolean_errors=[],pass_=False,
+            STOP="At least one protected source primary differs; no D9 fit credit.")
+        failure["pass"]=failure.pop("pass_")
+        REPORT.write_text(json.dumps(failure,indent=2)+"\n")
+        print("D9_PRIMARY_STOP",json.dumps(primary_failures),flush=True)
+        return 1
 
     prior_water=R["masses"]["core_R_t"]
     actual_water=I["states"]["S1"]["remass_t"]
@@ -230,9 +244,12 @@ def run(export=False):
     result=dict(authority="kT Phase1b approved installed geometry #157 STEP, same lab/upstream D9 classifier",
         geometry_sha256=geo_sha,
         approved_source_step_gz_sha256=source_sha,
-        approved_source_brep_origin="loom-2226/loom-research-lab PR #157 approved 3.8t forward courier",
+        approved_source_brep_origin="Research PR #157 D8 cut rules replayed against authoritative #471 G3 -0.26m source",
         original_D8_notch_ops=len(R["notches"]),
+        current_G3_rebuilt_D8_notch_ops=len(rebuilt["notches"]),
+        current_G3_candidate_pass=rebuilt["candidate_pass"],
         D8_primary_shape_unchanged=True,
+        primary_invariant_failures=[],
         primary_shape_volume_checks=primary_checks,
         source_dry_count=len(G["parts"]),source_S1_fluid_count=len(G["fluids_by_state"]["S1"]),
         imported_reference_names=len(candidate),
