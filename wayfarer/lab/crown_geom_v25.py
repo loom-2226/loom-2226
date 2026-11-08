@@ -194,6 +194,20 @@ def main():
         model[name].label=name
     assert not set(model).intersection(bodies)
     model.update(bodies)
+    # Complete non-exempt D9 category-(d) scan for the 235 installed viewer
+    # BReps, with the SAME original 0.01 m3 threshold and classifier.
+    # This is the mandatory candidate screen, not a replacement of the source
+    # authority's current 194-part certified D9 report.
+    ordered=sorted(model)
+    pairs_total=len(ordered)*(len(ordered)-1)//2
+    assert len(ordered)==235 and pairs_total==27495
+    full_scan=D.pair_scan(model,ordered,0,pairs_total,C["D9"]["min_intersection_m3"])
+    assert full_scan["pair_count"]==pairs_total
+    print("CROWN_FULL_D9_SCAN",json.dumps(dict(
+        solids=len(ordered),pairs=pairs_total,
+        category_d=full_scan["category_d_count"],
+        bool_errors=len(full_scan["collision_errors"]),
+        conflicts=full_scan["category_d_conflicts"][:18])),flush=True)
     OUT.mkdir(parents=True,exist_ok=True)
     final=OUT/(PREFIX+".glb")
     export_gltf(Compound(children=list(model.values())),final,unit=Unit.M,
@@ -234,6 +248,8 @@ def main():
       already_booked_crown_added_t=sum(v for k,v in mass.items() if k.startswith("crown_")),
       mass_budget_note="Crown proxy masses already exist in source; do not charge a second time. Inner dome replaces pressure-vessel bow material; removed tonnes are inferred from the former whole-shell effective density, not canon rebookings.",
       target_contacts=contacts,
+      full_D9_candidate_scan=full_scan,
+      full_D9_candidate_accepts=(full_scan["category_d_count"]==0 and not full_scan["collision_errors"]),
       prohibited_overlap_count=sum(q.get("exceeds_D9_0p01m3") is True for q in contacts),
       failed_boolean_count=sum("error" in q for q in contacts),
       missing_canon_dimensions=missing_dims,
