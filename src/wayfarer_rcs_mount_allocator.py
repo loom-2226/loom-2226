@@ -81,7 +81,7 @@ def _sample_force_directions(position_m: Sequence[float]) -> list[dict[str, Any]
 
 def _mount_model() -> tuple[list[dict[str, Any]], dict[str, Any]]:
     recovered = build_recovered_rcs_candidate()
-    state = build_mass_inertia_state(normal_remass_t=250.0, protected_water_t=50.0, launch_docked=True)
+    state = build_mass_inertia_state(normal_remass_t=245.39043171108221, protected_water_t=50.0, launch_docked=True)
     mounts: list[dict[str, Any]] = []
     for i, source in enumerate(recovered["mounts"]):
         mounts.append(
