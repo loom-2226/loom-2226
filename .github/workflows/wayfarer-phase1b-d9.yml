@@ -4,7 +4,8 @@ on:
     paths:
       - wayfarer/lab/d9_brep.py
       - wayfarer/lab/d9_sharded.py
-      - wayfarer/lab/d9_pressure_stages.py
+      - wayfarer/lab/d9_pv_surface_recovery.py
+      - wayfarer/lab/d9_c0_pressure_recovery.py
       - wayfarer/lab/d9_sharded_merge.py
       - wayfarer/lab/packing_phase1b/primary_brep_diagnostics.py
       - wayfarer/lab/packing_phase1b/source_candidate_rebuild.py
@@ -81,7 +82,7 @@ jobs:
   B_pressure:
     needs: A_rebuild
     runs-on: ubuntu-latest
-    timeout-minutes: 45  # stage caps 5+10+15+15 = 45; setup also counts against total
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -94,102 +95,52 @@ jobs:
         with:
           name: pr471-A-source
           path: wayfarer/lab/packing_phase1b
-      - name: "B1 validity and orientation"
-        if: always()
-        timeout-minutes: 5
-        continue-on-error: true
+      - name: B3 source to STEP surface distance FIRST
+        timeout-minutes: 20
         shell: bash
         run: |
-          set +e
-          set -o pipefail
-          echo "B_STEP_START $(date -u +%Y-%m-%dT%H:%M:%SZ) phase=validity result=RUNNING time_limit_minutes=5"
-          timeout -s TERM -k 5s 270s python -u wayfarer/lab/d9_pressure_stages.py validity 2>&1 | tee B-validity.log
-          rc=${PIPESTATUS[0]}
-          if test "$rc" = 124; then state=TIMEOUT; elif test "$rc" = 0; then state=COMPLETED; else state=ERROR; fi
-          echo "B_STEP_END $(date -u +%Y-%m-%dT%H:%M:%SZ) phase=validity result=$state exit_code=$rc"
-          exit "$rc"
-      - name: "B2 ordinary and fuzzy Boolean"
-        if: always()
-        timeout-minutes: 10
-        continue-on-error: true
+          set -euo pipefail
+          python -u wayfarer/lab/d9_pv_surface_recovery.py forward | tee B-forward.log
+      - name: B4 STEP to source surface distance SECOND
+        timeout-minutes: 20
         shell: bash
         run: |
-          set +e
-          set -o pipefail
-          echo "B_STEP_START $(date -u +%Y-%m-%dT%H:%M:%SZ) phase=booleans result=RUNNING time_limit_minutes=10"
-          timeout -s TERM -k 5s 570s python -u wayfarer/lab/d9_pressure_stages.py booleans 2>&1 | tee B-booleans.log
-          rc=${PIPESTATUS[0]}
-          if test "$rc" = 124; then state=TIMEOUT; elif test "$rc" = 0; then state=COMPLETED; else state=ERROR; fi
-          echo "B_STEP_END $(date -u +%Y-%m-%dT%H:%M:%SZ) phase=booleans result=$state exit_code=$rc"
-          exit "$rc"
-      - name: "B3 native-to-imported surface"
-        if: always()
-        timeout-minutes: 15
-        continue-on-error: true
+          set -euo pipefail
+          python -u wayfarer/lab/d9_pv_surface_recovery.py reverse | tee B-reverse.log
+      - name: B validity and signed volume without Boolean
+        timeout-minutes: 3
         shell: bash
         run: |
-          set +e
-          set -o pipefail
-          echo "B_STEP_START $(date -u +%Y-%m-%dT%H:%M:%SZ) phase=forward result=RUNNING time_limit_minutes=15"
-          timeout -s TERM -k 5s 870s python -u wayfarer/lab/d9_pressure_stages.py forward 2>&1 | tee B-forward.log
-          rc=${PIPESTATUS[0]}
-          if test "$rc" = 124; then state=TIMEOUT; elif test "$rc" = 0; then state=COMPLETED; else state=ERROR; fi
-          echo "B_STEP_END $(date -u +%Y-%m-%dT%H:%M:%SZ) phase=forward result=$state exit_code=$rc"
-          exit "$rc"
-      - name: "B4 imported-to-native surface and result"
-        if: always()
-        timeout-minutes: 15
-        continue-on-error: true
+          set -euo pipefail
+          python -u wayfarer/lab/d9_pv_surface_recovery.py validity | tee B-validity.log
+      - name: B strict surface-method verdict, no fuzzy Boolean
+        timeout-minutes: 2
         shell: bash
         run: |
-          set +e
-          set -o pipefail
-          echo "B_STEP_START $(date -u +%Y-%m-%dT%H:%M:%SZ) phase=reverse result=RUNNING time_limit_minutes=15"
-          timeout -s TERM -k 5s 870s python -u wayfarer/lab/d9_pressure_stages.py reverse 2>&1 | tee B-reverse.log
-          rc=${PIPESTATUS[0]}
-          if test "$rc" = 124; then state=TIMEOUT; elif test "$rc" = 0; then state=COMPLETED; else state=ERROR; fi
-          echo "B_STEP_END $(date -u +%Y-%m-%dT%H:%M:%SZ) phase=reverse result=$state exit_code=$rc"
-          exit "$rc"
-      - name: B timestamped runtime and partial evidence
-        if: always()
-        shell: bash
-        run: |
-          echo "B_STEP_START $(date -u +%Y-%m-%dT%H:%M:%SZ) phase=summary result=RUNNING"
-          echo "B total_runtime_seconds=$(( $(date +%s) - START_EPOCH ))" | tee -a "$GITHUB_STEP_SUMMARY"
-          if test -f wayfarer/results/out/shards/pressure_stages.json; then
-            python - <<'PY'
+          set -euo pipefail
+          python -u wayfarer/lab/d9_pv_surface_recovery.py finalize | tee B-final.log
+          python - <<'PY'
           import json
-          p=json.load(open("wayfarer/results/out/shards/pressure_stages.json"))
-          for name,stage in sorted(p["stages"].items()):
-              print("B_STAGE_SAVED",name,"result",stage.get("result"),
-                    "runtime_seconds",stage.get("runtime_seconds"))
+          from pathlib import Path
+          p=json.loads(Path("wayfarer/results/out/shards/pressure.json").read_text())
+          assert p["pass"] is True and p["check"]["pass"] is True
+          print("B_PRESSURE_SURFACE_METHOD_PASS")
           PY
-          else
-            echo "No checkpoint: B incomplete, zero credit"
-          fi
-          if test -f wayfarer/results/out/shards/pressure.json; then
-            python - <<'PY'
-          import json
-          p=json.load(open("wayfarer/results/out/shards/pressure.json"))
-          print("B PRESSURE RESULT",json.dumps(p["check"],sort_keys=True))
-          print("B PASS",p["pass"])
-          PY
-          else
-            echo "B pressure.json absent: diagnosis incomplete; no acceptance"
-          fi
-          echo "B_STEP_END $(date -u +%Y-%m-%dT%H:%M:%SZ) phase=summary result=COMPLETE"
-      - name: B artifact including checkpoints when any stage times out
+      - name: B runtime
+        if: always()
+        run: echo "B runtime_seconds=$(( $(date +%s) - START_EPOCH ))" | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: B artifact from approved surface-first method
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: pr471-B-pressure
+          if-no-files-found: error
           path: |
             wayfarer/results/out/shards/pressure.json
             wayfarer/results/out/shards/pressure_stages.json
-          if-no-files-found: warn
 
   C_primaries:
-    needs: A_rebuild
+    needs: [A_rebuild, B_pressure]
     runs-on: ubuntu-latest
     timeout-minutes: 12
     strategy:
@@ -208,11 +159,19 @@ jobs:
         with:
           name: pr471-A-source
           path: wayfarer/lab/packing_phase1b
+      - uses: actions/download-artifact@v4
+        with:
+          name: pr471-B-pressure
+          path: wayfarer/results/out/shards
       - name: Audit source-identical protected primaries with original K.audit
         shell: bash
         run: |
           set -euo pipefail
-          python -u wayfarer/lab/d9_sharded.py primary --shard ${{ matrix.shard }} --shards 4 | tee C-primary-${{ matrix.shard }}.log
+          if test "${{ matrix.shard }}" = "0"; then
+            python -u wayfarer/lab/d9_c0_pressure_recovery.py | tee C-primary-0.log
+          else
+            python -u wayfarer/lab/d9_sharded.py primary --shard ${{ matrix.shard }} --shards 4 | tee C-primary-${{ matrix.shard }}.log
+          fi
       - name: C shard runtime
         if: always()
         run: echo "C_${{ matrix.shard }} runtime_seconds=$(( $(date +%s) - START_EPOCH ))" | tee -a "$GITHUB_STEP_SUMMARY"
