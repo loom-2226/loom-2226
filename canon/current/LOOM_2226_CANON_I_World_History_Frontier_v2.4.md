@@ -1,5 +1,5 @@
 # LOOM 2226 — CANON I: WORLD, HISTORY & FRONTIER
-## Corrected Consolidated Baseline v2.4
+## Consolidated World Baseline v2.4 — CCR-2026-0004 reference courier v2.5 update
 
 **Status:** GOVERNING CANON  
 **Freeze:** 22 August 2026 — mobility/accessibility, metric-architecture and runtime consolidation  
@@ -3462,8 +3462,10 @@ Metric and Loom are mutually exclusive active states of the same unified relatio
 
 | Quantity | Governing value |
 |---|---:|
-| Wet mass | **~1,158.5 t** |
-| Dry excl. 300 t working fluid/water | **~858.5 t** |
+| Reference courier wet mass (CCR-2026-0004 v2.5) | **1153.8904317110823 t** |
+| Dry excl. 295.3904317110822 t working fluid/water | **~858.5 t** |
+| Normal remass | **245.39043171108221 t**, protected water **50 t** |
+| D–He3 house fuel | **3.8 t**, including **0.1 t reserve** |
 | Unified relational propulsion plant | **~88 t** |
 | Active Mc-299m | **10.0 kg** |
 | NRE active tiles | **100 × 100 g** |

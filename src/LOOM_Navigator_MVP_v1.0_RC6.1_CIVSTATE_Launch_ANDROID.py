@@ -265,7 +265,7 @@ def _new_state(campaign_name,ship_name,ship_class='WAYFARER'):
     if ship_class.strip().upper() not in ('WAYFARER','WAYFARER_BASELINE'):
         raise RuntimeError('Sequence H MVP currently supports WAYFARER only')
     cid,sid=_campaign_ids(campaign_name,ship_name)
-    fixed_nonremass=1158.5-250.0
+    fixed_nonremass=1153.8904317110823-245.39043171108221
     config={'ship_baseline':'WAYFARER_BASELINE','installed':['WAYFARER_BASELINE'],'model_status':'CANON_BASELINE'}
     s={
       'schema':STATE_SCHEMA,'sequence_h_version':SEQUENCE_H_VERSION,
@@ -275,7 +275,7 @@ def _new_state(campaign_name,ship_name,ship_class='WAYFARER'):
       'location_token':'CERES','status':'READY_HOLD',
       'ship':{
         'baseline':'WAYFARER_BASELINE','fixed_nonremass_mass_t':fixed_nonremass,'variable_cargo_t':0.0,
-        'remass_capacity_t':250.0,'remass_t':250.0,'wet_mass_t':1158.5,
+        'remass_capacity_t':245.39043171108221,'remass_t':245.39043171108221,'wet_mass_t':1153.8904317110823,
         'fusion_fuel':{'status':'OPEN_MODEL','quantity_t':None},
         'thermal':{'status':'OPEN_MODEL','last_declared_action':'NONE'},
         'configuration':config,'configuration_sha256':_sha_bytes(_canon(config)),

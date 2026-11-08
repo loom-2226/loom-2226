@@ -4,7 +4,7 @@ from __future__ import annotations
 """Promote already-earned Wayfarer configuration evidence without inventing hull/lattice identity.
 
 Mass-state values come from the current Wayfarer engineering candidate/project state.
-Node topology comes from governing Canon II v2.4. The repository does not yet expose a
+Node topology comes from Canon II v2.5 (pending PR #471 merge). The repository does not yet expose a
 governed hull/lattice configuration identity, so that member remains unresolved.
 """
 
@@ -23,20 +23,20 @@ def build_evidence() -> dict[str, Any]:
             "state": "PRESENT_QUALIFIED_SUPPORT",
             "model_id": "WAYFARER_MASS_STATE_CURRENT_ENGINEERING_V1",
             "dry_mass_t": 858.5,
-            "working_fluid_water_t": 300.0,
-            "wet_mass_t": 1158.5,
-            "normal_remass_t": 250.0,
+            "working_fluid_water_t": 295.3904317110822,
+            "wet_mass_t": 1153.8904317110823,
+            "normal_remass_t": 245.39043171108221,
             "protected_water_reserve_t": 50.0,
             "normal_remass_is_within_working_fluid_inventory": True,
-            "source": "engineering/current/LOOM_2226_Wayfarer_Project_State_and_Pixel_Handoff_v0.2.md",
-            "supporting_source": "engineering/current/LOOM_2226_Wayfarer_Canon_Candidate_Specification_v0.1.md",
+            "source": "canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.5.md",
+            "supporting_source": "geometry/wayfarer_geometry_seed.sql",
         },
         "node_topology": {
             "state": "PRESENT_QUALIFIED_SUPPORT",
             "topology_id": "UNIFIED_RELATIONAL_PROPULSION_208_NODE_BASELINE",
             "architecture": "UNIFIED_RELATIONAL_PROPULSION_PLANT",
             "distributed_boundary_metric_nodes": 208,
-            "source": "canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md",
+            "source": "canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.5.md",
         },
         "hull_lattice_configuration": {
             "state": "UNRESOLVED",

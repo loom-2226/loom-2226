@@ -27,8 +27,8 @@ def build_readiness_review() -> dict:
         "stable_vehicle_topology": {
             "primary_torch_count": 1,
             "architecture": "AXIAL_FUSION_TORCH_WITH_MAGNETIC_NOZZLE",
-            "reference_wet_mass_t": 1158.5,
-            "normal_remass_t": 250.0,
+            "reference_wet_mass_t": 1153.8904317110823,
+            "normal_remass_t": 245.39043171108221,
             "protected_water_reserve_t": 50.0,
             "post_normal_remass_mass_t": 908.5,
             "torch_and_high_metric_simultaneous_operation": "PROHIBITED",
