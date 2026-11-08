@@ -1,0 +1,70 @@
+name: "Wayfarer crown kT true BRep geometry and bow clashes"
+on:
+  pull_request:
+    paths:
+      - wayfarer/lab/crown_geom_v25.py
+      - .github/workflows/wayfarer-crown-brep.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  crown:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Confirm pinned geometry/source before CAD
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo '88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1  wayfarer/results/out/wayfarer_v05_geometry.json' | sha256sum -c -
+          test "$(git rev-list -n 1 canon-v2.5)" = bfa7dcfb12358b119d5e63773f30ed9d251a43fc
+      - name: Full existing G1-G12/D9 certification, unchanged source
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/certify.py | tee crown-baseline-cert.log
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('wayfarer/results/out/certification_report.json').read_text())
+          assert p['certified'] is True
+          assert p['geometry_sha256']=='88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1'
+          print('CROWN_BASELINE_FULL_CERT_PASS_NO_NEW_CROWN_CREDIT')
+          PY
+      - name: Generate true crown BRep panes, domes, AOI cavity and bow clash report
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install build123d==0.13.0
+          python -u wayfarer/lab/crown_geom_v25.py | tee crown-brep.log
+      - name: Preserve printable pane STLs and per-part GLB on draft PR branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- wayfarer/render/out/wayfarer_crown_parts_88ce19fc.glb \
+            wayfarer/render/out/wayfarer_crown_parts_88ce19fc_report.json \
+            wayfarer/render/out/crown_print_tiles/*.stl
+          test "$(git diff --cached --name-only | wc -l)" -eq 39
+          git commit -m 'class:engineering: preserve crown BRep overlay and bow-fit evidence'
+          git push origin "HEAD:${{ github.head_ref }}"
+      - name: Retain evidence even when CAD fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: crown-true-solids-bow-fit
+          if-no-files-found: warn
+          path: |
+            crown-baseline-cert.log
+            crown-brep.log
+            wayfarer/render/out/wayfarer_crown_parts_88ce19fc.glb
+            wayfarer/render/out/wayfarer_crown_parts_88ce19fc_report.json
+            wayfarer/render/out/crown_print_tiles/*.stl
