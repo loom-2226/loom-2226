@@ -6,10 +6,15 @@ on:
       - wayfarer/lab/glazing_geom_v251.py
       - .github/workflows/wayfarer-crown-brep.yml
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - wayfarer/lab/crown_geom_v25.py
 permissions:
   contents: write
 jobs:
   crown:
+    if: github.event_name != 'push'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -96,11 +101,19 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
-          v=json.loads(Path("wayfarer/render/out/wayfarer_crown_parts_88ce19fc_report.json").read_text())
+          v=json.loads(Path("wayfarer/render/out/wayfarer_crown_parts_v252_88ce19fc_report.json").read_text())
           assert v["full_D9_candidate_accepts"]
           assert v["full_D9_candidate_scan"]["category_d_count"] == 0
           assert not v["full_D9_candidate_scan"]["collision_errors"]
           assert v["per_part_GLTF_nodes"] == 373
+          assert v["drawing_revision"] == "canon-v2.5.2"
+          assert v["overall_length_m_unchanged"] == 54.5
+          assert v["all_internal_parts_inside_pressure_hull"]["pass_containment"] is True
+          assert v["all_internal_parts_inside_pressure_hull"]["escaped_parts"] == []
+          assert v["option_c_armour_shoulder_fairing"]["authored_gore_count"] == 16
+          assert abs(v["option_c_armour_shoulder_fairing"]["seam_step_at_pane_m"]) < 1e-9
+          assert abs(v["option_c_armour_shoulder_fairing"]["seam_step_at_cylinder_m"]) < 1e-9
+          assert v["outfit_L1_relocation"]["mass_rebooked_t"] == 0
           assert v["exterior_crown_brow_named_solid"] is True
           assert v["osteon_dome_seat_preserved"] is True
           assert v["exterior_crown_brow"]["radial_span_m"] == [3.4, 3.75]
@@ -111,8 +124,9 @@ jobs:
           assert v["canonical_source_mass_t_before_and_after"] == 868.1922552640087
           assert v["delta_v_ECON_km_s_unchanged"] == 707.845
           assert Path("wayfarer/render/out/crown_print_tiles/crown_brow.stl").is_file()
+          assert Path("wayfarer/render/out/crown_option_c_shoulder_v252.stl").is_file()
           assert len(list(Path("wayfarer/render/out/glazing_print_parts").glob("*.stl"))) == 137
-          print("CROWN_BROW_GLAZING_V251_CANDIDATE_D9_PASS")
+          print("OPTION_C_FAIRING_CONTAINMENT_V252_D9_PASS")
           PY
       - name: Preserve printable pane STLs and per-part GLB on draft PR branch
         shell: bash
@@ -120,8 +134,9 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- wayfarer/render/out/wayfarer_crown_parts_88ce19fc.glb \
-            wayfarer/render/out/wayfarer_crown_parts_88ce19fc_report.json \
+          git add -- wayfarer/render/out/crown_option_c_shoulder_v252.stl \
+            wayfarer/render/out/wayfarer_crown_parts_v252_88ce19fc.glb \
+            wayfarer/render/out/wayfarer_crown_parts_v252_88ce19fc_report.json \
             wayfarer/results/out/crown_seven_spares_bay_options.json \
             wayfarer/results/out/crown_solid_mass_modes_screen.json \
             wayfarer/render/out/crown_print_tiles/*.stl \
@@ -154,7 +169,56 @@ jobs:
             wayfarer/results/out/crown_solid_mass_modes_screen.json
             wayfarer/results/out/crown_seven_spares_bay_options.json
             crown-source-rebuild.log
-            wayfarer/render/out/wayfarer_crown_parts_88ce19fc.glb
-            wayfarer/render/out/wayfarer_crown_parts_88ce19fc_report.json
+            wayfarer/render/out/wayfarer_crown_parts_v252_88ce19fc.glb
+            wayfarer/render/out/crown_option_c_shoulder_v252.stl
+            wayfarer/render/out/wayfarer_crown_parts_v252_88ce19fc_report.json
             wayfarer/render/out/crown_print_tiles/*.stl
             wayfarer/render/out/glazing_print_parts/*.stl
+
+  tag_geometry_release:
+    # Only a merged, fully exported v2.5.2 main commit may be tagged.
+    # Tags are the two explicitly requested release refs, not a new design.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify release candidate and create both missing annotated tags
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("wayfarer/render/out/wayfarer_crown_parts_v252_88ce19fc_report.json")
+          r=json.loads(p.read_text())
+          assert r["drawing_revision"]=="canon-v2.5.2"
+          assert r["full_D9_candidate_accepts"]
+          assert r["full_D9_candidate_scan"]["category_d_count"]==0
+          assert not r["full_D9_candidate_scan"]["collision_errors"]
+          assert r["all_internal_parts_inside_pressure_hull"]["pass_containment"]
+          assert r["overall_length_m_unchanged"]==54.5
+          assert r["canonical_source_mass_t_before_and_after"]==868.1922552640087
+          assert r["delta_v_ECON_km_s_unchanged"]==707.845
+          assert Path("wayfarer/render/out/wayfarer_crown_parts_v252_88ce19fc.glb").is_file()
+          print("CANON_V252_MERGE_ARTIFACT_CHECK_PASS")
+          PY
+          git fetch --tags origin
+          old=f42f897756a91affc6d8531bcfa94dde1e9917a9
+          git merge-base --is-ancestor "$old" "$GITHUB_SHA"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          if git show-ref --verify --quiet refs/tags/canon-v2.5.1; then
+            test "$(git rev-list -n 1 canon-v2.5.1)" = "$old"
+          else
+            git tag -a canon-v2.5.1 "$old" -m 'kT Wayfarer canon-v2.5.1: all glazing and crown brow geometry'
+            git push origin refs/tags/canon-v2.5.1
+          fi
+          if git show-ref --verify --quiet refs/tags/canon-v2.5.2; then
+            test "$(git rev-list -n 1 canon-v2.5.2)" = "$GITHUB_SHA"
+          else
+            git tag -a canon-v2.5.2 "$GITHUB_SHA" -m 'kT Wayfarer canon-v2.5.2: Option C fairing and internal containment'
+            git push origin refs/tags/canon-v2.5.2
+          fi
+          echo CANON_V251_V252_TAGS_VERIFIED
