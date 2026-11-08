@@ -1,0 +1,1201 @@
+{
+  "source_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+  "authorization": "kT SOLIDS GOVERN",
+  "result_class": "PHYSICAL_MASS_SCREEN_NOT_GOVERNING_SOURCE",
+  "old_dry_t": 868.1922552640087,
+  "retired": [
+    {
+      "id": "crown_dome",
+      "mass_t": 6.201515,
+      "centroid_m": [
+        0.3,
+        0.0,
+        0.0
+      ],
+      "reason": "old physical proxy retired"
+    },
+    {
+      "id": "crown_c_additional_strata_gore",
+      "mass_t": 3.888898,
+      "centroid_m": [
+        -0.31,
+        0.0,
+        0.0
+      ],
+      "reason": "old physical proxy retired"
+    },
+    {
+      "id": "crown_backup_pressure_dome",
+      "mass_t": 4.728898,
+      "centroid_m": [
+        -0.32,
+        0.0,
+        0.0
+      ],
+      "reason": "old physical proxy retired"
+    },
+    {
+      "id": "crown_c_seven_spare_panes",
+      "mass_t": 0.385772,
+      "centroid_m": [
+        15.5,
+        -3.0,
+        0.0
+      ],
+      "reason": "old physical proxy retired"
+    },
+    {
+      "id": "armor",
+      "mass_t": 107.48889178484237,
+      "centroid_m": [
+        6.706838802315266,
+        0.002298700142007257,
+        0.019159791185544596
+      ],
+      "reason": "old cut source material retired"
+    },
+    {
+      "id": "pressure_vessel",
+      "mass_t": 15.355555969263195,
+      "centroid_m": [
+        6.306790675789514,
+        0.03294346010594768,
+        0.04197076072569832
+      ],
+      "reason": "old cut source material retired"
+    }
+  ],
+  "physical_new_parts": [
+    {
+      "id": "dry:armor",
+      "material": "source booked effective armor",
+      "volume_m3": 71.46047942794934,
+      "density_t_m3": 1.3253375319115979,
+      "mass_t": 94.70925543425788,
+      "centroid_m": [
+        7.534546512290012,
+        0.0051628820295649665,
+        9.466341310847406e-05
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:pressure_vessel",
+      "material": "source booked effective pressure_vessel",
+      "volume_m3": 9.864411164097419,
+      "density_t_m3": 1.352120682497678,
+      "mass_t": 13.337874355637116,
+      "centroid_m": [
+        7.2976311236278075,
+        0.0037289626455850105,
+        -1.4948306186277707e-05
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_osteon_brow_seat",
+      "material": "Osteon titanium, nominal Ti alloy assumption",
+      "volume_m3": 5.529203070318032,
+      "density_t_m3": 4.43,
+      "mass_t": 24.494369601508883,
+      "centroid_m": [
+        1.141288794756804,
+        -8.031703741069493e-17,
+        -2.316475094530427e-16
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_outer_pressure_dome",
+      "material": "transparent ceramic",
+      "volume_m3": 1.2713465875234746,
+      "density_t_m3": 3.75,
+      "mass_t": 4.76754970321303,
+      "centroid_m": [
+        0.2991163043351848,
+        -0.0032430124521410026,
+        9.093635288696794e-14
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_inner_pressure_dome",
+      "material": "transparent ceramic",
+      "volume_m3": 1.257582469558816,
+      "density_t_m3": 3.75,
+      "mass_t": 4.71593426084556,
+      "centroid_m": [
+        0.3920620056545028,
+        -0.0030290747649314794,
+        3.162782025118245e-14
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_01",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.016875000000000015,
+      "density_t_m3": 3.75,
+      "mass_t": 0.06328125000000005,
+      "centroid_m": [
+        -1.1949999999999998,
+        5.022666953129139e-17,
+        -4.25930831242731e-17
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_02",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.008593750000000008,
+      "density_t_m3": 3.75,
+      "mass_t": 0.03222656250000003,
+      "centroid_m": [
+        -1.1949999999999998,
+        1.3712459406597766,
+        0.36742424242424243
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_03",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.008593750000000008,
+      "density_t_m3": 3.75,
+      "mass_t": 0.03222656250000003,
+      "centroid_m": [
+        -1.1949999999999998,
+        1.0038216982355346,
+        1.0038216982355346
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_04",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.008593750000000008,
+      "density_t_m3": 3.75,
+      "mass_t": 0.03222656250000003,
+      "centroid_m": [
+        -1.1949999999999998,
+        0.36742424242424265,
+        1.3712459406597768
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_05",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.008593750000000004,
+      "density_t_m3": 3.75,
+      "mass_t": 0.032226562500000014,
+      "centroid_m": [
+        -1.195,
+        -0.36742424242424226,
+        1.371245940659777
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_06",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.008593750000000011,
+      "density_t_m3": 3.75,
+      "mass_t": 0.03222656250000004,
+      "centroid_m": [
+        -1.1949999999999998,
+        -1.0038216982355344,
+        1.0038216982355344
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_07",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.008593750000000008,
+      "density_t_m3": 3.75,
+      "mass_t": 0.03222656250000003,
+      "centroid_m": [
+        -1.1949999999999998,
+        -1.3712459406597768,
+        0.36742424242424243
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_08",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.008593750000000013,
+      "density_t_m3": 3.75,
+      "mass_t": 0.03222656250000005,
+      "centroid_m": [
+        -1.195,
+        -1.3712459406597768,
+        -0.36742424242424243
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_09",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.008593749999999997,
+      "density_t_m3": 3.75,
+      "mass_t": 0.032226562499999986,
+      "centroid_m": [
+        -1.1950000000000003,
+        -1.0038216982355352,
+        -1.0038216982355346
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_10",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.008593750000000015,
+      "density_t_m3": 3.75,
+      "mass_t": 0.032226562500000056,
+      "centroid_m": [
+        -1.1949999999999996,
+        -0.36742424242424293,
+        -1.3712459406597766
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_11",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.008593750000000015,
+      "density_t_m3": 3.75,
+      "mass_t": 0.032226562500000056,
+      "centroid_m": [
+        -1.1949999999999998,
+        0.3674242424242425,
+        -1.3712459406597766
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_12",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.008593749999999997,
+      "density_t_m3": 3.75,
+      "mass_t": 0.032226562499999986,
+      "centroid_m": [
+        -1.1950000000000003,
+        1.0038216982355346,
+        -1.0038216982355352
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_13",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.008593750000000013,
+      "density_t_m3": 3.75,
+      "mass_t": 0.03222656250000005,
+      "centroid_m": [
+        -1.195,
+        1.3712459406597768,
+        -0.367424242424243
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_14",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.014142490247646904,
+      "density_t_m3": 3.75,
+      "mass_t": 0.05303433842867589,
+      "centroid_m": [
+        -0.7263570122433265,
+        2.2306201808150035,
+        0.5976928760699454
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_15",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.014142490247646718,
+      "density_t_m3": 3.75,
+      "mass_t": 0.05303433842867519,
+      "centroid_m": [
+        -0.7263570122433263,
+        1.6329273047450592,
+        1.632927304745058
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_16",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.014142490247646885,
+      "density_t_m3": 3.75,
+      "mass_t": 0.05303433842867582,
+      "centroid_m": [
+        -0.7263570122433265,
+        0.5976928760699458,
+        2.230620180815003
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_17",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.01414249024764686,
+      "density_t_m3": 3.75,
+      "mass_t": 0.05303433842867573,
+      "centroid_m": [
+        -0.726357012243327,
+        -0.5976928760699446,
+        2.2306201808150035
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_18",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.0141424902476468,
+      "density_t_m3": 3.75,
+      "mass_t": 0.0530343384286755,
+      "centroid_m": [
+        -0.7263570122433264,
+        -1.6329273047450594,
+        1.6329273047450574
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_19",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.014142490247646914,
+      "density_t_m3": 3.75,
+      "mass_t": 0.05303433842867593,
+      "centroid_m": [
+        -0.7263570122433269,
+        -2.230620180815003,
+        0.5976928760699446
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_20",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.014142490247646935,
+      "density_t_m3": 3.75,
+      "mass_t": 0.053034338428676005,
+      "centroid_m": [
+        -0.7263570122433266,
+        -2.2306201808150035,
+        -0.5976928760699449
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_21",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.014142490247646805,
+      "density_t_m3": 3.75,
+      "mass_t": 0.05303433842867552,
+      "centroid_m": [
+        -0.7263570122433268,
+        -1.632927304745058,
+        -1.6329273047450583
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_22",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.014142490247646845,
+      "density_t_m3": 3.75,
+      "mass_t": 0.053034338428675665,
+      "centroid_m": [
+        -0.7263570122433272,
+        -0.5976928760699456,
+        -2.230620180815003
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_23",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.014142490247646893,
+      "density_t_m3": 3.75,
+      "mass_t": 0.05303433842867585,
+      "centroid_m": [
+        -0.726357012243327,
+        0.5976928760699438,
+        -2.2306201808150035
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_24",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.01414249024764681,
+      "density_t_m3": 3.75,
+      "mass_t": 0.05303433842867554,
+      "centroid_m": [
+        -0.7263570122433268,
+        1.6329273047450588,
+        -1.6329273047450583
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_25",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.014142490247646907,
+      "density_t_m3": 3.75,
+      "mass_t": 0.0530343384286759,
+      "centroid_m": [
+        -0.726357012243327,
+        2.2306201808150017,
+        -0.5976928760699463
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_26",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.01860853979953512,
+      "density_t_m3": 3.75,
+      "mass_t": 0.06978202424825669,
+      "centroid_m": [
+        0.16181303360583302,
+        2.623344123995872,
+        1.5145884361660404
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_27",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.018608539799535185,
+      "density_t_m3": 3.75,
+      "mass_t": 0.06978202424825694,
+      "centroid_m": [
+        0.16181303360583402,
+        1.5145884361660407,
+        2.6233441239958735
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_28",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.01860853979953487,
+      "density_t_m3": 3.75,
+      "mass_t": 0.06978202424825576,
+      "centroid_m": [
+        0.1618130336058318,
+        -2.2776569660280915e-16,
+        3.0291768723320787
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_29",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.018608539799535147,
+      "density_t_m3": 3.75,
+      "mass_t": 0.0697820242482568,
+      "centroid_m": [
+        0.16181303360583163,
+        -1.5145884361660404,
+        2.6233441239958717
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_30",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.018608539799535057,
+      "density_t_m3": 3.75,
+      "mass_t": 0.06978202424825647,
+      "centroid_m": [
+        0.16181303360583185,
+        -2.6233441239958712,
+        1.5145884361660407
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_31",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.01860853979953492,
+      "density_t_m3": 3.75,
+      "mass_t": 0.06978202424825596,
+      "centroid_m": [
+        0.1618130336058318,
+        -3.029176872332079,
+        1.7637901358139271e-16
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_32",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.01860853979953507,
+      "density_t_m3": 3.75,
+      "mass_t": 0.06978202424825651,
+      "centroid_m": [
+        0.16181303360583224,
+        -2.623344123995872,
+        -1.5145884361660404
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_33",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.018608539799535175,
+      "density_t_m3": 3.75,
+      "mass_t": 0.0697820242482569,
+      "centroid_m": [
+        0.16181303360583169,
+        -1.5145884361660389,
+        -2.6233441239958717
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_34",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.018608539799534893,
+      "density_t_m3": 3.75,
+      "mass_t": 0.06978202424825584,
+      "centroid_m": [
+        0.16181303360583182,
+        -9.875773280783463e-16,
+        -3.029176872332079
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_35",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.01860853979953523,
+      "density_t_m3": 3.75,
+      "mass_t": 0.06978202424825711,
+      "centroid_m": [
+        0.16181303360583202,
+        1.5145884361660393,
+        -2.623344123995872
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_36",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.01860853979953507,
+      "density_t_m3": 3.75,
+      "mass_t": 0.06978202424825651,
+      "centroid_m": [
+        0.16181303360583169,
+        2.6233441239958717,
+        -1.5145884361660396
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_pane_37",
+      "material": "nonpressure ceramic",
+      "volume_m3": 0.018608539799534907,
+      "density_t_m3": 3.75,
+      "mass_t": 0.0697820242482559,
+      "centroid_m": [
+        0.16181303360583177,
+        3.0291768723320796,
+        -1.1049111783603471e-15
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_gore_closed_coverage",
+      "material": "Strata 2700kg/m3, render-equivalent closed 0.10m",
+      "volume_m3": 5.288783800000001,
+      "density_t_m3": 2.7,
+      "mass_t": 14.279716260000004,
+      "centroid_m": [
+        -0.4566098405574875,
+        0,
+        0
+      ],
+      "method": "rendered exterior coverage equivalent, NOT 16 physical shutter BReps",
+      "modeling_hold": true
+    },
+    {
+      "id": "dry:crown_tambour_track_01",
+      "material": "Osteon titanium envelope, not proven track hardware",
+      "volume_m3": 0.011274634761734336,
+      "density_t_m3": 4.43,
+      "mass_t": 0.049946631994483105,
+      "centroid_m": [
+        0.03126668303524885,
+        2.325,
+        -1.1306277812270878e-20
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_tambour_track_02",
+      "material": "Osteon titanium envelope, not proven track hardware",
+      "volume_m3": 0.011274634761734334,
+      "density_t_m3": 4.43,
+      "mass_t": 0.0499466319944831,
+      "centroid_m": [
+        0.031266683035248856,
+        2.1480199130887416,
+        0.8897389802488338
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_tambour_track_03",
+      "material": "Osteon titanium envelope, not proven track hardware",
+      "volume_m3": 0.011274634761734334,
+      "density_t_m3": 4.43,
+      "mass_t": 0.0499466319944831,
+      "centroid_m": [
+        0.031266683035248835,
+        1.6440232662587233,
+        1.644023266258723
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_tambour_track_04",
+      "material": "Osteon titanium envelope, not proven track hardware",
+      "volume_m3": 0.011274634761734332,
+      "density_t_m3": 4.43,
+      "mass_t": 0.04994663199448309,
+      "centroid_m": [
+        0.031266683035248766,
+        0.889738980248834,
+        2.1480199130887416
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_tambour_track_05",
+      "material": "Osteon titanium envelope, not proven track hardware",
+      "volume_m3": 0.011274634761734336,
+      "density_t_m3": 4.43,
+      "mass_t": 0.049946631994483105,
+      "centroid_m": [
+        0.03126668303524885,
+        1.4239490147012793e-16,
+        2.325
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_tambour_track_06",
+      "material": "Osteon titanium envelope, not proven track hardware",
+      "volume_m3": 0.011274634761734334,
+      "density_t_m3": 4.43,
+      "mass_t": 0.0499466319944831,
+      "centroid_m": [
+        0.03126668303524876,
+        -0.8897389802488337,
+        2.148019913088741
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_tambour_track_07",
+      "material": "Osteon titanium envelope, not proven track hardware",
+      "volume_m3": 0.011274634761734336,
+      "density_t_m3": 4.43,
+      "mass_t": 0.049946631994483105,
+      "centroid_m": [
+        0.031266683035248925,
+        -1.6440232662587229,
+        1.644023266258723
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_tambour_track_08",
+      "material": "Osteon titanium envelope, not proven track hardware",
+      "volume_m3": 0.011274634761734334,
+      "density_t_m3": 4.43,
+      "mass_t": 0.0499466319944831,
+      "centroid_m": [
+        0.03126668303524878,
+        -2.1480199130887416,
+        0.8897389802488341
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_tambour_track_09",
+      "material": "Osteon titanium envelope, not proven track hardware",
+      "volume_m3": 0.011274634761734336,
+      "density_t_m3": 4.43,
+      "mass_t": 0.049946631994483105,
+      "centroid_m": [
+        0.03126668303524889,
+        -2.325,
+        2.843497605396926e-16
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_tambour_track_10",
+      "material": "Osteon titanium envelope, not proven track hardware",
+      "volume_m3": 0.011274634761734332,
+      "density_t_m3": 4.43,
+      "mass_t": 0.04994663199448309,
+      "centroid_m": [
+        0.03126668303524878,
+        -2.1480199130887416,
+        -0.8897389802488335
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_tambour_track_11",
+      "material": "Osteon titanium envelope, not proven track hardware",
+      "volume_m3": 0.011274634761734334,
+      "density_t_m3": 4.43,
+      "mass_t": 0.0499466319944831,
+      "centroid_m": [
+        0.031266683035248814,
+        -1.6440232662587233,
+        -1.6440232662587226
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_tambour_track_12",
+      "material": "Osteon titanium envelope, not proven track hardware",
+      "volume_m3": 0.011274634761734334,
+      "density_t_m3": 4.43,
+      "mass_t": 0.0499466319944831,
+      "centroid_m": [
+        0.03126668303524899,
+        -0.889738980248835,
+        -2.148019913088741
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_tambour_track_13",
+      "material": "Osteon titanium envelope, not proven track hardware",
+      "volume_m3": 0.011274634761734336,
+      "density_t_m3": 4.43,
+      "mass_t": 0.049946631994483105,
+      "centroid_m": [
+        0.03126668303524885,
+        -4.260424797139567e-16,
+        -2.325
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_tambour_track_14",
+      "material": "Osteon titanium envelope, not proven track hardware",
+      "volume_m3": 0.011274634761734334,
+      "density_t_m3": 4.43,
+      "mass_t": 0.0499466319944831,
+      "centroid_m": [
+        0.031266683035248835,
+        0.8897389802488341,
+        -2.148019913088741
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_tambour_track_15",
+      "material": "Osteon titanium envelope, not proven track hardware",
+      "volume_m3": 0.011274634761734336,
+      "density_t_m3": 4.43,
+      "mass_t": 0.049946631994483105,
+      "centroid_m": [
+        0.031266683035248925,
+        1.6440232662587229,
+        -1.644023266258723
+      ],
+      "method": "BRep physical volume x named density"
+    },
+    {
+      "id": "dry:crown_tambour_track_16",
+      "material": "Osteon titanium envelope, not proven track hardware",
+      "volume_m3": 0.011274634761734332,
+      "density_t_m3": 4.43,
+      "mass_t": 0.04994663199448309,
+      "centroid_m": [
+        0.03126668303524867,
+        2.1480199130887407,
+        -0.889738980248835
+      ],
+      "method": "BRep physical volume x named density"
+    }
+  ],
+  "existing_conservative_AOI_t": 3.04101485,
+  "AOI_declared_volume_m3": 3.023,
+  "AOI_true_cavity_m3": 2.4886611982989955,
+  "unchanged_retainer_booked_t": 0.12,
+  "titanium_density_assumption_t_m3": 4.43,
+  "strata_render_density_t_m3": 2.7,
+  "full_coverage_gore_state": "closed only; density/mass is source area-times-render-thickness, physically detailed BRep OPEN",
+  "options": [
+    {
+      "label": "A: lower bay wall forward",
+      "spare_rack": [
+        20.0,
+        22.6
+      ],
+      "new_total_dry_t": 889.5437336897546,
+      "net_dry_mass_delta_t": 21.35147842574588,
+      "dry_cg_before_m": [
+        24.12982222122029,
+        0.02900218732884304,
+        -0.34328213685594233
+      ],
+      "dry_cg_after_m": [
+        23.57298148311571,
+        0.02933279451898442,
+        -0.33894915341565585
+      ],
+      "dry_cg_delta_m": [
+        -0.5568407381045795,
+        0.00033060719014138193,
+        0.004332983440286486
+      ],
+      "six_mode_dv": [
+        {
+          "mode": "ECON",
+          "ve_km_s": 3000,
+          "old_dv_km_s": 707.8454550926167,
+          "new_dv_km_s": 693.5422405508737,
+          "delta_dv_km_s": -14.303214541743046
+        },
+        {
+          "mode": "CRUISE",
+          "ve_km_s": 2000,
+          "old_dv_km_s": 471.89697006174447,
+          "new_dv_km_s": 462.36149370058246,
+          "delta_dv_km_s": -9.535476361162011
+        },
+        {
+          "mode": "EXPEDITE",
+          "ve_km_s": 1000,
+          "old_dv_km_s": 235.94848503087223,
+          "new_dv_km_s": 231.18074685029123,
+          "delta_dv_km_s": -4.767738180581006
+        },
+        {
+          "mode": "FAST",
+          "ve_km_s": 700,
+          "old_dv_km_s": 165.16393952161056,
+          "new_dv_km_s": 161.82652279520386,
+          "delta_dv_km_s": -3.337416726406701
+        },
+        {
+          "mode": "HARD",
+          "ve_km_s": 450,
+          "old_dv_km_s": 106.1768182638925,
+          "new_dv_km_s": 104.03133608263104,
+          "delta_dv_km_s": -2.145482181261457
+        },
+        {
+          "mode": "LIMIT",
+          "ve_km_s": 300,
+          "old_dv_km_s": 70.78454550926168,
+          "new_dv_km_s": 69.35422405508737,
+          "delta_dv_km_s": -1.4303214541743046
+        }
+      ],
+      "state_mass_cg": [
+        {
+          "state": "S1",
+          "old_mass_t": 1167.532686975091,
+          "new_mass_t": 1188.8841654008368,
+          "old_cg_m": [
+            23.925719748020434,
+            0.020337553134054668,
+            -0.4138480481458185
+          ],
+          "new_cg_m": [
+            23.512747387903755,
+            0.020740529570550923,
+            -0.40933872338903743
+          ]
+        },
+        {
+          "state": "S2",
+          "old_mass_t": 1217.532686975091,
+          "new_mass_t": 1238.8841654008368,
+          "old_cg_m": [
+            23.579703586066138,
+            0.01950235776921471,
+            -0.3968526913651309
+          ],
+          "new_cg_m": [
+            23.18936173121037,
+            0.019903464647542547,
+            -0.3928182634937171
+          ]
+        },
+        {
+          "state": "S3",
+          "old_mass_t": 1072.1422552640088,
+          "new_mass_t": 1093.4937336897547,
+          "old_cg_m": [
+            23.921277223436665,
+            0.022131048256962473,
+            -0.3442097470820592
+          ],
+          "new_cg_m": [
+            23.472366150515597,
+            0.022534158506592544,
+            -0.3406668057758058
+          ]
+        },
+        {
+          "state": "S4",
+          "old_mass_t": 922.1422552640087,
+          "new_mass_t": 943.4937336897544,
+          "old_cg_m": [
+            23.49354633855248,
+            0.025701784485116744,
+            -0.20556426023383056
+          ],
+          "new_cg_m": [
+            22.982945429123536,
+            0.026088176065049602,
+            -0.20459562847368343
+          ]
+        },
+        {
+          "state": "S5",
+          "old_mass_t": 891.4100071827529,
+          "new_mass_t": 912.7614856084988,
+          "old_cg_m": [
+            23.43643844830162,
+            0.026587879111117103,
+            -0.2126512929025705
+          ],
+          "new_cg_m": [
+            22.909981725321554,
+            0.02696655263051576,
+            -0.21148426664447778
+          ]
+        },
+        {
+          "state": "S6",
+          "old_mass_t": 1136.800438893835,
+          "new_mass_t": 1158.151917319581,
+          "old_cg_m": [
+            23.892622571825264,
+            0.020887358277417972,
+            -0.4250360108245949
+          ],
+          "new_cg_m": [
+            23.469301918709107,
+            0.02129089182490352,
+            -0.42020076921250005
+          ]
+        },
+        {
+          "state": "S7",
+          "old_mass_t": 1106.1840817264217,
+          "new_mass_t": 1127.5355601521676,
+          "old_cg_m": [
+            24.022597693875255,
+            0.1560439615947766,
+            -0.37055140176059626
+          ],
+          "new_cg_m": [
+            23.585321208337852,
+            0.15389907123958627,
+            -0.3666166102155853
+          ]
+        }
+      ],
+      "seven_spares_total_t": 0.373367100354,
+      "seven_spares_zero_clashes": true
+    },
+    {
+      "label": "B: lower bay wall aft",
+      "spare_rack": [
+        27.0,
+        29.6
+      ],
+      "new_total_dry_t": 889.5437336897546,
+      "net_dry_mass_delta_t": 21.35147842574588,
+      "dry_cg_before_m": [
+        24.12982222122029,
+        0.02900218732884304,
+        -0.34328213685594233
+      ],
+      "dry_cg_after_m": [
+        23.57591958453051,
+        0.02933279451898442,
+        -0.33894915341565585
+      ],
+      "dry_cg_delta_m": [
+        -0.5539026366897808,
+        0.00033060719014138193,
+        0.004332983440286486
+      ],
+      "six_mode_dv": [
+        {
+          "mode": "ECON",
+          "ve_km_s": 3000,
+          "old_dv_km_s": 707.8454550926167,
+          "new_dv_km_s": 693.5422405508737,
+          "delta_dv_km_s": -14.303214541743046
+        },
+        {
+          "mode": "CRUISE",
+          "ve_km_s": 2000,
+          "old_dv_km_s": 471.89697006174447,
+          "new_dv_km_s": 462.36149370058246,
+          "delta_dv_km_s": -9.535476361162011
+        },
+        {
+          "mode": "EXPEDITE",
+          "ve_km_s": 1000,
+          "old_dv_km_s": 235.94848503087223,
+          "new_dv_km_s": 231.18074685029123,
+          "delta_dv_km_s": -4.767738180581006
+        },
+        {
+          "mode": "FAST",
+          "ve_km_s": 700,
+          "old_dv_km_s": 165.16393952161056,
+          "new_dv_km_s": 161.82652279520386,
+          "delta_dv_km_s": -3.337416726406701
+        },
+        {
+          "mode": "HARD",
+          "ve_km_s": 450,
+          "old_dv_km_s": 106.1768182638925,
+          "new_dv_km_s": 104.03133608263104,
+          "delta_dv_km_s": -2.145482181261457
+        },
+        {
+          "mode": "LIMIT",
+          "ve_km_s": 300,
+          "old_dv_km_s": 70.78454550926168,
+          "new_dv_km_s": 69.35422405508737,
+          "delta_dv_km_s": -1.4303214541743046
+        }
+      ],
+      "state_mass_cg": [
+        {
+          "state": "S1",
+          "old_mass_t": 1167.532686975091,
+          "new_mass_t": 1188.8841654008368,
+          "old_cg_m": [
+            23.925719748020434,
+            0.020337553134054668,
+            -0.4138480481458185
+          ],
+          "new_cg_m": [
+            23.514945726294105,
+            0.020740529570550923,
+            -0.40933872338903743
+          ]
+        },
+        {
+          "state": "S2",
+          "old_mass_t": 1217.532686975091,
+          "new_mass_t": 1238.8841654008368,
+          "old_cg_m": [
+            23.579703586066138,
+            0.01950235776921471,
+            -0.3968526913651309
+          ],
+          "new_cg_m": [
+            23.19147134708526,
+            0.019903464647542547,
+            -0.3928182634937171
+          ]
+        },
+        {
+          "state": "S3",
+          "old_mass_t": 1072.1422552640088,
+          "new_mass_t": 1093.4937336897547,
+          "old_cg_m": [
+            23.921277223436665,
+            0.022131048256962473,
+            -0.3442097470820592
+          ],
+          "new_cg_m": [
+            23.474756259962007,
+            0.022534158506592544,
+            -0.3406668057758058
+          ]
+        },
+        {
+          "state": "S4",
+          "old_mass_t": 922.1422552640087,
+          "new_mass_t": 943.4937336897544,
+          "old_cg_m": [
+            23.49354633855248,
+            0.025701784485116744,
+            -0.20556426023383056
+          ],
+          "new_cg_m": [
+            22.98571552669722,
+            0.026088176065049602,
+            -0.20459562847368343
+          ]
+        },
+        {
+          "state": "S5",
+          "old_mass_t": 891.4100071827529,
+          "new_mass_t": 912.7614856084988,
+          "old_cg_m": [
+            23.43643844830162,
+            0.026587879111117103,
+            -0.2126512929025705
+          ],
+          "new_cg_m": [
+            22.91284509077209,
+            0.02696655263051576,
+            -0.21148426664447778
+          ]
+        },
+        {
+          "state": "S6",
+          "old_mass_t": 1136.800438893835,
+          "new_mass_t": 1158.151917319581,
+          "old_cg_m": [
+            23.892622571825264,
+            0.020887358277417972,
+            -0.4250360108245949
+          ],
+          "new_cg_m": [
+            23.471558591312586,
+            0.02129089182490352,
+            -0.42020076921250005
+          ]
+        },
+        {
+          "state": "S7",
+          "old_mass_t": 1106.1840817264217,
+          "new_mass_t": 1127.5355601521676,
+          "old_cg_m": [
+            24.022597693875255,
+            0.1560439615947766,
+            -0.37055140176059626
+          ],
+          "new_cg_m": [
+            23.587639157141282,
+            0.15389907123958627,
+            -0.3666166102155853
+          ]
+        }
+      ],
+      "seven_spares_total_t": 0.373367100354,
+      "seven_spares_zero_clashes": true
+    }
+  ]
+}
