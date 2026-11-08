@@ -40,7 +40,22 @@ jobs:
           PY
       - name: Update mass basis and SHA-256 baseline register
         run: |
-          python wayfarer/lab/mass_basis.py --capture
+          python - <<'PY'
+          import json,pathlib,sys
+          sys.path.insert(0,"wayfarer/lab")
+          import mass_basis as m
+          g=json.loads(m.GFILE.read_text()); i=json.loads(m.IFILE.read_text())
+          old=json.loads(m.BFILE.read_text())
+          b=m.build_capture(g,i,{"Je_sweep":[]})
+          b["halo_cases_Je1000"]=old["halo_cases_Je1000"]
+          b["historical_halo_note"]="HALO cases are retained historical sensitivity, no new 2226 engineering credit; current mass/part inventory regenerated against approved v2.5 source."
+          b["status"]="CURRENT SOURCE-LOCKED v2.5 MASS/PART INVENTORY; HALO CASES HISTORICAL / NON-CANON"
+          b["date"]="2026-11-08"
+          m.BFILE.write_text(json.dumps(b,indent=2)+chr(10))
+          assert len(b["parts"])==len(g["parts"])==296
+          assert b["geometry_sha256"]=="88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1"
+          print("MASS_BASIS_RECAPTURED",b["source_dry_t"],b["S1_mass_t"],len(b["parts"]))
+          PY
           rm -f wayfarer/docs/MASS_WATERFALL_2026_11_04.md
           python - <<'PY'
           import hashlib,pathlib
