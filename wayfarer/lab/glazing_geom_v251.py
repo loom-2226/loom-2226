@@ -113,7 +113,7 @@ def build_glazing(g, inputs, spare_source_pane):
             solid = solid.rotate(Axis.X, -(a0+a1)/2)
         solid = solid.rotate(Axis.Y, 90)
         if tilted:
-            solid = solid.rotate(Axis.X, 50)
+            solid = solid.rotate(Axis.X, math.degrees(math.atan(slope / math.cos(math.radians((a1-a0)/2)))))
         bounds = P.bounds(solid)
         origin = [(bounds[0]+bounds[1])/2,
                   (bounds[2]+bounds[3])/2,
