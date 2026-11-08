@@ -127,6 +127,10 @@ jobs:
           git diff --cached --name-only | tee crown-output-changes.txt
           test "$(git diff --cached --name-only | wc -l)" -ge 1
           git commit -m 'class:engineering: preserve crown BRep overlay and bow-fit evidence'
+          # Generated source STEP/certification scratch outputs are not part of this
+          # artifact commit. Discard ONLY unstaged tracked runner byproducts so
+          # rebase can preserve any concurrent documentation commits.
+          git restore --worktree -- .
           # Preserve unrelated documentation commits that may have advanced the
           # PR branch while this deterministic BRep job was running.
           git fetch origin "${{ github.head_ref }}"
