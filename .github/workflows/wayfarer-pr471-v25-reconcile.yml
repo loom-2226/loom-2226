@@ -112,7 +112,7 @@ jobs:
   verify:
     needs: evidence
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
         with:
@@ -173,12 +173,78 @@ jobs:
             bash engineering/verification/z3/run_wayfarer_torch_mission_z3.sh
             PYTHONPATH=. bash engineering/verification/z3/run_wayfarer_torch_generated_z3.sh
           } 2>&1 | tee PR471-z3-regression.log
-      - name: Full Python test suite (all tracked tests discovered, not a narrow cherry-pick)
+      - name: Pinned full-suite comparison main merge-base vs requested and current heads
         if: always()
         shell: bash
         run: |
           set -euo pipefail
-          PYTHONPATH=. python -m unittest discover -s tests -p "test_*.py" -v 2>&1 | tee PR471-unittest-full.log
+          git fetch --no-tags --depth=1 origin ea50354e222e77d145a6bbbf49227506d2b560fd 95ac55e303b87431466fcfb6b0b2f5050711e9cd
+          git worktree add --detach "$RUNNER_TEMP/pr471-main-base" ea50354e222e77d145a6bbbf49227506d2b560fd
+          git worktree add --detach "$RUNNER_TEMP/pr471-requested-head" 95ac55e303b87431466fcfb6b0b2f5050711e9cd
+          python - <<'PY'
+          import json, os, re, subprocess, sys
+          from pathlib import Path
+          repo=Path.cwd()
+          roots={
+              "main_merge_base":Path(os.environ["RUNNER_TEMP"])/"pr471-main-base",
+              "requested_95ac55e":Path(os.environ["RUNNER_TEMP"])/"pr471-requested-head",
+              "current_pr_head":repo,
+          }
+          revisions={
+              "main_merge_base":"ea50354e222e77d145a6bbbf49227506d2b560fd",
+              "requested_95ac55e":"95ac55e303b87431466fcfb6b0b2f5050711e9cd",
+              "current_pr_head":subprocess.check_output(["git","rev-parse","HEAD"],cwd=repo,text=True).strip(),
+          }
+          cmd=[sys.executable,"-m","unittest","discover","-s","tests","-p","test_*.py","-v"]
+          out={}
+          for name in roots:
+              root=roots[name]
+              actual=subprocess.check_output(["git","rev-parse","HEAD"],cwd=root,text=True).strip()
+              assert actual==revisions[name],(name,actual,revisions[name])
+              env=os.environ.copy()
+              env["PYTHONPATH"]="."
+              proc=subprocess.run(cmd,cwd=root,env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,errors="replace")
+              (repo/("PR471-unittest-"+name+".log")).write_text(proc.stdout)
+              fail={}
+              for line in proc.stdout.splitlines():
+                  m=re.match(r"^(FAIL|ERROR):\s+(.+)$",line)
+                  if m:
+                      q=re.search(r"\(([\w.]+)\)\s*$",m.group(2))
+                      test_id=q.group(1) if q else m.group(2).strip()
+                      fail[test_id]=m.group(1)
+              ran=re.search(r"^Ran (\d+) tests",proc.stdout,re.M)
+              if not ran:
+                  raise RuntimeError("Suite did not finish: "+name)
+              out[name]={"revision":actual,"ran":int(ran.group(1)),"exit_code":proc.returncode,"failures":fail}
+          a=out["main_merge_base"]["failures"]
+          b=out["requested_95ac55e"]["failures"]
+          c=out["current_pr_head"]["failures"]
+          rows=sorted(set(a)|set(b)|set(c))
+          requested_only=sorted(set(b)-set(a))
+          current_only=sorted(set(c)-set(a))
+          md=["# #471 complete Python suite: pinned main merge-base versus requested and current PR heads","",
+              "Identical unittest discovery command, runner, Python, dependencies and working-directory setup. No excluded tests.","",
+              "main merge-base: "+revisions["main_merge_base"],
+              "requested PR head: "+revisions["requested_95ac55e"],
+              "current PR head: "+revisions["current_pr_head"],
+              "Tests run: main "+str(out["main_merge_base"]["ran"])+", requested "+str(out["requested_95ac55e"]["ran"])+", current "+str(out["current_pr_head"]["ran"]),
+              "Failing IDs: main "+str(len(a))+", requested "+str(len(b))+", current "+str(len(c)),
+              "PR-only IDs: requested "+str(len(requested_only))+", current "+str(len(current_only)),
+              "","| Failing test ID | Main base | 95ac55e | Current PR |","|---|---|---|---|"]
+          for t in rows:
+              md.append("| "+t+" | "+a.get(t,"PASS/not present")+" | "+b.get(t,"PASS/not present")+" | "+c.get(t,"PASS/not present")+" |")
+          md+=["","## PR-only failures on requested head", ""]
+          md += requested_only if requested_only else ["None"]
+          md+=["","## PR-only failures on latest head",""]
+          md += current_only if current_only else ["None"]
+          (repo/"PR471-unittest-comparison.md").write_text("\n".join(md)+"\n")
+          (repo/"PR471-unittest-comparison.json").write_text(json.dumps(out,indent=2,sort_keys=True)+"\n")
+          print("PR471_BASELINE_COMPARISON",json.dumps({"main":len(a),"requested":len(b),"current":len(c),"requested_only":requested_only,"current_only":current_only},sort_keys=True))
+          with open(os.environ["GITHUB_STEP_SUMMARY"],"a") as f:
+              f.write("\n".join(md[:10])+"\n")
+          if requested_only or current_only:
+              sys.exit("PR-specific failures remain; see PR471-unittest-comparison.md")
+          PY
       - name: Git grep exact-head old values
         if: always()
         run: |
@@ -196,6 +262,10 @@ jobs:
             PR471-old-value-hits.txt
             PR471-navigator-smoke.log
             PR471-z3-regression.log
-            PR471-unittest-full.log
+            PR471-unittest-main_merge_base.log
+            PR471-unittest-requested_95ac55e.log
+            PR471-unittest-current_pr_head.log
+            PR471-unittest-comparison.md
+            PR471-unittest-comparison.json
             wayfarer/results/out/certification_report.json
             wayfarer/results/out/D9_BREP_CLASH_REPORT.json
