@@ -1,0 +1,35 @@
+name: "Crown #475 - kT S5 G6 aperture STOP screen"
+on:
+  pull_request:
+    paths:
+      - wayfarer/lab/crown_g6_aperture_screen.py
+      - .github/workflows/wayfarer-crown-g6-screen.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  g6:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify source geometry pinned
+        shell: bash
+        run: |
+          echo '88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1  wayfarer/results/out/wayfarer_v05_geometry.json' | sha256sum -c -
+      - name: Re-run old and cut-aperture G6 with original rays and threshold
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/crown_g6_aperture_screen.py | tee crown_g6_stop_screen.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: crown-g6-s5-aperture-source-comparison
+          if-no-files-found: warn
+          path: |
+            crown_g6_stop_screen.log
+            wayfarer/results/out/crown_g6_aperture_screen.json
