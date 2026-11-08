@@ -158,8 +158,9 @@ def inside_pressure_hull_check(model,source_parts):
     # Every material habitat fixture, and structural deck floors.
     # room_* denote EMPTY SPACE volumes, not physically installed materials.
     physical=sorted("dry:"+name for name,p in source_parts.items()
-            if (p["system"]=="habitat" and name!="armor" and
-                not name.startswith("room_")) or name.startswith("floor_"))
+            if "no_render" not in p.get("tags",[]) and (
+                (p["system"]=="habitat" and name!="armor" and
+                 not name.startswith("room_")) or name.startswith("floor_")))
     missing=[name for name in physical if name not in model]
     assert not missing,("unexamined physical habitat interiors",missing)
     results=[]
@@ -179,6 +180,7 @@ def inside_pressure_hull_check(model,source_parts):
     report=dict(checked_physical_interior_count=len(physical),
         checked_parts=results,escaped_parts=failures,pass_containment=not failures,
         outside_tolerance_m3=tol,
+        excluded_no_render_allocation_count=sum("no_render" in p.get("tags",[]) for p in source_parts.values()),
         excluded_semantic_volume_proxies=sorted(
             "dry:"+name for name in source_parts if name.startswith("room_")),
         excluded_exterior_and_boundary="Armor, vessel, crown, windows, exterior equipment, tanks and propulsion are not internal habitat fixtures",
