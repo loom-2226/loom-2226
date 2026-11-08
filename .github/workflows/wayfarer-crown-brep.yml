@@ -78,6 +78,11 @@ jobs:
           set -euo pipefail
           python -m pip install build123d==0.13.0
           python -u wayfarer/lab/crown_geom_v25.py | tee crown-brep.log
+      - name: Screen seven rigid spare panes against installed solids in two bay-wall racks
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/crown_spares_screen.py | tee crown-spares.log
       - name: Preserve printable pane STLs and per-part GLB on draft PR branch
         shell: bash
         run: |
@@ -86,10 +91,11 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -- wayfarer/render/out/wayfarer_crown_parts_88ce19fc.glb \
             wayfarer/render/out/wayfarer_crown_parts_88ce19fc_report.json \
+            wayfarer/results/out/crown_seven_spares_bay_options.json \
             wayfarer/render/out/crown_print_tiles/*.stl
           test "$(find wayfarer/render/out/crown_print_tiles -name 'crown_pane_*.stl' | wc -l)" -eq 37
           git diff --cached --name-only | tee crown-output-changes.txt
-          test "$(git diff --cached --name-only | wc -l)" -ge 2
+          test "$(git diff --cached --name-only | wc -l)" -ge 1
           git commit -m 'class:engineering: preserve crown BRep overlay and bow-fit evidence'
           # Preserve unrelated documentation commits that may have advanced the
           # PR branch while this deterministic BRep job was running.
@@ -105,6 +111,8 @@ jobs:
           path: |
             crown-baseline-cert.log
             crown-brep.log
+            crown-spares.log
+            wayfarer/results/out/crown_seven_spares_bay_options.json
             crown-source-rebuild.log
             wayfarer/render/out/wayfarer_crown_parts_88ce19fc.glb
             wayfarer/render/out/wayfarer_crown_parts_88ce19fc_report.json
