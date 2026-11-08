@@ -5,10 +5,10 @@
 ; Current vehicle identities. Zero-arity define-fun symbols are SMT constants and
 ; therefore referenced without function-application parentheses.
 (define-fun dry-mass-t () Real 858.5)
-(define-fun working-fluid-t () Real (+ normal-remass-t protected-water-t))
-(define-fun wet-mass-t () Real (+ dry-mass-t working-fluid-t))
 (define-fun normal-remass-t () Real 245.39043171108221)
 (define-fun protected-water-t () Real 50.0)
+(define-fun working-fluid-t () Real (+ normal-remass-t protected-water-t))
+(define-fun wet-mass-t () Real (+ dry-mass-t working-fluid-t))
 
 ; Current structural grammar.
 (define-fun current-grammar-valid ((tanks Int) (longerons Int) (radiators Int) (torch-count Int)) Bool
