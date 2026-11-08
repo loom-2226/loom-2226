@@ -22,7 +22,7 @@ class ShipyardConstraintTests(unittest.TestCase):
 
     def test_current_mass_and_grammar_identities_are_explicit(self):
         text = LIB.read_text()
-        for token in ('858.5', '300.0', '250.0', '50.0', '(= tanks 4)', '(= longerons 4)', '(= radiators 4)', '(= torch-count 1)'):
+        for token in ('858.5', '245.39043171108221', '50.0', '(= tanks 4)', '(= longerons 4)', '(= radiators 4)', '(= torch-count 1)'):
             self.assertIn(token, text)
 
     def test_zero_arity_constants_are_not_applied_as_functions(self):

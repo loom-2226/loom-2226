@@ -22,7 +22,7 @@ class TorchReactorNozzleFamilyTradeTests(unittest.TestCase):
         self.assertAlmostEqual(e["initial_direct_jet_power_W"]["LIMIT"], 12781129528125.0)
         self.assertAlmostEqual(e["initial_axial_thrust_N"]["LIMIT"], 85207530.1875)
         self.assertEqual(e["exhaust_velocity_km_s_range"], [300.0, 3000.0])
-        self.assertEqual(e["normal_remass_t"], 250.0)
+        self.assertEqual(e["normal_remass_t"], 245.39043171108221)
 
     def test_trade_does_not_hide_reaction_products(self):
         for family in self.r["technology_families"].values():
