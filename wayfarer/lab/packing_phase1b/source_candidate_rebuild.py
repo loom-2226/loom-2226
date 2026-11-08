@@ -97,6 +97,7 @@ def main():
         assert all(abs(a-b)<1e-9 for a,b in zip(new["offset_yz"],[.03,-.26])),(name,new)
         assert {k:v for k,v in old.items() if k!="offset_yz"}=={k:v for k,v in new.items() if k!="offset_yz"},name
         old["offset_yz"]=list(new["offset_yz"])
+    J["thrust_line_offset_m"]=dict(current["thrust_line_offset_m"])
     print("G3_AUTHORITY",json.dumps(dict(geometry_sha256=current_sha,
         thrust=current["thrust_line_offset_m"],S1_CG_m=current["states"]["S1"]["cg_m"],
         rebased_parts=sorted(names),frozen_offset_m=[.03,-.23],
