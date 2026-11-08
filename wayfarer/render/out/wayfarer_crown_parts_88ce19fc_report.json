@@ -4,7 +4,7 @@
   "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
   "geometry_source_unchanged": true,
   "count_named_panes": 37,
-  "per_part_GLTF_nodes": 372,
+  "per_part_GLTF_nodes": 373,
   "installed_source_nodes": 194,
   "replaced_no_render_proxy_nodes_in_export": [
     "crown_dome",
@@ -17,6 +17,22 @@
   "outer_pressure_dome_apex_m": -0.42,
   "inner_pressure_dome_apex_m": -0.3,
   "inner_dome_is_pressure_vessel_bow_closure": true,
+  "exterior_crown_brow": {
+    "radial_span_m": [
+      3.4,
+      3.75
+    ],
+    "front_axial_span_m": [
+      0.43845502963189387,
+      0.833000640627047
+    ],
+    "back_at_shoulder_x_m": 0.8670006406270471,
+    "render_surface": "wayfarer/render/loomgl.js:crownMeshes",
+    "geometry_only": true,
+    "mass_rebooked_t": 0
+  },
+  "exterior_crown_brow_named_solid": true,
+  "osteon_dome_seat_preserved": true,
   "seat_ring_source_dims": {
     "r_m": 3.5,
     "width_m": 1,
@@ -115,13 +131,19 @@
       "against": "dry:armor",
       "common_m3": 0,
       "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_brow",
+      "against": "dry:bow_sensors",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
     }
   ],
   "full_D9_candidate_scan": {
-    "part_count": 372,
-    "pair_count": 69006,
+    "part_count": 373,
+    "pair_count": 69378,
     "range_start": 0,
-    "range_end": 69006,
+    "range_end": 69378,
     "category_counts": {
       "a": 1,
       "c": 104
@@ -877,7 +899,8 @@
     "Full physically closed 3.023m3 AOI fill vs modelled 2.489m3 cavity remains OPEN"
   ],
   "other_geometry_changed": false,
-  "print_tiles_count": 37,
+  "print_tiles_count": 38,
+  "brow_stl_count": 1,
   "glazing_stl_count": 137,
   "glazing_glb_nodes": 137,
   "glazing": {
