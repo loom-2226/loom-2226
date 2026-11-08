@@ -17,6 +17,7 @@ ROOT = HERE.parent
 sys.path.insert(0, str(HERE))
 from packing_phase1b import source_brep_pilot as P
 import d9_sharded as D
+from glazing_geom_v251 import build_glazing
 
 EXPECTED = "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1"
 GEO = ROOT / "results/out/wayfarer_v05_geometry.json"
@@ -137,6 +138,8 @@ def main():
     seat.color=Color("#9EAAB5")
     bodies[seat.label]=seat
     assert len(bodies)==41
+    glazing, glazing_cutters, glazing_report = build_glazing(g,cfg,make_pane)
+    assert len(glazing)==137 and len(glazing_cutters)==26
     # Physical crown aperture and seat rebate cut only the two permitted hull
     # solids. INNER ceramic = the pressure vessel's bow closure, not a second
     # overlapping copy of the existing 30mm bow shell.
@@ -148,6 +151,12 @@ def main():
     for key in ("pressure_vessel","armor"):
         targets[key]=original[key]-aperture
         targets[key]=targets[key]-seat
+        assert targets[key].is_valid and targets[key].volume>0
+    # Remove all 21 round and five panoramic WWS-1 apertures from the same
+    # cut source PV/armour BReps. No other source installed solid is altered.
+    for key in ("pressure_vessel", "armor"):
+        for cutter in glazing_cutters:
+            targets[key] = targets[key] - cutter
         assert targets[key].is_valid and targets[key].volume>0
     mass_removal={}
     for key in ("pressure_vessel","armor"):
@@ -194,20 +203,24 @@ def main():
         model[name].label=name
     assert not set(model).intersection(bodies)
     model.update(bodies)
+    assert not set(model).intersection(glazing)
+    model.update(glazing)
     # Complete non-exempt D9 category-(d) scan for the 235 installed viewer
     # BReps, with the SAME original 0.01 m3 threshold and classifier.
     # This is the mandatory candidate screen, not a replacement of the source
     # authority's current 194-part certified D9 report.
     ordered=sorted(model)
     pairs_total=len(ordered)*(len(ordered)-1)//2
-    assert len(ordered)==235 and pairs_total==27495
+    assert len(ordered)==372 and pairs_total==69006
     full_scan=D.pair_scan(model,ordered,0,pairs_total,C["D9"]["min_intersection_m3"])
     assert full_scan["pair_count"]==pairs_total
-    print("CROWN_FULL_D9_SCAN",json.dumps(dict(
+    print("CROWN_AND_GLAZING_FULL_D9_SCAN",json.dumps(dict(
         solids=len(ordered),pairs=pairs_total,
         category_d=full_scan["category_d_count"],
         bool_errors=len(full_scan["collision_errors"]),
         conflicts=full_scan["category_d_conflicts"][:18])),flush=True)
+    assert full_scan["category_d_count"] == 0 and not full_scan["collision_errors"], (
+        "new crown+glazing has D9 category-d conflict or Boolean error")
     OUT.mkdir(parents=True,exist_ok=True)
     final=OUT/(PREFIX+".glb")
     export_gltf(Compound(children=list(model.values())),final,unit=Unit.M,
@@ -218,6 +231,11 @@ def main():
     pane_out.mkdir(parents=True,exist_ok=True)
     for name in sorted(n for n in bodies if n.startswith("dry:crown_pane_")):
         export_stl(bodies[name],pane_out/(name[4:]+".stl"))
+    glazing_stls=OUT/"glazing_print_parts"
+    glazing_stls.mkdir(parents=True,exist_ok=True)
+    for name,part in sorted(glazing.items()):
+        export_stl(part,glazing_stls/(name[4:]+".stl"))
+    assert len(list(glazing_stls.glob("*.stl"))) == 137
     aoi=crown["adaptive_optogel"]
     alloc=3.023
     cavity_m3=gel.volume
@@ -254,7 +272,11 @@ def main():
       failed_boolean_count=sum("error" in q for q in contacts),
       missing_canon_dimensions=missing_dims,
       other_geometry_changed=False,
-      print_tiles_count=37,engineering_credit=0)
+      print_tiles_count=37,glazing_stl_count=137,
+      glazing_glb_nodes=137,glazing=glazing_report,
+      canonical_source_mass_t_before_and_after=g["dry_t"],
+      delta_v_ECON_km_s_unchanged=707.845,
+      engineering_credit=0)
     report_path=OUT/(PREFIX+"_report.json")
     report_path.write_text(json.dumps(report,indent=2)+"\n")
     print("CROWN_37_PANES_VALID",sum(n.startswith("dry:crown_pane_") for n in bodies),flush=True)
@@ -262,6 +284,9 @@ def main():
     print("CROWN_BOW_CLASH_COUNT",report["prohibited_overlap_count"],"BOOLEAN_ERRORS",report["failed_boolean_count"],flush=True)
     print("CROWN_HULL_MASS_REMOVAL",json.dumps(mass_removal),flush=True)
     print("CROWN_PER_PART_GLB_NODES",len(names),"size",final.stat().st_size,flush=True)
+    print("WWS1_21_WINDOWS_5_BANDS_7_SPARES",glazing_report["round_assemblies"],
+          glazing_report["viewport_band_segments"],glazing_report["spare_true_solids"],
+          flush=True)
     print("CROWN_HOLD",json.dumps({k:report[k] for k in ("prohibited_overlap_count","failed_boolean_count","AOI_volume_difference_m3","missing_canon_dimensions")}),flush=True)
 
 if __name__=="__main__":
