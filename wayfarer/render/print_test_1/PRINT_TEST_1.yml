@@ -1,0 +1,25 @@
+# PRINT TEST 1, print-only functional hinge trial. No canon or CAD credit.
+source_tag: canon-v2.5
+geometry_sha256: 88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1
+test: 1
+source_part_ids: ['hotfin_root_40', 'hotfin_40']
+scale: '1:100'
+unit: millimetre
+printer: Bambu A2L
+nozzle_diameter_mm: 0.4
+panel_print_dimensions_mm: ['190 x 20 x 6', '140 x 17.5 x 3']
+metal_hinge_pin_diameter_mm: 2.0
+pin_hole_diameter_mm: 2.4
+hinge_diametral_clearance_mm: 0.4
+hinge_radial_wall_mm: 1.2
+panel_edge_gap_mm: 0.4
+source_exactness: 'panel envelope only; hinge added for print test'
+physical_print_result: NOT_YET_TESTED
+deployment_mechanism_qualification: OPEN
+parts:
+  - path: wayfarer/render/print_test_1/hotfin_root_40_1to100.stl
+    bytes: 85084
+    sha256: ba1f1e1ec2c938532bc2729f051716cd8210c53685bd3cd2d9c4597b63995377
+  - path: wayfarer/render/print_test_1/hotfin_40_1to100.stl
+    bytes: 34484
+    sha256: d13a1a8ca21b0cf22ed77b2bb0f54c6366da70cb958d7593a9486dc4cf18b58d
