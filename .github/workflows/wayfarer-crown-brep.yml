@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - wayfarer/lab/crown_geom_v25.py
+      - wayfarer/lab/glazing_geom_v251.py
       - .github/workflows/wayfarer-crown-brep.yml
   workflow_dispatch:
 permissions:
@@ -88,6 +89,27 @@ jobs:
         run: |
           set -euo pipefail
           python -u wayfarer/lab/crown_mass_screen.py | tee crown-mass.log
+      - name: Verify candidate D9 and WWS-1 counts against fixed source
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          v=json.loads(Path("wayfarer/render/out/wayfarer_crown_parts_88ce19fc_report.json").read_text())
+          assert v["full_D9_candidate_accepts"]
+          assert v["full_D9_candidate_scan"]["category_d_count"] == 0
+          assert not v["full_D9_candidate_scan"]["collision_errors"]
+          assert v["per_part_GLTF_nodes"] == 372
+          assert v["glazing"]["round_assemblies"] == 21
+          assert v["glazing"]["viewport_band_segments"] == 5
+          assert v["glazing"]["spare_true_solids"] == 7
+          assert v["glazing"]["storm_shelter_windows"] == 0
+          assert v["canonical_source_mass_t_before_and_after"] == 868.1922552640087
+          assert v["delta_v_ECON_km_s_unchanged"] == 707.845
+          assert len(list(Path("wayfarer/render/out/glazing_print_parts").glob("*.stl"))) == 137
+          print("CROWN_GLAZING_V251_CANDIDATE_D9_PASS")
+          PY
       - name: Preserve printable pane STLs and per-part GLB on draft PR branch
         shell: bash
         run: |
@@ -98,8 +120,10 @@ jobs:
             wayfarer/render/out/wayfarer_crown_parts_88ce19fc_report.json \
             wayfarer/results/out/crown_seven_spares_bay_options.json \
             wayfarer/results/out/crown_solid_mass_modes_screen.json \
-            wayfarer/render/out/crown_print_tiles/*.stl
+            wayfarer/render/out/crown_print_tiles/*.stl \
+            wayfarer/render/out/glazing_print_parts/*.stl
           test "$(find wayfarer/render/out/crown_print_tiles -name 'crown_pane_*.stl' | wc -l)" -eq 37
+          test "$(find wayfarer/render/out/glazing_print_parts -name '*.stl' | wc -l)" -eq 137
           git diff --cached --name-only | tee crown-output-changes.txt
           test "$(git diff --cached --name-only | wc -l)" -ge 1
           git commit -m 'class:engineering: preserve crown BRep overlay and bow-fit evidence'
@@ -125,3 +149,4 @@ jobs:
             wayfarer/render/out/wayfarer_crown_parts_88ce19fc.glb
             wayfarer/render/out/wayfarer_crown_parts_88ce19fc_report.json
             wayfarer/render/out/crown_print_tiles/*.stl
+            wayfarer/render/out/glazing_print_parts/*.stl
