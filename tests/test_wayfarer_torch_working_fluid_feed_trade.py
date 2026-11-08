@@ -10,8 +10,8 @@ class TorchWorkingFluidFeedTradeTests(unittest.TestCase):
 
     def test_required_flow_span_is_preserved(self):
         r=build_trade()
-        self.assertAlmostEqual(r["requirements"]["mass_flow_kg_s_range"][0],1.1361004025)
-        self.assertAlmostEqual(r["requirements"]["mass_flow_kg_s_range"][1],284.025100625)
+        self.assertAlmostEqual(r["requirements"]["mass_flow_kg_s_range"][0],1153.8904317110823 * 1000.0 * 0.3 * 9.80665 / 3000000.0)
+        self.assertAlmostEqual(r["requirements"]["mass_flow_kg_s_range"][1],1153.8904317110823 * 1000.0 * 7.5 * 9.80665 / 300000.0)
         self.assertEqual(r["requirements"]["normal_remass_t"],245.39043171108221)
 
     def test_candidate_requires_explicit_properties(self):

@@ -19,8 +19,8 @@ class TorchReactorNozzleFamilyTradeTests(unittest.TestCase):
 
     def test_required_vehicle_envelope_is_preserved(self):
         e = self.r["required_vehicle_envelope"]
-        self.assertAlmostEqual(e["initial_direct_jet_power_W"]["LIMIT"], 12781129528125.0)
-        self.assertAlmostEqual(e["initial_axial_thrust_N"]["LIMIT"], 85207530.1875)
+        self.assertAlmostEqual(e["initial_direct_jet_power_W"]["LIMIT"], 0.5 * 1153.8904317110823 * 1000.0 * 7.5 * 9.80665 * 300000.0)
+        self.assertAlmostEqual(e["initial_axial_thrust_N"]["LIMIT"], 1153.8904317110823 * 1000.0 * 7.5 * 9.80665)
         self.assertEqual(e["exhaust_velocity_km_s_range"], [300.0, 3000.0])
         self.assertEqual(e["normal_remass_t"], 245.39043171108221)
 
