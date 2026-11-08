@@ -109,6 +109,8 @@ def build_glazing(g, inputs, spare_source_pane):
                         slope, center=is_centre)
         # Rotate panel normal to lower bay-wall Z; retain true BRep and
         # per-pane contour (not the conservative rectangular rack proxy).
+        if not is_centre:
+            solid = solid.rotate(Axis.X, -(a0+a1)/2)
         solid = solid.rotate(Axis.Y, 90)
         if tilted:
             solid = solid.rotate(Axis.X, 50)
