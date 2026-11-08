@@ -205,7 +205,7 @@ def main():
     model.update(bodies)
     assert not set(model).intersection(glazing)
     model.update(glazing)
-    # Complete non-exempt D9 category-(d) scan for the 235 installed viewer
+    # Complete non-exempt D9 category-(d) scan for the 372 installed viewer
     # BReps, with the SAME original 0.01 m3 threshold and classifier.
     # This is the mandatory candidate screen, not a replacement of the source
     # authority's current 194-part certified D9 report.
@@ -226,7 +226,7 @@ def main():
     export_gltf(Compound(children=list(model.values())),final,unit=Unit.M,
                 binary=True,linear_deflection=.05,angular_deflection=.3)
     names=glb_names(final)
-    assert len(names)==235 and len(set(names))==235 and set(names)==set(model)
+    assert len(names)==372 and len(set(names))==372 and set(names)==set(model)
     pane_out=OUT/"crown_print_tiles"
     pane_out.mkdir(parents=True,exist_ok=True)
     for name in sorted(n for n in bodies if n.startswith("dry:crown_pane_")):
