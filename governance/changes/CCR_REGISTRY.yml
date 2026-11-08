@@ -4,7 +4,7 @@ id_format: CCR-YYYY-NNNN
 
 allocation:
   current_year: 2026
-  next_sequence: 4
+  next_sequence: 5
   ids_are_never_reused: true
 
 allowed_statuses:
@@ -49,4 +49,13 @@ records:
     originating_issue: kT ruling, 2026-11-02, following draft intake PR #445
     approved_pr: 445
     implemented_pr: 446
+    supersedes: []
+
+  - id: CCR-2026-0004
+    path: governance/changes/CCR-2026-0004-wayfarer-phase1b-v25.yml
+    status: APPROVED_FOR_IMPLEMENTATION
+    title: Wayfarer Phase 1b v2.5 fuel, remass, mass, and torch card
+    originating_issue: kT explicit canon approval 2026-11-08 in PR #471 continuation
+    approved_pr: 471
+    implemented_pr: null
     supersedes: []

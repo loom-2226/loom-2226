@@ -1,0 +1,120 @@
+schema_version: '1.0'
+record_type: CANON_CHANGE_REQUEST
+id: CCR-2026-0004
+title: Wayfarer Phase 1b reference fuel, water, remass, mass and six-mode torch card v2.5
+status: APPROVED_FOR_IMPLEMENTATION
+proposal_revision: 1
+created_date: '2026-11-08'
+updated_date: '2026-11-08'
+origin:
+  issue: 'kT explicit #471 canon values approval, 2026-11-08'
+  source_type: MIXED
+  source_references:
+    - https://github.com/loom-2226/loom-2226/pull/471
+    - https://github.com/loom-2226/loom-2226/actions/runs/42454975181
+    - https://github.com/loom-2226/loom-research-lab/pull/157
+  evidentiary_status: MIXED_EXPLAINED
+  summary: >-
+    kT explicitly approves replacing the reference Wayfarer fuel, liquid-basis water,
+    wet mass and six-mode ideal torch delta-v with source-tested Phase 1b values.
+proposal:
+  reason: >-
+    Four physical 3.8t D-He3 core lobes plus liquid-based 5pct ullage displace
+    4.60956828891779t of normal remass. The former 250t/300t combination
+    cannot fit with the kT-approved four-lobe core packing geometry.
+  claims_added:
+    - 3.8t total D-He3 with 0.1t protected house-use allocation
+    - Four core fuel lobes, 5pct of liquid water ullage, 50t protected water unchanged
+    - D8 0.660801800044753t unlocated doubler allowance; hardware placement OPEN
+  claims_modified:
+    - Normal remass 250 to 245.39043171108221t
+    - Total water 300 to 295.3904317110822t
+    - Reference wet 1158.5 to 1153.8904317110823t (reference dry 858.5t unchanged)
+    - Six current-source ideal full-S1 remass torch delta-v modes including ECON 707.8454550926167km/s
+  claims_retired:
+    - 5.0t external-sector D-He3 reference proxy as current source
+    - 250t normal remass and 300t total water as current Wayfarer Phase1b reference
+    - Prior full-remass torch card values derived using 250t remass
+  affected_governing_sources:
+    - canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
+    - canon/current/LOOM_2226_CANON_III_Authority_Continuity_GM_Model_v2.4.md
+    - canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md
+    - governance/current/LOOM_2226_Canon_Baseline_Manifest_v2.4.md
+  proposed_authority_relationship:
+    type: IN_PLACE_NEW_VERSION_SUPERSEDING_PRIOR
+    parent_source: canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md
+    scope: Reference Wayfarer Phase1b ledger, fuel packing, and six ideal full-remass torch modes only
+  explicit_non_scope:
+    - No Metric or Navigator qualification
+    - No M1/M2/M3, hidden truth, time or world population change
+    - No geometry, solver, physics or acceptance tolerance changes
+    - No physical credit for unlocated doublers or not-yet-fitted cryogenic containment
+frozen_research:
+  involved: true
+  sources:
+    - loom-2226/loom-research-lab#157
+  qualification_state: kT design-approved and transferred into full G1-G12-D9 conventional-lab evidence, Actions 42454975181
+  rule: >-
+    This CCR accepts only the kT-approved engineering design values after
+    conventional-lab evidence; it does not promote research claims to external physics truth.
+downstream_impact:
+  component_map_reviewed: true
+  components:
+    - component_id: canon_ii_engineering_ships
+      state: REVIEW_REQUIRED
+      rationale: Replace source ship values within scoped CCR
+    - component_id: canon_iii_authority_gm
+      state: REVIEW_REQUIRED
+      rationale: Synchronize reference wet mass without altering hidden truth
+    - component_id: canon_baseline_v2_4
+      state: REVIEW_REQUIRED
+      rationale: v2.5 baseline and hashes required
+    - component_id: wayfarer_geometry_authority
+      state: REVIEW_REQUIRED
+      rationale: Numerical seed inventory changes only; CAD geometry unchanged
+    - component_id: wayfarer_engineering
+      state: REVALIDATION_REQUIRED
+      rationale: Re-run source-hash full certification; historical FQ remains historical
+baseline_obligations:
+  authority_registry_update_required: true
+  canon_baseline_manifest_update_required: true
+  file_hash_manifest_update_required: true
+  validation_report_update_required: true
+  compatibility_manifest_update_required: true
+  archive_or_supersession_update_required: true
+  notes: No governing canon until main merge and completed authority/hash validation
+validation:
+  required_tests:
+    - G1-G12 and D9 full certify on exact implementation head
+    - Source geometry SHA256 identical to 88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1
+    - Search for 5t fuel 300t water 1158.5t wet and 719.29km/s current-use references
+  required_qualification:
+    - Conventional-lab declared gates preserved; unqualified hardware stays OPEN
+  required_external_verification: []
+assurance:
+  walter_required: true
+  status: NOT_RUN
+  finding_ids: []
+  concerns:
+    - Historical tests and E1 fixtures must remain labelled HISTORICAL, not current-state certification
+implementation:
+  implementation_pr: 471
+  target_branch: main
+  merged_commit: null
+  implemented_date: null
+  changed_governing_sources: []
+  downstream_followup_issues: []
+decision:
+  decision_authority: Kevin
+  decision_date: '2026-11-08'
+  rationale: 'kT explicitly approved 3.8t fuel, 0.1t reserve, 295.39t water, 1153.89t ref wet and ECON 707.845 plus all six modes, subject to no tuning and no merge before review.'
+  disposition: APPROVED_FOR_IMPLEMENTATION
+supersession:
+  supersedes: []
+  superseded_by: null
+history:
+  - date: '2026-11-08'
+    event: CREATED_APPROVED_FOR_IMPLEMENTATION
+    status: APPROVED_FOR_IMPLEMENTATION
+    actor: kT
+    note: Explicit approval of exact Wayfarer v2.5 source values; implementation remains draft PR #471
