@@ -4,7 +4,7 @@
   "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
   "geometry_source_unchanged": true,
   "count_named_panes": 37,
-  "per_part_GLTF_nodes": 235,
+  "per_part_GLTF_nodes": 372,
   "installed_source_nodes": 194,
   "replaced_no_render_proxy_nodes_in_export": [
     "crown_dome",
@@ -29,21 +29,21 @@
   "removed_mass_from_pv_and_armor": {
     "pressure_vessel": {
       "original_m3": 11.356646021343266,
-      "after_cut_m3": 9.864411164097419,
-      "removed_m3": 1.4922348572458475,
+      "after_cut_m3": 8.408128367605855,
+      "removed_m3": 2.9485176537374116,
       "original_booked_t": 15.355555969263195,
       "original_effective_density_t_m3": 1.352120682497678,
-      "removed_mass_t_at_original_effective_density": 2.0176816136260802,
-      "remaining_mass_t_at_original_effective_density": 13.337874355637116
+      "removed_mass_t_at_original_effective_density": 3.986751702327881,
+      "remaining_mass_t_at_original_effective_density": 11.368804266935316
     },
     "armor": {
       "original_m3": 81.10303164040482,
-      "after_cut_m3": 71.46047942794934,
-      "removed_m3": 9.642552212455485,
+      "after_cut_m3": 61.23572757073471,
+      "removed_m3": 19.867304069670112,
       "original_booked_t": 107.48889178484237,
       "original_effective_density_t_m3": 1.3253375319115979,
-      "removed_mass_t_at_original_effective_density": 12.779636350584472,
-      "remaining_mass_t_at_original_effective_density": 94.7092554342579
+      "removed_mass_t_at_original_effective_density": 26.330883741433833,
+      "remaining_mass_t_at_original_effective_density": 81.15800804340853
     }
   },
   "name_mapping": "INNER and OUTER are independent pressure domes; their apex coordinates are unchanged",
@@ -118,10 +118,10 @@
     }
   ],
   "full_D9_candidate_scan": {
-    "part_count": 235,
-    "pair_count": 27495,
+    "part_count": 372,
+    "pair_count": 69006,
     "range_start": 0,
-    "range_end": 27495,
+    "range_end": 69006,
     "category_counts": {
       "a": 1,
       "c": 104
@@ -173,14 +173,14 @@
       {
         "a": "dry:armor",
         "b": "dry:outfit_L1",
-        "m3": 0.810724257,
+        "m3": 0.745473949,
         "category": "c",
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:armor",
         "b": "dry:rcs_F+Y",
-        "m3": 0.12817706,
+        "m3": 0.120165994,
         "category": "c",
         "why": "RCS thruster hull-mounted footprint"
       },
@@ -201,7 +201,7 @@
       {
         "a": "dry:armor",
         "b": "dry:rcs_F-Z",
-        "m3": 0.12817706,
+        "m3": 0.124171527,
         "category": "c",
         "why": "RCS thruster hull-mounted footprint"
       },
@@ -740,7 +740,7 @@
       {
         "a": "dry:pressure_vessel",
         "b": "dry:rcs_F+Y",
-        "m3": 0.019278184,
+        "m3": 0.018076434,
         "category": "c",
         "why": "RCS thruster hull-mounted footprint"
       },
@@ -761,7 +761,7 @@
       {
         "a": "dry:pressure_vessel",
         "b": "dry:rcs_F-Z",
-        "m3": 0.019278012,
+        "m3": 0.018677137,
         "category": "c",
         "why": "RCS thruster hull-mounted footprint"
       },
@@ -878,5 +878,503 @@
   ],
   "other_geometry_changed": false,
   "print_tiles_count": 37,
+  "glazing_stl_count": 137,
+  "glazing_glb_nodes": 137,
+  "glazing": {
+    "round_assemblies": 21,
+    "viewport_band_segments": 5,
+    "storm_shelter_windows": 0,
+    "spare_true_solids": 7,
+    "first_screened_bay_wall_x_m": [
+      20.0,
+      22.6
+    ],
+    "layers_inboard_to_outboard": [
+      "strata",
+      "backup",
+      "aoi",
+      "primary",
+      "bumper"
+    ],
+    "layers_m": [
+      0.1,
+      0.028,
+      0.066217106894,
+      0.028,
+      0.01
+    ],
+    "aoi_thickness_source_derived_m": 0.0662171068938029,
+    "closed_strata_render_equivalent_m": 0.1,
+    "source_mass_allocations_unchanged": true,
+    "sourced_window_booked_mass_t": 17.953914236,
+    "individual_windows": [
+      {
+        "id": "window_L1-command_0",
+        "diameter_m": 0.5,
+        "centre": [
+          1.25,
+          2.8118633276658667,
+          2.811863327665866
+        ],
+        "layers": [
+          "dry:window_L1-command_0__strata",
+          "dry:window_L1-command_0__backup",
+          "dry:window_L1-command_0__aoi",
+          "dry:window_L1-command_0__primary",
+          "dry:window_L1-command_0__bumper"
+        ],
+        "booked_mass_t": 0.125967727
+      },
+      {
+        "id": "window_L1-command_1",
+        "diameter_m": 0.5,
+        "centre": [
+          1.25,
+          -2.811863327665866,
+          2.8118633276658667
+        ],
+        "layers": [
+          "dry:window_L1-command_1__strata",
+          "dry:window_L1-command_1__backup",
+          "dry:window_L1-command_1__aoi",
+          "dry:window_L1-command_1__primary",
+          "dry:window_L1-command_1__bumper"
+        ],
+        "booked_mass_t": 0.125967727
+      },
+      {
+        "id": "window_L1-command_2",
+        "diameter_m": 0.5,
+        "centre": [
+          1.25,
+          -2.811863327665867,
+          -2.811863327665866
+        ],
+        "layers": [
+          "dry:window_L1-command_2__strata",
+          "dry:window_L1-command_2__backup",
+          "dry:window_L1-command_2__aoi",
+          "dry:window_L1-command_2__primary",
+          "dry:window_L1-command_2__bumper"
+        ],
+        "booked_mass_t": 0.125967727
+      },
+      {
+        "id": "window_L1-command_3",
+        "diameter_m": 0.5,
+        "centre": [
+          1.25,
+          2.8118633276658658,
+          -2.811863327665867
+        ],
+        "layers": [
+          "dry:window_L1-command_3__strata",
+          "dry:window_L1-command_3__backup",
+          "dry:window_L1-command_3__aoi",
+          "dry:window_L1-command_3__primary",
+          "dry:window_L1-command_3__bumper"
+        ],
+        "booked_mass_t": 0.125967727
+      },
+      {
+        "id": "window_L4-medical_4",
+        "diameter_m": 1.55,
+        "centre": [
+          9.1,
+          -4.5,
+          5.51091059616309e-16
+        ],
+        "layers": [
+          "dry:window_L4-medical_4__strata",
+          "dry:window_L4-medical_4__backup",
+          "dry:window_L4-medical_4__aoi",
+          "dry:window_L4-medical_4__primary",
+          "dry:window_L4-medical_4__bumper"
+        ],
+        "booked_mass_t": 0.5217498580000001
+      },
+      {
+        "id": "window_L4-medical_5",
+        "diameter_m": 1.55,
+        "centre": [
+          9.1,
+          -3.8971143170299736,
+          -2.2500000000000004
+        ],
+        "layers": [
+          "dry:window_L4-medical_5__strata",
+          "dry:window_L4-medical_5__backup",
+          "dry:window_L4-medical_5__aoi",
+          "dry:window_L4-medical_5__primary",
+          "dry:window_L4-medical_5__bumper"
+        ],
+        "booked_mass_t": 0.5217498580000001
+      },
+      {
+        "id": "window_L4-medical_6",
+        "diameter_m": 1.55,
+        "centre": [
+          9.1,
+          -2.2500000000000018,
+          -3.8971143170299727
+        ],
+        "layers": [
+          "dry:window_L4-medical_6__strata",
+          "dry:window_L4-medical_6__backup",
+          "dry:window_L4-medical_6__aoi",
+          "dry:window_L4-medical_6__primary",
+          "dry:window_L4-medical_6__bumper"
+        ],
+        "booked_mass_t": 0.521749858
+      },
+      {
+        "id": "window_L5-suits_7",
+        "diameter_m": 0.45,
+        "centre": [
+          12.45,
+          2.8925442435894273,
+          3.447199994035401
+        ],
+        "layers": [
+          "dry:window_L5-suits_7__strata",
+          "dry:window_L5-suits_7__backup",
+          "dry:window_L5-suits_7__aoi",
+          "dry:window_L5-suits_7__primary",
+          "dry:window_L5-suits_7__bumper"
+        ],
+        "booked_mass_t": 0.11723385900000001
+      },
+      {
+        "id": "window_L5-workshop_8",
+        "diameter_m": 0.45,
+        "centre": [
+          12.45,
+          -0.9739782627214626,
+          4.3933320320397
+        ],
+        "layers": [
+          "dry:window_L5-workshop_8__strata",
+          "dry:window_L5-workshop_8__backup",
+          "dry:window_L5-workshop_8__aoi",
+          "dry:window_L5-workshop_8__primary",
+          "dry:window_L5-workshop_8__bumper"
+        ],
+        "booked_mass_t": 0.11723385900000001
+      },
+      {
+        "id": "window_L5-workshop_9",
+        "diameter_m": 0.45,
+        "centre": [
+          12.45,
+          -3.7952615061579857,
+          2.417848237560707
+        ],
+        "layers": [
+          "dry:window_L5-workshop_9__strata",
+          "dry:window_L5-workshop_9__backup",
+          "dry:window_L5-workshop_9__aoi",
+          "dry:window_L5-workshop_9__primary",
+          "dry:window_L5-workshop_9__bumper"
+        ],
+        "booked_mass_t": 0.11723385900000001
+      },
+      {
+        "id": "window_L5-vestibule_10",
+        "diameter_m": 0.4,
+        "centre": [
+          12.45,
+          -8.266365894244633e-16,
+          -4.5
+        ],
+        "layers": [
+          "dry:window_L5-vestibule_10__strata",
+          "dry:window_L5-vestibule_10__backup",
+          "dry:window_L5-vestibule_10__aoi",
+          "dry:window_L5-vestibule_10__primary",
+          "dry:window_L5-vestibule_10__bumper"
+        ],
+        "booked_mass_t": 0.109419345
+      },
+      {
+        "id": "window_L3-CAPT_11",
+        "diameter_m": 0.8,
+        "centre": [
+          7.54,
+          4.346666218300808,
+          1.1646857029613433
+        ],
+        "layers": [
+          "dry:window_L3-CAPT_11__strata",
+          "dry:window_L3-CAPT_11__backup",
+          "dry:window_L3-CAPT_11__aoi",
+          "dry:window_L3-CAPT_11__primary",
+          "dry:window_L3-CAPT_11__bumper"
+        ],
+        "booked_mass_t": 0.197677382
+      },
+      {
+        "id": "window_L3-CA_12",
+        "diameter_m": 0.8,
+        "centre": [
+          7.54,
+          1.1646857029613433,
+          4.346666218300808
+        ],
+        "layers": [
+          "dry:window_L3-CA_12__strata",
+          "dry:window_L3-CA_12__backup",
+          "dry:window_L3-CA_12__aoi",
+          "dry:window_L3-CA_12__primary",
+          "dry:window_L3-CA_12__bumper"
+        ],
+        "booked_mass_t": 0.197677382
+      },
+      {
+        "id": "window_L3-CA_13",
+        "diameter_m": 0.8,
+        "centre": [
+          6.65,
+          0.8586404791944521,
+          4.417322325514488
+        ],
+        "layers": [
+          "dry:window_L3-CA_13__strata",
+          "dry:window_L3-CA_13__backup",
+          "dry:window_L3-CA_13__aoi",
+          "dry:window_L3-CA_13__primary",
+          "dry:window_L3-CA_13__bumper"
+        ],
+        "booked_mass_t": 0.197677382
+      },
+      {
+        "id": "window_L3-GUEST_14",
+        "diameter_m": 0.8,
+        "centre": [
+          7.54,
+          -4.417322325514488,
+          0.8586404791944524
+        ],
+        "layers": [
+          "dry:window_L3-GUEST_14__strata",
+          "dry:window_L3-GUEST_14__backup",
+          "dry:window_L3-GUEST_14__aoi",
+          "dry:window_L3-GUEST_14__primary",
+          "dry:window_L3-GUEST_14__bumper"
+        ],
+        "booked_mass_t": 0.197677382
+      },
+      {
+        "id": "window_L3-GUEST_15",
+        "diameter_m": 0.8,
+        "centre": [
+          6.65,
+          -4.466457682385949,
+          0.548412045323164
+        ],
+        "layers": [
+          "dry:window_L3-GUEST_15__strata",
+          "dry:window_L3-GUEST_15__backup",
+          "dry:window_L3-GUEST_15__aoi",
+          "dry:window_L3-GUEST_15__primary",
+          "dry:window_L3-GUEST_15__bumper"
+        ],
+        "booked_mass_t": 0.197677382
+      },
+      {
+        "id": "window_L3-GUEST_16",
+        "diameter_m": 0.8,
+        "centre": [
+          7.54,
+          -3.3961931110024746,
+          -2.9522656304572816
+        ],
+        "layers": [
+          "dry:window_L3-GUEST_16__strata",
+          "dry:window_L3-GUEST_16__backup",
+          "dry:window_L3-GUEST_16__aoi",
+          "dry:window_L3-GUEST_16__primary",
+          "dry:window_L3-GUEST_16__bumper"
+        ],
+        "booked_mass_t": 0.197677382
+      },
+      {
+        "id": "window_L3-GUEST_17",
+        "diameter_m": 0.8,
+        "centre": [
+          6.65,
+          -3.5938597952128175,
+          -2.7081676041842178
+        ],
+        "layers": [
+          "dry:window_L3-GUEST_17__strata",
+          "dry:window_L3-GUEST_17__backup",
+          "dry:window_L3-GUEST_17__aoi",
+          "dry:window_L3-GUEST_17__primary",
+          "dry:window_L3-GUEST_17__bumper"
+        ],
+        "booked_mass_t": 0.197677382
+      },
+      {
+        "id": "window_L3-CB_18",
+        "diameter_m": 0.8,
+        "centre": [
+          7.54,
+          -0.8586404791944507,
+          -4.417322325514488
+        ],
+        "layers": [
+          "dry:window_L3-CB_18__strata",
+          "dry:window_L3-CB_18__backup",
+          "dry:window_L3-CB_18__aoi",
+          "dry:window_L3-CB_18__primary",
+          "dry:window_L3-CB_18__bumper"
+        ],
+        "booked_mass_t": 0.197677382
+      },
+      {
+        "id": "window_L3-CB_19",
+        "diameter_m": 0.8,
+        "centre": [
+          6.65,
+          -0.5484120453231622,
+          -4.46645768238595
+        ],
+        "layers": [
+          "dry:window_L3-CB_19__strata",
+          "dry:window_L3-CB_19__backup",
+          "dry:window_L3-CB_19__aoi",
+          "dry:window_L3-CB_19__primary",
+          "dry:window_L3-CB_19__bumper"
+        ],
+        "booked_mass_t": 0.197677382
+      },
+      {
+        "id": "window_L3-CB_20",
+        "diameter_m": 0.8,
+        "centre": [
+          7.54,
+          2.9522656304572816,
+          -3.396193111002475
+        ],
+        "layers": [
+          "dry:window_L3-CB_20__strata",
+          "dry:window_L3-CB_20__backup",
+          "dry:window_L3-CB_20__aoi",
+          "dry:window_L3-CB_20__primary",
+          "dry:window_L3-CB_20__bumper"
+        ],
+        "booked_mass_t": 0.197677382
+      },
+      {
+        "id": "viewport_band_0",
+        "x_m": [
+          3.35,
+          5.55
+        ],
+        "theta_deg": [
+          300,
+          360
+        ],
+        "layers": [
+          "dry:viewport_band_0__strata",
+          "dry:viewport_band_0__backup",
+          "dry:viewport_band_0__aoi",
+          "dry:viewport_band_0__primary",
+          "dry:viewport_band_0__bumper"
+        ]
+      },
+      {
+        "id": "viewport_band_1",
+        "x_m": [
+          3.35,
+          5.55
+        ],
+        "theta_deg": [
+          0,
+          30
+        ],
+        "layers": [
+          "dry:viewport_band_1__strata",
+          "dry:viewport_band_1__backup",
+          "dry:viewport_band_1__aoi",
+          "dry:viewport_band_1__primary",
+          "dry:viewport_band_1__bumper"
+        ]
+      },
+      {
+        "id": "viewport_band_2",
+        "x_m": [
+          3.9,
+          4.5
+        ],
+        "theta_deg": [
+          30,
+          150
+        ],
+        "layers": [
+          "dry:viewport_band_2__strata",
+          "dry:viewport_band_2__backup",
+          "dry:viewport_band_2__aoi",
+          "dry:viewport_band_2__primary",
+          "dry:viewport_band_2__bumper"
+        ]
+      },
+      {
+        "id": "viewport_band_3",
+        "x_m": [
+          3.6,
+          5.2
+        ],
+        "theta_deg": [
+          150,
+          210
+        ],
+        "layers": [
+          "dry:viewport_band_3__strata",
+          "dry:viewport_band_3__backup",
+          "dry:viewport_band_3__aoi",
+          "dry:viewport_band_3__primary",
+          "dry:viewport_band_3__bumper"
+        ]
+      },
+      {
+        "id": "viewport_band_4",
+        "x_m": [
+          3.35,
+          5.55
+        ],
+        "theta_deg": [
+          210,
+          270
+        ],
+        "layers": [
+          "dry:viewport_band_4__strata",
+          "dry:viewport_band_4__backup",
+          "dry:viewport_band_4__aoi",
+          "dry:viewport_band_4__primary",
+          "dry:viewport_band_4__bumper"
+        ]
+      }
+    ],
+    "spare_names": [
+      "dry:crown_spare_01",
+      "dry:crown_spare_02",
+      "dry:crown_spare_03",
+      "dry:crown_spare_04",
+      "dry:crown_spare_05",
+      "dry:crown_spare_06",
+      "dry:crown_spare_07"
+    ],
+    "renderer_only": true,
+    "physically_unqualified": [
+      "pane retainers",
+      "pressure seals",
+      "independent ceramic failure",
+      "dynamic shutter closure",
+      "local particle-dose transport"
+    ]
+  },
+  "canonical_source_mass_t_before_and_after": 868.1922552640087,
+  "delta_v_ECON_km_s_unchanged": 707.845,
   "engineering_credit": 0
 }
