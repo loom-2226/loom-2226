@@ -107,36 +107,41 @@ def _surface_sample_points(shape):
     faces=list(shape.faces())
     if not faces:
         raise RuntimeError("no BRep faces for surface comparison")
-    target=max(4,math.ceil(MIN_SURFACE_SAMPLES_EACH_WAY/len(faces)))
+    target=max(4,math.ceil(MIN_SURFACE_SAMPLES_EACH_WAY/len(faces))+8)  # seam-duplicate margin
     points={}
     face_counts=[]
     for face in faces:
-        selected=[]
-        # Every topological corner or endpoint is a surface sample.
+        selected={}
+        # Every topological corner/endpoint is a real surface sample.
         for v in face.vertices():
             x=v.center()
-            selected.append(gp_Pnt(float(x.X),float(x.Y),float(x.Z)))
+            p=gp_Pnt(float(x.X),float(x.Y),float(x.Z))
+            selected.setdefault((round(p.X(),12),round(p.Y(),12),round(p.Z(),12)),p)
         u0,u1,v0,v1=BRepTools.UVBounds_s(face.wrapped)
         if not all(math.isfinite(t) for t in (u0,u1,v0,v1)):
             raise RuntimeError("unbounded or nonfinite UV face: cannot certify surface distance")
         adaptor=BRepAdaptor_Surface(face.wrapped)
-        grid=max(8,math.ceil(math.sqrt(target*4)))
-        for i in range(grid):
-            if len(selected)>=target:break
-            u=u0+(u1-u0)*(i+.5)/grid
-            for j in range(grid):
-                v=v0+(v1-v0)*(j+.5)/grid
-                classifier=BRepClass_FaceClassifier(face.wrapped,gp_Pnt2d(u,v),1e-9)
-                if classifier.State() not in (TopAbs_IN,TopAbs_ON):continue
-                selected.append(adaptor.Value(u,v))
+        base_grid=max(8,math.ceil(math.sqrt(target*4)))
+        # Still the SAME deterministic UV/trimmed-face method. Increase grid
+        # density only where the trimmed region yields too few DISTINCT points;
+        # do not lower the approved 256-sample minimum.
+        for factor in (1,2,4,8,16):
+            grid=base_grid*factor
+            for i in range(grid):
                 if len(selected)>=target:break
-        # Do not pretend to have sampled a trimmed face when only exterior
-        # projected UV positions exist; vertices are valid boundary samples.
+                u=u0+(u1-u0)*(i+.5)/grid
+                for j in range(grid):
+                    v=v0+(v1-v0)*(j+.5)/grid
+                    classifier=BRepClass_FaceClassifier(face.wrapped,gp_Pnt2d(u,v),1e-9)
+                    if classifier.State() not in (TopAbs_IN,TopAbs_ON):continue
+                    p=adaptor.Value(u,v)
+                    selected.setdefault((round(p.X(),12),round(p.Y(),12),round(p.Z(),12)),p)
+                    if len(selected)>=target:break
+            if len(selected)>=target:break
         if not selected:
             raise RuntimeError("face without valid surface sample")
         face_counts.append(len(selected))
-        for p in selected:
-            key=(round(p.X(),12),round(p.Y(),12),round(p.Z(),12))
+        for key,p in selected.items():
             points.setdefault(key,p)
     if len(points)<MIN_SURFACE_SAMPLES_EACH_WAY:
         raise RuntimeError("insufficient distinct BRep surface samples: "+str(len(points)))
