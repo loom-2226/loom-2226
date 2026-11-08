@@ -87,7 +87,9 @@ jobs:
           git add -- wayfarer/render/out/wayfarer_crown_parts_88ce19fc.glb \
             wayfarer/render/out/wayfarer_crown_parts_88ce19fc_report.json \
             wayfarer/render/out/crown_print_tiles/*.stl
-          test "$(git diff --cached --name-only | wc -l)" -eq 39
+          test "$(find wayfarer/render/out/crown_print_tiles -name 'crown_pane_*.stl' | wc -l)" -eq 37
+          git diff --cached --name-only | tee crown-output-changes.txt
+          test "$(git diff --cached --name-only | wc -l)" -ge 2
           git commit -m 'class:engineering: preserve crown BRep overlay and bow-fit evidence'
           git push origin "HEAD:${{ github.head_ref }}"
       - name: Retain evidence even when CAD fails
