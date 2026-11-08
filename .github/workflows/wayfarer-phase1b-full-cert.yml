@@ -1,0 +1,54 @@
+name: Wayfarer Phase1b G1-G12 plus D9 full certification
+on:
+  pull_request:
+    paths:
+      - wayfarer/results/out/D9_BREP_CLASH_REPORT.json
+      - .github/workflows/wayfarer-phase1b-full-cert.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  full-current-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Re-run complete G1-G12 and D9 on current branch, no gate bypass
+        run: |
+          python -u wayfarer/lab/certify.py 2>&1 | tee phase1b-full-cert.log
+      - name: Truthful machine conclusion (CLI exit zero alone means nothing)
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          root=Path('wayfarer')
+          rep=json.loads((root/'results/out/certification_report.json').read_text())
+          d9=json.loads((root/'results/out/D9_BREP_CLASH_REPORT.json').read_text())
+          sha=hashlib.sha256((root/'results/out/wayfarer_v05_geometry.json').read_bytes()).hexdigest()
+          assert rep['geometry_sha256']==d9['geometry_sha256']==sha, 'report evidence must be from current source'
+          assert len(rep['summary'])==13 and 'D9' in rep['summary']
+          print('GEOMETRY',sha,flush=True)
+          print('CERTIFIED',rep['certified'],flush=True)
+          for k,v in rep['summary'].items():print(k,v,flush=True)
+          assert rep['certified'] is True, 'NO MERGE: full cert gates not all PASS'
+          assert d9.get('pass') is True and d9.get('D8_primary_shape_unchanged') is True
+          PY
+      - name: Preserve every full-cert gate and primary-integrity failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wayfarer-phase1b-full-cert-evidence
+          path: |
+            wayfarer/results/out/certification_report.json
+            wayfarer/results/out/CERTIFICATION_REPORT_v0.5.md
+            wayfarer/results/out/D9_BREP_CLASH_REPORT.json
+            wayfarer/results/out/wayfarer_v05_card.json
+            wayfarer/lab/command/l1_i4_results.json
+            wayfarer/lab/habitat/hab_overlay_results.json
+            wayfarer/render/out/manifest.json
+            phase1b-full-cert.log
+          if-no-files-found: warn

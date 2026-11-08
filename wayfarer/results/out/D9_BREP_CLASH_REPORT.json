@@ -1,2446 +1,1045 @@
 {
- "authority": "NON-QUALIFICATION Phase 1b D9 numerical installed-solid BRep check",
- "geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
- "builder": "source_brep_pilot.py copied from research #156 exact B-rep converter; build123d 0.13.0/OpenCascade",
- "classifier": "source_brep_triage.py copied from research #156, never auto-resolves clashes",
- "threshold_m3": 0.01,
- "dry_source_parts": 296,
- "S1_source_fluids": 20,
- "modelled_solids": 194,
- "excluded_source_no_render_proxy_count": 122,
- "excluded_source_no_render_proxy_mass_t": 43.23905992163078,
- "excluded_source_proxies": [
-  {
-   "id": "dry:i4_seat_PILOT",
-   "mass_t": 0.05118518656421065,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_seat_NAV",
-   "mass_t": 0.05118518656421065,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_seat_S1",
-   "mass_t": 0.05118518656421065,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_seat_S2",
-   "mass_t": 0.05118518656421065,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_seat_S3",
-   "mass_t": 0.05118518656421065,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_seat_S4",
-   "mass_t": 0.05118518656421065,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_mission_table",
-   "mass_t": 0.08189629850273704,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_workbench",
-   "mass_t": 0.08189629850273704,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_cabinetry",
-   "mass_t": 0.04094814925136852,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_engineering_cabinet",
-   "mass_t": 0.08,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_sensors_cabinet",
-   "mass_t": 0.08,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_shared_map_table",
-   "mass_t": 0.095,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_equipment_workbench",
-   "mass_t": 0.09,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_workbench_display",
-   "mass_t": 0.03,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_rails_0",
-   "mass_t": 0.009,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_rails_1",
-   "mass_t": 0.009,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_rails_2",
-   "mass_t": 0.009,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_rails_3",
-   "mass_t": 0.009,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_lights_0",
-   "mass_t": 0.004,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_lights_1",
-   "mass_t": 0.004,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_transfer_0",
-   "mass_t": 0.022,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_transfer_1",
-   "mass_t": 0.022,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_observation_rail_0",
-   "mass_t": 0.001388888888888889,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_observation_rail_1",
-   "mass_t": 0.001388888888888889,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_observation_rail_2",
-   "mass_t": 0.001388888888888889,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_observation_rail_3",
-   "mass_t": 0.001388888888888889,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_observation_rail_4",
-   "mass_t": 0.001388888888888889,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_observation_rail_5",
-   "mass_t": 0.001388888888888889,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_observation_rail_6",
-   "mass_t": 0.001388888888888889,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_observation_rail_7",
-   "mass_t": 0.001388888888888889,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_observation_rail_8",
-   "mass_t": 0.001388888888888889,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_observation_rail_9",
-   "mass_t": 0.001388888888888889,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_observation_rail_10",
-   "mass_t": 0.001388888888888889,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_observation_rail_11",
-   "mass_t": 0.001388888888888889,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_observation_rail_12",
-   "mass_t": 0.001388888888888889,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_observation_rail_13",
-   "mass_t": 0.001388888888888889,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_observation_rail_14",
-   "mass_t": 0.001388888888888889,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_observation_rail_15",
-   "mass_t": 0.001388888888888889,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_observation_rail_16",
-   "mass_t": 0.001388888888888889,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_observation_rail_17",
-   "mass_t": 0.001388888888888889,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_low_g_command_point",
-   "mass_t": 0.028,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:i4_map_console",
-   "mass_t": 0.012,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:crown_dome",
-   "mass_t": 6.201515,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:crown_c_additional_strata_gore",
-   "mass_t": 3.888898,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:crown_c_outward_retainers",
-   "mass_t": 0.12,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:crown_c_seven_spare_panes",
-   "mass_t": 0.385772,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:hatch_L1L2_0",
-   "mass_t": 0.15,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:hatch_L1L2_1",
-   "mass_t": 0.15,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:crown_backup_pressure_dome",
-   "mass_t": 4.728898,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:crown_adaptive_optogel",
-   "mass_t": 3.04101485,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_shelter_armour_restoration",
-   "mass_t": 0.16,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L1-command_0",
-   "mass_t": 0.105459272,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_0",
-   "mass_t": 0.020508455,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L1-command_1",
-   "mass_t": 0.105459272,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_1",
-   "mass_t": 0.020508455,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L1-command_2",
-   "mass_t": 0.105459272,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_2",
-   "mass_t": 0.020508455,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L1-command_3",
-   "mass_t": 0.105459272,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_3",
-   "mass_t": 0.020508455,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L4-medical_4",
-   "mass_t": 0.105459272,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_4",
-   "mass_t": 0.416290586,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L4-medical_5",
-   "mass_t": 0.105459272,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_5",
-   "mass_t": 0.416290586,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L4-medical_6",
-   "mass_t": 0,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_6",
-   "mass_t": 0.521749858,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L5-suits_7",
-   "mass_t": 0.08542201,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_7",
-   "mass_t": 0.031811849,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L5-workshop_8",
-   "mass_t": 0.08542201,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_8",
-   "mass_t": 0.031811849,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L5-workshop_9",
-   "mass_t": 0.08542201,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_9",
-   "mass_t": 0.031811849,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L5-vestibule_10",
-   "mass_t": 0.08,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_10",
-   "mass_t": 0.029419345,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L3-CAPT_11",
-   "mass_t": 0.105459272,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_11",
-   "mass_t": 0.09221811,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L3-CA_12",
-   "mass_t": 0.105459272,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_12",
-   "mass_t": 0.09221811,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L3-CA_13",
-   "mass_t": 0.105459272,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_13",
-   "mass_t": 0.09221811,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L3-GUEST_14",
-   "mass_t": 0.105459272,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_14",
-   "mass_t": 0.09221811,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L3-GUEST_15",
-   "mass_t": 0.105459272,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_15",
-   "mass_t": 0.09221811,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L3-GUEST_16",
-   "mass_t": 0.105459272,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_16",
-   "mass_t": 0.09221811,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L3-GUEST_17",
-   "mass_t": 0.105459272,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_17",
-   "mass_t": 0.09221811,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L3-CB_18",
-   "mass_t": 0.105459272,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_18",
-   "mass_t": 0.09221811,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L3-CB_19",
-   "mass_t": 0.105459272,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_19",
-   "mass_t": 0.09221811,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:window_L3-CB_20",
-   "mass_t": 0.105459272,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_port_uplift_20",
-   "mass_t": 0.09221811,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:trunk_plug_L4L5",
-   "mass_t": 0.15,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:doors_L4-medical",
-   "mass_t": 0.1,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:shelter_backup",
-   "mass_t": 0.3,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:rescue_kit",
-   "mass_t": 0.05,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:viewport_band_0",
-   "mass_t": 1.5551084337349397,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_band_uplift_0",
-   "mass_t": 2.00912985860241,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:viewport_band_1",
-   "mass_t": 0.7775542168674698,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_band_uplift_1",
-   "mass_t": 1.004564929301205,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:viewport_band_2",
-   "mass_t": 0.8482409638554218,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_band_uplift_2",
-   "mass_t": 1.0958890137831325,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:viewport_band_3",
-   "mass_t": 1.130987951807229,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_band_uplift_3",
-   "mass_t": 1.4611853517108435,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:viewport_band_4",
-   "mass_t": 1.5551084337349397,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:wws1_band_uplift_4",
-   "mass_t": 2.00912985860241,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:service_shield_band",
-   "mass_t": 0.6,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:longeron_end_fitting_14_upper_starboard",
-   "mass_t": 0.24261778431435846,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:longeron_end_fitting_14_upper_port",
-   "mass_t": 0.24261778431435846,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:longeron_end_fitting_14_lower_starboard",
-   "mass_t": 0.24261778431435846,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:longeron_end_fitting_14_lower_port",
-   "mass_t": 0.24261778431435846,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:longeron_end_fitting_34.3_upper_starboard",
-   "mass_t": 0.24261778431435846,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:longeron_end_fitting_34.3_upper_port",
-   "mass_t": 0.24261778431435846,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:longeron_end_fitting_34.3_lower_starboard",
-   "mass_t": 0.24261778431435846,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:longeron_end_fitting_34.3_lower_port",
-   "mass_t": 0.24261778431435846,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:node_mount_allowance",
-   "mass_t": 1.1260741044126343,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:bay_corner_18_p",
-   "mass_t": 0.12284444775410555,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:bay_corner_18_s",
-   "mass_t": 0.12284444775410555,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:bay_corner_32.3_p",
-   "mass_t": 0.12284444775410555,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:bay_corner_32.3_s",
-   "mass_t": 0.12284444775410555,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  },
-  {
-   "id": "dry:d8_unlocated_doubler_allowance",
-   "mass_t": 0.660801800044753,
-   "why": "authored no_render/unlocated proxy: no installed B-rep clearance claim"
-  }
- ],
- "pair_count": 18721,
- "expected_pairs": 18721,
- "aabb_rejected": 17989,
- "intersection_category_counts": {
-  "c": 111,
-  "d": 73,
-  "a": 1
- },
- "category_d_count": 73,
- "category_d_conflicts": [
-  {
-   "a": "dry:service_arm",
-   "b": "dry:tunnel_0",
-   "m3": 2.94053072,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:frame_34",
-   "b": "dry:manifold",
-   "m3": 1.5364273,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:service_arm",
-   "b": "dry:docking_collar",
-   "m3": 1.36985551,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:floor_L2",
-   "b": "dry:core_racks",
-   "m3": 0.61835968,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:floor_L3",
-   "b": "dry:core_racks",
-   "m3": 0.61835968,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:floor_L4",
-   "b": "dry:core_racks",
-   "m3": 0.61835968,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:service_arm",
-   "b": "dry:strake_220",
-   "m3": 0.53917673,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:service_arm",
-   "b": "dry:strake_320",
-   "m3": 0.53917673,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:electrical_fwd",
-   "b": "dry:strake_40",
-   "m3": 0.52183927,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:electrical_fwd",
-   "b": "dry:strake_140",
-   "m3": 0.52183927,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:house_reactor_B",
-   "b": "dry:strake_40",
-   "m3": 0.52183927,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:house_energy_battery",
-   "b": "dry:strake_140",
-   "m3": 0.52183927,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:service_arm",
-   "b": "dry:tunnel_1",
-   "m3": 0.45531627,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "S1:jacket_outer:00",
-   "b": "S1:jacket_ceiling:04",
-   "m3": 0.42411501,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "S1:jacket_outer:00",
-   "b": "S1:jacket_floor:05",
-   "m3": 0.42411501,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "dry:electrical",
-   "b": "dry:strake_40",
-   "m3": 0.41747141,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:electrical",
-   "b": "dry:strake_140",
-   "m3": 0.41747141,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:electrical",
-   "b": "dry:strake_220",
-   "m3": 0.41747141,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:electrical",
-   "b": "dry:strake_320",
-   "m3": 0.41747141,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:house_peak_store",
-   "b": "dry:strake_320",
-   "m3": 0.41747141,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:house_reactor_A",
-   "b": "dry:strake_140",
-   "m3": 0.37108855,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:electrical_fwd",
-   "b": "dry:strake_220",
-   "m3": 0.36778877,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:electrical_fwd",
-   "b": "dry:strake_320",
-   "m3": 0.36778877,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:strake_40",
-   "b": "S1:pw_service:10",
-   "m3": 0.36116754,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:strake_140",
-   "b": "S1:pw_service:10",
-   "m3": 0.36116754,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:courier_systems",
-   "b": "dry:docking_collar",
-   "m3": 0.336693,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:house_reactor_B",
-   "b": "dry:strake_320",
-   "m3": 0.26091963,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:longeron_upper_starboard",
-   "b": "dry:manifold",
-   "m3": 0.25132741,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_port",
-   "b": "dry:manifold",
-   "m3": 0.25132741,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_lower_starboard",
-   "b": "dry:manifold",
-   "m3": 0.25132741,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_lower_port",
-   "b": "dry:manifold",
-   "m3": 0.25132741,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "S1:jacket_inner:01",
-   "b": "S1:jacket_ceiling:04",
-   "m3": 0.20943951,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "S1:jacket_inner:01",
-   "b": "S1:jacket_floor:05",
-   "m3": 0.20943951,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "dry:house_reactor_A",
-   "b": "dry:strake_220",
-   "m3": 0.20873571,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:service_arm",
-   "b": "dry:frame_14",
-   "m3": 0.19792034,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:service_arm",
-   "b": "dry:frame_16",
-   "m3": 0.19792034,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:frame_16",
-   "b": "S1:pw_service:10",
-   "m3": 0.19792034,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_starboard",
-   "b": "dry:electrical_fwd",
-   "m3": 0.12566371,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_starboard",
-   "b": "dry:house_reactor_B",
-   "m3": 0.12566371,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_port",
-   "b": "dry:electrical_fwd",
-   "m3": 0.12566371,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_port",
-   "b": "dry:house_energy_battery",
-   "m3": 0.12566371,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "S1:jacket_outer:00",
-   "b": "S1:jacket_radial_a:02",
-   "m3": 0.12317355,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "S1:jacket_outer:00",
-   "b": "S1:jacket_radial_b:03",
-   "m3": 0.12317355,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "dry:longeron_lower_starboard",
-   "b": "dry:electrical_fwd",
-   "m3": 0.10317582,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_lower_port",
-   "b": "dry:electrical_fwd",
-   "m3": 0.10317582,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_starboard",
-   "b": "dry:electrical",
-   "m3": 0.10053096,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_port",
-   "b": "dry:electrical",
-   "m3": 0.10053096,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_port",
-   "b": "dry:house_reactor_A",
-   "m3": 0.10053096,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_lower_starboard",
-   "b": "dry:electrical",
-   "m3": 0.10053096,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_lower_starboard",
-   "b": "dry:house_peak_store",
-   "m3": 0.10053096,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_lower_port",
-   "b": "dry:electrical",
-   "m3": 0.10053096,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "S1:jacket_radial_a:02",
-   "b": "S1:jacket_ceiling:04",
-   "m3": 0.09,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "S1:jacket_radial_a:02",
-   "b": "S1:jacket_floor:05",
-   "m3": 0.09,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "S1:jacket_radial_b:03",
-   "b": "S1:jacket_ceiling:04",
-   "m3": 0.09,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "S1:jacket_radial_b:03",
-   "b": "S1:jacket_floor:05",
-   "m3": 0.09,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "dry:service_arm",
-   "b": "dry:longeron_lower_starboard",
-   "m3": 0.07870762,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:service_arm",
-   "b": "dry:longeron_lower_port",
-   "m3": 0.07870762,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "S1:jacket_inner:01",
-   "b": "S1:jacket_radial_a:02",
-   "m3": 0.06082645,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "S1:jacket_inner:01",
-   "b": "S1:jacket_radial_b:03",
-   "m3": 0.06082645,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "dry:manifold",
-   "b": "dry:ext_crawler_dock_2",
-   "m3": 0.05424933,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_starboard",
-   "b": "S1:pw_service:10",
-   "m3": 0.0527223,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_port",
-   "b": "S1:pw_service:10",
-   "m3": 0.0527223,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:house_peak_store",
-   "b": "dry:strake_220",
-   "m3": 0.04638287,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:hotfin_root_320",
-   "b": "dry:nozzle",
-   "m3": 0.03898014,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:tunnel_1",
-   "b": "S1:house_fuel_lobe_starboard_fore:15",
-   "m3": 0.03336033,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:tunnel_1",
-   "b": "S1:house_fuel_lobe_port_fore:17",
-   "m3": 0.03336033,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:hotfin_root_220",
-   "b": "dry:nozzle",
-   "m3": 0.02182841,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:manifold",
-   "b": "dry:ext_laser_terminal_0",
-   "m3": 0.02095486,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:manifold",
-   "b": "dry:ext_laser_terminal_1",
-   "m3": 0.02095486,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:frame_16",
-   "b": "S1:jacket_service_return_wall:09",
-   "m3": 0.01718058,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:strake_140",
-   "b": "S1:jacket_service_return_wall:09",
-   "m3": 0.01472024,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:core_racks",
-   "b": "dry:hatch_L4L5_0",
-   "m3": 0.01462602,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:core_racks",
-   "b": "dry:hatch_L4L5_180",
-   "m3": 0.01462602,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  }
- ],
- "all_volumetric_hits_over_0p01_m3": [
-  {
-   "a": "dry:armor",
-   "b": "dry:pressure_vessel",
-   "m3": 0.53241855,
-   "category": "c",
-   "why": "source structural connection or attachment envelope"
-  },
-  {
-   "a": "dry:armor",
-   "b": "dry:bow_sensors",
-   "m3": 0.22340332,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:armor",
-   "b": "dry:room_L1-command",
-   "m3": 5.4876372,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:armor",
-   "b": "dry:outfit_L1",
-   "m3": 0.81072426,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:armor",
-   "b": "dry:rcs_F+Y",
-   "m3": 0.12817706,
-   "category": "c",
-   "why": "RCS thruster hull-mounted footprint"
-  },
-  {
-   "a": "dry:armor",
-   "b": "dry:rcs_F+Z",
-   "m3": 0.12817706,
-   "category": "c",
-   "why": "RCS thruster hull-mounted footprint"
-  },
-  {
-   "a": "dry:armor",
-   "b": "dry:rcs_F-Y",
-   "m3": 0.12817706,
-   "category": "c",
-   "why": "RCS thruster hull-mounted footprint"
-  },
-  {
-   "a": "dry:armor",
-   "b": "dry:rcs_F-Z",
-   "m3": 0.12817706,
-   "category": "c",
-   "why": "RCS thruster hull-mounted footprint"
-  },
-  {
-   "a": "dry:armor",
-   "b": "dry:ext_crawler_dock_0",
-   "m3": 0.063828,
-   "category": "c",
-   "why": "external hardware mounted on structure; unqualified local attachment"
-  },
-  {
-   "a": "dry:armor",
-   "b": "dry:ext_crawler_dock_1",
-   "m3": 0.063828,
-   "category": "c",
-   "why": "external hardware mounted on structure; unqualified local attachment"
-  },
-  {
-   "a": "dry:pressure_vessel",
-   "b": "dry:room_L1-command",
-   "m3": 0.21207755,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:pressure_vessel",
-   "b": "dry:outfit_L1",
-   "m3": 0.20398423,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:pressure_vessel",
-   "b": "dry:rcs_F+Y",
-   "m3": 0.01927869,
-   "category": "c",
-   "why": "RCS thruster hull-mounted footprint"
-  },
-  {
-   "a": "dry:pressure_vessel",
-   "b": "dry:rcs_F+Z",
-   "m3": 0.01927802,
-   "category": "c",
-   "why": "RCS thruster hull-mounted footprint"
-  },
-  {
-   "a": "dry:pressure_vessel",
-   "b": "dry:rcs_F-Y",
-   "m3": 0.01927801,
-   "category": "c",
-   "why": "RCS thruster hull-mounted footprint"
-  },
-  {
-   "a": "dry:pressure_vessel",
-   "b": "dry:rcs_F-Z",
-   "m3": 0.01927801,
-   "category": "c",
-   "why": "RCS thruster hull-mounted footprint"
-  },
-  {
-   "a": "dry:floor_L2",
-   "b": "dry:core_racks",
-   "m3": 0.61835968,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:floor_L3",
-   "b": "dry:core_racks",
-   "m3": 0.61835968,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:floor_L4",
-   "b": "dry:core_racks",
-   "m3": 0.61835968,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:floor_L4",
-   "b": "dry:hatch_L4L5_0",
-   "m3": 0.0486,
-   "category": "c",
-   "why": "source structural connection or attachment envelope"
-  },
-  {
-   "a": "dry:floor_L4",
-   "b": "dry:hatch_L4L5_180",
-   "m3": 0.0486,
-   "category": "c",
-   "why": "source structural connection or attachment envelope"
-  },
-  {
-   "a": "dry:core_racks",
-   "b": "dry:hatch_L4L5_0",
-   "m3": 0.01462602,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:core_racks",
-   "b": "dry:hatch_L4L5_180",
-   "m3": 0.01462602,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:bow_sensors",
-   "b": "dry:room_L1-command",
-   "m3": 11.77368223,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:command_terrace",
-   "b": "dry:room_L1-command",
-   "m3": 0.714,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:navigator_platform",
-   "b": "dry:room_L1-command",
-   "m3": 0.583,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:room_L1-command",
-   "b": "dry:outfit_L1",
-   "m3": 1.47735314,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:room_L2-galley",
-   "b": "dry:outfit_L2",
-   "m3": 1.48126094,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:room_L2-wardroom",
-   "b": "dry:outfit_L2",
-   "m3": 1.97501458,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:room_L2-observation",
-   "b": "dry:outfit_L2",
-   "m3": 0.98750729,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:room_L2-exercise",
-   "b": "dry:outfit_L2",
-   "m3": 0.98750729,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:room_L2-hygiene",
-   "b": "dry:outfit_L2",
-   "m3": 0.49375365,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:room_L4-medical",
-   "b": "dry:outfit_L4",
-   "m3": 1.48126094,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:room_L4-eclss",
-   "b": "dry:outfit_L4",
-   "m3": 1.97501458,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:room_L5-airlock",
-   "b": "dry:outfit_L5",
-   "m3": 0.65833819,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:room_L5-suits",
-   "b": "dry:outfit_L5",
-   "m3": 0.98750729,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:room_L5-workshop",
-   "b": "dry:outfit_L5",
-   "m3": 1.48126094,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:room_L5-custody",
-   "b": "dry:outfit_L5",
-   "m3": 0.49375365,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:room_L5-stores",
-   "b": "dry:outfit_L5",
-   "m3": 0.82292274,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:room_L5-vestibule",
-   "b": "dry:outfit_L5",
-   "m3": 0.65833819,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:room_L5-stores2",
-   "b": "dry:outfit_L5",
-   "m3": 0.82292274,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:outfit_L3",
-   "b": "S1:jacket_berth_wall_extended:08",
-   "m3": 2.41048121,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:outfit_L4",
-   "b": "S1:jacket_outer:00",
-   "m3": 2.46876823,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:outfit_L4",
-   "b": "S1:jacket_radial_a:02",
-   "m3": 0.06234711,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:outfit_L4",
-   "b": "S1:jacket_radial_b:03",
-   "m3": 0.06234711,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:outfit_L4",
-   "b": "S1:jacket_ceiling:04",
-   "m3": 0.2146755,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:outfit_L4",
-   "b": "S1:jacket_floor:05",
-   "m3": 0.2146755,
-   "category": "c",
-   "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
-  },
-  {
-   "a": "dry:courier_systems",
-   "b": "dry:docking_collar",
-   "m3": 0.336693,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:service_arm",
-   "b": "dry:docking_collar",
-   "m3": 1.36985551,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:service_arm",
-   "b": "dry:tunnel_0",
-   "m3": 2.94053072,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:service_arm",
-   "b": "dry:tunnel_1",
-   "m3": 0.45531627,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:service_arm",
-   "b": "dry:longeron_lower_starboard",
-   "m3": 0.07870762,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:service_arm",
-   "b": "dry:longeron_lower_port",
-   "m3": 0.07870762,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:service_arm",
-   "b": "dry:frame_14",
-   "m3": 0.19792034,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:service_arm",
-   "b": "dry:frame_16",
-   "m3": 0.19792034,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:service_arm",
-   "b": "dry:strake_220",
-   "m3": 0.53917673,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:service_arm",
-   "b": "dry:strake_320",
-   "m3": 0.53917673,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:docking_collar",
-   "b": "dry:skin_service",
-   "m3": 0.04037034,
-   "category": "c",
-   "why": "source structural connection or attachment envelope"
-  },
-  {
-   "a": "dry:docking_collar",
-   "b": "dry:frame_16",
-   "m3": 0.09119138,
-   "category": "c",
-   "why": "source structural connection or attachment envelope"
-  },
-  {
-   "a": "dry:tunnel_1",
-   "b": "dry:tunnel_2",
-   "m3": 0.288,
-   "category": "c",
-   "why": "source structural connection or attachment envelope"
-  },
-  {
-   "a": "dry:tunnel_1",
-   "b": "S1:house_fuel_lobe_starboard_fore:15",
-   "m3": 0.03336033,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:tunnel_1",
-   "b": "S1:house_fuel_lobe_port_fore:17",
-   "m3": 0.03336033,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_starboard",
-   "b": "dry:electrical",
-   "m3": 0.10053096,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_starboard",
-   "b": "dry:electrical_fwd",
-   "m3": 0.12566371,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_starboard",
-   "b": "dry:house_reactor_B",
-   "m3": 0.12566371,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_starboard",
-   "b": "dry:manifold",
-   "m3": 0.25132741,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_starboard",
-   "b": "S1:pw_service:10",
-   "m3": 0.0527223,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_port",
-   "b": "dry:electrical",
-   "m3": 0.10053096,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_port",
-   "b": "dry:electrical_fwd",
-   "m3": 0.12566371,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_port",
-   "b": "dry:house_reactor_A",
-   "m3": 0.10053096,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_port",
-   "b": "dry:house_energy_battery",
-   "m3": 0.12566371,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_port",
-   "b": "dry:manifold",
-   "m3": 0.25132741,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_upper_port",
-   "b": "S1:pw_service:10",
-   "m3": 0.0527223,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_lower_starboard",
-   "b": "dry:electrical",
-   "m3": 0.10053096,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_lower_starboard",
-   "b": "dry:electrical_fwd",
-   "m3": 0.10317582,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_lower_starboard",
-   "b": "dry:house_peak_store",
-   "m3": 0.10053096,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_lower_starboard",
-   "b": "dry:manifold",
-   "m3": 0.25132741,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_lower_port",
-   "b": "dry:electrical",
-   "m3": 0.10053096,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_lower_port",
-   "b": "dry:electrical_fwd",
-   "m3": 0.10317582,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:longeron_lower_port",
-   "b": "dry:manifold",
-   "m3": 0.25132741,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:skin_service",
-   "b": "dry:strake_40",
-   "m3": 0.16135318,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:skin_service",
-   "b": "dry:strake_140",
-   "m3": 0.16135318,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:skin_service",
-   "b": "dry:strake_220",
-   "m3": 0.16135318,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:skin_service",
-   "b": "dry:strake_320",
-   "m3": 0.16135318,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:skin_midship",
-   "b": "dry:strake_40",
-   "m3": 0.57683762,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:skin_midship",
-   "b": "dry:strake_140",
-   "m3": 0.57683762,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:skin_midship",
-   "b": "dry:strake_220",
-   "m3": 0.57683762,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:skin_midship",
-   "b": "dry:strake_320",
-   "m3": 0.57683762,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:skin_midship",
-   "b": "dry:ext_sensor_turret_0",
-   "m3": 0.01796,
-   "category": "c",
-   "why": "external hardware mounted on structure; unqualified local attachment"
-  },
-  {
-   "a": "dry:skin_midship",
-   "b": "dry:ext_sensor_turret_1",
-   "m3": 0.01796,
-   "category": "c",
-   "why": "external hardware mounted on structure; unqualified local attachment"
-  },
-  {
-   "a": "dry:skin_midship",
-   "b": "dry:ext_rf_array_0",
-   "m3": 0.020965,
-   "category": "c",
-   "why": "external hardware mounted on structure; unqualified local attachment"
-  },
-  {
-   "a": "dry:skin_midship",
-   "b": "dry:ext_rf_array_1",
-   "m3": 0.020965,
-   "category": "c",
-   "why": "external hardware mounted on structure; unqualified local attachment"
-  },
-  {
-   "a": "dry:skin_midship",
-   "b": "dry:ext_rf_array_2",
-   "m3": 0.020965,
-   "category": "c",
-   "why": "external hardware mounted on structure; unqualified local attachment"
-  },
-  {
-   "a": "dry:skin_midship",
-   "b": "dry:ext_rf_array_3",
-   "m3": 0.020965,
-   "category": "c",
-   "why": "external hardware mounted on structure; unqualified local attachment"
-  },
-  {
-   "a": "dry:frame_14",
-   "b": "dry:strake_40",
-   "m3": 0.11470999,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_14",
-   "b": "dry:strake_140",
-   "m3": 0.11470999,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_14",
-   "b": "dry:strake_220",
-   "m3": 0.11470999,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_14",
-   "b": "dry:strake_320",
-   "m3": 0.11470999,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_16",
-   "b": "dry:strake_40",
-   "m3": 0.11470999,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_16",
-   "b": "dry:strake_140",
-   "m3": 0.11470999,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_16",
-   "b": "dry:strake_220",
-   "m3": 0.11470999,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_16",
-   "b": "dry:strake_320",
-   "m3": 0.11470999,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_16",
-   "b": "S1:jacket_service_return_wall:09",
-   "m3": 0.01718058,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:frame_16",
-   "b": "S1:pw_service:10",
-   "m3": 0.19792034,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:frame_18",
-   "b": "dry:strake_40",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_18",
-   "b": "dry:strake_140",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_18",
-   "b": "dry:strake_220",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_18",
-   "b": "dry:strake_320",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_20",
-   "b": "dry:strake_40",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_20",
-   "b": "dry:strake_140",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_20",
-   "b": "dry:strake_220",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_20",
-   "b": "dry:strake_320",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_22",
-   "b": "dry:strake_40",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_22",
-   "b": "dry:strake_140",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_22",
-   "b": "dry:strake_220",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_22",
-   "b": "dry:strake_320",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_24",
-   "b": "dry:strake_40",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_24",
-   "b": "dry:strake_140",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_24",
-   "b": "dry:strake_220",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_24",
-   "b": "dry:strake_320",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_26",
-   "b": "dry:strake_40",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_26",
-   "b": "dry:strake_140",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_26",
-   "b": "dry:strake_220",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_26",
-   "b": "dry:strake_320",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_28",
-   "b": "dry:strake_40",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_28",
-   "b": "dry:strake_140",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_28",
-   "b": "dry:strake_220",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_28",
-   "b": "dry:strake_320",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_30",
-   "b": "dry:strake_40",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_30",
-   "b": "dry:strake_140",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_30",
-   "b": "dry:strake_220",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_30",
-   "b": "dry:strake_320",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_32",
-   "b": "dry:strake_40",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_32",
-   "b": "dry:strake_140",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_32",
-   "b": "dry:strake_220",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_32",
-   "b": "dry:strake_320",
-   "m3": 0.05447846,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:frame_34",
-   "b": "dry:manifold",
-   "m3": 1.5364273,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:frame_34",
-   "b": "dry:ext_crawler_dock_2",
-   "m3": 0.01017175,
-   "category": "c",
-   "why": "external hardware mounted on structure; unqualified local attachment"
-  },
-  {
-   "a": "dry:tank_shell_out",
-   "b": "dry:strake_40",
-   "m3": 0.54501383,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:tank_shell_out",
-   "b": "dry:strake_140",
-   "m3": 0.54501383,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:tank_shell_out",
-   "b": "dry:strake_220",
-   "m3": 0.54501383,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:tank_shell_out",
-   "b": "dry:strake_320",
-   "m3": 0.54501383,
-   "category": "c",
-   "why": "strake root intersects authored skin/groove/support envelope"
-  },
-  {
-   "a": "dry:thrust_cone",
-   "b": "dry:shield",
-   "m3": 0.06195677,
-   "category": "c",
-   "why": "thrust-cone and shield authored mechanical interface"
-  },
-  {
-   "a": "dry:electrical",
-   "b": "dry:house_reactor_A",
-   "m3": 7.1824363,
-   "category": "c",
-   "why": "component within broad electrical allocation sector"
-  },
-  {
-   "a": "dry:electrical",
-   "b": "dry:house_peak_store",
-   "m3": 9.58971158,
-   "category": "c",
-   "why": "component within broad electrical allocation sector"
-  },
-  {
-   "a": "dry:electrical",
-   "b": "dry:strake_40",
-   "m3": 0.41747141,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:electrical",
-   "b": "dry:strake_140",
-   "m3": 0.41747141,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:electrical",
-   "b": "dry:strake_220",
-   "m3": 0.41747141,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:electrical",
-   "b": "dry:strake_320",
-   "m3": 0.41747141,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:electrical_fwd",
-   "b": "dry:house_reactor_B",
-   "m3": 12.39201222,
-   "category": "c",
-   "why": "component within broad electrical allocation sector"
-  },
-  {
-   "a": "dry:electrical_fwd",
-   "b": "dry:house_energy_battery",
-   "m3": 12.39201222,
-   "category": "c",
-   "why": "component within broad electrical allocation sector"
-  },
-  {
-   "a": "dry:electrical_fwd",
-   "b": "dry:c_lite_dry",
-   "m3": 0.67020643,
-   "category": "c",
-   "why": "component within broad electrical allocation sector"
-  },
-  {
-   "a": "dry:electrical_fwd",
-   "b": "dry:strake_40",
-   "m3": 0.52183927,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:electrical_fwd",
-   "b": "dry:strake_140",
-   "m3": 0.52183927,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:electrical_fwd",
-   "b": "dry:strake_220",
-   "m3": 0.36778877,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:electrical_fwd",
-   "b": "dry:strake_320",
-   "m3": 0.36778877,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:electrical_fwd",
-   "b": "S1:c_lite_monoprop:19",
-   "m3": 0.67020643,
-   "category": "c",
-   "why": "source C-lite fluid explicitly hosted inside the broad forward electrical allocation sector"
-  },
-  {
-   "a": "dry:house_reactor_A",
-   "b": "dry:strake_140",
-   "m3": 0.37108855,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:house_reactor_A",
-   "b": "dry:strake_220",
-   "m3": 0.20873571,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:house_reactor_B",
-   "b": "dry:strake_40",
-   "m3": 0.52183927,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:house_reactor_B",
-   "b": "dry:strake_320",
-   "m3": 0.26091963,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:house_peak_store",
-   "b": "dry:strake_220",
-   "m3": 0.04638287,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:house_peak_store",
-   "b": "dry:strake_320",
-   "m3": 0.41747141,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:house_energy_battery",
-   "b": "dry:strake_140",
-   "m3": 0.52183927,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:c_lite_dry",
-   "b": "S1:c_lite_monoprop:19",
-   "m3": 0.67020643,
-   "category": "a",
-   "why": "S1 C-lite monoprop inside named dry storage-envelope"
-  },
-  {
-   "a": "dry:manifold",
-   "b": "dry:ext_laser_terminal_0",
-   "m3": 0.02095486,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:manifold",
-   "b": "dry:ext_laser_terminal_1",
-   "m3": 0.02095486,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:manifold",
-   "b": "dry:ext_crawler_dock_2",
-   "m3": 0.05424933,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:strake_40",
-   "b": "S1:pw_service:10",
-   "m3": 0.36116754,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:strake_140",
-   "b": "S1:jacket_service_return_wall:09",
-   "m3": 0.01472024,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:strake_140",
-   "b": "S1:pw_service:10",
-   "m3": 0.36116754,
-   "category": "d",
-   "why": "stowed radiator intersects separately allocated hardware/fluid"
-  },
-  {
-   "a": "dry:hotfin_root_220",
-   "b": "dry:nozzle",
-   "m3": 0.02182841,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "dry:hotfin_root_320",
-   "b": "dry:nozzle",
-   "m3": 0.03898014,
-   "category": "d",
-   "why": "independent components intersect without evidence of permissible installed co-location"
-  },
-  {
-   "a": "S1:jacket_outer:00",
-   "b": "S1:jacket_radial_a:02",
-   "m3": 0.12317355,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "S1:jacket_outer:00",
-   "b": "S1:jacket_radial_b:03",
-   "m3": 0.12317355,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "S1:jacket_outer:00",
-   "b": "S1:jacket_ceiling:04",
-   "m3": 0.42411501,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "S1:jacket_outer:00",
-   "b": "S1:jacket_floor:05",
-   "m3": 0.42411501,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "S1:jacket_inner:01",
-   "b": "S1:jacket_radial_a:02",
-   "m3": 0.06082645,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "S1:jacket_inner:01",
-   "b": "S1:jacket_radial_b:03",
-   "m3": 0.06082645,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "S1:jacket_inner:01",
-   "b": "S1:jacket_ceiling:04",
-   "m3": 0.20943951,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "S1:jacket_inner:01",
-   "b": "S1:jacket_floor:05",
-   "m3": 0.20943951,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "S1:jacket_radial_a:02",
-   "b": "S1:jacket_ceiling:04",
-   "m3": 0.09,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "S1:jacket_radial_a:02",
-   "b": "S1:jacket_floor:05",
-   "m3": 0.09,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "S1:jacket_radial_b:03",
-   "b": "S1:jacket_ceiling:04",
-   "m3": 0.09,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  },
-  {
-   "a": "S1:jacket_radial_b:03",
-   "b": "S1:jacket_floor:05",
-   "m3": 0.09,
-   "category": "d",
-   "why": "separately mass-booked water jacket segments intrude; check double-count"
-  }
- ],
- "geometry_conversion_or_boolean_errors": [],
- "pass": false,
- "limits": "This certifies only represented installed BReps: no_render allocations, unlocated tank webs/baffles, unplaced structural D8 doublers, cryo tank walls and moving sweeps are still OPEN."
+  "authority": "kT D8 STOP: primary STEP import geometry mismatch",
+  "geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+  "approved_source_step_gz_sha256": "2ea3f4a6e3fdb37ec61241e0e47814735f80b0106a9bc7d76099a35138a0d51b",
+  "imported_step_source_numeric_unit": "mm",
+  "explicit_step_to_source_linear_scale": 0.001,
+  "modelled_solids": 194,
+  "pair_count": 18721,
+  "expected_pairs": 18721,
+  "threshold_m3": 0.01,
+  "category_d_count": 0,
+  "category_d_conflicts": [],
+  "lab_same_checker": {
+    "part_count": 194,
+    "pair_count": 18721,
+    "expected_pairs": 18721,
+    "category_counts": {
+      "a": 1,
+      "c": 105
+    },
+    "category_d_count": 0,
+    "category_d_conflicts": [],
+    "collision_errors": [],
+    "intersection_hits": [
+      {
+        "a": "S1:c_lite_monoprop:19",
+        "b": "dry:c_lite_dry",
+        "m3": 0.670206433,
+        "category": "a",
+        "why": "S1 C-lite monoprop inside named dry storage-envelope"
+      },
+      {
+        "a": "S1:c_lite_monoprop:19",
+        "b": "dry:electrical_fwd",
+        "m3": 0.670206433,
+        "category": "c",
+        "why": "source C-lite fluid explicitly hosted inside the broad forward electrical allocation sector"
+      },
+      {
+        "a": "S1:jacket_berth_wall_extended:08",
+        "b": "dry:outfit_L3",
+        "m3": 2.410481211,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "S1:jacket_outer:00",
+        "b": "dry:outfit_L4",
+        "m3": 2.468768227,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:bow_sensors",
+        "m3": 0.223401854,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:ext_crawler_dock_0",
+        "m3": 0.063828,
+        "category": "c",
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:ext_crawler_dock_1",
+        "m3": 0.063828,
+        "category": "c",
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:outfit_L1",
+        "m3": 0.810724257,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:pressure_vessel",
+        "m3": 0.532418546,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:rcs_F+Y",
+        "m3": 0.12817706,
+        "category": "c",
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:rcs_F+Z",
+        "m3": 0.12817706,
+        "category": "c",
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:rcs_F-Y",
+        "m3": 0.12817706,
+        "category": "c",
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:rcs_F-Z",
+        "m3": 0.12817706,
+        "category": "c",
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:room_L1-command",
+        "m3": 5.487637198,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:bow_sensors",
+        "b": "dry:room_L1-command",
+        "m3": 11.77366328,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:c_lite_dry",
+        "b": "dry:electrical_fwd",
+        "m3": 0.670206433,
+        "category": "c",
+        "why": "component within broad electrical allocation sector"
+      },
+      {
+        "a": "dry:command_terrace",
+        "b": "dry:room_L1-command",
+        "m3": 0.714,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:docking_collar",
+        "b": "dry:frame_16",
+        "m3": 0.091191384,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:docking_collar",
+        "b": "dry:skin_service",
+        "m3": 0.040370344,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:electrical",
+        "b": "dry:house_peak_store",
+        "m3": 9.025326327,
+        "category": "c",
+        "why": "component within broad electrical allocation sector"
+      },
+      {
+        "a": "dry:electrical",
+        "b": "dry:house_reactor_A",
+        "m3": 6.502081078,
+        "category": "c",
+        "why": "component within broad electrical allocation sector"
+      },
+      {
+        "a": "dry:electrical_fwd",
+        "b": "dry:house_energy_battery",
+        "m3": 11.723877458,
+        "category": "c",
+        "why": "component within broad electrical allocation sector"
+      },
+      {
+        "a": "dry:electrical_fwd",
+        "b": "dry:house_reactor_B",
+        "m3": 11.463231406,
+        "category": "c",
+        "why": "component within broad electrical allocation sector"
+      },
+      {
+        "a": "dry:ext_rf_array_0",
+        "b": "dry:skin_midship",
+        "m3": 0.020965,
+        "category": "c",
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:ext_rf_array_1",
+        "b": "dry:skin_midship",
+        "m3": 0.020965,
+        "category": "c",
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:ext_rf_array_2",
+        "b": "dry:skin_midship",
+        "m3": 0.020965,
+        "category": "c",
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:ext_rf_array_3",
+        "b": "dry:skin_midship",
+        "m3": 0.020965,
+        "category": "c",
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:ext_sensor_turret_0",
+        "b": "dry:skin_midship",
+        "m3": 0.01796,
+        "category": "c",
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:ext_sensor_turret_1",
+        "b": "dry:skin_midship",
+        "m3": 0.01796,
+        "category": "c",
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:floor_L4",
+        "b": "dry:hatch_L4L5_0",
+        "m3": 0.033973976,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:floor_L4",
+        "b": "dry:hatch_L4L5_180",
+        "m3": 0.033973976,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:frame_14",
+        "b": "dry:strake_140",
+        "m3": 0.112921781,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_14",
+        "b": "dry:strake_220",
+        "m3": 0.112921781,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_14",
+        "b": "dry:strake_320",
+        "m3": 0.112921781,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_14",
+        "b": "dry:strake_40",
+        "m3": 0.112921781,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_16",
+        "b": "dry:strake_140",
+        "m3": 0.114709986,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_16",
+        "b": "dry:strake_220",
+        "m3": 0.114709986,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_16",
+        "b": "dry:strake_320",
+        "m3": 0.114709986,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_16",
+        "b": "dry:strake_40",
+        "m3": 0.114709986,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_18",
+        "b": "dry:strake_140",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_18",
+        "b": "dry:strake_220",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_18",
+        "b": "dry:strake_320",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_18",
+        "b": "dry:strake_40",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_20",
+        "b": "dry:strake_140",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_20",
+        "b": "dry:strake_220",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_20",
+        "b": "dry:strake_320",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_20",
+        "b": "dry:strake_40",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_22",
+        "b": "dry:strake_140",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_22",
+        "b": "dry:strake_220",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_22",
+        "b": "dry:strake_320",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_22",
+        "b": "dry:strake_40",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_24",
+        "b": "dry:strake_140",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_24",
+        "b": "dry:strake_220",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_24",
+        "b": "dry:strake_320",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_24",
+        "b": "dry:strake_40",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_26",
+        "b": "dry:strake_140",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_26",
+        "b": "dry:strake_220",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_26",
+        "b": "dry:strake_320",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_26",
+        "b": "dry:strake_40",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_28",
+        "b": "dry:strake_140",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_28",
+        "b": "dry:strake_220",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_28",
+        "b": "dry:strake_320",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_28",
+        "b": "dry:strake_40",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_30",
+        "b": "dry:strake_140",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_30",
+        "b": "dry:strake_220",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_30",
+        "b": "dry:strake_320",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_30",
+        "b": "dry:strake_40",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_32",
+        "b": "dry:strake_140",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_32",
+        "b": "dry:strake_220",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_32",
+        "b": "dry:strake_320",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_32",
+        "b": "dry:strake_40",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:navigator_platform",
+        "b": "dry:room_L1-command",
+        "m3": 0.583,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L1",
+        "b": "dry:pressure_vessel",
+        "m3": 0.20398423,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L1",
+        "b": "dry:room_L1-command",
+        "m3": 1.47698753,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L2",
+        "b": "dry:room_L2-exercise",
+        "m3": 0.987507291,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L2",
+        "b": "dry:room_L2-galley",
+        "m3": 1.481260936,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L2",
+        "b": "dry:room_L2-hygiene",
+        "m3": 0.493753645,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L2",
+        "b": "dry:room_L2-observation",
+        "m3": 0.987507291,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L2",
+        "b": "dry:room_L2-wardroom",
+        "m3": 1.975014582,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L4",
+        "b": "dry:room_L4-eclss",
+        "m3": 1.975014582,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L4",
+        "b": "dry:room_L4-medical",
+        "m3": 1.481260936,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-airlock",
+        "m3": 0.658338194,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-custody",
+        "m3": 0.493753645,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-stores",
+        "m3": 0.822922742,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-stores2",
+        "m3": 0.822922742,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-suits",
+        "m3": 0.987507291,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-vestibule",
+        "m3": 0.658338194,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-workshop",
+        "m3": 1.481260936,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:pressure_vessel",
+        "b": "dry:rcs_F+Y",
+        "m3": 0.019278692,
+        "category": "c",
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:pressure_vessel",
+        "b": "dry:rcs_F+Z",
+        "m3": 0.019278019,
+        "category": "c",
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:pressure_vessel",
+        "b": "dry:rcs_F-Y",
+        "m3": 0.019278011,
+        "category": "c",
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:pressure_vessel",
+        "b": "dry:rcs_F-Z",
+        "m3": 0.019278007,
+        "category": "c",
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:pressure_vessel",
+        "b": "dry:room_L1-command",
+        "m3": 0.212077546,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:skin_midship",
+        "b": "dry:strake_140",
+        "m3": 0.576837617,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_midship",
+        "b": "dry:strake_220",
+        "m3": 0.576837617,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_midship",
+        "b": "dry:strake_320",
+        "m3": 0.576837617,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_midship",
+        "b": "dry:strake_40",
+        "m3": 0.576837617,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_service",
+        "b": "dry:strake_140",
+        "m3": 0.16135318,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_service",
+        "b": "dry:strake_220",
+        "m3": 0.16135318,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_service",
+        "b": "dry:strake_320",
+        "m3": 0.16135318,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_service",
+        "b": "dry:strake_40",
+        "m3": 0.16135318,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:strake_140",
+        "b": "dry:tank_shell_out",
+        "m3": 0.545013831,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:strake_220",
+        "b": "dry:tank_shell_out",
+        "m3": 0.545013831,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:strake_320",
+        "b": "dry:tank_shell_out",
+        "m3": 0.545013831,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:strake_40",
+        "b": "dry:tank_shell_out",
+        "m3": 0.545013831,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:tunnel_1",
+        "b": "dry:tunnel_2",
+        "m3": 0.288,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      }
+    ]
+  },
+  "same_lab_and_upstream_installed_part_set": true,
+  "source_dry_count": 296,
+  "source_S1_fluid_count": 20,
+  "excluded_source_no_render_proxy_count": 122,
+  "D8_primary_shape_unchanged": false,
+  "primary_invariant_failures": [
+    {
+      "name": "dry:nozzle",
+      "vol_native_m3": 16.41090264,
+      "vol_approved_m3": 16.41090264,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 229.74,
+      "symmetric_difference_m3": 32.821805284
+    }
+  ],
+  "primary_shape_volume_checks": [
+    {
+      "name": "dry:aft_bulkhead",
+      "vol_native_m3": 17.42641445,
+      "vol_approved_m3": 17.42641445,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:armor",
+      "vol_native_m3": 81.10303164,
+      "vol_approved_m3": 81.10303164,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:bay_corner_18_p",
+      "vol_native_m3": 0.072,
+      "vol_approved_m3": 0.072,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:bay_corner_18_s",
+      "vol_native_m3": 0.072,
+      "vol_approved_m3": 0.072,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:bay_corner_32.3_p",
+      "vol_native_m3": 0.072,
+      "vol_approved_m3": 0.072,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:bay_corner_32.3_s",
+      "vol_native_m3": 0.072,
+      "vol_approved_m3": 0.072,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:core_trunk",
+      "vol_native_m3": 25.7013695,
+      "vol_approved_m3": 25.7013695,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:docking_collar",
+      "vol_native_m3": 2.31221219,
+      "vol_approved_m3": 2.31221219,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:frame_14",
+      "vol_native_m3": 1.5364273,
+      "vol_approved_m3": 1.5364273,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:frame_16",
+      "vol_native_m3": 1.5364273,
+      "vol_approved_m3": 1.5364273,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:frame_18",
+      "vol_native_m3": 0.60762239,
+      "vol_approved_m3": 0.60762239,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:frame_20",
+      "vol_native_m3": 0.60762239,
+      "vol_approved_m3": 0.60762239,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:frame_22",
+      "vol_native_m3": 0.60762239,
+      "vol_approved_m3": 0.60762239,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:frame_24",
+      "vol_native_m3": 0.60762239,
+      "vol_approved_m3": 0.60762239,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:frame_26",
+      "vol_native_m3": 0.60762239,
+      "vol_approved_m3": 0.60762239,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:frame_28",
+      "vol_native_m3": 0.60762239,
+      "vol_approved_m3": 0.60762239,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:frame_30",
+      "vol_native_m3": 0.60762239,
+      "vol_approved_m3": 0.60762239,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:frame_32",
+      "vol_native_m3": 0.60762239,
+      "vol_approved_m3": 0.60762239,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:frame_34",
+      "vol_native_m3": 1.5364273,
+      "vol_approved_m3": 1.5364273,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:longeron_end_fitting_14_lower_port",
+      "vol_native_m3": 0.18,
+      "vol_approved_m3": 0.18,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:longeron_end_fitting_14_lower_starboard",
+      "vol_native_m3": 0.18,
+      "vol_approved_m3": 0.18,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:longeron_end_fitting_14_upper_port",
+      "vol_native_m3": 0.18,
+      "vol_approved_m3": 0.18,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:longeron_end_fitting_14_upper_starboard",
+      "vol_native_m3": 0.18,
+      "vol_approved_m3": 0.18,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:longeron_end_fitting_34.3_lower_port",
+      "vol_native_m3": 0.18,
+      "vol_approved_m3": 0.18,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:longeron_end_fitting_34.3_lower_starboard",
+      "vol_native_m3": 0.18,
+      "vol_approved_m3": 0.18,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:longeron_end_fitting_34.3_upper_port",
+      "vol_native_m3": 0.18,
+      "vol_approved_m3": 0.18,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:longeron_end_fitting_34.3_upper_starboard",
+      "vol_native_m3": 0.18,
+      "vol_approved_m3": 0.18,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:longeron_lower_port",
+      "vol_native_m3": 2.55097323,
+      "vol_approved_m3": 2.55097323,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:longeron_lower_starboard",
+      "vol_native_m3": 2.55097323,
+      "vol_approved_m3": 2.55097323,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:longeron_upper_port",
+      "vol_native_m3": 2.55097323,
+      "vol_approved_m3": 2.55097323,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:longeron_upper_starboard",
+      "vol_native_m3": 2.55097323,
+      "vol_approved_m3": 2.55097323,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 0.0,
+      "symmetric_difference_m3": 0.0
+    },
+    {
+      "name": "dry:nozzle",
+      "vol_native_m3": 16.41090264,
+      "vol_approved_m3": 16.41090264,
+      "volume_delta_m3": 0.0,
+      "bbox_delta_m": 229.74,
+      "symmetric_difference_m3": 32.821805284
+    }
+  ],
+  "geometry_conversion_or_boolean_errors": [],
+  "STOP": "Primary nozzle or another G5 member does not match its original BRep, even though the research/reference pairwise D9 collisions count is zero. Geometry NOT promoted.",
+  "pass": false
 }
