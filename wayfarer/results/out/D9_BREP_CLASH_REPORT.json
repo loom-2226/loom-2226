@@ -1,1045 +1,4180 @@
 {
-  "authority": "kT D8 STOP: primary STEP import geometry mismatch",
-  "geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
-  "approved_source_step_gz_sha256": "2ea3f4a6e3fdb37ec61241e0e47814735f80b0106a9bc7d76099a35138a0d51b",
-  "imported_step_source_numeric_unit": "mm",
-  "explicit_step_to_source_linear_scale": 0.001,
-  "modelled_solids": 194,
-  "pair_count": 18721,
-  "expected_pairs": 18721,
-  "threshold_m3": 0.01,
-  "category_d_count": 0,
+  "B_pressure_runtime_seconds": 0.011,
+  "B_pressure_vessel_diagnosis": {
+    "bbox_delta_m": 0.0,
+    "diagnostics": {
+      "imported": {
+        "brepcheck_valid": true,
+        "face_orientation_counts": {
+          "forward": 3,
+          "other": 0,
+          "reversed": 2
+        },
+        "is_valid_wrapper": true,
+        "shapefix": {
+          "attempted": false,
+          "reason": "BRepCheck valid"
+        },
+        "signed_volume_m3": 11.356646021327833,
+        "solid_orientation_counts": {
+          "forward": 1,
+          "other": 0,
+          "reversed": 0
+        }
+      },
+      "native": {
+        "brepcheck_valid": true,
+        "face_orientation_counts": {
+          "forward": 3,
+          "other": 0,
+          "reversed": 2
+        },
+        "is_valid_wrapper": true,
+        "shapefix": {
+          "attempted": false,
+          "reason": "BRepCheck valid"
+        },
+        "signed_volume_m3": 11.356646021343266,
+        "solid_orientation_counts": {
+          "forward": 1,
+          "other": 0,
+          "reversed": 0
+        }
+      }
+    },
+    "fallback_authority_applied": true,
+    "fuzzy_boolean": {
+      "reason": "kT: prior ordinary Boolean numerically invalid; use approved surface method",
+      "skipped": true
+    },
+    "integrity_method": "two_way_BRep_surface_sample_distance",
+    "name": "dry:pressure_vessel",
+    "pass": true,
+    "raw_boolean": {
+      "common_volume_m3": -0.0028914016068082304,
+      "not_rerun": true,
+      "previous_run_id": 42452063347,
+      "symmetric_difference_m3": 22.719074845884716
+    },
+    "raw_boolean_numerically_invalid": true,
+    "surface_distance": {
+      "bounded_sample_not_global_hausdorff": true,
+      "imported_to_native": {
+        "AABB_branch_and_bound_exact_per_sample": true,
+        "exact_OCCT_face_distance_queries": 589,
+        "face_sample_counts": [
+          60,
+          60,
+          60,
+          60,
+          60
+        ],
+        "faces": 5,
+        "max_deviation_m": 4.434960100776832e-13,
+        "min_samples_each_way": 256,
+        "samples": 296,
+        "target_faces": 5,
+        "worst_sample_m": [
+          1.3589881720922223,
+          2.0842892686372316,
+          3.0746463030697555
+        ]
+      },
+      "native_to_imported": {
+        "AABB_branch_and_bound_exact_per_sample": true,
+        "exact_OCCT_face_distance_queries": 589,
+        "face_sample_counts": [
+          60,
+          60,
+          60,
+          60,
+          60
+        ],
+        "faces": 5,
+        "max_deviation_m": 4.443489260930312e-13,
+        "min_samples_each_way": 256,
+        "samples": 296,
+        "target_faces": 5,
+        "worst_sample_m": [
+          1.3589881720924941,
+          2.0842892686380647,
+          3.0746463030701077
+        ]
+      },
+      "pass_distance": true,
+      "tolerance_m": 1e-06,
+      "two_way_max_deviation_m": 4.443489260930312e-13
+    },
+    "symmetric_difference_m3": 22.719074846,
+    "vol_approved_m3": 11.35664602,
+    "vol_native_m3": 11.35664602,
+    "volume_delta_m3": 0.0
+  },
+  "C_primary_job_runtime_seconds": [
+    45.246,
+    30.974,
+    41.745,
+    44.724
+  ],
+  "D8_primary_shape_unchanged": true,
+  "D_pair_job_runtime_seconds": [
+    41.763,
+    36.762,
+    34.397,
+    32.479,
+    41.851,
+    46.933,
+    41.72,
+    32.492
+  ],
+  "E_merge_runtime_seconds": 0.011,
+  "OCCT_fuzzy_value_m": 1e-06,
+  "approved_source_brep_origin": "PR #157 D8 cuts replayed against #471 G3 current source",
+  "approved_source_step_gz_sha256": "71e1d65a13872b01a7e656eccca16f6380e3074e947edb04febc4f118b97d31c",
+  "authority": "kT Phase1b G3 current -0.26m named research-cut STEP, sharded exact BRep D9",
   "category_d_conflicts": [],
+  "category_d_count": 0,
+  "classification": "source_brep_triage.classify pinned #156 shared single checker",
+  "current_G3_candidate_pass": true,
+  "current_G3_rebuilt_D8_notch_ops": 93,
+  "excluded_source_no_render_proxy_count": 122,
+  "expected_pairs": 18721,
+  "explicit_step_to_source_linear_scale": 0.001,
+  "geometry_conversion_or_boolean_errors": [],
+  "geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+  "imported_reference_names": 315,
+  "imported_step_source_numeric_unit": "mm",
   "lab_same_checker": {
-    "part_count": 194,
-    "pair_count": 18721,
-    "expected_pairs": 18721,
     "category_counts": {
       "a": 1,
-      "c": 105
+      "c": 106
     },
-    "category_d_count": 0,
     "category_d_conflicts": [],
+    "category_d_count": 0,
     "collision_errors": [],
+    "expected_pairs": 18721,
     "intersection_hits": [
       {
         "a": "S1:c_lite_monoprop:19",
         "b": "dry:c_lite_dry",
-        "m3": 0.670206433,
         "category": "a",
+        "m3": 0.670206433,
         "why": "S1 C-lite monoprop inside named dry storage-envelope"
       },
       {
         "a": "S1:c_lite_monoprop:19",
         "b": "dry:electrical_fwd",
-        "m3": 0.670206433,
         "category": "c",
+        "m3": 0.670206433,
         "why": "source C-lite fluid explicitly hosted inside the broad forward electrical allocation sector"
       },
       {
         "a": "S1:jacket_berth_wall_extended:08",
         "b": "dry:outfit_L3",
-        "m3": 2.410481211,
         "category": "c",
+        "m3": 2.410481211,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "S1:jacket_outer:00",
         "b": "dry:outfit_L4",
-        "m3": 2.468768227,
         "category": "c",
+        "m3": 2.468768227,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:armor",
         "b": "dry:bow_sensors",
-        "m3": 0.223401854,
         "category": "c",
+        "m3": 0.223401854,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:armor",
         "b": "dry:ext_crawler_dock_0",
-        "m3": 0.063828,
         "category": "c",
+        "m3": 0.063828,
         "why": "external hardware mounted on structure; unqualified local attachment"
       },
       {
         "a": "dry:armor",
         "b": "dry:ext_crawler_dock_1",
-        "m3": 0.063828,
         "category": "c",
+        "m3": 0.063828,
         "why": "external hardware mounted on structure; unqualified local attachment"
       },
       {
         "a": "dry:armor",
         "b": "dry:outfit_L1",
-        "m3": 0.810724257,
         "category": "c",
+        "m3": 0.810724257,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:armor",
         "b": "dry:pressure_vessel",
-        "m3": 0.532418546,
         "category": "c",
+        "m3": 0.532418546,
         "why": "source structural connection or attachment envelope"
       },
       {
         "a": "dry:armor",
         "b": "dry:rcs_F+Y",
-        "m3": 0.12817706,
         "category": "c",
+        "m3": 0.12817706,
         "why": "RCS thruster hull-mounted footprint"
       },
       {
         "a": "dry:armor",
         "b": "dry:rcs_F+Z",
-        "m3": 0.12817706,
         "category": "c",
+        "m3": 0.12817706,
         "why": "RCS thruster hull-mounted footprint"
       },
       {
         "a": "dry:armor",
         "b": "dry:rcs_F-Y",
-        "m3": 0.12817706,
         "category": "c",
+        "m3": 0.12817706,
         "why": "RCS thruster hull-mounted footprint"
       },
       {
         "a": "dry:armor",
         "b": "dry:rcs_F-Z",
-        "m3": 0.12817706,
         "category": "c",
+        "m3": 0.12817706,
         "why": "RCS thruster hull-mounted footprint"
       },
       {
         "a": "dry:armor",
         "b": "dry:room_L1-command",
-        "m3": 5.487637198,
         "category": "c",
+        "m3": 5.487637198,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:bow_sensors",
         "b": "dry:room_L1-command",
-        "m3": 11.77366328,
         "category": "c",
+        "m3": 11.77366328,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:c_lite_dry",
         "b": "dry:electrical_fwd",
-        "m3": 0.670206433,
         "category": "c",
+        "m3": 0.670206433,
         "why": "component within broad electrical allocation sector"
       },
       {
         "a": "dry:command_terrace",
         "b": "dry:room_L1-command",
-        "m3": 0.714,
         "category": "c",
+        "m3": 0.714,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:docking_collar",
         "b": "dry:frame_16",
-        "m3": 0.091191384,
         "category": "c",
+        "m3": 0.091191384,
         "why": "source structural connection or attachment envelope"
       },
       {
         "a": "dry:docking_collar",
         "b": "dry:skin_service",
-        "m3": 0.040370344,
         "category": "c",
+        "m3": 0.040370344,
         "why": "source structural connection or attachment envelope"
       },
       {
         "a": "dry:electrical",
         "b": "dry:house_peak_store",
-        "m3": 9.025326327,
         "category": "c",
+        "m3": 9.025326327,
         "why": "component within broad electrical allocation sector"
       },
       {
         "a": "dry:electrical",
         "b": "dry:house_reactor_A",
-        "m3": 6.502081078,
         "category": "c",
+        "m3": 6.502081078,
         "why": "component within broad electrical allocation sector"
       },
       {
         "a": "dry:electrical_fwd",
         "b": "dry:house_energy_battery",
-        "m3": 11.723877458,
         "category": "c",
+        "m3": 11.723877458,
         "why": "component within broad electrical allocation sector"
       },
       {
         "a": "dry:electrical_fwd",
         "b": "dry:house_reactor_B",
-        "m3": 11.463231406,
         "category": "c",
+        "m3": 11.463231406,
         "why": "component within broad electrical allocation sector"
       },
       {
         "a": "dry:ext_rf_array_0",
         "b": "dry:skin_midship",
-        "m3": 0.020965,
         "category": "c",
+        "m3": 0.020965,
         "why": "external hardware mounted on structure; unqualified local attachment"
       },
       {
         "a": "dry:ext_rf_array_1",
         "b": "dry:skin_midship",
-        "m3": 0.020965,
         "category": "c",
+        "m3": 0.020965,
         "why": "external hardware mounted on structure; unqualified local attachment"
       },
       {
         "a": "dry:ext_rf_array_2",
         "b": "dry:skin_midship",
-        "m3": 0.020965,
         "category": "c",
+        "m3": 0.020965,
         "why": "external hardware mounted on structure; unqualified local attachment"
       },
       {
         "a": "dry:ext_rf_array_3",
         "b": "dry:skin_midship",
-        "m3": 0.020965,
         "category": "c",
+        "m3": 0.020965,
         "why": "external hardware mounted on structure; unqualified local attachment"
       },
       {
         "a": "dry:ext_sensor_turret_0",
         "b": "dry:skin_midship",
-        "m3": 0.01796,
         "category": "c",
+        "m3": 0.01796,
         "why": "external hardware mounted on structure; unqualified local attachment"
       },
       {
         "a": "dry:ext_sensor_turret_1",
         "b": "dry:skin_midship",
-        "m3": 0.01796,
         "category": "c",
+        "m3": 0.01796,
         "why": "external hardware mounted on structure; unqualified local attachment"
       },
       {
         "a": "dry:floor_L4",
         "b": "dry:hatch_L4L5_0",
-        "m3": 0.033973976,
         "category": "c",
+        "m3": 0.033973976,
         "why": "source structural connection or attachment envelope"
       },
       {
         "a": "dry:floor_L4",
         "b": "dry:hatch_L4L5_180",
-        "m3": 0.033973976,
         "category": "c",
+        "m3": 0.033973976,
         "why": "source structural connection or attachment envelope"
       },
       {
         "a": "dry:frame_14",
         "b": "dry:strake_140",
-        "m3": 0.112921781,
         "category": "c",
+        "m3": 0.112921781,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_14",
         "b": "dry:strake_220",
-        "m3": 0.112921781,
         "category": "c",
+        "m3": 0.112921781,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_14",
         "b": "dry:strake_320",
-        "m3": 0.112921781,
         "category": "c",
+        "m3": 0.112921781,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_14",
         "b": "dry:strake_40",
+        "category": "c",
         "m3": 0.112921781,
-        "category": "c",
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_16",
         "b": "dry:strake_140",
-        "m3": 0.114709986,
         "category": "c",
+        "m3": 0.114709986,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_16",
         "b": "dry:strake_220",
-        "m3": 0.114709986,
         "category": "c",
+        "m3": 0.114709986,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_16",
         "b": "dry:strake_320",
-        "m3": 0.114709986,
         "category": "c",
+        "m3": 0.114709986,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_16",
         "b": "dry:strake_40",
+        "category": "c",
         "m3": 0.114709986,
-        "category": "c",
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_18",
         "b": "dry:strake_140",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_18",
         "b": "dry:strake_220",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_18",
         "b": "dry:strake_320",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_18",
         "b": "dry:strake_40",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_20",
         "b": "dry:strake_140",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_20",
         "b": "dry:strake_220",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_20",
         "b": "dry:strake_320",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_20",
         "b": "dry:strake_40",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_22",
         "b": "dry:strake_140",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_22",
         "b": "dry:strake_220",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_22",
         "b": "dry:strake_320",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_22",
         "b": "dry:strake_40",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_24",
         "b": "dry:strake_140",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_24",
         "b": "dry:strake_220",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_24",
         "b": "dry:strake_320",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_24",
         "b": "dry:strake_40",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_26",
         "b": "dry:strake_140",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_26",
         "b": "dry:strake_220",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_26",
         "b": "dry:strake_320",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_26",
         "b": "dry:strake_40",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_28",
         "b": "dry:strake_140",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_28",
         "b": "dry:strake_220",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_28",
         "b": "dry:strake_320",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_28",
         "b": "dry:strake_40",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_30",
         "b": "dry:strake_140",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_30",
         "b": "dry:strake_220",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_30",
         "b": "dry:strake_320",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_30",
         "b": "dry:strake_40",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_32",
         "b": "dry:strake_140",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_32",
         "b": "dry:strake_220",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_32",
         "b": "dry:strake_320",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:frame_32",
         "b": "dry:strake_40",
-        "m3": 0.054478462,
         "category": "c",
+        "m3": 0.054478462,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:navigator_platform",
         "b": "dry:room_L1-command",
-        "m3": 0.583,
         "category": "c",
+        "m3": 0.583,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:outfit_L1",
         "b": "dry:pressure_vessel",
-        "m3": 0.20398423,
         "category": "c",
+        "m3": 0.20398423,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:outfit_L1",
         "b": "dry:room_L1-command",
-        "m3": 1.47698753,
         "category": "c",
+        "m3": 1.47698753,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:outfit_L2",
         "b": "dry:room_L2-exercise",
-        "m3": 0.987507291,
         "category": "c",
+        "m3": 0.987507291,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:outfit_L2",
         "b": "dry:room_L2-galley",
-        "m3": 1.481260936,
         "category": "c",
+        "m3": 1.481260936,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:outfit_L2",
         "b": "dry:room_L2-hygiene",
-        "m3": 0.493753645,
         "category": "c",
+        "m3": 0.493753645,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:outfit_L2",
         "b": "dry:room_L2-observation",
-        "m3": 0.987507291,
         "category": "c",
+        "m3": 0.987507291,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:outfit_L2",
         "b": "dry:room_L2-wardroom",
-        "m3": 1.975014582,
         "category": "c",
+        "m3": 1.975014582,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:outfit_L4",
         "b": "dry:room_L4-eclss",
-        "m3": 1.975014582,
         "category": "c",
+        "m3": 1.975014582,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:outfit_L4",
         "b": "dry:room_L4-medical",
-        "m3": 1.481260936,
         "category": "c",
+        "m3": 1.481260936,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:outfit_L5",
         "b": "dry:room_L5-airlock",
-        "m3": 0.658338194,
         "category": "c",
+        "m3": 0.658338194,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:outfit_L5",
         "b": "dry:room_L5-custody",
-        "m3": 0.493753645,
         "category": "c",
+        "m3": 0.493753645,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:outfit_L5",
         "b": "dry:room_L5-stores",
-        "m3": 0.822922742,
         "category": "c",
+        "m3": 0.822922742,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:outfit_L5",
         "b": "dry:room_L5-stores2",
-        "m3": 0.822922742,
         "category": "c",
+        "m3": 0.822922742,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:outfit_L5",
         "b": "dry:room_L5-suits",
-        "m3": 0.987507291,
         "category": "c",
+        "m3": 0.987507291,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:outfit_L5",
         "b": "dry:room_L5-vestibule",
-        "m3": 0.658338194,
         "category": "c",
+        "m3": 0.658338194,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:outfit_L5",
         "b": "dry:room_L5-workshop",
-        "m3": 1.481260936,
         "category": "c",
+        "m3": 1.481260936,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
         "a": "dry:pressure_vessel",
         "b": "dry:rcs_F+Y",
-        "m3": 0.019278692,
         "category": "c",
+        "m3": 0.019278692,
         "why": "RCS thruster hull-mounted footprint"
       },
       {
         "a": "dry:pressure_vessel",
         "b": "dry:rcs_F+Z",
-        "m3": 0.019278019,
         "category": "c",
+        "m3": 0.019278019,
         "why": "RCS thruster hull-mounted footprint"
       },
       {
         "a": "dry:pressure_vessel",
         "b": "dry:rcs_F-Y",
-        "m3": 0.019278011,
         "category": "c",
+        "m3": 0.019278011,
         "why": "RCS thruster hull-mounted footprint"
       },
       {
         "a": "dry:pressure_vessel",
         "b": "dry:rcs_F-Z",
-        "m3": 0.019278007,
         "category": "c",
+        "m3": 0.019278007,
         "why": "RCS thruster hull-mounted footprint"
       },
       {
         "a": "dry:pressure_vessel",
         "b": "dry:room_L1-command",
-        "m3": 0.212077546,
         "category": "c",
+        "m3": 0.212077546,
         "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
       },
       {
+        "a": "dry:shield",
+        "b": "dry:thrust_cone",
+        "category": "c",
+        "m3": 0.061956726,
+        "why": "thrust-cone and shield authored mechanical interface"
+      },
+      {
         "a": "dry:skin_midship",
         "b": "dry:strake_140",
-        "m3": 0.576837617,
         "category": "c",
+        "m3": 0.576837617,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:skin_midship",
         "b": "dry:strake_220",
-        "m3": 0.576837617,
         "category": "c",
+        "m3": 0.576837617,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:skin_midship",
         "b": "dry:strake_320",
-        "m3": 0.576837617,
         "category": "c",
+        "m3": 0.576837617,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:skin_midship",
         "b": "dry:strake_40",
-        "m3": 0.576837617,
         "category": "c",
+        "m3": 0.576837617,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:skin_service",
         "b": "dry:strake_140",
-        "m3": 0.16135318,
         "category": "c",
+        "m3": 0.16135318,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:skin_service",
         "b": "dry:strake_220",
-        "m3": 0.16135318,
         "category": "c",
+        "m3": 0.16135318,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:skin_service",
         "b": "dry:strake_320",
-        "m3": 0.16135318,
         "category": "c",
+        "m3": 0.16135318,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:skin_service",
         "b": "dry:strake_40",
-        "m3": 0.16135318,
         "category": "c",
+        "m3": 0.16135318,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:strake_140",
         "b": "dry:tank_shell_out",
-        "m3": 0.545013831,
         "category": "c",
+        "m3": 0.545013831,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:strake_220",
         "b": "dry:tank_shell_out",
-        "m3": 0.545013831,
         "category": "c",
+        "m3": 0.545013831,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:strake_320",
         "b": "dry:tank_shell_out",
-        "m3": 0.545013831,
         "category": "c",
+        "m3": 0.545013831,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:strake_40",
         "b": "dry:tank_shell_out",
-        "m3": 0.545013831,
         "category": "c",
+        "m3": 0.545013831,
         "why": "strake root intersects authored skin/groove/support envelope"
       },
       {
         "a": "dry:tunnel_1",
         "b": "dry:tunnel_2",
-        "m3": 0.288,
         "category": "c",
+        "m3": 0.288,
         "why": "source structural connection or attachment envelope"
       }
-    ]
+    ],
+    "pair_count": 18721,
+    "part_count": 194
   },
-  "same_lab_and_upstream_installed_part_set": true,
-  "source_dry_count": 296,
-  "source_S1_fluid_count": 20,
-  "excluded_source_no_render_proxy_count": 122,
-  "D8_primary_shape_unchanged": false,
-  "primary_invariant_failures": [
-    {
-      "name": "dry:nozzle",
-      "vol_native_m3": 16.41090264,
-      "vol_approved_m3": 16.41090264,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 229.74,
-      "symmetric_difference_m3": 32.821805284
-    }
-  ],
+  "modelled_solids": 194,
+  "no_render_excluded_count": 122,
+  "original_D8_notch_ops": 93,
+  "pair_count": 18721,
+  "pass": true,
+  "primary_invariant_failures": [],
   "primary_shape_volume_checks": [
     {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 17.426414449462595,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 17.42641444946262,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
       "name": "dry:aft_bulkhead",
-      "vol_native_m3": 17.42641445,
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 17.426414449462623,
+        "symmetric_difference_m3": -3.552713678800501e-14
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": -0.0,
       "vol_approved_m3": 17.42641445,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
+      "vol_native_m3": 17.42641445,
+      "volume_delta_m3": 0.0
     },
     {
-      "name": "dry:armor",
-      "vol_native_m3": 81.10303164,
-      "vol_approved_m3": 81.10303164,
-      "volume_delta_m3": 0.0,
       "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
-      "name": "dry:bay_corner_18_p",
-      "vol_native_m3": 0.072,
-      "vol_approved_m3": 0.072,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
-      "name": "dry:bay_corner_18_s",
-      "vol_native_m3": 0.072,
-      "vol_approved_m3": 0.072,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.07200000000000012,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.07199999999999977,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
       "name": "dry:bay_corner_32.3_p",
-      "vol_native_m3": 0.072,
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.07199999999999977,
+        "symmetric_difference_m3": 3.608224830031759e-16
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
       "vol_approved_m3": 0.072,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
-      "name": "dry:bay_corner_32.3_s",
       "vol_native_m3": 0.072,
-      "vol_approved_m3": 0.072,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
+      "volume_delta_m3": 0.0
     },
     {
-      "name": "dry:core_trunk",
-      "vol_native_m3": 25.7013695,
-      "vol_approved_m3": 25.7013695,
-      "volume_delta_m3": 0.0,
       "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
-      "name": "dry:docking_collar",
-      "vol_native_m3": 2.31221219,
-      "vol_approved_m3": 2.31221219,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 2
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 1.5364273031646638,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 2
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 1.5364273031646318,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
       "name": "dry:frame_14",
-      "vol_native_m3": 1.5364273,
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 1.5364273031646318,
+        "symmetric_difference_m3": 3.197442310920451e-14
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
       "vol_approved_m3": 1.5364273,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
-      "name": "dry:frame_16",
       "vol_native_m3": 1.5364273,
-      "vol_approved_m3": 1.5364273,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
+      "volume_delta_m3": 0.0
     },
     {
-      "name": "dry:frame_18",
-      "vol_native_m3": 0.60762239,
-      "vol_approved_m3": 0.60762239,
-      "volume_delta_m3": 0.0,
       "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
-      "name": "dry:frame_20",
-      "vol_native_m3": 0.60762239,
-      "vol_approved_m3": 0.60762239,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.6076223872112885,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.6076223872114992,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
       "name": "dry:frame_22",
-      "vol_native_m3": 0.60762239,
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.6076223872114992,
+        "symmetric_difference_m3": -2.107203300738547e-13
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": -0.0,
       "vol_approved_m3": 0.60762239,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
+      "vol_native_m3": 0.60762239,
+      "volume_delta_m3": 0.0
     },
     {
-      "name": "dry:frame_24",
-      "vol_native_m3": 0.60762239,
-      "vol_approved_m3": 0.60762239,
-      "volume_delta_m3": 0.0,
       "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
-      "name": "dry:frame_26",
-      "vol_native_m3": 0.60762239,
-      "vol_approved_m3": 0.60762239,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
-      "name": "dry:frame_28",
-      "vol_native_m3": 0.60762239,
-      "vol_approved_m3": 0.60762239,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.6076223872112881,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.6076223872114997,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
       "name": "dry:frame_30",
-      "vol_native_m3": 0.60762239,
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.6076223872114997,
+        "symmetric_difference_m3": -2.1160850849355484e-13
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": -0.0,
       "vol_approved_m3": 0.60762239,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
-      "name": "dry:frame_32",
       "vol_native_m3": 0.60762239,
-      "vol_approved_m3": 0.60762239,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
+      "volume_delta_m3": 0.0
     },
     {
-      "name": "dry:frame_34",
-      "vol_native_m3": 1.5364273,
-      "vol_approved_m3": 1.5364273,
-      "volume_delta_m3": 0.0,
       "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
-      "name": "dry:longeron_end_fitting_14_lower_port",
-      "vol_native_m3": 0.18,
-      "vol_approved_m3": 0.18,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.17999999999999985,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.17999999999999977,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
       "name": "dry:longeron_end_fitting_14_lower_starboard",
-      "vol_native_m3": 0.18,
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.17999999999999977,
+        "symmetric_difference_m3": 1.1102230246251565e-16
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
       "vol_approved_m3": 0.18,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
+      "vol_native_m3": 0.18,
+      "volume_delta_m3": 0.0
     },
     {
-      "name": "dry:longeron_end_fitting_14_upper_port",
-      "vol_native_m3": 0.18,
-      "vol_approved_m3": 0.18,
-      "volume_delta_m3": 0.0,
       "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
-      "name": "dry:longeron_end_fitting_14_upper_starboard",
-      "vol_native_m3": 0.18,
-      "vol_approved_m3": 0.18,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
-      "name": "dry:longeron_end_fitting_34.3_lower_port",
-      "vol_native_m3": 0.18,
-      "vol_approved_m3": 0.18,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.1800000000000016,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.17999999999999977,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
       "name": "dry:longeron_end_fitting_34.3_lower_starboard",
-      "vol_native_m3": 0.18,
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.17999999999999977,
+        "symmetric_difference_m3": 1.8318679906315083e-15
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
       "vol_approved_m3": 0.18,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
-      "name": "dry:longeron_end_fitting_34.3_upper_port",
       "vol_native_m3": 0.18,
-      "vol_approved_m3": 0.18,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
+      "volume_delta_m3": 0.0
     },
     {
-      "name": "dry:longeron_end_fitting_34.3_upper_starboard",
-      "vol_native_m3": 0.18,
-      "vol_approved_m3": 0.18,
-      "volume_delta_m3": 0.0,
       "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
-      "name": "dry:longeron_lower_port",
-      "vol_native_m3": 2.55097323,
-      "vol_approved_m3": 2.55097323,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
-    },
-    {
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 2.550973234714913,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 2.550973234714912,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
       "name": "dry:longeron_lower_starboard",
-      "vol_native_m3": 2.55097323,
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 2.550973234714912,
+        "symmetric_difference_m3": 8.881784197001252e-16
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
       "vol_approved_m3": 2.55097323,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
+      "vol_native_m3": 2.55097323,
+      "volume_delta_m3": 0.0
     },
     {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 2
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 11.356646021327833,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 2
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 11.356646021343266,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": true,
+      "fuzzy_boolean": {
+        "reason": "kT: prior ordinary Boolean numerically invalid; use approved surface method",
+        "skipped": true
+      },
+      "integrity_method": "two_way_BRep_surface_sample_distance",
+      "name": "dry:pressure_vessel",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": -0.0028914016068082304,
+        "not_rerun": true,
+        "previous_run_id": 42452063347,
+        "symmetric_difference_m3": 22.719074845884716
+      },
+      "raw_boolean_numerically_invalid": true,
+      "reused_same_source_B_surface_result": true,
+      "surface_distance": {
+        "bounded_sample_not_global_hausdorff": true,
+        "imported_to_native": {
+          "AABB_branch_and_bound_exact_per_sample": true,
+          "exact_OCCT_face_distance_queries": 589,
+          "face_sample_counts": [
+            60,
+            60,
+            60,
+            60,
+            60
+          ],
+          "faces": 5,
+          "max_deviation_m": 4.434960100776832e-13,
+          "min_samples_each_way": 256,
+          "samples": 296,
+          "target_faces": 5,
+          "worst_sample_m": [
+            1.3589881720922223,
+            2.0842892686372316,
+            3.0746463030697555
+          ]
+        },
+        "native_to_imported": {
+          "AABB_branch_and_bound_exact_per_sample": true,
+          "exact_OCCT_face_distance_queries": 589,
+          "face_sample_counts": [
+            60,
+            60,
+            60,
+            60,
+            60
+          ],
+          "faces": 5,
+          "max_deviation_m": 4.443489260930312e-13,
+          "min_samples_each_way": 256,
+          "samples": 296,
+          "target_faces": 5,
+          "worst_sample_m": [
+            1.3589881720924941,
+            2.0842892686380647,
+            3.0746463030701077
+          ]
+        },
+        "pass_distance": true,
+        "tolerance_m": 1e-06,
+        "two_way_max_deviation_m": 4.443489260930312e-13
+      },
+      "symmetric_difference_m3": 22.719074846,
+      "vol_approved_m3": 11.35664602,
+      "vol_native_m3": 11.35664602,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.5119999999999924,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.511999999999998,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:rcs_A-Z",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.511999999999998,
+        "symmetric_difference_m3": -5.773159728050814e-15
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": -0.0,
+      "vol_approved_m3": 0.512,
+      "vol_native_m3": 0.512,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 3.2798227303477443,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 3.2798227303477465,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:tunnel_0",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 3.2798227303477465,
+        "symmetric_difference_m3": -2.6645352591003757e-15
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": -0.0,
+      "vol_approved_m3": 3.27982273,
+      "vol_native_m3": 3.27982273,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 2
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 81.10303164041017,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 2
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 81.10303164040482,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:armor",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 81.10303164040482,
+        "symmetric_difference_m3": 5.343281372915953e-12
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
+      "vol_approved_m3": 81.10303164,
+      "vol_native_m3": 81.10303164,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.07200000000000012,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.07199999999999977,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:bay_corner_32.3_s",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.07199999999999977,
+        "symmetric_difference_m3": 3.608224830031759e-16
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
+      "vol_approved_m3": 0.072,
+      "vol_native_m3": 0.072,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 2
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 1.5364273031646576,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 2
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 1.5364273031646132,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:frame_16",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 1.5364273031646132,
+        "symmetric_difference_m3": 4.440892098500626e-14
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
+      "vol_approved_m3": 1.5364273,
+      "vol_native_m3": 1.5364273,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.6076223872112885,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.6076223872114992,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:frame_24",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.6076223872114992,
+        "symmetric_difference_m3": -2.107203300738547e-13
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": -0.0,
+      "vol_approved_m3": 0.60762239,
+      "vol_native_m3": 0.60762239,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.6076223872112834,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.607622387211499,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:frame_32",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.607622387211499,
+        "symmetric_difference_m3": -2.156053113822054e-13
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": -0.0,
+      "vol_approved_m3": 0.60762239,
+      "vol_native_m3": 0.60762239,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.17999999999999985,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.17999999999999977,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:longeron_end_fitting_14_upper_port",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.17999999999999977,
+        "symmetric_difference_m3": 1.1102230246251565e-16
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
+      "vol_approved_m3": 0.18,
+      "vol_native_m3": 0.18,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.1800000000000016,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.17999999999999977,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:longeron_end_fitting_34.3_upper_port",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.17999999999999977,
+        "symmetric_difference_m3": 1.8318679906315083e-15
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
+      "vol_approved_m3": 0.18,
+      "vol_native_m3": 0.18,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 2.550973234714913,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 2.550973234714912,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
       "name": "dry:longeron_upper_port",
-      "vol_native_m3": 2.55097323,
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 2.550973234714912,
+        "symmetric_difference_m3": 8.881784197001252e-16
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
       "vol_approved_m3": 2.55097323,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
+      "vol_native_m3": 2.55097323,
+      "volume_delta_m3": 0.0
     },
     {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.5119999999999989,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.5119999999999981,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:rcs_A+Y",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.511999999999998,
+        "symmetric_difference_m3": 8.881784197001252e-16
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
+      "vol_approved_m3": 0.512,
+      "vol_native_m3": 0.512,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 99.30378028456487,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 99.30378028456485,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:reactor",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 99.30378028456485,
+        "symmetric_difference_m3": 0.0
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
+      "vol_approved_m3": 99.30378028,
+      "vol_native_m3": 99.30378028,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 3.3929200658769814,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 3.3929200658769765,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:tunnel_1",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 3.3929200658769765,
+        "symmetric_difference_m3": 4.440892098500626e-15
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
+      "vol_approved_m3": 3.39292007,
+      "vol_native_m3": 3.39292007,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.07200000000000012,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.0720000000000002,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:bay_corner_18_p",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.0720000000000002,
+        "symmetric_difference_m3": -8.326672684688674e-17
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": -0.0,
+      "vol_approved_m3": 0.072,
+      "vol_native_m3": 0.072,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 25.701369499018092,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 25.701369499018103,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:core_trunk",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 25.701369499018103,
+        "symmetric_difference_m3": -7.105427357601002e-15
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": -0.0,
+      "vol_approved_m3": 25.7013695,
+      "vol_native_m3": 25.7013695,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.6076223872112877,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.6076223872115002,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:frame_18",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.6076223872115002,
+        "symmetric_difference_m3": -2.1249668691325496e-13
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": -0.0,
+      "vol_approved_m3": 0.60762239,
+      "vol_native_m3": 0.60762239,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.6076223872112877,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.6076223872115002,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:frame_26",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.6076223872115002,
+        "symmetric_difference_m3": -2.1249668691325496e-13
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": -0.0,
+      "vol_approved_m3": 0.60762239,
+      "vol_native_m3": 0.60762239,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 2
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 1.5364273031646576,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 2
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 1.5364273031646132,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:frame_34",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 1.5364273031646132,
+        "symmetric_difference_m3": 4.440892098500626e-14
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
+      "vol_approved_m3": 1.5364273,
+      "vol_native_m3": 1.5364273,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.17999999999999985,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.17999999999999977,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:longeron_end_fitting_14_upper_starboard",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.17999999999999977,
+        "symmetric_difference_m3": 1.1102230246251565e-16
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
+      "vol_approved_m3": 0.18,
+      "vol_native_m3": 0.18,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.1800000000000016,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.17999999999999977,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:longeron_end_fitting_34.3_upper_starboard",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.17999999999999977,
+        "symmetric_difference_m3": 1.8318679906315083e-15
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
+      "vol_approved_m3": 0.18,
+      "vol_native_m3": 0.18,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 2.550973234714913,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 2.550973234714912,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
       "name": "dry:longeron_upper_starboard",
-      "vol_native_m3": 2.55097323,
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 2.550973234714912,
+        "symmetric_difference_m3": 8.881784197001252e-16
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
       "vol_approved_m3": 2.55097323,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 0.0,
-      "symmetric_difference_m3": 0.0
+      "vol_native_m3": 2.55097323,
+      "volume_delta_m3": 0.0
     },
     {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.5119999999999987,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.511999999999998,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:rcs_A+Z",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.5119999999999981,
+        "symmetric_difference_m3": 4.440892098500626e-16
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
+      "vol_approved_m3": 0.512,
+      "vol_native_m3": 0.512,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 118.79147221386408,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 118.79147221386407,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:shield",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 118.79147221386407,
+        "symmetric_difference_m3": 0.0
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
+      "vol_approved_m3": 118.79147221,
+      "vol_native_m3": 118.79147221,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 1.3006193585861738,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 1.3006193585861727,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:tunnel_2",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 1.3006193585861727,
+        "symmetric_difference_m3": 1.3322676295501878e-15
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
+      "vol_approved_m3": 1.30061936,
+      "vol_native_m3": 1.30061936,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.07200000000000012,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.07200000000000019,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:bay_corner_18_s",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.07200000000000019,
+        "symmetric_difference_m3": -8.326672684688674e-17
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": -0.0,
+      "vol_approved_m3": 0.072,
+      "vol_native_m3": 0.072,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 2.31221219304209,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 2.3122121930420874,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:docking_collar",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 2.3122121930420874,
+        "symmetric_difference_m3": 2.6645352591003757e-15
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
+      "vol_approved_m3": 2.31221219,
+      "vol_native_m3": 2.31221219,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.6076223872112877,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.6076223872115002,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:frame_20",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.6076223872115002,
+        "symmetric_difference_m3": -2.1249668691325496e-13
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": -0.0,
+      "vol_approved_m3": 0.60762239,
+      "vol_native_m3": 0.60762239,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.6076223872112881,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.6076223872114997,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:frame_28",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.6076223872114997,
+        "symmetric_difference_m3": -2.1160850849355484e-13
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": -0.0,
+      "vol_approved_m3": 0.60762239,
+      "vol_native_m3": 0.60762239,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.17999999999999985,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.17999999999999977,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:longeron_end_fitting_14_lower_port",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.17999999999999977,
+        "symmetric_difference_m3": 1.1102230246251565e-16
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
+      "vol_approved_m3": 0.18,
+      "vol_native_m3": 0.18,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.1800000000000016,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.17999999999999977,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:longeron_end_fitting_34.3_lower_port",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.17999999999999977,
+        "symmetric_difference_m3": 1.8318679906315083e-15
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
+      "vol_approved_m3": 0.18,
+      "vol_native_m3": 0.18,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 2.550973234714913,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 1
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 2.550973234714912,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:longeron_lower_port",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 2.550973234714912,
+        "symmetric_difference_m3": 8.881784197001252e-16
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
+      "vol_approved_m3": 2.55097323,
+      "vol_native_m3": 2.55097323,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 2
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 16.41090264191355,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 2
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 16.41090264176151,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
       "name": "dry:nozzle",
-      "vol_native_m3": 16.41090264,
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 16.41090264176151,
+        "symmetric_difference_m3": 1.5204193459794624e-10
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
       "vol_approved_m3": 16.41090264,
-      "volume_delta_m3": 0.0,
-      "bbox_delta_m": 229.74,
-      "symmetric_difference_m3": 32.821805284
+      "vol_native_m3": 16.41090264,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.5119999999999988,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 3,
+            "other": 0,
+            "reversed": 3
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 0.511999999999998,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:rcs_A-Y",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 0.511999999999998,
+        "symmetric_difference_m3": 8.881784197001252e-16
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
+      "vol_approved_m3": 0.512,
+      "vol_native_m3": 0.512,
+      "volume_delta_m3": 0.0
+    },
+    {
+      "bbox_delta_m": 0.0,
+      "diagnostics": {
+        "imported": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 2
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 6.870685150601162,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        },
+        "native": {
+          "brepcheck_valid": true,
+          "face_orientation_counts": {
+            "forward": 2,
+            "other": 0,
+            "reversed": 2
+          },
+          "is_valid_wrapper": true,
+          "shapefix": {
+            "attempted": false,
+            "reason": "BRepCheck valid"
+          },
+          "signed_volume_m3": 6.870685150597382,
+          "solid_orientation_counts": {
+            "forward": 1,
+            "other": 0,
+            "reversed": 0
+          }
+        }
+      },
+      "fallback_authority_applied": false,
+      "integrity_method": "ordinary_symmetric_difference",
+      "name": "dry:thrust_cone",
+      "pass": true,
+      "raw_boolean": {
+        "common_volume_m3": 6.87068515059741,
+        "symmetric_difference_m3": 3.723243935382925e-12
+      },
+      "raw_boolean_numerically_invalid": false,
+      "symmetric_difference_m3": 0.0,
+      "vol_approved_m3": 6.87068515,
+      "vol_native_m3": 6.87068515,
+      "volume_delta_m3": 0.0
     }
   ],
-  "geometry_conversion_or_boolean_errors": [],
-  "STOP": "Primary nozzle or another G5 member does not match its original BRep, even though the research/reference pairwise D9 collisions count is zero. Geometry NOT promoted.",
-  "pass": false
+  "protected_primary_integrity_accepted_methods": [
+    "ordinary_symmetric_difference",
+    "OCCT_fuzzy_symmetric_difference",
+    "two_way_BRep_surface_sample_distance_if_boolean_numerically_invalid"
+  ],
+  "protected_primary_surface_min_samples_per_direction": 256,
+  "same_lab_and_upstream_installed_part_set": true,
+  "source_S1_fluid_count": 20,
+  "source_dry_count": 296,
+  "source_geometry_numeric_unit": "m",
+  "source_water_R_before_t": 245.47139123187642,
+  "source_water_R_current_t": 245.39043171108221,
+  "threshold_m3": 0.01,
+  "unresolved": "Fitted secondary doublers, internals, dynamic sweeps remain OPEN.",
+  "upstream_same_checker": {
+    "category_counts": {
+      "a": 1,
+      "c": 106
+    },
+    "category_d_conflicts": [],
+    "category_d_count": 0,
+    "collision_errors": [],
+    "expected_pairs": 18721,
+    "intersection_hits": [
+      {
+        "a": "S1:c_lite_monoprop:19",
+        "b": "dry:c_lite_dry",
+        "category": "a",
+        "m3": 0.670206433,
+        "why": "S1 C-lite monoprop inside named dry storage-envelope"
+      },
+      {
+        "a": "S1:c_lite_monoprop:19",
+        "b": "dry:electrical_fwd",
+        "category": "c",
+        "m3": 0.670206433,
+        "why": "source C-lite fluid explicitly hosted inside the broad forward electrical allocation sector"
+      },
+      {
+        "a": "S1:jacket_berth_wall_extended:08",
+        "b": "dry:outfit_L3",
+        "category": "c",
+        "m3": 2.410481211,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "S1:jacket_outer:00",
+        "b": "dry:outfit_L4",
+        "category": "c",
+        "m3": 2.468768227,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:bow_sensors",
+        "category": "c",
+        "m3": 0.223401854,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:ext_crawler_dock_0",
+        "category": "c",
+        "m3": 0.063828,
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:ext_crawler_dock_1",
+        "category": "c",
+        "m3": 0.063828,
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:outfit_L1",
+        "category": "c",
+        "m3": 0.810724257,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:pressure_vessel",
+        "category": "c",
+        "m3": 0.532418546,
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:rcs_F+Y",
+        "category": "c",
+        "m3": 0.12817706,
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:rcs_F+Z",
+        "category": "c",
+        "m3": 0.12817706,
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:rcs_F-Y",
+        "category": "c",
+        "m3": 0.12817706,
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:rcs_F-Z",
+        "category": "c",
+        "m3": 0.12817706,
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:room_L1-command",
+        "category": "c",
+        "m3": 5.487637198,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:bow_sensors",
+        "b": "dry:room_L1-command",
+        "category": "c",
+        "m3": 11.77366328,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:c_lite_dry",
+        "b": "dry:electrical_fwd",
+        "category": "c",
+        "m3": 0.670206433,
+        "why": "component within broad electrical allocation sector"
+      },
+      {
+        "a": "dry:command_terrace",
+        "b": "dry:room_L1-command",
+        "category": "c",
+        "m3": 0.714,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:docking_collar",
+        "b": "dry:frame_16",
+        "category": "c",
+        "m3": 0.091191384,
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:docking_collar",
+        "b": "dry:skin_service",
+        "category": "c",
+        "m3": 0.040370344,
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:electrical",
+        "b": "dry:house_peak_store",
+        "category": "c",
+        "m3": 9.025326327,
+        "why": "component within broad electrical allocation sector"
+      },
+      {
+        "a": "dry:electrical",
+        "b": "dry:house_reactor_A",
+        "category": "c",
+        "m3": 6.502081078,
+        "why": "component within broad electrical allocation sector"
+      },
+      {
+        "a": "dry:electrical_fwd",
+        "b": "dry:house_energy_battery",
+        "category": "c",
+        "m3": 11.723877458,
+        "why": "component within broad electrical allocation sector"
+      },
+      {
+        "a": "dry:electrical_fwd",
+        "b": "dry:house_reactor_B",
+        "category": "c",
+        "m3": 11.463231406,
+        "why": "component within broad electrical allocation sector"
+      },
+      {
+        "a": "dry:ext_rf_array_0",
+        "b": "dry:skin_midship",
+        "category": "c",
+        "m3": 0.020965,
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:ext_rf_array_1",
+        "b": "dry:skin_midship",
+        "category": "c",
+        "m3": 0.020965,
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:ext_rf_array_2",
+        "b": "dry:skin_midship",
+        "category": "c",
+        "m3": 0.020965,
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:ext_rf_array_3",
+        "b": "dry:skin_midship",
+        "category": "c",
+        "m3": 0.020965,
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:ext_sensor_turret_0",
+        "b": "dry:skin_midship",
+        "category": "c",
+        "m3": 0.01796,
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:ext_sensor_turret_1",
+        "b": "dry:skin_midship",
+        "category": "c",
+        "m3": 0.01796,
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:floor_L4",
+        "b": "dry:hatch_L4L5_0",
+        "category": "c",
+        "m3": 0.033973976,
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:floor_L4",
+        "b": "dry:hatch_L4L5_180",
+        "category": "c",
+        "m3": 0.033973976,
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:frame_14",
+        "b": "dry:strake_140",
+        "category": "c",
+        "m3": 0.112921781,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_14",
+        "b": "dry:strake_220",
+        "category": "c",
+        "m3": 0.112921781,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_14",
+        "b": "dry:strake_320",
+        "category": "c",
+        "m3": 0.112921781,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_14",
+        "b": "dry:strake_40",
+        "category": "c",
+        "m3": 0.112921781,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_16",
+        "b": "dry:strake_140",
+        "category": "c",
+        "m3": 0.114709986,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_16",
+        "b": "dry:strake_220",
+        "category": "c",
+        "m3": 0.114709986,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_16",
+        "b": "dry:strake_320",
+        "category": "c",
+        "m3": 0.114709986,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_16",
+        "b": "dry:strake_40",
+        "category": "c",
+        "m3": 0.114709986,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_18",
+        "b": "dry:strake_140",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_18",
+        "b": "dry:strake_220",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_18",
+        "b": "dry:strake_320",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_18",
+        "b": "dry:strake_40",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_20",
+        "b": "dry:strake_140",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_20",
+        "b": "dry:strake_220",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_20",
+        "b": "dry:strake_320",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_20",
+        "b": "dry:strake_40",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_22",
+        "b": "dry:strake_140",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_22",
+        "b": "dry:strake_220",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_22",
+        "b": "dry:strake_320",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_22",
+        "b": "dry:strake_40",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_24",
+        "b": "dry:strake_140",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_24",
+        "b": "dry:strake_220",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_24",
+        "b": "dry:strake_320",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_24",
+        "b": "dry:strake_40",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_26",
+        "b": "dry:strake_140",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_26",
+        "b": "dry:strake_220",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_26",
+        "b": "dry:strake_320",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_26",
+        "b": "dry:strake_40",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_28",
+        "b": "dry:strake_140",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_28",
+        "b": "dry:strake_220",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_28",
+        "b": "dry:strake_320",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_28",
+        "b": "dry:strake_40",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_30",
+        "b": "dry:strake_140",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_30",
+        "b": "dry:strake_220",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_30",
+        "b": "dry:strake_320",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_30",
+        "b": "dry:strake_40",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_32",
+        "b": "dry:strake_140",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_32",
+        "b": "dry:strake_220",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_32",
+        "b": "dry:strake_320",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_32",
+        "b": "dry:strake_40",
+        "category": "c",
+        "m3": 0.054478462,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:navigator_platform",
+        "b": "dry:room_L1-command",
+        "category": "c",
+        "m3": 0.583,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L1",
+        "b": "dry:pressure_vessel",
+        "category": "c",
+        "m3": 0.20398423,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L1",
+        "b": "dry:room_L1-command",
+        "category": "c",
+        "m3": 1.47698753,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L2",
+        "b": "dry:room_L2-exercise",
+        "category": "c",
+        "m3": 0.987507291,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L2",
+        "b": "dry:room_L2-galley",
+        "category": "c",
+        "m3": 1.481260936,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L2",
+        "b": "dry:room_L2-hygiene",
+        "category": "c",
+        "m3": 0.493753645,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L2",
+        "b": "dry:room_L2-observation",
+        "category": "c",
+        "m3": 0.987507291,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L2",
+        "b": "dry:room_L2-wardroom",
+        "category": "c",
+        "m3": 1.975014582,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L4",
+        "b": "dry:room_L4-eclss",
+        "category": "c",
+        "m3": 1.975014582,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L4",
+        "b": "dry:room_L4-medical",
+        "category": "c",
+        "m3": 1.481260936,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-airlock",
+        "category": "c",
+        "m3": 0.658338194,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-custody",
+        "category": "c",
+        "m3": 0.493753645,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-stores",
+        "category": "c",
+        "m3": 0.822922742,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-stores2",
+        "category": "c",
+        "m3": 0.822922742,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-suits",
+        "category": "c",
+        "m3": 0.987507291,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-vestibule",
+        "category": "c",
+        "m3": 0.658338194,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-workshop",
+        "category": "c",
+        "m3": 1.481260936,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:pressure_vessel",
+        "b": "dry:rcs_F+Y",
+        "category": "c",
+        "m3": 0.019278692,
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:pressure_vessel",
+        "b": "dry:rcs_F+Z",
+        "category": "c",
+        "m3": 0.019278019,
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:pressure_vessel",
+        "b": "dry:rcs_F-Y",
+        "category": "c",
+        "m3": 0.019278011,
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:pressure_vessel",
+        "b": "dry:rcs_F-Z",
+        "category": "c",
+        "m3": 0.019278007,
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:pressure_vessel",
+        "b": "dry:room_L1-command",
+        "category": "c",
+        "m3": 0.212077546,
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:shield",
+        "b": "dry:thrust_cone",
+        "category": "c",
+        "m3": 0.061956726,
+        "why": "thrust-cone and shield authored mechanical interface"
+      },
+      {
+        "a": "dry:skin_midship",
+        "b": "dry:strake_140",
+        "category": "c",
+        "m3": 0.576837617,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_midship",
+        "b": "dry:strake_220",
+        "category": "c",
+        "m3": 0.576837617,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_midship",
+        "b": "dry:strake_320",
+        "category": "c",
+        "m3": 0.576837617,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_midship",
+        "b": "dry:strake_40",
+        "category": "c",
+        "m3": 0.576837617,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_service",
+        "b": "dry:strake_140",
+        "category": "c",
+        "m3": 0.16135318,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_service",
+        "b": "dry:strake_220",
+        "category": "c",
+        "m3": 0.16135318,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_service",
+        "b": "dry:strake_320",
+        "category": "c",
+        "m3": 0.16135318,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_service",
+        "b": "dry:strake_40",
+        "category": "c",
+        "m3": 0.16135318,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:strake_140",
+        "b": "dry:tank_shell_out",
+        "category": "c",
+        "m3": 0.545013831,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:strake_220",
+        "b": "dry:tank_shell_out",
+        "category": "c",
+        "m3": 0.545013831,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:strake_320",
+        "b": "dry:tank_shell_out",
+        "category": "c",
+        "m3": 0.545013831,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:strake_40",
+        "b": "dry:tank_shell_out",
+        "category": "c",
+        "m3": 0.545013831,
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:tunnel_1",
+        "b": "dry:tunnel_2",
+        "category": "c",
+        "m3": 0.288,
+        "why": "source structural connection or attachment envelope"
+      }
+    ],
+    "pair_count": 18721,
+    "part_count": 194
+  },
+  "water_BRep_forward_debits": [
+    {
+      "after_BRep_m3": 62.48355003633098,
+      "before_BRep_m3": 62.50414480678411,
+      "id": "S1:water_port_aft:14"
+    },
+    {
+      "after_BRep_m3": 62.48355003633098,
+      "before_BRep_m3": 62.50414480678411,
+      "id": "S1:water_port_fore:13"
+    },
+    {
+      "after_BRep_m3": 62.483550036324495,
+      "before_BRep_m3": 62.50414480678634,
+      "id": "S1:water_starboard_aft:12"
+    },
+    {
+      "after_BRep_m3": 62.483550036324495,
+      "before_BRep_m3": 62.50414480678636,
+      "id": "S1:water_starboard_fore:11"
+    }
+  ]
 }

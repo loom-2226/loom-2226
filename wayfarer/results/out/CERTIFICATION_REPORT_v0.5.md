@@ -24,11 +24,11 @@ Criteria sha256 `74e412dc430841d1c1027f21c037250635fcd511435aa51cde30d5b96da5e2a
 | G10 Flight dynamics: RCS, torch, Metric, Loom | PASS-DECLARED |
 | G11 Canon fit | PASS |
 | G12 Images | PASS-DECLARED |
-| D9 Installed B-rep category-(d) clash screen | FAIL |
+| D9 Installed B-rep category-(d) clash screen | PASS |
 
 ## Conventional certification scope and explicit HOLDS
 
-Script certified flag: false; kT-declared conventional G1-G12 lab acceptance only. Not a physical flightworthiness certificate, Metric arrival authority or replacement for reviewer signatures and loom-gate.
+Script certified flag: true; kT-declared conventional G1-G12 lab acceptance only. Not a physical flightworthiness certificate, Metric arrival authority or replacement for reviewer signatures and loom-gate.
 
 Locked geometry: 88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1.
 
@@ -79,7 +79,7 @@ RCS power source: OPEN. Idle torch reactor or dedicated supply; no ship-wide bus
 - **ACCEPTED by kT 2026-11-01.** Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only Decision: Acceptance of visual architecture for new-hash equal-scale section, viewer, render set and two-scene GLB; no optical or real hardware qualification implied.
 - **ACCEPTED by kT 2026-11-01.** NEW source-specific kT visual acceptance required for new aft reactor/rotor and forward reactor/battery cutaway, even if G12 image source-hash checks pass. Prior source-hash visual acceptance does not transfer. Decision: kT ACCEPTS reactor A aft C-ring, reactor B forward service ring, flywheel aft, battery forward visual layout specifically on source geometry SHA 4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331. Updated fuel-envelope labels are source-derived schematic overlays; no tank packing acceptance implied.
 
-Script verdict on certification: NOT YET: at least one gate is OPEN or FAIL, or a declared assumption awaits kT. Sign-off still needs both reviewers and loom-gate.
+Script verdict on certification: all computable gates pass and every declared assumption is accepted. Sign-off still needs both reviewers and loom-gate.
 
 ## G1 Mass and fluids ledger: PASS
 
@@ -505,7 +505,7 @@ Script verdict on certification: NOT YET: at least one gate is OPEN or FAIL, or 
 - Manifest hash + current files + 2-scene GLB verified; full 64-character SHA stamped by source render templates.
 - G12 visuals remain NON-GOVERNING pending kT aesthetic/geometry interpretation review; screenshot existence does not qualify hardware, pressure crown or humans.
 
-## D9 Installed B-rep category-(d) clash screen: FAIL
+## D9 Installed B-rep category-(d) clash screen: PASS
 
 | Check | Value | Limit | Pass | Note |
 |---|---|---|---|---|
@@ -513,8 +513,8 @@ Script verdict on certification: NOT YET: at least one gate is OPEN or FAIL, or 
 | real category-(d) volumetric intersections >0.01m3 | 0  | 0 | yes |  |
 | all source B-rep solids converted without error | 0  | 0 | yes |  |
 | every installed-solid pair classified | 18721  | 18721 | yes |  |
-| D8 all source primary members unchanged (including no_render fittings) | False  | True | NO |  |
-| D9 independent source-screen result | False  | True | NO |  |
+| D8 all source primary members unchanged (including no_render fittings) | True  | True | yes |  |
+| D9 independent source-screen result | True  | True | yes |  |
 - Excluded 122 source no_render/unlocated proxies; no physical clearance credit for them.
 - D9 uses the named #157 approved STEP, unit-normalised and checked against every current installed part plus all G5 primaries. STEP source and analytic envelopes differ until D8 primary geometry match is established.
 - Fitted secondary doublers, internal webs/baffles, cryogenic pressure/insulation and dynamic sweeps remain OPEN.
