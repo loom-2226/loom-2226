@@ -4,7 +4,7 @@
  "basis": "CERTIFICATION_BASIS.md v0.2 (agreed by Claude and Sol; PROPOSED to kT)",
  "geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
  "inputs_sha256": "fba8c56976a95cc4dee43b867ddbd283840fba9228c303dae0f5bcb9d41b8bbc",
- "criteria_sha256": "e3c871bb991c02476e8ce51743d9cde8dcd67b3bfb7c95d21b124ec75ee64a0a",
+ "criteria_sha256": "74e412dc430841d1c1027f21c037250635fcd511435aa51cde30d5b96da5e2a1",
  "summary": {
   "G1": "PASS",
   "G2": "PASS",
@@ -12,12 +12,12 @@
   "G4": "PASS-DECLARED",
   "G5": "PASS-DECLARED",
   "G6": "PASS-DECLARED",
-  "G7": "FAIL",
+  "G7": "PASS-DECLARED",
   "G8": "PASS",
   "G9": "PASS-DECLARED",
   "G10": "PASS-DECLARED",
   "G11": "PASS",
-  "G12": "OPEN",
+  "G12": "PASS-DECLARED",
   "D9": "FAIL"
  },
  "gates": [
@@ -3042,7 +3042,7 @@
   {
    "gate": "G7",
    "title": "Compartments and crew space",
-   "verdict": "FAIL",
+   "verdict": "PASS-DECLARED",
    "checks": [
     {
      "name": "people aboard",
@@ -3174,10 +3174,10 @@
     },
     {
      "name": "I4 human-factors source geometry hash",
-     "value": "274e94fb43cfe549a3d2087abbdff4d65499ce6f5055ad2d7ade790414fbaaf9",
+     "value": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
      "limit": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
@@ -3185,7 +3185,7 @@
      "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
@@ -3193,7 +3193,7 @@
      "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
@@ -3201,7 +3201,7 @@
      "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
@@ -3209,7 +3209,7 @@
      "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
@@ -3217,7 +3217,7 @@
      "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
@@ -3225,7 +3225,7 @@
      "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
@@ -3233,7 +3233,7 @@
      "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
@@ -3241,7 +3241,7 @@
      "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
@@ -3249,7 +3249,7 @@
      "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
@@ -3257,7 +3257,7 @@
      "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
@@ -3265,7 +3265,7 @@
      "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
@@ -3273,7 +3273,7 @@
      "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
@@ -3281,7 +3281,7 @@
      "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
@@ -3289,7 +3289,7 @@
      "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
@@ -3297,7 +3297,7 @@
      "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
@@ -3305,7 +3305,7 @@
      "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": "bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed"
     },
     {
@@ -3970,18 +3970,119 @@
   {
    "gate": "G12",
    "title": "Images",
-   "verdict": "OPEN",
+   "verdict": "PASS-DECLARED",
    "checks": [
     {
-     "name": "images generated from the hashed geometry",
-     "value": "not yet",
-     "limit": "all four sets",
+     "name": "render manifest matches locked geometry",
+     "value": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+     "limit": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
      "unit": "",
-     "pass": false,
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "all indexed images and viewer have current hash and exist",
+     "value": 0,
+     "limit": 0,
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "exterior current-geometry artifacts",
+     "value": 13,
+     "limit": 4,
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "cutaway current-geometry artifacts",
+     "value": 4,
+     "limit": 2,
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "deckplan current-geometry artifacts",
+     "value": 7,
+     "limit": 5,
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "viewer current-geometry artifacts",
+     "value": 1,
+     "limit": 1,
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "Option C 1:1 metric crown section current-hash PNG plus source SVG",
+     "value": true,
+     "limit": true,
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "Option C all previously dropped exterior views rerendered",
+     "value": 13,
+     "limit": 10,
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "Original NOSE research and viewer assets preserved under wayfarer/",
+     "value": [
+      21,
+      28
+     ],
+     "limit": [
+      21,
+      28
+     ],
+     "unit": "",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "D-He3 and C-lite wet/dry tank envelopes have placed mass and source-checked CG cutaway labels",
+     "value": true,
+     "limit": true,
+     "unit": "Bounding envelopes and wet/dry CG only; tank packaging, overlap and plumbing UNQUALIFIED",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "source-hashed system cutaway shows independently labelled reactors, flywheel and battery",
+     "value": true,
+     "limit": true,
+     "unit": "G12 source-based visual identification, NOT physical equipment packing qualification",
+     "pass": true,
+     "note": ""
+    },
+    {
+     "name": "one GLB with exterior and I4 interior scenes stamped with current hash",
+     "value": true,
+     "limit": true,
+     "unit": "",
+     "pass": true,
      "note": ""
     }
    ],
    "declared": [
+    {
+     "key": "kT_visual_acceptance",
+     "text": "Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only",
+     "kT": "ACCEPTED",
+     "as": "Acceptance of visual architecture for new-hash equal-scale section, viewer, render set and two-scene GLB; no optical or real hardware qualification implied.",
+     "date": "2026-11-01"
+    },
     {
      "key": "kT_visual_acceptance_storage_20261101",
      "text": "NEW source-specific kT visual acceptance required for new aft reactor/rotor and forward reactor/battery cutaway, even if G12 image source-hash checks pass. Prior source-hash visual acceptance does not transfer.",
@@ -3990,7 +4091,10 @@
      "date": "2026-11-01"
     }
    ],
-   "notes": []
+   "notes": [
+    "Manifest hash + current files + 2-scene GLB verified; full 64-character SHA stamped by source render templates.",
+    "G12 visuals remain NON-GOVERNING pending kT aesthetic/geometry interpretation review; screenshot existence does not qualify hardware, pressure crown or humans."
+   ]
   },
   {
    "gate": "D9",
@@ -4007,10 +4111,10 @@
     },
     {
      "name": "real category-(d) volumetric intersections >0.01m3",
-     "value": 73,
+     "value": 0,
      "limit": 0,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
@@ -4030,6 +4134,14 @@
      "note": ""
     },
     {
+     "name": "D8 all source primary members unchanged (including no_render fittings)",
+     "value": false,
+     "limit": true,
+     "unit": "",
+     "pass": false,
+     "note": ""
+    },
+    {
      "name": "D9 independent source-screen result",
      "value": false,
      "limit": true,
@@ -4041,7 +4153,7 @@
    "declared": [],
    "notes": [
     "Excluded 122 source no_render/unlocated proxies; no physical clearance credit for them.",
-    "Source B-rep production is from #156 pinned OCC converter, run against new current geometry, not imported frozen #157 STEP.",
+    "D9 uses the named #157 approved STEP, unit-normalised and checked against every current installed part plus all G5 primaries. STEP source and analytic envelopes differ until D8 primary geometry match is established.",
     "Fitted secondary doublers, internal webs/baffles, cryogenic pressure/insulation and dynamic sweeps remain OPEN."
    ]
   }
@@ -4297,6 +4409,13 @@
    "text": "External nose shifted 1.2m forward with flat 2m crown and 50deg face. Old accepted G10 axial RCS plume direction/impingement declaration predates the extended nose; no new plume clearance proof performed. The existing RCS nozzle geometry is unchanged, but plume impingement on Option C gores/ceramic/retainers remains HOLD.",
    "kT": "ACCEPTED",
    "as": "kT accepts RCS plume-clearance assumptions for Option C as declared, without an impingement/erosion simulation or hardware proof.",
+   "date": "2026-11-01"
+  },
+  {
+   "key": "kT_visual_acceptance",
+   "text": "Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only",
+   "kT": "ACCEPTED",
+   "as": "Acceptance of visual architecture for new-hash equal-scale section, viewer, render set and two-scene GLB; no optical or real hardware qualification implied.",
    "date": "2026-11-01"
   },
   {

@@ -6,7 +6,7 @@ ALL bodies. ALL sponsors. 2026-2226.
 
 Geometry sha256 `88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1`
 Inputs sha256 `fba8c56976a95cc4dee43b867ddbd283840fba9228c303dae0f5bcb9d41b8bbc`
-Criteria sha256 `e3c871bb991c02476e8ce51743d9cde8dcd67b3bfb7c95d21b124ec75ee64a0a`
+Criteria sha256 `74e412dc430841d1c1027f21c037250635fcd511435aa51cde30d5b96da5e2a1`
 
 ## Summary
 
@@ -18,12 +18,12 @@ Criteria sha256 `e3c871bb991c02476e8ce51743d9cde8dcd67b3bfb7c95d21b124ec75ee64a0
 | G4 Power and heat | PASS-DECLARED |
 | G5 Structure and loads | PASS-DECLARED |
 | G6 Radiation | PASS-DECLARED |
-| G7 Compartments and crew space | FAIL |
+| G7 Compartments and crew space | PASS-DECLARED |
 | G8 Shuttle, drones and bay exit | PASS |
 | G9 Failures and reserves | PASS-DECLARED |
 | G10 Flight dynamics: RCS, torch, Metric, Loom | PASS-DECLARED |
 | G11 Canon fit | PASS |
-| G12 Images | OPEN |
+| G12 Images | PASS-DECLARED |
 | D9 Installed B-rep category-(d) clash screen | FAIL |
 
 ## Conventional certification scope and explicit HOLDS
@@ -76,6 +76,7 @@ RCS power source: OPEN. Idle torch reactor or dedicated supply; no ship-wide bus
 - **ACCEPTED by kT 2026-11-01.** Axial RCS: one 25 kN thruster per cluster, canted 10 deg outward (bow ones exhaust forward, aft ones aft). Assumes the plumes clear the crown glazing, hull, hot fins and torch chain; plume impingement is not yet modelled. Decision: kT accepts axial RCS plume clearance as DECLARED, not a new physical plume impingement calculation. Original 10° canted one-nozzle-per-cluster assumption remains.
 - **ACCEPTED by kT 2026-11-01.** Long torch burns split into segments of at most 165 min ([V2 6113]) with 15 min coasts (engineering assumption; in free space the coasts change elapsed time, not delta-v). Decision: kT accepts segmented burn doctrine as DECLARED: ≤165min torch burn segments with ≥15min coasts. Coasts add elapsed time, not free-space delta-v. This is not Metric travel qualification.
 - **ACCEPTED by kT 2026-11-01.** External nose shifted 1.2m forward with flat 2m crown and 50deg face. Old accepted G10 axial RCS plume direction/impingement declaration predates the extended nose; no new plume clearance proof performed. The existing RCS nozzle geometry is unchanged, but plume impingement on Option C gores/ceramic/retainers remains HOLD. Decision: kT accepts RCS plume-clearance assumptions for Option C as declared, without an impingement/erosion simulation or hardware proof.
+- **ACCEPTED by kT 2026-11-01.** Required before treating rendered representation as accepted design evidence; generated images meet source/hash coverage only Decision: Acceptance of visual architecture for new-hash equal-scale section, viewer, render set and two-scene GLB; no optical or real hardware qualification implied.
 - **ACCEPTED by kT 2026-11-01.** NEW source-specific kT visual acceptance required for new aft reactor/rotor and forward reactor/battery cutaway, even if G12 image source-hash checks pass. Prior source-hash visual acceptance does not transfer. Decision: kT ACCEPTS reactor A aft C-ring, reactor B forward service ring, flywheel aft, battery forward visual layout specifically on source geometry SHA 4d598212aeb46fab14b326a6023bb6d55e7d584599d91fe821ef8a2f2d837331. Updated fuel-envelope labels are source-derived schematic overlays; no tank packing acceptance implied.
 
 Script verdict on certification: NOT YET: at least one gate is OPEN or FAIL, or a declared assumption awaits kT. Sign-off still needs both reviewers and loom-gate.
@@ -337,7 +338,7 @@ Script verdict on certification: NOT YET: at least one gate is OPEN or FAIL, or 
 - Shadow cone: shield front face x 34.3 m, radius 2.75 m; neutron source: the pellet burn, 0.3 m across, anywhere in x 52-52.6 m (worst case used). Radiator strakes and the hot fins sit outside the cone (the fins edge-on to the burn), take neutron heating and are out of bounds for EVA during burns.
 - Continuous-hull ray screen credits committed physical armour/water only; OG3 organic mass is credited separately as per-aperture areal column, NOT double-booked into path transport. No dose output from OG3. Uncommitted growth mass zero credit (fraction 0.976845).
 
-## G7 Compartments and crew space: FAIL
+## G7 Compartments and crew space: PASS-DECLARED
 
 | Check | Value | Limit | Pass | Note |
 |---|---|---|---|---|
@@ -357,23 +358,23 @@ Script verdict on certification: NOT YET: at least one gate is OPEN or FAIL, or 
 | time on the back per couch period ([V2 6113] 3 h 15 min, nominal 2 h 45 min) | 165 min | 165 | yes | burns over 2 h 45 min are split by a 30 min coast break: EXPEDITE full-remass burn 180.0 min |
 | storm shelter: 72 h stored backup for 10 people | 0.148 t | 0.3 | yes | O2 25.2 kg, LiOH 43.6 kg for 30.0 kg CO2, food 18.6 kg, battery 3.6 kg (24 h); drinking water 48.6 kg from the shelter jacket (0.3%); 2.0 kW of heat |
 | docking view: cameras at the collar and a vestibule window | 2 cameras, window yes  | >= 2 cameras and a window | yes |  |
-| I4 human-factors source geometry hash | 274e94fb43cfe549a3d2087abbdff4d65499ce6f5055ad2d7ade790414fbaaf9  | 88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1 | NO |  |
-| I4 human factors: l1_l2_hatches_represent_real_closable_pressure_isolation | True  | True | NO | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
-| I4 human factors: l1_l2_passive_L1_outflow_seat_direction_declared | True  | True | NO | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
-| I4 human factors: l1_l2_closure_requires_zero_power_and_sensors | True  | True | NO | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
-| I4 human factors: l1_l2_0g_litter_egress_via_either_open_hatch | True  | True | NO | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
-| I4 human factors: l1_l2_parked_hatch_leaves_clear_of_seats_and_ladders | True  | True | NO | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
-| I4 human factors: l1_l2_physical_pressure_hatch_mass_in_geometry | True  | True | NO | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
-| I4 human factors: six_role_seats_present | True  | True | NO | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
-| I4 human factors: contoured_couch_nominal_length_1p58m | True  | True | NO | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
-| I4 human factors: plan_seat_envelope_inside_annulus | True  | True | NO | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
-| I4 human factors: pilot_captain_crown_60deg_upper_bound_ge_0p90 | True  | True | NO | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
-| I4 human factors: 0p8m_walkway_to_floor_seats | True  | True | NO | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
-| I4 human factors: both_ladders_landings_clear | True  | True | NO | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
-| I4 human factors: terrace_worst_corner_1p2m_crawl_clearance | True  | True | NO | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
-| I4 human factors: floor_couches_vs_terrace_3D_AABB_nonintersection | True  | True | NO | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
-| I4 human factors: i4_carryover_all_items_3D_no_couch_or_ladder_collision | True  | True | NO | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
-| I4 human factors: i4_carryover_floor_walkway_not_severed | True  | True | NO | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
+| I4 human-factors source geometry hash | 88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1  | 88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1 | yes |  |
+| I4 human factors: l1_l2_hatches_represent_real_closable_pressure_isolation | True  | True | yes | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
+| I4 human factors: l1_l2_passive_L1_outflow_seat_direction_declared | True  | True | yes | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
+| I4 human factors: l1_l2_closure_requires_zero_power_and_sensors | True  | True | yes | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
+| I4 human factors: l1_l2_0g_litter_egress_via_either_open_hatch | True  | True | yes | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
+| I4 human factors: l1_l2_parked_hatch_leaves_clear_of_seats_and_ladders | True  | True | yes | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
+| I4 human factors: l1_l2_physical_pressure_hatch_mass_in_geometry | True  | True | yes | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
+| I4 human factors: six_role_seats_present | True  | True | yes | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
+| I4 human factors: contoured_couch_nominal_length_1p58m | True  | True | yes | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
+| I4 human factors: plan_seat_envelope_inside_annulus | True  | True | yes | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
+| I4 human factors: pilot_captain_crown_60deg_upper_bound_ge_0p90 | True  | True | yes | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
+| I4 human factors: 0p8m_walkway_to_floor_seats | True  | True | yes | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
+| I4 human factors: both_ladders_landings_clear | True  | True | yes | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
+| I4 human factors: terrace_worst_corner_1p2m_crawl_clearance | True  | True | yes | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
+| I4 human factors: floor_couches_vs_terrace_3D_AABB_nonintersection | True  | True | yes | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
+| I4 human factors: i4_carryover_all_items_3D_no_couch_or_ladder_collision | True  | True | yes | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
+| I4 human factors: i4_carryover_floor_walkway_not_severed | True  | True | yes | bounded L1 source-frame check; G7 is not certified until 3D/4g human-swept fit, sightline occlusions and ladder access closed |
 | berth viewports: one per berth (v0.5.7) | 10  | 10 | yes | 0.35 m, at the outer end of each berth; acrylic shield plug and insert keep the berth screen (G6 declared item berth_viewports) |
 | WWS-1 ten berths, one WWS-1 window each | 10  | 10 | yes |  |
 | WWS-1 R2 ten individual berth panes are all 0.8m | 0  | 0 | yes |  |
@@ -485,21 +486,35 @@ Script verdict on certification: NOT YET: at least one gate is OPEN or FAIL, or 
 | Torch internals | axial fusion torch / magnetic nozzle; internals not stated | pulsed: each He3-rich, spin-polarised D-He3 pellet is wrapped in a shell of remass that becomes the exhaust; burn 6 m aft of the reactor face (x 52.3 m) |
 | Hot fins | none | 4 hot fins at 1750 K aft of the shield on the strake lines, 28 m, 21.0 t paid from the engineering reserve |
 
-## G12 Images: OPEN
+## G12 Images: PASS-DECLARED
 
 | Check | Value | Limit | Pass | Note |
 |---|---|---|---|---|
-| images generated from the hashed geometry | not yet  | all four sets | NO |  |
+| render manifest matches locked geometry | 88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1  | 88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1 | yes |  |
+| all indexed images and viewer have current hash and exist | 0  | 0 | yes |  |
+| exterior current-geometry artifacts | 13  | 4 | yes |  |
+| cutaway current-geometry artifacts | 4  | 2 | yes |  |
+| deckplan current-geometry artifacts | 7  | 5 | yes |  |
+| viewer current-geometry artifacts | 1  | 1 | yes |  |
+| Option C 1:1 metric crown section current-hash PNG plus source SVG | True  | True | yes |  |
+| Option C all previously dropped exterior views rerendered | 13  | 10 | yes |  |
+| Original NOSE research and viewer assets preserved under wayfarer/ | [21, 28]  | [21, 28] | yes |  |
+| D-He3 and C-lite wet/dry tank envelopes have placed mass and source-checked CG cutaway labels | True Bounding envelopes and wet/dry CG only; tank packaging, overlap and plumbing UNQUALIFIED | True | yes |  |
+| source-hashed system cutaway shows independently labelled reactors, flywheel and battery | True G12 source-based visual identification, NOT physical equipment packing qualification | True | yes |  |
+| one GLB with exterior and I4 interior scenes stamped with current hash | True  | True | yes |  |
+- Manifest hash + current files + 2-scene GLB verified; full 64-character SHA stamped by source render templates.
+- G12 visuals remain NON-GOVERNING pending kT aesthetic/geometry interpretation review; screenshot existence does not qualify hardware, pressure crown or humans.
 
 ## D9 Installed B-rep category-(d) clash screen: FAIL
 
 | Check | Value | Limit | Pass | Note |
 |---|---|---|---|---|
 | D9 report geometry hash matches current source | 88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1  | 88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1 | yes |  |
-| real category-(d) volumetric intersections >0.01m3 | 73  | 0 | NO |  |
+| real category-(d) volumetric intersections >0.01m3 | 0  | 0 | yes |  |
 | all source B-rep solids converted without error | 0  | 0 | yes |  |
 | every installed-solid pair classified | 18721  | 18721 | yes |  |
+| D8 all source primary members unchanged (including no_render fittings) | False  | True | NO |  |
 | D9 independent source-screen result | False  | True | NO |  |
 - Excluded 122 source no_render/unlocated proxies; no physical clearance credit for them.
-- Source B-rep production is from #156 pinned OCC converter, run against new current geometry, not imported frozen #157 STEP.
+- D9 uses the named #157 approved STEP, unit-normalised and checked against every current installed part plus all G5 primaries. STEP source and analytic envelopes differ until D8 primary geometry match is established.
 - Fitted secondary doublers, internal webs/baffles, cryogenic pressure/insulation and dynamic sweeps remain OPEN.
