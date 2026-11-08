@@ -67,6 +67,7 @@ def part(pid,shape,volume,mass,mat="ceramic"):
 def main():
     assert hashlib.sha256(GEO.read_bytes()).hexdigest()==SOURCE_SHA
     G=json.loads(GEO.read_text())
+    G["_sha"]=SOURCE_SHA
     I=json.loads((ROOT/"config/wayfarer_v05_inputs.json").read_text())
     crit=json.loads((ROOT/"config/cert_criteria.json").read_text())
     # Matched baseline measurement. Original source geometry/certificate untouched.
