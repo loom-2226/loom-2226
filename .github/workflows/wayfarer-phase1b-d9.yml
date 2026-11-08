@@ -67,7 +67,7 @@ jobs:
         run: |
           echo "A runtime_seconds=$(( $(date +%s) - START_EPOCH ))" | tee -a "$GITHUB_STEP_SUMMARY"
           sha256sum wayfarer/lab/packing_phase1b/current_g3_3p8_forward.step.gz || true
-      - name: A artifact: exact STEP and rebuild report
+      - name: "A artifact: exact STEP and rebuild report"
         if: always()
         uses: actions/upload-artifact@v4
         with:
