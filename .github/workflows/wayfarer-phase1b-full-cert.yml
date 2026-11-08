@@ -1,12 +1,16 @@
 name: Wayfarer Phase1b G1-G12 plus D9 full certification
 on:
+  push:
+    branches: [main]
+    paths:
+      - governance/changes/CCR-2026-0004-wayfarer-phase1b-v25.yml
   pull_request:
     paths:
       - wayfarer/results/out/D9_BREP_CLASH_REPORT.json
       - .github/workflows/wayfarer-phase1b-full-cert.yml
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   full-current-source:
     runs-on: ubuntu-latest
@@ -30,6 +34,7 @@ jobs:
           d9=json.loads((root/'results/out/D9_BREP_CLASH_REPORT.json').read_text())
           sha=hashlib.sha256((root/'results/out/wayfarer_v05_geometry.json').read_bytes()).hexdigest()
           assert rep['geometry_sha256']==d9['geometry_sha256']==sha, 'report evidence must be from current source'
+          assert sha=='88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1', 'approved geometry changed'
           assert len(rep['summary'])==13 and 'D9' in rep['summary']
           print('GEOMETRY',sha,flush=True)
           print('CERTIFIED',rep['certified'],flush=True)
@@ -37,6 +42,29 @@ jobs:
           assert rep['certified'] is True, 'NO MERGE: full cert gates not all PASS'
           assert d9.get('pass') is True and d9.get('D8_primary_shape_unchanged') is True
           PY
+      - name: Tag certified main as canon-v2.5 after CCR implementation
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          c=Path("governance/changes/CCR-2026-0004-wayfarer-phase1b-v25.yml").read_text()
+          assert "\nstatus: IMPLEMENTED\n" in c, "CCR must be implemented"
+          assert "merged_commit: f592b9fd9a2c57029c57bc4f360fe59edf6df009" in c
+          print("CCR_IMPLEMENTED_AND_MERGE_LINKED")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch --tags origin
+          if git show-ref --verify --quiet refs/tags/canon-v2.5; then
+            test "$(git rev-list -n 1 refs/tags/canon-v2.5)" = "$GITHUB_SHA"
+            echo "CANON_V25_TAG_ALREADY_AT_CERTIFIED_SHA=$GITHUB_SHA"
+          else
+            git tag -a canon-v2.5 -m "LOOM Canon v2.5: CCR-2026-0004 implemented, Wayfarer source certified" "$GITHUB_SHA"
+            git push origin refs/tags/canon-v2.5
+            echo "CANON_V25_TAG_CREATED_AT_CERTIFIED_SHA=$GITHUB_SHA"
+          fi
       - name: Preserve every full-cert gate and primary-integrity failure
         if: always()
         uses: actions/upload-artifact@v4

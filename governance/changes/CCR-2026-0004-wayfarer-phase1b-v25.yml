@@ -2,7 +2,7 @@ schema_version: '1.0'
 record_type: CANON_CHANGE_REQUEST
 id: CCR-2026-0004
 title: Wayfarer Phase 1b reference fuel, water, remass, mass and six-mode torch card v2.5
-status: APPROVED_FOR_IMPLEMENTATION
+status: IMPLEMENTED
 proposal_revision: 1
 created_date: '2026-11-08'
 updated_date: '2026-11-08'
@@ -111,19 +111,29 @@ assurance:
 implementation:
   implementation_pr: 471
   target_branch: main
-  merged_commit: null
-  implemented_date: null
-  changed_governing_sources: []
+  merged_commit: f592b9fd9a2c57029c57bc4f360fe59edf6df009
+  implemented_date: '2026-11-08'
+  changed_governing_sources:
+    - canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.5.md
+    - canon/current/LOOM_2226_CANON_III_Authority_Continuity_GM_Model_v2.5.md
+    - canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.5a.md
+    - governance/current/LOOM_2226_Canon_Baseline_Manifest_v2.5.md
+    - governance/current/LOOM_2226_Baseline_File_Hashes_v2.5.md
   downstream_followup_issues: []
 decision:
   decision_authority: Kevin
   decision_date: '2026-11-08'
   rationale: 'kT explicitly approved 3.8t fuel, 0.1t reserve, 295.39t water, 1153.89t ref wet and ECON 707.845 plus all six modes, subject to no tuning and no merge before review.'
-  disposition: APPROVED_FOR_IMPLEMENTATION
+  disposition: IMPLEMENTED
 supersession:
   supersedes: []
   superseded_by: null
 history:
+  - date: '2026-11-08'
+    event: MERGED_TO_MAIN_IMPLEMENTED
+    status: IMPLEMENTED
+    actor: kT
+    note: 'kT approved merge of #471. GitHub normal merge commit f592b9fd9a2c57029c57bc4f360fe59edf6df009; v2.5 governing source, no geometry or tolerance adjustments. Post-merge main certification and tag confirmation tracked separately.'
   - date: '2026-11-08'
     event: K_T_EXPLICIT_EXPANSION_IN_PR471
     status: APPROVED_FOR_IMPLEMENTATION
