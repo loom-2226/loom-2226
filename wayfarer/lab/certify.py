@@ -1641,20 +1641,52 @@ def g12(I, C, G):
     names=("house_reactor_A","house_reactor_B","house_peak_store","house_energy_battery")
     dry_by_id={p["id"]:p for p in G["parts"]}
     wet_by_id={p["id"]:p for p in G["fluids_by_state"]["S1"]}
-    expected_tanks=(("house_fuel_tank","house_fuel","D-HE3 TANK"),
-                    ("c_lite_dry","c_lite_monoprop","C-LITE TANK"))
     tank_labels=power_view.get("labels",[]) if power_view else []
-    # The render's source-derived markers must match the source body's centroid,
-    # and the wet and dry mass/cg proxies must occupy the same envelope.
-    tank_verified=all(
-        d in dry_by_id and w in wet_by_id and
-        dry_by_id[d]["shape"]==wet_by_id[w]["shape"] and
-        dry_by_id[d]["centroid_m"]==wet_by_id[w]["centroid_m"] and
-        any(l.get("tank_source_id")==d and l.get("tank_fluid_id")==w
-            and all(abs(l["at"][j]-dry_by_id[d]["centroid_m"][j])<1e-5 for j in range(3))
-            and label in l["t"] and "dry" in l["t"] and "fuel" in l["t"]
-            for l in tank_labels)
-        for d,w,label in expected_tanks)
+    if I.get("packing_phase1b"):
+        # The approved 3.8t store is FOUR separate conformal wet lobes,
+        # each facing its OWN dry 6mm cap, not the old single 5t proxy.
+        # Dry cap must be adjacent, not coincident with liquid and certainly
+        # not double-booked as occupying the liquid envelope.
+        ids=("starboard_fore","starboard_aft","port_fore","port_aft")
+        wet_ids=["house_fuel_lobe_"+q for q in ids]
+        cap_ids=["house_fuel_tank_cap_"+q for q in ids]
+        def cap_lobe(q):
+            d,w="house_fuel_tank_cap_"+q,"house_fuel_lobe_"+q
+            if d not in dry_by_id or w not in wet_by_id:return False
+            ds,ws=dry_by_id[d]["shape"],wet_by_id[w]["shape"]
+            if ds.get("k")!="cslot" or ws.get("k")!="cslot":return False
+            return (abs(ds["x0"]-ws["x1"])<1e-8 and
+                    abs(ds["x1"]-ds["x0"]-.006)<1e-8 and
+                    all(ds[x]==ws[x] for x in ("r0","r1","hw","grooves","gw","gd","side","holes")) and
+                    abs(dry_by_id[d]["mass_t"]-.125)<1e-7 and
+                    abs(wet_by_id[w]["mass_t"]-.95)<1e-7 and
+                    any(l.get("tank_source_id")==d and l.get("tank_fluid_id")==w
+                        and "D-HE3" in l["t"] and
+                        all(abs(l["at"][j]-wet_by_id[w]["centroid_m"][j])<1e-5 for j in range(3))
+                        for l in tank_labels))
+        chem_d,chem_w="c_lite_dry","c_lite_monoprop"
+        c_lite_ok=(chem_d in dry_by_id and chem_w in wet_by_id and
+            dry_by_id[chem_d]["shape"]==wet_by_id[chem_w]["shape"] and
+            any(l.get("tank_source_id")==chem_d and l.get("tank_fluid_id")==chem_w and
+                all(abs(l["at"][j]-wet_by_id[chem_w]["centroid_m"][j])<1e-5 for j in range(3))
+                for l in tank_labels))
+        tank_verified=(all(cap_lobe(q) for q in ids) and c_lite_ok and
+            abs(sum(wet_by_id[w]["mass_t"] for w in wet_ids)-3.8)<1e-7 and
+            abs(sum(dry_by_id[d]["mass_t"] for d in cap_ids)-.5)<1e-7 and
+            abs(I["ship_power"]["house_fuel_reserve_t"]-.1)<1e-7)
+    else:
+        expected_tanks=(("house_fuel_tank","house_fuel","D-HE3 TANK"),
+                        ("c_lite_dry","c_lite_monoprop","C-LITE TANK"))
+        # Historical single-container reference retained for pre-Phase1b replay.
+        tank_verified=all(
+            d in dry_by_id and w in wet_by_id and
+            dry_by_id[d]["shape"]==wet_by_id[w]["shape"] and
+            dry_by_id[d]["centroid_m"]==wet_by_id[w]["centroid_m"] and
+            any(l.get("tank_source_id")==d and l.get("tank_fluid_id")==w
+                and all(abs(l["at"][j]-dry_by_id[d]["centroid_m"][j])<1e-5 for j in range(3))
+                and label in l["t"] and "dry" in l["t"] and "fuel" in l["t"]
+                for l in tank_labels)
+            for d,w,label in expected_tanks)
     cs.append(chk("D-He3 and C-lite wet/dry tank envelopes have placed mass and source-checked CG cutaway labels",
                   tank_verified,True,tank_verified,
                   "Bounding envelopes and wet/dry CG only; tank packaging, overlap and plumbing UNQUALIFIED"))
