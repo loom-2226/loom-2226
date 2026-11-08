@@ -55,7 +55,7 @@ def build_trade():
                 "LIMIT": 85207530.1875,
             },
             "exhaust_velocity_km_s_range": [300.0, 3000.0],
-            "normal_remass_t": 250.0,
+            "normal_remass_t": 245.39043171108221,
             "protected_water_reserve_t": 50.0,
             "candidate_machinery_x_m": [43.0, 50.0],
             "candidate_machinery_transverse_diameter_m": 4.25,

@@ -18,12 +18,13 @@
 (declare-const torch_active Bool)
 (declare-const high_metric_thermal_field_active Bool)
 
-; Authority: src/wayfarer_torch_baseline_recovery.py on authoritative main.
+; CCR-2026-0004 approved v2.5 candidate; source: src/wayfarer_torch_baseline_recovery.py
+; SMT exact rationals use full decimal remass (245.39043171108221); float/JSON wet mass displays 1153.8904317110823 due IEEE-754 rounding.
 (assert (! (= dry_mass_t (/ 1717 2)) :named A_DRY_MASS_858P5_T))
-(assert (! (= normal_remass_initial_t 250) :named A_NORMAL_REMASS_250_T))
+(assert (! (= normal_remass_initial_t 245.39043171108221) :named A_NORMAL_REMASS_V25_T))
 (assert (! (= protected_water_initial_t 50) :named A_PROTECTED_WATER_50_T))
-(assert (! (= working_fluid_water_inventory_t 300) :named A_COMBINED_INVENTORY_300_T))
-(assert (! (= reference_wet_mass_t (/ 2317 2)) :named A_REFERENCE_WET_MASS_1158P5_T))
+(assert (! (= working_fluid_water_inventory_t (+ normal_remass_initial_t protected_water_initial_t)) :named A_COMBINED_INVENTORY_V25_T))
+(assert (! (= reference_wet_mass_t (+ dry_mass_t working_fluid_water_inventory_t)) :named A_REFERENCE_WET_MASS_V25_T))
 (assert (! (= post_normal_remass_reference_mass_t (/ 1817 2)) :named A_POST_NORMAL_REMASS_MASS_908P5_T))
 (assert (! (= working_fluid_water_inventory_t (+ normal_remass_initial_t protected_water_initial_t)) :named A_INVENTORY_SPLIT))
 (assert (! (= reference_wet_mass_t (+ dry_mass_t working_fluid_water_inventory_t)) :named A_WET_MASS_ACCOUNTING))

@@ -10,11 +10,11 @@ Nonlinear burn integration and logarithmic delta-v remain in Python and are not 
 
 ## Authority/provenance
 
-Authoritative `main` inputs are `src/wayfarer_torch_baseline_recovery.py` and `src/wayfarer_torch_performance_remass_envelope.py`: reference wet mass 1158.5 t; dry mass excluding working fluid/water 858.5 t; combined inventory 300 t; normal remass 250 t; protected water 50 t; post-normal-remass mass 908.5 t; torch/high-metric mutual exclusion; and normal remass stops before protected reserve.
+Authoritative `main` inputs are `src/wayfarer_torch_baseline_recovery.py` and `src/wayfarer_torch_performance_remass_envelope.py`: reference wet mass 1153.8904317110823 t; dry mass excluding water 858.5 t; combined inventory 295.3904317110822 t; normal remass 245.39043171108221 t; protected water 50 t; post-normal-remass mass 908.5 t; torch/high-metric mutual exclusion; and normal remass stops before protected reserve.
 
 SMT values use exact rational arithmetic and masses are metric tonnes.
 
-Expected hostile checks: baseline SAT; forced 251 t remass consumption UNSAT with named core; simultaneous torch/high-metric activation UNSAT with named core.
+Expected hostile checks: baseline SAT; forced 251 t remass consumption UNSAT (exceeds current 245.39043171108221 t) with named core; simultaneous torch/high-metric activation UNSAT with named core.
 
 Native Pixel invocation:
 
