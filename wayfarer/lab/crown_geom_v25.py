@@ -116,14 +116,50 @@ def main():
     a,b,gel=domes_and_aoi(crown)
     for name,sh,color in (
       ("dry:crown_outer_pressure_dome",a,"#88AFB8"),
-      ("dry:crown_inner_backup_pressure_dome",b,"#93C4CC"),
+      ("dry:crown_inner_pressure_dome",b,"#93C4CC"),
       ("dry:crown_aoi_cavity_envelope",gel,"#52B6B0"),
     ):
         sh.label=name;sh.color=Color(color);bodies[name]=sh
-    assert len(bodies)==40
-    # Clash screen against the existing source solids WITHOUT cutting them.
-    targets={k:P.make(next(p["shape"] for p in g["parts"] if p["id"]==k))
-             for k in ("bow_sensors","pressure_vessel","armor")}
+    # Canon brow dimensions: 1m radial width and 0.22m longitudinal height.
+    # Position derives from the outer dome's r=3.5m seat; 0.12m offset means
+    # the same ring reaches BOTH dome rims. No user-unapproved PV relocation.
+    deep=crown["shell_option_c"]["deep_pressure_domes"]
+    r=crown["r_m"]
+    R=deep["parent_radius_m"]; base=deep["parent_base_x_m"]
+    outer_rim=base-(base-deep["backup_apex_x_m"])*math.sqrt(1-(r/R)**2)
+    inner_rim=base-(base-deep["primary_apex_x_m"])*math.sqrt(1-(r/R)**2)
+    brow=crown["brow_ring"]
+    seat=P.sector(dict(k="sector",x0=outer_rim,
+                       x1=outer_rim+brow["height_m"],r0=r,
+                       r1=r+brow["width_m"],a0=0,a1=360))
+    assert outer_rim < inner_rim < outer_rim+brow["height_m"]
+    seat.label="dry:crown_osteon_brow_seat"
+    seat.color=Color("#9EAAB5")
+    bodies[seat.label]=seat
+    assert len(bodies)==41
+    # Physical crown aperture and seat rebate cut only the two permitted hull
+    # solids. INNER ceramic = the pressure vessel's bow closure, not a second
+    # overlapping copy of the existing 30mm bow shell.
+    source_parts={p["id"]:p for p in g["parts"]}
+    original={k:P.make(source_parts[k]["shape"])
+              for k in ("bow_sensors","pressure_vessel","armor")}
+    aperture=P.cyl(r,-2.0,base+.001)
+    targets=dict(original)
+    for key in ("pressure_vessel","armor"):
+        targets[key]=original[key]-aperture
+        targets[key]=targets[key]-seat
+        assert targets[key].is_valid and targets[key].volume>0
+    mass_removal={}
+    for key in ("pressure_vessel","armor"):
+        pre=float(original[key].volume);post=float(targets[key].volume)
+        booked=source_parts[key]["mass_t"]
+        removed=pre-post
+        assert removed>0
+        mass_removal[key]=dict(original_m3=pre,after_cut_m3=post,
+           removed_m3=removed,original_booked_t=booked,
+           original_effective_density_t_m3=booked/pre,
+           removed_mass_t_at_original_effective_density=removed*booked/pre,
+           remaining_mass_t_at_original_effective_density=post*booked/pre)
     contacts=[]
     for name,part in bodies.items():
         b0=P.bounds(part)
@@ -139,7 +175,7 @@ def main():
             except Exception as exc:
                 contacts.append(dict(part=name,against="dry:"+t,error=repr(exc),
                                      exceeds_D9_0p01m3=None))
-    # Export existing 194 installed solids untouched plus the 40 true crown solids.
+    # Export existing installed D9 parts, substituting ONLY the cut PV/armour\n    # plus the 41 true crown solids. Source ledger is untouched in this screen.
     G,I,C,R,rebuilt,gsha,step_sha=D.context()
     rows,shapes,installed,factor=D.imported(G)
     assert len(installed)==194 and len(set(rows)-set(installed))==122
@@ -152,6 +188,10 @@ def main():
         part.label=name
         part.color=Color("#7E9BAF" if name.startswith("S1:") else "#A8A8A8")
         model[name]=part
+    model["dry:pressure_vessel"]=targets["pressure_vessel"]
+    model["dry:armor"]=targets["armor"]
+    for name in ("dry:pressure_vessel","dry:armor"):
+        model[name].label=name
     assert not set(model).intersection(bodies)
     model.update(bodies)
     OUT.mkdir(parents=True,exist_ok=True)
@@ -159,7 +199,7 @@ def main():
     export_gltf(Compound(children=list(model.values())),final,unit=Unit.M,
                 binary=True,linear_deflection=.05,angular_deflection=.3)
     names=glb_names(final)
-    assert len(names)==234 and len(set(names))==234 and set(names)==set(model)
+    assert len(names)==235 and len(set(names))==235 and set(names)==set(model)
     pane_out=OUT/"crown_print_tiles"
     pane_out.mkdir(parents=True,exist_ok=True)
     for name in sorted(n for n in bodies if n.startswith("dry:crown_pane_")):
@@ -168,11 +208,10 @@ def main():
     alloc=3.023
     cavity_m3=gel.volume
     missing_dims=[
-      "Pane retainer cross-sections / positions (only 0.12t allowance and removal doctrine supplied)",
-      "Osteon frame rib section and joints (only 1.8t mass; root/fork counts)",
-      "Tambour gore track cross-section and swept path (16 tracks and 50deg break only)",
-      "Brow ring axial datum (width 1m, height .22m, but no fully constrained placement)",
-      "Cavity fill geometry: declared 3.023m3 need not equal full two-dome interspace",
+      "Per-pane retainer cross-sections and individual extraction paths are not source dimensioned",
+      "Osteon internal ribs and section details remain OPEN; only source-sized seat ring is solid",
+      "Sixteen tambour track sections / moving swept mechanisms remain OPEN",
+      "Full physically closed 3.023m3 AOI fill vs modelled 2.489m3 cavity remains OPEN",
     ]
     mass={p["id"]:p["mass_t"] for p in g["parts"]}
     report=dict(status="HOLD_UNQUALIFIED_CROWN",source_tag="canon-v2.5",
@@ -182,12 +221,18 @@ def main():
        "crown_dome","crown_c_additional_strata_gore","crown_c_outward_retainers",
        "crown_backup_pressure_dome","crown_adaptive_optogel"],
       note="Existing no_render mass proxies remain in source G1; physical crown solids overlay is not yet a source-qualified replacement.",
-      outer_pressure_dome_apex_m=-.42,inner_backup_pressure_dome_apex_m=-.30,
-      name_mapping="kT inner-backup order reverses v2.5 primary/backup labels, NOT coordinates",
+      outer_pressure_dome_apex_m=-.42,inner_pressure_dome_apex_m=-.30,
+      inner_dome_is_pressure_vessel_bow_closure=True,
+      seat_ring_source_dims=dict(r_m=r,width_m=brow["width_m"],
+          height_m=brow["height_m"],x_m=[outer_rim,outer_rim+brow["height_m"]]),
+      removed_mass_from_pv_and_armor=mass_removal,
+      name_mapping="INNER and OUTER are independent pressure domes; their apex coordinates are unchanged",
       cavity_BRep_m3=cavity_m3,declared_AOI_fill_m3=alloc,
       AOI_volume_difference_m3=cavity_m3-alloc,
       AOI_mass_t_unchanged=aoi["mass_t"],
       source_mass_allocations_t={k:mass[k] for k in mass if k.startswith("crown_")},
+      already_booked_crown_added_t=sum(v for k,v in mass.items() if k.startswith("crown_")),
+      mass_budget_note="Crown proxy masses already exist in source; do not charge a second time. Inner dome replaces pressure-vessel bow material; removed tonnes are inferred from the former whole-shell effective density, not canon rebookings.",
       target_contacts=contacts,
       prohibited_overlap_count=sum(q.get("exceeds_D9_0p01m3") is True for q in contacts),
       failed_boolean_count=sum("error" in q for q in contacts),
@@ -199,6 +244,7 @@ def main():
     print("CROWN_37_PANES_VALID",len(bodies)-3,flush=True)
     print("CROWN_DOME_AND_GEL_VOLUME",a.volume,b.volume,cavity_m3,"target",alloc,flush=True)
     print("CROWN_BOW_CLASH_COUNT",report["prohibited_overlap_count"],"BOOLEAN_ERRORS",report["failed_boolean_count"],flush=True)
+    print("CROWN_HULL_MASS_REMOVAL",json.dumps(mass_removal),flush=True)
     print("CROWN_PER_PART_GLB_NODES",len(names),"size",final.stat().st_size,flush=True)
     print("CROWN_HOLD",json.dumps({k:report[k] for k in ("prohibited_overlap_count","failed_boolean_count","AOI_volume_difference_m3","missing_canon_dimensions")}),flush=True)
 
