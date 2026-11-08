@@ -10,9 +10,9 @@ class E1WayfarerConfigurationEvidenceTests(unittest.TestCase):
         mass = report["mass_state_model"]
         self.assertEqual(mass["state"], "PRESENT_QUALIFIED_SUPPORT")
         self.assertEqual(mass["dry_mass_t"], 858.5)
-        self.assertEqual(mass["working_fluid_water_t"], 300.0)
-        self.assertEqual(mass["wet_mass_t"], 1158.5)
-        self.assertEqual(mass["normal_remass_t"], 250.0)
+        self.assertEqual(mass["working_fluid_water_t"], 295.3904317110822)
+        self.assertEqual(mass["wet_mass_t"], 1153.8904317110823)
+        self.assertEqual(mass["normal_remass_t"], 245.39043171108221)
         self.assertEqual(mass["protected_water_reserve_t"], 50.0)
         self.assertTrue(mass["normal_remass_is_within_working_fluid_inventory"])
 

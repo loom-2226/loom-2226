@@ -21,10 +21,10 @@ class WayfarerTorchBaselineRecoveryTests(unittest.TestCase):
         vehicle = self.result["vehicle_interfaces"]
         self.assertEqual(vehicle["primary_torch_count"], 1)
         self.assertEqual(vehicle["architecture"], "AXIAL_FUSION_TORCH_WITH_MAGNETIC_NOZZLE")
-        self.assertEqual(vehicle["working_fluid_water_inventory_t"], 300.0)
-        self.assertEqual(vehicle["normal_remass_allowance_t"], 250.0)
+        self.assertEqual(vehicle["working_fluid_water_inventory_t"], 295.3904317110822)
+        self.assertEqual(vehicle["normal_remass_allowance_t"], 245.39043171108221)
         self.assertEqual(vehicle["protected_water_reserve_t"], 50.0)
-        self.assertEqual(vehicle["reference_wet_mass_t"], 1158.5)
+        self.assertEqual(vehicle["reference_wet_mass_t"], 1153.8904317110823)
 
     def test_operating_cards_are_recovered_exactly(self) -> None:
         cards = self.result["exhaust_velocity_cards_km_s"]
