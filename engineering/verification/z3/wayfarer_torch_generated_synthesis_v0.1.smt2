@@ -12,7 +12,7 @@
 (assert (! (<= (mode-pjet m2) 11500000000000) :named Q2_MAX_POWER))
 (assert (! (>= (mode-thrust m3) 30000000) :named Q3_MIN_THRUST))
 (assert (! (<= (mode-pjet m3) 12000000000000) :named Q3_MAX_POWER))
-(assert (! (= r1 (- 250 (/ (* (mode-mdot m1) 300) 1000))) :named R_AFTER_1))
+(assert (! (= r1 (- (/ 24539043171108221 100000000000000) (/ (* (mode-mdot m1) 300) 1000))) :named R_AFTER_1))
 (assert (! (= r2 (- r1 (/ (* (mode-mdot m2) 1200) 1000))) :named R_AFTER_2))
 (assert (! (= r3 (- r2 (/ (* (mode-mdot m3) 300) 1000))) :named R_AFTER_3))
 (assert (! (>= r3 180) :named Q_FINAL_RESERVE))

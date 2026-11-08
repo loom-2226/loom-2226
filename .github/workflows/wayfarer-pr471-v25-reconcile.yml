@@ -112,7 +112,7 @@ jobs:
   verify:
     needs: evidence
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
         with:
@@ -136,7 +136,50 @@ jobs:
           assert len(c["summary"])==13
           print("EXACT_HEAD_CERTIFIED_TRUE",sha)
           PY
+      - name: Navigator core plus Android new-campaign smoke and mass-basis separation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY' | tee PR471-navigator-smoke.log
+          import importlib.util,math,pathlib
+          files=["src/loom_navigator_core.py","src/LOOM_Navigator_MVP_v1.0_RC6.1_CIVSTATE_Launch_ANDROID.py"]
+          for i,f in enumerate(files):
+              spec=importlib.util.spec_from_file_location("nav471_"+str(i),f)
+              m=importlib.util.module_from_spec(spec)
+              spec.loader.exec_module(m)
+              s=m._new_state("PR471 v2.5 new campaign","Wayfarer")
+              ship=s["ship"]
+              assert abs(ship["wet_mass_t"]-1153.8904317110823)<1e-9,f
+              assert abs(ship["remass_t"]-245.39043171108221)<1e-9,f
+              assert abs(ship["remass_capacity_t"]-245.39043171108221)<1e-9,f
+              assert abs(ship["fixed_nonremass_mass_t"]-908.5)<1e-9,f
+              dv_reference=3000*math.log(ship["wet_mass_t"]/ship["fixed_nonremass_mass_t"])
+              assert abs(dv_reference-717.2988245997607)<1e-9,f
+              # Distinct certified detailed-builder 707.845455... is not this reference mass.
+              print("NAVIGATOR_REFERENCE_V25_PASS",f,ship["wet_mass_t"],ship["remass_t"],dv_reference)
+          PY
+      - name: Current mass and all E1 Wayfarer Z3 regressions
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq z3
+          {
+            bash engineering/verification/z3/run_wayfarer_mass_state_z3.sh
+            bash engineering/verification/z3/run_wayfarer_shipyard_z3.sh
+            bash engineering/verification/z3/run_wayfarer_torch_mode_z3.sh
+            bash engineering/verification/z3/run_wayfarer_torch_segment_z3.sh
+            bash engineering/verification/z3/run_wayfarer_torch_multisegment_z3.sh
+            bash engineering/verification/z3/run_wayfarer_torch_mission_z3.sh
+            bash engineering/verification/z3/run_wayfarer_torch_generated_z3.sh
+          } 2>&1 | tee PR471-z3-regression.log
+      - name: Full Python test suite (all tracked tests discovered, not a narrow cherry-pick)
+        shell: bash
+        run: |
+          set -euo pipefail
+          PYTHONPATH=. python -m unittest discover -s tests -p "test_*.py" -v 2>&1 | tee PR471-unittest-full.log
       - name: Git grep exact-head old values
+        if: always()
         run: |
           {
             echo "HEAD $(git rev-parse HEAD)"
@@ -150,5 +193,8 @@ jobs:
           path: |
             PR471-exact-head-certify.log
             PR471-old-value-hits.txt
+            PR471-navigator-smoke.log
+            PR471-z3-regression.log
+            PR471-unittest-full.log
             wayfarer/results/out/certification_report.json
             wayfarer/results/out/D9_BREP_CLASH_REPORT.json

@@ -20,7 +20,7 @@
 (declare-const protected_water_initial_t Real)
 (declare-const protected_water_consumed_t Real)
 
-(assert (! (= normal_remass_initial_t 250) :named A_NORMAL_REMASS_250_T))
+(assert (! (= normal_remass_initial_t (/ 24539043171108221 100000000000000)) :named A_NORMAL_REMASS_245P390_T))
 (assert (! (= protected_water_initial_t 50) :named A_PROTECTED_WATER_50_T))
 (assert (! (= normal_remass_remaining_t (- normal_remass_initial_t normal_remass_consumed_t)) :named A_REMASS_BALANCE))
 (assert (! (and (>= normal_remass_consumed_t 0) (<= normal_remass_consumed_t normal_remass_initial_t)) :named A_REMASS_BOUNDS))

@@ -1,3 +1,7 @@
+# HISTORICAL — 2026 frontier consumer exercise
+
+The following dated exercise used the **pre-CCR-2026-0004 Wayfarer reference inventory** (1,158.5t wet, 250t normal remass). These values are for historical evaluation only, not current v2.5 gameplay or executable authority. Use CANON II v2.5 and the updated E1/Navigator source for current reference inventory.
+
 # Wayfarer 2226 Frontier — Canon + E1 Consumer Exercise v0.1
 
 **Status:** PASS C CONSUMER EXERCISE / PROVISIONAL  

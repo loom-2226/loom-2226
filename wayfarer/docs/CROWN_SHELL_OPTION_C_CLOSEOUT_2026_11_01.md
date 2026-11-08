@@ -1,3 +1,5 @@
+> **HISTORICAL — crown-shell Option C dated 2026-11-01; its 5.000t entry is an earlier engineering reference, not current 3.8t D–He3 fuel canon.**
+
 # Wayfarer Option C — kT deeper domes, committed-mass G6, protected-water redistribution
 
 ALL bodies. ALL sponsors. 2026–2226.
