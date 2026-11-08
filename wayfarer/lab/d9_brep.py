@@ -129,6 +129,14 @@ def run(export=False):
     original={name:candidate[name] for name in installed_names}
     before=common_scan(original,threshold)
     if before["category_d_count"] or before["collision_errors"]:
+        print("RESEARCH_STEP_ROUNDTRIP_D9",json.dumps({
+            "category_counts":before["category_counts"],
+            "d":before["category_d_count"],
+            "first_d":before["category_d_conflicts"][:35],
+            "cad_errors":before["collision_errors"][:10],
+            "modelled":before["part_count"],
+            "pairs":before["pair_count"]
+        }),flush=True)
         raise RuntimeError("research reference unexpectedly conflicts on shared 194-part D9 checker")
 
     # Preserve all original source primary structures exactly.
