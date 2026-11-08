@@ -1,0 +1,97 @@
+name: "Wayfarer canon-v2.5 per-part viewer GLB and print test 1"
+on:
+  pull_request:
+    paths:
+      - .github/workflows/wayfarer-v25-parts.yml
+      - wayfarer/render/export_parts_glb.py
+      - wayfarer/render/print_test_1.py
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Lock original canon-v2.5 source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-list -n 1 canon-v2.5)" = bfa7dcfb12358b119d5e63773f30ed9d251a43fc
+          echo '88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1  wayfarer/results/out/wayfarer_v05_geometry.json' | sha256sum -c -
+      - name: Rebuild tagged current-G3 source solids with unchanged D9 recipe
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install build123d==0.13.0
+          base=ea50354e222e77d145a6bbbf49227506d2b560fd
+          source="$RUNNER_TEMP/loom156/projects/wayfarer_brep_pilot"
+          mkdir -p "$source"
+          git show "$base:wayfarer/results/out/wayfarer_v05_geometry.json" > "$source/geometry_base.json"
+          git show "$base:wayfarer/config/wayfarer_v05_inputs.json" > "$source/inputs_base.json"
+          git show "$base:wayfarer/config/cert_criteria.json" > "$source/criteria_base.json"
+          cp wayfarer/lab/packing_phase1b/source_brep_pilot.py "$source/pilot.py"
+          cp wayfarer/lab/packing_phase1b/source_brep_triage.py "$source/triage.py"
+          pinned=wayfarer/lab/packing_phase1b/pinned_main_lab
+          mkdir -p "$pinned"
+          git show "$base:wayfarer/lab/build_v05.py" > "$pinned/build_v05.py"
+          git show "$base:wayfarer/lab/certify.py" > "$pinned/certify.py"
+          git show "$base:wayfarer/lab/torch/torch_heat_results.json" > "$pinned/torch_heat_results.json"
+          python -u wayfarer/lab/packing_phase1b/source_candidate_rebuild.py \
+            --source "$source" --out "$RUNNER_TEMP/rebuild" \
+            --courier-forward --fuel-t 3.8 --house-reserve-t .1 \
+            --g1-liquid-ullage --export
+          python - <<'PY'
+          from pathlib import Path
+          import gzip, json, os, shutil
+          out=Path(os.environ["RUNNER_TEMP"])/"rebuild"
+          dest=Path("wayfarer/lab/packing_phase1b")
+          assert json.loads((out/"candidate_report.json").read_text())["candidate_pass"]
+          with (out/"candidate.step").open("rb") as r, (dest/"current_g3_3p8_forward.step.gz").open("wb") as w:
+              with gzip.GzipFile(fileobj=w, mode="wb", filename="", mtime=0) as gz:
+                  shutil.copyfileobj(r, gz)
+          shutil.copy2(out/"candidate_report.json", dest/"current_g3_rebuild_report.json")
+          print("CURRENT_G3_STEP_READY")
+          PY
+      - name: Export D9 installed per-part GLB with strict node names and register
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/render/export_parts_glb.py
+      - name: Print test 1, 1:100 deployable fin STL pair
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/render/print_test_1.py
+      - name: Commit only view and print derivatives to the follow-up branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- wayfarer/render/out/wayfarer_parts_88ce19fc.glb \
+            wayfarer/render/PARTS_REGISTER.yml \
+            wayfarer/render/print_test_1/*.stl \
+            wayfarer/render/print_test_1/PRINT_TEST_1.yml
+          test "$(git diff --cached --name-only | wc -l)" -eq 5
+          git commit -m 'class:engineering: v2.5 installed GLB and one-fin print test 1'
+          git push origin "HEAD:${{ github.head_ref }}"
+      - name: Preserve files for viewer/printing without a merge
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: canon-v2.5-parts-plus-print-test-1
+          if-no-files-found: warn
+          path: |
+            wayfarer/render/out/wayfarer_parts_88ce19fc.glb
+            wayfarer/render/PARTS_REGISTER.yml
+            wayfarer/render/print_test_1/*.stl
+            wayfarer/render/print_test_1/PRINT_TEST_1.yml
