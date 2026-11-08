@@ -67,12 +67,12 @@ jobs:
           PY
           fi
           exit 0
-      - name: Import repaired STEP, audit all primaries, real source-part D9
+      - name: Real D9 with exact accelerated surface diagnostics (no optional export)
         if: ${{ env.REBUILD_EXIT == '0' }}
         shell: bash
         run: |
           set +e
-          python -u wayfarer/lab/d9_brep.py --export > d9-run.log 2>&1
+          python -u wayfarer/lab/d9_brep.py > d9-run.log 2>&1
           rc=$?
           cat d9-run.log
           echo "D9_EXIT=$rc" >> "$GITHUB_ENV"

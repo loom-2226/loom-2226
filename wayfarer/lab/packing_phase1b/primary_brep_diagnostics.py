@@ -147,22 +147,50 @@ def _directed_distance(a,b):
     samples,face_count,face_counts=_surface_sample_points(a)
     # Compound OF FACES avoids returning zero for an interior point inside
     # the opposite SOLID. Distance must go to its boundary, not its volume.
-    target=Compound(children=list(b.faces()))
+    # Exact per-sample closest distance, accelerated by each face's AABB.
+    # AABB distance is a strict LOWER bound. Search faces in increasing lower
+    # bound; once that bound is >= the best exact distance, all remaining
+    # faces are provably unable to improve the result.
+    # This is NOT a geometric approximation or relaxed acceptance tolerance.
+    targets=[]
+    for f in b.faces():
+        bb=f.bounding_box()
+        targets.append((f.wrapped,(
+            float(bb.min.X),float(bb.max.X),
+            float(bb.min.Y),float(bb.max.Y),
+            float(bb.min.Z),float(bb.max.Z))))
+    def lower_bound(point, bb):
+        x,y,z=point
+        return math.sqrt(sum(max(lo-val,0.,val-hi)**2 for val,(lo,hi) in zip(
+            (x,y,z),((bb[0],bb[1]),(bb[2],bb[3]),(bb[4],bb[5])))))
     maximum=-1.0
     worst=None
+    exact_queries=0
     for p in samples:
-        v=BRepBuilderAPI_MakeVertex(p).Vertex()
-        distance=BRepExtrema_DistShapeShape(v,target.wrapped)
-        distance.Perform()
-        if not distance.IsDone():
-            raise RuntimeError("BRepExtrema distance failed")
-        d=float(distance.Value())
-        if not math.isfinite(d) or d<0:
-            raise RuntimeError("invalid BRepExtrema distance "+str(d))
-        if d>maximum:
-            maximum=d
-            worst=[float(p.X()),float(p.Y()),float(p.Z())]
+        coord=(float(p.X()),float(p.Y()),float(p.Z()))
+        ordering=sorted((lower_bound(coord,bb),i) for i,(_,bb) in enumerate(targets))
+        vertex=BRepBuilderAPI_MakeVertex(p).Vertex()
+        best=math.inf
+        for lb,i in ordering:
+            if lb>=best:break
+            distance=BRepExtrema_DistShapeShape(vertex,targets[i][0])
+            distance.Perform()
+            exact_queries+=1
+            if not distance.IsDone():
+                raise RuntimeError("BRepExtrema face distance failed")
+            d=float(distance.Value())
+            if not math.isfinite(d) or d<0:
+                raise RuntimeError("invalid BRepExtrema distance "+str(d))
+            best=min(best,d)
+        if not math.isfinite(best):
+            raise RuntimeError("no target face distances calculated")
+        if best>maximum:
+            maximum=best
+            worst=list(coord)
     return dict(samples=len(samples),faces=face_count,
+                target_faces=len(targets),
+                exact_OCCT_face_distance_queries=exact_queries,
+                AABB_branch_and_bound_exact_per_sample=True,
                 min_samples_each_way=MIN_SURFACE_SAMPLES_EACH_WAY,
                 face_sample_counts=face_counts,
                 max_deviation_m=maximum,
@@ -218,8 +246,11 @@ def audit(name, native, imported, volume_tolerance_m3, bbox_tolerance_m,
     fuzzy_valid=fuzzy and not fuzzy.get("numerically_invalid",True) and "symmetric_difference_m3" in fuzzy
     fuzzy_pass=bool(invalid and fuzzy_valid and
                     fuzzy["symmetric_difference_m3"]<=symmetric_tolerance_m3)
-    fallback_permitted=bool(invalid and not fuzzy_valid)
-    if fallback_permitted:
+    # kT explicitly requested a two-way surface diagnosis for the pressure
+    # vessel even when fuzzy OCCT repairs an earlier invalid Boolean.
+    fallback_permitted=bool(invalid)
+    mandatory_surface=(name=="dry:pressure_vessel")
+    if fallback_permitted or mandatory_surface:
         try:
             fwd=_directed_distance(native,imported)
             rev=_directed_distance(imported,native)
@@ -242,7 +273,8 @@ def audit(name, native, imported, volume_tolerance_m3, bbox_tolerance_m,
         "OCCT_fuzzy_symmetric_difference" if fuzzy_pass else
         "two_way_BRep_surface_sample_distance" if surface_pass else "FAIL")
     result["pass"]=bool(geometry_pass and valid_sides and not any_fix and
-                        (ordinary_pass or fuzzy_pass or surface_pass))
+                        (ordinary_pass or fuzzy_pass or surface_pass) and
+                        (not mandatory_surface or result.get("surface_distance",{}).get("pass_distance",False)))
     result["fallback_authority_applied"]=surface_pass
     result["symmetric_difference_m3"]=round(sym,9) if sym is not None else None
     return result
