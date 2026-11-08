@@ -121,6 +121,9 @@
   "category_d_max": 0,
   "min_intersection_m3": 0.01,
   "conversion_error_max": 0,
-  "scope": "Represented installed parts in current S1 source geometry; no_render/unlocated proxies excluded and explicitly OPEN"
+  "scope": "Represented installed parts in current S1 source geometry; no_render/unlocated proxies excluded and explicitly OPEN",
+  "approved_source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+  "primary_brep_unchanged_bbox_tolerance_m": 1e-06,
+  "primary_brep_symmetric_difference_limit_m3": 1e-05
  }
 }

@@ -103,6 +103,8 @@ def run(export=False):
     source_sha=hashlib.sha256(SOURCE.read_bytes()).hexdigest()
     threshold=C["D9"]["min_intersection_m3"]
     assert abs(threshold-.01)<1e-12
+    if geo_sha!=C["D9"]["approved_source_geometry_sha256"]:
+        raise RuntimeError("D9 frozen CAD authority stale for changed upstream source geometry; REBUILD BRep, never inherit old PASS")
     rows=catalogue(G)
     installed_names={n for n,row in rows.items() if "no_render" not in row.get("tags",[])}
     excluded_names=set(rows)-installed_names
@@ -154,7 +156,9 @@ def run(export=False):
 
     # Preserve all original source primary structures exactly.
     primary_checks=[]
-    for name in sorted(installed_names):
+    for name in sorted(candidate):
+        # Include primary tagged no_render end fittings and corners in the
+        # NEVER MOVE check even though no_render never earns installed fit credit.
         if not name.startswith("dry:") or not (name[4:].startswith(("frame_","longeron_","bay_corner_")) or
                 name[4:] in ("armor","pressure_vessel","aft_bulkhead","thrust_cone","core_trunk",
                               "docking_collar","shield","nozzle") or name[4:].startswith("tunnel_")):
@@ -162,10 +166,19 @@ def run(export=False):
         native=P.make(P.settled(rows[name]["shape"]))
         actual=candidate[name]
         delta=abs(float(native.volume)-float(actual.volume))
+        bb_delta=max(abs(a-b) for a,b in zip(P.bounds(native),P.bounds(actual)))
+        common=native & actual
+        commonv=0. if common is None else float(common.volume)
+        sym=max(0.,float(native.volume)+float(actual.volume)-2*commonv)
         primary_checks.append(dict(name=name,vol_native_m3=round(float(native.volume),8),
-                                   vol_approved_m3=round(float(actual.volume),8),delta_m3=round(delta,8)))
-        if delta>1e-5:
-            raise RuntimeError(f"D8 PRIMARY MEMBER ALTERED: {name} (volume delta {delta:.9g} m3) STOP")
+                                   vol_approved_m3=round(float(actual.volume),8),
+                                   volume_delta_m3=round(delta,9),
+                                   bbox_delta_m=round(bb_delta,9),
+                                   symmetric_difference_m3=round(sym,9)))
+        if (delta>1e-5 or
+            bb_delta>C["D9"]["primary_brep_unchanged_bbox_tolerance_m"] or
+            sym>C["D9"]["primary_brep_symmetric_difference_limit_m3"]):
+            raise RuntimeError(f"D8 PRIMARY MEMBER MOVED/CUT: {name}, volume={delta:.9g}, bbox={bb_delta:.9g}, symmetric={sym:.9g} STOP")
 
     prior_water=R["masses"]["core_R_t"]
     actual_water=I["states"]["S1"]["remass_t"]
