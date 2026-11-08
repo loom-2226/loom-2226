@@ -284,10 +284,14 @@ def d9(I, C, G):
         chk("every installed-solid pair classified",
             r.get("pair_count"),r.get("expected_pairs"),
             fresh and r.get("pair_count")==r.get("expected_pairs")),
+        chk("D8 all source primary members unchanged (including no_render fittings)",
+            r.get("D8_primary_shape_unchanged"),True,
+            fresh and r.get("D8_primary_shape_unchanged") is True and
+            not r.get("primary_invariant_failures",[])),
         chk("D9 independent source-screen result",r.get("pass"),True,fresh and r.get("pass") is True)]
     return gate("D9","Installed B-rep category-(d) clash screen",checks,
         notes=(f"Excluded {r.get('excluded_source_no_render_proxy_count')} source no_render/unlocated proxies; no physical clearance credit for them.",
-               "Source B-rep production is from #156 pinned OCC converter, run against new current geometry, not imported frozen #157 STEP.",
+               "D9 uses the named #157 approved STEP, unit-normalised and checked against every current installed part plus all G5 primaries. STEP source and analytic envelopes differ until D8 primary geometry match is established.",
                "Fitted secondary doublers, internal webs/baffles, cryogenic pressure/insulation and dynamic sweeps remain OPEN."))
 
 # ---------------------------------------------------------------- G2

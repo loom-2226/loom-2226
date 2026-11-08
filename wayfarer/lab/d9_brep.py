@@ -178,7 +178,35 @@ def run(export=False):
         if (delta>1e-5 or
             bb_delta>C["D9"]["primary_brep_unchanged_bbox_tolerance_m"] or
             sym>C["D9"]["primary_brep_symmetric_difference_limit_m3"]):
-            raise RuntimeError(f"D8 PRIMARY MEMBER MOVED/CUT: {name}, volume={delta:.9g}, bbox={bb_delta:.9g}, symmetric={sym:.9g} STOP")
+            # STOP immediately, but write a current-source machine FAIL
+            # so certify.py can NEVER inherit the prior volume-only pass.
+            failure=dict(
+                authority="kT D8 STOP: primary STEP import geometry mismatch",
+                geometry_sha256=geo_sha,
+                approved_source_step_gz_sha256=source_sha,
+                imported_step_source_numeric_unit=("mm" if unit_factor==.001 else "m"),
+                explicit_step_to_source_linear_scale=unit_factor,
+                modelled_solids=len(installed_names),
+                pair_count=before["pair_count"],
+                expected_pairs=before["expected_pairs"],
+                threshold_m3=threshold,
+                category_d_count=before["category_d_count"],
+                category_d_conflicts=before["category_d_conflicts"],
+                lab_same_checker=before,
+                same_lab_and_upstream_installed_part_set=True,
+                source_dry_count=len(G["parts"]),
+                source_S1_fluid_count=len(G["fluids_by_state"]["S1"]),
+                excluded_source_no_render_proxy_count=len(excluded_names),
+                D8_primary_shape_unchanged=False,
+                primary_invariant_failures=[primary_checks[-1]],
+                primary_shape_volume_checks=primary_checks,
+                geometry_conversion_or_boolean_errors=[],
+                pass_=False,
+                STOP="Primary nozzle or another G5 member does not match its original BRep, even though the research/reference pairwise D9 collisions count is zero. Geometry NOT promoted.")
+            failure["pass"]=failure.pop("pass_")
+            REPORT.write_text(json.dumps(failure,indent=2)+"\n")
+            print("D9_PRIMARY_STOP",json.dumps(primary_checks[-1]),flush=True)
+            return 1
 
     prior_water=R["masses"]["core_R_t"]
     actual_water=I["states"]["S1"]["remass_t"]
