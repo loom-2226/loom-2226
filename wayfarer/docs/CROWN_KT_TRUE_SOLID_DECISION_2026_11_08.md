@@ -31,6 +31,12 @@ The BRep candidate cuts only the original `pressure_vessel` and `armor` solids a
 - AOI actual cavity 2.488661m³ vs retained booked **3.023m³** (conservative). The cavity volume discrepancy is an engineering fit issue, not permission to cut booked mass.
 - Real source mass transfer and certification require updated state mass/CG/dv and a new source hash; the unchanged legacy v2.5 source certificate does not validate this work.
 
+## Concrete blocker: authored spare-pane stowage envelope
+
+The existing 7-spare allocation is a `no_render` box at x14.9–16.1m, y−3.35..−2.65m, z−0.5..+0.5m (1.2 × 0.7 × 1.0m, spatial diagonal **1.712m**). The source's largest outer-pane hoop chord is **1.812m**, and the spare inventory includes **two of that annular type**. A rigid 1.812m edge cannot fit inside ANY orientation of a box whose space diagonal is only 1.712m. Thus the seven current spare panes cannot be replaced by true independent installed BReps inside their existing authored hold without changing storage geometry, the pane design, or the spare configuration.
+
+This is a real geometric contradiction, not a reason to fabricate a new tank/hold, shrink the panes, invent hinges, or silently keep the spare box as a fitted solid. Under kT's **no other geometry** instruction, the installed spare fit cannot be certified. The existing 0.385772t reserve-funded allocation remains in its historical mass ledger until a storage decision.
+
 ## Canon-dimensional details not yet provided
 
 - Retainer clip/rib width, thickness, individual outer-release path, and physical connection design (0.120 t allocation exists but not a shape).
