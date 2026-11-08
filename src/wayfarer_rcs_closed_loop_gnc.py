@@ -132,7 +132,7 @@ def simulate_axis_slew(
     angle_deg: float,
     *,
     failed_cluster: str | None = None,
-    normal_remass_t: float = 250.0,
+    normal_remass_t: float = 245.39043171108221,
     protected_water_t: float = 50.0,
     launch_docked: bool = True,
 ) -> dict[str, Any]:
