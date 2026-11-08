@@ -92,7 +92,8 @@ def g1(I, C, G):
               + L.get("rcs_axial_t", 0.0) + L.get("reserve_draws_rev7", {}).get("total_t", 0.0)
               + L.get("i4_carryover_t", 0.0) + L.get("aoi_crown_t",0.0) + L.get("aoi_aft_bulkhead_reinforcement_t",0.0)
                + L.get("crown_option_c_additions_t",0.0) + L.get("l3_berth_shield_liner_t",0.0)
-              + L.get("house_fuel_tank_t",0.0) - L.get("electrical_fueled_wet_t",0.0))
+              + L.get("house_fuel_tank_t",0.0) - L.get("electrical_fueled_wet_t",0.0)
+              + L.get("d8_secondary_doubler_added_t",0.0))
     AOI = I["habitat"]["decks"][0].get("command_layout",{}).get("crown_dome",{}).get("adaptive_optogel")
     crown_delta = I["ledger"].get("og3_crown_conformal_bookkeeping",{}).get("physical_mass_delta_t",0.)
     dry = G["dry_t"]
@@ -154,7 +155,8 @@ def g1(I, C, G):
     if "ship_power" in I:
         hp=I["ship_power"]
         cs.append(chk("house fuel tank dry mass debited from growth reserve",
-            round(next(p["mass_t"] for p in G["parts"] if p["id"]=="house_fuel_tank"),6),
+            round(sum(p["mass_t"] for p in G["parts"]
+                      if p["id"]=="house_fuel_tank" or p["id"].startswith("house_fuel_tank_cap_")),6),
             hp["fuel_tank_dry_t"],True,"t","reactors, battery, flywheel, and C-lite provisioned inside 55t electrical line"))
         cs.append(chk("reserve after house fuel tank remains >=5t",
             L["engineering_reserve_t"],5.,L["engineering_reserve_t"]>=5.,"t"))
@@ -254,6 +256,43 @@ def g1(I, C, G):
     r["mass_states"] = tab
     return r
 
+
+# ---------------------------------------------------------------- D9: live source-derived B-rep evidence
+def d9(I, C, G):
+    """D9 is a real B-rep geometric gate, not a frozen research PASS.
+
+    Run lab/d9_brep.py against this source geometry; its numerical report
+    is admissible here ONLY when its SHA matches this input geometry.
+    No automatic clash repair and no estimated clearance substitution.
+    """
+    path=HERE.parent / "results/out/D9_BREP_CLASH_REPORT.json"
+    rule=C["D9"]
+    if not path.is_file():
+        return gate("D9","Installed B-rep category-(d) clash screen",
+            [chk("current-source B-rep report available",False,True,False)],
+            notes=("No D9 source geometry run found; never inherit research #157's pass.",))
+    r=json.loads(path.read_text())
+    fresh=r.get("geometry_sha256")==G["_sha"]
+    counts=r.get("category_d_count")
+    checks=[
+        chk("D9 report geometry hash matches current source",r.get("geometry_sha256"),G["_sha"],fresh),
+        chk("real category-(d) volumetric intersections >0.01m3",
+            counts,rule["category_d_max"],fresh and isinstance(counts,int) and counts<=rule["category_d_max"]),
+        chk("all source B-rep solids converted without error",
+            len(r.get("geometry_conversion_or_boolean_errors",[])),rule["conversion_error_max"],
+            fresh and not r.get("geometry_conversion_or_boolean_errors",[])),
+        chk("every installed-solid pair classified",
+            r.get("pair_count"),r.get("expected_pairs"),
+            fresh and r.get("pair_count")==r.get("expected_pairs")),
+        chk("D8 all source primary members unchanged (including no_render fittings)",
+            r.get("D8_primary_shape_unchanged"),True,
+            fresh and r.get("D8_primary_shape_unchanged") is True and
+            not r.get("primary_invariant_failures",[])),
+        chk("D9 independent source-screen result",r.get("pass"),True,fresh and r.get("pass") is True)]
+    return gate("D9","Installed B-rep category-(d) clash screen",checks,
+        notes=(f"Excluded {r.get('excluded_source_no_render_proxy_count')} source no_render/unlocated proxies; no physical clearance credit for them.",
+               "D9 uses the named #157 approved STEP, unit-normalised and checked against every current installed part plus all G5 primaries. STEP source and analytic envelopes differ until D8 primary geometry match is established.",
+               "Fitted secondary doublers, internal webs/baffles, cryogenic pressure/insulation and dynamic sweeps remain OPEN."))
 
 # ---------------------------------------------------------------- G2
 def g2(I, C, G):
@@ -1606,20 +1645,52 @@ def g12(I, C, G):
     names=("house_reactor_A","house_reactor_B","house_peak_store","house_energy_battery")
     dry_by_id={p["id"]:p for p in G["parts"]}
     wet_by_id={p["id"]:p for p in G["fluids_by_state"]["S1"]}
-    expected_tanks=(("house_fuel_tank","house_fuel","D-HE3 TANK"),
-                    ("c_lite_dry","c_lite_monoprop","C-LITE TANK"))
     tank_labels=power_view.get("labels",[]) if power_view else []
-    # The render's source-derived markers must match the source body's centroid,
-    # and the wet and dry mass/cg proxies must occupy the same envelope.
-    tank_verified=all(
-        d in dry_by_id and w in wet_by_id and
-        dry_by_id[d]["shape"]==wet_by_id[w]["shape"] and
-        dry_by_id[d]["centroid_m"]==wet_by_id[w]["centroid_m"] and
-        any(l.get("tank_source_id")==d and l.get("tank_fluid_id")==w
-            and all(abs(l["at"][j]-dry_by_id[d]["centroid_m"][j])<1e-5 for j in range(3))
-            and label in l["t"] and "dry" in l["t"] and "fuel" in l["t"]
-            for l in tank_labels)
-        for d,w,label in expected_tanks)
+    if I.get("packing_phase1b"):
+        # The approved 3.8t store is FOUR separate conformal wet lobes,
+        # each facing its OWN dry 6mm cap, not the old single 5t proxy.
+        # Dry cap must be adjacent, not coincident with liquid and certainly
+        # not double-booked as occupying the liquid envelope.
+        ids=("starboard_fore","starboard_aft","port_fore","port_aft")
+        wet_ids=["house_fuel_lobe_"+q for q in ids]
+        cap_ids=["house_fuel_tank_cap_"+q for q in ids]
+        def cap_lobe(q):
+            d,w="house_fuel_tank_cap_"+q,"house_fuel_lobe_"+q
+            if d not in dry_by_id or w not in wet_by_id:return False
+            ds,ws=dry_by_id[d]["shape"],wet_by_id[w]["shape"]
+            if ds.get("k")!="cslot" or ws.get("k")!="cslot":return False
+            return (abs(ds["x0"]-ws["x1"])<1e-8 and
+                    abs(ds["x1"]-ds["x0"]-.006)<1e-8 and
+                    all(ds[x]==ws[x] for x in ("r0","r1","hw","grooves","gw","gd","side","holes")) and
+                    abs(dry_by_id[d]["mass_t"]-.125)<1e-7 and
+                    abs(wet_by_id[w]["mass_t"]-.95)<1e-7 and
+                    any(l.get("tank_source_id")==d and l.get("tank_fluid_id")==w
+                        and "D-HE3" in l["t"] and
+                        all(abs(l["at"][j]-wet_by_id[w]["centroid_m"][j])<1e-5 for j in range(3))
+                        for l in tank_labels))
+        chem_d,chem_w="c_lite_dry","c_lite_monoprop"
+        c_lite_ok=(chem_d in dry_by_id and chem_w in wet_by_id and
+            dry_by_id[chem_d]["shape"]==wet_by_id[chem_w]["shape"] and
+            any(l.get("tank_source_id")==chem_d and l.get("tank_fluid_id")==chem_w and
+                all(abs(l["at"][j]-wet_by_id[chem_w]["centroid_m"][j])<1e-5 for j in range(3))
+                for l in tank_labels))
+        tank_verified=(all(cap_lobe(q) for q in ids) and c_lite_ok and
+            abs(sum(wet_by_id[w]["mass_t"] for w in wet_ids)-3.8)<1e-7 and
+            abs(sum(dry_by_id[d]["mass_t"] for d in cap_ids)-.5)<1e-7 and
+            abs(I["ship_power"]["house_fuel_reserve_t"]-.1)<1e-7)
+    else:
+        expected_tanks=(("house_fuel_tank","house_fuel","D-HE3 TANK"),
+                        ("c_lite_dry","c_lite_monoprop","C-LITE TANK"))
+        # Historical single-container reference retained for pre-Phase1b replay.
+        tank_verified=all(
+            d in dry_by_id and w in wet_by_id and
+            dry_by_id[d]["shape"]==wet_by_id[w]["shape"] and
+            dry_by_id[d]["centroid_m"]==wet_by_id[w]["centroid_m"] and
+            any(l.get("tank_source_id")==d and l.get("tank_fluid_id")==w
+                and all(abs(l["at"][j]-dry_by_id[d]["centroid_m"][j])<1e-5 for j in range(3))
+                and label in l["t"] and "dry" in l["t"] and "fuel" in l["t"]
+                for l in tank_labels)
+            for d,w,label in expected_tanks)
     cs.append(chk("D-He3 and C-lite wet/dry tank envelopes have placed mass and source-checked CG cutaway labels",
                   tank_verified,True,tank_verified,
                   "Bounding envelopes and wet/dry CG only; tank packaging, overlap and plumbing UNQUALIFIED"))
@@ -1702,7 +1773,8 @@ def main():
         "NEW kT acceptance requested: pulsed main torch ONLY while burning converts 63.36MW raw torch energy to 47.52MW magnet/cryocooling electric at declared 75%, rejecting 15.84MW conversion heat. Tap, pulse conditioning and corresponding torch performance debit remain unqualified. No torch emergency house generator."))
     r12["declared"].append(("kT_visual_acceptance_storage_20261101",
         "NEW source-specific kT visual acceptance required for new aft reactor/rotor and forward reactor/battery cutaway, even if G12 image source-hash checks pass. Prior source-hash visual acceptance does not transfer."))
-    gates = [r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12]
+    rD9 = d9(I, C, G)
+    gates = [r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, rD9]
     kd_path = HERE.parent / "config/kt_decisions.json"
     KD = json.loads(kd_path.read_text()) if kd_path.exists() else {"decisions": {}}
     # Water priority is kT operating doctrine, not a mass reallocation, pump

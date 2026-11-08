@@ -4,9 +4,12 @@ This is a readiness review, not a component freeze. It deliberately converts
 unearned physical details into blocking holds rather than assumptions.
 """
 import json
+from src.wayfarer_torch_performance_remass_envelope import build_torch_performance_remass_envelope
 
 
 def build_readiness_review() -> dict:
+    cards = build_torch_performance_remass_envelope()["operating_cards"]
+    econ, limit = cards["ECON"], cards["LIMIT"]
     return {
         "schema": "LOOM.Wayfarer.TorchIntegratedVehicleArchitectureReadiness",
         "schema_version": "0.1",
@@ -27,8 +30,8 @@ def build_readiness_review() -> dict:
         "stable_vehicle_topology": {
             "primary_torch_count": 1,
             "architecture": "AXIAL_FUSION_TORCH_WITH_MAGNETIC_NOZZLE",
-            "reference_wet_mass_t": 1158.5,
-            "normal_remass_t": 250.0,
+            "reference_wet_mass_t": 1153.8904317110823,
+            "normal_remass_t": 245.39043171108221,
             "protected_water_reserve_t": 50.0,
             "post_normal_remass_mass_t": 908.5,
             "torch_and_high_metric_simultaneous_operation": "PROHIBITED",
@@ -46,10 +49,10 @@ def build_readiness_review() -> dict:
         "integrated_requirements": {
             "operating_cards": "SIX_WORKING_CARDS_ECON_THROUGH_LIMIT",
             "exhaust_velocity_range_km_s": [300.0, 3000.0],
-            "mass_flow_range_kg_s": [1.1361004025, 284.025100625],
-            "initial_thrust_range_MN": [3.4083012075, 85.2075301875],
-            "direct_kinetic_jet_power_range_TW": [5.11245181125, 12.781129528125],
-            "known_governing_initial_axial_load_MN": 85.2075301875,
+            "mass_flow_range_kg_s": [econ["initial_mass_flow_kg_s_at_reference_wet_mass"], limit["initial_mass_flow_kg_s_at_reference_wet_mass"]],
+            "initial_thrust_range_MN": [econ["initial_thrust_N_at_reference_wet_mass"] / 1e6, limit["initial_thrust_N_at_reference_wet_mass"] / 1e6],
+            "direct_kinetic_jet_power_range_TW": [econ["initial_direct_jet_power_W_at_reference_wet_mass"] / 1e12, limit["initial_direct_jet_power_W_at_reference_wet_mass"] / 1e12],
+            "known_governing_initial_axial_load_MN": limit["initial_thrust_N_at_reference_wet_mass"] / 1e6,
             "power_firewall": "JET_KINETIC_POWER_IS_NOT_ELECTRICAL_LOAD_OR_AUTOMATIC_WASTE_HEAT",
             "remass_requirement": "PHYSICAL_SOURCE_TO_BULK_REMASS_ENERGY_AND_MOMENTUM_COUPLING_PATH_REQUIRED",
             "plume_requirement": "MODE_DEPENDENT_PHYSICAL_PLUME_AND_EXTERNAL_CLEARANCE_REQUIRED",

@@ -2,7 +2,7 @@
 
 ALL bodies. ALL sponsors. 2026-2226.
 
-**Status: AGREED by Claude and Sol (2026-10-26); PROPOSED to kT. NON-GOVERNING.** This file says what "certified" means for Wayfarer v0.5. It changes no canon.
+**Status: CCR-2026-0004 kT-approved source values / CANON v2.5 implementation candidate; previous G1–G12+D9 gate thresholds UNCHANGED.** This describes the conventional-lab declared gate, not external hardware certification or Metric/Navigator qualification. Historical v0.2 basis criteria stay authoritative for this runner except inventory source replacements.
 **Dates:** v0.1 2026-10-25; v0.2 2026-10-26 (G10 replaced by flight-dynamics tests). **Authors:** Claude (draft), Sol (review).
 
 ## 1. Goal (kT, 2026-10-24)
@@ -34,33 +34,37 @@ A fully certified Wayfarer that Claude and Sol both agree to: it meets flight-dy
 6. **No moving goalposts.** A threshold may not change in the same session that it failed. Any change is logged with a reason and needs both reviewers.
 7. **Disagreement holds the gate.** A finding from either reviewer keeps that gate OPEN until it is fixed or withdrawn.
 
+## v2.5 decision note
+
+CCR-2026-0004 changes reference fuel **5.0→3.8 t** (0.1 t within this as house reserve), normal remass **250→245.39043171108221 t**, protected water still **50 t**, total water **300→295.3904317110822 t**, reference wet **1,158.5→1,153.8904317110823 t**, detailed model dry **868.1922552640087 t**, S1 wet **1,167.532686975091 t**, and six-mode source full-remass Δv ECON/CRUISE/EXPEDITE/FAST/HARD/LIMIT = **707.8454550926167 / 471.89697006174447 / 235.94848503087223 / 165.16393952161056 / 106.1768182638925 / 70.78454550926168 km/s**. No stated threshold is altered; changes are only to source state/evidence values. First green recovery evidence is Actions 42454975181; final HEAD certification must rerun before merge.
+
 ## 5. Mass states checked everywhere
 
 Protected water (50 t) is always aboard.
 
 | State | Remass | Shuttle | Hold |
 |---|---|---|---|
-| S1 reference departure | 250 t | docked | empty |
-| S2 loaded departure | 250 t | docked | 50 t payload |
+| S1 reference departure | 245.39043171108221 t | docked | empty |
+| S2 loaded departure | 245.39043171108221 t | docked | 50 t payload |
 | S3 normal dispatch | 150 t | docked | empty |
 | S4 burnt out, shuttle home | 0 t | docked | empty |
 | S5 burnt out, shuttle away | 0 t | absent | empty |
-| S6 full, shuttle away | 250 t | absent | empty |
-| S7 one tank cell isolated | 187.5 t, uneven | docked | empty |
+| S6 full, shuttle away | 245.39043171108221 t | absent | empty |
+| S7 one tank cell isolated | 184.04282378331166 t, uneven | docked | empty |
 
 ## 6. Gates
 
 Thresholds marked (A) are authored engineering assumptions open to Sol's challenge before results are run.
 
 ### G1 Mass and fluids ledger (Q-plan mass closure)
-- Component ledger sums to dry mass within 0.1 t; wet = dry + 300 t water + payload.
-- Tank volume >= 315 m3 (300 t at 1 t/m3 plus 5% ullage).
+- Component ledger sums to dry mass within **unchanged 0.1 t** tolerance; source S1 wet is **1,167.532686975091 t** (dry **868.1922552640087 t**, full water **295.3904317110822 t**, 3.8 t house fuel and existing booked wet consumables, without double-counting protected water).
+- **Unchanged G1 criterion**: net water tank source volume must satisfy **315 m³ minimum**. Actual core net **321.62066731116374 m³** is packed with normal liquid **245.39043171108221 m³**, **12.269521585554111 m³** water-liquid-basis 5% ullage, fuel **63.66961111275312 m³**, dry caps **0.2911029017743909 m³**. The G1 threshold is NOT retuned to a new water level.
 - Every state S1-S7 reports mass, centre of mass (x, y, z) and full inertia tensor.
-- Differences from the canon ledger (858.5 t dry, 1,158.5 t wet) are listed for G11.
+- Differences from the v2.5 **reference** canon ledger (**858.5 t dry, 1,153.8904317110823 t wet**) are listed for G11; source detailed builder mass is a different mass basis.
 
 ### G2 Torch and reach (Q2)
 - Torch card exhaust velocities unchanged from CANON II §14.
-- ECON full-remass delta-v at S1 >= 95% of the canon card's ~729 km/s, i.e. >= 693 km/s (A: keeps Navigator's card valid within 5%).
+- **Unchanged G2 acceptance screen**: ECON full-remass delta-v at S1 >= **0.95 × inherited 729 km/s historic comparison baseline = 692.55 km/s** (~693 km/s). kT-approved actual new S1 ECON **707.8454550926167 km/s**. The numeric denominator and threshold are retained for this certification; the prior 729 km/s is no longer the v2.5 canonical ship performance.
 - Acceleration at the canon cruise thrust (11.361 MN, 1 g at canon wet mass) >= 0.95 g at S1 (A).
 - Remass for each state reported; the dispatch rules of Q7 apply.
 

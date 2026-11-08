@@ -1,3 +1,5 @@
+> **HISTORICAL — dated flight-qualification gaps for the earlier E1 1,158.5t mass model; current CCR-2026-0004 reference wet is 1,153.8904317110823t. Replay evidence remains untouched.**
+
 # Rev 7 Wayfarer flight laboratory: qualification gaps (27 October 2026)
 
 **Status: independent-review handoff. NOT CERTIFIED, NOT CANON, NOT RUNTIME.**

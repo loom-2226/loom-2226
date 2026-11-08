@@ -49,14 +49,14 @@ class TestWayfarerTorchPerformanceRemassEnvelope(unittest.TestCase):
 
     def test_remass_burn_envelope_preserves_protected_reserve(self):
         remass = self.r["normal_remass_envelope"]
-        self.assertEqual(remass["normal_remass_available_t"], 250.0)
+        self.assertEqual(remass["normal_remass_available_t"], 245.39043171108221)
         self.assertEqual(remass["protected_water_reserve_t"], 50.0)
-        self.assertEqual(remass["reference_wet_mass_t"], 1158.5)
+        self.assertEqual(remass["reference_wet_mass_t"], 1153.8904317110823)
         self.assertEqual(remass["post_normal_remass_reference_mass_t"], 908.5)
         for mode, row in remass["constant_card_full_normal_remass_burn"].items():
             self.assertGreater(row["burn_duration_s"], 0.0, mode)
             self.assertGreater(row["ideal_delta_v_km_s"], 0.0, mode)
-            self.assertEqual(row["normal_remass_consumed_t"], 250.0)
+            self.assertEqual(row["normal_remass_consumed_t"], 245.39043171108221)
             self.assertEqual(row["protected_water_consumed_t"], 0.0)
 
     def test_next_step_closes_thermal_and_load_interfaces(self):

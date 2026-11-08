@@ -1,0 +1,307 @@
+name: "Wayfarer #471 G3 CAD sharded D9 and certification"
+on:
+  pull_request:
+    paths:
+      - wayfarer/lab/d9_brep.py
+      - wayfarer/lab/d9_sharded.py
+      - wayfarer/lab/d9_pv_surface_recovery.py
+      - wayfarer/lab/d9_c0_pressure_recovery.py
+      - wayfarer/lab/d9_sharded_merge.py
+      - wayfarer/lab/packing_phase1b/primary_brep_diagnostics.py
+      - wayfarer/lab/packing_phase1b/source_candidate_rebuild.py
+      - .github/workflows/wayfarer-phase1b-d9.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+
+jobs:
+  A_rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Start A runtime
+        run: echo "START_EPOCH=$(date +%s)" >> "$GITHUB_ENV"
+      - name: Pin #156 source and build123d==0.13.0
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install build123d==0.13.0
+          source="$RUNNER_TEMP/loom156/projects/wayfarer_brep_pilot"
+          mkdir -p "$source"
+          git fetch --depth=1 -q origin ea50354e222e77d145a6bbbf49227506d2b560fd
+          git show ea50354e222e77d145a6bbbf49227506d2b560fd:wayfarer/results/out/wayfarer_v05_geometry.json > "$source/geometry_base.json"
+          git show ea50354e222e77d145a6bbbf49227506d2b560fd:wayfarer/config/wayfarer_v05_inputs.json > "$source/inputs_base.json"
+          git show ea50354e222e77d145a6bbbf49227506d2b560fd:wayfarer/config/cert_criteria.json > "$source/criteria_base.json"
+          cp wayfarer/lab/packing_phase1b/source_brep_pilot.py "$source/pilot.py"
+          cp wayfarer/lab/packing_phase1b/source_brep_triage.py "$source/triage.py"
+          pinned=wayfarer/lab/packing_phase1b/pinned_main_lab
+          mkdir -p "$pinned"
+          git show ea50354e222e77d145a6bbbf49227506d2b560fd:wayfarer/lab/build_v05.py > "$pinned/build_v05.py"
+          git show ea50354e222e77d145a6bbbf49227506d2b560fd:wayfarer/lab/certify.py > "$pinned/certify.py"
+          git show ea50354e222e77d145a6bbbf49227506d2b560fd:wayfarer/lab/torch/torch_heat_results.json > "$pinned/torch_heat_results.json"
+          echo "274e94fb43cfe549a3d2087abbdff4d65499ce6f5055ad2d7ade790414fbaaf9  $source/geometry_base.json" | sha256sum -c -
+      - name: A rebuild G3 seven parts and research D8 cuts ONCE
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/packing_phase1b/source_candidate_rebuild.py \
+            --source "$RUNNER_TEMP/loom156/projects/wayfarer_brep_pilot" \
+            --out "$RUNNER_TEMP/g3-cad-rebuild" \
+            --courier-forward --fuel-t 3.8 --house-reserve-t .1 \
+            --g1-liquid-ullage --export | tee A-rebuild.log
+          python - <<'PY'
+          import gzip,os,shutil
+          from pathlib import Path
+          root=Path("wayfarer/lab/packing_phase1b")
+          output=Path(os.environ["RUNNER_TEMP"])/"g3-cad-rebuild"
+          with open(output/"candidate.step","rb") as source,open(root/"current_g3_3p8_forward.step.gz","wb") as dest:
+              with gzip.GzipFile(fileobj=dest,mode="wb",filename="",mtime=0) as compressor:
+                  shutil.copyfileobj(source,compressor)
+          shutil.copy2(output/"candidate_report.json",root/"current_g3_rebuild_report.json")
+          PY
+      - name: A runtime and source SHA
+        if: always()
+        shell: bash
+        run: |
+          echo "A runtime_seconds=$(( $(date +%s) - START_EPOCH ))" | tee -a "$GITHUB_STEP_SUMMARY"
+          sha256sum wayfarer/lab/packing_phase1b/current_g3_3p8_forward.step.gz || true
+      - name: "A artifact: exact STEP and rebuild report"
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr471-A-source
+          path: |
+            wayfarer/lab/packing_phase1b/current_g3_3p8_forward.step.gz
+            wayfarer/lab/packing_phase1b/current_g3_rebuild_report.json
+          if-no-files-found: error
+
+  B_pressure:
+    needs: A_rebuild
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Start B runtime
+        run: echo "START_EPOCH=$(date +%s)" >> "$GITHUB_ENV"
+      - run: python -m pip install build123d==0.13.0
+      - uses: actions/download-artifact@v4
+        with:
+          name: pr471-A-source
+          path: wayfarer/lab/packing_phase1b
+      - name: B3 source to STEP surface distance FIRST
+        timeout-minutes: 20
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/d9_pv_surface_recovery.py forward | tee B-forward.log
+      - name: B4 STEP to source surface distance SECOND
+        timeout-minutes: 20
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/d9_pv_surface_recovery.py reverse | tee B-reverse.log
+      - name: B validity and signed volume without Boolean
+        timeout-minutes: 3
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/d9_pv_surface_recovery.py validity | tee B-validity.log
+      - name: B strict surface-method verdict, no fuzzy Boolean
+        timeout-minutes: 2
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/d9_pv_surface_recovery.py finalize | tee B-final.log
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path("wayfarer/results/out/shards/pressure.json").read_text())
+          assert p["pass"] is True and p["check"]["pass"] is True
+          print("B_PRESSURE_SURFACE_METHOD_PASS")
+          PY
+      - name: B runtime
+        if: always()
+        run: echo "B runtime_seconds=$(( $(date +%s) - START_EPOCH ))" | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: B artifact from approved surface-first method
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr471-B-pressure
+          if-no-files-found: error
+          path: |
+            wayfarer/results/out/shards/pressure.json
+            wayfarer/results/out/shards/pressure_stages.json
+
+  C_primaries:
+    needs: [A_rebuild, B_pressure]
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Start C runtime
+        run: echo "START_EPOCH=$(date +%s)" >> "$GITHUB_ENV"
+      - run: python -m pip install build123d==0.13.0
+      - uses: actions/download-artifact@v4
+        with:
+          name: pr471-A-source
+          path: wayfarer/lab/packing_phase1b
+      - uses: actions/download-artifact@v4
+        with:
+          name: pr471-B-pressure
+          path: wayfarer/results/out/shards
+      - name: Audit source-identical protected primaries with original K.audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          if test "${{ matrix.shard }}" = "0"; then
+            python -u wayfarer/lab/d9_c0_pressure_recovery.py | tee C-primary-0.log
+          else
+            python -u wayfarer/lab/d9_sharded.py primary --shard ${{ matrix.shard }} --shards 4 | tee C-primary-${{ matrix.shard }}.log
+          fi
+      - name: C shard runtime
+        if: always()
+        run: echo "C_${{ matrix.shard }} runtime_seconds=$(( $(date +%s) - START_EPOCH ))" | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pr471-C-${{ matrix.shard }}
+          path: |
+            wayfarer/results/out/shards/primary-${{ matrix.shard }}.json
+          if-no-files-found: warn
+
+  D_pairs:
+    needs: A_rebuild
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Start D runtime
+        run: echo "START_EPOCH=$(date +%s)" >> "$GITHUB_ENV"
+      - run: python -m pip install build123d==0.13.0
+      - uses: actions/download-artifact@v4
+        with:
+          name: pr471-A-source
+          path: wayfarer/lab/packing_phase1b
+      - name: D scan exact assigned pair interval BEFORE and AFTER unchanged water debit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/d9_sharded.py pairs --shard ${{ matrix.shard }} --shards 8 | tee D-pairs-${{ matrix.shard }}.log
+      - name: D shard runtime
+        if: always()
+        run: echo "D_${{ matrix.shard }} runtime_seconds=$(( $(date +%s) - START_EPOCH ))" | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pr471-D-${{ matrix.shard }}
+          path: |
+            wayfarer/results/out/shards/pairs-${{ matrix.shard }}.json
+          if-no-files-found: warn
+
+  E_merge_certify:
+    needs: [A_rebuild, B_pressure, C_primaries, D_pairs]
+    if: always() && needs.A_rebuild.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Start E runtime
+        run: echo "START_EPOCH=$(date +%s)" >> "$GITHUB_ENV"
+      - uses: actions/download-artifact@v4
+        with:
+          name: pr471-A-source
+          path: wayfarer/lab/packing_phase1b
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: pr471-B-pressure
+          path: wayfarer/results/out/shards
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          pattern: pr471-C-*
+          merge-multiple: true
+          path: wayfarer/results/out/shards
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          pattern: pr471-D-*
+          merge-multiple: true
+          path: wayfarer/results/out/shards
+      - name: E strict coverage, hash and no-duplicate merge; write D9 PASS or FAIL evidence
+        shell: bash
+        run: |
+          set +e
+          python -u wayfarer/lab/d9_sharded_merge.py | tee E-merge.log
+          rc=${PIPESTATUS[0]}
+          echo "MERGE_EXIT=$rc" >> "$GITHUB_ENV"
+          exit 0
+      - name: Full source-current G1-G12 and D9 certify.py even on D9 FAIL
+        shell: bash
+        run: |
+          set +e
+          python -u wayfarer/lab/certify.py | tee E-certify.log
+          rc=${PIPESTATUS[0]}
+          echo "CERT_EXIT=$rc" >> "$GITHUB_ENV"
+          exit 0
+      - name: E runtime
+        if: always()
+        run: echo "E runtime_seconds=$(( $(date +%s) - START_EPOCH ))" | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pr471-E-merged-D9-full-cert
+          path: |
+            E-merge.log
+            E-certify.log
+            wayfarer/results/out/D9_BREP_CLASH_REPORT.json
+            wayfarer/results/out/certification_report.json
+            wayfarer/results/out/CERTIFICATION_REPORT_v0.5.md
+          if-no-files-found: warn
+      - name: Strict qualification STOP, no tolerance override
+        shell: bash
+        run: |
+          test "$MERGE_EXIT" = 0
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path("wayfarer")
+          r=json.loads((root/"results/out/D9_BREP_CLASH_REPORT.json").read_text())
+          cert=json.loads((root/"results/out/certification_report.json").read_text())
+          sha=hashlib.sha256((root/"results/out/wayfarer_v05_geometry.json").read_bytes()).hexdigest()
+          assert r["geometry_sha256"]==cert["geometry_sha256"]==sha
+          assert r["D8_primary_shape_unchanged"] is True
+          assert not r["primary_invariant_failures"]
+          assert len(r["primary_shape_volume_checks"])==43
+          assert r["pair_count"]==r["expected_pairs"]==18721
+          assert r["lab_same_checker"]["pair_count"]==18721
+          assert r["category_d_count"]==0
+          assert not r["geometry_conversion_or_boolean_errors"]
+          assert r["pass"] is True and cert["certified"] is True
+          assert len(cert["summary"])==13
+          print("E CERTIFICATION COMPLETE",sha,"ALL 43 PRIMARIES, 18721 PAIRS",flush=True)
+          PY

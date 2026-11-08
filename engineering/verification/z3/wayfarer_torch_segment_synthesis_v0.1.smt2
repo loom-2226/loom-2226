@@ -1,7 +1,7 @@
 ; Let Z3 choose a feasible card for a ten-minute segment while retaining >= 200 t remass.
 (include "wayfarer_torch_segment_constraints_v0.1.smt2")
 (assert (! (= segment_duration_s 600) :named Q_DURATION_600_S))
-(assert (! (= segment_start_remass_t 250) :named Q_START_FULL_REMASS))
+(assert (! (= segment_start_remass_t normal_remass_initial_t) :named Q_START_FULL_REMASS))
 (assert (! torch_active :named Q_TORCH_ACTIVE))
 (assert (! (>= thrust_N 30000000) :named Q_MIN_THRUST_30_MN))
 (assert (! (<= jet_power_W 12000000000000) :named Q_MAX_JET_POWER_12_TW))

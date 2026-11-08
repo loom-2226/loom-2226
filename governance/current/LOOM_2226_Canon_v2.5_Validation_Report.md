@@ -1,8 +1,13 @@
-# LOOM 2226 — Canon v2.4 Validation Report
+# LOOM 2226 — Canon v2.5 Pre-Merge Validation Report
 
 **Date:** 22 August 2026; institutional amendment validated 24 August 2026; scoped amendments registered 25 September 2026 and 1 October 2026  
-**Result:** PASS  
+**v2.5 status:** CANDIDATE, CCR-2026-0004 APPROVED_FOR_IMPLEMENTATION, PR #471 NOT MERGED; no claim this candidate is governing
+**Result:** HISTORICAL v2.4 tests PASS; v2.5 recertification evidence is required on final new head  
 **Scope:** v2.4 replacement package, the in-place institutional amendment, Wayfarer amendment v2.4a, Earth biosynthetic amendment v2.4b and Synthetic Personhood Historical Horizons amendment v2.4c.
+
+# v2.5 CCR-2026-0004 implementation boundary
+
+kT approval is scoped to reference Wayfarer fuel, water, mass, six ideal torch modes and associated packaging. Geometry SHA256 must remain `88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1`. Existing E Actions `42454975181` certified the conventional G1-G12 + D9 basis at its original PR head. **A new full certification and file-hash validation is needed after this candidate's document/data reconciliation; historical FQ results cannot be automatically upgraded.** CCR remains APPROVED_FOR_IMPLEMENTATION until merged, never IMPLEMENTED in this PR. WALTER assurance remains required before promotion.
 
 # 1. Baseline integrity
 
@@ -15,8 +20,13 @@ PASS — embedded older source headers are explicitly provenance and cannot outr
 PASS — governing reference stack preserved:
 
 ```text
-wet courier               ~1,158.5 t
-normal remass              250 t
+reference wet courier      1,153.8904317110823 t
+normal remass              245.39043171108221 t
+total water                295.3904317110822 t
+protected water            50.0 t
+D-He3 house fuel            3.8 t (includes 0.1 t reserve)
+modeled S1 wet             1,167.532686975091 t
+modeled dry                 868.1922552640087 t
 unified relational plant   ~88 t
 Mc-299m                     10.0 kg
 nodes                       208
@@ -24,7 +34,9 @@ shared bank                 2 GJ
 metric card                 .268c / .437c / .519c / .595c
 saturation                  ~.678c not certified
 FTL metric                  BLACK
-torch card                  unchanged
+torch exhaust velocities   unchanged
+ECON/CRUISE/EXPEDITE       707.8454550926167 / 471.89697006174447 / 235.94848503087223 km/s
+FAST/HARD/LIMIT            165.16393952161056 / 106.1768182638925 / 70.78454550926168 km/s
 ```
 
 # 3. Metric environmental supersession

@@ -1,0 +1,324 @@
+name: "Wayfarer #471 v2.5 evidence and exact-head recertification"
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/wayfarer-pr471-v25-reconcile.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || 'engineering/wayfarer-phase1b-3p8-packing-pr1-20261108' }}
+          persist-credentials: true
+      - uses: actions/download-artifact@v4
+        with:
+          name: pr471-PV-E-final-verdict
+          run-id: 42454975181
+          repository: loom-2226/loom-2226
+          github-token: ${{ github.token }}
+          path: .
+      - name: Require original approved E PASS and source SHA
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib
+          p=pathlib.Path("wayfarer/results/out")
+          sha=hashlib.sha256((p/"wayfarer_v05_geometry.json").read_bytes()).hexdigest()
+          d=json.loads((p/"D9_BREP_CLASH_REPORT.json").read_text())
+          c=json.loads((p/"certification_report.json").read_text())
+          assert sha=="88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1"
+          assert sha==d["geometry_sha256"]==c["geometry_sha256"]
+          assert d["pass"] and c["certified"] and d["pair_count"]==18721
+          assert len(d["primary_shape_volume_checks"])==43
+          assert d["category_d_count"]==0 and not d["primary_invariant_failures"]
+          print("OLD_E_PASS_CONFIRMED",sha)
+          PY
+      - name: Update mass basis and SHA-256 baseline register
+        run: |
+          python - <<'PY'
+          import json,pathlib,sys
+          sys.path.insert(0,"wayfarer/lab")
+          import mass_basis as m
+          g=json.loads(m.GFILE.read_text()); i=json.loads(m.IFILE.read_text())
+          old=json.loads(m.BFILE.read_text())
+          b=m.build_capture(g,i,{"Je_sweep":[]})
+          b["halo_cases_Je1000"]=old["halo_cases_Je1000"]
+          b["historical_halo_note"]="HALO cases are retained historical sensitivity, no new 2226 engineering credit; current mass/part inventory regenerated against approved v2.5 source."
+          b["status"]="CURRENT SOURCE-LOCKED v2.5 MASS/PART INVENTORY; HALO CASES HISTORICAL / NON-CANON"
+          b["date"]="2026-11-08"
+          m.BFILE.write_text(json.dumps(b,indent=2)+chr(10))
+          assert len(b["parts"])==len(g["parts"])==296
+          assert b["geometry_sha256"]=="88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1"
+          print("MASS_BASIS_RECAPTURED",b["source_dry_t"],b["S1_mass_t"],len(b["parts"]))
+          PY
+          rm -f wayfarer/docs/MASS_WATERFALL_2026_11_04.md
+          python - <<'PY'
+          import hashlib,pathlib
+          names=[
+            "governance/current/LOOM_2226_Canon_Baseline_Manifest_v2.5.md",
+            "canon/current/LOOM_2226_CANON_I_World_History_Frontier_v2.4.md",
+            "canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.5.md",
+            "canon/current/LOOM_2226_CANON_III_Authority_Continuity_GM_Model_v2.5.md",
+            "canon/current/LOOM_2226_Earth_Solar_System_Canon_Atlas_v3.2.md",
+            "canon/current/LOOM_2226_Core_Mechanics_v0.5.md",
+            "canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.5a.md",
+            "canon/current/LOOM_2226_Earth_Biosynthetic_Canon_Amendment_v2.4b.md",
+            "canon/current/LOOM_2226_Synthetic_Personhood_Horizons_Canon_Amendment_v2.4c.md",
+            "governance/current/LOOM_2226_Canon_v2.5_Validation_Report.md",
+            "canon/current/LOOM_2226_CANON_v2.5_CHANGELOG.md"]
+          lines=["# LOOM 2226 - Baseline File Hashes v2.5",
+            "","CCR-2026-0004 APPROVED_FOR_IMPLEMENTATION; candidate, not governing until merged.",
+            "SHA-256 of literal bytes; v2.4 unchanged scoped source files remain registered.",
+            "","| Path | SHA-256 |","|---|---|"]
+          for f in names:
+              assert pathlib.Path(f).is_file(),f
+              lines.append("| "+f+" | "+hashlib.sha256(pathlib.Path(f).read_bytes()).hexdigest()+" |")
+          lines+=["","The register excludes its own bytes. Prior baseline preserved in git history.",""]
+          pathlib.Path("governance/current/LOOM_2226_Baseline_File_Hashes_v2.5.md").write_text("\n".join(lines))
+          print("BASELINE_HASHES",len(names))
+          PY
+      - name: Full current source recertification before commit
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/certify.py | tee PR471-commit-certify.log
+          python - <<'PY'
+          import hashlib,json,pathlib
+          p=pathlib.Path("wayfarer/results/out")
+          sha=hashlib.sha256((p/"wayfarer_v05_geometry.json").read_bytes()).hexdigest()
+          d=json.loads((p/"D9_BREP_CLASH_REPORT.json").read_text())
+          c=json.loads((p/"certification_report.json").read_text())
+          assert sha=="88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1"
+          assert sha==d["geometry_sha256"]==c["geometry_sha256"]
+          assert d["pass"] is True and c["certified"] is True
+          assert len(d["primary_shape_volume_checks"])==43 and d["pair_count"]==18721
+          print("CERTIFIED_TRUE_BEFORE_COMMIT",sha)
+          PY
+      - name: Commit passing evidence and push only #471 branch
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- wayfarer/results/out/D9_BREP_CLASH_REPORT.json wayfarer/results/out/certification_report.json wayfarer/results/out/CERTIFICATION_REPORT_v0.5.md wayfarer/config/mass_basis.json governance/current/LOOM_2226_Baseline_File_Hashes_v2.5.md
+          if ! git diff --cached --quiet; then
+            git commit -m "class:canon: #471 preserve green D9 certification and v2.5 source mass/hash"
+            git push origin "HEAD:engineering/wayfarer-phase1b-3p8-packing-pr1-20261108"
+          fi
+          echo "EVIDENCE_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_STEP_SUMMARY"
+  verify:
+    needs: evidence
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: engineering/wayfarer-phase1b-3p8-packing-pr1-20261108
+      - name: Certify exact branch head
+        run: |
+          set -euo pipefail
+          echo "RECERTIFIED_HEAD=$(git rev-parse HEAD)" | tee -a "$GITHUB_STEP_SUMMARY"
+          python -u wayfarer/lab/certify.py | tee PR471-exact-head-certify.log
+          python - <<'PY'
+          import hashlib,json,pathlib
+          p=pathlib.Path("wayfarer/results/out")
+          sha=hashlib.sha256((p/"wayfarer_v05_geometry.json").read_bytes()).hexdigest()
+          d=json.loads((p/"D9_BREP_CLASH_REPORT.json").read_text())
+          c=json.loads((p/"certification_report.json").read_text())
+          assert sha=="88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1"
+          assert sha==d["geometry_sha256"]==c["geometry_sha256"]
+          assert d["pass"] is True and c["certified"] is True
+          assert d["pair_count"]==18721 and len(d["primary_shape_volume_checks"])==43
+          assert d["category_d_count"]==0 and not d["primary_invariant_failures"]
+          assert len(c["summary"])==13
+          print("EXACT_HEAD_CERTIFIED_TRUE",sha)
+          PY
+      - name: Navigator core plus Android new-campaign smoke and mass-basis separation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY' | tee PR471-navigator-smoke.log
+          import importlib.util,math,pathlib
+          files=["src/loom_navigator_core.py","src/LOOM_Navigator_MVP_v1.0_RC6.1_CIVSTATE_Launch_ANDROID.py"]
+          for i,f in enumerate(files):
+              spec=importlib.util.spec_from_file_location("nav471_"+str(i),f)
+              m=importlib.util.module_from_spec(spec)
+              spec.loader.exec_module(m)
+              s=m._new_state("PR471 v2.5 new campaign","Wayfarer")
+              ship=s["ship"]
+              assert abs(ship["wet_mass_t"]-1153.8904317110823)<1e-9,f
+              assert abs(ship["remass_t"]-245.39043171108221)<1e-9,f
+              assert abs(ship["remass_capacity_t"]-245.39043171108221)<1e-9,f
+              assert abs(ship["fixed_nonremass_mass_t"]-908.5)<1e-9,f
+              dv_reference=3000*math.log(ship["wet_mass_t"]/ship["fixed_nonremass_mass_t"])
+              assert abs(dv_reference-717.2988245997607)<1e-9,f
+              # Distinct certified detailed-builder 707.845455... is not this reference mass.
+              print("NAVIGATOR_REFERENCE_V25_PASS",f,ship["wet_mass_t"],ship["remass_t"],dv_reference)
+          PY
+      - name: Current mass and all E1 Wayfarer Z3 regressions
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq z3
+          {
+            bash engineering/verification/z3/run_wayfarer_mass_state_z3.sh
+            bash engineering/verification/z3/run_wayfarer_shipyard_z3.sh
+            bash engineering/verification/z3/run_wayfarer_torch_mode_z3.sh
+            bash engineering/verification/z3/run_wayfarer_torch_segment_z3.sh
+            bash engineering/verification/z3/run_wayfarer_torch_multisegment_z3.sh
+            bash engineering/verification/z3/run_wayfarer_torch_mission_z3.sh
+            PYTHONPATH=. bash engineering/verification/z3/run_wayfarer_torch_generated_z3.sh
+          } 2>&1 | tee PR471-z3-regression.log
+      - name: Pinned full-suite comparison main merge-base vs requested and current heads
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 origin ea50354e222e77d145a6bbbf49227506d2b560fd 95ac55e303b87431466fcfb6b0b2f5050711e9cd
+          git worktree add --detach "$RUNNER_TEMP/pr471-main-base" ea50354e222e77d145a6bbbf49227506d2b560fd
+          git worktree add --detach "$RUNNER_TEMP/pr471-requested-head" 95ac55e303b87431466fcfb6b0b2f5050711e9cd
+          python - <<'PY'
+          import json, os, re, subprocess, sys
+          from pathlib import Path
+          repo=Path.cwd()
+          roots={
+              "main_merge_base":Path(os.environ["RUNNER_TEMP"])/"pr471-main-base",
+              "requested_95ac55e":Path(os.environ["RUNNER_TEMP"])/"pr471-requested-head",
+              "current_pr_head":repo,
+          }
+          revisions={
+              "main_merge_base":"ea50354e222e77d145a6bbbf49227506d2b560fd",
+              "requested_95ac55e":"95ac55e303b87431466fcfb6b0b2f5050711e9cd",
+              "current_pr_head":subprocess.check_output(["git","rev-parse","HEAD"],cwd=repo,text=True).strip(),
+          }
+          cmd=[sys.executable,"-m","unittest","discover","-s","tests","-p","test_*.py","-v"]
+          out={}
+          for name in roots:
+              root=roots[name]
+              actual=subprocess.check_output(["git","rev-parse","HEAD"],cwd=root,text=True).strip()
+              assert actual==revisions[name],(name,actual,revisions[name])
+              env=os.environ.copy()
+              env["PYTHONPATH"]="."
+              proc=subprocess.run(cmd,cwd=root,env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,errors="replace")
+              (repo/("PR471-unittest-"+name+".log")).write_text(proc.stdout)
+              fail={}
+              for line in proc.stdout.splitlines():
+                  m=re.match(r"^(FAIL|ERROR):\s+(.+)$",line)
+                  if m:
+                      q=re.search(r"\(([\w.]+)\)\s*$",m.group(2))
+                      test_id=q.group(1) if q else m.group(2).strip()
+                      fail[test_id]=m.group(1)
+              ran=re.search(r"^Ran (\d+) tests",proc.stdout,re.M)
+              if not ran:
+                  raise RuntimeError("Suite did not finish: "+name)
+              out[name]={"revision":actual,"ran":int(ran.group(1)),"exit_code":proc.returncode,"failures":fail}
+          a=out["main_merge_base"]["failures"]
+          b=out["requested_95ac55e"]["failures"]
+          c=out["current_pr_head"]["failures"]
+          rows=sorted(set(a)|set(b)|set(c))
+          requested_only=sorted(set(b)-set(a))
+          current_only=sorted(set(c)-set(a))
+          md=["# #471 complete Python suite: pinned main merge-base versus requested and current PR heads","",
+              "Identical unittest discovery command, runner, Python, dependencies and working-directory setup. No excluded tests.","",
+              "main merge-base: "+revisions["main_merge_base"],
+              "requested PR head: "+revisions["requested_95ac55e"],
+              "current PR head: "+revisions["current_pr_head"],
+              "Tests run: main "+str(out["main_merge_base"]["ran"])+", requested "+str(out["requested_95ac55e"]["ran"])+", current "+str(out["current_pr_head"]["ran"]),
+              "Failing IDs: main "+str(len(a))+", requested "+str(len(b))+", current "+str(len(c)),
+              "PR-only IDs: requested "+str(len(requested_only))+", current "+str(len(current_only)),
+              "","| Failing test ID | Main base | 95ac55e | Current PR |","|---|---|---|---|"]
+          for t in rows:
+              md.append("| "+t+" | "+a.get(t,"PASS/not present")+" | "+b.get(t,"PASS/not present")+" | "+c.get(t,"PASS/not present")+" |")
+          md+=["","## PR-only failures on requested head", ""]
+          md += requested_only if requested_only else ["None"]
+          md+=["","## PR-only failures on latest head",""]
+          md += current_only if current_only else ["None"]
+          (repo/"PR471-unittest-comparison.md").write_text("\n".join(md)+"\n")
+          (repo/"PR471-unittest-comparison.json").write_text(json.dumps(out,indent=2,sort_keys=True)+"\n")
+          print("PR471_BASELINE_COMPARISON",json.dumps({"main":len(a),"requested":len(b),"current":len(c),"requested_only":requested_only,"current_only":current_only},sort_keys=True))
+          with open(os.environ["GITHUB_STEP_SUMMARY"],"a") as f:
+              f.write("\n".join(md[:10])+"\n")
+          if requested_only or current_only:
+              sys.exit("PR-specific failures remain; see PR471-unittest-comparison.md")
+          PY
+      - name: Git grep exact-head old values
+        if: always()
+        run: |
+          {
+            echo "HEAD $(git rev-parse HEAD)"
+            echo "Search: 5.000 t / 300 t / 1,158.5 / 719.29"
+            git grep -n -I -E '5\.000[[:space:]]*t|300[[:space:]]*t|1,158\.5|1158\.5|719\.29' || true
+          } | tee PR471-old-value-hits.txt
+      - name: Tag every residual old-value hit, fail on unclassified
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          raw=Path("PR471-old-value-hits.txt").read_text().splitlines()
+          hits=[]
+          for line in raw:
+              m=re.match(r"^(.+?):([0-9]+):(.*)$",line)
+              if not m:
+                  continue
+              path,no,value=m.groups()
+              if path.startswith("manifests/") or path.startswith("docs/civprop/") or path.startswith("wayfarer/lab/shuttle/"):
+                  tag,reason="UNRELATED","Different numeric economic/demographic/shuttle value"
+              elif path.startswith(".github/workflows/"):
+                  tag,reason="UNRELATED","Literal CI search expression"
+              elif path.startswith("canon/current/") and "CHANGELOG" in path:
+                  tag,reason="HISTORICAL","Old-to-new canon delta"
+              elif path.startswith("governance/changes/") or path.startswith("governance/current/"):
+                  tag,reason="HISTORICAL","Superseded value explicitly recorded in change/manifest history"
+              elif path.startswith("engineering/frontiers/"):
+                  tag,reason="HISTORICAL","Dated pre-CCR engineering exercise"
+              elif path.startswith("wayfarer/config/"):
+                  tag,reason="HISTORICAL","Explicit old-canon comparison or previous reference quantity"
+              elif path.startswith("wayfarer/docs/") or path.startswith("wayfarer/lab/flight/") or path.startswith("wayfarer/lab/flight_qual/"):
+                  tag,reason="HISTORICAL","Prior design note, qualification record or frozen replay"
+              elif path.startswith("wayfarer/results/compare/") or path.startswith("wayfarer/results/out/ship_power_targeted_"):
+                  tag,reason="HISTORICAL","Older targeted/baseline result, not current certified result"
+              elif path.startswith("wayfarer/lab/packing_phase1b/source_candidate_rebuild.py"):
+                  tag,reason="HISTORICAL","Source G1 300-tonne example / earlier inventory basis"
+              elif path=="wayfarer/lab/mass_basis.py":
+                  tag,reason="HISTORICAL","Prior shell engineering option in source prose"
+              else:
+                  raise RuntimeError("UNCLASSIFIED hit: "+path+":"+no)
+              hits.append((path,int(no),tag,reason,value))
+          out=["# PR471 exact-head old-value grep, all line-level hits classified","",
+               "Complete literal matches are in companion PR471-old-value-hits.txt. This table tags EVERY observed hit.",
+               "HISTORICAL means superseded/change/replay; UNRELATED means different quantity or search syntax.","",
+               "| Path:line | Tag | Interpretation | Excerpt |","|---|---|---|---|"]
+          for path,no,tag,reason,value in hits:
+              clip=value.replace("|"," / ")
+              if len(clip)>150:
+                  clip=clip[:147]+"..."
+              out.append("| "+path+":"+str(no)+" | "+tag+" | "+reason+" | "+clip+" |")
+          out+=["","Tagged hits: "+str(len(hits))+" across "+str(len(set(x[0] for x in hits)))+" files."]
+          Path("PR471-old-value-tagged.md").write_text("\n".join(out)+"\n")
+          assert hits,"No parseable grep hits; inspect source scan"
+          print("OLD_VALUE_TAGGED",len(hits),"historical",sum(x[2]=="HISTORICAL" for x in hits),"unrelated",sum(x[2]=="UNRELATED" for x in hits))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pr471-v25-exact-head-certify-search
+          path: |
+            PR471-exact-head-certify.log
+            PR471-old-value-hits.txt
+            PR471-old-value-tagged.md
+            PR471-navigator-smoke.log
+            PR471-z3-regression.log
+            PR471-unittest-main_merge_base.log
+            PR471-unittest-requested_95ac55e.log
+            PR471-unittest-current_pr_head.log
+            PR471-unittest-comparison.md
+            PR471-unittest-comparison.json
+            wayfarer/results/out/certification_report.json
+            wayfarer/results/out/D9_BREP_CLASH_REPORT.json

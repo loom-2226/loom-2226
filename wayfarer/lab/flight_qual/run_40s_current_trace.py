@@ -16,10 +16,11 @@ old=json.loads((HERE/'fq_20261031/wayfarer_fq_water_rcs_1960.json').read_text())
 ship=copy.deepcopy(old);base=G['states']['S4']
 ship['base']={'mass_kg':base['mass_t']*1000,'cg_m':base['cg_m'],'inertia_kg_m2':base['inertia_kg_m2']}
 ship['provenance']={'authority':'CURRENT GEOMETRY 40s RCS DIAGNOSTIC, not FQ','geometry_sha256':sha}
-ship['tanks'][0]['initial_kg']=250000
-M=ship['base']['mass_kg']+250000
+normal_remass_kg=json.loads((ROOT/'config/wayfarer_v05_inputs.json').read_text())['states']['S1']['remass_t']*1000
+ship['tanks'][0]['initial_kg']=normal_remass_kg
+M=ship['base']['mass_kg']+normal_remass_kg
 assert abs(M-G['states']['S1']['mass_t']*1000)<1e-4,'source S1 mass mismatch'
-cg=[(ship['base']['mass_kg']*base['cg_m'][i]+250000*ship['tanks'][0]['cg_m'][i])/M for i in range(3)]
+cg=[(ship['base']['mass_kg']*base['cg_m'][i]+normal_remass_kg*ship['tanks'][0]['cg_m'][i])/M for i in range(3)]
 assert max(abs(cg[i]-G['states']['S1']['cg_m'][i]) for i in range(3))<.03,'source CG mismatch'
 exp={'name':'CURRENT GEOMETRY 40s pitch 180 diagnostic', 'phases':[{'kind':'rcs_turn','duration_s':40.,'axis':'pitch','angle_deg':180.,'post_hold_s':0}],'checks':{}}
 print('TRACE START geometry',sha,flush=True)

@@ -54,24 +54,24 @@
   },
   {
    "deck": "L3",
-   "carried_t": 16.16,
+   "carried_t": 15.58,
    "people_t": 1.0,
-   "pressure_kpa": 23.6,
-   "face_mm": 0.28,
+   "pressure_kpa": 22.8,
+   "face_mm": 0.27,
    "needed_t": 0.8,
    "floor_t": 1.536,
-   "core_shear_mpa": 0.138,
+   "core_shear_mpa": 0.133,
    "ok": true
   },
   {
    "deck": "L4",
-   "carried_t": 37.74,
+   "carried_t": 36.48,
    "people_t": 0.0,
-   "pressure_kpa": 55.2,
-   "face_mm": 0.65,
+   "pressure_kpa": 53.4,
+   "face_mm": 0.63,
    "needed_t": 0.86,
    "floor_t": 1.536,
-   "core_shear_mpa": 0.322,
+   "core_shear_mpa": 0.311,
    "ok": true
   }
  ],
@@ -149,7 +149,7 @@
     "accel_start_g": 0.3,
     "accel_peak_g": 0.38,
     "capped": false,
-    "full_remass_burn_min": 3667.5,
+    "full_remass_burn_min": 3599.9,
     "in_couches": false
    },
    {
@@ -158,7 +158,7 @@
     "accel_start_g": 0.99,
     "accel_peak_g": 1.26,
     "capped": false,
-    "full_remass_burn_min": 733.5,
+    "full_remass_burn_min": 720.0,
     "in_couches": false
    },
    {
@@ -167,9 +167,9 @@
     "accel_start_g": 1.98,
     "accel_peak_g": 2.51,
     "capped": false,
-    "full_remass_burn_min": 183.4,
+    "full_remass_burn_min": 180.0,
     "in_couches": true,
-    "ochmo_allowed_min": 639.0,
+    "ochmo_allowed_min": 638.0,
     "split_needed": true,
     "longest_couch_period_min": 165,
     "ok": true
@@ -177,14 +177,14 @@
    {
     "mode": "FAST",
     "ve_km_s": 700,
-    "accel_start_g": 2.82,
+    "accel_start_g": 2.84,
     "accel_peak_g": 3.59,
     "capped": false,
-    "full_remass_burn_min": 89.9,
+    "full_remass_burn_min": 88.2,
     "in_couches": true,
-    "ochmo_allowed_min": 116.0,
+    "ochmo_allowed_min": 115.0,
     "split_needed": false,
-    "longest_couch_period_min": 89.9,
+    "longest_couch_period_min": 88.2,
     "ok": true
    },
    {
@@ -193,11 +193,11 @@
     "accel_start_g": 4.0,
     "accel_peak_g": 4.0,
     "capped": true,
-    "full_remass_burn_min": 45.8,
+    "full_remass_burn_min": 45.1,
     "in_couches": true,
     "ochmo_allowed_min": 60.0,
     "split_needed": false,
-    "longest_couch_period_min": 45.8,
+    "longest_couch_period_min": 45.1,
     "ok": true
    },
    {
@@ -206,11 +206,11 @@
     "accel_start_g": 4.0,
     "accel_peak_g": 4.0,
     "capped": true,
-    "full_remass_burn_min": 30.6,
+    "full_remass_burn_min": 30.1,
     "in_couches": true,
     "ochmo_allowed_min": 60.0,
     "split_needed": false,
-    "longest_couch_period_min": 30.6,
+    "longest_couch_period_min": 30.1,
     "ok": true
    }
   ],

@@ -36,7 +36,7 @@ class TorchIntegratedArchitectureReadinessTests(unittest.TestCase):
         topo = r["stable_vehicle_topology"]
         self.assertEqual(topo["primary_torch_count"], 1)
         self.assertEqual(topo["architecture"], "AXIAL_FUSION_TORCH_WITH_MAGNETIC_NOZZLE")
-        self.assertEqual(topo["normal_remass_t"], 250.0)
+        self.assertEqual(topo["normal_remass_t"], 245.39043171108221)
         self.assertEqual(topo["protected_water_reserve_t"], 50.0)
 
     def test_next_step_targets_physical_bounds_not_fake_freeze(self):

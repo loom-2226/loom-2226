@@ -31,7 +31,7 @@
 (assert (! (bind-card mode2 mdot2 thrust2 power2) :named M_BIND_SEGMENT_2))
 (assert (! (bind-card mode3 mdot3 thrust3 power3) :named M_BIND_SEGMENT_3))
 (assert (! (and (> d1 0) (> d2 0) (> d3 0)) :named M_POSITIVE_DURATIONS))
-(assert (! (= r1 (- 250 (/ (* mdot_kg_s d1) 1000))) :named M_REMASS_AFTER_1))
+(assert (! (= r1 (- normal_remass_initial_t (/ (* mdot_kg_s d1) 1000))) :named M_REMASS_AFTER_1))
 (assert (! (= r2 (- r1 (/ (* mdot2 d2) 1000))) :named M_REMASS_AFTER_2))
 (assert (! (= r3 (- r2 (/ (* mdot3 d3) 1000))) :named M_REMASS_AFTER_3))
 (assert (! (and (>= r1 0) (>= r2 0) (>= r3 0)) :named M_REMASS_NONNEGATIVE))

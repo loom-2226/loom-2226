@@ -114,7 +114,7 @@ def summarize_mount_command_trace(trace: list[dict[str, Any]], *, sample_period_
 
 def _simulate_case_with_trace(*, name: str, target_velocity_m_s: list[float], axis: str, angle_deg: float,
                               failed_cluster: str | None) -> dict[str, Any]:
-    state = build_mass_inertia_state(normal_remass_t=250.0, protected_water_t=50.0, launch_docked=True)
+    state = build_mass_inertia_state(normal_remass_t=245.39043171108221, protected_water_t=50.0, launch_docked=True)
     mass_kg = float(state["mass_t"]) * 1000.0
     tensor, inv_i = state["inertia_tensor_kg_m2"], _inv3(state["inertia_tensor_kg_m2"])
     force_limit = _DEGRADED_FORCE_LIMIT_N if failed_cluster else _NOMINAL_FORCE_LIMIT_N

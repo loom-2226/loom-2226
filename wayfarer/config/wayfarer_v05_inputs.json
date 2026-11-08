@@ -42,7 +42,7 @@
   "torch_capacity_mw": 387.7
  },
  "canon": {
-  "prov": "CANON",
+  "prov": "CANON: kT Phase1b 2026-11-08 G1 water reference update",
   "source": "CANON II v2.4 §5, §13, §14; Schematic Amendment v2.4a",
   "main_body_m": [
    57,
@@ -50,11 +50,11 @@
   ],
   "normal_crew": 6,
   "payload_target_t": 50,
-  "water_t": 300,
-  "remass_t": 250,
+  "water_t": 295.3904317110822,
+  "remass_t": 245.39043171108221,
   "protected_water_t": 50,
   "dry_t": 858.5,
-  "wet_t": 1158.5,
+  "wet_t": 1153.8904317110823,
   "relational_plant_t": 88,
   "torch_ve_km_s": {
    "ECON": 3000,
@@ -90,6 +90,20 @@
    "FAST": 202,
    "EXPEDITE": 336,
    "HARD": 719
+  },
+  "canon_change_2026_11_08": {
+   "kT_decision": "G1 water reference updated to the physical figure (~295.4 t: core 245.39 + protected 50). Record as canon change with reason.",
+   "old_canon_water_t": 300.0,
+   "old_canon_normal_remass_t": 250.0,
+   "old_canon_wet_t": 1158.5,
+   "new_canon_water_t": 295.3904317110822,
+   "new_canon_normal_remass_t": 245.39043171108221,
+   "new_canon_wet_t": 1153.8904317110823,
+   "protected_water_unchanged_t": 50.0,
+   "reason": "Phase1b approved 3.8t D-He3 fuel lobes consume core tank volume. Source G1 requires 5pct of WATER LIQUID as ullage. Authoritative upstream builder net available core 321.620667m3 minus 63.669611m3 fuel and 0.291103m3 dry caps, divided by 1.05, equals 245.3904317t actual core remass. Previous 250t remass / 300t water reference is not physically loadable in the approved core, and cannot remain canon.",
+   "upstream_phase1b_pr": 471,
+   "kT_authorised": "2026-11-08",
+   "canon_scope": "G1 normal water, normal remass, reference wet mass; no propulsion performance tuning"
   }
  },
  "torch": {
@@ -379,6 +393,48 @@
     "r_m": [
      2,
      4.3
+    ]
+   },
+   "courier_forward": {
+    "x_m": [
+     14,
+     17.5
+    ],
+    "r_m": [
+     4.6,
+     6.1
+    ],
+    "theta_deg": [
+     235,
+     305
+    ]
+   },
+   "service_arm_separate": {
+    "x_m": [
+     14,
+     17.5
+    ],
+    "r_m": [
+     2,
+     4.3
+    ],
+    "theta_deg": [
+     225,
+     315
+    ]
+   },
+   "c_lite_tank": {
+    "x_m": [
+     17,
+     18
+    ],
+    "r_m": [
+     2,
+     2.8
+    ],
+    "theta_deg": [
+     182,
+     202
     ]
    }
   },
@@ -2102,7 +2158,8 @@
    "protected_uncommitted_deep_gel_option_t": 1.04,
    "no_deep_gel": true,
    "mass_total_invariant": "new physical gel mass displaces exact same amount of preexisting engineering reserve; dry mass unchanged"
-  }
+  },
+  "d8_secondary_doubler_added_t": 0.660801800044753
  },
  "longerons": {
   "prov": "CLAUDE_DESIGN v0.5.7 (structure/longeron_study.py, kT 2026-10-25 'consolidate'): four CFRP tubes in an X, matching canon's 4 axial longerons. The upper pair stay where the v0.5.6 slot sills were (edging the bay slot); the lower pair mirror them in the tank's lower cells. Sized at 5 g x 1.5 to a 250 MPa design stress (400 MPa floor x 0.62 for impact, joints, environment). v0.5.6 had 3 planks + 2 sills (36.9 t) running at 65 MPa. NON-GOVERNING; SOL TO REVIEW REV 5 (structure review 2026-10-26): wall 72 -> 84 mm (area 0.0830 m2, 1% margin) so axial + bending (thrust-line offset 13.5 MN m + 0.5 deg thrust error 9.1 MN m) stays within the 250 MPa design stress",
@@ -2348,13 +2405,13 @@
   "prov": "CERTIFICATION_BASIS_v0.1 §5",
   "S1": {
    "name": "reference departure",
-   "remass_t": 250,
+   "remass_t": 245.39043171108221,
    "shuttle": "docked",
    "payload_t": 0
   },
   "S2": {
    "name": "loaded departure",
-   "remass_t": 250,
+   "remass_t": 245.39043171108221,
    "shuttle": "docked",
    "payload_t": 50
   },
@@ -2378,13 +2435,13 @@
   },
   "S6": {
    "name": "full, shuttle away",
-   "remass_t": 250,
+   "remass_t": 245.39043171108221,
    "shuttle": "absent",
    "payload_t": 0
   },
   "S7": {
    "name": "one tank cell breached and vented",
-   "remass_t": 250,
+   "remass_t": 245.39043171108221,
    "isolated_cell": "port_fore",
    "vented": true,
    "shuttle": "docked",
@@ -2488,7 +2545,8 @@
   "allowance_t": 4,
   "allowance_prov": "ENGINEERING_ASSUMPTION: fold-out mechanism, root trusses and the hot loop from the reactor face and coil shield (~25% of fin mass)",
   "deployed": "torch burns only; folded in their 0.6 m stacks otherwise (and before big slews)",
-  "pleats_prov": "DERIVED: 14 pleats of 2 m (28 m) so the conservative standard-library view factor in certify.py (torch chain treated as a 4.5 m cylinder) clears 1.40 GW; the numpy model in torch/fin_layout.py needs 25.7 m"
+  "pleats_prov": "DERIVED: 14 pleats of 2 m (28 m) so the conservative standard-library view factor in certify.py (torch chain treated as a 4.5 m cylinder) clears 1.40 GW; the numpy model in torch/fin_layout.py needs 25.7 m",
+  "deployed_panel_thickness_m": 0.005
  },
  "windows_note": "ENGINEERING_ASSUMPTION (v0.5.7 rev 3): crown dome (25 m2) over L1; a panoramic viewport band round L2 (19.4 m2, 1.6 m tall in the lounge); round viewports: L1 shoulder 4, L3 berths 10 (0.5 m), L4 medical 2 and storm shelter 2, L5 suits 1, workshop 2, vestibule 1. Every opening below the crown has an acrylic shield plug and a Strata dust shutter",
  "revision": "rev 7",
@@ -3246,23 +3304,16 @@
   "peak_store_discharge_mw": 270,
   "peak_store_discharge_seconds": 40,
   "fuel": "D-He3",
-  "fuel_t": 5,
+  "fuel_t": 3.8,
   "fuel_specific_fusion_j_kg": 353000000000000,
   "fuel_tank_dry_t": 0.5,
   "fuel_container_proxy": {
-   "x_m": [
-    21,
-    29
-   ],
-   "r_m": [
-    2,
-    4
-   ],
-   "theta_deg": [
-    220,
-    320
-   ],
-   "note": "Mass/CG proxy with ~84m3 volume; actual containment, cryogenic shielding, bay/utility-clearance and plumbing are NOT physically verified"
+   "layout": "four isolated conformal core CSlot lobes; fore fill; four 6mm closure cap proxies",
+   "source_density_t_m3": 0.05968310365946075,
+   "source_5t_fuel_envelope_m3": 83.77580409572782,
+   "dry_tank_caps_thickness_m": 0.006,
+   "phase1b_fuel_volume_m3": 63.66961111275312,
+   "note": "approved kT Phase 1b in-core fuel. Pressure wall, cryo insulation, baffles, piping OPEN; dry tank 0.5t budget unchanged"
   },
   "routine_flip_seconds": 120,
   "fast_flip_seconds": 40,
@@ -3334,7 +3385,8 @@
   "torch_self_power_source": "PULSED TORCH BURN ONLY: 47.52MW net magnet/cryocooler from tapping pulsed torch energy; not standalone electrical generation; deduct raw input from jet budget (63.36MW assuming .75 efficiency) and reject 15.84MW conversion heat. Actual tap/conditioning hardware UNQUALIFIED.",
   "docked_shore_power_limit_mw_declared": 2,
   "docked_power_source": "external dock shore electrical feed when connected, house reactors OFF; 2MW DECLARED interface ceiling, connector/ground thermal interface UNQUALIFIED",
-  "degraded_rcs_60s_doctrine": "When energy and peak performance both halve, stretch emergency pitch turn 40s to 60s with ONE 50MW surviving reactor; separately source-rerun. If both reactors dead, not credited."
+  "degraded_rcs_60s_doctrine": "When energy and peak performance both halve, stretch emergency pitch turn 40s to 60s with ONE 50MW surviving reactor; separately source-rerun. If both reactors dead, not credited.",
+  "house_fuel_reserve_t": 0.1
  },
  "windows_wws1": {
   "authority": "DRAFT / kT APPROVED 2026-11-03 / NON-CANON / PRESSURE & RADIATION TRANSPORT UNQUALIFIED",
@@ -3893,5 +3945,28 @@
   "path": "og3_hydra.json",
   "sha256": "2870bfb3cf26f97e7c5f78291459d4e66180ab759a96a1658b938365436e0f73",
   "status": "DRAFT kT merger decision; OG3 same AOI mass, no deep gel, zero dose credit"
+ },
+ "packing_phase1b": {
+  "status": "APPROVED kT geometry, draft upstream engineering integration. NOT qualified, zero performance credit",
+  "source_lab_pr": "loom-2226/loom-research-lab#157",
+  "geometry_reference_sha256": "274e94fb43cfe549a3d2087abbdff4d65499ce6f5055ad2d7ade790414fbaaf9",
+  "fuel_t": 3.8,
+  "house_reserve_t": 0.1,
+  "ullage_basis": "G1: 0.05 * liquid water volume, NOT 0.05 * tank capacity",
+  "core_remass_t": 245.39043171108221,
+  "core_water_BRep_ref_t": 245.47139123187642,
+  "reference_250t_remass_canonic_delta_t": -4.60956828891779,
+  "jacket_overlap_to_service_t": 1.9311090369478734,
+  "service_water_t": 26.681109036947873,
+  "secondary_doubler_added_t": 0.660801800044753,
+  "D8_rule": "never cut primary load paths; equipment yields; secondary doubler mass 1.5x removed, no removed-mass credit",
+  "D8_actual_doubler_placement": "OPEN; source mass allowance only",
+  "core_web_baffle_solids": "OPEN: source displaced volume 5.870097185013608m3 not spatially placed",
+  "courier_external_mount_heat_MMOD": "OPEN; forward x14-17.5, r4.6-6.1, 235-305 degrees",
+  "authority": "kT 2026-11-08: canon water 295.390432t, remass 245.390432t, protected water 50t; 5pct water LIQUID ullage, D-He3 3.8t, house reserve 0.1t.",
+  "native_builder_vs_pinned_BRep_remass_diff_t": -0.08095952079420954,
+  "volume_basis": "Conservative: authoritative upstream analytic 321.62066731116374m3 net vs frozen exact BRep 321.7057504374434m3; D1 unchanged 3.8t/63.6696m3",
+  "G1_canon_water_reference": 295.3904317110822,
+  "G1_canon_departure_resolved_by_kT": true
  }
 }

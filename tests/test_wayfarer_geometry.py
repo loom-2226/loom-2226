@@ -39,9 +39,9 @@ class WayfarerGeometryTests(unittest.TestCase):
     def test_mass_ledger_closes(self):
         docked = self.payload["mass_states"]["DOCKED"]
         self.assertAlmostEqual(docked["dry_mass_t"], 858.5, places=6)
-        self.assertAlmostEqual(docked["wet_mass_t"], 1158.5, places=6)
+        self.assertAlmostEqual(docked["wet_mass_t"], 1153.8904317110823, places=6)
         self.assertAlmostEqual(docked["dry_com_m"][0], 27.99056494, places=6)
-        self.assertAlmostEqual(docked["wet_com_m"][0], 26.67665084, places=6)
+        self.assertAlmostEqual(docked["wet_com_m"][0], 26.68334873625709, places=6)
         self.assertAlmostEqual(docked["dry_com_m"][2], 33.0*5.2/858.5, places=6)
 
     def test_boundary_surrogate_is_inside_regression_tolerance(self):

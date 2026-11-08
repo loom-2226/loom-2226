@@ -4,7 +4,7 @@
 (declare-const end_remass_t Real)
 (assert (! (= mode LIMIT) :named H_LIMIT_MODE))
 (assert (! (= duration_s 3600) :named H_ONE_HOUR))
-(assert (! (= end_remass_t (- 250 (/ (* mdot_kg_s duration_s) 1000))) :named H_REMASS_ACCOUNTING))
+(assert (! (= end_remass_t (- normal_remass_initial_t (/ (* mdot_kg_s duration_s) 1000))) :named H_REMASS_ACCOUNTING))
 (assert (! (>= end_remass_t 200) :named H_REQUIRE_200_T_RESERVE))
 (check-sat)
 (get-unsat-core)

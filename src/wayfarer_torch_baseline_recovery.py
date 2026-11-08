@@ -39,10 +39,10 @@ def build_torch_baseline_recovery() -> dict[str, Any]:
         "vehicle_interfaces": {
             "primary_torch_count": 1,
             "architecture": "AXIAL_FUSION_TORCH_WITH_MAGNETIC_NOZZLE",
-            "reference_wet_mass_t": 1158.5,
+            "reference_wet_mass_t": 1153.8904317110823,
             "dry_mass_excluding_working_fluid_water_t": 858.5,
-            "working_fluid_water_inventory_t": 300.0,
-            "normal_remass_allowance_t": 250.0,
+            "working_fluid_water_inventory_t": 295.3904317110822,
+            "normal_remass_allowance_t": 245.39043171108221,
             "protected_water_reserve_t": 50.0,
             "post_normal_remass_reference_mass_t": 908.5,
             "torch_and_high_metric_thermal_field_states_mutually_exclusive": True,

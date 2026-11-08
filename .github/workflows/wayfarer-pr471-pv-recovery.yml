@@ -1,0 +1,270 @@
+name: "Wayfarer #471 PV surface-first recovery, reuse existing D9 shard evidence"
+on:
+  pull_request:
+    paths:
+      - .github/workflows/wayfarer-pr471-pv-recovery.yml
+      - wayfarer/lab/d9_pv_surface_recovery.py
+      - wayfarer/lab/d9_c0_pressure_recovery.py
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  B_surface:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: B runtime start
+        run: echo "START_EPOCH=$(date +%s)" >> "$GITHUB_ENV"
+      - run: python -m pip install build123d==0.13.0
+      - name: Reuse pinned A STEP from successful previous run
+        uses: actions/download-artifact@v4
+        with:
+          name: pr471-A-source
+          run-id: 42452063347
+          repository: loom-2226/loom-2226
+          github-token: ${{ github.token }}
+          path: wayfarer/lab/packing_phase1b
+      - name: B3 native-to-imported exact surface distance FIRST
+        timeout-minutes: 20
+        shell: bash
+        continue-on-error: true
+        run: |
+          set +e
+          set -o pipefail
+          echo "B_STEP_START $(date -u +%Y-%m-%dT%H:%M:%SZ) phase=forward result=RUNNING"
+          timeout -s TERM -k 5s 1140s python -u wayfarer/lab/d9_pv_surface_recovery.py forward 2>&1 | tee B-forward.log
+          rc=${PIPESTATUS[0]}
+          echo "B_STEP_END $(date -u +%Y-%m-%dT%H:%M:%SZ) phase=forward exit=$rc"
+          exit "$rc"
+      - name: B4 imported-to-native exact surface distance SECOND
+        if: always()
+        timeout-minutes: 20
+        shell: bash
+        continue-on-error: true
+        run: |
+          set +e
+          set -o pipefail
+          echo "B_STEP_START $(date -u +%Y-%m-%dT%H:%M:%SZ) phase=reverse result=RUNNING"
+          timeout -s TERM -k 5s 1140s python -u wayfarer/lab/d9_pv_surface_recovery.py reverse 2>&1 | tee B-reverse.log
+          rc=${PIPESTATUS[0]}
+          echo "B_STEP_END $(date -u +%Y-%m-%dT%H:%M:%SZ) phase=reverse exit=$rc"
+          exit "$rc"
+      - name: B validity signed orientation volume bbox no Boolean
+        if: always()
+        timeout-minutes: 3
+        shell: bash
+        continue-on-error: true
+        run: |
+          set +e
+          set -o pipefail
+          echo "B_STEP_START $(date -u +%Y-%m-%dT%H:%M:%SZ) phase=validity result=RUNNING"
+          timeout -s TERM -k 5s 150s python -u wayfarer/lab/d9_pv_surface_recovery.py validity 2>&1 | tee B-validity.log
+          rc=${PIPESTATUS[0]}
+          echo "B_STEP_END $(date -u +%Y-%m-%dT%H:%M:%SZ) phase=validity exit=$rc"
+          exit "$rc"
+      - name: B strict surface-method verdict skipping fuzzy Boolean
+        if: always()
+        timeout-minutes: 2
+        shell: bash
+        continue-on-error: true
+        run: |
+          set +e
+          set -o pipefail
+          echo "B_STEP_START $(date -u +%Y-%m-%dT%H:%M:%SZ) phase=finalize result=RUNNING"
+          timeout -s TERM -k 5s 95s python -u wayfarer/lab/d9_pv_surface_recovery.py finalize 2>&1 | tee B-final.log
+          rc=${PIPESTATUS[0]}
+          echo "B_STEP_END $(date -u +%Y-%m-%dT%H:%M:%SZ) phase=finalize exit=$rc"
+          exit "$rc"
+      - name: B runtime and sample readout
+        if: always()
+        shell: bash
+        run: |
+          echo "B runtime_seconds=$(( $(date +%s) - START_EPOCH ))" | tee -a "$GITHUB_STEP_SUMMARY"
+          if test -f wayfarer/results/out/shards/pressure.json; then
+            python - <<'PY'
+          import json
+          p=json.load(open("wayfarer/results/out/shards/pressure.json"))
+          print("B_PRESSURE_RESULT",json.dumps(p["check"],sort_keys=True))
+          PY
+          else
+            echo "B incomplete: pressure.json missing; zero qualification credit"
+          fi
+      - name: Preserve exact samples and partial checkpoints
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr471-PV-B-surface
+          if-no-files-found: warn
+          path: |
+            wayfarer/results/out/shards/pressure_stages.json
+            wayfarer/results/out/shards/pressure.json
+            B-forward.log
+            B-reverse.log
+            B-validity.log
+            B-final.log
+      - name: Strict B evidence gate
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path("wayfarer/results/out/shards/pressure.json").read_text())
+          assert p["pass"] is True and p["check"]["pass"] is True
+          print("B_PRESSURE_INTEGRITY_PASS")
+          PY
+  C0_remain:
+    needs: B_surface
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: C0 runtime start
+        run: echo "START_EPOCH=$(date +%s)" >> "$GITHUB_ENV"
+      - run: python -m pip install build123d==0.13.0
+      - uses: actions/download-artifact@v4
+        with:
+          name: pr471-A-source
+          run-id: 42452063347
+          repository: loom-2226/loom-2226
+          github-token: ${{ github.token }}
+          path: wayfarer/lab/packing_phase1b
+      - uses: actions/download-artifact@v4
+        with:
+          name: pr471-PV-B-surface
+          path: .
+      - name: Reuse PV B surface evidence and finish C0 remaining primaries
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/d9_c0_pressure_recovery.py | tee C0-recovery.log
+      - name: C0 runtime
+        if: always()
+        run: echo "C0 runtime_seconds=$(( $(date +%s) - START_EPOCH ))" | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pr471-PV-C0-primary
+          path: |
+            wayfarer/results/out/shards/primary-0.json
+            C0-recovery.log
+          if-no-files-found: warn
+      - name: Strict C0 evidence gate
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path("wayfarer/results/out/shards/primary-0.json").read_text())
+          assert p["pass"] is True and len(p["checks"])==11 and p["total_primaries"]==43
+          print("C0_11_PRIMARIES_PASS")
+          PY
+  E_merge_certify:
+    needs: [B_surface, C0_remain]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: E runtime start
+        run: echo "START_EPOCH=$(date +%s)" >> "$GITHUB_ENV"
+      - name: Reuse A STEP exact artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: pr471-A-source
+          run-id: 42452063347
+          repository: loom-2226/loom-2226
+          github-token: ${{ github.token }}
+          path: wayfarer/lab/packing_phase1b
+      - name: Reuse previous C1-C3 only
+        uses: actions/download-artifact@v4
+        with:
+          pattern: pr471-C-*
+          merge-multiple: true
+          run-id: 42452063347
+          repository: loom-2226/loom-2226
+          github-token: ${{ github.token }}
+          path: wayfarer/results/out/shards
+      - name: Reuse previous D0-D7 all 18721 pair observations
+        uses: actions/download-artifact@v4
+        with:
+          pattern: pr471-D-*
+          merge-multiple: true
+          run-id: 42452063347
+          repository: loom-2226/loom-2226
+          github-token: ${{ github.token }}
+          path: wayfarer/results/out/shards
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: pr471-PV-B-surface
+          path: .
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: pr471-PV-C0-primary
+          path: .
+      - name: E strict complete shard coverage and D9 result
+        shell: bash
+        run: |
+          set +e
+          python -u wayfarer/lab/d9_sharded_merge.py | tee E-merge.log
+          rc=${PIPESTATUS[0]}
+          echo "MERGE_EXIT=$rc" >> "$GITHUB_ENV"
+          exit 0
+      - name: E full certify against same current-source D9
+        shell: bash
+        run: |
+          set +e
+          python -u wayfarer/lab/certify.py | tee E-certify.log
+          rc=${PIPESTATUS[0]}
+          echo "CERT_EXIT=$rc" >> "$GITHUB_ENV"
+          exit 0
+      - name: E runtime
+        if: always()
+        run: echo "E runtime_seconds=$(( $(date +%s) - START_EPOCH ))" | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pr471-PV-E-final-verdict
+          path: |
+            E-merge.log
+            E-certify.log
+            wayfarer/results/out/D9_BREP_CLASH_REPORT.json
+            wayfarer/results/out/certification_report.json
+            wayfarer/results/out/CERTIFICATION_REPORT_v0.5.md
+          if-no-files-found: warn
+      - name: Strict E acceptance STOP no merge
+        shell: bash
+        run: |
+          test "$MERGE_EXIT" = 0
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          root=Path("wayfarer")
+          d=json.loads((root/"results/out/D9_BREP_CLASH_REPORT.json").read_text())
+          cert=json.loads((root/"results/out/certification_report.json").read_text())
+          sha=hashlib.sha256((root/"results/out/wayfarer_v05_geometry.json").read_bytes()).hexdigest()
+          assert d["geometry_sha256"]==cert["geometry_sha256"]==sha
+          assert d["D8_primary_shape_unchanged"] is True
+          assert len(d["primary_shape_volume_checks"])==43
+          assert not d["primary_invariant_failures"]
+          assert d["pair_count"]==d["expected_pairs"]==18721
+          assert d["lab_same_checker"]["pair_count"]==18721
+          assert d["category_d_count"]==0
+          assert not d["geometry_conversion_or_boolean_errors"]
+          assert d["pass"] is True and cert["certified"] is True
+          assert len(cert["summary"])==13
+          print("E_VERDICT CERTIFIED_TRUE SOURCE",sha,"PRIMARIES",43,"PAIRS",18721)
+          PY

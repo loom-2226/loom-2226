@@ -65,7 +65,7 @@ def _clip_vector(v: list[float], limit: float) -> tuple[list[float], float]:
 
 
 def simulate_coupled_case(*, name: str, target_velocity_m_s: list[float], axis: str, angle_deg: float, failed_cluster: str | None) -> dict[str, Any]:
-    state = build_mass_inertia_state(normal_remass_t=250.0, protected_water_t=50.0, launch_docked=True)
+    state = build_mass_inertia_state(normal_remass_t=245.39043171108221, protected_water_t=50.0, launch_docked=True)
     mass_kg = float(state["mass_t"]) * 1000.0
     tensor = state["inertia_tensor_kg_m2"]
     inv_i = _inv3(tensor)

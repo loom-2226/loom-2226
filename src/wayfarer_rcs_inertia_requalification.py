@@ -136,7 +136,7 @@ if __name__ == "__main__":
     print(
         json.dumps(
             build_rcs_inertia_requalification(
-                normal_remass_t=250.0,
+                normal_remass_t=245.39043171108221,
                 protected_water_t=50.0,
                 launch_docked=True,
             ),

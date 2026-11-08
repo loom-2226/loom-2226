@@ -11,12 +11,12 @@ SCHEMA = "LOOM_E1_MASS_INERTIA_RCS_AUTHORITY_V1"
 
 def build_e1_mass_inertia_rcs_authority() -> dict:
     mass = build_mass_inertia_state(
-        normal_remass_t=250.0,
+        normal_remass_t=245.39043171108221,
         protected_water_t=50.0,
         launch_docked=True,
     )
     rcs = build_rcs_inertia_requalification(
-        normal_remass_t=250.0,
+        normal_remass_t=245.39043171108221,
         protected_water_t=50.0,
         launch_docked=True,
     )
@@ -24,7 +24,7 @@ def build_e1_mass_inertia_rcs_authority() -> dict:
         "schema": SCHEMA,
         "status": "PASS",
         "configuration": {
-            "normal_remass_t": 250.0,
+            "normal_remass_t": 245.39043171108221,
             "protected_water_t": 50.0,
             "launch_state": "DOCKED",
             "mass_t": mass["mass_t"],

@@ -85,7 +85,7 @@ def _realize_mount_wrench(commands: dict[str, Any], *, com: Sequence[float],
 
 def _simulate_case(name: str, spec: dict[str, Any], *, coarse_fraction: float,
                    fine_fraction: float, trace_mib_ns: float) -> dict[str, Any]:
-    state = build_mass_inertia_state(normal_remass_t=250.0, protected_water_t=50.0, launch_docked=True)
+    state = build_mass_inertia_state(normal_remass_t=245.39043171108221, protected_water_t=50.0, launch_docked=True)
     mass_kg = float(state["mass_t"]) * 1000.0
     com = state["center_of_mass_m"]
     tensor = state["inertia_tensor_kg_m2"]

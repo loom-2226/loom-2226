@@ -1,4 +1,5 @@
 import json
+from src.wayfarer_torch_performance_remass_envelope import build_torch_performance_remass_envelope
 
 RCS_HOLDS = [
     "PHYSICAL_PLUME_MODEL_AND_CLEARANCE_SWEEP",
@@ -21,6 +22,7 @@ def _family(disposition, evidence, partition, nozzle, realizability):
 
 
 def build_trade():
+    cards = build_torch_performance_remass_envelope()["operating_cards"]
     return {
         "schema": "LOOM.Wayfarer.TorchReactorNozzleTechnologyFamilyTrade",
         "schema_version": "0.1",
@@ -38,24 +40,10 @@ def build_trade():
         },
         "required_vehicle_envelope": {
             "architecture": "AXIAL_FUSION_TORCH_WITH_MAGNETIC_NOZZLE",
-            "initial_direct_jet_power_W": {
-                "ECON": 5112451811250.0,
-                "CRUISE": 11361004025000.0,
-                "EXPEDITE": 11361004025000.0,
-                "FAST": 11929054226250.0,
-                "HARD": 12781129528125.0,
-                "LIMIT": 12781129528125.0,
-            },
-            "initial_axial_thrust_N": {
-                "ECON": 3408301.2075,
-                "CRUISE": 11361004.025,
-                "EXPEDITE": 22722008.05,
-                "FAST": 34083012.075,
-                "HARD": 56805020.125,
-                "LIMIT": 85207530.1875,
-            },
+            "initial_direct_jet_power_W": {mode: card["initial_direct_jet_power_W_at_reference_wet_mass"] for mode, card in cards.items()},
+            "initial_axial_thrust_N": {mode: card["initial_thrust_N_at_reference_wet_mass"] for mode, card in cards.items()},
             "exhaust_velocity_km_s_range": [300.0, 3000.0],
-            "normal_remass_t": 250.0,
+            "normal_remass_t": 245.39043171108221,
             "protected_water_reserve_t": 50.0,
             "candidate_machinery_x_m": [43.0, 50.0],
             "candidate_machinery_transverse_diameter_m": 4.25,

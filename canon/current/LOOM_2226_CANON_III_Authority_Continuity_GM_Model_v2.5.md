@@ -1,5 +1,5 @@
 # LOOM 2226 — CANON III: AUTHORITY, CONTINUITY & GM MODEL
-## Corrected Consolidated Baseline v2.4
+## Governing Wayfarer Reference Ledger Update v2.5
 
 **Status:** GOVERNING CANON CONTROL / GM DOCUMENT  
 **Freeze:** 22 August 2026 — model registry / LLM runtime / metric-architecture integration  
@@ -11,6 +11,8 @@ The previous three-volume v2.0 build is **WITHDRAWN**.
 It accidentally promoted a rejected intermediate phase-walk / early post-MVP architecture.
 
 It is not a rollback and has no canon authority.
+
+**v2.5 CCR-2026-0004:** kT-approved Wayfarer reference core packing changes normal remass to 245.39043171108221 t, water to 295.3904317110822 t (50 t protected), fuel to 3.8 t including 0.1 t house reserve, and six full-remass torch Δv figures (ECON 707.8454550926167 km/s). No hidden-topology, M1/M2/M3, metric, Navigator or world-history alteration. Governing only when the controlled implementation merges.
 
 **v2.4 promotion:** Preserves the complete v2.3 truth-state/xenoarchaeology freeze and hidden Loom graph; adds the governing runtime model registry, LLM numerical-use rules, and post-MV/metric-architecture supersession controls.
 
@@ -28,7 +30,7 @@ It is not a rollback and has no canon authority.
 
 # 3. Mandatory propulsion constants
 
-- Wet mass: **~1,158.5 t**
+- Reference wet mass: **1,153.8904317110823 t** (v2.5; detailed builder S1 1,167.532686975091 t)
 - Unified relational plant: **~88 t**
 - Shared bank: **2 GJ**
 - Metric: **0.268c / 0.437c / 0.519c / 0.595c**
@@ -71,7 +73,7 @@ Neither historical lineage has authority over the current reference courier:
 
 - unified relational plant: **~88 t**;
 - shared bank: **2 GJ**;
-- wet mass: **~1,158.5 t**;
+- reference wet mass: **1,153.8904317110823 t** (v2.5);
 - metric card: **0.268c / 0.437c / 0.519c / 0.595c**;
 - saturation response: **~0.678c, not certified**;
 - metric FTL: **BLACK**.
@@ -97,7 +99,7 @@ The world corpus contains inherited historical references to older metric perfor
 Those references are not current engineering authority. Any operational/economic statement that depends numerically
 on the old speed card must be interpreted or recalculated under CANON II v2.4.
 
-No future canon package may be declared frozen unless its propulsion constants match Section 3 above.
+No future canon package may be declared frozen unless its propulsion constants match Section 3 above and CANON II v2.5 §§13–14 for the reference Wayfarer.
 
 
 

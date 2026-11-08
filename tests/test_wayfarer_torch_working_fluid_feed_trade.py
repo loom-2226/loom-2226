@@ -10,14 +10,14 @@ class TorchWorkingFluidFeedTradeTests(unittest.TestCase):
 
     def test_required_flow_span_is_preserved(self):
         r=build_trade()
-        self.assertAlmostEqual(r["requirements"]["mass_flow_kg_s_range"][0],1.1361004025)
-        self.assertAlmostEqual(r["requirements"]["mass_flow_kg_s_range"][1],284.025100625)
-        self.assertEqual(r["requirements"]["normal_remass_t"],250.0)
+        self.assertAlmostEqual(r["requirements"]["mass_flow_kg_s_range"][0],1153.8904317110823 * 1000.0 * 0.3 * 9.80665 / 3000000.0)
+        self.assertAlmostEqual(r["requirements"]["mass_flow_kg_s_range"][1],1153.8904317110823 * 1000.0 * 7.5 * 9.80665 / 300000.0)
+        self.assertEqual(r["requirements"]["normal_remass_t"],245.39043171108221)
 
     def test_candidate_requires_explicit_properties(self):
         with self.assertRaises(ValueError): evaluate_candidate("hydrogen",None,10.0,0.9)
         c=evaluate_candidate("explicit_test_fluid",20.0,10.0,0.9)
-        self.assertAlmostEqual(c["required_usable_volume_m3"],250000.0/20.0/0.9)
+        self.assertAlmostEqual(c["required_usable_volume_m3"],(245.39043171108221*1000.0)/20.0/0.9)
         self.assertEqual(c["status"],"SENSITIVITY_ONLY_EXPLICIT_INPUTS")
         self.assertFalse(c["certified"])
 

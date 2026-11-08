@@ -67,8 +67,8 @@ def _element(name: str, mass_t: float, x_m: float, y_m: float, z_m: float, sourc
 
 
 def _build_elements(normal_remass_t: float, protected_water_t: float, launch_docked: bool) -> list[dict[str, Any]]:
-    if not 0.0 <= normal_remass_t <= 250.0:
-        raise ValueError("normal_remass_t must be in 0..250")
+    if not 0.0 <= normal_remass_t <= 245.39043171108221:
+        raise ValueError("normal_remass_t must be in 0..245.39043171108221")
     if not 0.0 <= protected_water_t <= 50.0:
         raise ValueError("protected_water_t must be in 0..50")
 
@@ -235,8 +235,8 @@ def build_mass_inertia_state(
         },
         "tensor_checks": checks,
         "source_lineage": [
-            "canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.4.md",
-            "canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.4a.md",
+            "canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.5.md",
+            "canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.5a.md",
             "PR_96_Q4_MASS_PROPERTIES_AND_RIGID_BODY_ENGINEERING",
             "COMPUTATIONAL_SHIPYARD_PHASE5B_INERTIA_AUTHORITY_FINDING",
             "PR_184_E1_RCS_RECOVERY_AND_FLIGHT_PHYSICS_OBJECTIVE",
@@ -266,4 +266,4 @@ def build_mass_inertia_state(
 if __name__ == "__main__":
     import json
 
-    print(json.dumps(build_mass_inertia_state(normal_remass_t=250.0, protected_water_t=50.0, launch_docked=True), indent=2, sort_keys=True))
+    print(json.dumps(build_mass_inertia_state(normal_remass_t=245.39043171108221, protected_water_t=50.0, launch_docked=True), indent=2, sort_keys=True))

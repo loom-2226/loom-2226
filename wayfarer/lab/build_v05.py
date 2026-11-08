@@ -470,6 +470,45 @@ def eig_sym3(A):
 
 
 # ---------------------------------------------------------------- build
+def core_cell_shapes(I, holes):
+    """Exactly the existing four source CSlot cells, shared by water and D-He3."""
+    T = I["tanks"]
+    g = T["groove"]
+    xm = sum(T["x_m"]) / 2
+    cells = {}
+    for name in T["cells"]["names"]:
+        side = 1 if name.startswith("starboard") else -1
+        x0, x1 = (T["x_m"][0], xm) if name.endswith("fore") else (xm, T["x_m"][1])
+        cells[name] = CSlot(x0, x1, T["r_in_m"] + .02, T["r_out_m"] - .02,
+                            T["slot_half_width_m"], g["azimuths_deg"],
+                            g["width_m"], g["depth_m"], side, holes=holes)
+    return cells
+
+
+def core_fuel_shapes(I, cells):
+    """Source 3.8t/63.6696m3 fuel in four fore-section lobes + 6mm dry caps.
+
+    No invented sidewall, insulation or pipe fit: those stay OPEN and the
+    source unlocated internal tank-structure displacement remains charged.
+    """
+    cfg = I.get("packing_phase1b")
+    if not cfg:
+        return []
+    fc = I["ship_power"]["fuel_container_proxy"]
+    liquid_volume = fc["phase1b_fuel_volume_m3"]
+    cap_thick = fc["dry_tank_caps_thickness_m"]
+    result = []
+    for name, cell in cells.items():
+        area = cell.volume() / (cell.x1 - cell.x0)
+        end = cell.x0 + liquid_volume / 4 / area
+        lobe = CSlot(cell.x0, end, cell.r0, cell.r1, cell.hw,
+                     cell.grooves, cell.gw, cell.gd, cell.side, cell.holes)
+        cap = CSlot(end, end + cap_thick, cell.r0, cell.r1, cell.hw,
+                    cell.grooves, cell.gw, cell.gd, cell.side, cell.holes)
+        result.append((name, lobe, cap))
+    return result
+
+
 def build(I, dy=0.0, dz=0.0):
     """dy, dz: sideways offset of the torch chain and aft RCS (thrust-line offset)."""
     H, L = I["hull"], I["ledger"]
@@ -511,8 +550,12 @@ def build(I, dy=0.0, dz=0.0):
     add("core_trunk", "Central trunk (utilities, avionics racks, goods lift)", "habitat",
         Sector(core_x0, decks[-1]["x_m"][1], 0.0, hab["core_r_m"]), SS["decks_and_core"] * 0.25, "ENGINEERING_ASSUMPTION", "core")
     av = L["avionics_split"]
-    add("core_racks", "Avionics racks in the trunk", "avionics", Sector(core_x0, decks[-1]["x_m"][1], 0.0, hab["core_r_m"] * 0.9),
-        av["core_racks"], "ENGINEERING_ASSUMPTION", "avionics")
+    # D3: racks yield to immutable axial core trunk. Retain source volume.
+    rack_r0 = hab["core_r_m"] + .05 if I.get("packing_phase1b") else 0.0
+    rack_r1 = math.sqrt(rack_r0*rack_r0 + (.9*hab["core_r_m"])**2) if rack_r0 else hab["core_r_m"]*.9
+    add("core_racks", "Avionics racks outside primary core trunk", "avionics",
+        Sector(core_x0, decks[-1]["x_m"][1], rack_r0, rack_r1),
+        av["core_racks"], "ENGINEERING_ASSUMPTION; Phase1b D3", "avionics")
     d1 = decks[0]
     CL = d1.get("command_layout", {})
     SR = CL.get("sensor_ring")
@@ -765,11 +808,17 @@ def build(I, dy=0.0, dz=0.0):
         pf["mass_t"], pf["prov"], "plant")
     sec = {k: Sector(v["x_m"][0], v["x_m"][1], v["r_m"][0], v["r_m"][1], v["theta_deg"][0], v["theta_deg"][1])
            for k, v in sv["sectors"].items()}
-    add("courier_systems", "Mission and courier systems", "mission", sec["transfer_and_courier"], L["mission_courier_systems_t"],
-        "CANON_MASS_DESIGN_POSITION", "equipment")
+    # D2: forward courier, outside the strake lines in the source screened
+    # gap, no shared occupancy with the service arm or payload holds.
+    packing = bool(I.get("packing_phase1b"))
+    courier_sector = sec["courier_forward"] if packing else sec["transfer_and_courier"]
+    arm_sector = sec["service_arm_separate"] if packing else sec["transfer_and_courier"]
+    add("courier_systems", "Mission and courier systems (forward exterior)",
+        "mission", courier_sector, L["mission_courier_systems_t"],
+        "KT_PHASE1B: forward screened placement; external mounts, MMOD and 1300K strake heat OPEN", "equipment")
     rs = L["rcs_split"]
-    add("service_arm", "Service arm and umbilicals", "service", sec["transfer_and_courier"], rs["service_arm_and_umbilicals"],
-        "ENGINEERING_ASSUMPTION", "equipment")
+    add("service_arm", "Service arm and umbilicals", "service", arm_sector,
+        rs["service_arm_and_umbilicals"], "KT_PHASE1B: separate uncut arm, pressure transfer path immutable", "equipment")
     dc = sv["docking_collar"]
     cz0 = -(Ro - 0.9)
     add("docking_collar", "Docking collar", "service", Tube((dc["x_m"], 0.0, cz0), (dc["x_m"], 0.0, -(Ro + 0.25)), dc["port_d_m"] / 2),
@@ -885,12 +934,30 @@ def build(I, dy=0.0, dz=0.0):
             "kT declared 2226 1kWh/kg including containment; 150kW/kg, physical rotor pairing/packing unqualified","equipment")
         add("house_energy_battery","Rechargeable endurance battery (electrical ring reallocation)",
             "electrical",Sector(er["x_m"][0], er["x_m"][1], er["r_m"][0], er["r_m"][1], 72, 170),HP["battery_energy_dry_t"],"kT declared 2226 2kWh/kg including module packaging; unqualified","equipment")
+        c_lite = sec["c_lite_tank"] if packing else ring
         add("c_lite_dry","Independent slow attitude chemical control, dry tanks/valves/nozzles",
-            "electrical",ring,HP["c_lite_dry_t"],"kT declared separate dry hardware; nozzle/control packaging OPEN","equipment")
+            "electrical",c_lite,HP["c_lite_dry_t"],"D4 distinct C-lite hardware; nozzle/control packaging OPEN","equipment")
         fc=HP["fuel_container_proxy"]
-        add("house_fuel_tank","D-He3 fuel tank, dry containment proxy","electrical",
-            Sector(*fc["x_m"],*fc["r_m"],*fc["theta_deg"]),HP["fuel_tank_dry_t"],
-            "kT house-power declaration: explicit engineering reserve draw; packaging not qualified","equipment",tags=("from_reserve","house_fuel_tank"))
+        if packing:
+            for name, liquid, cap in core_fuel_shapes(I, core_cell_shapes(I, holes)):
+                add("house_fuel_tank_cap_"+name,
+                    "D-He3 four-lobe tank dry closure cap (6mm source proxy)",
+                    "electrical",cap,HP["fuel_tank_dry_t"]/4,
+                    "KT_PHASE1B D1: 0.5t existing reserve-funded containment mass; fitted walls/insulation OPEN",
+                    "equipment",tags=("from_reserve","house_fuel_tank"))
+        else:
+            add("house_fuel_tank","D-He3 fuel tank, dry containment proxy","electrical",
+                Sector(*fc["x_m"],*fc["r_m"],*fc["theta_deg"]),HP["fuel_tank_dry_t"],
+                "kT house-power declaration: explicit engineering reserve draw; packaging not qualified","equipment",tags=("from_reserve","house_fuel_tank"))
+    if packing:
+        # D8 rule authorises +1.5x displaced secondary material in the
+        # ledger. This tiny geometry is a NO-RENDER mass/CG allowance only;
+        # fitted real doublers must be designed and checked at D9.
+        add("d8_unlocated_doubler_allowance","D8 secondary reinforcements (UNLOCATED mass/CG placeholder)",
+            "structure",Sector(23.9,23.91,0.0,0.1),
+            I["packing_phase1b"]["secondary_doubler_added_t"],
+            "KT_PHASE1B: 1.5x removed secondary mass; NO removal credit; fit/load paths OPEN",
+            "structure",tags=("from_reserve","no_render","no_shield_credit","unlocated"))
     add("plant_aft", "Relational plant, aft block", "plant", Sector(mx1, H["manifold_x_m"][1], 0.0, pf["r_m"]),
         I["ledger"]["relational_plant_t"] - pf["mass_t"], "DERIVED", "plant")
     add("manifold", "Radiator manifold, pumps and heat exchangers", "thermal",
@@ -981,14 +1048,7 @@ def fluids(I, sec, jacket_parts, jacket_t, w_service, state):
     """Water parts for one state: shelter jacket, service tank, four C-tank cells (settled aft under thrust)."""
     T = I["tanks"]
     st = I["states"][state]
-    g = T["groove"]
-    cells = {}
-    xm = (T["x_m"][0] + T["x_m"][1]) / 2
-    for name in T["cells"]["names"]:
-        side = 1 if name.startswith("starboard") else -1
-        x0, x1 = (T["x_m"][0], xm) if name.endswith("fore") else (xm, T["x_m"][1])
-        cells[name] = CSlot(x0, x1, T["r_in_m"] + 0.02, T["r_out_m"] - 0.02, T["slot_half_width_m"], g["azimuths_deg"], g["width_m"], g["depth_m"], side,
-                            holes=sec["_holes"])
+    cells = core_cell_shapes(I, sec["_holes"])
     out = []
     jv = sum(sh.volume() for _, sh in jacket_parts)
     for nm, sh in jacket_parts:
@@ -1023,15 +1083,24 @@ def fluids(I, sec, jacket_parts, jacket_t, w_service, state):
         fc=HP["fuel_container_proxy"]
         hm=st.get("house_fuel_t",HP["fuel_t"])
         if hm>0:
-            out.append(Part("house_fuel","D-He3 consumable house-reactor fuel","house_fuel",
-                Sector(*fc["x_m"],*fc["r_m"],*fc["theta_deg"]),hm,
-                "ENGINEERING_ASSUMPTION wet consumable, full reference S1–S7 inventory","dhe3",
-                dry=False,tags=("house_fuel","no_shield_credit")))
+            if I.get("packing_phase1b"):
+                for name,lobe,_ in core_fuel_shapes(I,cells):
+                    out.append(Part("house_fuel_lobe_"+name,
+                        "D-He3 consumable conformal core lobe "+name, "house_fuel",
+                        lobe, hm/4,
+                        "KT_PHASE1B D1 four-lobe wet fuel, segregation/insulation OPEN","dhe3",
+                        dry=False,tags=("house_fuel","no_shield_credit")))
+            else:
+                out.append(Part("house_fuel","D-He3 consumable house-reactor fuel","house_fuel",
+                    Sector(*fc["x_m"],*fc["r_m"],*fc["theta_deg"]),hm,
+                    "ENGINEERING_ASSUMPTION wet consumable, full reference S1–S7 inventory","dhe3",
+                    dry=False,tags=("house_fuel","no_shield_credit")))
     # Independent C-lite propellant is wet; do not hide its fuel in the 55t dry line.
     if HP and HP.get("c_lite_wet_propellant_t",0)>0:
         ring=I["service"]["electrical_ring"]
+        mono = I["service"]["sectors"]["c_lite_tank"] if I.get("packing_phase1b") else ring
         out.append(Part("c_lite_monoprop","C-lite independent green monopropellant","monoprop",
-            Sector(*ring["x_m"],*ring["r_m"],*ring["theta_deg"]),
+            Sector(*mono["x_m"],*mono["r_m"],*mono["theta_deg"]),
             HP["c_lite_wet_propellant_t"],"kT wet consumable: zero shielding credit, separate from water RCS",
             "monoprop",dry=False,tags=("c_lite_wet","no_shield_credit")))
     usable = remass * (1 - (vol[iso] / tot if iso else 0.0))
@@ -1285,7 +1354,11 @@ def main():
     raw = INP.read_bytes()
     I = json.loads(raw)
     parts, rooms, jacket_parts, jacket_vol, sec = build(I)
-    jacket_t = jacket_vol * 1.0
+    # D5: 1.931109t of previously overlapping jacket layers is reassigned
+    # as unique water inside the already-authorised service reservoir.
+    # The old jacket shape overlaps stay represented (G6 dose check OPEN).
+    pk=I.get("packing_phase1b",{})
+    jacket_t = jacket_vol - pk.get("jacket_overlap_to_service_t",0.0)
     tank_cap = sec["protected_water_tank"].volume() / (1 + I["protected_water"]["service_tank_ullage_fraction"])
     w_max = min(tank_cap, I["canon"]["protected_water_t"] - jacket_t)
     # choose the protected-water split and the thrust-line offset that minimise the worst trim angle.
@@ -1296,7 +1369,10 @@ def main():
     ys = [TO["search_y_m"][0] + i * st_ for i in range(int(round((TO["search_y_m"][1] - TO["search_y_m"][0]) / st_)) + 1)]
     zs = [TO["search_z_m"][0] + i * st_ for i in range(int(round((TO["search_z_m"][1] - TO["search_z_m"][0]) / st_)) + 1)]
     cand = []
-    wgrid = sorted(set([0.0] + [math.floor(w_max * k / 4 * 100) / 100 for k in range(1, 5)]))
+    wgrid = ([pk["service_water_t"]] if pk else
+             sorted(set([0.0] + [math.floor(w_max * k / 4 * 100) / 100 for k in range(1, 5)])))
+    if pk:
+        assert 0<=wgrid[0]<=w_max, ("D5 reservoir capacity",wgrid[0],w_max)
     for w in wgrid:
         mps = {}
         for s in snames(I):
@@ -1332,13 +1408,21 @@ def main():
         for s in snames(I):
             ps, *_ = state_parts(I, parts, sec, jacket_parts, jacket_t, w_service, s)
             dep = [Part(p.id + "_deployed", p.name.replace("(folded)", "(deployed)"), p.system,
-                        Panel(p.shape.x0, p.shape.x1, p.shape.a, p.shape.r0, span_dep, 0.06), p.mass_t, p.prov, p.mat, tags=p.tags)
+                        Panel(p.shape.x0, p.shape.x1, p.shape.a, p.shape.r0, span_dep,
+                              HF.get("deployed_panel_thickness_m",0.06)),
+                        p.mass_t, p.prov, p.mat, tags=p.tags)
                    if "fin" in p.tags else p for p in ps]
             mpd = mass_props(dep)
             evd, evecd = eig_sym3(mpd["inertia_kg_m2"])
             states[s]["fins_deployed"] = {"cg_m": mpd["cg_m"], "inertia_kg_m2": mpd["inertia_kg_m2"], "principal_kg_m2": evd,
                                           "principal_axes": evecd, "trim_deg": trim_deg(I, mpd, DY, DZ)[0]}
-        fins_out = {"span_m": span_dep, "panels_t": sum(p.mass_t for p in parts if "fin" in p.tags),
+        fins_out = {"span_m": span_dep,
+                    "deployed_panel_thickness_m":HF.get("deployed_panel_thickness_m",0.06),
+                    "deployed_geometry": [
+                        {"id":p.id+"_deployed","shape":Panel(p.shape.x0,p.shape.x1,p.shape.a,p.shape.r0,
+                            span_dep,HF.get("deployed_panel_thickness_m",0.06)).spec()}
+                        for p in parts if "fin" in p.tags],
+                    "panels_t": sum(p.mass_t for p in parts if "fin" in p.tags),
                     "total_t": sum(p.mass_t for p in parts if "from_reserve" in p.tags), "temperature_k": HF["temperature_k"],
                     "azimuths_deg": HF["azimuths_deg"], "root_r_m": HF["root_r_m"], "x_m": HF["x_m"]}
     dry = sum(p.mass_t for p in parts if p.dry)
@@ -1349,6 +1433,13 @@ def main():
     tank_gross = sum(c.volume() for c in cells.values())
     ts = tank_structure(I, tank_gross)
     tank_vol = tank_gross - ts["displaced_m3"]
+    if I.get("packing_phase1b"):
+        live_fuel=sum(p.shape.volume() for p in ref_parts if p.id.startswith("house_fuel_lobe_"))
+        dry_caps=sum(p.shape.volume() for p in parts if p.id.startswith("house_fuel_tank_cap_"))
+        physical_water=I["states"]["S1"]["remass_t"]
+        needed=(1+I["tanks"]["ullage_fraction"])*physical_water+live_fuel+dry_caps
+        assert needed <= tank_vol + 1e-6, (
+            "G1 LIQUID ullage and core packaging capacity violated",needed,tank_vol)
 
     def pjson(p):
         c, _, n = p.moments()
@@ -1387,6 +1478,17 @@ def main():
         "thrust_line_offset_m": {"y": DY, "z": DZ, "torch_chain_t": m_chain},
         "hot_fins": fins_out,
         "tank_volume_m3": tank_vol, "tank_volume_gross_m3": tank_gross, "tank_structure": ts,
+        "packing_phase1b": ({
+            **I["packing_phase1b"],"four_fuel_lobes_m3": sum(p.shape.volume() for p in ref_parts if p.id.startswith("house_fuel_lobe_")),
+            "four_fuel_caps_m3":sum(p.shape.volume() for p in parts if p.id.startswith("house_fuel_tank_cap_")),
+            "normal_core_remass_t":I["states"]["S1"]["remass_t"],
+            "source_G1_required_core_headspace_m3":.05*I["states"]["S1"]["remass_t"],
+            "source_core_available_m3":tank_vol,
+            "D1_liquid_basis_water_plus_ullage_plus_fuel_plus_caps_m3":1.05*I["states"]["S1"]["remass_t"]+
+                sum(p.shape.volume() for p in ref_parts if p.id.startswith("house_fuel_lobe_"))+
+                sum(p.shape.volume() for p in parts if p.id.startswith("house_fuel_tank_cap_")),
+            "G1_canon_departure_exposed":True,
+            } if I.get("packing_phase1b") else None),
         "tank_cells_m3": {n: c.volume() for n, c in cells.items()},
         "service_sectors_m3": {k: v.volume() for k, v in sec.items() if not k.startswith("_")},
         "parts": [pjson(p) for p in parts],
