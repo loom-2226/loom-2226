@@ -1,4 +1,4 @@
-name: Wayfarer #471 G3 CAD rebuild, D9 and full certification
+name: "Wayfarer #471 G3 CAD rebuild, D9 and full certification"
 on:
   pull_request:
     paths:
@@ -20,17 +20,20 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Pinned #156 source and CAD kernel (no quantifactus dependency)
+      - name: Pinned #156 geometry from upstream history, original CAD kernel, no cross-repo token
         shell: bash
         run: |
           set -euo pipefail
           python -m pip install build123d==0.13.0
-          mkdir -p "$RUNNER_TEMP/loom156"
-          git -C "$RUNNER_TEMP/loom156" init -q
-          git -C "$RUNNER_TEMP/loom156" fetch --depth=1 -q https://github.com/loom-2226/loom-research-lab.git 2ff825093148e3e522a22f3346f783c917994de4
-          git -C "$RUNNER_TEMP/loom156" checkout --detach -q FETCH_HEAD
-          test "$(git -C "$RUNNER_TEMP/loom156" rev-parse HEAD)" = 2ff825093148e3e522a22f3346f783c917994de4
-          echo "274e94fb43cfe549a3d2087abbdff4d65499ce6f5055ad2d7ade790414fbaaf9  $RUNNER_TEMP/loom156/projects/wayfarer_brep_pilot/geometry_base.json" | sha256sum -c -
+          mkdir -p "$RUNNER_TEMP/loom156/projects/wayfarer_brep_pilot"
+          source="$RUNNER_TEMP/loom156/projects/wayfarer_brep_pilot"
+          git fetch --depth=1 -q origin ea50354e222e77d145a6bbbf49227506d2b560fd
+          git show ea50354e222e77d145a6bbbf49227506d2b560fd:wayfarer/results/out/wayfarer_v05_geometry.json > "$source/geometry_base.json"
+          git show ea50354e222e77d145a6bbbf49227506d2b560fd:wayfarer/config/wayfarer_v05_inputs.json > "$source/inputs_base.json"
+          git show ea50354e222e77d145a6bbbf49227506d2b560fd:wayfarer/config/cert_criteria.json > "$source/criteria_base.json"
+          cp wayfarer/lab/packing_phase1b/source_brep_pilot.py "$source/pilot.py"
+          cp wayfarer/lab/packing_phase1b/source_brep_triage.py "$source/triage.py"
+          echo "274e94fb43cfe549a3d2087abbdff4d65499ce6f5055ad2d7ade790414fbaaf9  $source/geometry_base.json" | sha256sum -c -
       - name: Rebuild seven source-authoritative -0.26m offsets and original research D8 cuts
         shell: bash
         run: |

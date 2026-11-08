@@ -102,8 +102,9 @@ def main():
         rebased_parts=sorted(names),frozen_offset_m=[.03,-.23],
         authoritative_offset_m=[.03,-.26])),flush=True)
 
-    original_d=json.loads((src/"results"/"clash_triage.json").read_bytes())
-    assert len(original_d["conflicts_d"])==150
+    research_ref=json.loads((upstream/"lab/packing_phase1b/frozen_research_3p8_forward.json").read_bytes())
+    assert research_ref["source_original_D_hits"]==150
+    assert research_ref["source_geometry_sha256"]==P.SOURCE_HASH
     out=args.out;out.mkdir(parents=True,exist_ok=True)
     all_s={};base={};book_mass={};kind={};history=defaultdict(list)
     for part in J["parts"]:
