@@ -1,0 +1,316 @@
+{
+  "status": "HOLD_UNQUALIFIED_CROWN",
+  "source_tag": "canon-v2.5",
+  "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+  "geometry_source_unchanged": true,
+  "count_named_panes": 37,
+  "per_part_GLTF_nodes": 234,
+  "installed_source_nodes": 194,
+  "replaced_no_render_proxy_nodes_in_export": [
+    "crown_dome",
+    "crown_c_additional_strata_gore",
+    "crown_c_outward_retainers",
+    "crown_backup_pressure_dome",
+    "crown_adaptive_optogel"
+  ],
+  "note": "Existing no_render mass proxies remain in source G1; physical crown solids overlay is not yet a source-qualified replacement.",
+  "outer_pressure_dome_apex_m": -0.42,
+  "inner_backup_pressure_dome_apex_m": -0.3,
+  "name_mapping": "kT inner-backup order reverses v2.5 primary/backup labels, NOT coordinates",
+  "cavity_BRep_m3": 2.4886611982989955,
+  "declared_AOI_fill_m3": 3.023,
+  "AOI_volume_difference_m3": -0.5343388017010047,
+  "AOI_mass_t_unchanged": 3.04101485,
+  "source_mass_allocations_t": {
+    "crown_dome": 6.201515,
+    "crown_c_additional_strata_gore": 3.888898,
+    "crown_c_outward_retainers": 0.12,
+    "crown_c_seven_spare_panes": 0.385772,
+    "crown_backup_pressure_dome": 4.728898,
+    "crown_adaptive_optogel": 3.04101485
+  },
+  "target_contacts": [
+    {
+      "part": "dry:crown_pane_14",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_15",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_16",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_17",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_18",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_19",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_20",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_21",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_22",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_23",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_24",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_25",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_26",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_26",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_27",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_27",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_28",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_28",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_29",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_29",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_30",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_30",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_31",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_31",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_32",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_32",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_33",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_33",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_34",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_34",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_35",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_35",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_36",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_36",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_37",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_37",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_outer_pressure_dome",
+      "against": "dry:bow_sensors",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_outer_pressure_dome",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_outer_pressure_dome",
+      "against": "dry:armor",
+      "common_m3": 0.3435523001593115,
+      "exceeds_D9_0p01m3": true
+    },
+    {
+      "part": "dry:crown_inner_backup_pressure_dome",
+      "against": "dry:bow_sensors",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_inner_backup_pressure_dome",
+      "against": "dry:pressure_vessel",
+      "common_m3": 1.257582469558816,
+      "exceeds_D9_0p01m3": true
+    },
+    {
+      "part": "dry:crown_inner_backup_pressure_dome",
+      "against": "dry:armor",
+      "common_m3": 0.49737340521836515,
+      "exceeds_D9_0p01m3": true
+    },
+    {
+      "part": "dry:crown_aoi_cavity_envelope",
+      "against": "dry:bow_sensors",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_aoi_cavity_envelope",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_aoi_cavity_envelope",
+      "against": "dry:armor",
+      "common_m3": 0.4835090907634392,
+      "exceeds_D9_0p01m3": true
+    }
+  ],
+  "prohibited_overlap_count": 4,
+  "failed_boolean_count": 0,
+  "missing_canon_dimensions": [
+    "Pane retainer cross-sections / positions (only 0.12t allowance and removal doctrine supplied)",
+    "Osteon frame rib section and joints (only 1.8t mass; root/fork counts)",
+    "Tambour gore track cross-section and swept path (16 tracks and 50deg break only)",
+    "Brow ring axial datum (width 1m, height .22m, but no fully constrained placement)",
+    "Cavity fill geometry: declared 3.023m3 need not equal full two-dome interspace"
+  ],
+  "other_geometry_changed": false,
+  "print_tiles_count": 37,
+  "engineering_credit": 0
+}
