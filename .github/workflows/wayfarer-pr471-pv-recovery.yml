@@ -140,7 +140,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: pr471-PV-B-surface
-          path: wayfarer/results/out/shards
+          path: .
       - name: Reuse PV B surface evidence and finish C0 remaining primaries
         shell: bash
         run: |
@@ -209,12 +209,12 @@ jobs:
         continue-on-error: true
         with:
           name: pr471-PV-B-surface
-          path: wayfarer/results/out/shards
+          path: .
       - uses: actions/download-artifact@v4
         continue-on-error: true
         with:
           name: pr471-PV-C0-primary
-          path: wayfarer/results/out/shards
+          path: .
       - name: E strict complete shard coverage and D9 result
         shell: bash
         run: |
