@@ -33,6 +33,9 @@ RENAMES={
     **{f"dry:house_fuel_tank_cap_{i}":f"dry:house_fuel_tank_cap_{name}" for i,name in enumerate(CELL_NAMES)},
     **{f"S1:house_fuel_lobe_{i}:15":f"S1:house_fuel_lobe_{name}:{15+i}" for i,name in enumerate(CELL_NAMES)},
     "S1:c_lite_monoprop:16":"S1:c_lite_monoprop:19",
+    **{f"dry:bay_corner_32_3_{side}":f"dry:bay_corner_32.3_{side}" for side in ("p","s")},
+    **{f"dry:longeron_end_fitting_34_3_{pos}":f"dry:longeron_end_fitting_34.3_{pos}"
+        for pos in ("lower_port","lower_starboard","upper_port","upper_starboard")},
 }
 
 def catalogue(G):
