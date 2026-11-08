@@ -241,7 +241,7 @@ def main():
       print_tiles_count=37,engineering_credit=0)
     report_path=OUT/(PREFIX+"_report.json")
     report_path.write_text(json.dumps(report,indent=2)+"\n")
-    print("CROWN_37_PANES_VALID",len(bodies)-3,flush=True)
+    print("CROWN_37_PANES_VALID",sum(n.startswith("dry:crown_pane_") for n in bodies),flush=True)
     print("CROWN_DOME_AND_GEL_VOLUME",a.volume,b.volume,cavity_m3,"target",alloc,flush=True)
     print("CROWN_BOW_CLASH_COUNT",report["prohibited_overlap_count"],"BOOLEAN_ERRORS",report["failed_boolean_count"],flush=True)
     print("CROWN_HULL_MASS_REMOVAL",json.dumps(mass_removal),flush=True)
