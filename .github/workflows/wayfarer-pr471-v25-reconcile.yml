@@ -1,0 +1,139 @@
+name: "Wayfarer #471 v2.5 evidence and exact-head recertification"
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/wayfarer-pr471-v25-reconcile.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || 'engineering/wayfarer-phase1b-3p8-packing-pr1-20261108' }}
+          persist-credentials: true
+      - uses: actions/download-artifact@v4
+        with:
+          name: pr471-PV-E-final-verdict
+          run-id: 42454975181
+          repository: loom-2226/loom-2226
+          github-token: ${{ github.token }}
+          path: .
+      - name: Require original approved E PASS and source SHA
+        run: |
+          python - <<'PY'
+          import hashlib,json,pathlib
+          p=pathlib.Path("wayfarer/results/out")
+          sha=hashlib.sha256((p/"wayfarer_v05_geometry.json").read_bytes()).hexdigest()
+          d=json.loads((p/"D9_BREP_CLASH_REPORT.json").read_text())
+          c=json.loads((p/"certification_report.json").read_text())
+          assert sha=="88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1"
+          assert sha==d["geometry_sha256"]==c["geometry_sha256"]
+          assert d["pass"] and c["certified"] and d["pair_count"]==18721
+          assert len(d["primary_shape_volume_checks"])==43
+          assert d["category_d_count"]==0 and not d["primary_invariant_failures"]
+          print("OLD_E_PASS_CONFIRMED",sha)
+          PY
+      - name: Update mass basis and SHA-256 baseline register
+        run: |
+          python wayfarer/lab/mass_basis.py --capture
+          rm -f wayfarer/docs/MASS_WATERFALL_2026_11_04.md
+          python - <<'PY'
+          import hashlib,pathlib
+          names=[
+            "governance/current/LOOM_2226_Canon_Baseline_Manifest_v2.5.md",
+            "canon/current/LOOM_2226_CANON_I_World_History_Frontier_v2.4.md",
+            "canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.5.md",
+            "canon/current/LOOM_2226_CANON_III_Authority_Continuity_GM_Model_v2.5.md",
+            "canon/current/LOOM_2226_Earth_Solar_System_Canon_Atlas_v3.2.md",
+            "canon/current/LOOM_2226_Core_Mechanics_v0.5.md",
+            "canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.5a.md",
+            "canon/current/LOOM_2226_Earth_Biosynthetic_Canon_Amendment_v2.4b.md",
+            "canon/current/LOOM_2226_Synthetic_Personhood_Horizons_Canon_Amendment_v2.4c.md",
+            "governance/current/LOOM_2226_Canon_v2.5_Validation_Report.md",
+            "canon/current/LOOM_2226_CANON_v2.5_CHANGELOG.md"]
+          lines=["# LOOM 2226 - Baseline File Hashes v2.5",
+            "","CCR-2026-0004 APPROVED_FOR_IMPLEMENTATION; candidate, not governing until merged.",
+            "SHA-256 of literal bytes; v2.4 unchanged scoped source files remain registered.",
+            "","| Path | SHA-256 |","|---|---|"]
+          for f in names:
+              assert pathlib.Path(f).is_file(),f
+              lines.append("| "+f+" | "+hashlib.sha256(pathlib.Path(f).read_bytes()).hexdigest()+" |")
+          lines+=["","The register excludes its own bytes. Prior baseline preserved in git history.",""]
+          pathlib.Path("governance/current/LOOM_2226_Baseline_File_Hashes_v2.5.md").write_text("\n".join(lines))
+          print("BASELINE_HASHES",len(names))
+          PY
+      - name: Full current source recertification before commit
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/certify.py | tee PR471-commit-certify.log
+          python - <<'PY'
+          import hashlib,json,pathlib
+          p=pathlib.Path("wayfarer/results/out")
+          sha=hashlib.sha256((p/"wayfarer_v05_geometry.json").read_bytes()).hexdigest()
+          d=json.loads((p/"D9_BREP_CLASH_REPORT.json").read_text())
+          c=json.loads((p/"certification_report.json").read_text())
+          assert sha=="88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1"
+          assert sha==d["geometry_sha256"]==c["geometry_sha256"]
+          assert d["pass"] is True and c["certified"] is True
+          assert len(d["primary_shape_volume_checks"])==43 and d["pair_count"]==18721
+          print("CERTIFIED_TRUE_BEFORE_COMMIT",sha)
+          PY
+      - name: Commit passing evidence and push only #471 branch
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- wayfarer/results/out/D9_BREP_CLASH_REPORT.json wayfarer/results/out/certification_report.json wayfarer/results/out/CERTIFICATION_REPORT_v0.5.md wayfarer/config/mass_basis.json governance/current/LOOM_2226_Baseline_File_Hashes_v2.5.md
+          if ! git diff --cached --quiet; then
+            git commit -m "class:canon: #471 preserve green D9 certification and v2.5 source mass/hash"
+            git push origin "HEAD:engineering/wayfarer-phase1b-3p8-packing-pr1-20261108"
+          fi
+          echo "EVIDENCE_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_STEP_SUMMARY"
+  verify:
+    needs: evidence
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: engineering/wayfarer-phase1b-3p8-packing-pr1-20261108
+      - name: Certify exact branch head
+        run: |
+          set -euo pipefail
+          echo "RECERTIFIED_HEAD=$(git rev-parse HEAD)" | tee -a "$GITHUB_STEP_SUMMARY"
+          python -u wayfarer/lab/certify.py | tee PR471-exact-head-certify.log
+          python - <<'PY'
+          import hashlib,json,pathlib
+          p=pathlib.Path("wayfarer/results/out")
+          sha=hashlib.sha256((p/"wayfarer_v05_geometry.json").read_bytes()).hexdigest()
+          d=json.loads((p/"D9_BREP_CLASH_REPORT.json").read_text())
+          c=json.loads((p/"certification_report.json").read_text())
+          assert sha=="88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1"
+          assert sha==d["geometry_sha256"]==c["geometry_sha256"]
+          assert d["pass"] is True and c["certified"] is True
+          assert d["pair_count"]==18721 and len(d["primary_shape_volume_checks"])==43
+          assert d["category_d_count"]==0 and not d["primary_invariant_failures"]
+          assert len(c["summary"])==13
+          print("EXACT_HEAD_CERTIFIED_TRUE",sha)
+          PY
+      - name: Git grep exact-head old values
+        run: |
+          {
+            echo "HEAD $(git rev-parse HEAD)"
+            echo "Search: 5.000 t / 300 t / 1,158.5 / 719.29"
+            git grep -n -I -E '5\.000[[:space:]]*t|300[[:space:]]*t|1,158\.5|1158\.5|719\.29' || true
+          } | tee PR471-old-value-hits.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pr471-v25-exact-head-certify-search
+          path: |
+            PR471-exact-head-certify.log
+            PR471-old-value-hits.txt
+            wayfarer/results/out/certification_report.json
+            wayfarer/results/out/D9_BREP_CLASH_REPORT.json
