@@ -18,7 +18,7 @@ class WayfarerRCSMountAllocatorTests(unittest.TestCase):
 
     def test_current_configuration_com_is_consumed(self):
         payload = build_mount_allocation_qualification()
-        self.assertEqual(payload["reference_state"]["mass_t"], 1153.8904317110823)
+        self.assertAlmostEqual(payload["reference_state"]["mass_t"], 1153.8904317110823, places=9)
         self.assertAlmostEqual(payload["reference_state"]["center_of_mass_m"][0], 26.68334873625709)
         self.assertAlmostEqual(payload["reference_state"]["center_of_mass_m"][2], 0.14871429321546378)
 

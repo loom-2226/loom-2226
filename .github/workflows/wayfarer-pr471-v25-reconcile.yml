@@ -171,7 +171,7 @@ jobs:
             bash engineering/verification/z3/run_wayfarer_torch_segment_z3.sh
             bash engineering/verification/z3/run_wayfarer_torch_multisegment_z3.sh
             bash engineering/verification/z3/run_wayfarer_torch_mission_z3.sh
-            bash engineering/verification/z3/run_wayfarer_torch_generated_z3.sh
+            PYTHONPATH=. bash engineering/verification/z3/run_wayfarer_torch_generated_z3.sh
           } 2>&1 | tee PR471-z3-regression.log
       - name: Full Python test suite (all tracked tests discovered, not a narrow cherry-pick)
         if: always()
