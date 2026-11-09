@@ -1,0 +1,694 @@
+{
+  "status": "BAY_FULL_SHIP_3X2_D9_AND_CONTAINMENT_PASS",
+  "governing_canon_tag": "canon-v2.5.3",
+  "governing_merge_commit": "03479ea035a9207e3f7b91402ec387237b5c66e6",
+  "base_radiator_step1_commit": "e3084a06daa25169f080b67ce27b779825429bc5",
+  "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+  "chosen_layout": "axial_aft_fallback",
+  "primary_failed_and_fallback_used": true,
+  "primary_BRep_issues": 16,
+  "chosen_BRep_issues": 0,
+  "spare_panes_remain_original_approved_x_m": [
+    20,
+    22.6
+  ],
+  "spare_pane_nodes_not_moved": [
+    "dry:crown_spare_01",
+    "dry:crown_spare_02",
+    "dry:crown_spare_03",
+    "dry:crown_spare_04",
+    "dry:crown_spare_05",
+    "dry:crown_spare_06",
+    "dry:crown_spare_07"
+  ],
+  "source_original_courier_mass_t": 19.450370894400045,
+  "courier_mass_split_t": {
+    "bay_shell": 4.5,
+    "bay_doors": 2,
+    "drone_cradles": 3,
+    "crawler_egress": 1,
+    "charging_thermal": 1.5,
+    "existing_sensor_turrets": 1,
+    "courier_systems_unallocated": 6.450370894400045
+  },
+  "named_unlocated_courier_systems_remainder_t": 6.450370894400045,
+  "source_dry_mass_t": 868.1922552640087,
+  "ECON_dv_km_s": 707.845,
+  "source_mass_ledger_changed_t": 0,
+  "source_mass_allocations_represented_by_replaced_BReps": [
+    "courier_systems",
+    "drone_0",
+    "drone_1",
+    "drone_2",
+    "drone_3",
+    "ext_crawler_dock_0",
+    "ext_crawler_dock_1",
+    "ext_crawler_dock_2"
+  ],
+  "source_courier_id_retained_as_booked_allocation": true,
+  "source_mass_rebooking_t": 0,
+  "BRep_bay_parts": 25,
+  "bay_containment": {
+    "bay_fitted_inside_source_envelope": true,
+    "service_arm_and_tunnel_unchanged": true,
+    "collar_radial_corridor_clear": true,
+    "spare_panes_unchanged": true
+  },
+  "strake_1300K_view_factor_screen": {
+    "port": {
+      "unshadowed_geometric_view_factor": 0.400233,
+      "hot_strake_temperature_K": 1300,
+      "emissivity": 0.9,
+      "unshadowed_incident_kW_m2": 58.3366,
+      "passive_shielding_credit_kW_m2": 0,
+      "thermal_qualification": "OPEN: flux proxy without baffle shadowing, reflectance or response"
+    },
+    "starboard": {
+      "unshadowed_geometric_view_factor": 0.400233,
+      "hot_strake_temperature_K": 1300,
+      "emissivity": 0.9,
+      "unshadowed_incident_kW_m2": 58.3366,
+      "passive_shielding_credit_kW_m2": 0,
+      "thermal_qualification": "OPEN: flux proxy without baffle shadowing, reflectance or response"
+    }
+  },
+  "thermal_qualification": "OPEN: high unshadowed ~58kW/m2 bay-side strake exposure; no shielding or G4 credit",
+  "door_motion": "aft open swept BRep checked without claiming actuator or thermal closure",
+  "no_canon_mass_or_geometry_source_edit": true,
+  "six_modes_are_alternative_poses": true,
+  "modes": {
+    "stowed": {
+      "bay_component_count": 25,
+      "radiator_component_count": 12,
+      "source_suballocations_unchanged": true,
+      "original_spare_panes_in_situ": true,
+      "pressure_containment": {
+        "existing": {
+          "checked_physical_interior_count": 18,
+          "checked_parts": [
+            {
+              "part": "dry:command_terrace",
+              "volume_m3": 0.714,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:core_trunk",
+              "volume_m3": 25.701369499,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:floor_L1",
+              "volume_m3": 15.468416828,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:floor_L2",
+              "volume_m3": 14.850057146,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:floor_L3",
+              "volume_m3": 14.850057146,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:floor_L4",
+              "volume_m3": 14.850057146,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:hatch_L4L5_0",
+              "volume_m3": 0.0486,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:hatch_L4L5_180",
+              "volume_m3": 0.0486,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:i4_terrace_column_0",
+              "volume_m3": 0.002222865,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:i4_terrace_column_1",
+              "volume_m3": 0.002222865,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:i4_terrace_column_2",
+              "volume_m3": 0.002222865,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:i4_terrace_column_3",
+              "volume_m3": 0.002222865,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:navigator_platform",
+              "volume_m3": 0.583,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:outfit_L1",
+              "volume_m3": 6.198213759,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:outfit_L2",
+              "volume_m3": 5.925043745,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:outfit_L3",
+              "volume_m3": 6.069557007,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:outfit_L4",
+              "volume_m3": 5.925043745,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:outfit_L5",
+              "volume_m3": 5.925043745,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            }
+          ],
+          "escaped_parts": [],
+          "pass_containment": true,
+          "outside_tolerance_m3": 0.0001,
+          "excluded_no_render_allocation_count": 122,
+          "excluded_semantic_volume_proxies": [
+            "dry:room_L1-command",
+            "dry:room_L2-exercise",
+            "dry:room_L2-galley",
+            "dry:room_L2-hygiene",
+            "dry:room_L2-observation",
+            "dry:room_L2-wardroom",
+            "dry:room_L3-CA",
+            "dry:room_L3-CAPT",
+            "dry:room_L3-CB",
+            "dry:room_L3-GUEST",
+            "dry:room_L3-HC",
+            "dry:room_L3-HG",
+            "dry:room_L4-eclss",
+            "dry:room_L4-medical",
+            "dry:room_L4-shelter",
+            "dry:room_L5-airlock",
+            "dry:room_L5-custody",
+            "dry:room_L5-stores",
+            "dry:room_L5-stores2",
+            "dry:room_L5-suits",
+            "dry:room_L5-vestibule",
+            "dry:room_L5-workshop"
+          ],
+          "excluded_exterior_and_boundary": "Armor, vessel, crown, windows, exterior equipment, tanks and propulsion are not internal habitat fixtures",
+          "why_D9_missed": "D9 evaluates only solid overlaps >0.01m3, not unary hull containment; outfit_* collision pairs are category-c authored display representations, not category-d."
+        },
+        "new_interior": {
+          "checked_new_pressure_interior_count": 48,
+          "escaped_new_pressure_interior": [],
+          "checked_service_hull_count": 8,
+          "service_hull_escaped_m3": 0.0,
+          "structural_external_attachment_count": 12,
+          "external_brackets_not_misclassified_as_internal": true,
+          "pass_containment": true
+        },
+        "all_new_bay_outside_pressure_vessel_by_design": true,
+        "bay_inside_existing_outer_source_envelope": true,
+        "pass_containment": true
+      },
+      "door_open_sweep_clashes": [],
+      "gores": {
+        "stowed": {
+          "part_count": 474,
+          "pair_count": 112101,
+          "category_d_count": 0,
+          "boolean_errors": 0,
+          "containment_pass": true,
+          "door_open_sweep_pass": true,
+          "glb": "render/out/wayfarer_bay_fullship_88ce19fc_stowed_stowed.glb",
+          "gltf_extras": {
+            "mesh_nodes_with_extras": 474,
+            "all_scene_nodes_with_extras": 475,
+            "raw_glb_sha256": "b834a8f2308406c08f886a3b2b92a7190e0c7c71c12a65128f68fa81a7d7846e",
+            "bytes": 6850640
+          },
+          "category_counts": {
+            "a": 1,
+            "c": 173
+          }
+        },
+        "closed": {
+          "part_count": 474,
+          "pair_count": 112101,
+          "category_d_count": 0,
+          "boolean_errors": 0,
+          "containment_pass": true,
+          "door_open_sweep_pass": true,
+          "glb": "render/out/wayfarer_bay_fullship_88ce19fc_stowed_closed.glb",
+          "gltf_extras": {
+            "mesh_nodes_with_extras": 474,
+            "all_scene_nodes_with_extras": 475,
+            "raw_glb_sha256": "bbe52f1206fa55c2f2c54ca7dde83b9293138fd1f8336ac708f1faa25988eac3",
+            "bytes": 7758536
+          },
+          "category_counts": {
+            "a": 1,
+            "c": 157
+          }
+        }
+      }
+    },
+    "metric_hard": {
+      "bay_component_count": 25,
+      "radiator_component_count": 16,
+      "source_suballocations_unchanged": true,
+      "original_spare_panes_in_situ": true,
+      "pressure_containment": {
+        "existing": {
+          "checked_physical_interior_count": 18,
+          "checked_parts": [
+            {
+              "part": "dry:command_terrace",
+              "volume_m3": 0.714,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:core_trunk",
+              "volume_m3": 25.701369499,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:floor_L1",
+              "volume_m3": 15.468416828,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:floor_L2",
+              "volume_m3": 14.850057146,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:floor_L3",
+              "volume_m3": 14.850057146,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:floor_L4",
+              "volume_m3": 14.850057146,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:hatch_L4L5_0",
+              "volume_m3": 0.0486,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:hatch_L4L5_180",
+              "volume_m3": 0.0486,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:i4_terrace_column_0",
+              "volume_m3": 0.002222865,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:i4_terrace_column_1",
+              "volume_m3": 0.002222865,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:i4_terrace_column_2",
+              "volume_m3": 0.002222865,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:i4_terrace_column_3",
+              "volume_m3": 0.002222865,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:navigator_platform",
+              "volume_m3": 0.583,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:outfit_L1",
+              "volume_m3": 6.198213759,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:outfit_L2",
+              "volume_m3": 5.925043745,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:outfit_L3",
+              "volume_m3": 6.069557007,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:outfit_L4",
+              "volume_m3": 5.925043745,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:outfit_L5",
+              "volume_m3": 5.925043745,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            }
+          ],
+          "escaped_parts": [],
+          "pass_containment": true,
+          "outside_tolerance_m3": 0.0001,
+          "excluded_no_render_allocation_count": 122,
+          "excluded_semantic_volume_proxies": [
+            "dry:room_L1-command",
+            "dry:room_L2-exercise",
+            "dry:room_L2-galley",
+            "dry:room_L2-hygiene",
+            "dry:room_L2-observation",
+            "dry:room_L2-wardroom",
+            "dry:room_L3-CA",
+            "dry:room_L3-CAPT",
+            "dry:room_L3-CB",
+            "dry:room_L3-GUEST",
+            "dry:room_L3-HC",
+            "dry:room_L3-HG",
+            "dry:room_L4-eclss",
+            "dry:room_L4-medical",
+            "dry:room_L4-shelter",
+            "dry:room_L5-airlock",
+            "dry:room_L5-custody",
+            "dry:room_L5-stores",
+            "dry:room_L5-stores2",
+            "dry:room_L5-suits",
+            "dry:room_L5-vestibule",
+            "dry:room_L5-workshop"
+          ],
+          "excluded_exterior_and_boundary": "Armor, vessel, crown, windows, exterior equipment, tanks and propulsion are not internal habitat fixtures",
+          "why_D9_missed": "D9 evaluates only solid overlaps >0.01m3, not unary hull containment; outfit_* collision pairs are category-c authored display representations, not category-d."
+        },
+        "new_interior": {
+          "checked_new_pressure_interior_count": 48,
+          "escaped_new_pressure_interior": [],
+          "checked_service_hull_count": 8,
+          "service_hull_escaped_m3": 0.0,
+          "structural_external_attachment_count": 12,
+          "external_brackets_not_misclassified_as_internal": true,
+          "pass_containment": true
+        },
+        "all_new_bay_outside_pressure_vessel_by_design": true,
+        "bay_inside_existing_outer_source_envelope": true,
+        "pass_containment": true
+      },
+      "door_open_sweep_clashes": [],
+      "gores": {
+        "stowed": {
+          "part_count": 478,
+          "pair_count": 114003,
+          "category_d_count": 0,
+          "boolean_errors": 0,
+          "containment_pass": true,
+          "door_open_sweep_pass": true,
+          "glb": "render/out/wayfarer_bay_fullship_88ce19fc_metric_hard_stowed.glb",
+          "gltf_extras": {
+            "mesh_nodes_with_extras": 478,
+            "all_scene_nodes_with_extras": 479,
+            "raw_glb_sha256": "08b25d840732fd95940c4337a4d83d17bd21e15df410023d174da7ec5ea46283",
+            "bytes": 6871868
+          },
+          "category_counts": {
+            "a": 1,
+            "c": 173
+          }
+        },
+        "closed": {
+          "part_count": 478,
+          "pair_count": 114003,
+          "category_d_count": 0,
+          "boolean_errors": 0,
+          "containment_pass": true,
+          "door_open_sweep_pass": true,
+          "glb": "render/out/wayfarer_bay_fullship_88ce19fc_metric_hard_closed.glb",
+          "gltf_extras": {
+            "mesh_nodes_with_extras": 478,
+            "all_scene_nodes_with_extras": 479,
+            "raw_glb_sha256": "ac41fa952d208c4eb60cd0655f11bf13fb54f7d5dfd6c6142f8f2f5eea0026dc",
+            "bytes": 7779764
+          },
+          "category_counts": {
+            "a": 1,
+            "c": 157
+          }
+        }
+      }
+    },
+    "torch": {
+      "bay_component_count": 25,
+      "radiator_component_count": 72,
+      "source_suballocations_unchanged": true,
+      "original_spare_panes_in_situ": true,
+      "pressure_containment": {
+        "existing": {
+          "checked_physical_interior_count": 18,
+          "checked_parts": [
+            {
+              "part": "dry:command_terrace",
+              "volume_m3": 0.714,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:core_trunk",
+              "volume_m3": 25.701369499,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:floor_L1",
+              "volume_m3": 15.468416828,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:floor_L2",
+              "volume_m3": 14.850057146,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:floor_L3",
+              "volume_m3": 14.850057146,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:floor_L4",
+              "volume_m3": 14.850057146,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:hatch_L4L5_0",
+              "volume_m3": 0.0486,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:hatch_L4L5_180",
+              "volume_m3": 0.0486,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:i4_terrace_column_0",
+              "volume_m3": 0.002222865,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:i4_terrace_column_1",
+              "volume_m3": 0.002222865,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:i4_terrace_column_2",
+              "volume_m3": 0.002222865,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:i4_terrace_column_3",
+              "volume_m3": 0.002222865,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:navigator_platform",
+              "volume_m3": 0.583,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:outfit_L1",
+              "volume_m3": 6.198213759,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:outfit_L2",
+              "volume_m3": 5.925043745,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:outfit_L3",
+              "volume_m3": 6.069557007,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:outfit_L4",
+              "volume_m3": 5.925043745,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            },
+            {
+              "part": "dry:outfit_L5",
+              "volume_m3": 5.925043745,
+              "outside_pressure_interior_m3": 0.0,
+              "pass_containment": true
+            }
+          ],
+          "escaped_parts": [],
+          "pass_containment": true,
+          "outside_tolerance_m3": 0.0001,
+          "excluded_no_render_allocation_count": 122,
+          "excluded_semantic_volume_proxies": [
+            "dry:room_L1-command",
+            "dry:room_L2-exercise",
+            "dry:room_L2-galley",
+            "dry:room_L2-hygiene",
+            "dry:room_L2-observation",
+            "dry:room_L2-wardroom",
+            "dry:room_L3-CA",
+            "dry:room_L3-CAPT",
+            "dry:room_L3-CB",
+            "dry:room_L3-GUEST",
+            "dry:room_L3-HC",
+            "dry:room_L3-HG",
+            "dry:room_L4-eclss",
+            "dry:room_L4-medical",
+            "dry:room_L4-shelter",
+            "dry:room_L5-airlock",
+            "dry:room_L5-custody",
+            "dry:room_L5-stores",
+            "dry:room_L5-stores2",
+            "dry:room_L5-suits",
+            "dry:room_L5-vestibule",
+            "dry:room_L5-workshop"
+          ],
+          "excluded_exterior_and_boundary": "Armor, vessel, crown, windows, exterior equipment, tanks and propulsion are not internal habitat fixtures",
+          "why_D9_missed": "D9 evaluates only solid overlaps >0.01m3, not unary hull containment; outfit_* collision pairs are category-c authored display representations, not category-d."
+        },
+        "new_interior": {
+          "checked_new_pressure_interior_count": 48,
+          "escaped_new_pressure_interior": [],
+          "checked_service_hull_count": 8,
+          "service_hull_escaped_m3": 0.0,
+          "structural_external_attachment_count": 12,
+          "external_brackets_not_misclassified_as_internal": true,
+          "pass_containment": true
+        },
+        "all_new_bay_outside_pressure_vessel_by_design": true,
+        "bay_inside_existing_outer_source_envelope": true,
+        "pass_containment": true
+      },
+      "door_open_sweep_clashes": [],
+      "gores": {
+        "stowed": {
+          "part_count": 534,
+          "pair_count": 142311,
+          "category_d_count": 0,
+          "boolean_errors": 0,
+          "containment_pass": true,
+          "door_open_sweep_pass": true,
+          "glb": "render/out/wayfarer_bay_fullship_88ce19fc_torch_stowed.glb",
+          "gltf_extras": {
+            "mesh_nodes_with_extras": 534,
+            "all_scene_nodes_with_extras": 535,
+            "raw_glb_sha256": "50b5894c2c5d266cf335abfb670c15e86f8cad0a19b31e36606a6cc2cf04055d",
+            "bytes": 7129852
+          },
+          "category_counts": {
+            "a": 1,
+            "c": 173
+          }
+        },
+        "closed": {
+          "part_count": 534,
+          "pair_count": 142311,
+          "category_d_count": 0,
+          "boolean_errors": 0,
+          "containment_pass": true,
+          "door_open_sweep_pass": true,
+          "glb": "render/out/wayfarer_bay_fullship_88ce19fc_torch_closed.glb",
+          "gltf_extras": {
+            "mesh_nodes_with_extras": 534,
+            "all_scene_nodes_with_extras": 535,
+            "raw_glb_sha256": "ad65ece9f8b6020d9bd7ede03b0a8470020c2fe77f4515538c1a9669e7ce1e42",
+            "bytes": 8037748
+          },
+          "category_counts": {
+            "a": 1,
+            "c": 157
+          }
+        }
+      }
+    }
+  },
+  "bay_components_step": "render/out/wayfarer_bay_fullship_88ce19fc_bay_components.step"
+}

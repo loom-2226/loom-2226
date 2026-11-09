@@ -527,5 +527,56 @@
   "crown_gore_baseline": "Existing sixteen Option C crown gores unchanged.",
   "implementation_hold": "PROPOSE ONLY; no true-solid/3D relocation, fabrication, source mass changes, runtime changes, new openings, or canon promotion until kT approves the separately presented dimensioned bay proposal.",
   "thermal_and_access_open": "Strakes at 1300K; MMOD/debris, docking collar, unmodified service arm and inhabited tunnel, rail/point egress and charging connections require fit and thermal checks before drawing."
+ },
+ "drone_crawler_bay_layout_2026_11_10": {
+  "decision": "ACCEPTED_LAYOUT_WITH_CHANGES_BREP_GATE",
+  "date": "2026-11-10",
+  "decided_by": "kT",
+  "supersedes": "2026-11-09 proposal, not 2026-11-09 accepted bay location",
+  "spares": {
+   "source_allocation": "crown_c_seven_spare_panes",
+   "keep_approved_screened_rack_x_m": [
+    20,
+    22.6
+   ],
+   "move_to_bay": false,
+   "existing_individual_true_panes": 7
+  },
+  "primary": {
+   "pod_orientation": "tangential to hull circumference",
+   "wing_contents": "one Mars drone_0/1 and one dense-air drone_2/3 per wing",
+   "doors": "outward radial per wing",
+   "collar_corridor": "keep clear"
+  },
+  "fallback": {
+   "orientation": "axial / aft-door",
+   "use_only_if_primary_fails_BRep_fit": true
+  },
+  "crawler": {
+   "existing_lines": [
+    "ext_crawler_dock_0",
+    "ext_crawler_dock_1",
+    "ext_crawler_dock_2"
+   ],
+   "compartments_and_charging": "as previously proposed",
+   "crawler_rail_interface": "test against existing points and rails; no fabricated certification"
+  },
+  "courier_mass_split_t": {
+   "shell_thermal_debris": 4.5,
+   "doors_actuation": 2,
+   "cradles_recovery": 3,
+   "crawler_guides": 1,
+   "charging_thermal_control": 1.5,
+   "existing_sensor_turrets": 1,
+   "remaining_courier_systems_allocation": 6.450370894400045,
+   "total": 19.450370894400045
+  },
+  "parent_courier_source_t": 19.450370894400045,
+  "conditions": "BRep fit screen primary first with pods,crawlers,doors swept open,collar corridor,service arm,tunnel and 1300K strake view factor. If primary fails, screen aft-door fallback. Only after a physical fit passes, draw true solids, preserve individual ledger masses, D9 + containment and six per-state GLBs with node extras.",
+  "stop_only": "Both tangential primary AND aft fallback fail BRep fit without mass or location rebooking.",
+  "no_canon_design_change": true,
+  "no_crown_over_drone_armour": true,
+  "gores": "existing sixteen gores unchanged",
+  "not_hardware_qualified": "doors, launch/capture and charging/thermal not mechanically or thermally qualified"
  }
 }

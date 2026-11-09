@@ -1,0 +1,39 @@
+name: Wayfarer drone/crawler bay primary/fallback BRep screen
+on:
+  pull_request:
+    paths:
+      - wayfarer/lab/bay_fit_v255.py
+      - wayfarer/config/kt_decisions.json
+      - .github/workflows/wayfarer-bay-fit.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: wayfarer-bay-fit-pr
+  cancel-in-progress: true
+jobs:
+  screen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned BRep implementation
+        run: python -m pip install build123d==0.13.0
+      - name: BRep test primary tangential then aft fallback, plus strake view factor
+        run: python -u wayfarer/lab/bay_fit_v255.py
+      - name: Print source fit decision and no-canon ledger check
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('wayfarer/render/out/wayfarer_drone_bay_fit_20261110.json').read_text())
+          assert r['chosen'] in ('tangential_radial','axial_aft_fallback')
+          assert r['variants'][r['chosen']]['pass_BRep_fit']
+          assert r['courier_remains_named_t']==6.450370894400045
+          assert r['ship_mass_unchanged_t']==868.1922552640087
+          assert r['source_spare_panes_remain_screened_at_x_m']==[20,22.6]
+          print('BAY_FIT_SELECTED',r['chosen'],'STRKE_THERMAL',r['strake_view_factor_screen'])
+          PY
