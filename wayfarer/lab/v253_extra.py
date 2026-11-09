@@ -27,16 +27,22 @@ def new_true_solids(geom):
     rows,done,keep,to_draw=inventory(geom)
     out={}
     for name in to_draw:
+        if name=="service_shield_band":continue  # two fitted intervals; multiple arc pieces
         row=rows[name]
         shape=P.make(row["shape"])  # exact approved shape / location, not a proxy double
         assert shape is not None and shape.is_valid and shape.volume>0,(name,shape)
         shape.label="dry:"+name
         shape.color=Color("#A6ACB2" if row["system"]=="structure" else "#B4B5B0")
         out[shape.label]=shape
+    fitted,band_report=fit_service_shield_band(geom)
+    assert not (set(out)&set(fitted))
+    out.update(fitted)
     evidence=dict(source_no_render_count=122,already_done_count=30,
                   already_done_ids=done,keep_as_allocation_count=30,
-                  keep_as_allocation_ids=keep,new_true_solids_count=61,
-                  new_true_solids_ids=to_draw,
+                  keep_as_allocation_ids=keep,new_source_allocations_count=61,
+                  new_true_solids_count=len(out),
+                  new_true_solids_ids=sorted(out),
+                  service_shield_band_fitting=band_report,
                   new_source_allocations_t={k:rows[k]["mass_t"] for k in to_draw},
                   source_allocation_total_t=sum(p["mass_t"] for p in rows.values()),
                   mass_rebooked_t=0)
@@ -111,8 +117,8 @@ def check_added_interior(model,geom,added):
     source={p["id"]:p for p in geom["parts"]}
     pv=source["pressure_vessel"]["shape"]
     pressure_inside=P.half_ellipsoid(pv["xa"]+pv["t"],pv["xb"],pv["xc"],pv["R"]-pv["t"])
-    inner=[n for n in added if source[n[4:]]["system"]=="habitat" and
-           n!="dry:service_shield_band"]
+    inner=[n for n in added if not n.startswith("dry:service_shield_band_")
+           and source[n[4:]]["system"]=="habitat"]
     assert len(inner)==48, (len(inner),inner)
     escaped=[]
     for n in sorted(inner):
@@ -121,14 +127,17 @@ def check_added_interior(model,geom,added):
         volume=0.0 if outside is None else float(outside.volume)
         if volume>.0001:escaped.append(dict(id=n,outside_m3=volume))
     assert not escaped,("newly drawn internal part outside pressure vessel",escaped)
-    service=model["dry:service_shield_band"]
+    services=[model[n] for n in sorted(added) if n.startswith("dry:service_shield_band_")]
+    assert services
     svc_hull=P.cyl(4.5,14.,18.)
-    svc_escaped=service-svc_hull
-    sv=0.0 if svc_escaped is None else float(svc_escaped.volume)
+    sv=0.
+    for service in services:
+        svc_escaped=service-svc_hull
+        sv+=0.0 if svc_escaped is None else float(svc_escaped.volume)
     assert sv<=.0001,("service shield outside service hull",sv)
     return dict(checked_new_pressure_interior_count=48,
                 escaped_new_pressure_interior=escaped,
-                checked_service_hull_count=1,
+                checked_service_hull_count=len(services),
                 service_hull_escaped_m3=sv,
                 structural_external_attachment_count=12,
                 external_brackets_not_misclassified_as_internal=True,
