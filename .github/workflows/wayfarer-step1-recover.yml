@@ -1,0 +1,73 @@
+name: Wayfarer Step 1 verified six-state artifact recovery
+on:
+  pull_request:
+    paths:
+      - .github/workflows/wayfarer-step1-recover.yml
+permissions:
+  contents: write
+  actions: read
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - uses: actions/download-artifact@v4
+        with:
+          name: wayfarer-step1-integrated-radiator-evidence
+          run-id: 42590761858
+          github-token: ${{ github.token }}
+          path: .
+      - name: Verify all six proven full-ship D9 scans and every glTF node extras
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json,struct
+          from pathlib import Path
+          root=Path("wayfarer/render/out")
+          report=root/"wayfarer_full_radiator_states_88ce19fc_report.json"
+          r=json.loads(report.read_text())
+          assert r["governing_canon_tag"]=="canon-v2.5.3"
+          assert r["source_dry_mass_t"]==868.1922552640087
+          assert r["source_mass_ledger_changed_t"]==0
+          assert r["no_print_only_edits"]
+          assert set(r["modes"])=={"stowed","metric_hard","torch"}
+          for mode,m in r["modes"].items():
+              assert m["containment"]["pass_containment"]
+              assert set(m["gores"])=={"stowed","closed"}
+              for pose,g in m["gores"].items():
+                  assert g["category_d_count"]==0
+                  assert g["boolean_errors"]==0 and g["containment_pass"]
+                  path=Path("wayfarer/"+g["glb"])
+                  data=path.read_bytes()
+                  assert hashlib.sha256(data).hexdigest()==g["gltf_extras"]["raw_glb_sha256"]
+                  n,t=struct.unpack_from("<II",data,12)
+                  assert t==0x4e4f534a
+                  gltf=json.loads(data[20:20+n])
+                  nodes=gltf["nodes"]
+                  assert all("extras" in node for node in nodes)
+                  meshes=[node for node in nodes if "mesh" in node]
+                  assert len(meshes)==g["part_count"]==g["gltf_extras"]["mesh_nodes_with_extras"]
+                  assert len(nodes)==g["gltf_extras"]["all_scene_nodes_with_extras"]>=len(meshes)
+                  assert all(node["extras"]["node_mass_rebooking_t"]==0 for node in meshes)
+                  print("INTEGRATED_VERIFIED",mode,pose,len(meshes),g["pair_count"])
+          print("FULL_SHIP_RADIATORS_ALL_SIX_D9_CONTAINMENT_GLTF_EXTRAS_PASS")
+          PY
+      - name: Commit pre-verified six full-ship GLBs and report to PR branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- wayfarer/render/out/wayfarer_full_radiator_states_88ce19fc_*.glb \
+                     wayfarer/render/out/wayfarer_full_radiator_states_88ce19fc_report.json
+          test "$(git diff --cached --name-only | wc -l)" -eq 7
+          git commit -m 'class:engineering: preserve verified six-state full ship D9 and node extras'
+          git restore --worktree -- .
+          git fetch origin "${{ github.head_ref }}"
+          git rebase "origin/${{ github.head_ref }}"
+          git push origin "HEAD:${{ github.head_ref }}"
