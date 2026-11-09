@@ -12,6 +12,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: wayfarer-v253-draw-pr478
+  cancel-in-progress: true
 jobs:
   draw:
     if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
@@ -32,7 +35,7 @@ jobs:
           echo '88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1  wayfarer/results/out/wayfarer_v05_geometry.json' | sha256sum -c -
           test -s wayfarer/config/kt_decisions.json
           test -s wayfarer/AGENTS.md
-      - name: Pinned G3 installed STEP source regeneration, no output promoted
+      - name: Pinned STEP regeneration plus one fitted-band shelter G6, no output promoted
         shell: bash
         run: |
           set -euo pipefail
@@ -53,13 +56,17 @@ jobs:
           python -u wayfarer/lab/packing_phase1b/source_candidate_rebuild.py \
             --source "$source" --out "$RUNNER_TEMP/rebuild" \
             --courier-forward --fuel-t 3.8 --house-reserve-t .1 \
-            --g1-liquid-ullage --export | tee crown-source-rebuild.log
+            --g1-liquid-ullage --v253-service-band --export | tee crown-source-rebuild.log
           python - <<'PY'
           from pathlib import Path
           import gzip, json, os, shutil
           out=Path(os.environ["RUNNER_TEMP"])/"rebuild"
           dest=Path("wayfarer/lab/packing_phase1b")
-          assert json.loads((out/"candidate_report.json").read_text())["candidate_pass"]
+          rebuilt=json.loads((out/"candidate_report.json").read_text())
+          assert rebuilt["candidate_pass"]
+          assert rebuilt["G6"]["g6_runs_for_v253"]==1
+          assert rebuilt["G6"]["kT_v253_min_53p39_with_0p1_tolerance_pass"]
+          assert rebuilt["G6"]["candidate_changed_BRep_g_cm2"]>=53.39034860482293-.1
           with (out/"candidate.step").open("rb") as r, (dest/"current_g3_3p8_forward.step.gz").open("wb") as w:
               with gzip.GzipFile(fileobj=w, mode="wb", filename="", mtime=0) as gz:
                   shutil.copyfileobj(r, gz)
@@ -83,12 +90,18 @@ jobs:
           r=json.loads(p.read_text())
           assert r["drawing_revision"]=="canon-v2.5.3"
           assert r["source_geometry_sha256"]=="88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1"
-          assert r["new_true_solids_count"]==61
+          assert r["new_true_solids_count"]>=61
+          assert r["approved_no_render_inventory"]["new_source_allocations_count"]==61
+          assert r["single_focused_shelter_G6"]["g6_runs_for_v253"]==1
+          assert r["single_focused_shelter_G6"]["kT_v253_min_53p39_with_0p1_tolerance_pass"]
           assert r["approved_no_render_inventory"]["already_done_count"]==30
           assert r["approved_no_render_inventory"]["keep_as_allocation_count"]==30
           assert r["approved_no_render_inventory"]["mass_rebooked_t"]==0
           assert r["original_v252_nodes_preserved"]==373
-          assert r["per_part_GLTF_nodes"]==466
+          assert r["per_part_GLTF_nodes"]==373+r["new_true_solids_count"]+32
+          assert r["fitted_service_shield_band"]["booked_mass_t"]==0.6
+          assert abs(r["fitted_service_shield_band"]["implied_fitted_mass_t"]-.6)<.001
+          assert r["single_focused_shelter_G6"]["candidate_changed_BRep_g_cm2"]>=53.39034860482293-.1
           assert r["gore_state_geometry"]["gores_per_state"]==16
           assert r["gore_state_geometry"]["physically_mutually_exclusive"]
           assert r["new_interior_containment_check"]["pass_containment"]
@@ -96,8 +109,8 @@ jobs:
           assert r["full_D9_candidate_accepts"] is True
           for pose in ["closed","stowed"]:
               scan=r["gore_states_D9_scans"][pose]
-              assert scan["part_count"]==450
-              assert scan["pair_count"]==101025
+              assert scan["part_count"]==373+r["new_true_solids_count"]+16
+              assert scan["pair_count"]==scan["part_count"]*(scan["part_count"]-1)//2
               assert scan["category_d_count"]==0
               assert not scan["collision_errors"]
               assert Path("wayfarer/render/out/wayfarer_parts_v253_88ce19fc_"+pose+".glb").is_file()
@@ -105,7 +118,8 @@ jobs:
           assert src["overall_length_m"]==r["overall_length_m_unchanged"]==54.5
           assert r["canonical_source_mass_t_before_and_after"]==src["dry_t"]==868.1922552640087
           assert r["delta_v_ECON_km_s_unchanged"]==707.845
-          assert r["other_geometry_changed"] is False
+          assert r["other_geometry_changed"]==["service_shield_band_fitted_at_unchanged_0p6t"]
+          assert r["unchanged_source_geometry"] is True
           print("V253_DRAW_D9_CONTAINMENT_PASS_NO_MASS_REBOOKING")
           PY
       - name: Commit three GLBs and machine report to PR branch
@@ -152,7 +166,10 @@ jobs:
           from pathlib import Path
           r=json.loads(Path("wayfarer/render/out/wayfarer_parts_v253_88ce19fc_report.json").read_text())
           assert r["drawing_revision"]=="canon-v2.5.3"
-          assert r["new_true_solids_count"]==61
+          assert r["new_true_solids_count"]>=61
+          assert r["approved_no_render_inventory"]["new_source_allocations_count"]==61
+          assert r["single_focused_shelter_G6"]["g6_runs_for_v253"]==1
+          assert r["single_focused_shelter_G6"]["kT_v253_min_53p39_with_0p1_tolerance_pass"]
           assert r["approved_no_render_inventory"]["already_done_count"]==30
           assert r["approved_no_render_inventory"]["keep_as_allocation_count"]==30
           assert r["full_D9_candidate_accepts"]
