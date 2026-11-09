@@ -103,12 +103,17 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -- wayfarer/render/out/wayfarer_full_radiator_states_88ce19fc_*.glb \
                      wayfarer/render/out/wayfarer_full_radiator_states_88ce19fc_report.json
-          test "$(git diff --cached --name-only | wc -l)" -eq 7
-          git commit -m 'class:engineering: full ship radiator states 3x2 D9 and per-node glTF extras'
-          git restore --worktree -- .
-          git fetch origin "${{ github.head_ref }}"
-          git rebase "origin/${{ github.head_ref }}"
-          git push origin "HEAD:${{ github.head_ref }}"
+          staged="$(git diff --cached --name-only | wc -l)"
+          if [ "$staged" -eq 0 ]; then
+            echo "Full-ship state assets already committed; verified, no duplicate commit"
+          else
+            test "$staged" -eq 7
+            git commit -m 'class:engineering: full ship radiator states 3x2 D9 and per-node glTF extras'
+            git restore --worktree -- .
+            git fetch origin "${{ github.head_ref }}"
+            git rebase "origin/${{ github.head_ref }}"
+            git push origin "HEAD:${{ github.head_ref }}"
+          fi
       - name: Retain full-ship D9 evidence, including blockers
         if: always()
         uses: actions/upload-artifact@v4
