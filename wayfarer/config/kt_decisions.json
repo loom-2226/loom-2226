@@ -600,5 +600,99 @@
   },
   "physical_change_hold": "PROPOSE ONLY; no new or altered solid, no hold cuts, no mass, CG, runtime, G8 or canon changes, no GLB/STL export",
   "geometry_requirements": "Compare existing x14..17 service holds, fit pods and 3 crawler stowed docks with cradles, screen door swept passage to hull and crawler attachment points, retain shuttle slot/collar/strake/hotfin clearance, quantify displacement vs existing G8 hold volume."
+ },
+ "standing_exterior_rules_F1_F4_2026_11_10": {
+  "decision": "kT STANDING RULES",
+  "effective_date": "2026-11-10",
+  "rules": {
+   "F1": "Nothing new protrudes beyond the hull line without kT approval + picture.",
+   "F2": "Allocations are never drawn as exterior solid blocks.",
+   "F3": "Exterior proposals include a before/after three-quarter render.",
+   "F4": "Propose-only = sketch + numbers. No BRep, D9 or exports until kT approves."
+  }
+ },
+ "internal_holds_existing_doors_2026_11_10": {
+  "status": "kT ACCEPTED — no new hatch; no new hull cuts",
+  "date": "2026-11-10",
+  "supersedes": [
+   "drone_crawler_bay_2026_11_09",
+   "drone_crawler_bay_layout_2026_11_10",
+   "drone_crawler_internal_hold_2026_11_10 prior proposed hatch",
+   "PR #485 (closed unmerged)"
+  ],
+  "holds": [
+   {
+    "source": "hold_starboard",
+    "drones": [
+     "drone_0",
+     "drone_2"
+    ],
+    "crawler_docks": [
+     "ext_crawler_dock_0"
+    ]
+   },
+   {
+    "source": "hold_port",
+    "drones": [
+     "drone_1",
+     "drone_3"
+    ],
+    "crawler_docks": [
+     "ext_crawler_dock_1",
+     "ext_crawler_dock_2"
+    ]
+   }
+  ],
+  "hold_doors": {
+   "status": "EXISTING CERTIFIED ONLY",
+   "clear_aperture_m": [
+    2.4,
+    1.8
+   ],
+   "azimuth_deg": [
+    0,
+    180
+   ],
+   "no_new_hatch": true,
+   "no_hull_cuts": true
+  },
+  "mars_pod_egress": {
+   "status": "OPEN — no solution authorised",
+   "note": "Existing 3.4m Mars pod cannot be assumed to exit 2.4m hold doors; folding/segmentation TBD, like shuttle B/KF; do not solve now."
+  },
+  "courier_systems": {
+   "decision": "OPTION C — 5t retained hardware, 14.450370894400045t to engineering reserve",
+   "source_allocation_t": 19.450370894400045,
+   "retain_t": 5,
+   "returned_to_engineering_reserve_t": 14.450370894400045,
+   "retained_split_t": {
+    "hold_hardware_and_existing_door_interfaces": 2,
+    "cradles": 1.5,
+    "crawler_guides": 0.5,
+    "charging": 0.5,
+    "mounts": 0.5
+   },
+   "new_dry_mass_change_t": 0,
+   "allocation_not_external_solid": true
+  },
+  "shuttered_legacy_exports": {
+   "external_bay_PR483": "WITHDRAWN; remove committed physical exterior bay solids from delivered six-state exports",
+   "full_radiator_states": "DELETE after successful new replacement exports",
+   "mass": "unchanged"
+  },
+  "shuttle": {
+   "reference": "wayfarer/render/shuttle/wayfarer_shuttle_v1_viewer.html",
+   "pose": "DOCKED",
+   "cad": "true-solid component port replacing existing dry:shuttle assembly",
+   "source_shuttle_booked_t": 30.732248081255836,
+   "mandatory_gate": "G8 on real BRep solids; STOP immediately if any actual shuttle component breaks G8. Report failing component; do not correct or shift."
+  },
+  "later_checks_if_shuttle_G8_passes": [
+   "D9 zero category d",
+   "pressure containment",
+   "six radiator/crown states with full per-part extras and semantic parent hierarchy",
+   "retire old full_radiator_states exports"
+  ],
+  "canon": "canon-v2.5.3 remains unchanged unless kT separately approves promotion"
  }
 }
