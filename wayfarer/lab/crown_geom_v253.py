@@ -224,7 +224,7 @@ def glb_names(path):
     doc=json.loads(data[20:20+n])
     return [v.get("name","") for v in doc["nodes"] if "mesh" in v]
 
-def main():
+def main(on_model_ready=None):
     raw=GEO.read_bytes()
     sha=hashlib.sha256(raw).hexdigest()
     assert sha==EXPECTED
@@ -390,6 +390,12 @@ def main():
     added_inside=check_added_interior(model,g,new_parts)
     poses,gore_report=gore_states(cfg)
     assert len(model)==373+len(new_parts)
+    if on_model_ready is not None:
+        # Exterior Step 1 hook: reusable v2.5.3 BReps, without re-exporting
+        # or changing v2.5.3 canon. Full-ship radiator states are checked
+        # separately in the calling script.
+        on_model_ready(model,poses,g,cfg,C,containment,added_inside,new_parts,sha)
+        return
     scans={}
     exports={}
     OUT.mkdir(parents=True,exist_ok=True)
