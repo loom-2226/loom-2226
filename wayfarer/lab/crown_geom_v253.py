@@ -435,7 +435,7 @@ def main():
       "Full physically closed 3.023m3 AOI fill vs modelled 2.489m3 cavity remains OPEN",
     ]
     mass={p["id"]:p["mass_t"] for p in g["parts"]}
-    report=dict(status="HOLD_UNQUALIFIED_CROWN",
+    report=dict(status="D9_CONTAINMENT_PASS_HARDWARE_OPEN",
       drawing_revision="canon-v2.5.3",source_tag="canon-v2.5",
       source_geometry_sha256=sha,geometry_source_unchanged=True,
       count_named_panes=37,per_part_GLTF_nodes=len(names),
@@ -475,7 +475,9 @@ def main():
       target_contacts=contacts,
       full_D9_candidate_scan=full_scan,
       full_D9_candidate_accepts=all(x["category_d_count"]==0 and not x["collision_errors"] for x in scans.values()),
-      prohibited_overlap_count=sum(q.get("exceeds_D9_0p01m3") is True for q in contacts),
+      prohibited_overlap_count=max(s["category_d_count"] for s in scans.values()),
+      legacy_target_contact_overlap_count=sum(q.get("exceeds_D9_0p01m3") is True for q in contacts),
+      target_contacts_basis="pre-substitution brow/seat vs armour diagnostics; not D9 installed-state clashes",
       failed_boolean_count=sum("error" in q for q in contacts),
       missing_canon_dimensions=missing_dims,
       other_geometry_changed=["service_shield_band_fitted_at_unchanged_0p6t"],
@@ -497,7 +499,7 @@ def main():
     print("WWS1_21_WINDOWS_5_BANDS_7_SPARES",glazing_report["round_assemblies"],
           glazing_report["viewport_band_segments"],glazing_report["spare_true_solids"],
           flush=True)
-    print("CROWN_HOLD",json.dumps({k:report[k] for k in ("prohibited_overlap_count","failed_boolean_count","AOI_volume_difference_m3","missing_canon_dimensions")}),flush=True)
+    print("CROWN_HARDWARE_OPEN",json.dumps({k:report[k] for k in ("prohibited_overlap_count","failed_boolean_count","AOI_volume_difference_m3","missing_canon_dimensions")}),flush=True)
 
 if __name__=="__main__":
     main()

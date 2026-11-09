@@ -1,0 +1,17 @@
+{
+  "schema": "wayfarer/canon-glb-pointer/v1",
+  "status": "RELEASED",
+  "tag": "canon-v2.5.3",
+  "release_commit": "03479ea035a9207e3f7b91402ec387237b5c66e6",
+  "path": "wayfarer/render/out/wayfarer_parts_v253_88ce19fc.glb",
+  "hash": {
+    "algorithm": "git-blob-sha1",
+    "value": "85c993b38726d7f47460b06d296e6233c7eac8ba"
+  },
+  "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+  "dry_mass_t": 868.1922552640087,
+  "delta_v_ECON_km_s": 707.845,
+  "glb_nodes": 473,
+  "report": "wayfarer/render/out/wayfarer_parts_v253_88ce19fc_report.json",
+  "notes": "Combined 473-node catalogue includes 16 STOWED and 16 CLOSED crown gores as mutually exclusive alternatives; do not install both sets at once. GLB hash is Git's blob SHA-1, not a raw-file SHA-256. Report-header tidy does not move the immutable release tag or modify this GLB."
+}

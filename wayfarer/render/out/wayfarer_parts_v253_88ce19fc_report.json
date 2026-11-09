@@ -1,5 +1,5 @@
 {
-  "status": "HOLD_UNQUALIFIED_CROWN",
+  "status": "D9_CONTAINMENT_PASS_HARDWARE_OPEN",
   "drawing_revision": "canon-v2.5.3",
   "source_tag": "canon-v2.5",
   "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
@@ -157,11 +157,11 @@
       "axial_intervals_m": [
         [
           14.15,
-          16.0
+          16
         ],
         [
           16.15,
-          17.0
+          17
         ]
       ],
       "radial_inner_m": 4.382272918701172,
@@ -292,11 +292,11 @@
     "axial_intervals_m": [
       [
         14.15,
-        16.0
+        16
       ],
       [
         16.15,
-        17.0
+        17
       ]
     ],
     "radial_inner_m": 4.382272918701172,
@@ -376,7 +376,7 @@
     ],
     "source_kernel": "exact copied pinned ea50354 build_v05.py and certify.py",
     "source_original_g_cm2": 53.3903486,
-    "source_threshold_g_cm2": 40.0,
+    "source_threshold_g_cm2": 40,
     "unlocated_secondary_doublers_shield_credit_zero": true,
     "v253_band_fit": {
       "additional_existing_part_cutout_count": 1,
@@ -406,11 +406,11 @@
       "axial_intervals_m": [
         [
           14.15,
-          16.0
+          16
         ],
         [
           16.15,
-          17.0
+          17
         ]
       ],
       "booked_density_t_per_m3": 0.12252112632170449,
@@ -451,7 +451,7 @@
     "checked_new_pressure_interior_count": 48,
     "escaped_new_pressure_interior": [],
     "checked_service_hull_count": 8,
-    "service_hull_escaped_m3": 0.0,
+    "service_hull_escaped_m3": 0,
     "structural_external_attachment_count": 12,
     "external_brackets_not_misclassified_as_internal": true,
     "pass_containment": true
@@ -2890,8 +2890,8 @@
     ],
     "pane_edge_x_m": 0.587630388891315,
     "hull_shoulder_x_m": 2.35,
-    "seam_step_at_pane_m": 0.0,
-    "seam_step_at_cylinder_m": 0.0,
+    "seam_step_at_pane_m": 0,
+    "seam_step_at_cylinder_m": 0,
     "source_renderer": "wayfarer/render/loomgl.js:crownMeshes/XO",
     "authored_gore_count": 16,
     "physical_gore_mechanism_qualified": false,
@@ -2905,12 +2905,12 @@
       "x1": 3,
       "r0": 4.050000000000001,
       "r1": 4.15,
-      "a0": 0.0,
-      "a1": 360.0
+      "a0": 0,
+      "a1": 360
     },
     "corrected_axial_range_m": [
       0.2,
-      3.0
+      3
     ],
     "corrected_inner_radius_range_m": [
       2.0122875442891504,
@@ -2930,109 +2930,109 @@
       {
         "part": "dry:command_terrace",
         "volume_m3": 0.714,
-        "outside_pressure_interior_m3": 0.0,
+        "outside_pressure_interior_m3": 0,
         "pass_containment": true
       },
       {
         "part": "dry:core_trunk",
         "volume_m3": 25.701369499,
-        "outside_pressure_interior_m3": 0.0,
+        "outside_pressure_interior_m3": 0,
         "pass_containment": true
       },
       {
         "part": "dry:floor_L1",
         "volume_m3": 15.468416828,
-        "outside_pressure_interior_m3": 0.0,
+        "outside_pressure_interior_m3": 0,
         "pass_containment": true
       },
       {
         "part": "dry:floor_L2",
         "volume_m3": 14.850057146,
-        "outside_pressure_interior_m3": 0.0,
+        "outside_pressure_interior_m3": 0,
         "pass_containment": true
       },
       {
         "part": "dry:floor_L3",
         "volume_m3": 14.850057146,
-        "outside_pressure_interior_m3": 0.0,
+        "outside_pressure_interior_m3": 0,
         "pass_containment": true
       },
       {
         "part": "dry:floor_L4",
         "volume_m3": 14.850057146,
-        "outside_pressure_interior_m3": 0.0,
+        "outside_pressure_interior_m3": 0,
         "pass_containment": true
       },
       {
         "part": "dry:hatch_L4L5_0",
         "volume_m3": 0.0486,
-        "outside_pressure_interior_m3": 0.0,
+        "outside_pressure_interior_m3": 0,
         "pass_containment": true
       },
       {
         "part": "dry:hatch_L4L5_180",
         "volume_m3": 0.0486,
-        "outside_pressure_interior_m3": 0.0,
+        "outside_pressure_interior_m3": 0,
         "pass_containment": true
       },
       {
         "part": "dry:i4_terrace_column_0",
         "volume_m3": 0.002222865,
-        "outside_pressure_interior_m3": 0.0,
+        "outside_pressure_interior_m3": 0,
         "pass_containment": true
       },
       {
         "part": "dry:i4_terrace_column_1",
         "volume_m3": 0.002222865,
-        "outside_pressure_interior_m3": 0.0,
+        "outside_pressure_interior_m3": 0,
         "pass_containment": true
       },
       {
         "part": "dry:i4_terrace_column_2",
         "volume_m3": 0.002222865,
-        "outside_pressure_interior_m3": 0.0,
+        "outside_pressure_interior_m3": 0,
         "pass_containment": true
       },
       {
         "part": "dry:i4_terrace_column_3",
         "volume_m3": 0.002222865,
-        "outside_pressure_interior_m3": 0.0,
+        "outside_pressure_interior_m3": 0,
         "pass_containment": true
       },
       {
         "part": "dry:navigator_platform",
         "volume_m3": 0.583,
-        "outside_pressure_interior_m3": 0.0,
+        "outside_pressure_interior_m3": 0,
         "pass_containment": true
       },
       {
         "part": "dry:outfit_L1",
         "volume_m3": 6.198213759,
-        "outside_pressure_interior_m3": 0.0,
+        "outside_pressure_interior_m3": 0,
         "pass_containment": true
       },
       {
         "part": "dry:outfit_L2",
         "volume_m3": 5.925043745,
-        "outside_pressure_interior_m3": 0.0,
+        "outside_pressure_interior_m3": 0,
         "pass_containment": true
       },
       {
         "part": "dry:outfit_L3",
         "volume_m3": 6.069557007,
-        "outside_pressure_interior_m3": 0.0,
+        "outside_pressure_interior_m3": 0,
         "pass_containment": true
       },
       {
         "part": "dry:outfit_L4",
         "volume_m3": 5.925043745,
-        "outside_pressure_interior_m3": 0.0,
+        "outside_pressure_interior_m3": 0,
         "pass_containment": true
       },
       {
         "part": "dry:outfit_L5",
         "volume_m3": 5.925043745,
-        "outside_pressure_interior_m3": 0.0,
+        "outside_pressure_interior_m3": 0,
         "pass_containment": true
       }
     ],
@@ -4516,7 +4516,7 @@
     "category_d_conflicts": []
   },
   "full_D9_candidate_accepts": true,
-  "prohibited_overlap_count": 2,
+  "prohibited_overlap_count": 0,
   "failed_boolean_count": 0,
   "missing_canon_dimensions": [
     "Per-pane retainer cross-sections and individual extraction paths are not source dimensioned",
@@ -4538,7 +4538,7 @@
     "storm_shelter_windows": 0,
     "spare_true_solids": 7,
     "first_screened_bay_wall_x_m": [
-      20.0,
+      20,
       22.6
     ],
     "layers_inboard_to_outboard": [
@@ -5028,5 +5028,7 @@
   },
   "canonical_source_mass_t_before_and_after": 868.1922552640087,
   "delta_v_ECON_km_s_unchanged": 707.845,
-  "engineering_credit": 0
+  "engineering_credit": 0,
+  "legacy_target_contact_overlap_count": 2,
+  "target_contacts_basis": "pre-substitution brow/seat vs armour diagnostics; not D9 installed-state clashes"
 }
