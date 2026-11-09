@@ -11,7 +11,7 @@ import hashlib,json,math,re,sys
 from pathlib import Path
 from build123d import Solid,Plane
 
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=Path(__file__).resolve().parents[2]
 VIEWER=ROOT/"render/shuttle/wayfarer_shuttle_v1_viewer.html"
 GEOM=ROOT/"results/out/wayfarer_v05_geometry.json"
 INPUT=ROOT/"config/wayfarer_v05_inputs.json"
