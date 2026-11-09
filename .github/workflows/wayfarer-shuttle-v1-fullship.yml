@@ -89,6 +89,13 @@ jobs:
               assert sum(x['name'].startswith('dry:crown_spare_') for x in meshes)==7
               assert not any(x['name'].startswith(('dry:bay_shell_', 'dry:bay_door_', 'dry:courier_systems')) for x in meshes)
               assert all(x['extras']['node_mass_rebooking_t']==0 for x in meshes)
+              for mesh in meshes:
+                e=mesh['extras']
+                for field in ('zone','deck','material','print_group','mass'):
+                  assert field in e and e[field] is not None,(mesh['name'],field)
+                assert isinstance(e['mass'],(int,float)) and e['mass']>=0
+                assert e['mass_basis']=='source_booking_reference_nonadditive'
+                assert e['print_group']==e['semantic_system']+'/'+e['semantic_subsystem']
               assert record['semantic_hierarchy']['hierarchy_valid']
               print('VERIFIED_SIX_STATE',mode,pose,record['part_count'])
           print('ALL_SIX_SHUTTLE_D9_CONTAINMENT_LEDGER_HIERARCHY_PASS')
@@ -98,6 +105,9 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm -f --ignore-unmatch \
+            wayfarer/render/out/wayfarer_radiators_step1_88ce19fc_* \
+            wayfarer/render/out/wayfarer_I4_in_out_88ce19fc.glb
           git rm -f --ignore-unmatch \
             wayfarer/render/out/wayfarer_bay_fullship_88ce19fc_*.glb \
             wayfarer/render/out/wayfarer_bay_fullship_88ce19fc_report.json \
@@ -115,6 +125,8 @@ jobs:
           test "$(git ls-files --cached 'wayfarer/render/out/wayfarer_shuttle_hold_fullship_88ce19fc_*.glb' | wc -l)" -eq 6
           test "$(git ls-files --cached 'wayfarer/render/out/wayfarer_bay_fullship_88ce19fc_*' | wc -l)" -eq 0
           test "$(git ls-files --cached 'wayfarer/render/out/wayfarer_full_radiator_states_88ce19fc_*' | wc -l)" -eq 0
+          test "$(git ls-files --cached 'wayfarer/render/out/wayfarer_radiators_step1_88ce19fc_*' | wc -l)" -eq 0
+          test "$(git ls-files --cached 'wayfarer/render/out/wayfarer_I4_in_out_88ce19fc.glb' | wc -l)" -eq 0
           git commit -m 'class:engineering: six verified docked-shuttle GLBs with extras/hierarchy, retire superseded exports'
           git restore --worktree -- .
           git fetch origin "${{ github.head_ref }}"
