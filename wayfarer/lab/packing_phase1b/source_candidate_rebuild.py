@@ -62,6 +62,8 @@ def main():
     ap.add_argument("--fuel-t",type=float,default=4.,help="D1 D-He3 total t, default 4.0 legacy Phase1a")
     ap.add_argument("--g1-liquid-ullage",action="store_true",help="G1 SOURCE: 5pct liquid volume (300t x 1.05 = 315m3); else old tank fraction replay")
     ap.add_argument("--house-reserve-t",type=float,default=.10,help="D1 screening house fuel reserve above torch full-ECON fuel; 0.10t provisional, NOT source mission requirement")
+    ap.add_argument("--v253-service-band",action="store_true",
+                    help="One kT-directed G6 screen of the fitted 0.6t band against 53.39 minus 0.1")
     args=ap.parse_args()
     assert 3.0<=args.fuel_t<=5.0
     assert args.house_reserve_t>=0
@@ -561,6 +563,17 @@ def main():
         def contains(self,x,y,z):
             return bool(self.s.is_inside((x,y,z),1e-7))
         def bbox(self):return self.b
+    band_fitted,band_fit_report={},None
+    if args.v253_service_band:
+        sys.path.insert(0,str(upstream/"lab"))
+        from v253_extra import fit_service_shield_band
+        band_fitted,band_fit_report=fit_service_shield_band(J)
+        assert band_fitted and abs(band_fit_report["implied_fitted_mass_t"]-.6)<.001
+        print("V253_SERVICE_BAND_FIT",json.dumps(dict(
+            pieces=len(band_fitted),
+            thickness_m=band_fit_report["fitted_radial_thickness_m"],
+            source_volume_m3=band_fit_report["source_volume_m3"],
+            fitted_volume_m3=band_fit_report["fitted_volume_m3"])),flush=True)
     origitems=[];newitems=[]
     changes={x["part"] for x in movement+notches}
     spread_fraction=CC.committed_shield_fraction(I,J)
@@ -574,6 +587,12 @@ def main():
             baseline_density=m/p["volume_m3"]
             origitems.append((orig,baseline_density,orig.bbox()))
             name="dry:"+p["id"] if scope=="dry" else f"S1:{p['id']}:{idx:02d}"
+            if name=="dry:service_shield_band" and args.v253_service_band:
+                for part in band_fitted.values():
+                    fitted=CandidateRayShape(part)
+                    # Same 0.6t mass, same source effective density.
+                    newitems.append((fitted,m/band_fit_report["fitted_volume_m3"],fitted.bbox()))
+                continue
             if name not in all_s:continue
             if name in changes:
                 updated=CandidateRayShape(all_s[name])
@@ -609,6 +628,8 @@ def main():
         violations.append(dict(blocked="pinned source G6 baseline mismatch",oldmin=oldmin))
     if newmin<C["G6"]["shelter_min_g_cm2"]:
         violations.append(dict(blocked="candidate G6 below source 40g/cm2 screen",newmin=newmin))
+    if args.v253_service_band and newmin<53.39034860482293-0.1:
+        violations.append(dict(blocked="kT STOP: fitted band reduces shelter G6 below 53.39-0.1 g/cm2",newmin=newmin))
     g6screen=dict(source_original_g_cm2=round(oldmin,8),
                   candidate_changed_BRep_g_cm2=round(newmin,8),
                   source_threshold_g_cm2=C["G6"]["shelter_min_g_cm2"],
@@ -617,7 +638,10 @@ def main():
                   scenario_minima=points,
                   numeric_shelter_screen_pass=newmin>=C["G6"]["shelter_min_g_cm2"],
                   unlocated_secondary_doublers_shield_credit_zero=True,
-                  radiation_transport_qualification=False)
+                  radiation_transport_qualification=False,
+                  v253_band_fit=band_fit_report,
+                  kT_v253_min_53p39_with_0p1_tolerance_pass=(newmin>=53.39034860482293-.1 if args.v253_service_band else None),
+                  g6_runs_for_v253=1 if args.v253_service_band else 0)
     # conservative: source 4t decrease; jacket net unchanged, only fluid
     # normalization; CG unknown for additional notch material reinforcements.
     g8=P.make_g8(I,C,{k[4:]:s for k,s in all_s.items() if k.startswith("dry:")})

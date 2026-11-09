@@ -467,5 +467,32 @@
   "renderer": "Replace old 22.5-degree hull seam grid; preserve independent 22.5-degree Metric node faces, 16 crown gores, and crown outer-pane divisions",
   "invariants": "Visual seam marking only; no geometry, dimension, shielding, mass, open state, or certification changes",
   "kT": "Ring seams at frames x14,16..34; habitat x3.0,5.6,8.2,10.8 and bow joint. Long seams at 40,140,220,320 and mid split 0,180,270; top quarter follows bay doors. Replace 22.5 degree render grid."
+ },
+ "service_shield_band_fit_2026_11_09": {
+  "decision": "APPROVED",
+  "decided_by": "kT",
+  "date": "2026-11-09",
+  "scope": "PR #478 fitted 0.600t service-section shield band, mass-neutral",
+  "axial_intervals_x_m": [
+   [
+    14.15,
+    16
+   ],
+   [
+    16.15,
+    17
+   ]
+  ],
+  "max_outer_radius_m": 4.48,
+  "booked_mass_t": 0.6,
+  "mandatory_cutouts": [
+   "four strake bays",
+   "docking collar",
+   "jacket_service_return_wall"
+  ],
+  "standing_rule": "Any further cutout exclusively in this band around an existing part with proven HIGHER areal density than the fitted band is pre-approved, provided the fitted-band G6 S5 shelter minimum remains >=53.29035 g/cm2; list each new cutout with evidence in PR #478.",
+  "test_order": "ONE focused G6 on final fitted-band geometry; if >=53.29035 then D9 for STOWED and CLOSED, containment; export, merge and tag only on all PASS. STOP only if G6 fails or collision requires an alteration other than cutting the service band.",
+  "no_rebook": "Neither original 0.600t service shield nor overlapping parts change their source mass. Gaps are not counted twice for mass or protection; band distributes its existing material inside r<=4.48.",
+  "approval_text": "PR #478 kT approves local water-wall cutout and density-gated standing rule, 2026-11-09."
  }
 }
