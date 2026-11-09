@@ -114,7 +114,12 @@ def classify_booking_integrity(scan):
     scan["source_booking_refinement"]="intra-shuttle intersection only; no other category-d suppressed"
     return scan
 
-def hierarchy(name):
+def hierarchy(name, systems):
+    """Use the source mass ledger system, with explicit physical-role overrides.
+
+    These are *scene parents*, not separate masses. Every dry mesh must resolve
+    to an existing booked source ID or an explicitly named derived piece.
+    """
     if name.startswith("dry:shuttle_v1/"):
         n=name.split("/",1)[1]
         if n.startswith(("pod_","pod")):return ("SHUTTLE","pod")
@@ -128,20 +133,95 @@ def hierarchy(name):
     if name.startswith(("dry:strake_","dry:hotfin_")):
         return ("EXTERIOR","radiators")
     if name.startswith("S1:"):return ("FLUIDS","loaded")
-    if name.startswith("dry:"):return ("WAYFARER","other_dry")
-    return ("OTHER","other")
+    if not name.startswith("dry:"):
+        raise ValueError("unmapped scene node "+name)
 
-def hierarchical_compound(ship):
+    n=name[4:]
+    booked="service_shield_band" if n.startswith("service_shield_band_") else n
+    system=systems.get(booked)
+    if system is None:
+        raise ValueError("no mass-ledger system for dry mesh "+name)
+
+    # Explicit physical role overrides where the ledger's accounting
+    # system is broader than the scene category. Never alter its booking.
+    if n=="armor" or booked=="service_shield_band":
+        assert system=="habitat"
+        return ("STRUCTURE","hull_armour")
+    if n.startswith("floor_L"):
+        assert system=="structure"
+        return ("HABITAT",n.split("_",1)[1])
+    if n=="node_mount_allowance":
+        assert system=="structure"
+        return ("EXTERIOR","nodes_crawler_points")
+
+    if system=="structure":
+        if n.startswith(("pressure_vessel","skin_","tank_shell_","bay_liner")):
+            return ("STRUCTURE","hull_armour")
+        if n.startswith(("frame_","longeron_","bay_corner_")):
+            return ("STRUCTURE","frames_longerons")
+        if n in ("aft_bulkhead","door_starboard","door_port","thrust_cone","d8_unlocated_doubler_allowance"):
+            return ("STRUCTURE","bulkheads_interfaces")
+    elif system=="propulsion":
+        if n=="shield":return ("PROPULSION","shield")
+        if n=="reactor":return ("PROPULSION","torch_reactor")
+        if n=="nozzle":return ("PROPULSION","nozzle")
+    elif system=="plant":
+        return ("POWER","plant")
+    elif system=="electrical":
+        if n.startswith("house_reactor_"):return ("POWER","reactors")
+        if n.startswith(("house_peak_store","house_energy_battery")):
+            return ("POWER","energy_storage")
+        if n.startswith(("house_fuel_tank_cap_","c_lite_dry")):
+            return ("POWER","fuel_support")
+        if n.startswith("electrical"):return ("POWER","electrical_distribution")
+    elif system=="thermal":
+        if n=="manifold":return ("POWER","thermal_management")
+    elif system=="avionics":
+        if n=="bow_sensors":return ("EXTERIOR","sensors_comms")
+        if n=="core_racks":return ("POWER","avionics")
+    elif system=="habitat":
+        if n in ("command_terrace","navigator_platform") or n.startswith("i4_"):
+            return ("HABITAT","L1")
+        if n.startswith(("outfit_L","room_L")):
+            deck=n.split("_",1)[1].split("-",1)[0]
+            assert deck in ("L1","L2","L3","L4","L5")
+            return ("HABITAT",deck)
+        if n.startswith("hatch_L1L2"):return ("HABITAT","L1")
+        if n.startswith(("hatch_L4L5","trunk_plug_L4L5","doors_L4-")) or n in ("shelter_backup","rescue_kit"):
+            return ("HABITAT","L4")
+        if n=="core_trunk":return ("HABITAT","shared_access")
+    elif system=="rcs":
+        return ("EXTERIOR","rcs")
+    elif system=="external":
+        if n.startswith(("ext_sensor_turret_","ext_rf_array_","ext_laser_terminal_","ext_star_tracker_","ext_docking_target_")):
+            return ("EXTERIOR","sensors_comms")
+        if n.startswith(("ext_crawler_point_","ext_grapple_fixture_","ext_eva_rail_")):
+            return ("EXTERIOR","nodes_crawler_points")
+        if n.startswith(("ext_service_port_","ext_vent_")):
+            return ("EXTERIOR","service_interfaces")
+    elif system=="service":
+        if n.startswith("docking_camera_"):return ("EXTERIOR","sensors_comms")
+        if n=="service_arm":return ("EXTERIOR","service_interfaces")
+        if n=="docking_collar":return ("STRUCTURE","bulkheads_interfaces")
+        if n.startswith("tunnel_"):return ("HABITAT","shared_access")
+        if n=="crown_c_seven_spare_panes":return ("HABITAT","glazing_and_crown")
+    raise ValueError("unmapped ledger system/part "+system+"/"+n)
+
+
+def hierarchical_compound(ship, systems):
     groups={}
     for n,obj in ship.items():
         assert obj.label==n,(n,obj.label)
-        groups.setdefault(hierarchy(n),[]).append(obj)
+        groups.setdefault(hierarchy(n,systems),[]).append(obj)
     parents={}
     for (system,sub),parts in sorted(groups.items()):
         node=Compound(children=parts,label="subsystem:"+system+"/"+sub)
         parents.setdefault(system,[]).append(node)
     containers=[Compound(children=parts,label="system:"+sysname)
         for sysname,parts in sorted(parents.items())]
+    assert not any(sysname in ("WAYFARER","OTHER") for sysname in parents)
+    assert {"STRUCTURE","PROPULSION","POWER","HABITAT","EXTERIOR","SHUTTLE"} <= set(parents)
+    assert len(parents.get("SHUTTLE",[]))==4
     return Compound(children=containers,label="LOOM_WAYFARER_v2_5_3")
 
 def verify_hierarchy(path,metadata):
@@ -169,11 +249,18 @@ def verify_hierarchy(path,metadata):
             cursor=parent[cursor]
             chain.append(nodes[cursor].get("name",""))
             assert len(chain)<20,(i,chain)
-        group,sub=hierarchy(n["name"])
+        group=n["extras"]["semantic_system"]
+        sub=n["extras"]["semantic_subsystem"]
+        assert (group,sub)==(metadata[n["name"]]["semantic_system"],
+                             metadata[n["name"]]["semantic_subsystem"])
         assert "system:"+group in chain,(n["name"],chain)
         assert "subsystem:"+group+"/"+sub in chain,(n["name"],chain)
     assert set(n["name"] for _,n in mesh_nodes)==set(metadata)
+    from collections import Counter
+    by_system=dict(sorted(Counter(n["extras"]["semantic_system"] for _,n in mesh_nodes).items()))
+    assert not any(n["extras"]["semantic_system"]=="WAYFARER" for _,n in mesh_nodes)
     return dict(meshes=len(mesh_nodes),
+                dry_system_breakdown=by_system,
                 semantic_systems=sum(v.startswith("system:") for v in names if v),
                 semantic_subsystems=sum(v.startswith("subsystem:") for v in names if v),
                 hierarchy_valid=True)
@@ -187,6 +274,12 @@ def evaluate(model,poses,g,cfg,criteria,original_containment,
     assert abs(gcheck["dry_t"]-g["dry_t"])<1e-9
     ledger=ledger_read(g)
     rows={q["id"]:q for q in g["parts"]}
+    # Ledger's system field is the authority for hierarchy parent ownership.
+    basis=json.loads((ROOT/"config/mass_basis.json").read_text())
+    assert basis["geometry_sha256"]==EXPECTED
+    systems={p["id"]:p["system"] for p in basis["parts"]}
+    assert set(systems)==set(rows)
+    assert all(systems[k]==v["system"] for k,v in rows.items())
     fluids={v["id"]:v for v in g["fluids_by_state"]["S1"]}
     shuttle=shuttle_parts()
     assert len(shuttle)==41 and "magnetic_nozzle_ring" in shuttle
@@ -296,7 +389,7 @@ def evaluate(model,poses,g,cfg,criteria,original_containment,
             if dcount or ecount:
                 continue
             path=OUT/(PREFIX+"_"+mode+"_"+pose+".glb")
-            export_gltf(hierarchical_compound(ship),path,unit=Unit.M,
+            export_gltf(hierarchical_compound(ship,systems),path,unit=Unit.M,
                         binary=True,linear_deflection=.05,angular_deflection=.3)
             meta={}
             for name in names:
@@ -319,7 +412,7 @@ def evaluate(model,poses,g,cfg,criteria,original_containment,
                     e=provenance(name,rows,fluids,mapping)
                 if name.startswith("dry:crown_spare_"):
                     e["preserved_rack_x_m"]=[20,22.6]
-                gp,sub=hierarchy(name)
+                gp,sub=hierarchy(name,systems)
                 meta[name]=dict(canon_tag="canon-v2.5.3",
                     geometry_revision="kT #486 shuttle/holds successor",
                     node_id=name,semantic_system=gp,
