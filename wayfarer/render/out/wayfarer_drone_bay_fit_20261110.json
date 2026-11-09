@@ -1,0 +1,198 @@
+{
+  "status": "BAY_SOURCE_BREP_FIT_SCREEN",
+  "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+  "kT_decision": "2026-11-10 tangential primary / aft fallback",
+  "source_spare_panes_remain_screened_at_x_m": [
+    20,
+    22.6
+  ],
+  "courier_total_booked_t": 19.450370894400045,
+  "courier_remains_named_t": 6.450370894400045,
+  "original_vehicle_and_dock_mass_untouched": true,
+  "ship_mass_unchanged_t": 868.1922552640087,
+  "no_new_canon_geometry": true,
+  "variants": {
+    "tangential_radial": {
+      "pass_BRep_fit": false,
+      "stats": {
+        "parts": 25,
+        "issues": 16,
+        "issue_types": [
+          "door_open_sweep_blocks_existing",
+          "new_part_self_intersection",
+          "pod_exits_outside_radial_door_aperture",
+          "pod_radial_exit_hits_collar_corridor",
+          "protected_equipment_or_corridor"
+        ],
+        "inside_bay_verified": true,
+        "protected_collar_access_clear": false,
+        "open_door_sweep_clear": false
+      },
+      "conflicts": [
+        {
+          "kind": "protected_equipment_or_corridor",
+          "a": "dry:bay_drone_2",
+          "b": "collar_approach",
+          "overlap_m3": 0.2099962,
+          "detail": null
+        },
+        {
+          "kind": "protected_equipment_or_corridor",
+          "a": "dry:bay_drone_3",
+          "b": "collar_approach",
+          "overlap_m3": 0.2099962,
+          "detail": null
+        },
+        {
+          "kind": "new_part_self_intersection",
+          "a": "dry:bay_door_port",
+          "b": "dry:bay_ext_crawler_dock_0",
+          "overlap_m3": 0.0192079,
+          "detail": null
+        },
+        {
+          "kind": "new_part_self_intersection",
+          "a": "dry:bay_door_starboard",
+          "b": "dry:bay_ext_crawler_dock_2",
+          "overlap_m3": 0.0192079,
+          "detail": null
+        },
+        {
+          "kind": "new_part_self_intersection",
+          "a": "dry:bay_drone_0",
+          "b": "dry:bay_drone_1",
+          "overlap_m3": 0.6315357,
+          "detail": null
+        },
+        {
+          "kind": "new_part_self_intersection",
+          "a": "dry:bay_drone_0",
+          "b": "dry:bay_ext_crawler_dock_1",
+          "overlap_m3": 0.011034,
+          "detail": null
+        },
+        {
+          "kind": "new_part_self_intersection",
+          "a": "dry:bay_drone_1",
+          "b": "dry:bay_ext_crawler_dock_1",
+          "overlap_m3": 0.011034,
+          "detail": null
+        },
+        {
+          "kind": "new_part_self_intersection",
+          "a": "dry:bay_drone_2",
+          "b": "dry:bay_drone_3",
+          "overlap_m3": 0.0513557,
+          "detail": null
+        },
+        {
+          "kind": "door_open_sweep_blocks_existing",
+          "a": "dry:bay_door_port",
+          "b": "collar_approach",
+          "overlap_m3": 0.1439232,
+          "detail": null
+        },
+        {
+          "kind": "door_open_sweep_blocks_existing",
+          "a": "dry:bay_door_starboard",
+          "b": "collar_approach",
+          "overlap_m3": 0.1439233,
+          "detail": null
+        },
+        {
+          "kind": "pod_exits_outside_radial_door_aperture",
+          "a": "dry:bay_drone_0",
+          "b": "(235, 264)",
+          "overlap_m3": 0.7410641,
+          "detail": null
+        },
+        {
+          "kind": "pod_radial_exit_hits_collar_corridor",
+          "a": "dry:bay_drone_2",
+          "b": "collar_approach",
+          "overlap_m3": 0.052711,
+          "detail": null
+        },
+        {
+          "kind": "pod_exits_outside_radial_door_aperture",
+          "a": "dry:bay_drone_2",
+          "b": "(235, 264)",
+          "overlap_m3": 0.3228586,
+          "detail": null
+        },
+        {
+          "kind": "pod_exits_outside_radial_door_aperture",
+          "a": "dry:bay_drone_1",
+          "b": "(276, 305)",
+          "overlap_m3": 0.7410641,
+          "detail": null
+        },
+        {
+          "kind": "pod_radial_exit_hits_collar_corridor",
+          "a": "dry:bay_drone_3",
+          "b": "collar_approach",
+          "overlap_m3": 0.052711,
+          "detail": null
+        },
+        {
+          "kind": "pod_exits_outside_radial_door_aperture",
+          "a": "dry:bay_drone_3",
+          "b": "(276, 305)",
+          "overlap_m3": 0.3228586,
+          "detail": null
+        }
+      ],
+      "all_conflicts_count": 16,
+      "future_courier_mass_allocation": {
+        "bay_shell": 4.5,
+        "bay_doors": 2,
+        "drone_cradles": 3,
+        "crawler_egress": 1,
+        "charging_thermal": 1.5,
+        "existing_sensor_turrets": 1,
+        "courier_systems_unallocated": 6.450370894400045
+      }
+    },
+    "axial_aft_fallback": {
+      "pass_BRep_fit": true,
+      "stats": {
+        "parts": 25,
+        "issues": 0,
+        "issue_types": [],
+        "inside_bay_verified": true,
+        "protected_collar_access_clear": true,
+        "open_door_sweep_clear": true
+      },
+      "conflicts": [],
+      "all_conflicts_count": 0,
+      "future_courier_mass_allocation": {
+        "bay_shell": 4.5,
+        "bay_doors": 2,
+        "drone_cradles": 3,
+        "crawler_egress": 1,
+        "charging_thermal": 1.5,
+        "existing_sensor_turrets": 1,
+        "courier_systems_unallocated": 6.450370894400045
+      }
+    }
+  },
+  "strake_view_factor_screen": {
+    "port": {
+      "unshadowed_geometric_view_factor": 0.400233,
+      "hot_strake_temperature_K": 1300,
+      "emissivity": 0.9,
+      "unshadowed_incident_kW_m2": 58.3366,
+      "passive_shielding_credit_kW_m2": 0,
+      "thermal_qualification": "OPEN: flux proxy without baffle shadowing, reflectance or response"
+    },
+    "starboard": {
+      "unshadowed_geometric_view_factor": 0.400233,
+      "hot_strake_temperature_K": 1300,
+      "emissivity": 0.9,
+      "unshadowed_incident_kW_m2": 58.3366,
+      "passive_shielding_credit_kW_m2": 0,
+      "thermal_qualification": "OPEN: flux proxy without baffle shadowing, reflectance or response"
+    }
+  },
+  "chosen": "axial_aft_fallback"
+}
