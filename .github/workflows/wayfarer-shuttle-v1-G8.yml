@@ -1,0 +1,23 @@
+name: Wayfarer shuttle v1 DOCKED real BRep G8 stop gate
+on:
+  pull_request:
+    paths:
+      - wayfarer/lab/shuttle/shuttle_v1_docked_G8_gate.py
+      - wayfarer/config/kt_decisions.json
+      - .github/workflows/wayfarer-shuttle-v1-G8.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  docked-real-G8:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Load exact installed BRep version
+        run: python -m pip install build123d==0.13.0
+      - name: kT G8 real toroidal nozzle-ring stop condition
+        run: python -u wayfarer/lab/shuttle/shuttle_v1_docked_G8_gate.py
