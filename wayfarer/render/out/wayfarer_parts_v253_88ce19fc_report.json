@@ -1,0 +1,5032 @@
+{
+  "status": "HOLD_UNQUALIFIED_CROWN",
+  "drawing_revision": "canon-v2.5.3",
+  "source_tag": "canon-v2.5",
+  "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+  "geometry_source_unchanged": true,
+  "count_named_panes": 37,
+  "per_part_GLTF_nodes": 473,
+  "original_v252_nodes_preserved": 373,
+  "approved_no_render_inventory": {
+    "source_no_render_count": 122,
+    "already_done_count": 30,
+    "already_done_ids": [
+      "crown_adaptive_optogel",
+      "crown_backup_pressure_dome",
+      "crown_c_seven_spare_panes",
+      "crown_dome",
+      "viewport_band_0",
+      "viewport_band_1",
+      "viewport_band_2",
+      "viewport_band_3",
+      "viewport_band_4",
+      "window_L1-command_0",
+      "window_L1-command_1",
+      "window_L1-command_2",
+      "window_L1-command_3",
+      "window_L3-CAPT_11",
+      "window_L3-CA_12",
+      "window_L3-CA_13",
+      "window_L3-CB_18",
+      "window_L3-CB_19",
+      "window_L3-CB_20",
+      "window_L3-GUEST_14",
+      "window_L3-GUEST_15",
+      "window_L3-GUEST_16",
+      "window_L3-GUEST_17",
+      "window_L4-medical_4",
+      "window_L4-medical_5",
+      "window_L4-medical_6",
+      "window_L5-suits_7",
+      "window_L5-vestibule_10",
+      "window_L5-workshop_8",
+      "window_L5-workshop_9"
+    ],
+    "keep_as_allocation_count": 30,
+    "keep_as_allocation_ids": [
+      "crown_c_outward_retainers",
+      "d8_unlocated_doubler_allowance",
+      "node_mount_allowance",
+      "wws1_band_uplift_0",
+      "wws1_band_uplift_1",
+      "wws1_band_uplift_2",
+      "wws1_band_uplift_3",
+      "wws1_band_uplift_4",
+      "wws1_port_uplift_0",
+      "wws1_port_uplift_1",
+      "wws1_port_uplift_10",
+      "wws1_port_uplift_11",
+      "wws1_port_uplift_12",
+      "wws1_port_uplift_13",
+      "wws1_port_uplift_14",
+      "wws1_port_uplift_15",
+      "wws1_port_uplift_16",
+      "wws1_port_uplift_17",
+      "wws1_port_uplift_18",
+      "wws1_port_uplift_19",
+      "wws1_port_uplift_2",
+      "wws1_port_uplift_20",
+      "wws1_port_uplift_3",
+      "wws1_port_uplift_4",
+      "wws1_port_uplift_5",
+      "wws1_port_uplift_6",
+      "wws1_port_uplift_7",
+      "wws1_port_uplift_8",
+      "wws1_port_uplift_9",
+      "wws1_shelter_armour_restoration"
+    ],
+    "new_source_allocations_count": 61,
+    "new_true_solids_count": 68,
+    "new_true_solids_ids": [
+      "dry:bay_corner_18_p",
+      "dry:bay_corner_18_s",
+      "dry:bay_corner_32.3_p",
+      "dry:bay_corner_32.3_s",
+      "dry:doors_L4-medical",
+      "dry:hatch_L1L2_0",
+      "dry:hatch_L1L2_1",
+      "dry:i4_cabinetry",
+      "dry:i4_engineering_cabinet",
+      "dry:i4_equipment_workbench",
+      "dry:i4_lights_0",
+      "dry:i4_lights_1",
+      "dry:i4_low_g_command_point",
+      "dry:i4_map_console",
+      "dry:i4_mission_table",
+      "dry:i4_observation_rail_0",
+      "dry:i4_observation_rail_1",
+      "dry:i4_observation_rail_10",
+      "dry:i4_observation_rail_11",
+      "dry:i4_observation_rail_12",
+      "dry:i4_observation_rail_13",
+      "dry:i4_observation_rail_14",
+      "dry:i4_observation_rail_15",
+      "dry:i4_observation_rail_16",
+      "dry:i4_observation_rail_17",
+      "dry:i4_observation_rail_2",
+      "dry:i4_observation_rail_3",
+      "dry:i4_observation_rail_4",
+      "dry:i4_observation_rail_5",
+      "dry:i4_observation_rail_6",
+      "dry:i4_observation_rail_7",
+      "dry:i4_observation_rail_8",
+      "dry:i4_observation_rail_9",
+      "dry:i4_rails_0",
+      "dry:i4_rails_1",
+      "dry:i4_rails_2",
+      "dry:i4_rails_3",
+      "dry:i4_seat_NAV",
+      "dry:i4_seat_PILOT",
+      "dry:i4_seat_S1",
+      "dry:i4_seat_S2",
+      "dry:i4_seat_S3",
+      "dry:i4_seat_S4",
+      "dry:i4_sensors_cabinet",
+      "dry:i4_shared_map_table",
+      "dry:i4_transfer_0",
+      "dry:i4_transfer_1",
+      "dry:i4_workbench",
+      "dry:i4_workbench_display",
+      "dry:longeron_end_fitting_14_lower_port",
+      "dry:longeron_end_fitting_14_lower_starboard",
+      "dry:longeron_end_fitting_14_upper_port",
+      "dry:longeron_end_fitting_14_upper_starboard",
+      "dry:longeron_end_fitting_34.3_lower_port",
+      "dry:longeron_end_fitting_34.3_lower_starboard",
+      "dry:longeron_end_fitting_34.3_upper_port",
+      "dry:longeron_end_fitting_34.3_upper_starboard",
+      "dry:rescue_kit",
+      "dry:service_shield_band_aft_00",
+      "dry:service_shield_band_aft_01",
+      "dry:service_shield_band_aft_02",
+      "dry:service_shield_band_aft_03",
+      "dry:service_shield_band_fore_00",
+      "dry:service_shield_band_fore_01",
+      "dry:service_shield_band_fore_02",
+      "dry:service_shield_band_fore_03",
+      "dry:shelter_backup",
+      "dry:trunk_plug_L4L5"
+    ],
+    "service_shield_band_fitting": {
+      "source_allocation_id": "service_shield_band",
+      "booked_mass_t": 0.6,
+      "booked_density_t_per_m3": 0.12252112632170449,
+      "source_volume_m3": 4.897114628415807,
+      "fitted_volume_m3": 4.896996543367485,
+      "implied_fitted_mass_t": 0.5999855320868778,
+      "axial_intervals_m": [
+        [
+          14.15,
+          16.0
+        ],
+        [
+          16.15,
+          17.0
+        ]
+      ],
+      "radial_inner_m": 4.382272918701172,
+      "radial_outer_m": 4.48,
+      "reference_radial_thickness_m": 0.06,
+      "fitted_radial_thickness_m": 0.09772708129882801,
+      "strake_cut_angles_deg": [
+        40,
+        140,
+        220,
+        320
+      ],
+      "docking_collar_cutout": true,
+      "additional_existing_part_cutouts": [
+        {
+          "part": "S1:jacket_service_return_wall",
+          "reason": "kT 2026-11-09 explicitly approved local water-wall cutout",
+          "cut_only_service_shield_band": true,
+          "wall_areal_g_cm2": 2.770525047465005,
+          "fitted_band_areal_g_cm2": 1.197363207286519,
+          "higher_areal_density": true,
+          "source_part_mass_unchanged_t": 0.21155218038166082,
+          "local_cutout_x_m": [
+            14.49,
+            16.51
+          ],
+          "local_cutout_r_m": [
+            4.3500000000000005,
+            4.3999999999999995
+          ],
+          "local_cutout_azimuth_deg": [
+            149.5,
+            200.5
+          ]
+        }
+      ],
+      "additional_existing_part_cutout_count": 1,
+      "clearance_m": 0.01,
+      "independent_BRep_pieces": 8,
+      "source_ledger_unchanged": true,
+      "credited_gap_areal_density_g_cm2": 0,
+      "g6_requires_focused_single_run": true,
+      "piece_ids": [
+        "dry:service_shield_band_aft_00",
+        "dry:service_shield_band_aft_01",
+        "dry:service_shield_band_aft_02",
+        "dry:service_shield_band_aft_03",
+        "dry:service_shield_band_fore_00",
+        "dry:service_shield_band_fore_01",
+        "dry:service_shield_band_fore_02",
+        "dry:service_shield_band_fore_03"
+      ]
+    },
+    "new_source_allocations_t": {
+      "bay_corner_18_p": 0.12284444775410555,
+      "bay_corner_18_s": 0.12284444775410555,
+      "bay_corner_32.3_p": 0.12284444775410555,
+      "bay_corner_32.3_s": 0.12284444775410555,
+      "doors_L4-medical": 0.1,
+      "hatch_L1L2_0": 0.15,
+      "hatch_L1L2_1": 0.15,
+      "i4_cabinetry": 0.04094814925136852,
+      "i4_engineering_cabinet": 0.08,
+      "i4_equipment_workbench": 0.09,
+      "i4_lights_0": 0.004,
+      "i4_lights_1": 0.004,
+      "i4_low_g_command_point": 0.028,
+      "i4_map_console": 0.012,
+      "i4_mission_table": 0.08189629850273704,
+      "i4_observation_rail_0": 0.001388888888888889,
+      "i4_observation_rail_1": 0.001388888888888889,
+      "i4_observation_rail_10": 0.001388888888888889,
+      "i4_observation_rail_11": 0.001388888888888889,
+      "i4_observation_rail_12": 0.001388888888888889,
+      "i4_observation_rail_13": 0.001388888888888889,
+      "i4_observation_rail_14": 0.001388888888888889,
+      "i4_observation_rail_15": 0.001388888888888889,
+      "i4_observation_rail_16": 0.001388888888888889,
+      "i4_observation_rail_17": 0.001388888888888889,
+      "i4_observation_rail_2": 0.001388888888888889,
+      "i4_observation_rail_3": 0.001388888888888889,
+      "i4_observation_rail_4": 0.001388888888888889,
+      "i4_observation_rail_5": 0.001388888888888889,
+      "i4_observation_rail_6": 0.001388888888888889,
+      "i4_observation_rail_7": 0.001388888888888889,
+      "i4_observation_rail_8": 0.001388888888888889,
+      "i4_observation_rail_9": 0.001388888888888889,
+      "i4_rails_0": 0.009,
+      "i4_rails_1": 0.009,
+      "i4_rails_2": 0.009,
+      "i4_rails_3": 0.009,
+      "i4_seat_NAV": 0.05118518656421065,
+      "i4_seat_PILOT": 0.05118518656421065,
+      "i4_seat_S1": 0.05118518656421065,
+      "i4_seat_S2": 0.05118518656421065,
+      "i4_seat_S3": 0.05118518656421065,
+      "i4_seat_S4": 0.05118518656421065,
+      "i4_sensors_cabinet": 0.08,
+      "i4_shared_map_table": 0.095,
+      "i4_transfer_0": 0.022,
+      "i4_transfer_1": 0.022,
+      "i4_workbench": 0.08189629850273704,
+      "i4_workbench_display": 0.03,
+      "longeron_end_fitting_14_lower_port": 0.24261778431435846,
+      "longeron_end_fitting_14_lower_starboard": 0.24261778431435846,
+      "longeron_end_fitting_14_upper_port": 0.24261778431435846,
+      "longeron_end_fitting_14_upper_starboard": 0.24261778431435846,
+      "longeron_end_fitting_34.3_lower_port": 0.24261778431435846,
+      "longeron_end_fitting_34.3_lower_starboard": 0.24261778431435846,
+      "longeron_end_fitting_34.3_upper_port": 0.24261778431435846,
+      "longeron_end_fitting_34.3_upper_starboard": 0.24261778431435846,
+      "rescue_kit": 0.05,
+      "service_shield_band": 0.6,
+      "shelter_backup": 0.3,
+      "trunk_plug_L4L5": 0.15
+    },
+    "source_allocation_total_t": 43.23905992163078,
+    "mass_rebooked_t": 0
+  },
+  "new_true_solids_count": 68,
+  "fitted_service_shield_band": {
+    "source_allocation_id": "service_shield_band",
+    "booked_mass_t": 0.6,
+    "booked_density_t_per_m3": 0.12252112632170449,
+    "source_volume_m3": 4.897114628415807,
+    "fitted_volume_m3": 4.896996543367485,
+    "implied_fitted_mass_t": 0.5999855320868778,
+    "axial_intervals_m": [
+      [
+        14.15,
+        16.0
+      ],
+      [
+        16.15,
+        17.0
+      ]
+    ],
+    "radial_inner_m": 4.382272918701172,
+    "radial_outer_m": 4.48,
+    "reference_radial_thickness_m": 0.06,
+    "fitted_radial_thickness_m": 0.09772708129882801,
+    "strake_cut_angles_deg": [
+      40,
+      140,
+      220,
+      320
+    ],
+    "docking_collar_cutout": true,
+    "additional_existing_part_cutouts": [
+      {
+        "part": "S1:jacket_service_return_wall",
+        "reason": "kT 2026-11-09 explicitly approved local water-wall cutout",
+        "cut_only_service_shield_band": true,
+        "wall_areal_g_cm2": 2.770525047465005,
+        "fitted_band_areal_g_cm2": 1.197363207286519,
+        "higher_areal_density": true,
+        "source_part_mass_unchanged_t": 0.21155218038166082,
+        "local_cutout_x_m": [
+          14.49,
+          16.51
+        ],
+        "local_cutout_r_m": [
+          4.3500000000000005,
+          4.3999999999999995
+        ],
+        "local_cutout_azimuth_deg": [
+          149.5,
+          200.5
+        ]
+      }
+    ],
+    "additional_existing_part_cutout_count": 1,
+    "clearance_m": 0.01,
+    "independent_BRep_pieces": 8,
+    "source_ledger_unchanged": true,
+    "credited_gap_areal_density_g_cm2": 0,
+    "g6_requires_focused_single_run": true,
+    "piece_ids": [
+      "dry:service_shield_band_aft_00",
+      "dry:service_shield_band_aft_01",
+      "dry:service_shield_band_aft_02",
+      "dry:service_shield_band_aft_03",
+      "dry:service_shield_band_fore_00",
+      "dry:service_shield_band_fore_01",
+      "dry:service_shield_band_fore_02",
+      "dry:service_shield_band_fore_03"
+    ]
+  },
+  "single_focused_shelter_G6": {
+    "candidate_changed_BRep_g_cm2": 53.3903486,
+    "g6_runs_for_v253": 1,
+    "kT_v253_min_53p39_with_0p1_tolerance_pass": true,
+    "numeric_shelter_screen_pass": true,
+    "radiation_transport_qualification": false,
+    "sample": "S5 shelter; 3 origins x 600 directions; 2cm",
+    "scenario_minima": [
+      {
+        "candidate_min_g_cm2": 137.91672569,
+        "origin_index": 0,
+        "source_min_g_cm2": 137.91672569
+      },
+      {
+        "candidate_min_g_cm2": 53.3903486,
+        "origin_index": 1,
+        "source_min_g_cm2": 53.3903486
+      },
+      {
+        "candidate_min_g_cm2": 55.88747369,
+        "origin_index": 2,
+        "source_min_g_cm2": 55.88747369
+      }
+    ],
+    "source_kernel": "exact copied pinned ea50354 build_v05.py and certify.py",
+    "source_original_g_cm2": 53.3903486,
+    "source_threshold_g_cm2": 40.0,
+    "unlocated_secondary_doublers_shield_credit_zero": true,
+    "v253_band_fit": {
+      "additional_existing_part_cutout_count": 1,
+      "additional_existing_part_cutouts": [
+        {
+          "cut_only_service_shield_band": true,
+          "fitted_band_areal_g_cm2": 1.197363207286519,
+          "higher_areal_density": true,
+          "local_cutout_azimuth_deg": [
+            149.5,
+            200.5
+          ],
+          "local_cutout_r_m": [
+            4.3500000000000005,
+            4.3999999999999995
+          ],
+          "local_cutout_x_m": [
+            14.49,
+            16.51
+          ],
+          "part": "S1:jacket_service_return_wall",
+          "reason": "kT 2026-11-09 explicitly approved local water-wall cutout",
+          "source_part_mass_unchanged_t": 0.22907446432425202,
+          "wall_areal_g_cm2": 2.999999999999936
+        }
+      ],
+      "axial_intervals_m": [
+        [
+          14.15,
+          16.0
+        ],
+        [
+          16.15,
+          17.0
+        ]
+      ],
+      "booked_density_t_per_m3": 0.12252112632170449,
+      "booked_mass_t": 0.6,
+      "clearance_m": 0.01,
+      "credited_gap_areal_density_g_cm2": 0,
+      "docking_collar_cutout": true,
+      "fitted_radial_thickness_m": 0.09772708129882801,
+      "fitted_volume_m3": 4.896996543367485,
+      "g6_requires_focused_single_run": true,
+      "implied_fitted_mass_t": 0.5999855320868778,
+      "independent_BRep_pieces": 8,
+      "piece_ids": [
+        "dry:service_shield_band_aft_00",
+        "dry:service_shield_band_aft_01",
+        "dry:service_shield_band_aft_02",
+        "dry:service_shield_band_aft_03",
+        "dry:service_shield_band_fore_00",
+        "dry:service_shield_band_fore_01",
+        "dry:service_shield_band_fore_02",
+        "dry:service_shield_band_fore_03"
+      ],
+      "radial_inner_m": 4.382272918701172,
+      "radial_outer_m": 4.48,
+      "reference_radial_thickness_m": 0.06,
+      "source_allocation_id": "service_shield_band",
+      "source_ledger_unchanged": true,
+      "source_volume_m3": 4.897114628415807,
+      "strake_cut_angles_deg": [
+        40,
+        140,
+        220,
+        320
+      ]
+    }
+  },
+  "new_interior_containment_check": {
+    "checked_new_pressure_interior_count": 48,
+    "escaped_new_pressure_interior": [],
+    "checked_service_hull_count": 8,
+    "service_hull_escaped_m3": 0.0,
+    "structural_external_attachment_count": 12,
+    "external_brackets_not_misclassified_as_internal": true,
+    "pass_containment": true
+  },
+  "gore_state_geometry": {
+    "gores_per_state": 16,
+    "poses": [
+      "stowed",
+      "closed"
+    ],
+    "physically_mutually_exclusive": true,
+    "not_additional_inventory": true,
+    "underlying_no_render_id": "crown_c_additional_strata_gore",
+    "nominal_visual_thickness_m": 0.1,
+    "stowed_radial_span_m": [
+      3.5,
+      4.5
+    ],
+    "closed_radial_span_m": [
+      0.0005,
+      3.5
+    ],
+    "overall_baseline_length_m": 54.5,
+    "source_mass_rebooked_t": 0,
+    "actuation_seams_and_fatigue": "OPEN / NOT QUALIFIED"
+  },
+  "gore_states_D9_scans": {
+    "stowed": {
+      "part_count": 457,
+      "pair_count": 104196,
+      "range_start": 0,
+      "range_end": 104196,
+      "category_counts": {
+        "a": 1,
+        "c": 175
+      },
+      "collision_errors": [],
+      "intersection_hits": [
+        {
+          "a": "S1:c_lite_monoprop:19",
+          "b": "dry:c_lite_dry",
+          "m3": 0.670206433,
+          "category": "a",
+          "why": "S1 C-lite monoprop inside named dry storage-envelope"
+        },
+        {
+          "a": "S1:c_lite_monoprop:19",
+          "b": "dry:electrical_fwd",
+          "m3": 0.670206433,
+          "category": "c",
+          "why": "source C-lite fluid explicitly hosted inside the broad forward electrical allocation sector"
+        },
+        {
+          "a": "S1:jacket_berth_wall_extended:08",
+          "b": "dry:outfit_L3",
+          "m3": 2.410481211,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "S1:jacket_outer:00",
+          "b": "dry:outfit_L4",
+          "m3": 2.468768227,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:crown_brow",
+          "m3": 0.021890009,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:crown_gore_00_stowed",
+          "m3": 0.097067316,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:crown_gore_01_stowed",
+          "m3": 0.092789905,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:crown_gore_02_stowed",
+          "m3": 0.092786406,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:crown_gore_03_stowed",
+          "m3": 0.097067328,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:crown_gore_04_stowed",
+          "m3": 0.097067328,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:crown_gore_05_stowed",
+          "m3": 0.092789905,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:crown_gore_06_stowed",
+          "m3": 0.09278641,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:crown_gore_07_stowed",
+          "m3": 0.097067328,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:crown_gore_08_stowed",
+          "m3": 0.097067328,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:crown_gore_09_stowed",
+          "m3": 0.092789905,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:crown_gore_10_stowed",
+          "m3": 0.09278641,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:crown_gore_11_stowed",
+          "m3": 0.097067328,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:crown_gore_12_stowed",
+          "m3": 0.097067328,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:crown_gore_13_stowed",
+          "m3": 0.092789904,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:crown_gore_14_stowed",
+          "m3": 0.092786406,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:crown_gore_15_stowed",
+          "m3": 0.097067342,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:crown_osteon_brow_seat",
+          "m3": 0.429565627,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:ext_crawler_dock_0",
+          "m3": 0.063828,
+          "category": "c",
+          "why": "external hardware mounted on structure; unqualified local attachment"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:ext_crawler_dock_1",
+          "m3": 0.063828,
+          "category": "c",
+          "why": "external hardware mounted on structure; unqualified local attachment"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:rcs_F+Y",
+          "m3": 0.120165994,
+          "category": "c",
+          "why": "RCS thruster hull-mounted footprint"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:rcs_F+Z",
+          "m3": 0.12817706,
+          "category": "c",
+          "why": "RCS thruster hull-mounted footprint"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:rcs_F-Y",
+          "m3": 0.12817706,
+          "category": "c",
+          "why": "RCS thruster hull-mounted footprint"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:rcs_F-Z",
+          "m3": 0.124171527,
+          "category": "c",
+          "why": "RCS thruster hull-mounted footprint"
+        },
+        {
+          "a": "dry:bow_sensors",
+          "b": "dry:outfit_L1",
+          "m3": 1.697713776,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:bow_sensors",
+          "b": "dry:room_L1-command",
+          "m3": 11.77366328,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:c_lite_dry",
+          "b": "dry:electrical_fwd",
+          "m3": 0.670206433,
+          "category": "c",
+          "why": "component within broad electrical allocation sector"
+        },
+        {
+          "a": "dry:command_terrace",
+          "b": "dry:i4_seat_PILOT",
+          "m3": 0.049,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:command_terrace",
+          "b": "dry:i4_seat_S1",
+          "m3": 0.049,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:command_terrace",
+          "b": "dry:room_L1-command",
+          "m3": 0.714,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:core_trunk",
+          "b": "dry:trunk_plug_L4L5",
+          "m3": 0.763407015,
+          "category": "c",
+          "why": "trunk isolation plug intentionally closes trunk"
+        },
+        {
+          "a": "dry:crown_gore_00_stowed",
+          "b": "dry:crown_osteon_brow_seat",
+          "m3": 0.01367773,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_01_stowed",
+          "b": "dry:crown_osteon_brow_seat",
+          "m3": 0.01367773,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_02_stowed",
+          "b": "dry:crown_osteon_brow_seat",
+          "m3": 0.01367773,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_03_stowed",
+          "b": "dry:crown_osteon_brow_seat",
+          "m3": 0.01367773,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_04_stowed",
+          "b": "dry:crown_osteon_brow_seat",
+          "m3": 0.01367773,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_05_stowed",
+          "b": "dry:crown_osteon_brow_seat",
+          "m3": 0.01367773,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_06_stowed",
+          "b": "dry:crown_osteon_brow_seat",
+          "m3": 0.01367773,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_07_stowed",
+          "b": "dry:crown_osteon_brow_seat",
+          "m3": 0.01367773,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_08_stowed",
+          "b": "dry:crown_osteon_brow_seat",
+          "m3": 0.01367773,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_09_stowed",
+          "b": "dry:crown_osteon_brow_seat",
+          "m3": 0.01367773,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_10_stowed",
+          "b": "dry:crown_osteon_brow_seat",
+          "m3": 0.01367773,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_11_stowed",
+          "b": "dry:crown_osteon_brow_seat",
+          "m3": 0.01367773,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_12_stowed",
+          "b": "dry:crown_osteon_brow_seat",
+          "m3": 0.01367773,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_13_stowed",
+          "b": "dry:crown_osteon_brow_seat",
+          "m3": 0.01367773,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_14_stowed",
+          "b": "dry:crown_osteon_brow_seat",
+          "m3": 0.01367773,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_15_stowed",
+          "b": "dry:crown_osteon_brow_seat",
+          "m3": 0.01367773,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_inner_pressure_dome",
+          "b": "dry:room_L1-command",
+          "m3": 0.184894405,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:docking_collar",
+          "b": "dry:frame_16",
+          "m3": 0.091191384,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:docking_collar",
+          "b": "dry:skin_service",
+          "m3": 0.040370344,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:doors_L4-medical",
+          "b": "dry:room_L4-medical",
+          "m3": 0.046506684,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:electrical",
+          "b": "dry:house_peak_store",
+          "m3": 9.025326327,
+          "category": "c",
+          "why": "component within broad electrical allocation sector"
+        },
+        {
+          "a": "dry:electrical",
+          "b": "dry:house_reactor_A",
+          "m3": 6.502081078,
+          "category": "c",
+          "why": "component within broad electrical allocation sector"
+        },
+        {
+          "a": "dry:electrical_fwd",
+          "b": "dry:house_energy_battery",
+          "m3": 11.723877458,
+          "category": "c",
+          "why": "component within broad electrical allocation sector"
+        },
+        {
+          "a": "dry:electrical_fwd",
+          "b": "dry:house_reactor_B",
+          "m3": 11.463231406,
+          "category": "c",
+          "why": "component within broad electrical allocation sector"
+        },
+        {
+          "a": "dry:ext_rf_array_0",
+          "b": "dry:skin_midship",
+          "m3": 0.020965,
+          "category": "c",
+          "why": "external hardware mounted on structure; unqualified local attachment"
+        },
+        {
+          "a": "dry:ext_rf_array_1",
+          "b": "dry:skin_midship",
+          "m3": 0.020965,
+          "category": "c",
+          "why": "external hardware mounted on structure; unqualified local attachment"
+        },
+        {
+          "a": "dry:ext_rf_array_2",
+          "b": "dry:skin_midship",
+          "m3": 0.020965,
+          "category": "c",
+          "why": "external hardware mounted on structure; unqualified local attachment"
+        },
+        {
+          "a": "dry:ext_rf_array_3",
+          "b": "dry:skin_midship",
+          "m3": 0.020965,
+          "category": "c",
+          "why": "external hardware mounted on structure; unqualified local attachment"
+        },
+        {
+          "a": "dry:ext_sensor_turret_0",
+          "b": "dry:skin_midship",
+          "m3": 0.01796,
+          "category": "c",
+          "why": "external hardware mounted on structure; unqualified local attachment"
+        },
+        {
+          "a": "dry:ext_sensor_turret_1",
+          "b": "dry:skin_midship",
+          "m3": 0.01796,
+          "category": "c",
+          "why": "external hardware mounted on structure; unqualified local attachment"
+        },
+        {
+          "a": "dry:floor_L1",
+          "b": "dry:hatch_L1L2_0",
+          "m3": 0.01656,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:floor_L1",
+          "b": "dry:hatch_L1L2_1",
+          "m3": 0.01656,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:floor_L1",
+          "b": "dry:i4_engineering_cabinet",
+          "m3": 0.0539,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:floor_L1",
+          "b": "dry:i4_seat_S2",
+          "m3": 0.0245,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:floor_L1",
+          "b": "dry:i4_seat_S3",
+          "m3": 0.0245,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:floor_L1",
+          "b": "dry:i4_seat_S4",
+          "m3": 0.0245,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:floor_L1",
+          "b": "dry:i4_sensors_cabinet",
+          "m3": 0.0539,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:floor_L4",
+          "b": "dry:hatch_L4L5_0",
+          "m3": 0.033973976,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:floor_L4",
+          "b": "dry:hatch_L4L5_180",
+          "m3": 0.033973976,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:frame_14",
+          "b": "dry:strake_140",
+          "m3": 0.112921781,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_14",
+          "b": "dry:strake_220",
+          "m3": 0.112921781,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_14",
+          "b": "dry:strake_320",
+          "m3": 0.112921781,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_14",
+          "b": "dry:strake_40",
+          "m3": 0.112921781,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_16",
+          "b": "dry:strake_140",
+          "m3": 0.114709986,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_16",
+          "b": "dry:strake_220",
+          "m3": 0.114709986,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_16",
+          "b": "dry:strake_320",
+          "m3": 0.114709986,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_16",
+          "b": "dry:strake_40",
+          "m3": 0.114709986,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_18",
+          "b": "dry:strake_140",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_18",
+          "b": "dry:strake_220",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_18",
+          "b": "dry:strake_320",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_18",
+          "b": "dry:strake_40",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_20",
+          "b": "dry:strake_140",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_20",
+          "b": "dry:strake_220",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_20",
+          "b": "dry:strake_320",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_20",
+          "b": "dry:strake_40",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_22",
+          "b": "dry:strake_140",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_22",
+          "b": "dry:strake_220",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_22",
+          "b": "dry:strake_320",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_22",
+          "b": "dry:strake_40",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_24",
+          "b": "dry:strake_140",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_24",
+          "b": "dry:strake_220",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_24",
+          "b": "dry:strake_320",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_24",
+          "b": "dry:strake_40",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_26",
+          "b": "dry:strake_140",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_26",
+          "b": "dry:strake_220",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_26",
+          "b": "dry:strake_320",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_26",
+          "b": "dry:strake_40",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_28",
+          "b": "dry:strake_140",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_28",
+          "b": "dry:strake_220",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_28",
+          "b": "dry:strake_320",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_28",
+          "b": "dry:strake_40",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_30",
+          "b": "dry:strake_140",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_30",
+          "b": "dry:strake_220",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_30",
+          "b": "dry:strake_320",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_30",
+          "b": "dry:strake_40",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_32",
+          "b": "dry:strake_140",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_32",
+          "b": "dry:strake_220",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_32",
+          "b": "dry:strake_320",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_32",
+          "b": "dry:strake_40",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:i4_cabinetry",
+          "b": "dry:i4_engineering_cabinet",
+          "m3": 0.0168,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_cabinetry",
+          "b": "dry:room_L1-command",
+          "m3": 0.0192,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_engineering_cabinet",
+          "b": "dry:room_L1-command",
+          "m3": 0.07840245,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_equipment_workbench",
+          "b": "dry:i4_workbench",
+          "m3": 0.0184,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_equipment_workbench",
+          "b": "dry:room_L1-command",
+          "m3": 0.096876,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_mission_table",
+          "b": "dry:i4_shared_map_table",
+          "m3": 0.0192,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_mission_table",
+          "b": "dry:room_L1-command",
+          "m3": 0.0192,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_seat_NAV",
+          "b": "dry:navigator_platform",
+          "m3": 0.049,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_seat_NAV",
+          "b": "dry:room_L1-command",
+          "m3": 0.098,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_seat_PILOT",
+          "b": "dry:room_L1-command",
+          "m3": 0.098,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_seat_S1",
+          "b": "dry:room_L1-command",
+          "m3": 0.098,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_seat_S2",
+          "b": "dry:room_L1-command",
+          "m3": 0.0735049,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_seat_S3",
+          "b": "dry:room_L1-command",
+          "m3": 0.0735049,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_seat_S4",
+          "b": "dry:room_L1-command",
+          "m3": 0.0735049,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_sensors_cabinet",
+          "b": "dry:room_L1-command",
+          "m3": 0.07840245,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_shared_map_table",
+          "b": "dry:room_L1-command",
+          "m3": 0.08316,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_workbench",
+          "b": "dry:room_L1-command",
+          "m3": 0.0192,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_workbench_display",
+          "b": "dry:room_L1-command",
+          "m3": 0.029232,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:longeron_end_fitting_14_lower_port",
+          "b": "dry:longeron_lower_port",
+          "m3": 0.062831853,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:longeron_end_fitting_14_lower_starboard",
+          "b": "dry:longeron_lower_starboard",
+          "m3": 0.062831853,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:longeron_end_fitting_14_upper_port",
+          "b": "dry:longeron_upper_port",
+          "m3": 0.062831853,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:longeron_end_fitting_14_upper_starboard",
+          "b": "dry:longeron_upper_starboard",
+          "m3": 0.062831853,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:longeron_end_fitting_34.3_lower_port",
+          "b": "dry:longeron_lower_port",
+          "m3": 0.062831853,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:longeron_end_fitting_34.3_lower_starboard",
+          "b": "dry:longeron_lower_starboard",
+          "m3": 0.062831853,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:longeron_end_fitting_34.3_upper_port",
+          "b": "dry:longeron_upper_port",
+          "m3": 0.062831853,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:longeron_end_fitting_34.3_upper_starboard",
+          "b": "dry:longeron_upper_starboard",
+          "m3": 0.062831853,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:navigator_platform",
+          "b": "dry:room_L1-command",
+          "m3": 0.583,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L1",
+          "b": "dry:room_L1-command",
+          "m3": 5.679338022,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L2",
+          "b": "dry:room_L2-exercise",
+          "m3": 0.987507291,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L2",
+          "b": "dry:room_L2-galley",
+          "m3": 1.481260936,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L2",
+          "b": "dry:room_L2-hygiene",
+          "m3": 0.493753645,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L2",
+          "b": "dry:room_L2-observation",
+          "m3": 0.987507291,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L2",
+          "b": "dry:room_L2-wardroom",
+          "m3": 1.975014582,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L4",
+          "b": "dry:room_L4-eclss",
+          "m3": 1.975014582,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L4",
+          "b": "dry:room_L4-medical",
+          "m3": 1.481260936,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L5",
+          "b": "dry:room_L5-airlock",
+          "m3": 0.658338194,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L5",
+          "b": "dry:room_L5-custody",
+          "m3": 0.493753645,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L5",
+          "b": "dry:room_L5-stores",
+          "m3": 0.822922742,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L5",
+          "b": "dry:room_L5-stores2",
+          "m3": 0.822922742,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L5",
+          "b": "dry:room_L5-suits",
+          "m3": 0.987507291,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L5",
+          "b": "dry:room_L5-vestibule",
+          "m3": 0.658338194,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L5",
+          "b": "dry:room_L5-workshop",
+          "m3": 1.481260936,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:pressure_vessel",
+          "b": "dry:rcs_F+Y",
+          "m3": 0.018076434,
+          "category": "c",
+          "why": "RCS thruster hull-mounted footprint"
+        },
+        {
+          "a": "dry:pressure_vessel",
+          "b": "dry:rcs_F+Z",
+          "m3": 0.019278012,
+          "category": "c",
+          "why": "RCS thruster hull-mounted footprint"
+        },
+        {
+          "a": "dry:pressure_vessel",
+          "b": "dry:rcs_F-Y",
+          "m3": 0.019278007,
+          "category": "c",
+          "why": "RCS thruster hull-mounted footprint"
+        },
+        {
+          "a": "dry:pressure_vessel",
+          "b": "dry:rcs_F-Z",
+          "m3": 0.018677137,
+          "category": "c",
+          "why": "RCS thruster hull-mounted footprint"
+        },
+        {
+          "a": "dry:rescue_kit",
+          "b": "dry:room_L4-medical",
+          "m3": 0.027,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:room_L4-shelter",
+          "b": "dry:shelter_backup",
+          "m3": 0.064,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:shield",
+          "b": "dry:thrust_cone",
+          "m3": 0.061956726,
+          "category": "c",
+          "why": "thrust-cone and shield authored mechanical interface"
+        },
+        {
+          "a": "dry:skin_midship",
+          "b": "dry:strake_140",
+          "m3": 0.576837617,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:skin_midship",
+          "b": "dry:strake_220",
+          "m3": 0.576837617,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:skin_midship",
+          "b": "dry:strake_320",
+          "m3": 0.576837617,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:skin_midship",
+          "b": "dry:strake_40",
+          "m3": 0.576837617,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:skin_service",
+          "b": "dry:strake_140",
+          "m3": 0.16135318,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:skin_service",
+          "b": "dry:strake_220",
+          "m3": 0.16135318,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:skin_service",
+          "b": "dry:strake_320",
+          "m3": 0.16135318,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:skin_service",
+          "b": "dry:strake_40",
+          "m3": 0.16135318,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:strake_140",
+          "b": "dry:tank_shell_out",
+          "m3": 0.545013831,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:strake_220",
+          "b": "dry:tank_shell_out",
+          "m3": 0.545013831,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:strake_320",
+          "b": "dry:tank_shell_out",
+          "m3": 0.545013831,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:strake_40",
+          "b": "dry:tank_shell_out",
+          "m3": 0.545013831,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:tunnel_1",
+          "b": "dry:tunnel_2",
+          "m3": 0.288,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        }
+      ],
+      "category_d_count": 0,
+      "category_d_conflicts": []
+    },
+    "closed": {
+      "part_count": 457,
+      "pair_count": 104196,
+      "range_start": 0,
+      "range_end": 104196,
+      "category_counts": {
+        "a": 1,
+        "c": 159
+      },
+      "collision_errors": [],
+      "intersection_hits": [
+        {
+          "a": "S1:c_lite_monoprop:19",
+          "b": "dry:c_lite_dry",
+          "m3": 0.670206433,
+          "category": "a",
+          "why": "S1 C-lite monoprop inside named dry storage-envelope"
+        },
+        {
+          "a": "S1:c_lite_monoprop:19",
+          "b": "dry:electrical_fwd",
+          "m3": 0.670206433,
+          "category": "c",
+          "why": "source C-lite fluid explicitly hosted inside the broad forward electrical allocation sector"
+        },
+        {
+          "a": "S1:jacket_berth_wall_extended:08",
+          "b": "dry:outfit_L3",
+          "m3": 2.410481211,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "S1:jacket_outer:00",
+          "b": "dry:outfit_L4",
+          "m3": 2.468768227,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:crown_brow",
+          "m3": 0.021890009,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:crown_osteon_brow_seat",
+          "m3": 0.429565627,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:ext_crawler_dock_0",
+          "m3": 0.063828,
+          "category": "c",
+          "why": "external hardware mounted on structure; unqualified local attachment"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:ext_crawler_dock_1",
+          "m3": 0.063828,
+          "category": "c",
+          "why": "external hardware mounted on structure; unqualified local attachment"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:rcs_F+Y",
+          "m3": 0.120165994,
+          "category": "c",
+          "why": "RCS thruster hull-mounted footprint"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:rcs_F+Z",
+          "m3": 0.12817706,
+          "category": "c",
+          "why": "RCS thruster hull-mounted footprint"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:rcs_F-Y",
+          "m3": 0.12817706,
+          "category": "c",
+          "why": "RCS thruster hull-mounted footprint"
+        },
+        {
+          "a": "dry:armor",
+          "b": "dry:rcs_F-Z",
+          "m3": 0.124171527,
+          "category": "c",
+          "why": "RCS thruster hull-mounted footprint"
+        },
+        {
+          "a": "dry:bow_sensors",
+          "b": "dry:outfit_L1",
+          "m3": 4.20110119,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:bow_sensors",
+          "b": "dry:room_L1-command",
+          "m3": 11.77366328,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:c_lite_dry",
+          "b": "dry:electrical_fwd",
+          "m3": 0.670206433,
+          "category": "c",
+          "why": "component within broad electrical allocation sector"
+        },
+        {
+          "a": "dry:command_terrace",
+          "b": "dry:i4_seat_PILOT",
+          "m3": 0.049,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:command_terrace",
+          "b": "dry:i4_seat_S1",
+          "m3": 0.049,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:command_terrace",
+          "b": "dry:room_L1-command",
+          "m3": 0.714,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:core_trunk",
+          "b": "dry:trunk_plug_L4L5",
+          "m3": 0.763407015,
+          "category": "c",
+          "why": "trunk isolation plug intentionally closes trunk"
+        },
+        {
+          "a": "dry:crown_gore_00_closed",
+          "b": "dry:crown_pane_14",
+          "m3": 0.010469433,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_01_closed",
+          "b": "dry:crown_pane_26",
+          "m3": 0.013068278,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_02_closed",
+          "b": "dry:crown_pane_27",
+          "m3": 0.013069037,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_03_closed",
+          "b": "dry:crown_pane_16",
+          "m3": 0.010469433,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_04_closed",
+          "b": "dry:crown_pane_17",
+          "m3": 0.010469433,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_05_closed",
+          "b": "dry:crown_pane_29",
+          "m3": 0.013068278,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_06_closed",
+          "b": "dry:crown_pane_30",
+          "m3": 0.013069037,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_07_closed",
+          "b": "dry:crown_pane_19",
+          "m3": 0.010469433,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_08_closed",
+          "b": "dry:crown_pane_20",
+          "m3": 0.010469433,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_09_closed",
+          "b": "dry:crown_pane_32",
+          "m3": 0.013068278,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_10_closed",
+          "b": "dry:crown_pane_33",
+          "m3": 0.013069037,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_11_closed",
+          "b": "dry:crown_pane_22",
+          "m3": 0.010469433,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_12_closed",
+          "b": "dry:crown_pane_23",
+          "m3": 0.010469433,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_13_closed",
+          "b": "dry:crown_pane_35",
+          "m3": 0.013068278,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_14_closed",
+          "b": "dry:crown_pane_36",
+          "m3": 0.013069037,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_gore_15_closed",
+          "b": "dry:crown_pane_25",
+          "m3": 0.010469433,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:crown_inner_pressure_dome",
+          "b": "dry:room_L1-command",
+          "m3": 0.184894405,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:docking_collar",
+          "b": "dry:frame_16",
+          "m3": 0.091191384,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:docking_collar",
+          "b": "dry:skin_service",
+          "m3": 0.040370344,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:doors_L4-medical",
+          "b": "dry:room_L4-medical",
+          "m3": 0.046506684,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:electrical",
+          "b": "dry:house_peak_store",
+          "m3": 9.025326327,
+          "category": "c",
+          "why": "component within broad electrical allocation sector"
+        },
+        {
+          "a": "dry:electrical",
+          "b": "dry:house_reactor_A",
+          "m3": 6.502081078,
+          "category": "c",
+          "why": "component within broad electrical allocation sector"
+        },
+        {
+          "a": "dry:electrical_fwd",
+          "b": "dry:house_energy_battery",
+          "m3": 11.723877458,
+          "category": "c",
+          "why": "component within broad electrical allocation sector"
+        },
+        {
+          "a": "dry:electrical_fwd",
+          "b": "dry:house_reactor_B",
+          "m3": 11.463231406,
+          "category": "c",
+          "why": "component within broad electrical allocation sector"
+        },
+        {
+          "a": "dry:ext_rf_array_0",
+          "b": "dry:skin_midship",
+          "m3": 0.020965,
+          "category": "c",
+          "why": "external hardware mounted on structure; unqualified local attachment"
+        },
+        {
+          "a": "dry:ext_rf_array_1",
+          "b": "dry:skin_midship",
+          "m3": 0.020965,
+          "category": "c",
+          "why": "external hardware mounted on structure; unqualified local attachment"
+        },
+        {
+          "a": "dry:ext_rf_array_2",
+          "b": "dry:skin_midship",
+          "m3": 0.020965,
+          "category": "c",
+          "why": "external hardware mounted on structure; unqualified local attachment"
+        },
+        {
+          "a": "dry:ext_rf_array_3",
+          "b": "dry:skin_midship",
+          "m3": 0.020965,
+          "category": "c",
+          "why": "external hardware mounted on structure; unqualified local attachment"
+        },
+        {
+          "a": "dry:ext_sensor_turret_0",
+          "b": "dry:skin_midship",
+          "m3": 0.01796,
+          "category": "c",
+          "why": "external hardware mounted on structure; unqualified local attachment"
+        },
+        {
+          "a": "dry:ext_sensor_turret_1",
+          "b": "dry:skin_midship",
+          "m3": 0.01796,
+          "category": "c",
+          "why": "external hardware mounted on structure; unqualified local attachment"
+        },
+        {
+          "a": "dry:floor_L1",
+          "b": "dry:hatch_L1L2_0",
+          "m3": 0.01656,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:floor_L1",
+          "b": "dry:hatch_L1L2_1",
+          "m3": 0.01656,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:floor_L1",
+          "b": "dry:i4_engineering_cabinet",
+          "m3": 0.0539,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:floor_L1",
+          "b": "dry:i4_seat_S2",
+          "m3": 0.0245,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:floor_L1",
+          "b": "dry:i4_seat_S3",
+          "m3": 0.0245,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:floor_L1",
+          "b": "dry:i4_seat_S4",
+          "m3": 0.0245,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:floor_L1",
+          "b": "dry:i4_sensors_cabinet",
+          "m3": 0.0539,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:floor_L4",
+          "b": "dry:hatch_L4L5_0",
+          "m3": 0.033973976,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:floor_L4",
+          "b": "dry:hatch_L4L5_180",
+          "m3": 0.033973976,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:frame_14",
+          "b": "dry:strake_140",
+          "m3": 0.112921781,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_14",
+          "b": "dry:strake_220",
+          "m3": 0.112921781,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_14",
+          "b": "dry:strake_320",
+          "m3": 0.112921781,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_14",
+          "b": "dry:strake_40",
+          "m3": 0.112921781,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_16",
+          "b": "dry:strake_140",
+          "m3": 0.114709986,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_16",
+          "b": "dry:strake_220",
+          "m3": 0.114709986,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_16",
+          "b": "dry:strake_320",
+          "m3": 0.114709986,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_16",
+          "b": "dry:strake_40",
+          "m3": 0.114709986,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_18",
+          "b": "dry:strake_140",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_18",
+          "b": "dry:strake_220",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_18",
+          "b": "dry:strake_320",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_18",
+          "b": "dry:strake_40",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_20",
+          "b": "dry:strake_140",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_20",
+          "b": "dry:strake_220",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_20",
+          "b": "dry:strake_320",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_20",
+          "b": "dry:strake_40",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_22",
+          "b": "dry:strake_140",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_22",
+          "b": "dry:strake_220",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_22",
+          "b": "dry:strake_320",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_22",
+          "b": "dry:strake_40",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_24",
+          "b": "dry:strake_140",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_24",
+          "b": "dry:strake_220",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_24",
+          "b": "dry:strake_320",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_24",
+          "b": "dry:strake_40",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_26",
+          "b": "dry:strake_140",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_26",
+          "b": "dry:strake_220",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_26",
+          "b": "dry:strake_320",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_26",
+          "b": "dry:strake_40",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_28",
+          "b": "dry:strake_140",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_28",
+          "b": "dry:strake_220",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_28",
+          "b": "dry:strake_320",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_28",
+          "b": "dry:strake_40",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_30",
+          "b": "dry:strake_140",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_30",
+          "b": "dry:strake_220",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_30",
+          "b": "dry:strake_320",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_30",
+          "b": "dry:strake_40",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_32",
+          "b": "dry:strake_140",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_32",
+          "b": "dry:strake_220",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_32",
+          "b": "dry:strake_320",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:frame_32",
+          "b": "dry:strake_40",
+          "m3": 0.054478462,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:i4_cabinetry",
+          "b": "dry:i4_engineering_cabinet",
+          "m3": 0.0168,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_cabinetry",
+          "b": "dry:room_L1-command",
+          "m3": 0.0192,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_engineering_cabinet",
+          "b": "dry:room_L1-command",
+          "m3": 0.07840245,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_equipment_workbench",
+          "b": "dry:i4_workbench",
+          "m3": 0.0184,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_equipment_workbench",
+          "b": "dry:room_L1-command",
+          "m3": 0.096876,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_mission_table",
+          "b": "dry:i4_shared_map_table",
+          "m3": 0.0192,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_mission_table",
+          "b": "dry:room_L1-command",
+          "m3": 0.0192,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_seat_NAV",
+          "b": "dry:navigator_platform",
+          "m3": 0.049,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_seat_NAV",
+          "b": "dry:room_L1-command",
+          "m3": 0.098,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_seat_PILOT",
+          "b": "dry:room_L1-command",
+          "m3": 0.098,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_seat_S1",
+          "b": "dry:room_L1-command",
+          "m3": 0.098,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_seat_S2",
+          "b": "dry:room_L1-command",
+          "m3": 0.0735049,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_seat_S3",
+          "b": "dry:room_L1-command",
+          "m3": 0.0735049,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_seat_S4",
+          "b": "dry:room_L1-command",
+          "m3": 0.0735049,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_sensors_cabinet",
+          "b": "dry:room_L1-command",
+          "m3": 0.07840245,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_shared_map_table",
+          "b": "dry:room_L1-command",
+          "m3": 0.08316,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_workbench",
+          "b": "dry:room_L1-command",
+          "m3": 0.0192,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:i4_workbench_display",
+          "b": "dry:room_L1-command",
+          "m3": 0.029232,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:longeron_end_fitting_14_lower_port",
+          "b": "dry:longeron_lower_port",
+          "m3": 0.062831853,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:longeron_end_fitting_14_lower_starboard",
+          "b": "dry:longeron_lower_starboard",
+          "m3": 0.062831853,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:longeron_end_fitting_14_upper_port",
+          "b": "dry:longeron_upper_port",
+          "m3": 0.062831853,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:longeron_end_fitting_14_upper_starboard",
+          "b": "dry:longeron_upper_starboard",
+          "m3": 0.062831853,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:longeron_end_fitting_34.3_lower_port",
+          "b": "dry:longeron_lower_port",
+          "m3": 0.062831853,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:longeron_end_fitting_34.3_lower_starboard",
+          "b": "dry:longeron_lower_starboard",
+          "m3": 0.062831853,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:longeron_end_fitting_34.3_upper_port",
+          "b": "dry:longeron_upper_port",
+          "m3": 0.062831853,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:longeron_end_fitting_34.3_upper_starboard",
+          "b": "dry:longeron_upper_starboard",
+          "m3": 0.062831853,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        },
+        {
+          "a": "dry:navigator_platform",
+          "b": "dry:room_L1-command",
+          "m3": 0.583,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L1",
+          "b": "dry:room_L1-command",
+          "m3": 5.679338022,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L2",
+          "b": "dry:room_L2-exercise",
+          "m3": 0.987507291,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L2",
+          "b": "dry:room_L2-galley",
+          "m3": 1.481260936,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L2",
+          "b": "dry:room_L2-hygiene",
+          "m3": 0.493753645,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L2",
+          "b": "dry:room_L2-observation",
+          "m3": 0.987507291,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L2",
+          "b": "dry:room_L2-wardroom",
+          "m3": 1.975014582,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L4",
+          "b": "dry:room_L4-eclss",
+          "m3": 1.975014582,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L4",
+          "b": "dry:room_L4-medical",
+          "m3": 1.481260936,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L5",
+          "b": "dry:room_L5-airlock",
+          "m3": 0.658338194,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L5",
+          "b": "dry:room_L5-custody",
+          "m3": 0.493753645,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L5",
+          "b": "dry:room_L5-stores",
+          "m3": 0.822922742,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L5",
+          "b": "dry:room_L5-stores2",
+          "m3": 0.822922742,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L5",
+          "b": "dry:room_L5-suits",
+          "m3": 0.987507291,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L5",
+          "b": "dry:room_L5-vestibule",
+          "m3": 0.658338194,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:outfit_L5",
+          "b": "dry:room_L5-workshop",
+          "m3": 1.481260936,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:pressure_vessel",
+          "b": "dry:rcs_F+Y",
+          "m3": 0.018076434,
+          "category": "c",
+          "why": "RCS thruster hull-mounted footprint"
+        },
+        {
+          "a": "dry:pressure_vessel",
+          "b": "dry:rcs_F+Z",
+          "m3": 0.019278012,
+          "category": "c",
+          "why": "RCS thruster hull-mounted footprint"
+        },
+        {
+          "a": "dry:pressure_vessel",
+          "b": "dry:rcs_F-Y",
+          "m3": 0.019278007,
+          "category": "c",
+          "why": "RCS thruster hull-mounted footprint"
+        },
+        {
+          "a": "dry:pressure_vessel",
+          "b": "dry:rcs_F-Z",
+          "m3": 0.018677137,
+          "category": "c",
+          "why": "RCS thruster hull-mounted footprint"
+        },
+        {
+          "a": "dry:rescue_kit",
+          "b": "dry:room_L4-medical",
+          "m3": 0.027,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:room_L4-shelter",
+          "b": "dry:shelter_backup",
+          "m3": 0.064,
+          "category": "c",
+          "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+        },
+        {
+          "a": "dry:shield",
+          "b": "dry:thrust_cone",
+          "m3": 0.061956726,
+          "category": "c",
+          "why": "thrust-cone and shield authored mechanical interface"
+        },
+        {
+          "a": "dry:skin_midship",
+          "b": "dry:strake_140",
+          "m3": 0.576837617,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:skin_midship",
+          "b": "dry:strake_220",
+          "m3": 0.576837617,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:skin_midship",
+          "b": "dry:strake_320",
+          "m3": 0.576837617,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:skin_midship",
+          "b": "dry:strake_40",
+          "m3": 0.576837617,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:skin_service",
+          "b": "dry:strake_140",
+          "m3": 0.16135318,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:skin_service",
+          "b": "dry:strake_220",
+          "m3": 0.16135318,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:skin_service",
+          "b": "dry:strake_320",
+          "m3": 0.16135318,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:skin_service",
+          "b": "dry:strake_40",
+          "m3": 0.16135318,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:strake_140",
+          "b": "dry:tank_shell_out",
+          "m3": 0.545013831,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:strake_220",
+          "b": "dry:tank_shell_out",
+          "m3": 0.545013831,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:strake_320",
+          "b": "dry:tank_shell_out",
+          "m3": 0.545013831,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:strake_40",
+          "b": "dry:tank_shell_out",
+          "m3": 0.545013831,
+          "category": "c",
+          "why": "strake root intersects authored skin/groove/support envelope"
+        },
+        {
+          "a": "dry:tunnel_1",
+          "b": "dry:tunnel_2",
+          "m3": 0.288,
+          "category": "c",
+          "why": "source structural connection or attachment envelope"
+        }
+      ],
+      "category_d_count": 0,
+      "category_d_conflicts": []
+    }
+  },
+  "mutually_exclusive_gore_state_GLBS": {
+    "stowed": "render/out/wayfarer_parts_v253_88ce19fc_stowed.glb",
+    "closed": "render/out/wayfarer_parts_v253_88ce19fc_closed.glb"
+  },
+  "combined_GLTF_is_selectable_catalogue_not_simultaneous_pose": true,
+  "installed_source_nodes": 194,
+  "replaced_no_render_proxy_nodes_in_export": [
+    "crown_dome",
+    "crown_c_additional_strata_gore",
+    "crown_c_outward_retainers",
+    "crown_backup_pressure_dome",
+    "crown_adaptive_optogel"
+  ],
+  "note": "Existing no_render mass proxies remain in source G1; physical crown solids overlay is not yet a source-qualified replacement.",
+  "outer_pressure_dome_apex_m": -0.42,
+  "inner_pressure_dome_apex_m": -0.3,
+  "inner_dome_is_pressure_vessel_bow_closure": true,
+  "option_c_armour_shoulder_fairing": {
+    "r_m": [
+      3.5,
+      4.5
+    ],
+    "front_x_m": [
+      0.587630388891315,
+      2.35
+    ],
+    "pane_edge_x_m": 0.587630388891315,
+    "hull_shoulder_x_m": 2.35,
+    "seam_step_at_pane_m": 0.0,
+    "seam_step_at_cylinder_m": 0.0,
+    "source_renderer": "wayfarer/render/loomgl.js:crownMeshes/XO",
+    "authored_gore_count": 16,
+    "physical_gore_mechanism_qualified": false,
+    "fairing_brep_volume_m3": 5.026548245743649,
+    "source_armour_mass_rebooked_t": 0
+  },
+  "outfit_L1_relocation": {
+    "source_shape": {
+      "k": "sector",
+      "x0": 0.2,
+      "x1": 3,
+      "r0": 4.050000000000001,
+      "r1": 4.15,
+      "a0": 0.0,
+      "a1": 360.0
+    },
+    "corrected_axial_range_m": [
+      0.2,
+      3.0
+    ],
+    "corrected_inner_radius_range_m": [
+      2.0122875442891504,
+      4.089638370219033
+    ],
+    "corrected_outer_radius_range_m": [
+      2.11228754428915,
+      4.189638370219033
+    ],
+    "nominal_clearance_to_inner_pressure_wall_m": 0.08,
+    "shape_volume_m3": 6.198213759441063,
+    "mass_rebooked_t": 0
+  },
+  "all_internal_parts_inside_pressure_hull": {
+    "checked_physical_interior_count": 18,
+    "checked_parts": [
+      {
+        "part": "dry:command_terrace",
+        "volume_m3": 0.714,
+        "outside_pressure_interior_m3": 0.0,
+        "pass_containment": true
+      },
+      {
+        "part": "dry:core_trunk",
+        "volume_m3": 25.701369499,
+        "outside_pressure_interior_m3": 0.0,
+        "pass_containment": true
+      },
+      {
+        "part": "dry:floor_L1",
+        "volume_m3": 15.468416828,
+        "outside_pressure_interior_m3": 0.0,
+        "pass_containment": true
+      },
+      {
+        "part": "dry:floor_L2",
+        "volume_m3": 14.850057146,
+        "outside_pressure_interior_m3": 0.0,
+        "pass_containment": true
+      },
+      {
+        "part": "dry:floor_L3",
+        "volume_m3": 14.850057146,
+        "outside_pressure_interior_m3": 0.0,
+        "pass_containment": true
+      },
+      {
+        "part": "dry:floor_L4",
+        "volume_m3": 14.850057146,
+        "outside_pressure_interior_m3": 0.0,
+        "pass_containment": true
+      },
+      {
+        "part": "dry:hatch_L4L5_0",
+        "volume_m3": 0.0486,
+        "outside_pressure_interior_m3": 0.0,
+        "pass_containment": true
+      },
+      {
+        "part": "dry:hatch_L4L5_180",
+        "volume_m3": 0.0486,
+        "outside_pressure_interior_m3": 0.0,
+        "pass_containment": true
+      },
+      {
+        "part": "dry:i4_terrace_column_0",
+        "volume_m3": 0.002222865,
+        "outside_pressure_interior_m3": 0.0,
+        "pass_containment": true
+      },
+      {
+        "part": "dry:i4_terrace_column_1",
+        "volume_m3": 0.002222865,
+        "outside_pressure_interior_m3": 0.0,
+        "pass_containment": true
+      },
+      {
+        "part": "dry:i4_terrace_column_2",
+        "volume_m3": 0.002222865,
+        "outside_pressure_interior_m3": 0.0,
+        "pass_containment": true
+      },
+      {
+        "part": "dry:i4_terrace_column_3",
+        "volume_m3": 0.002222865,
+        "outside_pressure_interior_m3": 0.0,
+        "pass_containment": true
+      },
+      {
+        "part": "dry:navigator_platform",
+        "volume_m3": 0.583,
+        "outside_pressure_interior_m3": 0.0,
+        "pass_containment": true
+      },
+      {
+        "part": "dry:outfit_L1",
+        "volume_m3": 6.198213759,
+        "outside_pressure_interior_m3": 0.0,
+        "pass_containment": true
+      },
+      {
+        "part": "dry:outfit_L2",
+        "volume_m3": 5.925043745,
+        "outside_pressure_interior_m3": 0.0,
+        "pass_containment": true
+      },
+      {
+        "part": "dry:outfit_L3",
+        "volume_m3": 6.069557007,
+        "outside_pressure_interior_m3": 0.0,
+        "pass_containment": true
+      },
+      {
+        "part": "dry:outfit_L4",
+        "volume_m3": 5.925043745,
+        "outside_pressure_interior_m3": 0.0,
+        "pass_containment": true
+      },
+      {
+        "part": "dry:outfit_L5",
+        "volume_m3": 5.925043745,
+        "outside_pressure_interior_m3": 0.0,
+        "pass_containment": true
+      }
+    ],
+    "escaped_parts": [],
+    "pass_containment": true,
+    "outside_tolerance_m3": 0.0001,
+    "excluded_no_render_allocation_count": 122,
+    "excluded_semantic_volume_proxies": [
+      "dry:room_L1-command",
+      "dry:room_L2-exercise",
+      "dry:room_L2-galley",
+      "dry:room_L2-hygiene",
+      "dry:room_L2-observation",
+      "dry:room_L2-wardroom",
+      "dry:room_L3-CA",
+      "dry:room_L3-CAPT",
+      "dry:room_L3-CB",
+      "dry:room_L3-GUEST",
+      "dry:room_L3-HC",
+      "dry:room_L3-HG",
+      "dry:room_L4-eclss",
+      "dry:room_L4-medical",
+      "dry:room_L4-shelter",
+      "dry:room_L5-airlock",
+      "dry:room_L5-custody",
+      "dry:room_L5-stores",
+      "dry:room_L5-stores2",
+      "dry:room_L5-suits",
+      "dry:room_L5-vestibule",
+      "dry:room_L5-workshop"
+    ],
+    "excluded_exterior_and_boundary": "Armor, vessel, crown, windows, exterior equipment, tanks and propulsion are not internal habitat fixtures",
+    "why_D9_missed": "D9 evaluates only solid overlaps >0.01m3, not unary hull containment; outfit_* collision pairs are category-c authored display representations, not category-d."
+  },
+  "overall_length_m_unchanged": 54.5,
+  "exterior_crown_brow": {
+    "radial_span_m": [
+      3.4,
+      3.75
+    ],
+    "front_axial_span_m": [
+      0.43845502963189387,
+      0.833000640627047
+    ],
+    "back_at_shoulder_x_m": 0.8670006406270471,
+    "render_surface": "wayfarer/render/loomgl.js:crownMeshes",
+    "geometry_only": true,
+    "mass_rebooked_t": 0
+  },
+  "exterior_crown_brow_named_solid": true,
+  "osteon_dome_seat_preserved": true,
+  "seat_ring_source_dims": {
+    "r_m": 3.5,
+    "width_m": 1,
+    "height_m": 0.22,
+    "x_m": [
+      1.031288794756804,
+      1.2512887947568039
+    ]
+  },
+  "removed_mass_from_pv_and_armor": {
+    "pressure_vessel": {
+      "original_m3": 11.356646021343266,
+      "after_cut_m3": 8.408128367605855,
+      "removed_m3": 2.9485176537374116,
+      "original_booked_t": 15.355555969263195,
+      "original_effective_density_t_m3": 1.352120682497678,
+      "removed_mass_t_at_original_effective_density": 3.986751702327881,
+      "remaining_mass_t_at_original_effective_density": 11.368804266935316
+    },
+    "armor": {
+      "original_m3": 81.10303164040482,
+      "after_cut_m3": 58.52727206893039,
+      "removed_m3": 22.575759571474435,
+      "original_booked_t": 107.48889178484237,
+      "original_effective_density_t_m3": 1.3253375319115979,
+      "removed_mass_t_at_original_effective_density": 29.920501471487565,
+      "remaining_mass_t_at_original_effective_density": 77.56839031335481
+    }
+  },
+  "name_mapping": "INNER and OUTER are independent pressure domes; their apex coordinates are unchanged",
+  "cavity_BRep_m3": 2.4886611982989955,
+  "declared_AOI_fill_m3": 3.023,
+  "AOI_volume_difference_m3": -0.5343388017010047,
+  "AOI_mass_t_unchanged": 3.04101485,
+  "source_mass_allocations_t": {
+    "crown_dome": 6.201515,
+    "crown_c_additional_strata_gore": 3.888898,
+    "crown_c_outward_retainers": 0.12,
+    "crown_c_seven_spare_panes": 0.385772,
+    "crown_backup_pressure_dome": 4.728898,
+    "crown_adaptive_optogel": 3.04101485
+  },
+  "already_booked_crown_added_t": 18.36609785,
+  "mass_budget_note": "Crown proxy masses already exist in source; do not charge a second time. Inner dome replaces pressure-vessel bow material; removed tonnes are inferred from the former whole-shell effective density, not canon rebookings.",
+  "target_contacts": [
+    {
+      "part": "dry:crown_pane_26",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_27",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_28",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_29",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_30",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_31",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_32",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_33",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_34",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_35",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_36",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_pane_37",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_outer_pressure_dome",
+      "against": "dry:bow_sensors",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_outer_pressure_dome",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_inner_pressure_dome",
+      "against": "dry:bow_sensors",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_inner_pressure_dome",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_aoi_cavity_envelope",
+      "against": "dry:bow_sensors",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_aoi_cavity_envelope",
+      "against": "dry:armor",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_osteon_brow_seat",
+      "against": "dry:bow_sensors",
+      "common_m3": 0.00012256890316176321,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_osteon_brow_seat",
+      "against": "dry:pressure_vessel",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_osteon_brow_seat",
+      "against": "dry:armor",
+      "common_m3": 0.4295656268891648,
+      "exceeds_D9_0p01m3": true
+    },
+    {
+      "part": "dry:crown_brow",
+      "against": "dry:bow_sensors",
+      "common_m3": 0,
+      "exceeds_D9_0p01m3": false
+    },
+    {
+      "part": "dry:crown_brow",
+      "against": "dry:armor",
+      "common_m3": 0.02189000864419277,
+      "exceeds_D9_0p01m3": true
+    }
+  ],
+  "full_D9_candidate_scan": {
+    "part_count": 457,
+    "pair_count": 104196,
+    "range_start": 0,
+    "range_end": 104196,
+    "category_counts": {
+      "a": 1,
+      "c": 175
+    },
+    "collision_errors": [],
+    "intersection_hits": [
+      {
+        "a": "S1:c_lite_monoprop:19",
+        "b": "dry:c_lite_dry",
+        "m3": 0.670206433,
+        "category": "a",
+        "why": "S1 C-lite monoprop inside named dry storage-envelope"
+      },
+      {
+        "a": "S1:c_lite_monoprop:19",
+        "b": "dry:electrical_fwd",
+        "m3": 0.670206433,
+        "category": "c",
+        "why": "source C-lite fluid explicitly hosted inside the broad forward electrical allocation sector"
+      },
+      {
+        "a": "S1:jacket_berth_wall_extended:08",
+        "b": "dry:outfit_L3",
+        "m3": 2.410481211,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "S1:jacket_outer:00",
+        "b": "dry:outfit_L4",
+        "m3": 2.468768227,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:crown_brow",
+        "m3": 0.021890009,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:crown_gore_00_stowed",
+        "m3": 0.097067316,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:crown_gore_01_stowed",
+        "m3": 0.092789905,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:crown_gore_02_stowed",
+        "m3": 0.092786406,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:crown_gore_03_stowed",
+        "m3": 0.097067328,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:crown_gore_04_stowed",
+        "m3": 0.097067328,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:crown_gore_05_stowed",
+        "m3": 0.092789905,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:crown_gore_06_stowed",
+        "m3": 0.09278641,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:crown_gore_07_stowed",
+        "m3": 0.097067328,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:crown_gore_08_stowed",
+        "m3": 0.097067328,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:crown_gore_09_stowed",
+        "m3": 0.092789905,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:crown_gore_10_stowed",
+        "m3": 0.09278641,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:crown_gore_11_stowed",
+        "m3": 0.097067328,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:crown_gore_12_stowed",
+        "m3": 0.097067328,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:crown_gore_13_stowed",
+        "m3": 0.092789904,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:crown_gore_14_stowed",
+        "m3": 0.092786406,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:crown_gore_15_stowed",
+        "m3": 0.097067342,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:crown_osteon_brow_seat",
+        "m3": 0.429565627,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:ext_crawler_dock_0",
+        "m3": 0.063828,
+        "category": "c",
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:ext_crawler_dock_1",
+        "m3": 0.063828,
+        "category": "c",
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:rcs_F+Y",
+        "m3": 0.120165994,
+        "category": "c",
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:rcs_F+Z",
+        "m3": 0.12817706,
+        "category": "c",
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:rcs_F-Y",
+        "m3": 0.12817706,
+        "category": "c",
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:armor",
+        "b": "dry:rcs_F-Z",
+        "m3": 0.124171527,
+        "category": "c",
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:bow_sensors",
+        "b": "dry:outfit_L1",
+        "m3": 1.697713776,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:bow_sensors",
+        "b": "dry:room_L1-command",
+        "m3": 11.77366328,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:c_lite_dry",
+        "b": "dry:electrical_fwd",
+        "m3": 0.670206433,
+        "category": "c",
+        "why": "component within broad electrical allocation sector"
+      },
+      {
+        "a": "dry:command_terrace",
+        "b": "dry:i4_seat_PILOT",
+        "m3": 0.049,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:command_terrace",
+        "b": "dry:i4_seat_S1",
+        "m3": 0.049,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:command_terrace",
+        "b": "dry:room_L1-command",
+        "m3": 0.714,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:core_trunk",
+        "b": "dry:trunk_plug_L4L5",
+        "m3": 0.763407015,
+        "category": "c",
+        "why": "trunk isolation plug intentionally closes trunk"
+      },
+      {
+        "a": "dry:crown_gore_00_stowed",
+        "b": "dry:crown_osteon_brow_seat",
+        "m3": 0.01367773,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:crown_gore_01_stowed",
+        "b": "dry:crown_osteon_brow_seat",
+        "m3": 0.01367773,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:crown_gore_02_stowed",
+        "b": "dry:crown_osteon_brow_seat",
+        "m3": 0.01367773,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:crown_gore_03_stowed",
+        "b": "dry:crown_osteon_brow_seat",
+        "m3": 0.01367773,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:crown_gore_04_stowed",
+        "b": "dry:crown_osteon_brow_seat",
+        "m3": 0.01367773,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:crown_gore_05_stowed",
+        "b": "dry:crown_osteon_brow_seat",
+        "m3": 0.01367773,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:crown_gore_06_stowed",
+        "b": "dry:crown_osteon_brow_seat",
+        "m3": 0.01367773,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:crown_gore_07_stowed",
+        "b": "dry:crown_osteon_brow_seat",
+        "m3": 0.01367773,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:crown_gore_08_stowed",
+        "b": "dry:crown_osteon_brow_seat",
+        "m3": 0.01367773,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:crown_gore_09_stowed",
+        "b": "dry:crown_osteon_brow_seat",
+        "m3": 0.01367773,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:crown_gore_10_stowed",
+        "b": "dry:crown_osteon_brow_seat",
+        "m3": 0.01367773,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:crown_gore_11_stowed",
+        "b": "dry:crown_osteon_brow_seat",
+        "m3": 0.01367773,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:crown_gore_12_stowed",
+        "b": "dry:crown_osteon_brow_seat",
+        "m3": 0.01367773,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:crown_gore_13_stowed",
+        "b": "dry:crown_osteon_brow_seat",
+        "m3": 0.01367773,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:crown_gore_14_stowed",
+        "b": "dry:crown_osteon_brow_seat",
+        "m3": 0.01367773,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:crown_gore_15_stowed",
+        "b": "dry:crown_osteon_brow_seat",
+        "m3": 0.01367773,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:crown_inner_pressure_dome",
+        "b": "dry:room_L1-command",
+        "m3": 0.184894405,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:docking_collar",
+        "b": "dry:frame_16",
+        "m3": 0.091191384,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:docking_collar",
+        "b": "dry:skin_service",
+        "m3": 0.040370344,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:doors_L4-medical",
+        "b": "dry:room_L4-medical",
+        "m3": 0.046506684,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:electrical",
+        "b": "dry:house_peak_store",
+        "m3": 9.025326327,
+        "category": "c",
+        "why": "component within broad electrical allocation sector"
+      },
+      {
+        "a": "dry:electrical",
+        "b": "dry:house_reactor_A",
+        "m3": 6.502081078,
+        "category": "c",
+        "why": "component within broad electrical allocation sector"
+      },
+      {
+        "a": "dry:electrical_fwd",
+        "b": "dry:house_energy_battery",
+        "m3": 11.723877458,
+        "category": "c",
+        "why": "component within broad electrical allocation sector"
+      },
+      {
+        "a": "dry:electrical_fwd",
+        "b": "dry:house_reactor_B",
+        "m3": 11.463231406,
+        "category": "c",
+        "why": "component within broad electrical allocation sector"
+      },
+      {
+        "a": "dry:ext_rf_array_0",
+        "b": "dry:skin_midship",
+        "m3": 0.020965,
+        "category": "c",
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:ext_rf_array_1",
+        "b": "dry:skin_midship",
+        "m3": 0.020965,
+        "category": "c",
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:ext_rf_array_2",
+        "b": "dry:skin_midship",
+        "m3": 0.020965,
+        "category": "c",
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:ext_rf_array_3",
+        "b": "dry:skin_midship",
+        "m3": 0.020965,
+        "category": "c",
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:ext_sensor_turret_0",
+        "b": "dry:skin_midship",
+        "m3": 0.01796,
+        "category": "c",
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:ext_sensor_turret_1",
+        "b": "dry:skin_midship",
+        "m3": 0.01796,
+        "category": "c",
+        "why": "external hardware mounted on structure; unqualified local attachment"
+      },
+      {
+        "a": "dry:floor_L1",
+        "b": "dry:hatch_L1L2_0",
+        "m3": 0.01656,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:floor_L1",
+        "b": "dry:hatch_L1L2_1",
+        "m3": 0.01656,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:floor_L1",
+        "b": "dry:i4_engineering_cabinet",
+        "m3": 0.0539,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:floor_L1",
+        "b": "dry:i4_seat_S2",
+        "m3": 0.0245,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:floor_L1",
+        "b": "dry:i4_seat_S3",
+        "m3": 0.0245,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:floor_L1",
+        "b": "dry:i4_seat_S4",
+        "m3": 0.0245,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:floor_L1",
+        "b": "dry:i4_sensors_cabinet",
+        "m3": 0.0539,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:floor_L4",
+        "b": "dry:hatch_L4L5_0",
+        "m3": 0.033973976,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:floor_L4",
+        "b": "dry:hatch_L4L5_180",
+        "m3": 0.033973976,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:frame_14",
+        "b": "dry:strake_140",
+        "m3": 0.112921781,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_14",
+        "b": "dry:strake_220",
+        "m3": 0.112921781,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_14",
+        "b": "dry:strake_320",
+        "m3": 0.112921781,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_14",
+        "b": "dry:strake_40",
+        "m3": 0.112921781,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_16",
+        "b": "dry:strake_140",
+        "m3": 0.114709986,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_16",
+        "b": "dry:strake_220",
+        "m3": 0.114709986,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_16",
+        "b": "dry:strake_320",
+        "m3": 0.114709986,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_16",
+        "b": "dry:strake_40",
+        "m3": 0.114709986,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_18",
+        "b": "dry:strake_140",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_18",
+        "b": "dry:strake_220",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_18",
+        "b": "dry:strake_320",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_18",
+        "b": "dry:strake_40",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_20",
+        "b": "dry:strake_140",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_20",
+        "b": "dry:strake_220",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_20",
+        "b": "dry:strake_320",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_20",
+        "b": "dry:strake_40",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_22",
+        "b": "dry:strake_140",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_22",
+        "b": "dry:strake_220",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_22",
+        "b": "dry:strake_320",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_22",
+        "b": "dry:strake_40",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_24",
+        "b": "dry:strake_140",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_24",
+        "b": "dry:strake_220",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_24",
+        "b": "dry:strake_320",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_24",
+        "b": "dry:strake_40",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_26",
+        "b": "dry:strake_140",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_26",
+        "b": "dry:strake_220",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_26",
+        "b": "dry:strake_320",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_26",
+        "b": "dry:strake_40",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_28",
+        "b": "dry:strake_140",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_28",
+        "b": "dry:strake_220",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_28",
+        "b": "dry:strake_320",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_28",
+        "b": "dry:strake_40",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_30",
+        "b": "dry:strake_140",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_30",
+        "b": "dry:strake_220",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_30",
+        "b": "dry:strake_320",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_30",
+        "b": "dry:strake_40",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_32",
+        "b": "dry:strake_140",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_32",
+        "b": "dry:strake_220",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_32",
+        "b": "dry:strake_320",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:frame_32",
+        "b": "dry:strake_40",
+        "m3": 0.054478462,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:i4_cabinetry",
+        "b": "dry:i4_engineering_cabinet",
+        "m3": 0.0168,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:i4_cabinetry",
+        "b": "dry:room_L1-command",
+        "m3": 0.0192,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:i4_engineering_cabinet",
+        "b": "dry:room_L1-command",
+        "m3": 0.07840245,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:i4_equipment_workbench",
+        "b": "dry:i4_workbench",
+        "m3": 0.0184,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:i4_equipment_workbench",
+        "b": "dry:room_L1-command",
+        "m3": 0.096876,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:i4_mission_table",
+        "b": "dry:i4_shared_map_table",
+        "m3": 0.0192,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:i4_mission_table",
+        "b": "dry:room_L1-command",
+        "m3": 0.0192,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:i4_seat_NAV",
+        "b": "dry:navigator_platform",
+        "m3": 0.049,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:i4_seat_NAV",
+        "b": "dry:room_L1-command",
+        "m3": 0.098,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:i4_seat_PILOT",
+        "b": "dry:room_L1-command",
+        "m3": 0.098,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:i4_seat_S1",
+        "b": "dry:room_L1-command",
+        "m3": 0.098,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:i4_seat_S2",
+        "b": "dry:room_L1-command",
+        "m3": 0.0735049,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:i4_seat_S3",
+        "b": "dry:room_L1-command",
+        "m3": 0.0735049,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:i4_seat_S4",
+        "b": "dry:room_L1-command",
+        "m3": 0.0735049,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:i4_sensors_cabinet",
+        "b": "dry:room_L1-command",
+        "m3": 0.07840245,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:i4_shared_map_table",
+        "b": "dry:room_L1-command",
+        "m3": 0.08316,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:i4_workbench",
+        "b": "dry:room_L1-command",
+        "m3": 0.0192,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:i4_workbench_display",
+        "b": "dry:room_L1-command",
+        "m3": 0.029232,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:longeron_end_fitting_14_lower_port",
+        "b": "dry:longeron_lower_port",
+        "m3": 0.062831853,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:longeron_end_fitting_14_lower_starboard",
+        "b": "dry:longeron_lower_starboard",
+        "m3": 0.062831853,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:longeron_end_fitting_14_upper_port",
+        "b": "dry:longeron_upper_port",
+        "m3": 0.062831853,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:longeron_end_fitting_14_upper_starboard",
+        "b": "dry:longeron_upper_starboard",
+        "m3": 0.062831853,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:longeron_end_fitting_34.3_lower_port",
+        "b": "dry:longeron_lower_port",
+        "m3": 0.062831853,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:longeron_end_fitting_34.3_lower_starboard",
+        "b": "dry:longeron_lower_starboard",
+        "m3": 0.062831853,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:longeron_end_fitting_34.3_upper_port",
+        "b": "dry:longeron_upper_port",
+        "m3": 0.062831853,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:longeron_end_fitting_34.3_upper_starboard",
+        "b": "dry:longeron_upper_starboard",
+        "m3": 0.062831853,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      },
+      {
+        "a": "dry:navigator_platform",
+        "b": "dry:room_L1-command",
+        "m3": 0.583,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L1",
+        "b": "dry:room_L1-command",
+        "m3": 5.679338022,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L2",
+        "b": "dry:room_L2-exercise",
+        "m3": 0.987507291,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L2",
+        "b": "dry:room_L2-galley",
+        "m3": 1.481260936,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L2",
+        "b": "dry:room_L2-hygiene",
+        "m3": 0.493753645,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L2",
+        "b": "dry:room_L2-observation",
+        "m3": 0.987507291,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L2",
+        "b": "dry:room_L2-wardroom",
+        "m3": 1.975014582,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L4",
+        "b": "dry:room_L4-eclss",
+        "m3": 1.975014582,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L4",
+        "b": "dry:room_L4-medical",
+        "m3": 1.481260936,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-airlock",
+        "m3": 0.658338194,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-custody",
+        "m3": 0.493753645,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-stores",
+        "m3": 0.822922742,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-stores2",
+        "m3": 0.822922742,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-suits",
+        "m3": 0.987507291,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-vestibule",
+        "m3": 0.658338194,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:outfit_L5",
+        "b": "dry:room_L5-workshop",
+        "m3": 1.481260936,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:pressure_vessel",
+        "b": "dry:rcs_F+Y",
+        "m3": 0.018076434,
+        "category": "c",
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:pressure_vessel",
+        "b": "dry:rcs_F+Z",
+        "m3": 0.019278012,
+        "category": "c",
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:pressure_vessel",
+        "b": "dry:rcs_F-Y",
+        "m3": 0.019278007,
+        "category": "c",
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:pressure_vessel",
+        "b": "dry:rcs_F-Z",
+        "m3": 0.018677137,
+        "category": "c",
+        "why": "RCS thruster hull-mounted footprint"
+      },
+      {
+        "a": "dry:rescue_kit",
+        "b": "dry:room_L4-medical",
+        "m3": 0.027,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:room_L4-shelter",
+        "b": "dry:shelter_backup",
+        "m3": 0.064,
+        "category": "c",
+        "why": "authored room/fixture/window/crown/layer representation or allocation proxy"
+      },
+      {
+        "a": "dry:shield",
+        "b": "dry:thrust_cone",
+        "m3": 0.061956726,
+        "category": "c",
+        "why": "thrust-cone and shield authored mechanical interface"
+      },
+      {
+        "a": "dry:skin_midship",
+        "b": "dry:strake_140",
+        "m3": 0.576837617,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_midship",
+        "b": "dry:strake_220",
+        "m3": 0.576837617,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_midship",
+        "b": "dry:strake_320",
+        "m3": 0.576837617,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_midship",
+        "b": "dry:strake_40",
+        "m3": 0.576837617,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_service",
+        "b": "dry:strake_140",
+        "m3": 0.16135318,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_service",
+        "b": "dry:strake_220",
+        "m3": 0.16135318,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_service",
+        "b": "dry:strake_320",
+        "m3": 0.16135318,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:skin_service",
+        "b": "dry:strake_40",
+        "m3": 0.16135318,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:strake_140",
+        "b": "dry:tank_shell_out",
+        "m3": 0.545013831,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:strake_220",
+        "b": "dry:tank_shell_out",
+        "m3": 0.545013831,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:strake_320",
+        "b": "dry:tank_shell_out",
+        "m3": 0.545013831,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:strake_40",
+        "b": "dry:tank_shell_out",
+        "m3": 0.545013831,
+        "category": "c",
+        "why": "strake root intersects authored skin/groove/support envelope"
+      },
+      {
+        "a": "dry:tunnel_1",
+        "b": "dry:tunnel_2",
+        "m3": 0.288,
+        "category": "c",
+        "why": "source structural connection or attachment envelope"
+      }
+    ],
+    "category_d_count": 0,
+    "category_d_conflicts": []
+  },
+  "full_D9_candidate_accepts": true,
+  "prohibited_overlap_count": 2,
+  "failed_boolean_count": 0,
+  "missing_canon_dimensions": [
+    "Per-pane retainer cross-sections and individual extraction paths are not source dimensioned",
+    "Osteon internal ribs and section details remain OPEN; only source-sized seat ring is solid",
+    "Sixteen tambour track sections / moving swept mechanisms remain OPEN",
+    "Full physically closed 3.023m3 AOI fill vs modelled 2.489m3 cavity remains OPEN"
+  ],
+  "other_geometry_changed": [
+    "service_shield_band_fitted_at_unchanged_0p6t"
+  ],
+  "unchanged_source_geometry": true,
+  "print_tiles_count": 38,
+  "brow_stl_count": 1,
+  "glazing_stl_count": 137,
+  "glazing_glb_nodes": 137,
+  "glazing": {
+    "round_assemblies": 21,
+    "viewport_band_segments": 5,
+    "storm_shelter_windows": 0,
+    "spare_true_solids": 7,
+    "first_screened_bay_wall_x_m": [
+      20.0,
+      22.6
+    ],
+    "layers_inboard_to_outboard": [
+      "strata",
+      "backup",
+      "aoi",
+      "primary",
+      "bumper"
+    ],
+    "layers_m": [
+      0.1,
+      0.028,
+      0.066217106894,
+      0.028,
+      0.01
+    ],
+    "aoi_thickness_source_derived_m": 0.0662171068938029,
+    "closed_strata_render_equivalent_m": 0.1,
+    "source_mass_allocations_unchanged": true,
+    "sourced_window_booked_mass_t": 17.953914236,
+    "individual_windows": [
+      {
+        "id": "window_L1-command_0",
+        "diameter_m": 0.5,
+        "centre": [
+          1.25,
+          2.8118633276658667,
+          2.811863327665866
+        ],
+        "layers": [
+          "dry:window_L1-command_0__strata",
+          "dry:window_L1-command_0__backup",
+          "dry:window_L1-command_0__aoi",
+          "dry:window_L1-command_0__primary",
+          "dry:window_L1-command_0__bumper"
+        ],
+        "booked_mass_t": 0.125967727
+      },
+      {
+        "id": "window_L1-command_1",
+        "diameter_m": 0.5,
+        "centre": [
+          1.25,
+          -2.811863327665866,
+          2.8118633276658667
+        ],
+        "layers": [
+          "dry:window_L1-command_1__strata",
+          "dry:window_L1-command_1__backup",
+          "dry:window_L1-command_1__aoi",
+          "dry:window_L1-command_1__primary",
+          "dry:window_L1-command_1__bumper"
+        ],
+        "booked_mass_t": 0.125967727
+      },
+      {
+        "id": "window_L1-command_2",
+        "diameter_m": 0.5,
+        "centre": [
+          1.25,
+          -2.811863327665867,
+          -2.811863327665866
+        ],
+        "layers": [
+          "dry:window_L1-command_2__strata",
+          "dry:window_L1-command_2__backup",
+          "dry:window_L1-command_2__aoi",
+          "dry:window_L1-command_2__primary",
+          "dry:window_L1-command_2__bumper"
+        ],
+        "booked_mass_t": 0.125967727
+      },
+      {
+        "id": "window_L1-command_3",
+        "diameter_m": 0.5,
+        "centre": [
+          1.25,
+          2.8118633276658658,
+          -2.811863327665867
+        ],
+        "layers": [
+          "dry:window_L1-command_3__strata",
+          "dry:window_L1-command_3__backup",
+          "dry:window_L1-command_3__aoi",
+          "dry:window_L1-command_3__primary",
+          "dry:window_L1-command_3__bumper"
+        ],
+        "booked_mass_t": 0.125967727
+      },
+      {
+        "id": "window_L4-medical_4",
+        "diameter_m": 1.55,
+        "centre": [
+          9.1,
+          -4.5,
+          5.51091059616309e-16
+        ],
+        "layers": [
+          "dry:window_L4-medical_4__strata",
+          "dry:window_L4-medical_4__backup",
+          "dry:window_L4-medical_4__aoi",
+          "dry:window_L4-medical_4__primary",
+          "dry:window_L4-medical_4__bumper"
+        ],
+        "booked_mass_t": 0.5217498580000001
+      },
+      {
+        "id": "window_L4-medical_5",
+        "diameter_m": 1.55,
+        "centre": [
+          9.1,
+          -3.8971143170299736,
+          -2.2500000000000004
+        ],
+        "layers": [
+          "dry:window_L4-medical_5__strata",
+          "dry:window_L4-medical_5__backup",
+          "dry:window_L4-medical_5__aoi",
+          "dry:window_L4-medical_5__primary",
+          "dry:window_L4-medical_5__bumper"
+        ],
+        "booked_mass_t": 0.5217498580000001
+      },
+      {
+        "id": "window_L4-medical_6",
+        "diameter_m": 1.55,
+        "centre": [
+          9.1,
+          -2.2500000000000018,
+          -3.8971143170299727
+        ],
+        "layers": [
+          "dry:window_L4-medical_6__strata",
+          "dry:window_L4-medical_6__backup",
+          "dry:window_L4-medical_6__aoi",
+          "dry:window_L4-medical_6__primary",
+          "dry:window_L4-medical_6__bumper"
+        ],
+        "booked_mass_t": 0.521749858
+      },
+      {
+        "id": "window_L5-suits_7",
+        "diameter_m": 0.45,
+        "centre": [
+          12.45,
+          2.8925442435894273,
+          3.447199994035401
+        ],
+        "layers": [
+          "dry:window_L5-suits_7__strata",
+          "dry:window_L5-suits_7__backup",
+          "dry:window_L5-suits_7__aoi",
+          "dry:window_L5-suits_7__primary",
+          "dry:window_L5-suits_7__bumper"
+        ],
+        "booked_mass_t": 0.11723385900000001
+      },
+      {
+        "id": "window_L5-workshop_8",
+        "diameter_m": 0.45,
+        "centre": [
+          12.45,
+          -0.9739782627214626,
+          4.3933320320397
+        ],
+        "layers": [
+          "dry:window_L5-workshop_8__strata",
+          "dry:window_L5-workshop_8__backup",
+          "dry:window_L5-workshop_8__aoi",
+          "dry:window_L5-workshop_8__primary",
+          "dry:window_L5-workshop_8__bumper"
+        ],
+        "booked_mass_t": 0.11723385900000001
+      },
+      {
+        "id": "window_L5-workshop_9",
+        "diameter_m": 0.45,
+        "centre": [
+          12.45,
+          -3.7952615061579857,
+          2.417848237560707
+        ],
+        "layers": [
+          "dry:window_L5-workshop_9__strata",
+          "dry:window_L5-workshop_9__backup",
+          "dry:window_L5-workshop_9__aoi",
+          "dry:window_L5-workshop_9__primary",
+          "dry:window_L5-workshop_9__bumper"
+        ],
+        "booked_mass_t": 0.11723385900000001
+      },
+      {
+        "id": "window_L5-vestibule_10",
+        "diameter_m": 0.4,
+        "centre": [
+          12.45,
+          -8.266365894244633e-16,
+          -4.5
+        ],
+        "layers": [
+          "dry:window_L5-vestibule_10__strata",
+          "dry:window_L5-vestibule_10__backup",
+          "dry:window_L5-vestibule_10__aoi",
+          "dry:window_L5-vestibule_10__primary",
+          "dry:window_L5-vestibule_10__bumper"
+        ],
+        "booked_mass_t": 0.109419345
+      },
+      {
+        "id": "window_L3-CAPT_11",
+        "diameter_m": 0.8,
+        "centre": [
+          7.54,
+          4.346666218300808,
+          1.1646857029613433
+        ],
+        "layers": [
+          "dry:window_L3-CAPT_11__strata",
+          "dry:window_L3-CAPT_11__backup",
+          "dry:window_L3-CAPT_11__aoi",
+          "dry:window_L3-CAPT_11__primary",
+          "dry:window_L3-CAPT_11__bumper"
+        ],
+        "booked_mass_t": 0.197677382
+      },
+      {
+        "id": "window_L3-CA_12",
+        "diameter_m": 0.8,
+        "centre": [
+          7.54,
+          1.1646857029613433,
+          4.346666218300808
+        ],
+        "layers": [
+          "dry:window_L3-CA_12__strata",
+          "dry:window_L3-CA_12__backup",
+          "dry:window_L3-CA_12__aoi",
+          "dry:window_L3-CA_12__primary",
+          "dry:window_L3-CA_12__bumper"
+        ],
+        "booked_mass_t": 0.197677382
+      },
+      {
+        "id": "window_L3-CA_13",
+        "diameter_m": 0.8,
+        "centre": [
+          6.65,
+          0.8586404791944521,
+          4.417322325514488
+        ],
+        "layers": [
+          "dry:window_L3-CA_13__strata",
+          "dry:window_L3-CA_13__backup",
+          "dry:window_L3-CA_13__aoi",
+          "dry:window_L3-CA_13__primary",
+          "dry:window_L3-CA_13__bumper"
+        ],
+        "booked_mass_t": 0.197677382
+      },
+      {
+        "id": "window_L3-GUEST_14",
+        "diameter_m": 0.8,
+        "centre": [
+          7.54,
+          -4.417322325514488,
+          0.8586404791944524
+        ],
+        "layers": [
+          "dry:window_L3-GUEST_14__strata",
+          "dry:window_L3-GUEST_14__backup",
+          "dry:window_L3-GUEST_14__aoi",
+          "dry:window_L3-GUEST_14__primary",
+          "dry:window_L3-GUEST_14__bumper"
+        ],
+        "booked_mass_t": 0.197677382
+      },
+      {
+        "id": "window_L3-GUEST_15",
+        "diameter_m": 0.8,
+        "centre": [
+          6.65,
+          -4.466457682385949,
+          0.548412045323164
+        ],
+        "layers": [
+          "dry:window_L3-GUEST_15__strata",
+          "dry:window_L3-GUEST_15__backup",
+          "dry:window_L3-GUEST_15__aoi",
+          "dry:window_L3-GUEST_15__primary",
+          "dry:window_L3-GUEST_15__bumper"
+        ],
+        "booked_mass_t": 0.197677382
+      },
+      {
+        "id": "window_L3-GUEST_16",
+        "diameter_m": 0.8,
+        "centre": [
+          7.54,
+          -3.3961931110024746,
+          -2.9522656304572816
+        ],
+        "layers": [
+          "dry:window_L3-GUEST_16__strata",
+          "dry:window_L3-GUEST_16__backup",
+          "dry:window_L3-GUEST_16__aoi",
+          "dry:window_L3-GUEST_16__primary",
+          "dry:window_L3-GUEST_16__bumper"
+        ],
+        "booked_mass_t": 0.197677382
+      },
+      {
+        "id": "window_L3-GUEST_17",
+        "diameter_m": 0.8,
+        "centre": [
+          6.65,
+          -3.5938597952128175,
+          -2.7081676041842178
+        ],
+        "layers": [
+          "dry:window_L3-GUEST_17__strata",
+          "dry:window_L3-GUEST_17__backup",
+          "dry:window_L3-GUEST_17__aoi",
+          "dry:window_L3-GUEST_17__primary",
+          "dry:window_L3-GUEST_17__bumper"
+        ],
+        "booked_mass_t": 0.197677382
+      },
+      {
+        "id": "window_L3-CB_18",
+        "diameter_m": 0.8,
+        "centre": [
+          7.54,
+          -0.8586404791944507,
+          -4.417322325514488
+        ],
+        "layers": [
+          "dry:window_L3-CB_18__strata",
+          "dry:window_L3-CB_18__backup",
+          "dry:window_L3-CB_18__aoi",
+          "dry:window_L3-CB_18__primary",
+          "dry:window_L3-CB_18__bumper"
+        ],
+        "booked_mass_t": 0.197677382
+      },
+      {
+        "id": "window_L3-CB_19",
+        "diameter_m": 0.8,
+        "centre": [
+          6.65,
+          -0.5484120453231622,
+          -4.46645768238595
+        ],
+        "layers": [
+          "dry:window_L3-CB_19__strata",
+          "dry:window_L3-CB_19__backup",
+          "dry:window_L3-CB_19__aoi",
+          "dry:window_L3-CB_19__primary",
+          "dry:window_L3-CB_19__bumper"
+        ],
+        "booked_mass_t": 0.197677382
+      },
+      {
+        "id": "window_L3-CB_20",
+        "diameter_m": 0.8,
+        "centre": [
+          7.54,
+          2.9522656304572816,
+          -3.396193111002475
+        ],
+        "layers": [
+          "dry:window_L3-CB_20__strata",
+          "dry:window_L3-CB_20__backup",
+          "dry:window_L3-CB_20__aoi",
+          "dry:window_L3-CB_20__primary",
+          "dry:window_L3-CB_20__bumper"
+        ],
+        "booked_mass_t": 0.197677382
+      },
+      {
+        "id": "viewport_band_0",
+        "x_m": [
+          3.35,
+          5.55
+        ],
+        "theta_deg": [
+          300,
+          360
+        ],
+        "layers": [
+          "dry:viewport_band_0__strata",
+          "dry:viewport_band_0__backup",
+          "dry:viewport_band_0__aoi",
+          "dry:viewport_band_0__primary",
+          "dry:viewport_band_0__bumper"
+        ]
+      },
+      {
+        "id": "viewport_band_1",
+        "x_m": [
+          3.35,
+          5.55
+        ],
+        "theta_deg": [
+          0,
+          30
+        ],
+        "layers": [
+          "dry:viewport_band_1__strata",
+          "dry:viewport_band_1__backup",
+          "dry:viewport_band_1__aoi",
+          "dry:viewport_band_1__primary",
+          "dry:viewport_band_1__bumper"
+        ]
+      },
+      {
+        "id": "viewport_band_2",
+        "x_m": [
+          3.9,
+          4.5
+        ],
+        "theta_deg": [
+          30,
+          150
+        ],
+        "layers": [
+          "dry:viewport_band_2__strata",
+          "dry:viewport_band_2__backup",
+          "dry:viewport_band_2__aoi",
+          "dry:viewport_band_2__primary",
+          "dry:viewport_band_2__bumper"
+        ]
+      },
+      {
+        "id": "viewport_band_3",
+        "x_m": [
+          3.6,
+          5.2
+        ],
+        "theta_deg": [
+          150,
+          210
+        ],
+        "layers": [
+          "dry:viewport_band_3__strata",
+          "dry:viewport_band_3__backup",
+          "dry:viewport_band_3__aoi",
+          "dry:viewport_band_3__primary",
+          "dry:viewport_band_3__bumper"
+        ]
+      },
+      {
+        "id": "viewport_band_4",
+        "x_m": [
+          3.35,
+          5.55
+        ],
+        "theta_deg": [
+          210,
+          270
+        ],
+        "layers": [
+          "dry:viewport_band_4__strata",
+          "dry:viewport_band_4__backup",
+          "dry:viewport_band_4__aoi",
+          "dry:viewport_band_4__primary",
+          "dry:viewport_band_4__bumper"
+        ]
+      }
+    ],
+    "spare_names": [
+      "dry:crown_spare_01",
+      "dry:crown_spare_02",
+      "dry:crown_spare_03",
+      "dry:crown_spare_04",
+      "dry:crown_spare_05",
+      "dry:crown_spare_06",
+      "dry:crown_spare_07"
+    ],
+    "renderer_only": true,
+    "physically_unqualified": [
+      "pane retainers",
+      "pressure seals",
+      "independent ceramic failure",
+      "dynamic shutter closure",
+      "local particle-dose transport"
+    ]
+  },
+  "canonical_source_mass_t_before_and_after": 868.1922552640087,
+  "delta_v_ECON_km_s_unchanged": 707.845,
+  "engineering_credit": 0
+}
