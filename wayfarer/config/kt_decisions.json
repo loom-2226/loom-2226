@@ -578,5 +578,27 @@
   "no_crown_over_drone_armour": true,
   "gores": "existing sixteen gores unchanged",
   "not_hardware_qualified": "doors, launch/capture and charging/thermal not mechanically or thermally qualified"
+ },
+ "drone_crawler_internal_hold_2026_11_10": {
+  "decision": "ACCEPTED_WITHDRAW_EXTERNAL_BAY__INTERNAL_HOLD_LOCATION_ONLY",
+  "date": "2026-11-10",
+  "decided_by": "kT",
+  "supersedes": [
+   "drone_crawler_bay_2026_11_09",
+   "drone_crawler_bay_layout_2026_11_10"
+  ],
+  "external_bay": "WITHDRAWN; no exterior protruding drone/crawler bay at x14..17.5 m; prior #483 external-bay CAD remains provenance, NOT current design approval",
+  "drone_crawler_location": "INSIDE existing payload hold(s); detailed hold choice, cradles and exit geometry PROPOSAL ONLY until separately approved by kT",
+  "spare_panes": "UNCHANGED; seven true crown spares stay in screened x20..22.6m rack",
+  "crown": "16 baseline gores unchanged; extra over-drone crown armour OPTION ONLY",
+  "thermal": "CANCEL external-bay-specific 1300 K strake view-factor and protective-bulge proposal as MOOT. New internal hold exit hatch, radiator clearance and thermal exposure require independent screening when a hatch location is approved.",
+  "courier_systems": {
+   "booked_source_mass_t": 19.450370894400045,
+   "disposition": "OPEN for kT decision; choices return entire amount to engineering reserve, retire it from dry mass with ECON impact, or retain bounded internal hatch/cradle hardware allowance and dispose of the remainder as separately directed",
+   "no_mass_ledger_change_authorized": true,
+   "no_unlocated_placeholder_deleted": true
+  },
+  "physical_change_hold": "PROPOSE ONLY; no new or altered solid, no hold cuts, no mass, CG, runtime, G8 or canon changes, no GLB/STL export",
+  "geometry_requirements": "Compare existing x14..17 service holds, fit pods and 3 crawler stowed docks with cradles, screen door swept passage to hull and crawler attachment points, retain shuttle slot/collar/strake/hotfin clearance, quantify displacement vs existing G8 hold volume."
  }
 }
