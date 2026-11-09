@@ -175,7 +175,7 @@ tank.position.x=X(8.65);ship.add(tank);
 const torch=new THREE.Mesh(axial(new THREE.CylinderGeometry(.95,1.0,2.15,40)),M(0x6f7a86,{metalness:.6,roughness:.4}));
 torch.position.x=X(11.375);ship.add(torch);
 const ring=new THREE.Mesh(new THREE.TorusGeometry(.78,.1,14,48),M(0x00d1ff,{emissive:0x00d1ff,emissiveIntensity:.35,metalness:.6}));
-ring.rotation.y=Math.PI/2;ring.position.x=X(12.72);ship.add(ring);
+ring.rotation.y=Math.PI/2;ring.position.x=X(12.70);ship.add(ring);
 
 // --- Venus kit: reactor, exchanger, duct, intake, mast, rotor
 const kit=new THREE.Group();ship.add(kit);
@@ -263,7 +263,7 @@ anchor(pod,v(0,1.25,0),'Crew pod','3 crew · 2.5 m · 1 bar','#7EE7D1',()=>st.cu
 anchor(pod,v(.22,-1.08,1.0),'Custody capsule','ejectable','#00D1FF',()=>st.cut||cur.pod>.3);
 anchor(ship,v(X(8.65),1.55,0),'Water tank','23.1 t','#4F8FD6',()=>st.cut);
 anchor(ship,v(X(11.4),1.0,0),'Torch','7.7 GW class','#C7D3DF',()=>st.cut);
-anchor(ship,v(X(12.72),.8,0),'Magnetic nozzle','','#00D1FF',()=>!st.cut&&mode!=='podout');
+anchor(ship,v(X(12.70),.8,0),'Magnetic nozzle','','#00D1FF',()=>!st.cut&&mode!=='podout');
 anchor(kit,v(X(2.95),.7,0),'Kit house reactor','100–230 MW heat','#FF8703',()=>st.cut&&st.kit);
 anchor(rotor,v(0,.4,0),'Tip-jet rotor','12 m · 4 blades','#FF8703',()=>st.kit);
 anchor(ship,v(X(5.45),.2,1.95),'Side door','gull-wing + ramp','#C7D3DF',()=>!st.cut&&(mode==='vent'||mode==='docked'));
