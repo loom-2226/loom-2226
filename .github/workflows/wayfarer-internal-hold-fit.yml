@@ -1,0 +1,23 @@
+name: Wayfarer internal hold curved-hatch strake BRep gate
+on:
+  pull_request:
+    paths:
+      - wayfarer/lab/internal_hold_fit_v256.py
+      - wayfarer/config/kt_decisions.json
+      - .github/workflows/wayfarer-internal-hold-fit.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install exact BRep version
+        run: python -m pip install build123d==0.13.0
+      - name: Real hatch-to-strake distance, hold and frame fit
+        run: python -u wayfarer/lab/internal_hold_fit_v256.py
