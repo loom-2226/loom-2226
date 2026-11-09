@@ -139,7 +139,7 @@ def integrate(model,poses,g,cfg,criteria,original_containment,
                 fitted_originals.append(dict(export_node=name,
                                              reused_v253_installed=original_id,
                                              unchanged_volume_m3=float(model[original_id].volume)))
-        assert len(fitted_originals)==12 if mode=="stowed" else len(fitted_originals)==8
+        assert len(fitted_originals)==(8 if mode=="torch" else 12)
         assert not(set(base)&set(radiators))
         added={**base,**radiators}
         assert len(added)==429+len(radiators)
