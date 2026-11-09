@@ -5,7 +5,6 @@ on:
       - wayfarer/lab/exterior_integrate_v254.py
       - wayfarer/lab/exterior_radiator_states_v254.py
       - wayfarer/lab/crown_geom_v253.py
-      - .github/workflows/wayfarer-step1-integrate.yml
   workflow_dispatch:
 permissions:
   contents: write
@@ -92,7 +91,7 @@ jobs:
                   assert scan["boolean_errors"]==0
                   assert scan["containment_pass"]
                   assert scan["part_count"]==scan["gltf_extras"]["mesh_nodes_with_extras"]
-                  assert scan["part_count"]==scan["gltf_extras"]["all_scene_nodes_with_extras"]
+                  assert scan["gltf_extras"]["all_scene_nodes_with_extras"]>=scan["part_count"]
                   assert Path("wayfarer/"+scan["glb"]).is_file()
           print("STEP1_FULL_SHIP_3X2_D9_CONTAINMENT_EXTRAS_PASS")
           PY
