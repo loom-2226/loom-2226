@@ -4,7 +4,7 @@ The two gore states are alternative poses of the SAME 16 booked assemblies,
 not 32 pieces to be installed together. Physical seams and mechanisms OPEN.
 """
 import math
-from build123d import Color, Solid, Wire
+from build123d import Axis, Color, Solid, Wire
 from packing_phase1b import source_brep_pilot as P
 
 DONE = {"crown_dome", "crown_backup_pressure_dome",
@@ -133,3 +133,87 @@ def check_added_interior(model,geom,added):
                 structural_external_attachment_count=12,
                 external_brackets_not_misclassified_as_internal=True,
                 pass_containment=True)
+
+
+def fit_service_shield_band(geom):
+    """kT 2026-11-09: fitted 0.6 t shield, unchanged source mass and density.
+
+    Two axial station intervals avoid the frame solids. The four 2m-wide
+    source strake-stack footprints and 0.8m docking collar are cut out with
+    10mm positive radial/tangential clearance. The surviving arc pieces are
+    physically separate BRep solids, grouped under ONE source allocation.
+    A radial solve holds the prior 0.6 t at its original effective density.
+    No credit assigned to gaps from overlapping radiator/frame/collar mass.
+    """
+    rows={p["id"]:p for p in geom["parts"]}
+    src=rows["service_shield_band"]
+    assert abs(src["mass_t"]-.6)<1e-9
+    assert src["shape"]["x0"]==14 and src["shape"]["x1"]==17
+    assert src["shape"]["r0"]==4.3 and src["shape"]["r1"]==4.36
+    reference_volume=float(P.make(src["shape"]).volume)
+    assert abs(reference_volume-src["volume_m3"])<.01
+    axial=(("fore",14.15,16.),("aft",16.15,17.))
+    cutters=[]
+    strake_angles=[40,140,220,320]
+    for az in strake_angles:
+        source=rows[f"strake_{az}"]["shape"]
+        assert source["k"]=="panel" and source["r0"]==4 and source["t"]==2
+        cutters.append(P.make(dict(k="panel",x0=14.14,x1=17.01,
+                        a=az,r0=3.99,span=.52,t=2.02)))
+    collar=rows["docking_collar"]["shape"]
+    assert collar["r"]==.8 and collar["p0"]==[16,0,-3.6]
+    cutters.append(P.make(dict(k="tube",p0=[16,0,-3.55],
+                    p1=[16,0,-4.8],r=.81)))
+    def cut_shape(lo,hi,inner):
+        shape=P.make(dict(k="sector",x0=lo,x1=hi,r0=inner,
+                          r1=4.48,a0=0,a1=360))
+        for tool in cutters:
+            shape=shape-tool
+        if shape is None or not shape.is_valid:raise ValueError("invalid fitted band")
+        return [s for s in shape.solids() if float(s.volume)>1e-8]
+    def at(inner):
+        shapes=[(label,s) for label,lo,hi in axial
+                         for s in cut_shape(lo,hi,inner)]
+        return shapes,sum(float(s.volume) for _,s in shapes)
+    lo,hi=4.3,4.479
+    low,volume_low=at(lo)
+    high,volume_high=at(hi)
+    if not(volume_low>reference_volume>volume_high):
+        raise ValueError(f"0.6t fitting volume not bracketed: {volume_low}, {volume_high}, {reference_volume}")
+    for _ in range(14):
+        mid=(lo+hi)*.5
+        trial,v=at(mid)
+        if v>reference_volume:lo=mid
+        else:hi=mid
+    shapes,volume=at((lo+hi)*.5)
+    if abs(volume-reference_volume)>.01:
+        raise ValueError(f"fitted band cannot preserve mass/volume: {volume-reference_volume}m3")
+    bodies={}
+    counts={"fore":0,"aft":0}
+    for label,sh in shapes:
+        i=counts[label]
+        counts[label]+=1
+        name=f"dry:service_shield_band_{label}_{i:02d}"
+        assert sh.is_valid and sh.volume>0 and name not in bodies
+        sh.label=name
+        sh.color=Color("#B0B8A3")
+        bodies[name]=sh
+    assert counts["fore"]>0 and counts["aft"]>0
+    inner=(lo+hi)*.5
+    report=dict(source_allocation_id="service_shield_band",
+                booked_mass_t=src["mass_t"],booked_density_t_per_m3=src["mass_t"]/reference_volume,
+                source_volume_m3=reference_volume,fitted_volume_m3=volume,
+                implied_fitted_mass_t=volume*src["mass_t"]/reference_volume,
+                axial_intervals_m=[[14.15,16.],[16.15,17.]],
+                radial_inner_m=inner,radial_outer_m=4.48,
+                reference_radial_thickness_m=.06,
+                fitted_radial_thickness_m=4.48-inner,
+                strake_cut_angles_deg=strake_angles,
+                docking_collar_cutout=True,
+                clearance_m=.01,independent_BRep_pieces=len(bodies),
+                source_ledger_unchanged=True,
+                credited_gap_areal_density_g_cm2=0,
+                g6_requires_focused_single_run=True,
+                piece_ids=sorted(bodies))
+    assert report["fitted_radial_thickness_m"]>.06
+    return bodies,report
