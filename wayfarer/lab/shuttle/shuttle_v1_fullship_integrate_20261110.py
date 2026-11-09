@@ -249,6 +249,10 @@ def verify_hierarchy(path,metadata):
             cursor=parent[cursor]
             chain.append(nodes[cursor].get("name",""))
             assert len(chain)<20,(i,chain)
+        for field in ("zone","deck","material","print_group","mass"):
+            assert field in n["extras"] and n["extras"][field] is not None,(n["name"],field)
+        assert n["extras"]["mass_basis"]=="source_booking_reference_nonadditive"
+        assert n["extras"]["print_group"]==(n["extras"]["semantic_system"]+"/"+n["extras"]["semantic_subsystem"])
         group=n["extras"]["semantic_system"]
         sub=n["extras"]["semantic_subsystem"]
         assert (group,sub)==(metadata[n["name"]]["semantic_system"],
@@ -264,6 +268,74 @@ def verify_hierarchy(path,metadata):
                 semantic_systems=sum(v.startswith("system:") for v in names if v),
                 semantic_subsystems=sum(v.startswith("subsystem:") for v in names if v),
                 hierarchy_valid=True)
+
+
+def metadata_for_mesh(name, geom_rows, fluid_rows, radiator_mapping, system, subsystem):
+    """View/print discovery fields, never independently rebooked node mass.
+
+    "mass" deliberately references the SOURCE allocation and is not additive
+    across split solids. node_mass_rebooking_t remains zero on every mesh.
+    """
+    physical=name[4:] if name.startswith("dry:") else None
+    allocation=radiator_mapping.get(name)
+    if name.startswith("S1:"):
+        allocation=name.split(":")[1]
+    elif name.startswith("dry:shuttle_v1/"):
+        allocation="shuttle"
+    elif name.startswith("dry:hold_existing_door_"):
+        allocation="courier_systems"
+    elif physical is not None and physical in geom_rows:
+        allocation=physical
+    elif physical is not None:
+        if physical.startswith(("window_","viewport_band_")) and "__" in physical:
+            allocation=physical.split("__",1)[0]
+        elif physical.startswith("service_shield_band_"):
+            allocation="service_shield_band"
+        elif physical.startswith("crown_spare_"):
+            allocation="crown_c_seven_spare_panes"
+        elif physical.startswith("crown_pane_"):
+            allocation="crown_dome"
+        elif physical=="crown_outer_pressure_dome":
+            allocation="crown_dome"
+        elif physical=="crown_inner_pressure_dome":
+            allocation="crown_backup_pressure_dome"
+        elif physical=="crown_aoi_cavity_envelope":
+            allocation="crown_adaptive_optogel"
+        elif physical in ("crown_osteon_brow_seat","crown_brow"):
+            allocation="crown_c_outward_retainers"
+        elif physical.startswith("crown_gore_"):
+            allocation="crown_c_additional_strata_gore"
+    src=geom_rows.get(allocation) or fluid_rows.get(allocation)
+    if not src or not src.get("mat") or "mass_t" not in src:
+        raise ValueError("source mass/material not resolvable for "+name+" => "+str(allocation))
+    mass=float(src["mass_t"])
+    if not math.isfinite(mass) or mass<0:
+        raise ValueError("invalid source-booked mass for "+name)
+    # Zone is the source allocation CENTROID bucket; not a claim that a
+    # physically long part is wholly contained inside the bucket.
+    x=float(src["centroid_m"][0])
+    zone=("FORE" if x<14 else "MIDSHIP" if x<34.3 else "AFT")
+    if system=="SHUTTLE":
+        zone="DOCKED_SHUTTLE"
+    if name.startswith("dry:hold_existing_door_"):
+        zone="EXISTING_HOLD"
+    import re
+    deck="NON_DECK"
+    match=re.search(r"(?:^|[_:/-])(L[1-5])(?:[_:/-]|$)",name)
+    if match:
+        deck=match.group(1)
+    elif physical is not None and physical.startswith("i4_"):
+        deck="L1"
+    elif subsystem in ("L1","L2","L3","L4","L5"):
+        deck=subsystem
+    print_group=system+"/"+subsystem
+    if not zone or not deck or not print_group:
+        raise ValueError("incomplete zone/deck/print group "+name)
+    return dict(zone=zone,deck=deck,material=src["mat"],
+        print_group=print_group,mass=mass,
+        mass_unit="t",mass_basis="source_booking_reference_nonadditive",
+        source_mass_owner_id=allocation)
+
 
 def evaluate(model,poses,g,cfg,criteria,original_containment,
              original_added_inside,new_parts,source_sha):
@@ -413,11 +485,14 @@ def evaluate(model,poses,g,cfg,criteria,original_containment,
                 if name.startswith("dry:crown_spare_"):
                     e["preserved_rack_x_m"]=[20,22.6]
                 gp,sub=hierarchy(name,systems)
+                required=metadata_for_mesh(name,rows,fluids,mapping,gp,sub)
+                assert all(required.get(field) is not None for field in
+                    ("zone","deck","material","print_group","mass")),(name,required)
                 meta[name]=dict(canon_tag="canon-v2.5.3",
                     geometry_revision="kT #486 shuttle/holds successor",
                     node_id=name,semantic_system=gp,
                     semantic_subsystem=sub,
-                    radiator_mode=mode,crown_gore_pose=pose,**e)
+                    radiator_mode=mode,crown_gore_pose=pose,**e,**required)
             extras=glb_extras(path,meta)
             semantic=verify_hierarchy(path,meta)
             mode_r[pose].update(glb=str(path.relative_to(ROOT)),
