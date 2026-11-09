@@ -114,7 +114,7 @@ Total 322 m³, or 32 m³ per person; NASA's long-duration minimum is 25. There a
 - **Flanks, x 2.6-34.3:** tunable-emissivity layer (proposed Frontier item F5-TE-01).
   - Normal: emissivity 0.85, solar absorptivity 0.15 (light).
   - Cold running: emissivity 0.10. Heat is held, not removed: about 17 h before 50 t of protected water has warmed 15 K, then the strakes must open or the flanks switch back.
-- **Seams:** on the 2 m ring frames and every 22.5°, so node faces sit mid-panel.
+- **Seams (kT ACCEPTED 2026-11-09):** visible hull panel seams at the Option C bow-to-cylinder shoulder joint (x2.35 m), habitat deck frame planes x3.0/5.6/8.2/10.8 m, and service/midship frame planes x14,16,18,20,22,24,26,28,30,32,34 m; longitudinal seam azimuths 40/140/220/320° on strake/longeron lines plus 0/180/270° mid splits. Midship top quarter follows the existing bay-door edges instead of an angular grid. The previous continuous 22.5° **skin seam** grid is superseded, but the distinct 13×16 Metric node-face arrangement (placement HOLD) and 16 crown gore segmentation are unchanged. Shading only; no physical skin cuts or material credit.
 - **Metric node faces:** 208 (13 rings x 16), 0.35 m, flush. Each must carry at least the armour's g/cm²; as open bores the berth screen would drop to 14.8 g/cm². Placement HOLD (PR #184): 76 clear, 20 under the stowed strakes, 12 on the bay doors, 80 on the torch chain, 16 facing the dust flow.
 
 ## External equipment (rev 7)
