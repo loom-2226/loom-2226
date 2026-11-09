@@ -123,6 +123,23 @@ def integrate(model,poses,g,cfg,criteria,original_containment,
         modes={})
     for mode in STATES:
         radiators,mapping=radiator_state(g,cfg,mode)
+        # The standalone component BReps use raw source envelopes for
+        # stowed stacks, folded fins and roots. The v2.5.3 installed-ship
+        # BReps are already FITTED around service water, mounts and nozzle.
+        # Reuse those exact installed solids rather than reopening D8
+        # intersections or altering mass/position. Only new extended
+        # pleats are constructed from the state drawings.
+        fitted_originals=[]
+        for name in sorted(radiators):
+            if name.endswith((":stowed_stack",":folded_envelope",":root")):
+                original_id="dry:"+mapping[name]
+                assert original_id in replace_ids and original_id in model
+                radiators[name]=model[original_id]
+                radiators[name].label=name
+                fitted_originals.append(dict(export_node=name,
+                                             reused_v253_installed=original_id,
+                                             unchanged_volume_m3=float(model[original_id].volume)))
+        assert len(fitted_originals)==12 if mode=="stowed" else len(fitted_originals)==8
         assert not(set(base)&set(radiators))
         added={**base,**radiators}
         assert len(added)==429+len(radiators)
@@ -133,6 +150,7 @@ def integrate(model,poses,g,cfg,criteria,original_containment,
         mode_out=dict(radiator_components=len(radiators),
                       radiator_source_ids=sorted(set(mapping.values())),
                       replacing_exactly_12_original_solids=True,
+                      reused_v253_installed_radiator_BReps=fitted_originals,
                       mass_credit_t=0,
                       containment=dict(physical_interior_count=cont["checked_physical_interior_count"],
                           escaped_physical_count=len(cont["escaped_parts"]),
