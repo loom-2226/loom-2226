@@ -61,11 +61,16 @@ jobs:
           git add -- wayfarer/render/out/wayfarer_radiators_step1_88ce19fc_*.glb \
                      wayfarer/render/out/wayfarer_radiators_step1_88ce19fc_*.step \
                      wayfarer/render/out/wayfarer_radiators_step1_88ce19fc_report.json
-          test "$(git diff --cached --name-only | wc -l)" -eq 7
-          git commit -m 'class:engineering: staged true radiator state solids for exterior Step 1'
-          git fetch origin "${{ github.head_ref }}"
-          git rebase "origin/${{ github.head_ref }}"
-          git push origin "HEAD:${{ github.head_ref }}"
+          staged="$(git diff --cached --name-only | wc -l)"
+          if [ "$staged" -eq 0 ]; then
+            echo "Radiator component assets already committed; verified, no duplicate commit"
+          else
+            test "$staged" -eq 7
+            git commit -m 'class:engineering: staged true radiator state solids for exterior Step 1'
+            git fetch origin "${{ github.head_ref }}"
+            git rebase "origin/${{ github.head_ref }}"
+            git push origin "HEAD:${{ github.head_ref }}"
+          fi
       - name: Evidence on failure
         if: always()
         uses: actions/upload-artifact@v4
