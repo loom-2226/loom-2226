@@ -1,0 +1,112 @@
+name: Wayfarer drone bay six-state fitted full-ship D9 and glTF extras
+on:
+  pull_request:
+    paths:
+      - wayfarer/lab/bay_integrate_v255.py
+      - wayfarer/lab/bay_fit_v255.py
+      - .github/workflows/wayfarer-bay-integrate.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: wayfarer-drone-bay-six-state-pr
+  cancel-in-progress: true
+jobs:
+  integrate:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Source lock and pinned BRep library
+        run: |
+          set -euo pipefail
+          python -m pip install build123d==0.13.0
+          echo '88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1  wayfarer/results/out/wayfarer_v05_geometry.json' | sha256sum -c -
+          test -s wayfarer/render/out/canon_glb.json
+      - name: Use immutable certified STEP source, no new G1-G12 runs or mass bookings
+        run: |
+          set -euo pipefail
+          cp wayfarer/lab/packing_phase1b/frozen_research_3p8_forward.step.gz \
+             wayfarer/lab/packing_phase1b/current_g3_3p8_forward.step.gz
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          lab=Path('wayfarer/lab/packing_phase1b')
+          frozen=json.loads((lab/'frozen_research_3p8_forward.json').read_text())
+          released=json.loads(Path('wayfarer/render/out/wayfarer_parts_v253_88ce19fc_report.json').read_text())
+          assert frozen['candidate_pass'] is True
+          assert released['drawing_revision']=='canon-v2.5.3'
+          assert released['single_focused_shelter_G6']['candidate_changed_BRep_g_cm2']>=53.29035
+          frozen['G6']=released['single_focused_shelter_G6']
+          (lab/'current_g3_rebuild_report.json').write_text(json.dumps(frozen)+'\n')
+          print('PINNED_G3_CERTIFIED_SOURCE_REUSED_NO_NEW_G6')
+          PY
+      - name: Fit chosen bay and run all six installed-ship D9, containment, open-door sweeps, GLBs with extras
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/bay_integrate_v255.py | tee bay-integration.log
+      - name: Validate six GLBs, no mass change, seven spare panes retained, courier 6.450371t named remainder
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json,hashlib,struct
+          from pathlib import Path
+          root=Path('wayfarer/render/out')
+          r=json.loads((root/'wayfarer_bay_fullship_88ce19fc_report.json').read_text())
+          b=json.loads((root/'wayfarer_drone_bay_fit_20261110.json').read_text())
+          assert r['status']=='BAY_FULL_SHIP_3X2_D9_AND_CONTAINMENT_PASS'
+          assert r['chosen_layout']==b['chosen'] and b['variants'][b['chosen']]['pass_BRep_fit']
+          assert r['source_mass_ledger_changed_t']==0 and r['source_mass_rebooking_t']==0
+          assert r['source_dry_mass_t']==868.1922552640087
+          assert r['ECON_dv_km_s']==707.845
+          assert r['named_unlocated_courier_systems_remainder_t']==6.450370894400045
+          assert len(r['spare_pane_nodes_not_moved'])==7
+          assert r['spare_panes_remain_original_approved_x_m']==[20,22.6]
+          assert len(r['modes'])==3
+          assert Path('wayfarer/'+r['bay_components_step']).is_file()
+          for mode,v in r['modes'].items():
+              assert v['door_open_sweep_clashes']==[]
+              assert v['pressure_containment']['pass_containment']
+              assert set(v['gores'])=={'stowed','closed'}
+              for pose,g in v['gores'].items():
+                  assert g['category_d_count']==0 and g['boolean_errors']==0
+                  assert g['containment_pass'] and g['door_open_sweep_pass']
+                  p=Path('wayfarer/'+g['glb']);raw=p.read_bytes()
+                  assert hashlib.sha256(raw).hexdigest()==g['gltf_extras']['raw_glb_sha256']
+                  assert raw[:4]==b'glTF' and struct.unpack_from('<I',raw,8)[0]==len(raw)
+                  ln,typ=struct.unpack_from('<II',raw,12)
+                  assert typ==0x4e4f534a
+                  doc=json.loads(raw[20:20+ln])
+                  assert all('extras' in n for n in doc['nodes'])
+                  assert len([n for n in doc['nodes'] if 'mesh' in n])==g['part_count']
+                  assert all(n['extras']['node_mass_rebooking_t']==0 for n in doc['nodes'] if 'mesh' in n)
+                  print('BAY_SIX_STATE_GLTF_EXTRAS_PASS',mode,pose,g['part_count'],g['pair_count'])
+          print('DRONE_CRAWLER_BAY_SIX_STATE_RELEASE_CANDIDATE_PASS')
+          PY
+      - name: Commit bay STEP plus six whole-ship GLBs and two machine reports DIRECTLY
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- wayfarer/render/out/wayfarer_bay_fullship_88ce19fc_*.glb \
+                     wayfarer/render/out/wayfarer_bay_fullship_88ce19fc_bay_components.step \
+                     wayfarer/render/out/wayfarer_bay_fullship_88ce19fc_report.json \
+                     wayfarer/render/out/wayfarer_drone_bay_fit_20261110.json
+          staged="$(git diff --cached --name-only | wc -l)"
+          if [ "$staged" -eq 0 ]; then
+            echo 'All nine bay artifacts already committed; verified no-op'
+          else
+            test "$staged" -eq 9
+            git commit -m 'class:engineering: six source-derived fitted bay/radiator GLBs with extras; mass-neutral'
+            git restore --worktree -- .
+            git fetch origin "${{ github.head_ref }}"
+            git rebase "origin/${{ github.head_ref }}"
+            git push origin "HEAD:${{ github.head_ref }}"
+          fi
