@@ -1,0 +1,97 @@
+name: Wayfarer Step 1 radiator full-ship D9 and glTF extras
+on:
+  pull_request:
+    paths:
+      - wayfarer/lab/exterior_integrate_v254.py
+      - wayfarer/lab/exterior_radiator_states_v254.py
+      - wayfarer/lab/crown_geom_v253.py
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: wayfarer-step1-integrate-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  full_ship_radiators:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin original certified source and rebuild prior G3 BRep feed
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install build123d==0.13.0
+          echo '88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1  wayfarer/results/out/wayfarer_v05_geometry.json' | sha256sum -c -
+          test -s wayfarer/render/out/canon_glb.json
+          base=ea50354e222e77d145a6bbbf49227506d2b560fd
+          source="$RUNNER_TEMP/loom156/projects/wayfarer_brep_pilot"
+          mkdir -p "$source"
+          git show "$base:wayfarer/results/out/wayfarer_v05_geometry.json" > "$source/geometry_base.json"
+          git show "$base:wayfarer/config/wayfarer_v05_inputs.json" > "$source/inputs_base.json"
+          git show "$base:wayfarer/config/cert_criteria.json" > "$source/criteria_base.json"
+          cp wayfarer/lab/packing_phase1b/source_brep_pilot.py "$source/pilot.py"
+          cp wayfarer/lab/packing_phase1b/source_brep_triage.py "$source/triage.py"
+          pinned=wayfarer/lab/packing_phase1b/pinned_main_lab
+          mkdir -p "$pinned"
+          git show "$base:wayfarer/lab/build_v05.py" > "$pinned/build_v05.py"
+          git show "$base:wayfarer/lab/certify.py" > "$pinned/certify.py"
+          git show "$base:wayfarer/lab/torch/torch_heat_results.json" > "$pinned/torch_heat_results.json"
+          python -u wayfarer/lab/packing_phase1b/source_candidate_rebuild.py \
+            --source "$source" --out "$RUNNER_TEMP/rebuild" \
+            --courier-forward --fuel-t 3.8 --house-reserve-t .1 \
+            --g1-liquid-ullage --v253-service-band --export | tee step1-source-rebuild.log
+          python - <<'PY'
+          from pathlib import Path
+          import gzip, json, os, shutil
+          src=Path(os.environ["RUNNER_TEMP"])/"rebuild"
+          dest=Path("wayfarer/lab/packing_phase1b")
+          r=json.loads((src/"candidate_report.json").read_text())
+          assert r["candidate_pass"] and r["G6"]["kT_v253_min_53p39_with_0p1_tolerance_pass"]
+          with (src/"candidate.step").open("rb") as inp, (dest/"current_g3_3p8_forward.step.gz").open("wb") as out:
+              with gzip.GzipFile(fileobj=out,mode="wb",filename="",mtime=0) as gz:
+                  shutil.copyfileobj(inp,gz)
+          shutil.copy2(src/"candidate_report.json",dest/"current_g3_rebuild_report.json")
+          print("STEP1_PINNED_V253_SOURCE_READY")
+          PY
+      - name: Full D9 scans for 3 radiators x 2 crown poses; containment; glTF extras
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/exterior_integrate_v254.py | tee step1-full-ship.log
+      - name: Check six full-ship scans and extras (no asset publishing)
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("wayfarer/render/out/wayfarer_full_radiator_states_88ce19fc_report.json")
+          r=json.loads(p.read_text())
+          assert r["governing_canon_tag"]=="canon-v2.5.3"
+          assert r["source_mass_ledger_changed_t"]==0
+          assert r["source_dry_mass_t"]==868.1922552640087
+          assert r["econ_dv_km_s"]==707.845
+          assert r["no_print_only_edits"]
+          assert set(r["modes"])=={"stowed","metric_hard","torch"}
+          assert all(len(v["gores"])==2 for v in r["modes"].values())
+          for mode,v in r["modes"].items():
+              assert v["replacing_exactly_12_original_solids"]
+              assert v["mass_credit_t"]==0
+              assert v["containment"]["pass_containment"]
+              for pose,scan in v["gores"].items():
+                  assert pose in ("stowed","closed")
+                  assert scan["category_d_count"]==0
+                  assert scan["boolean_errors"]==0
+                  assert scan["containment_pass"]
+                  assert scan["part_count"]==scan["gltf_extras"]["mesh_nodes_with_extras"]
+                  assert scan["gltf_extras"]["all_scene_nodes_with_extras"]>=scan["part_count"]
+                  assert Path("wayfarer/"+scan["glb"]).is_file()
+          print("STEP1_FULL_SHIP_3X2_D9_CONTAINMENT_EXTRAS_PASS")
+          PY

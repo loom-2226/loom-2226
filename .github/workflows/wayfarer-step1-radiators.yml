@@ -1,0 +1,56 @@
+name: Wayfarer Step 1 true-solid radiator states (component-stage)
+on:
+  pull_request:
+    paths:
+      - wayfarer/lab/exterior_radiator_states_v254.py
+      - .github/workflows/wayfarer-step1-radiators.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: wayfarer-step1-radiators-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  radiator_solids:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned BRep library and verify the source release
+        run: |
+          python -m pip install build123d==0.13.0
+          echo '88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1  wayfarer/results/out/wayfarer_v05_geometry.json' | sha256sum -c -
+          test -s wayfarer/render/out/wayfarer_parts_v253_88ce19fc_report.json
+      - name: Build 3 alternative full-size radiator component BReps and GLBs
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/exterior_radiator_states_v254.py | tee step1-radiators.log
+      - name: Verify 14x2m fin pleats and mass-neutrality, no full-ship claim
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("wayfarer/render/out/wayfarer_radiators_step1_88ce19fc_report.json")
+          r=json.loads(p.read_text())
+          assert r["governing_release"]=="canon-v2.5.3"
+          assert r["source_mass_changed_t"]==0
+          assert r["full_ship_D9"]=="PENDING before integration"
+          assert r["print_only_geometry_changes"]==0
+          assert r["states"]["stowed"]["nodes"]==12
+          assert r["states"]["metric_hard"]["nodes"]==16
+          assert r["states"]["torch"]["nodes"]==72
+          assert r["states"]["torch"]["hotfin_deployed_pleats"]==56
+          for m,d in r["states"].items():
+              assert not d["component_self_intersections_over_0p01m3"]
+              assert len(d["source_allocation_ids"])==12
+              assert Path("wayfarer/"+d["glb"]).is_file()
+              assert Path("wayfarer/"+d["step"]).is_file()
+          print("STEP1_RADIATOR_COMPONENTS_PASS_FULL_D9_STILL_PENDING")
+          PY
