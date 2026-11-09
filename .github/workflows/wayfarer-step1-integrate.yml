@@ -7,7 +7,7 @@ on:
       - wayfarer/lab/crown_geom_v253.py
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 concurrency:
   group: wayfarer-step1-integrate-${{ github.event.pull_request.number }}
   cancel-in-progress: true
@@ -66,7 +66,7 @@ jobs:
         run: |
           set -euo pipefail
           python -u wayfarer/lab/exterior_integrate_v254.py | tee step1-full-ship.log
-      - name: Check six full-ship scans and extras before asset promotion
+      - name: Check six full-ship scans and extras (no asset publishing)
         shell: bash
         run: |
           python - <<'PY'
@@ -95,33 +95,3 @@ jobs:
                   assert Path("wayfarer/"+scan["glb"]).is_file()
           print("STEP1_FULL_SHIP_3X2_D9_CONTAINMENT_EXTRAS_PASS")
           PY
-      - name: Commit six per-state whole-ship GLBs and machine report
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- wayfarer/render/out/wayfarer_full_radiator_states_88ce19fc_*.glb \
-                     wayfarer/render/out/wayfarer_full_radiator_states_88ce19fc_report.json
-          staged="$(git diff --cached --name-only | wc -l)"
-          if [ "$staged" -eq 0 ]; then
-            echo "Full-ship state assets already committed; verified, no duplicate commit"
-          else
-            test "$staged" -eq 7
-            git commit -m 'class:engineering: full ship radiator states 3x2 D9 and per-node glTF extras'
-            git restore --worktree -- .
-            git fetch origin "${{ github.head_ref }}"
-            git rebase "origin/${{ github.head_ref }}"
-            git push origin "HEAD:${{ github.head_ref }}"
-          fi
-      - name: Retain full-ship D9 evidence, including blockers
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: wayfarer-step1-integrated-radiator-evidence
-          if-no-files-found: warn
-          path: |
-            step1-full-ship.log
-            step1-source-rebuild.log
-            wayfarer/render/out/wayfarer_full_radiator_states_88ce19fc_*.glb
-            wayfarer/render/out/wayfarer_full_radiator_states_88ce19fc_*.json
