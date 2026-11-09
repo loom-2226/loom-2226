@@ -895,7 +895,7 @@ void main(){
   if(skin){   // rev 7: bare Strata bow (placeholder look), tunable flanks: normal (light, high IR emissivity) or cold running (low-e, metallic: a proposed optical property)
     float x=vShip.x; float rr=max(length(vShip.yz),0.3); float thr=atan(vShip.z,vShip.y); float deg=degrees(thr); if(deg<0.0) deg+=360.0; float s=thr*rr;
     vec3 Ta=vec3(1.0,0.0,0.0); vec3 Tc=cross(Ta,n); Tc = length(Tc)>1e-3 ? normalize(Tc) : vec3(0.0,1.0,0.0);
-    float pd=22.5; float dd=deg-11.25; vec2 cell=vec2(floor(x/2.0),floor(dd/pd)); float h1=hsh(cell), h2=hsh(cell+3.3);
+    float h1=0.5, h2=0.5; // former 22.5-degree coloured panel grid removed; only approved seams remain.
     bool bow = x<2.6;
     float fwd=max(-n.x,0.0); float wear=clamp(pow(fwd,1.3)*0.9+0.4*exp(-x/2.0),0.0,1.0);
     if(bow){ base=vec3(0.105,0.098,0.092)*(0.92+0.12*h1); M=0.35; R=0.6;
