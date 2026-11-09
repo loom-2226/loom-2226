@@ -291,18 +291,18 @@
   }
  },
  "design_decisions_2026_10_26": {
-  "kT": "agree 1-4, and keep only current files (old revisions live in git history)",
   "1": "main's torch working card (src/wayfarer_torch_mode_cards.py) governs; the ship holds jet power to its 11.361 TW heat-rejection ceiling",
   "2": "1 deg torch thrust-vector authority (declared item torch_tvc)",
   "3": "axial RCS thrusters, one per cluster (rev 6)",
-  "4": "Loom configuration declared: strakes stowed, crown gores closed, docking collar free"
+  "4": "Loom configuration declared: strakes stowed, crown gores closed, docking collar free",
+  "kT": "agree 1-4, and keep only current files (old revisions live in git history)"
  },
  "design_decisions_2026_10_26_skin": {
-  "kT": "YES / YES / Option 3 / YES; 'I want sol to agree with the design choices. I want you to handle making it'",
   "1": "low signature is a skin criterion",
   "2": "open an F5 Frontier item for tunable emissivity (F5-TE-01, provisional)",
   "3": "metric nodes show on the hull (option 3: all 208)",
   "4": "the habitat armour face is Strata",
+  "kT": "YES / YES / Option 3 / YES; 'I want sol to agree with the design choices. I want you to handle making it'",
   "sol": "AGREE 1-6 with qualifications: cold running accounts for retained heat (no heat sink, no multiplier; mirror look is a proposed optical property); node faces are not qualified penetrations and stations are not moved for the look (PR #184 OPEN); inventory is a draft requirement",
   "note": "design choices only; the rev 7 declared items (strata_armour, node_faces, cold_running, external_equipment) still await kT's acceptance of their wording"
  },
@@ -335,7 +335,7 @@
    "ideal_jet_kinetic_J_per_kg": "0.5*ve_m_s^2",
    "at_F_25000N": {
     "ve_1000_m_s": {
-     "flow_kg_s": 25.0,
+     "flow_kg_s": 25,
      "total_minimum_MW": 77.5
     },
     "ve_1960_m_s": {
@@ -694,5 +694,25 @@
    "retire old full_radiator_states exports"
   ],
   "canon": "canon-v2.5.3 remains unchanged unless kT separately approves promotion"
+ },
+ "shuttle_nozzle_ring_station_2026_11_10": {
+  "decision": "kT APPROVED — narrow representational ring-centre correction",
+  "date": "2026-11-10",
+  "decided_by": "kT",
+  "reference": "wayfarer/render/shuttle/wayfarer_shuttle_v1_viewer.html",
+  "source_part": "shuttle_v1/magnetic_nozzle_ring",
+  "geometry": "Three.js TorusGeometry(0.78,0.10,14,48); ring normal x; ring remains a true toroidal BRep in integrated model",
+  "original_station_from_nose_m": 12.72,
+  "approved_station_from_nose_m": 12.7,
+  "ring_aft_station_m": 12.8,
+  "physical_shuttle_tail_station_m": 12.8,
+  "docked_nose_x_m": 18.75,
+  "ring_nominal_aft_world_x_m": 31.55,
+  "bay_aft_x_m": 32.05,
+  "required_aft_clearance_m": 0.5,
+  "authority": "Representational viewer nozzle-ring centre may move by exactly 0.02m forward; no other shuttle part, mass, packaging position, trim, renderer state or source geometry may be modified to cure G8.",
+  "execution": "Resume #486 full scope; port all shuttle v1 parts into true DOCKED solids, run G8 on actual assembled solids. STOP only if a NEW part other than this ring fails G8; name it, do not repair.",
+  "after_g8": "Full #486: existing 2.4x1.8m hold-door solids only, D9 zero category-d and pressure containment, Courier Option C ledger 5.000t retained + 14.450370894400045t engineering reserve, remove withdrawn #483 external bay geometry, regenerate 3 radiator by 2 crown states with full part extras/semantic hierarchy, then retire superseded #483 and full_radiator_states_* outputs only after validated replacement.",
+  "invariant": "All existing source booked masses including shuttle 30.732248081255836t, total dry mass, canon-v2.5.3 and seven crown spares unchanged. No additional G8 repair permission."
  }
 }
