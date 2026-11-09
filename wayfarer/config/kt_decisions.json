@@ -311,7 +311,7 @@
   "crown": "Rev7 transparent ceramic panes, existing 16 closing Strata armour-equivalent gores; no 1.2m nose extension",
   "cold_running": "ACCEPT ~17h theoretical limit, explicitly count relational plant and cryo standby heat in screen; loads illustrative until qualified",
   "strata_face": "ACCEPT",
-  "drone_armour_option": "OPTION only, not baseline; gores remain baseline, drone bay HOLD",
+  "drone_armour_option": "OPTION only, not baseline; gores remain baseline. Former drone bay location HOLD superseded ONLY for bay location by kT 2026-11-09: courier_systems forward exterior block designated drone and crawler bay; physical layout remains proposed/not drawn.",
   "node_faces": "ACCEPT armour-equivalent rule; placement HOLD PR #184",
   "external_equipment": "ACCEPT visible allowance 1.4208t editable; compare 0t without claiming fixed design",
   "RCS": {
@@ -494,5 +494,38 @@
   "test_order": "ONE focused G6 on final fitted-band geometry; if >=53.29035 then D9 for STOWED and CLOSED, containment; export, merge and tag only on all PASS. STOP only if G6 fails or collision requires an alteration other than cutting the service band.",
   "no_rebook": "Neither original 0.600t service shield nor overlapping parts change their source mass. Gaps are not counted twice for mass or protection; band distributes its existing material inside r<=4.48.",
   "approval_text": "PR #478 kT approves local water-wall cutout and density-gated standing rule, 2026-11-09."
+ },
+ "drone_crawler_bay_2026_11_09": {
+  "decision": "ACCEPTED_LOCATION_ONLY",
+  "date": "2026-11-09",
+  "decided_by": "kT",
+  "designation": "Drone and Crawler Bay",
+  "source_allocation_id": "courier_systems",
+  "envelope_existing_canon": {
+   "x_m": [
+    14,
+    17.5
+   ],
+   "r_m": [
+    4.6,
+    6.1
+   ],
+   "theta_deg": [
+    235,
+    305
+   ]
+  },
+  "source_courier_mass_t": 19.450370894400045,
+  "semantic_effect": "The booked forward external courier_systems block is assigned the drone and crawler bay function. This resolves the 2026-10-31 drone bay location HOLD but DOES NOT approve a new physical layout, create additional mass or overwrite prior geometry.",
+  "scope_of_contents_to_propose": [
+   "existing drone_0 through drone_3",
+   "three existing ext_crawler_dock_0 through ext_crawler_dock_2 (crawler stowed)",
+   "existing seven crown outer spare panes"
+  ],
+  "mass_doctrine": "Existing drone, crawler dock/stowed-crawler and crown spare pane ledger lines retain their own booked masses. Bay structure, access doors, cradles, deployment/recovery mechanisms, power/charging and other new bay-specific hardware are funded from the current courier_systems 19.450370894400045t allocation. Preserve a named unassigned balance; do not delete or double count courier_systems.",
+  "crown_armour_over_drone": "OPTION ONLY; not accepted as baseline.",
+  "crown_gore_baseline": "Existing sixteen Option C crown gores unchanged.",
+  "implementation_hold": "PROPOSE ONLY; no true-solid/3D relocation, fabrication, source mass changes, runtime changes, new openings, or canon promotion until kT approves the separately presented dimensioned bay proposal.",
+  "thermal_and_access_open": "Strakes at 1300K; MMOD/debris, docking collar, unmodified service arm and inhabited tunnel, rail/point egress and charging connections require fit and thermal checks before drawing."
  }
 }
