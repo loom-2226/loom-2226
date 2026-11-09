@@ -32,7 +32,7 @@ jobs:
               ["git","rev-parse","canon-v2.5.3^{}"],text=True).strip()==p["release_commit"]
           glb=Path(p["path"])
           data=glb.read_bytes()
-          gitblob=hashlib.sha1(b"blob "+str(len(data)).encode()+b"\\0"+data).hexdigest()
+          gitblob=hashlib.sha1(b"blob "+str(len(data)).encode()+bytes([0])+data).hexdigest()
           assert p["hash"]=={"algorithm":"git-blob-sha1","value":gitblob}
           assert r["drawing_revision"]==p["tag"]
           assert p["source_geometry_sha256"]==r["source_geometry_sha256"]
