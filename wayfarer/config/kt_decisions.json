@@ -600,5 +600,100 @@
   },
   "physical_change_hold": "PROPOSE ONLY; no new or altered solid, no hold cuts, no mass, CG, runtime, G8 or canon changes, no GLB/STL export",
   "geometry_requirements": "Compare existing x14..17 service holds, fit pods and 3 crawler stowed docks with cradles, screen door swept passage to hull and crawler attachment points, retain shuttle slot/collar/strake/hotfin clearance, quantify displacement vs existing G8 hold volume."
+ },
+ "drone_crawler_internal_hold_approved_2026_11_10": {
+  "decision": "KT_APPROVED_INTERNAL_PAYLOAD_HOLD_TRUE_SOLID_IMPLEMENTATION",
+  "date": "2026-11-10",
+  "supersedes": [
+   "drone_crawler_internal_hold_2026_11_10: proposal-only",
+   "all exterior-bay geometry #483"
+  ],
+  "holds": {
+   "hold_starboard": {
+    "existing_source_hold": "hold_starboard",
+    "drone_ids": [
+     "drone_0",
+     "drone_2"
+    ],
+    "crawler_stowed_dock_ids": [
+     "ext_crawler_dock_0"
+    ]
+   },
+   "hold_port": {
+    "existing_source_hold": "hold_port",
+    "drone_ids": [
+     "drone_1",
+     "drone_3"
+    ],
+    "crawler_stowed_dock_ids": [
+     "ext_crawler_dock_1",
+     "ext_crawler_dock_2"
+    ]
+   },
+   "x_m": [
+    14,
+    17
+   ],
+   "r_m": [
+    2,
+    4.3
+   ],
+   "hatches": [
+    {
+     "az_deg": 0,
+     "x_m": [
+      14.25,
+      15.75
+     ]
+    },
+    {
+     "az_deg": 180,
+     "x_m": [
+      14.25,
+      15.75
+     ]
+    }
+   ],
+   "door_doctrine": "flush inward-retracting; closed and physical swept-open model must clear x14/x16 frame and strakes >=0.5m",
+   "launch": "sequential; Mars forward, dense-air translates forward to launch position after Mars exits",
+   "crown_spares": "seven existing true spare panes stay at existing x20..22.6 approved rack"
+  },
+  "courier_mass_t": {
+   "source_allocation": "courier_systems",
+   "original": 19.450370894400045,
+   "retain_for_hardware": 5,
+   "hatches": 2,
+   "cradles": 1.5,
+   "crawler_guides": 0.5,
+   "charging": 0.5,
+   "mounts": 0.5,
+   "transfer_to_engineering_reserve": 14.450370894400045,
+   "dry_mass_change": 0
+  },
+  "verification": {
+   "stop_only": "Pod/hatch fails actual BRep fit OR measured strake clearance <0.5 m",
+   "required": [
+    "true BRep solids",
+    "real hatch swept-open check",
+    "D9",
+    "containment",
+    "G8 hold volume on real solids",
+    "six full-ship pose GLBs with extras + hierarchy"
+   ],
+   "delete_obsolete_exports": [
+    "#483 exterior drone/crawler bay GLBs and STEP",
+    "wayfarer_full_radiator_states_*"
+   ],
+   "extra_over_crown_armour": "OPTION only; unchanged baseline",
+   "source_canon_tag": "canon-v2.5.3, no change without separate explicit kT approval"
+  },
+  "standing_rules_F1_F4": {
+   "status": "SOURCE_TEXT_NOT_RECOVERABLE_FROM_AVAILABLE_REPO_OR_CONVERSATION",
+   "implementation": "NOT ASSERTED; exact previous part B wording must be recovered before standing rules are entered as authoritative"
+  },
+  "hierarchy_item_D": {
+   "status": "exact prior part D text not recovered",
+   "intent_from_current_kT_request": "all six GLBs carry per-node extras and semantic parent hierarchy"
+  }
  }
 }
