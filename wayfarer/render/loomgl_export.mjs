@@ -698,6 +698,37 @@ uniform float uCrown; uniform float uNoSec; uniform float uHoleOn; uniform vec4 
 uniform vec3 uPLP[3]; uniform vec3 uPLC[3]; uniform int uNPL;
 uniform float uSkin; uniform float uSkinMat; uniform float uCold;
 out vec4 o;
+// kT 2026-11-09: hull panel seams follow frames, strake/longeron
+// lines and bay-door edges. These are shaded lines, not BRep cuts.
+float seamRingM(float x){
+  float d=10000.0;
+  if(x<=14.0){
+    d=min(d,abs(x-2.35)); // Option C bow-to-cylinder shoulder joint
+    d=min(d,abs(x-3.0)); d=min(d,abs(x-5.6));
+    d=min(d,abs(x-8.2)); d=min(d,abs(x-10.8));
+  }
+  if(x>=13.9 && x<=34.1){
+    for(int i=0;i<=10;i++) d=min(d,abs(x-(14.0+2.0*float(i))));
+  }
+  return d;
+}
+float seamLongM(float x,float deg,float r){
+  if(x<2.35 || x>34.3) return 10000.0;
+  float d=10000.0;
+  d=min(d,abs(mod(deg-40.0+180.0,360.0)-180.0));
+  d=min(d,abs(mod(deg-140.0+180.0,360.0)-180.0));
+  d=min(d,abs(mod(deg-220.0+180.0,360.0)-180.0));
+  d=min(d,abs(mod(deg-320.0+180.0,360.0)-180.0));
+  d=min(d,abs(mod(deg-0.0+180.0,360.0)-180.0));
+  d=min(d,abs(mod(deg-180.0+180.0,360.0)-180.0));
+  d=min(d,abs(mod(deg-270.0+180.0,360.0)-180.0));
+  if(x>=18.25 && x<=32.05){
+    // Source door_starboard.a0 and door_port.a1, NOT a new grid.
+    d=min(d,abs(mod(deg-57.769047364497894+180.0,360.0)-180.0));
+    d=min(d,abs(mod(deg-122.2309526355021+180.0,360.0)-180.0));
+  }
+  return radians(d)*r;
+}
 float hsh(vec2 p){ return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453); }
 float sh(vec3 n){
   if(uShOn<0.5) return 1.0;
@@ -722,7 +753,7 @@ void main(){
   if(skin){   // rev 7: bare Strata bow (placeholder look), tunable flanks: normal (light, high IR emissivity) or cold running (low-e, metallic: a proposed optical property)
     float x=vShip.x; float rr=max(length(vShip.yz),0.3); float thr=atan(vShip.z,vShip.y); float deg=degrees(thr); if(deg<0.0) deg+=360.0; float s=thr*rr;
     vec3 Ta=vec3(1.0,0.0,0.0); vec3 Tc=cross(Ta,n); Tc = length(Tc)>1e-3 ? normalize(Tc) : vec3(0.0,1.0,0.0);
-    float pd=22.5; float dd=deg-11.25; vec2 cell=vec2(floor(x/2.0),floor(dd/pd)); float h1=hsh(cell), h2=hsh(cell+3.3);
+    float h1=0.5, h2=0.5; // former 22.5-degree coloured panel grid removed; only approved seams remain.
     bool bow = x<2.6;
     float fwd=max(-n.x,0.0); float wear=clamp(pow(fwd,1.3)*0.9+0.4*exp(-x/2.0),0.0,1.0);
     if(bow){ base=vec3(0.105,0.098,0.092)*(0.92+0.12*h1); M=0.35; R=0.6;
@@ -731,9 +762,9 @@ void main(){
     else if(uCold<0.5){ base=vec3(0.76,0.765,0.75)*(0.95+0.08*h1); M=0.0; R=0.55+0.12*h2; }
     else { base=vec3(0.80,0.81,0.83)*(0.95+0.07*h1); M=1.0; R=0.22+0.08*h2; }
     if(uSkinMat<1.5){
-      float sa=(fract(x/2.0+0.5)-0.5)*2.0; float pc=pd/57.2958*rr; float sc=(fract((dd/57.2958*rr)/pc+0.5)-0.5)*pc;
+      float sa=seamRingM(x), sc=seamLongM(x,deg,rr);
       float wa=0.008+fwidth(x)*1.2, wc=0.008+fwidth(s)*1.2;
-      float ga=(1.0-smoothstep(0.0,wa,abs(sa)))*min(1.0,0.008/wa), gc=(1.0-smoothstep(0.0,wc,abs(sc)))*min(1.0,0.008/wc);
+      float ga=(1.0-smoothstep(0.0,wa,sa))*min(1.0,0.008/wa), gc=(1.0-smoothstep(0.0,wc,sc))*min(1.0,0.008/wc);
       if(bow){ ga=0.0; gc*=0.5; }
       n=normalize(n-Ta*sign(sa)*ga*0.6-Tc*sign(sc)*gc*0.6);
       base=mix(base,base*0.55,max(ga,gc)*0.85);
@@ -741,10 +772,14 @@ void main(){
   }
   if(uKind==9){ float f=pow(1.0-abs(dot(n,v)),1.5); float t=clamp((vShip.x-uLen)/70.0,0.0,1.0);
     o=vec4(uC*(1.0-t)*(0.6+1.6*(1.0-f)), (1.0-t)*(1.0-f)*uAlpha); return; }
-  if(uSeam>0.5 && !skin){ float th=atan(vShip.z,vShip.y)*57.2958; float sx=abs(fract(vShip.x/2.0+0.5)-0.5)*2.0; float st=abs(fract(th/15.0+0.5)-0.5)*15.0*0.0785*4.5;
-    float sm=smoothstep(0.0,0.035,abs(fract(vShip.x/2.0)-0.5)*2.0*1.0); float line=min(smoothstep(0.0,0.012,abs(fract(vShip.x/2.0)-0.0)),1.0);
-    float a=1.0-0.18*(1.0-smoothstep(0.0,0.02,abs(fract(vShip.x/2.0+0.5)-0.5)))-0.14*(1.0-smoothstep(0.0,0.025,abs(fract(th/15.0+0.5)-0.5)*0.262*4.5));
-    float tile=0.94+0.06*fract(sin(dot(floor(vec2(vShip.x/2.0,th/15.0)),vec2(12.9898,78.233)))*43758.5453); base*=a*tile; }
+  if(uSeam>0.5 && !skin){
+    float th=degrees(atan(vShip.z,vShip.y)); if(th<0.0) th+=360.0;
+    float sa=seamRingM(vShip.x);
+    float sc=seamLongM(vShip.x,th,length(vShip.yz));
+    float ra=1.0-smoothstep(0.0,0.02,sa);
+    float la=1.0-smoothstep(0.0,0.025,sc);
+    base*=1.0-0.18*ra-0.14*la;
+  }
   if(uKind==1){ if(vShip.z< uShZ-0.55) base=vec3(0.07,0.07,0.075); }
   if(uKind==3){ float ring=step(0.5,fract(vShip.x/0.7)); base*=0.75+0.25*ring; }
   if(uKind==5){ float rr=length(vShip.yz); float an=atan(vShip.z,vShip.y)*57.2958;

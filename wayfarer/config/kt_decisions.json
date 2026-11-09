@@ -414,5 +414,58 @@
   "two_reactor_bays": "A aft C-ring, B forward service ring; independent isolation unqualified",
   "torch_magnets": "burn-only self powered 47.52MW from pulsed torch energy, 75% efficiency assumed; no independent electric generator",
   "docked": "shore power, houses off, 2MW nominal interface declared"
+ },
+ "hull_seam_scheme_2026_11_09": {
+  "decision": "ACCEPTED",
+  "date": "2026-11-09",
+  "decided_by": "kT",
+  "scope": "Wayfarer full-size hull surface seams; no new source geometry or booked mass",
+  "ring_seams_at_frames_x_m": [
+   14,
+   16,
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32,
+   34
+  ],
+  "habitat_ring_seams_x_m": [
+   3,
+   5.6,
+   8.2,
+   10.8
+  ],
+  "bow_joint": {
+   "x_m": 2.35,
+   "basis": "Option C outer fairing meets r=4.5m cylinder at x=2.35m; no artificial seam across the crown"
+  },
+  "longitudinal_seams_azimuth_deg": [
+   40,
+   140,
+   220,
+   320
+  ],
+  "mid_split_azimuth_deg": [
+   0,
+   180,
+   270
+  ],
+  "top_quarter": {
+   "rule": "Follow existing bay-door edges, not an angular grid across the shuttle opening",
+   "source_door_span_x_m": [
+    18.25,
+    32.05
+   ],
+   "source_port_door_edge_deg": 122.2309526355021,
+   "source_starboard_door_edge_deg": 57.769047364497894,
+   "basis": "wayfarer_v05_geometry.json door_port/door_starboard source sectors"
+  },
+  "renderer": "Replace old 22.5-degree hull seam grid; preserve independent 22.5-degree Metric node faces, 16 crown gores, and crown outer-pane divisions",
+  "invariants": "Visual seam marking only; no geometry, dimension, shielding, mass, open state, or certification changes",
+  "kT": "Ring seams at frames x14,16..34; habitat x3.0,5.6,8.2,10.8 and bow joint. Long seams at 40,140,220,320 and mid split 0,180,270; top quarter follows bay doors. Replace 22.5 degree render grid."
  }
 }
