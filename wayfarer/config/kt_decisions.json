@@ -414,5 +414,85 @@
   "two_reactor_bays": "A aft C-ring, B forward service ring; independent isolation unqualified",
   "torch_magnets": "burn-only self powered 47.52MW from pulsed torch energy, 75% efficiency assumed; no independent electric generator",
   "docked": "shore power, houses off, 2MW nominal interface declared"
+ },
+ "hull_seam_scheme_2026_11_09": {
+  "decision": "ACCEPTED",
+  "date": "2026-11-09",
+  "decided_by": "kT",
+  "scope": "Wayfarer full-size hull surface seams; no new source geometry or booked mass",
+  "ring_seams_at_frames_x_m": [
+   14,
+   16,
+   18,
+   20,
+   22,
+   24,
+   26,
+   28,
+   30,
+   32,
+   34
+  ],
+  "habitat_ring_seams_x_m": [
+   3,
+   5.6,
+   8.2,
+   10.8
+  ],
+  "bow_joint": {
+   "x_m": 2.35,
+   "basis": "Option C outer fairing meets r=4.5m cylinder at x=2.35m; no artificial seam across the crown"
+  },
+  "longitudinal_seams_azimuth_deg": [
+   40,
+   140,
+   220,
+   320
+  ],
+  "mid_split_azimuth_deg": [
+   0,
+   180,
+   270
+  ],
+  "top_quarter": {
+   "rule": "Follow existing bay-door edges, not an angular grid across the shuttle opening",
+   "source_door_span_x_m": [
+    18.25,
+    32.05
+   ],
+   "source_port_door_edge_deg": 122.2309526355021,
+   "source_starboard_door_edge_deg": 57.769047364497894,
+   "basis": "wayfarer_v05_geometry.json door_port/door_starboard source sectors"
+  },
+  "renderer": "Replace old 22.5-degree hull seam grid; preserve independent 22.5-degree Metric node faces, 16 crown gores, and crown outer-pane divisions",
+  "invariants": "Visual seam marking only; no geometry, dimension, shielding, mass, open state, or certification changes",
+  "kT": "Ring seams at frames x14,16..34; habitat x3.0,5.6,8.2,10.8 and bow joint. Long seams at 40,140,220,320 and mid split 0,180,270; top quarter follows bay doors. Replace 22.5 degree render grid."
+ },
+ "service_shield_band_fit_2026_11_09": {
+  "decision": "APPROVED",
+  "decided_by": "kT",
+  "date": "2026-11-09",
+  "scope": "PR #478 fitted 0.600t service-section shield band, mass-neutral",
+  "axial_intervals_x_m": [
+   [
+    14.15,
+    16
+   ],
+   [
+    16.15,
+    17
+   ]
+  ],
+  "max_outer_radius_m": 4.48,
+  "booked_mass_t": 0.6,
+  "mandatory_cutouts": [
+   "four strake bays",
+   "docking collar",
+   "jacket_service_return_wall"
+  ],
+  "standing_rule": "Any further cutout exclusively in this band around an existing part with proven HIGHER areal density than the fitted band is pre-approved, provided the fitted-band G6 S5 shelter minimum remains >=53.29035 g/cm2; list each new cutout with evidence in PR #478.",
+  "test_order": "ONE focused G6 on final fitted-band geometry; if >=53.29035 then D9 for STOWED and CLOSED, containment; export, merge and tag only on all PASS. STOP only if G6 fails or collision requires an alteration other than cutting the service band.",
+  "no_rebook": "Neither original 0.600t service shield nor overlapping parts change their source mass. Gaps are not counted twice for mass or protection; band distributes its existing material inside r<=4.48.",
+  "approval_text": "PR #478 kT approves local water-wall cutout and density-gated standing rule, 2026-11-09."
  }
 }
