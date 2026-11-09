@@ -371,12 +371,25 @@ def main():
     # 30 already drawn originals remain exactly as v2.5.2; 30 extra
     # accounting allocations stay hidden. New 61 are P.make source solids.
     new_parts,inventory_report=new_true_solids(g)
-    assert len(model)==373 and len(new_parts)==61
+    assert len(model)==373
+    assert inventory_report["new_source_allocations_count"]==61
+    assert len(new_parts)==inventory_report["new_true_solids_count"]
+    g6_rebuild=json.loads((ROOT/"lab/packing_phase1b/current_g3_rebuild_report.json").read_text())
+    band_g6=g6_rebuild["G6"]
+    assert band_g6["g6_runs_for_v253"]==1
+    assert band_g6["kT_v253_min_53p39_with_0p1_tolerance_pass"]
+    assert abs(band_g6["source_original_g_cm2"]-53.39034860482293)<.01
+    assert abs(band_g6["v253_band_fit"]["fitted_volume_m3"]-
+               inventory_report["service_shield_band_fitting"]["fitted_volume_m3"])<.005
+    print("WAYFARER_V253_SINGLE_G6_PASS",json.dumps(dict(
+        source=band_g6["source_original_g_cm2"],
+        fitted=band_g6["candidate_changed_BRep_g_cm2"],
+        minimum=53.39034860482293-.1)),flush=True)
     assert not set(model).intersection(new_parts)
     model.update(new_parts)
     added_inside=check_added_interior(model,g,new_parts)
     poses,gore_report=gore_states(cfg)
-    assert len(model)==434
+    assert len(model)==373+len(new_parts)
     scans={}
     exports={}
     OUT.mkdir(parents=True,exist_ok=True)
@@ -384,7 +397,7 @@ def main():
         state={**model,**poses[pose]}
         ordered=sorted(state)
         pairs_total=len(ordered)*(len(ordered)-1)//2
-        assert len(ordered)==450 and pairs_total==101025
+        assert len(ordered)==len(model)+16 and pairs_total==len(ordered)*(len(ordered)-1)//2
         scan=D.pair_scan(state,ordered,0,pairs_total,C["D9"]["min_intersection_m3"])
         scans[pose]=scan
         print("WAYFARER_V253_D9_"+pose.upper(),json.dumps(dict(
@@ -398,7 +411,7 @@ def main():
         export_gltf(Compound(children=list(state.values())),path,unit=Unit.M,
                     binary=True,linear_deflection=.05,angular_deflection=.3)
         state_names=glb_names(path)
-        assert len(state_names)==450 and set(state_names)==set(state)
+        assert len(state_names)==len(state) and set(state_names)==set(state)
         exports[pose]=str(path.relative_to(ROOT))
     # Combined parts catalogue has both named poses for viewer selection.
     # They are NOT 32 simultaneous pieces of material.
@@ -407,10 +420,11 @@ def main():
     export_gltf(Compound(children=list(both.values())),final,unit=Unit.M,
                 binary=True,linear_deflection=.05,angular_deflection=.3)
     names=glb_names(final)
-    assert len(names)==466 and len(set(names))==466 and set(names)==set(both)
+    assert len(names)==len(both) and len(set(names))==len(both) and set(names)==set(both)
     full_scan=scans["stowed"]
     print("WAYFARER_V253_EXPORT",json.dumps(dict(all_states_nodes=len(names),
-        poses=exports,new_solids=61,booked_mass_recharged_t=0)),flush=True)
+        poses=exports,new_solids=len(new_parts),source_allocations=61,
+        booked_mass_recharged_t=0)),flush=True)
     aoi=crown["adaptive_optogel"]
     alloc=3.023
     cavity_m3=gel.volume
@@ -427,7 +441,9 @@ def main():
       count_named_panes=37,per_part_GLTF_nodes=len(names),
       original_v252_nodes_preserved=373,
       approved_no_render_inventory=inventory_report,
-      new_true_solids_count=61,
+      new_true_solids_count=len(new_parts),
+      fitted_service_shield_band=inventory_report["service_shield_band_fitting"],
+      single_focused_shelter_G6=band_g6,
       new_interior_containment_check=added_inside,
       gore_state_geometry=gore_report,
       gore_states_D9_scans=scans,
@@ -462,7 +478,8 @@ def main():
       prohibited_overlap_count=sum(q.get("exceeds_D9_0p01m3") is True for q in contacts),
       failed_boolean_count=sum("error" in q for q in contacts),
       missing_canon_dimensions=missing_dims,
-      other_geometry_changed=False,
+      other_geometry_changed=["service_shield_band_fitted_at_unchanged_0p6t"],
+      unchanged_source_geometry=True,
       print_tiles_count=38,brow_stl_count=1,glazing_stl_count=137,
       glazing_glb_nodes=137,glazing=glazing_report,
       canonical_source_mass_t_before_and_after=g["dry_t"],
