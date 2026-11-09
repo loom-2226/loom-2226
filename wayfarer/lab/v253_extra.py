@@ -148,8 +148,9 @@ def fit_service_shield_band(geom):
     """kT 2026-11-09: fitted 0.6 t shield, unchanged source mass and density.
 
     Two axial station intervals avoid the frame solids. The four 2m-wide
-    source strake-stack footprints and 0.8m docking collar are cut out with
-    10mm positive radial/tangential clearance. The surviving arc pieces are
+    source strake-stack footprints, 0.8m docking collar, and the kT-approved
+    existing protected-water service return-wall are cut out with positive
+    clearance. The surviving arc pieces are
     physically separate BRep solids, grouped under ONE source allocation.
     A radial solve holds the prior 0.6 t at its original effective density.
     No credit assigned to gaps from overlapping radiator/frame/collar mass.
@@ -173,6 +174,23 @@ def fit_service_shield_band(geom):
     assert collar["r"]==.8 and collar["p0"]==[16,0,-3.6]
     cutters.append(P.make(dict(k="tube",p0=[16,0,-3.55],
                     p1=[16,0,-4.8],r=.81)))
+    # kT-approved protected-water service return-wall cutout. Its physical
+    # shape/mass is unchanged; only booked polyethylene is excluded here.
+    walls=[p for p in geom["fluids_by_state"]["S1"]
+           if p["id"]=="jacket_service_return_wall"]
+    assert len(walls)==1
+    wall=walls[0]
+    ws=wall["shape"]
+    assert ws["k"]=="sector" and ws["x0"]==14.5 and ws["x1"]==16.5
+    assert ws["r0"]==4.36 and ws["r1"]==4.39
+    assert ws["a0"]==150 and ws["a1"]==200
+    wall_areal_g_cm2=(wall["mass_t"]/wall["volume_m3"])*(ws["r1"]-ws["r0"])*100
+    assert wall_areal_g_cm2>2.7
+    # 10 mm positive-clearance envelope, with 0.5 degree sector margins.
+    # No cut is made to the original water tank or any other installed part.
+    cutters.append(P.make(dict(k="sector",x0=ws["x0"]-.01,x1=ws["x1"]+.01,
+                  r0=ws["r0"]-.01,r1=ws["r1"]+.01,
+                  a0=ws["a0"]-.5,a1=ws["a1"]+.5)))
     def cut_shape(lo,hi,inner):
         shape=P.make(dict(k="sector",x0=lo,x1=hi,r0=inner,
                           r1=4.48,a0=0,a1=360))
@@ -209,6 +227,19 @@ def fit_service_shield_band(geom):
         bodies[name]=sh
     assert counts["fore"]>0 and counts["aft"]>0
     inner=(lo+hi)*.5
+    fitted_areal_g_cm2=(src["mass_t"]/reference_volume)*(4.48-inner)*100
+    assert wall_areal_g_cm2>fitted_areal_g_cm2, (
+        "standing-rule density evidence failed",wall_areal_g_cm2,fitted_areal_g_cm2)
+    extra_cutouts=[dict(part="S1:jacket_service_return_wall",
+                        reason="kT 2026-11-09 explicitly approved local water-wall cutout",
+                        cut_only_service_shield_band=True,
+                        wall_areal_g_cm2=wall_areal_g_cm2,
+                        fitted_band_areal_g_cm2=fitted_areal_g_cm2,
+                        higher_areal_density=True,
+                        source_part_mass_unchanged_t=wall["mass_t"],
+                        local_cutout_x_m=[ws["x0"]-.01,ws["x1"]+.01],
+                        local_cutout_r_m=[ws["r0"]-.01,ws["r1"]+.01],
+                        local_cutout_azimuth_deg=[ws["a0"]-.5,ws["a1"]+.5])]
     report=dict(source_allocation_id="service_shield_band",
                 booked_mass_t=src["mass_t"],booked_density_t_per_m3=src["mass_t"]/reference_volume,
                 source_volume_m3=reference_volume,fitted_volume_m3=volume,
@@ -219,6 +250,8 @@ def fit_service_shield_band(geom):
                 fitted_radial_thickness_m=4.48-inner,
                 strake_cut_angles_deg=strake_angles,
                 docking_collar_cutout=True,
+                additional_existing_part_cutouts=extra_cutouts,
+                additional_existing_part_cutout_count=len(extra_cutouts),
                 clearance_m=.01,independent_BRep_pieces=len(bodies),
                 source_ledger_unchanged=True,
                 credited_gap_areal_density_g_cm2=0,
