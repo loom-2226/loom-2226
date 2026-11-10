@@ -90,6 +90,13 @@ jobs:
             assert e['edited_nodes']==(45 if mode=='torch' else 49)
             assert e['all_detail_subtractions'] and not e['source_envelope_violations']
             assert e['source_mass_rebooking_t']==0
+            folds=[v['folded_stack'] for v in e['parts'].values()
+                   if v['role']=='folded_fin']
+            assert len(folds)==(0 if mode=='torch' else 4)
+            assert all(v==dict(pleats=14,folded_pleat_length_m=2,
+                               tangential_stack_thickness_m=.6,radial_root_m=4.75,
+                               radial_outer_m=6.75,x_range_m=[34.3,53.3],
+                               visible_edge_engravings=14) for v in folds)
             assert all(v['same_source_envelope'] and v['external_added_m3']<1e-8
                        and v['engraved_m3']>0 and v['booked_mass_t']>0
                        for v in e['parts'].values())
