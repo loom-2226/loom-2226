@@ -1,0 +1,277 @@
+{
+  "status": "FULL_SHUTTLE_HOLD_3X2_D9_CONTAINMENT_EXTRAS_HIERARCHY_PASS",
+  "canon_tag": "canon-v2.5.3",
+  "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+  "source_dry_t": 868.1922552640087,
+  "ECON_dv_km_s": 707.845,
+  "original_source_shuttle_t": 30.732248081255836,
+  "shuttle_true_solids_count": 41,
+  "exact_shuttle_ring_station_m": 12.7,
+  "docked_radial_and_axial_G8": "PASS actual OCC solids",
+  "swept_shuttle_egress_G8": "OPEN; source no swept geometry hardware qualification",
+  "crew_and_vehicle_mission_G8": "OPEN (hardware and door clearance)",
+  "courier_option_c_applied_ledger": "wayfarer/config/courier_option_c_ledger_20261110.json",
+  "courier_retained_t": 5,
+  "courier_returned_to_reserve_t": 14.450370894400045,
+  "engineering_reserve_effective_t": 23.572826306400046,
+  "dry_mass_change_t": 0,
+  "no_extra_reserve_geometry": true,
+  "withdrawn_bay_483_not_drawn": true,
+  "existing_hold_door_aperture_m": [
+    2.4,
+    1.8
+  ],
+  "no_hull_cuts": true,
+  "crawler_stowage_by_hold": {
+    "starboard": [
+      0
+    ],
+    "port": [
+      1,
+      2
+    ]
+  },
+  "drone_stowage_by_hold": {
+    "starboard": [
+      0,
+      2
+    ],
+    "port": [
+      1,
+      3
+    ]
+  },
+  "mars_drone_egress": "OPEN",
+  "spare_panes_unchanged": true,
+  "all_six_state_D9_and_containment": "PASS",
+  "six_states": {
+    "stowed": {
+      "stowed": {
+        "part_count": 498,
+        "pair_count": 123753,
+        "category_d_count": 0,
+        "boolean_errors": 0,
+        "category_counts": {
+          "a": 1,
+          "c": 178
+        },
+        "category_d_conflicts": [],
+        "collision_errors": [],
+        "pressure_containment_pass": true,
+        "source_dry_mass_t": 868.1922552640087,
+        "glb": "render/out/wayfarer_shuttle_hold_fullship_88ce19fc_stowed_stowed.glb",
+        "gltf_extras": {
+          "mesh_nodes_with_extras": 498,
+          "all_scene_nodes_with_extras": 538,
+          "raw_glb_sha256": "d7c666e126a62b144faaac8cb766fbd444c41d3719356b7473a58d7c124f3713",
+          "bytes": 7415044
+        },
+        "semantic_hierarchy": {
+          "meshes": 498,
+          "dry_system_breakdown": {
+            "EXTERIOR": 76,
+            "FLUIDS": 20,
+            "HABITAT": 286,
+            "POWER": 15,
+            "PROPULSION": 3,
+            "SERVICE": 9,
+            "SHUTTLE": 41,
+            "STRUCTURE": 48
+          },
+          "semantic_systems": 8,
+          "semantic_subsystems": 31,
+          "hierarchy_valid": true
+        }
+      },
+      "closed": {
+        "part_count": 498,
+        "pair_count": 123753,
+        "category_d_count": 0,
+        "boolean_errors": 0,
+        "category_counts": {
+          "a": 1,
+          "c": 162
+        },
+        "category_d_conflicts": [],
+        "collision_errors": [],
+        "pressure_containment_pass": true,
+        "source_dry_mass_t": 868.1922552640087,
+        "glb": "render/out/wayfarer_shuttle_hold_fullship_88ce19fc_stowed_closed.glb",
+        "gltf_extras": {
+          "mesh_nodes_with_extras": 498,
+          "all_scene_nodes_with_extras": 538,
+          "raw_glb_sha256": "e26ca361ed2029885d25b455415795281dd867649b02537d8e7b3fcda51eb33c",
+          "bytes": 8320508
+        },
+        "semantic_hierarchy": {
+          "meshes": 498,
+          "dry_system_breakdown": {
+            "EXTERIOR": 76,
+            "FLUIDS": 20,
+            "HABITAT": 286,
+            "POWER": 15,
+            "PROPULSION": 3,
+            "SERVICE": 9,
+            "SHUTTLE": 41,
+            "STRUCTURE": 48
+          },
+          "semantic_systems": 8,
+          "semantic_subsystems": 31,
+          "hierarchy_valid": true
+        }
+      }
+    },
+    "metric_hard": {
+      "stowed": {
+        "part_count": 502,
+        "pair_count": 125751,
+        "category_d_count": 0,
+        "boolean_errors": 0,
+        "category_counts": {
+          "a": 1,
+          "c": 178
+        },
+        "category_d_conflicts": [],
+        "collision_errors": [],
+        "pressure_containment_pass": true,
+        "source_dry_mass_t": 868.1922552640087,
+        "glb": "render/out/wayfarer_shuttle_hold_fullship_88ce19fc_metric_hard_stowed.glb",
+        "gltf_extras": {
+          "mesh_nodes_with_extras": 502,
+          "all_scene_nodes_with_extras": 542,
+          "raw_glb_sha256": "a31276b2f998c7150b5755d8cd7c51fa3b0699210f1f3cdbfe1479f76c5bae6b",
+          "bytes": 7437216
+        },
+        "semantic_hierarchy": {
+          "meshes": 502,
+          "dry_system_breakdown": {
+            "EXTERIOR": 80,
+            "FLUIDS": 20,
+            "HABITAT": 286,
+            "POWER": 15,
+            "PROPULSION": 3,
+            "SERVICE": 9,
+            "SHUTTLE": 41,
+            "STRUCTURE": 48
+          },
+          "semantic_systems": 8,
+          "semantic_subsystems": 31,
+          "hierarchy_valid": true
+        }
+      },
+      "closed": {
+        "part_count": 502,
+        "pair_count": 125751,
+        "category_d_count": 0,
+        "boolean_errors": 0,
+        "category_counts": {
+          "a": 1,
+          "c": 162
+        },
+        "category_d_conflicts": [],
+        "collision_errors": [],
+        "pressure_containment_pass": true,
+        "source_dry_mass_t": 868.1922552640087,
+        "glb": "render/out/wayfarer_shuttle_hold_fullship_88ce19fc_metric_hard_closed.glb",
+        "gltf_extras": {
+          "mesh_nodes_with_extras": 502,
+          "all_scene_nodes_with_extras": 542,
+          "raw_glb_sha256": "bfc6923d1468696569e767bb2b9be75e93fd2b616dfb7bd3035d73f50e8637d4",
+          "bytes": 8342680
+        },
+        "semantic_hierarchy": {
+          "meshes": 502,
+          "dry_system_breakdown": {
+            "EXTERIOR": 80,
+            "FLUIDS": 20,
+            "HABITAT": 286,
+            "POWER": 15,
+            "PROPULSION": 3,
+            "SERVICE": 9,
+            "SHUTTLE": 41,
+            "STRUCTURE": 48
+          },
+          "semantic_systems": 8,
+          "semantic_subsystems": 31,
+          "hierarchy_valid": true
+        }
+      }
+    },
+    "torch": {
+      "stowed": {
+        "part_count": 558,
+        "pair_count": 155403,
+        "category_d_count": 0,
+        "boolean_errors": 0,
+        "category_counts": {
+          "a": 1,
+          "c": 178
+        },
+        "category_d_conflicts": [],
+        "collision_errors": [],
+        "pressure_containment_pass": true,
+        "source_dry_mass_t": 868.1922552640087,
+        "glb": "render/out/wayfarer_shuttle_hold_fullship_88ce19fc_torch_stowed.glb",
+        "gltf_extras": {
+          "mesh_nodes_with_extras": 558,
+          "all_scene_nodes_with_extras": 598,
+          "raw_glb_sha256": "a8f7ae39d5ca2272fd79b5cb85a4ac7f84ad9190d95b6e94505505f958da121d",
+          "bytes": 7705040
+        },
+        "semantic_hierarchy": {
+          "meshes": 558,
+          "dry_system_breakdown": {
+            "EXTERIOR": 136,
+            "FLUIDS": 20,
+            "HABITAT": 286,
+            "POWER": 15,
+            "PROPULSION": 3,
+            "SERVICE": 9,
+            "SHUTTLE": 41,
+            "STRUCTURE": 48
+          },
+          "semantic_systems": 8,
+          "semantic_subsystems": 31,
+          "hierarchy_valid": true
+        }
+      },
+      "closed": {
+        "part_count": 558,
+        "pair_count": 155403,
+        "category_d_count": 0,
+        "boolean_errors": 0,
+        "category_counts": {
+          "a": 1,
+          "c": 162
+        },
+        "category_d_conflicts": [],
+        "collision_errors": [],
+        "pressure_containment_pass": true,
+        "source_dry_mass_t": 868.1922552640087,
+        "glb": "render/out/wayfarer_shuttle_hold_fullship_88ce19fc_torch_closed.glb",
+        "gltf_extras": {
+          "mesh_nodes_with_extras": 558,
+          "all_scene_nodes_with_extras": 598,
+          "raw_glb_sha256": "b920b5db6541982022a694990329020c7d24332ce5e9415be1cc9c91fead9857",
+          "bytes": 8610456
+        },
+        "semantic_hierarchy": {
+          "meshes": 558,
+          "dry_system_breakdown": {
+            "EXTERIOR": 136,
+            "FLUIDS": 20,
+            "HABITAT": 286,
+            "POWER": 15,
+            "PROPULSION": 3,
+            "SERVICE": 9,
+            "SHUTTLE": 41,
+            "STRUCTURE": 48
+          },
+          "semantic_systems": 8,
+          "semantic_subsystems": 31,
+          "hierarchy_valid": true
+        }
+      }
+    }
+  }
+}

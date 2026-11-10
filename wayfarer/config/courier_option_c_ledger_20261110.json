@@ -1,0 +1,30 @@
+{
+  "header": "ALL bodies. ALL sponsors. 2026-2226.",
+  "status": "APPLIED kT COURIER OPTION C LEDGER OVERLAY — engineering representation, noncanon",
+  "decision_date": "2026-11-10",
+  "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+  "source_courier_systems_allocation_t": 19.450370894400045,
+  "retained_hardware_t": 5,
+  "retained_hardware_split_t": {
+    "hold_hardware_and_existing_door_interfaces": 2,
+    "cradles": 1.5,
+    "crawler_guides": 0.5,
+    "charging": 0.5,
+    "mounts": 0.5
+  },
+  "returned_to_engineering_reserve_t": 14.450370894400045,
+  "source_engineering_reserve_t": 9.122455412,
+  "effective_engineering_reserve_t": 23.572826306400046,
+  "source_released_structural_t": 9.533700144,
+  "effective_combined_uncommitted_t": 33.10652645040004,
+  "source_combined_uncommitted_t": 18.656155556,
+  "dry_t": 868.1922552640087,
+  "dry_mass_delta_t": 0,
+  "source_booked_shuttle_t": 30.732248081255836,
+  "econ_delta_v_km_s": 707.845,
+  "physical_accounting": "Existing source committed dry mass unchanged; 14.450370894400045t of courier suballocation is now named engineering reserve, not a new geometric volume. Do not re-run source proportional mass spread or duplicate it as new mass.",
+  "geometry_rule": "Do NOT draw source courier_systems exterior sector or withdrawn #483 bay as solid. Five tonnes is a booked allocation against existing internal door/cradle/guide/charging/mount interfaces, never a 5t block.",
+  "physical_open": "Existing 2.4x1.8m doors; Mars 3.4m pod egress through doors OPEN, no folding/segmentation design; no new hull cuts.",
+  "mass_invariant": "retained_hardware_t + returned_to_engineering_reserve_t = source_courier_systems_allocation_t; source dry mass and each other booked hardware mass remain unchanged",
+  "downstream_use": "wayfarer/lab/shuttle/shuttle_v1_fullship_integrate_20261110.py and six replacement GLB node extras"
+}
