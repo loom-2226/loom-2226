@@ -589,7 +589,7 @@ def main():
          PBR_finish_gate="CANON_FINISH kT 2026-11-11; material JSON in six GLBs",
          thermal_trade_dark_midship_over_water_tanks="Prefer low-visible-absorptance graphite; no new thermal credit",
          strake_1300K_glow_state="strakes Metric 2m and Torch 4m",
-         1750K_glow_state="hot fins Torch deployed only; root brightest",
+         hotfin_1750K_glow_state="hot fins Torch deployed only; root brightest",
         print_minimum_modelled_feature_m=MIN_PRINT_FEATURE_M,
         smaller_marks="ENGRAVINGS not raised printable solids",
         no_hull_protrusion=False,no_crown_change=True,no_performance_claims=True,
