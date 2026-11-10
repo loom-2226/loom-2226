@@ -102,32 +102,43 @@ def ring_engraving(F,x,offset_t,r_outer,r_inner,depth):
     return round_engraving(F,x,offset_t,r_outer,depth)-round_engraving(
         F,x,offset_t,r_inner,depth+.002)
 
+def folded_stack_pleats(source):
+    """Four compact 14-pleat source-stowed stacks, with visible engraved edges."""
+    q=source["shape"]
+    assert q["k"]=="panel"
+    assert (q["x0"],q["x1"],q["r0"],q["span"],q["t"])==(34.3,53.3,4.75,2,.6)
+    a=math.radians(q["a"])
+    radial=(0,math.cos(a),math.sin(a))
+    tangent=(0,-math.sin(a),math.cos(a))
+    outer=q["r0"]+q["span"]
+    cutters=[]
+    for i in range(14):
+        edge=-q["t"]/2+(i+.5)*q["t"]/14
+        width=.012;depth=.030
+        origin=(q["x0"]+.35,
+                radial[1]*(outer-depth)+tangent[1]*(edge+width/2),
+                radial[2]*(outer-depth)+tangent[2]*(edge+width/2))
+        cutters.append(Solid.make_box(q["x1"]-q["x0"]-.70,width,depth+.010,
+            Plane(origin=origin,x_dir=(1,0,0),z_dir=radial)))
+    return cutters
+
+
 def panel_pleats(source,root=False):
+    if not root:
+        return folded_stack_pleats(source)
+    # Retain existing installed root-truss detail, unchanged.
     q=source["shape"]
     assert q["k"]=="panel"
     a=math.radians(q["a"])
-    n=(0,math.cos(a),math.sin(a))    # radial plane axis
-    t=(0,-math.sin(a),math.cos(a))   # tangential external face
-    # P.panel places the broad face at local ±t/2. Every line is carved
-    # into that existing face, not a raised fin or added printed bracket.
+    n=(0,math.cos(a),math.sin(a))
+    t=(0,-math.sin(a),math.cos(a))
     start=q["x0"];stop=q["x1"]
-    stride=2.4 if not root else 2.8
-    count=int((stop-start-1)/stride)
+    count=int((stop-start-1)/2.8)
     cutters=[]
     for i in range(count):
-        x=start+1.2+i*stride
-        # The installed v2.5.3 fitted hot-fin BRep can extend much
-        # further radially than the dormant `source.shape.span` field.
-        # Cut all the way across that EXISTING BRep's radial reach and
-        # retain material solely by boolean subtraction. A short 2m
-        # cutter at nominal r4.75 missed the actual fitted 140deg fin.
+        x=start+1.2+i*2.8
         extent=45.0
-        # The installed source BRep for a hot-fin 'folded_envelope'
-        # actually spans the deployed radial reach and its thin membrane
-        # is the 5mm source deployed_panel_thickness, NOT the nominal
-        # 0.6m stowed_stack_thickness drawing field. F3 engraves the
-        # existing thin face; it does not thicken, relocate or fold it.
-        installed_t=(q["t"] if root else .005)
+        installed_t=q["t"]
         depth=min(.055,installed_t*.32)
         for side in (1,-1):
             direction=(0,side*t[1],side*t[2])
@@ -275,6 +286,13 @@ def detail_ship(installed,rows,mode):
         updated[name]=detailed
         entries[name]=dict(role=klass,source_allocation_id=sid,
                            booked_mass_t=source["mass_t"],**evidence)
+        if klass=="folded_fin":
+            assert len(tools)==14
+            assert abs(evidence["source_volume_m3"]-22.8)<1e-7
+            entries[name]["folded_stack"]=dict(pleats=14,folded_pleat_length_m=2,
+                tangential_stack_thickness_m=.6,radial_root_m=4.75,
+                radial_outer_m=6.75,x_range_m=[34.3,53.3],
+                visible_edge_engravings=14)
         counts[klass]+=1
         if mode=="stowed" and name in (
             "dry:rcs_F+Y","dry:ext_sensor_turret_0",

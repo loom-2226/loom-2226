@@ -428,11 +428,29 @@ def evaluate(model,poses,g,cfg,criteria,original_containment,
     for mode in STATES:
         radiator,mapping=radiator_state(g,cfg,mode)
         for name in sorted(radiator):
-            if name.endswith((":stowed_stack",":folded_envelope",":root")):
+            if name.endswith(":folded_envelope"):
+                # Source stowed stack; do not substitute the v2.5.3
+                # installed hotfin's fully deployed membrane.
+                assert mode in ("stowed","metric_hard")
+                q=rows[mapping[name]]["shape"]
+                assert (q["x0"],q["x1"],q["r0"],q["span"],q["t"])==(
+                    34.3,53.3,4.75,2,.6)
+                assert abs(float(radiator[name].volume)-22.8)<1e-7
+            elif name.endswith((":stowed_stack",":root")):
                 old="dry:"+mapping[name]
                 assert old in replace_radiator
                 radiator[name]=model[old]
             radiator[name].label=name
+        if mode!="torch":
+            for az in ANGLES:
+                stack=radiator[f"dry:hotfin_{az}:folded_envelope"]
+                for other in sorted(radiator):
+                    if other.startswith(("dry:hotfin_root_","dry:strake_")):
+                        cut=stack & radiator[other]
+                        overlap=0 if cut is None else float(cut.volume)
+                        if overlap>1e-8:
+                            raise RuntimeError("STOP kT: folded stack intersects root/strake "+
+                                str((mode,az,other,overlap)))
         assert not(set(radiator)&set(base))
         installed={**base,**radiator}
         if detail_pass is not None:
