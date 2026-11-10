@@ -341,6 +341,28 @@ def render_f3():
 
 def main():
     A.PREFIX=PREFIX
+    # Viewer metadata only. Do not change source ledger, geometry, or
+    # independently rebook the full 19.45037t courier allocation.
+    retained=json.loads(A.LEDGER.read_text())
+    held=retained["retained_hardware_split_t"]["hold_hardware_and_existing_door_interfaces"]
+    assert held==2 and retained["retained_hardware_t"]==5
+    door_display_share_t=held/2  # two equal nominal door/interface drawings
+    base_metadata=A.metadata_for_mesh
+    def f3_metadata(name,geom_rows,fluid_rows,radiator_mapping,system,subsystem):
+        meta=base_metadata(name,geom_rows,fluid_rows,radiator_mapping,system,subsystem)
+        if name.startswith("dry:docking_camera_"):
+            assert meta["material"]=="rcs"
+            meta["material"]="sensor"
+            meta["material_override"]="viewer semantics only; source ledger unchanged"
+        elif name.startswith("dry:hold_existing_door_"):
+            assert meta["source_mass_owner_id"]=="courier_systems"
+            assert abs(meta["mass"]-retained["source_courier_systems_allocation_t"])<1e-8
+            meta["mass"]=door_display_share_t
+            meta["mass_display_scope"]="equal display share of the existing 2t hold-hardware/door-interface allowance; not a separately measured physical door mass"
+            meta["source_parent_booking_t"]=retained["source_courier_systems_allocation_t"]
+            meta["mass_rebooking_t"]=0
+        return meta
+    A.metadata_for_mesh=f3_metadata
     def integrate(*args):
         A.evaluate(*args,detail_pass=detail_ship)
     A.build_canon_v253(on_model_ready=integrate)
@@ -357,6 +379,11 @@ def main():
         no_hull_protrusion=True,no_crown_change=True,no_performance_claims=True,
         no_new_source_mass=True,
         source_canon="canon-v2.5.3",
+        metadata_only_fixes=dict(docking_camera_material="sensor",
+            hold_door_display_share_t=door_display_share_t,
+            hold_hardware_and_door_interface_allowance_t=held,
+            courier_parent_booking_unchanged_t=retained["source_courier_systems_allocation_t"],
+            no_rebooking=True),
         modes=records),
         F3_before_after_png="render/out/"+f3)
     p.write_text(json.dumps(rpt,indent=2)+"\n")

@@ -73,6 +73,12 @@ jobs:
           assert d['no_hull_protrusion'] and d['no_crown_change']
           assert d['no_new_source_mass'] and d['no_performance_claims']
           assert d['print_minimum_modelled_feature_m']==.1
+          fix=d['metadata_only_fixes']
+          assert fix['docking_camera_material']=='sensor'
+          assert fix['hold_door_display_share_t']==1.0
+          assert fix['hold_hardware_and_door_interface_allowance_t']==2.0
+          assert fix['courier_parent_booking_unchanged_t']==19.450370894400045
+          assert fix['no_rebooking']
           png=root/(prefix+'_F3_before_after.png')
           assert png.read_bytes()[:4]==bytes([137,80,78,71]) and png.stat().st_size>5000
           assert set(r['six_states'])==set(d['modes'])=={'stowed','metric_hard','torch'}
@@ -98,6 +104,17 @@ jobs:
                              for f in ('zone','deck','material','print_group','mass'))
                          for v in meshes)
               assert sum(v['name'].startswith('dry:crown_spare_') for v in meshes)==7
+              cameras=[v for v in meshes if v['name'].startswith('dry:docking_camera_')]
+              assert len(cameras)==2 and all(v['extras']['material']=='sensor' for v in cameras)
+              doors=[v for v in meshes if v['name'].startswith('dry:hold_existing_door_')]
+              assert len(doors)==2
+              assert sum(v['extras']['mass'] for v in doors)==2.0
+              assert all(v['extras']['mass']==1.0 and
+                         v['extras']['source_mass_owner_id']=='courier_systems' and
+                         v['extras']['node_mass_rebooking_t']==0 and
+                         v['extras']['mass_rebooking_t']==0 and
+                         v['extras']['source_parent_booking_t']==19.450370894400045
+                         for v in doors)
               print('F3_STATE_VERIFIED',mode,pose,st['part_count'])
           print('F3_ALL_SIX_STATES_D9_CONTAINMENT_ENVELOPE_EXTRAS_PASS')
           PY
