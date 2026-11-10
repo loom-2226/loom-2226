@@ -17,11 +17,13 @@ WIDTH_M=.05
 VISUAL_DEPTH_M=.03
 THIN_SHELL_CUT_DEPTH_M=.006
 
-def ring(x, radius, depth, offset=(0.,0.)):
+def ring(x, radius, depth, offset=(0.,0.), width=WIDTH_M):
     y,z=offset
-    outer=Solid.make_cylinder(radius+.07,WIDTH_M,P.plane_x(x-WIDTH_M/2,y,z))
-    inner=Solid.make_cylinder(radius-depth,WIDTH_M+.02,
-                            P.plane_x(x-WIDTH_M/2-.01,y,z))
+    # kT v2.5.8: nozzle alone gets 150 mm wide band (all other seams 50 mm).
+    assert width in (WIDTH_M,.15)
+    outer=Solid.make_cylinder(radius+.07,width,P.plane_x(x-width/2,y,z))
+    inner=Solid.make_cylinder(radius-depth,width+.02,
+                            P.plane_x(x-width/2-.01,y,z))
     return outer-inner
 
 def longitudinal(x0,x1,radius,depth,az,offset=(0.,0.)):
@@ -109,6 +111,9 @@ def apply(installed,rows,mode):
             maintenance_panel_outlines=len(panels),
             pressure_boundary_cuts=0,
             source_mass_rebooking_t=0,**ev)
+    # Torch face decoration only; v2.5.8 nozzle bands are 150mm x 30mm,
+    # with five unchanged source stations and no extra manufactured solids.
+    # Dark gunmetal band faces are assigned at GLB primitive level.
     # Torch face decoration only: blind rings, seams and service-panel
     # outlines. No new separate band parts, no shielding or heat credit.
     torch={
@@ -124,7 +129,8 @@ def apply(installed,rows,mode):
         def r_at(x):
             if radius is not None:return radius
             return q["r0"]+(x-q["x0"])*(q["r1"]-q["r0"])/(q["x1"]-q["x0"])
-        tools=[ring(x,r_at(x),depth,offset) for x in xs]
+        band_width=.15 if sid=="nozzle" else WIDTH_M
+        tools=[ring(x,r_at(x),depth,offset,width=band_width) for x in xs]
         tools += [longitudinal(q["x0"]+.15,q["x1"]-.15,r_at(q["x0"]),depth,
                                a,offset) for a in angs]
         for x0,x1,ang in panels:
@@ -134,7 +140,8 @@ def apply(installed,rows,mode):
         detailed,ev=cut_surface(old,tools,name)
         result[name]=detailed
         evidence[name]=dict(role=sid,
-            ring_band_station_m=xs,segment_seams_azimuth_deg=angs,
+            ring_band_station_m=xs,band_width_m=band_width,
+            band_depth_m=depth,segment_seams_azimuth_deg=angs,
             access_panel_outlines=len(panels),requested_groove_width_m=WIDTH_M,
             visual_only=True,source_mass_rebooking_t=0,**ev)
     return result,dict(

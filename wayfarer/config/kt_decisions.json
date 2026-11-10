@@ -725,17 +725,17 @@
     "rows": {
       "bow_strata": {
         "status": "CANON_FINISH",
-        "base_srgb_hex": "#656861",
+        "base_srgb_hex": "#3A3D42",
         "metallic_factor": 0.18,
         "roughness_factor": 0.78,
-        "notes": "bare Strata graphite"
+        "notes": "bare Strata graphite; kT v2.5.8 neutral graphite, linear-baseColor conversion required"
       },
       "strata_gores_shutters": {
         "status": "CANON_FINISH",
-        "base_srgb_hex": "#60635E",
+        "base_srgb_hex": "#3A3D42",
         "metallic_factor": 0.16,
         "roughness_factor": 0.82,
-        "notes": "Strata armour-equivalent"
+        "notes": "Strata armour-equivalent; kT v2.5.8 neutral graphite, linear-baseColor conversion required"
       },
       "low_signature_flanks": {
         "status": "CANON_FINISH",
@@ -746,10 +746,10 @@
       },
       "midship_skin_bay_doors": {
         "status": "CANON_FINISH",
-        "base_srgb_hex": "#656861",
+        "base_srgb_hex": "#3A3D42",
         "metallic_factor": 0.17,
         "roughness_factor": 0.79,
-        "notes": "graphite Strata face; visible low absorptance preferred over darker high-absorptance coating"
+        "notes": "graphite Strata face; visible low absorptance preferred over darker high-absorptance coating; kT v2.5.8 neutral graphite, linear-baseColor conversion required"
       },
       "service_band_aft_thrust_cone": {
         "status": "CANON_FINISH",
@@ -895,6 +895,43 @@
     "finishes_are_visual": true,
     "no_material_physical_qualification": true,
     "booked_mass_delta_t": 0,
-    "geometry_envelope_delta_m": 0
+    "geometry_envelope_delta_m": 0,
+    "version": "canon-v2.5.8",
+    "graphite_srgb_approved": "#3A3D42",
+    "graphite_roles": [
+      "bow_strata",
+      "midship_skin_bay_doors",
+      "strata_gores_shutters"
+    ],
+    "hot_states": {
+      "base_color_linear_rgb": [
+        0.02,
+        0.02,
+        0.02
+      ],
+      "strake_1300K": "emissive deep red-orange only in Metric HARD 2m and Torch 4m",
+      "hotfin_1750K": "emissive orange only deployed Torch; graded root brightest",
+      "no_additive_washed_out_base": true
+    },
+    "nozzle_coil_band": {
+      "stations_x_m": [
+        47.2,
+        48.5,
+        49.8,
+        51.1,
+        52.4
+      ],
+      "width_m": 0.15,
+      "depth_m": 0.03,
+      "finish_role": "nozzle_coil_bands",
+      "nozzle_geometry_envelope_unchanged": true,
+      "source_mass_delta_t": 0
+    },
+    "colour_conversion_audit": {
+      "algorithm": "IEC 61966-2-1 sRGB transfer inverse (linear glTF baseColorFactor)",
+      "scope": "all declared CANON_FINISH colour roles and each generated GLB material variant",
+      "expected_declared_roles": 23,
+      "unapproved_colour_additions": 0
+    }
   }
 }

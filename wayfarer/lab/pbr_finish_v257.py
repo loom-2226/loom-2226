@@ -8,6 +8,7 @@ Colour is an sRGB viewer paint approximation, NOT a measured spectrum.
 from __future__ import annotations
 import hashlib,json,math,re,struct
 from pathlib import Path
+from nozzle_band_faces_v258 import colour_nozzle_bands
 
 ROOT=Path(__file__).resolve().parents[1]
 FINISH=ROOT/"config/kt_decisions.json"
@@ -66,20 +67,27 @@ def role_for(name,meta,mode):
 
 def _hot_state(name,mode):
     if mode=="metric_hard" and name.startswith("dry:strake_"):
-        return ("STRAKE_1300K_2M",[.72,.13,.025],1.0)
+        return ("STRAKE_1300K_2M",[.64,.065,.008],.70)
     if mode=="torch" and name.startswith("dry:strake_"):
-        return ("STRAKE_1300K_4M",[.72,.13,.025],1.0)
+        return ("STRAKE_1300K_4M",[.64,.065,.008],.70)
     if mode=="torch" and name.startswith("dry:hotfin_") and ":pleat_" in name:
         mt=re.search(r":pleat_(\d+)",name)
         idx=int(mt.group(1)) if mt else 0
-        strength=max(.55,1.8-(idx*1.25/13))
-        return ("HOTFIN_1750K_ROOT_GRADED",[1.,.29,.055],strength)
+        strength=max(.45,1.25-(idx*.80/13))
+        return ("HOTFIN_1750K_ROOT_GRADED",[1.,.20,.015],strength)
     return (None,[0,0,0],0)
 
 def assign_pbr(path,source_mesh_extras,mode):
     f=json.loads(FINISH.read_text())["canon_finish_2026_11_11"]
     assert f["status"]=="CANON_FINISH" and f["decision"]=="kT APPROVED"
-    assert len(f["rows"])>=22
+    assert len(f["rows"])==f["colour_conversion_audit"]["expected_declared_roles"]==23
+    assert all(v["status"]=="CANON_FINISH" for v in f["rows"].values())
+    converted={role:_rgb(v["base_srgb_hex"]) for role,v in f["rows"].items()}
+    assert len(converted)==23
+    expected_graphite=_rgb("#3A3D42")
+    assert all(f["rows"][role]["base_srgb_hex"]=="#3A3D42"
+               and all(abs(x-y)<1e-10 for x,y in zip(converted[role],expected_graphite))
+               for role in f["graphite_roles"])
     raw=path.read_bytes()
     if raw[:4]!=b"glTF":raise ValueError("not GLB")
     magic,version,total=struct.unpack_from("<III",raw)
@@ -93,10 +101,14 @@ def assign_pbr(path,source_mesh_extras,mode):
     changed=0
     emissive=0
     by_role={}
+    nozzle_node=None
     for node in data["nodes"]:
         if "mesh" not in node:continue
         name=node["name"]
         assert name in source_mesh_extras
+        if name=="dry:nozzle":
+            assert nozzle_node is None
+            nozzle_node=node
         role=role_for(name,source_mesh_extras[name],mode)
         if role is None:
             node.setdefault("extras",{})["finish_scope"]="INTERIOR_OR_UNASSIGNED_SOURCE_COLOUR"
@@ -105,7 +117,9 @@ def assign_pbr(path,source_mesh_extras,mode):
         kind_hot,color_hot,strength=_hot_state(name,mode)
         material_key=(role,kind_hot,strength)
         if material_key not in cache:
-            base=list(_rgb(row["base_srgb_hex"])) + [1.]
+            # Hot diffuse stays 0.02 linear; all thermal colour is emissive.
+            base=([.02,.02,.02] if kind_hot else
+                  list(converted[role])) + [1.]
             if role in ("side_glazing","crown_pressure_ceramic","crown_outer_ceramic","aoi_optogel"):
                 base[3]=.24 if role=="aoi_optogel" else .38
             pbr=dict(baseColorFactor=base,
@@ -138,6 +152,33 @@ def assign_pbr(path,source_mesh_extras,mode):
             emissive+=1
         by_role[role]=by_role.get(role,0)+1
         changed+=1
+    # Check every rendered finish material uses the source sRGB to linear
+    # conversion; hot states deliberately use the neutral near-black base.
+    verified_materials=0
+    for mat in mats:
+        label=mat.get("name","")
+        if not label.startswith("CANON_FINISH/"):continue
+        role=label.split("/")[1]
+        assert role in converted
+        hot=any(v>0 for v in mat.get("emissiveFactor",[0,0,0]))
+        expected=[.02,.02,.02] if hot else converted[role]
+        actual=mat["pbrMetallicRoughness"]["baseColorFactor"][:3]
+        if any(abs(x-y)>1e-7 for x,y in zip(actual,expected)):
+            raise RuntimeError("STOP export: sRGB-to-linear check failed "+str((label,actual,expected)))
+        verified_materials+=1
+    assert nozzle_node is not None
+    coil=_entry(f,"nozzle_coil_bands")
+    coil_index=len(mats)
+    mats.append(dict(name="CANON_FINISH/nozzle_coil_bands",
+        pbrMetallicRoughness=dict(baseColorFactor=converted["nozzle_coil_bands"]+[1.],
+            metallicFactor=float(coil["metallic_factor"]),
+            roughnessFactor=float(coil["roughness_factor"])),
+        emissiveFactor=[0.,0.,0.]))
+    tail,coils=colour_nozzle_bands(data,tail,nozzle_node,coil_index,
+        f["nozzle_coil_band"]["stations_x_m"])
+    verified_materials+=1
+    assert verified_materials==sum(
+        1 for mat in mats if mat.get("name","").startswith("CANON_FINISH/"))
     if emissive:
         used=data.setdefault("extensionsUsed",[])
         if "KHR_materials_emissive_strength" not in used:
@@ -161,5 +202,10 @@ def assign_pbr(path,source_mesh_extras,mode):
                 hot_fin_1300K_preview_removed=True,
                 thermal_source_no_credit=True,
                 by_finish_role=dict(sorted(by_role.items())),
+                srgb_to_linear_declared_roles=len(converted),
+                verified_linear_pbr_materials=verified_materials,
+                graphite_linear_base_rgb=expected_graphite,
+                thermal_glow_diffuse_base_linear_rgb=[.02,.02,.02],
+                nozzle_coil_band_faces=coils,
                 raw_glb_sha256=hashlib.sha256(binary).hexdigest(),
                 bytes=len(binary))

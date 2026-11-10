@@ -1,6 +1,6 @@
 {
   "status": "F3_EXTERIOR_DETAIL_SIX_STATE_D9_CONTAINMENT_PASS",
-  "canon_tag": "canon-v2.5.7",
+  "canon_tag": "canon-v2.5.8",
   "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
   "source_dry_t": 868.1922552640087,
   "ECON_dv_km_s": 707.845,
@@ -63,8 +63,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 498,
           "all_scene_nodes_with_extras": 538,
-          "raw_glb_sha256": "8c7077c80f455cffa9f28f7fafb3997c129a46d2e0b8c9b7085ea3048dccb06d",
-          "bytes": 10470664,
+          "raw_glb_sha256": "120dee22ea4f3d08e5285ec87cf4cd782c99c8d5daea8f7b0b66460b739998a5",
+          "bytes": 10503152,
           "canon_finish": "CANON_FINISH",
           "exterior_pbr_meshes": 351,
           "exterior_pbr_variants": 20,
@@ -92,6 +92,42 @@
             "strata_gores_shutters": 16,
             "tank_shell": 2,
             "torch_reactor": 1
+          },
+          "srgb_to_linear_declared_roles": 23,
+          "verified_linear_pbr_materials": 21,
+          "graphite_linear_base_rgb": [
+            0.042311410620809675,
+            0.046665086336880095,
+            0.05448027644244237
+          ],
+          "thermal_glow_diffuse_base_linear_rgb": [
+            0.02,
+            0.02,
+            0.02
+          ],
+          "nozzle_coil_band_faces": {
+            "stations_x_m": [
+              47.2,
+              48.5,
+              49.8,
+              51.1,
+              52.4
+            ],
+            "width_m": 0.15,
+            "depth_m": 0.03,
+            "face_triangles_per_station": [
+              173,
+              152,
+              237,
+              237,
+              257
+            ],
+            "face_triangles_total": 1056,
+            "source_triangles_total": 2348,
+            "triangle_conservation": true,
+            "nozzle_geometry_envelope_unchanged": true,
+            "print_band_width_1_100_mm": 1.5,
+            "longitudinal_gltf_axis": 0
           }
         },
         "semantic_hierarchy": {
@@ -128,8 +164,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 498,
           "all_scene_nodes_with_extras": 538,
-          "raw_glb_sha256": "784019a61fb9bd4f79dff4116cde1ed09a8fdd3669f7b98d9792bd11e6b55c67",
-          "bytes": 11377784,
+          "raw_glb_sha256": "a42df43f113f3d84b57186d10120e9834fdcd5996cef9890025e837cab0926ab",
+          "bytes": 11410272,
           "canon_finish": "CANON_FINISH",
           "exterior_pbr_meshes": 351,
           "exterior_pbr_variants": 20,
@@ -157,6 +193,42 @@
             "strata_gores_shutters": 16,
             "tank_shell": 2,
             "torch_reactor": 1
+          },
+          "srgb_to_linear_declared_roles": 23,
+          "verified_linear_pbr_materials": 21,
+          "graphite_linear_base_rgb": [
+            0.042311410620809675,
+            0.046665086336880095,
+            0.05448027644244237
+          ],
+          "thermal_glow_diffuse_base_linear_rgb": [
+            0.02,
+            0.02,
+            0.02
+          ],
+          "nozzle_coil_band_faces": {
+            "stations_x_m": [
+              47.2,
+              48.5,
+              49.8,
+              51.1,
+              52.4
+            ],
+            "width_m": 0.15,
+            "depth_m": 0.03,
+            "face_triangles_per_station": [
+              173,
+              152,
+              237,
+              237,
+              257
+            ],
+            "face_triangles_total": 1056,
+            "source_triangles_total": 2348,
+            "triangle_conservation": true,
+            "nozzle_geometry_envelope_unchanged": true,
+            "print_band_width_1_100_mm": 1.5,
+            "longitudinal_gltf_axis": 0
           }
         },
         "semantic_hierarchy": {
@@ -195,8 +267,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 502,
           "all_scene_nodes_with_extras": 542,
-          "raw_glb_sha256": "9c06588a2dd51ee41125a17e05663dff4e70a47e6b8536547dacc2fefe5af880",
-          "bytes": 10493808,
+          "raw_glb_sha256": "db295a39130456bd0f9ddce7b46632a5bbef3787e83b855242ad88673c69f5da",
+          "bytes": 10526252,
           "canon_finish": "CANON_FINISH",
           "exterior_pbr_meshes": 355,
           "exterior_pbr_variants": 20,
@@ -224,6 +296,42 @@
             "strata_gores_shutters": 16,
             "tank_shell": 2,
             "torch_reactor": 1
+          },
+          "srgb_to_linear_declared_roles": 23,
+          "verified_linear_pbr_materials": 21,
+          "graphite_linear_base_rgb": [
+            0.042311410620809675,
+            0.046665086336880095,
+            0.05448027644244237
+          ],
+          "thermal_glow_diffuse_base_linear_rgb": [
+            0.02,
+            0.02,
+            0.02
+          ],
+          "nozzle_coil_band_faces": {
+            "stations_x_m": [
+              47.2,
+              48.5,
+              49.8,
+              51.1,
+              52.4
+            ],
+            "width_m": 0.15,
+            "depth_m": 0.03,
+            "face_triangles_per_station": [
+              173,
+              152,
+              237,
+              237,
+              257
+            ],
+            "face_triangles_total": 1056,
+            "source_triangles_total": 2348,
+            "triangle_conservation": true,
+            "nozzle_geometry_envelope_unchanged": true,
+            "print_band_width_1_100_mm": 1.5,
+            "longitudinal_gltf_axis": 0
           }
         },
         "semantic_hierarchy": {
@@ -260,8 +368,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 502,
           "all_scene_nodes_with_extras": 542,
-          "raw_glb_sha256": "b143120447468f3e8b4dfc724e2a3698a6a5e77437ff62d999038654b500c786",
-          "bytes": 11400972,
+          "raw_glb_sha256": "6ebd92e456895c7bcaf208f8af0e548989afeb9c3f4bff1b4dd82ea2ed39b067",
+          "bytes": 11433420,
           "canon_finish": "CANON_FINISH",
           "exterior_pbr_meshes": 355,
           "exterior_pbr_variants": 20,
@@ -289,6 +397,42 @@
             "strata_gores_shutters": 16,
             "tank_shell": 2,
             "torch_reactor": 1
+          },
+          "srgb_to_linear_declared_roles": 23,
+          "verified_linear_pbr_materials": 21,
+          "graphite_linear_base_rgb": [
+            0.042311410620809675,
+            0.046665086336880095,
+            0.05448027644244237
+          ],
+          "thermal_glow_diffuse_base_linear_rgb": [
+            0.02,
+            0.02,
+            0.02
+          ],
+          "nozzle_coil_band_faces": {
+            "stations_x_m": [
+              47.2,
+              48.5,
+              49.8,
+              51.1,
+              52.4
+            ],
+            "width_m": 0.15,
+            "depth_m": 0.03,
+            "face_triangles_per_station": [
+              173,
+              152,
+              237,
+              237,
+              257
+            ],
+            "face_triangles_total": 1056,
+            "source_triangles_total": 2348,
+            "triangle_conservation": true,
+            "nozzle_geometry_envelope_unchanged": true,
+            "print_band_width_1_100_mm": 1.5,
+            "longitudinal_gltf_axis": 0
           }
         },
         "semantic_hierarchy": {
@@ -327,8 +471,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 558,
           "all_scene_nodes_with_extras": 598,
-          "raw_glb_sha256": "69265a0e2ff2d8772c8fc338d0f1c94ad6bf9836a595a0481eaa1b59266f035a",
-          "bytes": 10579300,
+          "raw_glb_sha256": "49d938b5bad4254a35b08cbeef3d4f702eff075fb92171efad2870de361a4925",
+          "bytes": 10611328,
           "canon_finish": "CANON_FINISH",
           "exterior_pbr_meshes": 411,
           "exterior_pbr_variants": 34,
@@ -357,6 +501,42 @@
             "strata_gores_shutters": 16,
             "tank_shell": 2,
             "torch_reactor": 1
+          },
+          "srgb_to_linear_declared_roles": 23,
+          "verified_linear_pbr_materials": 35,
+          "graphite_linear_base_rgb": [
+            0.042311410620809675,
+            0.046665086336880095,
+            0.05448027644244237
+          ],
+          "thermal_glow_diffuse_base_linear_rgb": [
+            0.02,
+            0.02,
+            0.02
+          ],
+          "nozzle_coil_band_faces": {
+            "stations_x_m": [
+              47.2,
+              48.5,
+              49.8,
+              51.1,
+              52.4
+            ],
+            "width_m": 0.15,
+            "depth_m": 0.03,
+            "face_triangles_per_station": [
+              173,
+              152,
+              237,
+              237,
+              257
+            ],
+            "face_triangles_total": 1056,
+            "source_triangles_total": 2348,
+            "triangle_conservation": true,
+            "nozzle_geometry_envelope_unchanged": true,
+            "print_band_width_1_100_mm": 1.5,
+            "longitudinal_gltf_axis": 0
           }
         },
         "semantic_hierarchy": {
@@ -393,8 +573,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 558,
           "all_scene_nodes_with_extras": 598,
-          "raw_glb_sha256": "17f703a6728a452c081ca91905507ebbec17ad69ec39e18c015e899f70cd4f69",
-          "bytes": 11486468,
+          "raw_glb_sha256": "f4dcc1cc79066eb950e033f79b042bed2f6f60b25c036f8709ccaf8e34e02de4",
+          "bytes": 11518496,
           "canon_finish": "CANON_FINISH",
           "exterior_pbr_meshes": 411,
           "exterior_pbr_variants": 34,
@@ -423,6 +603,42 @@
             "strata_gores_shutters": 16,
             "tank_shell": 2,
             "torch_reactor": 1
+          },
+          "srgb_to_linear_declared_roles": 23,
+          "verified_linear_pbr_materials": 35,
+          "graphite_linear_base_rgb": [
+            0.042311410620809675,
+            0.046665086336880095,
+            0.05448027644244237
+          ],
+          "thermal_glow_diffuse_base_linear_rgb": [
+            0.02,
+            0.02,
+            0.02
+          ],
+          "nozzle_coil_band_faces": {
+            "stations_x_m": [
+              47.2,
+              48.5,
+              49.8,
+              51.1,
+              52.4
+            ],
+            "width_m": 0.15,
+            "depth_m": 0.03,
+            "face_triangles_per_station": [
+              173,
+              152,
+              237,
+              237,
+              257
+            ],
+            "face_triangles_total": 1056,
+            "source_triangles_total": 2348,
+            "triangle_conservation": true,
+            "nozzle_geometry_envelope_unchanged": true,
+            "print_band_width_1_100_mm": 1.5,
+            "longitudinal_gltf_axis": 0
           }
         },
         "semantic_hierarchy": {
@@ -677,6 +893,15 @@
     "thermal_trade_dark_midship_over_water_tanks": "Prefer low-visible-absorptance graphite; no new thermal credit",
     "strake_1300K_glow_state": "strakes Metric 2m and Torch 4m",
     "hotfin_1750K_glow_state": "hot fins Torch deployed only; root brightest",
+    "graphite_srgb_2026_11_11_v258": "#3A3D42",
+    "hot_state_diffuse_linear_rgb": [
+      0.02,
+      0.02,
+      0.02
+    ],
+    "nozzle_coil_band_width_m": 0.15,
+    "nozzle_coil_band_depth_m": 0.03,
+    "nozzle_coil_band_finish": "CANON_FINISH/nozzle_coil_bands",
     "print_minimum_modelled_feature_m": 0.1,
     "smaller_marks": "ENGRAVINGS not raised printable solids",
     "no_hull_protrusion": false,
@@ -684,7 +909,7 @@
     "no_performance_claims": true,
     "no_pressure_vessel_cuts": true,
     "no_new_source_mass": true,
-    "source_canon": "canon-v2.5.6",
+    "source_canon": "canon-v2.5.7",
     "metadata_only_fixes": {
       "docking_camera_material": "sensor",
       "hold_door_display_share_t": 1.0,
@@ -908,6 +1133,8 @@
                 34.7,
                 38.9
               ],
+              "band_width_m": 0.05,
+              "band_depth_m": 0.008,
               "segment_seams_azimuth_deg": [
                 0,
                 90,
@@ -928,6 +1155,8 @@
                 43.2,
                 45.9
               ],
+              "band_width_m": 0.05,
+              "band_depth_m": 0.03,
               "segment_seams_azimuth_deg": [],
               "access_panel_outlines": 4,
               "requested_groove_width_m": 0.05,
@@ -945,13 +1174,15 @@
                 51.1,
                 52.4
               ],
+              "band_width_m": 0.15,
+              "band_depth_m": 0.03,
               "segment_seams_azimuth_deg": [],
               "access_panel_outlines": 0,
               "requested_groove_width_m": 0.05,
               "visual_only": true,
               "source_mass_rebooking_t": 0,
               "grooves_intersected": 5,
-              "display_only_removed_m3": 0.12029371235208686
+              "display_only_removed_m3": 0.364028379029385
             }
           }
         },
@@ -2061,6 +2292,8 @@
                 34.7,
                 38.9
               ],
+              "band_width_m": 0.05,
+              "band_depth_m": 0.008,
               "segment_seams_azimuth_deg": [
                 0,
                 90,
@@ -2081,6 +2314,8 @@
                 43.2,
                 45.9
               ],
+              "band_width_m": 0.05,
+              "band_depth_m": 0.03,
               "segment_seams_azimuth_deg": [],
               "access_panel_outlines": 4,
               "requested_groove_width_m": 0.05,
@@ -2098,13 +2333,15 @@
                 51.1,
                 52.4
               ],
+              "band_width_m": 0.15,
+              "band_depth_m": 0.03,
               "segment_seams_azimuth_deg": [],
               "access_panel_outlines": 0,
               "requested_groove_width_m": 0.05,
               "visual_only": true,
               "source_mass_rebooking_t": 0,
               "grooves_intersected": 5,
-              "display_only_removed_m3": 0.12029371235208686
+              "display_only_removed_m3": 0.364028379029385
             }
           }
         },
@@ -3213,6 +3450,8 @@
                 34.7,
                 38.9
               ],
+              "band_width_m": 0.05,
+              "band_depth_m": 0.008,
               "segment_seams_azimuth_deg": [
                 0,
                 90,
@@ -3233,6 +3472,8 @@
                 43.2,
                 45.9
               ],
+              "band_width_m": 0.05,
+              "band_depth_m": 0.03,
               "segment_seams_azimuth_deg": [],
               "access_panel_outlines": 4,
               "requested_groove_width_m": 0.05,
@@ -3250,13 +3491,15 @@
                 51.1,
                 52.4
               ],
+              "band_width_m": 0.15,
+              "band_depth_m": 0.03,
               "segment_seams_azimuth_deg": [],
               "access_panel_outlines": 0,
               "requested_groove_width_m": 0.05,
               "visual_only": true,
               "source_mass_rebooking_t": 0,
               "grooves_intersected": 5,
-              "display_only_removed_m3": 0.12029371235208686
+              "display_only_removed_m3": 0.364028379029385
             }
           }
         },
