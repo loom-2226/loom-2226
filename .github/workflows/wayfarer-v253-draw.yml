@@ -56,7 +56,7 @@ jobs:
           finish=json.loads(Path("wayfarer/config/kt_decisions.json").read_text())["canon_finish_2026_11_11"]
           assert finish["decision"]=="kT APPROVED" and finish["status"]=="CANON_FINISH"
           assert all(v["status"]=="CANON_FINISH" for v in finish["rows"].values())
-          assert finish["rows"]["midship_skin_bay_doors"]["base_srgb_hex"]=="#656861"
+          assert finish["rows"]["midship_skin_bay_doors"]["base_srgb_hex"]=="#3A3D42"
           assert finish["rows"]["magnetic_nozzle_bronze"]["base_srgb_hex"]=="#AD8052"
           assert finish["rows"]["nozzle_coil_bands"]["base_srgb_hex"]=="#30373D"
           assert finish["rows"]["service_band_aft_thrust_cone"]["base_srgb_hex"]=="#B9BFBC"
