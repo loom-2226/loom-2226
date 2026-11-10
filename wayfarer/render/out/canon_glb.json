@@ -1,12 +1,12 @@
 {
   "schema": "wayfarer/canon-glb-pointer/v1",
   "status": "RELEASED",
-  "tag": "canon-v2.5.5",
-  "release_commit": "7c84d1563b8f00494f41e0e55fb78be49c48c0c6",
+  "tag": "canon-v2.5.6",
+  "release_commit": "40cf794da418a9eb29eb38d98aef6909111f2bc8",
   "path": "wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_stowed_closed.glb",
   "hash": {
     "algorithm": "git-blob-sha1",
-    "value": "b2d6473224d460d737d9b25c3478a08386ddc2cf"
+    "value": "c1924f9ff08bdf6c1ef8b0992d2f52b6581a47ac"
   },
   "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
   "dry_mass_t": 868.1922552640087,
@@ -21,7 +21,7 @@
       "glb_nodes": 498,
       "hash": {
         "algorithm": "git-blob-sha1",
-        "value": "568b16d395c6d26a6ac8a7b949f104f018ec379f"
+        "value": "dba759b0cb40c7bb751c1c12d73b1533b29d0c58"
       }
     },
     {
@@ -31,7 +31,7 @@
       "glb_nodes": 502,
       "hash": {
         "algorithm": "git-blob-sha1",
-        "value": "158d8d56e5d5dd022f33ac439c20a7c273fd1d12"
+        "value": "e18c80e75113a1507f2fc8f387b97e5eecdaa31f"
       }
     },
     {
@@ -41,7 +41,7 @@
       "glb_nodes": 502,
       "hash": {
         "algorithm": "git-blob-sha1",
-        "value": "0892885e7e8fc06bf90e02add39cc4c223356445"
+        "value": "ca8d2e4329a28aa0c396ca451ef0d889c06e96ef"
       }
     },
     {
@@ -51,7 +51,7 @@
       "glb_nodes": 558,
       "hash": {
         "algorithm": "git-blob-sha1",
-        "value": "5c1842453aafc2ff2ff7f1470f4aa5a796472e2b"
+        "value": "1f8488cf1417f45323ca67514825a4884128c941"
       }
     },
     {
@@ -61,9 +61,9 @@
       "glb_nodes": 558,
       "hash": {
         "algorithm": "git-blob-sha1",
-        "value": "3559c101e4e1a1b6a793a903c43bb8bb701103c6"
+        "value": "cfbf71421f3383b831506b69dbb241a5fed47c9a"
       }
     }
   ],
-  "notes": "Drawing-only, mass-neutral hot-fin correction: stowed/Metric show 14 folded 2m pleats per fin as a 0.6m-thick stack at x34.3–53.3 and r4.75–6.75, with engraved edges. Torch deployed geometry and both committed torch GLBs remain byte-identical to canon-v2.5.4. Six mutually exclusive state GLBs; unchanged dry mass and ECON Δv. Tag pins merged #492 geometry commit; this pointer is a later metadata-only commit. No new physics or hardware qualification."
+  "notes": "Drawing-only mass-neutral kT F1 exterior correction: 8 RCS partially sunk housings, 3 radial + 1 axial 10-degree canted proud bells (0.30m bell diameter, 3mm at 1:100), four aft clusters now x34.15 az0/90/180/270, RCS quick nominal/degraded pitch/yaw ratios 2.33625/1.01274 (no hardware or closed-loop credit). Shuttle four original 5.6m blades have real section through recessed aft hull display skin; laser terminals at source x33.3. Six mutually exclusive GLBs, zero D9 category-d and containment PASS, no source mass or ECON delta-v changes; legacy v253 exports removed. Annotated canon tag pins merged #494 geometry commit; pointer manifest lives on later metadata-only main. No further geometry export."
 }
