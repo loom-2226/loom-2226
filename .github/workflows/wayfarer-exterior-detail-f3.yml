@@ -64,6 +64,8 @@ jobs:
           root=Path('wayfarer/render/out')
           prefix='wayfarer_exterior_detail_88ce19fc'
           r=json.loads((root/(prefix+'_report.json')).read_text())
+          # The #488 release is superseded and must not be resurrected.
+          assert not list(root.glob('wayfarer_shuttle_hold_fullship_88ce19fc*'))
           assert r['status']=='F3_EXTERIOR_DETAIL_SIX_STATE_D9_CONTAINMENT_PASS'
           assert r['all_six_state_D9_and_containment']=='PASS'
           assert r['source_dry_t']==868.1922552640087
