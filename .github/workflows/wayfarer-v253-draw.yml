@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Verify existing v2.5.6 F1 drawing details and six GLBs
+      - name: Verify existing v2.5.7 approved CANON_FINISH PBR and six GLBs
         run: |
           set -euo pipefail
           python - <<'PY'
@@ -27,9 +27,9 @@ jobs:
           root=Path("wayfarer/render/out")
           p=json.loads((root/"canon_glb.json").read_text())
           r=json.loads((root/"wayfarer_exterior_detail_88ce19fc_report.json").read_text())
-          target="40cf794da418a9eb29eb38d98aef6909111f2bc8"
+          target="6f4a4acd227a0f6a0db2cb8818755506d278dffd"
           assert p["schema"]=="wayfarer/canon-glb-pointer/v1"
-          assert p["tag"]=="canon-v2.5.6" and p["status"]=="RELEASED"
+          assert p["tag"]=="canon-v2.5.7" and p["status"]=="RELEASED"
           assert p["release_commit"]==target
           subprocess.run(["git","cat-file","-e",target+"^{commit}"],check=True)
           assert p["source_geometry_sha256"]==r["source_geometry_sha256"]=="88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1"
@@ -46,7 +46,20 @@ jobs:
           assert r["no_hull_cuts"] is False
           q=d["RCS_pitch_yaw_authority_quick_screen"]
           assert q["aft_station_m"]==34.15 and q["nominal_ratio"]>=1
-          assert q["degraded_ratio"]>=1 and q["source_states_evaluated"]==7
+          assert q["degraded_ratio"]>=2.076 and q["nominal_ratio"]>=2.336
+          assert q["source_direction_screen"] and q["zero_net_lateral_force"]
+          assert q["radial_bells_per_cluster"]==1 and q["tangential_bells_per_cluster"]==2
+          assert q["source_states_evaluated"]==7
+          assert d["PBR_finish_gate"].startswith("CANON_FINISH")
+          assert d["hull_surface_seam_scheme"]=="hull_seam_scheme_2026_11_09"
+          assert d["hull_seam_width_m"]==.05 and d["thin_shell_actual_blind_mark_m"]==.006
+          finish=json.loads(Path("wayfarer/config/kt_decisions.json").read_text())["canon_finish_2026_11_11"]
+          assert finish["decision"]=="kT APPROVED" and finish["status"]=="CANON_FINISH"
+          assert all(v["status"]=="CANON_FINISH" for v in finish["rows"].values())
+          assert finish["rows"]["midship_skin_bay_doors"]["base_srgb_hex"]=="#656861"
+          assert finish["rows"]["magnetic_nozzle_bronze"]["base_srgb_hex"]=="#AD8052"
+          assert finish["rows"]["nozzle_coil_bands"]["base_srgb_hex"]=="#30373D"
+          assert finish["rows"]["service_band_aft_thrust_cone"]["base_srgb_hex"]=="#B9BFBC"
           assert all(len([v for v in d["modes"][mode]["parts"].values() if v["role"]=="rcs"
                           and v["bell_count"]==4 and v["axial_cant_deg"]==10
                           and v["print_bell_diameter_1_100_mm"]>=2])==8
@@ -81,8 +94,27 @@ jobs:
               assert st["category_d_count"]==0 and st["boolean_errors"]==0
               assert st["pressure_containment_pass"]
               assert st["semantic_hierarchy"]["hierarchy_valid"]
-              print("CANON_256_VIEWER_STATE_PASS",s["mode"],s["crown_pose"])
-          print("CANON_256_POINTER_SIX_EXISTING_GLBS_PASS")
+              extra=st["gltf_extras"]
+              assert extra["canon_finish"]=="CANON_FINISH"
+              assert extra["exterior_pbr_meshes"]>30
+              assert extra["exterior_pbr_variants"]>=15
+              assert extra["hot_fin_1300K_preview_removed"]
+              if s["mode"]=="stowed":assert extra["thermal_emissive_meshes"]==0
+              if s["mode"]=="metric_hard":assert extra["thermal_emissive_meshes"]==8
+              if s["mode"]=="torch":assert extra["thermal_emissive_meshes"]==68
+              import struct
+              n,chunk=struct.unpack_from("<II",data,12)
+              assert chunk==0x4e4f534a
+              obj=json.loads(data[20:20+n])
+              assert any(x.get("name","").startswith("CANON_FINISH/") and
+                         "pbrMetallicRoughness" in x for x in obj["materials"])
+              painted=[x for x in obj["nodes"] if
+                       x.get("extras",{}).get("finish_status")=="CANON_FINISH"]
+              assert len(painted)==extra["exterior_pbr_meshes"]
+              assert len([x for x in painted if
+                          x["extras"].get("thermal_emissive_state")])==extra["thermal_emissive_meshes"]
+              print("CANON_257_VIEWER_STATE_PASS",s["mode"],s["crown_pose"])
+          print("CANON_257_POINTER_SIX_EXISTING_GLBS_PASS")
           PY
   publish_exact_tag:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -94,22 +126,22 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Tag immutable merged PR 494 geometry commit only
+      - name: Tag immutable merged PR 496 geometry commit only
         run: |
           set -euo pipefail
-          target=40cf794da418a9eb29eb38d98aef6909111f2bc8
-          tag=canon-v2.5.6
+          target=6f4a4acd227a0f6a0db2cb8818755506d278dffd
+          tag=canon-v2.5.7
           git cat-file -e "$target^{commit}"
           if git ls-remote --tags --refs origin "refs/tags/$tag" | grep -q .; then
             git fetch origin "refs/tags/$tag:refs/tags/$tag"
             test "$(git rev-parse "$tag^{}")" = "$target"
-            echo "CANON_256_TAG_ALREADY_CORRECT"
+            echo "CANON_257_TAG_ALREADY_CORRECT"
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git tag -a "$tag" "$target" -m 'Wayfarer canon-v2.5.6 drawing-only: F1 RCS bells and relocations, exposed shuttle blades and source lasers; mass neutral'
+          git tag -a "$tag" "$target" -m 'Wayfarer canon-v2.5.7 drawing-only: kT approved 50mm seam etch, bronze nozzle, source RCS axes and 1300/1750K PBR; mass neutral'
           git push origin "refs/tags/$tag"
           git fetch origin --tags --force
           test "$(git rev-parse "$tag^{}")" = "$target"
-          echo "CANON_256_TAG_PUBLISHED_EXACT_COMMIT"
+          echo "CANON_257_TAG_PUBLISHED_EXACT_COMMIT"
