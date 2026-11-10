@@ -1,0 +1,1944 @@
+{
+  "status": "F3_EXTERIOR_DETAIL_SIX_STATE_D9_CONTAINMENT_PASS",
+  "canon_tag": "canon-v2.5.3",
+  "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+  "source_dry_t": 868.1922552640087,
+  "ECON_dv_km_s": 707.845,
+  "original_source_shuttle_t": 30.732248081255836,
+  "shuttle_true_solids_count": 41,
+  "exact_shuttle_ring_station_m": 12.7,
+  "docked_radial_and_axial_G8": "PASS actual OCC solids",
+  "swept_shuttle_egress_G8": "OPEN; source no swept geometry hardware qualification",
+  "crew_and_vehicle_mission_G8": "OPEN (hardware and door clearance)",
+  "courier_option_c_applied_ledger": "wayfarer/config/courier_option_c_ledger_20261110.json",
+  "courier_retained_t": 5,
+  "courier_returned_to_reserve_t": 14.450370894400045,
+  "engineering_reserve_effective_t": 23.572826306400046,
+  "dry_mass_change_t": 0,
+  "no_extra_reserve_geometry": true,
+  "withdrawn_bay_483_not_drawn": true,
+  "existing_hold_door_aperture_m": [
+    2.4,
+    1.8
+  ],
+  "no_hull_cuts": true,
+  "crawler_stowage_by_hold": {
+    "starboard": [
+      0
+    ],
+    "port": [
+      1,
+      2
+    ]
+  },
+  "drone_stowage_by_hold": {
+    "starboard": [
+      0,
+      2
+    ],
+    "port": [
+      1,
+      3
+    ]
+  },
+  "mars_drone_egress": "OPEN",
+  "spare_panes_unchanged": true,
+  "all_six_state_D9_and_containment": "PASS",
+  "six_states": {
+    "stowed": {
+      "stowed": {
+        "part_count": 498,
+        "pair_count": 123753,
+        "category_d_count": 0,
+        "boolean_errors": 0,
+        "category_counts": {
+          "a": 1,
+          "c": 178
+        },
+        "category_d_conflicts": [],
+        "collision_errors": [],
+        "pressure_containment_pass": true,
+        "source_dry_mass_t": 868.1922552640087,
+        "glb": "render/out/wayfarer_exterior_detail_88ce19fc_stowed_stowed.glb",
+        "gltf_extras": {
+          "mesh_nodes_with_extras": 498,
+          "all_scene_nodes_with_extras": 538,
+          "raw_glb_sha256": "b7141222fe799be26106774b42808894410e2893442182e660e69a7565792430",
+          "bytes": 8662924
+        },
+        "semantic_hierarchy": {
+          "meshes": 498,
+          "dry_system_breakdown": {
+            "EXTERIOR": 76,
+            "FLUIDS": 20,
+            "HABITAT": 286,
+            "POWER": 15,
+            "PROPULSION": 3,
+            "SERVICE": 9,
+            "SHUTTLE": 41,
+            "STRUCTURE": 48
+          },
+          "semantic_systems": 8,
+          "semantic_subsystems": 31,
+          "hierarchy_valid": true
+        }
+      },
+      "closed": {
+        "part_count": 498,
+        "pair_count": 123753,
+        "category_d_count": 0,
+        "boolean_errors": 0,
+        "category_counts": {
+          "a": 1,
+          "c": 162
+        },
+        "category_d_conflicts": [],
+        "collision_errors": [],
+        "pressure_containment_pass": true,
+        "source_dry_mass_t": 868.1922552640087,
+        "glb": "render/out/wayfarer_exterior_detail_88ce19fc_stowed_closed.glb",
+        "gltf_extras": {
+          "mesh_nodes_with_extras": 498,
+          "all_scene_nodes_with_extras": 538,
+          "raw_glb_sha256": "387a93ce0a6bf822351b93cad4b98204c8255bfc7119e60e7b25b7172821f266",
+          "bytes": 9569736
+        },
+        "semantic_hierarchy": {
+          "meshes": 498,
+          "dry_system_breakdown": {
+            "EXTERIOR": 76,
+            "FLUIDS": 20,
+            "HABITAT": 286,
+            "POWER": 15,
+            "PROPULSION": 3,
+            "SERVICE": 9,
+            "SHUTTLE": 41,
+            "STRUCTURE": 48
+          },
+          "semantic_systems": 8,
+          "semantic_subsystems": 31,
+          "hierarchy_valid": true
+        }
+      }
+    },
+    "metric_hard": {
+      "stowed": {
+        "part_count": 502,
+        "pair_count": 125751,
+        "category_d_count": 0,
+        "boolean_errors": 0,
+        "category_counts": {
+          "a": 1,
+          "c": 178
+        },
+        "category_d_conflicts": [],
+        "collision_errors": [],
+        "pressure_containment_pass": true,
+        "source_dry_mass_t": 868.1922552640087,
+        "glb": "render/out/wayfarer_exterior_detail_88ce19fc_metric_hard_stowed.glb",
+        "gltf_extras": {
+          "mesh_nodes_with_extras": 502,
+          "all_scene_nodes_with_extras": 542,
+          "raw_glb_sha256": "108e4193fc9790f44e229b1c8ab55ca26430f6e029ac4e68708d70ae88200261",
+          "bytes": 8685076
+        },
+        "semantic_hierarchy": {
+          "meshes": 502,
+          "dry_system_breakdown": {
+            "EXTERIOR": 80,
+            "FLUIDS": 20,
+            "HABITAT": 286,
+            "POWER": 15,
+            "PROPULSION": 3,
+            "SERVICE": 9,
+            "SHUTTLE": 41,
+            "STRUCTURE": 48
+          },
+          "semantic_systems": 8,
+          "semantic_subsystems": 31,
+          "hierarchy_valid": true
+        }
+      },
+      "closed": {
+        "part_count": 502,
+        "pair_count": 125751,
+        "category_d_count": 0,
+        "boolean_errors": 0,
+        "category_counts": {
+          "a": 1,
+          "c": 162
+        },
+        "category_d_conflicts": [],
+        "collision_errors": [],
+        "pressure_containment_pass": true,
+        "source_dry_mass_t": 868.1922552640087,
+        "glb": "render/out/wayfarer_exterior_detail_88ce19fc_metric_hard_closed.glb",
+        "gltf_extras": {
+          "mesh_nodes_with_extras": 502,
+          "all_scene_nodes_with_extras": 542,
+          "raw_glb_sha256": "067233d576d155ec2a836a6d85c51ba5eb19a533abf132cdcc2ed12fd38cabbb",
+          "bytes": 9591924
+        },
+        "semantic_hierarchy": {
+          "meshes": 502,
+          "dry_system_breakdown": {
+            "EXTERIOR": 80,
+            "FLUIDS": 20,
+            "HABITAT": 286,
+            "POWER": 15,
+            "PROPULSION": 3,
+            "SERVICE": 9,
+            "SHUTTLE": 41,
+            "STRUCTURE": 48
+          },
+          "semantic_systems": 8,
+          "semantic_subsystems": 31,
+          "hierarchy_valid": true
+        }
+      }
+    },
+    "torch": {
+      "stowed": {
+        "part_count": 558,
+        "pair_count": 155403,
+        "category_d_count": 0,
+        "boolean_errors": 0,
+        "category_counts": {
+          "a": 1,
+          "c": 178
+        },
+        "category_d_conflicts": [],
+        "collision_errors": [],
+        "pressure_containment_pass": true,
+        "source_dry_mass_t": 868.1922552640087,
+        "glb": "render/out/wayfarer_exterior_detail_88ce19fc_torch_stowed.glb",
+        "gltf_extras": {
+          "mesh_nodes_with_extras": 558,
+          "all_scene_nodes_with_extras": 598,
+          "raw_glb_sha256": "4569bb170efeba386c93a9a681c70cd1d085bb4b007f2e543954ead7ba90a5cd",
+          "bytes": 8783168
+        },
+        "semantic_hierarchy": {
+          "meshes": 558,
+          "dry_system_breakdown": {
+            "EXTERIOR": 136,
+            "FLUIDS": 20,
+            "HABITAT": 286,
+            "POWER": 15,
+            "PROPULSION": 3,
+            "SERVICE": 9,
+            "SHUTTLE": 41,
+            "STRUCTURE": 48
+          },
+          "semantic_systems": 8,
+          "semantic_subsystems": 31,
+          "hierarchy_valid": true
+        }
+      },
+      "closed": {
+        "part_count": 558,
+        "pair_count": 155403,
+        "category_d_count": 0,
+        "boolean_errors": 0,
+        "category_counts": {
+          "a": 1,
+          "c": 162
+        },
+        "category_d_conflicts": [],
+        "collision_errors": [],
+        "pressure_containment_pass": true,
+        "source_dry_mass_t": 868.1922552640087,
+        "glb": "render/out/wayfarer_exterior_detail_88ce19fc_torch_closed.glb",
+        "gltf_extras": {
+          "mesh_nodes_with_extras": 558,
+          "all_scene_nodes_with_extras": 598,
+          "raw_glb_sha256": "dee2c14f9181ec47a366de947d9057d7fc583dc243dce62720a31cbf60469325",
+          "bytes": 9690020
+        },
+        "semantic_hierarchy": {
+          "meshes": 558,
+          "dry_system_breakdown": {
+            "EXTERIOR": 136,
+            "FLUIDS": 20,
+            "HABITAT": 286,
+            "POWER": 15,
+            "PROPULSION": 3,
+            "SERVICE": 9,
+            "SHUTTLE": 41,
+            "STRUCTURE": 48
+          },
+          "semantic_systems": 8,
+          "semantic_subsystems": 31,
+          "hierarchy_valid": true
+        }
+      }
+    }
+  },
+  "exterior_detail": {
+    "style": "retro-industrial; subtractions/engraving only",
+    "print_minimum_modelled_feature_m": 0.1,
+    "smaller_marks": "ENGRAVINGS not raised printable solids",
+    "no_hull_protrusion": true,
+    "no_crown_change": true,
+    "no_performance_claims": true,
+    "no_new_source_mass": true,
+    "source_canon": "canon-v2.5.3",
+    "metadata_only_fixes": {
+      "docking_camera_material": "sensor",
+      "hold_door_display_share_t": 1.0,
+      "hold_hardware_and_door_interface_allowance_t": 2,
+      "courier_parent_booking_unchanged_t": 19.450370894400045,
+      "no_rebooking": true
+    },
+    "modes": {
+      "stowed": {
+        "edited_nodes": 49,
+        "by_role": {
+          "bow_ring": 1,
+          "docking_camera": 2,
+          "docking_target": 1,
+          "eva_rail": 4,
+          "fin_root": 4,
+          "folded_fin": 4,
+          "grapple_fixture": 4,
+          "hold_door": 2,
+          "laser_terminal": 2,
+          "rcs": 8,
+          "rf_tiles": 4,
+          "sensor_turret": 2,
+          "service_port": 3,
+          "star_tracker": 4,
+          "vent": 4
+        },
+        "source_mass_rebooking_t": 0,
+        "all_detail_subtractions": true,
+        "source_envelope_violations": 0,
+        "parts": {
+          "dry:bow_sensors": {
+            "role": "bow_ring",
+            "source_allocation_id": "bow_sensors",
+            "booked_mass_t": 8.148681701022337,
+            "source_volume_m3": 11.773641515288315,
+            "edited_volume_m3": 11.736980086890636,
+            "engraved_m3": 0.03666142839767872,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 4
+          },
+          "dry:docking_camera_0": {
+            "role": "docking_camera",
+            "source_allocation_id": "docking_camera_0",
+            "booked_mass_t": 0.025,
+            "source_volume_m3": 0.008000000000000037,
+            "edited_volume_m3": 0.0073050325811361725,
+            "engraved_m3": 0.0006949674188638641,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:docking_camera_1": {
+            "role": "docking_camera",
+            "source_allocation_id": "docking_camera_1",
+            "booked_mass_t": 0.025,
+            "source_volume_m3": 0.008000000000000037,
+            "edited_volume_m3": 0.007305032581136168,
+            "engraved_m3": 0.0006949674188638684,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_docking_target_0": {
+            "role": "docking_target",
+            "source_allocation_id": "ext_docking_target_0",
+            "booked_mass_t": 0.02047407462568426,
+            "source_volume_m3": 0.0018020000000108088,
+            "edited_volume_m3": 0.0017321294416530531,
+            "engraved_m3": 6.987055835775574e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_0": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_0",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.005779199999830599,
+            "edited_volume_m3": 0.005744282447546515,
+            "engraved_m3": 3.491755228408368e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_1": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_1",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.006019999999823541,
+            "edited_volume_m3": 0.005985082447539708,
+            "engraved_m3": 3.491755228383301e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_2": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_2",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.003130399999907654,
+            "edited_volume_m3": 0.0030954824476208506,
+            "engraved_m3": 3.491755228680329e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_3": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_3",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.0057791999997647845,
+            "edited_volume_m3": 0.0057442824474253145,
+            "engraved_m3": 3.491755233946993e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_0": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_0",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222210025,
+            "edited_volume_m3": 0.007161353207271017,
+            "engraved_m3": 0.0008208690149390085,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_1": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_1",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222210011,
+            "edited_volume_m3": 0.007161353207270999,
+            "engraved_m3": 0.0008208690149390128,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_2": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_2",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222210685,
+            "edited_volume_m3": 0.007161353207271672,
+            "engraved_m3": 0.0008208690149390128,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_3": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_3",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222195355,
+            "edited_volume_m3": 0.007161353207256385,
+            "engraved_m3": 0.0008208690149389694,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_laser_terminal_0": {
+            "role": "laser_terminal",
+            "source_allocation_id": "ext_laser_terminal_0",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.029700000000154783,
+            "edited_volume_m3": 0.027130752231828995,
+            "engraved_m3": 0.0025692477683257886,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_laser_terminal_1": {
+            "role": "laser_terminal",
+            "source_allocation_id": "ext_laser_terminal_1",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.029700000000062718,
+            "edited_volume_m3": 0.027130752231736936,
+            "engraved_m3": 0.0025692477683257817,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_rf_array_0": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_0",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.04199999999983694,
+            "edited_volume_m3": 0.04165979231960008,
+            "engraved_m3": 0.000340207680236862,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_rf_array_1": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_1",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.041999999999923196,
+            "edited_volume_m3": 0.04165979231961629,
+            "engraved_m3": 0.0003402076803069032,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_rf_array_2": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_2",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.041999999999925604,
+            "edited_volume_m3": 0.04165979231961876,
+            "engraved_m3": 0.00034020768030684073,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_rf_array_3": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_3",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.04199999999992556,
+            "edited_volume_m3": 0.0416597923196187,
+            "engraved_m3": 0.00034020768030686155,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_sensor_turret_0": {
+            "role": "sensor_turret",
+            "source_allocation_id": "ext_sensor_turret_0",
+            "booked_mass_t": 0.5118518656421065,
+            "source_volume_m3": 0.15929999999999422,
+            "edited_volume_m3": 0.15366734752447195,
+            "engraved_m3": 0.005632652475522276,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_sensor_turret_1": {
+            "role": "sensor_turret",
+            "source_allocation_id": "ext_sensor_turret_1",
+            "booked_mass_t": 0.5118518656421065,
+            "source_volume_m3": 0.1592999999999932,
+            "edited_volume_m3": 0.15366734752446537,
+            "engraved_m3": 0.005632652475527827,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_service_port_0": {
+            "role": "service_port",
+            "source_allocation_id": "ext_service_port_0",
+            "booked_mass_t": 0.03378222313237903,
+            "source_volume_m3": 0.004799999999986749,
+            "edited_volume_m3": 0.004433726611026969,
+            "engraved_m3": 0.0003662733889597796,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_service_port_1": {
+            "role": "service_port",
+            "source_allocation_id": "ext_service_port_1",
+            "booked_mass_t": 0.03378222313237903,
+            "source_volume_m3": 0.004799999999985739,
+            "edited_volume_m3": 0.004433726611025937,
+            "engraved_m3": 0.00036627338895980216,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_service_port_2": {
+            "role": "service_port",
+            "source_allocation_id": "ext_service_port_2",
+            "booked_mass_t": 0.03378222313237903,
+            "source_volume_m3": 0.004799999999982156,
+            "edited_volume_m3": 0.004433726611022317,
+            "engraved_m3": 0.00036627338895983946,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_0": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_0",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.003182222222219548,
+            "edited_volume_m3": 0.0026377402991999564,
+            "engraved_m3": 0.0005444819230195916,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_1": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_1",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.0031822222222083704,
+            "edited_volume_m3": 0.00263774029918504,
+            "engraved_m3": 0.0005444819230233304,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_2": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_2",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.0031822222222425956,
+            "edited_volume_m3": 0.002637740299223025,
+            "engraved_m3": 0.0005444819230195708,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_3": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_3",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.0031822222222226003,
+            "edited_volume_m3": 0.002637740299199165,
+            "engraved_m3": 0.0005444819230234353,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_vent_0": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_0",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.00043200000000242345,
+            "edited_volume_m3": 0.0004223777272816354,
+            "engraved_m3": 9.622272720788048e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_vent_1": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_1",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.000432000000002424,
+            "edited_volume_m3": 0.0004223777272816363,
+            "engraved_m3": 9.622272720787668e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_vent_2": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_2",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.00043200000000702453,
+            "edited_volume_m3": 0.00042237772728451444,
+            "engraved_m3": 9.622272722510086e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_vent_3": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_3",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.0004320000000080002,
+            "edited_volume_m3": 0.00042237772728722115,
+            "engraved_m3": 9.622272720779049e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:hold_existing_door_port": {
+            "role": "hold_door",
+            "source_allocation_id": "courier_systems",
+            "booked_mass_t": 19.450370894400045,
+            "source_volume_m3": 0.04319999999999906,
+            "edited_volume_m3": 0.03530610708415314,
+            "engraved_m3": 0.00789389291584592,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:hold_existing_door_starboard": {
+            "role": "hold_door",
+            "source_allocation_id": "courier_systems",
+            "booked_mass_t": 19.450370894400045,
+            "source_volume_m3": 0.04319999999999906,
+            "edited_volume_m3": 0.03530610708415312,
+            "engraved_m3": 0.00789389291584594,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:hotfin_140:folded_envelope": {
+            "role": "folded_fin",
+            "source_allocation_id": "hotfin_140",
+            "booked_mass_t": 4.256,
+            "source_volume_m3": 2.6599999999997572,
+            "edited_volume_m3": 2.5784639999993795,
+            "engraved_m3": 0.08153600000037775,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 14
+          },
+          "dry:hotfin_220:folded_envelope": {
+            "role": "folded_fin",
+            "source_allocation_id": "hotfin_220",
+            "booked_mass_t": 4.256,
+            "source_volume_m3": 2.6599999999997443,
+            "edited_volume_m3": 2.5784639999998835,
+            "engraved_m3": 0.08153599999986083,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 14
+          },
+          "dry:hotfin_320:folded_envelope": {
+            "role": "folded_fin",
+            "source_allocation_id": "hotfin_320",
+            "booked_mass_t": 4.256,
+            "source_volume_m3": 2.6599999999997572,
+            "edited_volume_m3": 2.578463999999687,
+            "engraved_m3": 0.08153600000007044,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 14
+          },
+          "dry:hotfin_40:folded_envelope": {
+            "role": "folded_fin",
+            "source_allocation_id": "hotfin_40",
+            "booked_mass_t": 4.256,
+            "source_volume_m3": 2.6599999999997443,
+            "edited_volume_m3": 2.578463999999601,
+            "engraved_m3": 0.08153600000014327,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 14
+          },
+          "dry:hotfin_root_140:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_140",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.350000000000002,
+            "edited_volume_m3": 7.249900000000001,
+            "engraved_m3": 0.10010000000000119,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:hotfin_root_220:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_220",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.333509651746403,
+            "edited_volume_m3": 7.23340965174063,
+            "engraved_m3": 0.10010000000577257,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:hotfin_root_320:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_320",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.317484171649469,
+            "edited_volume_m3": 7.217384171640477,
+            "engraved_m3": 0.10010000000899222,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:hotfin_root_40:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_40",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.350000000000001,
+            "edited_volume_m3": 7.249900000000003,
+            "engraved_m3": 0.10009999999999852,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:rcs_A+Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A+Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999989,
+            "edited_volume_m3": 0.4909687703229981,
+            "engraved_m3": 0.021031229677000773,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_A+Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A+Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999987,
+            "edited_volume_m3": 0.4909687703229981,
+            "engraved_m3": 0.02103122967700055,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_A-Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A-Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999988,
+            "edited_volume_m3": 0.4909687703229979,
+            "engraved_m3": 0.021031229677000884,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_A-Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A-Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999924,
+            "edited_volume_m3": 0.4909687703229916,
+            "engraved_m3": 0.021031229677000773,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_F+Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F+Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999999,
+            "edited_volume_m3": 0.49096876826027286,
+            "engraved_m3": 0.02103123173972704,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_F+Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F+Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999998,
+            "edited_volume_m3": 0.4909687682602728,
+            "engraved_m3": 0.021031231739726985,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_F-Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F-Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.511999999999936,
+            "edited_volume_m3": 0.4909687682602088,
+            "engraved_m3": 0.021031231739727152,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_F-Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F-Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999933,
+            "edited_volume_m3": 0.4909687682602663,
+            "engraved_m3": 0.02103123173972704,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          }
+        }
+      },
+      "metric_hard": {
+        "edited_nodes": 49,
+        "by_role": {
+          "bow_ring": 1,
+          "docking_camera": 2,
+          "docking_target": 1,
+          "eva_rail": 4,
+          "fin_root": 4,
+          "folded_fin": 4,
+          "grapple_fixture": 4,
+          "hold_door": 2,
+          "laser_terminal": 2,
+          "rcs": 8,
+          "rf_tiles": 4,
+          "sensor_turret": 2,
+          "service_port": 3,
+          "star_tracker": 4,
+          "vent": 4
+        },
+        "source_mass_rebooking_t": 0,
+        "all_detail_subtractions": true,
+        "source_envelope_violations": 0,
+        "parts": {
+          "dry:bow_sensors": {
+            "role": "bow_ring",
+            "source_allocation_id": "bow_sensors",
+            "booked_mass_t": 8.148681701022337,
+            "source_volume_m3": 11.773641515288315,
+            "edited_volume_m3": 11.736980086890636,
+            "engraved_m3": 0.03666142839767872,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 4
+          },
+          "dry:docking_camera_0": {
+            "role": "docking_camera",
+            "source_allocation_id": "docking_camera_0",
+            "booked_mass_t": 0.025,
+            "source_volume_m3": 0.008000000000000037,
+            "edited_volume_m3": 0.0073050325811361725,
+            "engraved_m3": 0.0006949674188638641,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:docking_camera_1": {
+            "role": "docking_camera",
+            "source_allocation_id": "docking_camera_1",
+            "booked_mass_t": 0.025,
+            "source_volume_m3": 0.008000000000000037,
+            "edited_volume_m3": 0.007305032581136168,
+            "engraved_m3": 0.0006949674188638684,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_docking_target_0": {
+            "role": "docking_target",
+            "source_allocation_id": "ext_docking_target_0",
+            "booked_mass_t": 0.02047407462568426,
+            "source_volume_m3": 0.0018020000000108088,
+            "edited_volume_m3": 0.0017321294416530531,
+            "engraved_m3": 6.987055835775574e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_0": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_0",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.005779199999830599,
+            "edited_volume_m3": 0.005744282447546515,
+            "engraved_m3": 3.491755228408368e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_1": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_1",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.006019999999823541,
+            "edited_volume_m3": 0.005985082447539708,
+            "engraved_m3": 3.491755228383301e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_2": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_2",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.003130399999907654,
+            "edited_volume_m3": 0.0030954824476208506,
+            "engraved_m3": 3.491755228680329e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_3": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_3",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.0057791999997647845,
+            "edited_volume_m3": 0.0057442824474253145,
+            "engraved_m3": 3.491755233946993e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_0": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_0",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222210025,
+            "edited_volume_m3": 0.007161353207271017,
+            "engraved_m3": 0.0008208690149390085,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_1": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_1",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222210011,
+            "edited_volume_m3": 0.007161353207270999,
+            "engraved_m3": 0.0008208690149390128,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_2": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_2",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222210685,
+            "edited_volume_m3": 0.007161353207271672,
+            "engraved_m3": 0.0008208690149390128,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_3": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_3",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222195355,
+            "edited_volume_m3": 0.007161353207256385,
+            "engraved_m3": 0.0008208690149389694,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_laser_terminal_0": {
+            "role": "laser_terminal",
+            "source_allocation_id": "ext_laser_terminal_0",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.029700000000154783,
+            "edited_volume_m3": 0.027130752231828995,
+            "engraved_m3": 0.0025692477683257886,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_laser_terminal_1": {
+            "role": "laser_terminal",
+            "source_allocation_id": "ext_laser_terminal_1",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.029700000000062718,
+            "edited_volume_m3": 0.027130752231736936,
+            "engraved_m3": 0.0025692477683257817,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_rf_array_0": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_0",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.04199999999983694,
+            "edited_volume_m3": 0.04165979231960008,
+            "engraved_m3": 0.000340207680236862,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_rf_array_1": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_1",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.041999999999923196,
+            "edited_volume_m3": 0.04165979231961629,
+            "engraved_m3": 0.0003402076803069032,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_rf_array_2": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_2",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.041999999999925604,
+            "edited_volume_m3": 0.04165979231961876,
+            "engraved_m3": 0.00034020768030684073,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_rf_array_3": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_3",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.04199999999992556,
+            "edited_volume_m3": 0.0416597923196187,
+            "engraved_m3": 0.00034020768030686155,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_sensor_turret_0": {
+            "role": "sensor_turret",
+            "source_allocation_id": "ext_sensor_turret_0",
+            "booked_mass_t": 0.5118518656421065,
+            "source_volume_m3": 0.15929999999999422,
+            "edited_volume_m3": 0.15366734752447195,
+            "engraved_m3": 0.005632652475522276,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_sensor_turret_1": {
+            "role": "sensor_turret",
+            "source_allocation_id": "ext_sensor_turret_1",
+            "booked_mass_t": 0.5118518656421065,
+            "source_volume_m3": 0.1592999999999932,
+            "edited_volume_m3": 0.15366734752446537,
+            "engraved_m3": 0.005632652475527827,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_service_port_0": {
+            "role": "service_port",
+            "source_allocation_id": "ext_service_port_0",
+            "booked_mass_t": 0.03378222313237903,
+            "source_volume_m3": 0.004799999999986749,
+            "edited_volume_m3": 0.004433726611026969,
+            "engraved_m3": 0.0003662733889597796,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_service_port_1": {
+            "role": "service_port",
+            "source_allocation_id": "ext_service_port_1",
+            "booked_mass_t": 0.03378222313237903,
+            "source_volume_m3": 0.004799999999985739,
+            "edited_volume_m3": 0.004433726611025937,
+            "engraved_m3": 0.00036627338895980216,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_service_port_2": {
+            "role": "service_port",
+            "source_allocation_id": "ext_service_port_2",
+            "booked_mass_t": 0.03378222313237903,
+            "source_volume_m3": 0.004799999999982156,
+            "edited_volume_m3": 0.004433726611022317,
+            "engraved_m3": 0.00036627338895983946,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_0": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_0",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.003182222222219548,
+            "edited_volume_m3": 0.0026377402991999564,
+            "engraved_m3": 0.0005444819230195916,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_1": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_1",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.0031822222222083704,
+            "edited_volume_m3": 0.00263774029918504,
+            "engraved_m3": 0.0005444819230233304,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_2": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_2",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.0031822222222425956,
+            "edited_volume_m3": 0.002637740299223025,
+            "engraved_m3": 0.0005444819230195708,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_3": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_3",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.0031822222222226003,
+            "edited_volume_m3": 0.002637740299199165,
+            "engraved_m3": 0.0005444819230234353,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_vent_0": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_0",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.00043200000000242345,
+            "edited_volume_m3": 0.0004223777272816354,
+            "engraved_m3": 9.622272720788048e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_vent_1": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_1",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.000432000000002424,
+            "edited_volume_m3": 0.0004223777272816363,
+            "engraved_m3": 9.622272720787668e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_vent_2": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_2",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.00043200000000702453,
+            "edited_volume_m3": 0.00042237772728451444,
+            "engraved_m3": 9.622272722510086e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_vent_3": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_3",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.0004320000000080002,
+            "edited_volume_m3": 0.00042237772728722115,
+            "engraved_m3": 9.622272720779049e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:hold_existing_door_port": {
+            "role": "hold_door",
+            "source_allocation_id": "courier_systems",
+            "booked_mass_t": 19.450370894400045,
+            "source_volume_m3": 0.04319999999999906,
+            "edited_volume_m3": 0.03530610708415314,
+            "engraved_m3": 0.00789389291584592,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:hold_existing_door_starboard": {
+            "role": "hold_door",
+            "source_allocation_id": "courier_systems",
+            "booked_mass_t": 19.450370894400045,
+            "source_volume_m3": 0.04319999999999906,
+            "edited_volume_m3": 0.03530610708415312,
+            "engraved_m3": 0.00789389291584594,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:hotfin_140:folded_envelope": {
+            "role": "folded_fin",
+            "source_allocation_id": "hotfin_140",
+            "booked_mass_t": 4.256,
+            "source_volume_m3": 2.6599999999997572,
+            "edited_volume_m3": 2.5784639999993795,
+            "engraved_m3": 0.08153600000037775,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 14
+          },
+          "dry:hotfin_220:folded_envelope": {
+            "role": "folded_fin",
+            "source_allocation_id": "hotfin_220",
+            "booked_mass_t": 4.256,
+            "source_volume_m3": 2.6599999999997443,
+            "edited_volume_m3": 2.5784639999998835,
+            "engraved_m3": 0.08153599999986083,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 14
+          },
+          "dry:hotfin_320:folded_envelope": {
+            "role": "folded_fin",
+            "source_allocation_id": "hotfin_320",
+            "booked_mass_t": 4.256,
+            "source_volume_m3": 2.6599999999997572,
+            "edited_volume_m3": 2.578463999999687,
+            "engraved_m3": 0.08153600000007044,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 14
+          },
+          "dry:hotfin_40:folded_envelope": {
+            "role": "folded_fin",
+            "source_allocation_id": "hotfin_40",
+            "booked_mass_t": 4.256,
+            "source_volume_m3": 2.6599999999997443,
+            "edited_volume_m3": 2.578463999999601,
+            "engraved_m3": 0.08153600000014327,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 14
+          },
+          "dry:hotfin_root_140:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_140",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.350000000000002,
+            "edited_volume_m3": 7.249900000000001,
+            "engraved_m3": 0.10010000000000119,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:hotfin_root_220:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_220",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.333509651746403,
+            "edited_volume_m3": 7.23340965174063,
+            "engraved_m3": 0.10010000000577257,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:hotfin_root_320:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_320",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.317484171649469,
+            "edited_volume_m3": 7.217384171640477,
+            "engraved_m3": 0.10010000000899222,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:hotfin_root_40:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_40",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.350000000000001,
+            "edited_volume_m3": 7.249900000000003,
+            "engraved_m3": 0.10009999999999852,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:rcs_A+Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A+Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999989,
+            "edited_volume_m3": 0.4909687703229981,
+            "engraved_m3": 0.021031229677000773,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_A+Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A+Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999987,
+            "edited_volume_m3": 0.4909687703229981,
+            "engraved_m3": 0.02103122967700055,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_A-Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A-Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999988,
+            "edited_volume_m3": 0.4909687703229979,
+            "engraved_m3": 0.021031229677000884,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_A-Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A-Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999924,
+            "edited_volume_m3": 0.4909687703229916,
+            "engraved_m3": 0.021031229677000773,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_F+Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F+Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999999,
+            "edited_volume_m3": 0.49096876826027286,
+            "engraved_m3": 0.02103123173972704,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_F+Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F+Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999998,
+            "edited_volume_m3": 0.4909687682602728,
+            "engraved_m3": 0.021031231739726985,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_F-Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F-Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.511999999999936,
+            "edited_volume_m3": 0.4909687682602088,
+            "engraved_m3": 0.021031231739727152,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_F-Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F-Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999933,
+            "edited_volume_m3": 0.4909687682602663,
+            "engraved_m3": 0.02103123173972704,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          }
+        }
+      },
+      "torch": {
+        "edited_nodes": 45,
+        "by_role": {
+          "bow_ring": 1,
+          "docking_camera": 2,
+          "docking_target": 1,
+          "eva_rail": 4,
+          "fin_root": 4,
+          "grapple_fixture": 4,
+          "hold_door": 2,
+          "laser_terminal": 2,
+          "rcs": 8,
+          "rf_tiles": 4,
+          "sensor_turret": 2,
+          "service_port": 3,
+          "star_tracker": 4,
+          "vent": 4
+        },
+        "source_mass_rebooking_t": 0,
+        "all_detail_subtractions": true,
+        "source_envelope_violations": 0,
+        "parts": {
+          "dry:bow_sensors": {
+            "role": "bow_ring",
+            "source_allocation_id": "bow_sensors",
+            "booked_mass_t": 8.148681701022337,
+            "source_volume_m3": 11.773641515288315,
+            "edited_volume_m3": 11.736980086890636,
+            "engraved_m3": 0.03666142839767872,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 4
+          },
+          "dry:docking_camera_0": {
+            "role": "docking_camera",
+            "source_allocation_id": "docking_camera_0",
+            "booked_mass_t": 0.025,
+            "source_volume_m3": 0.008000000000000037,
+            "edited_volume_m3": 0.0073050325811361725,
+            "engraved_m3": 0.0006949674188638641,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:docking_camera_1": {
+            "role": "docking_camera",
+            "source_allocation_id": "docking_camera_1",
+            "booked_mass_t": 0.025,
+            "source_volume_m3": 0.008000000000000037,
+            "edited_volume_m3": 0.007305032581136168,
+            "engraved_m3": 0.0006949674188638684,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_docking_target_0": {
+            "role": "docking_target",
+            "source_allocation_id": "ext_docking_target_0",
+            "booked_mass_t": 0.02047407462568426,
+            "source_volume_m3": 0.0018020000000108088,
+            "edited_volume_m3": 0.0017321294416530531,
+            "engraved_m3": 6.987055835775574e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_0": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_0",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.005779199999830599,
+            "edited_volume_m3": 0.005744282447546515,
+            "engraved_m3": 3.491755228408368e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_1": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_1",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.006019999999823541,
+            "edited_volume_m3": 0.005985082447539708,
+            "engraved_m3": 3.491755228383301e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_2": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_2",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.003130399999907654,
+            "edited_volume_m3": 0.0030954824476208506,
+            "engraved_m3": 3.491755228680329e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_3": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_3",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.0057791999997647845,
+            "edited_volume_m3": 0.0057442824474253145,
+            "engraved_m3": 3.491755233946993e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_0": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_0",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222210025,
+            "edited_volume_m3": 0.007161353207271017,
+            "engraved_m3": 0.0008208690149390085,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_1": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_1",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222210011,
+            "edited_volume_m3": 0.007161353207270999,
+            "engraved_m3": 0.0008208690149390128,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_2": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_2",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222210685,
+            "edited_volume_m3": 0.007161353207271672,
+            "engraved_m3": 0.0008208690149390128,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_3": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_3",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222195355,
+            "edited_volume_m3": 0.007161353207256385,
+            "engraved_m3": 0.0008208690149389694,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_laser_terminal_0": {
+            "role": "laser_terminal",
+            "source_allocation_id": "ext_laser_terminal_0",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.029700000000154783,
+            "edited_volume_m3": 0.027130752231828995,
+            "engraved_m3": 0.0025692477683257886,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_laser_terminal_1": {
+            "role": "laser_terminal",
+            "source_allocation_id": "ext_laser_terminal_1",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.029700000000062718,
+            "edited_volume_m3": 0.027130752231736936,
+            "engraved_m3": 0.0025692477683257817,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_rf_array_0": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_0",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.04199999999983694,
+            "edited_volume_m3": 0.04165979231960008,
+            "engraved_m3": 0.000340207680236862,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_rf_array_1": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_1",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.041999999999923196,
+            "edited_volume_m3": 0.04165979231961629,
+            "engraved_m3": 0.0003402076803069032,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_rf_array_2": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_2",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.041999999999925604,
+            "edited_volume_m3": 0.04165979231961876,
+            "engraved_m3": 0.00034020768030684073,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_rf_array_3": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_3",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.04199999999992556,
+            "edited_volume_m3": 0.0416597923196187,
+            "engraved_m3": 0.00034020768030686155,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_sensor_turret_0": {
+            "role": "sensor_turret",
+            "source_allocation_id": "ext_sensor_turret_0",
+            "booked_mass_t": 0.5118518656421065,
+            "source_volume_m3": 0.15929999999999422,
+            "edited_volume_m3": 0.15366734752447195,
+            "engraved_m3": 0.005632652475522276,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_sensor_turret_1": {
+            "role": "sensor_turret",
+            "source_allocation_id": "ext_sensor_turret_1",
+            "booked_mass_t": 0.5118518656421065,
+            "source_volume_m3": 0.1592999999999932,
+            "edited_volume_m3": 0.15366734752446537,
+            "engraved_m3": 0.005632652475527827,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_service_port_0": {
+            "role": "service_port",
+            "source_allocation_id": "ext_service_port_0",
+            "booked_mass_t": 0.03378222313237903,
+            "source_volume_m3": 0.004799999999986749,
+            "edited_volume_m3": 0.004433726611026969,
+            "engraved_m3": 0.0003662733889597796,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_service_port_1": {
+            "role": "service_port",
+            "source_allocation_id": "ext_service_port_1",
+            "booked_mass_t": 0.03378222313237903,
+            "source_volume_m3": 0.004799999999985739,
+            "edited_volume_m3": 0.004433726611025937,
+            "engraved_m3": 0.00036627338895980216,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_service_port_2": {
+            "role": "service_port",
+            "source_allocation_id": "ext_service_port_2",
+            "booked_mass_t": 0.03378222313237903,
+            "source_volume_m3": 0.004799999999982156,
+            "edited_volume_m3": 0.004433726611022317,
+            "engraved_m3": 0.00036627338895983946,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_0": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_0",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.003182222222219548,
+            "edited_volume_m3": 0.0026377402991999564,
+            "engraved_m3": 0.0005444819230195916,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_1": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_1",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.0031822222222083704,
+            "edited_volume_m3": 0.00263774029918504,
+            "engraved_m3": 0.0005444819230233304,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_2": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_2",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.0031822222222425956,
+            "edited_volume_m3": 0.002637740299223025,
+            "engraved_m3": 0.0005444819230195708,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_3": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_3",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.0031822222222226003,
+            "edited_volume_m3": 0.002637740299199165,
+            "engraved_m3": 0.0005444819230234353,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_vent_0": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_0",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.00043200000000242345,
+            "edited_volume_m3": 0.0004223777272816354,
+            "engraved_m3": 9.622272720788048e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_vent_1": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_1",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.000432000000002424,
+            "edited_volume_m3": 0.0004223777272816363,
+            "engraved_m3": 9.622272720787668e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_vent_2": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_2",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.00043200000000702453,
+            "edited_volume_m3": 0.00042237772728451444,
+            "engraved_m3": 9.622272722510086e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_vent_3": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_3",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.0004320000000080002,
+            "edited_volume_m3": 0.00042237772728722115,
+            "engraved_m3": 9.622272720779049e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:hold_existing_door_port": {
+            "role": "hold_door",
+            "source_allocation_id": "courier_systems",
+            "booked_mass_t": 19.450370894400045,
+            "source_volume_m3": 0.04319999999999906,
+            "edited_volume_m3": 0.03530610708415314,
+            "engraved_m3": 0.00789389291584592,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:hold_existing_door_starboard": {
+            "role": "hold_door",
+            "source_allocation_id": "courier_systems",
+            "booked_mass_t": 19.450370894400045,
+            "source_volume_m3": 0.04319999999999906,
+            "edited_volume_m3": 0.03530610708415312,
+            "engraved_m3": 0.00789389291584594,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:hotfin_root_140:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_140",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.350000000000002,
+            "edited_volume_m3": 7.249900000000001,
+            "engraved_m3": 0.10010000000000119,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:hotfin_root_220:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_220",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.333509651746403,
+            "edited_volume_m3": 7.23340965174063,
+            "engraved_m3": 0.10010000000577257,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:hotfin_root_320:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_320",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.317484171649469,
+            "edited_volume_m3": 7.217384171640477,
+            "engraved_m3": 0.10010000000899222,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:hotfin_root_40:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_40",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.350000000000001,
+            "edited_volume_m3": 7.249900000000003,
+            "engraved_m3": 0.10009999999999852,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:rcs_A+Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A+Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999989,
+            "edited_volume_m3": 0.4909687703229981,
+            "engraved_m3": 0.021031229677000773,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_A+Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A+Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999987,
+            "edited_volume_m3": 0.4909687703229981,
+            "engraved_m3": 0.02103122967700055,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_A-Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A-Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999988,
+            "edited_volume_m3": 0.4909687703229979,
+            "engraved_m3": 0.021031229677000884,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_A-Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A-Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999924,
+            "edited_volume_m3": 0.4909687703229916,
+            "engraved_m3": 0.021031229677000773,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_F+Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F+Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999999,
+            "edited_volume_m3": 0.49096876826027286,
+            "engraved_m3": 0.02103123173972704,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_F+Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F+Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999998,
+            "edited_volume_m3": 0.4909687682602728,
+            "engraved_m3": 0.021031231739726985,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_F-Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F-Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.511999999999936,
+            "edited_volume_m3": 0.4909687682602088,
+            "engraved_m3": 0.021031231739727152,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          },
+          "dry:rcs_F-Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F-Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999933,
+            "edited_volume_m3": 0.4909687682602663,
+            "engraved_m3": 0.02103123173972704,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 6
+          }
+        }
+      }
+    }
+  },
+  "F3_before_after_png": "render/out/wayfarer_exterior_detail_88ce19fc_F3_before_after.png"
+}

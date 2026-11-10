@@ -338,7 +338,7 @@ def metadata_for_mesh(name, geom_rows, fluid_rows, radiator_mapping, system, sub
 
 
 def evaluate(model,poses,g,cfg,criteria,original_containment,
-             original_added_inside,new_parts,source_sha):
+             original_added_inside,new_parts,source_sha,detail_pass=None):
     assert source_sha==EXPECTED and len(model)==441
     assert original_containment["pass_containment"]
     assert original_added_inside["pass_containment"]
@@ -435,6 +435,8 @@ def evaluate(model,poses,g,cfg,criteria,original_containment,
             radiator[name].label=name
         assert not(set(radiator)&set(base))
         installed={**base,**radiator}
+        if detail_pass is not None:
+            installed=detail_pass(installed,rows,mode)
         cont=inside_pressure_hull_check(installed,rows)
         extra=check_added_interior(installed,g,new_parts)
         assert cont["pass_containment"] and extra["pass_containment"]
@@ -489,7 +491,8 @@ def evaluate(model,poses,g,cfg,criteria,original_containment,
                 assert all(required.get(field) is not None for field in
                     ("zone","deck","material","print_group","mass")),(name,required)
                 meta[name]=dict(canon_tag="canon-v2.5.3",
-                    geometry_revision="kT #486 shuttle/holds successor",
+                    geometry_revision=("kT exterior detail F3" if detail_pass is not None
+                                       else "kT #486 shuttle/holds successor"),
                     node_id=name,semantic_system=gp,
                     semantic_subsystem=sub,
                     radiator_mode=mode,crown_gore_pose=pose,**e,**required)
