@@ -1,0 +1,28 @@
+newmtl hull
+Kd 0.200 0.210 0.230
+# Hull graphite
+
+newmtl struct
+Kd 0.300 0.310 0.330
+# Leg/neck structure gunmetal
+
+newmtl joint
+Kd 0.500 0.510 0.530
+# Actuator housings steel
+
+newmtl pad
+Kd 0.050 0.050 0.055
+# Wear pads and soles black
+
+newmtl glass
+Kd 0.060 0.080 0.100
+# Sensor glass
+
+newmtl accent
+Kd 0.860 0.420 0.100
+# EVA handrails and tail lamp, safety orange
+
+newmtl repl
+Kd 0.620 0.620 0.600
+# Replacement shank bare titanium
+
