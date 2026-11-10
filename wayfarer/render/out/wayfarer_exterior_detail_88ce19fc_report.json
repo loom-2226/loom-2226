@@ -215,7 +215,7 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 558,
           "all_scene_nodes_with_extras": 598,
-          "raw_glb_sha256": "5256f81f615b85aac3dbebd232a20bd05c6cc545f78df4631e3a25c88c0457cc",
+          "raw_glb_sha256": "4569bb170efeba386c93a9a681c70cd1d085bb4b007f2e543954ead7ba90a5cd",
           "bytes": 8783168
         },
         "semantic_hierarchy": {
@@ -252,7 +252,7 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 558,
           "all_scene_nodes_with_extras": 598,
-          "raw_glb_sha256": "6ff18dfd5873cd853621e5d459a4c8f614a87e3e533766f7bfd1c2c2fce0d94e",
+          "raw_glb_sha256": "dee2c14f9181ec47a366de947d9057d7fc583dc243dce62720a31cbf60469325",
           "bytes": 9690020
         },
         "semantic_hierarchy": {
@@ -285,7 +285,7 @@
     "source_canon": "canon-v2.5.3",
     "metadata_only_fixes": {
       "docking_camera_material": "sensor",
-      "hold_door_display_share_t": 1.0,
+      "hold_door_display_share_t": 1,
       "hold_hardware_and_door_interface_allowance_t": 2,
       "courier_parent_booking_unchanged_t": 19.450370894400045,
       "no_rebooking": true
@@ -321,7 +321,7 @@
             "source_volume_m3": 11.773641515288315,
             "edited_volume_m3": 11.736980086890636,
             "engraved_m3": 0.03666142839767872,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 4
           },
@@ -332,7 +332,7 @@
             "source_volume_m3": 0.008000000000000037,
             "edited_volume_m3": 0.0073050325811361725,
             "engraved_m3": 0.0006949674188638641,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -343,7 +343,7 @@
             "source_volume_m3": 0.008000000000000037,
             "edited_volume_m3": 0.007305032581136168,
             "engraved_m3": 0.0006949674188638684,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -353,8 +353,8 @@
             "booked_mass_t": 0.02047407462568426,
             "source_volume_m3": 0.0018020000000108088,
             "edited_volume_m3": 0.0017321294416530531,
-            "engraved_m3": 6.987055835775574e-05,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.00006987055835775574,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -364,8 +364,8 @@
             "booked_mass_t": 0.075,
             "source_volume_m3": 0.005779199999830599,
             "edited_volume_m3": 0.005744282447546515,
-            "engraved_m3": 3.491755228408368e-05,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.00003491755228408368,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -375,8 +375,8 @@
             "booked_mass_t": 0.075,
             "source_volume_m3": 0.006019999999823541,
             "edited_volume_m3": 0.005985082447539708,
-            "engraved_m3": 3.491755228383301e-05,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.00003491755228383301,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -386,8 +386,8 @@
             "booked_mass_t": 0.075,
             "source_volume_m3": 0.003130399999907654,
             "edited_volume_m3": 0.0030954824476208506,
-            "engraved_m3": 3.491755228680329e-05,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.00003491755228680329,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -397,8 +397,8 @@
             "booked_mass_t": 0.075,
             "source_volume_m3": 0.0057791999997647845,
             "edited_volume_m3": 0.0057442824474253145,
-            "engraved_m3": 3.491755233946993e-05,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.00003491755233946993,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -409,7 +409,7 @@
             "source_volume_m3": 0.007982222222210025,
             "edited_volume_m3": 0.007161353207271017,
             "engraved_m3": 0.0008208690149390085,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -420,7 +420,7 @@
             "source_volume_m3": 0.007982222222210011,
             "edited_volume_m3": 0.007161353207270999,
             "engraved_m3": 0.0008208690149390128,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -431,7 +431,7 @@
             "source_volume_m3": 0.007982222222210685,
             "edited_volume_m3": 0.007161353207271672,
             "engraved_m3": 0.0008208690149390128,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -442,7 +442,7 @@
             "source_volume_m3": 0.007982222222195355,
             "edited_volume_m3": 0.007161353207256385,
             "engraved_m3": 0.0008208690149389694,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -453,7 +453,7 @@
             "source_volume_m3": 0.029700000000154783,
             "edited_volume_m3": 0.027130752231828995,
             "engraved_m3": 0.0025692477683257886,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -464,7 +464,7 @@
             "source_volume_m3": 0.029700000000062718,
             "edited_volume_m3": 0.027130752231736936,
             "engraved_m3": 0.0025692477683257817,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -475,7 +475,7 @@
             "source_volume_m3": 0.04199999999983694,
             "edited_volume_m3": 0.04165979231960008,
             "engraved_m3": 0.000340207680236862,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 5
           },
@@ -486,7 +486,7 @@
             "source_volume_m3": 0.041999999999923196,
             "edited_volume_m3": 0.04165979231961629,
             "engraved_m3": 0.0003402076803069032,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 5
           },
@@ -497,7 +497,7 @@
             "source_volume_m3": 0.041999999999925604,
             "edited_volume_m3": 0.04165979231961876,
             "engraved_m3": 0.00034020768030684073,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 5
           },
@@ -508,7 +508,7 @@
             "source_volume_m3": 0.04199999999992556,
             "edited_volume_m3": 0.0416597923196187,
             "engraved_m3": 0.00034020768030686155,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 5
           },
@@ -519,7 +519,7 @@
             "source_volume_m3": 0.15929999999999422,
             "edited_volume_m3": 0.15366734752447195,
             "engraved_m3": 0.005632652475522276,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 3
           },
@@ -530,7 +530,7 @@
             "source_volume_m3": 0.1592999999999932,
             "edited_volume_m3": 0.15366734752446537,
             "engraved_m3": 0.005632652475527827,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 3
           },
@@ -541,7 +541,7 @@
             "source_volume_m3": 0.004799999999986749,
             "edited_volume_m3": 0.004433726611026969,
             "engraved_m3": 0.0003662733889597796,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -552,7 +552,7 @@
             "source_volume_m3": 0.004799999999985739,
             "edited_volume_m3": 0.004433726611025937,
             "engraved_m3": 0.00036627338895980216,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -563,7 +563,7 @@
             "source_volume_m3": 0.004799999999982156,
             "edited_volume_m3": 0.004433726611022317,
             "engraved_m3": 0.00036627338895983946,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -574,7 +574,7 @@
             "source_volume_m3": 0.003182222222219548,
             "edited_volume_m3": 0.0026377402991999564,
             "engraved_m3": 0.0005444819230195916,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -585,7 +585,7 @@
             "source_volume_m3": 0.0031822222222083704,
             "edited_volume_m3": 0.00263774029918504,
             "engraved_m3": 0.0005444819230233304,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -596,7 +596,7 @@
             "source_volume_m3": 0.0031822222222425956,
             "edited_volume_m3": 0.002637740299223025,
             "engraved_m3": 0.0005444819230195708,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -607,7 +607,7 @@
             "source_volume_m3": 0.0031822222222226003,
             "edited_volume_m3": 0.002637740299199165,
             "engraved_m3": 0.0005444819230234353,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -617,8 +617,8 @@
             "booked_mass_t": 0.005118518656421065,
             "source_volume_m3": 0.00043200000000242345,
             "edited_volume_m3": 0.0004223777272816354,
-            "engraved_m3": 9.622272720788048e-06,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.000009622272720788048,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 3
           },
@@ -628,8 +628,8 @@
             "booked_mass_t": 0.005118518656421065,
             "source_volume_m3": 0.000432000000002424,
             "edited_volume_m3": 0.0004223777272816363,
-            "engraved_m3": 9.622272720787668e-06,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.000009622272720787668,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 3
           },
@@ -639,8 +639,8 @@
             "booked_mass_t": 0.005118518656421065,
             "source_volume_m3": 0.00043200000000702453,
             "edited_volume_m3": 0.00042237772728451444,
-            "engraved_m3": 9.622272722510086e-06,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.000009622272722510086,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 3
           },
@@ -650,8 +650,8 @@
             "booked_mass_t": 0.005118518656421065,
             "source_volume_m3": 0.0004320000000080002,
             "edited_volume_m3": 0.00042237772728722115,
-            "engraved_m3": 9.622272720779049e-06,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.000009622272720779049,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 3
           },
@@ -662,7 +662,7 @@
             "source_volume_m3": 0.04319999999999906,
             "edited_volume_m3": 0.03530610708415314,
             "engraved_m3": 0.00789389291584592,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 5
           },
@@ -673,7 +673,7 @@
             "source_volume_m3": 0.04319999999999906,
             "edited_volume_m3": 0.03530610708415312,
             "engraved_m3": 0.00789389291584594,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 5
           },
@@ -684,7 +684,7 @@
             "source_volume_m3": 22.799999999999997,
             "edited_volume_m3": 22.70776800000001,
             "engraved_m3": 0.09223199999998855,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 14,
             "folded_stack": {
@@ -707,7 +707,7 @@
             "source_volume_m3": 22.799999999999986,
             "edited_volume_m3": 22.707767999999994,
             "engraved_m3": 0.0922319999999921,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 14,
             "folded_stack": {
@@ -730,7 +730,7 @@
             "source_volume_m3": 22.799999999999994,
             "edited_volume_m3": 22.70776799999999,
             "engraved_m3": 0.09223200000000276,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 14,
             "folded_stack": {
@@ -753,7 +753,7 @@
             "source_volume_m3": 22.79999999999999,
             "edited_volume_m3": 22.707768000000005,
             "engraved_m3": 0.09223199999998499,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 14,
             "folded_stack": {
@@ -772,44 +772,44 @@
           "dry:hotfin_root_140:root": {
             "role": "fin_root",
             "source_allocation_id": "hotfin_root_140",
-            "booked_mass_t": 1.0,
+            "booked_mass_t": 1,
             "source_volume_m3": 7.350000000000002,
             "edited_volume_m3": 7.249900000000001,
             "engraved_m3": 0.10010000000000119,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 8
           },
           "dry:hotfin_root_220:root": {
             "role": "fin_root",
             "source_allocation_id": "hotfin_root_220",
-            "booked_mass_t": 1.0,
+            "booked_mass_t": 1,
             "source_volume_m3": 7.333509651746403,
             "edited_volume_m3": 7.23340965174063,
             "engraved_m3": 0.10010000000577257,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 8
           },
           "dry:hotfin_root_320:root": {
             "role": "fin_root",
             "source_allocation_id": "hotfin_root_320",
-            "booked_mass_t": 1.0,
+            "booked_mass_t": 1,
             "source_volume_m3": 7.317484171649469,
             "edited_volume_m3": 7.217384171640477,
             "engraved_m3": 0.10010000000899222,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 8
           },
           "dry:hotfin_root_40:root": {
             "role": "fin_root",
             "source_allocation_id": "hotfin_root_40",
-            "booked_mass_t": 1.0,
+            "booked_mass_t": 1,
             "source_volume_m3": 7.350000000000001,
             "edited_volume_m3": 7.249900000000003,
             "engraved_m3": 0.10009999999999852,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 8
           },
@@ -820,7 +820,7 @@
             "source_volume_m3": 0.5119999999999989,
             "edited_volume_m3": 0.4909687703229981,
             "engraved_m3": 0.021031229677000773,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -831,7 +831,7 @@
             "source_volume_m3": 0.5119999999999987,
             "edited_volume_m3": 0.4909687703229981,
             "engraved_m3": 0.02103122967700055,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -842,7 +842,7 @@
             "source_volume_m3": 0.5119999999999988,
             "edited_volume_m3": 0.4909687703229979,
             "engraved_m3": 0.021031229677000884,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -853,7 +853,7 @@
             "source_volume_m3": 0.5119999999999924,
             "edited_volume_m3": 0.4909687703229916,
             "engraved_m3": 0.021031229677000773,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -864,7 +864,7 @@
             "source_volume_m3": 0.5119999999999999,
             "edited_volume_m3": 0.49096876826027286,
             "engraved_m3": 0.02103123173972704,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -875,7 +875,7 @@
             "source_volume_m3": 0.5119999999999998,
             "edited_volume_m3": 0.4909687682602728,
             "engraved_m3": 0.021031231739726985,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -886,7 +886,7 @@
             "source_volume_m3": 0.511999999999936,
             "edited_volume_m3": 0.4909687682602088,
             "engraved_m3": 0.021031231739727152,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -897,7 +897,7 @@
             "source_volume_m3": 0.5119999999999933,
             "edited_volume_m3": 0.4909687682602663,
             "engraved_m3": 0.02103123173972704,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           }
@@ -933,7 +933,7 @@
             "source_volume_m3": 11.773641515288315,
             "edited_volume_m3": 11.736980086890636,
             "engraved_m3": 0.03666142839767872,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 4
           },
@@ -944,7 +944,7 @@
             "source_volume_m3": 0.008000000000000037,
             "edited_volume_m3": 0.0073050325811361725,
             "engraved_m3": 0.0006949674188638641,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -955,7 +955,7 @@
             "source_volume_m3": 0.008000000000000037,
             "edited_volume_m3": 0.007305032581136168,
             "engraved_m3": 0.0006949674188638684,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -965,8 +965,8 @@
             "booked_mass_t": 0.02047407462568426,
             "source_volume_m3": 0.0018020000000108088,
             "edited_volume_m3": 0.0017321294416530531,
-            "engraved_m3": 6.987055835775574e-05,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.00006987055835775574,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -976,8 +976,8 @@
             "booked_mass_t": 0.075,
             "source_volume_m3": 0.005779199999830599,
             "edited_volume_m3": 0.005744282447546515,
-            "engraved_m3": 3.491755228408368e-05,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.00003491755228408368,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -987,8 +987,8 @@
             "booked_mass_t": 0.075,
             "source_volume_m3": 0.006019999999823541,
             "edited_volume_m3": 0.005985082447539708,
-            "engraved_m3": 3.491755228383301e-05,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.00003491755228383301,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -998,8 +998,8 @@
             "booked_mass_t": 0.075,
             "source_volume_m3": 0.003130399999907654,
             "edited_volume_m3": 0.0030954824476208506,
-            "engraved_m3": 3.491755228680329e-05,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.00003491755228680329,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1009,8 +1009,8 @@
             "booked_mass_t": 0.075,
             "source_volume_m3": 0.0057791999997647845,
             "edited_volume_m3": 0.0057442824474253145,
-            "engraved_m3": 3.491755233946993e-05,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.00003491755233946993,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1021,7 +1021,7 @@
             "source_volume_m3": 0.007982222222210025,
             "edited_volume_m3": 0.007161353207271017,
             "engraved_m3": 0.0008208690149390085,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1032,7 +1032,7 @@
             "source_volume_m3": 0.007982222222210011,
             "edited_volume_m3": 0.007161353207270999,
             "engraved_m3": 0.0008208690149390128,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1043,7 +1043,7 @@
             "source_volume_m3": 0.007982222222210685,
             "edited_volume_m3": 0.007161353207271672,
             "engraved_m3": 0.0008208690149390128,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1054,7 +1054,7 @@
             "source_volume_m3": 0.007982222222195355,
             "edited_volume_m3": 0.007161353207256385,
             "engraved_m3": 0.0008208690149389694,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1065,7 +1065,7 @@
             "source_volume_m3": 0.029700000000154783,
             "edited_volume_m3": 0.027130752231828995,
             "engraved_m3": 0.0025692477683257886,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1076,7 +1076,7 @@
             "source_volume_m3": 0.029700000000062718,
             "edited_volume_m3": 0.027130752231736936,
             "engraved_m3": 0.0025692477683257817,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1087,7 +1087,7 @@
             "source_volume_m3": 0.04199999999983694,
             "edited_volume_m3": 0.04165979231960008,
             "engraved_m3": 0.000340207680236862,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 5
           },
@@ -1098,7 +1098,7 @@
             "source_volume_m3": 0.041999999999923196,
             "edited_volume_m3": 0.04165979231961629,
             "engraved_m3": 0.0003402076803069032,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 5
           },
@@ -1109,7 +1109,7 @@
             "source_volume_m3": 0.041999999999925604,
             "edited_volume_m3": 0.04165979231961876,
             "engraved_m3": 0.00034020768030684073,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 5
           },
@@ -1120,7 +1120,7 @@
             "source_volume_m3": 0.04199999999992556,
             "edited_volume_m3": 0.0416597923196187,
             "engraved_m3": 0.00034020768030686155,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 5
           },
@@ -1131,7 +1131,7 @@
             "source_volume_m3": 0.15929999999999422,
             "edited_volume_m3": 0.15366734752447195,
             "engraved_m3": 0.005632652475522276,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 3
           },
@@ -1142,7 +1142,7 @@
             "source_volume_m3": 0.1592999999999932,
             "edited_volume_m3": 0.15366734752446537,
             "engraved_m3": 0.005632652475527827,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 3
           },
@@ -1153,7 +1153,7 @@
             "source_volume_m3": 0.004799999999986749,
             "edited_volume_m3": 0.004433726611026969,
             "engraved_m3": 0.0003662733889597796,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1164,7 +1164,7 @@
             "source_volume_m3": 0.004799999999985739,
             "edited_volume_m3": 0.004433726611025937,
             "engraved_m3": 0.00036627338895980216,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1175,7 +1175,7 @@
             "source_volume_m3": 0.004799999999982156,
             "edited_volume_m3": 0.004433726611022317,
             "engraved_m3": 0.00036627338895983946,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1186,7 +1186,7 @@
             "source_volume_m3": 0.003182222222219548,
             "edited_volume_m3": 0.0026377402991999564,
             "engraved_m3": 0.0005444819230195916,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1197,7 +1197,7 @@
             "source_volume_m3": 0.0031822222222083704,
             "edited_volume_m3": 0.00263774029918504,
             "engraved_m3": 0.0005444819230233304,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1208,7 +1208,7 @@
             "source_volume_m3": 0.0031822222222425956,
             "edited_volume_m3": 0.002637740299223025,
             "engraved_m3": 0.0005444819230195708,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1219,7 +1219,7 @@
             "source_volume_m3": 0.0031822222222226003,
             "edited_volume_m3": 0.002637740299199165,
             "engraved_m3": 0.0005444819230234353,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1229,8 +1229,8 @@
             "booked_mass_t": 0.005118518656421065,
             "source_volume_m3": 0.00043200000000242345,
             "edited_volume_m3": 0.0004223777272816354,
-            "engraved_m3": 9.622272720788048e-06,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.000009622272720788048,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 3
           },
@@ -1240,8 +1240,8 @@
             "booked_mass_t": 0.005118518656421065,
             "source_volume_m3": 0.000432000000002424,
             "edited_volume_m3": 0.0004223777272816363,
-            "engraved_m3": 9.622272720787668e-06,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.000009622272720787668,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 3
           },
@@ -1251,8 +1251,8 @@
             "booked_mass_t": 0.005118518656421065,
             "source_volume_m3": 0.00043200000000702453,
             "edited_volume_m3": 0.00042237772728451444,
-            "engraved_m3": 9.622272722510086e-06,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.000009622272722510086,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 3
           },
@@ -1262,8 +1262,8 @@
             "booked_mass_t": 0.005118518656421065,
             "source_volume_m3": 0.0004320000000080002,
             "edited_volume_m3": 0.00042237772728722115,
-            "engraved_m3": 9.622272720779049e-06,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.000009622272720779049,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 3
           },
@@ -1274,7 +1274,7 @@
             "source_volume_m3": 0.04319999999999906,
             "edited_volume_m3": 0.03530610708415314,
             "engraved_m3": 0.00789389291584592,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 5
           },
@@ -1285,7 +1285,7 @@
             "source_volume_m3": 0.04319999999999906,
             "edited_volume_m3": 0.03530610708415312,
             "engraved_m3": 0.00789389291584594,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 5
           },
@@ -1296,7 +1296,7 @@
             "source_volume_m3": 22.799999999999997,
             "edited_volume_m3": 22.70776800000001,
             "engraved_m3": 0.09223199999998855,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 14,
             "folded_stack": {
@@ -1319,7 +1319,7 @@
             "source_volume_m3": 22.799999999999986,
             "edited_volume_m3": 22.707767999999994,
             "engraved_m3": 0.0922319999999921,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 14,
             "folded_stack": {
@@ -1342,7 +1342,7 @@
             "source_volume_m3": 22.799999999999994,
             "edited_volume_m3": 22.70776799999999,
             "engraved_m3": 0.09223200000000276,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 14,
             "folded_stack": {
@@ -1365,7 +1365,7 @@
             "source_volume_m3": 22.79999999999999,
             "edited_volume_m3": 22.707768000000005,
             "engraved_m3": 0.09223199999998499,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 14,
             "folded_stack": {
@@ -1384,44 +1384,44 @@
           "dry:hotfin_root_140:root": {
             "role": "fin_root",
             "source_allocation_id": "hotfin_root_140",
-            "booked_mass_t": 1.0,
+            "booked_mass_t": 1,
             "source_volume_m3": 7.350000000000002,
             "edited_volume_m3": 7.249900000000001,
             "engraved_m3": 0.10010000000000119,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 8
           },
           "dry:hotfin_root_220:root": {
             "role": "fin_root",
             "source_allocation_id": "hotfin_root_220",
-            "booked_mass_t": 1.0,
+            "booked_mass_t": 1,
             "source_volume_m3": 7.333509651746403,
             "edited_volume_m3": 7.23340965174063,
             "engraved_m3": 0.10010000000577257,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 8
           },
           "dry:hotfin_root_320:root": {
             "role": "fin_root",
             "source_allocation_id": "hotfin_root_320",
-            "booked_mass_t": 1.0,
+            "booked_mass_t": 1,
             "source_volume_m3": 7.317484171649469,
             "edited_volume_m3": 7.217384171640477,
             "engraved_m3": 0.10010000000899222,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 8
           },
           "dry:hotfin_root_40:root": {
             "role": "fin_root",
             "source_allocation_id": "hotfin_root_40",
-            "booked_mass_t": 1.0,
+            "booked_mass_t": 1,
             "source_volume_m3": 7.350000000000001,
             "edited_volume_m3": 7.249900000000003,
             "engraved_m3": 0.10009999999999852,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 8
           },
@@ -1432,7 +1432,7 @@
             "source_volume_m3": 0.5119999999999989,
             "edited_volume_m3": 0.4909687703229981,
             "engraved_m3": 0.021031229677000773,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -1443,7 +1443,7 @@
             "source_volume_m3": 0.5119999999999987,
             "edited_volume_m3": 0.4909687703229981,
             "engraved_m3": 0.02103122967700055,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -1454,7 +1454,7 @@
             "source_volume_m3": 0.5119999999999988,
             "edited_volume_m3": 0.4909687703229979,
             "engraved_m3": 0.021031229677000884,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -1465,7 +1465,7 @@
             "source_volume_m3": 0.5119999999999924,
             "edited_volume_m3": 0.4909687703229916,
             "engraved_m3": 0.021031229677000773,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -1476,7 +1476,7 @@
             "source_volume_m3": 0.5119999999999999,
             "edited_volume_m3": 0.49096876826027286,
             "engraved_m3": 0.02103123173972704,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -1487,7 +1487,7 @@
             "source_volume_m3": 0.5119999999999998,
             "edited_volume_m3": 0.4909687682602728,
             "engraved_m3": 0.021031231739726985,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -1498,7 +1498,7 @@
             "source_volume_m3": 0.511999999999936,
             "edited_volume_m3": 0.4909687682602088,
             "engraved_m3": 0.021031231739727152,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -1509,7 +1509,7 @@
             "source_volume_m3": 0.5119999999999933,
             "edited_volume_m3": 0.4909687682602663,
             "engraved_m3": 0.02103123173972704,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           }
@@ -1544,7 +1544,7 @@
             "source_volume_m3": 11.773641515288315,
             "edited_volume_m3": 11.736980086890636,
             "engraved_m3": 0.03666142839767872,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 4
           },
@@ -1555,7 +1555,7 @@
             "source_volume_m3": 0.008000000000000037,
             "edited_volume_m3": 0.0073050325811361725,
             "engraved_m3": 0.0006949674188638641,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1566,7 +1566,7 @@
             "source_volume_m3": 0.008000000000000037,
             "edited_volume_m3": 0.007305032581136168,
             "engraved_m3": 0.0006949674188638684,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1576,8 +1576,8 @@
             "booked_mass_t": 0.02047407462568426,
             "source_volume_m3": 0.0018020000000108088,
             "edited_volume_m3": 0.0017321294416530531,
-            "engraved_m3": 6.987055835775574e-05,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.00006987055835775574,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1587,8 +1587,8 @@
             "booked_mass_t": 0.075,
             "source_volume_m3": 0.005779199999830599,
             "edited_volume_m3": 0.005744282447546515,
-            "engraved_m3": 3.491755228408368e-05,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.00003491755228408368,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1598,8 +1598,8 @@
             "booked_mass_t": 0.075,
             "source_volume_m3": 0.006019999999823541,
             "edited_volume_m3": 0.005985082447539708,
-            "engraved_m3": 3.491755228383301e-05,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.00003491755228383301,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1609,8 +1609,8 @@
             "booked_mass_t": 0.075,
             "source_volume_m3": 0.003130399999907654,
             "edited_volume_m3": 0.0030954824476208506,
-            "engraved_m3": 3.491755228680329e-05,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.00003491755228680329,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1620,8 +1620,8 @@
             "booked_mass_t": 0.075,
             "source_volume_m3": 0.0057791999997647845,
             "edited_volume_m3": 0.0057442824474253145,
-            "engraved_m3": 3.491755233946993e-05,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.00003491755233946993,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1632,7 +1632,7 @@
             "source_volume_m3": 0.007982222222210025,
             "edited_volume_m3": 0.007161353207271017,
             "engraved_m3": 0.0008208690149390085,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1643,7 +1643,7 @@
             "source_volume_m3": 0.007982222222210011,
             "edited_volume_m3": 0.007161353207270999,
             "engraved_m3": 0.0008208690149390128,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1654,7 +1654,7 @@
             "source_volume_m3": 0.007982222222210685,
             "edited_volume_m3": 0.007161353207271672,
             "engraved_m3": 0.0008208690149390128,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1665,7 +1665,7 @@
             "source_volume_m3": 0.007982222222195355,
             "edited_volume_m3": 0.007161353207256385,
             "engraved_m3": 0.0008208690149389694,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1676,7 +1676,7 @@
             "source_volume_m3": 0.029700000000154783,
             "edited_volume_m3": 0.027130752231828995,
             "engraved_m3": 0.0025692477683257886,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1687,7 +1687,7 @@
             "source_volume_m3": 0.029700000000062718,
             "edited_volume_m3": 0.027130752231736936,
             "engraved_m3": 0.0025692477683257817,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1698,7 +1698,7 @@
             "source_volume_m3": 0.04199999999983694,
             "edited_volume_m3": 0.04165979231960008,
             "engraved_m3": 0.000340207680236862,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 5
           },
@@ -1709,7 +1709,7 @@
             "source_volume_m3": 0.041999999999923196,
             "edited_volume_m3": 0.04165979231961629,
             "engraved_m3": 0.0003402076803069032,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 5
           },
@@ -1720,7 +1720,7 @@
             "source_volume_m3": 0.041999999999925604,
             "edited_volume_m3": 0.04165979231961876,
             "engraved_m3": 0.00034020768030684073,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 5
           },
@@ -1731,7 +1731,7 @@
             "source_volume_m3": 0.04199999999992556,
             "edited_volume_m3": 0.0416597923196187,
             "engraved_m3": 0.00034020768030686155,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 5
           },
@@ -1742,7 +1742,7 @@
             "source_volume_m3": 0.15929999999999422,
             "edited_volume_m3": 0.15366734752447195,
             "engraved_m3": 0.005632652475522276,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 3
           },
@@ -1753,7 +1753,7 @@
             "source_volume_m3": 0.1592999999999932,
             "edited_volume_m3": 0.15366734752446537,
             "engraved_m3": 0.005632652475527827,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 3
           },
@@ -1764,7 +1764,7 @@
             "source_volume_m3": 0.004799999999986749,
             "edited_volume_m3": 0.004433726611026969,
             "engraved_m3": 0.0003662733889597796,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1775,7 +1775,7 @@
             "source_volume_m3": 0.004799999999985739,
             "edited_volume_m3": 0.004433726611025937,
             "engraved_m3": 0.00036627338895980216,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1786,7 +1786,7 @@
             "source_volume_m3": 0.004799999999982156,
             "edited_volume_m3": 0.004433726611022317,
             "engraved_m3": 0.00036627338895983946,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1797,7 +1797,7 @@
             "source_volume_m3": 0.003182222222219548,
             "edited_volume_m3": 0.0026377402991999564,
             "engraved_m3": 0.0005444819230195916,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1808,7 +1808,7 @@
             "source_volume_m3": 0.0031822222222083704,
             "edited_volume_m3": 0.00263774029918504,
             "engraved_m3": 0.0005444819230233304,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1819,7 +1819,7 @@
             "source_volume_m3": 0.0031822222222425956,
             "edited_volume_m3": 0.002637740299223025,
             "engraved_m3": 0.0005444819230195708,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1830,7 +1830,7 @@
             "source_volume_m3": 0.0031822222222226003,
             "edited_volume_m3": 0.002637740299199165,
             "engraved_m3": 0.0005444819230234353,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 2
           },
@@ -1840,8 +1840,8 @@
             "booked_mass_t": 0.005118518656421065,
             "source_volume_m3": 0.00043200000000242345,
             "edited_volume_m3": 0.0004223777272816354,
-            "engraved_m3": 9.622272720788048e-06,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.000009622272720788048,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 3
           },
@@ -1851,8 +1851,8 @@
             "booked_mass_t": 0.005118518656421065,
             "source_volume_m3": 0.000432000000002424,
             "edited_volume_m3": 0.0004223777272816363,
-            "engraved_m3": 9.622272720787668e-06,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.000009622272720787668,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 3
           },
@@ -1862,8 +1862,8 @@
             "booked_mass_t": 0.005118518656421065,
             "source_volume_m3": 0.00043200000000702453,
             "edited_volume_m3": 0.00042237772728451444,
-            "engraved_m3": 9.622272722510086e-06,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.000009622272722510086,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 3
           },
@@ -1873,8 +1873,8 @@
             "booked_mass_t": 0.005118518656421065,
             "source_volume_m3": 0.0004320000000080002,
             "edited_volume_m3": 0.00042237772728722115,
-            "engraved_m3": 9.622272720779049e-06,
-            "external_added_m3": 0.0,
+            "engraved_m3": 0.000009622272720779049,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 3
           },
@@ -1885,7 +1885,7 @@
             "source_volume_m3": 0.04319999999999906,
             "edited_volume_m3": 0.03530610708415314,
             "engraved_m3": 0.00789389291584592,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 5
           },
@@ -1896,51 +1896,51 @@
             "source_volume_m3": 0.04319999999999906,
             "edited_volume_m3": 0.03530610708415312,
             "engraved_m3": 0.00789389291584594,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 5
           },
           "dry:hotfin_root_140:root": {
             "role": "fin_root",
             "source_allocation_id": "hotfin_root_140",
-            "booked_mass_t": 1.0,
+            "booked_mass_t": 1,
             "source_volume_m3": 7.350000000000002,
             "edited_volume_m3": 7.249900000000001,
             "engraved_m3": 0.10010000000000119,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 8
           },
           "dry:hotfin_root_220:root": {
             "role": "fin_root",
             "source_allocation_id": "hotfin_root_220",
-            "booked_mass_t": 1.0,
+            "booked_mass_t": 1,
             "source_volume_m3": 7.333509651746403,
             "edited_volume_m3": 7.23340965174063,
             "engraved_m3": 0.10010000000577257,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 8
           },
           "dry:hotfin_root_320:root": {
             "role": "fin_root",
             "source_allocation_id": "hotfin_root_320",
-            "booked_mass_t": 1.0,
+            "booked_mass_t": 1,
             "source_volume_m3": 7.317484171649469,
             "edited_volume_m3": 7.217384171640477,
             "engraved_m3": 0.10010000000899222,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 8
           },
           "dry:hotfin_root_40:root": {
             "role": "fin_root",
             "source_allocation_id": "hotfin_root_40",
-            "booked_mass_t": 1.0,
+            "booked_mass_t": 1,
             "source_volume_m3": 7.350000000000001,
             "edited_volume_m3": 7.249900000000003,
             "engraved_m3": 0.10009999999999852,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 8
           },
@@ -1951,7 +1951,7 @@
             "source_volume_m3": 0.5119999999999989,
             "edited_volume_m3": 0.4909687703229981,
             "engraved_m3": 0.021031229677000773,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -1962,7 +1962,7 @@
             "source_volume_m3": 0.5119999999999987,
             "edited_volume_m3": 0.4909687703229981,
             "engraved_m3": 0.02103122967700055,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -1973,7 +1973,7 @@
             "source_volume_m3": 0.5119999999999988,
             "edited_volume_m3": 0.4909687703229979,
             "engraved_m3": 0.021031229677000884,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -1984,7 +1984,7 @@
             "source_volume_m3": 0.5119999999999924,
             "edited_volume_m3": 0.4909687703229916,
             "engraved_m3": 0.021031229677000773,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -1995,7 +1995,7 @@
             "source_volume_m3": 0.5119999999999999,
             "edited_volume_m3": 0.49096876826027286,
             "engraved_m3": 0.02103123173972704,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -2006,7 +2006,7 @@
             "source_volume_m3": 0.5119999999999998,
             "edited_volume_m3": 0.4909687682602728,
             "engraved_m3": 0.021031231739726985,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -2017,7 +2017,7 @@
             "source_volume_m3": 0.511999999999936,
             "edited_volume_m3": 0.4909687682602088,
             "engraved_m3": 0.021031231739727152,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           },
@@ -2028,7 +2028,7 @@
             "source_volume_m3": 0.5119999999999933,
             "edited_volume_m3": 0.4909687682602663,
             "engraved_m3": 0.02103123173972704,
-            "external_added_m3": 0.0,
+            "external_added_m3": 0,
             "same_source_envelope": true,
             "feature_tools": 6
           }
