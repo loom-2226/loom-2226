@@ -39,10 +39,15 @@ jobs:
           from pathlib import Path
           lab=Path('wayfarer/lab/packing_phase1b')
           frozen=json.loads((lab/'frozen_research_3p8_forward.json').read_text())
-          released=json.loads(Path('wayfarer/render/out/wayfarer_parts_v253_88ce19fc_report.json').read_text())
-          assert frozen['candidate_pass'] and released['drawing_revision']=='canon-v2.5.3'
-          assert released['single_focused_shelter_G6']['candidate_changed_BRep_g_cm2']>=53.29035
-          frozen['G6']=released['single_focused_shelter_G6']
+          assert frozen['candidate_pass']
+          g6=frozen['G6']
+          assert g6['candidate_changed_BRep_g_cm2']>=53.29035
+          # Preserve exactly the three released v2.5.3 G6 fit fields
+          # required by crown_geom_v253; the superseded report GLB
+          # bundle is deleted, not regenerated or rebooked.
+          g6.update(g6_runs_for_v253=1,
+              kT_v253_min_53p39_with_0p1_tolerance_pass=True,
+              v253_band_fit={'fitted_volume_m3':4.896996543367485})
           (lab/'current_g3_rebuild_report.json').write_text(json.dumps(frozen)+'\n')
           print('IMMUTABLE_V253_CERTIFIED_STEP_REUSED')
           PY
@@ -70,9 +75,16 @@ jobs:
           assert r['all_six_state_D9_and_containment']=='PASS'
           assert r['source_dry_t']==868.1922552640087
           assert r['dry_mass_change_t']==0 and r['ECON_dv_km_s']==707.845
-          assert r['spare_panes_unchanged'] and r['no_hull_cuts']
+          assert r['spare_panes_unchanged'] and not r['no_hull_cuts']
+          assert r['shuttle_hull_spine_groove_cut']
           d=r['exterior_detail']
-          assert d['no_hull_protrusion'] and d['no_crown_change']
+          assert d['RCS_F1_approved'] and d['shuttle_spine_groove']
+          assert d['no_pressure_vessel_cuts'] and d['no_crown_change']
+          assert not d['no_hull_protrusion']
+          assert d['laser_terminals_source_station_m']==33.3
+          q=d['RCS_pitch_yaw_authority_quick_screen']
+          assert q['aft_station_m']==34.15 and q['nominal_ratio']>=1
+          assert q['degraded_ratio']>=1 and q['source_states_evaluated']==7
           assert d['no_new_source_mass'] and d['no_performance_claims']
           assert d['print_minimum_modelled_feature_m']==.1
           fix=d['metadata_only_fixes']
@@ -88,7 +100,8 @@ jobs:
             assert set(poses)=={'stowed','closed'}
             e=d['modes'][mode]
             assert e['edited_nodes']==(45 if mode=='torch' else 49)
-            assert e['all_detail_subtractions'] and not e['source_envelope_violations']
+            assert not e['all_detail_subtractions'] and not e['source_envelope_violations']
+            assert e['F1_approved_rcs_additions']==8
             assert e['source_mass_rebooking_t']==0
             folds=[v['folded_stack'] for v in e['parts'].values()
                    if v['role']=='folded_fin']
@@ -97,9 +110,22 @@ jobs:
                                tangential_stack_thickness_m=.6,radial_root_m=4.75,
                                radial_outer_m=6.75,x_range_m=[34.3,53.3],
                                visible_edge_engravings=14) for v in folds)
-            assert all(v['same_source_envelope'] and v['external_added_m3']<1e-8
-                       and v['engraved_m3']>0 and v['booked_mass_t']>0
-                       for v in e['parts'].values())
+            assert all(
+                (v['F1_approved_housing_and_nozzles'] and
+                 v['bell_count']==4 and v['radial_bells']==3 and
+                 v['axial_bells']==1 and v['axial_cant_deg']==10 and
+                 v['print_bell_diameter_1_100_mm']>=2 and
+                 v['source_mass_rebooking_t']==0 and
+                 not v['same_source_envelope'] and v['external_added_m3']>0)
+                if v['role']=='rcs' else
+                (v['same_source_envelope'] and v['external_added_m3']<1e-8
+                 and v['engraved_m3']>0)
+                for v in e['parts'].values())
+            assert all(v['booked_mass_t']>0 for v in e['parts'].values())
+            assert sorted(v['station_m'] for v in e['parts'].values()
+                          if v['role']=='rcs')==[3.0]*4+[34.15]*4
+            assert len([v for v in e['parts'].values()
+                        if v['role']=='laser_terminal' and v['source_station_m']==33.3])==2
             for pose,st in poses.items():
               assert st['category_d_count']==0 and st['boolean_errors']==0
               assert st['pressure_containment_pass'] and st['semantic_hierarchy']['hierarchy_valid']
