@@ -188,7 +188,7 @@ jobs:
               band_prims=[p for p in data['meshes'][nozzle_node['mesh']]['primitives']
                           if p['material']==band_index]
               assert len(band_prims)>=1
-              assert nozzle_node['extras']['nozzle_coil_band_triangles_per_station']==band['face_triangles_per_station']
+              assert nozzle_node['extras']['nozzle_coil_band_triangles_per_station']==st['gltf_extras']['nozzle_coil_band_faces']['face_triangles_per_station']
               assert st['gltf_extras']['canon_finish']=='CANON_FINISH'
               assert st['gltf_extras']['exterior_pbr_meshes']>30
               assert st['gltf_extras']['exterior_pbr_variants']>=15
