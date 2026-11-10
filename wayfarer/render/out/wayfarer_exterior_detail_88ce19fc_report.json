@@ -63,8 +63,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 498,
           "all_scene_nodes_with_extras": 538,
-          "raw_glb_sha256": "b7141222fe799be26106774b42808894410e2893442182e660e69a7565792430",
-          "bytes": 8662924
+          "raw_glb_sha256": "7fc6d4bb24a96b438b97f063f59f92d7a267e70507d19767f1b2ab6112b7ab85",
+          "bytes": 8691132
         },
         "semantic_hierarchy": {
           "meshes": 498,
@@ -100,8 +100,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 498,
           "all_scene_nodes_with_extras": 538,
-          "raw_glb_sha256": "387a93ce0a6bf822351b93cad4b98204c8255bfc7119e60e7b25b7172821f266",
-          "bytes": 9569736
+          "raw_glb_sha256": "664b1f74badd7c5b7e6743d01708dae977b56f950c40e255f8320486b282fa98",
+          "bytes": 9597940
         },
         "semantic_hierarchy": {
           "meshes": 498,
@@ -139,8 +139,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 502,
           "all_scene_nodes_with_extras": 542,
-          "raw_glb_sha256": "108e4193fc9790f44e229b1c8ab55ca26430f6e029ac4e68708d70ae88200261",
-          "bytes": 8685076
+          "raw_glb_sha256": "e3bab9ea32af98cf61d42e0948e2b016939cc4b3980d36bd075a540a55483d68",
+          "bytes": 8713236
         },
         "semantic_hierarchy": {
           "meshes": 502,
@@ -176,8 +176,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 502,
           "all_scene_nodes_with_extras": 542,
-          "raw_glb_sha256": "067233d576d155ec2a836a6d85c51ba5eb19a533abf132cdcc2ed12fd38cabbb",
-          "bytes": 9591924
+          "raw_glb_sha256": "e6ac2adab51acc04ee367221462dd05f2c5a3c07673e954b6bc6dbb7d42e7a97",
+          "bytes": 9620084
         },
         "semantic_hierarchy": {
           "meshes": 502,
@@ -215,7 +215,7 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 558,
           "all_scene_nodes_with_extras": 598,
-          "raw_glb_sha256": "4569bb170efeba386c93a9a681c70cd1d085bb4b007f2e543954ead7ba90a5cd",
+          "raw_glb_sha256": "5256f81f615b85aac3dbebd232a20bd05c6cc545f78df4631e3a25c88c0457cc",
           "bytes": 8783168
         },
         "semantic_hierarchy": {
@@ -252,7 +252,7 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 558,
           "all_scene_nodes_with_extras": 598,
-          "raw_glb_sha256": "dee2c14f9181ec47a366de947d9057d7fc583dc243dce62720a31cbf60469325",
+          "raw_glb_sha256": "6ff18dfd5873cd853621e5d459a4c8f614a87e3e533766f7bfd1c2c2fce0d94e",
           "bytes": 9690020
         },
         "semantic_hierarchy": {
@@ -681,45 +681,93 @@
             "role": "folded_fin",
             "source_allocation_id": "hotfin_140",
             "booked_mass_t": 4.256,
-            "source_volume_m3": 2.6599999999997572,
-            "edited_volume_m3": 2.5784639999993795,
-            "engraved_m3": 0.08153600000037775,
+            "source_volume_m3": 22.799999999999997,
+            "edited_volume_m3": 22.70776800000001,
+            "engraved_m3": 0.09223199999998855,
             "external_added_m3": 0.0,
             "same_source_envelope": true,
-            "feature_tools": 14
+            "feature_tools": 14,
+            "folded_stack": {
+              "pleats": 14,
+              "folded_pleat_length_m": 2,
+              "tangential_stack_thickness_m": 0.6,
+              "radial_root_m": 4.75,
+              "radial_outer_m": 6.75,
+              "x_range_m": [
+                34.3,
+                53.3
+              ],
+              "visible_edge_engravings": 14
+            }
           },
           "dry:hotfin_220:folded_envelope": {
             "role": "folded_fin",
             "source_allocation_id": "hotfin_220",
             "booked_mass_t": 4.256,
-            "source_volume_m3": 2.6599999999997443,
-            "edited_volume_m3": 2.5784639999998835,
-            "engraved_m3": 0.08153599999986083,
+            "source_volume_m3": 22.799999999999986,
+            "edited_volume_m3": 22.707767999999994,
+            "engraved_m3": 0.0922319999999921,
             "external_added_m3": 0.0,
             "same_source_envelope": true,
-            "feature_tools": 14
+            "feature_tools": 14,
+            "folded_stack": {
+              "pleats": 14,
+              "folded_pleat_length_m": 2,
+              "tangential_stack_thickness_m": 0.6,
+              "radial_root_m": 4.75,
+              "radial_outer_m": 6.75,
+              "x_range_m": [
+                34.3,
+                53.3
+              ],
+              "visible_edge_engravings": 14
+            }
           },
           "dry:hotfin_320:folded_envelope": {
             "role": "folded_fin",
             "source_allocation_id": "hotfin_320",
             "booked_mass_t": 4.256,
-            "source_volume_m3": 2.6599999999997572,
-            "edited_volume_m3": 2.578463999999687,
-            "engraved_m3": 0.08153600000007044,
+            "source_volume_m3": 22.799999999999994,
+            "edited_volume_m3": 22.70776799999999,
+            "engraved_m3": 0.09223200000000276,
             "external_added_m3": 0.0,
             "same_source_envelope": true,
-            "feature_tools": 14
+            "feature_tools": 14,
+            "folded_stack": {
+              "pleats": 14,
+              "folded_pleat_length_m": 2,
+              "tangential_stack_thickness_m": 0.6,
+              "radial_root_m": 4.75,
+              "radial_outer_m": 6.75,
+              "x_range_m": [
+                34.3,
+                53.3
+              ],
+              "visible_edge_engravings": 14
+            }
           },
           "dry:hotfin_40:folded_envelope": {
             "role": "folded_fin",
             "source_allocation_id": "hotfin_40",
             "booked_mass_t": 4.256,
-            "source_volume_m3": 2.6599999999997443,
-            "edited_volume_m3": 2.578463999999601,
-            "engraved_m3": 0.08153600000014327,
+            "source_volume_m3": 22.79999999999999,
+            "edited_volume_m3": 22.707768000000005,
+            "engraved_m3": 0.09223199999998499,
             "external_added_m3": 0.0,
             "same_source_envelope": true,
-            "feature_tools": 14
+            "feature_tools": 14,
+            "folded_stack": {
+              "pleats": 14,
+              "folded_pleat_length_m": 2,
+              "tangential_stack_thickness_m": 0.6,
+              "radial_root_m": 4.75,
+              "radial_outer_m": 6.75,
+              "x_range_m": [
+                34.3,
+                53.3
+              ],
+              "visible_edge_engravings": 14
+            }
           },
           "dry:hotfin_root_140:root": {
             "role": "fin_root",
@@ -1245,45 +1293,93 @@
             "role": "folded_fin",
             "source_allocation_id": "hotfin_140",
             "booked_mass_t": 4.256,
-            "source_volume_m3": 2.6599999999997572,
-            "edited_volume_m3": 2.5784639999993795,
-            "engraved_m3": 0.08153600000037775,
+            "source_volume_m3": 22.799999999999997,
+            "edited_volume_m3": 22.70776800000001,
+            "engraved_m3": 0.09223199999998855,
             "external_added_m3": 0.0,
             "same_source_envelope": true,
-            "feature_tools": 14
+            "feature_tools": 14,
+            "folded_stack": {
+              "pleats": 14,
+              "folded_pleat_length_m": 2,
+              "tangential_stack_thickness_m": 0.6,
+              "radial_root_m": 4.75,
+              "radial_outer_m": 6.75,
+              "x_range_m": [
+                34.3,
+                53.3
+              ],
+              "visible_edge_engravings": 14
+            }
           },
           "dry:hotfin_220:folded_envelope": {
             "role": "folded_fin",
             "source_allocation_id": "hotfin_220",
             "booked_mass_t": 4.256,
-            "source_volume_m3": 2.6599999999997443,
-            "edited_volume_m3": 2.5784639999998835,
-            "engraved_m3": 0.08153599999986083,
+            "source_volume_m3": 22.799999999999986,
+            "edited_volume_m3": 22.707767999999994,
+            "engraved_m3": 0.0922319999999921,
             "external_added_m3": 0.0,
             "same_source_envelope": true,
-            "feature_tools": 14
+            "feature_tools": 14,
+            "folded_stack": {
+              "pleats": 14,
+              "folded_pleat_length_m": 2,
+              "tangential_stack_thickness_m": 0.6,
+              "radial_root_m": 4.75,
+              "radial_outer_m": 6.75,
+              "x_range_m": [
+                34.3,
+                53.3
+              ],
+              "visible_edge_engravings": 14
+            }
           },
           "dry:hotfin_320:folded_envelope": {
             "role": "folded_fin",
             "source_allocation_id": "hotfin_320",
             "booked_mass_t": 4.256,
-            "source_volume_m3": 2.6599999999997572,
-            "edited_volume_m3": 2.578463999999687,
-            "engraved_m3": 0.08153600000007044,
+            "source_volume_m3": 22.799999999999994,
+            "edited_volume_m3": 22.70776799999999,
+            "engraved_m3": 0.09223200000000276,
             "external_added_m3": 0.0,
             "same_source_envelope": true,
-            "feature_tools": 14
+            "feature_tools": 14,
+            "folded_stack": {
+              "pleats": 14,
+              "folded_pleat_length_m": 2,
+              "tangential_stack_thickness_m": 0.6,
+              "radial_root_m": 4.75,
+              "radial_outer_m": 6.75,
+              "x_range_m": [
+                34.3,
+                53.3
+              ],
+              "visible_edge_engravings": 14
+            }
           },
           "dry:hotfin_40:folded_envelope": {
             "role": "folded_fin",
             "source_allocation_id": "hotfin_40",
             "booked_mass_t": 4.256,
-            "source_volume_m3": 2.6599999999997443,
-            "edited_volume_m3": 2.578463999999601,
-            "engraved_m3": 0.08153600000014327,
+            "source_volume_m3": 22.79999999999999,
+            "edited_volume_m3": 22.707768000000005,
+            "engraved_m3": 0.09223199999998499,
             "external_added_m3": 0.0,
             "same_source_envelope": true,
-            "feature_tools": 14
+            "feature_tools": 14,
+            "folded_stack": {
+              "pleats": 14,
+              "folded_pleat_length_m": 2,
+              "tangential_stack_thickness_m": 0.6,
+              "radial_root_m": 4.75,
+              "radial_outer_m": 6.75,
+              "x_range_m": [
+                34.3,
+                53.3
+              ],
+              "visible_edge_engravings": 14
+            }
           },
           "dry:hotfin_root_140:root": {
             "role": "fin_root",
