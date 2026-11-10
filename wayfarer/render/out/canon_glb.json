@@ -1,12 +1,12 @@
 {
   "schema": "wayfarer/canon-glb-pointer/v1",
   "status": "RELEASED",
-  "tag": "canon-v2.5.7",
-  "release_commit": "6f4a4acd227a0f6a0db2cb8818755506d278dffd",
+  "tag": "canon-v2.5.8",
+  "release_commit": "3e464668d20c1e4e59cfa3dc5aedb3b5f0e8f258",
   "path": "wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_stowed_closed.glb",
   "hash": {
     "algorithm": "git-blob-sha1",
-    "value": "e5570317b5e20ab6e932d04d472cd97da05f44a9"
+    "value": "4e357085274ff9cc510862912ef97af8c95195cf"
   },
   "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
   "dry_mass_t": 868.1922552640087,
@@ -21,7 +21,7 @@
       "glb_nodes": 498,
       "hash": {
         "algorithm": "git-blob-sha1",
-        "value": "49da27172f0cce19bc33af330b693708f70085b7"
+        "value": "88bea6f54b14d87530ed681e65d697e262111cd4"
       }
     },
     {
@@ -31,7 +31,7 @@
       "glb_nodes": 502,
       "hash": {
         "algorithm": "git-blob-sha1",
-        "value": "dfd5da34c4b86bd6490317b602876527614a7427"
+        "value": "56cb42ba45831637037ea4c649ea1f5248409d8d"
       }
     },
     {
@@ -41,7 +41,7 @@
       "glb_nodes": 502,
       "hash": {
         "algorithm": "git-blob-sha1",
-        "value": "ab93f88505e91bbbc61970a95fc0ffb733273a32"
+        "value": "00cd47f6f9fef6ee0de93bacc09cdfd61c563917"
       }
     },
     {
@@ -51,7 +51,7 @@
       "glb_nodes": 558,
       "hash": {
         "algorithm": "git-blob-sha1",
-        "value": "52d23548ac0ef9ecb3c8e7cb94c8676e42825483"
+        "value": "997fbc9946f2212877549f5ad3bb784a30fcdff2"
       }
     },
     {
@@ -61,9 +61,9 @@
       "glb_nodes": 558,
       "hash": {
         "algorithm": "git-blob-sha1",
-        "value": "3927a36c0f3440af805d8b36d73e19353a16b8a7"
+        "value": "a23a68281827861cd0d392372c77483f1172c18b"
       }
     }
   ],
-  "notes": "kT CANON_FINISH approved 2026-11-11: midship graphite Strata and bay doors, pale service/aft/cone accents (dark-over-water solar thermal trade OPEN for physical spectral proof), full bronze nozzle, matte coil-etch contrast; v2.5.7 F3 real shallow 50mm seam engravings (0.5mm at 1:100) and shuttle surface. 8 RCS nozzle axes correct with source-directed balanced torque nominal 2.33625x and one-cluster-out 2.0766667x; source mass unchanged. Strakes 1300K emissive Metric 2m/Torch 4m; hot fins black folded, 1750K orange deployed Torch root brighter. Six mutually exclusive hierarchical CANON_FINISH glTF-PBR GLBs, D9 zero category-d and containment PASS all. Dry mass 868.1922552640087t, ECON 707.845km/s unchanged; no new hardware/physics/spectral qualification. Annotated tag at merged #496 geometry commit, pointer is later metadata-only main. No re-export."
+  "notes": "Drawing-only kT v2.5.8 neutral graphite CANON_FINISH correction: sRGB #3A3D42 mapped to linear glTF RGB (0.0423114,0.0466651,0.0544803) on bow, midship bay doors and Strata gores; source's 23 canon finish roles and every emitted material variant checked. Strakes 1300K deep red-orange emissive and deployed torch fins 1750K orange root-graded, all hot diffuse base linear (0.02,0.02,0.02) to avoid creamy washout. Five nozzle rings same x stations, width 150mm (1.5mm at 1:100), depth ~30mm and existing nozzle triangle faces split bronze/dark matte gunmetal with 1056 dark triangles conserved (2348 total). All six revised GLBs and F3 before/after regenerated; D9 category-d=0 and containment PASS x6; unchanged source dry 868.1922552640087t, ECON delta-v 707.845km/s and source physical geometry sha; no mass or nozzle envelope change. Annotated tag pins merged PR #498 geometry commit; pointer in later metadata-only main. No new physics or hardware qualification."
 }
