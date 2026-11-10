@@ -102,11 +102,70 @@ def blade_airfoil(x0,x1,y,z):
     assert shape is not None and shape.is_valid and shape.volume>0
     return shape
 
+def thin_skin_seam(shape,s,r,depth=None):
+    """Optional face-only engraving inside the 0.1mm numerical display skin."""
+    d=SKIN*.35 if depth is None else depth
+    assert 0<d<SKIN and 0<s<12.8
+    x=18.75+s
+    outer=cy(r+.035,s-.020,s+.020)
+    inner=cy(r-d,s-.025,s+.025)
+    cutter=outer-inner
+    cut=shape-cutter
+    if cut is None or not cut.is_valid or float(cut.volume)<=0:
+        raise RuntimeError("shuttle surface seam invalid "+str(s))
+    return cut
+
+
+def shuttle_surface_etch(name,original):
+    """No silhouette change, only blind etch into the viewer's skin solids."""
+    sh=original
+    if name=="hull_mid_open_side":
+        for s in (4.35,6.50):
+            sh=thin_skin_seam(sh,s,1.9)
+    elif name=="gullwing_door_closed":
+        for s in (4.08,6.82):
+            sh=thin_skin_seam(sh,s,1.9)
+        # The existing independent door sector carries both side outlines.
+        # Etch narrow adjacent angular border lines, without adding hardware.
+        a0=math.degrees(math.pi/2-(-.75+1.62))
+        a1=math.degrees(math.pi/2-(-.75))
+        for az0,az1 in ((a0+.2,a0+1.0),(a1-1.0,a1-.2)):
+            edge=sector(4.12,6.78,1.9-SKIN*.35,1.94,az0,az1)
+            sh=sh-edge
+            if sh is None or not sh.is_valid or sh.volume<=0:
+                raise RuntimeError("shuttle door outline invalid")
+    elif name=="hull_aft":
+        for s in (7.8,9.6,11.4):
+            sh=thin_skin_seam(sh,s,1.9)
+    elif name=="belly_TPS_aft":
+        # Separate, already-source-authored heat-shield skin; finish role
+        # stays separate from hull via mesh metadata, PBR unapproved.
+        for s in (5.0,7.2,9.5,11.6):
+            sh=thin_skin_seam(sh,s,1.9-SKIN)
+    elif name=="magnetic_nozzle_ring":
+        # One circumferential coil/torus accent; only a blind cut.
+        x=18.75+12.70
+        outside=cy(.92,12.70-.014,12.70+.014)
+        inside=cy(.865,12.70-.022,12.70+.022)
+        tool=outside-inside
+        sh=sh-tool
+        if sh is None or not sh.is_valid or sh.volume<=0:
+            raise RuntimeError("shuttle nozzle-ring band invalid")
+    if sh is not original:
+        a=original.bounding_box();b=sh.bounding_box()
+        if any(abs(float(u)-float(v))>.05 for u,v in zip(
+            (a.min.X,a.min.Y,a.min.Z,a.max.X,a.max.Y,a.max.Z),
+            (b.min.X,b.min.Y,b.min.Z,b.max.X,b.max.Y,b.max.Z))):
+            raise RuntimeError("STOP: shuttle engraving changed outer envelope "+name)
+    return sh
+
+
 def parts():
     d={}
     def add(name,obj):
         assert name not in d,name
         assert obj is not None and obj.is_valid and float(obj.volume)>0,(name,obj)
+        obj=shuttle_surface_etch(name,obj)
         obj.label="shuttle_v1/"+name
         d[name]=obj
     # Profile source: LatheGeometry V2 radius/s from nose. Four exact

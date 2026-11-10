@@ -3,6 +3,9 @@ on:
   pull_request:
     paths:
       - wayfarer/lab/exterior_detail_f3_20261110.py
+      - wayfarer/lab/hull_etch_finish_20261111.py
+      - wayfarer/lab/pbr_finish_v257.py
+      - wayfarer/config/kt_decisions.json
       - wayfarer/lab/shuttle/shuttle_v1_fullship_integrate_20261110.py
       - wayfarer/lab/shuttle/shuttle_v1_full_docked_G8.py
       - wayfarer/config/courier_option_c_ledger_20261110.json
@@ -30,7 +33,7 @@ jobs:
         run: |
           set -euo pipefail
           python -m pip install build123d==0.13.0 matplotlib==3.10.7
-          python -m py_compile wayfarer/lab/exterior_detail_f3_20261110.py
+          python -m py_compile wayfarer/lab/exterior_detail_f3_20261110.py wayfarer/lab/hull_etch_finish_20261111.py wayfarer/lab/pbr_finish_v257.py wayfarer/lab/shuttle/shuttle_v1_full_docked_G8.py
           echo '88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1  wayfarer/results/out/wayfarer_v05_geometry.json' | sha256sum -c -
           cp wayfarer/lab/packing_phase1b/frozen_research_3p8_forward.step.gz \
              wayfarer/lab/packing_phase1b/current_g3_3p8_forward.step.gz
@@ -56,11 +59,11 @@ jobs:
           set -euo pipefail
           python -u wayfarer/lab/shuttle/shuttle_v1_docked_G8_gate.py
           python -u wayfarer/lab/shuttle/shuttle_v1_full_docked_G8.py
-      - name: F3 engrave inside source BReps, six-state D9, containment and before-after render
+      - name: kT v2.5.7 seams + RCS source aim + shuttle etch, six-state D9, containment and F3
         run: |
           set -euo pipefail
           python -u wayfarer/lab/exterior_detail_f3_20261110.py | tee f3-exterior.log
-      - name: Verify all six exterior GLBs, source-envelope F1, extras and F3
+      - name: Verify six CANON_FINISH PBR GLBs, source-direction RCS, etch, D9, containment
         run: |
           set -euo pipefail
           python - <<'PY'
@@ -84,7 +87,14 @@ jobs:
           assert d['laser_terminals_source_station_m']==33.3
           q=d['RCS_pitch_yaw_authority_quick_screen']
           assert q['aft_station_m']==34.15 and q['nominal_ratio']>=1
-          assert q['degraded_ratio']>=1 and q['source_states_evaluated']==7
+          assert q['degraded_ratio']>=2.076 and q['nominal_ratio']>=2.336
+          assert q['source_states_evaluated']==7 and q['source_direction_screen']
+          assert q['radial_bells_per_cluster']==1 and q['tangential_bells_per_cluster']==2
+          assert q['zero_net_lateral_force'] and q['prior_v256_screen_did_not_use_source_directions']
+          assert d['PBR_finish_gate'].startswith('CANON_FINISH')
+          assert d['hull_surface_seam_scheme']=='hull_seam_scheme_2026_11_09'
+          assert d['hull_seam_width_m']==.05 and d['thin_shell_actual_blind_mark_m']==.006
+          assert d['strake_1300K_glow_state']=='strakes Metric 2m and Torch 4m'
           assert d['no_new_source_mass'] and d['no_performance_claims']
           assert d['print_minimum_modelled_feature_m']==.1
           fix=d['metadata_only_fixes']
@@ -103,6 +113,15 @@ jobs:
             assert not e['all_detail_subtractions'] and not e['source_envelope_violations']
             assert e['F1_approved_rcs_additions']==8
             assert e['source_mass_rebooking_t']==0
+            et=e['hull_and_torch_surface_etch']
+            assert et['approved_seam_scheme']=='hull_seam_scheme_2026_11_09'
+            assert et['ring_width_m']==.05 and et['thin_wall_actual_OCC_depth_m']==.006
+            assert et['no_pressure_boundary_perforation'] and et['source_mass_rebooking_t']==0
+            assert et['legacy_22p5_degree_skin_grid_removed']
+            for body in ('dry:armor','dry:skin_service','dry:skin_midship',
+                         'dry:skin_aft','dry:tank_shell_out','dry:tank_shell_in'):
+                assert body in et['parts']
+                assert et['parts'][body]['source_mass_rebooking_t']==0
             folds=[v['folded_stack'] for v in e['parts'].values()
                    if v['role']=='folded_fin']
             assert len(folds)==(0 if mode=='torch' else 4)
@@ -112,7 +131,8 @@ jobs:
                                visible_edge_engravings=14) for v in folds)
             assert all(
                 (v['F1_approved_housing_and_nozzles'] and
-                 v['bell_count']==4 and v['radial_bells']==3 and
+                 v['bell_count']==4 and v['radial_bells']==1 and v['tangential_bells']==2 and
+                 len(v['transverse_bell_axes'])==3 and
                  v['axial_bells']==1 and v['axial_cant_deg']==10 and
                  v['print_bell_diameter_1_100_mm']>=2 and
                  v['source_mass_rebooking_t']==0 and
@@ -133,7 +153,25 @@ jobs:
               assert raw[:4]==b'glTF' and hashlib.sha256(raw).hexdigest()==st['gltf_extras']['raw_glb_sha256']
               n,k=struct.unpack_from('<II',raw,12)
               assert k==0x4e4f534a
-              meshes=[v for v in json.loads(raw[20:20+n])['nodes'] if 'mesh' in v]
+              data=json.loads(raw[20:20+n])
+              meshes=[v for v in data['nodes'] if 'mesh' in v]
+              assert st['gltf_extras']['canon_finish']=='CANON_FINISH'
+              assert st['gltf_extras']['exterior_pbr_meshes']>30
+              assert st['gltf_extras']['exterior_pbr_variants']>=15
+              assert all('pbrMetallicRoughness' in mat for mat in data['materials'] if mat.get('name','').startswith('CANON_FINISH/'))
+              assigned=[v for v in meshes if v['extras'].get('finish_status')=='CANON_FINISH']
+              assert len(assigned)==st['gltf_extras']['exterior_pbr_meshes']
+              assert all(data['meshes'][v['mesh']]['primitives'][0]['material'] ==
+                         v['extras']['pbr_material_index'] for v in assigned)
+              glowing=[v for v in assigned if v['extras'].get('thermal_emissive_state')]
+              if mode=='stowed':assert not glowing
+              if mode=='metric_hard':
+                  assert glowing and all('strake_' in v['name'] for v in glowing)
+              if mode=='torch':
+                  assert any('hotfin_' in v['name'] and 'HOTFIN_1750K' in
+                             v['extras']['thermal_emissive_state'] for v in glowing)
+                  assert any('strake_' in v['name'] and 'STRAKE_1300K' in
+                             v['extras']['thermal_emissive_state'] for v in glowing)
               assert len(meshes)==st['part_count']
               assert all(all(f in v['extras'] and v['extras'][f] is not None
                              for f in ('zone','deck','material','print_group','mass'))
@@ -162,7 +200,7 @@ jobs:
                      wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_report.json \
                      wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_F3_before_after.png
           test "$(git ls-files --cached 'wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_*.glb' | wc -l)" -eq 6
-          git commit -m 'class:engineering: F3 detailed BReps six-state D9/containment and before-after render'
+          git commit -m 'class:engineering: v2.5.7 approved etch/PBR six-state D9/containment and F3'
           git restore --worktree -- .
           git fetch origin "${{ github.head_ref }}"
           git rebase "origin/${{ github.head_ref }}"

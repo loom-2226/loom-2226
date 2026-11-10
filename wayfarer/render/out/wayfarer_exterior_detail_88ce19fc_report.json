@@ -1,6 +1,6 @@
 {
   "status": "F3_EXTERIOR_DETAIL_SIX_STATE_D9_CONTAINMENT_PASS",
-  "canon_tag": "canon-v2.5.6",
+  "canon_tag": "canon-v2.5.7",
   "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
   "source_dry_t": 868.1922552640087,
   "ECON_dv_km_s": 707.845,
@@ -63,8 +63,36 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 498,
           "all_scene_nodes_with_extras": 538,
-          "raw_glb_sha256": "4804d26aee13c49d9cedff2340e2abfb1cca4dae5248da2140e2c5c8d68ba038",
-          "bytes": 8843160
+          "raw_glb_sha256": "8c7077c80f455cffa9f28f7fafb3997c129a46d2e0b8c9b7085ea3048dccb06d",
+          "bytes": 10470664,
+          "canon_finish": "CANON_FINISH",
+          "exterior_pbr_meshes": 351,
+          "exterior_pbr_variants": 20,
+          "thermal_emissive_meshes": 0,
+          "hot_fin_1300K_preview_removed": true,
+          "thermal_source_no_credit": true,
+          "by_finish_role": {
+            "aoi_optogel": 1,
+            "bow_strata": 1,
+            "crown_outer_ceramic": 44,
+            "crown_pressure_ceramic": 2,
+            "crown_titanium": 2,
+            "external_fixtures": 81,
+            "hotfin_cold": 8,
+            "magnetic_nozzle_bronze": 3,
+            "midship_skin_bay_doors": 3,
+            "radiator_strakes": 4,
+            "rcs_housings_bells": 8,
+            "sensors_optics": 15,
+            "service_band_aft_thrust_cone": 3,
+            "shadow_shield": 1,
+            "shuttle_belly_tps": 4,
+            "shuttle_main_hull": 22,
+            "side_glazing": 130,
+            "strata_gores_shutters": 16,
+            "tank_shell": 2,
+            "torch_reactor": 1
+          }
         },
         "semantic_hierarchy": {
           "meshes": 498,
@@ -100,8 +128,36 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 498,
           "all_scene_nodes_with_extras": 538,
-          "raw_glb_sha256": "0cf82f6665b5a44fc7d367e12650457b7ae4a1dd96365697e1a9339e30685d91",
-          "bytes": 9750708
+          "raw_glb_sha256": "784019a61fb9bd4f79dff4116cde1ed09a8fdd3669f7b98d9792bd11e6b55c67",
+          "bytes": 11377784,
+          "canon_finish": "CANON_FINISH",
+          "exterior_pbr_meshes": 351,
+          "exterior_pbr_variants": 20,
+          "thermal_emissive_meshes": 0,
+          "hot_fin_1300K_preview_removed": true,
+          "thermal_source_no_credit": true,
+          "by_finish_role": {
+            "aoi_optogel": 1,
+            "bow_strata": 1,
+            "crown_outer_ceramic": 44,
+            "crown_pressure_ceramic": 2,
+            "crown_titanium": 2,
+            "external_fixtures": 81,
+            "hotfin_cold": 8,
+            "magnetic_nozzle_bronze": 3,
+            "midship_skin_bay_doors": 3,
+            "radiator_strakes": 4,
+            "rcs_housings_bells": 8,
+            "sensors_optics": 15,
+            "service_band_aft_thrust_cone": 3,
+            "shadow_shield": 1,
+            "shuttle_belly_tps": 4,
+            "shuttle_main_hull": 22,
+            "side_glazing": 130,
+            "strata_gores_shutters": 16,
+            "tank_shell": 2,
+            "torch_reactor": 1
+          }
         },
         "semantic_hierarchy": {
           "meshes": 498,
@@ -139,8 +195,36 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 502,
           "all_scene_nodes_with_extras": 542,
-          "raw_glb_sha256": "46e715f2e145df4509dc86303f59c53d6e719422f9d8b223eb81ef337cc03b10",
-          "bytes": 8865264
+          "raw_glb_sha256": "9c06588a2dd51ee41125a17e05663dff4e70a47e6b8536547dacc2fefe5af880",
+          "bytes": 10493808,
+          "canon_finish": "CANON_FINISH",
+          "exterior_pbr_meshes": 355,
+          "exterior_pbr_variants": 20,
+          "thermal_emissive_meshes": 8,
+          "hot_fin_1300K_preview_removed": true,
+          "thermal_source_no_credit": true,
+          "by_finish_role": {
+            "aoi_optogel": 1,
+            "bow_strata": 1,
+            "crown_outer_ceramic": 44,
+            "crown_pressure_ceramic": 2,
+            "crown_titanium": 2,
+            "external_fixtures": 81,
+            "hotfin_cold": 8,
+            "magnetic_nozzle_bronze": 3,
+            "midship_skin_bay_doors": 3,
+            "radiator_strakes": 8,
+            "rcs_housings_bells": 8,
+            "sensors_optics": 15,
+            "service_band_aft_thrust_cone": 3,
+            "shadow_shield": 1,
+            "shuttle_belly_tps": 4,
+            "shuttle_main_hull": 22,
+            "side_glazing": 130,
+            "strata_gores_shutters": 16,
+            "tank_shell": 2,
+            "torch_reactor": 1
+          }
         },
         "semantic_hierarchy": {
           "meshes": 502,
@@ -176,8 +260,36 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 502,
           "all_scene_nodes_with_extras": 542,
-          "raw_glb_sha256": "c9c70f48fe9aa7aeb7ca0cc5d6c5405d2bb4821718eaed4e61dba8c1710a7b9b",
-          "bytes": 9772856
+          "raw_glb_sha256": "b143120447468f3e8b4dfc724e2a3698a6a5e77437ff62d999038654b500c786",
+          "bytes": 11400972,
+          "canon_finish": "CANON_FINISH",
+          "exterior_pbr_meshes": 355,
+          "exterior_pbr_variants": 20,
+          "thermal_emissive_meshes": 8,
+          "hot_fin_1300K_preview_removed": true,
+          "thermal_source_no_credit": true,
+          "by_finish_role": {
+            "aoi_optogel": 1,
+            "bow_strata": 1,
+            "crown_outer_ceramic": 44,
+            "crown_pressure_ceramic": 2,
+            "crown_titanium": 2,
+            "external_fixtures": 81,
+            "hotfin_cold": 8,
+            "magnetic_nozzle_bronze": 3,
+            "midship_skin_bay_doors": 3,
+            "radiator_strakes": 8,
+            "rcs_housings_bells": 8,
+            "sensors_optics": 15,
+            "service_band_aft_thrust_cone": 3,
+            "shadow_shield": 1,
+            "shuttle_belly_tps": 4,
+            "shuttle_main_hull": 22,
+            "side_glazing": 130,
+            "strata_gores_shutters": 16,
+            "tank_shell": 2,
+            "torch_reactor": 1
+          }
         },
         "semantic_hierarchy": {
           "meshes": 502,
@@ -215,8 +327,37 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 558,
           "all_scene_nodes_with_extras": 598,
-          "raw_glb_sha256": "16aa9146c8b2fbeb4fa18b6012042f98d20c5ee268cc60e2df95abbd5b816fef",
-          "bytes": 8935180
+          "raw_glb_sha256": "69265a0e2ff2d8772c8fc338d0f1c94ad6bf9836a595a0481eaa1b59266f035a",
+          "bytes": 10579300,
+          "canon_finish": "CANON_FINISH",
+          "exterior_pbr_meshes": 411,
+          "exterior_pbr_variants": 34,
+          "thermal_emissive_meshes": 68,
+          "hot_fin_1300K_preview_removed": true,
+          "thermal_source_no_credit": true,
+          "by_finish_role": {
+            "aoi_optogel": 1,
+            "bow_strata": 1,
+            "crown_outer_ceramic": 44,
+            "crown_pressure_ceramic": 2,
+            "crown_titanium": 2,
+            "external_fixtures": 81,
+            "hotfin_cold": 4,
+            "hotfin_torch_1750K": 56,
+            "magnetic_nozzle_bronze": 3,
+            "midship_skin_bay_doors": 3,
+            "radiator_strakes": 12,
+            "rcs_housings_bells": 8,
+            "sensors_optics": 15,
+            "service_band_aft_thrust_cone": 3,
+            "shadow_shield": 1,
+            "shuttle_belly_tps": 4,
+            "shuttle_main_hull": 22,
+            "side_glazing": 130,
+            "strata_gores_shutters": 16,
+            "tank_shell": 2,
+            "torch_reactor": 1
+          }
         },
         "semantic_hierarchy": {
           "meshes": 558,
@@ -252,8 +393,37 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 558,
           "all_scene_nodes_with_extras": 598,
-          "raw_glb_sha256": "bb7844b3718c4ef9622cd9cef0e71c69317660de7b8cd65ee5811f17c9c7f7e0",
-          "bytes": 9842772
+          "raw_glb_sha256": "17f703a6728a452c081ca91905507ebbec17ad69ec39e18c015e899f70cd4f69",
+          "bytes": 11486468,
+          "canon_finish": "CANON_FINISH",
+          "exterior_pbr_meshes": 411,
+          "exterior_pbr_variants": 34,
+          "thermal_emissive_meshes": 68,
+          "hot_fin_1300K_preview_removed": true,
+          "thermal_source_no_credit": true,
+          "by_finish_role": {
+            "aoi_optogel": 1,
+            "bow_strata": 1,
+            "crown_outer_ceramic": 44,
+            "crown_pressure_ceramic": 2,
+            "crown_titanium": 2,
+            "external_fixtures": 81,
+            "hotfin_cold": 4,
+            "hotfin_torch_1750K": 56,
+            "magnetic_nozzle_bronze": 3,
+            "midship_skin_bay_doors": 3,
+            "radiator_strakes": 12,
+            "rcs_housings_bells": 8,
+            "sensors_optics": 15,
+            "service_band_aft_thrust_cone": 3,
+            "shadow_shield": 1,
+            "shuttle_belly_tps": 4,
+            "shuttle_main_hull": 22,
+            "side_glazing": 130,
+            "strata_gores_shutters": 16,
+            "tank_shell": 2,
+            "torch_reactor": 1
+          }
         },
         "semantic_hierarchy": {
           "meshes": 558,
@@ -278,19 +448,235 @@
     "style": "retro-industrial; kT F1 approved proud RCS bells + source-position lasers + engraved remainder",
     "RCS_pitch_yaw_authority_quick_screen": {
       "aft_station_m": 34.15,
-      "fore_station_m": 3,
+      "fore_station_m": 3.0,
       "nominal_pitch_yaw_Nm": 2336250.0,
-      "one_cluster_out_worst_Nm": 759555.1729593558,
+      "one_cluster_out_worst_Nm": 1557500.0,
       "nominal_required_Nm": 1000000,
       "degraded_required_Nm": 750000,
       "nominal_ratio": 2.33625,
-      "degraded_ratio": 1.0127402306124744,
+      "degraded_ratio": 2.0766666666666667,
       "source_states_evaluated": 7,
-      "method": "quick 3x25kN radial-thruster x longitudinal lever-arm; hardware/GNC/plume qualification OPEN"
+      "radial_bells_per_cluster": 1,
+      "tangential_bells_per_cluster": 2,
+      "axial_bells_per_cluster": 1,
+      "axial_cant_deg": 10,
+      "source_direction_screen": true,
+      "zero_net_lateral_force": true,
+      "axial_bell_ignored_in_torque_screen": true,
+      "bell_direction_cases": {
+        "pitch_minus": {
+          "torque_Nm": 2336250.0,
+          "fore_bells": 3,
+          "aft_bells": 3
+        },
+        "pitch_plus": {
+          "torque_Nm": 2336250.0,
+          "fore_bells": 3,
+          "aft_bells": 3
+        },
+        "yaw_minus": {
+          "torque_Nm": 2336250.0,
+          "fore_bells": 3,
+          "aft_bells": 3
+        },
+        "yaw_plus": {
+          "torque_Nm": 2336250.0,
+          "fore_bells": 3,
+          "aft_bells": 3
+        }
+      },
+      "one_cluster_out_cases": {
+        "F+Y": {
+          "pitch_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          },
+          "pitch_plus": {
+            "torque_Nm": 2336250.0,
+            "fore_bells": 3,
+            "aft_bells": 3
+          },
+          "yaw_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          },
+          "yaw_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          }
+        },
+        "F+Z": {
+          "pitch_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          },
+          "pitch_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          },
+          "yaw_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          },
+          "yaw_plus": {
+            "torque_Nm": 2336250.0,
+            "fore_bells": 3,
+            "aft_bells": 3
+          }
+        },
+        "F-Y": {
+          "pitch_minus": {
+            "torque_Nm": 2336250.0,
+            "fore_bells": 3,
+            "aft_bells": 3
+          },
+          "pitch_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          },
+          "yaw_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          },
+          "yaw_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          }
+        },
+        "F-Z": {
+          "pitch_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          },
+          "pitch_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          },
+          "yaw_minus": {
+            "torque_Nm": 2336250.0,
+            "fore_bells": 3,
+            "aft_bells": 3
+          },
+          "yaw_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          }
+        },
+        "A+Y": {
+          "pitch_minus": {
+            "torque_Nm": 2336250.0,
+            "fore_bells": 3,
+            "aft_bells": 3
+          },
+          "pitch_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          },
+          "yaw_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          },
+          "yaw_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          }
+        },
+        "A+Z": {
+          "pitch_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          },
+          "pitch_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          },
+          "yaw_minus": {
+            "torque_Nm": 2336250.0,
+            "fore_bells": 3,
+            "aft_bells": 3
+          },
+          "yaw_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          }
+        },
+        "A-Y": {
+          "pitch_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          },
+          "pitch_plus": {
+            "torque_Nm": 2336250.0,
+            "fore_bells": 3,
+            "aft_bells": 3
+          },
+          "yaw_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          },
+          "yaw_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          }
+        },
+        "A-Z": {
+          "pitch_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          },
+          "pitch_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          },
+          "yaw_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          },
+          "yaw_plus": {
+            "torque_Nm": 2336250.0,
+            "fore_bells": 3,
+            "aft_bells": 3
+          }
+        }
+      },
+      "prior_v256_screen_did_not_use_source_directions": true,
+      "method": "3 independently directed 25kN transverse bells per cluster; balanced fore/aft torque couple; no hardware/GNC/plume qualification"
     },
     "RCS_F1_approved": true,
     "laser_terminals_source_station_m": 33.3,
     "shuttle_spine_groove": true,
+    "hull_surface_seam_scheme": "hull_seam_scheme_2026_11_09",
+    "hull_seam_width_m": 0.05,
+    "visual_seam_depth_m": 0.03,
+    "thin_shell_actual_blind_mark_m": 0.006,
+    "PBR_finish_gate": "CANON_FINISH kT 2026-11-11; material JSON in six GLBs",
+    "thermal_trade_dark_midship_over_water_tanks": "Prefer low-visible-absorptance graphite; no new thermal credit",
+    "strake_1300K_glow_state": "strakes Metric 2m and Torch 4m",
+    "hotfin_1750K_glow_state": "hot fins Torch deployed only; root brightest",
     "print_minimum_modelled_feature_m": 0.1,
     "smaller_marks": "ENGRAVINGS not raised printable solids",
     "no_hull_protrusion": false,
@@ -298,7 +684,7 @@
     "no_performance_claims": true,
     "no_pressure_vessel_cuts": true,
     "no_new_source_mass": true,
-    "source_canon": "canon-v2.5.3",
+    "source_canon": "canon-v2.5.6",
     "metadata_only_fixes": {
       "docking_camera_material": "sensor",
       "hold_door_display_share_t": 1.0,
@@ -334,6 +720,240 @@
           "dry:skin_aft": 0.022627534619303447,
           "dry:frame_34": 0.07318189174121592,
           "dry:manifold": 0.07387675733718879
+        },
+        "hull_and_torch_surface_etch": {
+          "mode": "stowed",
+          "approved_seam_scheme": "hull_seam_scheme_2026_11_09",
+          "ring_width_m": 0.05,
+          "requested_visual_depth_m": 0.03,
+          "thin_wall_actual_OCC_depth_m": 0.006,
+          "legacy_22p5_degree_skin_grid_removed": true,
+          "top_quarter_preserves_bay_door_edges": true,
+          "no_pressure_boundary_perforation": true,
+          "source_mass_rebooking_t": 0,
+          "parts": {
+            "dry:armor": {
+              "source_allocation_id": "armor",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.03,
+              "thin_shell_nonperforation_guard": false,
+              "ring_station_m": [
+                2.35,
+                3,
+                5.6,
+                8.2,
+                10.8,
+                14
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 13,
+              "display_only_removed_m3": 0.30080111704144485
+            },
+            "dry:skin_service": {
+              "source_allocation_id": "skin_service",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                14,
+                16,
+                18
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 2,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 18,
+              "display_only_removed_m3": 0.02533316447376066
+            },
+            "dry:skin_midship": {
+              "source_allocation_id": "skin_midship",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                18,
+                20,
+                22,
+                24,
+                26,
+                28,
+                30,
+                32
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 15,
+              "display_only_removed_m3": 0.081113512769317
+            },
+            "dry:skin_aft": {
+              "source_allocation_id": "skin_aft",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                34
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 2,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 16,
+              "display_only_removed_m3": 0.012091893795825648
+            },
+            "dry:tank_shell_out": {
+              "source_allocation_id": "tank_shell_out",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                18,
+                20,
+                22,
+                24,
+                26,
+                28,
+                30
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 14,
+              "display_only_removed_m3": 0.07007368706563621
+            },
+            "dry:tank_shell_in": {
+              "source_allocation_id": "tank_shell_in",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                18,
+                20,
+                22,
+                24,
+                26,
+                28,
+                30
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 12,
+              "display_only_removed_m3": 0.03684246634074295
+            },
+            "dry:shield": {
+              "role": "shield",
+              "ring_band_station_m": [
+                34.7,
+                38.9
+              ],
+              "segment_seams_azimuth_deg": [
+                0,
+                90,
+                180,
+                270
+              ],
+              "access_panel_outlines": 0,
+              "requested_groove_width_m": 0.05,
+              "visual_only": true,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 5,
+              "display_only_removed_m3": 0.03628532394436945
+            },
+            "dry:reactor": {
+              "role": "reactor",
+              "ring_band_station_m": [
+                39.7,
+                43.2,
+                45.9
+              ],
+              "segment_seams_azimuth_deg": [],
+              "access_panel_outlines": 4,
+              "requested_groove_width_m": 0.05,
+              "visual_only": true,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 13,
+              "display_only_removed_m3": 0.06574219573099072
+            },
+            "dry:nozzle": {
+              "role": "nozzle",
+              "ring_band_station_m": [
+                47.2,
+                48.5,
+                49.8,
+                51.1,
+                52.4
+              ],
+              "segment_seams_azimuth_deg": [],
+              "access_panel_outlines": 0,
+              "requested_groove_width_m": 0.05,
+              "visual_only": true,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 5,
+              "display_only_removed_m3": 0.12029371235208686
+            }
+          }
         },
         "source_envelope_violations": 0,
         "parts": {
@@ -845,15 +1465,42 @@
             "source_allocation_id": "rcs_A+Y",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999989,
-            "edited_volume_m3": 0.15488092544568696,
+            "edited_volume_m3": 0.138154543623943,
             "engraved_m3": 0,
-            "external_added_m3": 0.15488092544568696,
+            "external_added_m3": 0.138154543623943,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  -1.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -866,15 +1513,42 @@
             "source_allocation_id": "rcs_A+Z",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999987,
-            "edited_volume_m3": 0.15488092544568696,
+            "edited_volume_m3": 0.13815454362394305,
             "engraved_m3": 0,
-            "external_added_m3": 0.15488092544568696,
+            "external_added_m3": 0.13815454362394305,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -887,15 +1561,42 @@
             "source_allocation_id": "rcs_A-Y",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999988,
-            "edited_volume_m3": 0.15488092544568696,
+            "edited_volume_m3": 0.13815454362394303,
             "engraved_m3": 0,
-            "external_added_m3": 0.15488092544568696,
+            "external_added_m3": 0.13815454362394303,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -908,15 +1609,42 @@
             "source_allocation_id": "rcs_A-Z",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999924,
-            "edited_volume_m3": 0.15488092544568696,
+            "edited_volume_m3": 0.13815454362394305,
             "engraved_m3": 0,
-            "external_added_m3": 0.15488092544568696,
+            "external_added_m3": 0.13815454362394305,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -929,15 +1657,42 @@
             "source_allocation_id": "rcs_F+Y",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999999,
-            "edited_volume_m3": 0.2682601820970428,
+            "edited_volume_m3": 0.25153295709218493,
             "engraved_m3": 0,
-            "external_added_m3": 0.04733671614984823,
+            "external_added_m3": 0.0443364485414048,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  -1.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -950,15 +1705,42 @@
             "source_allocation_id": "rcs_F+Z",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999998,
-            "edited_volume_m3": 0.2682601820970428,
+            "edited_volume_m3": 0.25153295709218493,
             "engraved_m3": 0,
-            "external_added_m3": 0.04733671614984822,
+            "external_added_m3": 0.0443364485414048,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -971,15 +1753,42 @@
             "source_allocation_id": "rcs_F-Y",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.511999999999936,
-            "edited_volume_m3": 0.2682601820970427,
+            "edited_volume_m3": 0.25153295709218493,
             "engraved_m3": 0,
-            "external_added_m3": 0.04733671614987703,
+            "external_added_m3": 0.04433644854142841,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -992,15 +1801,42 @@
             "source_allocation_id": "rcs_F-Z",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999933,
-            "edited_volume_m3": 0.2682601820970427,
+            "edited_volume_m3": 0.25153295709218493,
             "engraved_m3": 0,
-            "external_added_m3": 0.04733671614985315,
+            "external_added_m3": 0.04433644854140922,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -1038,6 +1874,240 @@
           "dry:frame_34": 0.07318189174121592,
           "dry:manifold": 0.07387675733718879
         },
+        "hull_and_torch_surface_etch": {
+          "mode": "metric_hard",
+          "approved_seam_scheme": "hull_seam_scheme_2026_11_09",
+          "ring_width_m": 0.05,
+          "requested_visual_depth_m": 0.03,
+          "thin_wall_actual_OCC_depth_m": 0.006,
+          "legacy_22p5_degree_skin_grid_removed": true,
+          "top_quarter_preserves_bay_door_edges": true,
+          "no_pressure_boundary_perforation": true,
+          "source_mass_rebooking_t": 0,
+          "parts": {
+            "dry:armor": {
+              "source_allocation_id": "armor",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.03,
+              "thin_shell_nonperforation_guard": false,
+              "ring_station_m": [
+                2.35,
+                3,
+                5.6,
+                8.2,
+                10.8,
+                14
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 13,
+              "display_only_removed_m3": 0.30080111704144485
+            },
+            "dry:skin_service": {
+              "source_allocation_id": "skin_service",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                14,
+                16,
+                18
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 2,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 18,
+              "display_only_removed_m3": 0.02533316447376066
+            },
+            "dry:skin_midship": {
+              "source_allocation_id": "skin_midship",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                18,
+                20,
+                22,
+                24,
+                26,
+                28,
+                30,
+                32
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 15,
+              "display_only_removed_m3": 0.081113512769317
+            },
+            "dry:skin_aft": {
+              "source_allocation_id": "skin_aft",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                34
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 2,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 16,
+              "display_only_removed_m3": 0.012091893795825648
+            },
+            "dry:tank_shell_out": {
+              "source_allocation_id": "tank_shell_out",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                18,
+                20,
+                22,
+                24,
+                26,
+                28,
+                30
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 14,
+              "display_only_removed_m3": 0.07007368706563621
+            },
+            "dry:tank_shell_in": {
+              "source_allocation_id": "tank_shell_in",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                18,
+                20,
+                22,
+                24,
+                26,
+                28,
+                30
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 12,
+              "display_only_removed_m3": 0.03684246634074295
+            },
+            "dry:shield": {
+              "role": "shield",
+              "ring_band_station_m": [
+                34.7,
+                38.9
+              ],
+              "segment_seams_azimuth_deg": [
+                0,
+                90,
+                180,
+                270
+              ],
+              "access_panel_outlines": 0,
+              "requested_groove_width_m": 0.05,
+              "visual_only": true,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 5,
+              "display_only_removed_m3": 0.03628532394436945
+            },
+            "dry:reactor": {
+              "role": "reactor",
+              "ring_band_station_m": [
+                39.7,
+                43.2,
+                45.9
+              ],
+              "segment_seams_azimuth_deg": [],
+              "access_panel_outlines": 4,
+              "requested_groove_width_m": 0.05,
+              "visual_only": true,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 13,
+              "display_only_removed_m3": 0.06574219573099072
+            },
+            "dry:nozzle": {
+              "role": "nozzle",
+              "ring_band_station_m": [
+                47.2,
+                48.5,
+                49.8,
+                51.1,
+                52.4
+              ],
+              "segment_seams_azimuth_deg": [],
+              "access_panel_outlines": 0,
+              "requested_groove_width_m": 0.05,
+              "visual_only": true,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 5,
+              "display_only_removed_m3": 0.12029371235208686
+            }
+          }
+        },
         "source_envelope_violations": 0,
         "parts": {
           "dry:bow_sensors": {
@@ -1548,15 +2618,42 @@
             "source_allocation_id": "rcs_A+Y",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999989,
-            "edited_volume_m3": 0.15488092544568696,
+            "edited_volume_m3": 0.138154543623943,
             "engraved_m3": 0,
-            "external_added_m3": 0.15488092544568696,
+            "external_added_m3": 0.138154543623943,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  -1.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -1569,15 +2666,42 @@
             "source_allocation_id": "rcs_A+Z",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999987,
-            "edited_volume_m3": 0.15488092544568696,
+            "edited_volume_m3": 0.13815454362394305,
             "engraved_m3": 0,
-            "external_added_m3": 0.15488092544568696,
+            "external_added_m3": 0.13815454362394305,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -1590,15 +2714,42 @@
             "source_allocation_id": "rcs_A-Y",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999988,
-            "edited_volume_m3": 0.15488092544568696,
+            "edited_volume_m3": 0.13815454362394303,
             "engraved_m3": 0,
-            "external_added_m3": 0.15488092544568696,
+            "external_added_m3": 0.13815454362394303,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -1611,15 +2762,42 @@
             "source_allocation_id": "rcs_A-Z",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999924,
-            "edited_volume_m3": 0.15488092544568696,
+            "edited_volume_m3": 0.13815454362394305,
             "engraved_m3": 0,
-            "external_added_m3": 0.15488092544568696,
+            "external_added_m3": 0.13815454362394305,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -1632,15 +2810,42 @@
             "source_allocation_id": "rcs_F+Y",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999999,
-            "edited_volume_m3": 0.2682601820970428,
+            "edited_volume_m3": 0.25153295709218493,
             "engraved_m3": 0,
-            "external_added_m3": 0.04733671614984823,
+            "external_added_m3": 0.0443364485414048,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  -1.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -1653,15 +2858,42 @@
             "source_allocation_id": "rcs_F+Z",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999998,
-            "edited_volume_m3": 0.2682601820970428,
+            "edited_volume_m3": 0.25153295709218493,
             "engraved_m3": 0,
-            "external_added_m3": 0.04733671614984822,
+            "external_added_m3": 0.0443364485414048,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -1674,15 +2906,42 @@
             "source_allocation_id": "rcs_F-Y",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.511999999999936,
-            "edited_volume_m3": 0.2682601820970427,
+            "edited_volume_m3": 0.25153295709218493,
             "engraved_m3": 0,
-            "external_added_m3": 0.04733671614987703,
+            "external_added_m3": 0.04433644854142841,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -1695,15 +2954,42 @@
             "source_allocation_id": "rcs_F-Z",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999933,
-            "edited_volume_m3": 0.2682601820970427,
+            "edited_volume_m3": 0.25153295709218493,
             "engraved_m3": 0,
-            "external_added_m3": 0.04733671614985315,
+            "external_added_m3": 0.04433644854140922,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -1739,6 +3025,240 @@
           "dry:skin_aft": 0.022627534619303447,
           "dry:frame_34": 0.07318189174121592,
           "dry:manifold": 0.07387675733718879
+        },
+        "hull_and_torch_surface_etch": {
+          "mode": "torch",
+          "approved_seam_scheme": "hull_seam_scheme_2026_11_09",
+          "ring_width_m": 0.05,
+          "requested_visual_depth_m": 0.03,
+          "thin_wall_actual_OCC_depth_m": 0.006,
+          "legacy_22p5_degree_skin_grid_removed": true,
+          "top_quarter_preserves_bay_door_edges": true,
+          "no_pressure_boundary_perforation": true,
+          "source_mass_rebooking_t": 0,
+          "parts": {
+            "dry:armor": {
+              "source_allocation_id": "armor",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.03,
+              "thin_shell_nonperforation_guard": false,
+              "ring_station_m": [
+                2.35,
+                3,
+                5.6,
+                8.2,
+                10.8,
+                14
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 13,
+              "display_only_removed_m3": 0.30080111704144485
+            },
+            "dry:skin_service": {
+              "source_allocation_id": "skin_service",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                14,
+                16,
+                18
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 2,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 18,
+              "display_only_removed_m3": 0.02533316447376066
+            },
+            "dry:skin_midship": {
+              "source_allocation_id": "skin_midship",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                18,
+                20,
+                22,
+                24,
+                26,
+                28,
+                30,
+                32
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 15,
+              "display_only_removed_m3": 0.081113512769317
+            },
+            "dry:skin_aft": {
+              "source_allocation_id": "skin_aft",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                34
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 2,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 16,
+              "display_only_removed_m3": 0.012091893795825648
+            },
+            "dry:tank_shell_out": {
+              "source_allocation_id": "tank_shell_out",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                18,
+                20,
+                22,
+                24,
+                26,
+                28,
+                30
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 14,
+              "display_only_removed_m3": 0.07007368706563621
+            },
+            "dry:tank_shell_in": {
+              "source_allocation_id": "tank_shell_in",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                18,
+                20,
+                22,
+                24,
+                26,
+                28,
+                30
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 12,
+              "display_only_removed_m3": 0.03684246634074295
+            },
+            "dry:shield": {
+              "role": "shield",
+              "ring_band_station_m": [
+                34.7,
+                38.9
+              ],
+              "segment_seams_azimuth_deg": [
+                0,
+                90,
+                180,
+                270
+              ],
+              "access_panel_outlines": 0,
+              "requested_groove_width_m": 0.05,
+              "visual_only": true,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 5,
+              "display_only_removed_m3": 0.03628532394436945
+            },
+            "dry:reactor": {
+              "role": "reactor",
+              "ring_band_station_m": [
+                39.7,
+                43.2,
+                45.9
+              ],
+              "segment_seams_azimuth_deg": [],
+              "access_panel_outlines": 4,
+              "requested_groove_width_m": 0.05,
+              "visual_only": true,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 13,
+              "display_only_removed_m3": 0.06574219573099072
+            },
+            "dry:nozzle": {
+              "role": "nozzle",
+              "ring_band_station_m": [
+                47.2,
+                48.5,
+                49.8,
+                51.1,
+                52.4
+              ],
+              "segment_seams_azimuth_deg": [],
+              "access_panel_outlines": 0,
+              "requested_groove_width_m": 0.05,
+              "visual_only": true,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 5,
+              "display_only_removed_m3": 0.12029371235208686
+            }
+          }
         },
         "source_envelope_violations": 0,
         "parts": {
@@ -2158,15 +3678,42 @@
             "source_allocation_id": "rcs_A+Y",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999989,
-            "edited_volume_m3": 0.15488092544568696,
+            "edited_volume_m3": 0.138154543623943,
             "engraved_m3": 0,
-            "external_added_m3": 0.15488092544568696,
+            "external_added_m3": 0.138154543623943,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  -1.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -2179,15 +3726,42 @@
             "source_allocation_id": "rcs_A+Z",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999987,
-            "edited_volume_m3": 0.15488092544568696,
+            "edited_volume_m3": 0.13815454362394305,
             "engraved_m3": 0,
-            "external_added_m3": 0.15488092544568696,
+            "external_added_m3": 0.13815454362394305,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -2200,15 +3774,42 @@
             "source_allocation_id": "rcs_A-Y",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999988,
-            "edited_volume_m3": 0.15488092544568696,
+            "edited_volume_m3": 0.13815454362394303,
             "engraved_m3": 0,
-            "external_added_m3": 0.15488092544568696,
+            "external_added_m3": 0.13815454362394303,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -2221,15 +3822,42 @@
             "source_allocation_id": "rcs_A-Z",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999924,
-            "edited_volume_m3": 0.15488092544568696,
+            "edited_volume_m3": 0.13815454362394305,
             "engraved_m3": 0,
-            "external_added_m3": 0.15488092544568696,
+            "external_added_m3": 0.13815454362394305,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -2242,15 +3870,42 @@
             "source_allocation_id": "rcs_F+Y",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999999,
-            "edited_volume_m3": 0.2682601820970428,
+            "edited_volume_m3": 0.25153295709218493,
             "engraved_m3": 0,
-            "external_added_m3": 0.04733671614984823,
+            "external_added_m3": 0.0443364485414048,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  -1.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -2263,15 +3918,42 @@
             "source_allocation_id": "rcs_F+Z",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999998,
-            "edited_volume_m3": 0.2682601820970428,
+            "edited_volume_m3": 0.25153295709218493,
             "engraved_m3": 0,
-            "external_added_m3": 0.04733671614984822,
+            "external_added_m3": 0.0443364485414048,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -2284,15 +3966,42 @@
             "source_allocation_id": "rcs_F-Y",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.511999999999936,
-            "edited_volume_m3": 0.2682601820970427,
+            "edited_volume_m3": 0.25153295709218493,
             "engraved_m3": 0,
-            "external_added_m3": 0.04733671614987703,
+            "external_added_m3": 0.04433644854142841,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,
@@ -2305,15 +4014,42 @@
             "source_allocation_id": "rcs_F-Z",
             "booked_mass_t": 2.047407462568426,
             "source_volume_m3": 0.5119999999999933,
-            "edited_volume_m3": 0.2682601820970427,
+            "edited_volume_m3": 0.25153295709218493,
             "engraved_m3": 0,
-            "external_added_m3": 0.04733671614985315,
+            "external_added_m3": 0.04433644854140922,
             "same_source_envelope": false,
             "F1_approved_housing_and_nozzles": true,
             "bell_count": 4,
-            "radial_bells": 3,
+            "radial_bells": 1,
+            "tangential_bells": 2,
             "axial_bells": 1,
             "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              }
+            ],
             "bell_diameter_m": 0.3,
             "print_bell_diameter_1_100_mm": 3.0,
             "source_mass_rebooking_t": 0,

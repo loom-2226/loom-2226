@@ -14,6 +14,7 @@ from collections import Counter
 from build123d import Axis,Plane,Solid
 from packing_phase1b import source_brep_pilot as P
 from shuttle import shuttle_v1_fullship_integrate_20261110 as A
+import hull_etch_finish_20261111 as E
 
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/"render/out"
@@ -153,36 +154,98 @@ def panel_pleats(source,root=False):
 RCS_AFT_X=34.15
 RCS_BELL_DIAMETER_M=.30   # 3mm at 1:100, above kT's 2mm floor
 
+def source_bell_directions(azimuth_deg):
+    """kT's source firing directions: one radial, two opposite tangential.
+    The fourth axial bell retains the existing 10-degree outward cant.
+    Directions are bell outward axes; torques use consistently signed
+    equivalent thrust axes. Global sign does not change two-sided capacity.
+    """
+    a=math.radians(azimuth_deg)
+    radial=(0.,round(math.cos(a),12),round(math.sin(a),12))
+    tangent=(0.,-radial[2],radial[1])
+    return [("RADIAL_OUT",radial),("TANGENT_PLUS",tangent),
+            ("TANGENT_MINUS",(0.,-tangent[1],-tangent[2]))]
+
+
 def rcs_authority_quick_screen():
-    """Physical 3x25kN radial thrust x longitudinal arm, not GNC requalification."""
+    """Direction-based, zero-lateral-force paired-bell torque lower bound.
+
+    The v2.5.6 scalar 3 x 25kN/cluster arm calculation did NOT represent
+    the three distinct bell directions. This counts each real directional
+    bell independently across both fore and aft rings, and demands
+    balanced, oppositely directed fore/aft firing. Excludes the axial
+    bell and gives no hardware/GNC/plume qualification.
+    """
     g=json.loads((ROOT/"results/out/wayfarer_v05_geometry.json").read_text())
     inp=json.loads((ROOT/"config/wayfarer_v05_inputs.json").read_text())
-    rcs=inp["rcs"]
-    assert rcs["thruster_kn"]==25 and len(rcs["clusters"])==8
-    assert all(x["thrusters"]==3 for x in rcs["clusters"])
+    cfg=inp["rcs"]
+    assert cfg["thruster_kn"]==25 and len(cfg["clusters"])==8
+    assert all(c["thrusters"]==3 and c["axial"]["cant_out_deg"]==10
+               for c in cfg["clusters"])
     assert 34.0<=RCS_AFT_X<34.3
-    force=3*rcs["thruster_kn"]*1000
-    com=[float(s["cg_m"][0]) for s in g["states"].values()]
-    nominal=force*(RCS_AFT_X-3)
-    worst=force*(RCS_AFT_X-max(com))
-    req_nom=1_000_000
-    req_one=750_000
-    ratios=(nominal/req_nom,worst/req_one)
-    if min(ratios)<1:
-        raise RuntimeError("STOP kT: aft RCS one-cluster-out pitch/yaw authority below certified requirement "+str(ratios))
-    return dict(aft_station_m=RCS_AFT_X,fore_station_m=3,
-        nominal_pitch_yaw_Nm=nominal,one_cluster_out_worst_Nm=worst,
-        nominal_required_Nm=req_nom,degraded_required_Nm=req_one,
-        nominal_ratio=ratios[0],degraded_ratio=ratios[1],
-        source_states_evaluated=len(com),
-        method="quick 3x25kN radial-thruster x longitudinal lever-arm; hardware/GNC/plume qualification OPEN")
+    stations={}
+    for c in cfg["clusters"]:
+        cid=c["id"]
+        az=c["theta_deg"]
+        assert az in (0,90,180,270)
+        assert c["x_m"]==(3 if cid.startswith("F") else 44)
+        stations[cid]=dict(x=3. if cid.startswith("F") else RCS_AFT_X,
+                           azimuth_deg=az,
+                           bells=source_bell_directions(az))
+    assert len([x for x in stations if x.startswith("F")])==4
+    assert len([x for x in stations if x.startswith("A")])==4
+    thrust=cfg["thruster_kn"]*1000.
+    pitch_yaw_axes={"pitch":1,"yaw":2}
+    def capacity(axis,sign,failed=None):
+        fore=aft=0
+        for cid,data in stations.items():
+            if cid==failed:continue
+            for _,vec in data["bells"]:
+                component=vec[axis]
+                if data["x"]==3 and component==-sign:
+                    fore+=1
+                elif data["x"]==RCS_AFT_X and component==sign:
+                    aft+=1
+        return min(fore,aft)*thrust*(RCS_AFT_X-3),fore,aft
+    def worst(failed):
+        cases={}
+        for axis_name,index in pitch_yaw_axes.items():
+            for sign in (-1,1):
+                val,fore,aft=capacity(index,sign,failed)
+                cases[axis_name+("_minus" if sign<0 else "_plus")]=dict(
+                    torque_Nm=val,fore_bells=fore,aft_bells=aft)
+        return cases
+    nominal=worst(None)
+    degraded={k:worst(k) for k in stations}
+    nominal_min=min(x["torque_Nm"] for x in nominal.values())
+    degraded_min=min(x["torque_Nm"] for c in degraded.values()
+                     for x in c.values())
+    ratio_nom=nominal_min/1_000_000
+    ratio_out=degraded_min/750_000
+    if min(ratio_nom,ratio_out)<1:
+        raise RuntimeError("STOP kT: source-direction RCS pitch/yaw shortfall "+
+                           str((ratio_nom,ratio_out)))
+    return dict(aft_station_m=RCS_AFT_X,fore_station_m=3.,
+        nominal_pitch_yaw_Nm=nominal_min,
+        one_cluster_out_worst_Nm=degraded_min,
+        nominal_required_Nm=1_000_000,degraded_required_Nm=750_000,
+        nominal_ratio=ratio_nom,degraded_ratio=ratio_out,
+        source_states_evaluated=len(g["states"]),
+        radial_bells_per_cluster=1,tangential_bells_per_cluster=2,
+        axial_bells_per_cluster=1,axial_cant_deg=10,
+        source_direction_screen=True,zero_net_lateral_force=True,
+        axial_bell_ignored_in_torque_screen=True,
+        bell_direction_cases=nominal,
+        one_cluster_out_cases=degraded,
+        prior_v256_screen_did_not_use_source_directions=True,
+        method="3 independently directed 25kN transverse bells per cluster; balanced fore/aft torque couple; no hardware/GNC/plume qualification")
+
 
 def rcs_housing(name,old):
-    """kT F1: low partially sunk housing, three proud radial bells and a canted axial bell."""
+    """Same approved F1 housing and outer envelope; correct 3 bell axes."""
     side=name.split("rcs_",1)[1]
     aft=side.startswith("A")
-    direction=side[-2:]
-    az={"+Y":0,"+Z":90,"-Y":180,"-Z":270}[direction]
+    az={"+Y":0,"+Z":90,"-Y":180,"-Z":270}[side[-2:]]
     a=math.radians(az)
     ny,nz=math.cos(a),math.sin(a)
     ty,tz=-nz,ny
@@ -190,11 +253,18 @@ def rcs_housing(name,old):
     half_x=.14 if aft else .32
     housing=P.box(station-half_x,station+half_x,4.34,4.68,-.50,.50).rotate(Axis.X,az)
     nozzles=[]
-    for t in (-.31,0,.31):
-        origin=(station,ny*4.65+ty*t,nz*4.65+tz*t)
-        bell=Solid.make_cone(.105,RCS_BELL_DIAMETER_M/2,.31,
-            Plane(origin=origin,x_dir=(1,0,0),z_dir=(0,ny,nz)))
-        nozzles.append(bell)
+    directions=source_bell_directions(az)
+    # One outward radial bell; two opposite tangent bells are deliberately
+    # planted on the outside face so their mouths remain visible.
+    # Axial bell stays the v2.5.6 10-degree-out F1 geometry unchanged.
+    specs=[(0.,(0.,ny,nz),.31),
+           (-.10,(0.,-ty,-tz),.19),
+           (+.10,(0.,ty,tz),.19)]
+    for t,axis,length in specs:
+        origin=(station,ny*(4.65 if t==0 else 4.72)+ty*t,
+                nz*(4.65 if t==0 else 4.72)+tz*t)
+        nozzles.append(Solid.make_cone(.105,RCS_BELL_DIAMETER_M/2,length,
+            Plane(origin=origin,x_dir=(1,0,0),z_dir=axis)))
     sign=1 if aft else -1
     angle=math.radians(10)
     axial_axis=(sign*math.cos(angle),ny*math.sin(angle),nz*math.sin(angle))
@@ -203,7 +273,7 @@ def rcs_housing(name,old):
         Plane(origin=axial_base,x_dir=(0,ty,tz),z_dir=axial_axis)))
     detailed=housing.fuse(*nozzles)
     if detailed is None or not detailed.is_valid or detailed.volume<=0:
-        raise RuntimeError("invalid F1 RCS solid "+name)
+        raise RuntimeError("invalid source-direction F1 RCS solid "+name)
     detailed.label=name
     detailed.color=old.color
     spill=detailed-old
@@ -213,7 +283,10 @@ def rcs_housing(name,old):
         edited_volume_m3=float(detailed.volume),engraved_m3=0,
         external_added_m3=extra,same_source_envelope=False,
         F1_approved_housing_and_nozzles=True,
-        bell_count=4,radial_bells=3,axial_bells=1,axial_cant_deg=10,
+        bell_count=4,radial_bells=1,tangential_bells=2,
+        axial_bells=1,axial_cant_deg=10,
+        transverse_bell_axes=[dict(name=n,unit_axis=list(v))
+                              for n,v in directions],
         bell_diameter_m=RCS_BELL_DIAMETER_M,
         print_bell_diameter_1_100_mm=RCS_BELL_DIAMETER_M*10,
         source_mass_rebooking_t=0,station_m=station,
@@ -390,6 +463,15 @@ def detail_ship(installed,rows,mode):
             h.color=updated[host].color
             updated[host]=h
             host_recesses[host]=initial_volume-float(h.volume)
+    # Source-derived hull/torch surface etch follows approved F1 RCS recesses.
+    # Thin skins have 6mm blind display marks, never 30mm wall perforations.
+    before_etch={n:updated[n] for n in (
+        "dry:armor","dry:skin_service","dry:skin_aft",
+        "dry:shield","dry:reactor","dry:nozzle") if n in updated}
+    updated,etch_report=E.apply(updated,rows,mode)
+    if mode=="stowed":
+        for n,old in before_etch.items():
+            samples[n]=(old,updated[n])
     expected=dict(rcs=8,sensor_turret=2,rf_tiles=4,laser_terminal=2,
         star_tracker=4,bow_ring=1,docking_camera=2,grapple_fixture=4,
         service_port=3,vent=4,docking_target=1,eva_rail=4,
@@ -400,6 +482,7 @@ def detail_ship(installed,rows,mode):
         source_mass_rebooking_t=0,all_detail_subtractions=False,
         F1_approved_rcs_additions=8,
         RCS_recessed_host_volumes_m3=host_recesses,
+        hull_and_torch_surface_etch=etch_report,
         source_envelope_violations=0,parts=entries)
     print("F3_EXTERIOR_DETAIL",mode,len(entries),json.dumps(dict(counts)),flush=True)
     return updated
@@ -411,10 +494,11 @@ def render_f3():
     import numpy as np
     import matplotlib.pyplot as plt
     from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-    names=["dry:rcs_F+Y","dry:ext_sensor_turret_0",
-           "dry:ext_rf_array_0","dry:hotfin_40:folded_envelope"]
+    names=["dry:rcs_F+Y","dry:armor","dry:skin_service",
+           "dry:skin_aft","dry:shield","dry:reactor","dry:nozzle",
+           "dry:hotfin_40:folded_envelope"]
     assert all(n in samples for n in names),list(samples)
-    fig=plt.figure(figsize=(15,15),facecolor="#141820")
+    fig=plt.figure(figsize=(15,24),facecolor="#141820")
     for row,name in enumerate(names):
         shapes=samples[name]
         bounds=[bb(v) for v in shapes]
@@ -423,7 +507,7 @@ def render_f3():
         mid=[(a+b)/2 for a,b in zip(ext,top)]
         radius=max((b-a)/2 for a,b in zip(ext,top)) * 1.3
         for col,obj in enumerate(shapes):
-            ax=fig.add_subplot(4,2,row*2+col+1,projection="3d")
+            ax=fig.add_subplot(len(names),2,row*2+col+1,projection="3d")
             vertices,faces=obj.tessellate(.035)
             verts=np.array([[v.X,v.Y,v.Z] for v in vertices])
             tris=np.array([[verts[k] for k in tri] for tri in faces])
@@ -442,9 +526,9 @@ def render_f3():
             ax.set_axis_off()
             ax.set_title(name[4:]+("  SOURCE" if col==0 else "  ENGRAVED"),
                          color="white",size=10,pad=4)
-    fig.suptitle("WAYFARER / F1 RCS  •  SOURCE vs APPROVED PROUD BELLS",
+    fig.suptitle("WAYFARER / SEAM + TORCH ETCH / SOURCE vs DRAWING DETAIL",
                  color="white",fontsize=17)
-    fig.subplots_adjust(top=.94,bottom=.02,hspace=.12,wspace=.03)
+    fig.subplots_adjust(top=.96,bottom=.02,hspace=.08,wspace=.03)
     png=OUT/(PREFIX+"_F3_before_after.png")
     fig.savefig(png,dpi=160,facecolor=fig.get_facecolor())
     plt.close(fig)
@@ -468,6 +552,13 @@ def main():
             assert meta["material"]=="rcs"
             meta["material"]="sensor"
             meta["material_override"]="viewer semantics only; source ledger unchanged"
+        elif name.startswith("dry:shuttle_v1/belly_TPS_"):
+            # Role only. Physical pigment/coating/PBR still requires kT approval.
+            meta["surface_finish_role"]="shuttle_belly_heat_shield"
+            meta["PBR_finish_status"]="OPEN"
+        elif name.startswith("dry:shuttle_v1/hull_"):
+            meta["surface_finish_role"]="shuttle_hull"
+            meta["PBR_finish_status"]="OPEN"
         elif name.startswith("dry:hold_existing_door_"):
             assert meta["source_mass_owner_id"]=="courier_systems"
             assert abs(meta["mass"]-retained["source_courier_systems_allocation_t"])<1e-8
@@ -492,12 +583,19 @@ def main():
          RCS_F1_approved=True,
          laser_terminals_source_station_m=33.3,
          shuttle_spine_groove=True,
+         hull_surface_seam_scheme="hull_seam_scheme_2026_11_09",
+         hull_seam_width_m=.05,visual_seam_depth_m=.03,
+         thin_shell_actual_blind_mark_m=.006,
+         PBR_finish_gate="CANON_FINISH kT 2026-11-11; material JSON in six GLBs",
+         thermal_trade_dark_midship_over_water_tanks="Prefer low-visible-absorptance graphite; no new thermal credit",
+         strake_1300K_glow_state="strakes Metric 2m and Torch 4m",
+         hotfin_1750K_glow_state="hot fins Torch deployed only; root brightest",
         print_minimum_modelled_feature_m=MIN_PRINT_FEATURE_M,
         smaller_marks="ENGRAVINGS not raised printable solids",
         no_hull_protrusion=False,no_crown_change=True,no_performance_claims=True,
          no_pressure_vessel_cuts=True,
         no_new_source_mass=True,
-        source_canon="canon-v2.5.3",
+        source_canon="canon-v2.5.6",
         metadata_only_fixes=dict(docking_camera_material="sensor",
             hold_door_display_share_t=door_display_share_t,
             hold_hardware_and_door_interface_allowance_t=held,

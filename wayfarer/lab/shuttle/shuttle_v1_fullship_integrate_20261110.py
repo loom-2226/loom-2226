@@ -24,6 +24,7 @@ from crown_geom_v253 import (main as build_canon_v253,inside_pressure_hull_check
 from v253_extra import check_added_interior
 from exterior_radiator_states_v254 import build as radiator_state,STATES,ANGLES
 from exterior_integrate_v254 import provenance,glb_extras
+from pbr_finish_v257 import assign_pbr
 import d9_sharded as D
 
 OUT=ROOT/"render/out"
@@ -399,7 +400,7 @@ def evaluate(model,poses,g,cfg,criteria,original_containment,
     assert not any(n.startswith("dry:bay_") and n not in model for n in base)
     print("SHUTTLE_41_SOURCE_SOLIDS_G8_PASS_COURIER_OPTION_C_APPLIED",len(base),flush=True)
     report=dict(status="SIX_STATE_D9_PENDING",
-        canon_tag=("canon-v2.5.6" if detail_pass is not None else "canon-v2.5.3"),
+        canon_tag=("canon-v2.5.7" if detail_pass is not None else "canon-v2.5.3"),
         source_geometry_sha256=source_sha,
         source_dry_t=g["dry_t"],ECON_dv_km_s=ledger["econ_delta_v_km_s"],
         original_source_shuttle_t=booked,
@@ -508,13 +509,17 @@ def evaluate(model,poses,g,cfg,criteria,original_containment,
                 required=metadata_for_mesh(name,rows,fluids,mapping,gp,sub)
                 assert all(required.get(field) is not None for field in
                     ("zone","deck","material","print_group","mass")),(name,required)
-                meta[name]=dict(canon_tag=("canon-v2.5.6" if detail_pass is not None else "canon-v2.5.3"),
+                meta[name]=dict(canon_tag=("canon-v2.5.7" if detail_pass is not None else "canon-v2.5.3"),
                     geometry_revision=("kT exterior detail F3" if detail_pass is not None
                                        else "kT #486 shuttle/holds successor"),
                     node_id=name,semantic_system=gp,
                     semantic_subsystem=sub,
                     radiator_mode=mode,crown_gore_pose=pose,**e,**required)
             extras=glb_extras(path,meta)
+            if detail_pass is not None:
+                # kT CANON_FINISH: colour/roughness/metal/emissive are
+                # GLB JSON-only edits after final six-state D9/containment.
+                extras.update(assign_pbr(path,meta,mode))
             semantic=verify_hierarchy(path,meta)
             mode_r[pose].update(glb=str(path.relative_to(ROOT)),
                 gltf_extras=extras,semantic_hierarchy=semantic)
