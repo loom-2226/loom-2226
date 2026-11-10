@@ -15,7 +15,7 @@ import hashlib
 import json
 import math
 from pathlib import Path
-from build123d import Axis, Plane, Solid
+from build123d import Axis, Plane, Solid, Wire
 import sys
 
 HERE=Path(__file__).resolve().parent
@@ -91,6 +91,17 @@ def torus(r_major,r_minor,x,y,z,axis):
     else:raise ValueError(axis)
     return Solid.make_torus(r_major,r_minor,plane=plane)
 
+def blade_airfoil(x0,x1,y,z):
+    """Source 5.6m blade with real thin faceted section, same 0.07x0.42m limits."""
+    assert abs((x1-x0)-5.6)<1e-9
+    def section(x):
+        yz=((y,z-.21),(y+.025,z-.13),(y+.035,z+.05),
+            (y+.008,z+.21),(y-.028,z+.10),(y-.035,z-.08))
+        return Wire.make_polygon([(x,yy,zz) for yy,zz in yz],close=True)
+    shape=Solid.make_loft([section(x0),section(x1)],ruled=True)
+    assert shape is not None and shape.is_valid and shape.volume>0
+    return shape
+
 def parts():
     d={}
     def add(name,obj):
@@ -117,7 +128,14 @@ def parts():
     a1=math.degrees(math.pi/2-DT0)
     add("hull_mid_open_side",sector(4.0,6.9,1.9-SKIN,1.9,a1,a0+360))
     add("gullwing_door_closed",sector(4.0,6.9,1.9-SKIN,1.9,a0,a1))
-    add("hull_aft",cyl_skin(6.9,12.4,1.9))
+    # Source 5.6m stowed rotor blades occupy a recessed upper spine.
+    # Remove only the numerical shuttle hull display skin above them,
+    # not Wayfarer's pressure hull or booked spacecraft structure.
+    aft_hull=cyl_skin(6.9,12.4,1.9)
+    groove=P.box(18.75+7.2,18.75+12.4,1.64,2.2,-.55,.55)
+    aft_hull=aft_hull-groove
+    assert aft_hull is not None and aft_hull.is_valid and aft_hull.volume>0
+    add("hull_aft",aft_hull)
     add("hull_tail",cone_skin(12.4,12.8,1.9,1.72))
     add("tail_cap",cy(1.72,12.8-SKIN,12.8))
     # TPS over the underside, source arc 1.5rad; no material/thermal credit.
@@ -142,8 +160,8 @@ def parts():
     for i,(z,dy) in enumerate(((.23,0),(-.23,0),(.23,-.09),(-.23,-.09))):
         # Source: 5.6m x .07m x .42m blade, x-centre 3.2m, yaw Pi;
         # transforms to s = hub 6.8 + [.4,6.0].
-        add("rotor_blade_stowed_%d"%i,bx(18.75+7.2,18.75+12.8,
-            1.72+dy-.035,1.72+dy+.035,z-.21,z+.21))
+        add("rotor_blade_stowed_%d"%i,blade_airfoil(
+            18.75+7.2,18.75+12.8,1.72+dy,z))
         add("rotor_tip_hidden_%d"%i,sphere(.16,18.75+12.64,1.72+dy,z))
     # Source tips.visible=false in docked state; remove tips from the
     # assembled installed renderer model, retaining their geometry as

@@ -11,7 +11,7 @@ from __future__ import annotations
 import json,math
 from pathlib import Path
 from collections import Counter
-from build123d import Plane,Solid
+from build123d import Axis,Plane,Solid
 from packing_phase1b import source_brep_pilot as P
 from shuttle import shuttle_v1_fullship_integrate_20261110 as A
 
@@ -150,6 +150,85 @@ def panel_pleats(source,root=False):
     assert len(cutters)>=3
     return cutters
 
+RCS_AFT_X=34.15
+RCS_BELL_DIAMETER_M=.30   # 3mm at 1:100, above kT's 2mm floor
+
+def rcs_authority_quick_screen():
+    """Physical 3x25kN radial thrust x longitudinal arm, not GNC requalification."""
+    g=json.loads((ROOT/"results/out/wayfarer_v05_geometry.json").read_text())
+    inp=json.loads((ROOT/"config/wayfarer_v05_inputs.json").read_text())
+    rcs=inp["rcs"]
+    assert rcs["thruster_kn"]==25 and len(rcs["clusters"])==8
+    assert all(x["thrusters"]==3 for x in rcs["clusters"])
+    assert 34.0<=RCS_AFT_X<34.3
+    force=3*rcs["thruster_kn"]*1000
+    com=[float(s["cg_m"][0]) for s in g["states"].values()]
+    nominal=force*(RCS_AFT_X-3)
+    worst=force*(RCS_AFT_X-max(com))
+    req_nom=1_000_000
+    req_one=750_000
+    ratios=(nominal/req_nom,worst/req_one)
+    if min(ratios)<1:
+        raise RuntimeError("STOP kT: aft RCS one-cluster-out pitch/yaw authority below certified requirement "+str(ratios))
+    return dict(aft_station_m=RCS_AFT_X,fore_station_m=3,
+        nominal_pitch_yaw_Nm=nominal,one_cluster_out_worst_Nm=worst,
+        nominal_required_Nm=req_nom,degraded_required_Nm=req_one,
+        nominal_ratio=ratios[0],degraded_ratio=ratios[1],
+        source_states_evaluated=len(com),
+        method="quick 3x25kN radial-thruster x longitudinal lever-arm; hardware/GNC/plume qualification OPEN")
+
+def rcs_housing(name,old):
+    """kT F1: low partially sunk housing, three proud radial bells and a canted axial bell."""
+    side=name.split("rcs_",1)[1]
+    aft=side.startswith("A")
+    direction=side[-2:]
+    az={"+Y":0,"+Z":90,"-Y":180,"-Z":270}[direction]
+    a=math.radians(az)
+    ny,nz=math.cos(a),math.sin(a)
+    ty,tz=-nz,ny
+    station=RCS_AFT_X if aft else 3.0
+    half_x=.14 if aft else .32
+    housing=P.box(station-half_x,station+half_x,4.34,4.68,-.50,.50).rotate(Axis.X,az)
+    nozzles=[]
+    for t in (-.31,0,.31):
+        origin=(station,ny*4.65+ty*t,nz*4.65+tz*t)
+        bell=Solid.make_cone(.105,RCS_BELL_DIAMETER_M/2,.31,
+            Plane(origin=origin,x_dir=(1,0,0),z_dir=(0,ny,nz)))
+        nozzles.append(bell)
+    sign=1 if aft else -1
+    angle=math.radians(10)
+    axial_axis=(sign*math.cos(angle),ny*math.sin(angle),nz*math.sin(angle))
+    axial_base=(station+sign*.085,ny*4.48,nz*4.48)
+    nozzles.append(Solid.make_cone(.105,RCS_BELL_DIAMETER_M/2,.33,
+        Plane(origin=axial_base,x_dir=(0,ty,tz),z_dir=axial_axis)))
+    detailed=housing.fuse(*nozzles)
+    if detailed is None or not detailed.is_valid or detailed.volume<=0:
+        raise RuntimeError("invalid F1 RCS solid "+name)
+    detailed.label=name
+    detailed.color=old.color
+    spill=detailed-old
+    extra=0 if spill is None else float(spill.volume)
+    assert extra>0 and RCS_BELL_DIAMETER_M*10>=2
+    return detailed,dict(source_volume_m3=float(old.volume),
+        edited_volume_m3=float(detailed.volume),engraved_m3=0,
+        external_added_m3=extra,same_source_envelope=False,
+        F1_approved_housing_and_nozzles=True,
+        bell_count=4,radial_bells=3,axial_bells=1,axial_cant_deg=10,
+        bell_diameter_m=RCS_BELL_DIAMETER_M,
+        print_bell_diameter_1_100_mm=RCS_BELL_DIAMETER_M*10,
+        source_mass_rebooking_t=0,station_m=station,
+        azimuth_deg=az,feature_tools=4)
+
+def laser_source_cover(name,source):
+    """Visible flush cover at exact source x33.3, no manifold/hull rework."""
+    q=source["shape"]
+    assert (q["x0"],q["x1"],q["r1"])==(33.05,33.55,4.515)
+    spec=dict(q,r0=4.5005)
+    shape=P.make(spec)
+    assert shape is not None and shape.is_valid and shape.volume>0
+    shape.label=name
+    return shape
+
 def cutters_for(name,klass,source,shape):
     if klass in ("folded_fin","fin_root"):
         return panel_pleats(source,root=(klass=="fin_root"))
@@ -171,23 +250,7 @@ def cutters_for(name,klass,source,shape):
     shallow=max(.002,min(.028,radial_thick*.27))
     tools=[]
     if klass=="rcs":
-        # Housing recessed inside existing 0.8m cube; three radial
-        # sockets plus ONE axial socket canted 10 degrees outward.
-        tools.append(panel_engraving(F,x-.29,.58,-.27,.54,.035))
-        for dx,offset in ((-.20,-.15),(0.,0.),(.20,.15)):
-            tools.append(round_engraving(F,x+dx,offset,.072,.17))
-        forward=name.startswith("dry:rcs_F")
-        sign=-1 if forward else 1
-        a=math.radians(10)
-        ny,nz=F[3],F[4]
-        normal=(sign*math.cos(a),ny*math.sin(a),nz*math.sin(a))
-        b=bb(shape)
-        xface=(b[0]+.14 if forward else b[1]-.14)
-        tools.append(Solid.make_cylinder(.082,.27,
-            Plane(origin=(xface,(b[2]+b[3])/2,(b[4]+b[5])/2),
-                  x_dir=(0,F[5],F[6]),z_dir=normal)))
-        # Access-panel engraving (rather than a protruding panel).
-        tools.append(panel_engraving(F,x-.31,.62,-.30,.60,.008))
+        raise RuntimeError("RCS F1 uses built true bells, not engraving cutters")
     elif klass=="sensor_turret":
         tools.extend((round_engraving(F,x,0,.135,.09),
                      ring_engraving(F,x,0,.26,.23,.012),
@@ -201,8 +264,8 @@ def cutters_for(name,klass,source,shape):
     elif klass=="laser_terminal":
         # Recessed curved gimbal suggestion, not added dome outside
         # source exterior sector.
-        tools.extend((round_engraving(F,x,0,.105,.065),
-                     ring_engraving(F,x,0,.19,.166,.014)))
+        tools.extend((round_engraving(F,x,0,.105,.004),
+                     ring_engraving(F,x,0,.19,.166,.003)))
     elif klass=="star_tracker":
         # Baffle inside existing 0.08m-deep device, not a new tube.
         tools.extend((round_engraving(F,x,0,.056,.050),
@@ -281,8 +344,16 @@ def detail_ship(installed,rows,mode):
             raise ValueError("detail without existing source booking "+name+" -> "+sid)
         original=installed[name]
         source=rows[sid]
-        tools=cutters_for(name,klass,source,original)
-        detailed,evidence=carve(original,tools,name)
+        tools=None
+        if klass=="rcs":
+            detailed,evidence=rcs_housing(name,original)
+        else:
+            substrate=laser_source_cover(name,source) if klass=="laser_terminal" else original
+            tools=cutters_for(name,klass,source,substrate)
+            detailed,evidence=carve(substrate,tools,name)
+            if klass=="laser_terminal":
+                evidence["source_station_m"]=33.3
+                evidence["source_flush_cover_only"]=True
         updated[name]=detailed
         entries[name]=dict(role=klass,source_allocation_id=sid,
                            booked_mass_t=source["mass_t"],**evidence)
@@ -298,6 +369,27 @@ def detail_ship(installed,rows,mode):
             "dry:rcs_F+Y","dry:ext_sensor_turret_0",
             "dry:ext_rf_array_0","dry:hotfin_40:folded_envelope"):
             samples[name]=(original,detailed)
+    # F1 permits housing recesses in the *unpressurised* mounting skin,
+    # frame and manifold. Preserve the pressure vessel and source bookings.
+    rcs_nodes=[updated[n] for n in sorted(entries) if entries[n]["role"]=="rcs"]
+    host_recesses={}
+    for host in ("dry:armor","dry:node_mount_allowance",
+                 "dry:skin_aft","dry:frame_34","dry:manifold"):
+        if host not in updated:continue
+        h=updated[host]
+        initial_volume=float(h.volume)
+        for tool in rcs_nodes:
+            cut=h & tool
+            volume=0 if cut is None else float(cut.volume)
+            if volume>1e-10:
+                h=h-tool
+                if h is None or not h.is_valid or h.volume<=0:
+                    raise RuntimeError("invalid RCS housing recess "+host)
+        if float(h.volume)<initial_volume-1e-9:
+            h.label=host
+            h.color=updated[host].color
+            updated[host]=h
+            host_recesses[host]=initial_volume-float(h.volume)
     expected=dict(rcs=8,sensor_turret=2,rf_tiles=4,laser_terminal=2,
         star_tracker=4,bow_ring=1,docking_camera=2,grapple_fixture=4,
         service_port=3,vent=4,docking_target=1,eva_rail=4,
@@ -305,7 +397,9 @@ def detail_ship(installed,rows,mode):
     assert set(counts)=={k for k,v in expected.items() if v>0},(mode,dict(counts))
     assert all(counts[k]==v for k,v in expected.items()),(mode,dict(counts),expected)
     records[mode]=dict(edited_nodes=len(entries),by_role=dict(sorted(counts.items())),
-        source_mass_rebooking_t=0,all_detail_subtractions=True,
+        source_mass_rebooking_t=0,all_detail_subtractions=False,
+        F1_approved_rcs_additions=8,
+        RCS_recessed_host_volumes_m3=host_recesses,
         source_envelope_violations=0,parts=entries)
     print("F3_EXTERIOR_DETAIL",mode,len(entries),json.dumps(dict(counts)),flush=True)
     return updated
@@ -348,7 +442,7 @@ def render_f3():
             ax.set_axis_off()
             ax.set_title(name[4:]+("  SOURCE" if col==0 else "  ENGRAVED"),
                          color="white",size=10,pad=4)
-    fig.suptitle("WAYFARER / F3  •  SOURCE vs ENVELOPE-CONTAINED DETAIL",
+    fig.suptitle("WAYFARER / F1 RCS  •  SOURCE vs APPROVED PROUD BELLS",
                  color="white",fontsize=17)
     fig.subplots_adjust(top=.94,bottom=.02,hspace=.12,wspace=.03)
     png=OUT/(PREFIX+"_F3_before_after.png")
@@ -359,6 +453,8 @@ def render_f3():
 
 def main():
     A.PREFIX=PREFIX
+    authority=rcs_authority_quick_screen()
+    print("RCS_AUTHORITY_QUICK_SCREEN_PASS",json.dumps(authority),flush=True)
     # Viewer metadata only. Do not change source ledger, geometry, or
     # independently rebook the full 19.45037t courier allocation.
     retained=json.loads(A.LEDGER.read_text())
@@ -391,10 +487,15 @@ def main():
     assert set(records)=={"stowed","metric_hard","torch"}
     f3=render_f3()
     rpt.update(status="F3_EXTERIOR_DETAIL_SIX_STATE_D9_CONTAINMENT_PASS",
-        exterior_detail=dict(style="retro-industrial; subtractions/engraving only",
+        exterior_detail=dict(style="retro-industrial; kT F1 approved proud RCS bells + source-position lasers + engraved remainder",
+         RCS_pitch_yaw_authority_quick_screen=authority,
+         RCS_F1_approved=True,
+         laser_terminals_source_station_m=33.3,
+         shuttle_spine_groove=True,
         print_minimum_modelled_feature_m=MIN_PRINT_FEATURE_M,
         smaller_marks="ENGRAVINGS not raised printable solids",
-        no_hull_protrusion=True,no_crown_change=True,no_performance_claims=True,
+        no_hull_protrusion=False,no_crown_change=True,no_performance_claims=True,
+         no_pressure_vessel_cuts=True,
         no_new_source_mass=True,
         source_canon="canon-v2.5.3",
         metadata_only_fixes=dict(docking_camera_material="sensor",
@@ -403,7 +504,9 @@ def main():
             courier_parent_booking_unchanged_t=retained["source_courier_systems_allocation_t"],
             no_rebooking=True),
         modes=records),
-        F3_before_after_png="render/out/"+f3)
+        F3_before_after_png="render/out/"+f3,
+        no_hull_cuts=False,
+        shuttle_hull_spine_groove_cut=True)
     p.write_text(json.dumps(rpt,indent=2)+"\n")
     print("F3_EXTERIOR_SIX_STATE_PASS",f3,flush=True)
 
