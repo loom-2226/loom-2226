@@ -63,8 +63,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 498,
           "all_scene_nodes_with_extras": 538,
-          "raw_glb_sha256": "d2713cde41285ff0fcb6a30dc55c0cff3ab1deaba45c307d7f9fc37d5d97d2e4",
-          "bytes": 8662384
+          "raw_glb_sha256": "b7141222fe799be26106774b42808894410e2893442182e660e69a7565792430",
+          "bytes": 8662924
         },
         "semantic_hierarchy": {
           "meshes": 498,
@@ -100,8 +100,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 498,
           "all_scene_nodes_with_extras": 538,
-          "raw_glb_sha256": "99a52fffa5e4e99edc56d73e5f670020414bb84c2d31db30f7734921ecc15038",
-          "bytes": 9569196
+          "raw_glb_sha256": "387a93ce0a6bf822351b93cad4b98204c8255bfc7119e60e7b25b7172821f266",
+          "bytes": 9569736
         },
         "semantic_hierarchy": {
           "meshes": 498,
@@ -139,8 +139,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 502,
           "all_scene_nodes_with_extras": 542,
-          "raw_glb_sha256": "ac59babf8d16514e15dbb8665ab7a09b0ae69c69bef23e865768b0e096c2e249",
-          "bytes": 8684536
+          "raw_glb_sha256": "108e4193fc9790f44e229b1c8ab55ca26430f6e029ac4e68708d70ae88200261",
+          "bytes": 8685076
         },
         "semantic_hierarchy": {
           "meshes": 502,
@@ -176,8 +176,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 502,
           "all_scene_nodes_with_extras": 542,
-          "raw_glb_sha256": "0af23cdc1f4f69766becf81efa222d4f4193916336ddb5dcfcb4b1eb01382744",
-          "bytes": 9591384
+          "raw_glb_sha256": "067233d576d155ec2a836a6d85c51ba5eb19a533abf132cdcc2ed12fd38cabbb",
+          "bytes": 9591924
         },
         "semantic_hierarchy": {
           "meshes": 502,
@@ -215,8 +215,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 558,
           "all_scene_nodes_with_extras": 598,
-          "raw_glb_sha256": "e978c54834eacf657c2ed3f5872fda1f01d554a61a31af070cada7d75b312181",
-          "bytes": 8782628
+          "raw_glb_sha256": "4569bb170efeba386c93a9a681c70cd1d085bb4b007f2e543954ead7ba90a5cd",
+          "bytes": 8783168
         },
         "semantic_hierarchy": {
           "meshes": 558,
@@ -252,8 +252,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 558,
           "all_scene_nodes_with_extras": 598,
-          "raw_glb_sha256": "16bd1dfcc4af013090414a18bcf155ef2ef5d223d7f26c5cbefa2aa6fcf2b31e",
-          "bytes": 9689480
+          "raw_glb_sha256": "dee2c14f9181ec47a366de947d9057d7fc583dc243dce62720a31cbf60469325",
+          "bytes": 9690020
         },
         "semantic_hierarchy": {
           "meshes": 558,
@@ -283,6 +283,13 @@
     "no_performance_claims": true,
     "no_new_source_mass": true,
     "source_canon": "canon-v2.5.3",
+    "metadata_only_fixes": {
+      "docking_camera_material": "sensor",
+      "hold_door_display_share_t": 1.0,
+      "hold_hardware_and_door_interface_allowance_t": 2,
+      "courier_parent_booking_unchanged_t": 19.450370894400045,
+      "no_rebooking": true
+    },
     "modes": {
       "stowed": {
         "edited_nodes": 49,
