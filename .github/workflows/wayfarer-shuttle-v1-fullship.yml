@@ -10,7 +10,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: wayfarer-shuttle-v1-fullship
+  group: wayfarer-shuttle-v1-fullship-${{ github.head_ref }}
   cancel-in-progress: true
 jobs:
   integrate:
