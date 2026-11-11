@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1490" height="800" viewBox="0 0 1490 800" role="img" aria-label="Wayfarer L1 propose-only plan and meridian section, no approved interior CAD">
+<style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#243241}
+.t{font-size:26px;font-weight:700}.subtitle{font-size:14px;fill:#5a6975}
+.head{font-size:17px;font-weight:700}.seat{font-size:13px;font-weight:700;fill:#624721}
+.small{font-size:12px;fill:#485967}.axis{font-size:12px;fill:#687683}
+</style>
+<rect width="1490" height="800" fill="#f6f8f9"/>
+<text x="36" y="44" class="t">WAYFARER  •  L1 COMMAND COMMONS</text>
+<text x="37" y="67" class="subtitle">F4 PROPOSE ONLY  |  source geometry 88ce19fc…  |  metres, ship coordinates; −X to bow  |  NOT BRep, D9 or export</text>
+<rect x="25" y="89" width="714" height="614" rx="12" fill="#fff" stroke="#cbd5dd"/>
+<rect x="756" y="89" width="708" height="614" rx="12" fill="#fff" stroke="#cbd5dd"/>
+<text x="43" y="123" class="head">PLAN · Y horizontal / Z vertical</text>
+<circle cx="377" cy="385" r="298.8" fill="#e2e9ed" stroke="#465766" stroke-width="2.5"/>
+<circle cx="377" cy="385" r="252.0" fill="none" stroke="#57949f" stroke-width="2" stroke-dasharray="9 6"/>
+<circle cx="377" cy="385" r="208.8" fill="none" stroke="#b6bdc7" stroke-width="1.5" stroke-dasharray="3 8"/>
+<circle cx="377" cy="385" r="64.8" fill="#fff" stroke="#657789" stroke-width="2.2"/>
+<rect x="254.6" y="450.5" width="244.8" height="151.2" fill="#ccdbeb" stroke="#497294" stroke-width="2"/>
+<rect x="281.6" y="122.2" width="190.8" height="158.4" fill="#d9e8e4" stroke="#548b83" stroke-width="2"/>
+<text x="377" y="575.8" text-anchor="middle" class="small">Command terrace</text>
+<text x="377" y="255.4" text-anchor="middle" class="small">Navigator platform</text>
+<circle cx="477.8" cy="385" r="28.8" fill="#fff" stroke="#2a917b" stroke-width="3"/><text x="477.8" y="390" class="seat" text-anchor="middle">L</text><path d="M 510.91999999999996 353 v 64" stroke="#2a917b" stroke-width="5"/>
+<circle cx="276.2" cy="385" r="28.8" fill="#fff" stroke="#2a917b" stroke-width="3"/><text x="276.2" y="390" class="seat" text-anchor="middle">L</text><path d="M 243.08 353 v 64" stroke="#2a917b" stroke-width="5"/>
+<polygon points="336.5,474.5 326.6,587.9 276.4,583.5 286.3,470.1" fill="#f9f5e8" stroke="#94754c" stroke-width="2" stroke-dasharray="6,4"/><circle cx="311.4" cy="472.3" r="4" fill="#b99157"/><text x="306.4" y="534.0" class="seat" text-anchor="middle">PILOT</text>
+<polygon points="467.7,470.1 477.6,583.5 427.4,587.9 417.5,474.5" fill="#f9f5e8" stroke="#94754c" stroke-width="2" stroke-dasharray="6,4"/><circle cx="442.6" cy="472.3" r="4" fill="#b99157"/><text x="447.6" y="534.0" class="seat" text-anchor="middle">CAPTAIN</text>
+<polygon points="402.2,148.1 402.2,261.9 351.8,261.9 351.8,148.1" fill="#f9f5e8" stroke="#94754c" stroke-width="2" stroke-dasharray="6,4"/><circle cx="377.0" cy="148.1" r="4" fill="#b99157"/><text x="377.0" y="210.0" class="seat" text-anchor="middle">NAV</text>
+<polygon points="220.8,397.0 167.3,497.5 122.8,473.8 176.3,373.3" fill="#f9f5e8" stroke="#94754c" stroke-width="2" stroke-dasharray="6,4"/><circle cx="198.5" cy="385.2" r="4" fill="#b99157"/><text x="171.8" y="440.4" class="seat" text-anchor="middle">S2 ENG</text>
+<polygon points="577.7,373.3 631.2,473.8 586.7,497.5 533.2,397.0" fill="#f9f5e8" stroke="#94754c" stroke-width="2" stroke-dasharray="6,4"/><circle cx="555.5" cy="385.2" r="4" fill="#b99157"/><text x="582.2" y="440.4" class="seat" text-anchor="middle">S3 SEN</text>
+<polygon points="551.9,445.2 594.5,550.7 547.7,569.6 505.1,464.1" fill="#f9f5e8" stroke="#94754c" stroke-width="2" stroke-dasharray="6,4"/><circle cx="528.5" cy="454.7" r="4" fill="#b99157"/><text x="549.8" y="512.4" class="seat" text-anchor="middle">S4 OPS</text>
+<circle cx="535.4" cy="507.4" r="11" fill="none" stroke="#c65e45" stroke-width="2" stroke-dasharray="4 3"/>
+<path d="M535.4 531.4 L549.8 531.4" stroke="#c65e45" stroke-width="2" stroke-dasharray="4 3"/>
+<text x="570" y="670" class="small">S4: earlier shift-only Y=2.20; current source Y=2.40</text>
+<text x="98" y="665" class="small">Annulus 4.15/0.90 m · 2 ladder holes Ø0.80 m</text>
+<text x="377" y="697" class="axis" text-anchor="middle">±4.15 m floor radius · crown aperture r=3.50 m</text>
+<text x="769" y="123" class="head">SECTION · Y=0 meridian, transverse Z vs ship X</text>
+<text x="769" y="142" class="subtitle">Only geometry already recorded. Terrace/NAV platforms shown at source X.</text>
+<path d="M827.1,486.4 L830.4,422.9 L833.7,396.9 L837.0,377.2 L840.3,360.8 L843.6,346.5 L846.9,333.7 L850.2,322.1 L853.5,311.4 L856.8,301.5 L860.1,292.3 L863.4,283.6 L866.7,275.4 L870.0,267.7 L873.3,260.3 L876.6,253.3 L879.9,246.7 L883.2,240.3 L886.6,234.2 L889.9,228.4 L893.2,222.8 L896.5,217.4 L899.8,212.3 L903.1,207.3 L906.4,202.6 L909.7,198.0 L913.0,193.6 L916.3,189.4 L919.6,185.3 L922.9,181.3 L926.2,177.5 L929.5,173.9 L932.8,170.4 L936.1,167.0 L939.4,163.7 L942.7,160.6 L946.0,157.6 L949.3,154.7 L952.6,151.9 L955.9,149.2 L959.2,146.7 L962.5,144.2 L965.8,141.9 L969.1,139.6 L972.4,137.4 L975.7,135.4 L979.0,133.4 L982.3,131.5 L985.6,129.8 L988.9,128.1 L992.2,126.5 L995.5,125.0 L998.9,123.5 L1002.2,122.2 L1005.5,121.0 L1008.8,119.8 L1012.1,118.7 L1015.4,117.7 L1018.7,116.8 L1022.0,116.0 L1025.3,115.2 L1028.6,114.5 L1031.9,113.9 L1035.2,113.4 L1038.5,113.0 L1041.8,112.6 L1045.1,112.4 L1048.4,112.2 L1051.7,112.0 L1055.0,112.0 L1058.3,112.0 L1061.6,112.2 L1064.9,112.4 L1068.2,112.6 L1071.5,113.0 L1074.8,113.4 L1078.1,113.9 L1081.4,114.5 L1084.7,115.2 L1088.0,116.0 L1091.3,116.8 L1094.6,117.7 L1097.9,118.7 L1101.2,119.8 L1104.5,121.0 L1107.8,122.2 L1111.1,123.5 L1114.5,125.0 L1117.8,126.5 L1121.1,128.1 L1124.4,129.8 L1127.7,131.5 L1131.0,133.4 L1134.3,135.4 L1137.6,137.4 L1140.9,139.6 L1144.2,141.9 L1147.5,144.2 L1150.8,146.7 L1154.1,149.2 L1157.4,151.9 L1160.7,154.7 L1164.0,157.6 L1167.3,160.6 L1170.6,163.7 L1173.9,167.0 L1177.2,170.4 L1180.5,173.9 L1183.8,177.5 L1187.1,181.3 L1190.4,185.3 L1193.7,189.4 L1197.0,193.6 L1200.3,198.0 L1203.6,202.6 L1206.9,207.3 L1210.2,212.3 L1213.5,217.4 L1216.8,222.8 L1220.1,228.4 L1223.4,234.2 L1226.8,240.3 L1230.1,246.7 L1233.4,253.3 L1236.7,260.3 L1240.0,267.7 L1243.3,275.4 L1246.6,283.6 L1249.9,292.3 L1253.2,301.5 L1256.5,311.4 L1259.8,322.1 L1263.1,333.7 L1266.4,346.5 L1269.7,360.8 L1273.0,377.2 L1276.3,396.9 L1279.6,422.9 L1282.9,486.4" fill="none" stroke="#4b657a" stroke-width="3"/>
+<path d="M869.5,268.9 L873.6,259.7 L877.7,251.1 L881.9,242.9 L886.0,235.2 L890.1,228.0 L894.2,221.0 L898.4,214.5 L902.5,208.2 L906.6,202.3 L910.7,196.6 L914.8,191.2 L919.0,186.0 L923.1,181.1 L927.2,176.4 L931.3,171.9 L935.5,167.6 L939.6,163.6 L943.7,159.7 L947.8,156.0 L951.9,152.5 L956.1,149.1 L960.2,145.9 L964.3,142.9 L968.4,140.1 L972.6,137.4 L976.7,134.8 L980.8,132.4 L984.9,130.1 L989.0,128.0 L993.2,126.0 L997.3,124.2 L1001.4,122.5 L1005.5,120.9 L1009.7,119.5 L1013.8,118.2 L1017.9,117.0 L1022.0,115.9 L1026.1,115.0 L1030.3,114.2 L1034.4,113.5 L1038.5,113.0 L1042.6,112.6 L1046.8,112.2 L1050.9,112.1 L1055.0,112.0 L1059.1,112.1 L1063.2,112.2 L1067.4,112.6 L1071.5,113.0 L1075.6,113.5 L1079.7,114.2 L1083.9,115.0 L1088.0,115.9 L1092.1,117.0 L1096.2,118.2 L1100.3,119.5 L1104.5,120.9 L1108.6,122.5 L1112.7,124.2 L1116.8,126.0 L1121.0,128.0 L1125.1,130.1 L1129.2,132.4 L1133.3,134.8 L1137.4,137.4 L1141.6,140.1 L1145.7,142.9 L1149.8,145.9 L1153.9,149.1 L1158.1,152.5 L1162.2,156.0 L1166.3,159.7 L1170.4,163.6 L1174.5,167.6 L1178.7,171.9 L1182.8,176.4 L1186.9,181.1 L1191.0,186.0 L1195.2,191.2 L1199.3,196.6 L1203.4,202.3 L1207.5,208.2 L1211.6,214.5 L1215.8,221.0 L1219.9,228.0 L1224.0,235.2 L1228.1,242.9 L1232.3,251.1 L1236.4,259.7 L1240.5,268.9" fill="none" stroke="#29a0b5" stroke-width="5" stroke-dasharray="9 5"/>
+<rect x="835.0" y="481.6" width="172.3" height="33.6" fill="#a9b5bf" stroke="#56616d" stroke-width="1"/>
+<rect x="1102.7" y="481.6" width="172.3" height="33.6" fill="#a9b5bf" stroke="#56616d" stroke-width="1"/>
+<rect x="895.5" y="415.5" width="111.3" height="11.2" fill="#a9c6e0" stroke="#497294" stroke-width="2"/>
+<rect x="1131.8" y="454.7" width="116.6" height="11.2" fill="#b9d7d0" stroke="#548b83" stroke-width="2"/>
+<path d="M827.1 515.1999999999999 H1282.9" stroke="#637282" stroke-width="1" stroke-dasharray="5 5"/>
+<path d="M1055 112 V515.1999999999999" stroke="#637282" stroke-width="1" stroke-dasharray="3 4"/>
+<text x="943.7" y="403.52" text-anchor="middle" class="small">Command X=2.41</text>
+<text x="1187.5" y="442.71999999999997" text-anchor="middle" class="small">NAV X=2.76</text>
+<text x="1063" y="533.1999999999999" class="small">Trunk Ø1.80 m</text>
+<text x="869.5" y="252.91204483587592" class="small">Crown</text>
+<text x="1075" y="132" class="small">Bow dome apex X=−0.30</text>
+<path d="M 951.12 415.52 V 153.15910613847808" stroke="#a16d2d" stroke-width="2" stroke-dasharray="5 4"/>
+<text x="941.12" y="308" class="small" text-anchor="end">2.343 m at terrace centre</text>
+<text x="780" y="618" class="small">Terrace worst corner: 1.355 m shell-only axial clearance</text>
+<text x="780" y="642" class="small">Required crawl clearance: ≥1.20 m; full occupied 3D fit HOLD</text>
+<text x="780" y="667" class="small">Crown sightlines are optimistic upper bounds; ribs/sensors/shutters omitted</text>
+<rect x="36" y="724" width="1414" height="52" rx="8" fill="#e5eaee"/>
+<text x="52" y="745" class="small">SOLID BLUE / GREEN = existing booked envelope/platform reference · CREAM DASHED = source 1.58 m couch envelope, NOT an approved furnished couch</text>
+<text x="52" y="764" class="small">Grey ring and white trunk = source structure · dotted S4 marker = earlier interim point · No mass, new objects, BRep, D9, GLB or STL produced</text>
+</svg>
