@@ -1,7 +1,7 @@
 # Wayfarer L1 Command Commons: F4 proposal only (12 Nov 2026)
 **ALL bodies. ALL sponsors. 2026–2226.**
 
-**NOT CANON GEOMETRY. NO BRep, D9, STL, GLB, qualification or export.** Drawing is a source-referenced 2D sketch only. Current release remains `canon-v2.5.14`.
+**kT APPROVED L1 layout 2026-11-12.** This remains the source sketch, with separate GLB / D9 / containment evidence required. Exterior release remains `canon-v2.5.14`.
 
 ## Authority and bounds
 - `wayfarer/config/kt_decisions.json`: `standing_exterior_rules_F1_F4_2026_11_10.rules.F4`; `design_decisions_2026_10_31.L1`; `design_decisions_2026_10_31.L1_human_factors_step1c`; `decisions.i4_human_factors`, `decisions.l1_l2_pressure_hatches`, `decisions.shelter_life_support`, `decisions.habitat_changes_v057`.
@@ -53,7 +53,7 @@ See [companion sketch](L1_HABITAT_PROPOSE_ONLY_2026_11_12.svg).
 | Sensors/EW | 2.85, -0.70 | 2.95 | 1.58×0.70 m contoured | 100% |
 | Mission ops | 2.40, -1.70 | 2.95 | 1.58×0.70 m contoured | 100% |
 
-**S4 provenance discrepancy to preserve, not decide:** Original prior `Y=2.45, Z=−2.00` → Step1c `Y−0.25, Z+0.30` gives interim `(2.20, −1.70)`; the current source lock additionally records a later *render-review* `Y+0.20` resulting in `(2.40, −1.70)`. The recorded current geometry and bounded 3D AABB screen use the latter, and report a small but positive 0.0541 m terrace separation. The earlier shift-only point would overlap the coarse terrace/couch boxes in Y by ≈0.1459 m and X by ≈0.0100 m. **That does not demonstrate an impossible real contoured-couch fit. Neither location is changed in this proposal.** kT must approve any later detailed interpretation; show both in diagram.
+**S4 FINAL kT-APPROVED SOURCE POSITION:** Y=+2.40m, Z=−1.70m, including render-review adjustment +0.20m Y. Earlier shift-only interim point is RETIRED and not drawn. Current source 3D AABB screen gives 0.0541m separation to terrace. No station move.
 
 ## 3. Station-by-station shell-only headroom
 
@@ -75,11 +75,12 @@ Terrace shell-only clearance: **2.343 m at centre and 1.355 m worst corner**. Th
 ## 4. Contents and provenance
 | Item | Source | Label here |
 |---|---|---|
-| L1 annular floor, ladder holes, trunk | `wayfarer/results/out/wayfarer_v05_geometry.json` `floor_L1`, `core_trunk`; `wayfarer/docs/I4_SOURCE_IMPLEMENTATION_BRIEF_2026_10_29.md` | SOURCE / already booked |
+| L1 floor and two ladderways (ONLY crew egress) | `wayfarer/results/out/wayfarer_v05_geometry.json::floor_L1`; `wayfarer/config/wayfarer_v05_inputs.json::habitat.ladderways` | SOURCE / booked |
+| Utility core, avionics racks, goods lift, NOT crew passage | `wayfarer/config/wayfarer_v05_inputs.json::habitat.core_note`; `wayfarer/results/out/wayfarer_v05_geometry.json::core_trunk` | SOURCE / booked; radius 0.90m kept |
 | Six distinct I4 station roles and source positions | `design_decisions_2026_10_31.L1`; `wayfarer/results/out/wayfarer_v05_geometry.json::l1_i4_lock.stations` | SETTLED roles; geometry remains proxy |
 | 1.58 m contoured couches | `design_decisions_2026_10_31.L1_human_factors_step1c` | SETTLED dimension; detailed form **PROPOSED** |
 | Command terrace lowered 0.5 m | same decision and `wayfarer/results/out/wayfarer_v05_geometry.json::l1_i4_lock.platforms` | SETTLED |
-| S4 Y−0.25, Z+0.30 and later +Y0.20 render review | same decision and `wayfarer/results/out/wayfarer_v05_geometry.json::l1_i4_lock.stations[S4]` | SETTLED shift / source review provenance, no new placement approved |
+| S4 final Y=+2.40 m, Z=−1.70 m | `wayfarer_l1_layout_approval_2026_11_12`; source `l1_i4_lock.stations[S4]` | kT APPROVED, interim retired |
 | NAV platform | source `navigator_platform`, `l1_i4_lock.platforms` | BOOKED; hardware hold |
 | Pressure-assisted normally-open L1/L2 leaves | `decisions.l1_l2_pressure_hatches`, source `hatch_L1L2_0/1` | SETTLED design intent |
 | Rails, two lights, hand/foot transfers, two cabinet functions, shared map table, equipment workbench/display, observation rail, low-g command point | `wayfarer/docs/I4_ORIGINAL_SCENE_2026_10_29.json`, `wayfarer/docs/I4_COMPLETENESS_RECOVERY_2026_11_01.md`; source `i4_* ` | BOOKED / source proxy representation; **no newly invented furnishings** |
@@ -92,7 +93,7 @@ Terrace shell-only clearance: **2.343 m at centre and 1.355 m worst corner**. Th
 |---|---:|---|
 | Floor annulus OD 8.30 m | **332 mm** | Obvious deck ring (printable part only after approval) |
 | Crown clear diameter 7.00 m | **280 mm** | Existing crown glazing; assembly seams read |
-| Trunk opening Ø1.80 m | **72 mm** | Clear opening; do not infill |
+| Utility core Ø1.80 m | **72 mm** | Goods lift, racks, utilities; NOT crew egress |
 | Two ladder shafts Ø0.80 m | **32 mm each** | Physical holes/shafts only if cut in later approved STL derivation |
 | Terrace 3.40×2.10 m | **136×84 mm** | Physical platform reads |
 | NAV platform 2.65×2.20 m | **106×88 mm** | Physical platform reads |
@@ -102,4 +103,4 @@ Terrace shell-only clearance: **2.343 m at centre and 1.355 m worst corner**. Th
 | Display labels, station IDs, warnings, console text | Variable, sub-mm strokes | **Decals/paint guide only**; no raised print lettering |
 | Fine indicator lamps, bolt dots, keys | Sub-mm | **Decal / paint only** |
 
-No L1 furniture is being invented in this document. The model remains a 2D review proposal until kT approves a real interior build. No separate `L1.glb` has been generated.
+kT APPROVED L1 layout. This remains the source plan; the separate L1 build must supply D9 and containment evidence. The two ladderways are the only crew egress; central utilities/racks/goods lift are not crew passage.

@@ -1022,7 +1022,7 @@
       "approval": "F4: Until kT explicitly approves a particular interior layout, only 2D sketches and quantitative screens; no new BRep, no D9, no GLB/STL/state exports."
     },
     "current_release_note": "v2.5.14 exterior GLBs may contain existing room_*/outfit_* and source interior proxies. This rule is prospective, not a retroactive instruction to edit released GLBs.",
-    "l1_step_1": "PROPOSE_ONLY; source measurements and unresolved caveats documented in wayfarer/docs/L1_HABITAT_PROPOSE_ONLY_2026_11_12.md",
+    "l1_step_1": "kT APPROVED L1 LAYOUT 2026-11-12; only L1 build authorized, all other decks need separate approval.",
     "unchanged_settled_decisions": [
       "design_decisions_2026_10_31.L1",
       "design_decisions_2026_10_31.L1_human_factors_step1c",
@@ -1031,5 +1031,25 @@
       "decisions.habitat_changes_v057",
       "decisions.i4_human_factors"
     ]
+  },
+  "wayfarer_l1_layout_approval_2026_11_12": {
+    "decision": "kT APPROVED L1 LAYOUT; INTERIOR DRAW AUTHORIZED",
+    "date": "2026-11-12",
+    "source": "kT approves source-grounded L1 sketch PR #513, with current S4 final and core egress correction",
+    "S4_final_ship_YZ_m": [
+      2.4,
+      -1.7
+    ],
+    "S4": "Final render-review current source Y+0.20m; preceding interim position retired. Bounded source clearance to terrace 0.0541m. No station moves.",
+    "couches": "Six 1.58m contoured, one shared glTF mesh six nodes; fixed Rev7 source positions",
+    "core": "Keep core_trunk radius 0.90m. Utilities, avionics racks and goods lift, NOT crew passage. Only two ladderways Y=±1.4m Z=0 provide L1/L2 egress (wayfarer_v05_inputs.json habitat.core_note).",
+    "contents": "L1 booked terrace, Navigator platform, both ladderways, normally-open L1/L2 leaves, cabinets, displays, rails, lights, transfers and utility core/racks/lift; room_* are empty-space semantic volumes, outfit_* is booked mass envelope, neither furnishings.",
+    "interior_glb": "Separate single L1 GLB; no exterior six-state model modifications; per-instance source mass attribution nonadditive.",
+    "critical_stop": "Only if a couch cannot fit without station clash; preserve station and produce diagnostic picture.",
+    "checks": "D9 category-d and pressure containment only; NOT G1-G12.",
+    "dry_t": 868.1922552640087,
+    "ECON_dv_km_s": 707.845,
+    "approved_plan": "wayfarer/docs/L1_HABITAT_PROPOSE_ONLY_2026_11_12.svg",
+    "build_status": "PENDING GLB D9 CONTAINMENT"
   }
 }
