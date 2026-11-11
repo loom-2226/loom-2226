@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Verify tagged v2.5.9 finish coverage, nozzle, D9 and six GLB hashes
+      - name: Verify tagged v2.5.10 finish coverage, nozzle, D9 and six GLB hashes
         run: |
           set -euo pipefail
           python - <<'PY'
@@ -27,9 +27,9 @@ jobs:
           root=Path("wayfarer/render/out")
           p=json.loads((root/"canon_glb.json").read_text())
           r=json.loads((root/"wayfarer_exterior_detail_88ce19fc_report.json").read_text())
-          target="c7d29e17f5f9b346db7df129d617b24ad59a2bf7"
+          target="2d7ac30bd7cb924238baa26a7bc7964b0d4a4731"
           assert p["schema"]=="wayfarer/canon-glb-pointer/v1"
-          assert p["tag"]=="canon-v2.5.9" and p["status"]=="RELEASED"
+          assert p["tag"]=="canon-v2.5.10" and p["status"]=="RELEASED"
           assert p["release_commit"]==target
           subprocess.run(["git","cat-file","-e",target+"^{commit}"],check=True)
           assert p["source_geometry_sha256"]==r["source_geometry_sha256"]=="88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1"
@@ -116,11 +116,11 @@ jobs:
               b=extra["nozzle_coil_band_faces"]
               assert b["stations_x_m"]==[47.2,48.5,49.8,51.1,52.4]
               assert b["width_m"]==.15 and b["depth_m"]==.03
-              assert b["face_triangles_total"]==1056
+              assert b["clipped_triangles_total"]>=b["source_triangles_total"]
               assert len(b["face_triangles_per_station"])==5
               assert all(n>0 for n in b["face_triangles_per_station"])
               assert b["source_triangles_total"]==2348
-              assert b["triangle_conservation"] and b["nozzle_geometry_envelope_unchanged"]
+              assert b["surface_area_conservation"] and b["relative_area_error"]<=1e-6 and b["nozzle_geometry_envelope_unchanged"]
               if s["mode"]=="stowed":assert extra["thermal_emissive_meshes"]==0
               if s["mode"]=="metric_hard":assert extra["thermal_emissive_meshes"]==8
               if s["mode"]=="torch":assert extra["thermal_emissive_meshes"]==68
@@ -164,8 +164,8 @@ jobs:
               assert all(pr.get("material") is not None and obj["materials"][pr["material"]].get("name","").startswith("CANON_FINISH/") for node in obj["nodes"] if "mesh" in node for pr in obj["meshes"][node["mesh"]]["primitives"])
               assert len([x for x in painted if
                           x["extras"].get("thermal_emissive_state")])==extra["thermal_emissive_meshes"]
-              print("CANON_259_VIEWER_STATE_PASS",s["mode"],s["crown_pose"])
-          print("CANON_259_POINTER_SIX_EXISTING_GLBS_PASS")
+              print("CANON_2510_VIEWER_STATE_PASS",s["mode"],s["crown_pose"])
+          print("CANON_2510_POINTER_SIX_EXISTING_GLBS_PASS")
           PY
   publish_exact_tag:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -177,13 +177,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Verify existing annotated canon-v2.5.9 tag pins exact geometry commit
+      - name: Verify existing annotated canon-v2.5.10 tag pins exact geometry commit
         run: |
           set -euo pipefail
-          target=c7d29e17f5f9b346db7df129d617b24ad59a2bf7
-          tag=canon-v2.5.9
+          target=2d7ac30bd7cb924238baa26a7bc7964b0d4a4731
+          tag=canon-v2.5.10
           git cat-file -e "$target^{commit}"
           git fetch --tags origin
           test "$(git rev-parse "$tag^{}")" = "$target"
           test "$(git cat-file -t "refs/tags/$tag")" = "tag"
-          echo "CANON_259_TAG_EXACT_GEOMETRY_COMMIT_VERIFIED"
+          echo "CANON_2510_TAG_EXACT_GEOMETRY_COMMIT_VERIFIED"
