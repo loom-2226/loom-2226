@@ -8,7 +8,7 @@ Colour is an sRGB viewer paint approximation, NOT a measured spectrum.
 from __future__ import annotations
 import copy,hashlib,json,math,re,struct
 from pathlib import Path
-from nozzle_band_faces_v258 import colour_nozzle_bands
+from nozzle_band_faces_v259 import split_nozzle_rings
 
 ROOT=Path(__file__).resolve().parents[1]
 FINISH=ROOT/"config/kt_decisions.json"
@@ -213,7 +213,7 @@ def assign_pbr(path,source_mesh_extras,mode):
             metallicFactor=float(coil["metallic_factor"]),
             roughnessFactor=float(coil["roughness_factor"])),
         emissiveFactor=[0.,0.,0.]))
-    tail,coils=colour_nozzle_bands(data,tail,nozzle_node,coil_index,
+    tail,coils=split_nozzle_rings(data,tail,nozzle_node,coil_index,
         f["nozzle_coil_band"]["stations_x_m"])
     verified_materials+=1
     assert verified_materials==sum(
