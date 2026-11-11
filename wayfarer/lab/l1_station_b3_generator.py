@@ -56,7 +56,7 @@ def extrude(m,us,top,bot,v0,v1):
         a,b,c,d=idx(0,i,0),idx(1,i,0),idx(1,i,1),idx(0,i,1);T+=[[a,b,c],[a,c,d]]
     m.add(P,T)
 # ---------- the station ----------
-M={k:Mesh() for k in['upholstery','shell','screen','strap','metal','accent']}
+M={k:Mesh() for k in['upholstery','shell','surround','screen','strap','metal','accent']}
 us =[0.00,0.10,0.28,0.55,0.82,0.92,1.05,1.16,1.30,1.45,1.58]
 top=[0.24,0.22,0.17,0.16,0.14,0.13,0.25,0.31,0.27,0.22,0.22]
 extrude(M['upholstery'],us,top,[0.08]*len(us),-0.26,0.26)
@@ -100,7 +100,7 @@ for i in range(len(vs)-1):
     if up[2]<0: up=-up
     seg(M['shell'],a+up*0.012,b+up*0.012,0.30,0.022,up=up) if False else None
     d=b-a;n=up
-    obox(M['shell'],(a+b)/2+n*0.010,[1,0,0],d,n,0.15,np.linalg.norm(d)/2+0.002,0.010)
+    obox(M['surround'],(a+b)/2+n*0.010,[1,0,0],d,n,0.15,np.linalg.norm(d)/2+0.002,0.010)
     obox(M['screen'],(a+b)/2-n*0.004,[1,0,0],d,n,0.14,np.linalg.norm(d)/2,0.004)
 # hinge arms from arch to centre panel
 for s in(-1,1): seg(M['metal'],[0.02,s*0.18,HT],[0.10,s*0.18,hc(0.18)+0.03],0.02,0.02)
@@ -109,7 +109,7 @@ for s in(-1,1):
     a=np.array([0.21,s*0.235,0.85]);b=np.array([0.21,s*0.305,0.75])
     d=b-a;n=np.cross([1,0,0],d)*s;n=n/np.linalg.norm(n)
     if n[2]<0:n=-n
-    obox(M['shell'],(a+b)/2+n*0.008,[1,0,0],d,n,0.11,np.linalg.norm(d)/2+0.002,0.008)
+    obox(M['surround'],(a+b)/2+n*0.008,[1,0,0],d,n,0.11,np.linalg.norm(d)/2+0.002,0.008)
     obox(M['screen'],(a+b)/2-n*0.003,[1,0,0],d,n,0.10,np.linalg.norm(d)/2,0.003)
     seg(M['metal'],[0.02,s*HV,0.84],[0.10,s*0.29,0.81],0.018,0.018)
 # ---------- role add-ons (on armrest tops, h 0.27) ----------
@@ -138,8 +138,9 @@ def tolocal(P): return np.c_[-P[:,2],-P[:,1],-P[:,0]]
 import json,struct
 src=json.loads(open(SRC,'rb').read()[20:20+struct.unpack('<I',open(SRC,'rb').read()[12:16])[0]])
 seat={n['name'].split('i4_seat_')[1]:n for n in src['nodes'] if 'i4_seat_' in n.get('name','')}
-MAT={'upholstery':([0.55,0.53,0.49],0.0,0.8,None),'shell':([0.20,0.22,0.25],0.4,0.5,None),'screen':([0.01,0.02,0.025],0.1,0.25,[0.03,0.22,0.26]),
-     'strap':([0.05,0.055,0.06],0.0,0.9,None),'metal':([0.45,0.46,0.48],0.8,0.35,None),'accent':([0.86,0.42,0.10],0.2,0.5,None)}
+# Finish: PR #516 (Sol) proposed L1 palette, sRGB hex -> linear. Screens dark with teal emissive.
+MAT={'upholstery':([0.6867, 0.6867, 0.6105],0.0,0.8,None),'shell':([0.4125, 0.4969, 0.5089],0.2,0.55,None),'surround':([0.4793, 0.5841, 0.5583],0.2,0.5,None),'screen':([0.01,0.02,0.025],0.1,0.25,[0.03,0.22,0.26]),
+     'strap':([0.0802, 0.1301, 0.15],0.0,0.9,None),'metal':([0.117, 0.1946, 0.2307],0.6,0.4,None),'accent':([0.1651, 0.3185, 0.3278],0.2,0.5,None)}
 names=list(MAT)
 bin_=bytearray();views=[];accs=[]
 def add(arr,target,typ,ct,mm=False):

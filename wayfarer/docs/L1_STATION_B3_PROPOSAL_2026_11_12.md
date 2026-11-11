@@ -33,7 +33,8 @@
 - **Clearance to fixtures:** no station vertex enters the bounding box of any L1 fixture.
 - **Clearance between stations:** no station enters another station's local 0.70 × 1.58 m envelope. The tightest gap is S3 to S4, about 0.14 m, with the halos closed. Open wings extend beyond the envelope temporarily.
 - **Height:** the halo top is 0.98 m above the couch base, against the lowest station headroom of 1.475 m.
-- **Mass:** an estimate of about 52 kg per station against 51 kg booked. This must be reconciled from the geometry, and must not be rebooked.
+- **Mass target (adopts PR #516's split of the existing 51.185 kg seat booking):** 46.000 kg common couch, and 5.185 kg for the halo plus role controls. Claude's earlier ~52 kg estimate assumed rigid tablet screens. To fit, B3 needs thin film displays (about 0.18 m² in total), a composite arch with hinges (about 3 kg), and armrest controls of about 1.5 kg, for roughly 4.5 kg. That figure is an ESTIMATE, not a credit. Reconcile it from the geometry, and do not rebook mass.
+- **Finish:** PR #516's palette: light blue-grey shell, ivory cushions, slate frame, teal accents, and a pale display surround.
 - **Freeze:** dry mass 868.192255 t and ECON Δv 707.845 km/s are unchanged.
 
 ## 1:25
