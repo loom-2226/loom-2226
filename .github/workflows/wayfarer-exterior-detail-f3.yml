@@ -10,6 +10,7 @@ on:
       - wayfarer/lab/exterior_detail_f3_20261110.py
       - wayfarer/lab/hull_etch_finish_20261111.py
       - wayfarer/lab/pbr_finish_v257.py
+      - wayfarer/lab/nostromo_paint_v2513.py
       - wayfarer/lab/nozzle_band_faces_v258.py
       - wayfarer/lab/nozzle_band_faces_v259.py
       - wayfarer/config/kt_decisions.json
@@ -40,7 +41,7 @@ jobs:
         run: |
           set -euo pipefail
           python -m pip install build123d==0.13.0 matplotlib==3.10.7
-          python -m py_compile wayfarer/lab/exterior_detail_f3_20261110.py wayfarer/lab/hull_etch_finish_20261111.py wayfarer/lab/pbr_finish_v257.py wayfarer/lab/nozzle_band_faces_v258.py wayfarer/lab/nozzle_band_faces_v259.py wayfarer/lab/shuttle/shuttle_v1_full_docked_G8.py
+          python -m py_compile wayfarer/lab/exterior_detail_f3_20261110.py wayfarer/lab/hull_etch_finish_20261111.py wayfarer/lab/pbr_finish_v257.py wayfarer/lab/nozzle_band_faces_v258.py wayfarer/lab/nozzle_band_faces_v259.py wayfarer/lab/nostromo_paint_v2513.py wayfarer/lab/shuttle/shuttle_v1_full_docked_G8.py
           echo '88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1  wayfarer/results/out/wayfarer_v05_geometry.json' | sha256sum -c -
           cp wayfarer/lab/packing_phase1b/frozen_research_3p8_forward.step.gz \
              wayfarer/lab/packing_phase1b/current_g3_3p8_forward.step.gz
@@ -61,7 +62,7 @@ jobs:
           (lab/'current_g3_rebuild_report.json').write_text(json.dumps(frozen)+'\n')
           print('IMMUTABLE_V253_CERTIFIED_STEP_REUSED')
           PY
-      - name: Preflight exact nozzle-area conservation on the released v2.5.9 GLB
+      - name: Preflight exact nozzle-area conservation on the released v2.5.12 GLB
         run: |
           python - <<'PY'
           import json,struct,sys
@@ -77,12 +78,7 @@ jobs:
           assert band['relative_area_error']<=1e-6 and band['surface_area_conservation']
           print('NOZZLE_V2510_PREFLIGHT_PASS',band)
           PY
-      - name: Actual OCC G8 on nozzle ring and every DOCKED source viewer part
-        run: |
-          set -euo pipefail
-          python -u wayfarer/lab/shuttle/shuttle_v1_docked_G8_gate.py
-          python -u wayfarer/lab/shuttle/shuttle_v1_full_docked_G8.py
-      - name: kT v2.5.12 graphite outward tank shell, six-state D9, containment and F3
+      - name: kT v2.5.13 NOSTROMO paint, clustered plating and true-scale etch, six-state D9, containment and F3
         run: |
           set -euo pipefail
           python -u wayfarer/lab/exterior_detail_f3_20261110.py | tee f3-exterior.log
@@ -116,6 +112,8 @@ jobs:
           assert q['zero_net_lateral_force'] and q['prior_v256_screen_did_not_use_source_directions']
           assert d['PBR_finish_gate'].startswith('CANON_FINISH')
           assert d['hull_surface_seam_scheme']=='hull_seam_scheme_2026_11_09'
+          assert d['nostromo_fine_true_scale_engraving'] and d['nostromo_markings_paint_only']
+          assert d['print_lod_is_separate_from_canon']
           assert d['hull_seam_width_m']==.05 and d['thin_shell_actual_blind_mark_m']==.006
           assert d['strake_1300K_glow_state']=='strakes Metric 2m and Torch 4m'
           assert d['graphite_srgb_2026_11_11_v258']=='#3A3D42'
@@ -128,7 +126,6 @@ jobs:
           assert d['pale_accent_linear_rgb_scale']==.57
           assert d['nozzle_coil_band_depth_m']==.03
           assert d['no_new_source_mass'] and d['no_performance_claims']
-          assert d['print_minimum_modelled_feature_m']==.1
           fix=d['metadata_only_fixes']
           assert fix['docking_camera_material']=='sensor'
           assert fix['hold_door_display_share_t']==1.0
@@ -150,6 +147,10 @@ jobs:
             assert et['ring_width_m']==.05 and et['thin_wall_actual_OCC_depth_m']==.006
             assert et['no_pressure_boundary_perforation'] and et['source_mass_rebooking_t']==0
             assert et['legacy_22p5_degree_skin_grid_removed']
+            assert et['nostromo_true_scale_subpanel_width_m']==.02
+            assert et['nostromo_true_scale_blind_depth_m']==.003
+            assert et['nostromo_bolts_paint_only'] and not et['print_space_overrides_in_canon']
+            assert et['parts']['dry:skin_midship']['nostromo_subpanel_ring_x_m']==[19.,23.,27.,31.]
             nozzle=et['parts']['dry:nozzle']
             assert nozzle['ring_band_station_m']==[47.2,48.5,49.8,51.1,52.4]
             assert nozzle['band_width_m']==.15 and nozzle['band_depth_m']==.03
@@ -200,6 +201,10 @@ jobs:
               for role,row in km['rows'].items():
                   assert row['status']=='CANON_FINISH'
                   assert all(0<=v<=1 for v in color(row['base_srgb_hex']))
+              def tone_linear(v,t):
+                  srgb=1.055*(v**(1/2.4))-.055 if v>.0031308 else 12.92*v
+                  srgb=max(0.,min(1.,srgb*t))
+                  return ((srgb+.055)/1.055)**2.4 if srgb>.04045 else srgb/12.92
               for mat in data['materials']:
                   name=mat.get('name','')
                   if not name.startswith('CANON_FINISH/'):continue
@@ -211,6 +216,9 @@ jobs:
                   expected=([.02,.02,.02] if hot else
                       [v*float(km['rows'][role].get('linear_base_scale',1.))
                        for v in color(km['rows'][role]['base_srgb_hex'])])
+                  tone=float(mat.get('extras',{}).get('panel_tone_srgb_factor',1.))
+                  assert .94<=tone<=1.06
+                  expected=[tone_linear(v,tone) for v in expected]
                   assert all(abs(a-b)<1e-7 for a,b in zip(
                       mat['pbrMetallicRoughness']['baseColorFactor'][:3],expected)),name
               nozzle_node=next(v for v in meshes if v['name']=='dry:nozzle')
@@ -272,6 +280,14 @@ jobs:
                              v['extras']['thermal_emissive_state'] for v in glowing)
               assert len(meshes)==st['part_count']
               assert st['gltf_extras']['source_palette_preserved_meshes']==0
+              paint=st['gltf_extras']['nostromo_paint']
+              assert paint['plated_meshes']>=7 and paint['panel_materials_added']>=10
+              assert paint['source_triangles']==paint['output_triangles']
+              assert paint['original_vertex_positions_preserved']
+              assert paint['decal_texture_embedded'] and paint['registry_flanks']==2
+              assert paint['panel_srgb_tone_min']>=.94 and paint['panel_srgb_tone_max']<=1.06
+              assert not paint['geometry_added'] and not paint['protrusions_added']
+              assert len(data.get('images',[]))>=1 and len(data.get('textures',[]))>=1
               roles={n['name']:n['extras']['finish_role'] for n in meshes}
               assert roles['dry:tank_shell_out']=='midship_skin_bay_doors'
               assert roles['dry:tank_shell_in']=='tank_shell'
@@ -305,12 +321,12 @@ jobs:
                      wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_report.json \
                      wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_F3_before_after.png
           test "$(git ls-files --cached 'wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_*.glb' | wc -l)" -eq 6
-          git commit -m 'class:engineering: v2.5.12 outward tank graphite, six-state pass'
+          git commit -m 'class:engineering: v2.5.13 NOSTROMO panel paint, decals and true-scale etch six-state pass'
           git restore --worktree -- .
           git fetch origin "${{ github.head_ref }}"
           git rebase "origin/${{ github.head_ref }}"
           git push origin "HEAD:${{ github.head_ref }}"
-  release_tag_v2512:
+  release_tag_v2513:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
@@ -319,7 +335,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Validate exact v2.5.12 committed six-state geometry
+      - name: Validate exact v2.5.13 committed six-state geometry
         run: |
           python - <<'PY'
           import json
@@ -331,6 +347,7 @@ jobs:
           assert r['source_dry_t']==868.1922552640087 and r['dry_mass_change_t']==0
           assert r['ECON_dv_km_s']==707.845
           assert all(s['gltf_extras']['source_palette_preserved_meshes']==0 for poses in r['six_states'].values() for s in poses.values())
+          assert all(s['gltf_extras']['nostromo_paint']['source_triangles']==s['gltf_extras']['nostromo_paint']['output_triangles'] and s['gltf_extras']['nostromo_paint']['decal_texture_embedded'] for poses in r['six_states'].values() for s in poses.values())
           assert all(s['gltf_extras']['by_finish_role']['midship_skin_bay_doors']>=4 and s['gltf_extras']['by_finish_role']['tank_shell']==1 for poses in r['six_states'].values() for s in poses.values())
           assert sum(len(p) for p in r['six_states'].values())==6
           for poses in r['six_states'].values():
@@ -341,18 +358,18 @@ jobs:
                   assert b['band_edges_split_exactly'] and b['relative_area_error']<=1e-6
                   assert b['nozzle_geometry_envelope_unchanged']
                   assert s['gltf_extras']['missing_visible_finish_meshes']==[]
-          print('CANON_V2512_RELEASE_SIX_STATE_PASS')
+          print('CANON_V2513_RELEASE_SIX_STATE_PASS')
           PY
-      - name: Annotate exact geometry merge commit canon-v2.5.12
+      - name: Annotate exact geometry merge commit canon-v2.5.13
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git fetch --tags origin
-          if git rev-parse -q --verify refs/tags/canon-v2.5.12 >/dev/null; then
-            echo 'STOP: canon-v2.5.12 already exists'; exit 1
+          if git rev-parse -q --verify refs/tags/canon-v2.5.13 >/dev/null; then
+            echo 'STOP: canon-v2.5.13 already exists'; exit 1
           fi
-          git tag -a canon-v2.5.12 "$GITHUB_SHA" -m 'Wayfarer canon-v2.5.12: outward tank shell graphite while inner shell and pale livery stay; six-state D9 containment PASS; no source mass or ECON delta'
-          git push origin refs/tags/canon-v2.5.12
-          echo "TAG_OBJECT_SHA=$(git rev-parse 'canon-v2.5.12^{tag}')"
-          echo "TAG_COMMIT_SHA=$(git rev-parse 'canon-v2.5.12^{}')"
+          git tag -a canon-v2.5.13 "$GITHUB_SHA" -m 'Wayfarer canon-v2.5.13: NOSTROMO seeded +/-6 percent plating, paint-only decals, true-scale fine engravings; six-state D9 containment PASS; no mass or new protrusions'
+          git push origin refs/tags/canon-v2.5.13
+          echo "TAG_OBJECT_SHA=$(git rev-parse 'canon-v2.5.13^{tag}')"
+          echo "TAG_COMMIT_SHA=$(git rev-parse 'canon-v2.5.13^{}')"

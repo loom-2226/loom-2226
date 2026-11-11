@@ -904,7 +904,7 @@
     "no_material_physical_qualification": true,
     "booked_mass_delta_t": 0,
     "geometry_envelope_delta_m": 0,
-    "version": "canon-v2.5.12",
+    "version": "canon-v2.5.13",
     "graphite_srgb_approved": "#3A3D42",
     "graphite_roles": [
       "bow_strata",
@@ -968,5 +968,22 @@
       "canon_srgb_roles": 24,
       "non_swatches_source_preserved": false
     }
+  },
+  "nostromo_paint_engraving_2026_11_11": {
+    "decision": "kT APPROVED",
+    "date": "2026-11-11",
+    "release": "canon-v2.5.13",
+    "basis": "True-scale BRep for shallow panel/access engravings; glTF PBR seeded mosaic and paint atlas; print-only dimensions must not enter canon.",
+    "deterministic_seed": "WAYFARER-NOSTROMO-v2.5.13-20261111",
+    "plate_tone_srgb_bound": 0.06,
+    "panel_grid": "Existing 2m ring seams and authored azimuth edges; denser local subdivision near hatches, RCS, collar and radiator roots, quiet in between.",
+    "markings": "WAYFARER on both flanks, hatch/RCS hazard stripes, collar docking marks, NO STEP at radiator roots; paint/decal only.",
+    "bolts": "PAINT ONLY; no raised or drilled bolt hardware.",
+    "print_derivation_reference": "wayfarer/docs/WAYFARER_PRINT_LOD_v2513.md",
+    "geometry_source_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+    "no_new_protrusions": true,
+    "no_new_parts": true,
+    "no_source_mass_change": true,
+    "print_space_overrides_in_canon": false
   }
 }
