@@ -63,8 +63,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 498,
           "all_scene_nodes_with_extras": 538,
-          "raw_glb_sha256": "e81a248fb55f45dda0484236f1102018997480d6b1b592ca2808ca217838f73d",
-          "bytes": 10525088,
+          "raw_glb_sha256": "41634bfb37f13b31096f6c1cc4882a378f41091188cd836ef548c4e7159bfa2e",
+          "bytes": 11013656,
           "canon_finish": "CANON_FINISH",
           "exterior_pbr_meshes": 498,
           "exterior_pbr_variants": 25,
@@ -127,18 +127,88 @@
             "width_m": 0.15,
             "depth_m": 0.03,
             "face_triangles_per_station": [
-              173,
-              152,
-              237,
-              237,
-              257
+              510,
+              400,
+              437,
+              440,
+              563
             ],
-            "face_triangles_total": 1056,
+            "boundary_edge_vertices": [
+              859,
+              1033,
+              730,
+              928,
+              822,
+              871,
+              770,
+              720,
+              870,
+              945
+            ],
+            "band_edges_split_exactly": true,
+            "clipped_triangles_total": 4550,
             "source_triangles_total": 2348,
-            "triangle_conservation": true,
+            "source_surface_area_m2": 229.39371879651583,
+            "clipped_surface_area_m2": 229.3937187964433,
+            "relative_area_error": 3.161908828494597e-13,
+            "coplanar_cut_triangles": [
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84
+            ],
+            "coplanar_cut_area_m2": [
+              0.31110397182561483,
+              0.5489544560790263,
+              0.3341038199015822,
+              0.5890069062334202,
+              0.35713174087725097,
+              0.6290593548377039,
+              0.380187578608018,
+              0.6691128493391254,
+              0.40327136382252315,
+              0.7091648419539656
+            ],
+            "surface_area_conservation": true,
+            "source_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
+            "output_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
             "nozzle_geometry_envelope_unchanged": true,
             "print_band_width_1_100_mm": 1.5,
-            "longitudinal_gltf_axis": 0
+            "longitudinal_gltf_axis": 0,
+            "paint_by_triangle_centroid": false,
+            "source_mass_rebooking_t": 0
           }
         },
         "semantic_hierarchy": {
@@ -175,8 +245,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 498,
           "all_scene_nodes_with_extras": 538,
-          "raw_glb_sha256": "323c4c23258ad8cc00260090e8bad52f151e380bcabd43132b474303905c62f4",
-          "bytes": 11432208,
+          "raw_glb_sha256": "e20e36d8eb254cd8fe0ec17ceb9840322e90da3e6bf20e112e898837ed598aca",
+          "bytes": 11920772,
           "canon_finish": "CANON_FINISH",
           "exterior_pbr_meshes": 498,
           "exterior_pbr_variants": 25,
@@ -239,18 +309,88 @@
             "width_m": 0.15,
             "depth_m": 0.03,
             "face_triangles_per_station": [
-              173,
-              152,
-              237,
-              237,
-              257
+              510,
+              400,
+              437,
+              440,
+              563
             ],
-            "face_triangles_total": 1056,
+            "boundary_edge_vertices": [
+              859,
+              1033,
+              730,
+              928,
+              822,
+              871,
+              770,
+              720,
+              870,
+              945
+            ],
+            "band_edges_split_exactly": true,
+            "clipped_triangles_total": 4550,
             "source_triangles_total": 2348,
-            "triangle_conservation": true,
+            "source_surface_area_m2": 229.39371879651583,
+            "clipped_surface_area_m2": 229.3937187964433,
+            "relative_area_error": 3.161908828494597e-13,
+            "coplanar_cut_triangles": [
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84
+            ],
+            "coplanar_cut_area_m2": [
+              0.31110397182561483,
+              0.5489544560790263,
+              0.3341038199015822,
+              0.5890069062334202,
+              0.35713174087725097,
+              0.6290593548377039,
+              0.380187578608018,
+              0.6691128493391254,
+              0.40327136382252315,
+              0.7091648419539656
+            ],
+            "surface_area_conservation": true,
+            "source_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
+            "output_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
             "nozzle_geometry_envelope_unchanged": true,
             "print_band_width_1_100_mm": 1.5,
-            "longitudinal_gltf_axis": 0
+            "longitudinal_gltf_axis": 0,
+            "paint_by_triangle_centroid": false,
+            "source_mass_rebooking_t": 0
           }
         },
         "semantic_hierarchy": {
@@ -289,8 +429,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 502,
           "all_scene_nodes_with_extras": 542,
-          "raw_glb_sha256": "a1627ce446692429d207ae452c8eb8bacd0f49dd7d4be669a3562e9d3f8a97a5",
-          "bytes": 10548188,
+          "raw_glb_sha256": "9ab49d3e905fdacd27085440338e7ec958d513b0a8a19f60cea2eff861bfda6e",
+          "bytes": 11036756,
           "canon_finish": "CANON_FINISH",
           "exterior_pbr_meshes": 502,
           "exterior_pbr_variants": 25,
@@ -353,18 +493,88 @@
             "width_m": 0.15,
             "depth_m": 0.03,
             "face_triangles_per_station": [
-              173,
-              152,
-              237,
-              237,
-              257
+              510,
+              400,
+              437,
+              440,
+              563
             ],
-            "face_triangles_total": 1056,
+            "boundary_edge_vertices": [
+              859,
+              1033,
+              730,
+              928,
+              822,
+              871,
+              770,
+              720,
+              870,
+              945
+            ],
+            "band_edges_split_exactly": true,
+            "clipped_triangles_total": 4550,
             "source_triangles_total": 2348,
-            "triangle_conservation": true,
+            "source_surface_area_m2": 229.39371879651583,
+            "clipped_surface_area_m2": 229.3937187964433,
+            "relative_area_error": 3.161908828494597e-13,
+            "coplanar_cut_triangles": [
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84
+            ],
+            "coplanar_cut_area_m2": [
+              0.31110397182561483,
+              0.5489544560790263,
+              0.3341038199015822,
+              0.5890069062334202,
+              0.35713174087725097,
+              0.6290593548377039,
+              0.380187578608018,
+              0.6691128493391254,
+              0.40327136382252315,
+              0.7091648419539656
+            ],
+            "surface_area_conservation": true,
+            "source_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
+            "output_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
             "nozzle_geometry_envelope_unchanged": true,
             "print_band_width_1_100_mm": 1.5,
-            "longitudinal_gltf_axis": 0
+            "longitudinal_gltf_axis": 0,
+            "paint_by_triangle_centroid": false,
+            "source_mass_rebooking_t": 0
           }
         },
         "semantic_hierarchy": {
@@ -401,8 +611,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 502,
           "all_scene_nodes_with_extras": 542,
-          "raw_glb_sha256": "4e8ac6ecfd9be849db26a15d1aaedc49478d539120511e1637e60f8830cd91c2",
-          "bytes": 11455356,
+          "raw_glb_sha256": "f77405aa09c3eb1560a6a5cc2e1194b0d2b7eaa6c0512661751a92ad2ad936e3",
+          "bytes": 11943920,
           "canon_finish": "CANON_FINISH",
           "exterior_pbr_meshes": 502,
           "exterior_pbr_variants": 25,
@@ -465,18 +675,88 @@
             "width_m": 0.15,
             "depth_m": 0.03,
             "face_triangles_per_station": [
-              173,
-              152,
-              237,
-              237,
-              257
+              510,
+              400,
+              437,
+              440,
+              563
             ],
-            "face_triangles_total": 1056,
+            "boundary_edge_vertices": [
+              859,
+              1033,
+              730,
+              928,
+              822,
+              871,
+              770,
+              720,
+              870,
+              945
+            ],
+            "band_edges_split_exactly": true,
+            "clipped_triangles_total": 4550,
             "source_triangles_total": 2348,
-            "triangle_conservation": true,
+            "source_surface_area_m2": 229.39371879651583,
+            "clipped_surface_area_m2": 229.3937187964433,
+            "relative_area_error": 3.161908828494597e-13,
+            "coplanar_cut_triangles": [
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84
+            ],
+            "coplanar_cut_area_m2": [
+              0.31110397182561483,
+              0.5489544560790263,
+              0.3341038199015822,
+              0.5890069062334202,
+              0.35713174087725097,
+              0.6290593548377039,
+              0.380187578608018,
+              0.6691128493391254,
+              0.40327136382252315,
+              0.7091648419539656
+            ],
+            "surface_area_conservation": true,
+            "source_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
+            "output_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
             "nozzle_geometry_envelope_unchanged": true,
             "print_band_width_1_100_mm": 1.5,
-            "longitudinal_gltf_axis": 0
+            "longitudinal_gltf_axis": 0,
+            "paint_by_triangle_centroid": false,
+            "source_mass_rebooking_t": 0
           }
         },
         "semantic_hierarchy": {
@@ -515,8 +795,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 558,
           "all_scene_nodes_with_extras": 598,
-          "raw_glb_sha256": "20f4db1340a14d8cea6d8f1f519c7f9ab943c6cfd5f849fe3f87eb85a632b017",
-          "bytes": 10633264,
+          "raw_glb_sha256": "52a16145bd7da76325eecd90aa0c0f03844df33f3166ebd50774c3f4d8e8e393",
+          "bytes": 11121828,
           "canon_finish": "CANON_FINISH",
           "exterior_pbr_meshes": 558,
           "exterior_pbr_variants": 39,
@@ -580,18 +860,88 @@
             "width_m": 0.15,
             "depth_m": 0.03,
             "face_triangles_per_station": [
-              173,
-              152,
-              237,
-              237,
-              257
+              510,
+              400,
+              437,
+              440,
+              563
             ],
-            "face_triangles_total": 1056,
+            "boundary_edge_vertices": [
+              859,
+              1033,
+              730,
+              928,
+              822,
+              871,
+              770,
+              720,
+              870,
+              945
+            ],
+            "band_edges_split_exactly": true,
+            "clipped_triangles_total": 4550,
             "source_triangles_total": 2348,
-            "triangle_conservation": true,
+            "source_surface_area_m2": 229.39371879651583,
+            "clipped_surface_area_m2": 229.3937187964433,
+            "relative_area_error": 3.161908828494597e-13,
+            "coplanar_cut_triangles": [
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84
+            ],
+            "coplanar_cut_area_m2": [
+              0.31110397182561483,
+              0.5489544560790263,
+              0.3341038199015822,
+              0.5890069062334202,
+              0.35713174087725097,
+              0.6290593548377039,
+              0.380187578608018,
+              0.6691128493391254,
+              0.40327136382252315,
+              0.7091648419539656
+            ],
+            "surface_area_conservation": true,
+            "source_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
+            "output_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
             "nozzle_geometry_envelope_unchanged": true,
             "print_band_width_1_100_mm": 1.5,
-            "longitudinal_gltf_axis": 0
+            "longitudinal_gltf_axis": 0,
+            "paint_by_triangle_centroid": false,
+            "source_mass_rebooking_t": 0
           }
         },
         "semantic_hierarchy": {
@@ -628,8 +978,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 558,
           "all_scene_nodes_with_extras": 598,
-          "raw_glb_sha256": "1c7ec226b3deb89cbdc8665eff17da1d9a0167441fa4ae1b56d76e1899980897",
-          "bytes": 11540432,
+          "raw_glb_sha256": "2219acead31021affe16d75eb1d8e62fc1db8914ed4205f63fe634437c22cdb6",
+          "bytes": 12028996,
           "canon_finish": "CANON_FINISH",
           "exterior_pbr_meshes": 558,
           "exterior_pbr_variants": 39,
@@ -693,18 +1043,88 @@
             "width_m": 0.15,
             "depth_m": 0.03,
             "face_triangles_per_station": [
-              173,
-              152,
-              237,
-              237,
-              257
+              510,
+              400,
+              437,
+              440,
+              563
             ],
-            "face_triangles_total": 1056,
+            "boundary_edge_vertices": [
+              859,
+              1033,
+              730,
+              928,
+              822,
+              871,
+              770,
+              720,
+              870,
+              945
+            ],
+            "band_edges_split_exactly": true,
+            "clipped_triangles_total": 4550,
             "source_triangles_total": 2348,
-            "triangle_conservation": true,
+            "source_surface_area_m2": 229.39371879651583,
+            "clipped_surface_area_m2": 229.3937187964433,
+            "relative_area_error": 3.161908828494597e-13,
+            "coplanar_cut_triangles": [
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84
+            ],
+            "coplanar_cut_area_m2": [
+              0.31110397182561483,
+              0.5489544560790263,
+              0.3341038199015822,
+              0.5890069062334202,
+              0.35713174087725097,
+              0.6290593548377039,
+              0.380187578608018,
+              0.6691128493391254,
+              0.40327136382252315,
+              0.7091648419539656
+            ],
+            "surface_area_conservation": true,
+            "source_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
+            "output_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
             "nozzle_geometry_envelope_unchanged": true,
             "print_band_width_1_100_mm": 1.5,
-            "longitudinal_gltf_axis": 0
+            "longitudinal_gltf_axis": 0,
+            "paint_by_triangle_centroid": false,
+            "source_mass_rebooking_t": 0
           }
         },
         "semantic_hierarchy": {
@@ -971,7 +1391,7 @@
     "pressure_vessel_visible_finish": "CANON_FINISH/interior_pressure_structure",
     "service_shield_band_finish": "CANON_FINISH/shadow_shield",
     "bay_corner_finish": "CANON_FINISH/external_fixtures",
-    "nozzle_coil_ring_boundary": "unchanged v2.5.8 nozzle triangle classification; exact ring edges deferred to v2.5.10",
+    "nozzle_coil_ring_boundary": "exact plane-clipped original mesh grooves; strict surface-area conservation",
     "all_rendered_nodes_require_CANON_FINISH": true,
     "pale_accent_linear_rgb_scale": 0.8,
     "print_minimum_modelled_feature_m": 0.1,
