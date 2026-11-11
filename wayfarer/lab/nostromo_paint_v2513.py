@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Wayfarer v2.5.13 NOSTROMO: deterministic materials/decal UVs, never new solids.
+"""Wayfarer v2.5.13 NOSTROMO: four seeded CANON_FINISH glTF material tones, never new solids.
 
 Partition EXISTING GLB triangles by the approved axial/azimuth seam cells.
 Indices and PBR materials change; vertex positions, triangles, source mass,
@@ -10,11 +10,8 @@ from bisect import bisect_right
 from collections import defaultdict
 from copy import deepcopy
 import hashlib
-import io
 import math
 import struct
-
-from PIL import Image, ImageDraw, ImageFont
 
 SEED = "WAYFARER-NOSTROMO-v2.5.13-20261111"
 PLATED = {
@@ -22,7 +19,7 @@ PLATED = {
     "dry:door_port", "dry:door_starboard", "dry:thrust_cone",
     "dry:tank_shell_out",
 }
-PAINTED = PLATED - {"dry:tank_shell_out"}
+TONES = (.94, .98, 1.02, 1.06)
 SEAMS = (0, 40, 140, 180, 220, 270, 320, 360)
 COMP = {5121: "B", 5123: "H", 5125: "I", 5126: "f"}
 SIZES = {5121: 1, 5123: 2, 5125: 4, 5126: 4}
@@ -55,50 +52,10 @@ def _cell(name, p):
     return ("calm", axial, bisect_right(SEAMS, az) - 1)
 
 
-def _tone(name, cell):
-    key = (SEED + "|" + name + "|" + ":".join(map(str, cell))).encode()
-    value = int.from_bytes(hashlib.sha256(key).digest()[:8], "big") / ((1 << 64) - 1)
-    return round(.94 + .12 * value, 5)
-
-
-def _atlas_png():
-    """A white multiplier atlas; pigment changes occur without an extra mesh."""
-    w, h = 2048, 1024
-    im = Image.new("RGB", (w, h), (255, 255, 255))
-    ink = ImageDraw.Draw(im)
-    try:
-        font = ImageFont.truetype("DejaVuSans-Bold.ttf", 42)
-        small = ImageFont.truetype("DejaVuSans-Bold.ttf", 23)
-    except OSError:
-        font = ImageFont.load_default()
-        small = font
-
-    def point(x, az):
-        u = x / 54.
-        v = ((az + 90.) % 360.) / 360.
-        return (round(w * u), round(h * (1. - v)))
-
-    for az in (0, 180):
-        x, y = point(22.4, az)
-        ink.text((x, y - 25), "WAYFARER", font=font, fill=(24, 29, 32))
-        for station in (3.0, 15.9, 18.7, 33.7):
-            bx, by = point(station, az)
-            ink.rectangle((bx - 12, by - 19, bx + 12, by + 19),
-                          fill=(219, 184, 86))
-            for k in (-15, -3, 9):
-                ink.line((bx - 10, by + k, bx + 10, by + k + 14),
-                         fill=(24, 28, 30), width=5)
-
-    for az in (0, 90, 180, 270):
-        x, y = point(3.1, az)
-        ink.text((x + 12, y + 12), "RCS", font=small, fill=(22, 26, 28))
-        x, y = point(34.0, az)
-        ink.text((x - 68, y + 20), "NO STEP", font=small, fill=(18, 21, 23))
-    x, y = point(16.0, 270)
-    ink.text((x - 32, y + 19), "DOCK", font=small, fill=(25, 29, 32))
-    out = io.BytesIO()
-    im.save(out, format="PNG")
-    return out.getvalue()
+def _tone(role, cell):
+    key = (SEED + "|" + role + "|" + ":".join(map(str, cell))).encode()
+    variant = int.from_bytes(hashlib.sha256(key).digest()[:8], "big") % 4
+    return variant, TONES[variant]
 
 
 def apply(data, tail):
@@ -136,23 +93,12 @@ def apply(data, tail):
         return [struct.unpack_from(fmt, binary, offset + i * stride)
                 for i in range(acc["count"])]
 
-    image_bytes = _atlas_png()
-    image_view = view(image_bytes)
-    image_id = len(data.setdefault("images", []))
-    data["images"].append(dict(name="WAYFARER_NOSTROMO_PAINT_v2513",
-                               mimeType="image/png", bufferView=image_view))
-    sampler_id = len(data.setdefault("samplers", []))
-    data["samplers"].append(dict(magFilter=9729, minFilter=9729,
-                                 wrapS=33071, wrapT=33071))
-    texture_id = len(data.setdefault("textures", []))
-    data["textures"].append(dict(source=image_id, sampler=sampler_id,
-                                 name="WAYFARER_NOSTROMO_DECAL_ATLAS"))
-
+    source_image_count=len(data.get("images",[]))
+    source_texture_count=len(data.get("textures",[]))
     material_cache = {}
-    uv_cache = {}
     source_triangles = output_triangles = 0
     plated_meshes = 0
-    paint_meshes = 0
+    by_finish = defaultdict(set)
     tones = []
     seen_mesh_indices = set()
     for node in data["nodes"]:
@@ -182,51 +128,36 @@ def apply(data, tail):
                 ids = list(range(len(positions)))
             if len(ids) % 3 or any(i < 0 or i >= len(positions) for i in ids):
                 raise RuntimeError("STOP export: NOSTROMO triangle index integrity")
-            if name in PAINTED:
-                paint_meshes += 1
-                if pos_id not in uv_cache:
-                    uv = []
-                    for x, y, z in positions:
-                        az = math.degrees(math.atan2(z, y)) % 360.
-                        uv.extend((max(0., min(1., x / 54.)),
-                                   ((az + 90.) % 360.) / 360.))
-                    uv_view = view(struct.pack("<" + "f" * len(uv), *uv), 34962)
-                    aid = len(data["accessors"])
-                    data["accessors"].append(dict(bufferView=uv_view, byteOffset=0,
-                                                  componentType=5126, count=len(positions),
-                                                  type="VEC2"))
-                    uv_cache[pos_id] = aid
             groups = defaultdict(list)
             for t in range(0, len(ids), 3):
                 tri = ids[t:t + 3]
                 centroid = tuple(sum(positions[k][axis] for k in tri) / 3.
                                  for axis in range(3))
                 cell = _cell(name, centroid)
-                groups[cell].extend(tri)
+                variant,tone=_tone(role,cell)
+                groups[variant].extend(tri)
                 node_cells.add(cell)
             source_triangles += len(ids) // 3
             if sum(map(len, groups.values())) != len(ids):
                 raise RuntimeError("STOP export: NOSTROMO lost triangles")
-            for cell in sorted(groups):
-                tri_ids = groups[cell]
-                tone = _tone(name, cell)
+            for variant in sorted(groups):
+                tri_ids = groups[variant]
+                tone = TONES[variant]
                 tones.append(tone)
                 source_mat_id = prim["material"]
-                cache_key = (source_mat_id, name, cell)
+                cache_key = (source_mat_id, variant)
                 if cache_key not in material_cache:
                     src = data["materials"][source_mat_id]
                     mat = deepcopy(src)
                     pbr = mat["pbrMetallicRoughness"]
                     old = pbr["baseColorFactor"]
                     pbr["baseColorFactor"] = [_tone_linear(v, tone) for v in old[:3]] + old[3:]
-                    if name in PAINTED:
-                        pbr["baseColorTexture"] = dict(index=texture_id)
-                    suffix = hashlib.sha256((SEED + name + str(cell)).encode()).hexdigest()[:10]
-                    mat["name"] = "CANON_FINISH/" + role + "/PANEL_" + suffix
-                    mat["extras"] = dict(panel_tone_srgb_factor=tone, panel_cell=list(cell),
+                    mat["name"] = "CANON_FINISH/" + role + "/PANEL_" + str(variant)
+                    mat["extras"] = dict(panel_tone_srgb_factor=tone, panel_variant=variant,
                                          seed=SEED, print_decal_geometry=False)
                     material_cache[cache_key] = len(data["materials"])
                     data["materials"].append(mat)
+                by_finish[role].add(variant)
                 iview = view(struct.pack("<" + "I" * len(tri_ids), *tri_ids), 34963)
                 index_id = len(data["accessors"])
                 data["accessors"].append(dict(bufferView=iview, byteOffset=0,
@@ -235,35 +166,39 @@ def apply(data, tail):
                 piece = dict(prim)
                 piece["indices"] = index_id
                 piece["attributes"] = dict(prim["attributes"])
-                if name in PAINTED:
-                    piece["attributes"]["TEXCOORD_0"] = uv_cache[pos_id]
                 piece["material"] = material_cache[cache_key]
                 replacements.append(piece)
                 output_triangles += len(tri_ids) // 3
         mesh["primitives"] = replacements
         node.setdefault("extras", {}).update(
             nostromo_plate_count=len(node_cells), nostromo_paint_seed=SEED,
-            nostromo_decal_atlas=(name in PAINTED), source_mass_rebooking_t=0)
+            nostromo_plain_materials=True, print_markings_not_in_glb=True,
+            source_mass_rebooking_t=0)
         plated_meshes += 1
-    if not plated_meshes or paint_meshes == 0:
+    if plated_meshes < 7:
         raise RuntimeError("STOP export: NOSTROMO no plated / painted surfaces")
     if source_triangles != output_triangles:
         raise RuntimeError("STOP export: NOSTROMO triangle conservation failure")
-    if any(not (.94 <= t <= 1.06) for t in tones):
-        raise RuntimeError("STOP export: NOSTROMO panel tone bound")
+    if any(not (.94 <= t <= 1.06) for t in tones) or any(len(v)>4 for v in by_finish.values()):
+        raise RuntimeError("STOP export: NOSTROMO panel tone/variant bound")
+    if len(data.get("images",[]))!=source_image_count or len(data.get("textures",[]))!=source_texture_count:
+        raise RuntimeError("STOP export: NOSTROMO must not add textures")
     while len(binary) % 4:
         binary.append(0)
     data["buffers"][0]["byteLength"] = len(binary)
     tail = struct.pack("<II", len(binary), 0x004e4942) + bytes(binary)
-    data.setdefault("asset", {}).setdefault("extras", {})["nostromo_paint"] = SEED
+    data.setdefault("asset", {}).setdefault("extras", {})["nostromo_finish_seed"] = SEED
     evidence = dict(seed=SEED, plated_meshes=plated_meshes,
-        painted_mesh_primitives=paint_meshes,
         panel_materials_added=len(material_cache),
+        tone_variants_srgb=list(TONES),
+        material_variants_by_finish={k:sorted(v) for k,v in by_finish.items()},
         panel_srgb_tone_min=min(tones), panel_srgb_tone_max=max(tones),
         panel_srgb_tone_bound=.06,
         source_triangles=source_triangles, output_triangles=output_triangles,
         original_vertex_positions_preserved=True,
         source_mass_rebooking_t=0, geometry_added=False, protrusions_added=False,
-        decal_texture_embedded=True, registry_flanks=2,
+        texture_system_added=False, decal_texture_embedded=False,
+        source_images_count=source_image_count,source_textures_count=source_texture_count,
+        registry_flanks_in_glb=0,plain_gltf_materials=True,
         print_decal_artwork="wayfarer/render/decals/WAYFARER_NOSTROMO_DECALS_v2513.svg")
     return tail, evidence

@@ -19,4 +19,4 @@ For the paint guide, one repeatable reference calculation for each RGB sRGB chan
 
 **Decals:** Print \`wayfarer/render/decals/WAYFARER_NOSTROMO_DECALS_v2513.svg\` on transfer/decal medium at an appropriate scale for the chosen print. Artwork includes port and starboard WAYFARER registry, RCS/hatch hazard bands, docking marks and radiator-root NO STEP. All bolts are paint marks. Apply after paint. Nothing is extruded from the hull.
 
-**Style:** clustered service markings around real hatches, RCS, collar and radiator roots; restrained seeded ±6% plate tone elsewhere. The embedded glTF paint atlas previews registry and stencils and changes colours, not geometry.
+**Style:** clustered service markings around real hatches, RCS, collar and radiator roots; restrained seeded ±6% plate tone elsewhere. The canon GLBs carry plain glTF mosaic material variants only. All registry and hazard stencils live solely in this print-only SVG artwork and paint guide.

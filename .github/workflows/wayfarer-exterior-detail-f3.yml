@@ -268,7 +268,10 @@ jobs:
               assert len([v for v in meshes if v['name'].startswith('dry:bay_corner_') and
                           v['extras']['finish_role']=='external_fixtures'])==4
               assert all(data['meshes'][v['mesh']]['primitives'][0]['material'] ==
-                         v['extras']['pbr_material_index'] for v in assigned)
+                         v['extras']['pbr_material_index'] for v in assigned
+                         if not v['extras'].get('nostromo_plain_materials'))
+              assert all(v['extras'].get('print_markings_not_in_glb')
+                         for v in assigned if v['extras'].get('nostromo_plain_materials'))
               glowing=[v for v in assigned if v['extras'].get('thermal_emissive_state')]
               if mode=='stowed':assert not glowing
               if mode=='metric_hard':
@@ -284,10 +287,18 @@ jobs:
               assert paint['plated_meshes']>=7 and paint['panel_materials_added']>=10
               assert paint['source_triangles']==paint['output_triangles']
               assert paint['original_vertex_positions_preserved']
-              assert paint['decal_texture_embedded'] and paint['registry_flanks']==2
+              assert paint['texture_system_added'] is False
+              assert paint['decal_texture_embedded'] is False
+              assert paint['registry_flanks_in_glb']==0
+              assert paint['plain_gltf_materials']
+              assert paint['tone_variants_srgb']==[.94,.98,1.02,1.06]
+              assert all(len(v)<=4 for v in paint['material_variants_by_finish'].values())
               assert paint['panel_srgb_tone_min']>=.94 and paint['panel_srgb_tone_max']<=1.06
               assert not paint['geometry_added'] and not paint['protrusions_added']
-              assert len(data.get('images',[]))>=1 and len(data.get('textures',[]))>=1
+              assert len(data.get('images',[]))==paint['source_images_count']
+              assert len(data.get('textures',[]))==paint['source_textures_count']
+              assert all('baseColorTexture' not in mat.get('pbrMetallicRoughness',{})
+                         for mat in data['materials'] if '/PANEL_' in mat.get('name',''))
               roles={n['name']:n['extras']['finish_role'] for n in meshes}
               assert roles['dry:tank_shell_out']=='midship_skin_bay_doors'
               assert roles['dry:tank_shell_in']=='tank_shell'
@@ -321,7 +332,7 @@ jobs:
                      wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_report.json \
                      wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_F3_before_after.png
           test "$(git ls-files --cached 'wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_*.glb' | wc -l)" -eq 6
-          git commit -m 'class:engineering: v2.5.13 NOSTROMO panel paint, decals and true-scale etch six-state pass'
+          git commit -m 'class:engineering: v2.5.13 NOSTROMO four plain-material tones and fine etch six-state pass'
           git restore --worktree -- .
           git fetch origin "${{ github.head_ref }}"
           git rebase "origin/${{ github.head_ref }}"
@@ -369,7 +380,7 @@ jobs:
           if git rev-parse -q --verify refs/tags/canon-v2.5.13 >/dev/null; then
             echo 'STOP: canon-v2.5.13 already exists'; exit 1
           fi
-          git tag -a canon-v2.5.13 "$GITHUB_SHA" -m 'Wayfarer canon-v2.5.13: NOSTROMO seeded +/-6 percent plating, paint-only decals, true-scale fine engravings; six-state D9 containment PASS; no mass or new protrusions'
+          git tag -a canon-v2.5.13 "$GITHUB_SHA" -m 'Wayfarer canon-v2.5.13: NOSTROMO four seeded plain PBR tones, print-only SVG markings, true-scale fine engravings; six-state D9 containment PASS; no mass or new protrusions'
           git push origin refs/tags/canon-v2.5.13
           echo "TAG_OBJECT_SHA=$(git rev-parse 'canon-v2.5.13^{tag}')"
           echo "TAG_COMMIT_SHA=$(git rev-parse 'canon-v2.5.13^{}')"

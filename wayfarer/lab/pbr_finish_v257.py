@@ -197,6 +197,8 @@ def assign_pbr(path,source_mesh_extras,mode):
     tail,coils=split_nozzle_rings(data,tail,nozzle_node,coil_index,
         f["nozzle_coil_band"]["stations_x_m"])
     tail,paint=N.apply(data,tail)
+    assert paint["texture_system_added"] is False and paint["registry_flanks_in_glb"]==0
+    assert paint["source_triangles"]==paint["output_triangles"]
     verified_materials+=1+paint["panel_materials_added"]
     for mat in mats:
         ex=mat.get("extras",{})

@@ -973,7 +973,7 @@
     "decision": "kT APPROVED",
     "date": "2026-11-11",
     "release": "canon-v2.5.13",
-    "basis": "True-scale BRep for shallow panel/access engravings; glTF PBR seeded mosaic and paint atlas; print-only dimensions must not enter canon.",
+    "basis": "True-scale BRep shallow sub-panel and access engravings; four seeded variants per plated CANON_FINISH as plain glTF materials. SVG decals/paint guide apply only to print derivation.",
     "deterministic_seed": "WAYFARER-NOSTROMO-v2.5.13-20261111",
     "plate_tone_srgb_bound": 0.06,
     "panel_grid": "Existing 2m ring seams and authored azimuth edges; denser local subdivision near hatches, RCS, collar and radiator roots, quiet in between.",
@@ -984,6 +984,11 @@
     "no_new_protrusions": true,
     "no_new_parts": true,
     "no_source_mass_change": true,
-    "print_space_overrides_in_canon": false
+    "print_space_overrides_in_canon": false,
+    "paint_mosaic": "Seeded tones [.94,.98,1.02,1.06] multiplier on sRGB before conversion to glTF linear; no paint engine or texture system.",
+    "markings_scope": "PRINT ONLY: WAYFARER flanks, RCS/hatch hazards, docking and NO STEP are SVG decal artwork and paint guide, NOT canon GLB.",
+    "no_texture_system": true,
+    "no_paint_engine": true,
+    "fine_engraving_only_canon_geometry_change": true
   }
 }
