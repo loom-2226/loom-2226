@@ -63,8 +63,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 498,
           "all_scene_nodes_with_extras": 538,
-          "raw_glb_sha256": "e4a91bdc920e13e621cd38b190a9b98b7f7085fb5e3e6b46179517f271976e53",
-          "bytes": 12479164,
+          "raw_glb_sha256": "ea50a3bd0ed236defa6c6fc7d6e8788e86f289d7ddf92a431a3540afdff04a16",
+          "bytes": 11507236,
           "canon_finish": "CANON_FINISH",
           "exterior_pbr_meshes": 498,
           "exterior_pbr_variants": 21,
@@ -104,7 +104,7 @@
           "bay_corner_finish": "external_fixtures",
           "pale_accent_linear_scale": 0.57,
           "srgb_to_linear_declared_roles": 24,
-          "verified_linear_pbr_materials": 34,
+          "verified_linear_pbr_materials": 28,
           "graphite_linear_base_rgb": [
             0.042311410620809675,
             0.046665086336880095,
@@ -212,7 +212,7 @@
           "nostromo_paint": {
             "seed": "WAYFARER-NOSTROMO-v2.5.13-20261111",
             "plated_meshes": 8,
-            "panel_materials_added": 12,
+            "panel_materials_added": 6,
             "tone_variants_srgb": [
               0.94,
               0.98,
@@ -220,41 +220,50 @@
               1.06
             ],
             "material_variants_by_finish": {
+              "bow_strata": [
+                2
+              ],
               "midship_skin_bay_doors": [
                 0,
                 1,
-                2,
-                3
+                2
               ],
               "service_band_aft_thrust_cone": [
-                0,
                 1,
-                2,
-                3
-              ],
-              "bow_strata": [
-                0,
-                1,
-                2,
-                3
+                2
               ]
             },
             "panel_srgb_tone_min": 0.94,
             "panel_srgb_tone_max": 1.06,
             "panel_srgb_tone_bound": 0.06,
+            "per_triangle_assignment": false,
+            "all_plated_parts_single_cell": true,
+            "all_mosaic_roles_spotchecked": true,
             "source_triangles": 33052,
             "output_triangles": 33052,
             "original_vertex_positions_preserved": true,
-            "source_mass_rebooking_t": 0,
-            "geometry_added": false,
-            "protrusions_added": false,
-            "texture_system_added": false,
-            "decal_texture_embedded": false,
             "source_images_count": 0,
             "source_textures_count": 0,
+            "texture_system_added": false,
+            "decal_texture_embedded": false,
             "registry_flanks_in_glb": 0,
             "plain_gltf_materials": true,
-            "print_decal_artwork": "wayfarer/render/decals/WAYFARER_NOSTROMO_DECALS_v2513.svg"
+            "geometry_added": false,
+            "protrusions_added": false,
+            "source_mass_rebooking_t": 0,
+            "thrust_cone_smoothing": {
+              "method": "analytic_frustum_lateral_normals",
+              "smoothed_lateral_vertex_normals": 260,
+              "preserved_hard_edge_normals": 168,
+              "unchanged_position_accessors": true,
+              "unchanged_triangle_indices": true,
+              "relative_surface_area_error": 0.0,
+              "surface_area_tolerance": 1e-06,
+              "source_envelope_unchanged": true,
+              "no_new_vertices": true,
+              "slope": -0.29000002564932104,
+              "axial_axis": 0
+            }
           }
         },
         "semantic_hierarchy": {
@@ -291,8 +300,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 498,
           "all_scene_nodes_with_extras": 538,
-          "raw_glb_sha256": "5a59d9576026ebf72903c1d9c67ff20d9ad991001dbb70a540d3d4ad4d7a95f9",
-          "bytes": 13386340,
+          "raw_glb_sha256": "862034b5b91e73155d45358d6ee1a6ffb8e37808bfd39b474cd9878291bb6a80",
+          "bytes": 12414412,
           "canon_finish": "CANON_FINISH",
           "exterior_pbr_meshes": 498,
           "exterior_pbr_variants": 21,
@@ -332,7 +341,7 @@
           "bay_corner_finish": "external_fixtures",
           "pale_accent_linear_scale": 0.57,
           "srgb_to_linear_declared_roles": 24,
-          "verified_linear_pbr_materials": 34,
+          "verified_linear_pbr_materials": 28,
           "graphite_linear_base_rgb": [
             0.042311410620809675,
             0.046665086336880095,
@@ -440,7 +449,7 @@
           "nostromo_paint": {
             "seed": "WAYFARER-NOSTROMO-v2.5.13-20261111",
             "plated_meshes": 8,
-            "panel_materials_added": 12,
+            "panel_materials_added": 6,
             "tone_variants_srgb": [
               0.94,
               0.98,
@@ -448,41 +457,50 @@
               1.06
             ],
             "material_variants_by_finish": {
+              "bow_strata": [
+                2
+              ],
               "midship_skin_bay_doors": [
                 0,
                 1,
-                2,
-                3
+                2
               ],
               "service_band_aft_thrust_cone": [
-                0,
                 1,
-                2,
-                3
-              ],
-              "bow_strata": [
-                0,
-                1,
-                2,
-                3
+                2
               ]
             },
             "panel_srgb_tone_min": 0.94,
             "panel_srgb_tone_max": 1.06,
             "panel_srgb_tone_bound": 0.06,
+            "per_triangle_assignment": false,
+            "all_plated_parts_single_cell": true,
+            "all_mosaic_roles_spotchecked": true,
             "source_triangles": 33052,
             "output_triangles": 33052,
             "original_vertex_positions_preserved": true,
-            "source_mass_rebooking_t": 0,
-            "geometry_added": false,
-            "protrusions_added": false,
-            "texture_system_added": false,
-            "decal_texture_embedded": false,
             "source_images_count": 0,
             "source_textures_count": 0,
+            "texture_system_added": false,
+            "decal_texture_embedded": false,
             "registry_flanks_in_glb": 0,
             "plain_gltf_materials": true,
-            "print_decal_artwork": "wayfarer/render/decals/WAYFARER_NOSTROMO_DECALS_v2513.svg"
+            "geometry_added": false,
+            "protrusions_added": false,
+            "source_mass_rebooking_t": 0,
+            "thrust_cone_smoothing": {
+              "method": "analytic_frustum_lateral_normals",
+              "smoothed_lateral_vertex_normals": 260,
+              "preserved_hard_edge_normals": 168,
+              "unchanged_position_accessors": true,
+              "unchanged_triangle_indices": true,
+              "relative_surface_area_error": 0.0,
+              "surface_area_tolerance": 1e-06,
+              "source_envelope_unchanged": true,
+              "no_new_vertices": true,
+              "slope": -0.29000002564932104,
+              "axial_axis": 0
+            }
           }
         },
         "semantic_hierarchy": {
@@ -521,8 +539,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 502,
           "all_scene_nodes_with_extras": 542,
-          "raw_glb_sha256": "d141319ba29c5cf8a88d7958e4b600f8c3fb3a0797828be37fe5173347d45c7a",
-          "bytes": 12502260,
+          "raw_glb_sha256": "2a539a547ca0f12be3330eb925c73b0965a4ca565c0c0e96d55cccb292137198",
+          "bytes": 11530336,
           "canon_finish": "CANON_FINISH",
           "exterior_pbr_meshes": 502,
           "exterior_pbr_variants": 21,
@@ -562,7 +580,7 @@
           "bay_corner_finish": "external_fixtures",
           "pale_accent_linear_scale": 0.57,
           "srgb_to_linear_declared_roles": 24,
-          "verified_linear_pbr_materials": 34,
+          "verified_linear_pbr_materials": 28,
           "graphite_linear_base_rgb": [
             0.042311410620809675,
             0.046665086336880095,
@@ -670,7 +688,7 @@
           "nostromo_paint": {
             "seed": "WAYFARER-NOSTROMO-v2.5.13-20261111",
             "plated_meshes": 8,
-            "panel_materials_added": 12,
+            "panel_materials_added": 6,
             "tone_variants_srgb": [
               0.94,
               0.98,
@@ -678,41 +696,50 @@
               1.06
             ],
             "material_variants_by_finish": {
+              "bow_strata": [
+                2
+              ],
               "midship_skin_bay_doors": [
                 0,
                 1,
-                2,
-                3
+                2
               ],
               "service_band_aft_thrust_cone": [
-                0,
                 1,
-                2,
-                3
-              ],
-              "bow_strata": [
-                0,
-                1,
-                2,
-                3
+                2
               ]
             },
             "panel_srgb_tone_min": 0.94,
             "panel_srgb_tone_max": 1.06,
             "panel_srgb_tone_bound": 0.06,
+            "per_triangle_assignment": false,
+            "all_plated_parts_single_cell": true,
+            "all_mosaic_roles_spotchecked": true,
             "source_triangles": 33052,
             "output_triangles": 33052,
             "original_vertex_positions_preserved": true,
-            "source_mass_rebooking_t": 0,
-            "geometry_added": false,
-            "protrusions_added": false,
-            "texture_system_added": false,
-            "decal_texture_embedded": false,
             "source_images_count": 0,
             "source_textures_count": 0,
+            "texture_system_added": false,
+            "decal_texture_embedded": false,
             "registry_flanks_in_glb": 0,
             "plain_gltf_materials": true,
-            "print_decal_artwork": "wayfarer/render/decals/WAYFARER_NOSTROMO_DECALS_v2513.svg"
+            "geometry_added": false,
+            "protrusions_added": false,
+            "source_mass_rebooking_t": 0,
+            "thrust_cone_smoothing": {
+              "method": "analytic_frustum_lateral_normals",
+              "smoothed_lateral_vertex_normals": 260,
+              "preserved_hard_edge_normals": 168,
+              "unchanged_position_accessors": true,
+              "unchanged_triangle_indices": true,
+              "relative_surface_area_error": 0.0,
+              "surface_area_tolerance": 1e-06,
+              "source_envelope_unchanged": true,
+              "no_new_vertices": true,
+              "slope": -0.29000002564932104,
+              "axial_axis": 0
+            }
           }
         },
         "semantic_hierarchy": {
@@ -749,8 +776,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 502,
           "all_scene_nodes_with_extras": 542,
-          "raw_glb_sha256": "407335d9381008e3af3cd5d5d21ef7993fbf5d43cceb6ffffd13ee004ffb7612",
-          "bytes": 13409484,
+          "raw_glb_sha256": "69f4ee3004eacc138396fccd3d469cad2386eb2d64b115976a25dbf08b4fa5ab",
+          "bytes": 12437556,
           "canon_finish": "CANON_FINISH",
           "exterior_pbr_meshes": 502,
           "exterior_pbr_variants": 21,
@@ -790,7 +817,7 @@
           "bay_corner_finish": "external_fixtures",
           "pale_accent_linear_scale": 0.57,
           "srgb_to_linear_declared_roles": 24,
-          "verified_linear_pbr_materials": 34,
+          "verified_linear_pbr_materials": 28,
           "graphite_linear_base_rgb": [
             0.042311410620809675,
             0.046665086336880095,
@@ -898,7 +925,7 @@
           "nostromo_paint": {
             "seed": "WAYFARER-NOSTROMO-v2.5.13-20261111",
             "plated_meshes": 8,
-            "panel_materials_added": 12,
+            "panel_materials_added": 6,
             "tone_variants_srgb": [
               0.94,
               0.98,
@@ -906,41 +933,50 @@
               1.06
             ],
             "material_variants_by_finish": {
+              "bow_strata": [
+                2
+              ],
               "midship_skin_bay_doors": [
                 0,
                 1,
-                2,
-                3
+                2
               ],
               "service_band_aft_thrust_cone": [
-                0,
                 1,
-                2,
-                3
-              ],
-              "bow_strata": [
-                0,
-                1,
-                2,
-                3
+                2
               ]
             },
             "panel_srgb_tone_min": 0.94,
             "panel_srgb_tone_max": 1.06,
             "panel_srgb_tone_bound": 0.06,
+            "per_triangle_assignment": false,
+            "all_plated_parts_single_cell": true,
+            "all_mosaic_roles_spotchecked": true,
             "source_triangles": 33052,
             "output_triangles": 33052,
             "original_vertex_positions_preserved": true,
-            "source_mass_rebooking_t": 0,
-            "geometry_added": false,
-            "protrusions_added": false,
-            "texture_system_added": false,
-            "decal_texture_embedded": false,
             "source_images_count": 0,
             "source_textures_count": 0,
+            "texture_system_added": false,
+            "decal_texture_embedded": false,
             "registry_flanks_in_glb": 0,
             "plain_gltf_materials": true,
-            "print_decal_artwork": "wayfarer/render/decals/WAYFARER_NOSTROMO_DECALS_v2513.svg"
+            "geometry_added": false,
+            "protrusions_added": false,
+            "source_mass_rebooking_t": 0,
+            "thrust_cone_smoothing": {
+              "method": "analytic_frustum_lateral_normals",
+              "smoothed_lateral_vertex_normals": 260,
+              "preserved_hard_edge_normals": 168,
+              "unchanged_position_accessors": true,
+              "unchanged_triangle_indices": true,
+              "relative_surface_area_error": 0.0,
+              "surface_area_tolerance": 1e-06,
+              "source_envelope_unchanged": true,
+              "no_new_vertices": true,
+              "slope": -0.29000002564932104,
+              "axial_axis": 0
+            }
           }
         },
         "semantic_hierarchy": {
@@ -979,8 +1015,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 558,
           "all_scene_nodes_with_extras": 598,
-          "raw_glb_sha256": "4e8eff3cd7c94593d8230b75745fc58ad07e251ef3ca13d1318056c034c6c685",
-          "bytes": 12587336,
+          "raw_glb_sha256": "41d9cfeeada97a1989020e8f15019e276bd199c2d23c1829ec8143985a18d49e",
+          "bytes": 11615408,
           "canon_finish": "CANON_FINISH",
           "exterior_pbr_meshes": 558,
           "exterior_pbr_variants": 35,
@@ -1021,7 +1057,7 @@
           "bay_corner_finish": "external_fixtures",
           "pale_accent_linear_scale": 0.57,
           "srgb_to_linear_declared_roles": 24,
-          "verified_linear_pbr_materials": 48,
+          "verified_linear_pbr_materials": 42,
           "graphite_linear_base_rgb": [
             0.042311410620809675,
             0.046665086336880095,
@@ -1129,7 +1165,7 @@
           "nostromo_paint": {
             "seed": "WAYFARER-NOSTROMO-v2.5.13-20261111",
             "plated_meshes": 8,
-            "panel_materials_added": 12,
+            "panel_materials_added": 6,
             "tone_variants_srgb": [
               0.94,
               0.98,
@@ -1137,41 +1173,50 @@
               1.06
             ],
             "material_variants_by_finish": {
+              "bow_strata": [
+                2
+              ],
               "midship_skin_bay_doors": [
                 0,
                 1,
-                2,
-                3
+                2
               ],
               "service_band_aft_thrust_cone": [
-                0,
                 1,
-                2,
-                3
-              ],
-              "bow_strata": [
-                0,
-                1,
-                2,
-                3
+                2
               ]
             },
             "panel_srgb_tone_min": 0.94,
             "panel_srgb_tone_max": 1.06,
             "panel_srgb_tone_bound": 0.06,
+            "per_triangle_assignment": false,
+            "all_plated_parts_single_cell": true,
+            "all_mosaic_roles_spotchecked": true,
             "source_triangles": 33052,
             "output_triangles": 33052,
             "original_vertex_positions_preserved": true,
-            "source_mass_rebooking_t": 0,
-            "geometry_added": false,
-            "protrusions_added": false,
-            "texture_system_added": false,
-            "decal_texture_embedded": false,
             "source_images_count": 0,
             "source_textures_count": 0,
+            "texture_system_added": false,
+            "decal_texture_embedded": false,
             "registry_flanks_in_glb": 0,
             "plain_gltf_materials": true,
-            "print_decal_artwork": "wayfarer/render/decals/WAYFARER_NOSTROMO_DECALS_v2513.svg"
+            "geometry_added": false,
+            "protrusions_added": false,
+            "source_mass_rebooking_t": 0,
+            "thrust_cone_smoothing": {
+              "method": "analytic_frustum_lateral_normals",
+              "smoothed_lateral_vertex_normals": 260,
+              "preserved_hard_edge_normals": 168,
+              "unchanged_position_accessors": true,
+              "unchanged_triangle_indices": true,
+              "relative_surface_area_error": 0.0,
+              "surface_area_tolerance": 1e-06,
+              "source_envelope_unchanged": true,
+              "no_new_vertices": true,
+              "slope": -0.29000002564932104,
+              "axial_axis": 0
+            }
           }
         },
         "semantic_hierarchy": {
@@ -1208,8 +1253,8 @@
         "gltf_extras": {
           "mesh_nodes_with_extras": 558,
           "all_scene_nodes_with_extras": 598,
-          "raw_glb_sha256": "5e53c7917a7a66328c96cae0118600fba949e62b39dfb107d69fbb76d8843d97",
-          "bytes": 13494560,
+          "raw_glb_sha256": "bcae8903ee945126b40b0db1980646dbf1f983e54ca818e4bb65fcf51161a4b7",
+          "bytes": 12522628,
           "canon_finish": "CANON_FINISH",
           "exterior_pbr_meshes": 558,
           "exterior_pbr_variants": 35,
@@ -1250,7 +1295,7 @@
           "bay_corner_finish": "external_fixtures",
           "pale_accent_linear_scale": 0.57,
           "srgb_to_linear_declared_roles": 24,
-          "verified_linear_pbr_materials": 48,
+          "verified_linear_pbr_materials": 42,
           "graphite_linear_base_rgb": [
             0.042311410620809675,
             0.046665086336880095,
@@ -1358,7 +1403,7 @@
           "nostromo_paint": {
             "seed": "WAYFARER-NOSTROMO-v2.5.13-20261111",
             "plated_meshes": 8,
-            "panel_materials_added": 12,
+            "panel_materials_added": 6,
             "tone_variants_srgb": [
               0.94,
               0.98,
@@ -1366,41 +1411,50 @@
               1.06
             ],
             "material_variants_by_finish": {
+              "bow_strata": [
+                2
+              ],
               "midship_skin_bay_doors": [
                 0,
                 1,
-                2,
-                3
+                2
               ],
               "service_band_aft_thrust_cone": [
-                0,
                 1,
-                2,
-                3
-              ],
-              "bow_strata": [
-                0,
-                1,
-                2,
-                3
+                2
               ]
             },
             "panel_srgb_tone_min": 0.94,
             "panel_srgb_tone_max": 1.06,
             "panel_srgb_tone_bound": 0.06,
+            "per_triangle_assignment": false,
+            "all_plated_parts_single_cell": true,
+            "all_mosaic_roles_spotchecked": true,
             "source_triangles": 33052,
             "output_triangles": 33052,
             "original_vertex_positions_preserved": true,
-            "source_mass_rebooking_t": 0,
-            "geometry_added": false,
-            "protrusions_added": false,
-            "texture_system_added": false,
-            "decal_texture_embedded": false,
             "source_images_count": 0,
             "source_textures_count": 0,
+            "texture_system_added": false,
+            "decal_texture_embedded": false,
             "registry_flanks_in_glb": 0,
             "plain_gltf_materials": true,
-            "print_decal_artwork": "wayfarer/render/decals/WAYFARER_NOSTROMO_DECALS_v2513.svg"
+            "geometry_added": false,
+            "protrusions_added": false,
+            "source_mass_rebooking_t": 0,
+            "thrust_cone_smoothing": {
+              "method": "analytic_frustum_lateral_normals",
+              "smoothed_lateral_vertex_normals": 260,
+              "preserved_hard_edge_normals": 168,
+              "unchanged_position_accessors": true,
+              "unchanged_triangle_indices": true,
+              "relative_surface_area_error": 0.0,
+              "surface_area_tolerance": 1e-06,
+              "source_envelope_unchanged": true,
+              "no_new_vertices": true,
+              "slope": -0.29000002564932104,
+              "axial_axis": 0
+            }
           }
         },
         "semantic_hierarchy": {
