@@ -3,7 +3,7 @@
 
 | Element | At 1:25 | Print interpretation |
 |---|---:|---|
-| L1 annulus outside diameter 8.30 m | 332 mm | Actual deck geometry, two ladder holes left open |
+| L1 annulus outside diameter 8.30 m | 332 mm | Actual BRep deck with two Ø0.80m ladder bores cut, source mass saving ZERO |
 | Utility trunk 1.80 m outside diameter | 72 mm | Goods lift, 4 rack proxies, central utilities; NOT crew egress |
 | Ladderways 0.80 m diameter each | 32 mm | Two and ONLY two crew egress routes |
 | Six 1.58 x 0.70 m contoured couches | 63.2 x 28.0 mm each | Single shared contour, six repeated positions; physical geometry |

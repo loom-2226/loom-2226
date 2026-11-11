@@ -3,7 +3,7 @@
   "classification": "INTERIOR_L1_ONLY",
   "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
   "glb_path": "render/out/interior_L1.glb",
-  "glb_sha256": "5801c455a63c5363e0d29e44dc1046dee6a8e2387e5033f264c91dc6358861ae",
+  "glb_sha256": "406d7c7e1f162a98df90a875cf55ff4ccd10b2cd789474e290dc067e645cabfa",
   "dry_t": 868.1922552640087,
   "ECON_dv_km_s": 707.845,
   "source_mass_delta_t": 0,
@@ -11,9 +11,22 @@
   "checks": {
     "D9_category_d": 0,
     "couch_collisions_any_volume": 0,
+    "D9_scope": "new 1.58m contoured couches vs all booked L1 physical fixtures and other couches",
     "containment": "PASS",
-    "source_pressure_containment_min_clearance_m": 0.472723,
+    "source_pressure_containment_min_clearance_m": 0.12,
+    "source_fixture_containment_count": 62,
+    "all_drawn_L1_parts_contained": true,
     "G1_G12": "NOT RUN / NOT REQUIRED"
+  },
+  "floor_ladder_bores": {
+    "count": 2,
+    "diameter_m": 0.8,
+    "x_floor_m": [
+      3.0,
+      3.3
+    ],
+    "volume_removed_from_visual_BRep_m3": 0.301593,
+    "dry_mass_savings_credited_t": 0
   },
   "couch_instances": [
     {
@@ -154,6 +167,318 @@
   "couch_brep_component_count": 9,
   "source_visible_parts": 42,
   "source_derived_utilities_ladders": 20,
+  "existing_source_fixture_containment": [
+    {
+      "item": "floor_L1",
+      "source_pressure_inner_shell_clearance_min_m": 0.12,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "command_terrace",
+      "source_pressure_inner_shell_clearance_min_m": 0.813108,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "navigator_platform",
+      "source_pressure_inner_shell_clearance_min_m": 0.386944,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "hatch_L1L2_0",
+      "source_pressure_inner_shell_clearance_min_m": 2.324826,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "hatch_L1L2_1",
+      "source_pressure_inner_shell_clearance_min_m": 2.324826,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_engineering_cabinet",
+      "source_pressure_inner_shell_clearance_min_m": 0.365756,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_sensors_cabinet",
+      "source_pressure_inner_shell_clearance_min_m": 0.365756,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_shared_map_table",
+      "source_pressure_inner_shell_clearance_min_m": 0.386995,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_equipment_workbench",
+      "source_pressure_inner_shell_clearance_min_m": 0.287275,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_workbench_display",
+      "source_pressure_inner_shell_clearance_min_m": 0.360806,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_low_g_command_point",
+      "source_pressure_inner_shell_clearance_min_m": 0.310044,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_map_console",
+      "source_pressure_inner_shell_clearance_min_m": 0.765195,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_terrace_column_0",
+      "source_pressure_inner_shell_clearance_min_m": 0.895461,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_terrace_column_1",
+      "source_pressure_inner_shell_clearance_min_m": 0.895461,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_terrace_column_2",
+      "source_pressure_inner_shell_clearance_min_m": 2.302622,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_terrace_column_3",
+      "source_pressure_inner_shell_clearance_min_m": 2.302622,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_rails_0",
+      "source_pressure_inner_shell_clearance_min_m": 0.613769,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_rails_1",
+      "source_pressure_inner_shell_clearance_min_m": 0.613769,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_rails_2",
+      "source_pressure_inner_shell_clearance_min_m": 0.44184,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_rails_3",
+      "source_pressure_inner_shell_clearance_min_m": 0.44184,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_lights_0",
+      "source_pressure_inner_shell_clearance_min_m": 0.759634,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_lights_1",
+      "source_pressure_inner_shell_clearance_min_m": 0.44922,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_transfer_0",
+      "source_pressure_inner_shell_clearance_min_m": 1.917299,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_transfer_1",
+      "source_pressure_inner_shell_clearance_min_m": 2.221326,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_observation_rail_0",
+      "source_pressure_inner_shell_clearance_min_m": 0.198033,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_observation_rail_1",
+      "source_pressure_inner_shell_clearance_min_m": 0.198033,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_observation_rail_10",
+      "source_pressure_inner_shell_clearance_min_m": 0.198033,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_observation_rail_11",
+      "source_pressure_inner_shell_clearance_min_m": 0.198033,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_observation_rail_12",
+      "source_pressure_inner_shell_clearance_min_m": 0.198033,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_observation_rail_13",
+      "source_pressure_inner_shell_clearance_min_m": 0.198033,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_observation_rail_14",
+      "source_pressure_inner_shell_clearance_min_m": 0.198033,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_observation_rail_15",
+      "source_pressure_inner_shell_clearance_min_m": 0.198033,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_observation_rail_16",
+      "source_pressure_inner_shell_clearance_min_m": 0.198033,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_observation_rail_17",
+      "source_pressure_inner_shell_clearance_min_m": 0.198033,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_observation_rail_2",
+      "source_pressure_inner_shell_clearance_min_m": 0.198033,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_observation_rail_3",
+      "source_pressure_inner_shell_clearance_min_m": 0.198033,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_observation_rail_4",
+      "source_pressure_inner_shell_clearance_min_m": 0.198033,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_observation_rail_5",
+      "source_pressure_inner_shell_clearance_min_m": 0.198033,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_observation_rail_6",
+      "source_pressure_inner_shell_clearance_min_m": 0.198033,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_observation_rail_7",
+      "source_pressure_inner_shell_clearance_min_m": 0.198033,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_observation_rail_8",
+      "source_pressure_inner_shell_clearance_min_m": 0.198033,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "i4_observation_rail_9",
+      "source_pressure_inner_shell_clearance_min_m": 0.198033,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "ladder_L1_0_rail_0",
+      "source_pressure_inner_shell_clearance_min_m": 2.026978,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "ladder_L1_0_rail_1",
+      "source_pressure_inner_shell_clearance_min_m": 2.026978,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "ladder_L1_0_rung_0",
+      "source_pressure_inner_shell_clearance_min_m": 2.067725,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "ladder_L1_0_rung_1",
+      "source_pressure_inner_shell_clearance_min_m": 2.307725,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "ladder_L1_0_rung_2",
+      "source_pressure_inner_shell_clearance_min_m": 2.547725,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "ladder_L1_0_rung_3",
+      "source_pressure_inner_shell_clearance_min_m": 2.787725,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "ladder_L1_0_rung_4",
+      "source_pressure_inner_shell_clearance_min_m": 2.838995,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "ladder_L1_1_rail_0",
+      "source_pressure_inner_shell_clearance_min_m": 2.02698,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "ladder_L1_1_rail_1",
+      "source_pressure_inner_shell_clearance_min_m": 2.02698,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "ladder_L1_1_rung_0",
+      "source_pressure_inner_shell_clearance_min_m": 2.067725,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "ladder_L1_1_rung_1",
+      "source_pressure_inner_shell_clearance_min_m": 2.307725,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "ladder_L1_1_rung_2",
+      "source_pressure_inner_shell_clearance_min_m": 2.547725,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "ladder_L1_1_rung_3",
+      "source_pressure_inner_shell_clearance_min_m": 2.787725,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "ladder_L1_1_rung_4",
+      "source_pressure_inner_shell_clearance_min_m": 2.838995,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "core_trunk_L1_wall",
+      "source_pressure_inner_shell_clearance_min_m": 2.755571,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "core_trunk_L1_goods_lift",
+      "source_pressure_inner_shell_clearance_min_m": 2.822724,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "core_trunk_L1_avionics_rack_0",
+      "source_pressure_inner_shell_clearance_min_m": 2.84886,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "core_trunk_L1_avionics_rack_1",
+      "source_pressure_inner_shell_clearance_min_m": 2.84886,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "core_trunk_L1_avionics_rack_2",
+      "source_pressure_inner_shell_clearance_min_m": 2.84886,
+      "inside_pressure_hull": true
+    },
+    {
+      "item": "core_trunk_L1_avionics_rack_3",
+      "source_pressure_inner_shell_clearance_min_m": 2.84886,
+      "inside_pressure_hull": true
+    }
+  ],
   "mesh_nodes": 68,
   "semantic_volume_nodes": [
     "room_L1-command",
