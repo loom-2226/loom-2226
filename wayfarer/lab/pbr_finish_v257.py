@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Wayfarer canon-v2.5.11: approved PBR and strict plane-split nozzle groove faces.
+"""Wayfarer canon-v2.5.12: approved PBR and strict plane-split nozzle groove faces.
 
 No geometry, physics, density, mass, IR emissivity, or source material changes.
 Rewrites only the JSON chunk of the existing GLB: node materials/extras.
@@ -55,8 +55,8 @@ def role_for(name,meta,mode):
         return "midship_skin_bay_doors"
     if n in ("skin_service","skin_aft","thrust_cone"):
         return "service_band_aft_thrust_cone"
-    if n.startswith("tank_shell_"):
-        return "tank_shell"
+    if n=="tank_shell_out":return "midship_skin_bay_doors"
+    if n=="tank_shell_in":return "tank_shell"
     if n=="shield":return "shadow_shield"
     if n=="reactor":return "torch_reactor"
     if n=="nozzle":return "magnetic_nozzle_bronze"
@@ -155,6 +155,10 @@ def assign_pbr(path,source_mesh_extras,mode):
             prim["material"]=mi
         ex=node.setdefault("extras",{})
         ex["finish_role"]=role
+        if name=="dry:tank_shell_out":
+            assert role=="midship_skin_bay_doors"
+        if name=="dry:tank_shell_in":
+            assert role=="tank_shell"
         ex["finish_status"]="CANON_FINISH"
         ex["pbr_material_index"]=mi
         ex["source_spectral_performance_unchanged"]=True

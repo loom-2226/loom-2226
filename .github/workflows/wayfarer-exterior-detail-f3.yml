@@ -82,7 +82,7 @@ jobs:
           set -euo pipefail
           python -u wayfarer/lab/shuttle/shuttle_v1_docked_G8_gate.py
           python -u wayfarer/lab/shuttle/shuttle_v1_full_docked_G8.py
-      - name: kT v2.5.11 dark interiors and graphite fixtures, six-state D9, containment and F3
+      - name: kT v2.5.12 graphite outward tank shell, six-state D9, containment and F3
         run: |
           set -euo pipefail
           python -u wayfarer/lab/exterior_detail_f3_20261110.py | tee f3-exterior.log
@@ -272,6 +272,9 @@ jobs:
                              v['extras']['thermal_emissive_state'] for v in glowing)
               assert len(meshes)==st['part_count']
               assert st['gltf_extras']['source_palette_preserved_meshes']==0
+              roles={n['name']:n['extras']['finish_role'] for n in meshes}
+              assert roles['dry:tank_shell_out']=='midship_skin_bay_doors'
+              assert roles['dry:tank_shell_in']=='tank_shell'
               assert st['gltf_extras']['explicit_finish_meshes']==st['part_count']
               assert all(v['extras']['finish_role'] in km['rows'] for v in meshes)
               assert all(not any('source_palette_preserved' in data['materials'][p['material']].get('name','') for p in data['meshes'][v['mesh']]['primitives']) for v in meshes)
@@ -302,12 +305,12 @@ jobs:
                      wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_report.json \
                      wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_F3_before_after.png
           test "$(git ls-files --cached 'wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_*.glb' | wc -l)" -eq 6
-          git commit -m 'class:engineering: v2.5.11 approved dark interior and graphite fixtures six-state pass'
+          git commit -m 'class:engineering: v2.5.12 outward tank graphite, six-state pass'
           git restore --worktree -- .
           git fetch origin "${{ github.head_ref }}"
           git rebase "origin/${{ github.head_ref }}"
           git push origin "HEAD:${{ github.head_ref }}"
-  release_tag_v2511:
+  release_tag_v2512:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
@@ -316,7 +319,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Validate exact v2.5.11 committed six-state geometry
+      - name: Validate exact v2.5.12 committed six-state geometry
         run: |
           python - <<'PY'
           import json
@@ -328,6 +331,7 @@ jobs:
           assert r['source_dry_t']==868.1922552640087 and r['dry_mass_change_t']==0
           assert r['ECON_dv_km_s']==707.845
           assert all(s['gltf_extras']['source_palette_preserved_meshes']==0 for poses in r['six_states'].values() for s in poses.values())
+          assert all(s['gltf_extras']['by_finish_role']['midship_skin_bay_doors']>=4 and s['gltf_extras']['by_finish_role']['tank_shell']==1 for poses in r['six_states'].values() for s in poses.values())
           assert sum(len(p) for p in r['six_states'].values())==6
           for poses in r['six_states'].values():
               for s in poses.values():
@@ -337,18 +341,18 @@ jobs:
                   assert b['band_edges_split_exactly'] and b['relative_area_error']<=1e-6
                   assert b['nozzle_geometry_envelope_unchanged']
                   assert s['gltf_extras']['missing_visible_finish_meshes']==[]
-          print('CANON_V2511_RELEASE_SIX_STATE_PASS')
+          print('CANON_V2512_RELEASE_SIX_STATE_PASS')
           PY
-      - name: Annotate exact geometry merge commit canon-v2.5.11
+      - name: Annotate exact geometry merge commit canon-v2.5.12
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git fetch --tags origin
-          if git rev-parse -q --verify refs/tags/canon-v2.5.11 >/dev/null; then
-            echo 'STOP: canon-v2.5.11 already exists'; exit 1
+          if git rev-parse -q --verify refs/tags/canon-v2.5.12 >/dev/null; then
+            echo 'STOP: canon-v2.5.12 already exists'; exit 1
           fi
-          git tag -a canon-v2.5.11 "$GITHUB_SHA" -m 'Wayfarer canon-v2.5.11: five clean nozzle groove rings, six-state D9 containment and 1e-6 surface conservation; no mass or ECON delta'
-          git push origin refs/tags/canon-v2.5.11
-          echo "TAG_OBJECT_SHA=$(git rev-parse 'canon-v2.5.11^{tag}')"
-          echo "TAG_COMMIT_SHA=$(git rev-parse 'canon-v2.5.11^{}')"
+          git tag -a canon-v2.5.12 "$GITHUB_SHA" -m 'Wayfarer canon-v2.5.12: outward tank shell graphite while inner shell and pale livery stay; six-state D9 containment PASS; no source mass or ECON delta'
+          git push origin refs/tags/canon-v2.5.12
+          echo "TAG_OBJECT_SHA=$(git rev-parse 'canon-v2.5.12^{tag}')"
+          echo "TAG_COMMIT_SHA=$(git rev-parse 'canon-v2.5.12^{}')"

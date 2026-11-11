@@ -749,7 +749,7 @@
         "base_srgb_hex": "#3A3D42",
         "metallic_factor": 0.17,
         "roughness_factor": 0.79,
-        "notes": "graphite Strata face; visible low absorptance preferred over darker high-absorptance coating; kT v2.5.8 neutral graphite, linear-baseColor conversion required"
+        "notes": "graphite Strata face; visible low absorptance preferred over darker high-absorptance coating; kT v2.5.8 neutral graphite, linear-baseColor conversion required kT v2.5.12: also the visible outward water tank shell tank_shell_out (#3A3D42 linear glTF), preventing light stripes through midship skin gaps at x18–20 and shuttle slot edges. tank_shell_in remains tank_shell ivory-steel."
       },
       "service_band_aft_thrust_cone": {
         "status": "CANON_FINISH",
@@ -764,7 +764,7 @@
         "base_srgb_hex": "#949A95",
         "metallic_factor": 0.28,
         "roughness_factor": 0.69,
-        "notes": "shell is 20mm, physical grooves shallow"
+        "notes": "CANON_FINISH ivory-steel tank shell used for tank_shell_in only; 20mm wall, physical grooves shallow. tank_shell_out is kT v2.5.12 midship Strata graphite #3A3D42 wherever glimpsed between midship skin and shuttle slot; no new physical coating or material performance credit."
       },
       "crown_titanium": {
         "status": "CANON_FINISH",
@@ -904,7 +904,7 @@
     "no_material_physical_qualification": true,
     "booked_mass_delta_t": 0,
     "geometry_envelope_delta_m": 0,
-    "version": "canon-v2.5.11",
+    "version": "canon-v2.5.12",
     "graphite_srgb_approved": "#3A3D42",
     "graphite_roles": [
       "bow_strata",
@@ -959,7 +959,9 @@
       "explicit_source_roles": {
         "pressure_vessel": "interior_pressure_structure",
         "service_shield_band_8": "shadow_shield",
-        "bay_corner_4": "external_fixtures"
+        "bay_corner_4": "external_fixtures",
+        "tank_shell_out": "midship_skin_bay_doors",
+        "tank_shell_in": "tank_shell"
       },
       "all_rendered_meshes_must_have_CANON_FINISH": true,
       "source_palette_passthrough": "FORBIDDEN in v2.5.11: source_palette_preserved is not an approved finish; all rendered nodes must use an explicit CANON_FINISH row.",
