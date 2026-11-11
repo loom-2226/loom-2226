@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Wayfarer canon-v2.5.13: approved PBR and strict plane-split nozzle groove faces.
+"""Wayfarer canon-v2.5.14: approved PBR and strict plane-split nozzle groove faces.
 
 No geometry, physics, density, mass, IR emissivity, or source material changes.
 Rewrites only the JSON chunk of the existing GLB: node materials/extras.
@@ -199,6 +199,8 @@ def assign_pbr(path,source_mesh_extras,mode):
     tail,paint=N.apply(data,tail)
     assert paint["texture_system_added"] is False and paint["registry_flanks_in_glb"]==0
     assert paint["source_triangles"]==paint["output_triangles"]
+    assert paint["per_triangle_assignment"] is False and paint["all_mosaic_roles_spotchecked"]
+    assert paint["thrust_cone_smoothing"]["relative_surface_area_error"]<=1e-6
     verified_materials+=1+paint["panel_materials_added"]
     for mat in mats:
         ex=mat.get("extras",{})

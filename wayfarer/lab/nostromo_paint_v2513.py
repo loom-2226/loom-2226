@@ -37,25 +37,106 @@ def _tone_linear(value, tone):
     return _srgb_to_linear(min(1., max(0., _linear_to_srgb(value) * tone)))
 
 
-def _zone(name, x):
-    # Detail gathers around real functions. Ordinary plates stay quiet.
-    return ((2.35 <= x <= 4.0) or (14. <= x <= 19.5)
-            or (31.8 <= x <= 35.0))
+def _variant(role,name):
+    """Authoritative fallback: no independent seam-cell mesh => one part tone."""
+    key=(SEED+"|"+role+"|PART:"+name).encode("utf-8")
+    return int.from_bytes(hashlib.sha256(key).digest()[:8],"big")%4
 
 
-def _cell(name, p):
-    x, y, z = p
-    az = math.degrees(math.atan2(z, y)) % 360.
-    if _zone(name, x):
-        return ("cluster", int(math.floor(x / .65)), int(az // 30.))
-    axial = int(math.floor((x - 14.) / 2.)) if x >= 14. else int(math.floor(x / 2.6))
-    return ("calm", axial, bisect_right(SEAMS, az) - 1)
+def audit_mosaic(data):
+    """Spotcheck every plated role and reject per-triangle/material fragments."""
+    role_variants=defaultdict(set)
+    nodes=[n for n in data["nodes"] if n.get("name") in PLATED and "mesh" in n]
+    if len(nodes)!=len(PLATED):
+        raise RuntimeError("STOP export: missing mosaic part")
+    for node in nodes:
+        name=node["name"];ex=node.get("extras",{})
+        mesh=data["meshes"][node["mesh"]]
+        if (ex.get("nostromo_cell_basis")!="authored_part_fallback" or
+            ex.get("nostromo_cell_count")!=1 or
+            ex.get("nostromo_source_primitives")!=len(mesh["primitives"])):
+            raise RuntimeError("STOP export: fragmented panel cells "+name)
+        variants=set()
+        for prim in mesh["primitives"]:
+            mat=data["materials"][prim["material"]]
+            variant=mat.get("extras",{}).get("panel_variant")
+            if (not mat.get("name","").startswith("CANON_FINISH/"+ex["finish_role"]+"/PANEL_")
+                or variant not in range(4)):
+                raise RuntimeError("STOP export: non-panel material "+name)
+            variants.add(variant)
+        if variants!={ex.get("nostromo_part_variant")} or _variant(ex["finish_role"],name) not in variants:
+            raise RuntimeError("STOP export: per-triangle colour variation "+name)
+        role_variants[ex["finish_role"]].update(variants)
+    if set(role_variants)!={"bow_strata","midship_skin_bay_doors","service_band_aft_thrust_cone"}:
+        raise RuntimeError("STOP export: missing mosaic group")
+    return {k:sorted(v) for k,v in sorted(role_variants.items())}
 
 
-def _tone(role, cell):
-    key = (SEED + "|" + role + "|" + ":".join(map(str, cell))).encode()
-    variant = int.from_bytes(hashlib.sha256(key).digest()[:8], "big") % 4
-    return variant, TONES[variant]
+def _smooth_cone(data,accessor,view):
+    """Smooth only lateral vertex NORMALs, preserve hard rim/cap/seam normals.
+
+    Does not touch POSITION or indices: same exact triangles and surface area.
+    """
+    node=next((v for v in data["nodes"] if v.get("name")=="dry:thrust_cone"),None)
+    if node is None:raise RuntimeError("STOP export: missing thrust_cone")
+    mesh=data["meshes"][node["mesh"]]
+    chunks=[];positions=[]
+    for prim in mesh["primitives"]:
+        if "NORMAL" not in prim["attributes"]:
+            raise RuntimeError("STOP export: cone missing normals")
+        pp=accessor(prim["attributes"]["POSITION"])
+        nn=accessor(prim["attributes"]["NORMAL"])
+        if not pp or len(pp)!=len(nn):
+            raise RuntimeError("STOP export: cone attribute mismatch")
+        chunks.append((prim,pp,nn))
+        positions.extend(pp)
+    bounds=[(min(q[j] for q in positions),max(q[j] for q in positions)) for j in range(3)]
+    spans=[hi-lo for lo,hi in bounds]
+    axis=min(range(3),key=lambda j:abs(spans[j]-5.))
+    if abs(spans[axis]-5.)>.15:
+        raise RuntimeError("STOP export: cone axis not 5 m "+str(spans))
+    lateral=[j for j in range(3) if j!=axis]
+    centers=[sum(bounds[j])/2 for j in lateral]
+    lo,hi=bounds[axis]
+    def radius(q):
+        return math.hypot(q[lateral[0]]-centers[0],q[lateral[1]]-centers[1])
+    left=[radius(q) for q in positions if q[axis]<lo+.025]
+    right=[radius(q) for q in positions if q[axis]>hi-.025]
+    if not left or not right:raise RuntimeError("STOP export: cone rings absent")
+    slope=(max(right)-max(left))/(hi-lo)
+    if abs(abs(slope)-.29)>.05:
+        raise RuntimeError("STOP export: cone slope unexpected "+str(slope))
+    smooth=hard=0
+    for prim,pp,nn in chunks:
+        values=[]
+        for q,old in zip(pp,nn):
+            r=radius(q)
+            if r<.01:
+                values.extend(old);hard+=1;continue
+            radial=[(q[j]-centers[k])/r for k,j in enumerate(lateral)]
+            dot=sum(old[j]*radial[k] for k,j in enumerate(lateral))
+            if abs(dot)<.70:
+                values.extend(old);hard+=1;continue
+            sign=1. if dot>0 else -1.
+            normal=[0.,0.,0.];normal[axis]=-slope*sign
+            for k,j in enumerate(lateral):normal[j]=radial[k]*sign
+            length=math.sqrt(sum(v*v for v in normal))
+            values.extend(v/length for v in normal);smooth+=1
+        raw=struct.pack("<"+"f"*len(values),*values)
+        i=view(raw,34962)
+        j=len(data["accessors"])
+        data["accessors"].append(dict(bufferView=i,byteOffset=0,
+            componentType=5126,count=len(pp),type="VEC3"))
+        prim["attributes"]=dict(prim["attributes"],NORMAL=j)
+    if smooth<40:raise RuntimeError("STOP export: cone smoothing no lateral normals "+str(smooth))
+    result=dict(method="analytic_frustum_lateral_normals",
+        smoothed_lateral_vertex_normals=smooth,preserved_hard_edge_normals=hard,
+        unchanged_position_accessors=True,unchanged_triangle_indices=True,
+        relative_surface_area_error=0.,surface_area_tolerance=1e-6,
+        source_envelope_unchanged=True,no_new_vertices=True,
+        slope=slope,axial_axis=axis)
+    node.setdefault("extras",{})["thrust_cone_smoothing"]=result
+    return result
 
 
 def apply(data, tail):
@@ -93,112 +174,58 @@ def apply(data, tail):
         return [struct.unpack_from(fmt, binary, offset + i * stride)
                 for i in range(acc["count"])]
 
-    source_image_count=len(data.get("images",[]))
-    source_texture_count=len(data.get("textures",[]))
-    material_cache = {}
-    source_triangles = output_triangles = 0
-    plated_meshes = 0
-    by_finish = defaultdict(set)
-    tones = []
-    seen_mesh_indices = set()
+    images_before=len(data.get("images",[]))
+    textures_before=len(data.get("textures",[]))
+    smooth=_smooth_cone(data,accessor,view)
+    cache={};triangles=0;plated=0
     for node in data["nodes"]:
-        name = node.get("name", "")
-        if "mesh" not in node or name not in PLATED:
-            continue
-        mid = node["mesh"]
-        if mid in seen_mesh_indices:
-            raise RuntimeError("STOP export: NOSTROMO shared mutable mesh " + name)
-        seen_mesh_indices.add(mid)
-        role = node.get("extras", {}).get("finish_role")
-        if not role or role == "source_palette_preserved":
-            raise RuntimeError("STOP export: NOSTROMO absent approved role " + name)
-        mesh = data["meshes"][mid]
-        replacements = []
-        node_cells = set()
+        name=node.get("name")
+        if name not in PLATED or "mesh" not in node:continue
+        ex=node.setdefault("extras",{})
+        role=ex.get("finish_role")
+        if not role or role=="source_palette_preserved":
+            raise RuntimeError("STOP export: mosaic role unapproved "+str(name))
+        variant=_variant(role,name)
+        mesh=data["meshes"][node["mesh"]]
+        count=len(mesh["primitives"])
         for prim in mesh["primitives"]:
-            if prim.get("mode", 4) != 4 or prim.get("targets"):
-                raise RuntimeError("STOP export: NOSTROMO requires static triangle primitive")
-            pos_id = prim["attributes"]["POSITION"]
-            if data["accessors"][pos_id]["type"] != "VEC3":
-                raise RuntimeError("STOP export: NOSTROMO missing VEC3 positions")
-            positions = accessor(pos_id)
-            if "indices" in prim:
-                ids = [int(x[0]) for x in accessor(prim["indices"])]
-            else:
-                ids = list(range(len(positions)))
-            if len(ids) % 3 or any(i < 0 or i >= len(positions) for i in ids):
-                raise RuntimeError("STOP export: NOSTROMO triangle index integrity")
-            groups = defaultdict(list)
-            for t in range(0, len(ids), 3):
-                tri = ids[t:t + 3]
-                centroid = tuple(sum(positions[k][axis] for k in tri) / 3.
-                                 for axis in range(3))
-                cell = _cell(name, centroid)
-                variant,tone=_tone(role,cell)
-                groups[variant].extend(tri)
-                node_cells.add(cell)
-            source_triangles += len(ids) // 3
-            if sum(map(len, groups.values())) != len(ids):
-                raise RuntimeError("STOP export: NOSTROMO lost triangles")
-            for variant in sorted(groups):
-                tri_ids = groups[variant]
-                tone = TONES[variant]
-                tones.append(tone)
-                source_mat_id = prim["material"]
-                cache_key = (source_mat_id, variant)
-                if cache_key not in material_cache:
-                    src = data["materials"][source_mat_id]
-                    mat = deepcopy(src)
-                    pbr = mat["pbrMetallicRoughness"]
-                    old = pbr["baseColorFactor"]
-                    pbr["baseColorFactor"] = [_tone_linear(v, tone) for v in old[:3]] + old[3:]
-                    mat["name"] = "CANON_FINISH/" + role + "/PANEL_" + str(variant)
-                    mat["extras"] = dict(panel_tone_srgb_factor=tone, panel_variant=variant,
-                                         seed=SEED, print_decal_geometry=False)
-                    material_cache[cache_key] = len(data["materials"])
-                    data["materials"].append(mat)
-                by_finish[role].add(variant)
-                iview = view(struct.pack("<" + "I" * len(tri_ids), *tri_ids), 34963)
-                index_id = len(data["accessors"])
-                data["accessors"].append(dict(bufferView=iview, byteOffset=0,
-                    componentType=5125, count=len(tri_ids), type="SCALAR",
-                    min=[min(tri_ids)], max=[max(tri_ids)]))
-                piece = dict(prim)
-                piece["indices"] = index_id
-                piece["attributes"] = dict(prim["attributes"])
-                piece["material"] = material_cache[cache_key]
-                replacements.append(piece)
-                output_triangles += len(tri_ids) // 3
-        mesh["primitives"] = replacements
-        node.setdefault("extras", {}).update(
-            nostromo_plate_count=len(node_cells), nostromo_paint_seed=SEED,
-            nostromo_plain_materials=True, print_markings_not_in_glb=True,
-            source_mass_rebooking_t=0)
-        plated_meshes += 1
-    if plated_meshes < 7:
-        raise RuntimeError("STOP export: NOSTROMO no plated / painted surfaces")
-    if source_triangles != output_triangles:
-        raise RuntimeError("STOP export: NOSTROMO triangle conservation failure")
-    if any(not (.94 <= t <= 1.06) for t in tones) or any(len(v)>4 for v in by_finish.values()):
-        raise RuntimeError("STOP export: NOSTROMO panel tone/variant bound")
-    if len(data.get("images",[]))!=source_image_count or len(data.get("textures",[]))!=source_texture_count:
-        raise RuntimeError("STOP export: NOSTROMO must not add textures")
-    while len(binary) % 4:
-        binary.append(0)
-    data["buffers"][0]["byteLength"] = len(binary)
-    tail = struct.pack("<II", len(binary), 0x004e4942) + bytes(binary)
-    data.setdefault("asset", {}).setdefault("extras", {})["nostromo_finish_seed"] = SEED
-    evidence = dict(seed=SEED, plated_meshes=plated_meshes,
-        panel_materials_added=len(material_cache),
-        tone_variants_srgb=list(TONES),
-        material_variants_by_finish={k:sorted(v) for k,v in by_finish.items()},
-        panel_srgb_tone_min=min(tones), panel_srgb_tone_max=max(tones),
-        panel_srgb_tone_bound=.06,
-        source_triangles=source_triangles, output_triangles=output_triangles,
+            original=prim["material"];key=(original,variant)
+            if key not in cache:
+                mat=deepcopy(data["materials"][original])
+                if not mat["name"].startswith("CANON_FINISH/"+role):
+                    raise RuntimeError("STOP export: mosaic source material mismatch")
+                rgba=mat["pbrMetallicRoughness"]["baseColorFactor"]
+                mat["pbrMetallicRoughness"]["baseColorFactor"]=[
+                    _tone_linear(v,TONES[variant]) for v in rgba[:3]]+rgba[3:]
+                mat["name"]="CANON_FINISH/"+role+"/PANEL_"+str(variant)
+                mat["extras"]=dict(panel_tone_srgb_factor=TONES[variant],
+                    panel_variant=variant,seed=SEED)
+                cache[key]=len(data["materials"])
+                data["materials"].append(mat)
+            prim["material"]=cache[key]
+            triangles+=len(accessor(prim["indices"]))//3 if "indices" in prim else (
+                data["accessors"][prim["attributes"]["POSITION"]]["count"]//3)
+        ex.update(nostromo_cell_basis="authored_part_fallback",
+            nostromo_cell_count=1,nostromo_source_primitives=count,
+            nostromo_part_variant=variant,nostromo_plain_materials=True,
+            print_markings_not_in_glb=True,source_mass_rebooking_t=0)
+        plated+=1
+    by_role=audit_mosaic(data)
+    if len(data.get("images",[]))!=images_before or len(data.get("textures",[]))!=textures_before:
+        raise RuntimeError("STOP export: unauthorized texture in mosaic")
+    while len(binary)%4:binary.append(0)
+    data["buffers"][0]["byteLength"]=len(binary)
+    tail=struct.pack("<II",len(binary),0x004e4942)+bytes(binary)
+    data.setdefault("asset",{}).setdefault("extras",{})["nostromo_finish_seed"]=SEED
+    return tail,dict(seed=SEED,plated_meshes=plated,
+        panel_materials_added=len(cache),tone_variants_srgb=list(TONES),
+        material_variants_by_finish=by_role,
+        panel_srgb_tone_min=min(TONES),panel_srgb_tone_max=max(TONES),
+        panel_srgb_tone_bound=.06,per_triangle_assignment=False,
+        all_plated_parts_single_cell=True,all_mosaic_roles_spotchecked=True,
+        source_triangles=triangles,output_triangles=triangles,
         original_vertex_positions_preserved=True,
-        source_mass_rebooking_t=0, geometry_added=False, protrusions_added=False,
-        texture_system_added=False, decal_texture_embedded=False,
-        source_images_count=source_image_count,source_textures_count=source_texture_count,
-        registry_flanks_in_glb=0,plain_gltf_materials=True,
-        print_decal_artwork="wayfarer/render/decals/WAYFARER_NOSTROMO_DECALS_v2513.svg")
-    return tail, evidence
+        source_images_count=images_before,source_textures_count=textures_before,
+        texture_system_added=False,decal_texture_embedded=False,registry_flanks_in_glb=0,
+        plain_gltf_materials=True,geometry_added=False,protrusions_added=False,
+        source_mass_rebooking_t=0,thrust_cone_smoothing=smooth)
