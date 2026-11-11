@@ -5,6 +5,7 @@ on:
     paths:
       - wayfarer/lab/pbr_finish_v257.py
       - wayfarer/lab/nozzle_band_faces_v259.py
+      - .github/workflows/wayfarer-exterior-detail-f3.yml
   pull_request:
     paths:
       - wayfarer/lab/exterior_detail_f3_20261110.py
@@ -358,7 +359,7 @@ jobs:
           assert r['source_dry_t']==868.1922552640087 and r['dry_mass_change_t']==0
           assert r['ECON_dv_km_s']==707.845
           assert all(s['gltf_extras']['source_palette_preserved_meshes']==0 for poses in r['six_states'].values() for s in poses.values())
-          assert all(s['gltf_extras']['nostromo_paint']['source_triangles']==s['gltf_extras']['nostromo_paint']['output_triangles'] and s['gltf_extras']['nostromo_paint']['decal_texture_embedded'] for poses in r['six_states'].values() for s in poses.values())
+          assert all(s['gltf_extras']['nostromo_paint']['source_triangles']==s['gltf_extras']['nostromo_paint']['output_triangles'] and not s['gltf_extras']['nostromo_paint']['decal_texture_embedded'] and not s['gltf_extras']['nostromo_paint']['texture_system_added'] and s['gltf_extras']['nostromo_paint']['registry_flanks_in_glb']==0 and s['gltf_extras']['nostromo_paint']['tone_variants_srgb']==[.94,.98,1.02,1.06] for poses in r['six_states'].values() for s in poses.values())
           assert all(s['gltf_extras']['by_finish_role']['midship_skin_bay_doors']>=4 and s['gltf_extras']['by_finish_role']['tank_shell']==1 for poses in r['six_states'].values() for s in poses.values())
           assert sum(len(p) for p in r['six_states'].values())==6
           for poses in r['six_states'].values():
@@ -380,7 +381,10 @@ jobs:
           if git rev-parse -q --verify refs/tags/canon-v2.5.13 >/dev/null; then
             echo 'STOP: canon-v2.5.13 already exists'; exit 1
           fi
-          git tag -a canon-v2.5.13 "$GITHUB_SHA" -m 'Wayfarer canon-v2.5.13: NOSTROMO four seeded plain PBR tones, print-only SVG markings, true-scale fine engravings; six-state D9 containment PASS; no mass or new protrusions'
+          target=36dd2d24afa717a8902d0b340226b1a74c709916
+          git cat-file -e "$target^{commit}"
+          git diff --quiet "$target" "$GITHUB_SHA" -- 'wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_*'
+          git tag -a canon-v2.5.13 "$target" -m 'Wayfarer canon-v2.5.13: NOSTROMO four seeded plain PBR tones, print-only SVG markings, true-scale fine engravings; six-state D9 containment PASS; no mass or new protrusions'
           git push origin refs/tags/canon-v2.5.13
           echo "TAG_OBJECT_SHA=$(git rev-parse 'canon-v2.5.13^{tag}')"
           echo "TAG_COMMIT_SHA=$(git rev-parse 'canon-v2.5.13^{}')"
