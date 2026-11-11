@@ -19,7 +19,6 @@ import hull_etch_finish_20261111 as E
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/"render/out"
 PREFIX="wayfarer_exterior_detail_88ce19fc"
-MIN_PRINT_FEATURE_M=.10
 records={}
 samples={}
 ALL_CLASSES=("rcs","sensor_turret","rf_tiles","laser_terminal",
@@ -601,8 +600,6 @@ def main():
          nozzle_coil_ring_boundary="exact plane-clipped original mesh grooves; strict surface-area conservation",
          all_rendered_nodes_require_CANON_FINISH=True,
          pale_accent_linear_rgb_scale=.57,
-        print_minimum_modelled_feature_m=MIN_PRINT_FEATURE_M,
-        smaller_marks="ENGRAVINGS not raised printable solids",
         no_hull_protrusion=False,no_crown_change=True,no_performance_claims=True,
          no_pressure_vessel_cuts=True,
         no_new_source_mass=True,
