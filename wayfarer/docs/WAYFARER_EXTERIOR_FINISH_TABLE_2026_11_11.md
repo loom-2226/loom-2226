@@ -49,3 +49,11 @@
 - Radiator hot-state PBR **baseColorFactor RGB = (0.02, 0.02, 0.02)** linear. **Strakes 1,300 K** deep red-orange emissive in Metric HARD (2m extension) and Torch (4m); **deployed hot fins 1,750 K** orange emissive, graded brightest near root. Folded fins do not glow. No cream/washed-out diffuse+emissive mixture.
 - Nozzle keeps its full metallic bronze envelope. Five circular grooves keep their source centres and spacing, now **150 mm × approximately 30 mm**, **1.5 mm wide at 1:100**. Only recessed groove-face triangles receive **CANON_FINISH/nozzle_coil_bands** matte dark gunmetal PBR; bronze triangles remain. No extra solid, nozzle silhouette or source-booked mass.
 - Geometry export failure, six-state D9 category-d clashes, or pressure-containment failure are the only release stop conditions. No new physical thermal or coating qualification.
+
+## v2.5.9 viewer finish correction (kT)
+
+1. The **pressure_vessel** inner structural face has a dark non-emissive structural coating **#252A30** (visual only). It remains the source-booked 30 mm pressure hull; no thickness, volume, shielding or mass credit is changed.
+2. The eight `service_shield_band_*` pieces take the existing matte **shadow_shield** slate finish. The four `bay_corner_*` parts take existing **external_fixtures** graphite.
+3. **No mesh visible in the GLB is exempt from CANON_FINISH tagging.** Explicitly coloured exterior parts receive their kT-approved swatches. Other internal equipment retains its existing source-viewer PBR colour through `CANON_FINISH/source_palette_preserved` wrappers, not a new invented physical coating. Validation fails on any mesh lacking a named CANON_FINISH material in any primitive.
+4. Nozzle ring faces are bounded by **exact longitudinal mesh-edge clipping planes** at the existing five groove stations (±75 mm), with interpolated surface vertices and preserved surface area/envelope. Do not use triangle-centroid material assignment or extra solid mass.
+5. The pale **service ring, aft skin and thrust cone** material is scaled **0.8× in linear glTF baseColor RGB** from the previous #B9BFBC value. This is a rendering adjustment, not a solar absorptivity claim.
