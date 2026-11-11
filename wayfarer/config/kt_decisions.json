@@ -1065,5 +1065,31 @@
       "mass_rebooking_t": 0,
       "conventional_G1_G12": "NOT RUN"
     }
+  },
+  "l1_station_b3_merge_2026_11_12": {
+    "authority": "kT APPROVED B3 PR #517",
+    "date": "2026-11-12",
+    "scope": "L1 only; settled station locations, platforms, hatch leaves, two egress ladderways and utility-only trunk unchanged.",
+    "adopted_design": "PR #517 split halo: centre panel lifts back; two wings swing aside. 1 common B3 couch mesh instanced six times; six per-role controls.",
+    "discarded": "#516 single foldaway tablet, superseded by #517 B3 split halo",
+    "inherited_from_PR516": [
+      "46.000kg common couch + 5.185186564kg halo/controls source split",
+      "light blue-grey/ivory/slate/teal finish palette (already in B3 generator)",
+      "source-booked shaped map table, workbench, cabinets, display bezels",
+      "4g support vs structural proof distinction and role control labels"
+    ],
+    "accounting": "Per i4_seat_<role> source booking 0.05118518656421065 t; 46kg couch and 5.18518656421065kg B3 split halo+role control, no independent screen mass allocation, no double booking.",
+    "halo_and_controls_budget_kg": 5.18518656421065,
+    "estimated_nonbinding_halo_controls_kg": 5.1,
+    "mass_model": "2mm-wall hollow composite visual arch and hinges 2.80kg, thin-film panel/backing 0.55kg, two role controls 1.50kg, wiring 0.25kg; conservative conceptual screen, not measured certified mass.",
+    "position_rule": "S4 Y+2.40 Z-1.70 fixed and all other I4 source station transforms immutable.",
+    "animation": "single separate interior_L1.glb defaults halo closed, glTF animation raises centre and opens each wing, two checked static poses; never copied into exterior six-state GLBs.",
+    "checks": "D9 category-d and containment for halo closed and wings open; no G1-G12; stop on demonstrated 5.185kg overrun or D9 failure and preserve diagnostic picture.",
+    "precision": "No new feature below 0.6mm at 1:25 except decal representation. Print-only UI labels, button dots, hairline seams and screen graphics are decals.",
+    "mass_freeze": {
+      "dry_t": 868.1922552640087,
+      "ECON_dv_km_s": 707.845
+    },
+    "status": "kT-approved integration, D9/containment PENDING"
   }
 }
