@@ -6,7 +6,6 @@ on:
       - wayfarer/lab/hull_etch_finish_20261111.py
       - wayfarer/lab/pbr_finish_v257.py
       - wayfarer/lab/nozzle_band_faces_v258.py
-      - wayfarer/lab/nozzle_band_faces_v259.py
       - wayfarer/config/kt_decisions.json
       - wayfarer/lab/shuttle/shuttle_v1_fullship_integrate_20261110.py
       - wayfarer/lab/shuttle/shuttle_v1_full_docked_G8.py
@@ -35,7 +34,7 @@ jobs:
         run: |
           set -euo pipefail
           python -m pip install build123d==0.13.0 matplotlib==3.10.7
-          python -m py_compile wayfarer/lab/exterior_detail_f3_20261110.py wayfarer/lab/hull_etch_finish_20261111.py wayfarer/lab/pbr_finish_v257.py wayfarer/lab/nozzle_band_faces_v258.py wayfarer/lab/nozzle_band_faces_v259.py wayfarer/lab/shuttle/shuttle_v1_full_docked_G8.py
+          python -m py_compile wayfarer/lab/exterior_detail_f3_20261110.py wayfarer/lab/hull_etch_finish_20261111.py wayfarer/lab/pbr_finish_v257.py wayfarer/lab/nozzle_band_faces_v258.py wayfarer/lab/shuttle/shuttle_v1_full_docked_G8.py
           echo '88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1  wayfarer/results/out/wayfarer_v05_geometry.json' | sha256sum -c -
           cp wayfarer/lab/packing_phase1b/frozen_research_3p8_forward.step.gz \
              wayfarer/lab/packing_phase1b/current_g3_3p8_forward.step.gz
@@ -61,7 +60,7 @@ jobs:
           set -euo pipefail
           python -u wayfarer/lab/shuttle/shuttle_v1_docked_G8_gate.py
           python -u wayfarer/lab/shuttle/shuttle_v1_full_docked_G8.py
-      - name: kT v2.5.9 pressure/fixture finishes and exact nozzle ring meshes, six-state D9, containment and F3
+      - name: kT v2.5.9 finish-only fixes with v2.5.8 nozzle, six-state D9, containment and F3
         run: |
           set -euo pipefail
           python -u wayfarer/lab/exterior_detail_f3_20261110.py | tee f3-exterior.log
@@ -213,12 +212,9 @@ jobs:
               assert band['width_m']==.15 and band['depth_m']==.03
               assert len(band['face_triangles_per_station'])==5
               assert all(x>0 for x in band['face_triangles_per_station'])
-              assert band['band_edges_split_exactly'] and band['surface_area_conservation']
-              assert band['paint_by_triangle_centroid'] is False
-              assert band['relative_area_error']<2e-5
+              assert band['triangle_conservation'] and band['source_triangles_total']>0
+              assert band['face_triangles_total']==sum(band['face_triangles_per_station'])
               assert band['nozzle_geometry_envelope_unchanged']
-              assert len(band['boundary_edge_vertices'])==10
-              assert all(v>0 for v in band['boundary_edge_vertices'])
               assert band['print_band_width_1_100_mm']==1.5
               assert all('pbrMetallicRoughness' in mat for mat in data['materials'] if mat.get('name','').startswith('CANON_FINISH/'))
               assigned=[v for v in meshes if v['extras'].get('finish_status')=='CANON_FINISH']
@@ -277,7 +273,7 @@ jobs:
                      wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_report.json \
                      wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_F3_before_after.png
           test "$(git ls-files --cached 'wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_*.glb' | wc -l)" -eq 6
-          git commit -m 'class:engineering: v2.5.9 complete CANON_FINISH and clean plane-clipped nozzle rings six-state pass'
+          git commit -m 'class:engineering: v2.5.9 CANON_FINISH coverage, retained v2.5.8 nozzle six-state pass'
           git restore --worktree -- .
           git fetch origin "${{ github.head_ref }}"
           git rebase "origin/${{ github.head_ref }}"
