@@ -90,7 +90,7 @@ def assign_pbr(path,source_mesh_extras,mode):
     assert len(f["rows"])==24
     assert f["colour_conversion_audit"]["expected_declared_roles"]==23
     assert f["rows"]["interior_pressure_structure"]["status"]=="CANON_FINISH"
-    assert f["rows"]["service_band_aft_thrust_cone"]["linear_base_scale"]==0.6
+    assert f["rows"]["service_band_aft_thrust_cone"]["linear_base_scale"]==0.57
     assert all(v["status"]=="CANON_FINISH" for v in f["rows"].values())
     converted={role:_rgb(v["base_srgb_hex"]) for role,v in f["rows"].items()}
     assert len(converted)==24
@@ -243,7 +243,7 @@ def assign_pbr(path,source_mesh_extras,mode):
                 pressure_vessel_finish="interior_pressure_structure",
                 service_shield_finish="shadow_shield",
                 bay_corner_finish="external_fixtures",
-                pale_accent_linear_scale=.6,
+                pale_accent_linear_scale=.57,
                 srgb_to_linear_declared_roles=len(converted),
                 verified_linear_pbr_materials=verified_materials,
                 graphite_linear_base_rgb=expected_graphite,

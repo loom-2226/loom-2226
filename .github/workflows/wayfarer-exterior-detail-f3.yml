@@ -125,7 +125,7 @@ jobs:
           assert d['service_shield_band_finish']=='CANON_FINISH/shadow_shield'
           assert d['bay_corner_finish']=='CANON_FINISH/external_fixtures'
           assert d['all_rendered_nodes_require_CANON_FINISH']
-          assert d['pale_accent_linear_rgb_scale']==.6
+          assert d['pale_accent_linear_rgb_scale']==.57
           assert d['nozzle_coil_band_depth_m']==.03
           assert d['no_new_source_mass'] and d['no_performance_claims']
           assert d['print_minimum_modelled_feature_m']==.1
@@ -250,7 +250,7 @@ jobs:
               assert st['gltf_extras']['pressure_vessel_finish']=='interior_pressure_structure'
               assert st['gltf_extras']['service_shield_finish']=='shadow_shield'
               assert st['gltf_extras']['bay_corner_finish']=='external_fixtures'
-              assert st['gltf_extras']['pale_accent_linear_scale']==.6
+              assert st['gltf_extras']['pale_accent_linear_scale']==.57
               assert all(p.get('material') is not None and
                          data['materials'][p['material']].get('name','').startswith('CANON_FINISH/')
                          for v in meshes for p in data['meshes'][v['mesh']]['primitives'])
