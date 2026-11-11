@@ -1,0 +1,76 @@
+name: Wayfarer L1 interior GLB / couch D9 containment
+on:
+  pull_request:
+    paths:
+      - wayfarer/lab/l1_interior_glb.py
+      - wayfarer/config/kt_decisions.json
+      - .github/workflows/wayfarer-L1-interior.yml
+permissions:
+  contents: write
+jobs:
+  l1-build:
+    if: startsWith(github.head_ref, 'engineering/wayfarer-l1-approved-interior-')
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install exact BRep engine
+        run: python -m pip install build123d==0.13.0
+      - name: Build standalone L1 only and check couch D9 + containment
+        run: python -u wayfarer/lab/l1_interior_glb.py
+      - name: Verify nonadditive booked mass, six instances, no exterior edit
+        run: |
+          python - <<'PY'
+          import json,struct,hashlib
+          from pathlib import Path
+          p=Path('wayfarer/render/out/interior_L1.glb')
+          rep=json.loads(Path('wayfarer/render/out/interior_L1_report.json').read_text())
+          raw=p.read_bytes()
+          assert raw[:4]==b'glTF' and struct.unpack_from('<I',raw,4)[0]==2
+          assert struct.unpack_from('<I',raw,8)[0]==len(raw)
+          n,kind=struct.unpack_from('<II',raw,12)
+          assert kind==0x4e4f534a
+          doc=json.loads(raw[20:20+n])
+          assert rep['status']=='L1_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS'
+          assert rep['checks']['D9_category_d']==0
+          assert rep['checks']['couch_collisions_any_volume']==0
+          assert rep['checks']['containment']=='PASS'
+          assert rep['checks']['source_fixture_containment_count']==62
+          assert rep['checks']['all_drawn_L1_parts_contained']
+          assert rep['floor_ladder_bores']['count']==2 and rep['floor_ladder_bores']['diameter_m']==.8
+          assert rep['floor_ladder_bores']['dry_mass_savings_credited_t']==0
+          assert abs(rep['floor_ladder_bores']['volume_removed_from_visual_BRep_m3']-.301593)<1e-6
+          assert rep['checks']['G1_G12']=='NOT RUN / NOT REQUIRED'
+          assert rep['dry_t']==868.1922552640087 and rep['ECON_dv_km_s']==707.845
+          assert rep['exterior_six_state_changes']==0 and rep['source_mass_delta_t']==0
+          assert rep['glb_sha256']==hashlib.sha256(raw).hexdigest()
+          seats=[a for a in doc['nodes'] if a['name'].startswith('dry:i4_seat_')]
+          assert len(seats)==6 and len({x['mesh'] for x in seats})==1
+          assert {x['name'] for x in seats}=={'dry:i4_seat_'+s for s in ('PILOT','NAV','S1','S2','S3','S4')}
+          assert len({x['extras']['source_mass_owner_id'] for x in seats})==6
+          assert all(x['extras']['mass_basis']=='source_booking_reference_nonadditive'
+            and x['extras']['node_mass_rebooking_t']==0
+            and x['extras']['print_group']==x['extras']['semantic_system']+'/'+x['extras']['semantic_subsystem']
+            for x in doc['nodes'] if 'mesh' in x)
+          assert doc['asset']['extras']['exterior_state_meshes_copied']==0
+          assert all('mesh' not in x for x in doc['nodes'] if x['name'] in ('dry:room_L1-command','dry:outfit_L1'))
+          assert len([x for x in doc['nodes'] if x['name'].startswith('dry:ladder_L1_')])==14
+          assert len([x for x in doc['nodes'] if x['name'].startswith('dry:core_trunk_L1_')])==6
+          assert 'NOT crew egress' in Path('wayfarer/docs/L1_INTERIOR_PRINT_1_25_2026_11_12.md').read_text()
+          print('L1 metadata and shared couch mesh PASS:',len(seats),rep['mesh_nodes'])
+          PY
+          git diff --quiet -- wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_*.glb
+      - name: Commit ONLY L1 GLB, D9 report and 1:25 print guide
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add wayfarer/render/out/interior_L1.glb wayfarer/render/out/interior_L1_report.json wayfarer/docs/L1_INTERIOR_PRINT_1_25_2026_11_12.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'class:engineering: L1 independent instanced GLB D9 containment PASS'
+            git push origin HEAD:$GITHUB_HEAD_REF
+          fi

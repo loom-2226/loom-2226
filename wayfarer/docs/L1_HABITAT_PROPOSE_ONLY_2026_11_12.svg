@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1490" height="800" viewBox="0 0 1490 800" role="img" aria-label="Wayfarer L1 propose-only plan and meridian section, no approved interior CAD">
+<svg xmlns="http://www.w3.org/2000/svg" width="1490" height="800" viewBox="0 0 1490 800" role="img" aria-label="Wayfarer L1 kT-approved source plan and meridian section">
 <style>
 text{font-family:Arial,Helvetica,sans-serif;fill:#243241}
 .t{font-size:26px;font-weight:700}.subtitle{font-size:14px;fill:#5a6975}
@@ -7,7 +7,7 @@ text{font-family:Arial,Helvetica,sans-serif;fill:#243241}
 </style>
 <rect width="1490" height="800" fill="#f6f8f9"/>
 <text x="36" y="44" class="t">WAYFARER  •  L1 COMMAND COMMONS</text>
-<text x="37" y="67" class="subtitle">F4 PROPOSE ONLY  |  source geometry 88ce19fc…  |  metres, ship coordinates; −X to bow  |  NOT BRep, D9 or export</text>
+<text x="37" y="67" class="subtitle">kT APPROVED L1 LAYOUT  |  source geometry 88ce19fc…  |  metres, ship coordinates; −X to bow  |  NOT BRep, D9 or export</text>
 <rect x="25" y="89" width="714" height="614" rx="12" fill="#fff" stroke="#cbd5dd"/>
 <rect x="756" y="89" width="708" height="614" rx="12" fill="#fff" stroke="#cbd5dd"/>
 <text x="43" y="123" class="head">PLAN · Y horizontal / Z vertical</text>
@@ -27,9 +27,6 @@ text{font-family:Arial,Helvetica,sans-serif;fill:#243241}
 <polygon points="220.8,397.0 167.3,497.5 122.8,473.8 176.3,373.3" fill="#f9f5e8" stroke="#94754c" stroke-width="2" stroke-dasharray="6,4"/><circle cx="198.5" cy="385.2" r="4" fill="#b99157"/><text x="171.8" y="440.4" class="seat" text-anchor="middle">S2 ENG</text>
 <polygon points="577.7,373.3 631.2,473.8 586.7,497.5 533.2,397.0" fill="#f9f5e8" stroke="#94754c" stroke-width="2" stroke-dasharray="6,4"/><circle cx="555.5" cy="385.2" r="4" fill="#b99157"/><text x="582.2" y="440.4" class="seat" text-anchor="middle">S3 SEN</text>
 <polygon points="551.9,445.2 594.5,550.7 547.7,569.6 505.1,464.1" fill="#f9f5e8" stroke="#94754c" stroke-width="2" stroke-dasharray="6,4"/><circle cx="528.5" cy="454.7" r="4" fill="#b99157"/><text x="549.8" y="512.4" class="seat" text-anchor="middle">S4 OPS</text>
-<circle cx="535.4" cy="507.4" r="11" fill="none" stroke="#c65e45" stroke-width="2" stroke-dasharray="4 3"/>
-<path d="M535.4 531.4 L549.8 531.4" stroke="#c65e45" stroke-width="2" stroke-dasharray="4 3"/>
-<text x="570" y="670" class="small">S4: earlier shift-only Y=2.20; current source Y=2.40</text>
 <text x="98" y="665" class="small">Annulus 4.15/0.90 m · 2 ladder holes Ø0.80 m</text>
 <text x="377" y="697" class="axis" text-anchor="middle">±4.15 m floor radius · crown aperture r=3.50 m</text>
 <text x="769" y="123" class="head">SECTION · Y=0 meridian, transverse Z vs ship X</text>
@@ -44,7 +41,7 @@ text{font-family:Arial,Helvetica,sans-serif;fill:#243241}
 <path d="M1055 112 V515.1999999999999" stroke="#637282" stroke-width="1" stroke-dasharray="3 4"/>
 <text x="943.7" y="403.52" text-anchor="middle" class="small">Command X=2.41</text>
 <text x="1187.5" y="442.71999999999997" text-anchor="middle" class="small">NAV X=2.76</text>
-<text x="1063" y="533.1999999999999" class="small">Trunk Ø1.80 m</text>
+<text x="1063" y="533.1999999999999" class="small">Utility core Ø1.80 m: lift/racks</text>
 <text x="869.5" y="252.91204483587592" class="small">Crown</text>
 <text x="1075" y="132" class="small">Bow dome apex X=−0.30</text>
 <path d="M 951.12 415.52 V 153.15910613847808" stroke="#a16d2d" stroke-width="2" stroke-dasharray="5 4"/>
@@ -53,6 +50,6 @@ text{font-family:Arial,Helvetica,sans-serif;fill:#243241}
 <text x="780" y="642" class="small">Required crawl clearance: ≥1.20 m; full occupied 3D fit HOLD</text>
 <text x="780" y="667" class="small">Crown sightlines are optimistic upper bounds; ribs/sensors/shutters omitted</text>
 <rect x="36" y="724" width="1414" height="52" rx="8" fill="#e5eaee"/>
-<text x="52" y="745" class="small">SOLID BLUE / GREEN = existing booked envelope/platform reference · CREAM DASHED = source 1.58 m couch envelope, NOT an approved furnished couch</text>
-<text x="52" y="764" class="small">Grey ring and white trunk = source structure · dotted S4 marker = earlier interim point · No mass, new objects, BRep, D9, GLB or STL produced</text>
+<text x="52" y="745" class="small">SOLID BLUE / GREEN = existing booked envelope/platform reference · CREAM DASHED = approved 1.58 m couch envelope; physical couch build and D9 separately verified</text>
+<text x="52" y="764" class="small">White core = utilities, avionics racks and goods lift; NOT egress · both ladderways are the ONLY crew egress</text>
 </svg>
