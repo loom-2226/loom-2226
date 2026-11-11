@@ -177,6 +177,17 @@ def main():
                    "i4_transfer_","i4_observation_rail_"):
         for name in sorted(k for k in rows if k.startswith(prefix)):
             source_objs[name]=P.make(rows[name]["shape"])
+    # The booked floor is an annulus but its source shape has no drilled
+    # ladder bores. Cut the TWO settled 0.80 m bores in the *interior
+    # representation only*, with ZERO mass saving credited.
+    floor=source_objs["floor_L1"]
+    initial_floor_volume=float(floor.volume)
+    for yy in (-1.4,1.4):
+        floor=floor-P.cyl(.40,2.98,3.32,yy,0.)
+    source_objs["floor_L1"]=floor
+    floor_cut_m3=initial_floor_volume-float(floor.volume)
+    expected_floor_cut=2*math.pi*.40**2*.30
+    assert abs(floor_cut_m3-expected_floor_cut)<.005,(floor_cut_m3,expected_floor_cut)
     # Ladder tubes and rungs are derived visual parts of booked distributed L1
     # outfitting. No ladder is a new mass-booked item.
     derived={}
@@ -224,31 +235,42 @@ def main():
                     if v>1e-6:
                         collisions.append(dict(station=station,other="COUCH_"+other_st,volume_m3=v))
     # True x/r profile of source *inner* pressure ellipsoid (convex) plus
-    # 4.27m cylindrical section, tested on ALL couch solid tessellation
-    # vertices. Convexity ensures all triangle interiors are inside too.
+    # 4.27m cylindrical section, tested on ALL couch and other drawn BRep
+    # mesh vertices. Convexity ensures all triangle interiors are inside too.
     pv=rows["pressure_vessel"]["shape"]
     inner_xa=pv["xa"]+pv["t"];inner_xb=pv["xb"];inner_R=pv["R"]-pv["t"]
     min_gap=float("inf")
+    def shell_gap(pt):
+        r=math.hypot(pt.Y,pt.Z)
+        if r>=inner_R:return inner_R-r
+        sx=inner_xb-(inner_xb-inner_xa)*math.sqrt(1-(r/inner_R)**2)
+        return min(pt.X-sx,inner_R-r)
     for s in seats:
         min_station=float("inf")
         for piece in couches[s["id"]]:
             verts,_=piece.tessellate(.012)
-            for pt in verts:
-                r=math.hypot(pt.Y,pt.Z)
-                if r>=inner_R:gap=inner_R-r
-                else:
-                    sx=inner_xb-(inner_xb-inner_xa)*math.sqrt(1-(r/inner_R)**2)
-                    gap=min(pt.X-sx,inner_R-r)
-                min_station=min(min_station,gap)
+            min_station=min(min_station,*[shell_gap(pt) for pt in verts])
         contain.append(dict(station=s["id"],source_pressure_inner_shell_clearance_min_m=round(min_station,6),
             inside_pressure_hull=min_station>=-1e-5))
         min_gap=min(min_gap,min_station)
+    fixture_contain=[]
+    for name,obj in solid_catalogue.items():
+        verts,_=obj.tessellate(.018)
+        gap=min(shell_gap(pt) for pt in verts)
+        fixture_contain.append(dict(item=name,source_pressure_inner_shell_clearance_min_m=round(gap,6),
+            inside_pressure_hull=gap>=-1e-5))
+        min_gap=min(min_gap,gap)
     d9_count=sum(c["volume_m3"]>0.01 for c in collisions)
-    if collisions or any(not z["inside_pressure_hull"] for z in contain):
+    if collisions or any(not z["inside_pressure_hull"] for z in contain) or any(not z["inside_pressure_hull"] for z in fixture_contain):
         bad=collisions or [dict(station=z["station"],other="PRESSURE_HULL",volume_m3=max(0,-z["source_pressure_inner_shell_clearance_min_m"])) for z in contain if not z["inside_pressure_hull"]]
+        if not bad:
+            fail=next(z for z in fixture_contain if not z["inside_pressure_hull"])
+            bad=[dict(station=seats[0]["id"],other="FIXTURE:"+fail["item"],
+                volume_m3=max(0,-fail["source_pressure_inner_shell_clearance_min_m"]))]
         collider_picture(bad[0]["station"],bad,seats)
-        REPORT.write_text(json.dumps(dict(status="STOP_COUCH_CLASH",clashes=collisions,
-            containment=contain,picture=str(CLASH.relative_to(ROOT))),indent=2)+"\n")
+        REPORT.write_text(json.dumps(dict(status="STOP_L1_CONTAINMENT_OR_COUCH_CLASH",
+            clashes=collisions,containment=contain,fixture_containment=fixture_contain,
+            picture=str(CLASH.relative_to(ROOT))),indent=2)+"\n")
         raise RuntimeError("STOP: L1 couch cannot fit without clash/containment failure. See "+str(CLASH))
 
     gl=GLB()
@@ -348,14 +370,21 @@ def main():
        glb_path=str(OUTPUT.relative_to(ROOT)),glb_sha256=hashlib.sha256(output).hexdigest(),
        dry_t=DRY,ECON_dv_km_s=DV,source_mass_delta_t=0,exterior_six_state_changes=0,
        checks=dict(D9_category_d=0,couch_collisions_any_volume=0,
+          D9_scope="new 1.58m contoured couches vs all booked L1 physical fixtures and other couches",
           containment="PASS",source_pressure_containment_min_clearance_m=round(min_gap,6),
+          source_fixture_containment_count=len(fixture_contain),
+          all_drawn_L1_parts_contained=True,
           G1_G12="NOT RUN / NOT REQUIRED"),
+       floor_ladder_bores=dict(count=2,diameter_m=.80,
+           x_floor_m=[3.0,3.3],volume_removed_from_visual_BRep_m3=round(floor_cut_m3,6),
+           dry_mass_savings_credited_t=0),
        couch_instances=[dict(id=s["id"],centre_yz_m=s["center_yz"],base_x_m=s["base_x"],
                        common_mesh_index=couch_mesh,booked_mass_t=rows["i4_seat_"+s["id"]]["mass_t"])
                         for s in seats],
        couch_local_panels_m=PANELS,
        couch_brep_component_count=len(common),
        source_visible_parts=len(source_objs),source_derived_utilities_ladders=len(derived),
+       existing_source_fixture_containment=fixture_contain,
        mesh_nodes=len([x for x in doc["nodes"] if "mesh" in x]),
        semantic_volume_nodes=["room_L1-command","outfit_L1"],
        source_core_note=I["habitat"]["core_note"],
@@ -371,7 +400,7 @@ def main():
 
 | Element | At 1:25 | Print interpretation |
 |---|---:|---|
-| L1 annulus outside diameter 8.30 m | 332 mm | Actual deck geometry, two ladder holes left open |
+| L1 annulus outside diameter 8.30 m | 332 mm | Actual BRep deck with two Ø0.80m ladder bores cut, source mass saving ZERO |
 | Utility trunk 1.80 m outside diameter | 72 mm | Goods lift, 4 rack proxies, central utilities; NOT crew egress |
 | Ladderways 0.80 m diameter each | 32 mm | Two and ONLY two crew egress routes |
 | Six 1.58 x 0.70 m contoured couches | 63.2 x 28.0 mm each | Single shared contour, six repeated positions; physical geometry |
