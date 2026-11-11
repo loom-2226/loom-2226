@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Verify tagged v2.5.12 finish coverage, nozzle, D9 and six GLB hashes
+      - name: Verify tagged v2.5.13 finish coverage, nozzle, D9 and six GLB hashes
         run: |
           set -euo pipefail
           python - <<'PY'
@@ -27,9 +27,9 @@ jobs:
           root=Path("wayfarer/render/out")
           p=json.loads((root/"canon_glb.json").read_text())
           r=json.loads((root/"wayfarer_exterior_detail_88ce19fc_report.json").read_text())
-          target="112ffb406c04e16bcf702bbe975441cba7c70922"
+          target="36dd2d24afa717a8902d0b340226b1a74c709916"
           assert p["schema"]=="wayfarer/canon-glb-pointer/v1"
-          assert p["tag"]=="canon-v2.5.12" and p["status"]=="RELEASED"
+          assert p["tag"]=="canon-v2.5.13" and p["status"]=="RELEASED"
           assert p["release_commit"]==target
           subprocess.run(["git","cat-file","-e",target+"^{commit}"],check=True)
           assert p["source_geometry_sha256"]==r["source_geometry_sha256"]=="88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1"
@@ -53,6 +53,8 @@ jobs:
           assert d["PBR_finish_gate"].startswith("CANON_FINISH")
           assert d["hull_surface_seam_scheme"]=="hull_seam_scheme_2026_11_09"
           assert d["hull_seam_width_m"]==.05 and d["thin_shell_actual_blind_mark_m"]==.006
+          assert d["nostromo_fine_true_scale_engraving"]
+          assert d["nostromo_markings_paint_only"]
           finish=json.loads(Path("wayfarer/config/kt_decisions.json").read_text())["canon_finish_2026_11_11"]
           assert finish["decision"]=="kT APPROVED" and finish["status"]=="CANON_FINISH"
           assert all(v["status"]=="CANON_FINISH" for v in finish["rows"].values())
@@ -128,6 +130,17 @@ jobs:
               n,chunk=struct.unpack_from("<II",data,12)
               assert chunk==0x4e4f534a
               obj=json.loads(data[20:20+n])
+              assert not obj.get("images") and not obj.get("textures")
+              paint=extra["nostromo_paint"]
+              assert paint["plated_meshes"]==8 and paint["panel_materials_added"]==12
+              assert paint["tone_variants_srgb"]==[.94,.98,1.02,1.06]
+              assert set(paint["material_variants_by_finish"])=={
+                  "bow_strata","midship_skin_bay_doors","service_band_aft_thrust_cone"}
+              assert all(v==[0,1,2,3] for v in paint["material_variants_by_finish"].values())
+              assert paint["source_triangles"]==paint["output_triangles"]
+              assert paint["original_vertex_positions_preserved"]
+              assert not paint["texture_system_added"] and not paint["decal_texture_embedded"]
+              assert paint["registry_flanks_in_glb"]==0
               assert any(x.get("name","").startswith("CANON_FINISH/") and
                          "pbrMetallicRoughness" in x for x in obj["materials"])
               for m in obj["materials"]:
@@ -144,8 +157,22 @@ jobs:
                       expected=[.02,.02,.02]
                   else:
                       expected=[v*float(finish["rows"][role].get("linear_base_scale",1.0)) for v in expected]
+                  tone=float(m.get("extras",{}).get("panel_tone_srgb_factor",1.))
+                  if "/PANEL_" in title:
+                      assert tone in (.94,.98,1.02,1.06)
+                      assert "baseColorTexture" not in m["pbrMetallicRoughness"]
+                      adjusted=[]
+                      for linear in expected:
+                          srgb=(1.055*linear**(1./2.4)-.055 if linear>.0031308
+                                else 12.92*linear)
+                          srgb=max(0.,min(1.,srgb*tone))
+                          adjusted.append(((srgb+.055)/1.055)**2.4
+                                          if srgb>.04045 else srgb/12.92)
+                      expected=adjusted
+                  else:
+                      assert tone==1.
                   actual=m["pbrMetallicRoughness"]["baseColorFactor"][:3]
-                  assert all(abs(a-b)<1e-7 for a,b in zip(actual,expected))
+                  assert all(abs(a-b)<1e-7 for a,b in zip(actual,expected)),title
               nozzle=next(n for n in obj["nodes"] if n.get("name")=="dry:nozzle")
               dark=nozzle["extras"]["nozzle_coil_band_material_index"]
               assert obj["materials"][dark]["name"]=="CANON_FINISH/nozzle_coil_bands"
@@ -172,8 +199,8 @@ jobs:
               assert all(pr.get("material") is not None and obj["materials"][pr["material"]].get("name","").startswith("CANON_FINISH/") for node in obj["nodes"] if "mesh" in node for pr in obj["meshes"][node["mesh"]]["primitives"])
               assert len([x for x in painted if
                           x["extras"].get("thermal_emissive_state")])==extra["thermal_emissive_meshes"]
-              print("CANON_2512_VIEWER_STATE_PASS",s["mode"],s["crown_pose"])
-          print("CANON_2512_POINTER_SIX_EXISTING_GLBS_PASS")
+              print("CANON_2513_VIEWER_STATE_PASS",s["mode"],s["crown_pose"])
+          print("CANON_2513_POINTER_SIX_EXISTING_GLBS_PASS")
           PY
   publish_exact_tag:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -185,13 +212,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Verify existing annotated canon-v2.5.12 tag pins exact geometry commit
+      - name: Verify existing annotated canon-v2.5.13 tag pins exact geometry commit
         run: |
           set -euo pipefail
-          target=112ffb406c04e16bcf702bbe975441cba7c70922
-          tag=canon-v2.5.12
+          target=36dd2d24afa717a8902d0b340226b1a74c709916
+          tag=canon-v2.5.13
           git cat-file -e "$target^{commit}"
           git fetch --tags origin
           test "$(git rev-parse "$tag^{}")" = "$target"
           test "$(git cat-file -t "refs/tags/$tag")" = "tag"
-          echo "CANON_2512_TAG_EXACT_GEOMETRY_COMMIT_VERIFIED"
+          echo "CANON_2513_TAG_EXACT_GEOMETRY_COMMIT_VERIFIED"
