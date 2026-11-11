@@ -1,12 +1,12 @@
 {
   "schema": "wayfarer/canon-glb-pointer/v1",
   "status": "RELEASED",
-  "tag": "canon-v2.5.8",
-  "release_commit": "3e464668d20c1e4e59cfa3dc5aedb3b5f0e8f258",
+  "tag": "canon-v2.5.9",
+  "release_commit": "c7d29e17f5f9b346db7df129d617b24ad59a2bf7",
   "path": "wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_stowed_closed.glb",
   "hash": {
     "algorithm": "git-blob-sha1",
-    "value": "4e357085274ff9cc510862912ef97af8c95195cf"
+    "value": "7559cd6b22079c647d060cba9827b9d2d9ab75e8"
   },
   "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
   "dry_mass_t": 868.1922552640087,
@@ -21,7 +21,7 @@
       "glb_nodes": 498,
       "hash": {
         "algorithm": "git-blob-sha1",
-        "value": "88bea6f54b14d87530ed681e65d697e262111cd4"
+        "value": "654e48f5286c14f7bd73766874e86194f7248199"
       }
     },
     {
@@ -31,7 +31,7 @@
       "glb_nodes": 502,
       "hash": {
         "algorithm": "git-blob-sha1",
-        "value": "56cb42ba45831637037ea4c649ea1f5248409d8d"
+        "value": "3a526a0c553cd014beedb46fd82b493c3a557bf7"
       }
     },
     {
@@ -41,7 +41,7 @@
       "glb_nodes": 502,
       "hash": {
         "algorithm": "git-blob-sha1",
-        "value": "00cd47f6f9fef6ee0de93bacc09cdfd61c563917"
+        "value": "accffe0e59e0667a2b2bb1b4c6579ee9ed9a4b3d"
       }
     },
     {
@@ -51,7 +51,7 @@
       "glb_nodes": 558,
       "hash": {
         "algorithm": "git-blob-sha1",
-        "value": "997fbc9946f2212877549f5ad3bb784a30fcdff2"
+        "value": "0cd10231bacebad3bebee669decefe4d849dfa95"
       }
     },
     {
@@ -61,9 +61,9 @@
       "glb_nodes": 558,
       "hash": {
         "algorithm": "git-blob-sha1",
-        "value": "a23a68281827861cd0d392372c77483f1172c18b"
+        "value": "98a2e3bc7bceb4b643973e6af5a8babd7d00ef37"
       }
     }
   ],
-  "notes": "Drawing-only kT v2.5.8 neutral graphite CANON_FINISH correction: sRGB #3A3D42 mapped to linear glTF RGB (0.0423114,0.0466651,0.0544803) on bow, midship bay doors and Strata gores; source's 23 canon finish roles and every emitted material variant checked. Strakes 1300K deep red-orange emissive and deployed torch fins 1750K orange root-graded, all hot diffuse base linear (0.02,0.02,0.02) to avoid creamy washout. Five nozzle rings same x stations, width 150mm (1.5mm at 1:100), depth ~30mm and existing nozzle triangle faces split bronze/dark matte gunmetal with 1056 dark triangles conserved (2348 total). All six revised GLBs and F3 before/after regenerated; D9 category-d=0 and containment PASS x6; unchanged source dry 868.1922552640087t, ECON delta-v 707.845km/s and source physical geometry sha; no mass or nozzle envelope change. Annotated tag pins merged PR #498 geometry commit; pointer in later metadata-only main. No new physics or hardware qualification."
+  "notes": "kT v2.5.9 A-only drawing release: dark pressure_vessel interior, 8 service shield bands, 4 bay corners, full CANON_FINISH mesh coverage and 0.8x linear pale service/aft/thrust accent. Retains v2.5.8 unsplit nozzle mesh and five existing gunmetal groove paint bands; exact clean ring splitter deferred to v2.5.10. Six regenerated states D9 category-d=0 and containment PASS; 498/502/558 nodes by mode; zero source mass and envelope rebooking. Source dry 868.1922552640087 t, ECON 707.845 km/s, unchanged pinned source geometry SHA. Annotated tag 616628d260173d6c6c5165c2492a031410eaa3c7 pins geometry merge c7d29e17f5f9b346db7df129d617b24ad59a2bf7. Metadata-only pointer update."
 }
