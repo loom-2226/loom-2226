@@ -904,7 +904,7 @@
     "no_material_physical_qualification": true,
     "booked_mass_delta_t": 0,
     "geometry_envelope_delta_m": 0,
-    "version": "canon-v2.5.13",
+    "version": "canon-v2.5.14",
     "graphite_srgb_approved": "#3A3D42",
     "graphite_roles": [
       "bow_strata",
@@ -990,5 +990,21 @@
     "no_texture_system": true,
     "no_paint_engine": true,
     "fine_engraving_only_canon_geometry_change": true
+  },
+  "wayfarer_v2514_mosaic_cone_polish_2026_11_12": {
+    "decision": "kT APPROVED",
+    "release": "canon-v2.5.14",
+    "mosaic": "Existing emitted plated meshes have no separately exported seam-cell faces; one deterministic variant per whole authored part, never per triangle. Three finish-role groups checked.",
+    "service_group_parts": [
+      "skin_service",
+      "skin_aft",
+      "thrust_cone"
+    ],
+    "cone": "Smooth only lateral glTF vertex NORMAL accessors; retain hard cap/seam normals; original POSITION/triangle index accessors unchanged; surface area relative error 0 <= 1e-6.",
+    "print_artwork": "Unchanged, print only",
+    "new_mass_t": 0,
+    "no_envelope_change": true,
+    "no_new_protrusions": true,
+    "no_physical_performance_credit": true
   }
 }
