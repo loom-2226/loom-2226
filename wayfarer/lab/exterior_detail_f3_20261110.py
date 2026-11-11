@@ -597,7 +597,7 @@ def main():
          pressure_vessel_visible_finish="CANON_FINISH/interior_pressure_structure",
          service_shield_band_finish="CANON_FINISH/shadow_shield",
          bay_corner_finish="CANON_FINISH/external_fixtures",
-         nozzle_coil_ring_boundary="unchanged v2.5.8 nozzle triangle classification; exact ring edges deferred to v2.5.10",
+         nozzle_coil_ring_boundary="exact plane-clipped original mesh grooves; strict surface-area conservation",
          all_rendered_nodes_require_CANON_FINISH=True,
          pale_accent_linear_rgb_scale=.8,
         print_minimum_modelled_feature_m=MIN_PRINT_FEATURE_M,
