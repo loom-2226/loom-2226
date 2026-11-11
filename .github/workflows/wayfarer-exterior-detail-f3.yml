@@ -27,7 +27,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   integrate:
-    if: github.event_name == 'pull_request' && github.head_ref != 'engineering/wayfarer-hotfin-folded-stack-v255-20261110'
+    if: github.event_name == 'pull_request' && github.head_ref != 'engineering/wayfarer-hotfin-folded-stack-v255-20261110' && !startsWith(github.head_ref, 'research/wayfarer-L1-F4-')
     runs-on: ubuntu-latest
     timeout-minutes: 95
     steps:
@@ -364,7 +364,7 @@ jobs:
           git rebase "origin/${{ github.head_ref }}"
           git push origin "HEAD:${{ github.head_ref }}"
   release_tag_v2514:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !startsWith(github.event.head_commit.message, 'class:research:')
     runs-on: ubuntu-latest
     permissions:
       contents: write
