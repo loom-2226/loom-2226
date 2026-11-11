@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Wayfarer canon-v2.5.12: approved PBR and strict plane-split nozzle groove faces.
+"""Wayfarer canon-v2.5.13: approved PBR and strict plane-split nozzle groove faces.
 
 No geometry, physics, density, mass, IR emissivity, or source material changes.
 Rewrites only the JSON chunk of the existing GLB: node materials/extras.
@@ -9,6 +9,7 @@ from __future__ import annotations
 import hashlib,json,math,re,struct
 from pathlib import Path
 from nozzle_band_faces_v259 import split_nozzle_rings
+import nostromo_paint_v2513 as N
 
 ROOT=Path(__file__).resolve().parents[1]
 FINISH=ROOT/"config/kt_decisions.json"
@@ -195,7 +196,20 @@ def assign_pbr(path,source_mesh_extras,mode):
         emissiveFactor=[0.,0.,0.]))
     tail,coils=split_nozzle_rings(data,tail,nozzle_node,coil_index,
         f["nozzle_coil_band"]["stations_x_m"])
-    verified_materials+=1
+    tail,paint=N.apply(data,tail)
+    verified_materials+=1+paint["panel_materials_added"]
+    for mat in mats:
+        ex=mat.get("extras",{})
+        if "panel_tone_srgb_factor" not in ex:continue
+        role=mat["name"].split("/")[1]
+        tone=float(ex["panel_tone_srgb_factor"])
+        if not .94<=tone<=1.06 or role not in f["rows"]:
+            raise RuntimeError("STOP export: invalid NOSTROMO plate material")
+        scale=float(f["rows"][role].get("linear_base_scale",1.0))
+        expected=[N._tone_linear(c*scale,tone) for c in converted[role]]
+        actual=mat["pbrMetallicRoughness"]["baseColorFactor"][:3]
+        if any(abs(a-b)>1e-7 for a,b in zip(actual,expected)):
+            raise RuntimeError("STOP export: NOSTROMO panel tone mismatch")
     assert verified_materials==sum(
         1 for mat in mats if mat.get("name","").startswith("CANON_FINISH/"))
     # Any mesh can be exposed by sectioning. No exported mesh node may rely
@@ -253,5 +267,6 @@ def assign_pbr(path,source_mesh_extras,mode):
                 graphite_linear_base_rgb=expected_graphite,
                 thermal_glow_diffuse_base_linear_rgb=[.02,.02,.02],
                 nozzle_coil_band_faces=coils,
+                nostromo_paint=paint,
                 raw_glb_sha256=hashlib.sha256(binary).hexdigest(),
                 bytes=len(binary))
