@@ -1,5 +1,9 @@
 name: Wayfarer F3 exterior detail six-state BRep/GLB
 on:
+  push:
+    branches: [main]
+    paths:
+      - wayfarer/lab/pbr_finish_v257.py
   pull_request:
     paths:
       - wayfarer/lab/exterior_detail_f3_20261110.py
@@ -278,3 +282,44 @@ jobs:
           git fetch origin "${{ github.head_ref }}"
           git rebase "origin/${{ github.head_ref }}"
           git push origin "HEAD:${{ github.head_ref }}"
+  release_tag_v259:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify exact committed six-state geometry before tagging
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('wayfarer/render/out')
+          r=json.loads((root/'wayfarer_exterior_detail_88ce19fc_report.json').read_text())
+          assert r['all_six_state_D9_and_containment']=='PASS'
+          assert r['source_dry_t']==868.1922552640087
+          assert r['dry_mass_change_t']==0 and r['ECON_dv_km_s']==707.845
+          assert sum(len(v) for v in r['six_states'].values())==6
+          for poses in r['six_states'].values():
+              for state in poses.values():
+                  assert state['category_d_count']==0
+                  assert state['pressure_containment_pass']
+                  assert (Path('wayfarer')/state['glb']).is_file()
+                  assert state['gltf_extras']['missing_visible_finish_meshes']==[]
+          print('TAG_RELEASE_V259_COMMITTED_SIX_STATE_PASS')
+          PY
+      - name: Annotate exact geometry commit canon-v2.5.9
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch --tags origin
+          if git rev-parse -q --verify refs/tags/canon-v2.5.9 >/dev/null; then
+            echo 'STOP: canon-v2.5.9 already exists'; exit 1
+          fi
+          git tag -a canon-v2.5.9 "$GITHUB_SHA" -m 'Wayfarer canon-v2.5.9: finish coverage, existing nozzle mesh; six-state D9 and containment PASS; no mass or ECON change'
+          git push origin refs/tags/canon-v2.5.9
+          echo "TAG_OBJECT_SHA=$(git rev-parse 'canon-v2.5.9^{tag}')"
+          echo "TAG_COMMIT_SHA=$(git rev-parse 'canon-v2.5.9^{}')"
