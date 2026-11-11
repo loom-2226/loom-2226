@@ -1,0 +1,173 @@
+{
+  "status": "L1_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS",
+  "classification": "INTERIOR_L1_ONLY",
+  "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+  "glb_path": "render/out/interior_L1.glb",
+  "glb_sha256": "5801c455a63c5363e0d29e44dc1046dee6a8e2387e5033f264c91dc6358861ae",
+  "dry_t": 868.1922552640087,
+  "ECON_dv_km_s": 707.845,
+  "source_mass_delta_t": 0,
+  "exterior_six_state_changes": 0,
+  "checks": {
+    "D9_category_d": 0,
+    "couch_collisions_any_volume": 0,
+    "containment": "PASS",
+    "source_pressure_containment_min_clearance_m": 0.472723,
+    "G1_G12": "NOT RUN / NOT REQUIRED"
+  },
+  "couch_instances": [
+    {
+      "id": "PILOT",
+      "centre_yz_m": [
+        -0.98,
+        -2
+      ],
+      "base_x_m": 2.41,
+      "common_mesh_index": 0,
+      "booked_mass_t": 0.05118518656421065
+    },
+    {
+      "id": "NAV",
+      "centre_yz_m": [
+        0,
+        2.5
+      ],
+      "base_x_m": 2.76,
+      "common_mesh_index": 0,
+      "booked_mass_t": 0.05118518656421065
+    },
+    {
+      "id": "S1",
+      "centre_yz_m": [
+        0.98,
+        -2
+      ],
+      "base_x_m": 2.41,
+      "common_mesh_index": 0,
+      "booked_mass_t": 0.05118518656421065
+    },
+    {
+      "id": "S2",
+      "centre_yz_m": [
+        -2.85,
+        -0.7
+      ],
+      "base_x_m": 2.95,
+      "common_mesh_index": 0,
+      "booked_mass_t": 0.05118518656421065
+    },
+    {
+      "id": "S3",
+      "centre_yz_m": [
+        2.85,
+        -0.7
+      ],
+      "base_x_m": 2.95,
+      "common_mesh_index": 0,
+      "booked_mass_t": 0.05118518656421065
+    },
+    {
+      "id": "S4",
+      "centre_yz_m": [
+        2.4,
+        -1.7
+      ],
+      "base_x_m": 2.95,
+      "common_mesh_index": 0,
+      "booked_mass_t": 0.05118518656421065
+    }
+  ],
+  "couch_local_panels_m": [
+    [
+      -0.26,
+      -0.13,
+      0.0,
+      0.35,
+      -0.35,
+      0.35
+    ],
+    [
+      -0.2,
+      -0.11,
+      0.35,
+      1.12,
+      -0.35,
+      0.35
+    ],
+    [
+      -0.25,
+      -0.14,
+      1.12,
+      1.58,
+      -0.35,
+      0.35
+    ],
+    [
+      -0.3,
+      -0.16,
+      0.15,
+      1.05,
+      -0.33,
+      -0.28
+    ],
+    [
+      -0.3,
+      -0.16,
+      0.15,
+      1.05,
+      0.28,
+      0.33
+    ],
+    [
+      -0.34,
+      -0.2,
+      0.0,
+      0.24,
+      -0.19,
+      -0.14
+    ],
+    [
+      -0.34,
+      -0.2,
+      0.0,
+      0.24,
+      0.14,
+      0.19
+    ],
+    [
+      -0.24,
+      -0.06,
+      1.52,
+      1.58,
+      -0.23,
+      0.23
+    ],
+    [
+      -0.13,
+      0.0,
+      0.65,
+      0.92,
+      -0.1,
+      0.1
+    ]
+  ],
+  "couch_brep_component_count": 9,
+  "source_visible_parts": 42,
+  "source_derived_utilities_ladders": 20,
+  "mesh_nodes": 68,
+  "semantic_volume_nodes": [
+    "room_L1-command",
+    "outfit_L1"
+  ],
+  "source_core_note": "Central trunk: utilities, avionics racks and a goods lift; not an egress path. Egress is by the two ladderways in the corridor ring.",
+  "ladderway_egress_only": true,
+  "metadata_source_bookings_nonadditive": true,
+  "original_station_positions_unmoved": true,
+  "source_qualifications_held": [
+    "occupant body 4g egress",
+    "hatch pressure seal and actuation",
+    "couch hardpoint/occupant fit",
+    "optical sightline occlusion"
+  ],
+  "print_note_path": "docs/L1_INTERIOR_PRINT_1_25_2026_11_12.md"
+}
