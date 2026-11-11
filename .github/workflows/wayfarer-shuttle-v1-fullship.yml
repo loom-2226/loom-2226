@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   integrate:
-    if: github.event_name == 'pull_request' && github.head_ref != 'engineering/wayfarer-exterior-detail-f3-20261110' && github.head_ref != 'engineering/wayfarer-hotfin-folded-stack-v255-20261110' && github.head_ref != 'engineering/wayfarer-v256-rcs-spine-laser-20261110' && github.head_ref != 'engineering/wayfarer-hull-etch-finish-review-20261111' && github.head_ref != 'engineering/wayfarer-v258-graphite-hotstate-coils-20261111'
+    if: github.event_name == 'pull_request' && github.head_ref != 'engineering/wayfarer-exterior-detail-f3-20261110' && github.head_ref != 'engineering/wayfarer-hotfin-folded-stack-v255-20261110' && github.head_ref != 'engineering/wayfarer-v256-rcs-spine-laser-20261110' && github.head_ref != 'engineering/wayfarer-hull-etch-finish-review-20261111' && github.head_ref != 'engineering/wayfarer-v258-graphite-hotstate-coils-20261111' && github.head_ref != 'engineering/wayfarer-v259-finish-coverage-clean-coils-20261111'
     runs-on: ubuntu-latest
     timeout-minutes: 95
     steps:

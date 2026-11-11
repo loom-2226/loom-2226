@@ -6,7 +6,7 @@ Rewrites only the JSON chunk of the existing GLB: node materials/extras.
 Colour is an sRGB viewer paint approximation, NOT a measured spectrum.
 """
 from __future__ import annotations
-import hashlib,json,math,re,struct
+import copy,hashlib,json,math,re,struct
 from pathlib import Path
 from nozzle_band_faces_v258 import colour_nozzle_bands
 
@@ -26,6 +26,9 @@ def _entry(f,role):
 def role_for(name,meta,mode):
     """Use semantic node ID, not source material alone, to retain distinct skins."""
     n=name.removeprefix("dry:")
+    if n=="pressure_vessel":return "interior_pressure_structure"
+    if n.startswith("service_shield_band_"):return "shadow_shield"
+    if n.startswith("bay_corner_"):return "external_fixtures"
     if n.startswith("shuttle_v1/"):
         part=n.split("/",1)[1]
         if part.startswith("belly_TPS_"):return "shuttle_belly_tps"
@@ -61,9 +64,10 @@ def role_for(name,meta,mode):
         return "sensors_optics"
     if n.startswith(("ext_","hold_existing_door","frame_","longeron_")):
         return "external_fixtures"
-    # Preserve existing exported model's system palette on internal rooms,
-    # water, equipment, cargo and all non-exterior meshes.
-    return None
+    # All exported meshes remain potentially visible in a section view.
+    # Preserve unlisted internal equipment colours from the source viewer,
+    # while giving *every* rendered node an explicit CANON_FINISH material.
+    return "source_palette_preserved"
 
 def _hot_state(name,mode):
     if mode=="metric_hard" and name.startswith("dry:strake_"):
@@ -80,10 +84,13 @@ def _hot_state(name,mode):
 def assign_pbr(path,source_mesh_extras,mode):
     f=json.loads(FINISH.read_text())["canon_finish_2026_11_11"]
     assert f["status"]=="CANON_FINISH" and f["decision"]=="kT APPROVED"
-    assert len(f["rows"])==f["colour_conversion_audit"]["expected_declared_roles"]==23
+    assert len(f["rows"])==24
+    assert f["colour_conversion_audit"]["expected_declared_roles"]==23
+    assert f["rows"]["interior_pressure_structure"]["status"]=="CANON_FINISH"
+    assert f["rows"]["service_band_aft_thrust_cone"]["linear_base_scale"]==0.8
     assert all(v["status"]=="CANON_FINISH" for v in f["rows"].values())
     converted={role:_rgb(v["base_srgb_hex"]) for role,v in f["rows"].items()}
-    assert len(converted)==23
+    assert len(converted)==24
     expected_graphite=_rgb("#3A3D42")
     assert all(f["rows"][role]["base_srgb_hex"]=="#3A3D42"
                and all(abs(x-y)<1e-10 for x,y in zip(converted[role],expected_graphite))
@@ -102,6 +109,7 @@ def assign_pbr(path,source_mesh_extras,mode):
     emissive=0
     by_role={}
     nozzle_node=None
+    preserved_meshes=0
     for node in data["nodes"]:
         if "mesh" not in node:continue
         name=node["name"]
@@ -110,16 +118,41 @@ def assign_pbr(path,source_mesh_extras,mode):
             assert nozzle_node is None
             nozzle_node=node
         role=role_for(name,source_mesh_extras[name],mode)
-        if role is None:
-            node.setdefault("extras",{})["finish_scope"]="INTERIOR_OR_UNASSIGNED_SOURCE_COLOUR"
+        mesh=data["meshes"][node["mesh"]]
+        if role=="source_palette_preserved":
+            # Keep original source viewer appearance (including alpha and
+            # original lighting parameters). No new interior palette asserted.
+            first=None
+            for prim in mesh["primitives"]:
+                old_idx=prim.get("material")
+                key=("source_palette_preserved",old_idx)
+                if key not in cache:
+                    original=(copy.deepcopy(mats[old_idx])
+                              if old_idx is not None else {})
+                    original["name"]="CANON_FINISH/source_palette_preserved/"+str(old_idx)
+                    original.setdefault("pbrMetallicRoughness",dict(
+                        baseColorFactor=[1.,1.,1.,1.],
+                        metallicFactor=1.,roughnessFactor=1.))
+                    original.setdefault("emissiveFactor",[0.,0.,0.])
+                    cache[key]=len(mats);mats.append(original)
+                prim["material"]=cache[key]
+                if first is None:first=cache[key]
+            ex=node.setdefault("extras",{})
+            ex.update(finish_role=role,finish_status="CANON_FINISH",
+                finish_origin="EXISTING_SYSTEM_PBR_PRESERVED",
+                pbr_material_index=first,source_spectral_performance_unchanged=True)
+            preserved_meshes+=1
+            changed+=1
+            by_role[role]=by_role.get(role,0)+1
             continue
         row=_entry(f,role)
         kind_hot,color_hot,strength=_hot_state(name,mode)
         material_key=(role,kind_hot,strength)
         if material_key not in cache:
             # Hot diffuse stays 0.02 linear; all thermal colour is emissive.
+            scale=float(row.get("linear_base_scale",1.0))
             base=([.02,.02,.02] if kind_hot else
-                  list(converted[role])) + [1.]
+                  [c*scale for c in converted[role]]) + [1.]
             if role in ("side_glazing","crown_pressure_ceramic","crown_outer_ceramic","aoi_optogel"):
                 base[3]=.24 if role=="aoi_optogel" else .38
             pbr=dict(baseColorFactor=base,
@@ -159,9 +192,15 @@ def assign_pbr(path,source_mesh_extras,mode):
         label=mat.get("name","")
         if not label.startswith("CANON_FINISH/"):continue
         role=label.split("/")[1]
+        if role=="source_palette_preserved":
+            # This is a deep copy of source-viewer PBR, not a new swatch.
+            verified_materials+=1
+            continue
         assert role in converted
         hot=any(v>0 for v in mat.get("emissiveFactor",[0,0,0]))
-        expected=[.02,.02,.02] if hot else converted[role]
+        expected=([.02,.02,.02] if hot else
+                  [c*float(f["rows"][role].get("linear_base_scale",1.))
+                   for c in converted[role]])
         actual=mat["pbrMetallicRoughness"]["baseColorFactor"][:3]
         if any(abs(x-y)>1e-7 for x,y in zip(actual,expected)):
             raise RuntimeError("STOP export: sRGB-to-linear check failed "+str((label,actual,expected)))
@@ -179,6 +218,23 @@ def assign_pbr(path,source_mesh_extras,mode):
     verified_materials+=1
     assert verified_materials==sum(
         1 for mat in mats if mat.get("name","").startswith("CANON_FINISH/"))
+    # Any mesh can be exposed by sectioning. No exported mesh node may rely
+    # on default white or on an unnamed glTF material, including interior.
+    mesh_nodes=[n for n in data["nodes"] if "mesh" in n]
+    missing=[]
+    for node in mesh_nodes:
+        if node.get("extras",{}).get("finish_status")!="CANON_FINISH":
+            missing.append(node.get("name"))
+            continue
+        for prim in data["meshes"][node["mesh"]]["primitives"]:
+            idx=prim.get("material")
+            if idx is None or not mats[idx].get("name","").startswith("CANON_FINISH/"):
+                missing.append(node.get("name"))
+                break
+    if missing:
+        raise RuntimeError("STOP export: visible mesh lacks CANON_FINISH material "+
+                           str(missing[:20]))
+    assert changed==len(mesh_nodes)
     if emissive:
         used=data.setdefault("extensionsUsed",[])
         if "KHR_materials_emissive_strength" not in used:
@@ -202,6 +258,15 @@ def assign_pbr(path,source_mesh_extras,mode):
                 hot_fin_1300K_preview_removed=True,
                 thermal_source_no_credit=True,
                 by_finish_role=dict(sorted(by_role.items())),
+                all_visible_meshes_CANON_FINISH=True,
+                rendered_meshes_total=len(mesh_nodes),
+                missing_visible_finish_meshes=missing,
+                source_palette_preserved_meshes=preserved_meshes,
+                explicit_finish_meshes=changed-preserved_meshes,
+                pressure_vessel_finish="interior_pressure_structure",
+                service_shield_finish="shadow_shield",
+                bay_corner_finish="external_fixtures",
+                pale_accent_linear_scale=.8,
                 srgb_to_linear_declared_roles=len(converted),
                 verified_linear_pbr_materials=verified_materials,
                 graphite_linear_base_rgb=expected_graphite,

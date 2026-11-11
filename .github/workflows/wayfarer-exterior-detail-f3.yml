@@ -1,5 +1,9 @@
 name: Wayfarer F3 exterior detail six-state BRep/GLB
 on:
+  push:
+    branches: [main]
+    paths:
+      - wayfarer/lab/pbr_finish_v257.py
   pull_request:
     paths:
       - wayfarer/lab/exterior_detail_f3_20261110.py
@@ -60,7 +64,7 @@ jobs:
           set -euo pipefail
           python -u wayfarer/lab/shuttle/shuttle_v1_docked_G8_gate.py
           python -u wayfarer/lab/shuttle/shuttle_v1_full_docked_G8.py
-      - name: kT v2.5.8 neutral graphite, hot emissive and nozzle groove faces, six-state D9, containment and F3
+      - name: kT v2.5.9 finish-only fixes with v2.5.8 nozzle, six-state D9, containment and F3
         run: |
           set -euo pipefail
           python -u wayfarer/lab/exterior_detail_f3_20261110.py | tee f3-exterior.log
@@ -99,6 +103,11 @@ jobs:
           assert d['graphite_srgb_2026_11_11_v258']=='#3A3D42'
           assert d['hot_state_diffuse_linear_rgb']==[.02,.02,.02]
           assert d['nozzle_coil_band_width_m']==.15
+          assert d['pressure_vessel_visible_finish']=='CANON_FINISH/interior_pressure_structure'
+          assert d['service_shield_band_finish']=='CANON_FINISH/shadow_shield'
+          assert d['bay_corner_finish']=='CANON_FINISH/external_fixtures'
+          assert d['all_rendered_nodes_require_CANON_FINISH']
+          assert d['pale_accent_linear_rgb_scale']==.8
           assert d['nozzle_coil_band_depth_m']==.03
           assert d['no_new_source_mass'] and d['no_performance_claims']
           assert d['print_minimum_modelled_feature_m']==.1
@@ -169,7 +178,7 @@ jobs:
                   v=int(v,16)/255
                   return ((v+.055)/1.055)**2.4 if v>.04045 else v/12.92
               color=lambda h:[transfer(h[i:i+2]) for i in (1,3,5)]
-              assert len(km['rows'])==23
+              assert len(km['rows'])==24
               for role,row in km['rows'].items():
                   assert row['status']=='CANON_FINISH'
                   assert all(0<=v<=1 for v in color(row['base_srgb_hex']))
@@ -177,9 +186,14 @@ jobs:
                   name=mat.get('name','')
                   if not name.startswith('CANON_FINISH/'):continue
                   role=name.split('/')[1]
+                  if role=='source_palette_preserved':
+                      assert 'pbrMetallicRoughness' in mat
+                      continue
                   assert role in km['rows']
                   hot=any(v>0 for v in mat.get('emissiveFactor',[0,0,0]))
-                  expected=[.02,.02,.02] if hot else color(km['rows'][role]['base_srgb_hex'])
+                  expected=([.02,.02,.02] if hot else
+                      [v*float(km['rows'][role].get('linear_base_scale',1.))
+                       for v in color(km['rows'][role]['base_srgb_hex'])])
                   assert all(abs(a-b)<1e-7 for a,b in zip(
                       mat['pbrMetallicRoughness']['baseColorFactor'][:3],expected)),name
               nozzle_node=next(v for v in meshes if v['name']=='dry:nozzle')
@@ -192,7 +206,7 @@ jobs:
               assert st['gltf_extras']['canon_finish']=='CANON_FINISH'
               assert st['gltf_extras']['exterior_pbr_meshes']>30
               assert st['gltf_extras']['exterior_pbr_variants']>=15
-              assert st['gltf_extras']['srgb_to_linear_declared_roles']==23
+              assert st['gltf_extras']['srgb_to_linear_declared_roles']==24
               assert st['gltf_extras']['verified_linear_pbr_materials']>=16
               graphite=st['gltf_extras']['graphite_linear_base_rgb']
               assert all(abs(x-y)<.001 for x,y in zip(graphite,[.0423,.0470,.0545]))
@@ -202,11 +216,28 @@ jobs:
               assert band['width_m']==.15 and band['depth_m']==.03
               assert len(band['face_triangles_per_station'])==5
               assert all(x>0 for x in band['face_triangles_per_station'])
-              assert band['triangle_conservation'] and band['nozzle_geometry_envelope_unchanged']
+              assert band['triangle_conservation'] and band['source_triangles_total']>0
+              assert band['face_triangles_total']==sum(band['face_triangles_per_station'])
+              assert band['nozzle_geometry_envelope_unchanged']
               assert band['print_band_width_1_100_mm']==1.5
               assert all('pbrMetallicRoughness' in mat for mat in data['materials'] if mat.get('name','').startswith('CANON_FINISH/'))
               assigned=[v for v in meshes if v['extras'].get('finish_status')=='CANON_FINISH']
-              assert len(assigned)==st['gltf_extras']['exterior_pbr_meshes']
+              assert len(assigned)==len(meshes)==st['gltf_extras']['exterior_pbr_meshes']
+              assert st['gltf_extras']['all_visible_meshes_CANON_FINISH']
+              assert st['gltf_extras']['rendered_meshes_total']==len(meshes)
+              assert st['gltf_extras']['missing_visible_finish_meshes']==[]
+              assert st['gltf_extras']['pressure_vessel_finish']=='interior_pressure_structure'
+              assert st['gltf_extras']['service_shield_finish']=='shadow_shield'
+              assert st['gltf_extras']['bay_corner_finish']=='external_fixtures'
+              assert st['gltf_extras']['pale_accent_linear_scale']==.8
+              assert all(p.get('material') is not None and
+                         data['materials'][p['material']].get('name','').startswith('CANON_FINISH/')
+                         for v in meshes for p in data['meshes'][v['mesh']]['primitives'])
+              assert next(v for v in meshes if v['name']=='dry:pressure_vessel')['extras']['finish_role']=='interior_pressure_structure'
+              assert len([v for v in meshes if v['name'].startswith('dry:service_shield_band_') and
+                          v['extras']['finish_role']=='shadow_shield'])==8
+              assert len([v for v in meshes if v['name'].startswith('dry:bay_corner_') and
+                          v['extras']['finish_role']=='external_fixtures'])==4
               assert all(data['meshes'][v['mesh']]['primitives'][0]['material'] ==
                          v['extras']['pbr_material_index'] for v in assigned)
               glowing=[v for v in assigned if v['extras'].get('thermal_emissive_state')]
@@ -246,8 +277,49 @@ jobs:
                      wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_report.json \
                      wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_F3_before_after.png
           test "$(git ls-files --cached 'wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_*.glb' | wc -l)" -eq 6
-          git commit -m 'class:engineering: v2.5.8 corrected graphite/thermal PBR and nozzle coil bands six-state pass'
+          git commit -m 'class:engineering: v2.5.9 CANON_FINISH coverage, retained v2.5.8 nozzle six-state pass'
           git restore --worktree -- .
           git fetch origin "${{ github.head_ref }}"
           git rebase "origin/${{ github.head_ref }}"
           git push origin "HEAD:${{ github.head_ref }}"
+  release_tag_v259:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify exact committed six-state geometry before tagging
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('wayfarer/render/out')
+          r=json.loads((root/'wayfarer_exterior_detail_88ce19fc_report.json').read_text())
+          assert r['all_six_state_D9_and_containment']=='PASS'
+          assert r['source_dry_t']==868.1922552640087
+          assert r['dry_mass_change_t']==0 and r['ECON_dv_km_s']==707.845
+          assert sum(len(v) for v in r['six_states'].values())==6
+          for poses in r['six_states'].values():
+              for state in poses.values():
+                  assert state['category_d_count']==0
+                  assert state['pressure_containment_pass']
+                  assert (Path('wayfarer')/state['glb']).is_file()
+                  assert state['gltf_extras']['missing_visible_finish_meshes']==[]
+          print('TAG_RELEASE_V259_COMMITTED_SIX_STATE_PASS')
+          PY
+      - name: Annotate exact geometry commit canon-v2.5.9
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch --tags origin
+          if git rev-parse -q --verify refs/tags/canon-v2.5.9 >/dev/null; then
+            echo 'STOP: canon-v2.5.9 already exists'; exit 1
+          fi
+          git tag -a canon-v2.5.9 "$GITHUB_SHA" -m 'Wayfarer canon-v2.5.9: finish coverage, existing nozzle mesh; six-state D9 and containment PASS; no mass or ECON change'
+          git push origin refs/tags/canon-v2.5.9
+          echo "TAG_OBJECT_SHA=$(git rev-parse 'canon-v2.5.9^{tag}')"
+          echo "TAG_COMMIT_SHA=$(git rev-parse 'canon-v2.5.9^{}')"
