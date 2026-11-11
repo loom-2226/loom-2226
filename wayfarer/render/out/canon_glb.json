@@ -1,12 +1,12 @@
 {
   "schema": "wayfarer/canon-glb-pointer/v1",
   "status": "RELEASED",
-  "tag": "canon-v2.5.10",
-  "release_commit": "2d7ac30bd7cb924238baa26a7bc7964b0d4a4731",
+  "tag": "canon-v2.5.11",
+  "release_commit": "fb449250fc1ae853a5418309d15980dccb14ae38",
   "path": "wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_stowed_closed.glb",
   "hash": {
     "algorithm": "git-blob-sha1",
-    "value": "71a59285cf6b09f6339fa8ee090da5981f21592a"
+    "value": "c12b08f1d0a364d59d53705834c61abbefc05863"
   },
   "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
   "dry_mass_t": 868.1922552640087,
@@ -21,7 +21,7 @@
       "glb_nodes": 498,
       "hash": {
         "algorithm": "git-blob-sha1",
-        "value": "823ecf310e438c6b62de9051623d608ffe640466"
+        "value": "41d27e65f2958eb2d1dc0b72125c52198f413e06"
       }
     },
     {
@@ -31,7 +31,7 @@
       "glb_nodes": 502,
       "hash": {
         "algorithm": "git-blob-sha1",
-        "value": "cabee530d5b958dad91118cb1e6ba27c4ee8e4e4"
+        "value": "4507a2a97addacf1ccae6ff24a40dfae2c43451f"
       }
     },
     {
@@ -41,7 +41,7 @@
       "glb_nodes": 502,
       "hash": {
         "algorithm": "git-blob-sha1",
-        "value": "9b704e304c2422d9380336b8a6141f7ff1081fb8"
+        "value": "9272db53d571df4297052b4758ba828456c728b9"
       }
     },
     {
@@ -51,7 +51,7 @@
       "glb_nodes": 558,
       "hash": {
         "algorithm": "git-blob-sha1",
-        "value": "05c303cacc7052868f19b1e35263ea51688e7340"
+        "value": "fb8a5c23ade489e5dd1eba0f492dd245d43327e1"
       }
     },
     {
@@ -61,9 +61,9 @@
       "glb_nodes": 558,
       "hash": {
         "algorithm": "git-blob-sha1",
-        "value": "b3593f44efc0ab3feccfa0ff4b7af57b32470469"
+        "value": "37a76d73746ec1d7adafbd9cd0e51610cd983a03"
       }
     }
   ],
-  "notes": "kT canon-v2.5.10 B exact five plane-split gunmetal nozzle groove bands; source triangle area relative error 3.161908828494597e-13; six state D9 category-d=0 and containment PASS, 498/502/558 nodes, source dry 868.1922552640087t ECON 707.845 km/s unchanged. Annotated tag df81dc8a8481d2b5d4e2504459ee6733f3da0742 pins exact geometry merge 2d7ac30bd7cb924238baa26a7bc7964b0d4a4731. Metadata only pointer update."
+  "notes": "kT canon-v2.5.11 materials-only finish cleanup. All room/floor/outfit/I4/deck/core and otherwise unclassified interior meshes dark neutral; docking collar, service arm, manifold graphite external fixtures; pale service/aft/thrust accent linear scale 0.57 (visual sRGB approximately #8F9492). No source_palette_preserved nodes among 3,116 six-state mesh instances. Six D9 category-d=0 / containment PASS, unchanged area error 3.161908828494597e-13, unchanged source geometry, dry 868.1922552640087 t, ECON 707.845 km/s. Exact geometry merge fb449250fc1ae853a5418309d15980dccb14ae38 annotated tag object 75fcd9be17f28507b2d477923038b330f808af87. Metadata-only pointer."
 }
