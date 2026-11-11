@@ -16,19 +16,21 @@ ROOT=Path(__file__).resolve().parents[1]
 WIDTH_M=.05
 VISUAL_DEPTH_M=.03
 THIN_SHELL_CUT_DEPTH_M=.006
+FINE_WIDTH_M=.02
+FINE_DEPTH_M=.003
 
 def ring(x, radius, depth, offset=(0.,0.), width=WIDTH_M):
     y,z=offset
     # kT v2.5.8: nozzle alone gets 150 mm wide band (all other seams 50 mm).
-    assert width in (WIDTH_M,.15)
+    assert width in (WIDTH_M,.15,FINE_WIDTH_M)
     outer=Solid.make_cylinder(radius+.07,width,P.plane_x(x-width/2,y,z))
     inner=Solid.make_cylinder(radius-depth,width+.02,
                             P.plane_x(x-width/2-.01,y,z))
     return outer-inner
 
-def longitudinal(x0,x1,radius,depth,az,offset=(0.,0.)):
+def longitudinal(x0,x1,radius,depth,az,offset=(0.,0.),width=WIDTH_M):
     if x1<=x0:raise ValueError((x0,x1))
-    edge=P.box(x0,x1,radius-depth,radius+.07,-WIDTH_M/2,WIDTH_M/2)
+    edge=P.box(x0,x1,radius-depth,radius+.07,-width/2,width/2)
     return edge.rotate(Axis.X,az).translate((0,offset[0],offset[1]))
 
 def panel_edges(x0,x1,radius,depth,az,half_width):
@@ -93,8 +95,22 @@ def apply(installed,rows,mode):
         # No 22.5-degree visual grid. The existing actual bay-door edges
         # remain the top-quarter panel boundaries.
         cutters += [longitudinal(begin+.06,end-.06,outer,depth,a) for a in azs]
+        # True-scale fine blind sub-panels between the existing structural seams.
+        fine_map=dict(armor=[4.3,9.5],skin_service=[15.,17.],
+            skin_midship=[19.,23.,27.,31.],skin_aft=[33.],
+            tank_shell_out=[19.,23.,27.,31.])
+        fine_xs=[x for x in fine_map.get(sid,[]) if begin+.2<x<end-.2]
+        cutters.extend(ring(x,outer,FINE_DEPTH_M,width=FINE_WIDTH_M) for x in fine_xs)
+        fine_lines=dict(skin_service=[(14.4,15.6,20),(16.4,17.4,200)],
+            skin_midship=[(18.45,19.45,20),(18.45,19.45,200),
+                          (30.8,31.6,20),(30.8,31.6,200)],
+            skin_aft=[(32.6,33.7,20),(32.6,33.7,200)]).get(sid,[])
+        for x0,x1,a in fine_lines:
+            cutters.append(longitudinal(x0,x1,outer,FINE_DEPTH_M,a,width=FINE_WIDTH_M))
         panels=[]
-        if sid=="skin_service":panels=[(15.1,15.8,85),(15.1,15.8,255)]
+        if sid=="skin_service":panels=[(15.1,15.8,85),(15.1,15.8,255),
+                                      (16.1,16.9,20),(16.1,16.9,200)]
+        if sid=="skin_midship":panels=[(18.6,19.3,20),(30.8,31.5,200)]
         if sid=="skin_aft":panels=[(32.8,33.4,96),(32.8,33.4,236)]
         for x0,x1,ang in panels:
             cutters.extend(panel_edges(x0,x1,outer,depth,ang,.19))
@@ -109,6 +125,9 @@ def apply(installed,rows,mode):
             ring_station_m=xs,
             longitudinal_seam_azimuth_deg=azs,
             maintenance_panel_outlines=len(panels),
+            nostromo_subpanel_ring_x_m=fine_xs,
+            nostromo_subpanel_longitudinal_count=len(fine_lines),
+            print_space_dimensions_applied=False,bolts_paint_only=True,
             pressure_boundary_cuts=0,
             source_mass_rebooking_t=0,**ev)
     # Torch face decoration only; v2.5.8 nozzle bands are 150mm x 30mm,
@@ -149,6 +168,10 @@ def apply(installed,rows,mode):
         ring_width_m=WIDTH_M,requested_visual_depth_m=VISUAL_DEPTH_M,
         thin_wall_actual_OCC_depth_m=THIN_SHELL_CUT_DEPTH_M,
         legacy_22p5_degree_skin_grid_removed=True,
+        nostromo_true_scale_subpanel_width_m=FINE_WIDTH_M,
+        nostromo_true_scale_blind_depth_m=FINE_DEPTH_M,
+        nostromo_bolts_paint_only=True,
+        print_space_overrides_in_canon=False,
         top_quarter_preserves_bay_door_edges=True,
         no_pressure_boundary_perforation=True,
         source_mass_rebooking_t=0,parts=evidence)

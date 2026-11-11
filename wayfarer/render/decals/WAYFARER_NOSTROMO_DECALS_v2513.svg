@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="297mm" height="210mm" viewBox="0 0 297 210" role="img" aria-label="Wayfarer NOSTROMO decal artwork">
+ <defs>
+  <pattern id="hazard" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+   <rect width="8" height="8" fill="#DDB747"/>
+   <rect width="4" height="8" fill="#22282C"/>
+  </pattern>
+  <style>
+   .reg{font: bold 15px 'DejaVu Sans',Arial,sans-serif;letter-spacing:2px;fill:#EBE9DF}
+   .small{font: bold 5px 'DejaVu Sans',Arial,sans-serif;letter-spacing:.5px;fill:#1E2529}
+   .caption{font:4px 'DejaVu Sans',Arial,sans-serif;fill:#606A70}
+  </style>
+ </defs>
+ <rect width="297" height="210" fill="#F9FAFB"/>
+ <text x="14" y="13" class="caption">WAYFARER  /  NOSTROMO PAINT LAYER  /  v2.5.13  /  DECALS, NOT SOLIDS</text>
+ <rect x="12" y="21" width="273" height="37" rx="2" fill="#3A3D42"/>
+ <text x="21" y="46" class="reg">WAYFARER</text>
+ <text x="176" y="45" class="caption" fill="#FFFFFF">PORT FLANK</text>
+ <rect x="12" y="66" width="273" height="37" rx="2" fill="#3A3D42"/>
+ <text x="21" y="91" class="reg">WAYFARER</text>
+ <text x="176" y="90" class="caption" fill="#FFFFFF">STARBOARD FLANK</text>
+ <text x="13" y="113" class="caption">RCS + HATCH HAZARDS  /  CUT TO FIT EXISTING SURFACES</text>
+ <g>
+  <rect x="14" y="120" width="48" height="9" fill="url(#hazard)"/>
+  <rect x="68" y="120" width="48" height="9" fill="url(#hazard)"/>
+  <rect x="122" y="120" width="48" height="9" fill="url(#hazard)"/>
+  <rect x="176" y="120" width="48" height="9" fill="url(#hazard)"/>
+  <rect x="230" y="120" width="48" height="9" fill="url(#hazard)"/>
+ </g>
+ <g class="small" fill="#20272B">
+  <text x="16" y="140">RCS 01</text><text x="70" y="140">RCS 02</text>
+  <text x="124" y="140">HATCH</text><text x="178" y="140">HATCH</text>
+  <text x="232" y="140">RCS AFT</text>
+ </g>
+ <text x="13" y="153" class="caption">DOCKING COLLAR TARGETS  /  RADIATOR ROOT STENCILS</text>
+ <g stroke="#A8AA9E" stroke-width="1.7" fill="none">
+  <circle cx="38" cy="174" r="12"/><circle cx="38" cy="174" r="6"/>
+  <path d="M38 158V166 M38 182V190 M22 174H30 M46 174H54"/>
+  <circle cx="83" cy="174" r="12"/><circle cx="83" cy="174" r="6"/>
+  <path d="M83 158V166 M83 182V190 M67 174H75 M91 174H99"/>
+ </g>
+ <g class="small">
+  <text x="115" y="170">NO STEP</text><text x="115" y="181">NO STEP</text>
+  <text x="171" y="170">NO STEP</text><text x="171" y="181">NO STEP</text>
+  <text x="227" y="170">RADIATOR ROOT</text><text x="227" y="181">KEEP CLEAR</text>
+ </g>
+ <text x="13" y="201" class="caption">PRINT DERIVATION ONLY: scale for model; apply decals/bolts as paint, never geometry.</text>
+</svg>

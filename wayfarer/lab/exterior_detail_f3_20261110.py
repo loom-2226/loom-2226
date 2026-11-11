@@ -19,7 +19,6 @@ import hull_etch_finish_20261111 as E
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/"render/out"
 PREFIX="wayfarer_exterior_detail_88ce19fc"
-MIN_PRINT_FEATURE_M=.10
 records={}
 samples={}
 ALL_CLASSES=("rcs","sensor_turret","rf_tiles","laser_terminal",
@@ -369,9 +368,7 @@ def cutters_for(name,klass,source,shape):
         # Existing 2.4x1.8m door is a 10mm sheet. Hatches/bolts are
         # ENGRAVINGS only, not 0.1m protruding hardware.
         tools.append(panel_engraving(F,x-.99,1.98,-.66,1.32,.003))
-        for xx in (x-.86,x+.86):
-            for t in (-.54,.54):
-                tools.append(round_engraving(F,xx,t,.065,.004))
+        # Bolt heads are paint/decal dots only, no BRep holes or raised studs.
     else:
         raise ValueError("missing cutter style "+klass)
     assert tools
@@ -466,7 +463,7 @@ def detail_ship(installed,rows,mode):
     # Source-derived hull/torch surface etch follows approved F1 RCS recesses.
     # Thin skins have 6mm blind display marks, never 30mm wall perforations.
     before_etch={n:updated[n] for n in (
-        "dry:armor","dry:skin_service","dry:skin_aft",
+        "dry:armor","dry:skin_service","dry:skin_midship","dry:skin_aft",
         "dry:shield","dry:reactor","dry:nozzle") if n in updated}
     updated,etch_report=E.apply(updated,rows,mode)
     if mode=="stowed":
@@ -495,7 +492,7 @@ def render_f3():
     import matplotlib.pyplot as plt
     from mpl_toolkits.mplot3d.art3d import Poly3DCollection
     names=["dry:rcs_F+Y","dry:armor","dry:skin_service",
-           "dry:skin_aft","dry:shield","dry:reactor","dry:nozzle",
+           "dry:skin_midship","dry:skin_aft","dry:shield","dry:reactor","dry:nozzle",
            "dry:hotfin_40:folded_envelope"]
     assert all(n in samples for n in names),list(samples)
     fig=plt.figure(figsize=(15,24),facecolor="#141820")
@@ -526,7 +523,7 @@ def render_f3():
             ax.set_axis_off()
             ax.set_title(name[4:]+("  SOURCE" if col==0 else "  ENGRAVED"),
                          color="white",size=10,pad=4)
-    fig.suptitle("WAYFARER / SEAM + TORCH ETCH / SOURCE vs DRAWING DETAIL",
+    fig.suptitle("WAYFARER / NOSTROMO PLATING ETCH / SOURCE vs TRUE-SCALE DETAIL",
                  color="white",fontsize=17)
     fig.subplots_adjust(top=.96,bottom=.02,hspace=.08,wspace=.03)
     png=OUT/(PREFIX+"_F3_before_after.png")
@@ -584,6 +581,9 @@ def main():
          laser_terminals_source_station_m=33.3,
          shuttle_spine_groove=True,
          hull_surface_seam_scheme="hull_seam_scheme_2026_11_09",
+         nostromo_fine_true_scale_engraving=True,
+         nostromo_markings_paint_only=True,
+         print_lod_is_separate_from_canon=True,
          hull_seam_width_m=.05,visual_seam_depth_m=.03,
          thin_shell_actual_blind_mark_m=.006,
          PBR_finish_gate="CANON_FINISH kT 2026-11-11; material JSON in six GLBs",
@@ -600,8 +600,6 @@ def main():
          nozzle_coil_ring_boundary="exact plane-clipped original mesh grooves; strict surface-area conservation",
          all_rendered_nodes_require_CANON_FINISH=True,
          pale_accent_linear_rgb_scale=.57,
-        print_minimum_modelled_feature_m=MIN_PRINT_FEATURE_M,
-        smaller_marks="ENGRAVINGS not raised printable solids",
         no_hull_protrusion=False,no_crown_change=True,no_performance_claims=True,
          no_pressure_vessel_cuts=True,
         no_new_source_mass=True,
