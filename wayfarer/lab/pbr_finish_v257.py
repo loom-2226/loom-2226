@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Wayfarer canon-v2.5.7: approved appearance-only node-specific glTF PBR.
+"""Wayfarer canon-v2.5.10: approved PBR and strict plane-split nozzle groove faces.
 
 No geometry, physics, density, mass, IR emissivity, or source material changes.
 Rewrites only the JSON chunk of the existing GLB: node materials/extras.
