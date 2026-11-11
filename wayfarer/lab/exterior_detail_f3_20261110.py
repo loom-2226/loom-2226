@@ -599,7 +599,7 @@ def main():
          bay_corner_finish="CANON_FINISH/external_fixtures",
          nozzle_coil_ring_boundary="exact plane-clipped original mesh grooves; strict surface-area conservation",
          all_rendered_nodes_require_CANON_FINISH=True,
-         pale_accent_linear_rgb_scale=.8,
+         pale_accent_linear_rgb_scale=.6,
         print_minimum_modelled_feature_m=MIN_PRINT_FEATURE_M,
         smaller_marks="ENGRAVINGS not raised printable solids",
         no_hull_protrusion=False,no_crown_change=True,no_performance_claims=True,

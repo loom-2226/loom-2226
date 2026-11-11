@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Wayfarer canon-v2.5.10: approved PBR and strict plane-split nozzle groove faces.
+"""Wayfarer canon-v2.5.11: approved PBR and strict plane-split nozzle groove faces.
 
 No geometry, physics, density, mass, IR emissivity, or source material changes.
 Rewrites only the JSON chunk of the existing GLB: node materials/extras.
 Colour is an sRGB viewer paint approximation, NOT a measured spectrum.
 """
 from __future__ import annotations
-import copy,hashlib,json,math,re,struct
+import hashlib,json,math,re,struct
 from pathlib import Path
 from nozzle_band_faces_v259 import split_nozzle_rings
 
@@ -27,6 +27,10 @@ def role_for(name,meta,mode):
     """Use semantic node ID, not source material alone, to retain distinct skins."""
     n=name.removeprefix("dry:")
     if n=="pressure_vessel":return "interior_pressure_structure"
+    if n.startswith(("room_","floor_","outfit_","i4_","deck_","core_")):
+        return "interior_pressure_structure"
+    if n.startswith(("docking_collar","service_arm","manifold")):
+        return "external_fixtures"
     if n.startswith("service_shield_band_"):return "shadow_shield"
     if n.startswith("bay_corner_"):return "external_fixtures"
     if n.startswith("shuttle_v1/"):
@@ -64,10 +68,9 @@ def role_for(name,meta,mode):
         return "sensors_optics"
     if n.startswith(("ext_","hold_existing_door","frame_","longeron_")):
         return "external_fixtures"
-    # All exported meshes remain potentially visible in a section view.
-    # Preserve unlisted internal equipment colours from the source viewer,
-    # while giving *every* rendered node an explicit CANON_FINISH material.
-    return "source_palette_preserved"
+    # Remaining booked internal parts are visible through sectioned glazing.
+    # Unclassified/source palette material is not an approved finish.
+    return "interior_pressure_structure"
 
 def _hot_state(name,mode):
     if mode=="metric_hard" and name.startswith("dry:strake_"):
@@ -87,7 +90,7 @@ def assign_pbr(path,source_mesh_extras,mode):
     assert len(f["rows"])==24
     assert f["colour_conversion_audit"]["expected_declared_roles"]==23
     assert f["rows"]["interior_pressure_structure"]["status"]=="CANON_FINISH"
-    assert f["rows"]["service_band_aft_thrust_cone"]["linear_base_scale"]==0.8
+    assert f["rows"]["service_band_aft_thrust_cone"]["linear_base_scale"]==0.6
     assert all(v["status"]=="CANON_FINISH" for v in f["rows"].values())
     converted={role:_rgb(v["base_srgb_hex"]) for role,v in f["rows"].items()}
     assert len(converted)==24
@@ -109,7 +112,6 @@ def assign_pbr(path,source_mesh_extras,mode):
     emissive=0
     by_role={}
     nozzle_node=None
-    preserved_meshes=0
     for node in data["nodes"]:
         if "mesh" not in node:continue
         name=node["name"]
@@ -119,32 +121,8 @@ def assign_pbr(path,source_mesh_extras,mode):
             nozzle_node=node
         role=role_for(name,source_mesh_extras[name],mode)
         mesh=data["meshes"][node["mesh"]]
-        if role=="source_palette_preserved":
-            # Keep original source viewer appearance (including alpha and
-            # original lighting parameters). No new interior palette asserted.
-            first=None
-            for prim in mesh["primitives"]:
-                old_idx=prim.get("material")
-                key=("source_palette_preserved",old_idx)
-                if key not in cache:
-                    original=(copy.deepcopy(mats[old_idx])
-                              if old_idx is not None else {})
-                    original["name"]="CANON_FINISH/source_palette_preserved/"+str(old_idx)
-                    original.setdefault("pbrMetallicRoughness",dict(
-                        baseColorFactor=[1.,1.,1.,1.],
-                        metallicFactor=1.,roughnessFactor=1.))
-                    original.setdefault("emissiveFactor",[0.,0.,0.])
-                    cache[key]=len(mats);mats.append(original)
-                prim["material"]=cache[key]
-                if first is None:first=cache[key]
-            ex=node.setdefault("extras",{})
-            ex.update(finish_role=role,finish_status="CANON_FINISH",
-                finish_origin="EXISTING_SYSTEM_PBR_PRESERVED",
-                pbr_material_index=first,source_spectral_performance_unchanged=True)
-            preserved_meshes+=1
-            changed+=1
-            by_role[role]=by_role.get(role,0)+1
-            continue
+        if role=="source_palette_preserved" or role not in f["rows"]:
+            raise RuntimeError("STOP export: unapproved finish role "+role+" on "+name)
         row=_entry(f,role)
         kind_hot,color_hot,strength=_hot_state(name,mode)
         material_key=(role,kind_hot,strength)
@@ -193,9 +171,7 @@ def assign_pbr(path,source_mesh_extras,mode):
         if not label.startswith("CANON_FINISH/"):continue
         role=label.split("/")[1]
         if role=="source_palette_preserved":
-            # This is a deep copy of source-viewer PBR, not a new swatch.
-            verified_materials+=1
-            continue
+            raise RuntimeError("STOP export: source_palette_preserved is not a finish")
         assert role in converted
         hot=any(v>0 for v in mat.get("emissiveFactor",[0,0,0]))
         expected=([.02,.02,.02] if hot else
@@ -223,7 +199,8 @@ def assign_pbr(path,source_mesh_extras,mode):
     mesh_nodes=[n for n in data["nodes"] if "mesh" in n]
     missing=[]
     for node in mesh_nodes:
-        if node.get("extras",{}).get("finish_status")!="CANON_FINISH":
+        if (node.get("extras",{}).get("finish_status")!="CANON_FINISH"
+                or node.get("extras",{}).get("finish_role") not in f["rows"]):
             missing.append(node.get("name"))
             continue
         for prim in data["meshes"][node["mesh"]]["primitives"]:
@@ -261,12 +238,12 @@ def assign_pbr(path,source_mesh_extras,mode):
                 all_visible_meshes_CANON_FINISH=True,
                 rendered_meshes_total=len(mesh_nodes),
                 missing_visible_finish_meshes=missing,
-                source_palette_preserved_meshes=preserved_meshes,
-                explicit_finish_meshes=changed-preserved_meshes,
+                source_palette_preserved_meshes=0,
+                explicit_finish_meshes=changed,
                 pressure_vessel_finish="interior_pressure_structure",
                 service_shield_finish="shadow_shield",
                 bay_corner_finish="external_fixtures",
-                pale_accent_linear_scale=.8,
+                pale_accent_linear_scale=.6,
                 srgb_to_linear_declared_roles=len(converted),
                 verified_linear_pbr_materials=verified_materials,
                 graphite_linear_base_rgb=expected_graphite,

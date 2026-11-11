@@ -756,8 +756,8 @@
         "base_srgb_hex": "#B9BFBC",
         "metallic_factor": 0.07,
         "roughness_factor": 0.82,
-        "notes": "pale ceramic grey accent bands x14-17, aft skin, thrust cone; kT v2.5.9 multiply linear glTF base RGB by 0.80; service ring, aft skin and thrust cone accent grey rather than near-white.",
-        "linear_base_scale": 0.8
+        "notes": "pale ceramic grey accent bands x14-17, aft skin, thrust cone; kT v2.5.11 multiply linear glTF base RGB by 0.60 (target sRGB ~#8E9592); service ring, aft skin and thrust cone accent grey rather than near-white.",
+        "linear_base_scale": 0.6
       },
       "tank_shell": {
         "status": "CANON_FINISH",
@@ -904,7 +904,7 @@
     "no_material_physical_qualification": true,
     "booked_mass_delta_t": 0,
     "geometry_envelope_delta_m": 0,
-    "version": "canon-v2.5.9",
+    "version": "canon-v2.5.11",
     "graphite_srgb_approved": "#3A3D42",
     "graphite_roles": [
       "bow_strata",
@@ -962,9 +962,9 @@
         "bay_corner_4": "external_fixtures"
       },
       "all_rendered_meshes_must_have_CANON_FINISH": true,
-      "source_palette_passthrough": "Preserve existing source viewer PBR of non-exterior objects while assigning explicit CANON_FINISH/source_palette_preserved material; does not authorise new physical interior finish.",
+      "source_palette_passthrough": "FORBIDDEN in v2.5.11: source_palette_preserved is not an approved finish; all rendered nodes must use an explicit CANON_FINISH row.",
       "canon_srgb_roles": 24,
-      "non_swatches_source_preserved": true
+      "non_swatches_source_preserved": false
     }
   }
 }
