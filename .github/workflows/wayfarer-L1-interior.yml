@@ -40,6 +40,11 @@ jobs:
           assert rep['checks']['D9_category_d']==0
           assert rep['checks']['couch_collisions_any_volume']==0
           assert rep['checks']['containment']=='PASS'
+          assert rep['checks']['source_fixture_containment_count']==62
+          assert rep['checks']['all_drawn_L1_parts_contained']
+          assert rep['floor_ladder_bores']['count']==2 and rep['floor_ladder_bores']['diameter_m']==.8
+          assert rep['floor_ladder_bores']['dry_mass_savings_credited_t']==0
+          assert abs(rep['floor_ladder_bores']['volume_removed_from_visual_BRep_m3']-.301593)<1e-6
           assert rep['checks']['G1_G12']=='NOT RUN / NOT REQUIRED'
           assert rep['dry_t']==868.1922552640087 and rep['ECON_dv_km_s']==707.845
           assert rep['exterior_six_state_changes']==0 and rep['source_mass_delta_t']==0

@@ -1050,6 +1050,20 @@
     "dry_t": 868.1922552640087,
     "ECON_dv_km_s": 707.845,
     "approved_plan": "wayfarer/docs/L1_HABITAT_PROPOSE_ONLY_2026_11_12.svg",
-    "build_status": "PENDING GLB D9 CONTAINMENT"
+    "build_status": "BUILT: L1_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS; artifact at wayfarer/render/out/interior_L1.glb, report at wayfarer/render/out/interior_L1_report.json",
+    "build_validation": {
+      "couch_meshes": 1,
+      "couch_instances": 6,
+      "source_authorized_station_moves": 0,
+      "D9_category_d": 0,
+      "couch_overlap_any_m3": 0,
+      "containing_all_drawn_parts": true,
+      "noncouch_containment_count": 62,
+      "ladder_bores": 2,
+      "ladder_bore_diameter_m": 0.8,
+      "visual_floor_bore_volume_removed_m3": 0.301593,
+      "mass_rebooking_t": 0,
+      "conventional_G1_G12": "NOT RUN"
+    }
   }
 }
