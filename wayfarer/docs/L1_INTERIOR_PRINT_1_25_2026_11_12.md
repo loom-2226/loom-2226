@@ -24,3 +24,8 @@ Render \`interior_L1.glb\` once, separately from the six exterior states. Do not
 - Palette (already encoded in B3): #ACBBBD pale blue-grey shell, #D8D8CD ivory upholstery, #607A84 slate frame, muted teal and pale surround. Optional 10–20% brighter printed paint only.
 - Mass: 46.000kg common couch and 5.185186564kg halo/control budget inside each 51.185186564kg existing i4_seat booking, no double-booked screen; conceptual 5.100kg halo/control estimate is NOT certified hardware mass. Ship mass/ECON unchanged.
 - 4g: illustrative 100kg body imposes ~3.92kN acceleration load. Actual mount strength, occupant support, harness proof, suited egress, motion/mechanism loads remain OPEN.
+
+## L1 wall fit-out: kT approved PR #520
+Seven units under dome: cabinets h0..0.95m at r3.755..4.00m; U7 dome-following lining h0.30..1.30m. Book all estimated 358kg within outfit_L1 818.963kg, leaving ~460.963kg undrawn. The command/navigation room 2.150t booking remains untouched.
+At 1:25 cabinets up to 38mm tall and 9mm deep; door seams ~1.3mm and handles 4.8×1mm. 0.015m lining is 0.6mm: separate skin or paint. Screen labels, controls, keypad marks, nozzles and warnings are DECALS.
+Use original #520 palette: light blue-grey #ACBBBD, slate #607A84, teal #3FA79A, ivory #D8D8CD, emergency red #B5473F, panel yellow #E3B23C, vault grey.
