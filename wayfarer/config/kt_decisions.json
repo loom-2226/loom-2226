@@ -1200,5 +1200,24 @@
       "exterior_state_modifications": 0,
       "G1_G12": "NOT RUN"
     }
+  },
+  "room_register_2026_11_12": {
+    "authority": "kT APPROVED 2026-11-12 (Claude chat, before committing L2 furniture)",
+    "date": "2026-11-12",
+    "source": "wayfarer/docs/WAYFARER_ROOM_REGISTER_2026_11_12.md; room list = wayfarer/config/wayfarer_v05_inputs.json habitat.decks (unchanged)",
+    "room_list": "The 22 rooms on L1-L5 in wayfarer_v05_inputs.json are the governing room register. Furniture design proceeds deck by deck against it; a room's purpose changes only by kT decision.",
+    "furniture_mass_rule": "Each room's booked mass (room_<id>, inputs rooms[].mass_t) is that room's equipment and furniture allowance. outfit_<deck> covers linings, handholds, cables, ducts, lighting and fire detection. Furniture is paid from its own room's booking first; no rebooking. Clarifies wayfarer_l1_layout_approval_2026_11_12 ('room_* are empty-space semantic volumes'): the room VOLUME is not drawn as a solid, but its MASS is the room's furniture/equipment allowance.",
+    "L1_note": "L1 wall fit-out (PR #521) stays on outfit_L1 as built; room_L1-command 2.150 t remains the command room's equipment allowance.",
+    "wellness_room": "The L4 storm shelter (L4-shelter) is also the wellness room day to day and switches to shelter mode for storms and radiation events. No separate wellness room.",
+    "courier_custody": "L5-custody is the vault for the secure consignment. The L1 courier strongbox (L1_wallfit_u3) is the ready box for the current delivery and the ship's keys, under the captain's control.",
+    "open_items": [
+      "L2/L3 and L3/L4 ladderway hatches are not in the source (only L1L2 and L4L5); ladderways assumed at 0 and 180 deg on every deck",
+      "Laundry has no assigned room",
+      "SPEC.md L1 row is stale (says four support couches, x 1.0-3.0); now six B3 stations",
+      "proposal_L1_stations_B3.glb in render/out is superseded by PR #518 and should be deleted"
+    ],
+    "mass_rebooking_t": 0,
+    "canon_change": false,
+    "G1_G12": "NOT RUN"
   }
 }
