@@ -1,0 +1,82 @@
+name: Wayfarer L1 B3 split halo D9 containment
+on:
+  pull_request:
+    paths:
+      - 'wayfarer/lab/l1_b3_integrate.py'
+      - 'wayfarer/config/kt_decisions.json'
+      - '.github/workflows/wayfarer-L1-B3.yml'
+permissions:
+  contents: write
+concurrency:
+  group: wayfarer-L1-B3-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+jobs:
+  integrate:
+    if: github.event_name == 'pull_request' && startsWith(github.head_ref, 'engineering/wayfarer-l1-B3-')
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install exact source BRep and FCL mesh collision
+        run: python -m pip install build123d==0.13.0 python-fcl==0.7.0 numpy
+      - name: Reproduce approved source-booked L1
+        run: python -u wayfarer/lab/l1_interior_glb.py
+      - name: Build B3 from PR517, shape PR516 keepers, check two halo poses
+        run: python -u wayfarer/lab/l1_b3_integrate.py
+      - name: Exact GLB, booking, D9 and containment assertions
+        run: |
+          python - <<'PY'
+          import hashlib,json,struct
+          from pathlib import Path
+          rpt=json.loads(Path('wayfarer/render/out/interior_L1_report.json').read_text())
+          raw=Path('wayfarer/render/out/interior_L1.glb').read_bytes()
+          assert raw[:4]==b'glTF' and struct.unpack_from('<I',raw,8)[0]==len(raw)
+          n,k=struct.unpack_from('<II',raw,12);assert k==0x4e4f534a
+          doc=json.loads(raw[20:20+n])
+          assert rpt['status']=='L1_B3_SPLIT_HALO_D9_CONTAINMENT_PASS'
+          assert rpt['glb_sha256']==hashlib.sha256(raw).hexdigest()
+          assert rpt['dry_t']==868.1922552640087 and rpt['ECON_dv_km_s']==707.845
+          assert rpt['budget_per_station_kg']['estimated_total']<=rpt['budget_per_station_kg']['halo_plus_role_controls_allocation']
+          assert rpt['budget_per_station_kg']['common_couch']==46.
+          assert rpt['gltf']['instanced_couches']==6
+          assert rpt['gltf']['exterior_states_modified']==0
+          assert len(rpt['fixture_source_booked_shapes'])==9
+          assert len(doc['animations'])==1 and len(doc['animations'][0]['channels'])==18
+          seats=[v for v in doc['nodes'] if v.get('name','').startswith('dry:i4_seat_')]
+          assert len(seats)==6 and len({v['mesh'] for v in seats})==1
+          for state,proof in rpt['pose_checks'].items():
+            assert state in ('halo_closed','wings_open_centre_back')
+            assert proof['D9_category_d']==0 and not proof['contacts']
+            assert proof['pressure_containment']=='PASS'
+            assert proof['min_pressure_shell_clearance_m']>=0
+          assert len(rpt['pose_checks'])==2
+          assert all(v['extras']['node_mass_rebooking_t']==0 for v in doc['nodes'] if 'mesh' in v)
+          assert all('mesh' not in v for v in doc['nodes'] if v.get('name') in ('dry:room_L1-command','dry:outfit_L1'))
+          assert doc['asset']['extras']['exterior_state_meshes_copied']==0
+          print('B3 L1 both halo poses D9=0 containment PASS; 6 shared couches; no mass delta')
+          PY
+          git diff --quiet -- wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_*.glb
+      - name: Commit only L1 independent GLB, D9 report, 1:25 note
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add wayfarer/render/out/interior_L1.glb wayfarer/render/out/interior_L1_report.json wayfarer/docs/L1_INTERIOR_PRINT_1_25_2026_11_12.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'class:engineering: B3 L1 halo closed wings open D9 and containment PASS'
+            git push origin HEAD:$GITHUB_HEAD_REF
+          fi
+      - name: Preserve STOP collision diagnostic
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: L1-B3-D9-MASS-STOP
+          path: |
+            wayfarer/render/out/interior_L1_B3_D9_STOP.svg
+            wayfarer/render/out/interior_L1_report.json
+          if-no-files-found: warn
