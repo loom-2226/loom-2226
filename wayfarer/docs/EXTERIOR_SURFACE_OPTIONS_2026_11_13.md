@@ -2,7 +2,8 @@
 
 ALL bodies. ALL sponsors. 2026-2226.
 
-Status: **proposal only, not approved.** No BRep, D9 or exports (F4). Renders in
+Status: **APPROVED by kT 2026-11-13** as amended below (decision `exterior_surface_2026_11_13`).
+The A/B/C renders stay as the record of the proposal. Renders in
 `wayfarer/lab/exterior_surface_options/`, made with the repo render chain plus a
 sketch-only shader copy (`loomgl_opt.js`). Canon GLBs and `loomgl.js` are untouched.
 
@@ -34,7 +35,15 @@ sketch-only shader copy (`loomgl_opt.js`). Canon GLBs and `loomgl.js` are untouc
 
 Depth: 0.16 mm minimum relief (2 layers) from `wayfarer/print/surfaces_1to25/print_profile.json`.
 
-## Claude's recommendation
+## APPROVED (kT 2026-11-13, after Sol's review)
+
+- **1:100 hull: Option B.** The tiles are surface demarcations only, not gaps through the armour.
+- **1:25 diorama: B plus selected C details**: EVA hatch keep-out ring, lane edge lines with **no tread** (the tread read as decorative ribbing), and the 24 tether rings.
+- **Print grooves are model exaggeration**, not physical seam width. The 1:100 hull gets its own print profile.
+- **EVA hatch:** source d 1.1 m = outer frame, 1.0 m = clear opening; centre is x 12.25 (source).
+- **Medical ports** move to x 9.30 on the exterior model as real openings through hull and armour, with D9 + containment. WWS-1 stays non-canon.
+
+## Claude's recommendation (as proposed)
 
 **B on the 1:100 hull, plus C's extras on the 1:25 diorama only.** At 1:100, A
 leaves the flanks almost blank (26 mm between rings), so the model loses its sense
@@ -43,7 +52,3 @@ of scale. C's lane and tether rings are below what the printer can resolve at
 too small at each scale automatically, so one surface definition serves both
 prints.
 
-## kT decides
-
-1. Option (A / B / C / B+C-at-1:25).
-2. Approve putting the lowered medical ports into the exterior GLBs (non-canon WWS-1 design position, as in l4_decisions).
