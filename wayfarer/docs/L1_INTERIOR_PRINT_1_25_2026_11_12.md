@@ -15,3 +15,12 @@
 | Station designators, NO STEP, hazard, interface labels, indicators and bolt dots | sub-mm | DECALS and paint guide, not additional geometry |
 
 Render \`interior_L1.glb\` once, separately from the six exterior states. Do not convert semantic \`room_*\` / distributed \`outfit_*\` into furniture. No mass, source BRep or exterior envelope credit. Detailed material and clearance hardware remain unqualified.
+
+## kT-approved B3 halo and #516 refinements
+- One 1.58 × 0.70m source couch mesh reused at six unchanged source positions. B3 split halo: centre display lifts backward and two wings swing to the sides. One L1 GLB has both poses as a glTF animation, NOT embedded in exterior states.
+- Geometry: broad headrests, contoured ivory cushion, light blue-grey shell, 2 halo posts, hinge arms, restrained seat base, armrest control bodies, shaped table/bench/cabinet cases, 1.10 × 0.63m map table (44 × 25.2mm), 1.38 × 0.54m equipment bench (55.2 × 21.6mm), 0.54 × 0.35 × 0.70m cabinet (21.6 × 14 × 28mm). The screen faces are geometry, not screens that actually work.
+- Decal / paint: screen contents, lettering, button markings, buckles, thin harness weave, hairline seams and indicator dots. Nothing under 0.6mm at 1:25 is independently printable; some B3 visual faces are under this threshold and must be flattened to decal in STL derivation.
+- Role controls: Pilot attitude/translation; Captain backup flight/command-transfer; NAV trajectory/waypoint; Engineering power/thermal; Sensors/EW track-slew/modality; Mission Operations sequence/asset selection. Hardware from B3 #517, terminology from #516.
+- Palette (already encoded in B3): #ACBBBD pale blue-grey shell, #D8D8CD ivory upholstery, #607A84 slate frame, muted teal and pale surround. Optional 10–20% brighter printed paint only.
+- Mass: 46.000kg common couch and 5.185186564kg halo/control budget inside each 51.185186564kg existing i4_seat booking, no double-booked screen; conceptual 5.100kg halo/control estimate is NOT certified hardware mass. Ship mass/ECON unchanged.
+- 4g: illustrative 100kg body imposes ~3.92kN acceleration load. Actual mount strength, occupant support, harness proof, suited egress, motion/mechanism loads remain OPEN.

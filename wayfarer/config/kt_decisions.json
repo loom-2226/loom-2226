@@ -1065,5 +1065,62 @@
       "mass_rebooking_t": 0,
       "conventional_G1_G12": "NOT RUN"
     }
+  },
+  "l1_station_b3_merge_2026_11_12": {
+    "authority": "kT APPROVED B3 PR #517",
+    "date": "2026-11-12",
+    "scope": "L1 only; settled station locations, platforms, hatch leaves, two egress ladderways and utility-only trunk unchanged.",
+    "adopted_design": "PR #517 split halo: centre panel lifts back; two wings swing aside. 1 common B3 couch mesh instanced six times; six per-role controls.",
+    "discarded": "#516 single foldaway tablet, superseded by #517 B3 split halo",
+    "inherited_from_PR516": [
+      "46.000kg common couch + 5.185186564kg halo/controls source split",
+      "light blue-grey/ivory/slate/teal finish palette (already in B3 generator)",
+      "source-booked shaped map table, workbench, cabinets, display bezels",
+      "4g support vs structural proof distinction and role control labels"
+    ],
+    "accounting": "Per i4_seat_<role> source booking 0.05118518656421065 t; 46kg couch and 5.18518656421065kg B3 split halo+role control, no independent screen mass allocation, no double booking.",
+    "halo_and_controls_budget_kg": 5.18518656421065,
+    "estimated_nonbinding_halo_controls_kg": 5.1,
+    "mass_model": "2mm-wall hollow composite visual arch and hinges 2.80kg, thin-film panel/backing 0.55kg, two role controls 1.50kg, wiring 0.25kg; conservative conceptual screen, not measured certified mass.",
+    "position_rule": "S4 Y+2.40 Z-1.70 fixed and all other I4 source station transforms immutable.",
+    "animation": "single separate interior_L1.glb defaults halo closed, glTF animation raises centre and opens each wing, two checked static poses; never copied into exterior six-state GLBs.",
+    "checks": "D9 category-d and containment for halo closed and wings open; no G1-G12; stop on demonstrated 5.185kg overrun or D9 failure and preserve diagnostic picture.",
+    "precision": "No new feature below 0.6mm at 1:25 except decal representation. Print-only UI labels, button dots, hairline seams and screen graphics are decals.",
+    "mass_freeze": {
+      "dry_t": 868.1922552640087,
+      "ECON_dv_km_s": 707.845
+    },
+    "status": "BUILT L1_B3_SPLIT_HALO_D9_CONTAINMENT_PASS; both poses D9 category-d 0 and pressure containment PASS. kT source decisions unchanged.",
+    "build_evidence": {
+      "pr": 518,
+      "report": "wayfarer/render/out/interior_L1_report.json",
+      "glb": "wayfarer/render/out/interior_L1.glb",
+      "glb_sha256": "af4ef098d6dfa37073e1baff8b721350b09762e6fa30490d7268ac527fc0ab0e",
+      "verified_states": [
+        "halo_closed",
+        "wings_open_centre_back"
+      ],
+      "d9_category_d_per_state": [
+        0,
+        0
+      ],
+      "containment_per_state": [
+        "PASS",
+        "PASS"
+      ],
+      "min_inner_pressure_shell_clearance_m": 0.512934,
+      "fcl_verified_source_fixture_nodes_per_state": 65,
+      "coherent_couch_instances": 6,
+      "animation_channels": 18,
+      "map_workbench_cabinets_and_display_bezels_source_bookings": 9,
+      "D9_contact_note": "Shared NAV couch base mounting plane X=2.76 touches platform X=2.76..2.86: zero volumetric overlap, not category-d clash. No source position moved.",
+      "halo_controls_estimate_kg": 5.1,
+      "halo_controls_booked_kg": 5.18518656421065,
+      "estimated_margin_kg": 0.08518656421065,
+      "mass_credit_added_t": 0,
+      "source_dry_t": 868.1922552640087,
+      "ECON_dv_km_s": 707.845,
+      "legacy_516_tablet": "NOT IMPORTED"
+    }
   }
 }
