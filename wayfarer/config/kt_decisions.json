@@ -1219,5 +1219,69 @@
     "mass_rebooking_t": 0,
     "canon_change": false,
     "G1_G12": "NOT RUN"
+  },
+  "l2_common_deck_japandi_2026_11_12": {
+    "authority": "kT APPROVED 2026-11-12, with Nicole, Claude's pass-2 organic Japandi L2 design PR #523 (6281116)",
+    "decision": "BUILD APPROVED: L2 Common deck organic Japandi. Original 23 proposal groups retained; 5 stools and 3 loungers instanced. Positions, viewport band, ladderways and L1/L2 hatch leaves unchanged.",
+    "source": "wayfarer/lab/l2_organic_study/export.py and geom.py; docs/L2_JAPANDI_PROPOSAL_2026_11_12.md; design accepted by kT with Nicole",
+    "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+    "date": "2026-11-12",
+    "source_booked_mass_owners": [
+      "room_L2-galley",
+      "room_L2-wardroom",
+      "room_L2-observation",
+      "room_L2-exercise",
+      "room_L2-hygiene",
+      "outfit_L2"
+    ],
+    "booking_kg": {
+      "room_L2-galley": 2047.407462568426,
+      "room_L2-wardroom": 1228.4444775410554,
+      "room_L2-observation": 614.2222387705277,
+      "room_L2-exercise": 1637.925970054741,
+      "room_L2-hygiene": 614.2222387705277,
+      "outfit_L2": 818.9629850273705
+    },
+    "estimated_drawn_mass_kg": {
+      "room_L2-galley": 345,
+      "room_L2-wardroom": 200,
+      "room_L2-observation": 95,
+      "room_L2-exercise": 410,
+      "room_L2-hygiene": 215,
+      "outfit_L2": 60
+    },
+    "estimated_total_kg": 1325,
+    "mass_basis": "source_booking_reference_nonadditive",
+    "mass_rebooking_t": 0,
+    "dry_t": 868.1922552640087,
+    "ECON_dv_km_s": 707.845,
+    "exterior_and_L1_unchanged": true,
+    "D9_category_d": 0,
+    "D9_scope": "floor_L2, L1 floor, L1L2 hatch leaves, core racks, viewport band",
+    "source_clearances_m": {
+      "floor_L2_m": 0,
+      "L1_floor_m": 0,
+      "core_racks_m": 0.051561,
+      "viewport_band_m": 0.1,
+      "pressure_shell_m": 0.12
+    },
+    "L1L2_hatch_leaf_hits": [],
+    "containment": "PASS",
+    "G1_G12": "NOT RUN / NOT REQUIRED",
+    "status": "BUILT L2_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS",
+    "build_evidence": {
+      "integration_pr": 524,
+      "glb": "wayfarer/render/out/interior_L2.glb",
+      "report": "wayfarer/render/out/interior_L2_report.json",
+      "glb_sha256": "50028743262fddc747236f3d5efedbfcd9dc0a84c7a802f93ab01de5491ebeba",
+      "mesh_nodes": 29,
+      "unique_meshes": 23,
+      "shared_stool_instances": 5,
+      "shared_lounger_instances": 3,
+      "source_proposal_groups": 23,
+      "source_mass_delta_t": 0,
+      "exterior_state_modifications": 0,
+      "old_proposal_deleted": "wayfarer/render/out/proposal_L2_japandi.glb"
+    }
   }
 }
