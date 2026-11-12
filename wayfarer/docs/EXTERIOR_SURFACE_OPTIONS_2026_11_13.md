@@ -84,3 +84,5 @@ dry 868.192255 t, ECON delta-v 707.845 km/s. G1-G12 not rerun.
 ![EVA hatch before/after](WAYFARER_EXTERIOR_B_EVA_BEFORE_AFTER_2026_11_13.png)
 
 ![Whole ship before/after](WAYFARER_EXTERIOR_B_WHOLE_BEFORE_AFTER_2026_11_13.png)
+
+**BRep material-removal proof:** For each of three medical ports, positive material was removed from both source pressure-vessel and armour solids. Pressure-shell source bore intersections: 0.0571421, 0.0571294 and 0.0571465 m³. Armour intersections: 0.3954825, 0.3954817 and 0.3954796 m³. Rebuilt solid intersection against every bore: **0 m³** (six checks). This is a geometry-only demonstration, not a pressure or shielding qualification. See the committed six-state visual report for full precision.
