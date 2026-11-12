@@ -3445,6 +3445,143 @@
         0.6,
         0.62
       ]
+    },
+    {
+      "kind": "exterior",
+      "planet": true,
+      "planetC": [
+        900,
+        -500,
+        -900
+      ],
+      "planetR": 1000,
+      "show": "exterior",
+      "finish": 1,
+      "cold": 0,
+      "eye": [
+        6,
+        11.5,
+        4.8
+      ],
+      "target": [
+        13.2,
+        3.6,
+        0.4
+      ],
+      "fov": 32,
+      "sun": [
+        -0.35,
+        0.8,
+        0.5
+      ],
+      "exposure": 0.95,
+      "id": "exterior_B_eva",
+      "title": "Wayfarer exterior: eva",
+      "caption": "Approved shaded Option B, source EVA outer frame x12.25/d1.1; interior L5 clear opening x12.30/d1.0 remains unchanged.",
+      "labels": [
+        {
+          "t": "EVA hatch (existing, 1.1 m)",
+          "at": [
+            12.25,
+            4.5,
+            0
+          ],
+          "off": [
+            60,
+            70
+          ]
+        }
+      ],
+      "holes": true,
+      "windowFrames": true,
+      "windowPanes": true
+    },
+    {
+      "kind": "exterior",
+      "planet": true,
+      "planetC": [
+        900,
+        -500,
+        -900
+      ],
+      "planetR": 1000,
+      "show": "exterior",
+      "finish": 1,
+      "cold": 0,
+      "eye": [
+        4,
+        -9.8,
+        -8.6
+      ],
+      "target": [
+        9.6,
+        -3.5,
+        -2.3
+      ],
+      "fov": 32,
+      "sun": [
+        -0.3,
+        -0.75,
+        -0.6
+      ],
+      "exposure": 0.95,
+      "id": "exterior_B_medical",
+      "title": "Wayfarer exterior: medical",
+      "caption": "Approved non-canon WWS-1 medical apertures x9.30, Ø1.55 at 180/210/240, with matching actual cutouts in separately regenerated visual BReps.",
+      "labels": [
+        {
+          "t": "Medical ports (lowered 0.2 m)",
+          "at": [
+            9.3,
+            -3.9,
+            -2.25
+          ],
+          "off": [
+            160,
+            60
+          ]
+        }
+      ],
+      "holes": true,
+      "windowFrames": true,
+      "windowPanes": true
+    },
+    {
+      "kind": "exterior",
+      "planet": true,
+      "planetC": [
+        900,
+        -500,
+        -900
+      ],
+      "planetR": 1000,
+      "show": "exterior",
+      "finish": 1,
+      "cold": 0,
+      "eye": [
+        -10,
+        16,
+        9
+      ],
+      "target": [
+        16,
+        0,
+        -1
+      ],
+      "fov": 36,
+      "sun": [
+        -0.5,
+        0.7,
+        0.55
+      ],
+      "exposure": 0.9,
+      "id": "exterior_B_whole",
+      "title": "Wayfarer exterior: whole",
+      "caption": "kT Option B surface demarcations: 20-degree tile joints, original 9 Nov frames, no physical armour gaps, no C print-only extras.",
+      "labels": [],
+      "holes": true,
+      "windowFrames": true,
+      "windowPanes": true
     }
   ]
 }
