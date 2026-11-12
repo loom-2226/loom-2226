@@ -34,6 +34,7 @@ The grooves stop at openings, at node faces and inside the hatch and port frames
   - Five nozzle coil bands, 1.5 mm wide.
   - The thrust cone stays plain.
 - **Bow shoulder:** clean, with no marks, per `bow_shoulder_surface_2026_11_13`.
+- **Node faces:** all 208 are outlined: 112 on the cylinder, plus 96 listed in `node_faces_off_cylinder` (16 at the bow, 80 on the torch chain).
 - **Dropped at 1:100:** the 20 mm sub-panel lines would print at 0.2 mm. Option B's joints already sit on the same stations.
 
 ## Checks (stock_0p4)

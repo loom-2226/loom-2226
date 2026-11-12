@@ -57,6 +57,13 @@ def build_spec():
         (15.1, 15.8, 85, 'service'), (15.1, 15.8, 255, 'service'), (16.1, 16.9, 20, 'service'), (16.1, 16.9, 200, 'service'),
         (18.6, 19.3, 20, 'midship'), (30.8, 31.5, 200, 'midship'), (32.8, 33.4, 96, 'aft'), (32.8, 33.4, 236, 'aft'))]
     for q in panels: keep_clear.append(dict(rect=[q['x0'], q['x1'], q['az'], q['hw']]))
+    # All 208 node faces show (design_decisions_2026_10_26_skin option 3). 112 sit on the cylinder (outlined above);
+    # the other 96 (16 bow ring-0, 80 on the torch chain) are listed here as outline circles on their own bodies.
+    node_faces_other = []
+    for f in G['features']:
+        if f['kind'] != 'node_face' or X0 < f['pos'][0] < X1: continue
+        body = 'bow shoulder (outline only; shoulder otherwise clean per bow_shoulder_surface_2026_11_13)' if f['pos'][0] < X0 else 'torch chain'
+        node_faces_other.append(dict(pos=f['pos'], normal=f['normal'], d_m=f['d_m'], body=body, outline_groove_mm=P['groove_width_mm']))
     bands = [dict(x0=b['x'][0], x1=b['x'][1], a0=b['a'][0], a1=b['a'][1], what='L2 viewport band') for b in G['bands']]
     for o in openings: keep_clear.append(dict(x=o['x'], az=o['az'], r=o['r'] + 0.05))
     for c in circles:
@@ -64,7 +71,7 @@ def build_spec():
     return dict(header='ALL bodies. ALL sponsors. 2026-2226.', units='ship metres; az deg (Y = r cos a, Z = r sin a)',
                 hull=dict(radius_m=R, x_m=[X0, X1]), groove_real_width_m=0.05,
                 rings=rings, longitudinals=longs, outline_circles=circles, panels=panels, dots=dots, openings=openings, bands=bands,
-                aft=aft_spec(),
+                aft=aft_spec(), node_faces_off_cylinder=node_faces_other,
                 keep_clear=keep_clear,
                 not_covered='bow cone x<2.35, aft of 34.3, protruding fixtures (rails, grapples, RCS, sensors, strakes: separate print parts)')
 
@@ -238,7 +245,7 @@ def main():
                volume_mm3=round(vol, 1), heightmap_volume_mm3=round(ref, 1), volume_check='PASS' if abs(vol - ref) < 0.005 * ref else 'FAIL',
                orientation='axis vertical, bow end up, no supports', unmatched_edges=unmatched, watertight='PASS' if unmatched == 0 else 'FAIL'),
                dropped_at_this_scale=sorted(dropped),
-               counts=dict(rings=len(spec['rings']), longitudinals=len(spec['longitudinals']), outline_circles=len(spec['outline_circles']),
+               counts=dict(node_faces_total=sum(1 for c in spec['outline_circles'] if 'node' in c['what']) + len(spec['node_faces_off_cylinder']), rings=len(spec['rings']), longitudinals=len(spec['longitudinals']), outline_circles=len(spec['outline_circles']),
                            openings=len(spec['openings']), bands=len(spec['bands'])))
     json.dump(man, open(os.path.join(HERE, 'manifest_1to100.json'), 'w'), indent=1)
     print(json.dumps(man, indent=1))
