@@ -42,6 +42,9 @@ jobs:
           assert h['hatches']['hatch_L3L4_1']['shape']['x0']==8.2
           assert l4['status']=='L4_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS'
           assert l4['original_proposal_groups']==19
+          assert len(l4['original_12_jacket_flags'])==12
+          assert all(row['corrected_vertex_midpoint_centroid_intrusions']==0 for row in l4['original_12_jacket_flags'])
+          assert l4['jacket_sampling_basis'].startswith('vertices, all three edge midpoints')
           assert l4['checks']['D9_category_d']==0
           assert l4['checks']['containment']=='PASS'
           assert l4['checks']['G1_G12']=='NOT RUN / NOT REQUIRED'
@@ -66,6 +69,7 @@ jobs:
                      for node in nodes)
           assert all('NORMAL' in p['attributes'] for m in doc['meshes'] for p in m['primitives'])
           assert (Path('wayfarer/docs')/'WAYFARER_L4_APPROVED_D9_2026_11_12.png').is_file()
+          assert (Path('wayfarer/docs')/'WAYFARER_L4_12_D9_FLAGS_RESOLVED_2026_11_12.png').is_file()
           assert doc['nodes'][0]['extras']['L4_shelter_is_wellness_room'] is True
           print('WAYFARER L4 PASS',len(nodes),'mesh instances, 19 proposal groups, D9=0, containment PASS')
           PY
@@ -86,8 +90,8 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add wayfarer/render/out/interior_deck_hatches.glb wayfarer/render/out/interior_deck_hatches_report.json wayfarer/docs/WAYFARER_DECK_HATCHES_2026_11_12.png
-          git add wayfarer/render/out/interior_L4.glb wayfarer/render/out/interior_L4_report.json wayfarer/docs/WAYFARER_L4_APPROVED_D9_2026_11_12.png
-          git rm -f wayfarer/render/out/proposal_L4.glb
+          git add wayfarer/render/out/interior_L4.glb wayfarer/render/out/interior_L4_report.json wayfarer/docs/WAYFARER_L4_APPROVED_D9_2026_11_12.png wayfarer/docs/WAYFARER_L4_12_D9_FLAGS_RESOLVED_2026_11_12.png
+          git rm -f --ignore-unmatch wayfarer/render/out/proposal_L4.glb
           if ! git diff --cached --quiet; then
             git commit -m 'class:engineering: kT-approved L4 source fixes, instanced interior D9 PASS; remove proposal'
             git push origin HEAD:engineering/wayfarer-l4-approved-build-20261112
