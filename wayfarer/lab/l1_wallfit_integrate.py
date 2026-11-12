@@ -99,7 +99,7 @@ def main():
     assert hashlib.sha256(GLB.read_bytes()).hexdigest()==prior["glb_sha256"]
     original_nodes=deepcopy(doc["nodes"]);original_anim=deepcopy(doc["animations"])
     original_scene=deepcopy(doc["scenes"]);original_meshes=len(doc["meshes"])
-    subprocess.run([sys.executable,str(GEN)],check=True,cwd=ROOT)
+    subprocess.run([sys.executable,str(GEN)],check=True,cwd=ROOT.parent)
     source,sbin=B.load_glb(PROPOSAL)
     nodes=[n for n in source["nodes"] if n["name"].startswith("proposal:u")]
     assert len(nodes)==7 and [n["name"] for n in nodes]==["proposal:"+n for n in UNITS]
