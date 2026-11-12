@@ -1,0 +1,220 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "PROPOSAL SKETCH, NON-GOVERNING (F4)",
+ "size": [
+  1600,
+  900
+ ],
+ "views": [
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "eye": [
+    -6.5,
+    -8.5,
+    4.2
+   ],
+   "target": [
+    2.2,
+    0.2,
+    0.3
+   ],
+   "fov": 34,
+   "sun": [
+    -0.7,
+    -0.45,
+    0.55
+   ],
+   "exposure": 1.0,
+   "id": "q_1",
+   "title": "OPTION 1: Clean bow (as built)",
+   "caption": "No marks on the shoulder. The erosion face meets the dust flow unbroken.",
+   "bow": 0,
+   "labels": []
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "eye": [
+    -6.5,
+    -8.5,
+    4.2
+   ],
+   "target": [
+    2.2,
+    0.2,
+    0.3
+   ],
+   "fov": 34,
+   "sun": [
+    -0.7,
+    -0.45,
+    0.55
+   ],
+   "exposure": 1.0,
+   "id": "q_2",
+   "title": "OPTION 2: Meridians",
+   "caption": "Hull joints run forward over the shoulder every 20 deg to the crown tiles. No rings.",
+   "bow": 1,
+   "labels": []
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "eye": [
+    -6.5,
+    -8.5,
+    4.2
+   ],
+   "target": [
+    2.2,
+    0.2,
+    0.3
+   ],
+   "fov": 34,
+   "sun": [
+    -0.7,
+    -0.45,
+    0.55
+   ],
+   "exposure": 1.0,
+   "id": "q_3",
+   "title": "OPTION 3: Erosion plates",
+   "caption": "36 replaceable erosion plates: 20 deg meridians + one ring at r 4.05.",
+   "bow": 2,
+   "labels": []
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "eye": [
+    1.2,
+    -12.5,
+    1.0
+   ],
+   "target": [
+    1.8,
+    0,
+    0.2
+   ],
+   "fov": 36,
+   "sun": [
+    -0.6,
+    -0.5,
+    0.6
+   ],
+   "exposure": 1.0,
+   "id": "s_1",
+   "title": "OPTION 1: Clean bow (as built)",
+   "caption": "No marks on the shoulder. The erosion face meets the dust flow unbroken.",
+   "bow": 0,
+   "labels": []
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "eye": [
+    1.2,
+    -12.5,
+    1.0
+   ],
+   "target": [
+    1.8,
+    0,
+    0.2
+   ],
+   "fov": 36,
+   "sun": [
+    -0.6,
+    -0.5,
+    0.6
+   ],
+   "exposure": 1.0,
+   "id": "s_2",
+   "title": "OPTION 2: Meridians",
+   "caption": "Hull joints run forward over the shoulder every 20 deg to the crown tiles. No rings.",
+   "bow": 1,
+   "labels": []
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "eye": [
+    1.2,
+    -12.5,
+    1.0
+   ],
+   "target": [
+    1.8,
+    0,
+    0.2
+   ],
+   "fov": 36,
+   "sun": [
+    -0.6,
+    -0.5,
+    0.6
+   ],
+   "exposure": 1.0,
+   "id": "s_3",
+   "title": "OPTION 3: Erosion plates",
+   "caption": "36 replaceable erosion plates: 20 deg meridians + one ring at r 4.05.",
+   "bow": 2,
+   "labels": []
+  }
+ ]
+}
