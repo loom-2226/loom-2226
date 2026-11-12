@@ -87,6 +87,15 @@ jobs:
           if-no-files-found: ignore
       - name: Commit only completed independent GLBs, check reports, picture; delete proposal
         run: |
+          # PR #531 is already D9-cleared and its GLB/report/pictures are
+          # committed. On a later review-only gate run, verify the recreated
+          # geometry above but DO NOT republish nondeterministic GLB bytes.
+          if git cat-file -e HEAD:wayfarer/render/out/interior_L4.glb 2>/dev/null &&
+             git cat-file -e HEAD:wayfarer/render/out/interior_L4_report.json 2>/dev/null &&
+             git cat-file -e HEAD:wayfarer/docs/WAYFARER_L4_12_D9_FLAGS_RESOLVED_2026_11_12.png 2>/dev/null; then
+            echo 'Previously D9-validated L4 GLB and report are already in HEAD; no binary churn.'
+            exit 0
+          fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add wayfarer/render/out/interior_deck_hatches.glb wayfarer/render/out/interior_deck_hatches_report.json wayfarer/docs/WAYFARER_DECK_HATCHES_2026_11_12.png
