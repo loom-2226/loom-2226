@@ -1,13 +1,13 @@
 # Wayfarer L3 Quarters: organic Japandi furniture proposal (12 Nov 2026)
 **ALL bodies. ALL sponsors. 2026-2226.**
 
-**Status:** kT APPROVED the layout on 12 Nov 2026. The 3D model is FOR REVIEW. Claude designed it in the approved L2 language. Not built. This is a rule F4 proposal package. Canon, BRep, mass and the exterior are unchanged. D9 has not been run.
+**Status:** kT APPROVED on 12 Nov 2026 and **BUILT (PR #534)** from Claude's unchanged source-authored design. D9 category-d 0, containment PASS, no mass rebooking. The source-booked independent interior_L3.glb supersedes the proposal GLB. Other deck GLBs, source inventory, dry mass and the exterior are unchanged.
 
 Berths, doors, walls and windows are taken unchanged from `wayfarer_v05_inputs.json` (L3 deck) and the source geometry. Mass rule: `room_register_2026_11_12` (each room's booking pays for its own furniture).
 
 **Source:** `wayfarer/lab/l3_quarters/` (`l3geom.py`, `export3.py` and `run3.py`, using `../l2_organic_study`).
 
-**Output:** `render/out/proposal_L3_quarters.glb` (21 nodes).
+**Output:** `render/out/interior_L3.glb`: 21 original `proposal:L3_*` groups, P0 partitions split into six room-owned nodes, plus ten source-booked Ø0.5 m viewport detail nodes. 36 GLB mesh nodes, smooth normals; nonadditive mass references and no source mass changes. `proposal_L3_quarters.glb` deleted after a clean D9. Verification in `render/out/interior_L3_report.json`.
 
 ![plan](L3_QUARTERS_PROPOSAL_2026_11_12_plan.png)
 ![section](L3_QUARTERS_PROPOSAL_2026_11_12_section.png)
@@ -41,3 +41,15 @@ The L2/L3 hatch flaps built in PR #526 hang into L3 at h 1.68–2.30 m. That put
 ![guest](L3_QUARTERS_PROPOSAL_2026_11_12_guest.png)
 ![captain](L3_QUARTERS_PROPOSAL_2026_11_12_capt.png)
 ![crew B](L3_QUARTERS_PROPOSAL_2026_11_12_crewb.png)
+
+## L3 build verification (PR #534)
+
+All six room partitions, berth tiers and headboards, furniture and doors remain at Claude's approved/source positions. Source Ø0.5 m viewports match window assemblies 11–20 in location and centre height. The source's Ø0.8 m WWS-1 alternative remains an unadopted draft design: no port resizing or pressure-seal qualification has been undertaken.
+
+D9 category-d: **0**. Containment: **PASS**. Jacket-berth-ring positive intrusions: **0**. The D3 outer lining touches the r=4.07 m inside face of the source water ring, but does **not** extend into its protected thickness (checked at original triangle vertices, all three edge midpoints, and centroids). No one moved the lining. This sample-based water-ring screen is not a certified cutout/structural proof for the drawn viewport assemblies.
+
+The L2/L3 leaves remain parked **up** into L2, not in the L3 cabins. L3/L4 _0 stays radially stowed in the L3 floor pocket; _1 remains as approved.
+
+The mass estimates remain 260 kg captain, 345 kg crew A, 620 kg guest, 465 kg crew B, 215 kg per washroom, and 145 kg of L3-wide outfit. Source bookings are unchanged, no rebooking. Dry 868.192255 t, ECON Δv 707.845 km/s, G1–G12 NOT RUN.
+
+![Verified L3 quarters plan and 0.5 m source windows](WAYFARER_L3_APPROVED_D9_2026_11_13.png)
