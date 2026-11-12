@@ -698,7 +698,7 @@ uniform vec4 uClip; uniform float uClipOn; uniform float uExp; uniform float uAl
 uniform vec3 uPlanetDir; uniform float uShZ; uniform float uLen; uniform float uSec; uniform vec3 uRim; uniform vec3 uRimC;
 uniform float uCrown; uniform float uNoSec; uniform float uHoleOn; uniform vec4 uWinP[40]; uniform vec3 uWinN[40]; uniform int uNWin; uniform vec4 uBand[6]; uniform int uNBand; uniform float uArm; uniform float uSplay;
 uniform vec3 uPLP[3]; uniform vec3 uPLC[3]; uniform int uNPL;
-uniform float uSkin; uniform float uSkinMat; uniform float uCold;
+uniform float uSkin; uniform float uSkinMat; uniform float uCold; uniform int uPart;
 out vec4 o;
 // kT 2026-11-09: hull panel seams follow frames, strake/longeron
 // lines and bay-door edges. These are shaded lines, not BRep cuts.
@@ -803,6 +803,12 @@ void main(){
     else { base=vec3(0.80,0.81,0.83)*(0.95+0.07*h1); M=1.0; R=0.22+0.08*h2; }
     if(uSkinMat<1.5){
       float sa=seamRingB(x), sc=seamLongB(x,deg,rr);
+      // kT 2/2/2: clean bay-door leaves, only both outer edges and central split.
+      if(uPart==2 && x>=18.25 && x<=32.05){
+        sa=10000.0;
+        sc=radians(min(min(azGapB(deg,57.769047364497894),azGapB(deg,90.0)),
+                       azGapB(deg,122.2309526355021)))*rr;
+      }
       float gw=.025; // shaded nominal 50 mm line; no actual armour gap
       float wa=gw+fwidth(x)*1.2, wc=gw+fwidth(s)*1.2;
       float ga=(1.0-smoothstep(0.0,wa,sa))*min(1.0,.008/wa), gc=(1.0-smoothstep(0.0,wc,sc))*min(1.0,.008/wc);
@@ -823,9 +829,31 @@ void main(){
     float th=degrees(atan(vShip.z,vShip.y)); if(th<0.0) th+=360.0;
     float sa=seamRingM(vShip.x);
     float sc=seamLongM(vShip.x,th,length(vShip.yz));
+    if(uPart==2 && vShip.x>=18.25 && vShip.x<=32.05){
+      sa=10000.0;
+      sc=radians(min(min(azGapB(th,57.769047364497894),azGapB(th,90.0)),
+                     azGapB(th,122.2309526355021)))*length(vShip.yz);
+    }
     float ra=1.0-smoothstep(0.0,0.02,sa);
     float la=1.0-smoothstep(0.0,0.025,sc);
     base*=1.0-0.18*ra-0.14*la;
+  }
+  // kT-approved exterior remaining surfaces 2/2/2: shaded, no BRep or mass.
+  if(uPart==1 && vShip.x>=34.3 && vShip.x<=39.3){
+    float az=degrees(atan(vShip.z,vShip.y)); if(az<0.0) az+=360.0;
+    float rr=length(vShip.yz), dm=abs(vShip.x-36.8);
+    dm=min(dm,radians(azGapB(az,40.0))*rr);
+    dm=min(dm,radians(azGapB(az,140.0))*rr);
+    dm=min(dm,radians(azGapB(az,220.0))*rr);
+    dm=min(dm,radians(azGapB(az,320.0))*rr);
+    float line=1.0-smoothstep(0.0,.025+fwidth(vShip.x)*1.5,dm);
+    base=mix(base,base*.40,line*.90);
+  }
+  if((uPart==3 || uPart==4) && vShip.x>=14.0 && vShip.x<=53.3){
+    float pitch=.5;
+    float dm=abs(fract((vShip.x-14.0)/pitch+0.5)-0.5)*pitch;
+    float line=1.0-smoothstep(0.0,.018+fwidth(vShip.x)*1.5,dm);
+    base=mix(base,vec3(.30,.31,.33),line*.85);
   }
   if(uKind==1){ if(vShip.z< uShZ-0.55) base=vec3(0.07,0.07,0.075); }
   if(uKind==3){ float ring=step(0.5,fract(vShip.x/0.7)); base*=0.75+0.25*ring; }
@@ -1172,7 +1200,7 @@ export class Ship {
       if (m.mat === "plume" || (MATS[m.mat]&&MATS[m.mat].alpha)) continue;
       const mt = MATS[m.mat] || MATS.equipment;
       gl.uniform1f(U.uSkin, view.finish || 0); gl.uniform1f(U.uSkinMat, SKINMAT[m.mat] || 0); gl.uniform1f(U.uCold, view.cold || 0);
-      gl.uniform3fv(U.uC, mt.c); gl.uniform1f(U.uM, mt.m); gl.uniform1f(U.uR, mt.r); gl.uniform1f(U.uSeam, mt.seam || 0); gl.uniform1i(U.uKind, mt.kind || 0);
+      gl.uniform3fv(U.uC, mt.c); gl.uniform1f(U.uM, mt.m); gl.uniform1f(U.uR, mt.r); gl.uniform1f(U.uSeam, mt.seam || 0); gl.uniform1i(U.uKind, mt.kind || 0); gl.uniform1i(U.uPart, ({thrust_cone:1,door:2,radiator:3,hotfin:4})[m.mat] || 0);
       gl.uniform3fv(U.uEm, (view.emissive && view.emissive[m.mat]) || mt.em || [0, 0, 0]); gl.uniform1f(U.uAlpha, 1); gl.uniform1f(U.uSec, mt.sec ?? 0.55);
       gl.uniform1f(U.uClipOn, m.noclip ? 0 : clipOn); gl.uniform1f(U.uHoleOn, view.holes && mt.holes ? 1 : 0); gl.uniform1f(U.uNoSec, mt.nosec ? 1 : 0);
       this.bind(m, true); gl.drawElements(gl.TRIANGLES, m.n, gl.UNSIGNED_INT, 0);
@@ -1184,7 +1212,7 @@ export class Ship {
       const mt=MATS[m.mat]; if(!mt?.alpha)continue;
       gl.uniform1f(U.uSkin,0);gl.uniform1f(U.uSkinMat,0);gl.uniform1f(U.uCold,0);
       gl.uniform3fv(U.uC,mt.c);gl.uniform1f(U.uM,mt.m);gl.uniform1f(U.uR,mt.r);
-      gl.uniform1f(U.uSeam,0);gl.uniform1i(U.uKind,0);
+      gl.uniform1f(U.uSeam,0);gl.uniform1i(U.uKind,0);gl.uniform1i(U.uPart,0);
       gl.uniform3fv(U.uEm,mt.em||[0,0,0]);gl.uniform1f(U.uAlpha,mt.alpha);
       gl.uniform1f(U.uSec,mt.sec||0.55);gl.uniform1f(U.uClipOn,m.noclip?0:clipOn);
       gl.uniform1f(U.uHoleOn,0);gl.uniform1f(U.uNoSec,1);
