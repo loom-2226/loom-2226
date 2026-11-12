@@ -1668,5 +1668,21 @@
     "G1_G12": "NOT RUN / NOT REQUIRED",
     "limitations": "Drawn window rings occupy source berth-water interface at 0.5m design size. Physical water aperture machining, pressure seals and window structural qualification not claimed.",
     "status": "BUILT: L3_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS"
+  },
+  "exterior_surface_2026_11_13": {
+    "authority": "kT APPROVED 2026-11-13 (Claude chat, with Sol's review)",
+    "date": "2026-11-13",
+    "source": "wayfarer/docs/EXTERIOR_SURFACE_OPTIONS_2026_11_13.md (PR #536)",
+    "surface_1to100": "Option B: approved 9 Nov seam grid + Strata armour tile joints (mid-bay rings at x 4.3/6.9/9.5/12.1/13.4 and every 2 m from 15 to 33; a joint every 20 deg), plus EVA hatch frame and medical port frames.",
+    "surface_1to25": "B + selected C, around operations only: 1.05 m keep-out ring at the EVA hatch, EVA lane edge lines between the existing +/-14 deg rails (x 13.4-24.0, NO tread), tether rings at the 24 existing crawler points.",
+    "tiles_meaning": "Surface demarcations only. Not gaps through the source-booked armour; shielding, structure and mass unchanged.",
+    "scale_note": "Print groove widths are model exaggeration (0.5 mm = 50 mm real at 1:100, 12.5 mm at 1:25) and do not define physical seam width. The 1:100 hull gets its own print profile; stock_0p4/fine_0p2 are 1:25 and untested.",
+    "eva_hatch": "Already in source geometry (feature hatch, L5-airlock, x 12.25, 0 deg, d 1.1). d 1.1 = outer frame; 1.0 m = clear opening (l5_decisions). Centre aligns to source x 12.25 (5 cm from the decision's 12.30); Sol verifies interior_L5 against it.",
+    "medical_ports": "APPROVED for exterior integration: the three L4 medical ports at x 9.30 (h 1.50), d 1.55, 180/210/240 deg, as real openings through hull and armour solids, not drawn rings. D9 + containment by Sol. WWS-1 remains a non-canon design position; no pressure or shielding qualification claimed.",
+    "other_openings": "Tunnel hatch, shelter plug door and L3/L4 slab pocket are internal: no exterior change.",
+    "mass_rebooking_t": 0,
+    "canon_change": false,
+    "G1_G12": "NOT RUN",
+    "status": "APPROVED; build by Sol"
   }
 }
