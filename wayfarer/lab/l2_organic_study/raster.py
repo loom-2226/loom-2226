@@ -12,6 +12,7 @@ def smooth_normals(V, thr=0.80):
         if e-s<2: continue
         idx=order[s:e]; G=Nf[idx]; D=G@G.T; M=(D>thr).astype(float); S=M@G; S/=np.linalg.norm(S,axis=1,keepdims=True)+1e-12; out[idx]=S
     return N,out.reshape(-1,3,3)
+X0F=5.6; COVE=(3.85,2.25); WASH=(4.10,0.10)
 SPEC={'titanium':(0.45,40),'rib':(0.06,10),'glass':(0.35,80),'worktop':(0.06,12),'oak':(0.08,18),'oak_dk':(0.08,18),'sand':(0.02,6),'sage':(0.01,4),'hull':(0.04,10),'teal':(0.2,30),'floor':(0.05,10)}
 def render(T, MAT, eye, tgt, fov, W=1100, H=800, ss=2, out='x.png', fog=None):
     Wp,Hp=W*ss,H*ss
@@ -57,7 +58,7 @@ def render(T, MAT, eye, tgt, fov, W=1100, H=800, ss=2, out='x.png', fog=None):
             n/=np.linalg.norm(n,axis=-1,keepdims=True)+1e-12
             if (n@(-f)).mean()<0: n=-n   # double-sided: face the camera
             pw=(w0[...,None]*V[i,0]/zz[0]+w1[...,None]*V[i,1]/zz[1]+w2[...,None]*V[i,2]/zz[2])*depth[...,None]
-            rr=np.hypot(pw[...,1],pw[...,2]); hh=5.6-pw[...,0]
+            rr=np.hypot(pw[...,1],pw[...,2]); hh=X0F-pw[...,0]
             if em: c=np.broadcast_to(C*1.2,n.shape).copy()
             else:
                 dif=0.26+0.50*np.clip(n@L1,0,1)+0.16*np.clip(n@L2,0,1)
@@ -69,7 +70,7 @@ def render(T, MAT, eye, tgt, fov, W=1100, H=800, ss=2, out='x.png', fog=None):
                 if m in ('titanium',):
                     Cc*= (1+0.03*np.sin(pw[...,0]*900))[...,None]
                 # warm cove light (ring r 3.85, h 2.27) and floor wash (r 4.1, h 0.1), simple falloff, normal-weighted
-                d1=np.hypot(rr-3.85,hh-2.25); d2=np.hypot(rr-4.10,hh-0.10)
+                d1=np.hypot(rr-COVE[0],hh-COVE[1]); d2=np.hypot(rr-WASH[0],hh-WASH[1])
                 warm=np.array([1.0,0.80,0.55])
                 kw=0.55/(1+(d1/0.55)**2)+0.35/(1+(d2/0.35)**2)
                 c=Cc*dif[...,None]+Cc*warm[None,None,:]*kw[...,None]+spec[...,None]
