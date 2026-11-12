@@ -367,9 +367,27 @@ def main():
         s=rows[fid]["shape"]
         solids=shapes_for_fixture(fid,s)
         mi=mesh_from_brep(doc,binary,"B3_shaped_"+fid,solids,palette["shell"] if "cabinet" in fid else palette["surround"])
-        node=map_of["dry:"+fid];old_mass_kg=node["extras"]["mass"]*1000
+        name="dry:"+fid
+        if name not in map_of:
+            # PR #514 drew the parent tables/workbench/cabinets, but left
+            # these three *already booked* nested mass-only proxies hidden.
+            # Add representations only as contained parts of their parents;
+            # every ID is from the source ledger, with ZERO new mass.
+            assert fid in ("i4_mission_table","i4_workbench","i4_cabinetry")
+            extras=deepcopy(map_of["dry:i4_shared_map_table"]["extras"])
+            extras.update(source_mass_owner_id=fid,
+                mass=rows[fid]["mass_t"],material=rows[fid]["mat"],
+                source_booking_repeated_nonadditive=True,node_mass_rebooking_t=0,
+                nested_source_owner_no_new_mass=True,
+                l1_part_kind="nested_original_source_mass_proxy")
+            node=dict(name=name,mesh=mi,extras=extras)
+            sub=next(n for n in doc["nodes"] if n.get("name")=="subsystem:HABITAT/L1")
+            sub.setdefault("children",[]).append(len(doc["nodes"]))
+            doc["nodes"].append(node);map_of[name]=node
+        else:
+            node=map_of[name];node["mesh"]=mi
+        old_mass_kg=node["extras"]["mass"]*1000
         assert abs(old_mass_kg-rows[fid]["mass_t"]*1000)<1e-6
-        node["mesh"]=mi
         node["extras"]["shape_refinement"]="PR516 within source booked AABB"
         fxtures.append(dict(owner=fid,booked_mass_kg=old_mass_kg,mesh=mi))
     # Re-read every source mesh in world glTF coordinate system. No actual
