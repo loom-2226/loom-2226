@@ -224,7 +224,7 @@ def glb_names(path):
     doc=json.loads(data[20:20+n])
     return [v.get("name","") for v in doc["nodes"] if "mesh" in v]
 
-def main(on_model_ready=None, medical_port_visual_overlay=False):
+def main(on_model_ready=None):
     raw=GEO.read_bytes()
     sha=hashlib.sha256(raw).hexdigest()
     assert sha==EXPECTED
@@ -285,40 +285,7 @@ def main(on_model_ready=None, medical_port_visual_overlay=False):
     brow_solid.color=Color("#A2A3A0")
     bodies[brow_solid.label]=brow_solid
     assert len(bodies)==42
-    # kT 2026-11-13: approved NON-CANON WWS-1 positional overlay.
-    # Copy only the three feature positions used for the 21 real window
-    # solids and their cutters. Keep the pinned geometry JSON, actual source
-    # allocations, original source mass, and all other features unchanged.
-    glazing_source=g
-    if medical_port_visual_overlay:
-        approved=json.loads((ROOT/"config/kt_decisions.json").read_text())[
-            "exterior_surface_2026_11_13"]
-        assert approved["canon_change"] is False
-        assert "9.30" in approved["medical_ports"]
-        new_features=[];moved=[]
-        for feat in g["features"]:
-            if feat["kind"]=="window" and feat["room"]=="L4-medical":
-                assert abs(feat["pos"][0]-9.10)<1e-8
-                assert abs(feat["d_m"]-1.55)<1e-8
-                theta=(math.degrees(math.atan2(feat["pos"][2],feat["pos"][1]))+360)%360
-                assert any(abs(theta-k)<1e-7 for k in (180,210,240)),theta
-                changed={**feat,"pos":[9.30,*feat["pos"][1:]]}
-                new_features.append(changed)
-                moved.append(dict(azimuth_deg=theta,source_x_m=9.10,
-                                  model_x_m=9.30,diameter_m=feat["d_m"]))
-            else:
-                new_features.append(feat)
-        assert len(moved)==3
-        glazing_source={**g,"features":new_features}
-    glazing, glazing_cutters, glazing_report = build_glazing(glazing_source,cfg,make_pane)
-    if medical_port_visual_overlay:
-        assert [q["centre"][0] for q in glazing_report["individual_windows"]
-                if q["id"].startswith("window_L4-medical_")] == [9.30]*3
-        glazing_report["medical_visual_overlay"]=dict(
-            status="NON_CANON_POSITION",moved=moved,source_mass_delta_t=0,
-            cutters_are_BRep=True,exterior_source_json_unchanged=True,
-            source_WWS1_qualification="NOT CLAIMED",
-            pressure_or_shielding_qualification="NOT CLAIMED")
+    glazing, glazing_cutters, glazing_report = build_glazing(g,cfg,make_pane)
     assert len(glazing)==137 and len(glazing_cutters)==26
     # Physical crown aperture and seat rebate cut only the two permitted hull
     # solids. INNER ceramic = the pressure vessel's bow closure, not a second
@@ -344,26 +311,6 @@ def main(on_model_ready=None, medical_port_visual_overlay=False):
         for cutter in glazing_cutters:
             targets[key] = targets[key] - cutter
         assert targets[key].is_valid and targets[key].volume>0
-    if medical_port_visual_overlay:
-        # Directly screen REAL positive source shell/armour material
-        # removed at each of the three approved new apertures. The exported
-        # replacements must have zero residual wall inside the cutters.
-        port_indices=[i for i,f in enumerate(glazing_source["features"])
-                      if f["kind"]=="window" and f["room"]=="L4-medical"]
-        assert port_indices==[4,5,6],port_indices
-        proof=[]
-        for key in ("pressure_vessel","armor"):
-            for idx in port_indices:
-                tool=glazing_cutters[idx]
-                pre=original[key] & tool
-                post=targets[key] & tool
-                old_m3=0 if pre is None else float(pre.volume)
-                remain_m3=0 if post is None else float(post.volume)
-                assert old_m3>1e-5,(key,idx,old_m3)
-                assert remain_m3<1e-6,(key,idx,remain_m3)
-                proof.append(dict(source=key,medical_window_index=idx,
-                    material_bored_m3=old_m3,residual_m3=remain_m3))
-        glazing_report["medical_visual_overlay"]["actual_BRep_cut_proof"]=proof
     mass_removal={}
     for key in ("pressure_vessel","armor"):
         pre=float(original[key].volume);post=float(targets[key].volume)
