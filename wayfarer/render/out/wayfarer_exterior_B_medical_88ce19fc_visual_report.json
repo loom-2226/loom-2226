@@ -1,0 +1,120 @@
+{
+  "status": "VISUAL_EXTERIOR_B_MEDICAL_3X2_D9_CONTAINMENT_PASS",
+  "release_class": "NON_CANON_WWS1_VISUAL_ONLY",
+  "authority": "exterior_surface_2026_11_13",
+  "source_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+  "source_dry_t": 868.1922552640087,
+  "ECON_dv_km_s": 707.845,
+  "mass_rebooking_t": 0,
+  "G1_G12": "NOT RUN / NOT REQUIRED",
+  "authored_seam_render": "wayfarer/render/loomgl.js, shaded demarcations; no BRep gaps",
+  "medical_ports": {
+    "original_x_m": 9.1,
+    "visual_x_m": 9.3,
+    "diameter_m": 1.55,
+    "azimuths_deg": [
+      180,
+      210,
+      240
+    ],
+    "BRep_pressure_and_armour_cuts": true,
+    "actual_solid_intersection_proof": [
+      {
+        "host": "pressure_vessel",
+        "window": 4,
+        "source_cut_volume_m3": 0.0571421057711614,
+        "solid_after_cut_overlap_m3": 0.0
+      },
+      {
+        "host": "pressure_vessel",
+        "window": 5,
+        "source_cut_volume_m3": 0.057129421585441396,
+        "solid_after_cut_overlap_m3": 0.0
+      },
+      {
+        "host": "pressure_vessel",
+        "window": 6,
+        "source_cut_volume_m3": 0.057146513152002774,
+        "solid_after_cut_overlap_m3": 0.0
+      },
+      {
+        "host": "armor",
+        "window": 4,
+        "source_cut_volume_m3": 0.39548252707241505,
+        "solid_after_cut_overlap_m3": 0.0
+      },
+      {
+        "host": "armor",
+        "window": 5,
+        "source_cut_volume_m3": 0.3954817404373688,
+        "solid_after_cut_overlap_m3": 0.0
+      },
+      {
+        "host": "armor",
+        "window": 6,
+        "source_cut_volume_m3": 0.3954796052227925,
+        "solid_after_cut_overlap_m3": 0.0
+      }
+    ],
+    "source_position_modified": false,
+    "design_status": "WWS-1 NON-CANON; pressure/shielding UNQUALIFIED"
+  },
+  "EVA": {
+    "source_frame_x_m": 12.25,
+    "source_frame_d_m": 1.1,
+    "interior_clear_x_m": 12.3,
+    "interior_clear_d_m": 1.0,
+    "interior_mismatch_axial_m": 0.05000000000000071,
+    "unchanged": true
+  },
+  "D9_category_d_total": 0,
+  "containment": "PASS",
+  "six_states": {
+    "stowed/stowed": {
+      "path": "render/out/wayfarer_exterior_B_medical_88ce19fc_stowed_stowed.glb",
+      "sha256": "b7e61d562d05edfade3256278792b1cb9f60423ae0bb25be6bf22d61e0787381",
+      "bytes": 11591900,
+      "mesh_count": 498,
+      "original_mass_source_reference_only": true
+    },
+    "stowed/closed": {
+      "path": "render/out/wayfarer_exterior_B_medical_88ce19fc_stowed_closed.glb",
+      "sha256": "198fbf0dd0007cd82e9f564be7b9b5eb04ea4f29597e9709f5cbb44aac8d8d49",
+      "bytes": 12499076,
+      "mesh_count": 498,
+      "original_mass_source_reference_only": true
+    },
+    "metric_hard/stowed": {
+      "path": "render/out/wayfarer_exterior_B_medical_88ce19fc_metric_hard_stowed.glb",
+      "sha256": "40175bf8ca4b8a0fd7d6c3400bc442182c917ea0095a2db3d81d282fe6abc839",
+      "bytes": 11615656,
+      "mesh_count": 502,
+      "original_mass_source_reference_only": true
+    },
+    "metric_hard/closed": {
+      "path": "render/out/wayfarer_exterior_B_medical_88ce19fc_metric_hard_closed.glb",
+      "sha256": "f3c2b4c92e1cd66351eb27f8df48b76a9f4f4ff9d5823f697167a67caf150a00",
+      "bytes": 12522876,
+      "mesh_count": 502,
+      "original_mass_source_reference_only": true
+    },
+    "torch/stowed": {
+      "path": "render/out/wayfarer_exterior_B_medical_88ce19fc_torch_stowed.glb",
+      "sha256": "a54e78ec084114652c68daf877264c777b8a8582445176a86885baa4f73f7ce8",
+      "bytes": 11709852,
+      "mesh_count": 558,
+      "original_mass_source_reference_only": true
+    },
+    "torch/closed": {
+      "path": "render/out/wayfarer_exterior_B_medical_88ce19fc_torch_closed.glb",
+      "sha256": "0d3bbd84179da80297d96ab21f511d8eb1b02950185d7c459be2269119dfcefc",
+      "bytes": 12617072,
+      "mesh_count": 558,
+      "original_mass_source_reference_only": true
+    }
+  },
+  "source_F3_report": "wayfarer_exterior_B_medical_88ce19fc_report.json",
+  "published_canon_glb_pointer_untouched": true,
+  "published_six_exterior_GLBS_untouched": true,
+  "no_canon_tag_or_release": true
+}

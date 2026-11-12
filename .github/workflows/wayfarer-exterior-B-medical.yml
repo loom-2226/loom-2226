@@ -1,0 +1,140 @@
+name: Wayfarer approved exterior B noncanon WWS1 medical visual GLBs
+on:
+  pull_request:
+    paths:
+      - wayfarer/lab/exterior_medical_B_20261113.py
+      - wayfarer/lab/exterior_B_render_comparison_20261113.py
+      - wayfarer/lab/exterior_B_record_20261113.py
+      - wayfarer/render/loomgl.js
+      - wayfarer/render/views.json
+      - .github/workflows/wayfarer-exterior-B-medical.yml
+permissions:
+  contents: write
+jobs:
+  visual-medical-build:
+    if: startsWith(github.head_ref, 'engineering/wayfarer-exterior-b-medical-')
+    runs-on: ubuntu-latest
+    timeout-minutes: 115
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: engineering/wayfarer-exterior-b-medical-20261113
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Source-pin OCC, frozen G6 and WWS1 geometry basis
+        run: |
+          set -euo pipefail
+          python -m pip install build123d==0.13.0 matplotlib==3.10.7 pillow
+          echo '88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1  wayfarer/results/out/wayfarer_v05_geometry.json' | sha256sum -c -
+          python -m py_compile wayfarer/lab/exterior_medical_B_20261113.py wayfarer/lab/exterior_B_record_20261113.py wayfarer/lab/exterior_B_render_comparison_20261113.py
+          cp wayfarer/lab/packing_phase1b/frozen_research_3p8_forward.step.gz wayfarer/lab/packing_phase1b/current_g3_3p8_forward.step.gz
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          lab=Path('wayfarer/lab/packing_phase1b')
+          frozen=json.loads((lab/'frozen_research_3p8_forward.json').read_text())
+          assert frozen['candidate_pass']
+          g6=frozen['G6']
+          assert g6['candidate_changed_BRep_g_cm2']>=53.29035
+          g6.update(g6_runs_for_v253=1,
+              kT_v253_min_53p39_with_0p1_tolerance_pass=True,
+              v253_band_fit={'fitted_volume_m3':4.896996543367485})
+          (lab/'current_g3_rebuild_report.json').write_text(json.dumps(frozen)+'\n')
+          PY
+      - name: Six-state 21-glazing WWS1 positional visual rebuild + true pressure/armour cuts
+        run: |
+          set -o pipefail
+          python -u wayfarer/lab/exterior_medical_B_20261113.py | tee exterior-B-medical.log
+      - name: Verify 6 actual GLB exports, D9, containment and NO canon release
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,struct,hashlib
+          root=Path('wayfarer')
+          out=root/'render/out'
+          prefix='wayfarer_exterior_B_medical_88ce19fc'
+          r=json.loads((out/(prefix+'_visual_report.json')).read_text())
+          assert r['status']=='VISUAL_EXTERIOR_B_MEDICAL_3X2_D9_CONTAINMENT_PASS'
+          assert r['release_class']=='NON_CANON_WWS1_VISUAL_ONLY'
+          assert r['source_dry_t']==868.1922552640087
+          assert r['ECON_dv_km_s']==707.845
+          assert r['mass_rebooking_t']==0
+          assert r['D9_category_d_total']==0 and r['containment']=='PASS'
+          assert r['G1_G12']=='NOT RUN / NOT REQUIRED'
+          assert r['EVA']['source_frame_x_m']==12.25
+          assert r['EVA']['interior_clear_x_m']==12.3
+          assert abs(r['EVA']['interior_mismatch_axial_m']-.05)<1e-10
+          p=r['medical_ports']
+          assert p['BRep_pressure_and_armour_cuts'] and len(p['actual_solid_intersection_proof'])==6
+          assert all(x['source_cut_volume_m3']>0 and x['solid_after_cut_overlap_m3']<1e-6 for x in p['actual_solid_intersection_proof'])
+          assert len(r['six_states'])==6
+          for key,value in r['six_states'].items():
+            raw=(root/value['path']).read_bytes()
+            assert raw[:4]==b'glTF' and struct.unpack_from('<I',raw,8)[0]==len(raw)
+            n,k=struct.unpack_from('<II',raw,12);assert k==0x4e4f534a
+            obj=json.loads(raw[20:20+n])
+            assert value['sha256']==hashlib.sha256(raw).hexdigest()
+            assert obj['extras']['geometry_status']=='NON_CANON_WWS1_VISUAL_EXTERIOR_OVERLAY'
+            assert obj['extras']['canon_released_assets_untouched']
+            assert obj['extras']['mass_rebooking_t']==0
+            nodes=[x for x in obj['nodes'] if 'mesh' in x]
+            assert len(nodes)==value['mesh_count']
+            assert all(x['extras']['geometry_status']=='NON_CANON_WWS1_VISUAL_EXTERIOR_OVERLAY'
+                       and x['extras']['mass_rebooking_t']==0 for x in nodes)
+          assert (out/'canon_glb.json').exists()
+          print('SIX VISUAL GLBS VALIDATED; SOURCE AND RELEASE POINTER UNCHANGED')
+          PY
+          git diff --exit-code -- wayfarer/results/out/wayfarer_v05_geometry.json wayfarer/config/wayfarer_v05_inputs.json wayfarer/config/kt_decisions.json
+          git diff --exit-code -- wayfarer/render/out/canon_glb.json
+          git diff --exit-code -- wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_*.glb
+          git diff --exit-code -- wayfarer/render/out/interior_L5.glb
+          git diff --exit-code -- wayfarer/lab/crown_geom_v253.py wayfarer/lab/exterior_detail_f3_20261110.py
+      - name: Render actual approved Option B WebGL viewer from unchanged source
+        run: |
+          cd wayfarer/render
+          npm ci --no-audit --no-fund
+          npx playwright install --with-deps chromium
+          node --check loomgl.js
+          node render.js exterior_B_eva exterior_B_medical exterior_B_whole
+      - name: Generate before/after pictures and final report documentation
+        run: |
+          python wayfarer/lab/exterior_B_render_comparison_20261113.py
+          python wayfarer/lab/exterior_B_record_20261113.py
+          git diff --exit-code -- wayfarer/config/kt_decisions.json wayfarer/render/out/canon_glb.json wayfarer/results/out/wayfarer_v05_geometry.json
+      - name: Capture diagnostic on failure, never publish any failed state
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wayfarer-exterior-B-medical-check-evidence
+          path: |
+            exterior-B-medical.log
+            wayfarer/render/out/wayfarer_exterior_B_medical_88ce19fc_visual_report.json
+            wayfarer/render/out/wayfarer_exterior_B_medical_88ce19fc_report.json
+          if-no-files-found: ignore
+      - name: Commit ONLY the six NONCANON GLBs and viewer pictures after all checks
+        run: |
+          set -euo pipefail
+          if git cat-file -e HEAD:wayfarer/render/out/wayfarer_exterior_B_medical_88ce19fc_visual_report.json 2>/dev/null &&
+             git cat-file -e HEAD:wayfarer/docs/WAYFARER_EXTERIOR_B_MEDICAL_BEFORE_AFTER_2026_11_13.png 2>/dev/null; then
+            echo 'Already committed passing visual build; no new GLB byte churn'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add wayfarer/render/out/wayfarer_exterior_B_medical_88ce19fc_*.glb
+          git add wayfarer/render/out/wayfarer_exterior_B_medical_88ce19fc_visual_report.json
+          git add wayfarer/render/out/wayfarer_exterior_B_medical_88ce19fc_report.json
+          git add wayfarer/docs/EXTERIOR_SURFACE_OPTIONS_2026_11_13.md
+          git add wayfarer/docs/WAYFARER_EXTERIOR_B_*_BEFORE_AFTER_2026_11_13.png
+          git add wayfarer/render/out/exterior_B_eva.png wayfarer/render/out/exterior_B_medical.png wayfarer/render/out/exterior_B_whole.png
+          test "$(git ls-files --cached 'wayfarer/render/out/wayfarer_exterior_B_medical_88ce19fc_*.glb' | wc -l)" -eq 6
+          git diff --cached --name-only | grep -E 'canon_glb.json|wayfarer_exterior_detail_88ce19fc|wayfarer_v05_geometry.json' && { echo 'STOP: canon/source touch'; exit 1; } || true
+          if ! git diff --cached --quiet; then
+            git commit -m 'class:asset-media: six noncanon medical BRep GLBs, Option B viewer and comparison evidence'
+            git push origin HEAD:engineering/wayfarer-exterior-b-medical-20261113
+          fi
