@@ -449,7 +449,14 @@ def main():
         contacts=[]
         def intersects(a,b):
             x,x0,x1=a;y,y0,y1=b
-            if np.any(x1<y0-1e-7) or np.any(y1<x0-1e-7):return False
+            # FCL reports triangles sharing a mounting plane as "collision",
+            # although D9 category-d is an actual positive-volume clash.
+            # NAV B3 couch rests against NAV platform at axial X=2.76m
+            # WITHOUT entering its X=2.76..2.86m volume.
+            # A strictly positive overlap along all axes is a NECESSARY
+            # condition for penetration. Keep FCL for every candidate.
+            overlap=np.minimum(x1,y1)-np.maximum(x0,y0)
+            if np.any(overlap<=1e-6):return False
             return fcl.collide(x,y,fcl.CollisionRequest(num_max_contacts=1),
                                fcl.CollisionResult())>0
         for (rid,kind),m in built.items():
