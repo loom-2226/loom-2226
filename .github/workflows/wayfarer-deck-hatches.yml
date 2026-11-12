@@ -1,0 +1,80 @@
+name: Wayfarer approved deck hatches D9 containment
+on:
+  pull_request:
+    paths:
+      - wayfarer/lab/deck_hatches_20261112.py
+      - wayfarer/config/kt_decisions.json
+      - .github/workflows/wayfarer-deck-hatches.yml
+permissions:
+  contents: write
+jobs:
+  hatch-build:
+    if: startsWith(github.head_ref, 'engineering/wayfarer-deck-hatches-')
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: engineering/wayfarer-deck-hatches-20261112
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install BRep and graphics packages
+        run: python -m pip install "build123d==0.13.0" matplotlib numpy
+      - name: Build new leaves, floor bores, and check D9 plus containment
+        run: python -u wayfarer/lab/deck_hatches_20261112.py
+      - name: Verify output and preserve original GLBs
+        run: |
+          python - <<'PY'
+          import json,struct,hashlib
+          from pathlib import Path
+          root=Path("wayfarer/render/out")
+          rpt=json.loads((root/"interior_deck_hatches_report.json").read_text())
+          raw=(root/"interior_deck_hatches.glb").read_bytes()
+          assert rpt["status"]=="DECK_HATCHES_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS"
+          assert rpt["leaf_count"]==4
+          assert rpt["checks"]["D9_category_d"]==0
+          assert rpt["checks"]["containment"]=="PASS"
+          assert rpt["checks"]["medical_door_port_z_clearance_m"]>.15
+          assert rpt["checks"]["G1_G12"]=="NOT RUN / NOT REQUIRED"
+          assert rpt["source_mass_rebooking_t"]==0
+          assert rpt["source_dry_t"]==868.1922552640087
+          assert rpt["ECON_dv_km_s"]==707.845
+          assert all(v["remaining_kg"]>=0 and v["hatches_kg"]==300 for v in rpt["bookings"].values())
+          assert raw[:4]==b"glTF" and struct.unpack_from("<I",raw,8)[0]==len(raw)
+          n,k=struct.unpack_from("<II",raw,12)
+          assert k==0x4e4f534a
+          doc=json.loads(raw[20:20+n])
+          expected={"dry:hatch_L2L3_0","dry:hatch_L2L3_1",
+                    "dry:hatch_L3L4_0","dry:hatch_L3L4_1",
+                    "dry:floor_L2","dry:floor_L3"}
+          nodes=[x for x in doc["nodes"] if "mesh" in x]
+          assert {x["name"] for x in nodes}==expected
+          assert len(doc["meshes"])==6
+          assert all(x["extras"]["mass_basis"]=="source_booking_reference_nonadditive" and
+                     x["extras"]["node_mass_rebooking_t"]==0 for x in nodes)
+          assert rpt["glb_sha256"]==hashlib.sha256(raw).hexdigest()
+          assert Path("wayfarer/docs/WAYFARER_DECK_HATCHES_2026_11_12.png").is_file()
+          print("Four Wayfarer hatches D9=0; containment PASS; no rebooking")
+          PY
+          git diff --quiet -- wayfarer/results/out/wayfarer_v05_geometry.json wayfarer/config/wayfarer_v05_inputs.json
+          git diff --quiet -- wayfarer/render/out/interior_L1.glb wayfarer/render/out/interior_L2.glb
+          git diff --quiet -- wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_*.glb
+      - name: Save failure diagnostic
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wayfarer-hatch-D9-diagnostic
+          path: |
+            wayfarer/render/out/interior_deck_hatches_report.json
+            wayfarer/docs/WAYFARER_DECK_HATCHES_2026_11_12.png
+          if-no-files-found: ignore
+      - name: Commit GLB, check report and verified picture
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add wayfarer/render/out/interior_deck_hatches.glb wayfarer/render/out/interior_deck_hatches_report.json wayfarer/docs/WAYFARER_DECK_HATCHES_2026_11_12.png
+          if ! git diff --cached --quiet; then
+            git commit -m 'class:engineering: deck hatches D9 containment PASS'
+            git push origin HEAD:engineering/wayfarer-deck-hatches-20261112
+          fi
