@@ -1211,10 +1211,8 @@
     "wellness_room": "The L4 storm shelter (L4-shelter) is also the wellness room day to day and switches to shelter mode for storms and radiation events. No separate wellness room.",
     "courier_custody": "L5-custody is the vault for the secure consignment. The L1 courier strongbox (L1_wallfit_u3) is the ready box for the current delivery and the ship's keys, under the captain's control.",
     "open_items": [
-      "L2/L3 and L3/L4 ladderway hatches are not in the source (only L1L2 and L4L5); ladderways assumed at 0 and 180 deg on every deck",
-      "Laundry has no assigned room",
-      "SPEC.md L1 row is stale (says four support couches, x 1.0-3.0); now six B3 stations",
-      "proposal_L1_stations_B3.glb in render/out is superseded by PR #518 and should be deleted"
+      "L2/L3 and L3/L4 hatches have no source geometry or reserved mass; 0/180-degree ladderways remain. Pressure-isolation hardware requires a separate kT design decision; no geometry authorised here.",
+      "Laundry remains unassigned; L4-eclss near existing water/waste processing is a PROPOSAL ONLY (no layout, mass, or build)."
     ],
     "mass_rebooking_t": 0,
     "canon_change": false,
