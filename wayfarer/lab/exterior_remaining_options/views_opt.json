@@ -1,0 +1,337 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "PROPOSAL SKETCH, NON-GOVERNING (F4)",
+ "size": [
+  1600,
+  900
+ ],
+ "views": [
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "exposure": 0.95,
+   "id": "T1",
+   "title": "THRUST CONE 1: Clean (as built)",
+   "caption": "",
+   "eye": [
+    47,
+    -13,
+    8
+   ],
+   "target": [
+    36.5,
+    0,
+    0
+   ],
+   "fov": 36,
+   "sun": [
+    -0.3,
+    -0.6,
+    0.7
+   ],
+   "strakeSpan": 0,
+   "optT": 1,
+   "labels": []
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "exposure": 0.95,
+   "id": "T2",
+   "title": "THRUST CONE 2: Load lines",
+   "caption": "",
+   "eye": [
+    47,
+    -13,
+    8
+   ],
+   "target": [
+    36.5,
+    0,
+    0
+   ],
+   "fov": 36,
+   "sun": [
+    -0.3,
+    -0.6,
+    0.7
+   ],
+   "strakeSpan": 0,
+   "optT": 2,
+   "labels": []
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "exposure": 0.95,
+   "id": "T3",
+   "title": "THRUST CONE 3: Tiles",
+   "caption": "",
+   "eye": [
+    47,
+    -13,
+    8
+   ],
+   "target": [
+    36.5,
+    0,
+    0
+   ],
+   "fov": 36,
+   "sun": [
+    -0.3,
+    -0.6,
+    0.7
+   ],
+   "strakeSpan": 0,
+   "optT": 3,
+   "labels": []
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "exposure": 0.95,
+   "id": "D1",
+   "title": "BAY DOORS 1: B joints cross doors (viewer now)",
+   "caption": "",
+   "eye": [
+    12,
+    -7,
+    13
+   ],
+   "target": [
+    25,
+    0,
+    4.2
+   ],
+   "fov": 34,
+   "sun": [
+    -0.4,
+    -0.3,
+    0.85
+   ],
+   "optD": 1,
+   "labels": []
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "exposure": 0.95,
+   "id": "D2",
+   "title": "BAY DOORS 2: Clean leaves",
+   "caption": "",
+   "eye": [
+    12,
+    -7,
+    13
+   ],
+   "target": [
+    25,
+    0,
+    4.2
+   ],
+   "fov": 34,
+   "sun": [
+    -0.4,
+    -0.3,
+    0.85
+   ],
+   "optD": 2,
+   "labels": []
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "exposure": 0.95,
+   "id": "D3",
+   "title": "BAY DOORS 3: Rings + centre split",
+   "caption": "",
+   "eye": [
+    12,
+    -7,
+    13
+   ],
+   "target": [
+    25,
+    0,
+    4.2
+   ],
+   "fov": 34,
+   "sun": [
+    -0.4,
+    -0.3,
+    0.85
+   ],
+   "optD": 3,
+   "labels": []
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "exposure": 1.3,
+   "id": "R1",
+   "title": "RADIATORS + FINS 1: Clean (as built)",
+   "caption": "",
+   "eye": [
+    30,
+    -15,
+    13
+   ],
+   "target": [
+    37,
+    -6,
+    5
+   ],
+   "fov": 48,
+   "sun": [
+    0.2,
+    -0.6,
+    0.8
+   ],
+   "strakeSpan": 4,
+   "finSpan": 28,
+   "hot": 0,
+   "optR": 1,
+   "labels": []
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "exposure": 1.3,
+   "id": "R2",
+   "title": "RADIATORS + FINS 2: Heat-pipe channels",
+   "caption": "",
+   "eye": [
+    30,
+    -15,
+    13
+   ],
+   "target": [
+    37,
+    -6,
+    5
+   ],
+   "fov": 48,
+   "sun": [
+    0.2,
+    -0.6,
+    0.8
+   ],
+   "strakeSpan": 4,
+   "finSpan": 28,
+   "hot": 0,
+   "optR": 2,
+   "labels": []
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "exposure": 1.3,
+   "id": "R3",
+   "title": "RADIATORS + FINS 3: 2 m segments",
+   "caption": "",
+   "eye": [
+    30,
+    -15,
+    13
+   ],
+   "target": [
+    37,
+    -6,
+    5
+   ],
+   "fov": 48,
+   "sun": [
+    0.2,
+    -0.6,
+    0.8
+   ],
+   "strakeSpan": 4,
+   "finSpan": 28,
+   "hot": 0,
+   "optR": 3,
+   "labels": []
+  }
+ ]
+}
