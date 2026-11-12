@@ -344,6 +344,26 @@ def main(on_model_ready=None, medical_port_visual_overlay=False):
         for cutter in glazing_cutters:
             targets[key] = targets[key] - cutter
         assert targets[key].is_valid and targets[key].volume>0
+    if medical_port_visual_overlay:
+        # Directly screen REAL positive source shell/armour material
+        # removed at each of the three approved new apertures. The exported
+        # replacements must have zero residual wall inside the cutters.
+        port_indices=[i for i,f in enumerate(glazing_source["features"])
+                      if f["kind"]=="window" and f["room"]=="L4-medical"]
+        assert port_indices==[4,5,6],port_indices
+        proof=[]
+        for key in ("pressure_vessel","armor"):
+            for idx in port_indices:
+                tool=glazing_cutters[idx]
+                pre=original[key] & tool
+                post=targets[key] & tool
+                old_m3=0 if pre is None else float(pre.volume)
+                remain_m3=0 if post is None else float(post.volume)
+                assert old_m3>1e-5,(key,idx,old_m3)
+                assert remain_m3<1e-6,(key,idx,remain_m3)
+                proof.append(dict(source=key,medical_window_index=idx,
+                    material_bored_m3=old_m3,residual_m3=remain_m3))
+        glazing_report["medical_visual_overlay"]["actual_BRep_cut_proof"]=proof
     mass_removal={}
     for key in ("pressure_vessel","armor"):
         pre=float(original[key].volume);post=float(targets[key].volume)
