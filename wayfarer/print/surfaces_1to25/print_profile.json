@@ -1,0 +1,30 @@
+{
+  "_note": "ALL bodies. ALL sponsors. 2026-2226. Wayfarer 1:25 surface print profile. Edit 'active' or the numbers, then run: python3 surfaces.py. Every surface tile regenerates.",
+  "scale": "1:25 (1 mm print = 25 mm real)",
+  "printer": "Bambu Lab A2L (FDM)",
+  "active": "stock_0p4",
+  "profiles": {
+    "stock_0p4": {
+      "status": "PLACEHOLDER - best guess, untested. Replace with test-sheet results once printed.",
+      "nozzle_mm": 0.4,
+      "layer_mm": 0.08,
+      "min_raised_mm": 0.45,
+      "min_groove_mm": 0.5,
+      "min_slot_mm": 0.6,
+      "min_hole_dia_mm": 1.0,
+      "min_relief_mm": 0.16,
+      "basis": "Bambu A2L stock nozzle: one 0.42 mm extrusion is the narrowest raised line; grooves and slots need more than a line width to stay open; relief below 2 layers vanishes under ironing."
+    },
+    "fine_0p2": {
+      "status": "PLACEHOLDER - best guess for an optional 0.2 mm nozzle, untested.",
+      "nozzle_mm": 0.2,
+      "layer_mm": 0.08,
+      "min_raised_mm": 0.25,
+      "min_groove_mm": 0.3,
+      "min_slot_mm": 0.35,
+      "min_hole_dia_mm": 0.6,
+      "min_relief_mm": 0.12,
+      "basis": "0.2 mm nozzle roughly halves line width; relief floor drops to about 1.5 layers."
+    }
+  }
+}
