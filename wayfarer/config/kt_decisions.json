@@ -1122,5 +1122,54 @@
       "ECON_dv_km_s": 707.845,
       "legacy_516_tablet": "NOT IMPORTED"
     }
+  },
+  "l1_wallfit_2026_11_12": {
+    "authority": "kT APPROVED Claude PR #520 (faab39c) wall-fit seven-unit design and source generator",
+    "date": "2026-11-12",
+    "source": "wayfarer/lab/l1_wallfit_generator.py; wayfarer/docs/L1_WALLFIT_PROPOSAL_2026_11_12.md",
+    "units": [
+      [
+        "u1_spares_tools",
+        96
+      ],
+      [
+        "u2_watch_galley",
+        52
+      ],
+      [
+        "u3_courier_strongbox",
+        60
+      ],
+      [
+        "u4_emergency_left",
+        40
+      ],
+      [
+        "u5_backup_panel",
+        30
+      ],
+      [
+        "u6_emergency_right",
+        40
+      ],
+      [
+        "u7_wall_lining",
+        40
+      ]
+    ],
+    "booked_mass_owner": "outfit_L1",
+    "booked_outfit_L1_t": 0.8189629850273704,
+    "estimated_allocated_t": 0.358,
+    "estimated_unallocated_t": 0.4609629850273704,
+    "mass_rebooking_t": 0,
+    "room_L1_command_source_owner_t": 2.1497778356968475,
+    "room_L1_command_interpretation": "Separate source ENGINEERING_ASSUMPTION command/navigation room-level mass allowance for the room's overall provisions, not a furniture-item inventory; exact breakdown not provided by source. Must not be spent or reassigned for wall-fit.",
+    "reference_b3": "l1_station_b3_merge_2026_11_12: six stations, halo animation both modes unchanged",
+    "geometry": "7 visually distinct wallfit units, h0..0.95m and radial 3.755..4.00m below window zone; U7 dome-following lining; same exact #520 palette; no new fixture/station positions",
+    "output": "wayfarer/render/out/interior_L1.glb ONLY; delete superseded proposal_L1_wallfit.glb",
+    "checks": "D9 category-d and inner pressure-shell containment, halo closed and centre-back/wings-open. No G1-G12. STOP on any D9 clash or estimate exceeding outfit_L1 allocation; preserve SVG diagnostic.",
+    "dry_t": 868.1922552640087,
+    "ECON_dv_km_s": 707.845,
+    "status": "kT approved; seven-unit import pending D9/containment"
   }
 }
