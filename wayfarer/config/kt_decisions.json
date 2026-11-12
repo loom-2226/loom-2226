@@ -1216,7 +1216,7 @@
     "mass_rebooking_t": 0,
     "canon_change": false,
     "G1_G12": "NOT RUN",
-    "hatch_resolution": "BUILT / D9 category-d zero / containment PASS in PR #526: deck_hatches_2026_11_12. Four kT-approved L1L2-copy leaves and two cut visual deck-floor solids; no source dry or exterior changes."
+    "hatch_resolution": "BUILT in PR #528: kT L2/L3 hatch flip upward x4.68-5.60m; L3/L4 unchanged. D9 category-d 0, verified against 29 L2 GLB mesh nodes and 127,432 triangles (minimum conservative clearance bound 67.762mm at G2); containment PASS. Dry and bookings unchanged."
   },
   "l2_common_deck_japandi_2026_11_12": {
     "authority": "kT APPROVED 2026-11-12, with Nicole, Claude's pass-2 organic Japandi L2 design PR #523 (6281116)",
@@ -1289,21 +1289,21 @@
     }
   },
   "deck_hatches_2026_11_12": {
-    "authority": "kT APPROVED 2026-11-12. ALL bodies. ALL sponsors. 2026-2226.",
-    "decision": "Copy hatch_L1L2_0 and hatch_L1L2_1 exactly, translated aft +2.60m and +5.20m to L2/L3 and L3/L4. Normally open, leaf into deck below; pressure boundary separation intended for fire, leaks, shelter.",
+    "authority": "kT APPROVED 2026-11-12, amended by kT L2/L3 HATCH FLIP 2026-11-12. ALL bodies. ALL sponsors. 2026-2226.",
+    "decision": "L2/L3 leaves open UP into L2 from hinge at floor x=5.60, parked x=4.68-5.60 (h=0-0.92m), forming ladder guards; exact original y/z and 0.92m dimensions. L3/L4 leaves unchanged, open into L4 at x=8.20-9.12. Normally open with intended compartment isolation.",
     "geometry": {
       "hatch_L2L3_0": {
         "x_m": [
-          5.6,
-          6.52
+          4.68,
+          5.6
         ],
         "source": "hatch_L1L2_0",
         "owner": "outfit_L2"
       },
       "hatch_L2L3_1": {
         "x_m": [
-          5.6,
-          6.52
+          4.68,
+          5.6
         ],
         "source": "hatch_L1L2_1",
         "owner": "outfit_L2"
@@ -1325,7 +1325,7 @@
         "owner": "outfit_L4"
       }
     },
-    "leaf_coordinates": "Copy L1L2: id 0 negative Y (180 degrees), id 1 positive Y (0 degrees); Y ±1.83..1.89 m, Z ±0.46 m; 0.92 m long, 0.06 m thick. L2 and L3 floors have the existing two 0.80 m ladder holes explicitly cut from new visual BReps as on L1. No floor mass saving.",
+    "leaf_coordinates": "Copied L1L2 leaf box dimensions 0.92x0.06x0.92 m; id 0 negative Y (180 degrees), id 1 positive Y (0 degrees), Y ±1.83..1.89 and Z ±0.46. L2/L3 hinge at x=5.60 with leaf UP into L2, x=4.68–5.60; L3/L4 unchanged into L4. Floor_L2 and floor_L3 bores Ø0.80m retained, zero mass credit.",
     "booked_mass_kg": {
       "outfit_L2": 818.9629850273705,
       "outfit_L4": 818.9629850273705
@@ -1347,13 +1347,13 @@
     "mass_rebooking_t": 0,
     "dry_t": 868.1922552640087,
     "ECON_dv_km_s": 707.845,
-    "D9_scope": "four new physical leaves vs every physically represented source fixture and one another; floor mounting matches original L1/L2 category-c attachment; source room/outfit are semantic booking volumes",
-    "watch": "L3/L4 leaf at 180 degrees vs doors_L4-medical has 0.1517525275 m Z gap. L3 semantic room zone starts at r1.9; parked leaf max r1.945 (45mm corner incursion), not a demonstrated collision with berth hardware. Berth/partition solid clearance unqualified until drawn.",
+    "D9_scope": "D9 four leaves vs actual source physical fixtures AND flipped L2/L3 leaves vs every instanced physical mesh in interior_L2.glb; floor contact and containment; G1-G12 not required",
+    "watch": "Previously L2/L3 leaves into L3 conflicted with guest/crew washroom doors and upper berth clearance; flip eliminates that L3 obstruction. New L2 watch G2 galley column ~0.06m estimated by Claude, must verify against real L2 GLB, all meshes. L3/L4 leaf versus doors_L4-medical remains ~0.15175m Z gap.",
     "checks": "D9 clash plus containment only. G1-G12 NOT RUN.",
     "output": "wayfarer/render/out/interior_deck_hatches.glb, independent from exterior and L1/L2 GLBs; visual cut-floor replacements must not be double-drawn against original uncut source proxies; viewer unchanged because exterior six-state GLB unchanged",
     "physical_qualification": "No tested pressure seal, closing torque, fire or leak certification. This is a booked visual model of accepted design.",
-    "status": "BUILT: DECK_HATCHES_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS",
-    "build_evidence": {
+    "status": "BUILT: L2L3_UPWARD_FLIP_D9_CATEGORY_D_ZERO_L2_GLTF_ZERO_CONTAINMENT_PASS",
+    "previous_build_evidence": {
       "integration_pr": 526,
       "glb": "wayfarer/render/out/interior_deck_hatches.glb",
       "report": "wayfarer/render/out/interior_deck_hatches_report.json",
@@ -1373,6 +1373,57 @@
       "viewer_source_changed": false,
       "exterior_state_changes": 0,
       "notes": "Pressure sealing/actuation and undrawn L3 berths/partitions unqualified; visual floor cut is mass neutral."
+    },
+    "hatch_flip_2026_11_12": {
+      "approved_by": "kT",
+      "date": "2026-11-12",
+      "L2L3_old_x_m": [
+        5.6,
+        6.52
+      ],
+      "L2L3_new_x_m": [
+        4.68,
+        5.6
+      ],
+      "L3L4_unchanged_x_m": [
+        8.2,
+        9.12
+      ],
+      "mass_and_booking_unchanged": true,
+      "source_glb_to_screen": "wayfarer/render/out/interior_L2.glb",
+      "source_glb_sha256": "50028743262fddc747236f3d5efedbfcd9dc0a84c7a802f93ab01de5491ebeba",
+      "critical_stop": "D9 category-d clash in L2; no moved furniture or new mass"
+    },
+    "build_evidence": {
+      "integration_pr": 528,
+      "glb": "wayfarer/render/out/interior_deck_hatches.glb",
+      "report": "wayfarer/render/out/interior_deck_hatches_report.json",
+      "picture": "wayfarer/docs/WAYFARER_DECK_HATCHES_2026_11_12.png",
+      "glb_sha256": "48136f27c06f89f317b04a175c6e248285113ffa80be30cc5659870909c40b00",
+      "L2_original_glb_sha256": "50028743262fddc747236f3d5efedbfcd9dc0a84c7a802f93ab01de5491ebeba",
+      "L2_GLTF_mesh_nodes_screened": 29,
+      "L2_GLTF_triangles_screened": 127432,
+      "L2_furniture_D9_clashes": 0,
+      "G2_water_run_nearest_triangle_AABB_lower_bound_m": 0.067762,
+      "G2_water_run_nearest_vertex_upper_bound_m": 0.076304,
+      "D9_category_d": 0,
+      "containment": "PASS",
+      "L2L3_x_m": [
+        4.68,
+        5.6
+      ],
+      "L3L4_x_m": [
+        8.2,
+        9.12
+      ],
+      "L3L4_medical_z_clearance_m": 0.15175252749023277,
+      "dry_t": 868.1922552640087,
+      "ECON_dv_km_s": 707.845,
+      "mass_rebooking_t": 0,
+      "exterior_changes": 0,
+      "L1_L2_original_GLB_changes": 0,
+      "viewer_source_changed": false,
+      "G1_G12": "NOT RUN / NOT REQUIRED"
     }
   }
 }
