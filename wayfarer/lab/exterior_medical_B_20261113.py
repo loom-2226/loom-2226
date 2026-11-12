@@ -84,7 +84,7 @@ def main():
                                   new_x_m=9.30,diameter_m=f["d_m"]))
             else:
                 features.append(f)
-        assert len(moved)==3 and [x["azimuth_deg"] for x in moved]==[180,210,240]
+        assert len(moved)==3 and all(abs(row["azimuth_deg"]-a)<1e-6 for row,a in zip(moved,(180,210,240)))
         g_visual={**g,"features":features}
         parts,cutters,report=source_glazing(g_visual,cfg,spare)
         assert len(cutters)==26
