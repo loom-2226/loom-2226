@@ -1248,9 +1248,15 @@
       "room_L2-observation": 95,
       "room_L2-exercise": 410,
       "room_L2-hygiene": 215,
-      "outfit_L2": 60
+      "outfit_L2": 145
     },
-    "estimated_total_kg": 1325,
+    "estimated_total_kg": 1410,
+    "outfit_L2_estimate_breakdown_kg": {
+      "D3_lining": 80,
+      "G0_wall": 5,
+      "D1_cove_light": 30,
+      "D2_overhead_rail": 30
+    },
     "mass_basis": "source_booking_reference_nonadditive",
     "mass_rebooking_t": 0,
     "dry_t": 868.1922552640087,
