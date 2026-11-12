@@ -1,0 +1,91 @@
+name: Wayfarer L5 kT source hatches and approved interior D9
+on:
+  pull_request:
+    paths:
+      - wayfarer/lab/l5_deck/**
+      - wayfarer/config/kt_decisions.json
+      - .github/workflows/wayfarer-L5-interior.yml
+permissions:
+  contents: write
+jobs:
+  l5-build:
+    if: startsWith(github.head_ref, 'engineering/wayfarer-l5-approved-build-')
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: engineering/wayfarer-l5-approved-build-20261112
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install BRep and approved-GLB dependencies
+        run: python -m pip install "build123d==0.13.0" numpy matplotlib pillow
+      - name: Step 1 cut closed EVA pressure/armour and tunnel bulkhead; D9 containment
+        run: python -u wayfarer/lab/l5_deck/source5.py
+      - name: Step 2 build approved L5 independent interior from 23 groups, D9 budget containment
+        run: python -u wayfarer/lab/l5_deck/integrate5.py
+      - name: Verify authored nodes, bookings and prior mass source are untouched
+        run: |
+          python - <<'PY'
+          import json,struct,hashlib
+          from pathlib import Path
+          out=Path('wayfarer/render/out')
+          source=json.loads((out/'interior_L5_source_report.json').read_text())
+          r=json.loads((out/'interior_L5_report.json').read_text())
+          assert source['status']=='L5_SOURCE_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS'
+          assert source['checks']['D9_category_d']==0
+          assert source['checks']['containment']=='PASS'
+          assert source['EVA']['closed_geometric_pressure_continuity']=='PASS'
+          assert source['EVA']['closed_geometric_armour_thickness_equivalence']=='PASS'
+          assert source['tunnel']['closed_geometric_bulkhead_continuity']=='PASS'
+          assert source['tunnel']['item_estimated_kg']==150
+          assert r['status']=='L5_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS'
+          assert r['source_groups']==23
+          assert r['checks']['D9_category_d']==0 and r['checks']['containment']=='PASS'
+          assert r['checks']['G1_G12']=='NOT RUN / NOT REQUIRED'
+          assert not r['booking_exceeded']
+          assert r['estimated_drawn_kg']['room_L5-custody']==410
+          assert r['estimated_drawn_kg']['room_L5-vestibule']==180
+          assert r['estimated_drawn_kg']['outfit_L5']==145
+          assert r['source_mass_rebooking_t']==0 and source['source_mass_rebooking_t']==0
+          assert r['source_dry_t']==868.1922552640087 and r['ECON_dv_km_s']==707.845
+          assert all(r['estimated_drawn_kg'][k]<=v for k,v in r['booking_kg'].items())
+          assert all(v['count']>=2 for v in r['instance_repeats'].values())
+          assert len(r['P0_room_nodes'])>=5
+          raw=(out/'interior_L5.glb').read_bytes()
+          assert raw[:4]==b'glTF' and struct.unpack_from('<I',raw,8)[0]==len(raw)
+          n,t=struct.unpack_from('<II',raw,12);assert t==0x4e4f534a
+          gl=json.loads(raw[20:20+n])
+          nodes=[x for x in gl['nodes'] if 'mesh' in x]
+          assert len(nodes)==r['glb_mesh_nodes']
+          assert all(x['extras']['source_mass_owner_id'] in r['booking_kg']
+                     and x['extras']['mass_basis']=='source_booking_reference_nonadditive'
+                     and x['extras']['node_mass_rebooking_t']==0 for x in nodes)
+          assert all('NORMAL' in p['attributes'] for m in gl['meshes'] for p in m['primitives'])
+          assert r['glb_sha256']==hashlib.sha256(raw).hexdigest()
+          assert Path('wayfarer/docs/WAYFARER_L5_D9_2026_11_12.png').is_file()
+          print('L5 PASS',len(nodes),'mesh nodes, 23 source groups, D9=0, no mass rebooking')
+          PY
+          git diff --quiet -- wayfarer/results/out/wayfarer_v05_geometry.json wayfarer/config/wayfarer_v05_inputs.json
+          git diff --quiet -- wayfarer/render/out/interior_L1.glb wayfarer/render/out/interior_L2.glb
+          git diff --quiet -- wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_*.glb
+      - name: Preserve D9 or booking stop evidence
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Wayfarer-L5-D9-stop-evidence
+          path: |
+            wayfarer/render/out/interior_L5_source_report.json
+            wayfarer/render/out/interior_L5_report.json
+          if-no-files-found: ignore
+      - name: Commit accepted L5 GLB, source proof, report, picture and delete proposal
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add wayfarer/render/out/interior_L5.glb wayfarer/render/out/interior_L5_source_report.json wayfarer/render/out/interior_L5_report.json wayfarer/docs/WAYFARER_L5_D9_2026_11_12.png
+          git rm -f wayfarer/render/out/proposal_L5.glb
+          if ! git diff --cached --quiet; then
+            git commit -m 'class:engineering: kT approved L5 source hatches + 23-group D9 PASS; delete proposal'
+            git push origin HEAD:engineering/wayfarer-l5-approved-build-20261112
+          fi
