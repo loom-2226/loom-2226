@@ -1211,12 +1211,12 @@
     "wellness_room": "The L4 storm shelter (L4-shelter) is also the wellness room day to day and switches to shelter mode for storms and radiation events. No separate wellness room.",
     "courier_custody": "L5-custody is the vault for the secure consignment. The L1 courier strongbox (L1_wallfit_u3) is the ready box for the current delivery and the ship's keys, under the captain's control.",
     "open_items": [
-      "L2/L3 and L3/L4 hatches have no source geometry or reserved mass; 0/180-degree ladderways remain. Pressure-isolation hardware requires a separate kT design decision; no geometry authorised here.",
       "Laundry remains unassigned; L4-eclss near existing water/waste processing is a PROPOSAL ONLY (no layout, mass, or build)."
     ],
     "mass_rebooking_t": 0,
     "canon_change": false,
-    "G1_G12": "NOT RUN"
+    "G1_G12": "NOT RUN",
+    "hatch_resolution": "BUILT / D9 category-d zero / containment PASS in PR #526: deck_hatches_2026_11_12. Four kT-approved L1L2-copy leaves and two cut visual deck-floor solids; no source dry or exterior changes."
   },
   "l2_common_deck_japandi_2026_11_12": {
     "authority": "kT APPROVED 2026-11-12, with Nicole, Claude's pass-2 organic Japandi L2 design PR #523 (6281116)",
@@ -1286,6 +1286,93 @@
       "source_mass_delta_t": 0,
       "exterior_state_modifications": 0,
       "old_proposal_deleted": "wayfarer/render/out/proposal_L2_japandi.glb"
+    }
+  },
+  "deck_hatches_2026_11_12": {
+    "authority": "kT APPROVED 2026-11-12. ALL bodies. ALL sponsors. 2026-2226.",
+    "decision": "Copy hatch_L1L2_0 and hatch_L1L2_1 exactly, translated aft +2.60m and +5.20m to L2/L3 and L3/L4. Normally open, leaf into deck below; pressure boundary separation intended for fire, leaks, shelter.",
+    "geometry": {
+      "hatch_L2L3_0": {
+        "x_m": [
+          5.6,
+          6.52
+        ],
+        "source": "hatch_L1L2_0",
+        "owner": "outfit_L2"
+      },
+      "hatch_L2L3_1": {
+        "x_m": [
+          5.6,
+          6.52
+        ],
+        "source": "hatch_L1L2_1",
+        "owner": "outfit_L2"
+      },
+      "hatch_L3L4_0": {
+        "x_m": [
+          8.2,
+          9.12
+        ],
+        "source": "hatch_L1L2_0",
+        "owner": "outfit_L4"
+      },
+      "hatch_L3L4_1": {
+        "x_m": [
+          8.2,
+          9.12
+        ],
+        "source": "hatch_L1L2_1",
+        "owner": "outfit_L4"
+      }
+    },
+    "leaf_coordinates": "Copy L1L2: id 0 negative Y (180 degrees), id 1 positive Y (0 degrees); Y ±1.83..1.89 m, Z ±0.46 m; 0.92 m long, 0.06 m thick. L2 and L3 floors have the existing two 0.80 m ladder holes explicitly cut from new visual BReps as on L1. No floor mass saving.",
+    "booked_mass_kg": {
+      "outfit_L2": 818.9629850273705,
+      "outfit_L4": 818.9629850273705
+    },
+    "estimated_previous_draw_kg": {
+      "outfit_L2": 145,
+      "outfit_L4": 0
+    },
+    "new_hatch_draw_kg": {
+      "outfit_L2": 300,
+      "outfit_L4": 300
+    },
+    "estimated_remaining_kg": {
+      "outfit_L2": 373.9629850273705,
+      "outfit_L4": 518.9629850273705
+    },
+    "estimated_total_hatches_kg": 600,
+    "mass_basis": "source_booking_reference_nonadditive",
+    "mass_rebooking_t": 0,
+    "dry_t": 868.1922552640087,
+    "ECON_dv_km_s": 707.845,
+    "D9_scope": "four new physical leaves vs every physically represented source fixture and one another; floor mounting matches original L1/L2 category-c attachment; source room/outfit are semantic booking volumes",
+    "watch": "L3/L4 leaf at 180 degrees vs doors_L4-medical has 0.1517525275 m Z gap. L3 semantic room zone starts at r1.9; parked leaf max r1.945 (45mm corner incursion), not a demonstrated collision with berth hardware. Berth/partition solid clearance unqualified until drawn.",
+    "checks": "D9 clash plus containment only. G1-G12 NOT RUN.",
+    "output": "wayfarer/render/out/interior_deck_hatches.glb, independent from exterior and L1/L2 GLBs; visual cut-floor replacements must not be double-drawn against original uncut source proxies; viewer unchanged because exterior six-state GLB unchanged",
+    "physical_qualification": "No tested pressure seal, closing torque, fire or leak certification. This is a booked visual model of accepted design.",
+    "status": "BUILT: DECK_HATCHES_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS",
+    "build_evidence": {
+      "integration_pr": 526,
+      "glb": "wayfarer/render/out/interior_deck_hatches.glb",
+      "report": "wayfarer/render/out/interior_deck_hatches_report.json",
+      "picture": "wayfarer/docs/WAYFARER_DECK_HATCHES_2026_11_12.png",
+      "glb_sha256": "f2e7aa593415988b7d404f15c38b0724406b7321a401fd13ac478c4b901c6d9a",
+      "hatch_mesh_nodes": 4,
+      "independent_floor_meshes": 2,
+      "floor_bore_diameter_m": 0.8,
+      "bores_per_boundary": 2,
+      "D9_category_d": 0,
+      "containment": "PASS",
+      "medical_180_z_clearance_m": 0.15175252749023277,
+      "nonphysical_L3_semantic_room_corner_intrusion_m": 0.04517351411127324,
+      "source_dry_t": 868.1922552640087,
+      "ECON_dv_km_s": 707.845,
+      "mass_rebooking_t": 0,
+      "viewer_source_changed": false,
+      "exterior_state_changes": 0,
+      "notes": "Pressure sealing/actuation and undrawn L3 berths/partitions unqualified; visual floor cut is mass neutral."
     }
   }
 }

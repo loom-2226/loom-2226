@@ -1,0 +1,119 @@
+{
+  "status": "DECK_HATCHES_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS",
+  "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+  "source_dry_t": 868.1922552640087,
+  "ECON_dv_km_s": 707.845,
+  "source_mass_rebooking_t": 0,
+  "leaf_count": 4,
+  "source_copy": "hatch_L1L2_0/1 translated in X",
+  "bookings": {
+    "outfit_L2": {
+      "booked_kg": 818.9629850273705,
+      "previous_drawn_kg": 145,
+      "hatches_kg": 300,
+      "remaining_kg": 373.96298502737045
+    },
+    "outfit_L4": {
+      "booked_kg": 818.9629850273705,
+      "previous_drawn_kg": 0,
+      "hatches_kg": 300,
+      "remaining_kg": 518.9629850273705
+    }
+  },
+  "hatches": {
+    "hatch_L2L3_0": {
+      "shape": {
+        "k": "box",
+        "x0": 5.6,
+        "x1": 6.52,
+        "y0": -1.89,
+        "y1": -1.8299999999999998,
+        "z0": -0.46,
+        "z1": 0.46
+      },
+      "mass_owner": "outfit_L2",
+      "source": "hatch_L1L2_0",
+      "floor_mount_m3": 0.016560000000000005,
+      "mass_estimate_kg": 150
+    },
+    "hatch_L2L3_1": {
+      "shape": {
+        "k": "box",
+        "x0": 5.6,
+        "x1": 6.52,
+        "y0": 1.8299999999999998,
+        "y1": 1.89,
+        "z0": -0.46,
+        "z1": 0.46
+      },
+      "mass_owner": "outfit_L2",
+      "source": "hatch_L1L2_1",
+      "floor_mount_m3": 0.016560000000000005,
+      "mass_estimate_kg": 150
+    },
+    "hatch_L3L4_0": {
+      "shape": {
+        "k": "box",
+        "x0": 8.2,
+        "x1": 9.120000000000001,
+        "y0": -1.89,
+        "y1": -1.8299999999999998,
+        "z0": -0.46,
+        "z1": 0.46
+      },
+      "mass_owner": "outfit_L4",
+      "source": "hatch_L1L2_0",
+      "floor_mount_m3": 0.016560000000000054,
+      "mass_estimate_kg": 150
+    },
+    "hatch_L3L4_1": {
+      "shape": {
+        "k": "box",
+        "x0": 8.2,
+        "x1": 9.120000000000001,
+        "y0": 1.8299999999999998,
+        "y1": 1.89,
+        "z0": -0.46,
+        "z1": 0.46
+      },
+      "mass_owner": "outfit_L4",
+      "source": "hatch_L1L2_1",
+      "floor_mount_m3": 0.016560000000000054,
+      "mass_estimate_kg": 150
+    }
+  },
+  "floors": {
+    "floor_L2": {
+      "bore_count": 2,
+      "bore_diameter_m": 0.8,
+      "visual_removed_m3": 0.3015928947446209,
+      "floor_mass_credit_t": 0
+    },
+    "floor_L3": {
+      "bore_count": 2,
+      "bore_diameter_m": 0.8,
+      "visual_removed_m3": 0.30159289474461914,
+      "floor_mass_credit_t": 0
+    }
+  },
+  "checks": {
+    "D9_category_d": 0,
+    "D9_contacts": [],
+    "physical_source_pairs_screened": 0,
+    "floor_mount_category": "c: identical to L1L2 source leaf/floor mount",
+    "medical_door_port_z_clearance_m": 0.15175252749023277,
+    "L3_semantic_room_zone_corner_intrusion_m": 0.04517351411127324,
+    "L3_berths_and_partitions": "NOT PHYSICALLY DRAWN; no independent clearance qualified",
+    "min_inner_pressure_radius_clearance_m": 2.3248264858887264,
+    "containment": "PASS",
+    "G1_G12": "NOT RUN / NOT REQUIRED"
+  },
+  "exterior_six_state_changes": 0,
+  "previous_L1_L2_glb_changes": 0,
+  "viewer_source_changed": false,
+  "glb": "render/out/interior_deck_hatches.glb",
+  "glb_sha256": "f2e7aa593415988b7d404f15c38b0724406b7321a401fd13ac478c4b901c6d9a",
+  "glb_bytes": 352268,
+  "mesh_nodes": 6,
+  "picture": "docs/WAYFARER_DECK_HATCHES_2026_11_12.png"
+}
