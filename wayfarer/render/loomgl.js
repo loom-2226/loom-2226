@@ -731,6 +731,44 @@ float seamLongM(float x,float deg,float r){
   }
   return radians(d)*r;
 }
+// kT APPROVED 2026-11-13: B tile lines are surface DEMARCATIONS ONLY.
+float seamRingB(float x){
+  float d=seamRingM(x);
+  if(x>2.6 && x<14.0){
+    d=min(d,abs(x-4.3)); d=min(d,abs(x-6.9));
+    d=min(d,abs(x-9.5)); d=min(d,abs(x-12.1)); d=min(d,abs(x-13.4));
+  }
+  if(x>=14.0 && x<=34.1){
+    for(int i=0;i<10;i++) d=min(d,abs(x-(15.0+2.0*float(i))));
+  }
+  return d;
+}
+float seamLongB(float x,float deg,float r){
+  float d=seamLongM(x,deg,r);
+  if(x>=2.35 && x<=34.3){
+    float a=mod(deg,20.0); d=min(d,radians(min(a,20.0-a))*r);
+  }
+  return d;
+}
+float azGapB(float a,float b){return abs(mod(a-b+180.0,360.0)-180.0);}
+float frameB(float x,float deg,float r){
+  float d=10000.0;
+  // Existing EVA source frame Ø1.1m at x12.25 (clear interior hatch Ø1.0).
+  float dx=x-12.25,ds=radians(azGapB(deg,0.0))*r;
+  float q=length(vec2(dx,ds));
+  d=min(d,abs(q-.55)); d=min(d,abs(q-.70));
+  for(int k=0;k<8;k++){
+    float a=float(k)*.7853981634;
+    d=min(d,abs(length(vec2(dx,ds)-.625*vec2(cos(a),sin(a)))-.03));
+  }
+  for(int k=0;k<3;k++){
+    float az=180.0+30.0*float(k);
+    float xx=x-9.30,yy=radians(azGapB(deg,az))*r;
+    d=min(d,abs(length(vec2(xx,yy))-.92));
+  }
+  // Print-only C details deliberately excluded from the viewer.
+  return d;
+}
 float hsh(vec2 p){ return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453); }
 float sh(vec3 n){
   if(uShOn<0.5) return 1.0;
@@ -764,12 +802,19 @@ void main(){
     else if(uCold<0.5){ base=vec3(0.76,0.765,0.75)*(0.95+0.08*h1); M=0.0; R=0.55+0.12*h2; }
     else { base=vec3(0.80,0.81,0.83)*(0.95+0.07*h1); M=1.0; R=0.22+0.08*h2; }
     if(uSkinMat<1.5){
-      float sa=seamRingM(x), sc=seamLongM(x,deg,rr);
-      float wa=0.008+fwidth(x)*1.2, wc=0.008+fwidth(s)*1.2;
-      float ga=(1.0-smoothstep(0.0,wa,sa))*min(1.0,0.008/wa), gc=(1.0-smoothstep(0.0,wc,sc))*min(1.0,0.008/wc);
+      float sa=seamRingB(x), sc=seamLongB(x,deg,rr);
+      float gw=.025; // shaded nominal 50 mm line; no actual armour gap
+      float wa=gw+fwidth(x)*1.2, wc=gw+fwidth(s)*1.2;
+      float ga=(1.0-smoothstep(0.0,wa,sa))*min(1.0,.008/wa), gc=(1.0-smoothstep(0.0,wc,sc))*min(1.0,.008/wc);
       if(bow){ ga=0.0; gc*=0.5; }
-      n=normalize(n-Ta*sign(sa)*ga*0.6-Tc*sign(sc)*gc*0.6);
-      base=mix(base,base*0.55,max(ga,gc)*0.85);
+      n=normalize(n-Ta*sign(sa)*ga*.6-Tc*sign(sc)*gc*.6);
+      base=mix(base,base*.55,max(ga,gc)*.85);
+      if(!bow){
+        float dist=frameB(x,deg,rr);
+        float wf=gw+fwidth(s)*1.2;
+        float f=(1.0-smoothstep(0.0,wf,dist))*min(1.0,gw/wf);
+        base=mix(base,base*.45,f*.9);
+      }
     }
   }
   if(uKind==9){ float f=pow(1.0-abs(dot(n,v)),1.5); float t=clamp((vShip.x-uLen)/70.0,0.0,1.0);
@@ -886,7 +931,19 @@ export const V3 = {sub, dot, crs, norm};
 // ------------------------------------------------------------ scene
 export class Ship {
   constructor(canvas, geo, opts = {}) {
-    this.cv = canvas; this.geo = geo; this.xc = geo.length_m / 2;
+    this.cv = canvas;
+    // Renderer-local WWS-1 overlay, never changes source geometry or mass.
+    let medical=0;
+    const features=(geo.features||[]).map(f=>{
+      if(f.kind!=="window" || f.room!=="L4-medical") return f;
+      if(Math.abs(f.pos[0]-9.10)>1e-8 || Math.abs(f.d_m-1.55)>1e-8)
+        throw new Error("STOP medical port source differs from approved basis");
+      medical++;
+      return {...f,pos:[9.30,f.pos[1],f.pos[2]]};
+    });
+    if(medical!==3) throw new Error("STOP expected three medical features");
+    this.geo={...geo,features};
+    this.xc = geo.length_m / 2;
     const gl = canvas.getContext("webgl2", {antialias: true, preserveDrawingBuffer: true});
     if (!gl) throw new Error("WebGL2 not available");
     this.gl = gl;
