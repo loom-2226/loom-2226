@@ -210,15 +210,43 @@ def main():
     for it in sorted(items):
         if it in REPEATS:
             angles=REPEATS[it]
-            ref,repeat=split_repeat(items[it],angles)
-            local={m:rotate(v,-ref) for m,v in repeat[ref].items()}
-            mesh=gl.mesh(it+"_SHARED",local,mi)
-            instances[it]=dict(count=len(angles),mesh_index=mesh)
-            for ix,a in enumerate(angles,1):
-                rad=math.radians(a)
-                add(it,"dry:L5_"+it+"_"+str(ix),mesh,
-                    dict(rotation=[math.sin(rad/2),0,0,math.cos(rad/2)]),
-                    dict(shared_mesh_instanced=True,angle_deg=a,repeat_count=len(angles)))
+            # Preserve every authored triangle. Share only genuinely rigid
+            # material subsets; tubular tessellation can differ by azimuth.
+            partitions={}
+            for mat,tri in items[it].items():
+                arr=np.asarray(tri,float).reshape(-1,3,3)
+                azi=(np.degrees(np.arctan2(arr[:,:,1].mean(axis=1),-arr[:,:,2].mean(axis=1)))+360)%360
+                delta=np.abs((azi[:,None]-np.asarray(angles)[None,:]+180)%360-180)
+                nearest=np.argmin(delta,axis=1)
+                partitions[mat]={a:arr[nearest==j] for j,a in enumerate(angles)}
+                assert all(len(partitions[mat][a])>0 for a in angles),(it,mat)
+            ref=angles[len(angles)//2]
+            shared=[];unique=[]
+            for mat in sorted(partitions):
+                samples=partitions[mat]
+                base=samples[ref]
+                rigid=all(rotate(base,a-ref).shape==samples[a].shape and
+                          np.allclose(rotate(base,a-ref),samples[a],atol=1e-5,rtol=0)
+                          for a in angles)
+                if rigid:
+                    shared.append(mat)
+                    mesh=gl.mesh(it+"_"+mat+"_SHARED",{mat:rotate(base,-ref)},mi)
+                    for ix,a in enumerate(angles,1):
+                        rad=math.radians(a)
+                        add(it,"dry:L5_"+it+"_"+mat+"_"+str(ix),mesh,
+                            dict(rotation=[math.sin(rad/2),0,0,math.cos(rad/2)]),
+                            dict(shared_mesh_instanced=True,material_subset=mat,
+                                 angle_deg=a,repeat_count=len(angles)))
+                else:
+                    unique.append(mat)
+                    for ix,a in enumerate(angles,1):
+                        mesh=gl.mesh(it+"_"+mat+"_"+str(ix),{mat:samples[a]},mi)
+                        add(it,"dry:L5_"+it+"_"+mat+"_"+str(ix),mesh,
+                            extra=dict(shared_mesh_instanced=False,material_subset=mat,
+                                       angle_deg=a,repeat_count=len(angles),
+                                       distinction="source geometry not rigidly repeated"))
+            instances[it]=dict(count=len(angles),shared_materials=shared,
+                               unique_source_materials=unique,source_preserved=True)
         else:
             mesh=gl.mesh(it,items[it],mi)
             add(it,"dry:L5_"+it,mesh)
