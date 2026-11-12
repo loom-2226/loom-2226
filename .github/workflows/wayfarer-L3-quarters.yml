@@ -1,0 +1,94 @@
+name: Wayfarer kT L3 approved quarters D9 and containment
+on:
+  pull_request:
+    paths:
+      - wayfarer/lab/l3_quarters/**
+      - wayfarer/config/kt_decisions.json
+      - .github/workflows/wayfarer-L3-quarters.yml
+permissions:
+  contents: write
+jobs:
+  l3-build:
+    if: startsWith(github.head_ref, 'engineering/wayfarer-l3-quarters-build-')
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: engineering/wayfarer-l3-quarters-build-20261113
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install geometry and smooth-normal renderer
+        run: python -m pip install numpy matplotlib pillow
+      - name: Build exact approved L3 from export3 source and check D9/containment
+        run: python -u wayfarer/lab/l3_quarters/integrate3.py
+      - name: Verify 21 groups, ten 0.5m source windows, six partition owners and zero rebooking
+        run: |
+          python - <<'PY'
+          import json,struct,hashlib
+          from pathlib import Path
+          root=Path('wayfarer')
+          r=json.loads((root/'render/out/interior_L3_report.json').read_text())
+          assert r['status']=='L3_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS'
+          assert r['approved_proposal_groups']==21 and r['room_partition_split_nodes']==6
+          assert r['source_viewport_nodes']==10
+          assert r['L3_source_viewport_diameter_m']==.5
+          assert r['checks']['D9_category_d']==0
+          assert r['checks']['containment']=='PASS'
+          assert r['checks']['G1_G12']=='NOT RUN / NOT REQUIRED'
+          assert not r['checks']['protected_berth_ring_intrusions']
+          assert not r['checks']['physical_fixture_contacts']
+          assert not r['booking_exceeded']
+          assert r['source_mass_rebooking_t']==0
+          assert r['source_dry_t']==868.1922552640087
+          assert r['ECON_dv_km_s']==707.845
+          assert r['estimated_drawn_kg']['outfit_L3']==145
+          assert r['estimated_drawn_kg']['room_L3-CAPT']==260
+          assert r['estimated_drawn_kg']['room_L3-CA']==345
+          assert r['estimated_drawn_kg']['room_L3-GUEST']==620
+          assert r['estimated_drawn_kg']['room_L3-CB']==465
+          assert r['estimated_drawn_kg']['room_L3-HG']==215
+          assert r['estimated_drawn_kg']['room_L3-HC']==215
+          raw=(root/'render/out/interior_L3.glb').read_bytes()
+          assert raw[:4]==b'glTF' and struct.unpack_from('<I',raw,8)[0]==len(raw)
+          n,t=struct.unpack_from('<II',raw,12); assert t==0x4E4F534A
+          gl=json.loads(raw[20:20+n])
+          nodes=[a for a in gl['nodes'] if 'mesh' in a]
+          assert len(nodes)==r['glb_mesh_nodes']==36
+          assert all(n['extras']['source_mass_owner_id'] in r['booking_kg'] for n in nodes)
+          assert all(n['extras']['mass_basis']=='source_booking_reference_nonadditive'
+                and n['extras']['node_mass_rebooking_t']==0 for n in nodes)
+          assert all('NORMAL' in p['attributes'] for m in gl['meshes'] for p in m['primitives'])
+          assert r['glb_sha256']==hashlib.sha256(raw).hexdigest()
+          assert (root/'docs/WAYFARER_L3_APPROVED_D9_2026_11_13.png').is_file()
+          print('L3 PASS 21 source groups, 6 partition splits, 10 x 0.5m source viewports, D9 0')
+          PY
+          git diff --quiet -- wayfarer/results/out/wayfarer_v05_geometry.json wayfarer/config/wayfarer_v05_inputs.json
+          git diff --quiet -- wayfarer/render/out/interior_L1.glb wayfarer/render/out/interior_L2.glb wayfarer/render/out/interior_L4.glb wayfarer/render/out/interior_L5.glb
+          git diff --quiet -- wayfarer/render/out/wayfarer_exterior_detail_*.glb
+      - name: Preserve report and one picture per D9 flag if stopped
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Wayfarer-L3-D9-flags
+          path: |
+            wayfarer/render/out/interior_L3_report.json
+            wayfarer/docs/WAYFARER_L3_D9_FLAGS_2026_11_13.png
+            wayfarer/docs/WAYFARER_L3_APPROVED_D9_2026_11_13.png
+          if-no-files-found: ignore
+      - name: Commit only D9-approved L3 GLB evidence; delete superseded proposal
+        run: |
+          if git cat-file -e HEAD:wayfarer/render/out/interior_L3.glb 2>/dev/null &&
+             git cat-file -e HEAD:wayfarer/render/out/interior_L3_report.json 2>/dev/null; then
+            echo 'Already committed approved L3 GLB; no binary churn'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add wayfarer/render/out/interior_L3.glb wayfarer/render/out/interior_L3_report.json wayfarer/docs/WAYFARER_L3_APPROVED_D9_2026_11_13.png
+          git rm -f --ignore-unmatch wayfarer/render/out/proposal_L3_quarters.glb
+          if ! git diff --cached --quiet; then
+            git commit -m 'class:engineering: D9-approved 21-group L3 and source windows; remove proposal'
+            git push origin HEAD:engineering/wayfarer-l3-quarters-build-20261113
+          fi
