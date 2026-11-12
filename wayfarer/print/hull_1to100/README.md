@@ -27,6 +27,14 @@ LOD). The canon GLBs keep their true-scale etch and are not touched.
 The grooves stop at openings, at node faces and inside the hatch and port frames. The
 20-degree joints stop at the bay-door edges.
 
+- **Maintenance-panel outlines** (8): the approved 11 Nov canon-finish panels on the service, midship and aft skin.
+- **Torch end** (`aft` in the spec, restating the approved 11 Nov canon finish at print scale):
+  - Shield rings at x 34.7 and 38.9, plus 4 seams. These are hidden inside the thrust cone.
+  - Reactor rings at x 39.7, 43.2 and 45.9, plus 4 access panels.
+  - Five nozzle coil bands, 1.5 mm wide.
+  - The thrust cone stays plain.
+- **Dropped at 1:100:** the 20 mm sub-panel lines would print at 0.2 mm. Option B's joints already sit on the same stations.
+
 ## Checks (stock_0p4)
 
 - **Coupon:** volume PASS; watertight PASS (0 unmatched edges, conforming mesh, no T-junctions).
@@ -44,7 +52,7 @@ The grooves stop at openings, at node faces and inside the hatch and port frames
 
 ## Not covered yet
 
-The bow cone (x < 2.35), the hull aft of x 34.3, and the protruding fixtures (rails,
+The bow shoulder (options with kT, PR to follow) and the protruding fixtures (rails,
 grapples, RCS, sensors, strakes, fins).
 
 **kT 2026-11-13: the model stays whole until the design is completely finished.** It is

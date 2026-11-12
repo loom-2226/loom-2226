@@ -991,6 +991,64 @@
    "what": "Metric node face outline"
   }
  ],
+ "panels": [
+  {
+   "x0": 15.1,
+   "x1": 15.8,
+   "az": 85,
+   "hw": 0.19,
+   "what": "maintenance panel service"
+  },
+  {
+   "x0": 15.1,
+   "x1": 15.8,
+   "az": 255,
+   "hw": 0.19,
+   "what": "maintenance panel service"
+  },
+  {
+   "x0": 16.1,
+   "x1": 16.9,
+   "az": 20,
+   "hw": 0.19,
+   "what": "maintenance panel service"
+  },
+  {
+   "x0": 16.1,
+   "x1": 16.9,
+   "az": 200,
+   "hw": 0.19,
+   "what": "maintenance panel service"
+  },
+  {
+   "x0": 18.6,
+   "x1": 19.3,
+   "az": 20,
+   "hw": 0.19,
+   "what": "maintenance panel midship"
+  },
+  {
+   "x0": 30.8,
+   "x1": 31.5,
+   "az": 200,
+   "hw": 0.19,
+   "what": "maintenance panel midship"
+  },
+  {
+   "x0": 32.8,
+   "x1": 33.4,
+   "az": 96,
+   "hw": 0.19,
+   "what": "maintenance panel aft"
+  },
+  {
+   "x0": 32.8,
+   "x1": 33.4,
+   "az": 236,
+   "hw": 0.19,
+   "what": "maintenance panel aft"
+  }
+ ],
  "dots": [
   {
    "x": 12.875,
@@ -1182,6 +1240,132 @@
    "what": "L2 viewport band"
   }
  ],
+ "aft": {
+  "thrust_cone": {
+   "shape": {
+    "k": "frustum",
+    "x0": 34.3,
+    "x1": 39.3,
+    "r0": 4.4,
+    "r1": 2.95,
+    "t": 0.06
+   },
+   "rings": [],
+   "longitudinals": [],
+   "note": "no approved etch: stays plain"
+  },
+  "shield": {
+   "shape": {
+    "k": "sector",
+    "x0": 34.3,
+    "x1": 39.3,
+    "r0": 0.0,
+    "r1": 2.75,
+    "a0": 0.0,
+    "a1": 360.0,
+    "offset_yz": [
+     0.03,
+     -0.26
+    ]
+   },
+   "radius_m": 2.75,
+   "rings_x_m": [
+    34.7,
+    38.9
+   ],
+   "longitudinals_az_deg": [
+    0,
+    90,
+    180,
+    270
+   ],
+   "groove_mm": [
+    0.5,
+    0.24
+   ],
+   "note": "inside the thrust cone (r 2.95-4.4); hidden on the assembled model, kept for completeness"
+  },
+  "reactor": {
+   "shape": {
+    "k": "sector",
+    "x0": 39.3,
+    "x1": 46.3,
+    "r0": 0.0,
+    "r1": 2.125,
+    "a0": 0.0,
+    "a1": 360.0,
+    "offset_yz": [
+     0.03,
+     -0.26
+    ]
+   },
+   "radius_m": 2.125,
+   "rings_x_m": [
+    39.7,
+    43.2,
+    45.9
+   ],
+   "groove_mm": [
+    0.5,
+    0.24
+   ],
+   "access_panels": [
+    {
+     "x0": 40.2,
+     "x1": 42.1,
+     "az": 0,
+     "hw_m": 0.4
+    },
+    {
+     "x0": 40.2,
+     "x1": 42.1,
+     "az": 90,
+     "hw_m": 0.4
+    },
+    {
+     "x0": 40.2,
+     "x1": 42.1,
+     "az": 180,
+     "hw_m": 0.4
+    },
+    {
+     "x0": 40.2,
+     "x1": 42.1,
+     "az": 270,
+     "hw_m": 0.4
+    }
+   ]
+  },
+  "nozzle": {
+   "shape": {
+    "k": "frustum",
+    "x0": 46.3,
+    "x1": 53.3,
+    "r0": 2.125,
+    "r1": 3,
+    "t": 0.15,
+    "offset_yz": [
+     0.03,
+     -0.26
+    ]
+   },
+   "band_stations_x_m": [
+    47.2,
+    48.5,
+    49.8,
+    51.1,
+    52.4
+   ],
+   "band_mm": [
+    1.5,
+    0.24
+   ],
+   "note": "approved coil bands 150 mm = 1.5 mm at 1:100 (canon_finish v2.5.8); dark gunmetal band faces"
+  },
+  "dropped": [
+   "nostromo 20 mm sub-panel lines (0.2 mm at 1:100, below min_feature); B joints already sit on the same stations"
+  ]
+ },
  "keep_clear": [
   {
    "x": 12.25,
@@ -1747,6 +1931,70 @@
    "x": 30.75,
    "az": 337.5,
    "r": 0.175
+  },
+  {
+   "rect": [
+    15.1,
+    15.8,
+    85,
+    0.19
+   ]
+  },
+  {
+   "rect": [
+    15.1,
+    15.8,
+    255,
+    0.19
+   ]
+  },
+  {
+   "rect": [
+    16.1,
+    16.9,
+    20,
+    0.19
+   ]
+  },
+  {
+   "rect": [
+    16.1,
+    16.9,
+    200,
+    0.19
+   ]
+  },
+  {
+   "rect": [
+    18.6,
+    19.3,
+    20,
+    0.19
+   ]
+  },
+  {
+   "rect": [
+    30.8,
+    31.5,
+    200,
+    0.19
+   ]
+  },
+  {
+   "rect": [
+    32.8,
+    33.4,
+    96,
+    0.19
+   ]
+  },
+  {
+   "rect": [
+    32.8,
+    33.4,
+    236,
+    0.19
+   ]
   },
   {
    "x": 9.3,

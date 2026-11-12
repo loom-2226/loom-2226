@@ -52,15 +52,38 @@ def build_spec():
             for k in range(8):
                 t = k * math.pi / 4; dots.append(dict(x=x + 0.625 * math.cos(t), az=a + math.degrees(0.625 * math.sin(t) / R), d=0.06, what='hatch latch'))
             keep_clear.append(dict(x=x, az=a, r=0.70))
+    # Approved maintenance-panel outlines (hull_etch_finish_20261111.py panel_edges, half-width 0.19 m), print-scale grooves
+    panels = [dict(x0=a, x1=b, az=az, hw=0.19, what='maintenance panel ' + w) for a, b, az, w in (
+        (15.1, 15.8, 85, 'service'), (15.1, 15.8, 255, 'service'), (16.1, 16.9, 20, 'service'), (16.1, 16.9, 200, 'service'),
+        (18.6, 19.3, 20, 'midship'), (30.8, 31.5, 200, 'midship'), (32.8, 33.4, 96, 'aft'), (32.8, 33.4, 236, 'aft'))]
+    for q in panels: keep_clear.append(dict(rect=[q['x0'], q['x1'], q['az'], q['hw']]))
     bands = [dict(x0=b['x'][0], x1=b['x'][1], a0=b['a'][0], a1=b['a'][1], what='L2 viewport band') for b in G['bands']]
     for o in openings: keep_clear.append(dict(x=o['x'], az=o['az'], r=o['r'] + 0.05))
     for c in circles:
         if 'medical' in c['what']: keep_clear.append(dict(x=c['x'], az=c['az'], r=c['r']))
     return dict(header='ALL bodies. ALL sponsors. 2026-2226.', units='ship metres; az deg (Y = r cos a, Z = r sin a)',
                 hull=dict(radius_m=R, x_m=[X0, X1]), groove_real_width_m=0.05,
-                rings=rings, longitudinals=longs, outline_circles=circles, dots=dots, openings=openings, bands=bands,
+                rings=rings, longitudinals=longs, outline_circles=circles, panels=panels, dots=dots, openings=openings, bands=bands,
+                aft=aft_spec(),
                 keep_clear=keep_clear,
                 not_covered='bow cone x<2.35, aft of 34.3, protruding fixtures (rails, grapples, RCS, sensors, strakes: separate print parts)')
+
+
+def aft_spec():
+    """Torch end, as approved in canon_finish_2026_11_11 / hull_etch_finish_20261111.py, restated at print scale.
+    Surfaces of revolution about the thrust line (offset_yz). Widths/depths in print mm from the active profile."""
+    parts = {p['id']: p['shape'] for p in G['parts'] if p['id'] in ('thrust_cone', 'shield', 'reactor', 'nozzle')}
+    w, d = P['groove_width_mm'], P['groove_depth_mm']
+    sh, re, nz, tc = parts['shield'], parts['reactor'], parts['nozzle'], parts['thrust_cone']
+    return dict(
+        thrust_cone=dict(shape=tc, rings=[], longitudinals=[], note='no approved etch: stays plain'),
+        shield=dict(shape=sh, radius_m=2.75, rings_x_m=[34.7, 38.9], longitudinals_az_deg=[0, 90, 180, 270], groove_mm=[w, d],
+                    note='inside the thrust cone (r 2.95-4.4); hidden on the assembled model, kept for completeness'),
+        reactor=dict(shape=re, radius_m=2.125, rings_x_m=[39.7, 43.2, 45.9], groove_mm=[w, d],
+                     access_panels=[dict(x0=40.2, x1=42.1, az=a, hw_m=0.40) for a in (0, 90, 180, 270)]),
+        nozzle=dict(shape=nz, band_stations_x_m=[47.2, 48.5, 49.8, 51.1, 52.4], band_mm=[1.5, d],
+                    note='approved coil bands 150 mm = 1.5 mm at 1:100 (canon_finish v2.5.8); dark gunmetal band faces'),
+        dropped=['nostromo 20 mm sub-panel lines (0.2 mm at 1:100, below min_feature); B joints already sit on the same stations'])
 
 # ------------------------------------------------------------------ rasteriser ---------------------------------------
 def raster(spec, x0, x1, dx_mm, n_th, dropped):
@@ -72,7 +95,10 @@ def raster(spec, x0, x1, dx_mm, n_th, dropped):
     S = lambda a: np.radians((TT - a + 180) % 360 - 180) * R   # signed arc distance (m) from azimuth a
     D = lambda f: np.hypot(XX - f['x'], S(f['az']))
     clear = np.zeros(XX.shape, bool)
-    for c in spec['keep_clear']: clear |= D(c) < c['r']
+    for c in spec['keep_clear']:
+        if 'rect' in c:
+            a, b, az, hw_ = c['rect']; clear |= (XX > a) & (XX < b) & (np.abs(S(az)) < hw_)
+        else: clear |= D(c) < c['r']
     for b in spec['bands']:
         clear |= (XX > b['x0'] - .05) & (XX < b['x1'] + .05) & (((TT - b['a0']) % 360) < (b['a1'] - b['a0']) % 360 + 1e-9)
     g = np.zeros(XX.shape, bool)
@@ -82,6 +108,10 @@ def raster(spec, x0, x1, dx_mm, n_th, dropped):
         g |= (np.abs(S(l['az'])) < hw) & (XX >= l['x0']) & (XX <= l['x1'])
     g &= ~clear
     for c in spec['outline_circles']: g |= np.abs(D(c) - c['r']) < hw
+    for q in spec.get('panels', []):
+        inb = (XX > q['x0'] - hw) & (XX < q['x1'] + hw) & (np.abs(S(q['az'])) < q['hw'] + hw)
+        edge = (np.abs(XX - q['x0']) < hw) | (np.abs(XX - q['x1']) < hw) | (np.abs(np.abs(S(q['az'])) - q['hw']) < hw)
+        g |= inb & edge
     for d in spec['dots']:
         if d['d'] * K < P['min_hole_dia_mm']: dropped.add(f"{d['what']} ({d['d']*K:.2f} mm < min hole {P['min_hole_dia_mm']} mm)"); continue
         g |= D(d) < d['d'] / 2
