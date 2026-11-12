@@ -241,15 +241,44 @@ def main():
     for it in sorted(items):
         if it in REPEATS:
             angles=REPEATS[it]
-            ref,split=split_repeat(items[it],angles)
-            local={m:rotate(v,-ref) for m,v in split[ref].items()}
-            mesh=gl.mesh(it+"_SHARED",local,mi)
-            repeated[it]=dict(count=len(angles),shared_mesh_index=mesh)
-            for ix,a in enumerate(angles):
-                rad=math.radians(a)
-                addnode(it,"dry:L4_"+it+"_"+str(ix+1),mesh,
-                    pose=dict(rotation=[math.sin(rad/2),0,0,math.cos(rad/2)]),
-                    extra=dict(shared_mesh_instanced=True,repeat_angle_deg=a,repeat_count=len(angles)))
+            # Split authored triangles per object. The rack generators contain
+            # some non-rotationally-identical details: never force a rigid mesh
+            # copy that modifies Claude's actual source vertices.
+            parts={}
+            for mat,triangles in items[it].items():
+                vv=np.asarray(triangles,float).reshape(-1,3,3)
+                az=(np.degrees(np.arctan2(vv[:,:,1].mean(axis=1),
+                                         -vv[:,:,2].mean(axis=1)))+360)%360
+                delta=np.abs((az[:,None]-np.asarray(angles)[None,:]+180)%360-180)
+                nearest=np.argmin(delta,axis=1)
+                parts[mat]={a:vv[nearest==j] for j,a in enumerate(angles)}
+                assert all(len(parts[mat][a]) for a in angles),(it,mat)
+            reference=angles[len(angles)//2]
+            shared=[];distinct=[]
+            for mat in sorted(parts):
+                seg=parts[mat];base=seg[reference]
+                rigid=all(rotate(base,a-reference).shape==seg[a].shape and
+                          np.allclose(rotate(base,a-reference),seg[a],atol=1e-5,rtol=0)
+                          for a in angles)
+                if rigid:
+                    shared.append(mat)
+                    mesh=gl.mesh(it+"_"+mat+"_SHARED",{mat:rotate(base,-reference)},mi)
+                    for ix,a in enumerate(angles,1):
+                        rad=math.radians(a)
+                        addnode(it,"dry:L4_"+it+"_"+mat+"_"+str(ix),mesh,
+                            pose=dict(rotation=[math.sin(rad/2),0,0,math.cos(rad/2)]),
+                            extra=dict(shared_mesh_instanced=True,material_subset=mat,
+                                       repeat_angle_deg=a,repeat_count=len(angles)))
+                else:
+                    distinct.append(mat)
+                    for ix,a in enumerate(angles,1):
+                        mesh=gl.mesh(it+"_"+mat+"_"+str(ix),{mat:seg[a]},mi)
+                        addnode(it,"dry:L4_"+it+"_"+mat+"_"+str(ix),mesh,
+                            extra=dict(shared_mesh_instanced=False,material_subset=mat,
+                                       repeat_angle_deg=a,repeat_count=len(angles),
+                                       source_triangles_preserved=True))
+            repeated[it]=dict(count=len(angles),shared_materials=shared,
+                              distinct_source_materials=distinct,source_preserved=True)
         else:
             mesh=gl.mesh(it,items[it],mi)
             addnode(it,"dry:L4_"+it,mesh)
