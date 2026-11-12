@@ -532,7 +532,7 @@ def render_f3():
     assert png.stat().st_size>5000
     return png.name
 
-def main(medical_port_visual_overlay=False):
+def main():
     A.PREFIX=PREFIX
     authority=rcs_authority_quick_screen()
     print("RCS_AUTHORITY_QUICK_SCREEN_PASS",json.dumps(authority),flush=True)
@@ -567,8 +567,7 @@ def main(medical_port_visual_overlay=False):
     A.metadata_for_mesh=f3_metadata
     def integrate(*args):
         A.evaluate(*args,detail_pass=detail_ship)
-    A.build_canon_v253(on_model_ready=integrate,
-        medical_port_visual_overlay=medical_port_visual_overlay)
+    A.build_canon_v253(on_model_ready=integrate)
     p=OUT/(PREFIX+"_report.json")
     rpt=json.loads(p.read_text())
     assert rpt["status"]=="FULL_SHUTTLE_HOLD_3X2_D9_CONTAINMENT_EXTRAS_HIERARCHY_PASS"
@@ -576,12 +575,6 @@ def main(medical_port_visual_overlay=False):
     assert set(records)=={"stowed","metric_hard","torch"}
     f3=render_f3()
     rpt.update(status="F3_EXTERIOR_DETAIL_SIX_STATE_D9_CONTAINMENT_PASS",
-        medical_ports_visual_integration=(
-          dict(noncanon=True, source_x_m=9.10,visual_x_m=9.30,
-               diameter_m=1.55,azimuths_deg=[180,210,240],
-               actual_PV_armour_BRep_cuts=True,unchanged_source_mass=True,
-               pressure_shielding_qualification="NOT CLAIMED")
-          if medical_port_visual_overlay else None),
         exterior_detail=dict(style="retro-industrial; kT F1 approved proud RCS bells + source-position lasers + engraved remainder",
          RCS_pitch_yaw_authority_quick_screen=authority,
          RCS_F1_approved=True,
