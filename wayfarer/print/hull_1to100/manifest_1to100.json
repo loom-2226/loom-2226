@@ -1,0 +1,33 @@
+{
+ "profile": "stock_0p4",
+ "status": "PLACEHOLDER - best guess, untested. Replace with test results.",
+ "coupon": {
+  "file": "coupon_L4L5_1to100.stl",
+  "x_m": [
+   8.0,
+   14.2
+  ],
+  "size_mm": [
+   90.0,
+   90.0,
+   62.0
+  ],
+  "triangles": 91422,
+  "volume_mm3": 32648.1,
+  "heightmap_volume_mm3": 32662.1,
+  "volume_check": "PASS",
+  "orientation": "axis vertical, bow end up, no supports",
+  "unmatched_edges": 0,
+  "watertight": "PASS"
+ },
+ "dropped_at_this_scale": [
+  "hatch latch (0.60 mm < min hole 1.0 mm)"
+ ],
+ "counts": {
+  "rings": 31,
+  "longitudinals": 25,
+  "outline_circles": 117,
+  "openings": 17,
+  "bands": 5
+ }
+}

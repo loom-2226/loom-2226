@@ -1,0 +1,28 @@
+{
+  "_note": "ALL bodies. ALL sponsors. 2026-2226. Wayfarer 1:100 hull print profile. Edit numbers or 'active', then run: python3 hull_etch.py",
+  "scale": "1:100 (1 mm print = 100 mm real)",
+  "printer": "Bambu Lab A2L (FDM)",
+  "active": "stock_0p4",
+  "profiles": {
+    "stock_0p4": {
+      "status": "PLACEHOLDER - best guess, untested. Replace with test results.",
+      "nozzle_mm": 0.4, "layer_mm": 0.08,
+      "groove_width_mm": 0.5,
+      "groove_depth_mm": 0.24,
+      "min_feature_mm": 0.5,
+      "min_hole_dia_mm": 1.0,
+      "shell_wall_mm": 2.0,
+      "basis": "Groove width 0.5 mm = 50 mm real, per the approved finish table (canon_finish_2026_11_11 amendment 4). Depth 3 layers. Shell 5 perimeters. Features below min_feature are dropped at this scale and listed in the manifest."
+    },
+    "fine_0p2": {
+      "status": "PLACEHOLDER - best guess for an optional 0.2 mm nozzle, untested.",
+      "nozzle_mm": 0.2, "layer_mm": 0.08,
+      "groove_width_mm": 0.5,
+      "groove_depth_mm": 0.24,
+      "min_feature_mm": 0.3,
+      "min_hole_dia_mm": 0.6,
+      "shell_wall_mm": 1.6,
+      "basis": "Groove width stays 0.5 mm (approved). Finer nozzle lets small features (latches) survive."
+    }
+  }
+}
