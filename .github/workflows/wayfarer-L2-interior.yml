@@ -1,0 +1,79 @@
+name: Wayfarer approved L2 interior D9 and containment
+on:
+  pull_request:
+    paths:
+      - wayfarer/lab/l2_interior_glb.py
+      - wayfarer/config/kt_decisions.json
+      - .github/workflows/wayfarer-L2-interior.yml
+permissions:
+  contents: write
+jobs:
+  l2-build:
+    if: startsWith(github.head_ref, 'engineering/wayfarer-l2-approved-interior-')
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install geometry exporter dependencies
+        run: python -m pip install numpy pillow
+      - name: Build approved L2 and screen D9 plus containment only
+        run: python -u wayfarer/lab/l2_interior_glb.py
+      - name: Verify scene hierarchy, nonadditive mass and unchanged other decks
+        run: |
+          python - <<'PY'
+          import json, struct, hashlib
+          from pathlib import Path
+          root=Path('wayfarer/render/out')
+          raw=(root/'interior_L2.glb').read_bytes()
+          rep=json.loads((root/'interior_L2_report.json').read_text())
+          assert raw[:4]==b'glTF' and struct.unpack_from('<I',raw,8)[0]==len(raw)
+          n,k=struct.unpack_from('<II',raw,12)
+          assert k==0x4e4f534a
+          doc=json.loads(raw[20:20+n])
+          assert rep['status']=='L2_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS'
+          assert rep['checks']['D9_category_d']==0
+          assert rep['checks']['containment']=='PASS'
+          assert rep['checks']['G1_G12']=='NOT RUN / NOT REQUIRED'
+          assert rep['source_mass_rebooking_t']==0 and rep['exterior_six_state_changes']==0
+          assert rep['dry_t']==868.1922552640087 and rep['ECON_dv_km_s']==707.845
+          assert rep['glb_sha256']==hashlib.sha256(raw).hexdigest()
+          nodes=[x for x in doc['nodes'] if 'mesh' in x]
+          assert len(nodes)==29 and len(doc['meshes'])==23
+          assert len([n for n in nodes if n['name'].startswith('dry:L2_W3_stool_')])==5
+          assert len([n for n in nodes if n['name'].startswith('dry:L2_O1_lounger_')])==3
+          for prefix,num in [('dry:L2_W3_stool_',5),('dry:L2_O1_lounger_',3)]:
+              indexes={n['mesh'] for n in nodes if n['name'].startswith(prefix)}
+              assert len(indexes)==1, (prefix,indexes)
+          assert all(n['extras']['source_mass_owner_id'].startswith(('room_L2-','outfit_L2'))
+            and n['extras']['mass_basis']=='source_booking_reference_nonadditive'
+            and n['extras']['node_mass_rebooking_t']==0
+            and n['extras']['print_group']==n['extras']['semantic_system']+'/'+n['extras']['semantic_subsystem']
+            for n in nodes)
+          assert all('POSITION' in p['attributes'] and 'NORMAL' in p['attributes']
+                     for m in doc['meshes'] for p in m['primitives'])
+          assert all(m['name'].startswith('CANON_FINISH/L2/') for m in doc['materials'])
+          assert doc['asset']['extras']['exterior_state_meshes_copied']==0
+          print('L2 independent GLB PASS:',len(nodes),'drawn nodes,',len(doc['meshes']),'unique meshes')
+          PY
+          git diff --quiet -- wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_*.glb wayfarer/render/out/interior_L1.glb
+      - name: Preserve D9 evidence on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: L2-D9-diagnostic
+          path: wayfarer/render/out/interior_L2_report.json
+          if-no-files-found: ignore
+      - name: Commit ONLY independent L2 GLB and D9 report
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add wayfarer/render/out/interior_L2.glb wayfarer/render/out/interior_L2_report.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'class:engineering: L2 independent instanced GLB D9 containment PASS'
+            git push origin HEAD:$GITHUB_HEAD_REF
+          fi
