@@ -1,0 +1,204 @@
+{
+  "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+  "source_dry_t": 868.1922552640087,
+  "ECON_dv_km_s": 707.845,
+  "source_mass_rebooking_t": 0,
+  "source_groups": 23,
+  "source_proposal_nodes": [
+    "A0_inner_pressure_hatch",
+    "A1_control_panel",
+    "A2_tether_tool_board",
+    "A3_handhold_station",
+    "A4_EVA_hatch",
+    "D1_lighting",
+    "D2_overhead_rail",
+    "D3_lining",
+    "P0_walls",
+    "S1_stores_racks",
+    "S2_stores_racks",
+    "T1_tunnel_floor_hatch",
+    "T2_handrails_panel",
+    "U1_EVA_suit_stands",
+    "U2_IVA_lockers",
+    "U3_donning_bench",
+    "V1_custody_vault",
+    "V2_vault_door",
+    "W1_workbench",
+    "W2_3D_printer",
+    "W3_mill_lathe",
+    "W4_W5_parts_walls",
+    "W6_stools"
+  ],
+  "P0_room_split": true,
+  "booking_kg": {
+    "outfit_L5": 818.9629850273705,
+    "room_L5-airlock": 3071.111193852639,
+    "room_L5-suits": 1535.5555969263196,
+    "room_L5-workshop": 3071.111193852639,
+    "room_L5-custody": 511.8518656421065,
+    "room_L5-stores": 3071.111193852639,
+    "room_L5-vestibule": 307.11111938526386,
+    "room_L5-stores2": 3071.111193852639
+  },
+  "estimated_drawn_kg": {
+    "outfit_L5": 145,
+    "room_L5-airlock": 580,
+    "room_L5-suits": 890,
+    "room_L5-workshop": 740,
+    "room_L5-custody": 410,
+    "room_L5-stores": 200,
+    "room_L5-vestibule": 180,
+    "room_L5-stores2": 200
+  },
+  "booking_exceeded": {},
+  "source_hatches": {
+    "status": "L5_SOURCE_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS",
+    "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+    "dry_t": 868.1922552640087,
+    "ECON_dv_km_s": 707.845,
+    "source_mass_rebooking_t": 0,
+    "EVA": {
+      "name": "hatch_L5_EVA_0",
+      "diameter_m": 1.0,
+      "centre_x_m": 12.3,
+      "centre_y_m": 4.3,
+      "centre_z_m": 0.0,
+      "azimuth_deg": 0,
+      "height_above_floor_m": 1.1,
+      "room_mass_owner": "room_L5-airlock",
+      "rail_clear": true,
+      "removed_pressure_shell_m3": 0.02360227255906571,
+      "removed_armour_m3": 0.15733468201066123,
+      "reinserted_pressure_plug_m3": 0.02360227255906571,
+      "reinserted_armour_plug_m3": 0.15733468201066123,
+      "pressure_layer_thickness_m": 0.03,
+      "armour_layer_thickness_m": 0.2,
+      "closure_source_mass_delta_t": 0,
+      "closed_geometric_pressure_continuity": "PASS",
+      "closed_geometric_armour_thickness_equivalence": "PASS",
+      "pressure_strength_and_seal_certification": "NOT CLAIMED",
+      "open_hatch_shielding": "NOT QUALIFIED"
+    },
+    "tunnel": {
+      "name": "hatch_L5_tunnel_0",
+      "diameter_m": 1.2,
+      "centre_x_m": 13.55,
+      "y_m": 0.0,
+      "z_m": -3.0,
+      "source_tunnel": "tunnel_0",
+      "room_mass_owner": "room_L5-vestibule",
+      "item_estimated_kg": 150,
+      "removed_bulkhead_m3": 0.3392920065876985,
+      "reinserted_closed_plug_m3": 0.3392920065876985,
+      "source_mass_delta_t": 0,
+      "closed_geometric_bulkhead_continuity": "PASS",
+      "opening_state": "UNQUALIFIED"
+    },
+    "checks": {
+      "D9_category_d": 0,
+      "source_integrity_closed_pressure_volume_delta_m3": -0.009444620102163896,
+      "source_integrity_closed_armour_volume_delta_m3": -0.0645938927870636,
+      "closed_symmetric_difference_m3": {
+        "pressure_missing_m3": 0.0,
+        "pressure_extra_m3": 0.0,
+        "armour_missing_m3": 0.0,
+        "armour_extra_m3": 0.0
+      },
+      "BRep_evaluation_note": "Thin shell volume nonadditivity retained as evidence; reconstructed closed solid set independently checked.",
+      "source_integrity_closed_bulkhead_volume_delta_m3": -4.163336342344337e-15,
+      "EVA_rail_contacts": 0,
+      "tunnel_bore_contacts": 0,
+      "containment": "PASS",
+      "G1_G12": "NOT RUN / NOT REQUIRED"
+    },
+    "position_override_only": true,
+    "source_geometry_file_unchanged": true,
+    "exterior_GLBs_unchanged": true,
+    "caveat": "Geometric closed-state replacement only; no material, pressure, seal, load or open-state qualification."
+  },
+  "checks": {
+    "D9_category_d": 0,
+    "category_d_contacts": [],
+    "envelope_violations": [],
+    "source_clearances_m": {
+      "core_racks_m": 0.051561,
+      "pressure_inner_shell_m": 0.12,
+      "L4_L5_ceiling_m": -0.0,
+      "aft_bulkhead_m": -0.0
+    },
+    "tunnel_axis_match": true,
+    "EVA_closed_pressure_and_armour_geo": "PASS",
+    "source_stage_D9": 0,
+    "containment": "PASS",
+    "G1_G12": "NOT RUN / NOT REQUIRED"
+  },
+  "original_exterior_GLBS_changed": 0,
+  "other_interior_GLBS_changed": 0,
+  "status": "L5_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS",
+  "glb": "render/out/interior_L5.glb",
+  "glb_sha256": "e23edfad3b37b8bb0a1e855769f16decd3b85d7200da5266620a3c24f3505af4",
+  "glb_bytes": 4705492,
+  "glb_mesh_nodes": 81,
+  "glb_unique_meshes": 49,
+  "instance_repeats": {
+    "S1_stores_racks": {
+      "count": 3,
+      "shared_materials": [
+        "linen",
+        "oak",
+        "teal",
+        "titanium"
+      ],
+      "unique_source_materials": [],
+      "source_preserved": true
+    },
+    "S2_stores_racks": {
+      "count": 3,
+      "shared_materials": [
+        "linen",
+        "oak",
+        "teal",
+        "titanium"
+      ],
+      "unique_source_materials": [],
+      "source_preserved": true
+    },
+    "U1_EVA_suit_stands": {
+      "count": 4,
+      "shared_materials": [
+        "glass",
+        "ind",
+        "sand",
+        "titanium"
+      ],
+      "unique_source_materials": [
+        "suit",
+        "teal"
+      ],
+      "source_preserved": true
+    },
+    "W6_stools": {
+      "count": 2,
+      "shared_materials": [
+        "ind",
+        "oak",
+        "sage",
+        "titanium"
+      ],
+      "unique_source_materials": [],
+      "source_preserved": true
+    }
+  },
+  "smooth_normals": true,
+  "palette": "approved Claude L5 organic Japandi",
+  "P0_room_nodes": [
+    "P0_room_L5-airlock",
+    "P0_room_L5-custody",
+    "P0_room_L5-stores",
+    "P0_room_L5-stores2",
+    "P0_room_L5-suits",
+    "P0_room_L5-vestibule",
+    "P0_room_L5-workshop"
+  ],
+  "picture": "docs/WAYFARER_L5_D9_2026_11_12.png"
+}

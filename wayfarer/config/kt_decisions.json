@@ -1210,13 +1210,12 @@
     "L1_note": "L1 wall fit-out (PR #521) stays on outfit_L1 as built; room_L1-command 2.150 t remains the command room's equipment allowance.",
     "wellness_room": "The L4 storm shelter (L4-shelter) is also the wellness room day to day and switches to shelter mode for storms and radiation events. No separate wellness room.",
     "courier_custody": "L5-custody is the vault for the secure consignment. The L1 courier strongbox (L1_wallfit_u3) is the ready box for the current delivery and the ship's keys, under the captain's control.",
-    "open_items": [
-      "Laundry remains unassigned; L4-eclss near existing water/waste processing is a PROPOSAL ONLY (no layout, mass, or build)."
-    ],
+    "open_items": [],
     "mass_rebooking_t": 0,
     "canon_change": false,
     "G1_G12": "NOT RUN",
-    "hatch_resolution": "BUILT in PR #528: kT L2/L3 hatch flip upward x4.68-5.60m; L3/L4 unchanged. D9 category-d 0, verified against 29 L2 GLB mesh nodes and 127,432 triangles (minimum conservative clearance bound 67.762mm at G2); containment PASS. Dry and bookings unchanged."
+    "hatch_resolution": "L2/L3 leaves open upward into L2; 180deg hatch_L3L4_0 now slides radially into L3 floor slab pocket (PR #531); 0deg hatch_L3L4_1 unchanged. D9 0, containment PASS.",
+    "laundry": "kT approved and L4 D9-cleared: R8 laundry in L4-eclss, existing room equipment booking; no new mass."
   },
   "l2_common_deck_japandi_2026_11_12": {
     "authority": "kT APPROVED 2026-11-12, with Nicole, Claude's pass-2 organic Japandi L2 design PR #523 (6281116)",
@@ -1437,6 +1436,183 @@
     "L3L4_hatch_180": "CHANGE hatch_L3L4_0 (the 180 deg leaf, at Y -1.86) to a sliding leaf that stows radially into the L3 floor slab, clear of the casualty path from the port ladder into the 2.4 m medical entrance. hatch_L3L4_1 (0 deg, Y +1.86) unchanged. Same mass and booking (outfit_L4).",
     "mass_rebooking_t": 0,
     "canon_change": false,
-    "G1_G12": "NOT RUN"
+    "G1_G12": "NOT RUN",
+    "status": "BUILT: PR #531 corrected by Claude PR #532; D9 category-d 0, containment PASS",
+    "build_evidence": {
+      "corrected_geometry_pr": 532,
+      "source_fix_and_interior_pr": 531,
+      "independent_glb": "wayfarer/render/out/interior_L4.glb",
+      "D9_report": "wayfarer/render/out/interior_L4_report.json",
+      "source_fix_report": "wayfarer/render/out/interior_deck_hatches_report.json",
+      "all_12_flags_picture": "wayfarer/docs/WAYFARER_L4_12_D9_FLAGS_RESOLVED_2026_11_12.png",
+      "overview_picture": "wayfarer/docs/WAYFARER_L4_APPROVED_D9_2026_11_12.png",
+      "glb_digest": "inside interior_L4_report.json; not pinned in decisions because rebuild bytes may differ",
+      "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+      "original_proposal_groups": 19,
+      "glb_mesh_nodes": 106,
+      "glb_unique_meshes": 50,
+      "D9_category_d": 0,
+      "containment": "PASS",
+      "original_jacket_flags": 12,
+      "remaining_jacket_flags": 0,
+      "screen": "vertices, three edge midpoints, and triangle centroids against six jacket sections",
+      "hatch_L3L4_0": "180deg leaf radially stowed in floor_L3 pocket, _1 at 0deg unchanged",
+      "medical_ports": "three centre x9.30/h1.50",
+      "shelter_plug": "0.8m water-filled at 90deg; closed state only",
+      "shelter_wellness_same_room": "room_L4-shelter",
+      "mass_owners": {
+        "S": "room_L4-shelter",
+        "M": "room_L4-medical",
+        "R": "room_L4-eclss",
+        "D": "outfit_L4",
+        "P0": "medical/eclss split"
+      },
+      "estimated_drawn_kg": {
+        "room_L4-shelter": 285,
+        "room_L4-medical": 560,
+        "room_L4-eclss": 10510,
+        "outfit_L4": 140
+      },
+      "remaining_outfit_L4_after_prior_300kg_hatches": 378.96298502737045,
+      "source_dry_t": 868.1922552640087,
+      "ECON_dv_km_s": 707.845,
+      "mass_rebooking_t": 0,
+      "source_mass_file_unchanged": true,
+      "published_exterior_GLBS_unchanged": true,
+      "G1_G12": "NOT RUN / NOT REQUIRED",
+      "actual_pressure_seal_qualification": "NOT DONE"
+    }
+  },
+  "l5_decisions_2026_11_12": {
+    "authority": "kT APPROVED 2026-11-12 (Claude chat)",
+    "date": "2026-11-12",
+    "source": "wayfarer/docs/L5_PROPOSAL_2026_11_12.md",
+    "layout": "Claude's L5 furniture layout approved for 3D modelling: airlock, suit room (4 EVA stands, 10 IVA compartments), workshop (bench, 3D printer, mill/lathe), custody vault, stores racks, transfer vestibule.",
+    "EVA_hatch": "ADD a 1.0 m EVA hatch in the airlock outer wall at 0 deg, centre h 1.1 (x 12.3), between the EVA rails at +/-14 deg (SPEC: rails run 'from the L5 hatch aft'). Paid from room_L5-airlock. Hull/armour cut-out: Sol checks pressure, armour-equivalence and D9.",
+    "tunnel_hatch": "ADD a 1.2 m hatch in the transfer-vestibule floor (aft bulkhead) at r 3.0, 270 deg, matching tunnel_0 (r 0.6 tube from x 13.7). ~150 kg from room_L5-vestibule (0.307 t). Sol checks bulkhead cut-out and D9.",
+    "mass_rebooking_t": 0,
+    "canon_change": false,
+    "G1_G12": "NOT RUN",
+    "status": "BUILT INTERIOR L5 / D9 CATEGORY-D ZERO / CONTAINMENT PASS; closed-state hatch cutout overlays verified; exterior GLBs unchanged",
+    "build_evidence": {
+      "integrated_PR": 533,
+      "approved_source_PR": 530,
+      "GLB": "wayfarer/render/out/interior_L5.glb",
+      "report": "wayfarer/render/out/interior_L5_report.json",
+      "hatch_source_proof": "wayfarer/render/out/interior_L5_source_report.json",
+      "picture": "wayfarer/docs/WAYFARER_L5_D9_2026_11_12.png",
+      "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+      "source_approved_groups": 23,
+      "mesh_nodes": 81,
+      "unique_meshes": 49,
+      "instances": {
+        "S1_stores_racks": {
+          "count": 3,
+          "shared_materials": [
+            "linen",
+            "oak",
+            "teal",
+            "titanium"
+          ],
+          "unique_source_materials": [],
+          "source_preserved": true
+        },
+        "S2_stores_racks": {
+          "count": 3,
+          "shared_materials": [
+            "linen",
+            "oak",
+            "teal",
+            "titanium"
+          ],
+          "unique_source_materials": [],
+          "source_preserved": true
+        },
+        "U1_EVA_suit_stands": {
+          "count": 4,
+          "shared_materials": [
+            "glass",
+            "ind",
+            "sand",
+            "titanium"
+          ],
+          "unique_source_materials": [
+            "suit",
+            "teal"
+          ],
+          "source_preserved": true
+        },
+        "W6_stools": {
+          "count": 2,
+          "shared_materials": [
+            "ind",
+            "oak",
+            "sage",
+            "titanium"
+          ],
+          "unique_source_materials": [],
+          "source_preserved": true
+        }
+      },
+      "D9_category_d": 0,
+      "containment": "PASS",
+      "closure_symmetric_difference_m3": {
+        "pressure_missing_m3": 0,
+        "pressure_extra_m3": 0,
+        "armour_missing_m3": 0,
+        "armour_extra_m3": 0
+      },
+      "thin_shell_volume_nonadditivity_m3": {
+        "pressure": -0.009444620102163896,
+        "armour": -0.0645938927870636
+      },
+      "EVA_diameter_m": 1,
+      "EVA_x_m": 12.3,
+      "EVA_deg": 0,
+      "tunnel_diameter_m": 1.2,
+      "tunnel_center_yz_m": [
+        0,
+        -3
+      ],
+      "tunnel_axis": "tunnel_0",
+      "EVA_pressure_layer_m": 0.03,
+      "EVA_armour_layer_m": 0.2,
+      "closed_geometric_pressure_armour_equivalence": "PASS",
+      "actual_pressure_seal_strength": "UNQUALIFIED",
+      "open_hatch_armour_equivalence": "UNQUALIFIED",
+      "original_exterior_hull_GLB_recut": false,
+      "render_status": "Independent interior L5 GLB and source-overlay proof only; no exterior hull cut made",
+      "dry_mass_t": 868.1922552640087,
+      "ECON_dv_km_s": 707.845,
+      "rebooking_t": 0,
+      "G1_G12": "NOT RUN / NOT REQUIRED",
+      "budget_kg": {
+        "used": {
+          "outfit_L5": 145,
+          "room_L5-airlock": 580,
+          "room_L5-suits": 890,
+          "room_L5-workshop": 740,
+          "room_L5-custody": 410,
+          "room_L5-stores": 200,
+          "room_L5-vestibule": 180,
+          "room_L5-stores2": 200
+        },
+        "booked": {
+          "outfit_L5": 818.9629850273705,
+          "room_L5-airlock": 3071.111193852639,
+          "room_L5-suits": 1535.5555969263196,
+          "room_L5-workshop": 3071.111193852639,
+          "room_L5-custody": 511.8518656421065,
+          "room_L5-stores": 3071.111193852639,
+          "room_L5-vestibule": 307.11111938526386,
+          "room_L5-stores2": 3071.111193852639
+        }
+      },
+      "outfit_L5_remaining_kg": 673.9629850273705,
+      "GLB_sha256_location": "wayfarer/render/out/interior_L5_report.json::glb_sha256 (authoritative hash of committed build)",
+      "GLB_build_bytes_observed_not_stable_across_runs": true,
+      "GLB_hash_comment": "Two successful identical-source reruns created different GLB SHA256 with same 4,705,492-byte length, node count, group count and D9. Source geometry itself hash pinned and unchanged; renderer-byte repeatability remains unqualified. Do not pin one GLB byte hash in this decision."
+    },
+    "qualification": "Two source-bound cutout shapes and equivalent closed plugs are screened locally against the immutable source shells/bulkhead. These are NOT published as cuts in the existing exterior GLBs; no claim of as-built pressure-rating, seal strength, or open-state armour performance."
   }
 }
