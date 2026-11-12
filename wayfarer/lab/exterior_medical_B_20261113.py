@@ -5,11 +5,13 @@ One visual six-state candidate, not a canon release. The source geometry,
 mass inventory, released six GLBs and canon_glb.json pointer are untouched.
 Full six-state D9 and containment are the standard source-aware exporter checks.
 """
-import hashlib,json,struct,sys
+import hashlib,json,struct,sys,math
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/"lab"))
 import exterior_detail_f3_20261110 as F
+import crown_geom_v253 as C
+from packing_phase1b import source_brep_pilot as P
 
 PREFIX="wayfarer_exterior_B_medical_88ce19fc"
 P=ROOT/"render/out"
@@ -66,17 +68,70 @@ def main():
     assert interior["centre_x_m"]==12.3 and interior["diameter_m"]==1.
     x_offset_m=interior["centre_x_m"]-feature["pos"][0]
     assert abs(x_offset_m-.05)<1e-10
-    # Caller saves under a NEW prefix, intentionally not the released
-    # wayfarer_exterior_detail_88ce19fc_* six-state names.
+    # Patch the reference to the glazing constructor within this ONE process,
+    # not the source input nor the released F3/crown code.
+    source_glazing=C.build_glazing
+    passed=dict(moved=None,cutters=None,material_removed=[])
+    def approved_visual_glazing(g,cfg,spare):
+        moved=[];features=[]
+        for f in g["features"]:
+            if f["kind"]=="window" and f["room"]=="L4-medical":
+                assert abs(f["pos"][0]-9.10)<1e-9 and abs(f["d_m"]-1.55)<1e-9
+                az=(math.degrees(math.atan2(f["pos"][2],f["pos"][1]))+360)%360
+                assert any(abs(az-k)<1e-6 for k in (180,210,240)),az
+                features.append({**f,"pos":[9.30,*f["pos"][1:]]})
+                moved.append(dict(azimuth_deg=az,old_x_m=f["pos"][0],
+                                  new_x_m=9.30,diameter_m=f["d_m"]))
+            else:
+                features.append(f)
+        assert len(moved)==3 and [x["azimuth_deg"] for x in moved]==[180,210,240]
+        g_visual={**g,"features":features}
+        parts,cutters,report=source_glazing(g_visual,cfg,spare)
+        assert len(cutters)==26
+        ports=[w for w in report["individual_windows"]
+               if w["id"].startswith("window_L4-medical_")]
+        assert len(ports)==3 and all(w["centre"][0]==9.30 for w in ports)
+        passed["moved"]=moved;passed["cutters"]=cutters
+        return parts,cutters,report
+    C.build_glazing=approved_visual_glazing
+    # Verify the true completed OCC solids BEFORE the six-state exporter:
+    # both source-material intersections were positive, all six intersections
+    # against the bores in the finished armour + pressure vessel are empty.
+    prior_build=F.A.build_canon_v253
+    def visual_build(on_model_ready=None):
+        def evidence_callback(*args):
+            model=args[0]
+            assert passed["cutters"] and len(passed["moved"])==3
+            for host in ("pressure_vessel","armor"):
+                source_shape=next(row["shape"] for row in src["parts"] if row["id"]==host)
+                raw=P.make(source_shape)
+                target=model["dry:"+host]
+                for i in (4,5,6):
+                    cutter=passed["cutters"][i]
+                    before=raw & cutter
+                    after=target & cutter
+                    v_pre=0. if before is None else float(before.volume)
+                    v_post=0. if after is None else float(after.volume)
+                    assert v_pre>1e-6,("STOP no source material at port",host,i,v_pre)
+                    assert v_post<1e-6,("STOP window not cut through hull",host,i,v_post)
+                    passed["material_removed"].append(
+                        dict(host=host,window=i,source_cut_volume_m3=v_pre,
+                             solid_after_cut_overlap_m3=v_post))
+            return on_model_ready(*args)
+        return prior_build(on_model_ready=evidence_callback)
+    F.A.build_canon_v253=visual_build
+    # New prefix never overwrites the six published/canon-tagged GLBs.
     F.PREFIX=PREFIX
-    F.main(medical_port_visual_overlay=True)
+    F.main()
+    assert len(passed["material_removed"])==6
     path=P/(PREFIX+"_report.json")
     report=json.loads(path.read_text())
     assert report["status"]=="F3_EXTERIOR_DETAIL_SIX_STATE_D9_CONTAINMENT_PASS"
     assert report["all_six_state_D9_and_containment"]=="PASS"
     assert abs(report["source_dry_t"]-DRY)<1e-9 and abs(report["ECON_dv_km_s"]-DV)<1e-10,(
          "STOP: source dry or Δv changed",report["source_dry_t"],report["ECON_dv_km_s"])
-    assert report["medical_ports_visual_integration"]["actual_PV_armour_BRep_cuts"]
+    assert report["all_six_state_D9_and_containment"]=="PASS"
+    assert len(passed["material_removed"])==6
     states={}
     for mode,poses in report["six_states"].items():
         for pose,details in poses.items():
@@ -96,6 +151,7 @@ def main():
         medical_ports=dict(original_x_m=9.10,visual_x_m=9.30,
           diameter_m=1.55,azimuths_deg=[180,210,240],
           BRep_pressure_and_armour_cuts=True,
+          actual_solid_intersection_proof=passed["material_removed"],
           source_position_modified=False,
           design_status="WWS-1 NON-CANON; pressure/shielding UNQUALIFIED"),
         EVA=dict(source_frame_x_m=12.25,source_frame_d_m=1.1,
