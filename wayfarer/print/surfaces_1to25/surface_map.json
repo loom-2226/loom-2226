@@ -1,0 +1,125 @@
+{
+ "_note": "ALL bodies. ALL sponsors. 2026-2226. Which surface each room gets. Deck print files reference these IDs; swap a tile file and every room using it updates. Paid from outfit_<deck>; no new mass.",
+ "rooms": {
+  "L1-command": {
+   "wall": "W-A",
+   "floor": "F-1",
+   "ceiling": "C-1"
+  },
+  "L2-galley": {
+   "wall": "W-B",
+   "floor": "F-2",
+   "ceiling": "C-1"
+  },
+  "L2-wardroom": {
+   "wall": "W-A",
+   "floor": "F-1",
+   "ceiling": "C-1"
+  },
+  "L2-observation": {
+   "wall": "W-A",
+   "floor": "F-1",
+   "ceiling": "C-1"
+  },
+  "L2-exercise": {
+   "wall": "W-B",
+   "floor": "F-2",
+   "ceiling": "C-1"
+  },
+  "L2-hygiene": {
+   "wall": "W-B",
+   "floor": "F-2",
+   "ceiling": "C-1"
+  },
+  "L3-CAPT": {
+   "wall": "W-A",
+   "floor": "F-1",
+   "ceiling": "C-1"
+  },
+  "L3-CA": {
+   "wall": "W-A",
+   "floor": "F-1",
+   "ceiling": "C-1"
+  },
+  "L3-GUEST": {
+   "wall": "W-A",
+   "floor": "F-1",
+   "ceiling": "C-1"
+  },
+  "L3-CB": {
+   "wall": "W-A",
+   "floor": "F-1",
+   "ceiling": "C-1"
+  },
+  "L3-HG": {
+   "wall": "W-B",
+   "floor": "F-2",
+   "ceiling": "C-1"
+  },
+  "L3-HC": {
+   "wall": "W-B",
+   "floor": "F-2",
+   "ceiling": "C-1"
+  },
+  "L4-shelter": {
+   "wall": "W-A",
+   "floor": "F-1",
+   "ceiling": "C-1"
+  },
+  "L4-medical": {
+   "wall": "W-B",
+   "floor": "F-1",
+   "ceiling": "C-2"
+  },
+  "L4-eclss": {
+   "wall": "W-C",
+   "floor": "F-3",
+   "ceiling": "C-3"
+  },
+  "L5-airlock": {
+   "wall": "W-D",
+   "floor": "F-3",
+   "ceiling": "C-3"
+  },
+  "L5-suits": {
+   "wall": "W-C",
+   "floor": "F-2",
+   "ceiling": "C-3"
+  },
+  "L5-workshop": {
+   "wall": "W-C",
+   "floor": "F-2",
+   "ceiling": "C-3"
+  },
+  "L5-custody": {
+   "wall": "W-D",
+   "floor": "F-1",
+   "ceiling": "C-3"
+  },
+  "L5-stores": {
+   "wall": "W-C",
+   "floor": "F-3",
+   "ceiling": "C-3"
+  },
+  "L5-vestibule": {
+   "wall": "W-D",
+   "floor": "F-3",
+   "ceiling": "C-2"
+  },
+  "L5-stores2": {
+   "wall": "W-C",
+   "floor": "F-3",
+   "ceiling": "C-3"
+  }
+ },
+ "common": {
+  "corridor_all_decks": {
+   "wall": "W-B",
+   "floor": "F-4",
+   "ceiling": "C-2"
+  },
+  "ladderway_hatch_frames": {
+   "wall": "W-D"
+  }
+ }
+}

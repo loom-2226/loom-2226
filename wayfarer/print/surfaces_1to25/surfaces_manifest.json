@@ -1,0 +1,157 @@
+{
+ "profile": "stock_0p4",
+ "status": "PLACEHOLDER - best guess, untested. Replace with test-sheet results once printed.",
+ "tiles": {
+  "W-A": {
+   "kind": "wall",
+   "name": "Habitat lining",
+   "purpose": "Living spaces: padded panels, light reveal, timber-slat lower panel",
+   "file": "tiles/W-A.stl",
+   "triangles": 2904,
+   "volume_mm3": 2946.7,
+   "closed_volume_check": "PASS",
+   "max_height_mm": 2.24
+  },
+  "W-B": {
+   "kind": "wall",
+   "name": "Service lining",
+   "purpose": "Wet rooms, galley, medical: routing ribs, access panel, fasteners",
+   "file": "tiles/W-B.stl",
+   "triangles": 3474,
+   "volume_mm3": 2906.7,
+   "closed_volume_check": "PASS",
+   "max_height_mm": 2.24
+  },
+  "W-C": {
+   "kind": "wall",
+   "name": "Utility wall",
+   "purpose": "ECLSS, workshop, stores: exposed pipes, clamps, louvre box",
+   "file": "tiles/W-C.stl",
+   "triangles": 4000,
+   "volume_mm3": 3156.6,
+   "closed_volume_check": "PASS",
+   "max_height_mm": 3.4
+  },
+  "W-D": {
+   "kind": "wall",
+   "name": "Bulkhead frame",
+   "purpose": "Hatches, airlock, vestibule, vault: octagonal sealing frame, gussets",
+   "file": "tiles/W-D.stl",
+   "triangles": 17300,
+   "volume_mm3": 2833.2,
+   "closed_volume_check": "PASS",
+   "max_height_mm": 2.4
+  },
+  "F-1": {
+   "kind": "floor",
+   "name": "Smooth deck",
+   "purpose": "Living floors: 0.5 m plates, flush seams, corner fixings",
+   "file": "tiles/F-1.stl",
+   "triangles": 2372,
+   "volume_mm3": 2539.0,
+   "closed_volume_check": "PASS",
+   "max_height_mm": 1.6
+  },
+  "F-2": {
+   "kind": "floor",
+   "name": "Ribbed deck",
+   "purpose": "Wet rooms, galley, exercise, suit room: anti-slip ribs",
+   "file": "tiles/F-2.stl",
+   "triangles": 2408,
+   "volume_mm3": 2761.9,
+   "closed_volume_check": "PASS",
+   "max_height_mm": 1.92
+  },
+  "F-3": {
+   "kind": "floor",
+   "name": "Grated deck",
+   "purpose": "ECLSS, airlock, stores: open grating over sumps",
+   "file": "tiles/F-3.stl",
+   "triangles": 8052,
+   "volume_mm3": 2565.0,
+   "closed_volume_check": "PASS",
+   "max_height_mm": 1.76
+  },
+  "F-4": {
+   "kind": "floor",
+   "name": "Corridor walkway",
+   "purpose": "Ring corridors: recessed wear strips with tread bars, centre seam",
+   "file": "tiles/F-4.stl",
+   "triangles": 700,
+   "volume_mm3": 2468.2,
+   "closed_volume_check": "PASS",
+   "max_height_mm": 1.6
+  },
+  "C-1": {
+   "kind": "ceiling",
+   "name": "Living ceiling",
+   "purpose": "Living spaces: perimeter cove sweep, cove-light reveal, radial seams",
+   "file": "tiles/C-1.stl",
+   "triangles": 156,
+   "volume_mm3": 2643.7,
+   "closed_volume_check": "PASS",
+   "max_height_mm": 2.0
+  },
+  "C-2": {
+   "kind": "ceiling",
+   "name": "Corridor ceiling",
+   "purpose": "Corridors, vestibule: light panel, overhead handrails on standoffs",
+   "file": "tiles/C-2.stl",
+   "triangles": 2368,
+   "volume_mm3": 2683.9,
+   "closed_volume_check": "PASS",
+   "max_height_mm": 2.8
+  },
+  "C-3": {
+   "kind": "ceiling",
+   "name": "Technical ceiling",
+   "purpose": "ECLSS, workshop, stores, airlock: open cable trays with rungs",
+   "file": "tiles/C-3.stl",
+   "triangles": 244,
+   "volume_mm3": 2500.1,
+   "closed_volume_check": "PASS",
+   "max_height_mm": 1.76
+  }
+ },
+ "clamped_features": [
+  {
+   "surface": "W-A",
+   "feature": "slat groove (8 mm real)",
+   "ideal_mm": 0.32,
+   "printed_mm": 0.5
+  },
+  {
+   "surface": "W-B",
+   "feature": "fastener head (20 mm real)",
+   "ideal_mm": 0.8,
+   "printed_mm": 1.0
+  },
+  {
+   "surface": "F-1",
+   "feature": "plate seam (10 mm real)",
+   "ideal_mm": 0.4,
+   "printed_mm": 0.5
+  },
+  {
+   "surface": "F-1",
+   "feature": "plate fixing (20 mm real)",
+   "ideal_mm": 0.8,
+   "printed_mm": 1.0
+  },
+  {
+   "surface": "C-1",
+   "feature": "ceiling seam (10 mm real)",
+   "ideal_mm": 0.4,
+   "printed_mm": 0.5
+  }
+ ],
+ "test_sheet": {
+  "file": "wayfarer_1to25_surface_test_sheet.stl",
+  "size_mm": [
+   175.0,
+   151.0
+  ],
+  "triangles": 71316,
+  "closed_volume_check": "PASS"
+ }
+}
