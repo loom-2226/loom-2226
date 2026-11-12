@@ -11,7 +11,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle,Wedge
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/"lab"))
 sys.path.insert(0,str(ROOT/"lab/l2_organic_study"))
 from l2_interior_glb import GLTF,rotate,split_repeat,srgb
