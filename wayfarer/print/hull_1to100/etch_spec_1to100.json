@@ -1049,6 +1049,29 @@
    "what": "maintenance panel aft"
   }
  ],
+ "door_lines": [
+  {
+   "kind": "long",
+   "az": 90.0,
+   "x0": 18.25,
+   "x1": 32.05,
+   "what": "door centre split"
+  },
+  {
+   "kind": "ring_arc",
+   "x": 18.25,
+   "a0": 57.769047364497894,
+   "a1": 122.2309526355021,
+   "what": "door fore edge"
+  },
+  {
+   "kind": "ring_arc",
+   "x": 32.05,
+   "a0": 57.769047364497894,
+   "a1": 122.2309526355021,
+   "what": "door aft edge"
+  }
+ ],
  "dots": [
   {
    "x": 12.875,
@@ -1250,9 +1273,44 @@
     "r1": 2.95,
     "t": 0.06
    },
-   "rings": [],
-   "longitudinals": [],
-   "note": "no approved etch: stays plain"
+   "meridians_az_deg": [
+    40,
+    140,
+    220,
+    320
+   ],
+   "rings_x_m": [
+    36.8
+   ],
+   "groove_mm": [
+    0.5,
+    0.24
+   ],
+   "note": "kT 2026-11-13 option 2 load lines (EXTERIOR_REMAINING_SURFACES_2026_11_13.md)"
+  },
+  "radiators_fins": {
+   "parts": [
+    "strake_40",
+    "strake_140",
+    "strake_220",
+    "strake_320",
+    "hotfin_40",
+    "hotfin_root_40",
+    "hotfin_140",
+    "hotfin_root_140",
+    "hotfin_220",
+    "hotfin_root_220",
+    "hotfin_320",
+    "hotfin_root_320"
+   ],
+   "channel_x_m": "x = 14.0 + 0.5 k within each panel x-range",
+   "direction": "root to tip (radial span)",
+   "faces": "both",
+   "groove_mm": [
+    0.5,
+    0.24
+   ],
+   "note": "kT 2026-11-13 option 2 heat-pipe channels; panels print as separate deployable parts"
   },
   "shield": {
    "shape": {
@@ -3522,6 +3580,14 @@
    "x": 7.54,
    "az": 311.0,
    "r": 0.45
+  },
+  {
+   "door": [
+    18.25,
+    32.05,
+    57.769047364497894,
+    122.2309526355021
+   ]
   },
   {
    "x": 9.3,

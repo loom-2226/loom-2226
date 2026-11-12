@@ -66,11 +66,18 @@ def build_spec():
         node_faces_other.append(dict(pos=f['pos'], normal=f['normal'], d_m=f['d_m'], body=body, outline_groove_mm=P['groove_width_mm']))
     bands = [dict(x0=b['x'][0], x1=b['x'][1], a0=b['a'][0], a1=b['a'][1], what='L2 viewport band') for b in G['bands']]
     for o in openings: keep_clear.append(dict(x=o['x'], az=o['az'], r=o['r'] + 0.05))
+    # Bay doors, kT 2026-11-13 option 2 (EXTERIOR_REMAINING_SURFACES_2026_11_13.md): clean leaves.
+    # Hull rings and 20 deg joints stop at the door edges; edges (57.77/122.23 deg, x 18.25/32.05) and the 90 deg split stay.
+    door = dict(x0=18.25, x1=32.05, a0=57.769047364497894, a1=122.2309526355021)
+    keep_clear.append(dict(door=[door['x0'], door['x1'], door['a0'], door['a1']]))
+    door_lines = [dict(kind='long', az=90.0, x0=door['x0'], x1=door['x1'], what='door centre split'),
+                  dict(kind='ring_arc', x=door['x0'], a0=door['a0'], a1=door['a1'], what='door fore edge'),
+                  dict(kind='ring_arc', x=door['x1'], a0=door['a0'], a1=door['a1'], what='door aft edge')]
     for c in circles:
         if 'medical' in c['what']: keep_clear.append(dict(x=c['x'], az=c['az'], r=c['r']))
     return dict(header='ALL bodies. ALL sponsors. 2026-2226.', units='ship metres; az deg (Y = r cos a, Z = r sin a)',
                 hull=dict(radius_m=R, x_m=[X0, X1]), groove_real_width_m=0.05,
-                rings=rings, longitudinals=longs, outline_circles=circles, panels=panels, dots=dots, openings=openings, bands=bands,
+                rings=rings, longitudinals=longs, outline_circles=circles, panels=panels, door_lines=door_lines, dots=dots, openings=openings, bands=bands,
                 aft=aft_spec(), node_faces_off_cylinder=node_faces_other,
                 keep_clear=keep_clear,
                 not_covered='bow cone x<2.35, aft of 34.3, protruding fixtures (rails, grapples, RCS, sensors, strakes: separate print parts)')
@@ -83,7 +90,12 @@ def aft_spec():
     w, d = P['groove_width_mm'], P['groove_depth_mm']
     sh, re, nz, tc = parts['shield'], parts['reactor'], parts['nozzle'], parts['thrust_cone']
     return dict(
-        thrust_cone=dict(shape=tc, rings=[], longitudinals=[], note='no approved etch: stays plain'),
+        thrust_cone=dict(shape=tc, meridians_az_deg=[40, 140, 220, 320], rings_x_m=[36.8], groove_mm=[w, d],
+                         note='kT 2026-11-13 option 2 load lines (EXTERIOR_REMAINING_SURFACES_2026_11_13.md)'),
+        radiators_fins=dict(parts=[p['id'] for p in G['parts'] if p['mat'] in ('radiator', 'hotfin')],
+                            channel_x_m='x = 14.0 + 0.5 k within each panel x-range', direction='root to tip (radial span)',
+                            faces='both', groove_mm=[w, d],
+                            note='kT 2026-11-13 option 2 heat-pipe channels; panels print as separate deployable parts'),
         shield=dict(shape=sh, radius_m=2.75, rings_x_m=[34.7, 38.9], longitudinals_az_deg=[0, 90, 180, 270], groove_mm=[w, d],
                     note='inside the thrust cone (r 2.95-4.4); hidden on the assembled model, kept for completeness'),
         reactor=dict(shape=re, radius_m=2.125, rings_x_m=[39.7, 43.2, 45.9], groove_mm=[w, d],
@@ -103,7 +115,10 @@ def raster(spec, x0, x1, dx_mm, n_th, dropped):
     D = lambda f: np.hypot(XX - f['x'], S(f['az']))
     clear = np.zeros(XX.shape, bool)
     for c in spec['keep_clear']:
-        if 'rect' in c:
+        if 'door' in c:
+            a, b, a0, a1 = c['door']; m = math.degrees(hw / R) * 1.5
+            clear |= (XX > a + hw * 1.5) & (XX < b - hw * 1.5) & (TT > a0 + m) & (TT < a1 - m)
+        elif 'rect' in c:
             a, b, az, hw_ = c['rect']; clear |= (XX > a) & (XX < b) & (np.abs(S(az)) < hw_)
         else: clear |= D(c) < c['r']
     for b in spec['bands']:
@@ -115,6 +130,9 @@ def raster(spec, x0, x1, dx_mm, n_th, dropped):
         g |= (np.abs(S(l['az'])) < hw) & (XX >= l['x0']) & (XX <= l['x1'])
     g &= ~clear
     for c in spec['outline_circles']: g |= np.abs(D(c) - c['r']) < hw
+    for l in spec.get('door_lines', []):
+        if l['kind'] == 'long': g |= (np.abs(S(l['az'])) < hw) & (XX >= l['x0']) & (XX <= l['x1'])
+        else: g |= (np.abs(XX - l['x']) < hw) & (TT >= l['a0']) & (TT <= l['a1'])
     for q in spec.get('panels', []):
         inb = (XX > q['x0'] - hw) & (XX < q['x1'] + hw) & (np.abs(S(q['az'])) < q['hw'] + hw)
         edge = (np.abs(XX - q['x0']) < hw) | (np.abs(XX - q['x1']) < hw) | (np.abs(np.abs(S(q['az'])) - q['hw']) < hw)

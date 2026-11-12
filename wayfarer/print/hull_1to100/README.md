@@ -33,6 +33,10 @@ The grooves stop at openings, at node faces and inside the hatch and port frames
   - Reactor rings at x 39.7, 43.2 and 45.9, plus 4 access panels.
   - Five nozzle coil bands, 1.5 mm wide.
   - The thrust cone stays plain.
+- **kT 2026-11-13, 2/2/2** (`EXTERIOR_REMAINING_SURFACES_2026_11_13.md`):
+  - **Bay doors:** clean leaves (edges plus the 90 deg split only).
+  - **Thrust cone:** load lines at 40/140/220/320 deg plus a ring at x 36.8.
+  - **Radiators and fins:** heat-pipe channels every 0.5 m, root to tip, on both faces.
 - **Bow shoulder:** clean, with no marks, per `bow_shoulder_surface_2026_11_13`.
 - **Node faces:** all 208 are outlined: 112 on the cylinder, plus 96 listed in `node_faces_off_cylinder` (16 at the bow, 80 on the torch chain).
 - **Dropped at 1:100:** the 20 mm sub-panel lines would print at 0.2 mm. Option B's joints already sit on the same stations.
