@@ -39,7 +39,7 @@ EST={"S0_shelter_plug_door":20,"S7_shelter_lining":40,"S1_living_wall":55,
      "D3_lining":80,"D1_lighting":30,"D2_overhead_rail":30,
      "P0_medical":70,"P0_eclss":70}
 REPEATS={"S2_wellness_loungers":[60,120],
-         "S5_shelter_seats":[24,36,48,60,72,108,120,132,144,156],
+         "S5_shelter_seats":[26,37,48,59,70,110,121,132,143,154],
          "R_racks":[264,278,292,306,320,334,348]}
 def owner(item):
     if item.startswith("S"):return "room_L4-shelter"
