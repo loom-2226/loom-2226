@@ -17,6 +17,7 @@ sys.path.insert(0,str(ROOT/"lab/l2_organic_study"))
 from l2_interior_glb import GLTF,rotate,split_repeat,srgb
 from l2_hatch_glb_d9 import clipped_inside
 from l4_decks import l4geom
+from l4_decks.flag_pictures import create as draw_original_flags, ORIGINAL as ORIGINAL_FLAGS
 import geom
 from packing_phase1b import source_brep_pilot as P
 
@@ -27,6 +28,7 @@ OUT=ROOT/"render/out"
 GLB=OUT/"interior_L4.glb"
 REPORT=OUT/"interior_L4_report.json"
 PIC=ROOT/"docs/WAYFARER_L4_APPROVED_D9_2026_11_12.png"
+FLAG_PIC=ROOT/"docs/WAYFARER_L4_12_D9_FLAGS_RESOLVED_2026_11_12.png"
 SHA="88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1"
 EST={"S0_shelter_plug_door":20,"S7_shelter_lining":40,"S1_living_wall":55,
      "S2_wellness_loungers":40,"S3_soft_floor":25,"S4_backup_stand":10,
@@ -55,9 +57,12 @@ def jacket_hits(item,tris,water):
     if item=="S0_shelter_plug_door":
         # Approved water-filled door shell occupies the closed water plug.
         return []
-    points=np.concatenate([v.reshape(-1,3) for v in tris.values()])
-    tri=np.concatenate([v.reshape(-1,3,3) for v in tris.values()])
-    points=np.concatenate([points,tri.mean(axis=1)])
+    tri=np.concatenate([np.asarray(v,float).reshape(-1,3,3) for v in tris.values()])
+    points=np.concatenate([tri.reshape(-1,3),
+                          (tri[:,0]+tri[:,1])*.5,
+                          (tri[:,1]+tri[:,2])*.5,
+                          (tri[:,2]+tri[:,0])*.5,
+                          tri.mean(axis=1)])
     x=points[:,0];y=-points[:,2];z=points[:,1]
     r=np.hypot(y,z);az=(np.degrees(np.arctan2(z,y))+360)%360
     hits=[]
@@ -261,6 +266,10 @@ def main():
       estimated_outfit_L4_after_hatches_and_interior_kg=booked["outfit_L4"]-300-usage["outfit_L4"],
       picture=str(PIC.relative_to(ROOT)))
     graph(G,rep)
+    rep["original_12_jacket_flags"]=draw_original_flags(items,water,FLAG_PIC)
+    assert len(rep["original_12_jacket_flags"])==12 and not jacket
+    rep["diagnostic_12_flags_png"]=str(FLAG_PIC.relative_to(ROOT))
+    rep["jacket_sampling_basis"]="vertices, all three edge midpoints and triangle centroids; corrected source geometry"
     REPORT.write_text(json.dumps(rep,indent=2)+"\n")
     print(json.dumps({k:rep[k] for k in ("status","checks","booking_kg","estimated_drawn_kg",
             "original_proposal_groups","glb_mesh_nodes","instance_repeats","glb_sha256","picture")},indent=2))
