@@ -84,7 +84,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add wayfarer/render/out/interior_L5.glb wayfarer/render/out/interior_L5_source_report.json wayfarer/render/out/interior_L5_report.json wayfarer/docs/WAYFARER_L5_D9_2026_11_12.png
-          git rm -f wayfarer/render/out/proposal_L5.glb
+          git rm -f --ignore-unmatch wayfarer/render/out/proposal_L5.glb
           if ! git diff --cached --quiet; then
             git commit -m 'class:engineering: kT approved L5 source hatches + 23-group D9 PASS; delete proposal'
             git push origin HEAD:engineering/wayfarer-l5-approved-build-20261112
