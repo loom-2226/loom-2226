@@ -80,7 +80,7 @@ All 2026–2226 sponsors/bodies. Core net capacity **321.62066731116374m³**, gr
 
 | Deck | x (m) | Rooms | Living volume |
 |---|---|---|---|
-| L1 Command | 1.0-3.0 | Flight deck 1.77 m up for PILOT and NAV under the crown dome; four support couches round the rim; sensor ring at the dome shoulder | 51 m³ |
+| L1 Command | 0.2-3.0 | Six B3 stations (PILOT, NAV, S1-S4) under the crown dome; approved station and platform layout, with sensor ring at the dome shoulder | 51 m³ |
 | L2 Common | 3.3-5.6 | Galley, wardroom for 10, observation lounge, exercise, washroom; the viewport band runs round the deck | 81 m³ |
 | L3 Quarters | 5.9-8.2 | Four shared cabins (captain 1; crew 2 and 3; guests 4); ten berths with 5 g restraints, behind an 8 cm water ring; 2 washrooms | 77 m³ |
 | L4 Medical, life support, storm shelter | 8.5-10.8 | Storm shelter for 10 behind a 20 cm water jacket (G6 node-face sampled minimum 41.67 g/cm² with closed armour-equivalent layup; OPEN bores 18.89 g/cm² (open condition unqualified)), medical bay, life support | 57 m³ |
