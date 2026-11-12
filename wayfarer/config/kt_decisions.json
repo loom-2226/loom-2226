@@ -1216,7 +1216,7 @@
     "mass_rebooking_t": 0,
     "canon_change": false,
     "G1_G12": "NOT RUN",
-    "hatch_resolution": "kT amended PR #526 design 2026-11-12: L2/L3 upward-hanging L2 guards x4.68-5.60; L3/L4 down into L4 unchanged. Exact outfit booking preserved; verification in progress."
+    "hatch_resolution": "BUILT in PR #528: kT L2/L3 hatch flip upward x4.68-5.60m; L3/L4 unchanged. D9 category-d 0, verified against 29 L2 GLB mesh nodes and 127,432 triangles (minimum conservative clearance bound 67.762mm at G2); containment PASS. Dry and bookings unchanged."
   },
   "l2_common_deck_japandi_2026_11_12": {
     "authority": "kT APPROVED 2026-11-12, with Nicole, Claude's pass-2 organic Japandi L2 design PR #523 (6281116)",
@@ -1352,7 +1352,7 @@
     "checks": "D9 clash plus containment only. G1-G12 NOT RUN.",
     "output": "wayfarer/render/out/interior_deck_hatches.glb, independent from exterior and L1/L2 GLBs; visual cut-floor replacements must not be double-drawn against original uncut source proxies; viewer unchanged because exterior six-state GLB unchanged",
     "physical_qualification": "No tested pressure seal, closing torque, fire or leak certification. This is a booked visual model of accepted design.",
-    "status": "kT APPROVED L2L3 UPWARD FLIP; D9 and containment check pending",
+    "status": "BUILT: L2L3_UPWARD_FLIP_D9_CATEGORY_D_ZERO_L2_GLTF_ZERO_CONTAINMENT_PASS",
     "previous_build_evidence": {
       "integration_pr": 526,
       "glb": "wayfarer/render/out/interior_deck_hatches.glb",
@@ -1393,6 +1393,37 @@
       "source_glb_to_screen": "wayfarer/render/out/interior_L2.glb",
       "source_glb_sha256": "50028743262fddc747236f3d5efedbfcd9dc0a84c7a802f93ab01de5491ebeba",
       "critical_stop": "D9 category-d clash in L2; no moved furniture or new mass"
+    },
+    "build_evidence": {
+      "integration_pr": 528,
+      "glb": "wayfarer/render/out/interior_deck_hatches.glb",
+      "report": "wayfarer/render/out/interior_deck_hatches_report.json",
+      "picture": "wayfarer/docs/WAYFARER_DECK_HATCHES_2026_11_12.png",
+      "glb_sha256": "48136f27c06f89f317b04a175c6e248285113ffa80be30cc5659870909c40b00",
+      "L2_original_glb_sha256": "50028743262fddc747236f3d5efedbfcd9dc0a84c7a802f93ab01de5491ebeba",
+      "L2_GLTF_mesh_nodes_screened": 29,
+      "L2_GLTF_triangles_screened": 127432,
+      "L2_furniture_D9_clashes": 0,
+      "G2_water_run_nearest_triangle_AABB_lower_bound_m": 0.067762,
+      "G2_water_run_nearest_vertex_upper_bound_m": 0.076304,
+      "D9_category_d": 0,
+      "containment": "PASS",
+      "L2L3_x_m": [
+        4.68,
+        5.6
+      ],
+      "L3L4_x_m": [
+        8.2,
+        9.12
+      ],
+      "L3L4_medical_z_clearance_m": 0.15175252749023277,
+      "dry_t": 868.1922552640087,
+      "ECON_dv_km_s": 707.845,
+      "mass_rebooking_t": 0,
+      "exterior_changes": 0,
+      "L1_L2_original_GLB_changes": 0,
+      "viewer_source_changed": false,
+      "G1_G12": "NOT RUN / NOT REQUIRED"
     }
   }
 }
