@@ -2,7 +2,7 @@
 
 ALL bodies. ALL sponsors. 2026-2226.
 
-Status: **proposal only, awaiting kT.** These are the large exterior surfaces that
+Status: **APPROVED by kT 2026-11-13: thrust cone 2, bay doors 2, radiators and fins 2.** These are the large exterior surfaces that
 are blank only because nobody has decided their surface yet. Renders are in
 `wayfarer/lab/exterior_remaining_options/` (the repo render chain plus a sketch-only
 shader copy). No GLB, geometry, `loomgl.js`, mass or canon change. Every mark is a
@@ -46,6 +46,28 @@ print spec (option 3) disagree, so this needs a decision whichever way it goes.
 the root manifold out to the tip. The fins print as separate deployable parts, so
 the lines go on the printed fin faces.
 
-## kT decides
+## APPROVED (kT 2026-11-13): 2 / 2 / 2
 
-Thrust cone 1/2/3, bay doors 1/2/3, radiators and fins 1/2/3.
+- **Thrust cone:** load lines. Four meridians at 40/140/220/320 deg plus one ring at x 36.8.
+- **Bay doors:** clean leaves. Door edges at 57.77/122.23 deg plus the 90 deg centre split only. No hull rings and no 20 deg joints on the doors.
+- **Radiator strakes, hot fins and fin roots:** heat-pipe channels every 0.5 m, root to tip, on both faces.
+
+Every mark is a demarcation only: no mass, no protrusion, no canon change.
+
+**Decision record:** this is deliberately **not yet written to `kt_decisions.json`**. A PR that
+touches that file currently triggers `wayfarer-exterior-detail-f3.yml`, which rebuilds the
+released canon GLBs and does not reproduce them byte for byte (see PR #540). Sol adds this entry
+once the workflow is fixed:
+
+```json
+"exterior_remaining_surfaces_2026_11_13": {
+  "authority": "kT APPROVED 2026-11-13 (Claude chat)",
+  "source": "wayfarer/docs/EXTERIOR_REMAINING_SURFACES_2026_11_13.md (PR #541)",
+  "thrust_cone": "Option 2 load lines: meridians 40/140/220/320 deg + ring x 36.8",
+  "bay_doors": "Option 2 clean leaves: edges 57.77/122.23 deg + 90 deg centre split only; no hull rings or 20 deg joints on doors",
+  "radiators_fins": "Option 2 heat-pipe channels every 0.5 m root-to-tip, both faces, strakes + hot fins + fin roots",
+  "meaning": "surface demarcations only; no gaps, mass or protrusion",
+  "mass_rebooking_t": 0, "canon_change": false, "G1_G12": "NOT RUN",
+  "status": "APPROVED; viewer by Sol, print spec by Claude"
+}
+```
