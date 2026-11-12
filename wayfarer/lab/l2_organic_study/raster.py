@@ -12,12 +12,13 @@ def smooth_normals(V, thr=0.80):
         if e-s<2: continue
         idx=order[s:e]; G=Nf[idx]; D=G@G.T; M=(D>thr).astype(float); S=M@G; S/=np.linalg.norm(S,axis=1,keepdims=True)+1e-12; out[idx]=S
     return N,out.reshape(-1,3,3)
+SPEC={'titanium':(0.45,40),'rib':(0.06,10),'glass':(0.35,80),'worktop':(0.06,12),'oak':(0.08,18),'oak_dk':(0.08,18),'sand':(0.02,6),'sage':(0.01,4),'hull':(0.04,10),'teal':(0.2,30),'floor':(0.05,10)}
 def render(T, MAT, eye, tgt, fov, W=1100, H=800, ss=2, out='x.png', fog=None):
     Wp,Hp=W*ss,H*ss
     eye=np.array(eye,float); tgt=np.array(tgt,float); up=np.array([-1.,0,0])
     f=tgt-eye; f/=np.linalg.norm(f); s=np.cross(f,up); s/=np.linalg.norm(s); u=np.cross(s,f)
     F=1/math.tan(math.radians(fov/2))
-    zb=np.full((Hp,Wp),np.inf); img=np.zeros((Hp,Wp,3)); img[:]=np.array([0.06,0.07,0.09])
+    zb=np.full((Hp,Wp),np.inf); img=np.zeros((Hp,Wp,3)); img[:]=np.array([0.06,0.07,0.09]); emb=np.zeros((Hp,Wp,3))
     L1=-f*0.5+u*0.9+s*0.3; L1/=np.linalg.norm(L1); L2=f*0.2+u*0.3-s*0.6; L2/=np.linalg.norm(L2)
     for m,tris in T.items():
         V=np.array(tris,float).reshape(-1,3,3); col,em=MAT[m]; C=hexrgb(col)**2.2
@@ -40,13 +41,31 @@ def render(T, MAT, eye, tgt, fov, W=1100, H=800, ss=2, out='x.png', fog=None):
             n=(w0[...,None]*Nv[i,0]/zz[0]+w1[...,None]*Nv[i,1]/zz[1]+w2[...,None]*Nv[i,2]/zz[2])*depth[...,None]
             n/=np.linalg.norm(n,axis=-1,keepdims=True)+1e-12
             if (n@(-f)).mean()<0: n=-n   # double-sided: face the camera
-            if em: c=np.broadcast_to(C*1.15,n.shape)
+            pw=(w0[...,None]*V[i,0]/zz[0]+w1[...,None]*V[i,1]/zz[1]+w2[...,None]*V[i,2]/zz[2])*depth[...,None]
+            rr=np.hypot(pw[...,1],pw[...,2]); hh=5.6-pw[...,0]
+            if em: c=np.broadcast_to(C*1.2,n.shape).copy()
             else:
-                dif=0.30+0.62*np.clip(n@L1,0,1)+0.22*np.clip(n@L2,0,1)
-                spec=0.10*np.clip(n@((L1-f)/np.linalg.norm(L1-f)),0,1)**24
-                c=C[None,None,:]*dif[...,None]+spec[...,None]
+                dif=0.26+0.50*np.clip(n@L1,0,1)+0.16*np.clip(n@L2,0,1)
+                ks,ex=SPEC.get(m,(0.05,10)); spec=ks*np.clip(n@((L1-f)/np.linalg.norm(L1-f)),0,1)**ex
+                Cc=np.broadcast_to(C,n.shape).copy()
+                if m in ('oak','oak_dk'):
+                    g=np.sin((pw[...,1]*0.8-pw[...,2]*0.6)*70.0+np.sin(pw[...,0]*7.0+pw[...,1]*3.0)*0.5)
+                    Cc*= (1+0.025*g)[...,None]
+                if m in ('titanium',):
+                    Cc*= (1+0.03*np.sin(pw[...,0]*900))[...,None]
+                # warm cove light (ring r 3.85, h 2.27) and floor wash (r 4.1, h 0.1), simple falloff, normal-weighted
+                d1=np.hypot(rr-3.85,hh-2.25); d2=np.hypot(rr-4.10,hh-0.10)
+                warm=np.array([1.0,0.80,0.55])
+                kw=0.55/(1+(d1/0.55)**2)+0.35/(1+(d2/0.35)**2)
+                c=Cc*dif[...,None]+Cc*warm[None,None,:]*kw[...,None]+spec[...,None]
             if fog: c=c*np.exp(-depth[...,None]/fog)+ (1-np.exp(-depth[...,None]/fog))*0.03
             sub[vis]=depth[vis]; img[y0:y1+1,x0:x1+1][vis]=c[vis]
-    img=np.clip(img,0,1)**(1/2.2)
+            eb=emb[y0:y1+1,x0:x1+1]; eb[vis]= (c[vis] if em else 0)
+    # bloom from emissive surfaces only where they stayed visible
+    from scipy.ndimage import gaussian_filter
+    bl=np.stack([gaussian_filter(emb[...,k],sigma=6*ss) for k in range(3)],-1)+0.6*np.stack([gaussian_filter(emb[...,k],sigma=18*ss) for k in range(3)],-1)
+    img=img+0.55*bl
+    img=img/(1+0.25*img)   # gentle tone map
+    img=np.clip(img*1.18,0,1)**(1/2.2)
     im=Image.fromarray((img*255).astype(np.uint8)).resize((W,H),Image.LANCZOS)
     im.save(out); return out

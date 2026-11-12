@@ -6,7 +6,7 @@ X0=5.6; HC=2.30; RW=4.15
 MAT={ # name: (hex, emissive)
  'hull':('#8E9FA8',0),'hull_dk':('#6F818B',0),'titanium':('#B8B4AC',0),'oak':('#CDB28F',0),'oak_dk':('#B39470',0),'sand':('#E6DCC8',0),
  'sage':('#9AA58F',0),'worktop':('#EEE9DF',0),'glass':('#1C2530',0),'graphic':('#5FA8D3',1),'warm':('#FFE2B0',1),'floor':('#9C958A',0),
- 'reveal':('#3A3F44',0),'teal':('#3FA79A',0),'leaf':('#6E8B5E',0),'space':('#0B1018',0),'core':('#58646D',0)}
+ 'reveal':('#3A3F44',0),'teal':('#3FA79A',0),'leaf':('#6E8B5E',0),'task':('#F4F1EA',1),'ind':('#4FD1A5',1),'vent':('#262B2F',0),'rib':('#97A8B1',0),'space':('#0B1018',0),'core':('#58646D',0)}
 T={}  # material -> list of triangles (3x3)
 def add(m,tris): T.setdefault(m,[]).extend(tris)
 def W(r,a,h): t=math.radians(a); return (X0-h, r*math.sin(t), -r*math.cos(t))
@@ -63,6 +63,16 @@ def loft(m,rc,ac,rings,du=0,dv=0,cap_top=True,cap_bot=True):
             c=Lc(rc,ac,du,dv,H[i])
             for k in range(len(R[i])): out.append((c,Lc(rc,ac,*R[i][k],H[i]),Lc(rc,ac,*R[i][(k+1)%len(R[i])],H[i])))
     add(m,out)
+def loft2(m,rc,ac,rings,cap_top=True,cap_bot=True,N=48):
+    """rings: (h, A, B, nexp, du, dv)"""
+    R=[[(u+du,v+dv) for u,v in ring(A,B,n,0,N)] for (h,A,B,n,du,dv) in rings]; H=[r[0] for r in rings]; out=[]
+    for i in range(len(R)-1):
+        for k in range(N):
+            k2=(k+1)%N; out+=quad(Lc(rc,ac,*R[i][k],H[i]),Lc(rc,ac,*R[i][k2],H[i]),Lc(rc,ac,*R[i+1][k2],H[i+1]),Lc(rc,ac,*R[i+1][k],H[i+1]))
+    for flag,i in ((cap_bot,0),(cap_top,len(R)-1)):
+        if flag:
+            c=Lc(rc,ac,rings[i][4],rings[i][5],H[i]); out+=[(c,Lc(rc,ac,*R[i][k],H[i]),Lc(rc,ac,*R[i][(k+1)%N],H[i])) for k in range(N)]
+    add(m,out)
 def soft_block(m,rc,ac,A,B,h0,h1,rad=0.03,nexp=5,bulge=0.0,du=0,dv=0,top=True):
     """block with radiused top/bottom edges and superellipse plan"""
     rr=[]; 
@@ -110,6 +120,10 @@ def architecture():
             sweep('titanium',[(4.09,g-0.03),(4.16,g-0.03),(4.16,g+0.03),(4.09,g+0.03)],b0,b1,1.5,caps=False)
         for a in np.arange(b0,b1+0.01,(b1-b0)/round((b1-b0)/15)):   # Osteon mullions ~15 deg
             sweep('titanium',[(4.10,g0),(4.16,g0),(4.16,g1),(4.10,g1)],a-0.35,a+0.35,0.7)
+    # flush access panels on the lining below the wardroom band (behind/above the banquette) and on dividers (see furniture fns)
+    for a0 in np.arange(45,135,15):
+        for (h0,h1) in ((1.75,1.84),):
+            pass
     # vertical lining reveals every 7.5 deg where there is lining
     for a in np.arange(0,360,7.5):
         inb=any(b0<=a<b1 or b0<=a+360<b1 for (b0,b1,g0,g1) in BAND.values())
@@ -117,6 +131,26 @@ def architecture():
     # skirting reveal with floor-wash warm light
     sweep('reveal',[(4.10,0.0),(4.15,0.0),(4.15,0.10),(4.10,0.10)],0,360,2,caps=False)
     sweep('warm',[(4.095,0.10),(4.11,0.10),(4.11,0.11),(4.095,0.11)],0,360,2,caps=False)
+    def lined(a,h):
+        for (b0,b1,g0,g1) in list(BAND.values())+[(150,210,0.40,2.00),(210,270,0.05,2.25)]:
+            if (b0<=a<b1 or b0<=a+360<b1) and g0<=h<=g1: return False
+        return True
+    # structural ribs: shallow pilasters continuing each 15 deg mullion line up the lining and across the ceiling
+    for a in np.arange(0,360,15):
+        if lined(a,1.9): sweep('rib',[(4.125,1.72),(4.15,1.72),(4.15,2.0),(4.125,2.0)],a-0.3,a+0.3,0.6)
+        add('rib',[])
+        for k in range(len(cove)-1):
+            (r0,h0),(r1,h1)=cove[k],cove[k+1]
+            add('rib',quad(W(r0-0.012,a-0.3,h0-0.008),W(r1-0.012,a-0.3,h1-0.008),W(r1-0.012,a+0.3,h1-0.008),W(r0-0.012,a+0.3,h0-0.008)))
+        sweep('rib',[(1.30,HC-0.002),(3.85,HC-0.002),(3.85,HC-0.014),(1.30,HC-0.014)],a-0.25,a+0.25,0.5)
+    # full-circle sill/head edge rings at 1.10 and 1.70 m (source: edge_rings full_circle); they cross the tall galley glass as transoms
+    for g in (1.10,1.70):
+        sweep('titanium',[(4.10,g-0.035),(4.16,g-0.035),(4.16,g+0.035),(4.10,g+0.035)],0,360,1.5,caps=False)
+    # linear supply diffuser just below the cove, and a slotted return ring in the ceiling
+    for a in np.arange(0,360,0.6):
+        if lined(a,1.87): sweep('vent',[(4.120,1.862),(4.128,1.862),(4.128,1.878),(4.120,1.878)],a,a+0.3,0.3,caps=False)
+    for a in np.arange(0,360,0.9):
+        sweep('vent',[(2.555,HC-0.003),(2.595,HC-0.003),(2.595,HC-0.007),(2.555,HC-0.007)],a,a+0.5,0.5,caps=False)
     # room divider walls (galley/wardroom shared wall at 30 is open; washroom wall at 300)
     sweep('hull',rounded_rect(1.92,4.15,0,HC,0.02),299.2,300.4,0.6)
     # overhead handrail (oak)
@@ -163,18 +197,31 @@ def wardroom():
     def rin(t): return 4.05-0.47*math.sqrt(max(0.0,1-(1-t)**2))
     sweep_var('oak',lambda a: rounded_rect(rin((a-60.6)/3.4),4.06,0.02,1.0,0.04,3),60.6,64.0,0.25)
     sweep_var('oak',lambda a: rounded_rect(rin((119.4-a)/3.4),4.06,0.02,1.0,0.04,3),116.0,119.4,0.25)
-    # stools: tapered, domed cushion, teal floor dock ring
+    # stools (pass 2): flush floor dock with positive-lock indicator, curved asymmetric stem leaning out of the dock,
+    # oak shell flaring into a concave sage seat
     for k in range(5):
         a=90+(k-2)*13
-        loft('oak',2.25,a,[(0.02,0.13,0.13,2,0),(0.30,0.155,0.155,2,0),(0.40,0.17,0.17,2,0)])
-        loft('sage',2.25,a,[(0.40,0.175,0.175,2,0),(0.43,0.18,0.18,2,0),(0.46,0.165,0.165,2,0),(0.475,0.12,0.12,2,0),(0.48,0.0,0.0,2,0)],cap_top=False)
-        loft('teal',2.25,a,[(0.0,0.16,0.16,2,0),(0.012,0.16,0.16,2,0)])
+        loft2('titanium',2.25,a,[(0.0,0.15,0.15,2,0,0),(0.006,0.15,0.15,2,0,0),(0.006,0.125,0.125,2,0,0),(0.0,0.125,0.125,2,0,0)])   # flush dock plate
+        loft2('ind',2.25,a,[(0.0065,0.012,0.012,2,-0.135,0),(0.0075,0.012,0.012,2,-0.135,0)])   # lock indicator
+        st=[]
+        for j,t in enumerate(np.linspace(0,1,11)):
+            h=0.006+t*0.38; rad=0.085+0.035*t**2+0.04*t**6; du=-0.035*math.sin(math.pi*t)*(1-t*0.3)
+            st.append((h,rad,rad*0.92,2.2,du,0))
+        loft2('oak',2.25,a,st,cap_top=False)
+        loft2('oak',2.25,a,[(0.386,0.16,0.147,2.2,0,0),(0.41,0.19,0.18,2.2,0,0),(0.425,0.198,0.188,2.2,0,0)],cap_bot=False,cap_top=False)
+        loft2('sage',2.25,a,[(0.425,0.198,0.188,2.2,0,0),(0.445,0.196,0.186,2.2,0,0),(0.458,0.186,0.176,2.2,0,0),(0.462,0.16,0.15,2.2,0,0),
+                             (0.455,0.11,0.10,2.2,0,0),(0.449,0.05,0.045,2.2,0,0),(0.447,0.0,0.0,2.2,0,0)],cap_top=False,cap_bot=False)
+        loft2('teal',2.25,a,[(0.10,0.0935,0.086,2.2,-0.012,0),(0.115,0.0945,0.087,2.2,-0.013,0)],cap_top=False,cap_bot=False)   # latch collar
     # serving pass: radiused plan, convex door face, off-white top with upstand
     soft_block('oak',3.3,38.5,0.70,0.225,0.05,0.93,0.04,nexp=6,bulge=0.06)
     soft_block('worktop',3.3,38.5,0.71,0.235,0.93,0.965,0.015,nexp=6)
     for u in (-0.23,0.23): vline('reveal',3.3,38.5,u,0.20*1.0,0.24,0.08,0.9)
     # briefing screen stowed in a ceiling recess (dark glass, cool graphic line)
     soft_block('glass',3.25,146,0.65,0.03,2.13,2.27,0.01,nexp=8)
+    wall_details(150,-1,2.30,1.15)
+    # task light line in the ceiling over the table
+    loft2('task',3.0,90,[(HC-0.004,0.30,1.20,2.2,0,0),(HC-0.009,0.30,1.20,2.2,0,0)],cap_top=False)
+    loft2('hull',3.0,90,[(HC-0.0045,0.28,1.18,2.2,0,0),(HC-0.0095,0.28,1.18,2.2,0,0)],cap_top=False)
     # living niche integrated into the 150 divider: arched oak frame, planter
     sweep('hull',rounded_rect(2.0,4.10,0,HC,0.02),149.4,150.6,0.6)
     soft_block('oak',3.7,148.3,0.38,0.12,0.30,1.70,0.06,nexp=6)
@@ -192,14 +239,16 @@ def galley_run(a_part,sgn,tall_mat,sink):
     soft_block('worktop',RC,ac+sgn*-math.degrees(0.30/3.29),HA,0.035,0.94,1.06,0.015,nexp=8)  # integrated splash upstand at the divider
     soft_block(tall_mat,2.24,ac,0.31,0.33,0.09,2.42,0.12,nexp=4,bulge=0.03,top=False)   # tall column to the ceiling, broad radius
     # door reveals on the run front (tangential face toward the room)
-    face=-sgn*0.345
+    face=sgn*0.345
     for u in (-0.36,0.0,0.36): vline('reveal',RC,ac,u,face*0.995,face*1.01,0.14,0.86)
+    for u in (-0.54,-0.18,0.18,0.54):
+        for hh in (0.46,0.84): soft_block('ind',RC,ac,0.006,0.002,hh-0.006,hh+0.006,0.001,nexp=2,du=u,dv=face*1.018)
     add('reveal',quad(Lc(RC,ac,-0.62,face*1.01,0.50),Lc(RC,ac,0.62,face*1.01,0.50),Lc(RC,ac,0.62,face*1.01,0.506),Lc(RC,ac,-0.62,face*1.01,0.506)))
     # upper cupboards as a soft-bellied form that sweeps into the ceiling cove; task light underneath
     a_up=a_part+sgn*math.degrees(0.19/2.97)
     if sink: a_up=None
     if a_up is not None: loft('sand',3.30,a_up,[(1.50,0.62,0.12,6,0),(1.55,0.68,0.165,6,0.04),(1.66,0.70,0.175,6,0.04),(2.30,0.70,0.175,6,0.0)],cap_top=False)
-    if a_up is not None: loft('warm',3.30,a_up,[(1.485,0.58,0.10,6,0),(1.50,0.58,0.10,6,0)])
+    if a_up is not None: loft('task',3.30,a_up,[(1.485,0.58,0.10,6,0),(1.50,0.58,0.10,6,0)])
     # recessed appliances / controls: dark glass flush panels with cool graphic
     if sink:
         soft_block('glass',2.97,ac,0.30,0.20,0.938,0.942,0.005,nexp=6,du=0.25)
@@ -210,13 +259,42 @@ def galley_run(a_part,sgn,tall_mat,sink):
         soft_block('glass',2.97,ac,0.30,0.005,0.30,0.82,0.01,nexp=8,du=-0.35,dv=face*1.012)   # oven/rehydrator
         soft_block('graphic',2.97,ac,0.10,0.004,0.74,0.76,0.003,nexp=8,du=-0.35,dv=face*1.016)
     soft_block('graphic',2.24,ac,0.08,0.004,1.30,1.32,0.003,nexp=8,dv=-sgn*0.335)   # column status line
+def wall_details(a_wall,sgn,r_ctrl,h_ctrl):
+    # recessed control panel (dark glass, cool line) + flush access panel outline + low vent grille on a divider wall
+    off=sgn*0.016
+    ac=a_wall+sgn*math.degrees(0.02/3.0)
+    soft_block('glass',r_ctrl,a_wall+sgn*math.degrees(0.018/r_ctrl),0.07,0.004,h_ctrl,h_ctrl+0.18,0.008,nexp=8)
+    soft_block('graphic',r_ctrl,a_wall+sgn*math.degrees(0.0225/r_ctrl),0.05,0.0015,h_ctrl+0.13,h_ctrl+0.14,0.002,nexp=8)
+    soft_block('ind',r_ctrl,a_wall+sgn*math.degrees(0.0225/r_ctrl),0.006,0.0015,h_ctrl+0.03,h_ctrl+0.045,0.002,nexp=2,du=0.04)
+    for (u0,u1,h0,h1) in ((2.45,3.15,0.30,1.25),):
+        for (a,b,c,d) in ((u0,u1,h0,h0+0.004),(u0,u1,h1-0.004,h1),(u0,u0+0.004,h0,h1),(u1-0.004,u1,h0,h1)):
+            soft_block('reveal',(a+b)/2,a_wall+sgn*math.degrees(0.0115/((a+b)/2)),(b-a)/2,0.0015,c,d,0.0005,nexp=8)
+    for k in range(9):
+        soft_block('vent',3.55+k*0.05,a_wall+sgn*math.degrees(0.0115/3.75),0.012,0.0015,0.14,0.30,0.004,nexp=8)
 def galley():
+    wall_details(300,-1,2.35,1.15)
     galley_run(300,1,'sand',False)
     galley_run(30,-1,'oak',True)
     # island: elliptical/racetrack plan, tapered plinth, off-white top
-    loft('reveal',3.05,345,[(0.0,0.18,0.48,2.6,0),(0.10,0.20,0.50,2.6,0)])
-    loft('oak',3.05,345,[(0.10,0.22,0.52,2.6,0),(0.50,0.26,0.57,2.6,0),(0.88,0.29,0.59,2.6,0)])
-    loft('worktop',3.05,345,[(0.88,0.30,0.61,2.6,0),(0.90,0.315,0.625,2.6,0),(0.925,0.315,0.625,2.6,0),(0.94,0.30,0.61,2.6,0)])
-    loft('teal',3.05,345,[(0.86,0.295,0.605,2.6,0),(0.875,0.295,0.605,2.6,0)])   # tether/handhold rail
+    loft2('reveal',3.05,345,[(0.0,0.17,0.43,2.8,0,0),(0.13,0.17,0.43,2.8,0,0)])                      # deep recessed plinth
+    loft2('warm',3.05,345,[(0.004,0.172,0.432,2.8,0,0),(0.012,0.172,0.432,2.8,0,0)],cap_top=False)    # toe-kick wash
+    body=[(0.13,0.235,0.505,2.8,0,0),(0.135,0.245,0.515,2.8,0,0),(0.15,0.25,0.52,2.8,0,0)]
+    body+=[(0.15+t*0.69,0.25+0.035*t,0.52+0.04*t,2.8,0,0) for t in np.linspace(0.05,1,8)]
+    body+=[(0.855,0.288,0.562,2.8,0,0),(0.862,0.282,0.556,2.8,0,0)]
+    loft2('oak',3.05,345,body)
+    loft2('reveal',3.05,345,[(0.862,0.27,0.54,2.8,0,0),(0.878,0.27,0.54,2.8,0,0)])                  # shadow gap
+    loft2('worktop',3.05,345,[(0.878,0.30,0.605,2.8,0,0),(0.885,0.31,0.615,2.8,0,0),(0.905,0.315,0.62,2.8,0,0),(0.918,0.31,0.615,2.8,0,0),(0.922,0.30,0.605,2.8,0,0)])
+    # flush drawers: two horizontal reveals + centre seam on the long faces, positive-latch indicators
+    for hh in (0.36,0.61):
+        A=0.25+0.035*(hh-0.15)/0.69+0.001; B=0.52+0.04*(hh-0.15)/0.69+0.001
+        loft2('reveal',3.05,345,[(hh,A,B,2.8,0,0),(hh+0.005,A,B,2.8,0,0)],cap_top=False,cap_bot=False)
+    for su in (1,-1):
+        panel_line('reveal',3.05,345,su*0.262,su*0.300,0.0,0.16,0.85)
+        for vv in (-0.16,0.16):
+            for hh in (0.33,0.58,0.82):
+                A=0.25+0.035*(hh-0.15)/0.69
+                soft_block('ind',3.05,345,0.002,0.006,hh-0.006,hh+0.006,0.001,nexp=2,du=su*(A+0.003),dv=vv)
+    # handhold bars at the island ends (teal, positive grip)
+    for sv in (1,-1): soft_block('teal',3.05,345,0.10,0.012,0.80,0.83,0.008,nexp=4,dv=sv*0.60)
 def build():
     T.clear(); architecture(); wardroom(); galley(); return T
