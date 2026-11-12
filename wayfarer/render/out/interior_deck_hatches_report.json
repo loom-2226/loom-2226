@@ -5,7 +5,7 @@
   "ECON_dv_km_s": 707.845,
   "source_mass_rebooking_t": 0,
   "leaf_count": 4,
-  "source_copy": "hatch_L1L2_0/1 translated in X",
+  "source_copy": "L1L2 source leaf extents; L2L3 upward into L2, L3L4 unchanged into L4",
   "bookings": {
     "outfit_L2": {
       "booked_kg": 818.9629850273705,
@@ -20,12 +20,179 @@
       "remaining_kg": 518.9629850273705
     }
   },
+  "L2_furniture_glb_screen": {
+    "glb_sha256": "50028743262fddc747236f3d5efedbfcd9dc0a84c7a802f93ab01de5491ebeba",
+    "mesh_nodes": 29,
+    "triangle_count": 127432,
+    "D9_hatch_mesh_hits": [],
+    "closest_mesh_candidates": [
+      {
+        "hatch": "hatch_L2L3_1",
+        "mesh": "dry:L2_G2_water_run",
+        "triangle_AABB_lower_bound_m": 0.067762,
+        "vertex_upper_bound_m": 0.076304
+      },
+      {
+        "hatch": "hatch_L2L3_1",
+        "mesh": "dry:L2_G2_water_run",
+        "triangle_AABB_lower_bound_m": 0.069263,
+        "vertex_upper_bound_m": 0.078642
+      },
+      {
+        "hatch": "hatch_L2L3_0",
+        "mesh": "dry:L2_O1_lounger_1",
+        "triangle_AABB_lower_bound_m": 0.289283,
+        "vertex_upper_bound_m": 0.476787
+      },
+      {
+        "hatch": "hatch_L2L3_0",
+        "mesh": "dry:L2_O1_lounger_3",
+        "triangle_AABB_lower_bound_m": 0.289283,
+        "vertex_upper_bound_m": 0.476787
+      },
+      {
+        "hatch": "hatch_L2L3_0",
+        "mesh": "dry:L2_O1_lounger_1",
+        "triangle_AABB_lower_bound_m": 0.326381,
+        "vertex_upper_bound_m": 0.491356
+      },
+      {
+        "hatch": "hatch_L2L3_0",
+        "mesh": "dry:L2_O1_lounger_3",
+        "triangle_AABB_lower_bound_m": 0.326381,
+        "vertex_upper_bound_m": 0.491356
+      },
+      {
+        "hatch": "hatch_L2L3_1",
+        "mesh": "dry:L2_G2_water_run",
+        "triangle_AABB_lower_bound_m": 0.422022,
+        "vertex_upper_bound_m": 0.42288
+      },
+      {
+        "hatch": "hatch_L2L3_0",
+        "mesh": "dry:L2_O1_lounger_2",
+        "triangle_AABB_lower_bound_m": 0.50001,
+        "vertex_upper_bound_m": 0.50001
+      },
+      {
+        "hatch": "hatch_L2L3_0",
+        "mesh": "dry:L2_W6_living_niche",
+        "triangle_AABB_lower_bound_m": 0.521818,
+        "vertex_upper_bound_m": 0.529116
+      },
+      {
+        "hatch": "hatch_L2L3_0",
+        "mesh": "dry:L2_O1_lounger_2",
+        "triangle_AABB_lower_bound_m": 0.52581,
+        "vertex_upper_bound_m": 0.52581
+      },
+      {
+        "hatch": "hatch_L2L3_0",
+        "mesh": "dry:L2_E4_shoji_screen",
+        "triangle_AABB_lower_bound_m": 0.532047,
+        "vertex_upper_bound_m": 0.539555
+      },
+      {
+        "hatch": "hatch_L2L3_0",
+        "mesh": "dry:L2_E4_shoji_screen",
+        "triangle_AABB_lower_bound_m": 0.544631,
+        "vertex_upper_bound_m": 0.555903
+      }
+    ],
+    "G2_water_run": [
+      {
+        "hatch": "hatch_L2L3_1",
+        "mesh": "dry:L2_G2_water_run",
+        "triangle_AABB_lower_bound_m": 0.067762,
+        "vertex_upper_bound_m": 0.076304
+      },
+      {
+        "hatch": "hatch_L2L3_1",
+        "mesh": "dry:L2_G2_water_run",
+        "triangle_AABB_lower_bound_m": 0.069263,
+        "vertex_upper_bound_m": 0.078642
+      },
+      {
+        "hatch": "hatch_L2L3_1",
+        "mesh": "dry:L2_G2_water_run",
+        "triangle_AABB_lower_bound_m": 0.422022,
+        "vertex_upper_bound_m": 0.42288
+      },
+      {
+        "hatch": "hatch_L2L3_1",
+        "mesh": "dry:L2_G2_water_run",
+        "triangle_AABB_lower_bound_m": 0.663563,
+        "vertex_upper_bound_m": 0.717781
+      },
+      {
+        "hatch": "hatch_L2L3_1",
+        "mesh": "dry:L2_G2_water_run",
+        "triangle_AABB_lower_bound_m": 0.796943,
+        "vertex_upper_bound_m": 0.797408
+      },
+      {
+        "hatch": "hatch_L2L3_1",
+        "mesh": "dry:L2_G2_water_run",
+        "triangle_AABB_lower_bound_m": 0.826387,
+        "vertex_upper_bound_m": 0.826608
+      },
+      {
+        "hatch": "hatch_L2L3_1",
+        "mesh": "dry:L2_G2_water_run",
+        "triangle_AABB_lower_bound_m": 1.275458,
+        "vertex_upper_bound_m": 1.281666
+      },
+      {
+        "hatch": "hatch_L2L3_0",
+        "mesh": "dry:L2_G2_water_run",
+        "triangle_AABB_lower_bound_m": 3.552283,
+        "vertex_upper_bound_m": 3.568353
+      },
+      {
+        "hatch": "hatch_L2L3_0",
+        "mesh": "dry:L2_G2_water_run",
+        "triangle_AABB_lower_bound_m": 3.562545,
+        "vertex_upper_bound_m": 3.567402
+      },
+      {
+        "hatch": "hatch_L2L3_0",
+        "mesh": "dry:L2_G2_water_run",
+        "triangle_AABB_lower_bound_m": 3.766685,
+        "vertex_upper_bound_m": 3.767224
+      },
+      {
+        "hatch": "hatch_L2L3_0",
+        "mesh": "dry:L2_G2_water_run",
+        "triangle_AABB_lower_bound_m": 4.119195,
+        "vertex_upper_bound_m": 4.119301
+      },
+      {
+        "hatch": "hatch_L2L3_0",
+        "mesh": "dry:L2_G2_water_run",
+        "triangle_AABB_lower_bound_m": 4.208378,
+        "vertex_upper_bound_m": 4.230253
+      },
+      {
+        "hatch": "hatch_L2L3_0",
+        "mesh": "dry:L2_G2_water_run",
+        "triangle_AABB_lower_bound_m": 4.499315,
+        "vertex_upper_bound_m": 4.499355
+      },
+      {
+        "hatch": "hatch_L2L3_0",
+        "mesh": "dry:L2_G2_water_run",
+        "triangle_AABB_lower_bound_m": 4.887064,
+        "vertex_upper_bound_m": 4.888688
+      }
+    ],
+    "clearance_lower_bound_m": 0.067762
+  },
   "hatches": {
     "hatch_L2L3_0": {
       "shape": {
         "k": "box",
-        "x0": 5.6,
-        "x1": 6.52,
+        "x0": 4.68,
+        "x1": 5.6,
         "y0": -1.89,
         "y1": -1.8299999999999998,
         "z0": -0.46,
@@ -33,14 +200,14 @@
       },
       "mass_owner": "outfit_L2",
       "source": "hatch_L1L2_0",
-      "floor_mount_m3": 0.016560000000000005,
+      "floor_mount_m3": 0.0,
       "mass_estimate_kg": 150
     },
     "hatch_L2L3_1": {
       "shape": {
         "k": "box",
-        "x0": 5.6,
-        "x1": 6.52,
+        "x0": 4.68,
+        "x1": 5.6,
         "y0": 1.8299999999999998,
         "y1": 1.89,
         "z0": -0.46,
@@ -48,7 +215,7 @@
       },
       "mass_owner": "outfit_L2",
       "source": "hatch_L1L2_1",
-      "floor_mount_m3": 0.016560000000000005,
+      "floor_mount_m3": 0.0,
       "mass_estimate_kg": 150
     },
     "hatch_L3L4_0": {
@@ -100,10 +267,12 @@
     "D9_category_d": 0,
     "D9_contacts": [],
     "physical_source_pairs_screened": 0,
-    "floor_mount_category": "c: identical to L1L2 source leaf/floor mount",
+    "floor_mount_category": "L3L4 source-identical category-c floor mount; L2L3 upward hinge plane contact, zero overlap",
     "medical_door_port_z_clearance_m": 0.15175252749023277,
     "L3_semantic_room_zone_corner_intrusion_m": 0.04517351411127324,
-    "L3_berths_and_partitions": "NOT PHYSICALLY DRAWN; no independent clearance qualified",
+    "L3_berths_and_partitions": "L2L3 leaves moved out of L3; L3L4 leaves unchanged; existing L3 partition and berth solids not drawn",
+    "L2_furniture_glb_D9_hits": 0,
+    "L2_furniture_triangle_AABB_clearance_lower_bound_m": 0.067762,
     "min_inner_pressure_radius_clearance_m": 2.3248264858887264,
     "containment": "PASS",
     "G1_G12": "NOT RUN / NOT REQUIRED"
@@ -112,7 +281,7 @@
   "previous_L1_L2_glb_changes": 0,
   "viewer_source_changed": false,
   "glb": "render/out/interior_deck_hatches.glb",
-  "glb_sha256": "f2e7aa593415988b7d404f15c38b0724406b7321a401fd13ac478c4b901c6d9a",
+  "glb_sha256": "48136f27c06f89f317b04a175c6e248285113ffa80be30cc5659870909c40b00",
   "glb_bytes": 352268,
   "mesh_nodes": 6,
   "picture": "docs/WAYFARER_DECK_HATCHES_2026_11_12.png"
