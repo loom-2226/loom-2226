@@ -14,7 +14,7 @@ import crown_geom_v253 as C
 from packing_phase1b import source_brep_pilot as P
 
 PREFIX="wayfarer_exterior_B_medical_88ce19fc"
-P=ROOT/"render/out"
+OUT=ROOT/"render/out"
 SOURCE=ROOT/"results/out/wayfarer_v05_geometry.json"
 DEC=ROOT/"config/kt_decisions.json"
 EVA=ROOT/"render/out/interior_L5_source_report.json"
@@ -124,7 +124,7 @@ def main():
     F.PREFIX=PREFIX
     F.main()
     assert len(passed["material_removed"])==6
-    path=P/(PREFIX+"_report.json")
+    path=OUT/(PREFIX+"_report.json")
     report=json.loads(path.read_text())
     assert report["status"]=="F3_EXTERIOR_DETAIL_SIX_STATE_D9_CONTAINMENT_PASS"
     assert report["all_six_state_D9_and_containment"]=="PASS"
@@ -138,7 +138,7 @@ def main():
             assert details["category_d_count"]==0
             assert details["boolean_errors"]==0
             assert details["pressure_containment_pass"]
-            file=P/(PREFIX+"_"+mode+"_"+pose+".glb")
+            file=OUT/(PREFIX+"_"+mode+"_"+pose+".glb")
             assert file.exists() and file.stat().st_size>40000
             states[mode+"/"+pose]=mark_visual_glb(file,mode,pose)
     assert len(states)==6
@@ -162,7 +162,7 @@ def main():
         published_canon_glb_pointer_untouched=True,
         published_six_exterior_GLBS_untouched=True,
         no_canon_tag_or_release=True)
-    (P/(PREFIX+"_visual_report.json")).write_text(json.dumps(result,indent=2)+"\n")
+    (OUT/(PREFIX+"_visual_report.json")).write_text(json.dumps(result,indent=2)+"\n")
     print("NONCANON_VISUAL_SIX_STATE_MEDICAL_HOLES_PASS",json.dumps(
         {k:result[k] for k in ("status","medical_ports","EVA","source_dry_t","ECON_dv_km_s","D9_category_d_total","containment")}),flush=True)
 if __name__=="__main__":main()
