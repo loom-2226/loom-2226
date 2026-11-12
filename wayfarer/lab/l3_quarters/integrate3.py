@@ -211,10 +211,10 @@ def main():
         dst=np.array([[abs(((a-wa+180)%360)-180)+100*abs(hh_i-h)
                          for wa,h in l3geom.WIN] for a,hh_i in zip(az,hh)])
         nearest=np.argmin(dst,axis=1)
-        for i,(wa,h) in enumerate(l3geom.WIN):
+        for i,(wa,port_h) in enumerate(l3geom.WIN):
             T=V[nearest==i]
-            assert len(T)>0,(material,wa,h)
-            ctx.setdefault(windows[(wa,h)],{})[material]=T
+            assert len(T)>0,(material,wa,port_h)
+            ctx.setdefault(windows[(wa,port_h)],{})[material]=T
     assert len(ctx)==10
     owners={**{k:parts[k]["mass_t"]*1000 for k in
                   ["outfit_L3"]+[f"room_L3-{r}" for r,_,_ in ROOMS]},
