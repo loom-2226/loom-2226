@@ -13,34 +13,11 @@ path=ROOT/"config/kt_decisions.json"
 dec=json.loads(path.read_text())
 choice=dec["exterior_surface_2026_11_13"]
 assert choice["canon_change"] is False and "APPROVED" in choice["status"]
-choice["status"]="APPROVED; VISUAL BUILD D9 ZERO / CONTAINMENT PASS; WWS-1 NONCANON; no canon re-release"
-choice["build_evidence"]=dict(
-    approved_PR=536,
-    noncanon_report="wayfarer/render/out/wayfarer_exterior_B_medical_88ce19fc_visual_report.json",
-    six_state_visual_GLBS={k:v["path"] for k,v in r["six_states"].items()},
-    source_geometry_sha256=r["source_sha256"],
-    BRep_medical_pressure_and_armour_cut_proof=r["medical_ports"]["actual_solid_intersection_proof"],
-    medical_centres_source_x_m=9.10,medical_centres_visual_x_m=9.30,
-    medical_diameter_m=1.55,medical_azimuths_deg=[180,210,240],
-    EVA_source_frame_x_m=12.25,EVA_interior_clear_x_m=12.30,
-    EVA_axial_offset_mm=50,EVA_source_frame_d_m=1.1,EVA_clear_hatch_d_m=1.,
-    EVA_geometry_moved=False,
-    render_shader="wayfarer/render/loomgl.js",
-    rendered_B_midbay_seams_and_20deg_tiles=True,
-    C_print_only_details_rendered=False,
-    print_profile_numbers_changed=False,
-    pre_post_pictures=[
-      "wayfarer/docs/WAYFARER_EXTERIOR_B_EVA_BEFORE_AFTER_2026_11_13.png",
-      "wayfarer/docs/WAYFARER_EXTERIOR_B_MEDICAL_BEFORE_AFTER_2026_11_13.png",
-      "wayfarer/docs/WAYFARER_EXTERIOR_B_WHOLE_BEFORE_AFTER_2026_11_13.png"],
-    D9_category_d=0,containment="PASS",G1_G12="NOT RUN / NOT REQUIRED",
-    physical_pressure_seal_shielding_qualification="NOT CLAIMED",
-    source_dry_mass_t=r["source_dry_t"],ECON_dv_km_s=r["ECON_dv_km_s"],
-    source_mass_rebooking_t=0,source_geometry_file_modified=False,
-    canonical_six_exterior_GLBS_modified=False,
-    canon_glb_pointer_modified=False,
-    canon_tag_or_release=False)
-path.write_text(json.dumps(dec,indent=2)+"\n")
+# kT's APPROVED decision is already recorded by PR #536. Keep it immutable:
+# writing kt_decisions.json here would invoke the released-canon F3 workflow.
+# The separate noncanon visual report is the authoritative build evidence.
+assert choice["status"]=="APPROVED; build by Sol"
+assert choice["mass_rebooking_t"]==0 and choice["G1_G12"]=="NOT RUN"
 doc=ROOT/"docs/EXTERIOR_SURFACE_OPTIONS_2026_11_13.md"
 s=doc.read_text()
 s+="""
