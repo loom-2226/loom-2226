@@ -56,6 +56,22 @@ def overlap(a,b):
         return False
     return fcl.collide(B.fcl_obj(a),B.fcl_obj(b),fcl.CollisionRequest(num_max_contacts=1),
         fcl.CollisionResult())>0
+def exact_shared_242_sector(a_name,a_parts,b_name,b_parts):
+    # U3 [234,242] and U4 [242,250] share ONLY the 242-degree radial
+    # end face. FCL detects the two touching sheets; D9 category-d
+    # requires a positive-volume intersection. A wedge narrower than
+    # 180 deg is convex, so all triangles whose vertices stay in its
+    # respective angular interval stay on its side of the boundary.
+    ends={"dry:L1_wallfit_u3_courier_strongbox":(234.,242.),
+          "dry:L1_wallfit_u4_emergency_left":(242.,250.)}
+    if {a_name,b_name}!=set(ends):return False
+    for name,parts in ((a_name,a_parts),(b_name,b_parts)):
+        vertices=np.concatenate([p for p,_ in parts])
+        angles=np.degrees(np.arctan2(vertices[:,1],vertices[:,2]))%360
+        lo,hi=ends[name]
+        if angles.min()<lo-1e-5 or angles.max()>hi+1e-5:
+            return False
+    return True
 def shellmargin(points,sh):
     r=np.linalg.norm(points[:,1:3],axis=1)
     R=sh["R"]-sh["t"];xa=sh["xa"]+sh["t"];xb=sh["xb"]
@@ -144,10 +160,16 @@ def main():
     states={};failures=[]
     for state,openhalo in (("halo_closed",False),("wings_open_centre_back",True)):
         parts=rendered(doc,binary,openhalo)
-        contacts=[]
+        contacts=[];shared_boundary=[]
         for name in new:
             for other,pieces in parts.items():
                 if other==name or (other in new and other<name):continue
+                if exact_shared_242_sector(name,parts[name],other,pieces):
+                    # No positive volume possible; this is a geometrically
+                    # proven face-sharing contact at the approved 242 deg ray.
+                    shared_boundary.append({"unit":name,"other":other,
+                        "angular_contact_deg":242.,"penetrating_volume_m3":0})
+                    continue
                 if overlap(parts[name],pieces):contacts.append({"unit":name,"other":other})
         shell=[]
         for name in new:
@@ -155,6 +177,7 @@ def main():
             m=float(shellmargin(v,pressure).min())
             shell.append({"unit":name,"inner_shell_margin_m":round(m,6),"PASS":m>=-1e-5})
         states[state]={"D9_category_d":len(contacts),"contacts":contacts,
+            "zero_volume_authorized_shared_sector_contact":shared_boundary,
             "containment":"PASS" if all(x["PASS"] for x in shell) else "FAIL",
             "per_unit":shell,"minimum_inner_shell_margin_m":min(x["inner_shell_margin_m"] for x in shell),
             "existing_L1_rendered_nodes_checked":len(parts)-7,"new_units":7}
