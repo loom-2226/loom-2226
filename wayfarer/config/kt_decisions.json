@@ -1684,5 +1684,17 @@
     "canon_change": false,
     "G1_G12": "NOT RUN",
     "status": "APPROVED; build by Sol"
+  },
+  "exterior_remaining_surfaces_2026_11_13": {
+    "authority": "kT APPROVED 2026-11-13 (Claude chat)",
+    "source": "wayfarer/docs/EXTERIOR_REMAINING_SURFACES_2026_11_13.md (PR #541)",
+    "thrust_cone": "Option 2 load lines: meridians 40/140/220/320 deg + ring x 36.8",
+    "bay_doors": "Option 2 clean leaves: edges 57.77/122.23 deg + 90 deg centre split only; no hull rings or 20 deg joints on doors",
+    "radiators_fins": "Option 2 heat-pipe channels every 0.5 m root-to-tip, both faces, strakes + hot fins + fin roots",
+    "meaning": "surface demarcations only; no gaps, mass or protrusion",
+    "mass_rebooking_t": 0,
+    "canon_change": false,
+    "G1_G12": "NOT RUN",
+    "status": "APPROVED; viewer by Sol, print spec by Claude"
   }
 }
