@@ -48,21 +48,22 @@ def ctx():
 def lining():
     item('D3_lining')
     def inport(a,h): return any(abs(((a-p+180)%360)-180)*math.pi/180*RO<PR+0.06 and abs(h-PH)<PR+0.06 for p in PORTS)
-    for a in np.arange(165,375,1.5):
+    for a in np.arange(165.6,374.4-1.4,1.5):
         for h0 in np.arange(0,HC,0.1):
             if not inport(a+0.75,h0+0.05): add('hull',quad(W(RO,a,h0),W(RO,a,h0+0.1),W(RO,a+1.5,h0+0.1),W(RO,a+1.5,h0)))
     cove=[(RO-0.28,HC)]+[(RO-0.28+0.28*math.sin(math.radians(t)),HC-0.28+0.28*math.cos(math.radians(t))) for t in range(0,91,10)]
-    for a in np.arange(165,375,2):
+    for a in np.arange(165.6,374.4-1.9,2):
         if not any(abs(((a+1-p+180)%360)-180)<12 for p in PORTS):
             for k in range(len(cove)-1):
                 (r0,h0),(r1,h1)=cove[k],cove[k+1]; add('hull',quad(W(r0,a,h0),W(r1,a,h1),W(r1,a+2,h1),W(r0,a+2,h0)))
     for a in np.arange(0,360,7.5):
         d=min(abs(((a+180)%360)-180),abs(((a-180+180)%360)-180)); r_in=2.05 if d<=16 else 1.30
-        r_out=1.9 if 15<=a<=165 else RO-0.28
+        if 14<=a<=166: continue      # no ceiling reveals over the shelter jacket
+        r_out=RO-0.28
         sweep('reveal',[(r_in,HC-0.002),(r_out,HC-0.002),(r_out,HC-0.006),(r_in,HC-0.006)],a-0.07,a+0.07,0.14,caps=False)
     item('D1_lighting')
-    sweep('warm',[(RO-0.30,2.268),(RO-0.27,2.268),(RO-0.27,2.28),(RO-0.30,2.28)],165,375,2,caps=False)
-    sweep('warm',[(3.86,SC-0.03),(3.90,SC-0.03),(3.90,SC-0.02),(3.86,SC-0.02)],20,160,2,caps=False)   # shelter cove light
+    sweep('warm',[(RO-0.30,2.268),(RO-0.27,2.268),(RO-0.27,2.28),(RO-0.30,2.28)],165.6,374.4,2,caps=False)
+    sweep('warm',[(3.86,SC-0.045),(3.90,SC-0.045),(3.90,SC-0.035),(3.86,SC-0.035)],20,160,2,caps=False)   # shelter cove light
     item('D2_overhead_rail')
     sweep('oak',[(1.62,1.98),(1.67,1.98),(1.67,2.03),(1.62,2.03)],14,166,2); sweep('oak',[(1.62,1.98),(1.67,1.98),(1.67,2.03),(1.62,2.03)],194,346,2)
 def walls():
@@ -70,7 +71,7 @@ def walls():
     # medical: radial wall at 255 and short inner partition stubs either side of the 2.4 m bi-parting entrance (source, 202 deg)
     sweep('sand',rounded_rect(1.92,RO,0,HC,0.01,2),254.6,255.4,0.4)
     dh=math.degrees(1.2/1.9)
-    for s0,s1 in ((165,202-dh),(202+dh,255)): sweep('sand',rounded_rect(1.88,1.92,0,HC,0.008,2),s0,s1,0.8)
+    for s0,s1 in ((165.6,202-dh),(202+dh,255)): sweep('sand',rounded_rect(1.88,1.92,0,HC,0.008,2),s0,s1,0.8)
     sweep('sand',rounded_rect(1.88,1.92,2.10,HC,0.008,2),202-dh,202+dh,1.0)
     sweep('titanium',[(1.86,2.10),(1.88,2.10),(1.88,2.13),(1.86,2.13)],202-dh-3,202+dh+3,1.0)
     for s in (-1,1): sweep('linen',rounded_rect(1.875,1.885,0.01,2.09,0.004,2),202+s*dh-(0 if s>0 else -0.0)-(4 if s>0 else -4)*0+((-1 if s>0 else 1)*0)+(0),202+s*dh+(0.0),0.6) if False else None
@@ -91,12 +92,13 @@ def shelter():
     sweep('ind',[(1.882,1.10),(1.887,1.10),(1.887,1.16),(1.882,1.16)],90+dh+1.0,90+dh+1.6,0.6)
     sweep('reveal',[(1.882,0.85),(1.889,0.85),(1.889,1.25),(1.882,1.25)],90-dh+1.5,90-dh+2.0,0.5)
     item('S7_shelter_lining')   # warm interior faces on the water jacket: oak-look floor, linen walls and ceiling
-    sweep('oak',[(2.1,SF),(3.95,SF),(3.95,SF+0.004),(2.1,SF+0.004)],SH[0],SH[1],1.5,caps=False)
-    sweep('linen',[(2.1,SC-0.004),(3.95,SC-0.004),(3.95,SC),(2.1,SC)],SH[0],SH[1],1.5,caps=False)
+    A0,A1=SH[0]+0.4,SH[1]-0.4
+    sweep('oak',[(2.11,SF+0.01),(3.94,SF+0.01),(3.94,SF+0.014),(2.11,SF+0.014)],A0,A1,1.5,caps=False)
+    sweep('linen',[(2.11,SC-0.014),(3.94,SC-0.014),(3.94,SC-0.01),(2.11,SC-0.01)],A0,A1,1.5,caps=False)
     dh2=math.degrees(0.40/2.0)
-    for s0,s1 in ((SH[0],90-dh2),(90+dh2,SH[1])): sweep('linen',[(2.1,SF),(2.104,SF),(2.104,SC),(2.1,SC)],s0,s1,1.5,caps=False)
-    sweep('linen',[(3.946,SF),(3.95,SF),(3.95,SC),(3.946,SC)],SH[0],SH[1],1.5,caps=False)
-    for a in SH: sweep('linen',[(2.1,SF),(3.95,SF),(3.95,SC),(2.1,SC)],a-0.05 if a>90 else a,a if a>90 else a+0.05,0.05)
+    for s0,s1 in ((A0,90-dh2),(90+dh2,A1)): sweep('linen',[(2.11,SF+0.01),(2.114,SF+0.01),(2.114,SC-0.01),(2.11,SC-0.01)],s0,s1,1.5,caps=False)
+    sweep('linen',[(3.936,SF+0.01),(3.94,SF+0.01),(3.94,SC-0.01),(3.936,SC-0.01)],A0,A1,1.5,caps=False)
+    for a,d in ((A0,0.05),(A1,-0.05)): sweep('linen',[(2.11,SF+0.01),(3.94,SF+0.01),(3.94,SC-0.01),(2.11,SC-0.01)],min(a,a+d),max(a,a+d),0.05)
     item('S1_living_wall')
     sweep('scene',[(3.918,0.45),(3.93,0.45),(3.93,1.75),(3.918,1.75)],28,152,1.0,caps=False)
     for g in (0.43,1.75): sweep('titanium',[(3.91,g),(3.94,g),(3.94,g+0.02),(3.91,g+0.02)],27.5,152.5,1.0)
@@ -106,23 +108,23 @@ def shelter():
     for a in (60,120):
         G.extrude_uh('oak',3.0,a,[(u,h+SF-0.055) for u,h in top],0.05,0.31,taper=lambda u: 0.9+0.1*math.cos(u*1.6))
         G.extrude_uh('sand',3.0,a,[(u*0.97,h+SF) for u,h in top],0.055,0.27,taper=lambda u: 0.9+0.1*math.cos(u*1.6))
-        loft2('oak_dk',3.0,a,[(SF+0.006,0.2,0.14,2.6,-0.05,0),(SF+0.12,0.18,0.12,2.6,-0.04,0),(SF+0.24,0.25,0.18,2.6,-0.03,0)])
-        loft2('titanium',3.0,a,[(SF,0.24,0.17,3,-0.05,0),(SF+0.006,0.24,0.17,3,-0.05,0)])
+        loft2('oak_dk',3.0,a,[(SF+0.011,0.2,0.14,2.6,-0.05,0),(SF+0.12,0.18,0.12,2.6,-0.04,0),(SF+0.24,0.25,0.18,2.6,-0.03,0)])
+        loft2('titanium',3.0,a,[(SF+0.005,0.24,0.17,3,-0.05,0),(SF+0.011,0.24,0.17,3,-0.05,0)])
         tube('teal',3.0,a,[(-0.02,-0.29,SF+0.27),(0.0,-0.31,SF+0.24),(0.02,-0.29,SF+0.21)],0.012); tube('teal',3.0,a,[(-0.02,0.29,SF+0.27),(0.0,0.31,SF+0.24),(0.02,0.29,SF+0.21)],0.012)
     item('S3_soft_floor')
     for a0 in (70,75,80,96,101,106):
-        sweep('sand',rounded_rect(2.35,3.55,SF,SF+0.06,0.02,3),a0+0.15,a0+4.85,1.0)
+        sweep('sand',rounded_rect(2.35,3.55,SF+0.015,SF+0.075,0.02,3),a0+0.15,a0+4.85,1.0)
     item('S4_backup_stand')
-    loft2('oak',3.0,90,[(SF,0.16,0.16,2.4,0,0),(SF+0.02,0.16,0.16,2.4,0,0),(0.6,0.07,0.07,2.4,0,0),(0.95,0.12,0.12,2.4,0,0)],cap_top=False)
+    loft2('oak',3.0,90,[(SF+0.015,0.16,0.16,2.4,0,0),(SF+0.035,0.16,0.16,2.4,0,0),(0.6,0.07,0.07,2.4,0,0),(0.95,0.12,0.12,2.4,0,0)],cap_top=False)
     item('S5_shelter_seats')    # ten fold-flat restraint seats on the inner jacket wall (storm mode)
-    for a in (24,36,48,60,72,108,120,132,144,156):
-        soft_block('oak',2.13,a,0.02,0.22,0.55,1.25,0.02,nexp=6)
-        soft_block('teal',2.15,a,0.004,0.18,1.12,1.14,0.002,nexp=6)
-        soft_block('ind',2.152,a,0.002,0.006,1.20,1.212,0.001,nexp=2)
+    for a in (26,37,48,59,70,110,121,132,143,154):
+        soft_block('oak',2.135,a,0.02,0.19,0.55,1.25,0.02,nexp=6)
+        soft_block('teal',2.155,a,0.004,0.15,1.12,1.14,0.002,nexp=6)
+        soft_block('ind',2.157,a,0.002,0.006,1.20,1.212,0.001,nexp=2)
     item('S6_storm_lockers')
     for a,sg in ((18.79,1),(161.21,-1)):
-        rc=3.0; ac=a+sg*math.degrees(0.18/rc)
-        soft_block('oak',rc,ac,0.80,0.15,SF,SC-0.02,0.04,nexp=7,bulge=0.03)
+        rc=3.0; ac=a+sg*4.8
+        soft_block('oak',rc,ac,0.78,0.15,SF+0.01,SC-0.03,0.04,nexp=7,bulge=0.03)
         for u in (-0.4,0.0,0.4): soft_block('ind',rc,ac,0.002,0.006,1.1,1.112,0.001,nexp=2,du=u,dv=-sg*0.155)
 def medical():
     item('M1_treatment_table'); rc,ac=3.05,210
@@ -145,12 +147,12 @@ def medical():
     for sv in (-1,1): tube('titanium',rc,ac,[(-0.6,sv*0.39,0.56),(-0.55,sv*0.40,0.75),(0.4,sv*0.40,0.75),(0.45,sv*0.39,0.56)],0.015)
     for du in (-0.2,0.35): soft_block('teal',rc,ac,0.025,0.35,0.555,0.57,0.004,nexp=6,du=du)
     item('M3_cabinets_pharmacy')
-    rc=3.2; ac=165+math.degrees(0.305/rc); A=0.8
+    rc=3.0; ac=172.5; A=0.6
     soft_block('reveal',rc,ac,A-0.03,0.245,0,0.09,0.02,nexp=8); soft_block('oak',rc,ac,A,0.275,0.09,2.20,0.05,nexp=7,bulge=0.03)
-    for u in (-0.4,0.0,0.4):
-        G.vline('reveal',rc,ac,u,-0.27,-0.285,0.14,2.14)
-        soft_block('ind',rc,ac,0.002,0.006,1.10,1.112,0.001,nexp=2,du=u+0.2,dv=-0.285) if u<0.4 else None
-    soft_block('glass',rc,ac,0.25,0.003,1.25,1.55,0.01,nexp=8,du=0.4,dv=-0.284)
+    for u in (-0.3,0.0,0.3):
+        G.vline('reveal',rc,ac,u,0.27,0.285,0.14,2.14)
+        soft_block('ind',rc,ac,0.002,0.006,1.10,1.112,0.001,nexp=2,du=u+0.15,dv=0.285) if u<0.3 else None
+    soft_block('glass',rc,ac,0.2,0.003,1.25,1.55,0.01,nexp=8,du=0.3,dv=0.284)
     item('M5_decon_sink_terminal'); rc,ac=3.75,195
     soft_block('reveal',rc,ac,0.2,0.27,0,0.1,0.03,nexp=5); soft_block('oak',rc,ac,0.22,0.30,0.10,0.86,0.05,nexp=5,bulge=0.04)
     soft_block('worktop',rc,ac,0.235,0.31,0.86,0.90,0.02,nexp=5); loft2('glass',rc,ac,[(0.902,0.11,0.15,2.2,0.02,0),(0.905,0.11,0.15,2.2,0.02,0)])
