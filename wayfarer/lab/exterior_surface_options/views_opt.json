@@ -1,0 +1,534 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "PROPOSAL SKETCH, NON-GOVERNING (F4)",
+ "size": [
+  1600,
+  900
+ ],
+ "views": [
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "eye": [
+    6.0,
+    11.5,
+    4.8
+   ],
+   "target": [
+    13.2,
+    3.6,
+    0.4
+   ],
+   "fov": 32,
+   "sun": [
+    -0.35,
+    0.8,
+    0.5
+   ],
+   "exposure": 0.95,
+   "id": "eva_0",
+   "title": "BEFORE: approved seams (as built)",
+   "caption": "Shaded seam lines from the 9 Nov grid. EVA hatch and lowered medical ports are not yet on the hull.",
+   "opt": 0,
+   "labels": [
+    {
+     "t": "EVA hatch (existing, 1.1 m)",
+     "at": [
+      12.25,
+      4.5,
+      0
+     ],
+     "off": [
+      60,
+      70
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "eye": [
+    6.0,
+    11.5,
+    4.8
+   ],
+   "target": [
+    13.2,
+    3.6,
+    0.4
+   ],
+   "fov": 32,
+   "sun": [
+    -0.35,
+    0.8,
+    0.5
+   ],
+   "exposure": 0.95,
+   "id": "eva_A",
+   "title": "OPTION A: Structural seams",
+   "caption": "Approved seams become real 50 mm grooves (0.5 mm at 1:100). EVA hatch + lowered medical ports outlined. Nothing else.",
+   "opt": 1,
+   "labels": [
+    {
+     "t": "EVA hatch (existing, 1.1 m)",
+     "at": [
+      12.25,
+      4.5,
+      0
+     ],
+     "off": [
+      60,
+      70
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "eye": [
+    6.0,
+    11.5,
+    4.8
+   ],
+   "target": [
+    13.2,
+    3.6,
+    0.4
+   ],
+   "fov": 32,
+   "sun": [
+    -0.35,
+    0.8,
+    0.5
+   ],
+   "exposure": 0.95,
+   "id": "eva_B",
+   "title": "OPTION B: Armour tiles",
+   "caption": "A + Strata tile joints: mid-bay rings and a joint every 20 deg. Tiles about 1.3 x 1.5 m (13 x 15 mm at 1:100).",
+   "opt": 2,
+   "labels": [
+    {
+     "t": "EVA hatch (existing, 1.1 m)",
+     "at": [
+      12.25,
+      4.5,
+      0
+     ],
+     "off": [
+      60,
+      70
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "eye": [
+    6.0,
+    11.5,
+    4.8
+   ],
+   "target": [
+    13.2,
+    3.6,
+    0.4
+   ],
+   "fov": 32,
+   "sun": [
+    -0.35,
+    0.8,
+    0.5
+   ],
+   "exposure": 0.95,
+   "id": "eva_C",
+   "title": "OPTION C: Working hull",
+   "caption": "B + EVA lane with tread between the existing rails, tether rings at the 24 crawler points, keep-out ring round the EVA hatch. Fine detail is 1:25 only.",
+   "opt": 3,
+   "labels": [
+    {
+     "t": "EVA hatch (existing, 1.1 m)",
+     "at": [
+      12.25,
+      4.5,
+      0
+     ],
+     "off": [
+      60,
+      70
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "eye": [
+    4.0,
+    -9.8,
+    -8.6
+   ],
+   "target": [
+    9.6,
+    -3.5,
+    -2.3
+   ],
+   "fov": 32,
+   "sun": [
+    -0.3,
+    -0.75,
+    -0.6
+   ],
+   "exposure": 0.95,
+   "id": "med_0",
+   "title": "BEFORE: approved seams (as built)",
+   "caption": "Shaded seam lines from the 9 Nov grid. EVA hatch and lowered medical ports are not yet on the hull.",
+   "opt": 0,
+   "labels": [
+    {
+     "t": "Medical ports",
+     "at": [
+      9.3,
+      -3.9,
+      -2.25
+     ],
+     "off": [
+      160,
+      60
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "eye": [
+    4.0,
+    -9.8,
+    -8.6
+   ],
+   "target": [
+    9.6,
+    -3.5,
+    -2.3
+   ],
+   "fov": 32,
+   "sun": [
+    -0.3,
+    -0.75,
+    -0.6
+   ],
+   "exposure": 0.95,
+   "id": "med_A",
+   "title": "OPTION A: Structural seams",
+   "caption": "Approved seams become real 50 mm grooves (0.5 mm at 1:100). EVA hatch + lowered medical ports outlined. Nothing else.",
+   "opt": 1,
+   "labels": [
+    {
+     "t": "Medical ports (lowered 0.2 m)",
+     "at": [
+      9.3,
+      -3.9,
+      -2.25
+     ],
+     "off": [
+      160,
+      60
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "eye": [
+    4.0,
+    -9.8,
+    -8.6
+   ],
+   "target": [
+    9.6,
+    -3.5,
+    -2.3
+   ],
+   "fov": 32,
+   "sun": [
+    -0.3,
+    -0.75,
+    -0.6
+   ],
+   "exposure": 0.95,
+   "id": "med_B",
+   "title": "OPTION B: Armour tiles",
+   "caption": "A + Strata tile joints: mid-bay rings and a joint every 20 deg. Tiles about 1.3 x 1.5 m (13 x 15 mm at 1:100).",
+   "opt": 2,
+   "labels": [
+    {
+     "t": "Medical ports (lowered 0.2 m)",
+     "at": [
+      9.3,
+      -3.9,
+      -2.25
+     ],
+     "off": [
+      160,
+      60
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "eye": [
+    4.0,
+    -9.8,
+    -8.6
+   ],
+   "target": [
+    9.6,
+    -3.5,
+    -2.3
+   ],
+   "fov": 32,
+   "sun": [
+    -0.3,
+    -0.75,
+    -0.6
+   ],
+   "exposure": 0.95,
+   "id": "med_C",
+   "title": "OPTION C: Working hull",
+   "caption": "B + EVA lane with tread between the existing rails, tether rings at the 24 crawler points, keep-out ring round the EVA hatch. Fine detail is 1:25 only.",
+   "opt": 3,
+   "labels": [
+    {
+     "t": "Medical ports (lowered 0.2 m)",
+     "at": [
+      9.3,
+      -3.9,
+      -2.25
+     ],
+     "off": [
+      160,
+      60
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "eye": [
+    -10,
+    16,
+    9
+   ],
+   "target": [
+    16,
+    0,
+    -1
+   ],
+   "fov": 36,
+   "sun": [
+    -0.5,
+    0.7,
+    0.55
+   ],
+   "exposure": 0.9,
+   "id": "full_0",
+   "title": "BEFORE: approved seams (as built)",
+   "caption": "Shaded seam lines from the 9 Nov grid. EVA hatch and lowered medical ports are not yet on the hull.",
+   "opt": 0,
+   "labels": []
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "eye": [
+    -10,
+    16,
+    9
+   ],
+   "target": [
+    16,
+    0,
+    -1
+   ],
+   "fov": 36,
+   "sun": [
+    -0.5,
+    0.7,
+    0.55
+   ],
+   "exposure": 0.9,
+   "id": "full_A",
+   "title": "OPTION A: Structural seams",
+   "caption": "Approved seams become real 50 mm grooves (0.5 mm at 1:100). EVA hatch + lowered medical ports outlined. Nothing else.",
+   "opt": 1,
+   "labels": []
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "eye": [
+    -10,
+    16,
+    9
+   ],
+   "target": [
+    16,
+    0,
+    -1
+   ],
+   "fov": 36,
+   "sun": [
+    -0.5,
+    0.7,
+    0.55
+   ],
+   "exposure": 0.9,
+   "id": "full_B",
+   "title": "OPTION B: Armour tiles",
+   "caption": "A + Strata tile joints: mid-bay rings and a joint every 20 deg. Tiles about 1.3 x 1.5 m (13 x 15 mm at 1:100).",
+   "opt": 2,
+   "labels": []
+  },
+  {
+   "kind": "exterior",
+   "planet": true,
+   "planetC": [
+    900,
+    -500,
+    -900
+   ],
+   "planetR": 1000,
+   "show": "exterior",
+   "finish": 1,
+   "cold": 0,
+   "eye": [
+    -10,
+    16,
+    9
+   ],
+   "target": [
+    16,
+    0,
+    -1
+   ],
+   "fov": 36,
+   "sun": [
+    -0.5,
+    0.7,
+    0.55
+   ],
+   "exposure": 0.9,
+   "id": "full_C",
+   "title": "OPTION C: Working hull",
+   "caption": "B + EVA lane with tread between the existing rails, tether rings at the 24 crawler points, keep-out ring round the EVA hatch. Fine detail is 1:25 only.",
+   "opt": 3,
+   "labels": []
+  }
+ ]
+}
