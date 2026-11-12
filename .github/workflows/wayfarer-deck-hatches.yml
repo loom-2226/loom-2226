@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - wayfarer/lab/deck_hatches_20261112.py
+      - wayfarer/lab/l2_hatch_glb_d9.py
       - wayfarer/config/kt_decisions.json
       - .github/workflows/wayfarer-deck-hatches.yml
 permissions:
@@ -15,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: engineering/wayfarer-deck-hatches-20261112
+          ref: engineering/wayfarer-deck-hatches-flip-20261112
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -33,6 +34,13 @@ jobs:
           raw=(root/"interior_deck_hatches.glb").read_bytes()
           assert rpt["status"]=="DECK_HATCHES_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS"
           assert rpt["leaf_count"]==4
+          assert rpt["hatches"]["hatch_L2L3_0"]["shape"]["x0"]==4.68
+          assert rpt["hatches"]["hatch_L2L3_1"]["shape"]["x1"]==5.60
+          assert rpt["hatches"]["hatch_L3L4_0"]["shape"]["x0"]==8.20
+          assert rpt["L2_furniture_glb_screen"]["mesh_nodes"]==29
+          assert rpt["L2_furniture_glb_screen"]["D9_hatch_mesh_hits"]==[]
+          assert rpt["L2_furniture_glb_screen"]["glb_sha256"]=="50028743262fddc747236f3d5efedbfcd9dc0a84c7a802f93ab01de5491ebeba"
+          assert rpt["checks"]["L2_furniture_glb_D9_hits"]==0
           assert rpt["checks"]["D9_category_d"]==0
           assert rpt["checks"]["containment"]=="PASS"
           assert rpt["checks"]["medical_door_port_z_clearance_m"]>.15
@@ -55,7 +63,7 @@ jobs:
                      x["extras"]["node_mass_rebooking_t"]==0 for x in nodes)
           assert rpt["glb_sha256"]==hashlib.sha256(raw).hexdigest()
           assert Path("wayfarer/docs/WAYFARER_DECK_HATCHES_2026_11_12.png").is_file()
-          print("Four Wayfarer hatches D9=0; containment PASS; no rebooking")
+          print("Flipped L2L3 UP; committed L2 GLB D9=0; unchanged L3L4; containment PASS; no rebooking")
           PY
           git diff --quiet -- wayfarer/results/out/wayfarer_v05_geometry.json wayfarer/config/wayfarer_v05_inputs.json
           git diff --quiet -- wayfarer/render/out/interior_L1.glb wayfarer/render/out/interior_L2.glb
@@ -76,5 +84,5 @@ jobs:
           git add wayfarer/render/out/interior_deck_hatches.glb wayfarer/render/out/interior_deck_hatches_report.json wayfarer/docs/WAYFARER_DECK_HATCHES_2026_11_12.png
           if ! git diff --cached --quiet; then
             git commit -m 'class:engineering: deck hatches D9 containment PASS'
-            git push origin HEAD:engineering/wayfarer-deck-hatches-20261112
+            git push origin HEAD:engineering/wayfarer-deck-hatches-flip-20261112
           fi
