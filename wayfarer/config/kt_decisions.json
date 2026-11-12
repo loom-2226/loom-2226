@@ -1170,6 +1170,35 @@
     "checks": "D9 category-d and inner pressure-shell containment, halo closed and centre-back/wings-open. No G1-G12. STOP on any D9 clash or estimate exceeding outfit_L1 allocation; preserve SVG diagnostic.",
     "dry_t": 868.1922552640087,
     "ECON_dv_km_s": 707.845,
-    "status": "kT approved; seven-unit import pending D9/containment"
+    "status": "BUILT L1_B3_WALLFIT_SEVEN_D9_CONTAINMENT_PASS; both halos D9 category-d 0 and inner pressure containment PASS; source unit angular boundary contact at 242 deg is zero-volume, not a penetration",
+    "build_evidence": {
+      "integration_pr": 521,
+      "glb": "wayfarer/render/out/interior_L1.glb",
+      "report": "wayfarer/render/out/interior_L1_report.json",
+      "glb_sha256": "07dc9f18934a7dd2e4a95c96b706f0ceda63d2349fd472346488e8350a2f6f9e",
+      "new_nodes": 7,
+      "existing_rendered_nodes_screened_per_pose": 95,
+      "halo_modes": [
+        "halo_closed",
+        "wings_open_centre_back"
+      ],
+      "D9_category_d": [
+        0,
+        0
+      ],
+      "containment": [
+        "PASS",
+        "PASS"
+      ],
+      "minimum_inner_shell_margin_m": 0.043986,
+      "source_shared_angular_face_contact": "U3 courier strongbox / U4 emergency-left share approved angular sector boundary 242 deg, no positive volume, checked all vertices within opposite convex angular wedges.",
+      "wallfit_estimated_kg": 358,
+      "outfit_L1_booked_kg": 818.9629850273705,
+      "estimated_unrepresented_outfit_L1_kg": 460.9629850273704,
+      "room_L1_command_untouched_t": 2.1497778356968475,
+      "source_mass_rebooking_t": 0,
+      "exterior_state_modifications": 0,
+      "G1_G12": "NOT RUN"
+    }
   }
 }

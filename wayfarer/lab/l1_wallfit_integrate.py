@@ -109,6 +109,22 @@ def main():
     assert sum(KG)==358 and sum(KG)*.001<outfit
     assert abs(g["dry_t"]-868.1922552640087)<1e-8
     prior=json.loads(RPT.read_text())
+    if prior["status"]=="L1_B3_WALLFIT_SEVEN_D9_CONTAINMENT_PASS":
+        # Idempotent CI verification on a branch already containing the
+        # exact previously checked output, e.g. after a decisions-only edit.
+        # No new geometry, no new export and no repeated note append.
+        assert hashlib.sha256(GLB.read_bytes()).hexdigest()==prior["glb_sha256"]
+        assert prior["wallfit"]["source_pr"]==520
+        assert prior["wallfit"]["estimated_wallfit_t"]==.358
+        assert prior["wallfit"]["source_mass_rebooking_t"]==0
+        assert prior["dry_t"]==868.1922552640087
+        assert prior["ECON_dv_km_s"]==707.845
+        for mode in ("halo_closed","wings_open_centre_back"):
+            state=prior["wallfit"]["pose_checks"][mode]
+            assert state["D9_category_d"]==0 and state["containment"]=="PASS"
+        assert not PROPOSAL.exists()
+        print("L1 WALLFIT PRIOR EXACT GEOMETRY VERIFIED; no rebuild or state change")
+        return
     assert prior["status"]=="L1_B3_SPLIT_HALO_D9_CONTAINMENT_PASS"
     assert prior["dry_t"]==868.1922552640087 and prior["ECON_dv_km_s"]==707.845
     doc,binary=B.load_glb(GLB)
