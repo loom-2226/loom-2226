@@ -1,0 +1,94 @@
+name: Wayfarer kT approved L4 fixes and interior D9 containment
+on:
+  pull_request:
+    paths:
+      - wayfarer/lab/l4_decks/**
+      - wayfarer/lab/deck_hatches_20261112.py
+      - wayfarer/config/kt_decisions.json
+      - .github/workflows/wayfarer-L4-interior.yml
+permissions:
+  contents: write
+jobs:
+  l4-build:
+    if: startsWith(github.head_ref, 'engineering/wayfarer-l4-approved-build-')
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: engineering/wayfarer-l4-approved-build-20261112
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install exact BRep, GLTF and evidence packages
+        run: python -m pip install "build123d==0.13.0" numpy pillow matplotlib
+      - name: Step 1 source-fix L3L4 180 hatch, water door, medical port positions; D9
+        run: python -u wayfarer/lab/deck_hatches_20261112.py
+      - name: Step 2 build L4 from 19 accepted Claude nodes; full D9 + containment
+        run: python -u wayfarer/lab/l4_decks/integrate4.py
+      - name: Check original shape basis, mass owners, GLB extras and unchanged other decks
+        run: |
+          python - <<'PY'
+          import json,struct,hashlib
+          from pathlib import Path
+          out=Path('wayfarer/render/out')
+          l4=json.loads((out/'interior_L4_report.json').read_text())
+          h=json.loads((out/'interior_deck_hatches_report.json').read_text())
+          assert h['status']=='DECK_HATCHES_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS'
+          assert h['checks']['D9_category_d']==0 and h['checks']['containment']=='PASS'
+          assert h['L4_source_fixes']['shelter_water_door']['water_mass_delta_t']==0
+          assert h['L4_source_fixes']['medical_ports']['centre_x_after_m']==9.30
+          assert h['hatches']['hatch_L3L4_0']['shape']['x0']==8.26
+          assert h['hatches']['hatch_L3L4_1']['shape']['x0']==8.2
+          assert l4['status']=='L4_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS'
+          assert l4['original_proposal_groups']==19
+          assert l4['checks']['D9_category_d']==0
+          assert l4['checks']['containment']=='PASS'
+          assert l4['checks']['G1_G12']=='NOT RUN / NOT REQUIRED'
+          assert l4['source_mass_rebooking_t']==0
+          assert l4['source_dry_t']==868.1922552640087
+          assert l4['ECON_dv_km_s']==707.845
+          assert l4['estimated_outfit_L4_after_hatches_and_interior_kg']>=0
+          assert not l4['booking_excess']
+          assert l4['instance_repeats']
+          assert set(l4['P0_subroom_nodes'])=={'P0_medical','P0_eclss'}
+          raw=(out/'interior_L4.glb').read_bytes()
+          assert raw[:4]==b'glTF' and struct.unpack_from('<I',raw,8)[0]==len(raw)
+          n,typ=struct.unpack_from('<II',raw,12)
+          assert typ==0x4e4f534a
+          doc=json.loads(raw[20:20+n])
+          assert l4['glb_sha256']==hashlib.sha256(raw).hexdigest()
+          nodes=[node for node in doc['nodes'] if 'mesh' in node]
+          assert len(nodes)==l4['glb_mesh_nodes']
+          assert all(node['extras']['mass_basis']=='source_booking_reference_nonadditive'
+                     and node['extras']['node_mass_rebooking_t']==0
+                     and node['extras']['source_mass_owner_id'] in l4['booking_kg']
+                     for node in nodes)
+          assert all('NORMAL' in p['attributes'] for m in doc['meshes'] for p in m['primitives'])
+          assert (Path('wayfarer/docs')/'WAYFARER_L4_APPROVED_D9_2026_11_12.png').is_file()
+          assert doc['nodes'][0]['extras']['L4_shelter_is_wellness_room'] is True
+          print('WAYFARER L4 PASS',len(nodes),'mesh instances, 19 proposal groups, D9=0, containment PASS')
+          PY
+          git diff --quiet -- wayfarer/results/out/wayfarer_v05_geometry.json wayfarer/config/wayfarer_v05_inputs.json
+          git diff --quiet -- wayfarer/render/out/interior_L1.glb wayfarer/render/out/interior_L2.glb
+          git diff --quiet -- wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_*.glb
+      - name: Preserve evidence if D9 or bookings stop the build
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Wayfarer-L4-D9-stop-evidence
+          path: |
+            wayfarer/render/out/interior_deck_hatches_report.json
+            wayfarer/render/out/interior_L4_report.json
+          if-no-files-found: ignore
+      - name: Commit only completed independent GLBs, check reports, picture; delete proposal
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add wayfarer/render/out/interior_deck_hatches.glb wayfarer/render/out/interior_deck_hatches_report.json wayfarer/docs/WAYFARER_DECK_HATCHES_2026_11_12.png
+          git add wayfarer/render/out/interior_L4.glb wayfarer/render/out/interior_L4_report.json wayfarer/docs/WAYFARER_L4_APPROVED_D9_2026_11_12.png
+          git rm -f wayfarer/render/out/proposal_L4.glb
+          if ! git diff --cached --quiet; then
+            git commit -m 'class:engineering: kT-approved L4 source fixes, instanced interior D9 PASS; remove proposal'
+            git push origin HEAD:engineering/wayfarer-l4-approved-build-20261112
+          fi
