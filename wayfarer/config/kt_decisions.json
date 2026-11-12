@@ -1438,5 +1438,16 @@
     "mass_rebooking_t": 0,
     "canon_change": false,
     "G1_G12": "NOT RUN"
+  },
+  "l5_decisions_2026_11_12": {
+    "authority": "kT APPROVED 2026-11-12 (Claude chat)",
+    "date": "2026-11-12",
+    "source": "wayfarer/docs/L5_PROPOSAL_2026_11_12.md",
+    "layout": "Claude's L5 furniture layout approved for 3D modelling: airlock, suit room (4 EVA stands, 10 IVA compartments), workshop (bench, 3D printer, mill/lathe), custody vault, stores racks, transfer vestibule.",
+    "EVA_hatch": "ADD a 1.0 m EVA hatch in the airlock outer wall at 0 deg, centre h 1.1 (x 12.3), between the EVA rails at +/-14 deg (SPEC: rails run 'from the L5 hatch aft'). Paid from room_L5-airlock. Hull/armour cut-out: Sol checks pressure, armour-equivalence and D9.",
+    "tunnel_hatch": "ADD a 1.2 m hatch in the transfer-vestibule floor (aft bulkhead) at r 3.0, 270 deg, matching tunnel_0 (r 0.6 tube from x 13.7). ~150 kg from room_L5-vestibule (0.307 t). Sol checks bulkhead cut-out and D9.",
+    "mass_rebooking_t": 0,
+    "canon_change": false,
+    "G1_G12": "NOT RUN"
   }
 }
