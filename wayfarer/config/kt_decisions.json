@@ -1090,6 +1090,37 @@
       "dry_t": 868.1922552640087,
       "ECON_dv_km_s": 707.845
     },
-    "status": "kT-approved integration, D9/containment PENDING"
+    "status": "BUILT L1_B3_SPLIT_HALO_D9_CONTAINMENT_PASS; both poses D9 category-d 0 and pressure containment PASS. kT source decisions unchanged.",
+    "build_evidence": {
+      "pr": 518,
+      "report": "wayfarer/render/out/interior_L1_report.json",
+      "glb": "wayfarer/render/out/interior_L1.glb",
+      "glb_sha256": "af4ef098d6dfa37073e1baff8b721350b09762e6fa30490d7268ac527fc0ab0e",
+      "verified_states": [
+        "halo_closed",
+        "wings_open_centre_back"
+      ],
+      "d9_category_d_per_state": [
+        0,
+        0
+      ],
+      "containment_per_state": [
+        "PASS",
+        "PASS"
+      ],
+      "min_inner_pressure_shell_clearance_m": 0.512934,
+      "fcl_verified_source_fixture_nodes_per_state": 65,
+      "coherent_couch_instances": 6,
+      "animation_channels": 18,
+      "map_workbench_cabinets_and_display_bezels_source_bookings": 9,
+      "D9_contact_note": "Shared NAV couch base mounting plane X=2.76 touches platform X=2.76..2.86: zero volumetric overlap, not category-d clash. No source position moved.",
+      "halo_controls_estimate_kg": 5.1,
+      "halo_controls_booked_kg": 5.18518656421065,
+      "estimated_margin_kg": 0.08518656421065,
+      "mass_credit_added_t": 0,
+      "source_dry_t": 868.1922552640087,
+      "ECON_dv_km_s": 707.845,
+      "legacy_516_tablet": "NOT IMPORTED"
+    }
   }
 }
