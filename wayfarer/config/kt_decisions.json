@@ -1216,7 +1216,7 @@
     "mass_rebooking_t": 0,
     "canon_change": false,
     "G1_G12": "NOT RUN",
-    "hatch_resolution": "kT decision 2026-11-12: deck_hatches_2026_11_12; four L1L2-copy leaves, floor_L2 and floor_L3 visual bores, L2/L4 outfit allocations. No new dry mass; verify D9 before merger."
+    "hatch_resolution": "BUILT / D9 category-d zero / containment PASS in PR #526: deck_hatches_2026_11_12. Four kT-approved L1L2-copy leaves and two cut visual deck-floor solids; no source dry or exterior changes."
   },
   "l2_common_deck_japandi_2026_11_12": {
     "authority": "kT APPROVED 2026-11-12, with Nicole, Claude's pass-2 organic Japandi L2 design PR #523 (6281116)",
@@ -1352,6 +1352,27 @@
     "checks": "D9 clash plus containment only. G1-G12 NOT RUN.",
     "output": "wayfarer/render/out/interior_deck_hatches.glb, independent from exterior and L1/L2 GLBs; visual cut-floor replacements must not be double-drawn against original uncut source proxies; viewer unchanged because exterior six-state GLB unchanged",
     "physical_qualification": "No tested pressure seal, closing torque, fire or leak certification. This is a booked visual model of accepted design.",
-    "status": "APPROVED; BUILD HELD UNTIL D9+CONTAINMENT PASS"
+    "status": "BUILT: DECK_HATCHES_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS",
+    "build_evidence": {
+      "integration_pr": 526,
+      "glb": "wayfarer/render/out/interior_deck_hatches.glb",
+      "report": "wayfarer/render/out/interior_deck_hatches_report.json",
+      "picture": "wayfarer/docs/WAYFARER_DECK_HATCHES_2026_11_12.png",
+      "glb_sha256": "f2e7aa593415988b7d404f15c38b0724406b7321a401fd13ac478c4b901c6d9a",
+      "hatch_mesh_nodes": 4,
+      "independent_floor_meshes": 2,
+      "floor_bore_diameter_m": 0.8,
+      "bores_per_boundary": 2,
+      "D9_category_d": 0,
+      "containment": "PASS",
+      "medical_180_z_clearance_m": 0.15175252749023277,
+      "nonphysical_L3_semantic_room_corner_intrusion_m": 0.04517351411127324,
+      "source_dry_t": 868.1922552640087,
+      "ECON_dv_km_s": 707.845,
+      "mass_rebooking_t": 0,
+      "viewer_source_changed": false,
+      "exterior_state_changes": 0,
+      "notes": "Pressure sealing/actuation and undrawn L3 berths/partitions unqualified; visual floor cut is mass neutral."
+    }
   }
 }
