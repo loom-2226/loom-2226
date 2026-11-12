@@ -11,6 +11,7 @@ sys.path.insert(0,str(ROOT/"lab"))
 from packing_phase1b import source_brep_pilot as P
 from l1_interior_glb import GLB
 from l2_hatch_glb_d9 import screen as screen_l2_glb
+from l4_decks.source4 import apply as apply_l4_fixes
 SRC=ROOT/"results/out/wayfarer_v05_geometry.json"
 DEC=ROOT/"config/kt_decisions.json"
 OUT=ROOT/"render/out"
@@ -72,6 +73,12 @@ def main():
                 assert abs(mount-template_mount)<1e-6,(tag,n,mount,template_mount)
             leaves["hatch_"+tag+"_"+str(n)]=dict(shape=shape,solid=solid,owner=owner,
                     source="hatch_L1L2_"+str(n),floor_mount_m3=mount)
+    # kT L4 step 1: water plug, medical ports and 180-degree floor-stowed leaf.
+    fix=apply_l4_fixes(geom,leaves)
+    leaves["hatch_L3L4_0"]["solid"]=fix["sliding_leaf"]
+    leaves["hatch_L3L4_0"]["shape"]=fix["changed"]["sliding_hatch"]["parked_stowed"]
+    leaves["hatch_L3L4_0"]["floor_mount_m3"]=0
+    floors["floor_L3"]["solid"]=fix["floor_L3_cut"]
     # Physically authored source fixtures, not room/outfit accounting envelopes.
     contacts=[]
     scanned=[]
@@ -105,7 +112,7 @@ def main():
     door=rows["doors_L4-medical"]["shape"]
     port=leaves["hatch_L3L4_0"]["shape"] # copied L1 id 0: negative Y (180 degrees)
     z_gap=port["z0"]-door["z1"]
-    assert abs(z_gap-.1517525274902328)<1e-6
+    assert port["x1"]<door["x0"] and leaves["hatch_L3L4_1"]["shape"]["x0"]==8.2
     pressure=rows["pressure_vessel"]["shape"]
     inner_radius=pressure["R"]-pressure["t"]
     clearance=min(inner_radius-math.hypot(max(abs(d["shape"]["y0"]),abs(d["shape"]["y1"])),
@@ -115,16 +122,18 @@ def main():
        source_geometry_sha256=SHA,source_dry_t=868.1922552640087,ECON_dv_km_s=707.845,
        source_mass_rebooking_t=0,leaf_count=4,source_copy="L1L2 source leaf extents; L2L3 upward into L2, L3L4 unchanged into L4",
        bookings=budgets,L2_furniture_glb_screen=l2_screen,
+       L4_source_fixes=fix["changed"],
        hatches={name:dict(shape=x["shape"],mass_owner=x["owner"],source=x["source"],
                          floor_mount_m3=x["floor_mount_m3"],mass_estimate_kg=150) for name,x in leaves.items()},
        floors={k:dict(bore_count=2,bore_diameter_m=.8,visual_removed_m3=v["removed"],
                       floor_mass_credit_t=0) for k,v in floors.items()},
        checks=dict(D9_category_d=len(contacts),D9_contacts=contacts,
            physical_source_pairs_screened=len(scanned),
-           floor_mount_category="L3L4 source-identical category-c floor mount; L2L3 upward hinge plane contact, zero overlap",
+           floor_mount_category="L3L4_0 stowed in floor_L3 pocket; L3L4_1 source category-c floor mount; L2L3 upward hinge plane contact",
            medical_door_port_z_clearance_m=z_gap,
+           medical_180_stowed_axial_clearance_m=door["x0"]-port["x1"],
            L3_semantic_room_zone_corner_intrusion_m=max(0,math.hypot(1.89,.46)-1.9),
-           L3_berths_and_partitions="L2L3 leaves moved out of L3; L3L4 leaves unchanged; existing L3 partition and berth solids not drawn",
+           L3_berths_and_partitions="L2L3 upward into L2; L3L4_0 stows in L3 floor; L3L4_1 unchanged; unmodeled berths still unqualified",
            L2_furniture_glb_D9_hits=len(l2_screen["D9_hatch_mesh_hits"]),
            L2_furniture_triangle_AABB_clearance_lower_bound_m=l2_screen["clearance_lower_bound_m"],
            min_inner_pressure_radius_clearance_m=clearance,
@@ -201,8 +210,8 @@ def main():
     b.text(9.01,(s["z0"]+door["z1"])/2,"151.8 mm",color="#9e3c32",va="center")
     b.set(xlim=(8,11),ylim=(-1.1,.65),xlabel="Ship X (m)",ylabel="Ship Z (m)",title="Medical-door clearance (Z)")
     b.legend(loc="upper right")
-    fig.suptitle("WAYFARER 2226  |  L2/L3 UPWARD HATCH FLIP  |  D9=0 / CONTAINMENT PASS")
-    fig.text(.5,.03,"L2/L3 x=4.68–5.60 into L2; L3/L4 x=8.20–9.12 into L4. L2 furniture GLB screened. No new mass.",ha="center")
+    fig.suptitle("WAYFARER 2226  |  L4 180 DEG LEAF STOWED IN L3 FLOOR  |  D9=0")
+    fig.text(.5,.03,"L2/L3 upward unchanged. L3/L4 _0 stows radially in L3 slab; _1 unchanged. No new mass.",ha="center")
     fig.tight_layout(rect=[0,.06,1,.93])
     fig.savefig(PIC,dpi=160)
     plt.close(fig)
