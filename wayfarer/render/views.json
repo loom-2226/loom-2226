@@ -3582,6 +3582,112 @@
       "holes": true,
       "windowFrames": true,
       "windowPanes": true
+    },
+    {
+      "kind": "exterior",
+      "planet": true,
+      "planetC": [
+        900,
+        -500,
+        -900
+      ],
+      "planetR": 1000,
+      "show": "exterior",
+      "finish": 1,
+      "cold": 0,
+      "exposure": 0.95,
+      "id": "exterior_222_thrust",
+      "title": "Wayfarer approved exterior 2/2/2: thrust cone load lines",
+      "caption": "Non-canon shaded surface demarcations only; compare to matching-angle Claude proposal Option 1 render",
+      "eye": [
+        47,
+        -13,
+        8
+      ],
+      "target": [
+        36.5,
+        0,
+        0
+      ],
+      "fov": 36,
+      "sun": [
+        -0.3,
+        -0.6,
+        0.7
+      ],
+      "strakeSpan": 0,
+      "labels": []
+    },
+    {
+      "kind": "exterior",
+      "planet": true,
+      "planetC": [
+        900,
+        -500,
+        -900
+      ],
+      "planetR": 1000,
+      "show": "exterior",
+      "finish": 1,
+      "cold": 0,
+      "exposure": 0.95,
+      "id": "exterior_222_doors",
+      "title": "Wayfarer approved exterior 2/2/2: clean bay door leaves",
+      "caption": "Non-canon shaded surface demarcations only; compare to matching-angle Claude proposal Option 1 render",
+      "eye": [
+        12,
+        -7,
+        13
+      ],
+      "target": [
+        25,
+        0,
+        4.2
+      ],
+      "fov": 34,
+      "sun": [
+        -0.4,
+        -0.3,
+        0.85
+      ],
+      "labels": []
+    },
+    {
+      "kind": "exterior",
+      "planet": true,
+      "planetC": [
+        900,
+        -500,
+        -900
+      ],
+      "planetR": 1000,
+      "show": "exterior",
+      "finish": 1,
+      "cold": 0,
+      "exposure": 1.3,
+      "id": "exterior_222_radiators",
+      "title": "Wayfarer approved exterior 2/2/2: 0.5 m radiator and fin channels",
+      "caption": "Non-canon shaded surface demarcations only; compare to matching-angle Claude proposal Option 1 render",
+      "eye": [
+        30,
+        -15,
+        13
+      ],
+      "target": [
+        37,
+        -6,
+        5
+      ],
+      "fov": 48,
+      "sun": [
+        0.2,
+        -0.6,
+        0.8
+      ],
+      "strakeSpan": 4,
+      "finSpan": 28,
+      "hot": 0,
+      "labels": []
     }
   ]
 }
