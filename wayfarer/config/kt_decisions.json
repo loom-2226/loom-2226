@@ -1210,13 +1210,12 @@
     "L1_note": "L1 wall fit-out (PR #521) stays on outfit_L1 as built; room_L1-command 2.150 t remains the command room's equipment allowance.",
     "wellness_room": "The L4 storm shelter (L4-shelter) is also the wellness room day to day and switches to shelter mode for storms and radiation events. No separate wellness room.",
     "courier_custody": "L5-custody is the vault for the secure consignment. The L1 courier strongbox (L1_wallfit_u3) is the ready box for the current delivery and the ship's keys, under the captain's control.",
-    "open_items": [
-      "Laundry remains unassigned; L4-eclss near existing water/waste processing is a PROPOSAL ONLY (no layout, mass, or build)."
-    ],
+    "open_items": [],
     "mass_rebooking_t": 0,
     "canon_change": false,
     "G1_G12": "NOT RUN",
-    "hatch_resolution": "BUILT in PR #528: kT L2/L3 hatch flip upward x4.68-5.60m; L3/L4 unchanged. D9 category-d 0, verified against 29 L2 GLB mesh nodes and 127,432 triangles (minimum conservative clearance bound 67.762mm at G2); containment PASS. Dry and bookings unchanged."
+    "hatch_resolution": "L2/L3 leaves open upward into L2; 180deg hatch_L3L4_0 now slides radially into L3 floor slab pocket (PR #531); 0deg hatch_L3L4_1 unchanged. D9 0, containment PASS.",
+    "laundry": "kT approved and L4 D9-cleared: R8 laundry in L4-eclss, existing room equipment booking; no new mass."
   },
   "l2_common_deck_japandi_2026_11_12": {
     "authority": "kT APPROVED 2026-11-12, with Nicole, Claude's pass-2 organic Japandi L2 design PR #523 (6281116)",
@@ -1437,7 +1436,52 @@
     "L3L4_hatch_180": "CHANGE hatch_L3L4_0 (the 180 deg leaf, at Y -1.86) to a sliding leaf that stows radially into the L3 floor slab, clear of the casualty path from the port ladder into the 2.4 m medical entrance. hatch_L3L4_1 (0 deg, Y +1.86) unchanged. Same mass and booking (outfit_L4).",
     "mass_rebooking_t": 0,
     "canon_change": false,
-    "G1_G12": "NOT RUN"
+    "G1_G12": "NOT RUN",
+    "status": "BUILT: PR #531 corrected by Claude PR #532; D9 category-d 0, containment PASS",
+    "build_evidence": {
+      "corrected_geometry_pr": 532,
+      "source_fix_and_interior_pr": 531,
+      "independent_glb": "wayfarer/render/out/interior_L4.glb",
+      "D9_report": "wayfarer/render/out/interior_L4_report.json",
+      "source_fix_report": "wayfarer/render/out/interior_deck_hatches_report.json",
+      "all_12_flags_picture": "wayfarer/docs/WAYFARER_L4_12_D9_FLAGS_RESOLVED_2026_11_12.png",
+      "overview_picture": "wayfarer/docs/WAYFARER_L4_APPROVED_D9_2026_11_12.png",
+      "glb_digest": "inside interior_L4_report.json; not pinned in decisions because rebuild bytes may differ",
+      "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+      "original_proposal_groups": 19,
+      "glb_mesh_nodes": 106,
+      "glb_unique_meshes": 50,
+      "D9_category_d": 0,
+      "containment": "PASS",
+      "original_jacket_flags": 12,
+      "remaining_jacket_flags": 0,
+      "screen": "vertices, three edge midpoints, and triangle centroids against six jacket sections",
+      "hatch_L3L4_0": "180deg leaf radially stowed in floor_L3 pocket, _1 at 0deg unchanged",
+      "medical_ports": "three centre x9.30/h1.50",
+      "shelter_plug": "0.8m water-filled at 90deg; closed state only",
+      "shelter_wellness_same_room": "room_L4-shelter",
+      "mass_owners": {
+        "S": "room_L4-shelter",
+        "M": "room_L4-medical",
+        "R": "room_L4-eclss",
+        "D": "outfit_L4",
+        "P0": "medical/eclss split"
+      },
+      "estimated_drawn_kg": {
+        "room_L4-shelter": 285,
+        "room_L4-medical": 560,
+        "room_L4-eclss": 10510,
+        "outfit_L4": 140
+      },
+      "remaining_outfit_L4_after_prior_300kg_hatches": 378.96298502737045,
+      "source_dry_t": 868.1922552640087,
+      "ECON_dv_km_s": 707.845,
+      "mass_rebooking_t": 0,
+      "source_mass_file_unchanged": true,
+      "published_exterior_GLBS_unchanged": true,
+      "G1_G12": "NOT RUN / NOT REQUIRED",
+      "actual_pressure_seal_qualification": "NOT DONE"
+    }
   },
   "l5_decisions_2026_11_12": {
     "authority": "kT APPROVED 2026-11-12 (Claude chat)",

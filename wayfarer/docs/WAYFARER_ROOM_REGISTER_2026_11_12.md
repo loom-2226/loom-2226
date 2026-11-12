@@ -41,7 +41,7 @@ There are 10 berths (6 crew + 4 guests) and 16 couches and berths in all. The tw
 3. **Courier custody.** `L5-custody` is the vault for the secure consignment. The L1 courier strongbox is the ready box for the current delivery and the ship's keys, under the captain's control.
 
 ## Open items (for Sol)
-- **DECIDED by kT 12 Nov 2026:** L2/L3 and L3/L4 get two normally-open copies of the L1/L2 leaf each, at 0°/180°, paid 0.300 t per boundary within outfit_L2 and outfit_L4. Draw floor_L2 and floor_L3 with two Ø0.80 m ladder bores as the accepted L1 visual precedent. See `deck_hatches_2026_11_12` and `WAYFARER_DECK_HATCHES_2026_11_12.md`. This resolves the design open item, not the untested physical pressure-seal/closure qualification.
-- **LAUNDRY PROPOSAL ONLY:** place laundry inside the existing L4 life-support room (`L4-eclss`) near water/waste processing. This is not an approved assigned room, layout, item, equipment booking or change to mass. Fit and utility routing remain untested.
+- **DECIDED and BUILT:** L2/L3 leaves open upward into L2 (PR #528). At L3/L4, the 180° `hatch_L3L4_0` slides radially into a cut floor_L3 pocket (L4 PR #531); the 0° `hatch_L3L4_1` remains unchanged. Booked mass neutral, D9 category-d 0, containment PASS; pressure-seal actuation unqualified.
+- **LAUNDRY APPROVED and DRAWN:** kT approved the R8 laundry module inside `L4-eclss` (PR #529). It is drawn in the D9-cleared `interior_L4.glb` (PR #531), funded within existing `room_L4-eclss`; no new mass. Physical utility connections remain unqualified.
 
 Resolved by the 12 Nov 2026 L2 tidy: `SPEC.md` L1 row updated to six B3 stations and x 0.2–3.0; superseded `render/out/proposal_L1_stations_B3.glb` removed.
