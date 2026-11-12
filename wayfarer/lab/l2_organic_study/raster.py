@@ -23,8 +23,23 @@ def render(T, MAT, eye, tgt, fov, W=1100, H=800, ss=2, out='x.png', fog=None):
     for m,tris in T.items():
         V=np.array(tris,float).reshape(-1,3,3); col,em=MAT[m]; C=hexrgb(col)**2.2
         Nf,Nv=smooth_normals(V)
+        Q=V-eye; zc=Q@f; NEAR=0.08
+        part=(~(zc>NEAR).all(1))&(zc>NEAR).any(1)
+        if part.any():   # clip straddling triangles against the near plane, fan-triangulate
+            extraV=[];extraN=[]
+            for i in np.nonzero(part)[0]:
+                poly=[(V[i,k],Nv[i,k],zc[i,k]) for k in range(3)]; outp=[]
+                for k in range(3):
+                    (pa,na,za),(pb,nb,zb_)=poly[k],poly[(k+1)%3]
+                    if za>NEAR: outp.append((pa,na))
+                    if (za>NEAR)!=(zb_>NEAR):
+                        t=(NEAR+1e-4-za)/(zb_-za); outp.append((pa+t*(pb-pa),na+t*(nb-na)))
+                for k in range(1,len(outp)-1):
+                    extraV.append([outp[0][0],outp[k][0],outp[k+1][0]]); extraN.append([outp[0][1],outp[k][1],outp[k+1][1]])
+            if extraV:
+                V=np.concatenate([V,np.array(extraV)]); Nv=np.concatenate([Nv,np.array(extraN)])
         Q=V-eye; x=Q@s; y=Q@u; z=Q@f
-        keep=(z>0.08).all(1); 
+        keep=(z>NEAR).all(1)
         for i in np.nonzero(keep)[0]:
             zz=z[i]; px=(F*x[i]/zz*Hp/2+Wp/2); py=(-F*y[i]/zz*Hp/2+Hp/2)
             x0=max(int(np.floor(px.min())),0); x1=min(int(np.ceil(px.max())),Wp-1); y0=max(int(np.floor(py.min())),0); y1=min(int(np.ceil(py.max())),Hp-1)

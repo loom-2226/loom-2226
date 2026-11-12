@@ -9,8 +9,8 @@
 
 **Viewpoints:** both are moved slightly from the reference views. The core trunk (r 1.25 m) was missing from the reference sketches and blocks them. The wardroom view is from the corridor at r 1.85 m and 40°. The galley view is from its corridor entrance at r 1.9 m and 352°.
 
-![wardroom](L2_ORGANIC_STUDY_2026_11_12_wardroom.png)
-![galley](L2_ORGANIC_STUDY_2026_11_12_galley.png)
+![wardroom](L2_ORGANIC_2026_11_12_ward.png)
+![galley](L2_ORGANIC_2026_11_12_gal.png)
 
 ## Wardroom: visible changes
 - **Geometry**

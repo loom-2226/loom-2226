@@ -1,7 +1,19 @@
 # Wayfarer L2 Common deck: Japandi x spaceship furniture (12 Nov 2026)
 **ALL bodies. ALL sponsors. 2026-2226.**
 
-**Status:** kT APPROVED the layout on 12 Nov 2026. The style (Japandi, Nicole's direction) is FOR REVIEW. Claude designed it. Not built. This is a rule F4 proposal package. Canon, BRep, mass and the exterior are unchanged. D9 has not been run. Rooms and purposes follow `WAYFARER_ROOM_REGISTER_2026_11_12.md` (PR #522). Furniture mass is paid from each room's own booking (`room_register_2026_11_12`).
+**Status:** kT APPROVED the layout and the organic Japandi direction (pass 2, `L2_ORGANIC_STUDY_2026_11_12.md`) on 12 Nov 2026. The full-deck furniture in that language is FOR REVIEW.
+
+**Current source:** `wayfarer/lab/l2_organic_study/` (`export.py` writes `render/out/proposal_L2_japandi.glb`, 23 nodes). It supersedes the first box-style generator, which has been deleted. Organic renders:
+
+![ward](L2_ORGANIC_2026_11_12_ward.png)
+![gal](L2_ORGANIC_2026_11_12_gal.png)
+![obs](L2_ORGANIC_2026_11_12_obs.png)
+![ex](L2_ORGANIC_2026_11_12_ex.png)
+![wc](L2_ORGANIC_2026_11_12_wc.png)
+
+**Envelope screen (Claude, not D9):** r 1.30–4.15 m, h 0.00–2.30 m. No vertex lies inside the L1/L2 hatch leaves or the core racks. Ceiling ribs and reveals are kept out of the ladderway openings at 0° and 180°.
+
+_Earlier box-style text follows; the item list and masses are unchanged._ Claude designed it. Not built. This is a rule F4 proposal package. Canon, BRep, mass and the exterior are unchanged. D9 has not been run. Rooms and purposes follow `WAYFARER_ROOM_REGISTER_2026_11_12.md` (PR #522). Furniture mass is paid from each room's own booking (`room_register_2026_11_12`).
 
 ![plan](L2_JAPANDI_PROPOSAL_2026_11_12_l2_plan.png)
 ![wall](L2_JAPANDI_PROPOSAL_2026_11_12_l2_wall.png)
@@ -52,8 +64,6 @@ Room totals against their bookings:
 - r 1.62–4.131 m and h 0–2.26 m. The ceiling is at h 2.30 and the room wall at r 4.15.
 - The overhead rail leaves ±14° gaps at the 0° and 180° ladderways. It stays below r 1.83, where the L1/L2 hatch leaves are (h ≥ 1.68).
 
-![wardroom](L2_JAPANDI_PROPOSAL_2026_11_12_v_wardroom.png)
-![galley](L2_JAPANDI_PROPOSAL_2026_11_12_v_galley.png)
 
 ## Next
 - kT reviews the style, with Nicole.
