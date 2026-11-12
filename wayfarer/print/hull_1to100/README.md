@@ -45,5 +45,9 @@ The grooves stop at openings, at node faces and inside the hatch and port frames
 ## Not covered yet
 
 The bow cone (x < 2.35), the hull aft of x 34.3, and the protruding fixtures (rails,
-grapples, RCS, sensors, strakes, fins). Those become separate print parts. Splitting
-the full 54 cm hull into pieces that fit the 330 x 320 x 325 mm bed is the next step.
+grapples, RCS, sensors, strakes, fins).
+
+**kT 2026-11-13: the model stays whole until the design is completely finished.** It is
+not split into bed-sized print pieces until then. The etch spec is in ship coordinates,
+so it applies to the whole model unchanged; splitting is the very last step before
+printing.
