@@ -1457,7 +1457,6 @@
       "report": "wayfarer/render/out/interior_L5_report.json",
       "hatch_source_proof": "wayfarer/render/out/interior_L5_source_report.json",
       "picture": "wayfarer/docs/WAYFARER_L5_D9_2026_11_12.png",
-      "GLB_sha256": "57091eb3bc2d743f77f7948ea9174d134476768acd9ebfdd9c3018c5363e78e7",
       "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
       "source_approved_groups": 23,
       "mesh_nodes": 81,
@@ -1565,7 +1564,10 @@
           "room_L5-stores2": 3071.111193852639
         }
       },
-      "outfit_L5_remaining_kg": 673.9629850273705
+      "outfit_L5_remaining_kg": 673.9629850273705,
+      "GLB_sha256_location": "wayfarer/render/out/interior_L5_report.json::glb_sha256 (authoritative hash of committed build)",
+      "GLB_build_bytes_observed_not_stable_across_runs": true,
+      "GLB_hash_comment": "Two successful identical-source reruns created different GLB SHA256 with same 4,705,492-byte length, node count, group count and D9. Source geometry itself hash pinned and unchanged; renderer-byte repeatability remains unqualified. Do not pin one GLB byte hash in this decision."
     },
     "qualification": "Two source-bound cutout shapes and equivalent closed plugs are screened locally against the immutable source shells/bulkhead. These are NOT published as cuts in the existing exterior GLBs; no claim of as-built pressure-rating, seal strength, or open-state armour performance."
   }
