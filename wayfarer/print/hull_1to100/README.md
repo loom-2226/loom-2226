@@ -33,6 +33,7 @@ The grooves stop at openings, at node faces and inside the hatch and port frames
   - Reactor rings at x 39.7, 43.2 and 45.9, plus 4 access panels.
   - Five nozzle coil bands, 1.5 mm wide.
   - The thrust cone stays plain.
+- **Bow shoulder:** clean, with no marks, per `bow_shoulder_surface_2026_11_13`.
 - **Dropped at 1:100:** the 20 mm sub-panel lines would print at 0.2 mm. Option B's joints already sit on the same stations.
 
 ## Checks (stock_0p4)
@@ -52,7 +53,7 @@ The grooves stop at openings, at node faces and inside the hatch and port frames
 
 ## Not covered yet
 
-The bow shoulder (options with kT, PR to follow) and the protruding fixtures (rails,
+The protruding fixtures (rails,
 grapples, RCS, sensors, strakes, fins).
 
 **kT 2026-11-13: the model stays whole until the design is completely finished.** It is
