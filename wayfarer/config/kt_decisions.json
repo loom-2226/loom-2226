@@ -1448,6 +1448,125 @@
     "tunnel_hatch": "ADD a 1.2 m hatch in the transfer-vestibule floor (aft bulkhead) at r 3.0, 270 deg, matching tunnel_0 (r 0.6 tube from x 13.7). ~150 kg from room_L5-vestibule (0.307 t). Sol checks bulkhead cut-out and D9.",
     "mass_rebooking_t": 0,
     "canon_change": false,
-    "G1_G12": "NOT RUN"
+    "G1_G12": "NOT RUN",
+    "status": "BUILT INTERIOR L5 / D9 CATEGORY-D ZERO / CONTAINMENT PASS; closed-state hatch cutout overlays verified; exterior GLBs unchanged",
+    "build_evidence": {
+      "integrated_PR": 533,
+      "approved_source_PR": 530,
+      "GLB": "wayfarer/render/out/interior_L5.glb",
+      "report": "wayfarer/render/out/interior_L5_report.json",
+      "hatch_source_proof": "wayfarer/render/out/interior_L5_source_report.json",
+      "picture": "wayfarer/docs/WAYFARER_L5_D9_2026_11_12.png",
+      "GLB_sha256": "57091eb3bc2d743f77f7948ea9174d134476768acd9ebfdd9c3018c5363e78e7",
+      "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+      "source_approved_groups": 23,
+      "mesh_nodes": 81,
+      "unique_meshes": 49,
+      "instances": {
+        "S1_stores_racks": {
+          "count": 3,
+          "shared_materials": [
+            "linen",
+            "oak",
+            "teal",
+            "titanium"
+          ],
+          "unique_source_materials": [],
+          "source_preserved": true
+        },
+        "S2_stores_racks": {
+          "count": 3,
+          "shared_materials": [
+            "linen",
+            "oak",
+            "teal",
+            "titanium"
+          ],
+          "unique_source_materials": [],
+          "source_preserved": true
+        },
+        "U1_EVA_suit_stands": {
+          "count": 4,
+          "shared_materials": [
+            "glass",
+            "ind",
+            "sand",
+            "titanium"
+          ],
+          "unique_source_materials": [
+            "suit",
+            "teal"
+          ],
+          "source_preserved": true
+        },
+        "W6_stools": {
+          "count": 2,
+          "shared_materials": [
+            "ind",
+            "oak",
+            "sage",
+            "titanium"
+          ],
+          "unique_source_materials": [],
+          "source_preserved": true
+        }
+      },
+      "D9_category_d": 0,
+      "containment": "PASS",
+      "closure_symmetric_difference_m3": {
+        "pressure_missing_m3": 0,
+        "pressure_extra_m3": 0,
+        "armour_missing_m3": 0,
+        "armour_extra_m3": 0
+      },
+      "thin_shell_volume_nonadditivity_m3": {
+        "pressure": -0.009444620102163896,
+        "armour": -0.0645938927870636
+      },
+      "EVA_diameter_m": 1,
+      "EVA_x_m": 12.3,
+      "EVA_deg": 0,
+      "tunnel_diameter_m": 1.2,
+      "tunnel_center_yz_m": [
+        0,
+        -3
+      ],
+      "tunnel_axis": "tunnel_0",
+      "EVA_pressure_layer_m": 0.03,
+      "EVA_armour_layer_m": 0.2,
+      "closed_geometric_pressure_armour_equivalence": "PASS",
+      "actual_pressure_seal_strength": "UNQUALIFIED",
+      "open_hatch_armour_equivalence": "UNQUALIFIED",
+      "original_exterior_hull_GLB_recut": false,
+      "render_status": "Independent interior L5 GLB and source-overlay proof only; no exterior hull cut made",
+      "dry_mass_t": 868.1922552640087,
+      "ECON_dv_km_s": 707.845,
+      "rebooking_t": 0,
+      "G1_G12": "NOT RUN / NOT REQUIRED",
+      "budget_kg": {
+        "used": {
+          "outfit_L5": 145,
+          "room_L5-airlock": 580,
+          "room_L5-suits": 890,
+          "room_L5-workshop": 740,
+          "room_L5-custody": 410,
+          "room_L5-stores": 200,
+          "room_L5-vestibule": 180,
+          "room_L5-stores2": 200
+        },
+        "booked": {
+          "outfit_L5": 818.9629850273705,
+          "room_L5-airlock": 3071.111193852639,
+          "room_L5-suits": 1535.5555969263196,
+          "room_L5-workshop": 3071.111193852639,
+          "room_L5-custody": 511.8518656421065,
+          "room_L5-stores": 3071.111193852639,
+          "room_L5-vestibule": 307.11111938526386,
+          "room_L5-stores2": 3071.111193852639
+        }
+      },
+      "outfit_L5_remaining_kg": 673.9629850273705
+    },
+    "qualification": "Two source-bound cutout shapes and equivalent closed plugs are screened locally against the immutable source shells/bulkhead. These are NOT published as cuts in the existing exterior GLBs; no claim of as-built pressure-rating, seal strength, or open-state armour performance."
   }
 }
