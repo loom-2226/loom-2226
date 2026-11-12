@@ -1,0 +1,91 @@
+name: Wayfarer kT approved exterior 2-2-2 viewer comparison
+on:
+  pull_request:
+    paths:
+      - wayfarer/render/loomgl.js
+      - wayfarer/render/views.json
+      - wayfarer/lab/exterior_remaining_options/compare_approved.py
+      - .github/workflows/wayfarer-exterior-222-renders.yml
+permissions:
+  contents: write
+jobs:
+  exterior-222-renders:
+    if: github.head_ref == 'proposal/wayfarer-exterior-remaining-options-20261113'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: proposal/wayfarer-exterior-remaining-options-20261113
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check released pointer and all six GLB blob hashes before render
+        run: |
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          root=Path("wayfarer")
+          p=json.loads((root/"render/out/canon_glb.json").read_text())
+          assert p["status"]=="RELEASED" and p["tag"]=="canon-v2.5.14"
+          entries=[(p["path"],p["hash"]["value"])]
+          entries.extend((e["path"],e["hash"]["value"]) for e in p["other_states"])
+          assert len(entries)==6
+          for name,expected in entries:
+              data=Path(name).read_bytes()
+              digest=hashlib.sha1(b"blob "+str(len(data)).encode()+b"\0"+data).hexdigest()
+              assert digest==expected,("STOP: release drift",name,digest,expected)
+          print("CANON_POINTER_6_OF_6_PASS")
+          PY
+      - name: Render three live-viewer approved 2-2-2 angles
+        run: |
+          cd wayfarer/render
+          npm ci --no-audit --no-fund
+          npx playwright install --with-deps chromium
+          node --check loomgl.js
+          node render.js exterior_222_thrust exterior_222_doors exterior_222_radiators
+      - name: Produce matching-camera before-and-after comparisons
+        run: |
+          python -m pip install pillow
+          python wayfarer/lab/exterior_remaining_options/compare_approved.py
+          test -s wayfarer/docs/WAYFARER_EXTERIOR_222_THRUST_BEFORE_AFTER_2026_11_13.png
+          test -s wayfarer/docs/WAYFARER_EXTERIOR_222_DOORS_BEFORE_AFTER_2026_11_13.png
+          test -s wayfarer/docs/WAYFARER_EXTERIOR_222_RADIATORS_BEFORE_AFTER_2026_11_13.png
+          git diff --exit-code -- wayfarer/config/kt_decisions.json \
+            wayfarer/results/out/wayfarer_v05_geometry.json \
+            wayfarer/render/out/canon_glb.json
+          git diff --exit-code -- 'wayfarer/render/out/wayfarer_exterior_detail_88ce19fc_*.glb'
+      - name: Failure diagnostics without publishing artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wayfarer-exterior-222-render-diagnostics
+          path: |
+            wayfarer/render/out/exterior_222_*.png
+            wayfarer/docs/WAYFARER_EXTERIOR_222_*_BEFORE_AFTER_2026_11_13.png
+          if-no-files-found: ignore
+      - name: Commit only six render pictures, never released geometry
+        run: |
+          set -euo pipefail
+          if git cat-file -e HEAD:wayfarer/docs/WAYFARER_EXTERIOR_222_THRUST_BEFORE_AFTER_2026_11_13.png 2>/dev/null &&
+             git cat-file -e HEAD:wayfarer/docs/WAYFARER_EXTERIOR_222_DOORS_BEFORE_AFTER_2026_11_13.png 2>/dev/null &&
+             git cat-file -e HEAD:wayfarer/docs/WAYFARER_EXTERIOR_222_RADIATORS_BEFORE_AFTER_2026_11_13.png 2>/dev/null; then
+            echo 'Approved pictures already committed; no further binary churn'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add wayfarer/docs/WAYFARER_EXTERIOR_222_*_BEFORE_AFTER_2026_11_13.png
+          git add wayfarer/render/out/exterior_222_thrust.png \
+                  wayfarer/render/out/exterior_222_doors.png \
+                  wayfarer/render/out/exterior_222_radiators.png
+          test "$(git diff --cached --name-only | wc -l)" -eq 6
+          if git diff --cached --name-only | grep -E '\.glb$|canon_glb.json|wayfarer_v05_geometry.json|kt_decisions.json'; then
+            echo 'STOP: forbidden source/canon change'; exit 1
+          fi
+          git commit -m 'class:asset-media: approved 2-2-2 viewer and matching-angle comparison renders'
+          git push origin HEAD:proposal/wayfarer-exterior-remaining-options-20261113
