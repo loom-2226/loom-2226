@@ -52,3 +52,35 @@ of scale. C's lane and tether rings are below what the printer can resolve at
 too small at each scale automatically, so one surface definition serves both
 prints.
 
+
+
+## Approved B visual integration (non-canon WWS-1)
+
+The six-state noncanon exterior visual GLBs have real cut-out BReps for three
+L4 medical ports through pressure and armour solids. Each source region had
+positive physical material; the rebuilt hull and armour have zero remaining
+intersection with the approved bore cutter at each port. Centres x=9.30
+(h=1.50) from x=9.10, diameter 1.55, azimuth 180/210/240 unchanged.
+
+The original source geometry, original released exterior six-state GLBs, and
+the canon_glb.json release pointer have NOT been edited. These are
+NON-CANON WWS-1 design-position variants, not a canon re-release.
+No pressure-seal or shielding performance qualification is claimed.
+
+Option B mid-bay rings and 20-degree tile joints are shaded demarcations in
+loomgl.js, with EVA and medical frames. No physical Strata seams or
+armour removal for tile markings. C's selected EVA lane/tether/keepout
+details remain print-only and absent from the renderer.
+
+EVA source frame: x=12.25 m, diameter 1.1 m. Interior L5 clear hatch:
+x=12.30 m, diameter 1.0 m. Difference: interior is 50 mm aft of
+the source outer frame; neither part has been moved.
+
+Six-state D9 category-d 0 and containment PASS, no new mass:
+dry 868.192255 t, ECON delta-v 707.845 km/s. G1-G12 not rerun.
+
+![Medical port before/after](WAYFARER_EXTERIOR_B_MEDICAL_BEFORE_AFTER_2026_11_13.png)
+
+![EVA hatch before/after](WAYFARER_EXTERIOR_B_EVA_BEFORE_AFTER_2026_11_13.png)
+
+![Whole ship before/after](WAYFARER_EXTERIOR_B_WHOLE_BEFORE_AFTER_2026_11_13.png)

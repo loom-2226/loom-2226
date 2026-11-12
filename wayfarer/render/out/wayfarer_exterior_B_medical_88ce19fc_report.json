@@ -1,0 +1,5270 @@
+{
+  "status": "F3_EXTERIOR_DETAIL_SIX_STATE_D9_CONTAINMENT_PASS",
+  "canon_tag": "canon-v2.5.9",
+  "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+  "source_dry_t": 868.1922552640087,
+  "ECON_dv_km_s": 707.845,
+  "original_source_shuttle_t": 30.732248081255836,
+  "shuttle_true_solids_count": 41,
+  "exact_shuttle_ring_station_m": 12.7,
+  "docked_radial_and_axial_G8": "PASS actual OCC solids",
+  "swept_shuttle_egress_G8": "OPEN; source no swept geometry hardware qualification",
+  "crew_and_vehicle_mission_G8": "OPEN (hardware and door clearance)",
+  "courier_option_c_applied_ledger": "wayfarer/config/courier_option_c_ledger_20261110.json",
+  "courier_retained_t": 5,
+  "courier_returned_to_reserve_t": 14.450370894400045,
+  "engineering_reserve_effective_t": 23.572826306400046,
+  "dry_mass_change_t": 0,
+  "no_extra_reserve_geometry": true,
+  "withdrawn_bay_483_not_drawn": true,
+  "existing_hold_door_aperture_m": [
+    2.4,
+    1.8
+  ],
+  "no_hull_cuts": false,
+  "crawler_stowage_by_hold": {
+    "starboard": [
+      0
+    ],
+    "port": [
+      1,
+      2
+    ]
+  },
+  "drone_stowage_by_hold": {
+    "starboard": [
+      0,
+      2
+    ],
+    "port": [
+      1,
+      3
+    ]
+  },
+  "mars_drone_egress": "OPEN",
+  "spare_panes_unchanged": true,
+  "all_six_state_D9_and_containment": "PASS",
+  "six_states": {
+    "stowed": {
+      "stowed": {
+        "part_count": 498,
+        "pair_count": 123753,
+        "category_d_count": 0,
+        "boolean_errors": 0,
+        "category_counts": {
+          "a": 1,
+          "c": 170
+        },
+        "category_d_conflicts": [],
+        "collision_errors": [],
+        "pressure_containment_pass": true,
+        "source_dry_mass_t": 868.1922552640087,
+        "glb": "render/out/wayfarer_exterior_B_medical_88ce19fc_stowed_stowed.glb",
+        "gltf_extras": {
+          "mesh_nodes_with_extras": 498,
+          "all_scene_nodes_with_extras": 538,
+          "raw_glb_sha256": "47997a3c19d639ef63f0b26eb74c20ecb7fa21e9c5c4e794436dc5abe252c8c3",
+          "bytes": 11503808,
+          "canon_finish": "CANON_FINISH",
+          "exterior_pbr_meshes": 498,
+          "exterior_pbr_variants": 21,
+          "thermal_emissive_meshes": 0,
+          "hot_fin_1300K_preview_removed": true,
+          "thermal_source_no_credit": true,
+          "by_finish_role": {
+            "aoi_optogel": 1,
+            "bow_strata": 1,
+            "crown_outer_ceramic": 44,
+            "crown_pressure_ceramic": 2,
+            "crown_titanium": 2,
+            "external_fixtures": 88,
+            "hotfin_cold": 8,
+            "interior_pressure_structure": 132,
+            "magnetic_nozzle_bronze": 3,
+            "midship_skin_bay_doors": 4,
+            "radiator_strakes": 4,
+            "rcs_housings_bells": 8,
+            "sensors_optics": 15,
+            "service_band_aft_thrust_cone": 3,
+            "shadow_shield": 9,
+            "shuttle_belly_tps": 4,
+            "shuttle_main_hull": 22,
+            "side_glazing": 130,
+            "strata_gores_shutters": 16,
+            "tank_shell": 1,
+            "torch_reactor": 1
+          },
+          "all_visible_meshes_CANON_FINISH": true,
+          "rendered_meshes_total": 498,
+          "missing_visible_finish_meshes": [],
+          "source_palette_preserved_meshes": 0,
+          "explicit_finish_meshes": 498,
+          "pressure_vessel_finish": "interior_pressure_structure",
+          "service_shield_finish": "shadow_shield",
+          "bay_corner_finish": "external_fixtures",
+          "pale_accent_linear_scale": 0.57,
+          "srgb_to_linear_declared_roles": 24,
+          "verified_linear_pbr_materials": 28,
+          "graphite_linear_base_rgb": [
+            0.042311410620809675,
+            0.046665086336880095,
+            0.05448027644244237
+          ],
+          "thermal_glow_diffuse_base_linear_rgb": [
+            0.02,
+            0.02,
+            0.02
+          ],
+          "nozzle_coil_band_faces": {
+            "stations_x_m": [
+              47.2,
+              48.5,
+              49.8,
+              51.1,
+              52.4
+            ],
+            "width_m": 0.15,
+            "depth_m": 0.03,
+            "face_triangles_per_station": [
+              510,
+              400,
+              437,
+              440,
+              563
+            ],
+            "boundary_edge_vertices": [
+              859,
+              1033,
+              730,
+              928,
+              822,
+              871,
+              770,
+              720,
+              870,
+              945
+            ],
+            "band_edges_split_exactly": true,
+            "clipped_triangles_total": 4550,
+            "source_triangles_total": 2348,
+            "source_surface_area_m2": 229.39371879651583,
+            "clipped_surface_area_m2": 229.3937187964433,
+            "relative_area_error": 3.161908828494597e-13,
+            "coplanar_cut_triangles": [
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84
+            ],
+            "coplanar_cut_area_m2": [
+              0.31110397182561483,
+              0.5489544560790263,
+              0.3341038199015822,
+              0.5890069062334202,
+              0.35713174087725097,
+              0.6290593548377039,
+              0.380187578608018,
+              0.6691128493391254,
+              0.40327136382252315,
+              0.7091648419539656
+            ],
+            "surface_area_conservation": true,
+            "source_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
+            "output_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
+            "nozzle_geometry_envelope_unchanged": true,
+            "print_band_width_1_100_mm": 1.5,
+            "longitudinal_gltf_axis": 0,
+            "paint_by_triangle_centroid": false,
+            "source_mass_rebooking_t": 0
+          },
+          "nostromo_paint": {
+            "seed": "WAYFARER-NOSTROMO-v2.5.13-20261111",
+            "plated_meshes": 8,
+            "panel_materials_added": 6,
+            "tone_variants_srgb": [
+              0.94,
+              0.98,
+              1.02,
+              1.06
+            ],
+            "material_variants_by_finish": {
+              "bow_strata": [
+                2
+              ],
+              "midship_skin_bay_doors": [
+                0,
+                1,
+                2
+              ],
+              "service_band_aft_thrust_cone": [
+                1,
+                2
+              ]
+            },
+            "panel_srgb_tone_min": 0.94,
+            "panel_srgb_tone_max": 1.06,
+            "panel_srgb_tone_bound": 0.06,
+            "per_triangle_assignment": false,
+            "all_plated_parts_single_cell": true,
+            "all_mosaic_roles_spotchecked": true,
+            "source_triangles": 33026,
+            "output_triangles": 33026,
+            "original_vertex_positions_preserved": true,
+            "source_images_count": 0,
+            "source_textures_count": 0,
+            "texture_system_added": false,
+            "decal_texture_embedded": false,
+            "registry_flanks_in_glb": 0,
+            "plain_gltf_materials": true,
+            "geometry_added": false,
+            "protrusions_added": false,
+            "source_mass_rebooking_t": 0,
+            "thrust_cone_smoothing": {
+              "method": "analytic_frustum_lateral_normals",
+              "smoothed_lateral_vertex_normals": 260,
+              "preserved_hard_edge_normals": 168,
+              "unchanged_position_accessors": true,
+              "unchanged_triangle_indices": true,
+              "relative_surface_area_error": 0.0,
+              "surface_area_tolerance": 1e-06,
+              "source_envelope_unchanged": true,
+              "no_new_vertices": true,
+              "slope": -0.29000002564932104,
+              "axial_axis": 0
+            }
+          }
+        },
+        "semantic_hierarchy": {
+          "meshes": 498,
+          "dry_system_breakdown": {
+            "EXTERIOR": 76,
+            "FLUIDS": 20,
+            "HABITAT": 286,
+            "POWER": 15,
+            "PROPULSION": 3,
+            "SERVICE": 9,
+            "SHUTTLE": 41,
+            "STRUCTURE": 48
+          },
+          "semantic_systems": 8,
+          "semantic_subsystems": 31,
+          "hierarchy_valid": true
+        }
+      },
+      "closed": {
+        "part_count": 498,
+        "pair_count": 123753,
+        "category_d_count": 0,
+        "boolean_errors": 0,
+        "category_counts": {
+          "a": 1,
+          "c": 154
+        },
+        "category_d_conflicts": [],
+        "collision_errors": [],
+        "pressure_containment_pass": true,
+        "source_dry_mass_t": 868.1922552640087,
+        "glb": "render/out/wayfarer_exterior_B_medical_88ce19fc_stowed_closed.glb",
+        "gltf_extras": {
+          "mesh_nodes_with_extras": 498,
+          "all_scene_nodes_with_extras": 538,
+          "raw_glb_sha256": "744723be78abfe432bafe811efa2d78d4edd53e40b191f846302731ea091fc1a",
+          "bytes": 12410984,
+          "canon_finish": "CANON_FINISH",
+          "exterior_pbr_meshes": 498,
+          "exterior_pbr_variants": 21,
+          "thermal_emissive_meshes": 0,
+          "hot_fin_1300K_preview_removed": true,
+          "thermal_source_no_credit": true,
+          "by_finish_role": {
+            "aoi_optogel": 1,
+            "bow_strata": 1,
+            "crown_outer_ceramic": 44,
+            "crown_pressure_ceramic": 2,
+            "crown_titanium": 2,
+            "external_fixtures": 88,
+            "hotfin_cold": 8,
+            "interior_pressure_structure": 132,
+            "magnetic_nozzle_bronze": 3,
+            "midship_skin_bay_doors": 4,
+            "radiator_strakes": 4,
+            "rcs_housings_bells": 8,
+            "sensors_optics": 15,
+            "service_band_aft_thrust_cone": 3,
+            "shadow_shield": 9,
+            "shuttle_belly_tps": 4,
+            "shuttle_main_hull": 22,
+            "side_glazing": 130,
+            "strata_gores_shutters": 16,
+            "tank_shell": 1,
+            "torch_reactor": 1
+          },
+          "all_visible_meshes_CANON_FINISH": true,
+          "rendered_meshes_total": 498,
+          "missing_visible_finish_meshes": [],
+          "source_palette_preserved_meshes": 0,
+          "explicit_finish_meshes": 498,
+          "pressure_vessel_finish": "interior_pressure_structure",
+          "service_shield_finish": "shadow_shield",
+          "bay_corner_finish": "external_fixtures",
+          "pale_accent_linear_scale": 0.57,
+          "srgb_to_linear_declared_roles": 24,
+          "verified_linear_pbr_materials": 28,
+          "graphite_linear_base_rgb": [
+            0.042311410620809675,
+            0.046665086336880095,
+            0.05448027644244237
+          ],
+          "thermal_glow_diffuse_base_linear_rgb": [
+            0.02,
+            0.02,
+            0.02
+          ],
+          "nozzle_coil_band_faces": {
+            "stations_x_m": [
+              47.2,
+              48.5,
+              49.8,
+              51.1,
+              52.4
+            ],
+            "width_m": 0.15,
+            "depth_m": 0.03,
+            "face_triangles_per_station": [
+              510,
+              400,
+              437,
+              440,
+              563
+            ],
+            "boundary_edge_vertices": [
+              859,
+              1033,
+              730,
+              928,
+              822,
+              871,
+              770,
+              720,
+              870,
+              945
+            ],
+            "band_edges_split_exactly": true,
+            "clipped_triangles_total": 4550,
+            "source_triangles_total": 2348,
+            "source_surface_area_m2": 229.39371879651583,
+            "clipped_surface_area_m2": 229.3937187964433,
+            "relative_area_error": 3.161908828494597e-13,
+            "coplanar_cut_triangles": [
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84
+            ],
+            "coplanar_cut_area_m2": [
+              0.31110397182561483,
+              0.5489544560790263,
+              0.3341038199015822,
+              0.5890069062334202,
+              0.35713174087725097,
+              0.6290593548377039,
+              0.380187578608018,
+              0.6691128493391254,
+              0.40327136382252315,
+              0.7091648419539656
+            ],
+            "surface_area_conservation": true,
+            "source_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
+            "output_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
+            "nozzle_geometry_envelope_unchanged": true,
+            "print_band_width_1_100_mm": 1.5,
+            "longitudinal_gltf_axis": 0,
+            "paint_by_triangle_centroid": false,
+            "source_mass_rebooking_t": 0
+          },
+          "nostromo_paint": {
+            "seed": "WAYFARER-NOSTROMO-v2.5.13-20261111",
+            "plated_meshes": 8,
+            "panel_materials_added": 6,
+            "tone_variants_srgb": [
+              0.94,
+              0.98,
+              1.02,
+              1.06
+            ],
+            "material_variants_by_finish": {
+              "bow_strata": [
+                2
+              ],
+              "midship_skin_bay_doors": [
+                0,
+                1,
+                2
+              ],
+              "service_band_aft_thrust_cone": [
+                1,
+                2
+              ]
+            },
+            "panel_srgb_tone_min": 0.94,
+            "panel_srgb_tone_max": 1.06,
+            "panel_srgb_tone_bound": 0.06,
+            "per_triangle_assignment": false,
+            "all_plated_parts_single_cell": true,
+            "all_mosaic_roles_spotchecked": true,
+            "source_triangles": 33026,
+            "output_triangles": 33026,
+            "original_vertex_positions_preserved": true,
+            "source_images_count": 0,
+            "source_textures_count": 0,
+            "texture_system_added": false,
+            "decal_texture_embedded": false,
+            "registry_flanks_in_glb": 0,
+            "plain_gltf_materials": true,
+            "geometry_added": false,
+            "protrusions_added": false,
+            "source_mass_rebooking_t": 0,
+            "thrust_cone_smoothing": {
+              "method": "analytic_frustum_lateral_normals",
+              "smoothed_lateral_vertex_normals": 260,
+              "preserved_hard_edge_normals": 168,
+              "unchanged_position_accessors": true,
+              "unchanged_triangle_indices": true,
+              "relative_surface_area_error": 0.0,
+              "surface_area_tolerance": 1e-06,
+              "source_envelope_unchanged": true,
+              "no_new_vertices": true,
+              "slope": -0.29000002564932104,
+              "axial_axis": 0
+            }
+          }
+        },
+        "semantic_hierarchy": {
+          "meshes": 498,
+          "dry_system_breakdown": {
+            "EXTERIOR": 76,
+            "FLUIDS": 20,
+            "HABITAT": 286,
+            "POWER": 15,
+            "PROPULSION": 3,
+            "SERVICE": 9,
+            "SHUTTLE": 41,
+            "STRUCTURE": 48
+          },
+          "semantic_systems": 8,
+          "semantic_subsystems": 31,
+          "hierarchy_valid": true
+        }
+      }
+    },
+    "metric_hard": {
+      "stowed": {
+        "part_count": 502,
+        "pair_count": 125751,
+        "category_d_count": 0,
+        "boolean_errors": 0,
+        "category_counts": {
+          "a": 1,
+          "c": 170
+        },
+        "category_d_conflicts": [],
+        "collision_errors": [],
+        "pressure_containment_pass": true,
+        "source_dry_mass_t": 868.1922552640087,
+        "glb": "render/out/wayfarer_exterior_B_medical_88ce19fc_metric_hard_stowed.glb",
+        "gltf_extras": {
+          "mesh_nodes_with_extras": 502,
+          "all_scene_nodes_with_extras": 542,
+          "raw_glb_sha256": "978e806971b531682cb445455af1ea8d4858a191826c1acc4b127e5f8261aa58",
+          "bytes": 11526908,
+          "canon_finish": "CANON_FINISH",
+          "exterior_pbr_meshes": 502,
+          "exterior_pbr_variants": 21,
+          "thermal_emissive_meshes": 8,
+          "hot_fin_1300K_preview_removed": true,
+          "thermal_source_no_credit": true,
+          "by_finish_role": {
+            "aoi_optogel": 1,
+            "bow_strata": 1,
+            "crown_outer_ceramic": 44,
+            "crown_pressure_ceramic": 2,
+            "crown_titanium": 2,
+            "external_fixtures": 88,
+            "hotfin_cold": 8,
+            "interior_pressure_structure": 132,
+            "magnetic_nozzle_bronze": 3,
+            "midship_skin_bay_doors": 4,
+            "radiator_strakes": 8,
+            "rcs_housings_bells": 8,
+            "sensors_optics": 15,
+            "service_band_aft_thrust_cone": 3,
+            "shadow_shield": 9,
+            "shuttle_belly_tps": 4,
+            "shuttle_main_hull": 22,
+            "side_glazing": 130,
+            "strata_gores_shutters": 16,
+            "tank_shell": 1,
+            "torch_reactor": 1
+          },
+          "all_visible_meshes_CANON_FINISH": true,
+          "rendered_meshes_total": 502,
+          "missing_visible_finish_meshes": [],
+          "source_palette_preserved_meshes": 0,
+          "explicit_finish_meshes": 502,
+          "pressure_vessel_finish": "interior_pressure_structure",
+          "service_shield_finish": "shadow_shield",
+          "bay_corner_finish": "external_fixtures",
+          "pale_accent_linear_scale": 0.57,
+          "srgb_to_linear_declared_roles": 24,
+          "verified_linear_pbr_materials": 28,
+          "graphite_linear_base_rgb": [
+            0.042311410620809675,
+            0.046665086336880095,
+            0.05448027644244237
+          ],
+          "thermal_glow_diffuse_base_linear_rgb": [
+            0.02,
+            0.02,
+            0.02
+          ],
+          "nozzle_coil_band_faces": {
+            "stations_x_m": [
+              47.2,
+              48.5,
+              49.8,
+              51.1,
+              52.4
+            ],
+            "width_m": 0.15,
+            "depth_m": 0.03,
+            "face_triangles_per_station": [
+              510,
+              400,
+              437,
+              440,
+              563
+            ],
+            "boundary_edge_vertices": [
+              859,
+              1033,
+              730,
+              928,
+              822,
+              871,
+              770,
+              720,
+              870,
+              945
+            ],
+            "band_edges_split_exactly": true,
+            "clipped_triangles_total": 4550,
+            "source_triangles_total": 2348,
+            "source_surface_area_m2": 229.39371879651583,
+            "clipped_surface_area_m2": 229.3937187964433,
+            "relative_area_error": 3.161908828494597e-13,
+            "coplanar_cut_triangles": [
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84
+            ],
+            "coplanar_cut_area_m2": [
+              0.31110397182561483,
+              0.5489544560790263,
+              0.3341038199015822,
+              0.5890069062334202,
+              0.35713174087725097,
+              0.6290593548377039,
+              0.380187578608018,
+              0.6691128493391254,
+              0.40327136382252315,
+              0.7091648419539656
+            ],
+            "surface_area_conservation": true,
+            "source_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
+            "output_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
+            "nozzle_geometry_envelope_unchanged": true,
+            "print_band_width_1_100_mm": 1.5,
+            "longitudinal_gltf_axis": 0,
+            "paint_by_triangle_centroid": false,
+            "source_mass_rebooking_t": 0
+          },
+          "nostromo_paint": {
+            "seed": "WAYFARER-NOSTROMO-v2.5.13-20261111",
+            "plated_meshes": 8,
+            "panel_materials_added": 6,
+            "tone_variants_srgb": [
+              0.94,
+              0.98,
+              1.02,
+              1.06
+            ],
+            "material_variants_by_finish": {
+              "bow_strata": [
+                2
+              ],
+              "midship_skin_bay_doors": [
+                0,
+                1,
+                2
+              ],
+              "service_band_aft_thrust_cone": [
+                1,
+                2
+              ]
+            },
+            "panel_srgb_tone_min": 0.94,
+            "panel_srgb_tone_max": 1.06,
+            "panel_srgb_tone_bound": 0.06,
+            "per_triangle_assignment": false,
+            "all_plated_parts_single_cell": true,
+            "all_mosaic_roles_spotchecked": true,
+            "source_triangles": 33026,
+            "output_triangles": 33026,
+            "original_vertex_positions_preserved": true,
+            "source_images_count": 0,
+            "source_textures_count": 0,
+            "texture_system_added": false,
+            "decal_texture_embedded": false,
+            "registry_flanks_in_glb": 0,
+            "plain_gltf_materials": true,
+            "geometry_added": false,
+            "protrusions_added": false,
+            "source_mass_rebooking_t": 0,
+            "thrust_cone_smoothing": {
+              "method": "analytic_frustum_lateral_normals",
+              "smoothed_lateral_vertex_normals": 260,
+              "preserved_hard_edge_normals": 168,
+              "unchanged_position_accessors": true,
+              "unchanged_triangle_indices": true,
+              "relative_surface_area_error": 0.0,
+              "surface_area_tolerance": 1e-06,
+              "source_envelope_unchanged": true,
+              "no_new_vertices": true,
+              "slope": -0.29000002564932104,
+              "axial_axis": 0
+            }
+          }
+        },
+        "semantic_hierarchy": {
+          "meshes": 502,
+          "dry_system_breakdown": {
+            "EXTERIOR": 80,
+            "FLUIDS": 20,
+            "HABITAT": 286,
+            "POWER": 15,
+            "PROPULSION": 3,
+            "SERVICE": 9,
+            "SHUTTLE": 41,
+            "STRUCTURE": 48
+          },
+          "semantic_systems": 8,
+          "semantic_subsystems": 31,
+          "hierarchy_valid": true
+        }
+      },
+      "closed": {
+        "part_count": 502,
+        "pair_count": 125751,
+        "category_d_count": 0,
+        "boolean_errors": 0,
+        "category_counts": {
+          "a": 1,
+          "c": 154
+        },
+        "category_d_conflicts": [],
+        "collision_errors": [],
+        "pressure_containment_pass": true,
+        "source_dry_mass_t": 868.1922552640087,
+        "glb": "render/out/wayfarer_exterior_B_medical_88ce19fc_metric_hard_closed.glb",
+        "gltf_extras": {
+          "mesh_nodes_with_extras": 502,
+          "all_scene_nodes_with_extras": 542,
+          "raw_glb_sha256": "903ab84bc4c1a5c791e9a14dee943ee3fd7d6dda55eb1a9303e42cf7799bd97e",
+          "bytes": 12434128,
+          "canon_finish": "CANON_FINISH",
+          "exterior_pbr_meshes": 502,
+          "exterior_pbr_variants": 21,
+          "thermal_emissive_meshes": 8,
+          "hot_fin_1300K_preview_removed": true,
+          "thermal_source_no_credit": true,
+          "by_finish_role": {
+            "aoi_optogel": 1,
+            "bow_strata": 1,
+            "crown_outer_ceramic": 44,
+            "crown_pressure_ceramic": 2,
+            "crown_titanium": 2,
+            "external_fixtures": 88,
+            "hotfin_cold": 8,
+            "interior_pressure_structure": 132,
+            "magnetic_nozzle_bronze": 3,
+            "midship_skin_bay_doors": 4,
+            "radiator_strakes": 8,
+            "rcs_housings_bells": 8,
+            "sensors_optics": 15,
+            "service_band_aft_thrust_cone": 3,
+            "shadow_shield": 9,
+            "shuttle_belly_tps": 4,
+            "shuttle_main_hull": 22,
+            "side_glazing": 130,
+            "strata_gores_shutters": 16,
+            "tank_shell": 1,
+            "torch_reactor": 1
+          },
+          "all_visible_meshes_CANON_FINISH": true,
+          "rendered_meshes_total": 502,
+          "missing_visible_finish_meshes": [],
+          "source_palette_preserved_meshes": 0,
+          "explicit_finish_meshes": 502,
+          "pressure_vessel_finish": "interior_pressure_structure",
+          "service_shield_finish": "shadow_shield",
+          "bay_corner_finish": "external_fixtures",
+          "pale_accent_linear_scale": 0.57,
+          "srgb_to_linear_declared_roles": 24,
+          "verified_linear_pbr_materials": 28,
+          "graphite_linear_base_rgb": [
+            0.042311410620809675,
+            0.046665086336880095,
+            0.05448027644244237
+          ],
+          "thermal_glow_diffuse_base_linear_rgb": [
+            0.02,
+            0.02,
+            0.02
+          ],
+          "nozzle_coil_band_faces": {
+            "stations_x_m": [
+              47.2,
+              48.5,
+              49.8,
+              51.1,
+              52.4
+            ],
+            "width_m": 0.15,
+            "depth_m": 0.03,
+            "face_triangles_per_station": [
+              510,
+              400,
+              437,
+              440,
+              563
+            ],
+            "boundary_edge_vertices": [
+              859,
+              1033,
+              730,
+              928,
+              822,
+              871,
+              770,
+              720,
+              870,
+              945
+            ],
+            "band_edges_split_exactly": true,
+            "clipped_triangles_total": 4550,
+            "source_triangles_total": 2348,
+            "source_surface_area_m2": 229.39371879651583,
+            "clipped_surface_area_m2": 229.3937187964433,
+            "relative_area_error": 3.161908828494597e-13,
+            "coplanar_cut_triangles": [
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84
+            ],
+            "coplanar_cut_area_m2": [
+              0.31110397182561483,
+              0.5489544560790263,
+              0.3341038199015822,
+              0.5890069062334202,
+              0.35713174087725097,
+              0.6290593548377039,
+              0.380187578608018,
+              0.6691128493391254,
+              0.40327136382252315,
+              0.7091648419539656
+            ],
+            "surface_area_conservation": true,
+            "source_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
+            "output_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
+            "nozzle_geometry_envelope_unchanged": true,
+            "print_band_width_1_100_mm": 1.5,
+            "longitudinal_gltf_axis": 0,
+            "paint_by_triangle_centroid": false,
+            "source_mass_rebooking_t": 0
+          },
+          "nostromo_paint": {
+            "seed": "WAYFARER-NOSTROMO-v2.5.13-20261111",
+            "plated_meshes": 8,
+            "panel_materials_added": 6,
+            "tone_variants_srgb": [
+              0.94,
+              0.98,
+              1.02,
+              1.06
+            ],
+            "material_variants_by_finish": {
+              "bow_strata": [
+                2
+              ],
+              "midship_skin_bay_doors": [
+                0,
+                1,
+                2
+              ],
+              "service_band_aft_thrust_cone": [
+                1,
+                2
+              ]
+            },
+            "panel_srgb_tone_min": 0.94,
+            "panel_srgb_tone_max": 1.06,
+            "panel_srgb_tone_bound": 0.06,
+            "per_triangle_assignment": false,
+            "all_plated_parts_single_cell": true,
+            "all_mosaic_roles_spotchecked": true,
+            "source_triangles": 33026,
+            "output_triangles": 33026,
+            "original_vertex_positions_preserved": true,
+            "source_images_count": 0,
+            "source_textures_count": 0,
+            "texture_system_added": false,
+            "decal_texture_embedded": false,
+            "registry_flanks_in_glb": 0,
+            "plain_gltf_materials": true,
+            "geometry_added": false,
+            "protrusions_added": false,
+            "source_mass_rebooking_t": 0,
+            "thrust_cone_smoothing": {
+              "method": "analytic_frustum_lateral_normals",
+              "smoothed_lateral_vertex_normals": 260,
+              "preserved_hard_edge_normals": 168,
+              "unchanged_position_accessors": true,
+              "unchanged_triangle_indices": true,
+              "relative_surface_area_error": 0.0,
+              "surface_area_tolerance": 1e-06,
+              "source_envelope_unchanged": true,
+              "no_new_vertices": true,
+              "slope": -0.29000002564932104,
+              "axial_axis": 0
+            }
+          }
+        },
+        "semantic_hierarchy": {
+          "meshes": 502,
+          "dry_system_breakdown": {
+            "EXTERIOR": 80,
+            "FLUIDS": 20,
+            "HABITAT": 286,
+            "POWER": 15,
+            "PROPULSION": 3,
+            "SERVICE": 9,
+            "SHUTTLE": 41,
+            "STRUCTURE": 48
+          },
+          "semantic_systems": 8,
+          "semantic_subsystems": 31,
+          "hierarchy_valid": true
+        }
+      }
+    },
+    "torch": {
+      "stowed": {
+        "part_count": 558,
+        "pair_count": 155403,
+        "category_d_count": 0,
+        "boolean_errors": 0,
+        "category_counts": {
+          "a": 1,
+          "c": 170
+        },
+        "category_d_conflicts": [],
+        "collision_errors": [],
+        "pressure_containment_pass": true,
+        "source_dry_mass_t": 868.1922552640087,
+        "glb": "render/out/wayfarer_exterior_B_medical_88ce19fc_torch_stowed.glb",
+        "gltf_extras": {
+          "mesh_nodes_with_extras": 558,
+          "all_scene_nodes_with_extras": 598,
+          "raw_glb_sha256": "2f7c7c369783ccde0b50ab968c2edc1c46bc4e986aa4d162ca11ee15c09ad88e",
+          "bytes": 11611980,
+          "canon_finish": "CANON_FINISH",
+          "exterior_pbr_meshes": 558,
+          "exterior_pbr_variants": 35,
+          "thermal_emissive_meshes": 68,
+          "hot_fin_1300K_preview_removed": true,
+          "thermal_source_no_credit": true,
+          "by_finish_role": {
+            "aoi_optogel": 1,
+            "bow_strata": 1,
+            "crown_outer_ceramic": 44,
+            "crown_pressure_ceramic": 2,
+            "crown_titanium": 2,
+            "external_fixtures": 88,
+            "hotfin_cold": 4,
+            "hotfin_torch_1750K": 56,
+            "interior_pressure_structure": 132,
+            "magnetic_nozzle_bronze": 3,
+            "midship_skin_bay_doors": 4,
+            "radiator_strakes": 12,
+            "rcs_housings_bells": 8,
+            "sensors_optics": 15,
+            "service_band_aft_thrust_cone": 3,
+            "shadow_shield": 9,
+            "shuttle_belly_tps": 4,
+            "shuttle_main_hull": 22,
+            "side_glazing": 130,
+            "strata_gores_shutters": 16,
+            "tank_shell": 1,
+            "torch_reactor": 1
+          },
+          "all_visible_meshes_CANON_FINISH": true,
+          "rendered_meshes_total": 558,
+          "missing_visible_finish_meshes": [],
+          "source_palette_preserved_meshes": 0,
+          "explicit_finish_meshes": 558,
+          "pressure_vessel_finish": "interior_pressure_structure",
+          "service_shield_finish": "shadow_shield",
+          "bay_corner_finish": "external_fixtures",
+          "pale_accent_linear_scale": 0.57,
+          "srgb_to_linear_declared_roles": 24,
+          "verified_linear_pbr_materials": 42,
+          "graphite_linear_base_rgb": [
+            0.042311410620809675,
+            0.046665086336880095,
+            0.05448027644244237
+          ],
+          "thermal_glow_diffuse_base_linear_rgb": [
+            0.02,
+            0.02,
+            0.02
+          ],
+          "nozzle_coil_band_faces": {
+            "stations_x_m": [
+              47.2,
+              48.5,
+              49.8,
+              51.1,
+              52.4
+            ],
+            "width_m": 0.15,
+            "depth_m": 0.03,
+            "face_triangles_per_station": [
+              510,
+              400,
+              437,
+              440,
+              563
+            ],
+            "boundary_edge_vertices": [
+              859,
+              1033,
+              730,
+              928,
+              822,
+              871,
+              770,
+              720,
+              870,
+              945
+            ],
+            "band_edges_split_exactly": true,
+            "clipped_triangles_total": 4550,
+            "source_triangles_total": 2348,
+            "source_surface_area_m2": 229.39371879651583,
+            "clipped_surface_area_m2": 229.3937187964433,
+            "relative_area_error": 3.161908828494597e-13,
+            "coplanar_cut_triangles": [
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84
+            ],
+            "coplanar_cut_area_m2": [
+              0.31110397182561483,
+              0.5489544560790263,
+              0.3341038199015822,
+              0.5890069062334202,
+              0.35713174087725097,
+              0.6290593548377039,
+              0.380187578608018,
+              0.6691128493391254,
+              0.40327136382252315,
+              0.7091648419539656
+            ],
+            "surface_area_conservation": true,
+            "source_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
+            "output_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
+            "nozzle_geometry_envelope_unchanged": true,
+            "print_band_width_1_100_mm": 1.5,
+            "longitudinal_gltf_axis": 0,
+            "paint_by_triangle_centroid": false,
+            "source_mass_rebooking_t": 0
+          },
+          "nostromo_paint": {
+            "seed": "WAYFARER-NOSTROMO-v2.5.13-20261111",
+            "plated_meshes": 8,
+            "panel_materials_added": 6,
+            "tone_variants_srgb": [
+              0.94,
+              0.98,
+              1.02,
+              1.06
+            ],
+            "material_variants_by_finish": {
+              "bow_strata": [
+                2
+              ],
+              "midship_skin_bay_doors": [
+                0,
+                1,
+                2
+              ],
+              "service_band_aft_thrust_cone": [
+                1,
+                2
+              ]
+            },
+            "panel_srgb_tone_min": 0.94,
+            "panel_srgb_tone_max": 1.06,
+            "panel_srgb_tone_bound": 0.06,
+            "per_triangle_assignment": false,
+            "all_plated_parts_single_cell": true,
+            "all_mosaic_roles_spotchecked": true,
+            "source_triangles": 33026,
+            "output_triangles": 33026,
+            "original_vertex_positions_preserved": true,
+            "source_images_count": 0,
+            "source_textures_count": 0,
+            "texture_system_added": false,
+            "decal_texture_embedded": false,
+            "registry_flanks_in_glb": 0,
+            "plain_gltf_materials": true,
+            "geometry_added": false,
+            "protrusions_added": false,
+            "source_mass_rebooking_t": 0,
+            "thrust_cone_smoothing": {
+              "method": "analytic_frustum_lateral_normals",
+              "smoothed_lateral_vertex_normals": 260,
+              "preserved_hard_edge_normals": 168,
+              "unchanged_position_accessors": true,
+              "unchanged_triangle_indices": true,
+              "relative_surface_area_error": 0.0,
+              "surface_area_tolerance": 1e-06,
+              "source_envelope_unchanged": true,
+              "no_new_vertices": true,
+              "slope": -0.29000002564932104,
+              "axial_axis": 0
+            }
+          }
+        },
+        "semantic_hierarchy": {
+          "meshes": 558,
+          "dry_system_breakdown": {
+            "EXTERIOR": 136,
+            "FLUIDS": 20,
+            "HABITAT": 286,
+            "POWER": 15,
+            "PROPULSION": 3,
+            "SERVICE": 9,
+            "SHUTTLE": 41,
+            "STRUCTURE": 48
+          },
+          "semantic_systems": 8,
+          "semantic_subsystems": 31,
+          "hierarchy_valid": true
+        }
+      },
+      "closed": {
+        "part_count": 558,
+        "pair_count": 155403,
+        "category_d_count": 0,
+        "boolean_errors": 0,
+        "category_counts": {
+          "a": 1,
+          "c": 154
+        },
+        "category_d_conflicts": [],
+        "collision_errors": [],
+        "pressure_containment_pass": true,
+        "source_dry_mass_t": 868.1922552640087,
+        "glb": "render/out/wayfarer_exterior_B_medical_88ce19fc_torch_closed.glb",
+        "gltf_extras": {
+          "mesh_nodes_with_extras": 558,
+          "all_scene_nodes_with_extras": 598,
+          "raw_glb_sha256": "c079af5a96ff9477d05b8d48ea7569748c05199a1338e573739c9b68ea0334bf",
+          "bytes": 12519200,
+          "canon_finish": "CANON_FINISH",
+          "exterior_pbr_meshes": 558,
+          "exterior_pbr_variants": 35,
+          "thermal_emissive_meshes": 68,
+          "hot_fin_1300K_preview_removed": true,
+          "thermal_source_no_credit": true,
+          "by_finish_role": {
+            "aoi_optogel": 1,
+            "bow_strata": 1,
+            "crown_outer_ceramic": 44,
+            "crown_pressure_ceramic": 2,
+            "crown_titanium": 2,
+            "external_fixtures": 88,
+            "hotfin_cold": 4,
+            "hotfin_torch_1750K": 56,
+            "interior_pressure_structure": 132,
+            "magnetic_nozzle_bronze": 3,
+            "midship_skin_bay_doors": 4,
+            "radiator_strakes": 12,
+            "rcs_housings_bells": 8,
+            "sensors_optics": 15,
+            "service_band_aft_thrust_cone": 3,
+            "shadow_shield": 9,
+            "shuttle_belly_tps": 4,
+            "shuttle_main_hull": 22,
+            "side_glazing": 130,
+            "strata_gores_shutters": 16,
+            "tank_shell": 1,
+            "torch_reactor": 1
+          },
+          "all_visible_meshes_CANON_FINISH": true,
+          "rendered_meshes_total": 558,
+          "missing_visible_finish_meshes": [],
+          "source_palette_preserved_meshes": 0,
+          "explicit_finish_meshes": 558,
+          "pressure_vessel_finish": "interior_pressure_structure",
+          "service_shield_finish": "shadow_shield",
+          "bay_corner_finish": "external_fixtures",
+          "pale_accent_linear_scale": 0.57,
+          "srgb_to_linear_declared_roles": 24,
+          "verified_linear_pbr_materials": 42,
+          "graphite_linear_base_rgb": [
+            0.042311410620809675,
+            0.046665086336880095,
+            0.05448027644244237
+          ],
+          "thermal_glow_diffuse_base_linear_rgb": [
+            0.02,
+            0.02,
+            0.02
+          ],
+          "nozzle_coil_band_faces": {
+            "stations_x_m": [
+              47.2,
+              48.5,
+              49.8,
+              51.1,
+              52.4
+            ],
+            "width_m": 0.15,
+            "depth_m": 0.03,
+            "face_triangles_per_station": [
+              510,
+              400,
+              437,
+              440,
+              563
+            ],
+            "boundary_edge_vertices": [
+              859,
+              1033,
+              730,
+              928,
+              822,
+              871,
+              770,
+              720,
+              870,
+              945
+            ],
+            "band_edges_split_exactly": true,
+            "clipped_triangles_total": 4550,
+            "source_triangles_total": 2348,
+            "source_surface_area_m2": 229.39371879651583,
+            "clipped_surface_area_m2": 229.3937187964433,
+            "relative_area_error": 3.161908828494597e-13,
+            "coplanar_cut_triangles": [
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84,
+              63,
+              84
+            ],
+            "coplanar_cut_area_m2": [
+              0.31110397182561483,
+              0.5489544560790263,
+              0.3341038199015822,
+              0.5890069062334202,
+              0.35713174087725097,
+              0.6290593548377039,
+              0.380187578608018,
+              0.6691128493391254,
+              0.40327136382252315,
+              0.7091648419539656
+            ],
+            "surface_area_conservation": true,
+            "source_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
+            "output_bounds": [
+              [
+                46.29999923706055,
+                53.29999923706055
+              ],
+              [
+                -2.9700000286102295,
+                3.0299999713897705
+              ],
+              [
+                -3.221611499786377,
+                2.7616114616394043
+              ]
+            ],
+            "nozzle_geometry_envelope_unchanged": true,
+            "print_band_width_1_100_mm": 1.5,
+            "longitudinal_gltf_axis": 0,
+            "paint_by_triangle_centroid": false,
+            "source_mass_rebooking_t": 0
+          },
+          "nostromo_paint": {
+            "seed": "WAYFARER-NOSTROMO-v2.5.13-20261111",
+            "plated_meshes": 8,
+            "panel_materials_added": 6,
+            "tone_variants_srgb": [
+              0.94,
+              0.98,
+              1.02,
+              1.06
+            ],
+            "material_variants_by_finish": {
+              "bow_strata": [
+                2
+              ],
+              "midship_skin_bay_doors": [
+                0,
+                1,
+                2
+              ],
+              "service_band_aft_thrust_cone": [
+                1,
+                2
+              ]
+            },
+            "panel_srgb_tone_min": 0.94,
+            "panel_srgb_tone_max": 1.06,
+            "panel_srgb_tone_bound": 0.06,
+            "per_triangle_assignment": false,
+            "all_plated_parts_single_cell": true,
+            "all_mosaic_roles_spotchecked": true,
+            "source_triangles": 33026,
+            "output_triangles": 33026,
+            "original_vertex_positions_preserved": true,
+            "source_images_count": 0,
+            "source_textures_count": 0,
+            "texture_system_added": false,
+            "decal_texture_embedded": false,
+            "registry_flanks_in_glb": 0,
+            "plain_gltf_materials": true,
+            "geometry_added": false,
+            "protrusions_added": false,
+            "source_mass_rebooking_t": 0,
+            "thrust_cone_smoothing": {
+              "method": "analytic_frustum_lateral_normals",
+              "smoothed_lateral_vertex_normals": 260,
+              "preserved_hard_edge_normals": 168,
+              "unchanged_position_accessors": true,
+              "unchanged_triangle_indices": true,
+              "relative_surface_area_error": 0.0,
+              "surface_area_tolerance": 1e-06,
+              "source_envelope_unchanged": true,
+              "no_new_vertices": true,
+              "slope": -0.29000002564932104,
+              "axial_axis": 0
+            }
+          }
+        },
+        "semantic_hierarchy": {
+          "meshes": 558,
+          "dry_system_breakdown": {
+            "EXTERIOR": 136,
+            "FLUIDS": 20,
+            "HABITAT": 286,
+            "POWER": 15,
+            "PROPULSION": 3,
+            "SERVICE": 9,
+            "SHUTTLE": 41,
+            "STRUCTURE": 48
+          },
+          "semantic_systems": 8,
+          "semantic_subsystems": 31,
+          "hierarchy_valid": true
+        }
+      }
+    }
+  },
+  "exterior_detail": {
+    "style": "retro-industrial; kT F1 approved proud RCS bells + source-position lasers + engraved remainder",
+    "RCS_pitch_yaw_authority_quick_screen": {
+      "aft_station_m": 34.15,
+      "fore_station_m": 3.0,
+      "nominal_pitch_yaw_Nm": 2336250.0,
+      "one_cluster_out_worst_Nm": 1557500.0,
+      "nominal_required_Nm": 1000000,
+      "degraded_required_Nm": 750000,
+      "nominal_ratio": 2.33625,
+      "degraded_ratio": 2.0766666666666667,
+      "source_states_evaluated": 7,
+      "radial_bells_per_cluster": 1,
+      "tangential_bells_per_cluster": 2,
+      "axial_bells_per_cluster": 1,
+      "axial_cant_deg": 10,
+      "source_direction_screen": true,
+      "zero_net_lateral_force": true,
+      "axial_bell_ignored_in_torque_screen": true,
+      "bell_direction_cases": {
+        "pitch_minus": {
+          "torque_Nm": 2336250.0,
+          "fore_bells": 3,
+          "aft_bells": 3
+        },
+        "pitch_plus": {
+          "torque_Nm": 2336250.0,
+          "fore_bells": 3,
+          "aft_bells": 3
+        },
+        "yaw_minus": {
+          "torque_Nm": 2336250.0,
+          "fore_bells": 3,
+          "aft_bells": 3
+        },
+        "yaw_plus": {
+          "torque_Nm": 2336250.0,
+          "fore_bells": 3,
+          "aft_bells": 3
+        }
+      },
+      "one_cluster_out_cases": {
+        "F+Y": {
+          "pitch_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          },
+          "pitch_plus": {
+            "torque_Nm": 2336250.0,
+            "fore_bells": 3,
+            "aft_bells": 3
+          },
+          "yaw_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          },
+          "yaw_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          }
+        },
+        "F+Z": {
+          "pitch_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          },
+          "pitch_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          },
+          "yaw_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          },
+          "yaw_plus": {
+            "torque_Nm": 2336250.0,
+            "fore_bells": 3,
+            "aft_bells": 3
+          }
+        },
+        "F-Y": {
+          "pitch_minus": {
+            "torque_Nm": 2336250.0,
+            "fore_bells": 3,
+            "aft_bells": 3
+          },
+          "pitch_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          },
+          "yaw_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          },
+          "yaw_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          }
+        },
+        "F-Z": {
+          "pitch_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          },
+          "pitch_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          },
+          "yaw_minus": {
+            "torque_Nm": 2336250.0,
+            "fore_bells": 3,
+            "aft_bells": 3
+          },
+          "yaw_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 2,
+            "aft_bells": 3
+          }
+        },
+        "A+Y": {
+          "pitch_minus": {
+            "torque_Nm": 2336250.0,
+            "fore_bells": 3,
+            "aft_bells": 3
+          },
+          "pitch_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          },
+          "yaw_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          },
+          "yaw_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          }
+        },
+        "A+Z": {
+          "pitch_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          },
+          "pitch_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          },
+          "yaw_minus": {
+            "torque_Nm": 2336250.0,
+            "fore_bells": 3,
+            "aft_bells": 3
+          },
+          "yaw_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          }
+        },
+        "A-Y": {
+          "pitch_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          },
+          "pitch_plus": {
+            "torque_Nm": 2336250.0,
+            "fore_bells": 3,
+            "aft_bells": 3
+          },
+          "yaw_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          },
+          "yaw_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          }
+        },
+        "A-Z": {
+          "pitch_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          },
+          "pitch_plus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          },
+          "yaw_minus": {
+            "torque_Nm": 1557500.0,
+            "fore_bells": 3,
+            "aft_bells": 2
+          },
+          "yaw_plus": {
+            "torque_Nm": 2336250.0,
+            "fore_bells": 3,
+            "aft_bells": 3
+          }
+        }
+      },
+      "prior_v256_screen_did_not_use_source_directions": true,
+      "method": "3 independently directed 25kN transverse bells per cluster; balanced fore/aft torque couple; no hardware/GNC/plume qualification"
+    },
+    "RCS_F1_approved": true,
+    "laser_terminals_source_station_m": 33.3,
+    "shuttle_spine_groove": true,
+    "hull_surface_seam_scheme": "hull_seam_scheme_2026_11_09",
+    "nostromo_fine_true_scale_engraving": true,
+    "nostromo_markings_paint_only": true,
+    "print_lod_is_separate_from_canon": true,
+    "hull_seam_width_m": 0.05,
+    "visual_seam_depth_m": 0.03,
+    "thin_shell_actual_blind_mark_m": 0.006,
+    "PBR_finish_gate": "CANON_FINISH kT 2026-11-11; material JSON in six GLBs",
+    "thermal_trade_dark_midship_over_water_tanks": "Prefer low-visible-absorptance graphite; no new thermal credit",
+    "strake_1300K_glow_state": "strakes Metric 2m and Torch 4m",
+    "hotfin_1750K_glow_state": "hot fins Torch deployed only; root brightest",
+    "graphite_srgb_2026_11_11_v258": "#3A3D42",
+    "hot_state_diffuse_linear_rgb": [
+      0.02,
+      0.02,
+      0.02
+    ],
+    "nozzle_coil_band_width_m": 0.15,
+    "nozzle_coil_band_depth_m": 0.03,
+    "nozzle_coil_band_finish": "CANON_FINISH/nozzle_coil_bands",
+    "pressure_vessel_visible_finish": "CANON_FINISH/interior_pressure_structure",
+    "service_shield_band_finish": "CANON_FINISH/shadow_shield",
+    "bay_corner_finish": "CANON_FINISH/external_fixtures",
+    "nozzle_coil_ring_boundary": "exact plane-clipped original mesh grooves; strict surface-area conservation",
+    "all_rendered_nodes_require_CANON_FINISH": true,
+    "pale_accent_linear_rgb_scale": 0.57,
+    "no_hull_protrusion": false,
+    "no_crown_change": true,
+    "no_performance_claims": true,
+    "no_pressure_vessel_cuts": true,
+    "no_new_source_mass": true,
+    "source_canon": "canon-v2.5.8",
+    "metadata_only_fixes": {
+      "docking_camera_material": "sensor",
+      "hold_door_display_share_t": 1.0,
+      "hold_hardware_and_door_interface_allowance_t": 2,
+      "courier_parent_booking_unchanged_t": 19.450370894400045,
+      "no_rebooking": true
+    },
+    "modes": {
+      "stowed": {
+        "edited_nodes": 49,
+        "by_role": {
+          "bow_ring": 1,
+          "docking_camera": 2,
+          "docking_target": 1,
+          "eva_rail": 4,
+          "fin_root": 4,
+          "folded_fin": 4,
+          "grapple_fixture": 4,
+          "hold_door": 2,
+          "laser_terminal": 2,
+          "rcs": 8,
+          "rf_tiles": 4,
+          "sensor_turret": 2,
+          "service_port": 3,
+          "star_tracker": 4,
+          "vent": 4
+        },
+        "source_mass_rebooking_t": 0,
+        "all_detail_subtractions": false,
+        "F1_approved_rcs_additions": 8,
+        "RCS_recessed_host_volumes_m3": {
+          "dry:armor": 0.39570009147123386,
+          "dry:skin_aft": 0.022627534619303447,
+          "dry:frame_34": 0.07318189174121592,
+          "dry:manifold": 0.07387675733718879
+        },
+        "hull_and_torch_surface_etch": {
+          "mode": "stowed",
+          "approved_seam_scheme": "hull_seam_scheme_2026_11_09",
+          "ring_width_m": 0.05,
+          "requested_visual_depth_m": 0.03,
+          "thin_wall_actual_OCC_depth_m": 0.006,
+          "legacy_22p5_degree_skin_grid_removed": true,
+          "nostromo_true_scale_subpanel_width_m": 0.02,
+          "nostromo_true_scale_blind_depth_m": 0.003,
+          "nostromo_bolts_paint_only": true,
+          "print_space_overrides_in_canon": false,
+          "top_quarter_preserves_bay_door_edges": true,
+          "no_pressure_boundary_perforation": true,
+          "source_mass_rebooking_t": 0,
+          "parts": {
+            "dry:armor": {
+              "source_allocation_id": "armor",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.03,
+              "thin_shell_nonperforation_guard": false,
+              "ring_station_m": [
+                2.35,
+                3,
+                5.6,
+                8.2,
+                10.8,
+                14
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "nostromo_subpanel_ring_x_m": [
+                4.3,
+                9.5
+              ],
+              "nostromo_subpanel_longitudinal_count": 0,
+              "print_space_dimensions_applied": false,
+              "bolts_paint_only": true,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 15,
+              "display_only_removed_m3": 0.30230145330217084
+            },
+            "dry:skin_service": {
+              "source_allocation_id": "skin_service",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                14,
+                16,
+                18
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 4,
+              "nostromo_subpanel_ring_x_m": [
+                15.0,
+                17.0
+              ],
+              "nostromo_subpanel_longitudinal_count": 2,
+              "print_space_dimensions_applied": false,
+              "bolts_paint_only": true,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 30,
+              "display_only_removed_m3": 0.02920600929702788
+            },
+            "dry:skin_midship": {
+              "source_allocation_id": "skin_midship",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                18,
+                20,
+                22,
+                24,
+                26,
+                28,
+                30,
+                32
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 2,
+              "nostromo_subpanel_ring_x_m": [
+                19.0,
+                23.0,
+                27.0,
+                31.0
+              ],
+              "nostromo_subpanel_longitudinal_count": 4,
+              "print_space_dimensions_applied": false,
+              "bolts_paint_only": true,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 31,
+              "display_only_removed_m3": 0.08716487088581015
+            },
+            "dry:skin_aft": {
+              "source_allocation_id": "skin_aft",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                34
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 2,
+              "nostromo_subpanel_ring_x_m": [
+                33.0
+              ],
+              "nostromo_subpanel_longitudinal_count": 2,
+              "print_space_dimensions_applied": false,
+              "bolts_paint_only": true,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 19,
+              "display_only_removed_m3": 0.01389076451343696
+            },
+            "dry:tank_shell_out": {
+              "source_allocation_id": "tank_shell_out",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                18,
+                20,
+                22,
+                24,
+                26,
+                28,
+                30
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "nostromo_subpanel_ring_x_m": [
+                19.0,
+                23.0,
+                27.0,
+                31.0
+              ],
+              "nostromo_subpanel_longitudinal_count": 0,
+              "print_space_dimensions_applied": false,
+              "bolts_paint_only": true,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 18,
+              "display_only_removed_m3": 0.07524943298003706
+            },
+            "dry:tank_shell_in": {
+              "source_allocation_id": "tank_shell_in",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                18,
+                20,
+                22,
+                24,
+                26,
+                28,
+                30
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "nostromo_subpanel_ring_x_m": [],
+              "nostromo_subpanel_longitudinal_count": 0,
+              "print_space_dimensions_applied": false,
+              "bolts_paint_only": true,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 12,
+              "display_only_removed_m3": 0.03684246634074295
+            },
+            "dry:shield": {
+              "role": "shield",
+              "ring_band_station_m": [
+                34.7,
+                38.9
+              ],
+              "band_width_m": 0.05,
+              "band_depth_m": 0.008,
+              "segment_seams_azimuth_deg": [
+                0,
+                90,
+                180,
+                270
+              ],
+              "access_panel_outlines": 0,
+              "requested_groove_width_m": 0.05,
+              "visual_only": true,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 5,
+              "display_only_removed_m3": 0.03628532394436945
+            },
+            "dry:reactor": {
+              "role": "reactor",
+              "ring_band_station_m": [
+                39.7,
+                43.2,
+                45.9
+              ],
+              "band_width_m": 0.05,
+              "band_depth_m": 0.03,
+              "segment_seams_azimuth_deg": [],
+              "access_panel_outlines": 4,
+              "requested_groove_width_m": 0.05,
+              "visual_only": true,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 13,
+              "display_only_removed_m3": 0.06574219573099072
+            },
+            "dry:nozzle": {
+              "role": "nozzle",
+              "ring_band_station_m": [
+                47.2,
+                48.5,
+                49.8,
+                51.1,
+                52.4
+              ],
+              "band_width_m": 0.15,
+              "band_depth_m": 0.03,
+              "segment_seams_azimuth_deg": [],
+              "access_panel_outlines": 0,
+              "requested_groove_width_m": 0.05,
+              "visual_only": true,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 5,
+              "display_only_removed_m3": 0.364028379029385
+            }
+          }
+        },
+        "source_envelope_violations": 0,
+        "parts": {
+          "dry:bow_sensors": {
+            "role": "bow_ring",
+            "source_allocation_id": "bow_sensors",
+            "booked_mass_t": 8.148681701022337,
+            "source_volume_m3": 11.773641515288315,
+            "edited_volume_m3": 11.736980086890636,
+            "engraved_m3": 0.03666142839767872,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 4
+          },
+          "dry:docking_camera_0": {
+            "role": "docking_camera",
+            "source_allocation_id": "docking_camera_0",
+            "booked_mass_t": 0.025,
+            "source_volume_m3": 0.008000000000000037,
+            "edited_volume_m3": 0.0073050325811361725,
+            "engraved_m3": 0.0006949674188638641,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:docking_camera_1": {
+            "role": "docking_camera",
+            "source_allocation_id": "docking_camera_1",
+            "booked_mass_t": 0.025,
+            "source_volume_m3": 0.008000000000000037,
+            "edited_volume_m3": 0.007305032581136168,
+            "engraved_m3": 0.0006949674188638684,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_docking_target_0": {
+            "role": "docking_target",
+            "source_allocation_id": "ext_docking_target_0",
+            "booked_mass_t": 0.02047407462568426,
+            "source_volume_m3": 0.0018020000000108088,
+            "edited_volume_m3": 0.0017321294416530531,
+            "engraved_m3": 6.987055835775574e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_0": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_0",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.005779199999830599,
+            "edited_volume_m3": 0.005744282447546515,
+            "engraved_m3": 3.491755228408368e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_1": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_1",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.006019999999823541,
+            "edited_volume_m3": 0.005985082447539708,
+            "engraved_m3": 3.491755228383301e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_2": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_2",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.003130399999907654,
+            "edited_volume_m3": 0.0030954824476208506,
+            "engraved_m3": 3.491755228680329e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_3": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_3",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.0057791999997647845,
+            "edited_volume_m3": 0.0057442824474253145,
+            "engraved_m3": 3.491755233946993e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_0": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_0",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222210025,
+            "edited_volume_m3": 0.007161353207271017,
+            "engraved_m3": 0.0008208690149390085,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_1": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_1",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222210011,
+            "edited_volume_m3": 0.007161353207270999,
+            "engraved_m3": 0.0008208690149390128,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_2": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_2",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222210685,
+            "edited_volume_m3": 0.007161353207271672,
+            "engraved_m3": 0.0008208690149390128,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_3": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_3",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222195355,
+            "edited_volume_m3": 0.007161353207256385,
+            "engraved_m3": 0.0008208690149389694,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_laser_terminal_0": {
+            "role": "laser_terminal",
+            "source_allocation_id": "ext_laser_terminal_0",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.003631243055555474,
+            "edited_volume_m3": 0.0034675182293731686,
+            "engraved_m3": 0.00016372482618230537,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2,
+            "source_station_m": 33.3,
+            "source_flush_cover_only": true
+          },
+          "dry:ext_laser_terminal_1": {
+            "role": "laser_terminal",
+            "source_allocation_id": "ext_laser_terminal_1",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.0036312430555554723,
+            "edited_volume_m3": 0.0034675182293714907,
+            "engraved_m3": 0.00016372482618398155,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2,
+            "source_station_m": 33.3,
+            "source_flush_cover_only": true
+          },
+          "dry:ext_rf_array_0": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_0",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.04199999999983694,
+            "edited_volume_m3": 0.04165979231960008,
+            "engraved_m3": 0.000340207680236862,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_rf_array_1": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_1",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.041999999999923196,
+            "edited_volume_m3": 0.04165979231961629,
+            "engraved_m3": 0.0003402076803069032,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_rf_array_2": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_2",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.041999999999925604,
+            "edited_volume_m3": 0.04165979231961876,
+            "engraved_m3": 0.00034020768030684073,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_rf_array_3": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_3",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.04199999999992556,
+            "edited_volume_m3": 0.0416597923196187,
+            "engraved_m3": 0.00034020768030686155,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_sensor_turret_0": {
+            "role": "sensor_turret",
+            "source_allocation_id": "ext_sensor_turret_0",
+            "booked_mass_t": 0.5118518656421065,
+            "source_volume_m3": 0.15929999999999422,
+            "edited_volume_m3": 0.15366734752447195,
+            "engraved_m3": 0.005632652475522276,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_sensor_turret_1": {
+            "role": "sensor_turret",
+            "source_allocation_id": "ext_sensor_turret_1",
+            "booked_mass_t": 0.5118518656421065,
+            "source_volume_m3": 0.1592999999999932,
+            "edited_volume_m3": 0.15366734752446537,
+            "engraved_m3": 0.005632652475527827,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_service_port_0": {
+            "role": "service_port",
+            "source_allocation_id": "ext_service_port_0",
+            "booked_mass_t": 0.03378222313237903,
+            "source_volume_m3": 0.004799999999986749,
+            "edited_volume_m3": 0.004433726611026969,
+            "engraved_m3": 0.0003662733889597796,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_service_port_1": {
+            "role": "service_port",
+            "source_allocation_id": "ext_service_port_1",
+            "booked_mass_t": 0.03378222313237903,
+            "source_volume_m3": 0.004799999999985739,
+            "edited_volume_m3": 0.004433726611025937,
+            "engraved_m3": 0.00036627338895980216,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_service_port_2": {
+            "role": "service_port",
+            "source_allocation_id": "ext_service_port_2",
+            "booked_mass_t": 0.03378222313237903,
+            "source_volume_m3": 0.004799999999982156,
+            "edited_volume_m3": 0.004433726611022317,
+            "engraved_m3": 0.00036627338895983946,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_0": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_0",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.003182222222219548,
+            "edited_volume_m3": 0.0026377402991999564,
+            "engraved_m3": 0.0005444819230195916,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_1": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_1",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.0031822222222083704,
+            "edited_volume_m3": 0.00263774029918504,
+            "engraved_m3": 0.0005444819230233304,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_2": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_2",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.0031822222222425956,
+            "edited_volume_m3": 0.002637740299223025,
+            "engraved_m3": 0.0005444819230195708,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_3": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_3",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.0031822222222226003,
+            "edited_volume_m3": 0.002637740299199165,
+            "engraved_m3": 0.0005444819230234353,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_vent_0": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_0",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.00043200000000242345,
+            "edited_volume_m3": 0.0004223777272816354,
+            "engraved_m3": 9.622272720788048e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_vent_1": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_1",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.000432000000002424,
+            "edited_volume_m3": 0.0004223777272816363,
+            "engraved_m3": 9.622272720787668e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_vent_2": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_2",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.00043200000000702453,
+            "edited_volume_m3": 0.00042237772728451444,
+            "engraved_m3": 9.622272722510086e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_vent_3": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_3",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.0004320000000080002,
+            "edited_volume_m3": 0.00042237772728722115,
+            "engraved_m3": 9.622272720779049e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:hold_existing_door_port": {
+            "role": "hold_door",
+            "source_allocation_id": "courier_systems",
+            "booked_mass_t": 19.450370894400045,
+            "source_volume_m3": 0.04319999999999906,
+            "edited_volume_m3": 0.035359199999998765,
+            "engraved_m3": 0.007840800000000293,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 1
+          },
+          "dry:hold_existing_door_starboard": {
+            "role": "hold_door",
+            "source_allocation_id": "courier_systems",
+            "booked_mass_t": 19.450370894400045,
+            "source_volume_m3": 0.04319999999999906,
+            "edited_volume_m3": 0.03535919999999877,
+            "engraved_m3": 0.007840800000000286,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 1
+          },
+          "dry:hotfin_140:folded_envelope": {
+            "role": "folded_fin",
+            "source_allocation_id": "hotfin_140",
+            "booked_mass_t": 4.256,
+            "source_volume_m3": 22.799999999999997,
+            "edited_volume_m3": 22.70776800000001,
+            "engraved_m3": 0.09223199999998855,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 14,
+            "folded_stack": {
+              "pleats": 14,
+              "folded_pleat_length_m": 2,
+              "tangential_stack_thickness_m": 0.6,
+              "radial_root_m": 4.75,
+              "radial_outer_m": 6.75,
+              "x_range_m": [
+                34.3,
+                53.3
+              ],
+              "visible_edge_engravings": 14
+            }
+          },
+          "dry:hotfin_220:folded_envelope": {
+            "role": "folded_fin",
+            "source_allocation_id": "hotfin_220",
+            "booked_mass_t": 4.256,
+            "source_volume_m3": 22.799999999999986,
+            "edited_volume_m3": 22.707767999999994,
+            "engraved_m3": 0.0922319999999921,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 14,
+            "folded_stack": {
+              "pleats": 14,
+              "folded_pleat_length_m": 2,
+              "tangential_stack_thickness_m": 0.6,
+              "radial_root_m": 4.75,
+              "radial_outer_m": 6.75,
+              "x_range_m": [
+                34.3,
+                53.3
+              ],
+              "visible_edge_engravings": 14
+            }
+          },
+          "dry:hotfin_320:folded_envelope": {
+            "role": "folded_fin",
+            "source_allocation_id": "hotfin_320",
+            "booked_mass_t": 4.256,
+            "source_volume_m3": 22.799999999999994,
+            "edited_volume_m3": 22.70776799999999,
+            "engraved_m3": 0.09223200000000276,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 14,
+            "folded_stack": {
+              "pleats": 14,
+              "folded_pleat_length_m": 2,
+              "tangential_stack_thickness_m": 0.6,
+              "radial_root_m": 4.75,
+              "radial_outer_m": 6.75,
+              "x_range_m": [
+                34.3,
+                53.3
+              ],
+              "visible_edge_engravings": 14
+            }
+          },
+          "dry:hotfin_40:folded_envelope": {
+            "role": "folded_fin",
+            "source_allocation_id": "hotfin_40",
+            "booked_mass_t": 4.256,
+            "source_volume_m3": 22.79999999999999,
+            "edited_volume_m3": 22.707768000000005,
+            "engraved_m3": 0.09223199999998499,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 14,
+            "folded_stack": {
+              "pleats": 14,
+              "folded_pleat_length_m": 2,
+              "tangential_stack_thickness_m": 0.6,
+              "radial_root_m": 4.75,
+              "radial_outer_m": 6.75,
+              "x_range_m": [
+                34.3,
+                53.3
+              ],
+              "visible_edge_engravings": 14
+            }
+          },
+          "dry:hotfin_root_140:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_140",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.350000000000002,
+            "edited_volume_m3": 7.249900000000001,
+            "engraved_m3": 0.10010000000000119,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:hotfin_root_220:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_220",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.333509651746403,
+            "edited_volume_m3": 7.23340965174063,
+            "engraved_m3": 0.10010000000577257,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:hotfin_root_320:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_320",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.317484171649469,
+            "edited_volume_m3": 7.217384171640477,
+            "engraved_m3": 0.10010000000899222,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:hotfin_root_40:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_40",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.350000000000001,
+            "edited_volume_m3": 7.249900000000003,
+            "engraved_m3": 0.10009999999999852,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:rcs_A+Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A+Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999989,
+            "edited_volume_m3": 0.138154543623943,
+            "engraved_m3": 0,
+            "external_added_m3": 0.138154543623943,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  -1.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 34.15,
+            "azimuth_deg": 0,
+            "feature_tools": 4
+          },
+          "dry:rcs_A+Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A+Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999987,
+            "edited_volume_m3": 0.13815454362394305,
+            "engraved_m3": 0,
+            "external_added_m3": 0.13815454362394305,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 34.15,
+            "azimuth_deg": 90,
+            "feature_tools": 4
+          },
+          "dry:rcs_A-Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A-Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999988,
+            "edited_volume_m3": 0.13815454362394303,
+            "engraved_m3": 0,
+            "external_added_m3": 0.13815454362394303,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 34.15,
+            "azimuth_deg": 180,
+            "feature_tools": 4
+          },
+          "dry:rcs_A-Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A-Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999924,
+            "edited_volume_m3": 0.13815454362394305,
+            "engraved_m3": 0,
+            "external_added_m3": 0.13815454362394305,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 34.15,
+            "azimuth_deg": 270,
+            "feature_tools": 4
+          },
+          "dry:rcs_F+Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F+Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999999,
+            "edited_volume_m3": 0.25153295709218493,
+            "engraved_m3": 0,
+            "external_added_m3": 0.0443364485414048,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  -1.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 3.0,
+            "azimuth_deg": 0,
+            "feature_tools": 4
+          },
+          "dry:rcs_F+Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F+Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999998,
+            "edited_volume_m3": 0.25153295709218493,
+            "engraved_m3": 0,
+            "external_added_m3": 0.0443364485414048,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 3.0,
+            "azimuth_deg": 90,
+            "feature_tools": 4
+          },
+          "dry:rcs_F-Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F-Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.511999999999936,
+            "edited_volume_m3": 0.25153295709218493,
+            "engraved_m3": 0,
+            "external_added_m3": 0.04433644854142841,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 3.0,
+            "azimuth_deg": 180,
+            "feature_tools": 4
+          },
+          "dry:rcs_F-Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F-Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999933,
+            "edited_volume_m3": 0.25153295709218493,
+            "engraved_m3": 0,
+            "external_added_m3": 0.04433644854140922,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 3.0,
+            "azimuth_deg": 270,
+            "feature_tools": 4
+          }
+        }
+      },
+      "metric_hard": {
+        "edited_nodes": 49,
+        "by_role": {
+          "bow_ring": 1,
+          "docking_camera": 2,
+          "docking_target": 1,
+          "eva_rail": 4,
+          "fin_root": 4,
+          "folded_fin": 4,
+          "grapple_fixture": 4,
+          "hold_door": 2,
+          "laser_terminal": 2,
+          "rcs": 8,
+          "rf_tiles": 4,
+          "sensor_turret": 2,
+          "service_port": 3,
+          "star_tracker": 4,
+          "vent": 4
+        },
+        "source_mass_rebooking_t": 0,
+        "all_detail_subtractions": false,
+        "F1_approved_rcs_additions": 8,
+        "RCS_recessed_host_volumes_m3": {
+          "dry:armor": 0.39570009147123386,
+          "dry:skin_aft": 0.022627534619303447,
+          "dry:frame_34": 0.07318189174121592,
+          "dry:manifold": 0.07387675733718879
+        },
+        "hull_and_torch_surface_etch": {
+          "mode": "metric_hard",
+          "approved_seam_scheme": "hull_seam_scheme_2026_11_09",
+          "ring_width_m": 0.05,
+          "requested_visual_depth_m": 0.03,
+          "thin_wall_actual_OCC_depth_m": 0.006,
+          "legacy_22p5_degree_skin_grid_removed": true,
+          "nostromo_true_scale_subpanel_width_m": 0.02,
+          "nostromo_true_scale_blind_depth_m": 0.003,
+          "nostromo_bolts_paint_only": true,
+          "print_space_overrides_in_canon": false,
+          "top_quarter_preserves_bay_door_edges": true,
+          "no_pressure_boundary_perforation": true,
+          "source_mass_rebooking_t": 0,
+          "parts": {
+            "dry:armor": {
+              "source_allocation_id": "armor",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.03,
+              "thin_shell_nonperforation_guard": false,
+              "ring_station_m": [
+                2.35,
+                3,
+                5.6,
+                8.2,
+                10.8,
+                14
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "nostromo_subpanel_ring_x_m": [
+                4.3,
+                9.5
+              ],
+              "nostromo_subpanel_longitudinal_count": 0,
+              "print_space_dimensions_applied": false,
+              "bolts_paint_only": true,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 15,
+              "display_only_removed_m3": 0.30230145330217084
+            },
+            "dry:skin_service": {
+              "source_allocation_id": "skin_service",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                14,
+                16,
+                18
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 4,
+              "nostromo_subpanel_ring_x_m": [
+                15.0,
+                17.0
+              ],
+              "nostromo_subpanel_longitudinal_count": 2,
+              "print_space_dimensions_applied": false,
+              "bolts_paint_only": true,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 30,
+              "display_only_removed_m3": 0.02920600929702788
+            },
+            "dry:skin_midship": {
+              "source_allocation_id": "skin_midship",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                18,
+                20,
+                22,
+                24,
+                26,
+                28,
+                30,
+                32
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 2,
+              "nostromo_subpanel_ring_x_m": [
+                19.0,
+                23.0,
+                27.0,
+                31.0
+              ],
+              "nostromo_subpanel_longitudinal_count": 4,
+              "print_space_dimensions_applied": false,
+              "bolts_paint_only": true,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 31,
+              "display_only_removed_m3": 0.08716487088581015
+            },
+            "dry:skin_aft": {
+              "source_allocation_id": "skin_aft",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                34
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 2,
+              "nostromo_subpanel_ring_x_m": [
+                33.0
+              ],
+              "nostromo_subpanel_longitudinal_count": 2,
+              "print_space_dimensions_applied": false,
+              "bolts_paint_only": true,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 19,
+              "display_only_removed_m3": 0.01389076451343696
+            },
+            "dry:tank_shell_out": {
+              "source_allocation_id": "tank_shell_out",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                18,
+                20,
+                22,
+                24,
+                26,
+                28,
+                30
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "nostromo_subpanel_ring_x_m": [
+                19.0,
+                23.0,
+                27.0,
+                31.0
+              ],
+              "nostromo_subpanel_longitudinal_count": 0,
+              "print_space_dimensions_applied": false,
+              "bolts_paint_only": true,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 18,
+              "display_only_removed_m3": 0.07524943298003706
+            },
+            "dry:tank_shell_in": {
+              "source_allocation_id": "tank_shell_in",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                18,
+                20,
+                22,
+                24,
+                26,
+                28,
+                30
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "nostromo_subpanel_ring_x_m": [],
+              "nostromo_subpanel_longitudinal_count": 0,
+              "print_space_dimensions_applied": false,
+              "bolts_paint_only": true,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 12,
+              "display_only_removed_m3": 0.03684246634074295
+            },
+            "dry:shield": {
+              "role": "shield",
+              "ring_band_station_m": [
+                34.7,
+                38.9
+              ],
+              "band_width_m": 0.05,
+              "band_depth_m": 0.008,
+              "segment_seams_azimuth_deg": [
+                0,
+                90,
+                180,
+                270
+              ],
+              "access_panel_outlines": 0,
+              "requested_groove_width_m": 0.05,
+              "visual_only": true,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 5,
+              "display_only_removed_m3": 0.03628532394436945
+            },
+            "dry:reactor": {
+              "role": "reactor",
+              "ring_band_station_m": [
+                39.7,
+                43.2,
+                45.9
+              ],
+              "band_width_m": 0.05,
+              "band_depth_m": 0.03,
+              "segment_seams_azimuth_deg": [],
+              "access_panel_outlines": 4,
+              "requested_groove_width_m": 0.05,
+              "visual_only": true,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 13,
+              "display_only_removed_m3": 0.06574219573099072
+            },
+            "dry:nozzle": {
+              "role": "nozzle",
+              "ring_band_station_m": [
+                47.2,
+                48.5,
+                49.8,
+                51.1,
+                52.4
+              ],
+              "band_width_m": 0.15,
+              "band_depth_m": 0.03,
+              "segment_seams_azimuth_deg": [],
+              "access_panel_outlines": 0,
+              "requested_groove_width_m": 0.05,
+              "visual_only": true,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 5,
+              "display_only_removed_m3": 0.364028379029385
+            }
+          }
+        },
+        "source_envelope_violations": 0,
+        "parts": {
+          "dry:bow_sensors": {
+            "role": "bow_ring",
+            "source_allocation_id": "bow_sensors",
+            "booked_mass_t": 8.148681701022337,
+            "source_volume_m3": 11.773641515288315,
+            "edited_volume_m3": 11.736980086890636,
+            "engraved_m3": 0.03666142839767872,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 4
+          },
+          "dry:docking_camera_0": {
+            "role": "docking_camera",
+            "source_allocation_id": "docking_camera_0",
+            "booked_mass_t": 0.025,
+            "source_volume_m3": 0.008000000000000037,
+            "edited_volume_m3": 0.0073050325811361725,
+            "engraved_m3": 0.0006949674188638641,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:docking_camera_1": {
+            "role": "docking_camera",
+            "source_allocation_id": "docking_camera_1",
+            "booked_mass_t": 0.025,
+            "source_volume_m3": 0.008000000000000037,
+            "edited_volume_m3": 0.007305032581136168,
+            "engraved_m3": 0.0006949674188638684,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_docking_target_0": {
+            "role": "docking_target",
+            "source_allocation_id": "ext_docking_target_0",
+            "booked_mass_t": 0.02047407462568426,
+            "source_volume_m3": 0.0018020000000108088,
+            "edited_volume_m3": 0.0017321294416530531,
+            "engraved_m3": 6.987055835775574e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_0": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_0",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.005779199999830599,
+            "edited_volume_m3": 0.005744282447546515,
+            "engraved_m3": 3.491755228408368e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_1": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_1",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.006019999999823541,
+            "edited_volume_m3": 0.005985082447539708,
+            "engraved_m3": 3.491755228383301e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_2": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_2",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.003130399999907654,
+            "edited_volume_m3": 0.0030954824476208506,
+            "engraved_m3": 3.491755228680329e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_3": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_3",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.0057791999997647845,
+            "edited_volume_m3": 0.0057442824474253145,
+            "engraved_m3": 3.491755233946993e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_0": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_0",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222210025,
+            "edited_volume_m3": 0.007161353207271017,
+            "engraved_m3": 0.0008208690149390085,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_1": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_1",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222210011,
+            "edited_volume_m3": 0.007161353207270999,
+            "engraved_m3": 0.0008208690149390128,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_2": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_2",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222210685,
+            "edited_volume_m3": 0.007161353207271672,
+            "engraved_m3": 0.0008208690149390128,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_3": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_3",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222195355,
+            "edited_volume_m3": 0.007161353207256385,
+            "engraved_m3": 0.0008208690149389694,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_laser_terminal_0": {
+            "role": "laser_terminal",
+            "source_allocation_id": "ext_laser_terminal_0",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.003631243055555474,
+            "edited_volume_m3": 0.0034675182293731686,
+            "engraved_m3": 0.00016372482618230537,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2,
+            "source_station_m": 33.3,
+            "source_flush_cover_only": true
+          },
+          "dry:ext_laser_terminal_1": {
+            "role": "laser_terminal",
+            "source_allocation_id": "ext_laser_terminal_1",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.0036312430555554723,
+            "edited_volume_m3": 0.0034675182293714907,
+            "engraved_m3": 0.00016372482618398155,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2,
+            "source_station_m": 33.3,
+            "source_flush_cover_only": true
+          },
+          "dry:ext_rf_array_0": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_0",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.04199999999983694,
+            "edited_volume_m3": 0.04165979231960008,
+            "engraved_m3": 0.000340207680236862,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_rf_array_1": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_1",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.041999999999923196,
+            "edited_volume_m3": 0.04165979231961629,
+            "engraved_m3": 0.0003402076803069032,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_rf_array_2": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_2",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.041999999999925604,
+            "edited_volume_m3": 0.04165979231961876,
+            "engraved_m3": 0.00034020768030684073,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_rf_array_3": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_3",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.04199999999992556,
+            "edited_volume_m3": 0.0416597923196187,
+            "engraved_m3": 0.00034020768030686155,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_sensor_turret_0": {
+            "role": "sensor_turret",
+            "source_allocation_id": "ext_sensor_turret_0",
+            "booked_mass_t": 0.5118518656421065,
+            "source_volume_m3": 0.15929999999999422,
+            "edited_volume_m3": 0.15366734752447195,
+            "engraved_m3": 0.005632652475522276,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_sensor_turret_1": {
+            "role": "sensor_turret",
+            "source_allocation_id": "ext_sensor_turret_1",
+            "booked_mass_t": 0.5118518656421065,
+            "source_volume_m3": 0.1592999999999932,
+            "edited_volume_m3": 0.15366734752446537,
+            "engraved_m3": 0.005632652475527827,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_service_port_0": {
+            "role": "service_port",
+            "source_allocation_id": "ext_service_port_0",
+            "booked_mass_t": 0.03378222313237903,
+            "source_volume_m3": 0.004799999999986749,
+            "edited_volume_m3": 0.004433726611026969,
+            "engraved_m3": 0.0003662733889597796,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_service_port_1": {
+            "role": "service_port",
+            "source_allocation_id": "ext_service_port_1",
+            "booked_mass_t": 0.03378222313237903,
+            "source_volume_m3": 0.004799999999985739,
+            "edited_volume_m3": 0.004433726611025937,
+            "engraved_m3": 0.00036627338895980216,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_service_port_2": {
+            "role": "service_port",
+            "source_allocation_id": "ext_service_port_2",
+            "booked_mass_t": 0.03378222313237903,
+            "source_volume_m3": 0.004799999999982156,
+            "edited_volume_m3": 0.004433726611022317,
+            "engraved_m3": 0.00036627338895983946,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_0": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_0",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.003182222222219548,
+            "edited_volume_m3": 0.0026377402991999564,
+            "engraved_m3": 0.0005444819230195916,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_1": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_1",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.0031822222222083704,
+            "edited_volume_m3": 0.00263774029918504,
+            "engraved_m3": 0.0005444819230233304,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_2": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_2",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.0031822222222425956,
+            "edited_volume_m3": 0.002637740299223025,
+            "engraved_m3": 0.0005444819230195708,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_3": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_3",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.0031822222222226003,
+            "edited_volume_m3": 0.002637740299199165,
+            "engraved_m3": 0.0005444819230234353,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_vent_0": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_0",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.00043200000000242345,
+            "edited_volume_m3": 0.0004223777272816354,
+            "engraved_m3": 9.622272720788048e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_vent_1": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_1",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.000432000000002424,
+            "edited_volume_m3": 0.0004223777272816363,
+            "engraved_m3": 9.622272720787668e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_vent_2": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_2",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.00043200000000702453,
+            "edited_volume_m3": 0.00042237772728451444,
+            "engraved_m3": 9.622272722510086e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_vent_3": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_3",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.0004320000000080002,
+            "edited_volume_m3": 0.00042237772728722115,
+            "engraved_m3": 9.622272720779049e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:hold_existing_door_port": {
+            "role": "hold_door",
+            "source_allocation_id": "courier_systems",
+            "booked_mass_t": 19.450370894400045,
+            "source_volume_m3": 0.04319999999999906,
+            "edited_volume_m3": 0.035359199999998765,
+            "engraved_m3": 0.007840800000000293,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 1
+          },
+          "dry:hold_existing_door_starboard": {
+            "role": "hold_door",
+            "source_allocation_id": "courier_systems",
+            "booked_mass_t": 19.450370894400045,
+            "source_volume_m3": 0.04319999999999906,
+            "edited_volume_m3": 0.03535919999999877,
+            "engraved_m3": 0.007840800000000286,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 1
+          },
+          "dry:hotfin_140:folded_envelope": {
+            "role": "folded_fin",
+            "source_allocation_id": "hotfin_140",
+            "booked_mass_t": 4.256,
+            "source_volume_m3": 22.799999999999997,
+            "edited_volume_m3": 22.70776800000001,
+            "engraved_m3": 0.09223199999998855,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 14,
+            "folded_stack": {
+              "pleats": 14,
+              "folded_pleat_length_m": 2,
+              "tangential_stack_thickness_m": 0.6,
+              "radial_root_m": 4.75,
+              "radial_outer_m": 6.75,
+              "x_range_m": [
+                34.3,
+                53.3
+              ],
+              "visible_edge_engravings": 14
+            }
+          },
+          "dry:hotfin_220:folded_envelope": {
+            "role": "folded_fin",
+            "source_allocation_id": "hotfin_220",
+            "booked_mass_t": 4.256,
+            "source_volume_m3": 22.799999999999986,
+            "edited_volume_m3": 22.707767999999994,
+            "engraved_m3": 0.0922319999999921,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 14,
+            "folded_stack": {
+              "pleats": 14,
+              "folded_pleat_length_m": 2,
+              "tangential_stack_thickness_m": 0.6,
+              "radial_root_m": 4.75,
+              "radial_outer_m": 6.75,
+              "x_range_m": [
+                34.3,
+                53.3
+              ],
+              "visible_edge_engravings": 14
+            }
+          },
+          "dry:hotfin_320:folded_envelope": {
+            "role": "folded_fin",
+            "source_allocation_id": "hotfin_320",
+            "booked_mass_t": 4.256,
+            "source_volume_m3": 22.799999999999994,
+            "edited_volume_m3": 22.70776799999999,
+            "engraved_m3": 0.09223200000000276,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 14,
+            "folded_stack": {
+              "pleats": 14,
+              "folded_pleat_length_m": 2,
+              "tangential_stack_thickness_m": 0.6,
+              "radial_root_m": 4.75,
+              "radial_outer_m": 6.75,
+              "x_range_m": [
+                34.3,
+                53.3
+              ],
+              "visible_edge_engravings": 14
+            }
+          },
+          "dry:hotfin_40:folded_envelope": {
+            "role": "folded_fin",
+            "source_allocation_id": "hotfin_40",
+            "booked_mass_t": 4.256,
+            "source_volume_m3": 22.79999999999999,
+            "edited_volume_m3": 22.707768000000005,
+            "engraved_m3": 0.09223199999998499,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 14,
+            "folded_stack": {
+              "pleats": 14,
+              "folded_pleat_length_m": 2,
+              "tangential_stack_thickness_m": 0.6,
+              "radial_root_m": 4.75,
+              "radial_outer_m": 6.75,
+              "x_range_m": [
+                34.3,
+                53.3
+              ],
+              "visible_edge_engravings": 14
+            }
+          },
+          "dry:hotfin_root_140:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_140",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.350000000000002,
+            "edited_volume_m3": 7.249900000000001,
+            "engraved_m3": 0.10010000000000119,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:hotfin_root_220:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_220",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.333509651746403,
+            "edited_volume_m3": 7.23340965174063,
+            "engraved_m3": 0.10010000000577257,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:hotfin_root_320:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_320",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.317484171649469,
+            "edited_volume_m3": 7.217384171640477,
+            "engraved_m3": 0.10010000000899222,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:hotfin_root_40:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_40",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.350000000000001,
+            "edited_volume_m3": 7.249900000000003,
+            "engraved_m3": 0.10009999999999852,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:rcs_A+Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A+Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999989,
+            "edited_volume_m3": 0.138154543623943,
+            "engraved_m3": 0,
+            "external_added_m3": 0.138154543623943,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  -1.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 34.15,
+            "azimuth_deg": 0,
+            "feature_tools": 4
+          },
+          "dry:rcs_A+Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A+Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999987,
+            "edited_volume_m3": 0.13815454362394305,
+            "engraved_m3": 0,
+            "external_added_m3": 0.13815454362394305,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 34.15,
+            "azimuth_deg": 90,
+            "feature_tools": 4
+          },
+          "dry:rcs_A-Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A-Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999988,
+            "edited_volume_m3": 0.13815454362394303,
+            "engraved_m3": 0,
+            "external_added_m3": 0.13815454362394303,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 34.15,
+            "azimuth_deg": 180,
+            "feature_tools": 4
+          },
+          "dry:rcs_A-Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A-Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999924,
+            "edited_volume_m3": 0.13815454362394305,
+            "engraved_m3": 0,
+            "external_added_m3": 0.13815454362394305,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 34.15,
+            "azimuth_deg": 270,
+            "feature_tools": 4
+          },
+          "dry:rcs_F+Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F+Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999999,
+            "edited_volume_m3": 0.25153295709218493,
+            "engraved_m3": 0,
+            "external_added_m3": 0.0443364485414048,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  -1.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 3.0,
+            "azimuth_deg": 0,
+            "feature_tools": 4
+          },
+          "dry:rcs_F+Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F+Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999998,
+            "edited_volume_m3": 0.25153295709218493,
+            "engraved_m3": 0,
+            "external_added_m3": 0.0443364485414048,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 3.0,
+            "azimuth_deg": 90,
+            "feature_tools": 4
+          },
+          "dry:rcs_F-Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F-Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.511999999999936,
+            "edited_volume_m3": 0.25153295709218493,
+            "engraved_m3": 0,
+            "external_added_m3": 0.04433644854142841,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 3.0,
+            "azimuth_deg": 180,
+            "feature_tools": 4
+          },
+          "dry:rcs_F-Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F-Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999933,
+            "edited_volume_m3": 0.25153295709218493,
+            "engraved_m3": 0,
+            "external_added_m3": 0.04433644854140922,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 3.0,
+            "azimuth_deg": 270,
+            "feature_tools": 4
+          }
+        }
+      },
+      "torch": {
+        "edited_nodes": 45,
+        "by_role": {
+          "bow_ring": 1,
+          "docking_camera": 2,
+          "docking_target": 1,
+          "eva_rail": 4,
+          "fin_root": 4,
+          "grapple_fixture": 4,
+          "hold_door": 2,
+          "laser_terminal": 2,
+          "rcs": 8,
+          "rf_tiles": 4,
+          "sensor_turret": 2,
+          "service_port": 3,
+          "star_tracker": 4,
+          "vent": 4
+        },
+        "source_mass_rebooking_t": 0,
+        "all_detail_subtractions": false,
+        "F1_approved_rcs_additions": 8,
+        "RCS_recessed_host_volumes_m3": {
+          "dry:armor": 0.39570009147123386,
+          "dry:skin_aft": 0.022627534619303447,
+          "dry:frame_34": 0.07318189174121592,
+          "dry:manifold": 0.07387675733718879
+        },
+        "hull_and_torch_surface_etch": {
+          "mode": "torch",
+          "approved_seam_scheme": "hull_seam_scheme_2026_11_09",
+          "ring_width_m": 0.05,
+          "requested_visual_depth_m": 0.03,
+          "thin_wall_actual_OCC_depth_m": 0.006,
+          "legacy_22p5_degree_skin_grid_removed": true,
+          "nostromo_true_scale_subpanel_width_m": 0.02,
+          "nostromo_true_scale_blind_depth_m": 0.003,
+          "nostromo_bolts_paint_only": true,
+          "print_space_overrides_in_canon": false,
+          "top_quarter_preserves_bay_door_edges": true,
+          "no_pressure_boundary_perforation": true,
+          "source_mass_rebooking_t": 0,
+          "parts": {
+            "dry:armor": {
+              "source_allocation_id": "armor",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.03,
+              "thin_shell_nonperforation_guard": false,
+              "ring_station_m": [
+                2.35,
+                3,
+                5.6,
+                8.2,
+                10.8,
+                14
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "nostromo_subpanel_ring_x_m": [
+                4.3,
+                9.5
+              ],
+              "nostromo_subpanel_longitudinal_count": 0,
+              "print_space_dimensions_applied": false,
+              "bolts_paint_only": true,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 15,
+              "display_only_removed_m3": 0.30230145330217084
+            },
+            "dry:skin_service": {
+              "source_allocation_id": "skin_service",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                14,
+                16,
+                18
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 4,
+              "nostromo_subpanel_ring_x_m": [
+                15.0,
+                17.0
+              ],
+              "nostromo_subpanel_longitudinal_count": 2,
+              "print_space_dimensions_applied": false,
+              "bolts_paint_only": true,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 30,
+              "display_only_removed_m3": 0.02920600929702788
+            },
+            "dry:skin_midship": {
+              "source_allocation_id": "skin_midship",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                18,
+                20,
+                22,
+                24,
+                26,
+                28,
+                30,
+                32
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 2,
+              "nostromo_subpanel_ring_x_m": [
+                19.0,
+                23.0,
+                27.0,
+                31.0
+              ],
+              "nostromo_subpanel_longitudinal_count": 4,
+              "print_space_dimensions_applied": false,
+              "bolts_paint_only": true,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 31,
+              "display_only_removed_m3": 0.08716487088581015
+            },
+            "dry:skin_aft": {
+              "source_allocation_id": "skin_aft",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                34
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 2,
+              "nostromo_subpanel_ring_x_m": [
+                33.0
+              ],
+              "nostromo_subpanel_longitudinal_count": 2,
+              "print_space_dimensions_applied": false,
+              "bolts_paint_only": true,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 19,
+              "display_only_removed_m3": 0.01389076451343696
+            },
+            "dry:tank_shell_out": {
+              "source_allocation_id": "tank_shell_out",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                18,
+                20,
+                22,
+                24,
+                26,
+                28,
+                30
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "nostromo_subpanel_ring_x_m": [
+                19.0,
+                23.0,
+                27.0,
+                31.0
+              ],
+              "nostromo_subpanel_longitudinal_count": 0,
+              "print_space_dimensions_applied": false,
+              "bolts_paint_only": true,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 18,
+              "display_only_removed_m3": 0.07524943298003706
+            },
+            "dry:tank_shell_in": {
+              "source_allocation_id": "tank_shell_in",
+              "nominal_groove_width_m": 0.05,
+              "requested_apparent_groove_depth_m": 0.03,
+              "OCC_display_cut_depth_m": 0.006,
+              "thin_shell_nonperforation_guard": true,
+              "ring_station_m": [
+                18,
+                20,
+                22,
+                24,
+                26,
+                28,
+                30
+              ],
+              "longitudinal_seam_azimuth_deg": [
+                40,
+                140,
+                220,
+                320,
+                0,
+                180,
+                270
+              ],
+              "maintenance_panel_outlines": 0,
+              "nostromo_subpanel_ring_x_m": [],
+              "nostromo_subpanel_longitudinal_count": 0,
+              "print_space_dimensions_applied": false,
+              "bolts_paint_only": true,
+              "pressure_boundary_cuts": 0,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 12,
+              "display_only_removed_m3": 0.03684246634074295
+            },
+            "dry:shield": {
+              "role": "shield",
+              "ring_band_station_m": [
+                34.7,
+                38.9
+              ],
+              "band_width_m": 0.05,
+              "band_depth_m": 0.008,
+              "segment_seams_azimuth_deg": [
+                0,
+                90,
+                180,
+                270
+              ],
+              "access_panel_outlines": 0,
+              "requested_groove_width_m": 0.05,
+              "visual_only": true,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 5,
+              "display_only_removed_m3": 0.03628532394436945
+            },
+            "dry:reactor": {
+              "role": "reactor",
+              "ring_band_station_m": [
+                39.7,
+                43.2,
+                45.9
+              ],
+              "band_width_m": 0.05,
+              "band_depth_m": 0.03,
+              "segment_seams_azimuth_deg": [],
+              "access_panel_outlines": 4,
+              "requested_groove_width_m": 0.05,
+              "visual_only": true,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 13,
+              "display_only_removed_m3": 0.06574219573099072
+            },
+            "dry:nozzle": {
+              "role": "nozzle",
+              "ring_band_station_m": [
+                47.2,
+                48.5,
+                49.8,
+                51.1,
+                52.4
+              ],
+              "band_width_m": 0.15,
+              "band_depth_m": 0.03,
+              "segment_seams_azimuth_deg": [],
+              "access_panel_outlines": 0,
+              "requested_groove_width_m": 0.05,
+              "visual_only": true,
+              "source_mass_rebooking_t": 0,
+              "grooves_intersected": 5,
+              "display_only_removed_m3": 0.364028379029385
+            }
+          }
+        },
+        "source_envelope_violations": 0,
+        "parts": {
+          "dry:bow_sensors": {
+            "role": "bow_ring",
+            "source_allocation_id": "bow_sensors",
+            "booked_mass_t": 8.148681701022337,
+            "source_volume_m3": 11.773641515288315,
+            "edited_volume_m3": 11.736980086890636,
+            "engraved_m3": 0.03666142839767872,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 4
+          },
+          "dry:docking_camera_0": {
+            "role": "docking_camera",
+            "source_allocation_id": "docking_camera_0",
+            "booked_mass_t": 0.025,
+            "source_volume_m3": 0.008000000000000037,
+            "edited_volume_m3": 0.0073050325811361725,
+            "engraved_m3": 0.0006949674188638641,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:docking_camera_1": {
+            "role": "docking_camera",
+            "source_allocation_id": "docking_camera_1",
+            "booked_mass_t": 0.025,
+            "source_volume_m3": 0.008000000000000037,
+            "edited_volume_m3": 0.007305032581136168,
+            "engraved_m3": 0.0006949674188638684,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_docking_target_0": {
+            "role": "docking_target",
+            "source_allocation_id": "ext_docking_target_0",
+            "booked_mass_t": 0.02047407462568426,
+            "source_volume_m3": 0.0018020000000108088,
+            "edited_volume_m3": 0.0017321294416530531,
+            "engraved_m3": 6.987055835775574e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_0": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_0",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.005779199999830599,
+            "edited_volume_m3": 0.005744282447546515,
+            "engraved_m3": 3.491755228408368e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_1": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_1",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.006019999999823541,
+            "edited_volume_m3": 0.005985082447539708,
+            "engraved_m3": 3.491755228383301e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_2": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_2",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.003130399999907654,
+            "edited_volume_m3": 0.0030954824476208506,
+            "engraved_m3": 3.491755228680329e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_eva_rail_3": {
+            "role": "eva_rail",
+            "source_allocation_id": "ext_eva_rail_3",
+            "booked_mass_t": 0.075,
+            "source_volume_m3": 0.0057791999997647845,
+            "edited_volume_m3": 0.0057442824474253145,
+            "engraved_m3": 3.491755233946993e-05,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_0": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_0",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222210025,
+            "edited_volume_m3": 0.007161353207271017,
+            "engraved_m3": 0.0008208690149390085,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_1": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_1",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222210011,
+            "edited_volume_m3": 0.007161353207270999,
+            "engraved_m3": 0.0008208690149390128,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_2": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_2",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222210685,
+            "edited_volume_m3": 0.007161353207271672,
+            "engraved_m3": 0.0008208690149390128,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_grapple_fixture_3": {
+            "role": "grapple_fixture",
+            "source_allocation_id": "ext_grapple_fixture_3",
+            "booked_mass_t": 0.03,
+            "source_volume_m3": 0.007982222222195355,
+            "edited_volume_m3": 0.007161353207256385,
+            "engraved_m3": 0.0008208690149389694,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_laser_terminal_0": {
+            "role": "laser_terminal",
+            "source_allocation_id": "ext_laser_terminal_0",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.003631243055555474,
+            "edited_volume_m3": 0.0034675182293731686,
+            "engraved_m3": 0.00016372482618230537,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2,
+            "source_station_m": 33.3,
+            "source_flush_cover_only": true
+          },
+          "dry:ext_laser_terminal_1": {
+            "role": "laser_terminal",
+            "source_allocation_id": "ext_laser_terminal_1",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.0036312430555554723,
+            "edited_volume_m3": 0.0034675182293714907,
+            "engraved_m3": 0.00016372482618398155,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2,
+            "source_station_m": 33.3,
+            "source_flush_cover_only": true
+          },
+          "dry:ext_rf_array_0": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_0",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.04199999999983694,
+            "edited_volume_m3": 0.04165979231960008,
+            "engraved_m3": 0.000340207680236862,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_rf_array_1": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_1",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.041999999999923196,
+            "edited_volume_m3": 0.04165979231961629,
+            "engraved_m3": 0.0003402076803069032,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_rf_array_2": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_2",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.041999999999925604,
+            "edited_volume_m3": 0.04165979231961876,
+            "engraved_m3": 0.00034020768030684073,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_rf_array_3": {
+            "role": "rf_tiles",
+            "source_allocation_id": "ext_rf_array_3",
+            "booked_mass_t": 0.1023703731284213,
+            "source_volume_m3": 0.04199999999992556,
+            "edited_volume_m3": 0.0416597923196187,
+            "engraved_m3": 0.00034020768030686155,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 5
+          },
+          "dry:ext_sensor_turret_0": {
+            "role": "sensor_turret",
+            "source_allocation_id": "ext_sensor_turret_0",
+            "booked_mass_t": 0.5118518656421065,
+            "source_volume_m3": 0.15929999999999422,
+            "edited_volume_m3": 0.15366734752447195,
+            "engraved_m3": 0.005632652475522276,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_sensor_turret_1": {
+            "role": "sensor_turret",
+            "source_allocation_id": "ext_sensor_turret_1",
+            "booked_mass_t": 0.5118518656421065,
+            "source_volume_m3": 0.1592999999999932,
+            "edited_volume_m3": 0.15366734752446537,
+            "engraved_m3": 0.005632652475527827,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_service_port_0": {
+            "role": "service_port",
+            "source_allocation_id": "ext_service_port_0",
+            "booked_mass_t": 0.03378222313237903,
+            "source_volume_m3": 0.004799999999986749,
+            "edited_volume_m3": 0.004433726611026969,
+            "engraved_m3": 0.0003662733889597796,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_service_port_1": {
+            "role": "service_port",
+            "source_allocation_id": "ext_service_port_1",
+            "booked_mass_t": 0.03378222313237903,
+            "source_volume_m3": 0.004799999999985739,
+            "edited_volume_m3": 0.004433726611025937,
+            "engraved_m3": 0.00036627338895980216,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_service_port_2": {
+            "role": "service_port",
+            "source_allocation_id": "ext_service_port_2",
+            "booked_mass_t": 0.03378222313237903,
+            "source_volume_m3": 0.004799999999982156,
+            "edited_volume_m3": 0.004433726611022317,
+            "engraved_m3": 0.00036627338895983946,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_0": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_0",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.003182222222219548,
+            "edited_volume_m3": 0.0026377402991999564,
+            "engraved_m3": 0.0005444819230195916,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_1": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_1",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.0031822222222083704,
+            "edited_volume_m3": 0.00263774029918504,
+            "engraved_m3": 0.0005444819230233304,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_2": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_2",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.0031822222222425956,
+            "edited_volume_m3": 0.002637740299223025,
+            "engraved_m3": 0.0005444819230195708,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_star_tracker_3": {
+            "role": "star_tracker",
+            "source_allocation_id": "ext_star_tracker_3",
+            "booked_mass_t": 0.01023703731284213,
+            "source_volume_m3": 0.0031822222222226003,
+            "edited_volume_m3": 0.002637740299199165,
+            "engraved_m3": 0.0005444819230234353,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 2
+          },
+          "dry:ext_vent_0": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_0",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.00043200000000242345,
+            "edited_volume_m3": 0.0004223777272816354,
+            "engraved_m3": 9.622272720788048e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_vent_1": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_1",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.000432000000002424,
+            "edited_volume_m3": 0.0004223777272816363,
+            "engraved_m3": 9.622272720787668e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_vent_2": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_2",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.00043200000000702453,
+            "edited_volume_m3": 0.00042237772728451444,
+            "engraved_m3": 9.622272722510086e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:ext_vent_3": {
+            "role": "vent",
+            "source_allocation_id": "ext_vent_3",
+            "booked_mass_t": 0.005118518656421065,
+            "source_volume_m3": 0.0004320000000080002,
+            "edited_volume_m3": 0.00042237772728722115,
+            "engraved_m3": 9.622272720779049e-06,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 3
+          },
+          "dry:hold_existing_door_port": {
+            "role": "hold_door",
+            "source_allocation_id": "courier_systems",
+            "booked_mass_t": 19.450370894400045,
+            "source_volume_m3": 0.04319999999999906,
+            "edited_volume_m3": 0.035359199999998765,
+            "engraved_m3": 0.007840800000000293,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 1
+          },
+          "dry:hold_existing_door_starboard": {
+            "role": "hold_door",
+            "source_allocation_id": "courier_systems",
+            "booked_mass_t": 19.450370894400045,
+            "source_volume_m3": 0.04319999999999906,
+            "edited_volume_m3": 0.03535919999999877,
+            "engraved_m3": 0.007840800000000286,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 1
+          },
+          "dry:hotfin_root_140:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_140",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.350000000000002,
+            "edited_volume_m3": 7.249900000000001,
+            "engraved_m3": 0.10010000000000119,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:hotfin_root_220:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_220",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.333509651746403,
+            "edited_volume_m3": 7.23340965174063,
+            "engraved_m3": 0.10010000000577257,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:hotfin_root_320:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_320",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.317484171649469,
+            "edited_volume_m3": 7.217384171640477,
+            "engraved_m3": 0.10010000000899222,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:hotfin_root_40:root": {
+            "role": "fin_root",
+            "source_allocation_id": "hotfin_root_40",
+            "booked_mass_t": 1.0,
+            "source_volume_m3": 7.350000000000001,
+            "edited_volume_m3": 7.249900000000003,
+            "engraved_m3": 0.10009999999999852,
+            "external_added_m3": 0.0,
+            "same_source_envelope": true,
+            "feature_tools": 8
+          },
+          "dry:rcs_A+Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A+Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999989,
+            "edited_volume_m3": 0.138154543623943,
+            "engraved_m3": 0,
+            "external_added_m3": 0.138154543623943,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  -1.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 34.15,
+            "azimuth_deg": 0,
+            "feature_tools": 4
+          },
+          "dry:rcs_A+Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A+Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999987,
+            "edited_volume_m3": 0.13815454362394305,
+            "engraved_m3": 0,
+            "external_added_m3": 0.13815454362394305,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 34.15,
+            "azimuth_deg": 90,
+            "feature_tools": 4
+          },
+          "dry:rcs_A-Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A-Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999988,
+            "edited_volume_m3": 0.13815454362394303,
+            "engraved_m3": 0,
+            "external_added_m3": 0.13815454362394303,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 34.15,
+            "azimuth_deg": 180,
+            "feature_tools": 4
+          },
+          "dry:rcs_A-Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_A-Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999924,
+            "edited_volume_m3": 0.13815454362394305,
+            "engraved_m3": 0,
+            "external_added_m3": 0.13815454362394305,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 34.15,
+            "azimuth_deg": 270,
+            "feature_tools": 4
+          },
+          "dry:rcs_F+Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F+Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999999,
+            "edited_volume_m3": 0.25153295709218493,
+            "engraved_m3": 0,
+            "external_added_m3": 0.0443364485414048,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  -1.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 3.0,
+            "azimuth_deg": 0,
+            "feature_tools": 4
+          },
+          "dry:rcs_F+Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F+Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999998,
+            "edited_volume_m3": 0.25153295709218493,
+            "engraved_m3": 0,
+            "external_added_m3": 0.0443364485414048,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 3.0,
+            "azimuth_deg": 90,
+            "feature_tools": 4
+          },
+          "dry:rcs_F-Y": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F-Y",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.511999999999936,
+            "edited_volume_m3": 0.25153295709218493,
+            "engraved_m3": 0,
+            "external_added_m3": 0.04433644854142841,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 3.0,
+            "azimuth_deg": 180,
+            "feature_tools": 4
+          },
+          "dry:rcs_F-Z": {
+            "role": "rcs",
+            "source_allocation_id": "rcs_F-Z",
+            "booked_mass_t": 2.047407462568426,
+            "source_volume_m3": 0.5119999999999933,
+            "edited_volume_m3": 0.25153295709218493,
+            "engraved_m3": 0,
+            "external_added_m3": 0.04433644854140922,
+            "same_source_envelope": false,
+            "F1_approved_housing_and_nozzles": true,
+            "bell_count": 4,
+            "radial_bells": 1,
+            "tangential_bells": 2,
+            "axial_bells": 1,
+            "axial_cant_deg": 10,
+            "transverse_bell_axes": [
+              {
+                "name": "RADIAL_OUT",
+                "unit_axis": [
+                  0.0,
+                  -0.0,
+                  -1.0
+                ]
+              },
+              {
+                "name": "TANGENT_PLUS",
+                "unit_axis": [
+                  0.0,
+                  1.0,
+                  -0.0
+                ]
+              },
+              {
+                "name": "TANGENT_MINUS",
+                "unit_axis": [
+                  0.0,
+                  -1.0,
+                  0.0
+                ]
+              }
+            ],
+            "bell_diameter_m": 0.3,
+            "print_bell_diameter_1_100_mm": 3.0,
+            "source_mass_rebooking_t": 0,
+            "station_m": 3.0,
+            "azimuth_deg": 270,
+            "feature_tools": 4
+          }
+        }
+      }
+    }
+  },
+  "F3_before_after_png": "render/out/wayfarer_exterior_B_medical_88ce19fc_F3_before_after.png",
+  "shuttle_hull_spine_groove_cut": true
+}
