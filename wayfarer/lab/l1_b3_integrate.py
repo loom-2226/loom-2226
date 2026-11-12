@@ -468,6 +468,8 @@ def main():
         failed_picture("D9 OR CONTAINMENT",anybad,seats)
         REPORT.write_text(json.dumps(dict(status="STOP_D9_OR_CONTAINMENT",
           pose_checks=report_states,failures=anybad,picture=DIAG.name),indent=2)+"\n")
+        print(json.dumps(dict(STOP="B3_D9_OR_CONTAINMENT",failures=anybad,
+            pose_checks=report_states,picture=DIAG.name),indent=2),flush=True)
         raise RuntimeError("STOP B3 D9/containment: see "+str(DIAG))
     if MASS_EST>ADDON_KG:
         failed_picture("HALO + CONTROLS MASS",["exceeds booked allocation"],seats)
