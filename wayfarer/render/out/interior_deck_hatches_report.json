@@ -187,6 +187,138 @@
     ],
     "clearance_lower_bound_m": 0.067762
   },
+  "L4_source_fixes": {
+    "shelter_water_door": {
+      "original_jacket_m3": 2.4085543677521786,
+      "remaining_wall_m3": 2.1045543677521774,
+      "plug_volume_m3": 0.3040000000000002,
+      "water_total_after_m3": 2.4085543677521777,
+      "water_mass_delta_t": 0,
+      "width_m": 0.8,
+      "at_deg": 90,
+      "closed_mode_water_thickness_m": 0.2
+    },
+    "medical_ports": {
+      "source_ids": [
+        "window_L4-medical_4",
+        "window_L4-medical_5",
+        "window_L4-medical_6",
+        "wws1_port_uplift_4",
+        "wws1_port_uplift_5",
+        "wws1_port_uplift_6"
+      ],
+      "centre_x_before_m": 9.1,
+      "centre_x_after_m": 9.3,
+      "centre_height_m": 1.5,
+      "diameter_m": 1.55,
+      "port_top_height_m": 2.275,
+      "source_proxy_overrides": {
+        "window_L4-medical_4": {
+          "k": "box",
+          "x0": 9.149999999999999,
+          "x1": 9.45,
+          "y0": -4.49,
+          "y1": -4.1899999999999995,
+          "z0": -0.14999999999999947,
+          "z1": 0.15000000000000052
+        },
+        "wws1_port_uplift_4": {
+          "k": "box",
+          "x0": 9.149999999999999,
+          "x1": 9.45,
+          "y0": -4.49,
+          "y1": -4.1899999999999995,
+          "z0": -0.14999999999999947,
+          "z1": 0.15000000000000052
+        },
+        "window_L4-medical_5": {
+          "k": "box",
+          "x0": 9.149999999999999,
+          "x1": 9.45,
+          "y0": -3.908550252424463,
+          "y1": -3.6085502524244633,
+          "z0": -2.3200000000000003,
+          "z1": -2.0200000000000005
+        },
+        "wws1_port_uplift_5": {
+          "k": "box",
+          "x0": 9.149999999999999,
+          "x1": 9.45,
+          "y0": -3.908550252424463,
+          "y1": -3.6085502524244633,
+          "z0": -2.3200000000000003,
+          "z1": -2.0200000000000005
+        },
+        "window_L4-medical_6": {
+          "k": "box",
+          "x0": 9.149999999999999,
+          "x1": 9.45,
+          "y0": -2.3200000000000016,
+          "y1": -2.020000000000002,
+          "z0": -3.9085502524244626,
+          "z1": -3.608550252424463
+        },
+        "wws1_port_uplift_6": {
+          "k": "box",
+          "x0": 9.149999999999999,
+          "x1": 9.45,
+          "y0": -2.3200000000000016,
+          "y1": -2.020000000000002,
+          "z0": -3.9085502524244626,
+          "z1": -3.608550252424463
+        }
+      },
+      "source_mass_delta_t": 0
+    },
+    "sliding_hatch": {
+      "name": "hatch_L3L4_0",
+      "azimuth_deg": 180,
+      "originally_open_x_m": [
+        8.2,
+        9.120000000000001
+      ],
+      "parked_stowed": {
+        "k": "box",
+        "x0": 8.26,
+        "x1": 8.32,
+        "y0": -2.75,
+        "y1": -1.83,
+        "z0": -0.46,
+        "z1": 0.46
+      },
+      "slab_pocket": {
+        "x_m": [
+          8.25,
+          8.33
+        ],
+        "y_m": [
+          -2.76,
+          -1.82
+        ],
+        "z_m": [
+          -0.47,
+          0.47
+        ]
+      },
+      "floor_intersection_m3": 0,
+      "source_mass_delta_t": 0
+    },
+    "other_hatch": {
+      "name": "hatch_L3L4_1",
+      "pose": {
+        "k": "box",
+        "x0": 8.2,
+        "x1": 9.120000000000001,
+        "y0": 1.8299999999999998,
+        "y1": 1.89,
+        "z0": -0.46,
+        "z1": 0.46
+      },
+      "unchanged": true
+    },
+    "dry_mass_delta_t": 0,
+    "water_mass_delta_t": 0
+  },
   "hatches": {
     "hatch_L2L3_0": {
       "shape": {
@@ -221,16 +353,16 @@
     "hatch_L3L4_0": {
       "shape": {
         "k": "box",
-        "x0": 8.2,
-        "x1": 9.120000000000001,
-        "y0": -1.89,
-        "y1": -1.8299999999999998,
+        "x0": 8.26,
+        "x1": 8.32,
+        "y0": -2.75,
+        "y1": -1.83,
         "z0": -0.46,
         "z1": 0.46
       },
       "mass_owner": "outfit_L4",
       "source": "hatch_L1L2_0",
-      "floor_mount_m3": 0.016560000000000054,
+      "floor_mount_m3": 0,
       "mass_estimate_kg": 150
     },
     "hatch_L3L4_1": {
@@ -267,13 +399,14 @@
     "D9_category_d": 0,
     "D9_contacts": [],
     "physical_source_pairs_screened": 0,
-    "floor_mount_category": "L3L4 source-identical category-c floor mount; L2L3 upward hinge plane contact, zero overlap",
+    "floor_mount_category": "L3L4_0 stowed in floor_L3 pocket; L3L4_1 source category-c floor mount; L2L3 upward hinge plane contact",
     "medical_door_port_z_clearance_m": 0.15175252749023277,
+    "medical_180_stowed_axial_clearance_m": 0.17999999999999972,
     "L3_semantic_room_zone_corner_intrusion_m": 0.04517351411127324,
-    "L3_berths_and_partitions": "L2L3 leaves moved out of L3; L3L4 leaves unchanged; existing L3 partition and berth solids not drawn",
+    "L3_berths_and_partitions": "L2L3 upward into L2; L3L4_0 stows in L3 floor; L3L4_1 unchanged; unmodeled berths still unqualified",
     "L2_furniture_glb_D9_hits": 0,
     "L2_furniture_triangle_AABB_clearance_lower_bound_m": 0.067762,
-    "min_inner_pressure_radius_clearance_m": 2.3248264858887264,
+    "min_inner_pressure_radius_clearance_m": 1.4817926906343564,
     "containment": "PASS",
     "G1_G12": "NOT RUN / NOT REQUIRED"
   },
@@ -281,8 +414,8 @@
   "previous_L1_L2_glb_changes": 0,
   "viewer_source_changed": false,
   "glb": "render/out/interior_deck_hatches.glb",
-  "glb_sha256": "48136f27c06f89f317b04a175c6e248285113ffa80be30cc5659870909c40b00",
-  "glb_bytes": 352268,
+  "glb_sha256": "882b08a0bf48d3842466981af4325e40c486ab666aa80d2e825734a0bd470dae",
+  "glb_bytes": 353248,
   "mesh_nodes": 6,
   "picture": "docs/WAYFARER_DECK_HATCHES_2026_11_12.png"
 }

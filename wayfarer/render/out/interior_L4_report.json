@@ -1,0 +1,323 @@
+{
+  "source_geometry_sha256": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
+  "decision_source": "l4_decisions_2026_11_12",
+  "source_dry_t": 868.1922552640087,
+  "ECON_dv_km_s": 707.845,
+  "source_mass_rebooking_t": 0,
+  "original_proposal_groups": 19,
+  "group_ids": [
+    "D1_lighting",
+    "D2_overhead_rail",
+    "D3_lining",
+    "M1_treatment_table",
+    "M2_recovery_bed",
+    "M3_cabinets_pharmacy",
+    "M5_decon_sink_terminal",
+    "P0_walls",
+    "R8_laundry",
+    "R9_spares",
+    "R_racks",
+    "S0_shelter_plug_door",
+    "S1_living_wall",
+    "S2_wellness_loungers",
+    "S3_soft_floor",
+    "S4_backup_stand",
+    "S5_shelter_seats",
+    "S6_storm_lockers",
+    "S7_shelter_lining"
+  ],
+  "P0_partition_split": true,
+  "booking_kg": {
+    "room_L4-shelter": 1023.703731284213,
+    "room_L4-medical": 3071.111193852639,
+    "room_L4-eclss": 14311.378163353294,
+    "outfit_L4": 818.9629850273705
+  },
+  "estimated_drawn_kg": {
+    "room_L4-shelter": 285,
+    "room_L4-medical": 560,
+    "room_L4-eclss": 10510,
+    "outfit_L4": 140
+  },
+  "estimated_prior_L4_hatches_kg": 300,
+  "booking_excess": [],
+  "source_fixes": {
+    "shelter_water_door": {
+      "original_jacket_m3": 2.4085543677521786,
+      "remaining_wall_m3": 2.1045543677521774,
+      "plug_volume_m3": 0.3040000000000002,
+      "water_total_after_m3": 2.4085543677521777,
+      "water_mass_delta_t": 0,
+      "width_m": 0.8,
+      "at_deg": 90,
+      "closed_mode_water_thickness_m": 0.2
+    },
+    "medical_ports": {
+      "source_ids": [
+        "window_L4-medical_4",
+        "window_L4-medical_5",
+        "window_L4-medical_6",
+        "wws1_port_uplift_4",
+        "wws1_port_uplift_5",
+        "wws1_port_uplift_6"
+      ],
+      "centre_x_before_m": 9.1,
+      "centre_x_after_m": 9.3,
+      "centre_height_m": 1.5,
+      "diameter_m": 1.55,
+      "port_top_height_m": 2.275,
+      "source_proxy_overrides": {
+        "window_L4-medical_4": {
+          "k": "box",
+          "x0": 9.149999999999999,
+          "x1": 9.45,
+          "y0": -4.49,
+          "y1": -4.1899999999999995,
+          "z0": -0.14999999999999947,
+          "z1": 0.15000000000000052
+        },
+        "wws1_port_uplift_4": {
+          "k": "box",
+          "x0": 9.149999999999999,
+          "x1": 9.45,
+          "y0": -4.49,
+          "y1": -4.1899999999999995,
+          "z0": -0.14999999999999947,
+          "z1": 0.15000000000000052
+        },
+        "window_L4-medical_5": {
+          "k": "box",
+          "x0": 9.149999999999999,
+          "x1": 9.45,
+          "y0": -3.908550252424463,
+          "y1": -3.6085502524244633,
+          "z0": -2.3200000000000003,
+          "z1": -2.0200000000000005
+        },
+        "wws1_port_uplift_5": {
+          "k": "box",
+          "x0": 9.149999999999999,
+          "x1": 9.45,
+          "y0": -3.908550252424463,
+          "y1": -3.6085502524244633,
+          "z0": -2.3200000000000003,
+          "z1": -2.0200000000000005
+        },
+        "window_L4-medical_6": {
+          "k": "box",
+          "x0": 9.149999999999999,
+          "x1": 9.45,
+          "y0": -2.3200000000000016,
+          "y1": -2.020000000000002,
+          "z0": -3.9085502524244626,
+          "z1": -3.608550252424463
+        },
+        "wws1_port_uplift_6": {
+          "k": "box",
+          "x0": 9.149999999999999,
+          "x1": 9.45,
+          "y0": -2.3200000000000016,
+          "y1": -2.020000000000002,
+          "z0": -3.9085502524244626,
+          "z1": -3.608550252424463
+        }
+      },
+      "source_mass_delta_t": 0
+    },
+    "sliding_hatch": {
+      "name": "hatch_L3L4_0",
+      "azimuth_deg": 180,
+      "originally_open_x_m": [
+        8.2,
+        9.120000000000001
+      ],
+      "parked_stowed": {
+        "k": "box",
+        "x0": 8.26,
+        "x1": 8.32,
+        "y0": -2.75,
+        "y1": -1.83,
+        "z0": -0.46,
+        "z1": 0.46
+      },
+      "slab_pocket": {
+        "x_m": [
+          8.25,
+          8.33
+        ],
+        "y_m": [
+          -2.76,
+          -1.82
+        ],
+        "z_m": [
+          -0.47,
+          0.47
+        ]
+      },
+      "floor_intersection_m3": 0,
+      "source_mass_delta_t": 0
+    },
+    "other_hatch": {
+      "name": "hatch_L3L4_1",
+      "pose": {
+        "k": "box",
+        "x0": 8.2,
+        "x1": 9.120000000000001,
+        "y0": 1.8299999999999998,
+        "y1": 1.89,
+        "z0": -0.46,
+        "z1": 0.46
+      },
+      "unchanged": true
+    },
+    "dry_mass_delta_t": 0,
+    "water_mass_delta_t": 0
+  },
+  "checks": {
+    "step1_source_D9_category_d": 0,
+    "step1_source_containment": "PASS",
+    "G1_G12": "NOT RUN / NOT REQUIRED",
+    "source_clearances_m": {
+      "core_racks": 0.05156097465675136,
+      "pressure_shell": 0.11999999999999833,
+      "floor_L4": 0.0,
+      "floor_L3": -8.881784197001252e-16
+    },
+    "D9_category_d": 0,
+    "physical_fixture_contacts": [],
+    "protected_water_vertex_or_centroid_intrusions": [],
+    "source_envelope_violations": [],
+    "containment": "PASS"
+  },
+  "exterior_GLB_changes": 0,
+  "existing_L1_L2_GLB_changes": 0,
+  "status": "L4_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS",
+  "glb": "render/out/interior_L4.glb",
+  "glb_sha256": "88c3ea1a3f2933ddbe2fd5a8b7eac24c5a21c99399bf180f55f6a825674721fd",
+  "glb_bytes": 2692732,
+  "glb_mesh_nodes": 106,
+  "glb_unique_meshes": 50,
+  "instance_repeats": {
+    "R_racks": {
+      "count": 7,
+      "shared_materials": [
+        "glass",
+        "graphic",
+        "ind",
+        "vent"
+      ],
+      "distinct_source_materials": [
+        "reveal",
+        "titanium",
+        "worktop"
+      ],
+      "source_preserved": true
+    },
+    "S2_wellness_loungers": {
+      "count": 2,
+      "shared_materials": [
+        "oak",
+        "oak_dk",
+        "sand",
+        "teal",
+        "titanium"
+      ],
+      "distinct_source_materials": [],
+      "source_preserved": true
+    },
+    "S5_shelter_seats": {
+      "count": 10,
+      "shared_materials": [
+        "ind",
+        "oak",
+        "teal"
+      ],
+      "distinct_source_materials": [],
+      "source_preserved": true
+    }
+  },
+  "P0_subroom_nodes": [
+    "P0_medical",
+    "P0_eclss"
+  ],
+  "painting": "source L4 Japandi / warm industrial",
+  "smooth_normals": true,
+  "estimated_outfit_L4_after_hatches_and_interior_kg": 378.96298502737045,
+  "picture": "docs/WAYFARER_L4_APPROVED_D9_2026_11_12.png",
+  "original_12_jacket_flags": [
+    {
+      "item": "D3_lining",
+      "jacket": "jacket_inner",
+      "previous_vertex_centroid_intrusions": 18,
+      "corrected_vertex_midpoint_centroid_intrusions": 0
+    },
+    {
+      "item": "D3_lining",
+      "jacket": "jacket_radial_a",
+      "previous_vertex_centroid_intrusions": 9,
+      "corrected_vertex_midpoint_centroid_intrusions": 0
+    },
+    {
+      "item": "D3_lining",
+      "jacket": "jacket_radial_b",
+      "previous_vertex_centroid_intrusions": 9,
+      "corrected_vertex_midpoint_centroid_intrusions": 0
+    },
+    {
+      "item": "D3_lining",
+      "jacket": "jacket_ceiling",
+      "previous_vertex_centroid_intrusions": 18,
+      "corrected_vertex_midpoint_centroid_intrusions": 0
+    },
+    {
+      "item": "S7_shelter_lining",
+      "jacket": "jacket_inner",
+      "previous_vertex_centroid_intrusions": 532,
+      "corrected_vertex_midpoint_centroid_intrusions": 0
+    },
+    {
+      "item": "S5_shelter_seats",
+      "jacket": "jacket_radial_a",
+      "previous_vertex_centroid_intrusions": 652,
+      "corrected_vertex_midpoint_centroid_intrusions": 0
+    },
+    {
+      "item": "S5_shelter_seats",
+      "jacket": "jacket_radial_b",
+      "previous_vertex_centroid_intrusions": 652,
+      "corrected_vertex_midpoint_centroid_intrusions": 0
+    },
+    {
+      "item": "S6_storm_lockers",
+      "jacket": "jacket_radial_a",
+      "previous_vertex_centroid_intrusions": 352,
+      "corrected_vertex_midpoint_centroid_intrusions": 0
+    },
+    {
+      "item": "S6_storm_lockers",
+      "jacket": "jacket_radial_b",
+      "previous_vertex_centroid_intrusions": 352,
+      "corrected_vertex_midpoint_centroid_intrusions": 0
+    },
+    {
+      "item": "M3_cabinets_pharmacy",
+      "jacket": "jacket_radial_b",
+      "previous_vertex_centroid_intrusions": 538,
+      "corrected_vertex_midpoint_centroid_intrusions": 0
+    },
+    {
+      "item": "M3_cabinets_pharmacy",
+      "jacket": "jacket_ceiling",
+      "previous_vertex_centroid_intrusions": 145,
+      "corrected_vertex_midpoint_centroid_intrusions": 0
+    },
+    {
+      "item": "M3_cabinets_pharmacy",
+      "jacket": "jacket_floor",
+      "previous_vertex_centroid_intrusions": 145,
+      "corrected_vertex_midpoint_centroid_intrusions": 0
+    }
+  ],
+  "diagnostic_12_flags_png": "docs/WAYFARER_L4_12_D9_FLAGS_RESOLVED_2026_11_12.png",
+  "jacket_sampling_basis": "vertices, all three edge midpoints and triangle centroids; corrected source geometry"
+}
