@@ -1425,5 +1425,18 @@
       "viewer_source_changed": false,
       "G1_G12": "NOT RUN / NOT REQUIRED"
     }
+  },
+  "l4_decisions_2026_11_12": {
+    "authority": "kT APPROVED 2026-11-12 (Claude chat)",
+    "date": "2026-11-12",
+    "source": "wayfarer/docs/L4_PROPOSAL_2026_11_12.md",
+    "wellness_room": "L4-shelter is the storm shelter AND the day-to-day wellness room (Nicole's request; confirms room_register_2026_11_12). Wellness mode: curved living-wall displays (scenes: waterfall, home, games), two loungers, soft floor. Storm mode: displays show ship status, loungers and floor stow, ten fold-flat restraint seats deploy; switch in about 10 minutes; 72 h life support from the source shelter backup.",
+    "layout": "Claude's L4 furniture layout approved for 3D modelling (shelter/wellness, medical bay, life support racks incl. laundry module R8 in L4-eclss).",
+    "shelter_door": "ADD a 0.8 m water-filled sliding plug door in jacket_inner at 90 deg (source shelter had no entrance). Mass-neutral: the door holds the water it replaces; shielding retained when closed. Geometry and D9 by Sol.",
+    "medical_ports": "LOWER the three 1.55 m WWS-1 medical ports from centre x 9.10 (h 1.70) to x 9.30 (h 1.50) so the top (h 2.275) sits below the 2.30 m L4 ceiling. Same size and azimuths 180/210/240. Pressure-cutout check by Sol; WWS-1 status unchanged (non-canon design position).",
+    "L3L4_hatch_180": "CHANGE hatch_L3L4_1 (180 deg) to a sliding leaf that stows radially into the L3 floor slab, clear of the casualty path from the port ladder into the 2.4 m medical entrance. hatch_L3L4_0 (0 deg) unchanged. Same mass and booking (outfit_L4).",
+    "mass_rebooking_t": 0,
+    "canon_change": false,
+    "G1_G12": "NOT RUN"
   }
 }
