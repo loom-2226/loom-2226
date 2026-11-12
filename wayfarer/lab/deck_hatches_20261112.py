@@ -10,6 +10,7 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/"lab"))
 from packing_phase1b import source_brep_pilot as P
 from l1_interior_glb import GLB
+from l2_hatch_glb_d9 import screen as screen_l2_glb
 SRC=ROOT/"results/out/wayfarer_v05_geometry.json"
 DEC=ROOT/"config/kt_decisions.json"
 OUT=ROOT/"render/out"
@@ -54,12 +55,21 @@ def main():
         for n in (0,1):
             template=rows["hatch_L1L2_"+str(n)]["shape"]
             shape={**template,"x0":template["x0"]+dx,"x1":template["x1"]+dx}
-            assert abs(shape["x0"]-rows[floor]["shape"]["x0"])<1e-9
+            if tag=="L2L3":
+                # kT FLIP: source-identical leaf standing UP into L2, hinge at x=5.60.
+                shape["x0"],shape["x1"]=4.68,5.60
+                assert abs(shape["x1"]-rows[floor]["shape"]["x0"])<1e-9
+            else:
+                assert abs(shape["x0"]-rows[floor]["shape"]["x0"])<1e-9
             assert abs(shape["x1"]-shape["x0"]-.92)<1e-9
             solid=P.make(shape)
             mount=vol(solid,floors[floor]["solid"])
             template_mount=vol(P.make(template),baseline)
-            assert abs(mount-template_mount)<1e-6,(tag,n,mount,template_mount)
+            if tag=="L2L3":
+                # Upward hinge touches the L2 deck plane; no positive solid overlap.
+                assert mount<1e-8,(tag,n,"unexpected floor overlap",mount)
+            else:
+                assert abs(mount-template_mount)<1e-6,(tag,n,mount,template_mount)
             leaves["hatch_"+tag+"_"+str(n)]=dict(shape=shape,solid=solid,owner=owner,
                     source="hatch_L1L2_"+str(n),floor_mount_m3=mount)
     # Physically authored source fixtures, not room/outfit accounting envelopes.
@@ -86,6 +96,12 @@ def main():
             if P.bbox_intersection_upper(P.bounds(leaves[a]["solid"]),P.bounds(leaves[b]["solid"]))>1e-10:
                 v=vol(leaves[a]["solid"],leaves[b]["solid"])
                 if v>1e-7:contacts.append(dict(hatch=a,other=b,volume_m3=v,category="d"))
+    # Distinct from the source-fixture D9: physical triangles in ALL L2 GLB meshes.
+    l2_screen=screen_l2_glb(OUT/"interior_L2.glb",
+        {name:item for name,item in leaves.items() if "L2L3" in name})
+    for hit in l2_screen["D9_hatch_mesh_hits"]:
+        contacts.append(dict(hatch=hit["hatch"],other=hit["mesh"],
+                             triangle=hit["triangle"],category="d",source="interior_L2.glb"))
     door=rows["doors_L4-medical"]["shape"]
     port=leaves["hatch_L3L4_0"]["shape"] # copied L1 id 0: negative Y (180 degrees)
     z_gap=port["z0"]-door["z1"]
@@ -97,18 +113,20 @@ def main():
     containment=clearance>0 and all(pressure["xb"]<=v["shape"]["x0"] and v["shape"]["x1"]<=pressure["xc"] for v in leaves.values())
     report=dict(status="DECK_HATCHES_D9_CATEGORY_D_ZERO_CONTAINMENT_PASS" if not contacts and containment else "STOP_D9_OR_CONTAINMENT",
        source_geometry_sha256=SHA,source_dry_t=868.1922552640087,ECON_dv_km_s=707.845,
-       source_mass_rebooking_t=0,leaf_count=4,source_copy="hatch_L1L2_0/1 translated in X",
-       bookings=budgets,
+       source_mass_rebooking_t=0,leaf_count=4,source_copy="L1L2 source leaf extents; L2L3 upward into L2, L3L4 unchanged into L4",
+       bookings=budgets,L2_furniture_glb_screen=l2_screen,
        hatches={name:dict(shape=x["shape"],mass_owner=x["owner"],source=x["source"],
                          floor_mount_m3=x["floor_mount_m3"],mass_estimate_kg=150) for name,x in leaves.items()},
        floors={k:dict(bore_count=2,bore_diameter_m=.8,visual_removed_m3=v["removed"],
                       floor_mass_credit_t=0) for k,v in floors.items()},
        checks=dict(D9_category_d=len(contacts),D9_contacts=contacts,
            physical_source_pairs_screened=len(scanned),
-           floor_mount_category="c: identical to L1L2 source leaf/floor mount",
+           floor_mount_category="L3L4 source-identical category-c floor mount; L2L3 upward hinge plane contact, zero overlap",
            medical_door_port_z_clearance_m=z_gap,
            L3_semantic_room_zone_corner_intrusion_m=max(0,math.hypot(1.89,.46)-1.9),
-           L3_berths_and_partitions="NOT PHYSICALLY DRAWN; no independent clearance qualified",
+           L3_berths_and_partitions="L2L3 leaves moved out of L3; L3L4 leaves unchanged; existing L3 partition and berth solids not drawn",
+           L2_furniture_glb_D9_hits=len(l2_screen["D9_hatch_mesh_hits"]),
+           L2_furniture_triangle_AABB_clearance_lower_bound_m=l2_screen["clearance_lower_bound_m"],
            min_inner_pressure_radius_clearance_m=clearance,
            containment="PASS" if containment else "FAIL",
            G1_G12="NOT RUN / NOT REQUIRED"),
@@ -183,12 +201,12 @@ def main():
     b.text(9.01,(s["z0"]+door["z1"])/2,"151.8 mm",color="#9e3c32",va="center")
     b.set(xlim=(8,11),ylim=(-1.1,.65),xlabel="Ship X (m)",ylabel="Ship Z (m)",title="Medical-door clearance (Z)")
     b.legend(loc="upper right")
-    fig.suptitle("WAYFARER 2226  |  DECK PRESSURE HATCHES  |  D9=0 / CONTAINMENT PASS")
-    fig.text(.5,.03,"L1/L2 source leaf geometry unchanged; four copied leaves. Mass-neutral; 0.30 t from each existing outfit booking.",ha="center")
+    fig.suptitle("WAYFARER 2226  |  L2/L3 UPWARD HATCH FLIP  |  D9=0 / CONTAINMENT PASS")
+    fig.text(.5,.03,"L2/L3 x=4.68–5.60 into L2; L3/L4 x=8.20–9.12 into L4. L2 furniture GLB screened. No new mass.",ha="center")
     fig.tight_layout(rect=[0,.06,1,.93])
     fig.savefig(PIC,dpi=160)
     plt.close(fig)
     filename.write_text(json.dumps(report,indent=2)+"\n")
-    print(json.dumps({k:report[k] for k in ("status","bookings","checks","glb_sha256","picture")},indent=2))
+    print(json.dumps({k:report[k] for k in ("status","bookings","L2_furniture_glb_screen","checks","glb_sha256","picture")},indent=2))
 if __name__=="__main__":
     main()
