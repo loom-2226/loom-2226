@@ -2,7 +2,7 @@
 
 ALL bodies. ALL sponsors. 2026-2226.
 
-Status: **proposal only, awaiting kT.** Renders are in `wayfarer/lab/bow_surface_options/`
+Status: **APPROVED by kT 2026-11-13: Option 1 Clean** (decision `bow_shoulder_surface_2026_11_13`, after Sol's read-only evidence review). Options 2 and 3 are kept only as the record of what was considered. Renders are in `wayfarer/lab/bow_surface_options/`
 (the repo render chain plus a sketch-only shader copy). Canon GLBs, `loomgl.js` and
 the geometry are untouched.
 
