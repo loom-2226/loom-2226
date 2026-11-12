@@ -12,7 +12,7 @@ permissions:
   contents: read
 jobs:
   docked-real-G8:
-    if: github.event_name != 'pull_request' || (!startsWith(github.head_ref, 'research/wayfarer-L1-F4-') && !startsWith(github.head_ref, 'engineering/wayfarer-l1-approved-interior-') && !startsWith(github.head_ref, 'engineering/wayfarer-l1-B3-'))
+    if: github.event_name != 'pull_request' || (!startsWith(github.head_ref, 'research/wayfarer-L1-F4-') && !startsWith(github.head_ref, 'engineering/wayfarer-l1-approved-interior-') && !startsWith(github.head_ref, 'engineering/wayfarer-l1-B3-') && !startsWith(github.head_ref, 'engineering/wayfarer-l1-wallfit-'))
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
