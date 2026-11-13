@@ -2,7 +2,7 @@
 
 ALL bodies. ALL sponsors. 2026-2226.
 
-Status: **proposal, awaiting kT.** The shuttle is the **NON-CANON** v1 research shuttle
+Status: **APPROVED by kT 2026-11-14: rotor blades (a), engraved outlines** (decision `shuttle_print_1to100_2026_11_14`). The shuttle is the **NON-CANON** v1 research shuttle
 (`wayfarer/lab/shuttle/`; G8 full bay fit still OPEN). It is printed as a separate part, per
 `exterior_hardware_1to100_2026_11_13` (2 = a). Survey: `shuttle_1to100_survey.png`, made by
 `shuttle_survey.py` from the shuttle_v1 nodes inside the canon stowed/closed exterior GLB.
