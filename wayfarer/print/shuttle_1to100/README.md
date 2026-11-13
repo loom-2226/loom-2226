@@ -28,3 +28,17 @@ Rotor blades:
 - (c) leave the groove empty.
 
 Claude: (a).
+
+## Print file (PLACEHOLDER profile, untested)
+
+- **File:** `parts/shuttle_v1_1to100.stl`, made by `shuttle_print.py` and checked in `shuttle_print_manifest.json`. Preview: `shuttle_print_preview.png`.
+- **Size:** 128 x 38 x 38 mm, printed **standing on its tail**, nose up, with no supports.
+- **Checks:** watertight (0 unmatched edges); volume 98.8% of the plain lathe hull. The difference is the spine groove and seams.
+- **Built from the source numbers** in `shuttle_v1_full_docked_G8.py`: the lathe profile, the door and heat-shield sectors, the spine groove (2.6 mm deep), the seams, the upper blade pair and the belly nozzles. Nothing is traced from the display mesh.
+- **Features:**
+  - Seams and door outline as 0.5 mm grooves.
+  - Heat-shield edge lines.
+  - The spine groove, with the two upper blades engraved as outlines.
+  - Four belly-nozzle pits, 3.2 mm across.
+  - The nozzle-ring band on the tail face.
+- **Not yet drawn:** how the shuttle sits in the bay bore (cradle or pegs). It goes with the whole-model sockets at the end.
