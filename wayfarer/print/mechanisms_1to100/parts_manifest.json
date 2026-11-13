@@ -1,0 +1,113 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "decision": "fin_strake_plugin_1to100_2026_11_13",
+ "profile": "stock_0p4",
+ "status": "PLACEHOLDER, untested",
+ "peg": "1.75 mm filament offcut, cut to 5 mm (2.5 in the part + 2.5 in the ship socket)",
+ "socket_square_mm": 1.85,
+ "parts": {
+  "hotfin_deployed": {
+   "qty": 4,
+   "what": "Hot fin, deployed (torch): 190 x 280 x 1.6 mm panel, 13 pleat lines + heat-pipe channels both faces",
+   "file": "parts/hotfin_deployed.stl",
+   "triangles": 21820,
+   "size_mm": [
+    190.0,
+    283.0,
+    4.0
+   ],
+   "volume_mm3": 84224.44,
+   "occupancy_volume_mm3": 84224.44,
+   "volume_check": "PASS",
+   "unmatched_edges": 0,
+   "watertight": "PASS"
+  },
+  "hotfin_folded": {
+   "qty": 4,
+   "what": "Hot fin, folded (stowed/Metric): 190 x 20 x 6 mm stack, true scale, channels both faces",
+   "file": "parts/hotfin_folded.stl",
+   "triangles": 3996,
+   "size_mm": [
+    190.0,
+    23.0,
+    6.0
+   ],
+   "volume_mm3": 24645.96,
+   "occupancy_volume_mm3": 24645.96,
+   "volume_check": "PASS",
+   "unmatched_edges": 0,
+   "watertight": "PASS"
+  },
+  "strake_loom": {
+   "qty": 4,
+   "what": "Strake, Loom 0 m: 5 mm root fill, flush with the hull (r 4.0 to 4.5)",
+   "file": "parts/strake_loom.stl",
+   "triangles": 272,
+   "size_mm": [
+    183.0,
+    8.0,
+    4.0
+   ],
+   "volume_mm3": 3559.37,
+   "occupancy_volume_mm3": 3559.37,
+   "volume_check": "PASS",
+   "unmatched_edges": 0,
+   "watertight": "PASS"
+  },
+  "strake_metric": {
+   "qty": 4,
+   "what": "Strake, Metric 2 m: 25 mm (5 root + 20), 3 mm accordion block, 4 pleat lines",
+   "file": "parts/strake_metric.stl",
+   "triangles": 876,
+   "size_mm": [
+    183.0,
+    28.0,
+    4.0
+   ],
+   "volume_mm3": 15597.33,
+   "occupancy_volume_mm3": 15597.33,
+   "volume_check": "PASS",
+   "unmatched_edges": 0,
+   "watertight": "PASS"
+  },
+  "strake_torch": {
+   "qty": 4,
+   "what": "Strake, torch 4 m: 45 mm (5 root + 40) x 1.6 mm panel, heat-pipe channels both faces",
+   "file": "parts/strake_torch.stl",
+   "triangles": 4148,
+   "size_mm": [
+    183.0,
+    48.0,
+    4.0
+   ],
+   "volume_mm3": 14916.17,
+   "occupancy_volume_mm3": 14916.17,
+   "volume_check": "PASS",
+   "unmatched_edges": 0,
+   "watertight": "PASS"
+  },
+  "peg_test": {
+   "qty": 1,
+   "what": "Peg fit test: 6 square sockets 1.70-1.95 mm, labelled by notches; plus a 20 mm fin stub with a 1.85 socket",
+   "file": "parts/peg_test.stl",
+   "triangles": 7276,
+   "size_mm": [
+    60.0,
+    26.0,
+    6.0
+   ],
+   "volume_mm3": 4526.14,
+   "occupancy_volume_mm3": 4526.14,
+   "volume_check": "PASS",
+   "unmatched_edges": 0,
+   "watertight": "PASS"
+  }
+ },
+ "dropped_at_1to100": [
+  "folded-stack pleat edges: 14 layers in 6 mm = 0.43 mm pitch, below the 0.5 mm minimum groove"
+ ],
+ "notes": [
+  "Root bar is offset to one face so every part prints flat with no supports; fin-line offset on the ship socket is 0.8-2 mm (80-200 mm real), visually nil.",
+  "Ship-side sockets belong to the whole model and are cut at the end (kT: keep the model whole); their positions are fixed here: pegs at x 40 and 150 mm along each fin from its forward end, 40 and 143 along each strake."
+ ]
+}

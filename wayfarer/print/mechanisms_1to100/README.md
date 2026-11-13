@@ -4,7 +4,7 @@ ALL bodies. ALL sponsors. 2026-2226.
 
 Status: **APPROVED by kT 2026-11-13: no hinges; swappable plug-in sets** (decision
 `fin_strake_plugin_1to100_2026_11_13`). The diagram is `fin_mechanism_1to100.png`, made by
-`fin_mechanism_diagram.py`. Print files come next. This is print-scale only, with no
+`fin_mechanism_diagram.py`. The print files are in `parts/`, made by `fin_parts.py` and listed in `parts_manifest.json`, with a preview in `parts_preview.png`. This is print-scale only, with no
 canon, geometry or mass change.
 
 ## Why no hinges
@@ -24,3 +24,20 @@ and need tuning. Swapping whole parts keeps both states true to look at and stro
 - **Holding the fins in.** Friction pegs are the default. Switch to 3 x 1 mm magnets only if a fin works loose on the test print.
 - **Declared print exaggerations.** The deployed panel is 1.6 mm (a true pleat is 0.43 mm). The root bar is 4 mm (the true root edge is 3 mm).
 - **Finish.** Colours, glow and channels follow finish-table rows 14-17 and `exterior_remaining_surfaces_2026_11_13`.
+
+## Print files (PLACEHOLDER profile, untested)
+
+| File | Qty | Size (mm) |
+|---|---|---|
+| `parts/hotfin_deployed.stl` | 4 | 190 x 283 x 4 |
+| `parts/hotfin_folded.stl` | 4 | 190 x 23 x 6 |
+| `parts/strake_loom.stl` | 4 | 183 x 8 x 4 |
+| `parts/strake_metric.stl` | 4 | 183 x 28 x 4 |
+| `parts/strake_torch.stl` | 4 | 183 x 48 x 4 |
+| `parts/peg_test.stl` | 1 | 60 x 26 x 6. **Print this first.** |
+
+- **Checks:** every part passes the volume check and is watertight (0 unmatched edges). The meshes are exact rectilinear solids.
+- **Printing:** flat, with no supports.
+- **Peg sockets:** square holes, 1.85 mm by default, for 1.75 mm filament pegs cut to 5 mm. The peg test has sockets from 1.70 to 1.95 mm (1 to 6 notches). Set `HOLE` in `fin_parts.py` to the size that grips, then rerun.
+- **Dropped at 1:100:** the pleat edges on the folded stacks (a 0.43 mm pitch, below the 0.5 mm minimum). The stacks carry the approved heat-pipe channels instead.
+- **Ship-side sockets:** pegs sit at 40 and 150 mm along each fin and at 40 and 143 mm along each strake. The holes in the ship are cut last, because the model stays whole until the design is finished.
