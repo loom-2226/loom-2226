@@ -1736,5 +1736,19 @@
     "G1_G12": "NOT RUN",
     "status": "APPROVED; print files by Claude, untested until the printer arrives",
     "bay_doors_amended_2026_11_14": "kT 'Go pivot': ONE set of bay door leaves that swing closed to vertical (75 deg) on a single 1.75 mm filament pin each (pivot r 45.0 mm print, 3 deg inside each slot edge; hinge boss 3.5 mm, half proud; swing clears the hull to 80 deg). Replaces the swappable closed/open sets. Shuttle unchanged: separate ~130 mm model."
+  },
+  "shuttle_print_1to100_2026_11_14": {
+    "authority": "kT APPROVED 2026-11-14 (Claude chat): 'A'",
+    "source": "wayfarer/print/shuttle_1to100/README.md (PR #547)",
+    "scope": "1:100 print model only (print LOD) of the NON-CANON v1 shuttle; separate part per exterior_hardware_1to100_2026_11_13",
+    "rotor_blades": "Option a: the 4 stowed rotor blades are engraved as 0.5 mm outlines in the spine groove (true thickness 0.1-0.4 mm at scale)",
+    "prints_as_modelled": "hull 128 x 38 mm, belly heat shield, belly nozzles, tail nozzle ring, rotor hub, stowed mast, intake, ducts",
+    "widened": "seams and gullwing door edges to 0.5 mm grooves",
+    "not_printed": "crew pod, wheels, custody capsule, water tank, reactors (inside the hull)",
+    "bay": "lies on its side as integrated: nose forward, gullwing crew door UP toward the bay doors (sector 40-133 deg), spine and stowed blades to starboard (+Y), belly heat shield to port (-Y); lifts out through the open doors (bore 48 mm, shuttle 38 mm). (Corrected by Claude before merge: the first survey misread the GLB [X, Z, -Y] axes as belly-up.)",
+    "canon_change": false,
+    "mass_rebooking_t": 0,
+    "G1_G12": "NOT RUN",
+    "status": "APPROVED; print file by Claude, untested until the printer arrives"
   }
 }
