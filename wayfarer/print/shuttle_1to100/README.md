@@ -17,7 +17,7 @@ Status: **APPROVED by kT 2026-11-14: rotor blades (a), engraved outlines** (deci
 ## In the bay
 
 - The bay bore is 48 mm across and the shuttle 38 mm, so it lifts out through the open doors.
-- It sits nose forward with the belly heat shield **up**, toward the bay doors, and the spine down.
+- It lies on its side, as integrated: nose forward, with the **gullwing crew door up** toward the bay doors, the spine and blades to starboard and the belly heat shield to port. Opening the bay doors shows the crew door.
 - How it sits in the bore (cradle or pegs) is drawn with the print files.
 
 ## kT decides
