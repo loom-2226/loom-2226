@@ -101,6 +101,34 @@
    "volume_check": "PASS",
    "unmatched_edges": 0,
    "watertight": "PASS"
+  },
+  "bay_door_leaf": {
+   "qty": 2,
+   "what": "Bay door leaf, pivoting (one STL, print 2): 138 mm long, swings 75 deg from closed to vertical on a filament pin",
+   "file": "parts/bay_door_leaf.stl",
+   "triangles": 5144,
+   "size_mm": [
+    23.88,
+    7.0,
+    138.0
+   ],
+   "volume_mm3": 5513.04,
+   "cap_area_x_length_mm3": 5513.04,
+   "raster_area_x_length_mm3": 5513.04,
+   "volume_check": "PASS",
+   "unmatched_edges": 0,
+   "watertight": "PASS",
+   "pivot": {
+    "axis": "parallel to the ship axis",
+    "r_mm": 45.0,
+    "az_deg": 60.769,
+    "mirrored_port_az_deg": 119.231,
+    "open_angle_deg": 75.1,
+    "swing_check": "leaf clears the hull shell (r 43-45 mm) from 0 to 80 deg"
+   },
+   "pin": "one 1.75 mm filament length, 144 mm: 138 through the leaf + 3 mm into each slot end wall (x 18.25 and 32.05 m on the ship)",
+   "print": "standing on end (138 mm tall), brim on, slow outer walls; pin hole 1.85 mm, tune with peg_test",
+   "declared_exaggerations": "leaf 1.6 mm (true 1.0); hinge boss 3.5 mm dia along the door edge, half proud of the skin"
   }
  },
  "dropped_at_1to100": [
@@ -108,6 +136,7 @@
  ],
  "notes": [
   "Root bar is offset to one face so every part prints flat with no supports; fin-line offset on the ship socket is 0.8-2 mm (80-200 mm real), visually nil.",
-  "Ship-side sockets belong to the whole model and are cut at the end (kT: keep the model whole); their positions are fixed here: pegs at x 40 and 150 mm along each fin from its forward end, 40 and 143 along each strake."
+  "Ship-side sockets belong to the whole model and are cut at the end (kT: keep the model whole); their positions are fixed here: pegs at x 40 and 150 mm along each fin from its forward end, 40 and 143 along each strake.",
+  "Bay doors pivot (kT 14 Nov). Ship-side pin holes in the slot end walls are cut with the other sockets at the end."
  ]
 }

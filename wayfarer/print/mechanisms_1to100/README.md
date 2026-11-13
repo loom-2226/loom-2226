@@ -41,3 +41,12 @@ and need tuning. Swapping whole parts keeps both states true to look at and stro
 - **Peg sockets:** square holes, 1.85 mm by default, for 1.75 mm filament pegs cut to 5 mm. The peg test has sockets from 1.70 to 1.95 mm (1 to 6 notches). Set `HOLE` in `fin_parts.py` to the size that grips, then rerun.
 - **Dropped at 1:100:** the pleat edges on the folded stacks (a 0.43 mm pitch, below the 0.5 mm minimum). The stacks carry the approved heat-pipe channels instead.
 - **Ship-side sockets:** pegs sit at 40 and 150 mm along each fin and at 40 and 143 mm along each strake. The holes in the ship are cut last, because the model stays whole until the design is finished.
+
+## Bay doors: pivoting (kT 2026-11-14, 'Go pivot')
+
+- **Part:** `parts/bay_door_leaf.stl`. Print 2: the port leaf is the same solid turned end for end. Each leaf is 138 mm long and 1.6 mm thick.
+- **Pivot:** one 1.75 mm filament pin, 144 mm long, runs through each leaf's hinge boss and 3 mm into the slot end walls (x 18.25 and 32.05 m). The pin sits at r 45.0 mm, 3 deg inside each slot edge (60.77 and 119.23 deg).
+- **Swing:** each leaf swings 75 deg from closed to vertical and clears the hull to 80 deg (`bay_door_swing_1to100.png`). Friction on the pin holds it open.
+- **Printing:** standing on end with a brim, so the pin hole prints round. The pin hole is 1.85 mm; tune it with the peg test.
+- **Checks:** volume PASS, watertight (0 unmatched edges).
+- **Declared exaggerations:** the leaf is 1.6 mm (true 1.0 mm). The hinge boss is 3.5 mm across along the door edge, half proud of the skin.
