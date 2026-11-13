@@ -1,39 +1,26 @@
-# Wayfarer 1:100 deployable hot fins and strakes (PROPOSAL, F4: sketch + numbers)
+# Wayfarer 1:100 plug-in hot fins and strakes
 
 ALL bodies. ALL sponsors. 2026-2226.
 
-Status: **proposal, awaiting kT.** This is a diagram only (`fin_mechanism_1to100.png`,
-made by `fin_mechanism_diagram.py`). No print files yet, and no canon, geometry or mass
-change. kT asked for radiators and fins that deploy mechanically rather than being glued
-in place.
+Status: **APPROVED by kT 2026-11-13: no hinges; swappable plug-in sets** (decision
+`fin_strake_plugin_1to100_2026_11_13`). The diagram is `fin_mechanism_1to100.png`, made by
+`fin_mechanism_diagram.py`. Print files come next. This is print-scale only, with no
+canon, geometry or mass change.
 
-## Canon facts used
+## Why no hinges
 
-From SPEC.md, finish-table rows 14-17 and the geometry parts:
+At 1:100 a deployed hot fin reaches 280 mm and the span is 655 mm, against a 540 mm
+ship. Pin hinges would make the folded stack 3x too thick. They would also be fragile
+and need tuning. Swapping whole parts keeps both states true to look at and strong.
 
-- **Hot fins:** four, x 34.3-53.3, at 40/140/220/320 deg, root r 4.75. Each has 14 pleats of 2 m. They unfold to 28 m in torch burns and fold into 0.6 m stacks otherwise.
-- **Strakes:** four accordions, x 14-32.3. Span is 0 (Loom), 2 m (Metric) or 4 m (torch).
+## Design
 
-## The problem at 1:100
-
-- A deployed fin reaches 280 mm from the hull, and the span is 655 mm tip to tip. The ship is 540 mm long.
-- A true-scale pleat would be 0.43 mm thick, below what the printer can make.
-
-## Proposed mechanism
-
-- **Construction:** each fin is a separate part, 14 pleats of 20 x 190 x 1.2 mm.
-- **Hinges:** a 1.0 mm steel pin runs the full length of each hinge line. Knuckles are 2.4 mm across, with 0.15 mm clearance so friction holds the fin in position. A 180 deg hard stop keeps the deployed fin flat.
-- **Folded stack:** 17.5 mm. That is 3x true scale, a declared print exaggeration like the 0.5 mm grooves.
-- **Strakes:** the same hinge with 4 pleats of 10 x 183 mm. Friction holds the 0, 20 and 40 mm positions.
-- **Printing:** each fin prints flat and fully deployed (190 x 280 mm) on the A2L's 330 x 320 mm bed.
-
-## kT decides
-
-| | Option A | Option B | Claude |
-|---|---|---|---|
-| Pleat count | 14 (canon); stack 17.5 mm | 7 double pleats; stack 9 mm; pleats 40 mm wide | 14 |
-| How fins hold position | Friction pins + 180 deg stop | Plus 2 x 1 mm magnets in the pleat edges | Friction first; magnets only if the test hinge sags |
-| Pins | 1.0 mm steel piano wire | 1.75 mm filament offcuts (stack about 25 mm) | Steel |
-
-**Next, after the decision:** a one-hinge test strip (two pleats) to tune the clearance,
-then the full fin and strake print files.
+- **Hot fins.** Two sets of four on the same sockets:
+  - Folded: solid stack, 190 x 20 x 6 mm (true scale), with the 14 pleat edges engraved.
+  - Deployed: flat panel, 190 x 280 x 1.6 mm. Pleat lines every 20 mm, plus the approved heat-pipe channels every 5 mm.
+- **Socket.** Each fin has a 4 x 3 mm root bar with two pegs. The pegs are cut 1.75 mm filament offcuts, a friction fit in 1.9 mm holes. The fin root on the ship is thickened from 3 to 4 mm to hold them.
+- **Strakes.** Three sets of four on the same socket: Loom 0 m (flush bay cover), Metric 2 m (a 20 mm block with the pleat lines engraved) and torch 4 m (a 40 mm panel). Each is 183 mm long.
+- **Parts.** 20 plug-in parts and 40 pegs. Each deployed fin prints flat on the 330 x 320 mm bed.
+- **Holding the fins in.** Friction pegs are the default. Switch to 3 x 1 mm magnets only if a fin works loose on the test print.
+- **Declared print exaggerations.** The deployed panel is 1.6 mm (a true pleat is 0.43 mm). The root bar is 4 mm (the true root edge is 3 mm).
+- **Finish.** Colours, glow and channels follow finish-table rows 14-17 and `exterior_remaining_surfaces_2026_11_13`.

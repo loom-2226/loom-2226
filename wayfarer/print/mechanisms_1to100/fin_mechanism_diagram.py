@@ -1,85 +1,74 @@
-"""Wayfarer 1:100 deployable hot fin + strake mechanism diagram (Claude, 13 Nov 2026). ALL bodies. ALL sponsors. 2026-2226.
-PROPOSAL (F4): sketch + numbers. Canon facts: SPEC.md layout table; finish table rows 14-17; geometry parts strake_*/hotfin_*."""
+"""Wayfarer 1:100 plug-in hot fins + strakes (Claude, 13 Nov 2026). ALL bodies. ALL sponsors. 2026-2226.
+kT 2026-11-13: no hinges; swappable plug-in fin sets. Canon facts: SPEC.md layout table; finish rows 14-17; geometry parts."""
 import numpy as np, matplotlib
 matplotlib.use('Agg'); import matplotlib.pyplot as plt
-from matplotlib.patches import Circle, Rectangle, FancyArrowPatch, Polygon
+from matplotlib.patches import Circle, Rectangle
 INK, MUT, ACC, HOT, GRN = '#1d2228', '#6b737c', '#2f6f8f', '#d9773a', '#3f8f5a'
 plt.rcParams.update({'font.family': 'DejaVu Sans', 'font.size': 10})
-fig = plt.figure(figsize=(13, 15), dpi=110); fig.patch.set_facecolor('#f6f5f2')
-fig.text(0.04, 0.975, 'Wayfarer 1:100: deployable hot fins and strakes', fontsize=19, weight='bold', color=INK)
-fig.text(0.04, 0.957, 'PROPOSAL, sketch + numbers. 1 mm on the model = 100 mm real. Printer: Bambu A2L, bed 330 x 320 mm.', fontsize=11, color=MUT)
+fig = plt.figure(figsize=(13, 14), dpi=110); fig.patch.set_facecolor('#f6f5f2')
+fig.text(0.04, 0.973, 'Wayfarer 1:100: plug-in hot fins and strakes (no hinges)', fontsize=19, weight='bold', color=INK)
+fig.text(0.04, 0.955, 'kT 13 Nov: swap whole fin sets instead of folding them. 1 mm on the model = 100 mm real. Bambu A2L, bed 330 x 320 mm.', fontsize=11, color=MUT)
 
-# ---- A: end view, why this is hard ----
-ax = fig.add_axes([0.04, 0.60, 0.44, 0.33]); ax.set_aspect('equal'); ax.axis('off')
-ax.set_title('A  End view at 1:100 (looking forward from the nozzle)', loc='left', fontsize=12, weight='bold', color=INK)
-ax.add_patch(Circle((0, 0), 45, fc='#dfe2e0', ec=INK, lw=1.2)); ax.text(0, 0, 'hull\n90 mm', ha='center', va='center', color=MUT, fontsize=9)
-for a in (40, 140, 220, 320):
-    t = np.radians(a); u = np.array([np.cos(t), np.sin(t)])
-    p0 = u * 47.5; p1 = u * (47.5 + 280)
-    ax.plot(*zip(p0, p1), color=HOT, lw=2.4, solid_capstyle='butt')
-    q0 = u * 47.5; q1 = u * (47.5 + 6)
-    ax.plot(*zip(q0, q1), color=INK, lw=6, solid_capstyle='butt')
-ax.add_patch(Rectangle((-165, -160), 330, 320, fill=False, ec=ACC, lw=1.2, ls='--'))
-ax.text(-163, 152, 'printer bed 330 x 320', color=ACC, fontsize=9)
-ax.set_xlim(-340, 340); ax.set_ylim(-300, 300)
-ax.text(0, -285, 'Deployed span 655 mm tip to tip; ship is 540 mm long.\nFolded stack at true scale: 6 mm.  One pleat at true scale: 0.43 mm thick (too thin to print).',
-        ha='center', fontsize=9.5, color=INK)
-ax.text(190, 200, 'deployed fin\n280 mm', color=HOT, fontsize=10, weight='bold'); ax.text(60, 22, 'folded 6 mm', color=INK, fontsize=9)
+# A: the two fin sets, end view
+ax = fig.add_axes([0.04, 0.56, 0.44, 0.36]); ax.set_aspect('equal'); ax.axis('off')
+ax.set_title('A  Two hot-fin sets, same sockets (end view)', loc='left', fontsize=12, weight='bold', color=INK)
+for cx, dep, lab in ((-170, False, 'FOLDED set (stowed, Metric)\ndisplay default, 135 mm across'), (170, True, 'DEPLOYED set (torch burn)\n655 mm across')):
+    ax.add_patch(Circle((cx, 0), 45 * 0.55, fc='#dfe2e0', ec=INK))
+    for a in (40, 140, 220, 320):
+        t = np.radians(a); u = np.array([np.cos(t), np.sin(t)]); v = np.array([-u[1], u[0]])
+        r0 = 47.5 * 0.55; L = (280 if dep else 20) * 0.55; w = (1.6 if dep else 6) * 0.55
+        p = np.array([cx, 0]) + u * r0
+        poly = [p + v * w / 2, p + v * w / 2 + u * L, p - v * w / 2 + u * L, p - v * w / 2]
+        ax.add_patch(plt.Polygon(poly, fc=HOT if dep else '#2b2d2f', ec='none'))
+    ax.text(cx, -175, lab, ha='center', fontsize=10, weight='bold', color=INK)
+ax.text(-170, 60, 'scale 0.55x', ha='center', fontsize=8, color=MUT)
+ax.set_xlim(-330, 330); ax.set_ylim(-200, 175)
 
-# ---- B: accordion fold sequence ----
-ax = fig.add_axes([0.53, 0.60, 0.44, 0.33]); ax.set_aspect('equal'); ax.axis('off')
-ax.set_title('B  How a fin unfolds (section across the fin, 14 pleats)', loc='left', fontsize=12, weight='bold', color=INK)
-def zig(ax, x0, y0, n, w, ang, col):
-    pts = [(x0, y0)]
-    for k in range(n):
-        s = 1 if k % 2 == 0 else -1; th = np.radians(90 - ang) * s
-        x, y = pts[-1]; pts.append((x + w * np.cos(np.radians(ang)) , y + s * w * np.sin(np.radians(ang))))
-    pts = np.array(pts); ax.plot(pts[:, 0], pts[:, 1], color=col, lw=2.2)
-    ax.plot(pts[1:-1, 0], pts[1:-1, 1], 'o', ms=3.2, mfc='white', mec=INK, mew=0.9)
-    return pts
-for i, (ang, lab) in enumerate(((88, 'Folded (stowed, Metric)'), (45, 'Unfolding'), (0, 'Deployed: torch burn, 280 mm'))):
-    y = 140 - i * 110
-    ax.add_patch(Rectangle((-10, y - 12), 10, 24, fc='#cfd3d1', ec=INK)); ax.text(-12, y, 'root', ha='right', va='center', fontsize=8.5, color=MUT)
-    zig(ax, 0, y, 14, 20, ang, HOT if ang == 0 else INK)
-    ax.text(0, y + 26, lab, fontsize=10, color=INK, weight='bold')
-ax.set_xlim(-40, 300); ax.set_ylim(-160, 190)
-ax.text(0, -150, 'Each pleat 20 mm wide x 190 mm long.\n13 hinge lines run the full fin length\n(along the ship), alternating edge to edge\nlike a paper fan.', fontsize=9.5, color=INK)
+# B: the two parts
+ax = fig.add_axes([0.53, 0.56, 0.44, 0.36]); ax.axis('off'); ax.set_aspect('equal')
+ax.set_title('B  One fin, both versions (printed flat)', loc='left', fontsize=12, weight='bold', color=INK)
+ax.add_patch(Rectangle((0, 120), 190, 20, fc='#2b2d2f', ec=INK))
+for k in range(1, 14): ax.plot([0, 190], [120 + 20 * 0 + 0, 120], color='none')
+ax.text(0, 145, 'FOLDED: solid stack 190 x 20 x 6 mm (true scale)\n14 pleat edges engraved on the side faces', fontsize=9.5, color=INK, va='bottom')
+ax.add_patch(Rectangle((0, -170), 190, 280 * 0.9, fc='#3a3436', ec=INK))
+for k in range(1, 14): ax.plot([0, 190], [-170 + k * 20 * 0.9] * 2, color='#8a7f7a', lw=0.8)
+for x in np.arange(0, 190, 5): ax.plot([x, x], [-170, -170 + 280 * 0.9], color='#4d4547', lw=0.4)
+ax.text(200, -60, 'DEPLOYED: panel 190 x 280 x 1.6 mm\npleat lines every 20 mm (13)\nheat-pipe channels every 5 mm\n(the approved 0.5 m channels)', fontsize=9.5, color=INK)
+for y0 in (118, -172):
+    ax.add_patch(Rectangle((10, y0 - 4), 170, 4, fc=ACC, ec='none'))
+    for px in (40, 150): ax.add_patch(Rectangle((px - 0.9, y0 - 9), 1.8, 5, fc=GRN, ec='none'))
+ax.text(200, 108, 'root bar + 2 pegs\n(same on both)', fontsize=9, color=ACC)
+ax.set_xlim(-10, 330); ax.set_ylim(-190, 175)
 
-# ---- C: hinge detail ----
-ax = fig.add_axes([0.04, 0.30, 0.44, 0.26]); ax.set_aspect('equal'); ax.axis('off')
-ax.set_title('C  Hinge detail, recommended (enlarged 10x)', loc='left', fontsize=12, weight='bold', color=INK)
-ax.add_patch(Rectangle((-30, -0.6), 28.8, 1.2, fc='#3b3f43', ec=INK)); ax.add_patch(Rectangle((1.2, -0.6), 28.8, 1.2, fc='#3b3f43', ec=INK))
-ax.add_patch(Circle((0, 0), 1.2, fc='#8a8f94', ec=INK, lw=1)); ax.add_patch(Circle((0, 0), 0.65, fc='white', ec=INK, lw=0.6)); ax.add_patch(Circle((0, 0), 0.5, fc='#5b6066', ec='none'))
-ax.annotate('1.0 mm steel pin (piano wire),\nruns the full 190 mm fin length', xy=(0.3, 0.3), xytext=(6, 6), fontsize=9.5, arrowprops=dict(arrowstyle='->', color=INK))
-ax.annotate('knuckle 2.4 mm OD,\n0.15 mm clearance = friction hold', xy=(-1.0, -0.9), xytext=(-29, -7), fontsize=9.5, arrowprops=dict(arrowstyle='->', color=INK))
-ax.annotate('pleat 1.2 mm thick', xy=(18, 0.6), xytext=(12, 4), fontsize=9.5, arrowprops=dict(arrowstyle='->', color=INK))
-ax.annotate('180 deg hard stop: pleat ends butt\nwhen flat, so fins cannot over-bend', xy=(1.25, 0), xytext=(4, -7), fontsize=9.5, color=GRN, arrowprops=dict(arrowstyle='->', color=GRN))
-ax.set_xlim(-32, 32); ax.set_ylim(-11, 10)
+# C: socket detail
+ax = fig.add_axes([0.04, 0.29, 0.44, 0.24]); ax.set_aspect('equal'); ax.axis('off')
+ax.set_title('C  Socket detail (section across the root, enlarged 8x)', loc='left', fontsize=12, weight='bold', color=INK)
+ax.add_patch(Rectangle((-2, -10), 4, 10, fc='#cfd3d1', ec=INK)); ax.text(-3, -6, 'fin root on ship\n(thickened 3 to 4 mm)', ha='right', fontsize=9, color=MUT)
+ax.add_patch(Rectangle((-0.95, -6), 1.9, 6, fc='white', ec=INK, lw=0.6))
+ax.add_patch(Rectangle((-0.875, -5.8), 1.75, 7, fc=GRN, ec='none')); ax.add_patch(Rectangle((-2, 1.2), 4, 3, fc=ACC, ec=INK))
+ax.add_patch(Rectangle((-0.8, 4.2), 1.6, 10, fc='#3a3436', ec=INK))
+ax.annotate('1.75 mm filament peg (cut offcut),\nfriction fit in a 1.9 mm hole', xy=(0.6, -3), xytext=(4, -8), fontsize=9.5, arrowprops=dict(arrowstyle='->', color=INK))
+ax.annotate('root bar 4 x 3 mm on the fin', xy=(2, 2.7), xytext=(5, 2.5), fontsize=9.5, arrowprops=dict(arrowstyle='->', color=INK))
+ax.annotate('fin (folded stack or\ndeployed panel)', xy=(0.8, 10), xytext=(5, 9), fontsize=9.5, arrowprops=dict(arrowstyle='->', color=INK))
+ax.set_xlim(-20, 25); ax.set_ylim(-12, 15)
 
-# ---- D: strakes ----
-ax = fig.add_axes([0.53, 0.30, 0.44, 0.26]); ax.set_aspect('equal'); ax.axis('off')
-ax.set_title('D  Strakes: same hinge, 4 pleats, three set positions', loc='left', fontsize=12, weight='bold', color=INK)
-for i, (phi, lab) in enumerate(((88, 'Loom 0 m: folded in its bay'), (60, 'Metric 2 m = 20 mm'), (0, 'Torch 4 m = 40 mm'))):
-    x = i * 70
-    ax.add_patch(Rectangle((x - 8, 0), 16, 5, fc='#dfe2e0', ec=INK)); ax.text(x, -6, 'hull', ha='center', fontsize=8.5, color=MUT)
-    pts = [(x, 5)]
-    for k in range(4):
-        sg = 1 if k % 2 == 0 else -1; xx, yy = pts[-1]
-        pts.append((xx + sg * 10 * np.sin(np.radians(phi)), yy + max(10 * np.cos(np.radians(phi)), 0.9)))
-    pts = np.array(pts); ax.plot(pts[:, 0], pts[:, 1], color='#b5552a' if phi == 0 else INK, lw=2.2); ax.plot(pts[1:-1, 0], pts[1:-1, 1], 'o', ms=3, mfc='white', mec=INK)
-    ax.text(x, 50, lab, ha='center', fontsize=9.5, weight='bold', color=INK)
-ax.set_xlim(-25, 165); ax.set_ylim(-14, 60)
-ax.text(-20, -13, 'Pleats 10 mm x 183 mm. Friction holds the 2 m (20 mm) position.', fontsize=9.5, color=INK)
+# D: strakes
+ax = fig.add_axes([0.53, 0.29, 0.44, 0.24]); ax.set_aspect('equal'); ax.axis('off')
+ax.set_title('D  Strakes: three sets of four, same socket', loc='left', fontsize=12, weight='bold', color=INK)
+for i, (h, lab) in enumerate(((2, 'Loom 0 m\nflush bay cover'), (20, 'Metric 2 m\n20 mm accordion block'), (40, 'Torch 4 m\n40 mm panel'))):
+    x = i * 60; ax.add_patch(Rectangle((x - 10, 0), 20, 4, fc='#dfe2e0', ec=INK))
+    ax.add_patch(Rectangle((x - 1.5, 4), 3, h, fc='#292d30', ec=INK)); ax.text(x, 52, lab, ha='center', fontsize=9.5, weight='bold', color=INK)
+ax.text(-12, -8, 'Each strake 183 mm long. Pleat lines engraved on the 2 m block.', fontsize=9.5, color=INK)
+ax.set_xlim(-20, 150); ax.set_ylim(-12, 66)
 
-# ---- E: the decisions ----
-ax = fig.add_axes([0.04, 0.03, 0.92, 0.24]); ax.axis('off')
-ax.set_title('E  What kT decides', loc='left', fontsize=12, weight='bold', color=INK)
-rows = [('1  Pleat count', '14 pleats (true to canon)\nfolded stack 17.5 mm (3x scale)', '7 double pleats\nfolded stack 9 mm, pleats 40 mm wide', 'Claude: 14. The count is the\ncanon look; the thicker stack is a\ndeclared print exaggeration.'),
-        ('2  How fins hold position', 'Friction pins + 180 deg stop\n(nothing to buy)', 'Plus 2 x 1 mm magnets in the\npleat edges (crisp click to flat)', 'Claude: friction first; add magnets\nonly if the test hinge sags.'),
-        ('3  Pins', '1.0 mm steel piano wire\n(buy one rod)', '1.75 mm filament offcuts\n(free; stack grows to ~25 mm)', 'Claude: steel. Thinner, and it\nnever wears loose.')]
-xs = [0.0, 0.22, 0.47, 0.72]
-for j, h in enumerate(('', 'Option A', 'Option B', 'Recommendation')): ax.text(xs[j], 0.97, h, fontsize=10.5, weight='bold', color=ACC, va='top')
-for i, r in enumerate(rows):
-    y = 0.80 - i * 0.29
-    for j, c in enumerate(r): ax.text(xs[j], y, c, fontsize=10, va='top', color=INK, weight='bold' if j == 0 else 'normal')
+# E: parts + decision
+ax = fig.add_axes([0.04, 0.03, 0.92, 0.23]); ax.axis('off')
+ax.set_title('E  Parts list and the one choice left', loc='left', fontsize=12, weight='bold', color=INK)
+txt = ('Parts:  4 folded fins + 4 deployed fins + 12 strakes (3 sets) = 20 plug-in parts. Pegs: 40 short filament offcuts (free).\n'
+       'Each deployed fin prints flat (190 x 280 mm) on the 330 x 320 bed; everything else is small.\n'
+       'Hot-fin glow, colours and heat-pipe channels follow the approved finish (rows 14-17) and 2/2/2.\n\n'
+       'Choice:  pegs (friction, nothing to buy)  or  tiny 3 x 1 mm magnets (snap in, buy 40).\n'
+       'Claude: pegs. Try them on the test print; switch to magnets only if a fin works loose.\n\n'
+       'Declared print exaggerations: deployed panel 1.6 mm (true pleat 0.43 mm); root bar 4 mm (true root edge 3 mm).')
+ax.text(0, 0.92, txt, fontsize=10.5, va='top', color=INK, linespacing=1.5)
 fig.savefig('fin_mechanism_1to100.png', facecolor=fig.get_facecolor()); print('ok')
