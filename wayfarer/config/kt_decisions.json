@@ -1721,5 +1721,19 @@
     "canon_change": false,
     "G1_G12": "NOT RUN",
     "status": "APPROVED; print files by Claude, untested until the printer arrives"
+  },
+  "exterior_hardware_1to100_2026_11_13": {
+    "authority": "kT APPROVED 2026-11-13 (Claude chat): 1 = a, 2 = a",
+    "source": "wayfarer/print/hardware_1to100/README.md (PR #545)",
+    "scope": "1:100 print model only (print LOD)",
+    "class_A_integral": "RCS clusters, sensor turrets, laser terminals, service ports, docking collar, stowed service arm, bow sensors: printed with the hull, 45 deg chamfered undersides (no supports)",
+    "class_B_engraved": "grapple plates, docking target, RF arrays, vents: 0.5 mm groove outlines",
+    "class_C_thin": "Option a: exaggerate to print minimum. EVA rails 0.5 x 0.5 mm ridges; 24 crawler points 1.2 mm pads 0.24 mm proud; 2 docking cameras 2 mm bumps",
+    "shuttle_and_doors": "Option a: swappable bay door leaves (closed / open to vertical) as plug-in parts, plus the shuttle as a separate ~130 mm 1:100 model that sits in the bay",
+    "declared_exaggerations": "class C sizes; chamfered undersides on class A",
+    "mass_rebooking_t": 0,
+    "canon_change": false,
+    "G1_G12": "NOT RUN",
+    "status": "APPROVED; print files by Claude, untested until the printer arrives"
   }
 }

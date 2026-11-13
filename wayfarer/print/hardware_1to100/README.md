@@ -2,7 +2,7 @@
 
 ALL bodies. ALL sponsors. 2026-2226.
 
-Status: **proposal, awaiting kT.** `hardware_inventory.json` lists 61 exterior items, with
+Status: **APPROVED by kT 2026-11-13: 1 = a (exaggerate thin hardware), 2 = a (swappable bay doors + separate shuttle model)** (decision `exterior_hardware_1to100_2026_11_13`). `hardware_inventory.json` lists 61 exterior items, with
 positions taken from the canon stowed/closed exterior GLB. `hardware_map_1to100.png` shows
 them on the 1:100 hull development. This is print LOD only, with no canon, geometry or mass
 change.
