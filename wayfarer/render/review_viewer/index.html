@@ -754,7 +754,7 @@ function install(gls, files){
     parts.push(p);
   }
   for (const p of parts) if (ETCH_ARCH.test(p.id)) for (const m of p.meshes) etchify(m.userData.gmat);
-  buildLayers(); buildTree(); buildList(); applyCut(); fpSolid = null; lightCands = []; if (globalThis.FPON) buildLightCands();
+  buildLayers(); buildTree(); buildList(); applyCut(); fpSolid = null; lightCands = []; if (globalThis.FPON){ buildLightCands(); setCrownClear(true); }
   select(parts.find(p=>p.key === keepSel) || null, false);
   const decks = [intOn && 'L1', l2On && 'L2', l3On && 'L3', l4On && 'L4', l5On && 'L5'].filter(Boolean);
   $('status').textContent = parts.length + ' parts' + (decks.length ? ' (interiors ' + decks.join(' ') + ')' : '') + ' · ' + MODEFILE[radMode].replace('_',' ') + ' radiators · gores ' + goreState + ' · tap a part';
@@ -826,9 +826,9 @@ function enterFP(mode){
   }
   $('fpui').hidden = false; for (const c of $('views').children) c.setAttribute('aria-pressed', c.dataset.fp === mode); fpHint();
   $('fpwho').style.display = mode === 'walk' ? '' : 'none'; $('fpwal').style.display = (mode === 'fly' || who === 'walter') ? '' : 'none';
-  refresh(); applyMood(); domeLabel(); if (!lightCands.length) buildLightCands();
+  refresh(); applyMood(); domeLabel(); setCrownClear(true); if (!lightCands.length) buildLightCands();
 }
-function exitFP(){ globalThis.FPON = false; for (const l of pool) l.intensity = 0; if (AC) AC.suspend(); interiorLit = null; fp = null; keys.clear(); joy.x = joy.y = 0; $('fpui').hidden = true; camera.up.set(0, 1, 0); camera.near = .25; camera.fov = 36; camera.updateProjectionMatrix(); stage.classList.remove('fpon'); controls.enabled = true; view('habitat'); refresh(); }
+function exitFP(){ globalThis.FPON = false; setCrownClear(false); for (const l of pool) l.intensity = 0; if (AC) AC.suspend(); interiorLit = null; fp = null; keys.clear(); joy.x = joy.y = 0; $('fpui').hidden = true; camera.up.set(0, 1, 0); camera.near = .25; camera.fov = 36; camera.updateProjectionMatrix(); stage.classList.remove('fpon'); controls.enabled = true; view('habitat'); refresh(); }
 function walkDir(){ return [Math.cos(fp.yaw), Math.sin(fp.yaw)]; }             // forward in the ship Y-Z plane
 function blocked(Y, Z, dY, dZ, dist){
   // horizontal rays at knee, waist and eye height; also the hull lining
@@ -1080,6 +1080,18 @@ function etchify(mat){
         normal = normalize(normal - uEtchK * (g.x * vEtchTU + g.y * vEtchTV)); }`);
   };
   mat.needsUpdate = true;
+}
+
+// crown glass in first person: four nested layers (inner and outer pressure domes, AOI cavity, outer panes) each drawn ~38% opaque
+// read as grey shutters from inside. While walking or flying they are drawn optically clear with their faint tint.
+const CLEAR_RE = /crown_(pressure_ceramic|outer_ceramic)$|aoi_optogel$/;
+function setCrownClear(on){
+  for (const p of parts) for (const m of p.meshes){ const g = m.userData.gmat; if (!g || !g.transparent || !CLEAR_RE.test(g.name || '')) continue;
+    if (!g.userData.orig) g.userData.orig = {o:g.opacity, c:g.color.clone(), r:g.roughness, e:g.envMapIntensity, met:g.metalness};
+    const o = g.userData.orig;
+    if (on){ g.opacity = /aoi/.test(g.name) ? .03 : .06; g.color.copy(o.c).multiplyScalar(3.3).lerp(new THREE.Color(1, 1, 1), .5); g.roughness = .04; g.metalness = 0; g.envMapIntensity = .12; }
+    else { g.opacity = o.o; g.color.copy(o.c); g.roughness = o.r; g.metalness = o.met; g.envMapIntensity = o.e; }
+    g.needsUpdate = true; }
 }
 // loop
 function resize(){ const w = stage.clientWidth, h = stage.clientHeight; renderer.setSize(w, h, false); camera.aspect = w/h; camera.updateProjectionMatrix(); sizeComposer(); }
