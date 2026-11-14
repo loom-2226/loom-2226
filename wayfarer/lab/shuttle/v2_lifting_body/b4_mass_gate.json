@@ -1,0 +1,47 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-CANON research screen; v2 factors are ASSUMPTIONS",
+ "limit_G8_docked_dry_t": 34.2,
+ "samples": 200000,
+ "seed": 2026,
+ "v2_factors": {
+  "pressure_pod_titanium_shell_t": "two 1.9 m spheres vs one 2.5 m: buckling-governed shell ~R^3 (rover trade exponent 3)",
+  "pressure_pod_fittings_seals_t": "fittings ~R^2 per sphere (exponent 2) + tunnel and second hatch",
+  "hull_thermal_structure_t": "wetted area x0.832 (mesh), flat-panel/non-circular penalty x1.10-1.35, longerons around the 4.2 m side opening",
+  "base_entry_tps_core_t": "windward area scales with the smaller body, up to unchanged",
+  "folding_rover_chassis_t": "wider two-sphere chassis + crab steering",
+  "b4_wings_t": "B4 double-fold wing panels, shoulder hinges (also door hinge), actuators, locks"
+ },
+ "v1_baseline_A": {
+  "p5": 26.01,
+  "mid": 30.02,
+  "p95": 34.01,
+  "mean": 30.02,
+  "pass_G8_fraction": 0.958,
+  "margin_at_median_t": 4.18,
+  "changed_parts_mid_t": {
+   "pressure_pod_titanium_shell_t": 3.837,
+   "hull_thermal_structure_t": 10.158,
+   "pressure_pod_fittings_seals_t": 0.677,
+   "folding_rover_chassis_t": 0.796,
+   "base_entry_tps_core_t": 1.5
+  }
+ },
+ "v2_B4_side_door": {
+  "p5": 27.99,
+  "mid": 32.09,
+  "p95": 36.22,
+  "mean": 32.09,
+  "pass_G8_fraction": 0.792,
+  "margin_at_median_t": 2.11,
+  "changed_parts_mid_t": {
+   "pressure_pod_titanium_shell_t": 3.369,
+   "hull_thermal_structure_t": 10.668,
+   "pressure_pod_fittings_seals_t": 1.032,
+   "folding_rover_chassis_t": 0.972,
+   "base_entry_tps_core_t": 1.372,
+   "b4_wings_t": 1.6
+  }
+ },
+ "delta_mid_t": 2.07
+}
