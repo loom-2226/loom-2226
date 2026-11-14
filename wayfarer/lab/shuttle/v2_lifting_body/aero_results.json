@@ -1,0 +1,775 @@
+{
+ "method": "ROM aerodynamic test of shuttle v1 (biconic, reference) and v2 B2/B3/B4\nacross solar-system atmospheres. NON-CANON engineering screen.\nALL bodies. ALL sponsors. 2026-2226.\n\nMethods (all ROM, stated so):\n  Hypersonic: modified Newtonian impact on the actual meshes (wings stowed),\n    Cp_max from the stagnation limit for an effective gamma per gas, plus a\n    flat skin-friction term Cf=0.002 on wetted area. Reference = planform.\n  Subsonic: low-aspect-ratio lifting surface, Helmbold lift slope + Polhamus\n    vortex lift (sharp chines), drag CD0 + CL*tan(alpha) (no LE suction);\n    CD0 = 0.004 * Swet/S + 0.15 * Abase/S. Wings deployed for B3/B4.\n  Entry: 3-D point mass over a spherical non-rotating planet, from circular\n    orbit at entry interface: deorbit ellipse whose vacuum periapsis is where\n    rho = 3e-4 kg/m3 (Earth ~60 km, Shuttle-like), constant alpha and\n    constant bank 60 deg. Sutton-Graves stagnation heating.\n  Atmospheres: Venus VIRA table from shuttle_inputs.json (<=70 km), all others\n    approximate tabulated profiles (log-interpolated). APPROXIMATE.\n",
+ "vehicles": {
+  "v1 biconic": {
+   "S_body": 42.317,
+   "S_wing": 0.0,
+   "span": 3.8,
+   "Swet": 155.52,
+   "Abase": 9.527,
+   "dm": 0.0,
+   "sharp": false,
+   "rn": 0.6
+  },
+  "B2 angular": {
+   "S_body": 44.544,
+   "S_wing": 0.0,
+   "span": 4.26,
+   "Swet": 187.982,
+   "Abase": 8.75,
+   "dm": 0.4,
+   "sharp": true,
+   "rn": 0.25
+  },
+  "B3 fold wing": {
+   "S_body": 44.544,
+   "S_wing": 5.811,
+   "span": 5.732,
+   "Swet": 182.504,
+   "Abase": 8.75,
+   "dm": 1.2,
+   "sharp": true,
+   "rn": 0.25
+  },
+  "B4 double fold": {
+   "S_body": 44.544,
+   "S_wing": 12.98,
+   "span": 8.293,
+   "Swet": 200.05,
+   "Abase": 8.75,
+   "dm": 2.0,
+   "sharp": true,
+   "rn": 0.25
+  }
+ },
+ "entry": {
+  "Venus": {
+   "v1 biconic": {
+    "periapsis_target_km": 100.0,
+    "alpha": 30.0,
+    "CL": 0.303,
+    "CD": 0.399,
+    "LD": 0.759,
+    "beta": 2665.102,
+    "v_entry": 7222.85,
+    "peak_g": 2.267,
+    "peak_q_Wcm2": 170.758,
+    "heat_load_MJm2": 1191.384,
+    "downrange_km": 18113.89,
+    "crossrange_km": 648.415,
+    "end_alt_km": 61.446,
+    "end_v": 396.89,
+    "time_min": 47.208,
+    "skipped": false
+   },
+   "B2 angular": {
+    "periapsis_target_km": 100.0,
+    "alpha": 40.0,
+    "CL": 0.703,
+    "CD": 0.678,
+    "LD": 1.037,
+    "beta": 1503.093,
+    "v_entry": 7222.85,
+    "peak_g": 2.036,
+    "peak_q_Wcm2": 169.387,
+    "heat_load_MJm2": 1562.184,
+    "downrange_km": 18893.596,
+    "crossrange_km": 1072.83,
+    "end_alt_km": 65.515,
+    "end_v": 398.379,
+    "time_min": 50.692,
+    "skipped": false
+   },
+   "B3 fold wing": {
+    "periapsis_target_km": 100.0,
+    "alpha": 40.0,
+    "CL": 0.702,
+    "CD": 0.678,
+    "LD": 1.035,
+    "beta": 1528.873,
+    "v_entry": 7222.85,
+    "peak_g": 2.037,
+    "peak_q_Wcm2": 171.049,
+    "heat_load_MJm2": 1574.094,
+    "downrange_km": 18903.88,
+    "crossrange_km": 1068.711,
+    "end_alt_km": 65.403,
+    "end_v": 398.108,
+    "time_min": 50.7,
+    "skipped": false
+   },
+   "B4 double fold": {
+    "periapsis_target_km": 100.0,
+    "alpha": 40.0,
+    "CL": 0.713,
+    "CD": 0.695,
+    "LD": 1.027,
+    "beta": 1518.505,
+    "v_entry": 7222.85,
+    "peak_g": 2.043,
+    "peak_q_Wcm2": 171.091,
+    "heat_load_MJm2": 1563.675,
+    "downrange_km": 18845.89,
+    "crossrange_km": 1055.776,
+    "end_alt_km": 65.407,
+    "end_v": 397.464,
+    "time_min": 50.517,
+    "skipped": false
+   }
+  },
+  "Earth": {
+   "v1 biconic": {
+    "periapsis_target_km": 60.255,
+    "alpha": 30.0,
+    "CL": 0.3,
+    "CD": 0.395,
+    "LD": 0.759,
+    "beta": 2094.546,
+    "v_entry": 7818.196,
+    "peak_g": 2.541,
+    "peak_q_Wcm2": 172.301,
+    "heat_load_MJm2": 1175.036,
+    "downrange_km": 18060.968,
+    "crossrange_km": 690.914,
+    "end_alt_km": 11.879,
+    "end_v": 397.518,
+    "time_min": 43.558,
+    "skipped": false
+   },
+   "B2 angular": {
+    "periapsis_target_km": 60.255,
+    "alpha": 40.0,
+    "CL": 0.696,
+    "CD": 0.671,
+    "LD": 1.037,
+    "beta": 1184.354,
+    "v_entry": 7818.196,
+    "peak_g": 2.312,
+    "peak_q_Wcm2": 173.229,
+    "heat_load_MJm2": 1531.038,
+    "downrange_km": 18749.343,
+    "crossrange_km": 1141.209,
+    "end_alt_km": 16.404,
+    "end_v": 399.98,
+    "time_min": 46.658,
+    "skipped": false
+   },
+   "B3 fold wing": {
+    "periapsis_target_km": 60.255,
+    "alpha": 40.0,
+    "CL": 0.694,
+    "CD": 0.671,
+    "LD": 1.034,
+    "beta": 1210.565,
+    "v_entry": 7818.196,
+    "peak_g": 2.313,
+    "peak_q_Wcm2": 175.322,
+    "heat_load_MJm2": 1546.658,
+    "downrange_km": 18768.589,
+    "crossrange_km": 1136.776,
+    "end_alt_km": 16.253,
+    "end_v": 399.911,
+    "time_min": 46.683,
+    "skipped": false
+   },
+   "B4 double fold": {
+    "periapsis_target_km": 60.255,
+    "alpha": 40.0,
+    "CL": 0.706,
+    "CD": 0.688,
+    "LD": 1.027,
+    "beta": 1207.998,
+    "v_entry": 7818.196,
+    "peak_g": 2.318,
+    "peak_q_Wcm2": 175.829,
+    "heat_load_MJm2": 1540.282,
+    "downrange_km": 18718.778,
+    "crossrange_km": 1123.163,
+    "end_alt_km": 16.193,
+    "end_v": 398.035,
+    "time_min": 46.533,
+    "skipped": false
+   }
+  },
+  "Mars": {
+   "v1 biconic": {
+    "periapsis_target_km": 49.637,
+    "alpha": 30.0,
+    "CL": 0.303,
+    "CD": 0.399,
+    "LD": 0.759,
+    "beta": 2072.857,
+    "v_entry": 3471.889,
+    "peak_g": 0.773,
+    "peak_q_Wcm2": 22.546,
+    "heat_load_MJm2": 197.831,
+    "downrange_km": 10407.448,
+    "crossrange_km": 309.741,
+    "end_alt_km": 4.947,
+    "end_v": 1334.499,
+    "time_min": 53.75,
+    "skipped": false
+   },
+   "B2 angular": {
+    "periapsis_target_km": 49.637,
+    "alpha": 40.0,
+    "CL": 0.703,
+    "CD": 0.678,
+    "LD": 1.037,
+    "beta": 1172.015,
+    "v_entry": 3471.889,
+    "peak_g": 0.733,
+    "peak_q_Wcm2": 22.709,
+    "heat_load_MJm2": 253.674,
+    "downrange_km": 10564.038,
+    "crossrange_km": 601.336,
+    "end_alt_km": 4.956,
+    "end_v": 897.931,
+    "time_min": 56.833,
+    "skipped": false
+   },
+   "B3 fold wing": {
+    "periapsis_target_km": 49.637,
+    "alpha": 40.0,
+    "CL": 0.702,
+    "CD": 0.678,
+    "LD": 1.035,
+    "beta": 1197.948,
+    "v_entry": 3471.889,
+    "peak_g": 0.734,
+    "peak_q_Wcm2": 22.995,
+    "heat_load_MJm2": 256.31,
+    "downrange_km": 10578.963,
+    "crossrange_km": 596.892,
+    "end_alt_km": 4.971,
+    "end_v": 910.048,
+    "time_min": 56.85,
+    "skipped": false
+   },
+   "B4 double fold": {
+    "periapsis_target_km": 49.637,
+    "alpha": 40.0,
+    "CL": 0.713,
+    "CD": 0.695,
+    "LD": 1.027,
+    "beta": 1195.419,
+    "v_entry": 3471.889,
+    "peak_g": 0.735,
+    "peak_q_Wcm2": 23.041,
+    "heat_load_MJm2": 255.37,
+    "downrange_km": 10556.417,
+    "crossrange_km": 589.481,
+    "end_alt_km": 4.948,
+    "end_v": 910.494,
+    "time_min": 56.7,
+    "skipped": false
+   }
+  },
+  "Titan": {
+   "v1 biconic": {
+    "periapsis_target_km": 205.451,
+    "alpha": 30.0,
+    "CL": 0.297,
+    "CD": 0.391,
+    "LD": 0.759,
+    "beta": 2719.952,
+    "v_entry": 1550.289,
+    "peak_g": 0.251,
+    "peak_q_Wcm2": 3.096,
+    "heat_load_MJm2": 64.414,
+    "downrange_km": 10038.146,
+    "crossrange_km": 435.449,
+    "end_alt_km": 76.504,
+    "end_v": 309.653,
+    "time_min": 123.083,
+    "skipped": false
+   },
+   "B2 angular": {
+    "periapsis_target_km": 205.451,
+    "alpha": 40.0,
+    "CL": 0.689,
+    "CD": 0.664,
+    "LD": 1.037,
+    "beta": 1534.22,
+    "v_entry": 1550.289,
+    "peak_g": 0.228,
+    "peak_q_Wcm2": 3.271,
+    "heat_load_MJm2": 76.139,
+    "downrange_km": 9729.998,
+    "crossrange_km": 658.256,
+    "end_alt_km": 91.822,
+    "end_v": 309.636,
+    "time_min": 123.017,
+    "skipped": false
+   },
+   "B3 fold wing": {
+    "periapsis_target_km": 205.451,
+    "alpha": 40.0,
+    "CL": 0.687,
+    "CD": 0.665,
+    "LD": 1.034,
+    "beta": 1560.546,
+    "v_entry": 1550.289,
+    "peak_g": 0.228,
+    "peak_q_Wcm2": 3.304,
+    "heat_load_MJm2": 76.861,
+    "downrange_km": 9748.29,
+    "crossrange_km": 656.341,
+    "end_alt_km": 91.469,
+    "end_v": 310.003,
+    "time_min": 123.158,
+    "skipped": false
+   },
+   "B4 double fold": {
+    "periapsis_target_km": 205.451,
+    "alpha": 40.0,
+    "CL": 0.699,
+    "CD": 0.681,
+    "LD": 1.026,
+    "beta": 1549.936,
+    "v_entry": 1550.289,
+    "peak_g": 0.229,
+    "peak_q_Wcm2": 3.295,
+    "heat_load_MJm2": 76.385,
+    "downrange_km": 9724.423,
+    "crossrange_km": 648.964,
+    "end_alt_km": 91.558,
+    "end_v": 310.035,
+    "time_min": 122.833,
+    "skipped": false
+   }
+  }
+ },
+ "landing": {
+  "Venus": {
+   "v1 biconic": {
+    "v_td": 37.252,
+    "sink": 18.587,
+    "LDmax": 2.004,
+    "alpha_LDmax": 15.2,
+    "AR": 0.341,
+    "S": 42.317,
+    "CD0": 0.048
+   },
+   "B2 angular": {
+    "v_td": 27.989,
+    "sink": 11.141,
+    "LDmax": 2.561,
+    "alpha_LDmax": 12.8,
+    "AR": 0.407,
+    "S": 44.544,
+    "CD0": 0.046
+   },
+   "B3 fold wing": {
+    "v_td": 23.772,
+    "sink": 8.588,
+    "LDmax": 2.992,
+    "alpha_LDmax": 10.6,
+    "AR": 0.653,
+    "S": 50.355,
+    "CD0": 0.041
+   },
+   "B4 double fold": {
+    "v_td": 18.962,
+    "sink": 6.255,
+    "LDmax": 3.701,
+    "alpha_LDmax": 8.2,
+    "AR": 1.196,
+    "S": 57.524,
+    "CD0": 0.039
+   }
+  },
+  "Earth": {
+   "v1 biconic": {
+    "v_td": 251.399,
+    "sink": 125.438,
+    "LDmax": 2.004,
+    "alpha_LDmax": 15.2,
+    "AR": 0.341,
+    "S": 42.317,
+    "CD0": 0.048
+   },
+   "B2 angular": {
+    "v_td": 189.122,
+    "sink": 75.279,
+    "LDmax": 2.561,
+    "alpha_LDmax": 12.8,
+    "AR": 0.407,
+    "S": 44.544,
+    "CD0": 0.046
+   },
+   "B3 fold wing": {
+    "v_td": 161.022,
+    "sink": 58.173,
+    "LDmax": 2.992,
+    "alpha_LDmax": 10.6,
+    "AR": 0.653,
+    "S": 50.355,
+    "CD0": 0.041
+   },
+   "B4 double fold": {
+    "v_td": 128.743,
+    "sink": 42.47,
+    "LDmax": 3.701,
+    "alpha_LDmax": 8.2,
+    "AR": 1.196,
+    "S": 57.524,
+    "CD0": 0.039
+   }
+  },
+  "Mars": {
+   "v1 biconic": {
+    "v_td": 1212.226,
+    "sink": 604.854,
+    "LDmax": 2.004,
+    "alpha_LDmax": 15.2,
+    "AR": 0.341,
+    "S": 42.317,
+    "CD0": 0.048
+   },
+   "B2 angular": {
+    "v_td": 911.932,
+    "sink": 362.99,
+    "LDmax": 2.561,
+    "alpha_LDmax": 12.8,
+    "AR": 0.407,
+    "S": 44.544,
+    "CD0": 0.046
+   },
+   "B3 fold wing": {
+    "v_td": 776.436,
+    "sink": 280.504,
+    "LDmax": 2.992,
+    "alpha_LDmax": 10.6,
+    "AR": 0.653,
+    "S": 50.355,
+    "CD0": 0.041
+   },
+   "B4 double fold": {
+    "v_td": 620.789,
+    "sink": 204.786,
+    "LDmax": 3.701,
+    "alpha_LDmax": 8.2,
+    "AR": 1.196,
+    "S": 57.524,
+    "CD0": 0.039
+   }
+  },
+  "Titan": {
+   "v1 biconic": {
+    "v_td": 50.281,
+    "sink": 25.088,
+    "LDmax": 2.004,
+    "alpha_LDmax": 15.2,
+    "AR": 0.341,
+    "S": 42.317,
+    "CD0": 0.048
+   },
+   "B2 angular": {
+    "v_td": 37.778,
+    "sink": 15.037,
+    "LDmax": 2.561,
+    "alpha_LDmax": 12.8,
+    "AR": 0.407,
+    "S": 44.544,
+    "CD0": 0.046
+   },
+   "B3 fold wing": {
+    "v_td": 32.087,
+    "sink": 11.592,
+    "LDmax": 2.992,
+    "alpha_LDmax": 10.6,
+    "AR": 0.653,
+    "S": 50.355,
+    "CD0": 0.041
+   },
+   "B4 double fold": {
+    "v_td": 25.594,
+    "sink": 8.443,
+    "LDmax": 3.701,
+    "alpha_LDmax": 8.2,
+    "AR": 1.196,
+    "S": 57.524,
+    "CD0": 0.039
+   }
+  },
+  "Pluto": {
+   "v1 biconic": {
+    "v_td": 7593.817,
+    "sink": 3789.019,
+    "LDmax": 2.004,
+    "alpha_LDmax": 15.2,
+    "AR": 0.341,
+    "S": 42.317,
+    "CD0": 0.048
+   },
+   "B2 angular": {
+    "v_td": 5712.667,
+    "sink": 2273.9,
+    "LDmax": 2.561,
+    "alpha_LDmax": 12.8,
+    "AR": 0.407,
+    "S": 44.544,
+    "CD0": 0.046
+   },
+   "B3 fold wing": {
+    "v_td": 4863.872,
+    "sink": 1757.177,
+    "LDmax": 2.992,
+    "alpha_LDmax": 10.6,
+    "AR": 0.653,
+    "S": 50.355,
+    "CD0": 0.041
+   },
+   "B4 double fold": {
+    "v_td": 3888.845,
+    "sink": 1282.851,
+    "LDmax": 3.701,
+    "alpha_LDmax": 8.2,
+    "AR": 1.196,
+    "S": 57.524,
+    "CD0": 0.039
+   }
+  },
+  "Triton": {
+   "v1 biconic": {
+    "v_td": 7038.209,
+    "sink": 3511.792,
+    "LDmax": 2.004,
+    "alpha_LDmax": 15.2,
+    "AR": 0.341,
+    "S": 42.317,
+    "CD0": 0.048
+   },
+   "B2 angular": {
+    "v_td": 5294.695,
+    "sink": 2107.528,
+    "LDmax": 2.561,
+    "alpha_LDmax": 12.8,
+    "AR": 0.407,
+    "S": 44.544,
+    "CD0": 0.046
+   },
+   "B3 fold wing": {
+    "v_td": 4508.003,
+    "sink": 1628.612,
+    "LDmax": 2.992,
+    "alpha_LDmax": 10.6,
+    "AR": 0.653,
+    "S": 50.355,
+    "CD0": 0.041
+   },
+   "B4 double fold": {
+    "v_td": 3604.315,
+    "sink": 1188.991,
+    "LDmax": 3.701,
+    "alpha_LDmax": 8.2,
+    "AR": 1.196,
+    "S": 57.524,
+    "CD0": 0.039
+   }
+  }
+ },
+ "hyper_polar": {
+  "v1 biconic": [
+   {
+    "alpha": 5,
+    "LD": 0.158
+   },
+   {
+    "alpha": 10,
+    "LD": 0.357
+   },
+   {
+    "alpha": 15,
+    "LD": 0.543
+   },
+   {
+    "alpha": 20,
+    "LD": 0.675
+   },
+   {
+    "alpha": 25,
+    "LD": 0.744
+   },
+   {
+    "alpha": 30,
+    "LD": 0.759
+   },
+   {
+    "alpha": 35,
+    "LD": 0.736
+   },
+   {
+    "alpha": 40,
+    "LD": 0.687
+   },
+   {
+    "alpha": 45,
+    "LD": 0.623
+   },
+   {
+    "alpha": 50,
+    "LD": 0.551
+   },
+   {
+    "alpha": 55,
+    "LD": 0.475
+   },
+   {
+    "alpha": 60,
+    "LD": 0.398
+   }
+  ],
+  "B2 angular": [
+   {
+    "alpha": 5,
+    "LD": -0.17
+   },
+   {
+    "alpha": 10,
+    "LD": 0.725
+   },
+   {
+    "alpha": 15,
+    "LD": 1.376
+   },
+   {
+    "alpha": 20,
+    "LD": 1.57
+   },
+   {
+    "alpha": 25,
+    "LD": 1.511
+   },
+   {
+    "alpha": 30,
+    "LD": 1.363
+   },
+   {
+    "alpha": 35,
+    "LD": 1.197
+   },
+   {
+    "alpha": 40,
+    "LD": 1.037
+   },
+   {
+    "alpha": 45,
+    "LD": 0.891
+   },
+   {
+    "alpha": 50,
+    "LD": 0.759
+   },
+   {
+    "alpha": 55,
+    "LD": 0.639
+   },
+   {
+    "alpha": 60,
+    "LD": 0.529
+   }
+  ],
+  "B3 fold wing": [
+   {
+    "alpha": 5,
+    "LD": -0.136
+   },
+   {
+    "alpha": 10,
+    "LD": 0.791
+   },
+   {
+    "alpha": 15,
+    "LD": 1.43
+   },
+   {
+    "alpha": 20,
+    "LD": 1.596
+   },
+   {
+    "alpha": 25,
+    "LD": 1.521
+   },
+   {
+    "alpha": 30,
+    "LD": 1.365
+   },
+   {
+    "alpha": 35,
+    "LD": 1.196
+   },
+   {
+    "alpha": 40,
+    "LD": 1.034
+   },
+   {
+    "alpha": 45,
+    "LD": 0.888
+   },
+   {
+    "alpha": 50,
+    "LD": 0.756
+   },
+   {
+    "alpha": 55,
+    "LD": 0.636
+   },
+   {
+    "alpha": 60,
+    "LD": 0.527
+   }
+  ],
+  "B4 double fold": [
+   {
+    "alpha": 5,
+    "LD": -0.109
+   },
+   {
+    "alpha": 10,
+    "LD": 0.752
+   },
+   {
+    "alpha": 15,
+    "LD": 1.365
+   },
+   {
+    "alpha": 20,
+    "LD": 1.545
+   },
+   {
+    "alpha": 25,
+    "LD": 1.488
+   },
+   {
+    "alpha": 30,
+    "LD": 1.345
+   },
+   {
+    "alpha": 35,
+    "LD": 1.183
+   },
+   {
+    "alpha": 40,
+    "LD": 1.027
+   },
+   {
+    "alpha": 45,
+    "LD": 0.883
+   },
+   {
+    "alpha": 50,
+    "LD": 0.753
+   },
+   {
+    "alpha": 55,
+    "LD": 0.634
+   },
+   {
+    "alpha": 60,
+    "LD": 0.525
+   }
+  ]
+ }
+}
