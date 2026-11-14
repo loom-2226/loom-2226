@@ -12,6 +12,10 @@ def tris(skip=(), cut=False):
     for k, (V, F) in P.items():
         if k in skip: continue
         t = V[F]
+        if k in ('hull', 'belly_tps', 'glazing', 'kit_pod', 'fin_stbd', 'fin_port', 'body_flap'):
+            for _ in range(3):
+                a, b, c = t[:, 0], t[:, 1], t[:, 2]; ab, bc, ca = (a + b) / 2, (b + c) / 2, (c + a) / 2
+                t = np.concatenate([np.stack(q, 1) for q in ((a, ab, ca), (ab, b, bc), (ca, bc, c), (ab, bc, ca))])
         if cut and k in ('hull', 'belly_tps', 'glazing'): t = t[t[:, :, 1].mean(1) > -0.02]
         T.append(t); C.append(np.repeat(COL[k][None], len(t), 0)); D.append(np.full(len(t), cut and k in ('hull', 'belly_tps', 'glazing')))
     return np.vstack(T), np.vstack(C), np.concatenate(D)
@@ -35,7 +39,7 @@ fig = plt.figure(figsize=(11, 12.5), dpi=110); fig.patch.set_facecolor('#f4f3ef'
 gs = fig.add_gridspec(4, 2, height_ratios=[1.15, 1.0, 0.8, 1.15], width_ratios=[1.6, 1])
 view(fig.add_subplot(gs[0, :]), 35, 28, 'Three-quarter, from above and forward (nose left)', lim=(7.6, 3.0))
 view(fig.add_subplot(gs[1, :]), 35, 28, 'Cutaway: near half of the aeroshell removed - twin 1.9 m Ti spheres, tunnel, top hatch trunk', cut=True, lim=(7.6, 3.0))
-view(fig.add_subplot(gs[2, 0]), 0, 0, 'Side (nose left): flat heat-shield belly, kit pod aft', lim=(7.0, 1.9))
+view(fig.add_subplot(gs[2, 0]), 0, 0, 'Side (nose left): flat belly, hard chines, faceted windscreen', lim=(7.0, 1.9))
 a = fig.add_subplot(gs[2, 1]); view(a, 90, 0, 'Front: fins stowed check', lim=(2.6, 2.4), skip=('fin_stbd', 'fin_port'))
 a.add_patch(Circle((0, -0.3), 2.15, fill=False, ec='#c0392b', ls='--', lw=1.2)); a.text(0, -2.38, '4.3 m bay envelope', ha='center', fontsize=8, color='#c0392b')
 view(fig.add_subplot(gs[3, 0]), 0, 90, 'Plan from above (nose left)', lim=(7.0, 2.6))
@@ -49,5 +53,5 @@ lines = [('Length / body span', f"{m['length_m']} / {m['span_body_m']} m"), ('He
          ('Sphere-to-skin gap', f"{m['spheres']['min_clearance_to_skin_m']} m min"), ('Mesh', f"watertight, {h['watertight_unmatched_edges']} open edges")]
 for i, (k, v) in enumerate(lines):
     t.text(0, 1 - i * 0.095, k, fontsize=8.5, color='#555', transform=t.transAxes); t.text(0.43, 1 - i * 0.095, v, fontsize=8.5, weight='bold', transform=t.transAxes)
-fig.suptitle('Shuttle v2-B lifting body - first build (NON-CANON lab model)', x=0.03, ha='left', fontsize=14, weight='bold')
+fig.suptitle('Shuttle v2-B angular lifting body - build 2 (NON-CANON lab model)', x=0.03, ha='left', fontsize=14, weight='bold')
 plt.tight_layout(rect=[0, 0, 1, 0.975]); fig.savefig(os.path.join(HERE, 'shuttle_v2b_build.png'), facecolor=fig.get_facecolor())

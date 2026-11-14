@@ -1,60 +1,54 @@
 """Shuttle v2-B lifting body: twin 2.0 m Ti spheres inside a non-pressure
 aeroshell. NON-CANON lab model. ALL bodies. ALL sponsors. 2026-2226.
+ANGULAR faceted build (kT 2026-11-14: 'more angular').
 Frame: x aft from nose (m), y starboard, z up. GLB written glTF y-up as
 (x, z, -y). Outputs: shuttle_v2b.glb, shuttle_v2b_manifest.json."""
 import numpy as np, json, struct, os
 HERE = os.path.dirname(os.path.abspath(__file__))
 L, W2, BORE_R = 12.8, 2.125, 2.15
-SPH_R, SPH_X, SPH_Y, SPH_Z = 0.95, 7.8, 1.0, 0.20
+SPH_R, SPH_X, SPH_Y, SPH_Z = 0.95, 7.8, 1.0, 0.10
 AXIS_Z = 0.0                         # bay axis = chine line (widest point)
 
-def w(x):  # planform half-width
-    x = np.asarray(x, float)
-    a = W2 * np.clip(x / 6.8, 0, 1) ** 0.6
-    return np.where(x > 11.4, a * (1 - 0.12 * ((x - 11.4) / 1.4) ** 2), a)
-def ht(x):  # upper surface height above zc
-    x = np.asarray(x, float)
-    up = 1.45 * np.clip(x / 7.8, 0, 1) ** 0.55
-    dn = 1.45 - 0.60 * np.clip((x - 7.8) / 5.0, 0, 1) ** 1.4
-    return np.where(x < 7.8, up, dn)
-def hb(x):  # belly depth below zc
-    x = np.asarray(x, float)
-    return np.where(x < 5.0, 0.9 * np.clip(x / 5.0, 0, 1) ** 0.45, 0.9 - 0.08 * np.clip((x - 9.2) / 3.6, 0, 1))
-def zc(x):  # nose droop (flat belly line)
-    x = np.asarray(x, float)
-    return np.where(x < 4.0, -0.25 * (1 - x / 4.0) ** 2, 0.0)
-
-NU, NX = 128, 160
-def ring(x):
-    t = np.linspace(0, 2 * np.pi, NU, endpoint=False)
-    c, s = np.cos(t), np.sin(t)
-    n_up, n_lo = 2.4, 3.6
-    n = np.where(s >= 0, n_up, n_lo)
-    y = w(x) * np.sign(c) * np.abs(c) ** (2 / n)
-    h = np.where(s >= 0, ht(x), hb(x))
-    z = zc(x) + h * np.sign(s) * np.abs(s) ** (2 / n)
-    return y, z, s
+# ---- ANGULAR faceted body: 8-point section rings at key stations ----
+# ring points (y, z), port mirrored: ridge, shoulder, chine, belly corner, belly centre
+def section(x):
+    """Key-station section, linear between stations so every panel is a flat facet."""
+    K = [  # x,  ridge_z, sh_y, sh_z, ch_y, ch_z, bc_y, bc_z
+        (0.00, -0.42, 0.00, -0.42, 0.00, -0.50, 0.00, -0.58),
+        (0.60, -0.20, 0.16, -0.24, 0.40, -0.40, 0.24, -0.66),
+        (2.40,  0.42, 0.55,  0.30, 1.30, -0.16, 0.95, -0.86),
+        (4.60,  1.02, 1.02,  0.86, 1.92,  0.08, 1.58, -0.95),
+        (6.30,  1.50, 1.52,  1.40, 2.13,  0.20, 1.85, -0.95),
+        (11.70, 1.50, 1.52,  1.40, 2.13,  0.20, 1.85, -0.95),
+        (12.80, 1.30, 1.42,  1.22, 2.00,  0.18, 1.72, -0.86)]
+    K = np.array(K); r = np.array([np.interp(x, K[:, 0], K[:, i]) for i in range(1, 8)])
+    rz, sy, sz, cy, cz, by, bz = r
+    return [(0, rz), (sy, sz), (cy, cz), (by, bz), (0, bz), (-by, bz), (-cy, cz), (-sy, sz)]
+STATIONS = [0.6, 2.4, 4.6, 5.45, 6.3, 9.0, 11.7, 12.8]
+EDGE = ['top', 'flank', 'lower', 'belly', 'belly', 'lower', 'flank', 'top']   # edge i: point i -> i+1
 
 def loft():
-    xs = L * (1 - np.cos(np.linspace(0, np.pi / 2, NX))) ** 1.0   # dense at nose
-    xs[0] = 0.0
-    V, lower = [], []
-    for x in xs[1:]:
-        y, z, s = ring(x); V += list(zip(np.full(NU, x), y, z)); lower += list(s < -0.15)
-    V.append((0.0, 0.0, float(zc(0.0)))); nose = len(V) - 1
-    V.append((L, 0.0, float(zc(L)) + 0.25)); tail = len(V) - 1
-    F = []
-    R = NX - 1
-    for i in range(R - 1):
-        for j in range(NU):
-            a, b = i * NU + j, i * NU + (j + 1) % NU
-            c, d = a + NU, b + NU
-            F += [(a, b, c), (b, d, c)]
-    for j in range(NU):
-        F.append((nose, (j + 1) % NU, j))
-        a, b = (R - 1) * NU + j, (R - 1) * NU + (j + 1) % NU
-        F.append((a, b, tail))
-    return np.array(V), np.array(F), np.array(lower + [True, False])
+    V, F, tag = [], [], []
+    nr = len(section(0)); rings = []
+    for x in STATIONS:
+        rings.append(len(V)); V += [(x, y, z) for y, z in section(x)]
+    nose = len(V); V.append((0.0, 0.0, -0.5)); tail = len(V); V.append((12.8, 0.0, 0.25))
+    for k in range(len(STATIONS) - 1):
+        a0, b0 = rings[k], rings[k + 1]
+        for i in range(nr):
+            j = (i + 1) % nr; t = EDGE[i]
+            F += [(a0 + i, a0 + j, b0 + i), (a0 + j, b0 + j, b0 + i)]; tag += [(t, k)] * 2
+    for i in range(nr):
+        j = (i + 1) % nr
+        F.append((nose, rings[0] + j, rings[0] + i)); tag.append((EDGE[i], -1))
+        F.append((rings[-1] + i, rings[-1] + j, tail)); tag.append(('base', 99))
+    return np.array(V, float), np.array(F)[:, ::-1], tag
+
+def ring(x):  # for clearance checks: densely sampled section outline
+    P = np.array(section(x) + [section(x)[0]]); yy, zz = [], []
+    for a, b in zip(P[:-1], P[1:]):
+        t = np.linspace(0, 1, 40, endpoint=False); yy += list(a[0] + (b[0] - a[0]) * t); zz += list(a[1] + (b[1] - a[1]) * t)
+    return np.array(yy), np.array(zz), None
 
 def uvsphere(c, r, nu=48, nv=24):
     V = [(c[0], c[1], c[2] + r), (c[0], c[1], c[2] - r)]
@@ -91,37 +85,35 @@ def hexa(P):  # 8 corners: bottom quad 0-3, top quad 4-7 (same order)
     return np.array(P, float), np.array(F)
 
 def fin(side, deployed=True):
-    # root on the upper chine near the trailing edge, canted outboard 15 deg
-    y0 = side * (float(w(11.6)) - 0.18); z0 = 0.12
-    cant = np.radians(15 if deployed else 90 - 4)
-    up = np.array([0, side * np.sin(cant), np.cos(cant)]) if deployed else np.array([0, -side * np.cos(np.radians(4)), np.sin(np.radians(4))])
+    y0, z0 = side * 1.50, 1.42
+    c = np.radians(25 if deployed else 88)
+    up = np.array([0, side * np.sin(c), np.cos(c)]) if deployed else np.array([0, -side * np.sin(c), np.cos(c)])
     nrm = np.cross([1, 0, 0], up); t = 0.045
-    root = [np.array([10.4, y0, z0]), np.array([12.75, y0, z0])]
-    tip = [root[0] + 1.25 * up + [1.3, 0, 0], root[1] + 1.25 * up]
-    q = [root[0], root[1], tip[1], tip[0]]
+    q = [np.array([10.2, y0, z0]), np.array([12.75, y0, z0])]
+    q += [q[1] + 1.15 * up, q[0] + 1.15 * up + [1.6, 0, 0]]
+    q = [q[0], q[1], q[2], q[3]]
     return hexa([p - t * nrm for p in q] + [p + t * nrm for p in q])
 
-def kit_pod():
-    V, F = uvsphere((0, 0, 0), 1.0, 40, 20)
-    V = V * [1.45, 0.62, 0.42] + [10.9, 0, float(zc(10.9) + ht(10.9)) - 0.12]
-    return V, F
+def kit_pod():  # angular dorsal kit/rotor-mast fairing on the aft deck
+    lo, hi = 1.40, 1.86
+    return hexa([(9.4, -0.8, lo), (12.5, -0.8, lo), (12.5, 0.8, lo), (9.4, 0.8, lo),
+                 (10.0, -0.5, hi), (12.3, -0.5, hi), (12.3, 0.5, hi), (10.0, 0.5, hi)])
 
 def parts():
     P = {}
-    V, F, lower = loft()
-    fl = lower[F].sum(1) >= 2
-    cen = V[F].mean(1)
-    glaze = (cen[:, 0] > 5.6) & (cen[:, 0] < 6.75) & (np.abs(np.abs(cen[:, 1]) - SPH_Y) < 0.42) & (cen[:, 2] > 0.75)
-    P['hull'] = (V, F[~fl & ~glaze]); P['belly_tps'] = (V, F[fl]); P['glazing'] = (V, F[glaze])
+    V, F, tag = loft()
+    glaze = np.array([(t == 'top' and k == 3) for t, k in tag])           # faceted windscreen x 5.45-6.3
+    tps = np.array([t in ('belly', 'lower') or (t != 'top' and k == -1) for t, k in tag])
+    P['hull'] = (V, F[~glaze & ~tps]); P['belly_tps'] = (V, F[tps]); P['glazing'] = (V, F[glaze])
     s1 = uvsphere((SPH_X, SPH_Y, SPH_Z), SPH_R); s2 = uvsphere((SPH_X, -SPH_Y, SPH_Z), SPH_R)
     P['sphere_stbd'] = s1; P['sphere_port'] = s2
     P['tunnel'] = tube((SPH_X, -0.35, SPH_Z), (SPH_X, 0.35, SPH_Z), 0.38)
-    top = float(zc(SPH_X) + ht(SPH_X))
+    top = 1.50
     P['hatch_trunk'] = tube((SPH_X, 0, SPH_Z), (SPH_X, 0, top + 0.06), 0.42)
     P['kit_pod'] = kit_pod()
-    P['torch_nozzle'] = tube((12.35, 0, 0.25), (12.80, 0, 0.25), 0.36, 48, 0.58)
+    P['torch_nozzle'] = tube((12.40, 0, 0.25), (12.80, 0, 0.25), 0.36, 6, 0.56)
     for sd, nm in ((1, 'fin_stbd'), (-1, 'fin_port')): P[nm] = fin(sd)
-    bf = [(12.1, -1.35, -0.80), (12.1, 1.35, -0.80), (12.78, 1.35, -0.95), (12.78, -1.35, -0.95)]
+    bf = [(12.0, -1.35, -0.86), (12.0, 1.35, -0.86), (12.78, 1.35, -1.0), (12.78, -1.35, -1.0)]
     P['body_flap'] = hexa(bf + [(p[0], p[1], p[2] + 0.07) for p in bf])
     for k, (V, F) in list(P.items()):
         if k in ('hull', 'belly_tps', 'glazing'): continue
@@ -129,7 +121,7 @@ def parts():
         if np.einsum('ij,ij->i', a - V.mean(0), np.cross(b_ - V.mean(0), c - V.mean(0))).sum() < 0: P[k] = (V, F[:, ::-1])
     return P
 
-MAT = {'hull': ([0.86, 0.87, 0.85, 1], 0.6, 0.0), 'belly_tps': ([0.10, 0.10, 0.11, 1], 0.9, 0.0),
+MAT = {'hull': ([0.86, 0.87, 0.85, 1], 0.6, 0.0), 'belly_tps': ([0.16, 0.16, 0.17, 1], 0.9, 0.0),
        'glazing': ([0.15, 0.30, 0.45, 1], 0.1, 0.3), 'sphere_stbd': ([0.70, 0.40, 0.30, 1], 0.4, 0.8),
        'sphere_port': ([0.70, 0.40, 0.30, 1], 0.4, 0.8), 'tunnel': ([0.70, 0.40, 0.30, 1], 0.4, 0.8),
        'hatch_trunk': ([0.55, 0.57, 0.60, 1], 0.5, 0.6), 'kit_pod': ([0.78, 0.79, 0.77, 1], 0.6, 0.0),
@@ -154,7 +146,7 @@ def write_glb(P, path):
     for name, (V, F) in P.items():
         used = np.unique(F); remap = -np.ones(len(V), int); remap[used] = np.arange(len(used))
         Vu, Fu = V[used], remap[F]
-        flat = name in ('fin_stbd', 'fin_port', 'body_flap')
+        flat = name in ('fin_stbd', 'fin_port', 'body_flap', 'hull', 'belly_tps', 'glazing', 'kit_pod', 'torch_nozzle', 'hatch_trunk')
         if flat: Vu = Vu[Fu].reshape(-1, 3); Fu = np.arange(len(Vu)).reshape(-1, 3)
         Nn = smooth_normals(Vu, Fu)
         G = np.c_[Vu[:, 0], Vu[:, 2], -Vu[:, 1]].astype('<f4'); Ng = np.c_[Nn[:, 0], Nn[:, 2], -Nn[:, 1]].astype('<f4')
@@ -206,7 +198,7 @@ if __name__ == '__main__':
     T = np.frombuffer(d[84:], dtype=[('n', '<f4', 3), ('v', '<f4', (3, 3)), ('a', '<u2')], count=n)['v'].astype(float) * 0.1
     v1_area = float(0.5 * np.linalg.norm(np.cross(T[:, 1] - T[:, 0], T[:, 2] - T[:, 0]), axis=1).sum())
     v1_vol = float(abs(np.einsum('ij,ij->i', T[:, 0], np.cross(T[:, 1], T[:, 2])).sum() / 6))
-    plan = float(np.trapezoid(2 * w(np.linspace(0, L, 2000)), np.linspace(0, L, 2000)))
+    xx = np.linspace(0, L, 2000); plan = float(np.trapezoid([2 * max(abs(p[0]) for p in section(x)) for x in xx], xx))
     size = write_glb(P, os.path.join(HERE, 'shuttle_v2b.glb'))
     man = dict(status='NON-CANON lab model (kT: "Go ahead and try to build", 2026-11-14)', concept='v2-B twin spheres in lifting body',
                length_m=L, span_body_m=round(2 * W2, 3), height_m=round(float(np.max(V[:, 2]) - np.min(V[:, 2])), 3),

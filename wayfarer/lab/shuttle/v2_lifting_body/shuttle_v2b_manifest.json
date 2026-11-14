@@ -3,45 +3,45 @@
  "concept": "v2-B twin spheres in lifting body",
  "length_m": 12.8,
  "span_body_m": 4.25,
- "height_m": 2.348,
- "fins_deployed_span_m": 4.61,
+ "height_m": 2.45,
+ "fins_deployed_span_m": 4.05,
  "bay_fit": {
   "bore_radius_m": 2.15,
   "axis_z_m": 0.0,
-  "max_radius_stowed_m": 2.135,
+  "max_radius_stowed_m": 2.139,
   "PASS": true
  },
  "hull": {
   "watertight_unmatched_edges": 0,
-  "enclosed_volume_m3": 74.22,
-  "wetted_area_m2": 119.9,
-  "planform_area_m2": 43.3
+  "enclosed_volume_m3": 82.45,
+  "wetted_area_m2": 129.3,
+  "planform_area_m2": 44.8
  },
  "v1_ref": {
   "wetted_area_m2": 155.5,
   "enclosed_volume_m3": 119.1,
   "source": "print/shuttle_1to100/parts/shuttle_v1_1to100.stl x0.1"
  },
- "area_ratio_v2_over_v1": 0.771,
- "volume_ratio_v2_over_v1": 0.623,
+ "area_ratio_v2_over_v1": 0.832,
+ "volume_ratio_v2_over_v1": 0.692,
  "spheres": {
   "od_m": 1.9,
   "centres": [
    [
     7.8,
     1.0,
-    0.2
+    0.1
    ],
    [
     7.8,
     -1.0,
-    0.2
+    0.1
    ]
   ],
   "total_volume_m3": 7.18,
-  "min_clearance_to_skin_m": 0.114
+  "min_clearance_to_skin_m": 0.1
  },
- "glb_bytes": 1164004,
+ "glb_bytes": 151060,
  "parts": [
   "hull",
   "belly_tps",
