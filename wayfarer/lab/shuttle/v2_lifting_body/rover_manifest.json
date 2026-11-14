@@ -1,0 +1,26 @@
+{
+ "status": "NON-CANON lab model (kT \"Sure\", 2026-11-14)",
+ "concept": "twin-sphere belly rover = crew cabin; option C of rover_trade 2026-11-03 rebuilt for v2",
+ "rover": {
+  "length_m": 4.4,
+  "width_m": 3.4,
+  "track_m": 3.64,
+  "wheelbase_m": 3.6,
+  "wheels": "4 x 0.9 m dia x 0.36 m",
+  "ground_clearance_m": 0.95,
+  "height_m": 2.97
+ },
+ "bay_fit_stowed_max_radius_m": 2.139,
+ "wheel_to_sphere_min_gap_m": 0.487,
+ "jack_lift_m": 2.15,
+ "jack_legs": 4,
+ "volume_taken_by_wheels_m3": 0.92,
+ "mass_basis": "rover_trade C vs A, 3 crew: ~+0.7 t core dry at midpoint; taller jack legs than the trade assumed (OPEN)",
+ "open": [
+  "TPS seam around the 4.4 x 3.7 m belly panel through the entry heat shield",
+  "jack-leg mass for 2.15 m lift",
+  "internal access to torch/kit while the rover is out",
+  "ascent re-dock alignment",
+  "Venus-hot wheel/tyre material"
+ ]
+}
