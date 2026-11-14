@@ -24,3 +24,9 @@ visual-reference tool only: it is not canon and does not govern anything.
 - **Sound.** Synthesised: hull hum, the L4 life-support whir, the L5 airlock pump pulse,
   L1 console blips, paw clicks and a ladder clank.
 - **Readout.** The current deck and room, plus the name of any tapped part.
+
+## Surface etch (14 Nov 2026)
+
+- **What it shows:** the approved 1:25 surface library as relief on walls, floors and ceilings. `tex/surface_atlas.png` is built by `make_surface_atlas.py` from `wayfarer/print/surfaces_1to25/surfaces.py`, the same generator as the print tiles.
+- **How it works:** in the shader, each fragment classifies itself by its normal: floor, ceiling, curved hull lining or radial partition. It takes its room from position (the room sectors in the geometry) and its tiles from `surface_map.json`. Corridors use W-B / F-4 / C-2.
+- **Where it applies:** linings, partitions, the deck floors `floor_L1`-`L4` and the aft bulkhead (the L5 floor).
