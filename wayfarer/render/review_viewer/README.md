@@ -24,6 +24,15 @@ visual-reference tool only: it is not canon and does not govern anything.
 - **Sound.** Synthesised: hull hum, the L4 life-support whir, the L5 airlock pump pulse,
   L1 console blips, paw clicks and a ladder clank.
 - **Readout.** The current deck and room, plus the name of any tapped part.
+- **Coast, 0 g (15 Nov 2026).** The `1g` / `0g` chip (or `G`) switches the torch off.
+  The hull hum fades and dust motes hang in the air. Walter floats on his own momentum:
+  - **Move:** the joystick pushes off with his paw jets (0.55 m/s2, slow air drag, 2.2 m/s cap).
+    ▲ / ▼ (E / Q) float up and down.
+  - **Turn:** drag turns any way up; Z / C roll.
+  - **Walls:** he bounces softly off walls and the r 4.05 m lining (restitution 0.3), with a
+    bump sound.
+  - **Between decks:** he can drift up and down the ladderways.
+  - **Torch back on:** he settles to the nearest deck, feet aft.
 
 ## Surface etch (14 Nov 2026)
 
