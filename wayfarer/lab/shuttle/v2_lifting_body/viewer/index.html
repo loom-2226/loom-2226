@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Shuttle v2-B lifting body</title>
+<style>
+html,body{margin:0;height:100%;background:#0d1117;color:#e6e6e6;font:13px/1.35 -apple-system,system-ui,sans-serif;overflow:hidden}
+canvas{display:block;width:100%;height:100%;touch-action:none}
+#hud{position:fixed;left:10px;top:10px;right:10px;pointer-events:none}
+#hud b{font-size:15px}
+#hud .s{color:#9aa4ae;font-size:11px}
+#bar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:6px;flex-wrap:wrap;justify-content:center;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:linear-gradient(transparent,#0d1117cc)}
+button{background:#1c2430;color:#e6e6e6;border:1px solid #33404f;border-radius:16px;padding:7px 12px;font:inherit}
+button.on{background:#c0392b;border-color:#c0392b}
+#err{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:20px;text-align:center}
+</style></head><body>
+<canvas id="c"></canvas>
+<div id="hud"><b>Shuttle v2-B lifting body</b> <span class="s">NON-CANON lab model</span><br>
+<span class="s">12.8 m long · 4.25 m span · 2.35 m tall · twin 1.9 m Ti spheres (92 bar) · fits 4.3 m bay</span></div>
+<div id="bar">
+<button id="bX">X-ray</button><button id="bE">Bay envelope</button><button id="bF" class="on">Fins out</button><button id="bV">Views</button>
+</div>
+<div id="err"></div>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+const canvas = document.getElementById('c');
+const R = new THREE.WebGLRenderer({canvas, antialias:true}); R.setPixelRatio(Math.min(devicePixelRatio,2));
+R.toneMapping = THREE.ACESFilmicToneMapping; R.toneMappingExposure = 0.9;
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x0d1117);
+scene.environment = new THREE.PMREMGenerator(R).fromScene(new RoomEnvironment(), 0.04).texture;
+const sun = new THREE.DirectionalLight(0xffffff, 1.6); sun.position.set(-6, 10, 8); scene.add(sun);
+scene.add(new THREE.HemisphereLight(0x9fb4c8, 0x202020, 0.4));
+const cam = new THREE.PerspectiveCamera(40, 1, 0.1, 200);
+const ctl = new OrbitControls(cam, canvas); ctl.enableDamping = true; ctl.target.set(6.4, 0.2, 0);
+const VIEWS = [[-4, 5, 9], [6.4, 0.4, 13], [6.4, 13, 0.01], [-8, 0.3, 0.01], [18, 3, -7]]; let vi = 0;
+function setView(i){ const v = VIEWS[i]; cam.position.set(...v); ctl.target.set(6.4, 0.2, 0); ctl.update(); }
+setView(0);
+function resize(){ const w = innerWidth, h = innerHeight; R.setSize(w, h, false); cam.aspect = w/h; cam.fov = w < h ? 60 : 40; cam.updateProjectionMatrix(); }
+addEventListener('resize', resize); resize();
+// bay envelope: 4.3 m dia x 12.8 m, axis at body z=0 (glTF y=0)
+const env = new THREE.Mesh(new THREE.CylinderGeometry(2.15, 2.15, 12.8, 64, 1, true),
+  new THREE.MeshBasicMaterial({color:0xc0392b, wireframe:true, transparent:true, opacity:0.25}));
+env.rotation.z = Math.PI/2; env.position.set(6.4, 0, 0); env.visible = false; scene.add(env);
+const grid = new THREE.GridHelper(20, 20, 0x2a3440, 0x1a222c); grid.position.set(6.4, -1.4, 0); scene.add(grid);
+let shell = [], fins = [];
+try {
+  const j = await (await fetch('glb/shuttle_v2b.json')).json();
+  const bin = Uint8Array.from(atob(j.b64), c => c.charCodeAt(0)).buffer;
+  const g = await new Promise((ok, no) => new GLTFLoader().parse(bin, '', ok, no));
+  scene.add(g.scene);
+  g.scene.traverse(o => { if (!o.isMesh) return;
+    if (['hull','belly_tps','glazing'].includes(o.name)) { o.material.transparent = true; o.material.side = THREE.DoubleSide; shell.push(o); }
+    if (o.name.startsWith('fin_')) fins.push(o); });
+} catch (e) { const d = document.getElementById('err'); d.style.display = 'flex'; d.textContent = 'Could not load the model: ' + e.message; }
+const tog = (id, fn) => { const b = document.getElementById(id); b.onclick = () => { b.classList.toggle('on'); fn(b.classList.contains('on')); }; };
+tog('bX', on => shell.forEach(o => { o.material.opacity = on ? 0.18 : 1; o.material.depthWrite = !on; }));
+tog('bE', on => env.visible = on);
+tog('bF', on => fins.forEach(o => o.visible = on));
+document.getElementById('bV').onclick = () => { vi = (vi + 1) % VIEWS.length; setView(vi); };
+R.setAnimationLoop(() => { ctl.update(); R.render(scene, cam); });
+</script></body></html>
