@@ -1750,5 +1750,16 @@
     "mass_rebooking_t": 0,
     "G1_G12": "NOT RUN",
     "status": "APPROVED; print file by Claude, untested until the printer arrives"
+  },
+  "shuttle_v2_b4_selected_2026_11_15": {
+    "authority": "kT APPROVED 2026-11-15 (Claude chat): 'Yes b4' (after 'Rather go out the side')",
+    "source": "wayfarer/docs/SHUTTLE_V2_B4_PROPOSAL_2026_11_15.md; wayfarer/lab/shuttle/v2_lifting_body/ (PR #550)",
+    "scope": "Selects B4 as THE shuttle v2 proposal direction: angular faceted lifting body, twin 1.9 m Ti spheres (92 bar) inside a non-pressure aeroshell, shoulder-hinged double-fold wings (8.3 m span), twin-sphere rover exiting a starboard side door (lower flank ramp, wing as awning, crab-steer)",
+    "replaces": "nothing yet; shuttle v1 remains the booked shuttle (30.732248081255836 t)",
+    "mass_screen": "lab/shuttle/v2_lifting_body/b4_mass_gate.json: core dry p5/mid/p95 27.99/32.09/36.22 t vs v1 26.01/30.02/34.01 t (same method); G8 34.2 t passes in 79% of samples (v1 96%)",
+    "canon_change": false,
+    "mass_rebooking_t": 0,
+    "G1_G12": "NOT RUN",
+    "status": "APPROVED AS NON-CANON PROPOSAL; G8 OPEN; adoption needs a separate kT decision, rebooking and gates"
   }
 }
