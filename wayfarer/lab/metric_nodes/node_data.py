@@ -15,7 +15,9 @@ after = []
 door_rings = sorted({o['x'] for o in out if o['c'] == 'door'})
 for o in out:
     x, a, r, c = o['x'], o['a'], o['r'], o['c']
-    if c == 'torch': after.append(dict(x=x, a=a, r=4.5, c='cage')); continue
+    if c == 'torch':      # into the four hot-fin root trusses: 4 per fin per ring, nothing new outside the hull line (F1)
+        j = int(round(a / 22.5)) % 16; fin = [40, 140, 220, 320][j // 4]; rr = [3.25, 3.75, 4.25, 4.7][j % 4]
+        after.append(dict(x=x, a=fin, r=rr, c='finroot')); continue
     if c == 'bow': after.append(dict(x=2.35, a=a, r=4.5, c='bowframe')); continue
     if o['x'] in door_rings: continue                      # whole ring re-spaced below
     if c == 'strake': s, _ = snap_strake(a); after.append(dict(x=x, a=s, r=4.5, c='strakeroot')); continue

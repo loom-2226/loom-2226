@@ -18,7 +18,7 @@ NON-CANON proposal by Claude for kT. It places the 208 node faces (13 rings x 16
 
 **Fixed (proposal):**
 
-- 80 move to stand-off cage rings at r 4.5 m, tied to the hot-fin roots.
+- 80 move into the four hot-fin root trusses (20 per fin), inside the existing outline, so nothing new is added outside the hull.
 - 20 move into the strake root fittings.
 - The 4 bay rings are re-spaced to clear the door leaves (48 nodes).
 - 16 move to the bow shoulder ring frame at x 2.35.
