@@ -37,7 +37,7 @@ const cam = new THREE.PerspectiveCamera(40, 1, 0.1, 200);
 const ctl = new OrbitControls(cam, canvas); ctl.enableDamping = true; ctl.target.set(6.4, 0.2, 0);
 let rov = 0;
 const VIEWS = [[-4, 6, 11], [6.4, 0.4, 13], [6.4, 13, 0.01], [-8, 0.3, 0.01], [18, 3, -7]]; let vi = 0;
-function setView(i){ const v = VIEWS[i]; cam.position.set(...v); ctl.target.set(rov === 2 ? 10 : 6.4, 0.2, 0); ctl.update(); }
+function setView(i){ const v = VIEWS[i]; cam.position.set(...v); ctl.target.set(6.4, 0.2, rov === 2 ? -2.6 : 0); ctl.update(); }
 setView(0);
 function resize(){ const w = innerWidth, h = innerHeight; R.setSize(w, h, false); cam.aspect = w/h; cam.fov = w < h ? 60 : 40; cam.updateProjectionMatrix(); }
 addEventListener('resize', resize); resize();
@@ -45,13 +45,13 @@ addEventListener('resize', resize); resize();
 const env = new THREE.Mesh(new THREE.CylinderGeometry(2.15, 2.15, 12.8, 64, 1, true),
   new THREE.MeshBasicMaterial({color:0xc0392b, wireframe:true, transparent:true, opacity:0.25}));
 env.rotation.z = Math.PI/2; env.position.set(6.4, 0, 0); env.visible = false; scene.add(env);
-const grid = new THREE.GridHelper(30, 30, 0x2a3440, 0x1a222c); grid.position.set(6.4, -1.92, 0); scene.add(grid);
+const grid = new THREE.GridHelper(30, 30, 0x2a3440, 0x1a222c); grid.position.set(6.4, -1.55, 0); scene.add(grid);
 let shell = [], cur = null, variant = 'B2', deployed = true; const ROV = ['flight', 'landed', 'out']; const cache = {};
 const INFO = {B2: 'No wings · span 4.3 m · glide L/D 2.6 · Venus touchdown 28 m/s',
-  B3: 'Flank-skin wings, single fold · span 7.0 m · glide L/D 3.4 · Venus touchdown 21 m/s',
-  B4: 'Double-fold wings · span 9.5 m · glide L/D 4.1 · Venus touchdown 17 m/s'};
-const RINFO = {1: 'Landed: the rover wheels are the main gear · wings folded',
-  2: 'Rover out: jack legs lift the shuttle 2.15 m · twin-sphere rover 4.4 × 3.4 m drives out aft'};
+  B3: 'Shoulder-hinged wings, single fold · span 5.7 m · glide L/D 3.0 · Venus touchdown 24 m/s',
+  B4: 'Shoulder-hinged double-fold wings · span 8.3 m · glide L/D 3.7 · Venus touchdown 19 m/s'};
+const RINFO = {1: 'Landed on four short legs · belly 0.6 m up · doors shut',
+  2: 'Side door open: ramp down, wing up as an awning · twin-sphere rover crab-steers out to starboard'};
 const xray = () => document.getElementById('bX').classList.contains('on');
 async function load(key) {
   if (cache[key]) return cache[key];

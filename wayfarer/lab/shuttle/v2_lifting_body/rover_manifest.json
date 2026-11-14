@@ -1,26 +1,59 @@
 {
- "status": "NON-CANON lab model (kT \"Sure\", 2026-11-14)",
- "concept": "twin-sphere belly rover = crew cabin; option C of rover_trade 2026-11-03 rebuilt for v2",
+ "status": "NON-CANON lab model (kT \"Rather go out the side\", 2026-11-15)",
+ "concept": "twin-sphere rover = crew cabin, exits through a starboard side door (option A of rover_trade 2026-11-03, rebuilt for v2)",
+ "door": {
+  "lower": "lower flank panel hinged on the belly corner, folds down as a ramp",
+  "ramp_length_m": 1.18,
+  "ramp_angle_deg": 30.5,
+  "upper": "upper flank panel (the wing on B3/B4) hinged on the shoulder, swings up to horizontal as an awning",
+  "opening_x_m": [
+   5.9,
+   10.1
+  ],
+  "opening_z_m": [
+   -0.95,
+   1.4
+  ],
+  "awning_underside_z_m": 1.38
+ },
  "rover": {
-  "length_m": 4.4,
-  "width_m": 3.4,
-  "track_m": 3.64,
-  "wheelbase_m": 3.6,
-  "wheels": "4 x 0.9 m dia x 0.36 m",
-  "ground_clearance_m": 0.95,
-  "height_m": 2.97
+  "length_m": 4.1,
+  "width_m_stowed": 3.24,
+  "width_m_wheels_out": 4.74,
+  "wheelbase_m": 3.2,
+  "wheels": "4 x 0.9 m dia, crab-steer 90 deg",
+  "stowed_z_band_m": [
+   -0.9,
+   1.05
+  ],
+  "ground_clearance_m": 0.41
+ },
+ "shuttle_legs": {
+  "count": 4,
+  "belly_height_m": 0.6
  },
  "bay_fit_stowed_max_radius_m": 2.139,
- "wheel_to_sphere_min_gap_m": 0.487,
- "jack_lift_m": 2.15,
- "jack_legs": 4,
- "volume_taken_by_wheels_m3": 0.92,
- "mass_basis": "rover_trade C vs A, 3 crew: ~+0.7 t core dry at midpoint; taller jack legs than the trade assumed (OPEN)",
+ "wheel_to_sphere_min_gap_m": 0.098,
+ "wings_with_shoulder_hinge": {
+  "B2": {
+   "span_m": 4.26,
+   "added_area_m2": 0.0
+  },
+  "B3": {
+   "span_m": 5.73,
+   "added_area_m2": 5.8
+  },
+  "B4": {
+   "span_m": 8.29,
+   "added_area_m2": 13.0
+  }
+ },
+ "mass_basis": "rover_trade option A (inside, side door + ramp + own gear) is the v1 baseline: no rover-integration delta vs v1; v2 deltas are twin spheres +0.4 t and wings",
  "open": [
-  "TPS seam around the 4.4 x 3.7 m belly panel through the entry heat shield",
-  "jack-leg mass for 2.15 m lift",
-  "internal access to torch/kit while the rover is out",
-  "ascent re-dock alignment",
+  "hatch trunk to the dorsal hatch must retract upward before the rover slides out",
+  "longerons above and below the 4.2 m side opening (shoulder and belly corner) carry hull bending",
+  "door seals through the entry heat shield on the lower flank",
+  "wing hinge on the shoulder must also be the door hinge (ground loads)",
   "Venus-hot wheel/tyre material"
  ]
 }

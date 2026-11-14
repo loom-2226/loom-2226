@@ -34,5 +34,5 @@ for i, v in enumerate(('B2', 'B3', 'B4')):
     for st, P in (('stowed', VA.model(v, False)), ('deployed', VA.model(v, True))):
         if v == 'B2' and st == 'stowed': continue
         B.write_glb(P, os.path.join(HERE, 'viewer', 'glb', f'_tmp_{v}_{st}.glb'))
-fig.suptitle('Shuttle v2 fold-out iterations - wings are the flank skin, hinged on the chine (NON-CANON)', x=0.03, ha='left', fontsize=13, weight='bold')
+fig.suptitle('Shuttle v2 fold-out iterations - wings are the upper flank skin, hinged on the shoulder (NON-CANON)', x=0.03, ha='left', fontsize=13, weight='bold')
 plt.tight_layout(rect=[0, 0, 1, 0.97]); fig.savefig(os.path.join(HERE, 'variants_views.png'), facecolor=fig.get_facecolor())
