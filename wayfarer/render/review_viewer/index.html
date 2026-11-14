@@ -1,0 +1,1075 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Wayfarer v2.5.14 Review</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: model bay on the left with a review rail on the right; the rail stacks under the model on phones. LOOM dark-first palette, single theme by design. */
+:root{
+  --void:#05070b; --deep:#0b1220; --panel:#11182b; --slate:#1e2a3a; --line:#22364a;
+  --ink:#dfe7ef; --muted:#8a97a6; --ion:#00d1ff; --amber:#ff8703; --crimson:#ff3b3b;
+  --display:Montserrat,"Avenir Next","Segoe UI",Roboto,system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+html,body{background:var(--void);color:var(--ink)}
+body{font-family:var(--display);font-size:14px;line-height:1.5;font-weight:400}
+.wrap{max-width:1360px;margin:0 auto;padding-block:18px 32px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:14px}
+header{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 24px}
+h1{font-weight:200;letter-spacing:.2em;text-transform:uppercase;font-size:clamp(1.25rem,2.6vw,1.8rem);margin:0;text-wrap:balance}
+h1 b{font-weight:500;color:var(--ion)}
+.tag{font-family:var(--mono);font-size:11.5px;color:var(--muted);letter-spacing:.03em}
+.main{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:14px;align-items:start}
+@media (max-width:900px){.main{grid-template-columns:minmax(0,1fr)}}
+.stage{position:relative;background:var(--deep);border:1px solid var(--line);border-radius:6px;overflow:hidden;height:min(78vh,760px);min-height:360px}
+@media (max-width:900px){.stage{height:62vh}}
+#c{display:block;width:100%;height:100%;touch-action:none}
+.stage.fpon .views .chip:not(.fpchip){display:none}
+.stage:fullscreen,.stage.pseudofs{height:100vh;height:100dvh;width:100vw;max-height:none;border-radius:0;border:0}
+.stage.pseudofs{position:fixed;inset:0;z-index:9999}
+.stage:fullscreen .views .fsbtn,.stage.pseudofs .views .fsbtn{display:none}
+.fpfs{position:absolute;right:86px;top:10px;pointer-events:auto}
+.stage.fpon .status{display:none}
+.fpwal{position:absolute;left:10px;top:50px;font:500 10.5px var(--mono);letter-spacing:.03em;color:#9fe7c4;background:rgba(5,12,10,.5);border:1px solid rgba(120,220,170,.3);padding:3px 7px;border-radius:4px;line-height:1.35;max-width:62%}
+.fpwal b{color:#c8ffe4;font-weight:600}
+.fptog{position:absolute;left:10px;bottom:150px;display:flex;flex-direction:column;gap:6px;pointer-events:auto}
+.fptog .chip{padding:5px 8px;font-size:15px;line-height:1}
+.rotnote{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;font:500 15px var(--display);color:var(--ink);background:color-mix(in srgb,var(--deep) 88%,transparent);z-index:5;pointer-events:none;padding:20px}
+.fpchip{border-color:color-mix(in srgb,var(--ion) 60%,transparent)}
+.fpui{position:absolute;inset:0;pointer-events:none}
+.fpjoy{position:absolute;left:14px;bottom:28px;width:104px;height:104px;border-radius:50%;border:1px solid color-mix(in srgb,var(--ion) 55%,transparent);background:color-mix(in srgb,var(--panel) 35%,transparent);pointer-events:auto;touch-action:none}
+.fpknob{position:absolute;left:32px;top:32px;width:40px;height:40px;border-radius:50%;background:color-mix(in srgb,var(--ion) 55%,transparent)}
+.fpbtns{position:absolute;right:10px;bottom:28px;display:flex;flex-direction:column;gap:8px;pointer-events:auto}
+.fpbtns .chip{padding:8px 10px}
+.fpbtns .chip[disabled]{opacity:.35}
+.fpexit{position:absolute;right:14px;top:10px;pointer-events:auto}
+.fphint{position:absolute;left:50%;transform:translateX(-50%);bottom:6px;font:500 11px var(--display);max-width:54%;white-space:normal!important;text-align:center;color:var(--ink);background:color-mix(in srgb,var(--panel) 80%,transparent);padding:5px 10px;border-radius:4px;white-space:nowrap}
+.views{position:absolute;left:10px;top:10px;display:flex;flex-wrap:wrap;gap:6px;max-width:calc(100% - 20px)}
+.chip{font:500 11.5px var(--display);letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:color-mix(in srgb,var(--panel) 85%,transparent);border:1px solid var(--line);border-radius:4px;padding:6px 9px;cursor:pointer}
+.chip:hover{border-color:var(--ion)}
+.chip[aria-pressed="true"]{border-color:var(--ion);color:var(--ion)}
+button:focus-visible,input:focus-visible,label.tog:focus-within{outline:2px solid var(--ion);outline-offset:2px}
+.tip{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:5px 8px;font-size:12px;max-width:260px;z-index:2}
+.tip span{display:block;font-family:var(--mono);color:var(--muted);font-size:11px}
+.status{position:absolute;right:10px;bottom:8px;font-size:11px;color:var(--muted);font-family:var(--mono);text-align:right}
+.rail{display:grid;gap:12px;min-width:0}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;display:grid;gap:9px;min-width:0}
+.box h2{font-weight:500;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{flex:1 1 auto;font:500 12px var(--display);color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:4px;padding:7px 8px;cursor:pointer;text-align:center}
+.seg button[aria-pressed="true"]{border-color:var(--ion);color:var(--ion);background:color-mix(in srgb,var(--ion) 10%,transparent)}
+.row{display:flex;align-items:center;gap:10px;font-size:12.5px}
+.row input[type=range]{flex:1;accent-color:var(--ion);min-width:0}
+.row output{font-family:var(--mono);min-width:56px;text-align:right;font-variant-numeric:tabular-nums}
+.row .flip{font:500 11px var(--display);color:var(--ink);background:var(--slate);border:1px solid var(--line);border-radius:4px;padding:5px 7px;cursor:pointer;min-width:70px}
+.row label.tog{min-width:30px;font-family:var(--mono)}
+.note{font-size:12px;color:var(--muted);margin:0}
+.note b{color:var(--ink);font-weight:500}
+label.tog{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12.5px}
+label.tog input{accent-color:var(--ion)}
+.layers{display:grid;gap:4px}
+.layer{display:grid;grid-template-columns:auto 12px 1fr auto;align-items:center;gap:8px;font-size:12.5px;cursor:pointer}
+.layer i{width:12px;height:12px;border-radius:2px;display:block}
+.layer em{font-style:normal;font-family:var(--mono);color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums}
+.sel{display:grid;gap:6px}
+.sel .nm{font-weight:500;font-size:14px}
+.kv{display:grid;grid-template-columns:minmax(6.5em,42%) 1fr;gap:3px 12px;font-size:12px;margin:0}
+.kv dd{word-break:normal}
+.kvh{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:6px 0 0}
+.kv dt{color:var(--muted)} .kv dd{margin:0;font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.btns{display:flex;gap:6px;flex-wrap:wrap}
+.btns button{font:500 11.5px var(--display);letter-spacing:.05em;text-transform:uppercase;color:var(--ink);background:var(--slate);border:1px solid var(--line);border-radius:4px;padding:6px 9px;cursor:pointer}
+.btns button:disabled{opacity:.4;cursor:default}
+#q{width:100%;box-sizing:border-box;font:400 13px var(--display);color:var(--ink);background:var(--deep);border:1px solid var(--line);border-radius:4px;padding:7px 9px}
+.tree{display:grid;gap:2px;max-height:340px;overflow:auto}
+.tree details{border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+.tree summary{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;font-size:12.5px;padding:5px 0;cursor:pointer;list-style:none}
+.tree summary::-webkit-details-marker{display:none}
+.tree summary b{font-weight:500}
+.tree .sub{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;font-size:12px;padding:3px 0 3px 22px;cursor:pointer}
+.tree em{font-style:normal;font-family:var(--mono);color:var(--muted);font-size:11px}
+.list{max-height:300px;overflow:auto;border:1px solid var(--line);border-radius:4px;font-size:12px}
+.list .gh{position:sticky;top:0;background:var(--slate);color:var(--muted);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:4px 8px}
+.list button{display:grid;grid-template-columns:1fr auto;gap:8px;width:100%;text-align:left;font:400 12px var(--display);color:var(--ink);background:none;border:0;border-top:1px solid color-mix(in srgb,var(--line) 60%,transparent);padding:4px 8px;cursor:pointer}
+.list button:hover,.list button.on{background:color-mix(in srgb,var(--ion) 12%,transparent)}
+.list button span:last-child{font-family:var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.mt{display:grid;font-family:var(--mono);font-size:12px;font-variant-numeric:tabular-nums;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.mr{display:grid;grid-template-columns:1.2fr 1fr .9fr .7fr;gap:6px;padding:4px 8px;border-top:1px solid var(--line)}
+.mr span:not(:first-child){text-align:right}
+.mh{border-top:0;color:var(--muted);font-family:var(--display);font-size:11px}
+.bars{display:grid;gap:3px;font-size:11.5px}
+.bar{display:grid;grid-template-columns:80px 1fr 52px;gap:8px;align-items:center}
+.bar s{display:block;height:8px;background:color-mix(in srgb,var(--ion) 55%,var(--slate));border-radius:1px;text-decoration:none}
+.bar span:last-child{font-family:var(--mono);text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.foot{font-size:11.5px;color:var(--muted);display:grid;gap:4px;max-width:90ch}
+.foot code{font-family:var(--mono)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+<div class="wrap">
+<header>
+  <h1>Wayfarer <b>v2.5.14</b> review</h1>
+  <div class="tag">CANON v2.5.14 · TAG 0138906 · NOSTROMO PASS · GEOMETRY 88ce19fc · SHUTTLE v1 · EXTERIOR DETAIL</div>
+</header>
+<div class="main">
+  <div class="stage" id="stage">
+    <canvas id="c" aria-label="Wayfarer 3D model"></canvas>
+    <div class="views" id="views">
+      <button class="chip" data-v="three">Three-quarter</button>
+      <button class="chip" data-v="side">Side</button>
+      <button class="chip" data-v="top">Top</button>
+      <button class="chip" data-v="bow">Bow</button>
+      <button class="chip" data-v="aft">Aft</button>
+      <button class="chip" data-v="habitat">Habitat</button>
+      <button class="chip" data-v="gdeck">Decks, g ↓</button>
+      <button class="chip" data-v="bridge">Bridge (L1)</button>
+      <button class="chip" data-v="common">Common (L2)</button>
+      <button class="chip" data-v="quarters">Quarters (L3)</button>
+      <button class="chip" data-v="medical">Medical (L4)</button>
+      <button class="chip" data-v="eva">EVA (L5)</button>
+      <button class="chip fpchip" data-fp="walk">Walk inside ▶</button>
+      <button class="chip fpchip" data-fp="fly">Fly ✈</button>
+      <button class="chip fpchip fsbtn" data-fs="1">⛶ Full screen</button>
+    </div>
+    <div class="fpui" id="fpui" hidden>
+      <div class="fpjoy" id="fpjoy"><div class="fpknob" id="fpknob"></div></div>
+      <div class="fpbtns"><button class="chip" id="fpup">▲ <span id="fpupt">Up ladder</span></button><button class="chip" id="fpdn">▼ <span id="fpdnt">Down ladder</span></button></div>
+      <button class="chip fpexit" id="fpexit">✕ Exit</button>
+      <button class="chip fpfs fsbtn" data-fs="1">⛶ Full screen</button>
+      <div class="fphint" id="fphint"></div>
+      <div class="fpwal" id="fpwal"><b>WALTER</b> · #LOOMSAFE<br><span id="fproom">—</span></div>
+      <div class="fptog"><button class="chip" id="fpwho" title="Walter or human">🐕</button><button class="chip" id="fpnight" title="Day or night">☀</button><button class="chip" id="fpsnd" title="Sound">🔊</button></div>
+    </div>
+    <div class="tip" id="tip" hidden></div>
+    <div class="status" id="status">Loading model…</div>
+    <div class="rotnote" id="rotnote" hidden>Turn your phone sideways for landscape ⟲</div>
+  </div>
+  <div class="rail">
+    <section class="box">
+      <h2>Colours</h2>
+      <div class="seg" id="cmode">
+        <button data-m="canon" aria-pressed="true">Canon finish</button>
+        <button data-m="system">System colours</button>
+      </div>
+      <p class="note" id="cmnote"><b>Canon finish</b> (CANON_FINISH, v2.5.14): the real materials from the model. Strakes glow at 1,300 K in Metric and Torch; hot fins at 1,750 K in Torch, graded from the root.</p>
+    </section>
+    <section class="box">
+      <h2>Radiators</h2>
+      <div class="seg" id="rpreset">
+        <button data-p="loom" aria-pressed="true">Loom</button>
+        <button data-p="metric">Metric</button>
+        <button data-p="torch">Torch burn</button>
+      </div>
+      <p class="note">Each mode loads its own full-ship canon model (PR #480): strakes 0, 2 or 4 m; hot fins folded, or 14 pleats of 2 m each in Torch.</p>
+      <p class="note" id="rnote"></p>
+    </section>
+    <section class="box">
+      <h2>Crown gores</h2>
+      <div class="seg" id="gore">
+        <button data-g="closed" aria-pressed="true">Closed</button>
+        <button data-g="stowed">Stowed (open)</button>
+      </div>
+      <p class="note" id="gnote"></p>
+      <label class="tog"><input type="checkbox" id="crownoff"> Hide the crown (domes, panes, gores, brow)</label>
+      <label class="tog"><input type="checkbox" id="roomsoff"> Hide room shells and outfit blocks (shows what is actually drawn inside)</label>
+    </section>
+    <section class="box">
+      <h2>Interior</h2>
+      <label class="tog"><input type="checkbox" id="intl1"> L1 bridge, approved build (PR #518): six B3 stations with split halos, wall fit-out (lockers, watch galley, strongbox, emergency lockers, backup panel, lining), map table, workbench, cabinets, terrace, NAV platform, trunk lift and racks, open hatches</label>
+      <label class="tog"><input type="checkbox" id="l2j"> L2 Common deck, organic Japandi, as built (PR #524, f6ffe04): galley, wardroom, observation, exercise, washroom. D9 0, containment PASS</label>
+      <label class="tog"><input type="checkbox" id="l3p"> L3 Quarters as built (PR #534, 2ce3d56): four cabins, ten berths, two washrooms. D9 0, containment PASS</label>
+      <label class="tog"><input type="checkbox" id="l4p"> L4 as built (PR #531, 176e206): storm shelter / wellness room, medical bay, life support. D9 0, containment PASS</label>
+      <label class="tog"><input type="checkbox" id="l5p"> L5 as built (PR #533, 7c2d0ea): airlock with EVA hatch, suit room, workshop, custody vault, stores, vestibule with tunnel hatch. D9 0, containment PASS</label>
+      <div class="seg" id="halo"><button data-h="closed" aria-pressed="true">Halos closed</button><button data-h="open">Halos open</button></div>
+      <label class="tog"><input type="checkbox" id="walter"> Walter (R3 figure, true size ~1.2 m, non-canon)</label>
+      <p class="note">The interior is its own model, loaded on top of the exterior; where both draw the same part, the interior version is shown. Halos open: centre display lifts back, wings swing aside. D9 0 and containment PASS in both poses. Walter is placed for scale on the open deck between Engineering and Navigation, looking towards the terrace. He is not ship hardware and has no mass booking. L2 to L5 come later.</p>
+    </section>
+    <section class="box">
+      <h2>Section planes</h2>
+      <div class="seg" id="cut">
+        <button data-c="off" aria-pressed="true">Off</button>
+        <button data-c="side">Side</button>
+        <button data-c="top">Top</button>
+        <button data-c="station">Station</button>
+      </div>
+      <div class="row"><label class="tog"><input type="checkbox" id="ax_x"> x</label><input type="range" id="v_x" min="-1.5" max="54.5" step="0.1" value="6" aria-label="x section position"><output id="o_x">6.0 m</output><button class="flip" id="f_x" data-k="x">keep aft</button></div>
+      <div class="row"><label class="tog"><input type="checkbox" id="ax_y"> y</label><input type="range" id="v_y" min="-32" max="32" step="0.1" value="0" aria-label="y section position"><output id="o_y">0.0 m</output><button class="flip" id="f_y" data-k="y">keep +y</button></div>
+      <div class="row"><label class="tog"><input type="checkbox" id="ax_z"> z</label><input type="range" id="v_z" min="-32" max="32" step="0.1" value="0" aria-label="z section position"><output id="o_z">0.0 m</output><button class="flip" id="f_z" data-k="z">keep +z</button></div>
+      <div class="row"><label class="tog"><input type="checkbox" id="slab"> Thin slice</label><input type="range" id="slabw" min="0.2" max="6" step="0.1" value="1" aria-label="Slice thickness"><output id="slabwv">1.0 m</output></div>
+      <label class="tog"><input type="checkbox" id="ghost"> Ghost the outer hull</label>
+      <p class="note" id="cnote">Tick any axis to cut there: x runs along the ship from the nose, y across, z up. Flip swaps the side kept. Several axes together keep only the region inside all cuts. Thin slice keeps a slab of that thickness at each ticked cut (good for deck plans and frame sections). Side, Top and Station are quick presets.</p>
+    </section>
+    <section class="box">
+      <h2>Systems (model hierarchy)</h2>
+      <div class="tree" id="tree"></div>
+      <div class="btns"><button id="sall">All on</button><button id="snone">All off</button></div>
+      <p class="note">Ship &gt; system &gt; subsystem &gt; part, read from the model. Tap a system to open it; tick boxes show or hide.</p>
+    </section>
+    <section class="box">
+      <h2>Layers</h2>
+      <div class="layers" id="layers"></div>
+      <div class="btns"><button id="lall">All on</button><button id="lnone">All off</button></div>
+    </section>
+    <section class="box">
+      <h2>Selected part</h2>
+      <div class="sel" id="sel"><p class="note">Tap a part on the model or in the list.</p></div>
+      <div class="btns">
+        <button id="iso" disabled>Isolate</button>
+        <button id="frame" disabled>Frame</button>
+        <button id="all">Show all</button>
+      </div>
+    </section>
+    <section class="box">
+      <h2>Parts</h2>
+      <input id="q" type="search" placeholder="Search parts, e.g. galley, longeron, pane" aria-label="Search parts">
+      <div class="list" id="list"></div>
+    </section>
+    <section class="box">
+      <h2>Torch modes (full remass, S1)</h2>
+      <div class="mt" id="modes"></div>
+      <dl class="kv" id="mass"></dl>
+    </section>
+    <section class="box">
+      <h2>Dry mass by system</h2>
+      <div class="bars" id="bars"></div>
+    </section>
+  </div>
+</div>
+<div class="foot">
+  <div>Source: tag <code>canon-v2.5</code> (geometry <code>88ce19fc</code>, certification and mode figures) plus the crown, brow and window solids from v2.5.1 and v2.5.2 (Option C nose fairing) and the 61 drawings and 16 alternative gores from v2.5.3 (tag canon-v2.5.3, 03479ea). All are drawing-only and mass-neutral. Part masses are the booked canon values; glazing layers and crown panes sit inside their booked window and crown allocations.</div>
+  <div>Not drawn: hardware held as mass allocations (pane retainers, tambour gore detail, field-node mounts and similar). Fluids are drawn at their S1 (departure) fill. Full-ship states from main 74734af (PR #489 merged, exterior detail pass): kT's shuttle v1 docked as 41 true solids, drones and crawlers in the existing holds, no external bay. D9 0 prohibited and containment pass in all six. Radiator hinge and fold mechanisms, shuttle departure sweep and Mars-pod egress are OPEN and not drawn.</div>
+</div>
+</div>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+const $ = id => document.getElementById(id);
+const fmtT = m => m >= 10 ? m.toFixed(1) + ' t' : m >= 1 ? m.toFixed(2) + ' t' : m > 0 ? (m*1000).toFixed(0) + ' kg' : '—';
+
+const LAYERS = [
+  {k:'hull', n:'Hull, armour and structure', c:'#aab6c3', m:.55, r:.45},
+  {k:'glazing', n:'Domes, windows and band glazing', c:'#9fdcf2', o:.42, m:.1, r:.05},
+  {k:'panes', n:'Crown outer panes (37 + 7 spares)', c:'#c6ecff', o:.5, m:.1, r:.05},
+  {k:'gores', n:'Strata gores (16)', c:'#6f7f90', m:.5, r:.5},
+  {k:'habitat', n:'Habitat and outfit', c:'#d6b98a', m:.1, r:.7},
+  {k:'water', n:'Remass water (S1)', c:'#2f86c9', o:.55, m:0, r:.3},
+  {k:'protwater', n:'Protected water', c:'#7ee7d1', o:.6, m:0, r:.3},
+  {k:'fuel', n:'D–He3 fuel and monoprop', c:'#e8c35a', m:.8, r:.3},
+  {k:'torch', n:'Torch: shield, reactor, nozzle', c:'#c47f46', m:.8, r:.35},
+  {k:'radiators', n:'Strakes and hot fins', c:'#4a6888', m:.7, r:.35},
+  {k:'power', n:'Power, plant and thermal', c:'#9a7ad0', m:.4, r:.5},
+  {k:'shuttle', n:'Shuttle', c:'#e9eef3', m:.2, r:.5},
+  {k:'equipment', n:'RCS, sensors, drones, external', c:'#8a97a6', m:.6, r:.45},
+  {k:'figures', n:'Figures (non-canon)', c:'#e08a2a', m:.3, r:.5},
+  {k:'proposal', n:'Proposed furniture', c:'#3fb8a8', m:.3, r:.5}
+];
+const LK = Object.fromEntries(LAYERS.map(l=>[l.k,l]));
+const SHELL = /^(armor|skin_|pressure_vessel$|tank_shell_out$|door_|thrust_cone$|node_mount)/;
+
+const meta = await fetch('meta.json').then(r=>r.json());
+
+function layerOf(pre, id){
+  if (pre === 'figure') return 'figures';
+  if (pre === 'proposal') return 'proposal';
+  if (/^core_trunk_L1/.test(id)) return 'habitat';
+  if (pre === 'S1'){
+    if (id.startsWith('water_')) return 'water';
+    if (id.startsWith('jacket') || id.startsWith('pw_')) return 'protwater';
+    return 'fuel';
+  }
+  if (/^crown_(osteon|brow|frame|tambour|retain)/.test(id) || /^(window_[^_]+_\d+|viewport_band_\d+)_$/.test(id)) return 'hull';
+  if (/^crown_(pane|spare)_\d+/.test(id)) return 'panes';
+  if (/^crown_gore_\d+_/.test(id)) return 'gores';
+  if (/^shuttle/.test(id)) return 'shuttle';
+  if (/^(i4_|B3_|L1_wallfit_|L2_|L3_|L4_|L5_|rescue_kit|shelter_backup)/.test(id)) return 'habitat';
+  if (/^service_shield_band/.test(id)) return 'torch';
+  if (/^(bay_corner|longeron_end_fitting|hatch_|doors_|trunk_plug)/.test(id)) return 'hull';
+  if (/^(crown|window_|viewport_band)/.test(id)) return 'glazing';
+  if (/^(strake|hotfin)/.test(id)) return 'radiators';
+  if (id === 'armor') return 'hull';
+  if (id.startsWith('house_fuel')) return 'fuel';
+  const s = (meta.parts[id] || {}).s;
+  return ({structure:'hull', habitat:'habitat', propulsion:'torch', thermal:'power', plant:'power', electrical:'power', shuttle:'shuttle'})[s] || 'equipment';
+}
+const LAYERNAME = {bumper:'outer bumper pane', primary:'primary pressure pane', aoi:'AOI optigel layer', backup:'backup pressure pane', strata:'Strata inner layer'};
+const L5J = {"A0_inner_pressure_hatch": "Pressure-rated hatch from the corridor, beside the 0 deg ladder, with handwheel and status light.", "A1_control_panel": "Depress/repress control: dark-glass panel, manual equalisation valve, status lights.", "A2_tether_tool_board": "EVA tether reels and tool holders.", "A3_handhold_station": "Suited-crew handhold ring for prebreathe and checks.", "A4_EVA_hatch": "EVA hatch (kT decision): 1.0 m at 0 deg between the EVA rails, centre h 1.1; handwheel and status lights. Hull cut-out to be checked by Sol.", "U1_EVA_suit_stands": "Four EVA suits on docked stands with service umbilicals.", "U2_IVA_lockers": "Ten IVA suit compartments (6 crew, 4 guests) with lock lights.", "U3_donning_bench": "Suit donning bench.", "W1_workbench": "Workbench between the two workshop windows: flush drawers, vise, tool shadow board, task light.", "W2_3D_printer": "Spares 3D printer with window and status display.", "W3_mill_lathe": "Compact mill/lathe with guarded window.", "W4_W5_parts_walls": "Parts drawers on both workshop walls.", "W6_stools": "Two docked workshop stools.", "V1_custody_vault": "Armoured vault for the secure courier consignment: keypad, tamper lights.", "V2_vault_door": "Vault door to the custody locker, handwheel and keypad.", "S1_stores_racks": "Stores racks with stowage bags and teal straps.", "S2_stores_racks": "Stores racks with stowage bags and teal straps.", "T1_tunnel_floor_hatch": "Shuttle tunnel hatch (kT decision): 1.2 m in the vestibule floor at r 3.0, 270 deg, matching tunnel_0; status lights.", "T2_handrails_panel": "Handrails round the tunnel hatch and a pressure-check panel.", "P0_walls": "Cabin walls, sliding doors and radial walls.", "D1_lighting": "Warm cove light.", "D2_overhead_rail": "Overhead oak handrail.", "D3_lining": "Lining and cove, cut for the four viewports and the EVA hatch."};
+const L4J = {"S0_shelter_plug_door": "Shelter plug door (kT decision): 0.8 m water-filled sliding door in the inner jacket at 90 deg; holds the water it replaces, shielding kept when closed.", "S1_living_wall": "Living wall: curved displays for wellness scenes (waterfall, home, games); ship status in storm mode.", "S2_wellness_loungers": "Two wellness loungers on floor docks with lap belts; stow in storm mode.", "S3_soft_floor": "Soft floor pads for stretching and rest; stow in storm mode.", "S4_backup_stand": "Slim stand under the source shelter life-support backup unit (72 h).", "S5_shelter_seats": "Ten fold-flat restraint seats on the inner jacket wall: storm mode seats all ten aboard.", "S6_storm_lockers": "Storm-supply lockers (72 h) at the jacket ends.", "S7_shelter_lining": "Warm interior lining on the jacket: oak-look floor, linen walls and ceiling.", "M1_treatment_table": "Treatment table taking the rigid stretcher, restraints, overhead exam light and patient display.", "M2_recovery_bed": "Recovery bed under the 240 deg port, raised head, rails, restraints.", "M3_cabinets_pharmacy": "Medical cabinets and pharmacy with lock indicators and inventory display.", "M5_decon_sink_terminal": "Decontamination sink and medical terminal.", "R_racks": "Seven life-support racks: O2 generation, CO2 removal, water recovery, water processing, air monitoring, thermal, waste. They draw the booked equipment.", "R8_laundry": "Laundry module (washer/dryer pair) next to water recovery: settles the laundry item.", "R9_spares": "Life-support spares lockers.", "P0_walls": "Medical radial wall and entrance stubs (2.4 m bi-parting doors, source); life-support acoustic partition with a 1.2 m maintenance door.", "D1_lighting": "Warm cove light; shelter cove light.", "D2_overhead_rail": "Overhead oak handrail round the corridor.", "D3_lining": "Lining and cove on the medical and life-support walls, cut for the lowered ports."};
+const L3J = {"B": ["Berth pod", "Source berth (2.10 x 0.70 m; frame 0.14, mattress 0.12, 0.82 m clear per tier) with 5 g teal restraint straps, one solid side, linen privacy screen, headboard with reading light, vent, personal display and lock indicator; viewport at the foot."], "C1_captain_wardrobe": ["Captain wardrobe and secure stowage", "Full-height oak-look lockers with lock indicators and vents."], "C2_captain_desk": ["Captain desk and secure terminal", "Fold-down desk on a titanium bracket with task light, dark-glass secure terminal, docked seat: the cabin office."], "C3_captain_visitor_seat": ["Visitor seat", "Docked stool for private meetings."], "A1_crewA_lockers": ["Crew A lockers", "Two personal lockers."], "A2_crewA_desk": ["Crew A desk", "Fold-down desk and docked seat."], "G1_guest_lockers": ["Guest lockers", "Four lockers for luggage and personal kit, on both cabin walls."], "G2_guest_table": ["Guest table", "Racetrack table on a tapered docked base, two docked seats."], "B1_crewB_lockers": ["Crew B lockers", "Three personal lockers."], "B2_crewB_desk": ["Crew B desk", "Fold-down desk and docked seat."], "H1_guest_washroom": ["Guest washroom", "Toilet pod, shower cabin, basin (L2 kit)."], "H2_crew_washroom": ["Crew washroom", "Toilet pod, shower cabin, basin (L2 kit)."], "P0_partitions": ["Cabin walls and sliding doors", "Source 4 cm inner partition at r 1.88-1.92 and radial walls; 0.80 x 2.05 m sliding doors with titanium track, lock indicator and recessed pull."], "D1_lighting": ["Lighting", "Warm cove and floor wash; task lights at berths and desks."], "D2_overhead_rail": ["Overhead oak handrail", "Zero-g handhold round the corridor, gaps at the ladderways."], "D3_lining": ["Lining and cove", "Muted blue-grey lining on the water ring with the ten source berth viewports; cove into the ceiling."]};
+const L2J = {"G0_wall_details": ["Galley divider details", "Recessed control panel, flush access panel and low vent grille on the washroom divider.", "~5 kg", "outfit_L2"], "G1_cook_run": ["Galley cook run", "Tall sand column flowing into a convex oak-look run; flush dark-glass oven and hob; soft-bellied uppers to the ceiling with task light; lock indicators.", "~175 kg", "room_L2-galley"], "G2_water_run": ["Galley water run (peninsula)", "Oak column, convex run, recessed sink and titanium tap, dark-glass cleaner front; no uppers so it stays open.", "~145 kg", "room_L2-galley"], "G3_prep_island": ["Prep island", "Deep recessed plinth, tapered body, flush drawers with latch indicators, shadow gap under a slim radiused worktop, teal end handholds.", "~25 kg", "room_L2-galley"], "W1_table": ["Wardroom table for 10", "Racetrack top with rounded underside on one tapered blade support and titanium floor dock; teal restraint ring under the edge.", "~35 kg", "room_L2-wardroom"], "W2_banquette": ["Banquette for five", "One continuous sweep following the hull, segmented sand cushions, back below the 1.1 m sill, returns curving into the wall, toe-kick light.", "~60 kg", "room_L2-wardroom"], "W3_stools": ["Five stools", "Curved asymmetric stems rising from flush titanium docks, concave sage seats, teal latch collars, lock indicators.", "~25 kg", "room_L2-wardroom"], "W4_serving_pass": ["Serving pass", "Radiused plan, convex front, off-white top: galley to table.", "~40 kg", "room_L2-wardroom"], "W5_briefing_screen": ["Briefing screen", "Dark glass, stowed in a ceiling recess; folds down.", "~15 kg", "room_L2-wardroom"], "W6_living_niche": ["Living niche and divider details", "Lit oak niche with a sealed hydroponic planter in the 150\u00b0 divider, plus control panel, access panel and vent grille.", "~25 kg", "room_L2-wardroom"], "O1_loungers": ["Three loungers", "Sculpted chaise shells (one continuous profile), sand cushions, tapered plinths on floor docks, teal lap-belt anchors; feet to the glass.", "~75 kg", "room_L2-observation"], "O2_telescope": ["Stabilised telescope", "Tapered titanium pedestal on a floor dock, sand housing, dark-glass eyepiece.", "~20 kg", "room_L2-observation"], "E1_treadmill": ["Treadmill with harness", "Rounded ivory deck on a floor dock, bent titanium frame with oak grips, teal harness anchors, dark-glass console; faces the glass.", "~180 kg", "room_L2-exercise"], "E2_resistance": ["Resistance machine", "Twin tapered ivory columns joined by a titanium arch, teal cable guides, sand bench.", "~150 kg", "room_L2-exercise"], "E3_cycle": ["Cycle ergometer", "Bent titanium frame, rounded flywheel housing, sand saddle, oak bar, dark-glass display.", "~60 kg", "room_L2-exercise"], "E4_shoji_screen": ["Shoji screen", "Paper-look panel in an oak lattice with a transfer-air slot at the foot.", "~20 kg", "room_L2-exercise"], "H0_walls_door": ["Washroom shoji wall and sliding door", "Oak lattice and paper-look panels, titanium door track, recessed pull, occupied/lock indicator.", "~40 kg", "room_L2-hygiene"], "H1_toilet": ["Toilet", "Rounded off-white pod on a floor dock, sand back panel with controls, teal thigh-restraint grips.", "~60 kg", "room_L2-hygiene"], "H2_shower": ["Shower cabin", "Sand rounded walls, oak slat floor, titanium head, teal control, vent slot.", "~80 kg", "room_L2-hygiene"], "H3_basin": ["Basin and locker", "Convex oak vanity on a recessed plinth, off-white top, titanium tap, lock indicator.", "~35 kg", "room_L2-hygiene"], "D1_lighting": ["Lighting", "Warm cove and floor-wash light round the deck; cool task light over the table and under the galley uppers.", "~30 kg", "outfit_L2"], "D2_overhead_rail": ["Overhead oak handrail", "Zero-g handhold round the corridor; gaps at the ladderways.", "~30 kg", "outfit_L2"], "D3_lining": ["Hull lining, cove and ribs", "Muted blue-grey lining with reveals, cove into the ceiling, structural ribs on the 15\u00b0 mullion lines, linear diffuser and ceiling return slots; kept out of the ladderway openings.", "~80 kg", "outfit_L2"]};
+const WALLFIT = {"u1_spares_tools": ["Spares and tools lockers", "Spare halo screens and armrest controls you can swap in flight, plus the deck tool kit. 12 latched doors, two rows.", "96 kg, 2.6 m run"], "u2_watch_galley": ["Watch galley", "Hot/cold water and food pouches for long watches and burns. Water piped up from the L2 galley.", "52 kg, 0.9 m"], "u3_courier_strongbox": ["Courier strongbox", "Locked safe for physical secure messages, the courier role. Captain controls it.", "60 kg, 0.5 m"], "u4_emergency_left": ["Emergency locker (left ladderway)", "Fire extinguisher, breathing masks, medical kit with defibrillator.", "40 kg, 0.55 m"], "u5_backup_panel": ["Hard-wired backup panel", "Alarms, breakers, fire and depress controls that work if every screen dies. Beside the low-g command point.", "30 kg, 0.65 m"], "u6_emergency_right": ["Emergency locker (right ladderway)", "Fire extinguisher, breathing masks, medical kit with defibrillator.", "40 kg, 1.05 m"], "u7_wall_lining": ["Wall lining", "Soft padding against knocks in zero g; quieter and warmer walls. Below the windows only.", "40 kg"]};
+const ROLE = {PILOT:'Pilot', S1:'Captain', NAV:'Navigator', S2:'Engineering', S3:'Sensors / EW', S4:'Mission Ops'};
+function describe(pre, id){
+  if (pre === 'proposal' && id.startsWith('L5_')){ const k = id.slice(3); return {n:'Proposed L5: ' + k.replace(/^[A-Z]\d?_/,'').replace(/_/g,' '), m:0, sys:'proposal', note:'PROPOSED by Claude, 12 Nov 2026: L5 Mission, EVA and transfer in the organic Japandi language. Layout approved by kT; model for review. ' + (L5J[k]||'') + ' Paid from its room booking. Not built; no D9 yet.'}; }
+  if (pre === 'proposal' && id.startsWith('L4_')){ const k = id.slice(3); return {n:'Proposed L4: ' + k.replace(/^[A-Z]\d?_/,'').replace(/_/g,' '), m:0, sys:'proposal', note:'PROPOSED by Claude, 12 Nov 2026: L4 in the organic Japandi language; the storm shelter is also the wellness room. Layout approved by kT; model for review. ' + (L4J[k]||'') + ' Paid from its room booking. Not built; no D9 yet.'}; }
+  if (pre === 'proposal' && id.startsWith('L3_')){ const k = id.slice(3); const w = L3J[k.startsWith('B_') ? 'B' : k] || [k,'']; return {n:'Proposed L3: ' + w[0] + (k.startsWith('B_') ? ' (' + k.slice(2).replace('_',' at ') + ' deg)' : ''), m:0, sys:'proposal', note:'PROPOSED by Claude, 12 Nov 2026: L3 Quarters in the approved organic Japandi language. Layout approved by kT; model for review. ' + w[1] + ' Paid from its room booking (room mass pays). Not built; no D9 yet.'}; }
+  if (pre === 'proposal' && id.startsWith('L2_')){ const w = L2J[id.slice(3)] || [id,'','','']; return {n:'Proposed L2: ' + w[0], m:0, sys:'proposal', note:'PROPOSED by Claude, 12 Nov 2026: organic Japandi x working spacecraft (75/25). Layout approved by kT; detail for review. ' + w[1] + ' Estimate ' + w[2] + ', paid from ' + w[3] + ' (room mass pays, kt decision room_register_2026_11_12). Not built; no D9 yet.'}; }
+  if (pre === 'proposal'){ const w = WALLFIT[id] || [id, '', '']; return {n:'Proposed: ' + w[0], m:0, sys:'proposal', note:'PROPOSED by Claude, 12 Nov 2026, kT approved for modelling. ' + w[1] + ' Estimate ' + w[2] + ', paid from booked outfit_L1 (819 kg; 358 kg used by all seven). Not built; no mass change; Sol to run D9 before build.'}; }
+  if (pre === 'dry' && /^hatch_L(2L3|3L4)_/.test(id)) return {n:'Pressure hatch ' + id.slice(6,10).replace('L','L').replace(/^(L\d)(L\d)$/,'$1/$2') + (id.endsWith('_0') ? ' (180 deg)' : ' (0 deg)'), m:0, sys:'habitat', note:'Normally-open pressure hatch leaf, copied from hatch_L1L2 (kT decision 12 Nov 2026, PR #526, f19f580). 0.15 t estimate, paid from ' + (id.includes('L2L3') ? 'outfit_L2' : 'outfit_L4') + '; no mass rebooked. D9 0, containment PASS. Seals and actuation not yet qualified.'};
+  if (pre === 'dry' && id.startsWith('L3_')){ const k0 = id.slice(3); const key = k0.startsWith('B_') ? 'B' : (k0.startsWith('P0_') ? 'P0_partitions' : (k0.startsWith('window_') ? null : k0)); const w = key ? (L3J[key] || [k0,'']) : ['Berth viewport ' + k0.slice(10), 'Source berth viewport, drawn at 0.5 m (SPEC).']; return {n:'L3: ' + w[0] + (k0.startsWith('B_') ? ' (' + k0.slice(2).replace('_',' at ') + ' deg)' : ''), m:0, sys:'habitat', note:w[1] + ' Paid from its room booking. Claude design (PR #527), built PR #534 (2ce3d56). D9 0, containment PASS. No mass rebooked.'}; }
+  if (pre === 'dry' && id.startsWith('L4_')){ const k0 = id.slice(3); const k = Object.keys(L4J).find(x => k0 === x || k0.startsWith(x)) || k0; return {n:'L4: ' + k.replace(/^[A-Z]\d?_/,'').replace(/_/g,' '), m:0, sys:'habitat', note:(L4J[k]||'') + ' The storm shelter is also the wellness room. Paid from its room booking. Claude design (PRs #529, #532), built PR #531 (176e206). D9 0, containment PASS. No mass rebooked.'}; }
+  if (pre === 'dry' && id.startsWith('L5_')){ const k0 = id.slice(3); const k = Object.keys(L5J).find(x => k0 === x || k0.startsWith(x)) || k0; return {n:'L5: ' + k.replace(/^[A-Z]\d?_/,'').replace(/_/g,' '), m:0, sys:'habitat', note:(L5J[k]||'') + ' Paid from its room booking. Claude design (PR #530), built PR #533 (7c2d0ea). D9 0, containment PASS. No mass rebooked. Hatch seals and armour not yet qualified.'}; }
+  if (pre === 'dry' && id.startsWith('L2_')){ const key = id.slice(3).replace(/^W3_stool_\d+$/,'W3_stools').replace(/^O1_lounger_\d+$/,'O1_loungers'); const w = L2J[key] || [id,'','','']; return {n:'L2: ' + w[0], m:0, sys:'habitat', note:w[1] + ' Estimate ' + w[2] + ', paid from booked ' + w[3] + ' (room mass pays, room_register_2026_11_12). kT-approved organic Japandi, Claude design (PR #523), built PR #524 (f6ffe04). D9 0, containment PASS. No mass rebooked.'}; }
+  if (id.startsWith('L1_wallfit_')){ const w = WALLFIT[id.slice(11)] || [id, '', '']; return {n:w[0], m:0, sys:'habitat', note:w[1] + ' Estimate ' + w[2] + ', paid from booked outfit_L1 (819 kg; 358 kg used by all seven, 461 kg left for cables, ducts and fire detection). kT-approved, Claude design (PR #520), built PR #521 (7cb6b13). D9 0 and containment PASS, halos closed and open. No mass rebooked.'}; }
+  if (id.startsWith('B3_')){ const r = id.match(/^B3_([A-Z0-9]+)_(.*)$/) || []; const c = {centre:'halo centre display', controls:'armrest controls', 'wing_-1':'halo left wing', wing_1:'halo right wing'}[r[2]] || (r[2]||'').replace(/_/g,' '); return {n:(ROLE[r[1]] || r[1]) + ' station: ' + c, m:0, sys:'habitat', note:'B3 split halo (kT-approved, PR #518). Inside the seat booking: 46.000 kg couch + 5.185 kg halo and controls (estimate 5.100 kg, not certified hardware). No mass rebooked.'}; }
+  if (pre === 'figure') return {n:'Walter (R3 utility robot)', m:0, sys:'figure', note:'Non-canon figure placed for scale, lying on the L1 deck. Not ship hardware and not in the mass basis. Source: media/walter/r3 (1:12 figure), scaled to true size and simplified for viewing.'};
+  if (pre === 'S1'){ const f = meta.fluids[id] || {}; return {n: f.n || id.replace(/_/g,' '), m: f.m || 0, sys: f.s || 'fluid', note: 'Fluid at S1 (departure) fill'}; }
+  const p = meta.parts[id];
+  if (p) return {n: p.n, m: p.m, sys: p.s};
+  if (id.startsWith('shuttle_v1/')) { const nm = id.slice(11).replace(/_(\d+)$/,' $1').replace(/_/g,' '); return {n:'Shuttle: ' + nm, m:0, sys:'shuttle', note:'kT shuttle v1 (docked), drawn as a true solid; mass inside the booked 30.73 t shuttle allocation. Docked G8 PASS on real solids; departure sweep OPEN.'}; }
+  { const q = id.startsWith('bay_') && meta.parts[id.slice(4)]; if (q) return {n: q.n + ' (in drone and crawler bay)', m: q.m, sys: q.s}; }
+  if (/^bay_(shell|door|cradle|charge|crawler_guide)/.test(id)) { const nm = id.slice(4).replace(/_/g,' '); return {n: 'Drone bay ' + nm, m:0, sys:'mission', note:'Drawn bay solid; mass inside the courier_systems allocation (19.45 t, 6.45 t still unassigned). Strake heat exposure ~58 kW/m²: thermal protection OPEN.'}; }
+  { const [base, sub] = id.split(':'); const bp = meta.parts[base]; if (bp && sub) return {n: bp.n.replace(/ \((stowed|folded)\)$/,'') + ', ' + sub.replace(/_/g,' '), m:0, sys: bp.s, note:'Drawn radiator-state solid; mass inside ' + base + ' (' + fmtT(bp.m) + ' booked)'}; }
+  let m = id.match(/^(window_[^_]+_\d+|viewport_band_\d+)_+(\w+)?$/);
+  if (m){ const par = meta.parts[m[1]] || {}; const lay = m[2] ? (LAYERNAME[m[2]] || m[2]) : 'frame and seal';
+    return {n: (par.n || m[1]) + ', ' + lay, m: 0, sys: 'glazing', note: 'Drawn layer; mass is inside ' + m[1] + ' (' + fmtT(par.m||0) + ' booked)'}; }
+  if ((m = id.match(/^crown_pane_(\d+)/))) return {n:'Crown outer pane ' + (+m[1]) + ' of 37', m:0, sys:'glazing', note:'Removable ceramic, non-pressure. Mass inside the booked crown allocation'};
+  if ((m = id.match(/^crown_spare_(\d+)/))) return {n:'Spare crown pane ' + (+m[1]) + ' of 7 (bay-wall rack)', m:0, sys:'glazing', note:'Mass inside crown_c_seven_spare_panes (' + fmtT((meta.parts.crown_c_seven_spare_panes||{}).m||0) + ')'};
+  if ((m = id.match(/^crown_gore_(\d+)_(\w+)/))) return {n:'Strata gore ' + (+m[1]+1) + ' of 16, ' + m[2], m:0, sys:'crown', note:'Drawn v2.5.3 solid; mass inside the booked crown allocation. Stowed and closed are alternative states of the same gore.'};
+  if (id.startsWith('crown')) return {n: id.replace(/_/g,' ').replace(/^crown /,'Crown '), m:0, sys:'glazing', note:'Drawn crown solid; mass inside the booked crown allocation'};
+  const nm = id.replace(/^i4_/,'').replace(/_/g,' '); return {n: nm.charAt(0).toUpperCase() + nm.slice(1), m:0, sys:'v2.5.3 drawing', note:'Drawn v2.5.3 solid; mass-neutral, inside its booked allocation'};
+}
+
+// renderer, scene, camera
+const canvas = $('c'), stage = $('stage');
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.localClippingEnabled = true;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 0.85;
+const scene = new THREE.Scene(); scene.background = new THREE.Color('#05070b');
+scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), .04).texture;
+const camera = new THREE.PerspectiveCamera(36, 1, .25, 6000);
+const controls = new OrbitControls(camera, canvas); controls.enableDamping = true; controls.dampingFactor = .08;
+const hemi = new THREE.HemisphereLight(0xdfe8f0, 0x1a2230, .55); scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xffffff, 1.25); sun.position.set(-40, 50, 45); scene.add(sun);
+const rim = new THREE.DirectionalLight(0x7fc9ff, .5); rim.position.set(50, -10, -40); scene.add(rim);
+// interior lighting: brighter fill, a warm light in each deck and a soft headlamp on the camera, used whenever interiors are being viewed
+const headlamp = new THREE.PointLight(0xfff1de, 0, 0, 0); camera.add(headlamp); scene.add(camera);
+const deckLights = [1.6, 4.45, 7.05, 9.65, 12.25].map(x=>{ const l = new THREE.PointLight(0xffe2b8, 0, 7, 1); l.position.set(x - 27, 0, 0); scene.add(l); return l; });
+let interiorLit = null;
+function setInteriorLight(on){
+  if (on === interiorLit) return; interiorLit = on;
+  hemi.intensity = on ? 1.35 : .55; renderer.toneMappingExposure = on ? 1.12 : .85;
+  headlamp.intensity = on ? 1.1 : 0; for (const l of deckLights) l.intensity = on ? 9 : 0;
+}
+{ const n = 2400, pos = new Float32Array(n*3);
+  for (let i=0;i<n;i++){ const u = Math.random()*2-1, t = Math.random()*Math.PI*2, r = 3000, s = Math.sqrt(1-u*u); pos.set([r*s*Math.cos(t), r*u, r*s*Math.sin(t)], i*3); }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos,3));
+  scene.add(new THREE.Points(g, new THREE.PointsMaterial({color:0xcfdcff, size:1.4, sizeAttenuation:false}))); }
+
+// ship (x,y,z) -> three (X=x-27, Y=z, Z=-y)
+const ship = new THREE.Group(); ship.matrixAutoUpdate = false;
+ship.matrix.set(1,0,0,-27, 0,0,1,0, 0,-1,0,0, 0,0,0,1); scene.add(ship);
+// the GLB is already converted to Y-up, so its meshes only need the -27 m shift
+// pivot: 'Decks, g down' stands the ship bow-up so thrust gravity points down the screen
+const pivot = new THREE.Group(); scene.add(pivot);
+const model = new THREE.Group(); model.position.set(-27,0,0); pivot.add(model);
+let gView = false;
+function setG(on){ if (gView === on) return; gView = on; pivot.rotation.z = on ? -Math.PI/2 : 0; pivot.updateMatrixWorld(true); applyCut(); }
+
+// materials
+let planes = [];
+const mats = {};
+LAYERS.forEach((l, i)=>{
+  const o = l.o ?? 1;
+  // per-layer depth offset so coincident faces from different layers (proxies vs drawn solids, fluids vs walls) don't fight
+  mats[l.k] = new THREE.MeshStandardMaterial({color:l.c, metalness:l.m, roughness:l.r, transparent:o<1, opacity:o, depthWrite:o>=1, side:THREE.DoubleSide});
+});
+mats.fin = new THREE.MeshStandardMaterial({color:'#3a2418', metalness:.5, roughness:.55, emissive:'#ff6a10', emissiveIntensity:.85, side:THREE.DoubleSide});
+mats.strakePanel = new THREE.MeshStandardMaterial({color:'#2c3e52', metalness:.75, roughness:.32, emissive:'#5a1d06', emissiveIntensity:.35, side:THREE.DoubleSide});
+mats.ghost = new THREE.MeshStandardMaterial({color:'#aab6c3', metalness:.2, roughness:.6, transparent:true, opacity:.09, depthWrite:false, side:THREE.DoubleSide});
+mats.water = new THREE.MeshStandardMaterial({color:'#4a9cc4', metalness:.1, roughness:.2, transparent:true, opacity:.16, depthWrite:false, side:THREE.DoubleSide});
+mats.sel = new THREE.MeshStandardMaterial({color:'#00d1ff', metalness:.2, roughness:.4, emissive:'#00a6cc', emissiveIntensity:.7, side:THREE.DoubleSide});
+// every part gets its own copy of its layer material with a unique depth offset, so faces shared by two overlapping parts
+// (allocation envelopes, fluids inside walls, rooms inside outfit volumes) always resolve the same way instead of flickering
+const partMats = [];
+function partMat(base, i){ const m = base.clone(); m.polygonOffset = true; m.polygonOffsetFactor = -(i % 64) * .05; m.polygonOffsetUnits = -(i % 64) * 2; m.clippingPlanes = planes; partMats.push(m); return m; }
+function setPlanes(p){ planes = p; for (const m of [...Object.values(mats), ...partMats]){ m.clippingPlanes = p; m.needsUpdate = true; } }
+
+// state
+const parts = [];          // {mesh, pre, id, key, layer, d}
+const visibleLayer = Object.fromEntries(LAYERS.map(l=>[l.k,true]));
+let selected = null, isolated = false, ghost = false, goreState = 'closed', crownOff = false, roomsOff = false;
+const GNOTE = {closed:'<b>Closed.</b> All 16 Strata gores shut over the crown: torch, Metric, Loom and storms, most of flight.', stowed:'<b>Stowed.</b> Gores folded back, crown panes exposed.'};
+function setGore(g, noLoad){ goreState = g; for (const b of $('gore').children) b.setAttribute('aria-pressed', b.dataset.g === g); $('gnote').innerHTML = GNOTE[g]; if (!noLoad) loadState(); }
+$('roomsoff').addEventListener('change', e=>{ roomsOff = e.target.checked; if (roomsOff && selected && /^(room_|outfit_)/.test(selected.id)) select(null); refresh(); });
+$('cmode').addEventListener('click', e=>{ const b = e.target.closest('button'); if (!b) return; colourMode = b.dataset.m;
+  for (const c of $('cmode').children) c.setAttribute('aria-pressed', c === b);
+  $('cmnote').innerHTML = colourMode === 'canon' ? '<b>Canon finish</b> (CANON_FINISH, v2.5.14): the real materials from the model. Strakes glow at 1,300 K in Metric and Torch; hot fins at 1,750 K in Torch, graded from the root.' : 'Colour-coded by system so parts are easy to tell apart. Not the ship\'s real colours.';
+  refresh(); });
+$('crownoff').addEventListener('change', e=>{ crownOff = e.target.checked; if (crownOff && selected && /^crown_(?!spare)/.test(selected.id)) select(null); refresh(); });
+$('gore').addEventListener('click', e=>{ const b = e.target.closest('button'); if (b && b.dataset.g !== goreState) setGore(b.dataset.g); });
+
+// proposed 2026-11-11 finish table (Sol), preview only, not yet approved
+const FIN = {
+  strata:[0x3a3d42,.35,.55], gore:[0x34373b,.3,.7], glass:[0xcfe2ea,.1,.05,.32], gunmetal:[0x4b4f53,.65,.4],
+  skin:[0xc9ccc8,.2,.7], midgrey:[0x7a7e82,.3,.6], tank:[0xd9d3c2,.4,.5], reactor:[0x5b5e60,.7,.45], shield:[0x46494d,.3,.85], nozzle:[0x8a6a3e,.85,.35],
+  strake:[0x2b2c2e,.3,.9], strakeHot:[0x000000,0,1,1,0xb3300c,1.0], finCold:[0x161616,.3,.9], finHot:[0x000000,0,1,1,0xff8a1c,1.25],
+  hw:[0x3e4145,.6,.45], sensor:[0x2e3236,.5,.2], shuttle:[0x8d969c,.4,.5], tps:[0x3b2a20,.1,.95], rail:[0x5a5d61,.7,.4]
+};
+function finishOf(p){
+  const id = p.id, mt = (p.ex && p.ex.material) || '';
+  if (/^crown_gore_/.test(id)) return 'gore';
+  if (/^crown_(pane|spare)|^crown_(outer|inner)_pressure|^crown_aoi|^window_|^viewport_band/.test(id)) return 'glass';
+  if (/^crown_/.test(id)) return 'gunmetal';
+  if (id === 'armor') return 'strata';
+  if (id === 'skin_midship' || /^door_(port|starboard)$/.test(id)) return 'strata';
+  if (/^skin_|^thrust_cone$/.test(id)) return 'skin';
+  if (/^tank_shell/.test(id)) return 'tank';
+  if (id === 'reactor') return 'reactor';
+  if (id === 'shield' || /^service_shield_band/.test(id)) return 'shield';
+  if (id === 'nozzle') return 'nozzle';
+  if (/^strake_.*extended/.test(id)) return radMode === 'loom' ? 'strake' : 'strakeHot';
+  if (/^strake_|^hotfin_root/.test(id)) return 'strake';
+  if (/^hotfin_/.test(id)) return radMode === 'torch' ? 'finHot' : 'finCold';
+  if (/^shuttle_v1\/belly_TPS/.test(id)) return 'tps';
+  if (/^shuttle/.test(id)) return 'shuttle';
+  if (mt === 'sensor' || mt === 'antenna') return 'sensor';
+  if (/^(rcs|dock|port|collar)$/.test(mt)) return 'hw';
+  if (mt === 'rail_ext') return 'rail';
+  return null;
+}
+let colourMode = 'canon';
+const finMats = {};
+function finMat(k, i){
+  const key = k + ':' + (i % 64);
+  if (finMats[key]) return finMats[key];
+  const [c, me, ro, op = 1, em = 0, ei = 0] = FIN[k];
+  const m = new THREE.MeshStandardMaterial({color:c, metalness:me, roughness:ro, transparent:op<1, opacity:op, depthWrite:op>=1, side:THREE.DoubleSide, emissive:em, emissiveIntensity:ei, polygonOffset:true, polygonOffsetFactor:-(i % 64) * .05, polygonOffsetUnits:-(i % 64) * 2});
+  m.clippingPlanes = planes; partMats.push(m); return finMats[key] = m;
+}
+function matFor(p){
+  if (p === selected) return mats.sel;
+  if (colourMode === 'finish' && !(ghost && SHELL.test(p.id) && p.pre === 'dry')){ const k = finishOf(p); if (k) return finMat(k, p.i); }
+  if (ghost && SHELL.test(p.id) && p.pre === 'dry') return mats.ghost;
+  if (/^hotfin_\d+(:pleat|:folded|$)/.test(p.id) && radMode === 'torch') return mats.fin;
+  return p.mat || (p.mat = partMat(mats[p.layer], p.i));
+}
+function refresh(){
+  setInteriorLight(roomsOff);
+  for (const p of parts){
+    const mt = matFor(p);
+    let v = visibleLayer[p.layer] && !hiddenSub.has(p.sub) && !hiddenSys.has(p.sys);
+    if (isolated && selected) v = p === selected;
+    { const g = p.id.match(/^crown_gore_\d+_(stowed|closed)$/); if (g && g[1] !== goreState) v = false; }
+    if (crownOff && /^crown_(?!spare)/.test(p.id)) v = false;
+    if (roomsOff && /^(room_|outfit_)/.test(p.id)) v = false;
+    const useG = colourMode === 'canon' && mt !== mats.sel && mt !== mats.ghost;
+    const wat = roomsOff && !globalThis.FPON && p.pre === 'S1' && /^jacket_/.test(p.id) && p !== selected;   // see-through water jackets when looking at interiors
+    for (const m of p.meshes){ m.material = wat ? mats.water : (useG && m.userData.gmat ? m.userData.gmat : mt); m.visible = v; }
+  }
+}
+
+// radiators: pleated accordion panels
+const radGroup = new THREE.Group(); ship.add(radGroup);
+const DEG = Math.PI/180;
+function accordion(x0, x1, r0, span, pleat, amp, az){
+  const n = Math.max(1, Math.round(span/pleat)), pos = [];
+  const a = az*DEG, ca = Math.cos(a), sa = Math.sin(a);
+  const P = (x, r, t) => [x, r*ca - t*sa, r*sa + t*ca];
+  for (let i=0;i<n;i++){
+    const ra = r0 + span*i/n, rb = r0 + span*(i+1)/n, ta = (i%2 ? amp : -amp), tb = -ta;
+    const A = P(x0,ra,ta), B = P(x1,ra,ta), C = P(x1,rb,tb), Dd = P(x0,rb,tb);
+    pos.push(...A,...B,...C, ...A,...C,...Dd);
+  }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos,3)); g.computeVertexNormals(); return g;
+}
+const PRESET = {
+  loom:  {t:'<b>Loom formation and translation.</b> Strakes fully stowed (kT decision, E1 lock: STOWED). Hot fins folded.'},
+  metric:{t:`<b>Metric cruise.</b> Strakes out ${meta.rad.metric} m (one pleat) rejecting Metric cryo heat. Torch off, hot fins folded. Viewer pose; Metric arrival qualification is on HOLD.`},
+  torch: {t:`<b>Torch burn.</b> Strakes out ${meta.rad.torch} m (two pleats) at ${meta.rad.temp.toLocaleString('en')} K. Hot fins out ${meta.fins.span} m, 14 pleats of 2 m each, at ${meta.fins.temp.toLocaleString('en')} K.`}
+};
+function setPreset(k, noLoad){
+  radMode = k; $('rnote').innerHTML = PRESET[k].t;
+  for (const b of $('rpreset').children) b.setAttribute('aria-pressed', b.dataset.p === k);
+  if (!noLoad) loadState();
+}
+$('rpreset').addEventListener('click', e=>{ const b = e.target.closest('button'); if (b && b.dataset.p !== radMode) setPreset(b.dataset.p); });
+
+// section planes. Ship axes: x along the hull (three X = x - 27), y across (three Z = -y), z up (three Y = z).
+// A plane keeps the side where distance >= 0; s = +1 keeps the + side of the axis.
+const AXS = {x:1, y:1, z:1};
+const FLIPTXT = {x:s=>s>0?'keep aft':'keep fwd', y:s=>s>0?'keep +y':'keep −y', z:s=>s>0?'keep +z':'keep −z'};
+function axPlane(k, v, s){
+  if (k === 'x') return new THREE.Plane(new THREE.Vector3(s,0,0), -s*(v - 27));
+  if (k === 'y') return new THREE.Plane(new THREE.Vector3(0,0,-s), -s*v);
+  return new THREE.Plane(new THREE.Vector3(0,s,0), -s*v);
+}
+function applyCut(){
+  const slab = $('slab').checked, w = +$('slabw').value, ps = [];
+  $('slabwv').textContent = w.toFixed(1) + ' m';
+  for (const k of ['x','y','z']){
+    const v = +$('v_'+k).value; $('o_'+k).textContent = v.toFixed(1) + ' m'; $('f_'+k).textContent = FLIPTXT[k](AXS[k]);
+    if (!$('ax_'+k).checked) continue;
+    if (slab) ps.push(axPlane(k, v - w/2, 1), axPlane(k, v + w/2, -1)); else ps.push(axPlane(k, v, AXS[k]));
+  }
+  if (gView){ pivot.updateMatrixWorld(true); for (const pl of ps) pl.applyMatrix4(pivot.matrixWorld); }
+  setPlanes(ps);
+}
+function setPress(c){ for (const b of $('cut').children) b.setAttribute('aria-pressed', b.dataset.c === c); }
+const CUTP = {off:{}, side:{y:[0,-1]}, top:{z:[0,-1]}, station:{x:[null,1]}};
+$('cut').addEventListener('click', e=>{ const b = e.target.closest('button'); if (!b) return; const c = b.dataset.c, P = CUTP[c];
+  for (const k of ['x','y','z']){ const on = !!P[k]; $('ax_'+k).checked = on; if (on){ if (P[k][0] !== null) $('v_'+k).value = P[k][0]; AXS[k] = P[k][1]; } }
+  $('slab').checked = false; setPress(c); applyCut();
+  if (c === 'side') view('cutside'); else if (c === 'top') view('top'); else if (c === 'station') view('station'); });
+for (const k of ['x','y','z']){
+  $('v_'+k).addEventListener('input', ()=>{ if (!$('ax_'+k).checked) $('ax_'+k).checked = true; setPress(''); applyCut(); });
+  $('ax_'+k).addEventListener('change', ()=>{ setPress(''); applyCut(); });
+  $('f_'+k).addEventListener('click', ()=>{ AXS[k] *= -1; setPress(''); applyCut(); });
+}
+$('slab').addEventListener('change', ()=>{ setPress(''); applyCut(); });
+$('slabw').addEventListener('input', ()=>{ setPress(''); applyCut(); });
+$('ghost').addEventListener('change', e=>{ ghost = e.target.checked; refresh(); });
+
+// camera views (three-space)
+const V = {
+  three:  {p:[-62, 34, 62], t:[0,0,0]},
+  side:   {p:[0, 4, 92], t:[0,0,0]},
+  cutside:{p:[0, 6, -78], t:[0,0,0]},
+  top:    {p:[0, 98, 2], t:[0,0,0]},
+  bow:    {p:[-48, 10, 24], t:[-24,0,0]},
+  aft:    {p:[78, 22, 54], t:[16,0,0]},
+  habitat:{p:[-30, 8, -34], t:[-20,0,0]},
+  gdeck:  {p:[0, 20.5, -36], t:[0,20.5,0]},
+  station:{p:[-60, 14, 26], t:[-27 + 6,0,0]},
+  bridge: {p:[-33.5, 5.5, 4.5], t:[-24.3, 0, 0]},
+  common: {p:[-31.3, 5.0, 4.2], t:[-22.4, 0, 0]},
+  quarters: {p:[-28.7, 5.0, 4.2], t:[-19.8, 0, 0]},
+  medical: {p:[-26.1, 5.0, 4.2], t:[-17.2, 0, 0]},
+  eva: {p:[-23.5, 5.0, 4.2], t:[-14.6, 0, 0]}
+};
+let anim = null;
+function view(k){
+  const v = V[k]; if (!v) return;
+  if (k === 'bridge'){ setG(false); $('ax_y').checked = false; $('ax_z').checked = false; $('ax_x').checked = true; $('v_x').value = 1.3; AXS.x = 1; $('slab').checked = false; setPress(''); applyCut();
+    if (!$('roomsoff').checked){ $('roomsoff').checked = true; roomsOff = true; refresh(); }
+    if (!$('intl1').checked){ $('intl1').checked = true; intOn = true; loadState(); } }
+  else if (k === 'common'){ setG(false); $('ax_y').checked = false; $('ax_z').checked = false; $('ax_x').checked = true; $('v_x').value = 3.9; AXS.x = 1; $('slab').checked = false; setPress(''); applyCut();
+    if (!$('roomsoff').checked){ $('roomsoff').checked = true; roomsOff = true; refresh(); }
+    if (!$('l2j').checked){ $('l2j').checked = true; l2On = true; loadState(); } }
+  else if (k === 'quarters'){ setG(false); $('ax_y').checked = false; $('ax_z').checked = false; $('ax_x').checked = true; $('v_x').value = 6.5; AXS.x = 1; $('slab').checked = false; setPress(''); applyCut();
+    if (!$('roomsoff').checked){ $('roomsoff').checked = true; roomsOff = true; refresh(); }
+    if (!$('l3p').checked){ $('l3p').checked = true; l3On = true; loadState(); } }
+  else if (k === 'medical'){ setG(false); $('ax_y').checked = false; $('ax_z').checked = false; $('ax_x').checked = true; $('v_x').value = 9.1; AXS.x = 1; $('slab').checked = false; setPress(''); applyCut();
+    if (!$('roomsoff').checked){ $('roomsoff').checked = true; roomsOff = true; refresh(); }
+    if (!$('l4p').checked){ $('l4p').checked = true; l4On = true; loadState(); } }
+  else if (k === 'eva'){ setG(false); $('ax_y').checked = false; $('ax_z').checked = false; $('ax_x').checked = true; $('v_x').value = 11.7; AXS.x = 1; $('slab').checked = false; setPress(''); applyCut();
+    if (!$('roomsoff').checked){ $('roomsoff').checked = true; roomsOff = true; refresh(); }
+    if (!$('l5p').checked){ $('l5p').checked = true; l5On = true; loadState(); } }
+  else if (k === 'gdeck'){ setG(true); $('ax_x').checked = false; $('ax_z').checked = false; $('ax_y').checked = true; $('v_y').value = 0; AXS.y = -1; $('slab').checked = false; setPress(''); applyCut();
+    let ch = false; for (const [id, on] of [['intl1', ()=>intOn], ['l2j', ()=>l2On], ['l3p', ()=>l3On], ['l4p', ()=>l4On], ['l5p', ()=>l5On]]) if (!on()) { $(id).checked = true; ch = true; }
+    if (ch){ intOn = l2On = l3On = l4On = l5On = true; }
+    if (!$('roomsoff').checked){ $('roomsoff').checked = true; roomsOff = true; ch = true; }
+    if (ch) loadState(); } else setG(false);
+  let t = v.t; if (k === 'station') t = [+$('v_x').value - 27, 0, 0];
+  anim = {p0: camera.position.clone(), t0: controls.target.clone(), p1: new THREE.Vector3(...v.p).add(new THREE.Vector3(k==='station'? t[0]+27-6 : 0,0,0)), t1: new THREE.Vector3(...t), s: performance.now()};
+  for (const c of $('views').children) c.setAttribute('aria-pressed', c.dataset.v === k);
+}
+let l2On = false, l3On = false, l4On = false, l5On = false;
+$('l5p').addEventListener('change', e=>{ l5On = e.target.checked; if (l5On && !roomsOff){ $('roomsoff').checked = true; roomsOff = true; } loadState(); });
+$('l4p').addEventListener('change', e=>{ l4On = e.target.checked; if (l4On && !roomsOff){ $('roomsoff').checked = true; roomsOff = true; } loadState(); });
+$('l3p').addEventListener('change', e=>{ l3On = e.target.checked; if (l3On && !roomsOff){ $('roomsoff').checked = true; roomsOff = true; } loadState(); });
+$('l2j').addEventListener('change', e=>{ l2On = e.target.checked; if (l2On && !roomsOff){ $('roomsoff').checked = true; roomsOff = true; } loadState(); });
+let intOn = false, walterOn = false, propOn = false, haloOpen = false;
+for (const b of $('halo').querySelectorAll('button')) b.addEventListener('click', ()=>{ haloOpen = b.dataset.h === 'open'; for (const c of $('halo').querySelectorAll('button')) c.setAttribute('aria-pressed', c === b); if (!intOn){ intOn = true; $('intl1').checked = true; if (!roomsOff){ $('roomsoff').checked = true; roomsOff = true; } } loadState(); });
+if(0)$('propst').addEventListener('change', e=>{ propOn = e.target.checked; if (propOn && !intOn){ intOn = true; $('intl1').checked = true; if (!roomsOff){ $('roomsoff').checked = true; roomsOff = true; } } if (gView === false && $('ax_x').checked && +$('v_x').value === 1.9 && propOn){ $('v_x').value = 1.3; applyCut(); } loadState(); });
+$('intl1').addEventListener('change', e=>{ intOn = e.target.checked; if (intOn && !roomsOff){ $('roomsoff').checked = true; roomsOff = true; } loadState(); });
+$('walter').addEventListener('change', e=>{ walterOn = e.target.checked; loadState(); });
+$('views').addEventListener('click', e=>{ const b = e.target.closest('button'); if (b) view(b.dataset.v); });
+
+// layers UI
+function layerMass(k){ let m = 0; for (const p of parts) if (p.layer === k) m += p.d.m || 0; return m; }
+function buildLayers(){
+  $('layers').innerHTML = LAYERS.map(l=>{ const n = parts.filter(p=>p.layer===l.k).length; const m = layerMass(l.k);
+    return `<label class="layer"><input type="checkbox" data-k="${l.k}" ${visibleLayer[l.k]?'checked':''}><i style="background:${l.c}"></i><span>${l.n}</span><em>${n} · ${m>0?fmtT(m):'in allocations'}</em></label>`; }).join('');
+}
+$('layers').addEventListener('change', e=>{ const k = e.target.dataset.k; if (!k) return; visibleLayer[k] = e.target.checked; refresh(); });
+function setAllLayers(on){ for (const l of LAYERS) visibleLayer[l.k] = on; buildLayers(); refresh(); }
+$('lall').addEventListener('click', ()=>setAllLayers(true));
+// systems tree from the GLB node hierarchy (ship > system > subsystem > part)
+const hiddenSys = new Set(), hiddenSub = new Set(), openSys = new Set();
+function groupBy(arr, f){ const m = new Map(); for (const x of arr){ const k = f(x); if (!m.has(k)) m.set(k, []); m.get(k).push(x); } return [...m].sort((a,b)=>a[0].localeCompare(b[0])); }
+function buildTree(){
+  const sysMass = ps => ps.reduce((a,p)=>a + (p.d.m||0), 0);
+  $('tree').innerHTML = groupBy(parts, p=>p.sys).map(([sys, ps])=>{
+    const subs = groupBy(ps, p=>p.sub);
+    return `<details ${openSys.has(sys)?'open':''} data-sys="${sys}"><summary><input type="checkbox" data-s="${sys}" ${hiddenSys.has(sys)?'':'checked'}><b>${sys.charAt(0) + sys.slice(1).toLowerCase()}</b><em>${ps.length}${sysMass(ps)>0?' · '+fmtT(sysMass(ps)):''}</em></summary>` +
+      subs.map(([sub, q])=>`<label class="sub"><input type="checkbox" data-u="${sub}" ${hiddenSub.has(sub)?'':'checked'}><span>${(sub.split('/').slice(1).join('/')||'other').replace(/_/g,' ')}</span><em>${q.length}</em></label>`).join('') + '</details>';
+  }).join('');
+}
+$('tree').addEventListener('change', e=>{ const t = e.target; if (t.dataset.s){ t.checked ? hiddenSys.delete(t.dataset.s) : hiddenSys.add(t.dataset.s); } else if (t.dataset.u){ t.checked ? hiddenSub.delete(t.dataset.u) : hiddenSub.add(t.dataset.u); } refresh(); });
+$('tree').addEventListener('toggle', e=>{ const d = e.target; if (d.dataset && d.dataset.sys){ d.open ? openSys.add(d.dataset.sys) : openSys.delete(d.dataset.sys); } }, true);
+function setAllSys(on){ hiddenSys.clear(); hiddenSub.clear(); if (!on) for (const p of parts) hiddenSys.add(p.sys); buildTree(); refresh(); }
+$('sall').addEventListener('click', ()=>setAllSys(true));
+$('snone').addEventListener('click', ()=>setAllSys(false));
+$('lnone').addEventListener('click', ()=>setAllLayers(false));
+
+// selection
+function select(p, focus){
+  selected = p; refresh();
+  $('iso').disabled = !p; $('frame').disabled = !p;
+  if (!p){ $('sel').innerHTML = '<p class="note">Tap a part on the model or in the list.</p>'; markList(); return; }
+  const d = p.d;
+  $('sel').innerHTML = `<div class="nm">${d.n}</div><dl class="kv"><dt>Part id</dt><dd>${p.id}</dd><dt>System</dt><dd>${p.sys} › ${p.subN}</dd><dt>Layer</dt><dd>${LK[p.layer].n}</dd><dt>System</dt><dd>${d.sys}</dd><dt>Booked mass</dt><dd>${d.m>0?fmtT(d.m):'in allocation'}</dd><dt>Extent x</dt><dd>${p.x0.toFixed(2)} to ${p.x1.toFixed(2)} m</dd><dt>Extent y</dt><dd>${(-p.bb.max.z).toFixed(2)} to ${(-p.bb.min.z).toFixed(2)} m</dd><dt>Extent z</dt><dd>${p.bb.min.y.toFixed(2)} to ${p.bb.max.y.toFixed(2)} m</dd></dl>${exHTML(p.ex)}${d.note?`<p class="note">${d.note}</p>`:''}`;
+  markList(); if (focus) frame(p);
+  let fpOn = false; try { fpOn = !!fp; } catch(e){}
+  if (fpOn){ $('fphint').textContent = '▸ ' + d.n; clearTimeout(globalThis.__hintT); globalThis.__hintT = setTimeout(()=>{ try { fpHint(); } catch(e){} }, 3500); }
+  else if (document.fullscreenElement || stage.classList.contains('pseudofs')) $('status').textContent = '▸ ' + d.n + (d.m > 0 ? ' · ' + fmtT(d.m) : '');
+}
+// readable labels for glTF node extras (PR #480 provenance + the agreed schema fields)
+const EXL = {canon_tag:'Canon tag', tag:'Canon tag', geometry_revision:'Geometry', node_id:'Node', id:'Id', radiator_mode:'Radiators', crown_gore_pose:'Gores', state:'State',
+  source_allocation_id:'Allocation', allocation_parent:'Allocation', source_allocation_total_t:'Allocation mass', node_mass_rebooking_t:'Mass rebooked',
+  source_allocation_reused_by_multiple_geometry_nodes:'Shared allocation', system:'System', semantic_system:'System', semantic_subsystem:'Subsystem', zone:'Zone', deck:'Deck', mass:'Mass', material:'Material',
+  print_group:'Print group', zone:'Zone', deck:'Deck', source:'Source', kind:'Kind', source_mass_rebooking_t:'Mass rebooked'};
+const EXSKIP = new Set(['epistemic_status','p']);
+function exVal(k, v){
+  if (v === null || v === undefined || v === '') return '—';
+  if (typeof v === 'boolean') return v ? 'Yes' : 'No';
+  if (typeof v === 'number') return /_t$|^mass$/.test(k) ? (v === 0 ? '0 t' : fmtT(v)) : String(v);
+  if (typeof v === 'object') return JSON.stringify(v);
+  return String(v).replace(/^(dry|S1):/, '').replace(/_/g, ' ');
+}
+function exHTML(ex){
+  const e = Object.entries(ex || {}).filter(([k])=>!EXSKIP.has(k));
+  if (!e.length) return '';
+  const lab = k => EXL[k] || (k.charAt(0).toUpperCase() + k.slice(1).replace(/_/g, ' '));
+  const st = ex.epistemic_status ? `<p class="note">${ex.epistemic_status.charAt(0).toUpperCase() + ex.epistemic_status.slice(1)}.</p>` : '';
+  return `<p class="kvh">Model data</p><dl class="kv">${e.map(([k,v])=>`<dt>${lab(k)}</dt><dd>${exVal(k,v)}</dd>`).join('')}</dl>${st}`;
+}
+function frame(p){
+  const b = new THREE.Box3(); for (const m of p.meshes) b.expandByObject(m); const c = b.getCenter(new THREE.Vector3()), r = Math.max(2.5, b.getSize(new THREE.Vector3()).length());
+  const dir = camera.position.clone().sub(controls.target).normalize();
+  anim = {p0: camera.position.clone(), t0: controls.target.clone(), p1: c.clone().add(dir.multiplyScalar(r*1.9)), t1: c, s: performance.now()};
+}
+$('iso').addEventListener('click', ()=>{ isolated = !isolated; $('iso').textContent = isolated ? 'Un-isolate' : 'Isolate'; refresh(); });
+$('frame').addEventListener('click', ()=>{ if (selected) frame(selected); });
+$('all').addEventListener('click', ()=>{ isolated = false; $('iso').textContent = 'Isolate'; for (const l of LAYERS) visibleLayer[l.k] = true; buildLayers(); select(null); });
+
+// parts list
+function buildList(){
+  const q = $('q').value.trim().toLowerCase();
+  let html = '';
+  for (const [sub, ps] of groupBy(parts, p=>p.sys + ' › ' + p.subN)){
+    const rows = ps.filter(p=>!q || p.d.n.toLowerCase().includes(q) || p.id.toLowerCase().includes(q) || sub.toLowerCase().includes(q));
+    if (!rows.length) continue;
+    html += `<div class="gh">${sub} · ${rows.length}</div>` + rows.map(p=>`<button data-i="${p.i}"><span>${p.d.n}</span><span>${p.d.m>0?fmtT(p.d.m):''}</span></button>`).join('');
+  }
+  $('list').innerHTML = html || '<p class="note" style="padding:8px">No parts match.</p>'; markList();
+}
+function markList(){ for (const b of $('list').querySelectorAll('button')) b.classList.toggle('on', selected && +b.dataset.i === selected.i); }
+$('q').addEventListener('input', buildList);
+$('list').addEventListener('click', e=>{ const b = e.target.closest('button'); if (b) select(parts[+b.dataset.i], true); });
+
+// performance
+{
+  $('modes').innerHTML = '<div class="mr mh"><span>Mode</span><span>Δv km/s</span><span>Thrust MN</span><span>g</span></div>' +
+    meta.modes.map(m=>`<div class="mr"><span>${m.k}</span><span>${m.dv.toFixed(1)}</span><span>${m.thrust.toFixed(1)}</span><span>${m.g.toFixed(2)}</span></div>`).join('');
+  $('mass').innerHTML = [['Dry mass (modelled)', fmtT(meta.dry_t)], ['Reference wet mass', '1,153.9 t'], ['D–He3 fuel', '3.8 t + 0.1 t reserve'], ['Normal remass', '245.4 t'], ['Protected water', '50.0 t'], ['Overall length', meta.length + ' m']].map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('');
+  const ds = Object.entries(meta.dry_by_system).sort((a,b)=>b[1]-a[1]), mx = ds[0][1];
+  $('bars').innerHTML = ds.map(([k,v])=>`<div class="bar"><span>${k}</span><s style="width:${(v/mx*100).toFixed(1)}%"></s><span>${v.toFixed(1)}</span></div>`).join('');
+}
+
+// load model: one full-ship GLB per radiator mode x crown gore pose (main 74734af, PR #489 merged: exterior detail pass)
+const MODEFILE = {loom:'stowed', metric:'metric_hard', torch:'torch'};
+let radMode = 'loom', loadSeq = 0;
+const bufCache = new Map();
+async function loadState(){
+  const file = 'glb/' + MODEFILE[radMode] + '_' + goreState + '.glb', seq = ++loadSeq;
+  $('status').textContent = 'Loading ' + file.slice(4, -4).replace('_', ' / ') + '…';
+  // interior and figures first: where a part name appears twice, the first file wins
+  const files = [...(l5On ? ['glb/interior_L5.glb'] : []), ...(l4On ? ['glb/interior_L4.glb'] : []), ...(l3On ? ['glb/interior_L3.glb'] : []), ...(l2On ? ['glb/interior_deck_hatches.glb', 'glb/interior_L2.glb'] : []), ...(intOn ? ['glb/interior_L1.glb'] : []), ...(walterOn ? ['glb/walter_L1.glb'] : []), file];
+  let bufs;
+  try { bufs = await Promise.all(files.map(async f=>{ let b = bufCache.get(f); if (!b){ const j = await fetch(f.replace(/\.glb$/, '.json')).then(r=>{ if (!r.ok) throw 0; return r.json(); }); b = Uint8Array.from(atob(j.glb_base64), c=>c.charCodeAt(0)).buffer; bufCache.set(f, b); } return b; })); }
+  catch(e){ $('status').textContent = 'The model failed to load. Reload the page to try again.'; return; }
+  if (seq !== loadSeq) return;
+  let gls;
+  try { gls = await Promise.all(bufs.map(b=>new Promise((ok, no)=>new GLTFLoader().parse(b.slice(0), '', ok, no)))); }
+  catch(e){ $('status').textContent = 'The model failed to load. Reload the page to try again.'; return; }
+  if (seq === loadSeq) install(gls, files);
+}
+function install(gls, files){
+  const keepSel = selected && selected.key;
+  for (const p of parts) for (const m of p.meshes){ model.remove(m); m.geometry.dispose(); }
+  for (const m of partMats) m.dispose(); partMats.length = 0; for (const k in finMats) delete finMats[k]; parts.length = 0; selected = null;
+  const byName = new Map(), exByName = new Map(), hierByName = new Map(), srcByName = new Map(), seenGeo = new Set();
+  gls.forEach((gl, fi)=>{
+  if (gl.animations && gl.animations.length){ const mx = new THREE.AnimationMixer(gl.scene); const ac = mx.clipAction(gl.animations[0]); ac.setLoop(THREE.LoopOnce); ac.clampWhenFinished = true; ac.play(); mx.setTime(haloOpen ? gl.animations[0].duration * .999 : 0); }
+  gl.scene.updateMatrixWorld(true);
+  const meshes = []; gl.scene.traverse(o=>{ if (o.isMesh) meshes.push(o); });
+  const A = gl.parser.associations, J = gl.parser.json.nodes, mine = new Set();
+  const geoUses = new Map(); for (const m of meshes) geoUses.set(m.geometry, (geoUses.get(m.geometry) || 0) + 1);
+  for (const m of meshes){
+    // multi-primitive parts load as a group of meshes: the node name sits on the parent
+    let nm = '';
+    for (const o of [m, m.parent]){ const un = o && o.userData && o.userData.name; if (typeof un === 'string' && un){ nm = un; break; } }
+    if (!nm) for (const o of [m, m.parent]){ const as = o && A.get(o); if (as && as.nodes !== undefined && J[as.nodes] && J[as.nodes].name){ nm = J[as.nodes].name; break; } }
+    if (!nm){ const s = (m.parent && m.parent.name) || m.name || ''; const r = s.match(/^(dry|S1)(.*?)(\d\d)?$/); nm = r ? r[1] + ':' + r[2] : s; }
+    if (byName.has(nm) && !mine.has(nm)) continue; // already drawn by an earlier (interior) file
+    mine.add(nm); if (!srcByName.has(nm)) srcByName.set(nm, files[fi]);
+    if (geoUses.get(m.geometry) > 1 || seenGeo.has(m.geometry)) m.geometry = m.geometry.clone(); seenGeo.add(m.geometry); // instanced meshes share geometry: each copy gets its own before it is moved into place
+    if (!m.geometry.attributes.normal){ m.geometry = m.geometry.toNonIndexed(); m.geometry.computeVertexNormals(); seenGeo.add(m.geometry); } // figure proxy: flat-shaded
+    if (!hierByName.has(nm)){ let sys = '', sub = ''; for (let o = m.parent; o; o = o.parent){ const as = A.get(o); const n2 = as && as.nodes !== undefined && J[as.nodes] ? J[as.nodes].name || '' : ''; if (!sub && n2.startsWith('subsystem:')) sub = n2.slice(10); if (!sys && n2.startsWith('system:')) sys = n2.slice(7); } if (nm.startsWith('figure:')){ sys = 'FIGURES'; sub = 'FIGURES/on L1'; } if (nm.startsWith('proposal:')){ sys = 'PROPOSED'; sub = nm.includes('L2_') ? 'PROPOSED/L2 Japandi' : 'PROPOSED'; } hierByName.set(nm, {sys: sys || (sub.split('/')[0]) || 'UNGROUPED', sub: sub || (sys || 'UNGROUPED') + '/other'}); }
+    if (m.material && !m.userData.gmat){ const g = m.material.clone(); g.side = THREE.DoubleSide; g.envMapIntensity = .6; if (g.transparent){ g.depthWrite = false; g.color.multiplyScalar(.3); g.opacity = Math.min(g.opacity, .45); g.envMapIntensity = 1; } g.clippingPlanes = planes; partMats.push(g); m.userData.gmat = g; }
+    m.geometry.applyMatrix4(m.matrixWorld); m.position.set(0,0,0); m.rotation.set(0,0,0); m.scale.set(1,1,1); m.updateMatrix();
+    if (!exByName.has(nm)){ const src = [m, m.parent].find(o=>o && o.userData && Object.keys(o.userData).length); exByName.set(nm, src ? {...src.userData} : {}); }
+    if (!byName.has(nm)) byName.set(nm, []); byName.get(nm).push(m);
+  }
+  });
+  for (const [nm, ms] of byName){
+    const pre = nm.split(':')[0]; const id = nm.slice(pre.length + 1).replace(/:\d+$/,'');
+    const bb = new THREE.Box3(); for (const m of ms){ m.geometry.computeBoundingBox(); bb.union(m.geometry.boundingBox); }
+    const p = {meshes:ms, pre, id, key:nm, layer: layerOf(pre, id), d: describe(pre, id), i: parts.length, x0: bb.min.x, x1: bb.max.x, bb, ex: exByName.get(nm)};
+    if (srcByName.get(nm) === 'glb/interior_L1.glb'){ p.d = {...p.d, note:'L1 interior, kT-approved build with B3 stations (PR #518, 4c3c5f0; main 7cb6b13, wall fit-out PR #521). Mass-neutral: inside its booked allocation. D9 0, containment PASS, halos closed and open.'}; } { const h = hierByName.get(nm); p.sys = h.sys; p.sub = h.sub; p.subN = h.sub.split('/').slice(1).join('/').replace(/_/g,' ') || 'other'; }
+    // fixed draw order: opaque parts first, then see-through layers in layer order
+    const li = LAYERS.findIndex(l=>l.k===p.layer), see = (LAYERS[li].o ?? 1) < 1;
+    for (const m of ms){ const g = m.userData.gmat; m.userData.p = p; if (g){ m.userData.gmat = g; if (!g.transparent){ g.polygonOffset = true; g.polygonOffsetFactor = -(p.i % 64) * .05; g.polygonOffsetUnits = -(p.i % 64) * 2; } } m.renderOrder = see || (g && g.transparent) ? 10 + li : 0; model.add(m); }
+    parts.push(p);
+  }
+  for (const p of parts) if (ETCH_ARCH.test(p.id)) for (const m of p.meshes) etchify(m.userData.gmat);
+  buildLayers(); buildTree(); buildList(); applyCut(); fpSolid = null; lightCands = []; if (globalThis.FPON) buildLightCands();
+  select(parts.find(p=>p.key === keepSel) || null, false);
+  const decks = [intOn && 'L1', l2On && 'L2', l3On && 'L3', l4On && 'L4', l5On && 'L5'].filter(Boolean);
+  $('status').textContent = parts.length + ' parts' + (decks.length ? ' (interiors ' + decks.join(' ') + ')' : '') + ' · ' + MODEFILE[radMode].replace('_',' ') + ' radiators · gores ' + goreState + ' · tap a part';
+  if (!viewed){ viewed = true; view('three'); }
+}
+let viewed = false;
+setPreset('loom', true); setGore('closed', true); loadState();
+
+// picking
+const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+function pick(ev){
+  const r = canvas.getBoundingClientRect(); ndc.set((ev.clientX - r.left)/r.width*2-1, -(ev.clientY - r.top)/r.height*2+1);
+  ray.setFromCamera(ndc, camera);
+  const hits = ray.intersectObjects(parts.flatMap(p=>p.meshes).filter(m=>m.visible), false);
+  for (const h of hits){ if (planes.every(pl=>pl.distanceToPoint(h.point) >= 0)) return h.object.userData.p; }
+  return null;
+}
+let down = null;
+canvas.addEventListener('pointerdown', e=>{ down = [e.clientX, e.clientY]; });
+canvas.addEventListener('pointerup', e=>{ if (down && Math.hypot(e.clientX-down[0], e.clientY-down[1]) < 6){ const p = pick(e); select(p, false); } down = null; });
+let lastMove = 0;
+canvas.addEventListener('pointermove', e=>{
+  if (e.pointerType !== 'mouse' || e.buttons) { $('tip').hidden = true; return; }
+  const now = performance.now(); if (now - lastMove < 60) return; lastMove = now;
+  const p = pick(e), tip = $('tip');
+  if (!p){ tip.hidden = true; return; }
+  const r = stage.getBoundingClientRect();
+  tip.innerHTML = `${p.d.n}<span>${LK[p.layer].n}${p.d.m>0?' · '+fmtT(p.d.m):''}</span>`;
+  tip.style.left = Math.min(e.clientX - r.left + 14, r.width - 270) + 'px'; tip.style.top = (e.clientY - r.top + 14) + 'px'; tip.hidden = false;
+});
+canvas.addEventListener('pointerleave', ()=>{ $('tip').hidden = true; });
+
+
+// ---- first person: Walk (habitat decks, thrust gravity) and Fly (free, anywhere) ----
+// Walk: thrust gravity points aft (+x ship), so "up" is toward the bow. Eye 1.6 m above each deck floor.
+const FLOORS = [3.0, 5.6, 8.2, 10.8, 13.4], DECKN = ['L1 Bridge','L2 Common','L3 Quarters','L4 Medical / shelter','L5 EVA'];
+const EYE0 = 1.6, BODY0 = .28, R_MAX = 4.05, LADDERS = [[1.45, 0], [-1.45, 0]];   // ladderways at 0 and 180 deg, r 1.45 (ship Y, Z)
+let fp = null; const keys = new Set(); const joy = {x:0, y:0, id:null};
+const fpRay = new THREE.Raycaster(); fpRay.far = 2;
+function shipToWorld(X, Y, Z){ return new THREE.Vector3(X - 27, Z, -Y); }
+let fpSolid = null, fpSolidN = -1;
+function solidMeshes(){ if (fpSolid && fpSolidN === parts.length) return fpSolid; fpSolidN = parts.length; return fpSolid = parts.filter(p=>!/^(room_|outfit_)/.test(p.id)).flatMap(p=>p.meshes).filter(m=>m.visible && !(m.material && m.material.transparent && m.material.opacity < .3)); }
+function nearLadder(){ if (!fp || fp.mode !== 'walk') return null; let best = null;
+  for (const [ly, lz] of LADDERS){ const d = Math.hypot(fp.Y - ly, fp.Z - lz); if (d < .85 && (!best || d < best.d)) best = {d, ly, lz}; } return best; }
+function fpHint(){
+  if (!fp) return;
+  if (fp.mode === 'fly'){ $('fphint').textContent = 'Fly: joystick to move, drag to look, ▲▼ rise and sink'; $('fpup').disabled = $('fpdn').disabled = false; $('fpupt').textContent = 'Rise'; $('fpdnt').textContent = 'Sink'; return; }
+  const L = nearLadder(); $('fpupt').textContent = 'Up ladder'; $('fpdnt').textContent = 'Down ladder';
+  $('fpup').disabled = !L || fp.deck === 0 || !!fp.climb; $('fpdn').disabled = !L || fp.deck === 4 || !!fp.climb;
+  $('fphint').textContent = L ? 'At the ladderway: ▲ / ▼ to climb' : 'Ladderways: corridor, fore and aft of the core';
+}
+function enterFP(mode){
+  globalThis.FPON = true; startAudio(); ensureComposer(); sizeComposer();
+  if (colourMode !== 'canon'){ const cb = $('cmode').querySelector('[data-m=canon]'); if (cb) cb.click(); }
+  anim = null; controls.enabled = false; camera.near = .05; camera.fov = 70; camera.updateProjectionMatrix(); stage.classList.add('fpon'); fpSolid = null;
+  if (mode === 'walk'){
+    setG(false); for (const k of ['x','y','z']) $('ax_'+k).checked = false; $('slab').checked = false; setPress(''); applyCut();
+    let ch = false; for (const id of ['intl1','l2j','l3p','l4p','l5p']) if (!$(id).checked){ $(id).checked = true; ch = true; }
+    if (ch){ intOn = l2On = l3On = l4On = l5On = true; }
+    if (!$('roomsoff').checked){ $('roomsoff').checked = true; roomsOff = true; ch = true; }
+    if (ch) loadState(); else refresh();
+    fp = {mode, deck:1, Y:0, Z:1.6, yaw:0, pitch:0, xoff:0};
+    camera.up.set(-1, 0, 0);
+  } else {
+    const d = new THREE.Vector3(); camera.getWorldDirection(d);
+    fp = {mode, pos: camera.position.clone(), yaw: Math.atan2(-d.x, -d.z), pitch: Math.asin(Math.max(-1, Math.min(1, d.y)))};
+    camera.up.set(0, 1, 0);
+  }
+  $('fpui').hidden = false; for (const c of $('views').children) c.setAttribute('aria-pressed', c.dataset.fp === mode); fpHint();
+  $('fpwho').style.display = mode === 'walk' ? '' : 'none'; $('fpwal').style.display = (mode === 'fly' || who === 'walter') ? '' : 'none';
+  refresh(); applyMood(); if (!lightCands.length) buildLightCands();
+}
+function exitFP(){ globalThis.FPON = false; for (const l of pool) l.intensity = 0; if (AC) AC.suspend(); interiorLit = null; fp = null; keys.clear(); joy.x = joy.y = 0; $('fpui').hidden = true; camera.up.set(0, 1, 0); camera.near = .25; camera.fov = 36; camera.updateProjectionMatrix(); stage.classList.remove('fpon'); controls.enabled = true; view('habitat'); refresh(); }
+function walkDir(){ return [Math.cos(fp.yaw), Math.sin(fp.yaw)]; }             // forward in the ship Y-Z plane
+function blocked(Y, Z, dY, dZ, dist){
+  // horizontal rays at knee, waist and eye height; also the hull lining
+  const BODY = WHO[who].body; if (Math.hypot(Y + dY*(dist+BODY), Z + dZ*(dist+BODY)) > R_MAX) return true;
+  const dirW = new THREE.Vector3(0, dZ, -dY).normalize(), ms = solidMeshes();
+  for (const h of WHO[who].rays){
+    fpRay.set(shipToWorld(FLOORS[fp.deck] - h, Y, Z), dirW);
+    const hit = fpRay.intersectObjects(ms, false)[0]; if (hit && hit.distance < dist + BODY) return true;
+  }
+  return false;
+}
+function fpUpdate(dt){
+  if (!fp) return;
+  let f = (keys.has('w')||keys.has('arrowup') ? 1 : 0) - (keys.has('s')||keys.has('arrowdown') ? 1 : 0) - joy.y;
+  let r = (keys.has('d') ? 1 : 0) - (keys.has('a') ? 1 : 0) + joy.x;
+  const turn = (keys.has('arrowright') ? 1 : 0) - (keys.has('arrowleft') ? 1 : 0); fp.yaw += turn * 1.6 * dt * (fp.mode === 'walk' ? 1 : -1);
+  const fast = keys.has('shift') ? 3 : 1;
+  if (fp.mode === 'walk'){
+    if (fp.climb){ const k = Math.min(1, (performance.now() - fp.climb.s) / 900); fp.xoff = fp.climb.dx * k;
+      if (k >= 1){ fp.deck = fp.climb.to; fp.xoff = 0; fp.climb = null; fpHint(); } }
+    else if (f || r){
+      const [fy, fz] = walkDir(), ry = -fz, rz = fy;           // right-hand side when looking along forward with up toward the bow
+      let dY = fy*f + ry*r, dZ = fz*f + rz*r; const n = Math.hypot(dY, dZ); dY /= n; dZ /= n;
+      const step = WHO[who].speed * fast * dt * Math.min(1, n);
+      const ph0 = bobPh; bobPh += dt * WHO[who].hz * Math.PI * 2 * Math.min(1, n) * fast; if (Math.floor(ph0 / Math.PI) !== Math.floor(bobPh / Math.PI)) paw();
+      if (!blocked(fp.Y, fp.Z, dY, dZ, step)){ fp.Y += dY*step; fp.Z += dZ*step; }
+      else { if (!blocked(fp.Y, fp.Z, Math.sign(dY), 0, Math.abs(dY*step))) fp.Y += dY*step; else if (!blocked(fp.Y, fp.Z, 0, Math.sign(dZ), Math.abs(dZ*step))) fp.Z += dZ*step; }
+      fpHint();
+    }
+    const eye = shipToWorld(FLOORS[fp.deck] - WHO[who].eye - Math.abs(Math.sin(bobPh)) * WHO[who].bob + fp.xoff, fp.Y, fp.Z);
+    const [fy, fz] = walkDir(), c = Math.cos(fp.pitch), s = Math.sin(fp.pitch);
+    const look = new THREE.Vector3(-s, fz*c, -fy*c);
+    camera.position.copy(eye); camera.lookAt(eye.clone().add(look));
+    headlamp.position.set(0, 0, 0); updatePool(dt, eye);
+  } else {
+    const dir = new THREE.Vector3(-Math.sin(fp.yaw)*Math.cos(fp.pitch), Math.sin(fp.pitch), -Math.cos(fp.yaw)*Math.cos(fp.pitch));
+    const right = new THREE.Vector3(Math.cos(fp.yaw), 0, -Math.sin(fp.yaw));
+    const v = 6 * fast * dt, up = (keys.has('e')||keys.has(' ') ? 1 : 0) - (keys.has('q') ? 1 : 0) + (fp.rise || 0);
+    fp.pos.addScaledVector(dir, f*v).addScaledVector(right, r*v); fp.pos.y += up*v;
+    camera.position.copy(fp.pos); camera.lookAt(fp.pos.clone().add(dir)); updatePool(dt, fp.pos);
+  }
+  whereAmI(dt, camera.position); updateAudio(dt);
+}
+function climb(dir){ if (!fp) return;
+  if (fp.mode === 'fly'){ return; }
+  const L = nearLadder(), to = fp.deck + dir; if (!L || to < 0 || to > 4 || fp.climb) return;
+  fp.Y = L.ly; fp.Z = L.lz; fp.climb = {s: performance.now(), to, dx: FLOORS[to] - FLOORS[fp.deck]}; fpHint(); clank();
+}
+for (const [id, d] of [['fpup', -1], ['fpdn', 1]]){
+  const b = $(id);
+  b.addEventListener('click', ()=>climb(d));
+  b.addEventListener('pointerdown', ()=>{ if (fp && fp.mode === 'fly') fp.rise = -d; });
+  for (const ev of ['pointerup','pointerleave','pointercancel']) b.addEventListener(ev, ()=>{ if (fp) fp.rise = 0; });
+}
+$('fpexit').addEventListener('click', exitFP);
+$('views').addEventListener('click', e=>{ const b = e.target.closest('button'); if (b && b.dataset.fp) enterFP(b.dataset.fp); });
+addEventListener('keydown', e=>{ if (!fp || /input|textarea/i.test(e.target.tagName)) return; const k = e.key.toLowerCase(); keys.add(k);
+  if (k === 'escape') exitFP(); if (fp && fp.mode === 'walk' && (k === 'e' || k === 'pageup')) climb(-1); if (fp && fp.mode === 'walk' && (k === 'q' || k === 'pagedown')) climb(1);
+  if (['arrowup','arrowdown','arrowleft','arrowright',' '].includes(k)) e.preventDefault(); });
+addEventListener('keyup', e=>keys.delete(e.key.toLowerCase()));
+addEventListener('blur', ()=>keys.clear());
+// joystick
+{ const J = $('fpjoy'), K = $('fpknob');
+  const set = e=>{ const r = J.getBoundingClientRect(); let x = (e.clientX - r.left - r.width/2) / (r.width/2), y = (e.clientY - r.top - r.height/2) / (r.height/2); const n = Math.hypot(x, y); if (n > 1){ x /= n; y /= n; }
+    joy.x = x; joy.y = y; K.style.transform = `translate(${x*38}px,${y*38}px)`; };
+  J.addEventListener('pointerdown', e=>{ joy.id = e.pointerId; J.setPointerCapture(e.pointerId); set(e); e.stopPropagation(); });
+  J.addEventListener('pointermove', e=>{ if (e.pointerId === joy.id) set(e); });
+  for (const ev of ['pointerup','pointercancel']) J.addEventListener(ev, e=>{ if (e.pointerId === joy.id){ joy.id = null; joy.x = joy.y = 0; K.style.transform = ''; } }); }
+// drag to look
+{ let last = null;
+  canvas.addEventListener('pointerdown', e=>{ if (fp) last = [e.clientX, e.clientY]; });
+  canvas.addEventListener('pointermove', e=>{ if (!fp || !last) return; const dx = e.clientX - last[0], dy = e.clientY - last[1]; last = [e.clientX, e.clientY];
+    const sens = 0.0045 * (36 / camera.fov);
+    fp.yaw += (fp.mode === 'walk' ? 1 : -1) * dx * sens; fp.pitch = Math.max(-1.45, Math.min(1.45, fp.pitch - dy * sens)); });
+  for (const ev of ['pointerup','pointercancel','pointerleave']) canvas.addEventListener(ev, ()=>{ last = null; }); }
+
+
+// ---- full screen + landscape ----
+// Real full screen (and an orientation lock where the browser allows it, e.g. Android Chrome); if the page is not
+// allowed to go full screen (some embeds), the stage fills the window instead and asks you to turn the phone.
+function isFS(){ return document.fullscreenElement === stage || stage.classList.contains('pseudofs'); }
+function fsLabel(){ for (const b of document.querySelectorAll('.fsbtn')) b.textContent = isFS() ? '⤡ Exit full screen' : '⛶ Full screen'; rotCheck(); }
+function rotCheck(){ const portrait = innerHeight > innerWidth; $('rotnote').hidden = !(isFS() && portrait && !lockedLandscape);
+  if (!$('rotnote').hidden) setTimeout(()=>{ $('rotnote').hidden = true; }, 2500); }
+let lockedLandscape = false;
+async function goFS(){
+  try { if (stage.requestFullscreen) await stage.requestFullscreen({navigationUI:'hide'}); else if (stage.webkitRequestFullscreen) stage.webkitRequestFullscreen(); else throw 0; }
+  catch(e){ stage.classList.add('pseudofs'); }
+  try { await screen.orientation.lock('landscape'); lockedLandscape = true; } catch(e){ lockedLandscape = false; }
+  fsLabel(); setTimeout(resize, 120);
+}
+async function leaveFS(){
+  try { screen.orientation.unlock(); } catch(e){} lockedLandscape = false;
+  if (document.fullscreenElement) { try { await document.exitFullscreen(); } catch(e){} }
+  stage.classList.remove('pseudofs'); fsLabel(); setTimeout(resize, 120);
+}
+for (const b of document.querySelectorAll('.fsbtn')) b.addEventListener('click', e=>{ e.stopPropagation(); isFS() ? leaveFS() : goFS(); });
+document.addEventListener('fullscreenchange', ()=>{ if (!document.fullscreenElement){ try { screen.orientation.unlock(); } catch(e){} lockedLandscape = false; } fsLabel(); setTimeout(resize, 120); });
+addEventListener('resize', ()=>{ if (isFS()) rotCheck(); });
+addEventListener('keydown', e=>{ if (e.key === 'Escape' && stage.classList.contains('pseudofs')) leaveFS(); });
+
+// ---- Walter's patrol: lived-in light, bloom and sound (Claude 14 Nov 2026) ----
+// Eye heights: Walter (robot Bouvier) 0.6 m, human 1.6 m. Light: the nearest emissive fittings (cove strips, task
+// lights, screens, wall graphics) become real point lights, 8 at a time; indicator dots only glow. Sound is synthesised.
+const WHO = {walter:{eye:.6, speed:1.9, rays:[.12, .32, .55], bob:.018, hz:3.4, body:.24, label:'🐕'}, human:{eye:1.6, speed:1.4, rays:[.35, 1.0, 1.55], bob:.012, hz:1.8, body:.28, label:'🧍'}};
+let who = 'walter', night = false, soundOn = true, bobPh = 0;
+const LKIND = [[/\/warm$/, 3.2, 3.0], [/\/task$/, 2.0, 2.4], [/\/(screen|scene)$/, .7, 1.6], [/\/graphic$/, .5, 1.4]];  // name, intensity, range (m)
+let lightCands = [];
+function buildLightCands(){
+  lightCands = [];
+  for (const p of parts) for (const m of p.meshes){
+    const mat = m.userData.gmat || m.material; const nm = (mat && mat.name) || ''; const k = LKIND.find(([re])=>re.test(nm)); if (!k) continue;
+    m.geometry.computeBoundingBox(); const c = m.geometry.boundingBox.getCenter(new THREE.Vector3()).add(model.position);
+    const col = mat.emissive ? mat.emissive.clone() : new THREE.Color(1, .8, .6); const mx = Math.max(col.r, col.g, col.b) || 1; col.multiplyScalar(1 / mx);
+    lightCands.push({c, col, I:k[1], R:k[2], warm: /warm|task/.test(nm)});
+    if (mat.emissiveIntensity !== undefined && !mat.userData.boosted){ mat.emissiveIntensity *= /warm|task/.test(nm) ? 1.3 : 1.0; mat.userData.boosted = true; }
+  }
+}
+const pool = Array.from({length:8}, ()=>{ const l = new THREE.PointLight(0xffffff, 0, 3, 2); scene.add(l); return l; });
+let poolT = 0;
+function updatePool(dt, eye){
+  poolT -= dt; if (poolT > 0) return; poolT = .3;
+  const near = lightCands.map(c=>[c, c.c.distanceToSquared(eye)]).filter(([c, d])=>d < 64).sort((a, b)=>a[1] - b[1]).slice(0, pool.length);
+  pool.forEach((l, i)=>{ const n = near[i]; if (!n){ l.intensity = 0; return; } const c = n[0];
+    l.position.copy(c.c); l.color.copy(c.col); l.distance = c.R; l.intensity = c.I * (night ? (c.warm ? .75 : .9) : .3); });
+}
+function applyMood(){
+  if (!globalThis.FPON) return;
+  hemi.intensity = night ? .12 : .42; renderer.toneMappingExposure = night ? .85 : .8;
+  headlamp.intensity = night ? .1 : .18; for (const l of deckLights) l.intensity = night ? .5 : 1.6;
+  $('fpnight').textContent = night ? '☾' : '☀';
+}
+// bloom (first person only)
+let composer = null, bloom = null;
+function ensureComposer(){
+  if (composer) return;
+  composer = new EffectComposer(renderer); composer.addPass(new RenderPass(scene, camera));
+  const v = new THREE.Vector2(); renderer.getSize(v);
+  bloom = new UnrealBloomPass(new THREE.Vector2(v.x / 2, v.y / 2), .2, .4, 1.05); composer.addPass(bloom); composer.addPass(new OutputPass());
+}
+function sizeComposer(){ if (!composer) return; const v = new THREE.Vector2(); renderer.getSize(v); composer.setSize(v.x, v.y); bloom.resolution.set(v.x / 2, v.y / 2); }
+// where am I: the smallest room envelope that contains the eye (room parts stay loaded even when hidden)
+let roomT = 0;
+function whereAmI(dt, eye){
+  roomT -= dt; if (roomT > 0) return; roomT = .5;
+  const local = eye.clone().sub(model.position); let best = null, bv = Infinity;
+  for (const p of parts){ if (!/^room_/.test(p.id) || !p.bb) continue; const b = p.bb; if (!b.containsPoint(local)) continue;
+    const sz = b.getSize(new THREE.Vector3()), v = sz.x * sz.y * sz.z; if (v < bv){ bv = v; best = p; } }
+  $('fproom').textContent = (fp.mode === 'walk' ? DECKN[fp.deck] : 'flying') + (best ? ' · ' + best.d.n.replace(/^Room:\s*/i, '') : (fp.mode === 'walk' ? ' · corridor' : ''));
+}
+// sound
+let AC = null, master = null, deckBus = {}, hum = null;
+function startAudio(){
+  if (AC) { if (AC.state === 'suspended') AC.resume(); return; }
+  try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch(e){ return; }
+  master = AC.createGain(); master.gain.value = soundOn ? .9 : 0; master.connect(AC.destination);
+  const noise = (()=>{ const b = AC.createBuffer(1, AC.sampleRate * 2, AC.sampleRate), d = b.getChannelData(0); let last = 0;
+    for (let i = 0; i < d.length; i++){ const w = Math.random() * 2 - 1; last = (last + .02 * w) / 1.02; d[i] = last * 3.5; } return b; })();
+  const src = (buf)=>{ const s = AC.createBufferSource(); s.buffer = buf; s.loop = true; s.start(); return s; };
+  // base hull hum: 55 Hz saw through a low-pass + brown noise
+  const o1 = AC.createOscillator(); o1.type = 'sawtooth'; o1.frequency.value = 55; const lp = AC.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 170;
+  const g1 = AC.createGain(); g1.gain.value = .045; o1.connect(lp).connect(g1).connect(master); o1.start();
+  const o2 = AC.createOscillator(); o2.frequency.value = 110.4; const g2 = AC.createGain(); g2.gain.value = .012; o2.connect(g2).connect(master); o2.start();
+  const n1 = src(noise); const lp2 = AC.createBiquadFilter(); lp2.type = 'lowpass'; lp2.frequency.value = 380; const g3 = AC.createGain(); g3.gain.value = .05; n1.connect(lp2).connect(g3).connect(master);
+  hum = {g1, g3};
+  // deck character: L4 ECLSS whir, L5 airlock pumps (slow pulse), L1 console blips
+  const n2 = src(noise); const bp = AC.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 950; bp.Q.value = 3;
+  const gE = AC.createGain(); gE.gain.value = 0; n2.connect(bp).connect(gE).connect(master); deckBus.eclss = gE;
+  const n3 = src(noise); const lp3 = AC.createBiquadFilter(); lp3.type = 'lowpass'; lp3.frequency.value = 220; const gP = AC.createGain(); gP.gain.value = 0;
+  const lfo = AC.createOscillator(); lfo.frequency.value = .45; const lfoG = AC.createGain(); lfoG.gain.value = 0; lfo.connect(lfoG).connect(gP.gain); lfo.start();
+  n3.connect(lp3).connect(gP).connect(master); deckBus.pump = gP; deckBus.pumpLfo = lfoG;
+}
+function blip(f, t, g, type){ if (!AC || !soundOn) return; const o = AC.createOscillator(), v = AC.createGain(); o.type = type || 'sine'; o.frequency.value = f;
+  v.gain.setValueAtTime(g, AC.currentTime); v.gain.exponentialRampToValueAtTime(.0001, AC.currentTime + t); o.connect(v).connect(master); o.start(); o.stop(AC.currentTime + t + .05); }
+function paw(){ if (!AC || !soundOn) return; const b = AC.createBuffer(1, AC.sampleRate * .03, AC.sampleRate), d = b.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.exp(-i / (AC.sampleRate * .004));
+  const s = AC.createBufferSource(); s.buffer = b; const hp = AC.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = who === 'walter' ? 2600 : 900;
+  const g = AC.createGain(); g.gain.value = who === 'walter' ? .09 : .12; s.connect(hp).connect(g).connect(master); s.start(); }
+function clank(){ blip(318, .5, .07, 'triangle'); blip(471, .35, .05, 'triangle'); setTimeout(()=>blip(352, .4, .05, 'triangle'), 260); }
+let blipT = 3;
+function updateAudio(dt){
+  if (!AC) return; master.gain.setTargetAtTime(soundOn ? .9 : 0, AC.currentTime, .1);
+  const d = fp.mode === 'walk' ? fp.deck : -1;
+  deckBus.eclss.gain.setTargetAtTime(d === 3 ? .05 : d === 2 || d === 4 ? .012 : 0, AC.currentTime, .4);
+  deckBus.pump.gain.setTargetAtTime(d === 4 ? .05 : 0, AC.currentTime, .4); deckBus.pumpLfo.gain.setTargetAtTime(d === 4 ? .045 : 0, AC.currentTime, .4);
+  hum.g1.gain.setTargetAtTime(fp.mode === 'fly' ? .02 : .045, AC.currentTime, .5);
+  if (d === 0){ blipT -= dt; if (blipT < 0){ blipT = 2 + Math.random() * 5; blip(1180 + Math.random() * 500, .12, .025); } }
+}
+$('fpwho').addEventListener('click', ()=>{ who = who === 'walter' ? 'human' : 'walter'; $('fpwho').textContent = WHO[who].label; $('fpwal').style.display = who === 'walter' ? '' : 'none'; });
+$('fpnight').addEventListener('click', ()=>{ night = !night; applyMood(); });
+$('fpsnd').addEventListener('click', ()=>{ soundOn = !soundOn; $('fpsnd').textContent = soundOn ? '🔊' : '🔇'; startAudio(); });
+
+// ---- surface etch: the approved 1:25 surface library (wayfarer/print/surfaces_1to25) as relief on walls, floors and ceilings ----
+// Atlas: 11 tiles (W-A..W-D, F-1..F-4, C-1..C-3), 1 tile = 1 m real, heights from the same generator as the print tiles.
+// Each fragment classifies itself by its normal (floor faces the bow, ceiling faces aft, curved hull lining, radial partition),
+// finds its room from position (room sectors + surface_map.json), and perturbs its normal with that room's tile.
+const ETCH_ROOMS = [[-0.5, 3.05, 0, 360, 0.0, 0, 4, 8], [3.3, 5.6, 300, 90, 1.9, 1, 5, 8], [3.3, 5.6, 30, 120, 1.9, 0, 4, 8], [3.3, 5.6, 150, 60, 1.9, 0, 4, 8], [3.3, 5.6, 210, 60, 1.9, 1, 5, 8], [3.3, 5.6, 270, 30, 1.9, 1, 5, 8], [5.9, 8.2, 0, 60, 1.9, 0, 4, 8], [5.9, 8.2, 60, 60, 1.9, 0, 4, 8], [5.9, 8.2, 120, 30, 1.9, 1, 5, 8], [5.9, 8.2, 150, 90, 1.9, 0, 4, 8], [5.9, 8.2, 240, 90, 1.9, 0, 4, 8], [5.9, 8.2, 330, 30, 1.9, 1, 5, 8], [8.7, 10.6, 18.788, 142.424, 2.1, 0, 4, 8], [8.5, 10.8, 165, 90, 1.9, 1, 4, 9], [8.5, 10.8, 255, 120, 1.9, 2, 6, 10], [11.1, 13.4, 340, 40, 1.9, 3, 6, 10], [11.1, 13.4, 20, 60, 1.9, 2, 5, 10], [11.1, 13.4, 80, 90, 1.9, 2, 5, 10], [11.1, 13.4, 170, 30, 1.9, 3, 4, 10], [11.1, 13.4, 200, 50, 1.9, 2, 6, 10], [11.1, 13.4, 250, 40, 1.9, 3, 6, 9], [11.1, 13.4, 290, 50, 1.9, 2, 6, 10]], ETCH_CORR = [1, 7, 9];
+const ETCH_ARCH = /(D3_lining|_P0_|H0_walls|wallfit_lining|lining$|^floor_L\d$|^aft_bulkhead$|core_trunk_L\d_wall|S7_shelter_lining|^L5_P0_room)/;
+const etchAtlas = new THREE.TextureLoader().load('tex/surface_atlas.png', t=>{ t.needsUpdate = true; });
+etchAtlas.wrapS = etchAtlas.wrapT = THREE.ClampToEdgeWrapping; etchAtlas.minFilter = THREE.LinearFilter; etchAtlas.magFilter = THREE.LinearFilter; etchAtlas.generateMipmaps = false;
+const etchU = {uAtlas:{value:etchAtlas}, uEtchK:{value:1.0},
+  uRA:{value:ETCH_ROOMS.map(r=>new THREE.Vector4(r[0], r[1], r[2], r[3]))}, uRB:{value:ETCH_ROOMS.map(r=>new THREE.Vector4(r[4], r[5], r[6], r[7]))},
+  uCorr:{value:new THREE.Vector3(...ETCH_CORR)}};
+function etchify(mat){
+  if (!mat || mat.userData.etched) return; mat.userData.etched = true;
+  mat.customProgramCacheKey = ()=>'etch1';
+  mat.onBeforeCompile = sh=>{
+    Object.assign(sh.uniforms, etchU);
+    sh.vertexShader = sh.vertexShader.replace('#include <common>', `#include <common>
+      uniform vec4 uRA[${ETCH_ROOMS.length}]; uniform vec4 uRB[${ETCH_ROOMS.length}]; uniform vec3 uCorr;
+      flat varying float vTile; varying vec2 vEtchUV; varying vec3 vEtchTU; varying vec3 vEtchTV;
+      vec3 shipToLocal(vec3 s){ return vec3(s.x, s.z, -s.y); }`).replace('#include <project_vertex>', `#include <project_vertex>
+      {
+        vec3 sp = vec3(transformed.x, -transformed.z, transformed.y);
+        vec3 sn = normalize(vec3(objectNormal.x, -objectNormal.z, objectNormal.y));
+        float r = length(sp.yz); vec2 rad = r > 1e-4 ? sp.yz / r : vec2(1.0, 0.0);
+        float th = atan(sp.z, sp.y); float deg = degrees(th); if (deg < 0.0) deg += 360.0;
+        float F = 3.0; if (sp.x > 3.05) F = 5.6; if (sp.x > 5.75) F = 8.2; if (sp.x > 8.35) F = 10.8; if (sp.x > 10.95) F = 13.4;
+        float hgt = F - sp.x;
+        int cls; vec3 tU; vec3 tV; vec2 uv;
+        if (abs(sn.x) > 0.7){ cls = sn.x < 0.0 ? 0 : 1; tU = vec3(0.0, 1.0, 0.0); tV = vec3(0.0, 0.0, 1.0); uv = sp.yz; }
+        else if (abs(dot(sn.yz, rad)) > 0.7){ cls = 2; tU = vec3(0.0, -rad.y, rad.x); tV = vec3(-1.0, 0.0, 0.0); uv = vec2(r * th, hgt); }
+        else { cls = 2; tU = vec3(0.0, rad.x, rad.y); tV = vec3(-1.0, 0.0, 0.0); uv = vec2(r, hgt); }
+        vec3 tiles = vec3(-1.0);
+        if (sp.x > -0.6 && sp.x < 13.75 && r < 4.3){
+          for (int i = 0; i < ${ETCH_ROOMS.length}; i++){
+            vec4 a = uRA[i]; vec4 b = uRB[i];
+            float d = mod(deg - a.z, 360.0);
+            if (sp.x > a.x - 0.35 && sp.x < a.y + 0.35 && d <= a.w + 0.01 && r >= b.x - 0.06){ tiles = b.yzw; break; }
+          }
+          if (tiles.x < 0.0) tiles = uCorr;
+        }
+        vTile = cls == 0 ? tiles.y : (cls == 1 ? tiles.z : tiles.x);
+        vEtchUV = uv;
+        vEtchTU = normalize(normalMatrix * shipToLocal(tU)); vEtchTV = normalize(normalMatrix * shipToLocal(tV));
+      }`);
+    sh.fragmentShader = sh.fragmentShader.replace('#include <common>', `#include <common>
+      uniform sampler2D uAtlas; uniform float uEtchK;
+      flat varying float vTile; varying vec2 vEtchUV; varying vec3 vEtchTU; varying vec3 vEtchTV;
+      float etchH(vec2 uv){ float c = mod(vTile, 4.0), rw = floor(vTile / 4.0); vec2 f = fract(uv); f = clamp(f, 0.002, 0.998);
+        return textureLod(uAtlas, (vec2(c, rw) + f) / vec2(4.0, 3.0), 0.0).r; }`).replace('#include <color_fragment>', `#include <color_fragment>
+      float etch0 = 0.5;
+      if (vTile >= 0.0){ etch0 = etchH(vEtchUV); diffuseColor.rgb *= mix(0.74, 1.0, smoothstep(0.18, 0.40, etch0)); }`).replace('#include <normal_fragment_maps>', `#include <normal_fragment_maps>
+      if (vTile >= 0.0){ float e = 1.0 / 256.0;
+        vec2 g = vec2(etchH(vEtchUV + vec2(e, 0.0)) - etch0, etchH(vEtchUV + vec2(0.0, e)) - etch0) / e * 0.075;
+        g = clamp(g, vec2(-3.0), vec2(3.0));
+        normal = normalize(normal - uEtchK * (g.x * vEtchTU + g.y * vEtchTV)); }`);
+  };
+  mat.needsUpdate = true;
+}
+// loop
+function resize(){ const w = stage.clientWidth, h = stage.clientHeight; renderer.setSize(w, h, false); camera.aspect = w/h; camera.updateProjectionMatrix(); sizeComposer(); }
+new ResizeObserver(resize).observe(stage); resize();
+camera.position.set(...V.three.p);
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let lastT = performance.now();
+renderer.setAnimationLoop(()=>{
+  const now = performance.now(), dt = Math.min(.05, (now - lastT) / 1000); lastT = now;
+  if (fp){ fpUpdate(dt); if (composer) composer.render(); else renderer.render(scene, camera); return; }
+  if (anim){ const k = reduce ? 1 : Math.min(1, (performance.now() - anim.s)/700), e = k<.5 ? 2*k*k : 1 - Math.pow(-2*k+2,2)/2;
+    camera.position.lerpVectors(anim.p0, anim.p1, e); controls.target.lerpVectors(anim.t0, anim.t1, e); if (k >= 1) anim = null; }
+  controls.update(); renderer.render(scene, camera);
+});
+</script>
+
+</body></html>
