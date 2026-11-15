@@ -137,7 +137,7 @@ label.tog input{accent-color:var(--ion)}
       <button class="chip fpfs fsbtn" data-fs="1">⛶ Full screen</button>
       <div class="fphint" id="fphint"></div>
       <div class="fpwal" id="fpwal"><b>WALTER</b> · #LOOMSAFE<br><span id="fproom">—</span></div>
-      <div class="fptog"><button class="chip" id="fpwho" title="Walter or human">🐕</button><button class="chip" id="fpnight" title="Day or night">☀</button><button class="chip" id="fpsnd" title="Sound">🔊</button><button class="chip" id="fpdome" title="Crown gores: open or shut the dome">◐</button></div>
+      <div class="fptog"><button class="chip" id="fpwho" title="Walter or human">🐕</button><button class="chip" id="fpnight" title="Day or night">☀</button><button class="chip" id="fpsnd" title="Sound">🔊</button><button class="chip" id="fpdome" title="Crown gores: open or shut the dome">◐</button><button class="chip" id="fpg" title="Torch on (1 g aft) or coasting (zero g)">1g</button></div>
     </div>
     <div class="tip" id="tip" hidden></div>
     <div class="status" id="status">Loading model…</div>
@@ -151,6 +151,15 @@ label.tog input{accent-color:var(--ion)}
         <button data-m="system">System colours</button>
       </div>
       <p class="note" id="cmnote"><b>Canon finish</b> (CANON_FINISH, v2.5.14): the real materials from the model. Strakes glow at 1,300 K in Metric and Torch; hot fins at 1,750 K in Torch, graded from the root.</p>
+    </section>
+    <section class="box">
+      <h2>Metric nodes <span style="font-weight:400;opacity:.7">(proposal, 15 Nov)</span></h2>
+      <div class="seg" id="nodeseg">
+        <button data-n="off" aria-pressed="true">Off</button>
+        <button data-n="before">Now</button>
+        <button data-n="after">Proposal</button>
+      </div>
+      <p class="note" id="nodenote">The 208 node faces (13 rings x 16, PR #184 baseline). <b>Now</b> shows where they collide; <b>Proposal</b> shows Claude's fix options after Sol's review. Not canon.</p>
     </section>
     <section class="box">
       <h2>Radiators</h2>
@@ -802,6 +811,7 @@ function nearLadder(){ if (!fp || fp.mode !== 'walk') return null; let best = nu
 function fpHint(){
   if (!fp) return;
   if (fp.mode === 'fly'){ $('fphint').textContent = 'Fly: joystick to move, drag to look, ▲▼ rise and sink'; $('fpup').disabled = $('fpdn').disabled = false; $('fpupt').textContent = 'Rise'; $('fpdnt').textContent = 'Sink'; return; }
+  if (fp.coast){ $('fphint').textContent = 'Coasting, 0 g: joystick pushes off, drag turns any way up, ▲▼ float up / down'; $('fpup').disabled = $('fpdn').disabled = false; $('fpupt').textContent = 'Float up'; $('fpdnt').textContent = 'Float down'; return; }
   const L = nearLadder(); $('fpupt').textContent = 'Up ladder'; $('fpdnt').textContent = 'Down ladder';
   $('fpup').disabled = !L || fp.deck === 0 || !!fp.climb; $('fpdn').disabled = !L || fp.deck === 4 || !!fp.climb;
   $('fphint').textContent = L ? 'At the ladderway: ▲ / ▼ to climb' : 'Ladderways: corridor, fore and aft of the core';
@@ -825,10 +835,10 @@ function enterFP(mode){
     camera.up.set(0, 1, 0);
   }
   $('fpui').hidden = false; for (const c of $('views').children) c.setAttribute('aria-pressed', c.dataset.fp === mode); fpHint();
-  $('fpwho').style.display = mode === 'walk' ? '' : 'none'; $('fpwal').style.display = (mode === 'fly' || who === 'walter') ? '' : 'none';
+  $('fpwho').style.display = mode === 'walk' ? '' : 'none'; $('fpg').style.display = mode === 'walk' ? '' : 'none'; $('fpg').textContent = '1g'; $('fpwal').style.display = (mode === 'fly' || who === 'walter') ? '' : 'none';
   refresh(); applyMood(); domeLabel(); setCrownClear(true); if (!lightCands.length) buildLightCands();
 }
-function exitFP(){ globalThis.FPON = false; setCrownClear(false); for (const l of pool) l.intensity = 0; if (AC) AC.suspend(); interiorLit = null; fp = null; keys.clear(); joy.x = joy.y = 0; $('fpui').hidden = true; camera.up.set(0, 1, 0); camera.near = .25; camera.fov = 36; camera.updateProjectionMatrix(); stage.classList.remove('fpon'); controls.enabled = true; view('habitat'); refresh(); }
+function exitFP(){ if (fp && fp.coast) setCoast(false, true); globalThis.FPON = false; setCrownClear(false); for (const l of pool) l.intensity = 0; if (AC) AC.suspend(); interiorLit = null; fp = null; keys.clear(); joy.x = joy.y = 0; $('fpui').hidden = true; camera.up.set(0, 1, 0); camera.near = .25; camera.fov = 36; camera.updateProjectionMatrix(); stage.classList.remove('fpon'); controls.enabled = true; view('habitat'); refresh(); }
 function walkDir(){ return [Math.cos(fp.yaw), Math.sin(fp.yaw)]; }             // forward in the ship Y-Z plane
 function blocked(Y, Z, dY, dZ, dist){
   // horizontal rays at knee, waist and eye height; also the hull lining
@@ -846,7 +856,9 @@ function fpUpdate(dt){
   let r = (keys.has('d') ? 1 : 0) - (keys.has('a') ? 1 : 0) + joy.x;
   const turn = (keys.has('arrowright') ? 1 : 0) - (keys.has('arrowleft') ? 1 : 0); fp.yaw += turn * 1.6 * dt * (fp.mode === 'walk' ? 1 : -1);
   const fast = keys.has('shift') ? 3 : 1;
+  if (fp.coast){ coastUpdate(dt, f, r, fast); whereAmI(dt, camera.position); updateAudio(dt); return; }
   if (fp.mode === 'walk'){
+    if (fp.settle){ const k = Math.min(1, (performance.now() - fp.settle.s) / 700); fp.xoff = fp.settle.x0 * (1 - k * k); if (k >= 1){ fp.xoff = 0; fp.settle = null; paw(); paw(); } }
     if (fp.climb){ const k = Math.min(1, (performance.now() - fp.climb.s) / 900); fp.xoff = fp.climb.dx * k;
       if (k >= 1){ fp.deck = fp.climb.to; fp.xoff = 0; fp.climb = null; fpHint(); } }
     else if (f || r){
@@ -873,20 +885,20 @@ function fpUpdate(dt){
   whereAmI(dt, camera.position); updateAudio(dt);
 }
 function climb(dir){ if (!fp) return;
-  if (fp.mode === 'fly'){ return; }
+  if (fp.mode === 'fly' || fp.coast){ return; }
   const L = nearLadder(), to = fp.deck + dir; if (!L || to < 0 || to > 4 || fp.climb) return;
   fp.Y = L.ly; fp.Z = L.lz; fp.climb = {s: performance.now(), to, dx: FLOORS[to] - FLOORS[fp.deck]}; fpHint(); clank();
 }
 for (const [id, d] of [['fpup', -1], ['fpdn', 1]]){
   const b = $(id);
   b.addEventListener('click', ()=>climb(d));
-  b.addEventListener('pointerdown', ()=>{ if (fp && fp.mode === 'fly') fp.rise = -d; });
+  b.addEventListener('pointerdown', ()=>{ if (fp && (fp.mode === 'fly' || fp.coast)) fp.rise = -d; });
   for (const ev of ['pointerup','pointerleave','pointercancel']) b.addEventListener(ev, ()=>{ if (fp) fp.rise = 0; });
 }
 $('fpexit').addEventListener('click', exitFP);
 $('views').addEventListener('click', e=>{ const b = e.target.closest('button'); if (b && b.dataset.fp) enterFP(b.dataset.fp); });
 addEventListener('keydown', e=>{ if (!fp || /input|textarea/i.test(e.target.tagName)) return; const k = e.key.toLowerCase(); keys.add(k);
-  if (k === 'escape') exitFP(); if (fp && fp.mode === 'walk' && (k === 'e' || k === 'pageup')) climb(-1); if (fp && fp.mode === 'walk' && (k === 'q' || k === 'pagedown')) climb(1);
+  if (k === 'escape') exitFP(); if (k === 'g' && fp && fp.mode === 'walk') setCoast(!fp.coast); if (fp && fp.mode === 'walk' && !fp.coast && (k === 'e' || k === 'pageup')) climb(-1); if (fp && fp.mode === 'walk' && !fp.coast && (k === 'q' || k === 'pagedown')) climb(1);
   if (['arrowup','arrowdown','arrowleft','arrowright',' '].includes(k)) e.preventDefault(); });
 addEventListener('keyup', e=>keys.delete(e.key.toLowerCase()));
 addEventListener('blur', ()=>keys.clear());
@@ -902,6 +914,7 @@ addEventListener('blur', ()=>keys.clear());
   canvas.addEventListener('pointerdown', e=>{ if (fp) last = [e.clientX, e.clientY]; });
   canvas.addEventListener('pointermove', e=>{ if (!fp || !last) return; const dx = e.clientX - last[0], dy = e.clientY - last[1]; last = [e.clientX, e.clientY];
     const sens = 0.0045 * (36 / camera.fov);
+    if (fp.coast){ coastTurn(-dx * sens, -dy * sens); return; }
     fp.yaw += (fp.mode === 'walk' ? 1 : -1) * dx * sens; fp.pitch = Math.max(-1.45, Math.min(1.45, fp.pitch - dy * sens)); });
   for (const ev of ['pointerup','pointercancel','pointerleave']) canvas.addEventListener(ev, ()=>{ last = null; }); }
 
@@ -977,7 +990,8 @@ function whereAmI(dt, eye){
   const local = eye.clone().sub(model.position); let best = null, bv = Infinity;
   for (const p of parts){ if (!/^room_/.test(p.id) || !p.bb) continue; const b = p.bb; if (!b.containsPoint(local)) continue;
     const sz = b.getSize(new THREE.Vector3()), v = sz.x * sz.y * sz.z; if (v < bv){ bv = v; best = p; } }
-  $('fproom').textContent = (fp.mode === 'walk' ? DECKN[fp.deck] : 'flying') + (best ? ' · ' + best.d.n.replace(/^Room:\s*/i, '') : (fp.mode === 'walk' ? ' · corridor' : ''));
+  const dk = fp.coast ? coastDeck() : fp.deck;
+  $('fproom').textContent = (fp.coast ? '0 g · ' + DECKN[dk] : fp.mode === 'walk' ? DECKN[dk] : 'flying') + (best ? ' · ' + best.d.n.replace(/^Room:\s*/i, '') : (fp.mode === 'walk' ? ' · corridor' : ''));
 }
 // sound
 let AC = null, master = null, deckBus = {}, hum = null;
@@ -1011,10 +1025,11 @@ function clank(){ blip(318, .5, .07, 'triangle'); blip(471, .35, .05, 'triangle'
 let blipT = 3;
 function updateAudio(dt){
   if (!AC) return; master.gain.setTargetAtTime(soundOn ? .9 : 0, AC.currentTime, .1);
-  const d = fp.mode === 'walk' ? fp.deck : -1;
+  const d = fp.coast ? coastDeck() : fp.mode === 'walk' ? fp.deck : -1;
   deckBus.eclss.gain.setTargetAtTime(d === 3 ? .05 : d === 2 || d === 4 ? .012 : 0, AC.currentTime, .4);
   deckBus.pump.gain.setTargetAtTime(d === 4 ? .05 : 0, AC.currentTime, .4); deckBus.pumpLfo.gain.setTargetAtTime(d === 4 ? .045 : 0, AC.currentTime, .4);
-  hum.g1.gain.setTargetAtTime(fp.mode === 'fly' ? .02 : .045, AC.currentTime, .5);
+  hum.g1.gain.setTargetAtTime(fp.coast ? .004 : fp.mode === 'fly' ? .02 : .045, AC.currentTime, fp.coast ? 1.2 : .5);
+  hum.g3.gain.setTargetAtTime(fp.coast ? .028 : .05, AC.currentTime, 1.2);
   if (d === 0){ blipT -= dt; if (blipT < 0){ blipT = 2 + Math.random() * 5; blip(1180 + Math.random() * 500, .12, .025); } }
 }
 $('fpwho').addEventListener('click', ()=>{ who = who === 'walter' ? 'human' : 'walter'; $('fpwho').textContent = WHO[who].label; $('fpwal').style.display = who === 'walter' ? '' : 'none'; });
@@ -1022,6 +1037,97 @@ $('fpnight').addEventListener('click', ()=>{ night = !night; applyMood(); });
 $('fpdome').addEventListener('click', ()=>{ setGore(goreState === 'closed' ? 'stowed' : 'closed'); domeLabel(); });
 function domeLabel(){ $('fpdome').textContent = goreState === 'closed' ? '◐' : '○'; $('fpdome').title = goreState === 'closed' ? 'Dome shut (gores closed, as in most of flight): tap to open' : 'Dome open (gores stowed): tap to shut'; }
 $('fpsnd').addEventListener('click', ()=>{ soundOn = !soundOn; $('fpsnd').textContent = soundOn ? '🔊' : '🔇'; startAudio(); });
+
+// ---- Metric node faces: conflicts now vs Claude's proposed fixes (15 Nov 2026, NON-CANON proposal) ----
+const NODES = {"before":[[2.05,0.0,4.463,"bow"],[2.05,22.5,4.463,"bow"],[2.05,45.0,4.463,"bow"],[2.05,67.5,4.463,"bow"],[2.05,90.0,4.463,"bow"],[2.05,112.5,4.463,"bow"],[2.05,135.0,4.463,"bow"],[2.05,157.5,4.463,"bow"],[2.05,180.0,4.463,"bow"],[2.05,202.5,4.463,"bow"],[2.05,225.0,4.463,"bow"],[2.05,247.5,4.463,"bow"],[2.05,270.0,4.463,"bow"],[2.05,292.5,4.463,"bow"],[2.05,315.0,4.463,"bow"],[2.05,337.5,4.463,"bow"],[6.15,0.0,4.5,"ok"],[6.15,22.5,4.5,"ok"],[6.15,45.0,4.5,"ok"],[6.15,67.5,4.5,"ok"],[6.15,90.0,4.5,"ok"],[6.15,112.5,4.5,"ok"],[6.15,135.0,4.5,"ok"],[6.15,157.5,4.5,"ok"],[6.15,180.0,4.5,"hw"],[6.15,202.5,4.5,"ok"],[6.15,225.0,4.5,"ok"],[6.15,247.5,4.5,"ok"],[6.15,270.0,4.5,"hw"],[6.15,292.5,4.5,"ok"],[6.15,315.0,4.5,"ok"],[6.15,337.5,4.5,"ok"],[10.25,0.0,4.5,"ok"],[10.25,22.5,4.5,"ok"],[10.25,45.0,4.5,"ok"],[10.25,67.5,4.5,"ok"],[10.25,90.0,4.5,"ok"],[10.25,112.5,4.5,"ok"],[10.25,135.0,4.5,"ok"],[10.25,157.5,4.5,"ok"],[10.25,180.0,4.5,"ok"],[10.25,202.5,4.5,"ok"],[10.25,225.0,4.5,"ok"],[10.25,247.5,4.5,"ok"],[10.25,270.0,4.5,"ok"],[10.25,292.5,4.5,"ok"],[10.25,315.0,4.5,"ok"],[10.25,337.5,4.5,"ok"],[14.35,0.0,4.5,"hw"],[14.35,22.5,4.5,"ok"],[14.35,45.0,4.5,"strake"],[14.35,67.5,4.5,"ok"],[14.35,90.0,4.5,"ok"],[14.35,112.5,4.5,"ok"],[14.35,135.0,4.5,"strake"],[14.35,157.5,4.5,"ok"],[14.35,180.0,4.5,"hw"],[14.35,202.5,4.5,"ok"],[14.35,225.0,4.5,"strake"],[14.35,247.5,4.5,"hw"],[14.35,270.0,4.5,"hw"],[14.35,292.5,4.5,"hw"],[14.35,315.0,4.5,"strake"],[14.35,337.5,4.5,"ok"],[18.45,0.0,4.5,"ok"],[18.45,22.5,4.5,"ok"],[18.45,45.0,4.5,"strake"],[18.45,67.5,4.5,"door"],[18.45,90.0,4.5,"door"],[18.45,112.5,4.5,"door"],[18.45,135.0,4.5,"strake"],[18.45,157.5,4.5,"ok"],[18.45,180.0,4.5,"ok"],[18.45,202.5,4.5,"ok"],[18.45,225.0,4.5,"strake"],[18.45,247.5,4.5,"ok"],[18.45,270.0,4.5,"ok"],[18.45,292.5,4.5,"ok"],[18.45,315.0,4.5,"strake"],[18.45,337.5,4.5,"ok"],[22.55,0.0,4.5,"ok"],[22.55,22.5,4.5,"ok"],[22.55,45.0,4.5,"strake"],[22.55,67.5,4.5,"door"],[22.55,90.0,4.5,"door"],[22.55,112.5,4.5,"door"],[22.55,135.0,4.5,"strake"],[22.55,157.5,4.5,"ok"],[22.55,180.0,4.5,"ok"],[22.55,202.5,4.5,"ok"],[22.55,225.0,4.5,"strake"],[22.55,247.5,4.5,"ok"],[22.55,270.0,4.5,"ok"],[22.55,292.5,4.5,"ok"],[22.55,315.0,4.5,"strake"],[22.55,337.5,4.5,"ok"],[26.65,0.0,4.5,"ok"],[26.65,22.5,4.5,"ok"],[26.65,45.0,4.5,"strake"],[26.65,67.5,4.5,"door"],[26.65,90.0,4.5,"door"],[26.65,112.5,4.5,"door"],[26.65,135.0,4.5,"strake"],[26.65,157.5,4.5,"ok"],[26.65,180.0,4.5,"ok"],[26.65,202.5,4.5,"ok"],[26.65,225.0,4.5,"strake"],[26.65,247.5,4.5,"ok"],[26.65,270.0,4.5,"ok"],[26.65,292.5,4.5,"ok"],[26.65,315.0,4.5,"strake"],[26.65,337.5,4.5,"ok"],[30.75,0.0,4.5,"ok"],[30.75,22.5,4.5,"ok"],[30.75,45.0,4.5,"strake"],[30.75,67.5,4.5,"door"],[30.75,90.0,4.5,"door"],[30.75,112.5,4.5,"door"],[30.75,135.0,4.5,"strake"],[30.75,157.5,4.5,"ok"],[30.75,180.0,4.5,"ok"],[30.75,202.5,4.5,"ok"],[30.75,225.0,4.5,"strake"],[30.75,247.5,4.5,"ok"],[30.75,270.0,4.5,"hw"],[30.75,292.5,4.5,"ok"],[30.75,315.0,4.5,"strake"],[30.75,337.5,4.5,"ok"],[34.85,0.0,2.75,"torch"],[34.85,22.5,2.75,"torch"],[34.85,45.0,2.75,"torch"],[34.85,67.5,2.75,"torch"],[34.85,90.0,2.75,"torch"],[34.85,112.5,2.75,"torch"],[34.85,135.0,2.75,"torch"],[34.85,157.5,2.75,"torch"],[34.85,180.0,2.75,"torch"],[34.85,202.5,2.75,"torch"],[34.85,225.0,2.75,"torch"],[34.85,247.5,2.75,"torch"],[34.85,270.0,2.75,"torch"],[34.85,292.5,2.75,"torch"],[34.85,315.0,2.75,"torch"],[34.85,337.5,2.75,"torch"],[38.95,0.0,2.75,"torch"],[38.95,22.5,2.75,"torch"],[38.95,45.0,2.75,"torch"],[38.95,67.5,2.75,"torch"],[38.95,90.0,2.75,"torch"],[38.95,112.5,2.75,"torch"],[38.95,135.0,2.75,"torch"],[38.95,157.5,2.75,"torch"],[38.95,180.0,2.75,"torch"],[38.95,202.5,2.75,"torch"],[38.95,225.0,2.75,"torch"],[38.95,247.5,2.75,"torch"],[38.95,270.0,2.75,"torch"],[38.95,292.5,2.75,"torch"],[38.95,315.0,2.75,"torch"],[38.95,337.5,2.75,"torch"],[43.05,0.0,2.125,"torch"],[43.05,22.5,2.125,"torch"],[43.05,45.0,2.125,"torch"],[43.05,67.5,2.125,"torch"],[43.05,90.0,2.125,"torch"],[43.05,112.5,2.125,"torch"],[43.05,135.0,2.125,"torch"],[43.05,157.5,2.125,"torch"],[43.05,180.0,2.125,"torch"],[43.05,202.5,2.125,"torch"],[43.05,225.0,2.125,"torch"],[43.05,247.5,2.125,"torch"],[43.05,270.0,2.125,"torch"],[43.05,292.5,2.125,"torch"],[43.05,315.0,2.125,"torch"],[43.05,337.5,2.125,"torch"],[47.15,0.0,2.231,"torch"],[47.15,22.5,2.231,"torch"],[47.15,45.0,2.231,"torch"],[47.15,67.5,2.231,"torch"],[47.15,90.0,2.231,"torch"],[47.15,112.5,2.231,"torch"],[47.15,135.0,2.231,"torch"],[47.15,157.5,2.231,"torch"],[47.15,180.0,2.231,"torch"],[47.15,202.5,2.231,"torch"],[47.15,225.0,2.231,"torch"],[47.15,247.5,2.231,"torch"],[47.15,270.0,2.231,"torch"],[47.15,292.5,2.231,"torch"],[47.15,315.0,2.231,"torch"],[47.15,337.5,2.231,"torch"],[51.25,0.0,2.744,"torch"],[51.25,22.5,2.744,"torch"],[51.25,45.0,2.744,"torch"],[51.25,67.5,2.744,"torch"],[51.25,90.0,2.744,"torch"],[51.25,112.5,2.744,"torch"],[51.25,135.0,2.744,"torch"],[51.25,157.5,2.744,"torch"],[51.25,180.0,2.744,"torch"],[51.25,202.5,2.744,"torch"],[51.25,225.0,2.744,"torch"],[51.25,247.5,2.744,"torch"],[51.25,270.0,2.744,"torch"],[51.25,292.5,2.744,"torch"],[51.25,315.0,2.744,"torch"],[51.25,337.5,2.744,"torch"]],"after":[[2.05,0.0,4.463,"bowkept"],[2.05,22.5,4.463,"bowkept"],[2.05,45.0,4.463,"bowkept"],[2.05,67.5,4.463,"bowkept"],[2.05,90.0,4.463,"bowkept"],[2.05,112.5,4.463,"bowkept"],[2.05,135.0,4.463,"bowkept"],[2.05,157.5,4.463,"bowkept"],[2.05,180.0,4.463,"bowkept"],[2.05,202.5,4.463,"bowkept"],[2.05,225.0,4.463,"bowkept"],[2.05,247.5,4.463,"bowkept"],[2.05,270.0,4.463,"bowkept"],[2.05,292.5,4.463,"bowkept"],[2.05,315.0,4.463,"bowkept"],[2.05,337.5,4.463,"bowkept"],[6.15,0.0,4.5,"ok"],[6.15,22.5,4.5,"ok"],[6.15,45.0,4.5,"ok"],[6.15,67.5,4.5,"ok"],[6.15,90.0,4.5,"ok"],[6.15,112.5,4.5,"ok"],[6.15,135.0,4.5,"ok"],[6.15,157.5,4.5,"ok"],[6.15,180.0,4.5,"hwmove"],[6.15,202.5,4.5,"ok"],[6.15,225.0,4.5,"ok"],[6.15,247.5,4.5,"ok"],[6.15,270.0,4.5,"hwmove"],[6.15,292.5,4.5,"ok"],[6.15,315.0,4.5,"ok"],[6.15,337.5,4.5,"ok"],[10.25,0.0,4.5,"ok"],[10.25,22.5,4.5,"ok"],[10.25,45.0,4.5,"ok"],[10.25,67.5,4.5,"ok"],[10.25,90.0,4.5,"ok"],[10.25,112.5,4.5,"ok"],[10.25,135.0,4.5,"ok"],[10.25,157.5,4.5,"ok"],[10.25,180.0,4.5,"ok"],[10.25,202.5,4.5,"ok"],[10.25,225.0,4.5,"ok"],[10.25,247.5,4.5,"ok"],[10.25,270.0,4.5,"ok"],[10.25,292.5,4.5,"ok"],[10.25,315.0,4.5,"ok"],[10.25,337.5,4.5,"ok"],[14.35,0.0,4.5,"hwmove"],[14.35,22.5,4.5,"ok"],[14.35,40,4.5,"strakeroot"],[14.35,67.5,4.5,"ok"],[14.35,90.0,4.5,"ok"],[14.35,112.5,4.5,"ok"],[14.35,140,4.5,"strakeroot"],[14.35,157.5,4.5,"ok"],[14.35,180.0,4.5,"hwmove"],[14.35,202.5,4.5,"ok"],[14.35,220,4.5,"strakeroot"],[14.35,247.5,4.5,"hwmove"],[14.35,270.0,4.5,"hwmove"],[14.35,292.5,4.5,"hwmove"],[14.35,320,4.5,"strakeroot"],[14.35,337.5,4.5,"ok"],[34.85,40,3.25,"finroot"],[34.85,40,3.75,"finroot"],[34.85,40,4.25,"finroot"],[34.85,40,4.7,"finroot"],[34.85,140,3.25,"finroot"],[34.85,140,3.75,"finroot"],[34.85,140,4.25,"finroot"],[34.85,140,4.7,"finroot"],[34.85,220,3.25,"finroot"],[34.85,220,3.75,"finroot"],[34.85,220,4.25,"finroot"],[34.85,220,4.7,"finroot"],[34.85,320,3.25,"finroot"],[34.85,320,3.75,"finroot"],[34.85,320,4.25,"finroot"],[34.85,320,4.7,"finroot"],[38.95,40,3.25,"finroot"],[38.95,40,3.75,"finroot"],[38.95,40,4.25,"finroot"],[38.95,40,4.7,"finroot"],[38.95,140,3.25,"finroot"],[38.95,140,3.75,"finroot"],[38.95,140,4.25,"finroot"],[38.95,140,4.7,"finroot"],[38.95,220,3.25,"finroot"],[38.95,220,3.75,"finroot"],[38.95,220,4.25,"finroot"],[38.95,220,4.7,"finroot"],[38.95,320,3.25,"finroot"],[38.95,320,3.75,"finroot"],[38.95,320,4.25,"finroot"],[38.95,320,4.7,"finroot"],[43.05,40,3.25,"finroot"],[43.05,40,3.75,"finroot"],[43.05,40,4.25,"finroot"],[43.05,40,4.7,"finroot"],[43.05,140,3.25,"finroot"],[43.05,140,3.75,"finroot"],[43.05,140,4.25,"finroot"],[43.05,140,4.7,"finroot"],[43.05,220,3.25,"finroot"],[43.05,220,3.75,"finroot"],[43.05,220,4.25,"finroot"],[43.05,220,4.7,"finroot"],[43.05,320,3.25,"finroot"],[43.05,320,3.75,"finroot"],[43.05,320,4.25,"finroot"],[43.05,320,4.7,"finroot"],[47.15,40,3.25,"finroot"],[47.15,40,3.75,"finroot"],[47.15,40,4.25,"finroot"],[47.15,40,4.7,"finroot"],[47.15,140,3.25,"finroot"],[47.15,140,3.75,"finroot"],[47.15,140,4.25,"finroot"],[47.15,140,4.7,"finroot"],[47.15,220,3.25,"finroot"],[47.15,220,3.75,"finroot"],[47.15,220,4.25,"finroot"],[47.15,220,4.7,"finroot"],[47.15,320,3.25,"finroot"],[47.15,320,3.75,"finroot"],[47.15,320,4.25,"finroot"],[47.15,320,4.7,"finroot"],[51.25,40,3.25,"finroot"],[51.25,40,3.75,"finroot"],[51.25,40,4.25,"finroot"],[51.25,40,4.7,"finroot"],[51.25,140,3.25,"finroot"],[51.25,140,3.75,"finroot"],[51.25,140,4.25,"finroot"],[51.25,140,4.7,"finroot"],[51.25,220,3.25,"finroot"],[51.25,220,3.75,"finroot"],[51.25,220,4.25,"finroot"],[51.25,220,4.7,"finroot"],[51.25,320,3.25,"finroot"],[51.25,320,3.75,"finroot"],[51.25,320,4.25,"finroot"],[51.25,320,4.7,"finroot"],[18.45,124.03,4.5,"respaced"],[18.45,140,4.5,"strakeroot"],[18.45,162.955,4.5,"respaced"],[18.45,182.418,4.5,"respaced"],[18.45,201.881,4.5,"respaced"],[18.45,220,4.5,"strakeroot"],[18.45,240.806,4.5,"respaced"],[18.45,260.269,4.5,"respaced"],[18.45,279.731,4.5,"respaced"],[18.45,299.194,4.5,"respaced"],[18.45,320,4.5,"strakeroot"],[18.45,338.119,4.5,"respaced"],[18.45,357.582,4.5,"respaced"],[18.45,17.045,4.5,"respaced"],[18.45,40,4.5,"strakeroot"],[18.45,55.97,4.5,"respaced"],[22.55,124.03,4.5,"respaced"],[22.55,140,4.5,"strakeroot"],[22.55,162.955,4.5,"respaced"],[22.55,182.418,4.5,"respaced"],[22.55,201.881,4.5,"respaced"],[22.55,220,4.5,"strakeroot"],[22.55,240.806,4.5,"respaced"],[22.55,260.269,4.5,"respaced"],[22.55,279.731,4.5,"respaced"],[22.55,299.194,4.5,"respaced"],[22.55,320,4.5,"strakeroot"],[22.55,338.119,4.5,"respaced"],[22.55,357.582,4.5,"respaced"],[22.55,17.045,4.5,"respaced"],[22.55,40,4.5,"strakeroot"],[22.55,55.97,4.5,"respaced"],[26.65,124.03,4.5,"respaced"],[26.65,140,4.5,"strakeroot"],[26.65,162.955,4.5,"respaced"],[26.65,182.418,4.5,"respaced"],[26.65,201.881,4.5,"respaced"],[26.65,220,4.5,"strakeroot"],[26.65,240.806,4.5,"respaced"],[26.65,260.269,4.5,"respaced"],[26.65,279.731,4.5,"respaced"],[26.65,299.194,4.5,"respaced"],[26.65,320,4.5,"strakeroot"],[26.65,338.119,4.5,"respaced"],[26.65,357.582,4.5,"respaced"],[26.65,17.045,4.5,"respaced"],[26.65,40,4.5,"strakeroot"],[26.65,55.97,4.5,"respaced"],[30.75,124.03,4.5,"respaced"],[30.75,140,4.5,"strakeroot"],[30.75,162.955,4.5,"respaced"],[30.75,182.418,4.5,"respaced"],[30.75,201.881,4.5,"respaced"],[30.75,220,4.5,"strakeroot"],[30.75,240.806,4.5,"respaced"],[30.75,260.269,4.5,"respaced"],[30.75,279.731,4.5,"respaced"],[30.75,299.194,4.5,"respaced"],[30.75,320,4.5,"strakeroot"],[30.75,338.119,4.5,"respaced"],[30.75,357.582,4.5,"respaced"],[30.75,17.045,4.5,"respaced"],[30.75,40,4.5,"strakeroot"],[30.75,55.97,4.5,"respaced"]]};
+const NCOL = {torch:0xe34948, strake:0xeb6834, door:0xe87ba4, hw:0xeda100, bow:0x6250d6, ok:0x2a78d6,
+  finroot:0x1baf7a, strakeroot:0x008300, respaced:0xe87ba4, hwmove:0xeda100, bowkept:0x6250d6};
+const NLAB = {before:[['torch','80 on the torch chain: thrust cone, shield, reactor, nozzle (hot, high field)'],['strake','20 under a stowed strake, over a longeron'],['door','12 on a bay-door leaf (moves)'],['hw','8 on or next to hardware'],['bow','16 on the bow shoulder (no mount structure)'],['ok','72 clear']],
+  after:[['finroot','80 into the four hot-fin root trusses (20 per fin): OPTION ONLY, thermal (1,750 K vs 20 K) and Loom-domain coverage UNRESOLVED'],['strakeroot','20 inside the strake root fittings'],['respaced','48 at the bay rings, spaced unevenly to clear the door leaves'],['bowkept','16 ring-0 nodes unchanged (settled: bow shoulder decision, 13 Nov)'],['hwmove','7 stay put; the hardware next to them moves'],['ok','37 unchanged']]};
+const nodeGroup = new THREE.Group(); nodeGroup.visible = false; model.add(nodeGroup);
+function nodeSet(which){
+  while (nodeGroup.children.length){ const c = nodeGroup.children.pop(); if (c.geometry) c.geometry.dispose(); }
+  if (which === 'off'){ nodeGroup.visible = false; $('nodenote').innerHTML = 'The 208 node faces (13 rings x 16, PR #184 baseline). <b>Now</b> shows where they collide; <b>Proposal</b> shows Claude\'s fix options after Sol\'s review. Not canon.'; return; }
+  const L = NODES[which], byC = {}; for (const n of L) (byC[n[3]] = byC[n[3]] || []).push(n);
+  const m4 = new THREE.Matrix4();
+  for (const [c, arr] of Object.entries(byC)){
+    for (const ghost of [false, true]){
+      const mat = new THREE.MeshBasicMaterial({color: NCOL[c], transparent: ghost, opacity: ghost ? .28 : 1, depthTest: !ghost, depthWrite: !ghost});
+      const im = new THREE.InstancedMesh(new THREE.SphereGeometry(.26, 14, 10), mat, arr.length); im.renderOrder = ghost ? 10 : 0; im.frustumCulled = false;
+      arr.forEach((n, i)=>{ const a = n[1] * Math.PI / 180, r = n[2] + .08; im.setMatrixAt(i, m4.makeTranslation(n[0], r * Math.sin(a), -r * Math.cos(a))); });
+      im.instanceMatrix.needsUpdate = true; nodeGroup.add(im);
+    }
+  }
+  nodeGroup.visible = true;
+  $('nodenote').innerHTML = NLAB[which].map(([c, t])=>'<span style="color:#' + NCOL[c].toString(16).padStart(6, '0') + '">●</span> ' + t).join('<br>') + '<br><i>Faint dots sit behind hull parts. Proposal only, not canon.</i>';
+}
+$('nodeseg').addEventListener('click', e=>{ const b = e.target.closest('button'); if (!b) return;
+  for (const x of $('nodeseg').children) x.setAttribute('aria-pressed', x === b); nodeSet(b.dataset.n); });
+
+// ---- coast: torch off, zero g (Claude 15 Nov 2026) ----
+// Thrust gravity points aft at 1 g while the torch burns. Coasting there is no up: Walter floats on his own momentum,
+// turns any way up, pushes off with his paw jets, bounces softly off walls and drifts through the ladderways between decks.
+const COAST = {acc: .55, damp: 9, vmax: 2.2, e: .3, body: .3};
+const motes = (()=>{ const n = 160, g = new THREE.BufferGeometry(), a = new Float32Array(n * 3), v = new Float32Array(n * 3);
+  for (let i = 0; i < n * 3; i++){ a[i] = (Math.random() - .5) * 5; v[i] = (Math.random() - .5) * .03; }
+  g.setAttribute('position', new THREE.BufferAttribute(a, 3)); g.userData.v = v;
+  const m = new THREE.PointsMaterial({color: 0xfff1d8, size: .012, transparent: true, opacity: .55, depthWrite: false, blending: THREE.AdditiveBlending});
+  const pts = new THREE.Points(g, m); pts.visible = false; pts.frustumCulled = false; scene.add(pts); return pts; })();
+function shipOf(w){ return [w.x + 27, -w.z, w.y]; }
+function coastDeck(){ const X = shipOf(camera.position)[0]; let b = 0; for (let d = 0; d < 5; d++) if (X > FLOORS[d] - 2.6) b = d; return b; }
+function coastTurn(yaw, pitch, roll){ if (!fp || !fp.coast) return; const q = fp.coast.q;
+  q.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), yaw)).multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), pitch));
+  if (roll) q.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), roll)); q.normalize(); }
+function setCoast(on, quiet){
+  if (!fp || fp.mode !== 'walk' || !!fp.coast === on) return;
+  if (on){
+    fp.climb = null; fp.settle = null; fp.xoff = 0;
+    fp.coast = {pos: camera.position.clone(), vel: new THREE.Vector3(-.05, 0, 0), q: camera.quaternion.clone(), bumpT: 0};   // a little lift toward the bow as thrust stops
+    motes.visible = true; if (!quiet){ blip(140, 1.6, .06, 'sawtooth'); blip(70, 2.2, .05, 'sine'); }
+  } else {
+    const c = fp.coast, [X, Y, Z] = shipOf(c.pos), eyeH = WHO[who].eye; let deck = 0, bd = Infinity;
+    for (let d = 0; d < 5; d++){ const e = FLOORS[d] - eyeH; if (X <= FLOORS[d] + .1 && Math.abs(X - e) < bd){ bd = Math.abs(X - e); deck = d; } }
+    const rr = Math.hypot(Y, Z), lim = R_MAX - WHO[who].body; fp.Y = rr > lim ? Y * lim / rr : Y; fp.Z = rr > lim ? Z * lim / rr : Z;
+    const d = new THREE.Vector3(0, 0, -1).applyQuaternion(c.q);
+    fp.pitch = Math.max(-1.45, Math.min(1.45, Math.asin(Math.max(-1, Math.min(1, -d.x)))));
+    fp.yaw = Math.atan2(d.y, -d.z); fp.deck = deck;
+    fp.xoff = Math.max(-2, Math.min(2, X - (FLOORS[deck] - eyeH))); fp.settle = {s: performance.now(), x0: fp.xoff};
+    fp.coast = null; motes.visible = false; camera.up.set(-1, 0, 0); if (!quiet){ blip(55, 1.2, .07, 'sawtooth'); blip(110, .9, .03, 'sine'); }
+  }
+  $('fpg').textContent = on ? '0g' : '1g'; $('fpg').setAttribute('aria-pressed', on); fpHint();
+}
+function coastUpdate(dt, f, r, fast){
+  const c = fp.coast, q = c.q;
+  const turn = (keys.has('arrowright') ? 1 : 0) - (keys.has('arrowleft') ? 1 : 0), roll = (keys.has('z') ? 1 : 0) - (keys.has('c') ? 1 : 0);
+  if (turn || roll) coastTurn(-turn * 1.4 * dt, 0, roll * 1.2 * dt);
+  const fwd = new THREE.Vector3(0, 0, -1).applyQuaternion(q), right = new THREE.Vector3(1, 0, 0).applyQuaternion(q), up = new THREE.Vector3(0, 1, 0).applyQuaternion(q);
+  const u = (keys.has('e') || keys.has(' ') ? 1 : 0) - (keys.has('q') ? 1 : 0) + (fp.rise || 0);
+  const a = COAST.acc * fast; c.vel.addScaledVector(fwd, f * a * dt).addScaledVector(right, r * a * dt).addScaledVector(up, u * a * dt);
+  if (f || r || u){ c.jetT = (c.jetT || 0) - dt; if (c.jetT < 0){ c.jetT = .22; blip(2400 + Math.random() * 600, .05, .008, 'sine'); } }
+  c.vel.multiplyScalar(Math.exp(-dt / COAST.damp)); const sp = c.vel.length(); if (sp > COAST.vmax * fast) c.vel.multiplyScalar(COAST.vmax * fast / sp);
+  const step = c.vel.length() * dt; c.bumpT -= dt;
+  if (step > 1e-5){
+    const dir = c.vel.clone().normalize(); fpRay.set(c.pos, dir); fpRay.far = step + COAST.body;
+    const hit = fpRay.intersectObjects(solidMeshes(), false)[0]; fpRay.far = 2;
+    if (hit && hit.face){
+      const n = hit.face.normal.clone().transformDirection(hit.object.matrixWorld); if (n.dot(dir) > 0) n.negate();
+      const vn = c.vel.dot(n);
+      if (vn < 0){ c.vel.addScaledVector(n, -(1 + COAST.e) * vn); if (-vn > .12 && c.bumpT < 0){ c.bumpT = .25; paw(); blip(90 + Math.random() * 40, .25, Math.min(.08, -vn * .06), 'sine'); } }
+    } else c.pos.addScaledVector(c.vel, dt);
+  }
+  // stay inside the pressure hull lining
+  const [X, Y, Z] = shipOf(c.pos), rr = Math.hypot(Y, Z), lim = R_MAX - COAST.body;
+  if (rr > lim){ const nY = Y / rr, nZ = Z / rr, nW = new THREE.Vector3(0, nZ, -nY), vn = c.vel.dot(nW);
+    if (vn > 0) c.vel.addScaledVector(nW, -(1 + COAST.e) * vn); c.pos.copy(shipToWorld(X, nY * lim, nZ * lim)); }
+  camera.position.copy(c.pos); camera.quaternion.copy(q); updatePool(dt, c.pos);
+  // dust motes drift around the eye (they only show in zero g)
+  const pa = motes.geometry.attributes.position, mv = motes.geometry.userData.v, A = pa.array;
+  for (let i = 0; i < A.length; i += 3){
+    for (let k = 0; k < 3; k++) A[i + k] += mv[i + k] * dt;
+    for (let k = 0; k < 3; k++){ const dd = A[i + k] - c.pos.getComponent(k); if (Math.abs(dd) > 2.5) A[i + k] -= Math.sign(dd) * 5; } }
+  pa.needsUpdate = true;
+}
+$('fpg').addEventListener('click', ()=>{ if (fp && fp.mode === 'walk') setCoast(!fp.coast); });
 
 // ---- surface etch: the approved 1:25 surface library (wayfarer/print/surfaces_1to25) as relief on walls, floors and ceilings ----
 // Atlas: 11 tiles (W-A..W-D, F-1..F-4, C-1..C-3), 1 tile = 1 m real, heights from the same generator as the print tiles.
