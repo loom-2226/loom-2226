@@ -17,8 +17,8 @@ for o in out:
     x, a, r, c = o['x'], o['a'], o['r'], o['c']
     if c == 'torch':      # into the four hot-fin root trusses: 4 per fin per ring, nothing new outside the hull line (F1)
         j = int(round(a / 22.5)) % 16; fin = [40, 140, 220, 320][j // 4]; rr = [3.25, 3.75, 4.25, 4.7][j % 4]
-        after.append(dict(x=x, a=fin, r=rr, c='finroot')); continue
-    if c == 'bow': after.append(dict(x=2.35, a=a, r=4.5, c='bowframe')); continue
+        after.append(dict(x=x, a=fin, r=rr, c='finroot')); continue   # OPTION ONLY: thermal and domain coverage UNRESOLVED (Sol review, PR #552)
+    if c == 'bow': after.append(dict(x=x, a=a, r=r, c='bowkept')); continue   # kt_decisions bow_shoulder_surface_2026_11_13: ring 0 unchanged
     if o['x'] in door_rings: continue                      # whole ring re-spaced below
     if c == 'strake': s, _ = snap_strake(a); after.append(dict(x=x, a=s, r=4.5, c='strakeroot')); continue
     after.append(dict(x=x, a=a, r=4.5, c='hwmove' if c == 'hw' else 'ok'))

@@ -1,28 +1,45 @@
-# Metric node faces: conflict map and proposed fixes (2026-11-15)
+# Metric node faces: conflict map and fix options (2026-11-15, revised 2026-11-16)
 
 ALL bodies. ALL sponsors. 2026-2226.
 
-NON-CANON proposal by Claude for kT. It places the 208 node faces (13 rings x 16, the PR #184 baseline, `wayfarer_v05_geometry.json`) against the hull and exterior hardware.
+**NON-CANON proposal by Claude for kT.** This lab places the 208 node faces (13 rings x 16, the
+PR #184 revisable baseline, taken from `wayfarer_v05_geometry.json`) against the hull and the
+exterior hardware.
 
 - `node_map.py` produces `node_conflict_map.png`.
-- `node_data.py` produces `nodes_before_after.json`, which the review viewer uses for its Metric nodes: Off / Now / Fixed overlay.
+- `node_data.py` produces `nodes_before_after.json`. The review viewer uses it for its
+  Metric nodes overlay (Off / Now / Proposal).
 
-**Now:**
+## Now (screening counts, reproduced by Sol)
 
-- 80 are on the torch chain.
-- 20 are under stowed strakes, over the longerons.
-- 12 are on the bay-door leaves.
-- 8 are on or next to hardware.
-- 16 are on the bow shoulder.
-- 72 are clear.
+| Nodes | Where |
+|---|---|
+| 80 | On the torch chain |
+| 20 | Under the stowed strakes, over the longerons |
+| 12 | On the bay-door leaves |
+| 8 | On or next to hardware |
+| 16 | On the bow shoulder |
+| 72 | Clear |
 
-**Fixed (proposal):**
+These are screening counts, not solid-body interference results.
 
-- 80 move into the four hot-fin root trusses (20 per fin), inside the existing outline, so nothing new is added outside the hull.
-- 20 move into the strake root fittings.
-- The 4 bay rings are re-spaced to clear the door leaves (48 nodes).
-- 16 move to the bow shoulder ring frame at x 2.35.
-- For 7, the hardware moves instead of the node.
-- 37 are unchanged.
+## Proposal (revised after Sol's PR #552 review)
 
-No mass is booked and nothing is placed in canon. The placement decision is kT's, and is then executed against PR #184.
+| Nodes | Treatment | Status |
+|---|---|---|
+| 16 | Ring 0 stays exactly where it is | Settled by kt_decisions `bow_shoulder_surface_2026_11_13` |
+| 80 | Into the four hot-fin root trusses, 20 per fin | **Option only, unresolved** |
+| 20 | Into the strake root fittings | Proposal |
+| 48 | The 4 bay rings, re-spaced clear of the door leaves | Proposal |
+| 7 | The hardware moves instead of the node | Proposal |
+| 37 | Unchanged | - |
+
+The hot-fin option has two problems:
+
+- **Thermal:** the roots run at 1,750 K in Torch against the 20 K cryoplant, with no isolation or
+  heat budget.
+- **Domain coverage:** clustering the aft nodes on four lines cannot be qualified while PR #356
+  has no operator that maps node placement to the translation-domain boundary.
+
+No mass is booked and nothing is placed in canon. Placement is kT's decision, carried out against
+the PR #184 baseline.
