@@ -1777,5 +1777,18 @@
     "mass_rebooking": "redistribution within the plant system only; executed by Sol with the required gates; dry mass 868.192255 t and ECON dv 707.845 km/s must not change",
     "status": "APPROVED DESIGN DIRECTION; implementation and gates pending",
     "volume_note": "aft box was ~16% over volume before relocation (Claude's earlier 9% was wrong); densities are assumptions in plant_boxes.py"
+  },
+  "metric_nacelles_ring_selected_2026_11_16": {
+    "authority": "kT APPROVED 2026-11-16 (Claude chat): 'Perfect. Lets do it' after reviewing the fold animation (four nacelles + aft ring); earlier 'Nacelles! That are retractable', 'Sure. Try 2 and 4'",
+    "source": "wayfarer/lab/metric_nodes/node_ring.json (four_nacelles_ring), node_ring.png, nacelle_fold_sequence.png, animation/index.html (PR #555)",
+    "scope": "Selects option B as THE Metric node-field direction: four retractable nacelles at az 0/90/180/270 (x 39.5-53.5, radius 0.6) tucked at r 3.7 during torch burns, deployed to r 4.6 on parallel links; each nacelle carries two ~3.5 m tail arms that swing 90 deg and latch into a hoop at x ~52.6. Sequence: torch off -> hot fins concertina to 0.6 m packs and strakes stow -> nacelles out -> arms out -> ring locks -> nodes live. Rejects option A (two nacelles: rear quarters 30/7/22/8)",
+    "metrics": "four+ring: max gap 4.3 m, p95 2.6 m, load CV 0.26, reach 89%, rear quarters 21/19/21/20 (vs today 5.0 m / 0.29 / 88%)",
+    "constraints": "ring 0 stays per bow_shoulder_surface_2026_11_13; nacelles never deploy during torch (Canon II s14); fin/strake motion is the existing SPEC accordion, unchanged",
+    "mass_estimate_t": "8-14 (Claude ROM for nacelle structure, links, arms, latches); NOT BOOKED",
+    "canon_change": false,
+    "mass_rebooking_t": 0,
+    "G1_G12": "NOT RUN",
+    "open": "mass source (dry 868.192255 t and ECON dv 707.845 km/s must not change); node count split hull/nacelle vs the held plant redistribution (ring allowances); nacelle thermal clearance to the hot fins and nozzle; latch/hoop structure",
+    "status": "APPROVED DESIGN DIRECTION, NON-CANON; adoption needs mass booking, D9 geometry, gates and a separate kT canon decision"
   }
 }
