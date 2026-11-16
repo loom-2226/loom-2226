@@ -219,7 +219,7 @@ function panels() {
 panels();
 const MODES = {
   cruise: {strakeSpan: 0, note: "Coasting: radiator strakes stowed in their grooves, bay doors shut."},
-  metric: {strakeSpan: 2, hot: 0.35, note: "Metric HARD: one 2 m pleat of each strake out, enough for 34.9 MW. Field geometry radius 6.5 m."},
+  metric: {strakeSpan: __METRIC_HARD_SPAN__, hot: 0.35, note: "Metric HARD: two 2 m pleats of each strake out, to reject 57.01 MW (screen). Strake tips reach r ~8.5 m; field-wall stand-off OPEN."},
   burn: {strakeSpan: 4, finSpan: 28, hot: 1.0, plume: true, note: "Torch burn: four hot fins unfolded aft at 1,750 K carry the torch's 1.4 GW; the strakes open 4 m for the magnet coils' cooling. Up to 4 g crew limit (structure screened at 5 g), everyone in a couch."},
   shuttle: {strakeSpan: 0, doorsOpen: true, shuttleLift: 8.5, note: "Shuttle out: doors stand up at the slot edges and the 12.8 x 3.8 m shuttle v1 rises straight out (Venus kit fitted: rotor folded aft into its spine)."},
   hab: {strakeSpan: 0, hab: true, cmd: true, note: "Habitat decks: cut along the axis, bow up, walls left out so rooms show as coloured floors. Ten 2.10 m berths, one per person; a casualty moves at 0 g down the port ladder shaft into the medical bay (yellow litter). Every berth has a 0.5 m shuttered viewport at its outer end."},
@@ -433,7 +433,8 @@ window.__viewerReady = !!ship;
 """
 chips = "".join(f'<button class="chip" type="button" data-ver="{v}" aria-pressed="{str(v == NEW["ver"]).lower()}">v{v}' + (" (previous)" if v != NEW["ver"] else " (current)") + "</button>" for v in VERS)
 html = (html.replace("__ENGINE__", engine).replace("__VERS__", json.dumps(VERS, separators=(",", ":"))).replace("__VERCHIPS__", chips)
-        .replace("__SHA__", SHA).replace("__VER__", NEW["ver"]))
+        .replace("__SHA__", SHA).replace("__VER__", NEW["ver"])
+        .replace("__METRIC_HARD_SPAN__", str(json.loads((ROOT / "config/wayfarer_v05_inputs.json").read_text())["radiators"]["span_by_mode_m"]["HARD"])))
 out = HERE / "out/wayfarer_v05_viewer.html"
 out.write_text(html)
 man_p = HERE / "out/manifest.json"

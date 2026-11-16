@@ -580,9 +580,13 @@ def g4(I, C, G):
     for m in ("NORMAL", "FAST", "EXPEDITE", "HARD"):
         q = metric_heat(I, m, T) + q_hab_main * (1 + C["G4"]["hab_heat_margin"])
         s = span_for(I, C, q, azs)
+        configured = R["span_by_mode_m"][m]
+        capacity = rad_net_mw(I, C, configured, azs)[0]
         spans[m] = s
-        cs.append(chk(f"Metric {m} heat + habitat rejected", s if s else "no", f"<= {R['max_span_m']} m span", s is not None, "m span",
-                      f"{metric_heat(I, m, T):.1f} MW Metric + {q_hab_main:.2f} MW habitat via heat pump (x1.25); field geometry radius {R['root_r_m'] + (s or 0):.1f} m"))
+        cs.append(chk(f"Metric {m} heat + habitat rejected at configured span", round(q, 3), round(capacity, 3),
+                      s is not None and s <= configured and q <= capacity + 1e-9, "MW",
+                      f"configured {configured} m; required {s if s is not None else 'unavailable'} m; "
+                      f"field-wall stand-off OPEN; no radius prescribed by Canon II s6.1"))
     # torch burns (v0.5.2 torch heat package, kT 2026-10-25): heat model in torch/, hot fins aft, strakes carry coil cryo only
     tb = torch_budget()
     HF = I["hot_fins"]
