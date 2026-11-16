@@ -28,7 +28,7 @@ R.setPixelRatio(Math.min(devicePixelRatio, 2)); R.toneMapping = THREE.ACESFilmic
 const scene = new THREE.Scene(); scene.background = new THREE.Color(0x05070b);
 const cam = new THREE.PerspectiveCamera(42, 1, .1, 600);
 const ctl = new OrbitControls(cam, R.domElement); ctl.enableDamping = true; ctl.target.set(36, 0, 0);
-cam.position.set(70, 16, 30); ctl.autoRotate = true; ctl.autoRotateSpeed = .35;
+cam.position.set(95, 40, 55); let touched = false; const camDir = new THREE.Vector3(); ctl.addEventListener('start', () => touched = true); ctl.autoRotate = true; ctl.autoRotateSpeed = .35;
 scene.add(new THREE.HemisphereLight(0xbfd4ff, 0x1a1410, .55)); const sun = new THREE.DirectionalLight(0xffffff, 2.2); sun.position.set(-30, 40, 25); scene.add(sun);
 { const g = new THREE.BufferGeometry(), n = 1500, a = new Float32Array(n * 3); for (let i = 0; i < n; i++){ const v = new THREE.Vector3().randomDirection().multiplyScalar(250 + Math.random() * 80); a.set([v.x, v.y, v.z], i * 3); }
   g.setAttribute('position', new THREE.BufferAttribute(a, 3)); scene.add(new THREE.Points(g, new THREE.PointsMaterial({color: 0xffffff, size: .9, sizeAttenuation: false}))); }
@@ -44,14 +44,30 @@ const torch = lathe([[39.3, .01], [39.3, 2.125], [46.3, 2.125], [53.3, 3.0], [53
 // exhaust plume
 const plumeMat = new THREE.MeshBasicMaterial({color: 0x9fd0ff, transparent: true, opacity: .0, blending: THREE.AdditiveBlending, depthWrite: false});
 const plume = new THREE.Mesh(new THREE.ConeGeometry(3.6, 60, 48, 1, true), plumeMat); plume.rotation.z = Math.PI / 2; plume.position.set(53.3 + 30, 0, 0); scene.add(plume);
-// hot fins: hinge along x at r 4.75 on az 40/140/220/320; deployed radial, folded tangential
-const finMat = new THREE.MeshStandardMaterial({color: 0x9a9a9a, emissive: 0xff4a1c, emissiveIntensity: 0, roughness: .6});
+// accordion radiators (SPEC): hot fins x 34.3-53.3, 14 pleats x 2 m, 0.6 m pack folded, 28 m span in torch;
+// strakes x 14-32.3, two 2 m pleats, 4 m in torch, 0 (in groove) for Loom. Local frame: x along ship, y radial, z tangential.
+const darkMat = new THREE.MeshStandardMaterial({color: 0x30363c, metalness: .4, roughness: .7});
+function accordion(az, x0, len, r0, n, L, hot){
+  const a = az * Math.PI / 180, piv = new THREE.Group();
+  piv.position.copy(S(x0, r0 * Math.cos(a), r0 * Math.sin(a)));
+  piv.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3(1, 0, 0), S(0, Math.cos(a), Math.sin(a)).normalize(), S(0, -Math.sin(a), Math.cos(a)).normalize()));
+  const panels = [];
+  for (let i = 0; i < n; i++){
+    const m = new THREE.MeshStandardMaterial({color: 0x252728, metalness: .18, roughness: .9, emissive: hot, emissiveIntensity: 0, side: THREE.DoubleSide});
+    const g = new THREE.BoxGeometry(len, L, .035); g.translate(len / 2, L / 2, 0);
+    const mesh = new THREE.Mesh(g, m); piv.add(mesh); panels.push({mesh, m, i}); }
+  scene.add(piv);
+  return {panels, L, set(beta){ // beta: pleat angle from radial (0 = flat out, ~pi/2 = packed)
+    const c = Math.cos(beta), sn = Math.sin(beta);
+    panels.forEach(({mesh, i}) => { const s = i % 2 ? -1 : 1;
+      mesh.position.set(0, i * L * c, (i % 2 ? L * sn : 0) - L * sn / 2); mesh.rotation.x = s * beta; }); }};
+}
 const fins = [40, 140, 220, 320].map(az => {
-  const piv = new THREE.Group(); const a = az * Math.PI / 180;
-  piv.position.copy(S(34.3, 4.75 * Math.cos(a), 4.75 * Math.sin(a)));
-  piv.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), S(0, Math.cos(a), Math.sin(a)).normalize());   // local +Y = radial out
-  const blade = new THREE.Mesh(new THREE.BoxGeometry(19, 2, .12), finMat); blade.position.set(9.5, 1, 0);
-  const hinge = new THREE.Group(); hinge.add(blade); piv.add(hinge); scene.add(piv); return hinge; });
+  const a = az * Math.PI / 180, root = new THREE.Mesh(new THREE.BoxGeometry(14, 1.75, .25), darkMat);
+  root.position.copy(S(46.3, 3.88 * Math.cos(a), 3.88 * Math.sin(a))); root.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), S(0, Math.cos(a), Math.sin(a)).normalize()); scene.add(root);
+  return accordion(az, 34.3, 19, 4.75, 14, 2, 0xff8c42); });
+const strakes = [40, 140, 220, 320].map(az => accordion(az, 14, 18.3, 4.42, 2, 2, 0xff5a1e));
+const PACK = Math.acos(.6 / 28);           // hot fin packed: 0.6 m tall stack
 // nacelles with parallel links, tail arms and nodes
 const nacMat = new THREE.MeshStandardMaterial({color: 0x2a78d6, metalness: .35, roughness: .35});
 const armMat = new THREE.MeshStandardMaterial({color: 0x1baf7a, metalness: .3, roughness: .35});
@@ -91,9 +107,9 @@ const wall = new THREE.Mesh(new THREE.SphereGeometry(1, 48, 24), wallMat); wall.
 // timeline
 const ease = t => t < 0 ? 0 : t > 1 ? 1 : t * t * (3 - 2 * t);
 const seg = (t, a, b) => ease((t - a) / (b - a));
-const STEPS = [[0, 'Burning the torch', 'Nacelles tucked in between the glowing hot fins. Tail arms folded along each nacelle.'],
+const STEPS = [[0, 'Burning the torch', 'Hot fins unfolded to 28 m, strakes out 4 m, both glowing. Nacelles tucked, arms folded.'],
   [2, 'Torch off', 'The burn ends. Fins cool down. Torch and Metric/Loom never run together (Canon II §14).'],
-  [4, 'Hot fins fold', 'The four hot fins fold flat against the hull.'],
+  [4, 'Radiators fold up', 'Hot fins concertina into 0.6 m stacks. Strakes fold into their grooves (stowed for Loom).'],
   [7, 'Nacelles swing out', 'Parallel links push each nacelle 0.9 m outward, keeping it level.'],
   [10, 'Tail arms swing out', 'Each nacelle opens two arms like gates, toward its neighbours.'],
   [13, 'Ring locks', 'Arm tips latch in pairs: a closed hoop round the torch.'],
@@ -103,8 +119,10 @@ const T_END = 20;
 const vA = new THREE.Vector3(), vB = new THREE.Vector3();
 function pose(t){
   const burn = 1 - seg(t, 2, 3.2), finFold = seg(t, 4, 7), out = seg(t, 7, 10), arm = seg(t, 10, 13), lock = seg(t, 13, 13.6), nodes = seg(t, 14, 17), field = seg(t, 17, 19.5);
-  plumeMat.opacity = .22 * burn; finMat.emissiveIntensity = 1.6 * (1 - seg(t, 2, 4.2));
-  for (const h of fins) h.rotation.z = -finFold * Math.PI / 2 * .98;
+  plumeMat.opacity = .22 * burn; const glow = 1 - seg(t, 2, 4.2);
+  for (const f of fins){ f.set(.05 + (PACK - .05) * finFold); f.panels.forEach(p => p.m.emissiveIntensity = 2.2 * glow * (1 - p.i / 16)); }
+  for (const st of strakes){ st.set(.02 + (Math.PI / 2 - .02) * finFold); st.panels.forEach(p => p.m.emissiveIntensity = 1.2 * glow); }
+  if (!touched){ const d = 120 - 58 * seg(t, 4, 8); camDir.copy(cam.position).sub(ctl.target).normalize(); cam.position.copy(ctl.target).addScaledVector(camDir, d); }
   for (const n of nacs){
     const r = 3.7 + .9 * out; n.g.position.copy(n.radial).multiplyScalar(r);
     for (const {l, x} of n.links){ vA.copy(S(x, 0, 0)).addScaledVector(n.radial, 2.2); vB.copy(S(x, 0, 0)).addScaledVector(n.radial, r - .55);
