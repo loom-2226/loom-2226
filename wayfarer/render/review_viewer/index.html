@@ -1056,7 +1056,7 @@ async function domainSet(){
   const lp = new Float32Array(D.links.length * 6); D.links.forEach(([a, b], i)=>{ lp.set(D.nodes[a], i * 6); lp.set(D.nodes[b], i * 6 + 3); });
   const lg = new THREE.BufferGeometry(); lg.setAttribute('position', new THREE.BufferAttribute(lp, 3));
   nodeGroup.add(new THREE.LineSegments(lg, new THREE.LineBasicMaterial({color: 0x7fb2ff, transparent: true, opacity: .55})));
-  for (const [arr, col, sz, op] of [[D.inside, 0x6fe0c0, .13, .35], [D.outside, 0xff4b4b, .2, .95]]){
+  for (const [arr, col, sz, op] of [[D.inside, 0x6fe0c0, .3, .45], [D.outside, 0xff4b4b, .5, 1]]){
     const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(arr.flat()), 3));
     const pts = new THREE.Points(g, new THREE.PointsMaterial({color: col, size: sz, transparent: true, opacity: op, depthWrite: false})); pts.frustumCulled = false; nodeGroup.add(pts); }
   nodeGroup.visible = true;
