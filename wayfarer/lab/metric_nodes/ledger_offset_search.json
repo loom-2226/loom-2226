@@ -1,0 +1,72 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-CANON ledger search for verified offsets to the four nacelles + aft ring (need 6.55 t mid, free 1.856 t)",
+ "rule": "an offset counts only if a specific booked part genuinely shrinks (Sol review of PR #556)",
+ "candidates": [
+  {
+   "item": "node_mount_allowance",
+   "booked_t": 1.1,
+   "offset": "NO",
+   "why": "books 20 mounts + hatches on 5 midship rings (x 14-34.3); the four+ring layout still has 66 hull nodes there, so the mounts stay"
+  },
+  {
+   "item": "rcs_A+Y/A+Z/A-Y/A-Z",
+   "booked_t": 8.0,
+   "offset": "NO",
+   "why": "aft RCS is tagged torch_chain (needed during burns); nacelles are tucked during burns, so they cannot replace the clusters or their housings"
+  },
+  {
+   "item": "hotfin_root_40/140/220/320",
+   "booked_t": 4.0,
+   "offset": "NO",
+   "why": "fin root truss, fold-out drive and hot loop are still needed for the fins; nacelle links need their own hard points"
+  },
+  {
+   "item": "thrust_cone",
+   "booked_t": 16.3,
+   "offset": "NO",
+   "why": "unsized source allocation; nacelle hard points add load paths, nothing shown to shrink"
+  },
+  {
+   "item": "plant_aft / plant_fore (nodes 12.5 t, trunk 4 t inside 88 t)",
+   "booked_t": 88.0,
+   "offset": "NO",
+   "why": "nodes are the same mass wherever mounted; the plant is canon-protected and UNSIZED; the trunk/node redistribution is HELD; the plant-internal 7.5 t margin is Claude's split assumption, not a booked part, and spending it is spending margin"
+  },
+  {
+   "item": "d8_unlocated_doubler_allowance",
+   "booked_t": 0.65,
+   "offset": "NO",
+   "why": "D8 reinforcements placeholder, unrelated"
+  },
+  {
+   "item": "ext_sensor_turret_0/1, courier_systems, service_arm",
+   "booked_t": 20.5,
+   "offset": "NO",
+   "why": "unrelated functions"
+  }
+ ],
+ "verified_offset_t": 0.0,
+ "unfunded_t_mid": 4.69,
+ "comparison_no_new_hardware": {
+  "layout": "cone_fins (hull + cone + hot-fin roots), node_layouts_even.json",
+  "cone_fins": {
+   "max_gap_m": 4.31,
+   "p95_gap_m": 2.47,
+   "load_cv": 0.276,
+   "reach": 0.89,
+   "web_pieces": 1,
+   "new_hardware_t": 0
+  },
+  "four_nacelles_ring": {
+   "max_gap_m": 4.31,
+   "p95_gap_m": 2.65,
+   "load_cv": 0.26,
+   "reach": 0.888,
+   "web_pieces": 1,
+   "new_hardware_t_mid": 6.55
+  },
+  "open_for_fin_roots": "node heat soak on 1,750 K fin roots after a burn (UNRESOLVED); same class of issue as nacelles tucked beside the nozzle"
+ },
+ "note": "geometric proxy only; not PR #356 domain qualification"
+}

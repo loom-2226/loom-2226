@@ -138,3 +138,10 @@ credits are **zero** until a specific booked part is shown to shrink (the 1.1 t 
 
 Shortening saves ~1.06 t but splits the node network and is less even than today (0.29). Keep 14 m. Nothing is booked.
 Coverage is a geometric proxy only, not PR #356 domain qualification.
+
+### Ledger offset search (2026-11-16)
+
+`ledger_offset_search.json`: every plausible booked part checked (mount allowance, aft RCS, fin root trusses, thrust cone, plant nodes/trunk, others).
+**Verified offset: 0 t.** The nacelles stay ~4.7 t unfunded.
+On the geometric proxy, the existing no-new-hardware layout (hull + cone + hot-fin roots) matches the nacelles:
+worst gap 4.3 m both, p95 2.47 vs 2.65 m, evenness 0.276 vs 0.260, reach 89% both. Its open issue is node heat soak on the fin roots.
