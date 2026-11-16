@@ -51,13 +51,14 @@ parts = dict(pipes=pipe, lithium=li_pipe + li_hx, insulation=insul, pumps=pumps,
              valves_crossties=valves, accumulators_thaw=thaw, load_transfer_structure=struct)
 transport = sum(parts.values()) * U(1.0, 1.25)          # immature-design growth
 
-# Torch magnet cryocooler: 0.4755 MW at 20 K lifted to 1,300 K with 47.52 MW input (kt torch_heat; ship_power_budget).
-# No mass booking found in mass_basis.json. Benchmarked on the plant's own 18 t, 150 kW-class 20 K cryoplant
-# (plant_layout split, kT relational_plant_layout_2026_11_16): by input power (~35 MW -> 18 t) or by cold load.
-cold_kw = 475.5; plant_cold_kw, plant_in_mw, plant_t = 150.0, ST['Metric_HARD']['loads_mw']['scaled_cryo'], 18.0
-cooler_by_input = plant_t * 47.52 / plant_in_mw
-cooler_by_cold = plant_t * cold_kw / plant_cold_kw
-cooler = U(cooler_by_input, cooler_by_cold)
+# Torch magnet cryocooler: 0.4755 MW at ~50 K lifted to 1,300 K at 25% of Carnot -> 47.52 MW input
+# (torch_heat_inputs.json coil.prov; ship_power_budget). No mass booking found (Sol re-review of PR #557).
+# Benchmark: the plant's 18 t 20 K cryoplant runs the same efficiency class (34.76 MW input for 136 kW at 20 K,
+# 256 W/W = 25% of Carnot). Compressor-side hardware scales with INPUT power, so scale by input, not cold load
+# (Sol: a 20 K cold-load benchmark does not transfer to 50 K coils). Range x0.8-1.1 for scale economy / 50 K cold end.
+plant_in_mw, plant_t, cooler_in_mw = ST['Metric_HARD']['loads_mw']['scaled_cryo'], 18.0, 47.52
+cooler_by_input = plant_t * cooler_in_mw / plant_in_mw
+cooler = cooler_by_input * U(0.8, 1.1)
 
 pc = lambda a: {k: round(float(np.percentile(a, q)), 2) for k, q in (('p5', 5), ('mid', 50), ('p95', 95))}
 M0 = I['ledger']['thermal_radiators_t']
@@ -70,15 +71,15 @@ out = dict(
            pump_power_mwe=pc(pump_kwe / 1e3)),
  parts_mid_t={k: round(float(np.median(v)), 2) for k, v in parts.items()},
  transport_t=pc(transport),
- torch_cryocooler=dict(booked=False, t=pc(cooler), benchmark_t=[round(cooler_by_input, 1), round(cooler_by_cold, 1)],
-                       note='0.4755 MW at 20 K, 47.52 MW input; no booking found; benchmark = plant 18 t cryoplant'),
+ torch_cryocooler=dict(booked=False, t=pc(cooler), benchmark_input_scaled_t=round(cooler_by_input, 1), coil_temperature_K=50, carnot_fraction=0.25,
+                       note='0.4755 MW at ~50 K, 47.52 MW input; ownership UNRESOLVED (manifold, nozzle, electrical all unsized; none names it); benchmark = plant 18 t cryoplant scaled by input power'),
  seed_manifold_t=M0,
  case_A_cooler_inside_manifold=dict(total_t=pc(transport + cooler), saving_t=pc(M0 - transport - cooler)),
  case_B_cooler_elsewhere_unbooked=dict(total_t=pc(transport), saving_t=pc(M0 - transport),
-                                       warning='if the cooler is not in the 90 t it is not booked anywhere: a mass hole of the size above'),
+                                       warning='if the cooler is not in the 90 t, its owner is unknown; not declared a deficit (Sol: existing unsized allocations may contain it)'),
  not_counted=['hot-fin root loops (4 x 1 t, booked)', 'plant 900 K exchanger (3 t, plant, HELD)', 'strake panels (8.8 t, booked)',
               'habitat heat pump (~0.32 MWe, assumed in ECLSS)'],
- lever_not_counted='warmer torch coils (HTS at 50-65 K instead of 20 K) cut cryocooler input from 47.5 to ~14-19 MW and manifold duty by ~30 MW; costs more conductor in the 30 t nozzle',
+ lever_not_counted='coils already modelled at ~50 K; a better cooler (>25% of Carnot) or less heat reaching the coils (shield transmission 1e-3) would shrink cooler and duty',
 )
 json.dump(out, open(os.path.join(HERE, 'manifold_bottom_up.json'), 'w'), indent=1)
 print(json.dumps(out, indent=1))

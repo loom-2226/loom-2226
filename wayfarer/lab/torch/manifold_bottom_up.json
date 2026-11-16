@@ -63,27 +63,26 @@
  "torch_cryocooler": {
   "booked": false,
   "t": {
-   "p5": 26.2,
-   "mid": 40.74,
-   "p95": 55.44
+   "p5": 20.05,
+   "mid": 23.35,
+   "p95": 26.7
   },
-  "benchmark_t": [
-   24.6,
-   57.1
-  ],
-  "note": "0.4755 MW at 20 K, 47.52 MW input; no booking found; benchmark = plant 18 t cryoplant"
+  "benchmark_input_scaled_t": 24.6,
+  "coil_temperature_K": 50,
+  "carnot_fraction": 0.25,
+  "note": "0.4755 MW at ~50 K, 47.52 MW input; ownership UNRESOLVED (manifold, nozzle, electrical all unsized; none names it); benchmark = plant 18 t cryoplant scaled by input power"
  },
  "seed_manifold_t": 90,
  "case_A_cooler_inside_manifold": {
   "total_t": {
-   "p5": 45.55,
-   "mid": 61.64,
-   "p95": 77.79
+   "p5": 37.33,
+   "mid": 43.98,
+   "p95": 52.15
   },
   "saving_t": {
-   "p5": 12.21,
-   "mid": 28.36,
-   "p95": 44.45
+   "p5": 37.85,
+   "mid": 46.02,
+   "p95": 52.67
   }
  },
  "case_B_cooler_elsewhere_unbooked": {
@@ -97,7 +96,7 @@
    "mid": 69.51,
    "p95": 74.98
   },
-  "warning": "if the cooler is not in the 90 t it is not booked anywhere: a mass hole of the size above"
+  "warning": "if the cooler is not in the 90 t, its owner is unknown; not declared a deficit (Sol: existing unsized allocations may contain it)"
  },
  "not_counted": [
   "hot-fin root loops (4 x 1 t, booked)",
@@ -105,5 +104,5 @@
   "strake panels (8.8 t, booked)",
   "habitat heat pump (~0.32 MWe, assumed in ECLSS)"
  ],
- "lever_not_counted": "warmer torch coils (HTS at 50-65 K instead of 20 K) cut cryocooler input from 47.5 to ~14-19 MW and manifold duty by ~30 MW; costs more conductor in the 30 t nozzle"
+ "lever_not_counted": "coils already modelled at ~50 K; a better cooler (>25% of Carnot) or less heat reaching the coils (shield transmission 1e-3) would shrink cooler and duty"
 }

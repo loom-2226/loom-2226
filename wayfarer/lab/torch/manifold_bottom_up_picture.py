@@ -18,7 +18,7 @@ for (k, v), c in zip(P.items(), blues):
     x += w
 c = d['torch_cryocooler']['t']
 ax.barh(1, c['mid'], left=x, height=.5, color='#d99a1e', edgecolor=BG, lw=1.5)
-ax.text(x + c['mid'] / 2, 1, 'torch magnet cryocooler\n(not booked anywhere)', ha='center', va='center', fontsize=8, color=INK)
+ax.text(x + c['mid'] / 2, 1, 'torch magnet cryocooler\n(owner unresolved)', ha='center', va='center', fontsize=8, color=INK)
 tot = d['case_A_cooler_inside_manifold']['total_t']
 ax.plot([tot['p5'], tot['p95']], [1.38, 1.38], color=INK, lw=1.2); [ax.plot([q, q], [1.33, 1.43], color=INK, lw=1.2) for q in (tot['p5'], tot['p95'])]
 ax.text(tot['p95'] + 1, 1.38, f"{tot['mid']:.0f} t ({tot['p5']:.0f}–{tot['p95']:.0f})", va='center', fontsize=9.5, weight='bold')
@@ -26,7 +26,7 @@ ax.barh(0, d['seed_manifold_t'], height=.5, color='#b8bdc4', edgecolor=BG); ax.t
 ax.text(d['transport_t']['mid'] / 2, .62, f"heat transport {d['transport_t']['mid']:.0f} t", ha='center', fontsize=8.5, color=MUTE)
 s = d['case_A_cooler_inside_manifold']['saving_t']
 ax.text(0, -.62, f"If the cryocooler belongs in the 90 t: saving {s['p5']:.0f}–{s['p95']:.0f} t (middle {s['mid']:.0f}). "
-        f"If it doesn't, it is a {c['mid']:.0f} t item nobody has booked.", fontsize=9, color=INK)
+        f"If not, its owner is still unknown.", fontsize=9, color=INK)
 ax.set_yticks([1, 0]); ax.set_yticklabels(['bottom-up', 'seed'], fontsize=10); ax.set_xlim(0, 115); ax.set_ylim(-.8, 1.65)
 ax.set_xlabel('tonnes', color=MUTE, fontsize=9)
 for sp in ('top', 'right', 'left'): ax.spines[sp].set_visible(False)
