@@ -80,3 +80,16 @@ Hull-only and cone-only layouts leave the reactor and nozzle 12 to 20 m from the
 - The fin-root heat soak.
 - The strake-root line is still a kT decision.
 - This measures geometric evenness only. It is not a domain certification (PR #356).
+
+## Creative options (2026-11-16)
+
+`node_options.py` produces `node_options.json`, and `node_options_picture.py` produces `node_options.png`.
+
+| Option | Evenness | Ship length | Notes |
+|---|---|---|---|
+| 1 Compact torch + nozzle-coil ring | 0.26 | 48.2 m | Reactor 7 → 4 m, burn point 6 → 4 m; rear nodes on the cold coil frame |
+| 2 Telescoping nozzle | 0.27 | 46.3 m in Loom config | Nozzle coils park as a collar round the reactor |
+| 3 Shuttle completes the hull (+ 1) | **0.25** | 48.2 m | No bay doors: the docked shuttle's back is the hull and carries 12 nodes |
+| 4 End-cap lens, no aft hardware | geometrically fails | 53.3 m | Worst gap 14.8 m |
+
+All options are NON-CANON sketches.
