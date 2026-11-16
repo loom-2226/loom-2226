@@ -1,0 +1,52 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-CANON research screen; mass model and ranges are ASSUMPTIONS; nothing booked",
+ "performance": "unchanged: jet power 11.361 TW, ECON ve, fins 1,750 K, strake spans, shield, reactor, nozzle",
+ "manifold_seed_t": 90,
+ "duty_on_record_mw": 387.7,
+ "duty_now_mw": {
+  "torch": 73.0,
+  "metric_hard": 58.4,
+  "design_range": [
+   73.0,
+   98.6
+  ]
+ },
+ "duty_ratio": 0.254,
+ "model": "m = M0*(f + (1-f)*(Q/Q0)^n)",
+ "fixed_share": [
+  0.25,
+  0.5
+ ],
+ "exponent": [
+  0.6,
+  1.0
+ ],
+ "samples": 200000,
+ "seed": 2026,
+ "manifold_after_t": {
+  "p5": 41.3,
+  "mid": 51.06,
+  "p95": 59.55
+ },
+ "saving_t": {
+  "p5": 30.45,
+  "mid": 38.94,
+  "p95": 48.7
+ },
+ "conservative_saving_t": 30.4,
+ "nacelle_gap_t": 4.69,
+ "after_funding_nacelles_t": 25.8,
+ "cross_check": "after-resize specific mass ~0.4-0.8 kg/kW of duty for loops, pumps and HX without panels; same order as 2020s NEP heat-rejection trunk/HX studies (not a hardware qualification)",
+ "not_counted": [
+  "coil temperature 20 K -> 40-77 K would cut the 47.5 MW cryo duty further but may add coil mass",
+  "electrical 49 t: sized to ~270 MW RCS peaks via flywheels; no clear slack",
+  "reactor 85 t, nozzle 30 t: performance-linked, unsized; no defensible lever",
+  "shield 45 t: protected"
+ ],
+ "open": [
+  "bottom-up manifold sizing (loops, pumps, HX, headers) to replace the seed",
+  "thermal transients after burns (fin-root soak)",
+  "plant 900 K hot end moving into the manifold ring (approved direction, held) uses volume not new duty"
+ ]
+}

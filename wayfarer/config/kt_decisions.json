@@ -1790,5 +1790,25 @@
     "G1_G12": "NOT RUN",
     "open": "mass source (dry 868.192255 t and ECON dv 707.845 km/s must not change); node count split hull/nacelle vs the held plant redistribution (ring allowances); nacelle thermal clearance to the hot fins and nozzle; latch/hoop structure",
     "status": "APPROVED DESIGN DIRECTION, NON-CANON; adoption needs mass booking, D9 geometry, gates and a separate kT canon decision"
+  },
+  "metric_hard_strake_span_4m_2026_11_16": {
+    "authority": "kT APPROVED 2026-11-16 (Claude chat): 'Yes' to opening the strakes to 4 m in Metric HARD, after Sol's PR #557 review found 2 m cannot reject the HARD load",
+    "finding": "Metric HARD operating-state load 57.010 MW (ship_power_budget.json) vs strake net capacity 36.75 MW at 2 m and 73.02 MW at 4 m (certify.rad_net_mw); the G4 check compared HARD with the 24 m capacity, not the configured span",
+    "scope": "radiators.span_by_mode_m.HARD 2 -> 4 m (same span as torch burns); NORMAL, FAST, EXPEDITE stay 2 m; LOOM stays 0 (E1 STOWED)",
+    "supersedes": "the '2m extension' wording for Metric HARD in the radiator finish decision (1300 K glow in Metric HARD now shown at 4 m); colours and finish unchanged",
+    "open": "strake tips reach r ~8.5 m (was ~6.5 m) during HARD; canon II s6.1 sets no body-centred stand-off radius, so field-wall interaction is UNQUALIFIED either way; G4 check to enforce the mode span",
+    "canon_change": false,
+    "mass_rebooking_t": 0,
+    "G1_G12": "G4 to be re-run by Sol with the mode-span check",
+    "status": "APPROVED; implementation (inputs + certify G4 fix + render state) by Sol"
+  },
+  "torch_cryocooler_owner_thermal_line_2026_11_17": {
+    "authority": "kT APPROVED 2026-11-17 (Claude chat): 'Agree' to assigning the torch magnet cryocooler to the 90 t thermal line and the rebooking plan",
+    "finding": "torch magnet cryocooler (0.4755 MW at ~50 K, 25% Carnot to 1,300 K, 47.52 MW input) had no named mass owner; manifold, nozzle and electrical are all unsized and none names it (Sol re-review, PR #557)",
+    "scope": "OWNER: the cryocooler is part of the thermal line (thermal_manifold, 'radiator manifold, pumps and heat exchangers'). Bottom-up (wayfarer/lab/torch/manifold_bottom_up.json): heat transport 20.5 t mid (15.0-28.1) + cryocooler 23.4 t mid (20.1-26.7) = 44.0 t mid (37.3-52.2)",
+    "rebooking_plan": "APPROVED DIRECTION for a separate class:engineering mass PR: rebook thermal_manifold at the p95, ~52.2 t (frees ~37.8 t); fund the four nacelles + aft ring (metric_nacelles_ring_selected_2026_11_16) at their p95, ~7.75 t; return the remainder (~30 t) to the engineering reserve; dry 868.192255 t and ECON dv 707.845 km/s unchanged; 16.8 t floor unchanged",
+    "conditions": "Sol to verify the bottom-up inputs against source before booking; full G1-G12 + D9 re-run; booking only on PASS; nacelle geometry stays a lab sketch until separately drawn",
+    "canon_change": false,
+    "status": "APPROVED; mass booking NOT yet done (Sol, separate PR)"
   }
 }
