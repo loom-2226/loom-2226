@@ -93,3 +93,21 @@ Hull-only and cone-only layouts leave the reactor and nozzle 12 to 20 m from the
 | 4 End-cap lens, no aft hardware | geometrically fails | 53.3 m | Worst gap 14.8 m |
 
 All options are NON-CANON sketches.
+
+## Retractable nacelles (kT idea, 2026-11-16)
+
+`node_nacelles.py` produces `node_nacelles.json`, and `node_nacelles_picture.py` produces `node_nacelles.png`.
+
+Two 14 m nacelles (x 39.5-53.5, az 0 and 180):
+
+- **Burning:** tucked against the torch at r 3.4.
+- **Metric / Loom:** swung out to r 4.6, with the torch cold (Canon II s14).
+
+Results:
+
+| Layout | Worst gap | Evenness | Skin in reach |
+|---|---|---|---|
+| Two nacelles | 5.0 m | 0.27 | 85% |
+| Three nacelles (+ keel) | 4.7 m | 0.28 | 87% |
+
+The network stays in one piece. NON-CANON sketch.
