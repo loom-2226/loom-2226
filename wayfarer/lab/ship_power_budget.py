@@ -39,6 +39,7 @@ def evaluate():
     import certify as C
     full_cap=C.rad_net_mw(I,crit,rad['max_span_m'],rad['azimuths_deg'])[0]
     torch_cap=C.rad_net_mw(I,crit,rad['torch_span_m'],rad['azimuths_deg'])[0]
+    mode_cap={mode:C.rad_net_mw(I,crit,span,rad['azimuths_deg'])[0] for mode,span in rad['span_by_mode_m'].items() if span>0}
     skin_emissivity=I['skin']['flanks']['modes']['cold_running']['emissivity']
     skin_area=2*math.pi*I['hull']['outer_r_m']*(hh['radiator']['x_m'][1]-hh['radiator']['x_m'][0])*hh['radiator']['share_of_skin']
     leak_kw=skin_emissivity*5.670374419e-8*hh['radiator']['temperature_k']**4*skin_area/1000
@@ -139,7 +140,7 @@ def evaluate():
         upstream=(cryo+field)/pmad;dist=upstream-cryo-field
         cold=I['canon']['metric_cold_load_kw'][mode]/1000
         record('Metric_'+mode,{'ordinary':ordinary,'scaled_cryo':cryo,'declared_field':field,'PMAD_loss':dist},
-           ordinary+upstream,capacity=full_cap,base_heat=hab_reject+standby+cryo+cold+field+dist,
+           ordinary+upstream,capacity=mode_cap[mode],base_heat=hab_reject+standby+cryo+cold+field+dist,
            deficits=['FIELD_POWER_NONCANON_DECLARED','ENVIRONMENTAL_CORRECTION_POWER_OPEN'])
     for mode in ('quiet_reactors_off','cold_running_reactors_off'):
         record(mode,{'essential_habitat':essential},bat=essential,reactors=0,heat_type='cold_buffer',
@@ -149,7 +150,7 @@ def evaluate():
     field=H['metric_field_control_electric_mw_by_mode']['HARD']
     up=(cryo+field)/pmad;loss=up-cryo-field
     record('one_unit_failed_Metric_HARD',{'ordinary':ordinary,'cryo':cryo,'field':field,'PMAD_loss':loss},
-           ordinary+up,capacity=full_cap,base_heat=hab_reject+standby+cryo+field+.136+loss,
+           ordinary+up,capacity=mode_cap['HARD'],base_heat=hab_reject+standby+cryo+field+.136+loss,
            deficits=['FAILED_REACTOR_ISOLATION_UNQUALIFIED','METRIC_ENVIRONMENTAL_CORRECTION_OPEN'])
     record('one_unit_failed_torch_magnets',{'ordinary':ordinary,'magnet_cryocooling':torch},
            min_power,torch_self=torch,charging=min_power-ordinary,capacity=torch_cap,
