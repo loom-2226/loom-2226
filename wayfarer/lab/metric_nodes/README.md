@@ -111,3 +111,16 @@ Results:
 | Three nacelles (+ keel) | 4.7 m | 0.28 | 87% |
 
 The network stays in one piece. NON-CANON sketch.
+
+## Two nacelles vs four + aft ring (2026-11-16)
+
+`node_ring.py` produces `node_ring.json`, and `node_ring_picture.py` produces `node_ring.png`.
+
+B is four nacelles plus a White-style hoop (x 52.6, R 4.4).
+
+| Option | Worst gap | Gap covering 95% of the skin | Evenness | Rear nodes per quarter |
+|---|---|---|---|---|
+| A two nacelles | 5.0 m | 3.8 m | 0.27 | 30/7/22/8 |
+| B four + ring | 4.3 m | 2.6 m | 0.26 | 21/19/21/20 |
+
+NON-CANON.
