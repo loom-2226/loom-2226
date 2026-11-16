@@ -1,0 +1,109 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-CANON bottom-up screen; all ranges ASSUMPTIONS; nothing booked; savings credited 0 until reviewed",
+ "duty_mw": {
+  "states": {
+   "pulsed_torch_burn": 66.134,
+   "Metric_HARD": 57.01,
+   "fast_40s_flip": 53.454,
+   "one_unit_failed_torch_magnets": 66.134
+  },
+  "design": 66.134,
+  "per_loop_one_lost": 22.045
+ },
+ "strake_span_hard_m": 4,
+ "strake_span_hard_note": "kT 2026-11-16: Metric HARD at 4 m (2 m rejects 36.75 MW < 57.01 MW)",
+ "loop": {
+  "coolant": "lithium",
+  "dT_K": [
+   100,
+   200
+  ],
+  "velocity_m_s": [
+   2,
+   4
+  ],
+  "pipe_id_m": {
+   "p5": 0.15,
+   "mid": 0.18,
+   "p95": 0.23
+  },
+  "run_per_loop_m": {
+   "p5": 56.31,
+   "mid": 63.03,
+   "p95": 70.29
+  },
+  "wall_mm": {
+   "p5": 1.5,
+   "mid": 2.26,
+   "p95": 3.81
+  },
+  "pump_power_mwe": {
+   "p5": 0.19,
+   "mid": 0.4,
+   "p95": 0.77
+  }
+ },
+ "parts_mid_t": {
+  "pipes": 3.04,
+  "lithium": 3.8,
+  "insulation": 0.88,
+  "pumps": 0.94,
+  "exchangers": 3.31,
+  "strake_root_interfaces": 0.8,
+  "valves_crossties": 0.61,
+  "accumulators_thaw": 0.53,
+  "load_transfer_structure": 4.0
+ },
+ "transport_t": {
+  "p5": 15.02,
+  "mid": 20.49,
+  "p95": 28.05
+ },
+ "torch_cryocooler": {
+  "booked": false,
+  "t": {
+   "p5": 26.2,
+   "mid": 40.74,
+   "p95": 55.44
+  },
+  "benchmark_t": [
+   24.6,
+   57.1
+  ],
+  "note": "0.4755 MW at 20 K, 47.52 MW input; no booking found; benchmark = plant 18 t cryoplant"
+ },
+ "seed_manifold_t": 90,
+ "case_A_cooler_inside_manifold": {
+  "total_t": {
+   "p5": 45.55,
+   "mid": 61.64,
+   "p95": 77.79
+  },
+  "saving_t": {
+   "p5": 12.21,
+   "mid": 28.36,
+   "p95": 44.45
+  }
+ },
+ "case_B_cooler_elsewhere_unbooked": {
+  "total_t": {
+   "p5": 15.02,
+   "mid": 20.49,
+   "p95": 28.05
+  },
+  "saving_t": {
+   "p5": 61.95,
+   "mid": 69.51,
+   "p95": 74.98
+  },
+  "warning": "if the cooler is not in the 90 t it is not booked anywhere: a mass hole of the size above"
+ },
+ "not_counted": [
+  "hot-fin root loops (4 x 1 t, booked)",
+  "plant 900 K exchanger (3 t, plant, HELD)",
+  "strake panels (8.8 t, booked)",
+  "habitat heat pump (~0.32 MWe, assumed in ECLSS)"
+ ],
+ "lever_not_counted": "warmer torch coils (HTS at 50-65 K instead of 20 K) cut cryocooler input from 47.5 to ~14-19 MW and manifold duty by ~30 MW; costs more conductor in the 30 t nozzle"
+}

@@ -1790,5 +1790,16 @@
     "G1_G12": "NOT RUN",
     "open": "mass source (dry 868.192255 t and ECON dv 707.845 km/s must not change); node count split hull/nacelle vs the held plant redistribution (ring allowances); nacelle thermal clearance to the hot fins and nozzle; latch/hoop structure",
     "status": "APPROVED DESIGN DIRECTION, NON-CANON; adoption needs mass booking, D9 geometry, gates and a separate kT canon decision"
+  },
+  "metric_hard_strake_span_4m_2026_11_16": {
+    "authority": "kT APPROVED 2026-11-16 (Claude chat): 'Yes' to opening the strakes to 4 m in Metric HARD, after Sol's PR #557 review found 2 m cannot reject the HARD load",
+    "finding": "Metric HARD operating-state load 57.010 MW (ship_power_budget.json) vs strake net capacity 36.75 MW at 2 m and 73.02 MW at 4 m (certify.rad_net_mw); the G4 check compared HARD with the 24 m capacity, not the configured span",
+    "scope": "radiators.span_by_mode_m.HARD 2 -> 4 m (same span as torch burns); NORMAL, FAST, EXPEDITE stay 2 m; LOOM stays 0 (E1 STOWED)",
+    "supersedes": "the '2m extension' wording for Metric HARD in the radiator finish decision (1300 K glow in Metric HARD now shown at 4 m); colours and finish unchanged",
+    "open": "strake tips reach r ~8.5 m (was ~6.5 m) during HARD; canon II s6.1 sets no body-centred stand-off radius, so field-wall interaction is UNQUALIFIED either way; G4 check to enforce the mode span",
+    "canon_change": false,
+    "mass_rebooking_t": 0,
+    "G1_G12": "G4 to be re-run by Sol with the mode-span check",
+    "status": "APPROVED; implementation (inputs + certify G4 fix + render state) by Sol"
   }
 }
