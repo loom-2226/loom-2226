@@ -1761,5 +1761,21 @@
     "mass_rebooking_t": 0,
     "G1_G12": "NOT RUN",
     "status": "APPROVED AS NON-CANON PROPOSAL; G8 OPEN; adoption needs a separate kT decision, rebooking and gates"
+  },
+  "relational_plant_layout_2026_11_16": {
+    "authority": "kT APPROVED 2026-11-16 (Claude chat): 'Agree on both', then 'Yes' to the aft drivers",
+    "source": "wayfarer/lab/plant_layout/plant_boxes_proposal.png + plant_boxes.py (PR #554)",
+    "scope": "First internal split of the canon ~88 t unified relational plant (Canon II s3 totals unchanged): tiles 6, 2 GJ bank 20, 20 K cryoplant 18, 900 K exchangers 6, node drivers/phase control 8, structure/shielding 6, 208 node modules 12.5, distribution trunk 4, margin 7.5 t",
+    "approved": [
+      "1. 16.5 t (208 node modules ~60 kg each + 20 K/power/control distribution trunk) moves out of the two plant boxes onto the hull ring frames; plant total stays 88 t; CG shift ~1 cm (estimate)",
+      "2. the aft 900 K hot end (3 t) goes into the ring around the aft box, which is the radiator manifold envelope (x 32.3-34.3, r 2-4.48)",
+      "3. the aft node drivers/phase control (3 t, ~5 m3) also go into the manifold ring; aft box then ~88% full"
+    ],
+    "node_positions_for_booking": "PR #184 13x16 baseline as now; aft-node placement stays OPEN (lab node_coverage_v0 A1 is fiction-first, not adopted)",
+    "canon_change": false,
+    "plant_total_t": 88.0,
+    "mass_rebooking": "redistribution within the plant system only; executed by Sol with the required gates; dry mass 868.192255 t and ECON dv 707.845 km/s must not change",
+    "status": "APPROVED DESIGN DIRECTION; implementation and gates pending",
+    "volume_note": "aft box was ~16% over volume before relocation (Claude's earlier 9% was wrong); densities are assumptions in plant_boxes.py"
   }
 }
