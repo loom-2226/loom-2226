@@ -127,8 +127,14 @@ NON-CANON.
 
 ## Nacelle mass screen (NON-CANON, 2026-11-16)
 
-`nacelle_mass_screen.py` → `nacelle_mass_screen.json/.png`, picture by `nacelle_mass_picture.py`.
-ROM for decision `metric_nacelles_ring_selected_2026_11_16`: four nacelles, links, tail arms, latches and hard points
-need **5.4–7.8 t (middle 6.5)** with x1.0–1.2 growth. Credit: 65 nodes leave the hull, ~0.3 t of the mount allowance.
-Free reserve above the 16.8 t combined floor is **1.86 t**, so the design is **short by ~4.4 t (3.3–5.6)**.
-Closing it needs a kT call (an offset, a lighter design, or a lower floor). Nothing is booked.
+`nacelle_mass_screen.py` → `nacelle_mass_screen.json/.png` (picture: `nacelle_mass_picture.py`); coverage from `node_ring_length.py` → `node_ring_length.json`.
+ROM for decision `metric_nacelles_ring_selected_2026_11_16`, revised after Sol's review of PR #556:
+credits are **zero** until a specific booked part is shown to shrink (the 1.1 t mount allowance books 20 midship mounts, none shown to go), and the 16.8 t floor is not lowered.
+
+| Nacelles | Needs (p5–p95) | Short vs 1.86 t free | Worst gap | Evenness | Network |
+|---|---|---|---|---|---|
+| 14 m (chosen) | 6.5 t (5.4–7.8) | 4.7 t | 4.3 m | 0.26 | joined |
+| 10 m | 5.5 t (4.6–6.5) | 3.6 t | 4.8 m | 0.30 | splits in 2 |
+
+Shortening saves ~1.06 t but splits the node network and is less even than today (0.29). Keep 14 m. Nothing is booked.
+Coverage is a geometric proxy only, not PR #356 domain qualification.
