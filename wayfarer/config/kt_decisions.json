@@ -1801,5 +1801,14 @@
     "mass_rebooking_t": 0,
     "G1_G12": "G4 to be re-run by Sol with the mode-span check",
     "status": "APPROVED; implementation (inputs + certify G4 fix + render state) by Sol"
+  },
+  "torch_cryocooler_owner_thermal_line_2026_11_17": {
+    "authority": "kT APPROVED 2026-11-17 (Claude chat): 'Agree' to assigning the torch magnet cryocooler to the 90 t thermal line and the rebooking plan",
+    "finding": "torch magnet cryocooler (0.4755 MW at ~50 K, 25% Carnot to 1,300 K, 47.52 MW input) had no named mass owner; manifold, nozzle and electrical are all unsized and none names it (Sol re-review, PR #557)",
+    "scope": "OWNER: the cryocooler is part of the thermal line (thermal_manifold, 'radiator manifold, pumps and heat exchangers'). Bottom-up (wayfarer/lab/torch/manifold_bottom_up.json): heat transport 20.5 t mid (15.0-28.1) + cryocooler 23.4 t mid (20.1-26.7) = 44.0 t mid (37.3-52.2)",
+    "rebooking_plan": "APPROVED DIRECTION for a separate class:engineering mass PR: rebook thermal_manifold at the p95, ~52.2 t (frees ~37.8 t); fund the four nacelles + aft ring (metric_nacelles_ring_selected_2026_11_16) at their p95, ~7.75 t; return the remainder (~30 t) to the engineering reserve; dry 868.192255 t and ECON dv 707.845 km/s unchanged; 16.8 t floor unchanged",
+    "conditions": "Sol to verify the bottom-up inputs against source before booking; full G1-G12 + D9 re-run; booking only on PASS; nacelle geometry stays a lab sketch until separately drawn",
+    "canon_change": false,
+    "status": "APPROVED; mass booking NOT yet done (Sol, separate PR)"
   }
 }
