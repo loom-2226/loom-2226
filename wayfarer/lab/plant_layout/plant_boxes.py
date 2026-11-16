@@ -58,7 +58,7 @@ ax.plot([0, .9], [y + .035, y + .035], color='#e4e3df', lw=1)
 ax.text(.03, y, 'Plant total (canon, unchanged)', fontsize=10, weight='bold', va='center'); ax.text(.88, y, '88.0', ha='right', va='center', fontsize=10, weight='bold')
 notes = ['APPROVED by kT 16 Nov: 16.5 t (nodes and trunk) moves out of the boxes onto the hull. Total stays 88 t; centre of mass moves only about 1 cm aft.',
          'APPROVED by kT 16 Nov: the aft 900 K hot end goes into the ring around the aft box. That ring is the radiator manifold (pumps and heat exchangers, 101 m3 booked, unsized), so the hot end belongs there.',
-         'CORRECTION: the aft box was ~16% over volume, not 9%. Moving only the hot end leaves it ~8% over; moving the aft node drivers into the ring too brings it to ' + f'{VA / VAB * 100:.0f}% (needs your OK).',
+         'CORRECTION: the aft box was ~16% over volume, not 9%. Moving only the hot end leaves it ~8% over; moving the aft node drivers into the ring too brings it to ' + f'{VA / VAB * 100:.0f}% (APPROVED by kT 16 Nov).',
          'Each box keeps half the tiles, half the bank and its own cryo train, so losing one box is a degraded drive, not a dead one. Densities are assumptions, shown in the script.']
 for i, n in enumerate(notes): fig.text(0.03, 0.17 - i * 0.04, ('• ' + n), fontsize=9.3, color=INK, wrap=True)
 import os; fig.savefig(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'plant_boxes_proposal.png'), facecolor=BG)
