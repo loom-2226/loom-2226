@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Wayfarer: nacelles and ring, fold sequence</title>
+<style>
+html,body{margin:0;height:100%;background:#05070b;color:#e8ecf2;font:14px/1.35 -apple-system,system-ui,sans-serif;overflow:hidden}
+canvas{display:block;width:100%;height:100%;touch-action:none}
+#top{position:fixed;left:12px;right:12px;top:calc(10px + env(safe-area-inset-top));pointer-events:none}
+#top b{font-size:16px}#top .s{color:#93a0b0;font-size:11.5px}
+#cap{position:fixed;left:12px;right:12px;bottom:calc(86px + env(safe-area-inset-bottom));text-align:center;pointer-events:none}
+#step{font-size:17px;font-weight:600}#sub{color:#a9b4c2;font-size:13px;margin-top:3px}
+#bar{position:fixed;left:0;right:0;bottom:0;padding:10px 12px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(transparent,#05070bee);display:flex;gap:8px;align-items:center}
+button{background:#152030;color:#e8ecf2;border:1px solid #2c3d52;border-radius:18px;padding:8px 14px;font:inherit;white-space:nowrap}
+button.on{background:#1b6fd6;border-color:#1b6fd6}
+input[type=range]{flex:1;accent-color:#1baf7a}
+</style></head><body>
+<canvas id="c"></canvas>
+<div id="top"><b>Wayfarer: nacelles and ring</b><br><span class="s">Fold sequence sketch, not canon. Drag to orbit, pinch to zoom.</span></div>
+<div id="cap"><div id="step"></div><div id="sub"></div></div>
+<div id="bar"><button id="play" class="on">❚❚</button><button id="dir">To jump ▶</button><input id="t" type="range" min="0" max="1000" value="0"></div>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+const FWD = [[2.05,4.46,0.0],[2.05,4.12,1.71],[2.05,3.16,3.16],[2.05,1.71,4.12],[2.05,0.0,4.46],[2.05,-1.71,4.12],[2.05,-3.16,3.16],[2.05,-4.12,1.71],[2.05,-4.46,0.0],[2.05,-4.12,-1.71],[2.05,-3.16,-3.16],[2.05,-1.71,-4.12],[2.05,-0.0,-4.46],[2.05,1.71,-4.12],[2.05,3.16,-3.16],[2.05,4.12,-1.71],[13.8,-0.7,4.44],[24.9,-4.28,1.39],[4.2,-4.4,0.94],[33.3,4.48,-0.47],[33.0,-3.64,-2.65],[8.1,4.4,-0.94],[13.8,0.94,-4.4],[30.9,1.83,-4.11],[28.2,-4.2,1.61],[29.1,3.5,-2.83],[25.8,2.65,3.64],[23.1,3.5,-2.83],[22.8,-2.65,3.64],[15.0,2.65,3.64],[10.5,-4.28,1.39],[36.25,3.8,-0.81],[17.7,-4.49,0.24],[15.9,-2.65,3.64],[6.3,-2.25,3.9],[33.9,-3.5,2.83],[4.2,-3.5,2.83],[10.5,-1.83,-4.11],[36.55,2.23,3.07],[3.9,4.35,-1.16],[5.7,3.9,-2.25],[28.8,2.65,3.64],[30.9,4.4,-0.94],[10.5,3.18,-3.18],[17.4,4.01,2.04],[26.7,-3.5,-2.83],[35.95,-3.97,0.0],[20.1,4.01,-2.04],[5.4,-2.83,-3.5],[32.4,-4.44,-0.7],[32.4,1.61,4.2],[33.6,3.5,-2.83],[8.7,-3.01,3.34],[29.7,-2.65,3.64],[32.4,-0.7,4.44],[33.0,-1.16,-4.35],[8.4,0.24,-4.49],[3.9,-1.61,4.2],[17.1,-0.7,4.44],[6.3,-4.49,-0.24],[23.1,4.5,0.0],[22.2,-4.11,1.83],[4.5,2.45,-3.77],[23.1,0.7,-4.44],[10.8,-3.9,-2.25],[14.7,4.48,0.47],[20.7,-4.5,0.0],[17.7,-2.04,-4.01],[38.95,-0.49,3.06],[27.0,4.5,0.0],[38.95,3.06,-0.49],[14.7,-3.5,-2.83],[37.15,-2.42,2.69],[8.4,-4.48,-0.47],[33.0,4.11,1.83],[22.2,2.65,3.64],[9.9,4.44,0.7],[34.45,2.77,3.42],[27.0,0.94,-4.4],[8.1,-2.83,-3.5],[35.65,-2.72,-3.02],[16.8,-4.01,-2.04],[37.15,2.42,-2.69],[25.2,4.01,2.04],[24.9,-2.65,3.64],[11.1,0.7,-4.44],[10.5,-1.61,4.2],[12.9,-3.34,3.01],[5.1,0.24,4.49],[4.2,3.34,3.01],[16.5,4.2,-1.61],[11.4,1.39,4.28],[3.9,-4.4,-0.94],[35.65,3.79,1.45],[12.0,3.64,2.65],[35.35,-0.65,4.09],[30.9,3.5,2.83],[31.2,-3.5,2.83],[34.45,1.14,-4.26],[12.0,4.44,-0.7],[20.1,2.04,-4.01],[13.8,2.83,-3.5],[38.95,-3.1,0.0],[3.9,-1.39,-4.28],[20.1,3.5,2.83],[18.9,-2.65,3.64],[18.9,-4.01,2.04],[29.1,-4.4,-0.94],[8.4,3.34,3.01],[18.9,-4.11,-1.83],[15.6,-4.28,1.39],[19.2,4.49,0.24],[32.4,-4.35,1.16],[20.4,-0.94,-4.4],[6.0,2.45,3.77],[13.8,-1.61,-4.2],[7.5,2.45,-3.77],[22.8,-4.35,-1.16],[25.5,-4.4,-0.94],[3.9,-3.5,-2.83],[23.1,-2.65,-3.64],[13.5,-4.44,-0.7],[20.7,-3.5,-2.83],[29.1,4.28,1.39],[38.35,2.19,2.43],[17.4,0.7,-4.44],[8.1,0.47,4.48],[30.0,-2.65,-3.64],[6.9,-4.11,1.83],[6.3,-4.01,-2.04],[13.5,3.9,-2.25],[5.1,0.7,-4.44],[27.3,-2.65,3.64],[17.1,2.65,-3.64],[20.7,-2.65,3.64],[25.5,-1.39,-4.28],[5.7,4.4,0.94],[26.1,3.5,-2.83],[6.3,-1.16,-4.35],[37.15,-0.0,-3.62],[30.0,-0.47,-4.48],[18.0,1.39,4.28],[38.05,-2.25,-2.5]];
+const R = new THREE.WebGLRenderer({canvas: document.getElementById('c'), antialias: true});
+R.setPixelRatio(Math.min(devicePixelRatio, 2)); R.toneMapping = THREE.ACESFilmicToneMapping;
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x05070b);
+const cam = new THREE.PerspectiveCamera(42, 1, .1, 600);
+const ctl = new OrbitControls(cam, R.domElement); ctl.enableDamping = true; ctl.target.set(36, 0, 0);
+cam.position.set(70, 16, 30); ctl.autoRotate = true; ctl.autoRotateSpeed = .35;
+scene.add(new THREE.HemisphereLight(0xbfd4ff, 0x1a1410, .55)); const sun = new THREE.DirectionalLight(0xffffff, 2.2); sun.position.set(-30, 40, 25); scene.add(sun);
+{ const g = new THREE.BufferGeometry(), n = 1500, a = new Float32Array(n * 3); for (let i = 0; i < n; i++){ const v = new THREE.Vector3().randomDirection().multiplyScalar(250 + Math.random() * 80); a.set([v.x, v.y, v.z], i * 3); }
+  g.setAttribute('position', new THREE.BufferAttribute(a, 3)); scene.add(new THREE.Points(g, new THREE.PointsMaterial({color: 0xffffff, size: .9, sizeAttenuation: false}))); }
+function resize(){ R.setSize(innerWidth, innerHeight, false); cam.aspect = innerWidth / innerHeight; cam.fov = innerWidth < innerHeight ? 62 : 42; cam.updateProjectionMatrix(); }
+addEventListener('resize', resize); resize();
+// ship frame (x aft, y, z) -> three (x, z, -y)
+const S = (x, y, z) => new THREE.Vector3(x, z, -y);
+const lathe = (prof, mat) => { const g = new THREE.LatheGeometry(prof.map(([x, r]) => new THREE.Vector2(r, x)), 72); const m = new THREE.Mesh(g, mat); m.rotation.z = -Math.PI / 2; return m; };
+const hullMat = new THREE.MeshStandardMaterial({color: 0xd9dde2, metalness: .25, roughness: .55, side: THREE.DoubleSide});
+const torchMat = new THREE.MeshStandardMaterial({color: 0x8f8a80, metalness: .55, roughness: .4, side: THREE.DoubleSide});
+const hull = lathe([[-.3, .01], [.2, 2.6], [1.2, 3.8], [3, 4.5], [34.3, 4.5], [39.3, 2.95], [39.31, .01]], hullMat); scene.add(hull);
+const torch = lathe([[39.3, .01], [39.3, 2.125], [46.3, 2.125], [53.3, 3.0], [53.31, .01]], torchMat); scene.add(torch);
+// exhaust plume
+const plumeMat = new THREE.MeshBasicMaterial({color: 0x9fd0ff, transparent: true, opacity: .0, blending: THREE.AdditiveBlending, depthWrite: false});
+const plume = new THREE.Mesh(new THREE.ConeGeometry(3.6, 60, 48, 1, true), plumeMat); plume.rotation.z = Math.PI / 2; plume.position.set(53.3 + 30, 0, 0); scene.add(plume);
+// hot fins: hinge along x at r 4.75 on az 40/140/220/320; deployed radial, folded tangential
+const finMat = new THREE.MeshStandardMaterial({color: 0x9a9a9a, emissive: 0xff4a1c, emissiveIntensity: 0, roughness: .6});
+const fins = [40, 140, 220, 320].map(az => {
+  const piv = new THREE.Group(); const a = az * Math.PI / 180;
+  piv.position.copy(S(34.3, 4.75 * Math.cos(a), 4.75 * Math.sin(a)));
+  piv.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), S(0, Math.cos(a), Math.sin(a)).normalize());   // local +Y = radial out
+  const blade = new THREE.Mesh(new THREE.BoxGeometry(19, 2, .12), finMat); blade.position.set(9.5, 1, 0);
+  const hinge = new THREE.Group(); hinge.add(blade); piv.add(hinge); scene.add(piv); return hinge; });
+// nacelles with parallel links, tail arms and nodes
+const nacMat = new THREE.MeshStandardMaterial({color: 0x2a78d6, metalness: .35, roughness: .35});
+const armMat = new THREE.MeshStandardMaterial({color: 0x1baf7a, metalness: .3, roughness: .35});
+const linkMat = new THREE.MeshStandardMaterial({color: 0x6c7480, metalness: .6, roughness: .4});
+const nodeOff = new THREE.Color(0x2b3a34), nodeOn = new THREE.Color(0x46ffb0);
+const nodeMats = []; const mkNode = () => { const m = new THREE.MeshStandardMaterial({color: 0x1d2a25, emissive: 0x46ffb0, emissiveIntensity: 0}); nodeMats.push(m); return new THREE.Mesh(new THREE.SphereGeometry(.17, 12, 8), m); };
+const RING = 4.6, X0 = 39.5, X1 = 53.5, XT = 52.6;
+const nacs = [0, 90, 180, 270].map((az, k) => {
+  const a = az * Math.PI / 180, radial = S(0, Math.cos(a), Math.sin(a)).normalize(), tang = S(0, -Math.sin(a), Math.cos(a)).normalize();
+  const g = new THREE.Group(); scene.add(g);
+  const body = new THREE.Mesh(new THREE.CapsuleGeometry(.6, X1 - X0 - 1.2, 8, 24), nacMat); body.rotation.z = Math.PI / 2; body.position.x = (X0 + X1) / 2; g.add(body);
+  const nn = k === 3 ? 12 : 13;
+  for (let i = 0; i < nn; i++){ const n = mkNode(); const x = X0 + .8 + i * (X1 - X0 - 1.6) / (nn - 1), ph = i * 2.4;
+    n.position.set(x, 0, 0).addScaledVector(radial, .62 * Math.cos(ph)).addScaledVector(tang, .62 * Math.sin(ph)); g.add(n); }
+  const links = [41.0, 50.0].map(x => { const l = new THREE.Mesh(new THREE.CylinderGeometry(.09, .09, 1, 10), linkMat); scene.add(l); return {l, x}; });
+  const arms = [-1, 1].map(side => {
+    const piv = new THREE.Group(); g.add(piv); piv.position.set(XT, 0, 0);
+    const R0 = RING, th = Math.PI / 4, pts = [];
+    for (let i = 0; i <= 24; i++){ const t = side * th * i / 24; pts.push(new THREE.Vector3(0, R0 * (Math.cos(t) - 1), R0 * Math.sin(t))); }
+    // local frame: y = radial, z = tangential; arc bends inward toward the axis
+    const arc = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 24, .2, 8), armMat);
+    const frame = new THREE.Group(); frame.add(arc);
+    const na = (k * 2 + (side > 0 ? 1 : 0)) % 7 === 0 ? 1 : 2;
+    for (let j = 0; j < na; j++){ const t = side * th * (j + 1) / (na + 1); const n = mkNode(); n.position.set(0, R0 * (Math.cos(t) - 1) + .22, R0 * Math.sin(t)); frame.add(n); }
+    const hingeG = new THREE.Group(); hingeG.add(frame); piv.add(hingeG);
+    // orient local axes: y -> radial, z -> tangential
+    const m = new THREE.Matrix4().makeBasis(new THREE.Vector3(1, 0, 0), radial, tang); piv.quaternion.setFromRotationMatrix(m);
+    return {hingeG, frame, side};
+  });
+  return {g, a, radial, links, arms};
+});
+// hull nodes (static)
+for (const [x, y, z] of FWD){ const n = mkNode(); const p = S(x, y, z); const r = Math.hypot(y, z); n.position.copy(p.multiplyScalar(1)); if (x > 3) n.position.copy(S(x, y * (r + .06) / r, z * (r + .06) / r)); scene.add(n); }
+// field wall
+const wallMat = new THREE.MeshBasicMaterial({color: 0x46ffb0, transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending, wireframe: true});
+const wall = new THREE.Mesh(new THREE.SphereGeometry(1, 48, 24), wallMat); wall.scale.set(32, 8.2, 8.2); wall.position.set(27, 0, 0); scene.add(wall);
+// timeline
+const ease = t => t < 0 ? 0 : t > 1 ? 1 : t * t * (3 - 2 * t);
+const seg = (t, a, b) => ease((t - a) / (b - a));
+const STEPS = [[0, 'Burning the torch', 'Nacelles tucked in between the glowing hot fins. Tail arms folded along each nacelle.'],
+  [2, 'Torch off', 'The burn ends. Fins cool down. Torch and Metric/Loom never run together (Canon II §14).'],
+  [4, 'Hot fins fold', 'The four hot fins fold flat against the hull.'],
+  [7, 'Nacelles swing out', 'Parallel links push each nacelle 0.9 m outward, keeping it level.'],
+  [10, 'Tail arms swing out', 'Each nacelle opens two arms like gates, toward its neighbours.'],
+  [13, 'Ring locks', 'Arm tips latch in pairs: a closed hoop round the torch.'],
+  [14, 'Nodes come up', 'All 208 nodes go live, hull and nacelles alike.'],
+  [17, 'Domain wall forms', 'One even wall around the whole ship. Ready to jump.']];
+const T_END = 20;
+const vA = new THREE.Vector3(), vB = new THREE.Vector3();
+function pose(t){
+  const burn = 1 - seg(t, 2, 3.2), finFold = seg(t, 4, 7), out = seg(t, 7, 10), arm = seg(t, 10, 13), lock = seg(t, 13, 13.6), nodes = seg(t, 14, 17), field = seg(t, 17, 19.5);
+  plumeMat.opacity = .22 * burn; finMat.emissiveIntensity = 1.6 * (1 - seg(t, 2, 4.2));
+  for (const h of fins) h.rotation.z = -finFold * Math.PI / 2 * .98;
+  for (const n of nacs){
+    const r = 3.7 + .9 * out; n.g.position.copy(n.radial).multiplyScalar(r);
+    for (const {l, x} of n.links){ vA.copy(S(x, 0, 0)).addScaledVector(n.radial, 2.2); vB.copy(S(x, 0, 0)).addScaledVector(n.radial, r - .55);
+      l.position.copy(vA).add(vB).multiplyScalar(.5); l.scale.y = vA.distanceTo(vB); l.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), vB.clone().sub(vA).normalize()); }
+    for (const a of n.arms){ a.hingeG.rotation.y = -a.side * (1 - arm) * Math.PI / 2; a.frame.rotation.z = (1 - arm) * Math.PI / 2; }
+  }
+  nodeMats.forEach((m, i) => { const k = ease(nodes * 1.6 - (i / nodeMats.length) * .6); m.emissiveIntensity = 2.4 * k; });
+  wallMat.opacity = .16 * field * (0.85 + .15 * Math.sin(performance.now() / 300));
+  let s = STEPS[0]; for (const st of STEPS) if (t >= st[0]) s = st;
+  document.getElementById('step').textContent = s[1] + (lock > 0 && lock < 1 ? '  · click' : ''); document.getElementById('sub').textContent = s[2];
+}
+let t = 0, playing = true, dir = 1; const slider = document.getElementById('t');
+document.getElementById('play').onclick = e => { playing = !playing; e.target.textContent = playing ? '❚❚' : '▶'; e.target.classList.toggle('on', playing); };
+document.getElementById('dir').onclick = e => { dir = -dir; e.target.textContent = dir > 0 ? 'To jump ▶' : '◀ To burn'; playing = true; document.getElementById('play').textContent = '❚❚'; };
+slider.oninput = () => { t = slider.value / 1000 * T_END; playing = false; document.getElementById('play').textContent = '▶'; };
+let last = performance.now();
+R.setAnimationLoop(now => { const dt = Math.min(.05, (now - last) / 1000); last = now;
+  if (playing){ t += dir * dt; if (t > T_END + 2.5){ t = T_END + 2.5; dir = -1; document.getElementById('dir').textContent = '◀ To burn'; } if (t < -1.5){ t = -1.5; dir = 1; document.getElementById('dir').textContent = 'To jump ▶'; } slider.value = Math.max(0, Math.min(1, t / T_END)) * 1000; }
+  pose(Math.max(0, Math.min(T_END, t))); ctl.update(); R.render(scene, cam); });
+</script></body></html>
