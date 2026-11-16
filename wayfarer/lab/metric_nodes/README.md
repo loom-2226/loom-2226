@@ -124,3 +124,11 @@ B is four nacelles plus a White-style hoop (x 52.6, R 4.4).
 | B four + ring | 4.3 m | 2.6 m | 0.26 | 21/19/21/20 |
 
 NON-CANON.
+
+## Nacelle mass screen (NON-CANON, 2026-11-16)
+
+`nacelle_mass_screen.py` → `nacelle_mass_screen.json/.png`, picture by `nacelle_mass_picture.py`.
+ROM for decision `metric_nacelles_ring_selected_2026_11_16`: four nacelles, links, tail arms, latches and hard points
+need **5.4–7.8 t (middle 6.5)** with x1.0–1.2 growth. Credit: 65 nodes leave the hull, ~0.3 t of the mount allowance.
+Free reserve above the 16.8 t combined floor is **1.86 t**, so the design is **short by ~4.4 t (3.3–5.6)**.
+Closing it needs a kT call (an offset, a lighter design, or a lower floor). Nothing is booked.

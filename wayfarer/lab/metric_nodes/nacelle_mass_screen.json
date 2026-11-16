@@ -1,0 +1,56 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-CANON research screen; all ranges are ASSUMPTIONS",
+ "decision": "metric_nacelles_ring_selected_2026_11_16",
+ "samples": 200000,
+ "seed": 2026,
+ "basis": {
+  "dry_t": 868.1922552640087,
+  "combined_uncommitted_t": 18.656,
+  "combined_floor_t": 16.8,
+  "free_above_floor_t": 1.856,
+  "note": "dry mass is fixed: anything added must come from the uncommitted reserve or an offset"
+ },
+ "assumptions": {
+  "shell": "52.8 m2 composite shell at 6-12 kg/m2 (stowed under ~1 g torch, up to 7.5 g strake limit)",
+  "frames_rails_trunk_tray": "ring frames, node rails for ~13 nodes, trunk cable tray",
+  "thermal_shroud": "refractory outer + MLI: tucked 0.7 m from the nozzle exit and between 1,750 K fins during burns",
+  "parallel_links_actuators": "two link pairs, drives, locks, root fittings on torch structure",
+  "tail_arms": "two 3.46 m arc tubes r 0.2 m, 6-12 kg/m2",
+  "arm_hinges_latches": "two 90 deg arm hinges, tip latch pair, alignment cones",
+  "hard_points": "backing structure into the shield/reactor ring frames",
+  "growth": "x1.0-1.2 on hardware",
+  "hull_mount_share": "65 of 208 nodes leave the hull: their share of the 1.1 t mount allowance (75-100%)"
+ },
+ "hardware_mid_t": {
+  "shell": 1.897,
+  "frames_rails_trunk_tray": 0.739,
+  "thermal_shroud": 0.738,
+  "parallel_links_actuators": 1.301,
+  "tail_arms": 0.313,
+  "arm_hinges_latches": 0.42,
+  "hard_points": 0.56
+ },
+ "need_t": {
+  "p5": 5.44,
+  "mid": 6.55,
+  "p95": 7.75
+ },
+ "credit_t": {
+  "p5": 0.26,
+  "mid": 0.3,
+  "p95": 0.34
+ },
+ "net_t": {
+  "p5": 5.14,
+  "mid": 6.25,
+  "p95": 7.45
+ },
+ "gap_vs_free_t": {
+  "p5": 3.29,
+  "mid": 4.39,
+  "p95": 5.59
+ },
+ "fits_in_free_fraction": 0.0,
+ "combined_after_mid_t": 12.41
+}
