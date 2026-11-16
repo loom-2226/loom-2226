@@ -123,7 +123,7 @@ footer{color:var(--steel);font-size:11px;letter-spacing:.03em;line-height:1.6;bo
   <span class="eyebrow">LOOM 2226 · Reference courier · Visual reference</span>
   <h1 id="vtitle">Wayfarer v__VER__</h1>
   <p class="sub">Drag to turn the ship, pinch or scroll to zoom. Built from geometry SHA256 __SHA__. Interior I4 station views are representational; occupant swept clearance remains HOLD.</p>
-  <p class="sub"><a href="wayfarer_I4_in_out_702cca4e.glb" download style="color:#00D1FF">One GLB: exterior + interior I4 (two scenes)</a></p>
+  <p class="sub"><a href="wayfarer_I4_in_out___EVIDENCE_SHA8__.glb" download style="color:#00D1FF">One GLB: exterior + interior I4 (two scenes)</a></p>
 </header>
 <div class="stage" id="stage">
   <canvas id="cv" aria-label="3D model of Wayfarer v0.5"></canvas>
@@ -434,7 +434,7 @@ window.__viewerReady = !!ship;
 chips = "".join(f'<button class="chip" type="button" data-ver="{v}" aria-pressed="{str(v == NEW["ver"]).lower()}">v{v}' + (" (previous)" if v != NEW["ver"] else " (current)") + "</button>" for v in VERS)
 html = (html.replace("__ENGINE__", engine).replace("__VERS__", json.dumps(VERS, separators=(",", ":"))).replace("__VERCHIPS__", chips)
         .replace("__SHA__", SHA).replace("__VER__", NEW["ver"])
-        .replace("__METRIC_HARD_SPAN__", str(json.loads((ROOT / "config/wayfarer_v05_inputs.json").read_text())["radiators"]["span_by_mode_m"]["HARD"])))
+        .replace("__METRIC_HARD_SPAN__", str(json.loads((ROOT / "config/wayfarer_v05_inputs.json").read_text())["radiators"]["span_by_mode_m"]["HARD"])).replace("__EVIDENCE_SHA8__", SHA[:8]))
 out = HERE / "out/wayfarer_v05_viewer.html"
 out.write_text(html)
 man_p = HERE / "out/manifest.json"

@@ -95,37 +95,20 @@ jobs:
         with:
           name: pr471-A-source
           path: wayfarer/lab/packing_phase1b
-      - name: B3 source to STEP surface distance FIRST
-        timeout-minutes: 20
+      - name: B current STEP pressure-vessel audit, full original K.audit
+        timeout-minutes: 40
         shell: bash
         run: |
           set -euo pipefail
-          python -u wayfarer/lab/d9_pv_surface_recovery.py forward | tee B-forward.log
-      - name: B4 STEP to source surface distance SECOND
-        timeout-minutes: 20
-        shell: bash
-        run: |
-          set -euo pipefail
-          python -u wayfarer/lab/d9_pv_surface_recovery.py reverse | tee B-reverse.log
-      - name: B validity and signed volume without Boolean
-        timeout-minutes: 3
-        shell: bash
-        run: |
-          set -euo pipefail
-          python -u wayfarer/lab/d9_pv_surface_recovery.py validity | tee B-validity.log
-      - name: B strict surface-method verdict, no fuzzy Boolean
-        timeout-minutes: 2
-        shell: bash
-        run: |
-          set -euo pipefail
-          python -u wayfarer/lab/d9_pv_surface_recovery.py finalize | tee B-final.log
-          python - <<'PY'
+          python -u wayfarer/lab/d9_sharded.py pressure | tee B-pressure-current.log
+          python - <<'PY2'
           import json
           from pathlib import Path
           p=json.loads(Path("wayfarer/results/out/shards/pressure.json").read_text())
+          assert p["check"]["name"]=="dry:pressure_vessel"
           assert p["pass"] is True and p["check"]["pass"] is True
-          print("B_PRESSURE_SURFACE_METHOD_PASS")
-          PY
+          print("B_CURRENT_PRESSURE_AUDIT_PASS")
+          PY2
       - name: B runtime
         if: always()
         run: echo "B runtime_seconds=$(( $(date +%s) - START_EPOCH ))" | tee -a "$GITHUB_STEP_SUMMARY"
@@ -137,7 +120,7 @@ jobs:
           if-no-files-found: error
           path: |
             wayfarer/results/out/shards/pressure.json
-            wayfarer/results/out/shards/pressure_stages.json
+            B-pressure-current.log
 
   C_primaries:
     needs: [A_rebuild, B_pressure]

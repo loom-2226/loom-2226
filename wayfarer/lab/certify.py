@@ -85,7 +85,7 @@ def states(I):
 def g1(I, C, G):
     L = I["ledger"]
     expect = (L["structure_t_per_m"] * I["hull"]["length_m"] + L["armor_fixed_shield_t"] + L["habitation_life_support_t"]
-              + L["guest_outfitting_t"] + L["relational_plant_t"] + L["thermal_radiators_t"] + L["radiator_panels_t"]
+              + L["guest_outfitting_t"] + L["relational_plant_t"] + L["thermal_radiators_t"] + L.get("metric_nacelles_ring_t",0.) + L["radiator_panels_t"]
               + L["propulsion_t"] + L["electrical_t"] + L["avionics_sensors_comms_t"] + L["rcs_docking_service_t"]
               + L["mission_courier_systems_t"] + L["engineering_reserve_t"] + L["c_tank_penalty_t"]
               + I["shuttle"]["dry_t"] + L["drones_pods_t"] + L.get("torch_hot_fins_t", 0.0) + L.get("crew_systems_v056_t", 0.0) + L.get("crew_systems_v057_t", 0.0)
@@ -98,6 +98,20 @@ def g1(I, C, G):
     crown_delta = I["ledger"].get("og3_crown_conformal_bookkeeping",{}).get("physical_mass_delta_t",0.)
     dry = G["dry_t"]
     cs = [chk("parts sum to the ledger", round(dry, 2), round(expect, 2), abs(dry - expect) <= C["G1"]["ledger_tolerance_t"], "t")]
+    rebook=L.get("thermal_rebook")
+    reserve_return=(rebook["prior_manifold_t"]-L["thermal_radiators_t"]-L["metric_nacelles_ring_t"]) if rebook else 0.
+    reserve_before=rebook["prior_engineering_reserve_t"] if rebook else L["engineering_reserve_t"]
+    if rebook:
+        cs.append(chk("thermal 90t allocation rebooking sums from ledger",
+            round(L["thermal_radiators_t"]+L["metric_nacelles_ring_t"]+reserve_return,9),
+            rebook["prior_manifold_t"],abs(L["thermal_radiators_t"]+L["metric_nacelles_ring_t"]+reserve_return-rebook["prior_manifold_t"])<1e-8,"t"))
+        cs.append(chk("G1 old vs new engineering reserve derived from ledger",
+            round(L["engineering_reserve_t"],9),round(reserve_before+reserve_return,9),
+            abs(L["engineering_reserve_t"]-reserve_before-reserve_return)<1e-8,"t",
+            f"old {reserve_before:.9f} t + return {reserve_return:.2f} t"))
+        cs.append(chk("G1 combined reserve floor 16.8t",
+            round(L["engineering_reserve_t"]+L["structure_split"]["released_to_reserve"],9),16.8,
+            L["engineering_reserve_t"]+L["structure_split"]["released_to_reserve"]>=16.8,"t"))
     if AOI:
         two = {p["id"]:p["mass_t"] for p in G["parts"] if p["id"] in ("crown_backup_pressure_dome","crown_adaptive_optogel")}
         cs.append(chk("OG-3 crown conformal interspace explicit physical mass",
@@ -123,7 +137,7 @@ def g1(I, C, G):
         # must reconcile, including 0.540125t panes booked to I4 and 0.6t liner.
         prior_reserve=17.786216  # frozen immediately prior to Option C, PR #439 / 25bae1ce
         expected_draw=m["reserve_draw_total_t"]
-        actual_draw=prior_reserve-L["engineering_reserve_t"]-L.get("house_fuel_tank_t",0.0)-L.get("shuttle_v1_resize_20261103",{}).get("delta_t",0.0)-crown_delta  # approved shuttle debit is NOT an Option-C draw
+        actual_draw=prior_reserve-(L["engineering_reserve_t"]-reserve_return)-L.get("house_fuel_tank_t",0.0)-L.get("shuttle_v1_resize_20261103",{}).get("delta_t",0.0)-crown_delta  # approved shuttle debit is NOT an Option-C draw
         pane_delta=I["i4_carryover"]["crown_increment_from_reserve_t"]-.347738-m.get("dome_primary_delta_t",0.0)
         cs.append(chk("Option C explicit reserve draw reconciles (including dome change)",
             round(actual_draw,6),round(expected_draw,6),
@@ -219,7 +233,7 @@ def g1(I, C, G):
            round(released,6),round(W2["released_after_t"],6),
            abs(released-W2["released_after_t"])<1e-7 and
            abs(draws-W2["total_new_draw_t"])<1e-7 and
-           abs(actual_combined-(W2["combined_after_t"]-crown_delta))<1e-7,"t"))
+           abs((actual_combined-reserve_return)-(W2["combined_after_t"]-crown_delta))<1e-7,"t"))
     if I.get("og3_hydra"):
         OG=load_og3(I)
         a=OG["areal_budget_kg_m2"]
@@ -234,9 +248,9 @@ def g1(I, C, G):
               abs(AOI["mass_t"]-CF["conformal_total_mass_t"])<1e-7 and
               abs(LOG.get("physical_mass_delta_t",0)-crown_delta)<1e-8,"t"))
             cs.append(chk("OG-3 conformal crown draw debited from engineering reserve without using protected deep-gel option",
-              round(L["engineering_reserve_t"],6),
+              round(L["engineering_reserve_t"]-reserve_return,6),
               round(LOG["engineering_reserve_before_t"]-crown_delta,6),
-              abs(L["engineering_reserve_t"]-(LOG["engineering_reserve_before_t"]-crown_delta))<1e-8 and
+              abs((L["engineering_reserve_t"]-reserve_return)-(LOG["engineering_reserve_before_t"]-crown_delta))<1e-8 and
               L["engineering_reserve_t"]>=5 and
               L["engineering_reserve_t"]+L["structure_split"]["released_to_reserve"]>=16.8 and
               CF["uncommitted_1p04t_option_preserved"],"t",

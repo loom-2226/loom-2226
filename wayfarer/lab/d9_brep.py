@@ -110,8 +110,20 @@ def run(export=False):
     source_sha=hashlib.sha256(SOURCE.read_bytes()).hexdigest()
     threshold=C["D9"]["min_intersection_m3"]
     assert abs(threshold-.01)<1e-12
-    if geo_sha!=C["D9"]["approved_source_geometry_sha256"]:
-        raise RuntimeError("D9 frozen CAD authority stale for changed upstream source geometry; REBUILD BRep, never inherit old PASS")
+    # kT 2026-11-17: on this mass-only rebooking, the JSON hash changes
+    # without authorising ANY alteration to installed shapes. Verify all 194
+    # installed dry/S1 shapes against the pre-rebooking approved fingerprint.
+    # The STEP below MUST be freshly rebuilt and its intersections rerun.
+    physical=sorted(((p["id"],p["shape"],p["mat"],p["tags"])
+                     for p in G["parts"]+G["fluids_by_state"]["S1"]
+                     if "no_render" not in p["tags"]),key=lambda q:q[0])
+    shape_sig=hashlib.sha256(json.dumps(physical,sort_keys=True,separators=(",",":")).encode()).hexdigest()
+    if shape_sig!=C["D9"]["approved_installed_source_shapes_sha256"]:
+        raise RuntimeError("D9 installed source shape differs from approved, no clearance credit")
+    if G["inputs_sha256"]!=hashlib.sha256(INPUT.read_bytes()).hexdigest():
+        raise RuntimeError("D9 source geometry was not rebuilt from current inputs")
+    if G["thrust_line_offset_m"]["z"]!=-.26 or G["thrust_line_offset_m"]["y"]!=.03:
+        raise RuntimeError("D9 approved torch-chain pin violated")
     rows=catalogue(G)
     installed_names={n for n,row in rows.items() if "no_render" not in row.get("tags",[])}
     excluded_names=set(rows)-installed_names
@@ -149,13 +161,14 @@ def run(export=False):
                 shape=shape.translate(delta)
         shape.label=name
         candidate[name]=shape
-    # The only extra upstream part is D8's *unlocated* 0.660802t
-    # allowance, not a physical installed solid.
-    assert set(candidate)==set(rows)-{"dry:d8_unlocated_doubler_allowance"},dict(
+    # D8 and Metric nacelle/ring mass allowances are not installed solids.
+    unlocated={n for n,row in rows.items() if "unlocated" in row.get("tags",[])}
+    assert unlocated=={"dry:d8_unlocated_doubler_allowance","dry:metric_nacelles_ring_unlocated"},unlocated
+    assert set(candidate)==set(rows)-unlocated,dict(
         research_only=sorted(set(candidate)-set(rows)),
         upstream_only=sorted(set(rows)-set(candidate)))
     assert installed_names<=set(candidate)
-    assert len(installed_names)==194 and len(excluded_names)==122
+    assert len(installed_names)==194 and len(excluded_names)==123
 
     original={name:candidate[name] for name in installed_names}
     before=common_scan(original,threshold)
@@ -204,6 +217,7 @@ def run(export=False):
         failure=dict(
             authority="kT D8 STOP: complete protected-primary BRep integrity",
             geometry_sha256=geo_sha,
+            approved_installed_shape_fingerprint_sha256=shape_sig,
             approved_source_step_gz_sha256=source_sha,
             imported_step_source_numeric_unit=("mm" if unit_factor==.001 else "m"),
             explicit_step_to_source_linear_scale=unit_factor,

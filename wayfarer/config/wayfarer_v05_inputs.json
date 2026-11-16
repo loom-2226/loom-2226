@@ -43,7 +43,7 @@
  },
  "canon": {
   "prov": "CANON: kT Phase1b 2026-11-08 G1 water reference update",
-  "source": "CANON II v2.4 §5, §13, §14; Schematic Amendment v2.4a",
+  "source": "CANON II v2.4 \u00a75, \u00a713, \u00a714; Schematic Amendment v2.4a",
   "main_body_m": [
    57,
    9
@@ -129,7 +129,12 @@
    ],
    "step_m": 0.01,
    "design_target_deg": 0.35,
-   "rule": "among protected-water splits and offsets whose worst trim over S1-S7 is within the design target (70% of the 0.5 deg limit), take the smallest offset; ENGINEERING_ASSUMPTION"
+   "rule": "among protected-water splits and offsets whose worst trim over S1-S7 is within the design target (70% of the 0.5 deg limit), take the smallest offset; ENGINEERING_ASSUMPTION",
+   "approved_mass_rebooking_pin_yz_m": [
+    0.03,
+    -0.26
+   ],
+   "approved_mass_rebooking_pin_note": "kT 2026-11-17 mass-only rebooking: retain settled torch-chain offset y=+0.03,z=-0.26 m; preserve every installed solid. Do not rerun G3 location selection for this transfer."
   },
   "thrust_point_prov": "KT_DECISION (2026-10-25, torch heat package step S4): each pellet burns 6 m aft of the reactor face (x 46.3), still inside the 53.3 m envelope; the thrust line pivots here",
   "heat_package": {
@@ -716,7 +721,7 @@
        "inner_shape": "X(r)=3.043118-3.343118*sqrt(1-(r/4.3)^2), 0<=r<=3.50",
        "pressure_milestone": "PENDING: OUTER and INNER independent full-scale 7m ceramic pressure domes, INNER replacing the old PV bow cap, with AOI between; actual failure independence and pressure proof OPEN",
        "outermost_band_stagger_rad": 0.261799387799,
-       "outer_pattern_provenance": "RESTORED f07354f: 37 modules [1,12,12,12], radii [0,.75,2,2.75,3.5], final band π/12 stagger. Maximum hoop chord 1.812m; within existing 1.9m check. Additional outer ceramic mass from reserve.",
+       "outer_pattern_provenance": "RESTORED f07354f: 37 modules [1,12,12,12], radii [0,.75,2,2.75,3.5], final band \u03c0/12 stagger. Maximum hoop chord 1.812m; within existing 1.9m check. Additional outer ceramic mass from reserve.",
        "outer_areal_kg_m2": 37.5,
        "true_conical_surface_area_m2": 52.887838,
        "outer_profile": "OPTION C: X(r)=-1.2 for r<=2.0; -1.2+(r-2)*tan(50deg) to r3.5; faired to shoulder at r4.5; I4 pane rings unchanged"
@@ -875,7 +880,7 @@
          0.071594
         ],
         "total_mass_t": 0.385772,
-        "storage_note": "Position x14.9-16.1, y -3.35..-2.65, z +/-0.5 m is inside courier SERVICE HOLD PORT x14..17 and θ135..225, r2..4.3. Not in midship remass tanks. Seven individually packed spare 1cm outer panes from reserve; no payload double-count."
+        "storage_note": "Position x14.9-16.1, y -3.35..-2.65, z +/-0.5 m is inside courier SERVICE HOLD PORT x14..17 and \u03b8135..225, r2..4.3. Not in midship remass tanks. Seven individually packed spare 1cm outer panes from reserve; no payload double-count."
        },
        "gores": {
         "count": 16,
@@ -1920,7 +1925,7 @@
      "221": -4.0,
      "259": 4.0
     },
-    "wws1_round2_note": "2026-11-03 kT: ten Ø0.8m WWS-1 panes, upper tier θ shifted ±4deg to preserve ≥10cm between paired apertures and clear fixed Metric faces, x lower 7.54 upper 6.65. Frame ring outside berth headspace; physical seal/retainer clearance inside 0.82m tier is OPEN.",
+    "wws1_round2_note": "2026-11-03 kT: ten \u00d80.8m WWS-1 panes, upper tier \u03b8 shifted \u00b14deg to preserve \u226510cm between paired apertures and clear fixed Metric faces, x lower 7.54 upper 6.65. Frame ring outside berth headspace; physical seal/retainer clearance inside 0.82m tier is OPEN.",
     "standard": "WWS-1 ceramic / AOI-2226 / Strata closing shutter"
    },
    "viewport_band": {
@@ -2047,7 +2052,7 @@
   "habitation_life_support_t": 45,
   "guest_outfitting_t": 6,
   "relational_plant_t": 88,
-  "thermal_radiators_t": 90,
+  "thermal_radiators_t": 52.15,
   "propulsion_t": 160,
   "propulsion_split": {
    "shield": 45,
@@ -2071,7 +2076,7 @@
    "prov": "ENGINEERING_ASSUMPTION"
   },
   "mission_courier_systems_t": 20,
-  "engineering_reserve_t": 9.122455412,
+  "engineering_reserve_t": 39.222455412,
   "engineering_reserve_rule": "spread over dry parts in proportion to their mass (growth margin), not lumped at one point",
   "c_tank_penalty_t": 8,
   "radiator_panels_t": 8.784,
@@ -2161,7 +2166,15 @@
    "no_deep_gel": true,
    "mass_total_invariant": "new physical gel mass displaces exact same amount of preexisting engineering reserve; dry mass unchanged"
   },
-  "d8_secondary_doubler_added_t": 0.660801800044753
+  "d8_secondary_doubler_added_t": 0.660801800044753,
+  "metric_nacelles_ring_t": 7.75,
+  "thermal_rebook": {
+   "prior_manifold_t": 90.0,
+   "prior_engineering_reserve_t": 9.122455412,
+   "nacelle_basis": "PR #556 p95 7.75 t; four nacelles and aft ring UNLOCATED, no D9/shielding credit",
+   "manifold_basis": "PR #557 p95 52.15 t; includes named ~50 K torch magnet cryocooler",
+   "status": "kT-approved mass rebooking; nacelle physical installation remains OPEN"
+  }
  },
  "longerons": {
   "prov": "CLAUDE_DESIGN v0.5.7 (structure/longeron_study.py, kT 2026-10-25 'consolidate'): four CFRP tubes in an X, matching canon's 4 axial longerons. The upper pair stay where the v0.5.6 slot sills were (edging the bay slot); the lower pair mirror them in the tank's lower cells. Sized at 5 g x 1.5 to a 250 MPa design stress (400 MPa floor x 0.62 for impact, joints, environment). v0.5.6 had 3 planks + 2 sills (36.9 t) running at 65 MPa. NON-GOVERNING; SOL TO REVIEW REV 5 (structure review 2026-10-26): wall 72 -> 84 mm (area 0.0830 m2, 1% margin) so axial + bending (thrust-line offset 13.5 MN m + 0.5 deg thrust error 9.1 MN m) stays within the 250 MPa design stress",
@@ -2404,7 +2417,7 @@
   }
  },
  "states": {
-  "prov": "CERTIFICATION_BASIS_v0.1 §5",
+  "prov": "CERTIFICATION_BASIS_v0.1 \u00a75",
   "S1": {
    "name": "reference departure",
    "remass_t": 245.39043171108221,
@@ -3659,7 +3672,7 @@
   "mass_model_warning": "The existing 5.867t L2 band and per-port older frame allocations remain as baseline physical hardware. Only replacement uplift above these retained assemblies is booked to released reserve. Crown armour/hull credit is local areal-equivalence; detailed cutout mass and mounting loads remain OPEN. OG-3 swaps already-booked AOI mass only. Added depth ZERO. Optical/radiation dose data OPEN.",
   "wws1_longeron_reinforcement_from_released_t": 0.06,
   "wws1_longeron_reason": "Observed G5 new-window build stress 250.9MPa > 250MPa; +0.060t already-allocated released longeron material; no criteria relaxation. Re-run exactly.",
-  "medical_port_relocation_note": "2026-11-03 G9 actual hull-crawler point #6 at x8.94–9.06, theta190.49–192.01 overlapped 0.75m medical window at x9.10. Move the window to x9.55 with ≥0.075m clearance beyond nearest principal-frame plane and no remaining equipment collisions under existing G9 footprint criteria; node faces unchanged.",
+  "medical_port_relocation_note": "2026-11-03 G9 actual hull-crawler point #6 at x8.94\u20139.06, theta190.49\u2013192.01 overlapped 0.75m medical window at x9.10. Move the window to x9.55 with \u22650.075m clearance beyond nearest principal-frame plane and no remaining equipment collisions under existing G9 footprint criteria; node faces unchanged.",
   "new_draw_cap_t": 12.0,
   "installed_mass_cap_t": null,
   "round2_reference": "windows_wws1_round2: corrected NEW-draw cap, NO installed-mass cap",
