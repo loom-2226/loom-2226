@@ -43,3 +43,40 @@ The hot-fin option has two problems:
 
 No mass is booked and nothing is placed in canon. Placement is kT's decision, carried out against
 the PR #184 baseline.
+
+## Even layouts that fit around everything (2026-11-16)
+
+`node_optimize.py` produces `node_layouts_even.json`, and `node_layouts_picture.py` produces `node_layouts_even.png`.
+
+**Method:** weighted k-means snapped to allowed mount sites, best of 4 restarts.
+
+**Allowed sites:**
+
+- Hull skin, excluding:
+  - the bay-door leaves
+  - the stowed strake bands (the strake root line is allowed)
+  - the longerons
+  - hardware, windows, hatches and cameras
+- Optionally the thrust-cone skin.
+- Optionally both faces of the hot-fin root trusses.
+- Ring 0 stays fixed.
+
+**Result:** the best layout uses the cone and the fin roots.
+
+| Metric | Today | Best layout |
+|---|---|---|
+| Nodes on a no-go zone | 120 | 0 |
+| Network in one piece | No | Yes |
+| Worst gap | 5.0 m | 4.3 m |
+| Gap covering 95% of the skin | 3.0 m | 2.5 m |
+| Load spread (CV) | 0.29 | 0.28 |
+
+The best layout places 133 nodes on the hull, 20 on the cone, 39 on the fin roots and 16 on ring 0.
+
+Hull-only and cone-only layouts leave the reactor and nozzle 12 to 20 m from the nearest node.
+
+**Open:**
+
+- The fin-root heat soak.
+- The strake-root line is still a kT decision.
+- This measures geometric evenness only. It is not a domain certification (PR #356).
