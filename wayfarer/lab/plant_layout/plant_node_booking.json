@@ -1,0 +1,328 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-CANON booking proposal; layout is a geometric proxy; routing and hubs are ASSUMPTIONS",
+ "decisions": [
+  "relational_plant_layout_2026_11_16",
+  "metric_nacelles_ring_selected_2026_11_16",
+  "nacelle_fit_and_aft_rcs_cant_25_2026_11_17"
+ ],
+ "layout": "wayfarer/lab/metric_nodes/nacelle_fit/node_coverage_fit.json",
+ "counts": {
+  "ring0": 16,
+  "hull": 104,
+  "cone": 20,
+  "nacelle": 56,
+  "hoop": 12
+ },
+ "node_module_t": 0.0601,
+ "door_leaf_nodes": 0,
+ "trunk_route_total_m": 2459.5,
+ "trunk_t_per_m": 0.00163,
+ "items": [
+  {
+   "id": "node_band_x0_5",
+   "kind": "hull band (fixed)",
+   "nodes": 25,
+   "node_t": 1.5024,
+   "trunk_t": 0.6582,
+   "total_t": 2.1606,
+   "x_range": [
+    2.05,
+    4.2
+   ],
+   "cg_deployed": [
+    4.985,
+    -0.102,
+    0.011
+   ],
+   "feed": {
+    "fore": 25,
+    "aft": 0
+   }
+  },
+  {
+   "id": "node_band_x5_10",
+   "kind": "hull band (fixed)",
+   "nodes": 19,
+   "node_t": 1.1418,
+   "trunk_t": 0.3583,
+   "total_t": 1.5001,
+   "x_range": [
+    5.1,
+    9.9
+   ],
+   "cg_deployed": [
+    8.537,
+    0.394,
+    0.255
+   ],
+   "feed": {
+    "fore": 19,
+    "aft": 0
+   }
+  },
+  {
+   "id": "node_band_x10_15",
+   "kind": "hull band (fixed)",
+   "nodes": 15,
+   "node_t": 0.9014,
+   "trunk_t": 0.1547,
+   "total_t": 1.0561,
+   "x_range": [
+    10.2,
+    15.0
+   ],
+   "cg_deployed": [
+    12.923,
+    -0.472,
+    0.154
+   ],
+   "feed": {
+    "fore": 15,
+    "aft": 0
+   }
+  },
+  {
+   "id": "node_band_x15_20",
+   "kind": "hull band (fixed)",
+   "nodes": 17,
+   "node_t": 1.0216,
+   "trunk_t": 0.1509,
+   "total_t": 1.1726,
+   "x_range": [
+    15.3,
+    19.5
+   ],
+   "cg_deployed": [
+    17.276,
+    0.087,
+    -0.208
+   ],
+   "feed": {
+    "fore": 17,
+    "aft": 0
+   }
+  },
+  {
+   "id": "node_band_x20_25",
+   "kind": "hull band (fixed)",
+   "nodes": 17,
+   "node_t": 1.0216,
+   "trunk_t": 0.282,
+   "total_t": 1.3036,
+   "x_range": [
+    20.4,
+    24.6
+   ],
+   "cg_deployed": [
+    21.577,
+    -0.198,
+    -0.357
+   ],
+   "feed": {
+    "fore": 16,
+    "aft": 1
+   }
+  },
+  {
+   "id": "node_band_x25_30",
+   "kind": "hull band (fixed)",
+   "nodes": 16,
+   "node_t": 0.9615,
+   "trunk_t": 0.1825,
+   "total_t": 1.144,
+   "x_range": [
+    25.5,
+    30.0
+   ],
+   "cg_deployed": [
+    28.203,
+    0.297,
+    -0.081
+   ],
+   "feed": {
+    "fore": 0,
+    "aft": 16
+   }
+  },
+  {
+   "id": "node_band_x30_34.4",
+   "kind": "hull band (fixed)",
+   "nodes": 11,
+   "node_t": 0.6611,
+   "trunk_t": 0.0493,
+   "total_t": 0.7103,
+   "x_range": [
+    30.9,
+    33.9
+   ],
+   "cg_deployed": [
+    32.188,
+    -0.331,
+    -0.292
+   ],
+   "feed": {
+    "fore": 0,
+    "aft": 11
+   }
+  },
+  {
+   "id": "node_ring_cone",
+   "kind": "thrust-cone ring (fixed)",
+   "nodes": 20,
+   "node_t": 1.2019,
+   "trunk_t": 0.1664,
+   "total_t": 1.3683,
+   "x_range": [
+    34.45,
+    38.95
+   ],
+   "cg_deployed": [
+    36.439,
+    -0.412,
+    0.188
+   ],
+   "feed": {
+    "fore": 0,
+    "aft": 20
+   }
+  },
+  {
+   "id": "node_set_nacelle_0",
+   "kind": "nacelle set (moving)",
+   "nodes": 23,
+   "node_t": 1.3822,
+   "trunk_t": 0.6486,
+   "total_t": 2.0308,
+   "x_range": [
+    40.4,
+    53.55
+   ],
+   "cg_deployed": [
+    45.136,
+    4.137,
+    -0.018
+   ],
+   "feed": {
+    "fore": 0,
+    "aft": 23
+   },
+   "cg_tucked": [
+    44.938,
+    3.955,
+    -0.007
+   ],
+   "note": "moving mass: books with the nacelle parts; trunk crosses the parallel links and the arm hinges (flex/rotary joints)"
+  },
+  {
+   "id": "node_set_nacelle_90",
+   "kind": "nacelle set (moving)",
+   "nodes": 14,
+   "node_t": 0.8413,
+   "trunk_t": 0.4219,
+   "total_t": 1.2632,
+   "x_range": [
+    40.75,
+    53.7
+   ],
+   "cg_deployed": [
+    46.056,
+    -0.156,
+    4.119
+   ],
+   "feed": {
+    "fore": 0,
+    "aft": 14
+   },
+   "cg_tucked": [
+    45.871,
+    -0.007,
+    3.953
+   ],
+   "note": "moving mass: books with the nacelle parts; trunk crosses the parallel links and the arm hinges (flex/rotary joints)"
+  },
+  {
+   "id": "node_set_nacelle_180",
+   "kind": "nacelle set (moving)",
+   "nodes": 19,
+   "node_t": 1.1418,
+   "trunk_t": 0.5539,
+   "total_t": 1.6957,
+   "x_range": [
+    40.05,
+    53.9
+   ],
+   "cg_deployed": [
+    45.478,
+    -4.208,
+    -0.057
+   ],
+   "feed": {
+    "fore": 0,
+    "aft": 19
+   },
+   "cg_tucked": [
+    45.186,
+    -4.098,
+    0.03
+   ],
+   "note": "moving mass: books with the nacelle parts; trunk crosses the parallel links and the arm hinges (flex/rotary joints)"
+  },
+  {
+   "id": "node_set_nacelle_270",
+   "kind": "nacelle set (moving)",
+   "nodes": 12,
+   "node_t": 0.7212,
+   "trunk_t": 0.3734,
+   "total_t": 1.0945,
+   "x_range": [
+    40.4,
+    53.9
+   ],
+   "cg_deployed": [
+    46.436,
+    -0.08,
+    -4.015
+   ],
+   "feed": {
+    "fore": 0,
+    "aft": 12
+   },
+   "cg_tucked": [
+    46.236,
+    -0.003,
+    -3.876
+   ],
+   "note": "moving mass: books with the nacelle parts; trunk crosses the parallel links and the arm hinges (flex/rotary joints)"
+  }
+ ],
+ "total_t": 16.4998,
+ "plant_blocks_after": {
+  "plant_fore": 35.75,
+  "plant_aft": 35.75,
+  "note": "plant total stays 88 t: 71.5 t in the blocks/ring + 16.5 t booked here"
+ },
+ "dry_cg_shift_m": {
+  "deployed": [
+   0.0758,
+   0.0003,
+   0.0006
+  ],
+  "tucked": [
+   0.0742,
+   0.0004,
+   0.0007
+  ]
+ },
+ "dry_cg_shift_note": "[dx aft, dy, dz] of the whole ship vs today; tucked = torch state",
+ "unchanged": {
+  "dry_t": 868.1922552640087,
+  "plant_total_t": 88.0
+ },
+ "open": [
+  "node module volume/mount design on frames",
+  "trunk flex joints across nacelle links and arm hinges",
+  "aft hub routing through the manifold ring (approved point 3)",
+  "layout is not PR #356 qualified"
+ ]
+}
