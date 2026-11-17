@@ -118,33 +118,68 @@ def build():
             s.label=name
             new[name]=s
         assert set(new)==set(NEW_NAMES)
-        assembly=Compound(children=list(original.values())+list(new.values()))
+        # Export ONLY the 20 genuinely new solids. The immutable #559 source
+        # STEP remains the byte-identical full-ship base, not passed through a
+        # second STEP exporter (which changes the pressure BRep byte stream).
+        # Each qualified candidate assembly = approved base STEP + state STEP.
+        overlay=Compound(children=list(new.values()))
         dest=CAND/f"candidate_{state}.step"
-        export_step(assembly,str(dest),unit=Unit.M)
+        export_step(overlay,str(dest),unit=Unit.M)
         with dest.open("rb") as source,(CAND/f"candidate_{state}.step.gz").open("wb") as out:
             with gzip.GzipFile(fileobj=out,mode="wb",mtime=0,filename="") as z:
                 shutil.copyfileobj(source,z)
         dest.unlink()
         checks[state]=dict(step_sha=sha(CAND/f"candidate_{state}.step.gz"),
-                           count=335,added=20)
+                           base_step_sha=sha(SOURCE),base_count=315,overlay_count=20,
+                           total_assembly_count=335,
+                           assembly="immutable approved full-ship STEP plus state-specific 20-solid STEP overlay")
         print("CANDIDATE_STEP",state,checks[state],flush=True)
     save(CAND/"candidate_manifest.json",dict(
         source_sha=sha(GEO),original_sha=sha(OLD),protected_fingerprint=sig,
-        approved_source_step=sha(SOURCE),states=checks))
+        approved_source_step=sha(SOURCE),
+        candidate_representation="approved base STEP (315 solids) + mode STEP overlay (20 solids)",
+        approved_protected_pressure_BRep_is_reused_byte_for_byte=True,
+        states=checks))
     return 0
 
 def import_candidate(state,G0):
+    # Crucial #559 invariant: import the already-approved full-ship STEP once,
+    # WITHOUT exporting it into a replacement candidate STEP. Original BReps
+    # are the exact same bytes in both candidate state assemblies.
+    rows,original,installed,base_factor=D.imported(G0)
+    assert len(original)==315 and len(installed)==194 and base_factor==.001
     src=CAND/f"candidate_{state}.step.gz"
-    tmp=Path("/tmp")/f"loom_nacelle_{state}.step"
+    tmp=Path("/tmp")/f"loom_nacelle_overlay_{state}.step"
     with gzip.open(src,"rb") as f,tmp.open("wb") as out:shutil.copyfileobj(f,out)
     st=import_step(str(tmp))
     kids=list(st.children)
-    assert len(kids)==335 and len({k.label for k in kids})==335
-    original=BASE.catalogue(G0)
-    shapes,factor=normalise(kids,original)
-    assert set(shapes)==set(original)-{"dry:d8_unlocated_doubler_allowance",
-                                     "dry:metric_nacelles_ring_unlocated"}|set(NEW_NAMES)
-    return shapes,factor
+    assert len(kids)==20 and len({k.label for k in kids})==20
+    # The overlay is written in the same unit conventions as #559's STEP.
+    # Normalize its 14.8m nacelle using the actual imported bounding box.
+    marker=next(s for s in kids if s.label=="dry:metric_nacelle_0")
+    measured=P.bounds(marker)[1]-P.bounds(marker)[0]
+    if abs(measured/14.8-1000)<.01:factor=.001
+    elif abs(measured/14.8-1)<.001:factor=1.
+    else:raise RuntimeError("candidate STEP overlay unit mismatch "+str(measured))
+    extra={}
+    for s in kids:
+        name=s.label
+        assert name in NEW_NAMES and name not in original
+        if factor!=1:
+            pos=s.location.position
+            prior=(float(pos.X),float(pos.Y),float(pos.Z))
+            s=s.scale(factor)
+            after=s.location.position
+            delta=tuple(prior[i]*factor-float(v) for i,v in enumerate((after.X,after.Y,after.Z)))
+            if any(abs(v)>1e-12 for v in delta):s=s.translate(delta)
+        s.label=name
+        extra[name]=s
+    assert set(extra)==set(NEW_NAMES)
+    original.update(extra)
+    assert len(original)==335
+    # Report original source unit factor (the 194 audited shapes), not the
+    # overlay factor. Both must be correct independently.
+    return original,base_factor
 
 def run_primary(state,shard,shards):
     assert shards==4 and 0<=shard<shards
@@ -240,6 +275,9 @@ def merge():
         primary=[read(OUT/state/f"primary-{i}.json") for i in range(4)]
         pairs=[read(OUT/state/f"pairs-{i}.json") for i in range(8)]
         step=sha(CAND/f"candidate_{state}.step.gz")
+        assert manifest["states"][state]["base_step_sha"]==sha(SOURCE)
+        assert manifest["states"][state]["overlay_count"]==20
+        assert manifest["states"][state]["base_count"]==315
         for x in primary+pairs:
             assert x["state"]==state and x["geometry_sha"]==sha(GEO)
             assert x["candidate_step_sha"]==step and x["original_fingerprint"]==sig

@@ -19,7 +19,9 @@ is omitted for clarity. The HTML selector switches between the candidate
 GLBs with a network-hosted viewer (serve this directory over HTTP(S)).
 Neither render nor viewer is collision certification.
 
-Two candidate STEP assemblies and strict D9 evidence are produced by
+Two candidate STEP assemblies, each consisting of the SAME unmodified
+certified #559 full-ship source STEP and a separate 20-solid mode STEP overlay,
+and strict D9 evidence are produced by
 .github/workflows/wayfarer-nacelle-two-state-d9.yml:
 194 unchanged protected solids + 20 new installed = 214 solids and
 22,791 pairs in EACH state, original category-(d) >0.01m3 rule,
