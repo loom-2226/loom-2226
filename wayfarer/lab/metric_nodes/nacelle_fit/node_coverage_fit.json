@@ -1,0 +1,38 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "nacelle": {
+  "r_axis": 4.6,
+  "radius": 0.6,
+  "x0": 39.5,
+  "x1": 54.3,
+  "stow_x0": 14.5,
+  "stow_x1": 32.0
+ },
+ "hoop": {
+  "x": 53.9,
+  "R": 4.6,
+  "r": 0.35
+ },
+ "metrics": {
+  "reach_cover": 0.8861,
+  "p95_gap_m": 2.6345,
+  "max_gap_m": 4.3552,
+  "mean_gap_m": 1.284,
+  "load_cv": 0.2749,
+  "web_connected": 1.0,
+  "web_pieces": 1,
+  "count_by_zone": {
+   "nacelle": 56,
+   "hoop": 12,
+   "cone": 20,
+   "hull": 104,
+   "ring0_fixed": 16
+  },
+  "aft_quadrant_counts": [
+   26,
+   19,
+   26,
+   17
+  ]
+ }
+}
