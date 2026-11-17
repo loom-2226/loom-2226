@@ -909,9 +909,9 @@ def build(I, dy=0.0, dz=0.0):
     # --- service region
     sv = I["service"]
     pf = sv["plant_fore"]
-    assert pf["mass_t"]==44.0
+    assert pf["mass_t"]==booking["plant_blocks_after"]["plant_fore"]
     add("plant_fore", "Relational plant, fore block", "plant", Sector(pf["x_m"][0], pf["x_m"][1], 0.0, pf["r_m"]),
-        booking["plant_blocks_after"]["plant_fore"], pf["prov"], "plant")
+        pf["mass_t"], pf["prov"], "plant")
     sec = {k: Sector(v["x_m"][0], v["x_m"][1], v["r_m"][0], v["r_m"][1], v["theta_deg"][0], v["theta_deg"][1])
            for k, v in sv["sectors"].items()}
     # D2: forward courier, outside the strake lines in the source screened
@@ -1065,7 +1065,8 @@ def build(I, dy=0.0, dz=0.0):
             "KT_PHASE1B: 1.5x removed secondary mass; NO removal credit; fit/load paths OPEN",
             "structure",tags=("from_reserve","no_render","no_shield_credit","unlocated"))
     add("plant_aft", "Relational plant, aft block", "plant", Sector(mx1, H["manifold_x_m"][1], 0.0, pf["r_m"]),
-        booking["plant_blocks_after"]["plant_aft"], "kT node/trunk rebooking; original 44t block", "plant")
+        sv["plant_aft_mass_t"], "kT node/trunk rebooking; original 44t block", "plant")
+    assert sv["plant_aft_mass_t"]==booking["plant_blocks_after"]["plant_aft"]
     for it in items:
         # Zero-extent mass ledger points, NOT installed solids, no D9/shield
         # credit. Box is used because the existing source supports it already.

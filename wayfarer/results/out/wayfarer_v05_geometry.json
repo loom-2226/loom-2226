@@ -4869,7 +4869,7 @@
   }
  },
  "version": "0.5.7-step1-I4-lock",
- "inputs_sha256": "c0339b23103caf71db1bebf39a04d5c21d03f92534a7fe5862c8e82ed2a63473",
+ "inputs_sha256": "78a88ce140bc3a78df3132fc230812973dda407c8571be5d460de42624a0c4e8",
  "length_m": 53.3,
  "dry_t": 868.1922552640087,
  "plant_node_booking": {
@@ -9902,7 +9902,7 @@
    "name": "Relational plant, fore block",
    "system": "plant",
    "mass_t": 38.04012431246041,
-   "prov": "DERIVED: SPLIT plant, half of 88 t; shortened 1 m vs v0.4 to leave room for the transfer tunnel (density 1.17 t/m3, inside the 1.0-1.5 t/m3 range)",
+   "prov": "kT relational_plant_layout_2026_11_16 point 1: 44->35.75 t, original installed block geometry unchanged",
    "mat": "plant",
    "dry": true,
    "tags": [],

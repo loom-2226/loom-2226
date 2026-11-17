@@ -340,9 +340,10 @@
     17
    ],
    "r_m": 2,
-   "mass_t": 44,
-   "prov": "DERIVED: SPLIT plant, half of 88 t; shortened 1 m vs v0.4 to leave room for the transfer tunnel (density 1.17 t/m3, inside the 1.0-1.5 t/m3 range)"
+   "mass_t": 35.75,
+   "prov": "kT relational_plant_layout_2026_11_16 point 1: 44->35.75 t, original installed block geometry unchanged"
   },
+  "plant_aft_mass_t": 35.75,
   "sectors": {
    "protected_water_tank": {
     "theta_deg": [
