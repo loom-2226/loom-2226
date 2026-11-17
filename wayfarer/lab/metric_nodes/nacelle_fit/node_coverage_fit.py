@@ -9,5 +9,5 @@ if __name__ == '__main__':
     fixed = np.array([NO.cyl(n['x'], n['a'], n['r']) for n in NO.NB if n['c'] == 'bow'])
     NN.NAC['x1'] = 54.3; NR.HOOP.update(x=53.9, R=4.6)
     r = NR.run([0, 90, 180, 270], True, P, w, fixed); print(r['metrics'])
-    json.dump(dict(header='ALL bodies. ALL sponsors. 2026-2226.', nacelle=dict(NN.NAC), hoop=dict(NR.HOOP), metrics=r['metrics']),
+    json.dump(dict(header='ALL bodies. ALL sponsors. 2026-2226.', nacelle=dict(NN.NAC), hoop=dict(NR.HOOP), metrics=r['metrics'], nodes=r['nodes']),
               open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'node_coverage_fit.json'), 'w'), indent=1)
