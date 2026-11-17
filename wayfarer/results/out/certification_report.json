@@ -2,8 +2,8 @@
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
  "status": "NON-GOVERNING SANDBOX certification run",
  "basis": "CERTIFICATION_BASIS.md v0.2 (agreed by Claude and Sol; PROPOSED to kT)",
- "geometry_sha256": "6cad9a54132ab57d3848067143636fec7f5073dfd7b405f0a93381f2761d92e7",
- "inputs_sha256": "32aadbbc3e5ac3548baf8995262a1116e34d87d851e0404225c3ab4a6a2f015f",
+ "geometry_sha256": "f173094beb6f3edcf5b702ca12f32a2fe40bf7a53336491e7cd3dae78c747a82",
+ "inputs_sha256": "c0339b23103caf71db1bebf39a04d5c21d03f92534a7fe5862c8e82ed2a63473",
  "criteria_sha256": "1c1dd1d261c3869169dc2754b7567141040354063dc5654b88286e6e2b1a5e98",
  "summary": {
   "G1": "PASS",
@@ -44,15 +44,15 @@
     },
     {
      "name": "G1 old vs new engineering reserve derived from ledger",
-     "value": 39.222455412,
-     "limit": 39.222455412,
+     "value": 38.972455412,
+     "limit": 38.972455412,
      "unit": "t",
      "pass": true,
-     "note": "old 9.122455412 t + return 30.10 t"
+     "note": "old 9.122455412 t + return 29.85 t"
     },
     {
      "name": "G1 combined reserve floor 16.8t",
-     "value": 48.756155556,
+     "value": 48.506155556,
      "limit": 16.8,
      "unit": "t",
      "pass": true,
@@ -76,7 +76,7 @@
     },
     {
      "name": "AOI and backup dome entirely drawn from positive existing reserve",
-     "value": 39.222,
+     "value": 38.972,
      "limit": 0.0,
      "unit": "t",
      "pass": true,
@@ -140,7 +140,7 @@
     },
     {
      "name": "Option C engineering growth floor preserved",
-     "value": 39.222455,
+     "value": 38.972455,
      "limit": 5.0,
      "unit": "t",
      "pass": true,
@@ -196,16 +196,16 @@
     },
     {
      "name": "S5 mass = dry + fluids + payload",
-     "value": 890.19,
-     "limit": 890.19,
+     "value": 890.2,
+     "limit": 890.2,
      "unit": "t",
      "pass": true,
      "note": "burnt out, shuttle away"
     },
     {
      "name": "S6 mass = dry + fluids + payload",
-     "value": 1135.58,
-     "limit": 1135.58,
+     "value": 1135.59,
+     "limit": 1135.59,
      "unit": "t",
      "pass": true,
      "note": "full, shuttle away"
@@ -228,7 +228,7 @@
     },
     {
      "name": "reserve after house fuel tank remains >=5t",
-     "value": 39.222455412,
+     "value": 38.972455412,
      "limit": 5.0,
      "unit": "t",
      "pass": true,
@@ -394,7 +394,7 @@
     },
     {
      "name": "WWS-1 R2 engineering reserve floor unchanged",
-     "value": 39.222455,
+     "value": 38.972455,
      "limit": 5.0,
      "unit": "t",
      "pass": true,
@@ -402,7 +402,7 @@
     },
     {
      "name": "WWS-1 R2 total uncommitted mass floor",
-     "value": 48.756156,
+     "value": 48.506156,
      "limit": 16.8,
      "unit": "t",
      "pass": true,
@@ -452,7 +452,7 @@
    "declared": [],
    "notes": [
     "dry 868.2 t vs canon 858.5 t (+9.7 t); S1 wet 1167.5 t vs canon 1153.8904317110823 t",
-    "dry by system: habitat 206.6, propulsion 170.3, structure 136.1, plant 101.9, thermal 85.9, electrical 58.9, shuttle 32.0, avionics 20.6, mission 20.2, rcs 17.0, service 14.1, external 3.3, drones 1.3",
+    "dry by system: habitat 206.5, propulsion 170.2, structure 136.0, plant 102.1, thermal 85.9, electrical 58.9, shuttle 31.9, avionics 20.6, mission 20.2, rcs 17.0, service 14.1, external 3.3, drones 1.3",
     "protected water: 16.5 t in the storm-shelter jacket, 8.53 t in the L3 berth shield ring, 26.7 t in the service tank, 0.0 t in the main tank cells"
    ],
    "mass_states": [
@@ -461,112 +461,112 @@
      "name": "reference departure",
      "mass_t": 1167.5,
      "cg_m": [
-      23.625,
+      23.792,
       0.021,
-      -0.423
+      -0.425
      ],
-     "Ixx": 12648740.256254364,
-     "Iyy": 201201920.00617576,
-     "Izz": 201804178.1461987,
-     "Ixy": 194150.25332025325,
-     "Ixz": 1140703.3574883821,
-     "Iyz": -3589.664917457995
+     "Ixx": 12788014.206325833,
+     "Iyy": 206142571.27145165,
+     "Izz": 206746120.17335474,
+     "Ixy": 198297.84339058195,
+     "Ixz": 1110186.874208596,
+     "Iyz": -3640.5037093908004
     },
     {
      "state": "S2",
      "name": "loaded departure",
      "mass_t": 1217.5,
      "cg_m": [
-      23.291,
+      23.452,
       0.02,
-      -0.406
+      -0.408
      ],
-     "Ixx": 13220136.517995995,
-     "Iyy": 204515979.90809932,
-     "Izz": 205467011.04477412,
-     "Ixy": 185664.93240824307,
-     "Ixz": 1305439.005112369,
-     "Iyz": -3767.748900381459
+     "Ixx": 13359484.209073868,
+     "Iyy": 209588477.80901617,
+     "Izz": 210540725.9307483,
+     "Ixy": 189644.62652517727,
+     "Ixz": 1279042.2956344036,
+     "Iyz": -3816.910742941982
     },
     {
      "state": "S3",
      "name": "normal dispatch",
      "mass_t": 1072.1,
      "cg_m": [
-      23.594,
+      23.776,
       0.023,
-      -0.355
+      -0.357
      ],
-     "Ixx": 11593791.754845198,
-     "Iyy": 199699446.8684865,
-     "Izz": 199992969.0778645,
-     "Ixy": 189610.680250969,
-     "Ixz": 1112592.9232014213,
-     "Iyz": -3417.320802838308
+     "Ixx": 11733356.482268363,
+     "Iyy": 204649677.95956126,
+     "Izz": 204944200.23041263,
+     "Ixy": 194126.60095169724,
+     "Ixz": 1095554.1495611353,
+     "Iyz": -3472.8463407838212
     },
     {
      "state": "S4",
      "name": "burnt out, shuttle home",
      "mass_t": 922.1,
      "cg_m": [
-      23.113,
+      23.325,
       0.027,
-      -0.218
+      -0.22
      ],
-     "Ixx": 9908904.869929252,
-     "Iyy": 195730164.92173642,
-     "Izz": 195564162.0638611,
-     "Ixy": 175124.07677557957,
-     "Ixz": 678885.4734331596,
-     "Iyz": -2434.8900074857775
+     "Ixx": 10049048.516810168,
+     "Iyy": 200863212.82038155,
+     "Izz": 200697631.25771382,
+     "Ixy": 180377.59925052215,
+     "Ixz": 689566.345081755,
+     "Iyz": -2499.7465625977206
     },
     {
      "state": "S5",
      "name": "burnt out, shuttle away",
      "mass_t": 890.2,
      "cg_m": [
-      23.039,
+      23.259,
       0.028,
-      -0.226
+      -0.228
      ],
-     "Ixx": 9849633.700239899,
-     "Iyy": 195123048.80692944,
-     "Izz": 194958849.66397983,
-     "Ixy": 173013.4820608296,
-     "Ixz": 690594.2817089643,
-     "Iyz": -2422.869616170985
+     "Ixx": 9989763.708581403,
+     "Iyy": 200283357.45231012,
+     "Izz": 200119612.25676265,
+     "Ixy": 178457.65171991847,
+     "Ixz": 699882.3281002477,
+     "Iyz": -2489.696157098877
     },
     {
      "state": "S6",
      "name": "full, shuttle away",
      "mass_t": 1135.6,
      "cg_m": [
-      23.582,
+      23.754,
       0.022,
-      -0.435
+      -0.437
      ],
-     "Ixx": 12585155.930514874,
-     "Iyy": 200651462.76840237,
-     "Izz": 201259856.0336281,
-     "Ixy": 192789.69731716893,
-     "Ixz": 1158944.9585569382,
-     "Iyz": -3680.179494073643
+     "Ixx": 12724400.417706957,
+     "Iyy": 205608096.0075266,
+     "Izz": 206217828.4898261,
+     "Ixy": 197055.52390771997,
+     "Ixz": 1126174.705606694,
+     "Iyz": -3732.134312883017
     },
     {
      "state": "S7",
      "name": "one tank cell breached and vented",
      "mass_t": 1106.2,
      "cg_m": [
-      23.705,
+      23.882,
       0.157,
-      -0.381
+      -0.383
      ],
-     "Ixx": 11943302.474107362,
-     "Iyy": 200691624.41165355,
-     "Izz": 201068011.7218373,
-     "Ixy": 424051.11340152705,
-     "Ixz": 1213111.5438086016,
-     "Iyz": 27357.92259292574
+     "Ixx": 12082759.954087319,
+     "Iyy": 205599294.28798494,
+     "Izz": 205976794.37698162,
+     "Ixy": 454732.81859994633,
+     "Ixz": 1190763.5703112145,
+     "Iyz": 27019.371679449272
     }
    ]
   },
@@ -707,63 +707,63 @@
    "checks": [
     {
      "name": "thrust trim S1",
-     "value": 0.327,
+     "value": 0.333,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.164 m from the thrust line"
+     "note": "lateral offset 0.166 m from the thrust line"
     },
     {
      "name": "thrust trim S2",
-     "value": 0.289,
+     "value": 0.294,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.146 m from the thrust line"
+     "note": "lateral offset 0.148 m from the thrust line"
     },
     {
      "name": "thrust trim S3",
-     "value": 0.19,
+     "value": 0.195,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.095 m from the thrust line"
+     "note": "lateral offset 0.097 m from the thrust line"
     },
     {
      "name": "thrust trim S4",
-     "value": 0.083,
+     "value": 0.079,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.042 m from the thrust line"
+     "note": "lateral offset 0.040 m from the thrust line"
     },
     {
      "name": "thrust trim S5",
-     "value": 0.067,
+     "value": 0.063,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.034 m from the thrust line"
+     "note": "lateral offset 0.032 m from the thrust line"
     },
     {
      "name": "thrust trim S6",
-     "value": 0.35,
+     "value": 0.356,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.176 m from the thrust line"
+     "note": "lateral offset 0.177 m from the thrust line"
     },
     {
      "name": "thrust trim S7",
-     "value": 0.351,
+     "value": 0.356,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
-     "note": "lateral offset 0.175 m from the thrust line"
+     "note": "lateral offset 0.177 m from the thrust line"
     },
     {
      "name": "180 deg slew, pitch (about y) +",
-     "value": 35.4,
+     "value": 35.8,
      "limit": 120.0,
      "unit": "s",
      "pass": true,
@@ -771,7 +771,7 @@
     },
     {
      "name": "180 deg slew, pitch (about y) -",
-     "value": 35.4,
+     "value": 35.8,
      "limit": 120.0,
      "unit": "s",
      "pass": true,
@@ -779,7 +779,7 @@
     },
     {
      "name": "180 deg slew, yaw (about z) +",
-     "value": 35.5,
+     "value": 35.9,
      "limit": 120.0,
      "unit": "s",
      "pass": true,
@@ -787,7 +787,7 @@
     },
     {
      "name": "180 deg slew, yaw (about z) -",
-     "value": 35.5,
+     "value": 35.9,
      "limit": 120.0,
      "unit": "s",
      "pass": true,
@@ -863,8 +863,8 @@
     "Thrust line offset from the hull axis: y +0.03 m, z -0.26 m (torch chain 179 t), chosen to centre the centre-of-mass range",
     "roll +: 180 deg in 19 s (2 couples, 0.46 MN m, worst state S2); roll is rate-limited by doctrine, not gated",
     "roll -: 180 deg in 19 s (2 couples, 0.46 MN m, worst state S2); roll is rate-limited by doctrine, not gated",
-    "With any one cluster out, the slowest 180 deg pitch/yaw slew is 50 s (one couple, S2).",
-    "Shuttle undocking: S1 trim 0.327 deg, S6 (shuttle away) 0.350 deg; both inside the limit.",
+    "With any one cluster out, the slowest 180 deg pitch/yaw slew is 51 s (one couple, S2).",
+    "Shuttle undocking: S1 trim 0.333 deg, S6 (shuttle away) 0.356 deg; both inside the limit.",
     "Inertia is from intrinsic component shapes (sampled volumes), not centroid-only point masses."
    ]
   },
@@ -1059,7 +1059,7 @@
     },
     {
      "name": "ship power fast_40s_flip: rejection capacity",
-     "value": 53.926631,
+     "value": 54.898772,
      "limit": 387.212,
      "unit": "MW",
      "pass": true,
@@ -1203,7 +1203,7 @@
     },
     {
      "name": "ship power degraded_60s_flip: rejection capacity",
-     "value": 31.952904,
+     "value": 32.384967,
      "limit": 387.212,
      "unit": "MW",
      "pass": true,
@@ -1380,10 +1380,10 @@
    },
    "ship_power": {
     "status": "NON-CANON ENGINEERING SCREEN; NO PHYSICAL QUALIFICATION",
-    "geometry_sha256": "6cad9a54132ab57d3848067143636fec7f5073dfd7b405f0a93381f2761d92e7",
-    "input_sha256": "32aadbbc3e5ac3548baf8995262a1116e34d87d851e0404225c3ab4a6a2f015f",
-    "rcs_trace_sha256": "798214585298e0e63617f0ab32fc412041394c56f255b25e9b5bb92a7c2cf178",
-    "rcs_trace_60s_sha256": "acda22201f5ebe04835c497dac33081675d4b6eff0d63f74723bfd1145b5eb5f",
+    "geometry_sha256": "f173094beb6f3edcf5b702ca12f32a2fe40bf7a53336491e7cd3dae78c747a82",
+    "input_sha256": "c0339b23103caf71db1bebf39a04d5c21d03f92534a7fe5862c8e82ed2a63473",
+    "rcs_trace_sha256": "2231d3186c34f4b452272b5975380de2e2a10d8af43181d3931d1a87c09473d7",
+    "rcs_trace_60s_sha256": "8f6cdd6b4efb5e76b70f172ab6ec046768361ed6d38f9fcbe46ace553492b3d2",
     "reactor": {
      "count": 2,
      "per_unit_net_mw": 50,
@@ -1409,11 +1409,11 @@
      "peak_mw": 270,
      "counter_rotating_pairs": true,
      "burst_containment": "DECLARED included in mass; unqualified",
-     "fast_flip_store_mwh": 1.333591,
-     "fast_flip_store_peak_mw": 207.073323,
-     "degraded_60s_store_mwh": 0.516886,
-     "degraded_60s_store_peak_mw": 64.47249,
-     "recharge_minutes_from_one_reactor": 1.792
+     "fast_flip_store_mwh": 1.378368,
+     "fast_flip_store_peak_mw": 213.382139,
+     "degraded_60s_store_mwh": 0.544508,
+     "degraded_60s_store_peak_mw": 67.276411,
+     "recharge_minutes_from_one_reactor": 1.852
     },
     "c_lite": {
      "mass_total_t": 0.25,
@@ -1426,32 +1426,32 @@
     },
     "rcs_trace": {
      "status": "CURRENT GEOMETRY NUMERICAL TRACE ONLY; NOT HARDWARE QUALIFICATION",
-     "geometry_sha256": "6cad9a54132ab57d3848067143636fec7f5073dfd7b405f0a93381f2761d92e7",
+     "geometry_sha256": "f173094beb6f3edcf5b702ca12f32a2fe40bf7a53336491e7cd3dae78c747a82",
      "dt_s": 0.1,
      "scenario": "CURRENT GEOMETRY 40s pitch 180 diagnostic",
      "duration_s": 40,
-     "water_consumed_kg": 1476.3000400023861,
-     "trace_ideal_energy_gj": 6.67405722084279,
-     "trace_ideal_peak_mw": 256.68442599945575,
+     "water_consumed_kg": 1512.5831714898488,
+     "trace_ideal_energy_gj": 6.838086001671306,
+     "trace_ideal_peak_mw": 262.9932423435221,
      "firing_nozzle_max": 10,
      "nameplate_peak_proxy_mw": 576.6326530612245,
-     "attitude_error_deg": 0.0016145106612708148,
-     "reconstruction_water_error_kg": -0.0027078477946815838,
+     "attitude_error_deg": 0.001614510638919025,
+     "reconstruction_water_error_kg": -0.002721854071978669,
      "reactor_assist_cases": {
       "0": {
-       "storage_ideal_gj": 6.689613082911755,
-       "storage_peak_mw": 257.0733225511799,
+       "storage_ideal_gj": 6.853641863740271,
+       "storage_peak_mw": 263.38213889524627,
        "possible_reactor_surplus_gj": 0.0
       },
       "50": {
-       "storage_ideal_gj": 4.800928633467328,
-       "storage_peak_mw": 207.0733225511799,
-       "possible_reactor_surplus_gj": 0.1113155505555729
+       "storage_ideal_gj": 4.962124763850618,
+       "storage_peak_mw": 213.38213889524627,
+       "possible_reactor_surplus_gj": 0.1084829001103458
       },
       "100": {
-       "storage_ideal_gj": 3.149903734489242,
-       "storage_peak_mw": 157.0733225511799,
-       "possible_reactor_surplus_gj": 0.4602906515774871
+       "storage_ideal_gj": 3.302239657060193,
+       "storage_peak_mw": 163.38213889524627,
+       "possible_reactor_surplus_gj": 0.44859779331992206
       }
      },
      "holds": [
@@ -1462,32 +1462,32 @@
     },
     "rcs_60s_degraded_trace": {
      "status": "CURRENT GEOMETRY NUMERICAL TRACE ONLY; NOT HARDWARE QUALIFICATION",
-     "geometry_sha256": "6cad9a54132ab57d3848067143636fec7f5073dfd7b405f0a93381f2761d92e7",
+     "geometry_sha256": "f173094beb6f3edcf5b702ca12f32a2fe40bf7a53336491e7cd3dae78c747a82",
      "dt_s": 0.1,
      "scenario": "CURRENT GEOMETRY 60s pitch 180 diagnostic",
      "duration_s": 60,
-     "water_consumed_kg": 984.1987190581739,
-     "trace_ideal_energy_gj": 4.449365569118194,
-     "trace_ideal_peak_mw": 114.08359313949157,
+     "water_consumed_kg": 1008.3867061407298,
+     "trace_ideal_energy_gj": 4.55871462112101,
+     "trace_ideal_peak_mw": 116.88751401294239,
      "firing_nozzle_max": 8,
      "nameplate_peak_proxy_mw": 461.30612244897964,
-     "attitude_error_deg": 0.0004945642741740523,
-     "reconstruction_water_error_kg": -0.0036467927448029513,
+     "attitude_error_deg": 0.0004945642719606495,
+     "reconstruction_water_error_kg": -0.0036862810967477344,
      "reactor_assist_cases": {
       "0": {
-       "storage_ideal_gj": 4.472699362221642,
-       "storage_peak_mw": 114.47248969121571,
+       "storage_ideal_gj": 4.582048414224459,
+       "storage_peak_mw": 117.27641056466653,
        "possible_reactor_surplus_gj": 0.0
       },
       "50": {
-       "storage_ideal_gj": 1.860790278947662,
-       "storage_peak_mw": 64.47248969121571,
-       "possible_reactor_surplus_gj": 0.3880909167260194
+       "storage_ideal_gj": 1.96022970033258,
+       "storage_peak_mw": 67.27641056466653,
+       "possible_reactor_surplus_gj": 0.37818128610812135
       },
       "100": {
-       "storage_ideal_gj": 0.1951975336780606,
-       "storage_peak_mw": 14.472489691215713,
-       "possible_reactor_surplus_gj": 1.7224981714564183
+       "storage_ideal_gj": 0.2516827753164202,
+       "storage_peak_mw": 17.276410564666534,
+       "possible_reactor_surplus_gj": 1.669634361091962
       }
      },
      "holds": [
@@ -1527,8 +1527,8 @@
      "electrical_loaded_t": 55,
      "electrical_dry_t": 54.85,
      "monoprop_wet_inside_loaded_electrical_t": 0.15,
-     "growth_reserve_t": 39.222455412,
-     "reserve_headroom_over_5t_t": 34.222455
+     "growth_reserve_t": 38.972455412,
+     "reserve_headroom_over_5t_t": 33.972455
     },
     "states": [
      {
@@ -1696,12 +1696,12 @@
       "state": "fast_40s_flip",
       "loads_mw": {
        "ordinary_ship_services": 0.3888965517241379,
-       "RCS_40s_TRACE_PEAK": 256.68442599945575
+       "RCS_40s_TRACE_PEAK": 262.9932423435221
       },
-      "known_load_mw": 257.073323,
+      "known_load_mw": 263.382139,
       "reactors_online": 1,
       "house_reactor_mw": 50,
-      "flywheel_discharge_mw": 207.073323,
+      "flywheel_discharge_mw": 213.382139,
       "flywheel_charge_mw": 0,
       "battery_mw": 0,
       "shore_mw": 0,
@@ -1710,19 +1710,19 @@
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
       "house_reactor_waste_heat_mw": 16.666667,
-      "heat_rejected_mw": 53.926631,
+      "heat_rejected_mw": 54.898772,
       "heat_scope": "active_radiator",
       "heat_retained_mw": 0,
       "passive_skin_rejection_mw": null,
       "radiator_capacity_mw": 387.212,
       "house_fuel_g_hr": 0.679887,
       "duration_s": 40,
-      "flywheel_event_delivered_mwh": 1.333591,
+      "flywheel_event_delivered_mwh": 1.378368,
       "chemical_propellant_kg": null,
       "deficits": [
        "FAST_FLIP_REACTOR_DISPATCH_BUS_HEAT_HARDWARE_UNQUALIFIED"
       ],
-      "note": "peak 256.684MW, integrated 6.674GJ, supplemental 4.801GJ"
+      "note": "peak 262.993MW, integrated 6.838GJ, supplemental 4.962GJ"
      },
      {
       "state": "pulsed_torch_burn",
@@ -2036,12 +2036,12 @@
       "state": "degraded_60s_flip",
       "loads_mw": {
        "ordinary_ship_services": 0.3888965517241379,
-       "RCS_60s_trace_peak": 114.08359313949157
+       "RCS_60s_trace_peak": 116.88751401294239
       },
-      "known_load_mw": 114.47249,
+      "known_load_mw": 117.276411,
       "reactors_online": 1,
       "house_reactor_mw": 50,
-      "flywheel_discharge_mw": 64.47249,
+      "flywheel_discharge_mw": 67.276411,
       "flywheel_charge_mw": 0,
       "battery_mw": 0,
       "shore_mw": 0,
@@ -2050,19 +2050,19 @@
       "unserved_mw": 0,
       "electric_accounting_mw": 0.0,
       "house_reactor_waste_heat_mw": 16.666667,
-      "heat_rejected_mw": 31.952904,
+      "heat_rejected_mw": 32.384967,
       "heat_scope": "active_radiator",
       "heat_retained_mw": 0,
       "passive_skin_rejection_mw": null,
       "radiator_capacity_mw": 387.212,
       "house_fuel_g_hr": 0.679887,
       "duration_s": 60,
-      "flywheel_event_delivered_mwh": 0.516886,
+      "flywheel_event_delivered_mwh": 0.544508,
       "chemical_propellant_kg": null,
       "deficits": [
        "DEGRADED_FLIP_REAL_BUS_AND_HEAT_UNQUALIFIED"
       ],
-      "note": "60s supplemental event 0.5169MWh peak 64.47MW"
+      "note": "60s supplemental event 0.5445MWh peak 67.28MW"
      },
      {
       "state": "both_house_reactors_failed_hour1",
@@ -2197,10 +2197,10 @@
      "battery_deliverable_mwh": 1.423025,
      "flywheel_deliverable_mwh": 0.853815,
      "flywheel_peak_mw": 135.0,
-     "fast_flip_stored_need_mwh": 1.333591,
-     "fast_flip_peak_store_mw": 207.073323,
-     "degraded_60s_store_need_mwh": 0.516886,
-     "degraded_60s_peak_store_mw": 64.47249,
+     "fast_flip_stored_need_mwh": 1.378368,
+     "fast_flip_peak_store_mw": 213.382139,
+     "degraded_60s_store_need_mwh": 0.544508,
+     "degraded_60s_peak_store_mw": 67.276411,
      "one_hour_normal_then_essential_hours": 15.91,
      "rows": [
       {
@@ -2314,15 +2314,15 @@
    "checks": [
     {
      "name": "longeron upper starboard: stress at 5.0 g x 1.5",
-     "value": 220.4,
+     "value": 218.5,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
-     "note": "area 0.083 m2; buckling between frames 22x the load"
+     "note": "area 0.083 m2; buckling between frames 23x the load"
     },
     {
      "name": "longeron upper starboard: buckling margin",
-     "value": 22.4,
+     "value": 22.6,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -2330,15 +2330,15 @@
     },
     {
      "name": "longeron upper port: stress at 5.0 g x 1.5",
-     "value": 220.4,
+     "value": 218.5,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
-     "note": "area 0.083 m2; buckling between frames 22x the load"
+     "note": "area 0.083 m2; buckling between frames 23x the load"
     },
     {
      "name": "longeron upper port: buckling margin",
-     "value": 22.4,
+     "value": 22.6,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -2346,15 +2346,15 @@
     },
     {
      "name": "longeron lower starboard: stress at 5.0 g x 1.5",
-     "value": 220.4,
+     "value": 218.5,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
-     "note": "area 0.083 m2; buckling between frames 22x the load"
+     "note": "area 0.083 m2; buckling between frames 23x the load"
     },
     {
      "name": "longeron lower starboard: buckling margin",
-     "value": 22.4,
+     "value": 22.6,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -2362,15 +2362,15 @@
     },
     {
      "name": "longeron lower port: stress at 5.0 g x 1.5",
-     "value": 220.4,
+     "value": 218.5,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
-     "note": "area 0.083 m2; buckling between frames 22x the load"
+     "note": "area 0.083 m2; buckling between frames 23x the load"
     },
     {
      "name": "longeron lower port: buckling margin",
-     "value": 22.4,
+     "value": 22.6,
      "limit": 1.5,
      "unit": "x",
      "pass": true,
@@ -2378,11 +2378,11 @@
     },
     {
      "name": "longerons: axial + bending at 5 g x 1.5 (thrust-line offset and 0.5 deg thrust error), real material area",
-     "value": 247.4,
+     "value": 245.7,
      "limit": 250.0,
      "unit": "MPa",
      "pass": true,
-     "note": "23.5 MN m; area 0.0835 m2 from the structure line (part mass includes the spread reserve); limit = the 250 MPa design stress (400 MPa floor x 0.62)"
+     "note": "23.6 MN m; area 0.0835 m2 from the structure line (part mass includes the spread reserve); limit = the 250 MPa design stress (400 MPa floor x 0.62)"
     },
     {
      "name": "first bending mode (longerons only, free-free)",
@@ -2394,16 +2394,16 @@
     },
     {
      "name": "first torsion mode (closed tank cell)",
-     "value": 3.74,
+     "value": 3.72,
      "limit": 1.0,
      "unit": "Hz",
      "pass": true,
-     "note": "J 1.975 m4 with the allocated 34.1 mm tank wall; the open slot is bridged by the tank's slot walls"
+     "note": "J 1.974 m4 with the allocated 34.0 mm tank wall; the open slot is bridged by the tank's slot walls"
     },
     {
      "name": "tank structure mass needed at 5 g x 1.5 + ullage",
      "value": 18.3,
-     "limit": 34.1,
+     "limit": 34.0,
      "unit": "t",
      "pass": true,
      "note": "ultimate pressure 0.65 MPa; allocated = tank shell share of structure + 8 t non-round penalty"
@@ -2467,15 +2467,15 @@
     {
      "name": "floor L1: carries its deck at 5 g x 1.5",
      "value": 0.79,
-     "limit": 1.597,
+     "limit": 1.596,
      "unit": "t needed vs allotted",
      "pass": true,
-     "note": "11.45 t on the floor (16.7 kPa); CFRP faces 0.2 mm; core shear 0.098 MPa"
+     "note": "11.44 t on the floor (16.7 kPa); CFRP faces 0.2 mm; core shear 0.097 MPa"
     },
     {
      "name": "floor L2: carries its deck at 5 g x 1.5",
      "value": 0.81,
-     "limit": 1.597,
+     "limit": 1.596,
      "unit": "t needed vs allotted",
      "pass": true,
      "note": "20.75 t on the floor (30.4 kPa); CFRP faces 0.36 mm; core shear 0.177 MPa"
@@ -2483,7 +2483,7 @@
     {
      "name": "floor L3: carries its deck at 5 g x 1.5",
      "value": 0.8,
-     "limit": 1.597,
+     "limit": 1.596,
      "unit": "t needed vs allotted",
      "pass": true,
      "note": "15.84 t on the floor (23.2 kPa); CFRP faces 0.27 mm; core shear 0.135 MPa"
@@ -2491,7 +2491,7 @@
     {
      "name": "floor L4: carries its deck at 5 g x 1.5",
      "value": 0.86,
-     "limit": 1.597,
+     "limit": 1.596,
      "unit": "t needed vs allotted",
      "pass": true,
      "note": "37.24 t on the floor (54.5 kPa); CFRP faces 0.64 mm; core shear 0.317 MPa"
@@ -2499,7 +2499,7 @@
     {
      "name": "floor L4 as a pressure bulkhead (L5 at vacuum), factor 2.0",
      "value": 1.14,
-     "limit": 1.597,
+     "limit": 1.596,
      "unit": "t needed vs allotted",
      "pass": true,
      "note": "CFRP faces 2.4 mm; core shear 1.18 MPa (allowable 1.5); 2 ladderway hatches and a trunk plug"
@@ -2510,7 +2510,7 @@
      "limit": 600.0,
      "unit": "MPa",
      "pass": true,
-     "note": "23 titanium mullions 5 x 20 cm; worst of 5 g x 1.5 on 78.0 t ahead (5.74 MN) and 2 x the pressure end load (11.01 MN); buckling margin 1.9"
+     "note": "23 titanium mullions 5 x 20 cm; worst of 5 g x 1.5 on 78.0 t ahead (5.73 MN) and 2 x the pressure end load (11.01 MN); buckling margin 1.9"
     },
     {
      "name": "L2 band edge rings: hoop across the band + beam between mullions",
@@ -2602,7 +2602,7 @@
     },
     {
      "name": "one longeron lost: the others at 1 g limit load",
-     "value": 39.2,
+     "value": 38.9,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
@@ -2655,13 +2655,13 @@
     "Tank radial tie-webs (54, perforated): 1.5 mm, 1.62 t, displaces 1.01 m3 (tension 0.26 MN/m each)",
     "Tank ring baffles (12, perforated): 3.0 mm, 0.70 t, displaces 0.44 m3",
     "Crew stations and floors (v0.5.6): closed-form strip and column checks in habitat/crew_systems.py; floors are 0.3 m sandwich panels spanning trunk to hull.",
-    "Worst state S2: 1000 t ahead of the thrust cone, 73.6 MN at 7.5 g ultimate, shared by 4 longerons.",
+    "Worst state S2: 992 t ahead of the thrust cone, 73.0 MN at 7.5 g ultimate, shared by 4 longerons.",
     "Bay doors are not counted as structure. Materials: 2026 high-modulus CFRP as a conservative floor (400 MPa, 150 GPa, 1.6 t/m3).",
     "Method: closed-form plate theory (Navier series for simply supported panels, which is conservative against clamped edges) plus closed-cell equilibrium with tie-webs. A finite-element shell model is the next level of fidelity; the basis does not require it."
    ],
    "one_longeron_out": {
     "name": "one longeron lost: the others at 1 g limit load",
-    "value": 39.2,
+    "value": 38.9,
     "limit": 400,
     "unit": "MPa",
     "pass": true,
@@ -3059,7 +3059,7 @@
    ],
    "notes": [
     "Shadow cone: shield front face x 34.3 m, radius 2.75 m; neutron source: the pellet burn, 0.3 m across, anywhere in x 52-52.6 m (worst case used). Radiator strakes and the hot fins sit outside the cone (the fins edge-on to the burn), take neutron heating and are out of bounds for EVA during burns.",
-    "Continuous-hull ray screen credits committed physical armour/water only; OG3 organic mass is credited separately as per-aperture areal column, NOT double-booked into path transport. No dose output from OG3. Uncommitted growth mass zero credit (fraction 0.939487)."
+    "Continuous-hull ray screen credits committed physical armour/water only; OG3 organic mass is credited separately as per-aperture areal column, NOT double-booked into path transport. No dose output from OG3. Uncommitted growth mass zero credit (fraction 0.939797)."
    ],
    "shelter_min_g_cm2": 51.70753228623341
   },
@@ -3198,8 +3198,8 @@
     },
     {
      "name": "I4 human-factors source geometry hash",
-     "value": "6cad9a54132ab57d3848067143636fec7f5073dfd7b405f0a93381f2761d92e7",
-     "limit": "6cad9a54132ab57d3848067143636fec7f5073dfd7b405f0a93381f2761d92e7",
+     "value": "f173094beb6f3edcf5b702ca12f32a2fe40bf7a53336491e7cd3dae78c747a82",
+     "limit": "f173094beb6f3edcf5b702ca12f32a2fe40bf7a53336491e7cd3dae78c747a82",
      "unit": "",
      "pass": true,
      "note": ""
@@ -3580,7 +3580,7 @@
     },
     {
      "name": "tank cell vented (S7): thrust trim",
-     "value": 0.351,
+     "value": 0.356,
      "limit": 0.5,
      "unit": "deg",
      "pass": true,
@@ -3604,7 +3604,7 @@
     },
     {
      "name": "one longeron lost: the others at 1 g limit load",
-     "value": 39.2,
+     "value": 38.9,
      "limit": 400,
      "unit": "MPa",
      "pass": true,
@@ -3628,7 +3628,7 @@
     },
     {
      "name": "engineering reserve after the rev 7 equipment",
-     "value": 48.76,
+     "value": 48.51,
      "limit": "> 0",
      "unit": "t",
      "pass": true,
@@ -3663,8 +3663,8 @@
    "checks": [
     {
      "name": "C: card names the geometry it was made from",
-     "value": "6cad9a54132a",
-     "limit": "6cad9a54132a",
+     "value": "f173094beb6f",
+     "limit": "f173094beb6f",
      "pass": true,
      "unit": "",
      "note": ""
@@ -3711,7 +3711,7 @@
     },
     {
      "name": "R: RCS 180 deg pitch slew settles (main controller gates, 240 s budget), worst state",
-     "value": 62.0,
+     "value": 62.2,
      "limit": 240.0,
      "pass": true,
      "unit": "s",
@@ -3719,7 +3719,7 @@
     },
     {
      "name": "R: RCS 180 deg yaw slew settles (main controller gates, 240 s budget), worst state",
-     "value": 62.1,
+     "value": 62.3,
      "limit": 240.0,
      "pass": true,
      "unit": "s",
@@ -3739,12 +3739,12 @@
      "limit": 3.08,
      "pass": true,
      "unit": "MN m",
-     "note": "left for the RCS after 1 deg TVC; without TVC the worst is 19.08 MN m (S2 HARD), beyond the RCS alone"
+     "note": "left for the RCS after 1 deg TVC; without TVC the worst is 19.1 MN m (S2 HARD), beyond the RCS alone"
     },
     {
      "name": "R: torch thrust-vector authority covers trim + an ASSUMED 0.5 deg error",
      "value": 1,
-     "limit": 0.851,
+     "limit": 0.856,
      "pass": true,
      "unit": "deg",
      "note": "requirement conditional on the 0.5 deg assumption; the 1 deg authority is declared (kT 2026-10-26), not a qualified nozzle capability"
@@ -3775,7 +3775,7 @@
     },
     {
      "name": "T: torch: trim stays within the G3 limit as the tanks drain",
-     "value": 0.327,
+     "value": 0.333,
      "limit": 0.5,
      "pass": true,
      "unit": "deg",
@@ -3865,7 +3865,7 @@
    "declared": [
     {
      "key": "torch_tvc",
-     "text": "Torch thrust-vector control: the magnetic nozzle steers the thrust line by up to 1 deg (asymmetric coil current). Needed: trim plus an assumed 0.5 deg thrust error (0.851 deg). The error is an engineering assumption, not a measured disturbance history; the authority is not a qualified nozzle capability.",
+     "text": "Torch thrust-vector control: the magnetic nozzle steers the thrust line by up to 1 deg (asymmetric coil current). Needed: trim plus an assumed 0.5 deg thrust error (0.856 deg). The error is an engineering assumption, not a measured disturbance history; the authority is not a qualified nozzle capability.",
      "kT": "ACCEPTED",
      "as": "Declare 1 deg of torch thrust-vector authority (decision 2), on the assumed 0.5 deg thrust error.",
      "date": "2026-10-26"
@@ -3998,8 +3998,8 @@
    "checks": [
     {
      "name": "render manifest matches locked geometry",
-     "value": "6cad9a54132ab57d3848067143636fec7f5073dfd7b405f0a93381f2761d92e7",
-     "limit": "6cad9a54132ab57d3848067143636fec7f5073dfd7b405f0a93381f2761d92e7",
+     "value": "f173094beb6f3edcf5b702ca12f32a2fe40bf7a53336491e7cd3dae78c747a82",
+     "limit": "f173094beb6f3edcf5b702ca12f32a2fe40bf7a53336491e7cd3dae78c747a82",
      "unit": "",
      "pass": true,
      "note": ""
@@ -4128,7 +4128,7 @@
     {
      "name": "D9 report geometry hash matches current source",
      "value": "88ce19fc8bc4c487b1ad96e2edb1bed17f36188a445070af238afdffada181c1",
-     "limit": "6cad9a54132ab57d3848067143636fec7f5073dfd7b405f0a93381f2761d92e7",
+     "limit": "f173094beb6f3edcf5b702ca12f32a2fe40bf7a53336491e7cd3dae78c747a82",
      "unit": "",
      "pass": false,
      "note": ""
@@ -4409,7 +4409,7 @@
   },
   {
    "key": "torch_tvc",
-   "text": "Torch thrust-vector control: the magnetic nozzle steers the thrust line by up to 1 deg (asymmetric coil current). Needed: trim plus an assumed 0.5 deg thrust error (0.851 deg). The error is an engineering assumption, not a measured disturbance history; the authority is not a qualified nozzle capability.",
+   "text": "Torch thrust-vector control: the magnetic nozzle steers the thrust line by up to 1 deg (asymmetric coil current). Needed: trim plus an assumed 0.5 deg thrust error (0.856 deg). The error is an engineering assumption, not a measured disturbance history; the authority is not a qualified nozzle capability.",
    "kT": "ACCEPTED",
    "as": "Declare 1 deg of torch thrust-vector authority (decision 2), on the assumed 0.5 deg thrust error.",
    "date": "2026-10-26"
@@ -4450,7 +4450,7 @@
    "date": "2026-11-01"
   }
  ],
- "kt_decisions_sha256": "1a47504ff86a9b54e5a6ac57e4a7a0d97f335371c07c4a35d4cc22b579bfbedc",
+ "kt_decisions_sha256": "894da56b17a9702ecc30d67ed71a6618602084c96e193848de73940cf25b90b4",
  "certified": false,
  "certified_rule": "every gate PASS or PASS-DECLARED and every declared assumption ACCEPTED by kT; then both reviewers sign and loom-gate passes",
  "qualification_scope": {
@@ -4461,6 +4461,6 @@
   "rcs_power_source": "OPEN: idle torch reactor versus dedicated supply; no ship-wide budget",
   "rcs_power_option_B": "hot-water store OPTION, not baseline",
   "required_final_authority": "separate reviewer signatures and loom-gate per existing basis",
-  "geometry_sha256": "6cad9a54132ab57d3848067143636fec7f5073dfd7b405f0a93381f2761d92e7"
+  "geometry_sha256": "f173094beb6f3edcf5b702ca12f32a2fe40bf7a53336491e7cd3dae78c747a82"
  }
 }

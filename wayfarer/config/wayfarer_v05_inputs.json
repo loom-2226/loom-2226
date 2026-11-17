@@ -2076,7 +2076,7 @@
    "prov": "ENGINEERING_ASSUMPTION"
   },
   "mission_courier_systems_t": 20,
-  "engineering_reserve_t": 39.222455412,
+  "engineering_reserve_t": 38.972455412,
   "engineering_reserve_rule": "spread over dry parts in proportion to their mass (growth margin), not lumped at one point",
   "c_tank_penalty_t": 8,
   "radiator_panels_t": 8.784,
@@ -2167,11 +2167,11 @@
    "mass_total_invariant": "new physical gel mass displaces exact same amount of preexisting engineering reserve; dry mass unchanged"
   },
   "d8_secondary_doubler_added_t": 0.660801800044753,
-  "metric_nacelles_ring_t": 7.75,
+  "metric_nacelles_ring_t": 8.0,
   "thermal_rebook": {
    "prior_manifold_t": 90.0,
    "prior_engineering_reserve_t": 9.122455412,
-   "nacelle_basis": "PR #556 p95 7.75 t; four nacelles and aft ring UNLOCATED, no D9/shielding credit",
+   "nacelle_basis": "kT 2026-11-17 p95 8.0 t; four nacelles, eight parallel links, eight 45-degree ring arms drawn in two candidate states, no shielding credit",
    "manifold_basis": "PR #557 p95 52.15 t; includes named ~50 K torch magnet cryocooler",
    "status": "kT-approved mass rebooking; nacelle physical installation remains OPEN"
   }
@@ -2294,6 +2294,22 @@
   "torch_span_prov": "DERIVED (v0.5.2): during torch burns the strakes carry only the magnet coils' cryo heat (about 48 MW) plus habitat heat, which two 2 m pleats reject",
   "span_by_mode_prov_loom": "KT_DECISION 2026-10-26 (agree 4): strakes fully stowed for Loom formation and translation (E1 lock: STOWED)"
  },
+ "metric_nacelles": {
+  "authority": "kT nacelle_fit_and_aft_rcs_cant_25_2026_11_17",
+  "azimuths_deg": [0, 90, 180, 270],
+  "x_m": [39.5, 54.3],
+  "nacelle_r_m": 0.6,
+  "r_tucked_m": 4.05,
+  "r_deployed_m": 4.6,
+  "ring_x_m": 53.9,
+  "ring_R_m": 4.6,
+  "ring_tube_r_m": 0.35,
+  "parallel_links_per_nacelle": 2,
+  "tail_arms_per_nacelle": 2,
+  "tail_arm_fraction": 0.125,
+  "mass_t": 8.0,
+  "note": "Two candidate states only; swing envelope not D9-certified"
+ },
  "rcs": {
   "prov": "Q4 v0.2 sizing point (25 kN per thruster, 16-24 units); positions ENGINEERING_ASSUMPTION",
   "thruster_kn": 25,
@@ -2350,7 +2366,7 @@
     "thrusters": 3,
     "axial": {
      "sign": -1,
-     "cant_out_deg": 10
+     "cant_out_deg": 25
     }
    },
    {
@@ -2361,7 +2377,7 @@
     "thrusters": 3,
     "axial": {
      "sign": -1,
-     "cant_out_deg": 10
+     "cant_out_deg": 25
     }
    },
    {
@@ -2372,7 +2388,7 @@
     "thrusters": 3,
     "axial": {
      "sign": -1,
-     "cant_out_deg": 10
+     "cant_out_deg": 25
     }
    },
    {
@@ -2383,12 +2399,12 @@
     "thrusters": 3,
     "axial": {
      "sign": -1,
-     "cant_out_deg": 10
+     "cant_out_deg": 25
     }
    }
   ],
   "slew_couples": 2,
-  "axial_prov": "KT_DECISION 2026-10-26 (agree 3): one axial thruster per cluster. Bow thrusters exhaust forward (force +x), aft thrusters exhaust aft (force -x), each canted 10 deg outward to keep plumes off the crown, hull and torch chain. ENGINEERING_ASSUMPTION: plume clearance not yet modelled"
+  "axial_prov": "KT_DECISION 2026-10-26 (agree 3): one axial thruster per cluster. Bow thrusters exhaust forward (force +x), aft thrusters exhaust aft (force -x), bow canted 10 deg outward, aft canted 25 deg outward to keep plumes off the crown, hull and torch chain. ENGINEERING_ASSUMPTION: plume clearance not yet modelled"
  },
  "materials": {
   "prov": "PUBLISHED_PHYSICS: 2026 high-modulus carbon-fibre composite, used as a conservative floor for 2226 (same values as the v0.3 closing checks)",
