@@ -23,7 +23,7 @@ Criteria sha256 `1c1dd1d261c3869169dc2754b7567141040354063dc5654b88286e6e2b1a5e9
 | G9 Failures and reserves | PASS-DECLARED |
 | G10 Flight dynamics: RCS, torch, Metric, Loom | PASS-DECLARED |
 | G11 Canon fit | PASS |
-| G12 Images | FAIL |
+| G12 Images | PASS-DECLARED |
 | D9 Installed B-rep category-(d) clash screen | FAIL |
 
 ## Conventional certification scope and explicit HOLDS
@@ -489,22 +489,22 @@ Script verdict on certification: NOT YET: at least one gate is OPEN or FAIL, or 
 | Torch internals | axial fusion torch / magnetic nozzle; internals not stated | pulsed: each He3-rich, spin-polarised D-He3 pellet is wrapped in a shell of remass that becomes the exhaust; burn 6 m aft of the reactor face (x 52.3 m) |
 | Hot fins | none | 4 hot fins at 1750 K aft of the shield on the strake lines, 28 m, 21.0 t paid from the engineering reserve |
 
-## G12 Images: FAIL
+## G12 Images: PASS-DECLARED
 
 | Check | Value | Limit | Pass | Note |
 |---|---|---|---|---|
-| render manifest matches locked geometry | 6cad9a54132ab57d3848067143636fec7f5073dfd7b405f0a93381f2761d92e7  | f173094beb6f3edcf5b702ca12f32a2fe40bf7a53336491e7cd3dae78c747a82 | NO |  |
-| all indexed images and viewer have current hash and exist | 43  | 0 | NO |  |
-| exterior current-geometry artifacts | 0  | 4 | NO |  |
-| cutaway current-geometry artifacts | 0  | 2 | NO |  |
-| deckplan current-geometry artifacts | 0  | 5 | NO |  |
-| viewer current-geometry artifacts | 0  | 1 | NO |  |
-| Option C 1:1 metric crown section current-hash PNG plus source SVG | False  | True | NO |  |
+| render manifest matches locked geometry | f173094beb6f3edcf5b702ca12f32a2fe40bf7a53336491e7cd3dae78c747a82  | f173094beb6f3edcf5b702ca12f32a2fe40bf7a53336491e7cd3dae78c747a82 | yes |  |
+| all indexed images and viewer have current hash and exist | 0  | 0 | yes |  |
+| exterior current-geometry artifacts | 19  | 4 | yes |  |
+| cutaway current-geometry artifacts | 4  | 2 | yes |  |
+| deckplan current-geometry artifacts | 7  | 5 | yes |  |
+| viewer current-geometry artifacts | 1  | 1 | yes |  |
+| Option C 1:1 metric crown section current-hash PNG plus source SVG | True  | True | yes |  |
 | Option C all previously dropped exterior views rerendered | 19  | 10 | yes |  |
 | Original NOSE research and viewer assets preserved under wayfarer/ | [21, 28]  | [21, 28] | yes |  |
 | D-He3 and C-lite wet/dry tank envelopes have placed mass and source-checked CG cutaway labels | True Bounding envelopes and wet/dry CG only; tank packaging, overlap and plumbing UNQUALIFIED | True | yes |  |
-| source-hashed system cutaway shows independently labelled reactors, flywheel and battery | False G12 source-based visual identification, NOT physical equipment packing qualification | True | NO |  |
-| one GLB with exterior and I4 interior scenes stamped with current hash | False  | True | NO |  |
+| source-hashed system cutaway shows independently labelled reactors, flywheel and battery | True G12 source-based visual identification, NOT physical equipment packing qualification | True | yes |  |
+| one GLB with exterior and I4 interior scenes stamped with current hash | True  | True | yes |  |
 - Manifest hash + current files + 2-scene GLB verified; full 64-character SHA stamped by source render templates.
 - G12 visuals remain NON-GOVERNING pending kT aesthetic/geometry interpretation review; screenshot existence does not qualify hardware, pressure crown or humans.
 

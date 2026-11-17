@@ -17,7 +17,7 @@
   "G9": "PASS-DECLARED",
   "G10": "PASS-DECLARED",
   "G11": "PASS",
-  "G12": "FAIL",
+  "G12": "PASS-DECLARED",
   "D9": "FAIL"
  },
  "gates": [
@@ -3994,62 +3994,62 @@
   {
    "gate": "G12",
    "title": "Images",
-   "verdict": "FAIL",
+   "verdict": "PASS-DECLARED",
    "checks": [
     {
      "name": "render manifest matches locked geometry",
-     "value": "6cad9a54132ab57d3848067143636fec7f5073dfd7b405f0a93381f2761d92e7",
+     "value": "f173094beb6f3edcf5b702ca12f32a2fe40bf7a53336491e7cd3dae78c747a82",
      "limit": "f173094beb6f3edcf5b702ca12f32a2fe40bf7a53336491e7cd3dae78c747a82",
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
      "name": "all indexed images and viewer have current hash and exist",
-     "value": 43,
+     "value": 0,
      "limit": 0,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
      "name": "exterior current-geometry artifacts",
-     "value": 0,
+     "value": 19,
      "limit": 4,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
      "name": "cutaway current-geometry artifacts",
-     "value": 0,
+     "value": 4,
      "limit": 2,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
      "name": "deckplan current-geometry artifacts",
-     "value": 0,
+     "value": 7,
      "limit": 5,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
      "name": "viewer current-geometry artifacts",
-     "value": 0,
+     "value": 1,
      "limit": 1,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
      "name": "Option C 1:1 metric crown section current-hash PNG plus source SVG",
-     "value": false,
+     "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
@@ -4084,18 +4084,18 @@
     },
     {
      "name": "source-hashed system cutaway shows independently labelled reactors, flywheel and battery",
-     "value": false,
+     "value": true,
      "limit": true,
      "unit": "G12 source-based visual identification, NOT physical equipment packing qualification",
-     "pass": false,
+     "pass": true,
      "note": ""
     },
     {
      "name": "one GLB with exterior and I4 interior scenes stamped with current hash",
-     "value": false,
+     "value": true,
      "limit": true,
      "unit": "",
-     "pass": false,
+     "pass": true,
      "note": ""
     }
    ],
