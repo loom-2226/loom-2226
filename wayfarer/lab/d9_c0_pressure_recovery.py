@@ -13,11 +13,17 @@ def main():
     assert p["mode"]=="pressure" and p["check"]["name"]==PRESSURE
     assert p["geometry_sha256"]==geo_sha and p["step_sha256"]==step_sha
     assert p["unit_factor"]==.001 and p["source_offset_m"]==[.03,-.26]
-    assert p["check"]["integrity_method"]=="two_way_BRep_surface_sample_distance"
-    assert p["check"]["raw_boolean_numerically_invalid"] is True
-    assert p["check"]["surface_distance"]["two_way_max_deviation_m"]<=C["D9"]["primary_brep_unchanged_bbox_tolerance_m"] or p["pass"] is False
-    assert p["check"]["surface_distance"]["native_to_imported"]["samples"]>=S.K.MIN_SURFACE_SAMPLES_EACH_WAY
-    assert p["check"]["surface_distance"]["imported_to_native"]["samples"]>=S.K.MIN_SURFACE_SAMPLES_EACH_WAY
+    # Fresh STEP/new source: use the original full K.audit's own accepted
+    # ordinary, fuzzy or two-way surface-distance integrity method. Never
+    # reuse the old step's invalid Boolean or pressure-vessel PASS.
+    assert p["check"]["integrity_method"] in (
+        "ordinary_symmetric_difference","OCCT_fuzzy_symmetric_difference",
+        "two_way_BRep_surface_sample_distance","FAIL")
+    if p["check"]["integrity_method"]=="two_way_BRep_surface_sample_distance":
+        sd=p["check"]["surface_distance"]
+        assert sd["two_way_max_deviation_m"]<=C["D9"]["primary_brep_unchanged_bbox_tolerance_m"] or p["pass"] is False
+        assert sd["native_to_imported"]["samples"]>=S.K.MIN_SURFACE_SAMPLES_EACH_WAY
+        assert sd["imported_to_native"]["samples"]>=S.K.MIN_SURFACE_SAMPLES_EACH_WAY
     rows,shapes,installed,factor=S.imported(G)
     names=S.primary_names(shapes)
     assert len(names)==43
@@ -28,7 +34,7 @@ def main():
         print("C0_PRIMARY_START",name,flush=True)
         if name==PRESSURE:
             check=dict(p["check"])
-            check["reused_same_source_B_surface_result"]=True
+            check["fresh_current_step_pressure_audit"]=True
         else:
             try:check=S.single_primary(name,rows,shapes,C)
             except Exception as exc:check=dict(name=name,diagnostic_error=repr(exc),pass_=False)

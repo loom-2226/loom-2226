@@ -47,7 +47,12 @@ def merge():
     G, C, R, I = map(load, (GEO, CRITERIA, REF, INPUT))
     sha = hashlib.sha256(GEO.read_bytes()).hexdigest()
     step_sha = hashlib.sha256(STEP.read_bytes()).hexdigest()
-    assert sha == C["D9"]["approved_source_geometry_sha256"]
+    physical=sorted(((p["id"],p["shape"],p["mat"],p["tags"]) for p in
+                     G["parts"]+G["fluids_by_state"]["S1"] if "no_render" not in p["tags"]),
+                    key=lambda q:q[0])
+    shape_sig=hashlib.sha256(json.dumps(physical,sort_keys=True,separators=(",",":")).encode()).hexdigest()
+    assert shape_sig==C["D9"]["approved_installed_source_shapes_sha256"], "installed shape differs"
+    assert G["inputs_sha256"]==hashlib.sha256(INPUT.read_bytes()).hexdigest(), "source input hash mismatch"
     assert C["D9"]["min_intersection_m3"] == .01
     rebuilt=load(REBUILT)
     assert rebuilt["candidate_pass"] is True
@@ -135,8 +140,8 @@ def merge():
         imported_step_source_numeric_unit="mm" if p["unit_factor"]==.001 else "m",
         source_geometry_numeric_unit="m",
         explicit_step_to_source_linear_scale=p["unit_factor"],
-        excluded_source_no_render_proxy_count=122,
-        no_render_excluded_count=122,
+        excluded_source_no_render_proxy_count=123,
+        no_render_excluded_count=123,
         same_lab_and_upstream_installed_part_set=True,
         modelled_solids=194,
         source_water_R_before_t=Drows[0]["source_water_R_before_t"],

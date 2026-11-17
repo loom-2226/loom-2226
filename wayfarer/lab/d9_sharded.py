@@ -39,7 +39,15 @@ def context():
     rebuilt = json.loads(D.REBUILT.read_text())
     assert rebuilt["candidate_pass"] is True
     geo_sha = hashlib.sha256(D.GEO.read_bytes()).hexdigest()
-    assert geo_sha == C["D9"]["approved_source_geometry_sha256"]
+    # Current JSON mass ledger hash differs; only approved installed shapes may
+    # be used. Verify all 194 installed source shape+material+tag records exactly.
+    physical=sorted(((p["id"],p["shape"],p["mat"],p["tags"]) for p in
+                     G["parts"]+G["fluids_by_state"]["S1"] if "no_render" not in p["tags"]),
+                    key=lambda q:q[0])
+    shape_sig=hashlib.sha256(json.dumps(physical,sort_keys=True,separators=(",",":")).encode()).hexdigest()
+    assert shape_sig == C["D9"]["approved_installed_source_shapes_sha256"], "installed geometry differs"
+    assert G["inputs_sha256"] == hashlib.sha256(D.INPUT.read_bytes()).hexdigest(), "source not current"
+    assert G["thrust_line_offset_m"]["z"] == -.26, "torch-chain offset changed"
     assert D.SOURCE.is_file()
     assert C["D9"]["min_intersection_m3"] == 0.01
     return G, I, C, R, rebuilt, geo_sha, hashlib.sha256(D.SOURCE.read_bytes()).hexdigest()
@@ -80,10 +88,14 @@ def imported(G):
                     sh = sh.translate(delta)
             sh.label = name
             shapes[name] = sh
-    assert set(shapes) == set(rows) - {"dry:d8_unlocated_doubler_allowance"}
+    # Neither already-approved unlocated doubler nor new nacelle allowance
+    # is installed CAD; both earn zero collision/shielding clearance credit.
+    unlocated={n for n,row in rows.items() if "unlocated" in row.get("tags",[])}
+    assert unlocated=={"dry:d8_unlocated_doubler_allowance","dry:metric_nacelles_ring_unlocated"}
+    assert set(shapes)==set(rows)-unlocated
     installed = {n for n, r in rows.items() if "no_render" not in r.get("tags", [])}
     assert len(installed) == 194
-    assert len(set(rows) - installed) == 122
+    assert len(set(rows) - installed) == 123
     assert installed <= set(shapes)
     return rows, shapes, sorted(installed), factor
 

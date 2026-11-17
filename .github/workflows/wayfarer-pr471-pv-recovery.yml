@@ -1,10 +1,7 @@
 name: "Wayfarer #471 PV surface-first recovery, reuse existing D9 shard evidence"
+# Historical #471 recovery only. The current-source pressure audit is
+# triggered by wayfarer-phase1b-d9.yml; do not run this old-STEP lane on PRs.
 on:
-  pull_request:
-    paths:
-      - .github/workflows/wayfarer-pr471-pv-recovery.yml
-      - wayfarer/lab/d9_pv_surface_recovery.py
-      - wayfarer/lab/d9_c0_pressure_recovery.py
   workflow_dispatch:
 permissions:
   contents: read

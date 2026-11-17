@@ -82,7 +82,7 @@ jobs:
   B_pressure:
     needs: A_rebuild
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 65
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -95,41 +95,69 @@ jobs:
         with:
           name: pr471-A-source
           path: wayfarer/lab/packing_phase1b
-      - name: B3 source to STEP surface distance FIRST
+      # The current STEP is byte-identical to the approved #471 STEP. Its
+      # prior raw Boolean was physically impossible; the accepted fallback
+      # requires fresh 256+-sample directed distances EACH WAY, new BRep
+      # validity/orientation/volume/bbox and strict 1e-6 m closure.
+      # Staging prevents the slow single-shot Boolean from consuming a runner.
+      - name: B1 fresh native-to-imported exact surface distance
         timeout-minutes: 20
         shell: bash
         run: |
           set -euo pipefail
-          python -u wayfarer/lab/d9_pv_surface_recovery.py forward | tee B-forward.log
-      - name: B4 STEP to source surface distance SECOND
+          timeout -s TERM -k 5s 1140s python -u wayfarer/lab/d9_pv_surface_recovery.py forward | tee B-forward-current.log
+          python - <<'PY'
+          import json
+          d=json.load(open("wayfarer/results/out/shards/pressure_stages.json"))
+          assert d["stages"]["forward"]["result"]=="COMPLETE"
+          assert d["stages"]["forward"]["data"]["samples"]>=256
+          PY
+      - name: B2 fresh imported-to-native exact surface distance
         timeout-minutes: 20
         shell: bash
         run: |
           set -euo pipefail
-          python -u wayfarer/lab/d9_pv_surface_recovery.py reverse | tee B-reverse.log
-      - name: B validity and signed volume without Boolean
+          timeout -s TERM -k 5s 1140s python -u wayfarer/lab/d9_pv_surface_recovery.py reverse | tee B-reverse-current.log
+          python - <<'PY'
+          import json
+          d=json.load(open("wayfarer/results/out/shards/pressure_stages.json"))
+          assert d["stages"]["reverse"]["result"]=="COMPLETE"
+          assert d["stages"]["reverse"]["data"]["samples"]>=256
+          PY
+      - name: B3 fresh pressure-vessel native and imported BRep validity
+        timeout-minutes: 5
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout -s TERM -k 5s 240s python -u wayfarer/lab/d9_pv_surface_recovery.py validity | tee B-validity-current.log
+          python - <<'PY'
+          import json
+          d=json.load(open("wayfarer/results/out/shards/pressure_stages.json"))
+          assert d["stages"]["validity"]["result"]=="COMPLETE"
+          PY
+      - name: B4 strict full approved pressure-vessel surface closure
         timeout-minutes: 3
         shell: bash
         run: |
           set -euo pipefail
-          python -u wayfarer/lab/d9_pv_surface_recovery.py validity | tee B-validity.log
-      - name: B strict surface-method verdict, no fuzzy Boolean
-        timeout-minutes: 2
-        shell: bash
-        run: |
-          set -euo pipefail
-          python -u wayfarer/lab/d9_pv_surface_recovery.py finalize | tee B-final.log
+          python -u wayfarer/lab/d9_pv_surface_recovery.py finalize | tee B-final-current.log
           python - <<'PY'
           import json
-          from pathlib import Path
-          p=json.loads(Path("wayfarer/results/out/shards/pressure.json").read_text())
-          assert p["pass"] is True and p["check"]["pass"] is True
-          print("B_PRESSURE_SURFACE_METHOD_PASS")
+          p=json.load(open("wayfarer/results/out/shards/pressure.json"))
+          c=p["check"]
+          assert p["pass"] is True and c["pass"] is True
+          assert c["integrity_method"]=="two_way_BRep_surface_sample_distance"
+          assert c["raw_boolean"]["not_rerun"] is True
+          assert c["raw_boolean_numerically_invalid"] is True
+          assert c["surface_distance"]["native_to_imported"]["samples"]>=256
+          assert c["surface_distance"]["imported_to_native"]["samples"]>=256
+          assert c["surface_distance"]["two_way_max_deviation_m"]<=1e-6
+          print("B_CURRENT_STEP_PRESSURE_SURFACE_PASS")
           PY
       - name: B runtime
         if: always()
         run: echo "B runtime_seconds=$(( $(date +%s) - START_EPOCH ))" | tee -a "$GITHUB_STEP_SUMMARY"
-      - name: B artifact from approved surface-first method
+      - name: B artifact from freshly measured approved surface-first method
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -137,6 +165,10 @@ jobs:
           if-no-files-found: error
           path: |
             wayfarer/results/out/shards/pressure.json
+            B-forward-current.log
+            B-reverse-current.log
+            B-validity-current.log
+            B-final-current.log
             wayfarer/results/out/shards/pressure_stages.json
 
   C_primaries:
@@ -162,7 +194,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: pr471-B-pressure
-          path: wayfarer/results/out/shards
+          path: .
       - name: Audit source-identical protected primaries with original K.audit
         shell: bash
         run: |
@@ -239,7 +271,7 @@ jobs:
         continue-on-error: true
         with:
           name: pr471-B-pressure
-          path: wayfarer/results/out/shards
+          path: .
       - uses: actions/download-artifact@v4
         continue-on-error: true
         with:

@@ -69,7 +69,9 @@ def main():
     assert args.house_reserve_t>=0
     sys.path.insert(0,str(args.source.resolve()))
     import pilot as P
-    import triage as T
+    # The original #156 source package has the pinned pilot and geometry;
+    # use the repository's corresponding unmodified triage implementation.
+    import source_brep_triage as T
     src=args.source
     raw=(src/"geometry_base.json").read_bytes()
     assert hashlib.sha256(raw).hexdigest()==P.SOURCE_HASH
@@ -83,7 +85,14 @@ def main():
     current=json.loads(current_bytes)
     criteria=json.loads((upstream/"config/cert_criteria.json").read_text())
     current_sha=hashlib.sha256(current_bytes).hexdigest()
-    assert current_sha==criteria["D9"]["approved_source_geometry_sha256"]
+    # Physical shapes still require exact match with the approved #157
+    # installed-shape authority; the JSON hash changes for mass rebooking.
+    physical=sorted(((p["id"],p["shape"],p["mat"],p["tags"])
+                     for p in current["parts"]+current["fluids_by_state"]["S1"]
+                     if "no_render" not in p["tags"]),key=lambda q:q[0])
+    shape_sig=hashlib.sha256(json.dumps(physical,sort_keys=True,separators=(",",":")).encode()).hexdigest()
+    assert shape_sig==criteria["D9"]["approved_installed_source_shapes_sha256"],shape_sig
+    assert current["inputs_sha256"]==hashlib.sha256((upstream/"config/wayfarer_v05_inputs.json").read_bytes()).hexdigest()
     assert abs(current["thrust_line_offset_m"]["y"]-.03)<1e-9
     assert abs(current["thrust_line_offset_m"]["z"]+.26)<1e-9
     names={"nozzle","reactor","shield","rcs_A+Y","rcs_A+Z","rcs_A-Y","rcs_A-Z"}

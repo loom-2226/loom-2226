@@ -960,8 +960,16 @@ def build(I, dy=0.0, dz=0.0):
             "structure",tags=("from_reserve","no_render","no_shield_credit","unlocated"))
     add("plant_aft", "Relational plant, aft block", "plant", Sector(mx1, H["manifold_x_m"][1], 0.0, pf["r_m"]),
         I["ledger"]["relational_plant_t"] - pf["mass_t"], "DERIVED", "plant")
-    add("manifold", "Radiator manifold, pumps and heat exchangers", "thermal",
-        Sector(mx1, H["manifold_x_m"][1], pf["r_m"], Ro - 0.02), L["thermal_radiators_t"], "CANON_MASS_DESIGN_POSITION", "manifold")
+    add("manifold", "Thermal manifold, pumps, exchangers and torch magnet cryocooler", "thermal",
+        Sector(mx1, H["manifold_x_m"][1], pf["r_m"], Ro - 0.02), L["thermal_radiators_t"],
+        L.get("thermal_rebook",{}).get("manifold_basis", "CANON_MASS_DESIGN_POSITION"), "manifold")
+    if L.get("metric_nacelles_ring_t",0):
+        # Mass allowance only, same no_render/unlocated pattern as D8. It is NOT
+        # installed geometry, so neither shield nor D9 clearance is credited.
+        add("metric_nacelles_ring_unlocated", "Four Metric nacelles + aft ring (UNLOCATED mass allowance)",
+            "plant", Sector(24.39,24.40,0.0,0.1),L["metric_nacelles_ring_t"],
+            L["thermal_rebook"]["nacelle_basis"],"plant",
+            tags=("no_render","no_shield_credit","unlocated"))
     R = I["radiators"]
     for a in R["azimuths_deg"]:
         add(f"strake_{a}", f"Radiator strake {a} deg (stowed)", "thermal",
@@ -1388,6 +1396,16 @@ def main():
                 cand.append((w, worst, dy, dz))
     ok = [c for c in cand if c[1] <= TO["design_target_deg"]]
     best = min(ok, key=lambda c: (round(math.hypot(c[2], c[3]), 3), c[1])) if ok else min(cand, key=lambda c: c[1])
+    # kT 2026-11-17 mass-only thermal rebooking: preserve approved installed
+    # torch-chain geometry (+0.03,-0.26)m. The normal trim-selection search
+    # above is UNMODIFIED; this explicit approved pin supersedes its result.
+    # G3 must still independently verify the pinned position's new balance.
+    pin=TO.get("approved_mass_rebooking_pin_yz_m")
+    if pin is not None:
+        assert pin == [0.03, -0.26], "only the settled offset is authorised"
+        possible=[x for x in cand if abs(x[2]-pin[0])<1e-9 and abs(x[3]-pin[1])<1e-9 and abs(x[0]-best[0])<1e-9]
+        assert len(possible)==1, ("approved offset not in existing search grid",pin)
+        best=possible[0]
     w_service, _, DY, DZ = best
     parts, rooms, jacket_parts, jacket_vol, sec = build(I, DY, DZ)
     states = {}

@@ -4,7 +4,9 @@
 Uses unchanged source STEP transform, native/imported BRepCheck and the exact
 K._directed_distance in BOTH directions before validity and final verdict.
 Previously proven numerically invalid ordinary Boolean is reused only with
-identical source geometry + compressed STEP hash. Fuzzy OCCT is not rerun.
+byte-identical approved STEP and the exact approved installed-shape fingerprint.
+The mass-ledger JSON hash may differ. All two-way surface and validity tests
+are remeasured on the current STEP. Fuzzy OCCT is not rerun.
 No geometry or tolerance changes.
 """
 import argparse
@@ -75,8 +77,9 @@ def finish(state, C, factor, started):
     v1,v2=validity["native_volume_m3"],validity["imported_volume_m3"]
     vol_delta=validity["volume_delta_m3"]
     bbox_delta=validity["bbox_delta_m"]
-    # Reuse *previously measured* impossible Boolean only for byte-identical
-    # STEP and geometry; no OCCT Boolean is executed in this recovery run.
+    # Reuse only the previous *invalid Boolean measurement*, not a prior PASS:
+    # entry requires EXACT same compressed STEP bytes and approved installed
+    # source shapes. Two directed distances and BRep validity run afresh.
     commonv=PROVEN_COMMON_M3
     sym=PROVEN_SYM_M3
     invalid=signed_invalid(commonv,sym,v1,v2)
@@ -140,8 +143,13 @@ def run(phase):
     started=time.monotonic()
     mark(phase,"stage","START")
     G,I,C,R,rebuilt,sha,step_sha=S.context()
-    assert sha==PROVEN_GEOMETRY_SHA and step_sha==PROVEN_STEP_SHA, (
-        "current geometry or STEP differs from proven ordinary Boolean source; must not reuse")
+    # S.context() already checks all currently installed source shapes against
+    # the frozen approved fingerprint and current input hash. Source JSON's
+    # SHA legitimately changed in the 90t bookkeeping transfer; the binary
+    # STEP must remain byte-identical to the proven original invalid Boolean.
+    assert step_sha==PROVEN_STEP_SHA, (
+        "current STEP bytes differ from proven invalid Boolean source; cannot reuse")
+    assert G["thrust_line_offset_m"]["y"] == 0.03 and G["thrust_line_offset_m"]["z"] == -0.26, "torch offset changed"
     state=load(sha,step_sha)
     if phase=="finalize":
         assert state["source_offset_m"]==[.03,-.26]
