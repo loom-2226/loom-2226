@@ -1,0 +1,309 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-CANON clearance check before drawing nacelles into source",
+ "glb": "wayfarer_exterior_B_medical_88ce19fc_stowed_closed.glb",
+ "rcs_aft": [
+  {
+   "az": 0.0,
+   "x_exit": 34.59,
+   "r": 4.66
+  },
+  {
+   "az": 90.0,
+   "x_exit": 34.59,
+   "r": 4.66
+  },
+  {
+   "az": 180.0,
+   "x_exit": 34.59,
+   "r": 4.66
+  },
+  {
+   "az": 270.0,
+   "x_exit": 34.59,
+   "r": 4.66
+  }
+ ],
+ "plume_assumption": "15 deg half-angle core, axis aft canted 10 deg out (kT 2026-10-26); plume not modelled in source",
+ "options": {
+  "as_sketched": {
+   "azimuths": [
+    0,
+    90,
+    180,
+    270
+   ],
+   "r_tucked": 3.7,
+   "r_deployed": 4.6,
+   "x": [
+    39.5,
+    53.5
+   ],
+   "hoop": {
+    "x": 52.6,
+    "R": 4.4,
+    "r": 0.35
+   },
+   "states": {
+    "tucked": {
+     "min_clear_m": 0.009,
+     "nearest": [
+      [
+       "dry:nozzle",
+       0.01
+      ],
+      [
+       "dry:shield",
+       0.25
+      ],
+      [
+       "dry:thrust_cone",
+       0.25
+      ]
+     ],
+     "in_rcs_plume_frac": 0.547
+    },
+    "mid": {
+     "min_clear_m": 0.332,
+     "nearest": [
+      [
+       "dry:nozzle",
+       0.33
+      ],
+      [
+       "dry:shield",
+       0.62
+      ],
+      [
+       "dry:thrust_cone",
+       0.63
+      ]
+     ],
+     "in_rcs_plume_frac": 0.784
+    },
+    "deployed": {
+     "min_clear_m": 0.782,
+     "nearest": [
+      [
+       "dry:nozzle",
+       0.78
+      ],
+      [
+       "dry:shield",
+       1.05
+      ],
+      [
+       "dry:thrust_cone",
+       1.07
+      ]
+     ],
+     "in_rcs_plume_frac": 0.954
+    },
+    "ring_locked": {
+     "min_clear_m": 0.001,
+     "nearest": [
+      [
+       "dry:hotfin_40:folded_envelope",
+       0.0
+      ],
+      [
+       "dry:hotfin_root_320:root",
+       0.0
+      ],
+      [
+       "dry:hotfin_220:folded_envelope",
+       0.0
+      ]
+     ],
+     "in_rcs_plume_frac": 0.72
+    }
+   }
+  },
+  "fixed_static": {
+   "azimuths": [
+    0,
+    90,
+    180,
+    270
+   ],
+   "r_tucked": 3.95,
+   "r_deployed": 4.6,
+   "x": [
+    39.5,
+    54.3
+   ],
+   "hoop": {
+    "x": 53.9,
+    "R": 4.6,
+    "r": 0.35
+   },
+   "states": {
+    "tucked": {
+     "min_clear_m": 0.132,
+     "nearest": [
+      [
+       "dry:nozzle",
+       0.13
+      ],
+      [
+       "dry:shield",
+       0.44
+      ],
+      [
+       "dry:thrust_cone",
+       0.45
+      ]
+     ],
+     "in_rcs_plume_frac": 0.702
+    },
+    "mid": {
+     "min_clear_m": 0.457,
+     "nearest": [
+      [
+       "dry:nozzle",
+       0.46
+      ],
+      [
+       "dry:shield",
+       0.74
+      ],
+      [
+       "dry:thrust_cone",
+       0.75
+      ]
+     ],
+     "in_rcs_plume_frac": 0.851
+    },
+    "deployed": {
+     "min_clear_m": 0.782,
+     "nearest": [
+      [
+       "dry:nozzle",
+       0.78
+      ],
+      [
+       "dry:shield",
+       1.05
+      ],
+      [
+       "dry:thrust_cone",
+       1.07
+      ]
+     ],
+     "in_rcs_plume_frac": 0.956
+    },
+    "ring_locked": {
+     "min_clear_m": 0.25,
+     "nearest": [
+      [
+       "dry:hotfin_root_220:root",
+       0.25
+      ],
+      [
+       "dry:hotfin_root_140:root",
+       0.25
+      ],
+      [
+       "dry:hotfin_root_320:root",
+       0.25
+      ]
+     ],
+     "in_rcs_plume_frac": 0.793
+    }
+   }
+  },
+  "clocked_24": {
+   "azimuths": [
+    24,
+    114,
+    204,
+    294
+   ],
+   "r_tucked": 3.95,
+   "r_deployed": 4.6,
+   "x": [
+    39.5,
+    54.3
+   ],
+   "hoop": {
+    "x": 53.9,
+    "R": 4.6,
+    "r": 0.35
+   },
+   "states": {
+    "tucked": {
+     "min_clear_m": 0.139,
+     "nearest": [
+      [
+       "dry:nozzle",
+       0.14
+      ],
+      [
+       "dry:hotfin_root_40:root",
+       0.34
+      ],
+      [
+       "dry:hotfin_root_220:root",
+       0.34
+      ]
+     ],
+     "in_rcs_plume_frac": 0.31
+    },
+    "mid": {
+     "min_clear_m": 0.429,
+     "nearest": [
+      [
+       "dry:hotfin_root_220:root",
+       0.43
+      ],
+      [
+       "dry:hotfin_root_40:root",
+       0.43
+      ],
+      [
+       "dry:nozzle",
+       0.46
+      ]
+     ],
+     "in_rcs_plume_frac": 0.41
+    },
+    "deployed": {
+     "min_clear_m": 0.424,
+     "nearest": [
+      [
+       "dry:hotfin_40:folded_envelope",
+       0.42
+      ],
+      [
+       "dry:hotfin_220:folded_envelope",
+       0.42
+      ],
+      [
+       "dry:hotfin_root_40:root",
+       0.52
+      ]
+     ],
+     "in_rcs_plume_frac": 0.49
+    },
+    "ring_locked": {
+     "min_clear_m": 0.25,
+     "nearest": [
+      [
+       "dry:hotfin_root_220:root",
+       0.25
+      ],
+      [
+       "dry:hotfin_root_140:root",
+       0.25
+      ],
+      [
+       "dry:hotfin_root_320:root",
+       0.25
+      ]
+     ],
+     "in_rcs_plume_frac": 0.793
+    }
+   }
+  }
+ }
+}

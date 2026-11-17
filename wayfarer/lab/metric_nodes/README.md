@@ -145,3 +145,19 @@ Coverage is a geometric proxy only, not PR #356 domain qualification.
 **Verified offset: 0 t.** The nacelles stay ~4.7 t unfunded.
 On the geometric proxy, the existing no-new-hardware layout (hull + cone + hot-fin roots) matches the nacelles:
 worst gap 4.3 m both, p95 2.47 vs 2.65 m, evenness 0.276 vs 0.260, reach 89% both. Its open issue is node heat soak on the fin roots.
+
+## Nacelle fit against installed geometry (NON-CANON, 2026-11-17)
+
+`nacelle_fit/`: `nacelle_fit.py` → `nacelle_fit.json`, `nacelle_fit_picture.py` → `nacelle_fit.png`, `node_coverage_fit.py` → `node_coverage_fit.json`.
+Clearance of the moving parts against the installed solids of the released stowed GLB, before drawing them into source:
+
+| | As sketched | Fixed |
+|---|---|---|
+| Tucked radius | 3.7 m: **0.01 m** off the nozzle lip (r 3.23) | 4.05 m: 0.23 m |
+| Ring | x 52.6, R 4.4: **cuts all four hot-fin roots and packs** | x 53.9, R 4.6: 0.25 m clear of the roots |
+| Nacelles | x 39.5–53.5 | x 39.5–54.3 (to carry the ring) |
+| Aft axial RCS plume (15° core, ASSUMPTION) | cant 10°: 75–96% of nacelle surface inside | cant 25°: 0% (20°: ≤1%) |
+
+Node coverage with the fixed ring: worst gap 4.36 m, p95 2.63 m, CV 0.275, network joined (was 4.31 / 2.65 / 0.260).
+Mass: 14.8 m nacelles need 6.8 t mid (5.6–8.0); p95 is ~0.25 t over the 7.75 t booked allowance.
+The cant change touches kT's 2026-10-26 RCS decision (10° out) and needs kT. Aft axial thrust cosine loss: cos25/cos10 = 0.92.
