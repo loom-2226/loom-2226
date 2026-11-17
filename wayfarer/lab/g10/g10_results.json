@@ -1,7 +1,7 @@
 {
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
  "status": "NON-GOVERNING G10 v0.2 flight-dynamics tests (engineering); not mission results, not canon outputs",
- "geometry_sha256": "6cad9a54132ab57d3848067143636fec7f5073dfd7b405f0a93381f2761d92e7",
+ "geometry_sha256": "f173094beb6f3edcf5b702ca12f32a2fe40bf7a53336491e7cd3dae78c747a82",
  "sources": {
   "main_commit": "19377b854c529e74afc61202d9eb2e780c5b4884",
   "rcs_controller": "src/wayfarer_rcs_closed_loop_gnc.py:_torque_command, gains and gates",
@@ -14,8 +14,8 @@
   "C_card": [
    {
     "name": "card names the geometry it was made from",
-    "value": "6cad9a54132a",
-    "limit": "6cad9a54132a",
+    "value": "f173094beb6f",
+    "limit": "f173094beb6f",
     "pass": true,
     "unit": "",
     "note": ""
@@ -64,7 +64,7 @@
    },
    {
     "name": "RCS 180 deg pitch slew settles (main controller gates, 240 s budget), worst state",
-    "value": 62.0,
+    "value": 62.2,
     "limit": 240.0,
     "pass": true,
     "unit": "s",
@@ -72,7 +72,7 @@
    },
    {
     "name": "RCS 180 deg yaw slew settles (main controller gates, 240 s budget), worst state",
-    "value": 62.1,
+    "value": 62.3,
     "limit": 240.0,
     "pass": true,
     "unit": "s",
@@ -92,12 +92,12 @@
     "limit": 3.08,
     "pass": true,
     "unit": "MN m",
-    "note": "left for the RCS after 1 deg TVC; without TVC the worst is 19.08 MN m (S2 HARD), beyond the RCS alone"
+    "note": "left for the RCS after 1 deg TVC; without TVC the worst is 19.1 MN m (S2 HARD), beyond the RCS alone"
    },
    {
     "name": "torch thrust-vector authority covers trim + an ASSUMED 0.5 deg error",
     "value": 1,
-    "limit": 0.851,
+    "limit": 0.856,
     "pass": true,
     "unit": "deg",
     "note": "requirement conditional on the 0.5 deg assumption; the 1 deg authority is declared (kT 2026-10-26), not a qualified nozzle capability"
@@ -130,7 +130,7 @@
    },
    {
     "name": "torch: trim stays within the G3 limit as the tanks drain",
-    "value": 0.327,
+    "value": 0.333,
     "limit": 0.5,
     "pass": true,
     "unit": "deg",
@@ -307,14 +307,14 @@
      "state": "S1",
      "axis": "pitch",
      "torque_mnm": 2.05,
-     "duration_s": 61.9,
+     "duration_s": 62.1,
      "pass": true
     },
     {
      "state": "S1",
      "axis": "yaw",
      "torque_mnm": 2.05,
-     "duration_s": 61.9,
+     "duration_s": 62.1,
      "pass": true
     },
     {
@@ -328,14 +328,14 @@
      "state": "S2",
      "axis": "pitch",
      "torque_mnm": 2.05,
-     "duration_s": 62.0,
+     "duration_s": 62.2,
      "pass": true
     },
     {
      "state": "S2",
      "axis": "yaw",
      "torque_mnm": 2.05,
-     "duration_s": 62.1,
+     "duration_s": 62.3,
      "pass": true
     },
     {
@@ -347,58 +347,58 @@
     },
     {
      "state": "S3",
+     "axis": "pitch",
+     "torque_mnm": 2.05,
+     "duration_s": 62.0,
+     "pass": true
+    },
+    {
+     "state": "S3",
+     "axis": "yaw",
+     "torque_mnm": 2.05,
+     "duration_s": 62.0,
+     "pass": true
+    },
+    {
+     "state": "S4",
+     "axis": "roll",
+     "torque_mnm": 0.46,
+     "duration_s": 55.8,
+     "pass": true
+    },
+    {
+     "state": "S4",
+     "axis": "pitch",
+     "torque_mnm": 2.05,
+     "duration_s": 61.9,
+     "pass": true
+    },
+    {
+     "state": "S4",
+     "axis": "yaw",
+     "torque_mnm": 2.05,
+     "duration_s": 61.9,
+     "pass": true
+    },
+    {
+     "state": "S5",
+     "axis": "roll",
+     "torque_mnm": 0.46,
+     "duration_s": 55.8,
+     "pass": true
+    },
+    {
+     "state": "S5",
      "axis": "pitch",
      "torque_mnm": 2.05,
      "duration_s": 61.8,
      "pass": true
     },
     {
-     "state": "S3",
+     "state": "S5",
      "axis": "yaw",
      "torque_mnm": 2.05,
      "duration_s": 61.8,
-     "pass": true
-    },
-    {
-     "state": "S4",
-     "axis": "roll",
-     "torque_mnm": 0.46,
-     "duration_s": 55.8,
-     "pass": true
-    },
-    {
-     "state": "S4",
-     "axis": "pitch",
-     "torque_mnm": 2.05,
-     "duration_s": 61.6,
-     "pass": true
-    },
-    {
-     "state": "S4",
-     "axis": "yaw",
-     "torque_mnm": 2.05,
-     "duration_s": 61.6,
-     "pass": true
-    },
-    {
-     "state": "S5",
-     "axis": "roll",
-     "torque_mnm": 0.46,
-     "duration_s": 55.8,
-     "pass": true
-    },
-    {
-     "state": "S5",
-     "axis": "pitch",
-     "torque_mnm": 2.05,
-     "duration_s": 61.6,
-     "pass": true
-    },
-    {
-     "state": "S5",
-     "axis": "yaw",
-     "torque_mnm": 2.05,
-     "duration_s": 61.6,
      "pass": true
     },
     {
@@ -412,35 +412,35 @@
      "state": "S6",
      "axis": "pitch",
      "torque_mnm": 2.05,
-     "duration_s": 61.8,
+     "duration_s": 62.1,
      "pass": true
     },
     {
      "state": "S6",
      "axis": "yaw",
      "torque_mnm": 2.05,
-     "duration_s": 61.9,
+     "duration_s": 62.1,
      "pass": true
     },
     {
      "state": "S7",
      "axis": "roll",
      "torque_mnm": 0.46,
-     "duration_s": 55.8,
+     "duration_s": 55.9,
      "pass": true
     },
     {
      "state": "S7",
      "axis": "pitch",
      "torque_mnm": 2.05,
-     "duration_s": 61.8,
+     "duration_s": 62.1,
      "pass": true
     },
     {
      "state": "S7",
      "axis": "yaw",
      "torque_mnm": 2.05,
-     "duration_s": 61.9,
+     "duration_s": 62.1,
      "pass": true
     }
    ],
@@ -456,7 +456,7 @@
      "state": "S1",
      "mode": "CRUISE",
      "thrust_mn": 11.36,
-     "disturbance_mnm": 4.7,
+     "disturbance_mnm": 4.71,
      "after_tvc_mnm": 0.0
     },
     {
@@ -470,21 +470,21 @@
      "state": "S1",
      "mode": "FAST",
      "thrust_mn": 32.46,
-     "disturbance_mnm": 13.44,
+     "disturbance_mnm": 13.45,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S1",
      "mode": "HARD",
      "thrust_mn": 45.8,
-     "disturbance_mnm": 18.96,
+     "disturbance_mnm": 18.97,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S1",
      "mode": "LIMIT",
      "thrust_mn": 45.8,
-     "disturbance_mnm": 18.96,
+     "disturbance_mnm": 18.97,
      "after_tvc_mnm": 0.0
     },
     {
@@ -505,28 +505,28 @@
      "state": "S2",
      "mode": "EXPEDITE",
      "thrust_mn": 22.72,
-     "disturbance_mnm": 9.08,
+     "disturbance_mnm": 9.09,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S2",
      "mode": "FAST",
      "thrust_mn": 32.46,
-     "disturbance_mnm": 12.97,
+     "disturbance_mnm": 12.98,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S2",
      "mode": "HARD",
      "thrust_mn": 47.76,
-     "disturbance_mnm": 19.08,
+     "disturbance_mnm": 19.1,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S2",
      "mode": "LIMIT",
      "thrust_mn": 47.76,
-     "disturbance_mnm": 19.08,
+     "disturbance_mnm": 19.1,
      "after_tvc_mnm": 0.0
     },
     {
@@ -540,119 +540,119 @@
      "state": "S3",
      "mode": "CRUISE",
      "thrust_mn": 11.36,
-     "disturbance_mnm": 3.92,
+     "disturbance_mnm": 3.93,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S3",
      "mode": "EXPEDITE",
      "thrust_mn": 22.72,
-     "disturbance_mnm": 7.85,
+     "disturbance_mnm": 7.86,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S3",
      "mode": "FAST",
      "thrust_mn": 32.46,
-     "disturbance_mnm": 11.21,
+     "disturbance_mnm": 11.23,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S3",
      "mode": "HARD",
      "thrust_mn": 42.06,
-     "disturbance_mnm": 14.53,
+     "disturbance_mnm": 14.54,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S3",
      "mode": "LIMIT",
      "thrust_mn": 42.06,
-     "disturbance_mnm": 14.53,
+     "disturbance_mnm": 14.54,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S4",
      "mode": "ECON",
      "thrust_mn": 3.41,
-     "disturbance_mnm": 1.01,
+     "disturbance_mnm": 1.0,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S4",
      "mode": "CRUISE",
      "thrust_mn": 11.36,
-     "disturbance_mnm": 3.37,
+     "disturbance_mnm": 3.33,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S4",
      "mode": "EXPEDITE",
      "thrust_mn": 22.72,
-     "disturbance_mnm": 6.75,
+     "disturbance_mnm": 6.66,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S4",
      "mode": "FAST",
      "thrust_mn": 32.46,
-     "disturbance_mnm": 9.64,
+     "disturbance_mnm": 9.51,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S4",
      "mode": "HARD",
      "thrust_mn": 36.17,
-     "disturbance_mnm": 10.74,
+     "disturbance_mnm": 10.6,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S4",
      "mode": "LIMIT",
      "thrust_mn": 36.17,
-     "disturbance_mnm": 10.74,
+     "disturbance_mnm": 10.6,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S5",
      "mode": "ECON",
      "thrust_mn": 3.41,
-     "disturbance_mnm": 0.99,
+     "disturbance_mnm": 0.97,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S5",
      "mode": "CRUISE",
      "thrust_mn": 11.36,
-     "disturbance_mnm": 3.29,
+     "disturbance_mnm": 3.24,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S5",
      "mode": "EXPEDITE",
      "thrust_mn": 22.72,
-     "disturbance_mnm": 6.59,
+     "disturbance_mnm": 6.49,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S5",
      "mode": "FAST",
      "thrust_mn": 32.46,
-     "disturbance_mnm": 9.41,
+     "disturbance_mnm": 9.27,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S5",
      "mode": "HARD",
      "thrust_mn": 34.92,
-     "disturbance_mnm": 10.12,
+     "disturbance_mnm": 9.97,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S5",
      "mode": "LIMIT",
      "thrust_mn": 34.92,
-     "disturbance_mnm": 10.12,
+     "disturbance_mnm": 9.97,
      "after_tvc_mnm": 0.0
     },
     {
@@ -666,35 +666,35 @@
      "state": "S6",
      "mode": "CRUISE",
      "thrust_mn": 11.36,
-     "disturbance_mnm": 4.84,
+     "disturbance_mnm": 4.85,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S6",
      "mode": "EXPEDITE",
      "thrust_mn": 22.72,
-     "disturbance_mnm": 9.68,
+     "disturbance_mnm": 9.69,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S6",
      "mode": "FAST",
      "thrust_mn": 32.46,
-     "disturbance_mnm": 13.83,
+     "disturbance_mnm": 13.85,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S6",
      "mode": "HARD",
-     "thrust_mn": 44.54,
-     "disturbance_mnm": 18.98,
+     "thrust_mn": 44.55,
+     "disturbance_mnm": 19.0,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S6",
      "mode": "LIMIT",
-     "thrust_mn": 44.54,
-     "disturbance_mnm": 18.98,
+     "thrust_mn": 44.55,
+     "disturbance_mnm": 19.0,
      "after_tvc_mnm": 0.0
     },
     {
@@ -708,7 +708,7 @@
      "state": "S7",
      "mode": "CRUISE",
      "thrust_mn": 11.36,
-     "disturbance_mnm": 4.83,
+     "disturbance_mnm": 4.82,
      "after_tvc_mnm": 0.0
     },
     {
@@ -722,21 +722,21 @@
      "state": "S7",
      "mode": "FAST",
      "thrust_mn": 32.46,
-     "disturbance_mnm": 13.79,
+     "disturbance_mnm": 13.78,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S7",
      "mode": "HARD",
      "thrust_mn": 43.39,
-     "disturbance_mnm": 18.43,
+     "disturbance_mnm": 18.42,
      "after_tvc_mnm": 0.0
     },
     {
      "state": "S7",
      "mode": "LIMIT",
      "thrust_mn": 43.39,
-     "disturbance_mnm": 18.43,
+     "disturbance_mnm": 18.42,
      "after_tvc_mnm": 0.0
     }
    ],
@@ -745,23 +745,23 @@
      "state": "S1",
      "axis": "x",
      "force_kn_pos": 98.5,
-     "force_kn_neg": 98.5,
+     "force_kn_neg": 90.6,
      "needed_kn": 14.9,
      "ok": true
     },
     {
      "state": "S1",
      "axis": "y",
-     "force_kn_pos": 158.7,
-     "force_kn_neg": 158.7,
+     "force_kn_pos": 164.9,
+     "force_kn_neg": 164.9,
      "needed_kn": 46.7,
      "ok": true
     },
     {
      "state": "S1",
      "axis": "z",
-     "force_kn_pos": 158.7,
-     "force_kn_neg": 158.7,
+     "force_kn_pos": 164.9,
+     "force_kn_neg": 164.9,
      "needed_kn": 22.4,
      "ok": true
     },
@@ -769,28 +769,28 @@
      "state": "S5",
      "axis": "x",
      "force_kn_pos": 98.5,
-     "force_kn_neg": 98.5,
+     "force_kn_neg": 90.6,
      "needed_kn": 11.4,
      "ok": true
     },
     {
      "state": "S5",
      "axis": "y",
-     "force_kn_pos": 158.7,
-     "force_kn_neg": 158.7,
+     "force_kn_pos": 164.9,
+     "force_kn_neg": 164.9,
      "needed_kn": 35.6,
      "ok": true
     },
     {
      "state": "S5",
      "axis": "z",
-     "force_kn_pos": 158.7,
-     "force_kn_neg": 158.7,
+     "force_kn_pos": 164.9,
+     "force_kn_neg": 164.9,
      "needed_kn": 17.1,
      "ok": true
     }
    ],
-   "tvc_needed_deg": 0.851,
+   "tvc_needed_deg": 0.856,
    "rcs_full_pitch_mnm": 3.08
   },
   "burns": [
@@ -802,7 +802,7 @@
     "rocket_eq_km_s": 707.85,
     "error_pct": -0.0,
     "peak_g": 0.377,
-    "peak_trim_deg": 0.327,
+    "peak_trim_deg": 0.333,
     "segments": 22,
     "coast_breaks": 21,
     "longest_segment_min": 165.0,
@@ -816,7 +816,7 @@
     "rocket_eq_km_s": 471.9,
     "error_pct": -0.0,
     "peak_g": 1.256,
-    "peak_trim_deg": 0.327,
+    "peak_trim_deg": 0.333,
     "segments": 5,
     "coast_breaks": 4,
     "longest_segment_min": 165.0,
@@ -830,7 +830,7 @@
     "rocket_eq_km_s": 235.95,
     "error_pct": -0.001,
     "peak_g": 2.513,
-    "peak_trim_deg": 0.327,
+    "peak_trim_deg": 0.333,
     "segments": 2,
     "coast_breaks": 1,
     "longest_segment_min": 165.0,
@@ -844,7 +844,7 @@
     "rocket_eq_km_s": 165.16,
     "error_pct": -0.002,
     "peak_g": 3.589,
-    "peak_trim_deg": 0.327,
+    "peak_trim_deg": 0.333,
     "segments": 1,
     "coast_breaks": 0,
     "longest_segment_min": 88.2,
@@ -858,7 +858,7 @@
     "rocket_eq_km_s": 106.18,
     "error_pct": -0.004,
     "peak_g": 4.0,
-    "peak_trim_deg": 0.327,
+    "peak_trim_deg": 0.333,
     "segments": 1,
     "coast_breaks": 0,
     "longest_segment_min": 45.1,
@@ -872,7 +872,7 @@
     "rocket_eq_km_s": 70.78,
     "error_pct": -0.007,
     "peak_g": 4.0,
-    "peak_trim_deg": 0.327,
+    "peak_trim_deg": 0.333,
     "segments": 1,
     "coast_breaks": 0,
     "longest_segment_min": 30.1,

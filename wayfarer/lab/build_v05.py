@@ -274,6 +274,98 @@ class Tube(Shape):
     def spec(self):
         return {"k": "tube", "p0": list(self.p0), "p1": list(self.p1), "r": self.r}
 
+class TorusArc(Shape):
+    """One true 45-degree tail-arm sector of the locked aft hoop."""
+    def __init__(self, x, R, r, a0, a1, zc=-.26):
+        self.x, self.R, self.r, self.a0, self.a1, self.zc = x, R, r, a0, a1, zc
+        assert 0 < a1-a0 <= 90
+
+    def contains(self, x, y, z):
+        if not in_arc(ang(y,z-self.zc),self.a0,self.a1):
+            return False
+        return (x-self.x)**2 + (math.hypot(y,z-self.zc)-self.R)**2 <= self.r**2
+
+    def bbox(self):
+        angles=[self.a0,self.a1]+[a for a in range(-720,1081,90) if self.a0<a<self.a1]
+        yy=[self.R*math.cos(math.radians(a)) for a in angles]
+        zz=[self.R*math.sin(math.radians(a)) for a in angles]
+        return ((self.x-self.r,self.x+self.r),
+                (min(yy)-self.r,max(yy)+self.r),
+                (min(zz)+self.zc-self.r,max(zz)+self.zc+self.r))
+
+    def volume(self):
+        return 2*math.pi**2*self.R*self.r**2*(self.a1-self.a0)/360.
+
+    def sample(self,rng,n):
+        pts=[]
+        for _ in range(n):
+            a=math.radians(rng.uniform(self.a0,self.a1))
+            t=rng.uniform(0,TAU)
+            q=self.r*math.sqrt(rng.random())
+            rr=self.R+q*math.cos(t)
+            pts.append((self.x+q*math.sin(t), rr*math.cos(a),rr*math.sin(a)+self.zc))
+        return pts
+
+    def spec(self):
+        return dict(k="torus_arc",x=self.x,R=self.R,r=self.r,a0=self.a0,a1=self.a1,zc=self.zc)
+
+
+class RingNotchedTube(Tube):
+    """The nacelle shell with its ring-lock receiver void, not two solids in the same space."""
+    def __init__(self,p0,p1,r,hx=53.9,hR=4.6,hr=.355,zc=-.26):
+        super().__init__(p0,p1,r)
+        self.hx,self.hR,self.hr,self.zc=hx,hR,hr,zc
+
+    def contains(self,x,y,z):
+        if not super().contains(x,y,z):
+            return False
+        return (x-self.hx)**2+(math.hypot(y,z-self.zc)-self.hR)**2 > self.hr**2
+
+    def volume(self):
+        # Source mass is independently booked; B-rep gives the exact slotted volume.
+        return super().volume()
+
+    def spec(self):
+        return dict(k="ring_notched_tube",p0=self.p0,p1=self.p1,r=self.r,
+                    hx=self.hx,hR=self.hR,hr=self.hr,zc=self.zc)
+
+
+def nacelle_shapes(cfg,state):
+    """Physical shapes only; exactly the same names, bookings and four axes in both modes."""
+    assert state in ("torch","Metric")
+    r = cfg["r_tucked_m"] if state=="torch" else cfg["r_deployed_m"]
+    hx,hR,hr=cfg["ring_x_m"],cfg["ring_R_m"],cfg["ring_tube_r_m"]
+    items=[]
+    for az in cfg["azimuths_deg"]:
+        a=math.radians(az)
+        er=(math.cos(a),math.sin(a))
+        p0=(cfg["x_m"][0],r*er[0],r*er[1]-.26)
+        p1=(cfg["x_m"][1],r*er[0],r*er[1]-.26)
+        body=(Tube(p0,p1,cfg["nacelle_r_m"]) if state=="torch" else
+              RingNotchedTube(p0,p1,cfg["nacelle_r_m"],hx,hR,hr+.005))
+        items.append((f"metric_nacelle_{az}",body,1.625))
+        for idx, (x,inner) in enumerate(((40.5,2.125),(49.5,2.525))):
+            # The two parallel swing links end at the body's inner surface.
+            start=(x,inner*er[0],inner*er[1]-.26)
+            end=(x,(r-cfg["nacelle_r_m"])*er[0],(r-cfg["nacelle_r_m"])*er[1]-.26)
+            items.append((f"metric_link_{az}_{idx}",Tube(start,end,.08),.08))
+        for side in (-1,1):
+            name=f"metric_arm_{az}_{'minus' if side<0 else 'plus'}"
+            if state=="Metric":
+                start=az-45 if side<0 else az
+                arm=TorusArc(hx,hR,hr,start,start+45)
+            else:
+                # Two disjoint folded arm packs just outside each nacelle.
+                # Each has the arc's 3.61 m developed length.
+                tangent=(-er[1],er[0])
+                y=(r+.91)*er[0]+side*.46*tangent[0]
+                z=(r+.91)*er[1]+side*.46*tangent[1]-.26
+                length=hR*math.pi/4
+                arm=Tube((cfg["x_m"][1]-length,y,z),(cfg["x_m"][1],y,z),hr)
+            items.append((name,arm,.1075))
+    assert len(items)==20 and abs(sum(m for _,_,m in items)-8.0)<1e-10
+    return items
+
 
 class Box(Shape):
     def __init__(self, x0, x1, y0, y1, z0, z1):
@@ -963,13 +1055,13 @@ def build(I, dy=0.0, dz=0.0):
     add("manifold", "Thermal manifold, pumps, exchangers and torch magnet cryocooler", "thermal",
         Sector(mx1, H["manifold_x_m"][1], pf["r_m"], Ro - 0.02), L["thermal_radiators_t"],
         L.get("thermal_rebook",{}).get("manifold_basis", "CANON_MASS_DESIGN_POSITION"), "manifold")
-    if L.get("metric_nacelles_ring_t",0):
-        # Mass allowance only, same no_render/unlocated pattern as D8. It is NOT
-        # installed geometry, so neither shield nor D9 clearance is credited.
-        add("metric_nacelles_ring_unlocated", "Four Metric nacelles + aft ring (UNLOCATED mass allowance)",
-            "plant", Sector(24.39,24.40,0.0,0.1),L["metric_nacelles_ring_t"],
-            L["thermal_rebook"]["nacelle_basis"],"plant",
-            tags=("no_render","no_shield_credit","unlocated"))
+    if I.get("metric_nacelles"):
+        cfg=I["metric_nacelles"]
+        assert L["metric_nacelles_ring_t"]==8.0, "p95 mass booking"
+        for name,shape,mass in nacelle_shapes(cfg,"torch"):
+            add(name,"Metric nacelle / link / foldable ring arm", "plant",shape,mass,
+                "kT nacelle_fit_and_aft_rcs_cant_25_2026_11_17; source installed geometry",
+                "metric", tags=("metric_nacelle", "no_shield_credit"))
     R = I["radiators"]
     for a in R["azimuths_deg"]:
         add(f"strake_{a}", f"Radiator strake {a} deg (stowed)", "thermal",
@@ -1495,6 +1587,14 @@ def main():
                             "service_tank_capacity_t": tank_cap, "chosen_to_minimise_worst_trim_deg": best[1]},
         "thrust_line_offset_m": {"y": DY, "z": DZ, "torch_chain_t": m_chain},
         "hot_fins": fins_out,
+        "metric_states": {
+            "torch": {"description": "nacelles tucked; arms folded", "parts": [
+                {"id": n, "shape": sh.spec()} for n,sh,_ in nacelle_shapes(I["metric_nacelles"],"torch")]},
+            "Metric": {"description": "nacelles deployed; eight tail arms form locked ring",
+                       "swing_envelope": "OPEN; approved lab mid-stroke survey only",
+                       "parts": [{"id": n, "shape": sh.spec()}
+                                 for n,sh,_ in nacelle_shapes(I["metric_nacelles"],"Metric")]}
+        } if I.get("metric_nacelles") else None,
         "tank_volume_m3": tank_vol, "tank_volume_gross_m3": tank_gross, "tank_structure": ts,
         "packing_phase1b": ({
             **I["packing_phase1b"],"four_fuel_lobes_m3": sum(p.shape.volume() for p in ref_parts if p.id.startswith("house_fuel_lobe_")),
@@ -1556,6 +1656,10 @@ def shape_from_spec(s):
         sh = Frustum(s["x0"], s["x1"], s["r0"], s["r1"], s["t"])
     elif k == "tube":
         sh = Tube(s["p0"], s["p1"], s["r"])
+    elif k == "torus_arc":
+        sh = TorusArc(s["x"],s["R"],s["r"],s["a0"],s["a1"],s["zc"])
+    elif k == "ring_notched_tube":
+        sh = RingNotchedTube(s["p0"],s["p1"],s["r"],s["hx"],s["hR"],s["hr"],s["zc"])
     elif k == "box":
         sh = Box(s["x0"], s["x1"], s["y0"], s["y1"], s["z0"], s["z1"])
     elif k == "panel":
