@@ -156,13 +156,32 @@ def run_primary(state,shard,shards):
     assert len(names)==43
     chosen=names[shard::shards]
     checks=[]
+    pressure=None
+    if shard==0:
+        pressure=read(OUT/state/"pressure.json")
+        assert pressure["state"]==state and pressure["mode"]=="pressure"
+        assert pressure["geometry_sha"]==sha(GEO)
+        assert pressure["candidate_step_sha"]==sha(CAND/f"candidate_{state}.step.gz")
+        assert pressure["original_fingerprint"]==sig and pressure["unit_factor"]==factor
+        assert pressure["pass"] is True and pressure["check"]["pass"] is True
+        assert pressure["check"]["name"]=="dry:pressure_vessel"
+        assert pressure["check"]["surface_distance"]["native_to_imported"]["samples"]>=256
+        assert pressure["check"]["surface_distance"]["imported_to_native"]["samples"]>=256
+        assert pressure["check"]["surface_distance"]["two_way_max_deviation_m"]<=C["D9"]["primary_brep_unchanged_bbox_tolerance_m"]
+        assert pressure["check"]["diagnostics"]["native"]["brepcheck_valid"]
+        assert pressure["check"]["diagnostics"]["imported"]["brepcheck_valid"]
     for name in chosen:
         print("PRIMARY_START",state,shard,name,flush=True)
-        try:
-            result=D.single_primary(name,rows,shapes,C)
-        except Exception as e:
-            result=dict(name=name,pass_=False,error=repr(e))
-            result["pass"]=result.pop("pass_")
+        if name=="dry:pressure_vessel":
+            assert pressure is not None
+            result=dict(pressure["check"])
+            result["staged_B_pressure_evidence"]=True
+        else:
+            try:
+                result=D.single_primary(name,rows,shapes,C)
+            except Exception as e:
+                result=dict(name=name,pass_=False,error=repr(e))
+                result["pass"]=result.pop("pass_")
         checks.append(result)
         print("PRIMARY_END",name,result.get("pass"),flush=True)
     report=dict(state=state,mode="primary",shard=shard,shards=shards,
@@ -228,6 +247,15 @@ def merge():
         checks=[x for row in primary for x in row["checks"]]
         assert len(checks)==43 and len({x["name"] for x in checks})==43
         assert sum(x["name"]=="dry:pressure_vessel" for x in checks)==1
+        pressure=read(OUT/state/"pressure.json")
+        assert pressure["pass"] is True and pressure["state"]==state
+        assert pressure["geometry_sha"]==sha(GEO)
+        assert pressure["candidate_step_sha"]==step
+        assert pressure["original_fingerprint"]==sig
+        assert pressure["check"]["pass"] is True
+        pcheck=next(x for x in checks if x["name"]=="dry:pressure_vessel")
+        assert pcheck.get("staged_B_pressure_evidence") is True
+        assert all(pcheck[k]==pressure["check"][k] for k in pressure["check"])
         pos=0
         for i,row in enumerate(pairs):
             assert row["range"]==[pos,22791*(i+1)//8] and row["total_pairs"]==22791

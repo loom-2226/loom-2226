@@ -7,6 +7,7 @@ on:
       - wayfarer/lab/build_v05.py
       - wayfarer/lab/metric_nodes/nacelle_source_brep.py
       - wayfarer/lab/metric_nodes/nacelle_d9_pair.py
+      - wayfarer/lab/metric_nodes/nacelle_pressure_stages.py
       - wayfarer/results/out/wayfarer_v05_geometry.json
   workflow_dispatch:
 permissions:
@@ -53,8 +54,238 @@ jobs:
           retention-days: 30
           if-no-files-found: error
 
-  C_primaries:
+  B_identity:
     needs: A_two_steps
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        state: [torch, Metric]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install build123d==0.13.0
+      - uses: actions/download-artifact@v4
+        with:
+          name: nacelle-pair-source
+          path: wayfarer/lab/metric_nodes/nacelle_candidates
+      - name: Restore approved #559 STEP and source
+        run: cp wayfarer/lab/metric_nodes/nacelle_candidates/approved_source/* wayfarer/lab/packing_phase1b/
+      - name: "#559 pressure stage source_fingerprint / ${{ matrix.state }}"
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/metric_nodes/nacelle_pressure_stages.py source_fingerprint --state "${{ matrix.state }}"
+      - name: "#559 pressure stage candidate_fingerprint / ${{ matrix.state }}"
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/metric_nodes/nacelle_pressure_stages.py candidate_fingerprint --state "${{ matrix.state }}"
+      - name: Archive BRep pressure stages with full repository paths
+        if: always()
+        shell: bash
+        run: |
+          test -f "wayfarer/results/out/nacelle_d9/${{ matrix.state }}/pressure_stages.json"
+          tar -czf "nacelle-pressure-${{ matrix.state }}-identity.tar.gz" \
+            wayfarer/results/out/nacelle_d9/${{ matrix.state }}/pressure_stages.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nacelle-pressure-${{ matrix.state }}-identity
+          path: nacelle-pressure-${{ matrix.state }}-identity.tar.gz
+          if-no-files-found: error
+
+  B_forward:
+    needs: B_identity
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        state: [torch, Metric]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install build123d==0.13.0
+      - uses: actions/download-artifact@v4
+        with:
+          name: nacelle-pair-source
+          path: wayfarer/lab/metric_nodes/nacelle_candidates
+      - name: Restore approved #559 STEP and source
+        run: cp wayfarer/lab/metric_nodes/nacelle_candidates/approved_source/* wayfarer/lab/packing_phase1b/
+      - uses: actions/download-artifact@v4
+        with:
+          name: nacelle-pressure-${{ matrix.state }}-identity
+          path: .
+      - name: Restore previous pressure checkpoint at the repository root
+        run: tar -xzf "nacelle-pressure-${{ matrix.state }}-identity.tar.gz"
+      - name: "#559 pressure stage forward / ${{ matrix.state }}"
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/metric_nodes/nacelle_pressure_stages.py forward --state "${{ matrix.state }}"
+      - name: Archive BRep pressure stages with full repository paths
+        if: always()
+        shell: bash
+        run: |
+          test -f "wayfarer/results/out/nacelle_d9/${{ matrix.state }}/pressure_stages.json"
+          tar -czf "nacelle-pressure-${{ matrix.state }}-forward.tar.gz" \
+            wayfarer/results/out/nacelle_d9/${{ matrix.state }}/pressure_stages.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nacelle-pressure-${{ matrix.state }}-forward
+          path: nacelle-pressure-${{ matrix.state }}-forward.tar.gz
+          if-no-files-found: error
+
+  B_reverse:
+    needs: B_forward
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        state: [torch, Metric]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install build123d==0.13.0
+      - uses: actions/download-artifact@v4
+        with:
+          name: nacelle-pair-source
+          path: wayfarer/lab/metric_nodes/nacelle_candidates
+      - name: Restore approved #559 STEP and source
+        run: cp wayfarer/lab/metric_nodes/nacelle_candidates/approved_source/* wayfarer/lab/packing_phase1b/
+      - uses: actions/download-artifact@v4
+        with:
+          name: nacelle-pressure-${{ matrix.state }}-forward
+          path: .
+      - name: Restore previous pressure checkpoint at the repository root
+        run: tar -xzf "nacelle-pressure-${{ matrix.state }}-forward.tar.gz"
+      - name: "#559 pressure stage reverse / ${{ matrix.state }}"
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/metric_nodes/nacelle_pressure_stages.py reverse --state "${{ matrix.state }}"
+      - name: Archive BRep pressure stages with full repository paths
+        if: always()
+        shell: bash
+        run: |
+          test -f "wayfarer/results/out/nacelle_d9/${{ matrix.state }}/pressure_stages.json"
+          tar -czf "nacelle-pressure-${{ matrix.state }}-reverse.tar.gz" \
+            wayfarer/results/out/nacelle_d9/${{ matrix.state }}/pressure_stages.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nacelle-pressure-${{ matrix.state }}-reverse
+          path: nacelle-pressure-${{ matrix.state }}-reverse.tar.gz
+          if-no-files-found: error
+
+  B_validity:
+    needs: B_reverse
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        state: [torch, Metric]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install build123d==0.13.0
+      - uses: actions/download-artifact@v4
+        with:
+          name: nacelle-pair-source
+          path: wayfarer/lab/metric_nodes/nacelle_candidates
+      - name: Restore approved #559 STEP and source
+        run: cp wayfarer/lab/metric_nodes/nacelle_candidates/approved_source/* wayfarer/lab/packing_phase1b/
+      - uses: actions/download-artifact@v4
+        with:
+          name: nacelle-pressure-${{ matrix.state }}-reverse
+          path: .
+      - name: Restore previous pressure checkpoint at the repository root
+        run: tar -xzf "nacelle-pressure-${{ matrix.state }}-reverse.tar.gz"
+      - name: "#559 pressure stage validity / ${{ matrix.state }}"
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/metric_nodes/nacelle_pressure_stages.py validity --state "${{ matrix.state }}"
+      - name: Archive BRep pressure stages with full repository paths
+        if: always()
+        shell: bash
+        run: |
+          test -f "wayfarer/results/out/nacelle_d9/${{ matrix.state }}/pressure_stages.json"
+          tar -czf "nacelle-pressure-${{ matrix.state }}-validity.tar.gz" \
+            wayfarer/results/out/nacelle_d9/${{ matrix.state }}/pressure_stages.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nacelle-pressure-${{ matrix.state }}-validity
+          path: nacelle-pressure-${{ matrix.state }}-validity.tar.gz
+          if-no-files-found: error
+
+  B_pressure:
+    needs: B_validity
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        state: [torch, Metric]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install build123d==0.13.0
+      - uses: actions/download-artifact@v4
+        with:
+          name: nacelle-pair-source
+          path: wayfarer/lab/metric_nodes/nacelle_candidates
+      - name: Restore approved #559 STEP and source
+        run: cp wayfarer/lab/metric_nodes/nacelle_candidates/approved_source/* wayfarer/lab/packing_phase1b/
+      - uses: actions/download-artifact@v4
+        with:
+          name: nacelle-pressure-${{ matrix.state }}-validity
+          path: .
+      - name: Restore previous pressure checkpoint at the repository root
+        run: tar -xzf "nacelle-pressure-${{ matrix.state }}-validity.tar.gz"
+      - name: "#559 pressure stage boolean / ${{ matrix.state }}"
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/metric_nodes/nacelle_pressure_stages.py boolean --state "${{ matrix.state }}"
+      - name: "#559 pressure stage finalize / ${{ matrix.state }}"
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -u wayfarer/lab/metric_nodes/nacelle_pressure_stages.py finalize --state "${{ matrix.state }}"
+      - name: Archive BRep pressure stages with full repository paths
+        if: always()
+        shell: bash
+        run: |
+          test -f "wayfarer/results/out/nacelle_d9/${{ matrix.state }}/pressure_stages.json"
+          tar -czf "nacelle-pressure-${{ matrix.state }}-final.tar.gz" \
+            wayfarer/results/out/nacelle_d9/${{ matrix.state }}/pressure_stages.json \
+            wayfarer/results/out/nacelle_d9/${{ matrix.state }}/pressure.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nacelle-pressure-${{ matrix.state }}-final
+          path: nacelle-pressure-${{ matrix.state }}-final.tar.gz
+          if-no-files-found: error
+
+  C_primaries:
+    needs: [A_two_steps, B_pressure]
     runs-on: ubuntu-latest
     timeout-minutes: 85
     strategy:
@@ -73,6 +304,12 @@ jobs:
           name: nacelle-pair-source
           path: wayfarer/lab/metric_nodes/nacelle_candidates
       - run: cp wayfarer/lab/metric_nodes/nacelle_candidates/approved_source/* wayfarer/lab/packing_phase1b/
+      - uses: actions/download-artifact@v4
+        with:
+          name: nacelle-pressure-${{ matrix.state }}-final
+          path: .
+      - name: Restore the state pressure artifact at repo root (dc72f3e)
+        run: tar -xzf "nacelle-pressure-${{ matrix.state }}-final.tar.gz"
       - name: Unchanged primary BRep audit, all 43 across four shards
         shell: bash
         run: |
@@ -119,7 +356,7 @@ jobs:
 
   E_certify_pair:
     if: always()
-    needs: [A_two_steps, C_primaries, D_pairs]
+    needs: [A_two_steps, B_pressure, C_primaries, D_pairs]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -133,6 +370,30 @@ jobs:
           name: nacelle-pair-source
           path: wayfarer/lab/metric_nodes/nacelle_candidates
       - run: cp wayfarer/lab/metric_nodes/nacelle_candidates/approved_source/* wayfarer/lab/packing_phase1b/
+      - uses: actions/download-artifact@v4
+        with:
+          name: nacelle-pressure-torch-final
+          path: .
+      - uses: actions/download-artifact@v4
+        with:
+          name: nacelle-pressure-Metric-final
+          path: .
+      - name: Restore both state pressure artifacts at repository root
+        shell: bash
+        run: |
+          set -euo pipefail
+          tar -xzf nacelle-pressure-torch-final.tar.gz
+          tar -xzf nacelle-pressure-Metric-final.tar.gz
+          python - <<'PYCHECK'
+          import json
+          from pathlib import Path
+          for state in ('torch','Metric'):
+              p=Path('wayfarer/results/out/nacelle_d9')/state/'pressure.json'
+              d=json.loads(p.read_text())
+              assert d['state']==state and d['pass'] is True
+              assert d['check']['surface_distance']['native_to_imported']['samples']>=256
+              assert d['check']['surface_distance']['imported_to_native']['samples']>=256
+          PYCHECK
       - uses: actions/download-artifact@v4
         with:
           pattern: nacelle-primary-*
