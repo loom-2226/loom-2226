@@ -124,3 +124,24 @@ B is four nacelles plus a White-style hoop (x 52.6, R 4.4).
 | B four + ring | 4.3 m | 2.6 m | 0.26 | 21/19/21/20 |
 
 NON-CANON.
+
+## Nacelle mass screen (NON-CANON, 2026-11-16)
+
+`nacelle_mass_screen.py` → `nacelle_mass_screen.json/.png` (picture: `nacelle_mass_picture.py`); coverage from `node_ring_length.py` → `node_ring_length.json`.
+ROM for decision `metric_nacelles_ring_selected_2026_11_16`, revised after Sol's review of PR #556:
+credits are **zero** until a specific booked part is shown to shrink (the 1.1 t mount allowance books 20 midship mounts, none shown to go), and the 16.8 t floor is not lowered.
+
+| Nacelles | Needs (p5–p95) | Short vs 1.86 t free | Worst gap | Evenness | Network |
+|---|---|---|---|---|---|
+| 14 m (chosen) | 6.5 t (5.4–7.8) | 4.7 t | 4.3 m | 0.26 | joined |
+| 10 m | 5.5 t (4.6–6.5) | 3.6 t | 4.8 m | 0.30 | splits in 2 |
+
+Shortening saves ~1.06 t but splits the node network and is less even than today (0.29). Keep 14 m. Nothing is booked.
+Coverage is a geometric proxy only, not PR #356 domain qualification.
+
+### Ledger offset search (2026-11-16)
+
+`ledger_offset_search.json`: every plausible booked part checked (mount allowance, aft RCS, fin root trusses, thrust cone, plant nodes/trunk, others).
+**Verified offset: 0 t.** The nacelles stay ~4.7 t unfunded.
+On the geometric proxy, the existing no-new-hardware layout (hull + cone + hot-fin roots) matches the nacelles:
+worst gap 4.3 m both, p95 2.47 vs 2.65 m, evenness 0.276 vs 0.260, reach 89% both. Its open issue is node heat soak on the fin roots.
