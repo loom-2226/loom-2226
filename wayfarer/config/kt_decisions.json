@@ -1810,5 +1810,15 @@
     "conditions": "Sol to verify the bottom-up inputs against source before booking; full G1-G12 + D9 re-run; booking only on PASS; nacelle geometry stays a lab sketch until separately drawn",
     "canon_change": false,
     "status": "APPROVED; mass booking NOT yet done (Sol, separate PR)"
+  },
+  "nacelle_fit_and_aft_rcs_cant_25_2026_11_17": {
+    "authority": "kT APPROVED 2026-11-17 (Claude chat): 'Yes' to the fixed nacelle layout and to canting the four aft axial RCS thrusters 25 deg out",
+    "finding": "wayfarer/lab/metric_nodes/nacelle_fit/nacelle_fit.json vs installed solids (88ce19fc stowed GLB; torch chain pinned): as sketched, tucked nacelles 0.01 m off the nozzle lip (r 3.23); the aft ring (x 52.6, R 4.4) cuts all four hot-fin roots and folded packs; 75-96% of nacelle surface inside the aft axial plume core (15 deg, ASSUMPTION) at 10 deg cant",
+    "scope": "nacelles az 0/90/180/270, radius 0.6, x 39.5-54.3, tucked r 4.05 (0.23 m off nozzle), deployed r 4.6 on parallel links; aft ring x 53.9, R 4.6, tube r 0.35 (0.25 m clear of fin roots), two tail arms per nacelle; aft axial RCS (A+Y, A+Z, A-Y, A-Z) cant_out 10 -> 25 deg (plume core clears all nacelle states and existing hardware); fore axial thrusters unchanged",
+    "supersedes": "rcs.axial_prov cant_out_deg 10 for the AFT clusters only (KT_DECISION 2026-10-26 'agree 3'); one axial thruster per cluster unchanged",
+    "effects": "aft axial thrust x cos25/cos10 = 0.920; node coverage worst gap 4.36 m, p95 2.63 m, CV 0.275, joined; nacelle mass 6.8 t mid (5.6-8.0): p95 ~0.25 t over the 7.75 t allowance, top-up from reserve",
+    "open": "plume model is a geometric core cone only; thermal soak of tucked nacelles beside the nozzle and fins; hoop latch structure; field-wall stand-off",
+    "canon_change": false,
+    "status": "APPROVED; drawing into source by Sol (class:engineering) with D9 on the new solids; released canon GLB replacement needs kT sign-off on renders"
   }
 }
