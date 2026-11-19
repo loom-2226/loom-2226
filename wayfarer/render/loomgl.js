@@ -1107,7 +1107,9 @@ export class Ship {
         }
       }
     }
-    if (cfg.shuttleDetail !== false && parts.some(p => p.id === "shuttle" && (!cfg.show || cfg.show(p)))) {
+    // The detailed v1-only ornaments read tube p0/p1/r. B4-S is a source
+    // polyhull with separate authored candidate GLBs; never draw v1 extras.
+    if (cfg.shuttleDetail !== false && parts.some(p => p.id === "shuttle" && p.shape.k === "tube" && (!cfg.show || cfg.show(p)))) {
       const s = this.geo.parts.find(p => p.id === "shuttle").shape, lift = cfg.shuttleLift || 0;
       // shuttle v1 (kT 2026-11-03, non-canon concept): belly heat shield, starboard gull-wing door, flush magnetic
       // nozzle ring, belly thrusters, and the Venus kit's folded 12 m tip-jet rotor and intake on the spine (slot side).
