@@ -625,6 +625,20 @@ export function commandMeshes(sc, opt = {}) {
   return G;
 }
 
+// B4-S: conservative closed envelope generated directly from the 30-part
+// flight-state mesh, wings/fins stowed and docked +90 degrees. The separate
+// lab GLB retains the complete visual subassembly.
+function meshPolyHull(mb, s, lift = 0) {
+  for (const f of s.triangles) {
+    const a = [...s.vertices[f[0]]], b = [...s.vertices[f[1]]], c = [...s.vertices[f[2]]];
+    a[2] += lift; b[2] += lift; c[2] += lift;
+    const u = b.map((v,i)=>v-a[i]), v = c.map((w,i)=>w-a[i]);
+    const n = [u[1]*v[2]-u[2]*v[1], u[2]*v[0]-u[0]*v[2], u[0]*v[1]-u[1]*v[0]];
+    const k0=mb.v(a,n), k1=mb.v(b,n), k2=mb.v(c,n);
+    mb.tri(k0,k1,k2,n);
+  }
+}
+
 function meshShuttle(mb, s, lift = 0) {
   const x0 = s.p0[0], L = s.p1[0] - s.p0[0], R = s.r;
   // shuttle v1 biconic (kT 2026-11-03): nose cone to s 1.5 m, second cone to s 4.0 m, cylinder, short boattail
@@ -676,6 +690,7 @@ export function shapeMesh(mb, p, opt = {}) {
     case "domecyl": meshDome(mb, s); break;
     case "frustum": meshFrustum(mb, s, ox, oy); break;
     case "tube": meshTube(mb, s); break;
+    case "polyhull": meshPolyHull(mb,s,opt.shuttleLift||0); break;
     case "box": meshBox(mb, [s.x0, s.x1, s.y0, s.y1, s.z0, s.z1]); break;
     case "panel": meshPanel(mb, s, s.span); break;
   }

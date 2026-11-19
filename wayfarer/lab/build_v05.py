@@ -492,6 +492,8 @@ def exact_centroid(sh):
         return [(lo + hi) / 2 for lo, hi in sh.b]
     if isinstance(sh, Tube):
         return [(a + b) / 2 for a, b in zip(sh.p0, sh.p1)]
+    if isinstance(sh, PolyHull):
+        return sh._centroid
     if isinstance(sh, Panel):
         rm = sh.r0 + sh.span / 2
         return [(sh.x0 + sh.x1) / 2, rm * sh.c, rm * sh.s]
@@ -500,6 +502,58 @@ def exact_centroid(sh):
 
 _MEMO = {}
 
+
+# Authored B4-S source: exact mesh hull generated from build_b4s.py with
+# wings/fins stowed and rolled +90. Convex outer envelope is intentionally
+# conservative for installed-solid collisions, not a replacement for the
+# 30 distinct visual meshes in the candidate GLB.
+class PolyHull(Shape):
+    def __init__(self, vertices, triangles, source_hash=None):
+        self.v=[tuple(v) for v in vertices]
+        self.faces=[tuple(f) for f in triangles]
+        self.source_hash=source_hash
+        self.center=tuple(sum(v[k] for v in self.v)/len(self.v) for k in range(3))
+        self.tetras=[]
+        self._volume=0.
+        self._centroid=[0.,0.,0.]
+        for a,b,c in self.faces:
+            u=[self.v[a][k]-self.center[k] for k in range(3)]
+            v=[self.v[b][k]-self.center[k] for k in range(3)]
+            w=[self.v[c][k]-self.center[k] for k in range(3)]
+            cross=(v[1]*w[2]-v[2]*w[1],v[2]*w[0]-v[0]*w[2],v[0]*w[1]-v[1]*w[0])
+            vol=abs(sum(u[k]*cross[k] for k in range(3)))/6.
+            self._volume+=vol
+            self.tetras.append((self._volume,(a,b,c)))
+            for k in range(3):
+                self._centroid[k]+=vol*(self.center[k]+self.v[a][k]+self.v[b][k]+self.v[c][k])/4
+        self._centroid=[q/self._volume for q in self._centroid]
+
+    def bbox(self):
+        return tuple((min(v[k] for v in self.v),max(v[k] for v in self.v)) for k in range(3))
+
+    def volume(self):return self._volume
+
+    def contains(self,x,y,z):
+        for a,b,c in self.faces:
+            A,B,C=self.v[a],self.v[b],self.v[c]
+            u=[B[k]-A[k] for k in range(3)]
+            v=[C[k]-A[k] for k in range(3)]
+            n=(u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0])
+            if sum(n[k]*([x,y,z][k]-A[k]) for k in range(3))>1e-7:return False
+        return True
+
+    def sample(self,rng,n):
+        from bisect import bisect_left
+        out=[]
+        for _ in range(n):
+            _,(a,b,c)=self.tetras[min(bisect_left([r[0] for r in self.tetras],rng.random()*self._volume),len(self.tetras)-1)]
+            t=[rng.expovariate(1) for _ in range(4)]
+            tt=sum(t);P=(self.center,self.v[a],self.v[b],self.v[c])
+            out.append(tuple(sum(P[i][k]*t[i] for i in range(4))/tt for k in range(3)))
+        return out
+
+    def spec(self):
+        return {'k':'polyhull','vertices':self.v,'triangles':self.faces,'source_hash':self.source_hash}
 
 # ---------------------------------------------------------------- parts
 class Part:
@@ -1122,8 +1176,14 @@ def build(I, dy=0.0, dz=0.0):
     add("nozzle", "Magnetic nozzle", "propulsion", Offset(Frustum(*H["nozzle_x_m"], *H["nozzle_r_m"], 0.15), dy, dz), P["nozzle"], P["prov"], "nozzle", tags=tc)
     # --- shuttle and drones (state-dependent)
     S = I["shuttle"]
-    add("shuttle", "Shuttle v1, 3.8 m, 3-crew pod (docked, tanks empty)", "shuttle", Tube((S["x_m"][0], 0, 0), (S["x_m"][1], 0, 0), S["diameter_m"] / 2),
-        S["dry_t"], S["prov"], "shuttle", tags=("shuttle", "inhabited_when_docked"))
+    hull_data=json.loads((HERE/"shuttle/v2_lifting_body/b4s_source_hull.json").read_text())
+    assert hull_data["roll_deg"]==S["b4s_roll_deg"]==90
+    assert abs(hull_data["stowed_radius_m"]-S["b4s_stowed_radius_m"])<1e-10
+    assert hull_data["bounds_x_m"]==S["x_m"]
+    add("shuttle", "B4-S, six-seat lifting body, standard rover, ROLLED +90 (Venus kit payload excluded)", "shuttle",
+        PolyHull(hull_data["vertices_m"], hull_data["triangles"],hull_data["exact_visual_glb_sha256"]),
+        S["dry_t"], S["prov"], "shuttle",
+        tags=("shuttle", "inhabited_when_docked","b4s_rolled90","from_reserve"))
     hold_s, hold_p = sec["hold_starboard"], sec["hold_port"]
     k = 0
     for dr in I["drones"]["carried"]:
@@ -1154,7 +1214,9 @@ def build(I, dy=0.0, dz=0.0):
     # --- engineering reserve: spread over the dry parts in proportion to mass
     dry_parts = [p for p in parts if p.dry and "from_reserve" not in p.tags]
     base = sum(p.mass_t for p in dry_parts)
-    reserve = L["engineering_reserve_t"] + L["structure_split"].get("released_to_reserve", 0.0)   # v0.5.7: longeron mass released to the reserve
+    reserve = (L["engineering_reserve_t"]+L["structure_split"].get("released_to_reserve",0.0)
+               -L.get("shuttle_b4s_rebook",{}).get("actual_source_debit_from_reserve_t",0.0))
+    assert reserve>=L.get("shuttle_b4s_rebook",{}).get("reserved_floor_t",0.)
     for p in dry_parts:
         p.mass_t *= 1 + reserve / base
     sec["_holes"] = holes
@@ -1679,7 +1741,7 @@ def main():
         out["external_equipment"] = {"parts": len(ext), "located_t": sum(p.mass_t for p in ext if "located" in p.tags),
                                      "new_from_reserve_t": sum(p.mass_t for p in ext if "from_reserve" in p.tags),
                                      "not_built": I["external_equipment"]["not_built"]}
-        out["ledger_reserve_t"] = I["ledger"]["engineering_reserve_t"] + I["ledger"]["structure_split"].get("released_to_reserve", 0.0)
+        out["ledger_reserve_t"] = (I["ledger"]["engineering_reserve_t"]+I["ledger"]["structure_split"].get("released_to_reserve",0.0)-I["ledger"].get("shuttle_b4s_rebook",{}).get("actual_source_debit_from_reserve_t",0.0))
     OUT.mkdir(exist_ok=True)
     txt = json.dumps(out, indent=1, default=float)
     (OUT / "wayfarer_v05_geometry.json").write_text(txt)
@@ -1709,6 +1771,8 @@ def shape_from_spec(s):
         sh = Frustum(s["x0"], s["x1"], s["r0"], s["r1"], s["t"])
     elif k == "tube":
         sh = Tube(s["p0"], s["p1"], s["r"])
+    elif k == "polyhull":
+        sh = PolyHull(s["vertices"],s["triangles"],s.get("source_hash"))
     elif k == "torus_arc":
         sh = TorusArc(s["x"],s["R"],s["r"],s["a0"],s["a1"],s["zc"])
     elif k == "ring_notched_tube":

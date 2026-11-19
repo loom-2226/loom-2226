@@ -43,7 +43,7 @@
  },
  "canon": {
   "prov": "CANON: kT Phase1b 2026-11-08 G1 water reference update",
-  "source": "CANON II v2.4 \u00a75, \u00a713, \u00a714; Schematic Amendment v2.4a",
+  "source": "CANON II v2.4 §5, §13, §14; Schematic Amendment v2.4a",
   "main_body_m": [
    57,
    9
@@ -283,23 +283,49 @@
   }
  },
  "shuttle": {
-  "prov": "KT_DECISION / ASSUMPTION-SIZER",
-  "source": "2026-11-03 R2-R5 resized shuttle midpoint from research/shuttle-v1-resize-20261103; NON-CANON, not hardware-qualified; includes assumed 1.5t Mars base TPS, excludes Venus kit",
-  "key": "SHUTTLE_V1_RESIZED_3P8_POD_2P5_CREW3",
-  "dry_t": 30.020646738,
+  "prov": "kT B4-S engineering 2026-11-19, source B4-S exact flight mesh/rolled hull",
+  "source": "wayfarer/lab/shuttle/v2_lifting_body/build_b4s.py:shuttle('flight'); b4s_source_hull.json conservative convex collision envelope",
+  "key": "SHUTTLE_B4S_STANDARD_6_SEAT_ROLLED90",
+  "dry_t": 36.48,
   "length_m": 12.8,
-  "diameter_m": 3.8,
+  "diameter_m": 4.27873813173931,
   "x_m": [
    18.75,
    31.55
   ],
   "water_cap_t": 23.1,
-  "max_trip_t": 51.1,
+  "max_trip_t": 59.58,
   "torch_gw": 7.7,
-  "venus_kit_t": 10.26875,
-  "crew_seats": 3,
+  "venus_kit_t": 15.17,
+  "crew_seats": 6,
   "venus_surface_crew": 3,
-  "nose_port_x_m": 18.75
+  "nose_port_x_m": 18.75,
+  "b4s_roll_deg": 90,
+  "b4s_stowed_radius_m": 2.139369065869655,
+  "b4s_stowed_halfwidth_m": 1.5051070084237355,
+  "b4s_venus_halfwidth_m": 1.86,
+  "docked_dry_limit_t": 37.0,
+  "b4s_venus_kit_is_payload": true,
+  "b4s_berth": {
+   "status": "ENGINEERING CANDIDATE; liner-paid, load-screened, not fabricated",
+   "attitude": "rolled +90 starboard to +Z, nose port on axis",
+   "mass_ownership": "bay_liner within existing structure split; no new source mass",
+   "cradle_count": 4,
+   "cradle_mount_x_m": [
+    20.0,
+    30.0
+   ],
+   "cradle_mount_y_m": [
+    -1.2,
+    1.2
+   ],
+   "latch_allow_tension_mn_each": 0.75,
+   "effective_shear_area_m2_each": 0.0036,
+   "allowable_shear_mpa": 250.0,
+   "ultimate_g": 7.5,
+   "load_route": "bay-liner ring frames to four axial longerons; main shuttle acceleration not carried by pressure-transfer nose collar",
+   "qualification": "Member stress envelope only; pad interfaces, fatigue, latch hardware, structural details UNQUALIFIED"
+  }
  },
  "drones": {
   "prov": "DERIVED",
@@ -722,7 +748,7 @@
        "inner_shape": "X(r)=3.043118-3.343118*sqrt(1-(r/4.3)^2), 0<=r<=3.50",
        "pressure_milestone": "PENDING: OUTER and INNER independent full-scale 7m ceramic pressure domes, INNER replacing the old PV bow cap, with AOI between; actual failure independence and pressure proof OPEN",
        "outermost_band_stagger_rad": 0.261799387799,
-       "outer_pattern_provenance": "RESTORED f07354f: 37 modules [1,12,12,12], radii [0,.75,2,2.75,3.5], final band \u03c0/12 stagger. Maximum hoop chord 1.812m; within existing 1.9m check. Additional outer ceramic mass from reserve.",
+       "outer_pattern_provenance": "RESTORED f07354f: 37 modules [1,12,12,12], radii [0,.75,2,2.75,3.5], final band π/12 stagger. Maximum hoop chord 1.812m; within existing 1.9m check. Additional outer ceramic mass from reserve.",
        "outer_areal_kg_m2": 37.5,
        "true_conical_surface_area_m2": 52.887838,
        "outer_profile": "OPTION C: X(r)=-1.2 for r<=2.0; -1.2+(r-2)*tan(50deg) to r3.5; faired to shoulder at r4.5; I4 pane rings unchanged"
@@ -881,7 +907,7 @@
          0.071594
         ],
         "total_mass_t": 0.385772,
-        "storage_note": "Position x14.9-16.1, y -3.35..-2.65, z +/-0.5 m is inside courier SERVICE HOLD PORT x14..17 and \u03b8135..225, r2..4.3. Not in midship remass tanks. Seven individually packed spare 1cm outer panes from reserve; no payload double-count."
+        "storage_note": "Position x14.9-16.1, y -3.35..-2.65, z +/-0.5 m is inside courier SERVICE HOLD PORT x14..17 and θ135..225, r2..4.3. Not in midship remass tanks. Seven individually packed spare 1cm outer panes from reserve; no payload double-count."
        },
        "gores": {
         "count": 16,
@@ -1926,7 +1952,7 @@
      "221": -4.0,
      "259": 4.0
     },
-    "wws1_round2_note": "2026-11-03 kT: ten \u00d80.8m WWS-1 panes, upper tier \u03b8 shifted \u00b14deg to preserve \u226510cm between paired apertures and clear fixed Metric faces, x lower 7.54 upper 6.65. Frame ring outside berth headspace; physical seal/retainer clearance inside 0.82m tier is OPEN.",
+    "wws1_round2_note": "2026-11-03 kT: ten Ø0.8m WWS-1 panes, upper tier θ shifted ±4deg to preserve ≥10cm between paired apertures and clear fixed Metric faces, x lower 7.54 upper 6.65. Frame ring outside berth headspace; physical seal/retainer clearance inside 0.82m tier is OPEN.",
     "standard": "WWS-1 ceramic / AOI-2226 / Strata closing shutter"
    },
    "viewport_band": {
@@ -2175,6 +2201,20 @@
    "nacelle_basis": "kT 2026-11-17 p95 8.0 t; four nacelles, eight parallel links, eight 45-degree ring arms drawn in two candidate states, no shielding credit",
    "manifold_basis": "PR #557 p95 52.15 t; includes named ~50 K torch magnet cryocooler",
    "status": "kT-approved mass rebooking; nacelle physical installation remains OPEN"
+  },
+  "shuttle_b4s_rebook": {
+   "authority": "shuttle_g8_envelope_37t_b4s_rebook_2026_11_19",
+   "prior_study_booked_v1_t": 30.732248081255836,
+   "actual_prior_source_base_t": 30.020646738,
+   "new_source_booked_t": 36.48,
+   "study_delta_t": 5.747751918744161,
+   "source_vs_study_correction_t": 0.7116013432558361,
+   "actual_source_debit_from_reserve_t": 6.459353261999997,
+   "old_reserve_total_t": 48.506155556,
+   "new_reserve_total_t": 42.046802294,
+   "reserved_floor_t": 16.8,
+   "reason": "Source v1 base is 30.020646738; historical lab 30.732248 was a separate earlier after-growth number; reconcile openly rather than double-debit or move dry.",
+   "source_mass_only_venuskits_t": 0
   }
  },
  "longerons": {
@@ -2297,8 +2337,16 @@
  },
  "metric_nacelles": {
   "authority": "kT nacelle_fit_and_aft_rcs_cant_25_2026_11_17",
-  "azimuths_deg": [0, 90, 180, 270],
-  "x_m": [39.5, 54.3],
+  "azimuths_deg": [
+   0,
+   90,
+   180,
+   270
+  ],
+  "x_m": [
+   39.5,
+   54.3
+  ],
   "nacelle_r_m": 0.6,
   "r_tucked_m": 4.05,
   "r_deployed_m": 4.6,
@@ -2434,7 +2482,7 @@
   }
  },
  "states": {
-  "prov": "CERTIFICATION_BASIS_v0.1 \u00a75",
+  "prov": "CERTIFICATION_BASIS_v0.1 §5",
   "S1": {
    "name": "reference departure",
    "remass_t": 245.39043171108221,
@@ -3689,7 +3737,7 @@
   "mass_model_warning": "The existing 5.867t L2 band and per-port older frame allocations remain as baseline physical hardware. Only replacement uplift above these retained assemblies is booked to released reserve. Crown armour/hull credit is local areal-equivalence; detailed cutout mass and mounting loads remain OPEN. OG-3 swaps already-booked AOI mass only. Added depth ZERO. Optical/radiation dose data OPEN.",
   "wws1_longeron_reinforcement_from_released_t": 0.06,
   "wws1_longeron_reason": "Observed G5 new-window build stress 250.9MPa > 250MPa; +0.060t already-allocated released longeron material; no criteria relaxation. Re-run exactly.",
-  "medical_port_relocation_note": "2026-11-03 G9 actual hull-crawler point #6 at x8.94\u20139.06, theta190.49\u2013192.01 overlapped 0.75m medical window at x9.10. Move the window to x9.55 with \u22650.075m clearance beyond nearest principal-frame plane and no remaining equipment collisions under existing G9 footprint criteria; node faces unchanged.",
+  "medical_port_relocation_note": "2026-11-03 G9 actual hull-crawler point #6 at x8.94–9.06, theta190.49–192.01 overlapped 0.75m medical window at x9.10. Move the window to x9.55 with ≥0.075m clearance beyond nearest principal-frame plane and no remaining equipment collisions under existing G9 footprint criteria; node faces unchanged.",
   "new_draw_cap_t": 12.0,
   "installed_mass_cap_t": null,
   "round2_reference": "windows_wws1_round2: corrected NEW-draw cap, NO installed-mass cap",

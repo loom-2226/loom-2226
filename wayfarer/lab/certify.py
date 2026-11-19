@@ -96,8 +96,24 @@ def g1(I, C, G):
               + L.get("d8_secondary_doubler_added_t",0.0))
     AOI = I["habitat"]["decks"][0].get("command_layout",{}).get("crown_dome",{}).get("adaptive_optogel")
     crown_delta = I["ledger"].get("og3_crown_conformal_bookkeeping",{}).get("physical_mass_delta_t",0.)
+    sr=L.get("shuttle_b4s_rebook",{})
+    expect-=sr.get("actual_source_debit_from_reserve_t",0.)
     dry = G["dry_t"]
     cs = [chk("parts sum to the ledger", round(dry, 2), round(expect, 2), abs(dry - expect) <= C["G1"]["ledger_tolerance_t"], "t")]
+    if sr:
+        booked=next(p["mass_t"] for p in G["parts"] if p["id"]=="shuttle")
+        source_debit=I["shuttle"]["dry_t"]-sr["actual_prior_source_base_t"]
+        cs.extend((
+          chk("B4-S standard docked source dry p95 booked, zero reserve-spread duplication",
+              round(booked,9),36.48,abs(booked-36.48)<1e-8,"t"),
+          chk("B4-S historical-study delta + source correction equals actual reserve debit",
+              round(sr["study_delta_t"]+sr["source_vs_study_correction_t"],9),
+              round(source_debit,9),abs(sr["study_delta_t"]+sr["source_vs_study_correction_t"]-source_debit)<1e-8,"t"),
+          chk("B4-S source debit reduces only available engineering reserve; dry invariant",
+              round(G["ledger_reserve_t"],9),round(sr["old_reserve_total_t"]-source_debit,9),
+              abs(G["ledger_reserve_t"]-sr["old_reserve_total_t"]+source_debit)<1e-8,"t"),
+          chk("B4-S after-rebooking engineering reserve floor",
+              round(G["ledger_reserve_t"],9),16.8,G["ledger_reserve_t"]>=16.8,"t")))
     rebook=L.get("thermal_rebook")
     reserve_return=(rebook["prior_manifold_t"]-L["thermal_radiators_t"]-L["metric_nacelles_ring_t"]) if rebook else 0.
     reserve_before=rebook["prior_engineering_reserve_t"] if rebook else L["engineering_reserve_t"]
@@ -1426,8 +1442,9 @@ def g7(I, C, G):
 def g8(I, C, G):
     c8 = C["G8"]
     S, Bay = I["shuttle"], I["bay"]
-    rs = S["diameter_m"] / 2
-    cs = [chk("radial clearance in the bore", round(Bay["bore_r_m"] - rs, 2), c8["radial_clearance_min_m"], Bay["bore_r_m"] - rs >= c8["radial_clearance_min_m"] - 1e-9, "m"),
+    rs = S.get("b4s_stowed_radius_m",S["diameter_m"]/2)
+    exit_halfwidth = S.get("b4s_stowed_halfwidth_m",rs)
+    cs = [chk("radial clearance in the bore", round(Bay["bore_r_m"] - rs, 3), c8["radial_clearance_min_m"], Bay["bore_r_m"] - rs >= c8["radial_clearance_min_m"] - 1e-9, "m"),
           chk("axial clearance, forward", round(S["x_m"][0] - Bay["x_m"][0], 2), c8["axial_clearance_min_m"], S["x_m"][0] - Bay["x_m"][0] >= c8["axial_clearance_min_m"] - 1e-9, "m"),
           chk("axial clearance, aft", round(Bay["x_m"][1] - S["x_m"][1], 2), c8["axial_clearance_min_m"], Bay["x_m"][1] - S["x_m"][1] >= c8["axial_clearance_min_m"] - 1e-9, "m")]
     # lateral (+Z) exit path: the shuttle's cross-section |y| <= rs sweeps upward through the slot
@@ -1447,8 +1464,10 @@ def g8(I, C, G):
                 ys.append(abs(along * c_ - across * s_))
         obst.append((f"strake {az} deg (stowed or deployed)", min(ys)))
     for nm, yy in obst:
-        cl = yy - rs
-        cs.append(chk(f"exit path clear of {nm}", round(cl, 2), c8["path_clearance_min_m"], cl >= c8["path_clearance_min_m"] - 1e-9, "m"))
+        for mode,w in (("standard rolled",exit_halfwidth),("Venus-kit rolled",S.get("b4s_venus_halfwidth_m",exit_halfwidth))):
+            cl=yy-w
+            cs.append(chk(f"{mode}: exit path clear of {nm}",round(cl,3),c8["path_clearance_min_m"],
+                          cl>=c8["path_clearance_min_m"]-1e-9,"m"))
     HF = I.get("hot_fins")
     if HF:
         worst = min(abs((HF["root_r_m"] + a_) * math.cos(math.radians(az)) - sd * HF["stowed_stack_thickness_m"] / 2 * math.sin(math.radians(az)))
@@ -1458,6 +1477,27 @@ def g8(I, C, G):
         cs.append(chk("hot fins clear the shuttle corridor (carried aft of the bay on +Z)", round(cl, 2), c8["corridor_clearance_m"],
                       cl >= c8["corridor_clearance_m"] - 1e-9, "m from the slot edge line",
                       f"fins at x {HF['x_m'][0]}-{HF['x_m'][1]} m, {HF['x_m'][0] - Bay['x_m'][1]:.2f} m aft of the bay; a shuttle that drifts aft on leaving or arriving still meets no fin"))
+    if S.get("b4s_roll_deg") is not None:
+        berth=S["b4s_berth"]
+        load_mn=S["docked_dry_limit_t"]*1000*berth["ultimate_g"]*G0/1e6
+        each=load_mn/berth["cradle_count"]
+        rated=berth["cradle_count"]*berth["latch_allow_tension_mn_each"]
+        shear_mpa=each*1e6/(berth["effective_shear_area_m2_each"]*1e6)
+        cs.append(chk("B4-S rolled berth four-latch rated strength at 37t x 5g x 1.5",
+                      round(rated,4),round(load_mn,4),rated>=load_mn,"MN",
+                      "4 liner-paid candidate latches; interfaces/fatigue unqualified"))
+        cs.append(chk("B4-S rolled berth effective lug shear stress at ultimate",
+                      round(shear_mpa,2),berth["allowable_shear_mpa"],
+                      shear_mpa<=berth["allowable_shear_mpa"],"MPa",
+                      "4 x 60x60mm net shear area; no new structure mass; actual joints OPEN"))
+        cs.append(chk("B4-S berth source mass owned by existing liner, not separate reserve draw",
+                      berth["mass_ownership"].startswith("bay_liner"),True,
+                      berth["mass_ownership"].startswith("bay_liner")))
+        cs.append(chk("B4-S docked roll +90: starboard faces +Z slot",S["b4s_roll_deg"],90,
+                      S["b4s_roll_deg"]==90,"deg","nose-port axis and x positions remain unchanged"))
+        cs.append(chk("B4-S standard dry below kT 37t G8 Gate A envelope",
+                      S["dry_t"],S["docked_dry_limit_t"],S["dry_t"]<=S["docked_dry_limit_t"],"t",
+                      "Venus-kit 15.17t mid is PAYLOAD, not standard docked dry"))
     segs = I["service"]["tunnel"]["segments"]
     ok = abs(segs[-1]["to"][0] - S["nose_port_x_m"]) < 0.05 and segs[0]["from"][0] >= I["hull"]["pressure_vessel_x_m"][1] - 0.05
     cs.append(chk("pressure-tight transfer from habitat to shuttle nose", "habitat - collar node - bay axis - nose port" if ok else "broken", "continuous", ok))
