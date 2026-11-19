@@ -16,6 +16,9 @@ permissions:
 
 jobs:
   A_two_steps:
+    # B4-S has its own full two-state BRep D9. The historical nacelle-only
+    # validator rightly rejects a changed shuttle and must not govern it.
+    if: github.event_name != 'pull_request' || !startsWith(github.head_ref, 'engineering/shuttle-b4s-')
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
@@ -355,7 +358,9 @@ jobs:
           if-no-files-found: warn
 
   E_certify_pair:
-    if: always()
+    # B4-S has its own full installed-solid two-state BRep D9. The legacy
+    # nacelle-only finaliser must not run after A_two_steps was skipped.
+    if: always() && (github.event_name != 'pull_request' || !startsWith(github.head_ref, 'engineering/shuttle-b4s-'))
     needs: [A_two_steps, B_pressure, C_primaries, D_pairs]
     runs-on: ubuntu-latest
     timeout-minutes: 10

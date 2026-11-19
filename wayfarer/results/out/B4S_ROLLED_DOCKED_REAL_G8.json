@@ -1,0 +1,45 @@
+{
+  "source_geometry_sha256": "78803b00be05f6e0f437ee3161f97d35dc6788d51f2342702475d6619278bf2d",
+  "states": {
+    "flight": {
+      "parts": 30,
+      "stowed_halfwidth_m": 1.5051070084237355,
+      "radius_m": 2.139369065869655,
+      "slot_clearance_m": 0.8948929915762645,
+      "longeron_clearance_m": 1.0448929915762644,
+      "bay_bore_clearance_m": 0.260630934130345,
+      "forward_axial_m": 0.5,
+      "aft_axial_m": 0.49999999999999645,
+      "PASS": true
+    },
+    "venus": {
+      "parts": 37,
+      "stowed_halfwidth_m": 1.86,
+      "radius_m": 2.139369065869655,
+      "slot_clearance_m": 0.5399999999999998,
+      "longeron_clearance_m": 0.6899999999999997,
+      "bay_bore_clearance_m": 0.260630934130345,
+      "forward_axial_m": 0.5,
+      "aft_axial_m": 0.49999999999999645,
+      "PASS": true
+    }
+  },
+  "berth_load_mn": 2.721345375,
+  "berth_latch_capacity_mn": 3.0,
+  "berth_ultimate_shear_mpa": 188.98231770833334,
+  "berth_allowable_shear_mpa": 250.0,
+  "sh_standard_dry_t": 36.48,
+  "venus_kit_payload_mid_t": 15.17,
+  "unchanged_G8_criteria": {
+    "radial_clearance_min_m": 0.25,
+    "axial_clearance_min_m": 0.5,
+    "path_clearance_min_m": 0.5,
+    "drones_min": 4,
+    "corridor_clearance_m": 1.0,
+    "A": [
+      "corridor_clearance_m"
+    ],
+    "_added_v052_G8": "shuttle corridor clearance added in v0.5.2 for the hot fins: no fin within 1.0 m of the slot edge lines on the +Z side, the clearance the strake roots already keep"
+  },
+  "pass": true
+}

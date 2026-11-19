@@ -1,0 +1,38 @@
+{
+  "authority": "kT B4-S +90 rolled source 2026-11-19",
+  "both_required": true,
+  "geometry_sha256": "78803b00be05f6e0f437ee3161f97d35dc6788d51f2342702475d6619278bf2d",
+  "old_source_sha256": "f83939a5f2b959e7289f5f6fb584fc21fe475bd0980266f56a6e124dd1f985d0",
+  "pass": true,
+  "prior_pair_pass_source_sha256": "f83939a5f2b959e7289f5f6fb584fc21fe475bd0980266f56a6e124dd1f985d0",
+  "qualification": "Full B-rep pair screen before and after water debit, 2 states; conservative convex outer hull derived from authored B4-S flight mesh. Primary BReps inherited only from byte-identical source; no new physical clearances credited to source proxy.",
+  "states": {
+    "Metric": {
+      "category_d_intersections": 0,
+      "changed_source_shape": "dry:shuttle only",
+      "errors": [],
+      "inherited_prior_pair_pass": true,
+      "new_nacelles": 20,
+      "original_protected_solids": 194,
+      "pairs_per_assembly": 22791,
+      "pass": true,
+      "shuttle_replaced": 1,
+      "source_assembly": "byte-identical #559 base 315 BReps plus #563 20 state STEP overlay, dry:shuttle substituted with rolled B4-S source convex hull",
+      "unchanged_primary_members_from_pr563": 43
+    },
+    "torch": {
+      "category_d_intersections": 0,
+      "changed_source_shape": "dry:shuttle only",
+      "errors": [],
+      "inherited_prior_pair_pass": true,
+      "new_nacelles": 20,
+      "original_protected_solids": 194,
+      "pairs_per_assembly": 22791,
+      "pass": true,
+      "shuttle_replaced": 1,
+      "source_assembly": "byte-identical #559 base 315 BReps plus #563 20 state STEP overlay, dry:shuttle substituted with rolled B4-S source convex hull",
+      "unchanged_primary_members_from_pr563": 43
+    }
+  },
+  "threshold_m3": 0.01
+}

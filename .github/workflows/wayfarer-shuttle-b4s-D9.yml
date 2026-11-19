@@ -1,0 +1,118 @@
+name: Wayfarer B4-S source BRep two-state D9
+on:
+  pull_request:
+    paths:
+      - 'wayfarer/lab/shuttle/b4s_d9.py'
+      - 'wayfarer/lab/shuttle/v2_lifting_body/b4s_source_hull*'
+      - 'wayfarer/results/out/wayfarer_v05_geometry.json'
+      - 'wayfarer/config/wayfarer_v05_inputs.json'
+      - '.github/workflows/wayfarer-shuttle-b4s-D9.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  A_source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install build123d==0.13.0 numpy scipy
+      - name: Restore certified #563 immutable source and two state STEP overlays
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          target=wayfarer/lab/metric_nodes/nacelle_candidates
+          mkdir -p "$target" wayfarer/lab/packing_phase1b
+          gh run download 44469825462 -R loom-2226/loom-2226 -n nacelle-pair-source -D "$target"
+          gh run download 44469825462 -R loom-2226/loom-2226 -n nacelle-two-state-final-D9 -D "$target/prior"
+          cp "$target/prior/D9_NACELLE_TWO_STATE_REPORT.json" "$target/pr563_D9_NACELLE_TWO_STATE_REPORT.json"
+          cp "$target/approved_source/current_g3_3p8_forward.step.gz" "$target/approved_source/current_g3_rebuild_report.json" wayfarer/lab/packing_phase1b/
+      - name: B4-S new-solid collision screen against all installed BReps
+        run: |
+          python -u wayfarer/lab/shuttle/b4s_d9.py screen --state torch
+          python -u wayfarer/lab/shuttle/b4s_d9.py screen --state Metric
+      - name: Bundle immutable validated basis for independent pair shards
+        run: |
+          tar -czf b4s-basis.tar.gz             wayfarer/lab/metric_nodes/nacelle_candidates/base_geometry.json             wayfarer/lab/metric_nodes/nacelle_candidates/candidate_manifest.json             wayfarer/lab/metric_nodes/nacelle_candidates/candidate_torch.step.gz             wayfarer/lab/metric_nodes/nacelle_candidates/candidate_Metric.step.gz             wayfarer/lab/metric_nodes/nacelle_candidates/pr563_D9_NACELLE_TWO_STATE_REPORT.json             wayfarer/lab/packing_phase1b/current_g3_3p8_forward.step.gz             wayfarer/lab/packing_phase1b/current_g3_rebuild_report.json             wayfarer/results/out/b4s_d9/screen_torch.json             wayfarer/results/out/b4s_d9/screen_Metric.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: b4s-basis
+          path: b4s-basis.tar.gz
+          retention-days: 30
+  B_pairs:
+    needs: A_source
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        state: [torch, Metric]
+        shard: [0,1,2,3,4,5,6,7]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install build123d==0.13.0 numpy scipy
+      - uses: actions/download-artifact@v4
+        with:
+          name: b4s-basis
+      - run: tar -xzf b4s-basis.tar.gz
+      - name: Full BRep pair classification before and after source water debit
+        run: python -u wayfarer/lab/shuttle/b4s_d9.py pairs --state ${{ matrix.state }} --shard ${{ matrix.shard }} --shards 8
+      - name: Preserve source-linked shard evidence
+        if: always()
+        run: |
+          f=wayfarer/results/out/b4s_d9/${{ matrix.state }}/pairs-${{ matrix.shard }}.json
+          if test -f "$f"; then tar -czf "b4s-shard-${{ matrix.state }}-${{ matrix.shard }}.tar.gz" "$f"; fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b4s-shard-${{ matrix.state }}-${{ matrix.shard }}
+          path: b4s-shard-*.tar.gz
+          if-no-files-found: warn
+          retention-days: 30
+  E_certify:
+    needs: B_pairs
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install build123d==0.13.0 numpy scipy
+      - uses: actions/download-artifact@v4
+        with:
+          name: b4s-basis
+      - run: tar -xzf b4s-basis.tar.gz
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: b4s-shard-*
+          path: /tmp/b4s_d9_shards
+          merge-multiple: true
+      - name: Restore all shard reports
+        run: |
+          set -euo pipefail
+          for f in /tmp/b4s_d9_shards/*.tar.gz; do tar -xzf "$f"; done
+      - name: Strict AND two states, unchanged criterion, all installed pairs
+        run: python -u wayfarer/lab/shuttle/b4s_d9.py merge
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b4s-two-state-final-D9
+          path: |
+            wayfarer/results/out/D9_B4S_TWO_STATE_REPORT.json
+            wayfarer/results/out/D9_BREP_CLASH_REPORT.json
+          retention-days: 30

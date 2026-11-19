@@ -1,0 +1,30 @@
+name: Wayfarer B4-S rolled docked real-mesh G8
+on:
+  pull_request:
+    paths:
+      - 'wayfarer/lab/shuttle/b4s_g8.py'
+      - 'wayfarer/lab/shuttle/v2_lifting_body/b4s_source_hull*'
+      - 'wayfarer/lab/shuttle/v2_lifting_body/build_b4s.py'
+      - 'wayfarer/config/wayfarer_v05_inputs.json'
+      - 'wayfarer/lab/shuttle/shuttle_inputs.json'
+      - 'wayfarer/results/out/wayfarer_v05_geometry.json'
+      - '.github/workflows/wayfarer-shuttle-b4s-G8.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  b4s-real-G8:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install numpy scipy
+      - name: Regenerate collision hull from authored flight mesh
+        run: |
+          python wayfarer/lab/shuttle/v2_lifting_body/b4s_source_hull.py
+          git diff --exit-code wayfarer/lab/shuttle/v2_lifting_body/b4s_source_hull.json
+      - name: Rolled B4-S real mesh G8, berth, mass
+        run: python -u wayfarer/lab/shuttle/b4s_g8.py
