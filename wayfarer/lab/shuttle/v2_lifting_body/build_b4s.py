@@ -115,7 +115,7 @@ def shuttle(state):
     venus = state in ('venus', 'glide', 'landed', 'rover_out'); kind = 'venus' if venus else 'light'
     if not venus: P.pop('kit_pod', None)                      # dorsal kit fairing only with the Venus kit
     P['cabin'] = cabin(BULK_X)
-    P['dorsal_hatch'] = B.tube((5.2, 0, 1.0), (5.2, 0, 1.46), .40, 32)
+    P['dorsal_hatch'] = B.tube((7.4, 0, 1.28), (7.4, 0, 1.53), .40, 32)   # flush roof hatch aft of the windscreen (was x 5.2, standing 0.27 m proud in front of it)
     P['aft_bulkhead_hatch'] = disc(BULK_X, .45, POD_Z)
     out = state in ('rover_out', 'rover_std')
     if out: P.update(pod_parts(at=(0, 5.6, (VA.GROUND_Z + WHEEL_R) - (FLOOR_Z - .55)), wheels='down', kind=kind))
