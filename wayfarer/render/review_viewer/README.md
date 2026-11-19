@@ -49,3 +49,5 @@ visual-reference tool only: it is not canon and does not govern anything.
 - **Nodes → Selected:** the 208 selected node faces booked in PR #563 (120 hull, 20 cone, 68 nacelles and ring),
   tucked or deployed with the radiator mode. Geometric proxy only, not PR #356 qualified.
 - The released canon exterior GLBs are unchanged until kT signs off; the aft RCS cant (25 deg) is not yet in them.
+- **Shuttle B4-S (20 Nov 2026):** the stowed B4-S (PR #567, rolled 90°) replaces the v1 shuttle in the bay view.
+  `glb/shuttle_b4s.json` is built by `tools/shuttle_overlay.py` from `render/out/b4s_candidates/`.
