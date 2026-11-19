@@ -55,10 +55,52 @@ def validate():
     assert len(G["fluids_by_state"]["S1"])==len(G0["fluids_by_state"]["S1"])
     for a,b in zip(G["fluids_by_state"]["S1"],G0["fluids_by_state"]["S1"]):
         assert (a["id"],a["shape"],a["mat"],a["tags"])==(b["id"],b["shape"],b["mat"],b["tags"])
-    assert set(new)-set(old)=={x[4:] for x in NEW_NAMES}
+    # Installed-source difference is ONLY the 20 nacelle STEP solids.
+    # #563's 12 node/trunk entries are mass-only bookkeeping, not solids.
+    def physical(parts):
+        return {n for n,p in parts.items()
+                if "mass_only" not in p["tags"] and "no_render" not in p["tags"]}
+    assert physical(new)-physical(old)=={x[4:] for x in NEW_NAMES}
+    assert physical(old)-physical(new)==set()
+    # The pre-nacelle unlocated proxy is still the only removed raw part.
     assert set(old)-set(new)=={"metric_nacelles_ring_unlocated"}
+
+    booking=read(LAB/"plant_layout/plant_node_booking.json")
+    items={it["id"]:it for it in booking["items"]}
+    assert len(items)==12 and len(booking["items"])==12
+    mass_only_added={n for n in set(new)-set(old) if
+                     "mass_only" in new[n]["tags"] or "no_render" in new[n]["tags"]}
+    assert mass_only_added==set(items)
+    assert set(new)-set(old)=={x[4:] for x in NEW_NAMES}|set(items)
+    assert booking["door_leaf_nodes"]==0
+    assert sum(it["nodes"] for it in items.values())==208
+    # The source booking is exactly 88 t BEFORE the pre-existing engineering
+    # reserve spread. Verify the source mass, and its unchanged scaling in
+    # the built physical-mass ledger, without conflating those two ledgers.
+    fore=booking["plant_blocks_after"]["plant_fore"]
+    aft=booking["plant_blocks_after"]["plant_aft"]
+    assert fore==35.75 and aft==35.75
+    assert I["service"]["plant_fore"]["mass_t"]==fore
+    assert I["service"]["plant_aft_mass_t"]==aft
+    assert I["ledger"]["relational_plant_t"]==88.0
+    item_total=sum(it["total_t_exact"] for it in items.values())
+    assert abs(item_total-16.5)<1e-12
+    assert abs(item_total+fore+aft-88.0)<1e-12
+    assert G["plant_node_booking"]["source_booked_t"]==88.0
+    reserve_factor=new["plant_fore"]["mass_t"]/fore
+    assert abs(new["plant_aft"]["mass_t"]-aft*reserve_factor)<1e-10
+    for n,it in items.items():
+        p=new[n]
+        assert {"mass_only","no_render"}.issubset(p["tags"]),n
+        assert p["dry"] and p["volume_m3"]==0,n
+        assert abs(p["mass_t"]-it["total_t_exact"]*reserve_factor)<1e-10,n
+    scaled_total=(new["plant_fore"]["mass_t"]+new["plant_aft"]["mass_t"]+
+                  sum(new[n]["mass_t"] for n in items))/reserve_factor
+    assert abs(scaled_total-88.0)<1e-10
+
     for n in set(old)&set(new):
         a,b=old[n],new[n]
+        # plant_fore/aft may change only their masses: geometry remains fixed.
         assert (a["shape"],a["mat"],a["tags"])==(b["shape"],b["mat"],b["tags"]),n
     phys=sorted(((p["id"],p["shape"],p["mat"],p["tags"])
                  for p in G["parts"]+G["fluids_by_state"]["S1"] if "no_render" not in p["tags"] and
