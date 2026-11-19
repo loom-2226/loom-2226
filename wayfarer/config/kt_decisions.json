@@ -1833,5 +1833,16 @@
     "mass_rebooking_t": 0,
     "G1_G12": "NOT RUN",
     "status": "APPROVED DIRECTION, NON-CANON; full build next"
+  },
+  "shuttle_b4_standard_rover_venus_kit_2026_11_19": {
+    "authority": "kT APPROVED 2026-11-19 (Claude chat): 'I like this idea. A \"Venus kit\" kept in the shuttle. Takes some setup time, but both rover a shuttle meet specs. Without the kit. Rover plus far more spacious shuttle for more passengers. Meant for earth atmosphere and lower pressure.'; then 'Yes, that's it' and 6 seats",
+    "scope": "STANDARD shuttle (no kit): 6-seat 1-bar cabin (~27 m3) + a light 1-bar rover (composite cabin rated +-1 bar) riding in the aft rover slot on the common folding crab-steer chassis; rated for Earth-type and lower pressures (Moon, Mars, Earth, Titan). VENUS KIT (installed before Venus trips, setup time): swaps the light rover cabin for a ring-stiffened Ti pressure capsule (1.9 m x 3.0 m, ~6.7 m3, 92 bar outside / 1 bar inside, 3 crew) on the same chassis, plus Venus entry heat shield, cooler and hot loop; shuttle and rover both meet the Venus spec. Rover leaves by the starboard side door (ramp + wing awning) in both configurations",
+    "supersedes": "the single 2.1 m Ti sphere of shuttle_b4_split_cabin_venus_pod_2026_11_19 (kT: 'I didn't think the rover was a sphere anymore'; chose the capsule)",
+    "model": "wayfarer/lab/shuttle/v2_lifting_body/build_b4s.py, b4s_manifest.json, viewer/b4s.html",
+    "replaces": "nothing yet: shuttle v1 stays the booked shuttle until mass model, gates and rebooking pass",
+    "canon_change": false,
+    "mass_rebooking_t": 0,
+    "G1_G12": "NOT RUN",
+    "status": "APPROVED DIRECTION, NON-CANON; 3D model built; mass model next"
   }
 }

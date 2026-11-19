@@ -3,16 +3,17 @@ NON-CANON. ALL bodies. ALL sponsors. 2026-2226."""
 import base64, json, os
 HERE = os.path.dirname(os.path.abspath(__file__)); G = os.path.join(HERE, 'viewer', 'glb')
 M = json.load(open(os.path.join(HERE, 'b4s_manifest.json')))
-STATES = [('flight', 'Flight'), ('venus', 'Venus trip'), ('glide', 'Glide'), ('landed', 'Landed'), ('rover_out', 'Rover out')]
+STATES = [('flight', 'Standard'), ('rover_std', 'Rover (std)'), ('venus', 'Venus kit'), ('glide', 'Glide'), ('landed', 'Venus landed'), ('rover_out', 'Venus rover')]
 DATA = {k: base64.b64encode(open(os.path.join(G, f'b4s_{k}.glb'), 'rb').read()).decode() for k, _ in STATES}
-CAP = {'flight': f"Standard flight: the 1-bar cabin runs the full length ({M['cabin']['standard_flight_m3']:.0f} m³). Wings folded flat on the flanks.",
-       'venus': f"Venus trip: the pod docks to the cabin's back hatch; cabin {M['cabin']['venus_flight_m3']:.0f} m³ + pod {M['pod']['volume_m3']:.1f} m³. Crew ride entry in the pod.",
+CAP = {'flight': f"Standard (no kit): 6-seat 1-bar cabin ({M['cabin']['volume_m3']:.0f} m³) + light rover docked at the back. For Earth-type and lower pressures: Moon, Mars, Earth, Titan.",
+       'rover_std': 'Standard rover out: light 1-bar cabin on the common crab-steer chassis, down the side-door ramp.',
+       'venus': f"Venus kit installed: the Ti pressure capsule ({M['rover']['venus_capsule_m3']:.1f} m³, 92 bar) replaces the light rover cabin on the same chassis; kit fairing on the back deck.",
        'glide': 'Gliding: the double-fold wings swing out from the shoulders (8.3 m span).',
-       'landed': 'Landed on four short legs, belly 0.6 m up. Doors shut, crew in the pod.',
-       'rover_out': 'Side door open: lower flank is the ramp, the wing is the awning. The pod drives out on four crab-steer wheels.'}
+       'landed': 'Venus: landed on four short legs, belly 0.6 m up. Crew in the capsule, cabin vented.',
+       'rover_out': 'Venus rover out: the Ti capsule on the same chassis, cooler on top, down the side-door ramp.'}
 html = r'''<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Shuttle B4-S: big cabin + Venus pod</title>
+<title>Shuttle B4-S: cabin, rover, Venus kit</title>
 <style>
 html,body{margin:0;height:100%;background:#0d1117;color:#e6e6e6;font:13px/1.35 -apple-system,system-ui,sans-serif;overflow:hidden}
 canvas{display:block;width:100%;height:100%;touch-action:none}
@@ -24,8 +25,8 @@ button.on{background:#2a78d6;border-color:#2a78d6}#bX.on{background:#1baf7a;bord
 #err{position:fixed;left:0;right:0;top:45%;text-align:center;color:#9aa4ae}
 </style></head><body>
 <canvas id="c"></canvas>
-<div id="hud"><b>Shuttle B4-S</b> <span class="s">big 1-bar cabin + Venus pod that becomes the rover · NON-CANON lab model</span>
-<div id="cap"></div><div class="s" style="margin-top:4px">Blue = cabin · copper = Venus pod · gold = pod cooler. Drag to orbit, pinch to zoom.</div></div>
+<div id="hud"><b>Shuttle B4-S</b> <span class="s">6-seat cabin + rover; Venus kit swaps in a Ti capsule · NON-CANON lab model</span>
+<div id="cap"></div><div class="s" style="margin-top:4px">Blue = cabin · white = light rover · copper = Venus Ti capsule · gold = cooler. Drag to orbit, pinch to zoom.</div></div>
 <div id="bar">__BUTTONS__<button id="bX">X-ray</button></div>
 <div id="err">Loading…</div>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
@@ -58,8 +59,8 @@ async function show(k){
   document.getElementById('cap').textContent = CAP[k];
   if (!cache[k]) cache[k] = await new Promise((ok, no) => new GLTFLoader().parse(bytes(DATA[k]), '', g => ok(g.scene), no));
   if (cur) scene.remove(cur); cur = cache[k]; scene.add(cur); applyX();
-  ground.visible = (k === 'landed' || k === 'rover_out');
-  ctl.target.set(k === 'rover_out' ? 8.5 : 6.4, k === 'rover_out' ? -0.6 : 0, k === 'rover_out' ? -3.2 : 0); err.textContent = '';
+  ground.visible = (k === 'landed' || k === 'rover_out' || k === 'rover_std');
+  const ro = (k === 'rover_out' || k === 'rover_std'); ctl.target.set(ro ? 8.5 : 6.4, ro ? -0.6 : 0, ro ? -3.2 : 0); err.textContent = '';
 }
 for (const b of document.querySelectorAll('[data-s]')) b.onclick = () => show(b.dataset.s);
 document.getElementById('bX').onclick = e => { xray = !xray; e.target.classList.toggle('on', xray); applyX(); };
