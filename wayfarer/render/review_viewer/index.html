@@ -158,6 +158,7 @@ label.tog input{accent-color:var(--ion)}
         <button data-n="off" aria-pressed="true">Off</button>
         <button data-n="before">Now</button>
         <button data-n="after">Proposal</button>
+        <button data-n="domain">Domain</button>
       </div>
       <p class="note" id="nodenote">The 208 node faces (13 rings x 16, PR #184 baseline). <b>Now</b> shows where they collide; <b>Proposal</b> shows Claude's fix options after Sol's review. Not canon.</p>
     </section>
@@ -1045,8 +1046,27 @@ const NCOL = {torch:0xe34948, strake:0xeb6834, door:0xe87ba4, hw:0xeda100, bow:0
 const NLAB = {before:[['torch','80 on the torch chain: thrust cone, shield, reactor, nozzle (hot, high field)'],['strake','20 under a stowed strake, over a longeron'],['door','12 on a bay-door leaf (moves)'],['hw','8 on or next to hardware'],['bow','16 on the bow shoulder (no mount structure)'],['ok','72 clear']],
   after:[['finroot','80 into the four hot-fin root trusses (20 per fin): OPTION ONLY, thermal (1,750 K vs 20 K) and Loom-domain coverage UNRESOLVED'],['strakeroot','20 inside the strake root fittings'],['respaced','48 at the bay rings, spaced unevenly to clear the door leaves'],['bowkept','16 ring-0 nodes unchanged (settled: bow shoulder decision, 13 Nov)'],['hwmove','7 stay put; the hardware next to them moves'],['ok','37 unchanged']]};
 const nodeGroup = new THREE.Group(); nodeGroup.visible = false; model.add(nodeGroup);
+let DOMAIN = null;
+async function domainSet(){
+  try { if (!DOMAIN) DOMAIN = await (await fetch('data/domain_a1.json')).json(); } catch (e){ $('nodenote').textContent = 'Could not load the domain data: ' + e.message; return; }
+  const D = DOMAIN, m4 = new THREE.Matrix4(), aft = D.nodes.filter(n=>n[0] > D.aft_x), fwd = D.nodes.filter(n=>n[0] <= D.aft_x);
+  for (const [arr, col] of [[fwd, 0x2a78d6], [aft, 0x1baf7a]]){
+    const im = new THREE.InstancedMesh(new THREE.SphereGeometry(.24, 12, 8), new THREE.MeshBasicMaterial({color: col}), arr.length); im.frustumCulled = false;
+    arr.forEach((n, i)=>im.setMatrixAt(i, m4.makeTranslation(n[0], n[1], n[2]))); im.instanceMatrix.needsUpdate = true; nodeGroup.add(im); }
+  const lp = new Float32Array(D.links.length * 6); D.links.forEach(([a, b], i)=>{ lp.set(D.nodes[a], i * 6); lp.set(D.nodes[b], i * 6 + 3); });
+  const lg = new THREE.BufferGeometry(); lg.setAttribute('position', new THREE.BufferAttribute(lp, 3));
+  nodeGroup.add(new THREE.LineSegments(lg, new THREE.LineBasicMaterial({color: 0x7fb2ff, transparent: true, opacity: .55})));
+  for (const [arr, col, sz, op] of [[D.inside, 0x6fe0c0, .3, .45], [D.outside, 0xff4b4b, .5, 1]]){
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(arr.flat()), 3));
+    const pts = new THREE.Points(g, new THREE.PointsMaterial({color: col, size: sz, transparent: true, opacity: op, depthWrite: false})); pts.frustumCulled = false; nodeGroup.add(pts); }
+  nodeGroup.visible = true;
+  $('nodenote').innerHTML = '<b>Lab result, recommended option</b> (fiction-first, NOT canon): relational-web rule with the aft nodes on the four hot-fin root lines, Loom configuration.<br>'
+    + '<span style="color:#2a78d6">●</span> forward nodes <span style="color:#1baf7a">●</span> fin-root nodes, with their links<br>'
+    + '<span style="color:#6fe0c0">●</span> skin inside the domain (92%)<br><span style="color:#ff4b4b">●</span> skin outside: frays each jump (cone and nozzle between the fins, nozzle exit, folded hot-fin tips)';
+}
 function nodeSet(which){
   while (nodeGroup.children.length){ const c = nodeGroup.children.pop(); if (c.geometry) c.geometry.dispose(); }
+  if (which === 'domain'){ domainSet(); return; }
   if (which === 'off'){ nodeGroup.visible = false; $('nodenote').innerHTML = 'The 208 node faces (13 rings x 16, PR #184 baseline). <b>Now</b> shows where they collide; <b>Proposal</b> shows Claude\'s fix options after Sol\'s review. Not canon.'; return; }
   const L = NODES[which], byC = {}; for (const n of L) (byC[n[3]] = byC[n[3]] || []).push(n);
   const m4 = new THREE.Matrix4();
