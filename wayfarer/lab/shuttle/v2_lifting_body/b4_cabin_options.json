@@ -1,0 +1,62 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-CANON screen; all factors ASSUMPTIONS",
+ "G8_limit_t": 34.2,
+ "heat_load_ratio_venus": 1.312,
+ "v1": {
+  "core_dry_t": {
+   "mid": 30.02
+  },
+  "pass_G8": 0.958,
+  "crew_pressurised_m3": 8.2
+ },
+ "B4_twin_spheres_tps_fixed": {
+  "core_dry_t": {
+   "p5": 28.32,
+   "mid": 32.42,
+   "p95": 36.55
+  },
+  "pass_G8": 0.751,
+  "crew_pressurised_m3": 7.6,
+  "tps_fix_add_t": {
+   "p5": 0.18,
+   "mid": 0.3,
+   "p95": 0.48
+  },
+  "kit_added_t": null
+ },
+ "A_one_capsule": {
+  "core_dry_t": {
+   "p5": 34.02,
+   "mid": 39.71,
+   "p95": 45.71
+  },
+  "pass_G8": 0.056,
+  "crew_pressurised_m3": 16.6,
+  "tps_fix_add_t": {
+   "p5": 0.18,
+   "mid": 0.3,
+   "p95": 0.48
+  },
+  "kit_added_t": null
+ },
+ "B_split_cabin_venus_pod_in_kit": {
+  "core_dry_t": {
+   "p5": 24.09,
+   "mid": 27.97,
+   "p95": 31.89
+  },
+  "pass_G8": 0.999,
+  "crew_pressurised_m3": 30.0,
+  "tps_fix_add_t": {
+   "p5": 0.18,
+   "mid": 0.3,
+   "p95": 0.48
+  },
+  "kit_added_t": {
+   "p5": 2.97,
+   "mid": 3.89,
+   "p95": 4.8
+  }
+ }
+}
