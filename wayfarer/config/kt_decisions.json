@@ -1820,5 +1820,37 @@
     "open": "plume model is a geometric core cone only; thermal soak of tucked nacelles beside the nozzle and fins; hoop latch structure; field-wall stand-off",
     "canon_change": false,
     "status": "APPROVED; drawing into source by Sol (class:engineering) with D9 on the new solids; released canon GLB replacement needs kT sign-off on renders"
+  },
+  "shuttle_b4_split_cabin_venus_pod_2026_11_19": {
+    "authority": "kT APPROVED 2026-11-19 (Claude chat): 'Yes' to option B after the rover sequence (b4_split_rover.png); earlier 'Let's fix heat shield and g8, but also...I want more room inside. The double spheres shits me'",
+    "source": "wayfarer/lab/shuttle/v2_lifting_body/compare_v1_b4.png, b4_cabin_options.py/.json/.png, b4_split_rover.png",
+    "scope": "Shuttle direction = B4 angular lifting body with a 1-bar composite crew cabin (~30 m3, rated +-1 bar) for all flying, replacing the twin 92-bar spheres; ONE 2.1 m Ti sphere (92 bar outside / 1 bar inside, 3 crew) as Venus surface refuge and rover, carried with its folding crab-steer chassis in the detachable Venus/Titan kit; on Venus trips the pod docks to the cabin's aft hatch, crew ride entry/descent in it, the cabin is vented on the surface; pod exits through the B4 starboard side door (ramp + wing awning)",
+    "screen": "core dry 27.97 t mid (24.09-31.89) incl. heat-shield resize (+0.3 t mid for the +31% Venus heat load); G8 34.2 t passes 99.9%; Venus/Titan kit +3.9 t mid (pod + chassis)",
+    "supersedes": "the twin-sphere crew vessels of shuttle_v2_b4_selected_2026_11_15 (rest of B4 unchanged)",
+    "replaces": "nothing yet: shuttle v1 stays the booked shuttle until the full build, bay fit, G8 on real solids and rebooking pass",
+    "open": "no rover off Venus without the kit; cabin venting/thermal soak on the Venus surface; pod-cabin docking hatch; side-door items 1-7 of the B4 proposal",
+    "canon_change": false,
+    "mass_rebooking_t": 0,
+    "G1_G12": "NOT RUN",
+    "status": "APPROVED DIRECTION, NON-CANON; full build next"
+  },
+  "shuttle_b4_standard_rover_venus_kit_2026_11_19": {
+    "authority": "kT APPROVED 2026-11-19 (Claude chat): 'I like this idea. A \"Venus kit\" kept in the shuttle. Takes some setup time, but both rover a shuttle meet specs. Without the kit. Rover plus far more spacious shuttle for more passengers. Meant for earth atmosphere and lower pressure.'; then 'Yes, that's it' and 6 seats",
+    "scope": "STANDARD shuttle (no kit): 6-seat 1-bar cabin (~27 m3) + a light 1-bar rover (composite cabin rated +-1 bar) riding in the aft rover slot on the common folding crab-steer chassis; rated for Earth-type and lower pressures (Moon, Mars, Earth, Titan). VENUS KIT (installed before Venus trips, setup time): swaps the light rover cabin for a ring-stiffened Ti pressure capsule (1.9 m x 3.0 m, ~6.7 m3, 92 bar outside / 1 bar inside, 3 crew) on the same chassis, plus Venus entry heat shield, cooler and hot loop; shuttle and rover both meet the Venus spec. Rover leaves by the starboard side door (ramp + wing awning) in both configurations",
+    "supersedes": "the single 2.1 m Ti sphere of shuttle_b4_split_cabin_venus_pod_2026_11_19 (kT: 'I didn't think the rover was a sphere anymore'; chose the capsule)",
+    "model": "wayfarer/lab/shuttle/v2_lifting_body/build_b4s.py, b4s_manifest.json, viewer/b4s.html",
+    "replaces": "nothing yet: shuttle v1 stays the booked shuttle until mass model, gates and rebooking pass",
+    "canon_change": false,
+    "mass_rebooking_t": 0,
+    "G1_G12": "NOT RUN",
+    "status": "APPROVED DIRECTION, NON-CANON; 3D model built; mass model next"
+  },
+  "shuttle_g8_envelope_37t_b4s_rebook_2026_11_19": {
+    "authority": "kT APPROVED 2026-11-19 (Claude chat): '1' = raise the G8 docked-dry envelope rather than cut seats or offload the rover",
+    "finding": "wayfarer/lab/shuttle/v2_lifting_body/b4s_mass.json: B4-S standard docked dry (Gate A2) 32.42 t mid (28.41-36.48); under 34.2 t in 75.4% of samples (v1 95.8%); under 37.0 t in 97.0%. Venus kit 15.17 t mid (12.41-18.01), carried as payload",
+    "scope": "shuttle_inputs mass.max_docked_dry_t (G8 / Gate A) 34.2 -> 37.0 t (it was a kT-approved ASSUMPTION envelope, not a physical limit); rebook the shuttle from v1 30.732 t to B4-S at its p95 36.48 t when the B4-S is drawn into Wayfarer source (+5.75 t from the engineering reserve, 48.76 t now; floor 16.8 t unchanged); dry total of Wayfarer and ECON dv handled per the usual rule (reserve funds it, dry 868.192255 t unchanged)",
+    "conditions": "Sol to confirm the bay/docking structure, G3 balance and D9 accept a 36.5-37 t shuttle; G1-G12 + D9 on the drawn B4-S; booking only on PASS",
+    "canon_change": false,
+    "status": "APPROVED DIRECTION; implementation by Sol (class:engineering) after PR #565"
   }
 }

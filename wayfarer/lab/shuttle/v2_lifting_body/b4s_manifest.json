@@ -1,0 +1,78 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-CANON lab model",
+ "decisions": [
+  "shuttle_b4_split_cabin_venus_pod_2026_11_19",
+  "shuttle_b4_standard_rover_venus_kit_2026_11_19"
+ ],
+ "states": {
+  "flight": {
+   "parts": 30,
+   "glb_bytes": 71000
+  },
+  "rover_std": {
+   "parts": 40,
+   "glb_bytes": 83784
+  },
+  "venus": {
+   "parts": 37,
+   "glb_bytes": 207312
+  },
+  "glide": {
+   "parts": 37,
+   "glb_bytes": 207288
+  },
+  "landed": {
+   "parts": 45,
+   "glb_bytes": 217580
+  },
+  "rover_out": {
+   "parts": 47,
+   "glb_bytes": 220212
+  }
+ },
+ "rover_x": {
+  "flight": [
+   8.48,
+   11.45
+  ],
+  "venus": [
+   8.48,
+   11.5
+  ]
+ },
+ "bay_fit": {
+  "bore_radius_m": 2.15,
+  "max_radius_stowed_m": 2.139,
+  "PASS": true
+ },
+ "rover_min_clearance_to_skin_m": {
+  "flight": 0.072,
+  "venus": 0.072
+ },
+ "rover": {
+  "slot_x": [
+   8.5,
+   11.5
+  ],
+  "width_m": 1.9,
+  "venus_capsule_m3": 6.71,
+  "light_cabin_m3_approx": 7.2
+ },
+ "cabin": {
+  "wall_inset_m": 0.2,
+  "volume_m3": 26.8,
+  "x_range": [
+   3.9,
+   8.45
+  ],
+  "seats": 6,
+  "min_clearance_to_skin_m": 0.2
+ },
+ "door": {
+  "ramp_x": [
+   8.45,
+   11.7
+  ]
+ }
+}

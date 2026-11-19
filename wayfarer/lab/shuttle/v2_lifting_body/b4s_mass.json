@@ -1,0 +1,82 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-CANON screen; every B4-S factor is an ASSUMPTION",
+ "decisions": [
+  "shuttle_b4_standard_rover_venus_kit_2026_11_19"
+ ],
+ "G8_limit_t": 34.2,
+ "samples": 200000,
+ "seed": 2026,
+ "geometry": {
+  "cabin_wall_area_m2": 54.3,
+  "light_rover_shell_area_m2": 22.4,
+  "heat_load_ratio_venus": 1.312
+ },
+ "standard_A2": {
+  "dry_t": {
+   "p5": 28.41,
+   "mid": 32.42,
+   "p95": 36.48
+  },
+  "pass_G8": 0.754,
+  "parts_mid_t": {
+   "hull_thermal_structure_t": 10.67,
+   "base_entry_tps_core_t": 1.679,
+   "cabin_wall_heat_tolerant_t": 1.086,
+   "cabin_hatches_seals_t": 0.669,
+   "crew_habitat_thermal_package_6_seats_t": 2.691,
+   "water_tank_insulated_t": 2.084,
+   "rover_chassis_crab_t": 0.973,
+   "rover_light_cabin_shell_t": 0.258,
+   "rover_outfit_life_support_power_t": 0.6,
+   "b4_wings_t": 1.6,
+   "torch_low_high_engine_t": 7.012,
+   "small_belly_thrusters_t": 0.4,
+   "reactor_power_distribution_t": 0.651,
+   "custody_capsule_dry_t": 0.125,
+   "avionics_controls_yaw_t": 0.85,
+   "landing_gear_door_ramp_t": 1.017
+  }
+ },
+ "venus_kit": {
+  "kit_t": {
+   "p5": 12.41,
+   "mid": 15.17,
+   "p95": 18.01
+  },
+  "parts_mid_t": {
+   "ti_capsule_shell_t": 3.808,
+   "ti_capsule_fittings_seals_t": 0.706,
+   "extra_venus_entry_tps_t": 3.351,
+   "single_12m_rotor_blades_hub_mast_t": 1.398,
+   "tipjet_ducts_compressors_t": 0.65,
+   "venus_hot_loop_thermal_kit_t": 0.999,
+   "venus_cooler_t": 0.475,
+   "kit_house_reactor_t": 3.095,
+   "kit_house_exchanger_ducts_t": 0.649
+  }
+ },
+ "venus_configured_A": {
+  "dry_t": {
+   "p5": 42.52,
+   "mid": 47.34,
+   "p95": 52.26
+  },
+  "under_34_2_fraction": 0.0
+ },
+ "v1_same_draws": {
+  "A2_dry_t": {
+   "p5": 26.01,
+   "mid": 30.02,
+   "p95": 34.01
+  },
+  "A2_pass_G8": 0.958,
+  "kit_t": {
+   "p5": 8.15,
+   "mid": 10.26,
+   "p95": 12.39
+  }
+ },
+ "booked_v1_t": 30.732248081255836,
+ "delta_A2_vs_v1_mid_t": 2.4
+}
