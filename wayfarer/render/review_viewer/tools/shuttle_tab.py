@@ -2,7 +2,7 @@
 Visual reference only. ALL bodies. ALL sponsors. 2026-2226. Run lab/shuttle/v2_lifting_body/b4s_viewer.py first."""
 import sys
 from pathlib import Path
-R = Path(__file__).resolve().parents[2]
+R = Path(__file__).resolve().parents[3]   # wayfarer/
 SRC = R / 'lab/shuttle/v2_lifting_body/viewer/b4s.html'
 OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else R / 'render/review_viewer/shuttle.html'
 s = SRC.read_text()
