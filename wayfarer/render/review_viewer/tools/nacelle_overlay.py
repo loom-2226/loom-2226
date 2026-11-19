@@ -5,7 +5,7 @@ import base64, json, struct, sys
 from pathlib import Path
 import numpy as np
 R = Path(__file__).resolve().parents[3]   # wayfarer/
-SRC = {'tucked': R / 'render/candidates/wayfarer_nacelle_torch_f173094b.glb', 'deployed': R / 'candidates/wayfarer_nacelle_Metric_f173094b.glb'}
+SRC = {'tucked': R / 'render/candidates/wayfarer_nacelle_torch_f173094b.glb', 'deployed': R / 'render/candidates/wayfarer_nacelle_Metric_f173094b.glb'}
 OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else R / 'render/review_viewer/glb'
 CT = {5126: np.float32, 5125: np.uint32, 5123: np.uint16, 5121: np.uint8}; NC = {'SCALAR': 1, 'VEC2': 2, 'VEC3': 3, 'VEC4': 4}
 
