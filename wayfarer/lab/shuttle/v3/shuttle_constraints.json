@@ -1,0 +1,44 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "title": "Shuttle v3: constraint register (step 1 of 7)",
+ "status": "DRAFT for kT. Read from main @ the B4-S merge (PR #567). Values cite their source; nothing is invented.",
+ "classes": {
+  "HARD": "installed Wayfarer geometry, canon, or physics: cannot change without changing Wayfarer or canon",
+  "CRITERION": "a certification margin in cert_criteria.json: real and enforced, but a margin choice; changing it is a kT/class:governance decision with a stated basis",
+  "POLICY": "a kT-set number (envelope, floor): real only because kT chose it",
+  "CANDIDATE": "an engineering candidate value that can be resized at a mass cost"
+ },
+ "wayfarer_fit": [
+  {"id": "F1", "class": "HARD", "what": "Bay length", "value": "x 18.25-32.05 m (13.8 m)", "source": "inputs bay.x_m"},
+  {"id": "F2", "class": "HARD", "what": "Bay bore", "value": "radius 2.4 m about the ship axis", "source": "inputs bay.bore_r_m"},
+  {"id": "F3", "class": "HARD", "what": "Exit slot", "value": "4.8 m wide (|y| <= 2.4) on +Z; two clamshell doors open to vertical at the slot edges", "source": "inputs bay.slot_half_width_m, bay.doors"},
+  {"id": "F4", "class": "HARD", "what": "Upper longerons beside the slot", "value": "tubes d 0.4 m at y +-2.75, z 2.6 (inner edge |y| 2.55)", "source": "inputs longerons.items"},
+  {"id": "F5", "class": "HARD", "what": "Strake grooves at 40 and 140 deg", "value": "nearest edge |y| ~2.42 on the exit path", "source": "inputs radiators, tanks.groove; certify.g8"},
+  {"id": "F6", "class": "HARD", "what": "Hot fins aft of the bay", "value": "x 34.3-53.3 m, 2.25 m aft of the bay, >= 1.0 m from the slot edge lines", "source": "inputs hot_fins; G8 corridor check"},
+  {"id": "F7", "class": "HARD", "what": "Docking: pressure-tight transfer tunnel ends at a nose port", "value": "port at x 18.75 m on the bay axis; the shuttle must dock nose-first on its long axis there", "source": "inputs service.tunnel, shuttle.nose_port_x_m; G8"},
+  {"id": "F8", "class": "CRITERION", "what": "Radial clearance in the bore", "value": ">= 0.25 m, so the stowed shuttle fits inside r 2.15 m", "source": "cert_criteria G8.radial_clearance_min_m"},
+  {"id": "F9", "class": "CRITERION", "what": "Axial clearance each end", "value": ">= 0.5 m, so stowed length <= 12.8 m including the nose port", "source": "cert_criteria G8.axial_clearance_min_m"},
+  {"id": "F10", "class": "CRITERION", "what": "Exit-path clearance", "value": ">= 0.5 m to slot edges, open doors, longerons and strake grooves, so the shuttle's width ACROSS the slot (stowed attitude) <= 3.8 m", "source": "cert_criteria G8.path_clearance_min_m"},
+  {"id": "F11", "class": "HARD", "what": "Exit manoeuvre", "value": "back 0.5 m off the nose port, then rise +Z through the slot; any roll attitude allowed (B4-S rides rolled 90 deg)", "source": "certify.g8 notes; kt shuttle_b4s_stowed_rolled_90_2026_11_19"}
+ ],
+ "mass_and_loads": [
+  {"id": "M1", "class": "HARD", "what": "Wayfarer dry mass and ECON reach are fixed", "value": "dry 868.192255 t, ECON dv 707.845 km/s; every shuttle tonne comes out of the reserve", "source": "canon; mass_basis.json"},
+  {"id": "M2", "class": "HARD", "what": "Reserve available above the floor today", "value": "31.96 t (shuttle booked 36.48 t now)", "source": "mass_basis.free_buffer_above_floor_t"},
+  {"id": "M3", "class": "POLICY", "what": "Reserve floor", "value": "16.8 t combined uncommitted", "source": "mass_basis.combined_uncommitted_floor_t (kT)"},
+  {"id": "M4", "class": "POLICY", "what": "Docked-dry envelope 37 t", "value": "kT-approved assumption, raised from 34.2 on 2026-11-19. NOT a physical limit. Proposed: retire it and use M5, M6 and M2 instead", "source": "kt shuttle_g8_envelope_37t_b4s_rebook_2026_11_19"},
+  {"id": "M5", "class": "HARD", "what": "Ship design ultimate load", "value": "5 g x 1.5 = 7.5 g: the berth must hold the docked shuttle at 7.5 g", "source": "inputs shuttle.b4s_berth.ultimate_g"},
+  {"id": "M6", "class": "CANDIDATE", "what": "Berth latches", "value": "4 x 0.75 MN rated = 3.0 MN: holds up to 40.8 t at 7.5 g (lug shear limit 48.9 t). Heavier shuttle needs bigger latches, paid from reserve", "source": "inputs shuttle.b4s_berth"},
+  {"id": "M7", "class": "CRITERION", "what": "Ship thrust trim with the shuttle aboard (G3)", "value": "<= 0.5 deg; worst today 0.356 deg (S6). A heavier or off-axis shuttle eats this margin", "source": "certification_report G3"},
+  {"id": "M8", "class": "HARD", "what": "Shuttle propellant comes from Wayfarer's remass", "value": "each tonne of shuttle water costs Wayfarer 3.25 km/s of ECON reach unless refilled at a port (23.1 t = 74 km/s)", "source": "certify.g8 note; ECON ve 3,000 km/s, S1 remass 245.4 t"},
+  {"id": "M9", "class": "HARD", "what": "Hold volume for kits", "value": "56.1 m3 left for the 50 t payload AND the Venus kit; a kit must fit there or ride in the shuttle", "source": "certification_report G8"}
+ ],
+ "derived_envelope": {
+  "length_m": "<= 12.8 (nose port to tail, stowed)",
+  "section": "inside a circle r 2.15 m about the bay axis, AND <= 3.8 m wide across the slot in the stowed attitude (any roll)",
+  "examples": "a 3.8 x 2.0 m box fits; B4-S (4.25 x 2.45 m) fits only rolled 90 deg",
+  "wings": "any span > 4.3 m must fold or retract for stowage",
+  "mass_t": "set by M2 (reserve), M6 (latches) and M7 (trim), not by M4",
+  "propellant": "set by mission dv, but every tonne carried from Wayfarer costs 3.25 km/s of Wayfarer reach (M8)"
+ },
+ "missions_physics_draft": "see SHUTTLE_V3_CONSTRAINTS.md section 3 (reference missions for kT to set)"
+}
