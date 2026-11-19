@@ -1,0 +1,76 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "status": "NON-CANON lab model",
+ "decision": "shuttle_b4_split_cabin_venus_pod_2026_11_19",
+ "states": {
+  "flight": {
+   "parts": 15,
+   "glb_bytes": 37732
+  },
+  "venus": {
+   "parts": 32,
+   "glb_bytes": 128792
+  },
+  "glide": {
+   "parts": 32,
+   "glb_bytes": 128764
+  },
+  "landed": {
+   "parts": 40,
+   "glb_bytes": 139040
+  },
+  "rover_out": {
+   "parts": 42,
+   "glb_bytes": 141552
+  }
+ },
+ "bay_fit": {
+  "bore_radius_m": 2.15,
+  "max_radius_stowed_m": 2.139,
+  "PASS": true
+ },
+ "pod": {
+  "od_m": 2.1,
+  "centre": [
+   10.2,
+   0,
+   0.26
+  ],
+  "volume_m3": 4.85,
+  "min_clearance_to_skin_m": 0.16,
+  "folded_wheels_min_clearance_to_skin_m": 0.16
+ },
+ "cabin": {
+  "wall_inset_m": 0.2,
+  "standard_flight_m3": 47.4,
+  "venus_flight_m3": 28.8,
+  "x_range_standard": [
+   3.9,
+   11.45
+  ],
+  "x_range_venus": [
+   3.9,
+   8.75
+  ],
+  "min_clearance_to_skin_m": 0.2
+ },
+ "door": {
+  "ramp_x": [
+   8.75,
+   11.7
+  ],
+  "pod_and_chassis_x": [
+   8.78,
+   11.6
+  ],
+  "opening_z": [
+   -0.95,
+   1.4
+  ],
+  "pod_and_chassis_z": [
+   -0.92,
+   1.41
+  ],
+  "note": "upper opening is the wing (shoulder hinge) swung up as an awning, so the pod top may pass above the shoulder line"
+ }
+}
