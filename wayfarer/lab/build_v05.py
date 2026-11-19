@@ -604,6 +604,19 @@ def core_fuel_shapes(I, cells):
 def build(I, dy=0.0, dz=0.0):
     """dy, dz: sideways offset of the torch chain and aft RCS (thrust-line offset)."""
     H, L = I["hull"], I["ledger"]
+    # kT point 1 ONLY: source-derived node/trunk mass moves off the two
+    # relational plant boxes. No physical hardware is added or relocated.
+    booking = json.loads((HERE/"plant_layout/plant_node_booking.json").read_text())
+    items = booking["items"]
+    assert len(items)==12 and booking["door_leaf_nodes"]==0
+    assert sum(x["nodes"] for x in items)==208
+    assert sum(x["node_t_exact"] for x in items)==12.5
+    assert abs(sum(x["trunk_t_exact"] for x in items)-4.0)<1e-12
+    assert abs(sum(x["total_t_exact"] for x in items)-16.5)<1e-12
+    assert abs(booking["plant_blocks_after"]["plant_fore"]+
+               booking["plant_blocks_after"]["plant_aft"]+
+               sum(x["total_t_exact"] for x in items)-88.0)<1e-12
+    assert I["ledger"]["relational_plant_t"]==88.0
     parts = []
 
     def add(*a, **k):
@@ -896,6 +909,7 @@ def build(I, dy=0.0, dz=0.0):
     # --- service region
     sv = I["service"]
     pf = sv["plant_fore"]
+    assert pf["mass_t"]==booking["plant_blocks_after"]["plant_fore"]
     add("plant_fore", "Relational plant, fore block", "plant", Sector(pf["x_m"][0], pf["x_m"][1], 0.0, pf["r_m"]),
         pf["mass_t"], pf["prov"], "plant")
     sec = {k: Sector(v["x_m"][0], v["x_m"][1], v["r_m"][0], v["r_m"][1], v["theta_deg"][0], v["theta_deg"][1])
@@ -1051,7 +1065,17 @@ def build(I, dy=0.0, dz=0.0):
             "KT_PHASE1B: 1.5x removed secondary mass; NO removal credit; fit/load paths OPEN",
             "structure",tags=("from_reserve","no_render","no_shield_credit","unlocated"))
     add("plant_aft", "Relational plant, aft block", "plant", Sector(mx1, H["manifold_x_m"][1], 0.0, pf["r_m"]),
-        I["ledger"]["relational_plant_t"] - pf["mass_t"], "DERIVED", "plant")
+        sv["plant_aft_mass_t"], "kT node/trunk rebooking; original 44t block", "plant")
+    assert sv["plant_aft_mass_t"]==booking["plant_blocks_after"]["plant_aft"]
+    for it in items:
+        # Zero-extent mass ledger points, NOT installed solids, no D9/shield
+        # credit. Box is used because the existing source supports it already.
+        c=it["cg_tucked_exact"] if "cg_tucked_exact" in it else it["cg_deployed_exact"]
+        assert all(math.isfinite(q) for q in c)
+        add(it["id"], "Relational plant node/trunk mass booking: "+it["kind"],
+            "plant", Box(c[0],c[0],c[1],c[1],c[2],c[2]),it["total_t_exact"],
+            "kT relational_plant_layout_2026_11_16 point 1; PR #562 source full precision",
+            "plant", tags=("no_render","no_shield_credit","mass_only"))
     add("manifold", "Thermal manifold, pumps, exchangers and torch magnet cryocooler", "thermal",
         Sector(mx1, H["manifold_x_m"][1], pf["r_m"], Ro - 0.02), L["thermal_radiators_t"],
         L.get("thermal_rebook",{}).get("manifold_basis", "CANON_MASS_DESIGN_POSITION"), "manifold")
@@ -1510,6 +1534,22 @@ def main():
         states[s] = {**st, **mp, "principal_kg_m2": ev, "principal_axes": evec, "trim_deg": t, "lateral_offset_m": e,
                      "usable_remass_t": usable, "water_t": sum(p.mass_t for p in ps if "water" in p.tags),
                      "parts": [p.id for p in ps]}
+        moved={it["id"]:it["cg_deployed_exact"] for it in json.loads(
+            (HERE/"plant_layout/plant_node_booking.json").read_text())["items"]
+            if "cg_tucked_exact" in it}
+        # Same 12 mass items, different four moving centroids in Metric.
+        metric_ps=[]
+        for p in ps:
+            if p.id not in moved:
+                metric_ps.append(p)
+                continue
+            c=moved[p.id]
+            metric_ps.append(Part(p.id,p.name,p.system,
+                Box(c[0],c[0],c[1],c[1],c[2],c[2]),p.mass_t,
+                p.prov,p.mat,tags=p.tags))
+        mm=mass_props(metric_ps)
+        tm,em=trim_deg(I,mm,DY,DZ)
+        states[s]["metric_deployed"]={**mm,"trim_deg":tm,"lateral_offset_m":em}
     # hot fins deployed (torch burns): same mass, panels unfolded to full span
     HF = I.get("hot_fins")
     fins_out = None
@@ -1580,6 +1620,19 @@ def main():
         "crown_option_c": I["habitat"]["decks"][0]["command_layout"]["crown_dome"].get("shell_option_c"),
         "version": I["version"], "inputs_sha256": hashlib.sha256(raw).hexdigest(),
         "length_m": I["hull"]["length_m"], "dry_t": dry,
+        "plant_node_booking": {
+            "authority": "kT relational_plant_layout_2026_11_16 point 1",
+            "source": "wayfarer/lab/plant_layout/plant_node_booking.json",
+            "source_booked_t": 88.0,
+            "plant_blocks_source_t": 71.5,
+            "nodes_and_trunks_source_t": 16.5,
+            "door_leaf_nodes": 0,
+            "mass_only": True,
+            "no_new_installed_geometry": True,
+            "full_precision": True,
+            "operating_modes": ["torch:tucked","Metric:deployed"],
+            "reserve_spread_note": "Existing proportional engineering reserve spread is unchanged; rendered physical mass ledger includes that separate reserve allocation."
+        },
         "dry_by_system_t": by_system,
         "protected_water": {"jacket_t": jacket_t, "berth_shield_t": sum(sh.volume() for nm, sh in jacket_parts if nm.startswith("berth_")),
                             "service_return_wall_t": sum(sh.volume() for nm,sh in jacket_parts if nm=="service_return_wall"),

@@ -87,13 +87,21 @@ def add(name, idx, kind, move=None):
     idx = np.array(idx); m_n = M_NODE * len(idx); m_t = float(trunk_i[idx].sum())
     pn = N[idx]; c_n = pn.mean(0)
     tw = np.concatenate([mids[i][1] for i in idx]); tp = np.vstack([mids[i][0] for i in idx]); c_t = (tp * tw[:, None]).sum(0) / tw.sum()
-    it = dict(id=name, kind=kind, nodes=int(len(idx)), node_t=round(m_n, 4), trunk_t=round(m_t, 4), total_t=round(m_n + m_t, 4),
+    m = m_n + m_t
+    cg = (c_n * m_n + c_t * m_t) / m
+    it = dict(id=name, kind=kind, nodes=int(len(idx)),
+              node_t=round(m_n, 4), trunk_t=round(m_t, 4), total_t=round(m, 4),
+              # Authoritative full-precision booking; rounded fields above are display only.
+              node_t_exact=float(m_n), trunk_t_exact=m_t, total_t_exact=float(m),
               x_range=[round(float(pn[:, 0].min()), 2), round(float(pn[:, 0].max()), 2)],
-              cg_deployed=[round(float(v), 3) for v in (c_n * m_n + c_t * m_t) / (m_n + m_t)],
+              cg_deployed=[round(float(v), 3) for v in cg],
+              cg_deployed_exact=[float(v) for v in cg],
               feed={h: int(sum(hubs[i] == h for i in idx)) for h in ('fore', 'aft')})
     if move is not None:
         pt = np.array([nac_tucked(N[i], move) for i in idx]); c_nt = pt.mean(0)
-        it['cg_tucked'] = [round(float(v), 3) for v in (c_nt * m_n + c_t * m_t) / (m_n + m_t)]
+        tucked = (c_nt * m_n + c_t * m_t) / m
+        it['cg_tucked'] = [round(float(v), 3) for v in tucked]
+        it['cg_tucked_exact'] = [float(v) for v in tucked]
         it['note'] = 'moving mass: books with the nacelle parts; trunk crosses the parallel links and the arm hinges (flex/rotary joints)'
     items.append(it)
 
@@ -107,19 +115,21 @@ for q in NAZ:
     idx = np.where(np.isin(zone, ['nacelle', 'hoop']) & (near_nac == q))[0]
     add(f'node_set_nacelle_{q}', idx, 'nacelle set (moving)', move=q)
 
-tot = sum(it['total_t'] for it in items)
+tot = sum(it['total_t_exact'] for it in items)
 # CG effect of moving 16.5 t out of the boxes (8.25 t from each block, on axis at the block centres)
 box_moment = 8.25 * np.array([15.5, 0, 0]) + 8.25 * np.array([33.3, 0, 0])
 def moment(state):
-    return sum(np.array(it.get('cg_' + state, it['cg_deployed'])) * it['total_t'] for it in items)
+    return sum(np.array(it.get('cg_' + state + '_exact', it['cg_deployed_exact'])) * it['total_t_exact'] for it in items)
 d_cg = {s: [round(float(v), 4) for v in (moment(s) - box_moment) / M_DRY] for s in ('deployed', 'tucked')}
 
+assert abs(tot - (NODES_T + TRUNK_T)) < 1e-12, tot
+assert not door.any()
 out = dict(header='ALL bodies. ALL sponsors. 2026-2226.',
            status='NON-CANON booking proposal; layout is a geometric proxy; routing and hubs are ASSUMPTIONS',
            decisions=['relational_plant_layout_2026_11_16', 'metric_nacelles_ring_selected_2026_11_16', 'nacelle_fit_and_aft_rcs_cant_25_2026_11_17'],
            layout='wayfarer/lab/metric_nodes/nacelle_fit/node_coverage_fit.json', counts=counts, node_module_t=round(M_NODE, 5),
            door_leaf_nodes=0, trunk_route_total_m=round(float(lens.sum()), 1), trunk_t_per_m=round(TRUNK_T / float(lens.sum()), 5),
-           items=items, total_t=round(tot, 4),
+           items=items, total_t=round(tot, 4), total_t_exact=tot,
            plant_blocks_after=dict(plant_fore=44.0 - 8.25, plant_aft=44.0 - 8.25, note='plant total stays 88 t: 71.5 t in the blocks/ring + 16.5 t booked here'),
            dry_cg_shift_m=d_cg, dry_cg_shift_note='[dx aft, dy, dz] of the whole ship vs today; tucked = torch state',
            unchanged=dict(dry_t=M_DRY, plant_total_t=88.0),

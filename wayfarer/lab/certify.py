@@ -420,22 +420,31 @@ def g3(I, C, G):
         st = G["states"][s]
         cs.append(chk(f"thrust trim {s}", round(st["trim_deg"], 3), lim, st["trim_deg"] <= lim, "deg",
                       f"lateral offset {st['lateral_offset_m']:.3f} m from the thrust line"))
+        if "metric_deployed" in st:
+            md=st["metric_deployed"]
+            cs.append(chk(f"Metric deployed thrust trim {s}", round(md["trim_deg"], 3), lim,
+                          md["trim_deg"]<=lim, "deg",
+                          f"lateral offset {md['lateral_offset_m']:.3f} m; same approved torch chain pin"))
     off = G["thrust_line_offset_m"]
     notes.append(f"Thrust line offset from the hull axis: y {off['y']:+.2f} m, z {off['z']:+.2f} m (torch chain {off['torch_chain_t']:.0f} t), chosen to centre the centre-of-mass range")
     # slews
     th = thrusters(I, G)
     worst = {}
     for s in states(I):
-        st = G["states"][s]
-        cps = couples(th, st["cg_m"])
-        Iax = [st["inertia_kg_m2"][a][a] for a in range(3)]
-        for a, nm in ((1, "pitch (about y)"), (2, "yaw (about z)"), (0, "roll (about x)")):
-            for sign in (1, -1):
-                tq, k = axis_torque(cps, a, sign, C["G3"]["couples_for_slew"])
-                t180 = 2 * math.sqrt(math.pi / (tq / Iax[a])) if tq > 0 else float("inf")
-                key = (nm, sign)
-                if key not in worst or t180 > worst[key][0]:
-                    worst[key] = (t180, s, tq, k)
+        source=G["states"][s]
+        variants=[(s,source)]
+        if "metric_deployed" in source:
+            variants.append((s+" Metric",source["metric_deployed"]))
+        for mode, st in variants:
+            cps = couples(th, st["cg_m"])
+            Iax = [st["inertia_kg_m2"][a][a] for a in range(3)]
+            for a, nm in ((1, "pitch (about y)"), (2, "yaw (about z)"), (0, "roll (about x)")):
+                for sign in (1, -1):
+                    tq, k = axis_torque(cps, a, sign, C["G3"]["couples_for_slew"])
+                    t180 = 2 * math.sqrt(math.pi / (tq / Iax[a])) if tq > 0 else float("inf")
+                    key = (nm, sign)
+                    if key not in worst or t180 > worst[key][0]:
+                        worst[key] = (t180, mode, tq, k)
     for (nm, sign), (t, s, tq, k) in worst.items():
         if "roll" in nm:
             notes.append(f"roll {'+' if sign > 0 else '-'}: 180 deg in {t:.0f} s ({k} couples, {tq / 1e6:.2f} MN m, worst state {s}); roll is rate-limited by doctrine, not gated")
@@ -459,7 +468,7 @@ def g3(I, C, G):
         cs.append(chk(f"three-axis control with cluster {c['id']} out", "yes" if ok else "no", "yes", ok))
     notes.append(f"With any one cluster out, the slowest 180 deg pitch/yaw slew is {worst_out:.0f} s (one couple, S2).")
     notes.append(f"Shuttle undocking: S1 trim {G['states']['S1']['trim_deg']:.3f} deg, S6 (shuttle away) {G['states']['S6']['trim_deg']:.3f} deg; both inside the limit.")
-    notes.append("Inertia is from intrinsic component shapes (sampled volumes), not centroid-only point masses.")
+    notes.append("Existing installed shapes retain intrinsic sampled inertia. The 12 source-booked zero-extent node/trunk mass points have exact CG and no invented intrinsic geometry; Metric state moves only their four approved centres.")
     return gate("G3", "Balance and attitude", cs, notes=notes)
 
 
