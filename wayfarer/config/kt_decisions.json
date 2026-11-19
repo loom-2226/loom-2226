@@ -1852,5 +1852,13 @@
     "conditions": "Sol to confirm the bay/docking structure, G3 balance and D9 accept a 36.5-37 t shuttle; G1-G12 + D9 on the drawn B4-S; booking only on PASS",
     "canon_change": false,
     "status": "APPROVED DIRECTION; implementation by Sol (class:engineering) after PR #565"
+  },
+  "shuttle_b4s_stowed_rolled_90_2026_11_19": {
+    "authority": "kT APPROVED 2026-11-19 (Claude chat): 'Yes' to storing B4-S rolled 90 deg in the bay, after Sol's G8 STOP (exit-path clearance)",
+    "finding": "wayfarer/lab/shuttle/v2_lifting_body/b4s_bay_roll.json: wings-level B4-S half-width 2.13 m leaves 0.27 m to the 2.4 m slot edge and 0.42 m to the upper longerons (G8 path_clearance_min_m 0.5 FAIL). Rolled 90 deg starboard-up: standard 0.895 m slot / 1.045 m longerons; with the Venus kit fairing 0.54 m / 0.69 m: PASS. Bore fit unchanged (rmax 2.139 m about the bay axis)",
+    "scope": "B4-S rides in the bay rolled +90 deg about its long axis (starboard toward +Z, the slot); nose port stays on the bay axis so the habitat-to-nose transfer tunnel is unchanged; it leaves sideways through the slot and rolls level once clear; side door faces the open slot (rover and Venus kit handling in the bay)",
+    "open": "Venus-kit margin is 0.04 m over the 0.5 m minimum (dorsal kit fairing could be lowered); berth cradle/latches redesigned for the rolled attitude; G8 criteria UNCHANGED",
+    "canon_change": false,
+    "status": "APPROVED; implementation by Sol in the B4-S engineering PR"
   }
 }
