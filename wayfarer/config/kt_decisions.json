@@ -1820,5 +1820,18 @@
     "open": "plume model is a geometric core cone only; thermal soak of tucked nacelles beside the nozzle and fins; hoop latch structure; field-wall stand-off",
     "canon_change": false,
     "status": "APPROVED; drawing into source by Sol (class:engineering) with D9 on the new solids; released canon GLB replacement needs kT sign-off on renders"
+  },
+  "shuttle_b4_split_cabin_venus_pod_2026_11_19": {
+    "authority": "kT APPROVED 2026-11-19 (Claude chat): 'Yes' to option B after the rover sequence (b4_split_rover.png); earlier 'Let's fix heat shield and g8, but also...I want more room inside. The double spheres shits me'",
+    "source": "wayfarer/lab/shuttle/v2_lifting_body/compare_v1_b4.png, b4_cabin_options.py/.json/.png, b4_split_rover.png",
+    "scope": "Shuttle direction = B4 angular lifting body with a 1-bar composite crew cabin (~30 m3, rated +-1 bar) for all flying, replacing the twin 92-bar spheres; ONE 2.1 m Ti sphere (92 bar outside / 1 bar inside, 3 crew) as Venus surface refuge and rover, carried with its folding crab-steer chassis in the detachable Venus/Titan kit; on Venus trips the pod docks to the cabin's aft hatch, crew ride entry/descent in it, the cabin is vented on the surface; pod exits through the B4 starboard side door (ramp + wing awning)",
+    "screen": "core dry 27.97 t mid (24.09-31.89) incl. heat-shield resize (+0.3 t mid for the +31% Venus heat load); G8 34.2 t passes 99.9%; Venus/Titan kit +3.9 t mid (pod + chassis)",
+    "supersedes": "the twin-sphere crew vessels of shuttle_v2_b4_selected_2026_11_15 (rest of B4 unchanged)",
+    "replaces": "nothing yet: shuttle v1 stays the booked shuttle until the full build, bay fit, G8 on real solids and rebooking pass",
+    "open": "no rover off Venus without the kit; cabin venting/thermal soak on the Venus surface; pod-cabin docking hatch; side-door items 1-7 of the B4 proposal",
+    "canon_change": false,
+    "mass_rebooking_t": 0,
+    "G1_G12": "NOT RUN",
+    "status": "APPROVED DIRECTION, NON-CANON; full build next"
   }
 }
