@@ -70,7 +70,17 @@ The aim: a shuttle that passes these on paper cannot be killed when Sol fits it 
 
 Surface-to-orbit Δv with losses, thrust needed, and the propellant each mission eats are computed in step 2, not guessed here.
 
-## 4. Decisions for kT before step 2
+## 4. kT decisions (2026-11-20, kt_decisions `shuttle_v3_constraints_2026_11_20`)
+
+1. G8 margins F8–F10: **keep**.
+2. 37 t envelope (M4): **retired**; ceiling from reserve, berth and trim.
+3. Reserve share: **up to 50%** of the reserve above the floor (≈ 16.0 t) on top of 36.48 t → docked-dry ceiling **≈ 52.5 t**, berth latch upgrade included.
+4. Ocean/ice refill: **preferably no**. Design on Wayfarer-supplied water and port refills.
+5. Venus ascent: **the Venus kit may supply it**.
+6. R1–R8 targets: open.
+
+## 5. Original questions
+
 
 1. Keep the G8 margins F8–F10 (0.25 / 0.5 / 0.5 m) as they are? (Recommended: keep. They are enforced; changing them needs a stated basis.)
 2. Retire the 37 t envelope (M4) and use the reserve, berth and trim limits instead? (Recommended: yes.)
