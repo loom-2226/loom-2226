@@ -86,8 +86,8 @@ neut["note"] = ("In dense air, neutrons scatter around a shadow shield (skyshine
                 "at sea level). So in atmosphere the shell must do most of the work; in vacuum the "
                 "shadow shield of protected water helps fully.")
 out["neutrons"] = neut
-json.dump(out, open("step2_propulsion.json", "w"), indent=1)
 if __name__ == "__main__":
+    json.dump(out, open("step2_propulsion.json", "w"), indent=1)  # only when run as a script (import no longer writes files)
     for k, v in out["missions"].items():
         print(k, {kk: vv["water_t"] for kk, vv in v.items() if "dry40" in kk})
     print(out["earth_power_trade"])

@@ -32,7 +32,7 @@ SPACE = {  # name: (low, high) continuous, or list = choices
  'chine_z': (-0.35, 0.35), 'belly_w': (0.80, 1.04), 'nose': (0.75, 1.35), 'base': (0.75, 1.0),
  'wing': ['none', 'fold', 'telescoping'], 'span': (8.0, 16.0), 'chord': (1.0, 2.4),
  'fan_m2': [0, 6, 8, 10, 12], 'floats_m3': [0, 10, 20, 30, 40], 'water_t': [18, 20, 23.1, 26, 30],
- 'seats': [4, 6, 8], 'rover': [True, False],
+ 'seats': [4, 6, 8], 'rover': [True, False], 'fan_venus': [True, False],
 }
 def sample(rng):
     p = {}
@@ -42,7 +42,7 @@ def sample(rng):
     if p['wing'] == 'none': p['span'], p['chord'] = 4.26, 0.0
     return p
 B5 = dict(ridge=0.45, shoulder_z=0.22, shoulder_y=-0.10, keel=0.30, chine_z=0.0, belly_w=1.0, nose=1.0, base=1.0,
-          wing='telescoping', span=14.0, chord=1.8, fan_m2=8, floats_m3=20, water_t=23.1, seats=6, rover=True)
+          wing='telescoping', span=14.0, chord=1.8, fan_m2=8, floats_m3=20, water_t=23.1, seats=6, rover=True, fan_venus=True)
 
 # ------------------------------------------------------------------ geometry
 def keys(p):
@@ -83,6 +83,28 @@ def inset(S, d):
         bis = n1 + n2; bis /= (np.linalg.norm(bis) + 1e-9); c = max(bis @ n1, .35); out.append(q - d / c * bis)
     return np.array(out)
 
+# ------------------------------------------------------------------ thresholds (evidence class in brackets)
+THRESH = {
+ 'land_light_ms': (40.0, 'kT landing rule 2026-11-21: light landings in 2 m waves at 30-36, US-2 class [threshold]'),
+ 'land_heavy_ms': (50.0, 'kT landing rule 2026-11-21: heavy ~50 m/s in ~1 m waves [threshold]'),
+ 'sprint_t': (5.0, 'sprint water kit ~5 t (kit list 2026-11-21) [assumption]'),
+ 'venus_kit_water_t': (13.0, 'Venus kit carries up to ~13 t extra water (step 2 estimate 8-13 t) [assumption]'),
+}
+CLS = {'geometry': 'direct geometry / accounting', 'model': 'physics-model prediction', 'coef': 'empirical or assumed coefficient', 'threshold': 'threshold classification'}
+def _src_hash():
+    import hashlib
+    h = hashlib.sha1()
+    for f in (os.path.join(HERE, 'engine.py'), os.path.join(V3, 'step2_propulsion.py'),
+              os.path.join(V3, '..', 'v2_lifting_body', 'aero_test.py'), os.path.join(V3, '..', 'v2_lifting_body', 'build_v2b.py'),
+              os.path.join(V3, '..', 'v2_lifting_body', 'variants.py'), os.path.join(V3, '..', 'v2_lifting_body', 'b4s_mass.json'),
+              os.path.join(V3, '..', 'shuttle_inputs.json')):
+        h.update(open(f, 'rb').read())
+    return h.hexdigest()[:12]
+MODEL_VERSION = _src_hash()
+def input_hash(p):
+    import hashlib
+    return hashlib.sha1(json.dumps(p, sort_keys=True).encode()).hexdigest()[:12]
+
 # ------------------------------------------------------------------ models
 def fan_model(p, m_land):
     A = p['fan_m2']
@@ -91,7 +113,8 @@ def fan_model(p, m_land):
     def static(MW): return (MW * 1e6 * 0.78 * 0.93 * math.sqrt(2 * 1.225 * A)) ** (2 / 3) / 1e3
     W = m_land * 1e3 * 9.81; take = (0.25 * W) ** 1.5 / math.sqrt(2 * 1.225 * A) / 0.78 / 0.93 / 1e6
     cruise = W / 5.0 * 100 / 0.75 / 0.93 / 1e6
-    MW = max(take, cruise, hover(m_land, 1.35, 5.4), hover(m_land + 15.2, 8.87, 65.0))
+    needs = [take, cruise, hover(m_land, 1.35, 5.4)] + ([hover(m_land + 15.2, 8.87, 65.0)] if p.get('fan_venus', True) else [])
+    MW = max(needs)
     mass = MW * 3.095 / 75 + MW / 20 + MW / 50 + A * 0.06
     return dict(MWe=round(MW, 1), mass_t=round(mass, 2), static_kN=round(static(MW)))
 
@@ -160,20 +183,39 @@ def evaluate(p, full_entry=True):
     def vtd(mm): return math.sqrt(2 * max(mm * 1e3 * 9.81 - fans['static_kN'] * 1e3, 1.0) / (1.225 * S * clmax))
     r['touchdown_heavy_ms'] = round(vtd(m_heavy), 1); r['touchdown_light_ms'] = round(vtd(dry + pay + 2.0), 1)
     W = m_heavy * 1e3 * 9.81; Vc = math.sqrt(8 * W / (0.5 * 1.225 * S * float(CL.max())))
-    r['max_turn_dps'] = round(math.degrees(9.81 * math.sqrt(63) / max(Vc, 1)) if Vc < 272 else math.degrees((0.5 * 1.225 * 272 ** 2 * S * CL.max() / W) * 9.81 / 272), 1)
+    Vt = min(Vc, 272.0); nt = min(8.0, 0.5 * 1.225 * Vt ** 2 * S * float(CL.max()) / W)   # corner speed, capped at the ROM's Mach 0.8
+    r['max_turn_dps'] = round(math.degrees(9.81 * math.sqrt(max(nt * nt - 1, 0)) / Vt), 1); r['corner_ms'] = round(Vt, 1)
     # capabilities (kits)
     tank = p['water_t']
     r['capabilities'] = {
         'Earth sea-to-orbit (core)': w_e <= tank,
-        'Hot egress to orbit (+sprint 5 t)': r['hot_egress_water_t'] <= tank + 5,
-        'Water landing 2 m waves light (<=40 m/s)': r['touchdown_light_ms'] <= 40,
-        'Water landing heavy (<=55 m/s)': r['touchdown_heavy_ms'] <= 55,
-        'Titan hover (fans)': p['fan_m2'] > 0, 'Venus hover + kit water (<= tank + 13 t)': p['fan_m2'] > 0 and r['venus_water_t'] <= tank + 13,
-        'Moon (vacuum kit)': r['moon_water_t'] <= tank, 'Mars': r['mars_water_t'] <= tank,
-        'Rover + sub capsule in core': bool(p['rover'])}
+        'Hot egress to orbit (+sprint kit)': r['hot_egress_water_t'] <= tank + THRESH['sprint_t'][0],
+        'Light water landing, 2 m waves': r['touchdown_light_ms'] <= THRESH['land_light_ms'][0],
+        'Heavy water landing, ~1 m waves': r['touchdown_heavy_ms'] <= THRESH['land_heavy_ms'][0],
+        'Titan hover (fans)': p['fan_m2'] > 0,
+        'Venus hover + kit water': p['fan_m2'] > 0 and p.get('fan_venus', True) and r['venus_water_t'] <= tank + THRESH['venus_kit_water_t'][0],
+        'Moon (vacuum kit)': r['moon_water_t'] <= tank, 'Mars': r['mars_water_t'] <= tank}
     r['capability_count'] = int(sum(r['capabilities'].values()))
     # Wayfarer cost: docked dry + full water
     r['docked_t'] = round(dry + tank, 1)
+    G = lambda name, val, lim, sense, unit, cls, src: dict(name=name, value=round(float(val), 2), limit=round(float(lim), 2), sense=sense, unit=unit,
+        headroom=round(float(lim - val if sense == '<=' else val - lim), 2), rel=round(float((lim - val if sense == '<=' else val - lim) / max(abs(lim), 1e-9)), 3), cls=cls, source=src)
+    r['gates'] = [
+        G('Bay fit radius (stowed hull only)', r['fit_r_m'], R_ENV, '<=', 'm', 'geometry', 'F-series envelope r 2.15 m; folded wings/fans/floats, 3.8 m slot, roll and G8 exit path NOT checked'),
+        G('Dry mass', dry, CEIL_T, '<=', 't', 'coef', 'kT reserve share ceiling 52.5 t; masses scaled from B4-S parts'),
+        G('Earth trip water: required vs carried', w_e, tank, '<=', 't', 'model', 'step2 fixed-power torch, R1 legs'),
+        G('Interior: usable vs allocated', Vin, need, '>=', 'm3', 'coef', 'allocations 4.5 m3/couch, rover 11.5 (else 6), door 5, aft 7, avionics 3'),
+        G('Buoyancy: hull + floats vs 1.5 x displaced', Vh + p['floats_m3'], 1.5 * disp, '>=', 'm3', 'geometry', 'W2 amended 2026-11-21; stability (W6) NOT checked'),
+        G('Buoyancy: hull alone vs displaced', Vh, disp, '>=', 'm3', 'geometry', 'W2 amended 2026-11-21')]
+    r['capability_margins'] = [
+        G('Light water landing (2 m waves)', r['touchdown_light_ms'], THRESH['land_light_ms'][0], '<=', 'm/s', 'coef', THRESH['land_light_ms'][1] + '; blown-flap CL rule is an assumed line through one QSRA-class point'),
+        G('Heavy water landing (~1 m waves)', r['touchdown_heavy_ms'], THRESH['land_heavy_ms'][0], '<=', 'm/s', 'coef', THRESH['land_heavy_ms'][1]),
+        G('Hot egress water vs tank + sprint', r['hot_egress_water_t'], tank + THRESH['sprint_t'][0], '<=', 't', 'model', THRESH['sprint_t'][1]),
+        G('Venus water vs tank + kit water', r['venus_water_t'], tank + THRESH['venus_kit_water_t'][0], '<=', 't', 'model', THRESH['venus_kit_water_t'][1]),
+        G('Moon water (vacuum kit) vs tank', r['moon_water_t'], tank, '<=', 't', 'coef', 'vacuum-kit dry = core - wings - floats - fans - half TPS + 1.5 t (assumed)'),
+        G('Mars water vs tank', r['mars_water_t'], tank, '<=', 't', 'model', 'step2 R4 legs')]
+    lim = min(r['gates'], key=lambda g: g['rel']); r['limiting'] = lim['name']
+    r['model_version'] = MODEL_VERSION; r['input_hash'] = input_hash(p)
     r['feasible'] = not r['fails']
     # small geometry for drawing
     r['draw'] = dict(section=[[round(a, 3), round(b, 3)] for a, b in section(K, 9.0, p['keel'])],
