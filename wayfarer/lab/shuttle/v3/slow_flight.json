@@ -1,0 +1,75 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "inputs": {
+  "S_ref_m2": [
+   62.5,
+   "b5 planform + 18 m2 telescoping wing"
+  ],
+  "CL_unpowered": [
+   1.39,
+   "aero_test.subsonic ROM, alpha <= 20 deg"
+  ],
+  "flap_dCL_on_wing": [
+   1.2,
+   "ASSUMPTION: slotted flaps on the wing area only"
+  ],
+  "USB_CLmax_total": [
+   4.0,
+   "QSRA-class upper-surface blowing (NASA TM: USB flight-verified on QSRA); applied to whole S: OPTIMISTIC for a lifting body"
+  ],
+  "CCW_CLmax_total": [
+   6.0,
+   "circulation-control wing: A-6 CCW demo CLmax slightly over 10 (NASA N88-17609) on its wing; ~6 on our whole S: ASSUMPTION"
+  ],
+  "fan_lift_kN": [
+   {
+    "28 MW": 200,
+    "42 MW (dash kit)": 263
+   },
+   "static thrust from lift_fans option 1b at 8 m2, vectored down"
+  ],
+  "masses_t": [
+   {
+    "heavy: climb water aboard (44 t dry)": 64.6,
+    "light: refill at port": 47.0
+   },
+   "dry 44 t after 8 g; 2.6 t payload; 18 t climb water"
+  ],
+  "target_ms": [
+   40,
+   "US-2 class (min controllable ~26 m/s, lands in 3 m waves at 43 t, 136 m2 wing)"
+  ]
+ },
+ "touchdown_ms": {
+  "today (no flaps, no fan lift)": {
+   "heavy: climb water aboard (44 t dry)": 109.1,
+   "light: refill at port": 93.1,
+   "CLmax": 1.39
+  },
+  "+ slotted flaps": {
+   "heavy: climb water aboard (44 t dry)": 97.7,
+   "light: refill at port": 83.3,
+   "CLmax": 1.74
+  },
+  "+ flaps + fan lift 28 MW": {
+   "heavy: climb water aboard (44 t dry)": 80.8,
+   "light: refill at port": 62.7,
+   "CLmax": 1.74
+  },
+  "fans blow the flaps (USB) 28 MW": {
+   "heavy: climb water aboard (44 t dry)": 53.2,
+   "light: refill at port": 41.3,
+   "CLmax": 4.0
+  },
+  "USB + dash kit 42 MW": {
+   "heavy: climb water aboard (44 t dry)": 49.2,
+   "light: refill at port": 36.0,
+   "CLmax": 4.0
+  },
+  "circulation-control wing + 42 MW": {
+   "heavy: climb water aboard (44 t dry)": 40.2,
+   "light: refill at port": 29.4,
+   "CLmax": 6.0
+  }
+ }
+}

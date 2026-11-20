@@ -1895,15 +1895,15 @@
     "status": "APPROVED DIRECTION; NON-CANON; Sol at the end per kT"
   },
   "shuttle_v3_limit_load_8g_2026_11_21": {
-    "authority": "kT 2026-11-21 (Claude chat): 'Id prefer something closer to 8g.' (after 'It doesn't need to be a dogfighter. It needs to however be able to get in and out quickly and outpace pursuers')",
+    "authority": "kT 2026-11-21 (Claude chat): 'Id prefer something closer to 8g.' (after 'It doesn't need to be a dogfighter. It needs to however be able to get in and out quickly and outpace pursuers'); then 'Yes' (2026-11-21) to: 8 g limit, ~12 g ultimate, seats/tank/payload mounts crash-rated 16-20 g (after kT asked about 10 g)",
     "source": "wayfarer/lab/shuttle/v3/agility.*, agility_8g.json, sprint_kits.*",
-    "decision": "v3 structural limit load factor ~8 g (ultimate ~12 g at the usual 1.5 factor) for airframe, wings, tank and payload mounts, seats",
+    "decision": "v3 limit load ~8 g, ultimate ~12 g (1.5 factor); seats, water tank and payload mounts crash-rated 16-20 g",
     "consequences": {
       "mass": "ESTIMATE +3-5 t dry if today's structure masses correspond to ~4 g (hull structure is an area proxy with no stated g basis; wing/fuselage weight scales ~Nz^0.5 in standard aircraft weight estimation)",
       "occupants": "reclined couches (L1 style) so high g acts mostly chest-to-back; untrained passengers tolerate far less head-to-foot g",
       "agility": "instantaneous turn 12.6 -> 17.7 deg/s (corner ~250 m/s); sustained stays thrust-limited (~9 deg/s); also covers wave-slam water landings and hard torch egress"
     },
     "canon_change": false,
-    "status": "kT PREFERENCE RECORDED; mass to be booked in step 6"
+    "status": "APPROVED; mass to be booked in step 6"
   }
 }
