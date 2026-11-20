@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shuttle Design Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Drafting-room instrument: graphite ground, one signal orange, cool steel neutrals. Layout: controls rail over a big plot, concept sheet beside it (stacks on phones). */
+  --bg:#f3f4f2; --panel:#ffffff; --ink:#1d2328; --muted:#5d6872; --line:#d5dad9; --accent:#d9611b; --steel:#3b6e8f; --good:#2f8a4e; --bad:#b8392f; --water:#2f6e9c;
+  --display:"IBM Plex Sans Condensed","Arial Narrow",sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14181b;--panel:#1c2125;--ink:#e6e9ea;--muted:#9aa5ad;--line:#2f373d;--accent:#f07a35;--steel:#77a9c9;--good:#5cbf7d;--bad:#e8695f;--water:#5d9fd0;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14181b;--panel:#1c2125;--ink:#e6e9ea;--muted:#9aa5ad;--line:#2f373d;--accent:#f07a35;--steel:#77a9c9;--good:#5cbf7d;--bad:#e8695f;--water:#5d9fd0;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 var(--body)}
+header{padding:18px 20px 8px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline}
+h1{font:600 26px/1.1 var(--display);margin:0;letter-spacing:.01em;text-wrap:balance}
+.sub{color:var(--muted);font-size:13px}
+.stats{display:flex;gap:16px;font-variant-numeric:tabular-nums;font-size:13px;color:var(--muted)}
+.stats b{color:var(--ink);font:600 18px var(--display)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:4px 20px 10px}
+.chip{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:5px 11px;font:500 13px var(--body);cursor:pointer}
+.chip:hover,.chip:focus-visible{border-color:var(--accent);outline:none}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+main{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(320px,1fr);gap:14px;padding:0 20px 20px}
+@media (max-width:900px){main{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px}
+.controls{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:13px;margin-bottom:8px}
+.controls label{display:flex;gap:5px;align-items:center;color:var(--muted)}
+select{font:13px var(--body);background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:3px 6px}
+canvas{width:100%;height:auto;display:block;touch-action:manipulation;cursor:crosshair}
+details{font-size:13px;margin-top:8px}
+summary{cursor:pointer;color:var(--muted)}
+.capgrid{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:6px}
+.sheet h2{font:600 20px var(--display);margin:0 0 2px}
+.why{color:var(--muted);font-size:13px;margin:0 0 8px}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 10px}
+.tag{font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.tag.ok{border-color:var(--good);color:var(--good)} .tag.no{border-color:var(--line);color:var(--muted);text-decoration:line-through;opacity:.7}
+.tag.fail{border-color:var(--bad);color:var(--bad)}
+svg{width:100%;height:auto;display:block}
+table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+td,th{padding:3px 4px;border-bottom:1px solid var(--line);text-align:right}
+td:first-child,th:first-child{text-align:left;color:var(--muted)}
+.up{color:var(--good)} .dn{color:var(--bad)}
+.params{font:12px var(--mono);color:var(--muted);word-break:break-word;margin-top:8px}
+.bar{height:8px;background:var(--steel);border-radius:2px}
+.massrow{display:grid;grid-template-columns:110px 1fr 46px;gap:6px;align-items:center;font-size:12px}
+footer{padding:0 20px 24px;color:var(--muted);font-size:12px;max-width:900px}
+.legend{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.sw{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:-1px}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>Shuttle Design Explorer</h1><div class="sub">Wayfarer shuttle v3 concepts generated inside the bay and scored with the v3 models. Non-canon screen.</div></div>
+  <div class="stats" id="stats"></div>
+</header>
+<div class="chips" id="arch"></div>
+<main>
+  <section class="card">
+    <div class="controls">
+      <label for="xs">X <select id="xs"></select></label>
+      <label for="ys">Y <select id="ys"></select></label>
+      <label for="cs">Colour <select id="cs"><option value="cap">capabilities</option><option value="seats">couches</option><option value="wing">wing</option><option value="rover">rover in core</option></select></label>
+      <label for="fe"><input type="checkbox" id="fe" checked> feasible only</label>
+      <label for="pa"><input type="checkbox" id="pa"> best trade-offs only</label>
+      <label for="se">Couches <select id="se"><option value="">any</option><option>4</option><option>6</option><option>8</option></select></label>
+    </div>
+    <canvas id="plot" width="900" height="640" aria-label="Scatter plot of shuttle designs"></canvas>
+    <div class="legend" id="legend"></div>
+    <details><summary>Must be able to…</summary><div class="capgrid" id="capf"></div></details>
+  </section>
+  <section class="card sheet" id="sheet"></section>
+</main>
+<footer id="foot"></footer>
+<script>
+const $=s=>document.querySelector(s);
+const LABEL={dry_t:"Dry mass, t",docked_t:"On Wayfarer (dry + full water), t",hull_m3:"Hull volume, m³",inner_m3:"Usable inside, m³",crossrange_km:"Reach from orbit (crossrange), km",glide_LD:"Glide L/D",touchdown_heavy_ms:"Water touchdown, heavy, m/s",touchdown_light_ms:"Water touchdown, light, m/s",earth_water_t:"Earth trip water, t",earth_margin_t:"Earth water margin, t",hot_egress_water_t:"Hot-egress water to orbit, t",venus_water_t:"Venus water (with kit), t",max_turn_dps:"Max turn at 8 g, °/s",capability_count:"Capabilities (of 9)",interior_margin_m3:"Interior spare, m³",fit_r_m:"Bay fit radius, m",hyper_LD:"Re-entry L/D (max)",peak_heat_Wcm2:"Peak heating, W/cm²",buoyancy_total_m3:"Buoyant volume, m³",buoyancy_need_m3:"Buoyancy needed, m³"};
+const LOWER=new Set(["dry_t","docked_t","touchdown_heavy_ms","touchdown_light_ms","earth_water_t","hot_egress_water_t","venus_water_t","peak_heat_Wcm2","fit_r_m"]);
+let D,M,ref,sel,shown=[],need=new Set(),arch=null;
+fetch("data.json").then(r=>r.json()).then(d=>{D=d;M=Object.fromEntries(d.metrics.map((k,i)=>[k,i]));ref=d.rows.find(r=>r.i===0);init();});
+function v(r,k){return r.m[M[k]]}
+function P(r,k){return r.p[D.params.indexOf(k)]}
+function init(){
+  const nf=D.rows.filter(r=>r.f).length,np=D.rows.filter(r=>r.pa).length;
+  $("#stats").innerHTML=`<span><b>${D.rows.length}</b> designs</span><span><b>${nf}</b> pass every gate</span><span><b>${np}</b> best trade-offs</span>`;
+  for(const s of ["#xs","#ys"])for(const k of D.metrics){const o=document.createElement("option");o.value=k;o.textContent=LABEL[k]||k;$(s).appendChild(o)}
+  $("#xs").value="docked_t";$("#ys").value="crossrange_km";
+  D.caps.forEach((c,i)=>{const l=document.createElement("label");l.innerHTML=`<input type="checkbox" id="cap${i}"> ${c}`;$("#capf").appendChild(l);l.querySelector("input").onchange=e=>{e.target.checked?need.add(i):need.delete(i);draw()}});
+  D.archetypes.forEach(a=>{const b=document.createElement("button");b.className="chip";b.textContent=a.name;b.onclick=()=>{arch=a;select(D.rows.find(r=>r.i===a.id));document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on",c===b))};$("#arch").appendChild(b)});
+  ["#xs","#ys","#cs","#fe","#pa","#se"].forEach(s=>$(s).onchange=draw);
+  $("#plot").addEventListener("click",pick);window.addEventListener("resize",()=>draw());
+  $("#foot").innerHTML=`<p><b>Gates</b> (a design that misses one is out): fits the bay (≤ 2.15 m radius, 12.8 m), dry ≤ 52.5 t, Earth sea-to-orbit trip fits its water tank, the interior closes, and hull + floats float with 50% spare.</p><p><b>Models</b>: the same rough models as the v3 steps: Newtonian re-entry and a 3-D Earth entry run, low-speed lift with sharp-edge vortex lift, fixed-power torch with variable exhaust speed, fan momentum theory with the blown-flap rule, and B4-S part masses scaled by size, the 8 g rule, fans and floats. Fit for comparing concepts, not for sign-off. Source: wayfarer/lab/shuttle/v3/explorer.</p>`;
+  arch=D.archetypes[0];select(ref);document.querySelector(".chip").classList.add("on");
+}
+function filtered(){const se=$("#se").value;return D.rows.filter(r=>(!$("#fe").checked||r.f)&&(!$("#pa").checked||r.pa)&&(!se||P(r,"seats")==+se)&&[...need].every(i=>r.c[i]))}
+function color(r){const k=$("#cs").value,cs=getComputedStyle(document.documentElement);
+  if(!r.f)return cs.getPropertyValue("--line");
+  if(k==="cap"){const n=v(r,"capability_count");return `hsl(${20+ (n-3)*28} 62% ${n>=8?42:52}%)`}
+  if(k==="seats")return {4:"#3b6e8f",6:"#d9611b",8:"#2f8a4e"}[P(r,"seats")];
+  if(k==="wing")return {none:"#7b8792",fold:"#3b6e8f",telescoping:"#d9611b"}[P(r,"wing")];
+  return P(r,"rover")?"#d9611b":"#3b6e8f"}
+function legend(){const k=$("#cs").value;let h="";
+  if(k==="cap")for(const n of [4,6,8,9])h+=`<span><span class="sw" style="background:hsl(${20+(n-3)*28} 62% ${n>=8?42:52}%)"></span>${n} capabilities</span>`;
+  if(k==="seats")h=[["4","#3b6e8f"],["6","#d9611b"],["8","#2f8a4e"]].map(([a,c])=>`<span><span class="sw" style="background:${c}"></span>${a} couches</span>`).join("");
+  if(k==="wing")h=[["none","#7b8792"],["fold","#3b6e8f"],["telescoping","#d9611b"]].map(([a,c])=>`<span><span class="sw" style="background:${c}"></span>${a}</span>`).join("");
+  if(k==="rover")h=`<span><span class="sw" style="background:#d9611b"></span>rover in core</span><span><span class="sw" style="background:#3b6e8f"></span>rover as a kit</span>`;
+  $("#legend").innerHTML=h+`<span>★ B5 reference · ◯ selected</span>`}
+let sc;
+function draw(){
+  const cv=$("#plot"),g=cv.getContext("2d"),W=cv.width,H=cv.height,cs=getComputedStyle(document.documentElement);
+  const xk=$("#xs").value,yk=$("#ys").value; shown=filtered(); legend();
+  const all=D.rows.filter(r=>v(r,xk)!=null&&v(r,yk)!=null), pool=shown.length?shown:all;
+  let xs=pool.map(r=>v(r,xk)),ys=pool.map(r=>v(r,yk));
+  let x0=Math.min(...xs,v(ref,xk)),x1=Math.max(...xs,v(ref,xk)),y0=Math.min(...ys,v(ref,yk)),y1=Math.max(...ys,v(ref,yk));
+  const px=(x1-x0)*.06||1,py=(y1-y0)*.06||1;x0-=px;x1+=px;y0-=py;y1+=py;
+  const fs=Math.round(13*W/Math.max(cv.getBoundingClientRect().width,200));
+  const L=fs*4.6,R=16,T=14,B=fs*2.8; sc={X:x=>L+(x-x0)/(x1-x0)*(W-L-R),Y:y=>H-B-(y-y0)/(y1-y0)*(H-T-B),xk,yk};
+  g.clearRect(0,0,W,H); g.font=fs+"px "+cs.getPropertyValue("--body"); g.strokeStyle=cs.getPropertyValue("--line"); g.fillStyle=cs.getPropertyValue("--muted"); g.lineWidth=1;
+  const nice=(a,b,n)=>{const s=Math.pow(10,Math.floor(Math.log10((b-a)/n)));const st=[1,2,5,10].map(m=>m*s).find(m=>(b-a)/m<=n);const out=[];for(let t=Math.ceil(a/st)*st;t<=b;t+=st)out.push(+t.toFixed(6));return out};
+  for(const t of nice(x0,x1,6)){const X=sc.X(t);g.beginPath();g.moveTo(X,T);g.lineTo(X,H-B);g.stroke();g.textAlign="center";g.fillText(t,X,H-B+fs*1.2)}
+  for(const t of nice(y0,y1,6)){const Y=sc.Y(t);g.beginPath();g.moveTo(L,Y);g.lineTo(W-R,Y);g.stroke();g.textAlign="right";g.fillText(t,L-8,Y+fs*.35)}
+  g.textAlign="center";g.fillStyle=cs.getPropertyValue("--ink");g.fillText(LABEL[xk]+(LOWER.has(xk)?"  ← better":"  better →"),(L+W-R)/2,H-8);
+  g.save();g.translate(fs,(T+H-B)/2);g.rotate(-Math.PI/2);g.fillText(LABEL[yk]+(LOWER.has(yk)?"  ↓ better":"  better ↑"),0,0);g.restore();
+  for(const r of pool){g.fillStyle=color(r);g.globalAlpha=r.f?(r.pa?.95:.6):.5;g.beginPath();g.arc(sc.X(v(r,xk)),sc.Y(v(r,yk)),r.pa?5:3.5,0,7);g.fill()}
+  g.globalAlpha=1;
+  for(const a of D.archetypes){const r=D.rows.find(q=>q.i===a.id);if(!r)continue;g.strokeStyle=cs.getPropertyValue("--ink");g.lineWidth=1.5;g.beginPath();g.arc(sc.X(v(r,xk)),sc.Y(v(r,yk)),8,0,7);g.stroke()}
+  star(g,sc.X(v(ref,xk)),sc.Y(v(ref,yk)),cs.getPropertyValue("--ink"));
+  if(sel){g.strokeStyle=cs.getPropertyValue("--accent");g.lineWidth=3;g.beginPath();g.arc(sc.X(v(sel,xk)),sc.Y(v(sel,yk)),12,0,7);g.stroke()}
+}
+function star(g,x,y,c){g.fillStyle=c;g.beginPath();for(let i=0;i<10;i++){const r=i%2?5:12,a=-Math.PI/2+i*Math.PI/5;g.lineTo(x+r*Math.cos(a),y+r*Math.sin(a))}g.closePath();g.fill()}
+function pick(e){const cv=$("#plot"),b=cv.getBoundingClientRect(),x=(e.clientX-b.left)*cv.width/b.width,y=(e.clientY-b.top)*cv.height/b.height;
+  let best=null,bd=1e9;for(const r of (shown.length?shown:D.rows)){const d=Math.hypot(sc.X(v(r,sc.xk))-x,sc.Y(v(r,sc.yk))-y);if(d<bd){bd=d;best=r}}
+  if(best&&bd<40){arch=D.archetypes.find(a=>a.id===best.i)||null;document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on",arch&&c.textContent===arch.name));select(best)}}
+function select(r){sel=r;draw();sheet(r)}
+function svgDraw(r){
+  const d=r.d||ref.d, s=10;  // px per m
+  const side=d.top.map(([x,z])=>`${x*s},${-z*s}`).join(" ")+" "+d.keel.slice().reverse().map(([x,z])=>`${x*s},${-z*s}`).join(" ");
+  const span=P(r,"span_m"),ch=P(r,"chord_m"),wing=P(r,"wing");
+  const plan=d.plan.map(([x,y])=>`${x*s},${-y*s}`).join(" ")+" "+d.plan.slice().reverse().map(([x,y])=>`${x*s},${y*s}`).join(" ");
+  let w="";if(wing!=="none"&&ch>0){const hx=span/2;for(const sg of [1,-1])w+=`<polygon points="${6.6*s},${-sg*2.0*s} ${(6.6+ch*1.4)*s},${-sg*2.0*s} ${(7.2+ch*1.4)*s},${-sg*hx*s} ${(7.2+ch*.5)*s},${-sg*hx*s}" fill="var(--steel)" opacity=".55"/>`}
+  const fl=P(r,"floats_m3"); let f="";if(fl>0){const rad=Math.sqrt(fl/2/Math.PI/8.4);for(const sg of [1,-1])f+=`<rect x="${3.6*s}" y="${(sg*2.55-rad)*s}" width="${8.4*s}" height="${2*rad*s}" rx="${rad*s}" fill="var(--accent)" opacity=".35"/>`}
+  const sec=d.section.map(([y,z])=>`${y*30},${-z*30}`).join(" ");
+  const half=Math.max(span/2,4.2);
+  return `<svg style="max-height:230px" viewBox="-10 -${half*s+4} 150 ${2*half*s+8}" aria-label="Plan view"><polygon points="${plan}" fill="var(--line)" stroke="var(--ink)" stroke-width=".6"/>${w}${f}<text x="0" y="${-half*s+2}" font-size="5" fill="var(--muted)">plan · span ${span.toFixed(1)} m${fl?` · floats ${fl} m³`:""}</text></svg>
+  <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:8px;align-items:center">
+  <svg viewBox="-6 -26 146 44" aria-label="Side view"><polygon points="${side}" fill="var(--line)" stroke="var(--ink)" stroke-width=".6"/><line x1="0" x2="128" y1="0" y2="0" stroke="var(--muted)" stroke-dasharray="2 2" stroke-width=".4"/><text x="0" y="-20" font-size="6" fill="var(--muted)">side · 12.8 m</text></svg>
+  <svg viewBox="-80 -80 160 160" aria-label="Section in the bay"><circle r="${2.4*30}" fill="none" stroke="var(--muted)" stroke-width="1"/><circle r="${2.15*30}" fill="none" stroke="var(--muted)" stroke-dasharray="3 3" stroke-width="1"/><polygon points="${sec}" fill="var(--water)" opacity=".7" stroke="var(--ink)" stroke-width="1"/><text x="-76" y="-68" font-size="10" fill="var(--muted)">section in bay</text></svg></div>`}
+function sheet(r){
+  const name=arch&&arch.id===r.i?arch.name:`Design #${r.i}`, why=arch&&arch.id===r.i?arch.why:(r.f?"passes every gate":"fails: "+r.x.join(", "));
+  const keys=["dry_t","docked_t","hull_m3","crossrange_km","glide_LD","touchdown_heavy_ms","touchdown_light_ms","earth_margin_t","hot_egress_water_t","max_turn_dps","interior_margin_m3"];
+  const rows=keys.map(k=>{const a=v(r,k),b=v(ref,k);const dlt=a-b;const good=LOWER.has(k)?dlt<0:dlt>0;const cls=Math.abs(dlt)<1e-6?"":(good?"up":"dn");return `<tr><td>${LABEL[k]}</td><td>${a}</td><td>${b}</td><td class="${cls}">${dlt>0?"+":""}${(+dlt.toFixed(2))}</td></tr>`}).join("");
+  const caps=D.caps.map((c,i)=>`<span class="tag ${r.c[i]?"ok":"no"}">${c}</span>`).join("");
+  const fails=r.x.map(x=>`<span class="tag fail">fails ${x}</span>`).join("");
+  const mx=Math.max(...Object.values(r.ms));
+  const mass=Object.entries(r.ms).sort((a,b)=>b[1]-a[1]).map(([k,t])=>`<div class="massrow"><span>${k.replace("_"," ")}</span><div class="bar" style="width:${t/mx*100}%"></div><span>${t}</span></div>`).join("");
+  const pp=D.params.map((k,i)=>`${k} ${r.p[i]}`).join(" · ");
+  $("#sheet").innerHTML=`<h2>${name}</h2><p class="why">${why}</p>${svgDraw(r)}<div class="tags">${fails}${caps}</div>
+  <table><thead><tr><th></th><th>this</th><th>B5</th><th>Δ</th></tr></thead><tbody>${rows}</tbody></table>
+  <details open><summary>Mass, t (fans + reactor ${r.fan} MW)</summary><div style="display:grid;gap:3px;margin-top:6px">${mass}</div></details>
+  <div class="params">${pp}</div>`}
+</script>
+</body>
+</html>
