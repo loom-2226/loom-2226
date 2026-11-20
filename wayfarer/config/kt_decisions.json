@@ -1875,5 +1875,23 @@
     "note": "retiring the 37 t envelope in certify/inputs is a class:engineering change for Sol at the integration step; until then the B4-S booking stays as merged",
     "canon_change": false,
     "status": "APPROVED; step 1 of 7 closed except R1-R8 mission targets; water decision 6 added 2026-11-20"
+  },
+  "shuttle_v3_shape_b5_2026_11_21": {
+    "authority": "kT APPROVED 2026-11-21 (Claude chat): 'Sure go' to the recommendation in wayfarer/lab/shuttle/v3/b5_concept.png",
+    "source": "wayfarer/lab/shuttle/v3/shape_families.*, b5_concept.py/.json/.png, lift_fans.*, SHAPE_FAMILIES.md",
+    "decisions": {
+      "shape": "v3 direction = B4 angular flat-bellied lifting body grown inside the bay (taller ridge/shoulder, shallow-V keel): ~97 m3 enclosed, min enclosing radius 2.13 m (<= 2.15)",
+      "floats": "pop-out inflatable sponsons (~20 m3) for reserve buoyancy and afloat roll stability",
+      "wings": "telescoping/inflatable wings to ~14 m span for subsonic flight",
+      "W2_amended": "hull + deployable floats >= 111 m3; hull alone >= volume displaced at the heaviest water landing (~74 m3)",
+      "lift_fans": "option 1b carried forward: ~8-10 m2 fans + ~28 MWe house reactor (seaplane/STOL on Earth, hover on Titan and Venus)"
+    },
+    "open": [
+      "water touchdown speed ~104 m/s vs ~40 needed (flaps + fan lift, step 5)",
+      "torch exit ~0.4 m above water afloat (W3): torch lights airborne",
+      "contested-airspace agility: agility.json"
+    ],
+    "canon_change": false,
+    "status": "APPROVED DIRECTION; NON-CANON; Sol at the end per kT"
   }
 }
