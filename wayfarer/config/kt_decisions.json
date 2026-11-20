@@ -1905,5 +1905,19 @@
     },
     "canon_change": false,
     "status": "APPROVED; mass to be booked in step 6"
+  },
+  "shuttle_v3_slow_flight_landing_rule_2026_11_21": {
+    "authority": "kT 2026-11-21 (Claude chat): 'Sure.' to the slow-flight recommendation and landing rule",
+    "source": "wayfarer/lab/shuttle/v3/slow_flight.py/.json/.png",
+    "decisions": {
+      "fans": "fans in the wings, blowing over the flaps (upper-surface blowing, QSRA lineage) = standard",
+      "ccw": "circulation-control trailing edge = 2226 upgrade (A-6 CCW lineage); not credited until sized",
+      "dash_kit": "fit the 42 MW dash-power kit when rough water is expected",
+      "landing_rule": "heavy (climb water aboard, ~64.6 t): ~50 m/s touchdown, water landings in ~1 m waves; light (port refill, ~47 t): 30-36 m/s, up to 2 m waves",
+      "kits_adopted": "sprint water (~5 t drop tank) and dash power (~1.5-2 t) added to the kit list (air, vacuum, Venus, deep, sprint, dash)"
+    },
+    "caveat": "USB/CCW lift coefficients applied to the whole lifting-body planform are optimistic (ROM)",
+    "canon_change": false,
+    "status": "APPROVED DIRECTION; NON-CANON"
   }
 }
