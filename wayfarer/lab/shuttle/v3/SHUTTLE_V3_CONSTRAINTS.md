@@ -77,7 +77,21 @@ Surface-to-orbit Δv with losses, thrust needed, and the propellant each mission
 3. Reserve share: **up to 50%** of the reserve above the floor (≈ 16.0 t) on top of 36.48 t → docked-dry ceiling **≈ 52.5 t**, berth latch upgrade included.
 4. Ocean/ice refill: **preferably no**. Design on Wayfarer-supplied water and port refills.
 5. Venus ascent: **the Venus kit may supply it**.
-6. R1–R8 targets: open.
+6. Water (2026-11-20): **option D**. The shuttle lands on, floats on and takes off from water, is watertight to ~10 m (survives swamping or a brief dunk), and **deploys and recovers the rover capsule from the water**. The Venus Ti capsule doubles as a submarine ("deep kit"). The whole shuttle is not a submarine.
+7. R1–R8 targets: open.
+
+### 4.1 Water constraints that follow from decision 6
+
+| Id | Class | Constraint | Basis (`water_check.py/.json/.png`) |
+|---|---|---|---|
+| W1 | POLICY | Watertight to 10 m: every door, hatch, fold and vent seals at ~2 bar outside | kT D |
+| W2 | HARD (physics) | Floats with **≥ 50% reserve buoyancy** at the heaviest water-landing mass. At the 52.5 t ceiling + 23.1 t water (75.6 t) that is **≥ 111 m³ watertight volume**. B4-S's 82.45 m³ gives only 12% there (42% at 36.5 t + full water) | Archimedes, seawater 1.025 t/m³; 50% is a common small-craft reserve |
+| W3 | HARD (physics) | Torch and belly-thruster exits sit **above the floating waterline plus 1 m of wave** at that mass, so it can light up and leave from the water | the torch cannot start submerged |
+| W4 | HARD (design) | Capsule leaves and returns **while afloat in 2 m waves**. The side door is in the lower flank (below the waterline), so the rover bay becomes a **floodable well**: bulkhead to the cabin rated for W1, the bay's volume counted out of W2 when flooded | B4-S door x 8.45–11.7 |
+| W5 | CANDIDATE | Capsule submarine: rated **~600 m** (92 bar ÷ 1.5 safety factor). Near neutral already: 6.7 m³ displaces 6.9 t of seawater; shell + fittings 4.5 t, so outfit, crew, thrusters and a small trim tank close it to neutral. Tether or acoustic link to the shuttle | kit masses from b4s_mass.json |
+| W6 | HARD (physics) | Upright and stable afloat, door side included, with the well flooded and with it empty | step 3/5 hydrostatics |
+
+W2 is the big one: a hull that floats well at full load needs ~111 m³, which feeds straight into the step 3 shape trade and also gives the cabin and water the room B4-S lacks.
 
 ## 5. Original questions
 

@@ -1869,10 +1869,11 @@
       "2_37t_envelope": "RETIRE the 37 t docked-dry envelope as a design limit; the real ceiling is the reserve share (3), the berth at 7.5 g and ship thrust trim (G3 <= 0.5 deg)",
       "3_reserve_share": "the shuttle may use up to 50% of the reserve above the 16.8 t floor (31.96 t on 2026-11-20 -> 15.98 t) on top of today's 36.48 t booking: docked-dry ceiling ~52.5 t incl. any berth latch upgrade (latches as drawn hold 40.8 t at 7.5 g)",
       "4_isru_refill": "preferably NO ocean/ice water refill: design on Wayfarer-supplied propellant (each tonne costs Wayfarer 3.25 km/s ECON reach) and port refills",
-      "5_venus_ascent": "the Venus kit may supply the Venus surface-to-orbit ascent; the core shuttle need not climb out of Venus on its own"
+      "5_venus_ascent": "the Venus kit may supply the Venus surface-to-orbit ascent; the core shuttle need not climb out of Venus on its own",
+      "6_water": "kT 2026-11-20 'D!!!! But shuttle needs to land on water, and deploy': option D. Shuttle lands, floats and takes off from water, watertight to ~10 m, and deploys/recovers the rover capsule while afloat; the Venus Ti capsule doubles as a submarine (deep kit). Whole-shuttle submarine rejected. Derived constraints W1-W6 in SHUTTLE_V3_CONSTRAINTS.md 4.1"
     },
     "note": "retiring the 37 t envelope in certify/inputs is a class:engineering change for Sol at the integration step; until then the B4-S booking stays as merged",
     "canon_change": false,
-    "status": "APPROVED; step 1 of 7 closed except R1-R8 mission targets"
+    "status": "APPROVED; step 1 of 7 closed except R1-R8 mission targets; water decision 6 added 2026-11-20"
   }
 }
