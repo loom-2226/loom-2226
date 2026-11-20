@@ -19,7 +19,7 @@ if __name__ == '__main__':
     old = json.load(open('explorer_results.json'))
     jobs = []
     for r in old['results']:
-        p = dict(r['params']); p.setdefault('fan_venus', True); jobs.append((r['id'], p))
+        p = dict(r['params']); p.setdefault('fan_venus', True); p.setdefault('desal', True); jobs.append((r['id'], p))
     from multiprocessing import Pool
     with Pool(2) as pool: res = pool.map(E._job, jobs, chunksize=8)
     gen = {r['id']: r.get('gen', 0) for r in old['results']}

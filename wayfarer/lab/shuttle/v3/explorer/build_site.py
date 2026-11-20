@@ -3,7 +3,7 @@ import json, site_rows as SR
 D = json.load(open('explorer_results.json'))
 caps = list(next(r for r in D['results'] if 'capabilities' in r)['capabilities'].keys())
 rows = [SR.row(r, full=bool(r['feasible']) or r['id'] in {a['id'] for a in D['archetypes']}) for r in D['results'] if 'dry_t' in r]
-out = dict(model_version=D['model_version'], metrics=SR.METRICS, params=SR.PARAMS, caps=caps, space=D['space'], archetypes=D['archetypes'],
+out = dict(names=SR.NAMES, masskeys=SR.MASSKEYS, model_version=D['model_version'], metrics=SR.METRICS, params=SR.PARAMS, caps=caps, space=D['space'], archetypes=D['archetypes'],
            pareto_objectives=D['pareto_objectives'], gate_sources={g['name']: g['source'] for r in D['results'] if r.get('gates') for g in r['gates'] + r['capability_margins']}, thresholds=D['thresholds'], evidence=D['evidence_classes'], missions=D['missions'], rows=rows)
 s = json.dumps(out, separators=(',', ':')); open('site/data.json', 'w').write(s); print(len(s) / 1e6, 'MB', len(rows))
 # copy the model sources the page runs in the browser (Pyodide) as .txt files

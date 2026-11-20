@@ -1919,5 +1919,16 @@
     "caveat": "USB/CCW lift coefficients applied to the whole lifting-body planform are optimistic (ROM)",
     "canon_change": false,
     "status": "APPROVED DIRECTION; NON-CANON"
+  },
+  "shuttle_v3_seawater_refill_cabin_by_trip_2026_11_21": {
+    "authority": "kT 2026-11-21 (Claude chat): '1 and 2 together'",
+    "source": "wayfarer/lab/shuttle/v3/explorer (engine.py, missions.json)",
+    "decisions": {
+      "1_earth_seawater_refill": "On Earth the shuttle may land light and refill its climb water from the sea with an onboard desalination unit (salt must be removed: sodium in the pulse remass would activate). This narrows decision shuttle_v3_constraints_2026_11_20 item 4 ('preferably no' ocean/ice refill) for Earth seawater only; elsewhere unchanged.",
+      "2_cabin_by_trip_length": "Interior allocated for courier hops under a day (~3.5 m3 per couch, ASSUMPTION); long legs use a long-haul cabin kit (kit round). Door allowance charged only with the rover aboard."
+    },
+    "assumptions_added": "desalination unit ~0.4 t / 0.5 m3; refill energy 2.26 MJ/kg from the fan reactor (distillation, no heat recovery: conservative)",
+    "canon_change": false,
+    "status": "APPROVED; NON-CANON exploration"
   }
 }

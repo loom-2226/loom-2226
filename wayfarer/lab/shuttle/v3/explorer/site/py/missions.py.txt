@@ -18,7 +18,13 @@ def evaluate(r, prof, mj=MJ):
         out.append(dict(name=name, value=round(val, 2), limit=lim, sense=sense, unit=unit, ok=bool(ok),
                         headroom=round((lim - val) if sense == '<=' else (val - lim), 2)))
     chk('Water required vs carried' + (' (incl. sprint kit)' if prof['sprint_t'] else ''), need, round(carried, 2), '<=', 't')
-    if C.get('heavy_landing_max_ms', 999) < 999: chk('Heavy water touchdown', r['touchdown_heavy_ms'], C['heavy_landing_max_ms'], '<=', 'm/s')
+    if C.get('heavy_landing_max_ms', 999) < 999:
+        refill = prof.get('seawater_refill', False) and r.get('refill_h') is not None
+        if refill:
+            chk('Water touchdown, light (refill at sea)', r['touchdown_light_ms'], C['heavy_landing_max_ms'], '<=', 'm/s')
+            chk('Seawater refill time', r['refill_h'], C.get('refill_max_h', 2.0), '<=', 'h')
+        else:
+            chk('Heavy water touchdown (climb water aboard)', r['touchdown_heavy_ms'], C['heavy_landing_max_ms'], '<=', 'm/s')
     if C.get('crossrange_min_km', 0) > 0: chk('Reach from orbit', r['crossrange_km'], C['crossrange_min_km'], '>=', 'km')
     if C.get('turn_min_dps', 0) > 0: chk('Max turn at 8 g', r['max_turn_dps'], C['turn_min_dps'], '>=', 'deg/s')
     if 'evacuees_min' in C: chk('Seats for evacuees (couches - crew)', pax, C['evacuees_min'], '>=', 'people')

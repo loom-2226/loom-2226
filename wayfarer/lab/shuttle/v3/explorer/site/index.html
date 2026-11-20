@@ -107,14 +107,15 @@ footer{padding:0 20px 24px;color:var(--muted);font-size:12px;max-width:900px}
 <footer id="foot"></footer>
 <script>
 const $=s=>document.querySelector(s);
-const LABEL={dry_t:"Dry mass, t",docked_t:"On Wayfarer: dry + full tank, t",hull_m3:"Hull volume, m³",inner_m3:"Usable inside, m³",crossrange_km:"Reach from orbit (crossrange), km",glide_LD:"Glide L/D",touchdown_heavy_ms:"Heavy water touchdown, m/s",touchdown_light_ms:"Light water touchdown, m/s",earth_water_t:"Earth trip water required, t",earth_margin_t:"Earth water left (carried − required), t",hot_egress_water_t:"Hot-egress water required, t",venus_water_t:"Venus water required (with kit), t",max_turn_dps:"Max turn at 8 g, °/s",capability_count:"Capabilities (of 8)",interior_margin_m3:"Interior headroom, m³",fit_r_m:"Stowed hull radius, m",hyper_LD:"Re-entry L/D (max)",peak_heat_Wcm2:"Peak heating, W/cm²",buoyancy_total_m3:"Hull + floats, m³",buoyancy_need_m3:"Buoyancy needed, m³"};
-const LOWER=new Set(["dry_t","docked_t","touchdown_heavy_ms","touchdown_light_ms","earth_water_t","hot_egress_water_t","venus_water_t","peak_heat_Wcm2","fit_r_m"]);
+const LABEL={dry_t:"Dry mass, t",docked_t:"On Wayfarer: dry + full tank, t",hull_m3:"Hull volume, m³",inner_m3:"Usable inside, m³",crossrange_km:"Reach from orbit (crossrange), km",glide_LD:"Glide L/D",touchdown_heavy_ms:"Heavy water touchdown, m/s",touchdown_light_ms:"Light water touchdown, m/s",earth_water_t:"Earth trip water required, t",earth_margin_t:"Earth water left (carried − required), t",hot_egress_water_t:"Hot-egress water required, t",venus_water_t:"Venus water required (with kit), t",max_turn_dps:"Max turn at 8 g, °/s",capability_count:"Capabilities (of 8)",interior_margin_m3:"Interior headroom, m³",fit_r_m:"Stowed hull radius, m",hyper_LD:"Re-entry L/D (max)",peak_heat_Wcm2:"Peak heating, W/cm²",buoyancy_total_m3:"Hull + floats, m³",buoyancy_need_m3:"Buoyancy needed, m³",refill_h:"Seawater refill time, h"};
+const LOWER=new Set(["refill_h","dry_t","docked_t","touchdown_heavy_ms","touchdown_light_ms","earth_water_t","hot_egress_water_t","venus_water_t","peak_heat_Wcm2","fit_r_m"]);
 const CLSNAME={geometry:"geometry / accounting",model:"model prediction",coef:"assumed coefficient",threshold:"threshold"};
-const PLABEL={wing:"Wing",span:"Span, m",chord:"Chord, m",fan_m2:"Fan area, m²",floats_m3:"Floats, m³",water_t:"Water tank, t",seats:"Couches (incl. crew)",rover:"Rover in core",fan_venus:"Fans sized for Venus",ridge:"Roof growth, m",shoulder_z:"Shoulder up, m",shoulder_y:"Shoulder out, m",keel:"Keel V, m",chine_z:"Widest point height, m",belly_w:"Belly width ×",nose:"Nose length ×",base:"Base size ×"};
+const PLABEL={wing:"Wing",span:"Span, m",chord:"Chord, m",fan_m2:"Fan area, m²",floats_m3:"Floats, m³",water_t:"Water tank, t",seats:"Couches (incl. crew)",rover:"Rover in core",fan_venus:"Fans sized for Venus",desal:"Desalination unit",ridge:"Roof growth, m",shoulder_z:"Shoulder up, m",shoulder_y:"Shoulder out, m",keel:"Keel V, m",chine_z:"Widest point height, m",belly_w:"Belly width ×",nose:"Nose length ×",base:"Base size ×"};
 const CONT=new Set(["span","chord","ridge","shoulder_z","shoulder_y","keel","chine_z","belly_w","nose","base"]);
 let D,M,PI_,ref,byId=new Map(),sel=null,arch=null,pins=[],variants=[],need=new Set(),shown=[],sc=null,mkey="earth",assume=null,missionLive={},PY=null,nv=0;
 fetch("data.json").then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}).then(d=>{D=d;init()}).catch(e=>{const el=$("#err");el.style.display="block";el.textContent="The design data (data.json) could not be loaded: "+e.message+". Reload the page; if it persists, the artifact is missing its data file."});
 const v=(r,k)=>r.m[M[k]], P=(r,k)=>r.p[PI_[k]];
+const N=x=>typeof x==="number"?D.names[x]:x;
 function init(){
   M=Object.fromEntries(D.metrics.map((k,i)=>[k,i]));PI_=Object.fromEntries(D.params.map((k,i)=>[k,i]));
   D.rows.forEach(r=>byId.set(r.i,r));ref=byId.get(0);
@@ -136,7 +137,7 @@ function filtered(){const se=$("#se").value;return [...D.rows,...variants].filte
 const LIMC={"Bay fit radius (stowed hull only)":"#1f7a7a","Dry mass":"#8e5ea2","Earth trip water: required vs carried":"#2f6e9c","Interior: usable vs allocated":"#d9611b","Buoyancy: hull + floats vs 1.5 x displaced":"#2f8a4e","Buoyancy: hull alone vs displaced":"#9ab85a"};
 function mres(r){return missionLive[r.i]||(r.mi?r.mi[mkey]:null)}
 function color(r){const k=$("#cs").value;if(!r.f)return "#9aa3a8";
-  if(k==="lim")return LIMC[r.lim]||"#555";
+  if(k==="lim")return LIMC[N(r.lim)]||"#555";
   if(k==="seats")return {4:"#3b6e8f",6:"#d9611b",8:"#2f8a4e"}[P(r,"seats")];
   if(k==="wing")return {none:"#7b8792",fold:"#3b6e8f",telescoping:"#d9611b"}[P(r,"wing")];
   if(k==="mis"){const m=mres(r);return !m?"#9aa3a8":m.ok?"#2f8a4e":"#b8392f"}
@@ -151,7 +152,7 @@ function legend(){const k=$("#cs").value;let h="";
 function draw(){
   if(!D)return;const cv=$("#plot"),g=cv.getContext("2d"),W=cv.width,H=cv.height,cs=getComputedStyle(document.documentElement);
   const xk=$("#xs").value,yk=$("#ys").value;shown=filtered();legend();
-  const pool=shown.length?shown:D.rows;
+  const pool=(shown.length?shown:D.rows).filter(r=>v(r,xk)!=null&&v(r,yk)!=null);
   const xs=pool.map(r=>v(r,xk)),ys=pool.map(r=>v(r,yk));
   let x0=Math.min(...xs,v(ref,xk)),x1=Math.max(...xs,v(ref,xk)),y0=Math.min(...ys,v(ref,yk)),y1=Math.max(...ys,v(ref,yk));
   const px=(x1-x0)*.06||1,py=(y1-y0)*.06||1;x0-=px;x1+=px;y0-=py;y1+=py;
@@ -173,7 +174,7 @@ function draw(){
 }
 function star(g,x,y,c){g.fillStyle=c;g.beginPath();for(let i=0;i<10;i++){const r=i%2?5:12,a=-Math.PI/2+i*Math.PI/5;g.lineTo(x+r*Math.cos(a),y+r*Math.sin(a))}g.closePath();g.fill()}
 function pick(e){const cv=$("#plot"),b=cv.getBoundingClientRect(),x=(e.clientX-b.left)*cv.width/b.width,y=(e.clientY-b.top)*cv.height/b.height,rad=18*cv.width/b.width;
-  const near=(shown.length?shown:D.rows).map(r=>[r,Math.hypot(sc.X(v(r,sc.xk))-x,sc.Y(v(r,sc.yk))-y)]).filter(q=>q[1]<rad).sort((a,b)=>a[1]-b[1]).map(q=>q[0]);
+  const near=(shown.length?shown:D.rows).filter(r=>v(r,sc.xk)!=null&&v(r,sc.yk)!=null).map(r=>[r,Math.hypot(sc.X(v(r,sc.xk))-x,sc.Y(v(r,sc.yk))-y)]).filter(q=>q[1]<rad).sort((a,b)=>a[1]-b[1]).map(q=>q[0]);
   const c=$("#cands");c.innerHTML="";
   if(!near.length)return; if(near.length===1){select(near[0]);return}
   c.innerHTML=`<span class="note">${near.length} designs overlap here; pick one:</span>`;
@@ -194,7 +195,7 @@ function svgDraw(r){
   <svg viewBox="-80 -86 160 172" aria-label="Section in the bay"><circle r="${2.4*30}" fill="none" stroke="var(--muted)"/><circle r="${2.15*30}" fill="none" stroke="var(--muted)" stroke-dasharray="3 3"/><polygon points="${sec}" fill="var(--water)" opacity=".7" stroke="var(--ink)"/><text x="-78" y="-74" font-size="10" fill="var(--muted)">hull r ${fit} m (limit 2.15)</text><text x="-78" y="84" font-size="8.5" fill="var(--muted)">wing/fan/float stowage not checked</text></svg></div>`}
 function marginRows(list,limName){
   if(!list)return `<p class="note">Margins are stored for designs that pass every gate and for the archetypes. Use "Edit a copy" and recalculate to see them for this one.</p>`;
-  return `<div class="mg head"><span>constraint</span><span class="r">value</span><span class="r">limit</span><span class="r">headroom</span><span>evidence</span></div>`+list.map(([n,val,lim,sense,hd,rel,cls])=>{const src=(D.gate_sources||{})[n]||"";
+  return `<div class="mg head"><span>constraint</span><span class="r">value</span><span class="r">limit</span><span class="r">headroom</span><span>evidence</span></div>`+list.map(([n0,val,lim,sense,hd,rel,cls])=>{const n=N(n0);const src=(D.gate_sources||{})[n]||"";
     const st=hd<0?"bad":rel<0.05?"thin":"good",w=Math.max(4,Math.min(100,Math.abs(rel)*200));
     return `<div class="mg ${n===limName?"lim":""}"><span class="n">${n}${n===limName?" · binds first":""}<small>${src}</small></span><span class="r">${val}</span><span class="r">${sense} ${lim}</span><span class="r ${st}">${hd>0?"+":""}${hd}</span><span><span class="cls">${CLSNAME[cls]}</span><div class="track"><div class="fill" style="width:${w}%;background:var(--${st})"></div></div></span></div>`}).join("")+`<p class="note">Green = room to spare; amber = within 5% of the limit; red = over.</p>`}
 function record(r){return JSON.stringify({id:r.i,name:nameOf(r),based_on:r.base??null,model_version:r.mv,input_hash:r.ih,params:Object.fromEntries(D.params.map((k,i)=>[k,r.p[i]]))},null,1)}
@@ -203,12 +204,12 @@ function sheet(r){
   const why=arch?arch.why:(typeof r.i==="string"?`your edit of ${nameOf(byId.get(r.base))}; `:"")+(r.f?"passes every gate":"fails: "+r.x.join(", "));
   const caps=D.caps.map((c,i)=>`<span class="tag ${r.c[i]?"ok":"no"}">${c}</span>`).join("");
   const fails=r.x.map(x=>`<span class="tag fail">fails ${x}</span>`).join("");
-  const mass=r.ms?Object.entries(r.ms).sort((a,b)=>b[1]-a[1]).map(([k,t])=>`<tr><td>${k.replace(/_/g," ")}</td><td>${t}</td></tr>`).join(""):"";
+  const mass=r.ms?D.masskeys.map((k,i)=>[k,r.ms[i]]).filter(q=>q[1]>0).sort((a,b)=>b[1]-a[1]).map(([k,t])=>`<tr><td>${k.replace(/_/g," ")}</td><td>${t}</td></tr>`).join(""):"";
   $("#sheet").innerHTML=`<h2>${nameOf(r)}</h2><p class="why">${why}</p>${hidden?`<p class="warn">Hidden by the current filters (dashed ring on the plot).</p>`:""}
   ${svgDraw(r)}<div class="tags">${fails}${caps}</div>
   <div class="btns"><button class="primary" id="editBtn">Edit a copy</button><button class="sq" id="pinBtn">${pins.includes(r)?"Unpin":"Pin for comparison"}</button><button class="sq" id="copyBtn">Copy design record</button></div>
   <div id="editor"></div><div class="status" id="status"></div>
-  <h3>Gates: actual vs limit</h3>${marginRows(r.gt,r.lim)}
+  <h3>Gates: actual vs limit</h3>${marginRows(r.gt,N(r.lim))}
   <h3>Capabilities: actual vs threshold</h3>${marginRows(r.cm,null)}
   <details><summary>Mass, t${r.fan!=null?` (fans + reactor ${r.fan} MW)`:""}</summary><table>${mass}</table></details>
   <details><summary>Design record (reproduce with engine.evaluate)</summary><pre>${record(r)}</pre></details>`;
@@ -253,40 +254,41 @@ async function recompute(base){
 function assumeForm(){const a=assume[mkey],C=a.checks;
   const fld=(id,lab,val,step=0.1)=>`<label for="${id}">${lab}<input type="number" id="${id}" step="${step}" value="${val}"></label>`;
   return `<div class="form">${fld("a_crew","Crew (uses couches)",a.crew,1)}${fld("a_pay","Payload, t",a.payload_t)}${fld("a_tpp","t per person aboard",a.t_per_person,0.01)}${fld("a_spr","Sprint kit water, t",a.sprint_t)}
-  ${fld("a_land","Heavy touchdown max, m/s",C.heavy_landing_max_ms,1)}${fld("a_cr","Reach from orbit min, km",C.crossrange_min_km,10)}${fld("a_turn","Max turn min, °/s",C.turn_min_dps,0.5)}${"evacuees_min" in C?fld("a_evac","Evacuees min",C.evacuees_min,1):""}
+  ${fld("a_land","Water touchdown max, m/s",C.heavy_landing_max_ms,1)}${fld("a_cr","Reach from orbit min, km",C.crossrange_min_km,10)}${fld("a_turn","Max turn min, °/s",C.turn_min_dps,0.5)}${"evacuees_min" in C?fld("a_evac","Evacuees min",C.evacuees_min,1):""}
   <label for="a_legs">Trip<select id="a_legs">${Object.entries(D.missions.legs).map(([k,l])=>`<option value="${k}" ${k===a.legs?"selected":""}>${k}: ${l.note}</option>`).join("")}</select></label>
+  <label for="a_ref">Refill from the sea<select id="a_ref"><option ${a.seawater_refill?"":"selected"}>false</option><option ${a.seawater_refill?"selected":""}>true</option></select></label>${fld("a_rh","Refill time max, h",C.refill_max_h??2,0.25)}
   <label for="a_rov">Rover needed<select id="a_rov"><option ${a.rover_needed?"":"selected"}>false</option><option ${a.rover_needed?"selected":""}>true</option></select></label></div>
-  <div class="btns"><button class="primary" id="aRun">Re-check with these assumptions</button><button class="sq" id="aReset">Reset to file defaults</button></div><p class="note">Every number here is an exploration assumption (missions.json), not a requirement. Heavy touchdown 999 means not checked. The heavy-touchdown and reach values come from each design's own calculation.</p>`}
-function readAssume(){const a=assume[mkey];a.crew=+$("#a_crew").value;a.payload_t=+$("#a_pay").value;a.t_per_person=+$("#a_tpp").value;a.sprint_t=+$("#a_spr").value;a.checks.heavy_landing_max_ms=+$("#a_land").value;a.checks.crossrange_min_km=+$("#a_cr").value;a.checks.turn_min_dps=+$("#a_turn").value;if($("#a_evac"))a.checks.evacuees_min=+$("#a_evac").value;a.legs=$("#a_legs").value;a.rover_needed=$("#a_rov").value==="true"}
+  <div class="btns"><button class="primary" id="aRun">Re-check with these assumptions</button><button class="sq" id="aReset">Reset to file defaults</button></div><p class="note">Every number here is an exploration assumption (missions.json), not a requirement. Touchdown 999 means not checked. With sea refill on, the light (refilled) touchdown is checked instead of the heavy one. The heavy-touchdown and reach values come from each design's own calculation.</p>`}
+function readAssume(){const a=assume[mkey];a.crew=+$("#a_crew").value;a.payload_t=+$("#a_pay").value;a.t_per_person=+$("#a_tpp").value;a.sprint_t=+$("#a_spr").value;a.checks.heavy_landing_max_ms=+$("#a_land").value;a.checks.crossrange_min_km=+$("#a_cr").value;a.checks.turn_min_dps=+$("#a_turn").value;if($("#a_evac"))a.checks.evacuees_min=+$("#a_evac").value;a.legs=$("#a_legs").value;a.rover_needed=$("#a_rov").value==="true";a.seawater_refill=$("#a_ref").value==="true";a.checks.refill_max_h=+$("#a_rh").value}
 function cols(){const c=[ref,...pins.filter(p=>p!==ref)];if(sel&&!c.includes(sel))c.push(sel);return c.slice(0,4)}
 function sentence(r){
   if(r===ref)return "";const b=ref,mr=mres(r),mb=mres(b),parts=[];
   const dd=v(r,"docked_t")-v(b,"docked_t");parts.push(`${dd<0?"cuts":"adds"} ${Math.abs(dd).toFixed(1)} t on Wayfarer (dry + full tank)`);
-  const sr=P(r,"seats"),sb=P(b,"seats");if(sr!==sb)parts.push(`${sr>sb?"gains":"loses"} ${Math.abs(sr-sb)} couches (passengers after crew ${mb?mb.pe.passengers:"?"} → ${mr?mr.pe.passengers:"?"})`);
-  const th=v(r,"touchdown_heavy_ms")-v(b,"touchdown_heavy_ms");if(Math.abs(th)>=0.5)parts.push(`${th<0?"lowers":"raises"} heavy water touchdown by ${Math.abs(th).toFixed(1)} m/s`);
+  const sr=P(r,"seats"),sb=P(b,"seats");if(sr!==sb)parts.push(`${sr>sb?"gains":"loses"} ${Math.abs(sr-sb)} couches (passengers after crew ${mb?mb.pe[2]:"?"} → ${mr?mr.pe[2]:"?"})`);
+  const th=v(r,"touchdown_heavy_ms")-v(b,"touchdown_heavy_ms");if(Math.abs(th)>=0.5)parts.push(`${th<0?"lowers":"raises"} heavy water touchdown by ${Math.abs(th).toFixed(1)} m/s`);const tl=v(r,"touchdown_light_ms")-v(b,"touchdown_light_ms");if(Math.abs(tl)>=0.5)parts.push(`${tl<0?"lowers":"raises"} light (refilled) touchdown by ${Math.abs(tl).toFixed(1)} m/s`);
   const cr=v(r,"crossrange_km")-v(b,"crossrange_km");if(Math.abs(cr)>=20)parts.push(`${cr>0?"adds":"loses"} ${Math.abs(cr)} km of reach from orbit`);
   const ew=v(r,"earth_margin_t")-v(b,"earth_margin_t");if(Math.abs(ew)>=0.3)parts.push(`${ew>0?"has":"loses"} ${Math.abs(ew).toFixed(1)} t ${ew>0?"more ":""}Earth water margin`);
   if(P(r,"rover")!==P(b,"rover"))parts.push(P(r,"rover")?"carries the rover in the core":"moves the rover to a kit (its 1.8 t stays on Wayfarer)");
   let tail="";if(mr&&mb)tail=` For “${assume[mkey].name}” it ${mr.ok?"passes":"fails"}${mr.ok?"":" ("+mr.ch.filter(c=>!c[5]).map(c=>c[0].toLowerCase()).join(", ")+")"}; B5 ${mb.ok?"passes":"fails"}.`;
-  const lim=r.lim&&r.lim!==b.lim?` Its first binding constraint is ${r.lim.toLowerCase()} (B5: ${b.lim.toLowerCase()}).`:"";
+  const lim=r.lim!=null&&N(r.lim)!==N(b.lim)?` Its first binding constraint is ${N(r.lim).toLowerCase()} (B5: ${N(b.lim).toLowerCase()}).`:"";
   return `<p class="sent"><b>${nameOf(r)}</b>: compared with B5, it ${parts.join(", ")}.${tail}${lim}</p>`}
 function missions(){
   if(!D)return;const C=cols(),a=assume[mkey];
   const opts=Object.entries(assume).map(([k,p])=>`<button class="${k===mkey?"on":""}" data-k="${k}">${p.name}</button>`).join("");
-  const names=new Set();C.forEach(r=>{const m=mres(r);if(m)m.ch.forEach(c=>names.add(c[0]))});
+  const names=new Set();C.forEach(r=>{const m=mres(r);if(m)m.ch.forEach(c=>names.add(N(c[0])))});
   const cell=(r,f)=>{try{return f(r)}catch(e){return "–"}};
   const line=(lab,f)=>`<tr><td>${lab}</td>${C.map(r=>`<td>${cell(r,f)}</td>`).join("")}</tr>`;
   let t=`<div class="scroll"><table><thead><tr><th></th>${C.map(r=>`<th>${nameOf(r)}${pins.includes(r)?" (pinned)":r===ref?"":" (selected)"}</th>`).join("")}</tr></thead><tbody>`;
   t+=line("Mission result",r=>{const m=mres(r);return m?(m.ok?`<span class="yes">passes</span>`:`<span class="no">fails</span>`):"not computed: edit and recalculate"});
-  t+=line("Couches · crew · passengers",r=>{const m=mres(r);return m?`${m.pe.couches} · ${m.pe.crew} · ${m.pe.passengers}`:P(r,"seats")});
+  t+=line("Couches · crew · passengers",r=>{const m=mres(r);return m?`${m.pe[0]} · ${m.pe[1]} · ${m.pe[2]}`:P(r,"seats")});
   t+=line("Water required / carried, t",r=>{const m=mres(r);return m?`${m.wr} / ${m.wc}`:"–"});
   t+=line("Water left, t",r=>{const m=mres(r);return m?(m.wc-m.wr).toFixed(1):"–"});
-  for(const n of names)t+=line(n,r=>{const m=mres(r);const c=m&&m.ch.find(c=>c[0]===n);if(!c)return "–";return `<span class="${c[5]?"yes":"no"}">${c[1]}</span> <span class="note">${c[3]} ${c[2]} ${c[4]}</span>`});
+  for(const n of names)t+=line(n,r=>{const m=mres(r);const c=m&&m.ch.find(c=>N(c[0])===n);if(!c)return "–";return `<span class="${c[5]?"yes":"no"}">${c[1]}</span> <span class="note">${c[3]} ${c[2]} ${c[4]}</span>`});
   t+=line("Dry / on Wayfarer, t",r=>`${v(r,"dry_t")} / ${v(r,"docked_t")}`);
   t+=line("Heavy / light touchdown, m/s",r=>`${v(r,"touchdown_heavy_ms")} / ${v(r,"touchdown_light_ms")}`);
   t+=line("Reach from orbit, km",r=>v(r,"crossrange_km"));t+=line("Glide L/D",r=>v(r,"glide_LD"));t+=line("Max turn, °/s",r=>v(r,"max_turn_dps"));
   t+=line("Bay fit headroom (hull only), m",r=>(2.15-v(r,"fit_r_m")).toFixed(2));t+=line("Interior headroom, m³",r=>v(r,"interior_margin_m3"));
-  t+=line("Binds first",r=>r.lim||"–");t+=`</tbody></table></div>`;
+  t+=line("Binds first",r=>r.lim!=null?N(r.lim):"–");t+=`</tbody></table></div>`;
   $("#missionCard").innerHTML=`<h2>Mission comparison</h2><p class="why">B5 against up to two pinned designs (pin from the design sheet; your edits pin themselves). The selected design is added if it isn't pinned.</p>
   <div class="btns" id="mBtns">${opts}</div>${C.map(sentence).join("")}${t}
   <details><summary>Mission assumptions: ${a.name}${Object.keys(missionLive).length?" (edited)":""}</summary>${assumeForm()}</details><div class="status" id="mstatus"></div>`;
@@ -297,9 +299,9 @@ async function recheck(){
   const st=$("#mstatus");readAssume();
   try{const py=await loadPy(st);st.textContent="Re-checking with your assumptions…";await new Promise(r=>setTimeout(r,30));
     const mj=JSON.parse(JSON.stringify(D.missions));mj.profiles[mkey]=assume[mkey];py.globals.set("mj",JSON.stringify(mj));
-    for(const r of cols()){const rm={dry_t:v(r,"dry_t"),params:Object.fromEntries(D.params.map((k,i)=>[k,r.p[i]])),touchdown_heavy_ms:v(r,"touchdown_heavy_ms"),crossrange_km:v(r,"crossrange_km"),max_turn_dps:v(r,"max_turn_dps")};
+    for(const r of cols()){const rm={dry_t:v(r,"dry_t"),params:Object.fromEntries(D.params.map((k,i)=>[k,r.p[i]])),touchdown_heavy_ms:v(r,"touchdown_heavy_ms"),touchdown_light_ms:v(r,"touchdown_light_ms"),refill_h:v(r,"refill_h"),crossrange_km:v(r,"crossrange_km"),max_turn_dps:v(r,"max_turn_dps")};
       py.globals.set("rj",JSON.stringify(rm));
-      missionLive[r.i]=JSON.parse(py.runPython(`M=json.loads(mj); m=missions.evaluate(json.loads(rj), M['profiles']['${mkey}'], M); json.dumps(dict(ok=int(m['ok']),wr=m['water_required_t'],wc=m['water_carried_t'],pe=m['people'],ch=[[c['name'],c['value'],c['limit'],c['sense'],c['unit'],int(c['ok']),c['headroom']] for c in m['checks']]), default=ENC)`))}
+      missionLive[r.i]=JSON.parse(py.runPython(`M=json.loads(mj); m=missions.evaluate(json.loads(rj), M['profiles']['${mkey}'], M); json.dumps(dict(ok=int(m['ok']),wr=m['water_required_t'],wc=m['water_carried_t'],pe=[m['people']['couches'],m['people']['crew'],m['people']['passengers']],ch=[[c['name'],c['value'],c['limit'],c['sense'],c['unit'],int(c['ok'])] for c in m['checks']]), default=ENC)`))}
     missions();$("#mstatus").textContent="Re-checked the shown designs with your assumptions. The plot's colour-by-mission still uses the file defaults.";
   }catch(e){st.textContent="Could not re-check: "+e.message}}
 </script>

@@ -75,7 +75,7 @@ Surface-to-orbit Δv with losses, thrust needed, and the propellant each mission
 1. G8 margins F8–F10: **keep**.
 2. 37 t envelope (M4): **retired**; ceiling from reserve, berth and trim.
 3. Reserve share: **up to 50%** of the reserve above the floor (≈ 16.0 t) on top of 36.48 t → docked-dry ceiling **≈ 52.5 t**, berth latch upgrade included.
-4. Ocean/ice refill: **preferably no**. Design on Wayfarer-supplied water and port refills.
+4. Ocean/ice refill: **preferably no**. Design on Wayfarer-supplied water and port refills. **Amended 2026-11-21: Earth seawater refill allowed** (onboard desalination); elsewhere unchanged.
 5. Venus ascent: **the Venus kit may supply it**.
 6. Water (2026-11-20): **option D**. The shuttle lands on, floats on and takes off from water, is watertight to ~10 m (survives swamping or a brief dunk), and **deploys and recovers the rover capsule from the water**. The Venus Ti capsule doubles as a submarine ("deep kit"). The whole shuttle is not a submarine.
 7. R1–R8 targets: open.

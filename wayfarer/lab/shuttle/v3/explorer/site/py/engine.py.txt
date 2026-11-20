@@ -32,7 +32,7 @@ SPACE = {  # name: (low, high) continuous, or list = choices
  'chine_z': (-0.35, 0.35), 'belly_w': (0.80, 1.04), 'nose': (0.75, 1.35), 'base': (0.75, 1.0),
  'wing': ['none', 'fold', 'telescoping'], 'span': (8.0, 16.0), 'chord': (1.0, 2.4),
  'fan_m2': [0, 6, 8, 10, 12], 'floats_m3': [0, 10, 20, 30, 40], 'water_t': [18, 20, 23.1, 26, 30],
- 'seats': [4, 6, 8], 'rover': [True, False], 'fan_venus': [True, False],
+ 'seats': [4, 6, 8], 'rover': [True, False], 'fan_venus': [True, False], 'desal': [True, False],
 }
 def sample(rng):
     p = {}
@@ -42,7 +42,7 @@ def sample(rng):
     if p['wing'] == 'none': p['span'], p['chord'] = 4.26, 0.0
     return p
 B5 = dict(ridge=0.45, shoulder_z=0.22, shoulder_y=-0.10, keel=0.30, chine_z=0.0, belly_w=1.0, nose=1.0, base=1.0,
-          wing='telescoping', span=14.0, chord=1.8, fan_m2=8, floats_m3=20, water_t=23.1, seats=6, rover=True, fan_venus=True)
+          wing='telescoping', span=14.0, chord=1.8, fan_m2=8, floats_m3=20, water_t=23.1, seats=6, rover=True, fan_venus=True, desal=True)
 
 # ------------------------------------------------------------------ geometry
 def keys(p):
@@ -84,6 +84,8 @@ def inset(S, d):
     return np.array(out)
 
 # ------------------------------------------------------------------ thresholds (evidence class in brackets)
+CABIN_M3_PER_COUCH = 3.5   # kT 2026-11-21: courier hops under a day (long legs: long-haul cabin kit) [assumption]
+DESAL_T, DESAL_M3, DESAL_MJ_PER_KG = 0.4, 0.5, 2.26   # desalination unit; distillation energy, no heat recovery [assumption]
 THRESH = {
  'land_light_ms': (40.0, 'kT landing rule 2026-11-21: light landings in 2 m waves at 30-36, US-2 class [threshold]'),
  'land_heavy_ms': (50.0, 'kT landing rule 2026-11-21: heavy ~50 m/s in ~1 m waves [threshold]'),
@@ -144,14 +146,14 @@ def evaluate(p, full_entry=True):
              rover=(B4S['rover_chassis_crab_t'] + B4S['rover_light_cabin_shell_t'] + B4S['rover_outfit_life_support_power_t']) if p['rover'] else 0.0,
              torch=B4S['torch_low_high_engine_t'], belly_rcs=B4S['small_belly_thrusters_t'], power_dist=B4S['reactor_power_distribution_t'],
              custody=B4S['custody_capsule_dry_t'], avionics=B4S['avionics_controls_yaw_t'], gear_door=B4S['landing_gear_door_ramp_t'],
-             crash_mounts=0.3, floats=0.03 * p['floats_m3'])
+             crash_mounts=0.3, floats=0.03 * p['floats_m3'], desal=(DESAL_T if p.get('desal') else 0.0))
     pay = 0.1 * p['seats'] + 2.0
     dry0 = sum(m.values()); fans = fan_model(p, dry0 + 6 + pay + 18)
     m['fans_reactor'] = fans['mass_t']; dry = sum(m.values())
     r.update(dry_t=round(dry, 2), mass_t={k: round(v, 2) for k, v in m.items()}, fans=fans, payload_t=round(pay, 2))
     if dry > CEIL_T: r['fails'].append('mass ceiling')
     # interior closure
-    need = 4.5 * p['seats'] + 1.05 * p['water_t'] + (11.5 if p['rover'] else 6.0) + 5.0 + 7.0 + 3.0 + 0.04 * fans['MWe']
+    need = CABIN_M3_PER_COUCH * p['seats'] + 1.05 * p['water_t'] + ((11.5 + 5.0) if p['rover'] else 6.0) + 7.0 + 3.0 + 0.04 * fans['MWe'] + (DESAL_M3 if p.get('desal') else 0.0)
     r['interior_need_m3'] = round(need, 1); r['interior_margin_m3'] = round(Vin - need, 1)
     if Vin < need: r['fails'].append('interior')
     # propellant
@@ -182,6 +184,8 @@ def evaluate(p, full_entry=True):
     m_heavy = dry + pay + w_e
     def vtd(mm): return math.sqrt(2 * max(mm * 1e3 * 9.81 - fans['static_kN'] * 1e3, 1.0) / (1.225 * S * clmax))
     r['touchdown_heavy_ms'] = round(vtd(m_heavy), 1); r['touchdown_light_ms'] = round(vtd(dry + pay + 2.0), 1)
+    # Earth seawater refill (kT 2026-11-21): land light, distil the climb water with the fan reactor
+    r['refill_h'] = round(w_e * 1e3 * DESAL_MJ_PER_KG / max(fans['MWe'], 1e-6) / 3600, 2) if (p.get('desal') and fans['MWe'] > 0) else None
     W = m_heavy * 1e3 * 9.81; Vc = math.sqrt(8 * W / (0.5 * 1.225 * S * float(CL.max())))
     Vt = min(Vc, 272.0); nt = min(8.0, 0.5 * 1.225 * Vt ** 2 * S * float(CL.max()) / W)   # corner speed, capped at the ROM's Mach 0.8
     r['max_turn_dps'] = round(math.degrees(9.81 * math.sqrt(max(nt * nt - 1, 0)) / Vt), 1); r['corner_ms'] = round(Vt, 1)
@@ -189,6 +193,7 @@ def evaluate(p, full_entry=True):
     tank = p['water_t']
     r['capabilities'] = {
         'Earth sea-to-orbit (core)': w_e <= tank,
+        'Earth seawater refill': r['refill_h'] is not None,
         'Hot egress to orbit (+sprint kit)': r['hot_egress_water_t'] <= tank + THRESH['sprint_t'][0],
         'Light water landing, 2 m waves': r['touchdown_light_ms'] <= THRESH['land_light_ms'][0],
         'Heavy water landing, ~1 m waves': r['touchdown_heavy_ms'] <= THRESH['land_heavy_ms'][0],
@@ -204,7 +209,7 @@ def evaluate(p, full_entry=True):
         G('Bay fit radius (stowed hull only)', r['fit_r_m'], R_ENV, '<=', 'm', 'geometry', 'F-series envelope r 2.15 m; folded wings/fans/floats, 3.8 m slot, roll and G8 exit path NOT checked'),
         G('Dry mass', dry, CEIL_T, '<=', 't', 'coef', 'kT reserve share ceiling 52.5 t; masses scaled from B4-S parts'),
         G('Earth trip water: required vs carried', w_e, tank, '<=', 't', 'model', 'step2 fixed-power torch, R1 legs'),
-        G('Interior: usable vs allocated', Vin, need, '>=', 'm3', 'coef', 'allocations 4.5 m3/couch, rover 11.5 (else 6), door 5, aft 7, avionics 3'),
+        G('Interior: usable vs allocated', Vin, need, '>=', 'm3', 'coef', 'allocations 3.5 m3/couch (hops), rover 11.5 + door 5 (else cargo well 6), aft 7, avionics 3, desal 0.5'),
         G('Buoyancy: hull + floats vs 1.5 x displaced', Vh + p['floats_m3'], 1.5 * disp, '>=', 'm3', 'geometry', 'W2 amended 2026-11-21; stability (W6) NOT checked'),
         G('Buoyancy: hull alone vs displaced', Vh, disp, '>=', 'm3', 'geometry', 'W2 amended 2026-11-21')]
     r['capability_margins'] = [
