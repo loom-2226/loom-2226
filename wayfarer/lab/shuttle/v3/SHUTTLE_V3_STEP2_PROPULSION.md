@@ -5,7 +5,7 @@ ALL bodies. ALL sponsors. 2026-2226.
 
 ## Findings
 
-1. **Earth sea-to-orbit closes on the 23.1 t tank** with the 7.7 GW torch: 18.0 t for the whole sortie (40 t dry, 6 pax + 2 t, 50 km/s top exhaust speed); 14.7–23.0 t over 36.5–45 t dry at 50 km/s. It does **not** close if the top exhaust speed is only 25 km/s and dry reaches 45 t (31.5 t). Liftoff ≈ 60 t, ~800 kN, exhaust ~19 km/s.
+1. **Earth sea-to-orbit closes on the 23.1 t tank** with the 7.7 GW torch: 18.0 t for the whole sortie (40 t dry, 6 pax + 2 t, 50 km/s top exhaust speed); 15.0–23.0 t over 36.5–45 t dry at 50 km/s. At only 25 km/s top exhaust speed it busts the tank at every dry mass (23.6–31.4 t). Liftoff ≈ 60 t, ~770 kN, exhaust ~20 km/s.
 2. **Keep 7.7 GW.** A bigger torch saves water but adds engine mass about one for one (dry + water 57–58 t from 7.7 to 12 GW, worse above).
 3. **Venus sizes the water, not Earth:** 30 t (26–47 t) because the kit adds 15 t. Under decision 5 the Venus kit carries its own extra water (~8–13 t mid). Titan, Mars, Moon and Europa need 2–13 t.
 4. **Radiation is the hard one.** Scaled from the Wayfarer torch model, an ordinary pulse shell leaks ~10 MW of neutrons: lethal at the cabin in seconds. In air a shadow shield doesn't save you, because neutrons scatter round it (mean free path ~100 m at sea level). The fix is physics we already have: the shuttle's low exhaust speed means a lot of remass per pulse, so the shell around each pulse can be **thick enough to be the shield**. Conservative case: **≥ 55 kg per pulse (~600 g/cm² compressed)** → ≈1 mSv to the cabin over a 15-min ascent with no shadow shield. That sets ~0.7 Hz at full power in air (ve ~20 km/s).
