@@ -33,6 +33,7 @@ SPACE = {  # name: (low, high) continuous, or list = choices
  'wing': ['none', 'fold', 'telescoping'], 'span': (8.0, 16.0), 'chord': (1.0, 2.4),
  'fan_m2': [0, 6, 8, 10, 12], 'floats_m3': [0, 10, 20, 30, 40], 'water_t': [18, 20, 23.1, 26, 30],
  'seats': [4, 6, 8], 'rover': [True, False], 'fan_venus': [True, False], 'desal': [True, False],
+ 'wildcard': ['none', 'osteon_airframe', 'dense_power', 'high_lift'],
 }
 def sample(rng):
     p = {}
@@ -42,7 +43,7 @@ def sample(rng):
     if p['wing'] == 'none': p['span'], p['chord'] = 4.26, 0.0
     return p
 B5 = dict(ridge=0.45, shoulder_z=0.22, shoulder_y=-0.10, keel=0.30, chine_z=0.0, belly_w=1.0, nose=1.0, base=1.0,
-          wing='telescoping', span=14.0, chord=1.8, fan_m2=8, floats_m3=20, water_t=23.1, seats=6, rover=True, fan_venus=True, desal=True)
+          wing='telescoping', span=14.0, chord=1.8, fan_m2=8, floats_m3=20, water_t=23.1, seats=6, rover=True, fan_venus=True, desal=True, wildcard='none')
 
 # ------------------------------------------------------------------ geometry
 def keys(p):
@@ -86,6 +87,14 @@ def inset(S, d):
 # ------------------------------------------------------------------ thresholds (evidence class in brackets)
 CABIN_M3_PER_COUCH = 3.5   # kT 2026-11-21: courier hops under a day (long legs: long-haul cabin kit) [assumption]
 DESAL_T, DESAL_M3, DESAL_MJ_PER_KG = 0.4, 0.5, 2.26   # desalination unit; distillation energy, no heat recovery [assumption]
+# Tech wildcards (kT 2026-11-21: 'willing to add a builder tech wildcard'). ONE per design. NON-CANON until kT/canon process.
+WILDCARDS = {
+ 'none': {},
+ 'osteon_airframe': dict(struct=0.70, note='Builder-derived Osteon (OST-22) structure: Wayfarer mass_basis says Osteon longerons/fittings save 0.8-1.4 t of 3.7 t (22-38%); 30% applied to airframe items [assumption from repo basis]'),
+ 'dense_power': dict(power_density=2.0, power_size=1.5, note='reactor + motors + electronics at 2x specific power, fans sized 1.5x: human 2226 stretch, NOT Builder-grounded [assumption]'),
+ 'high_lift': dict(cl_cap=6.0, cl_slope=3.9, note='circulation-control / morphing high-lift credited (CL cap 6): human 2226 stretch (A-6 CCW lineage), NOT Builder-grounded [assumption]'),
+}
+STRUCT_ITEMS = ('hull_structure', 'wings', 'floats', 'gear_door', 'crash_mounts')
 THRESH = {
  'land_light_ms': (40.0, 'kT landing rule 2026-11-21: light landings in 2 m waves at 30-36, US-2 class [threshold]'),
  'land_heavy_ms': (50.0, 'kT landing rule 2026-11-21: heavy ~50 m/s in ~1 m waves [threshold]'),
@@ -116,8 +125,8 @@ def fan_model(p, m_land):
     W = m_land * 1e3 * 9.81; take = (0.25 * W) ** 1.5 / math.sqrt(2 * 1.225 * A) / 0.78 / 0.93 / 1e6
     cruise = W / 5.0 * 100 / 0.75 / 0.93 / 1e6
     needs = [take, cruise, hover(m_land, 1.35, 5.4)] + ([hover(m_land + 15.2, 8.87, 65.0)] if p.get('fan_venus', True) else [])
-    MW = max(needs)
-    mass = MW * 3.095 / 75 + MW / 20 + MW / 50 + A * 0.06
+    W_ = WILDCARDS.get(p.get('wildcard', 'none'), {}); MW = max(needs) * W_.get('power_size', 1.0); dens = W_.get('power_density', 1.0)
+    mass = (MW * 3.095 / 75 + MW / 20 + MW / 50) / dens + A * 0.06
     return dict(MWe=round(MW, 1), mass_t=round(mass, 2), static_kN=round(static(MW)))
 
 def evaluate(p, full_entry=True):
@@ -147,6 +156,8 @@ def evaluate(p, full_entry=True):
              torch=B4S['torch_low_high_engine_t'], belly_rcs=B4S['small_belly_thrusters_t'], power_dist=B4S['reactor_power_distribution_t'],
              custody=B4S['custody_capsule_dry_t'], avionics=B4S['avionics_controls_yaw_t'], gear_door=B4S['landing_gear_door_ramp_t'],
              crash_mounts=0.3, floats=0.03 * p['floats_m3'], desal=(DESAL_T if p.get('desal') else 0.0))
+    WC = WILDCARDS.get(p.get('wildcard', 'none'), {})
+    for k in STRUCT_ITEMS: m[k] = m[k] * WC.get('struct', 1.0)
     pay = 0.1 * p['seats'] + 2.0
     dry0 = sum(m.values()); fans = fan_model(p, dry0 + 6 + pay + 18)
     m['fans_reactor'] = fans['mass_t']; dry = sum(m.values())
@@ -180,7 +191,7 @@ def evaluate(p, full_entry=True):
         r['crossrange_km'] = round(e['crossrange_km']); r['peak_heat_Wcm2'] = round(e['peak_q_Wcm2']); r['entry_g'] = round(e['peak_g'], 2)
     al = np.linspace(0, 32, 65); pol = [AT.subsonic(v, a) for a in al]; CL = np.array([q[0] for q in pol]); CD = np.array([q[1] for q in pol]); S = pol[0][2]
     r['glide_LD'] = round(float(max(CL / np.maximum(CD, 1e-6))), 2)
-    cl20 = float(CL[al <= 20].max()); clmax = min(4.0, cl20 + 2.6 * fans['MWe'] / 28.0) if p['fan_m2'] else cl20 + (1.2 * Sw / S if Sw else 0)
+    cl20 = float(CL[al <= 20].max()); clmax = min(WC.get('cl_cap', 4.0), cl20 + WC.get('cl_slope', 2.6) * fans['MWe'] / 28.0) if p['fan_m2'] else cl20 + (1.2 * Sw / S if Sw else 0)
     m_heavy = dry + pay + w_e
     def vtd(mm): return math.sqrt(2 * max(mm * 1e3 * 9.81 - fans['static_kN'] * 1e3, 1.0) / (1.225 * S * clmax))
     r['touchdown_heavy_ms'] = round(vtd(m_heavy), 1); r['touchdown_light_ms'] = round(vtd(dry + pay + 2.0), 1)
