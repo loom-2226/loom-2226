@@ -1,0 +1,65 @@
+{
+ "doc": "Shift atmospheric perturbation check: one 1 m/s gust, with and without pressure (SOL brief after ed8843c). NON-CANON.\nALL bodies. ALL sponsors. 2026-2226.\n\nBackground: R = 15 m, wall d = 2 m zero-expansion shift, same 200 m / 3 s quintic, uniform sea-level air in free fall (w = 0).\nPerturbation: w = locally measured fluid velocity relative to the Eulerian (free-fall) frame; rho' = density perturbation. Linearized\nslow-motion equations in the N = 1 shift metric (axisymmetric, no swirl), coordinate frame:\n  d_t w   = -grad(beta . w) + beta x omega - c_s^2 grad(rho')/rho0        omega = curl w\n  d_t rho' = -beta . grad rho' - rho0 div w                                 (div beta = 0 used)\nPressure-free control: drop the c_s^2 term (this is the Eulerian form of the earlier test-particle law w_dot = -grad(beta) . w).\nCurl of the momentum equation: d_t omega = curl(beta x omega)  -- pressure-independent (DERIVED): vorticity is frozen into the beta flow.\nPressure only acts on the compressive part, which becomes sound.\nNumerics: collocated 2nd-order central differences on (x, rho), cell-centred rho with parity ghosts, RK4, 4th-order explicit filter,\nabsorbing sponge on the outer 15 m (energy absorbed is logged as radiated). Energy E = int [1/2 rho0 |w|^2 + 1/2 c^2 rho'^2/rho0] dV.\nRuns: {dash, no dash} x {pressure, pressure-free} at h = 0.5 m, plus h = 0.25 m for the dash cases (numerical check).",
+ "runs": {
+  "h0.5_dash_pressure": {
+   "h": 0.5,
+   "dash": true,
+   "pressure": true,
+   "dt": 0.0003333333333333333,
+   "E0_J": 32.04206969699334,
+   "E_final_J": 9.554141459661126,
+   "KE_final_J": 9.554119811370786,
+   "PE_final_J": 2.1648290340289114e-05,
+   "absorbed_J": 11.88732239446689,
+   "final_max_speed_ms": 0.05897605405223646,
+   "energy_centroid_x_m": 126.44939214386856,
+   "energy_spread_x_m": 67.02738743477164,
+   "final_enstrophy": 1.4134458795947507
+  },
+  "h0.5_dash_nopressure": {
+   "h": 0.5,
+   "dash": true,
+   "pressure": false,
+   "dt": 0.0009615384615384615,
+   "E0_J": 32.04206969699334,
+   "E_final_J": 6091.2455688607315,
+   "KE_final_J": 6091.2455688607315,
+   "PE_final_J": 0.0,
+   "absorbed_J": 9.855705660625798e-22,
+   "final_max_speed_ms": 1.5784102828322302,
+   "energy_centroid_x_m": 179.23574416717116,
+   "energy_spread_x_m": 34.59725511929499,
+   "final_enstrophy": 2.169110406791897
+  },
+  "h0.5_nodash_pressure": {
+   "h": 0.5,
+   "dash": false,
+   "pressure": true,
+   "dt": 0.0005087209302325581,
+   "E0_J": 32.04206969699334,
+   "E_final_J": 21.1229074121118,
+   "KE_final_J": 21.12288791739022,
+   "PE_final_J": 1.949472158199314e-05,
+   "absorbed_J": 8.959163369159166,
+   "final_max_speed_ms": 0.3905761657315583,
+   "energy_centroid_x_m": 60.00132672755026,
+   "energy_spread_x_m": 3.938953845344558,
+   "final_enstrophy": 6.9386272300444185
+  },
+  "h0.5_nodash_nopressure": {
+   "h": 0.5,
+   "dash": false,
+   "pressure": false,
+   "dt": 0.175,
+   "E0_J": 32.04206969699334,
+   "E_final_J": 32.05144932073494,
+   "KE_final_J": 32.05144932073494,
+   "PE_final_J": 0.0,
+   "absorbed_J": 6.383614649526766e-146,
+   "final_max_speed_ms": 0.9820152427306059,
+   "energy_centroid_x_m": 60.00000000000001,
+   "energy_spread_x_m": 1.5033371731201475,
+   "final_enstrophy": 11.565856500533739
+  }
+ }
+}
