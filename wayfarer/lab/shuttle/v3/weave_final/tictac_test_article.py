@@ -35,20 +35,20 @@ out = dict(doc=__doc__, diameter_m=D, length_m=L, hull_m3=round(V, 1), interior_
            gives_up=['wings and fans: no conventional aerodynamic fallback (field failure = torch or ballistic + flotation)', 'lifting entry: capsule L/D ~0.3 at best, little crossrange, more TPS',
                      'not a replacement for the selected shuttle: a Weave manoeuvring test bed / demonstrator'],
            gains=['~2x the interior of the shuttle hull (test instrumentation, ballast, crew stations)', 'smallest field radius (6.4 m vs 8.55 m): cleanest carriage',
-                  'floats on its own; no appendages to stow; fits the bay with standard margins (no collar)', 'the shape people expect'])
+                  'floats on its own; no appendages to stow; standard 12.8 m length (no collar); exit width equals the 3.8 m F10 limit exactly (0.5 m to each slot edge, no further margin)', 'the shape people expect'])
 json.dump(out, open(os.path.join(H, 'tictac_test_article.json'), 'w'), indent=1)
 # ---------------- picture: top views inside the field
 INK = '#1f2933'; MUT = '#6b7280'; SH = '#2563eb'; CU = '#0e7490'
 plt.rcParams.update({'font.size': 9.5})
 f, ax = plt.subplots(1, 2, figsize=(12, 6)); f.suptitle("Weave test article 'Tic Tac' vs the selected shuttle, inside the R 15 m field (top view, NON-CANON sketch)", color=INK, fontsize=11.5)
 import sys; sys.path.insert(0, os.path.join(H, '..', 'explorer')); import engine as E
-cfg = json.load(open(os.path.join(H, 'closure_screen.json')))['config']; K = E.keys(cfg); xs = np.linspace(0, float(K[-1, 0]), 60)
+cfg = dict(json.load(open(os.path.join(H, 'closure_screen.json')))['config'], length=13.02); K = E.keys(cfg); xs = np.linspace(0, float(K[-1, 0]), 60)
 half = np.array([E.section(K, x, cfg['keel'])[2][0] for x in xs])
 for a, ttl in zip(ax, ('Selected shuttle: 13.0 m lifting body, 17 m wing', "'Tic Tac' test article: 12.8 m x 3.8 m capsule")):
     a.add_patch(Circle((0, 0), 15, fc='#eff6ff', ec=SH, lw=1.2, ls='--')); a.add_patch(Circle((0, 0), 10, fc='#dbeafe', ec=SH, lw=0.8, ls=':'))
     a.text(0, 13.2, 'field R 15 m', ha='center', color=SH, fontsize=8.5); a.text(0, 8.6, 'clean zone 10 m', ha='center', color=SH, fontsize=8)
     a.set_xlim(-16, 16); a.set_ylim(-16, 16); a.set_aspect('equal'); a.axis('off'); a.set_title(ttl, color=INK, fontsize=10.5, loc='left')
-xc = 6.4
+xc = float(K[-1, 0]) / 2
 P = np.r_[np.c_[xs - xc, half], np.c_[xs[::-1] - xc, -half[::-1]]]; ax[0].add_patch(Polygon(P, fc='#cbd5e1', ec=INK, lw=1))
 for s in (-1, 1): ax[0].add_patch(Rectangle((5.5 - xc, s * 2.13 if s > 0 else -8.5), 1.8, 8.5 - 2.13, fc='#94a3b8', ec=INK, lw=0.8))
 ax[0].text(0, -12.5, 'max radius 8.55 m (wing tips)', ha='center', color=INK, fontsize=9)

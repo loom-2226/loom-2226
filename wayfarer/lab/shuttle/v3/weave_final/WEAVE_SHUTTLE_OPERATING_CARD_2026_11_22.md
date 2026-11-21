@@ -2,7 +2,7 @@
 
 ALL bodies. ALL sponsors. 2026-2226.
 
-**Status:** experimental prototype, **NON-CANON** until the CCR is approved by kT. Preliminary design level (steps 1–2 accepted by Sol). For Sol review before CCR scoping.
+**Status (Sol-corrected wording, step 3 accepted):** experimental prototype, **NON-CANON** until the CCR is approved by kT. Preliminary design level (steps 1–2 accepted by Sol). For Sol review before CCR scoping.
 
 **Labels:**
 - **D** = DERIVED in this lane's models (cited);
@@ -30,7 +30,7 @@ A 13.02 m Osteon lifting body with three ways of moving.
 
 **1. Lift off vertically with no downwash** (W2 cushion)
 - Hover in air: air speed ≤ 0.16 m/s, pressure shift ~140 Pa; nothing blown around (D, linear compressible air).
-- Vertical lift to 2 km in ~20 s: ~3.35 GJ from the flywheel at up to 168 MW. Height is paid for (A, lane cushion model).
+- Vertical lift to 2 km in ~20 s: ~3.35 GJ from the flywheel at up to 168 MW. Height is paid for. These are accepted prototype design assumptions supported by the lane calculations, not proven hardware performance (A).
 - The cabin is weightless throughout cushion flight.
 
 **2. Move like nothing else** (Weave shift)
@@ -38,16 +38,16 @@ A 13.02 m Osteon lifting body with three ways of moving.
 | Manoeuvre | Peak | Felt by occupants |
 |---|---|---|
 | 200 m dash in 3 s | 125 m/s, 13 g | ~0.02 g (D, test hull) |
-| 30 m sidestep in 0.5 s | 112 m/s, 71 g | ≤ ~0.7 g (D, test hull); actual host wing-tip differential ≤ 0.8% → ~0.6 g on the wing tips (D, closure) |
+| 30 m sidestep in 0.5 s | 112 m/s, 71 g | ~0.66 g demonstrated in the 20 m test-hull model, not a guarantee for the final 13.02 m shuttle (D, test hull). For the actual host the field-carriage differential is ≤ 0.8% at the wing tips (D, closure) |
 | 30 m sidestep in 0.4 s | 110 g | ~1 g (D) |
 
-- **Quiet in calm air:** the shuttle carries its own pocket of air. No airflow over the hull, no wake left behind, no compression (D, exact ideal-fluid result). Air is displaced, not stirred.
+- **Quiet in calm air (ideal-fluid model):** the shuttle carries its own pocket of air. No airflow over the hull, no compression and no residual wake in the ideal-fluid model (D). Air is displaced, not stirred. Real-atmosphere silence is not claimed.
 - **Quiet limit:** the field edge stays subsonic while peak speed is below ~140 m/s, i.e. ≥ 0.4 s per 30 m (D).
 
 **3. Fly and float as a conventional spacecraft**
 - Water and runway landings: heavy (climb water aboard) ≤ 50 m/s in ~1 m waves; light ~37.5 m/s in 2 m waves. Uses the W1 lift uplift (A).
 - Atmospheric entry as a lifting body: ~1,160 km crossrange, ~2.2 g, ~263 W/cm² peak (D, host #2643 explorer record).
-- Orbit: cushion lift to 2 km, then a 1.4 g torch climb; Earth and hot extraction each need 22.6 t of the 23.1 t tank (D).
+- Orbit: cushion lift to 2 km, then a 1.4 g torch climb. Earth and hot extraction each need 22.6 t of the 23.1 t tank. This ascent budget is an accepted prototype design assumption supported by the lane calculations (A).
 - Floats 32 m³: buoyancy ≥ 1.5× displaced at full load (D).
 
 **4. Work in weather, on the ground and on the water**
@@ -72,9 +72,9 @@ A 13.02 m Osteon lifting body with three ways of moving.
 
 | Sensor | Signature |
 |---|---|
-| Radar | Sees the hull's true track and speed (Doppler ray-traced through the field); the field itself is invisible to radar (D, one head-on geometry) |
-| Optical | The field bends light ≤ 2e-12 rad, so it is invisible (D, one side-on geometry). The only optical trace is faint shimmer from moved layered air, 1.7–6.5 µrad: below the eye, within reach of schlieren instruments (D) |
-| Overall | A solid object doing 71–110 g with no plume, no rotor wash and no sonic boom while the field edge is subsonic. Water operations are highly visible |
+| Radar | Sees the hull's true track and speed (Doppler ray-traced through the field); negligible direct field signature in the tested head-on geometry (D) |
+| Optical | Negligible direct field signature in the tested side-on geometry: light bent ≤ 2e-12 rad (D). The optical trace found is faint shimmer from moved layered air, 1.7–6.5 µrad: below the eye, within reach of schlieren instruments (D). Other angles and speeds untested |
+| Overall | A solid object doing 71–110 g with no plume and no rotor wash; no field-edge sonic boom while the edge is subsonic (models above). Water operations are highly visible |
 | Thermal | **U**: depends on how much of each manoeuvre's borrowed energy (~0.5 GJ per sidestep) is lost as heat |
 
 ## Limits worth knowing
@@ -84,8 +84,8 @@ A 13.02 m Osteon lifting body with three ways of moving.
 | Situation | Outcome |
 |---|---|
 | Airspeed ≥ ~50 m/s | Wings take over |
-| Slow hover ≤ 5 m over water | Drop onto floats: fine |
-| Slow hover ≤ ~2 m over land | Drop onto gear: fine |
+| Slow hover ≤ 5 m over water | Drop onto floats: estimated survivable under the stated impact assumption (10 m/s), not a demonstrated safety guarantee |
+| Slow hover ≤ ~2 m over land | Drop onto gear: estimated survivable under the stated impact assumption (6 m/s), not a demonstrated safety guarantee |
 | Above ~19 / 47 / 92 m (torch lights in 1 / 2 / 3 s) | Emergency torch recovers |
 | Slow hover between those heights | **No recovery**. Experimental limit: such hovers are flown knowingly, not forbidden |
 

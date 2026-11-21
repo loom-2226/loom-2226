@@ -2,6 +2,8 @@
 
 ALL bodies. ALL sponsors. 2026-2226.
 
+*Corrected after Sol review: exit-width margin wording; comparison render now uses the 13.02 m shuttle.*
+
 kT 2026-11-22: consider a Tic Tac shape "just for fun, particularly if/when we test weave maneuvering". **This does not change the selected shuttle.**
 
 Code: `tictac_test_article.py` → `tictac_test_article.json`, `weave_tictac_test_article.png`.
@@ -13,7 +15,7 @@ Code: `tictac_test_article.py` → `tictac_test_article.json`, `weave_tictac_tes
 | Item | Value |
 |---|---|
 | Size | **12.8 m × 3.8 m** capsule (cylinder with hemispherical ends) |
-| Bay fit | The diameter is capped by the 3.8 m exit width (rolling does not help a round body). Standard 12.8 m length, so no docking collar is needed |
+| Bay fit | The diameter is capped by the 3.8 m exit width (rolling does not help a round body): it equals the F10 limit exactly, i.e. the 0.5 m G8 clearance to each slot edge with **no further margin** (Sol correction). Standard 12.8 m length, so no docking collar is needed |
 | Volume | ~131 m³ hull, **~113 m³ interior**: about twice the shuttle's |
 | Field | Max radius **6.4 m** (shuttle: 8.55 m), the cleanest carriage. Differential ≤ 0.08%, about 0.05 g at a 71 g jink |
 | Water | Floats on its own; no floats needed |
