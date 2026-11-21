@@ -92,3 +92,18 @@ Rough model, #2643, 6 couches unless noted:
 - Wall–air and wall–water interaction.
 - Morphing-structure mass and stiffness.
 - Stowage of any wing in the bay.
+
+## Correction (2026-11-21, during the Weave review)
+**What changed:** the W3 statement "up-hops are forbidden unless the ship already has the speed (1 km needs 140 m/s)" used the *local* frame. That is wrong.
+
+**Why:** CANON II §7.1a ENERGY-B counts kinetic energy in the **Sun-barycentric** frame, where a shuttle sitting on Earth already moves at about 29.8 km/s.
+
+**What an up-hop costs instead:** v_a = √(v_s² − 2gΔh) ≈ v_s − gΔh/v_s.
+- That is about **0.33 m/s of heliocentric speed per km of height**, so up-hops are not forbidden.
+- The energy (about 0.6 GJ per km for 61 t) is drawn from heliocentric kinetic energy.
+
+**Consequence (unresolved):**
+- Hop up by metric, fall back conventionally while harvesting the fall energy, then trim the small relative velocity: in the Earth frame that cycle nets about 0.6 GJ per km.
+- The Earth-frame source is the Sun-partner exchange, Δp·v_rel ≈ 61 t × 0.33 m/s × 29.8 km/s.
+- Near-body metric with the canon Sun partner is therefore an energy pump against the §7.3 no-free-work firewall.
+- This is related to canon's own MONITOR cycle residual (§7.1b). Flagged; not resolved here.
