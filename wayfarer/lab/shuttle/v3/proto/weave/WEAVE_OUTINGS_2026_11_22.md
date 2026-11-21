@@ -30,7 +30,7 @@ Labels: DERIVED (mathematical, within the stated model), ESTIMATE, ASSUMED (LOOM
 
 - **The shuttle:** steps 30 m sideways in half a second and stops (0.24 m short at the hull ends). Hull across the motion is the harshest orientation: the hull ends sit in stronger return flow than in the end-on dash (0.018 g at 13 g). (DERIVED)
 - **Occupants:** under 1 g for 71–110 g of manoeuvre. (DERIVED)
-- **Observer / sensor:** a solid object jinking at 71 g with no plume, no heat, and sound only if the field edge goes supersonic. The quiet limit is T ≥ 1.875·D·2.45/c_s = **0.40 s for 30 m**. (DERIVED)
+- **Observer / sensor:** a solid object jinking at 71 g with no plume, and sound only if the field edge goes supersonic. A thermal signature is **not** ruled out: it depends on the unknown loss fraction η (corrected after Sol review). The quiet limit is T ≥ 1.875·D·2.45/c_s = **0.40 s for 30 m**. (DERIVED)
 - **Environment:** 68 t of air moved more than 1 m; peak air speed 163 m/s during the move; no residual wind in calm air. (DERIVED, ideal fluid)
 - **Unknown:**
   - the loss fraction η of the lent energy; heat per dodge ≈ η × ~1 GJ throughput, which sets how many sheddable heat sinks a dodge uses;
@@ -109,3 +109,20 @@ Model: exact kinematic shift transport, cushion-weightless interior, gravity thr
 - **Still UNKNOWN:** exchange physics, loss fraction (heat-sink use per manoeuvre), supersonic-edge behaviour, free-surface details.
 
 No canon change. Results return to kT and Sol first.
+
+## 6. Sol review of e7f28ef: qualifications and AP comparison (2026-11-22)
+
+**Qualifications accepted** (they matter for observation comparisons, not for prototype operation):
+
+1. **"Sensor-quiet" is limited to the geometries tested.** Direct field signatures are weak for one radar and one optical geometry. Radar still detects the hull. Other viewing angles and higher speeds are untested.
+2. **No exhaust does not mean no heat.** The thermal signature depends on the unknown loss fraction (§1 corrected).
+3. **Water results are kinematic.** The 2.7 GJ figure is the available potential energy of the displaced water, not a resolved splash, cavitation or wave calculation.
+
+**AP comparison (Sol; non-canon theory-to-observation comparison; AP v0.2 baseline left untouched).**
+- Weave reproduces, *inside LOOM*, several reported behaviours: abrupt manoeuvres without corresponding crew loading, and no visible conventional propulsion or downwash.
+- The strongest correspondence is **movement plus a water-surface disturbance without submersion**: a skim with the field centre 10 m above the water displaces ~1,460 t (74 MJ).
+- It does **not** explain any verified real-world anomaly. Foam, wave pattern and duration are not computed, so resemblance to any witness account is not established.
+- **Possible falsifier:** Weave predicts a violent interface crossing. A verified *quiet* water crossing would challenge this configuration.
+- Optical metric distortion is negligible in the tested view, so it offers no explanation for apparent rotation or parallax-type effects.
+
+**Sol's suggested next step (not started; awaiting kT):** render an external observer's view of a 10 m skim over calm water from the existing displacement map, and compare observable features with the witness record. Keep separate the disturbance, the object's position and motion, the absence of visible propulsion, and what cannot be corroborated. No new propulsion physics.
