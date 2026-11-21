@@ -363,3 +363,50 @@ BMD-1 is parked as a **successful negative research result**. It is kept as a do
 **Next:**
 - Return to the conventional shuttle. Conventional fold + adaptive camber is the leading architecture.
 - W3 stays an independent speculative question.
+
+## Hypothesis A: metric-gradient assistance (kT, 2026-11-21) (`bmd1_metric_gradient.py/.json`)
+**Idea:** engineer the shuttle's geodesic rather than push on it. The interior stays in free fall.
+
+**kT's test:** derive the metric, derive the stress-energy it requires, and see whether the numbers close.
+
+**Static route (comoving potential bump):**
+- The minimal source for a uniform 1.5 g interior field over R = 10 m is a cos θ shell, a gravitational "polarised sphere".
+- That needs **1.7e13 kg per pole** (3e8 × the shuttle), and one pole must be **negative** mass.
+- A ± mass pair self-accelerates (Bondi). It looks reactionless and works anywhere, so there is **no planetary limit**.
+
+**Dynamic route (warp-type shift bubble):**
+- Alcubierre-class energy at 44 m/s, R 10 m, wall 1 m is about **−2e31 J (~2e14 kg)** of exotic energy, and that only *moves* the bubble.
+- Positive-energy subluminal shells (Fuchs et al. 2024) need very large ADM mass.
+- Bobrick & Martire (2021): an accelerating warp metric must obey 4-momentum conservation, and "any warp drive requires propulsion". **A partner is still required.**
+
+**GR verdict: the numbers do not close.** Steering the path instead of the force changes the description, not the bookkeeping.
+
+**Canon:**
+- M2 already waives GR stress-energy pricing for Wayfarer (0.268c from a ~2 GJ bank).
+- A closes **only if that waiver is extended** to small, near-body, powered domains. That is a canon-policy choice, not physics.
+
+**The form A takes if the waiver is extended: "gravity steering"** (postulate, not derivation)
+- **Law:** the domain imposes on its free-falling interior a uniform acceleration of up to k·g_P (k ≈ 1.5).
+  - g_P is the Newtonian field of the partner P, the body whose Hill sphere contains the domain.
+  - The reaction momentum goes to P.
+  - The onboard energy is F·v_rel(P).
+- **Natural planetary limit:**
+
+  | Location | Capacity |
+  |---|---|
+  | Earth | 1.5 × weight (898 kN) |
+  | Mars | 0.57 g |
+  | Moon | 0.25 g |
+  | Titan | 0.21 g |
+  | Deep space, 1 AU | 0.0009 g (0.5 kN) |
+
+  This means no revolution in remass.
+- **Hovering and slow lifts near a body are nearly free** (v_rel ≈ 0). Fast velocity changes are expensive: about 6 GW at full force in LEO. This is the inverse of a rocket.
+- **Caveats:**
+  - g_P is not a local observable (equivalence principle), so the law is **nonlocal by construction**, like canon §7.1b.
+  - Stress-energy is **not derived**; it relies on the M2 waiver.
+  - Boundary versus water and air is still open.
+
+**Other branches:**
+- **B (path shortening)** belongs with W3.
+- **C (isolation + fans)** is dropped: isolation removes drag, not weight.
