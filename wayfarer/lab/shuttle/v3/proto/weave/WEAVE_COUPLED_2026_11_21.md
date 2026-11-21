@@ -52,8 +52,9 @@ The field moves the shuttle, the crew stay inertial, and momentum and energy clo
 ## 5. What this does and does not show
 
 - It is **not** reactionless. The reaction is real and goes into the relational mode, exactly as a car's goes into the road. With Earth as the mode, the recoil is unobservable (2e-18 m).
-- The extraordinary content has been moved, not removed. It now sits entirely in A3: that a metric domain wall can exchange momentum with distant mass through a translation-invariant coupling. That is a sharper form of §7.1b's "local coupler not required", and it is the single claim that M1 must now supply or refuse.
+- The extraordinary content has been moved, not removed. *(Corrected after Sol review: not "entirely" A3. A1 is independently extraordinary and A2 is an open interpretation; see `WEAVE_FINITE_2026_11_21.md`.)* A3 is the reaction channel: that a metric domain wall can exchange momentum with distant mass through a translation-invariant coupling. That is a sharper form of §7.1b's "local coupler not required", and it is the single claim that M1 must now supply or refuse.
 - A1 is the M2 claim that the shuttle can generate a uniform lapse gradient over its own volume. This is where the size privilege from `WEAVE_SCALE_PRIVILEGE_2026_11_21.md` enters. The model here does not price A1's geometric demand.
+- The controls are commanded: `G(t)` is set to the target acceleration and the wall controller supplies the reaction. This demonstrates a controllable conservative mechanism, not a capability derived from physics.
 - Peak power: the actuator must lend about 0.48 GJ within about 1.5 s (≈ 0.6 GW peak) and take it back. Loss in that round trip is the real running cost and is UNDETERMINED.
 - The same structure applies unchanged to Wayfarer's Metric: same action, same conservation; only the mode partner and scale differ. No scaling restriction was added.
 
