@@ -1988,5 +1988,21 @@
     },
     "flag": "Interior residual is only +0.04 m3 at 13.02 m; final length to be set at the geometry step within the collar range studied (0.22-0.32 m stretch).",
     "status": "Design choice for the Weave shuttle; Wayfarer collar is a proposed modification; NOT CANON until the CCR / engineering change is approved by kT."
+  },
+  "shuttle_weave_tictac_hull_2026_11_22": {
+    "authority": "kT 2026-11-22 (Claude chat): 'Tic tac. It is :) ... We have to build her out :)' after the same-rules comparison (commit 513d5fc) and Sol's review recommending the Tic Tac as leading candidate",
+    "applies_to": [
+      "shuttle_final_weave_prototype_2026_11_22",
+      "shuttle_weave_config_choices_2026_11_22",
+      "shuttle_weave_interior_stretch_collar_2026_11_22"
+    ],
+    "source": "wayfarer/lab/shuttle/v3/weave_final/tictac_vs_shuttle.py/.json, weave_tictac_vs_shuttle.png",
+    "decisions": {
+      "hull": "Weave shuttle hull becomes the 'Tic Tac' capsule: ~12.8 m long x ~3.8 m diameter, hemispherical ends, no wings, no lift fans; floats on its own hull. Same ~8 t relational module, same 23.1 t tank, same W2 cushion + Weave shift, same torch.",
+      "supersedes": "the wings/fans/floats fallback in shuttle_weave_config_choices_2026_11_22 (fallback_flight) and the 22 cm stretch + Wayfarer docking collar in shuttle_weave_interior_stretch_collar_2026_11_22. The module and exchange-statement choices stand.",
+      "fallback": "field-off fallback becomes torch and parachutes (no aerodynamic glide); to be demonstrated in the build-out",
+      "build_out": "Sol's checks become the build-out list: afloat stability, waterborne rover/cargo access, realistic field-off recovery, exact-fit bay exit, Titan lake buoyancy (shared gap)"
+    },
+    "status": "Design decision for the Weave shuttle; NOT CANON. CCR-2026-0005 (PROPOSED) text names the 13.02 m lifting body and the collar: it needs a proposal revision before approval; the physics scope is unchanged."
   }
 }
