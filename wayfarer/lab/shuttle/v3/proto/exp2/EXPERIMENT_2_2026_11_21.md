@@ -235,3 +235,71 @@ A **powered, uniform coupling between the domain and the local dominant mass**: 
 
 ### W3 stays separate
 W3 (discontinuous relocation) is not evaluated here. Hypothesis 1 or 2 only bears on W3 if one coherent field law is later shown to support both continuous motion and relocation. That is not assumed.
+
+### kT authorization extended (2026-11-21)
+**The BMD-1 lane may challenge both CANON II §7.1a (ENERGY-B) and the §7.1b Sun-partner restriction.**
+- This is permission to investigate alternative constitutive laws.
+- It is not a canon amendment, and not a finding that M2 supports them.
+
+**kT's ranking:**
+1. Local-partner coupling: the general hypothesis.
+2. Gravitational-coupling domain: the landing-specific hypothesis.
+3. Powered Sun-partner coupling: a **control**, not a development candidate.
+
+### H1 vs H2 at Earth, Titan and deep space (`bmd1_compare.py/.json`)
+- **Bound used:** Newtonian only.
+- **Lift case:** 1.5 × local weight for 9 s (898 kN at Earth, 124 kN at Titan). Deep space uses a 0.15 g manoeuvre (90 kN).
+- **Two ledgers, kept separate:** energy exchanged with the partner, which closes by construction, and energy the onboard device must supply, store or absorb.
+
+**H1, local-partner coupling, with partner weights varying continuously with the gravitational environment:**
+
+| | Weighted by raw g | Weighted by tidal field |
+|---|---|---|
+| Earth: partner velocity offset | 18 m/s (Sun 6e-4) | 0.8 mm/s |
+| Earth: device energy, 9 s lift | +0.03 to +0.32 GJ | **+0.18 GJ** (lift work only) |
+| Titan: partner velocity offset | 103 m/s (Saturn 2e-2) | 0.22 m/s |
+| Titan: device energy | −0.11 to +0.12 GJ | **+0.004 GJ** |
+| Deep space (Sun only) | F × 29.8 km/s: up to 2.7 GW at 90 kN | same |
+
+- **Tidal weighting respects the equivalence principle.** A uniform external field (the Sun at Earth, Saturn at Titan) is invisible to a freely falling domain, so the partner varies continuously and **no named-planet rule is needed**.
+- **Raw-g weighting is arbitrary and detectable.**
+
+**H2, gravitational-coupling domain** (passive and active coupling k changed together, keeping Newton's third law):
+- **Weight reduction (k from 1 to 0):** the shuttle can at best float. It produces **no upward force**; fans or the torch must still lift it.
+- **Actual upward force:** needs k < 0, i.e. repulsion. Net 0.5 g up needs k = −0.5.
+- **Switching energy:** changing k changes the interaction energy with *every* source mass, m·Δk·|Φ|:
+
+  | Sources counted | Energy |
+  |---|---|
+  | Earth alone | ~4 TJ |
+  | With the Sun | 58–87 TJ |
+  | Including the Galaxy | 9–14 PJ |
+
+  A Machian estimate would approach mc². The 200 m lift itself needs 0.18 GJ.
+- **Equivalence-principle drift:** the domain stops sharing its host's free fall. At Δk 1.5 that is 8.9 mm/s² sunward at Earth (58 km per hour of hover) and 38 mm/s² Saturnward at Titan (17 m in 30 s).
+
+### Minimum new constitutive property
+A powered momentum-exchange law between a uniformly coupled domain and the surrounding mass distribution. Partner weights come from each body's contribution to the **local tidal field**, and force capacity scales with that field, vanishing in deep space.
+
+**Conservation consequences:**
+- **Stress-energy and momentum close with the weighted partners;** recoil is negligible.
+- **The device supplies F·v_rel** when pushing along the relative velocity.
+- **It must ABSORB F·v_rel** when pushing against it (descents, braking). That means storage or heat rejection, not free energy.
+- **No orbital-energy mining,** because the Sun and Saturn weights are only 1e-8 to 1e-5.
+
+### Decisive contradiction
+- **H2:** yes. The switching energy m·Δk·|Φ| (TJ to PJ) must either sit on board, which is impossible, or be held outside the device. In the second case H2 has become a partner-coupling theory, i.e. H1 with extra assumptions. H2 also violates the equivalence principle observably, and its weight-reduction form gives no upward force.
+- **H1:** none found at this bound. The likeliest hidden contradiction is how a **tidal-weighted** coupling, whose gradient is 3e-6 s⁻² at Earth, can deliver a **uniform**, non-tidal push on a 15 m domain.
+
+### Verdict
+**H1 is the better physical hypothesis**: local-partner coupling with tidal-field weighting and force capacity bounded by the environment.
+- It needs no named-partner rule.
+- It respects the equivalence principle.
+- Its onboard energy is the local work (F·v_rel): tens of MW at Earth, sub-MW at Titan.
+
+**Decisive unknowns:**
+- **How force capacity scales with the tidal field.** If capacity is not bounded by the environment, H1 becomes deep-space propellantless propulsion at about 30 GW per MN of push. That is comparable to the torch, and a setting-wide change far beyond a shuttle aid.
+- **The tidal-to-uniform force question** above.
+- **Generator power and mass,** which no closed ledger establishes.
+
+W3 remains separate.

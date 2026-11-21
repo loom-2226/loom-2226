@@ -1,0 +1,169 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "lane": "PROTOTYPE (non-canon) BMD-1 comparison",
+ "environments": {
+  "Earth surface": {
+   "force_kN": 898,
+   "H1_local_partner": {
+    "partner weighting by g": {
+     "weights": {
+      "earth": "9.99e-01",
+      "sun": "6.03e-04",
+      "moon": "3.38e-06"
+     },
+     "partner_velocity_offset_ms": 17.9855,
+     "device_power_MW_range": "3.7 to 36.0",
+     "device_energy_GJ_range": "+0.033 to +0.324"
+    },
+    "partner weighting by tidal": {
+     "weights": {
+      "earth": "1.00e+00",
+      "sun": "2.57e-08",
+      "moon": "5.60e-08"
+     },
+     "partner_velocity_offset_ms": 0.0008,
+     "device_power_MW_range": "19.8 to 19.8",
+     "device_energy_GJ_range": "+0.178 to +0.178"
+    }
+   },
+   "H2_gravitational_coupling": {
+    "cases": {
+     "weight reduction (k 1 -> 0): floats, NO upward force": {
+      "switch_energy_local_bodies_GJ": 57926.2,
+      "switch_energy_incl_galaxy_PJ": 9.21,
+      "lift_work_GJ": 0.0
+     },
+     "actual upward force (k 1 -> -0.5): net 0.5 g up": {
+      "switch_energy_local_bodies_GJ": 86889.3,
+      "switch_energy_incl_galaxy_PJ": 13.81,
+      "lift_work_GJ": 0.178
+     }
+    },
+    "ep_drift_vs_host": {
+     "sun": {
+      "rel_accel_mm_s2": 8.894,
+      "drift_m_in_30s": 4.0,
+      "drift_km_in_1h": 57.6
+     },
+     "moon": {
+      "rel_accel_mm_s2": 0.05,
+      "drift_m_in_30s": 0.02,
+      "drift_km_in_1h": 0.3
+     }
+    },
+    "upward_force": "only for k < 0 (repulsion). k between 0 and 1 reduces weight only: the shuttle can at best float; fans or torch must still lift it."
+   }
+  },
+  "Titan surface": {
+   "force_kN": 124,
+   "H1_local_partner": {
+    "partner weighting by g": {
+     "weights": {
+      "titan": "9.82e-01",
+      "saturn": "1.84e-02",
+      "sun": "4.68e-05"
+     },
+     "partner_velocity_offset_ms": 103.0097,
+     "device_power_MW_range": "0.0 to 13.1",
+     "device_energy_GJ_range": "-0.111 to +0.118"
+    },
+    "partner weighting by tidal": {
+     "weights": {
+      "titan": "1.00e+00",
+      "saturn": "3.95e-05",
+      "sun": "8.57e-11"
+     },
+     "partner_velocity_offset_ms": 0.2202,
+     "device_power_MW_range": "0.3 to 0.4",
+     "device_energy_GJ_range": "+0.003 to +0.004"
+    }
+   },
+   "H2_gravitational_coupling": {
+    "cases": {
+     "weight reduction (k 1 -> 0): floats, NO upward force": {
+      "switch_energy_local_bodies_GJ": 7754.2,
+      "switch_energy_incl_galaxy_PJ": 9.16,
+      "lift_work_GJ": 0.0
+     },
+     "actual upward force (k 1 -> -0.5): net 0.5 g up": {
+      "switch_energy_local_bodies_GJ": 11631.3,
+      "switch_energy_incl_galaxy_PJ": 13.74,
+      "lift_work_GJ": 0.003
+     }
+    },
+    "ep_drift_vs_host": {
+     "saturn": {
+      "rel_accel_mm_s2": 38.101,
+      "drift_m_in_30s": 17.15,
+      "drift_km_in_1h": 246.9
+     },
+     "sun": {
+      "rel_accel_mm_s2": 0.097,
+      "drift_m_in_30s": 0.04,
+      "drift_km_in_1h": 0.6
+     }
+    },
+    "upward_force": "only for k < 0 (repulsion). k between 0 and 1 reduces weight only: the shuttle can at best float; fans or torch must still lift it."
+   }
+  },
+  "Deep space, 1 AU heliocentric (no planet)": {
+   "force_kN": 90,
+   "H1_local_partner": {
+    "partner weighting by g": {
+     "weights": {
+      "sun": "1.00e+00"
+     },
+     "partner_velocity_offset_ms": 29800.0,
+     "device_power_MW_range": "0.0 to 2675.5",
+     "device_energy_GJ_range": "-24.069 to +24.079",
+     "note": "only the Sun: device power = F x heliocentric velocity, ~29.8 GW per MN at 29.8 km/s (cf. torch F x ve/2: 5-25 GW per MN)"
+    },
+    "partner weighting by tidal": {
+     "weights": {
+      "sun": "1.00e+00"
+     },
+     "partner_velocity_offset_ms": 29800.0,
+     "device_power_MW_range": "0.0 to 2675.5",
+     "device_energy_GJ_range": "-24.069 to +24.079",
+     "note": "only the Sun: device power = F x heliocentric velocity, ~29.8 GW per MN at 29.8 km/s (cf. torch F x ve/2: 5-25 GW per MN)"
+    }
+   },
+   "H2_gravitational_coupling": {
+    "cases": {
+     "weight reduction (k 1 -> 0): floats, NO upward force": {
+      "switch_energy_local_bodies_GJ": 54109.0,
+      "switch_energy_incl_galaxy_PJ": 9.2,
+      "lift_work_GJ": 0.0
+     },
+     "actual upward force (k 1 -> -0.5): net 0.5 g up": {
+      "switch_energy_local_bodies_GJ": 81163.4,
+      "switch_energy_incl_galaxy_PJ": 13.81,
+      "lift_work_GJ": 0.0
+     }
+    },
+    "ep_drift_vs_host": {},
+    "upward_force": "no local field: no force at all"
+   }
+  }
+ },
+ "verdict": {
+  "better": "H1 local-partner coupling, with partner weights set by the tidal field and force capacity bounded by the local environment",
+  "why": [
+   "Its onboard energy is the work in the partner frame, F . (v - v_partner): tens of MW for a 200 m lift at Earth and ~a few MW at Titan, with no dependence on absolute potentials.",
+   "Weighting by tidal field (not raw g) respects the equivalence principle: a uniform external field (Sun at Earth, Saturn at Titan) is invisible to a freely falling domain, and the partner offset is mm/s at Earth and ~0.2 m/s at Titan. Raw-g weighting gives an 18 m/s offset at Earth and ~100 m/s at Titan: detectable and arbitrary.",
+   "The partner then varies continuously with the gravitational environment; no named-planet rule is needed."
+  ],
+  "H2_decisive_contradiction": "Changing gravitational coupling changes the shuttle's interaction energy with EVERY mass that sources the potential: m dk |Phi|. At Earth that is ~4 TJ from Earth alone, ~58-87 TJ with the Sun, and ~9-14 PJ including the Galaxy (a Machian estimate would approach m c^2). Either the onboard device supplies/stores it (impossible) or the field holds it outside the device, in which case H2 has become a partner-coupling theory (H1) with extra assumptions. It also makes the domain stop sharing its host's free fall (observable drift: ~9 mm/s^2 sunward at Earth, ~38 mm/s^2 Saturnward at Titan for dk 1.5) - a direct equivalence-principle violation. And k between 0 and 1 gives no upward force at all.",
+  "H1_minimum_constitutive_property": "A powered momentum-exchange law between a uniformly coupled domain and the surrounding mass distribution, with partner weights given by each body's contribution to the local tidal field, and force capacity that scales with that field (vanishing in deep space).",
+  "H1_conservation_consequences": [
+   "Local stress-energy and momentum close with the weighted partners; recoil negligible.",
+   "Onboard device supplies F . v_rel when pushing along the relative velocity and must ABSORB it when pushing against it (descents, braking): storage or heat rejection, not free energy.",
+   "Lift-lower cycles net to zero apart from losses; no orbital-energy mining because the Sun/Saturn weights are ~1e-8 to 1e-5."
+  ],
+  "H1_decisive_unknowns": [
+   "How force capacity scales with the tidal field. If it is NOT bounded by the environment, H1 becomes deep-space propellantless propulsion at F x 30 km/s (GW per MN, comparable to the torch) - a setting-wide change far beyond a shuttle aid.",
+   "Whether a tidal-weighted coupling can deliver a force that is not itself tidal (a uniform push on a 15 m domain from a field whose gradient is 3e-6 s^-2 at Earth): this is the place a hidden contradiction is most likely.",
+   "Generator power and mass (not established by any closed ledger)."
+  ]
+ }
+}
