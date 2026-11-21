@@ -10,6 +10,8 @@ ALL bodies. ALL sponsors. 2026-2226.
 
 *Corrected per kT/Sol review: Builder non-equivalence to Mc-299m; unknown exchange stated as a premise, not a closure.*
 
+> **Revision 2 (PR #571):** the hull is now the "Tic Tac" capsule (12.8 × 3.8 m, kT 2026-11-22). The docking collar in §6 is **withdrawn**: the Tic Tac fits the bay at 12.8 m with F7–F11 unchanged. Everything else in this proposal stands.
+
 ## 1. What is being asked
 
 Admit the Weave shuttle (13.02 m Osteon lifting body, W2 cushion plus Weave shift, ~8 t Builder relational module, wings/fans/floats fallback) into Canon II as a **scoped experimental prototype** of the existing METRIC regime. It is not a new regime, not a certified drive, and not a replacement for the Wayfarer's certified Metric card.
