@@ -43,7 +43,7 @@ def ship(R, d, mode, dt=1e-5, Tend=4.0):
         if mode == 'lapse':                                         # on axis: dPhi/dx = F + |u| F'
             v += dt * (A * (F(r) + r * Fp(r)) + Fi / m); x += dt * v
         else:                                                       # on axis: beta = V F(|u|), d beta/dx = V F'(|u|) sign(u)
-            dbdx = V * Fp(r) * np.sign(u); w += dt * (w * dbdx + Fi / m); x += dt * (w + V * F(np.abs(x - X)))
+            dbdx = V * Fp(r) * np.sign(u); w += dt * (-w * dbdx + Fi / m); x += dt * (w + V * F(np.abs(x - X)))
         pc = max(pc, abs(fc) / M_CREW / g0); ph = max(ph, np.max(np.abs(fs)) / 1e3)
     xs = np.sum(m * x) / np.sum(m)
     return dict(crew_peak_g=pc, hull_axial_peak_kN=ph, ship_final_m=float(xs), onaxis_force_at_hull_end=float(F(10.0) + 10.0 * Fp(10.0)) if mode == 'lapse' else float(F(10.0)))

@@ -6,6 +6,8 @@ Prototype lane, 2026-11-21. Responds to Sol's review of 5871508: is the atmosphe
 
 Code: `weave_geometry_compare.py`, `geometry_figure.py` → `weave_geometry_compare.png`. Data: `weave_geometry_compare.json`, `weave_geometry_compare_series.json`, `weave_geometry_compare_ship_extra.json`.
 
+> **Sign correction (after 2027261).** The shift-case hull code used `ẇ = +w ∂ₓβ`. From `L = ½(ẋ−β)²` the correct form is `ẇ_i = −w_j ∂_i β_j`. The clear-wall rows barely change. The wall-cuts-hull row changes completely (2.3 g → 158 g). Air results are unaffected (air starts with w = 0).
+
 ## 1. Setup (identical for both)
 
 - **Geometry:** axisymmetric 3D (x along the track, ρ radial).
@@ -17,7 +19,7 @@ Code: `weave_geometry_compare.py`, `geometry_figure.py` → `weave_geometry_comp
 | | Lapse gradient | Zero-expansion shift |
 |---|---|---|
 | Field | scalar `Φ = (x−X) F(r)`, matter accel `a(t) ∇Φ` | Stokes stream function `ψ = ½ V ρ² F(r)`; `β_x = V(F + ρ²F'/2r)`, `β_ρ = −V ρ (x−X) F'/2r`; `∇·β = 0` exactly |
-| Matter law | force (from the translation-invariant action) | slow geodesic, N = 1: `L = ½(ẋ−β)²` ⇒ `ẇ = (w·∇)β`; matter starting at rest keeps w = 0 ⇒ `ẋ = β` (DERIVED) |
+| Matter law | force (from the translation-invariant action) | slow geodesic, N = 1: `L = ½(ẋ−β)²` ⇒ `ẇ = (w·∇)β`; matter starting at rest keeps w = 0 ⇒ `ẋ = β` (DERIVED). Perturbations obey `ẇ_i = −w_j ∂_i β_j` (sign corrected; see note) |
 | Reaction | to the relational mode via A3, from the action | to the relational mode via A3, as explicit bookkeeping (the shift action's own Noether charge omits carried matter) |
 | Collisionless air | not a fluid solution: it shell-crosses, and real air would shock | exact perfect-fluid solution: incompressible, so pressure stays uniform |
 
@@ -33,9 +35,9 @@ Code: `weave_geometry_compare.py`, `geometry_figure.py` → `weave_geometry_comp
 
 | R / d (m) | crew peak g, lapse / shift | hull axial kN, lapse / shift | stop (m), lapse / shift |
 |---|---|---|---|
-| 15 / 2 | 0.92 / 0.019 | 440 / 6.1 | 204.9 / 199.8 |
-| 12 / 0.5 | 0.086 / 0.0008 | 45 / 0.21 | 200.2 / 200.0 |
-| 12 / 2 | 31 / 2.3 | 3600 / 1750 | 133 / 201.1 |
+| 15 / 2 | 0.92 / 0.018 | 440 / 5.7 | 204.9 / 199.6 |
+| 12 / 0.5 | 0.086 / 0.0008 | 45 / 0.20 | 200.2 / 200.0 |
+| 12 / 2 | 31 / **158** | 3600 / **14,300** | 133 / **61** |
 | 20 / 2 (ship only) | 0.0013 / 0.0001 | 0.28 / 0.025 | ≈ 200 / ≈ 200 |
 | 15 / 0.5, 25 / 2 (ship only) | ≈ 0 / ≈ 0 | ≈ 0 / ≈ 0 | ≈ 200 / ≈ 200 |
 
@@ -64,7 +66,7 @@ Notes:
 | Zero-expansion carriage is silent in the sense of no residual motion and no compression | DERIVED for collisionless, inviscid air, which is an exact fluid solution here |
 | Shift lends the air a large transient KE (72–272 MJ) and takes it back | DERIVED; recovery assumes the field returns it losslessly (UNDETERMINED) |
 | Shift backflow in a thin wall reaches about 5.5 V (690 m/s at V = 125 m/s) | DERIVED; viscous dissipation ESTIMATE: η σ² × wall volume ≈ 0.1–0.2 MJ, negligible; acoustic and real-gas response not modelled (UNDETERMINED) |
-| For the same domain, shift is gentler on the hull | DERIVED: on-axis carriage is F, versus F + abs(u) F′ for lapse |
+| For the same domain, shift is gentler on the hull | DERIVED **only when the wall clears the hull**. If the wall cuts the hull, shift is worse than lapse: hull strain in the wall grows exponentially (ẇ = −w ∂ₓβ) and the hull slips out of the domain (R 12 / d 2: 158 g, stops at 61 m) |
 | Silence in a real atmosphere | still UNDETERMINED beyond the inviscid, collisionless idealization |
 | Either geometry can be sourced (A1, or its shift analogue) | UNDETERMINED |
 | A3 reaction channel | ASSUMED; imposed as bookkeeping in the shift case |
