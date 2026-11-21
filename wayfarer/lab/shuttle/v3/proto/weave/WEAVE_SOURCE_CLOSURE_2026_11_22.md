@@ -89,3 +89,18 @@ The only existing candidate is canon §7.1b's Sun partner. Applying it to the We
 **Answer:** a dynamically conservative dash is demonstrated *conditionally*. It works if the relational sector exchanges momentum and energy with a distant body (R1). It is not derived from M1/M2. One constitutive relation is missing: the exchange law and its partner selection.
 
 The same requirement applies unchanged to Wayfarer's Metric, where canon already assumes it (Sun). No canon change is proposed. The findings return to kT and Sol first.
+
+## 6. Disposition (Sol, accepted 2026-11-22)
+
+Source-closure investigation **closed at cab469f**. The GR ledger and its limitations are accepted.
+
+- The Weave shuttle remains an **experimental, non-canon prototype with unresolved fundamental physics**. Open M1/M2 questions are research mysteries, not blockers to prototype operation.
+- **Conservation is retained as a requirement.** No claim is made that the unresolved mechanism violates it, nor that it has been demonstrated without a supporting model.
+- The **missing constitutive relation** (R1 exchange law with Λ fixed, and partner selection) is recorded, not invented.
+- **Candidate explanation, not a mechanism:** the exotic field-supporting stress-energy may depend on advanced Builder materials, possibly partially biological, self-repairing or dynamically maintained.
+- **Status classes:**
+  - DERIVED: the mathematical behaviour in this lane.
+  - ASSUMED / experimentally established within LOOM: repeatable prototype operation.
+  - UNKNOWN: the underlying exchange physics.
+- **Not to be pursued now:** coupling theory, partner-selection machinery, a materials model, a qualification campaign.
+- **Next:** use and explore the prototype; let its behaviour show what needs attention. No canon change without kT.

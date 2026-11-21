@@ -107,3 +107,16 @@ Rough model, #2643, 6 couches unless noted:
 - The Earth-frame source is the Sun-partner exchange, Δp·v_rel ≈ 61 t × 0.33 m/s × 29.8 km/s.
 - Near-body metric with the canon Sun partner is therefore an energy pump against the §7.3 no-free-work firewall.
 - This is related to canon's own MONITOR cycle residual (§7.1b). Flagged; not resolved here.
+
+## Status (2026-11-22): Weave prototype in use
+
+Option 3 (Weave manoeuvring) is the working prototype. The research arc runs from d056040 to cab469f in `weave/`:
+
+- coupled conservative toy;
+- finite domain;
+- lapse vs zero-expansion shift;
+- exact ideal-fluid transport;
+- gust check (atmospheric branch closed at 4b62812);
+- GR source ledger (closed at cab469f).
+
+The zero-expansion shift is the leading geometry. Its underlying exchange physics is UNKNOWN and recorded as a research mystery, not a blocker (see `weave/WEAVE_SOURCE_CLOSURE_2026_11_22.md` §6). Still non-canon.
