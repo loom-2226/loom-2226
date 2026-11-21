@@ -7,12 +7,12 @@ H = os.path.dirname(os.path.abspath(__file__))
 plt.rcParams['font.family'] = 'Inter' if 'Inter' in {f.name for f in __import__('matplotlib').font_manager.fontManager.ttflist} else 'DejaVu Sans'
 
 COL = {'amend': ('#fde7cf', '#b45309', 'SCOPED EXCEPTION'),
-       'option': ('#e0e7ff', '#3730a3', 'kT CHOOSES (rec. A)'),
+       'option': ('#e0e7ff', '#3730a3', 'OPTION A (kT)'),
        'keep': ('#dcfce7', '#15803d', 'PRESERVED'),
        'note': ('#f1f5f9', '#475569', 'INTERACTION ONLY'),
        'sep': ('#fae8ff', '#86198f', 'SEPARATE PROPOSAL')}
 rows = [
-    ('amend', '§3 plant scale', '~8 t prototype module; Mc OPEN (kT)'),
+    ('amend', '§3 plant scale', '~8 t module; material UNKNOWN, not Mc-299m'),
     ('amend', '§5 / §9 ramps, paths', 'own near-body card; no 0.268c, no long baseline'),
     ('amend', '§6 certification', 'EXPERIMENTAL, UNCERTIFIED'),
     ('amend', '§18A tactical split', 'sidesteps = test behaviour, not doctrine'),
@@ -27,7 +27,7 @@ fig, ax = plt.subplots(figsize=(11, 7.2))
 ax.set_xlim(0, 11); ax.set_ylim(0, len(rows) + 1.6); ax.axis('off')
 ax.text(0.2, len(rows) + 1.1, 'Weave shuttle CCR proposal: which Canon II provisions move',
         fontsize=15, color='#0f172a')
-ax.text(0.2, len(rows) + 0.6, 'DRAFT for kT review · proposed CCR-2026-0005 · nothing in canon changed yet',
+ax.text(0.2, len(rows) + 0.6, 'CCR-2026-0005 PROPOSED (PR #570) · kT accepted Step 4 · nothing in canon changed yet',
         fontsize=10, color='#64748b')
 for i, (k, sec, txt) in enumerate(rows):
     y = len(rows) - 1 - i + 0.1

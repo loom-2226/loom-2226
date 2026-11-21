@@ -2,11 +2,13 @@ ALL bodies. ALL sponsors. 2026-2226.
 
 # CCR proposal (draft for kT review): Weave shuttle prototype scope
 
-**Status:** DRAFT, NOT FILED. Proposed ID CCR-2026-0005, which is allocated only when filed on `main`.
+**Status:** kT accepted 2026-11-22 with two corrections (below). Filed as **CCR-2026-0005, PROPOSED** via governance PR #570; the durable record is `governance/changes/CCR-2026-0005-weave-shuttle-prototype-scope.yml`.
 **Step:** 4 of the Sol-approved finalization sequence (CCR scoping).
 **Changes nothing:** no governing canon, governance record, released GLB, `canon_glb.json` or geometry is modified by this draft.
 
 ![Canon provisions touched](weave_ccr_scope.png)
+
+*Corrected per kT/Sol review: Builder non-equivalence to Mc-299m; unknown exchange stated as a premise, not a closure.*
 
 ## 1. What is being asked
 
@@ -26,7 +28,7 @@ Only these four provisions conflict with the prototype as selected.
 
 | § | Current canon | Conflict | Proposed scoped text (prototype only) |
 |---|---|---|---|
-| §3 plant scale | Metric plant ~88 t, 10 kg Mc, 208 nodes | The shuttle carries an ~8 t module | An ~8 t Builder relational module is admitted as a **prototype near-body installation**, not a Metric plant variant. Its Mc content is **OPEN: kT to set**. It draws on the §3.1 Mc budget like any other consumer. |
+| §3 plant scale | Metric plant ~88 t, 10 kg Mc, 208 nodes | The shuttle carries an ~8 t module | An ~8 t Builder relational module is admitted as a **prototype near-body installation**, not a Metric plant variant. Builder module active-material composition **UNKNOWN**. No assumed equivalence to human Mc-299m (§3.2 locked non-equivalence). Any human flight-grade Mc actually installed must be accounted against §3.1. |
 | §5 / §9 ramps and paths | Card NORMAL 0.268c, 10 s ramp, ~0.40 Mkm ramp paths; Metric is a long-baseline trunk technology | The prototype operates near bodies at metres to km scale and speeds well below orbital | A separate **prototype near-body operating card** (the Weave operating card) applies. It grants no long-baseline capability and no 0.268c card. The certified Wayfarer card is unchanged. |
 | §6 near-body certification | Certification chain §6.1, vector C_M with max < 1 and hard vetoes §6.4 | The prototype has no certification vector | Status **EXPERIMENTAL, UNCERTIFIED**. Near-body use is a test-campaign activity under its own card, never a certified operation, and confers nothing on §6 certified Metric. |
 | §18A tactical manoeuvring | Torch owns tactical vector change; "Metric is not a close-combat dodge" | Weave sidesteps (30 m in 0.5 s) are a dodge | The §18A split stands for the Wayfarer and certified Metric. The prototype's manoeuvres are **test-article behaviour**, not a combat doctrine. Any tactical use needs a later, separate CCR. |
@@ -45,7 +47,7 @@ Only these four provisions conflict with the prototype as selected.
 | B | Extend the Sun declaration to the prototype | Asserts a closure the lane never derived; near-body manoeuvres would push the Sun. Not supported by evidence |
 | C | Name a local partner (planet, atmosphere, the field's walls) | Would invent a closure law. Out of scope per Sol |
 
-Option A **does not invent a closure law**: it records the ignorance and keeps the bookkeeping obligation.
+Option A **does not invent a closure law**: it records the ignorance and keeps the bookkeeping obligation. Prototype operation is an **in-universe experimental premise, not a demonstrated physical conservation closure**. §7.3 still applies: no free momentum, no free-work cycles. **kT chose A.**
 
 ## 4. Preserved, unchanged
 
@@ -58,7 +60,7 @@ Option A **does not invent a closure law**: it records the ignorance and keeps t
 
 ## 5. Interactions to note (no amendment proposed)
 
-- **§3.1 Mc capital:** the module's Mc load counts against the ~1.2 t/yr serviceable flow. The number is kT's to set.
+- **§3.1 Mc capital:** only human flight-grade Mc actually installed counts against the ~1.2 t/yr serviceable flow. Builder material is not assumed to be Mc (§3.2). Left OPEN by kT.
 - **§12.1 Loom commit lock:** when docked, the module is inert and part of the locked configuration. Collar state is fixed before commit.
 - **§11 node failure:** field-failure behaviour (fallback to wings, fans or floats) is on the operating card. Informational only.
 - **§13 / v2.5a mass booking:** the shuttle's mass is booked inside the existing reserve share of the launch-bay reservation.
@@ -86,9 +88,9 @@ This is a **proposed Wayfarer engineering/schematic change**, distinct from this
 - Step 5: shuttle geometry and collar demonstration, interior packaging, G3 trim, then review, gate and merge.
 - The operating card becomes the prototype card's reference text (Sol-corrected wording, c480fe2 plus this commit).
 
-## 9. Decisions for kT
+## 9. kT ruling (2026-11-22)
 
-1. Approve the four scoped exceptions (§3, §5/§9, §6, §18A)?
-2. §7.1b: option A (recommended), B or C?
-3. Set the module's Mc content, or leave it OPEN until Step 5?
-4. File as CCR-2026-0005 once approved?
+1. Four scoped exceptions: approved as drafted.
+2. §7.1b: option A.
+3. Module material: OPEN, with no Mc-299m equivalence assumed.
+4. Filed as CCR-2026-0005 PROPOSED (PR #570). Filing authorizes no canon implementation or geometry change. The docking collar stays separate for Step 5.
