@@ -83,3 +83,24 @@ Yes, back toward quiet. The "churned wake in gusty air" warning from ed8843c doe
 The one remaining atmospheric unknown is non-axisymmetric gusts, which need 3D machinery.
 
 The source and reaction questions (M2 field generation, M1 momentum home for carried matter) are unchanged and are the main open physics.
+
+## 7. Branch closure (after Sol review of c823ef2, 2026-11-22)
+
+The atmospheric branch is **closed**. What carries forward:
+
+| Item | Status |
+|---|---|
+| Ideal-fluid transport by the zero-expansion shift | Established (exact GR, test-fluid) |
+| Pressure removes the large pressure-free gust amplification (axisymmetric cases) | Established |
+| Shift *damps* turbulence as a general property | **Not claimed.** The residual 0.30–0.37 versus 0.66 is not separated from numerical filtering |
+| Real atmospheric signature | Uncertain; a quiet dash remains plausible |
+| Transmedium (waterline) operation | Untested hypothesis |
+
+Recorded limitations (not work items):
+
+1. **Energy accounting.** 7–14 J of a 32 J gust is not cleanly split between filter loss and work exchanged with the time-dependent metric.
+2. **Sponge energy.** All of it was counted as sound; acoustic and vortical fluxes were not separated.
+3. **Convergence.** The h = 0.25 m result differs from the coarser grids.
+4. **Gust families.** Non-axisymmetric (m ≥ 1) and nonlinear gusts are untested.
+
+Next: return to M1/M2. Can the relational sector dynamically source the shift geometry and carry its conserved quantities?

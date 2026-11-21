@@ -11,7 +11,7 @@ a=f.add_subplot(gs[0,0])
 for off,mo,col in ((-w/2,'lapse',LA),(w/2,'shift',SH)):
     y=[max(get(mo,R,d)['crew_peak_g'],1e-5) for R,d in cases]; a.bar(xi+off,y,w*0.92,color=col,label=mo)
     for i,v in enumerate(y): a.text(xi[i]+off,v*1.5,f'{v:.2g}',ha='center',fontsize=8,color=INK)
-a.set_yscale('log'); a.set_ylim(1e-5,300); a.set_xticks(xi); a.set_xticklabels(lab,fontsize=8); a.set_title('Crew peak felt load (g)',color=INK,loc='left'); a.legend(frameon=False,loc='upper left')
+a.set_yscale("log"); a.set_ylim(1e-5,3000); a.set_xticks(xi); a.set_xticklabels(lab,fontsize=8); a.set_title('Crew peak felt load (g)',color=INK,loc='left'); a.legend(frameon=False,loc='upper left')
 a=f.add_subplot(gs[0,1])
 for off,mo,col in ((-w/2,'lapse',LA),(w/2,'shift',SH)):
     y=[get(mo,R,d)['residual_air_KE_J']/1e6 for R,d in cases]; a.bar(xi+off,y,w*0.92,color=col,label=mo)
