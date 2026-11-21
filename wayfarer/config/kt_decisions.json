@@ -288,6 +288,19 @@
       "date": "2026-11-04",
       "kT": "kT accepted 2026-11-04",
       "as": "kT accepted 2026-11-04 as non-canon v0.5 OG-3 design position ONLY. OPEN: hydrogenous organogel formulation chemistry, lifetime ageing, radiation damage/radiolysis, flammability/pyrolysis/outgassing, freeze/boil limits, optical darkening, BNNT-H dispersion/fibre loading <1% by mass and optical homogeneity, 10B capture secondaries, ceramic fracture/seals, and transport/whole-ship GCR/SPE dose. BNNT below 1% by mass, zero biological radiation dose credit, zero optical-thermal credit; G6 areal screens only, no credited dose reduction. Qualification OPEN."
+    },
+    "shuttle_v3_prototype_lane_bmd1_parked_2026_11_21": {
+      "date": "2026-11-21",
+      "status": "PARKED (successful negative research result)",
+      "class": "research, NON-CANON",
+      "decision": "kT parks BMD-1. Ordinary tidal coupling cannot provide the 0.9 MN shuttle lift; the tested gravitational-dipole mechanism is impractical at planetary scale; a useful powered local-partner field would need an additional explicitly fictional constitutive law, which conservation bookkeeping cannot justify. That law is NOT authorized as LOOM physics now, and not discarded permanently.",
+      "qualifications": [
+        "zero first-order tidal force is exact for couplings linear in the tidal tensor acting on positive density about the centre of mass, within the weak-field approximation; not a theorem for every conceivable tidal-dependent interaction",
+        "the dipole U = F R / 2 is an interaction-energy scale (recoverable), not automatically an operating cost, and the dipole is only the one new interaction tested",
+        "no claim that a negative-mass pair could be built or stabilized"
+      ],
+      "next": "return to the conventional shuttle: conventional fold + adaptive camber is the leading architecture; W3 stays an independent speculative question",
+      "record": "wayfarer/lab/shuttle/v3/proto/exp2/EXPERIMENT_2_2026_11_21.md"
     }
   },
   "design_decisions_2026_10_26": {

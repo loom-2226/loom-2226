@@ -344,3 +344,22 @@ Newtonian weak-field limit, full tidal tensor T_ij = ∂_i g_j, with y the posit
 - **Minimum additional Builder property, if the tidal route is wanted as the source:** an engineered gravitational dipole of about 0.75·m·R per unit length. It is cheap only near small bodies.
 - **The shuttle-scale answer** is therefore an explicit postulate: a powered nonlocal momentum exchange, with partner weights from the tidal tensor and capacity bounded by the environment.
 - **No further shuttle geometry or hardware** is built around BMD-1 until that postulate is accepted or refined. W3 remains separate.
+
+## kT decision: BMD-1 PARKED (2026-11-21)
+BMD-1 is parked as a **successful negative research result**. It is kept as a documented Builder hypothesis.
+
+**What was learned:**
+- Ordinary tidal coupling cannot give the 0.9 MN lift.
+- The tested gravitational-dipole mechanism is impractical at planetary scale.
+- A useful powered local-partner field would need an additional, explicitly fictional constitutive law, and conservation bookkeeping alone cannot justify one.
+
+**Status of that law:** **not authorized** as LOOM physics now, and **not discarded** permanently.
+
+**Qualifications kT recorded:**
+- The zero-force result is exact for couplings linear in the tidal tensor acting on positive density about the centre of mass, within the weak-field approximation. It is not a theorem for every possible tidal-dependent interaction.
+- U = F·R/2 is an interaction-energy scale, recoverable rather than automatically an operating cost. The dipole is only the one new interaction tested here.
+- Nothing here shows that a negative-mass pair could be built or stabilized.
+
+**Next:**
+- Return to the conventional shuttle. Conventional fold + adaptive camber is the leading architecture.
+- W3 stays an independent speculative question.
