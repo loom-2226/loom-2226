@@ -2004,5 +2004,21 @@
       "build_out": "Sol's checks become the build-out list: afloat stability, waterborne rover/cargo access, realistic field-off recovery, exact-fit bay exit, Titan lake buoyancy (shared gap)"
     },
     "status": "Design decision for the Weave shuttle; NOT CANON. CCR-2026-0005 (PROPOSED) text names the 13.02 m lifting body and the collar: it needs a proposal revision before approval; the physics scope is unchanged."
+  },
+  "shuttle_weave_tictac_rulings_2026_11_22": {
+    "authority": "Sol recommendations on 5062961, forwarded by kT 2026-11-22 as the working direction (kT may overrule)",
+    "applies_to": "shuttle_weave_tictac_hull_2026_11_22",
+    "decisions": {
+      "diameter": "3.8 m (F10 limit exactly, which already includes 0.5 m each side); no-protrusion rule; not 3.7 m",
+      "rover": "returns as a removable mission kit (~1.8 t, not in base dry) in a combined cargo/rover bay behind a flush side door; only a rover-sized wet dock floods (whole-bay flooding rejected: unstable light)",
+      "field_off_water_takeoff": "limitation accepted: field off afloat is a stable wait for restart or Wayfarer recovery; no added propulsion. W3 recorded as an EXCEPTION, not a pass",
+      "titan": "tank-level rule plus optional flotation kit; no permanent floats; sea landings restricted until equipped",
+      "design_language": "aggressively restrained: continuous smooth warm-white hull, flush nose docking interface and cargo door, no visible wings, engines, antenna farms, decorative lights or unnecessary panel lines; comfortable interior; empty volume is not filled because it exists"
+    },
+    "open_items": [
+      "sea-ballast rule before opening the dock when light (12-13 t for GM 0.3 m) is an operating requirement, not a demonstrated procedure",
+      "parachutes (~17,400 m2 effective drag area, 2.5 s inflation) are a screening assumption, not a demonstrated capability"
+    ],
+    "status": "NOT CANON; lab design direction"
   }
 }
