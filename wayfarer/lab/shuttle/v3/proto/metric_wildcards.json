@@ -1,0 +1,862 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "lane": "PROTOTYPE (non-canon): REQUIRED-VALUE hypotheses, not results",
+ "model_version": "71015f89df61",
+ "envelope": {
+  "wall_clearance_m": 1.5,
+  "envelope_area_m2": 284
+ },
+ "scaling": {
+  "L2 (area, candidate fit \u00a76.2)": {
+   "fraction": 0.15,
+   "plant_t": 13.2,
+   "mc_kg": 1.5,
+   "nodes": 31,
+   "bank_GJ": 0.3,
+   "cryo_normal_MW": 0.52,
+   "rad_normal_m2_900K": 15.9,
+   "cryo_hard_MW": 3.58,
+   "rad_hard_m2_900K": 107.6
+  },
+  "L1 (sqrt area)": {
+   "fraction": 0.387,
+   "plant_t": 34.0,
+   "mc_kg": 3.87,
+   "nodes": 80,
+   "bank_GJ": 0.77,
+   "cryo_normal_MW": 1.35,
+   "rad_normal_m2_900K": 41.0,
+   "cryo_hard_MW": 9.25,
+   "rad_hard_m2_900K": 278.2
+  },
+  "none (Wayfarer plant)": {
+   "fraction": 1.0,
+   "plant_t": 88.0,
+   "mc_kg": 10.0,
+   "nodes": 208,
+   "bank_GJ": 2.0,
+   "cryo_normal_MW": 3.5,
+   "rad_normal_m2_900K": 106.0,
+   "cryo_hard_MW": 23.9,
+   "rad_hard_m2_900K": 719.0
+  }
+ },
+ "conventional_first_10km": {
+  "torch_dv_ms": 980,
+  "speed_at_10km_ms": 280,
+  "time_s": 71
+ },
+ "w2": [
+  {
+   "case": "B5 | L2 (area, candidate fit \u00a76.2) | eta 0.6 | 60 s",
+   "dry_without_module_t": 43.36,
+   "module_t": 14.2,
+   "flywheel_t": 5.2,
+   "liftoff_t": 81.8,
+   "eta": 0.6,
+   "assist_s": 60,
+   "energy_up_GJ": 11.23,
+   "source_GJ": 18.71,
+   "power_MW": 312,
+   "descent_absorb_GJ": 8.02,
+   "tank_temp_rise_if_dumped_K": 82.9,
+   "hot_water_conventional_t": 29.0,
+   "hot_thrust_short_conventional": [
+    2
+   ],
+   "hot_water_metric_t": 34.2,
+   "hot_thrust_short_metric": [],
+   "tank_t": 23.1,
+   "fits_tank": false,
+   "dry_with_module_t": 62.76,
+   "under_ceiling": false,
+   "law": "L2 (area, candidate fit \u00a76.2)"
+  },
+  {
+   "case": "B5 | L2 (area, candidate fit \u00a76.2) | eta 0.3 | 30 s",
+   "dry_without_module_t": 43.36,
+   "module_t": 14.2,
+   "flywheel_t": 10.4,
+   "liftoff_t": 81.8,
+   "eta": 0.3,
+   "assist_s": 30,
+   "energy_up_GJ": 11.23,
+   "source_GJ": 37.43,
+   "power_MW": 1248,
+   "descent_absorb_GJ": 8.02,
+   "tank_temp_rise_if_dumped_K": 82.9,
+   "hot_water_conventional_t": 29.0,
+   "hot_thrust_short_conventional": [
+    2
+   ],
+   "hot_water_metric_t": 41.3,
+   "hot_thrust_short_metric": [],
+   "tank_t": 23.1,
+   "fits_tank": false,
+   "dry_with_module_t": 67.96,
+   "under_ceiling": false,
+   "law": "L2 (area, candidate fit \u00a76.2)"
+  },
+  {
+   "case": "#2643 | L2 (area, candidate fit \u00a76.2) | eta 0.6 | 60 s",
+   "dry_without_module_t": 38.33,
+   "module_t": 14.2,
+   "flywheel_t": 4.55,
+   "liftoff_t": 71.6,
+   "eta": 0.6,
+   "assist_s": 60,
+   "energy_up_GJ": 9.84,
+   "source_GJ": 16.4,
+   "power_MW": 273,
+   "descent_absorb_GJ": 7.03,
+   "tank_temp_rise_if_dumped_K": 93.3,
+   "hot_water_conventional_t": 22.3,
+   "hot_thrust_short_conventional": [],
+   "hot_water_metric_t": 27.6,
+   "hot_thrust_short_metric": [],
+   "tank_t": 18,
+   "fits_tank": false,
+   "dry_with_module_t": 57.08,
+   "under_ceiling": false,
+   "law": "L2 (area, candidate fit \u00a76.2)"
+  },
+  {
+   "case": "#2643 | L2 (area, candidate fit \u00a76.2) | eta 0.3 | 30 s",
+   "dry_without_module_t": 38.33,
+   "module_t": 14.2,
+   "flywheel_t": 9.11,
+   "liftoff_t": 71.6,
+   "eta": 0.3,
+   "assist_s": 30,
+   "energy_up_GJ": 9.84,
+   "source_GJ": 32.79,
+   "power_MW": 1093,
+   "descent_absorb_GJ": 7.03,
+   "tank_temp_rise_if_dumped_K": 93.3,
+   "hot_water_conventional_t": 22.3,
+   "hot_thrust_short_conventional": [],
+   "hot_water_metric_t": 32.8,
+   "hot_thrust_short_metric": [],
+   "tank_t": 18,
+   "fits_tank": false,
+   "dry_with_module_t": 61.64,
+   "under_ceiling": false,
+   "law": "L2 (area, candidate fit \u00a76.2)"
+  },
+  {
+   "case": "#2643 + Osteon cautious | L2 (area, candidate fit \u00a76.2) | eta 0.6 | 60 s",
+   "dry_without_module_t": 35.95,
+   "module_t": 14.2,
+   "flywheel_t": 4.4,
+   "liftoff_t": 69.2,
+   "eta": 0.6,
+   "assist_s": 60,
+   "energy_up_GJ": 9.51,
+   "source_GJ": 15.85,
+   "power_MW": 264,
+   "descent_absorb_GJ": 6.79,
+   "tank_temp_rise_if_dumped_K": 90.2,
+   "hot_water_conventional_t": 19.4,
+   "hot_thrust_short_conventional": [],
+   "hot_water_metric_t": 25.0,
+   "hot_thrust_short_metric": [],
+   "tank_t": 18,
+   "fits_tank": false,
+   "dry_with_module_t": 54.55,
+   "under_ceiling": false,
+   "law": "L2 (area, candidate fit \u00a76.2)"
+  },
+  {
+   "case": "#2643 + Osteon cautious | L2 (area, candidate fit \u00a76.2) | eta 0.3 | 30 s",
+   "dry_without_module_t": 35.95,
+   "module_t": 14.2,
+   "flywheel_t": 8.81,
+   "liftoff_t": 69.2,
+   "eta": 0.3,
+   "assist_s": 30,
+   "energy_up_GJ": 9.51,
+   "source_GJ": 31.7,
+   "power_MW": 1057,
+   "descent_absorb_GJ": 6.79,
+   "tank_temp_rise_if_dumped_K": 90.2,
+   "hot_water_conventional_t": 19.4,
+   "hot_thrust_short_conventional": [],
+   "hot_water_metric_t": 29.7,
+   "hot_thrust_short_metric": [],
+   "tank_t": 18,
+   "fits_tank": false,
+   "dry_with_module_t": 58.96,
+   "under_ceiling": false,
+   "law": "L2 (area, candidate fit \u00a76.2)"
+  },
+  {
+   "case": "#2643 14.3 m, 8 couches, Osteon cautious | L2 (area, candidate fit \u00a76.2) | eta 0.6 | 60 s",
+   "dry_without_module_t": 39.5,
+   "module_t": 14.2,
+   "flywheel_t": 4.97,
+   "liftoff_t": 78.1,
+   "eta": 0.6,
+   "assist_s": 60,
+   "energy_up_GJ": 10.73,
+   "source_GJ": 17.88,
+   "power_MW": 298,
+   "descent_absorb_GJ": 7.66,
+   "tank_temp_rise_if_dumped_K": 79.2,
+   "hot_water_conventional_t": 24.2,
+   "hot_thrust_short_conventional": [
+    2
+   ],
+   "hot_water_metric_t": 29.6,
+   "hot_thrust_short_metric": [],
+   "tank_t": 23.1,
+   "fits_tank": false,
+   "dry_with_module_t": 58.67,
+   "under_ceiling": false,
+   "law": "L2 (area, candidate fit \u00a76.2)"
+  },
+  {
+   "case": "#2643 14.3 m, 8 couches, Osteon cautious | L2 (area, candidate fit \u00a76.2) | eta 0.3 | 30 s",
+   "dry_without_module_t": 39.5,
+   "module_t": 14.2,
+   "flywheel_t": 9.93,
+   "liftoff_t": 78.1,
+   "eta": 0.3,
+   "assist_s": 30,
+   "energy_up_GJ": 10.73,
+   "source_GJ": 35.75,
+   "power_MW": 1192,
+   "descent_absorb_GJ": 7.66,
+   "tank_temp_rise_if_dumped_K": 79.2,
+   "hot_water_conventional_t": 24.2,
+   "hot_thrust_short_conventional": [
+    2
+   ],
+   "hot_water_metric_t": 35.6,
+   "hot_thrust_short_metric": [],
+   "tank_t": 23.1,
+   "fits_tank": false,
+   "dry_with_module_t": 63.63,
+   "under_ceiling": false,
+   "law": "L2 (area, candidate fit \u00a76.2)"
+  },
+  {
+   "case": "B5 | L1 (sqrt area) | eta 0.6 | 60 s",
+   "dry_without_module_t": 43.36,
+   "module_t": 35.0,
+   "flywheel_t": 6.52,
+   "liftoff_t": 102.6,
+   "eta": 0.6,
+   "assist_s": 60,
+   "energy_up_GJ": 14.09,
+   "source_GJ": 23.48,
+   "power_MW": 391,
+   "descent_absorb_GJ": 10.06,
+   "tank_temp_rise_if_dumped_K": 104.0,
+   "hot_water_conventional_t": 29.0,
+   "hot_thrust_short_conventional": [
+    2
+   ],
+   "hot_water_metric_t": 64.9,
+   "hot_thrust_short_metric": [
+    1
+   ],
+   "tank_t": 23.1,
+   "fits_tank": false,
+   "dry_with_module_t": 84.88,
+   "under_ceiling": false,
+   "law": "L1 (sqrt area)"
+  },
+  {
+   "case": "B5 | L1 (sqrt area) | eta 0.3 | 30 s",
+   "dry_without_module_t": 43.36,
+   "module_t": 35.0,
+   "flywheel_t": 13.04,
+   "liftoff_t": 102.6,
+   "eta": 0.3,
+   "assist_s": 30,
+   "energy_up_GJ": 14.09,
+   "source_GJ": 46.95,
+   "power_MW": 1565,
+   "descent_absorb_GJ": 10.06,
+   "tank_temp_rise_if_dumped_K": 104.0,
+   "hot_water_conventional_t": 29.0,
+   "hot_thrust_short_conventional": [
+    2
+   ],
+   "hot_water_metric_t": 74.6,
+   "hot_thrust_short_metric": [
+    1
+   ],
+   "tank_t": 23.1,
+   "fits_tank": false,
+   "dry_with_module_t": 91.4,
+   "under_ceiling": false,
+   "law": "L1 (sqrt area)"
+  },
+  {
+   "case": "#2643 | L1 (sqrt area) | eta 0.6 | 60 s",
+   "dry_without_module_t": 38.33,
+   "module_t": 35.0,
+   "flywheel_t": 5.88,
+   "liftoff_t": 92.4,
+   "eta": 0.6,
+   "assist_s": 60,
+   "energy_up_GJ": 12.69,
+   "source_GJ": 21.16,
+   "power_MW": 353,
+   "descent_absorb_GJ": 9.07,
+   "tank_temp_rise_if_dumped_K": 120.3,
+   "hot_water_conventional_t": 22.3,
+   "hot_thrust_short_conventional": [],
+   "hot_water_metric_t": 57.1,
+   "hot_thrust_short_metric": [
+    1
+   ],
+   "tank_t": 18,
+   "fits_tank": false,
+   "dry_with_module_t": 79.21,
+   "under_ceiling": false,
+   "law": "L1 (sqrt area)"
+  },
+  {
+   "case": "#2643 | L1 (sqrt area) | eta 0.3 | 30 s",
+   "dry_without_module_t": 38.33,
+   "module_t": 35.0,
+   "flywheel_t": 11.75,
+   "liftoff_t": 92.4,
+   "eta": 0.3,
+   "assist_s": 30,
+   "energy_up_GJ": 12.69,
+   "source_GJ": 42.31,
+   "power_MW": 1410,
+   "descent_absorb_GJ": 9.07,
+   "tank_temp_rise_if_dumped_K": 120.3,
+   "hot_water_conventional_t": 22.3,
+   "hot_thrust_short_conventional": [],
+   "hot_water_metric_t": 65.1,
+   "hot_thrust_short_metric": [
+    1
+   ],
+   "tank_t": 18,
+   "fits_tank": false,
+   "dry_with_module_t": 85.08,
+   "under_ceiling": false,
+   "law": "L1 (sqrt area)"
+  },
+  {
+   "case": "#2643 + Osteon cautious | L1 (sqrt area) | eta 0.6 | 60 s",
+   "dry_without_module_t": 35.95,
+   "module_t": 35.0,
+   "flywheel_t": 5.73,
+   "liftoff_t": 90.0,
+   "eta": 0.6,
+   "assist_s": 60,
+   "energy_up_GJ": 12.37,
+   "source_GJ": 20.61,
+   "power_MW": 344,
+   "descent_absorb_GJ": 8.83,
+   "tank_temp_rise_if_dumped_K": 117.2,
+   "hot_water_conventional_t": 19.4,
+   "hot_thrust_short_conventional": [],
+   "hot_water_metric_t": 53.7,
+   "hot_thrust_short_metric": [
+    1
+   ],
+   "tank_t": 18,
+   "fits_tank": false,
+   "dry_with_module_t": 76.68,
+   "under_ceiling": false,
+   "law": "L1 (sqrt area)"
+  },
+  {
+   "case": "#2643 + Osteon cautious | L1 (sqrt area) | eta 0.3 | 30 s",
+   "dry_without_module_t": 35.95,
+   "module_t": 35.0,
+   "flywheel_t": 11.45,
+   "liftoff_t": 90.0,
+   "eta": 0.3,
+   "assist_s": 30,
+   "energy_up_GJ": 12.37,
+   "source_GJ": 41.22,
+   "power_MW": 1374,
+   "descent_absorb_GJ": 8.83,
+   "tank_temp_rise_if_dumped_K": 117.2,
+   "hot_water_conventional_t": 19.4,
+   "hot_thrust_short_conventional": [],
+   "hot_water_metric_t": 61.4,
+   "hot_thrust_short_metric": [
+    1
+   ],
+   "tank_t": 18,
+   "fits_tank": false,
+   "dry_with_module_t": 82.4,
+   "under_ceiling": false,
+   "law": "L1 (sqrt area)"
+  },
+  {
+   "case": "#2643 14.3 m, 8 couches, Osteon cautious | L1 (sqrt area) | eta 0.6 | 60 s",
+   "dry_without_module_t": 39.5,
+   "module_t": 35.0,
+   "flywheel_t": 6.29,
+   "liftoff_t": 98.9,
+   "eta": 0.6,
+   "assist_s": 60,
+   "energy_up_GJ": 13.58,
+   "source_GJ": 22.64,
+   "power_MW": 377,
+   "descent_absorb_GJ": 9.7,
+   "tank_temp_rise_if_dumped_K": 100.3,
+   "hot_water_conventional_t": 24.2,
+   "hot_thrust_short_conventional": [
+    2
+   ],
+   "hot_water_metric_t": 59.5,
+   "hot_thrust_short_metric": [
+    1
+   ],
+   "tank_t": 23.1,
+   "fits_tank": false,
+   "dry_with_module_t": 80.79,
+   "under_ceiling": false,
+   "law": "L1 (sqrt area)"
+  },
+  {
+   "case": "#2643 14.3 m, 8 couches, Osteon cautious | L1 (sqrt area) | eta 0.3 | 30 s",
+   "dry_without_module_t": 39.5,
+   "module_t": 35.0,
+   "flywheel_t": 12.58,
+   "liftoff_t": 98.9,
+   "eta": 0.3,
+   "assist_s": 30,
+   "energy_up_GJ": 13.58,
+   "source_GJ": 45.28,
+   "power_MW": 1509,
+   "descent_absorb_GJ": 9.7,
+   "tank_temp_rise_if_dumped_K": 100.3,
+   "hot_water_conventional_t": 24.2,
+   "hot_thrust_short_conventional": [
+    2
+   ],
+   "hot_water_metric_t": 68.3,
+   "hot_thrust_short_metric": [
+    1
+   ],
+   "tank_t": 23.1,
+   "fits_tank": false,
+   "dry_with_module_t": 87.08,
+   "under_ceiling": false,
+   "law": "L1 (sqrt area)"
+  }
+ ],
+ "w3": [
+  {
+   "m_t": 45,
+   "dx_m": 1000,
+   "dz_m": 0,
+   "t_s": 1.0,
+   "mean_coord_speed_ms": 1000,
+   "mach_sea_level": 2.9,
+   "energyB_extra_energy": "~0 (level or down; down-hops arrive FASTER by sqrt(2 g dz))",
+   "powered_metric_GJ": 0.0,
+   "air_disturbance_GJ": 0.24,
+   "rset_ramp_to_light_crossing": "1.0e+07 for a 0.1 s ramp (canon screen: 10 s / 6 m wall ~ 5.0e+08)"
+  },
+  {
+   "m_t": 45,
+   "dx_m": 1000,
+   "dz_m": 0,
+   "t_s": 0.5,
+   "mean_coord_speed_ms": 2000,
+   "mach_sea_level": 5.9,
+   "energyB_extra_energy": "~0 (level or down; down-hops arrive FASTER by sqrt(2 g dz))",
+   "powered_metric_GJ": 0.0,
+   "air_disturbance_GJ": 0.94,
+   "rset_ramp_to_light_crossing": "1.0e+07 for a 0.1 s ramp (canon screen: 10 s / 6 m wall ~ 5.0e+08)"
+  },
+  {
+   "m_t": 45,
+   "dx_m": 0,
+   "dz_m": 1000,
+   "t_s": 1.0,
+   "mean_coord_speed_ms": 1000,
+   "mach_sea_level": 2.9,
+   "energyB_extra_energy": "forbidden unless already moving at >= 140 m/s",
+   "powered_metric_GJ": 0.441,
+   "air_disturbance_GJ": 0.24,
+   "rset_ramp_to_light_crossing": "1.0e+07 for a 0.1 s ramp (canon screen: 10 s / 6 m wall ~ 5.0e+08)"
+  },
+  {
+   "m_t": 45,
+   "dx_m": 0,
+   "dz_m": -1000,
+   "t_s": 1.0,
+   "mean_coord_speed_ms": 1000,
+   "mach_sea_level": 2.9,
+   "energyB_extra_energy": "~0 (level or down; down-hops arrive FASTER by sqrt(2 g dz))",
+   "powered_metric_GJ": -0.441,
+   "air_disturbance_GJ": 0.24,
+   "rset_ramp_to_light_crossing": "1.0e+07 for a 0.1 s ramp (canon screen: 10 s / 6 m wall ~ 5.0e+08)"
+  },
+  {
+   "m_t": 45,
+   "dx_m": 300,
+   "dz_m": 0,
+   "t_s": 0.3,
+   "mean_coord_speed_ms": 1000,
+   "mach_sea_level": 2.9,
+   "energyB_extra_energy": "~0 (level or down; down-hops arrive FASTER by sqrt(2 g dz))",
+   "powered_metric_GJ": 0.0,
+   "air_disturbance_GJ": 0.08,
+   "rset_ramp_to_light_crossing": "1.0e+07 for a 0.1 s ramp (canon screen: 10 s / 6 m wall ~ 5.0e+08)"
+  },
+  {
+   "m_t": 45,
+   "dx_m": 5000,
+   "dz_m": 0,
+   "t_s": 2.0,
+   "mean_coord_speed_ms": 2500,
+   "mach_sea_level": 7.4,
+   "energyB_extra_energy": "~0 (level or down; down-hops arrive FASTER by sqrt(2 g dz))",
+   "powered_metric_GJ": 0.0,
+   "air_disturbance_GJ": 0.49,
+   "rset_ramp_to_light_crossing": "1.0e+07 for a 0.1 s ramp (canon screen: 10 s / 6 m wall ~ 5.0e+08)"
+  }
+ ],
+ "w2_cushion_2km": {
+  "#2643 + Osteon cautious": {
+   "2": {
+    "module_t": 2,
+    "flywheel_t": 0.96,
+    "dry_t": 39.4,
+    "source_GJ": 2.87,
+    "power_MW": 143,
+    "hot_water_t": 14.2,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": true
+   },
+   "4": {
+    "module_t": 4,
+    "flywheel_t": 0.99,
+    "dry_t": 41.43,
+    "source_GJ": 2.96,
+    "power_MW": 148,
+    "hot_water_t": 15.7,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": true
+   },
+   "6": {
+    "module_t": 6,
+    "flywheel_t": 1.02,
+    "dry_t": 43.46,
+    "source_GJ": 3.05,
+    "power_MW": 153,
+    "hot_water_t": 17.3,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": true
+   },
+   "8": {
+    "module_t": 8,
+    "flywheel_t": 1.05,
+    "dry_t": 45.49,
+    "source_GJ": 3.14,
+    "power_MW": 157,
+    "hot_water_t": 19.0,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": true
+   },
+   "10": {
+    "module_t": 10,
+    "flywheel_t": 1.08,
+    "dry_t": 47.52,
+    "source_GJ": 3.23,
+    "power_MW": 162,
+    "hot_water_t": 20.9,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": true
+   },
+   "12": {
+    "module_t": 12,
+    "flywheel_t": 1.11,
+    "dry_t": 49.55,
+    "source_GJ": 3.33,
+    "power_MW": 166,
+    "hot_water_t": 22.8,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": true
+   },
+   "14.2": {
+    "module_t": 14.2,
+    "flywheel_t": 1.14,
+    "dry_t": 51.78,
+    "source_GJ": 3.43,
+    "power_MW": 171,
+    "hot_water_t": 25.1,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": false
+   }
+  },
+  "#2643 14.3 m, 8 couches, Osteon cautious": {
+   "2": {
+    "module_t": 2,
+    "flywheel_t": 1.01,
+    "dry_t": 42.51,
+    "source_GJ": 3.02,
+    "power_MW": 151,
+    "hot_water_t": 16.7,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": true
+   },
+   "4": {
+    "module_t": 4,
+    "flywheel_t": 1.04,
+    "dry_t": 44.54,
+    "source_GJ": 3.11,
+    "power_MW": 155,
+    "hot_water_t": 18.4,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": true
+   },
+   "6": {
+    "module_t": 6,
+    "flywheel_t": 1.07,
+    "dry_t": 46.57,
+    "source_GJ": 3.2,
+    "power_MW": 160,
+    "hot_water_t": 20.2,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": true
+   },
+   "8": {
+    "module_t": 8,
+    "flywheel_t": 1.1,
+    "dry_t": 48.6,
+    "source_GJ": 3.29,
+    "power_MW": 165,
+    "hot_water_t": 22.1,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": true
+   },
+   "10": {
+    "module_t": 10,
+    "flywheel_t": 1.13,
+    "dry_t": 50.63,
+    "source_GJ": 3.38,
+    "power_MW": 169,
+    "hot_water_t": 24.1,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": false
+   },
+   "12": {
+    "module_t": 12,
+    "flywheel_t": 1.16,
+    "dry_t": 52.66,
+    "source_GJ": 3.47,
+    "power_MW": 174,
+    "hot_water_t": 26.3,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": false
+   },
+   "14.2": {
+    "module_t": 14.2,
+    "flywheel_t": 1.19,
+    "dry_t": 54.89,
+    "source_GJ": 3.58,
+    "power_MW": 179,
+    "hot_water_t": 28.9,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": false
+   }
+  }
+ },
+ "w2_cushion_alone_and_combos": {
+  "B5": {
+   "8": {
+    "module_t": 8,
+    "flywheel_t": 1.15,
+    "dry_t": 52.51,
+    "source_GJ": 3.46,
+    "power_MW": 173,
+    "hot_water_t": 25.9,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": false
+   },
+   "12": {
+    "module_t": 12,
+    "flywheel_t": 1.21,
+    "dry_t": 56.57,
+    "source_GJ": 3.64,
+    "power_MW": 182,
+    "hot_water_t": 30.7,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": false
+   },
+   "14.2": {
+    "module_t": 14.2,
+    "flywheel_t": 1.25,
+    "dry_t": 58.81,
+    "source_GJ": 3.74,
+    "power_MW": 187,
+    "hot_water_t": 33.5,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": false
+   }
+  },
+  "#2643": {
+   "8": {
+    "module_t": 8,
+    "flywheel_t": 1.08,
+    "dry_t": 47.9,
+    "source_GJ": 3.25,
+    "power_MW": 163,
+    "hot_water_t": 21.2,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": true
+   },
+   "12": {
+    "module_t": 12,
+    "flywheel_t": 1.14,
+    "dry_t": 51.96,
+    "source_GJ": 3.43,
+    "power_MW": 172,
+    "hot_water_t": 25.3,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": false
+   },
+   "14.2": {
+    "module_t": 14.2,
+    "flywheel_t": 1.18,
+    "dry_t": 54.2,
+    "source_GJ": 3.54,
+    "power_MW": 177,
+    "hot_water_t": 27.8,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": false
+   }
+  },
+  "#2643 + programmable 17 m": {
+   "8": {
+    "module_t": 8,
+    "flywheel_t": 1.13,
+    "dry_t": 50.75,
+    "source_GJ": 3.38,
+    "power_MW": 169,
+    "hot_water_t": 24.1,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": false
+   },
+   "12": {
+    "module_t": 12,
+    "flywheel_t": 1.19,
+    "dry_t": 54.81,
+    "source_GJ": 3.56,
+    "power_MW": 178,
+    "hot_water_t": 28.5,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": false
+   },
+   "14.2": {
+    "module_t": 14.2,
+    "flywheel_t": 1.22,
+    "dry_t": 57.04,
+    "source_GJ": 3.66,
+    "power_MW": 183,
+    "hot_water_t": 31.3,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": false
+   }
+  },
+  "#2643 + Osteon cautious + programmable 17 m": {
+   "8": {
+    "module_t": 8,
+    "flywheel_t": 1.08,
+    "dry_t": 47.95,
+    "source_GJ": 3.25,
+    "power_MW": 163,
+    "hot_water_t": 21.3,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": true
+   },
+   "12": {
+    "module_t": 12,
+    "flywheel_t": 1.15,
+    "dry_t": 52.02,
+    "source_GJ": 3.44,
+    "power_MW": 172,
+    "hot_water_t": 25.4,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": false
+   },
+   "14.2": {
+    "module_t": 14.2,
+    "flywheel_t": 1.18,
+    "dry_t": 54.25,
+    "source_GJ": 3.54,
+    "power_MW": 177,
+    "hot_water_t": 27.9,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": false
+   }
+  },
+  "#2643 14.3 m 8c + Osteon cautious + programmable 17 m": {
+   "8": {
+    "module_t": 8,
+    "flywheel_t": 1.13,
+    "dry_t": 51.06,
+    "source_GJ": 3.4,
+    "power_MW": 170,
+    "hot_water_t": 24.6,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": false
+   },
+   "12": {
+    "module_t": 12,
+    "flywheel_t": 1.2,
+    "dry_t": 55.13,
+    "source_GJ": 3.59,
+    "power_MW": 179,
+    "hot_water_t": 29.2,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": false
+   },
+   "14.2": {
+    "module_t": 14.2,
+    "flywheel_t": 1.23,
+    "dry_t": 57.36,
+    "source_GJ": 3.69,
+    "power_MW": 184,
+    "hot_water_t": 31.9,
+    "thrust_short": [],
+    "tank_t": 23.1,
+    "fits": false
+   }
+  }
+ }
+}

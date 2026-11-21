@@ -95,8 +95,14 @@ WILDCARDS = {
  'osteon_airframe': dict(osteon=0.30, osteon_set='core', note='Osteon (OST-22) central case (30%) on eligible primary structure only'),
  'osteon_optimistic': dict(osteon=0.38, osteon_set='wide', note='Osteon (OST-22) high end (38%) on eligible primary structure plus the cabin pressure wall'),
  'dense_power': dict(power_density=2.0, power_size=1.5, note='reactor + motors + electronics at 2x specific power, fans sized 1.5x: human 2226 stretch, NOT Builder-grounded [assumption]'),
+ 'programmable': dict(wing_factor=1.5, cl_cap=5.0, cl_slope=3.25, note='PROTOTYPE LANE (non-canon): programmable shape/stiffness structure. Wing folds flat to the hull for the bay and morphs span (to 20 m) and camber in flight; actuated variable-stiffness skin assumed 1.5x conventional wing mass; morphing camber credited CL cap 5 [sensitivity, not established]'),
  'high_lift': dict(cl_cap=6.0, cl_slope=3.9, note='circulation-control / morphing high-lift credited (CL cap 6): human 2226 stretch (A-6 CCW lineage), NOT Builder-grounded [assumption]'),
 }
+def wildcard(p):
+    """merge combined wildcards written 'a+b' (e.g. 'osteon_airframe+programmable')"""
+    out = {}
+    for k in str(p.get('wildcard', 'none')).split('+'): out.update(WILDCARDS.get(k.strip(), {}))
+    return out
 # Osteon eligibility: fraction of each mass item that is primary load-bearing structure of the kind the Wayfarer
 # evidence covers (beams, longerons, end fittings, doublers). ESTABLISHED: Wayfarer mass_basis, 13 longeron/end-fitting/
 # bay-corner items, 3.7 t conventional, Osteon would save 0.8-1.4 t (22-38%), NOT assumed in Wayfarer's own mass.
@@ -150,7 +156,7 @@ def fan_model(p, m_land):
     W = m_land * 1e3 * 9.81; take = (0.25 * W) ** 1.5 / math.sqrt(2 * 1.225 * A) / 0.78 / 0.93 / 1e6
     cruise = W / 5.0 * 100 / 0.75 / 0.93 / 1e6
     needs = [take, cruise, hover(m_land, 1.35, 5.4)] + ([hover(m_land + 15.2, 8.87, 65.0)] if p.get('fan_venus', True) else [])
-    W_ = WILDCARDS.get(p.get('wildcard', 'none'), {}); MW = max(needs) * W_.get('power_size', 1.0); dens = W_.get('power_density', 1.0)
+    W_ = wildcard(p); MW = max(needs) * W_.get('power_size', 1.0); dens = W_.get('power_density', 1.0)
     mass = (MW * 3.095 / 75 + MW / 20 + MW / 50) / dens + A * 0.06
     return dict(MWe=round(MW, 1), mass_t=round(mass, 2), static_kN=round(static(MW)))
 
@@ -174,14 +180,14 @@ def evaluate(p, full_entry=True):
     g8 = 0.4 + 0.6 * math.sqrt(2.0)
     m = dict(hull_structure=B4S['hull_thermal_structure_t'] * Swet / SWET0 * g8,
              entry_tps=B4S['base_entry_tps_core_t'] * plan / PLAN0,
-             wings=(0.123 * Sw * (1.3 if p['wing'] == 'telescoping' else 1.0) * math.sqrt(2.0)),
+             wings=(0.123 * Sw * wildcard(p).get('wing_factor', 1.3 if p['wing'] == 'telescoping' else 1.0) * math.sqrt(2.0)),
              cabin=B4S['cabin_wall_heat_tolerant_t'] * (p['seats'] / 6) ** (2 / 3) + B4S['cabin_hatches_seals_t'] + B4S['crew_habitat_thermal_package_6_seats_t'] * p['seats'] / 6,
              water_tank=B4S['water_tank_insulated_t'] * p['water_t'] / 23.1,
              rover=(B4S['rover_chassis_crab_t'] + B4S['rover_light_cabin_shell_t'] + B4S['rover_outfit_life_support_power_t']) if p['rover'] else 0.0,
              torch=B4S['torch_low_high_engine_t'], belly_rcs=B4S['small_belly_thrusters_t'], power_dist=B4S['reactor_power_distribution_t'],
              custody=B4S['custody_capsule_dry_t'], avionics=B4S['avionics_controls_yaw_t'], gear_door=B4S['landing_gear_door_ramp_t'],
              crash_mounts=0.3, floats=0.03 * p['floats_m3'], desal=(DESAL_T if p.get('desal') else 0.0))
-    WC = WILDCARDS.get(p.get('wildcard', 'none'), {})
+    WC = wildcard(p)
     m['cabin_wall'] = B4S['cabin_wall_heat_tolerant_t'] * (p['seats'] / 6) ** (2 / 3); m['cabin'] -= m['cabin_wall']
     r['osteon'] = None
     if 'osteon' in WC:
