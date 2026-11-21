@@ -59,3 +59,31 @@ Primary source: David Fravor's written statement to the House Oversight Committe
 **Sources:**
 - [David Fravor, Statement for House Oversight Committee (26 July 2023)](https://oversight.house.gov/wp-content/uploads/2023/07/David-Fravor-Statement-for-House-Oversight-Committee.pdf)
 - [House hearing record, 26 July 2023 (govinfo)](https://www.govinfo.gov/content/pkg/CHRG-118hhrg53022/html/CHRG-118hhrg53022.htm)
+
+## 5. Does the bowl form fast enough? (Sol, after 1ba4d27)
+
+Code: `outing_bowl_dynamics.py`, `bowl_dynamics_figure.py` → `weave_bowl_dynamics.png`. Data: `outing_bowl_dynamics.json`, `outing_bowl_dynamics_snaps.npz`.
+
+**Model:** a coarse linear free-surface response in deep water. The cushion acts as the equivalent surface pressure that would hold the equilibrium bowl, and each Fourier mode relaxes toward it at its own frequency `ω = √(g|k|)`.
+- Domain: periodic, 512 m, 1 m grid.
+- Inviscid; no breaking or foam.
+- Small-slope theory applied to a bowl with 30° rims: **timing is meaningful, amplitudes are coarse.**
+
+| Case (field centre 10 m up; equilibrium depth 5.6 m) | 0.5 s hover | 5 s hover | 5 s hover, 2 s ramp-on |
+|---|---|---|---|
+| Bowl depth at departure | 0.6 m (11%) | 3.2 m (57%, mid-slosh) | 4.7 m (84%) |
+| Deepest plunge before departure | 0.6 m | 10.3 m (≈1.8× equilibrium at ~2.6 s) | 9.8 m |
+| Time to 63% depth | – | 1.15 s | 2.0 s |
+| Old spot after the 30 m jink | rises +3.3 m at +3.5 s | rises **+5.6 m** at +2.7 s | +4.4 m at +2.9 s |
+| Peak surface slope | 45° | 46° | 49° |
+| Wave energy left at 25 s | 83 MJ | 100 MJ | 127 MJ |
+
+**Findings:**
+- **Formation lag (DERIVED, coarse linear).** The bowl takes ~1–2 s to form and then sloshes. A cushion switched on faster than the bowl's ~5 s natural period plunges to almost twice the equilibrium depth before settling. Avoiding the overshoot needs ramps much longer than ~5 s.
+- **A half-second hover barely marks the sea** (0.6 m dimple).
+- **Jinks leave the water behind.** The bowl cannot follow a 0.5 s, 30 m move. The old pit is abandoned and rebounds into a central rise of up to ~5.6 m about 2–3 s later. A new pit plunges under the craft's new position, and ring waves from both overlap. Slopes reach 45–49°, so breaking is likely (proxy; foam not modelled). The disturbance lingers, weakening, at the old spot for ~10 s or more.
+- **Picture:** a craft hovering for a few seconds dimples the sea. Each abrupt jink leaves behind a collapsing pit that throws up a central hump, while a new pit opens under it. Repeated jinking over one area would churn a patch of ring waves and rebound humps that lags the craft.
+- **Signature:** this comes from the **gravity cushion**, not the translational shift. The two prototype technologies now have distinct observable signatures.
+- **Limits:** the response is linear on a strongly nonlinear shape. There is no breaking, foam, spray or viscosity; deep water and calm seas are assumed. Real overshoot and rebound would be reduced and turned into breaking and spray. **UNDETERMINED** beyond timing and order of magnitude.
+
+Branch closed here per Sol ("one more short outing, then move on").
