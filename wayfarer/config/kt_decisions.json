@@ -1961,5 +1961,32 @@
       "exchange_statement": "For the CCR: the prototype operates repeatably; energy-momentum exchange mechanism and partner UNKNOWN (research mystery); conservation retained as a requirement; no claim of violation and no claim of demonstrated closure (Sol disposition at cab469f)."
     },
     "status": "Configuration choices for the Weave shuttle; NOT CANON until the CCR is approved by kT."
+  },
+  "shuttle_weave_interior_stretch_collar_2026_11_22": {
+    "authority": "kT 2026-11-22 (Claude chat, multiple choice): 'Stretch 22 cm + docking collar (Recommended)'",
+    "applies_to": [
+      "shuttle_final_weave_prototype_2026_11_22",
+      "shuttle_weave_config_choices_2026_11_22"
+    ],
+    "source": "wayfarer/lab/shuttle/v3/weave_final/WEAVE_SHUTTLE_CONFIG_AND_CLOSURE_2026_11_22.md §5; closure_v2.json (adjustments.stretch_rho4)",
+    "decisions": {
+      "hull": "#2643 parallel body stretched ~0.22 m to ~13.02 m; 6 couches at 3.5 m3, 6 m3 cargo well, wings/fans/floats/torch kept",
+      "module_packaging": "8 t relational module packaged at ~4 t/m3 (compact core + field network distributed in the hull wall, volume charged to the interior); explicit prototype assumption, not an established Builder property",
+      "wayfarer_docking_collar": "~0.22 m retractable docking collar at the nose port (withdraws on undocking so collar retraction + back-off gives the 0.5 m separation of F11); docked aft axial clearance 0.5 m -> ~0.28 m (revisits shuttle_v3_constraints_2026_11_20 item 1 axial margin for this case)",
+      "carried_from_closure_v2": "floats 32 m3; W1 field-off CLmax uplift ~4.5% (explicit assumption); cooling integrated with fan-reactor loop and water tank (0.2 m3)"
+    },
+    "numbers_at_13_02_m": {
+      "dry_t": 49.32,
+      "margin_t": 3.18,
+      "cushion_climb_water_t": 22.6,
+      "tank_t": 23.1,
+      "buoyancy_m3": [
+        110.5,
+        107.6
+      ],
+      "interior_residual_m3": 0.04
+    },
+    "flag": "Interior residual is only +0.04 m3 at 13.02 m; final length to be set at the geometry step within the collar range studied (0.22-0.32 m stretch).",
+    "status": "Design choice for the Weave shuttle; Wayfarer collar is a proposed modification; NOT CANON until the CCR / engineering change is approved by kT."
   }
 }
