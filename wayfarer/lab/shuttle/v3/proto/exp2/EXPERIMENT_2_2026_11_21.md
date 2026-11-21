@@ -303,3 +303,44 @@ A powered momentum-exchange law between a uniformly coupled domain and the surro
 - **Generator power and mass,** which no closed ledger establishes.
 
 W3 remains separate.
+
+### Review 2026-11-21: corrections accepted
+1. **0.18 GJ at Earth.** This is the mechanical work of the idealized lift. It is **not** the generator's energy, which depends on field creation, maintenance and recovery and remains unknown.
+2. **H2 is unsupported, not proven impossible.** m·Δk·|Φ| assumed a zero of potential at infinity. The revised framing:
+   - A coupling change that does not conserve total gravitational charge has a reference-*dependent* energy ledger, and that dependence is itself the defect.
+   - A charge-conserving H2 has to move the compensating charge somewhere. Its minimal-energy form puts it close by, which makes a **mass dipole**: case (2) below.
+3. **Tidal fields are tensors.** The partner weights used scalar magnitudes. The full tensor is treated below.
+
+### Single question: can a tidal-field-dependent coupling give a centre-of-mass force? (`bmd1_tidal_force.py/.json`)
+Newtonian weak-field limit, full tidal tensor T_ij = ∂_i g_j, with y the position measured from the domain's centre of mass.
+
+**(1) Coupling to ordinary (positive) density through position: NO.**
+- Any force density linear in T acting on ρ gives T_ij·∫ρ y_j dV = 0 **exactly, for any shape**, because the first moment about the centre of mass vanishes.
+- The residual is the quadrupole term, M·g·(L/R)², which comes to **3 µN** at Earth.
+
+**(2) With a new law: YES, but only via an engineered gravitational DIPOLE moment p.**
+- p is an internal vector, not position, coupled to the tidal field: F = T·p, so F/W = 2qL/(mR).
+- **Scaling with environment:** at a body's surface T = (8π/3)Gρ_body, set by density and not size. Deep space has essentially zero capacity.
+- **Scaling with domain size:** the pole charge needed is about 0.75·m·R/L.
+
+| Where | Dipole needed | Pole mass equivalent at 15 m | Holding energy U = p·g = F·R/2 |
+|---|---|---|---|
+| Earth (0.9 MN) | 2.9e11 kg·m | 1.9e7 t (3e5 × the shuttle) | **2.9 TJ** (16,000 × the lift work) |
+| Titan (124 kN) | 1.2e11 kg·m | 7.9e6 t | 0.16 TJ |
+| Moon | 8e10 kg·m | 5.3e6 t | 0.13 TJ |
+| 1 km asteroid | 2.3e7 kg·m | 1,500 t (25 × the shuttle) | ~6 kJ |
+| Deep space, 1 AU | 1.1e18 kg·m | ~1e14 t | n/a |
+
+- **U is reference-independent,** because the dipole's net charge is zero.
+- **It is stored and recoverable, but it has to be held somewhere.**
+
+**(3) Conservation.**
+- Local stress-energy and Newton's third law close only if the dipole is also an **active** source, so that its field pulls on the planet.
+- That requires negative active mass at one pole: **exotic stress-energy of about 1e7 t per pole at Earth.** This is the class of thing M2 declares, but now at a stated amount.
+
+### Result
+- **The tidal field can act as a partner SELECTOR,** setting the weights. It **cannot be the force SOURCE** at planetary scale.
+- If BMD-1 keeps tidal weighting, the 0.9 MN must come from a **separately postulated** nonlocal exchange. That is a chosen fictional law, not a derivation from established physics, and the lane must say so.
+- **Minimum additional Builder property, if the tidal route is wanted as the source:** an engineered gravitational dipole of about 0.75·m·R per unit length. It is cheap only near small bodies.
+- **The shuttle-scale answer** is therefore an explicit postulate: a powered nonlocal momentum exchange, with partner weights from the tidal tensor and capacity bounded by the environment.
+- **No further shuttle geometry or hardware** is built around BMD-1 until that postulate is accepted or refined. W3 remains separate.
