@@ -69,3 +69,32 @@ ALL bodies. ALL sponsors. 2026-2226.
 - What closes the near-body energy loop.
 - The ramp-time floor.
 - Boundary versus air.
+
+## Option 3 addendum (kT, 2026-11-21): Weave fuel/limits and expendable heat sinks
+**What powers it and what limits it:**
+- **Fuel:** reactor electricity into a field bank. No remass.
+- **Limits:**
+  - Cold-side heat (the 20 K node cryo load) — the hardest limit.
+  - Mc-299m tile wear.
+  - The **shared Metric/Loom plant**: aggressive Weave use spends the Loom lattice.
+  - Bank cadence.
+  - Weave Control Synthesis (WCS) feasibility near matter.
+  - Air at the boundary.
+- **kT:** the §18A doctrine is waived for this lane.
+
+**kT proposal: a limited number of sheddable heat sinks give a "dodge" ability; otherwise recovery needs time.**
+
+**Canon anchor:** the CANON II §18A thermal combat clock ("throttles, cools, dumps heat or disengages") already allows dumping heat.
+
+**Two ways to build the sinks:**
+- **Cold-side "frost charges" (primary).**
+  - Liquid H2 boils at 20 K, the node temperature, absorbing 446 kJ/kg of latent heat with no cryocooler. The boil-off is vented.
+  - Dodges per kg = 0.446 / Q_dash (Q_dash = cold-side heat per dash in MJ, UNKNOWN). For example, at Q_dash = 1 MJ, a 100 kg charge (1.4 m³) gives ~45 dodges; at 10 MJ, ~4.
+  - Refill comes from Wayfarer's water by electrolysis and liquefaction (~tens of MJ/kg; Wayfarer-side work, not shuttle).
+- **Hot-side bricks (optional decoys).**
+  - Phase-change bricks (e.g. LiH, ~2.6 MJ/kg fusion near 960 K) take the cryocooler's reject heat and are then ejected glowing, doubling as IR decoys.
+  - They do not relieve the 20 K bottleneck.
+
+**Without sinks:** recovery time is set by the cryocooler's lift rate at 20 K and the radiator area. That is the "needs time" clock (not modelled).
+
+**What sinks do not fix:** Mc tile wear and the shared Loom lattice. Dodging still spends the way home.
