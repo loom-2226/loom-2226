@@ -67,7 +67,7 @@ Code: `outing_bowl_dynamics.py`, `bowl_dynamics_figure.py` → `weave_bowl_dynam
 **Model:** a coarse linear free-surface response in deep water. The cushion acts as the equivalent surface pressure that would hold the equilibrium bowl, and each Fourier mode relaxes toward it at its own frequency `ω = √(g|k|)`.
 - Domain: periodic, 512 m, 1 m grid.
 - Inviscid; no breaking or foam.
-- Small-slope theory applied to a bowl with 30° rims: **timing is meaningful, amplitudes are coarse.**
+- Small-slope theory applied to a bowl with 30° rims: **timing is an estimated timescale, not a validated prediction; amplitudes are coarse** (narrowed after Sol review).
 
 | Case (field centre 10 m up; equilibrium depth 5.6 m) | 0.5 s hover | 5 s hover | 5 s hover, 2 s ramp-on |
 |---|---|---|---|
@@ -76,10 +76,10 @@ Code: `outing_bowl_dynamics.py`, `bowl_dynamics_figure.py` → `weave_bowl_dynam
 | Time to 63% depth | – | 1.15 s | 2.0 s |
 | Old spot after the 30 m jink | rises +3.3 m at +3.5 s | rises **+5.6 m** at +2.7 s | +4.4 m at +2.9 s |
 | Peak surface slope | 45° | 46° | 49° |
-| Wave energy left at 25 s | 83 MJ | 100 MJ | 127 MJ |
+| Surface energy at 25 s (outgoing waves **plus** the bowl still held under the cushion at the new spot) | 83 MJ | 100 MJ | 127 MJ |
 
 **Findings:**
-- **Formation lag (DERIVED, coarse linear).** The bowl takes ~1–2 s to form and then sloshes. A cushion switched on faster than the bowl's ~5 s natural period plunges to almost twice the equilibrium depth before settling. Avoiding the overshoot needs ramps much longer than ~5 s.
+- **Formation lag (ESTIMATE, coarse linear).** The bowl takes ~1–2 s to form and then sloshes. A cushion switched on faster than the bowl's ~5 s natural period plunges to almost twice the equilibrium depth before settling. Avoiding the overshoot needs ramps much longer than ~5 s.
 - **A half-second hover barely marks the sea** (0.6 m dimple).
 - **Jinks leave the water behind.** The bowl cannot follow a 0.5 s, 30 m move. The old pit is abandoned and rebounds into a central rise of up to ~5.6 m about 2–3 s later. A new pit plunges under the craft's new position, and ring waves from both overlap. Slopes reach 45–49°, so breaking is likely (proxy; foam not modelled). The disturbance lingers, weakening, at the old spot for ~10 s or more.
 - **Picture:** a craft hovering for a few seconds dimples the sea. Each abrupt jink leaves behind a collapsing pit that throws up a central hump, while a new pit opens under it. Repeated jinking over one area would churn a patch of ring waves and rebound humps that lags the craft.
@@ -87,3 +87,9 @@ Code: `outing_bowl_dynamics.py`, `bowl_dynamics_figure.py` → `weave_bowl_dynam
 - **Limits:** the response is linear on a strongly nonlinear shape. There is no breaking, foam, spray or viscosity; deep water and calm seas are assumed. Real overshoot and rebound would be reduced and turned into breaking and spray. **UNDETERMINED** beyond timing and order of magnitude.
 
 Branch closed here per Sol ("one more short outing, then move on").
+
+**Sol review of 72a9440 (accepted, branch closed):**
+- The 1–2 s timing is an estimated gravity-wave timescale. Slopes of 30–49° are outside linear validity, and formation, rebound and breaking can interact.
+- The 25 s energy figure includes the bowl still held under the cushion at the new spot, so it is not all outgoing wave energy.
+- **AP note.** The lagging disturbance is a new, potentially distinctive prediction. The modelled persistence of 10 s or more is unresolved against the report that the white water was gone on return: reliable timing showing near-immediate disappearance would challenge this model.
+- **Disposition:** the shift governs motion, the cushion governs support, and their signatures differ and can lag the craft. No further Tic Tac work. AP evidentiary conclusions are unchanged.
