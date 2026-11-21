@@ -174,3 +174,27 @@ SOL's note is correct that no *net impulse* is required. It is incomplete: the *
 **With a Sun-type partner near planets**, it also becomes an energy harvester of orbital relative motion.
 
 **None of this is promoted.** kT decides.
+
+## SOL review (2026-11-21): corrections accepted
+Verdicts above are superseded where they conflict with this section.
+
+1. **Boost-charge result: CONDITIONAL DERIVATION.**
+   - It holds only for an isolated, asymptotically flat system with a local, diffeomorphism-invariant action.
+   - The finite domain does not by itself establish that, and M1/M2 do not yet establish the action.
+   - It is not a universal prohibition on Weave displacement.
+2. **R1 "≥ 2mvc = 3.7 PJ": ASSUMED construction, not a lower bound.**
+   - It assumes the two impulses are radiated at the endpoints.
+   - The same construction scales as 2·m·c·ΔX/T (slower dashes cost less).
+   - Other emission patterns move the centre of energy differently. No general floor is derived.
+3. **R2 "½mv² = 305 MJ": conventional comparison, not the Weave operating cost.**
+   - If the field carries the compensating momentum during cruise, the partner only has to absorb the centre-of-energy shift (∫p_partner dt = −m·ΔX).
+   - The energy of that exchange depends on its time profile, which is not derived.
+   - The Earth displacement is an illustrative recoil scale.
+4. **Air:**
+   - Zero compression for zero-expansion domains is SUPPORTED for modelled dust and uniform-pressure ideal fluid.
+   - **Silent real-atmosphere passage is UNDETERMINED.** Shear, sound, stratification and buoyancy under gravity, free surfaces, and the assumption that ambient matter follows the Eulerian flow are all untested.
+5. **Canon Metric claim, clarified.** This report did not show canon's 0.268c inconsistent. It showed closure needs an exchange law not yet written. SOL's framing is better: the ~2 GJ bank may be control energy, with the large energy-momentum exchange running through the relational sector. **Where that exchange occurs, and why it is conservative, is the open question.**
+6. **Next step changed (SOL's proposal adopted).** Before adding any new constitutive model (the 3-range vector field is shelved):
+   - audit the existing M1/M2 foundations (§§5, 7, 8, 11, 15–17) and canon §7.1 for the strongest defensible exchange and conservation structure;
+   - test whether the finite dash follows from that structure;
+   - if it does not, name the missing permission.

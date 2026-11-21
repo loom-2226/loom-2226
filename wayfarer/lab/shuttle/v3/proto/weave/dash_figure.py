@@ -26,22 +26,22 @@ for k, (kind, title) in enumerate((('alcubierre', 'Alcubierre-type (SOL test geo
     ax.set_title(title, fontsize=10.5, loc='left', color=INK); ax.text(0, -.24, note, transform=ax.transAxes, fontsize=8.3, color=INK)
 b = fig.add_axes([.2, .12, .27, .3]); b.set_facecolor(PANEL)
 cl = C['ledger']['closures']
-items = [('R1 radiate the impulse away', float(cl['R1 radiation to infinity']['min_energy_J'])), ('R2 local partner (exterior field)', float(cl['R2 exterior Weave field reaching environment matter (local partner)']['transient_energy_J'].split()[0])),
+items = [('R1 radiate endpoint impulses (construction)', float(cl['R1 radiation to infinity']['min_energy_J'])), ('R2 ½mv² comparison (not Weave cost)', float(cl['R2 exterior Weave field reaching environment matter (local partner)']['transient_energy_J'].split()[0])),
          ('R3 Sun partner (canon §7.1b)', float(cl['R3 nonlocal exchange to a distant partner (canon §7.1b type)']['sun_frame_transient_J'].split()[0].strip('+/-'))), ('R4 remnant scar: ±m c² left behind', 61e3 * 2.998e8 ** 2)]
 yy = np.arange(len(items))[::-1]
 b.barh(yy, [v for _, v in items], color=[SPEC, COL[2], COL[0], COL[3]], height=.55); b.set_xscale('log'); b.set_xlim(1e7, 1e23)
 for y, (lab, v) in zip(yy, items): b.text(v * 1.6, y, f'{v:.1e} J', va='center', fontsize=8.5)
-b.set_yticks(yy); b.set_yticklabels([s for s, _ in items], fontsize=8.6); b.set_xlabel('energy the closure requires for one 200 m dash (J, log)')
-b.set_title('Where the centre-of-energy charge goes\n(an isolated dash is INCONSISTENT)', fontsize=10, loc='left', color=INK)
+b.set_yticks(yy); b.set_yticklabels([s for s, _ in items], fontsize=8.6); b.set_xlabel('energy scale of each example closure, 200 m dash (J, log)')
+b.set_title('Illustrative closure scales (NOT floors or operating costs)\nconditional on an isolated, local, asymptotically flat system', fontsize=10, loc='left', color=INK)
 b.text(-.62, -.22, 'R5: a Loom-type sector change (M1) discharges it without flux: that is option 2 / Weave seams, not Metric.', transform=b.transAxes, fontsize=8.3, color=INK)
 t = fig.add_axes([.53, .03, .45, .42]); t.axis('off')
-rows = [['Question', 'Verdict'], ['Target geometry, crew inertial', 'DERIVED (SOL)'], ['Ordinary-GR source', 'INCONSISTENT (negative energy)'], ['M2 sources the exotic stress', 'ASSUMED (permission, no law)'],
-        ['Isolated displacement, field relaxed', 'INCONSISTENT (boost charge)'], ['Velocity change via partner', 'DERIVED structure; cost in partner frame'], ['Who the partner is', 'UNDETERMINED (range of S_R)'],
-        ['Closed-cycle gain, local partner', 'none (DERIVED)'], ['Closed-cycle gain, Sun partner', '0.6 GJ/km harvest (DERIVED)'], ['Air: zero-expansion domain', 'no compression (DERIVED, ideal fluid)'],
-        ['Air: Alcubierre-type', 'snowplough / blast (DERIVED, dust)'], ['Water, ground, gravity, solids', 'UNDETERMINED']]
+rows = [['Question (after SOL review)', 'Verdict'], ['Target geometry, crew inertial', 'SUPPORTED (geometric)'], ['Ordinary-GR source', 'INCONSISTENT (negative energy)'], ['M2 sources the exotic stress', 'ASSUMED (permission, no law)'],
+        ['Isolated displacement, field relaxed', 'INCONSISTENT - CONDITIONAL on premise'], ['Velocity change', 'NOT EXCLUDED; cost UNDETERMINED'], ['Who the partner is / exchange law', 'UNDETERMINED'],
+        ['Radiation floor (3.7 PJ)', 'ASSUMED construction'], ['Local-partner cost (305 MJ)', 'comparison only, NOT the Weave cost'], ['Sun-partner harvest', 'possible under that law only'],
+        ['Air: zero-expansion domain', 'no compression (SUPPORTED, ideal)'], ['Silent real atmosphere', 'UNDETERMINED'], ['Water, ground, gravity, solids', 'UNDETERMINED']]
 tb = t.table(cellText=rows, loc='upper center', cellLoc='left', colWidths=[.55, .45]); tb.auto_set_font_size(False); tb.set_fontsize(8.8); tb.scale(1, 1.75)
 for (r_, c_), cell in tb.get_celld().items():
     cell.set_edgecolor('#cfd5d8'); cell.set_facecolor('#e4e8ea' if r_ == 0 else 'white')
     if r_ and c_ == 1:
-        s = rows[r_][1]; cell.get_text().set_color(SPEC if s.startswith('INCONS') else (COL[2] if s.startswith('DERIVED') or s.startswith('none') or s.startswith('no ') else (COL[0] if 'UNDET' in s or 'ASSUMED' in s else INK)))
+        s = rows[r_][1]; cell.get_text().set_color(SPEC if s.startswith('INCONS') else (COL[2] if s.startswith('SUPPORTED') or s.startswith('no ') else (COL[0] if 'UNDET' in s or 'ASSUMED' in s or 'NOT' in s else INK)))
 fig.savefig(os.path.join(H, 'dash_physics.png'), dpi=110, facecolor=BG); print('ok')
