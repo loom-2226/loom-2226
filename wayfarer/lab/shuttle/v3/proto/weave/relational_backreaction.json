@@ -1,0 +1,201 @@
+{
+ "doc": "Relational back-reaction toy (SOL hypothesis, kT 2026-11-21; Claude refinements). NON-CANON physics. ALL bodies. ALL sponsors. 2026-2226.\n\nModel (1D, Galilean limit v << c, where centre of energy = centre of mass):\n  - shuttle: its REAL inertial mass m (no separate 'relational mass'), position X, velocity V\n  - relational medium: modes a with inertia mu_a, rest velocity u_a relative to the local body frame, and coupling share w_a (sum w_a = 1)\n  - M2 control produces a translation-invariant internal force pair: +F on the shuttle, -w_a F on each mode (Newton III by symmetry)\n  - actuator work rate  P = sum_a w_a F (V - xi_dot_a)   (work by an internal force pair depends only on relative velocity: Galilean-invariant)\nConserved by construction of the symmetry: total momentum m V + sum mu_a xi_dot_a; centre of mass moves uniformly.\nThis toy checks those numerically and reads off energy, residuals and harvesting. It does NOT derive the kernel G_R (which sets mu, u, w).",
+ "dash": {
+  "local medium (u=0)": {
+   "modes": [
+    {
+     "name": "local",
+     "mu_kg": 5.97e+24,
+     "u_ms": 0.0,
+     "w": 1.0,
+     "residual_displacement_m": -2.043551066071077e-18,
+     "residual_velocity_ms": -1.7075195239060846e-29
+    }
+   ],
+   "net_actuator_energy_J": -3.2104661231642105e-06,
+   "peak_positive_J": 476562492.93921626,
+   "peak_negative_J": -3.2104661231642105e-06,
+   "peak_power_W": 604963553.0801128,
+   "momentum_drift_rel": 8.89542491301185e-09,
+   "shuttle_final_X_m": 200.0,
+   "shuttle_final_V_ms": 7.423750503221527e-07
+  },
+  "Sun-like medium (u=29.8 km/s)": {
+   "modes": [
+    {
+     "name": "solar",
+     "mu_kg": 2e+30,
+     "u_ms": 29800.0,
+     "w": 1.0,
+     "residual_displacement_m": 0.0,
+     "residual_velocity_ms": 0.0
+    }
+   ],
+   "net_actuator_energy_J": -3.0377720520109506,
+   "peak_positive_J": 0.0,
+   "peak_negative_J": -226748434477.31967,
+   "peak_power_W": 232789592364.12677,
+   "momentum_drift_rel": 0.0,
+   "shuttle_final_X_m": 200.0,
+   "shuttle_final_V_ms": 7.423750503221527e-07
+  },
+  "cosmic medium (u=370 km/s)": {
+   "modes": [
+    {
+     "name": "cosmic",
+     "mu_kg": 1e+42,
+     "u_ms": 370000.0,
+     "w": 1.0,
+     "residual_displacement_m": 0.0,
+     "residual_velocity_ms": 0.0
+    }
+   ],
+   "net_actuator_energy_J": -37.7114862841845,
+   "peak_positive_J": 0.0,
+   "peak_negative_J": -2820773399889.458,
+   "peak_power_W": 2895297698555.44,
+   "momentum_drift_rel": 0.0,
+   "shuttle_final_X_m": 200.0,
+   "shuttle_final_V_ms": 7.423750503221527e-07
+  },
+  "mixed: local 1-1e-4, cosmic 1e-4": {
+   "modes": [
+    {
+     "name": "local",
+     "mu_kg": 5.97e+24,
+     "u_ms": 0.0,
+     "w": 0.9999,
+     "residual_displacement_m": -2.0433467109644704e-18,
+     "residual_velocity_ms": -1.7073487719536938e-29
+    },
+    {
+     "name": "cosmic",
+     "mu_kg": 1e+42,
+     "u_ms": 370000.0,
+     "w": 0.0001,
+     "residual_displacement_m": 0.0,
+     "residual_velocity_ms": 0.0
+    }
+   ],
+   "net_actuator_energy_J": -0.0037730108010496366,
+   "peak_positive_J": 194437496.70097792,
+   "peak_negative_J": -41754497.24143934,
+   "peak_power_W": 372296544.9210235,
+   "momentum_drift_rel": 0.0,
+   "shuttle_final_X_m": 200.0,
+   "shuttle_final_V_ms": 7.423750503221527e-07
+  }
+ },
+ "hover_20s": {
+  "local medium (u=0)": {
+   "net_actuator_energy_J": 1.1996466603016883e-11,
+   "mean_power_W": 5.998233301508441e-13,
+   "note": "negative = energy delivered TO the actuator (harvest); sign flips with the medium direction"
+  },
+  "Sun-like medium (u=29.8 km/s)": {
+   "net_actuator_energy_J": -356652360000.0,
+   "mean_power_W": -17832618000.0,
+   "note": "negative = energy delivered TO the actuator (harvest); sign flips with the medium direction"
+  },
+  "cosmic medium (u=370 km/s)": {
+   "net_actuator_energy_J": -4428234000000.0,
+   "mean_power_W": -221411700000.0,
+   "note": "negative = energy delivered TO the actuator (harvest); sign flips with the medium direction"
+  },
+  "mixed: local 1-1e-4, cosmic 1e-4": {
+   "net_actuator_energy_J": -442823400.0000614,
+   "mean_power_W": -22141170.00000307,
+   "note": "negative = energy delivered TO the actuator (harvest); sign flips with the medium direction"
+  }
+ },
+ "lift_cycle_1km": {
+  "local medium (u=0)": {
+   "lift_cost_J": 598410000.0000004,
+   "fall_harvest_J": 598410000.0,
+   "cycle_net_gain_J": -3.5762786865234375e-07
+  },
+  "Sun-like medium (u=29.8 km/s)": {
+   "lift_cost_J": -356053949997.8768,
+   "fall_harvest_J": 598410000.0,
+   "cycle_net_gain_J": 356652359997.8768
+  },
+  "cosmic medium (u=370 km/s)": {
+   "lift_cost_J": -4427635589973.598,
+   "fall_harvest_J": 598410000.0,
+   "cycle_net_gain_J": 4428233999973.598
+  },
+  "mixed: local 1-1e-4, cosmic 1e-4": {
+   "lift_cost_J": 155586600.0026401,
+   "fall_harvest_J": 598410000.0,
+   "cycle_net_gain_J": 442823399.9973599
+  }
+ },
+ "mu_sweep": [
+  {
+   "mu_kg": 100000.0,
+   "peak_transient_J": 767265610.186942,
+   "net_J": -5.219307173737473e-07,
+   "medium_residual_m": -121.99999864444332
+  },
+  {
+   "mu_kg": 1000000.0,
+   "peak_transient_J": 505632804.6639915,
+   "net_J": 1.2932718345874022e-06,
+   "medium_residual_m": -12.199999864444333
+  },
+  {
+   "mu_kg": 10000000.0,
+   "peak_transient_J": 479469524.1116959,
+   "net_J": 7.806048515546485e-07,
+   "medium_residual_m": -1.2199999864444333
+  },
+  {
+   "mu_kg": 1000000000.0,
+   "peak_transient_J": 476591563.2509452,
+   "net_J": 2.3731192436543273e-06,
+   "medium_residual_m": -0.012199999864444332
+  },
+  {
+   "mu_kg": 1000000000000.0,
+   "peak_transient_J": 476562522.0095283,
+   "net_J": -1.7517887679245576e-06,
+   "medium_residual_m": -1.2199999864444332e-05
+  },
+  {
+   "mu_kg": 5.97e+24,
+   "peak_transient_J": 476562492.93921626,
+   "net_J": -3.2104661231642105e-06,
+   "medium_residual_m": -2.043551066071077e-18
+  }
+ ],
+ "wayfarer": {
+  "dash_200m": {
+   "modes": [
+    {
+     "name": "local",
+     "mu_kg": 5.97e+24,
+     "u_ms": 0.0,
+     "w": 1.0,
+     "residual_displacement_m": -3.912897778968956e-17,
+     "residual_velocity_ms": -3.2713757339401646e-28
+    }
+   ],
+   "net_actuator_energy_J": 9.83721020348582e-06,
+   "peak_positive_J": 9124999864.803385,
+   "peak_negative_J": 0.0,
+   "peak_power_W": 11583564426.189703,
+   "momentum_drift_rel": 8.895432664719568e-09,
+   "shuttle_final_X_m": 200.0,
+   "shuttle_final_V_ms": 7.423750503221527e-07
+  },
+  "cruise_0p268c_transient_energy_J": 3.9860941346070546e+21,
+  "canon_bank_J": 2000000000.0,
+  "note": "Under this law a start-cruise-stop transfers (gamma-1) m c^2 into the ship during cruise and returns it at stop. The 2 GJ bank cannot hold it, so the relational sector must be the transient energy store (SOL reading of foundations \u00a78). Net cost of a symmetric transit: losses only."
+ },
+ "requirement": {
+  "u_eff_max_ms": 50.0,
+  "w_max_sun": 0.0016778523489932886,
+  "w_max_cosmic": 0.00013513513513513514,
+  "meaning": "harvest per sustained impulse I is u_eff * I with u_eff = sum w_a u_a. To keep it below the lift work itself, the non-local share must be below these weights."
+ }
+}
