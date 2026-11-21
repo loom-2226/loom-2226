@@ -8,6 +8,12 @@ Code: `weave_geometry_compare.py`, `geometry_figure.py` → `weave_geometry_comp
 
 > **Sign correction (after 2027261).** The shift-case hull code used `ẇ = +w ∂ₓβ`. From `L = ½(ẋ−β)²` the correct form is `ẇ_i = −w_j ∂_i β_j`. The clear-wall rows barely change. The wall-cuts-hull row changes completely (2.3 g → 158 g). Air results are unaffected (air starts with w = 0).
 
+> **Correction (outing 3, `outing_landing.py`, 2026-11-22).** The lapse "wake" here (20–45 MJ, ×50 compression) is an artefact of collisionless air. A lapse-type field exerts the same acceleration on all air, so on uniform air its force is a gradient that pressure absorbs. With linear compressible air, the same R 15 / d 2 lapse dash leaves about 0.2 kJ, with a peak air speed of 0.75 m/s and about 1.8 kPa quasi-static pressure. The real distinction:
+> - the **shift carries its air** with the hull (no airflow at the hull, air displaced);
+> - the **lapse field leaves the air in place**, and the hull flies through it with ordinary drag, wake and (if supersonic) boom.
+>
+> The hull and crew results below are unaffected.
+
 ## 1. Setup (identical for both)
 
 - **Geometry:** axisymmetric 3D (x along the track, ρ radial).

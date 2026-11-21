@@ -1,0 +1,62 @@
+{
+ "doc": "Weave outing 1: DODGE - one lateral avoidance manoeuvre (SOL outings brief). NON-CANON. ALL bodies. ALL sponsors. 2026-2226.\n\nGeometry: R 15 m / wall 2 m zero-expansion shift, domain axis along the dodge direction (y). The 20 m hull lies ACROSS the motion (x).\nManoeuvre: sidestep D = 30 m, quintic, T = 0.5 s (also T = 0.4 s, the quiet limit). Gravity: W2 cushion assumed on (interior weightless);\nshift-only hover limit computed separately.\nShip: 11 hull nodes along x with axial (EA) and lateral shear springs, crew seat at x = +3 m, cargo at x = -4 m, all moving in (x, y);\nslow geodesic law in the field: w = xdot - b, w_dot_i = -w_j d_i b_j + F_i/m.\nAir: axisymmetric parcel transport (weave_geometry_compare.air) with the dodge trajectory.",
+ "cases": {
+  "D30_T0.5": {
+   "peak_speed_ms": 112.5,
+   "peak_accel_g": 70.62385321100918,
+   "ship": {
+    "crew_peak_g": 0.656363662633254,
+    "cargo_peak_g": 0.6453085056143222,
+    "hull_peak_kN": 122.42123752726391,
+    "final_y_m": 29.75866429707378,
+    "final_speed": 0.007105132960625234
+   },
+   "ship_KE_lent_J": 386015625.0,
+   "air": {
+    "peak_air_KE_J": 138857883.87723455,
+    "residual_air_KE_J": 0.0,
+    "residual_air_px_Ns": 0.0,
+    "residual_max_speed_ms": 0.0,
+    "max_displacement_m": 29.999980489747237,
+    "mass_moved_over_1m_kg": 68271.20659222122,
+    "peak_air_speed_ms": 162.82780097171388,
+    "max_density_ratio": 1.7187499999999998,
+    "min_density_ratio": 0.0
+   },
+   "wall_mach": 0.803144155890701,
+   "quiet_limit_T_s": 0.4015720779453505,
+   "peak_power_W": 4021600945.059784
+  },
+  "D30_T0.4": {
+   "peak_speed_ms": 140.625,
+   "peak_accel_g": 110.3497706422018,
+   "ship": {
+    "crew_peak_g": 1.0671330445504397,
+    "cargo_peak_g": 1.049887644993619,
+    "hull_peak_kN": 189.56621317437907,
+    "final_y_m": 29.758123703886152,
+    "final_speed": 0.009241314330365931
+   },
+   "ship_KE_lent_J": 603149414.0625,
+   "air": {
+    "peak_air_KE_J": 216965443.55834895,
+    "residual_air_KE_J": 0.0,
+    "residual_air_px_Ns": 0.0,
+    "residual_max_speed_ms": 0.0,
+    "max_displacement_m": 29.999980489747227,
+    "mass_moved_over_1m_kg": 68271.20659222122,
+    "peak_air_speed_ms": 203.53475121461858,
+    "max_density_ratio": 1.7187499999999998,
+    "min_density_ratio": 0.0
+   },
+   "wall_mach": 1.0039301948633763,
+   "quiet_limit_T_s": 0.4015720779453505,
+   "peak_power_W": 7847435526.865565
+  }
+ },
+ "shift_only_hover": {
+  "time_to_sonic_wall_s": 14.27874413845269,
+  "factor": 2.448697293071204,
+  "note": "interior shift beta_z = g t; wall relative speed = fac * g t; lent air KE grows ~ t^2"
+ }
+}
