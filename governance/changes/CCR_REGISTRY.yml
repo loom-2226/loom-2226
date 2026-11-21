@@ -4,7 +4,7 @@ id_format: CCR-YYYY-NNNN
 
 allocation:
   current_year: 2026
-  next_sequence: 5
+  next_sequence: 6
   ids_are_never_reused: true
 
 allowed_statuses:
@@ -53,9 +53,18 @@ records:
 
   - id: CCR-2026-0004
     path: governance/changes/CCR-2026-0004-wayfarer-phase1b-v25.yml
-    status: APPROVED_FOR_IMPLEMENTATION
+    status: IMPLEMENTED
     title: Wayfarer Phase 1b v2.5 fuel, remass, mass, and torch card
     originating_issue: kT explicit canon approval 2026-11-08 in PR #471 continuation
     approved_pr: 471
+    implemented_pr: 471
+    supersedes: []
+
+  - id: CCR-2026-0005
+    path: governance/changes/CCR-2026-0005-weave-shuttle-prototype-scope.yml
+    status: PROPOSED
+    title: Scoped Canon II admission of the Weave shuttle as an experimental Metric-family prototype
+    originating_issue: kT Step 4 review ruling, 2026-11-22
+    approved_pr: null
     implemented_pr: null
     supersedes: []
