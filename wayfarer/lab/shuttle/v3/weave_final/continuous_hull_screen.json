@@ -1,0 +1,63 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "doc": "Continuous active hull hypothesis: narrow screen (kT + Sol brief, 2026-11-22). NON-CANON research.\nALL bodies. ALL sponsors. 2026-2226.\n\nQuestion (stopping condition): does a continuous field-generating hull change the existing field's controllable\nbehaviour, or is it only a different means of generating the same field? Specifically: can surface-controlled asymmetry\ngive lasting ordinary velocity after shutdown, with conservation intact? Existing physics only.\n\nExisting model (lane): fields are prescribed geometry on flat slices, slow limit, c = 1 units where convenient.\n  shift  b(x, t): matter law  L = 1/2 |xdot - b|^2      ->  dw_i/dt = -w_j d_i b_j,   w = xdot - b\n  lapse/potential Phi(x, t) (the W2 cushion type; the lane's \"lapse dash\"): xddot = -grad Phi (acceleration field)\n  Required stress-energy (3+1): for the shift, E = -K^2/16pi with K_ij = -1/2 (d_i b_j + d_j b_i): nonzero only where b varies.\nThree checks:\n  A. Where must the field's GR source sit for the Tic Tac's R 15 / d 2 field? (hull skin vs wall shell)\n  B. Asymmetric shift (any profile, surface-steered): final ordinary velocity of a hull starting at rest.\n  C. Asymmetric potential (directional gradient): final ordinary velocity, and the field's own momentum (conservation).\n",
+ "A_source_location": {
+  "required_source_fraction_within_hull_radius": "1.6e-08",
+  "required_source_fraction_in_wall_shell_11_19m": 0.9979,
+  "reading": "The stress-energy the field needs sits in the wall shell 9-13 m outside the hull, whoever generates it. A skin source is no closer to it than the 8 t module was: both need the relational sector to act at a distance (S_R unspecified).",
+  "wall_at_skin": "Moving the wall onto the skin is a different field, not a better generator: the lane shows a shift wall cutting the hull strains it exponentially (158 g case)."
+ },
+ "B_asymmetric_shift": {
+  "cases": [
+   {
+    "final_ordinary_speed_ms": "0.0e+00",
+    "displacement_m": 2.1
+   },
+   {
+    "final_ordinary_speed_ms": "0.0e+00",
+    "displacement_m": 20.4
+   },
+   {
+    "final_ordinary_speed_ms": "0.0e+00",
+    "displacement_m": 41.7
+   },
+   {
+    "final_ordinary_speed_ms": "0.0e+00",
+    "displacement_m": 2.6
+   },
+   {
+    "final_ordinary_speed_ms": "0.0e+00",
+    "displacement_m": 29.9
+   },
+   {
+    "final_ordinary_speed_ms": "0.0e+00",
+    "displacement_m": 0.5
+   }
+  ],
+  "result": "w stays 0 to rounding in every random asymmetric, time-dependent profile: the hull is displaced and left at its original velocity",
+  "reason": "dw/dt = -(grad b) w is linear and homogeneous in w: no shift geometry, however finely the surface controls it, gives lasting velocity"
+ },
+ "C_directional_potential": {
+  "interior_accel_g": 0.4,
+  "ramp_s": 20.0,
+  "fixed_field_final_speed_ms": 1.51,
+  "fixed_field_note": "a field fixed in space: the hull leaves through the reverse walls (integral of grad Phi = 0) and loses the gain; the field must travel with the vehicle",
+  "final_ordinary_speed_ms": 39.24,
+  "expected_ms": 39.24,
+  "displacement_m": 392.4,
+  "result": "YES: a directional potential gives lasting ordinary velocity after shutdown while the hull stays inside the field (the cushion mechanism, pointed sideways)",
+  "already_in_lane": "WEAVE_GEOMETRY_COMPARE_2026_11_21: the lapse dash is exactly a horizontal potential push (uniform interior push with reverse walls, peak wall strength 2.6-11.5x the interior). The W2 cushion is the vertical case. Direction is not constrained by the model; \"vertical only\" was an operating booking, not physics.",
+  "conservation": "Field momentum (ADM) is identically zero for a compact field on flat slices, so the hull's momentum must go to an external partner (R1). Same unresolved exchange law and partner as the vertical cushion and the dash; energy is booked by assumption (eta), not derived.",
+  "in_air": "a potential push moves the hull through the air (drag, wake, boom), unlike the shift: horizontal acceleration to orbital speed belongs above the atmosphere"
+ },
+ "verdict": {
+  "stopping_condition": "The continuous active hull is a different means of generating the same fields. In the existing model it does not change controllable behaviour: the model prescribes field geometry directly, has no generator-to-field law (S_R unspecified), and the required source sits in the wall shell 9-13 m off the hull either way.",
+  "what_does_give_lasting_velocity": "Not hull continuity but field TYPE: shift never (theorem of the adopted law); potential/lapse type always could, in any direction (already in the lane). Directional acceleration is therefore a capability-and-energy booking decision, independent of the hull hypothesis.",
+  "precise_missing": [
+   "constitutive law of the relational sector: which potential fields are attainable, at what energy cost, power and duration (S_R)",
+   "R1 exchange law and partner (unchanged)"
+  ],
+  "correction_to_torchless_screen": "80ade29 said the cushion is \"established only vertically\". More precisely: the model already contains the horizontal potential push (lane lapse dash); only the energy/operating booking is vertical. The torchless verdict is unchanged: it still needs a TJ-class source and an explicit capability grant.",
+  "hypothesis_value": "Strong as LOOM narrative and as a candidate form for the missing constitutive law (surface-sourced relational sector); not testable in this model."
+ }
+}
