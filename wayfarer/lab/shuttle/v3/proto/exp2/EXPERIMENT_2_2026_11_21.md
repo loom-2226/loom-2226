@@ -119,3 +119,46 @@ All four challenges are accepted.
 
    Both go to a small mechanical check before any credit is given.
 4. **W3 is an advantage, not immunity.** The interceptor result assumes a head-on geometry and no reacquisition model. A level step keeps velocity and attitude, so the trajectory that follows is *offset*, not changed.
+
+## BMD-1: Builder Metric Domain hypothesis (external review, 2026-11-21)
+**Status:** label for an experiment, NOT a technology, NOT canon.
+
+**Hypothesis:** a bounded region containing the whole shuttle, with three properties:
+1. **Internal continuity:** distances, clocks and local physics stay ordinary inside the region.
+2. **External coupling:** changes in the domain's motion exchange energy and momentum with an *identified* partner, so there is no reactionless propulsion.
+3. **Boundary matching:** surrounding matter either crosses the boundary continuously or goes through an accounted transition.
+
+The missing invention is a field law that makes all three compatible. Conservation bookkeeping constrains any such mechanism; it is not one.
+
+**Ledger for the W2 200 m lift (checked):**
+- **Kinematics:** 61 t at 0.5 g net for 9 s reaches 199 m at 44.1 m/s.
+- **Force and energy:** the field force is 898 kN. Field work is 178 MJ, which is 119 MJ of potential energy plus 59 MJ of kinetic energy.
+- **Momentum:** the field supplies an impulse of 8.1 MN·s and gravity takes 5.4 MN·s, leaving the shuttle a net 2.7 MN·s.
+- **Correction:** the review's "0.40 MN·s to the partner" is wrong. The partner absorbs the full −8.1 MN·s.
+  - If the partner is Earth, gravity adds +5.4 MN·s to Earth, so Earth's net is −2.7 MN·s and balances the shuttle.
+  - If the partner is the Sun (CANON II §7.1b), the Sun takes −8.1 MN·s and Earth takes +5.4 MN·s.
+
+**Canon flag:**
+- External energy coupling is a powered metric channel.
+- CANON II §7.1a ENERGY-B currently says metric motion conserves mechanical energy, so it pays no height.
+- BMD-1 therefore supersedes a written canon *rule*, not only a technology limit. That is allowed in this non-canon lane **only with kT's explicit acknowledgment**. It is not implied.
+
+**Boundary cases:**
+
+| Boundary | W2 continuous lift | W3 step |
+|---|---|---|
+| A, impermeable, pushes matter aside | possible with a partner; at 44 m/s it is just a subsonic body in air, but cutting water at the start is the hazard | severe air disturbance likely |
+| B, permeable | lifts whatever is inside: air (~1.2 t per 1,000 m³, ~2%) is acceptable and raises an updraft column; water inside lifts a slug of sea | needs an account of matter at the destination |
+| C, relocates an enclosed region | gives no lift without extra dynamics | strongest W3 route; may need topology change and raises causality questions |
+
+**Discipline:**
+- **Separate boundary laws:** W2 (continuous motion) and W3 (discontinuous relocation) may share generator technology but are tested with *separate* boundary laws. One miracle must not silently solve both.
+- **When a single law is allowed:** a single law covering both would be cheaper against the two-miracle budget, but it has to be found, not assumed.
+
+**Test order:**
+1. Vacuum.
+2. Thin atmosphere (Mars, or high altitude).
+3. Sea-level air.
+4. Water contact, last.
+
+Force generation and boundary behaviour are tested separately. If the field fails in vacuum or thin air, W2 and W3 stay parked and the conventional fold plus adaptive camber shuttle stands alone.
