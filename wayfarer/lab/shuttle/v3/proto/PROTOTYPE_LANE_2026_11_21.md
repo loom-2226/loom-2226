@@ -120,3 +120,9 @@ Option 3 (Weave manoeuvring) is the working prototype. The research arc runs fro
 - GR source ledger (closed at cab469f).
 
 The zero-expansion shift is the leading geometry. Its underlying exchange physics is UNKNOWN and recorded as a research mystery, not a blocker (see `weave/WEAVE_SOURCE_CLOSURE_2026_11_22.md` §6). Still non-canon.
+
+### Exploration list (kT, 2026-11-22)
+
+1. Dodge
+2. Landing in weather
+3. **Transmedium: crossing an air/water interface** (water entry, exit and skimming). Added by kT.
