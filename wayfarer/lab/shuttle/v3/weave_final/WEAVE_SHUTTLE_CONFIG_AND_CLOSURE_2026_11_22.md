@@ -85,3 +85,54 @@ Code: `closure_screen.py` (→ `closure_screen.json`, `closure_stowage.npz`), `c
 - **Accept:** treat it as a limitation, with field-off heavy ditching only in seas calmer than ~1 m.
 
 **Stopping condition met.** The selected configuration closes on mass, water, stowage (CONDITIONAL), field clearance and fallback (with documented limits). One real conflict (interior) and two marginal ones need kT's decision before the interior layout and the operating card.
+
+## 5. Closure v2 (Sol revised direction after 34fc20c)
+
+Code: `closure_v2.py` → `closure_v2.json`.
+
+**Kept:**
+- the 12.8 m #2643 airframe, 6 couches at 3.5 m³ and the 6 m³ cargo well;
+- wings, fans, floats and torch;
+- the 8 t module + 1.0 t install allowance;
+- the lane's fast cushion lift (20 s) and its flywheel; the 23.1 t tank.
+
+**Prototype assumptions (explicit; not established Builder properties):**
+
+| Assumption | Accounting |
+|---|---|
+| Module packaging density **2–4 t/m³**: dense core plus a field network distributed in the hull wall | The distributed part thickens the wall *inward* and is charged to the interior; no mass reduced anywhere |
+| Cooling integrated with the fan-reactor loop and the water tank as heat sink | 0.2 m³ hardware |
+| Mounts and power | 0.1 m³ |
+| **Floats 32 m³** (31 + 1 margin) | +0.06 t |
+| **W1 programmable wing field-off CLmax uplift +5.1%** (5.0 → 5.26) | The minimum needed to keep the 50 m/s heavy-landing rule; no geometry change, so bay fit and field clearance are unaffected |
+
+| Module density | Module volume | Interior residual at 12.8 m | Dry | Climb water (cushion) | Buoyancy | Heavy / light field-off touchdown |
+|---|---|---|---|---|---|---|
+| 2 t/m³ | 4.0 m³ | **−3.5 m³** | 49.06 t | 22.3 / 23.1 t ✓ | 108.6 / 107.2 ✓ | 50.0 ✓ / 37.5 ✓ |
+| 3 t/m³ | 2.7 m³ | **−2.1 m³** | 49.06 t | ✓ | ✓ | ✓ |
+| 4 t/m³ | 2.0 m³ | **−1.5 m³** | 49.06 t | ✓ | ✓ | ✓ |
+
+**Closed by v2:** buoyancy, the field-off heavy landing, mass and water.
+
+**Remaining contradiction: interior volume at 12.8 m.**
+- Even at 4 t/m³ the module + flywheel (0.56 m³) + installation (0.3 m³) exceed the host's 1.4 m³ of spare volume by 1.5 m³.
+- Closing it at 12.8 m by density alone would need ~15 t/m³, which is not credible.
+- Trimming the tank and replacing the flywheel with slower reactor-fed lift would recover ~0.9 m³ but spend the water margin and slow hot extraction (not done).
+
+**Smallest closing change:** stretch the parallel body **+0.22 m (13.02 m)** at 4 t/m³, or +0.32 m (13.12 m) at 3 t/m³.
+
+| | 13.02 m (4 t/m³) | 13.12 m (3 t/m³) |
+|---|---|---|
+| Dry | 49.32 t | 49.45 t |
+| Climb water (cushion) | 22.6 t ✓ | 22.7 t ✓ |
+| Buoyancy | ✓ | ✓ |
+| Field-off touchdown | ✓ (uplift 4.5%) | ✓ (uplift 4.3%) |
+| Interior residual | +0.04 m³ | +0.17 m³ |
+
+**Wayfarer side.** The nose port is fixed at x 18.75 (F7, HARD), so the stretch comes out of the **aft** docked clearance: 0.5 m (F9) → 0.28 / 0.18 m. That clearance is the room the shuttle needs to back 0.5 m off the port before rising (F11, HARD).
+
+**Minimum useful Wayfarer modification:** a **~0.22–0.32 m retractable docking collar**. It withdraws on undocking, so the 0.5 m separation is collar retraction plus back-off. There is no remass, plant or trim-relevant change, but the docked aft clearance falls to 0.18–0.28 m. That needs kT to revisit the 2026-11-20 decision to keep the axial margin at 0.5 m.
+
+**Alternative:** the 14.3 m bay (option B). It is much larger than needed.
+
+**Stopping condition met.** Everything else closes credibly. One concrete contradiction, the interior volume at 12.8 m, needs kT's decision: hull stretch with the docking collar, the 14.3 m bay, or an explicit utility trade.

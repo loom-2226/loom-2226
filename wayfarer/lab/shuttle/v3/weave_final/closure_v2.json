@@ -1,0 +1,132 @@
+{
+ "doc": "Weave shuttle closure v2 (SOL revised direction after 34fc20c). NON-CANON. ALL bodies. ALL sponsors. 2026-2226.\n\nKept fixed: 12.8 m #2643 airframe, 6 couches at 3.5 m3, 6 m3 cargo well, wings/fans/floats/torch, 8 t relational module (+1.0 t\ninstall allowance), lane cushion model (fast 20 s lift to 2 km) and its flywheel, 23.1 t tank.\nPrototype assumptions explored (explicit, not established Builder properties):\n  - module packaging density 2-4 t/m3: dense central core + field network distributed in the hull wall. The distributed part\n    still occupies volume: it thickens the wall INWARD (no outward growth: bay fit headroom is 0.02 m), so it is charged to the interior.\n    Mass is NOT reduced anywhere for integration (no double counting).\n  - thermal management integrated with the fan-reactor loop and the 23 t water tank as heat sink: cooling hardware 0.2 m3 (was 0.5).\n  - floats 32 m3 (31 + 1 m3 margin), +0.03 t per m3.\n  - W1 programmable wing: field-off lift uplift = the smallest CLmax factor that brings the heavy field-off touchdown to <= 50 m/s.\nReported: residual interior volume for each density; the minimum adjustment if it does not close.",
+ "by_density": {
+  "2": {
+   "rho_module": 2.0,
+   "module_m3": 4.0,
+   "flywheel_m3": 0.56,
+   "install_m3": 0.3,
+   "interior_usable": 63.8,
+   "need": 67.26,
+   "residual_m3": -3.46,
+   "dry_t": 49.06,
+   "margin_t": 3.44,
+   "water_cushion_t": 22.3,
+   "tank_t": 23.1,
+   "water_ok": true,
+   "buoy": [
+    108.6,
+    107.2
+   ],
+   "buoy_ok": true,
+   "clmax": 5.0,
+   "uplift": 1.051,
+   "heavy_td_ms": 50.0,
+   "heavy_td_no_uplift": 51.3,
+   "light_td_ms": 37.5,
+   "length": 12.8
+  },
+  "3": {
+   "rho_module": 3.0,
+   "module_m3": 2.67,
+   "flywheel_m3": 0.56,
+   "install_m3": 0.3,
+   "interior_usable": 63.8,
+   "need": 65.93,
+   "residual_m3": -2.13,
+   "dry_t": 49.06,
+   "margin_t": 3.44,
+   "water_cushion_t": 22.3,
+   "tank_t": 23.1,
+   "water_ok": true,
+   "buoy": [
+    108.6,
+    107.2
+   ],
+   "buoy_ok": true,
+   "clmax": 5.0,
+   "uplift": 1.051,
+   "heavy_td_ms": 50.0,
+   "heavy_td_no_uplift": 51.3,
+   "light_td_ms": 37.5,
+   "length": 12.8
+  },
+  "4": {
+   "rho_module": 4.0,
+   "module_m3": 2.0,
+   "flywheel_m3": 0.56,
+   "install_m3": 0.3,
+   "interior_usable": 63.8,
+   "need": 65.26,
+   "residual_m3": -1.46,
+   "dry_t": 49.06,
+   "margin_t": 3.44,
+   "water_cushion_t": 22.3,
+   "tank_t": 23.1,
+   "water_ok": true,
+   "buoy": [
+    108.6,
+    107.2
+   ],
+   "buoy_ok": true,
+   "clmax": 5.0,
+   "uplift": 1.051,
+   "heavy_td_ms": 50.0,
+   "heavy_td_no_uplift": 51.3,
+   "light_td_ms": 37.5,
+   "length": 12.8
+  }
+ },
+ "adjustments": {
+  "stretch_rho3": {
+   "rho_module": 3.0,
+   "module_m3": 2.67,
+   "flywheel_m3": 0.56,
+   "install_m3": 0.3,
+   "interior_usable": 66.2,
+   "need": 66.03,
+   "residual_m3": 0.17,
+   "dry_t": 49.45,
+   "margin_t": 3.05,
+   "water_cushion_t": 22.7,
+   "tank_t": 23.1,
+   "water_ok": true,
+   "buoy": [
+    111.4,
+    107.8
+   ],
+   "buoy_ok": true,
+   "clmax": 5.0,
+   "uplift": 1.043,
+   "heavy_td_ms": 50.0,
+   "heavy_td_no_uplift": 51.1,
+   "light_td_ms": 37.5,
+   "length": 13.12
+  },
+  "stretch_rho4": {
+   "rho_module": 4.0,
+   "module_m3": 2.0,
+   "flywheel_m3": 0.56,
+   "install_m3": 0.3,
+   "interior_usable": 65.4,
+   "need": 65.36,
+   "residual_m3": 0.04,
+   "dry_t": 49.32,
+   "margin_t": 3.18,
+   "water_cushion_t": 22.6,
+   "tank_t": 23.1,
+   "water_ok": true,
+   "buoy": [
+    110.5,
+    107.6
+   ],
+   "buoy_ok": true,
+   "clmax": 5.0,
+   "uplift": 1.045,
+   "heavy_td_ms": 50.0,
+   "heavy_td_no_uplift": 51.1,
+   "light_td_ms": 37.5,
+   "length": 13.02
+  }
+ }
+}
