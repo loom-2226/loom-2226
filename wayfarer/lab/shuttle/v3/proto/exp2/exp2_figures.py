@@ -37,7 +37,7 @@ for i in range(4):
 a.text(16.6, 1.55, 'S0 conventional  and\nS1 15 s partial pulse\n(same path)', color=INK, fontsize=8.5, weight='bold', ha='left')
 a.plot([16.4, 15.9], [1.62, 1.75], color=MUTED, lw=.8)
 a.text(25.3, 1.3, names[2], color=COL[2], fontsize=9, weight='bold'); a.text(26.0, 0.95, names[3], color=COL[3], fontsize=9, weight='bold')
-for y, s in ((0.2, '200 m: small-arms / crowd clearance'), (2.0, '2 km: plume no longer reaches the ground')):
+for y, s in ((0.2, '200 m: small-arms / crowd clearance'), (2.0, '2 km: screening assumption (plume-ground effect not demonstrated)')):
     a.axhline(y, color=MUTED, lw=.8, ls=':'); a.text(0.4 if y > 1 else 31.6, y + .04, s, fontsize=7.5, color=MUTED, ha='left' if y > 1 else 'right')
 a.set_xlim(0, 32); a.set_ylim(0, 3.2); a.set_xlabel('time from lift-off (s)'); a.set_ylabel('altitude (km)')
 a.set_title('Altitude: the field climb is SLOWER off the ground than the torch, but exhaust-free', fontsize=10, loc='left', color=INK)
@@ -134,7 +134,7 @@ for A_, cd, ls_, nm in ((10, .5, '-', 'H1 region sweeps the air, nose-on'), (60,
 for k, v in W3['H2_boundary_bound'].items():
     d.axhline(v['bound_MJ'], color=COL[3], lw=1.6, ls=':'); d.text(1.95, v['bound_MJ'] * 1.12, f"H2 boundary bang, {k}: ≤{v['bound_MJ']:.0f} MJ (~{v['tnt_kg_equiv']:.0f} kg TNT)", fontsize=7.4, color=COL[3], ha='right')
 d.text(1.95, 0.13, 'H2 with content SWAP → toward 0 (near-silent) · H3 vacuum only: environment term 0', fontsize=7.6, color=COL[2], ha='right')
-d.axvspan(0.05, 0.5, color=COL[2], alpha=.08); d.text(0.06, 2.3e3, 'defeats a 30 g interceptor endgame\n(step done inside the last 0.5 s)', fontsize=7.5, color=COL[2])
+d.axvspan(0.05, 0.5, color=COL[2], alpha=.08); d.text(0.06, 2.3e3, 'outruns a 30 g interceptor\'s correction\n(assumed geometry; not immunity)', fontsize=7.5, color=COL[2])
 d.axvline(2.26, color=MUTED, lw=1); d.text(2.2, 4e3, 'conventional 100 m\nsidestep at 8 g: 2.26 s', fontsize=7.4, color=MUTED, ha='right', va='top')
 d.set_xscale('log'); d.set_yscale('log'); d.set_xlim(0.05, 2.5); d.set_ylim(0.1, 8e3)
 d.set_xlabel('time to complete a 100 m step (s)'); d.set_ylabel('energy into the air (MJ)')
@@ -142,8 +142,8 @@ d.set_title('W3: the air bill depends entirely on what the boundary does to matt
 d.legend(loc='lower left', fontsize=7.5, frameon=False)
 tag(d, .3, .97, 'SPECULATIVE: no mechanism established. Ordinary aerodynamics used for H1 ONLY.', SPEC, 7.2)
 e = fig.add_axes([.6, .05, .38, .35]); e.axis('off')
-txt = [('W1 smallest credible capability', 'Adaptive camber / trailing structure that holds shape at 8 g\n(+ re-armable crash and slam absorbers). Conventional fold\nfor stowage. 37.3 t dry, hot touchdown 43.3 m/s.', COL[1]),
-       ('W2 smallest effect that changes hot extraction', '~1.5 × weight for ~9 s to 200 m (~0.35 GJ, ~70 MW), plus\n~0.65 × weight to hover with the fans: exhaust-free pickup and\nvertical landing on land. Device ceiling ~3.5 t.', COL[2]),
+txt = [('W1 smallest credible capability', 'Adaptive camber / trailing structure that holds shape at 8 g.\nConventional fold for stowage. 37.3 t dry, hot touchdown 43.3 m/s.\nSlam/crash credit WITHDRAWN until a stroke is designed.', COL[1]),
+       ('W2 smallest effect that changes hot extraction', '~1.5 × weight for ~9 s to 200 m (~0.18 GJ to the shuttle), plus\n~0.65 × weight hover. No torch plume at the pickup (not disturbance-free).\nNo known coupling does it: only an M2 extension. Ceiling ~3.5 t.', COL[2]),
        ('W3 decisive unknown', 'What the field boundary does to matter in a transition:\ncarry/swap it, push it aside, or fail. Same unknown decides\nwhether W2 can start from a floating shuttle.', COL[3])]
 for k, (h_, s_, cc) in enumerate(txt):
     y0 = 1 - k * .34

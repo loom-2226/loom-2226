@@ -120,13 +120,13 @@
    "t_go_s": 0.3,
    "interceptor_30g_can_null_m": 13.2,
    "shuttle_8g_jink_m": 3.5,
-   "verdict": "a 50-100 m step inside t_go defeats the endgame"
+   "verdict": "a 50-100 m step inside t_go exceeds this interceptor correction (assumed head-on geometry, no reacquisition model): advantage, not immunity"
   },
   {
    "t_go_s": 0.5,
    "interceptor_30g_can_null_m": 36.8,
    "shuttle_8g_jink_m": 9.8,
-   "verdict": "a 50-100 m step inside t_go defeats the endgame"
+   "verdict": "a 50-100 m step inside t_go exceeds this interceptor correction (assumed head-on geometry, no reacquisition model): advantage, not immunity"
   },
   {
    "t_go_s": 1.0,
@@ -137,7 +137,7 @@
  ],
  "vacuum": {
   "environment_term": 0,
-  "value": "a 50-100 m step with no velocity change and no crew load defeats terminal guidance of kinetic interceptors and breaks laser dwell; docking/debris uses too",
+  "value": "a 50-100 m step with no velocity change and no crew load can exceed a kinetic interceptor's terminal correction and break laser dwell (engagement-dependent); a level step keeps velocity and attitude, so the following trajectory is offset, not changed; docking/debris uses too",
   "canon_limits_superseded": "\u00a718A (metric not a close-combat dodge), \u00a75/\u00a79 ramp and path card, plant scale",
   "invariants_kept": "no momentum or energy from nothing: level step changes neither; no FTL; crew and hull remain inside one continuous domain"
  },

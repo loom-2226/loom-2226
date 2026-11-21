@@ -27,7 +27,7 @@ h2 = {k: dict(bound_MJ=h2_boundary(v), tnt_kg_equiv=round(h2_boundary(v) / 4.184
 endgame = []
 for tgo in (0.3, 0.5, 1.0):
     endgame.append(dict(t_go_s=tgo, interceptor_30g_can_null_m=round(0.5 * 30 * G * tgo ** 2, 1), shuttle_8g_jink_m=round(0.5 * 8 * G * tgo ** 2, 1),
-                        verdict='a 50-100 m step inside t_go defeats the endgame' if 0.5 * 30 * G * tgo ** 2 < 50 else 'interceptor can still correct 50 m'))
+                        verdict='a 50-100 m step inside t_go exceeds this interceptor correction (assumed head-on geometry, no reacquisition model): advantage, not immunity' if 0.5 * 30 * G * tgo ** 2 < 50 else 'interceptor can still correct 50 m'))
 out = dict(header='ALL bodies. ALL sponsors. 2026-2226.', lane='PROTOTYPE (non-canon) experiment 2, W3',
   correction='The lane note figure 0.2-0.9 GJ assumed a 1 km hop through air with a canon-style 1.5 m wall. It is conditional on hypothesis 1 or 2 below, not universal.',
   hypotheses={
@@ -39,7 +39,7 @@ out = dict(header='ALL bodies. ALL sponsors. 2026-2226.', lane='PROTOTYPE (non-c
                      environment='H1: drag/shock work; H2: ~p0 V per boundary event, or ~0 if swapped; H3: zero in vacuum, impossible or p0 V in air',
                      recovery='UNKNOWN fraction of creation energy returned; heat rejected through the shuttle radiators'),
   displacement_rows=rows, H2_boundary_bound=h2, endgame=endgame,
-  vacuum=dict(environment_term=0, value='a 50-100 m step with no velocity change and no crew load defeats terminal guidance of kinetic interceptors and breaks laser dwell; docking/debris uses too',
+  vacuum=dict(environment_term=0, value='a 50-100 m step with no velocity change and no crew load can exceed a kinetic interceptor\'s terminal correction and break laser dwell (engagement-dependent); a level step keeps velocity and attitude, so the following trajectory is offset, not changed; docking/debris uses too',
               canon_limits_superseded='§18A (metric not a close-combat dodge), §5/§9 ramp and path card, plant scale',
               invariants_kept='no momentum or energy from nothing: level step changes neither; no FTL; crew and hull remain inside one continuous domain'),
   decisive_unknown='What the field boundary does to matter during a transition: carries/swaps the arrival-volume contents, pushes them aside, or fails if matter is present. '

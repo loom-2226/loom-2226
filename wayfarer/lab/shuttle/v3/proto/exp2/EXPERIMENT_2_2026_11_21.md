@@ -96,3 +96,26 @@ ALL bodies. ALL sponsors. 2026-2226.
 1. **Smallest credible programmable-material capability:** adaptive camber/trailing structure that holds shape at 8 g, plus re-armable slam and crash absorbers, on a conventionally folded 17 m wing. Hot touchdown 43.3 m/s at 37.3 t dry. No new physics; flown morphing trailing edges are its precedent.
 2. **Smallest metric effect that materially changes hot extraction:** about 1.5 × weight for about 9 s to 200 m (about 0.35 GJ source, about 70 MW peak), plus about 0.65 × weight to hover alongside the fans. This gives exhaust-free pickup and vertical landing on land, with a device budget of about 3.5 t. A brief partial pulse alongside the torch changes nothing.
 3. **What must be resolved before a controlled metric displacement is plausible:** what the field boundary does to matter during a transition — carries or swaps it, pushes it aside, or fails. The same property decides whether a W2 field can start from a floating shuttle.
+
+## Review response (2026-11-21, kT's assessment)
+All four challenges are accepted.
+
+1. **Reaction partner.** `w2_coupling.py/.json` bounds every known coupling for 0.9 MN at up to 200 m. None of them works:
+   - Gravity would need about 2×10¹³ kg overhead.
+   - A Lorentz force across Earth's field would need about 2×10⁹ A.
+   - Electrostatic lift is capped by air breakdown at 40 Pa, against 13.4 kPa needed.
+   - Inductive repulsion over seawater reaches only metres.
+
+   So W2 is not an ordinary force. It is coherent only as an extension of the canon metric miracle (M2), which already licenses a declared nonlocal momentum partner (§7.1b). Outside M2 it would be a third miracle. Inside M2 it still needs:
+   - a powered channel;
+   - a generator about 4× lighter than the canon-scaled ~13 t (L²);
+   - a boundary that tolerates water, air and people.
+
+   The 0.35 GJ source figure is an *assumed* 60% efficiency, not evidence. Only the 0.18 GJ delivered to the shuttle is kinematics.
+2. **Exhaust-free is not disturbance-free.** The claim is now limited to *no torch plume at the pickup*. Fan downwash, a local footprint (~14 kPa if the reaction lands locally), water displacement and boundary effects all remain. The "2 km" line is relabelled a screening assumption.
+3. **Slam/crash credit withdrawn.** The reviewer is right that 25 g → 5 g needs 5× the stroke (0.05 → 0.25 m at 5 m/s). That stroke is not designed. The "rigid 25 g" baseline was also a strawman: a deadrise hull gets stroke from water penetration, and seaplane landing loads are a few g. What remains:
+   - The bay envelope has 0.64 m clear below the belly, shared with the floats, where a deployable keel/step absorber could stow.
+   - A 16 g crash at 15 m/s needs about 0.7 m of stroke.
+
+   Both go to a small mechanical check before any credit is given.
+4. **W3 is an advantage, not immunity.** The interceptor result assumes a head-on geometry and no reacquisition model. A level step keeps velocity and attitude, so the trajectory that follows is *offset*, not changed.
