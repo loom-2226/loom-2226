@@ -1,0 +1,138 @@
+schema_version: '1.0'
+record_type: CANON_CHANGE_REQUEST
+id: CCR-2026-0005
+title: Scoped Canon II admission of the Weave shuttle as an experimental Metric-family prototype
+status: PROPOSED
+proposal_revision: 1
+created_date: '2026-11-22'
+updated_date: '2026-11-22'
+origin:
+  issue: 'kT Step 4 review ruling, 2026-11-22, on the Weave shuttle CCR scoping draft'
+  source_type: MIXED
+  source_references:
+    - wayfarer/lab/shuttle/v3/weave_final/CCR_PROPOSAL_WEAVE_SHUTTLE_2026_11_22.md (research branch research/shuttle-v3-constraints-20261120)
+    - wayfarer/lab/shuttle/v3/weave_final/WEAVE_SHUTTLE_CONFIG_AND_CLOSURE_2026_11_22.md
+    - wayfarer/lab/shuttle/v3/weave_final/WEAVE_SHUTTLE_OPERATING_CARD_2026_11_22.md
+    - wayfarer/lab/shuttle/v3/proto/weave/WEAVE_SOURCE_CLOSURE_2026_11_22.md
+    - wayfarer/config/kt_decisions.json (shuttle_final_weave_prototype_2026_11_22, shuttle_weave_config_choices_2026_11_22, shuttle_weave_interior_stretch_collar_2026_11_22)
+    - canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.5.md
+    - canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.5a.md
+  evidentiary_status: MIXED_EXPLAINED
+  summary: >-
+    kT design decision to adopt the Weave prototype (W2 gravity-cancelling
+    cushion plus zero-expansion Weave shift translation, ~8 t Builder relational
+    module, 13.02 m Osteon lifting body with wings/fans/floats fallback) as the
+    Wayfarer shuttle direction. Lane simulations (ideal-fluid transport, sensor
+    ray tracing, water-bowl response) and closure engineering inform the design
+    but do NOT demonstrate a physical conservation closure. Prototype operation
+    is an in-universe experimental premise.
+proposal:
+  reason: >-
+    Admit the Weave shuttle as a scoped, experimental, uncertified application
+    of the existing METRIC regime without changing how certified Metric vessels,
+    the Wayfarer Metric card, TORCH or LOOM work.
+  claims_added:
+    - '§3 scoped exception: an ~8 t Builder relational module is admitted as a prototype near-body installation, not a Metric plant variant.'
+    - '§3/§3.2: Builder module active-material composition UNKNOWN. No assumed equivalence to human Mc-299m. Any human flight-grade Mc actually installed must be accounted against §3.1.'
+    - '§5/§9 scoped exception: a separate prototype near-body operating card applies; no long-baseline capability and no 0.268c card are granted.'
+    - '§6 scoped exception: status EXPERIMENTAL, UNCERTIFIED; near-body use is a test-campaign activity, not certified Metric operation.'
+    - '§18A scoped exception: prototype sidesteps are test-article behaviour, not tactical doctrine; any tactical use requires a later separate CCR.'
+    - '§7.1b prototype clause (option A): for the Weave prototype the exchange partner is UNKNOWN. Energy, linear momentum and angular momentum are conserved in full; §7.3 binds without exception. Prototype operation is an in-universe experimental premise, not a demonstrated physical conservation closure. No free momentum, no free-work cycles.'
+  claims_modified: []
+  claims_retired: []
+  affected_governing_sources:
+    - canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.5.md
+  proposed_authority_relationship:
+    type: SCOPED_GOVERNING_AMENDMENT
+    parent_source: canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.5.md
+    scope: >-
+      Weave shuttle prototype only: scoped exceptions to §3, §5/§9, §6 and
+      §18A, plus a prototype exchange-partner clause beside §7.1b. §7.1b's Sun
+      declaration remains verbatim for certified Solar System Metric transit.
+      §2, §7.3, §21 and all existing Wayfarer Metric operating rules are
+      preserved unchanged.
+  explicit_non_scope:
+    - No closure law, exchange mechanism, coupling law or energy source is asserted.
+    - No change to certified Metric, the Wayfarer Metric card, ENERGY-B (CCR-2026-0003), TORCH or LOOM.
+    - No tactical doctrine, no FTL, no long-baseline Weave capability.
+    - No reopening of kT-selected design choices (wings/fans/floats fallback, ~8 t module, unknown-partner statement, 22 cm stretch plus collar).
+    - Docking collar is a separate proposed Wayfarer engineering/schematic change under v2.5a, not part of this CCR and not an approved physical implementation.
+    - Filing authorizes no canon implementation, geometry, GLB or canon_glb.json change.
+frozen_research:
+  involved: false
+  sources: []
+  qualification_state: NOT_APPLICABLE
+  rule: Scientific frozen PR #19/#16 not used as evidence or modified.
+downstream_impact:
+  component_map_reviewed: true
+  components:
+    - component_id: canon_ii_engineering_ships
+      state: REVIEW_REQUIRED
+      rationale: Scoped prototype annex proposed; no text changed until approval.
+    - component_id: canon_baseline_v2_5
+      state: REVIEW_REQUIRED
+      rationale: Baseline manifest and hashes would update on implementation only.
+    - component_id: canon_ii_wayfarer_amendment
+      state: REVIEW_REQUIRED
+      rationale: Docking collar proposal interacts with v2.5a launch-bay DOCKED/ABSENT state; handled separately at Step 5.
+    - component_id: wayfarer_engineering
+      state: REVIEW_REQUIRED
+      rationale: Shuttle geometry, collar demonstration and mass booking follow at Step 5.
+    - component_id: wayfarer_geometry_authority
+      state: UNCHANGED_COMPATIBLE
+      rationale: No GLB or canon_glb.json change by this CCR.
+    - component_id: navigator
+      state: UNCHANGED_COMPATIBLE
+      rationale: No Navigator change.
+    - component_id: world_db
+      state: UNCHANGED_COMPATIBLE
+      rationale: No data/schema change.
+baseline_obligations:
+  authority_registry_update_required: true
+  canon_baseline_manifest_update_required: true
+  file_hash_manifest_update_required: true
+  validation_report_update_required: true
+  compatibility_manifest_update_required: false
+  archive_or_supersession_update_required: false
+  notes: Obligations apply only at implementation after APPROVED_FOR_IMPLEMENTATION; filing changes no governing file.
+validation:
+  required_tests:
+    - Canon II scoped-text review confirming §2, §7.3, §21 and certified Metric rules unchanged.
+    - Baseline SHA256 and authority/CCR registry consistency verification at implementation.
+  required_qualification:
+    - Lane simulations remain provenance for the design premise, not proof of an exchange mechanism.
+  required_external_verification: []
+assurance:
+  walter_required: true
+  status: NOT_RUN
+  finding_ids: []
+  concerns:
+    - Prototype carve-out sits beside §21 hard kills; scope drift into tactical or long-baseline use must be blocked.
+    - Builder material non-equivalence (§3.2) must not be eroded by Mc accounting language.
+implementation:
+  implementation_pr: null
+  target_branch: main
+  merged_commit: null
+  implemented_date: null
+  changed_governing_sources: []
+  downstream_followup_issues:
+    - Step 5 shuttle geometry, docking-collar demonstration, interior packaging and G3 trim.
+decision:
+  decision_authority: Kevin
+  decision_date: null
+  rationale: null
+  disposition: null
+supersession:
+  supersedes: []
+  superseded_by: null
+history:
+  - date: '2026-11-22'
+    event: CREATED
+    status: PROPOSED
+    actor: kT
+    note: >-
+      kT accepted the Step 4 scope recommendation: approve the four scoped
+      exceptions, §7.1b option A, leave module Mc OPEN, file as PROPOSED with
+      two corrections (Builder non-equivalence to Mc-299m; unknown exchange as
+      an in-universe premise, not a demonstrated closure). Filing authorizes no
+      canon implementation or geometry change.
