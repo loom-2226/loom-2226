@@ -3,7 +3,7 @@ record_type: CANON_CHANGE_REQUEST
 id: CCR-2026-0005
 title: Scoped Canon II admission of the Weave shuttle as an experimental Metric-family prototype
 status: PROPOSED
-proposal_revision: 1
+proposal_revision: 2
 created_date: '2026-11-22'
 updated_date: '2026-11-22'
 origin:
@@ -14,15 +14,17 @@ origin:
     - wayfarer/lab/shuttle/v3/weave_final/WEAVE_SHUTTLE_CONFIG_AND_CLOSURE_2026_11_22.md
     - wayfarer/lab/shuttle/v3/weave_final/WEAVE_SHUTTLE_OPERATING_CARD_2026_11_22.md
     - wayfarer/lab/shuttle/v3/proto/weave/WEAVE_SOURCE_CLOSURE_2026_11_22.md
-    - wayfarer/config/kt_decisions.json (shuttle_final_weave_prototype_2026_11_22, shuttle_weave_config_choices_2026_11_22, shuttle_weave_interior_stretch_collar_2026_11_22)
+    - wayfarer/config/kt_decisions.json (shuttle_final_weave_prototype_2026_11_22, shuttle_weave_config_choices_2026_11_22, shuttle_weave_tictac_hull_2026_11_22, shuttle_weave_tictac_rulings_2026_11_22)
+    - wayfarer/lab/shuttle/v3/weave_final/TICTAC_BUILDOUT_V1_2026_11_22.md and tictac_vs_shuttle.py (research branch)
     - canon/current/LOOM_2226_CANON_II_Engineering_Ships_Operations_v2.5.md
     - canon/current/LOOM_2226_CANON_II_Wayfarer_Schematic_Amendment_v2.5a.md
   evidentiary_status: MIXED_EXPLAINED
   summary: >-
     kT design decision to adopt the Weave prototype (W2 gravity-cancelling
     cushion plus zero-expansion Weave shift translation, ~8 t Builder relational
-    module, 13.02 m Osteon lifting body with wings/fans/floats fallback) as the
-    Wayfarer shuttle direction. Lane simulations (ideal-fluid transport, sensor
+    module) as the Wayfarer shuttle direction. Revision 2: the host hull is the
+    'Tic Tac' capsule (12.8 m x 3.8 m, no wings or fans, floats on its own hull,
+    torch and parachutes as field-off fallback), replacing the 13.02 m lifting body. Lane simulations (ideal-fluid transport, sensor
     ray tracing, water-bowl response) and closure engineering inform the design
     but do NOT demonstrate a physical conservation closure. Prototype operation
     is an in-universe experimental premise.
@@ -55,8 +57,9 @@ proposal:
     - No closure law, exchange mechanism, coupling law or energy source is asserted.
     - No change to certified Metric, the Wayfarer Metric card, ENERGY-B (CCR-2026-0003), TORCH or LOOM.
     - No tactical doctrine, no FTL, no long-baseline Weave capability.
-    - No reopening of kT-selected design choices (wings/fans/floats fallback, ~8 t module, unknown-partner statement, 22 cm stretch plus collar).
-    - Docking collar is a separate proposed Wayfarer engineering/schematic change under v2.5a, not part of this CCR and not an approved physical implementation.
+    - No reopening of kT-selected design choices (Tic Tac hull, ~8 t module, unknown-partner statement).
+    - No Wayfarer docking collar: the revision-1 collar proposal is withdrawn. The Tic Tac fits the v2.5a bay at 12.8 m with F7-F11 unchanged.
+    - Shuttle hull geometry, mass booking and the W3 field-off exception are engineering matters for the Wayfarer engineering change, not canon text.
     - Filing authorizes no canon implementation, geometry, GLB or canon_glb.json change.
 frozen_research:
   involved: false
@@ -73,11 +76,11 @@ downstream_impact:
       state: REVIEW_REQUIRED
       rationale: Baseline manifest and hashes would update on implementation only.
     - component_id: canon_ii_wayfarer_amendment
-      state: REVIEW_REQUIRED
-      rationale: Docking collar proposal interacts with v2.5a launch-bay DOCKED/ABSENT state; handled separately at Step 5.
+      state: UNCHANGED_COMPATIBLE
+      rationale: Revision 2 withdraws the collar; the Tic Tac fits the v2.5a launch bay (F7-F11) unchanged; DOCKED/ABSENT states as today.
     - component_id: wayfarer_engineering
       state: REVIEW_REQUIRED
-      rationale: Shuttle geometry, collar demonstration and mass booking follow at Step 5.
+      rationale: Tic Tac geometry, mass booking (45.4 t dry plus removable rover kit), berth latches, G3 recheck and the recorded W3 exception follow in the Wayfarer engineering change.
     - component_id: wayfarer_geometry_authority
       state: UNCHANGED_COMPATIBLE
       rationale: No GLB or canon_glb.json change by this CCR.
@@ -116,7 +119,8 @@ implementation:
   implemented_date: null
   changed_governing_sources: []
   downstream_followup_issues:
-    - Step 5 shuttle geometry, docking-collar demonstration, interior packaging and G3 trim.
+    - Tic Tac geometry model for kT visual approval, then the Wayfarer engineering change (mass booking, berth latches, G3).
+    - Open operating items (not canon): sea-ballast rule before opening the wet dock; parachute fallback is a screening assumption.
 decision:
   decision_authority: Kevin
   decision_date: null
@@ -136,3 +140,14 @@ history:
       two corrections (Builder non-equivalence to Mc-299m; unknown exchange as
       an in-universe premise, not a demonstrated closure). Filing authorizes no
       canon implementation or geometry change.
+  - date: '2026-11-22'
+    event: PROPOSAL_REVISED
+    status: PROPOSED
+    actor: kT
+    note: >-
+      Revision 2 after kT chose the Tic Tac hull (kt_decisions
+      shuttle_weave_tictac_hull_2026_11_22 and _rulings_). Summary names the
+      12.8 m x 3.8 m capsule instead of the 13.02 m lifting body; the
+      Wayfarer docking collar proposal is withdrawn; downstream impact
+      updated. The four scoped exceptions, the §7.1b option A clause, the
+      Builder non-equivalence and all preserved provisions are unchanged.
