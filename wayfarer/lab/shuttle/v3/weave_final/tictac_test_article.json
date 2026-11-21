@@ -1,0 +1,50 @@
+{
+ "doc": "'Tic Tac' Weave test article (kT 2026-11-22: 'just for fun, particularly if/when we test weave maneuvering'). NON-CANON sketch.\nALL bodies. ALL sponsors. 2026-2226. Does NOT change the selected shuttle (kt_decisions shuttle_final_weave_prototype_2026_11_22).\n\nPremise (DERIVED in this lane): on the Weave field the craft carries its own pocket of air, so hull shape has no aerodynamic role in\nfield flight. A smooth capsule is the natural pure-field shape. Shape matters only for conventional flight, entry and stowage.\nCapsule = cylinder + hemispherical ends. Bay: exit width across the 3.8 m slot (F10) caps the diameter (axisymmetric: rolling does not\nhelp); stowed length 12.8 m (F9, standard - no collar needed). Mass: rough, scaled from the selected shuttle's records (ASSUMPTIONS).",
+ "diameter_m": 3.8,
+ "length_m": 12.8,
+ "hull_m3": 130.8,
+ "interior_m3": 113.2,
+ "surface_m2": 152.8,
+ "dry_t_rough": 44.3,
+ "mass_items_t": {
+  "hull_structure": 13.65,
+  "entry_tps": 2.73,
+  "torch": 7.01,
+  "water_tank": 2.08,
+  "belly_rcs": 0.4,
+  "power_dist": 0.65,
+  "custody": 0.12,
+  "avionics": 0.85,
+  "cabin": 4.45,
+  "skids": 0.5,
+  "crash_mounts": 0.23,
+  "reactor_small": 1.5,
+  "module_installed": 9.0,
+  "flywheel": 1.12
+ },
+ "floats_needed": "no (hull alone gives >2x reserve)",
+ "displaced_m3_full": 66.8,
+ "field_max_radius_m": 6.4,
+ "differential_axial": 0.0001840724132377014,
+ "differential_transverse": 0.0007729924587512871,
+ "differential_g_at_71g": 0.055,
+ "bay": {
+  "exit_width_m": 3.8,
+  "limit": 3.8,
+  "radius_m": 1.9,
+  "limit_r": 2.15,
+  "length_m": 12.8,
+  "limit_len": 12.8
+ },
+ "gives_up": [
+  "wings and fans: no conventional aerodynamic fallback (field failure = torch or ballistic + flotation)",
+  "lifting entry: capsule L/D ~0.3 at best, little crossrange, more TPS",
+  "not a replacement for the selected shuttle: a Weave manoeuvring test bed / demonstrator"
+ ],
+ "gains": [
+  "~2x the interior of the shuttle hull (test instrumentation, ballast, crew stations)",
+  "smallest field radius (6.4 m vs 8.55 m): cleanest carriage",
+  "floats on its own; no appendages to stow; fits the bay with standard margins (no collar)",
+  "the shape people expect"
+ ]
+}
