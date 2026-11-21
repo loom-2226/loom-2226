@@ -162,3 +162,76 @@ The missing invention is a field law that makes all three compatible. Conservati
 4. Water contact, last.
 
 Force generation and boundary behaviour are tested separately. If the field fails in vacuum or thin air, W2 and W3 stay parked and the conventional fold plus adaptive camber shuttle stands alone.
+
+### kT authorization (2026-11-21)
+**kT authorizes this non-canon prototype research to challenge CANON II §7.1a ENERGY-B, including powered metric motion that changes gravitational potential energy.**
+- This does **not** change canon.
+- It does **not** establish that M2 permits the effect.
+- There is no new architecture and no hardware design.
+
+### Three separate properties (not to be conflated)
+
+| Property | Question | Not implied by the others |
+|---|---|---|
+| **Boundary permeability** | Can ambient matter cross the boundary? | A permeable boundary need not carry what it starts with. |
+| **Matter entrainment** | Does matter inside move with the domain? | A comoving domain may still carry air or water even if some exchange is allowed. |
+| **Momentum coupling** | Where does the change in the domain's momentum and energy go (the partner)? | Says nothing about which matter is carried. |
+
+**Entrainment options:**
+- **Whole-region entrainment:** everything inside comoves, including air (~1.2 t per 1,000 m³, ~2% extra load). It needs **no extra miracle**. The domain must form clear of water, or it lifts a slug of sea.
+- **Selective entrainment:** hull and crew carried, air not. This needs the field to tell matter apart.
+  - Canon §12.1 has *certified domain membership* (attachment state, lattice, configuration), but only as a certification rule, not a physical sorting law.
+  - Coupling that depends on matter type breaks universality.
+  - **FLAG:** unless membership is a geometric property of the field (attachment to the node lattice), selective entrainment is an **independent additional miracle**. It is not assumed.
+
+### Vacuum-first experiment (`bmd1_vacuum_ledger.py/.json`)
+**Q1. Can the enclosed region stay stable?**
+- Yes, if the coupling acts *uniformly* on the domain: the interior is then in free fall, with no tidal stress across a ~15 m region.
+- A non-uniform coupling loads the interior, and the crew-continuity property fails.
+
+**Q2. Can the domain change its motion relative to an external reference?**
+- Only with a partner. The partner's identity changes everything, because the coupling must deliver the work done *in the partner's rest frame*, P = F·v_rel.
+- Lift case: 0.9 MN for 9 s, delivering 178 MJ in Earth's frame.
+
+| Partner | v_rel | Energy the device handles |
+|---|---|---|
+| Earth, vertical lift | 0 (rotation is perpendicular) | **0.18 GJ**, 40 MW peak |
+| Earth, sideways push at the equator | 465 m/s | −3.6 to +3.9 GJ |
+| Moon (wrong partner, near Earth) | 1.0 km/s | ±8 GJ |
+| **Sun (canon §7.1b)**, lift at dawn or dusk | 29.8 km/s | **±240 GJ, ~27 GW peak**, sign set by local time |
+
+**Q3. Does the ledger close?**
+- It closes for every partner.
+- With the canon Sun partner, a shuttle-scale lift is about 1,000× more energetic than the lift itself, and its sign changes with time of day.
+- A lift-at-dusk / lower-at-dawn cycle would extract Earth's orbital energy. It conserves energy, but in practice it collides with the §7.3 no-free-work firewall.
+
+**Discriminating observable:** the device's energy draw against its velocity relative to candidate partners.
+
+### Minimum new constitutive property
+A **powered, uniform coupling between the domain and the local dominant mass**: the body whose gravity dominates locally takes the reaction, and the energy is accounted in that body's frame.
+
+**Where it departs from canon:**
+- §7.1a: powered height, now authorized for the lane.
+- §7.1b: the partner is local, not the Sun. This is a *second* departure from the canon metric rule. It is **not** yet authorized; it is flagged here for kT.
+
+### Strongest three hypotheses (W2 continuous motion only)
+
+**1. Gravitational-coupling domain**
+- *Idea:* the domain's coupling to the *local gravitational field* is controllable (F = −k·m·∇Φ, with k < 0 giving lift). The partner is automatically whatever sources the local field, so no selection rule is needed and the energy stays local (0.18 GJ). It gives no thrust in deep space, which is acceptable for a landing device.
+- *Decisive unknown:* can the coefficient k belong to the field-dressed domain without breaking the equivalence principle for ordinary matter? Two further unknowns: the boundary stress at k ≈ −0.5, and whether the domain can form next to water.
+
+**2. Local-partner nonlocal coupling**
+- *Idea:* the §7.1b mechanism, but with the partner being the dominant local body instead of the Sun. It allows sideways as well as vertical motion relative to the planet.
+- *Decisive unknown:* the **partner-selection law** — what picks Earth over the Sun or Moon, and what happens at a hand-over (the wrong partner costs ±GJ). It also needs a second canon departure from §7.1b.
+
+**3. Canon Sun-partner coupling, powered**
+- *Idea:* the most canon-conservative route, with no new partner rule.
+- *Outcome:* the ledger closes, but the device must handle ±240 GJ and ~27 GW per lift. The cycle mines planetary orbital energy.
+- *Decisive unknown:* none that rescues it at shuttle scale. **Parked.** It is recorded because it shows why the partner rule is the real discovery.
+
+**Entrainment, for hypotheses 1 and 2:**
+- Whole-region entrainment is the default; it needs no extra miracle.
+- Selective entrainment is **flagged as a possible additional miracle**.
+
+### W3 stays separate
+W3 (discontinuous relocation) is not evaluated here. Hypothesis 1 or 2 only bears on W3 if one coherent field law is later shown to support both continuous motion and relocation. That is not assumed.
