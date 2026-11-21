@@ -410,3 +410,46 @@ BMD-1 is parked as a **successful negative research result**. It is kept as a do
 **Other branches:**
 - **B (path shortening)** belongs with W3.
 - **C (isolation + fans)** is dropped: isolation removes drag, not weight.
+
+## Gravity steering, trajectory test (kT, 2026-11-21) (`gs_trajectory.py/.json`)
+**kT's decision:** gravity steering stays the leading **non-canon** BMD-1 hypothesis. It is **not** promoted. The capacity ∝ g_P is a chosen constitutive law, not a consequence of the warp calculations. The Hill-sphere partner rule is a convention.
+
+**Law under test:**
+- |a_f| ≤ 1.5·g_P.
+- The reaction goes to the partner P.
+- The onboard device pays F·v_rel.
+
+**Rules for the runs:** no new hardware; no drag and no Earth rotation (case 1).
+
+**Case 1: 61 t shuttle, Earth surface to 400 km orbit, field only (no torch)**
+
+| Power source | Time to orbit | Field work (= orbital energy) | Propellant | Net reaction impulse to Earth |
+|---|---|---|---|---|
+| Existing fan reactor, 29 MWe | **19.4 h** (climb at ~48 m/s, then spin up at constant altitude) | 2.03 TJ (2.02 needed) | **0 t** | ~6e9 N·s (Earth recoil 1e-15 m/s) |
+| Torch-class 7.7 GW (comparison) | **21 min** | 2.02 TJ | 0 t | ~1e9 N·s |
+
+For comparison, the torch reaches orbit in minutes on the 18 t water tank.
+
+**Case 2: 61 t craft, 1 AU heliocentric orbit, 24 h of continuous field**
+- **Capacity:** 0.0089 m/s² (543 N), so **768 m/s per day**. The force equals a ~60 km² solar sail.
+- **Pushing along the orbit (prograde):** 16 MW, 1.4 TJ per day.
+- **Pushing out of the orbit plane (normal):** almost no power. It costs only ½·m·Δv² (18 GJ) for a **1.5° per day plane change**.
+- **Pushing toward or away from the Sun (radial):** almost no power.
+- **Acceleration does not depend on mass.**
+  - Wayfarer gets the same 768 m/s per day, at 309 MW prograde.
+  - At 0.3 AU the field gives 8.5 km/s per day.
+
+**Verdict against kT's stopping condition**
+- **Landing capability:** yes. Hovering and slow lifts near a body cost ~0 power.
+- **Cheap alternative to the torch:** also yes. **As stated, the law is a setting-scale change, not a shuttle feature.**
+  - It inserts the shuttle into orbit with zero propellant on its existing reactor.
+  - It gives slow interplanetary freight to any ship.
+  - It makes plane changes almost free.
+
+**The leak:**
+- A force perpendicular to the partner-relative velocity does no work.
+- Any law that caps force by gravity but prices energy by F·v_rel therefore gives free altitude holding, free plane changes, and orbit raising that is limited by power rather than propellant.
+
+**If kT wants landing-only behaviour:**
+- The capacity would have to fall off with distance from the partner's **surface**, on the scale of the domain (~10–100 m), not with g_P.
+- That is a different constitutive law. It is **not tested here**.
