@@ -126,3 +126,4 @@ The zero-expansion shift is the leading geometry. Its underlying exchange physic
 1. Dodge
 2. Landing in weather
 3. **Transmedium: crossing an air/water interface** (water entry, exit and skimming). Added by kT.
+4. **Sensor signature: radar and optical distortion** (light and radar in the shift metric; refraction from air the field rearranges). Added by kT.
