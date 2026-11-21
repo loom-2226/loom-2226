@@ -72,3 +72,38 @@ Test whether the candidate exchange law above closes **both** Wayfarer's canon N
 - the transient store located in the relational sector.
 
 If it does, it is a candidate foundational improvement for kT. If not, the failing requirement names the missing permission.
+
+## SOL review of 4b0afba: corrections accepted
+1. **The toy pushed the shuttle conventionally.**
+   - Correct: its force acted on the shuttle as a whole, and crew inertiality was not shown.
+   - Peak acceleration was 128 m/s² (13 g), not 70–80.
+   - Addressed by the bridge test below.
+2. **A moving medium is a reservoir, not a pump.**
+   - Correct: the reservoir loses exactly u·I of kinetic energy, so the harvest is conservative.
+   - **The "50 m/s / 2×10⁻³ / 1×10⁻⁴ anchoring" figures are withdrawn as requirements.** They were thresholds chosen to keep harvesting below the lift work.
+   - Reported instead as a consequence: if the medium is not locally anchored, Weave operation near bodies taps the reservoir's relative motion. That is a setting-scale energy source, and kT decides whether LOOM has it.
+3. **Wayfarer's (γ−1)·m·c² ≈ 4×10²¹ J** is a kinetic-energy comparison, not a demonstration of Metric cruise. The toy is non-relativistic.
+
+## Bridge test: shuttle moved by geometry, relational mode keeps the books (`weave_bridge.py/.json`, `weave_bridge.png`)
+**Setup:**
+- A deformable ship: a 59 t hull, 1 t crew on a seat spring, 1 t cargo on a tie-down.
+- It is carried through the same 200 m, 125 m/s dash by the moving shift geometry (R = 10 m, δ = 2 m).
+- Its equations of motion come from the proper-time action: geodesic transport plus springs.
+
+**Comparison case:** the same hull trajectory produced by an ordinary force on the hull.
+
+| | Geometric (Weave) | Ordinary force |
+|---|---|---|
+| Hull final position | 199.98 m, at rest | 200 m |
+| Peak felt by crew / cargo | **0.011 g / 0.033 g** | **13.1 g / 13.1 g** |
+| Internal strain | 1.5×10⁻¹⁰ m | — |
+
+**Verdicts:**
+- **Crew inertial while spacetime moves the ship: DERIVED.** Every part of the ship rides the shift together.
+- The ~0.01–0.03 g residual is the wall-profile gradient across the 10 m domain (f(4 m) = 0.9975). It is derived, and it shrinks with a flatter plateau.
+- **Momentum and centre of mass are closed by the relational mode** (residual shift −2×10⁻¹⁸ m at Earth-scale μ), **IF the wall hands the payload's momentum change to the mode. ASSUMED.**
+
+**What remains is that single link:** a field model in which the wall's stress-energy actually transmits momentum into the relational sector.
+- Geodesic transport is derived.
+- The exchange bookkeeping closes.
+- Only the coupling between wall and relational sector is assumed.
