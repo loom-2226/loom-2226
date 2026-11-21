@@ -6,6 +6,8 @@ Prototype lane, 2026-11-21. Responds to Sol's review of 586f1a4. No canon, hardw
 
 Code: `weave_finite.py`, `finite_figure.py` → `weave_finite.png`. Data: `weave_finite.json`, `weave_finite_series.json`.
 
+> **Correction (WEAVE_GEOMETRY_COMPARE_2026_11_21.md).** The 1D profile used here (Ψ' = f) has different asymptotes on each side, so it cannot be localized in 3D. A localized scalar (lapse) field with a uniform interior push must have reverse-force walls (∫∂ₓΦ dx = 0 along any line). In 3D the lapse hull loads are larger than reported below (R 15 / d 2: 0.92 g, not 0.018 g), and the path-wide stirring pattern was an artefact; disturbance concentrates where the domain accelerates and decelerates. Sol also qualified the "violent in atmosphere" claim: that was for this mechanism only, and 1D collisionless.
+
 ## 1. Sol's corrections accepted
 
 - **Three achievements, kept separate.** Inertial carriage, conservation and self-contained propulsion are different claims. 586f1a4 shows the first two for an ideal field. It does not show the third: `G(t)` is commanded as the target acceleration and the wall controller supplies the reaction. The result is a controllable conservative mechanism, not a derived capability.
