@@ -12,7 +12,7 @@ def job(a):
     except Exception as ex: return dict(id=i, params=p, feasible=False, fails=[str(ex)])
 if __name__ == '__main__':
     out = {}
-    for w in E.WILDCARDS:
+    for w in ['none', 'osteon_cautious', 'osteon_airframe', 'osteon_optimistic']:
         jobs = [(r['id'], dict(r['params'], wildcard=w)) for r in base]
         with Pool(2) as pool: res = pool.map(job, jobs, chunksize=8)
         ok = [r for r in res if r.get('feasible')]
@@ -23,7 +23,8 @@ if __name__ == '__main__':
                       best=sorted([dict(id=r['id'], seats=r['params']['seats'], wing=r['params']['wing'], span=r['params']['span'], fan=r['params']['fan_m2'],
                                         floats=r['params']['floats_m3'], water=r['params']['water_t'], rover=r['params']['rover'], dry=r['dry_t'], docked=r['docked_t'],
                                         th=r['touchdown_heavy_ms'], hot=r['hot_egress_water_t'], xr=r['crossrange_km'], turn=r['max_turn_dps'],
-                                        interior=r['interior_margin_m3'], lim=r['limiting']) for r in allf], key=lambda x: x['docked'])[:8])
+                                        interior=r['interior_margin_m3'], lim=r['limiting'], osteon=r.get('osteon'), td={k: m['touchdown_mass_t'] for k, m in r['missions'].items()}, fails={k: [c['name'] for c in m['checks'] if not c['ok']] for k, m in r['missions'].items()}) for r in allf], key=lambda x: x['docked'])[:8],
+                      near=sorted([dict(id=r['id'], seats=r['params']['seats'], docked=r['docked_t'], dry=r['dry_t'], ok=[k for k, m in r['missions'].items() if m['ok']], fails={k: [(c['name'], c['value'], c['limit']) for c in m['checks'] if not c['ok']] for k, m in r['missions'].items() if not m['ok']}) for r in ok], key=lambda x: (-len(x['ok']), x['docked']))[:6])
         print(w, out[w]['feasible'], cnt, 'all5', out[w]['all_five'], '8c', out[w]['all_five_8'], flush=True)
     json.dump(dict(header='ALL bodies. ALL sponsors. 2026-2226.', model_version=E.MODEL_VERSION, wildcards={k: v.get('note', '') for k, v in E.WILDCARDS.items()}, results=out),
               open('wildcard_screen.json', 'w'), indent=1)

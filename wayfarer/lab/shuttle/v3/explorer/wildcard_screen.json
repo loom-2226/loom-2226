@@ -1,9 +1,11 @@
 {
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
- "model_version": "98f46706b9f3",
+ "model_version": "616beacfeb63",
  "wildcards": {
   "none": "",
-  "osteon_airframe": "Builder-derived Osteon (OST-22) structure: Wayfarer mass_basis says Osteon longerons/fittings save 0.8-1.4 t of 3.7 t (22-38%); 30% applied to airframe items [assumption from repo basis]",
+  "osteon_cautious": "Osteon (OST-22) at the low end of the Wayfarer evidence (22%) on eligible primary structure only",
+  "osteon_airframe": "Osteon (OST-22) central case (30%) on eligible primary structure only",
+  "osteon_optimistic": "Osteon (OST-22) high end (38%) on eligible primary structure plus the cabin pressure wall",
   "dense_power": "reactor + motors + electronics at 2x specific power, fans sized 1.5x: human 2226 stretch, NOT Builder-grounded [assumption]",
   "high_lift": "circulation-control / morphing high-lift credited (CL cap 6): human 2226 stretch (A-6 CCW lineage), NOT Builder-grounded [assumption]"
  },
@@ -12,13 +14,224 @@
    "n": 735,
    "feasible": 735,
    "missions": {
-    "earth": 435,
-    "evac": 5,
+    "earth": 466,
+    "evac": 2,
     "orbital": 735,
     "surface": 735,
-    "hot": 1
+    "hot": 0
    },
-   "all_five": 1,
+   "all_five": 0,
+   "all_five_8": 0,
+   "best": [],
+   "near": [
+    {
+     "id": 3039,
+     "seats": 6,
+     "docked": 61.5,
+     "dry": 41.55,
+     "ok": [
+      "earth",
+      "evac",
+      "orbital",
+      "surface"
+     ],
+     "fails": {
+      "hot": [
+       [
+        "Water required vs carried (incl. sprint kit)",
+        26.6,
+        25
+       ],
+       [
+        "Torch thrust meets every leg",
+        "short on leg 3",
+        ""
+       ],
+       [
+        "Water touchdown at mission mass (climb water aboard)",
+        52.0,
+        50
+       ]
+      ]
+     }
+    },
+    {
+     "id": 2668,
+     "seats": 6,
+     "docked": 61.9,
+     "dry": 41.94,
+     "ok": [
+      "earth",
+      "evac",
+      "orbital",
+      "surface"
+     ],
+     "fails": {
+      "hot": [
+       [
+        "Water required vs carried (incl. sprint kit)",
+        27.1,
+        25
+       ],
+       [
+        "Torch thrust meets every leg",
+        "short on leg 3",
+        ""
+       ],
+       [
+        "Water touchdown at mission mass (climb water aboard)",
+        52.1,
+        50
+       ]
+      ]
+     }
+    },
+    {
+     "id": 2577,
+     "seats": 6,
+     "docked": 52.6,
+     "dry": 34.56,
+     "ok": [
+      "earth",
+      "orbital",
+      "surface"
+     ],
+     "fails": {
+      "evac": [
+       [
+        "Water touchdown at mission mass (climb water aboard)",
+        65.2,
+        50
+       ]
+      ],
+      "hot": [
+       [
+        "Water touchdown at mission mass (climb water aboard)",
+        68.2,
+        50
+       ],
+       [
+        "Max turn at 8 g",
+        7.9,
+        15
+       ]
+      ]
+     }
+    },
+    {
+     "id": 2430,
+     "seats": 6,
+     "docked": 52.8,
+     "dry": 34.75,
+     "ok": [
+      "earth",
+      "orbital",
+      "surface"
+     ],
+     "fails": {
+      "evac": [
+       [
+        "Water touchdown at mission mass (climb water aboard)",
+        60.7,
+        50
+       ]
+      ],
+      "hot": [
+       [
+        "Water touchdown at mission mass (climb water aboard)",
+        63.4,
+        50
+       ],
+       [
+        "Max turn at 8 g",
+        7.8,
+        15
+       ]
+      ]
+     }
+    },
+    {
+     "id": 226,
+     "seats": 6,
+     "docked": 52.9,
+     "dry": 34.92,
+     "ok": [
+      "earth",
+      "orbital",
+      "surface"
+     ],
+     "fails": {
+      "evac": [
+       [
+        "Water touchdown at mission mass (climb water aboard)",
+        57.8,
+        50
+       ]
+      ],
+      "hot": [
+       [
+        "Water touchdown at mission mass (climb water aboard)",
+        60.5,
+        50
+       ],
+       [
+        "Max turn at 8 g",
+        7.7,
+        15
+       ]
+      ]
+     }
+    },
+    {
+     "id": 2890,
+     "seats": 6,
+     "docked": 52.9,
+     "dry": 34.95,
+     "ok": [
+      "earth",
+      "orbital",
+      "surface"
+     ],
+     "fails": {
+      "evac": [
+       [
+        "Water touchdown at mission mass (climb water aboard)",
+        64.9,
+        50
+       ]
+      ],
+      "hot": [
+       [
+        "Water touchdown at mission mass (climb water aboard)",
+        67.9,
+        50
+       ],
+       [
+        "Reach from orbit",
+        986,
+        1000
+       ],
+       [
+        "Max turn at 8 g",
+        7.5,
+        15
+       ]
+      ]
+     }
+    }
+   ]
+  },
+  "osteon_cautious": {
+   "n": 735,
+   "feasible": 735,
+   "missions": {
+    "earth": 502,
+    "evac": 66,
+    "orbital": 735,
+    "surface": 735,
+    "hot": 6
+   },
+   "all_five": 6,
    "all_five_8": 0,
    "best": [
     {
@@ -30,14 +243,346 @@
      "floats": 30,
      "water": 18,
      "rover": false,
-     "dry": 38.33,
-     "docked": 56.3,
-     "th": 49.8,
-     "hot": 24.4,
+     "dry": 35.95,
+     "docked": 53.9,
+     "th": 47.2,
+     "hot": 21.2,
      "xr": 1161,
-     "turn": 18.2,
+     "turn": 18.9,
      "interior": 6.7,
-     "lim": "Bay fit radius (stowed hull only)"
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.22,
+      "eligible_t": {
+       "hull_structure": 7.36,
+       "wings": 2.01,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3
+      },
+      "eligible_total_t": 10.17,
+      "saved_t": 2.24,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 53.25,
+      "evac": 53.35,
+      "orbital": null,
+      "surface": null,
+      "hot": 56.45
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
+    },
+    {
+     "id": 1396,
+     "seats": 6,
+     "wing": "telescoping",
+     "span": 15.017,
+     "fan": 8,
+     "floats": 30,
+     "water": 18,
+     "rover": false,
+     "dry": 36.84,
+     "docked": 54.8,
+     "th": 47.2,
+     "hot": 22.4,
+     "xr": 1163,
+     "turn": 19.4,
+     "interior": 6.7,
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.22,
+      "eligible_t": {
+       "hull_structure": 7.38,
+       "wings": 2.29,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3
+      },
+      "eligible_total_t": 10.47,
+      "saved_t": 2.3,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 40.44,
+      "evac": 54.94,
+      "orbital": null,
+      "surface": null,
+      "hot": 58.34
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
+    },
+    {
+     "id": 2722,
+     "seats": 6,
+     "wing": "telescoping",
+     "span": 16.0,
+     "fan": 8,
+     "floats": 30,
+     "water": 18,
+     "rover": false,
+     "dry": 36.77,
+     "docked": 54.8,
+     "th": 47.3,
+     "hot": 22.3,
+     "xr": 1157,
+     "turn": 19.8,
+     "interior": 6.3,
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.22,
+      "eligible_t": {
+       "hull_structure": 7.36,
+       "wings": 2.25,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3
+      },
+      "eligible_total_t": 10.43,
+      "saved_t": 2.29,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 40.37,
+      "evac": 54.87,
+      "orbital": null,
+      "surface": null,
+      "hot": 58.17
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
+    },
+    {
+     "id": 3195,
+     "seats": 6,
+     "wing": "telescoping",
+     "span": 14.838,
+     "fan": 8,
+     "floats": 10,
+     "water": 20,
+     "rover": false,
+     "dry": 37.2,
+     "docked": 57.2,
+     "th": 47.5,
+     "hot": 22.8,
+     "xr": 1191,
+     "turn": 19.2,
+     "interior": 19.8,
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.22,
+      "eligible_t": {
+       "hull_structure": 8.28,
+       "wings": 2.16,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3
+      },
+      "eligible_total_t": 11.24,
+      "saved_t": 2.47,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 55.4,
+      "evac": 55.7,
+      "orbital": null,
+      "surface": null,
+      "hot": 59.1
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
+    },
+    {
+     "id": 3039,
+     "seats": 6,
+     "wing": "telescoping",
+     "span": 16.0,
+     "fan": 10,
+     "floats": 20,
+     "water": 20,
+     "rover": false,
+     "dry": 38.76,
+     "docked": 58.8,
+     "th": 46.5,
+     "hot": 24.9,
+     "xr": 1095,
+     "turn": 20.0,
+     "interior": 2.6,
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.22,
+      "eligible_t": {
+       "hull_structure": 7.48,
+       "wings": 3.72,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3
+      },
+      "eligible_total_t": 12.01,
+      "saved_t": 2.64,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 42.36,
+      "evac": 58.76,
+      "orbital": null,
+      "surface": null,
+      "hot": 62.56
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
+    },
+    {
+     "id": 2668,
+     "seats": 6,
+     "wing": "telescoping",
+     "span": 16.0,
+     "fan": 10,
+     "floats": 20,
+     "water": 20,
+     "rover": false,
+     "dry": 39.09,
+     "docked": 59.1,
+     "th": 46.5,
+     "hot": 25.4,
+     "xr": 1094,
+     "turn": 20.0,
+     "interior": 3.9,
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.22,
+      "eligible_t": {
+       "hull_structure": 7.59,
+       "wings": 3.82,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3
+      },
+      "eligible_total_t": 12.22,
+      "saved_t": 2.69,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 42.69,
+      "evac": 59.39,
+      "orbital": null,
+      "surface": null,
+      "hot": 63.29
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
+    }
+   ],
+   "near": [
+    {
+     "id": 2643,
+     "seats": 6,
+     "docked": 53.9,
+     "dry": 35.95,
+     "ok": [
+      "earth",
+      "evac",
+      "orbital",
+      "surface",
+      "hot"
+     ],
+     "fails": {}
+    },
+    {
+     "id": 1396,
+     "seats": 6,
+     "docked": 54.8,
+     "dry": 36.84,
+     "ok": [
+      "earth",
+      "evac",
+      "orbital",
+      "surface",
+      "hot"
+     ],
+     "fails": {}
+    },
+    {
+     "id": 2722,
+     "seats": 6,
+     "docked": 54.8,
+     "dry": 36.77,
+     "ok": [
+      "earth",
+      "evac",
+      "orbital",
+      "surface",
+      "hot"
+     ],
+     "fails": {}
+    },
+    {
+     "id": 3195,
+     "seats": 6,
+     "docked": 57.2,
+     "dry": 37.2,
+     "ok": [
+      "earth",
+      "evac",
+      "orbital",
+      "surface",
+      "hot"
+     ],
+     "fails": {}
+    },
+    {
+     "id": 3039,
+     "seats": 6,
+     "docked": 58.8,
+     "dry": 38.76,
+     "ok": [
+      "earth",
+      "evac",
+      "orbital",
+      "surface",
+      "hot"
+     ],
+     "fails": {}
+    },
+    {
+     "id": 2668,
+     "seats": 6,
+     "docked": 59.1,
+     "dry": 39.09,
+     "ok": [
+      "earth",
+      "evac",
+      "orbital",
+      "surface",
+      "hot"
+     ],
+     "fails": {}
     }
    ]
   },
@@ -45,227 +590,58 @@
    "n": 735,
    "feasible": 735,
    "missions": {
-    "earth": 512,
-    "evac": 180,
+    "earth": 511,
+    "evac": 100,
     "orbital": 735,
     "surface": 735,
-    "hot": 170
+    "hot": 17
    },
-   "all_five": 170,
-   "all_five_8": 37,
+   "all_five": 17,
+   "all_five_8": 0,
    "best": [
     {
-     "id": 2845,
+     "id": 1758,
      "seats": 6,
      "wing": "fold",
      "span": 9.0,
-     "fan": 8,
-     "floats": 30,
+     "fan": 6,
+     "floats": 0,
      "water": 18,
      "rover": false,
-     "dry": 31.0,
-     "docked": 49.0,
-     "th": 49.0,
-     "hot": 16.1,
-     "xr": 1151,
-     "turn": 16.7,
-     "interior": 4.5,
-     "lim": "Bay fit radius (stowed hull only)"
-    },
-    {
-     "id": 1648,
-     "seats": 6,
-     "wing": "fold",
-     "span": 9.0,
-     "fan": 8,
-     "floats": 10,
-     "water": 18,
-     "rover": false,
-     "dry": 31.09,
-     "docked": 49.1,
-     "th": 49.7,
-     "hot": 16.2,
-     "xr": 1145,
-     "turn": 16.5,
-     "interior": 8.3,
-     "lim": "Bay fit radius (stowed hull only)"
-    },
-    {
-     "id": 2841,
-     "seats": 6,
-     "wing": "fold",
-     "span": 9.0,
-     "fan": 8,
-     "floats": 30,
-     "water": 18,
-     "rover": false,
-     "dry": 31.08,
-     "docked": 49.1,
-     "th": 48.9,
-     "hot": 16.2,
-     "xr": 1164,
-     "turn": 16.7,
-     "interior": 6.1,
-     "lim": "Bay fit radius (stowed hull only)"
-    },
-    {
-     "id": 2826,
-     "seats": 6,
-     "wing": "fold",
-     "span": 9.0,
-     "fan": 8,
-     "floats": 10,
-     "water": 18,
-     "rover": false,
-     "dry": 31.16,
-     "docked": 49.2,
-     "th": 50.0,
-     "hot": 16.2,
+     "dry": 35.08,
+     "docked": 53.1,
+     "th": 47.5,
+     "hot": 20.1,
      "xr": 1161,
-     "turn": 16.4,
-     "interior": 10.2,
-     "lim": "Bay fit radius (stowed hull only)"
-    },
-    {
-     "id": 138,
-     "seats": 6,
-     "wing": "fold",
-     "span": 9.0,
-     "fan": 6,
-     "floats": 10,
-     "water": 18,
-     "rover": false,
-     "dry": 31.36,
-     "docked": 49.4,
-     "th": 47.7,
-     "hot": 16.4,
-     "xr": 1069,
-     "turn": 16.4,
-     "interior": 7.2,
-     "lim": "Bay fit radius (stowed hull only)"
-    },
-    {
-     "id": 2715,
-     "seats": 6,
-     "wing": "fold",
-     "span": 9.0,
-     "fan": 8,
-     "floats": 0,
-     "water": 18,
-     "rover": false,
-     "dry": 31.44,
-     "docked": 49.4,
-     "th": 49.6,
-     "hot": 16.5,
-     "xr": 1179,
-     "turn": 16.5,
-     "interior": 17.0,
-     "lim": "Bay fit radius (stowed hull only)"
-    },
-    {
-     "id": 3043,
-     "seats": 6,
-     "wing": "fold",
-     "span": 9.0,
-     "fan": 8,
-     "floats": 0,
-     "water": 18,
-     "rover": false,
-     "dry": 31.37,
-     "docked": 49.4,
-     "th": 49.9,
-     "hot": 16.4,
-     "xr": 1190,
-     "turn": 16.4,
-     "interior": 17.8,
-     "lim": "Bay fit radius (stowed hull only)"
-    },
-    {
-     "id": 941,
-     "seats": 6,
-     "wing": "fold",
-     "span": 9.0,
-     "fan": 8,
-     "floats": 20,
-     "water": 18,
-     "rover": false,
-     "dry": 31.79,
-     "docked": 49.8,
-     "th": 49.8,
-     "hot": 16.8,
-     "xr": 1175,
-     "turn": 16.4,
-     "interior": 15.0,
-     "lim": "Bay fit radius (stowed hull only)"
-    }
-   ]
-  },
-  "dense_power": {
-   "n": 735,
-   "feasible": 721,
-   "missions": {
-    "earth": 550,
-    "evac": 462,
-    "orbital": 721,
-    "surface": 721,
-    "hot": 113
-   },
-   "all_five": 113,
-   "all_five_8": 26,
-   "best": [
-    {
-     "id": 2605,
-     "seats": 6,
-     "wing": "telescoping",
-     "span": 10.223,
-     "fan": 6,
-     "floats": 10,
-     "water": 18,
-     "rover": false,
-     "dry": 36.64,
-     "docked": 54.6,
-     "th": 50.0,
-     "hot": 22.1,
-     "xr": 1237,
-     "turn": 16.3,
-     "interior": 12.4,
-     "lim": "Bay fit radius (stowed hull only)"
-    },
-    {
-     "id": 2761,
-     "seats": 6,
-     "wing": "telescoping",
-     "span": 10.158,
-     "fan": 6,
-     "floats": 20,
-     "water": 18,
-     "rover": false,
-     "dry": 37.09,
-     "docked": 55.1,
-     "th": 45.4,
-     "hot": 22.7,
-     "xr": 1204,
-     "turn": 15.8,
-     "interior": 7.2,
-     "lim": "Bay fit radius (stowed hull only)"
-    },
-    {
-     "id": 260,
-     "seats": 6,
-     "wing": "telescoping",
-     "span": 9.656,
-     "fan": 6,
-     "floats": 0,
-     "water": 18,
-     "rover": false,
-     "dry": 37.49,
-     "docked": 55.5,
-     "th": 45.6,
-     "hot": 23.2,
-     "xr": 1232,
-     "turn": 15.0,
-     "interior": 14.8,
-     "lim": "Bay fit radius (stowed hull only)"
+     "turn": 15.9,
+     "interior": 18.0,
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.3,
+      "eligible_t": {
+       "hull_structure": 8.28,
+       "wings": 1.14,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3
+      },
+      "eligible_total_t": 10.23,
+      "saved_t": 3.07,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 38.68,
+      "evac": 51.78,
+      "orbital": null,
+      "surface": null,
+      "hot": 54.68
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
     },
     {
      "id": 2643,
@@ -276,209 +652,40 @@
      "floats": 30,
      "water": 18,
      "rover": false,
-     "dry": 37.51,
-     "docked": 55.5,
-     "th": 43.9,
-     "hot": 23.2,
+     "dry": 35.09,
+     "docked": 53.1,
+     "th": 46.4,
+     "hot": 20.2,
      "xr": 1161,
-     "turn": 18.4,
-     "interior": 6.1,
-     "lim": "Bay fit radius (stowed hull only)"
-    },
-    {
-     "id": 2793,
-     "seats": 6,
-     "wing": "telescoping",
-     "span": 10.798,
-     "fan": 8,
-     "floats": 40,
-     "water": 18,
-     "rover": false,
-     "dry": 37.46,
-     "docked": 55.5,
-     "th": 45.2,
-     "hot": 23.2,
-     "xr": 1143,
-     "turn": 16.5,
-     "interior": 13.1,
-     "lim": "Bay fit radius (stowed hull only)"
-    },
-    {
-     "id": 2674,
-     "seats": 8,
-     "wing": "telescoping",
-     "span": 11.931,
-     "fan": 10,
-     "floats": 10,
-     "water": 18,
-     "rover": false,
-     "dry": 37.65,
-     "docked": 55.6,
-     "th": 46.7,
-     "hot": 23.7,
-     "xr": 1052,
-     "turn": 16.8,
-     "interior": 6.6,
-     "lim": "Bay fit radius (stowed hull only)"
-    },
-    {
-     "id": 2684,
-     "seats": 6,
-     "wing": "telescoping",
-     "span": 12.92,
-     "fan": 10,
-     "floats": 20,
-     "water": 18,
-     "rover": false,
-     "dry": 37.56,
-     "docked": 55.6,
-     "th": 44.5,
-     "hot": 23.3,
-     "xr": 1191,
-     "turn": 17.8,
-     "interior": 10.7,
-     "lim": "Bay fit radius (stowed hull only)"
-    },
-    {
-     "id": 1887,
-     "seats": 6,
-     "wing": "telescoping",
-     "span": 10.083,
-     "fan": 6,
-     "floats": 10,
-     "water": 18,
-     "rover": false,
-     "dry": 37.69,
-     "docked": 55.7,
-     "th": 46.0,
-     "hot": 23.5,
-     "xr": 1235,
-     "turn": 15.4,
-     "interior": 13.5,
-     "lim": "Bay fit radius (stowed hull only)"
-    }
-   ]
-  },
-  "high_lift": {
-   "n": 735,
-   "feasible": 735,
-   "missions": {
-    "earth": 549,
-    "evac": 339,
-    "orbital": 735,
-    "surface": 735,
-    "hot": 88
-   },
-   "all_five": 88,
-   "all_five_8": 13,
-   "best": [
-    {
-     "id": 2761,
-     "seats": 6,
-     "wing": "telescoping",
-     "span": 10.158,
-     "fan": 6,
-     "floats": 20,
-     "water": 18,
-     "rover": false,
-     "dry": 38.02,
-     "docked": 56.0,
-     "th": 43.0,
-     "hot": 23.9,
-     "xr": 1204,
-     "turn": 15.3,
-     "interior": 7.8,
-     "lim": "Bay fit radius (stowed hull only)"
-    },
-    {
-     "id": 2643,
-     "seats": 6,
-     "wing": "telescoping",
-     "span": 13.739,
-     "fan": 8,
-     "floats": 30,
-     "water": 18,
-     "rover": false,
-     "dry": 38.33,
-     "docked": 56.3,
-     "th": 42.5,
-     "hot": 24.4,
-     "xr": 1161,
-     "turn": 18.2,
+     "turn": 19.2,
      "interior": 6.7,
-     "lim": "Bay fit radius (stowed hull only)"
-    },
-    {
-     "id": 2684,
-     "seats": 6,
-     "wing": "telescoping",
-     "span": 12.92,
-     "fan": 10,
-     "floats": 20,
-     "water": 18,
-     "rover": false,
-     "dry": 38.3,
-     "docked": 56.3,
-     "th": 44.9,
-     "hot": 24.3,
-     "xr": 1191,
-     "turn": 17.6,
-     "interior": 11.3,
-     "lim": "Bay fit radius (stowed hull only)"
-    },
-    {
-     "id": 2793,
-     "seats": 6,
-     "wing": "telescoping",
-     "span": 10.798,
-     "fan": 8,
-     "floats": 40,
-     "water": 18,
-     "rover": false,
-     "dry": 38.28,
-     "docked": 56.3,
-     "th": 44.7,
-     "hot": 24.3,
-     "xr": 1143,
-     "turn": 16.2,
-     "interior": 13.6,
-     "lim": "Bay fit radius (stowed hull only)"
-    },
-    {
-     "id": 2674,
-     "seats": 8,
-     "wing": "telescoping",
-     "span": 11.931,
-     "fan": 10,
-     "floats": 10,
-     "water": 18,
-     "rover": false,
-     "dry": 38.39,
-     "docked": 56.4,
-     "th": 47.2,
-     "hot": 24.7,
-     "xr": 1052,
-     "turn": 16.6,
-     "interior": 7.1,
-     "lim": "Bay fit radius (stowed hull only)"
-    },
-    {
-     "id": 1887,
-     "seats": 6,
-     "wing": "telescoping",
-     "span": 10.083,
-     "fan": 6,
-     "floats": 10,
-     "water": 18,
-     "rover": false,
-     "dry": 38.63,
-     "docked": 56.6,
-     "th": 43.3,
-     "hot": 24.8,
-     "xr": 1235,
-     "turn": 15.0,
-     "interior": 14.2,
-     "lim": "Bay fit radius (stowed hull only)"
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.3,
+      "eligible_t": {
+       "hull_structure": 7.36,
+       "wings": 2.01,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3
+      },
+      "eligible_total_t": 10.17,
+      "saved_t": 3.05,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 51.79,
+      "evac": 51.79,
+      "orbital": null,
+      "surface": null,
+      "hot": 54.69
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
     },
     {
      "id": 128,
@@ -489,32 +696,807 @@
      "floats": 20,
      "water": 18,
      "rover": false,
-     "dry": 38.73,
-     "docked": 56.7,
-     "th": 43.9,
-     "hot": 24.9,
+     "dry": 35.41,
+     "docked": 53.4,
+     "th": 47.6,
+     "hot": 20.5,
      "xr": 1188,
-     "turn": 18.5,
+     "turn": 19.6,
      "interior": 10.2,
-     "lim": "Bay fit radius (stowed hull only)"
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.3,
+      "eligible_t": {
+       "hull_structure": 7.58,
+       "wings": 2.09,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3
+      },
+      "eligible_total_t": 10.47,
+      "saved_t": 3.14,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 39.01,
+      "evac": 52.31,
+      "orbital": null,
+      "surface": null,
+      "hot": 55.41
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
     },
     {
-     "id": 2828,
+     "id": 2722,
      "seats": 6,
      "wing": "telescoping",
-     "span": 14.278,
-     "fan": 12,
+     "span": 16.0,
+     "fan": 8,
+     "floats": 30,
+     "water": 18,
+     "rover": false,
+     "dry": 35.87,
+     "docked": 53.9,
+     "th": 46.3,
+     "hot": 21.1,
+     "xr": 1157,
+     "turn": 20.1,
+     "interior": 6.3,
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.3,
+      "eligible_t": {
+       "hull_structure": 7.36,
+       "wings": 2.25,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3
+      },
+      "eligible_total_t": 10.43,
+      "saved_t": 3.13,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 39.47,
+      "evac": 53.17,
+      "orbital": null,
+      "surface": null,
+      "hot": 56.27
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
+    },
+    {
+     "id": 1396,
+     "seats": 6,
+     "wing": "telescoping",
+     "span": 15.017,
+     "fan": 8,
+     "floats": 30,
+     "water": 18,
+     "rover": false,
+     "dry": 35.95,
+     "docked": 54.0,
+     "th": 46.3,
+     "hot": 21.2,
+     "xr": 1163,
+     "turn": 19.7,
+     "interior": 6.7,
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.3,
+      "eligible_t": {
+       "hull_structure": 7.38,
+       "wings": 2.29,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3
+      },
+      "eligible_total_t": 10.47,
+      "saved_t": 3.14,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 39.55,
+      "evac": 53.35,
+      "orbital": null,
+      "surface": null,
+      "hot": 56.45
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
+    },
+    {
+     "id": 2840,
+     "seats": 6,
+     "wing": "telescoping",
+     "span": 15.257,
+     "fan": 8,
      "floats": 10,
      "water": 18,
      "rover": false,
-     "dry": 38.67,
-     "docked": 56.7,
-     "th": 45.1,
-     "hot": 24.8,
-     "xr": 1167,
-     "turn": 18.4,
-     "interior": 13.1,
-     "lim": "Bay fit radius (stowed hull only)"
+     "dry": 36.13,
+     "docked": 54.1,
+     "th": 47.0,
+     "hot": 21.4,
+     "xr": 1157,
+     "turn": 19.6,
+     "interior": 24.7,
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.3,
+      "eligible_t": {
+       "hull_structure": 8.18,
+       "wings": 2.03,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3
+      },
+      "eligible_total_t": 11.03,
+      "saved_t": 3.31,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 39.73,
+      "evac": 53.63,
+      "orbital": null,
+      "surface": null,
+      "hot": 56.83
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
+    },
+    {
+     "id": 3176,
+     "seats": 6,
+     "wing": "telescoping",
+     "span": 14.409,
+     "fan": 8,
+     "floats": 40,
+     "water": 18,
+     "rover": false,
+     "dry": 36.42,
+     "docked": 54.4,
+     "th": 47.1,
+     "hot": 21.8,
+     "xr": 1154,
+     "turn": 19.2,
+     "interior": 10.0,
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.3,
+      "eligible_t": {
+       "hull_structure": 7.66,
+       "wings": 2.09,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3
+      },
+      "eligible_total_t": 10.56,
+      "saved_t": 3.17,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 40.02,
+      "evac": 54.22,
+      "orbital": null,
+      "surface": null,
+      "hot": 57.42
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
+    },
+    {
+     "id": 55,
+     "seats": 6,
+     "wing": "telescoping",
+     "span": 14.091,
+     "fan": 6,
+     "floats": 0,
+     "water": 18,
+     "rover": false,
+     "dry": 36.45,
+     "docked": 54.5,
+     "th": 47.1,
+     "hot": 21.9,
+     "xr": 1172,
+     "turn": 19.1,
+     "interior": 26.4,
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.3,
+      "eligible_t": {
+       "hull_structure": 8.39,
+       "wings": 1.98,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3
+      },
+      "eligible_total_t": 11.18,
+      "saved_t": 3.35,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 40.05,
+      "evac": 54.25,
+      "orbital": null,
+      "surface": null,
+      "hot": 57.55
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
+    }
+   ],
+   "near": [
+    {
+     "id": 1758,
+     "seats": 6,
+     "docked": 53.1,
+     "dry": 35.08,
+     "ok": [
+      "earth",
+      "evac",
+      "orbital",
+      "surface",
+      "hot"
+     ],
+     "fails": {}
+    },
+    {
+     "id": 2643,
+     "seats": 6,
+     "docked": 53.1,
+     "dry": 35.09,
+     "ok": [
+      "earth",
+      "evac",
+      "orbital",
+      "surface",
+      "hot"
+     ],
+     "fails": {}
+    },
+    {
+     "id": 128,
+     "seats": 6,
+     "docked": 53.4,
+     "dry": 35.41,
+     "ok": [
+      "earth",
+      "evac",
+      "orbital",
+      "surface",
+      "hot"
+     ],
+     "fails": {}
+    },
+    {
+     "id": 2722,
+     "seats": 6,
+     "docked": 53.9,
+     "dry": 35.87,
+     "ok": [
+      "earth",
+      "evac",
+      "orbital",
+      "surface",
+      "hot"
+     ],
+     "fails": {}
+    },
+    {
+     "id": 1396,
+     "seats": 6,
+     "docked": 54.0,
+     "dry": 35.95,
+     "ok": [
+      "earth",
+      "evac",
+      "orbital",
+      "surface",
+      "hot"
+     ],
+     "fails": {}
+    },
+    {
+     "id": 2840,
+     "seats": 6,
+     "docked": 54.1,
+     "dry": 36.13,
+     "ok": [
+      "earth",
+      "evac",
+      "orbital",
+      "surface",
+      "hot"
+     ],
+     "fails": {}
+    }
+   ]
+  },
+  "osteon_optimistic": {
+   "n": 735,
+   "feasible": 735,
+   "missions": {
+    "earth": 523,
+    "evac": 144,
+    "orbital": 735,
+    "surface": 735,
+    "hot": 69
+   },
+   "all_five": 69,
+   "all_five_8": 3,
+   "best": [
+    {
+     "id": 2629,
+     "seats": 6,
+     "wing": "fold",
+     "span": 8.166,
+     "fan": 6,
+     "floats": 0,
+     "water": 18,
+     "rover": false,
+     "dry": 32.69,
+     "docked": 50.7,
+     "th": 47.8,
+     "hot": 17.6,
+     "xr": 1198,
+     "turn": 15.1,
+     "interior": 15.0,
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.38,
+      "eligible_t": {
+       "hull_structure": 8.12,
+       "wings": 0.89,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3,
+       "cabin_wall": 1.09
+      },
+      "eligible_total_t": 10.9,
+      "saved_t": 4.14,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 47.89,
+      "evac": 47.69,
+      "orbital": null,
+      "surface": null,
+      "hot": 50.19
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
+    },
+    {
+     "id": 2941,
+     "seats": 6,
+     "wing": "fold",
+     "span": 9.0,
+     "fan": 6,
+     "floats": 20,
+     "water": 18,
+     "rover": false,
+     "dry": 32.96,
+     "docked": 51.0,
+     "th": 47.8,
+     "hot": 17.8,
+     "xr": 1204,
+     "turn": 16.1,
+     "interior": 9.0,
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.38,
+      "eligible_t": {
+       "hull_structure": 7.51,
+       "wings": 0.95,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3,
+       "cabin_wall": 1.09
+      },
+      "eligible_total_t": 10.36,
+      "saved_t": 3.94,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 36.56,
+      "evac": 48.16,
+      "orbital": null,
+      "surface": null,
+      "hot": 50.76
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
+    },
+    {
+     "id": 2750,
+     "seats": 6,
+     "wing": "fold",
+     "span": 9.0,
+     "fan": 6,
+     "floats": 0,
+     "water": 18,
+     "rover": false,
+     "dry": 33.2,
+     "docked": 51.2,
+     "th": 47.3,
+     "hot": 18.1,
+     "xr": 1163,
+     "turn": 16.3,
+     "interior": 15.4,
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.38,
+      "eligible_t": {
+       "hull_structure": 8.15,
+       "wings": 0.9,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3,
+       "cabin_wall": 1.09
+      },
+      "eligible_total_t": 10.95,
+      "saved_t": 4.16,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 36.8,
+      "evac": 48.5,
+      "orbital": null,
+      "surface": null,
+      "hot": 51.1
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
+    },
+    {
+     "id": 2889,
+     "seats": 6,
+     "wing": "fold",
+     "span": 9.0,
+     "fan": 6,
+     "floats": 20,
+     "water": 18,
+     "rover": false,
+     "dry": 33.16,
+     "docked": 51.2,
+     "th": 47.7,
+     "hot": 18.0,
+     "xr": 1202,
+     "turn": 16.1,
+     "interior": 9.2,
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.38,
+      "eligible_t": {
+       "hull_structure": 7.6,
+       "wings": 1.02,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3,
+       "cabin_wall": 1.09
+      },
+      "eligible_total_t": 10.52,
+      "saved_t": 4.0,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 36.76,
+      "evac": 48.46,
+      "orbital": null,
+      "surface": null,
+      "hot": 51.06
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
+    },
+    {
+     "id": 942,
+     "seats": 6,
+     "wing": "fold",
+     "span": 9.0,
+     "fan": 6,
+     "floats": 0,
+     "water": 18,
+     "rover": false,
+     "dry": 33.61,
+     "docked": 51.6,
+     "th": 46.8,
+     "hot": 18.5,
+     "xr": 1162,
+     "turn": 16.4,
+     "interior": 18.0,
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.38,
+      "eligible_t": {
+       "hull_structure": 8.2,
+       "wings": 1.14,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3,
+       "cabin_wall": 1.09
+      },
+      "eligible_total_t": 11.24,
+      "saved_t": 4.27,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 37.21,
+      "evac": 49.21,
+      "orbital": null,
+      "surface": null,
+      "hot": 51.91
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
+    },
+    {
+     "id": 2761,
+     "seats": 6,
+     "wing": "telescoping",
+     "span": 10.158,
+     "fan": 6,
+     "floats": 20,
+     "water": 18,
+     "rover": false,
+     "dry": 33.6,
+     "docked": 51.6,
+     "th": 46.9,
+     "hot": 18.5,
+     "xr": 1204,
+     "turn": 17.1,
+     "interior": 8.0,
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.38,
+      "eligible_t": {
+       "hull_structure": 7.47,
+       "wings": 1.46,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3,
+       "cabin_wall": 1.09
+      },
+      "eligible_total_t": 10.83,
+      "saved_t": 4.11,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 37.2,
+      "evac": 49.2,
+      "orbital": null,
+      "surface": null,
+      "hot": 51.9
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
+    },
+    {
+     "id": 2412,
+     "seats": 6,
+     "wing": "fold",
+     "span": 8.403,
+     "fan": 6,
+     "floats": 0,
+     "water": 18,
+     "rover": false,
+     "dry": 33.66,
+     "docked": 51.7,
+     "th": 47.7,
+     "hot": 18.6,
+     "xr": 1173,
+     "turn": 15.3,
+     "interior": 21.5,
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.38,
+      "eligible_t": {
+       "hull_structure": 8.42,
+       "wings": 0.95,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3,
+       "cabin_wall": 1.09
+      },
+      "eligible_total_t": 11.26,
+      "saved_t": 4.28,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 37.26,
+      "evac": 49.26,
+      "orbital": null,
+      "surface": null,
+      "hot": 51.96
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
+    },
+    {
+     "id": 3104,
+     "seats": 6,
+     "wing": "fold",
+     "span": 8.598,
+     "fan": 6,
+     "floats": 0,
+     "water": 18,
+     "rover": false,
+     "dry": 33.72,
+     "docked": 51.7,
+     "th": 47.3,
+     "hot": 18.6,
+     "xr": 1199,
+     "turn": 15.7,
+     "interior": 23.4,
+     "lim": "Bay fit radius (stowed hull only)",
+     "osteon": {
+      "saving": 0.38,
+      "eligible_t": {
+       "hull_structure": 8.37,
+       "wings": 1.04,
+       "gear_door": 0.51,
+       "crash_mounts": 0.3,
+       "cabin_wall": 1.09
+      },
+      "eligible_total_t": 11.3,
+      "saved_t": 4.29,
+      "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+     },
+     "td": {
+      "earth": 37.32,
+      "evac": 49.42,
+      "orbital": null,
+      "surface": null,
+      "hot": 52.12
+     },
+     "fails": {
+      "earth": [],
+      "evac": [],
+      "orbital": [],
+      "surface": [],
+      "hot": []
+     }
+    }
+   ],
+   "near": [
+    {
+     "id": 2629,
+     "seats": 6,
+     "docked": 50.7,
+     "dry": 32.69,
+     "ok": [
+      "earth",
+      "evac",
+      "orbital",
+      "surface",
+      "hot"
+     ],
+     "fails": {}
+    },
+    {
+     "id": 2941,
+     "seats": 6,
+     "docked": 51.0,
+     "dry": 32.96,
+     "ok": [
+      "earth",
+      "evac",
+      "orbital",
+      "surface",
+      "hot"
+     ],
+     "fails": {}
+    },
+    {
+     "id": 2750,
+     "seats": 6,
+     "docked": 51.2,
+     "dry": 33.2,
+     "ok": [
+      "earth",
+      "evac",
+      "orbital",
+      "surface",
+      "hot"
+     ],
+     "fails": {}
+    },
+    {
+     "id": 2889,
+     "seats": 6,
+     "docked": 51.2,
+     "dry": 33.16,
+     "ok": [
+      "earth",
+      "evac",
+      "orbital",
+      "surface",
+      "hot"
+     ],
+     "fails": {}
+    },
+    {
+     "id": 942,
+     "seats": 6,
+     "docked": 51.6,
+     "dry": 33.61,
+     "ok": [
+      "earth",
+      "evac",
+      "orbital",
+      "surface",
+      "hot"
+     ],
+     "fails": {}
+    },
+    {
+     "id": 2761,
+     "seats": 6,
+     "docked": 51.6,
+     "dry": 33.6,
+     "ok": [
+      "earth",
+      "evac",
+      "orbital",
+      "surface",
+      "hot"
+     ],
+     "fails": {}
     }
    ]
   }

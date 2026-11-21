@@ -53,7 +53,8 @@ def keys(p):
     s = np.clip(K[:, 4] / 2.13, 0, 1)         # local size for scaling growth
     K[:, 1] += p['ridge'] * s; K[:, 3] += p['shoulder_z'] * s; K[:, 2] += p['shoulder_y'] * s
     K[:, 5] += p['chine_z'] * s; K[:, 6] = np.minimum(K[:, 6] * p['belly_w'], K[:, 4] - 0.05)
-    K[-1, 1:] *= p['base']; K[-1, 0] = L
+    Lp = p.get('length', L); K[5, 0] += Lp - L          # stretch the parallel body (bay-length study)
+    K[-1, 1:] *= p['base']; K[-1, 0] = Lp
     return K
 def section(K, x, keel):
     r = np.array([np.interp(x, K[:, 0], K[:, i]) for i in range(1, 8)]); rz, sy, sz, cy, cz, by, bz = r
@@ -61,10 +62,10 @@ def section(K, x, keel):
     return np.array([(0, rz), (sy, sz), (cy, cz), (by, bz), (0, kz), (-by, bz), (-cy, cz), (-sy, sz)])
 STATIONS = [0.6, 2.4, 4.6, 5.45, 6.3, 9.0, 11.7, 12.8]
 def loft(p):
-    K = keys(p); st = sorted(set([0.6] + list(K[1:4, 0]) + [6.3, 9.0, 11.7, 12.8]))
+    K = keys(p); st = sorted(set([0.6] + list(K[1:4, 0]) + [6.3, (6.3 + K[5, 0]) / 2, K[5, 0], K[-1, 0]]))
     V, F, base_ids = [], [], []; rings = []
     for x in st: rings.append(len(V)); V += [(x, y, z) for y, z in section(K, x, p['keel'])]
-    nose = len(V); V.append((0.0, 0.0, K[0, 5])); tail = len(V); V.append((L, 0.0, K[-1, 5]))
+    nose = len(V); V.append((0.0, 0.0, K[0, 5])); tail = len(V); V.append((K[-1, 0], 0.0, K[-1, 5]))
     for k in range(len(st) - 1):
         a0, b0 = rings[k], rings[k + 1]
         for i in range(8):
@@ -86,15 +87,25 @@ def inset(S, d):
 
 # ------------------------------------------------------------------ thresholds (evidence class in brackets)
 CABIN_M3_PER_COUCH = 3.5   # kT 2026-11-21: courier hops under a day (long legs: long-haul cabin kit) [assumption]
-DESAL_T, DESAL_M3, DESAL_MJ_PER_KG = 0.4, 0.5, 2.26   # desalination unit; distillation energy, no heat recovery [assumption]
+DESAL_T, DESAL_M3, DESAL_MJ_PER_KG, DESAL_MAX_TPH = 0.4, 0.5, 2.26, 40.0   # desalination unit; distillation energy, no heat recovery [assumption]
 # Tech wildcards (kT 2026-11-21: 'willing to add a builder tech wildcard'). ONE per design. NON-CANON until kT/canon process.
 WILDCARDS = {
  'none': {},
- 'osteon_airframe': dict(struct=0.70, note='Builder-derived Osteon (OST-22) structure: Wayfarer mass_basis says Osteon longerons/fittings save 0.8-1.4 t of 3.7 t (22-38%); 30% applied to airframe items [assumption from repo basis]'),
+ 'osteon_cautious': dict(osteon=0.22, osteon_set='core', note='Osteon (OST-22) at the low end of the Wayfarer evidence (22%) on eligible primary structure only'),
+ 'osteon_airframe': dict(osteon=0.30, osteon_set='core', note='Osteon (OST-22) central case (30%) on eligible primary structure only'),
+ 'osteon_optimistic': dict(osteon=0.38, osteon_set='wide', note='Osteon (OST-22) high end (38%) on eligible primary structure plus the cabin pressure wall'),
  'dense_power': dict(power_density=2.0, power_size=1.5, note='reactor + motors + electronics at 2x specific power, fans sized 1.5x: human 2226 stretch, NOT Builder-grounded [assumption]'),
  'high_lift': dict(cl_cap=6.0, cl_slope=3.9, note='circulation-control / morphing high-lift credited (CL cap 6): human 2226 stretch (A-6 CCW lineage), NOT Builder-grounded [assumption]'),
 }
-STRUCT_ITEMS = ('hull_structure', 'wings', 'floats', 'gear_door', 'crash_mounts')
+# Osteon eligibility: fraction of each mass item that is primary load-bearing structure of the kind the Wayfarer
+# evidence covers (beams, longerons, end fittings, doublers). ESTABLISHED: Wayfarer mass_basis, 13 longeron/end-fitting/
+# bay-corner items, 3.7 t conventional, Osteon would save 0.8-1.4 t (22-38%), NOT assumed in Wayfarer's own mass.
+# PROPOSED (shuttle application, ASSUMPTION): the fractions below.
+OSTEON_ELIGIBLE = {
+ 'core': {'hull_structure': 0.6, 'wings': 0.6, 'gear_door': 0.5, 'crash_mounts': 1.0},
+ 'wide': {'hull_structure': 0.6, 'wings': 0.6, 'gear_door': 0.5, 'crash_mounts': 1.0, 'cabin_wall': 1.0},
+}
+OSTEON_NOT_ELIGIBLE = 'entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)'
 THRESH = {
  'land_light_ms': (40.0, 'kT landing rule 2026-11-21: light landings in 2 m waves at 30-36, US-2 class [threshold]'),
  'land_heavy_ms': (50.0, 'kT landing rule 2026-11-21: heavy ~50 m/s in ~1 m waves [threshold]'),
@@ -116,6 +127,20 @@ def input_hash(p):
     import hashlib
     return hashlib.sha1(json.dumps(p, sort_keys=True).encode()).hexdigest()[:12]
 
+# ------------------------------------------------------------------ thrust-checked propellant
+def water_chk(dry, pay, legs, P_GW=7.7, ve_max=50e3, ve_min=10e3, reserve=1.0, n=200):
+    """step2 burn model (fixed jet power, highest exhaust speed that gives the demanded acceleration), run backwards,
+    but a leg whose demanded acceleration needs ve below the torch's 10 km/s floor is flagged THRUST-SHORT instead of
+    silently flown at the floor. Returns (water_t, [indexes of thrust-short legs])."""
+    P = P_GW * 1e9; m = dry + pay + reserve; short = []
+    for i in range(len(legs) - 1, -1, -1):
+        dv, a_g, g = legs[i]
+        for _ in range(n):
+            ve_need = 2 * P / (m * 1e3 * a_g * g)
+            if ve_need < ve_min and i not in short: short.append(i)
+            ve = max(ve_min, min(ve_max, ve_need)); m *= math.exp(dv / n / ve)
+    return round(m - dry - pay, 1), sorted(short)
+
 # ------------------------------------------------------------------ models
 def fan_model(p, m_land):
     A = p['fan_m2']
@@ -130,15 +155,15 @@ def fan_model(p, m_land):
     return dict(MWe=round(MW, 1), mass_t=round(mass, 2), static_kN=round(static(MW)))
 
 def evaluate(p, full_entry=True):
-    V, F, K, base_ids, st = loft(p); T = V[F]
+    V, F, K, base_ids, st = loft(p); T = V[F]; Lp = float(K[-1, 0])
     r = dict(params=p, feasible=True, fails=[])
     # bay fit
-    pts = np.vstack([section(K, x, p['keel']) for x in np.linspace(0, L, 41)])
+    pts = np.vstack([section(K, x, p['keel']) for x in np.linspace(0, Lp, 41)])
     zs = np.linspace(pts[:, 1].min(), pts[:, 1].max(), 121); rr = [np.hypot(pts[:, 0], pts[:, 1] - z).max() for z in zs]
     r['fit_r_m'] = round(min(rr), 3)
     if min(rr) > R_ENV: r['fails'].append('bay fit')
     # volumes
-    xs = np.linspace(0.05, L, 160)
+    xs = np.linspace(0.05, Lp, 160)
     Vh = float(np.trapezoid([poly_area(section(K, x, p['keel'])) for x in xs], xs))
     Vin = float(np.trapezoid([poly_area(inset(section(K, x, p['keel']), 0.12)) for x in xs], xs))
     plan = float(np.trapezoid([2 * section(K, x, p['keel'])[2][0] for x in xs], xs))
@@ -157,7 +182,13 @@ def evaluate(p, full_entry=True):
              custody=B4S['custody_capsule_dry_t'], avionics=B4S['avionics_controls_yaw_t'], gear_door=B4S['landing_gear_door_ramp_t'],
              crash_mounts=0.3, floats=0.03 * p['floats_m3'], desal=(DESAL_T if p.get('desal') else 0.0))
     WC = WILDCARDS.get(p.get('wildcard', 'none'), {})
-    for k in STRUCT_ITEMS: m[k] = m[k] * WC.get('struct', 1.0)
+    m['cabin_wall'] = B4S['cabin_wall_heat_tolerant_t'] * (p['seats'] / 6) ** (2 / 3); m['cabin'] -= m['cabin_wall']
+    r['osteon'] = None
+    if 'osteon' in WC:
+        elig = {k: m[k] * f for k, f in OSTEON_ELIGIBLE[WC['osteon_set']].items()}
+        for k, e in elig.items(): m[k] -= e * WC['osteon']
+        r['osteon'] = dict(saving=WC['osteon'], eligible_t={k: round(v, 2) for k, v in elig.items()}, eligible_total_t=round(sum(elig.values()), 2),
+                           saved_t=round(sum(elig.values()) * WC['osteon'], 2), not_eligible=OSTEON_NOT_ELIGIBLE)
     pay = 0.1 * p['seats'] + 2.0
     dry0 = sum(m.values()); fans = fan_model(p, dry0 + 6 + pay + 18)
     m['fans_reactor'] = fans['mass_t']; dry = sum(m.values())
@@ -169,10 +200,10 @@ def evaluate(p, full_entry=True):
     if Vin < need: r['fails'].append('interior')
     # propellant
     earth = S2.MISSIONS['R1 Earth: sea to orbit, 6 pax + 2 t']['legs']
-    w_e = S2.water(dry, pay, earth)[0]; r['earth_water_t'] = w_e; r['earth_margin_t'] = round(p['water_t'] - w_e, 1)
+    w_e, sh_e = water_chk(dry, pay, earth); r['earth_water_t'] = w_e; r['earth_thrust_short'] = sh_e; r['earth_margin_t'] = round(p['water_t'] - w_e, 1)
     if w_e > p['water_t']: r['fails'].append('Earth water')
     hard = [(200, .1, 1), (300, 1.3, 9.81), (3000, 2.5, 9.81), (6400, .8, 9.81), (400, .1, 1)]
-    r['hot_egress_water_t'] = S2.water(dry, pay, hard)[0]
+    r['hot_egress_water_t'], r['hot_thrust_short'] = water_chk(dry, pay, hard)
     r['venus_water_t'] = S2.water(dry + 15.2, 0.3, S2.MISSIONS['R2 Venus: kit, 3 crew, ascent 10.5 km/s from rotor handover']['legs'])[0]
     vac_dry = dry - m['wings'] - m['floats'] - m['fans_reactor'] - 0.5 * m['entry_tps'] + 1.5   # vacuum kit: legs + H2/O2
     r['moon_water_t'] = S2.water(vac_dry, pay, S2.MISSIONS['R5 Moon']['legs'])[0]
@@ -196,21 +227,29 @@ def evaluate(p, full_entry=True):
     def vtd(mm): return math.sqrt(2 * max(mm * 1e3 * 9.81 - fans['static_kN'] * 1e3, 1.0) / (1.225 * S * clmax))
     r['touchdown_heavy_ms'] = round(vtd(m_heavy), 1); r['touchdown_light_ms'] = round(vtd(dry + pay + 2.0), 1)
     # Earth seawater refill (kT 2026-11-21): land light, distil the climb water with the fan reactor
-    r['refill_h'] = round(w_e * 1e3 * DESAL_MJ_PER_KG / max(fans['MWe'], 1e-6) / 3600, 2) if (p.get('desal') and fans['MWe'] > 0) else None
+    r['land'] = dict(S=round(float(S), 2), clmax=round(float(clmax), 3), static_kN=float(fans['static_kN']))
+    # refill: CONDITIONAL on the fan reactor at full power for distillation AND the unit's throughput cap (assumption)
+    if p.get('desal') and fans['MWe'] > 0:
+        rate_tph = min(fans['MWe'] * 3600 / DESAL_MJ_PER_KG / 1e3, DESAL_MAX_TPH)
+        r['refill_h'] = round(w_e / rate_tph, 2); r['refill_basis'] = f"{fans['MWe']} MWe to distillation at {DESAL_MJ_PER_KG} MJ/kg, cap {DESAL_MAX_TPH} t/h [assumption]"
+    else:
+        r['refill_h'] = None; r['refill_basis'] = 'no desalination unit or no fan reactor'
     W = m_heavy * 1e3 * 9.81; Vc = math.sqrt(8 * W / (0.5 * 1.225 * S * float(CL.max())))
     Vt = min(Vc, 272.0); nt = min(8.0, 0.5 * 1.225 * Vt ** 2 * S * float(CL.max()) / W)   # corner speed, capped at the ROM's Mach 0.8
     r['max_turn_dps'] = round(math.degrees(9.81 * math.sqrt(max(nt * nt - 1, 0)) / Vt), 1); r['corner_ms'] = round(Vt, 1)
     # capabilities (kits)
     tank = p['water_t']
     r['capabilities'] = {
-        'Earth sea-to-orbit (core)': w_e <= tank,
+        'Earth sea-to-orbit (core)': w_e <= tank and not sh_e,
         'Earth seawater refill': r['refill_h'] is not None,
-        'Hot egress to orbit (+sprint kit)': r['hot_egress_water_t'] <= tank + THRESH['sprint_t'][0],
+        'Hot egress to orbit (+sprint kit)': r['hot_egress_water_t'] <= tank + THRESH['sprint_t'][0] and not r['hot_thrust_short'],
         'Light water landing, 2 m waves': r['touchdown_light_ms'] <= THRESH['land_light_ms'][0],
         'Heavy water landing, ~1 m waves': r['touchdown_heavy_ms'] <= THRESH['land_heavy_ms'][0],
         'Titan hover (fans)': p['fan_m2'] > 0,
         'Venus hover + kit water': p['fan_m2'] > 0 and p.get('fan_venus', True) and r['venus_water_t'] <= tank + THRESH['venus_kit_water_t'][0],
         'Moon (vacuum kit)': r['moon_water_t'] <= tank, 'Mars': r['mars_water_t'] <= tank}
+    r['kit_status'] = {'sprint water': 'carried (assumed 5 t); fit and deploy NOT demonstrated', 'Venus kit': 'carried; fit and deploy demonstrated for B4-S only', 'vacuum kit': 'assumed; not designed', 'rover kit (when not in core)': 'carried from Wayfarer; fit demonstrated for B4-S well only'}
+    r['caveats'] = ['stowed wings, fans and floats not checked in the bay', 'bay opening and G8 exit clearance checked for B4-S only', 'float stability (W6) not checked', 'interior is a volume sum, not a layout', 'water-landing CL is an assumed blown-flap line']
     r['capability_count'] = int(sum(r['capabilities'].values()))
     # Wayfarer cost: docked dry + full water
     r['docked_t'] = round(dry + tank, 1)
@@ -235,9 +274,9 @@ def evaluate(p, full_entry=True):
     r['feasible'] = not r['fails']
     # small geometry for drawing
     r['draw'] = dict(section=[[round(a, 3), round(b, 3)] for a, b in section(K, 9.0, p['keel'])],
-                     top=[[round(x, 2), round(float(np.interp(x, K[:, 0], K[:, 1])), 3)] for x in np.linspace(0, L, 17)],
-                     keel=[[round(x, 2), round(float(section(K, x, p['keel'])[4][1]), 3)] for x in np.linspace(0, L, 17)],
-                     plan=[[round(x, 2), round(float(np.interp(x, K[:, 0], K[:, 4])), 3)] for x in np.linspace(0, L, 17)])
+                     top=[[round(x, 2), round(float(np.interp(x, K[:, 0], K[:, 1])), 3)] for x in np.linspace(0, Lp, 17)],
+                     keel=[[round(x, 2), round(float(section(K, x, p['keel'])[4][1]), 3)] for x in np.linspace(0, Lp, 17)],
+                     plan=[[round(x, 2), round(float(np.interp(x, K[:, 0], K[:, 4])), 3)] for x in np.linspace(0, Lp, 17)])
     return r
 
 _V0, _F0, _K0, _b0, _ = loft(dict(B5, ridge=0, shoulder_z=0, shoulder_y=0, keel=0)); _n0, _A0 = AT.geom(_V0[_F0])

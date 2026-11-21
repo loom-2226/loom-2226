@@ -1,0 +1,93 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "econ_dv_full_kms": 707.85,
+ "basis": "CANON II v2.5 \u00a713-14; geometry record v0.5; read-only",
+ "options": {
+  "A 12.8 m (today)": {
+   "bore_x": [
+    18.25,
+    32.05
+   ],
+   "shuttle_max_m": 12.8,
+   "remass_removed_t": 0.0,
+   "structure_t": 0.0,
+   "moves": "none",
+   "conflicts": [],
+   "notes": "bay bore x 18.25-32.05 sits between the relational plant blocks (fore r<2 ends x 17, aft starts x 32.3)",
+   "econ_dv_kms": 707.8,
+   "econ_dv_lost_kms": 0.0,
+   "econ_dv_lost_pct": 0.0
+  },
+  "B 14.3 m": {
+   "bore_x": [
+    17.0,
+    32.3
+   ],
+   "shuttle_max_m": 14.3,
+   "remass_removed_t": 0.0,
+   "structure_t": 0.94,
+   "moves": "electrical_fwd (23.3 t), house battery, house reactor B, C-lite (~59.6 m3) from x 17-18 into the fore annulus x 14-17 (geometry record shows 87.2 m3 free there); crew-transfer tunnel_1 rerouted",
+   "conflicts": [
+    "G3 trim: ~26 t moved ~1.5 m forward shifts the ship CG ~3 cm; worst trim today 0.356 deg of 0.5 deg (re-check)",
+    "canon launch-bay reservation is \"approximately x 16-28 m\"; already exceeded today; not frozen"
+   ],
+   "notes": "no remass change; bay liner and doors 2.05 m longer",
+   "econ_dv_kms": 707.8,
+   "econ_dv_lost_kms": 0.0,
+   "econ_dv_lost_pct": 0.0
+  },
+  "C 16.8 m": {
+   "bore_x": [
+    14.5,
+    32.3
+   ],
+   "shuttle_max_m": 16.8,
+   "remass_removed_t": 36.4,
+   "structure_t": 3.09,
+   "moves": "relational plant fore block (37.8 t, r<2, x 14-17) moved off the axis; x 17-18 band as in B; slot cut through x 14.5-17 removes ~22.8 m3 of the fore annulus; ~100.8 m3 to rehouse, ~64.4 m3 free -> ~36.4 m3 into the remass annulus",
+   "conflicts": [
+    "relational plant layout (kt relational_plant_layout_2026_11_16) and node topology change -> Loom commit configuration and certification redone (CANON II \u00a712.1)",
+    "normal remass 245.39 t is CANON (CCR-2026-0004): any reduction needs a canon change request",
+    "plant block in a C-annulus is asymmetric (slot side): CG, inertia and field geometry unknown",
+    "docking collar and crew-transfer tunnels in x 14-17 rerouted"
+   ],
+   "notes": "displaced remass is lost capacity; it is not a dry-mass saving",
+   "econ_dv_kms": 612.8,
+   "econ_dv_lost_kms": 95.0,
+   "econ_dv_lost_pct": 13.4
+  },
+  "D 18 m": {
+   "bore_x": [
+    13.3,
+    32.3
+   ],
+   "shuttle_max_m": 18.0,
+   "remass_removed_t": null,
+   "structure_t": null,
+   "moves": "bore would have to start at x 13.3 (habitat aft bulkhead x 13.4-13.7, L5 rooms x 11.1-13.4) or end past x 32.3 (torch manifold 55 t + relational plant aft block x 32.3-34.3, ~94% occupied)",
+   "conflicts": [
+    "habitat L5 / aft bulkhead or torch manifold / aft plant block: redesigning the ship, not trading remass"
+   ],
+   "notes": "STOP: conflicts with Wayfarer invariants"
+  },
+  "W wider bore r 2.7 m": {
+   "bore_x": [
+    18.25,
+    32.05
+   ],
+   "shuttle_max_m": 12.8,
+   "shuttle_radius_m": 2.45,
+   "remass_removed_t": 42.0,
+   "structure_t": null,
+   "moves": "tank inner wall moved out 0.3 m over x 18-31.5: 42.0 m3 of tank volume lost",
+   "conflicts": [
+    "the four canonical D-He3 CSlot fuel lobes (CANON II \u00a713.3) share the tank annulus: re-packing them is a canon change",
+    "normal remass 245.39 t is CANON (CCR-2026-0004)"
+   ],
+   "notes": "width is expensive: every 0.1 m of bore radius costs ~14 t of remass",
+   "econ_dv_kms": 597.9,
+   "econ_dv_lost_kms": 109.9,
+   "econ_dv_lost_pct": 15.5
+  }
+ }
+}

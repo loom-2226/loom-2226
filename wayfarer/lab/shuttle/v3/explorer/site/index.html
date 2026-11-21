@@ -110,8 +110,8 @@ const $=s=>document.querySelector(s);
 const LABEL={dry_t:"Dry mass, t",docked_t:"On Wayfarer: dry + full tank, t",hull_m3:"Hull volume, m³",inner_m3:"Usable inside, m³",crossrange_km:"Reach from orbit (crossrange), km",glide_LD:"Glide L/D",touchdown_heavy_ms:"Heavy water touchdown, m/s",touchdown_light_ms:"Light water touchdown, m/s",earth_water_t:"Earth trip water required, t",earth_margin_t:"Earth water left (carried − required), t",hot_egress_water_t:"Hot-egress water required, t",venus_water_t:"Venus water required (with kit), t",max_turn_dps:"Max turn at 8 g, °/s",capability_count:"Capabilities (of 8)",interior_margin_m3:"Interior headroom, m³",fit_r_m:"Stowed hull radius, m",hyper_LD:"Re-entry L/D (max)",peak_heat_Wcm2:"Peak heating, W/cm²",buoyancy_total_m3:"Hull + floats, m³",buoyancy_need_m3:"Buoyancy needed, m³",refill_h:"Seawater refill time, h"};
 const LOWER=new Set(["refill_h","dry_t","docked_t","touchdown_heavy_ms","touchdown_light_ms","earth_water_t","hot_egress_water_t","venus_water_t","peak_heat_Wcm2","fit_r_m"]);
 const CLSNAME={geometry:"geometry / accounting",model:"model prediction",coef:"assumed coefficient",threshold:"threshold"};
-const PLABEL={wing:"Wing",span:"Span, m",chord:"Chord, m",fan_m2:"Fan area, m²",floats_m3:"Floats, m³",water_t:"Water tank, t",seats:"Couches (incl. crew)",rover:"Rover in core",fan_venus:"Fans sized for Venus",desal:"Desalination unit",ridge:"Roof growth, m",shoulder_z:"Shoulder up, m",shoulder_y:"Shoulder out, m",keel:"Keel V, m",chine_z:"Widest point height, m",belly_w:"Belly width ×",nose:"Nose length ×",base:"Base size ×"};
-const CONT=new Set(["span","chord","ridge","shoulder_z","shoulder_y","keel","chine_z","belly_w","nose","base"]);
+const PLABEL={wing:"Wing",span:"Span, m",chord:"Chord, m",fan_m2:"Fan area, m²",floats_m3:"Floats, m³",water_t:"Water tank, t",seats:"Couches (incl. crew)",rover:"Rover in core",fan_venus:"Fans sized for Venus",desal:"Desalination unit",wildcard:"Tech wildcard (non-canon)",length:"Hull length, m (bay study)",ridge:"Roof growth, m",shoulder_z:"Shoulder up, m",shoulder_y:"Shoulder out, m",keel:"Keel V, m",chine_z:"Widest point height, m",belly_w:"Belly width ×",nose:"Nose length ×",base:"Base size ×"};
+const CONT=new Set(["length","span","chord","ridge","shoulder_z","shoulder_y","keel","chine_z","belly_w","nose","base"]);
 let D,M,PI_,ref,byId=new Map(),sel=null,arch=null,pins=[],variants=[],need=new Set(),shown=[],sc=null,mkey="earth",assume=null,missionLive={},PY=null,nv=0;
 fetch("data.json").then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}).then(d=>{D=d;init()}).catch(e=>{const el=$("#err");el.style.display="block";el.textContent="The design data (data.json) could not be loaded: "+e.message+". Reload the page; if it persists, the artifact is missing its data file."});
 const v=(r,k)=>r.m[M[k]], P=(r,k)=>r.p[PI_[k]];
@@ -212,6 +212,8 @@ function sheet(r){
   <h3>Gates: actual vs limit</h3>${marginRows(r.gt,N(r.lim))}
   <h3>Capabilities: actual vs threshold</h3>${marginRows(r.cm,null)}
   <details><summary>Mass, t${r.fan!=null?` (fans + reactor ${r.fan} MW)`:""}</summary><table>${mass}</table></details>
+  ${r.os?`<details><summary>Osteon basis: ${r.os.saved_t} t saved on ${r.os.eligible_total_t} t eligible (${Math.round(r.os.saving*100)}%)</summary><table>${Object.entries(r.os.eligible_t).map(([k,t])=>`<tr><td>${k.replace(/_/g," ")} (eligible share)</td><td>${t}</td></tr>`).join("")}</table><p class="note">Not eligible: ${r.os.not_eligible}. Evidence: Wayfarer mass records give Osteon 22–38% savings on longerons, end fittings and bay-corner doublers; the shuttle shares are assumptions.</p></details>`:""}
+  ${(r.cv||D.caveats||[]).length?`<details><summary>Not checked for this design</summary><p class="note">${(r.cv||D.caveats).join("; ")}. Kits: ${Object.entries(r.ks||D.kit_status||{}).map(([k,s])=>k+": "+s).join("; ")}.</p></details>`:""}
   <details><summary>Design record (reproduce with engine.evaluate)</summary><pre>${record(r)}</pre></details>`;
   $("#editBtn").onclick=()=>editor(r);$("#pinBtn").onclick=()=>{togglePin(r);sheet(r)};
   $("#copyBtn").onclick=async()=>{try{await navigator.clipboard.writeText(record(r));$("#status").textContent="Design record copied."}catch(e){$("#status").textContent="Copy was blocked here; the record is in the panel below."}};
@@ -281,6 +283,7 @@ function missions(){
   let t=`<div class="scroll"><table><thead><tr><th></th>${C.map(r=>`<th>${nameOf(r)}${pins.includes(r)?" (pinned)":r===ref?"":" (selected)"}</th>`).join("")}</tr></thead><tbody>`;
   t+=line("Mission result",r=>{const m=mres(r);return m?(m.ok?`<span class="yes">passes</span>`:`<span class="no">fails</span>`):"not computed: edit and recalculate"});
   t+=line("Couches · crew · passengers",r=>{const m=mres(r);return m?`${m.pe[0]} · ${m.pe[1]} · ${m.pe[2]}`:P(r,"seats")});
+  t+=line("Touchdown mass for this mission, t",r=>{const m=mres(r);return m&&m.tm!=null?m.tm:"–"});
   t+=line("Water required / carried, t",r=>{const m=mres(r);return m?`${m.wr} / ${m.wc}`:"–"});
   t+=line("Water left, t",r=>{const m=mres(r);return m?(m.wc-m.wr).toFixed(1):"–"});
   for(const n of names)t+=line(n,r=>{const m=mres(r);const c=m&&m.ch.find(c=>N(c[0])===n);if(!c)return "–";return `<span class="${c[5]?"yes":"no"}">${c[1]}</span> <span class="note">${c[3]} ${c[2]} ${c[4]}</span>`});
@@ -288,6 +291,7 @@ function missions(){
   t+=line("Heavy / light touchdown, m/s",r=>`${v(r,"touchdown_heavy_ms")} / ${v(r,"touchdown_light_ms")}`);
   t+=line("Reach from orbit, km",r=>v(r,"crossrange_km"));t+=line("Glide L/D",r=>v(r,"glide_LD"));t+=line("Max turn, °/s",r=>v(r,"max_turn_dps"));
   t+=line("Bay fit headroom (hull only), m",r=>(2.15-v(r,"fit_r_m")).toFixed(2));t+=line("Interior headroom, m³",r=>v(r,"interior_margin_m3"));
+  t+=line("Kits used (status)",r=>{const m=mres(r);return m&&m.kt&&m.kt.length?`<span class="note">${m.kt.join("; ")}</span>`:"none"});
   t+=line("Binds first",r=>r.lim!=null?N(r.lim):"–");t+=`</tbody></table></div>`;
   $("#missionCard").innerHTML=`<h2>Mission comparison</h2><p class="why">B5 against up to two pinned designs (pin from the design sheet; your edits pin themselves). The selected design is added if it isn't pinned.</p>
   <div class="btns" id="mBtns">${opts}</div>${C.map(sentence).join("")}${t}
@@ -299,9 +303,9 @@ async function recheck(){
   const st=$("#mstatus");readAssume();
   try{const py=await loadPy(st);st.textContent="Re-checking with your assumptions…";await new Promise(r=>setTimeout(r,30));
     const mj=JSON.parse(JSON.stringify(D.missions));mj.profiles[mkey]=assume[mkey];py.globals.set("mj",JSON.stringify(mj));
-    for(const r of cols()){const rm={dry_t:v(r,"dry_t"),params:Object.fromEntries(D.params.map((k,i)=>[k,r.p[i]])),touchdown_heavy_ms:v(r,"touchdown_heavy_ms"),touchdown_light_ms:v(r,"touchdown_light_ms"),refill_h:v(r,"refill_h"),crossrange_km:v(r,"crossrange_km"),max_turn_dps:v(r,"max_turn_dps")};
+    for(const r of cols()){const rm={dry_t:v(r,"dry_t"),params:Object.fromEntries(D.params.map((k,i)=>[k,r.p[i]])),land:r.ld||null,touchdown_heavy_ms:v(r,"touchdown_heavy_ms"),touchdown_light_ms:v(r,"touchdown_light_ms"),refill_h:v(r,"refill_h"),crossrange_km:v(r,"crossrange_km"),max_turn_dps:v(r,"max_turn_dps")};
       py.globals.set("rj",JSON.stringify(rm));
-      missionLive[r.i]=JSON.parse(py.runPython(`M=json.loads(mj); m=missions.evaluate(json.loads(rj), M['profiles']['${mkey}'], M); json.dumps(dict(ok=int(m['ok']),wr=m['water_required_t'],wc=m['water_carried_t'],pe=[m['people']['couches'],m['people']['crew'],m['people']['passengers']],ch=[[c['name'],c['value'],c['limit'],c['sense'],c['unit'],int(c['ok'])] for c in m['checks']]), default=ENC)`))}
+      missionLive[r.i]=JSON.parse(py.runPython(`M=json.loads(mj); m=missions.evaluate(json.loads(rj), M['profiles']['${mkey}'], M); json.dumps(dict(ok=int(m['ok']),wr=m['water_required_t'],wc=m['water_carried_t'],pe=[m['people']['couches'],m['people']['crew'],m['people']['passengers']],tm=m.get('touchdown_mass_t'),kt=m.get('kits'),ch=[[c['name'],c['value'],c['limit'],c['sense'],c['unit'],int(c['ok'])] for c in m['checks']]), default=ENC)`))}
     missions();$("#mstatus").textContent="Re-checked the shown designs with your assumptions. The plot's colour-by-mission still uses the file defaults.";
   }catch(e){st.textContent="Could not re-check: "+e.message}}
 </script>
