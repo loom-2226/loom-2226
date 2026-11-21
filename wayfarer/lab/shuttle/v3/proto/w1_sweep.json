@@ -1,0 +1,2713 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "lane": "PROTOTYPE (non-canon)",
+ "model_version": "71015f89df61",
+ "rows": [
+  {
+   "base": "B5",
+   "wildcard": "programmable",
+   "span": 14.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": false,
+   "dry": 43.52,
+   "docked": 61.5,
+   "glide": 5.35,
+   "xr": 1168,
+   "turn": 17.2,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 51.0,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "programmable",
+   "span": 14.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 47.0,
+   "docked": 65.0,
+   "glide": 5.38,
+   "xr": 1192,
+   "turn": 16.8,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 51.7,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "programmable",
+   "span": 14.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 44.01,
+   "docked": 67.1,
+   "glide": 5.35,
+   "xr": 1168,
+   "turn": 17.1,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 51.5,
+   "fails": {
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "programmable",
+   "span": 14.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 47.49,
+   "docked": 70.6,
+   "glide": 5.38,
+   "xr": 1192,
+   "turn": 16.7,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 52.1,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i",
+     "Water touchdown at mission m"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "programmable",
+   "span": 17.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": false,
+   "dry": 45.02,
+   "docked": 63.0,
+   "glide": 5.89,
+   "xr": 1168,
+   "turn": 18.4,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 50.3,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "programmable",
+   "span": 17.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 48.51,
+   "docked": 66.5,
+   "glide": 5.94,
+   "xr": 1192,
+   "turn": 18.0,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 51.0,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "programmable",
+   "span": 17.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": false,
+   "dry": 45.51,
+   "docked": 68.6,
+   "glide": 5.89,
+   "xr": 1168,
+   "turn": 18.3,
+   "ok": [
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 50.7,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "programmable",
+   "span": 17.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 49.0,
+   "docked": 72.1,
+   "glide": 5.94,
+   "xr": 1192,
+   "turn": 17.9,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 51.4,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "programmable",
+   "span": 20.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": false,
+   "dry": 46.52,
+   "docked": 64.5,
+   "glide": 6.32,
+   "xr": 1168,
+   "turn": 19.3,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 49.6,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "programmable",
+   "span": 20.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 50.01,
+   "docked": 68.0,
+   "glide": 6.39,
+   "xr": 1192,
+   "turn": 18.9,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 50.2,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "programmable",
+   "span": 20.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": false,
+   "dry": 47.01,
+   "docked": 70.1,
+   "glide": 6.32,
+   "xr": 1168,
+   "turn": 19.2,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 50.0,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "programmable",
+   "span": 20.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 50.5,
+   "docked": 73.6,
+   "glide": 6.39,
+   "xr": 1192,
+   "turn": 18.8,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 50.6,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious",
+   "span": 14.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": false,
+   "dry": 40.16,
+   "docked": 58.2,
+   "glide": 5.35,
+   "xr": 1168,
+   "turn": 18.1,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 53.2,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water touchdown at mission m"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious",
+   "span": 14.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 43.37,
+   "docked": 61.4,
+   "glide": 5.38,
+   "xr": 1192,
+   "turn": 17.7,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 54.4,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i",
+     "Water touchdown at mission m"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious",
+   "span": 14.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 40.65,
+   "docked": 63.7,
+   "glide": 5.35,
+   "xr": 1168,
+   "turn": 18.0,
+   "ok": [
+    "earth",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 53.8,
+   "fails": {
+    "evac": [
+     "Water touchdown at mission m"
+    ],
+    "hot": [
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious",
+   "span": 14.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": true,
+   "dry": 43.86,
+   "docked": 67.0,
+   "glide": 5.38,
+   "xr": 1192,
+   "turn": 17.6,
+   "ok": [
+    "earth",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 54.9,
+   "fails": {
+    "evac": [
+     "Water touchdown at mission m"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious",
+   "span": 17.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": false,
+   "dry": 41.29,
+   "docked": 59.3,
+   "glide": 5.89,
+   "xr": 1168,
+   "turn": 19.5,
+   "ok": [
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 52.4,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious",
+   "span": 17.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 44.5,
+   "docked": 62.5,
+   "glide": 5.94,
+   "xr": 1192,
+   "turn": 19.1,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 53.4,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i",
+     "Water touchdown at mission m"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious",
+   "span": 17.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 41.78,
+   "docked": 64.9,
+   "glide": 5.89,
+   "xr": 1168,
+   "turn": 19.3,
+   "ok": [
+    "earth",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 52.9,
+   "fails": {
+    "evac": [
+     "Water touchdown at mission m"
+    ],
+    "hot": [
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious",
+   "span": 17.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 44.99,
+   "docked": 68.1,
+   "glide": 5.94,
+   "xr": 1192,
+   "turn": 18.9,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 53.9,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water touchdown at mission m"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious",
+   "span": 20.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": false,
+   "dry": 42.42,
+   "docked": 60.4,
+   "glide": 6.32,
+   "xr": 1168,
+   "turn": 20.5,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 51.6,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious",
+   "span": 20.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 45.63,
+   "docked": 63.6,
+   "glide": 6.39,
+   "xr": 1192,
+   "turn": 20.1,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 52.6,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i",
+     "Water touchdown at mission m"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious",
+   "span": 20.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 42.91,
+   "docked": 66.0,
+   "glide": 6.32,
+   "xr": 1168,
+   "turn": 20.4,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 52.0,
+   "fails": {
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious",
+   "span": 20.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 46.12,
+   "docked": 69.2,
+   "glide": 6.39,
+   "xr": 1192,
+   "turn": 20.0,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 53.0,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i",
+     "Water touchdown at mission m"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 14.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": false,
+   "dry": 40.73,
+   "docked": 58.7,
+   "glide": 5.35,
+   "xr": 1168,
+   "turn": 17.9,
+   "ok": [
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 48.5,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 14.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 43.94,
+   "docked": 61.9,
+   "glide": 5.38,
+   "xr": 1192,
+   "turn": 17.6,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 49.2,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 14.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 41.22,
+   "docked": 64.3,
+   "glide": 5.35,
+   "xr": 1168,
+   "turn": 17.8,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 48.8,
+   "fails": {
+    "hot": [
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 14.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": true,
+   "dry": 44.43,
+   "docked": 67.5,
+   "glide": 5.38,
+   "xr": 1192,
+   "turn": 17.5,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 49.6,
+   "fails": {
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 17.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": false,
+   "dry": 42.03,
+   "docked": 60.0,
+   "glide": 5.89,
+   "xr": 1168,
+   "turn": 19.2,
+   "ok": [
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 47.5,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 17.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 45.24,
+   "docked": 63.2,
+   "glide": 5.94,
+   "xr": 1192,
+   "turn": 18.9,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 48.4,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 17.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 42.52,
+   "docked": 65.6,
+   "glide": 5.89,
+   "xr": 1168,
+   "turn": 19.1,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 48.0,
+   "fails": {
+    "hot": [
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 17.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 45.73,
+   "docked": 68.8,
+   "glide": 5.94,
+   "xr": 1192,
+   "turn": 18.7,
+   "ok": [
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 48.8,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 20.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": false,
+   "dry": 43.33,
+   "docked": 61.3,
+   "glide": 6.32,
+   "xr": 1168,
+   "turn": 20.2,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 46.9,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 20.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 46.54,
+   "docked": 64.5,
+   "glide": 6.39,
+   "xr": 1192,
+   "turn": 19.9,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 47.7,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 20.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 43.82,
+   "docked": 66.9,
+   "glide": 6.32,
+   "xr": 1168,
+   "turn": 20.1,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 47.4,
+   "fails": {
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 20.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 47.03,
+   "docked": 70.1,
+   "glide": 6.39,
+   "xr": 1192,
+   "turn": 19.7,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 48.1,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 14.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 39.7,
+   "docked": 57.7,
+   "glide": 5.35,
+   "xr": 1168,
+   "turn": 18.2,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 47.7,
+   "fails": {
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 14.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 42.82,
+   "docked": 60.8,
+   "glide": 5.38,
+   "xr": 1192,
+   "turn": 17.9,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 48.2,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 14.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 40.19,
+   "docked": 63.3,
+   "glide": 5.35,
+   "xr": 1168,
+   "turn": 18.1,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 48.0,
+   "fails": {
+    "hot": [
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 14.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": true,
+   "dry": 43.31,
+   "docked": 66.4,
+   "glide": 5.38,
+   "xr": 1192,
+   "turn": 17.8,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 48.6,
+   "fails": {
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 17.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": false,
+   "dry": 40.94,
+   "docked": 58.9,
+   "glide": 5.89,
+   "xr": 1168,
+   "turn": 19.6,
+   "ok": [
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 46.5,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 17.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 44.05,
+   "docked": 62.0,
+   "glide": 5.94,
+   "xr": 1192,
+   "turn": 19.2,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 47.5,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 17.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 41.43,
+   "docked": 64.5,
+   "glide": 5.89,
+   "xr": 1168,
+   "turn": 19.4,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 47.0,
+   "fails": {
+    "hot": [
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 17.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": true,
+   "dry": 44.55,
+   "docked": 67.6,
+   "glide": 5.94,
+   "xr": 1192,
+   "turn": 19.1,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 47.9,
+   "fails": {
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 20.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": false,
+   "dry": 42.17,
+   "docked": 60.2,
+   "glide": 6.32,
+   "xr": 1168,
+   "turn": 20.6,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 45.9,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 20.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 45.28,
+   "docked": 63.3,
+   "glide": 6.39,
+   "xr": 1192,
+   "turn": 20.2,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 46.8,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 20.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 42.66,
+   "docked": 65.8,
+   "glide": 6.32,
+   "xr": 1168,
+   "turn": 20.5,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 46.3,
+   "fails": {
+    "hot": [
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "B5",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 20.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 45.77,
+   "docked": 68.9,
+   "glide": 6.39,
+   "xr": 1192,
+   "turn": 20.1,
+   "ok": [
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 47.2,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "programmable",
+   "span": 14.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 39.63,
+   "docked": 57.6,
+   "glide": 6.4,
+   "xr": 1161,
+   "turn": 18.2,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 47.9,
+   "fails": {
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "programmable",
+   "span": 14.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 42.95,
+   "docked": 60.9,
+   "glide": 6.41,
+   "xr": 1187,
+   "turn": 17.8,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 48.6,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "programmable",
+   "span": 14.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 40.12,
+   "docked": 63.2,
+   "glide": 6.4,
+   "xr": 1161,
+   "turn": 18.0,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 48.3,
+   "fails": {
+    "hot": [
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "programmable",
+   "span": 14.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": true,
+   "dry": 43.44,
+   "docked": 66.5,
+   "glide": 6.41,
+   "xr": 1187,
+   "turn": 17.6,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 49.1,
+   "fails": {
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "programmable",
+   "span": 17.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": false,
+   "dry": 41.13,
+   "docked": 59.1,
+   "glide": 7.02,
+   "xr": 1161,
+   "turn": 19.4,
+   "ok": [
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 47.0,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "programmable",
+   "span": 17.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 44.45,
+   "docked": 62.4,
+   "glide": 7.05,
+   "xr": 1187,
+   "turn": 19.0,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 48.1,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "programmable",
+   "span": 17.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 41.62,
+   "docked": 64.7,
+   "glide": 7.02,
+   "xr": 1161,
+   "turn": 19.3,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 47.5,
+   "fails": {
+    "hot": [
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "programmable",
+   "span": 17.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": true,
+   "dry": 44.94,
+   "docked": 68.0,
+   "glide": 7.05,
+   "xr": 1187,
+   "turn": 18.9,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 48.5,
+   "fails": {
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "programmable",
+   "span": 20.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": false,
+   "dry": 42.63,
+   "docked": 60.6,
+   "glide": 7.51,
+   "xr": 1161,
+   "turn": 20.4,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 46.6,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "programmable",
+   "span": 20.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 45.95,
+   "docked": 63.9,
+   "glide": 7.55,
+   "xr": 1187,
+   "turn": 20.0,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 47.6,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "programmable",
+   "span": 20.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 43.12,
+   "docked": 66.2,
+   "glide": 7.51,
+   "xr": 1161,
+   "turn": 20.2,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 47.1,
+   "fails": {
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "programmable",
+   "span": 20.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 46.44,
+   "docked": 69.5,
+   "glide": 7.55,
+   "xr": 1187,
+   "turn": 19.8,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 48.0,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious",
+   "span": 14.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 36.51,
+   "docked": 54.5,
+   "glide": 6.4,
+   "xr": 1161,
+   "turn": 19.1,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface",
+    "hot"
+   ],
+   "hot_td": 49.1,
+   "fails": {}
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious",
+   "span": 14.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": true,
+   "dry": 39.58,
+   "docked": 57.6,
+   "glide": 6.41,
+   "xr": 1187,
+   "turn": 18.7,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 50.6,
+   "fails": {
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious",
+   "span": 14.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 37.0,
+   "docked": 60.1,
+   "glide": 6.4,
+   "xr": 1161,
+   "turn": 19.0,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface",
+    "hot"
+   ],
+   "hot_td": 49.7,
+   "fails": {}
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious",
+   "span": 14.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": true,
+   "dry": 40.07,
+   "docked": 63.2,
+   "glide": 6.41,
+   "xr": 1187,
+   "turn": 18.6,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 51.2,
+   "fails": {
+    "hot": [
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious",
+   "span": 17.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 37.64,
+   "docked": 55.6,
+   "glide": 7.02,
+   "xr": 1161,
+   "turn": 20.5,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface",
+    "hot"
+   ],
+   "hot_td": 48.4,
+   "fails": {}
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious",
+   "span": 17.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 40.71,
+   "docked": 58.7,
+   "glide": 7.05,
+   "xr": 1187,
+   "turn": 20.1,
+   "ok": [
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 50.0,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious",
+   "span": 17.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 38.13,
+   "docked": 61.2,
+   "glide": 7.02,
+   "xr": 1161,
+   "turn": 20.3,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface",
+    "hot"
+   ],
+   "hot_td": 49.0,
+   "fails": {}
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious",
+   "span": 17.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": true,
+   "dry": 41.2,
+   "docked": 64.3,
+   "glide": 7.05,
+   "xr": 1187,
+   "turn": 20.0,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 50.5,
+   "fails": {
+    "hot": [
+     "Torch thrust meets every leg",
+     "Water touchdown at mission m"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious",
+   "span": 20.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 38.77,
+   "docked": 56.8,
+   "glide": 7.51,
+   "xr": 1161,
+   "turn": 21.6,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface",
+    "hot"
+   ],
+   "hot_td": 47.9,
+   "fails": {}
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious",
+   "span": 20.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 41.84,
+   "docked": 59.8,
+   "glide": 7.55,
+   "xr": 1187,
+   "turn": 21.2,
+   "ok": [
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 49.4,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious",
+   "span": 20.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 39.26,
+   "docked": 62.4,
+   "glide": 7.51,
+   "xr": 1161,
+   "turn": 21.5,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface",
+    "hot"
+   ],
+   "hot_td": 48.4,
+   "fails": {}
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious",
+   "span": 20.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": true,
+   "dry": 42.33,
+   "docked": 65.4,
+   "glide": 7.55,
+   "xr": 1187,
+   "turn": 21.1,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 49.9,
+   "fails": {
+    "hot": [
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 14.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 37.08,
+   "docked": 55.1,
+   "glide": 6.4,
+   "xr": 1161,
+   "turn": 18.9,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface",
+    "hot"
+   ],
+   "hot_td": 45.9,
+   "fails": {}
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 14.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 40.14,
+   "docked": 58.1,
+   "glide": 6.41,
+   "xr": 1187,
+   "turn": 18.6,
+   "ok": [
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 46.4,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 14.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 37.56,
+   "docked": 60.7,
+   "glide": 6.4,
+   "xr": 1161,
+   "turn": 18.8,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface",
+    "hot"
+   ],
+   "hot_td": 46.2,
+   "fails": {}
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 14.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": true,
+   "dry": 40.63,
+   "docked": 63.7,
+   "glide": 6.41,
+   "xr": 1187,
+   "turn": 18.4,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 46.7,
+   "fails": {
+    "hot": [
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 17.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 38.38,
+   "docked": 56.4,
+   "glide": 7.02,
+   "xr": 1161,
+   "turn": 20.3,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface",
+    "hot"
+   ],
+   "hot_td": 44.3,
+   "fails": {}
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 17.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 41.44,
+   "docked": 59.4,
+   "glide": 7.05,
+   "xr": 1187,
+   "turn": 19.9,
+   "ok": [
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 45.4,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 17.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 38.87,
+   "docked": 62.0,
+   "glide": 7.02,
+   "xr": 1161,
+   "turn": 20.1,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface",
+    "hot"
+   ],
+   "hot_td": 44.6,
+   "fails": {}
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 17.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": true,
+   "dry": 41.93,
+   "docked": 65.0,
+   "glide": 7.05,
+   "xr": 1187,
+   "turn": 19.7,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 45.8,
+   "fails": {
+    "hot": [
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 20.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 39.68,
+   "docked": 57.7,
+   "glide": 7.51,
+   "xr": 1161,
+   "turn": 21.3,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 43.8,
+   "fails": {
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 20.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 42.75,
+   "docked": 60.7,
+   "glide": 7.55,
+   "xr": 1187,
+   "turn": 20.9,
+   "ok": [
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 45.0,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "evac": [
+     "Water required vs carried (i"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 20.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 40.17,
+   "docked": 63.3,
+   "glide": 7.51,
+   "xr": 1161,
+   "turn": 21.2,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 44.3,
+   "fails": {
+    "hot": [
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_cautious+programmable",
+   "span": 20.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": true,
+   "dry": 43.24,
+   "docked": 66.3,
+   "glide": 7.55,
+   "xr": 1187,
+   "turn": 20.8,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 45.4,
+   "fails": {
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 14.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 36.15,
+   "docked": 54.1,
+   "glide": 6.4,
+   "xr": 1161,
+   "turn": 19.2,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface",
+    "hot"
+   ],
+   "hot_td": 45.0,
+   "fails": {}
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 14.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": true,
+   "dry": 39.12,
+   "docked": 57.1,
+   "glide": 6.41,
+   "xr": 1187,
+   "turn": 18.9,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 45.6,
+   "fails": {
+    "hot": [
+     "Water required vs carried (i"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 14.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 36.64,
+   "docked": 59.7,
+   "glide": 6.4,
+   "xr": 1161,
+   "turn": 19.1,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface",
+    "hot"
+   ],
+   "hot_td": 45.5,
+   "fails": {}
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 14.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": true,
+   "dry": 39.61,
+   "docked": 62.7,
+   "glide": 6.41,
+   "xr": 1187,
+   "turn": 18.7,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 46.0,
+   "fails": {
+    "hot": [
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 17.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 37.37,
+   "docked": 55.4,
+   "glide": 7.02,
+   "xr": 1161,
+   "turn": 20.6,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface",
+    "hot"
+   ],
+   "hot_td": 43.4,
+   "fails": {}
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 17.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 40.36,
+   "docked": 58.4,
+   "glide": 7.05,
+   "xr": 1187,
+   "turn": 20.2,
+   "ok": [
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 44.4,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 17.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 37.86,
+   "docked": 61.0,
+   "glide": 7.02,
+   "xr": 1161,
+   "turn": 20.4,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface",
+    "hot"
+   ],
+   "hot_td": 43.8,
+   "fails": {}
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 17.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": true,
+   "dry": 40.85,
+   "docked": 63.9,
+   "glide": 7.05,
+   "xr": 1187,
+   "turn": 20.1,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 44.8,
+   "fails": {
+    "hot": [
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 20.0,
+   "water": 18.0,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 38.61,
+   "docked": 56.6,
+   "glide": 7.51,
+   "xr": 1161,
+   "turn": 21.7,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface",
+    "hot"
+   ],
+   "hot_td": 42.7,
+   "fails": {}
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 20.0,
+   "water": 18.0,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": false,
+   "dry": 41.59,
+   "docked": 59.6,
+   "glide": 7.55,
+   "xr": 1187,
+   "turn": 21.3,
+   "ok": [
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 43.9,
+   "fails": {
+    "earth": [
+     "Water required vs carried"
+    ],
+    "hot": [
+     "Water required vs carried (i",
+     "Torch thrust meets every leg"
+    ]
+   }
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 20.0,
+   "water": 23.1,
+   "length": 12.8,
+   "seats": 6,
+   "feasible": true,
+   "dry": 39.1,
+   "docked": 62.2,
+   "glide": 7.51,
+   "xr": 1161,
+   "turn": 21.5,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface",
+    "hot"
+   ],
+   "hot_td": 43.2,
+   "fails": {}
+  },
+  {
+   "base": "#2643",
+   "wildcard": "osteon_airframe+programmable",
+   "span": 20.0,
+   "water": 23.1,
+   "length": 14.3,
+   "seats": 8,
+   "feasible": true,
+   "dry": 42.08,
+   "docked": 65.2,
+   "glide": 7.55,
+   "xr": 1187,
+   "turn": 21.1,
+   "ok": [
+    "earth",
+    "evac",
+    "orbital",
+    "surface"
+   ],
+   "hot_td": 44.4,
+   "fails": {
+    "hot": [
+     "Torch thrust meets every leg"
+    ]
+   }
+  }
+ ]
+}

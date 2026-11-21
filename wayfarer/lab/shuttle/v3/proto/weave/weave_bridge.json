@@ -1,0 +1,33 @@
+{
+ "doc": "Bridge test (SOL review of 4b0afba): can the shuttle move because SPACETIME moves (crew inertial), while a relational mode carries the\nbalancing momentum and centre of mass? NON-CANON physics. ALL bodies. ALL sponsors. 2026-2226.\n\nGeometry (DERIVED part): unit lapse, flat slices, shift beta = v(t) f(x - X_d(t)). For slow matter the proper-time action gives\n    L_i = 1/2 m_i (xdot_i - beta)^2 - U_springs  ->  d/dt[m_i w_i] = -m_i w_i d_x beta + F_spring,i ,   w_i = xdot_i - beta.\nMatter starting with w=0 inside a uniform plateau stays at w=0: every part of the ship moves with beta and NO internal force arises.\nExchange (ASSUMED part, the M1 hypothesis): the domain wall passes the payload's momentum change to a relational mode of inertia mu.\nComparison case: the same trajectory produced by an ordinary force on the hull (the 4b0afba toy's situation).",
+ "case": {
+  "D_m": 200.0,
+  "T_s": 3.0,
+  "peak_speed_ms": 125.0,
+  "peak_accel_ms2": 128.3,
+  "domain_R_m": 10.0
+ },
+ "geometric": {
+  "final_hull_X_m": 199.977,
+  "final_speed_ms": 0.0015894646756563797,
+  "max_felt_crew_g": 0.01066766021674773,
+  "max_felt_cargo_g": 0.03347266918495353,
+  "internal_strain_m": 1.475370936532272e-10
+ },
+ "contact": {
+  "final_hull_X_m": 200.0,
+  "max_felt_crew_g": 13.1,
+  "max_felt_cargo_g": 13.1
+ },
+ "exchange": {
+  "relational_mode_residual_m": -2.043314103596284e-18,
+  "centre_of_mass_shift_total_kgm": -0.001421729102730751,
+  "peak_payload_momentum_Ns": 7624187.955947582
+ },
+ "verdicts": {
+  "crew inertial while the domain moves the ship 200 m": "DERIVED (geodesic transport in the shift metric; felt g = 0 to numerical precision)",
+  "same trajectory by ordinary force": "crew feels ~13 g (seat spring) - the 4b0afba situation",
+  "momentum and centre of mass closed by the relational mode": "holds IF the wall passes the payload momentum to the mode (ASSUMED M1 exchange)",
+  "what remains": "a field model showing the wall stress-energy actually transmits momentum to the relational sector (the only assumed link)"
+ }
+}

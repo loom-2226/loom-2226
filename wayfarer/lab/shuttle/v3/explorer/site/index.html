@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shuttle Design Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Drafting-room instrument: steel neutrals, one signal orange; margins in good/thin/fail colours. Layout: plot + design sheet, then a full-width mission comparison. */
+  --bg:#f3f4f2; --panel:#ffffff; --ink:#1d2328; --muted:#5d6872; --line:#d5dad9; --accent:#d9611b; --steel:#3b6e8f; --good:#2f8a4e; --thin:#b9861a; --bad:#b8392f; --water:#2f6e9c;
+  --display:"IBM Plex Sans Condensed","Arial Narrow",sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14181b;--panel:#1c2125;--ink:#e6e9ea;--muted:#9aa5ad;--line:#2f373d;--accent:#f07a35;--steel:#77a9c9;--good:#5cbf7d;--thin:#e0b04a;--bad:#e8695f;--water:#5d9fd0;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14181b;--panel:#1c2125;--ink:#e6e9ea;--muted:#9aa5ad;--line:#2f373d;--accent:#f07a35;--steel:#77a9c9;--good:#5cbf7d;--thin:#e0b04a;--bad:#e8695f;--water:#5d9fd0;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 var(--body)}
+header{padding:18px 20px 8px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline}
+h1{font:600 26px/1.1 var(--display);margin:0;text-wrap:balance}
+h2{font:600 20px var(--display);margin:0 0 2px}
+h3{font:600 14px var(--display);margin:14px 0 4px;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+.sub{color:var(--muted);font-size:13px}
+.stats{display:flex;flex-wrap:wrap;gap:16px;font-variant-numeric:tabular-nums;font-size:13px;color:var(--muted)}
+.stats b{color:var(--ink);font:600 18px var(--display)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:4px 20px 10px}
+button{font:500 13px var(--body);border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:5px 11px;cursor:pointer}
+button:hover,button:focus-visible{border-color:var(--accent);outline:none}
+button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;border-radius:8px}
+button.sq{border-radius:8px}
+main{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(330px,1fr);gap:14px;padding:0 20px 14px}
+@media (max-width:900px){main{grid-template-columns:1fr}}
+.wide{padding:0 20px 14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;min-width:0}
+.controls{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:13px;margin-bottom:8px}
+.controls label{display:flex;gap:5px;align-items:center;color:var(--muted)}
+select,input[type=number]{font:13px var(--body);background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:3px 6px;max-width:100%}
+input[type=number]{width:96px;font-variant-numeric:tabular-nums}
+canvas{width:100%;height:auto;display:block;touch-action:manipulation;cursor:crosshair}
+details{font-size:13px;margin-top:8px} summary{cursor:pointer;color:var(--muted)}
+.capgrid{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:6px}
+.why{color:var(--muted);font-size:13px;margin:0 0 6px}
+.note{font-size:12px;color:var(--muted)}
+.warn{font-size:13px;color:var(--bad);margin:4px 0}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 8px}
+.tag{font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.tag.ok{border-color:var(--good);color:var(--good)} .tag.no{text-decoration:line-through;opacity:.7}
+.tag.fail{border-color:var(--bad);color:var(--bad)}
+svg{width:100%;height:auto;display:block}
+table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+td,th{padding:4px 6px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}
+td:first-child,th:first-child{text-align:left}
+th{color:var(--muted);font-weight:500}
+.scroll{overflow-x:auto}
+.mg{display:grid;grid-template-columns:minmax(120px,1.6fr) 58px 70px 62px minmax(70px,1fr);gap:4px 8px;align-items:center;font-size:12.5px;font-variant-numeric:tabular-nums;padding:4px 0;border-bottom:1px solid var(--line)}
+.mg .n{line-height:1.25} .mg .n small{display:block;color:var(--muted);font-size:11px}
+.mg .r{text-align:right}
+.mg.head{color:var(--muted);font-size:11.5px}
+.mg.lim .n{font-weight:600}
+@media (max-width:520px){.mg{grid-template-columns:1fr 54px 64px 56px}.mg>span:last-child{grid-column:1/-1}}
+.track{height:7px;background:var(--line);border-radius:4px;position:relative;overflow:hidden;margin-top:3px}
+.fill{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
+.cls{font-size:10.5px;padding:0 6px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.good{color:var(--good)} .thin{color:var(--thin)} .bad{color:var(--bad)}
+.form{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px 10px;font-size:12.5px;margin:6px 0}
+.form label{display:flex;flex-direction:column;gap:2px;color:var(--muted)}
+.btns{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.status{font-size:13px;color:var(--accent);min-height:1.4em}
+.cands{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.legend{font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.sw{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:-1px}
+.sent{margin:6px 0;font-size:14px;max-width:80ch}
+.yes{color:var(--good);font-weight:600} .no{color:var(--bad);font-weight:600}
+pre{font:11.5px var(--mono);white-space:pre-wrap;word-break:break-word;color:var(--muted);background:var(--bg);padding:8px;border-radius:6px;margin:6px 0}
+footer{padding:0 20px 24px;color:var(--muted);font-size:12px;max-width:900px}
+#err{display:none;margin:20px;padding:14px;border:1px solid var(--bad);border-radius:8px;color:var(--bad)}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>Shuttle Design Explorer</h1><div class="sub">Wayfarer shuttle v3 concepts inside the bay, scored with the v3 models. Non-canon. kT decides.</div></div>
+  <div class="stats" id="stats"></div>
+</header>
+<div id="err"></div>
+<div class="chips" id="arch"></div>
+<main>
+  <section class="card" aria-label="Design population">
+    <div class="controls">
+      <label for="xs">X <select id="xs"></select></label>
+      <label for="ys">Y <select id="ys"></select></label>
+      <label for="cs">Colour <select id="cs"><option value="lim">first constraint to bind</option><option value="seats">couches</option><option value="wing">wing</option><option value="rover">rover</option><option value="mis">passes chosen mission</option></select></label>
+      <label for="fe"><input type="checkbox" id="fe" checked> passes all gates</label>
+      <label for="pa"><input type="checkbox" id="pa"> best trade-offs only</label>
+      <label for="se">Couches <select id="se"><option value="">any</option><option>4</option><option>6</option><option>8</option></select></label>
+    </div>
+    <canvas id="plot" width="900" height="620" aria-label="Scatter plot of shuttle designs"></canvas>
+    <div class="legend" id="legend"></div>
+    <div class="cands" id="cands"></div>
+    <details><summary>Must be able to…</summary><div class="capgrid" id="capf"></div></details>
+    <details><summary>What "best trade-offs" means</summary><p class="note" id="paretoNote"></p></details>
+  </section>
+  <section class="card" id="sheet" aria-label="Design sheet"></section>
+</main>
+<section class="wide"><div class="card" id="missionCard" aria-label="Mission comparison"></div></section>
+<footer id="foot"></footer>
+<script>
+const $=s=>document.querySelector(s);
+const LABEL={dry_t:"Dry mass, t",docked_t:"On Wayfarer: dry + full tank, t",hull_m3:"Hull volume, m³",inner_m3:"Usable inside, m³",crossrange_km:"Reach from orbit (crossrange), km",glide_LD:"Glide L/D",touchdown_heavy_ms:"Heavy water touchdown, m/s",touchdown_light_ms:"Light water touchdown, m/s",earth_water_t:"Earth trip water required, t",earth_margin_t:"Earth water left (carried − required), t",hot_egress_water_t:"Hot-egress water required, t",venus_water_t:"Venus water required (with kit), t",max_turn_dps:"Max turn at 8 g, °/s",capability_count:"Capabilities (of 8)",interior_margin_m3:"Interior headroom, m³",fit_r_m:"Stowed hull radius, m",hyper_LD:"Re-entry L/D (max)",peak_heat_Wcm2:"Peak heating, W/cm²",buoyancy_total_m3:"Hull + floats, m³",buoyancy_need_m3:"Buoyancy needed, m³",refill_h:"Seawater refill time, h"};
+const LOWER=new Set(["refill_h","dry_t","docked_t","touchdown_heavy_ms","touchdown_light_ms","earth_water_t","hot_egress_water_t","venus_water_t","peak_heat_Wcm2","fit_r_m"]);
+const CLSNAME={geometry:"geometry / accounting",model:"model prediction",coef:"assumed coefficient",threshold:"threshold"};
+const PLABEL={wing:"Wing",span:"Span, m",chord:"Chord, m",fan_m2:"Fan area, m²",floats_m3:"Floats, m³",water_t:"Water tank, t",seats:"Couches (incl. crew)",rover:"Rover in core",fan_venus:"Fans sized for Venus",desal:"Desalination unit",wildcard:"Tech wildcard (non-canon)",length:"Hull length, m (bay study)",ridge:"Roof growth, m",shoulder_z:"Shoulder up, m",shoulder_y:"Shoulder out, m",keel:"Keel V, m",chine_z:"Widest point height, m",belly_w:"Belly width ×",nose:"Nose length ×",base:"Base size ×"};
+const CONT=new Set(["length","span","chord","ridge","shoulder_z","shoulder_y","keel","chine_z","belly_w","nose","base"]);
+let D,M,PI_,ref,byId=new Map(),sel=null,arch=null,pins=[],variants=[],need=new Set(),shown=[],sc=null,mkey="earth",assume=null,missionLive={},PY=null,nv=0;
+fetch("data.json").then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}).then(d=>{D=d;init()}).catch(e=>{const el=$("#err");el.style.display="block";el.textContent="The design data (data.json) could not be loaded: "+e.message+". Reload the page; if it persists, the artifact is missing its data file."});
+const v=(r,k)=>r.m[M[k]], P=(r,k)=>r.p[PI_[k]];
+const N=x=>typeof x==="number"?D.names[x]:x;
+function init(){
+  M=Object.fromEntries(D.metrics.map((k,i)=>[k,i]));PI_=Object.fromEntries(D.params.map((k,i)=>[k,i]));
+  D.rows.forEach(r=>byId.set(r.i,r));ref=byId.get(0);
+  const nf=D.rows.filter(r=>r.f).length,np=D.rows.filter(r=>r.pa).length;
+  $("#stats").innerHTML=`<span><b>${D.rows.length}</b> designs</span><span><b>${nf}</b> pass every gate</span><span><b>${np}</b> best trade-offs</span><span>model <b style="font:12px var(--mono)">${D.model_version}</b></span>`;
+  for(const s of ["#xs","#ys"])for(const k of D.metrics){const o=document.createElement("option");o.value=k;o.textContent=LABEL[k]||k;$(s).appendChild(o)}
+  $("#xs").value="docked_t";$("#ys").value="crossrange_km";
+  D.caps.forEach((c,i)=>{const l=document.createElement("label");l.innerHTML=`<input type="checkbox" id="cap${i}"> ${c}`;$("#capf").appendChild(l);l.querySelector("input").onchange=e=>{e.target.checked?need.add(i):need.delete(i);draw()}});
+  D.archetypes.forEach(a=>{const b=document.createElement("button");b.textContent=a.name;b.onclick=()=>select(byId.get(a.id));b.dataset.id=a.id;$("#arch").appendChild(b)});
+  ["#xs","#ys","#cs","#fe","#pa","#se"].forEach(s=>$(s).onchange=draw);
+  $("#plot").addEventListener("click",pick);window.addEventListener("resize",()=>draw());
+  const ON={seats:"couches",interior_headroom:"interior headroom"};
+  $("#paretoNote").textContent="A design is a best trade-off if it passes every gate and no other passing design is at least as good on all of: "+D.pareto_objectives.map(([k,s])=>(s>0?"more ":"less ")+(ON[k]||LABEL[k]||k).toLowerCase()).join("; ")+". The capability count is not used. The label only means something relative to this objective set.";
+  $("#foot").innerHTML=`<p><b>Gates</b>: stowed hull radius ≤ 2.15 m (folded wings, fans, floats, the 3.8 m slot, the roll and the exit path are not yet checked); dry ≤ 52.5 t; Earth trip water required ≤ carried; interior allocation closes; hull + floats ≥ 1.5 × displaced and hull ≥ displaced (stability not checked).</p><p><b>Evidence classes</b>: geometry / accounting = computed directly; model prediction = from the rough physics models (Newtonian re-entry and 3-D entry run, low-speed lift, fixed-power torch, fan momentum theory); assumed coefficient = rests on a number we chose (mass scaling, blown-flap lift line, interior allocations); threshold = a pass/fail line from a kT rule or an assumption. Fit for comparing concepts, not for sign-off. Source: wayfarer/lab/shuttle/v3/explorer.</p>`;
+  assume=JSON.parse(JSON.stringify(D.missions.profiles));
+  select(ref);
+}
+function filtered(){const se=$("#se").value;return [...D.rows,...variants].filter(r=>(!$("#fe").checked||r.f)&&(!$("#pa").checked||r.pa)&&(!se||P(r,"seats")==+se)&&[...need].every(i=>r.c[i]))}
+const LIMC={"Bay fit radius (stowed hull only)":"#1f7a7a","Dry mass":"#8e5ea2","Earth trip water: required vs carried":"#2f6e9c","Interior: usable vs allocated":"#d9611b","Buoyancy: hull + floats vs 1.5 x displaced":"#2f8a4e","Buoyancy: hull alone vs displaced":"#9ab85a"};
+function mres(r){return missionLive[r.i]||(r.mi?r.mi[mkey]:null)}
+function color(r){const k=$("#cs").value;if(!r.f)return "#9aa3a8";
+  if(k==="lim")return LIMC[N(r.lim)]||"#555";
+  if(k==="seats")return {4:"#3b6e8f",6:"#d9611b",8:"#2f8a4e"}[P(r,"seats")];
+  if(k==="wing")return {none:"#7b8792",fold:"#3b6e8f",telescoping:"#d9611b"}[P(r,"wing")];
+  if(k==="mis"){const m=mres(r);return !m?"#9aa3a8":m.ok?"#2f8a4e":"#b8392f"}
+  return P(r,"rover")?"#d9611b":"#3b6e8f"}
+function legend(){const k=$("#cs").value;let h="";
+  if(k==="lim")h=Object.entries(LIMC).map(([n,c])=>`<span><span class="sw" style="background:${c}"></span>${{"Buoyancy: hull + floats vs 1.5 x displaced":"Buoyancy (hull + floats)","Buoyancy: hull alone vs displaced":"Buoyancy (hull alone)"}[n]||n.split(":")[0].replace(" (stowed hull only)","")}</span>`).join("");
+  if(k==="seats")h=[["4","#3b6e8f"],["6","#d9611b"],["8","#2f8a4e"]].map(([a,c])=>`<span><span class="sw" style="background:${c}"></span>${a} couches</span>`).join("");
+  if(k==="wing")h=[["none","#7b8792"],["fold","#3b6e8f"],["telescoping","#d9611b"]].map(([a,c])=>`<span><span class="sw" style="background:${c}"></span>${a}</span>`).join("");
+  if(k==="rover")h=`<span><span class="sw" style="background:#d9611b"></span>rover in core</span><span><span class="sw" style="background:#3b6e8f"></span>rover as a kit</span>`;
+  if(k==="mis")h=`<span><span class="sw" style="background:#2f8a4e"></span>passes “${assume[mkey].name}” (file assumptions)</span><span><span class="sw" style="background:#b8392f"></span>fails it</span>`;
+  $("#legend").innerHTML=h+`<span>grey = fails a gate · ★ B5 · ◆ your edits · ◯ archetype (dashed = hidden by filters) · orange ring = selected</span>`}
+function draw(){
+  if(!D)return;const cv=$("#plot"),g=cv.getContext("2d"),W=cv.width,H=cv.height,cs=getComputedStyle(document.documentElement);
+  const xk=$("#xs").value,yk=$("#ys").value;shown=filtered();legend();
+  const pool=(shown.length?shown:D.rows).filter(r=>v(r,xk)!=null&&v(r,yk)!=null);
+  const xs=pool.map(r=>v(r,xk)),ys=pool.map(r=>v(r,yk));
+  let x0=Math.min(...xs,v(ref,xk)),x1=Math.max(...xs,v(ref,xk)),y0=Math.min(...ys,v(ref,yk)),y1=Math.max(...ys,v(ref,yk));
+  const px=(x1-x0)*.06||1,py=(y1-y0)*.06||1;x0-=px;x1+=px;y0-=py;y1+=py;
+  const fs=Math.round(13*W/Math.max(cv.getBoundingClientRect().width,200));
+  const L=fs*4.6,R=16,T=14,B=fs*2.8;sc={X:x=>L+(x-x0)/(x1-x0)*(W-L-R),Y:y=>H-B-(y-y0)/(y1-y0)*(H-T-B),xk,yk};
+  g.clearRect(0,0,W,H);g.font=fs+"px "+cs.getPropertyValue("--body");g.strokeStyle=cs.getPropertyValue("--line");g.fillStyle=cs.getPropertyValue("--muted");g.lineWidth=1;
+  const nice=(a,b,n)=>{const s=Math.pow(10,Math.floor(Math.log10((b-a)/n)));const st=[1,2,5,10].map(m=>m*s).find(m=>(b-a)/m<=n);const out=[];for(let t=Math.ceil(a/st)*st;t<=b;t+=st)out.push(+t.toFixed(6));return out};
+  for(const t of nice(x0,x1,6)){const X=sc.X(t);g.beginPath();g.moveTo(X,T);g.lineTo(X,H-B);g.stroke();g.textAlign="center";g.fillText(t,X,H-B+fs*1.2)}
+  for(const t of nice(y0,y1,6)){const Y=sc.Y(t);g.beginPath();g.moveTo(L,Y);g.lineTo(W-R,Y);g.stroke();g.textAlign="right";g.fillText(t,L-8,Y+fs*.35)}
+  g.textAlign="center";g.fillStyle=cs.getPropertyValue("--ink");g.fillText(LABEL[xk],(L+W-R)/2,H-8);
+  g.save();g.translate(fs,(T+H-B)/2);g.rotate(-Math.PI/2);g.fillText(LABEL[yk],0,0);g.restore();
+  for(const r of pool){if(typeof r.i==="string")continue;g.fillStyle=color(r);g.globalAlpha=r.f?(r.pa?.95:.55):.45;g.beginPath();g.arc(sc.X(v(r,xk)),sc.Y(v(r,yk)),r.pa?5:3.5,0,7);g.fill()}
+  g.globalAlpha=1;const sh=new Set(shown);
+  for(const a of D.archetypes){const r=byId.get(a.id);if(!r)continue;g.strokeStyle=sh.has(r)?cs.getPropertyValue("--ink"):"#9aa3a8";g.setLineDash(sh.has(r)?[]:[3,3]);g.lineWidth=1.5;g.beginPath();g.arc(sc.X(v(r,xk)),sc.Y(v(r,yk)),8,0,7);g.stroke()}
+  g.setLineDash([]);
+  for(const r of variants){const X=sc.X(v(r,xk)),Y=sc.Y(v(r,yk));g.fillStyle=cs.getPropertyValue("--accent");g.beginPath();g.moveTo(X,Y-9);g.lineTo(X+9,Y);g.lineTo(X,Y+9);g.lineTo(X-9,Y);g.closePath();g.fill()}
+  star(g,sc.X(v(ref,xk)),sc.Y(v(ref,yk)),cs.getPropertyValue("--ink"));
+  if(sel){const hid=!sh.has(sel);g.strokeStyle=hid?"#9aa3a8":cs.getPropertyValue("--accent");g.setLineDash(hid?[4,4]:[]);g.lineWidth=3;g.beginPath();g.arc(sc.X(v(sel,xk)),sc.Y(v(sel,yk)),13,0,7);g.stroke();g.setLineDash([])}
+}
+function star(g,x,y,c){g.fillStyle=c;g.beginPath();for(let i=0;i<10;i++){const r=i%2?5:12,a=-Math.PI/2+i*Math.PI/5;g.lineTo(x+r*Math.cos(a),y+r*Math.sin(a))}g.closePath();g.fill()}
+function pick(e){const cv=$("#plot"),b=cv.getBoundingClientRect(),x=(e.clientX-b.left)*cv.width/b.width,y=(e.clientY-b.top)*cv.height/b.height,rad=18*cv.width/b.width;
+  const near=(shown.length?shown:D.rows).filter(r=>v(r,sc.xk)!=null&&v(r,sc.yk)!=null).map(r=>[r,Math.hypot(sc.X(v(r,sc.xk))-x,sc.Y(v(r,sc.yk))-y)]).filter(q=>q[1]<rad).sort((a,b)=>a[1]-b[1]).map(q=>q[0]);
+  const c=$("#cands");c.innerHTML="";
+  if(!near.length)return; if(near.length===1){select(near[0]);return}
+  c.innerHTML=`<span class="note">${near.length} designs overlap here; pick one:</span>`;
+  for(const r of near.slice(0,8)){const b=document.createElement("button");b.className="sq";b.textContent=`${typeof r.i==="string"?r.i:"#"+r.i} · ${P(r,"seats")} couches · ${v(r,"docked_t")} t · ${v(r,"crossrange_km")} km`;b.onclick=()=>select(r);c.appendChild(b)}}
+function nameOf(r){const a=D.archetypes.find(a=>a.id===r.i);return a?a.name:(typeof r.i==="string"?`Your edit ${r.i}`:`Design #${r.i}`)}
+function select(r){sel=r;arch=D.archetypes.find(a=>a.id===r.i)||null;document.querySelectorAll("#arch button").forEach(b=>b.classList.toggle("on",+b.dataset.id===r.i));draw();sheet(r);missions()}
+/* ---------- design sheet ---------- */
+function svgDraw(r){
+  const d=r.d||ref.d,s=10,span=P(r,"span"),ch=P(r,"chord"),wing=P(r,"wing"),fl=P(r,"floats_m3");
+  const side=d.top.map(([x,z])=>`${x*s},${-z*s}`).join(" ")+" "+d.keel.slice().reverse().map(([x,z])=>`${x*s},${-z*s}`).join(" ");
+  const plan=d.plan.map(([x,y])=>`${x*s},${-y*s}`).join(" ")+" "+d.plan.slice().reverse().map(([x,y])=>`${x*s},${y*s}`).join(" ");
+  let w="";if(wing!=="none"&&ch>0){const hx=span/2;for(const sg of [1,-1])w+=`<polygon points="${6.6*s},${-sg*2.0*s} ${(6.6+ch*1.4)*s},${-sg*2.0*s} ${(7.2+ch*1.4)*s},${-sg*hx*s} ${(7.2+ch*.5)*s},${-sg*hx*s}" fill="var(--steel)" opacity=".5"/>`}
+  let f="";if(fl>0){const rad=Math.sqrt(fl/2/Math.PI/8.4);for(const sg of [1,-1])f+=`<rect x="${3.6*s}" y="${(sg*2.55-rad)*s}" width="${8.4*s}" height="${2*rad*s}" rx="${rad*s}" fill="var(--accent)" opacity=".35"/>`}
+  const sec=d.section.map(([y,z])=>`${y*30},${-z*30}`).join(" "),half=Math.max(span/2,4.2),fit=v(r,"fit_r_m");
+  return `<svg style="max-height:210px" viewBox="-10 -${half*s+4} 150 ${2*half*s+8}" aria-label="Plan view, deployed"><polygon points="${plan}" fill="var(--line)" stroke="var(--ink)" stroke-width=".6"/>${w}${f}<text x="0" y="${-half*s+2}" font-size="5" fill="var(--muted)">plan, deployed · span ${(+span).toFixed(1)} m${fl?` · floats ${fl} m³`:""}</text></svg>
+  <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:8px;align-items:center">
+  <svg viewBox="-6 -26 146 44" aria-label="Side view"><polygon points="${side}" fill="var(--line)" stroke="var(--ink)" stroke-width=".6"/><line x1="0" x2="128" y1="0" y2="0" stroke="var(--muted)" stroke-dasharray="2 2" stroke-width=".4"/><text x="0" y="-20" font-size="6" fill="var(--muted)">side · 12.8 m</text></svg>
+  <svg viewBox="-80 -86 160 172" aria-label="Section in the bay"><circle r="${2.4*30}" fill="none" stroke="var(--muted)"/><circle r="${2.15*30}" fill="none" stroke="var(--muted)" stroke-dasharray="3 3"/><polygon points="${sec}" fill="var(--water)" opacity=".7" stroke="var(--ink)"/><text x="-78" y="-74" font-size="10" fill="var(--muted)">hull r ${fit} m (limit 2.15)</text><text x="-78" y="84" font-size="8.5" fill="var(--muted)">wing/fan/float stowage not checked</text></svg></div>`}
+function marginRows(list,limName){
+  if(!list)return `<p class="note">Margins are stored for designs that pass every gate and for the archetypes. Use "Edit a copy" and recalculate to see them for this one.</p>`;
+  return `<div class="mg head"><span>constraint</span><span class="r">value</span><span class="r">limit</span><span class="r">headroom</span><span>evidence</span></div>`+list.map(([n0,val,lim,sense,hd,rel,cls])=>{const n=N(n0);const src=(D.gate_sources||{})[n]||"";
+    const st=hd<0?"bad":rel<0.05?"thin":"good",w=Math.max(4,Math.min(100,Math.abs(rel)*200));
+    return `<div class="mg ${n===limName?"lim":""}"><span class="n">${n}${n===limName?" · binds first":""}<small>${src}</small></span><span class="r">${val}</span><span class="r">${sense} ${lim}</span><span class="r ${st}">${hd>0?"+":""}${hd}</span><span><span class="cls">${CLSNAME[cls]}</span><div class="track"><div class="fill" style="width:${w}%;background:var(--${st})"></div></div></span></div>`}).join("")+`<p class="note">Green = room to spare; amber = within 5% of the limit; red = over.</p>`}
+function record(r){return JSON.stringify({id:r.i,name:nameOf(r),based_on:r.base??null,model_version:r.mv,input_hash:r.ih,params:Object.fromEntries(D.params.map((k,i)=>[k,r.p[i]]))},null,1)}
+function sheet(r){
+  const hidden=!filtered().includes(r);
+  const why=arch?arch.why:(typeof r.i==="string"?`your edit of ${nameOf(byId.get(r.base))}; `:"")+(r.f?"passes every gate":"fails: "+r.x.join(", "));
+  const caps=D.caps.map((c,i)=>`<span class="tag ${r.c[i]?"ok":"no"}">${c}</span>`).join("");
+  const fails=r.x.map(x=>`<span class="tag fail">fails ${x}</span>`).join("");
+  const mass=r.ms?D.masskeys.map((k,i)=>[k,r.ms[i]]).filter(q=>q[1]>0).sort((a,b)=>b[1]-a[1]).map(([k,t])=>`<tr><td>${k.replace(/_/g," ")}</td><td>${t}</td></tr>`).join(""):"";
+  $("#sheet").innerHTML=`<h2>${nameOf(r)}</h2><p class="why">${why}</p>${hidden?`<p class="warn">Hidden by the current filters (dashed ring on the plot).</p>`:""}
+  ${svgDraw(r)}<div class="tags">${fails}${caps}</div>
+  <div class="btns"><button class="primary" id="editBtn">Edit a copy</button><button class="sq" id="pinBtn">${pins.includes(r)?"Unpin":"Pin for comparison"}</button><button class="sq" id="copyBtn">Copy design record</button></div>
+  <div id="editor"></div><div class="status" id="status"></div>
+  <h3>Gates: actual vs limit</h3>${marginRows(r.gt,N(r.lim))}
+  <h3>Capabilities: actual vs threshold</h3>${marginRows(r.cm,null)}
+  <details><summary>Mass, t${r.fan!=null?` (fans + reactor ${r.fan} MW)`:""}</summary><table>${mass}</table></details>
+  ${r.os?`<details><summary>Osteon basis: ${r.os.saved_t} t saved on ${r.os.eligible_total_t} t eligible (${Math.round(r.os.saving*100)}%)</summary><table>${Object.entries(r.os.eligible_t).map(([k,t])=>`<tr><td>${k.replace(/_/g," ")} (eligible share)</td><td>${t}</td></tr>`).join("")}</table><p class="note">Not eligible: ${r.os.not_eligible}. Evidence: Wayfarer mass records give Osteon 22–38% savings on longerons, end fittings and bay-corner doublers; the shuttle shares are assumptions.</p></details>`:""}
+  ${(r.cv||D.caveats||[]).length?`<details><summary>Not checked for this design</summary><p class="note">${(r.cv||D.caveats).join("; ")}. Kits: ${Object.entries(r.ks||D.kit_status||{}).map(([k,s])=>k+": "+s).join("; ")}.</p></details>`:""}
+  <details><summary>Design record (reproduce with engine.evaluate)</summary><pre>${record(r)}</pre></details>`;
+  $("#editBtn").onclick=()=>editor(r);$("#pinBtn").onclick=()=>{togglePin(r);sheet(r)};
+  $("#copyBtn").onclick=async()=>{try{await navigator.clipboard.writeText(record(r));$("#status").textContent="Design record copied."}catch(e){$("#status").textContent="Copy was blocked here; the record is in the panel below."}};
+}
+function togglePin(r){if(r===ref)return;const i=pins.indexOf(r);if(i>=0)pins.splice(i,1);else{pins.push(r);if(pins.length>2)pins.shift()}missions()}
+function editor(r){
+  let h=`<div class="form">`;
+  for(const k of D.params){const val=P(r,k),dom=D.space[k];h+=`<label for="e_${k}">${PLABEL[k]||k}`;
+    if(CONT.has(k))h+=`<input type="number" id="e_${k}" min="${dom[0]}" max="${dom[1]}" step="0.01" value="${val}">`;
+    else h+=`<select id="e_${k}">${dom.map(o=>`<option ${String(o)===String(val)?"selected":""}>${o}</option>`).join("")}</select>`;
+    h+=`</label>`}
+  h+=`</div><div class="btns"><button class="primary" id="runBtn">Recalculate with the v3 models</button></div><p class="note">Runs the same Python models (engine.py and its dependencies) in your browser. The first run loads them, about 10–20 s; later runs take a few seconds. Numbers are kept inside the explored range; lists are the explored options.</p>`;
+  $("#editor").innerHTML=h;$("#runBtn").onclick=()=>recompute(r);
+}
+function readEditor(){const o={};for(const k of D.params){let x=$("#e_"+k).value;const dom=D.space[k];
+  if(x==="true"||x==="false")x=(x==="true");else if(x!==""&&!isNaN(+x))x=+x;
+  if(CONT.has(k))x=Math.min(dom[1],Math.max(dom[0],+x));o[k]=x}
+  if(o.wing==="none"){o.span=4.26;o.chord=0}else if(o.chord===0)o.chord=1.6;if(o.wing==="fold")o.span=Math.min(o.span,9);return o}
+async function loadPy(st){
+  if(PY)return PY;
+  st.textContent="Loading the v3 models (first time only)…";await new Promise(r=>setTimeout(r,30));
+  await new Promise((ok,er)=>{const s=document.createElement("script");s.src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js";s.onload=ok;s.onerror=()=>er(new Error("the Python runtime could not load from cdn.jsdelivr.net"));document.head.appendChild(s)});
+  const py=await loadPyodide();await py.loadPackage("numpy");
+  const F={"lab/shuttle/shuttle_inputs.json":"py/shuttle_inputs.json.txt","lab/shuttle/v2_lifting_body/aero_test.py":"py/aero_test.py.txt","lab/shuttle/v2_lifting_body/build_v2b.py":"py/build_v2b.py.txt","lab/shuttle/v2_lifting_body/variants.py":"py/variants.py.txt","lab/shuttle/v2_lifting_body/b4s_mass.json":"py/b4s_mass.json.txt","lab/shuttle/v3/step2_propulsion.py":"py/step2_propulsion.py.txt","lab/shuttle/v3/explorer/engine.py":"py/engine.py.txt","lab/shuttle/v3/explorer/missions.py":"py/missions.py.txt","lab/shuttle/v3/explorer/missions.json":"py/missions.json.txt","lab/shuttle/v3/explorer/site_rows.py":"py/site_rows.py.txt"};
+  for(const [dst,src] of Object.entries(F)){const res=await fetch(src);if(!res.ok)throw new Error("missing model file "+src);const t=await res.text();py.FS.mkdirTree("/"+dst.split("/").slice(0,-1).join("/"));py.FS.writeFile("/"+dst,t)}
+  py.runPython("import sys, json, os\nos.chdir('/lab/shuttle/v3/explorer')\nsys.path.insert(0,'/lab/shuttle/v3/explorer')\nimport engine, missions, site_rows\nENC=lambda o: o.item() if hasattr(o,'item') else str(o)");
+  const mvPy=py.runPython("engine.MODEL_VERSION");
+  if(mvPy!==D.model_version)throw new Error(`browser model ${mvPy} does not match the population's ${D.model_version}`);
+  PY=py;return py}
+async function recompute(base){
+  const st=$("#status");
+  try{const py=await loadPy(st);const params=readEditor();st.textContent="Recalculating with the v3 models…";await new Promise(r=>setTimeout(r,30));
+    const t0=performance.now();py.globals.set("pj",JSON.stringify(params));
+    const out=py.runPython("r=engine.evaluate(json.loads(pj)); r['id']=-1; r['missions']={k: missions.evaluate(r,pr) for k,pr in missions.MJ['profiles'].items()}; json.dumps(site_rows.row(r), default=ENC)");
+    const row=JSON.parse(out);row.i="W"+(++nv);row.base=base.i;variants.push(row);byId.set(row.i,row);
+    if(!pins.includes(row)){pins.push(row);if(pins.length>2)pins.shift()}
+    select(row);$("#status").textContent=`Recalculated in ${((performance.now()-t0)/1000).toFixed(1)} s: ${row.f?"passes every gate":"fails "+row.x.join(", ")}. Pinned for comparison below.`}
+  catch(e){st.textContent="Could not recalculate: "+e.message}}
+/* ---------- missions ---------- */
+function assumeForm(){const a=assume[mkey],C=a.checks;
+  const fld=(id,lab,val,step=0.1)=>`<label for="${id}">${lab}<input type="number" id="${id}" step="${step}" value="${val}"></label>`;
+  return `<div class="form">${fld("a_crew","Crew (uses couches)",a.crew,1)}${fld("a_pay","Payload, t",a.payload_t)}${fld("a_tpp","t per person aboard",a.t_per_person,0.01)}${fld("a_spr","Sprint kit water, t",a.sprint_t)}
+  ${fld("a_land","Water touchdown max, m/s",C.heavy_landing_max_ms,1)}${fld("a_cr","Reach from orbit min, km",C.crossrange_min_km,10)}${fld("a_turn","Max turn min, °/s",C.turn_min_dps,0.5)}${"evacuees_min" in C?fld("a_evac","Evacuees min",C.evacuees_min,1):""}
+  <label for="a_legs">Trip<select id="a_legs">${Object.entries(D.missions.legs).map(([k,l])=>`<option value="${k}" ${k===a.legs?"selected":""}>${k}: ${l.note}</option>`).join("")}</select></label>
+  <label for="a_ref">Refill from the sea<select id="a_ref"><option ${a.seawater_refill?"":"selected"}>false</option><option ${a.seawater_refill?"selected":""}>true</option></select></label>${fld("a_rh","Refill time max, h",C.refill_max_h??2,0.25)}
+  <label for="a_rov">Rover needed<select id="a_rov"><option ${a.rover_needed?"":"selected"}>false</option><option ${a.rover_needed?"selected":""}>true</option></select></label></div>
+  <div class="btns"><button class="primary" id="aRun">Re-check with these assumptions</button><button class="sq" id="aReset">Reset to file defaults</button></div><p class="note">Every number here is an exploration assumption (missions.json), not a requirement. Touchdown 999 means not checked. With sea refill on, the light (refilled) touchdown is checked instead of the heavy one. The heavy-touchdown and reach values come from each design's own calculation.</p>`}
+function readAssume(){const a=assume[mkey];a.crew=+$("#a_crew").value;a.payload_t=+$("#a_pay").value;a.t_per_person=+$("#a_tpp").value;a.sprint_t=+$("#a_spr").value;a.checks.heavy_landing_max_ms=+$("#a_land").value;a.checks.crossrange_min_km=+$("#a_cr").value;a.checks.turn_min_dps=+$("#a_turn").value;if($("#a_evac"))a.checks.evacuees_min=+$("#a_evac").value;a.legs=$("#a_legs").value;a.rover_needed=$("#a_rov").value==="true";a.seawater_refill=$("#a_ref").value==="true";a.checks.refill_max_h=+$("#a_rh").value}
+function cols(){const c=[ref,...pins.filter(p=>p!==ref)];if(sel&&!c.includes(sel))c.push(sel);return c.slice(0,4)}
+function sentence(r){
+  if(r===ref)return "";const b=ref,mr=mres(r),mb=mres(b),parts=[];
+  const dd=v(r,"docked_t")-v(b,"docked_t");parts.push(`${dd<0?"cuts":"adds"} ${Math.abs(dd).toFixed(1)} t on Wayfarer (dry + full tank)`);
+  const sr=P(r,"seats"),sb=P(b,"seats");if(sr!==sb)parts.push(`${sr>sb?"gains":"loses"} ${Math.abs(sr-sb)} couches (passengers after crew ${mb?mb.pe[2]:"?"} → ${mr?mr.pe[2]:"?"})`);
+  const th=v(r,"touchdown_heavy_ms")-v(b,"touchdown_heavy_ms");if(Math.abs(th)>=0.5)parts.push(`${th<0?"lowers":"raises"} heavy water touchdown by ${Math.abs(th).toFixed(1)} m/s`);const tl=v(r,"touchdown_light_ms")-v(b,"touchdown_light_ms");if(Math.abs(tl)>=0.5)parts.push(`${tl<0?"lowers":"raises"} light (refilled) touchdown by ${Math.abs(tl).toFixed(1)} m/s`);
+  const cr=v(r,"crossrange_km")-v(b,"crossrange_km");if(Math.abs(cr)>=20)parts.push(`${cr>0?"adds":"loses"} ${Math.abs(cr)} km of reach from orbit`);
+  const ew=v(r,"earth_margin_t")-v(b,"earth_margin_t");if(Math.abs(ew)>=0.3)parts.push(`${ew>0?"has":"loses"} ${Math.abs(ew).toFixed(1)} t ${ew>0?"more ":""}Earth water margin`);
+  if(P(r,"rover")!==P(b,"rover"))parts.push(P(r,"rover")?"carries the rover in the core":"moves the rover to a kit (its 1.8 t stays on Wayfarer)");
+  let tail="";if(mr&&mb)tail=` For “${assume[mkey].name}” it ${mr.ok?"passes":"fails"}${mr.ok?"":" ("+mr.ch.filter(c=>!c[5]).map(c=>c[0].toLowerCase()).join(", ")+")"}; B5 ${mb.ok?"passes":"fails"}.`;
+  const lim=r.lim!=null&&N(r.lim)!==N(b.lim)?` Its first binding constraint is ${N(r.lim).toLowerCase()} (B5: ${N(b.lim).toLowerCase()}).`:"";
+  return `<p class="sent"><b>${nameOf(r)}</b>: compared with B5, it ${parts.join(", ")}.${tail}${lim}</p>`}
+function missions(){
+  if(!D)return;const C=cols(),a=assume[mkey];
+  const opts=Object.entries(assume).map(([k,p])=>`<button class="${k===mkey?"on":""}" data-k="${k}">${p.name}</button>`).join("");
+  const names=new Set();C.forEach(r=>{const m=mres(r);if(m)m.ch.forEach(c=>names.add(N(c[0])))});
+  const cell=(r,f)=>{try{return f(r)}catch(e){return "–"}};
+  const line=(lab,f)=>`<tr><td>${lab}</td>${C.map(r=>`<td>${cell(r,f)}</td>`).join("")}</tr>`;
+  let t=`<div class="scroll"><table><thead><tr><th></th>${C.map(r=>`<th>${nameOf(r)}${pins.includes(r)?" (pinned)":r===ref?"":" (selected)"}</th>`).join("")}</tr></thead><tbody>`;
+  t+=line("Mission result",r=>{const m=mres(r);return m?(m.ok?`<span class="yes">passes</span>`:`<span class="no">fails</span>`):"not computed: edit and recalculate"});
+  t+=line("Couches · crew · passengers",r=>{const m=mres(r);return m?`${m.pe[0]} · ${m.pe[1]} · ${m.pe[2]}`:P(r,"seats")});
+  t+=line("Touchdown mass for this mission, t",r=>{const m=mres(r);return m&&m.tm!=null?m.tm:"–"});
+  t+=line("Water required / carried, t",r=>{const m=mres(r);return m?`${m.wr} / ${m.wc}`:"–"});
+  t+=line("Water left, t",r=>{const m=mres(r);return m?(m.wc-m.wr).toFixed(1):"–"});
+  for(const n of names)t+=line(n,r=>{const m=mres(r);const c=m&&m.ch.find(c=>N(c[0])===n);if(!c)return "–";return `<span class="${c[5]?"yes":"no"}">${c[1]}</span> <span class="note">${c[3]} ${c[2]} ${c[4]}</span>`});
+  t+=line("Dry / on Wayfarer, t",r=>`${v(r,"dry_t")} / ${v(r,"docked_t")}`);
+  t+=line("Heavy / light touchdown, m/s",r=>`${v(r,"touchdown_heavy_ms")} / ${v(r,"touchdown_light_ms")}`);
+  t+=line("Reach from orbit, km",r=>v(r,"crossrange_km"));t+=line("Glide L/D",r=>v(r,"glide_LD"));t+=line("Max turn, °/s",r=>v(r,"max_turn_dps"));
+  t+=line("Bay fit headroom (hull only), m",r=>(2.15-v(r,"fit_r_m")).toFixed(2));t+=line("Interior headroom, m³",r=>v(r,"interior_margin_m3"));
+  t+=line("Kits used (status)",r=>{const m=mres(r);return m&&m.kt&&m.kt.length?`<span class="note">${m.kt.join("; ")}</span>`:"none"});
+  t+=line("Binds first",r=>r.lim!=null?N(r.lim):"–");t+=`</tbody></table></div>`;
+  $("#missionCard").innerHTML=`<h2>Mission comparison</h2><p class="why">B5 against up to two pinned designs (pin from the design sheet; your edits pin themselves). The selected design is added if it isn't pinned.</p>
+  <div class="btns" id="mBtns">${opts}</div>${C.map(sentence).join("")}${t}
+  <details><summary>Mission assumptions: ${a.name}${Object.keys(missionLive).length?" (edited)":""}</summary>${assumeForm()}</details><div class="status" id="mstatus"></div>`;
+  document.querySelectorAll("#mBtns button").forEach(b=>b.onclick=()=>{mkey=b.dataset.k;missionLive={};missions();if($("#cs").value==="mis")draw()});
+  $("#aRun").onclick=recheck;$("#aReset").onclick=()=>{assume[mkey]=JSON.parse(JSON.stringify(D.missions.profiles[mkey]));missionLive={};missions()};
+}
+async function recheck(){
+  const st=$("#mstatus");readAssume();
+  try{const py=await loadPy(st);st.textContent="Re-checking with your assumptions…";await new Promise(r=>setTimeout(r,30));
+    const mj=JSON.parse(JSON.stringify(D.missions));mj.profiles[mkey]=assume[mkey];py.globals.set("mj",JSON.stringify(mj));
+    for(const r of cols()){const rm={dry_t:v(r,"dry_t"),params:Object.fromEntries(D.params.map((k,i)=>[k,r.p[i]])),land:r.ld||null,touchdown_heavy_ms:v(r,"touchdown_heavy_ms"),touchdown_light_ms:v(r,"touchdown_light_ms"),refill_h:v(r,"refill_h"),crossrange_km:v(r,"crossrange_km"),max_turn_dps:v(r,"max_turn_dps")};
+      py.globals.set("rj",JSON.stringify(rm));
+      missionLive[r.i]=JSON.parse(py.runPython(`M=json.loads(mj); m=missions.evaluate(json.loads(rj), M['profiles']['${mkey}'], M); json.dumps(dict(ok=int(m['ok']),wr=m['water_required_t'],wc=m['water_carried_t'],pe=[m['people']['couches'],m['people']['crew'],m['people']['passengers']],tm=m.get('touchdown_mass_t'),kt=m.get('kits'),ch=[[c['name'],c['value'],c['limit'],c['sense'],c['unit'],int(c['ok'])] for c in m['checks']]), default=ENC)`))}
+    missions();$("#mstatus").textContent="Re-checked the shown designs with your assumptions. The plot's colour-by-mission still uses the file defaults.";
+  }catch(e){st.textContent="Could not re-check: "+e.message}}
+</script>
+</body>
+</html>

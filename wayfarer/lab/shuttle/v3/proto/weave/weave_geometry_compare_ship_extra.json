@@ -1,0 +1,38 @@
+{
+ "lapse_R20_d2": {
+  "crew_peak_g": 0.001291275484858271,
+  "hull_axial_peak_kN": 0.2826962623785789,
+  "ship_final_m": 199.96387351334656,
+  "onaxis_force_at_hull_end": 0.9995006440547802
+ },
+ "shift_R20_d2": {
+  "crew_peak_g": 0.00012048796039854465,
+  "hull_axial_peak_kN": 0.024943372415542342,
+  "ship_final_m": 199.98175937959564,
+  "onaxis_force_at_hull_end": 0.999954602131204
+ },
+ "lapse_R25_d2": {
+  "crew_peak_g": 8.699640499662703e-06,
+  "hull_axial_peak_kN": 0.0018586285463584318,
+  "ship_final_m": 199.9834735525295,
+  "onaxis_force_at_hull_end": 0.9999966350764453
+ },
+ "shift_R25_d2": {
+  "crew_peak_g": 8.123054930023366e-07,
+  "hull_axial_peak_kN": 0.00016828699074267206,
+  "ship_final_m": 199.98359411099597,
+  "onaxis_force_at_hull_end": 0.9999996940977725
+ },
+ "lapse_R15_d0.5": {
+  "crew_peak_g": 1.9535924175225038e-07,
+  "hull_axial_peak_kN": 4.829000204153999e-05,
+  "ship_final_m": 199.98360357323014,
+  "onaxis_force_at_hull_end": 0.9999999154927017
+ },
+ "shift_R15_d0.5": {
+  "crew_peak_g": 5.777313614482602e-09,
+  "hull_axial_peak_kN": 1.857290499174269e-06,
+  "ship_final_m": 199.9836064848539,
+  "onaxis_force_at_hull_end": 0.9999999979388463
+ }
+}

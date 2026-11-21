@@ -1,0 +1,196 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "model_version": "616beacfeb63",
+ "note": "same 300 lightest feasible 6+ couch designs (12.8 m population), parallel body stretched",
+ "results": {
+  "L12.8_none": {
+   "n": 300,
+   "feasible": 300,
+   "missions": {
+    "earth": 129,
+    "evac": 0,
+    "orbital": 300,
+    "surface": 300,
+    "hot": 0
+   },
+   "all_five": 0,
+   "eight": 0,
+   "median_interior": 11.3,
+   "best": []
+  },
+  "L12.8_osteon_airframe": {
+   "n": 300,
+   "feasible": 300,
+   "missions": {
+    "earth": 155,
+    "evac": 18,
+    "orbital": 300,
+    "surface": 300,
+    "hot": 2
+   },
+   "all_five": 2,
+   "eight": 0,
+   "median_interior": 11.4,
+   "best": [
+    {
+     "id": 2643,
+     "seats": 6,
+     "wing": "telescoping",
+     "span": 13.739,
+     "dry": 35.09,
+     "docked": 53.1,
+     "xr": 1161,
+     "glide": 6.32,
+     "interior": 6.7,
+     "hull": 76.6
+    },
+    {
+     "id": 1758,
+     "seats": 6,
+     "wing": "fold",
+     "span": 9.0,
+     "dry": 35.08,
+     "docked": 53.1,
+     "xr": 1161,
+     "glide": 4.98,
+     "interior": 18.0,
+     "hull": 90.3
+    }
+   ]
+  },
+  "L14.3_none": {
+   "n": 300,
+   "feasible": 259,
+   "missions": {
+    "earth": 121,
+    "evac": 0,
+    "orbital": 259,
+    "surface": 259,
+    "hot": 0
+   },
+   "all_five": 0,
+   "eight": 0,
+   "median_interior": 24.1,
+   "best": []
+  },
+  "L14.3_osteon_airframe": {
+   "n": 300,
+   "feasible": 300,
+   "missions": {
+    "earth": 163,
+    "evac": 23,
+    "orbital": 300,
+    "surface": 300,
+    "hot": 7
+   },
+   "all_five": 7,
+   "eight": 0,
+   "median_interior": 24.3,
+   "best": [
+    {
+     "id": 2750,
+     "seats": 6,
+     "wing": "fold",
+     "span": 9.0,
+     "dry": 36.41,
+     "docked": 54.4,
+     "xr": 1189,
+     "glide": 4.96,
+     "interior": 27.6,
+     "hull": 101.7
+    },
+    {
+     "id": 2761,
+     "seats": 6,
+     "wing": "telescoping",
+     "span": 10.158,
+     "dry": 36.71,
+     "docked": 54.7,
+     "xr": 1226,
+     "glide": 5.35,
+     "interior": 19.8,
+     "hull": 92.5
+    },
+    {
+     "id": 942,
+     "seats": 6,
+     "wing": "fold",
+     "span": 9.0,
+     "dry": 36.84,
+     "docked": 54.8,
+     "xr": 1188,
+     "glide": 4.88,
+     "interior": 30.5,
+     "hull": 104.7
+    },
+    {
+     "id": 2643,
+     "seats": 6,
+     "wing": "telescoping",
+     "span": 13.739,
+     "dry": 36.84,
+     "docked": 54.8,
+     "xr": 1187,
+     "glide": 6.33,
+     "interior": 18.0,
+     "hull": 89.8
+    },
+    {
+     "id": 3104,
+     "seats": 6,
+     "wing": "fold",
+     "span": 8.598,
+     "dry": 36.96,
+     "docked": 55.0,
+     "xr": 1221,
+     "glide": 4.47,
+     "interior": 36.7,
+     "hull": 111.1
+    }
+   ]
+  },
+  "L16.8_none": {
+   "n": 300,
+   "feasible": 103,
+   "missions": {
+    "earth": 17,
+    "evac": 0,
+    "orbital": 103,
+    "surface": 103,
+    "hot": 0
+   },
+   "all_five": 0,
+   "eight": 0,
+   "median_interior": 45.3,
+   "best": []
+  },
+  "L16.8_osteon_airframe": {
+   "n": 300,
+   "feasible": 276,
+   "missions": {
+    "earth": 150,
+    "evac": 29,
+    "orbital": 276,
+    "surface": 276,
+    "hot": 1
+   },
+   "all_five": 1,
+   "eight": 0,
+   "median_interior": 45.1,
+   "best": [
+    {
+     "id": 138,
+     "seats": 6,
+     "wing": "fold",
+     "span": 9.0,
+     "dry": 38.27,
+     "docked": 56.3,
+     "xr": 1153,
+     "glide": 4.83,
+     "interior": 39.9,
+     "hull": 115.8
+    }
+   ]
+  }
+ }
+}

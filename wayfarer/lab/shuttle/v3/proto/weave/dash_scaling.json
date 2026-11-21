@@ -1,0 +1,60 @@
+{
+ "doc": "Does domain size / field geometry / ramp rate give the shuttle a genuinely different Metric envelope? (kT revised direction 2026-11-21)\nNON-CANON physics. ALL bodies. ALL sponsors. 2026-2226.\n\nCommon physics for every craft: unit lapse, flat slices, shift beta = v(t) F(x - X(t)) (foundations \u00a75, \u00a77). With K_ij = 1/2(d_i beta_j + d_j beta_i):\n  Eulerian energy density (Hamiltonian constraint)   rho_E = (c^2/16 pi G)(K^2 - K_ij K^ij)                       [DERIVED, exact]\n  ramp-rate stress (evolution eq., part linear in a=dv/dt)   S^(a)_ij = (c^2/8 pi G) a * 1/2(d_i F_j + d_j F_i)      [DERIVED, exact term]\nIntegrated 'geometric demand' (what any source, M2 or otherwise, must supply as effective stress-energy):\n  E_v = Int |rho_E| dV      and      S_a = Int ||S^(a)|| dV\nBoth are independent of the payload mass (interior is flat; G m/(R c^2) ~ 1e-22): DERIVED.\nThe mapping from geometric demand to actuator energy/hardware is NOT known (M2 has no constitutive law): ASSUMED/UNDETERMINED.",
+ "alcubierre": {
+  "E_v_exponent_R": 1.94,
+  "E_v_exponent_wall": -0.99,
+  "S_a_exponent_R": 1.87,
+  "S_a_exponent_wall": 0.02,
+  "SOL_case_E_v_J": "1.89e+31",
+  "max_div_beta": 0.2498
+ },
+ "natario": {
+  "E_v_exponent_R": 3.21,
+  "E_v_exponent_wall": -2.77,
+  "S_a_exponent_R": 2.49,
+  "S_a_exponent_wall": -0.84,
+  "SOL_case_E_v_J": "1.31e+32",
+  "max_div_beta": 0.0002
+ },
+ "craft": {
+  "shuttle (284 m^2 envelope)": {
+   "area_m2": 284.0,
+   "R_equiv_m": 4.75,
+   "mass_t": 61.0,
+   "E_v_at_100ms_J": "1.36e+31",
+   "S_a_at_10g_J": "1.96e+30",
+   "mass_per_area_kg_m2": 215,
+   "boost_charge_per_100m_Jm": "5.48e+23"
+  },
+  "Wayfarer (1,900 m^2 domain, CANON II \u00a712)": {
+   "area_m2": 1900.0,
+   "R_equiv_m": 12.3,
+   "mass_t": 1168.0,
+   "E_v_at_100ms_J": "2.70e+32",
+   "S_a_at_10g_J": "2.04e+31",
+   "mass_per_area_kg_m2": 615,
+   "boost_charge_per_100m_Jm": "1.05e+25"
+  }
+ },
+ "hardware_hypotheses": {
+  "HW1 field capacity scales with domain area (L^2 candidate plant, same node density)": {
+   "agility_ratio_shuttle_vs_wayfarer": 1.0,
+   "note": "same achievable v^2 and a per unit capacity: size alone gives NO agility advantage; exchange demand per unit capacity is 2.9x lower for the shuttle (mass per area)"
+  },
+  "HW2 fixed absolute capacity (same hardware on both)": {
+   "agility_ratio_shuttle_vs_wayfarer": 6.7,
+   "note": "a and v^2 scale as 1/area: shuttle 6.7x"
+  },
+  "HW3 prototype with k x the capacity per area (denser Mc / nodes / faster control)": {
+   "agility_ratio_shuttle_vs_wayfarer": "k",
+   "note": "speculative engineering; k is not derived"
+  }
+ },
+ "bandwidth": {
+  "light_crossing_s": "3.2e-08",
+  "adiabatic_ratio_at_0p1s": "1.5e+07",
+  "canon_screen_ratio": "~5e8 (CANON II \u00a78, 10 s ramp, 6 m wall)",
+  "note": "causality and adiabaticity are not limiting at 0.01-0.1 s ramps: DERIVED. Real bandwidth = Mc/node/cryo response: UNDETERMINED (WCS \u00a717).",
+  "ramp_vs_velocity_stress": "ramp term dominates when ramp time < wall / v (2 m / 100 m/s = 20 ms): DERIVED from the two terms"
+ }
+}

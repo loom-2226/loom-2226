@@ -1,0 +1,34 @@
+{
+ "doc": "Coupled field-matter-relational dash from ONE effective action (SOL review of 27d8fb4). NON-CANON physics. ALL bodies. ALL sponsors. 2026-2226.\n\nWhy not the shift-only action: with L_i = 1/2 m_i (xdot_i - beta)^2 and beta = Xd_dot f(x - X_d), the Noether charge for a common\ntranslation is P = sum m_i w_i (1 - f_i) + dL_wall/dXd_dot + mu xi_dot. A payload carried at w=0 inside f=1 contributes NOTHING:\nthe action treats carriage as a change of frame and loses the payload's physical momentum (which in GR lives in its gravitational\nfield at infinity). So a shift-only effective action cannot be the self-consistent conservation test.  [DERIVED, from the action]\n\nEffective action used instead (1D, v << c):\n  L = sum_i 1/2 m_i xdot_i^2 - U_springs                         ship matter (hull, crew, cargo), physical kinetic terms\n      - sum_i m_i G(t) (x_i - X_d)                                universal (mass-proportional) carriage field inside the domain\n                                                                  = a controllable lapse gradient (foundations \u00a75, N); equivalence => crew inertial\n      + 1/2 M_w Xd_dot^2                                          domain wall collective coordinate (effective inertia M_w)  [ASSUMED]\n      + 1/2 mu xi_dot^2 - 1/2 k_c (X_d - xi - s(t))^2             one relational mode + translation-invariant wall-mode coupling [ASSUMED M1]\n  controls: G(t), s(t) (M2 actuation).  Translation invariance => P = sum m xdot + M_w Xd_dot + mu xi_dot conserved (Noether).\n  Energy: E = sum KE + U + sum m G (x - X_d) + 1/2 k_c(...)^2 changes only by actuator work dW = -dL/dt|explicit dt.",
+ "params": {
+  "M_wall_kg": 1000.0,
+  "mu_kg": 5.97e+24,
+  "k_c": 1000000000.0,
+  "D_m": 200.0,
+  "T_s": 3.0
+ },
+ "shuttle": {
+  "final_hull_X_m": 200.0,
+  "final_speed_ms": 7.749607398563522e-14,
+  "max_felt_crew_g": 7.416878301919903e-11,
+  "wall_tracking_error_m": 2.842170943040401e-14
+ },
+ "conservation": {
+  "momentum_max_drift_Ns": 1.0244548320770264e-07,
+  "peak_ship_momentum_Ns": 1.0000001024454832,
+  "energy_minus_actuator_work_max_J": 11381.05482518673,
+  "peak_energy_transient_J": 484375781.2069426,
+  "final_actuator_work_J": -7870.737975280342,
+  "relational_mode_shift_m": -2.077051926182769e-18,
+  "centre_of_mass_shift_kgm": 3.4458935260772705e-07,
+  "ship_mass_moment_kgm": 12399999.999311475
+ },
+ "verdicts": {
+  "field moves the shuttle 200 m and stops it": "YES, within the coupled action (no externally imposed reaction)",
+  "crew nearly inertial": "YES: universal carriage field => zero tidal; felt g only from numerical/controller residue",
+  "momentum conserved": "YES (Noether, checked numerically)",
+  "energy conserved": "YES: total energy changes exactly by actuator work (checked)",
+  "shift-only effective action": "loses the payload physical momentum: cannot be the conservation test (DERIVED)",
+  "new assumptions stated": "A1 controllable universal carriage field inside the domain (lapse gradient, M2 via \u00a75); A2 wall collective coordinate with effective inertia; A3 translation-invariant wall-relational coupling (the M1 exchange)"
+ }
+}

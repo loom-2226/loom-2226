@@ -1,0 +1,16 @@
+{
+ "doc": "Exact swirl-gust family for the shift dash (axisymmetric swirl: no pressure term, rho * w_phi conserved). NON-CANON.\nALL bodies. ALL sponsors. 2026-2226. Uses parcel end positions from weave_geometry_compare (R 15 / d 2 shift, 2 m lattice).",
+ "parcel_factor": {
+  "max": 12.512107102289564,
+  "p99": 3.4484355534937277,
+  "median": 0.9999999999999949
+ },
+ "blobs": {
+  "x20_r2": 0.8563886548915035,
+  "x60_r1": 0.6890449026072508,
+  "x60_r3": 0.9408030505646344,
+  "x120_r2": 0.5824925356444126,
+  "x180_r2": 0.16330027057548127,
+  "x60_r8": 0.9999983446941003
+ }
+}

@@ -1,0 +1,1049 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "model_version": "616beacfeb63",
+ "candidates": {
+  "B5 reference": {
+   "params": {
+    "ridge": 0.45,
+    "shoulder_z": 0.22,
+    "shoulder_y": -0.1,
+    "keel": 0.3,
+    "chine_z": 0.0,
+    "belly_w": 1.0,
+    "nose": 1.0,
+    "base": 1.0,
+    "wing": "telescoping",
+    "span": 14.0,
+    "chord": 1.8,
+    "fan_m2": 8,
+    "floats_m3": 20,
+    "water_t": 23.1,
+    "seats": 6,
+    "rover": true,
+    "fan_venus": true,
+    "desal": true,
+    "wildcard": "none"
+   },
+   "feasible": true,
+   "fails": [],
+   "dry_t": 43.36,
+   "docked_t": 66.5,
+   "seats": 6,
+   "length": 12.8,
+   "interior": 8.7,
+   "crossrange": 1168,
+   "glide": 5.35,
+   "turn": 17.2,
+   "fit_r": 2.132,
+   "osteon": null,
+   "mass": {
+    "hull_structure": 13.94,
+    "entry_tps": 1.68,
+    "wings": 3.96,
+    "cabin": 3.36,
+    "water_tank": 2.08,
+    "rover": 1.83,
+    "torch": 7.01,
+    "belly_rcs": 0.4,
+    "power_dist": 0.65,
+    "custody": 0.12,
+    "avionics": 0.85,
+    "gear_door": 1.02,
+    "crash_mounts": 0.3,
+    "floats": 0.6,
+    "desal": 0.4,
+    "cabin_wall": 1.09,
+    "fans_reactor": 4.06
+   },
+   "missions": {
+    "earth": {
+     "ok": true,
+     "touchdown_mass_t": 46.96,
+     "worst_headroom": 1.47,
+     "fails": []
+    },
+    "evac": {
+     "ok": false,
+     "touchdown_mass_t": 68.36,
+     "worst_headroom": -4.3,
+     "fails": [
+      [
+       "Water touchdown at mission mass (climb water aboard)",
+       54.3,
+       50
+      ]
+     ]
+    },
+    "orbital": {
+     "ok": true,
+     "touchdown_mass_t": null,
+     "worst_headroom": 18.2,
+     "fails": []
+    },
+    "surface": {
+     "ok": true,
+     "touchdown_mass_t": null,
+     "worst_headroom": 16.6,
+     "fails": []
+    },
+    "hot": {
+     "ok": false,
+     "touchdown_mass_t": 72.86,
+     "worst_headroom": -6.9,
+     "fails": [
+      [
+       "Water required vs carried (incl. sprint kit)",
+       29.0,
+       28.1
+      ],
+      [
+       "Torch thrust meets every leg",
+       "short on leg 3",
+       ""
+      ],
+      [
+       "Water touchdown at mission mass (climb water aboard)",
+       56.9,
+       50
+      ]
+     ]
+    }
+   }
+  },
+  "B5 + Osteon central": {
+   "params": {
+    "ridge": 0.45,
+    "shoulder_z": 0.22,
+    "shoulder_y": -0.1,
+    "keel": 0.3,
+    "chine_z": 0.0,
+    "belly_w": 1.0,
+    "nose": 1.0,
+    "base": 1.0,
+    "wing": "telescoping",
+    "span": 14.0,
+    "chord": 1.8,
+    "fan_m2": 8,
+    "floats_m3": 20,
+    "water_t": 23.1,
+    "seats": 6,
+    "rover": true,
+    "fan_venus": true,
+    "desal": true,
+    "wildcard": "osteon_airframe"
+   },
+   "feasible": true,
+   "fails": [],
+   "dry_t": 39.66,
+   "docked_t": 62.8,
+   "seats": 6,
+   "length": 12.8,
+   "interior": 8.8,
+   "crossrange": 1168,
+   "glide": 5.35,
+   "turn": 18.3,
+   "fit_r": 2.132,
+   "osteon": {
+    "saving": 0.3,
+    "eligible_t": {
+     "hull_structure": 8.36,
+     "wings": 2.38,
+     "gear_door": 0.51,
+     "crash_mounts": 0.3
+    },
+    "eligible_total_t": 11.55,
+    "saved_t": 3.46,
+    "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+   },
+   "mass": {
+    "hull_structure": 11.43,
+    "entry_tps": 1.68,
+    "wings": 3.25,
+    "cabin": 3.36,
+    "water_tank": 2.08,
+    "rover": 1.83,
+    "torch": 7.01,
+    "belly_rcs": 0.4,
+    "power_dist": 0.65,
+    "custody": 0.12,
+    "avionics": 0.85,
+    "gear_door": 0.86,
+    "crash_mounts": 0.21,
+    "floats": 0.6,
+    "desal": 0.4,
+    "cabin_wall": 1.09,
+    "fans_reactor": 3.83
+   },
+   "missions": {
+    "earth": {
+     "ok": true,
+     "touchdown_mass_t": 43.26,
+     "worst_headroom": 1.56,
+     "fails": []
+    },
+    "evac": {
+     "ok": false,
+     "touchdown_mass_t": 60.56,
+     "worst_headroom": -0.1,
+     "fails": [
+      [
+       "Water touchdown at mission mass (climb water aboard)",
+       50.1,
+       50
+      ]
+     ]
+    },
+    "orbital": {
+     "ok": true,
+     "touchdown_mass_t": null,
+     "worst_headroom": 18.5,
+     "fails": []
+    },
+    "surface": {
+     "ok": true,
+     "touchdown_mass_t": null,
+     "worst_headroom": 17.1,
+     "fails": []
+    },
+    "hot": {
+     "ok": false,
+     "touchdown_mass_t": 64.56,
+     "worst_headroom": -2.6,
+     "fails": [
+      [
+       "Torch thrust meets every leg",
+       "short on leg 3",
+       ""
+      ],
+      [
+       "Water touchdown at mission mass (climb water aboard)",
+       52.6,
+       50
+      ]
+     ]
+    }
+   }
+  },
+  "#2643 conventional": {
+   "params": {
+    "ridge": 0.008,
+    "shoulder_z": 0.015,
+    "shoulder_y": -0.32,
+    "keel": 0.304,
+    "chine_z": -0.262,
+    "belly_w": 0.853,
+    "nose": 1.074,
+    "base": 0.835,
+    "wing": "telescoping",
+    "span": 13.739,
+    "chord": 1.563,
+    "fan_m2": 8,
+    "floats_m3": 30,
+    "water_t": 18,
+    "seats": 6,
+    "rover": false,
+    "fan_venus": true,
+    "desal": false,
+    "wildcard": "none"
+   },
+   "feasible": true,
+   "fails": [],
+   "dry_t": 38.33,
+   "docked_t": 56.3,
+   "seats": 6,
+   "length": 12.8,
+   "interior": 6.7,
+   "crossrange": 1161,
+   "glide": 6.32,
+   "turn": 18.2,
+   "fit_r": 2.13,
+   "osteon": null,
+   "mass": {
+    "hull_structure": 12.26,
+    "entry_tps": 1.64,
+    "wings": 3.35,
+    "cabin": 3.36,
+    "water_tank": 1.62,
+    "rover": 0.0,
+    "torch": 7.01,
+    "belly_rcs": 0.4,
+    "power_dist": 0.65,
+    "custody": 0.12,
+    "avionics": 0.85,
+    "gear_door": 1.02,
+    "crash_mounts": 0.3,
+    "floats": 0.9,
+    "desal": 0.0,
+    "cabin_wall": 1.09,
+    "fans_reactor": 3.75
+   },
+   "missions": {
+    "earth": {
+     "ok": true,
+     "touchdown_mass_t": 57.43,
+     "worst_headroom": 0.2,
+     "fails": []
+    },
+    "evac": {
+     "ok": false,
+     "touchdown_mass_t": 57.93,
+     "worst_headroom": -0.1,
+     "fails": [
+      [
+       "Water touchdown at mission mass (climb water aboard)",
+       50.1,
+       50
+      ]
+     ]
+    },
+    "orbital": {
+     "ok": true,
+     "touchdown_mass_t": null,
+     "worst_headroom": 13.5,
+     "fails": []
+    },
+    "surface": {
+     "ok": true,
+     "touchdown_mass_t": null,
+     "worst_headroom": 11.9,
+     "fails": []
+    },
+    "hot": {
+     "ok": false,
+     "touchdown_mass_t": 61.63,
+     "worst_headroom": -2.6,
+     "fails": [
+      [
+       "Water touchdown at mission mass (climb water aboard)",
+       52.6,
+       50
+      ]
+     ]
+    }
+   }
+  },
+  "#2643 Osteon cautious": {
+   "params": {
+    "ridge": 0.008,
+    "shoulder_z": 0.015,
+    "shoulder_y": -0.32,
+    "keel": 0.304,
+    "chine_z": -0.262,
+    "belly_w": 0.853,
+    "nose": 1.074,
+    "base": 0.835,
+    "wing": "telescoping",
+    "span": 13.739,
+    "chord": 1.563,
+    "fan_m2": 8,
+    "floats_m3": 30,
+    "water_t": 18,
+    "seats": 6,
+    "rover": false,
+    "fan_venus": true,
+    "desal": false,
+    "wildcard": "osteon_cautious"
+   },
+   "feasible": true,
+   "fails": [],
+   "dry_t": 35.95,
+   "docked_t": 53.9,
+   "seats": 6,
+   "length": 12.8,
+   "interior": 6.7,
+   "crossrange": 1161,
+   "glide": 6.32,
+   "turn": 18.9,
+   "fit_r": 2.13,
+   "osteon": {
+    "saving": 0.22,
+    "eligible_t": {
+     "hull_structure": 7.36,
+     "wings": 2.01,
+     "gear_door": 0.51,
+     "crash_mounts": 0.3
+    },
+    "eligible_total_t": 10.17,
+    "saved_t": 2.24,
+    "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+   },
+   "mass": {
+    "hull_structure": 10.64,
+    "entry_tps": 1.64,
+    "wings": 2.91,
+    "cabin": 3.36,
+    "water_tank": 1.62,
+    "rover": 0.0,
+    "torch": 7.01,
+    "belly_rcs": 0.4,
+    "power_dist": 0.65,
+    "custody": 0.12,
+    "avionics": 0.85,
+    "gear_door": 0.91,
+    "crash_mounts": 0.23,
+    "floats": 0.9,
+    "desal": 0.0,
+    "cabin_wall": 1.09,
+    "fans_reactor": 3.61
+   },
+   "missions": {
+    "earth": {
+     "ok": true,
+     "touchdown_mass_t": 53.25,
+     "worst_headroom": 2.7,
+     "fails": []
+    },
+    "evac": {
+     "ok": true,
+     "touchdown_mass_t": 53.35,
+     "worst_headroom": 0,
+     "fails": []
+    },
+    "orbital": {
+     "ok": true,
+     "touchdown_mass_t": null,
+     "worst_headroom": 13.7,
+     "fails": []
+    },
+    "surface": {
+     "ok": true,
+     "touchdown_mass_t": null,
+     "worst_headroom": 12.2,
+     "fails": []
+    },
+    "hot": {
+     "ok": true,
+     "touchdown_mass_t": 56.45,
+     "worst_headroom": 0.5,
+     "fails": []
+    }
+   }
+  },
+  "#2643 Osteon central": {
+   "params": {
+    "ridge": 0.008,
+    "shoulder_z": 0.015,
+    "shoulder_y": -0.32,
+    "keel": 0.304,
+    "chine_z": -0.262,
+    "belly_w": 0.853,
+    "nose": 1.074,
+    "base": 0.835,
+    "wing": "telescoping",
+    "span": 13.739,
+    "chord": 1.563,
+    "fan_m2": 8,
+    "floats_m3": 30,
+    "water_t": 18,
+    "seats": 6,
+    "rover": false,
+    "fan_venus": true,
+    "desal": false,
+    "wildcard": "osteon_airframe"
+   },
+   "feasible": true,
+   "fails": [],
+   "dry_t": 35.09,
+   "docked_t": 53.1,
+   "seats": 6,
+   "length": 12.8,
+   "interior": 6.7,
+   "crossrange": 1161,
+   "glide": 6.32,
+   "turn": 19.2,
+   "fit_r": 2.13,
+   "osteon": {
+    "saving": 0.3,
+    "eligible_t": {
+     "hull_structure": 7.36,
+     "wings": 2.01,
+     "gear_door": 0.51,
+     "crash_mounts": 0.3
+    },
+    "eligible_total_t": 10.17,
+    "saved_t": 3.05,
+    "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+   },
+   "mass": {
+    "hull_structure": 10.05,
+    "entry_tps": 1.64,
+    "wings": 2.75,
+    "cabin": 3.36,
+    "water_tank": 1.62,
+    "rover": 0.0,
+    "torch": 7.01,
+    "belly_rcs": 0.4,
+    "power_dist": 0.65,
+    "custody": 0.12,
+    "avionics": 0.85,
+    "gear_door": 0.86,
+    "crash_mounts": 0.21,
+    "floats": 0.9,
+    "desal": 0.0,
+    "cabin_wall": 1.09,
+    "fans_reactor": 3.56
+   },
+   "missions": {
+    "earth": {
+     "ok": true,
+     "touchdown_mass_t": 51.79,
+     "worst_headroom": 3.5,
+     "fails": []
+    },
+    "evac": {
+     "ok": true,
+     "touchdown_mass_t": 51.79,
+     "worst_headroom": 0,
+     "fails": []
+    },
+    "orbital": {
+     "ok": true,
+     "touchdown_mass_t": null,
+     "worst_headroom": 13.8,
+     "fails": []
+    },
+    "surface": {
+     "ok": true,
+     "touchdown_mass_t": null,
+     "worst_headroom": 12.3,
+     "fails": []
+    },
+    "hot": {
+     "ok": true,
+     "touchdown_mass_t": 54.69,
+     "worst_headroom": 1.4,
+     "fails": []
+    }
+   }
+  },
+  "#2643 Osteon optimistic": {
+   "params": {
+    "ridge": 0.008,
+    "shoulder_z": 0.015,
+    "shoulder_y": -0.32,
+    "keel": 0.304,
+    "chine_z": -0.262,
+    "belly_w": 0.853,
+    "nose": 1.074,
+    "base": 0.835,
+    "wing": "telescoping",
+    "span": 13.739,
+    "chord": 1.563,
+    "fan_m2": 8,
+    "floats_m3": 30,
+    "water_t": 18,
+    "seats": 6,
+    "rover": false,
+    "fan_venus": true,
+    "desal": false,
+    "wildcard": "osteon_optimistic"
+   },
+   "feasible": true,
+   "fails": [],
+   "dry_t": 33.78,
+   "docked_t": 51.8,
+   "seats": 6,
+   "length": 12.8,
+   "interior": 6.8,
+   "crossrange": 1161,
+   "glide": 6.32,
+   "turn": 19.6,
+   "fit_r": 2.13,
+   "osteon": {
+    "saving": 0.38,
+    "eligible_t": {
+     "hull_structure": 7.36,
+     "wings": 2.01,
+     "gear_door": 0.51,
+     "crash_mounts": 0.3,
+     "cabin_wall": 1.09
+    },
+    "eligible_total_t": 11.26,
+    "saved_t": 4.28,
+    "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+   },
+   "mass": {
+    "hull_structure": 9.46,
+    "entry_tps": 1.64,
+    "wings": 2.59,
+    "cabin": 3.36,
+    "water_tank": 1.62,
+    "rover": 0.0,
+    "torch": 7.01,
+    "belly_rcs": 0.4,
+    "power_dist": 0.65,
+    "custody": 0.12,
+    "avionics": 0.85,
+    "gear_door": 0.82,
+    "crash_mounts": 0.19,
+    "floats": 0.9,
+    "desal": 0.0,
+    "cabin_wall": 0.67,
+    "fans_reactor": 3.48
+   },
+   "missions": {
+    "earth": {
+     "ok": true,
+     "touchdown_mass_t": 49.58,
+     "worst_headroom": 4.5,
+     "fails": []
+    },
+    "evac": {
+     "ok": true,
+     "touchdown_mass_t": 49.48,
+     "worst_headroom": 0,
+     "fails": []
+    },
+    "orbital": {
+     "ok": true,
+     "touchdown_mass_t": null,
+     "worst_headroom": 13.9,
+     "fails": []
+    },
+    "surface": {
+     "ok": true,
+     "touchdown_mass_t": null,
+     "worst_headroom": 12.4,
+     "fails": []
+    },
+    "hot": {
+     "ok": true,
+     "touchdown_mass_t": 52.18,
+     "worst_headroom": 2.6,
+     "fails": []
+    }
+   }
+  },
+  "#2643 14.3 m, 8 couches, Osteon cautious": {
+   "params": {
+    "ridge": 0.008,
+    "shoulder_z": 0.015,
+    "shoulder_y": -0.32,
+    "keel": 0.304,
+    "chine_z": -0.262,
+    "belly_w": 0.853,
+    "nose": 1.074,
+    "base": 0.835,
+    "wing": "telescoping",
+    "span": 13.739,
+    "chord": 1.563,
+    "fan_m2": 8,
+    "floats_m3": 30,
+    "water_t": 18,
+    "seats": 8,
+    "rover": false,
+    "fan_venus": true,
+    "desal": false,
+    "length": 14.3,
+    "wildcard": "osteon_cautious"
+   },
+   "feasible": true,
+   "fails": [],
+   "dry_t": 39.01,
+   "docked_t": 57.0,
+   "seats": 8,
+   "length": 14.3,
+   "interior": 10.9,
+   "crossrange": 1187,
+   "glide": 6.33,
+   "turn": 18.5,
+   "fit_r": 2.13,
+   "osteon": {
+    "saving": 0.22,
+    "eligible_t": {
+     "hull_structure": 8.39,
+     "wings": 2.01,
+     "gear_door": 0.51,
+     "crash_mounts": 0.3
+    },
+    "eligible_total_t": 11.21,
+    "saved_t": 2.47,
+    "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+   },
+   "mass": {
+    "hull_structure": 12.14,
+    "entry_tps": 1.88,
+    "wings": 2.91,
+    "cabin": 4.26,
+    "water_tank": 1.62,
+    "rover": 0.0,
+    "torch": 7.01,
+    "belly_rcs": 0.4,
+    "power_dist": 0.65,
+    "custody": 0.12,
+    "avionics": 0.85,
+    "gear_door": 0.91,
+    "crash_mounts": 0.23,
+    "floats": 0.9,
+    "desal": 0.0,
+    "cabin_wall": 1.32,
+    "fans_reactor": 3.8
+   },
+   "missions": {
+    "earth": {
+     "ok": true,
+     "touchdown_mass_t": 59.01,
+     "worst_headroom": 0.7,
+     "fails": []
+    },
+    "evac": {
+     "ok": true,
+     "touchdown_mass_t": 59.61,
+     "worst_headroom": 1.5,
+     "fails": []
+    },
+    "orbital": {
+     "ok": true,
+     "touchdown_mass_t": null,
+     "worst_headroom": 13.4,
+     "fails": []
+    },
+    "surface": {
+     "ok": true,
+     "touchdown_mass_t": null,
+     "worst_headroom": 11.8,
+     "fails": []
+    },
+    "hot": {
+     "ok": false,
+     "touchdown_mass_t": 63.61,
+     "worst_headroom": -1.0,
+     "fails": [
+      [
+       "Water required vs carried (incl. sprint kit)",
+       23.5,
+       23
+      ],
+      [
+       "Water touchdown at mission mass (climb water aboard)",
+       51.0,
+       50
+      ]
+     ]
+    }
+   }
+  },
+  "#2643 14.3 m, 8 couches, Osteon central": {
+   "params": {
+    "ridge": 0.008,
+    "shoulder_z": 0.015,
+    "shoulder_y": -0.32,
+    "keel": 0.304,
+    "chine_z": -0.262,
+    "belly_w": 0.853,
+    "nose": 1.074,
+    "base": 0.835,
+    "wing": "telescoping",
+    "span": 13.739,
+    "chord": 1.563,
+    "fan_m2": 8,
+    "floats_m3": 30,
+    "water_t": 18,
+    "seats": 8,
+    "rover": false,
+    "fan_venus": true,
+    "desal": false,
+    "length": 14.3,
+    "wildcard": "osteon_airframe"
+   },
+   "feasible": true,
+   "fails": [],
+   "dry_t": 38.06,
+   "docked_t": 56.1,
+   "seats": 8,
+   "length": 14.3,
+   "interior": 10.9,
+   "crossrange": 1187,
+   "glide": 6.33,
+   "turn": 18.8,
+   "fit_r": 2.13,
+   "osteon": {
+    "saving": 0.3,
+    "eligible_t": {
+     "hull_structure": 8.39,
+     "wings": 2.01,
+     "gear_door": 0.51,
+     "crash_mounts": 0.3
+    },
+    "eligible_total_t": 11.21,
+    "saved_t": 3.36,
+    "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+   },
+   "mass": {
+    "hull_structure": 11.47,
+    "entry_tps": 1.88,
+    "wings": 2.75,
+    "cabin": 4.26,
+    "water_tank": 1.62,
+    "rover": 0.0,
+    "torch": 7.01,
+    "belly_rcs": 0.4,
+    "power_dist": 0.65,
+    "custody": 0.12,
+    "avionics": 0.85,
+    "gear_door": 0.86,
+    "crash_mounts": 0.21,
+    "floats": 0.9,
+    "desal": 0.0,
+    "cabin_wall": 1.32,
+    "fans_reactor": 3.75
+   },
+   "missions": {
+    "earth": {
+     "ok": true,
+     "touchdown_mass_t": 57.26,
+     "worst_headroom": 1.5,
+     "fails": []
+    },
+    "evac": {
+     "ok": true,
+     "touchdown_mass_t": 57.76,
+     "worst_headroom": 2,
+     "fails": []
+    },
+    "orbital": {
+     "ok": true,
+     "touchdown_mass_t": null,
+     "worst_headroom": 13.5,
+     "fails": []
+    },
+    "surface": {
+     "ok": true,
+     "touchdown_mass_t": null,
+     "worst_headroom": 11.9,
+     "fails": []
+    },
+    "hot": {
+     "ok": true,
+     "touchdown_mass_t": 61.46,
+     "worst_headroom": 0.2,
+     "fails": []
+    }
+   }
+  },
+  "#2643 14.3 m, 8 couches, conventional": {
+   "params": {
+    "ridge": 0.008,
+    "shoulder_z": 0.015,
+    "shoulder_y": -0.32,
+    "keel": 0.304,
+    "chine_z": -0.262,
+    "belly_w": 0.853,
+    "nose": 1.074,
+    "base": 0.835,
+    "wing": "telescoping",
+    "span": 13.739,
+    "chord": 1.563,
+    "fan_m2": 8,
+    "floats_m3": 30,
+    "water_t": 18,
+    "seats": 8,
+    "rover": false,
+    "fan_venus": true,
+    "desal": false,
+    "length": 14.3,
+    "wildcard": "none"
+   },
+   "feasible": false,
+   "fails": [
+    "Earth water"
+   ],
+   "dry_t": 41.63,
+   "docked_t": 59.6,
+   "seats": 8,
+   "length": 14.3,
+   "interior": 10.9,
+   "crossrange": 1187,
+   "glide": 6.33,
+   "turn": 17.8,
+   "fit_r": 2.13,
+   "osteon": null,
+   "mass": {
+    "hull_structure": 13.99,
+    "entry_tps": 1.88,
+    "wings": 3.35,
+    "cabin": 4.26,
+    "water_tank": 1.62,
+    "rover": 0.0,
+    "torch": 7.01,
+    "belly_rcs": 0.4,
+    "power_dist": 0.65,
+    "custody": 0.12,
+    "avionics": 0.85,
+    "gear_door": 1.02,
+    "crash_mounts": 0.3,
+    "floats": 0.9,
+    "desal": 0.0,
+    "cabin_wall": 1.32,
+    "fans_reactor": 3.96
+   },
+   "missions": {
+    "earth": {
+     "ok": false,
+     "touchdown_mass_t": 63.93,
+     "worst_headroom": -1.7,
+     "fails": [
+      [
+       "Water required vs carried",
+       19.7,
+       18
+      ],
+      [
+       "Water touchdown at mission mass (climb water aboard)",
+       50.8,
+       50
+      ]
+     ]
+    },
+    "evac": {
+     "ok": false,
+     "touchdown_mass_t": 65.13,
+     "worst_headroom": -1.5,
+     "fails": [
+      [
+       "Water touchdown at mission mass (climb water aboard)",
+       51.5,
+       50
+      ]
+     ]
+    },
+    "orbital": {
+     "ok": true,
+     "touchdown_mass_t": null,
+     "worst_headroom": 13.2,
+     "fails": []
+    },
+    "surface": {
+     "ok": true,
+     "touchdown_mass_t": null,
+     "worst_headroom": 11.5,
+     "fails": []
+    },
+    "hot": {
+     "ok": false,
+     "touchdown_mass_t": 69.43,
+     "worst_headroom": -4.0,
+     "fails": [
+      [
+       "Water required vs carried (incl. sprint kit)",
+       27.0,
+       23
+      ],
+      [
+       "Torch thrust meets every leg",
+       "short on leg 3",
+       ""
+      ],
+      [
+       "Water touchdown at mission mass (climb water aboard)",
+       54.0,
+       50
+      ]
+     ]
+    }
+   }
+  },
+  "#2430 compact sea courier": {
+   "params": {
+    "ridge": 0.22,
+    "shoulder_z": 0.315,
+    "shoulder_y": -0.293,
+    "keel": 0.313,
+    "chine_z": 0.093,
+    "belly_w": 0.831,
+    "nose": 1.091,
+    "base": 0.769,
+    "wing": "none",
+    "span": 4.26,
+    "chord": 0.0,
+    "fan_m2": 8,
+    "floats_m3": 0,
+    "water_t": 18,
+    "seats": 6,
+    "rover": false,
+    "fan_venus": true,
+    "desal": true
+   },
+   "feasible": true,
+   "fails": [],
+   "dry_t": 34.75,
+   "docked_t": 52.8,
+   "seats": 6,
+   "length": 12.8,
+   "interior": 14.2,
+   "crossrange": 1137,
+   "glide": 3.18,
+   "turn": 7.8,
+   "fit_r": 2.13,
+   "osteon": null,
+   "mass": {
+    "hull_structure": 12.75,
+    "entry_tps": 1.63,
+    "wings": 0.0,
+    "cabin": 3.36,
+    "water_tank": 1.62,
+    "rover": 0.0,
+    "torch": 7.01,
+    "belly_rcs": 0.4,
+    "power_dist": 0.65,
+    "custody": 0.12,
+    "avionics": 0.85,
+    "gear_door": 1.02,
+    "crash_mounts": 0.3,
+    "floats": 0.0,
+    "desal": 0.4,
+    "cabin_wall": 1.09,
+    "fans_reactor": 3.54
+   },
+   "missions": {
+    "earth": {
+     "ok": true,
+     "touchdown_mass_t": 38.35,
+     "worst_headroom": 1.66,
+     "fails": []
+    },
+    "evac": {
+     "ok": false,
+     "touchdown_mass_t": 51.15,
+     "worst_headroom": -10.7,
+     "fails": [
+      [
+       "Water touchdown at mission mass (climb water aboard)",
+       60.7,
+       50
+      ]
+     ]
+    },
+    "orbital": {
+     "ok": true,
+     "touchdown_mass_t": null,
+     "worst_headroom": 13.8,
+     "fails": []
+    },
+    "surface": {
+     "ok": true,
+     "touchdown_mass_t": null,
+     "worst_headroom": 12.3,
+     "fails": []
+    },
+    "hot": {
+     "ok": false,
+     "touchdown_mass_t": 54.05,
+     "worst_headroom": -13.4,
+     "fails": [
+      [
+       "Water touchdown at mission mass (climb water aboard)",
+       63.4,
+       50
+      ],
+      [
+       "Max turn at 8 g",
+       7.8,
+       15
+      ]
+     ]
+    }
+   }
+  }
+ }
+}

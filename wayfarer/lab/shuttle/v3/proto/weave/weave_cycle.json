@@ -1,0 +1,44 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "lane": "PROTOTYPE (non-canon) Weave manoeuvring - closed-cycle test",
+ "doc": "Weave manoeuvring - decisive closed-cycle energy test (Sol review 595baf4, smallest test for option 3).\nNON-CANON prototype lane. kT 2026-11-21: may challenge CANON II \u00a77.1a/\u00a77.1b; \u00a718A doctrine waived for this lane.\nALL bodies. ALL sponsors. 2026-2226.\n\nRule S (canon as written): ENERGY-B arrival speed counted in the Sun-barycentric frame, Sun is the momentum partner.\nRule L (lane proposal): inside a body's sphere of influence the Weave's partner is that body; ENERGY-B is counted in its frame.\nENERGY-B (CANON II \u00a77.1a): v_a^2 = |v_s|^2 + 2(Phi_s - Phi_a), direction carried by the local frames.\nCycle: hover at sea level -> metric up-hop 1 km -> ordinary fall 1 km with ideal harvest -> trim residual velocity -> start state.\nA closed cycle must return zero net extractable work (CANON II \u00a77.3) or it is a pump.",
+ "cycle_1km": {
+  "S (canon \u00a77.1a/b as written)": {
+   "rule": "S",
+   "residual_drift_ms": 0.3294,
+   "paid_for_hop_MJ": 0.0,
+   "harvested_MJ": 598.4,
+   "trim_MJ": 0.0033,
+   "net_extractable_MJ_per_cycle": 598.4,
+   "partner_impulse_Ns": 20094,
+   "source_of_net_energy": "Sun-partner exchange, dp x v_rel(Sun-Earth)",
+   "verdict": "PUMP: violates CANON II \u00a77.3 (hard kill if restored)"
+  },
+  "L (local partner inside sphere of influence)": {
+   "rule": "L",
+   "residual_drift_ms": 0.0,
+   "paid_for_hop_MJ": 598.4,
+   "harvested_MJ": 598.4,
+   "trim_MJ": 0.0,
+   "net_extractable_MJ_per_cycle": 0.0,
+   "partner_impulse_Ns": 0,
+   "source_of_net_energy": "none (closed)",
+   "verdict": "CLOSED: zero net work (losses only)"
+  }
+ },
+ "rule_L_theorem": "with Phi time-independent in the partner frame, ENERGY-B segments + ordinary gravity conserve E_mech; net work of any closed cycle = paid - harvested = losses >= 0",
+ "soi_handoff": {
+  "v_inf_ms": 3000.0,
+  "free_180deg_turn_heliocentric_dv_ms": 6000.0,
+  "heliocentric_energy_change_GJ": 10899,
+  "note": "IF the Weave could also rotate real velocity for free, a 180 deg turn of v_inf would be a gravity assist anywhere in the sphere of influence (planet pays): setting-scale. EXCLUDED by lane rule W-3, which keeps canon \u00a77.1a: arrival direction is carried by the local frames and ordinary vector steering is paid by torch. The Weave changes POSITION; the torch owns VELOCITY."
+ },
+ "sphere_of_influence_earth_m": 925000000.0,
+ "rules": {
+  "W1": "partner = dominant body inside its sphere of influence (departs \u00a77.1b; lane-authorized)",
+  "W2": "ENERGY-B counted in the partner frame; height gain paid from bank/reactor (powered channel, departs \u00a77.1a; lane-authorized)",
+  "W3": "arrival kinetic state = departure state carried by local frames (canon \u00a77.1a kept): no free velocity steering",
+  "W4": "doctrine \u00a718A and near-body certification \u00a76 waived for this lane (kT)"
+ },
+ "verdict": "Rule S pumps ~0.6 GJ per 1 km cycle for 61 t (source: Sun exchange at 29.8 km/s). Rule L closes. Weave near bodies is admissible only with Rule L, which is a scoped departure from \u00a77.1b (authorized for this lane, not canon)."
+}

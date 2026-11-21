@@ -1,0 +1,137 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "lane": "PROTOTYPE (non-canon) BMD-1 gravity steering, trajectory test",
+ "law": "|a_f| <= 1.5 g_P; reaction to P; onboard energy F . v_rel(P)",
+ "case1_earth_to_orbit": {
+  "shuttle reactor 29 MWe": {
+   "power_MW": 29.0,
+   "time_to_orbit_h": 19.36,
+   "climb_speed_cap_ms": 48.5,
+   "mechanical_work_TJ": 2.033,
+   "orbital_energy_needed_TJ": 2.021,
+   "reaction_impulse_to_Earth_TNs": 0.006,
+   "gross_impulse_TNs": 0.021,
+   "earth_recoil_velocity_ms": "9.8e-16",
+   "propellant_t": 0.0,
+   "track": [
+    [
+     0.17,
+     28.9,
+     0,
+     "climb"
+    ],
+    [
+     2.5,
+     400.0,
+     1076,
+     "spin"
+    ],
+    [
+     4.83,
+     400.0,
+     3024,
+     "spin"
+    ],
+    [
+     7.17,
+     400.0,
+     4139,
+     "spin"
+    ],
+    [
+     9.5,
+     400.0,
+     5012,
+     "spin"
+    ],
+    [
+     11.83,
+     400.0,
+     5754,
+     "spin"
+    ],
+    [
+     14.17,
+     400.0,
+     6410,
+     "spin"
+    ],
+    [
+     16.5,
+     400.0,
+     7006,
+     "spin"
+    ],
+    [
+     18.83,
+     400.0,
+     7554,
+     "spin"
+    ]
+   ]
+  },
+  "torch-class 7.7 GW source (comparison)": {
+   "power_MW": 7700.0,
+   "time_to_orbit_h": 0.35,
+   "climb_speed_cap_ms": 12867.4,
+   "mechanical_work_TJ": 2.021,
+   "orbital_energy_needed_TJ": 2.021,
+   "reaction_impulse_to_Earth_TNs": 0.001,
+   "gross_impulse_TNs": 0.001,
+   "earth_recoil_velocity_ms": "1.2e-16",
+   "propellant_t": 0.0,
+   "track": [
+    [
+     0.17,
+     400.1,
+     272,
+     "spin"
+    ],
+    [
+     0.33,
+     400.0,
+     6938,
+     "spin"
+    ]
+   ]
+  }
+ },
+ "torch_reference": {
+  "water_t": 18.0,
+  "note": "explorer reference tank for Earth sea-to-orbit (R1 legs), ~minutes; jet energy ~ water x ve^2/2 = several TJ"
+ },
+ "case2_heliocentric_24h": {
+  "field_accel_ms2": 0.00889,
+  "force_N": 543,
+  "dv_24h_ms": 768,
+  "prograde": {
+   "power_MW": 16.2,
+   "work_GJ_24h": 1396,
+   "note": "speeds the orbit up: energy = F . v_helio"
+  },
+  "normal": {
+   "power_MW": "~0 at start (F perpendicular to v)",
+   "work_GJ_24h": 18.0,
+   "plane_change_deg_24h": 1.48,
+   "note": "rotates the velocity: a plane change costs only 1/2 m dv_n^2"
+  },
+  "radial": {
+   "work_GJ_24h": 18.0,
+   "note": "reshapes the orbit, ~zero power"
+  },
+  "scaling": {
+   "acceleration_independent_of_mass": true,
+   "wayfarer_1168t_prograde_power_MW": 309,
+   "at_0p3_AU_accel_ms2": 0.0988,
+   "dv_per_day_at_0p3AU_ms": 8538,
+   "equivalent_solar_sail_area_km2_for_this_force": 60
+  }
+ },
+ "verdict": {
+  "landing_capability": "YES: hover and slow lift near a body cost ~0 power; the 200 m exhaust-free lift is available.",
+  "torch_alternative": "ALSO YES - the law as stated is not a landing aid. With only the shuttle's existing 29 MWe reactor it reaches 400 km orbit with ZERO propellant in ~19.36 h; with a torch-class 7.7 GW source in ~0.35 h. Holding altitude while gaining speed costs no power (force perpendicular to velocity), so the only bill is the orbital energy (~2 TJ). In heliocentric space it gives ~768 m/s per day to ANY ship (acceleration is mass-independent), plane changes almost free, ~8538 m/s per day at 0.3 AU.",
+  "meaning": "Gravity steering as stated is a propellant-free alternative to the torch for orbit insertion and slow interplanetary freight: a setting-scale change, not a shuttle feature.",
+  "the_leak": "Force perpendicular to the partner-relative velocity does no work. Any law that caps force by gravity but prices energy by F . v_rel gives free altitude-holding, free plane changes and power-limited (not propellant-limited) orbit raising.",
+  "if_landing_only_is_wanted": "The capacity must fall off with distance from the partner's SURFACE (a proximity law on the scale of the domain, ~10-100 m), not with g_P. That is a different constitutive law and is not tested here."
+ }
+}

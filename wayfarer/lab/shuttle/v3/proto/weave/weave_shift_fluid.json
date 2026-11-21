@@ -1,0 +1,117 @@
+{
+ "doc": "Can air actually follow the zero-expansion shift flow? (SOL review of 2027261). NON-CANON. ALL bodies. ALL sponsors. 2026-2226.\n\nMetric (N = 1, flat slices): ds^2 = -c^2 dt^2 + sum_i (dx^i - beta^i dt)^2, axisymmetric Natario-type shift in Cartesian form:\n  u = x - X(t), rho^2 = y^2 + z^2, r^2 = u^2 + rho^2;  beta_x = V(F + rho^2 F'/(2r)),  beta_y = -V y u F'/(2r),  beta_z = -V z u F'/(2r).\nPart 1 (exact GR, numerical): at random points, with full 4D Christoffels by 4th-order finite differences (c = 1, V up to 0.3 c):\n  (a) 4-acceleration a^nu = u^mu d_mu u^nu + Gamma^nu_{mu lam} u^mu u^lam of u = (1, beta)  -> 0 means the REQUIRED fluid acceleration\n      d_t beta + (beta.grad) beta is exactly the GEODESIC acceleration (no pressure gradient needed);\n  (b) div T for a perfect fluid with uniform rho, p and u = (1, beta): d_mu T^{mu nu} + Gamma^mu_{mu lam} T^{lam nu} + Gamma^nu_{mu lam} T^{mu lam}.\nPart 2 (beyond ideal, sea-level air, the real dash): viscous stress/dissipation from the shear sigma = sym grad beta, pattern Mach number\n  |V xhat - beta| / c_s, and growth of small velocity perturbations w along parcel paths: w_dot_i = -(d_i beta_j) w_j (slow geodesic from L = 1/2|xdot - beta|^2; conserves p_phi,\n  pressure feedback ignored => test-particle bound). det W = 1 since div beta = 0.",
+ "part1_exact_GR": {
+  "norm_u": {
+   "max": 1.0000000000000002,
+   "median": 1.0
+  },
+  "a4_over_req": {
+   "max": 3.43878944911254e-10,
+   "median": 2.5230157573935114e-12
+  },
+  "geo_minus_req_rel": {
+   "max": 3.43878944911254e-10,
+   "median": 2.4767471256793696e-12
+  },
+  "divT_rel": {
+   "max": 7.493929540157345e-12,
+   "median": 1.4576072234056464e-12
+  },
+  "div_beta": {
+   "max": 1.5807494202491057e-13,
+   "median": 1.9442780718748054e-14
+  },
+  "req_accel": {
+   "max": 0.020276536429924635,
+   "median": 0.008505877827531115
+  }
+ },
+ "part1_control_alcubierre": {
+  "norm_u": {
+   "max": 1.0,
+   "median": 1.0
+  },
+  "a4_over_req": {
+   "max": 7.80826976697644e-10,
+   "median": 2.4465927956238732e-12
+  },
+  "geo_minus_req_rel": {
+   "max": 2.5507609487914807e-10,
+   "median": 2.014645084515953e-12
+  },
+  "divT_rel": {
+   "max": 1.370000000007824,
+   "median": 1.1174184481012013
+  },
+  "div_beta": {
+   "max": 0.06564608933357317,
+   "median": 0.016079438239187276
+  },
+  "req_accel": {
+   "max": 0.013281773185917719,
+   "median": 0.005575367385056297
+  }
+ },
+ "part2": {
+  "R15_d2": {
+   "viscous": {
+    "peak_shear_per_s": 74.1714512211475,
+    "peak_viscous_normal_stress_Pa": 0.0026701722439613105,
+    "peak_viscous_accel_ms2": 0.0017863876931343853,
+    "viscous_dissipation_J": 1426.9081386464056,
+    "peak_dissipation_W": 1170.5105819978025,
+    "peak_pattern_mach": 0.8920499583507941,
+    "viscous_stress_SPL_dB": 42.510185630035764
+   },
+   "perturbation": {
+    "max_amplification": 189.18071759252987,
+    "p99_amplification": 157.8282520205311,
+    "median_amplification": 1.5864201884281082,
+    "mass_amplified_over_2x_kg": 169118.21572804573,
+    "mass_amplified_over_10x_kg": 21955.962737408347,
+    "max_det_error": 2.7859021756171387e-09,
+    "residual_speed_for_0p1ms_ambient_max": 18.91807175925299
+   }
+  },
+  "R12_d2": {
+   "viscous": {
+    "peak_shear_per_s": 61.72202178354315,
+    "peak_viscous_normal_stress_Pa": 0.0022219927842075534,
+    "peak_viscous_accel_ms2": 0.0014490361164463184,
+    "viscous_dissipation_J": 634.439874633866,
+    "peak_dissipation_W": 520.4389594445906,
+    "peak_pattern_mach": 0.7619128131451276,
+    "viscous_stress_SPL_dB": 40.91425297194129
+   },
+   "perturbation": {
+    "max_amplification": 188.71065405870573,
+    "p99_amplification": 130.70050595554378,
+    "median_amplification": 1.186284401818816,
+    "mass_amplified_over_2x_kg": 89746.50565363033,
+    "mass_amplified_over_10x_kg": 13726.246622064522,
+    "max_det_error": 2.3340138710636893e-09,
+    "residual_speed_for_0p1ms_ambient_max": 18.871065405870574
+   }
+  },
+  "R12_d0.5": {
+   "viscous": {
+    "peak_shear_per_s": 854.607549054371,
+    "peak_viscous_normal_stress_Pa": 0.030765871765957357,
+    "peak_viscous_accel_ms2": 0.08988182971688935,
+    "viscous_dissipation_J": 32313.658660950463,
+    "peak_dissipation_W": 26507.298109319407,
+    "peak_pattern_mach": 2.3769864909276963,
+    "viscous_stress_SPL_dB": 63.740784597600666
+   },
+   "perturbation": {
+    "max_amplification": 784.5580348109445,
+    "p99_amplification": 518.9347557034529,
+    "median_amplification": 1.000239549658969,
+    "mass_amplified_over_2x_kg": 92204.48774579901,
+    "mass_amplified_over_10x_kg": 9417.238138400764,
+    "max_det_error": 8.520700589542685e-09,
+    "residual_speed_for_0p1ms_ambient_max": 78.45580348109445
+   }
+  }
+ }
+}
