@@ -17,7 +17,7 @@ A 15 m local field radius does not mathematically limit cumulative distance, but
 |---|---|---|---|
 | **P-F1 LOCK** | Grant a **physical** Earth-rotating-frame coupling which makes Tic Tac's tangential ordinary velocity follow `v_theta=Omega_E r` during a controlled path. Exchange `Delta L = m Omega_E(r_GEO²-R_E²)` with Earth's spin (an R4 external-partner *hypothesis*, not an already identified R1 partner). | **NEW kT PERMISSION**; source of angular impulse named but constitutive mechanism not derived | Existing R1 Weave can align position but not velocity; W2/torch/ferry must supply the ordinary change. No geostationary docking by coordinate alignment alone |
 | **P-F2 POWER** | Grant transfer of useful work from Wayfarer to Tic Tac along the connection, for the ascent's `Delta E'=Delta E-Omega_E Delta L`. This is a **paid** energy transfer, not a grant of a free reservoir or a drive capability from the 2 GJ Metric bank. | **NEW kT PERMISSION**; energy cost quantifiable, transmission/efficiency/heat pathway unestablished | The 2.35 TJ still needs an actual local energy source, propulsion system, or other explicit external infrastructure. No reactorless ascent closure |
-| **P-F3 REACH** | Grant that a particular Wayfarer–planet stationary-frame connection can be established, navigated, and safely terminated across the full route, despite a local 15 m field sphere. The route is the physical relationship, not the diameter of the field bubble. Requires compatible stationary orbit and route availability; no global arbitrary-distance Builder jump implied. | **NEW kT PERMISSION**; not derived from Weave sorties or gait curvature | No surface-to-GEO relational travel; current local operating envelope and ordinary recovery candidates remain |
+| **P-F3 REACH + TENSION** | Grant a finite, end-anchored Wayfarer–planet relational route across the full surface-to-stationary-orbit distance, despite the local 15 m field sphere. **Also grant a load-bearing, fail-passive tension path** capable of holding a stopped craft against its effective radial weight without continuous mechanical work while P-F1 and P-F3 stay intact. The reaction forces must close on physical partners, preferably Earth's spin/body rather than silently perturbing Wayfarer. Controlled lowering needs a specified brake/energy receiver; no arbitrary global hop or free-work cycle. | **NEW kT PERMISSION**; neither long reach nor passive tension nor its reaction path is derived from local Weave or gait tests | No complete relational elevator; ordinary retrieval remains. If the load-bearing link fails, the passive-hold abort disappears |
 
 **Only all three together** would make this proposed recovery method possible. Even then, it is a design hypothesis, not an operating/certification pass.
 
@@ -30,11 +30,22 @@ Reuses the verified analytical fixture (`mu_E=3.986004418e14 m³/s²`, `Omega_E=
 - Energy from Earth's spin if physical torque lock exists: `Omega_E Delta L≈0.448 TJ`.
 - Total inertial endpoint mechanical-energy gain: `Delta E≈2.797 TJ`.
 - **Work in rotating frame: `Delta E'≈2.348 TJ`**, requiring an identified paid source, proposed as Wayfarer.
-- A ten-hour transfer requires **65.24 MW *average delivered useful power***, assuming no overhead/loss or additional work. This is not peak demand nor a proven trajectory.
+- A ten-hour transfer requires **65.24 MW average delivered useful power**; a twenty-hour transfer requires **32.62 MW average delivered useful power**, assuming no overhead/loss or additional work. These figures are energy/time quotients, not demonstrated peak requirements or flight profiles.
 
 **IMPORTANT: Claude's comparison to a '1.4 GW plant' is incorrect.** That 1.4 GW is *torch heat delivered to hot structure* in the Wayfarer heat model, NOT available electrical power. The accepted `plant_power` decision is twin **50 MW net house reactors, 100 MW total**. The separate 47.52 MW torch-burn-only tap is not a house generator and its propulsion energy debit remains open. At illustrative **75% overall end-to-end efficiency**, supplying 65.24 MW useful requires ~**87.0 MW** house electrical and leaves only ~13.0 MW for all other loads. Actual continuous reactor dispatch, source-side reject, link losses, receiver heating and radiator-loop compatibility are not qualified.
 
-**Average does not imply a 100 MW peak cap passes.** For illustration, travelling the full 35,786 km at constant radial speed for ten hours (~994 m/s) requires `P=m(mu/r²-Omega² r) dr/dt`, about **470 MW near the ground**, many times the house reactors' total net electrical output. A viable sub-100 MW peak ascent must use a strongly nonuniform velocity profile, slower low down where effective gravity is strong. No speed-time profile was solved here; **10 h is not qualified**.
+### Constant-power climb, analytic only (Claude reviewer follow-up)
+
+The idealised **rotating-frame effective weight** at radius `r` is `F_eff(r)=m[mu_E/r²-Omega_E² r]`. For a quasi-static ascent `dW=F_eff dr`. A flat *useful mechanical power* demand `P_useful` therefore suggests `dr/dt=P_useful/F_eff(r)`: **slow low where effective weight is high; faster high where it is low**.
+
+| Ideal transfer duration | Average useful work rate | Average Wayfarer electrical draw at hypothetical 75% end-to-end efficiency | Average 100 MW-house-bus headroom, before other loads |
+|---|---:|---:|---:|
+| 10 h | **65.24 MW** | **86.98 MW** | **13.02 MW** |
+| **20 h (preferred power screen)** | **32.62 MW** | **43.49 MW** | **56.51 MW** |
+
+**A constant-power interior is not an entire end-to-end flight profile.** From rest `P=Fv` starts at zero; the quasi-static formula formally diverges at GEO where `F_eff→0`; actual acceleration, radial kinetic energy, finite entry/exit speeds, stopping and docking require endpoint ramps and transient power. Thus **peak = average only for an ideal constant-power interval**, not a proved full 10/20 h trajectory. A real peak may exceed the averages, and the 100 MW bus must still supply other loads and transmission overhead. Twenty hours buys substantial headroom but is **not certified**. No simulation or trajectory solution was run.
+
+For comparison, moving at constant *radial speed* over 35,786 km in ten hours (~994 m/s) would demand ~**470 MW useful near Earth's surface** under this effective-weight approximation. That is why a power-limited ascent must be deliberately slower lower down; this is an energy/force screen, not a flight design.
 
 Heat must follow the actual source/transfer/receiver losses. Wayfarer's **1,750 K torch hot fins** do *not* automatically accept the link's waste heat; source-side loop capacity and radiators need an actual connection. An assumption of zero receiver heat would likewise be unjustified.
 
@@ -42,7 +53,7 @@ Heat must follow the actual source/transfer/receiver losses. Wayfarer's **1,750 
 
 The energy/impulse/torque reaction imparted to Wayfarer by the link is also **UNKNOWN**. Declaring Earth the angular-momentum partner and Wayfarer the energy provider does not by itself prove Wayfarer experiences no reaction force or orbital perturbation. The simplest eventual constitutive law must close the total system, with no arbitrary momentum reset or free cycle.
 
-## Failure / abort: correct the 'danger zone below ~24,000 km' and W2 claim
+## Failure / abort: passive support is a proposed P-F3 property, not existing W2 rescue
 
 For **co-rotating tangential velocity `v_theta=Omega r` and zero radial velocity at the instant of lock loss**, an unpowered ballistic orbit below GEO is elliptical, not circular. Its perigee falls below Earth's surface when lock is lost below approximately:
 
@@ -51,13 +62,19 @@ For **co-rotating tangential velocity `v_theta=Omega r` and zero radial velocity
 
 Derivation from conserved `h_{spec}=Omega r²` and the vis-viva equation, with `r` as the co-rotating orbit's instantaneous apogee (`r<r_GEO`): `r_p= r(r/r_GEO)^3/[2-(r/r_GEO)^3]`, then set `r_p=R_E`. This is a **ballistic-impact screen**, not a safe/unsafe flight boundary. A rising/falling craft has radial velocity; real perturbations, timing and energy state shift the result. Even above this altitude, a non-circular uncontrolled orbit is not a safe dock or assured rescue.
 
+At this threshold the rotating-frame work already expended is **~2.273 TJ / 2.348 TJ = 96.8%**. Thus almost the entire climb's energy lies within the nominal ballistic-impact region. This makes a **non-powered passive hold** an important potential safety benefit if, and only if, P-F3's physical tension is granted and remains intact.
+
 The experimental directional W2 is an **existing non-canon, limited grant**, not a whole-route abort certification. The operating card's *cushion* lift was screened near the surface with ~2 km profile/ceiling; the directional W2 ascent was a separate screened operation with 0.4g net control. Neither result establishes unlimited high-altitude powered hovering, survival after P-F2 loss, or sufficient energy to return from tens of thousands of kilometres. The Tic Tac's small flywheel/buffer is not a multi-TJ recovery store.
 
-Failure modes:
-- **P-F1 drops:** ordinary tangential velocity stops following Earth's frame; no safe docking. Remaining trajectory depends on `r` and radial velocity; collision or later re-entry is possible.
-- **P-F2 drops:** paid ascent stops; station-keeping or descent is **not** automatically available without independently powered field operation and a demonstrated reverse transfer/dissipation route.
-- **P-F3 drops:** loss of the long connection; cannot assume R1 shift or W2 works at distance or that the ship can re-establish the link before impact.
+**Proposed passive-tension operating distinction:** In the ideal rotating frame a *stopped* craft's supporting load is `F_eff=m(mu/r²-Omega²r)`, approximately **475 kN near the equatorial surface**, declining towards zero at GEO. Holding it at rest needs **force, but zero mechanical work while it does not move**. This does not establish how a nonmaterial relational link carries tension, how it withstands transients, or where its reaction forces go. A direct pull against Wayfarer would disturb its GEO orbit; the Earth-anchored reaction path is **part of the new P-F3 hypothesis**, not a free engineering detail. An ordinary elevator tether terminating at GEO without a counterweight cannot simply hang the load from an unpropelled GEO spacecraft.
+
+Failure modes, conditional on an independently stable P-F1 lock and a granted, fail-passive P-F3 load path:
+- **P-F2 electrical/transfer loss alone:** stop powered ascent and **hang on the P-F3 tension path**, provided the connection holds and the motion is arrested safely. **Lower only through a physically accounted brake/regenerator or energy sink**. If that controlled-lowering capability is absent, remain suspended while power is restored; do not assert a free braked descent.
+- **P-F1 loses rotating-frame lock:** angular motion ceases to be matched; lateral load or detachment can occur. The P-F3 load path does not guarantee benign survival. A missing lock is not merely a lost position label.
+- **P-F3 link/tension fails:** the passive hold vanishes, and the actual inertial trajectory (including radial velocity) determines possible re-entry, impact or other loss. No guarantee of W2 high-altitude rescue or reattachment.
 - **Terminal handoff:** radial speed must be reduced to near zero, angular/linear residual matched, field interference screened and physical docking/latching qualified. No cradle assumed.
+
+**Only complete loss of the effective physical support path necessarily removes the passive hold;** loss of power by itself need not. This does not reduce all failures to one harmless mode, because lock loss, adverse transients, thermal failure and mechanical/interface failure can also compromise support.
 
 If return from GEO to the surface is permitted, the reverse effective-potential work of roughly **2.35 TJ** must be transferred to a receiver, stored, or dissipated; do not assume reversible recovery or a free energy cycle.
 
@@ -71,7 +88,7 @@ Natural stationary orbits exist for Earth and Mars and some fast-spinning bodies
 
 - **P-F1** Grant / Refuse: rotating-frame angular-momentum lock to Earth or applicable body.
 - **P-F2** Grant / Refuse: paid Wayfarer-sourced work via link, with an open thermal/transmission model.
-- **P-F3** Grant / Refuse: finite, end-anchored long-range relational connection to stationary-orbit Wayfarer.
-- **Reviewer holds:** 100 MW net house-electric ceiling, 65 MW **average** not peak, beam fallback conditional, 23,412 km threshold conditional on zero radial speed, and no independent high-altitude W2 rescue.
+- **P-F3** Grant / Refuse: finite, end-anchored long-range connection **with load-bearing, fail-passive tension and a specified reaction path**. Controlled braked lowering needs an energy sink and is *not* silently included.
+- **Reviewer holds:** 100 MW net house-electric ceiling; ten-hour **65.24 MW** vs twenty-hour **32.62 MW average useful** (at 75%, ~87 / 43.5 MW average electrical); endpoint ramps and peak unresolved; beam fallback conditional; 96.8% of climb work lies below the 23,412 km ballistic threshold; no independent high-altitude W2 rescue; and no free Wayfarer station-keeping reaction.
 
 **STOP:** analytic proposal delivered; all three permissions remain **UNGRANTED**. No sims, canon/CCR change, transfer hardware, engine deletion, new cradle or orbital deployment doctrine approved. Claude to review; kT decides permissions.
