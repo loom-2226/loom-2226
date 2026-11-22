@@ -1,77 +1,80 @@
 {
  "header": "ALL bodies. ALL sponsors. 2026-2226.",
- "doc": "Builder Tic Tac rulebook, derived from the lane's speculative physics (fiction-first, NON-CANON).\nALL bodies. ALL sponsors. 2026-2226.\n\nEvery rule carries its derivation status:\n  CANON      Canon II text (sec. numbers)\n  LANE       derived in the Weave prototype lane (cited reports)\n  LEDGER     derived in builder_cycle_screen (no-free-work requirement)\n  RT         RT accepted result used as inspiration (not proof)\n  POSTULATE  a minimal new assumption, stated once\nNumbers below are computed, not chosen.",
+ "doc": "Builder Tic Tac rulebook, derived from the lane's speculative physics (fiction-first, NON-CANON).\nALL bodies. ALL sponsors. 2026-2226.\n\nEvery rule carries its status (corrected after Sol's review of 0db5da0):\n  CANON      Canon II text (sec. numbers)\n  LANE       derived in the Weave prototype lane (cited reports)\n  LEDGER     derived in builder_cycle_screen (no-free-work requirement)\n  RT         RT accepted result used as inspiration (not proof)\n  POSTULATE  a minimal new assumption, stated once\nNumbers below are computed, not chosen.",
  "postulates": {
-  "P1": "the continuous active hull is the Loom boundary (and the W2/Weave interface)",
-  "P2": "the record frame is the frame of the body that dominates by force",
+  "P1": "the continuous active hull is the W2/Weave interface (design hypothesis); as a Loom boundary it is part of the R3 new permission",
+  "P2": "partner/record frame selection: NOT YET CHOSEN. 0db5da0 conflated two criteria: equal pull (Earth-Sun boundary 259,000 km from Earth; Earth-Moon 38,400 km from the Moon; the Sun pulls the Moon 2.2x harder than Earth, so the Moon region is Sun-frame) versus Laplace sphere of influence (patched-conic perturbation ratio: Earth 924,700 km, Moon 66,200 km)",
   "P3": "the accessible relational range is bounded"
  },
  "rules": [
   {
-   "rule": "R1 Weave shift moves her without changing her velocity; carries her air; quiet while the field edge is subsonic",
-   "status": "LANE",
-   "basis": "slow-geodesic law dw/dt = -(grad b) w is homogeneous (WEAVE_GEOMETRY_COMPARE; continuous_hull_screen B); ideal-fluid transport (WEAVE_SHIFT_FLUID); edge Mach limit (WEAVE_OUTINGS)"
+   "rule": "R1 The Weave shift moves her without changing her velocity; carries her air; quiet while the field edge is subsonic",
+   "status": "DERIVED within the adopted field model",
+   "basis": "slow-geodesic law dw/dt = -(grad b) w is homogeneous (WEAVE_GEOMETRY_COMPARE; continuous_hull_screen B); ideal-fluid transport; edge Mach limit"
   },
   {
    "rule": "R2 Directional W2 changes her velocity only while the field travels with her; it pushes her through the air (drag, wake)",
-   "status": "LANE",
-   "basis": "potential-type field gives lasting velocity when co-moving, returns it when fixed (continuous_hull_screen C; lapse dash in WEAVE_GEOMETRY_COMPARE)"
+   "status": "DERIVED within the adopted field model",
+   "basis": "potential-type field: lasting velocity when co-moving, returned when fixed (continuous_hull_screen C; lapse dash). Directional use itself is the experimental grant (Sol, after b99d437)"
   },
   {
-   "rule": "R3 Loom hop relocates her discontinuously; arrival state is a route transform of departure; she must stay one configuration during commit",
-   "status": "CANON + POSTULATE",
-   "basis": "Canon II sec. 12 (Q_B = T_AB(Q_A), momentum matching separate) and sec. 12.1 commit lock. POSTULATE P1: the continuous active hull is her Loom boundary (153 m2; Wayfarer needs ~1,900 m2 of controlled boundary)"
+   "rule": "R3 The hull can perform local Loom hops (relocation with a route-transformed arrival state, configuration locked during commit)",
+   "status": "NEW BUILDER PERMISSION",
+   "basis": "canon sec. 12 gives the human Loom (Q_B = T_AB(Q_A), sec. 12.1 commit lock, interstellar role in sec. 18A). A local Builder hop through a 153 m2 hull boundary is a new permission; the area comparison with Wayfarer's ~1,900 m2 does not establish it"
   },
   {
-   "rule": "R4 Every mode must exchange with an external partner; none is isolated",
-   "status": "LANE",
+   "rule": "R4 Every mode exchanges with an external partner; none is isolated",
+   "status": "DERIVED within the adopted field model",
    "basis": "ADM charges of a compact field vanish; an isolated displacement violates the boost charge (WEAVE_SOURCE_CLOSURE)"
   },
   {
-   "rule": "R5 The ledger: her relational state keeps a record equal to the net ordinary work all modes have done on her (kappa x delta rho), in one record frame",
-   "status": "LEDGER",
-   "basis": "excluding free-work cycles with a restorable relational state forces the record (builder_cycle_screen). Weave adds nothing (no work); W2 and Loom add their work"
+   "rule": "R5 A ledger: her relational state records the net ordinary work done on her, linearly (kappa x delta rho), in one record frame",
+   "status": "CONDITIONAL HYPOTHESIS",
+   "basis": "one accounting model that excludes free-work cycles (builder_cycle_screen L1). Not forced: a partner supplying the energy (e.g. the Sun-partner route), a global field state, a nonlinear cost or a finite environmental exchange would also exclude them"
   },
   {
-   "rule": "R6 Locality: a field operation (W2 push or Loom hop) is admissible only if one record frame holds from start to finish, the frame of the body that dominates her by force. No field operation may span a sphere-of-influence boundary; she crosses boundaries only by coasting (no field work), e.g. Earth to Moon: push inside Earth's sphere, coast across, capture inside the Moon's",
-   "status": "LEDGER + POSTULATE",
-   "basis": "derived: the work, and so the record, is frame-dependent (KE differs by m u.dv between frames); a ledger needs one frame per operation. POSTULATE P2: the record frame is the force-dominant body. Force weighting is the only choice that gives locality: at Earth's surface Earth dominates by force x1,656, while the Sun dominates by potential x14 (potential weighting would make the Sun the partner everywhere, with no tether). Earth sphere of influence 924,694 km (Hill 1,496,626 km); Moon 66,195 km (Hill 61,533 km)"
+   "rule": "R6 Locality: no field operation spans a change of partner frame; she crosses such boundaries by coasting",
+   "status": "CHOSEN OPERATING RULE",
+   "basis": "frame-dependence of work does NOT require the field to stop where the partner changes; this is an adopted restriction. Its boundary depends on the partner criterion, not yet chosen (P2: equal pull and Laplace give different boundaries)"
   },
   {
-   "rule": "R7 Natural arrival keeps her velocity in the record frame (least ledger change); any other arrival costs the difference on the ledger",
-   "status": "LEDGER",
-   "basis": "from R5 + R6: the ledger change of a hop is the change of ordinary energy in the record frame; keeping velocity leaves only the potential term"
+   "rule": "R7 Natural arrival keeps her velocity in the partner frame",
+   "status": "CHOSEN OPERATING RULE",
+   "basis": "canon leaves T_AB unspecified; this arrival rule is a choice, not a consequence of minimum energy"
   },
   {
-   "rule": "R8 Range: the accessible relational range is bounded (kappa x rho_max of net ordinary work on credit); at the edge an operation is refused",
-   "status": "POSTULATE (RT-inspired)",
-   "basis": "POSTULATE P3: bounded accessibility, in the spirit of RT-C1 control geometry (accessibility differs from distance). Refusal at the edge: builder_cycle_screen L1"
+   "rule": "R8 Bounded accessible range; operations refused at the edge",
+   "status": "CONDITIONAL HYPOTHESIS",
+   "basis": "postulate P3 (RT-C1-inspired), conditional on the R5 ledger model. Its size is NOT set: a one-number budget would be an invisible tank (Sol)"
   },
   {
-   "rule": "R9 Coming home by field gives the record back; shedding energy into the world (aerobraking, braking, drag) leaves it spent until restored",
-   "status": "LEDGER",
-   "basis": "builder_cycle_screen: route dependence of the record (cf. RT-B1, order matters)"
+   "rule": "R9 Coming home by field restores the record; shedding energy into the world leaves it displaced",
+   "status": "CONDITIONAL HYPOTHESIS",
+   "basis": "true within the R5 ledger model (route dependence, cf. RT-B1); not a general consequence"
   },
   {
-   "rule": "R10 Route library: a hop needs a surveyed route; local measurements cannot certify it",
-   "status": "CANON + RT",
-   "basis": "Canon sec. 12.1 certifies a solution against a specific configuration; SHG1: locally identical configurations can sit in different global sectors with different responses; RT-B1/C1: route order and control cost are not set by local geometry. So routes must be surveyed (flown or mapped)"
+   "rule": "R10 Route library: a hop needs a surveyed route",
+   "status": "CHOSEN OPERATING RULE",
+   "basis": "motivated by canon sec. 12.1 (certification against a specific configuration) and RT SHG1 (locally identical, globally different); requiring a survey is a design rule"
   },
   {
-   "rule": "R11 The crew cannot see the range left: they know exactly what they have spent (integrated work in the record frame) but not rho_max",
-   "status": "LEDGER + POSTULATE",
-   "basis": "rho is not a physical observable; its change is fixed by the physical work (R5), its bound (P3) is not, unless reached. So crews keep margin: running out mid-climb is refusal mid-climb"
+   "rule": "R11 The crew knows what has been spent, not what is left",
+   "status": "CONDITIONAL HYPOTHESIS",
+   "basis": "follows within the R5 ledger plus P3"
   },
   {
-   "rule": "R12 Wear and stability: per-hop effects on the module are UNKNOWN; humans cannot service it",
+   "rule": "R12 Wear and stability per hop unknown; humans cannot service the module",
    "status": "OPEN (narrative)",
-   "basis": "no lane or RT result constrains it; left as the human-ignorance limit, not derived. Candidate hypothesis for later: dissipation scales with field gradients, not with work (untested)"
+   "basis": "no model constrains it"
   }
  ],
  "numbers": {
   "force_ratio_earth_vs_sun_at_surface": 1656,
   "potential_ratio_sun_vs_earth_at_surface": 14.2,
   "earth_soi_km": 924694,
+  "earth_equal_pull_km": 258829,
+  "moon_equal_pull_km": 38384,
+  "sun_vs_earth_pull_on_moon": 2.2,
   "earth_hill_km": 1496626,
   "moon_soi_km": 66195,
   "moon_hill_km": 61533,
@@ -80,7 +83,8 @@
    "surface -> 200 km, natural arrival (velocity kept in Earth frame)": 0.0924,
    "surface -> 200 km, arrival matched to Wayfarer (velocity changed)": 1.5581,
    "level hop and its reverse (round trip)": 0.0
-  }
+  },
+  "hop_ledger_note": "CONDITIONAL EXAMPLES: endpoint change of ordinary mechanical energy under the R5 ledger and the R7 arrival rule; not the cost of forming or controlling a Loom transition, and not local dissipation"
  },
  "open_items": [
   "restoration of a spent record (unwind only, or environmental relaxation paid physically): not decided by any theory (builder_cycle_screen)",

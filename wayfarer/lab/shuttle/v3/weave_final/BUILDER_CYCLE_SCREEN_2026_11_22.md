@@ -25,20 +25,15 @@ The continuous active hull is an M2-compatible interface to relational topograph
 - **Up by field, down by field:** everything returns, including ρ. No heat is needed.
 - **Up by field, down by falling and braking:** her height and speed return, and the world keeps the energy. **ρ does not return.** It holds the record.
 
-## Finding
+## Finding (corrected after Sol's review of 0db5da0)
 
-Excluding free-work cycles, with a restorable ρ coupled to ordinary motion, **forces** ρ to carry a record that changes in exact proportion to the net ordinary work done. That record is commensurate with joules at a fixed rate κ. It is not fuel added by hand: the no-free-work requirement forces it.
+L1 shows that **one** accounting model excludes free-work cycles. It does **not** show that conservation forces that model. A partner supplying the energy (e.g. the Sun-partner route), a global field state, a nonlinear cost or a finite environmental exchange could do the same.
 
-It is **not a reactor and not heat**:
-- **Climbing** stores the work as a relational displacement.
-- **Descending by field** gives it back, cool.
-- **Only physical dissipation** (aerobraking, braking, drag) leaves ρ displaced.
-
-**Her limit is the accessible range of ρ.** This is control geometry in the spirit of RT-C1, not a fuel tank. She can hold up to κ·ρ_max of net ordinary work "on credit". Orbit, at 1.56 TJ, is simply a position in ρ.
-
-**Route dependence** in the spirit of RT-B1: two routes to the same physical state leave different ρ if one of them dissipated along the way.
-
-**The partner question comes back in a smaller form:** the record is kept in some environment's rest frame. *Whose* is still open.
+**Within L1:**
+- A climb stores the work as a relational displacement.
+- Descending by field gives it back, cool.
+- Physical dissipation leaves the record displaced. Route dependence is in the spirit of RT-B1.
+- A bounded range acts as a finite source of usable work. Calling it a state variable does not change that: it is a fictional assumption, and no size is set.
 
 ## The conceptual gap (stop)
 
