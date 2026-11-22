@@ -1,0 +1,270 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "basis": {
+  "length_m": 12.8,
+  "envelope_radius_m": 2.15,
+  "slot_width_m": 3.8,
+  "entry_mass_t": 58.0,
+  "float_mass_t": 75.6,
+  "volume_needed_W2_m3": 110.6,
+  "landing_mass_note": "subsonic numbers at 43.5 t (75% of entry mass) at sea level"
+ },
+ "families": {
+  "F1 flying-boat lifting body": {
+   "note": "V planing belly = heat shield; sharp chines; fat topsides for volume",
+   "fit": {
+    "center_z_m": -0.299,
+    "max_radius_m": 2.05,
+    "width_m": 4.1,
+    "height_m": 2.45,
+    "fits": true
+   },
+   "volume_m3": 81.4,
+   "S_body_m2": 46.6,
+   "Swet_m2": 129.8,
+   "base_m2": 3.78,
+   "reserve_buoyancy_pct": 10,
+   "meets_W2": false,
+   "hyper_LD_max": 0.64,
+   "wings": {
+    "fold (B4 type)": {
+     "S_wing_m2": 13.0,
+     "span_m": 8.3,
+     "subsonic_LD_max": 4.97,
+     "touchdown_ms": 138.4,
+     "sink_ms": 41.6
+    },
+    "inflatable/telescoping": {
+     "S_wing_m2": 18.0,
+     "span_m": 14.0,
+     "subsonic_LD_max": 6.86,
+     "touchdown_ms": 102.8,
+     "sink_ms": 29.5
+    }
+   },
+   "earth_entry": {
+    "alpha": 40.0,
+    "LD": 0.62,
+    "beta": 2601.23,
+    "peak_g": 2.75,
+    "peak_q_Wcm2": 302.79,
+    "heat_load_MJm2": 1738.51,
+    "crossrange_km": 501.54
+   }
+  },
+  "F2 lens": {
+   "note": "gentle entry, compact; thin section loses volume; poor glider",
+   "fit": {
+    "center_z_m": 0.0,
+    "max_radius_m": 2.12,
+    "width_m": 4.24,
+    "height_m": 1.7,
+    "fits": true
+   },
+   "volume_m3": 52.8,
+   "S_body_m2": 45.7,
+   "Swet_m2": 109.3,
+   "base_m2": 2.02,
+   "reserve_buoyancy_pct": -28,
+   "meets_W2": false,
+   "hyper_LD_max": 0.92,
+   "wings": {
+    "none": {
+     "S_wing_m2": 0.0,
+     "span_m": 4.24,
+     "subsonic_LD_max": 3.46,
+     "touchdown_ms": 258.0,
+     "sink_ms": 87.4
+    }
+   },
+   "earth_entry": {
+    "alpha": 35.0,
+    "LD": 0.92,
+    "beta": 3363.02,
+    "peak_g": 2.34,
+    "peak_q_Wcm2": 200.99,
+    "heat_load_MJm2": 1606.73,
+    "crossrange_km": 944.71
+   }
+  },
+  "F3 blended wing": {
+   "note": "good glider for its span; thin centre body",
+   "fit": {
+    "center_z_m": 0.001,
+    "max_radius_m": 2.12,
+    "width_m": 4.24,
+    "height_m": 1.55,
+    "fits": true
+   },
+   "volume_m3": 34.0,
+   "S_body_m2": 40.8,
+   "Swet_m2": 92.4,
+   "base_m2": 2.01,
+   "reserve_buoyancy_pct": -54,
+   "meets_W2": false,
+   "hyper_LD_max": 0.89,
+   "wings": {
+    "fold outer panels": {
+     "S_wing_m2": 10.0,
+     "span_m": 8.3,
+     "subsonic_LD_max": 6.06,
+     "touchdown_ms": 143.2,
+     "sink_ms": 41.5
+    }
+   },
+   "earth_entry": {
+    "alpha": 40.0,
+    "LD": 0.89,
+    "beta": 3086.19,
+    "peak_g": 2.36,
+    "peak_q_Wcm2": 303.37,
+    "heat_load_MJm2": 2347.64,
+    "crossrange_km": 888.11
+   }
+  },
+  "F4 waverider": {
+   "note": "high hypersonic L/D, little volume, poor low-speed",
+   "fit": {
+    "center_z_m": 0.05,
+    "max_radius_m": 2.12,
+    "width_m": 4.24,
+    "height_m": 1.25,
+    "fits": true
+   },
+   "volume_m3": 12.8,
+   "S_body_m2": 27.0,
+   "Swet_m2": 60.8,
+   "base_m2": 1.5,
+   "reserve_buoyancy_pct": -83,
+   "meets_W2": false,
+   "hyper_LD_max": 0.89,
+   "wings": {
+    "none": {
+     "S_wing_m2": 0.0,
+     "span_m": 4.24,
+     "subsonic_LD_max": 4.44,
+     "touchdown_ms": 239.7,
+     "sink_ms": 73.5
+    }
+   },
+   "earth_entry": {
+    "alpha": 40.0,
+    "LD": 0.87,
+    "beta": 3762.94,
+    "peak_g": 2.39,
+    "peak_q_Wcm2": 765.88,
+    "heat_load_MJm2": 5762.76,
+    "crossrange_km": 857.53
+   }
+  },
+  "F5 D-section, flat belly": {
+   "note": "fullest section the bay allows with a flat lifting belly",
+   "fit": {
+    "center_z_m": -0.002,
+    "max_radius_m": 2.122,
+    "width_m": 4.24,
+    "height_m": 3.12,
+    "fits": true
+   },
+   "volume_m3": 119.7,
+   "S_body_m2": 48.0,
+   "Swet_m2": 156.2,
+   "base_m2": 5.56,
+   "reserve_buoyancy_pct": 62,
+   "meets_W2": true,
+   "hyper_LD_max": 0.5,
+   "wings": {
+    "fold (B4 type)": {
+     "S_wing_m2": 13.0,
+     "span_m": 8.3,
+     "subsonic_LD_max": 4.4,
+     "touchdown_ms": 137.7,
+     "sink_ms": 42.8
+    },
+    "inflatable/telescoping": {
+     "S_wing_m2": 18.0,
+     "span_m": 14.0,
+     "subsonic_LD_max": 6.06,
+     "touchdown_ms": 102.2,
+     "sink_ms": 29.8
+    }
+   },
+   "earth_entry": {
+    "alpha": 40.0,
+    "LD": 0.42,
+    "beta": 2351.77,
+    "peak_g": 3.3,
+    "peak_q_Wcm2": 316.38,
+    "heat_load_MJm2": 1370.24,
+    "crossrange_km": 265.51
+   }
+  },
+  "F6 D-section, shallow-V belly": {
+   "note": "F5 with a ~9 deg planing V: boat belly that still lifts",
+   "fit": {
+    "center_z_m": 0.005,
+    "max_radius_m": 2.122,
+    "width_m": 4.24,
+    "height_m": 3.37,
+    "fits": true
+   },
+   "volume_m3": 123.8,
+   "S_body_m2": 48.0,
+   "Swet_m2": 156.6,
+   "base_m2": 5.75,
+   "reserve_buoyancy_pct": 68,
+   "meets_W2": true,
+   "hyper_LD_max": 0.49,
+   "wings": {
+    "fold (B4 type)": {
+     "S_wing_m2": 13.0,
+     "span_m": 8.3,
+     "subsonic_LD_max": 4.36,
+     "touchdown_ms": 137.7,
+     "sink_ms": 42.9
+    },
+    "inflatable/telescoping": {
+     "S_wing_m2": 18.0,
+     "span_m": 14.0,
+     "subsonic_LD_max": 6.01,
+     "touchdown_ms": 102.2,
+     "sink_ms": 29.9
+    }
+   },
+   "earth_entry": {
+    "alpha": 40.0,
+    "LD": 0.4,
+    "beta": 2326.59,
+    "peak_g": 3.39,
+    "peak_q_Wcm2": 319.73,
+    "heat_load_MJm2": 1349.13,
+    "crossrange_km": 248.19
+   }
+  }
+ },
+ "reference": {
+  "B4-S (today)": {
+   "volume_m3": 82.45,
+   "reserve_buoyancy_pct": 12,
+   "meets_W2": false,
+   "S_body_m2": 44.5,
+   "hyper_LD_max": 1.55,
+   "earth_entry": {
+    "alpha": 40.0,
+    "LD": 1.03,
+    "beta": 1893.62,
+    "peak_g": 2.29,
+    "peak_q_Wcm2": 218.17,
+    "heat_load_MJm2": 1936.7,
+    "crossrange_km": 1123.3
+   },
+   "wings": {
+    "fold (B4)": {
+     "span_m": 8.3,
+     "subsonic_LD_max": 3.7,
+     "touchdown_ms": 139.5
+    }
+   }
+  }
+ }
+}

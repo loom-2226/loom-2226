@@ -1,0 +1,231 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "doc": "Weave shuttle finalization, steps 1-2: configuration and closure screen (SOL GO after bc0eeb5). NON-CANON until the CCR.\nALL bodies. ALL sponsors. 2026-2226.\n\nSelected configuration (kT 2026-11-22): host = explorer #2643 + Osteon cautious + W1 programmable wing (17 m span, 1.8 m chord,\nfolds flat for the bay), fans 8 m2 (upper-surface blowing), floats 30 m3, 23.1 t tank, 6 couches; ~8 t onboard relational module\n(W2 cushion + Weave shift) + flywheel; Weave field R 15 m / wall 2 m.\nScreens (rough, as Sol asked): mass and module accounting; buoyancy; interior volume; bay stowage and exit (F8-F11 envelope);\nfield clearance of the actual host in its operating configurations; conventional fallback recovery envelope. G3 trim deferred.\nEvery assumption is labelled ASSUMPTION; values read from repo records are labelled with their source.",
+ "config": {
+  "ridge": 0.008,
+  "shoulder_z": 0.015,
+  "shoulder_y": -0.32,
+  "keel": 0.304,
+  "chine_z": -0.262,
+  "belly_w": 0.853,
+  "nose": 1.074,
+  "base": 0.835,
+  "wing": "telescoping",
+  "span": 17.0,
+  "chord": 1.8,
+  "fan_m2": 8,
+  "floats_m3": 30,
+  "water_t": 23.1,
+  "seats": 6,
+  "rover": false,
+  "fan_venus": true,
+  "desal": false,
+  "wildcard": "osteon_cautious+programmable"
+ },
+ "host_record": {
+  "fit_r": 2.13,
+  "hull_m3": 76.6,
+  "inner_m3": 63.8,
+  "mass_items_t": {
+   "hull_structure": 10.64,
+   "entry_tps": 1.64,
+   "wings": 5.19,
+   "cabin": 3.36,
+   "water_tank": 2.08,
+   "rover": 0.0,
+   "torch": 7.01,
+   "belly_rcs": 0.4,
+   "power_dist": 0.65,
+   "custody": 0.12,
+   "avionics": 0.85,
+   "gear_door": 0.91,
+   "crash_mounts": 0.23,
+   "floats": 0.9,
+   "desal": 0.0,
+   "cabin_wall": 1.09,
+   "fans_reactor": 3.78
+  },
+  "osteon": {
+   "saving": 0.22,
+   "eligible_t": {
+    "hull_structure": 7.36,
+    "wings": 3.59,
+    "gear_door": 0.51,
+    "crash_mounts": 0.3
+   },
+   "eligible_total_t": 11.75,
+   "saved_t": 2.59,
+   "not_eligible": "entry TPS, floats (fabric), water tank, torch, fans/reactor, avionics, cabin outfit, rover (kit)"
+  },
+  "interior_need_host_m3": 62.4
+ },
+ "mass": {
+  "host_dry_t": 38.87,
+  "module": {
+   "core_t": 8.0,
+   "mounts_t": 0.3,
+   "cooling_t": 0.4,
+   "power_cond_t": 0.3,
+   "installed_t": 9.0
+  },
+  "flywheel_t": 1.117,
+  "dry_t": 48.99,
+  "ceiling_t": 52.5,
+  "margin_t": 3.51,
+  "payload_t": 1.1,
+  "liftoff_t": 73.19,
+  "cushion_source_GJ": 3.35,
+  "cushion_power_MW": 168,
+  "lane_estimate_check_t": 47.97,
+  "flywheel_counted": "once (in dry); lane cushion() also counted it once"
+ },
+ "gates": {
+  "earth_water_t": {
+   "value": 25.8,
+   "limit": 23.1,
+   "thrust_short": [],
+   "ok": false,
+   "note": "torch-only Earth profile (field unavailable): fallback information, not the Weave operating profile"
+  },
+  "hot_egress_torch_only_t": {
+   "value": 35.6,
+   "limit": 28.1,
+   "thrust_short": [
+    2
+   ],
+   "ok": false,
+   "note": "no cushion assist; +5 t sprint kit"
+  },
+  "earth_and_hot_egress_with_cushion_t": {
+   "value": 22.3,
+   "limit": 23.1,
+   "thrust_short": [],
+   "ok": true,
+   "note": "lane W2 legs (proto/metric_wildcards.cushion): cushion lifts to 2 km (replaces water take-off and the 2.5 g hot climb), torch from 1.4 g"
+  },
+  "buoyancy_total_m3": {
+   "value": 106.6,
+   "limit": 107.1,
+   "ok": false
+  },
+  "buoyancy_hull_m3": {
+   "value": 76.6,
+   "limit": 71.4,
+   "ok": true
+  },
+  "interior_m3": {
+   "value": 63.8,
+   "need": 71.9,
+   "host_need": 62.4,
+   "module_m3": 8.4,
+   "flywheel_m3": 0.56,
+   "cooling_m3": 0.5,
+   "margin": -8.1,
+   "ok": false,
+   "rho_basis_t_m3": 0.948,
+   "note": "module volume at Wayfarer fore relational-plant block density (35.75 t in r 2 m x 3 m)"
+  },
+  "fallback_touchdown_heavy_ms": {
+   "value": 51.2,
+   "limit": 50.0,
+   "ok": false,
+   "note": "field off, climb water aboard, ~1 m waves (kT rule)"
+  },
+  "fallback_touchdown_light_ms": {
+   "value": 38.4,
+   "limit": 40.0,
+   "ok": true,
+   "note": "field off, light, 2 m waves"
+  },
+  "torch_max_thrust_MN": 1.54
+ },
+ "stowage": {
+  "fit_r_m": 2.13,
+  "r_env_m": 2.15,
+  "exit_roll_deg": 86.0,
+  "slot_half_width_m": 1.561,
+  "slot_half_limit_m": 1.9,
+  "hull_exit_ok": true,
+  "hull_length_m": 12.8,
+  "length_limit_m": 12.8,
+  "length_ok": true,
+  "sheet_area_m2_by_gap": {
+   "0.05": 100.18921477962763,
+   "0.08": 99.34078023812125,
+   "0.15": 95.85751906018632,
+   "0.3": 81.628496908716,
+   "0.5": 48.69567517413835
+  },
+  "free_volume_m3_by_gap": {
+   "0.0": 101.03324625612652,
+   "0.08": 100.93286608266843,
+   "0.5": 83.28365888723916
+  },
+  "gap_ge_0p5_max_run_x_m": 12.85,
+  "gap_ge_0p5_max_run_perimeter_m": 6.72
+ },
+ "field_clearance": {
+  "stowed": {
+   "max_radius_m": 6.6,
+   "field_centre_x_m": 6.6,
+   "field_centre_z_m": -0.6,
+   "guideline_m": 10.0,
+   "F_at_max": 0.9997750124817895,
+   "ok": true,
+   "axial": {
+    "min_carriage": 0.9997466071469858,
+    "differential": 0.00025339285301417824
+   },
+   "transverse": {
+    "min_carriage": 0.9990326382613173,
+    "differential": 0.000967361738682726
+   },
+   "differential_g_at_71g": 0.069
+  },
+  "flight": {
+   "max_radius_m": 8.55,
+   "field_centre_x_m": 6.4,
+   "field_centre_z_m": 0.2,
+   "guideline_m": 10.0,
+   "F_at_max": 0.9984258834118884,
+   "ok": true,
+   "axial": {
+    "min_carriage": 0.9917835493171808,
+    "differential": 0.008216450682819176
+   },
+   "transverse": {
+    "min_carriage": 0.9983514157216886,
+    "differential": 0.0016485842783113824
+   },
+   "differential_g_at_71g": 0.583
+  },
+  "afloat": {
+   "max_radius_m": 8.55,
+   "field_centre_x_m": 6.4,
+   "field_centre_z_m": 0.2,
+   "guideline_m": 10.0,
+   "F_at_max": 0.9984258834118884,
+   "ok": true,
+   "axial": {
+    "min_carriage": 0.9917835493171808,
+    "differential": 0.008216450682819176
+   },
+   "transverse": {
+    "min_carriage": 0.9983514157216886,
+    "differential": 0.0016485842783113824
+   },
+   "differential_g_at_71g": 0.583
+  }
+ },
+ "fallback": {
+  "water_drop_survivable_m": 5.1,
+  "land_drop_survivable_m": 1.8,
+  "torch_net_accel_g": 1.14,
+  "torch_recovery_min_alt_m_start_1s": 19.2,
+  "torch_recovery_min_alt_m_start_2s": 46.8,
+  "torch_recovery_min_alt_m_start_3s": 92.7,
+  "aero_recovery_from_hover_min_alt_m": 352.0,
+  "aero_immediate_if_airspeed_ge_ms": 51.2,
+  "assumptions": "ASSUMPTIONS: survivable vertical impact 10 m/s on water (floats, crash-rated seats), 6 m/s on land (gear); torch emergency start 1-3 s at full 7.7 GW with the 10 km/s exhaust floor (max thrust 1.54 MN); aero recovery = dive to the heavy minimum flying speed (fallback touchdown speed) with 30% loss allowance plus a 2.5 g pull-out; no field assistance; no miraculous failsafe"
+ }
+}

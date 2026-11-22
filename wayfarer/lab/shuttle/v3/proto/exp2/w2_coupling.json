@@ -1,0 +1,40 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "lane": "PROTOTYPE (non-canon)",
+ "requirement": {
+  "force_MN": 0.9,
+  "pressure_kPa": 13.4,
+  "reach_m": 200
+ },
+ "known_physics": {
+  "gravity: attracting mass 10 m above the ship": {
+   "value": "2.2e+13 kg",
+   "verdict": "impossible (an asteroid overhead)"
+  },
+  "gravity: negative mass below": {
+   "value": "same magnitude, and negative mass is not known to exist",
+   "verdict": "impossible in known physics"
+  },
+  "Lorentz force on a current across Earth's field (10 m conductor)": {
+   "value": "1.8e+09 A",
+   "verdict": "impossible; return current also carries the reaction"
+  },
+  "magnetic dipole in Earth's field gradient (~B/R_E)": {
+   "value": "3.8e+16 A m^2 dipole",
+   "verdict": "impossible"
+  },
+  "electrostatic pressure, capped by air breakdown (3 MV/m)": {
+   "value": "40 Pa max vs 13397 Pa needed",
+   "verdict": "336x short; attraction only unless the ground is charged"
+  },
+  "inductive repulsion over seawater (eddy-current maglev)": {
+   "value": "B at the water surface ~0.18 T; a coil field falls ~1/r^3",
+   "verdict": "works only within metres of the surface; strong fields over people; no 200 m reach"
+  },
+  "aerodynamic (fans, rotors)": {
+   "value": "known; momentum to the air",
+   "verdict": "possible but it IS downwash; not exhaust-free in the disturbance sense"
+  }
+ },
+ "conclusion": "No known coupling gives a ~1 MN planet-referenced force at 200 m. Gravity needs absurd masses; electromagnetic routes are capped by air breakdown or fall off within metres. So W2 cannot be an ordinary force. It is coherent only as an extension of the canon metric miracle (M2), where a declared nonlocal momentum partner already exists (CANON II \u00a77.1b). Inside M2 it needs three things, all unknown: (1) a powered channel (ENERGY-B gives height only if paid), (2) a generator well below the canon-scaled estimate (~13 t at L^2 vs a ~3.5 t ceiling, ~4x short), (3) a boundary that can coexist with water, air and people (the W3 unknown). Outside M2 it would be a third miracle."
+}

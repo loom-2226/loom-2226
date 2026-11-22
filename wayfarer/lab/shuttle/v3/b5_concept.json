@@ -1,0 +1,76 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "grow_m": {
+  "ridge": 0.45,
+  "shoulder_z": 0.22,
+  "shoulder_y": -0.1,
+  "keel": 0.3
+ },
+ "float": {
+  "x": [
+   3.6,
+   12.0
+  ],
+  "r": 0.62,
+  "y": 2.55,
+  "z": -0.55
+ },
+ "wing": {
+  "span": 14.0,
+  "S": 18.0,
+  "x": [
+   6.6,
+   9.4
+  ],
+  "x_tip": [
+   8.0,
+   9.6
+  ]
+ },
+ "hull_volume_m3": 96.6,
+ "float_volume_m3": 20.3,
+ "total_buoyant_m3": 116.9,
+ "W2_hull_plus_floats_ge_111": true,
+ "W2_hull_alone_ge_74": true,
+ "bay_fit": {
+  "min_enclosing_radius_m": 2.132,
+  "about_z_m": 0.11,
+  "envelope_r_m": 2.15,
+  "fits": true
+ },
+ "hyper_LD_max": 1.87,
+ "earth_entry_58t": {
+  "alpha": 40.0,
+  "LD": 1.05,
+  "beta": 2649.98,
+  "peak_g": 2.22,
+  "peak_q_Wcm2": 255.19,
+  "heat_load_MJm2": 2321.77,
+  "crossrange_km": 1167.64
+ },
+ "glide_43t": {
+  "telescoping_14m": {
+   "LD": 5.35,
+   "touchdown_ms": 103.7
+  },
+  "B4_fold_8m": {
+   "LD": 3.9,
+   "touchdown_ms": 139.4
+  }
+ },
+ "waterline_z_m": {
+  "59t_floats_stowed": 0.38,
+  "59t_floats_out": -0.094,
+  "75.6t_floats_out": 0.284
+ },
+ "B4S_reference": {
+  "volume_m3": 82.45,
+  "earth_entry_58t": {
+   "LD": 1.03,
+   "crossrange_km": 1123.3,
+   "peak_q_Wcm2": 218.17
+  },
+  "glide_LD": 3.7,
+  "touchdown_ms": 139.5
+ }
+}

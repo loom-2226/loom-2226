@@ -1,0 +1,350 @@
+{
+ "D": 3.8,
+ "R": 1.9,
+ "L": 12.8,
+ "mass": {
+  "items": {
+   "hull_structure": 13.635,
+   "entry_tps": 1.708,
+   "wings": 0.0,
+   "cabin": 3.36,
+   "water_tank": 2.08,
+   "rover": 0.0,
+   "torch": 7.01,
+   "belly_rcs": 0.4,
+   "power_dist": 0.65,
+   "custody": 0.12,
+   "avionics": 0.85,
+   "gear_door": 0.91,
+   "crash_mounts": 0.23,
+   "floats": 0.0,
+   "desal": 0.0,
+   "cabin_wall": 1.09,
+   "fans_reactor": 1.0
+  },
+  "host_t": 33.04,
+  "module_t": 9.0,
+  "flywheel_t": 1.027,
+  "chutes_t": 2.35,
+  "dry_t": 45.42,
+  "margin_t": 7.08,
+  "rover_kit_t": 1.83,
+  "margin_with_rover_t": 5.24,
+  "cushion_GJ": 3.08,
+  "cushion_MW": 154,
+  "note": "rover is a removable mission kit: not in base dry mass"
+ },
+ "water": {
+  "earth_cushion_t": 19.0,
+  "earth_cushion_with_rover_t": 20.6,
+  "tank_t": 23.1,
+  "ok": true,
+  "earth_torch_only_t": 21.8
+ },
+ "layout": {
+  "x": {
+   "nose_dome": [
+    0,
+    1.9
+   ],
+   "cabin": [
+    1.9,
+    5.85
+   ],
+   "module_bay": [
+    5.85,
+    7.449999999999999
+   ],
+   "bay": [
+    7.449999999999999,
+    10.9
+   ],
+   "aft_dome": [
+    10.9,
+    12.8
+   ]
+  },
+  "deck_z": -0.85,
+  "zones_m3": {
+   "nose_dome": 11.79,
+   "aft_dome": 11.84,
+   "cabin": 31.14,
+   "module_bay": 12.61,
+   "bay": 27.2,
+   "bilge": 18.63
+  },
+  "inner_total_m3": 113.2,
+  "need_m3": {
+   "cabin": 21.0,
+   "water": 24.26,
+   "cargo": 6.0,
+   "aft": 7.24,
+   "avionics": 3.0,
+   "chutes": 1.0,
+   "passage": 0.96,
+   "module": 2.0,
+   "flywheel": 0.51,
+   "install": 0.3
+  },
+  "water_cells_m3": 30.06,
+  "water_ok": 1.0,
+  "couches_ok": true,
+  "rows": [
+   [
+    3.9499999999999997,
+    5.8
+   ],
+   [
+    2.0499999999999994,
+    3.9
+   ]
+  ],
+  "ys": [
+   [
+    -1.0250000000000001,
+    -0.375
+   ],
+   [
+    -0.325,
+    0.325
+   ],
+   [
+    0.375,
+    1.0250000000000001
+   ]
+  ],
+  "headroom_m": 2.63,
+  "module_ok": true,
+  "core_edge_m": 1.26,
+  "flywheel_drum": {
+   "d": 1.0,
+   "h": 0.654
+  },
+  "bay_len_m": 3.45,
+  "rover_x": [
+   7.6499999999999995,
+   10.649999999999999
+  ],
+  "rover_ok": true,
+  "cargo_box": {
+   "volume_m3": 6.0,
+   "length": 1.14,
+   "width": 3.12,
+   "height": 1.68
+  },
+  "unallocated_m3": 46.9,
+  "unallocated_note": "left empty: comfort and growth, not filled because it exists",
+  "passage_at_nose": "0.8 m passage from the nose tip on the axis (fixes the B4-S-family nose-passage gap)"
+ },
+ "mass_centre_full_tank": {
+  "mass_t": 69.624,
+  "x": 6.326,
+  "z": -0.477
+ },
+ "hydrostatics": {
+  "hull_m3": 130.8,
+  "cases": {
+   "full tank": {
+    "mass_t": 69.62,
+    "cg_x": 6.33,
+    "cg_z": -0.477,
+    "waterline_z": 0.055,
+    "draft_m": 1.96,
+    "GM_roll_m": 0.457,
+    "free_surface_m": 0.021,
+    "flooded_m3": 0.0,
+    "deck_below_waterline_m": 0.91,
+    "reserve_buoyancy": 0.93
+   },
+   "light (2 t water)": {
+    "mass_t": 48.52,
+    "cg_x": 6.87,
+    "cg_z": -0.201,
+    "waterline_z": -0.4,
+    "draft_m": 1.5,
+    "GM_roll_m": 0.083,
+    "free_surface_m": 0.118,
+    "flooded_m3": 0.0,
+    "deck_below_waterline_m": 0.45,
+    "reserve_buoyancy": 1.76
+   },
+   "light, dock flooded": {
+    "mass_t": 52.44,
+    "cg_x": 6.87,
+    "cg_z": -0.23,
+    "waterline_z": -0.314,
+    "draft_m": 1.59,
+    "GM_roll_m": 0.06,
+    "free_surface_m": 0.17,
+    "flooded_m3": 3.82,
+    "deck_below_waterline_m": 0.54,
+    "reserve_buoyancy": 1.56
+   },
+   "full tank, rover aboard, dock flooded": {
+    "mass_t": 72.9,
+    "cg_x": 6.4,
+    "cg_z": -0.465,
+    "waterline_z": 0.126,
+    "draft_m": 2.03,
+    "GM_roll_m": 0.408,
+    "free_surface_m": 0.057,
+    "flooded_m3": 1.4,
+    "deck_below_waterline_m": 0.98,
+    "reserve_buoyancy": 0.84
+   },
+   "light, rover aboard, dock flooded": {
+    "mass_t": 51.1,
+    "cg_x": 6.95,
+    "cg_z": -0.202,
+    "waterline_z": -0.344,
+    "draft_m": 1.56,
+    "GM_roll_m": 0.036,
+    "free_surface_m": 0.167,
+    "flooded_m3": 0.73,
+    "deck_below_waterline_m": 0.51,
+    "reserve_buoyancy": 1.62
+   },
+   "light, dock flooded, sea ballast": {
+    "mass_t": 66.69,
+    "cg_x": 6.77,
+    "cg_z": -0.435,
+    "waterline_z": -0.007,
+    "draft_m": 1.89,
+    "GM_roll_m": 0.3,
+    "free_surface_m": 0.135,
+    "flooded_m3": 6.01,
+    "deck_below_waterline_m": 0.84,
+    "reserve_buoyancy": 1.01,
+    "sea_ballast_t": 12.0
+   },
+   "light, rover aboard, dock flooded, sea ballast": {
+    "mass_t": 64.53,
+    "cg_x": 6.84,
+    "cg_z": -0.44,
+    "waterline_z": -0.054,
+    "draft_m": 1.85,
+    "GM_roll_m": 0.308,
+    "free_surface_m": 0.132,
+    "flooded_m3": 1.15,
+    "deck_below_waterline_m": 0.8,
+    "reserve_buoyancy": 1.08,
+    "sea_ballast_t": 13.0
+   }
+  },
+  "whole_bay_flooded_rejected": {
+   "light, whole bay flooded": {
+    "mass_t": 55.72,
+    "cg_x": 6.87,
+    "cg_z": -0.245,
+    "waterline_z": -0.243,
+    "draft_m": 1.66,
+    "GM_roll_m": -0.105,
+    "free_surface_m": 0.35,
+    "flooded_m3": 7.02,
+    "deck_below_waterline_m": 0.61,
+    "reserve_buoyancy": 1.41
+   },
+   "light, rover aboard, whole bay flooded": {
+    "mass_t": 53.75,
+    "cg_x": 6.95,
+    "cg_z": -0.22,
+    "waterline_z": -0.286,
+    "draft_m": 1.61,
+    "GM_roll_m": -0.132,
+    "free_surface_m": 0.352,
+    "flooded_m3": 3.32,
+    "deck_below_waterline_m": 0.56,
+    "reserve_buoyancy": 1.49
+   },
+   "full tank, rover aboard, whole bay flooded": {
+    "mass_t": 78.4,
+    "cg_x": 6.4,
+    "cg_z": -0.451,
+    "waterline_z": 0.244,
+    "draft_m": 2.14,
+    "GM_roll_m": 0.267,
+    "free_surface_m": 0.185,
+    "flooded_m3": 6.78,
+    "deck_below_waterline_m": 1.09,
+    "reserve_buoyancy": 0.71
+   }
+  },
+  "dock": {
+   "l": 3.4,
+   "w": 2.1
+  },
+  "sea_ballast_rule_t": {
+   "no_rover": 12.0,
+   "rover_aboard": 13.0,
+   "target_GM_m": 0.3
+  },
+  "status": "OPEN RULE, not a pass: flood only the rover-sized wet dock (flooding the whole bay is unstable light); afloat light, take on the stated sea ballast before opening the dock door",
+  "note": "roll GM exact for circular sections; pitch stability large (length 12.8 m)"
+ },
+ "W3": {
+  "status": "EXCEPTION (kT accepted 2026-11-22), not passed",
+  "torch_exit_z": 0.0,
+  "waterline_full_z": 0.055,
+  "required_z": 1.05,
+  "reason": "axis torch is horizontal and at the waterline afloat; field-off take-off from water not possible",
+  "accepted_state": "field off afloat: stable recovery state; waits for field restart or Wayfarer recovery; no extra propulsion added"
+ },
+ "fallback": {
+  "drop_survivable_water_m": 5.1,
+  "drop_survivable_land_m": 1.8,
+  "chute_CdA_m2": 17424,
+  "chute_min_hover_alt_water_m": 32.0,
+  "chute_min_alt_sensitivity_m": {
+   "inflate_2.5s": 32.0,
+   "inflate_4s": 46.0,
+   "inflate_6s": 66.0
+  },
+  "status": "SCREENING ASSUMPTION, not a demonstrated capability: ~17,400 m2 effective drag area (a cluster of ~11 canopies of ~50 m) with 2.5 s inflation from a hover",
+  "chute_assumptions": "mortar deploy 1.0 s, linear inflation, cluster CdA for 8 m/s at full-tank mass; survivable 10 m/s water / 6 m/s land",
+  "torch": "axis torch is horizontal: arresting a fall needs a 90 deg pitch-up first (not credited)",
+  "shuttle_for_comparison": {
+   "no_recovery_band_m": [
+    5.1,
+    46.8
+   ],
+   "above": "torch (1-3 s start)"
+  }
+ },
+ "bay": {
+  "F8_radius_m": 1.9,
+  "F8_ok": true,
+  "F10_width_m": 3.8,
+  "F10_limit": 3.8,
+  "F10_ok": true,
+  "F10_extra_margin_m": 0.0,
+  "roll": "any (round)",
+  "F9_length_m": 12.8,
+  "collar": "not needed",
+  "rule": "nothing may protrude beyond the 3.8 m diameter (flush doors, hatches, sensors)"
+ },
+ "titan": {
+  "ascent_water_t": 3.8,
+  "landed_t": 50.3,
+  "rule": "tank-level rule; optional flotation kit; no permanent floats; landings restricted until equipped",
+  "liquids": {
+   "Ligeia-like (551 kg/m3)": {
+    "rho": 551,
+    "reserve": 0.43,
+    "full_tank_reserve": 0.04,
+    "max_water_for_50pct_t": 1.5,
+    "max_water_to_float_t": 25.5,
+    "kit_m3_for_50pct": 6.2
+   },
+   "near-pure methane (447 kg/m3)": {
+    "rho": 447,
+    "reserve": 0.16,
+    "full_tank_reserve": -0.16,
+    "max_water_for_50pct_t": -7.5,
+    "max_water_to_float_t": 11.9,
+    "kit_m3_for_50pct": 38.1
+   }
+  }
+ },
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "doc": "Tic Tac build-out v1 (kT 2026-11-22: 'Tic tac. It is'; rulings after Sol's review of 5062961). NON-CANON lab design.\nALL bodies. ALL sponsors. 2026-2226.\n\nkT rulings (Sol recommendations forwarded by kT): diameter 3.8 m; rover returns as a REMOVABLE MISSION KIT in a combined\ncargo/rover bay behind a flush door (not in base dry mass); field-off water take-off limitation accepted (W3 EXCEPTION,\nrecorded, not passed); Titan: tank-level rule plus optional flotation kit, no permanent floats.\n\nGeometry: capsule, length 12.8 m, hemispherical ends, diameter 3.8 m. Axis at y = z = 0, nose tip x = 0 (docking hatch on\nthe axis, F7). Inner surface = outer - 0.12 m. Continuous deck at z = DECK; water cells below it and in the lower domes.\nLayout fore to aft: nose dome (hatch + 0.8 m passage, avionics, parachutes) | cabin (6 couches 3x2) | module bay (8 t core +\nflywheel) | cargo/rover bay (floodable, flush side door in the lower flank, W4; 6 m3 rigid cargo or the rover kit) | aft dome\n(torch, power unit, RCS). Whatever is not allocated stays empty (kT/Sol: do not fill it because it exists).\nHydrostatics: every section is a circle centred on the axis, so buoyancy acts through the axis: roll GM = -z_CG (exact),\nless the free-surface corrections of slack cells and the flooded bay. Every assumption is labelled ASSUMPTION."
+}

@@ -1,0 +1,108 @@
+{
+ "x14-17 r2-4.3 (fore annulus)": {
+  "region": {
+   "x": [
+    14,
+    17
+   ],
+   "r": [
+    2.0,
+    4.3
+   ]
+  },
+  "volume_m3": 136.6,
+  "free_m3": 87.2,
+  "occupants": {
+   "service_arm": 34.0,
+   "drone_1": 3.9,
+   "drone_0": 3.7,
+   "tunnel_0": 3.3,
+   "drone_3": 2.3,
+   "docking_collar": 2.3,
+   "drone_2": 2.3,
+   "crown_c_seven_spare_panes": 0.9,
+   "frame_16": 0.7,
+   "frame_14": 0.7,
+   "longeron_lower_starboard": 0.4,
+   "longeron_upper_port": 0.4
+  }
+ },
+ "x17-18 r0-4.3": {
+  "region": {
+   "x": [
+    17,
+    18
+   ],
+   "r": [
+    0,
+    4.3
+   ]
+  },
+  "volume_m3": 58.1,
+  "free_m3": 15.1,
+  "occupants": {
+   "electrical_fwd": 34.0,
+   "house_energy_battery": 12.5,
+   "house_reactor_B": 12.4,
+   "service_arm": 5.8,
+   "tunnel_1": 3.8,
+   "tunnel_2": 0.9,
+   "c_lite_dry": 0.7,
+   "longeron_upper_starboard": 0.1,
+   "longeron_upper_port": 0.1,
+   "longeron_lower_port": 0.1,
+   "longeron_lower_starboard": 0.1,
+   "tunnel_0": 0.1
+  }
+ },
+ "x13.4-14 r0-4.3": {
+  "region": {
+   "x": [
+    13.4,
+    14
+   ],
+   "r": [
+    0,
+    4.3
+   ]
+  },
+  "volume_m3": 34.9,
+  "free_m3": 17.1,
+  "occupants": {
+   "aft_bulkhead": 17.4,
+   "tunnel_0": 0.6,
+   "longeron_lower_port": 0.0,
+   "longeron_upper_starboard": 0.0,
+   "longeron_upper_port": 0.0,
+   "longeron_lower_starboard": 0.0
+  }
+ },
+ "x32.05-34.3 r0-4.48 (aft)": {
+  "region": {
+   "x": [
+    32.05,
+    34.3
+   ],
+   "r": [
+    0,
+    4.48
+   ]
+  },
+  "volume_m3": 141.9,
+  "free_m3": 7.4,
+  "occupants": {
+   "manifold": 101.0,
+   "plant_aft": 25.3,
+   "electrical": 7.1,
+   "node_mount_allowance": 6.5,
+   "house_peak_store": 3.1,
+   "house_reactor_A": 2.3,
+   "frame_34": 1.5,
+   "frame_32": 0.4,
+   "longeron_upper_starboard": 0.3,
+   "longeron_upper_port": 0.3,
+   "longeron_lower_starboard": 0.3,
+   "longeron_lower_port": 0.3
+  }
+ }
+}

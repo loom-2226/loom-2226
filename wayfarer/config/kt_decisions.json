@@ -288,6 +288,19 @@
       "date": "2026-11-04",
       "kT": "kT accepted 2026-11-04",
       "as": "kT accepted 2026-11-04 as non-canon v0.5 OG-3 design position ONLY. OPEN: hydrogenous organogel formulation chemistry, lifetime ageing, radiation damage/radiolysis, flammability/pyrolysis/outgassing, freeze/boil limits, optical darkening, BNNT-H dispersion/fibre loading <1% by mass and optical homogeneity, 10B capture secondaries, ceramic fracture/seals, and transport/whole-ship GCR/SPE dose. BNNT below 1% by mass, zero biological radiation dose credit, zero optical-thermal credit; G6 areal screens only, no credited dose reduction. Qualification OPEN."
+    },
+    "shuttle_v3_prototype_lane_bmd1_parked_2026_11_21": {
+      "date": "2026-11-21",
+      "status": "PARKED (successful negative research result)",
+      "class": "research, NON-CANON",
+      "decision": "kT parks BMD-1. Ordinary tidal coupling cannot provide the 0.9 MN shuttle lift; the tested gravitational-dipole mechanism is impractical at planetary scale; a useful powered local-partner field would need an additional explicitly fictional constitutive law, which conservation bookkeeping cannot justify. That law is NOT authorized as LOOM physics now, and not discarded permanently.",
+      "qualifications": [
+        "zero first-order tidal force is exact for couplings linear in the tidal tensor acting on positive density about the centre of mass, within the weak-field approximation; not a theorem for every conceivable tidal-dependent interaction",
+        "the dipole U = F R / 2 is an interaction-energy scale (recoverable), not automatically an operating cost, and the dipole is only the one new interaction tested",
+        "no claim that a negative-mass pair could be built or stabilized"
+      ],
+      "next": "return to the conventional shuttle: conventional fold + adaptive camber is the leading architecture; W3 stays an independent speculative question",
+      "record": "wayfarer/lab/shuttle/v3/proto/exp2/EXPERIMENT_2_2026_11_21.md"
     }
   },
   "design_decisions_2026_10_26": {
@@ -1860,5 +1873,152 @@
     "open": "Venus-kit margin is 0.04 m over the 0.5 m minimum (dorsal kit fairing could be lowered); berth cradle/latches redesigned for the rolled attitude; G8 criteria UNCHANGED",
     "canon_change": false,
     "status": "APPROVED; implementation by Sol in the B4-S engineering PR"
+  },
+  "shuttle_v3_constraints_2026_11_20": {
+    "authority": "kT APPROVED 2026-11-20 (Claude chat): 'Agree with 1-2. 3-50%. 4 preferably no. 5 Venus kit can supply.'",
+    "source": "wayfarer/lab/shuttle/v3/SHUTTLE_V3_CONSTRAINTS.md, shuttle_constraints.json, shuttle_v3_constraints.png",
+    "decisions": {
+      "1_G8_margins": "KEEP radial 0.25 m, axial 0.5 m, exit path 0.5 m, fin corridor 1.0 m (cert_criteria G8 unchanged)",
+      "2_37t_envelope": "RETIRE the 37 t docked-dry envelope as a design limit; the real ceiling is the reserve share (3), the berth at 7.5 g and ship thrust trim (G3 <= 0.5 deg)",
+      "3_reserve_share": "the shuttle may use up to 50% of the reserve above the 16.8 t floor (31.96 t on 2026-11-20 -> 15.98 t) on top of today's 36.48 t booking: docked-dry ceiling ~52.5 t incl. any berth latch upgrade (latches as drawn hold 40.8 t at 7.5 g)",
+      "4_isru_refill": "preferably NO ocean/ice water refill: design on Wayfarer-supplied propellant (each tonne costs Wayfarer 3.25 km/s ECON reach) and port refills",
+      "5_venus_ascent": "the Venus kit may supply the Venus surface-to-orbit ascent; the core shuttle need not climb out of Venus on its own",
+      "6_water": "kT 2026-11-20 'D!!!! But shuttle needs to land on water, and deploy': option D. Shuttle lands, floats and takes off from water, watertight to ~10 m, and deploys/recovers the rover capsule while afloat; the Venus Ti capsule doubles as a submarine (deep kit). Whole-shuttle submarine rejected. Derived constraints W1-W6 in SHUTTLE_V3_CONSTRAINTS.md 4.1"
+    },
+    "note": "retiring the 37 t envelope in certify/inputs is a class:engineering change for Sol at the integration step; until then the B4-S booking stays as merged",
+    "canon_change": false,
+    "status": "APPROVED; step 1 of 7 closed except R1-R8 mission targets; water decision 6 added 2026-11-20"
+  },
+  "shuttle_v3_shape_b5_2026_11_21": {
+    "authority": "kT APPROVED 2026-11-21 (Claude chat): 'Sure go' to the recommendation in wayfarer/lab/shuttle/v3/b5_concept.png",
+    "source": "wayfarer/lab/shuttle/v3/shape_families.*, b5_concept.py/.json/.png, lift_fans.*, SHAPE_FAMILIES.md",
+    "decisions": {
+      "shape": "v3 direction = B4 angular flat-bellied lifting body grown inside the bay (taller ridge/shoulder, shallow-V keel): ~97 m3 enclosed, min enclosing radius 2.13 m (<= 2.15)",
+      "floats": "pop-out inflatable sponsons (~20 m3) for reserve buoyancy and afloat roll stability",
+      "wings": "telescoping/inflatable wings to ~14 m span for subsonic flight",
+      "W2_amended": "hull + deployable floats >= 111 m3; hull alone >= volume displaced at the heaviest water landing (~74 m3)",
+      "lift_fans": "option 1b carried forward: ~8-10 m2 fans + ~28 MWe house reactor (seaplane/STOL on Earth, hover on Titan and Venus)"
+    },
+    "open": [
+      "water touchdown speed ~104 m/s vs ~40 needed (flaps + fan lift, step 5)",
+      "torch exit ~0.4 m above water afloat (W3): torch lights airborne",
+      "contested-airspace agility: agility.json"
+    ],
+    "canon_change": false,
+    "status": "APPROVED DIRECTION; NON-CANON; Sol at the end per kT"
+  },
+  "shuttle_v3_limit_load_8g_2026_11_21": {
+    "authority": "kT 2026-11-21 (Claude chat): 'Id prefer something closer to 8g.' (after 'It doesn't need to be a dogfighter. It needs to however be able to get in and out quickly and outpace pursuers'); then 'Yes' (2026-11-21) to: 8 g limit, ~12 g ultimate, seats/tank/payload mounts crash-rated 16-20 g (after kT asked about 10 g)",
+    "source": "wayfarer/lab/shuttle/v3/agility.*, agility_8g.json, sprint_kits.*",
+    "decision": "v3 limit load ~8 g, ultimate ~12 g (1.5 factor); seats, water tank and payload mounts crash-rated 16-20 g",
+    "consequences": {
+      "mass": "ESTIMATE +3-5 t dry if today's structure masses correspond to ~4 g (hull structure is an area proxy with no stated g basis; wing/fuselage weight scales ~Nz^0.5 in standard aircraft weight estimation)",
+      "occupants": "reclined couches (L1 style) so high g acts mostly chest-to-back; untrained passengers tolerate far less head-to-foot g",
+      "agility": "instantaneous turn 12.6 -> 17.7 deg/s (corner ~250 m/s); sustained stays thrust-limited (~9 deg/s); also covers wave-slam water landings and hard torch egress"
+    },
+    "canon_change": false,
+    "status": "APPROVED; mass to be booked in step 6"
+  },
+  "shuttle_v3_slow_flight_landing_rule_2026_11_21": {
+    "authority": "kT 2026-11-21 (Claude chat): 'Sure.' to the slow-flight recommendation and landing rule",
+    "source": "wayfarer/lab/shuttle/v3/slow_flight.py/.json/.png",
+    "decisions": {
+      "fans": "fans in the wings, blowing over the flaps (upper-surface blowing, QSRA lineage) = standard",
+      "ccw": "circulation-control trailing edge = 2226 upgrade (A-6 CCW lineage); not credited until sized",
+      "dash_kit": "fit the 42 MW dash-power kit when rough water is expected",
+      "landing_rule": "heavy (climb water aboard, ~64.6 t): ~50 m/s touchdown, water landings in ~1 m waves; light (port refill, ~47 t): 30-36 m/s, up to 2 m waves",
+      "kits_adopted": "sprint water (~5 t drop tank) and dash power (~1.5-2 t) added to the kit list (air, vacuum, Venus, deep, sprint, dash)"
+    },
+    "caveat": "USB/CCW lift coefficients applied to the whole lifting-body planform are optimistic (ROM)",
+    "canon_change": false,
+    "status": "APPROVED DIRECTION; NON-CANON"
+  },
+  "shuttle_v3_seawater_refill_cabin_by_trip_2026_11_21": {
+    "authority": "kT 2026-11-21 (Claude chat): '1 and 2 together'",
+    "source": "wayfarer/lab/shuttle/v3/explorer (engine.py, missions.json)",
+    "decisions": {
+      "1_earth_seawater_refill": "On Earth the shuttle may land light and refill its climb water from the sea with an onboard desalination unit (salt must be removed: sodium in the pulse remass would activate). This narrows decision shuttle_v3_constraints_2026_11_20 item 4 ('preferably no' ocean/ice refill) for Earth seawater only; elsewhere unchanged.",
+      "2_cabin_by_trip_length": "Interior allocated for courier hops under a day (~3.5 m3 per couch, ASSUMPTION); long legs use a long-haul cabin kit (kit round). Door allowance charged only with the rover aboard."
+    },
+    "assumptions_added": "desalination unit ~0.4 t / 0.5 m3; refill energy 2.26 MJ/kg from the fan reactor (distillation, no heat recovery: conservative)",
+    "canon_change": false,
+    "status": "APPROVED; NON-CANON exploration"
+  },
+  "shuttle_final_weave_prototype_2026_11_22": {
+    "authority": "kT 2026-11-22 (Claude chat): 'Oh there's no question. The weave prototype' (in answer to: conventional #2643 + Osteon vs the Weave prototype as the final shuttle)",
+    "decision": "The Weave prototype is the direction for Wayfarer's final shuttle (supersedes the conventional #2643 + Osteon recommendation as the final choice).",
+    "source": "wayfarer/lab/shuttle/v3/proto/ (PROTOTYPE_LANE_2026_11_21.md; weave/ research arc d056040..a5b0b65; WEAVE_OUTINGS_2026_11_22.md; WEAVE_SOURCE_CLOSURE_2026_11_22.md)",
+    "status": "DIRECTION SELECTED - NOT YET CANON. Promotion needs a Canon Change Request approved by kT (CANON II items likely touched: §3 relational plant scale, §18A metric-is-not-a-dodge doctrine, §21 wake/reaction rules, §7.1a/§7.1b ENERGY-B and exchange partner, §2 miracle budget, §5/§9 ramp and path card, §6 near-body certification).",
+    "carried_findings": "Shift = motion, W2 cushion = gravity support; exchange physics UNKNOWN (research mystery, conservation retained); field edge must clear the hull; environmental signatures per WEAVE_OUTINGS and WEAVE_NIMITZ_VIEW.",
+    "not_changed": "No canon, Wayfarer geometry, mass booking or released GLB changed by this entry."
+  },
+  "shuttle_weave_config_choices_2026_11_22": {
+    "authority": "kT 2026-11-22 (Claude chat, multiple choice): backup 'Keep wings+fans+floats (Recommended)'; module '~8 t Builder module (Recommended)'; exchange 'Mystery, conservation kept (Recommended)'",
+    "applies_to": "shuttle_final_weave_prototype_2026_11_22",
+    "decisions": {
+      "fallback_flight": "Keep wings, fans and floats: host airframe = lane hypothesis 1 'Osteon + programmable flying boat' (#2643 + Osteon + W1), with the field on top. Field collapse falls back to aerodynamic flight / flotation.",
+      "relational_module": "~8 t onboard relational (field) module providing W2 cushion + Weave shift; small size attributed to Builder materials (candidate explanation, not an established mechanism).",
+      "exchange_statement": "For the CCR: the prototype operates repeatably; energy-momentum exchange mechanism and partner UNKNOWN (research mystery); conservation retained as a requirement; no claim of violation and no claim of demonstrated closure (Sol disposition at cab469f)."
+    },
+    "status": "Configuration choices for the Weave shuttle; NOT CANON until the CCR is approved by kT."
+  },
+  "shuttle_weave_interior_stretch_collar_2026_11_22": {
+    "authority": "kT 2026-11-22 (Claude chat, multiple choice): 'Stretch 22 cm + docking collar (Recommended)'",
+    "applies_to": [
+      "shuttle_final_weave_prototype_2026_11_22",
+      "shuttle_weave_config_choices_2026_11_22"
+    ],
+    "source": "wayfarer/lab/shuttle/v3/weave_final/WEAVE_SHUTTLE_CONFIG_AND_CLOSURE_2026_11_22.md §5; closure_v2.json (adjustments.stretch_rho4)",
+    "decisions": {
+      "hull": "#2643 parallel body stretched ~0.22 m to ~13.02 m; 6 couches at 3.5 m3, 6 m3 cargo well, wings/fans/floats/torch kept",
+      "module_packaging": "8 t relational module packaged at ~4 t/m3 (compact core + field network distributed in the hull wall, volume charged to the interior); explicit prototype assumption, not an established Builder property",
+      "wayfarer_docking_collar": "~0.22 m retractable docking collar at the nose port (withdraws on undocking so collar retraction + back-off gives the 0.5 m separation of F11); docked aft axial clearance 0.5 m -> ~0.28 m (revisits shuttle_v3_constraints_2026_11_20 item 1 axial margin for this case)",
+      "carried_from_closure_v2": "floats 32 m3; W1 field-off CLmax uplift ~4.5% (explicit assumption); cooling integrated with fan-reactor loop and water tank (0.2 m3)"
+    },
+    "numbers_at_13_02_m": {
+      "dry_t": 49.32,
+      "margin_t": 3.18,
+      "cushion_climb_water_t": 22.6,
+      "tank_t": 23.1,
+      "buoyancy_m3": [
+        110.5,
+        107.6
+      ],
+      "interior_residual_m3": 0.04
+    },
+    "flag": "Interior residual is only +0.04 m3 at 13.02 m; final length to be set at the geometry step within the collar range studied (0.22-0.32 m stretch).",
+    "status": "Design choice for the Weave shuttle; Wayfarer collar is a proposed modification; NOT CANON until the CCR / engineering change is approved by kT."
+  },
+  "shuttle_weave_tictac_hull_2026_11_22": {
+    "authority": "kT 2026-11-22 (Claude chat): 'Tic tac. It is :) ... We have to build her out :)' after the same-rules comparison (commit 513d5fc) and Sol's review recommending the Tic Tac as leading candidate",
+    "applies_to": [
+      "shuttle_final_weave_prototype_2026_11_22",
+      "shuttle_weave_config_choices_2026_11_22",
+      "shuttle_weave_interior_stretch_collar_2026_11_22"
+    ],
+    "source": "wayfarer/lab/shuttle/v3/weave_final/tictac_vs_shuttle.py/.json, weave_tictac_vs_shuttle.png",
+    "decisions": {
+      "hull": "Weave shuttle hull becomes the 'Tic Tac' capsule: ~12.8 m long x ~3.8 m diameter, hemispherical ends, no wings, no lift fans; floats on its own hull. Same ~8 t relational module, same 23.1 t tank, same W2 cushion + Weave shift, same torch.",
+      "supersedes": "the wings/fans/floats fallback in shuttle_weave_config_choices_2026_11_22 (fallback_flight) and the 22 cm stretch + Wayfarer docking collar in shuttle_weave_interior_stretch_collar_2026_11_22. The module and exchange-statement choices stand.",
+      "fallback": "field-off fallback becomes torch and parachutes (no aerodynamic glide); to be demonstrated in the build-out",
+      "build_out": "Sol's checks become the build-out list: afloat stability, waterborne rover/cargo access, realistic field-off recovery, exact-fit bay exit, Titan lake buoyancy (shared gap)"
+    },
+    "status": "Design decision for the Weave shuttle; NOT CANON. CCR-2026-0005 (PROPOSED) text names the 13.02 m lifting body and the collar: it needs a proposal revision before approval; the physics scope is unchanged."
+  },
+  "shuttle_weave_tictac_rulings_2026_11_22": {
+    "authority": "Sol recommendations on 5062961, forwarded by kT 2026-11-22 as the working direction (kT may overrule)",
+    "applies_to": "shuttle_weave_tictac_hull_2026_11_22",
+    "decisions": {
+      "diameter": "3.8 m (F10 limit exactly, which already includes 0.5 m each side); no-protrusion rule; not 3.7 m",
+      "rover": "returns as a removable mission kit (~1.8 t, not in base dry) in a combined cargo/rover bay behind a flush side door; only a rover-sized wet dock floods (whole-bay flooding rejected: unstable light)",
+      "field_off_water_takeoff": "limitation accepted: field off afloat is a stable wait for restart or Wayfarer recovery; no added propulsion. W3 recorded as an EXCEPTION, not a pass",
+      "titan": "tank-level rule plus optional flotation kit; no permanent floats; sea landings restricted until equipped",
+      "design_language": "aggressively restrained: continuous smooth warm-white hull, flush nose docking interface and cargo door, no visible wings, engines, antenna farms, decorative lights or unnecessary panel lines; comfortable interior; empty volume is not filled because it exists"
+    },
+    "open_items": [
+      "sea-ballast rule before opening the dock when light (12-13 t for GM 0.3 m) is an operating requirement, not a demonstrated procedure",
+      "parachutes (~17,400 m2 effective drag area, 2.5 s inflation) are a screening assumption, not a demonstrated capability"
+    ],
+    "status": "NOT CANON; lab design direction"
   }
 }

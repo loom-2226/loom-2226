@@ -1,0 +1,176 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "lane": "PROTOTYPE (non-canon) experiment 2, W1",
+ "model_version": "71015f89df61",
+ "osteon_vs_programmable": {
+  "osteon_ESTABLISHED": "OST-22 titanium: 22-38% lighter on longerons/end fittings/doublers (Wayfarer mass basis, 13 items). A static, stronger structural metal. No shape or stiffness switching is evidenced.",
+  "programmable_PROPOSED": "reversible geometry or stiffness: NOT evidenced anywhere in the repo; extrapolated from the existence of Builder materials"
+ },
+ "variants": {
+  "A conventional telescoping 13.7 m (#2643 + Osteon)": {
+   "dry_t": 35.95,
+   "wing_t": 2.91,
+   "clmax": 4.0,
+   "S": 58.66,
+   "glide": 6.32,
+   "turn": 18.9,
+   "evac_td": 47.4,
+   "hot_td": 49.5,
+   "hot_headroom": 0.5,
+   "all_five": true,
+   "failing": [],
+   "interior_margin_m3": 6.7
+  },
+  "B conventional fold-over-top 17 m": {
+   "dry_t": 37.28,
+   "wing_t": 4.15,
+   "clmax": 4.0,
+   "S": 66.77,
+   "glide": 7.02,
+   "turn": 20.6,
+   "evac_td": 45.7,
+   "hot_td": 48.0,
+   "hot_headroom": 2.0,
+   "all_five": true,
+   "failing": [],
+   "interior_margin_m3": 6.7
+  },
+  "C conventional two-stage telescope 17 m": {
+   "dry_t": 38.75,
+   "wing_t": 5.54,
+   "clmax": 4.0,
+   "S": 66.77,
+   "glide": 7.02,
+   "turn": 20.1,
+   "evac_td": 47.5,
+   "hot_td": 49.8,
+   "hot_headroom": 0.2,
+   "all_five": true,
+   "failing": [],
+   "interior_margin_m3": 6.7
+  },
+  "D programmable geometry only 17 m (flat stow, no camber)": {
+   "dry_t": 38.38,
+   "wing_t": 5.19,
+   "clmax": 4.0,
+   "S": 66.77,
+   "glide": 7.02,
+   "turn": 20.3,
+   "evac_td": 47.0,
+   "hot_td": 49.3,
+   "hot_headroom": 0.7,
+   "all_five": true,
+   "failing": [],
+   "interior_margin_m3": 6.7
+  },
+  "E fold 17 m + programmable camber (adaptive trailing structure)": {
+   "dry_t": 37.28,
+   "wing_t": 4.15,
+   "clmax": 4.902,
+   "S": 66.77,
+   "glide": 7.02,
+   "turn": 20.6,
+   "evac_td": 41.3,
+   "hot_td": 43.3,
+   "hot_headroom": 6.7,
+   "all_five": true,
+   "failing": [],
+   "interior_margin_m3": 6.7
+  },
+  "F full W1: programmable geometry + camber 17 m (lane reference)": {
+   "dry_t": 38.38,
+   "wing_t": 5.19,
+   "clmax": 4.971,
+   "S": 66.77,
+   "glide": 7.02,
+   "turn": 20.3,
+   "evac_td": 42.2,
+   "hot_td": 44.3,
+   "hot_headroom": 5.7,
+   "all_five": true,
+   "failing": [],
+   "interior_margin_m3": 6.7
+  },
+  "G telescoping 13.7 m + programmable camber only": {
+   "dry_t": 35.95,
+   "wing_t": 2.91,
+   "clmax": 4.662,
+   "S": 58.66,
+   "glide": 6.32,
+   "turn": 18.9,
+   "evac_td": 43.9,
+   "hot_td": 45.9,
+   "hot_headroom": 4.1,
+   "all_five": true,
+   "failing": [],
+   "interior_margin_m3": 6.7
+  }
+ },
+ "bay_fold": {
+  "bay_envelope_r_m": 2.15,
+  "centre_z_m": 0.23,
+  "top_band_clear_m": 0.744,
+  "belly_band_clear_m_at_same_centre": 0.642,
+  "band_width_m": 1.8,
+  "band_x_m": "5.0-12.4",
+  "outer_panel_m": 6.37,
+  "panel_thickness_m": 0.216,
+  "two_panels_stacked_with_hinge_gaps_m": 0.53,
+  "fits_top": true,
+  "telescope_17m_single_stage": false,
+  "telescoped_13p7m_box_volume_m3": 2.22,
+  "verdict": "GEOMETRY: a conventional fold-over-top 17 m wing fits the 2.15 m envelope with margin; programmable flat-stow is NOT required for span. Unchecked: fans, pop-out floats and cradle/rails sharing the top band; G8 exit clearance; hinge fittings at the chine."
+ },
+ "stiffness": {
+  "limit_load_g": 8.0,
+  "heavy_mass_t": 59.0,
+  "wing_area_share": 0.343,
+  "lift_per_side_MN": 0.79,
+  "root_moment_MNm": 2.15,
+  "box_depth_m": 0.173,
+  "cap_force_MN": 12.4,
+  "cap_area_cm2_Ti_900MPa_x1p5": 207,
+  "REQUIRED_lock_shear_MPa": {
+   "20 mm lock lands": 172.5,
+   "50 mm lock lands": 69.0,
+   "100 mm lock lands": 34.5
+  },
+  "known_reversible_locks_MPa": {
+   "vacuum_jamming_MPa": 0.05,
+   "electroadhesion_MPa": 0.02,
+   "structural_adhesive_MPa": 30,
+   "titanium_pin_or_tooth_MPa": 500
+  },
+  "finding": "Friction/vacuum jamming is ~400x short of an 8 g wing. A flat-stow wing needs a mechanical interlock (teeth, zipper, bistable shell) or a reversible structural bond of >=20-100 MPa. Torsion needs a CLOSED cell: an unlocked web leaves an open section with roughly 1% of the torsional stiffness, so lock integrity is flight-critical (flutter/divergence) and must be monitored."
+ },
+ "slam_g": [
+  {
+   "sink_ms": 3.0,
+   "rigid_local_stroke_0p05m_g": 9.2,
+   "adaptive_0p15m_g": 3.1,
+   "adaptive_0p30m_g": 1.5
+  },
+  {
+   "sink_ms": 5.0,
+   "rigid_local_stroke_0p05m_g": 25.5,
+   "adaptive_0p15m_g": 8.5,
+   "adaptive_0p30m_g": 4.2
+  },
+  {
+   "sink_ms": 7.0,
+   "rigid_local_stroke_0p05m_g": 49.9,
+   "adaptive_0p15m_g": 16.6,
+   "adaptive_0p30m_g": 8.3
+  }
+ ],
+ "crash": {
+  "rule": "crash 16-20 g (kT 2026-11-21)",
+  "stroke_for_16g_at_15ms_m": 0.72,
+  "stroke_for_16g_at_20ms_m": 1.27,
+  "note": "energy absorbed per crash at 60 t, 15 m/s: 6.8 MJ; a one-shot crushable must be replaced; a re-armable programmable absorber is the advantage"
+ },
+ "actuation": {
+  "strain_energy_bound_MJ": 4.25,
+  "note": "upper bound: whole wing taken to Ti yield strain energy; actual reconfiguration energy ~0.1-1 MJ, ~0.1 MW for 10 s, trivially within the 29 MWe fan reactor. Mass, not energy, is the actuator question: the ROM already charges +50% wing mass (1.5x) vs +20% for a conventional fold."
+ }
+}

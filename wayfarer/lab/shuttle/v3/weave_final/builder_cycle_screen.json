@@ -1,0 +1,27 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "doc": "Reactorless Builder Tic Tac: one manoeuvre and its reverse (fiction-first, NON-CANON). ALL bodies. ALL sponsors. 2026-2226.\n\nHypothesis (kT/Sol, 2026-11-22): the continuous active hull is an M2-compatible interface to relational topography. It\nalters the vehicle's ordinary motion by changing its relational configuration rho; the complete physical/relational system\nchanges correspondingly; local energy/thermal cost is NOT reactor accounting. Requirement: bounded flight behaviour without\nfree-work cycles. RT used as inspiration only (RT-C1 control geometry, RT-B1 route dependence, RT-D1/D3 common action).\nNo fuel substitute imposed by hand.\n\nMinimal model. State: vehicle height h, speed v (ordinary physics); relational configuration rho (abstract; no units yet).\nOperations:\n  F(+d): field climb by d       F(-d): field descent by d (the exact reverse)\n  X: field off, fall, and extract the fall energy with a turbine/brake (ordinary physics, any external work extraction)\nQuestion: run F(+d), X, F(+d), X, ... Is the extracted work bounded, and what has not returned?\nTwo candidate laws for how F couples to rho:\n  L0 (no ledger): F changes h and changes rho along a route, but rho's accessibility does not depend on the physical work done.\n  L1 (ledger):    reachable rho depends on the physical record: F(+d) moves rho by dW/kappa where dW is the ordinary work\n                  the field did on the vehicle (frame: the environment's rest frame); the range of rho is bounded, |rho| <= rho_max.\n",
+ "manoeuvre_and_reverse": {
+  "field_up_then_field_down": "h returns, v returns, rho returns, no heat required: fully reversible (both laws)",
+  "field_up_then_fall_and_brake": "h returns, v returns, the environment holds the energy as heat/extracted work. Under L0 rho is re-usable: nothing records the work. Under L1 rho does NOT return: it holds the record of the work done"
+ },
+ "L0_no_ledger": {
+  "extracted_after_1000_cycles_TJ": 1.0,
+  "verdict": "FREE-WORK CYCLE: unbounded extraction with the relational state reusable. Excluded by the requirement (and by sec. 7.3)."
+ },
+ "L1_ledger": {
+  "extracted_TJ": 2.0,
+  "cycles_before_refusal": 2101,
+  "final_rho": 1999248570000.0,
+  "verdict": "Bounded: total net work the vehicle can leave in the world is limited by the accessible range of rho; reversing by field restores rho exactly"
+ },
+ "result": [
+  "Theorem-like finding (for any restorable rho coupled to ordinary motion against an effectively infinite environment): excluding free-work cycles REQUIRES rho to carry a record that changes in exact proportion to the net ordinary work done, in the environment's rest frame. Whatever it is called (tension, debt, displacement), it is commensurate with joules at a fixed exchange rate kappa. That is forced by the no-free-work requirement, not added as fuel.",
+  "It is not a reactor and not heat: climbing stores the work as a relational displacement; descending by field gives it back, cool. Only physical dissipation (falling and braking, aerobraking, drag) leaves rho displaced.",
+  "Limits come from the ACCESSIBLE RANGE of rho (RT-C1 style control geometry), not fuel: she can hold up to kappa*rho_max of net ordinary work \"on credit\". Orbit (1.56 TJ) is a position in rho; landing by field returns it; aerobraking spends it.",
+  "Route dependence (RT-B1): two routes to the same physical state can leave different rho if one dissipated on the way. That is the \"what does not return\".",
+  "The ledger selects a frame (the environment's rest frame). Which environment is still undetermined: the partner question reappears as \"in whose frame is the record kept\", not as an energy source."
+ ],
+ "open_gap": "Restoring a displaced rho: if only the reverse field manoeuvre restores it, every aerobraked landing permanently consumes range (a finite lifetime budget). If the environment can restore it (relaxation), that process must itself be paid physically or it re-opens the free-work cycle. Nothing in RT decides which; this is the conceptual gap.",
+ "for_flight": "Operating picture: she climbs and accelerates without propellant or reactor heat; she must come home by field (unwinding) to keep her range; every time she sheds energy into the world (aerobraking, braking, drag), that much range is spent until restored. Total range kappa*rho_max is the one Builder parameter."
+}

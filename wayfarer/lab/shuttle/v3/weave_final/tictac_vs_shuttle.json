@@ -1,0 +1,114 @@
+{
+ "shuttle": {
+  "length": 13.02,
+  "hull_m3": 78.5,
+  "inner_m3": 65.4,
+  "swet_m2": 121.5,
+  "planform_m2": 44.8,
+  "dry_t": 49.32,
+  "margin_t": 3.18,
+  "water_t": 22.6,
+  "buoyancy": [
+   110.5,
+   107.6
+  ],
+  "interior_spare_m3": 0.03,
+  "hyper_LD": 1.99,
+  "crossrange_km": 1166,
+  "peak_heat": 272,
+  "field_max_radius": 8.55,
+  "fallback": "wings + fans: field-off landing at <= 50 m/s heavy (4.5% uplift), aero recovery from airspeed",
+  "bay": "needs the 0.22 m collar; docked aft clearance 0.28 m",
+  "mass_items": {
+   "hull_structure": 10.86,
+   "entry_tps": 1.68,
+   "wings": 5.19,
+   "cabin": 3.36,
+   "water_tank": 2.08,
+   "rover": 0.0,
+   "torch": 7.01,
+   "belly_rcs": 0.4,
+   "power_dist": 0.65,
+   "custody": 0.12,
+   "avionics": 0.85,
+   "gear_door": 0.91,
+   "crash_mounts": 0.23,
+   "floats": 0.96,
+   "desal": 0.0,
+   "cabin_wall": 1.09,
+   "fans_reactor": 3.8
+  }
+ },
+ "tictac": {
+  "length": 12.8,
+  "diameter": 3.8,
+  "hull_m3": 130.8,
+  "inner_m3": 113.2,
+  "swet_m2": 152.6,
+  "planform_m2": 45.5,
+  "interior_need_m3": 64.3,
+  "interior_spare_m3": 48.9,
+  "cases": {
+   "torch-only fallback": {
+    "dry_t": 43.07,
+    "flywheel_t": 1.027,
+    "chutes_t": 0.0,
+    "host_t": 33.04,
+    "floats_m3": 0.0,
+    "margin_t": 9.43,
+    "water_t": 17.0,
+    "water_ok": true,
+    "buoyancy": [
+     130.8,
+     98.4
+    ],
+    "torch_landing_water_t": 1.3
+   },
+   "+ parachutes": {
+    "dry_t": 44.69,
+    "flywheel_t": 1.027,
+    "chutes_t": 1.62,
+    "host_t": 33.04,
+    "floats_m3": 0.0,
+    "margin_t": 7.81,
+    "water_t": 18.3,
+    "water_ok": true,
+    "buoyancy": [
+     130.8,
+     100.8
+    ],
+    "torch_landing_water_t": 1.3
+   }
+  },
+  "hyper_LD": 0.608,
+  "hyper_LD_alpha": 40,
+  "crossrange_km_a40": 481,
+  "crossrange_km_best": 481,
+  "peak_heat_a40": 126,
+  "peak_g_a40": 2.79,
+  "field_max_radius": 6.4,
+  "bay": "12.8 m: no collar; width = the 3.8 m exit limit exactly (0.5 m each side, no further margin)",
+  "fallback": "no wings or fans: field-off = torch (needs altitude, water) or parachutes; no aero recovery, no gliding landing",
+  "mass_items": {
+   "hull_structure": 13.635349463668375,
+   "entry_tps": 1.707793105479718,
+   "wings": 0.0,
+   "cabin": 3.36,
+   "water_tank": 2.08,
+   "rover": 0.0,
+   "torch": 7.01,
+   "belly_rcs": 0.4,
+   "power_dist": 0.65,
+   "custody": 0.12,
+   "avionics": 0.85,
+   "gear_door": 0.91,
+   "crash_mounts": 0.23,
+   "floats": 0.96,
+   "desal": 0.0,
+   "cabin_wall": 1.09,
+   "fans_reactor": 1.0
+  }
+ },
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "doc": "Is a Tic Tac (capsule) redesign of the Weave shuttle materially worth it? Same-rules comparison. NON-CANON.\nALL bodies. ALL sponsors. 2026-2226.\n\nSelected shuttle: 13.02 m lifting body, run through closure_v2 / closure_screen / step 5 (as committed).\nTic Tac: 12.8 m x 3.8 m capsule (hemispherical ends), run through the SAME rules where they apply:\n  - hull structure scales with wetted area from the host's post-Osteon value; entry TPS with entry planform (engine.evaluate rules)\n  - no wings, no lift fans; floats only if the hull alone does not give the W2 1.5x reserve\n  - power unit for cooling / flywheel recharge kept: ASSUMPTION 1.0 t (the host's fan reactor was 3.8 t, sized for fan lift)\n  - field-off fallback without wings: torch-only, or parachutes (ASSUMPTION ~3.5% of landing mass, typical of large capsule chutes)\n  - same module (9.0 t installed), flywheel iterated on lift-off mass, same 23.1 t tank, cushion ascent profile\n  - hypersonic Newtonian L/D, Earth entry crossrange / peak heat with aero_test.entry, as the engine does for the host\nNot done: capsule afloat stability (W6, a round hull rolls), structural detail, render."
+}

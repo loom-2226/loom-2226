@@ -1,0 +1,40 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "doc": "Torchless Tic Tac screen (Sol brief, 2026-11-22). NON-CANON. ALL bodies. ALL sponsors. 2026-2226.\n\nQuestion: can the existing W2 + Weave configuration take the Tic Tac from Earth's surface to a velocity-matched rendezvous\nwith Wayfarer in low orbit without conventional thrust? Only existing field behaviour, conservation and established exchange\nassumptions. No new exchange mechanism. If it cannot close, name the precise missing capability and stop.\n\nEstablished behaviour used (lane reports):\n  Weave shift (zero-expansion shift, N = 1): slow geodesic L = 1/2|xdot - b|^2  =>  dw_i/dt = -w_j d_i b_j with w = xdot - b\n      (WEAVE_GEOMETRY_COMPARE, sign-corrected). The law is linear and homogeneous in w: w = 0 stays 0 for ANY b(x, t).\n      A hull that starts at rest relative to the exterior is carried (xdot = b) and is left at rest when b -> 0. Galilean\n      invariance makes this frame-independent: the shift never changes the hull's velocity relative to the exterior.\n  W2 cushion: a lapse-type potential that cancels gravity inside the field and, as booked in the lane, adds net climb at\n      (1.4 - 1) g to 2 km in ~20 s, energy paid from the flywheel at eta 0.6 (proto/metric_wildcards.cushion; closure_screen).\n      It DOES change ordinary velocity (vertical) and so already exchanges net momentum with a partner.\n  Exchange: R1 (external partner) is the only consistent route; the exchange law and partner are UNKNOWN (source closure;\n      CCR-2026-0005 sec. 7.1b option A). Conservation in full; sec. 7.3 binds.\n",
+ "shift": {
+  "result": "CANNOT",
+  "reason": "dw/dt = -w.grad(b) is homogeneous in w: a hull starting at rest relative to the exterior is left at rest when the field ends, in any frame",
+  "status": "DERIVED from the lane's established slow-geodesic law (not a property of the chosen dash profile)"
+ },
+ "cushion": {
+  "result": "CAN in principle (same field type, same bookkeeping), but only vertical is established",
+  "established": "vertical, (1.4-1) g net, ~2 km in ~20 s, ~3 GJ from the flywheel, partner unknown"
+ },
+ "requirement": {
+  "mass_t": 46.5,
+  "v_orbit_ms": 7788,
+  "v_rot_ms": 465,
+  "dv_ms": 7324,
+  "energy_TJ": 1.49,
+  "source_energy_TJ_at_eta": 2.49,
+  "momentum_Ns": "3.41e+08",
+  "angular_momentum": "2.24e+15",
+  "earth_spin_fraction": "3.8e-19",
+  "burn_at_0p4g_s": 1866,
+  "burn_at_0p4g_min": 31.1,
+  "ground_track_km": 6835,
+  "peak_source_power_GW": 2.37,
+  "flywheel_GJ": 3.08,
+  "flywheel_fraction": "1.2e-03"
+ },
+ "missing": [
+  "DIRECTIONAL CUSHION: the cushion acceleration must be commandable along the horizontal (not tied to local gravity), at ~0.4 g for ~31 min, delivering ~3.4e8 N s and ~2.2e15 kg m2/s to a partner. Established only vertically, to 2 km.",
+  "ENERGY SOURCE: ~1.5 TJ delivered, ~2.5 TJ at the lane efficiency, peaking ~2.4 GW. The flywheel holds ~3 GJ (~0.1%). Only the torch reactor (7.7 GW) is in that class: a torchless Tic Tac keeps the reactor and drops the nozzle and the water.",
+  "EXCHANGE LAW: unchanged gap (R1 law and partner). Using the cushion as main propulsion with an UNKNOWN partner is a new capability claim beside sec. 7.3 / sec. 21 (\"independently commandable\" momentum source), so it needs explicit CCR text."
+ ],
+ "consequences": [
+  "On airless bodies (Moon, Europa) a field failure would leave no fallback at all: no parachutes, no torch.",
+  "Wayfarer-supplied velocity (option 2) is not credible: Wayfarer cannot match a vehicle at zero orbital speed."
+ ],
+ "verdict": "Does not close with established behaviour. Precise missing capability: a directional (non-vertical) cushion mode used as main propulsion, powered by a GW-class reactor, with the exchange partner still undeclared. Stop here: kT decides whether to grant it."
+}

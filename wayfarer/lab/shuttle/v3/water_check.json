@@ -1,0 +1,31 @@
+{
+ "rho_t_m3": 1.025,
+ "reserve_target": 0.5,
+ "cases": {
+  "B4-S 36.5 t, empty tank": {
+   "mass_t": 36.5,
+   "displaced_m3": 35.6,
+   "b4s_reserve_pct": 132,
+   "hull_needed_m3": 53.4
+  },
+  "B4-S 36.5 t + full water": {
+   "mass_t": 59.6,
+   "displaced_m3": 58.1,
+   "b4s_reserve_pct": 42,
+   "hull_needed_m3": 87.2
+  },
+  "52.5 t ceiling + full water": {
+   "mass_t": 75.6,
+   "displaced_m3": 73.8,
+   "b4s_reserve_pct": 12,
+   "hull_needed_m3": 110.6
+  }
+ },
+ "capsule_sub": {
+  "ext_m3": 6.7,
+  "displaces_t": 6.87,
+  "shell_fittings_t": 4.51,
+  "rating_bar": 61.3,
+  "rating_m": 589
+ }
+}

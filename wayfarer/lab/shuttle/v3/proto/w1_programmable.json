@@ -1,0 +1,309 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "lane": "PROTOTYPE (non-canon)",
+ "model_version": "1346d9edfb78",
+ "note": "PROTOTYPE LANE (non-canon): programmable shape/stiffness structure. Wing folds flat to the hull for the bay and morphs span (to 20 m) and camber in flight; actuated variable-stiffness skin assumed 1.5x conventional wing mass; morphing camber credited CL cap 5 [sensitivity, not established]",
+ "results": {
+  "B5 baseline": {
+   "feasible": true,
+   "fails": [],
+   "dry_t": 43.36,
+   "docked_t": 66.5,
+   "wing_t": 3.96,
+   "glide": 5.35,
+   "crossrange": 1168,
+   "turn": 17.2,
+   "light_ms": 40.5,
+   "touchdown": {
+    "earth": 39.7,
+    "evac": 54.3,
+    "orbital": null,
+    "surface": null,
+    "hot": 56.9
+   },
+   "missions": {
+    "earth": true,
+    "evac": false,
+    "orbital": true,
+    "surface": true,
+    "hot": false
+   },
+   "fail_detail": {
+    "evac": [
+     [
+      "Water touchdown at mission mass (climb w",
+      54.3,
+      50
+     ]
+    ],
+    "hot": [
+     [
+      "Water required vs carried (incl. sprint ",
+      29.0,
+      28.1
+     ],
+     [
+      "Torch thrust meets every leg",
+      "short on leg 3",
+      ""
+     ],
+     [
+      "Water touchdown at mission mass (climb w",
+      56.9,
+      50
+     ]
+    ]
+   }
+  },
+  "B5 + programmable, 14 m span": {
+   "feasible": true,
+   "fails": [],
+   "dry_t": 44.01,
+   "docked_t": 67.1,
+   "wing_t": 4.57,
+   "glide": 5.35,
+   "crossrange": 1168,
+   "turn": 17.1,
+   "light_ms": 36.5,
+   "touchdown": {
+    "earth": 35.8,
+    "evac": 49.2,
+    "orbital": null,
+    "surface": null,
+    "hot": 51.5
+   },
+   "missions": {
+    "earth": true,
+    "evac": true,
+    "orbital": true,
+    "surface": true,
+    "hot": false
+   },
+   "fail_detail": {
+    "hot": [
+     [
+      "Water required vs carried (incl. sprint ",
+      29.8,
+      28.1
+     ],
+     [
+      "Torch thrust meets every leg",
+      "short on leg 3",
+      ""
+     ],
+     [
+      "Water touchdown at mission mass (climb w",
+      51.5,
+      50
+     ]
+    ]
+   }
+  },
+  "B5 + programmable, 20 m span": {
+   "feasible": false,
+   "fails": [
+    "Earth water"
+   ],
+   "dry_t": 47.01,
+   "docked_t": 70.1,
+   "wing_t": 7.39,
+   "glide": 6.32,
+   "crossrange": 1168,
+   "turn": 19.2,
+   "light_ms": 35.2,
+   "touchdown": {
+    "earth": 34.6,
+    "evac": 48.3,
+    "orbital": null,
+    "surface": null,
+    "hot": 50.0
+   },
+   "missions": {
+    "earth": false,
+    "evac": false,
+    "orbital": true,
+    "surface": true,
+    "hot": false
+   },
+   "fail_detail": {
+    "earth": [
+     [
+      "Water required vs carried",
+      25.2,
+      23.1
+     ]
+    ],
+    "evac": [
+     [
+      "Water required vs carried (incl. sprint ",
+      29.6,
+      28.1
+     ]
+    ],
+    "hot": [
+     [
+      "Water required vs carried (incl. sprint ",
+      33.3,
+      28.1
+     ],
+     [
+      "Torch thrust meets every leg",
+      "short on leg 3",
+      ""
+     ]
+    ]
+   }
+  },
+  "#2643 baseline": {
+   "feasible": true,
+   "fails": [],
+   "dry_t": 38.33,
+   "docked_t": 56.3,
+   "wing_t": 3.35,
+   "glide": 6.32,
+   "crossrange": 1161,
+   "turn": 18.2,
+   "light_ms": 38.6,
+   "touchdown": {
+    "earth": 49.8,
+    "evac": 50.1,
+    "orbital": null,
+    "surface": null,
+    "hot": 52.6
+   },
+   "missions": {
+    "earth": true,
+    "evac": false,
+    "orbital": true,
+    "surface": true,
+    "hot": false
+   },
+   "fail_detail": {
+    "evac": [
+     [
+      "Water touchdown at mission mass (climb w",
+      50.1,
+      50
+     ]
+    ],
+    "hot": [
+     [
+      "Water touchdown at mission mass (climb w",
+      52.6,
+      50
+     ]
+    ]
+   }
+  },
+  "#2643 + programmable, 20 m span": {
+   "feasible": false,
+   "fails": [
+    "Earth water"
+   ],
+   "dry_t": 42.63,
+   "docked_t": 60.6,
+   "wing_t": 7.39,
+   "glide": 7.51,
+   "crossrange": 1161,
+   "turn": 20.4,
+   "light_ms": 33.3,
+   "touchdown": {
+    "earth": 43.8,
+    "evac": 44.5,
+    "orbital": null,
+    "surface": null,
+    "hot": 46.6
+   },
+   "missions": {
+    "earth": false,
+    "evac": false,
+    "orbital": true,
+    "surface": true,
+    "hot": false
+   },
+   "fail_detail": {
+    "earth": [
+     [
+      "Water required vs carried",
+      20.5,
+      18
+     ]
+    ],
+    "evac": [
+     [
+      "Water required vs carried (incl. sprint ",
+      23.6,
+      23
+     ]
+    ],
+    "hot": [
+     [
+      "Water required vs carried (incl. sprint ",
+      28.0,
+      23
+     ],
+     [
+      "Torch thrust meets every leg",
+      "short on leg 3",
+      ""
+     ]
+    ]
+   }
+  },
+  "#2643 + programmable 20 m, 14.3 m hull, 8 couches": {
+   "feasible": false,
+   "fails": [
+    "Earth water"
+   ],
+   "dry_t": 45.95,
+   "docked_t": 63.9,
+   "wing_t": 7.39,
+   "glide": 7.55,
+   "crossrange": 1187,
+   "turn": 20.0,
+   "light_ms": 33.6,
+   "touchdown": {
+    "earth": 44.8,
+    "evac": 45.9,
+    "orbital": null,
+    "surface": null,
+    "hot": 47.6
+   },
+   "missions": {
+    "earth": false,
+    "evac": false,
+    "orbital": true,
+    "surface": true,
+    "hot": false
+   },
+   "fail_detail": {
+    "earth": [
+     [
+      "Water required vs carried",
+      24.2,
+      18
+     ]
+    ],
+    "evac": [
+     [
+      "Water required vs carried (incl. sprint ",
+      28.3,
+      23
+     ]
+    ],
+    "hot": [
+     [
+      "Water required vs carried (incl. sprint ",
+      32.3,
+      23
+     ],
+     [
+      "Torch thrust meets every leg",
+      "short on leg 3",
+      ""
+     ]
+    ]
+   }
+  }
+ }
+}

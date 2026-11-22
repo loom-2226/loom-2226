@@ -1,0 +1,185 @@
+{
+ "doc": "Observer's view of a Weave shuttle low over calm water, for a non-canon theory-to-observation comparison (SOL, after 26a3c30).\nNON-CANON. ALL bodies. ALL sponsors. 2026-2226.\n\nTwo regimes, existing geometry only (R 15 m / wall 2 m):\nA. HOVER on the W2 cushion with the field centre Z above calm water. The cushion is a universal conservative force\n   f = -grad(Phi_tot), Phi_tot = g [ Z F(r) + z (1 - F(r)) ] (gravity cancelled inside). For two immiscible fluids at rest in a\n   conservative universal force field the interface is an equipotential (surface tension neglected): the far surface z = 0 has\n   Phi_tot = 0, so the sea surface beneath the craft satisfies  Z F(r) + z (1 - F(r)) = 0   (DERIVED, static equilibrium).\n   Reports bowl depth/width vs hover height, rim slope, and the energy released as waves if the cushion lets go or the craft jinks away.\nB. PASS: the Weave shift dash (200 m / 3 s) with the field centre 10 m above the water; surface points advected kinematically\n   (x_dot = beta), snapshots mid-pass and after.\nWhitewater is NOT computed; steep rim slope and large surface stretching are shown only as breaking-likely proxies.",
+ "hover": [
+  {
+   "Z_m": 0.0,
+   "depth_m": -0.0,
+   "surface_radius_m": 0.0,
+   "max_rim_slope_deg": 0.0,
+   "displaced_t": -0.0,
+   "wave_energy_J": 0.0
+  },
+  {
+   "Z_m": 1.0,
+   "depth_m": 11.55405,
+   "surface_radius_m": 18.0,
+   "max_rim_slope_deg": 57.21350860617045,
+   "displaced_t": 4637.511489032634,
+   "wave_energy_J": 179975499.47353896
+  },
+  {
+   "Z_m": 2.0,
+   "depth_m": 11.27115,
+   "surface_radius_m": 18.6,
+   "max_rim_slope_deg": 54.5203099550911,
+   "displaced_t": 4812.2588945149855,
+   "wave_energy_J": 180737425.16716963
+  },
+  {
+   "Z_m": 3.0,
+   "depth_m": 10.72605,
+   "surface_radius_m": 18.900000000000002,
+   "max_rim_slope_deg": 51.418315964665624,
+   "displaced_t": 4665.811412757902,
+   "wave_energy_J": 165251476.63254187
+  },
+  {
+   "Z_m": 4.0,
+   "depth_m": 10.0763,
+   "surface_radius_m": 19.0,
+   "max_rim_slope_deg": 48.41698881393197,
+   "displaced_t": 4377.608325194888,
+   "wave_energy_J": 144288086.84642738
+  },
+  {
+   "Z_m": 5.0,
+   "depth_m": 9.3725,
+   "surface_radius_m": 19.0,
+   "max_rim_slope_deg": 45.34172027925611,
+   "displaced_t": 4013.4054421494557,
+   "wave_energy_J": 121865039.85105088
+  },
+  {
+   "Z_m": 6.0,
+   "depth_m": 8.6365,
+   "surface_radius_m": 18.900000000000002,
+   "max_rim_slope_deg": 42.25514668327416,
+   "displaced_t": 3607.710796443613,
+   "wave_energy_J": 99965591.44478463
+  },
+  {
+   "Z_m": 7.0,
+   "depth_m": 7.882099999999999,
+   "surface_radius_m": 18.7,
+   "max_rim_slope_deg": 39.23163802244212,
+   "displaced_t": 3182.466468902231,
+   "wave_energy_J": 79674334.71144855
+  },
+  {
+   "Z_m": 8.0,
+   "depth_m": 7.11735,
+   "surface_radius_m": 18.45,
+   "max_rim_slope_deg": 35.92332960359029,
+   "displaced_t": 2753.4149214075846,
+   "wave_energy_J": 61597850.22878413
+  },
+  {
+   "Z_m": 9.0,
+   "depth_m": 6.349150000000002,
+   "surface_radius_m": 18.1,
+   "max_rim_slope_deg": 32.78153523718199,
+   "displaced_t": 2332.592049375716,
+   "wave_energy_J": 46037270.36240106
+  },
+  {
+   "Z_m": 10.0,
+   "depth_m": 5.58325,
+   "surface_radius_m": 17.650000000000002,
+   "max_rim_slope_deg": 29.898901838614687,
+   "displaced_t": 1930.076135446416,
+   "wave_energy_J": 33096253.70222844
+  },
+  {
+   "Z_m": 11.0,
+   "depth_m": 4.824249999999999,
+   "surface_radius_m": 17.2,
+   "max_rim_slope_deg": 26.312395538874167,
+   "displaced_t": 1554.1582486833584,
+   "wave_energy_J": 22723625.584564958
+  },
+  {
+   "Z_m": 12.0,
+   "depth_m": 4.079049999999999,
+   "surface_radius_m": 16.6,
+   "max_rim_slope_deg": 23.049752660858125,
+   "displaced_t": 1211.9825286458367,
+   "wave_energy_J": 14757134.666677864
+  },
+  {
+   "Z_m": 13.0,
+   "depth_m": 3.355699999999999,
+   "surface_radius_m": 15.950000000000001,
+   "max_rim_slope_deg": 19.621151036686854,
+   "displaced_t": 909.318775706749,
+   "wave_energy_J": 8945335.015157374
+  },
+  {
+   "Z_m": 14.0,
+   "depth_m": 2.661100000000001,
+   "surface_radius_m": 15.15,
+   "max_rim_slope_deg": 16.646664842022815,
+   "displaced_t": 650.9022559241824,
+   "wave_energy_J": 4970055.807912292
+  },
+  {
+   "Z_m": 15.0,
+   "depth_m": 2.010200000000001,
+   "surface_radius_m": 14.25,
+   "max_rim_slope_deg": 12.952764513377282,
+   "displaced_t": 439.74115736128516,
+   "wave_energy_J": 2469297.1940013673
+  },
+  {
+   "Z_m": 16.0,
+   "depth_m": 1.421400000000002,
+   "surface_radius_m": 13.200000000000001,
+   "max_rim_slope_deg": 9.787203664656575,
+   "displaced_t": 276.99817953215995,
+   "wave_energy_J": 1062508.3334669261
+  },
+  {
+   "Z_m": 17.0,
+   "depth_m": 0.9188499999999991,
+   "surface_radius_m": 12.0,
+   "max_rim_slope_deg": 6.560196400572274,
+   "displaced_t": 160.89008297539615,
+   "wave_energy_J": 381025.39810746093
+  },
+  {
+   "Z_m": 18.0,
+   "depth_m": 0.5289999999999999,
+   "surface_radius_m": 10.55,
+   "max_rim_slope_deg": 3.9471525884142973,
+   "displaced_t": 86.00744726537208,
+   "wave_energy_J": 110182.74693577917
+  },
+  {
+   "Z_m": 19.0,
+   "depth_m": 0.2667999999999999,
+   "surface_radius_m": 8.75,
+   "max_rim_slope_deg": 1.9759206953355897,
+   "displaced_t": 43.3832606192617,
+   "wave_energy_J": 25622.630912915698
+  },
+  {
+   "Z_m": 20.0,
+   "depth_m": 0.11960000000000193,
+   "surface_radius_m": 6.300000000000001,
+   "max_rim_slope_deg": 1.3175706299459877,
+   "displaced_t": 21.995189448675685,
+   "wave_energy_J": 5017.451563909431
+  }
+ ],
+ "pass": {
+  "1.5": {
+   "max_rise_m": 8.711000727796996,
+   "max_drop_m": 4.790145213627111,
+   "disturbed_area_m2": 1018.0
+  },
+  "3.0": {
+   "max_rise_m": 9.075190036934423,
+   "max_drop_m": 4.79014524125718,
+   "disturbed_area_m2": 1027.0
+  }
+ }
+}

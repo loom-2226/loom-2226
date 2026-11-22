@@ -1,0 +1,65 @@
+{
+ "doc": "Weave outing 4: TRANSMEDIUM - entry, exit and skim through a two-layer air/water model with gravity (SOL outings brief). NON-CANON.\nALL bodies. ALL sponsors. 2026-2226.\n\nModel (simplest existing): R 15 m / wall 2 m zero-expansion shift; parcel transport x_dot = beta (exact geodesic, density-independent,\nvolume-preserving); W2 cushion keeps the domain interior weightless. Gravity enters through the advected configuration:\n  - available potential energy APE = g sum m_i dz_i (released as splash / waves / bubble rise once the field lets go);\n  - carried fluid across the interface; hydrostatic checks (column tension / cavitation, carried-bubble pressure mismatch).\nTransit is kinematic: interface relaxation under gravity during transit is NOT modelled (transit 1.5 s ~ gravity-wave time sqrt(R/g)).\nEXIT/ENTRY: vertical transit of 60 m in 1.5 s, domain centre from 30 m below to 30 m above the surface (exit) or reverse (entry);\n  one axisymmetric run, gravity direction flipped in post-processing.\nSKIM: the existing horizontal 200 m / 3 s dash map with the water surface h metres below the domain centre (3D sampling).",
+ "exit": {
+  "APE_J": 2707892503.8881693,
+  "water_above_surface_t": 8863.610973021901,
+  "water_above_PE_J": 2256825321.486078,
+  "water_above_centroid_m": 25.95483379077056,
+  "air_below_surface_m3": 9251.99036482194,
+  "air_below_mean_depth_m": 5.006722842828815,
+  "axis_column_top_m": 1.8286044757954159,
+  "weight_bearing_height_m": 1.828602877395664,
+  "column_tension_Pa": -83386.40577274853,
+  "cavitates": false,
+  "neck_note": "Water neck (rho < 6 m) is continuous at 0.5 m lattice resolution from the sea surface into the ball (>=1 parcel per 0.5 m bin to 20 m); it is a thin stretched sheet. Weight-bearing height to the weightless interior ~14.9 m => a connected hydrostatic neck would need ~0.45 bar tension: it cannot hold - it cavitates/ruptures and drains as spray (CONDITIONAL on hydraulic connection; thin-sheet breakup not modelled). The on-axis check (rho < 1.5 m) alone reported no column.",
+  "neck_weight_bearing_height_m": 14.9,
+  "neck_tension_Pa": 44844.0,
+  "neck_cavitates_if_connected": true
+ },
+ "entry": {
+  "APE_J": 2670626117.829425,
+  "water_above_surface_t": 8468.555696832987,
+  "water_above_PE_J": 410905935.73549664,
+  "water_above_centroid_m": 4.946113287116373,
+  "air_below_surface_m3": 8911.127561907448,
+  "air_below_mean_depth_m": 25.906829303604376,
+  "bubble_pressure_mismatch_Pa": 294300.0,
+  "isothermal_volume_ratio": 0.2561137440758294,
+  "collapse_energy_J": 1392647152.66576,
+  "buoyant_APE_J": 2264727384.9664984
+ },
+ "skim": {
+  "5": {
+   "APE_J": 121258055.08383487,
+   "APE_per_m_J": 606290.2754191743,
+   "water_lifted_above_surface_t": 2442.0,
+   "max_lift_above_surface_m": 4.513073175885652,
+   "carried_cap_t": 898.0,
+   "max_horizontal_drift_m": 199.93362607257836
+  },
+  "10": {
+   "APE_J": 73927903.0243428,
+   "APE_per_m_J": 369639.51512171404,
+   "water_lifted_above_surface_t": 1456.0,
+   "max_lift_above_surface_m": 8.820468340017728,
+   "carried_cap_t": 8.0,
+   "max_horizontal_drift_m": 158.374795431241
+  },
+  "15": {
+   "APE_J": 4045940.8468968202,
+   "APE_per_m_J": 20229.704234484103,
+   "water_lifted_above_surface_t": 246.0,
+   "max_lift_above_surface_m": 2.825666412784649,
+   "carried_cap_t": 0.0,
+   "max_horizontal_drift_m": 0.0
+  },
+  "19": {
+   "APE_J": 17814.296718605092,
+   "APE_per_m_J": 89.07148359302546,
+   "water_lifted_above_surface_t": 0.0,
+   "max_lift_above_surface_m": 0.0,
+   "carried_cap_t": 0.0,
+   "max_horizontal_drift_m": 0.0
+  }
+ }
+}

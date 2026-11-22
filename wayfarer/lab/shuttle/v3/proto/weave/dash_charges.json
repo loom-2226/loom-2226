@@ -1,0 +1,80 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "lane": "NON-CANON physics",
+ "doc": "Finite Weave dash: conserved-charge ledger (energy E, momentum P, boost/centre-of-energy charge K = E X - c^2 P t).\nNON-CANON physics exercise (SOL handoff e17fd62). ALL bodies. ALL sponsors. 2026-2226.\n\nPremise (from Weave foundations \u00a716): M2 is a parent action S[W,Phi] = S_R[W] + S_matter[Phi,W], delta S/delta W = J_Phi.\nIf that action is local and diffeomorphism-invariant and the exterior is asymptotically flat, then within a fixed global sector\nLambda (Metric, foundations \u00a715) the Poincare charges (E, P, J, K) of ship + source + Weave field + environment are conserved,\nchanging only by flux through the boundary at infinity. This is a theorem of such theories (Noether + Bianchi), not a lane rule.\nA Loom transition (Lambda_A -> Lambda_B) is outside this premise by construction (M1).",
+ "case": {
+  "m_kg": 61000.0,
+  "v_ms": 100.0,
+  "dash_m": 200.0
+ },
+ "ledger": {
+  "ship": {
+   "dP_net": 0.0,
+   "dK": "1.10e+24 J m (= m c^2 dX)",
+   "note": "ship starts and ends at rest; centre of energy moved by dX"
+  },
+  "verdict_isolated": "INCONSISTENT: an isolated start-dash-stop that leaves the ship displaced and the field relaxed with nothing else changed violates K conservation. SOL's note is right that no NET impulse is needed; it is incomplete because K is also conserved.",
+  "closures": {
+   "R1 radiation to infinity": {
+    "min_energy_J": "3.66e+15",
+    "basis": "each impulse p radiated costs >= p c (start and stop): >= 2 m v c",
+    "verdict": "DERIVED bound; prohibitive (~3.7 PJ for this dash)"
+   },
+   "R2 exterior Weave field reaching environment matter (local partner)": {
+    "partner_impulse_Ns": 6100000,
+    "transient_energy_J": "3.05e+08 (supplied at start, returnable at stop)",
+    "earth_displacement_m": "2.0e-18",
+    "verdict": "DERIVED structure; requires S_R to have exterior range (a compact, exterior-flat domain has no local channel)"
+   },
+   "R3 nonlocal exchange to a distant partner (canon \u00a77.1b type)": {
+    "sun_frame_transient_J": "+/-1.82e+11 (+ 3.0e+08)",
+    "basis": "work in partner frame = dp . v_rel, v_rel ~ 29.8 km/s",
+    "verdict": "needs M1 nonlocality; partner law UNDETERMINED; Sun partner near a planet harvests relative motion (see cycle)"
+   },
+   "R4 persistent field remnant (energy-dipole scar)": {
+    "dipole_J_m": "1.10e+24",
+    "comparison": "SOL wall scale ~1.9e32 J x R ~ 1.9e33 J m: a ~6e-10 asymmetry",
+    "verdict": "mathematically allowed in an exotic sector; requires a permanent +/- energy separation of order m c^2 dX: physically extreme, M2 constitutive law UNDETERMINED"
+   },
+   "R5 Loom transition (change Lambda)": {
+    "verdict": "outside Metric by construction (M1). A displacement that discharges K without flux is a Loom-type event, i.e. option 2 / Weave seams (foundations \u00a719)"
+   }
+  }
+ },
+ "velocity": {
+  "statement": "With a partner channel the final ship velocity is u_f = u_i + dP/m: velocity CAN change. Crew stay inertial (interior geodesic, SOL).",
+  "energy_in_partner_frame": [
+   {
+    "case": "start 0 -> 100 m/s",
+    "J": "3.05e+08"
+   },
+   {
+    "case": "stop 300 m/s -> 0 (absorb)",
+    "J": "2.74e+09"
+   },
+   {
+    "case": "start 0 -> 1 km/s",
+    "J": "3.05e+10"
+   },
+   {
+    "case": "Wayfarer 1168 t to 0.268c (canon NORMAL), local partner",
+    "J": "3.77e+21"
+   }
+  ],
+  "canon_tension": "Canon reaches 0.268c from a ~2 GJ bank. Under R2/R3 with immediate discharge that costs ~1/2 m v^2 ~ 4e21 J. Canon metric is therefore consistent with the charge theorem only via R4 or R5 (exotic remnant or M1 discharge), or by a partner law that is not yet written.",
+  "torch_monopoly": "NOT derived: W3 (\"torch owns velocity\") was a lane rule. Under R2/R3 the Weave can change velocity at energy cost in the partner frame."
+ },
+ "closed_cycle": {
+  "test": "metric up-hop 1 km with no source input, ordinary fall, trim (61 t)",
+  "conservation_says": "with no source input the hop must conserve the ship's mechanical energy IN THE PARTNER FRAME: v_a^2 = v_s^2 + 2 dPhi there",
+  "partner_earth": {
+   "hover_up_hop": "forbidden without source input; with input pays m g h = 0.60 GJ; cycle net 0"
+  },
+  "partner_sun": {
+   "cost": "0.33 m/s of Sun-frame speed",
+   "cycle_net_GJ": 0.6,
+   "meaning": "energy-conserving harvest of Earth-Sun relative motion (not perpetual motion), unbounded in practice"
+  },
+  "verdict": "DERIVED: canon ENERGY-B counted in the Sun frame is equivalent to a Sun partner; near a planet it harvests orbital relative motion. A partner at rest in the local potential frame gives no closed-cycle gain."
+ }
+}

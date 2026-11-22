@@ -1,0 +1,71 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "lane": "PROTOTYPE (non-canon) BMD-1, tidal-force question",
+ "derivation": "Derivation (y = position relative to the domain's centre of mass, T_ij = d_i g_j the tidal tensor, g_j the external field):\n (1) Ordinary coupling, or ANY force density linear in T acting on positive density through position: f_i = rho (g_i(c) + T_ij y_j + O(y^2)).\n     The T term integrates to T_ij * Int(rho y_j) = 0 EXACTLY, for any shape, because the first moment about the centre of mass vanishes.\n     The residual is the quadrupole term ~ M g (L/R)^2.\n (2) A force linear in T needs an internal vector instead of y: f_i = T_ij P_j (P = dipole-moment density). Net force F = T . p, where p = Int P dV.\n     For gravity this is a MASS DIPOLE (+q and -q a distance L apart): it is the only way to get a non-tidal net force from a tidal field.\n (3) Energy of a mass dipole in the external field (reference-INDEPENDENT, because total charge is zero): U = q Phi(top) - q Phi(bottom) = p . grad Phi.\n     For lift at a body's surface (radial dipole) F = 2 g p / R and U = p g, so U = F R / 2 independent of shape and of the potential's zero.\n (4) Newton III holds only if the dipole is also an ACTIVE source (its field pulls on the planet). That needs negative active mass at one pole:\n     exotic stress-energy (energy-condition violation), i.e. inside the class M2 already declares, but at a stated amount.",
+ "cases": {
+  "Earth": {
+   "surface_g": 9.82024,
+   "tidal_radial_s2": "3.08e-06",
+   "force_needed_kN": 898.6,
+   "ordinary_tidal_residual_N": "3.3e-06",
+   "dipole_needed_kg_m": "2.91e+11",
+   "pole_mass_equivalent_t_at_15m": "1.94e+07",
+   "pole_mass_over_shuttle": "3.2e+05",
+   "holding_energy_U_eq_pg": "2.86 TJ",
+   "mgh_200m_GJ": 0.119
+  },
+  "Titan": {
+   "surface_g": 1.35402,
+   "tidal_radial_s2": "1.05e-06",
+   "force_needed_kN": 123.9,
+   "ordinary_tidal_residual_N": "2.8e-06",
+   "dipole_needed_kg_m": "1.18e+11",
+   "pole_mass_equivalent_t_at_15m": "7.85e+06",
+   "pole_mass_over_shuttle": "1.3e+05",
+   "holding_energy_U_eq_pg": "0.16 TJ",
+   "mgh_200m_GJ": 0.016
+  },
+  "Moon": {
+   "surface_g": 1.6257,
+   "tidal_radial_s2": "1.87e-06",
+   "force_needed_kN": 148.8,
+   "ordinary_tidal_residual_N": "7.4e-06",
+   "dipole_needed_kg_m": "7.95e+10",
+   "pole_mass_equivalent_t_at_15m": "5.30e+06",
+   "pole_mass_over_shuttle": "8.7e+04",
+   "holding_energy_U_eq_pg": "0.129 TJ",
+   "mgh_200m_GJ": 0.02
+  },
+  "1 km asteroid (rho 2000)": {
+   "surface_g": 0.00028,
+   "tidal_radial_s2": "1.12e-06",
+   "force_needed_kN": 0.0,
+   "ordinary_tidal_residual_N": "1.5e-02",
+   "dipole_needed_kg_m": "2.29e+07",
+   "pole_mass_equivalent_t_at_15m": "1.52e+03",
+   "pole_mass_over_shuttle": "2.5e+01",
+   "holding_energy_U_eq_pg": "6.39e-09 TJ",
+   "mgh_200m_GJ": 0.0
+  },
+  "Deep space, 1 AU (Sun tide)": {
+   "surface_g": 0.00593,
+   "tidal_radial_s2": "7.93e-14",
+   "force_needed_kN": 89.8,
+   "ordinary_tidal_residual_N": "0.0e+00",
+   "dipole_needed_kg_m": "1.13e+18",
+   "pole_mass_equivalent_t_at_15m": "7.55e+13",
+   "pole_mass_over_shuttle": "1.2e+12",
+   "holding_energy_U_eq_pg": "n/a (no lift)",
+   "mgh_200m_GJ": null
+  }
+ },
+ "answer": {
+  "ordinary_or_position_coupling": "NO. Any coupling linear in the tidal tensor acting on positive density gives exactly zero centre-of-mass force at first order (any shape); the residual is ~M g (L/R)^2, a few micronewtons at Earth.",
+  "with_new_law": "YES only with an engineered gravitational DIPOLE moment p (an internal vector coupled to T): F = T . p, F/W = 2 q L /(m R).",
+  "scaling": "At a body's surface T = (8 pi/3) G rho_body: set by density, not size. Required pole mass ~0.75 m R / L (3e5 x the shuttle at Earth, 1e5 at Titan, ~25 at a 1 km asteroid). Deep space: effectively zero capacity.",
+  "energy": "U = p g = F R / 2, reference-independent: ~2.9 TJ to hold a 0.9 MN lift at Earth (16,000x the 0.18 GJ lift work), ~0.16 TJ at Titan. Stored and recoverable, but it must be held somewhere.",
+  "conservation": "Local stress-energy closes in the Newtonian limit only if the dipole is also an active source, which needs negative active mass at one pole: exotic stress-energy of order 1e7 t per pole at Earth.",
+  "consequence_for_H1": "The tidal field can serve as a partner SELECTOR (weights) but not as the force SOURCE at planetary scale. If BMD-1 keeps the tidal weighting, the 0.9 MN must come from a separately POSTULATED nonlocal exchange. That is a chosen fictional law, not a derivation."
+ },
+ "H2_revision": "The review is right: m dk |Phi| depended on an implicit zero at infinity, so the TJ-PJ figures are not a decisive contradiction. Correct framing: a change in k that does not conserve total gravitational charge makes the energy ledger reference-DEPENDENT, which is itself the defect. A charge-conserving version must move the compensating charge somewhere; putting it close by makes a mass dipole, which is case (2) above with the same reference-independent cost U = F R / 2. So H2 is unsupported and needs a reference-independent energy law. It is not proven impossible, and in its minimal-energy form it converges on the dipole."
+}

@@ -1,0 +1,270 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "lane": "PROTOTYPE (non-canon) Weave manoeuvring - operations",
+ "model_version": "71015f89df61",
+ "canon_anchors": {
+  "plant": {
+   "plant_t": 88.0,
+   "mc_kg": 10.0,
+   "nodes": 208,
+   "bank_GJ": 2.0,
+   "cryo_lift_kW": 150.0,
+   "card": {
+    "NORMAL": [
+     0.268,
+     10,
+     20.0,
+     3.5,
+     106
+    ],
+    "FAST": [
+     0.437,
+     12,
+     38.1,
+     6.7,
+     202
+    ],
+    "EXPEDITE": [
+     0.519,
+     15,
+     63.5,
+     11.2,
+     336
+    ],
+    "HARD": [
+     0.595,
+     30,
+     136.0,
+     23.9,
+     719
+    ]
+   }
+  },
+  "ramp_cold_MJ": {
+   "NORMAL": 0.2,
+   "FAST": 0.46,
+   "EXPEDITE": 0.95,
+   "HARD": 4.08
+  },
+  "cryo_W_per_W": 175.0
+ },
+ "module": {
+  "fraction": 0.149,
+  "plant_t": 13.2,
+  "mc_kg": 1.49,
+  "nodes": 31,
+  "bank_GJ": 0.3,
+  "cryo_lift_kW": 22.4,
+  "cryo_electric_MW": 3.92,
+  "hot_side": "atmosphere: air heat exchanger, full cryo rate; vacuum: radiator-limited [ASSUMPTION]",
+  "label": "CANDIDATE (L^2 is not canon)"
+ },
+ "vacuum_cryo_lift_kW": 3.04,
+ "cold_budget": {
+  "basis": "Wayfarer certified ramps deposit {'NORMAL': 0.2, 'FAST': 0.46, 'EXPEDITE': 0.95, 'HARD': 4.08} MJ cold (NORMAL..HARD, CANON II \u00a75). x0.15 for domain size, x3-10 for near-body correction (CANON II \u00a76.3, unquantified) -> 0.25-4 MJ.",
+  "buffer_MJ": 1.5,
+  "frost_charge": {
+   "lh2_kg": 3.0,
+   "dry_kg": 3.0,
+   "absorbs_MJ": 1.34,
+   "carried": 12
+  },
+  "cases": {
+   "low": {
+    "Q_dash_MJ": 0.25,
+    "free_dashes_from_buffer": 6.0,
+    "dashes_per_frost_charge": 5.35,
+    "dashes_from_12_charges": 70.2,
+    "cooldown_per_dash_s_air": 11,
+    "cooldown_per_dash_s_vacuum": 82
+   },
+   "central": {
+    "Q_dash_MJ": 1.0,
+    "free_dashes_from_buffer": 1.5,
+    "dashes_per_frost_charge": 1.34,
+    "dashes_from_12_charges": 17.6,
+    "cooldown_per_dash_s_air": 45,
+    "cooldown_per_dash_s_vacuum": 329
+   },
+   "high": {
+    "Q_dash_MJ": 4.0,
+    "free_dashes_from_buffer": 0.4,
+    "dashes_per_frost_charge": 0.33,
+    "dashes_from_12_charges": 4.4,
+    "cooldown_per_dash_s_air": 179,
+    "cooldown_per_dash_s_vacuum": 1314
+   }
+  }
+ },
+ "height": {
+  "Earth": {
+   "bank_only_height_m": 501,
+   "reactor_climb_ms": 42.6,
+   "descent_absorb_MJ_per_100m": 59.8
+  },
+  "Mars": {
+   "bank_only_height_m": 1326,
+   "reactor_climb_ms": 112.6,
+   "descent_absorb_MJ_per_100m": 22.6
+  },
+  "Titan": {
+   "bank_only_height_m": 3638,
+   "reactor_climb_ms": 309.0,
+   "descent_absorb_MJ_per_100m": 8.2
+  },
+  "Moon": {
+   "bank_only_height_m": 3036,
+   "reactor_climb_ms": 257.8,
+   "descent_absorb_MJ_per_100m": 9.9
+  }
+ },
+ "manoeuvre_card": [
+  {
+   "move": "Dash (level)",
+   "energy": "free (ENERGY-B, partner frame)",
+   "cold": "Q_dash",
+   "other": "wear; WCS may return infeasible near terrain",
+   "looks": "no plume, no g; boundary/air effect UNKNOWN (H1 bang / H2 bang or silent / H3 vacuum only)"
+  },
+  {
+   "move": "Stop (end of dash)",
+   "energy": "free: the ship never gained kinetic speed",
+   "cold": "included in dash",
+   "other": "-",
+   "looks": "dead stop"
+  },
+  {
+   "move": "Hover",
+   "energy": "holding power only",
+   "cold": "hold load (UNKNOWN; air: cryo keeps up; vacuum: radiator-limited)",
+   "other": "-",
+   "looks": "~3.9 MW of waste heat"
+  },
+  {
+   "move": "Climb",
+   "energy": "paid m g h from bank, then reactor",
+   "cold": "hold + correction",
+   "other": "bank covers ~501 m on Earth",
+   "looks": "silent rise"
+  },
+  {
+   "move": "Descend",
+   "energy": "returns m g h: arrive faster (ENERGY-B) or absorb into bank",
+   "cold": "-",
+   "other": "absorbing needs bank headroom",
+   "looks": "silent drop"
+  },
+  {
+   "move": "Change real velocity",
+   "energy": "NOT by Weave (rule W3): torch or fans",
+   "cold": "-",
+   "other": "keeps the torch economy intact",
+   "looks": "torch plume"
+  },
+  {
+   "move": "Dodge",
+   "energy": "dash",
+   "cold": "Q_dash dumped into a frost charge",
+   "other": "charge vented / ejected",
+   "looks": "brief cold vapour puff; optional glowing decoy brick"
+  },
+  {
+   "move": "Cooldown",
+   "energy": "-",
+   "cold": "cryo removes heat",
+   "other": "air ~45 s per central dash; vacuum ~329 s",
+   "looks": "radiators hot / heat exchanger plume"
+  }
+ ],
+ "hot_extraction_closure": {
+  "no module": {
+   "torch lift-off": {
+    "dry_t": 37.28,
+    "storage_t": 0.0,
+    "water_need_t": 21.0,
+    "carried_t": 23.0,
+    "thrust_short": [],
+    "closes": true
+   },
+   "Weave lift to 200 m": {
+    "dry_t": 37.28,
+    "storage_t": 0.0,
+    "water_need_t": 17.5,
+    "carried_t": 23.0,
+    "thrust_short": [],
+    "closes": true
+   },
+   "Weave lift to 2 km": {
+    "dry_t": 37.62,
+    "storage_t": 0.34,
+    "water_need_t": 14.1,
+    "carried_t": 23.0,
+    "thrust_short": [],
+    "closes": true
+   }
+  },
+  "L^2 Weave module 13.8 t": {
+   "torch lift-off": {
+    "dry_t": 51.05,
+    "storage_t": 0.0,
+    "water_need_t": 37.8,
+    "carried_t": 23.0,
+    "thrust_short": [
+     2
+    ],
+    "closes": false
+   },
+   "Weave lift to 200 m": {
+    "dry_t": 51.11,
+    "storage_t": 0.06,
+    "water_need_t": 35.4,
+    "carried_t": 23.0,
+    "thrust_short": [
+     2
+    ],
+    "closes": false
+   },
+   "Weave lift to 2 km": {
+    "dry_t": 51.66,
+    "storage_t": 0.61,
+    "water_need_t": 27.5,
+    "carried_t": 23.0,
+    "thrust_short": [],
+    "closes": false
+   }
+  },
+  "half-mass module 6.9 t": {
+   "torch lift-off": {
+    "dry_t": 44.17,
+    "storage_t": 0.0,
+    "water_need_t": 30.0,
+    "carried_t": 23.0,
+    "thrust_short": [
+     2
+    ],
+    "closes": false
+   },
+   "Weave lift to 200 m": {
+    "dry_t": 44.18,
+    "storage_t": 0.02,
+    "water_need_t": 25.4,
+    "carried_t": 23.0,
+    "thrust_short": [],
+    "closes": false
+   },
+   "Weave lift to 2 km": {
+    "dry_t": 44.64,
+    "storage_t": 0.48,
+    "water_need_t": 20.0,
+    "carried_t": 23.0,
+    "thrust_short": [],
+    "closes": true
+   }
+  }
+ },
+ "module_ceiling_t": {
+  "Weave lift to 200 m": 5.0,
+  "Weave lift to 2 km": 9.5
+ },
+ "wear": "Mc tile wear per dash UNKNOWN; shuttle tiles are its own (1.5 kg CANDIDATE); Wayfarer's tiles are shared with Loom (CANON II \u00a73). Track as campaign wear points, not invented numbers."
+}

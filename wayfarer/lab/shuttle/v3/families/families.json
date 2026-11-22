@@ -1,0 +1,51 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "model_version": "616beacfeb63",
+ "results": {
+  "vacuum_utility": {
+   "dry_t": 32.65,
+   "basis": "B5 core minus wings, fans, floats, desal, entry TPS (hull kept)",
+   "dv_kms_23t_ve50": 25.2,
+   "moon_round_trip_water_t": 4.2,
+   "europa_round_trip_water_t": 3.6
+  },
+  "interplanetary_courier": {
+   "dry_t": 43.36,
+   "dv_kms": {
+    "ve25": 10.2,
+    "ve50": 20.4,
+    "ve100": 40.7
+   },
+   "note": "impulsive budget with the 23.1 t tank; slow (months) transfers fit, Wayfarer-class transit (hundreds of km/s) does not; the 3-day hop cabin, consumables and radiation, not propulsion, limit range"
+  },
+  "ftl_daughtercraft": {
+   "relational_plant_t": 88.0,
+   "mc_kg": 10.0,
+   "share_of_world_serviceable_mc_per_year_pct": 0.83,
+   "cryo": "150 kW-class at 20 K; metric NORMAL needs 3.5 MW cryo electrical and 106 m2 of 900 K radiator (HARD 23.9 MW, 719 m2)",
+   "shared_bank": "2 GJ reversible field bank",
+   "nodes": 208,
+   "loom_boundary_m2": "~1,900 normal for the reference courier",
+   "momentum_matching": "ordinary torch / external exchange (needs its own torch and remass)",
+   "rarity": "Loom-capable ships: a few dozen worldwide (CANON I 2.2, 5.4)",
+   "lean_dry_t": 155,
+   "lean_wet_t": 231,
+   "practical_dry_t": 205,
+   "practical_wet_t": 306,
+   "lean_wayfarer_econ_dv_kms": 578.8,
+   "practical_wayfarer_econ_dv_kms": 546.5,
+   "wayfarer_econ_dv_today_kms": 707.8,
+   "verdict": "Not a shuttle: the only certified relational plant is ~88 t with 10 kg Mc; canon gives no smaller design and calls the legacy smaller sizings non-governing. A daughtercraft is a second Loom-capable ship (~0.2-0.3 kt), too big for any bay option; carried externally it costs Wayfarer ~18-23% of ECON delta-v and joins Wayfarer's Loom domain (configuration lock). Plausible as a separate second ship acquired in play, not as Wayfarer equipment."
+  },
+  "metric_manoeuvre": {
+   "verdict": "Blocked by canon",
+   "reasons": [
+    "metric is long-baseline: one NORMAL ramp is ~0.40 million km of metric path (CANON II 9.1); Earth-Moon cannot fit a full cycle (9.3)",
+    "metric is not a close-combat dodge; torch owns tactical vector change (18A)",
+    "wake used as commandable reactionless thrust is a hard kill (21); FTL metric is a hard kill (5)",
+    "the plant is ~88 t and shared with Loom (3)"
+   ],
+   "closest_legal": "Osteon-light airframe + full-power torch with steerable magnetic nozzle (T/W up to ~2.5) and quiet electric fans; agile but never invisible: sensor primacy (18A) applies"
+  }
+ }
+}

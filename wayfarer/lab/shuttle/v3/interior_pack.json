@@ -1,0 +1,60 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "zones_x_m": {
+  "nose": [
+   0.3,
+   2.6
+  ],
+  "cabin": [
+   2.6,
+   7.9
+  ],
+  "well": [
+   7.9,
+   11.1
+  ],
+  "shield": [
+   11.1,
+   11.95
+  ],
+  "aft": [
+   11.95,
+   12.8
+  ]
+ },
+ "floors_z_m": {
+  "cabin": -0.55,
+  "well": -0.8
+ },
+ "volume_by_use_m3": {
+  "cabin": 26.8,
+  "water": 23.2,
+  "rover well": 13.5,
+  "aft systems": 7.6,
+  "door path/ramp": 5.3,
+  "cabin wall/frames": 3.2,
+  "life support/equipment": 3.0,
+  "avionics/sensors": 2.2
+ },
+ "demand_m3": {
+  "cabin (6 reclined couches, 3-day leg)": 27.0,
+  "water 23.1 t + 5% ullage": 24.3,
+  "rover/capsule + handling (1.9 x 3.0 m)": 11.5,
+  "aft: torch, reactor, H2/O2 RCS, plumbing": 7.0,
+  "avionics, life support, batteries": 3.0
+ },
+ "supply_m3": {
+  "cabin (6 reclined couches, 3-day leg)": 26.8,
+  "water 23.1 t + 5% ullage": 23.2,
+  "rover/capsule + handling (1.9 x 3.0 m)": 13.5,
+  "aft: torch, reactor, H2/O2 RCS, plumbing": 7.6,
+  "avionics, life support, batteries": 5.2
+ },
+ "balance_m3": {
+  "cabin (6 reclined couches, 3-day leg)": -0.2,
+  "water 23.1 t + 5% ullage": -1.1,
+  "rover/capsule + handling (1.9 x 3.0 m)": 2.0,
+  "aft: torch, reactor, H2/O2 RCS, plumbing": 0.6,
+  "avionics, life support, batteries": 2.2
+ }
+}

@@ -1,0 +1,495 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "inputs": {
+  "jet_power_GW": [
+   7.7,
+   "DECLARED_2226 kT 2026-11-03 (shuttle_inputs research.torch_source)"
+  ],
+  "ve_min_kms": [
+   10,
+   "PROJECTION shuttle_inputs torch_low_ve_kmps min"
+  ],
+  "ve_max_kms": [
+   50,
+   "PROJECTION mid of torch_high_ve_kmps 25-100 (swept 25/50/100)"
+  ],
+  "engine_t_at_7p7GW": [
+   7.0,
+   "DECLARED_2226 shuttle sizer torch_low_high_engine_t mid"
+  ],
+  "water_capacity_t": [
+   23.1,
+   "ASSUMPTION v1 retained capacity (shuttle_inputs water)"
+  ],
+  "dry_core_t": [
+   [
+    36.5,
+    40,
+    45
+   ],
+   "B4-S p95 36.48 t; 40 and 45 allow growth for the 111 m3 hull (W2)"
+  ],
+  "venus_kit_t": [
+   15.2,
+   "b4s_mass.json venus_kit mid (payload, outside the 52.5 t core ceiling)"
+  ],
+  "end_reserve_water_t": [
+   1.0,
+   "ASSUMPTION: 1 t left on return to Wayfarer"
+  ],
+  "liftoff_TW": [
+   1.4,
+   "ASSUMPTION: rocket-practice liftoff thrust/weight; first 3 km/s"
+  ],
+  "upper_TW": [
+   0.8,
+   "ASSUMPTION: after pitch-over"
+  ],
+  "earth_ascent_dv_kms": [
+   9.4,
+   "standard sea-level-to-LEO figure 9.3-9.5 incl. gravity and drag losses"
+  ]
+ },
+ "missions": {
+  "R1 Earth: sea to orbit, 6 pax + 2 t": {
+   "ve25_dry36.5": {
+    "water_t": 23.6,
+    "liftoff_t_ve_kms_thrust_kN": [
+     62.2,
+     19.4,
+     793
+    ]
+   },
+   "ve25_dry40": {
+    "water_t": 26.7,
+    "liftoff_t_ve_kms_thrust_kN": [
+     68.7,
+     17.6,
+     876
+    ]
+   },
+   "ve25_dry45": {
+    "water_t": 31.4,
+    "liftoff_t_ve_kms_thrust_kN": [
+     78.4,
+     15.4,
+     1000
+    ]
+   },
+   "ve50_dry36.5": {
+    "water_t": 15.0,
+    "liftoff_t_ve_kms_thrust_kN": [
+     53.9,
+     22.4,
+     687
+    ]
+   },
+   "ve50_dry40": {
+    "water_t": 18.0,
+    "liftoff_t_ve_kms_thrust_kN": [
+     60.4,
+     20.0,
+     770
+    ]
+   },
+   "ve50_dry45": {
+    "water_t": 23.0,
+    "liftoff_t_ve_kms_thrust_kN": [
+     70.3,
+     17.2,
+     896
+    ]
+   },
+   "ve100_dry36.5": {
+    "water_t": 14.6,
+    "liftoff_t_ve_kms_thrust_kN": [
+     53.6,
+     22.5,
+     684
+    ]
+   },
+   "ve100_dry40": {
+    "water_t": 17.5,
+    "liftoff_t_ve_kms_thrust_kN": [
+     60.0,
+     20.1,
+     765
+    ]
+   },
+   "ve100_dry45": {
+    "water_t": 22.4,
+    "liftoff_t_ve_kms_thrust_kN": [
+     69.9,
+     17.3,
+     891
+    ]
+   }
+  },
+  "R2 Venus: kit, 3 crew, ascent 10.5 km/s from rotor handover": {
+   "ve25_dry36.5": {
+    "water_t": 36.9,
+    "liftoff_t_ve_kms_thrust_kN": [
+     88.2,
+     14.1,
+     1095
+    ]
+   },
+   "ve25_dry40": {
+    "water_t": 40.6,
+    "liftoff_t_ve_kms_thrust_kN": [
+     95.4,
+     13.0,
+     1184
+    ]
+   },
+   "ve25_dry45": {
+    "water_t": 46.3,
+    "liftoff_t_ve_kms_thrust_kN": [
+     106.0,
+     11.7,
+     1315
+    ]
+   },
+   "ve50_dry36.5": {
+    "water_t": 26.2,
+    "liftoff_t_ve_kms_thrust_kN": [
+     77.9,
+     15.9,
+     966
+    ]
+   },
+   "ve50_dry40": {
+    "water_t": 30.4,
+    "liftoff_t_ve_kms_thrust_kN": [
+     85.6,
+     14.5,
+     1062
+    ]
+   },
+   "ve50_dry45": {
+    "water_t": 37.4,
+    "liftoff_t_ve_kms_thrust_kN": [
+     97.5,
+     12.7,
+     1210
+    ]
+   },
+   "ve100_dry36.5": {
+    "water_t": 25.6,
+    "liftoff_t_ve_kms_thrust_kN": [
+     77.4,
+     16.0,
+     961
+    ]
+   },
+   "ve100_dry40": {
+    "water_t": 29.7,
+    "liftoff_t_ve_kms_thrust_kN": [
+     85.1,
+     14.6,
+     1056
+    ]
+   },
+   "ve100_dry45": {
+    "water_t": 36.6,
+    "liftoff_t_ve_kms_thrust_kN": [
+     96.9,
+     12.8,
+     1202
+    ]
+   }
+  },
+  "R3 Titan": {
+   "ve25_dry36.5": {
+    "water_t": 5.9,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve25_dry40": {
+    "water_t": 6.4,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve25_dry45": {
+    "water_t": 7.0,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve50_dry36.5": {
+    "water_t": 3.4,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve50_dry40": {
+    "water_t": 3.6,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve50_dry45": {
+    "water_t": 3.9,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve100_dry36.5": {
+    "water_t": 2.2,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve100_dry40": {
+    "water_t": 2.3,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve100_dry45": {
+    "water_t": 2.4,
+    "liftoff_t_ve_kms_thrust_kN": null
+   }
+  },
+  "R4 Mars (0.8 km/s powered descent)": {
+   "ve25_dry36.5": {
+    "water_t": 10.9,
+    "liftoff_t_ve_kms_thrust_kN": [
+     49.6,
+     25.0,
+     616
+    ]
+   },
+   "ve25_dry40": {
+    "water_t": 11.7,
+    "liftoff_t_ve_kms_thrust_kN": [
+     53.9,
+     25.0,
+     616
+    ]
+   },
+   "ve25_dry45": {
+    "water_t": 13.0,
+    "liftoff_t_ve_kms_thrust_kN": [
+     60.1,
+     25.0,
+     616
+    ]
+   },
+   "ve50_dry36.5": {
+    "water_t": 5.7,
+    "liftoff_t_ve_kms_thrust_kN": [
+     44.6,
+     50.0,
+     308
+    ]
+   },
+   "ve50_dry40": {
+    "water_t": 6.1,
+    "liftoff_t_ve_kms_thrust_kN": [
+     48.5,
+     50.0,
+     308
+    ]
+   },
+   "ve50_dry45": {
+    "water_t": 6.7,
+    "liftoff_t_ve_kms_thrust_kN": [
+     54.0,
+     50.0,
+     308
+    ]
+   },
+   "ve100_dry36.5": {
+    "water_t": 4.1,
+    "liftoff_t_ve_kms_thrust_kN": [
+     43.1,
+     74.1,
+     208
+    ]
+   },
+   "ve100_dry40": {
+    "water_t": 4.6,
+    "liftoff_t_ve_kms_thrust_kN": [
+     47.1,
+     67.7,
+     227
+    ]
+   },
+   "ve100_dry45": {
+    "water_t": 5.5,
+    "liftoff_t_ve_kms_thrust_kN": [
+     53.0,
+     60.2,
+     256
+    ]
+   }
+  },
+  "R5 Moon": {
+   "ve25_dry36.5": {
+    "water_t": 8.3,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve25_dry40": {
+    "water_t": 9.0,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve25_dry45": {
+    "water_t": 9.9,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve50_dry36.5": {
+    "water_t": 4.5,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve50_dry40": {
+    "water_t": 4.8,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve50_dry45": {
+    "water_t": 5.3,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve100_dry36.5": {
+    "water_t": 2.7,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve100_dry40": {
+    "water_t": 2.9,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve100_dry45": {
+    "water_t": 3.1,
+    "liftoff_t_ve_kms_thrust_kN": null
+   }
+  },
+  "R6 Europa class": {
+   "ve25_dry36.5": {
+    "water_t": 6.8,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve25_dry40": {
+    "water_t": 7.4,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve25_dry45": {
+    "water_t": 8.1,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve50_dry36.5": {
+    "water_t": 3.8,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve50_dry40": {
+    "water_t": 4.1,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve50_dry45": {
+    "water_t": 4.4,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve100_dry36.5": {
+    "water_t": 2.4,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve100_dry40": {
+    "water_t": 2.5,
+    "liftoff_t_ve_kms_thrust_kN": null
+   },
+   "ve100_dry45": {
+    "water_t": 2.7,
+    "liftoff_t_ve_kms_thrust_kN": null
+   }
+  }
+ },
+ "earth_power_trade": {
+  "7.7": {
+   "engine_t": 7.0,
+   "dry_t": 40.0,
+   "water_t": 18.0,
+   "dry_plus_water_t": 58.0
+  },
+  "10": {
+   "engine_t": 9.1,
+   "dry_t": 42.1,
+   "water_t": 14.9,
+   "dry_plus_water_t": 57.0
+  },
+  "12": {
+   "engine_t": 10.9,
+   "dry_t": 43.9,
+   "water_t": 14.4,
+   "dry_plus_water_t": 58.3
+  },
+  "15": {
+   "engine_t": 13.6,
+   "dry_t": 46.6,
+   "water_t": 14.0,
+   "dry_plus_water_t": 60.6
+  },
+  "20": {
+   "engine_t": 18.2,
+   "dry_t": 51.2,
+   "water_t": 14.0,
+   "dry_plus_water_t": 65.2
+  }
+ },
+ "neutrons": {
+  "fusion_GW": 8.57,
+  "rows": [
+   {
+    "shell_g_cm2": 50,
+    "shell_kg_per_pulse": 4.6,
+    "wayfarer_lineage_0.038": {
+     "leak_W": 9740000.0,
+     "cabin_8m_unshielded_Sv_s": 1230.0
+    },
+    "removal_theory_0.103": {
+     "leak_W": 378000.0,
+     "cabin_8m_unshielded_Sv_s": 47.8
+    },
+    "pulse_rate_hz_at_ve20": 8.41
+   },
+   {
+    "shell_g_cm2": 100,
+    "shell_kg_per_pulse": 9.2,
+    "wayfarer_lineage_0.038": {
+     "leak_W": 1460000.0,
+     "cabin_8m_unshielded_Sv_s": 185.0
+    },
+    "removal_theory_0.103": {
+     "leak_W": 2190.0,
+     "cabin_8m_unshielded_Sv_s": 0.277
+    },
+    "pulse_rate_hz_at_ve20": 4.2
+   },
+   {
+    "shell_g_cm2": 250,
+    "shell_kg_per_pulse": 22.9,
+    "wayfarer_lineage_0.038": {
+     "leak_W": 4870.0,
+     "cabin_8m_unshielded_Sv_s": 0.618
+    },
+    "removal_theory_0.103": {
+     "leak_W": 0.000427,
+     "cabin_8m_unshielded_Sv_s": 5.41e-08
+    },
+    "pulse_rate_hz_at_ve20": 1.68
+   },
+   {
+    "shell_g_cm2": 400,
+    "shell_kg_per_pulse": 36.6,
+    "wayfarer_lineage_0.038": {
+     "leak_W": 16.3,
+     "cabin_8m_unshielded_Sv_s": 0.00207
+    },
+    "removal_theory_0.103": {
+     "leak_W": 8.33e-11,
+     "cabin_8m_unshielded_Sv_s": 1.06e-14
+    },
+    "pulse_rate_hz_at_ve20": 1.05
+   },
+   {
+    "shell_g_cm2": 600,
+    "shell_kg_per_pulse": 55.0,
+    "wayfarer_lineage_0.038": {
+     "leak_W": 0.00816,
+     "cabin_8m_unshielded_Sv_s": 1.03e-06
+    },
+    "removal_theory_0.103": {
+     "leak_W": 9.42e-20,
+     "cabin_8m_unshielded_Sv_s": 1.19e-23
+    },
+    "pulse_rate_hz_at_ve20": 0.7
+   }
+  ],
+  "shadow_water_relaxation_cm": 10,
+  "note": "In dense air, neutrons scatter around a shadow shield (skyshine, mean free path ~100 m at sea level). So in atmosphere the shell must do most of the work; in vacuum the shadow shield of protected water helps fully."
+ }
+}

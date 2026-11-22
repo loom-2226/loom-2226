@@ -1,0 +1,145 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "lane": "PROTOTYPE (non-canon) experiment 2, W3",
+ "correction": "The lane note figure 0.2-0.9 GJ assumed a 1 km hop through air with a canon-style 1.5 m wall. It is conditional on hypothesis 1 or 2 below, not universal.",
+ "hypotheses": {
+  "H1 strong interaction (region moves through the air)": "ordinary aerodynamics applies: a 100 m step in 1 s is subsonic and cheap (MJ); in 0.1 s it is Mach 3 with a sonic boom and tens of MJ to GJ. Applies only if the region physically sweeps the intervening air.",
+  "H2 interaction only at the two boundaries": "nothing in between is touched. Departure leaves a void, arrival must push air out: bounded by ~p0 V per event, a sharp bang (lightning-like) scaled by region volume. If the transition SWAPS the contents of the two volumes, the term falls toward zero: near-silent.",
+  "H3 needs a cleared boundary / operating volume": "the wall may not cut matter (canon domain continuity applied literally). Air is matter, so in atmosphere it fails unless the air is first expelled (~p0 V again); in practice VACUUM ONLY."
+ },
+ "energy_ledger": {
+  "field_creation": "UNKNOWN (canon Wayfarer bank 2 GJ for a 1,900 m^2 boundary; a hull-sized region scales by an unknown law)",
+  "transition": "canon ENERGY-B: level displacement changes no ordinary mechanical energy; vertical steps owe m g dz (60 t: 0.06 GJ per 100 m)",
+  "environment": "H1: drag/shock work; H2: ~p0 V per boundary event, or ~0 if swapped; H3: zero in vacuum, impossible or p0 V in air",
+  "recovery": "UNKNOWN fraction of creation energy returned; heat rejected through the shuttle radiators"
+ },
+ "displacement_rows": [
+  {
+   "displacement_m": 50,
+   "metric_time_s": 0.1,
+   "conventional_8g_time_s": 1.6,
+   "H1_nose_on": {
+    "mean_speed_ms": 500,
+    "mach": 1.47,
+    "energy_MJ": 38.3
+   },
+   "H1_broadside": {
+    "mean_speed_ms": 500,
+    "mach": 1.47,
+    "energy_MJ": 551.2
+   }
+  },
+  {
+   "displacement_m": 50,
+   "metric_time_s": 0.3,
+   "conventional_8g_time_s": 1.6,
+   "H1_nose_on": {
+    "mean_speed_ms": 167,
+    "mach": 0.49,
+    "energy_MJ": 4.3
+   },
+   "H1_broadside": {
+    "mean_speed_ms": 167,
+    "mach": 0.49,
+    "energy_MJ": 61.3
+   }
+  },
+  {
+   "displacement_m": 50,
+   "metric_time_s": 1.0,
+   "conventional_8g_time_s": 1.6,
+   "H1_nose_on": {
+    "mean_speed_ms": 50,
+    "mach": 0.15,
+    "energy_MJ": 0.4
+   },
+   "H1_broadside": {
+    "mean_speed_ms": 50,
+    "mach": 0.15,
+    "energy_MJ": 5.5
+   }
+  },
+  {
+   "displacement_m": 100,
+   "metric_time_s": 0.1,
+   "conventional_8g_time_s": 2.26,
+   "H1_nose_on": {
+    "mean_speed_ms": 1000,
+    "mach": 2.94,
+    "energy_MJ": 306.2
+   },
+   "H1_broadside": {
+    "mean_speed_ms": 1000,
+    "mach": 2.94,
+    "energy_MJ": 4410.0
+   }
+  },
+  {
+   "displacement_m": 100,
+   "metric_time_s": 0.3,
+   "conventional_8g_time_s": 2.26,
+   "H1_nose_on": {
+    "mean_speed_ms": 333,
+    "mach": 0.98,
+    "energy_MJ": 34.0
+   },
+   "H1_broadside": {
+    "mean_speed_ms": 333,
+    "mach": 0.98,
+    "energy_MJ": 490.0
+   }
+  },
+  {
+   "displacement_m": 100,
+   "metric_time_s": 1.0,
+   "conventional_8g_time_s": 2.26,
+   "H1_nose_on": {
+    "mean_speed_ms": 100,
+    "mach": 0.29,
+    "energy_MJ": 3.1
+   },
+   "H1_broadside": {
+    "mean_speed_ms": 100,
+    "mach": 0.29,
+    "energy_MJ": 44.1
+   }
+  }
+ ],
+ "H2_boundary_bound": {
+  "hull-hugging (0.3 m)": {
+   "bound_MJ": 56.0,
+   "tnt_kg_equiv": 13.0
+  },
+  "canon-style 1.5 m clearance": {
+   "bound_MJ": 213.0,
+   "tnt_kg_equiv": 51.0
+  }
+ },
+ "endgame": [
+  {
+   "t_go_s": 0.3,
+   "interceptor_30g_can_null_m": 13.2,
+   "shuttle_8g_jink_m": 3.5,
+   "verdict": "a 50-100 m step inside t_go exceeds this interceptor correction (assumed head-on geometry, no reacquisition model): advantage, not immunity"
+  },
+  {
+   "t_go_s": 0.5,
+   "interceptor_30g_can_null_m": 36.8,
+   "shuttle_8g_jink_m": 9.8,
+   "verdict": "a 50-100 m step inside t_go exceeds this interceptor correction (assumed head-on geometry, no reacquisition model): advantage, not immunity"
+  },
+  {
+   "t_go_s": 1.0,
+   "interceptor_30g_can_null_m": 147.2,
+   "shuttle_8g_jink_m": 39.2,
+   "verdict": "interceptor can still correct 50 m"
+  }
+ ],
+ "vacuum": {
+  "environment_term": 0,
+  "value": "a 50-100 m step with no velocity change and no crew load can exceed a kinetic interceptor's terminal correction and break laser dwell (engagement-dependent); a level step keeps velocity and attitude, so the following trajectory is offset, not changed; docking/debris uses too",
+  "canon_limits_superseded": "\u00a718A (metric not a close-combat dodge), \u00a75/\u00a79 ramp and path card, plant scale",
+  "invariants_kept": "no momentum or energy from nothing: level step changes neither; no FTL; crew and hull remain inside one continuous domain"
+ },
+ "decisive_unknown": "What the field boundary does to matter during a transition: carries/swaps the arrival-volume contents, pushes them aside, or fails if matter is present. This one property sets the atmospheric signature (silent / bang / impossible), whether a near-ground step is possible, and is the same unknown that decides whether a W2 field can start from a floating shuttle."
+}

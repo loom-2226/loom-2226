@@ -1,0 +1,55 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "lane": "PROTOTYPE (non-canon) BMD-1",
+ "lift": {
+  "mass_t": 61,
+  "force_MN": 0.898,
+  "time_s": 9.0,
+  "height_m": 198.7,
+  "speed_ms": 44.1,
+  "field_work_earth_frame_MJ": 178,
+  "impulse_field_MNs": 8.08,
+  "impulse_gravity_MNs": -5.39,
+  "net_MNs": 2.69,
+  "partner_receives_MNs": -8.08
+ },
+ "partners": [
+  {
+   "partner": "Earth (centre-of-mass frame), vertical lift",
+   "v_rel_ms": 0.0,
+   "peak_power_W": 39625214.175000004,
+   "energy_GJ_range": "+0.18 to +0.18",
+   "note": "rotation velocity is horizontal, perpendicular to the lift"
+  },
+  {
+   "partner": "Earth, lateral push at the equator (rotation 465 m/s)",
+   "v_rel_ms": 465.0,
+   "peak_power_W": 457016189.175,
+   "energy_GJ_range": "-3.58 to +3.93",
+   "note": "sideways W2 manoeuvre, worst alignment"
+  },
+  {
+   "partner": "Moon partner while near Earth (Moon 1.02 km/s vs Earth)",
+   "v_rel_ms": 1020.0,
+   "peak_power_W": 955192514.175,
+   "energy_GJ_range": "-8.06 to +8.42",
+   "note": "wrong partner selected"
+  },
+  {
+   "partner": "Sun (canon \u00a77.1b partner), lift at dawn/dusk",
+   "v_rel_ms": 29800.0,
+   "peak_power_W": 26788552214.175,
+   "energy_GJ_range": "-240.56 to +240.92",
+   "note": "vertical ~ along Earth orbital velocity"
+  },
+  {
+   "partner": "Sun, lift at noon/midnight",
+   "v_rel_ms": 0.0,
+   "peak_power_W": 39625214.175000004,
+   "energy_GJ_range": "+0.18 to +0.18",
+   "note": "vertical ~ Sun-radial, perpendicular to orbital velocity"
+  }
+ ],
+ "finding": "The ledger closes for any partner, but the device energy is F . v_rel in the partner frame. With the canon Sun partner a 0.9 MN lift near Earth swings by about +/-240 GJ in 9 s (~27 GW peak, vs 40 MW for the lift itself) depending on local time, ~1,000x the 0.18 GJ of the lift itself. Run in reverse it mines Earth's orbital energy, which collides in practice with the \u00a77.3 no-free-work firewall. A shuttle-scale W2 needs the partner to be the local dominant body (or the source of the local gravitational field).",
+ "discriminating_observable": "device energy draw vs relative velocity to candidate partners: a Sun partner shows a time-of-day swing of +/-27 GW at 0.9 MN; a local partner shows only F . v_local"
+}

@@ -1,0 +1,1297 @@
+{
+ "header": "ALL bodies. ALL sponsors. 2026-2226.",
+ "doc": "Weave shuttle finalization, step 5: geometry, docking collar, interior fit and G3 trim. NON-CANON lab demonstration.\nALL bodies. ALL sponsors. 2026-2226.\n\nScope (Sol, after PR #570 / CCR-2026-0005 PROPOSED): the 13.02 m shuttle, the retractable Wayfarer docking collar,\ninterior fit and G3 trim. Docked and absent configurations are DEMONSTRATED here; released Wayfarer geometry,\ncanon GLBs and canon_glb.json are NOT touched.\n\n1. Length: 13.02 m (stretch 0.22) vs 13.12 m (0.32), kT range. Bay fit radius, roll, slot width, buoyancy, mass, water.\n2. Collar: Wayfarer tunnel_2 (r 0.6 m, x 17.6-18.75, results/out/wayfarer_v05_geometry.json) ends in a telescoping\n   section. DOCKED: collar out, face at the F7 port x 18.75. UNDOCK: collar retracts by the stretch, shuttle backs off\n   the rest of 0.5 m (F11). ABSENT: collar retracted. Axial positions of every state are reported.\n3. Interior: a concrete zone layout (nose avionics, cabin over water, module bay, cargo well over water, aft systems)\n   on the actual inner hull (0.12 m inset), with box-containment checks for six couches, the module core, the flywheel\n   and the cargo well. Water is the conformal remainder.\n4. Shuttle mass properties from the layout, then Wayfarer G3: the B4-S part (36.48 t at its source centroid) is\n   replaced by the Weave shuttle in docked states S1-S4, S7, with the collar added in all states; trim recomputed\n   with the pinned torch-chain offset (y +0.03, z -0.26) exactly as build_v05.trim_deg. Perturbation, not a rebuild.\nEvery assumption is labelled ASSUMPTION.",
+ "rho_module_t_m3": 4.0,
+ "lengths": {
+  "13.02": {
+   "stretch_m": 0.22,
+   "closure": {
+    "rho_module": 4.0,
+    "module_m3": 2.0,
+    "flywheel_m3": 0.56,
+    "install_m3": 0.3,
+    "interior_usable": 65.4,
+    "need": 65.36,
+    "residual_m3": 0.04,
+    "dry_t": 49.32,
+    "margin_t": 3.18,
+    "water_cushion_t": 22.6,
+    "tank_t": 23.1,
+    "water_ok": true,
+    "buoy": [
+     110.5,
+     107.6
+    ],
+    "buoy_ok": true,
+    "clmax": 5.0,
+    "uplift": 1.045,
+    "heavy_td_ms": 50.0,
+    "heavy_td_no_uplift": 51.1,
+    "light_td_ms": 37.5,
+    "length": 13.02
+   },
+   "stowage": {
+    "fit_r_m": 2.13,
+    "exit_roll_deg": 86.0,
+    "slot_half_width_m": 1.561,
+    "hull_length_m": 13.02
+   },
+   "roll_th_rad": 1.5009831567151235,
+   "fit_centre_z": -0.05713333333333326,
+   "field_clearance": {
+    "stowed": {
+     "max_radius_m": 6.63,
+     "ok": true
+    },
+    "flight": {
+     "max_radius_m": 8.55,
+     "ok": true
+    },
+    "afloat": {
+     "max_radius_m": 8.55,
+     "ok": true
+    }
+   },
+   "need_m3": {
+    "avionics": 3.0,
+    "aft": 8.2,
+    "cabin": 21.0,
+    "well": 6.0,
+    "water": 24.26,
+    "module": 2.0,
+    "flywheel": 0.56,
+    "install": 0.3
+   },
+   "layout": {
+    "a": 3.357690943488687,
+    "s": 5.14,
+    "b": 8.96,
+    "c": 10.157628491886191,
+    "d": 11.667549541781064,
+    "fc": -0.4,
+    "well_floor": -0.2307,
+    "rows": [
+     [
+      7.057690943488689,
+      8.907690943488689
+     ],
+     [
+      5.157690943488689,
+      7.00769094348869
+     ]
+    ],
+    "ys": [
+     [
+      -1.0250000000000001,
+      -0.375
+     ],
+     [
+      -0.325,
+      0.325
+     ],
+     [
+      0.375,
+      1.0250000000000001
+     ]
+    ],
+    "well_box": {
+     "volume_m3": 3.69,
+     "length": 1.1,
+     "width": 2.4,
+     "height": 1.4,
+     "z0": -0.21
+    },
+    "module_floor": -0.87,
+    "core_edge_m": 1.26,
+    "flywheel": {
+     "d": 1.0,
+     "h": 0.714
+    },
+    "n_volume_feasible": 331,
+    "volumes_m3": {
+     "avionics": 3.0,
+     "aft": 8.2,
+     "passage": 0.9,
+     "fwd_tank_water": 5.75,
+     "cabin": 21.07,
+     "under_cabin_water": 7.06,
+     "well": 5.99,
+     "under_well_water": 3.0,
+     "module_bay": 11.34,
+     "module_items": 2.86,
+     "module_bay_water": 8.47,
+     "water_total": 24.29,
+     "inner_total": 65.4
+    },
+    "fore_access_m": 0.02,
+    "headroom_cabin_m": 1.79,
+    "module_ok": true,
+    "well_ok": true,
+    "well_rigid_box_fraction": 0.62,
+    "water_ok": 1.0,
+    "water_margin_m3": 0.03,
+    "ok": true,
+    "passage_08m_first_x": 1.82
+   },
+   "mass_dry": {
+    "mass_t": 49.312,
+    "cg_x_m": 8.894,
+    "cg_z_m": 0.033,
+    "items": [
+     [
+      "shell: hull, TPS, cabin wall, gear, mounts, floats",
+      15.73,
+      7.61,
+      0.03
+     ],
+     [
+      "wings (folded, root 5.5-7.3 m)",
+      5.19,
+      6.4,
+      0.2
+     ],
+     [
+      "fans at the roots (half of fans+reactor)",
+      1.9,
+      5.3,
+      0.6
+     ],
+     [
+      "reactor (half of fans+reactor)",
+      1.9,
+      12.27,
+      0.11
+     ],
+     [
+      "torch, belly RCS, power distribution",
+      8.06,
+      12.27,
+      0.11
+     ],
+     [
+      "cabin outfit, custody",
+      3.48,
+      7.14,
+      0.41
+     ],
+     [
+      "avionics",
+      0.85,
+      2.52,
+      -0.3
+     ],
+     [
+      "water tank (conformal)",
+      2.08,
+      8.07,
+      -0.28
+     ],
+     [
+      "relational module installed",
+      9.0,
+      10.84,
+      -0.24
+     ],
+     [
+      "flywheel",
+      1.122,
+      10.71,
+      -0.51
+     ]
+    ]
+   },
+   "mass_wet": {
+    "mass_t": 72.412,
+    "cg_x_m": 8.631,
+    "cg_z_m": -0.066,
+    "items": [
+     [
+      "shell: hull, TPS, cabin wall, gear, mounts, floats",
+      15.73,
+      7.61,
+      0.03
+     ],
+     [
+      "wings (folded, root 5.5-7.3 m)",
+      5.19,
+      6.4,
+      0.2
+     ],
+     [
+      "fans at the roots (half of fans+reactor)",
+      1.9,
+      5.3,
+      0.6
+     ],
+     [
+      "reactor (half of fans+reactor)",
+      1.9,
+      12.27,
+      0.11
+     ],
+     [
+      "torch, belly RCS, power distribution",
+      8.06,
+      12.27,
+      0.11
+     ],
+     [
+      "cabin outfit, custody",
+      3.48,
+      7.14,
+      0.41
+     ],
+     [
+      "avionics",
+      0.85,
+      2.52,
+      -0.3
+     ],
+     [
+      "water tank (conformal)",
+      2.08,
+      8.07,
+      -0.28
+     ],
+     [
+      "relational module installed",
+      9.0,
+      10.84,
+      -0.24
+     ],
+     [
+      "flywheel",
+      1.122,
+      10.71,
+      -0.51
+     ],
+     [
+      "water 23.1 t (spread over the conformal tank cells by volume)",
+      23.1,
+      8.07,
+      -0.28
+     ]
+    ]
+   },
+   "axial": {
+    "stroke_m": 0.22,
+    "fixed_tunnel_face_x": 18.53,
+    "stub_fixed_m": 0.28,
+    "docked": {
+     "collar_face_x": 18.75,
+     "nose_x": 18.75,
+     "tail_x": 31.77,
+     "aft_clearance_m": 0.28,
+     "fore_note": "nose on the collar face at x 18.75 (F7 unchanged in the docked state)"
+    },
+    "undock": {
+     "collar_face_x": 18.53,
+     "nose_x": 19.03,
+     "tail_x": 32.05,
+     "separation_m": 0.5,
+     "backoff_by_shuttle_m": 0.28,
+     "aft_clearance_m": 0.0
+    },
+    "absent": {
+     "collar_face_x": 18.53,
+     "note": "collar retracted; bay empty"
+    },
+    "baseline_12p8": {
+     "nose_x": 18.75,
+     "tail_x": 31.55,
+     "aft_clearance_m": 0.5,
+     "after_backoff_tail_x": 32.05,
+     "after_backoff_aft_clearance_m": -0.0
+    },
+    "collar": {
+     "radius_m": 0.6,
+     "wall_mm": 6,
+     "ti_t_m3": 4.5,
+     "mass_t": 0.08,
+     "note": "telescoping end of tunnel_2; pressure seal only; berth loads stay on the four cradle latches (inputs shuttle.b4s_berth.load_route)"
+    },
+    "checks": {
+     "F11_separation_ok": true,
+     "undock_tail_inside_bay": true,
+     "F7_docked_port_unchanged": true,
+     "F9_docked_aft_clearance_m": 0.28,
+     "F9_criterion_m": 0.5,
+     "F9_status": "below the 0.5 m criterion; kT accepted the reduced docked aft clearance with the collar (kt_decisions shuttle_weave_interior_stretch_collar_2026_11_22)",
+     "retracted_collar_fits_stub": true
+    }
+   },
+   "g3": {
+    "limit_deg": 0.5,
+    "design_target_deg": 0.35,
+    "torch_offset_yz": [
+     0.03,
+     -0.26
+    ],
+    "cases": {
+     "dry_roll+": {
+      "states": {
+       "S1": {
+        "mass_t": 1180.44,
+        "cg_m": [
+         23.9715,
+         0.0175,
+         -0.4184
+        ],
+        "trim_deg": 0.3213,
+        "released_trim_deg": 0.3305
+       },
+       "S2": {
+        "mass_t": 1230.44,
+        "cg_m": [
+         23.6272,
+         0.0168,
+         -0.4014
+        ],
+        "trim_deg": 0.2837,
+        "released_trim_deg": 0.2922
+       },
+       "S3": {
+        "mass_t": 1085.05,
+        "cg_m": [
+         23.9711,
+         0.019,
+         -0.35
+        ],
+        "trim_deg": 0.1833,
+        "released_trim_deg": 0.1921
+       },
+       "S4": {
+        "mass_t": 935.05,
+        "cg_m": [
+         23.5573,
+         0.022,
+         -0.2142
+        ],
+        "trim_deg": 0.0928,
+        "released_trim_deg": 0.0863
+       },
+       "S5": {
+        "mass_t": 885.74,
+        "cg_m": [
+         23.3297,
+         0.0283,
+         -0.2264
+        ],
+        "trim_deg": 0.0665,
+        "released_trim_deg": 0.0664
+       },
+       "S6": {
+        "mass_t": 1131.13,
+        "cg_m": [
+         23.8114,
+         0.0222,
+         -0.4369
+        ],
+        "trim_deg": 0.3561,
+        "released_trim_deg": 0.3562
+       },
+       "S7": {
+        "mass_t": 1119.1,
+        "cg_m": [
+         24.0697,
+         0.1515,
+         -0.3758
+        ],
+        "trim_deg": 0.3407,
+        "released_trim_deg": 0.3473
+       }
+      },
+      "worst_deg": 0.3561,
+      "worst_state": "S6"
+     },
+     "dry_roll-": {
+      "states": {
+       "S1": {
+        "mass_t": 1180.44,
+        "cg_m": [
+         23.9715,
+         0.025,
+         -0.4184
+        ],
+        "trim_deg": 0.3205,
+        "released_trim_deg": 0.3305
+       },
+       "S2": {
+        "mass_t": 1230.44,
+        "cg_m": [
+         23.6272,
+         0.024,
+         -0.4014
+        ],
+        "trim_deg": 0.2828,
+        "released_trim_deg": 0.2922
+       },
+       "S3": {
+        "mass_t": 1085.05,
+        "cg_m": [
+         23.9711,
+         0.0272,
+         -0.35
+        ],
+        "trim_deg": 0.182,
+        "released_trim_deg": 0.1921
+       },
+       "S4": {
+        "mass_t": 935.05,
+        "cg_m": [
+         23.5573,
+         0.0315,
+         -0.2142
+        ],
+        "trim_deg": 0.0914,
+        "released_trim_deg": 0.0863
+       },
+       "S5": {
+        "mass_t": 885.74,
+        "cg_m": [
+         23.3297,
+         0.0283,
+         -0.2264
+        ],
+        "trim_deg": 0.0665,
+        "released_trim_deg": 0.0664
+       },
+       "S6": {
+        "mass_t": 1131.13,
+        "cg_m": [
+         23.8114,
+         0.0222,
+         -0.4369
+        ],
+        "trim_deg": 0.3561,
+        "released_trim_deg": 0.3562
+       },
+       "S7": {
+        "mass_t": 1119.1,
+        "cg_m": [
+         24.0697,
+         0.1594,
+         -0.3758
+        ],
+        "trim_deg": 0.3525,
+        "released_trim_deg": 0.3473
+       }
+      },
+      "worst_deg": 0.3561,
+      "worst_state": "S6"
+     },
+     "wet_roll+": {
+      "states": {
+       "S1": {
+        "mass_t": 1203.54,
+        "cg_m": [
+         24.0261,
+         0.0214,
+         -0.4106
+        ],
+        "trim_deg": 0.3058,
+        "released_trim_deg": 0.3305
+       },
+       "S2": {
+        "mass_t": 1253.54,
+        "cg_m": [
+         23.686,
+         0.0205,
+         -0.3943
+        ],
+        "trim_deg": 0.2695,
+        "released_trim_deg": 0.2922
+       },
+       "S3": {
+        "mass_t": 1108.15,
+        "cg_m": [
+         24.0305,
+         0.0232,
+         -0.343
+        ],
+        "trim_deg": 0.1688,
+        "released_trim_deg": 0.1921
+       },
+       "S4": {
+        "mass_t": 958.15,
+        "cg_m": [
+         23.6359,
+         0.0268,
+         -0.2094
+        ],
+        "trim_deg": 0.1014,
+        "released_trim_deg": 0.0863
+       },
+       "S5": {
+        "mass_t": 885.74,
+        "cg_m": [
+         23.3297,
+         0.0283,
+         -0.2264
+        ],
+        "trim_deg": 0.0665,
+        "released_trim_deg": 0.0664
+       },
+       "S6": {
+        "mass_t": 1131.13,
+        "cg_m": [
+         23.8114,
+         0.0222,
+         -0.4369
+        ],
+        "trim_deg": 0.3561,
+        "released_trim_deg": 0.3562
+       },
+       "S7": {
+        "mass_t": 1142.2,
+        "cg_m": [
+         24.1253,
+         0.1529,
+         -0.3685
+        ],
+        "trim_deg": 0.3334,
+        "released_trim_deg": 0.3473
+       }
+      },
+      "worst_deg": 0.3561,
+      "worst_state": "S6"
+     },
+     "wet_roll-": {
+      "states": {
+       "S1": {
+        "mass_t": 1203.54,
+        "cg_m": [
+         24.0261,
+         0.0203,
+         -0.4106
+        ],
+        "trim_deg": 0.3059,
+        "released_trim_deg": 0.3305
+       },
+       "S2": {
+        "mass_t": 1253.54,
+        "cg_m": [
+         23.686,
+         0.0195,
+         -0.3943
+        ],
+        "trim_deg": 0.2697,
+        "released_trim_deg": 0.2922
+       },
+       "S3": {
+        "mass_t": 1108.15,
+        "cg_m": [
+         24.0305,
+         0.022,
+         -0.343
+        ],
+        "trim_deg": 0.169,
+        "released_trim_deg": 0.1921
+       },
+       "S4": {
+        "mass_t": 958.15,
+        "cg_m": [
+         23.6359,
+         0.0255,
+         -0.2094
+        ],
+        "trim_deg": 0.1016,
+        "released_trim_deg": 0.0863
+       },
+       "S5": {
+        "mass_t": 885.74,
+        "cg_m": [
+         23.3297,
+         0.0283,
+         -0.2264
+        ],
+        "trim_deg": 0.0665,
+        "released_trim_deg": 0.0664
+       },
+       "S6": {
+        "mass_t": 1131.13,
+        "cg_m": [
+         23.8114,
+         0.0222,
+         -0.4369
+        ],
+        "trim_deg": 0.3561,
+        "released_trim_deg": 0.3562
+       },
+       "S7": {
+        "mass_t": 1142.2,
+        "cg_m": [
+         24.1253,
+         0.1517,
+         -0.3685
+        ],
+        "trim_deg": 0.3317,
+        "released_trim_deg": 0.3473
+       }
+      },
+      "worst_deg": 0.3561,
+      "worst_state": "S6"
+     }
+    },
+    "worst_deg": 0.3561,
+    "released_worst_deg": 0.3562,
+    "method": "perturbation of results/out/wayfarer_v05_geometry.json states (B4-S part replaced, collar added); trim as build_v05.trim_deg"
+   },
+   "berth": {
+    "latch_allow_MN_each": 0.75,
+    "need_MN_each": {
+     "dry": 0.907,
+     "wet": 1.332
+    },
+    "ultimate_g": 7.5,
+    "dry_ok_with_current_latches": false,
+    "note": "M6 is a CANDIDATE: kT 2026-11-20 decision 3 sets the docked-dry ceiling ~52.5 t with the berth latch upgrade included"
+   }
+  },
+  "13.12": {
+   "stretch_m": 0.32,
+   "closure": {
+    "rho_module": 4.0,
+    "module_m3": 2.0,
+    "flywheel_m3": 0.56,
+    "install_m3": 0.3,
+    "interior_usable": 66.2,
+    "need": 65.36,
+    "residual_m3": 0.84,
+    "dry_t": 49.45,
+    "margin_t": 3.05,
+    "water_cushion_t": 22.7,
+    "tank_t": 23.1,
+    "water_ok": true,
+    "buoy": [
+     111.4,
+     107.8
+    ],
+    "buoy_ok": true,
+    "clmax": 5.0,
+    "uplift": 1.043,
+    "heavy_td_ms": 50.0,
+    "heavy_td_no_uplift": 51.1,
+    "light_td_ms": 37.5,
+    "length": 13.12
+   },
+   "stowage": {
+    "fit_r_m": 2.13,
+    "exit_roll_deg": 86.0,
+    "slot_half_width_m": 1.561,
+    "hull_length_m": 13.12
+   },
+   "roll_th_rad": 1.5009831567151235,
+   "fit_centre_z": -0.05713333333333326,
+   "field_clearance": {
+    "stowed": {
+     "max_radius_m": 6.73,
+     "ok": true
+    },
+    "flight": {
+     "max_radius_m": 8.55,
+     "ok": true
+    },
+    "afloat": {
+     "max_radius_m": 8.55,
+     "ok": true
+    }
+   },
+   "need_m3": {
+    "avionics": 3.0,
+    "aft": 8.2,
+    "cabin": 21.0,
+    "well": 6.0,
+    "water": 24.26,
+    "module": 2.0,
+    "flywheel": 0.56,
+    "install": 0.3
+   },
+   "layout": {
+    "a": 3.357716408697054,
+    "s": 5.14,
+    "b": 9.0,
+    "c": 10.257605263142244,
+    "d": 11.767526313037116,
+    "fc": -0.38,
+    "well_floor": -0.1682,
+    "rows": [
+     [
+      7.097716408697055,
+      8.947716408697055
+     ],
+     [
+      5.197716408697055,
+      7.047716408697056
+     ]
+    ],
+    "ys": [
+     [
+      -1.0250000000000001,
+      -0.375
+     ],
+     [
+      -0.325,
+      0.325
+     ],
+     [
+      0.375,
+      1.0250000000000001
+     ]
+    ],
+    "well_box": {
+     "volume_m3": 3.73,
+     "length": 1.16,
+     "width": 2.3,
+     "height": 1.4,
+     "z0": -0.15
+    },
+    "module_floor": -0.87,
+    "core_edge_m": 1.26,
+    "flywheel": {
+     "d": 1.0,
+     "h": 0.716
+    },
+    "n_volume_feasible": 346,
+    "volumes_m3": {
+     "avionics": 3.0,
+     "aft": 8.2,
+     "passage": 0.9,
+     "fwd_tank_water": 5.75,
+     "cabin": 21.02,
+     "under_cabin_water": 7.41,
+     "well": 5.99,
+     "under_well_water": 3.45,
+     "module_bay": 11.34,
+     "module_items": 2.86,
+     "module_bay_water": 8.47,
+     "water_total": 25.08,
+     "inner_total": 66.15
+    },
+    "fore_access_m": 0.06,
+    "headroom_cabin_m": 1.77,
+    "module_ok": true,
+    "well_ok": true,
+    "well_rigid_box_fraction": 0.62,
+    "water_ok": 1.0,
+    "water_margin_m3": 0.83,
+    "ok": true,
+    "passage_08m_first_x": 1.81
+   },
+   "mass_dry": {
+    "mass_t": 49.434,
+    "cg_x_m": 8.953,
+    "cg_z_m": 0.034,
+    "items": [
+     [
+      "shell: hull, TPS, cabin wall, gear, mounts, floats",
+      15.84,
+      7.67,
+      0.03
+     ],
+     [
+      "wings (folded, root 5.5-7.3 m)",
+      5.19,
+      6.4,
+      0.2
+     ],
+     [
+      "fans at the roots (half of fans+reactor)",
+      1.905,
+      5.3,
+      0.6
+     ],
+     [
+      "reactor (half of fans+reactor)",
+      1.905,
+      12.36,
+      0.11
+     ],
+     [
+      "torch, belly RCS, power distribution",
+      8.06,
+      12.36,
+      0.11
+     ],
+     [
+      "cabin outfit, custody",
+      3.48,
+      7.17,
+      0.42
+     ],
+     [
+      "avionics",
+      0.85,
+      2.53,
+      -0.3
+     ],
+     [
+      "water tank (conformal)",
+      2.08,
+      8.14,
+      -0.29
+     ],
+     [
+      "relational module installed",
+      9.0,
+      10.94,
+      -0.24
+     ],
+     [
+      "flywheel",
+      1.124,
+      10.81,
+      -0.51
+     ]
+    ]
+   },
+   "mass_wet": {
+    "mass_t": 72.534,
+    "cg_x_m": 8.693,
+    "cg_z_m": -0.068,
+    "items": [
+     [
+      "shell: hull, TPS, cabin wall, gear, mounts, floats",
+      15.84,
+      7.67,
+      0.03
+     ],
+     [
+      "wings (folded, root 5.5-7.3 m)",
+      5.19,
+      6.4,
+      0.2
+     ],
+     [
+      "fans at the roots (half of fans+reactor)",
+      1.905,
+      5.3,
+      0.6
+     ],
+     [
+      "reactor (half of fans+reactor)",
+      1.905,
+      12.36,
+      0.11
+     ],
+     [
+      "torch, belly RCS, power distribution",
+      8.06,
+      12.36,
+      0.11
+     ],
+     [
+      "cabin outfit, custody",
+      3.48,
+      7.17,
+      0.42
+     ],
+     [
+      "avionics",
+      0.85,
+      2.53,
+      -0.3
+     ],
+     [
+      "water tank (conformal)",
+      2.08,
+      8.14,
+      -0.29
+     ],
+     [
+      "relational module installed",
+      9.0,
+      10.94,
+      -0.24
+     ],
+     [
+      "flywheel",
+      1.124,
+      10.81,
+      -0.51
+     ],
+     [
+      "water 23.1 t (spread over the conformal tank cells by volume)",
+      23.1,
+      8.14,
+      -0.29
+     ]
+    ]
+   },
+   "axial": {
+    "stroke_m": 0.32,
+    "fixed_tunnel_face_x": 18.43,
+    "stub_fixed_m": 0.18,
+    "docked": {
+     "collar_face_x": 18.75,
+     "nose_x": 18.75,
+     "tail_x": 31.869999999999997,
+     "aft_clearance_m": 0.18,
+     "fore_note": "nose on the collar face at x 18.75 (F7 unchanged in the docked state)"
+    },
+    "undock": {
+     "collar_face_x": 18.43,
+     "nose_x": 18.93,
+     "tail_x": 32.05,
+     "separation_m": 0.5,
+     "backoff_by_shuttle_m": 0.18,
+     "aft_clearance_m": 0.0
+    },
+    "absent": {
+     "collar_face_x": 18.43,
+     "note": "collar retracted; bay empty"
+    },
+    "baseline_12p8": {
+     "nose_x": 18.75,
+     "tail_x": 31.55,
+     "aft_clearance_m": 0.5,
+     "after_backoff_tail_x": 32.05,
+     "after_backoff_aft_clearance_m": -0.0
+    },
+    "collar": {
+     "radius_m": 0.6,
+     "wall_mm": 6,
+     "ti_t_m3": 4.5,
+     "mass_t": 0.08,
+     "note": "telescoping end of tunnel_2; pressure seal only; berth loads stay on the four cradle latches (inputs shuttle.b4s_berth.load_route)"
+    },
+    "checks": {
+     "F11_separation_ok": true,
+     "undock_tail_inside_bay": true,
+     "F7_docked_port_unchanged": true,
+     "F9_docked_aft_clearance_m": 0.18,
+     "F9_criterion_m": 0.5,
+     "F9_status": "below the 0.5 m criterion; kT accepted the reduced docked aft clearance with the collar (kt_decisions shuttle_weave_interior_stretch_collar_2026_11_22)",
+     "retracted_collar_fits_stub": false
+    }
+   },
+   "g3": {
+    "limit_deg": 0.5,
+    "design_target_deg": 0.35,
+    "torch_offset_yz": [
+     0.03,
+     -0.26
+    ],
+    "cases": {
+     "dry_roll+": {
+      "states": {
+       "S1": {
+        "mass_t": 1180.57,
+        "cg_m": [
+         23.9743,
+         0.0174,
+         -0.4183
+        ],
+        "trim_deg": 0.3213,
+        "released_trim_deg": 0.3305
+       },
+       "S2": {
+        "mass_t": 1230.57,
+        "cg_m": [
+         23.63,
+         0.0167,
+         -0.4013
+        ],
+        "trim_deg": 0.2837,
+        "released_trim_deg": 0.2922
+       },
+       "S3": {
+        "mass_t": 1085.18,
+        "cg_m": [
+         23.9742,
+         0.019,
+         -0.3499
+        ],
+        "trim_deg": 0.1833,
+        "released_trim_deg": 0.1921
+       },
+       "S4": {
+        "mass_t": 935.18,
+        "cg_m": [
+         23.5609,
+         0.022,
+         -0.2141
+        ],
+        "trim_deg": 0.0928,
+        "released_trim_deg": 0.0863
+       },
+       "S5": {
+        "mass_t": 885.74,
+        "cg_m": [
+         23.3297,
+         0.0283,
+         -0.2264
+        ],
+        "trim_deg": 0.0665,
+        "released_trim_deg": 0.0664
+       },
+       "S6": {
+        "mass_t": 1131.13,
+        "cg_m": [
+         23.8114,
+         0.0222,
+         -0.4369
+        ],
+        "trim_deg": 0.3561,
+        "released_trim_deg": 0.3562
+       },
+       "S7": {
+        "mass_t": 1119.22,
+        "cg_m": [
+         24.0727,
+         0.1514,
+         -0.3758
+        ],
+        "trim_deg": 0.3405,
+        "released_trim_deg": 0.3473
+       }
+      },
+      "worst_deg": 0.3561,
+      "worst_state": "S6"
+     },
+     "dry_roll-": {
+      "states": {
+       "S1": {
+        "mass_t": 1180.57,
+        "cg_m": [
+         23.9743,
+         0.025,
+         -0.4183
+        ],
+        "trim_deg": 0.3204,
+        "released_trim_deg": 0.3305
+       },
+       "S2": {
+        "mass_t": 1230.57,
+        "cg_m": [
+         23.63,
+         0.024,
+         -0.4013
+        ],
+        "trim_deg": 0.2827,
+        "released_trim_deg": 0.2922
+       },
+       "S3": {
+        "mass_t": 1085.18,
+        "cg_m": [
+         23.9742,
+         0.0272,
+         -0.3499
+        ],
+        "trim_deg": 0.182,
+        "released_trim_deg": 0.1921
+       },
+       "S4": {
+        "mass_t": 935.18,
+        "cg_m": [
+         23.5609,
+         0.0316,
+         -0.2141
+        ],
+        "trim_deg": 0.0915,
+        "released_trim_deg": 0.0863
+       },
+       "S5": {
+        "mass_t": 885.74,
+        "cg_m": [
+         23.3297,
+         0.0283,
+         -0.2264
+        ],
+        "trim_deg": 0.0665,
+        "released_trim_deg": 0.0664
+       },
+       "S6": {
+        "mass_t": 1131.13,
+        "cg_m": [
+         23.8114,
+         0.0222,
+         -0.4369
+        ],
+        "trim_deg": 0.3561,
+        "released_trim_deg": 0.3562
+       },
+       "S7": {
+        "mass_t": 1119.22,
+        "cg_m": [
+         24.0727,
+         0.1594,
+         -0.3758
+        ],
+        "trim_deg": 0.3525,
+        "released_trim_deg": 0.3473
+       }
+      },
+      "worst_deg": 0.3561,
+      "worst_state": "S6"
+     },
+     "wet_roll+": {
+      "states": {
+       "S1": {
+        "mass_t": 1203.67,
+        "cg_m": [
+         24.0302,
+         0.0215,
+         -0.4106
+        ],
+        "trim_deg": 0.3057,
+        "released_trim_deg": 0.3305
+       },
+       "S2": {
+        "mass_t": 1253.67,
+        "cg_m": [
+         23.69,
+         0.0206,
+         -0.3942
+        ],
+        "trim_deg": 0.2695,
+        "released_trim_deg": 0.2922
+       },
+       "S3": {
+        "mass_t": 1108.28,
+        "cg_m": [
+         24.0349,
+         0.0233,
+         -0.343
+        ],
+        "trim_deg": 0.1687,
+        "released_trim_deg": 0.1921
+       },
+       "S4": {
+        "mass_t": 958.28,
+        "cg_m": [
+         23.6411,
+         0.0269,
+         -0.2093
+        ],
+        "trim_deg": 0.1014,
+        "released_trim_deg": 0.0863
+       },
+       "S5": {
+        "mass_t": 885.74,
+        "cg_m": [
+         23.3297,
+         0.0283,
+         -0.2264
+        ],
+        "trim_deg": 0.0665,
+        "released_trim_deg": 0.0664
+       },
+       "S6": {
+        "mass_t": 1131.13,
+        "cg_m": [
+         23.8114,
+         0.0222,
+         -0.4369
+        ],
+        "trim_deg": 0.3561,
+        "released_trim_deg": 0.3562
+       },
+       "S7": {
+        "mass_t": 1142.32,
+        "cg_m": [
+         24.1296,
+         0.153,
+         -0.3685
+        ],
+        "trim_deg": 0.3335,
+        "released_trim_deg": 0.3473
+       }
+      },
+      "worst_deg": 0.3561,
+      "worst_state": "S6"
+     },
+     "wet_roll-": {
+      "states": {
+       "S1": {
+        "mass_t": 1203.67,
+        "cg_m": [
+         24.0302,
+         0.0202,
+         -0.4106
+        ],
+        "trim_deg": 0.3059,
+        "released_trim_deg": 0.3305
+       },
+       "S2": {
+        "mass_t": 1253.67,
+        "cg_m": [
+         23.69,
+         0.0194,
+         -0.3942
+        ],
+        "trim_deg": 0.2697,
+        "released_trim_deg": 0.2922
+       },
+       "S3": {
+        "mass_t": 1108.28,
+        "cg_m": [
+         24.0349,
+         0.0219,
+         -0.343
+        ],
+        "trim_deg": 0.169,
+        "released_trim_deg": 0.1921
+       },
+       "S4": {
+        "mass_t": 958.28,
+        "cg_m": [
+         23.6411,
+         0.0253,
+         -0.2093
+        ],
+        "trim_deg": 0.1017,
+        "released_trim_deg": 0.0863
+       },
+       "S5": {
+        "mass_t": 885.74,
+        "cg_m": [
+         23.3297,
+         0.0283,
+         -0.2264
+        ],
+        "trim_deg": 0.0665,
+        "released_trim_deg": 0.0664
+       },
+       "S6": {
+        "mass_t": 1131.13,
+        "cg_m": [
+         23.8114,
+         0.0222,
+         -0.4369
+        ],
+        "trim_deg": 0.3561,
+        "released_trim_deg": 0.3562
+       },
+       "S7": {
+        "mass_t": 1142.32,
+        "cg_m": [
+         24.1296,
+         0.1516,
+         -0.3685
+        ],
+        "trim_deg": 0.3314,
+        "released_trim_deg": 0.3473
+       }
+      },
+      "worst_deg": 0.3561,
+      "worst_state": "S6"
+     }
+    },
+    "worst_deg": 0.3561,
+    "released_worst_deg": 0.3562,
+    "method": "perturbation of results/out/wayfarer_v05_geometry.json states (B4-S part replaced, collar added); trim as build_v05.trim_deg"
+   },
+   "berth": {
+    "latch_allow_MN_each": 0.75,
+    "need_MN_each": {
+     "dry": 0.909,
+     "wet": 1.334
+    },
+    "ultimate_g": 7.5,
+    "dry_ok_with_current_latches": false,
+    "note": "M6 is a CANDIDATE: kT 2026-11-20 decision 3 sets the docked-dry ceiling ~52.5 t with the berth latch upgrade included"
+   }
+  }
+ }
+}
